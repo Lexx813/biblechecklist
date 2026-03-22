@@ -311,6 +311,7 @@
 }
 .admin-action-btn:hover:not(:disabled) { border-color: var(--teal); color: var(--teal); }
 .admin-action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.admin-action-btn--active { background: var(--teal-light); border-color: var(--teal); color: var(--teal-dark); }
 
 .admin-action-btn--danger:hover:not(:disabled) {
   border-color: #c62828;

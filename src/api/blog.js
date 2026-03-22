@@ -1,0 +1,66 @@
+import { supabase } from "../lib/supabase";
+
+const generateSlug = (title) =>
+  title.toLowerCase()
+    .replace(/[^a-z0-9\s]/g, "")
+    .trim()
+    .replace(/\s+/g, "-") + "-" + Date.now().toString(36);
+
+export const blogApi = {
+  listPublished: async () => {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("id, title, slug, excerpt, cover_url, published, created_at, author_id, profiles(display_name, avatar_url, email)")
+      .eq("published", true)
+      .order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
+
+  getBySlug: async (slug) => {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("*, profiles(display_name, avatar_url, email)")
+      .eq("slug", slug)
+      .eq("published", true)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  listMine: async (userId) => {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("id, title, slug, excerpt, published, created_at, updated_at")
+      .eq("author_id", userId)
+      .order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
+
+  create: async (userId, post) => {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .insert({ author_id: userId, slug: generateSlug(post.title), ...post })
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  update: async (postId, updates) => {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .update({ ...updates, updated_at: new Date().toISOString() })
+      .eq("id", postId)
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  delete: async (postId) => {
+    const { error } = await supabase.from("blog_posts").delete().eq("id", postId);
+    if (error) throw new Error(error.message);
+  },
+};

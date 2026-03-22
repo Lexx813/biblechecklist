@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUsers, useDeleteUser, useSetAdmin, useCreateUser } from "../../hooks/useAdmin";
+import { useUsers, useDeleteUser, useSetAdmin, useSetBlog, useCreateUser } from "../../hooks/useAdmin";
 import "../../styles/admin.css";
 
 function initials(email) {
@@ -14,6 +14,7 @@ export default function AdminPage({ currentUser, onBack }) {
   const { data: users = [], isLoading } = useUsers();
   const deleteUser = useDeleteUser();
   const setAdmin = useSetAdmin();
+  const setBlog = useSetBlog();
   const createUser = useCreateUser();
 
   const [showAddForm, setShowAddForm] = useState(false);
@@ -23,6 +24,7 @@ export default function AdminPage({ currentUser, onBack }) {
   const [addSuccess, setAddSuccess] = useState("");
 
   const adminCount = users.filter(u => u.is_admin).length;
+  const blogCount = users.filter(u => u.can_blog).length;
 
   async function handleDelete(user) {
     if (user.id === currentUser.id) return alert("You cannot delete your own account.");
@@ -75,6 +77,10 @@ export default function AdminPage({ currentUser, onBack }) {
             <div className="admin-stat-value">{users.length - adminCount}</div>
             <div className="admin-stat-label">Members</div>
           </div>
+          <div className="admin-stat-card">
+            <div className="admin-stat-value">{blogCount}</div>
+            <div className="admin-stat-label">Blog Writers</div>
+          </div>
         </div>
 
         {/* Add User */}
@@ -123,6 +129,7 @@ export default function AdminPage({ currentUser, onBack }) {
                     <th>User</th>
                     <th>Joined</th>
                     <th>Role</th>
+                    <th>Blog</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -143,6 +150,18 @@ export default function AdminPage({ currentUser, onBack }) {
                         <span className={`admin-role-badge ${user.is_admin ? "admin-role-badge--admin" : "admin-role-badge--member"}`}>
                           {user.is_admin ? "Admin" : "Member"}
                         </span>
+                      </td>
+                      <td>
+                        {user.id !== currentUser.id && (
+                          <button
+                            className={`admin-action-btn ${user.can_blog ? "admin-action-btn--active" : ""}`}
+                            onClick={() => setBlog.mutate({ userId: user.id, value: !user.can_blog })}
+                            disabled={setBlog.isPending}
+                            title={user.can_blog ? "Revoke blog access" : "Grant blog access"}
+                          >
+                            {user.can_blog ? "✓ Writer" : "Allow Blog"}
+                          </button>
+                        )}
                       </td>
                       <td>
                         <div className="admin-actions">

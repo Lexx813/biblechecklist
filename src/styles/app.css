@@ -46,7 +46,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 .header-text h1 { font-family: 'Roboto', sans-serif; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.01em; }
 .header-text p { font-size: 12px; color: rgba(255,255,255,0.72); margin-top: 2px; }
 
-.header-user { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+.header-user { margin-left: auto; display: flex; flex-direction: row; align-items: center; gap: 6px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
 .header-email { font-size: 11px; color: rgba(255,255,255,0.65); font-weight: 500; max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .header-logout-btn {
   background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);

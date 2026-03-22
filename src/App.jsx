@@ -5,6 +5,8 @@ import BookCard from "./components/BookCard";
 import AuthPage from "./components/auth/AuthPage";
 import AdminPage from "./components/admin/AdminPage";
 import ProfilePage from "./components/profile/ProfilePage";
+import BlogPage from "./components/blog/BlogPage";
+import BlogDashboard from "./components/blog/BlogDashboard";
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useProgress, useSaveProgress } from "./hooks/useProgress";
 import { useFullProfile } from "./hooks/useAdmin";
@@ -45,6 +47,8 @@ function BibleApp({ user, onLogout }) {
 
   const [showAdmin, setShowAdmin] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showBlog, setShowBlog] = useState(false);
+  const [showBlogDash, setShowBlogDash] = useState(false);
   const [chaptersState, setChaptersState] = useState({});
   const [initialized, setInitialized] = useState(false);
   const [tab, setTab] = useState("all"); // all | ot | nt
@@ -124,13 +128,17 @@ function BibleApp({ user, onLogout }) {
     );
   }
 
-  if (showAdmin) {
-    return <AdminPage currentUser={user} onBack={() => setShowAdmin(false)} />;
-  }
-
-  if (showProfile) {
-    return <ProfilePage user={user} onBack={() => setShowProfile(false)} />;
-  }
+  if (showAdmin) return <AdminPage currentUser={user} onBack={() => setShowAdmin(false)} />;
+  if (showProfile) return <ProfilePage user={user} onBack={() => setShowProfile(false)} />;
+  if (showBlog) return (
+    <BlogPage
+      user={user}
+      profile={profile}
+      onBack={() => setShowBlog(false)}
+      onWriteClick={() => { setShowBlog(false); setShowBlogDash(true); }}
+    />
+  );
+  if (showBlogDash) return <BlogDashboard user={user} onBack={() => setShowBlogDash(false)} />;
 
   return (
     <div className="app-wrap">
@@ -149,6 +157,10 @@ function BibleApp({ user, onLogout }) {
                 : <span className="header-avatar-initials">{(profile?.display_name || user.email)?.[0]?.toUpperCase()}</span>
               }
             </button>
+            <button className="header-logout-btn" onClick={() => setShowBlog(true)}>Blog</button>
+            {(profile?.can_blog || profile?.is_admin) && (
+              <button className="header-logout-btn" onClick={() => setShowBlogDash(true)}>Write</button>
+            )}
             {profile?.is_admin && (
               <button className="header-logout-btn" onClick={() => setShowAdmin(true)}>Admin</button>
             )}

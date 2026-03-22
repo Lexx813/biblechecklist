@@ -63,6 +63,14 @@ export function useUploadAvatar(userId) {
   });
 }
 
+export function useSetBlog() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ userId, value }) => adminApi.setBlog(userId, value),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "users"] }),
+  });
+}
+
 export function useCreateUser() {
   const queryClient = useQueryClient();
   return useMutation({

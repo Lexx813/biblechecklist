@@ -4,7 +4,7 @@ export const adminApi = {
   getProfile: async (userId) => {
     const { data, error } = await supabase
       .from("profiles")
-      .select("id, email, is_admin, created_at")
+      .select("id, email, is_admin, can_blog, created_at")
       .eq("id", userId)
       .maybeSingle();
     if (error) throw new Error(error.message);
@@ -14,7 +14,7 @@ export const adminApi = {
   listUsers: async () => {
     const { data, error } = await supabase
       .from("profiles")
-      .select("id, email, is_admin, created_at")
+      .select("id, email, is_admin, can_blog, created_at")
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
     return data ?? [];
@@ -27,6 +27,11 @@ export const adminApi = {
 
   setAdmin: async (userId, value) => {
     const { error } = await supabase.rpc("admin_set_admin", { target_user_id: userId, new_value: value });
+    if (error) throw new Error(error.message);
+  },
+
+  setBlog: async (userId, value) => {
+    const { error } = await supabase.rpc("admin_set_blog", { target_user_id: userId, new_value: value });
     if (error) throw new Error(error.message);
   },
 
