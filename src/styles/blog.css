@@ -422,7 +422,7 @@
   box-shadow: var(--shadow);
   transition: box-shadow 0.15s;
 }
-.blog-dash-row:hover { box-shadow: var(--shadow-md); }
+.blog-dash-row:hover { box-shadow: var(--shadow-md); border-color: var(--teal); }
 
 .blog-dash-row-info { flex: 1; min-width: 0; }
 

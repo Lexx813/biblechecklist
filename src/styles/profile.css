@@ -163,7 +163,9 @@
   padding: 6px 14px;
   border-radius: var(--radius-sm);
   cursor: pointer;
+  transition: background 0.15s;
 }
+.pf-name-save:hover { background: var(--teal-dark); }
 .pf-name-cancel {
   background: none;
   border: 1.5px solid var(--border);
@@ -173,7 +175,9 @@
   border-radius: var(--radius-sm);
   cursor: pointer;
   color: var(--text-muted);
+  transition: border-color 0.15s, color 0.15s;
 }
+.pf-name-cancel:hover { border-color: var(--text-muted); color: var(--text-primary); }
 
 .pf-email {
   font-size: 13px;

@@ -7,7 +7,7 @@ export const forumApi = {
   listCategories: async () => {
     const { data, error } = await supabase
       .from("forum_categories")
-      .select(`*, forum_threads(count, forum_replies(count))`)
+      .select(`*, forum_threads(count)`)
       .order("sort_order");
     if (error) throw new Error(error.message);
     return data ?? [];
@@ -62,6 +62,17 @@ export const forumApi = {
       .from("forum_replies")
       .insert({ author_id: userId, thread_id: threadId, content })
       .select(`*, ${PROFILE_FIELDS}`)
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  updateThread: async (threadId, { title, content }) => {
+    const { data, error } = await supabase
+      .from("forum_threads")
+      .update({ title, content, updated_at: new Date().toISOString() })
+      .eq("id", threadId)
+      .select()
       .single();
     if (error) throw new Error(error.message);
     return data;

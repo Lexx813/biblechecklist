@@ -62,6 +62,7 @@
   transition: color 0.15s, border-color 0.15s;
 }
 
+.auth-tab:hover { color: var(--text-secondary); }
 .auth-tab.active {
   color: var(--teal);
   border-bottom-color: var(--teal);
@@ -159,4 +160,6 @@
   cursor: pointer;
   text-decoration: underline;
   padding: 0;
+  transition: color 0.15s;
 }
+.auth-switch-btn:hover { color: var(--teal-dark); }

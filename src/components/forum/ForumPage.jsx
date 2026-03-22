@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import {
   useCategories, useThreads, useThread, useReplies,
   useCreateThread, useCreateReply,
-  useDeleteThread, useDeleteReply,
+  useUpdateThread, useDeleteThread, useDeleteReply,
   usePinThread, useLockThread,
 } from "../../hooks/useForum";
 import "../../styles/forum.css";
@@ -41,16 +41,36 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
   const { data: replies = [], isLoading: repliesLoading } = useReplies(threadId);
   const createReply = useCreateReply(threadId);
   const deleteReply = useDeleteReply(threadId);
+  const updateThread = useUpdateThread(threadId);
   const deleteThread = useDeleteThread(categoryId);
-  const pinThread   = usePinThread(categoryId);
-  const lockThread  = useLockThread(categoryId);
+  const pinThread    = usePinThread(categoryId);
+  const lockThread   = useLockThread(categoryId);
 
-  const [replyText, setReplyText] = useState("");
+  const [replyText, setReplyText]   = useState("");
   const [replyError, setReplyError] = useState("");
+  const [editing, setEditing]       = useState(false);
+  const [editTitle, setEditTitle]   = useState("");
+  const [editContent, setEditContent] = useState("");
   const bottomRef = useRef(null);
 
-  const isAdmin = profile?.is_admin;
+  const isAdmin  = profile?.is_admin;
+  const isAuthor = thread?.author_id === user.id;
   const isLocked = thread?.locked;
+
+  function startEdit() {
+    if (!thread) return;
+    setEditTitle(thread.title);
+    setEditContent(thread.content);
+    setEditing(true);
+  }
+
+  function handleSaveEdit(e) {
+    e.preventDefault();
+    if (!editTitle.trim() || !editContent.trim()) return;
+    updateThread.mutate({ title: editTitle.trim(), content: editContent.trim() }, {
+      onSuccess: () => setEditing(false),
+    });
+  }
 
   function handleReply(e) {
     e.preventDefault();
@@ -82,19 +102,26 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
           {thread.pinned && <span className="forum-badge forum-badge--pin">📌 Pinned</span>}
           {thread.locked && <span className="forum-badge forum-badge--lock">🔒 Locked</span>}
         </div>
-        {isAdmin && (
-          <div className="forum-admin-tools">
-            <button className="forum-tool-btn" onClick={() => pinThread.mutate({ threadId, value: !thread.pinned })}>
-              {thread.pinned ? "Unpin" : "Pin"}
-            </button>
-            <button className="forum-tool-btn" onClick={() => lockThread.mutate({ threadId, value: !thread.locked })}>
-              {thread.locked ? "Unlock" : "Lock"}
-            </button>
+        <div className="forum-admin-tools">
+          {isAdmin && (
+            <>
+              <button className="forum-tool-btn" onClick={() => pinThread.mutate({ threadId, value: !thread.pinned })}>
+                {thread.pinned ? "Unpin" : "Pin"}
+              </button>
+              <button className="forum-tool-btn" onClick={() => lockThread.mutate({ threadId, value: !thread.locked })}>
+                {thread.locked ? "Unlock" : "Lock"}
+              </button>
+            </>
+          )}
+          {(isAdmin || isAuthor) && !editing && (
+            <button className="forum-tool-btn" onClick={startEdit}>Edit</button>
+          )}
+          {(isAdmin || isAuthor) && (
             <button className="forum-tool-btn forum-tool-btn--danger" onClick={handleDeleteThread}>
-              Delete Thread
+              Delete
             </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Original post */}
@@ -106,8 +133,36 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
           <span className="forum-post-badge forum-post-badge--op">OP</span>
         </div>
         <div className="forum-post-body">
-          <h2 className="forum-post-title">{thread.title}</h2>
-          <div className="forum-post-content">{thread.content}</div>
+          {editing ? (
+            <form onSubmit={handleSaveEdit} style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <input
+                className="forum-input"
+                value={editTitle}
+                onChange={e => setEditTitle(e.target.value)}
+                disabled={updateThread.isPending}
+              />
+              <textarea
+                className="forum-textarea"
+                value={editContent}
+                onChange={e => setEditContent(e.target.value)}
+                rows={6}
+                disabled={updateThread.isPending}
+              />
+              <div style={{ display: "flex", gap: 8 }}>
+                <button className="forum-submit-btn" type="submit" disabled={updateThread.isPending}>
+                  {updateThread.isPending ? "Saving…" : "Save"}
+                </button>
+                <button type="button" className="forum-delete-btn" onClick={() => setEditing(false)} style={{ alignSelf: "center" }}>
+                  Cancel
+                </button>
+              </div>
+            </form>
+          ) : (
+            <>
+              <h2 className="forum-post-title">{thread.title}</h2>
+              <div className="forum-post-content">{thread.content}</div>
+            </>
+          )}
         </div>
       </div>
 

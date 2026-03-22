@@ -75,6 +75,14 @@ export function useCreateReply(threadId) {
   });
 }
 
+export function useUpdateThread(threadId) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ title, content }) => forumApi.updateThread(threadId, { title, content }),
+    onSuccess: (data) => queryClient.setQueryData(["forum", "thread", threadId], data),
+  });
+}
+
 export function useDeleteThread(categoryId) {
   const queryClient = useQueryClient();
   return useMutation({

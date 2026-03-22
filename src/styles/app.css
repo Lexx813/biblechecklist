@@ -86,6 +86,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
   border-bottom: 3px solid transparent; transition: color 0.15s, border-color 0.15s;
   white-space: nowrap;
 }
+.tab-btn:hover { color: rgba(255,255,255,0.9); }
 .tab-btn.active { color: #fff; border-bottom-color: #C084FC; }
 
 /* SEARCH */
