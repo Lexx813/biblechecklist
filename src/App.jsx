@@ -7,6 +7,7 @@ import AdminPage from "./components/admin/AdminPage";
 import ProfilePage from "./components/profile/ProfilePage";
 import BlogPage from "./components/blog/BlogPage";
 import BlogDashboard from "./components/blog/BlogDashboard";
+import ForumPage from "./components/forum/ForumPage";
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useProgress, useSaveProgress } from "./hooks/useProgress";
 import { useFullProfile } from "./hooks/useAdmin";
@@ -49,6 +50,7 @@ function BibleApp({ user, onLogout }) {
   const [showProfile, setShowProfile] = useState(false);
   const [showBlog, setShowBlog] = useState(false);
   const [showBlogDash, setShowBlogDash] = useState(false);
+  const [showForum, setShowForum] = useState(false);
   const [chaptersState, setChaptersState] = useState({});
   const [initialized, setInitialized] = useState(false);
   const [tab, setTab] = useState("all"); // all | ot | nt
@@ -139,6 +141,7 @@ function BibleApp({ user, onLogout }) {
     />
   );
   if (showBlogDash) return <BlogDashboard user={user} onBack={() => setShowBlogDash(false)} />;
+  if (showForum) return <ForumPage user={user} profile={profile} onBack={() => setShowForum(false)} />;
 
   return (
     <div className="app-wrap">
@@ -157,6 +160,7 @@ function BibleApp({ user, onLogout }) {
                 : <span className="header-avatar-initials">{(profile?.display_name || user.email)?.[0]?.toUpperCase()}</span>
               }
             </button>
+            <button className="header-logout-btn" onClick={() => setShowForum(true)}>Forum</button>
             <button className="header-logout-btn" onClick={() => setShowBlog(true)}>Blog</button>
             {(profile?.can_blog || profile?.is_admin) && (
               <button className="header-logout-btn" onClick={() => setShowBlogDash(true)}>Write</button>
