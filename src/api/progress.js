@@ -6,10 +6,9 @@ export const progressApi = {
       .from("reading_progress")
       .select("progress")
       .eq("user_id", userId)
-      .single();
+      .maybeSingle();
 
-    // PGRST116 = no rows found, that's fine for a new user
-    if (error && error.code !== "PGRST116") throw new Error(error.message);
+    if (error) throw new Error(error.message);
     return data?.progress ?? {};
   },
 

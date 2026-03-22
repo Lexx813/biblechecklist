@@ -6,7 +6,7 @@ export const profileApi = {
       .from("profiles")
       .select("id, email, is_admin, display_name, avatar_url, created_at")
       .eq("id", userId)
-      .single();
+      .maybeSingle();
     if (error) throw new Error(error.message);
     return data;
   },
