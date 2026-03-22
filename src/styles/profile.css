@@ -1,0 +1,421 @@
+.pf-wrap {
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: 'Nunito', sans-serif;
+}
+
+/* ── HEADER ── */
+.pf-header {
+  background: linear-gradient(135deg, var(--teal-darker) 0%, var(--teal-dark) 60%, var(--teal) 100%);
+  padding: 16px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.pf-header-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.pf-back-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.9);
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.pf-back-btn:hover { background: rgba(255,255,255,0.22); }
+.pf-header-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ── CONTENT ── */
+.pf-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 16px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── PROFILE CARD ── */
+.pf-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+.pf-card-banner {
+  height: 80px;
+  background: linear-gradient(135deg, var(--teal-darker), var(--teal));
+}
+.pf-card-body {
+  padding: 0 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ── AVATAR ── */
+.pf-avatar-wrap {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 4px solid var(--card-bg);
+  background: var(--teal-light);
+  margin-top: -44px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(74,45,133,0.2);
+  flex-shrink: 0;
+}
+.pf-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.pf-avatar-initials {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--teal-dark);
+}
+.pf-avatar-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(52,28,92,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  opacity: 0;
+  transition: opacity 0.18s;
+}
+.pf-avatar-wrap:hover .pf-avatar-overlay { opacity: 1; }
+
+/* ── NAME ── */
+.pf-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+.pf-name {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+.pf-edit-icon {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  opacity: 0.5;
+  padding: 2px;
+  transition: opacity 0.15s;
+}
+.pf-edit-icon:hover { opacity: 1; }
+
+.pf-name-edit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+}
+.pf-name-input {
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border: 1.5px solid var(--teal);
+  border-radius: var(--radius-sm);
+  outline: none;
+  color: var(--text-primary);
+  background: var(--teal-soft);
+}
+.pf-name-save {
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.pf-name-cancel {
+  background: none;
+  border: 1.5px solid var(--border);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.pf-email {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.pf-since {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.pf-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 14px;
+  padding: 12px 24px;
+  background: var(--teal-soft);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.pf-stat {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.pf-stat strong {
+  color: var(--teal);
+  font-size: 16px;
+  font-weight: 800;
+  margin-right: 4px;
+}
+.pf-stat-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+}
+
+/* ── NOTES SECTION ── */
+.pf-section {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.pf-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.pf-section-header h2 {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+.pf-add-note-btn {
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 7px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.pf-add-note-btn:hover { background: var(--teal-dark); }
+
+/* ── ADD NOTE FORM WRAP ── */
+.pf-add-form-wrap {
+  padding: 16px 20px;
+  background: var(--teal-soft);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── FILTERS ── */
+.pf-filters {
+  display: flex;
+  gap: 10px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.pf-filter-select, .pf-filter-search {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  padding: 7px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.pf-filter-select:focus, .pf-filter-search:focus { border-color: var(--teal); }
+.pf-filter-search { flex: 1; }
+
+.pf-loading, .pf-empty {
+  padding: 40px 20px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ── NOTE FORM ── */
+.note-form { display: flex; flex-direction: column; gap: 12px; }
+.note-form-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.note-form-field { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 140px; }
+.note-form-field--sm { flex: 0 0 90px; min-width: 80px; }
+.note-form-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.note-form-optional { font-weight: 500; text-transform: none; color: var(--text-muted); }
+.note-form-select {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  padding: 8px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.note-form-select:focus { border-color: var(--teal); }
+.note-form-textarea {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  outline: none;
+  resize: vertical;
+  line-height: 1.6;
+  transition: border-color 0.15s;
+}
+.note-form-textarea:focus { border-color: var(--teal); }
+.note-form-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.note-form-cancel {
+  background: none;
+  border: 1.5px solid var(--border);
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: border-color 0.15s;
+}
+.note-form-cancel:hover { border-color: var(--text-muted); }
+.note-form-submit {
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 8px 20px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.note-form-submit:hover:not(:disabled) { background: var(--teal-dark); }
+.note-form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── NOTE CARDS ── */
+.pf-notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.note-card {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  border-left: 4px solid transparent;
+  transition: background 0.1s;
+}
+.note-card:last-child { border-bottom: none; }
+.note-card:hover { background: var(--teal-soft); }
+.note-card--ot { border-left-color: var(--teal); }
+.note-card--nt { border-left-color: var(--accent); }
+.note-card--editing { background: var(--teal-soft); border-left-color: var(--teal-dark); padding: 16px 20px; }
+
+.note-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 10px;
+}
+.note-card-ref {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.note-book-badge {
+  font-size: 11px;
+  font-weight: 800;
+  background: var(--teal-light);
+  color: var(--teal-dark);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.note-ref-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.note-card-actions { display: flex; gap: 4px; flex-shrink: 0; }
+.note-action-btn {
+  background: none;
+  border: none;
+  font-size: 13px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.15s, background 0.15s;
+}
+.note-action-btn:hover { opacity: 1; background: var(--teal-light); }
+.note-action-btn--delete:hover { background: #fff5f5; }
+
+.note-content {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  white-space: pre-wrap;
+}
+.note-date {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+}

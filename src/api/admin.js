@@ -1,0 +1,38 @@
+import { supabase } from "../lib/supabase";
+
+export const adminApi = {
+  getProfile: async (userId) => {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("id, email, is_admin, created_at")
+      .eq("id", userId)
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  listUsers: async () => {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("id, email, is_admin, created_at")
+      .order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
+
+  deleteUser: async (userId) => {
+    const { error } = await supabase.rpc("admin_delete_user", { target_user_id: userId });
+    if (error) throw new Error(error.message);
+  },
+
+  setAdmin: async (userId, value) => {
+    const { error } = await supabase.rpc("admin_set_admin", { target_user_id: userId, new_value: value });
+    if (error) throw new Error(error.message);
+  },
+
+  createUser: async (email, password) => {
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) throw new Error(error.message);
+    return data;
+  },
+};

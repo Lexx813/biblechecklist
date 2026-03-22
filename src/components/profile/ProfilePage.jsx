@@ -1,0 +1,301 @@
+import { useState, useRef } from "react";
+import { BOOKS } from "../../data/books";
+import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
+import { useNotes, useCreateNote, useUpdateNote, useDeleteNote } from "../../hooks/useNotes";
+import "../../styles/profile.css";
+
+const OT_COUNT = 39;
+
+function formatDate(iso) {
+  return new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+}
+
+function Initials({ name, email }) {
+  const str = name || email || "?";
+  return str[0].toUpperCase();
+}
+
+// ── Avatar ────────────────────────────────────────────────
+function Avatar({ profile, userId }) {
+  const fileRef = useRef();
+  const upload = useUploadAvatar(userId);
+
+  function handleFile(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    upload.mutate(file);
+  }
+
+  return (
+    <div className="pf-avatar-wrap" onClick={() => fileRef.current.click()} title="Change photo">
+      {profile?.avatar_url
+        ? <img src={profile.avatar_url} alt="avatar" className="pf-avatar-img" />
+        : <span className="pf-avatar-initials"><Initials name={profile?.display_name} email={profile?.email} /></span>
+      }
+      <div className="pf-avatar-overlay">
+        {upload.isPending ? "⏳" : "📷"}
+      </div>
+      <input ref={fileRef} type="file" accept="image/*" style={{ display: "none" }} onChange={handleFile} />
+    </div>
+  );
+}
+
+// ── Display name ──────────────────────────────────────────
+function DisplayName({ profile, userId }) {
+  const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState("");
+  const update = useUpdateProfile(userId);
+
+  function startEdit() {
+    setValue(profile?.display_name || "");
+    setEditing(true);
+  }
+
+  function save() {
+    if (value.trim()) update.mutate({ display_name: value.trim() });
+    setEditing(false);
+  }
+
+  if (editing) {
+    return (
+      <div className="pf-name-edit">
+        <input
+          className="pf-name-input"
+          value={value}
+          onChange={e => setValue(e.target.value)}
+          onKeyDown={e => { if (e.key === "Enter") save(); if (e.key === "Escape") setEditing(false); }}
+          autoFocus
+          maxLength={40}
+        />
+        <button className="pf-name-save" onClick={save}>Save</button>
+        <button className="pf-name-cancel" onClick={() => setEditing(false)}>✕</button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="pf-name-row">
+      <h2 className="pf-name">{profile?.display_name || profile?.email?.split("@")[0]}</h2>
+      <button className="pf-edit-icon" onClick={startEdit} title="Edit name">✏️</button>
+    </div>
+  );
+}
+
+// ── Add / Edit note form ──────────────────────────────────
+function NoteForm({ userId, initial, onDone }) {
+  const [bookIndex, setBookIndex] = useState(initial?.book_index ?? 0);
+  const [chapter, setChapter] = useState(initial?.chapter ?? 1);
+  const [verse, setVerse] = useState(initial?.verse ?? "");
+  const [content, setContent] = useState(initial?.content ?? "");
+
+  const createNote = useCreateNote(userId);
+  const updateNote = useUpdateNote(userId);
+  const busy = createNote.isPending || updateNote.isPending;
+  const maxChapter = BOOKS[bookIndex]?.chapters ?? 1;
+
+  function handleBookChange(e) {
+    setBookIndex(Number(e.target.value));
+    setChapter(1);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!content.trim()) return;
+    const payload = { book_index: bookIndex, chapter, verse: verse ? Number(verse) : null, content: content.trim() };
+    if (initial) {
+      updateNote.mutate({ noteId: initial.id, updates: payload }, { onSuccess: onDone });
+    } else {
+      createNote.mutate(payload, { onSuccess: onDone });
+    }
+  }
+
+  return (
+    <form className="note-form" onSubmit={handleSubmit}>
+      <div className="note-form-row">
+        <div className="note-form-field">
+          <label className="note-form-label">Book</label>
+          <select className="note-form-select" value={bookIndex} onChange={handleBookChange}>
+            {BOOKS.map((b, i) => (
+              <option key={i} value={i}>{b.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="note-form-field note-form-field--sm">
+          <label className="note-form-label">Chapter</label>
+          <select className="note-form-select" value={chapter} onChange={e => setChapter(Number(e.target.value))}>
+            {Array.from({ length: maxChapter }, (_, i) => (
+              <option key={i + 1} value={i + 1}>{i + 1}</option>
+            ))}
+          </select>
+        </div>
+        <div className="note-form-field note-form-field--sm">
+          <label className="note-form-label">Verse <span className="note-form-optional">(optional)</span></label>
+          <input
+            className="note-form-select"
+            type="number"
+            min={1}
+            max={200}
+            placeholder="—"
+            value={verse}
+            onChange={e => setVerse(e.target.value)}
+          />
+        </div>
+      </div>
+      <textarea
+        className="note-form-textarea"
+        placeholder="Write your note here…"
+        value={content}
+        onChange={e => setContent(e.target.value)}
+        rows={4}
+        required
+      />
+      <div className="note-form-actions">
+        <button type="button" className="note-form-cancel" onClick={onDone}>Cancel</button>
+        <button type="submit" className="note-form-submit" disabled={busy || !content.trim()}>
+          {busy ? "Saving…" : initial ? "Update Note" : "Save Note"}
+        </button>
+      </div>
+    </form>
+  );
+}
+
+// ── Note card ─────────────────────────────────────────────
+function NoteCard({ note, userId }) {
+  const [editing, setEditing] = useState(false);
+  const deleteNote = useDeleteNote(userId);
+  const book = BOOKS[note.book_index];
+  const isOT = note.book_index < OT_COUNT;
+
+  if (editing) {
+    return (
+      <div className="note-card note-card--editing">
+        <NoteForm userId={userId} initial={note} onDone={() => setEditing(false)} />
+      </div>
+    );
+  }
+
+  return (
+    <div className={`note-card ${isOT ? "note-card--ot" : "note-card--nt"}`}>
+      <div className="note-card-header">
+        <div className="note-card-ref">
+          <span className="note-book-badge">{book?.name}</span>
+          <span className="note-ref-text">
+            Ch. {note.chapter}{note.verse ? ` · v. ${note.verse}` : ""}
+          </span>
+        </div>
+        <div className="note-card-actions">
+          <button className="note-action-btn" onClick={() => setEditing(true)} title="Edit">✏️</button>
+          <button
+            className="note-action-btn note-action-btn--delete"
+            onClick={() => window.confirm("Delete this note?") && deleteNote.mutate(note.id)}
+            title="Delete"
+          >✕</button>
+        </div>
+      </div>
+      <p className="note-content">{note.content}</p>
+      <div className="note-date">{formatDate(note.created_at)}</div>
+    </div>
+  );
+}
+
+// ── Main ProfilePage ──────────────────────────────────────
+export default function ProfilePage({ user, onBack }) {
+  const { data: profile } = useFullProfile(user.id);
+  const { data: notes = [], isLoading: notesLoading } = useNotes(user.id);
+
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [filterBook, setFilterBook] = useState("all");
+  const [search, setSearch] = useState("");
+
+  const booksWithNotes = [...new Set(notes.map(n => n.book_index))].sort((a, b) => a - b);
+
+  const filtered = notes.filter(n => {
+    if (filterBook !== "all" && n.book_index !== Number(filterBook)) return false;
+    if (search && !n.content.toLowerCase().includes(search.toLowerCase())) return false;
+    return true;
+  });
+
+  return (
+    <div className="pf-wrap">
+      {/* Header */}
+      <header className="pf-header">
+        <div className="pf-header-inner">
+          <button className="pf-back-btn" onClick={onBack}>← Back</button>
+          <h1 className="pf-header-title">My Profile</h1>
+        </div>
+      </header>
+
+      <div className="pf-content">
+
+        {/* Profile card */}
+        <div className="pf-card">
+          <div className="pf-card-banner" />
+          <div className="pf-card-body">
+            <Avatar profile={profile} userId={user.id} />
+            <DisplayName profile={profile} userId={user.id} />
+            <p className="pf-email">{user.email}</p>
+            <p className="pf-since">Member since {profile ? formatDate(profile.created_at) : "—"}</p>
+            <div className="pf-stats-row">
+              <div className="pf-stat"><strong>{notes.length}</strong> notes</div>
+              <div className="pf-stat-divider" />
+              <div className="pf-stat"><strong>{booksWithNotes.length}</strong> books annotated</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Notes section */}
+        <div className="pf-section">
+          <div className="pf-section-header">
+            <h2>My Notes</h2>
+            <button className="pf-add-note-btn" onClick={() => setShowAddForm(v => !v)}>
+              {showAddForm ? "Cancel" : "+ Add Note"}
+            </button>
+          </div>
+
+          {showAddForm && (
+            <div className="pf-add-form-wrap">
+              <NoteForm userId={user.id} onDone={() => setShowAddForm(false)} />
+            </div>
+          )}
+
+          {/* Filters */}
+          <div className="pf-filters">
+            <select
+              className="pf-filter-select"
+              value={filterBook}
+              onChange={e => setFilterBook(e.target.value)}
+            >
+              <option value="all">All Books</option>
+              {booksWithNotes.map(i => (
+                <option key={i} value={i}>{BOOKS[i]?.name}</option>
+              ))}
+            </select>
+            <input
+              className="pf-filter-search"
+              type="text"
+              placeholder="Search notes…"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
+          </div>
+
+          {/* Notes list */}
+          {notesLoading ? (
+            <div className="pf-loading">Loading notes…</div>
+          ) : filtered.length === 0 ? (
+            <div className="pf-empty">
+              {notes.length === 0 ? "No notes yet. Add your first note above." : "No notes match your filter."}
+            </div>
+          ) : (
+            <div className="pf-notes-list">
+              {filtered.map(note => (
+                <NoteCard key={note.id} note={note} userId={user.id} />
+              ))}
+            </div>
+          )}
+        </div>
+
+      </div>
+    </div>
+  );
+}
