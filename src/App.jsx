@@ -14,6 +14,7 @@ import { useProgress, useSaveProgress } from "./hooks/useProgress";
 import { useFullProfile } from "./hooks/useAdmin";
 import { supabase } from "./lib/supabase";
 import "./styles/app.css";
+// Main app component that handles auth state and routing between pages
 
 export default function App() {
   const queryClient = useQueryClient();
