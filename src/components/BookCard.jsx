@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export default function BookCard({ book, bookIndex, chaptersState, onToggleChapter, onToggleBook }) {
+export default function BookCard({ book, bookIndex, chaptersState, onToggleChapter, onToggleBook, notes = [] }) {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
   const total = book.chapters;
@@ -66,6 +66,20 @@ export default function BookCard({ book, bookIndex, chaptersState, onToggleChapt
               {t("book.markAllRead")}
             </button>
           </div>
+
+          {notes.length > 0 && (
+            <div className="ch-notes">
+              <div className="ch-section-label" style={{ marginTop: 12 }}>{t("book.notesLabel")}</div>
+              {notes.map(note => (
+                <div key={note.id} className="ch-note">
+                  <span className="ch-note-ref">
+                    {t("profile.chAbbr")} {note.chapter}{note.verse ? ` ${t("profile.verseAbbr")}${note.verse}` : ""}
+                  </span>
+                  <span className="ch-note-content">{note.content}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

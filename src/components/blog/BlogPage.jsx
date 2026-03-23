@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import DOMPurify from "dompurify";
-import { usePublishedPosts, usePostBySlug } from "../../hooks/useBlog";
+import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment } from "../../hooks/useBlog";
 import "../../styles/blog.css";
 import "../../styles/editor.css";
 
@@ -44,8 +44,87 @@ function renderContent(text) {
   );
 }
 
+// ── Comments ──────────────────────────────────────────────────────────────────
+function PostComments({ postId, user }) {
+  const { t } = useTranslation();
+  const { data: comments = [], isLoading } = useComments(postId);
+  const createComment = useCreateComment(postId);
+  const deleteComment = useDeleteComment(postId);
+  const [text, setText] = useState("");
+  const [error, setError] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+    if (!text.trim()) return setError(t("blog.commentEmptyError"));
+    createComment.mutate({ userId: user.id, content: text.trim() }, {
+      onSuccess: () => setText(""),
+      onError: (err) => setError(err.message),
+    });
+  }
+
+  return (
+    <div className="blog-comments">
+      <h3 className="blog-comments-title">
+        {t("blog.commentsTitle")}
+        {comments.length > 0 && <span className="blog-comments-count">{comments.length}</span>}
+      </h3>
+
+      {isLoading ? null : comments.length === 0 ? (
+        <p className="blog-comments-empty">{t("blog.commentsNone")}</p>
+      ) : (
+        <div className="blog-comments-list">
+          {comments.map(c => (
+            <div key={c.id} className="blog-comment">
+              <div className="blog-comment-avatar">
+                {c.profiles?.avatar_url
+                  ? <img src={c.profiles.avatar_url} alt="" />
+                  : (c.profiles?.display_name || c.profiles?.email || "?")[0].toUpperCase()
+                }
+              </div>
+              <div className="blog-comment-body">
+                <div className="blog-comment-meta">
+                  <span className="blog-comment-author">
+                    {c.profiles?.display_name || c.profiles?.email?.split("@")[0] || "Anonymous"}
+                  </span>
+                  <span className="blog-comment-time">
+                    {new Date(c.created_at).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
+                  </span>
+                </div>
+                <p className="blog-comment-content">{c.content}</p>
+                {(c.author_id === user?.id) && (
+                  <button className="blog-comment-delete" onClick={() => deleteComment.mutate(c.id)}>
+                    {t("common.delete")}
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <form className="blog-comment-form" onSubmit={handleSubmit}>
+        <textarea
+          className="blog-comment-input"
+          placeholder={t("blog.commentPlaceholder")}
+          value={text}
+          onChange={e => setText(e.target.value)}
+          rows={3}
+          disabled={createComment.isPending}
+        />
+        {error && <div className="blog-comment-error">{error}</div>}
+        <div className="blog-comment-actions">
+          <button className="blog-comment-btn" type="submit" disabled={createComment.isPending || !text.trim()}>
+            {createComment.isPending ? t("blog.commentPosting") : t("blog.commentPost")}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
 // ── Single post view ─────────────────────────────────────────────────────────
-function PostView({ slug, onBack }) {
+function PostView({ slug, onBack, user }) {
   const { data: post, isLoading } = usePostBySlug(slug);
   const { t } = useTranslation();
 
@@ -107,6 +186,8 @@ function PostView({ slug, onBack }) {
             <div className="blog-author-card-email">{post.profiles?.email}</div>
           </div>
         </div>
+
+        {user && <PostComments postId={post.id} user={user} />}
       </div>
     </div>
   );
@@ -154,7 +235,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick }) {
   const { t } = useTranslation();
 
   if (activeSlug) {
-    return <PostView slug={activeSlug} onBack={() => setActiveSlug(null)} />;
+    return <PostView slug={activeSlug} onBack={() => setActiveSlug(null)} user={user} />;
   }
 
   return (

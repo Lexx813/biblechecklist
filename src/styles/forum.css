@@ -167,7 +167,7 @@
   resize: vertical;
 }
 .forum-input:focus,
-.forum-textarea:focus { border-color: var(--teal); background: #fff; }
+.forum-textarea:focus { border-color: var(--teal); background: var(--card-bg); }
 
 .forum-form-error {
   font-size: 13px; font-weight: 600;

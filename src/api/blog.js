@@ -63,4 +63,40 @@ export const blogApi = {
     const { error } = await supabase.from("blog_posts").delete().eq("id", postId);
     if (error) throw new Error(error.message);
   },
+
+  listComments: async (postId) => {
+    const { data, error } = await supabase
+      .from("blog_comments")
+      .select("*, profiles(display_name, avatar_url, email)")
+      .eq("post_id", postId)
+      .order("created_at", { ascending: true });
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
+
+  createComment: async (userId, postId, content) => {
+    const { data, error } = await supabase
+      .from("blog_comments")
+      .insert({ author_id: userId, post_id: postId, content })
+      .select("*, profiles(display_name, avatar_url, email)")
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  deleteComment: async (commentId) => {
+    const { error } = await supabase.from("blog_comments").delete().eq("id", commentId);
+    if (error) throw new Error(error.message);
+  },
+
+  uploadCover: async (userId, file) => {
+    const ext = file.name.split(".").pop();
+    const path = `${userId}/${Date.now()}.${ext}`;
+    const { error: upErr } = await supabase.storage
+      .from("blog-covers")
+      .upload(path, file, { contentType: file.type, upsert: true });
+    if (upErr) throw new Error(upErr.message);
+    const { data } = supabase.storage.from("blog-covers").getPublicUrl(path);
+    return data.publicUrl;
+  },
 };

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { BOOKS, OT_COUNT } from "./data/books";
@@ -14,6 +14,9 @@ import ConfirmModal from "./components/ConfirmModal";
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useProgress, useSaveProgress } from "./hooks/useProgress";
 import { useFullProfile } from "./hooks/useAdmin";
+import { useNotes } from "./hooks/useNotes";
+import { useReadingStats } from "./hooks/useReading";
+import { readingApi } from "./api/reading";
 import { supabase } from "./lib/supabase";
 import "./styles/app.css";
 // Main app component that handles auth state and routing between pages
@@ -62,8 +65,28 @@ export default function App() {
 function BibleApp({ user, onLogout }) {
   const { data: profile } = useFullProfile(user.id);
   const { data: remoteProgress, isLoading: progressLoading } = useProgress(user.id);
+  const { data: notes = [] } = useNotes(user.id);
+  const { data: readingStats } = useReadingStats(user.id);
   const saveProgress = useSaveProgress(user.id);
   const { t, i18n } = useTranslation();
+  const queryClient = useQueryClient();
+
+  // Debounced reading log — batches chapter toggles into one API call per second
+  const pendingDelta = useRef(0);
+  const logTimer = useRef(null);
+  const scheduleLog = (delta) => {
+    pendingDelta.current += delta;
+    clearTimeout(logTimer.current);
+    logTimer.current = setTimeout(async () => {
+      if (pendingDelta.current === 0) return;
+      const d = pendingDelta.current;
+      pendingDelta.current = 0;
+      try {
+        await readingApi.logChapter(d);
+        queryClient.invalidateQueries({ queryKey: ["reading", "stats", user.id] });
+      } catch { /* reading log is non-critical */ }
+    }, 1000);
+  };
 
   const [showAdmin, setShowAdmin] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -75,6 +98,12 @@ function BibleApp({ user, onLogout }) {
   const [tab, setTab] = useState("all"); // all | ot | nt
   const [search, setSearch] = useState("");
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem("nwt-theme") === "dark");
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = darkMode ? "dark" : "light";
+    localStorage.setItem("nwt-theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
 
   // Populate state once remote progress has loaded
   useEffect(() => {
@@ -93,8 +122,9 @@ function BibleApp({ user, onLogout }) {
 
   const handleToggleChapter = (bi, ch) => {
     setChaptersState(prev => {
-      const next = { ...prev, [bi]: { ...(prev[bi] || {}), [ch]: !prev[bi]?.[ch] } };
-      return next;
+      const wasRead = !!prev[bi]?.[ch];
+      scheduleLog(wasRead ? -1 : 1);
+      return { ...prev, [bi]: { ...(prev[bi] || {}), [ch]: !wasRead } };
     });
   };
 
@@ -103,6 +133,8 @@ function BibleApp({ user, onLogout }) {
     const done = Object.values(chaptersState[bi] || {}).filter(Boolean).length;
     const allDone = done === total;
     const val = forceValue !== undefined ? forceValue : !allDone;
+    const delta = val ? total - done : -done;
+    if (delta !== 0) scheduleLog(delta);
     setChaptersState(prev => {
       const chs = {};
       for (let c = 1; c <= total; c++) chs[c] = val;
@@ -188,6 +220,9 @@ function BibleApp({ user, onLogout }) {
             {profile?.is_admin && (
               <button className="header-logout-btn" onClick={() => setShowAdmin(true)}>{t("app.admin")}</button>
             )}
+            <button className="header-logout-btn" onClick={() => setDarkMode(d => !d)}>
+              {darkMode ? t("app.lightMode") : t("app.darkMode")}
+            </button>
             <button className="header-logout-btn" onClick={onLogout}>{t("app.logOut")}</button>
             <button className="header-logout-btn" onClick={toggleLang} title="Switch language">
               {i18n.language.startsWith("es") ? "EN" : "ES"}
@@ -237,6 +272,31 @@ function BibleApp({ user, onLogout }) {
         {tab !== "ot" && <span className="stat-pill">{t("app.statGreek")}: <b>{ntDone}/27</b></span>}
       </div>
 
+      {/* Reading habit stats */}
+      {readingStats && (
+        <div className="reading-stats-bar">
+          <div className="reading-stat-chip">
+            <span className="reading-stat-icon">🔥</span>
+            <span className="reading-stat-value">{readingStats.streak}</span>
+            <span className="reading-stat-label">{t("stats.streak", { count: readingStats.streak })}</span>
+          </div>
+          <div className="reading-stat-chip">
+            <span className="reading-stat-icon">📖</span>
+            <span className="reading-stat-value">{readingStats.weeklyChapters}</span>
+            <span className="reading-stat-label">{t("stats.thisWeek")}</span>
+          </div>
+          <div className="reading-activity">
+            {readingStats.grid.map(({ date, chapters }) => (
+              <div
+                key={date}
+                className={`reading-dot${chapters > 0 ? chapters >= 3 ? " reading-dot--high" : " reading-dot--low" : ""}`}
+                title={`${date}: ${chapters} ${t("stats.chaptersDot")}`}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Book list */}
       <div className="book-list">
         {filteredBooks.length === 0 && (
@@ -256,6 +316,7 @@ function BibleApp({ user, onLogout }) {
                 chaptersState={chaptersState}
                 onToggleChapter={handleToggleChapter}
                 onToggleBook={handleToggleBook}
+                notes={notes.filter(n => n.book_index === book.index)}
               />
             </div>
           );
@@ -271,7 +332,7 @@ function BibleApp({ user, onLogout }) {
           message={t("app.resetConfirmMsg")}
           confirmLabel={t("app.resetConfirmBtn")}
           danger={false}
-          onConfirm={() => { setChaptersState({}); setShowResetConfirm(false); }}
+          onConfirm={() => { if (doneCh > 0) scheduleLog(-doneCh); setChaptersState({}); setShowResetConfirm(false); }}
           onCancel={() => setShowResetConfirm(false)}
         />
       )}

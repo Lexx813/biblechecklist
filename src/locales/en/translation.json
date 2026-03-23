@@ -32,7 +32,9 @@
     "blog": "Blog",
     "write": "Write",
     "admin": "Admin",
-    "logOut": "Log out"
+    "logOut": "Log out",
+    "darkMode": "Dark",
+    "lightMode": "Light"
   },
   "landing": {
     "badge": "✦ New World Translation · 66 Books",
@@ -83,7 +85,8 @@
     "chLabel": "Chapters — tap to mark read",
     "chapterTitle": "Chapter {{ch}}",
     "clearAll": "Clear all",
-    "markAllRead": "Mark all read ✓"
+    "markAllRead": "Mark all read ✓",
+    "notesLabel": "My Notes"
   },
   "admin": {
     "title": "Admin Dashboard",
@@ -154,7 +157,13 @@
     "readMore": "Click to read more…",
     "backToBlog": "← Back to Blog",
     "notFound": "Post not found.",
-    "minRead": "{{count}} min read"
+    "minRead": "{{count}} min read",
+    "commentsTitle": "Comments",
+    "commentsNone": "No comments yet. Be the first to share your thoughts.",
+    "commentPlaceholder": "Share your thoughts…",
+    "commentPost": "Post",
+    "commentPosting": "Posting…",
+    "commentEmptyError": "Comment cannot be empty."
   },
   "blogDash": {
     "myPostsTitle": "My Posts",
@@ -184,7 +193,11 @@
     "errorContentRequired": "Content is required.",
     "saveDraft": "Save as Draft",
     "savePublish": "Publish Post ✓",
-    "saveKeepPublished": "Save & Keep Published"
+    "saveKeepPublished": "Save & Keep Published",
+    "coverUploadBtn": "Upload Image",
+    "coverUploading": "Uploading…",
+    "coverOrUrl": "or paste a URL",
+    "coverUploadError": "Upload failed. Try a URL instead."
   },
   "forum": {
     "badge": "✦ Community",
@@ -217,7 +230,20 @@
     "deleteReplyConfirm": "Delete this reply? This cannot be undone.",
     "threadNotFound": "Thread not found.",
     "threadStat": "{{count}} threads",
-    "op": "OP"
+    "op": "OP",
+    "timeJustNow": "just now",
+    "timeMinutes": "{{count}}m ago",
+    "timeHours": "{{count}}h ago",
+    "timeDays": "{{count}}d ago",
+    "editReply": "Edit reply",
+    "saveReply": "Save Reply",
+    "editReplyError": "Reply cannot be empty."
+  },
+  "stats": {
+    "streak_one": "day streak",
+    "streak_other": "day streak",
+    "thisWeek": "this week",
+    "chaptersDot": "chapters"
   },
   "confirm": {
     "title": "Are you sure?"

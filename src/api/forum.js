@@ -83,6 +83,17 @@ export const forumApi = {
     if (error) throw new Error(error.message);
   },
 
+  updateReply: async (replyId, content) => {
+    const { data, error } = await supabase
+      .from("forum_replies")
+      .update({ content })
+      .eq("id", replyId)
+      .select(`*, ${PROFILE_FIELDS}`)
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
   deleteReply: async (replyId) => {
     const { error } = await supabase.from("forum_replies").delete().eq("id", replyId);
     if (error) throw new Error(error.message);

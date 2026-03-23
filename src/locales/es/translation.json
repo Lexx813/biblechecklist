@@ -32,7 +32,9 @@
     "blog": "Blog",
     "write": "Escribir",
     "admin": "Admin",
-    "logOut": "Cerrar sesión"
+    "logOut": "Cerrar sesión",
+    "darkMode": "Oscuro",
+    "lightMode": "Claro"
   },
   "landing": {
     "badge": "✦ Traducción del Nuevo Mundo · 66 Libros",
@@ -83,7 +85,8 @@
     "chLabel": "Capítulos — toca para marcar como leído",
     "chapterTitle": "Capítulo {{ch}}",
     "clearAll": "Limpiar todo",
-    "markAllRead": "Marcar todo como leído ✓"
+    "markAllRead": "Marcar todo como leído ✓",
+    "notesLabel": "Mis Notas"
   },
   "admin": {
     "title": "Panel de Administración",
@@ -154,7 +157,13 @@
     "readMore": "Haz clic para leer más…",
     "backToBlog": "← Volver al Blog",
     "notFound": "Publicación no encontrada.",
-    "minRead": "{{count}} min de lectura"
+    "minRead": "{{count}} min de lectura",
+    "commentsTitle": "Comentarios",
+    "commentsNone": "Aún no hay comentarios. Sé el primero en compartir tus pensamientos.",
+    "commentPlaceholder": "Comparte tus pensamientos…",
+    "commentPost": "Publicar",
+    "commentPosting": "Publicando…",
+    "commentEmptyError": "El comentario no puede estar vacío."
   },
   "blogDash": {
     "myPostsTitle": "Mis Publicaciones",
@@ -184,7 +193,11 @@
     "errorContentRequired": "El contenido es obligatorio.",
     "saveDraft": "Guardar como Borrador",
     "savePublish": "Publicar ✓",
-    "saveKeepPublished": "Guardar y Mantener Publicada"
+    "saveKeepPublished": "Guardar y Mantener Publicada",
+    "coverUploadBtn": "Subir Imagen",
+    "coverUploading": "Subiendo…",
+    "coverOrUrl": "o pega una URL",
+    "coverUploadError": "Error al subir. Prueba con una URL."
   },
   "forum": {
     "badge": "✦ Comunidad",
@@ -217,7 +230,20 @@
     "deleteReplyConfirm": "¿Eliminar esta respuesta? Esta acción no se puede deshacer.",
     "threadNotFound": "Hilo no encontrado.",
     "threadStat": "{{count}} hilos",
-    "op": "OP"
+    "op": "OP",
+    "timeJustNow": "ahora mismo",
+    "timeMinutes": "hace {{count}}m",
+    "timeHours": "hace {{count}}h",
+    "timeDays": "hace {{count}}d",
+    "editReply": "Editar respuesta",
+    "saveReply": "Guardar Respuesta",
+    "editReplyError": "La respuesta no puede estar vacía."
+  },
+  "stats": {
+    "streak_one": "día seguido",
+    "streak_other": "días seguidos",
+    "thisWeek": "esta semana",
+    "chaptersDot": "capítulos"
   },
   "confirm": {
     "title": "¿Estás seguro?"

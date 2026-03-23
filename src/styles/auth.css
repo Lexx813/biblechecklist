@@ -121,7 +121,7 @@
 
 .auth-input:focus {
   border-color: var(--teal);
-  background: #fff;
+  background: var(--card-bg);
 }
 
 .auth-input:disabled {
@@ -132,9 +132,9 @@
 .auth-error {
   font-size: 12px;
   font-weight: 600;
-  color: #c62828;
-  background: #fff5f5;
-  border: 1px solid #ffcdd2;
+  color: #ef5350;
+  background: rgba(198, 40, 40, 0.12);
+  border: 1px solid rgba(198, 40, 40, 0.3);
   border-radius: var(--radius-sm);
   padding: 8px 12px;
 }

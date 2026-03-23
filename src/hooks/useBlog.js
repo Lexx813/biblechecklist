@@ -57,3 +57,33 @@ export function useDeletePost(userId) {
     },
   });
 }
+
+export function useComments(postId) {
+  return useQuery({
+    queryKey: ["blog", "comments", postId],
+    queryFn: () => blogApi.listComments(postId),
+    enabled: !!postId,
+  });
+}
+
+export function useCreateComment(postId) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ userId, content }) => blogApi.createComment(userId, postId, content),
+    onSuccess: (newComment) => {
+      queryClient.setQueryData(["blog", "comments", postId], (prev = []) => [...prev, newComment]);
+    },
+  });
+}
+
+export function useDeleteComment(postId) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (commentId) => blogApi.deleteComment(commentId),
+    onSuccess: (_, commentId) => {
+      queryClient.setQueryData(["blog", "comments", postId], (prev = []) =>
+        prev.filter(c => c.id !== commentId)
+      );
+    },
+  });
+}

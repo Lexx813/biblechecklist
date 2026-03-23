@@ -94,6 +94,16 @@ export function useDeleteThread(categoryId) {
   });
 }
 
+export function useUpdateReply(threadId) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ replyId, content }) => forumApi.updateReply(replyId, content),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["forum", "replies", threadId] });
+    },
+  });
+}
+
 export function useDeleteReply(threadId) {
   const queryClient = useQueryClient();
   return useMutation({

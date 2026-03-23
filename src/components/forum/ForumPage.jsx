@@ -6,7 +6,7 @@ import RichTextEditor from "../RichTextEditor";
 import {
   useCategories, useThreads, useThread, useReplies,
   useCreateThread, useCreateReply,
-  useUpdateThread, useDeleteThread, useDeleteReply,
+  useUpdateThread, useUpdateReply, useDeleteThread, useDeleteReply,
   usePinThread, useLockThread,
 } from "../../hooks/useForum";
 import "../../styles/forum.css";
@@ -20,15 +20,15 @@ function initial(profile) {
   return (profile?.display_name || profile?.email || "A")[0].toUpperCase();
 }
 
-function timeAgo(iso) {
+function timeAgo(iso, t) {
   const diff = Date.now() - new Date(iso).getTime();
   const m = Math.floor(diff / 60000);
-  if (m < 1)  return "just now";
-  if (m < 60) return `${m}m ago`;
+  if (m < 1)  return t("forum.timeJustNow");
+  if (m < 60) return t("forum.timeMinutes", { count: m });
   const h = Math.floor(m / 60);
-  if (h < 24) return `${h}h ago`;
+  if (h < 24) return t("forum.timeHours", { count: h });
   const d = Math.floor(h / 24);
-  if (d < 30) return `${d}d ago`;
+  if (d < 30) return t("forum.timeDays", { count: d });
   return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
 }
 
@@ -44,6 +44,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
   const { data: thread, isLoading: threadLoading } = useThread(threadId);
   const { data: replies = [], isLoading: repliesLoading } = useReplies(threadId);
   const createReply = useCreateReply(threadId);
+  const updateReply = useUpdateReply(threadId);
   const deleteReply = useDeleteReply(threadId);
   const updateThread = useUpdateThread(threadId);
   const deleteThread = useDeleteThread(categoryId);
@@ -51,11 +52,13 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
   const lockThread   = useLockThread(categoryId);
   const { t } = useTranslation();
 
-  const [replyText, setReplyText]   = useState("");
-  const [replyError, setReplyError] = useState("");
-  const [editing, setEditing]       = useState(false);
-  const [editTitle, setEditTitle]   = useState("");
-  const [editContent, setEditContent] = useState("");
+  const [replyText, setReplyText]         = useState("");
+  const [replyError, setReplyError]       = useState("");
+  const [editing, setEditing]             = useState(false);
+  const [editTitle, setEditTitle]         = useState("");
+  const [editContent, setEditContent]     = useState("");
+  const [editingReplyId, setEditingReplyId]       = useState(null);
+  const [editReplyContent, setEditReplyContent]   = useState("");
   const [confirm, setConfirm] = useState(null);
   const bottomRef = useRef(null);
 
@@ -137,7 +140,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
         <div className="forum-post-aside">
           <Avatar profile={thread.profiles} />
           <span className="forum-post-author">{displayName(thread.profiles)}</span>
-          <span className="forum-post-time">{timeAgo(thread.created_at)}</span>
+          <span className="forum-post-time">{timeAgo(thread.created_at, t)}</span>
           <span className="forum-post-badge forum-post-badge--op">{t("forum.op")}</span>
         </div>
         <div className="forum-post-body">
@@ -185,30 +188,68 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
             <div className="forum-replies-count">{t("forum.replyCount", { count: replies.length })}</div>
           )}
           {replies.map((reply, i) => {
-            const canDelete = isAdmin || reply.author_id === user.id;
+            const canModify = isAdmin || reply.author_id === user.id;
+            const isEditingThis = editingReplyId === reply.id;
             return (
               <div key={reply.id} className="forum-post">
                 <div className="forum-post-aside">
                   <Avatar profile={reply.profiles} />
                   <span className="forum-post-author">{displayName(reply.profiles)}</span>
-                  <span className="forum-post-time">{timeAgo(reply.created_at)}</span>
+                  <span className="forum-post-time">{timeAgo(reply.created_at, t)}</span>
                   <span className="forum-post-num">#{i + 1}</span>
                 </div>
                 <div className="forum-post-body">
-                  <div
-                    className="forum-post-content rich-content"
-                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(reply.content ?? "") }}
-                  />
-                  {canDelete && (
-                    <button
-                      className="forum-delete-btn"
-                      onClick={() => setConfirm({
-                        message: t("forum.deleteReplyConfirm"),
-                        onConfirm: () => deleteReply.mutate(reply.id),
-                      })}
-                    >
-                      {t("common.delete")}
-                    </button>
+                  {isEditingThis ? (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      <RichTextEditor
+                        content={editReplyContent}
+                        onChange={setEditReplyContent}
+                        minimal
+                        compact
+                        disabled={updateReply.isPending}
+                      />
+                      <div style={{ display: "flex", gap: 8 }}>
+                        <button
+                          className="forum-submit-btn"
+                          disabled={updateReply.isPending || !editReplyContent || editReplyContent === "<p></p>"}
+                          onClick={() => {
+                            updateReply.mutate(
+                              { replyId: reply.id, content: editReplyContent },
+                              { onSuccess: () => setEditingReplyId(null) }
+                            );
+                          }}
+                        >
+                          {updateReply.isPending ? t("common.saving") : t("forum.saveReply")}
+                        </button>
+                        <button type="button" className="forum-delete-btn" style={{ alignSelf: "center" }} onClick={() => setEditingReplyId(null)}>
+                          {t("common.cancel")}
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      className="forum-post-content rich-content"
+                      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(reply.content ?? "") }}
+                    />
+                  )}
+                  {canModify && !isEditingThis && (
+                    <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+                      <button
+                        className="forum-delete-btn"
+                        onClick={() => { setEditingReplyId(reply.id); setEditReplyContent(reply.content ?? ""); }}
+                      >
+                        {t("forum.editReply")}
+                      </button>
+                      <button
+                        className="forum-delete-btn"
+                        onClick={() => setConfirm({
+                          message: t("forum.deleteReplyConfirm"),
+                          onConfirm: () => deleteReply.mutate(reply.id),
+                        })}
+                      >
+                        {t("common.delete")}
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>
@@ -352,7 +393,7 @@ function ThreadList({ category, user, onSelectThread, onBack }) {
                   <div className="forum-row-meta">
                     <span>{displayName(thread.profiles)}</span>
                     <span className="forum-dot">·</span>
-                    <span>{timeAgo(thread.updated_at)}</span>
+                    <span>{timeAgo(thread.updated_at, t)}</span>
                   </div>
                 </div>
                 <div className="forum-row-right">

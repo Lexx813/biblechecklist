@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
 import RichTextEditor from "../RichTextEditor";
 import { useMyPosts, useCreatePost, useUpdatePost, useDeletePost } from "../../hooks/useBlog";
+import { blogApi } from "../../api/blog";
 import "../../styles/blog.css";
 
 const EMPTY_FORM = { title: "", excerpt: "", content: "", cover_url: "", published: false };
@@ -18,9 +19,27 @@ function PostEditor({ userId, post, onDone }) {
     : EMPTY_FORM
   );
   const [error, setError] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+  const fileInputRef = useRef(null);
   const { t } = useTranslation();
   const createPost = useCreatePost(userId);
   const updatePost = useUpdatePost(userId);
+
+  async function handleCoverUpload(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setUploadError("");
+    try {
+      const url = await blogApi.uploadCover(userId, file);
+      setForm(prev => ({ ...prev, cover_url: url }));
+    } catch {
+      setUploadError(t("blogDash.coverUploadError"));
+    } finally {
+      setUploading(false);
+    }
+  }
 
   const isPending = createPost.isPending || updatePost.isPending;
 
@@ -75,13 +94,37 @@ function PostEditor({ userId, post, onDone }) {
         />
 
         <label className="blog-editor-label">{t("blogDash.coverLabel")} <span className="blog-editor-hint">{t("blogDash.coverHint")}</span></label>
-        <input
-          className="blog-editor-input"
-          placeholder={t("blogDash.coverPlaceholder")}
-          value={form.cover_url}
-          onChange={e => set("cover_url", e.target.value)}
-          disabled={isPending}
-        />
+        <div className="blog-cover-upload-row">
+          {form.cover_url && (
+            <img src={form.cover_url} className="blog-cover-preview" alt="cover preview" />
+          )}
+          <div className="blog-cover-controls">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              style={{ display: "none" }}
+              onChange={handleCoverUpload}
+            />
+            <button
+              type="button"
+              className="blog-cover-upload-btn"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isPending || uploading}
+            >
+              {uploading ? t("blogDash.coverUploading") : t("blogDash.coverUploadBtn")}
+            </button>
+            <span className="blog-editor-hint">{t("blogDash.coverOrUrl")}</span>
+            <input
+              className="blog-editor-input"
+              placeholder={t("blogDash.coverPlaceholder")}
+              value={form.cover_url}
+              onChange={e => set("cover_url", e.target.value)}
+              disabled={isPending || uploading}
+            />
+            {uploadError && <div className="blog-editor-error" style={{ marginTop: 4 }}>{uploadError}</div>}
+          </div>
+        </div>
 
         <label className="blog-editor-label">{t("blogDash.contentLabel")}</label>
         <RichTextEditor
