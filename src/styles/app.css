@@ -280,28 +280,41 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 
 /* ---- Responsive: small phones (< 480px) ---- */
 @media (max-width: 479px) {
-  /* Header */
-  .app-header { padding: 14px 14px 0; }
+  /* Prevent any horizontal overflow */
+  .app-wrap { overflow-x: hidden; }
+
+  /* Header — two-row layout: [logo + title] then [nav buttons] */
+  .app-header { padding: 12px 14px 0; }
   .tabs { margin: 0 -14px; }
-  .header-top { gap: 8px; margin-bottom: 12px; }
-  .header-logo { width: 34px; height: 34px; font-size: 17px; border-radius: 8px; }
-  .header-text h1 { font-size: 15px; }
+  .header-top { flex-wrap: wrap; gap: 8px; margin-bottom: 10px; align-items: center; }
+  .header-logo { width: 34px; height: 34px; font-size: 17px; border-radius: 8px; flex-shrink: 0; }
+  .header-text { flex: 1; min-width: 0; }
+  .header-text h1 { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .header-text p { font-size: 11px; }
-  .header-user { gap: 4px; }
-  .header-logout-btn { font-size: 10px; padding: 4px 8px; touch-action: manipulation; }
-  .header-avatar-btn { width: 28px; height: 28px; }
+  /* Push nav buttons to their own row below logo+title */
+  .header-user {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+    flex-shrink: unset;
+    justify-content: flex-start;
+    gap: 5px;
+    padding-bottom: 2px;
+  }
+  .header-logout-btn { font-size: 10px; padding: 4px 9px; touch-action: manipulation; }
+  .header-avatar-btn { width: 27px; height: 27px; }
   .tab-btn { font-size: 10px; padding: 9px 4px; letter-spacing: 0.02em; touch-action: manipulation; }
 
   /* Toolbar + stats */
   .toolbar { padding: 8px 12px; }
-  .search-input { font-size: 13px; padding: 7px 10px 7px 30px; }
+  .search-input { font-size: 16px; padding: 8px 10px 8px 32px; } /* 16px prevents iOS zoom */
   .stats-pills { padding: 6px 12px; gap: 4px; }
   .stat-pill { font-size: 10px; padding: 3px 8px; }
 
   /* Book list */
   .book-list { padding: 8px 8px 16px; gap: 5px; }
 
-  /* Book row — hide the mini-bar to free up horizontal space */
+  /* Book row — hide mini-bar to reclaim horizontal space */
   .book-row { padding: 11px 12px; gap: 8px; touch-action: manipulation; }
   .book-name { font-size: 13px; }
   .book-num { min-width: 28px; height: 28px; font-size: 10px; }
@@ -309,7 +322,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
   .book-ch-count { font-size: 12px; font-weight: 700; color: var(--text-secondary); }
   .check-circle { width: 26px; height: 26px; touch-action: manipulation; }
 
-  /* Chapter panel — use auto-fill grid so pills never overflow */
+  /* Chapter panel — grid auto-fill so pills always fit */
   .chapters-panel { padding: 10px 12px 14px; }
   .ch-grid {
     display: grid;
@@ -332,12 +345,12 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 
 /* ---- Responsive: tiny phones (≤ 360px) ---- */
 @media (max-width: 360px) {
-  .app-header { padding: 12px 10px 0; }
+  .app-header { padding: 10px 10px 0; }
   .tabs { margin: 0 -10px; }
   .header-text h1 { font-size: 13px; }
   .header-text p { display: none; }
-  .header-logout-btn { font-size: 9px; padding: 3px 6px; }
-  .header-avatar-btn { width: 26px; height: 26px; }
+  .header-logout-btn { font-size: 9px; padding: 3px 7px; }
+  .header-avatar-btn { width: 25px; height: 25px; }
   .tab-btn { font-size: 9px; padding: 8px 2px; }
   .book-list { padding: 6px 6px 12px; gap: 4px; }
   .book-row { padding: 10px 10px; gap: 7px; }
