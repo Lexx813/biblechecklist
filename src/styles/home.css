@@ -601,7 +601,23 @@
   .home-blog-card--featured {
     grid-column: span 1;
   }
-  .home-tracker-info { padding: 24px 24px; }
+  .home-tracker-visual {
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 20px;
+  }
+  .home-tracker-stats-preview {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+  .home-tracker-info { padding: 20px; }
+  .home-hero-btns { flex-direction: column; align-items: center; }
+  .home-hero-cta, .home-hero-secondary { width: 100%; max-width: 320px; text-align: center; }
+  .home-section-row { flex-direction: column; align-items: flex-start; }
+  .home-forum-row { flex-wrap: wrap; gap: 8px; }
+  .home-forum-row-title { font-size: 14px; }
   .home-nav-ghost { display: none; }
   .home-nav-actions .home-nav-ghost:last-child { display: flex; }
 }
