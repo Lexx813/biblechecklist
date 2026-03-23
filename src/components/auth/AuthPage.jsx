@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLogin, useRegister } from "../../hooks/useAuth";
 import "../../styles/auth.css";
 
-export default function AuthPage() {
+export default function AuthPage({ onBack }) {
   const [mode, setMode] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,6 +71,9 @@ export default function AuthPage() {
 
   return (
     <div className="auth-wrap">
+      {onBack && (
+        <button className="auth-back-btn" onClick={onBack}>← Back</button>
+      )}
       <div className="auth-card">
         <div className="auth-header">
           <div className="auth-logo">📖</div>

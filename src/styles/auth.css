@@ -7,6 +7,25 @@
   align-items: center;
   justify-content: center;
   padding: 24px 16px;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-back-btn {
+  background: none;
+  border: none;
+  font-family: "Nunito", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--teal);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  align-self: flex-start;
+  transition: background 0.15s;
+}
+.auth-back-btn:hover {
+  background: var(--teal-light);
 }
 
 .auth-card {

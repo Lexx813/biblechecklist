@@ -8,6 +8,7 @@ import ProfilePage from "./components/profile/ProfilePage";
 import BlogPage from "./components/blog/BlogPage";
 import BlogDashboard from "./components/blog/BlogDashboard";
 import ForumPage from "./components/forum/ForumPage";
+import LandingPage from "./components/LandingPage";
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useProgress, useSaveProgress } from "./hooks/useProgress";
 import { useFullProfile } from "./hooks/useAdmin";
@@ -20,6 +21,8 @@ export default function App() {
   const logout = useLogout();
   const user = session?.user ?? null;
 
+  const [showLanding, setShowLanding] = useState(true);
+
   // Keep React Query cache in sync with Supabase auth state changes
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
@@ -30,15 +33,26 @@ export default function App() {
 
   if (authLoading) {
     return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
-        <div style={{ color: "var(--text-muted)", fontFamily: "Nunito, sans-serif", fontSize: 14 }}>Loading…</div>
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0a0514" }}>
+        <div style={{ color: "rgba(255,255,255,0.5)", fontFamily: "Nunito, sans-serif", fontSize: 14 }}>Loading…</div>
       </div>
     );
   }
 
-  if (!user) return <AuthPage />;
+  if (!user) {
+    if (showLanding) return <LandingPage onGetStarted={() => setShowLanding(false)} />;
+    return <AuthPage onBack={() => setShowLanding(true)} />;
+  }
 
-  return <BibleApp user={user} onLogout={() => logout.mutate()} />;
+  return (
+    <BibleApp
+      user={user}
+      onLogout={() => {
+        logout.mutate();
+        setShowLanding(true);
+      }}
+    />
+  );
 }
 
 function BibleApp({ user, onLogout }) {
