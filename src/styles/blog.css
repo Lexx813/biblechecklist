@@ -45,11 +45,13 @@
   font-size: 12px;
   font-weight: 700;
   padding: 8px 16px;
-  border-radius: 999px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(74,45,133,0.2);
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
 }
-.blog-write-btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
+.blog-write-btn:hover { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(74,45,133,0.3); }
+.blog-write-btn:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(74,45,133,0.2); }
 
 /* ── Hero ────────────────────────────────────────────────────── */
 .blog-hero {
@@ -285,11 +287,12 @@
   font-size: 12px;
   font-weight: 700;
   padding: 6px 14px;
-  border-radius: 999px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, transform 0.1s;
 }
-.blog-post-back-btn:hover { background: rgba(255,255,255,0.25); }
+.blog-post-back-btn:hover { background: rgba(255,255,255,0.25); transform: translateY(-1px); }
+.blog-post-back-btn:active { transform: translateY(0); }
 
 .blog-post-hero-meta { display: flex; flex-direction: column; gap: 10px; }
 
@@ -550,7 +553,7 @@
   font-size: 13px;
   font-weight: 700;
   padding: 10px 24px;
-  border-radius: 999px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
   transition: all 0.15s;
@@ -560,13 +563,16 @@
   border: 1.5px solid var(--border);
   color: var(--text-secondary);
 }
-.blog-editor-btn--draft:hover { border-color: var(--teal); color: var(--teal); }
+.blog-editor-btn--draft:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-1px); }
+.blog-editor-btn--draft:active { transform: translateY(0); }
 .blog-editor-btn--publish {
   background: var(--teal);
   color: #fff;
+  box-shadow: 0 2px 8px rgba(74,45,133,0.2);
 }
-.blog-editor-btn--publish:hover { background: var(--teal-dark); }
-.blog-editor-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.blog-editor-btn--publish:hover { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(74,45,133,0.3); }
+.blog-editor-btn--publish:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(74,45,133,0.2); }
+.blog-editor-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 
 /* ── Shared states ────────────────────────────────────────────── */
 .blog-loading {

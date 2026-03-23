@@ -132,10 +132,11 @@
   color: #fff;
   font-family: 'Nunito', sans-serif;
   font-size: 12px; font-weight: 700;
-  padding: 7px 16px; border-radius: 999px;
-  cursor: pointer; transition: background 0.15s; flex-shrink: 0;
+  padding: 7px 16px; border-radius: 8px;
+  cursor: pointer; transition: background 0.15s, transform 0.1s; flex-shrink: 0;
 }
-.forum-new-btn:hover { background: rgba(255,255,255,0.25); }
+.forum-new-btn:hover { background: rgba(255,255,255,0.25); transform: translateY(-1px); }
+.forum-new-btn:active { transform: translateY(0); }
 
 /* ── New thread form ─────────────────────────────────────────── */
 .forum-new-thread-form {
@@ -177,13 +178,15 @@
 .forum-form-actions { display: flex; justify-content: flex-end; }
 .forum-submit-btn {
   background: var(--teal); color: #fff;
-  border: none; border-radius: 999px;
+  border: none; border-radius: 10px;
   font-family: 'Nunito', sans-serif;
   font-size: 13px; font-weight: 700;
   padding: 9px 24px; cursor: pointer;
-  transition: background 0.15s;
+  box-shadow: 0 2px 8px rgba(74,45,133,0.2);
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
 }
-.forum-submit-btn:hover:not(:disabled) { background: var(--teal-dark); }
+.forum-submit-btn:hover:not(:disabled) { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(74,45,133,0.3); }
+.forum-submit-btn:active:not(:disabled) { transform: translateY(0); box-shadow: 0 2px 8px rgba(74,45,133,0.2); }
 .forum-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
 /* ── Thread rows ─────────────────────────────────────────────── */
@@ -246,13 +249,14 @@
 .forum-tool-btn {
   font-family: 'Nunito', sans-serif;
   font-size: 11px; font-weight: 700;
-  padding: 5px 12px; border-radius: 999px;
+  padding: 5px 12px; border-radius: 8px;
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.25);
   color: rgba(255,255,255,0.85);
-  cursor: pointer; transition: background 0.15s;
+  cursor: pointer; transition: background 0.15s, transform 0.1s;
 }
-.forum-tool-btn:hover { background: rgba(255,255,255,0.22); }
+.forum-tool-btn:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+.forum-tool-btn:active { transform: translateY(0); }
 .forum-tool-btn--danger:hover { background: rgba(198,40,40,0.4); border-color: #EF9A9A; }
 
 /* ── Posts (OP + replies) ────────────────────────────────────── */
@@ -396,13 +400,15 @@
 
 .forum-reply-btn {
   background: var(--teal); color: #fff;
-  border: none; border-radius: 999px;
+  border: none; border-radius: 10px;
   font-family: 'Nunito', sans-serif;
   font-size: 12px; font-weight: 700;
   padding: 8px 20px; cursor: pointer;
-  transition: background 0.15s;
+  box-shadow: 0 2px 8px rgba(74,45,133,0.2);
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
 }
-.forum-reply-btn:hover:not(:disabled) { background: var(--teal-dark); }
+.forum-reply-btn:hover:not(:disabled) { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74,45,133,0.3); }
+.forum-reply-btn:active:not(:disabled) { transform: translateY(0); box-shadow: 0 2px 8px rgba(74,45,133,0.2); }
 .forum-reply-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .forum-locked-msg {

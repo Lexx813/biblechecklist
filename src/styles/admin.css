@@ -29,12 +29,13 @@
   font-size: 13px;
   font-weight: 700;
   padding: 6px 14px;
-  border-radius: 999px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, transform 0.1s;
   flex-shrink: 0;
 }
-.admin-back-btn:hover { background: rgba(255,255,255,0.22); }
+.admin-back-btn:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+.admin-back-btn:active { transform: translateY(0); }
 
 .admin-header-text {
   display: flex;
@@ -122,11 +123,13 @@
   font-size: 12px;
   font-weight: 800;
   padding: 7px 16px;
-  border-radius: 999px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background 0.15s;
+  box-shadow: 0 2px 8px rgba(74,45,133,0.2);
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
 }
-.admin-add-btn:hover { background: var(--teal-dark); }
+.admin-add-btn:hover { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74,45,133,0.3); }
+.admin-add-btn:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(74,45,133,0.2); }
 
 /* ADD FORM */
 .admin-add-form {
@@ -164,10 +167,12 @@
   font-size: 13px;
   font-weight: 800;
   cursor: pointer;
-  transition: background 0.15s;
+  box-shadow: 0 2px 8px rgba(74,45,133,0.2);
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
   white-space: nowrap;
 }
-.admin-submit-btn:hover:not(:disabled) { background: var(--teal-dark); }
+.admin-submit-btn:hover:not(:disabled) { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74,45,133,0.3); }
+.admin-submit-btn:active:not(:disabled) { transform: translateY(0); box-shadow: 0 2px 8px rgba(74,45,133,0.2); }
 .admin-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
 .admin-form-error {
@@ -301,7 +306,7 @@
   font-size: 11px;
   font-weight: 700;
   padding: 5px 12px;
-  border-radius: 999px;
+  border-radius: 8px;
   border: 1.5px solid var(--border);
   background: #fff;
   color: var(--text-secondary);
@@ -309,7 +314,8 @@
   transition: all 0.12s;
   white-space: nowrap;
 }
-.admin-action-btn:hover:not(:disabled) { border-color: var(--teal); color: var(--teal); }
+.admin-action-btn:hover:not(:disabled) { border-color: var(--teal); color: var(--teal); transform: translateY(-1px); }
+.admin-action-btn:active:not(:disabled) { transform: translateY(0); }
 .admin-action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .admin-action-btn--active { background: var(--teal-light); border-color: var(--teal); color: var(--teal-dark); }
 

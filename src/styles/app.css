@@ -52,9 +52,10 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
   background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
   color: rgba(255,255,255,0.85); font-family: 'Nunito', sans-serif;
   font-size: 11px; font-weight: 700; padding: 3px 10px;
-  border-radius: 999px; cursor: pointer; transition: background 0.15s;
+  border-radius: 8px; cursor: pointer; transition: background 0.15s, transform 0.1s;
 }
-.header-logout-btn:hover { background: rgba(255,255,255,0.22); }
+.header-logout-btn:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+.header-logout-btn:active { transform: translateY(0); }
 
 .header-avatar-btn {
   width: 30px; height: 30px; border-radius: 50%;
@@ -254,11 +255,12 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
   flex: 1; padding: 11px; border: none; border-radius: 10px;
   background: var(--teal); font-family: 'Nunito', sans-serif;
   font-size: 14px; font-weight: 800; color: #fff;
-  cursor: pointer; transition: background 0.15s; touch-action: manipulation;
+  cursor: pointer; transition: background 0.15s, transform 0.1s, box-shadow 0.15s; touch-action: manipulation;
 }
-.confirm-ok-btn:hover { background: var(--teal-dark); }
+.confirm-ok-btn:hover { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(74,45,133,0.35); }
+.confirm-ok-btn:active { transform: translateY(0); box-shadow: none; }
 .confirm-ok-btn--danger { background: #c62828; }
-.confirm-ok-btn--danger:hover { background: #b71c1c; }
+.confirm-ok-btn--danger:hover { background: #b71c1c; box-shadow: 0 4px 14px rgba(198,40,40,0.35); }
 
 /* FOOTER RESET */
 .footer-reset { text-align: center; padding: 6px 0 16px; }
@@ -266,9 +268,10 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
   background: none; border: 1.5px solid var(--border);
   color: var(--text-muted); font-family: 'Nunito', sans-serif;
   font-size: 12px; font-weight: 700; padding: 7px 20px;
-  border-radius: 999px; cursor: pointer; transition: all 0.15s;
+  border-radius: 8px; cursor: pointer; transition: all 0.15s;
 }
 .reset-btn:hover { border-color: #c62828; color: #c62828; }
+.reset-btn:active { transform: translateY(0); }
 
 /* TESTAMENT DIVIDER */
 .testament-divider {

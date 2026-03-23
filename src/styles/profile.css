@@ -27,12 +27,13 @@
   font-size: 13px;
   font-weight: 700;
   padding: 6px 14px;
-  border-radius: 999px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, transform 0.1s;
   flex-shrink: 0;
 }
-.pf-back-btn:hover { background: rgba(255,255,255,0.22); }
+.pf-back-btn:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+.pf-back-btn:active { transform: translateY(0); }
 .pf-header-title {
   font-family: 'Roboto', sans-serif;
   font-size: 18px;
@@ -243,11 +244,13 @@
   font-size: 12px;
   font-weight: 800;
   padding: 7px 16px;
-  border-radius: 999px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background 0.15s;
+  box-shadow: 0 2px 8px rgba(74,45,133,0.2);
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
 }
-.pf-add-note-btn:hover { background: var(--teal-dark); }
+.pf-add-note-btn:hover { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74,45,133,0.3); }
+.pf-add-note-btn:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(74,45,133,0.2); }
 
 /* ── ADD NOTE FORM WRAP ── */
 .pf-add-form-wrap {
@@ -348,9 +351,11 @@
   padding: 8px 20px;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background 0.15s;
+  box-shadow: 0 2px 8px rgba(74,45,133,0.2);
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
 }
-.note-form-submit:hover:not(:disabled) { background: var(--teal-dark); }
+.note-form-submit:hover:not(:disabled) { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74,45,133,0.3); }
+.note-form-submit:active:not(:disabled) { transform: translateY(0); box-shadow: 0 2px 8px rgba(74,45,133,0.2); }
 .note-form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* ── NOTE CARDS ── */
