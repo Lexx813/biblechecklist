@@ -491,3 +491,50 @@
   .forum-admin-tools { width: 100%; }
   .forum-row-right { display: none; }
 }
+
+/* ── Small phones (< 480px) ───────────────────────────────────── */
+@media (max-width: 479px) {
+  .forum-hero { padding: 44px 16px 36px; }
+  .forum-hero-title { font-size: clamp(28px, 8vw, 48px); }
+  .forum-hero-sub { font-size: 13px; }
+  .forum-cat-grid { padding: 18px 10px 36px; gap: 8px; }
+  .forum-cat-card { padding: 13px 12px; gap: 10px; }
+  .forum-cat-icon { font-size: 22px; width: 32px; }
+  .forum-cat-name { font-size: 14px; }
+  .forum-cat-desc { font-size: 11px; }
+  .forum-list-header { padding: 11px 12px; }
+  .forum-list-title { font-size: 15px; }
+  .forum-new-thread-form { padding: 14px 12px; margin: 14px auto 0; }
+  .forum-rows { margin: 10px auto 28px; padding: 0 10px; }
+  .forum-row { padding: 11px 12px; gap: 8px; }
+  .forum-row-title { font-size: 13px; }
+  .forum-post { padding: 0 10px; }
+  .forum-post-aside { width: 46px; }
+  .forum-post-author { max-width: 40px; font-size: 9px; }
+  .forum-post-body { padding: 13px 14px; }
+  .forum-post-title { font-size: 17px; }
+  .forum-post-content { font-size: 13px; }
+  .forum-replies, .forum-reply-form { padding: 0 10px; }
+  .forum-reply-form { margin: 14px auto 36px; }
+  .forum-reply-form-inner { padding: 12px 14px; }
+  .forum-new-btn { font-size: 11px; padding: 6px 12px; }
+}
+
+/* ── Tiny phones (≤ 360px) ────────────────────────────────────── */
+@media (max-width: 360px) {
+  .forum-hero { padding: 32px 10px 26px; }
+  .forum-cat-grid { padding: 14px 8px 28px; }
+  .forum-cat-card { padding: 10px; gap: 8px; }
+  .forum-cat-icon { font-size: 18px; width: 26px; }
+  .forum-list-header { padding: 9px 10px; }
+  .forum-rows { padding: 0 8px; }
+  .forum-row { padding: 10px; }
+  .forum-post { padding: 0 8px; }
+  .forum-post-aside { width: 38px; }
+  .forum-post-author { max-width: 32px; font-size: 9px; }
+  .forum-post-time { font-size: 9px; }
+  .forum-replies, .forum-reply-form { padding: 0 8px; }
+  .forum-reply-form-inner { padding: 10px 12px; gap: 8px; }
+  .forum-admin-tools { gap: 4px; }
+  .forum-tool-btn { font-size: 10px; padding: 4px 9px; }
+}

@@ -522,3 +522,36 @@
     padding: 15px 30px;
   }
 }
+
+/* ── Small phones (< 480px) ───────────────────────────────────── */
+@media (max-width: 479px) {
+  .landing-orb--1 { width: 420px; height: 420px; top: -180px; left: -140px; }
+  .landing-orb--2 { width: 360px; height: 360px; bottom: -160px; right: -120px; }
+  .landing-orb--3 { width: 280px; height: 280px; }
+  .landing-orb--4 { width: 220px; height: 220px; }
+  .landing-orb--5 { width: 200px; height: 200px; }
+  .landing-hero { padding: 44px 16px 56px; }
+  .landing-icon-wrap { width: 80px; height: 80px; margin-bottom: 24px; }
+  .landing-icon-ring--2 { width: 110px; height: 110px; }
+  .landing-icon-ring--3 { width: 140px; height: 140px; }
+  .landing-icon { font-size: 38px; }
+  .landing-badge { font-size: 10px; padding: 5px 14px; margin-bottom: 18px; }
+  .landing-subtitle { margin-bottom: 28px; }
+  .landing-features { gap: 6px; margin-bottom: 32px; }
+  .landing-feature { font-size: 11px; padding: 6px 12px; gap: 5px; }
+  .landing-cta { font-size: 15px; padding: 15px 28px; gap: 8px; }
+  .landing-cta-arrow { font-size: 18px; }
+}
+
+/* ── Tiny phones (≤ 360px) ────────────────────────────────────── */
+@media (max-width: 360px) {
+  .landing-hero { padding: 36px 12px 44px; }
+  .landing-icon-wrap { width: 70px; height: 70px; margin-bottom: 20px; }
+  .landing-icon { font-size: 32px; }
+  .landing-badge { font-size: 9px; padding: 4px 12px; }
+  .landing-cta { font-size: 14px; padding: 13px 22px; width: 100%; justify-content: center; }
+  .landing-features { flex-direction: column; align-items: center; gap: 5px; }
+  .landing-feature { font-size: 11px; }
+  .landing-subtitle { font-size: 14px; }
+  .landing-signin { font-size: 12px; }
+}
