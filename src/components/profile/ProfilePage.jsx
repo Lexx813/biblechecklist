@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import ConfirmModal from "../ConfirmModal";
 import { BOOKS } from "../../data/books";
 import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
 import { useNotes, useCreateNote, useUpdateNote, useDeleteNote } from "../../hooks/useNotes";
@@ -162,6 +163,7 @@ function NoteForm({ userId, initial, onDone }) {
 // ── Note card ─────────────────────────────────────────────
 function NoteCard({ note, userId }) {
   const [editing, setEditing] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const deleteNote = useDeleteNote(userId);
   const book = BOOKS[note.book_index];
   const isOT = note.book_index < OT_COUNT;
@@ -187,13 +189,20 @@ function NoteCard({ note, userId }) {
           <button className="note-action-btn" onClick={() => setEditing(true)} title="Edit">✏️</button>
           <button
             className="note-action-btn note-action-btn--delete"
-            onClick={() => window.confirm("Delete this note?") && deleteNote.mutate(note.id)}
+            onClick={() => setShowConfirm(true)}
             title="Delete"
           >✕</button>
         </div>
       </div>
       <p className="note-content">{note.content}</p>
       <div className="note-date">{formatDate(note.created_at)}</div>
+      {showConfirm && (
+        <ConfirmModal
+          message="Delete this note? This cannot be undone."
+          onConfirm={() => { deleteNote.mutate(note.id); setShowConfirm(false); }}
+          onCancel={() => setShowConfirm(false)}
+        />
+      )}
     </div>
   );
 }

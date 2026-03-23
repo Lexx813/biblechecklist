@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ConfirmModal from "../ConfirmModal";
 import { useMyPosts, useCreatePost, useUpdatePost, useDeletePost } from "../../hooks/useBlog";
 import "../../styles/blog.css";
 
@@ -115,6 +116,7 @@ export default function BlogDashboard({ user, onBack }) {
   const { data: posts = [], isLoading } = useMyPosts(user.id);
   const deletePost = useDeletePost(user.id);
   const [editing, setEditing] = useState(null); // null = list, "new" = new, post obj = edit
+  const [confirmDelete, setConfirmDelete] = useState(null); // post to delete
 
   if (editing !== null) {
     return (
@@ -179,9 +181,7 @@ export default function BlogDashboard({ user, onBack }) {
                   <button className="blog-dash-action-btn" onClick={() => setEditing(post)}>Edit</button>
                   <button
                     className="blog-dash-action-btn blog-dash-action-btn--danger"
-                    onClick={() => {
-                      if (window.confirm(`Delete "${post.title}"?`)) deletePost.mutate(post.id);
-                    }}
+                    onClick={() => setConfirmDelete(post)}
                     disabled={deletePost.isPending}
                   >
                     Delete
@@ -192,6 +192,14 @@ export default function BlogDashboard({ user, onBack }) {
           </div>
         )}
       </div>
+
+      {confirmDelete && (
+        <ConfirmModal
+          message={`Delete "${confirmDelete.title}"? This cannot be undone.`}
+          onConfirm={() => { deletePost.mutate(confirmDelete.id); setConfirmDelete(null); }}
+          onCancel={() => setConfirmDelete(null)}
+        />
+      )}
     </div>
   );
 }

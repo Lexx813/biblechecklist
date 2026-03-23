@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ConfirmModal from "../ConfirmModal";
 import { useUsers, useDeleteUser, useSetAdmin, useSetBlog, useCreateUser } from "../../hooks/useAdmin";
 import "../../styles/admin.css";
 
@@ -22,14 +23,14 @@ export default function AdminPage({ currentUser, onBack }) {
   const [newPassword, setNewPassword] = useState("");
   const [addError, setAddError] = useState("");
   const [addSuccess, setAddSuccess] = useState("");
+  const [confirmDelete, setConfirmDelete] = useState(null); // user to delete
 
   const adminCount = users.filter(u => u.is_admin).length;
   const blogCount = users.filter(u => u.can_blog).length;
 
-  async function handleDelete(user) {
+  function handleDelete(user) {
     if (user.id === currentUser.id) return alert("You cannot delete your own account.");
-    if (!window.confirm(`Delete ${user.email}? This cannot be undone.`)) return;
-    deleteUser.mutate(user.id);
+    setConfirmDelete(user);
   }
 
   async function handleAddUser(e) {
@@ -194,6 +195,14 @@ export default function AdminPage({ currentUser, onBack }) {
           )}
         </div>
       </div>
+
+      {confirmDelete && (
+        <ConfirmModal
+          message={`Delete ${confirmDelete.email}? This cannot be undone.`}
+          onConfirm={() => { deleteUser.mutate(confirmDelete.id); setConfirmDelete(null); }}
+          onCancel={() => setConfirmDelete(null)}
+        />
+      )}
     </div>
   );
 }

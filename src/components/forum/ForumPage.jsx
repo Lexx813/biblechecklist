@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import ConfirmModal from "../ConfirmModal";
 import {
   useCategories, useThreads, useThread, useReplies,
   useCreateThread, useCreateReply,
@@ -51,6 +52,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
   const [editing, setEditing]       = useState(false);
   const [editTitle, setEditTitle]   = useState("");
   const [editContent, setEditContent] = useState("");
+  const [confirm, setConfirm] = useState(null); // { message, onConfirm }
   const bottomRef = useRef(null);
 
   const isAdmin  = profile?.is_admin;
@@ -86,8 +88,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
   }
 
   function handleDeleteThread() {
-    if (!window.confirm("Delete this thread and all its replies?")) return;
-    deleteThread.mutate(threadId, { onSuccess: onBack });
+    setConfirm({
+      message: "Delete this thread and all its replies? This cannot be undone.",
+      onConfirm: () => deleteThread.mutate(threadId, { onSuccess: onBack }),
+    });
   }
 
   if (threadLoading) return <div className="forum-loading"><div className="forum-spinner" /></div>;
@@ -189,9 +193,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
                   {canDelete && (
                     <button
                       className="forum-delete-btn"
-                      onClick={() => {
-                        if (window.confirm("Delete this reply?")) deleteReply.mutate(reply.id);
-                      }}
+                      onClick={() => setConfirm({
+                        message: "Delete this reply? This cannot be undone.",
+                        onConfirm: () => deleteReply.mutate(reply.id),
+                      })}
                     >
                       Delete
                     </button>
@@ -202,6 +207,14 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
           })}
           <div ref={bottomRef} />
         </div>
+      )}
+
+      {confirm && (
+        <ConfirmModal
+          message={confirm.message}
+          onConfirm={() => { confirm.onConfirm(); setConfirm(null); }}
+          onCancel={() => setConfirm(null)}
+        />
       )}
 
       {/* Reply form */}

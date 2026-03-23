@@ -9,6 +9,7 @@ import BlogPage from "./components/blog/BlogPage";
 import BlogDashboard from "./components/blog/BlogDashboard";
 import ForumPage from "./components/forum/ForumPage";
 import LandingPage from "./components/LandingPage";
+import ConfirmModal from "./components/ConfirmModal";
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useProgress, useSaveProgress } from "./hooks/useProgress";
 import { useFullProfile } from "./hooks/useAdmin";
@@ -70,6 +71,7 @@ function BibleApp({ user, onLogout }) {
   const [initialized, setInitialized] = useState(false);
   const [tab, setTab] = useState("all"); // all | ot | nt
   const [search, setSearch] = useState("");
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   // Populate state once remote progress has loaded
   useEffect(() => {
@@ -105,11 +107,7 @@ function BibleApp({ user, onLogout }) {
     });
   };
 
-  const handleReset = () => {
-    if (window.confirm("Reset all reading progress?")) {
-      setChaptersState({});
-    }
-  };
+  const handleReset = () => setShowResetConfirm(true);
 
   const { totalCh, doneCh, doneBooks, otDone, ntDone } = useMemo(() => {
     let totalCh = 0, doneCh = 0, doneBooks = 0, otDone = 0, ntDone = 0;
@@ -257,6 +255,16 @@ function BibleApp({ user, onLogout }) {
       <div className="footer-reset">
         <button className="reset-btn" onClick={handleReset}>↺ Reset all progress</button>
       </div>
+
+      {showResetConfirm && (
+        <ConfirmModal
+          message="This will clear all your reading progress. This cannot be undone."
+          confirmLabel="Reset"
+          danger={false}
+          onConfirm={() => { setChaptersState({}); setShowResetConfirm(false); }}
+          onCancel={() => setShowResetConfirm(false)}
+        />
+      )}
     </div>
   );
 }
