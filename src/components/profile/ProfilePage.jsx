@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
 import { BOOKS } from "../../data/books";
 import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
@@ -46,6 +47,7 @@ function DisplayName({ profile, userId }) {
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState("");
   const update = useUpdateProfile(userId);
+  const { t } = useTranslation();
 
   function startEdit() {
     setValue(profile?.display_name || "");
@@ -68,7 +70,7 @@ function DisplayName({ profile, userId }) {
           autoFocus
           maxLength={40}
         />
-        <button className="pf-name-save" onClick={save}>Save</button>
+        <button className="pf-name-save" onClick={save}>{t("common.save")}</button>
         <button className="pf-name-cancel" onClick={() => setEditing(false)}>✕</button>
       </div>
     );
@@ -77,7 +79,7 @@ function DisplayName({ profile, userId }) {
   return (
     <div className="pf-name-row">
       <h2 className="pf-name">{profile?.display_name || profile?.email?.split("@")[0]}</h2>
-      <button className="pf-edit-icon" onClick={startEdit} title="Edit name">✏️</button>
+      <button className="pf-edit-icon" onClick={startEdit} title={t("common.edit")}>✏️</button>
     </div>
   );
 }
@@ -88,6 +90,7 @@ function NoteForm({ userId, initial, onDone }) {
   const [chapter, setChapter] = useState(initial?.chapter ?? 1);
   const [verse, setVerse] = useState(initial?.verse ?? "");
   const [content, setContent] = useState(initial?.content ?? "");
+  const { t } = useTranslation();
 
   const createNote = useCreateNote(userId);
   const updateNote = useUpdateNote(userId);
@@ -114,15 +117,15 @@ function NoteForm({ userId, initial, onDone }) {
     <form className="note-form" onSubmit={handleSubmit}>
       <div className="note-form-row">
         <div className="note-form-field">
-          <label className="note-form-label">Book</label>
+          <label className="note-form-label">{t("profile.bookLabel")}</label>
           <select className="note-form-select" value={bookIndex} onChange={handleBookChange}>
             {BOOKS.map((b, i) => (
-              <option key={i} value={i}>{b.name}</option>
+              <option key={i} value={i}>{t(`bookNames.${i}`, b.name)}</option>
             ))}
           </select>
         </div>
         <div className="note-form-field note-form-field--sm">
-          <label className="note-form-label">Chapter</label>
+          <label className="note-form-label">{t("profile.chapterLabel")}</label>
           <select className="note-form-select" value={chapter} onChange={e => setChapter(Number(e.target.value))}>
             {Array.from({ length: maxChapter }, (_, i) => (
               <option key={i + 1} value={i + 1}>{i + 1}</option>
@@ -130,7 +133,7 @@ function NoteForm({ userId, initial, onDone }) {
           </select>
         </div>
         <div className="note-form-field note-form-field--sm">
-          <label className="note-form-label">Verse <span className="note-form-optional">(optional)</span></label>
+          <label className="note-form-label">{t("profile.verseLabel")} <span className="note-form-optional">{t("profile.verseOptional")}</span></label>
           <input
             className="note-form-select"
             type="number"
@@ -144,16 +147,16 @@ function NoteForm({ userId, initial, onDone }) {
       </div>
       <textarea
         className="note-form-textarea"
-        placeholder="Write your note here…"
+        placeholder={t("profile.notePlaceholder")}
         value={content}
         onChange={e => setContent(e.target.value)}
         rows={4}
         required
       />
       <div className="note-form-actions">
-        <button type="button" className="note-form-cancel" onClick={onDone}>Cancel</button>
+        <button type="button" className="note-form-cancel" onClick={onDone}>{t("common.cancel")}</button>
         <button type="submit" className="note-form-submit" disabled={busy || !content.trim()}>
-          {busy ? "Saving…" : initial ? "Update Note" : "Save Note"}
+          {busy ? t("common.saving") : initial ? t("profile.updateNote") : t("profile.saveNote")}
         </button>
       </div>
     </form>
@@ -165,8 +168,9 @@ function NoteCard({ note, userId }) {
   const [editing, setEditing] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const deleteNote = useDeleteNote(userId);
-  const book = BOOKS[note.book_index];
+  const { t } = useTranslation();
   const isOT = note.book_index < OT_COUNT;
+  const bookName = t(`bookNames.${note.book_index}`, BOOKS[note.book_index]?.name);
 
   if (editing) {
     return (
@@ -180,17 +184,17 @@ function NoteCard({ note, userId }) {
     <div className={`note-card ${isOT ? "note-card--ot" : "note-card--nt"}`}>
       <div className="note-card-header">
         <div className="note-card-ref">
-          <span className="note-book-badge">{book?.name}</span>
+          <span className="note-book-badge">{bookName}</span>
           <span className="note-ref-text">
-            Ch. {note.chapter}{note.verse ? ` · v. ${note.verse}` : ""}
+            {t("profile.chAbbr")} {note.chapter}{note.verse ? ` · ${t("profile.verseAbbr")} ${note.verse}` : ""}
           </span>
         </div>
         <div className="note-card-actions">
-          <button className="note-action-btn" onClick={() => setEditing(true)} title="Edit">✏️</button>
+          <button className="note-action-btn" onClick={() => setEditing(true)} title={t("common.edit")}>✏️</button>
           <button
             className="note-action-btn note-action-btn--delete"
             onClick={() => setShowConfirm(true)}
-            title="Delete"
+            title={t("common.delete")}
           >✕</button>
         </div>
       </div>
@@ -198,7 +202,7 @@ function NoteCard({ note, userId }) {
       <div className="note-date">{formatDate(note.created_at)}</div>
       {showConfirm && (
         <ConfirmModal
-          message="Delete this note? This cannot be undone."
+          message={t("profile.deleteNoteConfirm")}
           onConfirm={() => { deleteNote.mutate(note.id); setShowConfirm(false); }}
           onCancel={() => setShowConfirm(false)}
         />
@@ -211,6 +215,7 @@ function NoteCard({ note, userId }) {
 export default function ProfilePage({ user, onBack }) {
   const { data: profile } = useFullProfile(user.id);
   const { data: notes = [], isLoading: notesLoading } = useNotes(user.id);
+  const { t } = useTranslation();
 
   const [showAddForm, setShowAddForm] = useState(false);
   const [filterBook, setFilterBook] = useState("all");
@@ -229,8 +234,8 @@ export default function ProfilePage({ user, onBack }) {
       {/* Header */}
       <header className="pf-header">
         <div className="pf-header-inner">
-          <button className="pf-back-btn" onClick={onBack}>← Back</button>
-          <h1 className="pf-header-title">My Profile</h1>
+          <button className="pf-back-btn" onClick={onBack}>{t("common.back")}</button>
+          <h1 className="pf-header-title">{t("profile.title")}</h1>
         </div>
       </header>
 
@@ -243,11 +248,11 @@ export default function ProfilePage({ user, onBack }) {
             <Avatar profile={profile} userId={user.id} />
             <DisplayName profile={profile} userId={user.id} />
             <p className="pf-email">{user.email}</p>
-            <p className="pf-since">Member since {profile ? formatDate(profile.created_at) : "—"}</p>
+            <p className="pf-since">{t("profile.memberSince", { date: profile ? formatDate(profile.created_at) : "—" })}</p>
             <div className="pf-stats-row">
-              <div className="pf-stat"><strong>{notes.length}</strong> notes</div>
+              <div className="pf-stat"><strong>{notes.length}</strong> {t("profile.notesCount", { count: notes.length }).split(" ")[1]}</div>
               <div className="pf-stat-divider" />
-              <div className="pf-stat"><strong>{booksWithNotes.length}</strong> books annotated</div>
+              <div className="pf-stat"><strong>{booksWithNotes.length}</strong> {t("profile.booksAnnotated", { count: booksWithNotes.length }).replace(/^\d+ /, "")}</div>
             </div>
           </div>
         </div>
@@ -255,9 +260,9 @@ export default function ProfilePage({ user, onBack }) {
         {/* Notes section */}
         <div className="pf-section">
           <div className="pf-section-header">
-            <h2>My Notes</h2>
+            <h2>{t("profile.myNotes")}</h2>
             <button className="pf-add-note-btn" onClick={() => setShowAddForm(v => !v)}>
-              {showAddForm ? "Cancel" : "+ Add Note"}
+              {showAddForm ? t("common.cancel") : t("profile.addNote")}
             </button>
           </div>
 
@@ -274,15 +279,15 @@ export default function ProfilePage({ user, onBack }) {
               value={filterBook}
               onChange={e => setFilterBook(e.target.value)}
             >
-              <option value="all">All Books</option>
+              <option value="all">{t("profile.allBooks")}</option>
               {booksWithNotes.map(i => (
-                <option key={i} value={i}>{BOOKS[i]?.name}</option>
+                <option key={i} value={i}>{t(`bookNames.${i}`, BOOKS[i]?.name)}</option>
               ))}
             </select>
             <input
               className="pf-filter-search"
               type="text"
-              placeholder="Search notes…"
+              placeholder={t("profile.searchNotes")}
               value={search}
               onChange={e => setSearch(e.target.value)}
             />
@@ -290,10 +295,10 @@ export default function ProfilePage({ user, onBack }) {
 
           {/* Notes list */}
           {notesLoading ? (
-            <div className="pf-loading">Loading notes…</div>
+            <div className="pf-loading">{t("profile.loadingNotes")}</div>
           ) : filtered.length === 0 ? (
             <div className="pf-empty">
-              {notes.length === 0 ? "No notes yet. Add your first note above." : "No notes match your filter."}
+              {notes.length === 0 ? t("profile.noNotes") : t("profile.noNotesFilter")}
             </div>
           ) : (
             <div className="pf-notes-list">

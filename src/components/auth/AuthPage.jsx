@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useLogin, useRegister } from "../../hooks/useAuth";
 import "../../styles/auth.css";
 
@@ -9,6 +10,7 @@ export default function AuthPage({ onBack }) {
   const [confirm, setConfirm] = useState("");
   const [fieldError, setFieldError] = useState("");
   const [confirmed, setConfirmed] = useState(false);
+  const { t } = useTranslation();
 
   const login = useLogin();
   const register = useRegister();
@@ -28,11 +30,11 @@ export default function AuthPage({ onBack }) {
     e.preventDefault();
     setFieldError("");
 
-    if (!email || !password) return setFieldError("All fields are required.");
+    if (!email || !password) return setFieldError(t("auth.errorRequired"));
 
     if (mode === "signup") {
-      if (password.length < 8) return setFieldError("Password must be at least 8 characters.");
-      if (password !== confirm) return setFieldError("Passwords do not match.");
+      if (password.length < 8) return setFieldError(t("auth.errorPasswordShort"));
+      if (password !== confirm) return setFieldError(t("auth.errorPasswordMismatch"));
       register.mutate({ email, password }, {
         onSuccess: ({ needsConfirmation }) => {
           if (needsConfirmation) setConfirmed(true);
@@ -49,19 +51,19 @@ export default function AuthPage({ onBack }) {
         <div className="auth-card">
           <div className="auth-header">
             <div className="auth-logo">📖</div>
-            <h1 className="auth-title">Check your email</h1>
-            <p className="auth-subtitle">We sent a confirmation link to {email}</p>
+            <h1 className="auth-title">{t("auth.checkEmailTitle")}</h1>
+            <p className="auth-subtitle">{t("auth.checkEmailSubtitle", { email })}</p>
           </div>
           <div style={{ padding: "24px", textAlign: "center" }}>
             <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>
-              Click the link in the email to activate your account, then come back here to log in.
+              {t("auth.checkEmailBody")}
             </p>
             <button
               className="auth-switch-btn"
               style={{ marginTop: 16, fontSize: 13 }}
               onClick={() => switchMode("login")}
             >
-              Back to log in
+              {t("auth.backToLogin")}
             </button>
           </div>
         </div>
@@ -72,39 +74,39 @@ export default function AuthPage({ onBack }) {
   return (
     <div className="auth-wrap">
       {onBack && (
-        <button className="auth-back-btn" onClick={onBack}>← Back</button>
+        <button className="auth-back-btn" onClick={onBack}>{t("auth.back")}</button>
       )}
       <div className="auth-card">
         <div className="auth-header">
           <div className="auth-logo">📖</div>
-          <h1 className="auth-title">Bible Reading Checklist</h1>
-          <p className="auth-subtitle">New World Translation · 66 Books</p>
+          <h1 className="auth-title">{t("auth.title")}</h1>
+          <p className="auth-subtitle">{t("auth.subtitle")}</p>
         </div>
 
         <div className="auth-tabs">
-          <button className={`auth-tab${mode === "login" ? " active" : ""}`} onClick={() => switchMode("login")} type="button">Log In</button>
-          <button className={`auth-tab${mode === "signup" ? " active" : ""}`} onClick={() => switchMode("signup")} type="button">Sign Up</button>
+          <button className={`auth-tab${mode === "login" ? " active" : ""}`} onClick={() => switchMode("login")} type="button">{t("auth.tabLogin")}</button>
+          <button className={`auth-tab${mode === "signup" ? " active" : ""}`} onClick={() => switchMode("signup")} type="button">{t("auth.tabSignup")}</button>
         </div>
 
         <form className="auth-form" onSubmit={handleSubmit} noValidate>
           <div className="auth-field">
-            <label className="auth-label" htmlFor="email">Email</label>
-            <input id="email" className="auth-input" type="email" placeholder="you@example.com"
+            <label className="auth-label" htmlFor="email">{t("auth.emailLabel")}</label>
+            <input id="email" className="auth-input" type="email" placeholder={t("auth.emailPlaceholder")}
               value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" disabled={busy} />
           </div>
 
           <div className="auth-field">
-            <label className="auth-label" htmlFor="password">Password</label>
+            <label className="auth-label" htmlFor="password">{t("auth.passwordLabel")}</label>
             <input id="password" className="auth-input" type="password"
-              placeholder={mode === "signup" ? "At least 8 characters" : "Your password"}
+              placeholder={mode === "signup" ? t("auth.passwordPlaceholderSignup") : t("auth.passwordPlaceholderLogin")}
               value={password} onChange={e => setPassword(e.target.value)}
               autoComplete={mode === "signup" ? "new-password" : "current-password"} disabled={busy} />
           </div>
 
           {mode === "signup" && (
             <div className="auth-field">
-              <label className="auth-label" htmlFor="confirm">Confirm Password</label>
-              <input id="confirm" className="auth-input" type="password" placeholder="Repeat your password"
+              <label className="auth-label" htmlFor="confirm">{t("auth.confirmLabel")}</label>
+              <input id="confirm" className="auth-input" type="password" placeholder={t("auth.confirmPlaceholder")}
                 value={confirm} onChange={e => setConfirm(e.target.value)} autoComplete="new-password" disabled={busy} />
             </div>
           )}
@@ -114,14 +116,14 @@ export default function AuthPage({ onBack }) {
           )}
 
           <button className="auth-submit" type="submit" disabled={busy}>
-            {busy ? "Please wait…" : mode === "login" ? "Log In" : "Create Account"}
+            {busy ? t("auth.submitLoading") : mode === "login" ? t("auth.submitLogin") : t("auth.submitSignup")}
           </button>
         </form>
 
         <p className="auth-switch">
-          {mode === "login" ? "Don't have an account? " : "Already have an account? "}
+          {mode === "login" ? t("auth.switchPromptLogin") : t("auth.switchPromptSignup")}{" "}
           <button type="button" className="auth-switch-btn" onClick={() => switchMode(mode === "login" ? "signup" : "login")}>
-            {mode === "login" ? "Sign up" : "Log in"}
+            {mode === "login" ? t("auth.switchSignupLink") : t("auth.switchLoginLink")}
           </button>
         </p>
       </div>

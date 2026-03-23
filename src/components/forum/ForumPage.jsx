@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
 import {
   useCategories, useThreads, useThread, useReplies,
@@ -46,13 +47,14 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
   const deleteThread = useDeleteThread(categoryId);
   const pinThread    = usePinThread(categoryId);
   const lockThread   = useLockThread(categoryId);
+  const { t } = useTranslation();
 
   const [replyText, setReplyText]   = useState("");
   const [replyError, setReplyError] = useState("");
   const [editing, setEditing]       = useState(false);
   const [editTitle, setEditTitle]   = useState("");
   const [editContent, setEditContent] = useState("");
-  const [confirm, setConfirm] = useState(null); // { message, onConfirm }
+  const [confirm, setConfirm] = useState(null);
   const bottomRef = useRef(null);
 
   const isAdmin  = profile?.is_admin;
@@ -77,7 +79,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
   function handleReply(e) {
     e.preventDefault();
     setReplyError("");
-    if (!replyText.trim()) return setReplyError("Reply cannot be empty.");
+    if (!replyText.trim()) return setReplyError(t("forum.replyEmptyError"));
     createReply.mutate({ userId: user.id, content: replyText.trim() }, {
       onSuccess: () => {
         setReplyText("");
@@ -89,19 +91,19 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
 
   function handleDeleteThread() {
     setConfirm({
-      message: "Delete this thread and all its replies? This cannot be undone.",
+      message: t("forum.deleteThreadConfirm"),
       onConfirm: () => deleteThread.mutate(threadId, { onSuccess: onBack }),
     });
   }
 
   if (threadLoading) return <div className="forum-loading"><div className="forum-spinner" /></div>;
-  if (!thread) return <div className="forum-empty"><p>Thread not found.</p></div>;
+  if (!thread) return <div className="forum-empty"><p>{t("forum.threadNotFound")}</p></div>;
 
   return (
     <div className="forum-thread-view">
       {/* Thread header */}
       <div className="forum-thread-header">
-        <button className="forum-back-btn" onClick={onBack}>← Back</button>
+        <button className="forum-back-btn" onClick={onBack}>{t("common.back")}</button>
         <div className="forum-thread-header-badges">
           {thread.pinned && <span className="forum-badge forum-badge--pin">📌 Pinned</span>}
           {thread.locked && <span className="forum-badge forum-badge--lock">🔒 Locked</span>}
@@ -110,19 +112,19 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
           {isAdmin && (
             <>
               <button className="forum-tool-btn" onClick={() => pinThread.mutate({ threadId, value: !thread.pinned })}>
-                {thread.pinned ? "Unpin" : "Pin"}
+                {thread.pinned ? t("forum.unpin") : t("forum.pin")}
               </button>
               <button className="forum-tool-btn" onClick={() => lockThread.mutate({ threadId, value: !thread.locked })}>
-                {thread.locked ? "Unlock" : "Lock"}
+                {thread.locked ? t("forum.unlock") : t("forum.lock")}
               </button>
             </>
           )}
           {(isAdmin || isAuthor) && !editing && (
-            <button className="forum-tool-btn" onClick={startEdit}>Edit</button>
+            <button className="forum-tool-btn" onClick={startEdit}>{t("common.edit")}</button>
           )}
           {(isAdmin || isAuthor) && (
             <button className="forum-tool-btn forum-tool-btn--danger" onClick={handleDeleteThread}>
-              Delete
+              {t("common.delete")}
             </button>
           )}
         </div>
@@ -134,7 +136,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
           <Avatar profile={thread.profiles} />
           <span className="forum-post-author">{displayName(thread.profiles)}</span>
           <span className="forum-post-time">{timeAgo(thread.created_at)}</span>
-          <span className="forum-post-badge forum-post-badge--op">OP</span>
+          <span className="forum-post-badge forum-post-badge--op">{t("forum.op")}</span>
         </div>
         <div className="forum-post-body">
           {editing ? (
@@ -154,10 +156,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
               />
               <div style={{ display: "flex", gap: 8 }}>
                 <button className="forum-submit-btn" type="submit" disabled={updateThread.isPending}>
-                  {updateThread.isPending ? "Saving…" : "Save"}
+                  {updateThread.isPending ? t("common.saving") : t("common.save")}
                 </button>
                 <button type="button" className="forum-delete-btn" onClick={() => setEditing(false)} style={{ alignSelf: "center" }}>
-                  Cancel
+                  {t("common.cancel")}
                 </button>
               </div>
             </form>
@@ -176,7 +178,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
       ) : (
         <div className="forum-replies">
           {replies.length > 0 && (
-            <div className="forum-replies-count">{replies.length} {replies.length === 1 ? "reply" : "replies"}</div>
+            <div className="forum-replies-count">{t("forum.replyCount", { count: replies.length })}</div>
           )}
           {replies.map((reply, i) => {
             const canDelete = isAdmin || reply.author_id === user.id;
@@ -194,11 +196,11 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
                     <button
                       className="forum-delete-btn"
                       onClick={() => setConfirm({
-                        message: "Delete this reply? This cannot be undone.",
+                        message: t("forum.deleteReplyConfirm"),
                         onConfirm: () => deleteReply.mutate(reply.id),
                       })}
                     >
-                      Delete
+                      {t("common.delete")}
                     </button>
                   )}
                 </div>
@@ -219,7 +221,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
 
       {/* Reply form */}
       {isLocked ? (
-        <div className="forum-locked-msg">🔒 This thread is locked. No new replies.</div>
+        <div className="forum-locked-msg">{t("forum.lockedMsg")}</div>
       ) : (
         <form className="forum-reply-form" onSubmit={handleReply}>
           <div className="forum-reply-form-inner">
@@ -227,7 +229,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
             <div className="forum-reply-input-wrap">
               <textarea
                 className="forum-reply-textarea"
-                placeholder="Write a reply…"
+                placeholder={t("forum.replyPlaceholder")}
                 value={replyText}
                 onChange={e => setReplyText(e.target.value)}
                 disabled={createReply.isPending}
@@ -236,7 +238,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
               {replyError && <div className="forum-reply-error">{replyError}</div>}
               <div className="forum-reply-actions">
                 <button className="forum-reply-btn" type="submit" disabled={createReply.isPending || !replyText.trim()}>
-                  {createReply.isPending ? "Posting…" : "Post Reply"}
+                  {createReply.isPending ? t("forum.posting") : t("forum.postReply")}
                 </button>
               </div>
             </div>
@@ -248,9 +250,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
 }
 
 // ── Thread List ───────────────────────────────────────────────────────────────
-function ThreadList({ category, user, profile, onSelectThread, onBack }) {
+function ThreadList({ category, user, onSelectThread, onBack }) {
   const { data: threads = [], isLoading } = useThreads(category.id);
   const createThread = useCreateThread(category.id);
+  const { t } = useTranslation();
 
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle]     = useState("");
@@ -260,8 +263,8 @@ function ThreadList({ category, user, profile, onSelectThread, onBack }) {
   function handleCreate(e) {
     e.preventDefault();
     setFormError("");
-    if (!title.trim())   return setFormError("Title is required.");
-    if (!content.trim()) return setFormError("Content is required.");
+    if (!title.trim())   return setFormError(t("forum.errorTitleRequired"));
+    if (!content.trim()) return setFormError(t("forum.errorContentRequired"));
     createThread.mutate({ userId: user.id, title: title.trim(), content: content.trim() }, {
       onSuccess: (thread) => {
         setTitle(""); setContent(""); setShowForm(false);
@@ -276,12 +279,12 @@ function ThreadList({ category, user, profile, onSelectThread, onBack }) {
       {/* Header */}
       <div className="forum-list-header">
         <div className="forum-list-header-left">
-          <button className="forum-back-btn" onClick={onBack}>← Forums</button>
+          <button className="forum-back-btn" onClick={onBack}>{t("forum.backToForums")}</button>
           <span className="forum-list-category-icon">{category.icon}</span>
           <h2 className="forum-list-title">{category.name}</h2>
         </div>
         <button className="forum-new-btn" onClick={() => setShowForm(v => !v)}>
-          {showForm ? "Cancel" : "+ New Thread"}
+          {showForm ? t("common.cancel") : t("forum.newThread")}
         </button>
       </div>
 
@@ -290,14 +293,14 @@ function ThreadList({ category, user, profile, onSelectThread, onBack }) {
         <form className="forum-new-thread-form" onSubmit={handleCreate}>
           <input
             className="forum-input"
-            placeholder="Thread title…"
+            placeholder={t("forum.threadTitlePlaceholder")}
             value={title}
             onChange={e => setTitle(e.target.value)}
             disabled={createThread.isPending}
           />
           <textarea
             className="forum-textarea"
-            placeholder="What's on your mind?"
+            placeholder={t("forum.threadContentPlaceholder")}
             value={content}
             onChange={e => setContent(e.target.value)}
             disabled={createThread.isPending}
@@ -306,7 +309,7 @@ function ThreadList({ category, user, profile, onSelectThread, onBack }) {
           {formError && <div className="forum-form-error">{formError}</div>}
           <div className="forum-form-actions">
             <button className="forum-submit-btn" type="submit" disabled={createThread.isPending}>
-              {createThread.isPending ? "Posting…" : "Post Thread"}
+              {createThread.isPending ? t("forum.posting") : t("forum.postThread")}
             </button>
           </div>
         </form>
@@ -318,8 +321,8 @@ function ThreadList({ category, user, profile, onSelectThread, onBack }) {
       ) : threads.length === 0 ? (
         <div className="forum-empty">
           <div className="forum-empty-icon">💬</div>
-          <h3>No threads yet</h3>
-          <p>Be the first to start a discussion.</p>
+          <h3>{t("forum.noThreads")}</h3>
+          <p>{t("forum.noThreadsSub")}</p>
         </div>
       ) : (
         <div className="forum-rows">
@@ -349,7 +352,7 @@ function ThreadList({ category, user, profile, onSelectThread, onBack }) {
                 <div className="forum-row-right">
                   <div className="forum-row-stat">
                     <span className="forum-row-stat-val">{replyCount}</span>
-                    <span className="forum-row-stat-label">replies</span>
+                    <span className="forum-row-stat-label">{t("forum.replyCount", { count: replyCount }).split(" ")[1]}</span>
                   </div>
                 </div>
               </div>
@@ -364,6 +367,7 @@ function ThreadList({ category, user, profile, onSelectThread, onBack }) {
 // ── Category List ─────────────────────────────────────────────────────────────
 function CategoryList({ onSelectCategory, onBack }) {
   const { data: categories = [], isLoading } = useCategories();
+  const { t } = useTranslation();
 
   const totalThreads = categories.reduce((sum, c) => sum + (c.forum_threads?.[0]?.count ?? 0), 0);
 
@@ -374,12 +378,12 @@ function CategoryList({ onSelectCategory, onBack }) {
         <div className="forum-hero-glow forum-hero-glow--1" />
         <div className="forum-hero-glow forum-hero-glow--2" />
         <div className="forum-hero-inner">
-          <button className="forum-hero-back" onClick={onBack}>← Back to App</button>
-          <div className="forum-hero-badge">✦ Community</div>
-          <h1 className="forum-hero-title">Community Forum</h1>
-          <p className="forum-hero-sub">Connect, ask questions and grow together</p>
+          <button className="forum-hero-back" onClick={onBack}>{t("forum.backToApp")}</button>
+          <div className="forum-hero-badge">{t("forum.badge")}</div>
+          <h1 className="forum-hero-title">{t("forum.title")}</h1>
+          <p className="forum-hero-sub">{t("forum.subtitle")}</p>
           {totalThreads > 0 && (
-            <p className="forum-hero-count">{totalThreads} {totalThreads === 1 ? "thread" : "threads"} across {categories.length} categories</p>
+            <p className="forum-hero-count">{t("forum.threadCount", { count: totalThreads, cats: categories.length })}</p>
           )}
         </div>
       </div>
@@ -398,7 +402,7 @@ function CategoryList({ onSelectCategory, onBack }) {
                 <div className="forum-cat-desc">{cat.description}</div>
               </div>
               <div className="forum-cat-stats">
-                <span className="forum-cat-stat">{threadCount} threads</span>
+                <span className="forum-cat-stat">{t("forum.threadStat", { count: threadCount })}</span>
                 <span className="forum-cat-arrow">›</span>
               </div>
             </div>
@@ -431,7 +435,6 @@ export default function ForumPage({ user, profile, onBack }) {
       <ThreadList
         category={activeCategory}
         user={user}
-        profile={profile}
         onSelectThread={setActiveThreadId}
         onBack={() => setActiveCategory(null)}
       />

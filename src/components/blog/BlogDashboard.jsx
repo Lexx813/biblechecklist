@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
 import { useMyPosts, useCreatePost, useUpdatePost, useDeletePost } from "../../hooks/useBlog";
 import "../../styles/blog.css";
@@ -16,6 +17,7 @@ function PostEditor({ userId, post, onDone }) {
     : EMPTY_FORM
   );
   const [error, setError] = useState("");
+  const { t } = useTranslation();
   const createPost = useCreatePost(userId);
   const updatePost = useUpdatePost(userId);
 
@@ -27,8 +29,8 @@ function PostEditor({ userId, post, onDone }) {
 
   async function handleSave(publish) {
     setError("");
-    if (!form.title.trim()) return setError("Title is required.");
-    if (!form.content.trim()) return setError("Content is required.");
+    if (!form.title.trim()) return setError(t("blogDash.errorTitleRequired"));
+    if (!form.content.trim()) return setError(t("blogDash.errorContentRequired"));
 
     const payload = { ...form, published: publish };
     if (post) {
@@ -47,42 +49,42 @@ function PostEditor({ userId, post, onDone }) {
   return (
     <div className="blog-editor">
       <div className="blog-editor-header">
-        <button className="blog-back-btn" onClick={onDone}>← My Posts</button>
-        <h2>{post ? "Edit Post" : "New Post"}</h2>
+        <button className="blog-back-btn" onClick={onDone}>{t("blogDash.editorBack")}</button>
+        <h2>{post ? t("blogDash.editPostTitle") : t("blogDash.newPostTitle")}</h2>
       </div>
 
       <div className="blog-editor-form">
-        <label className="blog-editor-label">Title *</label>
+        <label className="blog-editor-label">{t("blogDash.titleLabel")}</label>
         <input
           className="blog-editor-input"
-          placeholder="Give your post a title…"
+          placeholder={t("blogDash.titlePlaceholder")}
           value={form.title}
           onChange={e => set("title", e.target.value)}
           disabled={isPending}
         />
 
-        <label className="blog-editor-label">Excerpt <span className="blog-editor-hint">(shown on the blog listing)</span></label>
+        <label className="blog-editor-label">{t("blogDash.excerptLabel")} <span className="blog-editor-hint">{t("blogDash.excerptHint")}</span></label>
         <textarea
           className="blog-editor-textarea blog-editor-textarea--sm"
-          placeholder="A short summary of your post…"
+          placeholder={t("blogDash.excerptPlaceholder")}
           value={form.excerpt}
           onChange={e => set("excerpt", e.target.value)}
           disabled={isPending}
         />
 
-        <label className="blog-editor-label">Cover Image URL <span className="blog-editor-hint">(optional)</span></label>
+        <label className="blog-editor-label">{t("blogDash.coverLabel")} <span className="blog-editor-hint">{t("blogDash.coverHint")}</span></label>
         <input
           className="blog-editor-input"
-          placeholder="https://…"
+          placeholder={t("blogDash.coverPlaceholder")}
           value={form.cover_url}
           onChange={e => set("cover_url", e.target.value)}
           disabled={isPending}
         />
 
-        <label className="blog-editor-label">Content *</label>
+        <label className="blog-editor-label">{t("blogDash.contentLabel")}</label>
         <textarea
           className="blog-editor-textarea blog-editor-textarea--lg"
-          placeholder="Write your post here… Use blank lines to separate paragraphs."
+          placeholder={t("blogDash.contentPlaceholder")}
           value={form.content}
           onChange={e => set("content", e.target.value)}
           disabled={isPending}
@@ -96,14 +98,14 @@ function PostEditor({ userId, post, onDone }) {
             onClick={() => handleSave(false)}
             disabled={isPending}
           >
-            {isPending ? "Saving…" : "Save as Draft"}
+            {isPending ? t("common.saving") : t("blogDash.saveDraft")}
           </button>
           <button
             className="blog-editor-btn blog-editor-btn--publish"
             onClick={() => handleSave(true)}
             disabled={isPending}
           >
-            {isPending ? "Saving…" : post?.published ? "Save & Keep Published" : "Publish Post ✓"}
+            {isPending ? t("common.saving") : post?.published ? t("blogDash.saveKeepPublished") : t("blogDash.savePublish")}
           </button>
         </div>
       </div>
@@ -115,8 +117,9 @@ function PostEditor({ userId, post, onDone }) {
 export default function BlogDashboard({ user, onBack }) {
   const { data: posts = [], isLoading } = useMyPosts(user.id);
   const deletePost = useDeletePost(user.id);
-  const [editing, setEditing] = useState(null); // null = list, "new" = new, post obj = edit
-  const [confirmDelete, setConfirmDelete] = useState(null); // post to delete
+  const [editing, setEditing] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(null);
+  const { t } = useTranslation();
 
   if (editing !== null) {
     return (
@@ -134,9 +137,9 @@ export default function BlogDashboard({ user, onBack }) {
   return (
     <div className="blog-dash-wrap">
       <header className="blog-dash-header">
-        <button className="blog-back-btn" onClick={onBack}>← Back</button>
-        <h1>My Posts</h1>
-        <button className="blog-write-btn" onClick={() => setEditing("new")}>+ New Post</button>
+        <button className="blog-back-btn" onClick={onBack}>{t("common.back")}</button>
+        <h1>{t("blogDash.myPostsTitle")}</h1>
+        <button className="blog-write-btn" onClick={() => setEditing("new")}>{t("blogDash.newPost")}</button>
       </header>
 
       <div className="blog-dash-content">
@@ -144,15 +147,15 @@ export default function BlogDashboard({ user, onBack }) {
         <div className="blog-dash-stats">
           <div className="blog-dash-stat">
             <span className="blog-dash-stat-value">{posts.length}</span>
-            <span className="blog-dash-stat-label">Total</span>
+            <span className="blog-dash-stat-label">{t("blogDash.total")}</span>
           </div>
           <div className="blog-dash-stat">
             <span className="blog-dash-stat-value blog-dash-stat-value--green">{published}</span>
-            <span className="blog-dash-stat-label">Published</span>
+            <span className="blog-dash-stat-label">{t("blogDash.published")}</span>
           </div>
           <div className="blog-dash-stat">
             <span className="blog-dash-stat-value blog-dash-stat-value--muted">{drafts}</span>
-            <span className="blog-dash-stat-label">Drafts</span>
+            <span className="blog-dash-stat-label">{t("blogDash.drafts")}</span>
           </div>
         </div>
 
@@ -161,8 +164,8 @@ export default function BlogDashboard({ user, onBack }) {
         ) : posts.length === 0 ? (
           <div className="blog-empty">
             <div className="blog-empty-icon">✍️</div>
-            <h3>No posts yet</h3>
-            <p>Click <strong>+ New Post</strong> to write your first entry.</p>
+            <h3>{t("blogDash.noPosts")}</h3>
+            <p>{t("blogDash.noPostsSub")}</p>
           </div>
         ) : (
           <div className="blog-dash-list">
@@ -172,19 +175,19 @@ export default function BlogDashboard({ user, onBack }) {
                   <div className="blog-dash-row-title">{post.title}</div>
                   <div className="blog-dash-row-meta">
                     <span className={`blog-status-badge ${post.published ? "blog-status-badge--pub" : "blog-status-badge--draft"}`}>
-                      {post.published ? "Published" : "Draft"}
+                      {post.published ? t("blogDash.statusPublished") : t("blogDash.statusDraft")}
                     </span>
                     <span className="blog-dash-row-date">{formatDate(post.updated_at)}</span>
                   </div>
                 </div>
                 <div className="blog-dash-row-actions">
-                  <button className="blog-dash-action-btn" onClick={() => setEditing(post)}>Edit</button>
+                  <button className="blog-dash-action-btn" onClick={() => setEditing(post)}>{t("common.edit")}</button>
                   <button
                     className="blog-dash-action-btn blog-dash-action-btn--danger"
                     onClick={() => setConfirmDelete(post)}
                     disabled={deletePost.isPending}
                   >
-                    Delete
+                    {t("common.delete")}
                   </button>
                 </div>
               </div>
@@ -195,7 +198,7 @@ export default function BlogDashboard({ user, onBack }) {
 
       {confirmDelete && (
         <ConfirmModal
-          message={`Delete "${confirmDelete.title}"? This cannot be undone.`}
+          message={t("blogDash.deleteConfirm", { title: confirmDelete.title })}
           onConfirm={() => { deletePost.mutate(confirmDelete.id); setConfirmDelete(null); }}
           onCancel={() => setConfirmDelete(null)}
         />

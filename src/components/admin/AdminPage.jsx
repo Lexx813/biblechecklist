@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
 import { useUsers, useDeleteUser, useSetAdmin, useSetBlog, useCreateUser } from "../../hooks/useAdmin";
 import "../../styles/admin.css";
@@ -17,19 +18,20 @@ export default function AdminPage({ currentUser, onBack }) {
   const setAdmin = useSetAdmin();
   const setBlog = useSetBlog();
   const createUser = useCreateUser();
+  const { t } = useTranslation();
 
   const [showAddForm, setShowAddForm] = useState(false);
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [addError, setAddError] = useState("");
   const [addSuccess, setAddSuccess] = useState("");
-  const [confirmDelete, setConfirmDelete] = useState(null); // user to delete
+  const [confirmDelete, setConfirmDelete] = useState(null);
 
   const adminCount = users.filter(u => u.is_admin).length;
   const blogCount = users.filter(u => u.can_blog).length;
 
   function handleDelete(user) {
-    if (user.id === currentUser.id) return alert("You cannot delete your own account.");
+    if (user.id === currentUser.id) return alert(t("admin.selfDeleteError"));
     setConfirmDelete(user);
   }
 
@@ -37,12 +39,12 @@ export default function AdminPage({ currentUser, onBack }) {
     e.preventDefault();
     setAddError("");
     setAddSuccess("");
-    if (!newEmail || !newPassword) return setAddError("Email and password are required.");
-    if (newPassword.length < 8) return setAddError("Password must be at least 8 characters.");
+    if (!newEmail || !newPassword) return setAddError(t("admin.errorRequired"));
+    if (newPassword.length < 8) return setAddError(t("admin.errorPasswordShort"));
 
     createUser.mutate({ email: newEmail, password: newPassword }, {
       onSuccess: () => {
-        setAddSuccess(`Invite sent to ${newEmail}. They must confirm their email before logging in.`);
+        setAddSuccess(t("admin.inviteSent", { email: newEmail }));
         setNewEmail("");
         setNewPassword("");
       },
@@ -54,10 +56,10 @@ export default function AdminPage({ currentUser, onBack }) {
     <div className="admin-wrap">
       <header className="admin-header">
         <div className="admin-header-inner">
-          <button className="admin-back-btn" onClick={onBack}>← Back</button>
+          <button className="admin-back-btn" onClick={onBack}>{t("common.back")}</button>
           <div className="admin-header-text">
             <span className="admin-logo">⚙️</span>
-            <h1>Admin Dashboard</h1>
+            <h1>{t("admin.title")}</h1>
           </div>
         </div>
       </header>
@@ -68,28 +70,28 @@ export default function AdminPage({ currentUser, onBack }) {
         <div className="admin-stats">
           <div className="admin-stat-card">
             <div className="admin-stat-value">{users.length}</div>
-            <div className="admin-stat-label">Total Users</div>
+            <div className="admin-stat-label">{t("admin.totalUsers")}</div>
           </div>
           <div className="admin-stat-card">
             <div className="admin-stat-value">{adminCount}</div>
-            <div className="admin-stat-label">Admins</div>
+            <div className="admin-stat-label">{t("admin.admins")}</div>
           </div>
           <div className="admin-stat-card">
             <div className="admin-stat-value">{users.length - adminCount}</div>
-            <div className="admin-stat-label">Members</div>
+            <div className="admin-stat-label">{t("admin.members")}</div>
           </div>
           <div className="admin-stat-card">
             <div className="admin-stat-value">{blogCount}</div>
-            <div className="admin-stat-label">Blog Writers</div>
+            <div className="admin-stat-label">{t("admin.blogWriters")}</div>
           </div>
         </div>
 
         {/* Add User */}
         <div className="admin-section">
           <div className="admin-section-header">
-            <h2>Users</h2>
+            <h2>{t("admin.usersSection")}</h2>
             <button className="admin-add-btn" onClick={() => { setShowAddForm(v => !v); setAddError(""); setAddSuccess(""); }}>
-              {showAddForm ? "Cancel" : "+ Add User"}
+              {showAddForm ? t("common.cancel") : t("admin.addUser")}
             </button>
           </div>
 
@@ -98,7 +100,7 @@ export default function AdminPage({ currentUser, onBack }) {
               <input
                 className="admin-input"
                 type="email"
-                placeholder="Email"
+                placeholder={t("admin.emailPlaceholder")}
                 value={newEmail}
                 onChange={e => setNewEmail(e.target.value)}
                 disabled={createUser.isPending}
@@ -106,7 +108,7 @@ export default function AdminPage({ currentUser, onBack }) {
               <input
                 className="admin-input"
                 type="password"
-                placeholder="Temporary password (min 8 chars)"
+                placeholder={t("admin.passwordPlaceholder")}
                 value={newPassword}
                 onChange={e => setNewPassword(e.target.value)}
                 disabled={createUser.isPending}
@@ -114,24 +116,24 @@ export default function AdminPage({ currentUser, onBack }) {
               {addError && <div className="admin-form-error">{addError}</div>}
               {addSuccess && <div className="admin-form-success">{addSuccess}</div>}
               <button className="admin-submit-btn" type="submit" disabled={createUser.isPending}>
-                {createUser.isPending ? "Creating…" : "Create User"}
+                {createUser.isPending ? t("admin.creating") : t("admin.createUser")}
               </button>
             </form>
           )}
 
           {/* User table */}
           {isLoading ? (
-            <div className="admin-loading">Loading users…</div>
+            <div className="admin-loading">{t("admin.loadingUsers")}</div>
           ) : (
             <div className="admin-table-wrap">
               <table className="admin-table">
                 <thead>
                   <tr>
-                    <th>User</th>
-                    <th>Joined</th>
-                    <th>Role</th>
-                    <th>Blog</th>
-                    <th>Actions</th>
+                    <th>{t("admin.colUser")}</th>
+                    <th>{t("admin.colJoined")}</th>
+                    <th>{t("admin.colRole")}</th>
+                    <th>{t("admin.colBlog")}</th>
+                    <th>{t("admin.colActions")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -142,14 +144,14 @@ export default function AdminPage({ currentUser, onBack }) {
                           <div className="admin-avatar">{initials(user.email)}</div>
                           <div>
                             <div className="admin-email">{user.email}</div>
-                            {user.id === currentUser.id && <div className="admin-you-tag">You</div>}
+                            {user.id === currentUser.id && <div className="admin-you-tag">{t("admin.you")}</div>}
                           </div>
                         </div>
                       </td>
                       <td className="admin-date">{formatDate(user.created_at)}</td>
                       <td>
                         <span className={`admin-role-badge ${user.is_admin ? "admin-role-badge--admin" : "admin-role-badge--member"}`}>
-                          {user.is_admin ? "Admin" : "Member"}
+                          {user.is_admin ? t("admin.roleAdmin") : t("admin.roleMember")}
                         </span>
                       </td>
                       <td>
@@ -158,9 +160,9 @@ export default function AdminPage({ currentUser, onBack }) {
                             className={`admin-action-btn ${user.can_blog ? "admin-action-btn--active" : ""}`}
                             onClick={() => setBlog.mutate({ userId: user.id, value: !user.can_blog })}
                             disabled={setBlog.isPending}
-                            title={user.can_blog ? "Revoke blog access" : "Grant blog access"}
+                            title={user.can_blog ? t("admin.revokeBlog") : t("admin.grantBlog")}
                           >
-                            {user.can_blog ? "✓ Writer" : "Allow Blog"}
+                            {user.can_blog ? t("admin.writer") : t("admin.allowBlog")}
                           </button>
                         )}
                       </td>
@@ -172,16 +174,16 @@ export default function AdminPage({ currentUser, onBack }) {
                                 className="admin-action-btn"
                                 onClick={() => setAdmin.mutate({ userId: user.id, value: !user.is_admin })}
                                 disabled={setAdmin.isPending}
-                                title={user.is_admin ? "Remove admin" : "Make admin"}
+                                title={user.is_admin ? t("admin.removeAdmin") : t("admin.makeAdmin")}
                               >
-                                {user.is_admin ? "Remove Admin" : "Make Admin"}
+                                {user.is_admin ? t("admin.removeAdmin") : t("admin.makeAdmin")}
                               </button>
                               <button
                                 className="admin-action-btn admin-action-btn--danger"
                                 onClick={() => handleDelete(user)}
                                 disabled={deleteUser.isPending}
                               >
-                                Delete
+                                {t("common.delete")}
                               </button>
                             </>
                           )}
@@ -198,7 +200,7 @@ export default function AdminPage({ currentUser, onBack }) {
 
       {confirmDelete && (
         <ConfirmModal
-          message={`Delete ${confirmDelete.email}? This cannot be undone.`}
+          message={t("admin.deleteConfirm", { email: confirmDelete.email })}
           onConfirm={() => { deleteUser.mutate(confirmDelete.id); setConfirmDelete(null); }}
           onCancel={() => setConfirmDelete(null)}
         />

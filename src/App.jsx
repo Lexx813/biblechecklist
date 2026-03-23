@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { BOOKS, OT_COUNT } from "./data/books";
 import BookCard from "./components/BookCard";
 import AuthPage from "./components/auth/AuthPage";
@@ -22,6 +23,7 @@ export default function App() {
   const { data: session, isLoading: authLoading } = useSession();
   const logout = useLogout();
   const user = session?.user ?? null;
+  const { t } = useTranslation();
 
   const [showLanding, setShowLanding] = useState(true);
 
@@ -36,7 +38,7 @@ export default function App() {
   if (authLoading) {
     return (
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0a0514" }}>
-        <div style={{ color: "rgba(255,255,255,0.5)", fontFamily: "Nunito, sans-serif", fontSize: 14 }}>Loading…</div>
+        <div style={{ color: "rgba(255,255,255,0.5)", fontFamily: "Nunito, sans-serif", fontSize: 14 }}>{t("app.loading")}</div>
       </div>
     );
   }
@@ -61,6 +63,7 @@ function BibleApp({ user, onLogout }) {
   const { data: profile } = useFullProfile(user.id);
   const { data: remoteProgress, isLoading: progressLoading } = useProgress(user.id);
   const saveProgress = useSaveProgress(user.id);
+  const { t, i18n } = useTranslation();
 
   const [showAdmin, setShowAdmin] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -129,16 +132,20 @@ function BibleApp({ user, onLogout }) {
     return BOOKS.map((b, i) => ({ ...b, index: i })).filter(b => {
       if (tab === "ot" && b.index >= OT_COUNT) return false;
       if (tab === "nt" && b.index < OT_COUNT) return false;
-      if (search && !b.name.toLowerCase().includes(search.toLowerCase()) &&
+      const translatedName = t(`bookNames.${b.index}`);
+      if (search && !translatedName.toLowerCase().includes(search.toLowerCase()) &&
+          !b.name.toLowerCase().includes(search.toLowerCase()) &&
           !b.abbr.toLowerCase().includes(search.toLowerCase())) return false;
       return true;
     });
-  }, [tab, search]);
+  }, [tab, search, t]);
+
+  const toggleLang = () => i18n.changeLanguage(i18n.language.startsWith("es") ? "en" : "es");
 
   if (progressLoading) {
     return (
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
-        <div style={{ color: "var(--text-muted)", fontFamily: "Nunito, sans-serif", fontSize: 14 }}>Loading progress…</div>
+        <div style={{ color: "var(--text-muted)", fontFamily: "Nunito, sans-serif", fontSize: 14 }}>{t("app.loadingProgress")}</div>
       </div>
     );
   }
@@ -163,30 +170,33 @@ function BibleApp({ user, onLogout }) {
         <div className="header-top">
           <div className="header-logo">📖</div>
           <div className="header-text">
-            <h1>Bible Reading Checklist</h1>
-            <p>New World Translation · 66 Books</p>
+            <h1>{t("app.title")}</h1>
+            <p>{t("app.subtitle")}</p>
           </div>
           <div className="header-user">
-            <button className="header-avatar-btn" onClick={() => setShowProfile(true)} title="My Profile">
+            <button className="header-avatar-btn" onClick={() => setShowProfile(true)} title={t("app.title")}>
               {profile?.avatar_url
                 ? <img src={profile.avatar_url} className="header-avatar-img" alt="avatar" />
                 : <span className="header-avatar-initials">{(profile?.display_name || user.email)?.[0]?.toUpperCase()}</span>
               }
             </button>
-            <button className="header-logout-btn" onClick={() => setShowForum(true)}>Forum</button>
-            <button className="header-logout-btn" onClick={() => setShowBlog(true)}>Blog</button>
+            <button className="header-logout-btn" onClick={() => setShowForum(true)}>{t("app.forum")}</button>
+            <button className="header-logout-btn" onClick={() => setShowBlog(true)}>{t("app.blog")}</button>
             {(profile?.can_blog || profile?.is_admin) && (
-              <button className="header-logout-btn" onClick={() => setShowBlogDash(true)}>Write</button>
+              <button className="header-logout-btn" onClick={() => setShowBlogDash(true)}>{t("app.write")}</button>
             )}
             {profile?.is_admin && (
-              <button className="header-logout-btn" onClick={() => setShowAdmin(true)}>Admin</button>
+              <button className="header-logout-btn" onClick={() => setShowAdmin(true)}>{t("app.admin")}</button>
             )}
-            <button className="header-logout-btn" onClick={onLogout}>Log out</button>
+            <button className="header-logout-btn" onClick={onLogout}>{t("app.logOut")}</button>
+            <button className="header-logout-btn" onClick={toggleLang} title="Switch language">
+              {i18n.language.startsWith("es") ? "EN" : "ES"}
+            </button>
           </div>
         </div>
         <div className="global-progress" style={{ padding: "0 0 12px" }}>
           <div className="progress-meta">
-            <span>Overall progress</span>
+            <span>{t("app.overallProgress")}</span>
             <strong>{pct}%</strong>
           </div>
           <div className="progress-track">
@@ -194,7 +204,7 @@ function BibleApp({ user, onLogout }) {
           </div>
         </div>
         <div className="tabs">
-          {[["all", "All 66 Books"], ["ot", "Hebrew Scriptures"], ["nt", "Christian Greek"]].map(([v, label]) => (
+          {[["all", t("app.tabAll")], ["ot", t("app.tabOT")], ["nt", t("app.tabNT")]].map(([v, label]) => (
             <button key={v} className={`tab-btn${tab === v ? " active" : ""}`} onClick={() => setTab(v)}>
               {label}
             </button>
@@ -212,7 +222,7 @@ function BibleApp({ user, onLogout }) {
           <input
             className="search-input"
             type="text"
-            placeholder="Search books…"
+            placeholder={t("app.searchPlaceholder")}
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
@@ -221,16 +231,16 @@ function BibleApp({ user, onLogout }) {
 
       {/* Stats */}
       <div className="stats-pills">
-        <span className="stat-pill">Books: <b>{doneBooks}/66</b></span>
-        <span className="stat-pill">Chapters: <b>{doneCh}/{totalCh}</b></span>
-        {tab !== "nt" && <span className="stat-pill">Hebrew: <b>{otDone}/39</b></span>}
-        {tab !== "ot" && <span className="stat-pill">Greek: <b>{ntDone}/27</b></span>}
+        <span className="stat-pill">{t("app.statBooks")}: <b>{doneBooks}/66</b></span>
+        <span className="stat-pill">{t("app.statChapters")}: <b>{doneCh}/{totalCh}</b></span>
+        {tab !== "nt" && <span className="stat-pill">{t("app.statHebrew")}: <b>{otDone}/39</b></span>}
+        {tab !== "ot" && <span className="stat-pill">{t("app.statGreek")}: <b>{ntDone}/27</b></span>}
       </div>
 
       {/* Book list */}
       <div className="book-list">
         {filteredBooks.length === 0 && (
-          <div className="empty-msg">No books match your search.</div>
+          <div className="empty-msg">{t("app.noBooksFound")}</div>
         )}
         {filteredBooks.map((book) => {
           const showOTDivider = tab === "all" && book.index === 0 && !search;
@@ -238,8 +248,8 @@ function BibleApp({ user, onLogout }) {
           const wide = showOTDivider || showNTDivider;
           return (
             <div key={book.index} className={`book-list-item${wide ? " book-list-item--wide" : ""}`}>
-              {showOTDivider && <div className="testament-divider">Hebrew Scriptures</div>}
-              {showNTDivider && <div className="testament-divider">Christian Greek Scriptures</div>}
+              {showOTDivider && <div className="testament-divider">{t("app.testamentOT")}</div>}
+              {showNTDivider && <div className="testament-divider">{t("app.testamentNT")}</div>}
               <BookCard
                 book={book}
                 bookIndex={book.index}
@@ -253,13 +263,13 @@ function BibleApp({ user, onLogout }) {
       </div>
 
       <div className="footer-reset">
-        <button className="reset-btn" onClick={handleReset}>↺ Reset all progress</button>
+        <button className="reset-btn" onClick={handleReset}>{t("app.resetProgress")}</button>
       </div>
 
       {showResetConfirm && (
         <ConfirmModal
-          message="This will clear all your reading progress. This cannot be undone."
-          confirmLabel="Reset"
+          message={t("app.resetConfirmMsg")}
+          confirmLabel={t("app.resetConfirmBtn")}
           danger={false}
           onConfirm={() => { setChaptersState({}); setShowResetConfirm(false); }}
           onCancel={() => setShowResetConfirm(false)}

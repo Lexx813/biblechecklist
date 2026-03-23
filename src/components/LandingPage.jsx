@@ -1,14 +1,19 @@
+import { useTranslation } from "react-i18next";
 import "../styles/landing.css";
 
-const FEATURES = [
-  { icon: "📖", label: "66 Books" },
-  { icon: "✅", label: "Track Chapters" },
-  { icon: "📝", label: "Personal Notes" },
-  { icon: "💬", label: "Community Forum" },
-  { icon: "✍️", label: "Inspiring Blog" },
-];
-
 export default function LandingPage({ onGetStarted }) {
+  const { t, i18n } = useTranslation();
+
+  const FEATURES = [
+    { icon: "📖", label: t("landing.feature66Books") },
+    { icon: "✅", label: t("landing.featureChapters") },
+    { icon: "📝", label: t("landing.featureNotes") },
+    { icon: "💬", label: t("landing.featureForum") },
+    { icon: "✍️", label: t("landing.featureBlog") },
+  ];
+
+  const toggleLang = () => i18n.changeLanguage(i18n.language.startsWith("es") ? "en" : "es");
+
   return (
     <div className="landing-wrap">
       {/* Animated background */}
@@ -24,6 +29,20 @@ export default function LandingPage({ onGetStarted }) {
         <div className="landing-grid" />
       </div>
 
+      {/* Language toggle */}
+      <button
+        onClick={toggleLang}
+        style={{
+          position: "absolute", top: 16, right: 16,
+          background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)",
+          color: "rgba(255,255,255,0.85)", borderRadius: 6,
+          padding: "4px 10px", fontSize: 11, fontWeight: 700,
+          fontFamily: "Nunito, sans-serif", cursor: "pointer", zIndex: 10,
+        }}
+      >
+        {i18n.language.startsWith("es") ? "EN" : "ES"}
+      </button>
+
       {/* Hero */}
       <div className="landing-hero">
         {/* Pulsing icon */}
@@ -34,17 +53,14 @@ export default function LandingPage({ onGetStarted }) {
           <span className="landing-icon">📖</span>
         </div>
 
-        <div className="landing-badge">✦ New World Translation · 66 Books</div>
+        <div className="landing-badge">{t("landing.badge")}</div>
 
         <h1 className="landing-title">
-          Bible Reading
-          <span className="landing-title-accent">Tracker</span>
+          {t("landing.titleLine1")}
+          <span className="landing-title-accent">{t("landing.titleAccent")}</span>
         </h1>
 
-        <p className="landing-subtitle">
-          Journey through all 66 books of scripture. Track your progress chapter
-          by chapter, keep personal notes, and grow alongside a vibrant community.
-        </p>
+        <p className="landing-subtitle">{t("landing.subtitle")}</p>
 
         <div className="landing-features">
           {FEATURES.map(({ icon, label }) => (
@@ -56,14 +72,14 @@ export default function LandingPage({ onGetStarted }) {
         </div>
 
         <button className="landing-cta" onClick={onGetStarted}>
-          <span>Start Your Journey</span>
+          <span>{t("landing.cta")}</span>
           <span className="landing-cta-arrow">→</span>
         </button>
 
         <p className="landing-signin">
-          Already have an account?{" "}
+          {t("landing.alreadyHaveAccount")}{" "}
           <button className="landing-signin-link" onClick={onGetStarted}>
-            Sign in
+            {t("landing.signIn")}
           </button>
         </p>
       </div>
