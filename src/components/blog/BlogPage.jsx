@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import DOMPurify from "dompurify";
 import { usePublishedPosts, usePostBySlug } from "../../hooks/useBlog";
 import "../../styles/blog.css";
+import "../../styles/editor.css";
 
 const GRADIENTS = [
   "linear-gradient(135deg, #341C5C 0%, #6A3DAA 100%)",
@@ -30,9 +32,16 @@ function authorInitial(post) {
 
 function renderContent(text) {
   if (!text) return null;
-  return text.split(/\n\n+/).map((para, i) => (
-    <p key={i} className="blog-post-para">{para}</p>
-  ));
+  // Legacy plain text → wrap in paragraphs
+  const html = /<[a-z][\s\S]*>/i.test(text)
+    ? text
+    : text.split(/\n\n+/).map(p => `<p>${p}</p>`).join("");
+  return (
+    <div
+      className="rich-content"
+      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }}
+    />
+  );
 }
 
 // ── Single post view ─────────────────────────────────────────────────────────
@@ -84,6 +93,7 @@ function PostView({ slug, onBack }) {
       <div className="blog-post-body">
         {post.excerpt && <p className="blog-post-excerpt">{post.excerpt}</p>}
         <div className="blog-post-content">{renderContent(post.content)}</div>
+
 
         <div className="blog-author-card">
           <div className="blog-author-avatar blog-author-avatar--lg">

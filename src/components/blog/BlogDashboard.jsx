@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
+import RichTextEditor from "../RichTextEditor";
 import { useMyPosts, useCreatePost, useUpdatePost, useDeletePost } from "../../hooks/useBlog";
 import "../../styles/blog.css";
 
@@ -30,7 +31,8 @@ function PostEditor({ userId, post, onDone }) {
   async function handleSave(publish) {
     setError("");
     if (!form.title.trim()) return setError(t("blogDash.errorTitleRequired"));
-    if (!form.content.trim()) return setError(t("blogDash.errorContentRequired"));
+    const contentEmpty = !form.content || form.content === "<p></p>";
+    if (contentEmpty) return setError(t("blogDash.errorContentRequired"));
 
     const payload = { ...form, published: publish };
     if (post) {
@@ -82,11 +84,10 @@ function PostEditor({ userId, post, onDone }) {
         />
 
         <label className="blog-editor-label">{t("blogDash.contentLabel")}</label>
-        <textarea
-          className="blog-editor-textarea blog-editor-textarea--lg"
+        <RichTextEditor
+          content={form.content}
+          onChange={html => set("content", html)}
           placeholder={t("blogDash.contentPlaceholder")}
-          value={form.content}
-          onChange={e => set("content", e.target.value)}
           disabled={isPending}
         />
 

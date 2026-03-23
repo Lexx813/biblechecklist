@@ -7,7 +7,7 @@ export const forumApi = {
   listCategories: async () => {
     const { data, error } = await supabase
       .from("forum_categories")
-      .select(`*, forum_threads(count)`)
+      .select(`*, name_es, description_es, forum_threads(count)`)
       .order("sort_order");
     if (error) throw new Error(error.message);
     return data ?? [];

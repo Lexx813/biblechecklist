@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import DOMPurify from "dompurify";
 import ConfirmModal from "../ConfirmModal";
+import RichTextEditor from "../RichTextEditor";
 import {
   useCategories, useThreads, useThread, useReplies,
   useCreateThread, useCreateReply,
@@ -147,11 +149,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
                 onChange={e => setEditTitle(e.target.value)}
                 disabled={updateThread.isPending}
               />
-              <textarea
-                className="forum-textarea"
-                value={editContent}
-                onChange={e => setEditContent(e.target.value)}
-                rows={6}
+              <RichTextEditor
+                content={editContent}
+                onChange={setEditContent}
+                minimal
                 disabled={updateThread.isPending}
               />
               <div style={{ display: "flex", gap: 8 }}>
@@ -166,7 +167,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
           ) : (
             <>
               <h2 className="forum-post-title">{thread.title}</h2>
-              <div className="forum-post-content">{thread.content}</div>
+              <div
+                className="forum-post-content rich-content"
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(thread.content ?? "") }}
+              />
             </>
           )}
         </div>
@@ -191,7 +195,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
                   <span className="forum-post-num">#{i + 1}</span>
                 </div>
                 <div className="forum-post-body">
-                  <div className="forum-post-content">{reply.content}</div>
+                  <div
+                    className="forum-post-content rich-content"
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(reply.content ?? "") }}
+                  />
                   {canDelete && (
                     <button
                       className="forum-delete-btn"
@@ -227,17 +234,17 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
           <div className="forum-reply-form-inner">
             <Avatar profile={profile} size="sm" />
             <div className="forum-reply-input-wrap">
-              <textarea
-                className="forum-reply-textarea"
+              <RichTextEditor
+                content={replyText}
+                onChange={setReplyText}
                 placeholder={t("forum.replyPlaceholder")}
-                value={replyText}
-                onChange={e => setReplyText(e.target.value)}
+                minimal
+                compact
                 disabled={createReply.isPending}
-                rows={3}
               />
               {replyError && <div className="forum-reply-error">{replyError}</div>}
               <div className="forum-reply-actions">
-                <button className="forum-reply-btn" type="submit" disabled={createReply.isPending || !replyText.trim()}>
+                <button className="forum-reply-btn" type="submit" disabled={createReply.isPending || !replyText || replyText === "<p></p>"}>
                   {createReply.isPending ? t("forum.posting") : t("forum.postReply")}
                 </button>
               </div>
@@ -263,8 +270,8 @@ function ThreadList({ category, user, onSelectThread, onBack }) {
   function handleCreate(e) {
     e.preventDefault();
     setFormError("");
-    if (!title.trim())   return setFormError(t("forum.errorTitleRequired"));
-    if (!content.trim()) return setFormError(t("forum.errorContentRequired"));
+    if (!title.trim()) return setFormError(t("forum.errorTitleRequired"));
+    if (!content || content === "<p></p>") return setFormError(t("forum.errorContentRequired"));
     createThread.mutate({ userId: user.id, title: title.trim(), content: content.trim() }, {
       onSuccess: (thread) => {
         setTitle(""); setContent(""); setShowForm(false);
@@ -298,13 +305,12 @@ function ThreadList({ category, user, onSelectThread, onBack }) {
             onChange={e => setTitle(e.target.value)}
             disabled={createThread.isPending}
           />
-          <textarea
-            className="forum-textarea"
+          <RichTextEditor
+            content={content}
+            onChange={setContent}
             placeholder={t("forum.threadContentPlaceholder")}
-            value={content}
-            onChange={e => setContent(e.target.value)}
+            minimal
             disabled={createThread.isPending}
-            rows={5}
           />
           {formError && <div className="forum-form-error">{formError}</div>}
           <div className="forum-form-actions">
@@ -367,7 +373,8 @@ function ThreadList({ category, user, onSelectThread, onBack }) {
 // ── Category List ─────────────────────────────────────────────────────────────
 function CategoryList({ onSelectCategory, onBack }) {
   const { data: categories = [], isLoading } = useCategories();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isEs = i18n.language.startsWith("es");
 
   const totalThreads = categories.reduce((sum, c) => sum + (c.forum_threads?.[0]?.count ?? 0), 0);
 
@@ -398,8 +405,8 @@ function CategoryList({ onSelectCategory, onBack }) {
             <div key={cat.id} className="forum-cat-card" onClick={() => onSelectCategory(cat)}>
               <div className="forum-cat-icon">{cat.icon}</div>
               <div className="forum-cat-body">
-                <div className="forum-cat-name">{cat.name}</div>
-                <div className="forum-cat-desc">{cat.description}</div>
+                <div className="forum-cat-name">{isEs && cat.name_es ? cat.name_es : cat.name}</div>
+                <div className="forum-cat-desc">{isEs && cat.description_es ? cat.description_es : cat.description}</div>
               </div>
               <div className="forum-cat-stats">
                 <span className="forum-cat-stat">{t("forum.threadStat", { count: threadCount })}</span>

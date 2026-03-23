@@ -222,6 +222,20 @@
   "confirm": {
     "title": "¿Estás seguro?"
   },
+  "editor": {
+    "bold": "Negrita",
+    "italic": "Cursiva",
+    "strike": "Tachado",
+    "bulletList": "Lista con viñetas",
+    "orderedList": "Lista numerada",
+    "blockquote": "Cita",
+    "code": "Código en línea",
+    "codeBlock": "Bloque de código",
+    "link": "Agregar enlace",
+    "unlink": "Quitar enlace",
+    "hr": "Línea divisoria",
+    "linkPrompt": "Ingresa la URL"
+  },
   "bookNames": [
     "Génesis","Éxodo","Levítico","Números","Deuteronomio","Josué","Jueces","Rut",
     "1 Samuel","2 Samuel","1 Reyes","2 Reyes","1 Crónicas","2 Crónicas","Esdras",
