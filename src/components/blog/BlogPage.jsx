@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useMemo, memo } from "react";
 import { useTranslation } from "react-i18next";
 import DOMPurify from "dompurify";
-import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment } from "../../hooks/useBlog";
+import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment, useUserBlogLikes, useToggleBlogLike } from "../../hooks/useBlog";
 import "../../styles/blog.css";
 import "../../styles/editor.css";
 
@@ -126,10 +126,22 @@ function PostComments({ postId, user }) {
 // ── Single post view ─────────────────────────────────────────────────────────
 function PostView({ slug, onBack, user }) {
   const { data: post, isLoading } = usePostBySlug(slug);
+  const { data: likedIds = [] } = useUserBlogLikes(user?.id);
+  const toggleLike = useToggleBlogLike(user?.id);
   const { t } = useTranslation();
 
-  const words = (post?.content || "").split(/\s+/).length;
-  const minRead = Math.max(1, Math.ceil(words / 200));
+  const minRead = useMemo(() => {
+    const words = (post?.content || "").split(/\s+/).length;
+    return Math.max(1, Math.ceil(words / 200));
+  }, [post?.content]);
+
+  const sanitizedContent = useMemo(() => {
+    if (!post?.content) return "";
+    const html = /<[a-z][\s\S]*>/i.test(post.content)
+      ? post.content
+      : post.content.split(/\n\n+/).map(p => `<p>${p}</p>`).join("");
+    return DOMPurify.sanitize(html);
+  }, [post?.content]);
 
   if (isLoading) return (
     <div className="blog-loading"><div className="blog-spinner" /></div>
@@ -171,7 +183,9 @@ function PostView({ slug, onBack, user }) {
 
       <div className="blog-post-body">
         {post.excerpt && <p className="blog-post-excerpt">{post.excerpt}</p>}
-        <div className="blog-post-content">{renderContent(post.content)}</div>
+        <div className="blog-post-content">
+          {sanitizedContent && <div className="rich-content" dangerouslySetInnerHTML={{ __html: sanitizedContent }} />}
+        </div>
 
 
         <div className="blog-author-card">
@@ -187,6 +201,18 @@ function PostView({ slug, onBack, user }) {
           </div>
         </div>
 
+        {user && (
+          <div className="blog-like-row">
+            <button
+              className={`blog-like-btn${likedIds.includes(post.id) ? " liked" : ""}`}
+              onClick={() => toggleLike.mutate(post.id)}
+              disabled={toggleLike.isPending}
+            >
+              👍 <span className="blog-like-count">{post.like_count ?? 0}</span>
+            </button>
+          </div>
+        )}
+
         {user && <PostComments postId={post.id} user={user} />}
       </div>
     </div>
@@ -194,10 +220,12 @@ function PostView({ slug, onBack, user }) {
 }
 
 // ── Post listing card ─────────────────────────────────────────────────────────
-function PostCard({ post, onSelect }) {
+const PostCard = memo(function PostCard({ post, onSelect }) {
   const { t } = useTranslation();
-  const words = (post.content || "").split(/\s+/).length;
-  const minRead = Math.max(1, Math.ceil(words / 200));
+  const minRead = useMemo(() => {
+    const words = (post.content || "").split(/\s+/).length;
+    return Math.max(1, Math.ceil(words / 200));
+  }, [post.content]);
 
   return (
     <article className="blog-card" onClick={() => onSelect(post.slug)}>
@@ -222,20 +250,22 @@ function PostCard({ post, onSelect }) {
           <span className="blog-dot">·</span>
           <span className="blog-card-date">{formatDate(post.created_at)}</span>
           <span className="blog-card-readtime">{t("blog.minRead", { count: minRead })}</span>
+          {post.like_count > 0 && (
+            <span className="blog-card-likes">👍 {post.like_count}</span>
+          )}
         </div>
       </div>
     </article>
   );
-}
+});
 
 // ── Main Blog Page ────────────────────────────────────────────────────────────
-export default function BlogPage({ user, profile, onBack, onWriteClick }) {
-  const [activeSlug, setActiveSlug] = useState(null);
+export default function BlogPage({ user, profile, onBack, onWriteClick, slug, onSelectPost }) {
   const { data: posts = [], isLoading } = usePublishedPosts();
   const { t } = useTranslation();
 
-  if (activeSlug) {
-    return <PostView slug={activeSlug} onBack={() => setActiveSlug(null)} user={user} />;
+  if (slug) {
+    return <PostView slug={slug} onBack={() => onSelectPost(null)} user={user} />;
   }
 
   return (
@@ -278,7 +308,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick }) {
         ) : (
           <div className="blog-grid">
             {posts.map(post => (
-              <PostCard key={post.id} post={post} onSelect={setActiveSlug} />
+              <PostCard key={post.id} post={post} onSelect={onSelectPost} />
             ))}
           </div>
         )}

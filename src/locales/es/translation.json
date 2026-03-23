@@ -34,7 +34,8 @@
     "admin": "Admin",
     "logOut": "Cerrar sesión",
     "darkMode": "Oscuro",
-    "lightMode": "Claro"
+    "lightMode": "Claro",
+    "home": "Inicio"
   },
   "landing": {
     "badge": "✦ Traducción del Nuevo Mundo · 66 Libros",
@@ -76,7 +77,15 @@
     "checkEmailTitle": "Revisa tu correo",
     "checkEmailSubtitle": "Enviamos un enlace de confirmación a {{email}}",
     "checkEmailBody": "Haz clic en el enlace del correo para activar tu cuenta, luego vuelve aquí para iniciar sesión.",
-    "back": "← Volver"
+    "back": "← Volver",
+    "forgotLink": "¿Olvidaste tu contraseña?",
+    "forgotTitle": "Restablecer Contraseña",
+    "forgotSubtitle": "Ingresa tu correo y te enviaremos un enlace",
+    "errorEmailRequired": "Por favor ingresa tu correo electrónico.",
+    "resetSendBtn": "Enviar Enlace",
+    "resetSentTitle": "Revisa tu correo",
+    "resetSentSubtitle": "Enviamos un enlace de restablecimiento a {{email}}",
+    "resetSentBody": "Haz clic en el enlace del correo para establecer una nueva contraseña. El enlace expira en 1 hora."
   },
   "book": {
     "chapters": "{{count}} capítulos",
@@ -238,6 +247,40 @@
     "editReply": "Editar respuesta",
     "saveReply": "Guardar Respuesta",
     "editReplyError": "La respuesta no puede estar vacía."
+  },
+  "home": {
+    "navTracker": "Rastreador",
+    "heroBadge": "Tu Recorrido Bíblico",
+    "heroTitleLine1": "Lee.",
+    "heroTitleLine2": "Reflexiona.",
+    "heroTitleLine3": "Crece.",
+    "heroSub": "Sigue cada capítulo, escribe tus pensamientos y conéctate con una comunidad que camina el mismo camino.",
+    "heroCta": "Abrir Rastreador →",
+    "heroSecondary": "Leer el Blog",
+    "trackerLabel": "Función",
+    "trackerTitle": "Rastreador de Lectura Bíblica",
+    "trackerSub": "66 libros. 1.189 capítulos. Tu progreso, a tu ritmo.",
+    "trackerStat1": "66 Libros",
+    "trackerStat2": "Rachas de Lectura",
+    "trackerStat3": "Notas Personales",
+    "trackerCardTitle": "Tu Lista de Lectura",
+    "trackerCardDesc": "Marca los capítulos a medida que avanzas, sigue tu racha diaria de lectura, escribe notas para cualquier versículo y observa cómo crece tu barra de progreso en toda la Biblia — Antiguo y Nuevo Testamento.",
+    "trackerFeature1": "✓ Sigue capítulos en los 66 libros",
+    "trackerFeature2": "✓ Racha diaria y cuadrícula de hábitos",
+    "trackerFeature3": "✓ Notas personales por capítulo o versículo",
+    "trackerFeature4": "✓ Funciona sin internet — sincroniza al volver",
+    "trackerCta": "Abrir Rastreador →",
+    "blogLabel": "Comunidad",
+    "blogTitle": "Del Blog",
+    "blogSub": "Historias, reflexiones e ideas de la comunidad.",
+    "blogViewAll": "Ver todas las publicaciones →",
+    "blogEmpty": "Aún no hay publicaciones — sé el primero en compartir.",
+    "forumLabel": "Discusión",
+    "forumTitle": "Destacados del Foro",
+    "forumSub": "Los hilos más activos y con más likes de la comunidad.",
+    "forumViewAll": "Visitar el foro →",
+    "forumEmpty": "Aún no hay hilos — comienza la primera conversación.",
+    "footer": "BibleTracker · Construido con propósito"
   },
   "stats": {
     "streak_one": "día seguido",

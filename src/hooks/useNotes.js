@@ -6,6 +6,7 @@ export function useNotes(userId) {
     queryKey: ["notes", userId],
     queryFn: () => notesApi.list(userId),
     enabled: !!userId,
+    staleTime: 5 * 60 * 1000,
   });
 }
 

@@ -87,3 +87,33 @@ export function useDeleteComment(postId) {
     },
   });
 }
+
+export function useUserBlogLikes(userId) {
+  return useQuery({
+    queryKey: ["blog", "likes", userId],
+    queryFn: () => blogApi.getUserLikes(userId),
+    enabled: !!userId,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useToggleBlogLike(userId) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (postId) => blogApi.toggleLike(postId),
+    onSuccess: (result, postId) => {
+      // Update liked set
+      queryClient.setQueryData(["blog", "likes", userId], (prev = []) =>
+        result.liked ? [...prev, postId] : prev.filter(id => id !== postId)
+      );
+      // Update like_count on published posts list
+      queryClient.setQueryData(["blog", "published"], (prev = []) =>
+        prev.map(p => p.id === postId ? { ...p, like_count: result.like_count } : p)
+      );
+      // Update single post cache if loaded
+      queryClient.setQueriesData({ queryKey: ["blog", "post"] }, (prev) =>
+        prev?.id === postId ? { ...prev, like_count: result.like_count } : prev
+      );
+    },
+  });
+}

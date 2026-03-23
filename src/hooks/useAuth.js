@@ -28,6 +28,12 @@ export function useRegister() {
   });
 }
 
+export function useResetPassword() {
+  return useMutation({
+    mutationFn: (email) => authApi.resetPassword(email),
+  });
+}
+
 export function useLogout() {
   const queryClient = useQueryClient();
   return useMutation({

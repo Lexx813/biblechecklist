@@ -1,6 +1,6 @@
 import { supabase } from "../lib/supabase";
 
-const PROFILE_FIELDS = "profiles(display_name, avatar_url, email)";
+const PROFILE_FIELDS = "profiles!author_id(display_name, avatar_url, email)";
 
 export const forumApi = {
   // Categories with thread + reply counts
@@ -107,5 +107,34 @@ export const forumApi = {
   lockThread: async (threadId, value) => {
     const { error } = await supabase.rpc("admin_lock_thread", { p_thread_id: threadId, new_value: value });
     if (error) throw new Error(error.message);
+  },
+
+  listTopThreads: async (limit = 4) => {
+    const { data, error } = await supabase
+      .from("forum_threads")
+      .select(`*, ${PROFILE_FIELDS}, forum_replies(count)`)
+      .order("like_count", { ascending: false })
+      .order("updated_at", { ascending: false })
+      .limit(limit);
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
+
+  getUserLikes: async (userId) => {
+    const { data, error } = await supabase.rpc("get_user_forum_likes", { p_user_id: userId });
+    if (error) throw new Error(error.message);
+    return data ?? { threads: [], replies: [] };
+  },
+
+  toggleThreadLike: async (threadId) => {
+    const { data, error } = await supabase.rpc("toggle_thread_like", { p_thread_id: threadId });
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  toggleReplyLike: async (replyId) => {
+    const { data, error } = await supabase.rpc("toggle_reply_like", { p_reply_id: replyId });
+    if (error) throw new Error(error.message);
+    return data;
   },
 };

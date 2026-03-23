@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export default function BookCard({ book, bookIndex, chaptersState, onToggleChapter, onToggleBook, notes = [] }) {
+const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, onToggleChapter, onToggleBook, notes = [] }) {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
   const total = book.chapters;
-  const done = Array.from({ length: total }, (_, i) => chaptersState[bookIndex]?.[i + 1]).filter(Boolean).length;
+  const bookChapters = chaptersState[bookIndex];
+  const done = bookChapters ? Object.values(bookChapters).filter(Boolean).length : 0;
   const allDone = done === total;
   const partial = done > 0 && !allDone;
   const pct = total > 0 ? Math.round((done / total) * 100) : 0;
@@ -84,4 +85,6 @@ export default function BookCard({ book, bookIndex, chaptersState, onToggleChapt
       )}
     </div>
   );
-}
+});
+
+export default BookCard;

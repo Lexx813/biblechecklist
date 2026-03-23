@@ -9,6 +9,7 @@ import ProfilePage from "./components/profile/ProfilePage";
 import BlogPage from "./components/blog/BlogPage";
 import BlogDashboard from "./components/blog/BlogDashboard";
 import ForumPage from "./components/forum/ForumPage";
+import HomePage from "./components/HomePage";
 import LandingPage from "./components/LandingPage";
 import ConfirmModal from "./components/ConfirmModal";
 import { useSession, useLogout } from "./hooks/useAuth";
@@ -62,6 +63,37 @@ export default function App() {
   );
 }
 
+function parseHash() {
+  const h = window.location.hash.slice(1).replace(/^\//, "");
+  if (!h) return { page: "home" };
+  if (h === "checklist") return { page: "main" };
+  if (h === "admin") return { page: "admin" };
+  if (h === "profile") return { page: "profile" };
+  if (h === "blog-dash") return { page: "blogDash" };
+  if (h === "blog") return { page: "blog", slug: null };
+  if (h.startsWith("blog/")) return { page: "blog", slug: decodeURIComponent(h.slice(5)) };
+  if (h === "forum") return { page: "forum", categoryId: null, threadId: null };
+  if (h.startsWith("forum/")) {
+    const parts = h.slice(6).split("/");
+    return { page: "forum", categoryId: parts[0] || null, threadId: parts[1] || null };
+  }
+  return { page: "home" };
+}
+
+function buildHash(page, params = {}) {
+  switch (page) {
+    case "admin":    return "admin";
+    case "profile":  return "profile";
+    case "blogDash": return "blog-dash";
+    case "blog":     return params.slug ? `blog/${encodeURIComponent(params.slug)}` : "blog";
+    case "forum":    return params.categoryId
+      ? (params.threadId ? `forum/${params.categoryId}/${params.threadId}` : `forum/${params.categoryId}`)
+      : "forum";
+    case "main":     return "checklist";
+    default:         return "";
+  }
+}
+
 function BibleApp({ user, onLogout }) {
   const { data: profile } = useFullProfile(user.id);
   const { data: remoteProgress, isLoading: progressLoading } = useProgress(user.id);
@@ -88,11 +120,19 @@ function BibleApp({ user, onLogout }) {
     }, 1000);
   };
 
-  const [showAdmin, setShowAdmin] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
-  const [showBlog, setShowBlog] = useState(false);
-  const [showBlogDash, setShowBlogDash] = useState(false);
-  const [showForum, setShowForum] = useState(false);
+  const [nav, setNav] = useState(parseHash);
+
+  const navigate = (page, params = {}) => {
+    const newNav = { page, ...params };
+    window.location.hash = buildHash(page, params);
+    setNav(newNav);
+  };
+
+  useEffect(() => {
+    const handler = () => setNav(parseHash());
+    window.addEventListener("hashchange", handler);
+    return () => window.removeEventListener("hashchange", handler);
+  }, []);
   const [chaptersState, setChaptersState] = useState({});
   const [initialized, setInitialized] = useState(false);
   const [tab, setTab] = useState("all"); // all | ot | nt
@@ -160,6 +200,17 @@ function BibleApp({ user, onLogout }) {
 
   const pct = totalCh > 0 ? (doneCh / totalCh * 100).toFixed(1) : "0.0";
 
+  // Index notes by book once so each BookCard gets O(1) lookup instead of O(n) filter
+  const notesByBook = useMemo(() => {
+    const map = new Map();
+    for (const note of notes) {
+      const arr = map.get(note.book_index) ?? [];
+      arr.push(note);
+      map.set(note.book_index, arr);
+    }
+    return map;
+  }, [notes]);
+
   const filteredBooks = useMemo(() => {
     return BOOKS.map((b, i) => ({ ...b, index: i })).filter(b => {
       if (tab === "ot" && b.index >= OT_COUNT) return false;
@@ -174,6 +225,18 @@ function BibleApp({ user, onLogout }) {
 
   const toggleLang = () => i18n.changeLanguage(i18n.language.startsWith("es") ? "en" : "es");
 
+  if (nav.page === "home") return (
+    <HomePage
+      user={user}
+      profile={profile}
+      navigate={navigate}
+      onLogout={onLogout}
+      darkMode={darkMode}
+      setDarkMode={setDarkMode}
+      i18n={i18n}
+    />
+  );
+
   if (progressLoading) {
     return (
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
@@ -182,18 +245,29 @@ function BibleApp({ user, onLogout }) {
     );
   }
 
-  if (showAdmin) return <AdminPage currentUser={user} onBack={() => setShowAdmin(false)} />;
-  if (showProfile) return <ProfilePage user={user} onBack={() => setShowProfile(false)} />;
-  if (showBlog) return (
+  if (nav.page === "admin") return <AdminPage currentUser={user} onBack={() => navigate("home")} />;
+  if (nav.page === "profile") return <ProfilePage user={user} onBack={() => navigate("home")} />;
+  if (nav.page === "blog") return (
     <BlogPage
       user={user}
       profile={profile}
-      onBack={() => setShowBlog(false)}
-      onWriteClick={() => { setShowBlog(false); setShowBlogDash(true); }}
+      slug={nav.slug ?? null}
+      onSelectPost={(slug) => navigate("blog", { slug })}
+      onBack={() => navigate("home")}
+      onWriteClick={() => navigate("blogDash")}
     />
   );
-  if (showBlogDash) return <BlogDashboard user={user} onBack={() => setShowBlogDash(false)} />;
-  if (showForum) return <ForumPage user={user} profile={profile} onBack={() => setShowForum(false)} />;
+  if (nav.page === "blogDash") return <BlogDashboard user={user} onBack={() => navigate("home")} />;
+  if (nav.page === "forum") return (
+    <ForumPage
+      user={user}
+      profile={profile}
+      categoryId={nav.categoryId ?? null}
+      threadId={nav.threadId ?? null}
+      onNavigate={(categoryId, threadId) => navigate("forum", { categoryId, threadId })}
+      onBack={() => navigate("home")}
+    />
+  );
 
   return (
     <div className="app-wrap">
@@ -206,19 +280,20 @@ function BibleApp({ user, onLogout }) {
             <p>{t("app.subtitle")}</p>
           </div>
           <div className="header-user">
-            <button className="header-avatar-btn" onClick={() => setShowProfile(true)} title={t("app.title")}>
+            <button className="header-avatar-btn" onClick={() => navigate("profile")} title={t("app.title")}>
               {profile?.avatar_url
                 ? <img src={profile.avatar_url} className="header-avatar-img" alt="avatar" />
                 : <span className="header-avatar-initials">{(profile?.display_name || user.email)?.[0]?.toUpperCase()}</span>
               }
             </button>
-            <button className="header-logout-btn" onClick={() => setShowForum(true)}>{t("app.forum")}</button>
-            <button className="header-logout-btn" onClick={() => setShowBlog(true)}>{t("app.blog")}</button>
+            <button className="header-logout-btn" onClick={() => navigate("home")}>{t("app.home")}</button>
+            <button className="header-logout-btn" onClick={() => navigate("forum")}>{t("app.forum")}</button>
+            <button className="header-logout-btn" onClick={() => navigate("blog")}>{t("app.blog")}</button>
             {(profile?.can_blog || profile?.is_admin) && (
-              <button className="header-logout-btn" onClick={() => setShowBlogDash(true)}>{t("app.write")}</button>
+              <button className="header-logout-btn" onClick={() => navigate("blogDash")}>{t("app.write")}</button>
             )}
             {profile?.is_admin && (
-              <button className="header-logout-btn" onClick={() => setShowAdmin(true)}>{t("app.admin")}</button>
+              <button className="header-logout-btn" onClick={() => navigate("admin")}>{t("app.admin")}</button>
             )}
             <button className="header-logout-btn" onClick={() => setDarkMode(d => !d)}>
               {darkMode ? t("app.lightMode") : t("app.darkMode")}
@@ -316,7 +391,7 @@ function BibleApp({ user, onLogout }) {
                 chaptersState={chaptersState}
                 onToggleChapter={handleToggleChapter}
                 onToggleBook={handleToggleBook}
-                notes={notes.filter(n => n.book_index === book.index)}
+                notes={notesByBook.get(book.index) ?? []}
               />
             </div>
           );

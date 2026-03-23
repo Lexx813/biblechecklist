@@ -34,7 +34,8 @@
     "admin": "Admin",
     "logOut": "Log out",
     "darkMode": "Dark",
-    "lightMode": "Light"
+    "lightMode": "Light",
+    "home": "Home"
   },
   "landing": {
     "badge": "✦ New World Translation · 66 Books",
@@ -76,7 +77,15 @@
     "checkEmailTitle": "Check your email",
     "checkEmailSubtitle": "We sent a confirmation link to {{email}}",
     "checkEmailBody": "Click the link in the email to activate your account, then come back here to log in.",
-    "back": "← Back"
+    "back": "← Back",
+    "forgotLink": "Forgot password?",
+    "forgotTitle": "Reset Password",
+    "forgotSubtitle": "Enter your email and we'll send a reset link",
+    "errorEmailRequired": "Please enter your email address.",
+    "resetSendBtn": "Send Reset Link",
+    "resetSentTitle": "Check your email",
+    "resetSentSubtitle": "We sent a password reset link to {{email}}",
+    "resetSentBody": "Click the link in the email to set a new password. The link expires in 1 hour."
   },
   "book": {
     "chapters": "{{count}} chapters",
@@ -238,6 +247,40 @@
     "editReply": "Edit reply",
     "saveReply": "Save Reply",
     "editReplyError": "Reply cannot be empty."
+  },
+  "home": {
+    "navTracker": "Tracker",
+    "heroBadge": "Your Bible Journey",
+    "heroTitleLine1": "Read.",
+    "heroTitleLine2": "Reflect.",
+    "heroTitleLine3": "Grow.",
+    "heroSub": "Track every chapter, journal your thoughts, and connect with a community walking the same path.",
+    "heroCta": "Open Bible Tracker →",
+    "heroSecondary": "Read the Blog",
+    "trackerLabel": "Feature",
+    "trackerTitle": "Bible Reading Tracker",
+    "trackerSub": "66 books. 1,189 chapters. Your progress, your pace.",
+    "trackerStat1": "66 Books",
+    "trackerStat2": "Reading Streaks",
+    "trackerStat3": "Personal Notes",
+    "trackerCardTitle": "Your Reading Checklist",
+    "trackerCardDesc": "Check off chapters as you go, track your daily reading streak, write notes for any verse, and watch your progress bar grow across the entire Bible — Old and New Testament.",
+    "trackerFeature1": "✓ Track chapters across all 66 books",
+    "trackerFeature2": "✓ Daily streak & reading habit grid",
+    "trackerFeature3": "✓ Personal notes tied to any chapter or verse",
+    "trackerFeature4": "✓ Works offline — syncs when you're back",
+    "trackerCta": "Open Tracker →",
+    "blogLabel": "Community",
+    "blogTitle": "From the Blog",
+    "blogSub": "Stories, reflections, and insights from the community.",
+    "blogViewAll": "View all posts →",
+    "blogEmpty": "No posts yet — be the first to share your story.",
+    "forumLabel": "Discussion",
+    "forumTitle": "Forum Highlights",
+    "forumSub": "The most active and liked threads in the community.",
+    "forumViewAll": "Visit the forum →",
+    "forumEmpty": "No threads yet — start the first conversation.",
+    "footer": "BibleTracker · Built with purpose"
   },
   "stats": {
     "streak_one": "day streak",

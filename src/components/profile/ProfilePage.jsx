@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
 import { BOOKS } from "../../data/books";
@@ -221,13 +221,16 @@ export default function ProfilePage({ user, onBack }) {
   const [filterBook, setFilterBook] = useState("all");
   const [search, setSearch] = useState("");
 
-  const booksWithNotes = [...new Set(notes.map(n => n.book_index))].sort((a, b) => a - b);
+  const booksWithNotes = useMemo(
+    () => [...new Set(notes.map(n => n.book_index))].sort((a, b) => a - b),
+    [notes]
+  );
 
-  const filtered = notes.filter(n => {
+  const filtered = useMemo(() => notes.filter(n => {
     if (filterBook !== "all" && n.book_index !== Number(filterBook)) return false;
     if (search && !n.content.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
-  });
+  }), [notes, filterBook, search]);
 
   return (
     <div className="pf-wrap">

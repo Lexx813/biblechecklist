@@ -830,6 +830,53 @@
   .blog-dash-action-btn { font-size: 11px; padding: 5px 10px; }
 }
 
+/* ── Likes ────────────────────────────────────────────────────── */
+.blog-like-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0 8px;
+}
+
+.blog-like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s, transform 0.1s;
+}
+
+.blog-like-btn:hover {
+  border-color: #7c3aed;
+  color: #7c3aed;
+  background: rgba(124, 58, 237, 0.06);
+}
+
+.blog-like-btn.liked {
+  border-color: #7c3aed;
+  background: rgba(124, 58, 237, 0.12);
+  color: #7c3aed;
+}
+
+.blog-like-btn:active { transform: scale(0.95); }
+.blog-like-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.blog-like-count { font-variant-numeric: tabular-nums; }
+
+.blog-card-likes {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
 /* ── Tiny phones (≤ 360px) ────────────────────────────────────── */
 @media (max-width: 360px) {
   .blog-nav { padding: 8px 10px; }

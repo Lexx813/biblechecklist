@@ -15,6 +15,7 @@ export function useUsers() {
   return useQuery({
     queryKey: ["admin", "users"],
     queryFn: adminApi.listUsers,
+    staleTime: 60 * 1000,
   });
 }
 

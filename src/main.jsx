@@ -24,7 +24,7 @@ const queryClient = new QueryClient({
 
 const persister = createSyncStoragePersister({
   storage: window.localStorage,
-  key: "nwt-query-cache",
+  key: "nwt-query-cache-v2",
 })
 
 createRoot(document.getElementById('root')).render(

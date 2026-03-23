@@ -8,6 +8,7 @@ import {
   useCreateThread, useCreateReply,
   useUpdateThread, useUpdateReply, useDeleteThread, useDeleteReply,
   usePinThread, useLockThread,
+  useUserForumLikes, useToggleThreadLike, useToggleReplyLike,
 } from "../../hooks/useForum";
 import "../../styles/forum.css";
 
@@ -50,6 +51,9 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
   const deleteThread = useDeleteThread(categoryId);
   const pinThread    = usePinThread(categoryId);
   const lockThread   = useLockThread(categoryId);
+  const { data: forumLikes = { threads: [], replies: [] } } = useUserForumLikes(user.id);
+  const toggleThreadLike = useToggleThreadLike(user.id, categoryId);
+  const toggleReplyLike  = useToggleReplyLike(user.id, threadId);
   const { t } = useTranslation();
 
   const [replyText, setReplyText]         = useState("");
@@ -174,6 +178,13 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
                 className="forum-post-content rich-content"
                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(thread.content ?? "") }}
               />
+              <button
+                className={`forum-like-btn${forumLikes.threads?.includes(threadId) ? " liked" : ""}`}
+                onClick={() => toggleThreadLike.mutate(threadId)}
+                disabled={toggleThreadLike.isPending}
+              >
+                👍 <span className="forum-like-count">{thread.like_count ?? 0}</span>
+              </button>
             </>
           )}
         </div>
@@ -232,23 +243,34 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
                       dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(reply.content ?? "") }}
                     />
                   )}
-                  {canModify && !isEditingThis && (
-                    <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+                  {!isEditingThis && (
+                    <div style={{ display: "flex", gap: 12, marginTop: 8, alignItems: "center" }}>
                       <button
-                        className="forum-delete-btn"
-                        onClick={() => { setEditingReplyId(reply.id); setEditReplyContent(reply.content ?? ""); }}
+                        className={`forum-like-btn${forumLikes.replies?.includes(reply.id) ? " liked" : ""}`}
+                        onClick={() => toggleReplyLike.mutate(reply.id)}
+                        disabled={toggleReplyLike.isPending}
                       >
-                        {t("forum.editReply")}
+                        👍 <span className="forum-like-count">{reply.like_count ?? 0}</span>
                       </button>
-                      <button
-                        className="forum-delete-btn"
-                        onClick={() => setConfirm({
-                          message: t("forum.deleteReplyConfirm"),
-                          onConfirm: () => deleteReply.mutate(reply.id),
-                        })}
-                      >
-                        {t("common.delete")}
-                      </button>
+                      {canModify && (
+                        <>
+                          <button
+                            className="forum-delete-btn"
+                            onClick={() => { setEditingReplyId(reply.id); setEditReplyContent(reply.content ?? ""); }}
+                          >
+                            {t("forum.editReply")}
+                          </button>
+                          <button
+                            className="forum-delete-btn"
+                            onClick={() => setConfirm({
+                              message: t("forum.deleteReplyConfirm"),
+                              onConfirm: () => deleteReply.mutate(reply.id),
+                            })}
+                          >
+                            {t("common.delete")}
+                          </button>
+                        </>
+                      )}
                     </div>
                   )}
                 </div>
@@ -401,6 +423,9 @@ function ThreadList({ category, user, onSelectThread, onBack }) {
                     <span className="forum-row-stat-val">{replyCount}</span>
                     <span className="forum-row-stat-label">{t("forum.replyCount", { count: replyCount }).split(" ")[1]}</span>
                   </div>
+                  {thread.like_count > 0 && (
+                    <div className="forum-row-likes">👍 {thread.like_count}</div>
+                  )}
                 </div>
               </div>
             );
@@ -462,32 +487,33 @@ function CategoryList({ onSelectCategory, onBack }) {
 }
 
 // ── Main ForumPage ────────────────────────────────────────────────────────────
-export default function ForumPage({ user, profile, onBack }) {
-  const [activeCategory, setActiveCategory] = useState(null);
-  const [activeThreadId, setActiveThreadId] = useState(null);
+export default function ForumPage({ user, profile, onBack, categoryId, threadId, onNavigate }) {
+  const { data: categories = [], isLoading: catsLoading } = useCategories();
+  const activeCategory = categoryId ? categories.find(c => c.id === categoryId) ?? null : null;
 
-  if (activeThreadId) {
+  if (threadId && categoryId) {
     return (
       <ThreadView
-        threadId={activeThreadId}
+        threadId={threadId}
         user={user}
         profile={profile}
-        categoryId={activeCategory?.id}
-        onBack={() => setActiveThreadId(null)}
+        categoryId={categoryId}
+        onBack={() => onNavigate(categoryId, null)}
       />
     );
   }
 
-  if (activeCategory) {
-    return (
+  if (categoryId) {
+    if (catsLoading && !activeCategory) return <div className="forum-loading"><div className="forum-spinner" /></div>;
+    if (activeCategory) return (
       <ThreadList
         category={activeCategory}
         user={user}
-        onSelectThread={setActiveThreadId}
-        onBack={() => setActiveCategory(null)}
+        onSelectThread={(id) => onNavigate(categoryId, id)}
+        onBack={() => onNavigate(null, null)}
       />
     );
   }
 
-  return <CategoryList onSelectCategory={setActiveCategory} onBack={onBack} />;
+  return <CategoryList onSelectCategory={(cat) => onNavigate(cat.id, null)} onBack={onBack} />;
 }
