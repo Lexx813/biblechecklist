@@ -10,7 +10,7 @@ export const blogApi = {
   listPublished: async () => {
     const { data, error } = await supabase
       .from("blog_posts")
-      .select("id, title, slug, excerpt, cover_url, published, created_at, author_id, like_count, profiles!author_id(display_name, avatar_url, email)")
+      .select("id, title, slug, excerpt, cover_url, published, created_at, author_id, like_count, profiles!author_id(display_name, avatar_url)")
       .eq("published", true)
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
@@ -20,7 +20,7 @@ export const blogApi = {
   getBySlug: async (slug) => {
     const { data, error } = await supabase
       .from("blog_posts")
-      .select("*, profiles!author_id(display_name, avatar_url, email)")
+      .select("*, profiles!author_id(display_name, avatar_url)")
       .eq("slug", slug)
       .eq("published", true)
       .maybeSingle();
@@ -67,7 +67,7 @@ export const blogApi = {
   listComments: async (postId) => {
     const { data, error } = await supabase
       .from("blog_comments")
-      .select("*, profiles!author_id(display_name, avatar_url, email)")
+      .select("*, profiles!author_id(display_name, avatar_url)")
       .eq("post_id", postId)
       .order("created_at", { ascending: true });
     if (error) throw new Error(error.message);
@@ -78,7 +78,7 @@ export const blogApi = {
     const { data, error } = await supabase
       .from("blog_comments")
       .insert({ author_id: userId, post_id: postId, content })
-      .select("*, profiles!author_id(display_name, avatar_url, email)")
+      .select("*, profiles!author_id(display_name, avatar_url)")
       .single();
     if (error) throw new Error(error.message);
     return data;

@@ -134,6 +134,50 @@
   background: rgba(124, 58, 237, 0.07);
 }
 
+.page-nav-avatar-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(138, 75, 255, 0.35);
+  background: rgba(138, 75, 255, 0.12);
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-fast) var(--ease-out);
+}
+.page-nav-avatar-btn:hover {
+  border-color: rgba(138, 75, 255, 0.7);
+  transform: scale(1.08);
+  box-shadow: 0 0 0 3px rgba(138, 75, 255, 0.15);
+}
+.page-nav-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.page-nav-avatar-initials {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: #c084fc;
+  line-height: 1;
+}
+[data-theme="light"] .page-nav-avatar-btn {
+  border-color: rgba(124, 58, 237, 0.3);
+  background: rgba(124, 58, 237, 0.08);
+}
+[data-theme="light"] .page-nav-avatar-btn:hover {
+  border-color: rgba(124, 58, 237, 0.6);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+[data-theme="light"] .page-nav-avatar-initials { color: #7c3aed; }
+
 .page-nav-logout-btn {
   border-color: rgba(239, 68, 68, 0.25);
   color: rgba(240, 234, 255, 0.6);

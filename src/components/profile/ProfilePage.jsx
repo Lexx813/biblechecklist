@@ -1,4 +1,5 @@
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
 import PageNav from "../PageNav";
@@ -247,6 +248,40 @@ function NoteCard({ note, userId }) {
   );
 }
 
+// ── Info tooltip ──────────────────────────────────────────
+function InfoTip({ text }) {
+  const [visible, setVisible] = useState(false);
+  const [pos, setPos] = useState({ top: 0, left: 0 });
+  const iconRef = useRef(null);
+
+  function handleMouseEnter() {
+    const rect = iconRef.current.getBoundingClientRect();
+    setPos({
+      top: rect.bottom + window.scrollY + 8,
+      left: rect.left + window.scrollX + rect.width / 2,
+    });
+    setVisible(true);
+  }
+
+  return (
+    <span
+      ref={iconRef}
+      className="pf-infotip"
+      aria-label={text}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={() => setVisible(false)}
+    >
+      ℹ
+      {visible && createPortal(
+        <span className="pf-infotip-bubble" style={{ top: pos.top, left: pos.left }}>
+          {text}
+        </span>,
+        document.body
+      )}
+    </span>
+  );
+}
+
 // ── Posts section ─────────────────────────────────────────
 const MAX_POST = 500;
 
@@ -270,7 +305,7 @@ function PostsSection({ profileId, isOwner, t }) {
   return (
     <div className="pf-section">
       <div className="pf-section-header">
-        <h2>💬 {t("posts.sectionTitle")}</h2>
+        <h2>💬 {t("posts.sectionTitle")} <InfoTip text={t("profile.postsTip")} /></h2>
       </div>
 
       {isOwner && (
@@ -493,7 +528,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
         {isOwner && (
           <div className="pf-section">
             <div className="pf-section-header">
-              <h2>{t("profile.myNotes")}</h2>
+              <h2>{t("profile.myNotes")} <InfoTip text={t("profile.notesTip")} /></h2>
               <button className="pf-add-note-btn" onClick={() => setShowAddForm(v => !v)}>
                 {showAddForm ? t("common.cancel") : t("profile.addNote")}
               </button>

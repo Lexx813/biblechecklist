@@ -66,6 +66,10 @@
     "errorRequired": "Todos los campos son obligatorios.",
     "errorPasswordShort": "La contraseña debe tener al menos 8 caracteres.",
     "errorPasswordMismatch": "Las contraseñas no coinciden.",
+    "errorDisplayNameRequired": "Por favor ingresa un nombre para mostrar.",
+    "displayNameLabel": "Nombre para mostrar",
+    "displayNamePlaceholder": "Cómo te verán los demás",
+    "displayNameHint": "Este es el nombre que verán otros usuarios — tu correo permanece privado.",
     "submitLogin": "Iniciar sesión",
     "submitSignup": "Crear cuenta",
     "submitLoading": "Por favor espera…",
@@ -207,7 +211,9 @@
     "booksComplete": "libros completos",
     "quizProgress": "Progreso del Quiz",
     "levelsComplete": "niveles completados",
-    "quizNotStarted": "Aún sin actividad en el quiz."
+    "quizNotStarted": "Aún sin actividad en el quiz.",
+    "postsTip": "Visible para tus seguidores y todos los miembros de la comunidad.",
+    "notesTip": "Privado — solo tú puedes ver tus notas."
   },
   "blog": {
     "backToBible": "← App Bíblica",

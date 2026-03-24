@@ -334,6 +334,53 @@
   letter-spacing: 0.04em;
 }
 
+/* ── Info tooltip ── */
+.pf-infotip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--teal-light);
+  color: var(--teal);
+  font-size: 10px;
+  font-weight: 800;
+  font-style: normal;
+  cursor: default;
+  vertical-align: middle;
+  margin-left: 4px;
+  flex-shrink: 0;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.pf-infotip:hover { background: var(--teal-mid); }
+
+.pf-infotip-bubble {
+  position: absolute;
+  transform: translateX(-50%);
+  background: #1e1b2e;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 8px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  pointer-events: none;
+  z-index: 9999;
+}
+.pf-infotip-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-bottom-color: #1e1b2e;
+}
+
 /* ── NOTES SECTION ── */
 .pf-section {
   background: var(--card-bg);

@@ -2,9 +2,12 @@ import { useTranslation } from "react-i18next";
 import "../styles/pagenav.css";
 import AnnouncementBanner from "./AnnouncementBanner";
 import NotificationBell from "./notifications/NotificationBell";
+import { useFullProfile } from "../hooks/useAdmin";
 
 export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, onLogout }) {
   const { t } = useTranslation();
+  const { data: profile } = useFullProfile(user?.id);
+  const isAdmin = profile?.is_admin;
   return (
     <>
       <nav className="page-nav">
@@ -24,6 +27,9 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
           )}
           {user && (
             <button className="page-nav-link" onClick={() => navigate("bookmarks")}>{t("bookmarks.title")}</button>
+          )}
+          {isAdmin && (
+            <button className="page-nav-link" onClick={() => navigate("admin")}>{t("app.admin")}</button>
           )}
         </div>
         <div className="page-nav-actions">
@@ -61,6 +67,20 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               title={t("app.logOut")}
             >
               {t("app.logOut")}
+            </button>
+          )}
+          {user && (
+            <button
+              className="page-nav-avatar-btn"
+              onClick={() => navigate("profile")}
+              title={profile?.display_name || user.email}
+            >
+              {profile?.avatar_url
+                ? <img src={profile.avatar_url} className="page-nav-avatar-img" alt="avatar" />
+                : <span className="page-nav-avatar-initials">
+                    {(profile?.display_name || user.email)?.[0]?.toUpperCase()}
+                  </span>
+              }
             </button>
           )}
         </div>

@@ -107,6 +107,12 @@
   letter-spacing: 0.03em;
 }
 
+.auth-field-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
 .auth-label-row {
   display: flex;
   align-items: center;

@@ -1,6 +1,6 @@
 import { supabase } from "../lib/supabase";
 
-const PROFILE_FIELDS = "profiles!author_id(display_name, avatar_url, email, top_badge_level)";
+const PROFILE_FIELDS = "profiles!author_id(display_name, avatar_url, top_badge_level)";
 
 export const forumApi = {
   // Categories with thread + reply counts

@@ -66,6 +66,10 @@
     "errorRequired": "All fields are required.",
     "errorPasswordShort": "Password must be at least 8 characters.",
     "errorPasswordMismatch": "Passwords do not match.",
+    "errorDisplayNameRequired": "Please enter a display name.",
+    "displayNameLabel": "Display Name",
+    "displayNamePlaceholder": "How others will see you",
+    "displayNameHint": "This is the name shown to other users — your email stays private.",
     "submitLogin": "Log In",
     "submitSignup": "Create Account",
     "submitLoading": "Please wait…",
@@ -207,7 +211,9 @@
     "booksComplete": "books complete",
     "quizProgress": "Quiz Progress",
     "levelsComplete": "levels complete",
-    "quizNotStarted": "No quiz activity yet."
+    "quizNotStarted": "No quiz activity yet.",
+    "postsTip": "Visible to your followers and all community members.",
+    "notesTip": "Private — only you can see your notes."
   },
   "blog": {
     "backToBible": "← Bible App",

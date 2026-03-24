@@ -6,6 +6,7 @@ import "../../styles/auth.css";
 export default function AuthPage({ onBack }) {
   const [mode, setMode] = useState("login"); // "login" | "signup" | "forgot"
   const [email, setEmail] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [fieldError, setFieldError] = useState("");
@@ -43,9 +44,10 @@ export default function AuthPage({ onBack }) {
     if (!email || !password) return setFieldError(t("auth.errorRequired"));
 
     if (mode === "signup") {
+      if (!displayName.trim()) return setFieldError(t("auth.errorDisplayNameRequired"));
       if (password.length < 8) return setFieldError(t("auth.errorPasswordShort"));
       if (password !== confirm) return setFieldError(t("auth.errorPasswordMismatch"));
-      register.mutate({ email, password }, {
+      register.mutate({ email, password, displayName: displayName.trim() }, {
         onSuccess: ({ needsConfirmation }) => {
           if (needsConfirmation) setConfirmed(true);
         },
@@ -163,6 +165,17 @@ export default function AuthPage({ onBack }) {
             <input id="email" className="auth-input" type="email" placeholder={t("auth.emailPlaceholder")}
               value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" disabled={busy} />
           </div>
+
+          {mode === "signup" && (
+            <div className="auth-field">
+              <label className="auth-label" htmlFor="displayName">{t("auth.displayNameLabel")}</label>
+              <input id="displayName" className="auth-input" type="text"
+                placeholder={t("auth.displayNamePlaceholder")}
+                value={displayName} onChange={e => setDisplayName(e.target.value)}
+                autoComplete="nickname" disabled={busy} maxLength={32} />
+              <span className="auth-field-hint">{t("auth.displayNameHint")}</span>
+            </div>
+          )}
 
           <div className="auth-field">
             <div className="auth-label-row">

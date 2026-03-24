@@ -22,7 +22,7 @@ export function useLogin() {
 
 export function useRegister() {
   return useMutation({
-    mutationFn: ({ email, password }) => authApi.register(email, password),
+    mutationFn: ({ email, password, displayName }) => authApi.register(email, password, displayName),
     // session is set via onAuthStateChange if confirmation is disabled;
     // if confirmation is required the component shows a message instead
   });

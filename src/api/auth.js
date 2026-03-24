@@ -13,8 +13,12 @@ export const authApi = {
     return data.session;
   },
 
-  register: async (email, password) => {
-    const { data, error } = await supabase.auth.signUp({ email, password });
+  register: async (email, password, displayName) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { display_name: displayName || email.split("@")[0] } },
+    });
     if (error) throw new Error(error.message);
     // session is null when email confirmation is required
     return { session: data.session, needsConfirmation: !data.session };

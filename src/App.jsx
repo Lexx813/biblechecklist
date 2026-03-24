@@ -18,6 +18,7 @@ import ReadingHistory from "./components/reading/ReadingHistory";
 import ActivityFeed from "./components/social/ActivityFeed";
 import LandingPage from "./components/LandingPage";
 import AboutPage from "./components/AboutPage";
+import PageNav from "./components/PageNav";
 import ConfirmModal from "./components/ConfirmModal";
 import OfflineBanner from "./components/OfflineBanner";
 import ProgressShare from "./components/share/ProgressShare";
@@ -252,12 +253,10 @@ function BibleApp({ user, onLogout }) {
     });
   }, [tab, search, t]);
 
-  const toggleLang = () => i18n.changeLanguage(i18n.language.startsWith("es") ? "en" : "es");
 
   if (nav.page === "home") return (
     <HomePage
       user={user}
-      profile={profile}
       navigate={navigate}
       onLogout={onLogout}
       darkMode={darkMode}
@@ -336,6 +335,7 @@ function BibleApp({ user, onLogout }) {
 
   return (
     <div className="app-wrap">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
       {/* Header */}
       <header className="app-header">
         <div className="header-top">
@@ -343,31 +343,6 @@ function BibleApp({ user, onLogout }) {
           <div className="header-text">
             <h1>{t("app.title")}</h1>
             <p>{t("app.subtitle")}</p>
-          </div>
-          <div className="header-user">
-            <button className="header-avatar-btn" onClick={() => navigate("profile")} title={t("app.title")}>
-              {profile?.avatar_url
-                ? <img src={profile.avatar_url} className="header-avatar-img" alt="avatar" />
-                : <span className="header-avatar-initials">{(profile?.display_name || user.email)?.[0]?.toUpperCase()}</span>
-              }
-            </button>
-            <button className="header-logout-btn" onClick={() => navigate("home")}>{t("app.home")}</button>
-            <button className="header-logout-btn" onClick={() => navigate("forum")}>{t("app.forum")}</button>
-            <button className="header-logout-btn" onClick={() => navigate("blog")}>{t("app.blog")}</button>
-            <button className="header-logout-btn" onClick={() => navigate("about")}>About</button>
-            {(profile?.can_blog || profile?.is_admin) && (
-              <button className="header-logout-btn" onClick={() => navigate("blogDash")}>{t("app.write")}</button>
-            )}
-            {profile?.is_admin && (
-              <button className="header-logout-btn" onClick={() => navigate("admin")}>{t("app.admin")}</button>
-            )}
-            <button className="header-logout-btn" onClick={() => setDarkMode(d => !d)}>
-              {darkMode ? t("app.lightMode") : t("app.darkMode")}
-            </button>
-            <button className="header-logout-btn" onClick={onLogout}>{t("app.logOut")}</button>
-            <button className="header-logout-btn" onClick={toggleLang} title="Switch language">
-              {i18n.language.startsWith("es") ? "EN" : "ES"}
-            </button>
           </div>
         </div>
         <div className="global-progress" style={{ padding: "0 0 12px" }}>

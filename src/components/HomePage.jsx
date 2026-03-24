@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import { useTopThreads } from "../hooks/useForum";
 import DailyVerse from "./home/DailyVerse";
+import PageNav from "./PageNav";
 import "../styles/home.css";
 
 const GRADIENTS = [
@@ -26,7 +27,7 @@ function authorName(obj) {
   return obj?.profiles?.display_name || obj?.profiles?.email?.split("@")[0] || "Anonymous";
 }
 
-export default function HomePage({ user, profile, navigate, onLogout, darkMode, setDarkMode, i18n }) {
+export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n }) {
   const { t } = useTranslation();
   const { data: posts = [] } = usePublishedPosts();
   const { data: topThreads = [] } = useTopThreads(4);
@@ -44,38 +45,7 @@ export default function HomePage({ user, profile, navigate, onLogout, darkMode, 
   return (
     <div className="home-wrap">
 
-      {/* ── Nav ── */}
-      <nav className="home-nav">
-        <div className="home-nav-brand">
-          <span className="home-nav-logo-icon">📖</span>
-          <span className="home-nav-logo-text">NWT Progress</span>
-        </div>
-        <div className="home-nav-links">
-          <button className="home-nav-link" onClick={() => navigate("main")}>{t("home.navTracker")}</button>
-          <button className="home-nav-link" onClick={() => navigate("blog")}>{t("app.blog")}</button>
-          <button className="home-nav-link" onClick={() => navigate("forum")}>{t("app.forum")}</button>
-          <button className="home-nav-link" onClick={() => navigate("quiz")}>{t("quiz.nav")}</button>
-          <button className="home-nav-link" onClick={() => navigate("about")}>About</button>
-        </div>
-        <div className="home-nav-actions">
-          <button className="home-nav-ghost" onClick={() => setDarkMode(d => !d)}>
-            {darkMode ? "☀️" : "🌙"}
-          </button>
-          <button className="home-nav-ghost" onClick={() => i18n.changeLanguage(i18n.language.startsWith("es") ? "en" : "es")}>
-            {i18n.language.startsWith("es") ? "EN" : "ES"}
-          </button>
-          {profile?.is_admin && (
-            <button className="home-nav-ghost" onClick={() => navigate("admin")}>{t("app.admin")}</button>
-          )}
-          <button className="home-nav-avatar" onClick={() => navigate("profile")}>
-            {profile?.avatar_url
-              ? <img src={profile.avatar_url} alt="avatar" />
-              : <span>{(profile?.display_name || user.email)?.[0]?.toUpperCase()}</span>
-            }
-          </button>
-          <button className="home-nav-ghost" onClick={onLogout}>{t("app.logOut")}</button>
-        </div>
-      </nav>
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
 
       {/* ── Hero ── */}
       <div className="home-hero">
