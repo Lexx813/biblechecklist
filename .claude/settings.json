@@ -8,6 +8,9 @@
       "Bash(node scripts/generate-og.mjs)",
       "Bash(npx vite:*)",
       "Bash(npx skills:*)"
+    ],
+    "additionalDirectories": [
+      "/home/alexi/projects"
     ]
   }
 }
