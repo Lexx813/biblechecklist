@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Roboto:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 /* ── Landing Wrap ─────────────────────────────────────────────── */
 .landing-wrap {
@@ -9,7 +9,7 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* ── Background Layer ─────────────────────────────────────────── */
@@ -258,7 +258,7 @@
 }
 
 .landing-title {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: clamp(44px, 9vw, 86px);
   font-weight: 700;
   color: #fff;
@@ -337,7 +337,7 @@
   background-size: 200% 200%;
   color: #fff;
   border: none;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 17px;
   font-weight: 800;
   padding: 18px 40px;
@@ -387,7 +387,7 @@
   background: none;
   border: none;
   color: #c084fc;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -421,7 +421,7 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .error-content {
@@ -437,7 +437,7 @@
 }
 
 .error-code {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: clamp(96px, 20vw, 160px);
   font-weight: 700;
   line-height: 1;
@@ -452,7 +452,7 @@
 }
 
 .error-title {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: clamp(22px, 5vw, 32px);
   font-weight: 700;
   color: #fff;
@@ -481,7 +481,7 @@
   background: linear-gradient(135deg, #7c3aed, #a855f7);
   color: #fff;
   border: none;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   font-weight: 800;
   padding: 13px 28px;

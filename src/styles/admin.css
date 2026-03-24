@@ -1,7 +1,7 @@
 .admin-wrap {
   min-height: 100vh;
   background: var(--bg);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* HEADER */
@@ -25,7 +25,7 @@
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.25);
   color: rgba(255,255,255,0.9);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   font-weight: 700;
   padding: 6px 14px;
@@ -44,7 +44,7 @@
 }
 .admin-logo { font-size: 20px; }
 .admin-header-text h1 {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 18px;
   font-weight: 700;
   color: #fff;
@@ -119,7 +119,7 @@
   background: var(--teal);
   color: #fff;
   border: none;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 800;
   padding: 7px 16px;
@@ -148,7 +148,7 @@
   padding: 9px 14px;
   border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   color: var(--text-primary);
   background: var(--card-bg);
@@ -163,7 +163,7 @@
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   font-weight: 800;
   cursor: pointer;
@@ -302,7 +302,7 @@
 }
 
 .admin-action-btn {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11px;
   font-weight: 700;
   padding: 5px 12px;
@@ -379,7 +379,7 @@
 }
 .admin-tab {
   background: none; border: 1.5px solid var(--border); color: var(--text-muted);
-  font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700;
   padding: 8px 16px; border-radius: 10px; cursor: pointer;
   transition: all 0.15s; display: flex; align-items: center; gap: 6px;
 }
@@ -413,7 +413,7 @@
 .admin-quiz-controls { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
 .admin-quiz-level-select {
   background: var(--card-bg); border: 1.5px solid var(--border); color: var(--text-primary);
-  font-family: 'Nunito', sans-serif; font-size: 14px; padding: 8px 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; padding: 8px 12px;
   border-radius: 10px; outline: none; cursor: pointer;
 }
 .admin-question-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
@@ -435,7 +435,7 @@
 .admin-textarea {
   width: 100%; border: 1.5px solid var(--border); border-radius: 10px;
   background: var(--teal-soft); color: var(--text-primary);
-  font-family: 'Nunito', sans-serif; font-size: 14px; padding: 10px 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; padding: 10px 12px;
   resize: vertical; outline: none;
 }
 .admin-textarea:focus { border-color: var(--teal); }
@@ -443,7 +443,7 @@
 .admin-option-row { display: flex; flex-direction: column; gap: 4px; }
 .admin-correct-select {
   background: var(--card-bg); border: 1.5px solid var(--border); color: var(--text-primary);
-  font-family: 'Nunito', sans-serif; font-size: 14px; padding: 8px 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; padding: 8px 12px;
   border-radius: 10px; outline: none;
 }
 .admin-form-row { display: flex; gap: 10px; }
@@ -453,7 +453,7 @@
 .admin-type-row { display: flex; gap: 8px; }
 .admin-type-btn {
   flex: 1; padding: 8px; border: 1.5px solid var(--border); border-radius: 8px;
-  background: none; color: var(--text-muted); font-family: 'Nunito', sans-serif;
+  background: none; color: var(--text-muted); font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.15s;
 }
 .admin-type-btn--active.info { background: rgba(14,165,233,0.15); border-color: #0EA5E9; color: #0EA5E9; }
@@ -470,7 +470,7 @@
 .admin-announcement-actions { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
 .admin-toggle-btn {
   background: none; border: 1.5px solid var(--border); color: var(--text-muted);
-  font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700;
   padding: 4px 10px; border-radius: 6px; cursor: pointer; white-space: nowrap;
 }
 .admin-toggle-btn--active { border-color: #22C55E; color: #16a34a; }

@@ -1,7 +1,7 @@
 .pf-wrap {
   min-height: 100vh;
   background: var(--bg);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* ── HEADER ── */
@@ -23,7 +23,7 @@
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.25);
   color: rgba(255,255,255,0.9);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   font-weight: 700;
   padding: 6px 14px;
@@ -35,7 +35,7 @@
 .pf-back-btn:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
 .pf-back-btn:active { transform: translateY(0); }
 .pf-header-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 18px;
   font-weight: 700;
   color: #fff;
@@ -146,7 +146,7 @@
   margin-top: 14px;
 }
 .pf-name-input {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 16px;
   font-weight: 700;
   padding: 6px 12px;
@@ -160,7 +160,7 @@
   background: var(--teal);
   color: #fff;
   border: none;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 700;
   padding: 6px 14px;
@@ -353,7 +353,7 @@
   background: var(--teal);
   color: #fff;
   border: none;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 800;
   padding: 7px 16px;
@@ -381,7 +381,7 @@
   background: var(--bg);
 }
 .pf-filter-select, .pf-filter-search {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   padding: 7px 12px;
   border: 1.5px solid var(--border);
@@ -415,7 +415,7 @@
 }
 .note-form-optional { font-weight: 500; text-transform: none; color: var(--text-muted); }
 .note-form-select {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   padding: 8px 10px;
   border: 1.5px solid var(--border);
@@ -427,7 +427,7 @@
 }
 .note-form-select:focus { border-color: var(--teal); }
 .note-form-textarea {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   padding: 10px 14px;
   border: 1.5px solid var(--border);
@@ -444,7 +444,7 @@
 .note-form-cancel {
   background: none;
   border: 1.5px solid var(--border);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   font-weight: 700;
   padding: 8px 16px;
@@ -458,7 +458,7 @@
   background: var(--teal);
   color: #fff;
   border: none;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   font-weight: 800;
   padding: 8px 20px;

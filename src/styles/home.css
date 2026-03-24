@@ -3,7 +3,7 @@
   min-height: 100vh;
   background: var(--bg, #0a0514);
   color: var(--text-primary, #f0eaff);
-  font-family: Nunito, sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   overflow-x: hidden;
 }
 

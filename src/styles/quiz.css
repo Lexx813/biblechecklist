@@ -25,7 +25,7 @@
 }
 
 .quiz-hub-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 28px;
   font-weight: 700;
   color: var(--text-primary);
@@ -220,7 +220,7 @@
   background: none;
   border: 1.5px solid var(--border);
   color: var(--text-muted);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   font-weight: 700;
   padding: 6px 14px;
@@ -327,7 +327,7 @@
   border: 2px solid var(--border);
   border-radius: 12px;
   background: var(--teal-soft);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
@@ -420,7 +420,7 @@
 /* ── Buttons ─────────────────────────────────────────────────────── */
 
 .quiz-btn {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   font-weight: 800;
   padding: 12px 24px;
@@ -475,7 +475,7 @@
 }
 
 .quiz-results-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 24px;
   font-weight: 700;
   color: var(--text-primary);

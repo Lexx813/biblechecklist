@@ -5,7 +5,7 @@
 .blog-editor {
   min-height: 100vh;
   background: var(--bg);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* ── Nav bar ─────────────────────────────────────────────────── */
@@ -24,7 +24,7 @@
 .blog-back-btn {
   background: none;
   border: none;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   font-weight: 700;
   color: var(--teal);
@@ -41,7 +41,7 @@
   background: var(--teal);
   color: #fff;
   border: none;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 700;
   padding: 8px 16px;
@@ -103,7 +103,7 @@
 }
 
 .blog-hero-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: clamp(40px, 8vw, 72px);
   font-weight: 700;
   color: #fff;
@@ -189,7 +189,7 @@
 }
 
 .blog-card-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 18px;
   font-weight: 700;
   color: var(--text-primary);
@@ -283,7 +283,7 @@
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255,255,255,0.25);
   color: #fff;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 700;
   padding: 6px 14px;
@@ -297,7 +297,7 @@
 .blog-post-hero-meta { display: flex; flex-direction: column; gap: 10px; }
 
 .blog-post-hero-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: clamp(24px, 5vw, 42px);
   font-weight: 700;
   color: #fff;
@@ -370,7 +370,7 @@
 }
 
 .blog-comments-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 18px;
   font-weight: 700;
   color: var(--text-primary);
@@ -383,7 +383,7 @@
 .blog-comments-count {
   background: var(--teal-light);
   color: var(--teal-dark);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 800;
   padding: 2px 9px;
@@ -468,7 +468,7 @@
 .blog-comment-delete {
   background: none;
   border: none;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11px;
   font-weight: 700;
   color: var(--text-muted);
@@ -487,7 +487,7 @@
 
 .blog-comment-input {
   width: 100%;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   color: var(--text-primary);
   background: var(--teal-soft);
@@ -513,7 +513,7 @@
   background: var(--teal);
   color: #fff;
   border: none;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   font-weight: 700;
   padding: 9px 22px;
@@ -539,7 +539,7 @@
 }
 .blog-dash-header h1 {
   flex: 1;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 18px;
   font-weight: 700;
   color: #fff;
@@ -620,7 +620,7 @@
 .blog-dash-row-actions { display: flex; gap: 6px; flex-shrink: 0; }
 
 .blog-dash-action-btn {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 700;
   padding: 6px 14px;
@@ -646,7 +646,7 @@
   z-index: 50;
 }
 .blog-editor-header h2 {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 17px;
   font-weight: 700;
   color: #fff;
@@ -678,7 +678,7 @@
 .blog-editor-input,
 .blog-editor-textarea {
   width: 100%;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   color: var(--text-primary);
   background: var(--card-bg);
@@ -713,7 +713,7 @@
 }
 
 .blog-editor-btn {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   font-weight: 700;
   padding: 10px 24px;
@@ -766,7 +766,7 @@
   background: var(--card-bg);
   border: 1.5px solid var(--border);
   color: var(--text-secondary);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 700;
   padding: 7px 16px;

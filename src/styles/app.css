@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -39,7 +39,7 @@
   --shadow-md: 0 8px 32px rgba(0,0,0,0.65), 0 3px 12px rgba(106,61,170,0.30);
 }
 
-body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; }
 
 .app-wrap { max-width: 680px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; width: 100%; }
 
@@ -59,14 +59,14 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
   font-size: 20px;
   flex-shrink: 0;
 }
-.header-text h1 { font-family: 'Roboto', sans-serif; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.01em; }
+.header-text h1 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.01em; }
 .header-text p { font-size: 12px; color: rgba(255,255,255,0.72); margin-top: 2px; }
 
 .header-user { margin-left: auto; display: flex; flex-direction: row; align-items: center; gap: 6px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
 .header-email { font-size: 11px; color: rgba(255,255,255,0.65); font-weight: 500; max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .header-logout-btn {
   background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
-  color: rgba(255,255,255,0.85); font-family: 'Nunito', sans-serif;
+  color: rgba(255,255,255,0.85); font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11px; font-weight: 700; padding: 3px 10px;
   border-radius: 8px; cursor: pointer; transition: background 0.15s, transform 0.1s;
 }
@@ -98,7 +98,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 .tabs { display: flex; background: rgba(0,0,0,0.18); margin: 0 -20px; }
 .tab-btn {
   flex: 1; padding: 10px 8px; border: none; background: none; cursor: pointer;
-  font-family: 'Nunito', sans-serif; font-size: 12px; font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700;
   color: rgba(255,255,255,0.65); letter-spacing: 0.04em; text-transform: uppercase;
   border-bottom: 3px solid transparent; transition: color 0.15s, border-color 0.15s;
   white-space: nowrap;
@@ -117,7 +117,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 .search-input {
   width: 100%; padding: 8px 12px 8px 34px;
   border: 1.5px solid var(--border); border-radius: 20px;
-  font-family: 'Nunito', sans-serif; font-size: 13px; color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; color: var(--text-primary);
   background: var(--teal-soft); outline: none; transition: border-color 0.15s;
 }
 .search-input:focus { border-color: var(--teal); }
@@ -217,7 +217,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 .ch-actions { display: flex; gap: 8px; margin-top: 10px; }
 .ch-action-btn {
   flex: 1; padding: 7px; border-radius: 8px; border: 1.5px solid var(--border);
-  background: var(--card-bg); font-family: 'Nunito', sans-serif;
+  background: var(--card-bg); font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11px; font-weight: 700; color: var(--text-secondary);
   cursor: pointer; transition: all 0.12s;
 }
@@ -384,7 +384,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 }
 .confirm-body { display: flex; flex-direction: column; gap: 8px; }
 .confirm-title {
-  font-family: 'Roboto', sans-serif; font-size: 18px; font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 700;
   color: var(--text-primary); text-align: center;
 }
 .confirm-message {
@@ -395,14 +395,14 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 .confirm-cancel-btn {
   flex: 1; padding: 11px;
   border: 1.5px solid var(--border); border-radius: 10px;
-  background: none; font-family: 'Nunito', sans-serif;
+  background: none; font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px; font-weight: 700; color: var(--text-muted);
   cursor: pointer; transition: all 0.15s; touch-action: manipulation;
 }
 .confirm-cancel-btn:hover { border-color: var(--text-muted); color: var(--text-primary); }
 .confirm-ok-btn {
   flex: 1; padding: 11px; border: none; border-radius: 10px;
-  background: var(--teal); font-family: 'Nunito', sans-serif;
+  background: var(--teal); font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px; font-weight: 800; color: #fff;
   cursor: pointer; transition: background 0.15s, transform 0.1s, box-shadow 0.15s; touch-action: manipulation;
 }
@@ -415,7 +415,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 .footer-reset { text-align: center; padding: 6px 0 16px; }
 .reset-btn {
   background: none; border: 1.5px solid var(--border);
-  color: var(--text-muted); font-family: 'Nunito', sans-serif;
+  color: var(--text-muted); font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px; font-weight: 700; padding: 7px 20px;
   border-radius: 8px; cursor: pointer; transition: all 0.15s;
 }
@@ -477,7 +477,7 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
   color: #fff;
   font-size: 13px;
   font-weight: 700;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   padding: 8px 16px;
   display: flex; align-items: center; justify-content: center; gap: 8px;
   animation: offline-slide-down 0.25s ease;
@@ -657,20 +657,20 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 .modal-textarea {
   width: 100%; border: 1.5px solid var(--border); border-radius: 10px;
   background: var(--teal-soft); color: var(--text-primary);
-  font-family: 'Nunito', sans-serif; font-size: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px;
   padding: 10px 12px; resize: vertical; outline: none; margin-bottom: 16px;
 }
 .modal-textarea:focus { border-color: var(--teal); }
 .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
 .modal-cancel-btn {
   background: none; border: 1.5px solid var(--border); color: var(--text-muted);
-  font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700;
   padding: 8px 18px; border-radius: 8px; cursor: pointer; transition: all 0.15s;
 }
 .modal-cancel-btn:hover { border-color: var(--teal); color: var(--teal); }
 .modal-submit-btn {
   background: var(--teal); color: #fff; border: none;
-  font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 800;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 800;
   padding: 8px 18px; border-radius: 8px; cursor: pointer; transition: all 0.15s;
 }
 .modal-submit-btn--danger { background: #c62828; }

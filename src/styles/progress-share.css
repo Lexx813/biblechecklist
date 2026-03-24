@@ -69,7 +69,7 @@
 .share-download-btn {
   width: 100%; padding: 12px;
   background: var(--teal); border: none; border-radius: 10px;
-  font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 800;
   color: #fff; cursor: pointer;
   transition: background 0.15s, transform 0.1s;
 }
