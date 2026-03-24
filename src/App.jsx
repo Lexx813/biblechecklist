@@ -44,9 +44,10 @@ export default function App() {
   const { data: session, isLoading: authLoading } = useSession();
   const logout = useLogout();
   const user = session?.user ?? null;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [showLanding, setShowLanding] = useState(true);
+  const [preAuthHash, setPreAuthHash] = useState(() => window.location.hash.slice(1).replace(/^\//, ""));
 
   // Keep React Query cache in sync with Supabase auth state changes
   useEffect(() => {
@@ -56,6 +57,13 @@ export default function App() {
     return () => subscription.unsubscribe();
   }, [queryClient]);
 
+  // Track hash changes so legal pages work before login
+  useEffect(() => {
+    const handler = () => setPreAuthHash(window.location.hash.slice(1).replace(/^\//, ""));
+    window.addEventListener("hashchange", handler);
+    return () => window.removeEventListener("hashchange", handler);
+  }, []);
+
   if (authLoading) {
     return (
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0a0514" }}>
@@ -64,10 +72,12 @@ export default function App() {
     );
   }
 
+  const legalNav = (p) => { window.location.hash = p; };
+  const legalProps = { navigate: legalNav, darkMode: false, setDarkMode: () => {}, i18n, user: null, onLogout: null };
+
   // Legal pages are accessible without login
-  const hash = window.location.hash.slice(1).replace(/^\//, "");
-  if (hash === "terms") return <Suspense fallback={null}><TermsPage navigate={(p) => { window.location.hash = p; }} darkMode={false} setDarkMode={() => {}} i18n={{}} user={null} onLogout={null} /></Suspense>;
-  if (hash === "privacy") return <Suspense fallback={null}><PrivacyPage navigate={(p) => { window.location.hash = p; }} darkMode={false} setDarkMode={() => {}} i18n={{}} user={null} onLogout={null} /></Suspense>;
+  if (preAuthHash === "terms") return <Suspense fallback={null}><TermsPage {...legalProps} /></Suspense>;
+  if (preAuthHash === "privacy") return <Suspense fallback={null}><PrivacyPage {...legalProps} /></Suspense>;
 
   if (!user) {
     if (showLanding) return <LandingPage onGetStarted={() => setShowLanding(false)} />;
