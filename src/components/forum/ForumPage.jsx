@@ -57,10 +57,10 @@ function Avatar({ profile, size = "md", onClick }) {
 }
 
 // ── Thread View ───────────────────────────────────────────────────────────────
-function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, darkMode, setDarkMode, i18n, ...rest }) {
+function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, darkMode, setDarkMode, i18n, onLogout, ...rest }) {
   const { data: thread, isLoading: threadLoading } = useThread(threadId);
   const { data: replies = [], isLoading: repliesLoading } = useReplies(threadId);
-  const createReply = useCreateReply(threadId, thread?.author_id);
+  const createReply = useCreateReply(threadId, thread?.author_id, categoryId);
   const updateReply = useUpdateReply(threadId);
   const deleteReply = useDeleteReply(threadId);
   const updateThread = useUpdateThread(threadId);
@@ -136,7 +136,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
 
   return (
     <div className="forum-thread-view">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
       {/* Thread header */}
       <div className="forum-thread-header">
         <button className="forum-back-btn" onClick={onBack}>{t("common.back")}</button>
@@ -381,7 +381,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
 }
 
 // ── Thread List ───────────────────────────────────────────────────────────────
-function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode, setDarkMode, i18n, ...rest }) {
+function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, ...rest }) {
   const { data: threads = [], isLoading } = useThreads(category.id);
   const createThread = useCreateThread(category.id);
   const { t } = useTranslation();
@@ -407,7 +407,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 
   return (
     <div className="forum-thread-list">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
       {/* Header */}
       <div className="forum-list-header">
         <div className="forum-list-header-left">
@@ -503,7 +503,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 }
 
 // ── Category List ─────────────────────────────────────────────────────────────
-function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMode, i18n, user, ...rest }) {
+function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMode, i18n, user, onLogout, ...rest }) {
   const { data: categories = [], isLoading } = useCategories();
   const { t } = useTranslation();
   const isEs = i18n.language.startsWith("es");
@@ -512,7 +512,7 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
 
   return (
     <div className="forum-categories">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
       {/* Hero */}
       <div className="forum-hero">
         <div className="forum-hero-glow forum-hero-glow--1" />
@@ -554,11 +554,11 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
 }
 
 // ── Main ForumPage ────────────────────────────────────────────────────────────
-export default function ForumPage({ user, profile, onBack, categoryId, threadId, onNavigate, navigate, darkMode, setDarkMode, i18n }) {
+export default function ForumPage({ user, profile, onBack, categoryId, threadId, onNavigate, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { data: categories = [], isLoading: catsLoading } = useCategories();
   const activeCategory = categoryId ? categories.find(c => c.id === categoryId) ?? null : null;
 
-  const navProps = { navigate, darkMode, setDarkMode, i18n, user };
+  const navProps = { navigate, darkMode, setDarkMode, i18n, user, onLogout };
 
   if (threadId && categoryId) {
     return (

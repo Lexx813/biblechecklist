@@ -51,10 +51,10 @@ function renderContent(text) {
 }
 
 // ── Comments ──────────────────────────────────────────────────────────────────
-function PostComments({ postId, postAuthorId, user, navigate }) {
+function PostComments({ postId, postAuthorId, postSlug, user, navigate }) {
   const { t } = useTranslation();
   const { data: comments = [], isLoading } = useComments(postId);
-  const createComment = useCreateComment(postId, postAuthorId);
+  const createComment = useCreateComment(postId, postAuthorId, postSlug);
   const deleteComment = useDeleteComment(postId);
   const submitReport = useSubmitReport();
   const [text, setText] = useState("");
@@ -190,7 +190,7 @@ function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n, .
 
   return (
     <div className="blog-post-view">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
       <div
         className="blog-post-hero"
         style={{ background: post.cover_url ? undefined : getGradient(post.id) }}
@@ -250,7 +250,7 @@ function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n, .
           </div>
         )}
 
-        {user && <PostComments postId={post.id} postAuthorId={post.author_id} user={user} navigate={navigate} />}
+        {user && <PostComments postId={post.id} postAuthorId={post.author_id} postSlug={post.slug} user={user} navigate={navigate} />}
       </div>
     </div>
   );
@@ -298,7 +298,7 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user }) {
 });
 
 // ── Main Blog Page ────────────────────────────────────────────────────────────
-export default function BlogPage({ user, profile, onBack, onWriteClick, slug, onSelectPost, navigate, darkMode, setDarkMode, i18n }) {
+export default function BlogPage({ user, profile, onBack, onWriteClick, slug, onSelectPost, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { data: posts = [], isLoading } = usePublishedPosts();
   const { t } = useTranslation();
 
@@ -308,7 +308,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
 
   return (
     <div className="blog-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
       {/* Nav */}
       <nav className="blog-nav">
         <button className="blog-back-btn" onClick={onBack}>{t("blog.backToBible")}</button>

@@ -525,7 +525,7 @@ function AnnouncementsTab({ currentUser }) {
 }
 
 // ── Main AdminPage ─────────────────────────────────────────────────────────────
-export default function AdminPage({ currentUser, onBack, navigate, darkMode, setDarkMode, i18n }) {
+export default function AdminPage({ currentUser, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { data: users = [] } = useUsers();
   const { data: reports = [] } = useReports();
   const { t } = useTranslation();
@@ -538,7 +538,7 @@ export default function AdminPage({ currentUser, onBack, navigate, darkMode, set
 
   return (
     <div className="admin-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={currentUser} onLogout={onLogout} />
       <header className="admin-header">
         <div className="admin-header-inner">
           <button className="admin-back-btn" onClick={onBack}>{t("common.back")}</button>

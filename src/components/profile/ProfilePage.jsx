@@ -360,7 +360,7 @@ function FollowSection({ currentUserId, targetId, t }) {
 }
 
 // ── Main ProfilePage ──────────────────────────────────────
-export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack, navigate, darkMode, setDarkMode, i18n }) {
+export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const profileId = viewedUserId ?? user.id;
   const { data: profile } = useFullProfile(profileId);
   const { data: notes = [], isLoading: notesLoading } = useNotes(isOwner ? profileId : null);
@@ -405,7 +405,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
 
   return (
     <div className="pf-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
       {/* Header */}
       <header className="pf-header">
         <div className="pf-header-inner">

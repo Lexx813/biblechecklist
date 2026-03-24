@@ -86,13 +86,19 @@
   border-radius: 12px;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  transition: background 0.12s, border-color 0.12s;
+  box-shadow: var(--shadow-xs);
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-fast) var(--ease-out);
   margin-bottom: 6px;
 }
 
+.feed-item--thread {
+  cursor: pointer;
+}
 .feed-item--thread:hover {
   border-color: var(--teal);
   background: var(--teal-soft);
+  transform: translateX(3px);
+  box-shadow: var(--shadow-sm);
 }
 
 .feed-item-avatar-btn {
@@ -189,8 +195,12 @@
   font-size: 13px;
   font-weight: 800;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-fast) var(--ease-out);
   border: 2px solid var(--teal);
+}
+.pf-follow-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .pf-follow-btn--follow {
@@ -292,9 +302,11 @@
   font-weight: 800;
   color: #fff;
   cursor: pointer;
-  transition: background 0.15s;
+  box-shadow: var(--shadow-xs);
+  transition: background var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-fast) var(--ease-out);
 }
-.post-composer-btn:hover:not(:disabled) { background: var(--teal-dark); }
+.post-composer-btn:hover:not(:disabled) { background: var(--teal-dark); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.post-composer-btn:active:not(:disabled) { transform: translateY(0); }
 .post-composer-btn:disabled { opacity: 0.5; cursor: default; }
 
 /* ── Post cards (profile page) ───────────────────────────── */
@@ -310,6 +322,13 @@
   border-left: 3px solid var(--teal);
   border-radius: 0 10px 10px 0;
   padding: 12px 14px;
+  box-shadow: var(--shadow-xs);
+  transition: border-left-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-spring);
+}
+.post-card:hover {
+  border-left-color: var(--accent);
+  box-shadow: var(--shadow-sm);
+  transform: translateX(2px);
 }
 
 .post-card-content {

@@ -77,7 +77,7 @@ export function useCreateThread(categoryId) {
   });
 }
 
-export function useCreateReply(threadId, threadAuthorId) {
+export function useCreateReply(threadId, threadAuthorId, categoryId) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ userId, content }) => forumApi.createReply(userId, threadId, content),
@@ -87,7 +87,7 @@ export function useCreateReply(threadId, threadAuthorId) {
         notificationsApi.create(threadAuthorId, userId, "reply", {
           threadId,
           preview: content?.slice(0, 80),
-          linkHash: `forum/${threadId}`,
+          linkHash: categoryId ? `forum/${categoryId}/${threadId}` : `forum/${threadId}`,
         });
       }
     },

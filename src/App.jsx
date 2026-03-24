@@ -271,7 +271,7 @@ function BibleApp({ user, onLogout }) {
     );
   }
 
-  const sharedNav = { navigate, darkMode, setDarkMode, i18n, user };
+  const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout };
 
   if (nav.page === "admin") return <AdminPage currentUser={user} onBack={() => navigate("home")} {...sharedNav} />;
   if (nav.page === "profile") return <ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} />;

@@ -3,7 +3,7 @@ import "../styles/pagenav.css";
 import AnnouncementBanner from "./AnnouncementBanner";
 import NotificationBell from "./notifications/NotificationBell";
 
-export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user }) {
+export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, onLogout }) {
   const { t } = useTranslation();
   return (
     <>
@@ -51,6 +51,15 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user })
               onClick={() => i18n.changeLanguage(i18n.language.startsWith("es") ? "en" : "es")}
             >
               {i18n.language.startsWith("es") ? "EN" : "ES"}
+            </button>
+          )}
+          {user && onLogout && (
+            <button
+              className="page-nav-icon-btn page-nav-logout-btn"
+              onClick={onLogout}
+              title={t("app.logOut")}
+            >
+              {t("app.logOut")}
             </button>
           )}
         </div>

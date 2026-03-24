@@ -67,7 +67,7 @@ export function useComments(postId) {
   });
 }
 
-export function useCreateComment(postId, postAuthorId) {
+export function useCreateComment(postId, postAuthorId, postSlug) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ userId, content }) => blogApi.createComment(userId, postId, content),
@@ -77,7 +77,7 @@ export function useCreateComment(postId, postAuthorId) {
         notificationsApi.create(postAuthorId, userId, "comment", {
           postId,
           preview: content?.slice(0, 80),
-          linkHash: `blog`,
+          linkHash: postSlug ? `blog/${postSlug}` : `blog`,
         });
       }
     },

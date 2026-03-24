@@ -91,7 +91,7 @@ function QuizLevelCard({ levelData, progress, onClick }) {
 
 // ── QuizPage (Hub) ─────────────────────────────────────────────────────────────
 
-export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n }) {
+export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const { data: progress = [], isLoading } = useQuizProgress(user.id);
   const initProgress = useInitQuizProgress(user.id);
@@ -106,7 +106,7 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n }
 
   return (
     <div className="quiz-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
 
       <div className="quiz-hub">
         <div className="quiz-hub-header">
@@ -135,7 +135,7 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n }
 
 // ── QuizLevel (Active Quiz) ────────────────────────────────────────────────────
 
-export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode, setDarkMode, i18n }) {
+export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const levelData = LEVELS.find((l) => l.level === level) ?? LEVELS[0];
   const theme = t(levelData.themeKey);
@@ -198,7 +198,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
   if (isLoading || questions.length === 0) {
     return (
       <div className="quiz-wrap">
-        <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
+        <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
         <div className="quiz-active quiz-active--loading">
           <div className="quiz-loading">{t("quiz.loading")}</div>
         </div>
@@ -209,7 +209,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
   if (showResults) {
     return (
       <div className="quiz-wrap">
-        <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
+        <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
         <div className="quiz-active">
           <div className="quiz-results">
             <div className="quiz-results-header">
@@ -272,7 +272,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
 
   return (
     <div className="quiz-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
       <div className="quiz-active">
         {/* Level header */}
         <div className="quiz-level-header">

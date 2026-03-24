@@ -82,8 +82,13 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(74,45,133,0.2);
+  box-shadow: var(--shadow-md);
   flex-shrink: 0;
+  transition: transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-base) var(--ease-out);
+}
+.pf-avatar-wrap:not(.pf-avatar-wrap--static):hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
 }
 .pf-avatar-img {
   width: 100%;
@@ -247,7 +252,7 @@
   height: 100%;
   background: linear-gradient(90deg, var(--teal) 0%, var(--accent) 100%);
   border-radius: 999px;
-  transition: width 0.6s cubic-bezier(.4,0,.2,1);
+  transition: width 0.7s var(--ease-spring);
 }
 
 .pf-reading-pct {
@@ -359,11 +364,11 @@
   padding: 7px 16px;
   border-radius: 10px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(74,45,133,0.2);
-  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-fast) var(--ease-out);
 }
-.pf-add-note-btn:hover { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74,45,133,0.3); }
-.pf-add-note-btn:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(74,45,133,0.2); }
+.pf-add-note-btn:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.pf-add-note-btn:active { transform: translateY(0); box-shadow: var(--shadow-sm); }
 
 /* ── ADD NOTE FORM WRAP ── */
 .pf-add-form-wrap {
@@ -464,11 +469,11 @@
   padding: 8px 20px;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(74,45,133,0.2);
-  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  box-shadow: var(--shadow-sm);
+  transition: background var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-fast) var(--ease-out);
 }
-.note-form-submit:hover:not(:disabled) { background: var(--teal-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(74,45,133,0.3); }
-.note-form-submit:active:not(:disabled) { transform: translateY(0); box-shadow: 0 2px 8px rgba(74,45,133,0.2); }
+.note-form-submit:hover:not(:disabled) { background: var(--teal-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.note-form-submit:active:not(:disabled) { transform: translateY(0); box-shadow: var(--shadow-sm); }
 .note-form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* ── NOTE CARDS ── */
@@ -481,12 +486,16 @@
   padding: 16px 20px;
   border-bottom: 1px solid var(--border);
   border-left: 4px solid transparent;
-  transition: background 0.1s;
+  transition: background var(--dur-fast) var(--ease-out), border-left-color var(--dur-fast) var(--ease-out);
 }
 .note-card:last-child { border-bottom: none; }
 .note-card:hover { background: var(--teal-soft); }
-.note-card--ot { border-left-color: var(--teal); }
-.note-card--nt { border-left-color: var(--accent); }
+.note-card:hover.note-card--ot { border-left-color: var(--teal); }
+.note-card:hover.note-card--nt { border-left-color: var(--accent); }
+.note-card--ot { border-left-color: rgba(124, 58, 237, 0.35); }
+.note-card--nt { border-left-color: rgba(192, 132, 252, 0.35); }
+.note-card--ot:hover { border-left-color: var(--teal); }
+.note-card--nt:hover { border-left-color: var(--accent); }
 .note-card--editing { background: var(--teal-soft); border-left-color: var(--teal-dark); padding: 16px 20px; }
 
 .note-card-header {
