@@ -234,3 +234,26 @@
 .rich-content a { color: #a78bfa; text-decoration: underline; text-underline-offset: 3px; }
 .rich-content hr { border: none; border-top: 1px solid rgba(255,255,255,0.18); margin: 1.2em 0; }
 .rich-content strong { color: #fff; }
+
+/* ── Light mode overrides ─────────────────────────────────────────────────── */
+[data-theme="light"] .rich-content { color: #1e1035; }
+[data-theme="light"] .rich-content h1,
+[data-theme="light"] .rich-content h2,
+[data-theme="light"] .rich-content h3 { color: #1e1035; }
+[data-theme="light"] .rich-content strong { color: #1e1035; }
+[data-theme="light"] .rich-content blockquote {
+  color: #4a3272;
+  background: rgba(124, 58, 237, 0.07);
+}
+[data-theme="light"] .rich-content code {
+  background: rgba(124, 58, 237, 0.08);
+  border-color: rgba(124, 58, 237, 0.2);
+  color: #6d28d9;
+}
+[data-theme="light"] .rich-content pre {
+  background: rgba(124, 58, 237, 0.06);
+  border-color: rgba(124, 58, 237, 0.15);
+}
+[data-theme="light"] .rich-content pre code { color: #6d28d9; }
+[data-theme="light"] .rich-content a { color: #7c3aed; }
+[data-theme="light"] .rich-content hr { border-top-color: rgba(0,0,0,0.1); }

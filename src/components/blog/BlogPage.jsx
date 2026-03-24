@@ -5,7 +5,7 @@ import PageNav from "../PageNav";
 import ReportModal from "../ReportModal";
 import BookmarkButton from "../bookmarks/BookmarkButton";
 import MentionAutocomplete from "../mentions/MentionAutocomplete";
-import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment, useUserBlogLikes, useToggleBlogLike } from "../../hooks/useBlog";
+import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment, useDeletePost, useUserBlogLikes, useToggleBlogLike } from "../../hooks/useBlog";
 import { toast } from "../../lib/toast";
 import { useSubmitReport } from "../../hooks/useReports";
 import "../../styles/blog.css";
@@ -52,7 +52,7 @@ function renderContent(text) {
 }
 
 // ── Comments ──────────────────────────────────────────────────────────────────
-function PostComments({ postId, postAuthorId, postSlug, user, navigate }) {
+function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate }) {
   const { t } = useTranslation();
   const { data: comments = [], isLoading } = useComments(postId);
   const createComment = useCreateComment(postId, postAuthorId, postSlug);
@@ -110,7 +110,7 @@ function PostComments({ postId, postAuthorId, postSlug, user, navigate }) {
                 </div>
                 <p className="blog-comment-content">{c.content}</p>
                 <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                  {(c.author_id === user?.id) && (
+                  {(c.author_id === user?.id || profile?.is_admin) && (
                     <button className="blog-comment-delete" onClick={() => deleteComment.mutate(c.id)}>
                       {t("common.delete")}
                     </button>
@@ -160,11 +160,13 @@ function PostComments({ postId, postAuthorId, postSlug, user, navigate }) {
 }
 
 // ── Single post view ─────────────────────────────────────────────────────────
-function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n, ...rest }) {
+function PostView({ slug, onBack, user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, ...rest }) {
   const { data: post, isLoading } = usePostBySlug(slug);
   const { data: likedIds = [] } = useUserBlogLikes(user?.id);
   const toggleLike = useToggleBlogLike(user?.id);
+  const deletePost = useDeletePost(user?.id);
   const { t } = useTranslation();
+  const isAdmin = profile?.is_admin;
 
   const minRead = useMemo(() => {
     const words = (post?.content || "").split(/\s+/).length;
@@ -253,10 +255,20 @@ function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n, .
               👍 <span className="blog-like-count">{post.like_count ?? 0}</span>
             </button>
             <BookmarkButton userId={user.id} postId={post.id} />
+            {(isAdmin || post.author_id === user.id) && (
+              <button
+                className="blog-comment-delete"
+                style={{ marginLeft: "auto" }}
+                onClick={() => deletePost.mutate(post.id, { onSuccess: onBack })}
+                disabled={deletePost.isPending}
+              >
+                {deletePost.isPending ? t("common.deleting") : t("common.delete")} {t("blog.deletePost")}
+              </button>
+            )}
           </div>
         )}
 
-        {user && <PostComments postId={post.id} postAuthorId={post.author_id} postSlug={post.slug} user={user} navigate={navigate} />}
+        {user && <PostComments postId={post.id} postAuthorId={post.author_id} postSlug={post.slug} user={user} profile={profile} navigate={navigate} />}
       </div>
     </div>
   );
@@ -314,7 +326,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
   }, [slug]);
 
   if (slug) {
-    return <PostView slug={slug} onBack={() => onSelectPost(null)} user={user} navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />;
+    return <PostView slug={slug} onBack={() => onSelectPost(null)} user={user} profile={profile} navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />;
   }
 
   return (

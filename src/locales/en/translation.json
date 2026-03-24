@@ -5,6 +5,7 @@
     "save": "Save",
     "saving": "Saving…",
     "delete": "Delete",
+    "deleting": "Deleting…",
     "edit": "Edit",
     "loading": "Loading…"
   },
@@ -241,7 +242,8 @@
     "commentPost": "Post",
     "commentPosting": "Posting…",
     "commentEmptyError": "Comment cannot be empty.",
-    "likeError": "Could not update like. Please try again."
+    "likeError": "Could not update like. Please try again.",
+    "deletePost": "Post"
   },
   "blogDash": {
     "myPostsTitle": "My Posts",

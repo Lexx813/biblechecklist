@@ -5,6 +5,7 @@
     "save": "Guardar",
     "saving": "Guardando…",
     "delete": "Eliminar",
+    "deleting": "Eliminando…",
     "edit": "Editar",
     "loading": "Cargando…"
   },
@@ -241,7 +242,8 @@
     "commentPost": "Publicar",
     "commentPosting": "Publicando…",
     "commentEmptyError": "El comentario no puede estar vacío.",
-    "likeError": "No se pudo actualizar el me gusta. Inténtalo de nuevo."
+    "likeError": "No se pudo actualizar el me gusta. Inténtalo de nuevo.",
+    "deletePost": "Publicación"
   },
   "blogDash": {
     "myPostsTitle": "Mis Publicaciones",
