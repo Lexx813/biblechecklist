@@ -18,6 +18,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
           <button className="page-nav-link" onClick={() => navigate("blog")}>{t("app.blog")}</button>
           <button className="page-nav-link" onClick={() => navigate("forum")}>{t("app.forum")}</button>
           <button className="page-nav-link" onClick={() => navigate("quiz")}>{t("quiz.nav")}</button>
+          <button className="page-nav-link" onClick={() => navigate("about")}>About</button>
           {user && (
             <button className="page-nav-link" onClick={() => navigate("feed")}>{t("feed.navLink")}</button>
           )}

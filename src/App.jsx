@@ -17,6 +17,7 @@ import ReadingPlanWidget from "./components/reading/ReadingPlanWidget";
 import ReadingHistory from "./components/reading/ReadingHistory";
 import ActivityFeed from "./components/social/ActivityFeed";
 import LandingPage from "./components/LandingPage";
+import AboutPage from "./components/AboutPage";
 import ConfirmModal from "./components/ConfirmModal";
 import OfflineBanner from "./components/OfflineBanner";
 import ProgressShare from "./components/share/ProgressShare";
@@ -95,6 +96,7 @@ function parseHash() {
   if (h === "bookmarks") return { page: "bookmarks" };
   if (h === "history") return { page: "history" };
   if (h === "feed") return { page: "feed" };
+  if (h === "about") return { page: "about" };
   return { page: "home" };
 }
 
@@ -114,6 +116,7 @@ function buildHash(page, params = {}) {
     case "bookmarks": return "bookmarks";
     case "history":  return "history";
     case "feed":     return "feed";
+    case "about":    return "about";
     case "main":     return "checklist";
     default:         return "";
   }
@@ -329,6 +332,7 @@ function BibleApp({ user, onLogout }) {
   if (nav.page === "feed") return (
     <ActivityFeed user={user} {...sharedNav} />
   );
+  if (nav.page === "about") return <AboutPage {...sharedNav} />;
 
   return (
     <div className="app-wrap">
@@ -350,6 +354,7 @@ function BibleApp({ user, onLogout }) {
             <button className="header-logout-btn" onClick={() => navigate("home")}>{t("app.home")}</button>
             <button className="header-logout-btn" onClick={() => navigate("forum")}>{t("app.forum")}</button>
             <button className="header-logout-btn" onClick={() => navigate("blog")}>{t("app.blog")}</button>
+            <button className="header-logout-btn" onClick={() => navigate("about")}>About</button>
             {(profile?.can_blog || profile?.is_admin) && (
               <button className="header-logout-btn" onClick={() => navigate("blogDash")}>{t("app.write")}</button>
             )}

@@ -55,6 +55,7 @@ export default function HomePage({ user, profile, navigate, onLogout, darkMode, 
           <button className="home-nav-link" onClick={() => navigate("blog")}>{t("app.blog")}</button>
           <button className="home-nav-link" onClick={() => navigate("forum")}>{t("app.forum")}</button>
           <button className="home-nav-link" onClick={() => navigate("quiz")}>{t("quiz.nav")}</button>
+          <button className="home-nav-link" onClick={() => navigate("about")}>About</button>
         </div>
         <div className="home-nav-actions">
           <button className="home-nav-ghost" onClick={() => setDarkMode(d => !d)}>
