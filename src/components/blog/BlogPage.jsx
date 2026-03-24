@@ -2,7 +2,9 @@ import { useState, useMemo, memo } from "react";
 import { useTranslation } from "react-i18next";
 import DOMPurify from "dompurify";
 import PageNav from "../PageNav";
+import ReportModal from "../ReportModal";
 import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment, useUserBlogLikes, useToggleBlogLike } from "../../hooks/useBlog";
+import { useSubmitReport } from "../../hooks/useReports";
 import "../../styles/blog.css";
 import "../../styles/editor.css";
 
@@ -51,8 +53,10 @@ function PostComments({ postId, user, navigate }) {
   const { data: comments = [], isLoading } = useComments(postId);
   const createComment = useCreateComment(postId);
   const deleteComment = useDeleteComment(postId);
+  const submitReport = useSubmitReport();
   const [text, setText] = useState("");
   const [error, setError] = useState("");
+  const [reportTarget, setReportTarget] = useState(null); // { id, preview }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -62,6 +66,14 @@ function PostComments({ postId, user, navigate }) {
       onSuccess: () => setText(""),
       onError: (err) => setError(err.message),
     });
+  }
+
+  function handleReport(reason) {
+    if (!reportTarget) return;
+    submitReport.mutate(
+      { reporterId: user.id, contentType: "comment", contentId: reportTarget.id, contentPreview: reportTarget.preview, reason },
+      { onSuccess: () => setReportTarget(null), onError: () => setReportTarget(null) }
+    );
   }
 
   return (
@@ -93,15 +105,34 @@ function PostComments({ postId, user, navigate }) {
                   </span>
                 </div>
                 <p className="blog-comment-content">{c.content}</p>
-                {(c.author_id === user?.id) && (
-                  <button className="blog-comment-delete" onClick={() => deleteComment.mutate(c.id)}>
-                    {t("common.delete")}
-                  </button>
-                )}
+                <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  {(c.author_id === user?.id) && (
+                    <button className="blog-comment-delete" onClick={() => deleteComment.mutate(c.id)}>
+                      {t("common.delete")}
+                    </button>
+                  )}
+                  {c.author_id !== user?.id && (
+                    <button
+                      className="forum-report-btn"
+                      onClick={() => setReportTarget({ id: c.id, preview: c.content?.slice(0, 80) ?? "" })}
+                      title={t("report.flag")}
+                    >
+                      🚩
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           ))}
         </div>
+      )}
+
+      {reportTarget && (
+        <ReportModal
+          onSubmit={handleReport}
+          onClose={() => setReportTarget(null)}
+          isPending={submitReport.isPending}
+        />
       )}
 
       <form className="blog-comment-form" onSubmit={handleSubmit}>

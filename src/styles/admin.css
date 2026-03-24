@@ -371,3 +371,107 @@
   .admin-table td { padding: 8px 8px; }
   .admin-action-btn { font-size: 9px; padding: 4px 8px; }
 }
+
+/* ── Admin Tabs ────────────────────────────────────────── */
+.admin-tabs {
+  display: flex; gap: 4px; padding: 0 0 20px;
+  border-bottom: 1px solid var(--border); margin-bottom: 24px; flex-wrap: wrap;
+}
+.admin-tab {
+  background: none; border: 1.5px solid var(--border); color: var(--text-muted);
+  font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700;
+  padding: 8px 16px; border-radius: 10px; cursor: pointer;
+  transition: all 0.15s; display: flex; align-items: center; gap: 6px;
+}
+.admin-tab:hover { border-color: var(--teal); color: var(--teal); }
+.admin-tab--active { background: var(--teal); border-color: var(--teal); color: #fff; }
+.admin-tab-badge {
+  background: #c62828; color: #fff; font-size: 10px; font-weight: 800;
+  padding: 1px 6px; border-radius: 999px; min-width: 18px; text-align: center;
+}
+.admin-report-list { display: flex; flex-direction: column; gap: 12px; }
+.admin-report-card {
+  background: var(--teal-soft); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px;
+}
+.admin-report-card--reviewed { opacity: 0.6; }
+.admin-report-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+.admin-report-type { font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px; text-transform: uppercase; }
+.admin-report-type--thread { background: rgba(106,61,170,0.2); color: var(--teal); }
+.admin-report-type--reply { background: rgba(192,132,252,0.2); color: var(--accent); }
+.admin-report-type--comment { background: rgba(14,165,233,0.2); color: #0EA5E9; }
+.admin-report-status { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+.admin-report-status--pending { background: rgba(234,179,8,0.2); color: #ca8a04; }
+.admin-report-status--reviewed { background: rgba(34,197,94,0.2); color: #16a34a; }
+.admin-report-status--dismissed { background: rgba(156,163,175,0.2); color: #6b7280; }
+.admin-report-preview { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; font-style: italic; }
+.admin-report-reason { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
+.admin-report-reporter { font-size: 11px; color: var(--text-muted); }
+.admin-report-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Quiz Editor */
+.admin-quiz-controls { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.admin-quiz-level-select {
+  background: var(--card-bg); border: 1.5px solid var(--border); color: var(--text-primary);
+  font-family: 'Nunito', sans-serif; font-size: 14px; padding: 8px 12px;
+  border-radius: 10px; outline: none; cursor: pointer;
+}
+.admin-question-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+.admin-question-card {
+  background: var(--teal-soft); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px;
+}
+.admin-question-text { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+.admin-question-options { display: flex; flex-direction: column; gap: 3px; margin-bottom: 8px; }
+.admin-question-option { font-size: 12px; color: var(--text-secondary); padding: 2px 0; }
+.admin-question-option--correct { color: #16a34a; font-weight: 700; }
+.admin-question-actions { display: flex; gap: 8px; }
+.admin-question-form {
+  background: var(--card-bg); border: 1.5px solid var(--teal); border-radius: 14px;
+  padding: 20px; display: flex; flex-direction: column; gap: 12px;
+}
+.admin-question-form h3 { font-size: 15px; font-weight: 800; color: var(--text-primary); }
+.admin-form-label { font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; display: block; }
+.admin-textarea {
+  width: 100%; border: 1.5px solid var(--border); border-radius: 10px;
+  background: var(--teal-soft); color: var(--text-primary);
+  font-family: 'Nunito', sans-serif; font-size: 14px; padding: 10px 12px;
+  resize: vertical; outline: none;
+}
+.admin-textarea:focus { border-color: var(--teal); }
+.admin-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.admin-option-row { display: flex; flex-direction: column; gap: 4px; }
+.admin-correct-select {
+  background: var(--card-bg); border: 1.5px solid var(--border); color: var(--text-primary);
+  font-family: 'Nunito', sans-serif; font-size: 14px; padding: 8px 12px;
+  border-radius: 10px; outline: none;
+}
+.admin-form-row { display: flex; gap: 10px; }
+
+/* Announcements */
+.admin-announcement-form { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.admin-type-row { display: flex; gap: 8px; }
+.admin-type-btn {
+  flex: 1; padding: 8px; border: 1.5px solid var(--border); border-radius: 8px;
+  background: none; color: var(--text-muted); font-family: 'Nunito', sans-serif;
+  font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.15s;
+}
+.admin-type-btn--active.info { background: rgba(14,165,233,0.15); border-color: #0EA5E9; color: #0EA5E9; }
+.admin-type-btn--active.warning { background: rgba(234,179,8,0.15); border-color: #EAB308; color: #ca8a04; }
+.admin-type-btn--active.success { background: rgba(34,197,94,0.15); border-color: #22C55E; color: #16a34a; }
+.admin-announcement-list { display: flex; flex-direction: column; gap: 10px; }
+.admin-announcement-item {
+  background: var(--teal-soft); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.admin-announcement-msg { flex: 1; font-size: 14px; color: var(--text-primary); line-height: 1.45; }
+.admin-announcement-meta { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+.admin-announcement-actions { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+.admin-toggle-btn {
+  background: none; border: 1.5px solid var(--border); color: var(--text-muted);
+  font-family: 'Nunito', sans-serif; font-size: 11px; font-weight: 700;
+  padding: 4px 10px; border-radius: 6px; cursor: pointer; white-space: nowrap;
+}
+.admin-toggle-btn--active { border-color: #22C55E; color: #16a34a; }
+.admin-toggle-btn--inactive { border-color: var(--border); }

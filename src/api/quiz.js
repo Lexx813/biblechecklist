@@ -42,4 +42,44 @@ export const quizApi = {
       );
     if (error) throw new Error(error.message);
   },
+
+  // Admin: create a question
+  createQuestion: async (level, question, options, correctIndex) => {
+    const { data, error } = await supabase
+      .from("quiz_questions")
+      .insert({ level, question, options, correct_index: correctIndex })
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  // Admin: update a question
+  updateQuestion: async (id, level, question, options, correctIndex) => {
+    const { data, error } = await supabase
+      .from("quiz_questions")
+      .update({ level, question, options, correct_index: correctIndex })
+      .eq("id", id)
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  // Admin: delete a question
+  deleteQuestion: async (id) => {
+    const { error } = await supabase.from("quiz_questions").delete().eq("id", id);
+    if (error) throw new Error(error.message);
+  },
+
+  // Admin: get all questions
+  getAllQuestions: async () => {
+    const { data, error } = await supabase
+      .from("quiz_questions")
+      .select("*")
+      .order("level")
+      .order("created_at");
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
 };

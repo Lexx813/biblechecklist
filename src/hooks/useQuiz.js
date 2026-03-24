@@ -35,3 +35,37 @@ export function useInitQuizProgress(userId) {
     mutationFn: () => quizApi.initProgress(userId),
   });
 }
+
+export function useAllQuizQuestions() {
+  return useQuery({
+    queryKey: ["quiz", "admin", "questions"],
+    queryFn: quizApi.getAllQuestions,
+    staleTime: 0,
+  });
+}
+
+export function useCreateQuizQuestion() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ level, question, options, correctIndex }) =>
+      quizApi.createQuestion(level, question, options, correctIndex),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["quiz"] }),
+  });
+}
+
+export function useUpdateQuizQuestion() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, level, question, options, correctIndex }) =>
+      quizApi.updateQuestion(id, level, question, options, correctIndex),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["quiz"] }),
+  });
+}
+
+export function useDeleteQuizQuestion() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id) => quizApi.deleteQuestion(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["quiz"] }),
+  });
+}

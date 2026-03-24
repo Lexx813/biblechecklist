@@ -347,6 +347,58 @@
     "badgeName11": "Prophecy Seer",
     "badgeName12": "Bible Expert"
   },
+  "report": {
+    "title": "Report Content",
+    "sub": "Let us know why this content is inappropriate.",
+    "placeholder": "Optional: describe the issue…",
+    "submit": "Submit Report",
+    "submitting": "Submitting…",
+    "success": "Report submitted. Thank you.",
+    "flag": "Report"
+  },
+  "adminTabs": {
+    "users": "Users",
+    "reports": "Reports",
+    "quiz": "Quiz Editor",
+    "announcements": "Announcements"
+  },
+  "adminReports": {
+    "empty": "No pending reports 🎉",
+    "markReviewed": "Mark Reviewed",
+    "dismiss": "Dismiss",
+    "delete": "Delete",
+    "reportedBy": "Reported by",
+    "reason": "Reason:",
+    "noReason": "No reason provided"
+  },
+  "adminQuiz": {
+    "selectLevel": "Select Level",
+    "addQuestion": "+ Add Question",
+    "editQuestion": "Edit Question",
+    "questionText": "Question",
+    "optionA": "Option A",
+    "optionB": "Option B",
+    "optionC": "Option C",
+    "optionD": "Option D",
+    "correctAnswer": "Correct Answer",
+    "saveQuestion": "Save Question",
+    "noQuestions": "No questions for this level yet.",
+    "deleteConfirm": "Delete this question? This cannot be undone.",
+    "level": "Level"
+  },
+  "adminAnnouncements": {
+    "newTitle": "New Announcement",
+    "messagePlaceholder": "Announcement message…",
+    "typeInfo": "📢 Info",
+    "typeWarning": "⚠️ Warning",
+    "typeSuccess": "✅ Success",
+    "post": "Post Announcement",
+    "noAnnouncements": "No announcements yet.",
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "active": "Active",
+    "inactive": "Inactive"
+  },
   "confirm": {
     "title": "Are you sure?"
   },

@@ -5,7 +5,8 @@
       "mcp__claude_ai_Supabase__get_logs",
       "Bash(convert --version)",
       "Bash(node -e \"require\\(''sharp''\\)\")",
-      "Bash(node scripts/generate-og.mjs)"
+      "Bash(node scripts/generate-og.mjs)",
+      "Bash(npx vite:*)"
     ]
   }
 }

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import DOMPurify from "dompurify";
 import ConfirmModal from "../ConfirmModal";
 import RichTextEditor from "../RichTextEditor";
+import ReportModal from "../ReportModal";
 import PageNav from "../PageNav";
 import {
   useCategories, useThreads, useThread, useReplies,
@@ -11,6 +12,7 @@ import {
   usePinThread, useLockThread,
   useUserForumLikes, useToggleThreadLike, useToggleReplyLike,
 } from "../../hooks/useForum";
+import { useSubmitReport } from "../../hooks/useReports";
 import "../../styles/forum.css";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -56,6 +58,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
   const { data: forumLikes = { threads: [], replies: [] } } = useUserForumLikes(user.id);
   const toggleThreadLike = useToggleThreadLike(user.id, categoryId);
   const toggleReplyLike  = useToggleReplyLike(user.id, threadId);
+  const submitReport = useSubmitReport();
   const { t } = useTranslation();
 
   const [replyText, setReplyText]         = useState("");
@@ -66,7 +69,16 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
   const [editingReplyId, setEditingReplyId]       = useState(null);
   const [editReplyContent, setEditReplyContent]   = useState("");
   const [confirm, setConfirm] = useState(null);
+  const [reportTarget, setReportTarget]   = useState(null); // { type, id, preview }
   const bottomRef = useRef(null);
+
+  function handleReport(reason) {
+    if (!reportTarget) return;
+    submitReport.mutate(
+      { reporterId: user.id, contentType: reportTarget.type, contentId: reportTarget.id, contentPreview: reportTarget.preview, reason },
+      { onSuccess: () => setReportTarget(null), onError: () => setReportTarget(null) }
+    );
+  }
 
   const isAdmin  = profile?.is_admin;
   const isAuthor = thread?.author_id === user.id;
@@ -188,6 +200,15 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
               >
                 👍 <span className="forum-like-count">{thread.like_count ?? 0}</span>
               </button>
+              {thread.author_id !== user.id && (
+                <button
+                  className="forum-report-btn"
+                  onClick={e => { e.stopPropagation(); setReportTarget({ type: "thread", id: thread.id, preview: thread.title }); }}
+                  title={t("report.flag")}
+                >
+                  🚩
+                </button>
+              )}
             </>
           )}
         </div>
@@ -274,6 +295,15 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
                           </button>
                         </>
                       )}
+                      {reply.author_id !== user.id && (
+                        <button
+                          className="forum-report-btn"
+                          onClick={e => { e.stopPropagation(); setReportTarget({ type: "reply", id: reply.id, preview: reply.content?.replace(/<[^>]*>/g, "").slice(0, 80) ?? "" }); }}
+                          title={t("report.flag")}
+                        >
+                          🚩
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>
@@ -289,6 +319,14 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
           message={confirm.message}
           onConfirm={() => { confirm.onConfirm(); setConfirm(null); }}
           onCancel={() => setConfirm(null)}
+        />
+      )}
+
+      {reportTarget && (
+        <ReportModal
+          onSubmit={handleReport}
+          onClose={() => setReportTarget(null)}
+          isPending={submitReport.isPending}
         />
       )}
 

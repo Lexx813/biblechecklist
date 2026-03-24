@@ -347,6 +347,58 @@
     "badgeName11": "Vidente de Profecías",
     "badgeName12": "Experto en la Biblia"
   },
+  "report": {
+    "title": "Reportar Contenido",
+    "sub": "Dinos por qué este contenido es inapropiado.",
+    "placeholder": "Opcional: describe el problema…",
+    "submit": "Enviar Reporte",
+    "submitting": "Enviando…",
+    "success": "Reporte enviado. Gracias.",
+    "flag": "Reportar"
+  },
+  "adminTabs": {
+    "users": "Usuarios",
+    "reports": "Reportes",
+    "quiz": "Editor de Quiz",
+    "announcements": "Anuncios"
+  },
+  "adminReports": {
+    "empty": "Sin reportes pendientes 🎉",
+    "markReviewed": "Marcar Revisado",
+    "dismiss": "Descartar",
+    "delete": "Eliminar",
+    "reportedBy": "Reportado por",
+    "reason": "Razón:",
+    "noReason": "Sin razón proporcionada"
+  },
+  "adminQuiz": {
+    "selectLevel": "Seleccionar Nivel",
+    "addQuestion": "+ Agregar Pregunta",
+    "editQuestion": "Editar Pregunta",
+    "questionText": "Pregunta",
+    "optionA": "Opción A",
+    "optionB": "Opción B",
+    "optionC": "Opción C",
+    "optionD": "Opción D",
+    "correctAnswer": "Respuesta Correcta",
+    "saveQuestion": "Guardar Pregunta",
+    "noQuestions": "Sin preguntas para este nivel.",
+    "deleteConfirm": "¿Eliminar esta pregunta? No se puede deshacer.",
+    "level": "Nivel"
+  },
+  "adminAnnouncements": {
+    "newTitle": "Nuevo Anuncio",
+    "messagePlaceholder": "Mensaje del anuncio…",
+    "typeInfo": "📢 Información",
+    "typeWarning": "⚠️ Advertencia",
+    "typeSuccess": "✅ Éxito",
+    "post": "Publicar Anuncio",
+    "noAnnouncements": "Sin anuncios aún.",
+    "activate": "Activar",
+    "deactivate": "Desactivar",
+    "active": "Activo",
+    "inactive": "Inactivo"
+  },
   "confirm": {
     "title": "¿Estás seguro?"
   },
