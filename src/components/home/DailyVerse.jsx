@@ -23,7 +23,7 @@ export default function DailyVerse() {
     <div className="daily-verse">
       <div className="daily-verse-label">✦ {t("dailyVerse.label")}</div>
       <p className="daily-verse-text">{i18n.language.startsWith("es") ? (verse.textEs ?? verse.text) : verse.text}</p>
-      <span className="daily-verse-ref">— {verse.ref}</span>
+      <span className="daily-verse-ref">— {i18n.language.startsWith("es") ? verse.ref : (verse.refEn ?? verse.ref)}</span>
       <div className="daily-verse-nav">
         <button className="daily-verse-arrow" onClick={prev} title={t("dailyVerse.prev")}>‹</button>
         <div className="daily-verse-dots">
