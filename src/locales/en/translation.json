@@ -288,6 +288,33 @@
     "thisWeek": "this week",
     "chaptersDot": "chapters"
   },
+  "quiz": {
+    "nav": "Quiz",
+    "homeLabel": "Challenge",
+    "homeTitle": "Bible Quiz",
+    "homeSub": "Test your knowledge across 12 levels. Earn badges as you go.",
+    "homeCard": "Start the Quiz →",
+    "hubTitle": "Bible Quiz Levels",
+    "hubSub": "Answer all 10 questions correctly to unlock the next level and earn a badge.",
+    "locked": "Locked",
+    "unlocked": "Start",
+    "completed": "Completed",
+    "bestScore": "Best: {{score}}/10",
+    "attempts": "{{count}} attempt",
+    "attempts_other": "{{count}} attempts",
+    "level": "Level {{n}}",
+    "questionOf": "Question {{current}} of {{total}}",
+    "next": "Next Question",
+    "seeResults": "See Results",
+    "results": "Quiz Complete!",
+    "score": "You scored {{score}} out of 10",
+    "pass": "🎉 Perfect score! Badge earned!",
+    "fail": "Keep studying and try again!",
+    "badgeEarned": "Badge Earned: {{name}}",
+    "tryAgain": "Try Again",
+    "backToLevels": "← Back to Levels",
+    "loading": "Loading questions…"
+  },
   "confirm": {
     "title": "Are you sure?"
   },

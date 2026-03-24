@@ -288,6 +288,33 @@
     "thisWeek": "esta semana",
     "chaptersDot": "capítulos"
   },
+  "quiz": {
+    "nav": "Quiz",
+    "homeLabel": "Desafío",
+    "homeTitle": "Quiz Bíblico",
+    "homeSub": "Pon a prueba tus conocimientos en 12 niveles. Gana insignias en el camino.",
+    "homeCard": "Comenzar el Quiz →",
+    "hubTitle": "Niveles del Quiz Bíblico",
+    "hubSub": "Responde las 10 preguntas correctamente para desbloquear el siguiente nivel y ganar una insignia.",
+    "locked": "Bloqueado",
+    "unlocked": "Comenzar",
+    "completed": "Completado",
+    "bestScore": "Mejor: {{score}}/10",
+    "attempts": "{{count}} intento",
+    "attempts_other": "{{count}} intentos",
+    "level": "Nivel {{n}}",
+    "questionOf": "Pregunta {{current}} de {{total}}",
+    "next": "Siguiente Pregunta",
+    "seeResults": "Ver Resultados",
+    "results": "¡Quiz Completo!",
+    "score": "Obtuviste {{score}} de 10",
+    "pass": "🎉 ¡Puntaje perfecto! ¡Insignia ganada!",
+    "fail": "¡Sigue estudiando e inténtalo de nuevo!",
+    "badgeEarned": "Insignia Ganada: {{name}}",
+    "tryAgain": "Intentar de Nuevo",
+    "backToLevels": "← Volver a los Niveles",
+    "loading": "Cargando preguntas…"
+  },
   "confirm": {
     "title": "¿Estás seguro?"
   },

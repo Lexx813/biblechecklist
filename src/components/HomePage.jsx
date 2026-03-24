@@ -53,6 +53,7 @@ export default function HomePage({ user, profile, navigate, onLogout, darkMode, 
           <button className="home-nav-link" onClick={() => navigate("main")}>{t("home.navTracker")}</button>
           <button className="home-nav-link" onClick={() => navigate("blog")}>{t("app.blog")}</button>
           <button className="home-nav-link" onClick={() => navigate("forum")}>{t("app.forum")}</button>
+          <button className="home-nav-link" onClick={() => navigate("quiz")}>{t("quiz.nav")}</button>
         </div>
         <div className="home-nav-actions">
           <button className="home-nav-ghost" onClick={() => setDarkMode(d => !d)}>
@@ -124,6 +125,32 @@ export default function HomePage({ user, profile, navigate, onLogout, darkMode, 
               <li>{t("home.trackerFeature4")}</li>
             </ul>
             <span className="home-tracker-cta">{t("home.trackerCta")}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Quiz section ── */}
+      <section className="home-section">
+        <div className="home-section-label">{t("quiz.homeLabel")}</div>
+        <h2 className="home-section-title">{t("quiz.homeTitle")}</h2>
+        <p className="home-section-sub">{t("quiz.homeSub")}</p>
+
+        <div className="home-tracker-card" onClick={() => navigate("quiz")}>
+          <div className="home-tracker-visual">
+            <div className="home-tracker-glow" />
+            <div className="home-tracker-icon-wrap">
+              <span className="home-tracker-big-icon">🏆</span>
+            </div>
+            <div className="home-tracker-stats-preview">
+              <div className="home-tracker-stat-pill">12 Levels</div>
+              <div className="home-tracker-stat-pill">240 Questions</div>
+              <div className="home-tracker-stat-pill">Earn Badges</div>
+            </div>
+          </div>
+          <div className="home-tracker-info">
+            <h3 className="home-tracker-title">{t("quiz.homeTitle")}</h3>
+            <p className="home-tracker-desc">{t("quiz.homeSub")}</p>
+            <span className="home-tracker-cta">{t("quiz.homeCard")}</span>
           </div>
         </div>
       </section>

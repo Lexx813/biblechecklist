@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
+import PageNav from "../PageNav";
 import { useUsers, useDeleteUser, useSetAdmin, useSetBlog, useCreateUser } from "../../hooks/useAdmin";
 import "../../styles/admin.css";
 
@@ -12,7 +13,7 @@ function formatDate(iso) {
   return new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
 
-export default function AdminPage({ currentUser, onBack }) {
+export default function AdminPage({ currentUser, onBack, navigate, darkMode, setDarkMode, i18n }) {
   const { data: users = [], isLoading } = useUsers();
   const deleteUser = useDeleteUser();
   const setAdmin = useSetAdmin();
@@ -54,6 +55,7 @@ export default function AdminPage({ currentUser, onBack }) {
 
   return (
     <div className="admin-wrap">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
       <header className="admin-header">
         <div className="admin-header-inner">
           <button className="admin-back-btn" onClick={onBack}>{t("common.back")}</button>

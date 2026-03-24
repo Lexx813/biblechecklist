@@ -1,6 +1,7 @@
 import { useState, useRef, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
+import PageNav from "../PageNav";
 import { BOOKS } from "../../data/books";
 import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
 import { useNotes, useCreateNote, useUpdateNote, useDeleteNote } from "../../hooks/useNotes";
@@ -212,7 +213,7 @@ function NoteCard({ note, userId }) {
 }
 
 // ── Main ProfilePage ──────────────────────────────────────
-export default function ProfilePage({ user, onBack }) {
+export default function ProfilePage({ user, onBack, navigate, darkMode, setDarkMode, i18n }) {
   const { data: profile } = useFullProfile(user.id);
   const { data: notes = [], isLoading: notesLoading } = useNotes(user.id);
   const { t } = useTranslation();
@@ -234,6 +235,7 @@ export default function ProfilePage({ user, onBack }) {
 
   return (
     <div className="pf-wrap">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
       {/* Header */}
       <header className="pf-header">
         <div className="pf-header-inner">

@@ -10,6 +10,7 @@ import BlogPage from "./components/blog/BlogPage";
 import BlogDashboard from "./components/blog/BlogDashboard";
 import ForumPage from "./components/forum/ForumPage";
 import HomePage from "./components/HomePage";
+import QuizPage, { QuizLevel } from "./components/quiz/QuizPage";
 import LandingPage from "./components/LandingPage";
 import ConfirmModal from "./components/ConfirmModal";
 import { useSession, useLogout } from "./hooks/useAuth";
@@ -77,6 +78,8 @@ function parseHash() {
     const parts = h.slice(6).split("/");
     return { page: "forum", categoryId: parts[0] || null, threadId: parts[1] || null };
   }
+  if (h === "quiz") return { page: "quiz" };
+  if (h.startsWith("quiz/")) return { page: "quizLevel", level: parseInt(h.slice(5)) };
   return { page: "home" };
 }
 
@@ -89,6 +92,8 @@ function buildHash(page, params = {}) {
     case "forum":    return params.categoryId
       ? (params.threadId ? `forum/${params.categoryId}/${params.threadId}` : `forum/${params.categoryId}`)
       : "forum";
+    case "quiz":      return "quiz";
+    case "quizLevel": return "quiz/" + params.level;
     case "main":     return "checklist";
     default:         return "";
   }
@@ -245,8 +250,10 @@ function BibleApp({ user, onLogout }) {
     );
   }
 
-  if (nav.page === "admin") return <AdminPage currentUser={user} onBack={() => navigate("home")} />;
-  if (nav.page === "profile") return <ProfilePage user={user} onBack={() => navigate("home")} />;
+  const sharedNav = { navigate, darkMode, setDarkMode, i18n };
+
+  if (nav.page === "admin") return <AdminPage currentUser={user} onBack={() => navigate("home")} {...sharedNav} />;
+  if (nav.page === "profile") return <ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} />;
   if (nav.page === "blog") return (
     <BlogPage
       user={user}
@@ -255,9 +262,10 @@ function BibleApp({ user, onLogout }) {
       onSelectPost={(slug) => navigate("blog", { slug })}
       onBack={() => navigate("home")}
       onWriteClick={() => navigate("blogDash")}
+      {...sharedNav}
     />
   );
-  if (nav.page === "blogDash") return <BlogDashboard user={user} onBack={() => navigate("home")} />;
+  if (nav.page === "blogDash") return <BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} />;
   if (nav.page === "forum") return (
     <ForumPage
       user={user}
@@ -266,6 +274,17 @@ function BibleApp({ user, onLogout }) {
       threadId={nav.threadId ?? null}
       onNavigate={(categoryId, threadId) => navigate("forum", { categoryId, threadId })}
       onBack={() => navigate("home")}
+      {...sharedNav}
+    />
+  );
+  if (nav.page === "quiz") return <QuizPage user={user} {...sharedNav} />;
+  if (nav.page === "quizLevel") return (
+    <QuizLevel
+      level={nav.level}
+      user={user}
+      onBack={() => navigate("quiz")}
+      onComplete={() => navigate("quiz")}
+      navigate={navigate}
     />
   );
 

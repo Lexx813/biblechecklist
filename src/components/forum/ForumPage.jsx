@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import DOMPurify from "dompurify";
 import ConfirmModal from "../ConfirmModal";
 import RichTextEditor from "../RichTextEditor";
+import PageNav from "../PageNav";
 import {
   useCategories, useThreads, useThread, useReplies,
   useCreateThread, useCreateReply,
@@ -41,7 +42,7 @@ function Avatar({ profile, size = "md" }) {
 }
 
 // ── Thread View ───────────────────────────────────────────────────────────────
-function ThreadView({ threadId, user, profile, onBack, categoryId }) {
+function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, darkMode, setDarkMode, i18n }) {
   const { data: thread, isLoading: threadLoading } = useThread(threadId);
   const { data: replies = [], isLoading: repliesLoading } = useReplies(threadId);
   const createReply = useCreateReply(threadId);
@@ -110,6 +111,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
 
   return (
     <div className="forum-thread-view">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
       {/* Thread header */}
       <div className="forum-thread-header">
         <button className="forum-back-btn" onClick={onBack}>{t("common.back")}</button>
@@ -320,7 +322,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId }) {
 }
 
 // ── Thread List ───────────────────────────────────────────────────────────────
-function ThreadList({ category, user, onSelectThread, onBack }) {
+function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode, setDarkMode, i18n }) {
   const { data: threads = [], isLoading } = useThreads(category.id);
   const createThread = useCreateThread(category.id);
   const { t } = useTranslation();
@@ -346,6 +348,7 @@ function ThreadList({ category, user, onSelectThread, onBack }) {
 
   return (
     <div className="forum-thread-list">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
       {/* Header */}
       <div className="forum-list-header">
         <div className="forum-list-header-left">
@@ -437,15 +440,16 @@ function ThreadList({ category, user, onSelectThread, onBack }) {
 }
 
 // ── Category List ─────────────────────────────────────────────────────────────
-function CategoryList({ onSelectCategory, onBack }) {
+function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMode, i18n }) {
   const { data: categories = [], isLoading } = useCategories();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const isEs = i18n.language.startsWith("es");
 
   const totalThreads = categories.reduce((sum, c) => sum + (c.forum_threads?.[0]?.count ?? 0), 0);
 
   return (
     <div className="forum-categories">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
       {/* Hero */}
       <div className="forum-hero">
         <div className="forum-hero-glow forum-hero-glow--1" />
@@ -487,9 +491,11 @@ function CategoryList({ onSelectCategory, onBack }) {
 }
 
 // ── Main ForumPage ────────────────────────────────────────────────────────────
-export default function ForumPage({ user, profile, onBack, categoryId, threadId, onNavigate }) {
+export default function ForumPage({ user, profile, onBack, categoryId, threadId, onNavigate, navigate, darkMode, setDarkMode, i18n }) {
   const { data: categories = [], isLoading: catsLoading } = useCategories();
   const activeCategory = categoryId ? categories.find(c => c.id === categoryId) ?? null : null;
+
+  const navProps = { navigate, darkMode, setDarkMode, i18n };
 
   if (threadId && categoryId) {
     return (
@@ -499,6 +505,7 @@ export default function ForumPage({ user, profile, onBack, categoryId, threadId,
         profile={profile}
         categoryId={categoryId}
         onBack={() => onNavigate(categoryId, null)}
+        {...navProps}
       />
     );
   }
@@ -511,9 +518,10 @@ export default function ForumPage({ user, profile, onBack, categoryId, threadId,
         user={user}
         onSelectThread={(id) => onNavigate(categoryId, id)}
         onBack={() => onNavigate(null, null)}
+        {...navProps}
       />
     );
   }
 
-  return <CategoryList onSelectCategory={(cat) => onNavigate(cat.id, null)} onBack={onBack} />;
+  return <CategoryList onSelectCategory={(cat) => onNavigate(cat.id, null)} onBack={onBack} {...navProps} />;
 }

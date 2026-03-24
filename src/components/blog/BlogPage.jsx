@@ -1,6 +1,7 @@
 import { useState, useMemo, memo } from "react";
 import { useTranslation } from "react-i18next";
 import DOMPurify from "dompurify";
+import PageNav from "../PageNav";
 import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment, useUserBlogLikes, useToggleBlogLike } from "../../hooks/useBlog";
 import "../../styles/blog.css";
 import "../../styles/editor.css";
@@ -124,7 +125,7 @@ function PostComments({ postId, user }) {
 }
 
 // ── Single post view ─────────────────────────────────────────────────────────
-function PostView({ slug, onBack, user }) {
+function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n }) {
   const { data: post, isLoading } = usePostBySlug(slug);
   const { data: likedIds = [] } = useUserBlogLikes(user?.id);
   const toggleLike = useToggleBlogLike(user?.id);
@@ -155,6 +156,7 @@ function PostView({ slug, onBack, user }) {
 
   return (
     <div className="blog-post-view">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
       <div
         className="blog-post-hero"
         style={{ background: post.cover_url ? undefined : getGradient(post.id) }}
@@ -260,16 +262,17 @@ const PostCard = memo(function PostCard({ post, onSelect }) {
 });
 
 // ── Main Blog Page ────────────────────────────────────────────────────────────
-export default function BlogPage({ user, profile, onBack, onWriteClick, slug, onSelectPost }) {
+export default function BlogPage({ user, profile, onBack, onWriteClick, slug, onSelectPost, navigate, darkMode, setDarkMode, i18n }) {
   const { data: posts = [], isLoading } = usePublishedPosts();
   const { t } = useTranslation();
 
   if (slug) {
-    return <PostView slug={slug} onBack={() => onSelectPost(null)} user={user} />;
+    return <PostView slug={slug} onBack={() => onSelectPost(null)} user={user} navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />;
   }
 
   return (
     <div className="blog-wrap">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
       {/* Nav */}
       <nav className="blog-nav">
         <button className="blog-back-btn" onClick={onBack}>{t("blog.backToBible")}</button>
