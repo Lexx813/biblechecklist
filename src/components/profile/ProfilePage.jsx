@@ -5,7 +5,20 @@ import PageNav from "../PageNav";
 import { BOOKS } from "../../data/books";
 import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
 import { useNotes, useCreateNote, useUpdateNote, useDeleteNote } from "../../hooks/useNotes";
+import { useProgress } from "../../hooks/useProgress";
+import { useQuizProgress } from "../../hooks/useQuiz";
 import "../../styles/profile.css";
+
+const TOTAL_CHAPTERS = BOOKS.reduce((s, b) => s + b.chapters, 0);
+
+const LEVEL_BADGES = [
+  { level: 1,  emoji: "📖" }, { level: 2,  emoji: "📚" },
+  { level: 3,  emoji: "🌱" }, { level: 4,  emoji: "👨‍👩‍👦" },
+  { level: 5,  emoji: "🏺" }, { level: 6,  emoji: "⚔️" },
+  { level: 7,  emoji: "🎵" }, { level: 8,  emoji: "📯" },
+  { level: 9,  emoji: "✝️" }, { level: 10, emoji: "🌍" },
+  { level: 11, emoji: "🔮" }, { level: 12, emoji: "👑" },
+];
 
 const OT_COUNT = 39;
 
@@ -19,7 +32,7 @@ function Initials({ name, email }) {
 }
 
 // ── Avatar ────────────────────────────────────────────────
-function Avatar({ profile, userId }) {
+function Avatar({ profile, userId, editable }) {
   const fileRef = useRef();
   const upload = useUploadAvatar(userId);
 
@@ -27,6 +40,17 @@ function Avatar({ profile, userId }) {
     const file = e.target.files[0];
     if (!file) return;
     upload.mutate(file);
+  }
+
+  if (!editable) {
+    return (
+      <div className="pf-avatar-wrap pf-avatar-wrap--static">
+        {profile?.avatar_url
+          ? <img src={profile.avatar_url} alt="avatar" className="pf-avatar-img" />
+          : <span className="pf-avatar-initials"><Initials name={profile?.display_name} email={profile?.email} /></span>
+        }
+      </div>
+    );
   }
 
   return (
@@ -44,7 +68,7 @@ function Avatar({ profile, userId }) {
 }
 
 // ── Display name ──────────────────────────────────────────
-function DisplayName({ profile, userId }) {
+function DisplayName({ profile, userId, editable }) {
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState("");
   const update = useUpdateProfile(userId);
@@ -73,6 +97,14 @@ function DisplayName({ profile, userId }) {
         />
         <button className="pf-name-save" onClick={save}>{t("common.save")}</button>
         <button className="pf-name-cancel" onClick={() => setEditing(false)}>✕</button>
+      </div>
+    );
+  }
+
+  if (!editable) {
+    return (
+      <div className="pf-name-row">
+        <h2 className="pf-name">{profile?.display_name || profile?.email?.split("@")[0]}</h2>
       </div>
     );
   }
@@ -213,10 +245,33 @@ function NoteCard({ note, userId }) {
 }
 
 // ── Main ProfilePage ──────────────────────────────────────
-export default function ProfilePage({ user, onBack, navigate, darkMode, setDarkMode, i18n }) {
-  const { data: profile } = useFullProfile(user.id);
-  const { data: notes = [], isLoading: notesLoading } = useNotes(user.id);
+export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack, navigate, darkMode, setDarkMode, i18n }) {
+  const profileId = viewedUserId ?? user.id;
+  const { data: profile } = useFullProfile(profileId);
+  const { data: notes = [], isLoading: notesLoading } = useNotes(isOwner ? profileId : null);
+  const { data: readingProgress = {} } = useProgress(profileId);
+  const { data: quizProgress = [] } = useQuizProgress(profileId);
   const { t } = useTranslation();
+
+  // Bible reading stats
+  const { chaptersRead, booksComplete, pct } = useMemo(() => {
+    let chaptersRead = 0, booksComplete = 0;
+    BOOKS.forEach((b, bi) => {
+      const done = Object.values(readingProgress[bi] || {}).filter(Boolean).length;
+      chaptersRead += done;
+      if (done === b.chapters) booksComplete++;
+    });
+    const pct = TOTAL_CHAPTERS > 0 ? Math.round((chaptersRead / TOTAL_CHAPTERS) * 100) : 0;
+    return { chaptersRead, booksComplete, pct };
+  }, [readingProgress]);
+
+  // Quiz stats
+  const quizProgressMap = useMemo(
+    () => Object.fromEntries(quizProgress.map(p => [p.level, p])),
+    [quizProgress]
+  );
+  const levelsCompleted = quizProgress.filter(p => p.badge_earned).length;
+  const highestUnlocked = quizProgress.filter(p => p.unlocked).reduce((max, p) => Math.max(max, p.level), 0);
 
   const [showAddForm, setShowAddForm] = useState(false);
   const [filterBook, setFilterBook] = useState("all");
@@ -240,7 +295,7 @@ export default function ProfilePage({ user, onBack, navigate, darkMode, setDarkM
       <header className="pf-header">
         <div className="pf-header-inner">
           <button className="pf-back-btn" onClick={onBack}>{t("common.back")}</button>
-          <h1 className="pf-header-title">{t("profile.title")}</h1>
+          <h1 className="pf-header-title">{isOwner ? t("profile.title") : (profile?.display_name || profile?.email?.split("@")[0] || t("profile.title"))}</h1>
         </div>
       </header>
 
@@ -250,69 +305,122 @@ export default function ProfilePage({ user, onBack, navigate, darkMode, setDarkM
         <div className="pf-card">
           <div className="pf-card-banner" />
           <div className="pf-card-body">
-            <Avatar profile={profile} userId={user.id} />
-            <DisplayName profile={profile} userId={user.id} />
-            <p className="pf-email">{user.email}</p>
+            <Avatar profile={profile} userId={profileId} editable={isOwner} />
+            <DisplayName profile={profile} userId={profileId} editable={isOwner} />
+            {isOwner && <p className="pf-email">{user.email}</p>}
             <p className="pf-since">{t("profile.memberSince", { date: profile ? formatDate(profile.created_at) : "—" })}</p>
-            <div className="pf-stats-row">
-              <div className="pf-stat"><strong>{notes.length}</strong> {t("profile.notesCount", { count: notes.length }).split(" ")[1]}</div>
-              <div className="pf-stat-divider" />
-              <div className="pf-stat"><strong>{booksWithNotes.length}</strong> {t("profile.booksAnnotated", { count: booksWithNotes.length }).replace(/^\d+ /, "")}</div>
-            </div>
+            {isOwner && (
+              <div className="pf-stats-row">
+                <div className="pf-stat"><strong>{notes.length}</strong> {t("profile.notesCount", { count: notes.length }).split(" ")[1]}</div>
+                <div className="pf-stat-divider" />
+                <div className="pf-stat"><strong>{booksWithNotes.length}</strong> {t("profile.booksAnnotated", { count: booksWithNotes.length }).replace(/^\d+ /, "")}</div>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Notes section */}
-        <div className="pf-section">
+        {/* Bible Reading Progress */}
+        <div className="pf-section pf-section--stats">
           <div className="pf-section-header">
-            <h2>{t("profile.myNotes")}</h2>
-            <button className="pf-add-note-btn" onClick={() => setShowAddForm(v => !v)}>
-              {showAddForm ? t("common.cancel") : t("profile.addNote")}
-            </button>
+            <h2>📖 {t("profile.bibleProgress")}</h2>
           </div>
-
-          {showAddForm && (
-            <div className="pf-add-form-wrap">
-              <NoteForm userId={user.id} onDone={() => setShowAddForm(false)} />
+          <div className="pf-reading-stats">
+            <div className="pf-reading-bar-wrap">
+              <div className="pf-reading-bar">
+                <div className="pf-reading-fill" style={{ width: `${pct}%` }} />
+              </div>
+              <span className="pf-reading-pct">{pct}%</span>
             </div>
-          )}
-
-          {/* Filters */}
-          <div className="pf-filters">
-            <select
-              className="pf-filter-select"
-              value={filterBook}
-              onChange={e => setFilterBook(e.target.value)}
-            >
-              <option value="all">{t("profile.allBooks")}</option>
-              {booksWithNotes.map(i => (
-                <option key={i} value={i}>{t(`bookNames.${i}`, BOOKS[i]?.name)}</option>
-              ))}
-            </select>
-            <input
-              className="pf-filter-search"
-              type="text"
-              placeholder={t("profile.searchNotes")}
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-            />
+            <div className="pf-reading-meta">
+              <span><strong>{chaptersRead.toLocaleString()}</strong> / {TOTAL_CHAPTERS.toLocaleString()} {t("profile.chapters")}</span>
+              <span className="pf-dot">·</span>
+              <span><strong>{booksComplete}</strong> / 66 {t("profile.booksComplete")}</span>
+            </div>
           </div>
+        </div>
 
-          {/* Notes list */}
-          {notesLoading ? (
-            <div className="pf-loading">{t("profile.loadingNotes")}</div>
-          ) : filtered.length === 0 ? (
-            <div className="pf-empty">
-              {notes.length === 0 ? t("profile.noNotes") : t("profile.noNotesFilter")}
-            </div>
+        {/* Quiz Progress */}
+        <div className="pf-section pf-section--stats">
+          <div className="pf-section-header">
+            <h2>🏆 {t("profile.quizProgress")}</h2>
+            {highestUnlocked > 0 && (
+              <span className="pf-quiz-meta">{levelsCompleted} / 12 {t("profile.levelsComplete")}</span>
+            )}
+          </div>
+          {highestUnlocked === 0 ? (
+            <p className="pf-empty">{t("profile.quizNotStarted")}</p>
           ) : (
-            <div className="pf-notes-list">
-              {filtered.map(note => (
-                <NoteCard key={note.id} note={note} userId={user.id} />
-              ))}
+            <div className="pf-quiz-badges">
+              {LEVEL_BADGES.map(({ level, emoji }) => {
+                const prog = quizProgressMap[level];
+                const earned = prog?.badge_earned === true;
+                const unlocked = level === 1 || prog?.unlocked === true;
+                return (
+                  <div
+                    key={level}
+                    className={`pf-quiz-badge${earned ? " pf-quiz-badge--earned" : unlocked ? " pf-quiz-badge--unlocked" : " pf-quiz-badge--locked"}`}
+                    title={earned ? `${t(`quiz.theme${level}`)} — ${t(`quiz.badgeName${level}`)}` : unlocked ? t("quiz.unlocked") : t("quiz.locked")}
+                  >
+                    <span className="pf-quiz-badge-emoji">{emoji}</span>
+                    <span className="pf-quiz-badge-level">{level}</span>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
+
+        {/* Notes section — owner only */}
+        {isOwner && (
+          <div className="pf-section">
+            <div className="pf-section-header">
+              <h2>{t("profile.myNotes")}</h2>
+              <button className="pf-add-note-btn" onClick={() => setShowAddForm(v => !v)}>
+                {showAddForm ? t("common.cancel") : t("profile.addNote")}
+              </button>
+            </div>
+
+            {showAddForm && (
+              <div className="pf-add-form-wrap">
+                <NoteForm userId={profileId} onDone={() => setShowAddForm(false)} />
+              </div>
+            )}
+
+            <div className="pf-filters">
+              <select
+                className="pf-filter-select"
+                value={filterBook}
+                onChange={e => setFilterBook(e.target.value)}
+              >
+                <option value="all">{t("profile.allBooks")}</option>
+                {booksWithNotes.map(i => (
+                  <option key={i} value={i}>{t(`bookNames.${i}`, BOOKS[i]?.name)}</option>
+                ))}
+              </select>
+              <input
+                className="pf-filter-search"
+                type="text"
+                placeholder={t("profile.searchNotes")}
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+              />
+            </div>
+
+            {notesLoading ? (
+              <div className="pf-loading">{t("profile.loadingNotes")}</div>
+            ) : filtered.length === 0 ? (
+              <div className="pf-empty">
+                {notes.length === 0 ? t("profile.noNotes") : t("profile.noNotesFilter")}
+              </div>
+            ) : (
+              <div className="pf-notes-list">
+                {filtered.map(note => (
+                  <NoteCard key={note.id} note={note} userId={profileId} />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
 
       </div>
     </div>

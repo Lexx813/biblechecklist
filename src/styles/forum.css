@@ -439,6 +439,14 @@
   align-items: center;
   justify-content: center;
 }
+.forum-avatar--clickable {
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.forum-avatar--clickable:hover {
+  opacity: 0.8;
+  transform: scale(1.08);
+}
 .forum-avatar--lg { width: 40px; height: 40px; font-size: 16px; }
 .forum-avatar--md { width: 36px; height: 36px; font-size: 14px; }
 .forum-avatar--sm { width: 28px; height: 28px; font-size: 12px; }
@@ -564,6 +572,59 @@
   font-weight: 600;
   margin-top: 2px;
   text-align: center;
+}
+
+/* ── Light mode overrides ─────────────────────────────────────── */
+
+/* Darken borders so cards/rows are visible against the near-white bg */
+[data-theme="light"] .forum-cat-card,
+[data-theme="light"] .forum-row,
+[data-theme="light"] .forum-post-body,
+[data-theme="light"] .forum-new-thread-form,
+[data-theme="light"] .forum-reply-form-inner {
+  border-color: #B39DDB;
+}
+
+/* OP post tinted background is nearly invisible — make it visible */
+[data-theme="light"] .forum-post--op .forum-post-body {
+  background: #E8D8FF;
+  border-color: #B39DDB;
+}
+
+/* Inputs look invisible against the page bg */
+[data-theme="light"] .forum-input,
+[data-theme="light"] .forum-textarea {
+  background: #E8D8FF;
+  border-color: #B39DDB;
+}
+[data-theme="light"] .forum-input:focus,
+[data-theme="light"] .forum-textarea:focus {
+  background: #fff;
+  border-color: #6A3DAA;
+}
+
+/* Reply textarea has no bg — give it a tinted fill */
+[data-theme="light"] .forum-reply-textarea {
+  color: #1E1035;
+}
+
+/* Locked message box nearly invisible */
+[data-theme="light"] .forum-locked-msg {
+  background: #EDE0FF;
+  border-color: #B39DDB;
+  color: #4F2D85;
+}
+
+/* Pin/number badges */
+[data-theme="light"] .forum-post-badge--op,
+[data-theme="light"] .forum-post-num {
+  background: #C9B0E8;
+  color: #341C5C;
+}
+
+[data-theme="light"] .forum-badge--pin {
+  background: #C9B0E8;
+  color: #341C5C;
 }
 
 /* ── Tiny phones (≤ 360px) ────────────────────────────────────── */

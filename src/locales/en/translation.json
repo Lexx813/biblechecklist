@@ -151,7 +151,13 @@
     "updateNote": "Update Note",
     "deleteNoteConfirm": "Delete this note? This cannot be undone.",
     "chAbbr": "Ch.",
-    "verseAbbr": "v."
+    "verseAbbr": "v.",
+    "bibleProgress": "Bible Reading Progress",
+    "chapters": "chapters",
+    "booksComplete": "books complete",
+    "quizProgress": "Quiz Progress",
+    "levelsComplete": "levels complete",
+    "quizNotStarted": "No quiz activity yet."
   },
   "blog": {
     "backToBible": "← Bible App",
@@ -280,7 +286,7 @@
     "forumSub": "The most active and liked threads in the community.",
     "forumViewAll": "Visit the forum →",
     "forumEmpty": "No threads yet — start the first conversation.",
-    "footer": "BibleTracker · Built with purpose"
+    "footer": "NWT Progress · Built with purpose"
   },
   "stats": {
     "streak_one": "day streak",
@@ -313,7 +319,33 @@
     "badgeEarned": "Badge Earned: {{name}}",
     "tryAgain": "Try Again",
     "backToLevels": "← Back to Levels",
-    "loading": "Loading questions…"
+    "loading": "Loading questions…",
+    "yourAnswer": "Your answer:",
+    "correct": "Correct:",
+    "theme1": "Bible Basics",
+    "theme2": "Books of the Bible",
+    "theme3": "Creation & Early History",
+    "theme4": "The Patriarchs",
+    "theme5": "Moses & the Exodus",
+    "theme6": "Joshua through the Kings",
+    "theme7": "Poetry & Wisdom",
+    "theme8": "The Major Prophets",
+    "theme9": "The Gospels",
+    "theme10": "Acts & Paul's Letters",
+    "theme11": "Prophecy & Revelation",
+    "theme12": "Expert Level",
+    "badgeName1": "First Steps",
+    "badgeName2": "Book Scholar",
+    "badgeName3": "Origins Expert",
+    "badgeName4": "Patriarch",
+    "badgeName5": "Exodus Champion",
+    "badgeName6": "Kingdom Historian",
+    "badgeName7": "Wisdom Keeper",
+    "badgeName8": "Prophet's Voice",
+    "badgeName9": "Gospel Master",
+    "badgeName10": "Congregation Builder",
+    "badgeName11": "Prophecy Seer",
+    "badgeName12": "Bible Expert"
   },
   "confirm": {
     "title": "Are you sure?"

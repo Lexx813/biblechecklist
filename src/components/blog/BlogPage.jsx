@@ -46,7 +46,7 @@ function renderContent(text) {
 }
 
 // ── Comments ──────────────────────────────────────────────────────────────────
-function PostComments({ postId, user }) {
+function PostComments({ postId, user, navigate }) {
   const { t } = useTranslation();
   const { data: comments = [], isLoading } = useComments(postId);
   const createComment = useCreateComment(postId);
@@ -77,7 +77,7 @@ function PostComments({ postId, user }) {
         <div className="blog-comments-list">
           {comments.map(c => (
             <div key={c.id} className="blog-comment">
-              <div className="blog-comment-avatar">
+              <div className="blog-comment-avatar blog-avatar--clickable" onClick={() => navigate("publicProfile", { userId: c.author_id })}>
                 {c.profiles?.avatar_url
                   ? <img src={c.profiles.avatar_url} alt="" />
                   : (c.profiles?.display_name || c.profiles?.email || "?")[0].toUpperCase()
@@ -167,7 +167,7 @@ function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n })
           <div className="blog-post-hero-meta">
             <h1 className="blog-post-hero-title">{post.title}</h1>
             <div className="blog-post-hero-byline">
-              <div className="blog-author-avatar blog-author-avatar--sm">
+              <div className="blog-author-avatar blog-author-avatar--sm blog-avatar--clickable" onClick={() => navigate("publicProfile", { userId: post.author_id })}>
                 {post.profiles?.avatar_url
                   ? <img src={post.profiles.avatar_url} alt="" />
                   : authorInitial(post)
@@ -191,7 +191,7 @@ function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n })
 
 
         <div className="blog-author-card">
-          <div className="blog-author-avatar blog-author-avatar--lg">
+          <div className="blog-author-avatar blog-author-avatar--lg blog-avatar--clickable" onClick={() => navigate("publicProfile", { userId: post.author_id })}>
             {post.profiles?.avatar_url
               ? <img src={post.profiles.avatar_url} alt="" />
               : authorInitial(post)
@@ -215,14 +215,14 @@ function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n })
           </div>
         )}
 
-        {user && <PostComments postId={post.id} user={user} />}
+        {user && <PostComments postId={post.id} user={user} navigate={navigate} />}
       </div>
     </div>
   );
 }
 
 // ── Post listing card ─────────────────────────────────────────────────────────
-const PostCard = memo(function PostCard({ post, onSelect }) {
+const PostCard = memo(function PostCard({ post, onSelect, navigate }) {
   const { t } = useTranslation();
   const minRead = useMemo(() => {
     const words = (post.content || "").split(/\s+/).length;
@@ -242,7 +242,7 @@ const PostCard = memo(function PostCard({ post, onSelect }) {
         <p className="blog-card-excerpt">{post.excerpt || t("blog.readMore")}</p>
         <h2 className="blog-card-title">{post.title}</h2>
         <div className="blog-card-footer">
-          <div className="blog-author-avatar blog-author-avatar--xs">
+          <div className="blog-author-avatar blog-author-avatar--xs blog-avatar--clickable" onClick={e => { e.stopPropagation(); navigate("publicProfile", { userId: post.author_id }); }}>
             {post.profiles?.avatar_url
               ? <img src={post.profiles.avatar_url} alt="" />
               : authorInitial(post)
@@ -311,7 +311,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
         ) : (
           <div className="blog-grid">
             {posts.map(post => (
-              <PostCard key={post.id} post={post} onSelect={onSelectPost} />
+              <PostCard key={post.id} post={post} onSelect={onSelectPost} navigate={navigate} />
             ))}
           </div>
         )}

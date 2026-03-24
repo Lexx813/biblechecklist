@@ -34,11 +34,12 @@ function timeAgo(iso, t) {
   return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
 }
 
-function Avatar({ profile, size = "md" }) {
+function Avatar({ profile, size = "md", onClick }) {
+  const cls = `forum-avatar forum-avatar--${size}${onClick ? " forum-avatar--clickable" : ""}`;
   if (profile?.avatar_url) {
-    return <img className={`forum-avatar forum-avatar--${size}`} src={profile.avatar_url} alt="" />;
+    return <img className={cls} src={profile.avatar_url} alt="" onClick={onClick} />;
   }
-  return <div className={`forum-avatar forum-avatar--${size} forum-avatar--fallback`}>{initial(profile)}</div>;
+  return <div className={`${cls} forum-avatar--fallback`} onClick={onClick}>{initial(profile)}</div>;
 }
 
 // ── Thread View ───────────────────────────────────────────────────────────────
@@ -144,7 +145,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
       {/* Original post */}
       <div className="forum-post forum-post--op">
         <div className="forum-post-aside">
-          <Avatar profile={thread.profiles} />
+          <Avatar profile={thread.profiles} onClick={() => navigate("publicProfile", { userId: thread.author_id })} />
           <span className="forum-post-author">{displayName(thread.profiles)}</span>
           <span className="forum-post-time">{timeAgo(thread.created_at, t)}</span>
           <span className="forum-post-badge forum-post-badge--op">{t("forum.op")}</span>
@@ -206,7 +207,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
             return (
               <div key={reply.id} className="forum-post">
                 <div className="forum-post-aside">
-                  <Avatar profile={reply.profiles} />
+                  <Avatar profile={reply.profiles} onClick={() => navigate("publicProfile", { userId: reply.author_id })} />
                   <span className="forum-post-author">{displayName(reply.profiles)}</span>
                   <span className="forum-post-time">{timeAgo(reply.created_at, t)}</span>
                   <span className="forum-post-num">#{i + 1}</span>
@@ -407,7 +408,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
                 onClick={() => onSelectThread(thread.id)}
               >
                 <div className="forum-row-left">
-                  <Avatar profile={thread.profiles} size="sm" />
+                  <Avatar profile={thread.profiles} size="sm" onClick={e => { e.stopPropagation(); navigate("publicProfile", { userId: thread.author_id }); }} />
                 </div>
                 <div className="forum-row-mid">
                   <div className="forum-row-title">

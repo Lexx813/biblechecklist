@@ -47,7 +47,7 @@ export default function HomePage({ user, profile, navigate, onLogout, darkMode, 
       <nav className="home-nav">
         <div className="home-nav-brand">
           <span className="home-nav-logo-icon">📖</span>
-          <span className="home-nav-logo-text">BibleTracker</span>
+          <span className="home-nav-logo-text">NWT Progress</span>
         </div>
         <div className="home-nav-links">
           <button className="home-nav-link" onClick={() => navigate("main")}>{t("home.navTracker")}</button>

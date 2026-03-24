@@ -10,25 +10,27 @@ import {
 import "../../styles/quiz.css";
 
 const LEVELS = [
-  { level: 1,  theme: "Bible Basics",               badge: "📖", badgeName: "First Steps" },
-  { level: 2,  theme: "Books of the Bible",          badge: "📚", badgeName: "Book Scholar" },
-  { level: 3,  theme: "Creation & Early History",    badge: "🌱", badgeName: "Origins Expert" },
-  { level: 4,  theme: "The Patriarchs",              badge: "👨‍👩‍👦", badgeName: "Patriarch" },
-  { level: 5,  theme: "Moses & the Exodus",          badge: "🏺", badgeName: "Exodus Champion" },
-  { level: 6,  theme: "Joshua through the Kings",    badge: "⚔️", badgeName: "Kingdom Historian" },
-  { level: 7,  theme: "Poetry & Wisdom",             badge: "🎵", badgeName: "Wisdom Keeper" },
-  { level: 8,  theme: "The Major Prophets",          badge: "📯", badgeName: "Prophet's Voice" },
-  { level: 9,  theme: "The Gospels",                 badge: "✝️", badgeName: "Gospel Master" },
-  { level: 10, theme: "Acts & Paul's Letters",       badge: "🌍", badgeName: "Congregation Builder" },
-  { level: 11, theme: "Prophecy & Revelation",       badge: "🔮", badgeName: "Prophecy Seer" },
-  { level: 12, theme: "Expert Level",                badge: "👑", badgeName: "Bible Expert" },
+  { level: 1,  themeKey: "quiz.theme1",  badge: "📖", badgeNameKey: "quiz.badgeName1" },
+  { level: 2,  themeKey: "quiz.theme2",  badge: "📚", badgeNameKey: "quiz.badgeName2" },
+  { level: 3,  themeKey: "quiz.theme3",  badge: "🌱", badgeNameKey: "quiz.badgeName3" },
+  { level: 4,  themeKey: "quiz.theme4",  badge: "👨‍👩‍👦", badgeNameKey: "quiz.badgeName4" },
+  { level: 5,  themeKey: "quiz.theme5",  badge: "🏺", badgeNameKey: "quiz.badgeName5" },
+  { level: 6,  themeKey: "quiz.theme6",  badge: "⚔️", badgeNameKey: "quiz.badgeName6" },
+  { level: 7,  themeKey: "quiz.theme7",  badge: "🎵", badgeNameKey: "quiz.badgeName7" },
+  { level: 8,  themeKey: "quiz.theme8",  badge: "📯", badgeNameKey: "quiz.badgeName8" },
+  { level: 9,  themeKey: "quiz.theme9",  badge: "✝️", badgeNameKey: "quiz.badgeName9" },
+  { level: 10, themeKey: "quiz.theme10", badge: "🌍", badgeNameKey: "quiz.badgeName10" },
+  { level: 11, themeKey: "quiz.theme11", badge: "🔮", badgeNameKey: "quiz.badgeName11" },
+  { level: 12, themeKey: "quiz.theme12", badge: "👑", badgeNameKey: "quiz.badgeName12" },
 ];
 
 // ── QuizLevelCard ──────────────────────────────────────────────────────────────
 
 function QuizLevelCard({ levelData, progress, onClick }) {
   const { t } = useTranslation();
-  const { level, theme, badge, badgeName } = levelData;
+  const { level, themeKey, badge, badgeNameKey } = levelData;
+  const theme = t(themeKey);
+  const badgeName = t(badgeNameKey);
 
   const isUnlocked = level === 1 || progress?.unlocked === true;
   const isCompleted = progress?.badge_earned === true;
@@ -133,9 +135,11 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n }
 
 // ── QuizLevel (Active Quiz) ────────────────────────────────────────────────────
 
-export function QuizLevel({ level, user, onBack, onComplete, navigate }) {
+export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode, setDarkMode, i18n }) {
   const { t } = useTranslation();
   const levelData = LEVELS.find((l) => l.level === level) ?? LEVELS[0];
+  const theme = t(levelData.themeKey);
+  const badgeName = t(levelData.badgeNameKey);
 
   const { data: questions = [], isLoading } = useQuizQuestions(level);
   const submitQuiz = useSubmitQuiz(user.id);
@@ -194,7 +198,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate }) {
   if (isLoading || questions.length === 0) {
     return (
       <div className="quiz-wrap">
-        <PageNav navigate={navigate} darkMode={undefined} setDarkMode={undefined} i18n={undefined} />
+        <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
         <div className="quiz-active quiz-active--loading">
           <div className="quiz-loading">{t("quiz.loading")}</div>
         </div>
@@ -205,7 +209,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate }) {
   if (showResults) {
     return (
       <div className="quiz-wrap">
-        <PageNav navigate={navigate} darkMode={undefined} setDarkMode={undefined} i18n={undefined} />
+        <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
         <div className="quiz-active">
           <div className="quiz-results">
             <div className="quiz-results-header">
@@ -217,7 +221,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate }) {
               {badgeEarned && (
                 <div className="quiz-badge-reveal">
                   <span className="quiz-badge-emoji">{levelData.badge}</span>
-                  <span className="quiz-badge-name">{t("quiz.badgeEarned", { name: levelData.badgeName })}</span>
+                  <span className="quiz-badge-name">{t("quiz.badgeEarned", { name: badgeName })}</span>
                 </div>
               )}
             </div>
@@ -236,11 +240,11 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate }) {
                     <div className="quiz-review-answers">
                       {!wasCorrect && (
                         <div className="quiz-review-your-answer">
-                          Your answer: <span className="quiz-review-wrong-text">{opts[ans?.selectedIndex] ?? "—"}</span>
+                          {t("quiz.yourAnswer")} <span className="quiz-review-wrong-text">{opts[ans?.selectedIndex] ?? "—"}</span>
                         </div>
                       )}
                       <div className="quiz-review-correct-answer">
-                        Correct: <span className="quiz-review-correct-text">{opts[q.correct_index]}</span>
+                        {t("quiz.correct")} <span className="quiz-review-correct-text">{opts[q.correct_index]}</span>
                       </div>
                     </div>
                   </div>
@@ -268,14 +272,14 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate }) {
 
   return (
     <div className="quiz-wrap">
-      <PageNav navigate={navigate} darkMode={undefined} setDarkMode={undefined} i18n={undefined} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
       <div className="quiz-active">
         {/* Level header */}
         <div className="quiz-level-header">
           <button className="quiz-back-btn" onClick={onBack}>{t("quiz.backToLevels")}</button>
           <div className="quiz-level-info">
             <span className="quiz-level-badge">{levelData.badge}</span>
-            <span className="quiz-level-name">{t("quiz.level", { n: level })} · {levelData.theme}</span>
+            <span className="quiz-level-name">{t("quiz.level", { n: level })} · {theme}</span>
           </div>
         </div>
 

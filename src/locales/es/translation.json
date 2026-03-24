@@ -151,7 +151,13 @@
     "updateNote": "Actualizar Nota",
     "deleteNoteConfirm": "¿Eliminar esta nota? Esta acción no se puede deshacer.",
     "chAbbr": "Cap.",
-    "verseAbbr": "v."
+    "verseAbbr": "v.",
+    "bibleProgress": "Progreso de Lectura Bíblica",
+    "chapters": "capítulos",
+    "booksComplete": "libros completos",
+    "quizProgress": "Progreso del Quiz",
+    "levelsComplete": "niveles completados",
+    "quizNotStarted": "Aún sin actividad en el quiz."
   },
   "blog": {
     "backToBible": "← App Bíblica",
@@ -280,7 +286,7 @@
     "forumSub": "Los hilos más activos y con más likes de la comunidad.",
     "forumViewAll": "Visitar el foro →",
     "forumEmpty": "Aún no hay hilos — comienza la primera conversación.",
-    "footer": "BibleTracker · Construido con propósito"
+    "footer": "NWT Progress · Construido con propósito"
   },
   "stats": {
     "streak_one": "día seguido",
@@ -313,7 +319,33 @@
     "badgeEarned": "Insignia Ganada: {{name}}",
     "tryAgain": "Intentar de Nuevo",
     "backToLevels": "← Volver a los Niveles",
-    "loading": "Cargando preguntas…"
+    "loading": "Cargando preguntas…",
+    "yourAnswer": "Tu respuesta:",
+    "correct": "Correcto:",
+    "theme1": "Fundamentos de la Biblia",
+    "theme2": "Los Libros de la Biblia",
+    "theme3": "Creación e Historia Temprana",
+    "theme4": "Los Patriarcas",
+    "theme5": "Moisés y el Éxodo",
+    "theme6": "Josué hasta los Reyes",
+    "theme7": "Poesía y Sabiduría",
+    "theme8": "Los Profetas Mayores",
+    "theme9": "Los Evangelios",
+    "theme10": "Hechos y las Cartas de Pablo",
+    "theme11": "Profecía y Apocalipsis",
+    "theme12": "Nivel Experto",
+    "badgeName1": "Primeros Pasos",
+    "badgeName2": "Estudioso de Libros",
+    "badgeName3": "Experto en Orígenes",
+    "badgeName4": "Patriarca",
+    "badgeName5": "Campeón del Éxodo",
+    "badgeName6": "Historiador del Reino",
+    "badgeName7": "Guardián de la Sabiduría",
+    "badgeName8": "Voz del Profeta",
+    "badgeName9": "Maestro del Evangelio",
+    "badgeName10": "Constructor de Congregaciones",
+    "badgeName11": "Vidente de Profecías",
+    "badgeName12": "Experto en la Biblia"
   },
   "confirm": {
     "title": "¿Estás seguro?"

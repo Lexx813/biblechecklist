@@ -7,7 +7,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n }) {
     <nav className="page-nav">
       <button className="page-nav-brand" onClick={() => navigate("home")}>
         <span className="page-nav-brand-icon">📖</span>
-        <span className="page-nav-brand-name">BibleTracker</span>
+        <span className="page-nav-brand-name">NWT Progress</span>
       </button>
       <div className="page-nav-links">
         <button className="page-nav-link" onClick={() => navigate("home")}>{t("app.home")}</button>

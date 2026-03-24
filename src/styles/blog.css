@@ -427,6 +427,15 @@
 }
 .blog-comment-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
+.blog-avatar--clickable {
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.blog-avatar--clickable:hover {
+  opacity: 0.8;
+  transform: scale(1.08);
+}
+
 .blog-comment-body { flex: 1; min-width: 0; }
 
 .blog-comment-meta {

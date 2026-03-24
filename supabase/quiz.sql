@@ -85,8 +85,8 @@ BEGIN
     attempts     = user_quiz_progress.attempts + 1,
     updated_at   = now();
 
-  -- Unlock next level if level < 12
-  IF p_level < 12 THEN
+  -- Unlock next level only on a perfect score
+  IF p_level < 12 AND p_score = 10 THEN
     INSERT INTO public.user_quiz_progress (user_id, level, unlocked, badge_earned, best_score, attempts, updated_at)
     VALUES (p_user_id, p_level + 1, true, false, 0, 0, now())
     ON CONFLICT (user_id, level) DO UPDATE SET

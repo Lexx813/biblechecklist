@@ -80,6 +80,7 @@ function parseHash() {
   }
   if (h === "quiz") return { page: "quiz" };
   if (h.startsWith("quiz/")) return { page: "quizLevel", level: parseInt(h.slice(5)) };
+  if (h.startsWith("user/")) return { page: "publicProfile", userId: h.slice(5) };
   return { page: "home" };
 }
 
@@ -92,8 +93,9 @@ function buildHash(page, params = {}) {
     case "forum":    return params.categoryId
       ? (params.threadId ? `forum/${params.categoryId}/${params.threadId}` : `forum/${params.categoryId}`)
       : "forum";
-    case "quiz":      return "quiz";
-    case "quizLevel": return "quiz/" + params.level;
+    case "quiz":          return "quiz";
+    case "quizLevel":     return "quiz/" + params.level;
+    case "publicProfile": return "user/" + params.userId;
     case "main":     return "checklist";
     default:         return "";
   }
@@ -254,6 +256,15 @@ function BibleApp({ user, onLogout }) {
 
   if (nav.page === "admin") return <AdminPage currentUser={user} onBack={() => navigate("home")} {...sharedNav} />;
   if (nav.page === "profile") return <ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} />;
+  if (nav.page === "publicProfile") return (
+    <ProfilePage
+      user={user}
+      viewedUserId={nav.userId}
+      isOwner={false}
+      onBack={() => navigate("home")}
+      {...sharedNav}
+    />
+  );
   if (nav.page === "blog") return (
     <BlogPage
       user={user}
@@ -284,7 +295,7 @@ function BibleApp({ user, onLogout }) {
       user={user}
       onBack={() => navigate("quiz")}
       onComplete={() => navigate("quiz")}
-      navigate={navigate}
+      {...sharedNav}
     />
   );
 
