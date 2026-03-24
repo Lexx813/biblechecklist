@@ -8,7 +8,15 @@
       "Bash(node scripts/generate-og.mjs)",
       "Bash(npx vite:*)",
       "Bash(npx skills:*)",
-      "Bash(find /home/alexi/projects/nwt-progress/src -type f \\\\\\( -name \"*.jsx\" -o -name \"*.js\" \\\\\\) -exec wc -l {} +)"
+      "Bash(find /home/alexi/projects/nwt-progress/src -type f \\\\\\( -name \"*.jsx\" -o -name \"*.js\" \\\\\\) -exec wc -l {} +)",
+      "Bash(find /home/alexi/projects/nwt-progress/src/api -type f -name *.js -o -name *.ts)",
+      "Bash(grep -n \"create table\\\\|CREATE TABLE\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -l \"blog_comments\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -n \"toggle_blog_like\\\\|blog_comments\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -n \"alter table\\\\|ALTER TABLE\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -n \"like_count\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -n \"like_count\\\\|blog_comments\\\\|toggle.*like\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -A 5 -B 5 \"add column\" /home/alexi/projects/nwt-progress/supabase/*.sql)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"
