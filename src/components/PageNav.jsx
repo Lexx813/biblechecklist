@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import "../styles/pagenav.css";
 import AnnouncementBanner from "./AnnouncementBanner";
@@ -8,35 +9,63 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
   const { t } = useTranslation();
   const { data: profile } = useFullProfile(user?.id);
   const isAdmin = profile?.is_admin;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  function go(page) {
+    setMenuOpen(false);
+    navigate(page);
+  }
+
+  // Close menu on outside click
+  useEffect(() => {
+    if (!menuOpen) return;
+    function handler(e) {
+      if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false);
+    }
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [menuOpen]);
+
+  // Close menu on resize to desktop
+  useEffect(() => {
+    function handler() { if (window.innerWidth > 768) setMenuOpen(false); }
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+
   return (
     <>
-      <nav className="page-nav">
-        <button className="page-nav-brand" onClick={() => navigate("home")}>
+      <nav className="page-nav" ref={menuRef}>
+        <button className="page-nav-brand" onClick={() => go("home")}>
           <span className="page-nav-brand-icon">📖</span>
           <span className="page-nav-brand-name">NWT Progress</span>
         </button>
+
+        {/* Desktop links */}
         <div className="page-nav-links">
-          <button className="page-nav-link" onClick={() => navigate("home")}>{t("app.home")}</button>
-          <button className="page-nav-link" onClick={() => navigate("main")}>{t("home.navTracker")}</button>
-          <button className="page-nav-link" onClick={() => navigate("blog")}>{t("app.blog")}</button>
-          <button className="page-nav-link" onClick={() => navigate("forum")}>{t("app.forum")}</button>
-          <button className="page-nav-link" onClick={() => navigate("quiz")}>{t("quiz.nav")}</button>
-          <button className="page-nav-link" onClick={() => navigate("about")}>About</button>
+          <button className="page-nav-link" onClick={() => go("home")}>{t("app.home")}</button>
+          <button className="page-nav-link" onClick={() => go("main")}>{t("home.navTracker")}</button>
+          <button className="page-nav-link" onClick={() => go("blog")}>{t("app.blog")}</button>
+          <button className="page-nav-link" onClick={() => go("forum")}>{t("app.forum")}</button>
+          <button className="page-nav-link" onClick={() => go("quiz")}>{t("quiz.nav")}</button>
+          <button className="page-nav-link" onClick={() => go("about")}>About</button>
           {user && (
-            <button className="page-nav-link" onClick={() => navigate("feed")}>{t("feed.navLink")}</button>
+            <button className="page-nav-link" onClick={() => go("feed")}>{t("feed.navLink")}</button>
           )}
           {user && (
-            <button className="page-nav-link" onClick={() => navigate("bookmarks")}>{t("bookmarks.title")}</button>
+            <button className="page-nav-link" onClick={() => go("bookmarks")}>{t("bookmarks.title")}</button>
           )}
           {isAdmin && (
-            <button className="page-nav-link" onClick={() => navigate("admin")}>{t("app.admin")}</button>
+            <button className="page-nav-link" onClick={() => go("admin")}>{t("app.admin")}</button>
           )}
         </div>
+
         <div className="page-nav-actions">
           {user && (
             <button
               className="page-nav-icon-btn"
-              onClick={() => navigate("search")}
+              onClick={() => go("search")}
               title={t("search.placeholder")}
             >
               🔍
@@ -62,7 +91,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
           )}
           {user && onLogout && (
             <button
-              className="page-nav-icon-btn page-nav-logout-btn"
+              className="page-nav-icon-btn page-nav-logout-btn page-nav-logout-desktop"
               onClick={onLogout}
               title={t("app.logOut")}
             >
@@ -72,7 +101,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
           {user && (
             <button
               className="page-nav-avatar-btn"
-              onClick={() => navigate("profile")}
+              onClick={() => go("profile")}
               title={profile?.display_name || user.email}
             >
               {profile?.avatar_url
@@ -83,7 +112,43 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               }
             </button>
           )}
+
+          {/* Hamburger — mobile only */}
+          <button
+            className={`page-nav-hamburger${menuOpen ? " is-open" : ""}`}
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+          >
+            <span /><span /><span />
+          </button>
         </div>
+
+        {/* Mobile dropdown menu */}
+        {menuOpen && (
+          <div className="page-nav-mobile-menu">
+            <button className="page-nav-mobile-link" onClick={() => go("home")}>{t("app.home")}</button>
+            <button className="page-nav-mobile-link" onClick={() => go("main")}>{t("home.navTracker")}</button>
+            <button className="page-nav-mobile-link" onClick={() => go("blog")}>{t("app.blog")}</button>
+            <button className="page-nav-mobile-link" onClick={() => go("forum")}>{t("app.forum")}</button>
+            <button className="page-nav-mobile-link" onClick={() => go("quiz")}>{t("quiz.nav")}</button>
+            <button className="page-nav-mobile-link" onClick={() => go("about")}>About</button>
+            {user && (
+              <button className="page-nav-mobile-link" onClick={() => go("feed")}>{t("feed.navLink")}</button>
+            )}
+            {user && (
+              <button className="page-nav-mobile-link" onClick={() => go("bookmarks")}>{t("bookmarks.title")}</button>
+            )}
+            {isAdmin && (
+              <button className="page-nav-mobile-link" onClick={() => go("admin")}>{t("app.admin")}</button>
+            )}
+            {user && onLogout && (
+              <button className="page-nav-mobile-link page-nav-mobile-logout" onClick={() => { setMenuOpen(false); onLogout(); }}>
+                {t("app.logOut")}
+              </button>
+            )}
+          </div>
+        )}
       </nav>
       <AnnouncementBanner />
     </>
