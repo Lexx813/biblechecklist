@@ -434,5 +434,41 @@
     "Hag","Zac","Mal","Mat","Mar","Luc","Jn","Hch","Rom","1Co","2Co",
     "Gál","Ef","Fil","Col","1Te","2Te","1Ti","2Ti","Tit","Flm","Heb","Sant",
     "1Pe","2Pe","1Jn","2Jn","3Jn","Jds","Apoc"
-  ]
+  ],
+  "notifications": {
+    "title": "Notificaciones",
+    "markAllRead": "Marcar todo como leído",
+    "empty": "Sin notificaciones aún.",
+    "typeReply": "respondió a tu hilo",
+    "typeComment": "comentó en tu publicación",
+    "typeMention": "te mencionó"
+  },
+  "readingPlan": {
+    "todayGoal": "Hoy: {{done}}/{{goal}} cap.",
+    "currentStreak": "{{count}} días seguidos",
+    "longestStreak": "Mejor: {{count}} días",
+    "setGoal": "Meta Diaria",
+    "goalLabel": "Capítulos diarios (1–10)",
+    "goalSave": "Guardar"
+  },
+  "search": {
+    "placeholder": "Buscar libros, entradas, hilos…",
+    "booksSection": "Libros Bíblicos",
+    "postsSection": "Entradas del Blog",
+    "threadsSection": "Hilos del Foro",
+    "noResults": "Sin resultados para \"{{query}}\"",
+    "typeToSearch": "Escribe al menos 2 caracteres para buscar"
+  },
+  "bookmarks": {
+    "title": "Marcadores",
+    "threads": "Hilos Guardados",
+    "posts": "Publicaciones Guardadas",
+    "emptyThreads": "No hay hilos guardados aún.",
+    "emptyPosts": "No hay publicaciones guardadas aún.",
+    "add": "Guardar",
+    "remove": "Eliminar"
+  },
+  "mentions": {
+    "noResults": "No se encontraron usuarios"
+  }
 }

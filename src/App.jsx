@@ -11,6 +11,8 @@ import BlogDashboard from "./components/blog/BlogDashboard";
 import ForumPage from "./components/forum/ForumPage";
 import HomePage from "./components/HomePage";
 import QuizPage, { QuizLevel } from "./components/quiz/QuizPage";
+import SearchPage from "./components/search/SearchPage";
+import BookmarksPage from "./components/bookmarks/BookmarksPage";
 import LandingPage from "./components/LandingPage";
 import ConfirmModal from "./components/ConfirmModal";
 import { useSession, useLogout } from "./hooks/useAuth";
@@ -81,6 +83,8 @@ function parseHash() {
   if (h === "quiz") return { page: "quiz" };
   if (h.startsWith("quiz/")) return { page: "quizLevel", level: parseInt(h.slice(5)) };
   if (h.startsWith("user/")) return { page: "publicProfile", userId: h.slice(5) };
+  if (h === "search") return { page: "search" };
+  if (h === "bookmarks") return { page: "bookmarks" };
   return { page: "home" };
 }
 
@@ -96,6 +100,8 @@ function buildHash(page, params = {}) {
     case "quiz":          return "quiz";
     case "quizLevel":     return "quiz/" + params.level;
     case "publicProfile": return "user/" + params.userId;
+    case "search":   return "search";
+    case "bookmarks": return "bookmarks";
     case "main":     return "checklist";
     default:         return "";
   }
@@ -252,7 +258,7 @@ function BibleApp({ user, onLogout }) {
     );
   }
 
-  const sharedNav = { navigate, darkMode, setDarkMode, i18n };
+  const sharedNav = { navigate, darkMode, setDarkMode, i18n, user };
 
   if (nav.page === "admin") return <AdminPage currentUser={user} onBack={() => navigate("home")} {...sharedNav} />;
   if (nav.page === "profile") return <ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} />;
@@ -297,6 +303,12 @@ function BibleApp({ user, onLogout }) {
       onComplete={() => navigate("quiz")}
       {...sharedNav}
     />
+  );
+  if (nav.page === "search") return (
+    <SearchPage user={user} onBack={() => navigate("home")} {...sharedNav} />
+  );
+  if (nav.page === "bookmarks") return (
+    <BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} />
   );
 
   return (

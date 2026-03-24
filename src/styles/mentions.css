@@ -1,0 +1,28 @@
+.mention-wrap { position: relative; }
+
+.mention-dropdown {
+  position: absolute; left: 0; top: 100%; z-index: 400;
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius, 12px); box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  min-width: 200px; max-height: 220px; overflow-y: auto;
+  margin-top: 4px;
+}
+
+.mention-option {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; cursor: pointer;
+  transition: background 0.1s; font-size: 14px; color: var(--text-primary);
+}
+.mention-option:hover,
+.mention-option--active { background: rgba(139,92,246,0.12); }
+
+.mention-option-avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--accent));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff;
+  overflow: hidden; flex-shrink: 0;
+}
+.mention-option-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.mention-highlight { color: var(--accent); font-weight: 700; }

@@ -5,6 +5,7 @@ import ConfirmModal from "../ConfirmModal";
 import RichTextEditor from "../RichTextEditor";
 import ReportModal from "../ReportModal";
 import PageNav from "../PageNav";
+import BookmarkButton from "../bookmarks/BookmarkButton";
 import {
   useCategories, useThreads, useThread, useReplies,
   useCreateThread, useCreateReply,
@@ -45,10 +46,10 @@ function Avatar({ profile, size = "md", onClick }) {
 }
 
 // ── Thread View ───────────────────────────────────────────────────────────────
-function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, darkMode, setDarkMode, i18n }) {
+function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, darkMode, setDarkMode, i18n, ...rest }) {
   const { data: thread, isLoading: threadLoading } = useThread(threadId);
   const { data: replies = [], isLoading: repliesLoading } = useReplies(threadId);
-  const createReply = useCreateReply(threadId);
+  const createReply = useCreateReply(threadId, thread?.author_id);
   const updateReply = useUpdateReply(threadId);
   const deleteReply = useDeleteReply(threadId);
   const updateThread = useUpdateThread(threadId);
@@ -124,7 +125,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
 
   return (
     <div className="forum-thread-view">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} />
       {/* Thread header */}
       <div className="forum-thread-header">
         <button className="forum-back-btn" onClick={onBack}>{t("common.back")}</button>
@@ -133,6 +134,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
           {thread.locked && <span className="forum-badge forum-badge--lock">🔒 Locked</span>}
         </div>
         <div className="forum-admin-tools">
+          <BookmarkButton userId={user.id} threadId={threadId} />
           {isAdmin && (
             <>
               <button className="forum-tool-btn" onClick={() => pinThread.mutate({ threadId, value: !thread.pinned })}>
@@ -345,6 +347,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
                 minimal
                 compact
                 disabled={createReply.isPending}
+                allowMentions
               />
               {replyError && <div className="forum-reply-error">{replyError}</div>}
               <div className="forum-reply-actions">
@@ -361,7 +364,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
 }
 
 // ── Thread List ───────────────────────────────────────────────────────────────
-function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode, setDarkMode, i18n }) {
+function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode, setDarkMode, i18n, ...rest }) {
   const { data: threads = [], isLoading } = useThreads(category.id);
   const createThread = useCreateThread(category.id);
   const { t } = useTranslation();
@@ -387,7 +390,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 
   return (
     <div className="forum-thread-list">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} />
       {/* Header */}
       <div className="forum-list-header">
         <div className="forum-list-header-left">
@@ -468,6 +471,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
                   {thread.like_count > 0 && (
                     <div className="forum-row-likes">👍 {thread.like_count}</div>
                   )}
+                  <BookmarkButton userId={user.id} threadId={thread.id} />
                 </div>
               </div>
             );
@@ -479,7 +483,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 }
 
 // ── Category List ─────────────────────────────────────────────────────────────
-function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMode, i18n }) {
+function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMode, i18n, user, ...rest }) {
   const { data: categories = [], isLoading } = useCategories();
   const { t } = useTranslation();
   const isEs = i18n.language.startsWith("es");
@@ -488,7 +492,7 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
 
   return (
     <div className="forum-categories">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} />
       {/* Hero */}
       <div className="forum-hero">
         <div className="forum-hero-glow forum-hero-glow--1" />
@@ -534,7 +538,7 @@ export default function ForumPage({ user, profile, onBack, categoryId, threadId,
   const { data: categories = [], isLoading: catsLoading } = useCategories();
   const activeCategory = categoryId ? categories.find(c => c.id === categoryId) ?? null : null;
 
-  const navProps = { navigate, darkMode, setDarkMode, i18n };
+  const navProps = { navigate, darkMode, setDarkMode, i18n, user };
 
   if (threadId && categoryId) {
     return (

@@ -22,6 +22,15 @@ export const profileApi = {
     return data;
   },
 
+  searchByName: async (prefix) => {
+    const { data, error } = await supabase.rpc("search_profiles_by_name", {
+      p_prefix: (prefix ?? "").trim(),
+      p_limit: 8,
+    });
+    if (error) return [];
+    return data ?? [];
+  },
+
   uploadAvatar: async (userId, file) => {
     const ext = file.name.split(".").pop();
     const path = `${userId}/avatar.${ext}`;

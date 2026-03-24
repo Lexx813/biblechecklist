@@ -1,9 +1,11 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import { useTranslation } from "react-i18next";
+import { profileApi } from "../api/profile";
 import "../styles/editor.css";
+import "../styles/mentions.css";
 
 // Convert legacy plain-text (with \n\n paragraphs) to HTML for initial load
 function plainToHtml(text) {
@@ -96,6 +98,30 @@ function Btn({ active, onClick, title, children }) {
   );
 }
 
+// ── Mention suggestion list ───────────────────────────────────────────────────
+function MentionList({ items, activeIdx, onSelect }) {
+  if (!items.length) return null;
+  return (
+    <div className="mention-dropdown">
+      {items.map((u, i) => (
+        <div
+          key={u.id}
+          className={`mention-option${i === activeIdx ? " mention-option--active" : ""}`}
+          onMouseDown={e => { e.preventDefault(); onSelect(u); }}
+        >
+          <div className="mention-option-avatar">
+            {u.avatar_url
+              ? <img src={u.avatar_url} alt="" />
+              : (u.display_name || "?")[0].toUpperCase()
+            }
+          </div>
+          <span>{u.display_name}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 export default function RichTextEditor({
   content = "",
@@ -104,8 +130,14 @@ export default function RichTextEditor({
   minimal = false,   // minimal = forum/reply mode (no headings, code block, hr)
   compact = false,   // shorter min-height
   disabled = false,
+  allowMentions = false,
 }) {
   const { t } = useTranslation();
+
+  // @mention state (only used when allowMentions=true)
+  const [mentionItems, setMentionItems] = useState([]);
+  const [mentionActiveIdx, setMentionActiveIdx] = useState(0);
+  const mentionTimerRef = useRef(null);
 
   const extensions = useMemo(() => [
     StarterKit.configure({
@@ -122,10 +154,60 @@ export default function RichTextEditor({
     content: plainToHtml(content),
     editable: !disabled,
     immediatelyRender: false,
-    onUpdate: ({ editor }) => {
-      onChange?.(editor.getHTML());
+    onUpdate: ({ editor: ed }) => {
+      onChange?.(ed.getHTML());
     },
   });
+
+  // @mention detection via DOM input event — works regardless of TipTap version
+  useEffect(() => {
+    if (!editor || !allowMentions) return;
+    const el = editor.view.dom;
+
+    function handleInput() {
+      const sel = window.getSelection();
+      if (!sel || !sel.rangeCount) return;
+      const range = sel.getRangeAt(0);
+      const text = range.startContainer.textContent || "";
+      const before = text.slice(0, range.startOffset);
+      const match = before.match(/@([\w.-]*)$/);
+
+      clearTimeout(mentionTimerRef.current);
+      if (match) {
+        mentionTimerRef.current = setTimeout(async () => {
+          const results = await profileApi.searchByName(match[1]);
+          setMentionItems(results);
+          setMentionActiveIdx(0);
+        }, 200);
+      } else {
+        setMentionItems([]);
+      }
+    }
+
+    function handleBlur() { setMentionItems([]); }
+
+    el.addEventListener("input", handleInput);
+    el.addEventListener("blur", handleBlur);
+    return () => {
+      el.removeEventListener("input", handleInput);
+      el.removeEventListener("blur", handleBlur);
+    };
+  }, [editor, allowMentions]);
+
+  // Insert mention by replacing the @fragment with @displayname
+  function insertMention(item) {
+    if (!editor) return;
+    const { from } = editor.state.selection;
+    const textBefore = editor.state.doc.textBetween(Math.max(0, from - 60), from, " ");
+    const match = textBefore.match(/@([\w.-]*)$/);
+    if (!match) return;
+    editor.chain()
+      .focus()
+      .deleteRange({ from: from - match[0].length, to: from })
+      .insertContent(`@${item.display_name} `)
+      .run();
+    setMentionItems([]);
+  }
 
   // Sync content when prop changes (e.g. switching posts / clearing on submit)
   // editor is included so this runs once the editor becomes available on mount
@@ -202,10 +284,36 @@ export default function RichTextEditor({
         </div>
       )}
 
-      <EditorContent
-        editor={editor}
-        className={`editor-content${compact ? " editor-content--compact" : ""}`}
-      />
+      <div
+        className="mention-wrap"
+        style={{ position: "relative" }}
+        onKeyDown={allowMentions && mentionItems.length > 0 ? (e) => {
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            setMentionActiveIdx(i => Math.min(i + 1, mentionItems.length - 1));
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            setMentionActiveIdx(i => Math.max(i - 1, 0));
+          } else if (e.key === "Enter" || e.key === "Tab") {
+            const item = mentionItems[mentionActiveIdx];
+            if (item) { e.preventDefault(); insertMention(item); }
+          } else if (e.key === "Escape") {
+            setMentionItems([]);
+          }
+        } : undefined}
+      >
+        <EditorContent
+          editor={editor}
+          className={`editor-content${compact ? " editor-content--compact" : ""}`}
+        />
+        {allowMentions && mentionItems.length > 0 && (
+          <MentionList
+            items={mentionItems}
+            activeIdx={mentionActiveIdx}
+            onSelect={insertMention}
+          />
+        )}
+      </div>
     </div>
   );
 }

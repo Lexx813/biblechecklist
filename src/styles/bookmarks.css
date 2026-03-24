@@ -1,0 +1,57 @@
+.bm-wrap { min-height: 100vh; background: var(--bg); }
+
+.bm-header {
+  max-width: 800px; margin: 0 auto; padding: 32px 24px 0;
+  display: flex; align-items: center; gap: 16px;
+}
+
+.bm-title {
+  font-size: 28px; font-weight: 800; color: var(--text-primary); margin: 0;
+}
+
+.bm-content { max-width: 800px; margin: 0 auto; padding: 24px; }
+
+.bm-section { margin-bottom: 40px; }
+
+.bm-section-title {
+  font-size: 13px; font-weight: 700; color: var(--text-muted);
+  margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;
+}
+
+.bm-empty { color: var(--text-muted); font-size: 14px; padding: 16px 0; }
+
+.bm-list { display: flex; flex-direction: column; gap: 8px; }
+
+.bm-item {
+  display: flex; align-items: center; gap: 12px; padding: 14px 18px;
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius); cursor: pointer; transition: all 0.15s;
+}
+.bm-item:hover {
+  border-color: var(--teal); box-shadow: var(--shadow);
+  transform: translateY(-1px);
+}
+
+.bm-item-body {
+  flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;
+}
+
+.bm-item-title {
+  font-weight: 600; font-size: 15px; color: var(--text-primary);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.bm-item-excerpt {
+  font-size: 13px; color: var(--text-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Bookmark toggle button (used in cards and BookmarksPage) */
+.bookmark-btn {
+  background: none; border: none; cursor: pointer;
+  font-size: 16px; padding: 4px 6px; border-radius: 6px;
+  transition: transform 0.15s, background 0.15s;
+  color: var(--text-muted); flex-shrink: 0; line-height: 1;
+}
+.bookmark-btn:hover { background: rgba(139,92,246,0.12); transform: scale(1.15); }
+.bookmark-btn--active { color: var(--accent); }

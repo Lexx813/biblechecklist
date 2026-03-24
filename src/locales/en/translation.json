@@ -434,5 +434,41 @@
     "Hag","Zech","Mal","Matt","Mark","Luke","John","Acts","Rom","1Cor","2Cor",
     "Gal","Eph","Phil","Col","1Th","2Th","1Tim","2Tim","Tit","Phm","Heb","Jas",
     "1Pet","2Pet","1Jn","2Jn","3Jn","Jude","Rev"
-  ]
+  ],
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark all read",
+    "empty": "No notifications yet.",
+    "typeReply": "replied to your thread",
+    "typeComment": "commented on your post",
+    "typeMention": "mentioned you"
+  },
+  "readingPlan": {
+    "todayGoal": "Today: {{done}}/{{goal}} chaps",
+    "currentStreak": "{{count}}-day streak",
+    "longestStreak": "Best: {{count}} days",
+    "setGoal": "Set Daily Goal",
+    "goalLabel": "Daily chapters (1–10)",
+    "goalSave": "Save"
+  },
+  "search": {
+    "placeholder": "Search books, posts, threads…",
+    "booksSection": "Bible Books",
+    "postsSection": "Blog Posts",
+    "threadsSection": "Forum Threads",
+    "noResults": "No results for \"{{query}}\"",
+    "typeToSearch": "Type at least 2 characters to search"
+  },
+  "bookmarks": {
+    "title": "Bookmarks",
+    "threads": "Saved Threads",
+    "posts": "Saved Posts",
+    "emptyThreads": "No saved threads yet.",
+    "emptyPosts": "No saved posts yet.",
+    "add": "Save",
+    "remove": "Unsave"
+  },
+  "mentions": {
+    "noResults": "No users found"
+  }
 }

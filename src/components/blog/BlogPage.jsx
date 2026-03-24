@@ -3,10 +3,13 @@ import { useTranslation } from "react-i18next";
 import DOMPurify from "dompurify";
 import PageNav from "../PageNav";
 import ReportModal from "../ReportModal";
+import BookmarkButton from "../bookmarks/BookmarkButton";
+import MentionAutocomplete from "../mentions/MentionAutocomplete";
 import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment, useUserBlogLikes, useToggleBlogLike } from "../../hooks/useBlog";
 import { useSubmitReport } from "../../hooks/useReports";
 import "../../styles/blog.css";
 import "../../styles/editor.css";
+import "../../styles/mentions.css";
 
 const GRADIENTS = [
   "linear-gradient(135deg, #341C5C 0%, #6A3DAA 100%)",
@@ -48,10 +51,10 @@ function renderContent(text) {
 }
 
 // ── Comments ──────────────────────────────────────────────────────────────────
-function PostComments({ postId, user, navigate }) {
+function PostComments({ postId, postAuthorId, user, navigate }) {
   const { t } = useTranslation();
   const { data: comments = [], isLoading } = useComments(postId);
-  const createComment = useCreateComment(postId);
+  const createComment = useCreateComment(postId, postAuthorId);
   const deleteComment = useDeleteComment(postId);
   const submitReport = useSubmitReport();
   const [text, setText] = useState("");
@@ -136,7 +139,7 @@ function PostComments({ postId, user, navigate }) {
       )}
 
       <form className="blog-comment-form" onSubmit={handleSubmit}>
-        <textarea
+        <MentionAutocomplete
           className="blog-comment-input"
           placeholder={t("blog.commentPlaceholder")}
           value={text}
@@ -156,7 +159,7 @@ function PostComments({ postId, user, navigate }) {
 }
 
 // ── Single post view ─────────────────────────────────────────────────────────
-function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n }) {
+function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n, ...rest }) {
   const { data: post, isLoading } = usePostBySlug(slug);
   const { data: likedIds = [] } = useUserBlogLikes(user?.id);
   const toggleLike = useToggleBlogLike(user?.id);
@@ -187,7 +190,7 @@ function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n })
 
   return (
     <div className="blog-post-view">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} />
       <div
         className="blog-post-hero"
         style={{ background: post.cover_url ? undefined : getGradient(post.id) }}
@@ -243,17 +246,18 @@ function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n })
             >
               👍 <span className="blog-like-count">{post.like_count ?? 0}</span>
             </button>
+            <BookmarkButton userId={user.id} postId={post.id} />
           </div>
         )}
 
-        {user && <PostComments postId={post.id} user={user} navigate={navigate} />}
+        {user && <PostComments postId={post.id} postAuthorId={post.author_id} user={user} navigate={navigate} />}
       </div>
     </div>
   );
 }
 
 // ── Post listing card ─────────────────────────────────────────────────────────
-const PostCard = memo(function PostCard({ post, onSelect, navigate }) {
+const PostCard = memo(function PostCard({ post, onSelect, navigate, user }) {
   const { t } = useTranslation();
   const minRead = useMemo(() => {
     const words = (post.content || "").split(/\s+/).length;
@@ -286,6 +290,7 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate }) {
           {post.like_count > 0 && (
             <span className="blog-card-likes">👍 {post.like_count}</span>
           )}
+          {user && <BookmarkButton userId={user.id} postId={post.id} />}
         </div>
       </div>
     </article>
@@ -303,7 +308,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
 
   return (
     <div className="blog-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} />
       {/* Nav */}
       <nav className="blog-nav">
         <button className="blog-back-btn" onClick={onBack}>{t("blog.backToBible")}</button>
@@ -342,7 +347,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
         ) : (
           <div className="blog-grid">
             {posts.map(post => (
-              <PostCard key={post.id} post={post} onSelect={onSelectPost} navigate={navigate} />
+              <PostCard key={post.id} post={post} onSelect={onSelectPost} navigate={navigate} user={user} />
             ))}
           </div>
         )}

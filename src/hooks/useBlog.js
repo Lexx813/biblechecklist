@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { blogApi } from "../api/blog";
+import { notificationsApi } from "../api/notifications";
 
 export function usePublishedPosts() {
   return useQuery({
@@ -66,12 +67,19 @@ export function useComments(postId) {
   });
 }
 
-export function useCreateComment(postId) {
+export function useCreateComment(postId, postAuthorId) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ userId, content }) => blogApi.createComment(userId, postId, content),
-    onSuccess: (newComment) => {
+    onSuccess: (newComment, { userId, content }) => {
       queryClient.setQueryData(["blog", "comments", postId], (prev = []) => [...prev, newComment]);
+      if (postAuthorId && postAuthorId !== userId) {
+        notificationsApi.create(postAuthorId, userId, "comment", {
+          postId,
+          preview: content?.slice(0, 80),
+          linkHash: `blog`,
+        });
+      }
     },
   });
 }

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../lib/supabase";
 import { forumApi } from "../api/forum";
+import { notificationsApi } from "../api/notifications";
 
 export function useTopThreads(limit = 4) {
   return useQuery({
@@ -76,12 +77,19 @@ export function useCreateThread(categoryId) {
   });
 }
 
-export function useCreateReply(threadId) {
+export function useCreateReply(threadId, threadAuthorId) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ userId, content }) => forumApi.createReply(userId, threadId, content),
-    onSuccess: () => {
+    onSuccess: (_data, { userId, content }) => {
       queryClient.invalidateQueries({ queryKey: ["forum", "replies", threadId] });
+      if (threadAuthorId && threadAuthorId !== userId) {
+        notificationsApi.create(threadAuthorId, userId, "reply", {
+          threadId,
+          preview: content?.slice(0, 80),
+          linkHash: `forum/${threadId}`,
+        });
+      }
     },
   });
 }

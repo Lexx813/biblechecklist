@@ -12,6 +12,25 @@ export const readingApi = {
     if (error) throw new Error(error.message);
   },
 
+  getHeatmap: async (userId) => {
+    const { data, error } = await supabase.rpc("get_reading_heatmap", { p_user_id: userId, p_days: 364 });
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
+
+  getStreaks: async (userId) => {
+    const { data, error } = await supabase.rpc("get_reading_streaks", { p_user_id: userId });
+    if (error) throw new Error(error.message);
+    return data ?? { current_streak: 0, longest_streak: 0 };
+  },
+
+  setDailyGoal: async (goal) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    const { error } = await supabase.from("profiles").update({ daily_chapter_goal: goal }).eq("id", user.id);
+    if (error) throw new Error(error.message);
+  },
+
   getStats: async (userId) => {
     const since = new Date(Date.now() - 60 * 86400000).toISOString().slice(0, 10);
     const { data, error } = await supabase

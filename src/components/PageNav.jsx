@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next";
 import "../styles/pagenav.css";
 import AnnouncementBanner from "./AnnouncementBanner";
+import NotificationBell from "./notifications/NotificationBell";
 
-export default function PageNav({ navigate, darkMode, setDarkMode, i18n }) {
+export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user }) {
   const { t } = useTranslation();
   return (
     <>
@@ -16,15 +17,35 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n }) {
           <button className="page-nav-link" onClick={() => navigate("blog")}>{t("app.blog")}</button>
           <button className="page-nav-link" onClick={() => navigate("forum")}>{t("app.forum")}</button>
           <button className="page-nav-link" onClick={() => navigate("quiz")}>{t("quiz.nav")}</button>
+          {user && (
+            <button className="page-nav-link" onClick={() => navigate("bookmarks")}>{t("bookmarks.title")}</button>
+          )}
         </div>
         <div className="page-nav-actions">
+          {user && (
+            <button
+              className="page-nav-icon-btn"
+              onClick={() => navigate("search")}
+              title={t("search.placeholder")}
+            >
+              🔍
+            </button>
+          )}
+          {user && <NotificationBell userId={user.id} navigate={navigate} />}
           {setDarkMode && (
-            <button className="page-nav-icon-btn" onClick={() => setDarkMode(d => !d)} title={darkMode ? t("app.lightMode") : t("app.darkMode")}>
+            <button
+              className="page-nav-icon-btn"
+              onClick={() => setDarkMode(d => !d)}
+              title={darkMode ? t("app.lightMode") : t("app.darkMode")}
+            >
               {darkMode ? "☀️" : "🌙"}
             </button>
           )}
           {i18n && (
-            <button className="page-nav-icon-btn" onClick={() => i18n.changeLanguage(i18n.language.startsWith("es") ? "en" : "es")}>
+            <button
+              className="page-nav-icon-btn"
+              onClick={() => i18n.changeLanguage(i18n.language.startsWith("es") ? "en" : "es")}
+            >
               {i18n.language.startsWith("es") ? "EN" : "ES"}
             </button>
           )}
