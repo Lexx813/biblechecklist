@@ -29,7 +29,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
 
   // Close menu on resize to desktop
   useEffect(() => {
-    function handler() { if (window.innerWidth > 768) setMenuOpen(false); }
+    function handler() { if (window.innerWidth > 1053) setMenuOpen(false); }
     window.addEventListener("resize", handler);
     return () => window.removeEventListener("resize", handler);
   }, []);

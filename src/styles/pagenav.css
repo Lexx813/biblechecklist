@@ -270,7 +270,7 @@
   font-weight: 600;
   color: rgba(240, 234, 255, 0.7);
   cursor: pointer;
-  text-align: left;
+  text-align: right;
   padding: 11px 20px;
   width: 100%;
   transition: background 0.12s, color 0.12s;
@@ -295,7 +295,7 @@
 [data-theme="light"] .page-nav-mobile-logout:hover { background: rgba(239, 68, 68, 0.06) !important; }
 
 /* ── Responsive breakpoints ─────────────────────────────── */
-@media (max-width: 768px) {
+@media (max-width: 1053px) {
   .page-nav {
     padding: 0 16px;
     height: 52px;
