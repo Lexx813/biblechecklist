@@ -133,6 +133,12 @@
   "offline": {
     "message": "Estás sin conexión — algunas funciones pueden no estar disponibles."
   },
+  "install": {
+    "title": "Agrega NWT Progress a tu pantalla de inicio",
+    "subtitle": "Lee y rastrea sin conexión, en cualquier momento.",
+    "install": "Instalar",
+    "dismiss": "Descartar"
+  },
   "share": {
     "title": "Comparte Tu Progreso",
     "shareBtn": "Compartir Progreso",
@@ -234,7 +240,8 @@
     "commentPlaceholder": "Comparte tus pensamientos…",
     "commentPost": "Publicar",
     "commentPosting": "Publicando…",
-    "commentEmptyError": "El comentario no puede estar vacío."
+    "commentEmptyError": "El comentario no puede estar vacío.",
+    "likeError": "No se pudo actualizar el me gusta. Inténtalo de nuevo."
   },
   "blogDash": {
     "myPostsTitle": "Mis Publicaciones",
@@ -308,7 +315,8 @@
     "timeDays": "hace {{count}}d",
     "editReply": "Editar respuesta",
     "saveReply": "Guardar Respuesta",
-    "editReplyError": "La respuesta no puede estar vacía."
+    "editReplyError": "La respuesta no puede estar vacía.",
+    "likeError": "No se pudo actualizar el me gusta. Inténtalo de nuevo."
   },
   "home": {
     "navTracker": "Rastreador",
@@ -522,7 +530,8 @@
     "emptyThreads": "No hay hilos guardados aún.",
     "emptyPosts": "No hay publicaciones guardadas aún.",
     "add": "Guardar",
-    "remove": "Eliminar"
+    "remove": "Eliminar",
+    "error": "No se pudo actualizar el marcador. Inténtalo de nuevo."
   },
   "mentions": {
     "noResults": "No se encontraron usuarios"

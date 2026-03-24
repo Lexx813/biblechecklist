@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import DOMPurify from "dompurify";
 import ConfirmModal from "../ConfirmModal";
@@ -13,6 +13,7 @@ import {
   usePinThread, useLockThread,
   useUserForumLikes, useToggleThreadLike, useToggleReplyLike,
 } from "../../hooks/useForum";
+import { toast } from "../../lib/toast";
 import { useSubmitReport } from "../../hooks/useReports";
 import "../../styles/forum.css";
 import "../../styles/social.css";
@@ -51,7 +52,7 @@ function timeAgo(iso, t) {
 function Avatar({ profile, size = "md", onClick }) {
   const cls = `forum-avatar forum-avatar--${size}${onClick ? " forum-avatar--clickable" : ""}`;
   if (profile?.avatar_url) {
-    return <img className={cls} src={profile.avatar_url} alt="" onClick={onClick} />;
+    return <img className={cls} src={profile.avatar_url} alt={displayName(profile)} onClick={onClick} />;
   }
   return <div className={`${cls} forum-avatar--fallback`} onClick={onClick}>{initial(profile)}</div>;
 }
@@ -130,6 +131,11 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
       onConfirm: () => deleteThread.mutate(threadId, { onSuccess: onBack }),
     });
   }
+
+  useEffect(() => {
+    if (thread?.title) document.title = `${thread.title} — NWT Progress`;
+    return () => { document.title = "NWT Progress"; };
+  }, [thread?.title]);
 
   if (threadLoading) return <div className="forum-loading"><div className="forum-spinner" /></div>;
   if (!thread) return <div className="forum-empty"><p>{t("forum.threadNotFound")}</p></div>;
@@ -211,7 +217,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
               />
               <button
                 className={`forum-like-btn${forumLikes.threads?.includes(threadId) ? " liked" : ""}`}
-                onClick={() => toggleThreadLike.mutate(threadId)}
+                onClick={() => toggleThreadLike.mutate(threadId, { onError: () => toast(t("forum.likeError")) })}
                 disabled={toggleThreadLike.isPending}
               >
                 👍 <span className="forum-like-count">{thread.like_count ?? 0}</span>
@@ -290,7 +296,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
                     <div style={{ display: "flex", gap: 12, marginTop: 8, alignItems: "center" }}>
                       <button
                         className={`forum-like-btn${forumLikes.replies?.includes(reply.id) ? " liked" : ""}`}
-                        onClick={() => toggleReplyLike.mutate(reply.id)}
+                        onClick={() => toggleReplyLike.mutate(reply.id, { onError: () => toast(t("forum.likeError")) })}
                         disabled={toggleReplyLike.isPending}
                       >
                         👍 <span className="forum-like-count">{reply.like_count ?? 0}</span>
@@ -506,6 +512,11 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMode, i18n, user, onLogout, ...rest }) {
   const { data: categories = [], isLoading } = useCategories();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    document.title = "Forum — NWT Progress";
+    return () => { document.title = "NWT Progress"; };
+  }, []);
   const isEs = i18n.language.startsWith("es");
 
   const totalThreads = categories.reduce((sum, c) => sum + (c.forum_threads?.[0]?.count ?? 0), 0);

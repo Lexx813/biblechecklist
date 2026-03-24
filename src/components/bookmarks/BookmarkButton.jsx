@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useBookmarkIds, useToggleBookmark } from "../../hooks/useBookmarks";
+import { toast } from "../../lib/toast";
 import "../../styles/bookmarks.css";
 
 export default function BookmarkButton({ userId, threadId, postId, className = "" }) {
@@ -15,7 +16,9 @@ export default function BookmarkButton({ userId, threadId, postId, className = "
 
   function handleClick(e) {
     e.stopPropagation();
-    toggle.mutate(threadId ? { threadId } : { postId });
+    toggle.mutate(threadId ? { threadId } : { postId }, {
+      onError: () => toast(t("bookmarks.error")),
+    });
   }
 
   return (

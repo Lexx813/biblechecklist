@@ -1,27 +1,31 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef, lazy, Suspense } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { BOOKS, OT_COUNT } from "./data/books";
 import BookCard from "./components/BookCard";
 import AuthPage from "./components/auth/AuthPage";
-import AdminPage from "./components/admin/AdminPage";
-import ProfilePage from "./components/profile/ProfilePage";
-import BlogPage from "./components/blog/BlogPage";
-import BlogDashboard from "./components/blog/BlogDashboard";
-import ForumPage from "./components/forum/ForumPage";
 import HomePage from "./components/HomePage";
-import QuizPage, { QuizLevel } from "./components/quiz/QuizPage";
-import SearchPage from "./components/search/SearchPage";
-import BookmarksPage from "./components/bookmarks/BookmarksPage";
-import ReadingPlanWidget from "./components/reading/ReadingPlanWidget";
-import ReadingHistory from "./components/reading/ReadingHistory";
-import ActivityFeed from "./components/social/ActivityFeed";
 import LandingPage from "./components/LandingPage";
-import AboutPage from "./components/AboutPage";
 import PageNav from "./components/PageNav";
 import ConfirmModal from "./components/ConfirmModal";
 import OfflineBanner from "./components/OfflineBanner";
+import Toast from "./components/Toast";
+import InstallPrompt from "./components/InstallPrompt";
+import ReadingPlanWidget from "./components/reading/ReadingPlanWidget";
 import ProgressShare from "./components/share/ProgressShare";
+
+const AdminPage      = lazy(() => import("./components/admin/AdminPage"));
+const ProfilePage    = lazy(() => import("./components/profile/ProfilePage"));
+const BlogPage       = lazy(() => import("./components/blog/BlogPage"));
+const BlogDashboard  = lazy(() => import("./components/blog/BlogDashboard"));
+const ForumPage      = lazy(() => import("./components/forum/ForumPage"));
+const QuizPage       = lazy(() => import("./components/quiz/QuizPage"));
+const QuizLevel      = lazy(() => import("./components/quiz/QuizPage").then(m => ({ default: m.QuizLevel })));
+const SearchPage     = lazy(() => import("./components/search/SearchPage"));
+const BookmarksPage  = lazy(() => import("./components/bookmarks/BookmarksPage"));
+const ReadingHistory = lazy(() => import("./components/reading/ReadingHistory"));
+const ActivityFeed   = lazy(() => import("./components/social/ActivityFeed"));
+const AboutPage      = lazy(() => import("./components/AboutPage"));
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useProgress, useSaveProgress } from "./hooks/useProgress";
 import { useFullProfile } from "./hooks/useAdmin";
@@ -65,6 +69,8 @@ export default function App() {
   return (
     <>
       <OfflineBanner />
+      <Toast />
+      <InstallPrompt />
       <BibleApp
         user={user}
         onLogout={() => {
@@ -275,63 +281,69 @@ function BibleApp({ user, onLogout }) {
 
   const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout };
 
-  if (nav.page === "admin") return <AdminPage currentUser={user} onBack={() => navigate("home")} {...sharedNav} />;
-  if (nav.page === "profile") return <ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} />;
+  const pageFallback = (
+    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
+      <div style={{ color: "var(--text-muted)", fontFamily: "Nunito, sans-serif", fontSize: 14 }}>{t("app.loading")}</div>
+    </div>
+  );
+
+  if (nav.page === "admin") return <Suspense fallback={pageFallback}><AdminPage currentUser={user} onBack={() => navigate("home")} {...sharedNav} /></Suspense>;
+  if (nav.page === "profile") return <Suspense fallback={pageFallback}><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></Suspense>;
   if (nav.page === "publicProfile") return (
-    <ProfilePage
-      user={user}
-      viewedUserId={nav.userId}
-      isOwner={false}
-      onBack={() => navigate("home")}
-      {...sharedNav}
-    />
+    <Suspense fallback={pageFallback}>
+      <ProfilePage
+        user={user}
+        viewedUserId={nav.userId}
+        isOwner={false}
+        onBack={() => navigate("home")}
+        {...sharedNav}
+      />
+    </Suspense>
   );
   if (nav.page === "blog") return (
-    <BlogPage
-      user={user}
-      profile={profile}
-      slug={nav.slug ?? null}
-      onSelectPost={(slug) => navigate("blog", { slug })}
-      onBack={() => navigate("home")}
-      onWriteClick={() => navigate("blogDash")}
-      {...sharedNav}
-    />
+    <Suspense fallback={pageFallback}>
+      <BlogPage
+        user={user}
+        profile={profile}
+        slug={nav.slug ?? null}
+        onSelectPost={(slug) => navigate("blog", { slug })}
+        onBack={() => navigate("home")}
+        onWriteClick={() => navigate("blogDash")}
+        {...sharedNav}
+      />
+    </Suspense>
   );
-  if (nav.page === "blogDash") return <BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} />;
+  if (nav.page === "blogDash") return <Suspense fallback={pageFallback}><BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} /></Suspense>;
   if (nav.page === "forum") return (
-    <ForumPage
-      user={user}
-      profile={profile}
-      categoryId={nav.categoryId ?? null}
-      threadId={nav.threadId ?? null}
-      onNavigate={(categoryId, threadId) => navigate("forum", { categoryId, threadId })}
-      onBack={() => navigate("home")}
-      {...sharedNav}
-    />
+    <Suspense fallback={pageFallback}>
+      <ForumPage
+        user={user}
+        profile={profile}
+        categoryId={nav.categoryId ?? null}
+        threadId={nav.threadId ?? null}
+        onNavigate={(categoryId, threadId) => navigate("forum", { categoryId, threadId })}
+        onBack={() => navigate("home")}
+        {...sharedNav}
+      />
+    </Suspense>
   );
-  if (nav.page === "quiz") return <QuizPage user={user} {...sharedNav} />;
+  if (nav.page === "quiz") return <Suspense fallback={pageFallback}><QuizPage user={user} {...sharedNav} /></Suspense>;
   if (nav.page === "quizLevel") return (
-    <QuizLevel
-      level={nav.level}
-      user={user}
-      onBack={() => navigate("quiz")}
-      onComplete={() => navigate("quiz")}
-      {...sharedNav}
-    />
+    <Suspense fallback={pageFallback}>
+      <QuizLevel
+        level={nav.level}
+        user={user}
+        onBack={() => navigate("quiz")}
+        onComplete={() => navigate("quiz")}
+        {...sharedNav}
+      />
+    </Suspense>
   );
-  if (nav.page === "search") return (
-    <SearchPage user={user} onBack={() => navigate("home")} {...sharedNav} />
-  );
-  if (nav.page === "bookmarks") return (
-    <BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} />
-  );
-  if (nav.page === "history") return (
-    <ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} />
-  );
-  if (nav.page === "feed") return (
-    <ActivityFeed user={user} {...sharedNav} />
-  );
-  if (nav.page === "about") return <AboutPage {...sharedNav} />;
+  if (nav.page === "search") return <Suspense fallback={pageFallback}><SearchPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Suspense>;
+  if (nav.page === "bookmarks") return <Suspense fallback={pageFallback}><BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Suspense>;
+  if (nav.page === "history") return <Suspense fallback={pageFallback}><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Suspense>;
+  if (nav.page === "feed") return <Suspense fallback={pageFallback}><ActivityFeed user={user} {...sharedNav} /></Suspense>;
+  if (nav.page === "about") return <Suspense fallback={pageFallback}><AboutPage {...sharedNav} /></Suspense>;
 
   return (
     <div className="app-wrap">

@@ -423,6 +423,12 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
   const levelsCompleted = quizProgress.filter(p => p.badge_earned).length;
   const highestUnlocked = quizProgress.filter(p => p.unlocked).reduce((max, p) => Math.max(max, p.level), 0);
 
+  useEffect(() => {
+    const name = profile?.display_name || profile?.email?.split("@")[0];
+    if (name) document.title = `${name} — NWT Progress`;
+    return () => { document.title = "NWT Progress"; };
+  }, [profile?.display_name, profile?.email]);
+
   const [showAddForm, setShowAddForm] = useState(false);
   const [filterBook, setFilterBook] = useState("all");
   const [search, setSearch] = useState("");

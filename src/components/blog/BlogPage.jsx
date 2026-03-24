@@ -1,4 +1,4 @@
-import { useState, useMemo, memo } from "react";
+import { useState, useMemo, memo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import DOMPurify from "dompurify";
 import PageNav from "../PageNav";
@@ -6,6 +6,7 @@ import ReportModal from "../ReportModal";
 import BookmarkButton from "../bookmarks/BookmarkButton";
 import MentionAutocomplete from "../mentions/MentionAutocomplete";
 import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment, useUserBlogLikes, useToggleBlogLike } from "../../hooks/useBlog";
+import { toast } from "../../lib/toast";
 import { useSubmitReport } from "../../hooks/useReports";
 import "../../styles/blog.css";
 import "../../styles/editor.css";
@@ -94,7 +95,7 @@ function PostComments({ postId, postAuthorId, postSlug, user, navigate }) {
             <div key={c.id} className="blog-comment">
               <div className="blog-comment-avatar blog-avatar--clickable" onClick={() => navigate("publicProfile", { userId: c.author_id })}>
                 {c.profiles?.avatar_url
-                  ? <img src={c.profiles.avatar_url} alt="" />
+                  ? <img src={c.profiles.avatar_url} alt={c.profiles?.display_name || c.profiles?.email?.split("@")[0] || "User"} />
                   : (c.profiles?.display_name || c.profiles?.email || "?")[0].toUpperCase()
                 }
               </div>
@@ -178,6 +179,11 @@ function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n, .
     return DOMPurify.sanitize(html);
   }, [post?.content]);
 
+  useEffect(() => {
+    if (post?.title) document.title = `${post.title} — NWT Progress`;
+    return () => { document.title = "NWT Progress"; };
+  }, [post?.title]);
+
   if (isLoading) return (
     <div className="blog-loading"><div className="blog-spinner" /></div>
   );
@@ -195,7 +201,7 @@ function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n, .
         className="blog-post-hero"
         style={{ background: post.cover_url ? undefined : getGradient(post.id) }}
       >
-        {post.cover_url && <img src={post.cover_url} className="blog-post-hero-img" alt="" />}
+        {post.cover_url && <img src={post.cover_url} className="blog-post-hero-img" alt={post.title} />}
         <div className="blog-post-hero-overlay">
           <button className="blog-post-back-btn" onClick={onBack}>{t("blog.backToBlog")}</button>
           <div className="blog-post-hero-meta">
@@ -203,7 +209,7 @@ function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n, .
             <div className="blog-post-hero-byline">
               <div className="blog-author-avatar blog-author-avatar--sm blog-avatar--clickable" onClick={() => navigate("publicProfile", { userId: post.author_id })}>
                 {post.profiles?.avatar_url
-                  ? <img src={post.profiles.avatar_url} alt="" />
+                  ? <img src={post.profiles.avatar_url} alt={authorName(post)} />
                   : authorInitial(post)
                 }
               </div>
@@ -227,7 +233,7 @@ function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n, .
         <div className="blog-author-card">
           <div className="blog-author-avatar blog-author-avatar--lg blog-avatar--clickable" onClick={() => navigate("publicProfile", { userId: post.author_id })}>
             {post.profiles?.avatar_url
-              ? <img src={post.profiles.avatar_url} alt="" />
+              ? <img src={post.profiles.avatar_url} alt={authorName(post)} />
               : authorInitial(post)
             }
           </div>
@@ -241,7 +247,7 @@ function PostView({ slug, onBack, user, navigate, darkMode, setDarkMode, i18n, .
           <div className="blog-like-row">
             <button
               className={`blog-like-btn${likedIds.includes(post.id) ? " liked" : ""}`}
-              onClick={() => toggleLike.mutate(post.id)}
+              onClick={() => toggleLike.mutate(post.id, { onError: () => toast(t("blog.likeError")) })}
               disabled={toggleLike.isPending}
             >
               👍 <span className="blog-like-count">{post.like_count ?? 0}</span>
@@ -270,7 +276,7 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user }) {
         className="blog-card-cover"
         style={{ background: post.cover_url ? undefined : getGradient(post.id) }}
       >
-        {post.cover_url && <img src={post.cover_url} className="blog-card-cover-img" alt="" />}
+        {post.cover_url && <img src={post.cover_url} className="blog-card-cover-img" alt={post.title} />}
         <div className="blog-card-cover-shine" />
       </div>
       <div className="blog-card-body">
@@ -279,7 +285,7 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user }) {
         <div className="blog-card-footer">
           <div className="blog-author-avatar blog-author-avatar--xs blog-avatar--clickable" onClick={e => { e.stopPropagation(); navigate("publicProfile", { userId: post.author_id }); }}>
             {post.profiles?.avatar_url
-              ? <img src={post.profiles.avatar_url} alt="" />
+              ? <img src={post.profiles.avatar_url} alt={authorName(post)} />
               : authorInitial(post)
             }
           </div>
@@ -301,6 +307,11 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user }) {
 export default function BlogPage({ user, profile, onBack, onWriteClick, slug, onSelectPost, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { data: posts = [], isLoading } = usePublishedPosts();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (!slug) document.title = "Blog — NWT Progress";
+    return () => { document.title = "NWT Progress"; };
+  }, [slug]);
 
   if (slug) {
     return <PostView slug={slug} onBack={() => onSelectPost(null)} user={user} navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />;

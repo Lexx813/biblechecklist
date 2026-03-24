@@ -133,6 +133,12 @@
   "offline": {
     "message": "You're offline — some features may be unavailable."
   },
+  "install": {
+    "title": "Add NWT Progress to your home screen",
+    "subtitle": "Read and track offline, anytime.",
+    "install": "Install",
+    "dismiss": "Dismiss"
+  },
   "share": {
     "title": "Share Your Progress",
     "shareBtn": "Share Progress",
@@ -234,7 +240,8 @@
     "commentPlaceholder": "Share your thoughts…",
     "commentPost": "Post",
     "commentPosting": "Posting…",
-    "commentEmptyError": "Comment cannot be empty."
+    "commentEmptyError": "Comment cannot be empty.",
+    "likeError": "Could not update like. Please try again."
   },
   "blogDash": {
     "myPostsTitle": "My Posts",
@@ -308,7 +315,8 @@
     "timeDays": "{{count}}d ago",
     "editReply": "Edit reply",
     "saveReply": "Save Reply",
-    "editReplyError": "Reply cannot be empty."
+    "editReplyError": "Reply cannot be empty.",
+    "likeError": "Could not update like. Please try again."
   },
   "home": {
     "navTracker": "Tracker",
@@ -522,7 +530,8 @@
     "emptyThreads": "No saved threads yet.",
     "emptyPosts": "No saved posts yet.",
     "add": "Save",
-    "remove": "Unsave"
+    "remove": "Unsave",
+    "error": "Could not update bookmark. Please try again."
   },
   "mentions": {
     "noResults": "No users found"

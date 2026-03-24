@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { VERSES, getDailyVerse } from "../../data/verses";
 import "../../styles/daily-verse.css";
 
-const todayVerse = getDailyVerse();
-const todayIdx = VERSES.indexOf(todayVerse);
-
 export default function DailyVerse() {
   const { t, i18n } = useTranslation();
+  const todayIdx = useMemo(() => {
+    const todayVerse = getDailyVerse();
+    return VERSES.indexOf(todayVerse);
+  }, []);
   const [idx, setIdx] = useState(todayIdx);
   const verse = VERSES[idx];
 

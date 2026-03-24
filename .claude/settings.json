@@ -7,7 +7,8 @@
       "Bash(node -e \"require\\(''sharp''\\)\")",
       "Bash(node scripts/generate-og.mjs)",
       "Bash(npx vite:*)",
-      "Bash(npx skills:*)"
+      "Bash(npx skills:*)",
+      "Bash(find /home/alexi/projects/nwt-progress/src -type f \\\\\\( -name \"*.jsx\" -o -name \"*.js\" \\\\\\) -exec wc -l {} +)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"
