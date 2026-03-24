@@ -11,6 +11,7 @@ import ConfirmModal from "./components/ConfirmModal";
 import OfflineBanner from "./components/OfflineBanner";
 import Toast from "./components/Toast";
 import InstallPrompt from "./components/InstallPrompt";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import ReadingPlanWidget from "./components/reading/ReadingPlanWidget";
 import ProgressShare from "./components/share/ProgressShare";
 
@@ -287,10 +288,16 @@ function BibleApp({ user, onLogout }) {
     </div>
   );
 
-  if (nav.page === "admin") return <Suspense fallback={pageFallback}><AdminPage currentUser={user} onBack={() => navigate("home")} {...sharedNav} /></Suspense>;
-  if (nav.page === "profile") return <Suspense fallback={pageFallback}><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></Suspense>;
+  const Page = ({ children }) => (
+    <ErrorBoundary key={nav.page}>
+      <Suspense fallback={pageFallback}>{children}</Suspense>
+    </ErrorBoundary>
+  );
+
+  if (nav.page === "admin") return <Page><AdminPage currentUser={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  if (nav.page === "profile") return <Page><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   if (nav.page === "publicProfile") return (
-    <Suspense fallback={pageFallback}>
+    <Page>
       <ProfilePage
         user={user}
         viewedUserId={nav.userId}
@@ -298,10 +305,10 @@ function BibleApp({ user, onLogout }) {
         onBack={() => navigate("home")}
         {...sharedNav}
       />
-    </Suspense>
+    </Page>
   );
   if (nav.page === "blog") return (
-    <Suspense fallback={pageFallback}>
+    <Page>
       <BlogPage
         user={user}
         profile={profile}
@@ -311,11 +318,11 @@ function BibleApp({ user, onLogout }) {
         onWriteClick={() => navigate("blogDash")}
         {...sharedNav}
       />
-    </Suspense>
+    </Page>
   );
-  if (nav.page === "blogDash") return <Suspense fallback={pageFallback}><BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} /></Suspense>;
+  if (nav.page === "blogDash") return <Page><BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   if (nav.page === "forum") return (
-    <Suspense fallback={pageFallback}>
+    <Page>
       <ForumPage
         user={user}
         profile={profile}
@@ -325,11 +332,11 @@ function BibleApp({ user, onLogout }) {
         onBack={() => navigate("home")}
         {...sharedNav}
       />
-    </Suspense>
+    </Page>
   );
-  if (nav.page === "quiz") return <Suspense fallback={pageFallback}><QuizPage user={user} {...sharedNav} /></Suspense>;
+  if (nav.page === "quiz") return <Page><QuizPage user={user} {...sharedNav} /></Page>;
   if (nav.page === "quizLevel") return (
-    <Suspense fallback={pageFallback}>
+    <Page>
       <QuizLevel
         level={nav.level}
         user={user}
@@ -337,13 +344,13 @@ function BibleApp({ user, onLogout }) {
         onComplete={() => navigate("quiz")}
         {...sharedNav}
       />
-    </Suspense>
+    </Page>
   );
-  if (nav.page === "search") return <Suspense fallback={pageFallback}><SearchPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Suspense>;
-  if (nav.page === "bookmarks") return <Suspense fallback={pageFallback}><BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Suspense>;
-  if (nav.page === "history") return <Suspense fallback={pageFallback}><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Suspense>;
-  if (nav.page === "feed") return <Suspense fallback={pageFallback}><ActivityFeed user={user} {...sharedNav} /></Suspense>;
-  if (nav.page === "about") return <Suspense fallback={pageFallback}><AboutPage {...sharedNav} /></Suspense>;
+  if (nav.page === "search") return <Page><SearchPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  if (nav.page === "bookmarks") return <Page><BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  if (nav.page === "history") return <Page><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Page>;
+  if (nav.page === "feed") return <Page><ActivityFeed user={user} {...sharedNav} /></Page>;
+  if (nav.page === "about") return <Page><AboutPage {...sharedNav} /></Page>;
 
   return (
     <div className="app-wrap">

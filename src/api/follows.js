@@ -18,11 +18,15 @@ export const followsApi = {
   },
 
   getFollowCounts: async (userId) => {
-    const [{ count: followers }, { count: following }] = await Promise.all([
-      supabase.from("user_follows").select("*", { count: "exact", head: true }).eq("following_id", userId),
-      supabase.from("user_follows").select("*", { count: "exact", head: true }).eq("follower_id", userId),
-    ]);
-    return { followers: followers ?? 0, following: following ?? 0 };
+    try {
+      const [{ count: followers }, { count: following }] = await Promise.all([
+        supabase.from("user_follows").select("*", { count: "exact", head: true }).eq("following_id", userId),
+        supabase.from("user_follows").select("*", { count: "exact", head: true }).eq("follower_id", userId),
+      ]);
+      return { followers: followers ?? 0, following: following ?? 0 };
+    } catch {
+      return { followers: 0, following: 0 };
+    }
   },
 
   getActivityFeed: async (userId, limit = 40) => {
@@ -34,7 +38,7 @@ export const followsApi = {
 
     const ids = follows.map(f => f.following_id);
 
-    const [{ data: threads }, { data: badgeRows }, { data: postRows }] = await Promise.all([
+    const results = await Promise.allSettled([
       supabase
         .from("forum_threads")
         .select("id, title, created_at, author_id, profiles!author_id(display_name, avatar_url)")
@@ -55,6 +59,9 @@ export const followsApi = {
         .order("created_at", { ascending: false })
         .limit(20),
     ]);
+    const threads  = results[0].status === "fulfilled" ? results[0].value.data : null;
+    const badgeRows = results[1].status === "fulfilled" ? results[1].value.data : null;
+    const postRows  = results[2].status === "fulfilled" ? results[2].value.data : null;
 
     // Fetch profiles for badge row authors separately (user_quiz_progress → profiles join)
     let badgeAuthorMap = new Map();

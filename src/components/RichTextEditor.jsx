@@ -226,7 +226,12 @@ export default function RichTextEditor({
 
   const addLink = () => {
     const url = window.prompt(t("editor.linkPrompt"));
-    if (url) editor.chain().focus().setLink({ href: url }).run();
+    if (!url) return;
+    const trimmed = url.trim();
+    const lower = trimmed.toLowerCase();
+    if (lower.startsWith("javascript:") || lower.startsWith("data:") || lower.startsWith("vbscript:")) return;
+    const href = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+    editor.chain().focus().setLink({ href }).run();
   };
 
   if (!editor) return null;

@@ -1,4 +1,5 @@
 import { useTranslation, Trans } from "react-i18next";
+import DOMPurify from "dompurify";
 import PageNav from "./PageNav";
 import "../styles/about.css";
 
@@ -69,7 +70,7 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
             {["feat1","feat2","feat3","feat4","feat5","feat6"].map((key, i) => (
               <li key={key} className="about-feature">
                 <span className="about-feature-icon">{["✅","📝","💬","🧠","👥","📊"][i]}</span>
-                <div dangerouslySetInnerHTML={{ __html: t(`about.${key}`) }} />
+                <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(t(`about.${key}`)) }} />
               </li>
             ))}
           </ul>

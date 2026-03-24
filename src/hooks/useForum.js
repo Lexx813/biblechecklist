@@ -88,7 +88,7 @@ export function useCreateReply(threadId, threadAuthorId, categoryId) {
           threadId,
           preview: content?.slice(0, 80),
           linkHash: categoryId ? `forum/${categoryId}/${threadId}` : `forum/${threadId}`,
-        });
+        }).catch(() => {});
       }
     },
   });

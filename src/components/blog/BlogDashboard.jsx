@@ -83,6 +83,7 @@ function PostEditor({ userId, post, onDone }) {
           value={form.title}
           onChange={e => set("title", e.target.value)}
           disabled={isPending}
+          maxLength={150}
         />
 
         <label className="blog-editor-label">{t("blogDash.excerptLabel")} <span className="blog-editor-hint">{t("blogDash.excerptHint")}</span></label>
@@ -92,6 +93,7 @@ function PostEditor({ userId, post, onDone }) {
           value={form.excerpt}
           onChange={e => set("excerpt", e.target.value)}
           disabled={isPending}
+          maxLength={300}
         />
 
         <label className="blog-editor-label">{t("blogDash.coverLabel")} <span className="blog-editor-hint">{t("blogDash.coverHint")}</span></label>
@@ -120,7 +122,13 @@ function PostEditor({ userId, post, onDone }) {
               className="blog-editor-input"
               placeholder={t("blogDash.coverPlaceholder")}
               value={form.cover_url}
-              onChange={e => set("cover_url", e.target.value)}
+              onChange={e => {
+                const val = e.target.value.trim();
+                const lower = val.toLowerCase();
+                if (!lower.startsWith("javascript:") && !lower.startsWith("data:") && !lower.startsWith("vbscript:")) {
+                  set("cover_url", val);
+                }
+              }}
               disabled={isPending || uploading}
             />
             {uploadError && <div className="blog-editor-error" style={{ marginTop: 4 }}>{uploadError}</div>}

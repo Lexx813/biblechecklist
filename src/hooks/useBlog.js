@@ -15,6 +15,7 @@ export function usePostBySlug(slug) {
     queryKey: ["blog", "post", slug],
     queryFn: () => blogApi.getBySlug(slug),
     enabled: !!slug,
+    staleTime: 2 * 60 * 1000,
   });
 }
 
@@ -64,6 +65,7 @@ export function useComments(postId) {
     queryKey: ["blog", "comments", postId],
     queryFn: () => blogApi.listComments(postId),
     enabled: !!postId,
+    staleTime: 60 * 1000,
   });
 }
 
@@ -78,7 +80,7 @@ export function useCreateComment(postId, postAuthorId, postSlug) {
           postId,
           preview: content?.slice(0, 80),
           linkHash: postSlug ? `blog/${postSlug}` : `blog`,
-        });
+        }).catch(() => {});
       }
     },
   });
