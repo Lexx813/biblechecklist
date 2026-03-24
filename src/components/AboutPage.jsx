@@ -1,7 +1,9 @@
+import { useTranslation, Trans } from "react-i18next";
 import PageNav from "./PageNav";
 import "../styles/about.css";
 
 export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout }) {
+  const { t } = useTranslation();
   return (
     <div className="about-wrap">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
@@ -11,11 +13,9 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
         <div className="about-hero-glow about-hero-glow--1" />
         <div className="about-hero-glow about-hero-glow--2" />
         <div className="about-hero-inner">
-          <div className="about-hero-badge">📖 About NWT Progress</div>
-          <h1 className="about-hero-title">A Home for Bible Readers</h1>
-          <p className="about-hero-sub">
-            Track your reading, connect with fellow students, and grow in your love for God's Word.
-          </p>
+          <div className="about-hero-badge">{t("about.heroBadge")}</div>
+          <h1 className="about-hero-title">{t("about.heroTitle")}</h1>
+          <p className="about-hero-sub">{t("about.heroSub")}</p>
         </div>
       </section>
 
@@ -24,47 +24,29 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
         {/* Purpose */}
         <section className="about-section">
           <div className="about-section-icon">🎯</div>
-          <h2 className="about-section-title">Why This App Exists</h2>
-          <p className="about-section-body">
-            NWT Progress was built with one simple goal: give Bible students a <strong>persistent,
-            cross-device tracker</strong> for their Bible reading. Whether you're on your phone at the
-            Kingdom Hall, on your laptop at home, or on a tablet during family worship — your progress
-            is always with you.
-          </p>
-          <p className="about-section-body">
-            Beyond tracking, we wanted to create a space where people studying with Jehovah's Witnesses
-            — and active Witnesses themselves — can encourage one another, share thoughts, and
-            grow together as a community of Bible students.
-          </p>
+          <h2 className="about-section-title">{t("about.purposeTitle")}</h2>
+          <p className="about-section-body">{t("about.purposeBody1")}</p>
+          <p className="about-section-body">{t("about.purposeBody2")}</p>
         </section>
 
         {/* Who it's for */}
         <section className="about-section about-section--card-row">
-          <h2 className="about-section-title about-section-title--center">Who Is This For?</h2>
+          <h2 className="about-section-title about-section-title--center">{t("about.audienceTitle")}</h2>
           <div className="about-cards">
             <div className="about-card">
               <div className="about-card-icon">📚</div>
-              <h3 className="about-card-title">Bible Students</h3>
-              <p className="about-card-body">
-                Those who are studying with Jehovah's Witnesses and want to follow along
-                in the New World Translation as they learn.
-              </p>
+              <h3 className="about-card-title">{t("about.card1Title")}</h3>
+              <p className="about-card-body">{t("about.card1Body")}</p>
             </div>
             <div className="about-card">
               <div className="about-card-icon">🕊️</div>
-              <h3 className="about-card-title">Active Witnesses</h3>
-              <p className="about-card-body">
-                Jehovah's Witnesses looking to log their personal Bible reading and connect
-                with a community that shares the same values.
-              </p>
+              <h3 className="about-card-title">{t("about.card2Title")}</h3>
+              <p className="about-card-body">{t("about.card2Body")}</p>
             </div>
             <div className="about-card">
               <div className="about-card-icon">👨‍👩‍👧‍👦</div>
-              <h3 className="about-card-title">Families & Groups</h3>
-              <p className="about-card-body">
-                Families doing family worship, or study groups wanting to encourage
-                each other's reading progress and share insights.
-              </p>
+              <h3 className="about-card-title">{t("about.card3Title")}</h3>
+              <p className="about-card-body">{t("about.card3Body")}</p>
             </div>
           </div>
         </section>
@@ -74,63 +56,22 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
           <div className="about-highlight-inner">
             <div className="about-highlight-icon">📱</div>
             <div>
-              <h2 className="about-highlight-title">Works Alongside JW Library</h2>
-              <p className="about-highlight-body">
-                NWT Progress is designed as a <strong>companion to the JW Library app</strong>.
-                Do your reading in JW Library — where you can access a free digital copy of the
-                New World Translation — then come here to log your chapters, take notes, and
-                share your journey with the community.
-              </p>
+              <h2 className="about-highlight-title">{t("about.jwTitle")}</h2>
+              <p className="about-highlight-body">{t("about.jwBody")}</p>
             </div>
           </div>
         </section>
 
         {/* Features */}
         <section className="about-section">
-          <h2 className="about-section-title about-section-title--center">What You Can Do Here</h2>
+          <h2 className="about-section-title about-section-title--center">{t("about.featuresTitle")}</h2>
           <ul className="about-features">
-            <li className="about-feature">
-              <span className="about-feature-icon">✅</span>
-              <div>
-                <strong>Track every chapter</strong> — mark chapters read across all 66 books of the Bible,
-                with your progress saved to the cloud so it follows you everywhere.
-              </div>
-            </li>
-            <li className="about-feature">
-              <span className="about-feature-icon">📝</span>
-              <div>
-                <strong>Save personal notes</strong> — write private notes tied to any book and chapter
-                as you study.
-              </div>
-            </li>
-            <li className="about-feature">
-              <span className="about-feature-icon">💬</span>
-              <div>
-                <strong>Join the community forum</strong> — discuss Bible topics, ask questions,
-                and encourage fellow students.
-              </div>
-            </li>
-            <li className="about-feature">
-              <span className="about-feature-icon">🧠</span>
-              <div>
-                <strong>Test your knowledge</strong> — take Bible quizzes and earn badges as you
-                grow in your understanding of Scripture.
-              </div>
-            </li>
-            <li className="about-feature">
-              <span className="about-feature-icon">👥</span>
-              <div>
-                <strong>Follow other readers</strong> — see activity from the people you follow
-                and share your own updates with your community.
-              </div>
-            </li>
-            <li className="about-feature">
-              <span className="about-feature-icon">📊</span>
-              <div>
-                <strong>Share your progress</strong> — generate a shareable image of your reading
-                progress to encourage others.
-              </div>
-            </li>
+            {["feat1","feat2","feat3","feat4","feat5","feat6"].map((key, i) => (
+              <li key={key} className="about-feature">
+                <span className="about-feature-icon">{["✅","📝","💬","🧠","👥","📊"][i]}</span>
+                <div dangerouslySetInnerHTML={{ __html: t(`about.${key}`) }} />
+              </li>
+            ))}
           </ul>
         </section>
 
@@ -139,14 +80,9 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
           <div className="about-creator-card">
             <div className="about-creator-avatar">L</div>
             <div className="about-creator-info">
-              <div className="about-creator-label">Created by</div>
-              <h2 className="about-creator-name">Luis</h2>
-              <p className="about-creator-bio">
-                Luis is a Bible student and Jehovah's Witness who built NWT Progress out of a
-                personal need — a simple, reliable way to track Bible reading across any device,
-                without losing progress. What started as a personal tool grew into a full community
-                platform for others walking the same spiritual journey.
-              </p>
+              <div className="about-creator-label">{t("about.creatorLabel")}</div>
+              <h2 className="about-creator-name">{t("about.creatorName")}</h2>
+              <p className="about-creator-bio">{t("about.creatorBio")}</p>
             </div>
           </div>
         </section>
@@ -154,10 +90,10 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
         {/* CTA */}
         {!user && (
           <section className="about-cta">
-            <h2 className="about-cta-title">Ready to Start?</h2>
-            <p className="about-cta-sub">Create a free account and begin tracking your Bible reading today.</p>
+            <h2 className="about-cta-title">{t("about.ctaTitle")}</h2>
+            <p className="about-cta-sub">{t("about.ctaSub")}</p>
             <button className="about-cta-btn" onClick={() => navigate("home")}>
-              Get Started — It's Free
+              {t("about.ctaBtn")}
             </button>
           </section>
         )}
@@ -165,7 +101,7 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
       </div>
 
       <footer className="about-footer">
-        <p>NWT Progress is an independent community project and is not affiliated with or endorsed by Jehovah's Witnesses or the Watch Tower Society.</p>
+        <p>{t("about.footer")}</p>
       </footer>
     </div>
   );
