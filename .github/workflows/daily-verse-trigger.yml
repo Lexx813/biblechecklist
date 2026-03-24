@@ -1,0 +1,21 @@
+name: Daily Verse Trigger
+
+# Calls the Supabase Edge Function at 08:00 UTC every day.
+# The Edge Function fetches today's verse then dispatches render-verse.yml.
+# This workflow is optional — render-verse.yml also has its own schedule fallback.
+
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch: {}   # allow manual trigger from GitHub UI
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call render-and-post Edge Function
+        run: |
+          curl -sf -X POST \
+            "${{ secrets.SUPABASE_URL }}/functions/v1/render-and-post" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            -H "Content-Type: application/json"

@@ -83,6 +83,18 @@ export default function LandingPage({ onGetStarted }) {
           </button>
         </p>
       </div>
+
+      <footer style={{
+        position: "relative", zIndex: 10,
+        textAlign: "center", padding: "24px 16px",
+        fontSize: 12, color: "rgba(255,255,255,0.3)",
+      }}>
+        © {new Date().getFullYear()} NWT Progress · Lexx Solutionz
+        {" · "}
+        <a href="#terms" style={{ color: "rgba(139,92,246,0.7)", textDecoration: "underline", cursor: "pointer" }}>Terms of Service</a>
+        {" · "}
+        <a href="#privacy" style={{ color: "rgba(139,92,246,0.7)", textDecoration: "underline", cursor: "pointer" }}>Privacy Policy</a>
+      </footer>
     </div>
   );
 }

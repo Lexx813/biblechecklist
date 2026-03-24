@@ -27,6 +27,8 @@ const BookmarksPage  = lazy(() => import("./components/bookmarks/BookmarksPage")
 const ReadingHistory = lazy(() => import("./components/reading/ReadingHistory"));
 const ActivityFeed   = lazy(() => import("./components/social/ActivityFeed"));
 const AboutPage      = lazy(() => import("./components/AboutPage"));
+const TermsPage      = lazy(() => import("./components/TermsPage"));
+const PrivacyPage    = lazy(() => import("./components/PrivacyPage"));
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useProgress, useSaveProgress } from "./hooks/useProgress";
 import { useFullProfile } from "./hooks/useAdmin";
@@ -61,6 +63,11 @@ export default function App() {
       </div>
     );
   }
+
+  // Legal pages are accessible without login
+  const hash = window.location.hash.slice(1).replace(/^\//, "");
+  if (hash === "terms") return <Suspense fallback={null}><TermsPage navigate={(p) => { window.location.hash = p; }} darkMode={false} setDarkMode={() => {}} i18n={{}} user={null} onLogout={null} /></Suspense>;
+  if (hash === "privacy") return <Suspense fallback={null}><PrivacyPage navigate={(p) => { window.location.hash = p; }} darkMode={false} setDarkMode={() => {}} i18n={{}} user={null} onLogout={null} /></Suspense>;
 
   if (!user) {
     if (showLanding) return <LandingPage onGetStarted={() => setShowLanding(false)} />;
@@ -105,6 +112,8 @@ function parseHash() {
   if (h === "history") return { page: "history" };
   if (h === "feed") return { page: "feed" };
   if (h === "about") return { page: "about" };
+  if (h === "terms") return { page: "terms" };
+  if (h === "privacy") return { page: "privacy" };
   return { page: "home" };
 }
 
@@ -125,6 +134,8 @@ function buildHash(page, params = {}) {
     case "history":  return "history";
     case "feed":     return "feed";
     case "about":    return "about";
+    case "terms":    return "terms";
+    case "privacy":  return "privacy";
     case "main":     return "checklist";
     default:         return "";
   }
@@ -355,6 +366,8 @@ function BibleApp({ user, onLogout }) {
   if (nav.page === "history") return <Page><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Page>;
   if (nav.page === "feed") return <Page><ActivityFeed user={user} {...sharedNav} /></Page>;
   if (nav.page === "about") return <Page><AboutPage {...sharedNav} /></Page>;
+  if (nav.page === "terms") return <Page><TermsPage {...sharedNav} /></Page>;
+  if (nav.page === "privacy") return <Page><PrivacyPage {...sharedNav} /></Page>;
 
   return (
     <div className="app-wrap">

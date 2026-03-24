@@ -226,6 +226,11 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
       <footer className="home-footer">
         <p>{t("home.footer")}</p>
+        <p style={{ marginTop: 6 }}>
+          <a href="#terms" style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: 3 }}>Terms of Service</a>
+          {" · "}
+          <a href="#privacy" style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: 3 }}>Privacy Policy</a>
+        </p>
       </footer>
     </div>
   );
