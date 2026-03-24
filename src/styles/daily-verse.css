@@ -1,0 +1,98 @@
+.daily-verse {
+  position: relative;
+  background: linear-gradient(135deg, #1E0D3C 0%, #341C5C 60%, #6A3DAA 100%);
+  border-radius: 16px;
+  padding: 24px 24px 20px;
+  overflow: hidden;
+  margin: 0;
+}
+
+.daily-verse::before {
+  content: '\201C';
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  font-size: 100px;
+  line-height: 1;
+  color: rgba(255,255,255,0.08);
+  font-family: Georgia, serif;
+  pointer-events: none;
+}
+
+.daily-verse-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(192,132,252,0.9);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.daily-verse-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.92);
+  font-style: italic;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.daily-verse-ref {
+  font-size: 12px;
+  font-weight: 700;
+  color: #C084FC;
+  letter-spacing: 0.02em;
+}
+
+.daily-verse-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.daily-verse-dots {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.daily-verse-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+.daily-verse-dot.active {
+  background: #C084FC;
+  transform: scale(1.4);
+}
+
+.daily-verse-arrow {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.8);
+  border-radius: 8px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.daily-verse-arrow:hover { background: rgba(255,255,255,0.2); }
+
+.daily-verse-fade-enter { opacity: 0; transform: translateY(6px); }
+.daily-verse-fade-active { opacity: 1; transform: translateY(0); transition: opacity 0.3s, transform 0.3s; }

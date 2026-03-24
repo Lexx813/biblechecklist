@@ -13,13 +13,18 @@ import HomePage from "./components/HomePage";
 import QuizPage, { QuizLevel } from "./components/quiz/QuizPage";
 import SearchPage from "./components/search/SearchPage";
 import BookmarksPage from "./components/bookmarks/BookmarksPage";
+import ReadingPlanWidget from "./components/reading/ReadingPlanWidget";
+import ReadingHistory from "./components/reading/ReadingHistory";
+import ActivityFeed from "./components/social/ActivityFeed";
 import LandingPage from "./components/LandingPage";
 import ConfirmModal from "./components/ConfirmModal";
+import OfflineBanner from "./components/OfflineBanner";
+import ProgressShare from "./components/share/ProgressShare";
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useProgress, useSaveProgress } from "./hooks/useProgress";
 import { useFullProfile } from "./hooks/useAdmin";
 import { useNotes } from "./hooks/useNotes";
-import { useReadingStats } from "./hooks/useReading";
+
 import { readingApi } from "./api/reading";
 import { supabase } from "./lib/supabase";
 import "./styles/app.css";
@@ -56,13 +61,16 @@ export default function App() {
   }
 
   return (
-    <BibleApp
-      user={user}
-      onLogout={() => {
-        logout.mutate();
-        setShowLanding(true);
-      }}
-    />
+    <>
+      <OfflineBanner />
+      <BibleApp
+        user={user}
+        onLogout={() => {
+          logout.mutate();
+          setShowLanding(true);
+        }}
+      />
+    </>
   );
 }
 
@@ -85,6 +93,8 @@ function parseHash() {
   if (h.startsWith("user/")) return { page: "publicProfile", userId: h.slice(5) };
   if (h === "search") return { page: "search" };
   if (h === "bookmarks") return { page: "bookmarks" };
+  if (h === "history") return { page: "history" };
+  if (h === "feed") return { page: "feed" };
   return { page: "home" };
 }
 
@@ -102,6 +112,8 @@ function buildHash(page, params = {}) {
     case "publicProfile": return "user/" + params.userId;
     case "search":   return "search";
     case "bookmarks": return "bookmarks";
+    case "history":  return "history";
+    case "feed":     return "feed";
     case "main":     return "checklist";
     default:         return "";
   }
@@ -111,7 +123,7 @@ function BibleApp({ user, onLogout }) {
   const { data: profile } = useFullProfile(user.id);
   const { data: remoteProgress, isLoading: progressLoading } = useProgress(user.id);
   const { data: notes = [] } = useNotes(user.id);
-  const { data: readingStats } = useReadingStats(user.id);
+
   const saveProgress = useSaveProgress(user.id);
   const { t, i18n } = useTranslation();
   const queryClient = useQueryClient();
@@ -151,6 +163,7 @@ function BibleApp({ user, onLogout }) {
   const [tab, setTab] = useState("all"); // all | ot | nt
   const [search, setSearch] = useState("");
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showShare, setShowShare] = useState(false);
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem("nwt-theme") === "dark");
 
   useEffect(() => {
@@ -310,6 +323,12 @@ function BibleApp({ user, onLogout }) {
   if (nav.page === "bookmarks") return (
     <BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} />
   );
+  if (nav.page === "history") return (
+    <ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} />
+  );
+  if (nav.page === "feed") return (
+    <ActivityFeed user={user} {...sharedNav} />
+  );
 
   return (
     <div className="app-wrap">
@@ -390,29 +409,28 @@ function BibleApp({ user, onLogout }) {
       </div>
 
       {/* Reading habit stats */}
-      {readingStats && (
-        <div className="reading-stats-bar">
-          <div className="reading-stat-chip">
-            <span className="reading-stat-icon">🔥</span>
-            <span className="reading-stat-value">{readingStats.streak}</span>
-            <span className="reading-stat-label">{t("stats.streak", { count: readingStats.streak })}</span>
-          </div>
-          <div className="reading-stat-chip">
-            <span className="reading-stat-icon">📖</span>
-            <span className="reading-stat-value">{readingStats.weeklyChapters}</span>
-            <span className="reading-stat-label">{t("stats.thisWeek")}</span>
-          </div>
-          <div className="reading-activity">
-            {readingStats.grid.map(({ date, chapters }) => (
-              <div
-                key={date}
-                className={`reading-dot${chapters > 0 ? chapters >= 3 ? " reading-dot--high" : " reading-dot--low" : ""}`}
-                title={`${date}: ${chapters} ${t("stats.chaptersDot")}`}
-              />
-            ))}
-          </div>
-        </div>
-      )}
+      <div style={{ padding: "0 16px 4px" }}>
+        <ReadingPlanWidget
+          userId={user.id}
+          dailyGoal={profile?.daily_chapter_goal ?? 3}
+        />
+      </div>
+      <div style={{ padding: "4px 16px 12px", display: "flex", justifyContent: "flex-end", gap: 8 }}>
+        <button
+          className="reset-btn"
+          style={{ fontSize: 12, padding: "5px 14px" }}
+          onClick={() => setShowShare(true)}
+        >
+          🖼 {t("share.shareBtn")}
+        </button>
+        <button
+          className="reset-btn"
+          style={{ fontSize: 12, padding: "5px 14px" }}
+          onClick={() => navigate("history")}
+        >
+          📅 {t("history.viewBtn")}
+        </button>
+      </div>
 
       {/* Book list */}
       <div className="book-list">
@@ -443,6 +461,13 @@ function BibleApp({ user, onLogout }) {
       <div className="footer-reset">
         <button className="reset-btn" onClick={handleReset}>{t("app.resetProgress")}</button>
       </div>
+
+      {showShare && (
+        <ProgressShare
+          stats={{ pct, doneCh, totalCh, doneBooks, otDone, ntDone, name: profile?.display_name }}
+          onClose={() => setShowShare(false)}
+        />
+      )}
 
       {showResetConfirm && (
         <ConfirmModal

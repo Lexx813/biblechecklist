@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import { useTopThreads } from "../hooks/useForum";
+import DailyVerse from "./home/DailyVerse";
 import "../styles/home.css";
 
 const GRADIENTS = [
@@ -96,6 +97,11 @@ export default function HomePage({ user, profile, navigate, onLogout, darkMode, 
           </div>
         </div>
       </div>
+
+      {/* ── Daily Verse ── */}
+      <section className="home-section home-section--verse">
+        <DailyVerse />
+      </section>
 
       {/* ── Bible Tracker section ── */}
       <section className="home-section">

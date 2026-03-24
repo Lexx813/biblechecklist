@@ -36,7 +36,7 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
   const isTyping = debouncedQuery.trim().length >= 2;
 
   return (
-    <div className="search-wrap">
+    <div className="search-page">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} />
 
       <div className="search-hero">

@@ -10,25 +10,31 @@ function getLevel(chapters, goal) {
 
 export default function ReadingHeatmap({ data = [], dailyGoal = 3 }) {
   const { weeks } = useMemo(() => {
-    if (!data.length) return { weeks: [] };
+    // Build a map of date → chapters from real data
+    const dataMap = new Map((data ?? []).map(d => [d.date, d.chapters]));
 
-    // Pad start so first day aligns to Monday (0=Mon)
-    const first = new Date(data[0].date + "T12:00:00");
-    const startDay = (first.getDay() + 6) % 7; // Monday-based
-    const padded = [
-      ...Array(startDay).fill(null),
-      ...data.map(d => ({ ...d, level: getLevel(d.chapters, dailyGoal) })),
-    ];
+    // Always render 52 weeks (364 days) ending today
+    const today = new Date();
+    today.setHours(12, 0, 0, 0);
+    const days = [];
+    for (let i = 363; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(today.getDate() - i);
+      const dateStr = d.toISOString().slice(0, 10);
+      const chapters = dataMap.get(dateStr) ?? 0;
+      days.push({ date: dateStr, chapters, level: getLevel(chapters, dailyGoal) });
+    }
 
-    // Split into weeks (columns of 7)
+    // Pad start so first day aligns to Monday
+    const startDay = (new Date(days[0].date + "T12:00:00").getDay() + 6) % 7;
+    const padded = [...Array(startDay).fill(null), ...days];
+
     const w = [];
     for (let i = 0; i < padded.length; i += 7) {
       w.push(padded.slice(i, i + 7));
     }
     return { weeks: w };
   }, [data, dailyGoal]);
-
-  if (!weeks.length) return null;
 
   return (
     <div className="heatmap-outer">

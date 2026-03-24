@@ -1,8 +1,10 @@
-import { memo, useState } from "react";
+import { memo, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { BOOK_INFO } from "../data/bookInfo";
 
 const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, onToggleChapter, onToggleBook, notes = [] }) {
   const [open, setOpen] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
   const { t } = useTranslation();
   const total = book.chapters;
   const bookChapters = chaptersState[bookIndex];
@@ -13,6 +15,19 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, onTogg
 
   const bookName = t(`bookNames.${bookIndex}`, book.name);
   const bookAbbr = t(`bookAbbrs.${bookIndex}`, book.abbr);
+  const info = BOOK_INFO[bookIndex];
+  const summary = info ? t(`bookSummaries.${bookIndex}`, info.summary) : null;
+  const theme = info ? t(`bookThemes.${bookIndex}`, info.theme) : null;
+
+  const notesByChapter = useMemo(() => {
+    const map = new Map();
+    for (const note of notes) {
+      const arr = map.get(note.chapter) ?? [];
+      arr.push(note);
+      map.set(note.chapter, arr);
+    }
+    return map;
+  }, [notes]);
 
   return (
     <div className={`book-card${allDone ? " fully-done" : ""}`}>
@@ -42,19 +57,75 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, onTogg
 
       {open && (
         <div className="chapters-panel">
-          <div className="ch-section-label">{t("book.chLabel")}</div>
+          {/* Book info toggle */}
+          {info && (
+            <button
+              className="book-info-toggle"
+              onClick={() => setShowInfo(s => !s)}
+            >
+              <span>{showInfo ? "▾" : "▸"}</span>
+              {t("book.infoToggle")}
+            </button>
+          )}
+
+          {/* Book info panel */}
+          {showInfo && info && (
+            <div className="book-info-panel">
+              <p className="book-info-summary">{summary}</p>
+              <div className="book-info-meta-row">
+                {info.author && (
+                  <div className="book-info-meta-item">
+                    <span className="book-info-meta-label">{t("book.infoAuthor")}</span>
+                    <span className="book-info-meta-value">{info.author}</span>
+                  </div>
+                )}
+                {info.date && (
+                  <div className="book-info-meta-item">
+                    <span className="book-info-meta-label">{t("book.infoWritten")}</span>
+                    <span className="book-info-meta-value">{info.date}</span>
+                  </div>
+                )}
+                {theme && (
+                  <div className="book-info-meta-item">
+                    <span className="book-info-meta-label">{t("book.infoTheme")}</span>
+                    <span className="book-info-meta-value">{theme}</span>
+                  </div>
+                )}
+              </div>
+              {info.keyVerses?.length > 0 && (
+                <div className="book-info-verses">
+                  <span className="book-info-meta-label">{t("book.infoKeyVerses")}</span>
+                  <div className="book-info-verse-pills">
+                    {info.keyVerses.map(v => (
+                      <span key={v} className="book-info-verse-pill">{v}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          <div className="ch-section-label" style={{ marginTop: showInfo ? 12 : 0 }}>{t("book.chLabel")}</div>
           <div className="ch-grid">
             {Array.from({ length: total }, (_, i) => {
               const ch = i + 1;
               const isDone = !!chaptersState[bookIndex]?.[ch];
+              const chNotes = notesByChapter.get(ch);
+              const hasNote = chNotes?.length > 0;
+              const tooltipText = hasNote
+                ? chNotes.map(n => n.content).join(" · ")
+                : null;
               return (
                 <button
                   key={ch}
-                  className={`ch-pill${isDone ? " done" : ""}`}
+                  className={`ch-pill${isDone ? " done" : ""}${hasNote ? " has-note" : ""}`}
                   onClick={() => onToggleChapter(bookIndex, ch)}
                   title={t("book.chapterTitle", { ch })}
                 >
                   {ch}
+                  {hasNote && (
+                    <span className="ch-pill-tooltip">{tooltipText}</span>
+                  )}
                 </button>
               );
             })}

@@ -28,6 +28,15 @@ export function useReadingStreaks(userId) {
   });
 }
 
+export function useReadingHistory(userId) {
+  return useQuery({
+    queryKey: ["reading", "history", userId],
+    queryFn: () => readingApi.getHistory(userId),
+    enabled: !!userId,
+    staleTime: 2 * 60 * 1000,
+  });
+}
+
 export function useSetDailyGoal(userId) {
   const queryClient = useQueryClient();
   return useMutation({

@@ -14,13 +14,13 @@ export const readingApi = {
 
   getHeatmap: async (userId) => {
     const { data, error } = await supabase.rpc("get_reading_heatmap", { p_user_id: userId, p_days: 364 });
-    if (error) throw new Error(error.message);
+    if (error) return [];
     return data ?? [];
   },
 
   getStreaks: async (userId) => {
     const { data, error } = await supabase.rpc("get_reading_streaks", { p_user_id: userId });
-    if (error) throw new Error(error.message);
+    if (error) return { current_streak: 0, longest_streak: 0 };
     return data ?? { current_streak: 0, longest_streak: 0 };
   },
 
@@ -29,6 +29,18 @@ export const readingApi = {
     if (!user) return;
     const { error } = await supabase.from("profiles").update({ daily_chapter_goal: goal }).eq("id", user.id);
     if (error) throw new Error(error.message);
+  },
+
+  getHistory: async (userId, limit = 120) => {
+    const { data, error } = await supabase
+      .from("reading_log")
+      .select("date, chapters_read")
+      .eq("user_id", userId)
+      .gt("chapters_read", 0)
+      .order("date", { ascending: false })
+      .limit(limit);
+    if (error) return [];
+    return data ?? [];
   },
 
   getStats: async (userId) => {

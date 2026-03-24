@@ -1,0 +1,379 @@
+.feed-wrap {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+.feed-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+.feed-header {
+  margin-bottom: 28px;
+}
+
+.feed-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.feed-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* Empty state */
+.feed-empty {
+  text-align: center;
+  padding: 60px 16px;
+  color: var(--text-muted);
+}
+
+.feed-empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.feed-empty h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.feed-empty p {
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* Loading */
+.feed-loading {
+  display: flex;
+  justify-content: center;
+  padding: 60px;
+}
+
+.feed-spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--border);
+  border-top-color: var(--teal);
+  border-radius: 50%;
+  animation: feed-spin 0.7s linear infinite;
+}
+
+@keyframes feed-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Feed list */
+.feed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.feed-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  transition: background 0.12s, border-color 0.12s;
+  margin-bottom: 6px;
+}
+
+.feed-item--thread:hover {
+  border-color: var(--teal);
+  background: var(--teal-soft);
+}
+
+.feed-item-avatar-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.feed-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.feed-avatar--fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.feed-item-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.feed-item-text {
+  font-size: 14px;
+  line-height: 1.5;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+}
+
+.feed-item-name {
+  font-weight: 800;
+  color: var(--teal-dark);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  transition: color 0.12s;
+}
+.feed-item-name:hover { color: var(--teal); }
+
+.feed-item-action {
+  color: var(--text-secondary);
+}
+
+.feed-item-detail {
+  color: var(--text-primary);
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 260px;
+}
+
+.feed-item-badge {
+  font-weight: 700;
+  color: var(--teal);
+  background: var(--teal-light);
+  padding: 1px 8px;
+  border-radius: 99px;
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+.feed-item-time {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ── Follow button (in ProfilePage) ──────────────────────── */
+.pf-follow-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 22px;
+  border-radius: 999px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 2px solid var(--teal);
+}
+
+.pf-follow-btn--follow {
+  background: var(--teal);
+  color: #fff;
+}
+.pf-follow-btn--follow:hover {
+  background: var(--teal-dark);
+  border-color: var(--teal-dark);
+}
+
+.pf-follow-btn--following {
+  background: transparent;
+  color: var(--teal);
+}
+.pf-follow-btn--following:hover {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.pf-follow-counts {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.pf-follow-count-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.pf-follow-count-num {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.pf-follow-count-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Post composer ───────────────────────────────────────── */
+.post-composer {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.15s;
+}
+.post-composer:focus-within { border-color: var(--teal); }
+
+.post-composer-input {
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.55;
+}
+.post-composer-input::placeholder { color: var(--text-muted); }
+
+.post-composer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.post-composer-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.post-composer-count--warn { color: #d97706; }
+
+.post-composer-btn {
+  padding: 6px 18px;
+  background: var(--teal);
+  border: none;
+  border-radius: 999px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.post-composer-btn:hover:not(:disabled) { background: var(--teal-dark); }
+.post-composer-btn:disabled { opacity: 0.5; cursor: default; }
+
+/* ── Post cards (profile page) ───────────────────────────── */
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.post-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 10px 10px 0;
+  padding: 12px 14px;
+}
+
+.post-card-content {
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0 0 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.post-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.post-card-date {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.post-card-delete {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: color 0.12s, background 0.12s;
+}
+.post-card-delete:hover { color: #ef4444; background: #fee2e2; }
+
+/* ── Feed post content ───────────────────────────────────── */
+.feed-item-meta {
+  font-size: 14px;
+  line-height: 1.5;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.feed-post-content {
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 6px 0 0;
+  padding: 10px 12px;
+  background: var(--teal-soft);
+  border-radius: 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ── Forum badge chip ─────────────────────────────────────── */
+.forum-badge-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  line-height: 1;
+  margin-left: 4px;
+  cursor: default;
+  vertical-align: middle;
+}

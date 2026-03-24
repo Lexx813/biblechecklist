@@ -7,7 +7,10 @@ import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/u
 import { useNotes, useCreateNote, useUpdateNote, useDeleteNote } from "../../hooks/useNotes";
 import { useProgress } from "../../hooks/useProgress";
 import { useQuizProgress } from "../../hooks/useQuiz";
+import { useFollowCounts, useIsFollowing, useToggleFollow } from "../../hooks/useFollows";
+import { useUserPosts, useCreatePost, useDeletePost } from "../../hooks/usePosts";
 import "../../styles/profile.css";
+import "../../styles/social.css";
 
 const TOTAL_CHAPTERS = BOOKS.reduce((s, b) => s + b.chapters, 0);
 
@@ -244,6 +247,118 @@ function NoteCard({ note, userId }) {
   );
 }
 
+// ── Posts section ─────────────────────────────────────────
+const MAX_POST = 500;
+
+function PostsSection({ profileId, isOwner, t }) {
+  const { data: posts = [], isLoading } = useUserPosts(profileId);
+  const createPost = useCreatePost(profileId);
+  const deletePost = useDeletePost(profileId);
+  const [draft, setDraft] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const trimmed = draft.trim();
+    if (!trimmed || trimmed.length > MAX_POST) return;
+    createPost.mutate(trimmed, { onSuccess: () => setDraft("") });
+  }
+
+  function formatDate(iso) {
+    return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+  }
+
+  return (
+    <div className="pf-section">
+      <div className="pf-section-header">
+        <h2>💬 {t("posts.sectionTitle")}</h2>
+      </div>
+
+      {isOwner && (
+        <form className="post-composer" onSubmit={handleSubmit}>
+          <textarea
+            className="post-composer-input"
+            placeholder={t("posts.placeholder")}
+            value={draft}
+            onChange={e => setDraft(e.target.value)}
+            maxLength={MAX_POST}
+            rows={3}
+          />
+          <div className="post-composer-footer">
+            <span className={`post-composer-count${draft.length > MAX_POST - 50 ? " post-composer-count--warn" : ""}`}>
+              {draft.length}/{MAX_POST}
+            </span>
+            <button
+              className="post-composer-btn"
+              type="submit"
+              disabled={!draft.trim() || createPost.isPending}
+            >
+              {createPost.isPending ? t("common.saving") : t("posts.share")}
+            </button>
+          </div>
+        </form>
+      )}
+
+      {isLoading ? (
+        <div className="pf-loading">{t("common.loading")}</div>
+      ) : posts.length === 0 ? (
+        <p className="pf-empty">{isOwner ? t("posts.emptyOwner") : t("posts.emptyOther")}</p>
+      ) : (
+        <div className="post-list">
+          {posts.map(post => (
+            <div key={post.id} className="post-card">
+              <p className="post-card-content">{post.content}</p>
+              <div className="post-card-footer">
+                <span className="post-card-date">{formatDate(post.created_at)}</span>
+                {isOwner && (
+                  <button
+                    className="post-card-delete"
+                    onClick={() => deletePost.mutate(post.id)}
+                    disabled={deletePost.isPending}
+                    title={t("common.delete")}
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Follow button + counts ─────────────────────────────────
+function FollowSection({ currentUserId, targetId, t }) {
+  const { data: counts = { followers: 0, following: 0 } } = useFollowCounts(targetId);
+  const { data: isFollowing = false } = useIsFollowing(currentUserId, targetId);
+  const toggle = useToggleFollow(currentUserId, targetId);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+      <div className="pf-follow-counts">
+        <div className="pf-follow-count-item">
+          <span className="pf-follow-count-num">{counts.followers}</span>
+          <span className="pf-follow-count-label">{t("follow.followers")}</span>
+        </div>
+        <div className="pf-follow-count-item">
+          <span className="pf-follow-count-num">{counts.following}</span>
+          <span className="pf-follow-count-label">{t("follow.following")}</span>
+        </div>
+      </div>
+      {currentUserId !== targetId && (
+        <button
+          className={`pf-follow-btn ${isFollowing ? "pf-follow-btn--following" : "pf-follow-btn--follow"}`}
+          onClick={() => toggle.mutate()}
+          disabled={toggle.isPending}
+        >
+          {isFollowing ? t("follow.unfollow") : t("follow.follow")}
+        </button>
+      )}
+    </div>
+  );
+}
+
 // ── Main ProfilePage ──────────────────────────────────────
 export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack, navigate, darkMode, setDarkMode, i18n }) {
   const profileId = viewedUserId ?? user.id;
@@ -309,6 +424,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
             <DisplayName profile={profile} userId={profileId} editable={isOwner} />
             {isOwner && <p className="pf-email">{user.email}</p>}
             <p className="pf-since">{t("profile.memberSince", { date: profile ? formatDate(profile.created_at) : "—" })}</p>
+            <FollowSection currentUserId={user.id} targetId={profileId} t={t} />
             {isOwner && (
               <div className="pf-stats-row">
                 <div className="pf-stat"><strong>{notes.length}</strong> {t("profile.notesCount", { count: notes.length }).split(" ")[1]}</div>
@@ -369,6 +485,9 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
             </div>
           )}
         </div>
+
+        {/* Public posts / status updates */}
+        <PostsSection profileId={profileId} isOwner={isOwner} t={t} />
 
         {/* Notes section — owner only */}
         {isOwner && (

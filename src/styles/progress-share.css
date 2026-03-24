@@ -1,0 +1,81 @@
+.share-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10, 5, 20, 0.70);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 300; padding: 16px;
+  backdrop-filter: blur(4px);
+  animation: share-fade-in 0.18s ease;
+}
+
+@keyframes share-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.share-modal {
+  background: var(--card-bg);
+  border-radius: 18px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.45);
+  max-width: 580px; width: 100%;
+  display: flex; flex-direction: column; gap: 0;
+  overflow: hidden;
+  animation: share-slide-in 0.2s ease;
+  max-height: 92vh;
+}
+
+@keyframes share-slide-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.share-modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.share-modal-title {
+  font-size: 15px; font-weight: 800; color: var(--text-primary);
+}
+
+.share-modal-close {
+  background: none; border: none;
+  font-size: 16px; color: var(--text-muted);
+  cursor: pointer; padding: 4px 8px; border-radius: 6px;
+  transition: color 0.12s, background 0.12s;
+}
+.share-modal-close:hover { color: var(--text-primary); background: var(--teal-light); }
+
+.share-canvas-wrap {
+  overflow-y: auto;
+  display: flex; justify-content: center;
+  padding: 16px 16px 8px;
+  background: var(--bg);
+}
+
+.share-canvas {
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  max-width: 100%;
+  display: block;
+}
+
+.share-modal-actions {
+  padding: 14px 20px 18px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.share-download-btn {
+  width: 100%; padding: 12px;
+  background: var(--teal); border: none; border-radius: 10px;
+  font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800;
+  color: #fff; cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.share-download-btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
+.share-download-btn:active { transform: translateY(0); }
+
+.share-hint {
+  font-size: 12px; color: var(--text-muted); text-align: center; margin: 0;
+}

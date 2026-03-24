@@ -15,6 +15,17 @@ import {
 } from "../../hooks/useForum";
 import { useSubmitReport } from "../../hooks/useReports";
 import "../../styles/forum.css";
+import "../../styles/social.css";
+
+const LEVEL_EMOJIS = [null,"📖","📚","🌱","👨‍👩‍👦","🏺","⚔️","🎵","📯","✝️","🌍","🔮","👑"];
+function BadgeChip({ level }) {
+  if (!level || level < 1) return null;
+  return (
+    <span className="forum-badge-chip" title={`Level ${level}`}>
+      {LEVEL_EMOJIS[Math.min(level, 12)]}
+    </span>
+  );
+}
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function displayName(profile) {
@@ -160,7 +171,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
       <div className="forum-post forum-post--op">
         <div className="forum-post-aside">
           <Avatar profile={thread.profiles} onClick={() => navigate("publicProfile", { userId: thread.author_id })} />
-          <span className="forum-post-author">{displayName(thread.profiles)}</span>
+          <span className="forum-post-author">
+            {displayName(thread.profiles)}
+            <BadgeChip level={thread.profiles?.top_badge_level} />
+          </span>
           <span className="forum-post-time">{timeAgo(thread.created_at, t)}</span>
           <span className="forum-post-badge forum-post-badge--op">{t("forum.op")}</span>
         </div>
@@ -231,7 +245,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
               <div key={reply.id} className="forum-post">
                 <div className="forum-post-aside">
                   <Avatar profile={reply.profiles} onClick={() => navigate("publicProfile", { userId: reply.author_id })} />
-                  <span className="forum-post-author">{displayName(reply.profiles)}</span>
+                  <span className="forum-post-author">
+                    {displayName(reply.profiles)}
+                    <BadgeChip level={reply.profiles?.top_badge_level} />
+                  </span>
                   <span className="forum-post-time">{timeAgo(reply.created_at, t)}</span>
                   <span className="forum-post-num">#{i + 1}</span>
                 </div>
@@ -458,7 +475,10 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
                     {thread.title}
                   </div>
                   <div className="forum-row-meta">
-                    <span>{displayName(thread.profiles)}</span>
+                    <span>
+                      {displayName(thread.profiles)}
+                      <BadgeChip level={thread.profiles?.top_badge_level} />
+                    </span>
                     <span className="forum-dot">·</span>
                     <span>{timeAgo(thread.updated_at, t)}</span>
                   </div>

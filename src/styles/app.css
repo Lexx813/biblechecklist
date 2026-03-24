@@ -225,6 +225,56 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 .ch-action-btn.primary { background: var(--teal); color: #fff; border-color: var(--teal); }
 .ch-action-btn.primary:hover { background: var(--teal-dark); }
 
+/* BOOK INFO */
+.book-info-toggle {
+  display: flex; align-items: center; gap: 6px;
+  background: none; border: 1px solid var(--border);
+  border-radius: 8px; padding: 5px 12px; margin-bottom: 12px;
+  font-size: 12px; font-weight: 700; color: var(--text-secondary);
+  cursor: pointer; transition: all 0.15s; font-family: inherit;
+}
+.book-info-toggle:hover { border-color: var(--teal); color: var(--teal); }
+
+.book-info-panel {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px; margin-bottom: 14px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.book-info-summary {
+  font-size: 13px; color: var(--text-primary); line-height: 1.6;
+  margin: 0;
+}
+
+.book-info-meta-row {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+
+.book-info-meta-item {
+  display: flex; flex-direction: column; gap: 2px;
+  background: var(--teal-soft); border-radius: 8px;
+  padding: 5px 10px; flex: 1; min-width: 80px;
+}
+
+.book-info-meta-label {
+  font-size: 9px; font-weight: 800; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--teal-dark);
+}
+
+.book-info-meta-value {
+  font-size: 12px; font-weight: 600; color: var(--text-primary);
+}
+
+.book-info-verses { display: flex; flex-direction: column; gap: 6px; }
+
+.book-info-verse-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.book-info-verse-pill {
+  font-size: 11px; font-weight: 700; padding: 3px 10px;
+  border-radius: 999px; background: var(--teal-light);
+  color: var(--teal-dark); border: 1px solid var(--border);
+}
+
 /* CONTEXTUAL NOTES */
 .ch-notes { margin-top: 4px; }
 
@@ -371,6 +421,82 @@ body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--te
 }
 .reset-btn:hover { border-color: #c62828; color: #c62828; }
 .reset-btn:active { transform: translateY(0); }
+
+/* CHAPTER PILL NOTE INDICATOR & TOOLTIP */
+.ch-pill.has-note { position: relative; }
+.ch-pill.has-note::after {
+  content: '';
+  position: absolute;
+  top: 4px; right: 4px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #C084FC;
+  pointer-events: none;
+}
+.ch-pill.done.has-note::after { background: rgba(255,255,255,0.8); }
+
+.ch-pill-tooltip {
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e1035;
+  color: #ede9fe;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.45;
+  padding: 7px 10px;
+  border-radius: 8px;
+  white-space: normal;
+  width: max-content;
+  max-width: 200px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  z-index: 50;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.1);
+  text-align: left;
+}
+.ch-pill-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #1e1035;
+}
+.ch-pill:hover .ch-pill-tooltip { opacity: 1; }
+
+/* OFFLINE BANNER */
+.offline-banner {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9999;
+  background: #b45309;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Nunito', sans-serif;
+  padding: 8px 16px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  animation: offline-slide-down 0.25s ease;
+}
+@keyframes offline-slide-down {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+.offline-banner-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #fbbf24;
+  flex-shrink: 0;
+  animation: offline-pulse 1.5s ease-in-out infinite;
+}
+@keyframes offline-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
 
 /* TESTAMENT DIVIDER */
 .testament-divider {

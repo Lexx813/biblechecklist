@@ -222,6 +222,12 @@
   padding: 64px 24px;
   border-top: 1px solid rgba(138, 75, 255, 0.08);
 }
+.home-section--verse {
+  padding-top: 40px;
+  padding-bottom: 0;
+  border-top: none;
+  max-width: 680px;
+}
 
 .home-section-label {
   display: inline-block;

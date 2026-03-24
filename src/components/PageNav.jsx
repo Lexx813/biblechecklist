@@ -14,9 +14,13 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user })
         </button>
         <div className="page-nav-links">
           <button className="page-nav-link" onClick={() => navigate("home")}>{t("app.home")}</button>
+          <button className="page-nav-link" onClick={() => navigate("main")}>{t("home.navTracker")}</button>
           <button className="page-nav-link" onClick={() => navigate("blog")}>{t("app.blog")}</button>
           <button className="page-nav-link" onClick={() => navigate("forum")}>{t("app.forum")}</button>
           <button className="page-nav-link" onClick={() => navigate("quiz")}>{t("quiz.nav")}</button>
+          {user && (
+            <button className="page-nav-link" onClick={() => navigate("feed")}>{t("feed.navLink")}</button>
+          )}
           {user && (
             <button className="page-nav-link" onClick={() => navigate("bookmarks")}>{t("bookmarks.title")}</button>
           )}
