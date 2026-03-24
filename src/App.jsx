@@ -160,8 +160,12 @@ function BibleApp({ user, onLogout }) {
 
   const navigate = (page, params = {}) => {
     const newNav = { page, ...params };
-    window.location.hash = buildHash(page, params);
+    const hash = buildHash(page, params);
+    window.location.hash = hash;
     setNav(newNav);
+    if (typeof gtag !== "undefined") {
+      gtag("event", "page_view", { page_title: page, page_path: "/" + hash });
+    }
   };
 
   useEffect(() => {
