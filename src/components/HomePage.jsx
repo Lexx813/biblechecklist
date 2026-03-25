@@ -4,6 +4,7 @@ import { usePublishedPosts } from "../hooks/useBlog";
 import { useTopThreads } from "../hooks/useForum";
 import DailyVerse from "./home/DailyVerse";
 import PageNav from "./PageNav";
+import PageFooter from "./PageFooter";
 import "../styles/home.css";
 
 const GRADIENTS = [
@@ -224,14 +225,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         )}
       </section>
 
-      <footer className="home-footer">
-        <p>{t("home.footer")}</p>
-        <p style={{ marginTop: 6 }}>
-          <a href="#terms" style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: 3 }}>Terms of Service</a>
-          {" · "}
-          <a href="#privacy" style={{ color: "inherit", textDecoration: "underline", textUnderlineOffset: 3 }}>Privacy Policy</a>
-        </p>
-      </footer>
+      <PageFooter />
     </div>
   );
 }

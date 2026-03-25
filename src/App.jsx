@@ -12,6 +12,7 @@ import OfflineBanner from "./components/OfflineBanner";
 import Toast from "./components/Toast";
 import InstallPrompt from "./components/InstallPrompt";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import PageFooter from "./components/PageFooter";
 import ReadingPlanWidget from "./components/reading/ReadingPlanWidget";
 import ProgressShare from "./components/share/ProgressShare";
 
@@ -47,7 +48,7 @@ export default function App() {
   const { t, i18n } = useTranslation();
 
   const [showLanding, setShowLanding] = useState(true);
-  const [preAuthHash, setPreAuthHash] = useState(() => window.location.hash.slice(1).replace(/^\//, ""));
+  const [preAuthPath, setPreAuthPath] = useState(() => window.location.pathname.slice(1));
 
   // Keep React Query cache in sync with Supabase auth state changes
   useEffect(() => {
@@ -57,11 +58,11 @@ export default function App() {
     return () => subscription.unsubscribe();
   }, [queryClient]);
 
-  // Track hash changes so legal pages work before login
+  // Track popstate so legal pages work before login (browser back/forward)
   useEffect(() => {
-    const handler = () => setPreAuthHash(window.location.hash.slice(1).replace(/^\//, ""));
-    window.addEventListener("hashchange", handler);
-    return () => window.removeEventListener("hashchange", handler);
+    const handler = () => setPreAuthPath(window.location.pathname.slice(1));
+    window.addEventListener("popstate", handler);
+    return () => window.removeEventListener("popstate", handler);
   }, []);
 
   if (authLoading) {
@@ -72,12 +73,12 @@ export default function App() {
     );
   }
 
-  const legalNav = (p) => { window.location.hash = p; };
+  const legalNav = (p) => { history.pushState(null, "", "/" + p); setPreAuthPath(p); };
   const legalProps = { navigate: legalNav, darkMode: false, setDarkMode: () => {}, i18n, user: null, onLogout: null };
 
   // Legal pages are accessible without login
-  if (preAuthHash === "terms") return <Suspense fallback={null}><TermsPage {...legalProps} /></Suspense>;
-  if (preAuthHash === "privacy") return <Suspense fallback={null}><PrivacyPage {...legalProps} /></Suspense>;
+  if (preAuthPath === "terms") return <Suspense fallback={null}><TermsPage {...legalProps} /></Suspense>;
+  if (preAuthPath === "privacy") return <Suspense fallback={null}><PrivacyPage {...legalProps} /></Suspense>;
 
   if (!user) {
     if (showLanding) return <LandingPage onGetStarted={() => setShowLanding(false)} />;
@@ -100,8 +101,8 @@ export default function App() {
   );
 }
 
-function parseHash() {
-  const h = window.location.hash.slice(1).replace(/^\//, "");
+function parsePath() {
+  const h = window.location.pathname.slice(1).replace(/^\//, "");
   if (!h) return { page: "home" };
   if (h === "checklist") return { page: "main" };
   if (h === "admin") return { page: "admin" };
@@ -136,32 +137,35 @@ const pageFallback = (
 function Page({ children }) {
   return (
     <ErrorBoundary>
-      <Suspense fallback={pageFallback}>{children}</Suspense>
+      <Suspense fallback={pageFallback}>
+        {children}
+        <PageFooter />
+      </Suspense>
     </ErrorBoundary>
   );
 }
 
-function buildHash(page, params = {}) {
+function buildPath(page, params = {}) {
   switch (page) {
-    case "admin":    return "admin";
-    case "profile":  return "profile";
-    case "blogDash": return "blog-dash";
-    case "blog":     return params.slug ? `blog/${encodeURIComponent(params.slug)}` : "blog";
-    case "forum":    return params.categoryId
-      ? (params.threadId ? `forum/${params.categoryId}/${params.threadId}` : `forum/${params.categoryId}`)
-      : "forum";
-    case "quiz":          return "quiz";
-    case "quizLevel":     return "quiz/" + params.level;
-    case "publicProfile": return "user/" + params.userId;
-    case "search":   return "search";
-    case "bookmarks": return "bookmarks";
-    case "history":  return "history";
-    case "feed":     return "feed";
-    case "about":    return "about";
-    case "terms":    return "terms";
-    case "privacy":  return "privacy";
-    case "main":     return "checklist";
-    default:         return "";
+    case "admin":         return "/admin";
+    case "profile":       return "/profile";
+    case "blogDash":      return "/blog-dash";
+    case "blog":          return params.slug ? `/blog/${encodeURIComponent(params.slug)}` : "/blog";
+    case "forum":         return params.categoryId
+      ? (params.threadId ? `/forum/${params.categoryId}/${params.threadId}` : `/forum/${params.categoryId}`)
+      : "/forum";
+    case "quiz":          return "/quiz";
+    case "quizLevel":     return "/quiz/" + params.level;
+    case "publicProfile": return "/user/" + params.userId;
+    case "search":        return "/search";
+    case "bookmarks":     return "/bookmarks";
+    case "history":       return "/history";
+    case "feed":          return "/feed";
+    case "about":         return "/about";
+    case "terms":         return "/terms";
+    case "privacy":       return "/privacy";
+    case "main":          return "/checklist";
+    default:              return "/";
   }
 }
 
@@ -191,22 +195,22 @@ function BibleApp({ user, onLogout }) {
     }, 1000);
   };
 
-  const [nav, setNav] = useState(parseHash);
+  const [nav, setNav] = useState(parsePath);
 
   const navigate = (page, params = {}) => {
     const newNav = { page, ...params };
-    const hash = buildHash(page, params);
-    window.location.hash = hash;
+    const path = buildPath(page, params);
+    history.pushState(null, "", path);
     setNav(newNav);
     if (typeof gtag !== "undefined") {
-      gtag("event", "page_view", { page_title: page, page_path: "/" + hash });
+      gtag("event", "page_view", { page_title: page, page_path: path });
     }
   };
 
   useEffect(() => {
-    const handler = () => setNav(parseHash());
-    window.addEventListener("hashchange", handler);
-    return () => window.removeEventListener("hashchange", handler);
+    const handler = () => setNav(parsePath());
+    window.addEventListener("popstate", handler);
+    return () => window.removeEventListener("popstate", handler);
   }, []);
   const [chaptersState, setChaptersState] = useState({});
   const [initialized, setInitialized] = useState(false);
@@ -508,6 +512,7 @@ function BibleApp({ user, onLogout }) {
         />
       )}
     </div>
+    <PageFooter />
     </>
   );
 }

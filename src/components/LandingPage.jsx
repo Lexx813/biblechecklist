@@ -91,9 +91,9 @@ export default function LandingPage({ onGetStarted }) {
       }}>
         © {new Date().getFullYear()} NWT Progress · Lexx Solutionz
         {" · "}
-        <a href="#terms" style={{ color: "rgba(139,92,246,0.7)", textDecoration: "underline", cursor: "pointer" }}>Terms of Service</a>
+        <a href="/terms" style={{ color: "rgba(139,92,246,0.7)", textDecoration: "underline", cursor: "pointer" }}>Terms of Service</a>
         {" · "}
-        <a href="#privacy" style={{ color: "rgba(139,92,246,0.7)", textDecoration: "underline", cursor: "pointer" }}>Privacy Policy</a>
+        <a href="/privacy" style={{ color: "rgba(139,92,246,0.7)", textDecoration: "underline", cursor: "pointer" }}>Privacy Policy</a>
       </footer>
     </div>
   );

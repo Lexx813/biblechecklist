@@ -113,12 +113,6 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
 
       </div>
 
-      <footer className="about-footer">
-        <p>
-          © {new Date().getFullYear()} NWT Progress · Lexx Solutionz ·{" "}
-          <button className="about-footer-link" onClick={() => navigate("terms")}>Terms of Service</button>
-        </p>
-      </footer>
     </div>
   );
 }

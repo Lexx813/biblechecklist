@@ -109,12 +109,6 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
 
       </div>
 
-      <footer className="about-footer">
-        <p>
-          © {new Date().getFullYear()} NWT Progress · Lexx Solutionz ·{" "}
-          <button className="about-footer-link" onClick={() => navigate("privacy")}>Privacy Policy</button>
-        </p>
-      </footer>
     </div>
   );
 }

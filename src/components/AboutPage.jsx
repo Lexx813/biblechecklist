@@ -101,14 +101,6 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
 
       </div>
 
-      <footer className="about-footer">
-        <p>{t("about.footer")}</p>
-        <p style={{ marginTop: 8 }}>
-          <button className="about-footer-link" onClick={() => navigate("terms")}>Terms of Service</button>
-          {" · "}
-          <button className="about-footer-link" onClick={() => navigate("privacy")}>Privacy Policy</button>
-        </p>
-      </footer>
     </div>
   );
 }
