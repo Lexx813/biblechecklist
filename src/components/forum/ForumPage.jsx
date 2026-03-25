@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
 import ConfirmModal from "../ConfirmModal";
@@ -62,7 +62,7 @@ function Avatar({ profile, size = "md", onClick }) {
 }
 
 // ── Thread View ───────────────────────────────────────────────────────────────
-function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, darkMode, setDarkMode, i18n, onLogout, ...rest }) {
+function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { data: thread, isLoading: threadLoading } = useThread(threadId);
   const { data: replies = [], isLoading: repliesLoading } = useReplies(threadId);
   const createReply = useCreateReply(threadId, thread?.author_id, categoryId);
@@ -405,7 +405,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
 }
 
 // ── Thread List ───────────────────────────────────────────────────────────────
-function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, ...rest }) {
+function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { data: threads = [], isLoading } = useThreads(category.id);
   const createThread = useCreateThread(category.id);
   const { t } = useTranslation();
