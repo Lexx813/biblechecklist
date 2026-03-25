@@ -245,7 +245,11 @@
     "notesTip": "Privado — solo tú puedes ver tus notas.",
     "notificationsTitle": "Notificaciones",
     "notifBlogLabel": "Correos de nuevas publicaciones",
-    "notifBlogDesc": "Recibe un correo cuando se publique un nuevo artículo."
+    "notifBlogDesc": "Recibe un correo cuando se publique un nuevo artículo.",
+    "notifDigestLabel": "Resumen semanal",
+    "notifDigestDesc": "Un resumen dominical de tus estadísticas de lectura, artículo destacado y actividad del foro.",
+    "notifStreakLabel": "Alertas de racha",
+    "notifStreakDesc": "Recibe un recordatorio si aún no has leído y tu racha está en riesgo."
   },
   "blog": {
     "backToBible": "← App Bíblica",

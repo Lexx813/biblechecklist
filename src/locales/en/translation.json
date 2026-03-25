@@ -245,7 +245,11 @@
     "notesTip": "Private — only you can see your notes.",
     "notificationsTitle": "Notifications",
     "notifBlogLabel": "New blog post emails",
-    "notifBlogDesc": "Get an email when a new article is published."
+    "notifBlogDesc": "Get an email when a new article is published.",
+    "notifDigestLabel": "Weekly digest",
+    "notifDigestDesc": "A Sunday summary of your reading stats, top post, and forum activity.",
+    "notifStreakLabel": "Streak alerts",
+    "notifStreakDesc": "Get a reminder if you haven't read yet and your streak is at risk."
   },
   "blog": {
     "backToBible": "← Bible App",

@@ -399,25 +399,35 @@ function FollowSection({ currentUserId, targetId, t }) {
 // ── Notification preferences ──────────────────────────────
 function NotificationPrefs({ profile, userId, t }) {
   const update = useUpdateProfile(userId);
-  const emailBlog = profile?.email_notifications_blog ?? false;
+  const emailBlog   = profile?.email_notifications_blog   ?? false;
+  const emailDigest = profile?.email_notifications_digest ?? false;
+  const emailStreak = profile?.email_notifications_streak ?? false;
+
+  const toggles = [
+    { key: "email_notifications_blog",   value: emailBlog,   labelKey: "notifBlogLabel",   descKey: "notifBlogDesc" },
+    { key: "email_notifications_digest", value: emailDigest, labelKey: "notifDigestLabel", descKey: "notifDigestDesc" },
+    { key: "email_notifications_streak", value: emailStreak, labelKey: "notifStreakLabel", descKey: "notifStreakDesc" },
+  ];
 
   return (
     <div className="pf-notif-prefs">
-      <label className="pf-toggle-row">
-        <div className="pf-toggle-info">
-          <span className="pf-toggle-label">{t("profile.notifBlogLabel")}</span>
-          <span className="pf-toggle-desc">{t("profile.notifBlogDesc")}</span>
-        </div>
-        <button
-          role="switch"
-          aria-checked={emailBlog}
-          className={`pf-toggle${emailBlog ? " pf-toggle--on" : ""}`}
-          onClick={() => update.mutate({ email_notifications_blog: !emailBlog })}
-          disabled={update.isPending}
-        >
-          <span className="pf-toggle-thumb" />
-        </button>
-      </label>
+      {toggles.map(({ key, value, labelKey, descKey }) => (
+        <label key={key} className="pf-toggle-row">
+          <div className="pf-toggle-info">
+            <span className="pf-toggle-label">{t(`profile.${labelKey}`)}</span>
+            <span className="pf-toggle-desc">{t(`profile.${descKey}`)}</span>
+          </div>
+          <button
+            role="switch"
+            aria-checked={value}
+            className={`pf-toggle${value ? " pf-toggle--on" : ""}`}
+            onClick={() => update.mutate({ [key]: !value })}
+            disabled={update.isPending}
+          >
+            <span className="pf-toggle-thumb" />
+          </button>
+        </label>
+      ))}
     </div>
   );
 }
