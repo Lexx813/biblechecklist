@@ -283,7 +283,14 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
           </div>
         )}
 
-        {user && <PostComments postId={post.id} postAuthorId={post.author_id} postSlug={post.slug} user={user} profile={profile} navigate={navigate} />}
+        {user
+          ? <PostComments postId={post.id} postAuthorId={post.author_id} postSlug={post.slug} user={user} profile={profile} navigate={navigate} />
+          : (
+            <div className="blog-guest-cta">
+              <p>Want to join the conversation? <a href="/auth" onClick={e => { e.preventDefault(); history.pushState(null, "", "/auth"); window.dispatchEvent(new PopStateEvent("popstate")); }}>Sign in</a> or <a href="/auth" onClick={e => { e.preventDefault(); history.pushState(null, "", "/auth"); window.dispatchEvent(new PopStateEvent("popstate")); }}>create a free account</a> to leave a comment.</p>
+            </div>
+          )
+        }
       </div>
 
       <RelatedPosts currentPost={post} onSelect={onSelectPost || onBack} navigate={navigate} user={user} />

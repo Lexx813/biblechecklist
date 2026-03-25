@@ -67,6 +67,33 @@ export default function App() {
   if (preAuthPath === "terms") return <Suspense fallback={null}><TermsPage {...legalProps} /></Suspense>;
   if (preAuthPath === "privacy") return <Suspense fallback={null}><PrivacyPage {...legalProps} /></Suspense>;
 
+  // Allow unauthenticated read-only access to blog posts
+  const publicNav = parsePath();
+  if (!user && publicNav.page === "blog" && publicNav.slug) {
+    const publicNavigate = (page, params = {}) => {
+      const path = buildPath(page, params);
+      history.pushState(null, "", path);
+      setPreAuthPath(path.slice(1));
+    };
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingSpinner />}>
+          <BlogPage
+            user={null} profile={null}
+            slug={publicNav.slug}
+            onSelectPost={(slug) => publicNavigate("blog", { slug })}
+            onBack={() => { history.pushState(null, "", "/"); setShowLanding(true); setPreAuthPath(""); }}
+            onWriteClick={null}
+            navigate={publicNavigate}
+            darkMode={false} setDarkMode={() => {}}
+            i18n={i18n} onLogout={null}
+          />
+          <PageFooter />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+
   if (!user) {
     if (showLanding) return <LandingPage onGetStarted={() => setShowLanding(false)} />;
     return <AuthPage onBack={() => setShowLanding(true)} />;
