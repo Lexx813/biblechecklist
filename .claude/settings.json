@@ -30,7 +30,11 @@
       "WebFetch(domain:images.unsplash.com)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "WebFetch(domain:www.nwtprogress.com)",
+      "Bash(grep -r \"mobile\\\\|responsive\\\\|@media\" /home/alexi/projects/nwt-progress/src/styles/*.css)",
+      "Bash(wc -l /home/alexi/projects/nwt-progress/src/components/*.jsx)",
+      "Bash(grep -r \"img\\\\|image\" /home/alexi/projects/nwt-progress/src/styles/*.css)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"

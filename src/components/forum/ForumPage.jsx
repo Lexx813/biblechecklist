@@ -9,6 +9,7 @@ import LoadingSpinner from "../LoadingSpinner";
 import BookmarkButton from "../bookmarks/BookmarkButton";
 import {
   useCategories, useThreads, useThread, useReplies,
+  useTopThreads,
   useCreateThread, useCreateReply,
   useUpdateThread, useUpdateReply, useDeleteThread, useDeleteReply,
   usePinThread, useLockThread,
