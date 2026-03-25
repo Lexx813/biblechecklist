@@ -67,7 +67,17 @@
       "Bash(curl -s https://biblechecklist-git-main-luis-projects-34108d29.vercel.app/ -H 'Accept: text/html')",
       "mcp__claude_ai_Vercel__web_fetch_vercel_url",
       "mcp__claude_ai_Vercel__get_deployment_build_logs",
-      "Bash(curl -sL \"https://nwtprogress.com/blog/michael-and-christ-scholarly-look-at-angel-christology\")"
+      "Bash(curl -sL \"https://nwtprogress.com/blog/michael-and-christ-scholarly-look-at-angel-christology\")",
+      "Bash(find /home/alexi/projects/nwt-progress/src -name i18n*)",
+      "Bash(find /home/alexi/projects/nwt-progress/src -type f \\\\\\(-name *.js -o -name *.jsx -o -name *.ts -o -name *.tsx \\\\\\))",
+      "Bash(find /home/alexi/projects/nwt-progress/supabase -type f -name *.sql)",
+      "Bash(grep -n \"_es\\\\|_en\\\\|_fr\\\\|_pt\\\\|language\\\\|locale\\\\|lang\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -r \"name_es\\\\|description_es\" /home/alexi/projects/nwt-progress --include=*.ts --include=*.js --include=*.sql)",
+      "Bash(node -e \":*)",
+      "Bash(node -e \"const en = require\\(''./src/locales/en/translation.json''\\); console.log\\(''EN verses:'', en.verses?.length\\)\")",
+      "Bash(vercel pull:*)",
+      "Bash(vercel build:*)",
+      "Bash(vercel deploy:*)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"
