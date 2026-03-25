@@ -127,6 +127,20 @@ function parseHash() {
   return { page: "home" };
 }
 
+const pageFallback = (
+  <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
+    <div style={{ color: "var(--text-muted)", fontFamily: "Nunito, sans-serif", fontSize: 14 }}>Loading…</div>
+  </div>
+);
+
+function Page({ children }) {
+  return (
+    <ErrorBoundary>
+      <Suspense fallback={pageFallback}>{children}</Suspense>
+    </ErrorBoundary>
+  );
+}
+
 function buildHash(page, params = {}) {
   switch (page) {
     case "admin":    return "admin";
@@ -306,18 +320,6 @@ function BibleApp({ user, onLogout }) {
   }
 
   const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page };
-
-  const pageFallback = (
-    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
-      <div style={{ color: "var(--text-muted)", fontFamily: "Nunito, sans-serif", fontSize: 14 }}>{t("app.loading")}</div>
-    </div>
-  );
-
-  const Page = ({ children }) => (
-    <ErrorBoundary key={nav.page}>
-      <Suspense fallback={pageFallback}>{children}</Suspense>
-    </ErrorBoundary>
-  );
 
   if (nav.page === "admin") return <Page><AdminPage currentUser={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   if (nav.page === "profile") return <Page><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;

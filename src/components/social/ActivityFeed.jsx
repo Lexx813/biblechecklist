@@ -3,7 +3,7 @@ import PageNav from "../PageNav";
 import { useActivityFeed } from "../../hooks/useFollows";
 import "../../styles/social.css";
 
-const LEVEL_EMOJIS = [null, "📖","📚","🌱","👨‍👩‍👦","🏺","⚔️","🎵","📯","✝️","🌍","🔮","👑"];
+const LEVEL_EMOJIS = [null, "📖","📚","🌱","👨‍👩‍👦","🏺","⚔️","🎵","📯","🕊️","🌍","🔮","👑"];
 
 function timeAgo(iso, t) {
   const diff = Date.now() - new Date(iso).getTime();

@@ -18,7 +18,7 @@ const LEVELS = [
   { level: 6,  themeKey: "quiz.theme6",  badge: "⚔️", badgeNameKey: "quiz.badgeName6" },
   { level: 7,  themeKey: "quiz.theme7",  badge: "🎵", badgeNameKey: "quiz.badgeName7" },
   { level: 8,  themeKey: "quiz.theme8",  badge: "📯", badgeNameKey: "quiz.badgeName8" },
-  { level: 9,  themeKey: "quiz.theme9",  badge: "✝️", badgeNameKey: "quiz.badgeName9" },
+  { level: 9,  themeKey: "quiz.theme9",  badge: "🕊️", badgeNameKey: "quiz.badgeName9" },
   { level: 10, themeKey: "quiz.theme10", badge: "🌍", badgeNameKey: "quiz.badgeName10" },
   { level: 11, themeKey: "quiz.theme11", badge: "🔮", badgeNameKey: "quiz.badgeName11" },
   { level: 12, themeKey: "quiz.theme12", badge: "👑", badgeNameKey: "quiz.badgeName12" },

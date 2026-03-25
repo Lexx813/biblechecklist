@@ -18,7 +18,7 @@ import { useSubmitReport } from "../../hooks/useReports";
 import "../../styles/forum.css";
 import "../../styles/social.css";
 
-const LEVEL_EMOJIS = [null,"📖","📚","🌱","👨‍👩‍👦","🏺","⚔️","🎵","📯","✝️","🌍","🔮","👑"];
+const LEVEL_EMOJIS = [null,"📖","📚","🌱","👨‍👩‍👦","🏺","⚔️","🎵","📯","🕊️","🌍","🔮","👑"];
 function BadgeChip({ level }) {
   if (!level || level < 1) return null;
   return (

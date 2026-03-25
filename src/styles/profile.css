@@ -579,11 +579,15 @@
   padding: 4px 6px;
   border-radius: 6px;
   cursor: pointer;
-  opacity: 0.4;
-  transition: opacity 0.15s, background 0.15s;
+  color: var(--text-secondary, rgba(255,255,255,0.5));
+  opacity: 0.6;
+  transition: opacity 0.15s, background 0.15s, color 0.15s;
 }
 .note-action-btn:hover { opacity: 1; background: var(--teal-light); }
-.note-action-btn--delete:hover { background: #fff5f5; }
+.note-action-btn--delete { color: #f87171; }
+.note-action-btn--delete:hover { background: rgba(239,68,68,0.12); color: #ef4444; opacity: 1; }
+[data-theme="light"] .note-action-btn--delete { color: #dc2626; }
+[data-theme="light"] .note-action-btn--delete:hover { background: #fff5f5; color: #b91c1c; }
 
 .note-content {
   font-size: 14px;

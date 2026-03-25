@@ -20,7 +20,7 @@ const LEVEL_BADGES = [
   { level: 3,  emoji: "🌱" }, { level: 4,  emoji: "👨‍👩‍👦" },
   { level: 5,  emoji: "🏺" }, { level: 6,  emoji: "⚔️" },
   { level: 7,  emoji: "🎵" }, { level: 8,  emoji: "📯" },
-  { level: 9,  emoji: "✝️" }, { level: 10, emoji: "🌍" },
+  { level: 9,  emoji: "🕊️" }, { level: 10, emoji: "🌍" },
   { level: 11, emoji: "🔮" }, { level: 12, emoji: "👑" },
 ];
 
