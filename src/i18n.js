@@ -3,11 +3,17 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import en from "./locales/en/translation.json";
 import es from "./locales/es/translation.json";
+import pt from "./locales/pt/translation.json";
+import tl from "./locales/tl/translation.json";
+import fr from "./locales/fr/translation.json";
 
 // Add a new language here — one entry is all that's needed
 export const LANGUAGES = [
   { code: "en", label: "English" },
   { code: "es", label: "Español" },
+  { code: "pt", label: "Português" },
+  { code: "tl", label: "Tagalog" },
+  { code: "fr", label: "Français" },
 ];
 
 i18n
@@ -17,6 +23,9 @@ i18n
     resources: {
       en: { translation: en },
       es: { translation: es },
+      pt: { translation: pt },
+      tl: { translation: tl },
+      fr: { translation: fr },
     },
     fallbackLng: "en",
     supportedLngs: LANGUAGES.map(l => l.code),
