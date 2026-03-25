@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { quizApi } from "../api/quiz";
 
 export function useQuizProgress(userId) {
@@ -11,9 +12,11 @@ export function useQuizProgress(userId) {
 }
 
 export function useQuizQuestions(level) {
+  const { i18n } = useTranslation();
+  const lang = i18n.language.split("-")[0];
   return useQuery({
-    queryKey: ["quiz", "questions", level],
-    queryFn: () => quizApi.getQuestionsForLevel(level),
+    queryKey: ["quiz", "questions", level, lang],
+    queryFn: () => quizApi.getQuestionsForLevel(level, lang),
     enabled: !!level,
     staleTime: 0, // always fresh for randomization
     gcTime: 0,

@@ -1,15 +1,18 @@
 import { supabase } from "../lib/supabase";
 
 export const quizApi = {
-  getQuestionsForLevel: async (level) => {
+  getQuestionsForLevel: async (level, lang = "en") => {
     const { data, error } = await supabase
       .from("quiz_questions")
-      .select("id, question, options, correct_index")
+      .select("id, question, options, correct_index, quiz_question_translations(lang, question, options)")
       .eq("level", level);
     if (error) throw new Error(error.message);
-    // shuffle and take 10
-    const shuffled = (data ?? []).sort(() => Math.random() - 0.5);
-    return shuffled.slice(0, 10);
+    const shuffled = (data ?? []).sort(() => Math.random() - 0.5).slice(0, 10);
+    if (lang === "en") return shuffled.map(({ quiz_question_translations: _, ...q }) => q);
+    return shuffled.map(q => {
+      const t = q.quiz_question_translations?.find(t => t.lang === lang);
+      return { id: q.id, correct_index: q.correct_index, question: t?.question ?? q.question, options: t?.options ?? q.options };
+    });
   },
 
   getUserProgress: async (userId) => {

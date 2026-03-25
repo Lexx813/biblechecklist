@@ -3,11 +3,12 @@ import { supabase } from "../lib/supabase";
 const PROFILE_FIELDS = "profiles!author_id(display_name, avatar_url, top_badge_level)";
 
 export const forumApi = {
-  // Categories with thread + reply counts
+  // Categories with translations + thread counts.
+  // All language rows are fetched once; the caller picks the right lang.
   listCategories: async () => {
     const { data, error } = await supabase
       .from("forum_categories")
-      .select(`*, name_es, description_es, forum_threads(count)`)
+      .select(`*, forum_category_translations(lang, name, description), forum_threads(count)`)
       .order("sort_order");
     if (error) throw new Error(error.message);
     return data ?? [];
