@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
-import Underline from "@tiptap/extension-underline";
+
 import { TextStyle, Color } from "@tiptap/extension-text-style";
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
@@ -270,7 +270,6 @@ export default function RichTextEditor({
       },
     }),
     Placeholder.configure({ placeholder: placeholder || "" }),
-    Underline,
     TextStyle,
     Color,
     Highlight.configure({ multicolor: true }),
