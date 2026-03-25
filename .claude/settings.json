@@ -34,7 +34,14 @@
       "WebFetch(domain:www.nwtprogress.com)",
       "Bash(grep -r \"mobile\\\\|responsive\\\\|@media\" /home/alexi/projects/nwt-progress/src/styles/*.css)",
       "Bash(wc -l /home/alexi/projects/nwt-progress/src/components/*.jsx)",
-      "Bash(grep -r \"img\\\\|image\" /home/alexi/projects/nwt-progress/src/styles/*.css)"
+      "Bash(grep -r \"img\\\\|image\" /home/alexi/projects/nwt-progress/src/styles/*.css)",
+      "Bash(grep -i \"email\\\\|mail\\\\|send\\\\|trigger\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -r \"Resend\\\\|resend\\\\|sendgrid\\\\|mailgun\\\\|nodemailer\\\\|SMTP\\\\|transactional\" /home/alexi/projects/nwt-progress --include=*.js --include=*.ts --include=*.tsx --include=*.jsx)",
+      "Bash(grep -r \"POST.*email\\\\|fetch.*email\\\\|http.*email\" /home/alexi/projects/nwt-progress --include=*.js --include=*.ts --include=*.tsx --include=*.jsx)",
+      "Bash(cat /home/alexi/projects/nwt-progress/.github/workflows/*)",
+      "Bash(grep -r \"resend\\\\|Resend\" /home/alexi/projects/nwt-progress/src /home/alexi/projects/nwt-progress/supabase /home/alexi/projects/nwt-progress/.env*)",
+      "mcp__claude_ai_Supabase__get_project_url",
+      "mcp__claude_ai_Supabase__deploy_edge_function"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"
