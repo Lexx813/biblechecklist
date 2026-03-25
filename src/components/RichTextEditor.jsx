@@ -126,6 +126,7 @@ function MentionList({ items, activeIdx, onSelect }) {
 export default function RichTextEditor({
   content = "",
   onChange,
+  onMention,         // called with {id, display_name} when a mention is selected
   placeholder,
   minimal = false,   // minimal = forum/reply mode (no headings, code block, hr)
   compact = false,   // shorter min-height
@@ -207,6 +208,7 @@ export default function RichTextEditor({
       .insertContent(`@${item.display_name} `)
       .run();
     setMentionItems([]);
+    onMention?.(item);
   }
 
   // Sync content when prop changes (e.g. switching posts / clearing on submit)

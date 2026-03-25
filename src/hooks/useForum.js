@@ -81,13 +81,29 @@ export function useCreateReply(threadId, threadAuthorId, categoryId) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ userId, content }) => forumApi.createReply(userId, threadId, content),
-    onSuccess: (_data, { userId, content }) => {
+    onSuccess: (_data, { userId, content, mentionedUserIds = [] }) => {
       queryClient.invalidateQueries({ queryKey: ["forum", "replies", threadId] });
+      const linkHash = categoryId ? `forum/${categoryId}/${threadId}` : `forum/${threadId}`;
+      const preview = content?.replace(/<[^>]*>/g, "").slice(0, 80);
+
+      // Notify thread author of the reply (skip if they are the replier)
       if (threadAuthorId && threadAuthorId !== userId) {
         notificationsApi.create(threadAuthorId, userId, "reply", {
           threadId,
-          preview: content?.slice(0, 80),
-          linkHash: categoryId ? `forum/${categoryId}/${threadId}` : `forum/${threadId}`,
+          preview,
+          linkHash,
+        }).catch(() => {});
+      }
+
+      // Notify each mentioned user (skip replier and thread author who already got a reply notif)
+      const notified = new Set([userId, threadAuthorId]);
+      for (const mentionedId of mentionedUserIds) {
+        if (notified.has(mentionedId)) continue;
+        notified.add(mentionedId);
+        notificationsApi.create(mentionedId, userId, "mention", {
+          threadId,
+          preview,
+          linkHash,
         }).catch(() => {});
       }
     },

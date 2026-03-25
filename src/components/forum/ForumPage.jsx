@@ -76,6 +76,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
 
   const [replyText, setReplyText]         = useState("");
   const [replyError, setReplyError]       = useState("");
+  const [mentionedIds, setMentionedIds]   = useState([]);
   const [editing, setEditing]             = useState(false);
   const [editTitle, setEditTitle]         = useState("");
   const [editContent, setEditContent]     = useState("");
@@ -116,9 +117,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
     e.preventDefault();
     setReplyError("");
     if (!replyText.trim()) return setReplyError(t("forum.replyEmptyError"));
-    createReply.mutate({ userId: user.id, content: replyText.trim() }, {
+    createReply.mutate({ userId: user.id, content: replyText.trim(), mentionedUserIds: mentionedIds }, {
       onSuccess: () => {
         setReplyText("");
+        setMentionedIds([]);
         setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
       },
       onError: (err) => setReplyError(err.message),
@@ -366,6 +368,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
               <RichTextEditor
                 content={replyText}
                 onChange={setReplyText}
+                onMention={(u) => setMentionedIds(prev => prev.includes(u.id) ? prev : [...prev, u.id])}
                 placeholder={t("forum.replyPlaceholder")}
                 minimal
                 compact

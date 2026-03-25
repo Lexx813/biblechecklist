@@ -27,7 +27,8 @@ export function useNotifications(userId) {
     queryKey: ["notifications", userId],
     queryFn: notificationsApi.list,
     enabled: !!userId,
-    staleTime: 30 * 1000,
+    staleTime: 5 * 60 * 1000,      // realtime handles new inserts; no need to refetch often
+    refetchOnWindowFocus: false,    // realtime subscription keeps data fresh
   });
 }
 

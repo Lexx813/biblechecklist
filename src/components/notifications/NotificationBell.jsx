@@ -35,8 +35,23 @@ export default function NotificationBell({ userId, navigate }) {
   function handleClick(n) {
     if (!n.read) markRead.mutate([n.id]);
     setOpen(false);
-    if (n.link_hash) {
-      window.location.hash = n.link_hash;
+    if (!n.link_hash) return;
+
+    const h = n.link_hash;
+    if (h.startsWith("blog/")) {
+      const slug = decodeURIComponent(h.slice(5));
+      navigate("blog", { slug });
+      setTimeout(() => {
+        document.querySelector(".blog-comments")?.scrollIntoView({ behavior: "smooth" });
+      }, 600);
+    } else if (h.startsWith("forum/")) {
+      const parts = h.slice(6).split("/");
+      navigate("forum", { categoryId: parts[0] || null, threadId: parts[1] || null });
+      setTimeout(() => {
+        document.querySelector(".forum-replies")?.scrollIntoView({ behavior: "smooth" });
+      }, 600);
+    } else {
+      navigate(h);
     }
   }
 
