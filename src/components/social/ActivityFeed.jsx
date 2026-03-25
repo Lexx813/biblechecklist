@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import PageNav from "../PageNav";
+import LoadingSpinner from "../LoadingSpinner";
 import { useActivityFeed } from "../../hooks/useFollows";
 import "../../styles/social.css";
 
@@ -44,9 +45,7 @@ export default function ActivityFeed({ user, navigate, darkMode, setDarkMode, i1
         </div>
 
         {isLoading ? (
-          <div className="feed-loading">
-            <div className="feed-spinner" />
-          </div>
+          <LoadingSpinner />
         ) : items.length === 0 ? (
           <div className="feed-empty">
             <div className="feed-empty-icon">👥</div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import PageNav from "../PageNav";
+import LoadingSpinner from "../LoadingSpinner";
 import {
   useQuizProgress,
   useQuizQuestions,
@@ -115,7 +116,7 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
         </div>
 
         {isLoading ? (
-          <div className="quiz-loading">{t("quiz.loading")}</div>
+          <LoadingSpinner />
         ) : (
           <div className="quiz-level-grid">
             {LEVELS.map((levelData) => (
@@ -200,7 +201,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
       <div className="quiz-wrap">
         <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
         <div className="quiz-active quiz-active--loading">
-          <div className="quiz-loading">{t("quiz.loading")}</div>
+          <LoadingSpinner />
         </div>
       </div>
     );

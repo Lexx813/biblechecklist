@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
 import PageNav from "../PageNav";
+import LoadingSpinner from "../LoadingSpinner";
 import { useUsers, useDeleteUser, useSetAdmin, useSetBlog, useCreateUser } from "../../hooks/useAdmin";
 import { useReports, useUpdateReport, useDeleteReport } from "../../hooks/useReports";
 import { useAllAnnouncements, useCreateAnnouncement, useToggleAnnouncement, useDeleteAnnouncement } from "../../hooks/useAnnouncements";
@@ -89,7 +90,7 @@ function UsersTab({ currentUser }) {
       )}
 
       {isLoading ? (
-        <div className="admin-loading">{t("admin.loadingUsers")}</div>
+        <LoadingSpinner />
       ) : (
         <div className="admin-table-wrap">
           <table className="admin-table">
@@ -184,7 +185,7 @@ function ReportsTab() {
   const others  = reports.filter(r => r.status !== "pending");
   const sorted  = [...pending, ...others];
 
-  if (isLoading) return <div className="admin-loading">{t("common.loading")}</div>;
+  if (isLoading) return <LoadingSpinner />;
 
   if (sorted.length === 0) {
     return <div className="admin-loading">{t("adminReports.empty")}</div>;
@@ -297,7 +298,7 @@ function QuizTab() {
     }
   }
 
-  if (isLoading) return <div className="admin-loading">{t("common.loading")}</div>;
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div>
@@ -484,7 +485,7 @@ function AnnouncementsTab({ currentUser }) {
       </div>
 
       {isLoading ? (
-        <div className="admin-loading">{t("common.loading")}</div>
+        <LoadingSpinner />
       ) : announcements.length === 0 ? (
         <div className="admin-loading">{t("adminAnnouncements.noAnnouncements")}</div>
       ) : (

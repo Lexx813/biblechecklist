@@ -5,6 +5,7 @@ import ConfirmModal from "../ConfirmModal";
 import RichTextEditor from "../RichTextEditor";
 import ReportModal from "../ReportModal";
 import PageNav from "../PageNav";
+import LoadingSpinner from "../LoadingSpinner";
 import BookmarkButton from "../bookmarks/BookmarkButton";
 import {
   useCategories, useThreads, useThread, useReplies,
@@ -139,7 +140,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
     return () => { document.title = "NWT Progress"; };
   }, [thread?.title]);
 
-  if (threadLoading) return <div className="forum-loading"><div className="forum-spinner" /></div>;
+  if (threadLoading) return <LoadingSpinner />;
   if (!thread) return <div className="forum-empty"><p>{t("forum.threadNotFound")}</p></div>;
 
   return (
@@ -240,7 +241,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
 
       {/* Replies */}
       {repliesLoading ? (
-        <div className="forum-loading"><div className="forum-spinner" /></div>
+        <LoadingSpinner />
       ) : (
         <div className="forum-replies">
           {replies.length > 0 && (
@@ -457,7 +458,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 
       {/* Thread rows */}
       {isLoading ? (
-        <div className="forum-loading"><div className="forum-spinner" /></div>
+        <LoadingSpinner />
       ) : threads.length === 0 ? (
         <div className="forum-empty">
           <div className="forum-empty-icon">💬</div>
@@ -545,7 +546,7 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
       {/* Category cards */}
       <div className="forum-cat-grid">
         {isLoading ? (
-          <div className="forum-loading"><div className="forum-spinner" /></div>
+          <LoadingSpinner />
         ) : categories.map(cat => {
           const threadCount = cat.forum_threads?.[0]?.count ?? 0;
           return (
@@ -588,7 +589,7 @@ export default function ForumPage({ user, profile, onBack, categoryId, threadId,
   }
 
   if (categoryId) {
-    if (catsLoading && !activeCategory) return <div className="forum-loading"><div className="forum-spinner" /></div>;
+    if (catsLoading && !activeCategory) return <LoadingSpinner />;
     if (activeCategory) return (
       <ThreadList
         category={activeCategory}

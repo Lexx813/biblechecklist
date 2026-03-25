@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import PageNav from "../PageNav";
+import LoadingSpinner from "../LoadingSpinner";
 import { useReadingHistory } from "../../hooks/useReading";
 import "../../styles/reading-history.css";
 
@@ -83,10 +84,7 @@ export default function ReadingHistory({ user, onBack, navigate, darkMode, setDa
         )}
 
         {isLoading ? (
-          <div className="history-empty">
-            <div className="history-empty-icon">📖</div>
-            <div className="history-empty-text">{t("history.loading")}</div>
-          </div>
+          <LoadingSpinner />
         ) : history.length === 0 ? (
           <div className="history-empty">
             <div className="history-empty-icon">📅</div>

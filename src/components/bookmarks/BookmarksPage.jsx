@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import PageNav from "../PageNav";
+import LoadingSpinner from "../LoadingSpinner";
 import { useBookmarks, useToggleBookmark } from "../../hooks/useBookmarks";
 import "../../styles/bookmarks.css";
 
@@ -18,7 +19,7 @@ export default function BookmarksPage({ user, onBack, navigate, darkMode, setDar
 
       <div className="bm-content">
         {isLoading ? (
-          <div className="blog-loading"><div className="blog-spinner" /></div>
+          <LoadingSpinner />
         ) : (
           <>
             <section className="bm-section">

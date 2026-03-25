@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOKS } from "../../data/books";
 import PageNav from "../PageNav";
+import LoadingSpinner from "../LoadingSpinner";
 import { useSearch } from "../../hooks/useSearch";
 import "../../styles/search.css";
 
@@ -65,7 +66,7 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
         {!isTyping ? (
           <p className="search-hint">{t("search.typeToSearch")}</p>
         ) : isLoading ? (
-          <div className="blog-loading"><div className="blog-spinner" /></div>
+          <LoadingSpinner />
         ) : !hasResults ? (
           <p className="search-hint">{t("search.noResults", { query: debouncedQuery })}</p>
         ) : (

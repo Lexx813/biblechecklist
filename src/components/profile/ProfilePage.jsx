@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
 import PageNav from "../PageNav";
+import LoadingSpinner from "../LoadingSpinner";
 import { BOOKS } from "../../data/books";
 import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
 import { useNotes, useCreateNote, useUpdateNote, useDeleteNote } from "../../hooks/useNotes";
@@ -334,7 +335,7 @@ function PostsSection({ profileId, isOwner, t }) {
       )}
 
       {isLoading ? (
-        <div className="pf-loading">{t("common.loading")}</div>
+        <LoadingSpinner />
       ) : posts.length === 0 ? (
         <p className="pf-empty">{isOwner ? t("posts.emptyOwner") : t("posts.emptyOther")}</p>
       ) : (
@@ -567,7 +568,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
             </div>
 
             {notesLoading ? (
-              <div className="pf-loading">{t("profile.loadingNotes")}</div>
+              <LoadingSpinner />
             ) : filtered.length === 0 ? (
               <div className="pf-empty">
                 {notes.length === 0 ? t("profile.noNotes") : t("profile.noNotesFilter")}

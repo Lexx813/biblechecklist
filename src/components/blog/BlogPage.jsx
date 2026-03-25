@@ -2,6 +2,7 @@ import { useState, useMemo, memo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
 import PageNav from "../PageNav";
+import LoadingSpinner from "../LoadingSpinner";
 import ReportModal from "../ReportModal";
 import BookmarkButton from "../bookmarks/BookmarkButton";
 import MentionAutocomplete from "../mentions/MentionAutocomplete";
@@ -12,17 +13,30 @@ import "../../styles/blog.css";
 import "../../styles/editor.css";
 import "../../styles/mentions.css";
 
-const GRADIENTS = [
-  "linear-gradient(135deg, #341C5C 0%, #6A3DAA 100%)",
-  "linear-gradient(135deg, #4F2D85 0%, #9B59B6 100%)",
-  "linear-gradient(135deg, #1A1035 0%, #4F2D85 100%)",
-  "linear-gradient(135deg, #6A3DAA 0%, #C084FC 100%)",
-  "linear-gradient(135deg, #2D1B4E 0%, #8E44AD 100%)",
-  "linear-gradient(135deg, #3B1F6E 0%, #7B2FBE 100%)",
+// Curated Unsplash fallback images for posts without a cover photo.
+// All are bible / nature / faith themed and freely available via the CDN.
+const FALLBACK_IMAGES = [
+  "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800&q=80", // open Bible on table
+  "https://images.unsplash.com/photo-1455541504462-57ebb2a9cec1?auto=format&fit=crop&w=800&q=80", // Middle East landscape
+  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80", // mountain valley
+  "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=800&q=80", // golden sunrise over water
+  "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?auto=format&fit=crop&w=800&q=80", // dramatic sunset over lake
+  "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=80", // rolling green hills
+  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80", // misty mountain peaks
+  "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=800&q=80", // starry night sky
+  "https://images.unsplash.com/photo-1519817914152-22d216bb9170?auto=format&fit=crop&w=800&q=80", // desert landscape
+  "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?auto=format&fit=crop&w=800&q=80", // ancient stone pathway
 ];
 
-function getGradient(id) {
-  return GRADIENTS[(id?.charCodeAt(0) ?? 0) % GRADIENTS.length];
+// Deterministic hash so the same post always gets the same fallback image
+function hashId(id) {
+  let h = 0;
+  for (const c of (id ?? "")) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return h;
+}
+
+function getFallbackImage(id) {
+  return FALLBACK_IMAGES[hashId(id) % FALLBACK_IMAGES.length];
 }
 
 function formatDate(iso) {
@@ -186,9 +200,7 @@ function PostView({ slug, onBack, user, profile, navigate, darkMode, setDarkMode
     return () => { document.title = "NWT Progress"; };
   }, [post?.title]);
 
-  if (isLoading) return (
-    <div className="blog-loading"><div className="blog-spinner" /></div>
-  );
+  if (isLoading) return <LoadingSpinner />;
   if (!post) return (
     <div className="blog-not-found">
       <p>{t("blog.notFound")}</p>
@@ -199,11 +211,12 @@ function PostView({ slug, onBack, user, profile, navigate, darkMode, setDarkMode
   return (
     <div className="blog-post-view">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
-      <div
-        className="blog-post-hero"
-        style={{ background: post.cover_url ? undefined : getGradient(post.id) }}
-      >
-        {post.cover_url && <img src={post.cover_url} className="blog-post-hero-img" alt={post.title} />}
+      <div className="blog-post-hero">
+        <img
+          src={post.cover_url || getFallbackImage(post.id)}
+          className="blog-post-hero-img"
+          alt={post.title}
+        />
         <div className="blog-post-hero-overlay">
           <button className="blog-post-back-btn" onClick={onBack}>{t("blog.backToBlog")}</button>
           <div className="blog-post-hero-meta">
@@ -284,11 +297,13 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user }) {
 
   return (
     <article className="blog-card" onClick={() => onSelect(post.slug)}>
-      <div
-        className="blog-card-cover"
-        style={{ background: post.cover_url ? undefined : getGradient(post.id) }}
-      >
-        {post.cover_url && <img src={post.cover_url} className="blog-card-cover-img" alt={post.title} />}
+      <div className="blog-card-cover">
+        <img
+          src={post.cover_url || getFallbackImage(post.id)}
+          className="blog-card-cover-img"
+          alt={post.title}
+          loading="lazy"
+        />
         <div className="blog-card-cover-shine" />
       </div>
       <div className="blog-card-body">
@@ -360,7 +375,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
       {/* Posts */}
       <div className="blog-content">
         {isLoading ? (
-          <div className="blog-loading"><div className="blog-spinner" /></div>
+          <LoadingSpinner />
         ) : posts.length === 0 ? (
           <div className="blog-empty">
             <div className="blog-empty-icon">📝</div>

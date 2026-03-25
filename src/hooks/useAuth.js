@@ -13,6 +13,7 @@ export function useSession() {
 export function useLogin() {
   const queryClient = useQueryClient();
   return useMutation({
+    meta: { silent: true }, // AuthPage shows inline error — no toast needed
     mutationFn: ({ email, password }) => authApi.login(email, password),
     onSuccess: (session) => {
       queryClient.setQueryData(["session"], session);
@@ -22,6 +23,7 @@ export function useLogin() {
 
 export function useRegister() {
   return useMutation({
+    meta: { silent: true }, // AuthPage shows inline error — no toast needed
     mutationFn: ({ email, password, displayName }) => authApi.register(email, password, displayName),
     // session is set via onAuthStateChange if confirmation is disabled;
     // if confirmation is required the component shows a message instead
@@ -30,6 +32,7 @@ export function useRegister() {
 
 export function useResetPassword() {
   return useMutation({
+    meta: { silent: true }, // AuthPage shows inline error — no toast needed
     mutationFn: (email) => authApi.resetPassword(email),
   });
 }

@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ErrorBoundary } from './components/ErrorBoundary.jsx'
 import App from './App.jsx'
 import { SpeedInsights } from "@vercel/speed-insights/react"
+import { toast } from './lib/toast'
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -19,6 +20,16 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       gcTime: 1000 * 60 * 60 * 24, // keep cache 24 hours for offline use
+      staleTime: 30 * 1000,         // don't re-fetch within 30 s
+      retry: 1,                     // one automatic retry on failure
+    },
+    mutations: {
+      // Mutations can set meta.silent = true to suppress the global toast
+      // (e.g. auth forms that display inline errors instead)
+      onError: (error, _vars, _ctx, mutation) => {
+        if (mutation.meta?.silent) return;
+        toast(error?.message ?? "Something went wrong", "error");
+      },
     },
   },
 })

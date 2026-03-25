@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
 import RichTextEditor from "../RichTextEditor";
 import PageNav from "../PageNav";
+import LoadingSpinner from "../LoadingSpinner";
 import { useMyPosts, useCreatePost, useUpdatePost, useDeletePost } from "../../hooks/useBlog";
 import { blogApi } from "../../api/blog";
 import "../../styles/blog.css";
@@ -214,7 +215,7 @@ export default function BlogDashboard({ user, onBack, navigate, darkMode, setDar
         </div>
 
         {isLoading ? (
-          <div className="blog-loading"><div className="blog-spinner" /></div>
+          <LoadingSpinner />
         ) : posts.length === 0 ? (
           <div className="blog-empty">
             <div className="blog-empty-icon">✍️</div>

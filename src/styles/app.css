@@ -795,3 +795,29 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
   backdrop-filter: blur(12px) saturate(140%);
   background: rgba(10, 5, 20, 0.55);
 }
+
+/* ── Shared loading spinner ──────────────────────────────── */
+.spinner-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+.spinner {
+  width: 32px; height: 32px;
+  border: 3px solid var(--teal-mid);
+  border-top-color: var(--teal);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Full-screen spinner variant for auth/app loading */
+.spinner-wrap--fullscreen {
+  min-height: 100vh;
+  background: var(--bg, #0a0514);
+}
+.spinner-wrap--fullscreen .spinner {
+  border-color: rgba(255,255,255,0.15);
+  border-top-color: rgba(255,255,255,0.6);
+}
