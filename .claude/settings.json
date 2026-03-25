@@ -24,7 +24,13 @@
       "Bash(node -e \"const m = require\\(''./node_modules/@tiptap/extension-text-style/dist/index.js''\\); console.log\\(Object.keys\\(m\\)\\)\")",
       "Bash(node -e \"const m = require\\(''./node_modules/@tiptap/extension-highlight/dist/index.js''\\); console.log\\(Object.keys\\(m\\)\\)\")",
       "Bash(node -e \"const m = require\\(''./node_modules/@tiptap/extension-underline/dist/index.js''\\); console.log\\(Object.keys\\(m\\)\\)\")",
-      "Bash(node -e \"const m = require\\(''./node_modules/@tiptap/extension-text-align/dist/index.js''\\); console.log\\(Object.keys\\(m\\)\\)\")"
+      "Bash(node -e \"const m = require\\(''./node_modules/@tiptap/extension-text-align/dist/index.js''\\); console.log\\(Object.keys\\(m\\)\\)\")",
+      "Bash(ls -1 /home/alexi/projects/nwt-progress/src/api/*.js)",
+      "Bash(ls -1 /home/alexi/projects/nwt-progress/src/hooks/*.js)",
+      "WebFetch(domain:images.unsplash.com)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"
