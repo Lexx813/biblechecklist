@@ -199,6 +199,14 @@ export function useToggleThreadLike(userId, categoryId) {
   });
 }
 
+export function useMarkSolution(threadId) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ replyId, value }) => forumApi.markSolution(replyId, threadId, value),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["forum", "replies", threadId] }),
+  });
+}
+
 export function useToggleReplyLike(userId, threadId) {
   const queryClient = useQueryClient();
   return useMutation({

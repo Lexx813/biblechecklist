@@ -1,4 +1,26 @@
 {
+  "celebrate": {
+    "title": "¡Libro completado! 🎉",
+    "chapters": "{{count}} capítulos leídos",
+    "booksTotal": "{{count}} de 66 libros completados",
+    "continue": "Seguir adelante →"
+  },
+  "onboarding": {
+    "skip": "Omitir",
+    "next": "Siguiente →",
+    "getStarted": "Comenzar",
+    "step1Title": "¡Bienvenido a NWT Progress! 👋",
+    "step1Body": "Lleva un registro de tu lectura bíblica en los 66 libros. Marca los capítulos a medida que lees y observa tu progreso crecer.",
+    "step2Title": "Únete a la comunidad",
+    "step2Body": "Comparte reflexiones en el blog, discute las Escrituras en el foro y sigue a otros en su jornada de lectura.",
+    "step3Title": "Pon a prueba tu conocimiento",
+    "step3Body": "Responde cuestionarios sobre 12 temas bíblicos diferentes y gana insignias al completar cada nivel.",
+    "step4Title": "Desarrolla el hábito de lectura",
+    "step4Body": "Establece una meta diaria de capítulos, sigue tu racha y usa el mapa de calor de lectura para mantenerte constante."
+  },
+  "a11y": {
+    "skipToContent": "Saltar al contenido principal"
+  },
   "common": {
     "back": "← Volver",
     "cancel": "Cancelar",
@@ -220,7 +242,10 @@
     "levelsComplete": "niveles completados",
     "quizNotStarted": "Aún sin actividad en el quiz.",
     "postsTip": "Visible para tus seguidores y todos los miembros de la comunidad.",
-    "notesTip": "Privado — solo tú puedes ver tus notas."
+    "notesTip": "Privado — solo tú puedes ver tus notas.",
+    "notificationsTitle": "Notificaciones",
+    "notifBlogLabel": "Correos de nuevas publicaciones",
+    "notifBlogDesc": "Recibe un correo cuando se publique un nuevo artículo."
   },
   "blog": {
     "backToBible": "← App Bíblica",
@@ -236,6 +261,9 @@
     "backToBlog": "← Volver al Blog",
     "notFound": "Publicación no encontrada.",
     "minRead": "{{count}} min de lectura",
+    "moreByAuthor": "Más de {{name}}",
+    "morePosts": "Más publicaciones que podrían gustarte",
+    "loadMore": "Cargar más publicaciones",
     "commentsTitle": "Comentarios",
     "commentsNone": "Aún no hay comentarios. Sé el primero en compartir tus pensamientos.",
     "commentPlaceholder": "Comparte tus pensamientos…",
@@ -295,13 +323,18 @@
     "errorTitleRequired": "El título es obligatorio.",
     "errorContentRequired": "El contenido es obligatorio.",
     "noThreads": "Aún no hay hilos",
-    "noThreadsSub": "Sé el primero en iniciar una discusión.",
+    "noThreadsSub": "Esta categoría está esperando su primera discusión.",
+    "beFirstThread": "Iniciar el primer hilo",
     "replyCount_one": "{{count}} respuesta",
     "replyCount_other": "{{count}} respuestas",
     "pin": "Fijar",
     "unpin": "Desfijar",
     "lock": "Bloquear",
     "unlock": "Desbloquear",
+    "solution": "Solución",
+    "markSolution": "Marcar como solución",
+    "unmarkSolution": "Desmarcar solución",
+    "trending": "Tendencias",
     "replyPlaceholder": "Escribe una respuesta…",
     "postReply": "Publicar Respuesta",
     "replyEmptyError": "La respuesta no puede estar vacía.",
@@ -352,7 +385,11 @@
     "forumSub": "Los hilos más activos y con más likes de la comunidad.",
     "forumViewAll": "Visitar el foro →",
     "forumEmpty": "Aún no hay hilos — comienza la primera conversación.",
-    "footer": "NWT Progress · Construido con propósito"
+    "footer": "NWT Progress · Construido con propósito",
+    "notifBannerTitle": "Mantente al día",
+    "notifBannerSub": "Recibe un correo cuando se publique una nueva entrada.",
+    "notifEnable": "Notificarme",
+    "notifDismiss": "No, gracias"
   },
   "stats": {
     "streak_one": "día seguido",
@@ -514,8 +551,10 @@
     "currentStreak": "{{count}} días seguidos",
     "longestStreak": "Mejor: {{count}} días",
     "setGoal": "Meta Diaria",
-    "goalLabel": "Capítulos diarios (1–10)",
-    "goalSave": "Guardar"
+    "goalLabel": "Capítulos diarios (1–30)",
+    "goalSave": "Guardar",
+    "goalMet": "¡Meta alcanzada hoy! 🎉",
+    "finishIn": "~{{days}} días para terminar"
   },
   "search": {
     "placeholder": "Buscar libros, entradas, hilos…",

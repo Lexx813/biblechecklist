@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /profile
+Disallow: /bookmarks
+Disallow: /feed
+Disallow: /history
+
+Sitemap: https://nwtprogress.com/sitemap.xml

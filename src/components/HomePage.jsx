@@ -1,10 +1,12 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import { useTopThreads } from "../hooks/useForum";
+import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import DailyVerse from "./home/DailyVerse";
 import PageNav from "./PageNav";
 import PageFooter from "./PageFooter";
+import OnboardingModal, { useOnboarding } from "./OnboardingModal";
 import "../styles/home.css";
 
 const GRADIENTS = [
@@ -32,6 +34,22 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { t } = useTranslation();
   const { data: posts = [] } = usePublishedPosts();
   const { data: topThreads = [] } = useTopThreads(4);
+  const { data: profile } = useFullProfile(user?.id);
+  const updateProfile = useUpdateProfile(user?.id);
+  const [showOnboarding, closeOnboarding] = useOnboarding();
+  const [notifDismissed, setNotifDismissed] = useState(() => !!localStorage.getItem("nwt-notif-dismissed"));
+
+  const showNotifBanner = user && profile && !profile.email_notifications_blog && !notifDismissed;
+
+  function handleEnableNotif() {
+    updateProfile.mutate({ email_notifications_blog: true });
+    setNotifDismissed(true);
+  }
+
+  function handleDismissNotif() {
+    localStorage.setItem("nwt-notif-dismissed", "1");
+    setNotifDismissed(true);
+  }
 
   const blogPreview = useMemo(() => {
     const byLikes = [...posts].sort((a, b) => (b.like_count ?? 0) - (a.like_count ?? 0));
@@ -49,6 +67,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
 
       {/* ── Hero ── */}
+      <main id="main-content">
       <div className="home-hero">
         <div className="home-hero-glow home-hero-glow--1" />
         <div className="home-hero-glow home-hero-glow--2" />
@@ -225,7 +244,24 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         )}
       </section>
 
+      </main>
+
+      {showNotifBanner && (
+        <div className="home-notif-banner">
+          <span className="home-notif-icon">🔔</span>
+          <div className="home-notif-text">
+            <strong>{t("home.notifBannerTitle")}</strong>
+            <span>{t("home.notifBannerSub")}</span>
+          </div>
+          <button className="home-notif-enable" onClick={handleEnableNotif} disabled={updateProfile.isPending}>
+            {t("home.notifEnable")}
+          </button>
+          <button className="home-notif-dismiss" onClick={handleDismissNotif} aria-label="Dismiss">✕</button>
+        </div>
+      )}
+
       <PageFooter />
+      {showOnboarding && <OnboardingModal onClose={closeOnboarding} />}
     </div>
   );
 }

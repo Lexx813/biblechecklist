@@ -137,4 +137,16 @@ export const forumApi = {
     if (error) throw new Error(error.message);
     return data;
   },
+
+  // Mark/unmark a reply as the accepted solution for a thread
+  markSolution: async (replyId, threadId, value) => {
+    if (value) {
+      // Clear any existing solution in the thread first
+      await supabase.from("forum_replies").update({ is_solution: false }).eq("thread_id", threadId);
+    }
+    const { error } = await supabase.from("forum_replies").update({ is_solution: value }).eq("id", replyId);
+    if (error) throw new Error(error.message);
+    // Keep thread has_solution in sync
+    await supabase.from("forum_threads").update({ has_solution: value }).eq("id", threadId);
+  },
 };

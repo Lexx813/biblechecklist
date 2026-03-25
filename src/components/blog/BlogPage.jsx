@@ -9,6 +9,7 @@ import MentionAutocomplete from "../mentions/MentionAutocomplete";
 import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment, useDeletePost, useUserBlogLikes, useToggleBlogLike } from "../../hooks/useBlog";
 import { toast } from "../../lib/toast";
 import { useSubmitReport } from "../../hooks/useReports";
+import { useMeta } from "../../hooks/useMeta";
 import "../../styles/blog.css";
 import "../../styles/editor.css";
 import "../../styles/mentions.css";
@@ -174,7 +175,7 @@ function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate 
 }
 
 // ── Single post view ─────────────────────────────────────────────────────────
-function PostView({ slug, onBack, user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, ...rest }) {
+function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, ...rest }) {
   const { data: post, isLoading } = usePostBySlug(slug);
   const { data: likedIds = [] } = useUserBlogLikes(user?.id);
   const toggleLike = useToggleBlogLike(user?.id);
@@ -195,10 +196,11 @@ function PostView({ slug, onBack, user, profile, navigate, darkMode, setDarkMode
     return sanitizeRich(html);
   }, [post?.content]);
 
-  useEffect(() => {
-    if (post?.title) document.title = `${post.title} — NWT Progress`;
-    return () => { document.title = "NWT Progress"; };
-  }, [post?.title]);
+  useMeta({
+    title: post?.title,
+    description: post?.excerpt,
+    image: post?.cover_url || undefined,
+  });
 
   if (isLoading) return <LoadingSpinner />;
   if (!post) return (
@@ -283,6 +285,53 @@ function PostView({ slug, onBack, user, profile, navigate, darkMode, setDarkMode
 
         {user && <PostComments postId={post.id} postAuthorId={post.author_id} postSlug={post.slug} user={user} profile={profile} navigate={navigate} />}
       </div>
+
+      <RelatedPosts currentPost={post} onSelect={onSelectPost || onBack} navigate={navigate} user={user} />
+    </div>
+  );
+}
+
+// ── Related posts ─────────────────────────────────────────────────────────────
+function RelatedPosts({ currentPost, onSelect, navigate, user }) {
+  const { t } = useTranslation();
+  const { data: allPosts = [] } = usePublishedPosts();
+
+  const related = useMemo(() => {
+    const others = allPosts.filter(p => p.id !== currentPost.id);
+    const byAuthor = others.filter(p => p.author_id === currentPost.author_id);
+    const rest = others.filter(p => p.author_id !== currentPost.author_id);
+    return [...byAuthor, ...rest].slice(0, 3);
+  }, [allPosts, currentPost]);
+
+  if (related.length === 0) return null;
+
+  const sameAuthor = related.some(p => p.author_id === currentPost.author_id);
+
+  return (
+    <div className="blog-related">
+      <h3 className="blog-related-title">
+        {sameAuthor
+          ? t("blog.moreByAuthor", { name: authorName(currentPost) })
+          : t("blog.morePosts")}
+      </h3>
+      <div className="blog-related-grid">
+        {related.map(post => (
+          <article key={post.id} className="blog-related-card" onClick={() => onSelect(post.slug)}>
+            <div className="blog-related-cover">
+              <img
+                src={post.cover_url || getFallbackImage(post.id)}
+                alt={post.title}
+                loading="lazy"
+              />
+            </div>
+            <div className="blog-related-body">
+              <p className="blog-related-author">{authorName(post)}</p>
+              <h4 className="blog-related-title-text">{post.title}</h4>
+              <p className="blog-related-excerpt">{post.excerpt}</p>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   );
 }
@@ -334,15 +383,16 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user }) {
 export default function BlogPage({ user, profile, onBack, onWriteClick, slug, onSelectPost, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { data: posts = [], isLoading } = usePublishedPosts();
   const { t } = useTranslation();
+  const [visibleCount, setVisibleCount] = useState(9);
 
-  useEffect(() => {
-    if (!slug) document.title = "Blog — NWT Progress";
-    return () => { document.title = "NWT Progress"; };
-  }, [slug]);
+  useMeta(!slug ? { title: "Blog", description: "Reflections, studies, and insights from the NWT Progress community." } : {});
 
   if (slug) {
-    return <PostView slug={slug} onBack={() => onSelectPost(null)} user={user} profile={profile} navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />;
+    return <PostView slug={slug} onBack={() => onSelectPost(null)} onSelectPost={onSelectPost} user={user} profile={profile} navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />;
   }
+
+  const visiblePosts = posts.slice(0, visibleCount);
+  const hasMore = visibleCount < posts.length;
 
   return (
     <div className="blog-wrap">
@@ -383,11 +433,20 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
             <p>{t("blog.noPostsSub")}</p>
           </div>
         ) : (
-          <div className="blog-grid">
-            {posts.map(post => (
-              <PostCard key={post.id} post={post} onSelect={onSelectPost} navigate={navigate} user={user} />
-            ))}
-          </div>
+          <>
+            <div className="blog-grid">
+              {visiblePosts.map(post => (
+                <PostCard key={post.id} post={post} onSelect={onSelectPost} navigate={navigate} user={user} />
+              ))}
+            </div>
+            {hasMore && (
+              <div className="blog-load-more">
+                <button className="blog-load-more-btn" onClick={() => setVisibleCount(c => c + 9)}>
+                  {t("blog.loadMore")}
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>

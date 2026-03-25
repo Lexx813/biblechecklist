@@ -1,4 +1,30 @@
-.reading-plan { display: flex; flex-direction: column; gap: 16px; }
+.reading-plan { display: flex; flex-direction: column; gap: 14px; }
+
+.reading-plan-top {
+  display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+}
+
+.reading-plan-finish-badge {
+  font-size: 12px; color: var(--teal); background: var(--teal-soft);
+  border-radius: 20px; padding: 4px 12px; white-space: nowrap; font-weight: 600;
+}
+
+.reading-plan-dots-row {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 5px;
+}
+
+.reading-plan-dot {
+  width: 11px; height: 11px; border-radius: 50%;
+  background: var(--border); transition: background 0.2s, transform 0.2s;
+}
+.reading-plan-dot--done {
+  background: var(--teal); transform: scale(1.15);
+}
+
+.reading-plan-goal-met {
+  font-size: 12px; font-weight: 700; color: var(--teal);
+  margin-left: 6px;
+}
 
 .reading-plan-stats {
   display: flex; gap: 24px; flex-wrap: wrap;

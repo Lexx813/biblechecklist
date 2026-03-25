@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
 import PageNav from "../PageNav";
 import LoadingSpinner from "../LoadingSpinner";
+import { useMeta } from "../../hooks/useMeta";
 import { BOOKS } from "../../data/books";
 import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
 import { useNotes, useCreateNote, useUpdateNote, useDeleteNote } from "../../hooks/useNotes";
@@ -395,6 +396,32 @@ function FollowSection({ currentUserId, targetId, t }) {
   );
 }
 
+// ── Notification preferences ──────────────────────────────
+function NotificationPrefs({ profile, userId, t }) {
+  const update = useUpdateProfile(userId);
+  const emailBlog = profile?.email_notifications_blog ?? false;
+
+  return (
+    <div className="pf-notif-prefs">
+      <label className="pf-toggle-row">
+        <div className="pf-toggle-info">
+          <span className="pf-toggle-label">{t("profile.notifBlogLabel")}</span>
+          <span className="pf-toggle-desc">{t("profile.notifBlogDesc")}</span>
+        </div>
+        <button
+          role="switch"
+          aria-checked={emailBlog}
+          className={`pf-toggle${emailBlog ? " pf-toggle--on" : ""}`}
+          onClick={() => update.mutate({ email_notifications_blog: !emailBlog })}
+          disabled={update.isPending}
+        >
+          <span className="pf-toggle-thumb" />
+        </button>
+      </label>
+    </div>
+  );
+}
+
 // ── Main ProfilePage ──────────────────────────────────────
 export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const profileId = viewedUserId ?? user.id;
@@ -403,6 +430,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
   const { data: readingProgress = {} } = useProgress(profileId);
   const { data: quizProgress = [] } = useQuizProgress(profileId);
   const { t } = useTranslation();
+  useMeta({ title: profile?.display_name ? `${profile.display_name}'s Profile` : "Profile" });
 
   // Bible reading stats
   const { chaptersRead, booksComplete, pct } = useMemo(() => {
@@ -530,6 +558,16 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
 
         {/* Public posts / status updates */}
         <PostsSection profileId={profileId} isOwner={isOwner} t={t} />
+
+        {/* Notification preferences — owner only */}
+        {isOwner && (
+          <div className="pf-section">
+            <div className="pf-section-header">
+              <h2>🔔 {t("profile.notificationsTitle")}</h2>
+            </div>
+            <NotificationPrefs profile={profile} userId={user.id} t={t} />
+          </div>
+        )}
 
         {/* Notes section — owner only */}
         {isOwner && (

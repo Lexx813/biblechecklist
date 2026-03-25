@@ -781,3 +781,76 @@
   color: #9575c4;
   border-top-color: rgba(124, 58, 237, 0.1);
 }
+
+/* ── Notification opt-in banner ───────────────────────────── */
+.home-notif-banner {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  max-width: 480px;
+  width: calc(100% - 32px);
+  animation: notif-slide-up 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes notif-slide-up {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.home-notif-icon { font-size: 22px; flex-shrink: 0; }
+
+.home-notif-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.home-notif-text strong {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.home-notif-text span {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.home-notif-enable {
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+.home-notif-enable:hover { opacity: 0.88; }
+.home-notif-enable:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.home-notif-dismiss {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.home-notif-dismiss:hover { color: var(--text-secondary); }

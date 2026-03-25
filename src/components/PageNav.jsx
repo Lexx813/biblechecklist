@@ -36,6 +36,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
 
   return (
     <>
+      <a href="#main-content" className="skip-to-content">{t("a11y.skipToContent")}</a>
       <nav className="page-nav" ref={menuRef}>
         <button className="page-nav-brand" onClick={() => go("home")}>
           <span className="page-nav-brand-icon">📖</span>

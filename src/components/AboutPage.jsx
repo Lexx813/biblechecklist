@@ -1,10 +1,15 @@
 import { useTranslation, Trans } from "react-i18next";
 import DOMPurify from "dompurify";
 import PageNav from "./PageNav";
+import { useMeta } from "../hooks/useMeta";
 import "../styles/about.css";
+
+// Set this to the creator's actual photo URL to show a real avatar
+const CREATOR_AVATAR_URL = null;
 
 export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout }) {
   const { t } = useTranslation();
+  useMeta({ title: "About", description: "Learn about NWT Progress — a Bible reading tracker built for Jehovah's Witnesses and Bible students." });
   return (
     <div className="about-wrap">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
@@ -20,7 +25,7 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
         </div>
       </section>
 
-      <div className="about-content">
+      <div className="about-content" id="main-content">
 
         {/* Purpose */}
         <section className="about-section">
@@ -79,7 +84,12 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
         {/* Creator */}
         <section className="about-section about-section--creator">
           <div className="about-creator-card">
-            <div className="about-creator-avatar">L</div>
+            <div className="about-creator-avatar-wrap">
+              {CREATOR_AVATAR_URL
+                ? <img className="about-creator-avatar about-creator-avatar--img" src={CREATOR_AVATAR_URL} alt={t("about.creatorName")} />
+                : <div className="about-creator-avatar">L</div>
+              }
+            </div>
             <div className="about-creator-info">
               <div className="about-creator-label">{t("about.creatorLabel")}</div>
               <h2 className="about-creator-name">{t("about.creatorName")}</h2>

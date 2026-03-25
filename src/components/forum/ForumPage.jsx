@@ -13,9 +13,11 @@ import {
   useUpdateThread, useUpdateReply, useDeleteThread, useDeleteReply,
   usePinThread, useLockThread,
   useUserForumLikes, useToggleThreadLike, useToggleReplyLike,
+  useMarkSolution,
 } from "../../hooks/useForum";
 import { toast } from "../../lib/toast";
 import { useSubmitReport } from "../../hooks/useReports";
+import { useMeta } from "../../hooks/useMeta";
 import "../../styles/forum.css";
 import "../../styles/social.css";
 
@@ -69,6 +71,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
   const deleteThread = useDeleteThread(categoryId);
   const pinThread    = usePinThread(categoryId);
   const lockThread   = useLockThread(categoryId);
+  const markSolution = useMarkSolution(threadId);
   const { data: forumLikes = { threads: [], replies: [] } } = useUserForumLikes(user.id);
   const toggleThreadLike = useToggleThreadLike(user.id, categoryId);
   const toggleReplyLike  = useToggleReplyLike(user.id, threadId);
@@ -135,10 +138,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
     });
   }
 
-  useEffect(() => {
-    if (thread?.title) document.title = `${thread.title} — NWT Progress`;
-    return () => { document.title = "NWT Progress"; };
-  }, [thread?.title]);
+  useMeta({ title: thread?.title, description: thread?.content?.replace(/<[^>]*>/g, "").slice(0, 140) });
 
   if (threadLoading) return <LoadingSpinner />;
   if (!thread) return <div className="forum-empty"><p>{t("forum.threadNotFound")}</p></div>;
@@ -251,7 +251,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
             const canModify = isAdmin || reply.author_id === user.id;
             const isEditingThis = editingReplyId === reply.id;
             return (
-              <div key={reply.id} className="forum-post">
+              <div key={reply.id} className={`forum-post${reply.is_solution ? " forum-post--solution" : ""}`}>
                 <div className="forum-post-aside">
                   <Avatar profile={reply.profiles} onClick={() => navigate("publicProfile", { userId: reply.author_id })} />
                   <span className="forum-post-author">
@@ -259,7 +259,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
                     <BadgeChip level={reply.profiles?.top_badge_level} />
                   </span>
                   <span className="forum-post-time">{timeAgo(reply.created_at, t)}</span>
-                  <span className="forum-post-num">#{i + 1}</span>
+                  {reply.is_solution
+                    ? <span className="forum-solution-badge">✓ {t("forum.solution")}</span>
+                    : <span className="forum-post-num">#{i + 1}</span>
+                  }
                 </div>
                 <div className="forum-post-body">
                   {isEditingThis ? (
@@ -296,7 +299,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
                     />
                   )}
                   {!isEditingThis && (
-                    <div style={{ display: "flex", gap: 12, marginTop: 8, alignItems: "center" }}>
+                    <div style={{ display: "flex", gap: 12, marginTop: 8, alignItems: "center", flexWrap: "wrap" }}>
                       <button
                         className={`forum-like-btn${forumLikes.replies?.includes(reply.id) ? " liked" : ""}`}
                         onClick={() => toggleReplyLike.mutate(reply.id, { onError: () => toast(t("forum.likeError")) })}
@@ -304,6 +307,16 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
                       >
                         👍 <span className="forum-like-count">{reply.like_count ?? 0}</span>
                       </button>
+                      {(isAuthor || isAdmin) && (
+                        <button
+                          className={`forum-solution-btn${reply.is_solution ? " forum-solution-btn--active" : ""}`}
+                          onClick={() => markSolution.mutate({ replyId: reply.id, value: !reply.is_solution })}
+                          disabled={markSolution.isPending}
+                          title={reply.is_solution ? t("forum.unmarkSolution") : t("forum.markSolution")}
+                        >
+                          {reply.is_solution ? "✓ " + t("forum.solution") : "✓ " + t("forum.markSolution")}
+                        </button>
+                      )}
                       {canModify && (
                         <>
                           <button
@@ -464,6 +477,9 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
           <div className="forum-empty-icon">💬</div>
           <h3>{t("forum.noThreads")}</h3>
           <p>{t("forum.noThreadsSub")}</p>
+          <button className="forum-empty-cta" onClick={() => setShowForm(true)}>
+            {t("forum.beFirstThread")}
+          </button>
         </div>
       ) : (
         <div className="forum-rows">
@@ -482,6 +498,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
                   <div className="forum-row-title">
                     {thread.pinned && <span className="forum-badge forum-badge--pin">📌</span>}
                     {thread.locked && <span className="forum-badge forum-badge--lock">🔒</span>}
+                    {thread.has_solution && <span className="forum-badge forum-badge--solved">✓</span>}
                     {thread.title}
                   </div>
                   <div className="forum-row-meta">
@@ -513,14 +530,12 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 }
 
 // ── Category List ─────────────────────────────────────────────────────────────
-function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMode, i18n, user, onLogout, ...rest }) {
+function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMode, i18n, user, onLogout, onSelectThread }) {
   const { data: categories = [], isLoading } = useCategories();
+  const { data: trending = [] } = useTopThreads(5);
   const { t } = useTranslation();
 
-  useEffect(() => {
-    document.title = "Forum — NWT Progress";
-    return () => { document.title = "NWT Progress"; };
-  }, []);
+  useMeta({ title: "Forum", description: "Join community discussions about Bible reading, faith, and spiritual growth." });
   const isEs = i18n.language.startsWith("es");
 
   const totalThreads = categories.reduce((sum, c) => sum + (c.forum_threads?.[0]?.count ?? 0), 0);
@@ -542,6 +557,30 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
           )}
         </div>
       </div>
+
+      {/* Trending threads */}
+      {trending.length > 0 && (
+        <div className="forum-trending">
+          <div className="forum-trending-header">
+            <span className="forum-trending-label">🔥 {t("forum.trending")}</span>
+          </div>
+          <div className="forum-trending-list">
+            {trending.map(thread => (
+              <button
+                key={thread.id}
+                className="forum-trending-row"
+                onClick={() => onSelectThread(thread.category_id, thread.id)}
+              >
+                <span className="forum-trending-title">{thread.title}</span>
+                <div className="forum-trending-stats">
+                  {thread.like_count > 0 && <span>👍 {thread.like_count}</span>}
+                  <span>💬 {thread.forum_replies?.[0]?.count ?? 0}</span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Category cards */}
       <div className="forum-cat-grid">
@@ -601,5 +640,5 @@ export default function ForumPage({ user, profile, onBack, categoryId, threadId,
     );
   }
 
-  return <CategoryList onSelectCategory={(cat) => onNavigate(cat.id, null)} onBack={onBack} {...navProps} />;
+  return <CategoryList onSelectCategory={(cat) => onNavigate(cat.id, null)} onSelectThread={(catId, threadId) => onNavigate(catId, threadId)} onBack={onBack} {...navProps} />;
 }

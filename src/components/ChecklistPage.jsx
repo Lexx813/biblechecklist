@@ -9,6 +9,7 @@ import ConfirmModal from "./ConfirmModal";
 import ReadingPlanWidget from "./reading/ReadingPlanWidget";
 import ProgressShare from "./share/ProgressShare";
 import LoadingSpinner from "./LoadingSpinner";
+import BookCelebration from "./BookCelebration";
 import { useProgress, useSaveProgress } from "../hooks/useProgress";
 import { useNotes } from "../hooks/useNotes";
 import { readingApi } from "../api/reading";
@@ -43,6 +44,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   const [search, setSearch] = useState("");
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [showShare, setShowShare] = useState(false);
+  const [celebrateBook, setCelebrateBook] = useState(null); // { name, icon, chapters }
 
   // Populate state once remote progress has loaded
   useEffect(() => {
@@ -63,7 +65,15 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
     setChaptersState(prev => {
       const wasRead = !!prev[bi]?.[ch];
       scheduleLog(wasRead ? -1 : 1);
-      return { ...prev, [bi]: { ...(prev[bi] || {}), [ch]: !wasRead } };
+      const next = { ...prev, [bi]: { ...(prev[bi] || {}), [ch]: !wasRead } };
+      if (!wasRead) {
+        const total = BOOKS[bi].chapters;
+        const nowDone = Object.values(next[bi]).filter(Boolean).length;
+        if (nowDone === total) {
+          setTimeout(() => setCelebrateBook({ name: BOOKS[bi].name, icon: "📖", chapters: total }), 300);
+        }
+      }
+      return next;
     });
   };
 
@@ -77,6 +87,9 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
     setChaptersState(prev => {
       const chs = {};
       for (let c = 1; c <= total; c++) chs[c] = val;
+      if (val && !allDone) {
+        setTimeout(() => setCelebrateBook({ name: BOOKS[bi].name, icon: "📖", chapters: total }), 300);
+      }
       return { ...prev, [bi]: chs };
     });
   };
@@ -125,7 +138,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   return (
     <>
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="main" />
-      <div className="app-wrap">
+      <div className="app-wrap" id="main-content">
         <header className="app-header">
           <div className="header-top">
             <div className="header-logo">📖</div>
@@ -176,7 +189,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
         </div>
 
         <div style={{ padding: "0 16px 4px" }}>
-          <ReadingPlanWidget userId={user.id} dailyGoal={profile?.daily_chapter_goal ?? 3} />
+          <ReadingPlanWidget userId={user.id} dailyGoal={profile?.daily_chapter_goal ?? 3} chaptersRead={doneCh} totalChapters={totalCh} />
         </div>
         <div style={{ padding: "4px 16px 12px", display: "flex", justifyContent: "flex-end", gap: 8 }}>
           <button className="reset-btn" style={{ fontSize: 12, padding: "5px 14px" }} onClick={() => setShowShare(true)}>
@@ -230,6 +243,16 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
             danger={false}
             onConfirm={() => { if (doneCh > 0) scheduleLog(-doneCh); setChaptersState({}); setShowResetConfirm(false); }}
             onCancel={() => setShowResetConfirm(false)}
+          />
+        )}
+
+        {celebrateBook && (
+          <BookCelebration
+            bookName={celebrateBook.name}
+            bookIcon={celebrateBook.icon}
+            chaptersCount={celebrateBook.chapters}
+            totalDoneBooks={doneBooks}
+            onClose={() => setCelebrateBook(null)}
           />
         )}
       </div>

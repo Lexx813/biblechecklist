@@ -1,4 +1,26 @@
 {
+  "celebrate": {
+    "title": "Book Complete! 🎉",
+    "chapters": "{{count}} chapters read",
+    "booksTotal": "{{count}} of 66 books done",
+    "continue": "Keep Going →"
+  },
+  "onboarding": {
+    "skip": "Skip",
+    "next": "Next →",
+    "getStarted": "Get Started",
+    "step1Title": "Welcome to NWT Progress! 👋",
+    "step1Body": "Track your Bible reading across all 66 books. Check off chapters as you read and watch your progress grow.",
+    "step2Title": "Join the Community",
+    "step2Body": "Share reflections on the blog, discuss scriptures in the forum, and follow others on their reading journey.",
+    "step3Title": "Test Your Knowledge",
+    "step3Body": "Take quizzes on 12 different Bible themes and earn badges as you complete each level.",
+    "step4Title": "Build a Reading Habit",
+    "step4Body": "Set a daily chapter goal, track your streak, and use the reading heatmap to stay consistent."
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content"
+  },
   "common": {
     "back": "← Back",
     "cancel": "Cancel",
@@ -220,7 +242,10 @@
     "levelsComplete": "levels complete",
     "quizNotStarted": "No quiz activity yet.",
     "postsTip": "Visible to your followers and all community members.",
-    "notesTip": "Private — only you can see your notes."
+    "notesTip": "Private — only you can see your notes.",
+    "notificationsTitle": "Notifications",
+    "notifBlogLabel": "New blog post emails",
+    "notifBlogDesc": "Get an email when a new article is published."
   },
   "blog": {
     "backToBible": "← Bible App",
@@ -236,6 +261,9 @@
     "backToBlog": "← Back to Blog",
     "notFound": "Post not found.",
     "minRead": "{{count}} min read",
+    "moreByAuthor": "More by {{name}}",
+    "morePosts": "More posts you might like",
+    "loadMore": "Load more posts",
     "commentsTitle": "Comments",
     "commentsNone": "No comments yet. Be the first to share your thoughts.",
     "commentPlaceholder": "Share your thoughts…",
@@ -295,13 +323,18 @@
     "errorTitleRequired": "Title is required.",
     "errorContentRequired": "Content is required.",
     "noThreads": "No threads yet",
-    "noThreadsSub": "Be the first to start a discussion.",
+    "noThreadsSub": "This category is waiting for its first discussion.",
+    "beFirstThread": "Start the first thread",
     "replyCount_one": "{{count}} reply",
     "replyCount_other": "{{count}} replies",
     "pin": "Pin",
     "unpin": "Unpin",
     "lock": "Lock",
     "unlock": "Unlock",
+    "solution": "Solution",
+    "markSolution": "Mark as Solution",
+    "unmarkSolution": "Unmark Solution",
+    "trending": "Trending",
     "replyPlaceholder": "Write a reply…",
     "postReply": "Post Reply",
     "replyEmptyError": "Reply cannot be empty.",
@@ -352,7 +385,11 @@
     "forumSub": "The most active and liked threads in the community.",
     "forumViewAll": "Visit the forum →",
     "forumEmpty": "No threads yet — start the first conversation.",
-    "footer": "NWT Progress · Built with purpose"
+    "footer": "NWT Progress · Built with purpose",
+    "notifBannerTitle": "Stay in the loop",
+    "notifBannerSub": "Get an email when a new blog post is published.",
+    "notifEnable": "Notify me",
+    "notifDismiss": "No thanks"
   },
   "stats": {
     "streak_one": "day streak",
@@ -514,8 +551,10 @@
     "currentStreak": "{{count}}-day streak",
     "longestStreak": "Best: {{count}} days",
     "setGoal": "Set Daily Goal",
-    "goalLabel": "Daily chapters (1–10)",
-    "goalSave": "Save"
+    "goalLabel": "Daily chapters (1–30)",
+    "goalSave": "Save",
+    "goalMet": "Goal met today! 🎉",
+    "finishIn": "~{{days}} days to finish"
   },
   "search": {
     "placeholder": "Search books, posts, threads…",
