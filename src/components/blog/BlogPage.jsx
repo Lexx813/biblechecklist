@@ -1,6 +1,6 @@
 import { useState, useMemo, memo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import DOMPurify from "dompurify";
+import { sanitizeRich } from "../../lib/sanitize";
 import PageNav from "../PageNav";
 import ReportModal from "../ReportModal";
 import BookmarkButton from "../bookmarks/BookmarkButton";
@@ -46,7 +46,7 @@ function renderContent(text) {
   return (
     <div
       className="rich-content"
-      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(html) }}
+      dangerouslySetInnerHTML={{ __html: sanitizeRich(html) }}
     />
   );
 }
@@ -178,7 +178,7 @@ function PostView({ slug, onBack, user, profile, navigate, darkMode, setDarkMode
     const html = /<[a-z][\s\S]*>/i.test(post.content)
       ? post.content
       : post.content.split(/\n\n+/).map(p => `<p>${p}</p>`).join("");
-    return DOMPurify.sanitize(html);
+    return sanitizeRich(html);
   }, [post?.content]);
 
   useEffect(() => {

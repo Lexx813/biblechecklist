@@ -18,7 +18,13 @@
       "Bash(grep -n \"like_count\\\\|blog_comments\\\\|toggle.*like\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
       "Bash(grep -A 5 -B 5 \"add column\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
       "Bash(find /home/alexi/projects/nwt-progress -name *.yml -path */.github/*)",
-      "Bash(find /home/alexi/projects/nwt-progress -name remotion* -o -name *.remotion*)"
+      "Bash(find /home/alexi/projects/nwt-progress -name remotion* -o -name *.remotion*)",
+      "Bash(node -e \"const pkg = require\\(''./node_modules/@tiptap/react/package.json''\\); console.log\\(pkg.version, pkg.exports ? Object.keys\\(pkg.exports\\).slice\\(0,5\\) : ''no exports''\\)\")",
+      "Bash(grep -r \"onUpdate\\\\|useEditor\" node_modules/@tiptap/react/dist/*.js)",
+      "Bash(node -e \"const m = require\\(''./node_modules/@tiptap/extension-text-style/dist/index.js''\\); console.log\\(Object.keys\\(m\\)\\)\")",
+      "Bash(node -e \"const m = require\\(''./node_modules/@tiptap/extension-highlight/dist/index.js''\\); console.log\\(Object.keys\\(m\\)\\)\")",
+      "Bash(node -e \"const m = require\\(''./node_modules/@tiptap/extension-underline/dist/index.js''\\); console.log\\(Object.keys\\(m\\)\\)\")",
+      "Bash(node -e \"const m = require\\(''./node_modules/@tiptap/extension-text-align/dist/index.js''\\); console.log\\(Object.keys\\(m\\)\\)\")"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"

@@ -2,6 +2,10 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
+import Underline from "@tiptap/extension-underline";
+import { TextStyle, Color } from "@tiptap/extension-text-style";
+import Highlight from "@tiptap/extension-highlight";
+import TextAlign from "@tiptap/extension-text-align";
 import { useTranslation } from "react-i18next";
 import { profileApi } from "../api/profile";
 import "../styles/editor.css";
@@ -17,6 +21,17 @@ function plainToHtml(text) {
     .join("");
 }
 
+// ── Preset palettes ───────────────────────────────────────────────────────────
+const TEXT_COLORS = [
+  "#ef4444", "#f97316", "#eab308", "#22c55e",
+  "#3b82f6", "#8b5cf6", "#ec4899", "#ffffff",
+  "#94a3b8", "#475569", "#1e293b",
+];
+const HIGHLIGHT_COLORS = [
+  "#fef08a", "#bbf7d0", "#bfdbfe", "#e9d5ff",
+  "#fecaca", "#fed7aa", "#f9a8d4",
+];
+
 // ── Toolbar icons ─────────────────────────────────────────────────────────────
 const BoldIcon = () => (
   <svg width="13" height="14" viewBox="0 0 13 14" fill="currentColor">
@@ -26,6 +41,11 @@ const BoldIcon = () => (
 const ItalicIcon = () => (
   <svg width="11" height="14" viewBox="0 0 11 14" fill="currentColor">
     <path d="M4 2h6M1 12h6M7 2 4 12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" fill="none"/>
+  </svg>
+);
+const UnderlineIcon = () => (
+  <svg width="13" height="14" viewBox="0 0 13 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+    <path d="M2 2v5a4.5 4.5 0 0 0 9 0V2M1 13h11"/>
   </svg>
 );
 const StrikeIcon = () => (
@@ -83,18 +103,118 @@ const HrIcon = () => (
     <line x1="13" y1="1" x2="13" y2="7"/>
   </svg>
 );
+const AlignLeftIcon = () => (
+  <svg width="14" height="12" viewBox="0 0 14 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+    <line x1="1" y1="2" x2="13" y2="2"/><line x1="1" y1="5" x2="9" y2="5"/>
+    <line x1="1" y1="8" x2="13" y2="8"/><line x1="1" y1="11" x2="8" y2="11"/>
+  </svg>
+);
+const AlignCenterIcon = () => (
+  <svg width="14" height="12" viewBox="0 0 14 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+    <line x1="1" y1="2" x2="13" y2="2"/><line x1="3" y1="5" x2="11" y2="5"/>
+    <line x1="1" y1="8" x2="13" y2="8"/><line x1="4" y1="11" x2="10" y2="11"/>
+  </svg>
+);
+const AlignRightIcon = () => (
+  <svg width="14" height="12" viewBox="0 0 14 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+    <line x1="1" y1="2" x2="13" y2="2"/><line x1="5" y1="5" x2="13" y2="5"/>
+    <line x1="1" y1="8" x2="13" y2="8"/><line x1="6" y1="11" x2="13" y2="11"/>
+  </svg>
+);
 
 // ── Toolbar button ────────────────────────────────────────────────────────────
-function Btn({ active, onClick, title, children }) {
+function Btn({ active, onClick, title, children, style }) {
   return (
     <button
       type="button"
       className={`editor-btn${active ? " active" : ""}`}
       onMouseDown={e => { e.preventDefault(); onClick(); }}
       title={title}
+      style={style}
     >
       {children}
     </button>
+  );
+}
+
+// ── Color palette popup ───────────────────────────────────────────────────────
+function ColorPalette({ colors, onSelect, onClear, currentColor, label, children }) {
+  const [open, setOpen] = useState(false);
+  const [pos, setPos] = useState({ top: 0, left: 0 });
+  const btnRef = useRef(null);
+  const popupRef = useRef(null);
+  const customRef = useRef(null);
+
+  function handleOpen(e) {
+    e.preventDefault();
+    if (!open && btnRef.current) {
+      const rect = btnRef.current.getBoundingClientRect();
+      // Flip left if popup would overflow right edge
+      const popupWidth = 162;
+      const left = rect.left + popupWidth > window.innerWidth ? rect.right - popupWidth : rect.left;
+      setPos({ top: rect.bottom + 4, left });
+    }
+    setOpen(o => !o);
+  }
+
+  useEffect(() => {
+    if (!open) return;
+    function close(e) {
+      if (!popupRef.current?.contains(e.target) && !btnRef.current?.contains(e.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, [open]);
+
+  return (
+    <div style={{ display: "inline-flex" }}>
+      <button
+        ref={btnRef}
+        type="button"
+        className={`editor-btn${currentColor ? " active" : ""}`}
+        onMouseDown={handleOpen}
+        title={label}
+      >
+        {children}
+      </button>
+      {open && (
+        <div
+          ref={popupRef}
+          className="editor-color-popup"
+          style={{ position: "fixed", top: pos.top, left: pos.left, zIndex: 9999 }}
+          onMouseDown={e => e.preventDefault()}
+        >
+          <div className="editor-color-swatches">
+            {colors.map(c => (
+              <button
+                key={c}
+                type="button"
+                className="editor-color-swatch"
+                style={{ background: c }}
+                title={c}
+                onClick={() => { onSelect(c); setOpen(false); }}
+              />
+            ))}
+          </div>
+          <div className="editor-color-actions">
+            <button type="button" className="editor-color-clear" onClick={() => { onClear(); setOpen(false); }}>
+              Clear
+            </button>
+            <button type="button" className="editor-color-custom" onClick={() => customRef.current?.click()}>
+              Custom…
+            </button>
+          </div>
+          <input
+            ref={customRef}
+            type="color"
+            style={{ opacity: 0, position: "absolute", pointerEvents: "none", width: 0, height: 0 }}
+            onInput={e => { onSelect(e.target.value); setOpen(false); }}
+          />
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -126,19 +246,21 @@ function MentionList({ items, activeIdx, onSelect }) {
 export default function RichTextEditor({
   content = "",
   onChange,
-  onMention,         // called with {id, display_name} when a mention is selected
+  onMention,
   placeholder,
-  minimal = false,   // minimal = forum/reply mode (no headings, code block, hr)
-  compact = false,   // shorter min-height
+  minimal = false,
+  compact = false,
   disabled = false,
   allowMentions = false,
 }) {
   const { t } = useTranslation();
 
-  // @mention state (only used when allowMentions=true)
+  // @mention state
   const [mentionItems, setMentionItems] = useState([]);
   const [mentionActiveIdx, setMentionActiveIdx] = useState(0);
   const mentionTimerRef = useRef(null);
+  const allowMentionsRef = useRef(allowMentions);
+  useEffect(() => { allowMentionsRef.current = allowMentions; }, [allowMentions]);
 
   const extensions = useMemo(() => [
     StarterKit.configure({
@@ -148,6 +270,11 @@ export default function RichTextEditor({
       },
     }),
     Placeholder.configure({ placeholder: placeholder || "" }),
+    Underline,
+    TextStyle,
+    Color,
+    Highlight.configure({ multicolor: true }),
+    TextAlign.configure({ types: ["heading", "paragraph"] }),
   ], [placeholder]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const editor = useEditor({
@@ -157,45 +284,56 @@ export default function RichTextEditor({
     immediatelyRender: false,
     onUpdate: ({ editor: ed }) => {
       onChange?.(ed.getHTML());
-    },
-  });
 
-  // @mention detection via DOM input event — works regardless of TipTap version
-  useEffect(() => {
-    if (!editor || !allowMentions) return;
-    const el = editor.view.dom;
-
-    function handleInput() {
-      const sel = window.getSelection();
-      if (!sel || !sel.rangeCount) return;
-      const range = sel.getRangeAt(0);
-      const text = range.startContainer.textContent || "";
-      const before = text.slice(0, range.startOffset);
-      const match = before.match(/@([\w.-]*)$/);
-
+      if (!allowMentionsRef.current) return;
+      const { from } = ed.state.selection;
+      const textBefore = ed.state.doc.textBetween(Math.max(0, from - 60), from, " ");
+      const match = textBefore.match(/@([\w.]*)$/);
       clearTimeout(mentionTimerRef.current);
       if (match) {
         mentionTimerRef.current = setTimeout(async () => {
           const results = await profileApi.searchByName(match[1]);
           setMentionItems(results);
           setMentionActiveIdx(0);
-        }, 200);
+        }, 150);
+      } else {
+        setMentionItems([]);
+      }
+    },
+    onBlur: () => {
+      setTimeout(() => setMentionItems([]), 150);
+    },
+  });
+
+  // Keyup/input fallback for mention detection
+  useEffect(() => {
+    if (!editor || !allowMentions) return;
+    const el = editor.view.dom;
+
+    function detect() {
+      const { from } = editor.state.selection;
+      const textBefore = editor.state.doc.textBetween(Math.max(0, from - 60), from, " ");
+      const match = textBefore.match(/@([\w.]*)$/);
+      clearTimeout(mentionTimerRef.current);
+      if (match) {
+        mentionTimerRef.current = setTimeout(async () => {
+          const results = await profileApi.searchByName(match[1]);
+          setMentionItems(results);
+          setMentionActiveIdx(0);
+        }, 150);
       } else {
         setMentionItems([]);
       }
     }
 
-    function handleBlur() { setMentionItems([]); }
-
-    el.addEventListener("input", handleInput);
-    el.addEventListener("blur", handleBlur);
+    el.addEventListener("keyup", detect);
+    el.addEventListener("input", detect);
     return () => {
-      el.removeEventListener("input", handleInput);
-      el.removeEventListener("blur", handleBlur);
+      el.removeEventListener("keyup", detect);
+      el.removeEventListener("input", detect);
     };
   }, [editor, allowMentions]);
 
-  // Insert mention by replacing the @fragment with @displayname
   function insertMention(item) {
     if (!editor) return;
     const { from } = editor.state.selection;
@@ -211,8 +349,7 @@ export default function RichTextEditor({
     onMention?.(item);
   }
 
-  // Sync content when prop changes (e.g. switching posts / clearing on submit)
-  // editor is included so this runs once the editor becomes available on mount
+  // Sync content prop → editor
   useEffect(() => {
     if (!editor || editor.isDestroyed) return;
     const next = plainToHtml(content);
@@ -226,101 +363,180 @@ export default function RichTextEditor({
     editor?.setEditable(!disabled);
   }, [disabled, editor]);
 
-  const addLink = () => {
-    const url = window.prompt(t("editor.linkPrompt"));
-    if (!url) return;
-    const trimmed = url.trim();
-    const lower = trimmed.toLowerCase();
-    if (lower.startsWith("javascript:") || lower.startsWith("data:") || lower.startsWith("vbscript:")) return;
-    const href = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
-    editor.chain().focus().setLink({ href }).run();
-  };
+  const [linkModal, setLinkModal] = useState({ open: false, value: "" });
+  const linkInputRef = useRef(null);
+
+  function openLinkModal() {
+    const existing = editor.getAttributes("link").href || "";
+    setLinkModal({ open: true, value: existing });
+    // Focus the input after the modal renders
+    setTimeout(() => linkInputRef.current?.focus(), 0);
+  }
+
+  function submitLink(e) {
+    e?.preventDefault();
+    const trimmed = linkModal.value.trim();
+    if (!trimmed) { editor.chain().focus().unsetLink().run(); }
+    else {
+      const lower = trimmed.toLowerCase();
+      if (lower.startsWith("javascript:") || lower.startsWith("data:") || lower.startsWith("vbscript:")) {
+        setLinkModal({ open: false, value: "" });
+        return;
+      }
+      const href = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+      editor.chain().focus().setLink({ href }).run();
+    }
+    setLinkModal({ open: false, value: "" });
+  }
 
   if (!editor) return null;
 
+  const activeTextColor = editor.getAttributes("textStyle").color || null;
+  const activeHighlight = editor.getAttributes("highlight").color || null;
+
   return (
-    <div className={`editor-wrap${disabled ? " editor-wrap--disabled" : ""}`}>
-      {!disabled && (
-        <div className="editor-toolbar">
-          {/* Inline formatting */}
-          <Btn active={editor.isActive("bold")}   onClick={() => editor.chain().focus().toggleBold().run()}   title={t("editor.bold")}  ><BoldIcon /></Btn>
-          <Btn active={editor.isActive("italic")} onClick={() => editor.chain().focus().toggleItalic().run()} title={t("editor.italic")}><ItalicIcon /></Btn>
-          <Btn active={editor.isActive("strike")} onClick={() => editor.chain().focus().toggleStrike().run()} title={t("editor.strike")}><StrikeIcon /></Btn>
+    <div
+      className="mention-wrap"
+      style={{ position: "relative" }}
+      onKeyDown={allowMentions && mentionItems.length > 0 ? (e) => {
+        if (e.key === "ArrowDown") { e.preventDefault(); setMentionActiveIdx(i => Math.min(i + 1, mentionItems.length - 1)); }
+        else if (e.key === "ArrowUp") { e.preventDefault(); setMentionActiveIdx(i => Math.max(i - 1, 0)); }
+        else if (e.key === "Enter" || e.key === "Tab") {
+          const item = mentionItems[mentionActiveIdx];
+          if (item) { e.preventDefault(); insertMention(item); }
+        } else if (e.key === "Escape") { setMentionItems([]); }
+      } : undefined}
+    >
+      <div className={`editor-wrap${disabled ? " editor-wrap--disabled" : ""}`}>
+        {!disabled && (
+          <div className="editor-toolbar">
+            {/* ── Inline formatting ── */}
+            <Btn active={editor.isActive("bold")}      onClick={() => editor.chain().focus().toggleBold().run()}      title={t("editor.bold")}     ><BoldIcon /></Btn>
+            <Btn active={editor.isActive("italic")}    onClick={() => editor.chain().focus().toggleItalic().run()}    title={t("editor.italic")}   ><ItalicIcon /></Btn>
+            <Btn active={editor.isActive("underline")} onClick={() => editor.chain().focus().toggleUnderline().run()} title="Underline"            ><UnderlineIcon /></Btn>
+            <Btn active={editor.isActive("strike")}    onClick={() => editor.chain().focus().toggleStrike().run()}    title={t("editor.strike")}   ><StrikeIcon /></Btn>
 
-          {/* Headings — full mode only */}
-          {!minimal && (
-            <>
-              <div className="editor-sep" />
-              {[1, 2, 3].map(level => (
-                <Btn key={level}
-                  active={editor.isActive("heading", { level })}
-                  onClick={() => editor.chain().focus().toggleHeading({ level }).run()}
-                  title={`H${level}`}
-                >H{level}</Btn>
-              ))}
-            </>
-          )}
+            <div className="editor-sep" />
 
-          <div className="editor-sep" />
+            {/* ── Headings (always shown) ── */}
+            {[1, 2, 3].map(level => (
+              <Btn key={level}
+                active={editor.isActive("heading", { level })}
+                onClick={() => editor.chain().focus().toggleHeading({ level }).run()}
+                title={`Heading ${level}`}
+              >H{level}</Btn>
+            ))}
 
-          {/* Lists */}
-          <Btn active={editor.isActive("bulletList")}  onClick={() => editor.chain().focus().toggleBulletList().run()}  title={t("editor.bulletList")} ><BulletIcon /></Btn>
-          <Btn active={editor.isActive("orderedList")} onClick={() => editor.chain().focus().toggleOrderedList().run()} title={t("editor.orderedList")}><OrderedIcon /></Btn>
+            <div className="editor-sep" />
 
-          <div className="editor-sep" />
+            {/* ── Lists ── */}
+            <Btn active={editor.isActive("bulletList")}  onClick={() => editor.chain().focus().toggleBulletList().run()}  title={t("editor.bulletList")} ><BulletIcon /></Btn>
+            <Btn active={editor.isActive("orderedList")} onClick={() => editor.chain().focus().toggleOrderedList().run()} title={t("editor.orderedList")}><OrderedIcon /></Btn>
 
-          {/* Block elements */}
-          <Btn active={editor.isActive("blockquote")} onClick={() => editor.chain().focus().toggleBlockquote().run()} title={t("editor.blockquote")}><QuoteIcon /></Btn>
-          <Btn active={editor.isActive("code")}       onClick={() => editor.chain().focus().toggleCode().run()}       title={t("editor.code")}      ><CodeIcon /></Btn>
-          {!minimal && (
-            <Btn active={editor.isActive("codeBlock")} onClick={() => editor.chain().focus().toggleCodeBlock().run()} title={t("editor.codeBlock")}><CodeBlockIcon /></Btn>
-          )}
+            <div className="editor-sep" />
 
-          <div className="editor-sep" />
+            {/* ── Alignment ── */}
+            <Btn active={editor.isActive({ textAlign: "left" })}    onClick={() => editor.chain().focus().setTextAlign("left").run()}    title="Align left"   ><AlignLeftIcon /></Btn>
+            <Btn active={editor.isActive({ textAlign: "center" })}  onClick={() => editor.chain().focus().setTextAlign("center").run()}  title="Align center" ><AlignCenterIcon /></Btn>
+            <Btn active={editor.isActive({ textAlign: "right" })}   onClick={() => editor.chain().focus().setTextAlign("right").run()}   title="Align right"  ><AlignRightIcon /></Btn>
 
-          {/* Link */}
-          <Btn active={editor.isActive("link")} onClick={addLink} title={t("editor.link")}><LinkIcon /></Btn>
-          {editor.isActive("link") && (
-            <Btn active={false} onClick={() => editor.chain().focus().unsetLink().run()} title={t("editor.unlink")}><UnlinkIcon /></Btn>
-          )}
+            <div className="editor-sep" />
 
-          {/* HR — full mode only */}
-          {!minimal && (
-            <Btn active={false} onClick={() => editor.chain().focus().setHorizontalRule().run()} title={t("editor.hr")}><HrIcon /></Btn>
-          )}
-        </div>
-      )}
+            {/* ── Block elements ── */}
+            <Btn active={editor.isActive("blockquote")} onClick={() => editor.chain().focus().toggleBlockquote().run()} title={t("editor.blockquote")}><QuoteIcon /></Btn>
+            <Btn active={editor.isActive("code")}       onClick={() => editor.chain().focus().toggleCode().run()}       title={t("editor.code")}      ><CodeIcon /></Btn>
+            {!minimal && (
+              <Btn active={editor.isActive("codeBlock")} onClick={() => editor.chain().focus().toggleCodeBlock().run()} title={t("editor.codeBlock")}><CodeBlockIcon /></Btn>
+            )}
 
-      <div
-        className="mention-wrap"
-        style={{ position: "relative" }}
-        onKeyDown={allowMentions && mentionItems.length > 0 ? (e) => {
-          if (e.key === "ArrowDown") {
-            e.preventDefault();
-            setMentionActiveIdx(i => Math.min(i + 1, mentionItems.length - 1));
-          } else if (e.key === "ArrowUp") {
-            e.preventDefault();
-            setMentionActiveIdx(i => Math.max(i - 1, 0));
-          } else if (e.key === "Enter" || e.key === "Tab") {
-            const item = mentionItems[mentionActiveIdx];
-            if (item) { e.preventDefault(); insertMention(item); }
-          } else if (e.key === "Escape") {
-            setMentionItems([]);
-          }
-        } : undefined}
-      >
+            <div className="editor-sep" />
+
+            {/* ── Text color ── */}
+            <ColorPalette
+              colors={TEXT_COLORS}
+              currentColor={activeTextColor}
+              onSelect={c => editor.chain().focus().setColor(c).run()}
+              onClear={() => editor.chain().focus().unsetColor().run()}
+              onCustom={() => {}}
+              label="Text color"
+            >
+              <span style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, lineHeight: 1 }}>A</span>
+                <span style={{ width: 13, height: 3, borderRadius: 2, background: activeTextColor || "currentColor", display: "block" }} />
+              </span>
+            </ColorPalette>
+
+            {/* ── Highlight ── */}
+            <ColorPalette
+              colors={HIGHLIGHT_COLORS}
+              currentColor={activeHighlight}
+              onSelect={c => editor.chain().focus().setHighlight({ color: c }).run()}
+              onClear={() => editor.chain().focus().unsetHighlight().run()}
+              onCustom={() => {}}
+              label="Highlight"
+            >
+              <span style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
+                <span style={{ fontSize: 10, fontWeight: 700, lineHeight: 1 }}>H</span>
+                <span style={{ width: 13, height: 3, borderRadius: 2, background: activeHighlight || "#fef08a", display: "block" }} />
+              </span>
+            </ColorPalette>
+
+            <div className="editor-sep" />
+
+            {/* ── Link ── */}
+            <Btn active={editor.isActive("link")} onClick={openLinkModal} title={t("editor.link")}><LinkIcon /></Btn>
+            {editor.isActive("link") && (
+              <Btn active={false} onClick={() => editor.chain().focus().unsetLink().run()} title={t("editor.unlink")}><UnlinkIcon /></Btn>
+            )}
+
+            {/* ── HR (full mode only) ── */}
+            {!minimal && (
+              <Btn active={false} onClick={() => editor.chain().focus().setHorizontalRule().run()} title={t("editor.hr")}><HrIcon /></Btn>
+            )}
+          </div>
+        )}
+
         <EditorContent
           editor={editor}
           className={`editor-content${compact ? " editor-content--compact" : ""}`}
         />
-        {allowMentions && mentionItems.length > 0 && (
-          <MentionList
-            items={mentionItems}
-            activeIdx={mentionActiveIdx}
-            onSelect={insertMention}
-          />
-        )}
       </div>
+
+      {allowMentions && mentionItems.length > 0 && (
+        <MentionList
+          items={mentionItems}
+          activeIdx={mentionActiveIdx}
+          onSelect={insertMention}
+        />
+      )}
+
+      {linkModal.open && (
+        <div className="link-modal-overlay" onMouseDown={() => setLinkModal({ open: false, value: "" })}>
+          <div className="link-modal" onMouseDown={e => e.stopPropagation()}>
+            <p className="link-modal-label">Insert link</p>
+            <form onSubmit={submitLink}>
+              <input
+                ref={linkInputRef}
+                className="link-modal-input"
+                type="url"
+                placeholder="https://example.com"
+                value={linkModal.value}
+                onChange={e => setLinkModal(m => ({ ...m, value: e.target.value }))}
+                onKeyDown={e => { if (e.key === "Escape") setLinkModal({ open: false, value: "" }); }}
+                autoComplete="off"
+              />
+              <div className="link-modal-actions">
+                <button type="button" className="link-modal-btn link-modal-btn--cancel" onClick={() => setLinkModal({ open: false, value: "" })}>
+                  Cancel
+                </button>
+                <button type="submit" className="link-modal-btn link-modal-btn--apply">
+                  Apply
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

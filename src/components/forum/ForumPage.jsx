@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import DOMPurify from "dompurify";
+import { sanitizeRich } from "../../lib/sanitize";
 import ConfirmModal from "../ConfirmModal";
 import RichTextEditor from "../RichTextEditor";
 import ReportModal from "../ReportModal";
@@ -215,7 +215,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
               <h2 className="forum-post-title">{thread.title}</h2>
               <div
                 className="forum-post-content rich-content"
-                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(thread.content ?? "") }}
+                dangerouslySetInnerHTML={{ __html: sanitizeRich(thread.content ?? "") }}
               />
               <button
                 className={`forum-like-btn${forumLikes.threads?.includes(threadId) ? " liked" : ""}`}
@@ -291,7 +291,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
                   ) : (
                     <div
                       className="forum-post-content rich-content"
-                      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(reply.content ?? "") }}
+                      dangerouslySetInnerHTML={{ __html: sanitizeRich(reply.content ?? "") }}
                     />
                   )}
                   {!isEditingThis && (
