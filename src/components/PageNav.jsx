@@ -51,7 +51,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
           <button className={`page-nav-link${currentPage === "blog" ? " page-nav-link--active" : ""}`} onClick={() => go("blog")}>{t("app.blog")}</button>
           <button className={`page-nav-link${currentPage === "forum" ? " page-nav-link--active" : ""}`} onClick={() => go("forum")}>{t("app.forum")}</button>
           <button className={`page-nav-link${currentPage === "quiz" ? " page-nav-link--active" : ""}`} onClick={() => go("quiz")}>{t("quiz.nav")}</button>
-          <button className={`page-nav-link${currentPage === "about" ? " page-nav-link--active" : ""}`} onClick={() => go("about")}>About</button>
+          <button className={`page-nav-link${currentPage === "about" ? " page-nav-link--active" : ""}`} onClick={() => go("about")}>{t("app.about")}</button>
           {user && (
             <button className={`page-nav-link${currentPage === "feed" ? " page-nav-link--active" : ""}`} onClick={() => go("feed")}>{t("feed.navLink")}</button>
           )}
@@ -127,7 +127,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
             <button className={`page-nav-mobile-link${currentPage === "blog" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("blog")}>{t("app.blog")}</button>
             <button className={`page-nav-mobile-link${currentPage === "forum" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("forum")}>{t("app.forum")}</button>
             <button className={`page-nav-mobile-link${currentPage === "quiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("quiz")}>{t("quiz.nav")}</button>
-            <button className={`page-nav-mobile-link${currentPage === "about" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("about")}>About</button>
+            <button className={`page-nav-mobile-link${currentPage === "about" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("about")}>{t("app.about")}</button>
             {user && (
               <button className={`page-nav-mobile-link${currentPage === "feed" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("feed")}>{t("feed.navLink")}</button>
             )}
