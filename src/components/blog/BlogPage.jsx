@@ -395,7 +395,16 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
   useMeta(!slug ? { title: "Blog", description: "Reflections, studies, and insights from the NWT Progress community." } : {});
 
   if (slug) {
-    return <PostView slug={slug} onBack={() => onSelectPost(null)} onSelectPost={onSelectPost} user={user} profile={profile} navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />;
+    const toLanding = () => onBack();
+    return <PostView
+      slug={slug}
+      onBack={user ? () => onSelectPost(null) : toLanding}
+      onSelectPost={user ? onSelectPost : toLanding}
+      user={user}
+      profile={profile}
+      navigate={user ? navigate : () => toLanding()}
+      darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout}
+    />;
   }
 
   const visiblePosts = posts.slice(0, visibleCount);
