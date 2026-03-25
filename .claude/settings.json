@@ -16,7 +16,9 @@
       "Bash(grep -n \"alter table\\\\|ALTER TABLE\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
       "Bash(grep -n \"like_count\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
       "Bash(grep -n \"like_count\\\\|blog_comments\\\\|toggle.*like\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
-      "Bash(grep -A 5 -B 5 \"add column\" /home/alexi/projects/nwt-progress/supabase/*.sql)"
+      "Bash(grep -A 5 -B 5 \"add column\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(find /home/alexi/projects/nwt-progress -name *.yml -path */.github/*)",
+      "Bash(find /home/alexi/projects/nwt-progress -name remotion* -o -name *.remotion*)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"
