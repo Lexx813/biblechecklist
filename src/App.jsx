@@ -70,6 +70,7 @@ export default function App() {
   // Allow unauthenticated read-only access to blog posts
   const publicNav = parsePath();
   if (!user && publicNav.page === "blog" && publicNav.slug) {
+    document.documentElement.dataset.theme = "light";
     const publicNavigate = (page, params = {}) => {
       const path = buildPath(page, params);
       history.pushState(null, "", path);
