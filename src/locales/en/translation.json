@@ -541,6 +541,8 @@
   "notifications": {
     "title": "Notifications",
     "markAllRead": "Mark all read",
+    "clearAll": "Clear all",
+    "delete": "Delete",
     "empty": "No notifications yet.",
     "typeReply": "replied to your thread",
     "typeComment": "commented on your post",

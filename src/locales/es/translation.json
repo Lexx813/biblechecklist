@@ -541,6 +541,8 @@
   "notifications": {
     "title": "Notificaciones",
     "markAllRead": "Marcar todo como leído",
+    "clearAll": "Limpiar todo",
+    "delete": "Eliminar",
     "empty": "Sin notificaciones aún.",
     "typeReply": "respondió a tu hilo",
     "typeComment": "comentó en tu publicación",

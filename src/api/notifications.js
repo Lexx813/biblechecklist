@@ -30,6 +30,18 @@ export const notificationsApi = {
     if (error) throw new Error(error.message);
   },
 
+  delete: async (id) => {
+    const { error } = await supabase.from("notifications").delete().eq("id", id);
+    if (error) throw new Error(error.message);
+  },
+
+  clearAll: async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+    const { error } = await supabase.from("notifications").delete().eq("user_id", user.id);
+    if (error) throw new Error(error.message);
+  },
+
   // Called client-side after creating a reply/comment/mention
   create: async (userId, actorId, type, options = {}) => {
     const { error } = await supabase.rpc("create_notification", {

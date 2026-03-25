@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useNotifications, useMarkNotificationsRead } from "../../hooks/useNotifications";
+import { useNotifications, useMarkNotificationsRead, useDeleteNotification, useClearAllNotifications } from "../../hooks/useNotifications";
 import "../../styles/notifications.css";
 
 function timeAgo(iso) {
@@ -16,7 +16,9 @@ export default function NotificationBell({ userId, navigate }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const { data: notifications = [] } = useNotifications(userId);
-  const markRead = useMarkNotificationsRead(userId);
+  const markRead   = useMarkNotificationsRead(userId);
+  const deleteOne  = useDeleteNotification(userId);
+  const clearAll   = useClearAllNotifications(userId);
 
   const unread = notifications.filter(n => !n.read);
 
@@ -78,11 +80,22 @@ export default function NotificationBell({ userId, navigate }) {
         <div className="notif-dropdown">
           <div className="notif-header">
             <span className="notif-title">{t("notifications.title")}</span>
-            {unread.length > 0 && (
-              <button className="notif-mark-all" onClick={() => markRead.mutate("all")}>
-                {t("notifications.markAllRead")}
-              </button>
-            )}
+            <div className="notif-header-actions">
+              {unread.length > 0 && (
+                <button className="notif-mark-all" onClick={() => markRead.mutate("all")}>
+                  {t("notifications.markAllRead")}
+                </button>
+              )}
+              {notifications.length > 0 && (
+                <button
+                  className="notif-clear-all"
+                  onClick={() => clearAll.mutate()}
+                  disabled={clearAll.isPending}
+                >
+                  {t("notifications.clearAll")}
+                </button>
+              )}
+            </div>
           </div>
 
           {notifications.length === 0 ? (
@@ -93,22 +106,31 @@ export default function NotificationBell({ userId, navigate }) {
                 <div
                   key={n.id}
                   className={`notif-item${n.read ? "" : " notif-item--unread"}`}
-                  onClick={() => handleClick(n)}
                 >
-                  <div className="notif-actor-avatar">
-                    {n.actor?.avatar_url
-                      ? <img src={n.actor.avatar_url} alt="" />
-                      : (n.actor?.display_name || "?")[0].toUpperCase()
-                    }
+                  <div className="notif-item-main" onClick={() => handleClick(n)}>
+                    <div className="notif-actor-avatar">
+                      {n.actor?.avatar_url
+                        ? <img src={n.actor.avatar_url} alt="" />
+                        : (n.actor?.display_name || "?")[0].toUpperCase()
+                      }
+                    </div>
+                    <div className="notif-body">
+                      <span className="notif-actor">{n.actor?.display_name || "Someone"}</span>
+                      {" "}<span className="notif-verb">{getVerb(n)}</span>
+                      {n.body_preview && (
+                        <p className="notif-preview">"{n.body_preview}"</p>
+                      )}
+                      <span className="notif-time">{timeAgo(n.created_at)}</span>
+                    </div>
                   </div>
-                  <div className="notif-body">
-                    <span className="notif-actor">{n.actor?.display_name || "Someone"}</span>
-                    {" "}<span className="notif-verb">{getVerb(n)}</span>
-                    {n.body_preview && (
-                      <p className="notif-preview">"{n.body_preview}"</p>
-                    )}
-                    <span className="notif-time">{timeAgo(n.created_at)}</span>
-                  </div>
+                  <button
+                    className="notif-delete-btn"
+                    onClick={(e) => { e.stopPropagation(); deleteOne.mutate(n.id); }}
+                    title={t("notifications.delete")}
+                    aria-label={t("notifications.delete")}
+                  >
+                    ✕
+                  </button>
                 </div>
               ))}
             </div>
