@@ -29,6 +29,7 @@ const SearchPage     = lazy(() => import("./components/search/SearchPage"));
 const BookmarksPage  = lazy(() => import("./components/bookmarks/BookmarksPage"));
 const ReadingHistory = lazy(() => import("./components/reading/ReadingHistory"));
 const ActivityFeed   = lazy(() => import("./components/social/ActivityFeed"));
+const LeaderboardPage = lazy(() => import("./components/LeaderboardPage"));
 const AboutPage      = lazy(() => import("./components/AboutPage"));
 const TermsPage      = lazy(() => import("./components/TermsPage"));
 const PrivacyPage    = lazy(() => import("./components/PrivacyPage"));
@@ -205,6 +206,7 @@ function BibleApp({ user, onLogout, i18n }) {
   if (nav.page === "bookmarks") return <Page><BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   if (nav.page === "history")   return <Page><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Page>;
   if (nav.page === "feed")      return <Page><ActivityFeed user={user} {...sharedNav} /></Page>;
+  if (nav.page === "leaderboard") return <Page><LeaderboardPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   if (nav.page === "about")     return <Page><AboutPage {...sharedNav} /></Page>;
   if (nav.page === "terms")     return <Page><TermsPage {...sharedNav} /></Page>;
   if (nav.page === "privacy")   return <Page><PrivacyPage {...sharedNav} /></Page>;

@@ -56,3 +56,30 @@ self.addEventListener("fetch", (e) => {
       .catch(() => caches.match(e.request))
   );
 });
+
+// ── Push notifications ─────────────────────────────────────
+self.addEventListener("push", (e) => {
+  if (!e.data) return;
+  const data = e.data.json();
+  e.waitUntil(
+    self.registration.showNotification(data.title ?? "NWT Progress", {
+      body: data.body ?? "",
+      icon: "/icon-192.png",
+      badge: "/icon-192.png",
+      data: { url: data.url ?? "/" },
+      tag: data.tag ?? "nwt-notification",
+    })
+  );
+});
+
+self.addEventListener("notificationclick", (e) => {
+  e.notification.close();
+  const url = e.notification.data?.url ?? "/";
+  e.waitUntil(
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then((list) => {
+      const existing = list.find((c) => c.url.includes(self.location.origin));
+      if (existing) { existing.focus(); existing.navigate(url); }
+      else clients.openWindow(url);
+    })
+  );
+});

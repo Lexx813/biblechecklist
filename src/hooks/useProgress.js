@@ -18,5 +18,27 @@ export function useSaveProgress(userId) {
       // Optimistically update the cache so the UI never rolls back
       queryClient.setQueryData(["progress", userId], progress);
     },
+    onSuccess: () => {
+      // Refresh streak after saving progress
+      queryClient.invalidateQueries({ queryKey: ["streak", userId] });
+    },
+  });
+}
+
+export function useReadingStreak(userId) {
+  return useQuery({
+    queryKey: ["streak", userId],
+    queryFn: () => progressApi.getStreak(userId),
+    enabled: !!userId,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useChapterTimestamps(userId) {
+  return useQuery({
+    queryKey: ["chapterTimestamps", userId],
+    queryFn: () => progressApi.loadChapterTimestamps(userId),
+    enabled: !!userId,
+    staleTime: 10 * 60 * 1000,
   });
 }

@@ -2,7 +2,12 @@ import { memo, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOK_INFO } from "../data/bookInfo";
 
-const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, onToggleChapter, onToggleBook, notes = [] }) {
+function formatReadDate(iso) {
+  if (!iso) return null;
+  return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+}
+
+const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, onToggleChapter, onToggleBook, notes = [] }) {
   const [open, setOpen] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const { t } = useTranslation();
@@ -112,9 +117,11 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, onTogg
               const isDone = !!chaptersState[bookIndex]?.[ch];
               const chNotes = notesByChapter.get(ch);
               const hasNote = chNotes?.length > 0;
-              const tooltipText = hasNote
-                ? chNotes.map(n => n.content).join(" · ")
-                : null;
+              const readDate = isDone ? formatReadDate(chapterTimestamps[ch]) : null;
+              const tooltipParts = [];
+              if (readDate) tooltipParts.push(`✓ ${readDate}`);
+              if (hasNote) tooltipParts.push(chNotes.map(n => n.content).join(" · "));
+              const tooltipText = tooltipParts.length ? tooltipParts.join("\n") : null;
               return (
                 <button
                   key={ch}
@@ -123,7 +130,7 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, onTogg
                   title={t("book.chapterTitle", { ch })}
                 >
                   {ch}
-                  {hasNote && (
+                  {tooltipText && (
                     <span className="ch-pill-tooltip">{tooltipText}</span>
                   )}
                 </button>

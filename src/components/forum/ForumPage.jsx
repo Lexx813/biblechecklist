@@ -405,8 +405,11 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
 }
 
 // ── Thread List ───────────────────────────────────────────────────────────────
+const THREADS_PER_PAGE = 20;
+
 function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
-  const { data: threads = [], isLoading } = useThreads(category.id);
+  const [limit, setLimit] = useState(THREADS_PER_PAGE);
+  const { data: threads = [], isLoading } = useThreads(category.id, limit);
   const createThread = useCreateThread(category.id);
   const { t } = useTranslation();
 
@@ -524,6 +527,14 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
               </div>
             );
           })}
+          {threads.length === limit && (
+            <button
+              className="forum-load-more"
+              onClick={() => setLimit(l => l + THREADS_PER_PAGE)}
+            >
+              {t("forum.loadMore")}
+            </button>
+          )}
         </div>
       )}
     </div>

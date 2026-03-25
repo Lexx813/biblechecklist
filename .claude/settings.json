@@ -84,7 +84,8 @@
       "Bash(WEBHOOK_SECRET=\"\" node scripts/seed-embeddings.js)",
       "Bash(WEBHOOK_SECRET=wqd93298h3287ggg8dbh27gd382hd3 node scripts/seed-embeddings.js)",
       "Bash(python3 -c \":*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(npx web-push:*)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"

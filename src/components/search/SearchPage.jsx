@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOKS } from "../../data/books";
 import PageNav from "../PageNav";
@@ -10,12 +10,17 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
   const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
-  const timerRef = useState(null);
+  const [isPending, setIsPending] = useState(false);
+  const timerRef = useRef(null);
 
   function handleInput(val) {
     setQuery(val);
-    if (timerRef[0]) clearTimeout(timerRef[0]);
-    timerRef[0] = setTimeout(() => setDebouncedQuery(val), 300);
+    setIsPending(true);
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setDebouncedQuery(val);
+      setIsPending(false);
+    }, 350);
   }
 
   const { data: results, isLoading } = useSearch(debouncedQuery);
@@ -53,10 +58,13 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
             onChange={e => handleInput(e.target.value)}
             autoFocus
           />
+          {isPending && query && (
+            <span style={{ color: "var(--text-muted)", fontSize: 12, opacity: 0.7 }}>...</span>
+          )}
           {query && (
             <button
               style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)", fontSize: 16 }}
-              onClick={() => { setQuery(""); setDebouncedQuery(""); }}
+              onClick={() => { clearTimeout(timerRef.current); setQuery(""); setDebouncedQuery(""); setIsPending(false); }}
             >
               ✕
             </button>

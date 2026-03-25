@@ -723,6 +723,16 @@
   .forum-tool-btn { font-size: 10px; padding: 4px 9px; }
 }
 
+/* ── Load more ────────────────────────────────────────── */
+.forum-load-more {
+  display: block; width: calc(100% - 32px); margin: 12px 16px;
+  padding: 10px; background: none;
+  border: 1.5px dashed var(--border-color); border-radius: 10px;
+  color: var(--text-muted); font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: border-color 0.15s, color 0.15s;
+}
+.forum-load-more:hover { border-color: var(--accent); color: var(--accent); }
+
 /* ── Report button ─────────────────────────────────────── */
 .forum-report-btn {
   background: none; border: none; color: var(--text-muted);

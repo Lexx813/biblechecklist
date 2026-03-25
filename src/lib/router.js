@@ -19,6 +19,7 @@ export function parsePath() {
   if (h === "bookmarks") return { page: "bookmarks" };
   if (h === "history") return { page: "history" };
   if (h === "feed") return { page: "feed" };
+  if (h === "leaderboard") return { page: "leaderboard" };
   if (h === "about") return { page: "about" };
   if (h === "terms") return { page: "terms" };
   if (h === "privacy") return { page: "privacy" };
@@ -41,6 +42,7 @@ export function buildPath(page, params = {}) {
     case "bookmarks":     return "/bookmarks";
     case "history":       return "/history";
     case "feed":          return "/feed";
+    case "leaderboard":   return "/leaderboard";
     case "about":         return "/about";
     case "terms":         return "/terms";
     case "privacy":       return "/privacy";

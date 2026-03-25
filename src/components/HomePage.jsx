@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import { useTopThreads } from "../hooks/useForum";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
+import { useReadingStreak } from "../hooks/useProgress";
 import DailyVerse from "./home/DailyVerse";
 import PageNav from "./PageNav";
 import PageFooter from "./PageFooter";
@@ -36,6 +37,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { data: topThreads = [] } = useTopThreads(4);
   const { data: profile } = useFullProfile(user?.id);
   const updateProfile = useUpdateProfile(user?.id);
+  const { data: streak = { current_streak: 0, longest_streak: 0 } } = useReadingStreak(user?.id);
   const [showOnboarding, closeOnboarding] = useOnboarding();
   const [notifDismissed, setNotifDismissed] = useState(() => !!localStorage.getItem("nwt-notif-dismissed"));
 
@@ -93,6 +95,19 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       <section className="home-section home-section--verse">
         <DailyVerse />
       </section>
+
+      {/* ── Streak banner ── */}
+      {streak.current_streak > 0 && (
+        <div className="home-streak-banner" onClick={() => navigate("profile")}>
+          <span className="home-streak-fire">🔥</span>
+          <span className="home-streak-text">
+            <strong>{streak.current_streak}</strong>-{t("home.streakDay")} {t("home.streakLabel")}
+          </span>
+          {streak.longest_streak > streak.current_streak && (
+            <span className="home-streak-best">🏆 {t("home.streakBest")}: {streak.longest_streak}</span>
+          )}
+        </div>
+      )}
 
       {/* ── Bible Tracker section ── */}
       <section className="home-section">
@@ -242,6 +257,18 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             ))}
           </div>
         )}
+      </section>
+
+      {/* ── Leaderboard CTA ── */}
+      <section className="home-section">
+        <div className="home-lb-cta" onClick={() => navigate("leaderboard")}>
+          <span className="home-lb-icon">🏆</span>
+          <div>
+            <div className="home-lb-title">{t("home.leaderboardTitle")}</div>
+            <div className="home-lb-sub">{t("home.leaderboardSub")}</div>
+          </div>
+          <span className="home-lb-arrow">›</span>
+        </div>
       </section>
 
       </main>

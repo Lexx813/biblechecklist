@@ -273,6 +273,55 @@
 .pf-reading-meta strong { color: var(--text-primary); font-weight: 800; }
 .pf-dot { color: var(--text-muted); }
 
+.pf-goal { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.pf-goal-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pf-goal-chip { font-size: 13px; color: var(--text-secondary); }
+.pf-goal-chip strong { color: var(--text-primary); }
+.pf-goal-status { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+.pf-goal-status--good { background: rgba(34,197,94,0.12); color: #16a34a; }
+.pf-goal-status--behind { background: rgba(239,68,68,0.1); color: #dc2626; }
+.pf-goal-empty { font-size: 13px; color: var(--text-muted); font-style: italic; }
+.pf-goal-edit-btn {
+  font-size: 12px; font-weight: 600; padding: 4px 10px;
+  background: none; border: 1px solid var(--border-color); border-radius: 8px;
+  color: var(--text-muted); cursor: pointer; margin-left: auto;
+  transition: border-color 0.15s, color 0.15s;
+}
+.pf-goal-edit-btn:hover { border-color: var(--accent); color: var(--accent); }
+.pf-goal-form { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.pf-goal-projection { font-size: 12px; color: var(--text-muted); }
+.pf-goal-projection strong { color: var(--text-primary); }
+
+.pf-streak-row {
+  display: flex;
+  gap: 12px;
+}
+.pf-streak-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 14px 8px;
+}
+.pf-streak-val {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+}
+.pf-streak-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
 .pf-quiz-meta {
   font-size: 12px;
   font-weight: 700;

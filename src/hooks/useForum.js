@@ -20,7 +20,7 @@ export function useCategories() {
   });
 }
 
-export function useThreads(categoryId) {
+export function useThreads(categoryId, limit = 20) {
   const queryClient = useQueryClient();
 
   // Real-time: sync new, edited, and deleted threads live
@@ -38,8 +38,8 @@ export function useThreads(categoryId) {
   }, [categoryId, queryClient]);
 
   return useQuery({
-    queryKey: ["forum", "threads", categoryId],
-    queryFn: () => forumApi.listThreads(categoryId),
+    queryKey: ["forum", "threads", categoryId, limit],
+    queryFn: () => forumApi.listThreads(categoryId, limit),
     enabled: !!categoryId,
     staleTime: 30 * 1000,
   });

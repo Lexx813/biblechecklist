@@ -15,13 +15,14 @@ export const forumApi = {
   },
 
   // Threads in a category with reply count + author
-  listThreads: async (categoryId) => {
+  listThreads: async (categoryId, limit = 20) => {
     const { data, error } = await supabase
       .from("forum_threads")
       .select(`*, ${PROFILE_FIELDS}, forum_replies(count)`)
       .eq("category_id", categoryId)
       .order("pinned", { ascending: false })
-      .order("updated_at", { ascending: false });
+      .order("updated_at", { ascending: false })
+      .limit(limit);
     if (error) throw new Error(error.message);
     return data ?? [];
   },

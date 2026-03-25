@@ -8,7 +8,8 @@ import { useMeta } from "../../hooks/useMeta";
 import { BOOKS } from "../../data/books";
 import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
 import { useNotes, useCreateNote, useUpdateNote, useDeleteNote } from "../../hooks/useNotes";
-import { useProgress } from "../../hooks/useProgress";
+import { useProgress, useReadingStreak } from "../../hooks/useProgress";
+import { usePushNotifications } from "../../hooks/usePushNotifications";
 import { useQuizProgress } from "../../hooks/useQuiz";
 import { useFollowCounts, useIsFollowing, useToggleFollow } from "../../hooks/useFollows";
 import { useUserPosts, useCreatePost, useDeletePost } from "../../hooks/usePosts";
@@ -399,6 +400,7 @@ function FollowSection({ currentUserId, targetId, t }) {
 // ── Notification preferences ──────────────────────────────
 function NotificationPrefs({ profile, userId, t }) {
   const update = useUpdateProfile(userId);
+  const { permission, subscribed, loading: pushLoading, subscribe, unsubscribe } = usePushNotifications(userId);
   const emailBlog   = profile?.email_notifications_blog   ?? false;
   const emailDigest = profile?.email_notifications_digest ?? false;
   const emailStreak = profile?.email_notifications_streak ?? false;
@@ -409,8 +411,29 @@ function NotificationPrefs({ profile, userId, t }) {
     { key: "email_notifications_streak", value: emailStreak, labelKey: "notifStreakLabel", descKey: "notifStreakDesc" },
   ];
 
+  const pushSupported = "Notification" in window && "serviceWorker" in navigator && permission !== "unsupported";
+
   return (
     <div className="pf-notif-prefs">
+      {pushSupported && (
+        <label className="pf-toggle-row">
+          <div className="pf-toggle-info">
+            <span className="pf-toggle-label">{t("profile.notifPushLabel")}</span>
+            <span className="pf-toggle-desc">
+              {permission === "denied" ? t("profile.notifPushDenied") : t("profile.notifPushDesc")}
+            </span>
+          </div>
+          <button
+            role="switch"
+            aria-checked={subscribed}
+            className={`pf-toggle${subscribed ? " pf-toggle--on" : ""}`}
+            onClick={subscribed ? unsubscribe : subscribe}
+            disabled={pushLoading || permission === "denied"}
+          >
+            <span className="pf-toggle-thumb" />
+          </button>
+        </label>
+      )}
       {toggles.map(({ key, value, labelKey, descKey }) => (
         <label key={key} className="pf-toggle-row">
           <div className="pf-toggle-info">
@@ -432,13 +455,85 @@ function NotificationPrefs({ profile, userId, t }) {
   );
 }
 
+// ── Reading Goal ───────────────────────────────────────────
+const TOTAL_CH = 1189;
+function ReadingGoal({ profile, chaptersRead, totalDays, isOwner, t }) {
+  const update = useUpdateProfile(profile?.id);
+  const [editing, setEditing] = useState(false);
+  const [val, setVal] = useState("");
+
+  const goalDate = profile?.reading_goal_date ?? null;
+
+  // Projected completion
+  const projection = useMemo(() => {
+    if (!chaptersRead || !totalDays) return null;
+    const pace = chaptersRead / totalDays; // chapters per day
+    const remaining = TOTAL_CH - chaptersRead;
+    if (remaining <= 0) return null;
+    const daysLeft = Math.ceil(remaining / pace);
+    const projected = new Date();
+    projected.setDate(projected.getDate() + daysLeft);
+    return { projected, daysLeft, pace: pace.toFixed(1) };
+  }, [chaptersRead, totalDays]);
+
+  function saveGoal() {
+    update.mutate({ reading_goal_date: val || null });
+    setEditing(false);
+  }
+
+  const onTrack = goalDate && projection
+    ? new Date(projection.projected) <= new Date(goalDate)
+    : null;
+
+  return (
+    <div className="pf-goal">
+      <div className="pf-goal-row">
+        {goalDate ? (
+          <>
+            <span className="pf-goal-chip">
+              🎯 {t("profile.goalTarget")}: <strong>{new Date(goalDate + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}</strong>
+            </span>
+            {onTrack !== null && (
+              <span className={`pf-goal-status ${onTrack ? "pf-goal-status--good" : "pf-goal-status--behind"}`}>
+                {onTrack ? `✓ ${t("profile.goalOnTrack")}` : `⚠ ${t("profile.goalBehind")}`}
+              </span>
+            )}
+          </>
+        ) : isOwner ? (
+          <span className="pf-goal-empty">{t("profile.goalNotSet")}</span>
+        ) : null}
+        {isOwner && !editing && (
+          <button className="pf-goal-edit-btn" onClick={() => { setVal(goalDate ?? ""); setEditing(true); }}>
+            {goalDate ? t("common.edit") : t("profile.goalSet")}
+          </button>
+        )}
+      </div>
+      {editing && (
+        <div className="pf-goal-form">
+          <input type="date" className="admin-input" value={val} onChange={e => setVal(e.target.value)}
+            min={new Date().toISOString().slice(0, 10)} />
+          <button className="admin-submit-btn" onClick={saveGoal}>{t("common.save")}</button>
+          {goalDate && <button className="admin-action-btn admin-action-btn--danger" onClick={() => { update.mutate({ reading_goal_date: null }); setEditing(false); }}>{t("profile.goalRemove")}</button>}
+          <button className="admin-action-btn" onClick={() => setEditing(false)}>{t("common.cancel")}</button>
+        </div>
+      )}
+      {projection && (
+        <div className="pf-goal-projection">
+          📈 {t("profile.goalPace", { pace: projection.pace })} · {t("profile.goalProjected")}: <strong>{projection.projected.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}</strong>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Main ProfilePage ──────────────────────────────────────
 export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const profileId = viewedUserId ?? user.id;
-  const { data: profile } = useFullProfile(profileId);
+  const { data: profile, isLoading: profileLoading } = useFullProfile(profileId);
   const { data: notes = [], isLoading: notesLoading } = useNotes(isOwner ? profileId : null);
   const { data: readingProgress = {} } = useProgress(profileId);
   const { data: quizProgress = [] } = useQuizProgress(profileId);
+  const { data: streak = { current_streak: 0, longest_streak: 0, total_days: 0 } } = useReadingStreak(profileId);
   const { t } = useTranslation();
   useMeta({ title: profile?.display_name ? `${profile.display_name}'s Profile` : "Profile" });
 
@@ -482,6 +577,15 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
     if (search && !n.content.toLowerCase().includes(search.toLowerCase())) return false;
     return true;
   }), [notes, filterBook, search]);
+
+  if (profileLoading) {
+    return (
+      <div className="pf-wrap">
+        <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
     <div className="pf-wrap">
@@ -531,6 +635,34 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
               <span><strong>{chaptersRead.toLocaleString()}</strong> / {TOTAL_CHAPTERS.toLocaleString()} {t("profile.chapters")}</span>
               <span className="pf-dot">·</span>
               <span><strong>{booksComplete}</strong> / 66 {t("profile.booksComplete")}</span>
+            </div>
+          </div>
+          <ReadingGoal
+            profile={profile}
+            chaptersRead={chaptersRead}
+            totalDays={streak.total_days}
+            isOwner={isOwner}
+            t={t}
+          />
+        </div>
+
+        {/* Reading Streak */}
+        <div className="pf-section pf-section--stats">
+          <div className="pf-section-header">
+            <h2>🔥 {t("profile.readingStreak")}</h2>
+          </div>
+          <div className="pf-streak-row">
+            <div className="pf-streak-card">
+              <span className="pf-streak-val">{streak.current_streak}</span>
+              <span className="pf-streak-label">{t("profile.currentStreak")}</span>
+            </div>
+            <div className="pf-streak-card">
+              <span className="pf-streak-val">{streak.longest_streak}</span>
+              <span className="pf-streak-label">{t("profile.longestStreak")}</span>
+            </div>
+            <div className="pf-streak-card">
+              <span className="pf-streak-val">{streak.total_days}</span>
+              <span className="pf-streak-label">{t("profile.totalDays")}</span>
             </div>
           </div>
         </div>

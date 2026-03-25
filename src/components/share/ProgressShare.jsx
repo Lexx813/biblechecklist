@@ -119,10 +119,25 @@ function draw(canvas, stats, t) {
     ctx.fillText(card.label.toUpperCase(), x + colW / 2, y + 74);
   });
 
+  // Streak row
+  if (stats.streak > 0) {
+    roundRect(ctx, 40, 596, W - 80, 56, 12);
+    ctx.fillStyle = "rgba(234,88,12,0.15)";
+    ctx.fill();
+    ctx.strokeStyle = "rgba(234,88,12,0.3)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.font = "700 20px system-ui, -apple-system, sans-serif";
+    ctx.fillStyle = "#fb923c";
+    ctx.textAlign = "center";
+    ctx.fillText(`🔥 ${stats.streak}-day reading streak`, W / 2, 631);
+  }
+
   // Divider
   ctx.beginPath();
-  ctx.moveTo(50, 600);
-  ctx.lineTo(W - 50, 600);
+  ctx.moveTo(50, stats.streak > 0 ? 668 : 600);
+  ctx.lineTo(W - 50, stats.streak > 0 ? 668 : 600);
   ctx.strokeStyle = "rgba(255,255,255,0.08)";
   ctx.lineWidth = 1;
   ctx.stroke();
@@ -138,7 +153,7 @@ function draw(canvas, stats, t) {
   ctx.font = "600 17px system-ui, -apple-system, sans-serif";
   ctx.fillStyle = "rgba(255,255,255,0.65)";
   ctx.textAlign = "center";
-  ctx.fillText(motiveLine, W / 2, 648);
+  ctx.fillText(motiveLine, W / 2, stats.streak > 0 ? 714 : 648);
 
   // Date
   const today = new Date().toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric" });
@@ -162,6 +177,19 @@ export default function ProgressShare({ stats, onClose }) {
     a.click();
   };
 
+  const webShare = async () => {
+    if (!navigator.share || !navigator.canShare) return download();
+    try {
+      const blob = await new Promise(res => canvasRef.current.toBlob(res, "image/png"));
+      const file = new File([blob], "bible-progress.png", { type: "image/png" });
+      if (navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: "My Bible Reading Progress", text: `I've read ${stats.pct}% of the Bible on NWT Progress!` });
+      } else {
+        download();
+      }
+    } catch { download(); }
+  };
+
   return (
     <div className="share-overlay" onClick={onClose}>
       <div className="share-modal" onClick={e => e.stopPropagation()}>
@@ -173,7 +201,12 @@ export default function ProgressShare({ stats, onClose }) {
           <canvas ref={canvasRef} className="share-canvas" />
         </div>
         <div className="share-modal-actions">
-          <button className="share-download-btn" onClick={download}>
+          {"share" in navigator ? (
+            <button className="share-download-btn" onClick={webShare}>
+              ↗ {t("share.shareBtn")}
+            </button>
+          ) : null}
+          <button className="share-download-btn" onClick={download} style={{ background: "rgba(255,255,255,0.08)" }}>
             ⬇ {t("share.download")}
           </button>
           <p className="share-hint">{t("share.hint")}</p>

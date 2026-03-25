@@ -10,7 +10,8 @@ import ReadingPlanWidget from "./reading/ReadingPlanWidget";
 import ProgressShare from "./share/ProgressShare";
 import LoadingSpinner from "./LoadingSpinner";
 import BookCelebration from "./BookCelebration";
-import { useProgress, useSaveProgress } from "../hooks/useProgress";
+import { useProgress, useSaveProgress, useChapterTimestamps, useReadingStreak } from "../hooks/useProgress";
+import { progressApi } from "../api/progress";
 import { useNotes } from "../hooks/useNotes";
 import { readingApi } from "../api/reading";
 
@@ -19,6 +20,8 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   const queryClient = useQueryClient();
   const { data: remoteProgress, isLoading: progressLoading } = useProgress(user.id);
   const { data: notes = [] } = useNotes(user.id);
+  const { data: chapterTimestamps = {} } = useChapterTimestamps(user.id);
+  const { data: streak = { current_streak: 0, longest_streak: 0 } } = useReadingStreak(user.id);
   const saveProgress = useSaveProgress(user.id);
 
   // Debounced reading log — batches chapter toggles into one API call per second
@@ -65,6 +68,9 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
     setChaptersState(prev => {
       const wasRead = !!prev[bi]?.[ch];
       scheduleLog(wasRead ? -1 : 1);
+      // Record/remove chapter timestamp (fire-and-forget)
+      if (!wasRead) progressApi.markChapterRead(user.id, bi, ch);
+      else progressApi.unmarkChapterRead(user.id, bi, ch);
       const next = { ...prev, [bi]: { ...(prev[bi] || {}), [ch]: !wasRead } };
       if (!wasRead) {
         const total = BOOKS[bi].chapters;
@@ -216,6 +222,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
                   book={book}
                   bookIndex={book.index}
                   chaptersState={chaptersState}
+                  chapterTimestamps={chapterTimestamps[book.index] ?? {}}
                   onToggleChapter={handleToggleChapter}
                   onToggleBook={handleToggleBook}
                   notes={notesByBook.get(book.index) ?? []}
@@ -231,7 +238,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
 
         {showShare && (
           <ProgressShare
-            stats={{ pct, doneCh, totalCh, doneBooks, otDone, ntDone, name: profile?.display_name }}
+            stats={{ pct, doneCh, totalCh, doneBooks, otDone, ntDone, name: profile?.display_name, streak: streak.current_streak, longestStreak: streak.longest_streak }}
             onClose={() => setShowShare(false)}
           />
         )}
