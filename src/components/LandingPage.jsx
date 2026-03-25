@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next";
 import "../styles/landing.css";
+import LanguageSelect from "./LanguageSelect";
 
 export default function LandingPage({ onGetStarted }) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const FEATURES = [
     { icon: "📖", label: t("landing.feature66Books") },
@@ -11,8 +12,6 @@ export default function LandingPage({ onGetStarted }) {
     { icon: "💬", label: t("landing.featureForum") },
     { icon: "✍️", label: t("landing.featureBlog") },
   ];
-
-  const toggleLang = () => i18n.changeLanguage(i18n.language.startsWith("es") ? "en" : "es");
 
   return (
     <div className="landing-wrap">
@@ -29,9 +28,8 @@ export default function LandingPage({ onGetStarted }) {
         <div className="landing-grid" />
       </div>
 
-      {/* Language toggle */}
-      <button
-        onClick={toggleLang}
+      {/* Language select */}
+      <LanguageSelect
         style={{
           position: "absolute", top: 16, right: 16,
           background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)",
@@ -39,9 +37,7 @@ export default function LandingPage({ onGetStarted }) {
           padding: "4px 10px", fontSize: 11, fontWeight: 700,
           fontFamily: "Nunito, sans-serif", cursor: "pointer", zIndex: 10,
         }}
-      >
-        {i18n.language.startsWith("es") ? "EN" : "ES"}
-      </button>
+      />
 
       {/* Hero */}
       <div className="landing-hero">

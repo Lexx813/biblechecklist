@@ -4,6 +4,12 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import en from "./locales/en/translation.json";
 import es from "./locales/es/translation.json";
 
+// Add a new language here — one entry is all that's needed
+export const LANGUAGES = [
+  { code: "en", label: "English" },
+  { code: "es", label: "Español" },
+];
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -13,7 +19,7 @@ i18n
       es: { translation: es },
     },
     fallbackLng: "en",
-    supportedLngs: ["en", "es"],
+    supportedLngs: LANGUAGES.map(l => l.code),
     interpolation: { escapeValue: false },
     detection: {
       order: ["localStorage", "navigator"],

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import "../styles/pagenav.css";
 import AnnouncementBanner from "./AnnouncementBanner";
 import NotificationBell from "./notifications/NotificationBell";
+import LanguageSelect from "./LanguageSelect";
 import { useFullProfile } from "../hooks/useAdmin";
 
 export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage }) {
@@ -82,14 +83,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               {darkMode ? "☀️" : "🌙"}
             </button>
           )}
-          {i18n && (
-            <button
-              className="page-nav-icon-btn"
-              onClick={() => i18n.changeLanguage(i18n.language.startsWith("es") ? "en" : "es")}
-            >
-              {i18n.language.startsWith("es") ? "EN" : "ES"}
-            </button>
-          )}
+          {i18n && <LanguageSelect />}
           {user && onLogout && (
             <button
               className="page-nav-icon-btn page-nav-logout-btn page-nav-logout-desktop"

@@ -170,6 +170,39 @@
   background: rgba(124, 58, 237, 0.07);
 }
 
+/* ── Language select ────────────────────────────────────── */
+.lang-select {
+  background: none;
+  border: 1px solid rgba(138, 75, 255, 0.2);
+  color: rgba(240, 234, 255, 0.7);
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 7px;
+  transition: all 0.15s;
+  line-height: 1;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.lang-select:hover {
+  border-color: rgba(138, 75, 255, 0.45);
+  color: #f0eaff;
+  background: rgba(138, 75, 255, 0.1);
+}
+[data-theme="light"] .lang-select {
+  color: #5b3e8a;
+  border-color: rgba(124, 58, 237, 0.22);
+}
+[data-theme="light"] .lang-select:hover {
+  color: #1e1035;
+  border-color: rgba(124, 58, 237, 0.45);
+  background: rgba(124, 58, 237, 0.07);
+}
+[data-theme="light"] .lang-select option { background: #fff; color: #1e1035; }
+.lang-select option { background: #1e0d3c; color: #f0eaff; }
+
 /* ── Avatar ─────────────────────────────────────────────── */
 .page-nav-avatar-btn {
   width: 32px;

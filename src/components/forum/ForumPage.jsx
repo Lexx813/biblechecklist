@@ -537,7 +537,7 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
   const { t } = useTranslation();
 
   useMeta({ title: "Forum", description: "Join community discussions about Bible reading, faith, and spiritual growth." });
-  const isEs = i18n.language.startsWith("es");
+  const lang = i18n.language.split("-")[0];
 
   const totalThreads = categories.reduce((sum, c) => sum + (c.forum_threads?.[0]?.count ?? 0), 0);
 
@@ -593,8 +593,8 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
             <div key={cat.id} className="forum-cat-card" onClick={() => onSelectCategory(cat)}>
               <div className="forum-cat-icon">{cat.icon}</div>
               <div className="forum-cat-body">
-                <div className="forum-cat-name">{isEs && cat.name_es ? cat.name_es : cat.name}</div>
-                <div className="forum-cat-desc">{isEs && cat.description_es ? cat.description_es : cat.description}</div>
+                <div className="forum-cat-name">{(lang !== "en" && cat[`name_${lang}`]) || cat.name}</div>
+                <div className="forum-cat-desc">{(lang !== "en" && cat[`description_${lang}`]) || cat.description}</div>
               </div>
               <div className="forum-cat-stats">
                 <span className="forum-cat-stat">{t("forum.threadStat", { count: threadCount })}</span>

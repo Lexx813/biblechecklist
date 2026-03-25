@@ -1,36 +1,31 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { VERSES, getDailyVerse } from "../../data/verses";
+import { VERSE_COUNT, getDailyVerseIndex } from "../../data/verses";
 import "../../styles/daily-verse.css";
 
 export default function DailyVerse() {
-  const { t, i18n } = useTranslation();
-  const todayIdx = useMemo(() => {
-    const todayVerse = getDailyVerse();
-    return VERSES.indexOf(todayVerse);
-  }, []);
-  const [idx, setIdx] = useState(todayIdx);
-  const verse = VERSES[idx];
+  const { t } = useTranslation();
+  const [idx, setIdx] = useState(getDailyVerseIndex);
 
-  const prev = () => setIdx(i => (i - 1 + VERSES.length) % VERSES.length);
-  const next = () => setIdx(i => (i + 1) % VERSES.length);
+  const prev = () => setIdx(i => (i - 1 + VERSE_COUNT) % VERSE_COUNT);
+  const next = () => setIdx(i => (i + 1) % VERSE_COUNT);
 
   // Show 5 dots centered on current index
   const dotCount = 5;
   const half = Math.floor(dotCount / 2);
-  const startDot = Math.max(0, Math.min(idx - half, VERSES.length - dotCount));
+  const startDot = Math.max(0, Math.min(idx - half, VERSE_COUNT - dotCount));
 
   return (
     <div className="daily-verse">
       <div className="daily-verse-label">✦ {t("dailyVerse.label")}</div>
-      <p className="daily-verse-text">{i18n.language.startsWith("es") ? (verse.textEs ?? verse.text) : verse.text}</p>
-      <span className="daily-verse-ref">— {i18n.language.startsWith("es") ? verse.ref : (verse.refEn ?? verse.ref)}</span>
+      <p className="daily-verse-text">{t(`verses.${idx}.text`)}</p>
+      <span className="daily-verse-ref">— {t(`verses.${idx}.ref`)}</span>
       <div className="daily-verse-nav">
         <button className="daily-verse-arrow" onClick={prev} title={t("dailyVerse.prev")}>‹</button>
         <div className="daily-verse-dots">
           {Array.from({ length: dotCount }, (_, i) => {
             const dotIdx = startDot + i;
-            if (dotIdx >= VERSES.length) return null;
+            if (dotIdx >= VERSE_COUNT) return null;
             return (
               <button
                 key={dotIdx}
