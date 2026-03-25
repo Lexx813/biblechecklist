@@ -21,6 +21,22 @@ export function useCategories() {
 }
 
 export function useThreads(categoryId) {
+  const queryClient = useQueryClient();
+
+  // Real-time: sync new, edited, and deleted threads live
+  useEffect(() => {
+    if (!categoryId) return;
+    const invalidate = () =>
+      queryClient.invalidateQueries({ queryKey: ["forum", "threads", categoryId] });
+    const channel = supabase
+      .channel(`threads:${categoryId}`)
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "forum_threads", filter: `category_id=eq.${categoryId}` }, invalidate)
+      .on("postgres_changes", { event: "UPDATE", schema: "public", table: "forum_threads", filter: `category_id=eq.${categoryId}` }, invalidate)
+      .on("postgres_changes", { event: "DELETE", schema: "public", table: "forum_threads", filter: `category_id=eq.${categoryId}` }, invalidate)
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
+  }, [categoryId, queryClient]);
+
   return useQuery({
     queryKey: ["forum", "threads", categoryId],
     queryFn: () => forumApi.listThreads(categoryId),
@@ -41,19 +57,16 @@ export function useThread(threadId) {
 export function useReplies(threadId) {
   const queryClient = useQueryClient();
 
-  // Real-time: push new replies live
+  // Real-time: sync INSERT, UPDATE, DELETE live
   useEffect(() => {
     if (!threadId) return;
+    const invalidate = () =>
+      queryClient.invalidateQueries({ queryKey: ["forum", "replies", threadId] });
     const channel = supabase
       .channel(`replies:${threadId}`)
-      .on("postgres_changes", {
-        event: "INSERT",
-        schema: "public",
-        table: "forum_replies",
-        filter: `thread_id=eq.${threadId}`,
-      }, () => {
-        queryClient.invalidateQueries({ queryKey: ["forum", "replies", threadId] });
-      })
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "forum_replies", filter: `thread_id=eq.${threadId}` }, invalidate)
+      .on("postgres_changes", { event: "UPDATE", schema: "public", table: "forum_replies", filter: `thread_id=eq.${threadId}` }, invalidate)
+      .on("postgres_changes", { event: "DELETE", schema: "public", table: "forum_replies", filter: `thread_id=eq.${threadId}` }, invalidate)
       .subscribe();
     return () => { supabase.removeChannel(channel); };
   }, [threadId, queryClient]);
@@ -62,7 +75,7 @@ export function useReplies(threadId) {
     queryKey: ["forum", "replies", threadId],
     queryFn: () => forumApi.listReplies(threadId),
     enabled: !!threadId,
-    staleTime: 15 * 1000, // real-time channel keeps this fresh anyway
+    staleTime: 15 * 1000,
   });
 }
 

@@ -10,4 +10,13 @@ export const searchApi = {
     if (error) throw new Error(error.message);
     return data ?? { posts: [], threads: [] };
   },
+
+  semanticSearch: async (query) => {
+    if (!query || query.trim().length < 3) return { verses: [], posts: [] };
+    const { data, error } = await supabase.functions.invoke("semantic-search", {
+      body: { query: query.trim() },
+    });
+    if (error) throw new Error(error.message);
+    return data ?? { verses: [], posts: [] };
+  },
 };

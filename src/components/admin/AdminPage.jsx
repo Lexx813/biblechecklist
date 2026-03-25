@@ -527,11 +527,20 @@ function AnnouncementsTab({ currentUser }) {
 
 // ── Main AdminPage ─────────────────────────────────────────────────────────────
 export default function AdminPage({ currentUser, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
-  const { data: users = [] } = useUsers();
-  const { data: reports = [] } = useReports();
+  const { data: users = [], isLoading: usersLoading } = useUsers();
+  const { data: reports = [], isLoading: reportsLoading } = useReports();
   const { t } = useTranslation();
 
   const [tab, setTab] = useState("users");
+
+  if (usersLoading || reportsLoading) {
+    return (
+      <div className="admin-wrap">
+        <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={currentUser} onLogout={onLogout} />
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   const adminCount   = users.filter(u => u.is_admin).length;
   const blogCount    = users.filter(u => u.can_blog).length;

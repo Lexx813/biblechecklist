@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { BOOKS } from "../../data/books";
 import PageNav from "../PageNav";
 import LoadingSpinner from "../LoadingSpinner";
-import { useSearch } from "../../hooks/useSearch";
+import { useSearch, useSemanticSearch } from "../../hooks/useSearch";
 import "../../styles/search.css";
 
 export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
@@ -19,6 +19,7 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
   }
 
   const { data: results, isLoading } = useSearch(debouncedQuery);
+  const { data: semantic } = useSemanticSearch(debouncedQuery);
 
   const bookResults = useMemo(() => {
     if (debouncedQuery.trim().length < 2) return [];
@@ -33,7 +34,8 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
 
   const posts = results?.posts ?? [];
   const threads = results?.threads ?? [];
-  const hasResults = bookResults.length > 0 || posts.length > 0 || threads.length > 0;
+  const semanticVerses = semantic?.verses ?? [];
+  const hasResults = bookResults.length > 0 || posts.length > 0 || threads.length > 0 || semanticVerses.length > 0;
   const isTyping = debouncedQuery.trim().length >= 2;
 
   return (
@@ -71,6 +73,21 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
           <p className="search-hint">{t("search.noResults", { query: debouncedQuery })}</p>
         ) : (
           <>
+            {semanticVerses.length > 0 && (
+              <section className="search-section">
+                <h3 className="search-section-title">✨ {t("search.semanticSection")}</h3>
+                {semanticVerses.map(v => (
+                  <div key={v.id} className="search-result" onClick={() => navigate("main")}>
+                    <span className="search-result-icon">📖</span>
+                    <div className="search-result-body">
+                      <span className="search-result-title">{v.book_name} — {v.book_theme}</span>
+                      <span className="search-result-sub">{v.verse_ref}: {v.verse_text}</span>
+                    </div>
+                  </div>
+                ))}
+              </section>
+            )}
+
             {bookResults.length > 0 && (
               <section className="search-section">
                 <h3 className="search-section-title">📖 {t("search.booksSection")}</h3>

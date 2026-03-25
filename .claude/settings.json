@@ -79,7 +79,12 @@
       "Bash(vercel build:*)",
       "Bash(vercel deploy:*)",
       "Bash(node -e \"const es = require\\(''./src/locales/es/translation.json''\\); console.log\\(''es app.home:'', es.app?.home\\); console.log\\(''es app keys:'', Object.keys\\(es.app || {}\\).join\\('', ''\\)\\)\")",
-      "Bash(node -e \"const es = require\\(''./src/locales/es/translation.json''\\); console.log\\(es.app.home\\)\")"
+      "Bash(node -e \"const es = require\\(''./src/locales/es/translation.json''\\); console.log\\(es.app.home\\)\")",
+      "Bash(ls /home/alexi/projects/nwt-progress/.env*)",
+      "Bash(WEBHOOK_SECRET=\"\" node scripts/seed-embeddings.js)",
+      "Bash(WEBHOOK_SECRET=wqd93298h3287ggg8dbh27gd382hd3 node scripts/seed-embeddings.js)",
+      "Bash(python3 -c \":*)",
+      "Bash(python3:*)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"

@@ -13,6 +13,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import PageFooter from "./components/PageFooter";
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useFullProfile } from "./hooks/useAdmin";
+import { useFeatureFlags } from "./hooks/useFeatureFlags";
 import { supabase } from "./lib/supabase";
 import { parsePath, buildPath } from "./lib/router";
 import "./styles/app.css";
@@ -41,6 +42,7 @@ export default function App() {
   const user = session?.user ?? null;
   const { t, i18n } = useTranslation();
 
+  const { maintenanceMode } = useFeatureFlags();
   const [showLanding, setShowLanding] = useState(true);
   const [preAuthPath, setPreAuthPath] = useState(() => window.location.pathname.slice(1));
 
@@ -60,6 +62,7 @@ export default function App() {
   }, []);
 
   if (authLoading) return <LoadingSpinner className="spinner-wrap--fullscreen" />;
+  if (maintenanceMode) return <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh",flexDirection:"column",gap:"1rem"}}><h1>🔧 Maintenance</h1><p>We'll be back shortly.</p></div>;
 
   const legalNav = (p) => { history.pushState(null, "", "/" + p); setPreAuthPath(p); };
   const legalProps = { navigate: legalNav, darkMode: false, setDarkMode: () => {}, i18n, user: null, onLogout: null };

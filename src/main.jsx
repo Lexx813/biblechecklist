@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ErrorBoundary } from './components/ErrorBoundary.jsx'
 import App from './App.jsx'
 import { SpeedInsights } from "@vercel/speed-insights/react"
+import { Analytics } from "@vercel/analytics/react"
 import { toast } from './lib/toast'
 
 if ("serviceWorker" in navigator) {
@@ -58,6 +59,7 @@ createRoot(document.getElementById('root')).render(
       >
         <App />
         <SpeedInsights />
+        <Analytics />
         <ReactQueryDevtools initialIsOpen={false} />
       </PersistQueryClientProvider>
     </ErrorBoundary>

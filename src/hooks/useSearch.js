@@ -9,3 +9,12 @@ export function useSearch(query) {
     staleTime: 2 * 60 * 1000,
   });
 }
+
+export function useSemanticSearch(query) {
+  return useQuery({
+    queryKey: ["semantic-search", query],
+    queryFn: () => searchApi.semanticSearch(query),
+    enabled: !!query && query.trim().length >= 3,
+    staleTime: 5 * 60 * 1000,
+  });
+}
