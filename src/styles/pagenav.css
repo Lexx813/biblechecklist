@@ -93,12 +93,25 @@
   right: 16%;
 }
 
+.page-nav-link--active {
+  color: #f0eaff !important;
+  background: rgba(138, 75, 255, 0.15);
+}
+.page-nav-link--active::after {
+  left: 16% !important;
+  right: 16% !important;
+}
+
 [data-theme="light"] .page-nav-link {
   color: #5b3e8a;
 }
 [data-theme="light"] .page-nav-link:hover {
   color: #1e1035;
   background: rgba(124, 58, 237, 0.08);
+}
+[data-theme="light"] .page-nav-link--active {
+  color: #1e1035 !important;
+  background: rgba(124, 58, 237, 0.12);
 }
 
 /* ── Actions row ────────────────────────────────────────── */
@@ -279,8 +292,13 @@
   background: rgba(138, 75, 255, 0.1);
   color: #f0eaff;
 }
+.page-nav-mobile-link--active {
+  color: #c084fc !important;
+  background: rgba(138, 75, 255, 0.1);
+}
 [data-theme="light"] .page-nav-mobile-link { color: #5b3e8a; }
 [data-theme="light"] .page-nav-mobile-link:hover { background: rgba(124, 58, 237, 0.07); color: #1e1035; }
+[data-theme="light"] .page-nav-mobile-link--active { color: #7c3aed !important; background: rgba(124, 58, 237, 0.09); }
 
 .page-nav-mobile-logout {
   margin-top: 4px;

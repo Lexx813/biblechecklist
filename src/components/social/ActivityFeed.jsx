@@ -29,13 +29,13 @@ function authorName(author) {
   return author?.display_name || author?.email?.split("@")[0] || "Someone";
 }
 
-export default function ActivityFeed({ user, navigate, darkMode, setDarkMode, i18n }) {
+export default function ActivityFeed({ user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const { data: items = [], isLoading } = useActivityFeed(user.id);
 
   return (
     <div className="feed-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
 
       <div className="feed-inner">
         <div className="feed-header">

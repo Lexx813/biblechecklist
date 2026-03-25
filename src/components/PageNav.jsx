@@ -5,7 +5,7 @@ import AnnouncementBanner from "./AnnouncementBanner";
 import NotificationBell from "./notifications/NotificationBell";
 import { useFullProfile } from "../hooks/useAdmin";
 
-export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, onLogout }) {
+export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage }) {
   const { t } = useTranslation();
   const { data: profile } = useFullProfile(user?.id);
   const isAdmin = profile?.is_admin;
@@ -44,20 +44,20 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
 
         {/* Desktop links */}
         <div className="page-nav-links">
-          <button className="page-nav-link" onClick={() => go("home")}>{t("app.home")}</button>
-          <button className="page-nav-link" onClick={() => go("main")}>{t("home.navTracker")}</button>
-          <button className="page-nav-link" onClick={() => go("blog")}>{t("app.blog")}</button>
-          <button className="page-nav-link" onClick={() => go("forum")}>{t("app.forum")}</button>
-          <button className="page-nav-link" onClick={() => go("quiz")}>{t("quiz.nav")}</button>
-          <button className="page-nav-link" onClick={() => go("about")}>About</button>
+          <button className={`page-nav-link${currentPage === "home" ? " page-nav-link--active" : ""}`} onClick={() => go("home")}>{t("app.home")}</button>
+          <button className={`page-nav-link${currentPage === "main" ? " page-nav-link--active" : ""}`} onClick={() => go("main")}>{t("home.navTracker")}</button>
+          <button className={`page-nav-link${currentPage === "blog" ? " page-nav-link--active" : ""}`} onClick={() => go("blog")}>{t("app.blog")}</button>
+          <button className={`page-nav-link${currentPage === "forum" ? " page-nav-link--active" : ""}`} onClick={() => go("forum")}>{t("app.forum")}</button>
+          <button className={`page-nav-link${currentPage === "quiz" ? " page-nav-link--active" : ""}`} onClick={() => go("quiz")}>{t("quiz.nav")}</button>
+          <button className={`page-nav-link${currentPage === "about" ? " page-nav-link--active" : ""}`} onClick={() => go("about")}>About</button>
           {user && (
-            <button className="page-nav-link" onClick={() => go("feed")}>{t("feed.navLink")}</button>
+            <button className={`page-nav-link${currentPage === "feed" ? " page-nav-link--active" : ""}`} onClick={() => go("feed")}>{t("feed.navLink")}</button>
           )}
           {user && (
-            <button className="page-nav-link" onClick={() => go("bookmarks")}>{t("bookmarks.title")}</button>
+            <button className={`page-nav-link${currentPage === "bookmarks" ? " page-nav-link--active" : ""}`} onClick={() => go("bookmarks")}>{t("bookmarks.title")}</button>
           )}
           {isAdmin && (
-            <button className="page-nav-link" onClick={() => go("admin")}>{t("app.admin")}</button>
+            <button className={`page-nav-link${currentPage === "admin" ? " page-nav-link--active" : ""}`} onClick={() => go("admin")}>{t("app.admin")}</button>
           )}
         </div>
 
@@ -127,20 +127,20 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
         {/* Mobile dropdown menu */}
         {menuOpen && (
           <div className="page-nav-mobile-menu">
-            <button className="page-nav-mobile-link" onClick={() => go("home")}>{t("app.home")}</button>
-            <button className="page-nav-mobile-link" onClick={() => go("main")}>{t("home.navTracker")}</button>
-            <button className="page-nav-mobile-link" onClick={() => go("blog")}>{t("app.blog")}</button>
-            <button className="page-nav-mobile-link" onClick={() => go("forum")}>{t("app.forum")}</button>
-            <button className="page-nav-mobile-link" onClick={() => go("quiz")}>{t("quiz.nav")}</button>
-            <button className="page-nav-mobile-link" onClick={() => go("about")}>About</button>
+            <button className={`page-nav-mobile-link${currentPage === "home" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("home")}>{t("app.home")}</button>
+            <button className={`page-nav-mobile-link${currentPage === "main" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("main")}>{t("home.navTracker")}</button>
+            <button className={`page-nav-mobile-link${currentPage === "blog" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("blog")}>{t("app.blog")}</button>
+            <button className={`page-nav-mobile-link${currentPage === "forum" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("forum")}>{t("app.forum")}</button>
+            <button className={`page-nav-mobile-link${currentPage === "quiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("quiz")}>{t("quiz.nav")}</button>
+            <button className={`page-nav-mobile-link${currentPage === "about" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("about")}>About</button>
             {user && (
-              <button className="page-nav-mobile-link" onClick={() => go("feed")}>{t("feed.navLink")}</button>
+              <button className={`page-nav-mobile-link${currentPage === "feed" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("feed")}>{t("feed.navLink")}</button>
             )}
             {user && (
-              <button className="page-nav-mobile-link" onClick={() => go("bookmarks")}>{t("bookmarks.title")}</button>
+              <button className={`page-nav-mobile-link${currentPage === "bookmarks" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("bookmarks")}>{t("bookmarks.title")}</button>
             )}
             {isAdmin && (
-              <button className="page-nav-mobile-link" onClick={() => go("admin")}>{t("app.admin")}</button>
+              <button className={`page-nav-mobile-link${currentPage === "admin" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("admin")}>{t("app.admin")}</button>
             )}
             {user && onLogout && (
               <button className="page-nav-mobile-link page-nav-mobile-logout" onClick={() => { setMenuOpen(false); onLogout(); }}>

@@ -305,7 +305,7 @@ function BibleApp({ user, onLogout }) {
     );
   }
 
-  const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout };
+  const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page };
 
   const pageFallback = (
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
@@ -380,8 +380,9 @@ function BibleApp({ user, onLogout }) {
   if (nav.page === "privacy") return <Page><PrivacyPage {...sharedNav} /></Page>;
 
   return (
+    <>
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="main" />
     <div className="app-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
       {/* Header */}
       <header className="app-header">
         <div className="header-top">
@@ -505,5 +506,6 @@ function BibleApp({ user, onLogout }) {
         />
       )}
     </div>
+    </>
   );
 }

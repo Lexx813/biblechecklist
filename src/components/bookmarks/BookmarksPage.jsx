@@ -3,14 +3,14 @@ import PageNav from "../PageNav";
 import { useBookmarks, useToggleBookmark } from "../../hooks/useBookmarks";
 import "../../styles/bookmarks.css";
 
-export default function BookmarksPage({ user, onBack, navigate, darkMode, setDarkMode, i18n }) {
+export default function BookmarksPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const { data: bookmarks = { threads: [], posts: [] }, isLoading } = useBookmarks(user?.id);
   const toggle = useToggleBookmark(user?.id);
 
   return (
     <div className="bm-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
       <div className="bm-header">
         <button className="blog-back-btn" onClick={onBack}>{t("common.back")}</button>
         <h1 className="bm-title">{t("bookmarks.title")}</h1>
