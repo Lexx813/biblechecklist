@@ -92,7 +92,8 @@
       "Bash(grep -n \"dangerouslySetInnerHTML\\\\|innerHTML\\\\|sanitize\\\\|DOMPurify\" /home/alexi/projects/nwt-progress/src/components/blog/*.jsx /home/alexi/projects/nwt-progress/src/components/forum/*.jsx /home/alexi/projects/nwt-progress/src/components/RichTextEditor.jsx)",
       "Bash(ffmpeg -i /home/alexi/projects/nwt-progress/public/og-image.png -vf scale=1200:630 -compression_level 9 /home/alexi/projects/nwt-progress/public/og-image-compressed.png)",
       "Bash(npx sharp-cli:*)",
-      "Bash(npx @squoosh/cli --mozjpeg {} -d /home/alexi/projects/nwt-progress/public/ /home/alexi/projects/nwt-progress/public/og-image.png)"
+      "Bash(npx @squoosh/cli --mozjpeg {} -d /home/alexi/projects/nwt-progress/public/ /home/alexi/projects/nwt-progress/public/og-image.png)",
+      "Bash(npm uninstall:*)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"

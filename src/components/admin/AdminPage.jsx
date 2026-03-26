@@ -20,7 +20,7 @@ function formatDate(iso) {
 // ── Users Tab ─────────────────────────────────────────────────────────────────
 const USERS_PAGE_SIZE = 20;
 
-function UsersTab({ currentUser }) {
+function UsersTab({ currentUser, navigate }) {
   const { data: users = [], isLoading } = useUsers();
   const deleteUser = useDeleteUser();
   const setAdmin = useSetAdmin();
@@ -117,7 +117,12 @@ function UsersTab({ currentUser }) {
               {pageUsers.map(user => (
                 <tr key={user.id} className={user.id === currentUser.id ? "admin-table-row--self" : ""}>
                   <td>
-                    <div className="admin-user-cell">
+                    <div
+                      className="admin-user-cell"
+                      onClick={() => navigate("publicProfile", { userId: user.id })}
+                      style={{ cursor: "pointer" }}
+                      title="View profile"
+                    >
                       <div className="admin-avatar">{initials(user.email)}</div>
                       <div>
                         <div className="admin-email">{user.email}</div>
@@ -642,7 +647,7 @@ export default function AdminPage({ currentUser, onBack, navigate, darkMode, set
         </div>
 
         {/* Tab content */}
-        {tab === "users" && <UsersTab currentUser={currentUser} />}
+        {tab === "users" && <UsersTab currentUser={currentUser} navigate={navigate} />}
         {tab === "reports" && <ReportsTab />}
         {tab === "quiz" && <QuizTab />}
         {tab === "announcements" && <AnnouncementsTab currentUser={currentUser} />}
