@@ -1,4 +1,4 @@
-const CACHE = "nwt-v2";
+const CACHE = "nwt-v3";
 const STATIC_EXTENSIONS = /\.(js|css|png|jpg|jpeg|svg|gif|webp|woff2?|ico)$/;
 
 self.addEventListener("install", () => self.skipWaiting());
