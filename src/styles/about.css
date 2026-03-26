@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 
 .about-wrap {
   min-height: 100vh;
   background: var(--bg);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
 }
 
 /* ── Hero ─────────────────────────────────────────────────────────── */
@@ -317,7 +317,7 @@
   background: #fff;
   color: var(--teal-dark);
   border: none;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 14px;
   font-weight: 800;
   padding: 13px 32px;

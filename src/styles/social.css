@@ -191,7 +191,7 @@
   gap: 6px;
   padding: 8px 22px;
   border-radius: 999px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 13px;
   font-weight: 800;
   cursor: pointer;
@@ -271,7 +271,7 @@
   border: none;
   outline: none;
   resize: none;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 14px;
   color: var(--text-primary);
   line-height: 1.55;
@@ -297,7 +297,7 @@
   background: var(--teal);
   border: none;
   border-radius: 999px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 13px;
   font-weight: 800;
   color: #fff;

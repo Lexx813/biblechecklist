@@ -48,7 +48,7 @@
   padding: 9px 12px; border-radius: 10px;
   border: 1.5px solid var(--border); background: var(--bg);
   font-size: 14px; color: var(--text-primary);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   outline: none; width: 100%; box-sizing: border-box;
   transition: border-color 0.15s;
 }
@@ -76,7 +76,7 @@
 /* Buttons */
 .st-btn {
   padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700;
-  font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif; cursor: pointer;
   border: none; white-space: nowrap; transition: opacity 0.15s, background 0.15s;
 }
 .st-btn:disabled { opacity: 0.45; cursor: default; }

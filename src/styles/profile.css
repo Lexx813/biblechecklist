@@ -1,7 +1,7 @@
 .pf-wrap {
   min-height: 100vh;
   background: var(--bg);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
 }
 
 /* ── HEADER ── */
@@ -23,7 +23,7 @@
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.25);
   color: rgba(255,255,255,0.9);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 13px;
   font-weight: 700;
   padding: 6px 14px;
@@ -38,7 +38,7 @@
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.25);
   color: rgba(255,255,255,0.9);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 13px;
   font-weight: 700;
   padding: 6px 14px;
@@ -51,7 +51,7 @@
 .pf-settings-btn:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
 .pf-settings-btn:active { transform: translateY(0); }
 .pf-header-title {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 18px;
   font-weight: 700;
   color: #fff;
@@ -167,7 +167,7 @@
   margin-top: 14px;
 }
 .pf-name-input {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 16px;
   font-weight: 700;
   padding: 6px 12px;
@@ -181,7 +181,7 @@
   background: var(--teal);
   color: #fff;
   border: none;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 12px;
   font-weight: 700;
   padding: 6px 14px;
@@ -268,7 +268,7 @@
   border-radius: 10px;
   border: 1.5px solid var(--border);
   background: var(--bg);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 14px;
   color: var(--text-primary);
   resize: vertical;
@@ -353,7 +353,7 @@
 .pf-goal-set-btn {
   font-size: 13px; font-weight: 700; padding: 6px 16px;
   background: var(--accent); color: #fff; border: none; border-radius: 10px;
-  cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;
+  cursor: pointer; font-family: 'Plus Jakarta Sans Variable', sans-serif;
   transition: opacity 0.15s;
 }
 .pf-goal-set-btn:hover { opacity: 0.85; }
@@ -369,7 +369,7 @@
 .pf-goal-calendar {
   --rdp-accent-color: var(--accent);
   --rdp-accent-background-color: var(--accent-light);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 13px;
 }
 .pf-goal-calendar .rdp-day_button {
@@ -407,7 +407,7 @@
 .pf-goal-save-btn {
   padding: 7px 18px; border-radius: 10px; border: none; cursor: pointer;
   background: var(--accent); color: #fff; font-weight: 700; font-size: 13px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   transition: opacity 0.15s;
 }
 .pf-goal-save-btn:disabled { opacity: 0.45; cursor: default; }
@@ -415,14 +415,14 @@
 .pf-goal-remove-btn {
   padding: 7px 14px; border-radius: 10px; border: 1.5px solid rgba(239,68,68,0.35); cursor: pointer;
   background: none; color: #dc2626; font-weight: 600; font-size: 13px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   transition: background 0.15s;
 }
 .pf-goal-remove-btn:hover { background: rgba(239,68,68,0.08); }
 .pf-goal-cancel-btn {
   padding: 7px 14px; border-radius: 10px; border: 1.5px solid var(--border); cursor: pointer;
   background: none; color: var(--text-muted); font-weight: 600; font-size: 13px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   transition: border-color 0.15s, color 0.15s;
 }
 .pf-goal-cancel-btn:hover { border-color: var(--text-secondary); color: var(--text-secondary); }
@@ -591,7 +591,7 @@
   background: var(--teal);
   color: #fff;
   border: none;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 12px;
   font-weight: 800;
   padding: 7px 16px;
@@ -619,7 +619,7 @@
   background: var(--bg);
 }
 .pf-filter-select, .pf-filter-search {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 13px;
   padding: 7px 12px;
   border: 1.5px solid var(--border);
@@ -694,7 +694,7 @@
 }
 .note-form-optional { font-weight: 500; text-transform: none; color: var(--text-muted); }
 .note-form-select {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 13px;
   padding: 8px 10px;
   border: 1.5px solid var(--border);
@@ -706,7 +706,7 @@
 }
 .note-form-select:focus { border-color: var(--teal); }
 .note-form-textarea {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 14px;
   padding: 10px 14px;
   border: 1.5px solid var(--border);
@@ -723,7 +723,7 @@
 .note-form-cancel {
   background: none;
   border: 1.5px solid var(--border);
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 13px;
   font-weight: 700;
   padding: 8px 16px;
@@ -737,7 +737,7 @@
   background: var(--teal);
   color: #fff;
   border: none;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 13px;
   font-weight: 800;
   padding: 8px 20px;
