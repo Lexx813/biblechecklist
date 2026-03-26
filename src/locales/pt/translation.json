@@ -48,6 +48,8 @@
     "testamentOT": "Escrituras Hebraicas",
     "testamentNT": "Escrituras Gregas Cristãs",
     "noBooksFound": "Nenhum livro corresponde à sua pesquisa.",
+    "addNote": "Adicionar Nota",
+    "quickNoteTitle": "Adicionar Nota",
     "resetProgress": "↺ Redefinir todo o progresso",
     "resetConfirmMsg": "Isso limpará todo o seu progresso de leitura. Essa ação não pode ser desfeita.",
     "resetConfirmBtn": "Redefinir",
@@ -428,7 +430,10 @@
     "notifBannerTitle": "Fique por dentro",
     "notifBannerSub": "Receba um e-mail quando uma nova postagem do blog for publicada.",
     "notifEnable": "Notifique-me",
-    "notifDismiss": "Não, obrigado"
+    "notifDismiss": "Não, obrigado",
+    "streakDay": "dia",
+    "streakLabel": "sequência de leitura",
+    "streakBest": "Melhor"
   },
   "stats": {
     "streak_one": "dia de sequência",

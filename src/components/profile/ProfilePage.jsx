@@ -148,7 +148,7 @@ function NoteForm({ userId, initial, onDone }) {
   function handleSubmit(e) {
     e.preventDefault();
     if (!content.trim()) return;
-    const payload = { book_index: bookIndex, chapter, verse: verse ? Number(verse) : null, content: content.trim() };
+    const payload = { book_index: bookIndex, chapter, verse: verse.trim() || null, content: content.trim() };
     if (initial) {
       updateNote.mutate({ noteId: initial.id, updates: payload }, { onSuccess: onDone });
     } else {
@@ -181,9 +181,7 @@ function NoteForm({ userId, initial, onDone }) {
             id="note-verse"
             name="verse"
             className="note-form-select"
-            type="number"
-            min={1}
-            max={200}
+            type="text"
             placeholder="—"
             value={verse}
             onChange={e => setVerse(e.target.value)}

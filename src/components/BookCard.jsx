@@ -7,7 +7,7 @@ function formatReadDate(iso) {
   return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
 }
 
-const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, onToggleChapter, onToggleBook, notes = [] }) {
+const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, onToggleChapter, onToggleBook, notes = [], onAddNote }) {
   const [open, setOpen] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const { t } = useTranslation();
@@ -62,16 +62,26 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
 
       {open && (
         <div className="chapters-panel">
-          {/* Book info toggle */}
-          {info && (
-            <button
-              className="book-info-toggle"
-              onClick={() => setShowInfo(s => !s)}
-            >
-              <span>{showInfo ? "▾" : "▸"}</span>
-              {t("book.infoToggle")}
-            </button>
-          )}
+          {/* Book info toggle + Add Note */}
+          <div className="book-top-actions">
+            {info && (
+              <button
+                className="book-info-toggle"
+                onClick={() => setShowInfo(s => !s)}
+              >
+                <span>{showInfo ? "▾" : "▸"}</span>
+                {t("book.infoToggle")}
+              </button>
+            )}
+            {onAddNote && (
+              <button
+                className="ch-add-note-btn"
+                onClick={() => onAddNote(bookIndex)}
+              >
+                + {t("app.addNote")}
+              </button>
+            )}
+          </div>
 
           {/* Book info panel */}
           {showInfo && info && (

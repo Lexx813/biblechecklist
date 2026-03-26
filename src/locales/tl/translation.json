@@ -48,6 +48,8 @@
     "testamentOT": "Hebreong Kasulatan",
     "testamentNT": "Kristiyanong Griyegong Kasulatan",
     "noBooksFound": "Walang aklat na tumutugma sa iyong paghahanap.",
+    "addNote": "Magdagdag ng Tala",
+    "quickNoteTitle": "Magdagdag ng Tala",
     "resetProgress": "↺ I-reset ang lahat ng pag-unlad",
     "resetConfirmMsg": "Mabubura nito ang lahat ng iyong pag-unlad sa pagbabasa. Hindi ito maaaring bawiin.",
     "resetConfirmBtn": "I-reset",
@@ -428,7 +430,10 @@
     "notifBannerTitle": "Manatiling updated",
     "notifBannerSub": "Makatanggap ng email kapag may na-publish na bagong post sa blog.",
     "notifEnable": "Abisuhan ako",
-    "notifDismiss": "Hindi, salamat"
+    "notifDismiss": "Hindi, salamat",
+    "streakDay": "araw",
+    "streakLabel": "sunod-sunod na pagbabasa",
+    "streakBest": "Pinakamahusay"
   },
   "stats": {
     "streak_one": "araw na streak",

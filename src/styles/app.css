@@ -296,10 +296,11 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
 .ch-action-btn.primary:hover { background: var(--teal-dark); }
 
 /* BOOK INFO */
+.book-top-actions { margin-bottom: 12px; }
 .book-info-toggle {
   display: flex; align-items: center; gap: 6px;
   background: none; border: 1px solid var(--border);
-  border-radius: 8px; padding: 5px 12px; margin-bottom: 12px;
+  border-radius: 8px; padding: 5px 12px;
   font-size: 12px; font-weight: 700; color: var(--text-secondary);
   cursor: pointer; transition: all 0.15s; font-family: inherit;
 }
@@ -376,6 +377,100 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); colo
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+
+/* Book top actions row (About this book + Add Note) */
+.book-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Add Note button in BookCard */
+.ch-add-note-btn {
+  background: none;
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.ch-add-note-btn:hover { border-color: var(--teal); color: var(--teal); }
+
+/* Quick Note Modal */
+.qn-backdrop {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.45);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.qn-modal {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  width: 100%; max-width: 520px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+  display: flex; flex-direction: column; gap: 0;
+  overflow: hidden;
+}
+.qn-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.qn-title { font-size: 1rem; font-weight: 800; color: var(--text-primary); margin: 0; }
+.qn-close {
+  background: none; border: none; font-size: 1rem;
+  color: var(--text-muted); cursor: pointer; line-height: 1;
+  padding: 4px 6px; border-radius: 6px;
+}
+.qn-close:hover { background: var(--bg-secondary); color: var(--text-primary); }
+.qn-form { display: flex; flex-direction: column; gap: 14px; padding: 20px; }
+.qn-book-row { display: flex; gap: 10px; align-items: flex-end; }
+.qn-field { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.qn-field--sm { flex: 0 0 80px; }
+.qn-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.04em; }
+.qn-optional { font-weight: 400; opacity: 0.7; }
+.qn-input, .qn-select {
+  padding: 7px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.qn-input--readonly { color: var(--text-muted); cursor: default; }
+.qn-input:focus, .qn-select:focus { outline: none; border-color: var(--teal); }
+.qn-textarea {
+  padding: 10px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+.qn-textarea:focus { outline: none; border-color: var(--teal); }
+.qn-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.qn-btn {
+  padding: 8px 18px; border-radius: var(--radius-sm);
+  font-size: 0.875rem; font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer;
+  border: 1.5px solid transparent; transition: background 0.15s, border-color 0.15s;
+}
+.qn-btn--ghost { background: none; border-color: var(--border); color: var(--text-muted); }
+.qn-btn--ghost:hover { border-color: var(--text-secondary); color: var(--text-secondary); }
+.qn-btn--primary { background: var(--teal); color: #fff; border-color: var(--teal); }
+.qn-btn--primary:hover { background: var(--teal-dark); }
+.qn-btn--primary:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* READING HABIT STATS */
 .reading-stats-bar {

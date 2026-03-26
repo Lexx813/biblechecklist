@@ -12,7 +12,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import BookCelebration from "./BookCelebration";
 import { useProgress, useSaveProgress, useChapterTimestamps, useReadingStreak } from "../hooks/useProgress";
 import { progressApi } from "../api/progress";
-import { useNotes } from "../hooks/useNotes";
+import { useNotes, useCreateNote } from "../hooks/useNotes";
 import { readingApi } from "../api/reading";
 
 export default function ChecklistPage({ user, profile, navigate, darkMode, setDarkMode, i18n, onLogout }) {
@@ -48,6 +48,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   const [showResetConfirm, setShowResetConfirm] = useState(false);
   const [showShare, setShowShare] = useState(false);
   const [celebrateBook, setCelebrateBook] = useState(null); // { name, icon, chapters }
+  const [noteModal, setNoteModal] = useState(null); // { bookIndex } | null
 
   // Populate state once remote progress has loaded
   useEffect(() => {
@@ -228,6 +229,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
                   onToggleChapter={handleToggleChapter}
                   onToggleBook={handleToggleBook}
                   notes={notesByBook.get(book.index) ?? []}
+                  onAddNote={(bookIndex) => setNoteModal({ bookIndex })}
                 />
               </div>
             );
@@ -264,8 +266,114 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
             onClose={() => setCelebrateBook(null)}
           />
         )}
+
+        {noteModal && (
+          <QuickNoteModal
+            userId={user.id}
+            bookIndex={noteModal.bookIndex}
+            onClose={() => setNoteModal(null)}
+          />
+        )}
       </div>
       <PageFooter />
     </>
+  );
+}
+
+// ── Quick Note Modal ───────────────────────────────────────────────────────────
+
+function QuickNoteModal({ userId, bookIndex, onClose }) {
+  const { t } = useTranslation();
+  const createNote = useCreateNote(userId);
+  const book = BOOKS[bookIndex];
+  const totalChapters = book?.chapters ?? 1;
+
+  const [chapter, setChapter] = useState(1);
+  const [verse, setVerse] = useState("");
+  const [content, setContent] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!content.trim()) return;
+    createNote.mutate(
+      { book_index: bookIndex, chapter, verse: verse.trim() || null, content: content.trim() },
+      { onSuccess: onClose }
+    );
+  }
+
+  // Close on backdrop click or Escape
+  function handleBackdrop(e) {
+    if (e.target === e.currentTarget) onClose();
+  }
+  useEffect(() => {
+    const handler = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose]);
+
+  const bookName = t(`bookNames.${bookIndex}`, book?.name ?? "");
+
+  return (
+    <div className="qn-backdrop" onClick={handleBackdrop}>
+      <div className="qn-modal" role="dialog" aria-modal="true" aria-label={t("app.quickNoteTitle")}>
+        <div className="qn-header">
+          <h2 className="qn-title">{t("app.quickNoteTitle")}</h2>
+          <button className="qn-close" onClick={onClose} aria-label={t("common.cancel")}>✕</button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="qn-form">
+          <div className="qn-book-row">
+            <div className="qn-field">
+              <label className="qn-label" htmlFor="qn-book">{t("profile.bookLabel")}</label>
+              <input id="qn-book" name="book" className="qn-input qn-input--readonly" value={bookName} readOnly />
+            </div>
+            <div className="qn-field qn-field--sm">
+              <label className="qn-label" htmlFor="qn-chapter">{t("profile.chapterLabel")}</label>
+              <select id="qn-chapter" name="chapter" className="qn-select" value={chapter} onChange={e => setChapter(Number(e.target.value))}>
+                {Array.from({ length: totalChapters }, (_, i) => (
+                  <option key={i + 1} value={i + 1}>{i + 1}</option>
+                ))}
+              </select>
+            </div>
+            <div className="qn-field qn-field--sm">
+              <label className="qn-label" htmlFor="qn-verse">
+                {t("profile.verseLabel")} <span className="qn-optional">{t("profile.verseOptional")}</span>
+              </label>
+              <input
+                id="qn-verse"
+                name="verse"
+                type="text"
+                className="qn-input"
+                value={verse}
+                onChange={e => setVerse(e.target.value)}
+                placeholder="—"
+              />
+            </div>
+          </div>
+
+          <div className="qn-field">
+            <label className="qn-label" htmlFor="qn-content">{t("profile.notePlaceholder")}</label>
+            <textarea
+              id="qn-content"
+              name="content"
+              className="qn-textarea"
+              value={content}
+              onChange={e => setContent(e.target.value)}
+              placeholder={t("profile.notePlaceholder")}
+              rows={5}
+              autoFocus
+              maxLength={2000}
+            />
+          </div>
+
+          <div className="qn-actions">
+            <button type="button" className="qn-btn qn-btn--ghost" onClick={onClose}>{t("common.cancel")}</button>
+            <button type="submit" className="qn-btn qn-btn--primary" disabled={!content.trim() || createNote.isPending}>
+              {createNote.isPending ? t("common.saving") : t("profile.saveNote")}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }

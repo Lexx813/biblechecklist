@@ -48,6 +48,8 @@
     "testamentOT": "Escrituras Hebreas",
     "testamentNT": "Escrituras Griegas Cristianas",
     "noBooksFound": "Ningún libro coincide con tu búsqueda.",
+    "addNote": "Agregar Nota",
+    "quickNoteTitle": "Agregar Nota",
     "resetProgress": "↺ Reiniciar todo el progreso",
     "resetConfirmMsg": "Esto borrará todo tu progreso de lectura. Esta acción no se puede deshacer.",
     "resetConfirmBtn": "Reiniciar",
@@ -428,7 +430,10 @@
     "notifBannerTitle": "Mantente al día",
     "notifBannerSub": "Recibe un correo cuando se publique una nueva entrada.",
     "notifEnable": "Notificarme",
-    "notifDismiss": "No, gracias"
+    "notifDismiss": "No, gracias",
+    "streakDay": "día",
+    "streakLabel": "racha de lectura",
+    "streakBest": "Mejor"
   },
   "stats": {
     "streak_one": "día seguido",

@@ -48,6 +48,8 @@
     "testamentOT": "Hebrew Scriptures",
     "testamentNT": "Christian Greek Scriptures",
     "noBooksFound": "No books match your search.",
+    "addNote": "Add Note",
+    "quickNoteTitle": "Add Note",
     "resetProgress": "↺ Reset all progress",
     "resetConfirmMsg": "This will clear all your reading progress. This cannot be undone.",
     "resetConfirmBtn": "Reset",
