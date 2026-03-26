@@ -10,6 +10,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
   const { t } = useTranslation();
   const { data: profile } = useFullProfile(user?.id);
   const isAdmin = profile?.is_admin;
+  const canModerate = isAdmin || profile?.is_moderator;
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -58,8 +59,10 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
           {user && (
             <button className={`page-nav-link${currentPage === "bookmarks" ? " page-nav-link--active" : ""}`} onClick={() => go("bookmarks")}>{t("bookmarks.title")}</button>
           )}
-          {isAdmin && (
-            <button className={`page-nav-link${currentPage === "admin" ? " page-nav-link--active" : ""}`} onClick={() => go("admin")}>{t("app.admin")}</button>
+          {canModerate && (
+            <button className={`page-nav-link${currentPage === "admin" ? " page-nav-link--active" : ""}`} onClick={() => go("admin")}>
+              {isAdmin ? t("app.admin") : "Moderation"}
+            </button>
           )}
         </div>
 
@@ -134,8 +137,10 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
             {user && (
               <button className={`page-nav-mobile-link${currentPage === "bookmarks" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("bookmarks")}>{t("bookmarks.title")}</button>
             )}
-            {isAdmin && (
-              <button className={`page-nav-mobile-link${currentPage === "admin" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("admin")}>{t("app.admin")}</button>
+            {canModerate && (
+              <button className={`page-nav-mobile-link${currentPage === "admin" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("admin")}>
+                {isAdmin ? t("app.admin") : "Moderation"}
+              </button>
             )}
             {user && onLogout && (
               <button className="page-nav-mobile-link page-nav-mobile-logout" onClick={() => { setMenuOpen(false); onLogout(); }}>

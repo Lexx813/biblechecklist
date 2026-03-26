@@ -1,7 +1,7 @@
 import { supabase } from "../lib/supabase";
 import { assertNoPII } from "../lib/pii";
 
-const PROFILE_FIELDS = "profiles!author_id(display_name, avatar_url, top_badge_level)";
+const PROFILE_FIELDS = "profiles!author_id(display_name, avatar_url, top_badge_level, is_moderator, is_admin)";
 
 export const forumApi = {
   // Categories with translations + thread counts.

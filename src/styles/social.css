@@ -396,3 +396,23 @@
   cursor: default;
   vertical-align: middle;
 }
+
+.forum-role-chip {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 1px 5px;
+  margin-left: 5px;
+  vertical-align: middle;
+  cursor: default;
+}
+.forum-role-chip--mod {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+.forum-role-chip--admin {
+  background: #ede9fe;
+  color: #6d28d9;
+}

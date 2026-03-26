@@ -64,6 +64,22 @@ export function useUploadAvatar(userId) {
   });
 }
 
+export function useSetModerator() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ userId, value }) => adminApi.setModerator(userId, value),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "users"] }),
+  });
+}
+
+export function useBanUser() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ userId, value }) => adminApi.banUser(userId, value),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "users"] }),
+  });
+}
+
 export function useSetBlog() {
   const queryClient = useQueryClient();
   return useMutation({

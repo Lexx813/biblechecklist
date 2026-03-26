@@ -177,7 +177,7 @@ function BibleApp({ user, onLogout, i18n }) {
   if (nav.page === "home") return <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} /></Page>;
   if (nav.page === "main") return <Page><ChecklistPage user={user} profile={profile} {...sharedNav} /></Page>;
 
-  if (nav.page === "admin")    return <Page><AdminPage currentUser={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  if (nav.page === "admin")    return <Page><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   if (nav.page === "profile")  return <Page><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   if (nav.page === "settings") return <Page><SettingsPage user={user} onBack={() => navigate("profile")} {...sharedNav} /></Page>;
   if (nav.page === "publicProfile") return (

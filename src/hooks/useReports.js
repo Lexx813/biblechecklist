@@ -31,3 +31,13 @@ export function useDeleteReport() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["reports"] }),
   });
 }
+
+export function useDeleteReportedContent() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ reportId, contentType, contentId }) =>
+      reportsApi.deleteContent(contentType, contentId)
+        .then(() => reportsApi.delete(reportId)),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["reports"] }),
+  });
+}

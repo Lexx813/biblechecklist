@@ -32,6 +32,12 @@ function BadgeChip({ level }) {
   );
 }
 
+function ModBadge({ profile }) {
+  if (profile?.is_admin) return <span className="forum-role-chip forum-role-chip--admin" title="Admin">⚙️</span>;
+  if (profile?.is_moderator) return <span className="forum-role-chip forum-role-chip--mod" title="Moderator">🛡️</span>;
+  return null;
+}
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function displayName(profile) {
   return profile?.display_name || profile?.email?.split("@")[0] || "Anonymous";
@@ -99,9 +105,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
     );
   }
 
-  const isAdmin  = profile?.is_admin;
-  const isAuthor = thread?.author_id === user.id;
-  const isLocked = thread?.locked;
+  const isAdmin      = profile?.is_admin;
+  const canModerate  = isAdmin || profile?.is_moderator;
+  const isAuthor     = thread?.author_id === user.id;
+  const isLocked     = thread?.locked;
 
   function startEdit() {
     if (!thread) return;
@@ -156,7 +163,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
         </div>
         <div className="forum-admin-tools">
           <BookmarkButton userId={user.id} threadId={threadId} />
-          {isAdmin && (
+          {canModerate && (
             <>
               <button className="forum-tool-btn" onClick={() => pinThread.mutate({ threadId, value: !thread.pinned })}>
                 {thread.pinned ? t("forum.unpin") : t("forum.pin")}
@@ -166,10 +173,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
               </button>
             </>
           )}
-          {(isAdmin || isAuthor) && !editing && (
+          {(canModerate || isAuthor) && !editing && (
             <button className="forum-tool-btn" onClick={startEdit}>{t("common.edit")}</button>
           )}
-          {(isAdmin || isAuthor) && (
+          {(canModerate || isAuthor) && (
             <button className="forum-tool-btn forum-tool-btn--danger" onClick={handleDeleteThread}>
               {t("common.delete")}
             </button>
@@ -184,6 +191,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
           <span className="forum-post-author">
             {displayName(thread.profiles)}
             <BadgeChip level={thread.profiles?.top_badge_level} />
+            <ModBadge profile={thread.profiles} />
           </span>
           <span className="forum-post-time">{timeAgo(thread.created_at, t)}</span>
           <span className="forum-post-badge forum-post-badge--op">{t("forum.op")}</span>
@@ -251,7 +259,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
             <div className="forum-replies-count">{t("forum.replyCount", { count: replies.length })}</div>
           )}
           {replies.map((reply, i) => {
-            const canModify = isAdmin || reply.author_id === user.id;
+            const canModify = canModerate || reply.author_id === user.id;
             const isEditingThis = editingReplyId === reply.id;
             return (
               <div key={reply.id} className={`forum-post${reply.is_solution ? " forum-post--solution" : ""}`}>
@@ -260,6 +268,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
                   <span className="forum-post-author">
                     {displayName(reply.profiles)}
                     <BadgeChip level={reply.profiles?.top_badge_level} />
+                    <ModBadge profile={reply.profiles} />
                   </span>
                   <span className="forum-post-time">{timeAgo(reply.created_at, t)}</span>
                   {reply.is_solution
@@ -310,7 +319,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
                       >
                         👍 <span className="forum-like-count">{reply.like_count ?? 0}</span>
                       </button>
-                      {(isAuthor || isAdmin) && (
+                      {(isAuthor || canModerate) && (
                         <button
                           className={`forum-solution-btn${reply.is_solution ? " forum-solution-btn--active" : ""}`}
                           onClick={() => markSolution.mutate({ replyId: reply.id, value: !reply.is_solution })}

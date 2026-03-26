@@ -5,7 +5,7 @@ export const profileApi = {
   get: async (userId) => {
     const { data, error } = await supabase
       .from("profiles")
-      .select("id, email, is_admin, display_name, avatar_url, created_at, reading_goal_date, bio")
+      .select("id, email, is_admin, is_moderator, display_name, avatar_url, created_at, reading_goal_date, bio")
       .eq("id", userId)
       .maybeSingle();
     if (error) throw new Error(error.message);
