@@ -41,13 +41,18 @@
 
     <title>NWT Progress</title>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WVBXCJFGWQ"></script>
+    <!-- Google Analytics — deferred until after page load so it doesn't compete with critical resources -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-WVBXCJFGWQ');
+      window.addEventListener('load', function () {
+        var s = document.createElement('script');
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-WVBXCJFGWQ';
+        s.async = true;
+        document.head.appendChild(s);
+        gtag('js', new Date());
+        gtag('config', 'G-WVBXCJFGWQ');
+      });
     </script>
   </head>
   <body>
