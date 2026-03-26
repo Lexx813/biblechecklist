@@ -98,7 +98,13 @@
       "Bash(grep -rn \"^img\\\\b\" /home/alexi/projects/nwt-progress/src/styles/*.css)",
       "Bash(grep -rn \"img {.*width\\\\|img {.*100%\" /home/alexi/projects/nwt-progress/src/styles/*.css)",
       "Bash(grep -rn \"ProseMirror\\\\|tiptap\\\\|rich-text\" /home/alexi/projects/nwt-progress/src/styles/*.css)",
-      "Bash(grep -rn \"signUp\\\\|supabase.auth\" /home/alexi/projects/nwt-progress/src/api/*.js)"
+      "Bash(grep -rn \"signUp\\\\|supabase.auth\" /home/alexi/projects/nwt-progress/src/api/*.js)",
+      "Bash(grep -r \"add column.*profiles\\\\|ALTER TABLE.*profiles\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -h \"ALTER TABLE.*profiles\\\\|add column.*to.*profiles\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -h \"ADD COLUMN\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -l \"reading_activity\\\\|reading_log\\\\|chapter_reads\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -n \"CREATE TABLE\\\\|create table\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -n \"VAPID_PUBLIC_KEY\\\\|VITE_VAPID\" /home/alexi/projects/nwt-progress/.env*)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"
