@@ -72,8 +72,8 @@ export default function App() {
   const legalNav = (p) => { history.pushState(null, "", "/" + p); setPreAuthPath(p); };
   const legalProps = { navigate: legalNav, darkMode: false, setDarkMode: () => {}, i18n, user: null, onLogout: null };
 
-  if (preAuthPath === "terms") return <Suspense fallback={null}><TermsPage {...legalProps} /></Suspense>;
-  if (preAuthPath === "privacy") return <Suspense fallback={null}><PrivacyPage {...legalProps} /></Suspense>;
+  if (preAuthPath === "terms") return <main id="main-content"><Suspense fallback={null}><TermsPage {...legalProps} /></Suspense></main>;
+  if (preAuthPath === "privacy") return <main id="main-content"><Suspense fallback={null}><PrivacyPage {...legalProps} /></Suspense></main>;
 
   // Allow unauthenticated read-only access to blog posts
   const publicNav = parsePath();
@@ -104,16 +104,17 @@ export default function App() {
   }
 
   if (passwordRecovery) {
-    return <Suspense fallback={null}><ResetPasswordPage onDone={() => setPasswordRecovery(false)} /></Suspense>;
+    return <main id="main-content"><Suspense fallback={null}><ResetPasswordPage onDone={() => setPasswordRecovery(false)} /></Suspense></main>;
   }
 
   if (!user) {
-    if (showLanding) return <Suspense fallback={null}><LandingPage onGetStarted={() => setShowLanding(false)} /></Suspense>;
-    return <Suspense fallback={null}><AuthPage onBack={() => setShowLanding(true)} /></Suspense>;
+    if (showLanding) return <main id="main-content"><Suspense fallback={null}><LandingPage onGetStarted={() => setShowLanding(false)} /></Suspense></main>;
+    return <main id="main-content"><Suspense fallback={null}><AuthPage onBack={() => setShowLanding(true)} /></Suspense></main>;
   }
 
   return (
     <>
+      <a href="#main-content" className="skip-link">Skip to main content</a>
       <OfflineBanner />
       <Toast />
       <InstallPrompt />
@@ -135,7 +136,9 @@ function Page({ children }) {
   return (
     <ErrorBoundary>
       <Suspense fallback={pageFallback}>
-        {children}
+        <main id="main-content">
+          {children}
+        </main>
         <PageFooter />
       </Suspense>
     </ErrorBoundary>
