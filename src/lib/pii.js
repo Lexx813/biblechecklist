@@ -1,14 +1,12 @@
 /**
  * PII detection — blocks emails, phone numbers, street addresses,
- * personal social media links/handles, insecure (http://) links,
- * and profanity from user-generated content.
+ * personal social media links/handles, and insecure (http://) links
+ * from user-generated content.
  *
- * Applied in the API layer before every insert/update, and enforced
- * server-side via a Supabase trigger as a backup.
+ * Applied in the API layer before every insert/update. Profanity is
+ * enforced server-side only via the Supabase check_pii() trigger, which
+ * avoids bundling large word lists into the client JavaScript.
  */
-import { Filter } from "bad-words";
-
-const profanityFilter = new Filter();
 
 // Strips HTML tags and common entities to get plain text for scanning
 function stripHtml(html = "") {
@@ -53,22 +51,20 @@ export function detectPII(text = "") {
   if (SOCIAL_URL_RE.test(plain)) return "social media link";
   if (SOCIAL_HANDLE_RE.test(plain)) return "social media handle";
   if (INSECURE_URL_RE.test(plain)) return "insecure link (http://)";
-  if (profanityFilter.isProfane(plain)) return "profanity";
   return null;
 }
 
 /**
  * Throws a user-friendly Error if any PII is detected.
  * Call this before every API insert/update.
+ * Profanity is caught server-side by the Supabase trigger.
  */
 export function assertNoPII(...fields) {
   for (const text of fields) {
     const found = detectPII(text);
     if (found) {
       throw new Error(
-        found === "profanity"
-          ? "Your post contains language that isn't allowed. Please keep the community respectful."
-          : found === "insecure link (http://)"
+        found === "insecure link (http://)"
           ? "Only secure links (https://) are allowed. Please update your link and try again."
           : `Your post appears to contain a ${found}. To keep the community safe, personal contact information and social media links are not allowed.`
       );
