@@ -14,7 +14,7 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
         <div className="about-hero-inner">
           <div className="about-hero-badge">Legal</div>
           <h1 className="about-hero-title">Privacy Policy</h1>
-          <p className="about-hero-sub">Last updated: March 24, 2025</p>
+          <p className="about-hero-sub">Last updated: March 25, 2026</p>
         </div>
       </section>
 
@@ -31,7 +31,8 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
           <h2 className="about-section-title">2. Information We Collect</h2>
           <p className="about-section-body"><strong>Account information:</strong> When you register, we collect your email address and any optional display name or profile photo you provide.</p>
           <p className="about-section-body"><strong>Reading progress:</strong> We store which Bible chapters you have marked as read so your progress syncs across devices.</p>
-          <p className="about-section-body"><strong>User content:</strong> Blog posts, forum threads, replies, comments, and notes you create are stored and associated with your account.</p>
+          <p className="about-section-body"><strong>User content:</strong> Blog posts, forum threads, replies, comments, notes, and profile information you create are stored and associated with your account.</p>
+          <p className="about-section-body"><strong>Content scanning:</strong> All user-submitted content is automatically scanned before it is saved. This scanning checks for prohibited content including personal contact information (email addresses, phone numbers, physical addresses), social media links and handles, insecure links, and profanity. This processing happens to enforce our Terms of Service and protect the community. Content that is blocked is not stored.</p>
           <p className="about-section-body"><strong>Usage data:</strong> We use Google Analytics to collect anonymized data about how the App is used (pages visited, session duration, device type). No personally identifiable information is sent to Google Analytics.</p>
           <p className="about-section-body"><strong>Technical data:</strong> Standard server logs including IP address and browser type may be collected by our hosting provider (Vercel) and database provider (Supabase).</p>
         </section>
