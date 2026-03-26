@@ -269,6 +269,17 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  border-radius: 6px;
+  padding: 4px 6px;
+  margin: -4px -6px;
+  transition: background 0.15s;
+}
+.admin-user-cell:hover {
+  background: var(--accent-light);
+}
+.admin-user-cell:hover .admin-email {
+  color: var(--teal-dark);
+  text-decoration: underline;
 }
 
 .admin-avatar {
