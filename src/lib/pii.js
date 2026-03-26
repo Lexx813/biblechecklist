@@ -6,7 +6,7 @@
  * Applied in the API layer before every insert/update, and enforced
  * server-side via a Supabase trigger as a backup.
  */
-import Filter from "bad-words";
+import { Filter } from "bad-words";
 
 const profanityFilter = new Filter();
 
