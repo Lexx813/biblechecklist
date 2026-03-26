@@ -1,11 +1,11 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import AuthPage from "./components/auth/AuthPage";
-import ResetPasswordPage from "./components/auth/ResetPasswordPage";
-import HomePage from "./components/HomePage";
-import LandingPage from "./components/LandingPage";
-import ChecklistPage from "./components/ChecklistPage";
+const AuthPage          = lazy(() => import("./components/auth/AuthPage"));
+const ResetPasswordPage = lazy(() => import("./components/auth/ResetPasswordPage"));
+const HomePage          = lazy(() => import("./components/HomePage"));
+const LandingPage       = lazy(() => import("./components/LandingPage"));
+const ChecklistPage     = lazy(() => import("./components/ChecklistPage"));
 import OfflineBanner from "./components/OfflineBanner";
 import Toast from "./components/Toast";
 import InstallPrompt from "./components/InstallPrompt";
@@ -104,12 +104,12 @@ export default function App() {
   }
 
   if (passwordRecovery) {
-    return <ResetPasswordPage onDone={() => setPasswordRecovery(false)} />;
+    return <Suspense fallback={null}><ResetPasswordPage onDone={() => setPasswordRecovery(false)} /></Suspense>;
   }
 
   if (!user) {
-    if (showLanding) return <LandingPage onGetStarted={() => setShowLanding(false)} />;
-    return <AuthPage onBack={() => setShowLanding(true)} />;
+    if (showLanding) return <Suspense fallback={null}><LandingPage onGetStarted={() => setShowLanding(false)} /></Suspense>;
+    return <Suspense fallback={null}><AuthPage onBack={() => setShowLanding(true)} /></Suspense>;
   }
 
   return (
@@ -171,8 +171,8 @@ function BibleApp({ user, onLogout, i18n }) {
 
   const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page };
 
-  if (nav.page === "home") return <HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />;
-  if (nav.page === "main") return <ChecklistPage user={user} profile={profile} {...sharedNav} />;
+  if (nav.page === "home") return <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} /></Page>;
+  if (nav.page === "main") return <Page><ChecklistPage user={user} profile={profile} {...sharedNav} /></Page>;
 
   if (nav.page === "admin")    return <Page><AdminPage currentUser={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   if (nav.page === "profile")  return <Page><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;

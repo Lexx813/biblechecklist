@@ -1,11 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
-import en from "./locales/en/translation.json";
-import es from "./locales/es/translation.json";
-import pt from "./locales/pt/translation.json";
-import tl from "./locales/tl/translation.json";
-import fr from "./locales/fr/translation.json";
+import HttpBackend from "i18next-http-backend";
 
 // Add a new language here — one entry is all that's needed
 export const LANGUAGES = [
@@ -17,16 +13,11 @@ export const LANGUAGES = [
 ];
 
 i18n
+  .use(HttpBackend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    resources: {
-      en: { translation: en },
-      es: { translation: es },
-      pt: { translation: pt },
-      tl: { translation: tl },
-      fr: { translation: fr },
-    },
+    // Only load the user's detected language — others load on demand if switched
     fallbackLng: "en",
     supportedLngs: LANGUAGES.map(l => l.code),
     interpolation: { escapeValue: false },
@@ -34,6 +25,9 @@ i18n
       order: ["localStorage", "navigator"],
       caches: ["localStorage"],
       lookupLocalStorage: "nwt-lang",
+    },
+    backend: {
+      loadPath: "/locales/{{lng}}/translation.json",
     },
   });
 
