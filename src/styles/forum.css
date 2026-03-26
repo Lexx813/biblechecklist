@@ -469,6 +469,7 @@
   object-fit: cover;
   flex-shrink: 0;
   display: block;
+  overflow: hidden;
 }
 .forum-avatar--fallback {
   background: var(--teal);

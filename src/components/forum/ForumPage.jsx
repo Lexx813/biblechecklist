@@ -59,10 +59,12 @@ function timeAgo(iso, t) {
   return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
 }
 
+const AVATAR_PX = { lg: 40, md: 36, sm: 28 };
 function Avatar({ profile, size = "md", onClick }) {
   const cls = `forum-avatar forum-avatar--${size}${onClick ? " forum-avatar--clickable" : ""}`;
+  const px = AVATAR_PX[size] ?? 36;
   if (profile?.avatar_url) {
-    return <img className={cls} src={profile.avatar_url} alt={displayName(profile)} onClick={onClick} />;
+    return <img className={cls} src={profile.avatar_url} alt={displayName(profile)} width={px} height={px} onClick={onClick} />;
   }
   return <div className={`${cls} forum-avatar--fallback`} onClick={onClick}>{initial(profile)}</div>;
 }
