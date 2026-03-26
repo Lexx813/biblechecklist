@@ -96,3 +96,28 @@
 
 .daily-verse-fade-enter { opacity: 0; transform: translateY(6px); }
 .daily-verse-fade-active { opacity: 1; transform: translateY(0); transition: opacity 0.3s, transform 0.3s; }
+
+/* ── AI Study Companion trigger ──────────────────────────────────────────── */
+.daily-verse-ai-btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  background: rgba(138, 75, 255, 0.12);
+  border: 1px solid rgba(138, 75, 255, 0.25);
+  border-radius: 10px;
+  color: #c084fc;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  text-align: center;
+}
+.daily-verse-ai-btn:hover {
+  background: rgba(138, 75, 255, 0.22);
+  border-color: rgba(138, 75, 255, 0.4);
+}
+
+.daily-verse-ai-panel {
+  margin-top: 10px;
+}

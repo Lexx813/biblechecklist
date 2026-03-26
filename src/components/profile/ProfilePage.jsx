@@ -1,4 +1,5 @@
-import { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useMemo, useEffect, useCallback } from "react";
+import EmojiPickerPopup, { insertEmojiAtCursor } from "../EmojiPickerPopup";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
@@ -12,6 +13,8 @@ import { useProgress, useReadingStreak } from "../../hooks/useProgress";
 import { useQuizProgress } from "../../hooks/useQuiz";
 import { useFollowCounts, useIsFollowing, useToggleFollow } from "../../hooks/useFollows";
 import { useUserPosts, useCreatePost, useDeletePost } from "../../hooks/usePosts";
+import { useGetOrCreateDM } from "../../hooks/useMessages";
+import { isDev } from "../../lib/devOnly";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 import "../../styles/profile.css";
@@ -133,12 +136,27 @@ function NoteForm({ userId, initial, onDone }) {
   const [chapter, setChapter] = useState(initial?.chapter ?? 1);
   const [verse, setVerse] = useState(initial?.verse ?? "");
   const [content, setContent] = useState(initial?.content ?? "");
+  const [showNoteEmoji, setShowNoteEmoji] = useState(false);
+  const noteRef = useRef(null);
   const { t } = useTranslation();
 
   const createNote = useCreateNote(userId);
   const updateNote = useUpdateNote(userId);
   const busy = createNote.isPending || updateNote.isPending;
   const maxChapter = BOOKS[bookIndex]?.chapters ?? 1;
+
+  const insertNoteEmoji = useCallback((em) => {
+    const next = insertEmojiAtCursor(noteRef.current, content, em);
+    setContent(next);
+    setShowNoteEmoji(false);
+    requestAnimationFrame(() => {
+      const el = noteRef.current;
+      if (!el) return;
+      const pos = (el.selectionStart ?? content.length) + em.length;
+      el.focus();
+      el.setSelectionRange(pos, pos);
+    });
+  }, [content]);
 
   function handleBookChange(e) {
     setBookIndex(Number(e.target.value));
@@ -188,16 +206,21 @@ function NoteForm({ userId, initial, onDone }) {
           />
         </div>
       </div>
-      <textarea
-        id="note-content"
-        name="content"
-        className="note-form-textarea"
-        placeholder={t("profile.notePlaceholder")}
-        value={content}
-        onChange={e => setContent(e.target.value)}
-        rows={4}
-        required
-      />
+      <div style={{ position: "relative" }}>
+        <textarea
+          ref={noteRef}
+          id="note-content"
+          name="content"
+          className="note-form-textarea"
+          placeholder={t("profile.notePlaceholder")}
+          value={content}
+          onChange={e => setContent(e.target.value)}
+          rows={4}
+          required
+        />
+        <button type="button" className="textarea-emoji-btn" onClick={() => setShowNoteEmoji(v => !v)} title="Emoji">😊</button>
+        {showNoteEmoji && <EmojiPickerPopup onSelect={insertNoteEmoji} onClose={() => setShowNoteEmoji(false)} align="right" />}
+      </div>
       <div className="note-form-actions">
         <button type="button" className="note-form-cancel" onClick={onDone}>{t("common.cancel")}</button>
         <button type="submit" className="note-form-submit" disabled={busy || !content.trim()}>
@@ -298,6 +321,21 @@ function PostsSection({ profileId, isOwner, t }) {
   const createPost = useCreatePost(profileId);
   const deletePost = useDeletePost(profileId);
   const [draft, setDraft] = useState("");
+  const [showPostEmoji, setShowPostEmoji] = useState(false);
+  const postRef = useRef(null);
+
+  const insertPostEmoji = useCallback((em) => {
+    const next = insertEmojiAtCursor(postRef.current, draft, em).slice(0, MAX_POST);
+    setDraft(next);
+    setShowPostEmoji(false);
+    requestAnimationFrame(() => {
+      const el = postRef.current;
+      if (!el) return;
+      const pos = Math.min((el.selectionStart ?? draft.length) + em.length, MAX_POST);
+      el.focus();
+      el.setSelectionRange(pos, pos);
+    });
+  }, [draft]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -318,16 +356,21 @@ function PostsSection({ profileId, isOwner, t }) {
 
       {isOwner && (
         <form className="post-composer" onSubmit={handleSubmit}>
-          <textarea
-            id="post-composer"
-            name="content"
-            className="post-composer-input"
-            placeholder={t("posts.placeholder")}
-            value={draft}
-            onChange={e => setDraft(e.target.value)}
-            maxLength={MAX_POST}
-            rows={3}
-          />
+          <div style={{ position: "relative" }}>
+            <textarea
+              ref={postRef}
+              id="post-composer"
+              name="content"
+              className="post-composer-input"
+              placeholder={t("posts.placeholder")}
+              value={draft}
+              onChange={e => setDraft(e.target.value)}
+              maxLength={MAX_POST}
+              rows={3}
+            />
+            <button type="button" className="textarea-emoji-btn" onClick={() => setShowPostEmoji(v => !v)} title="Emoji">😊</button>
+            {showPostEmoji && <EmojiPickerPopup onSelect={insertPostEmoji} onClose={() => setShowPostEmoji(false)} align="right" />}
+          </div>
           <div className="post-composer-footer">
             <span className={`post-composer-count${draft.length > MAX_POST - 50 ? " post-composer-count--warn" : ""}`}>
               {draft.length}/{MAX_POST}
@@ -373,6 +416,29 @@ function PostsSection({ profileId, isOwner, t }) {
   );
 }
 
+// ── Message button (dev-only) ──────────────────────────────
+function MessageButton({ targetId, otherDisplayName, otherAvatarUrl, navigate }) {
+  const getOrCreate = useGetOrCreateDM();
+  function handleClick() {
+    getOrCreate.mutate(targetId, {
+      onSuccess: (conversationId) => navigate("messages", {
+        conversationId,
+        otherDisplayName,
+        otherAvatarUrl,
+      }),
+    });
+  }
+  return (
+    <button
+      className="pf-follow-btn"
+      onClick={handleClick}
+      disabled={getOrCreate.isPending}
+    >
+      💬 Message
+    </button>
+  );
+}
+
 // ── Follow button + counts ─────────────────────────────────
 function FollowSection({ currentUserId, targetId, t }) {
   const { data: counts = { followers: 0, following: 0 } } = useFollowCounts(targetId);
@@ -409,7 +475,22 @@ const BIO_MAX = 300;
 function AboutMe({ profile, userId, isOwner, t }) {
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState("");
+  const [showEmoji, setShowEmoji] = useState(false);
+  const bioRef = useRef(null);
   const update = useUpdateProfile(userId);
+
+  const insertEmoji = useCallback((em) => {
+    const next = insertEmojiAtCursor(bioRef.current, value, em).slice(0, BIO_MAX);
+    setValue(next);
+    setShowEmoji(false);
+    requestAnimationFrame(() => {
+      const el = bioRef.current;
+      if (!el) return;
+      const pos = Math.min((el.selectionStart ?? value.length) + em.length, BIO_MAX);
+      el.focus();
+      el.setSelectionRange(pos, pos);
+    });
+  }, [value]);
 
   function startEdit() {
     setValue(profile?.bio ?? "");
@@ -432,17 +513,22 @@ function AboutMe({ profile, userId, isOwner, t }) {
       </div>
       {editing ? (
         <div className="pf-about-edit">
-          <textarea
-            id="pf-about-textarea"
-            name="bio"
-            className="pf-about-textarea"
-            value={value}
-            onChange={e => setValue(e.target.value)}
-            maxLength={BIO_MAX}
-            rows={4}
-            placeholder={t("profile.aboutPlaceholder")}
-            autoFocus
-          />
+          <div style={{ position: "relative" }}>
+            <textarea
+              ref={bioRef}
+              id="pf-about-textarea"
+              name="bio"
+              className="pf-about-textarea"
+              value={value}
+              onChange={e => setValue(e.target.value)}
+              maxLength={BIO_MAX}
+              rows={4}
+              placeholder={t("profile.aboutPlaceholder")}
+              autoFocus
+            />
+            <button type="button" className="textarea-emoji-btn" onClick={() => setShowEmoji(v => !v)} title="Emoji">😊</button>
+            {showEmoji && <EmojiPickerPopup onSelect={insertEmoji} onClose={() => setShowEmoji(false)} align="right" />}
+          </div>
           <div className="pf-about-footer">
             <span className={`pf-about-count${value.length > BIO_MAX - 30 ? " pf-about-count--warn" : ""}`}>
               {value.length}/{BIO_MAX}
@@ -648,6 +734,14 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
             {isOwner && <p className="pf-email">{user.email}</p>}
             <p className="pf-since">{t("profile.memberSince", { date: profile ? formatDate(profile.created_at) : "—" })}</p>
             <FollowSection currentUserId={user.id} targetId={profileId} t={t} />
+            {isDev && !isOwner && (
+              <MessageButton
+                targetId={profileId}
+                otherDisplayName={profile?.display_name || profile?.email?.split("@")[0] || "User"}
+                otherAvatarUrl={profile?.avatar_url ?? null}
+                navigate={navigate}
+              />
+            )}
             {isOwner && (
               <div className="pf-stats-row">
                 <div className="pf-stat"><strong>{notes.length}</strong> {t("profile.notesCount", { count: notes.length }).split(" ")[1]}</div>

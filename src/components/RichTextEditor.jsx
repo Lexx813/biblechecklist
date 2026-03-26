@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
+import EmojiPickerPopup from "./EmojiPickerPopup";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 
@@ -363,6 +364,12 @@ export default function RichTextEditor({
     editor?.setEditable(!disabled);
   }, [disabled, editor]);
 
+  const [showEmoji, setShowEmoji] = useState(false);
+  const insertEditorEmoji = useCallback((em) => {
+    editor?.chain().focus().insertContent(em).run();
+    setShowEmoji(false);
+  }, [editor]);
+
   const [linkModal, setLinkModal] = useState({ open: false, value: "" });
   const linkInputRef = useRef(null);
 
@@ -493,6 +500,26 @@ export default function RichTextEditor({
             {!minimal && (
               <Btn active={false} onClick={() => editor.chain().focus().setHorizontalRule().run()} title={t("editor.hr")}><HrIcon /></Btn>
             )}
+
+            <div className="editor-sep" />
+
+            {/* ── Emoji ── */}
+            <div style={{ position: "relative", display: "inline-flex" }}>
+              <button
+                type="button"
+                className={`editor-btn${showEmoji ? " active" : ""}`}
+                onMouseDown={e => { e.preventDefault(); setShowEmoji(v => !v); }}
+                title="Emoji"
+              >
+                😊
+              </button>
+              {showEmoji && (
+                <EmojiPickerPopup
+                  onSelect={insertEditorEmoji}
+                  onClose={() => setShowEmoji(false)}
+                />
+              )}
+            </div>
           </div>
         )}
 

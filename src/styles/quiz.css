@@ -827,3 +827,8 @@
     font-size: 14px;
   }
 }
+
+/* ── AI Companion in quiz ─────────────────────────────────────────────────── */
+.quiz-ai-companion {
+  margin-top: 16px;
+}

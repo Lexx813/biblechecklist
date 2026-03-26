@@ -20,7 +20,12 @@ export function parsePath() {
   if (h === "bookmarks") return { page: "bookmarks" };
   if (h === "history") return { page: "history" };
   if (h === "feed") return { page: "feed" };
-  if (h === "leaderboard") return { page: "leaderboard" };
+  if (h === "messages") return { page: "messages" };
+  if (h === "groups") return { page: "groups" };
+  if (h.startsWith("groups/")) return { page: "groupDetail", groupId: h.slice(7) };
+  if (h === "reading-plans") return { page: "readingPlans" };
+  if (h === "study-notes")   return { page: "studyNotes" };
+  if (h === "leaderboard")   return { page: "leaderboard" };
   if (h === "about") return { page: "about" };
   if (h === "terms") return { page: "terms" };
   if (h === "privacy") return { page: "privacy" };
@@ -44,7 +49,12 @@ export function buildPath(page, params = {}) {
     case "bookmarks":     return "/bookmarks";
     case "history":       return "/history";
     case "feed":          return "/feed";
-    case "leaderboard":   return "/leaderboard";
+    case "messages":     return "/messages";
+    case "groups":       return "/groups";
+    case "groupDetail":  return "/groups/" + params.groupId;
+    case "readingPlans": return "/reading-plans";
+    case "studyNotes":   return "/study-notes";
+    case "leaderboard":  return "/leaderboard";
     case "about":         return "/about";
     case "terms":         return "/terms";
     case "privacy":       return "/privacy";

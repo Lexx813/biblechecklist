@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>sanitizeContent XSS Test</title>
+  <style>
+    body { font-family: monospace; background: #0d0820; color: #ede9fe; padding: 24px; }
+    h1   { color: #c084fc; margin-bottom: 4px; }
+    p    { color: #7c6aad; margin: 0 0 20px; }
+    .suite { margin-bottom: 32px; }
+    h2   { color: #a78bfa; font-size: 14px; border-bottom: 1px solid #2a1f4a; padding-bottom: 6px; }
+    .row { display: flex; align-items: flex-start; gap: 12px; padding: 7px 0; border-bottom: 1px solid #160f2e; font-size: 13px; }
+    .badge { flex-shrink: 0; width: 42px; text-align: center; padding: 2px 6px; border-radius: 6px; font-weight: 800; font-size: 12px; }
+    .pass { background: #14532d; color: #86efac; }
+    .fail { background: #7f1d1d; color: #fca5a5; }
+    .label { color: #a78bfa; flex: 0 0 280px; word-break: break-all; }
+    .result { color: #ede9fe; word-break: break-all; }
+    .result em { color: #7c6aad; font-style: normal; }
+    #summary { margin-top: 24px; padding: 14px 18px; border-radius: 10px; font-size: 15px; font-weight: 800; }
+    .all-pass { background: #14532d; color: #86efac; }
+    .has-fail  { background: #7f1d1d; color: #fca5a5; }
+  </style>
+</head>
+<body>
+
+<h1>sanitizeContent — XSS Security Test</h1>
+<p>Open this file in your browser. All tests should show PASS.</p>
+
+<div id="results"></div>
+<div id="summary"></div>
+
+<script>
+// ── Paste the exact function from src/lib/e2e.js ──────────────────────────────
+
+const MAX_MSG_LENGTH = 2000;
+
+function sanitizeContent(content) {
+  if (typeof content !== "string") return "";
+  const doc = new DOMParser().parseFromString(content, "text/html");
+  let text = doc.body.textContent ?? "";
+  text = text.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "");
+  text = text.replace(/\n{3,}/g, "\n\n");
+  return text.trim().slice(0, MAX_MSG_LENGTH);
+}
+
+// ── Test runner ───────────────────────────────────────────────────────────────
+
+let passed = 0;
+let failed = 0;
+
+function suite(title, tests) {
+  const wrap = document.createElement("div");
+  wrap.className = "suite";
+  wrap.innerHTML = `<h2>${title}</h2>`;
+
+  for (const [label, input, check] of tests) {
+    const output = sanitizeContent(input);
+    const ok = check(output);
+    ok ? passed++ : failed++;
+
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = `
+      <span class="badge ${ok ? "pass" : "fail"}">${ok ? "PASS" : "FAIL"}</span>
+      <span class="label">${escHtml(label)}</span>
+      <span class="result">→ <em>"</em>${escHtml(output)}<em>"</em></span>
+    `;
+    wrap.appendChild(row);
+  }
+
+  document.getElementById("results").appendChild(wrap);
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+// ── Good messages (should pass through cleanly) ───────────────────────────────
+
+suite("✅ Legitimate messages — must survive", [
+  ["Plain text",                "Hello, world!",                          o => o === "Hello, world!"],
+  ["Emoji",                     "Great job 🔥🙏",                          o => o.includes("🔥")],
+  ["Newlines",                  "Line 1\nLine 2\nLine 3",                  o => o.includes("\n")],
+  ["Numbers & punctuation",     "John 3:16 — 'For God so loved...'",      o => o.includes("3:16")],
+  ["2000-char message",         "A".repeat(2000),                          o => o.length === 2000],
+  ["Unicode",                   "Ἐν ἀρχῇ ἦν ὁ λόγος",                    o => o.includes("λόγος")],
+  ["Ampersand (plain text)",    "Bread & Fish",                            o => o === "Bread & Fish"],
+]);
+
+// ── XSS via script tags ───────────────────────────────────────────────────────
+
+suite("🔴 Script tag injection — must be stripped", [
+  ["Basic script tag",           "<script>alert(1)</script>",              o => !o.includes("<") && !o.includes("script")],
+  ["Uppercase SCRIPT",           "<SCRIPT>alert(1)</SCRIPT>",              o => !o.includes("<")],
+  ["Nested to defeat regex",     "<scr<script>ipt>alert(1)</sc</script>ript>", o => !o.includes("<") && !o.includes("alert")],
+  ["Script with src",            '<script src="https://evil.com/x.js"></script>', o => !o.includes("<")],
+  ["Encoded script tag",         "&lt;script&gt;alert(1)&lt;/script&gt;", o => !o.includes("<script")],
+  ["Data URI script",            '<script>document.location="data:text/html,<h1>pwned</h1>"</script>', o => !o.includes("<")],
+]);
+
+// ── XSS via event handlers ────────────────────────────────────────────────────
+
+suite("🔴 Event handler injection — must be stripped", [
+  ["onerror on img",             '<img src=x onerror=alert(1)>',           o => !o.includes("<") && !o.includes("onerror")],
+  ["onload on body",             '<body onload=alert(1)>',                  o => !o.includes("<")],
+  ["onclick on div",             '<div onclick="alert(1)">click me</div>', o => o === "click me"],
+  ["SVG onload",                 '<svg onload=alert(1)>',                   o => !o.includes("<")],
+  ["SVG/XML namespace",          '<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>', o => !o.includes("<")],
+  ["autofocus onfocus",          '<input autofocus onfocus=alert(1)>',      o => !o.includes("<")],
+  ["details ontoggle",           '<details open ontoggle=alert(1)>x</details>', o => !o.includes("<")],
+]);
+
+// ── XSS via javascript: URIs ──────────────────────────────────────────────────
+
+suite("🔴 javascript: URI injection — must be stripped", [
+  ["Anchor javascript:",         '<a href="javascript:alert(1)">click</a>', o => o === "click"],
+  ["Iframe javascript:",         '<iframe src="javascript:alert(1)">',      o => !o.includes("<")],
+  ["Form action javascript:",    '<form action="javascript:alert(1)">',     o => !o.includes("<")],
+]);
+
+// ── XSS via CSS / style ───────────────────────────────────────────────────────
+
+suite("🔴 CSS / style injection — must be stripped", [
+  ["Style tag with expression",  '<style>body{background:url(javascript:alert(1))}</style>', o => !o.includes("<")],
+  ["Inline style expression",    '<div style="background:url(javascript:alert(1))">x</div>', o => o === "x"],
+]);
+
+// ── Null bytes and control characters ─────────────────────────────────────────
+
+suite("🔴 Null bytes & control chars — must be stripped", [
+  ["Null byte",                  "hello\x00world",                          o => !o.includes("\x00")],
+  ["Backspace control char",     "hello\x08world",                          o => !o.includes("\x08")],
+  ["Vertical tab",               "hello\x0Bworld",                          o => !o.includes("\x0B")],
+  ["Non-printable DEL",          "hello\x7Fworld",                          o => !o.includes("\x7F")],
+  ["Tab and newline preserved",  "col1\tcol2\nrow2",                        o => o.includes("\t") && o.includes("\n")],
+]);
+
+// ── Length enforcement ────────────────────────────────────────────────────────
+
+suite("🔴 Length enforcement — must be truncated", [
+  ["Over 2000 chars",            "B".repeat(3000),                          o => o.length === 2000],
+  ["Non-string input (number)",  42,                                        o => o === ""],
+  ["Non-string input (null)",    null,                                      o => o === ""],
+  ["Non-string input (object)",  {},                                        o => o === ""],
+  ["Empty string",               "",                                        o => o === ""],
+  ["Whitespace only",            "   \n\n   ",                              o => o === ""],
+]);
+
+// ── Summary ───────────────────────────────────────────────────────────────────
+
+const total = passed + failed;
+const el = document.getElementById("summary");
+el.className = failed === 0 ? "all-pass" : "has-fail";
+el.textContent = failed === 0
+  ? `✅ All ${total} tests passed — sanitizeContent is working correctly.`
+  : `❌ ${failed} of ${total} tests FAILED — review the output above.`;
+</script>
+</body>
+</html>

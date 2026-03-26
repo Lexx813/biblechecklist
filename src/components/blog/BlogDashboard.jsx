@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
+import EmojiPickerPopup, { insertEmojiAtCursor } from "../EmojiPickerPopup";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
 import RichTextEditor from "../RichTextEditor";
@@ -23,7 +24,22 @@ function PostEditor({ userId, post, onDone }) {
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
+  const [showExcerptEmoji, setShowExcerptEmoji] = useState(false);
   const fileInputRef = useRef(null);
+  const excerptRef = useRef(null);
+
+  const insertExcerptEmoji = useCallback((em) => {
+    const next = insertEmojiAtCursor(excerptRef.current, form.excerpt, em);
+    set("excerpt", next.slice(0, 300));
+    setShowExcerptEmoji(false);
+    requestAnimationFrame(() => {
+      const el = excerptRef.current;
+      if (!el) return;
+      const pos = (el.selectionStart ?? form.excerpt.length) + em.length;
+      el.focus();
+      el.setSelectionRange(pos, pos);
+    });
+  }, [form.excerpt]);
   const { t } = useTranslation();
   const createPost = useCreatePost(userId);
   const updatePost = useUpdatePost(userId);
@@ -90,16 +106,28 @@ function PostEditor({ userId, post, onDone }) {
         />
 
         <label htmlFor="blog-excerpt" className="blog-editor-label">{t("blogDash.excerptLabel")} <span className="blog-editor-hint">{t("blogDash.excerptHint")}</span></label>
-        <textarea
-          id="blog-excerpt"
-          name="excerpt"
-          className="blog-editor-textarea blog-editor-textarea--sm"
-          placeholder={t("blogDash.excerptPlaceholder")}
-          value={form.excerpt}
-          onChange={e => set("excerpt", e.target.value)}
-          disabled={isPending}
-          maxLength={300}
-        />
+        <div style={{ position: "relative" }}>
+          <textarea
+            ref={excerptRef}
+            id="blog-excerpt"
+            name="excerpt"
+            className="blog-editor-textarea blog-editor-textarea--sm"
+            placeholder={t("blogDash.excerptPlaceholder")}
+            value={form.excerpt}
+            onChange={e => set("excerpt", e.target.value)}
+            disabled={isPending}
+            maxLength={300}
+          />
+          <button
+            type="button"
+            className="textarea-emoji-btn"
+            onClick={() => setShowExcerptEmoji(v => !v)}
+            title="Emoji"
+          >😊</button>
+          {showExcerptEmoji && (
+            <EmojiPickerPopup onSelect={insertExcerptEmoji} onClose={() => setShowExcerptEmoji(false)} align="right" />
+          )}
+        </div>
 
         <label htmlFor="blog-cover-url" className="blog-editor-label">{t("blogDash.coverLabel")} <span className="blog-editor-hint">{t("blogDash.coverHint")}</span></label>
         <div className="blog-cover-upload-row">

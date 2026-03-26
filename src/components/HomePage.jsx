@@ -93,7 +93,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
       {/* ── Daily Verse ── */}
       <section className="home-section home-section--verse">
-        <DailyVerse />
+        <DailyVerse user={user} />
       </section>
 
       {/* ── Streak banner ── */}

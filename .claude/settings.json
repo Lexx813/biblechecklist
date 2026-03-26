@@ -104,7 +104,23 @@
       "Bash(grep -h \"ADD COLUMN\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
       "Bash(grep -l \"reading_activity\\\\|reading_log\\\\|chapter_reads\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
       "Bash(grep -n \"CREATE TABLE\\\\|create table\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
-      "Bash(grep -n \"VAPID_PUBLIC_KEY\\\\|VITE_VAPID\" /home/alexi/projects/nwt-progress/.env*)"
+      "Bash(grep -n \"VAPID_PUBLIC_KEY\\\\|VITE_VAPID\" /home/alexi/projects/nwt-progress/.env*)",
+      "Bash(/dev/null cat:*)",
+      "Bash(ls /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(find /home/alexi/projects/nwt-progress -type f -name *.js -o -name *.ts -o -name *.tsx -o -name *.json)",
+      "Bash(grep -r push_subscriptions /home/alexi/projects/nwt-progress --include=*.sql --include=*.ts --include=*.tsx --include=*.js)",
+      "Bash(grep -A 15 push_subscriptions /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -l \"push\" /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(xargs ls:*)",
+      "Bash(find /home/alexi/projects/nwt-progress -name .env* -o -name *.env)",
+      "Bash(for file:*)",
+      "Bash(do echo:*)",
+      "Read(//home/alexi/projects/nwt-progress/**)",
+      "Bash(done)",
+      "Bash(find /home/alexi/projects/nwt-progress -name migrations -o -name db.* -o -name seed*)",
+      "Bash(grep -E \"\\\\.sql$\")",
+      "Bash(ls -la /home/alexi/projects/nwt-progress/supabase/*.sql)",
+      "Bash(grep -n \"reading_log\" /home/alexi/projects/nwt-progress/supabase/*.sql)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"

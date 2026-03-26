@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { VERSE_COUNT, getDailyVerseIndex } from "../../data/verses";
+import { useFullProfile } from "../../hooks/useAdmin";
+import AICompanion from "../AICompanion";
 import "../../styles/daily-verse.css";
 
-export default function DailyVerse() {
+export default function DailyVerse({ user }) {
   const { t } = useTranslation();
   const [idx, setIdx] = useState(getDailyVerseIndex);
+  const [showAI, setShowAI] = useState(false);
+  const { data: profile } = useFullProfile(user?.id);
+  const isAdmin = profile?.is_admin;
 
   const prev = () => setIdx(i => (i - 1 + VERSE_COUNT) % VERSE_COUNT);
   const next = () => setIdx(i => (i + 1) % VERSE_COUNT);
@@ -37,6 +42,23 @@ export default function DailyVerse() {
         </div>
         <button className="daily-verse-arrow" onClick={next} title={t("dailyVerse.next")}>›</button>
       </div>
+
+      {user && isAdmin && (
+        <button
+          className="daily-verse-ai-btn"
+          onClick={() => setShowAI(v => !v)}
+        >
+          {showAI ? "Hide AI Companion" : "✨ Ask AI about this verse"}
+        </button>
+      )}
+
+      {user && isAdmin && showAI && (
+        <AICompanion
+          passage={t(`verses.${idx}.text`)}
+          reference={t(`verses.${idx}.ref`)}
+          className="daily-verse-ai-panel"
+        />
+      )}
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { BOOKS, OT_COUNT } from "../data/books";
+import AICompanion from "./AICompanion";
 import BookCard from "./BookCard";
 import PageNav from "./PageNav";
 import PageFooter from "./PageFooter";
@@ -272,6 +273,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
             userId={user.id}
             bookIndex={noteModal.bookIndex}
             onClose={() => setNoteModal(null)}
+            isAdmin={profile?.is_admin}
           />
         )}
       </div>
@@ -282,7 +284,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
 
 // ── Quick Note Modal ───────────────────────────────────────────────────────────
 
-function QuickNoteModal({ userId, bookIndex, onClose }) {
+function QuickNoteModal({ userId, bookIndex, onClose, isAdmin }) {
   const { t } = useTranslation();
   const createNote = useCreateNote(userId);
   const book = BOOKS[bookIndex];
@@ -373,6 +375,14 @@ function QuickNoteModal({ userId, bookIndex, onClose }) {
             </button>
           </div>
         </form>
+
+        {isAdmin && (
+          <AICompanion
+            reference={`${bookName} ${chapter}${verse ? `:${verse}` : ""}`}
+            passage={`${bookName} chapter ${chapter}${verse ? ` verse ${verse}` : ""}`}
+            className="qn-ai-companion"
+          />
+        )}
       </div>
     </div>
   );

@@ -60,6 +60,7 @@ export default function NotificationBell({ userId, navigate }) {
   function getVerb(n) {
     if (n.type === "reply") return t("notifications.typeReply");
     if (n.type === "comment") return t("notifications.typeComment");
+    if (n.type === "message") return "sent you a message";
     return t("notifications.typeMention");
   }
 

@@ -226,6 +226,7 @@ const TYPE_LABEL: Record<string, string> = {
   reply: "replied to your thread",
   mention: "mentioned you in a reply",
   comment: "commented on your post",
+  message: "sent you a message",
 };
 
 // ── Main handler ──────────────────────────────────────────────────────────────

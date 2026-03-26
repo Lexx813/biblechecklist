@@ -17,6 +17,7 @@ import { useFullProfile } from "./hooks/useAdmin";
 import { useFeatureFlags } from "./hooks/useFeatureFlags";
 import { supabase } from "./lib/supabase";
 import { parsePath, buildPath } from "./lib/router";
+import { isDev } from "./lib/devOnly";
 import "./styles/app.css";
 
 const AdminPage      = lazy(() => import("./components/admin/AdminPage"));
@@ -35,6 +36,12 @@ const LeaderboardPage = lazy(() => import("./components/LeaderboardPage"));
 const AboutPage      = lazy(() => import("./components/AboutPage"));
 const TermsPage      = lazy(() => import("./components/TermsPage"));
 const PrivacyPage    = lazy(() => import("./components/PrivacyPage"));
+const ReadingPlansPage = isDev ? lazy(() => import("./components/readingplans/ReadingPlansPage")) : null;
+const StudyNotesPage   = isDev ? lazy(() => import("./components/studynotes/StudyNotesPage")) : null;
+const MessagesPage   = isDev ? lazy(() => import("./components/messages/MessagesPage")) : null;
+const FloatingChat   = isDev ? lazy(() => import("./components/messages/FloatingChat")) : null;
+const GroupsPage     = isDev ? lazy(() => import("./components/groups/GroupsPage")) : null;
+const GroupDetail    = isDev ? lazy(() => import("./components/groups/GroupDetail")) : null;
 
 // ── Auth shell ────────────────────────────────────────────────────────────────
 
@@ -171,18 +178,14 @@ function BibleApp({ user, onLogout, i18n }) {
 
   const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page };
 
-  if (nav.page === "home") return <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} /></Page>;
-  if (nav.page === "main") return <Page><ChecklistPage user={user} profile={profile} {...sharedNav} /></Page>;
-
-  if (nav.page === "admin")    return <Page><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></Page>;
-  if (nav.page === "profile")  return <Page><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
-  if (nav.page === "settings") return <Page><SettingsPage user={user} onBack={() => navigate("profile")} {...sharedNav} /></Page>;
-  if (nav.page === "publicProfile") return (
-    <Page>
-      <ProfilePage user={user} viewedUserId={nav.userId} isOwner={false} onBack={() => navigate("home")} {...sharedNav} />
-    </Page>
-  );
-  if (nav.page === "blog") return (
+  let pageContent = null;
+  if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} /></Page>;
+  else if (nav.page === "main") pageContent = <Page><ChecklistPage user={user} profile={profile} {...sharedNav} /></Page>;
+  else if (nav.page === "admin")    pageContent = <Page><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  else if (nav.page === "profile")  pageContent = <Page><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  else if (nav.page === "settings") pageContent = <Page><SettingsPage user={user} onBack={() => navigate("profile")} {...sharedNav} /></Page>;
+  else if (nav.page === "publicProfile") pageContent = <Page><ProfilePage user={user} viewedUserId={nav.userId} isOwner={false} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  else if (nav.page === "blog") pageContent = (
     <Page>
       <BlogPage
         user={user} profile={profile} slug={nav.slug ?? null}
@@ -193,8 +196,8 @@ function BibleApp({ user, onLogout, i18n }) {
       />
     </Page>
   );
-  if (nav.page === "blogDash")  return <Page><BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
-  if (nav.page === "forum") return (
+  else if (nav.page === "blogDash")  pageContent = <Page><BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  else if (nav.page === "forum") pageContent = (
     <Page>
       <ForumPage
         user={user} profile={profile}
@@ -205,22 +208,38 @@ function BibleApp({ user, onLogout, i18n }) {
       />
     </Page>
   );
-  if (nav.page === "quiz")      return <Page><QuizPage user={user} {...sharedNav} /></Page>;
-  if (nav.page === "quizLevel") return (
-    <Page>
-      <QuizLevel level={nav.level} user={user} onBack={() => navigate("quiz")} onComplete={() => navigate("quiz")} {...sharedNav} />
-    </Page>
-  );
-  if (nav.page === "search")    return <Page><SearchPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
-  if (nav.page === "bookmarks") return <Page><BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
-  if (nav.page === "history")   return <Page><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Page>;
-  if (nav.page === "feed")      return <Page><ActivityFeed user={user} {...sharedNav} /></Page>;
-  if (nav.page === "leaderboard") return <Page><LeaderboardPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
-  if (nav.page === "about")     return <Page><AboutPage {...sharedNav} /></Page>;
-  if (nav.page === "terms")     return <Page><TermsPage {...sharedNav} /></Page>;
-  if (nav.page === "privacy")   return <Page><PrivacyPage {...sharedNav} /></Page>;
+  else if (nav.page === "quiz")      pageContent = <Page><QuizPage user={user} {...sharedNav} /></Page>;
+  else if (nav.page === "quizLevel") pageContent = <Page><QuizLevel level={nav.level} user={user} onBack={() => navigate("quiz")} onComplete={() => navigate("quiz")} {...sharedNav} /></Page>;
+  else if (nav.page === "search")    pageContent = <Page><SearchPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  else if (nav.page === "bookmarks") pageContent = <Page><BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  else if (nav.page === "history")   pageContent = <Page><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Page>;
+  else if (nav.page === "feed")      pageContent = <Page><ActivityFeed user={user} {...sharedNav} /></Page>;
+  else if (isDev && nav.page === "readingPlans" && ReadingPlansPage) pageContent = <Page><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></Page>;
+  else if (isDev && nav.page === "studyNotes"   && StudyNotesPage)   pageContent = <Page><StudyNotesPage user={user} navigate={navigate} {...sharedNav} /></Page>;
+  else if (nav.page === "leaderboard") pageContent = <Page><LeaderboardPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  else if (nav.page === "about")     pageContent = <Page><AboutPage {...sharedNav} /></Page>;
+  else if (nav.page === "terms")     pageContent = <Page><TermsPage {...sharedNav} /></Page>;
+  else if (nav.page === "privacy")   pageContent = <Page><PrivacyPage {...sharedNav} /></Page>;
+  else if (isDev && nav.page === "messages" && MessagesPage) pageContent = <Page><MessagesPage user={user} navigate={navigate} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
+  else if (isDev && nav.page === "groups" && GroupsPage)       pageContent = <Page><GroupsPage user={user} navigate={navigate} /></Page>;
+  else if (isDev && nav.page === "groupDetail" && GroupDetail) pageContent = <Page><GroupDetail groupId={nav.groupId} user={user} navigate={navigate} /></Page>;
 
-  // Unknown route → go home
-  navigate("home");
-  return null;
+  if (!pageContent) { navigate("home"); return null; }
+
+  return (
+    <>
+      {pageContent}
+      {isDev && FloatingChat && (
+        <Suspense fallback={null}>
+          <FloatingChat
+            user={user}
+            navigate={navigate}
+            initialConvId={nav.conversationId ?? null}
+            initialConvName={nav.otherDisplayName ?? null}
+            initialConvAvatar={nav.otherAvatarUrl ?? null}
+          />
+        </Suspense>
+      )}
+    </>
+  );
 }
