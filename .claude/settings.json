@@ -85,7 +85,9 @@
       "Bash(WEBHOOK_SECRET=wqd93298h3287ggg8dbh27gd382hd3 node scripts/seed-embeddings.js)",
       "Bash(python3 -c \":*)",
       "Bash(python3:*)",
-      "Bash(npx web-push:*)"
+      "Bash(npx web-push:*)",
+      "Bash(vercel env:*)",
+      "Bash(node -e \"const t = require\\(''''./src/locales/en/translation.json''''\\); console.log\\(JSON.stringify\\(Object.keys\\(t.profile\\), null, 2\\)\\)\")"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"

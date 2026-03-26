@@ -6,7 +6,7 @@ export function useFollowCounts(userId) {
     queryKey: ["followCounts", userId],
     queryFn: () => followsApi.getFollowCounts(userId),
     enabled: !!userId,
-    staleTime: 30 * 1000,
+    staleTime: 5 * 60_000,
   });
 }
 
@@ -15,7 +15,7 @@ export function useIsFollowing(followerId, targetId) {
     queryKey: ["isFollowing", followerId, targetId],
     queryFn: () => followsApi.isFollowing(followerId, targetId),
     enabled: !!followerId && !!targetId && followerId !== targetId,
-    staleTime: 30 * 1000,
+    staleTime: 5 * 60_000,
   });
 }
 
@@ -36,6 +36,6 @@ export function useActivityFeed(userId) {
     queryKey: ["activityFeed", userId],
     queryFn: () => followsApi.getActivityFeed(userId),
     enabled: !!userId,
-    staleTime: 60 * 1000,
+    staleTime: 2 * 60_000,
   });
 }

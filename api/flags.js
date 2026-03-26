@@ -10,6 +10,6 @@ export default async function handler() {
     // Edge Config not configured or unavailable — return empty flags
   }
   return new Response(JSON.stringify(flags), {
-    headers: { "Content-Type": "application/json", "Cache-Control": "s-maxage=60" },
+    headers: { "Content-Type": "application/json", "Cache-Control": "s-maxage=300, stale-while-revalidate=60" },
   });
 }

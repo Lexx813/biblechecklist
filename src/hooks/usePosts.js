@@ -6,7 +6,7 @@ export function useUserPosts(userId) {
     queryKey: ["userPosts", userId],
     queryFn: () => postsApi.list(userId),
     enabled: !!userId,
-    staleTime: 30 * 1000,
+    staleTime: 5 * 60_000,
   });
 }
 

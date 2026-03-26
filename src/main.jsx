@@ -12,9 +12,16 @@ import { Analytics } from "@vercel/analytics/react"
 import { toast } from './lib/toast'
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").catch(() => {});
-  });
+  if (import.meta.env.PROD) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    });
+  } else {
+    // In dev, unregister any stale service workers so they don't serve cached source files
+    navigator.serviceWorker.getRegistrations().then((regs) => {
+      regs.forEach((reg) => reg.unregister());
+    });
+  }
 }
 
 const queryClient = new QueryClient({
@@ -52,6 +59,15 @@ createRoot(document.getElementById('root')).render(
             shouldDehydrateQuery: (query) => {
               const key = query.queryKey[0];
               // Persist app data but not auth session (security)
+              return ["progress", "profile", "notes", "blog", "reading"].includes(key);
+            },
+          },
+          hydrateOptions: {
+            shouldHydrateQuery: (query) => {
+              const key = query.queryKey[0];
+              // Mirror the dehydrate allowlist so old cache entries for other
+              // keys (e.g. feature-flags) are never restored and don't
+              // appear as stale before their observer attaches
               return ["progress", "profile", "notes", "blog", "reading"].includes(key);
             },
           },

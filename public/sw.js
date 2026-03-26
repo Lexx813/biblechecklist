@@ -18,6 +18,9 @@ self.addEventListener("fetch", (e) => {
   // Only handle same-origin GET requests; pass through Supabase/external calls
   if (e.request.method !== "GET" || url.origin !== self.location.origin) return;
 
+  // Never cache Vite dev server source files or HMR endpoints
+  if (url.pathname.startsWith("/src/") || url.pathname.startsWith("/@")) return;
+
   // Never cache index.html — always fetch fresh so new deploys load immediately
   if (url.pathname === "/" || url.pathname === "/index.html") {
     e.respondWith(

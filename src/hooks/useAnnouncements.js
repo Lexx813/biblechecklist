@@ -5,7 +5,7 @@ export function useActiveAnnouncements() {
   return useQuery({
     queryKey: ["announcements", "active"],
     queryFn: announcementsApi.getActive,
-    staleTime: 60 * 1000,
+    staleTime: 10 * 60_000,
   });
 }
 
@@ -13,7 +13,7 @@ export function useAllAnnouncements() {
   return useQuery({
     queryKey: ["announcements", "all"],
     queryFn: announcementsApi.getAll,
-    staleTime: 30 * 1000,
+    staleTime: 10 * 60_000,
   });
 }
 

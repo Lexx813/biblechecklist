@@ -7,7 +7,7 @@ export function useQuizProgress(userId) {
     queryKey: ["quiz", "progress", userId],
     queryFn: () => quizApi.getUserProgress(userId),
     enabled: !!userId,
-    staleTime: 30 * 1000,
+    staleTime: 10 * 60_000,
   });
 }
 
