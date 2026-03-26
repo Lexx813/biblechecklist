@@ -52,6 +52,9 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
         <div className="search-input-wrap">
           <span className="search-icon">🔍</span>
           <input
+            id="search-input"
+            name="q"
+            aria-label={t("search.placeholder")}
             className="search-input"
             placeholder={t("search.placeholder")}
             value={query}

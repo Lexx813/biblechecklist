@@ -10,6 +10,8 @@ export default function ReportModal({ onSubmit, onClose, isPending }) {
         <h3 className="modal-title">🚩 {t("report.title")}</h3>
         <p className="modal-sub">{t("report.sub")}</p>
         <textarea
+          id="report-reason"
+          name="reason"
           className="modal-textarea"
           placeholder={t("report.placeholder")}
           value={reason}

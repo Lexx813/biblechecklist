@@ -87,6 +87,7 @@ export default function MentionAutocomplete({
     <div className="mention-wrap">
       <textarea
         ref={taRef}
+        name="content"
         className={className}
         placeholder={placeholder}
         value={value}

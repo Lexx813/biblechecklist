@@ -37,6 +37,13 @@ export function useResetPassword() {
   });
 }
 
+export function useUpdatePassword() {
+  return useMutation({
+    meta: { silent: true },
+    mutationFn: (newPassword) => authApi.updatePassword(newPassword),
+  });
+}
+
 export function useLogout() {
   const queryClient = useQueryClient();
   return useMutation({

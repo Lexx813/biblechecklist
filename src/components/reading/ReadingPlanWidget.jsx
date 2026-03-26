@@ -80,6 +80,8 @@ export default function ReadingPlanWidget({ userId, dailyGoal = 3, readonly = fa
           {editingGoal ? (
             <>
               <input
+                id="reading-plan-goal"
+                name="daily_goal"
                 type="number" min={1} max={30}
                 className="reading-plan-goal-input"
                 value={goalInput}

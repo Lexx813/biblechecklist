@@ -18,6 +18,8 @@ function formatDate(iso) {
 }
 
 // ── Users Tab ─────────────────────────────────────────────────────────────────
+const USERS_PAGE_SIZE = 20;
+
 function UsersTab({ currentUser }) {
   const { data: users = [], isLoading } = useUsers();
   const deleteUser = useDeleteUser();
@@ -32,6 +34,10 @@ function UsersTab({ currentUser }) {
   const [addError, setAddError] = useState("");
   const [addSuccess, setAddSuccess] = useState("");
   const [confirmDelete, setConfirmDelete] = useState(null);
+  const [page, setPage] = useState(0);
+
+  const totalPages = Math.ceil(users.length / USERS_PAGE_SIZE);
+  const pageUsers = users.slice(page * USERS_PAGE_SIZE, (page + 1) * USERS_PAGE_SIZE);
 
   function handleDelete(user) {
     if (user.id === currentUser.id) return alert(t("admin.selfDeleteError"));
@@ -66,6 +72,8 @@ function UsersTab({ currentUser }) {
       {showAddForm && (
         <form className="admin-add-form" onSubmit={handleAddUser}>
           <input
+            id="admin-new-email"
+            name="email"
             className="admin-input"
             type="email"
             placeholder={t("admin.emailPlaceholder")}
@@ -74,6 +82,8 @@ function UsersTab({ currentUser }) {
             disabled={createUser.isPending}
           />
           <input
+            id="admin-new-password"
+            name="password"
             className="admin-input"
             type="password"
             placeholder={t("admin.passwordPlaceholder")}
@@ -104,7 +114,7 @@ function UsersTab({ currentUser }) {
               </tr>
             </thead>
             <tbody>
-              {users.map(user => (
+              {pageUsers.map(user => (
                 <tr key={user.id} className={user.id === currentUser.id ? "admin-table-row--self" : ""}>
                   <td>
                     <div className="admin-user-cell">
@@ -160,6 +170,28 @@ function UsersTab({ currentUser }) {
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {totalPages > 1 && (
+        <div className="admin-pagination">
+          <button
+            className="admin-page-btn"
+            onClick={() => setPage(p => p - 1)}
+            disabled={page === 0}
+          >
+            ← Prev
+          </button>
+          <span className="admin-page-info">
+            {page + 1} / {totalPages}
+          </span>
+          <button
+            className="admin-page-btn"
+            onClick={() => setPage(p => p + 1)}
+            disabled={page >= totalPages - 1}
+          >
+            Next →
+          </button>
         </div>
       )}
 
@@ -304,6 +336,8 @@ function QuizTab() {
     <div>
       <div className="admin-quiz-controls">
         <select
+          id="admin-quiz-level"
+          name="quiz_level"
           className="admin-quiz-level-select"
           value={selectedLevel}
           onChange={e => { setSelectedLevel(Number(e.target.value)); setShowForm(false); }}
@@ -353,8 +387,10 @@ function QuizTab() {
           <h3>{editingId ? t("adminQuiz.editQuestion") : t("adminQuiz.addQuestion")}</h3>
 
           <div>
-            <label className="admin-form-label">{t("adminQuiz.level")}</label>
+            <label htmlFor="admin-level" className="admin-form-label">{t("adminQuiz.level")}</label>
             <select
+              id="admin-level"
+              name="level"
               className="admin-quiz-level-select"
               value={form.level}
               onChange={e => setForm(f => ({ ...f, level: Number(e.target.value) }))}
@@ -364,8 +400,10 @@ function QuizTab() {
           </div>
 
           <div>
-            <label className="admin-form-label">{t("adminQuiz.questionText")}</label>
+            <label htmlFor="admin-question" className="admin-form-label">{t("adminQuiz.questionText")}</label>
             <textarea
+              id="admin-question"
+              name="question"
               className="admin-textarea"
               rows={2}
               value={form.question}
@@ -379,8 +417,10 @@ function QuizTab() {
             <div className="admin-options-grid">
               {form.options.map((opt, i) => (
                 <div key={i} className="admin-option-row">
-                  <label className="admin-form-label">{t(`adminQuiz.option${OPTION_LABELS[i]}`)}</label>
+                  <label htmlFor={`admin-option-${i}`} className="admin-form-label">{t(`adminQuiz.option${OPTION_LABELS[i]}`)}</label>
                   <input
+                    id={`admin-option-${i}`}
+                    name={`option_${i}`}
                     className="admin-input"
                     value={opt}
                     onChange={e => {
@@ -396,8 +436,10 @@ function QuizTab() {
           </div>
 
           <div>
-            <label className="admin-form-label">{t("adminQuiz.correctAnswer")}</label>
+            <label htmlFor="admin-correct" className="admin-form-label">{t("adminQuiz.correctAnswer")}</label>
             <select
+              id="admin-correct"
+              name="correct_index"
               className="admin-correct-select"
               value={form.correct_index}
               onChange={e => setForm(f => ({ ...f, correct_index: Number(e.target.value) }))}
@@ -458,6 +500,8 @@ function AnnouncementsTab({ currentUser }) {
       <div className="admin-announcement-form">
         <h3 style={{ fontSize: 15, fontWeight: 800, color: "var(--text-primary)" }}>{t("adminAnnouncements.newTitle")}</h3>
         <textarea
+          id="admin-announcement-message"
+          name="message"
           className="admin-textarea"
           rows={3}
           placeholder={t("adminAnnouncements.messagePlaceholder")}

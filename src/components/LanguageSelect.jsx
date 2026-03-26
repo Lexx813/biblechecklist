@@ -7,6 +7,8 @@ export default function LanguageSelect({ style }) {
 
   return (
     <select
+      id="language-select"
+      name="language"
       className="lang-select"
       value={LANGUAGES.find(l => current.startsWith(l.code))?.code ?? "en"}
       onChange={e => i18n.changeLanguage(e.target.value)}

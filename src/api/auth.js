@@ -31,6 +31,11 @@ export const authApi = {
     if (error) throw new Error(error.message);
   },
 
+  updatePassword: async (newPassword) => {
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) throw new Error(error.message);
+  },
+
   logout: async () => {
     const { error } = await supabase.auth.signOut();
     if (error) throw new Error(error.message);

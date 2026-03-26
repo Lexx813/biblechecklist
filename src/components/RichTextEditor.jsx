@@ -208,6 +208,7 @@ function ColorPalette({ colors, onSelect, onClear, currentColor, label, children
           </div>
           <input
             ref={customRef}
+            name="custom_color"
             type="color"
             style={{ opacity: 0, position: "absolute", pointerEvents: "none", width: 0, height: 0 }}
             onInput={e => { onSelect(e.target.value); setOpen(false); }}
@@ -516,6 +517,8 @@ export default function RichTextEditor({
             <form onSubmit={submitLink}>
               <input
                 ref={linkInputRef}
+                id="link-modal-url"
+                name="url"
                 className="link-modal-input"
                 type="url"
                 placeholder="https://example.com"

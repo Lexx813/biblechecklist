@@ -34,6 +34,22 @@
 }
 .pf-back-btn:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
 .pf-back-btn:active { transform: translateY(0); }
+.pf-settings-btn {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.9);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+.pf-settings-btn:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+.pf-settings-btn:active { transform: translateY(0); }
 .pf-header-title {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 18px;
@@ -223,6 +239,52 @@
   background: var(--border);
 }
 
+/* ── ABOUT ME ── */
+.pf-about-text {
+  padding: 16px 20px 20px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-wrap;
+}
+.pf-about-empty {
+  padding: 16px 20px 20px;
+  font-size: 14px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 0;
+}
+.pf-about-edit {
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pf-about-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-primary);
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.pf-about-textarea:focus { border-color: var(--accent); }
+.pf-about-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.pf-about-count { font-size: 12px; color: var(--text-muted); }
+.pf-about-count--warn { color: #dc2626; }
+.pf-about-actions { display: flex; gap: 8px; }
+
 /* ── PROGRESS SECTIONS ── */
 .pf-section--stats .pf-section-header { border-bottom: none; }
 
@@ -273,7 +335,7 @@
 .pf-reading-meta strong { color: var(--text-primary); font-weight: 800; }
 .pf-dot { color: var(--text-muted); }
 
-.pf-goal { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.pf-goal { display: flex; flex-direction: column; gap: 8px; padding: 0 20px 20px; }
 .pf-goal-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .pf-goal-chip { font-size: 13px; color: var(--text-secondary); }
 .pf-goal-chip strong { color: var(--text-primary); }
@@ -283,12 +345,87 @@
 .pf-goal-empty { font-size: 13px; color: var(--text-muted); font-style: italic; }
 .pf-goal-edit-btn {
   font-size: 12px; font-weight: 600; padding: 4px 10px;
-  background: none; border: 1px solid var(--border-color); border-radius: 8px;
+  background: none; border: 1px solid var(--border); border-radius: 8px;
   color: var(--text-muted); cursor: pointer; margin-left: auto;
   transition: border-color 0.15s, color 0.15s;
 }
 .pf-goal-edit-btn:hover { border-color: var(--accent); color: var(--accent); }
-.pf-goal-form { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.pf-goal-set-btn {
+  font-size: 13px; font-weight: 700; padding: 6px 16px;
+  background: var(--accent); color: #fff; border: none; border-radius: 10px;
+  cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: opacity 0.15s;
+}
+.pf-goal-set-btn:hover { opacity: 0.85; }
+.pf-goal-form { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+.pf-goal-calendar-wrap {
+  display: inline-flex;
+  background: var(--card-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.pf-goal-calendar {
+  --rdp-accent-color: var(--accent);
+  --rdp-accent-background-color: var(--accent-light);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+}
+.pf-goal-calendar .rdp-day_button {
+  border-radius: 8px;
+  font-weight: 500;
+}
+.pf-goal-calendar .rdp-selected .rdp-day_button {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+}
+.pf-goal-calendar .rdp-today:not(.rdp-selected) .rdp-day_button {
+  color: var(--accent);
+  font-weight: 700;
+}
+.pf-goal-calendar .rdp-caption_label {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+.pf-goal-calendar .rdp-weekday {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+.pf-goal-calendar .rdp-nav button {
+  color: var(--text-secondary);
+  border-radius: 8px;
+}
+.pf-goal-calendar .rdp-nav button:hover {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+.pf-goal-form-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.pf-goal-save-btn {
+  padding: 7px 18px; border-radius: 10px; border: none; cursor: pointer;
+  background: var(--accent); color: #fff; font-weight: 700; font-size: 13px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: opacity 0.15s;
+}
+.pf-goal-save-btn:disabled { opacity: 0.45; cursor: default; }
+.pf-goal-save-btn:not(:disabled):hover { opacity: 0.85; }
+.pf-goal-remove-btn {
+  padding: 7px 14px; border-radius: 10px; border: 1.5px solid rgba(239,68,68,0.35); cursor: pointer;
+  background: none; color: #dc2626; font-weight: 600; font-size: 13px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: background 0.15s;
+}
+.pf-goal-remove-btn:hover { background: rgba(239,68,68,0.08); }
+.pf-goal-cancel-btn {
+  padding: 7px 14px; border-radius: 10px; border: 1.5px solid var(--border); cursor: pointer;
+  background: none; color: var(--text-muted); font-weight: 600; font-size: 13px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: border-color 0.15s, color 0.15s;
+}
+.pf-goal-cancel-btn:hover { border-color: var(--text-secondary); color: var(--text-secondary); }
 .pf-goal-projection { font-size: 12px; color: var(--text-muted); }
 .pf-goal-projection strong { color: var(--text-primary); }
 
@@ -303,7 +440,7 @@
   align-items: center;
   gap: 4px;
   background: var(--card-bg);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 14px 8px;
 }

@@ -9,10 +9,11 @@ import { BOOKS } from "../../data/books";
 import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
 import { useNotes, useCreateNote, useUpdateNote, useDeleteNote } from "../../hooks/useNotes";
 import { useProgress, useReadingStreak } from "../../hooks/useProgress";
-import { usePushNotifications } from "../../hooks/usePushNotifications";
 import { useQuizProgress } from "../../hooks/useQuiz";
 import { useFollowCounts, useIsFollowing, useToggleFollow } from "../../hooks/useFollows";
 import { useUserPosts, useCreatePost, useDeletePost } from "../../hooks/usePosts";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/style.css";
 import "../../styles/profile.css";
 import "../../styles/social.css";
 
@@ -95,6 +96,8 @@ function DisplayName({ profile, userId, editable }) {
     return (
       <div className="pf-name-edit">
         <input
+          id="pf-name-input"
+          name="display_name"
           className="pf-name-input"
           value={value}
           onChange={e => setValue(e.target.value)}
@@ -157,24 +160,26 @@ function NoteForm({ userId, initial, onDone }) {
     <form className="note-form" onSubmit={handleSubmit}>
       <div className="note-form-row">
         <div className="note-form-field">
-          <label className="note-form-label">{t("profile.bookLabel")}</label>
-          <select className="note-form-select" value={bookIndex} onChange={handleBookChange}>
+          <label htmlFor="note-book" className="note-form-label">{t("profile.bookLabel")}</label>
+          <select id="note-book" name="book" className="note-form-select" value={bookIndex} onChange={handleBookChange}>
             {BOOKS.map((b, i) => (
               <option key={i} value={i}>{t(`bookNames.${i}`, b.name)}</option>
             ))}
           </select>
         </div>
         <div className="note-form-field note-form-field--sm">
-          <label className="note-form-label">{t("profile.chapterLabel")}</label>
-          <select className="note-form-select" value={chapter} onChange={e => setChapter(Number(e.target.value))}>
+          <label htmlFor="note-chapter" className="note-form-label">{t("profile.chapterLabel")}</label>
+          <select id="note-chapter" name="chapter" className="note-form-select" value={chapter} onChange={e => setChapter(Number(e.target.value))}>
             {Array.from({ length: maxChapter }, (_, i) => (
               <option key={i + 1} value={i + 1}>{i + 1}</option>
             ))}
           </select>
         </div>
         <div className="note-form-field note-form-field--sm">
-          <label className="note-form-label">{t("profile.verseLabel")} <span className="note-form-optional">{t("profile.verseOptional")}</span></label>
+          <label htmlFor="note-verse" className="note-form-label">{t("profile.verseLabel")} <span className="note-form-optional">{t("profile.verseOptional")}</span></label>
           <input
+            id="note-verse"
+            name="verse"
             className="note-form-select"
             type="number"
             min={1}
@@ -186,6 +191,8 @@ function NoteForm({ userId, initial, onDone }) {
         </div>
       </div>
       <textarea
+        id="note-content"
+        name="content"
         className="note-form-textarea"
         placeholder={t("profile.notePlaceholder")}
         value={content}
@@ -314,6 +321,8 @@ function PostsSection({ profileId, isOwner, t }) {
       {isOwner && (
         <form className="post-composer" onSubmit={handleSubmit}>
           <textarea
+            id="post-composer"
+            name="content"
             className="post-composer-input"
             placeholder={t("posts.placeholder")}
             value={draft}
@@ -397,60 +406,62 @@ function FollowSection({ currentUserId, targetId, t }) {
   );
 }
 
-// ── Notification preferences ──────────────────────────────
-function NotificationPrefs({ profile, userId, t }) {
+// ── About Me ──────────────────────────────────────────────
+const BIO_MAX = 300;
+function AboutMe({ profile, userId, isOwner, t }) {
+  const [editing, setEditing] = useState(false);
+  const [value, setValue] = useState("");
   const update = useUpdateProfile(userId);
-  const { permission, subscribed, loading: pushLoading, subscribe, unsubscribe } = usePushNotifications(userId);
-  const emailBlog   = profile?.email_notifications_blog   ?? false;
-  const emailDigest = profile?.email_notifications_digest ?? false;
-  const emailStreak = profile?.email_notifications_streak ?? false;
 
-  const toggles = [
-    { key: "email_notifications_blog",   value: emailBlog,   labelKey: "notifBlogLabel",   descKey: "notifBlogDesc" },
-    { key: "email_notifications_digest", value: emailDigest, labelKey: "notifDigestLabel", descKey: "notifDigestDesc" },
-    { key: "email_notifications_streak", value: emailStreak, labelKey: "notifStreakLabel", descKey: "notifStreakDesc" },
-  ];
+  function startEdit() {
+    setValue(profile?.bio ?? "");
+    setEditing(true);
+  }
 
-  const pushSupported = "Notification" in window && "serviceWorker" in navigator && permission !== "unsupported";
+  function save() {
+    update.mutate({ bio: value.trim() || null }, { onSuccess: () => setEditing(false) });
+  }
 
   return (
-    <div className="pf-notif-prefs">
-      {pushSupported && (
-        <label className="pf-toggle-row">
-          <div className="pf-toggle-info">
-            <span className="pf-toggle-label">{t("profile.notifPushLabel")}</span>
-            <span className="pf-toggle-desc">
-              {permission === "denied" ? t("profile.notifPushDenied") : t("profile.notifPushDesc")}
+    <div className="pf-section pf-about">
+      <div className="pf-section-header">
+        <h2>{t("profile.aboutTitle")}</h2>
+        {isOwner && !editing && (
+          <button className="pf-add-note-btn" onClick={startEdit}>
+            {profile?.bio ? t("common.edit") : t("profile.aboutAdd")}
+          </button>
+        )}
+      </div>
+      {editing ? (
+        <div className="pf-about-edit">
+          <textarea
+            id="pf-about-textarea"
+            name="bio"
+            className="pf-about-textarea"
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            maxLength={BIO_MAX}
+            rows={4}
+            placeholder={t("profile.aboutPlaceholder")}
+            autoFocus
+          />
+          <div className="pf-about-footer">
+            <span className={`pf-about-count${value.length > BIO_MAX - 30 ? " pf-about-count--warn" : ""}`}>
+              {value.length}/{BIO_MAX}
             </span>
+            <div className="pf-about-actions">
+              <button className="note-form-cancel" onClick={() => setEditing(false)}>{t("common.cancel")}</button>
+              <button className="note-form-submit" onClick={save} disabled={update.isPending}>
+                {update.isPending ? t("common.saving") : t("common.save")}
+              </button>
+            </div>
           </div>
-          <button
-            role="switch"
-            aria-checked={subscribed}
-            className={`pf-toggle${subscribed ? " pf-toggle--on" : ""}`}
-            onClick={subscribed ? unsubscribe : subscribe}
-            disabled={pushLoading || permission === "denied"}
-          >
-            <span className="pf-toggle-thumb" />
-          </button>
-        </label>
+        </div>
+      ) : profile?.bio ? (
+        <p className="pf-about-text">{profile.bio}</p>
+      ) : (
+        <p className="pf-about-empty">{t("profile.aboutEmpty")}</p>
       )}
-      {toggles.map(({ key, value, labelKey, descKey }) => (
-        <label key={key} className="pf-toggle-row">
-          <div className="pf-toggle-info">
-            <span className="pf-toggle-label">{t(`profile.${labelKey}`)}</span>
-            <span className="pf-toggle-desc">{t(`profile.${descKey}`)}</span>
-          </div>
-          <button
-            role="switch"
-            aria-checked={value}
-            className={`pf-toggle${value ? " pf-toggle--on" : ""}`}
-            onClick={() => update.mutate({ [key]: !value })}
-            disabled={update.isPending}
-          >
-            <span className="pf-toggle-thumb" />
-          </button>
-        </label>
-      ))}
     </div>
   );
 }
@@ -460,14 +471,14 @@ const TOTAL_CH = 1189;
 function ReadingGoal({ profile, chaptersRead, totalDays, isOwner, t }) {
   const update = useUpdateProfile(profile?.id);
   const [editing, setEditing] = useState(false);
-  const [val, setVal] = useState("");
+  const [selected, setSelected] = useState(undefined);
 
   const goalDate = profile?.reading_goal_date ?? null;
 
   // Projected completion
   const projection = useMemo(() => {
     if (!chaptersRead || !totalDays) return null;
-    const pace = chaptersRead / totalDays; // chapters per day
+    const pace = chaptersRead / totalDays;
     const remaining = TOTAL_CH - chaptersRead;
     if (remaining <= 0) return null;
     const daysLeft = Math.ceil(remaining / pace);
@@ -476,14 +487,29 @@ function ReadingGoal({ profile, chaptersRead, totalDays, isOwner, t }) {
     return { projected, daysLeft, pace: pace.toFixed(1) };
   }, [chaptersRead, totalDays]);
 
+  function openEditor() {
+    setSelected(goalDate ? new Date(goalDate + "T00:00:00") : undefined);
+    setEditing(true);
+  }
+
   function saveGoal() {
-    update.mutate({ reading_goal_date: val || null });
+    let dateStr = null;
+    if (selected) {
+      const y = selected.getFullYear();
+      const m = String(selected.getMonth() + 1).padStart(2, "0");
+      const d = String(selected.getDate()).padStart(2, "0");
+      dateStr = `${y}-${m}-${d}`;
+    }
+    update.mutate({ reading_goal_date: dateStr });
     setEditing(false);
   }
 
   const onTrack = goalDate && projection
     ? new Date(projection.projected) <= new Date(goalDate)
     : null;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
   return (
     <div className="pf-goal">
@@ -503,18 +529,32 @@ function ReadingGoal({ profile, chaptersRead, totalDays, isOwner, t }) {
           <span className="pf-goal-empty">{t("profile.goalNotSet")}</span>
         ) : null}
         {isOwner && !editing && (
-          <button className="pf-goal-edit-btn" onClick={() => { setVal(goalDate ?? ""); setEditing(true); }}>
+          <button className={goalDate ? "pf-goal-edit-btn" : "pf-goal-set-btn"} onClick={openEditor}>
             {goalDate ? t("common.edit") : t("profile.goalSet")}
           </button>
         )}
       </div>
       {editing && (
         <div className="pf-goal-form">
-          <input type="date" className="admin-input" value={val} onChange={e => setVal(e.target.value)}
-            min={new Date().toISOString().slice(0, 10)} />
-          <button className="admin-submit-btn" onClick={saveGoal}>{t("common.save")}</button>
-          {goalDate && <button className="admin-action-btn admin-action-btn--danger" onClick={() => { update.mutate({ reading_goal_date: null }); setEditing(false); }}>{t("profile.goalRemove")}</button>}
-          <button className="admin-action-btn" onClick={() => setEditing(false)}>{t("common.cancel")}</button>
+          <div className="pf-goal-calendar-wrap">
+            <DayPicker
+              mode="single"
+              selected={selected}
+              onSelect={setSelected}
+              disabled={{ before: today }}
+              showOutsideDays
+              className="pf-goal-calendar"
+            />
+          </div>
+          <div className="pf-goal-form-actions">
+            <button className="pf-goal-save-btn" onClick={saveGoal} disabled={!selected}>{t("common.save")}</button>
+            {goalDate && (
+              <button className="pf-goal-remove-btn" onClick={() => { update.mutate({ reading_goal_date: null }); setEditing(false); }}>
+                {t("profile.goalRemove")}
+              </button>
+            )}
+            <button className="pf-goal-cancel-btn" onClick={() => setEditing(false)}>{t("common.cancel")}</button>
+          </div>
         </div>
       )}
       {projection && (
@@ -595,6 +635,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
         <div className="pf-header-inner">
           <button className="pf-back-btn" onClick={onBack}>{t("common.back")}</button>
           <h1 className="pf-header-title">{isOwner ? t("profile.title") : (profile?.display_name || profile?.email?.split("@")[0] || t("profile.title"))}</h1>
+          {isOwner && <button className="pf-settings-btn" onClick={() => navigate("settings")}>{t("settings.openSettings")}</button>}
         </div>
       </header>
 
@@ -618,6 +659,11 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
             )}
           </div>
         </div>
+
+        {/* About Me */}
+        {(isOwner || profile?.bio) && (
+          <AboutMe profile={profile} userId={profileId} isOwner={isOwner} t={t} />
+        )}
 
         {/* Bible Reading Progress */}
         <div className="pf-section pf-section--stats">
@@ -701,16 +747,6 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
         {/* Public posts / status updates */}
         <PostsSection profileId={profileId} isOwner={isOwner} t={t} />
 
-        {/* Notification preferences — owner only */}
-        {isOwner && (
-          <div className="pf-section">
-            <div className="pf-section-header">
-              <h2>🔔 {t("profile.notificationsTitle")}</h2>
-            </div>
-            <NotificationPrefs profile={profile} userId={user.id} t={t} />
-          </div>
-        )}
-
         {/* Notes section — owner only */}
         {isOwner && (
           <div className="pf-section">
@@ -729,6 +765,8 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
 
             <div className="pf-filters">
               <select
+                id="pf-filter-book"
+                name="filter_book"
                 className="pf-filter-select"
                 value={filterBook}
                 onChange={e => setFilterBook(e.target.value)}
@@ -739,6 +777,8 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
                 ))}
               </select>
               <input
+                id="pf-notes-search"
+                name="q"
                 className="pf-filter-search"
                 type="text"
                 placeholder={t("profile.searchNotes")}

@@ -192,6 +192,8 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
           {editing ? (
             <form onSubmit={handleSaveEdit} style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               <input
+                id="forum-edit-title"
+                name="title"
                 className="forum-input"
                 value={editTitle}
                 onChange={e => setEditTitle(e.target.value)}
@@ -451,6 +453,8 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
       {showForm && (
         <form className="forum-new-thread-form" onSubmit={handleCreate}>
           <input
+            id="forum-new-title"
+            name="title"
             className="forum-input"
             placeholder={t("forum.threadTitlePlaceholder")}
             value={title}

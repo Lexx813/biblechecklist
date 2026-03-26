@@ -98,15 +98,17 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
       {/* ── Streak banner ── */}
       {streak.current_streak > 0 && (
-        <div className="home-streak-banner" onClick={() => navigate("profile")}>
-          <span className="home-streak-fire">🔥</span>
-          <span className="home-streak-text">
-            <strong>{streak.current_streak}</strong>-{t("home.streakDay")} {t("home.streakLabel")}
-          </span>
-          {streak.longest_streak > streak.current_streak && (
-            <span className="home-streak-best">🏆 {t("home.streakBest")}: {streak.longest_streak}</span>
-          )}
-        </div>
+        <section className="home-section home-section--slim">
+          <div className="home-streak-banner" onClick={() => navigate("profile")}>
+            <span className="home-streak-fire">🔥</span>
+            <span className="home-streak-text">
+              <strong>{streak.current_streak}</strong>-{t("home.streakDay")} {t("home.streakLabel")}
+            </span>
+            {streak.longest_streak > streak.current_streak && (
+              <span className="home-streak-best">🏆 {t("home.streakBest")}: {streak.longest_streak}</span>
+            )}
+          </div>
+        </section>
       )}
 
       {/* ── Bible Tracker section ── */}
@@ -138,6 +140,18 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             </ul>
             <span className="home-tracker-cta">{t("home.trackerCta")}</span>
           </div>
+        </div>
+      </section>
+
+      {/* ── Leaderboard CTA ── */}
+      <section className="home-section home-section--compact">
+        <div className="home-lb-cta" onClick={() => navigate("leaderboard")}>
+          <span className="home-lb-icon">🏆</span>
+          <div>
+            <div className="home-lb-title">{t("home.leaderboardTitle")}</div>
+            <div className="home-lb-sub">{t("home.leaderboardSub")}</div>
+          </div>
+          <span className="home-lb-arrow">›</span>
         </div>
       </section>
 
@@ -259,17 +273,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         )}
       </section>
 
-      {/* ── Leaderboard CTA ── */}
-      <section className="home-section">
-        <div className="home-lb-cta" onClick={() => navigate("leaderboard")}>
-          <span className="home-lb-icon">🏆</span>
-          <div>
-            <div className="home-lb-title">{t("home.leaderboardTitle")}</div>
-            <div className="home-lb-sub">{t("home.leaderboardSub")}</div>
-          </div>
-          <span className="home-lb-arrow">›</span>
-        </div>
-      </section>
 
       </main>
 

@@ -4,6 +4,7 @@ export function parsePath() {
   if (h === "checklist") return { page: "main" };
   if (h === "admin") return { page: "admin" };
   if (h === "profile") return { page: "profile" };
+  if (h === "settings") return { page: "settings" };
   if (h === "blog-dash") return { page: "blogDash" };
   if (h === "blog") return { page: "blog", slug: null };
   if (h.startsWith("blog/")) return { page: "blog", slug: decodeURIComponent(h.slice(5)) };
@@ -30,6 +31,7 @@ export function buildPath(page, params = {}) {
   switch (page) {
     case "admin":         return "/admin";
     case "profile":       return "/profile";
+    case "settings":      return "/settings";
     case "blogDash":      return "/blog-dash";
     case "blog":          return params.slug ? `/blog/${encodeURIComponent(params.slug)}` : "/blog";
     case "forum":         return params.categoryId

@@ -1,0 +1,100 @@
+.st-wrap { min-height: 100vh; background: var(--bg); }
+
+.st-header { background: var(--card-bg); border-bottom: 1px solid var(--border); }
+.st-header-inner { max-width: 640px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; gap: 12px; }
+.st-title { font-size: var(--text-lg); font-weight: 800; color: var(--text-primary); margin: 0; }
+
+.st-content { max-width: 640px; margin: 0 auto; padding: 20px 16px 60px; display: flex; flex-direction: column; gap: 16px; }
+
+/* Section */
+.st-section {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.st-section-title {
+  font-size: 13px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--text-muted); margin: 0;
+}
+.st-section--danger { border-color: rgba(239,68,68,0.25); }
+.st-section-title--danger { color: #dc2626; }
+
+/* Avatar */
+.st-avatar-row { display: flex; align-items: center; gap: 16px; }
+.st-avatar-wrap { position: relative; flex-shrink: 0; }
+.st-avatar-img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); }
+.st-avatar-placeholder {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; font-weight: 800;
+}
+.st-avatar-overlay {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.st-avatar-info { display: flex; flex-direction: column; gap: 6px; }
+.st-avatar-hint { font-size: 12px; color: var(--text-muted); margin: 0; }
+
+/* Fields */
+.st-field { display: flex; flex-direction: column; gap: 6px; }
+.st-label { font-size: 12px; font-weight: 700; color: var(--text-secondary); }
+.st-input {
+  padding: 9px 12px; border-radius: 10px;
+  border: 1.5px solid var(--border); background: var(--bg);
+  font-size: 14px; color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  outline: none; width: 100%; box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+.st-input:focus { border-color: var(--accent); }
+.st-field-edit-row { display: flex; gap: 8px; align-items: center; }
+.st-field-edit-row .st-input { flex: 1; }
+.st-field-read-row { display: flex; align-items: center; gap: 10px; }
+.st-field-value { font-size: 14px; color: var(--text-primary); font-weight: 500; flex: 1; }
+.st-field-value--muted { color: var(--text-muted); font-weight: 400; }
+
+/* Toggle rows */
+.st-toggle-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border);
+}
+.st-toggle-row:last-child { border-bottom: none; }
+.st-toggle-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.st-toggle-label { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+.st-toggle-desc { font-size: 12px; color: var(--text-muted); }
+
+/* Danger */
+.st-danger-desc { font-size: 13px; color: var(--text-muted); margin: 0; }
+
+/* Buttons */
+.st-btn {
+  padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer;
+  border: none; white-space: nowrap; transition: opacity 0.15s, background 0.15s;
+}
+.st-btn:disabled { opacity: 0.45; cursor: default; }
+.st-btn--primary { background: var(--accent); color: #fff; }
+.st-btn--primary:not(:disabled):hover { opacity: 0.85; }
+.st-btn--secondary {
+  background: var(--accent-light); color: var(--accent);
+  border: 1.5px solid var(--border);
+}
+.st-btn--secondary:not(:disabled):hover { border-color: var(--accent); }
+.st-btn--ghost {
+  background: none; color: var(--text-muted);
+  border: 1.5px solid var(--border);
+}
+.st-btn--ghost:hover { border-color: var(--text-secondary); color: var(--text-secondary); }
+.st-btn--danger { background: #dc2626; color: #fff; }
+.st-btn--danger:hover { background: #b91c1c; }
+
+/* Feedback messages */
+.st-error { font-size: 0.85rem; color: #dc2626; margin: 8px 0 0; }
+.st-success { font-size: 0.85rem; color: #16a34a; margin: 8px 0 0; }

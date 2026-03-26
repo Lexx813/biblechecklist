@@ -2,6 +2,7 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import AuthPage from "./components/auth/AuthPage";
+import ResetPasswordPage from "./components/auth/ResetPasswordPage";
 import HomePage from "./components/HomePage";
 import LandingPage from "./components/LandingPage";
 import ChecklistPage from "./components/ChecklistPage";
@@ -25,6 +26,7 @@ const BlogDashboard  = lazy(() => import("./components/blog/BlogDashboard"));
 const ForumPage      = lazy(() => import("./components/forum/ForumPage"));
 const QuizPage       = lazy(() => import("./components/quiz/QuizPage"));
 const QuizLevel      = lazy(() => import("./components/quiz/QuizPage").then(m => ({ default: m.QuizLevel })));
+const SettingsPage   = lazy(() => import("./components/profile/SettingsPage"));
 const SearchPage     = lazy(() => import("./components/search/SearchPage"));
 const BookmarksPage  = lazy(() => import("./components/bookmarks/BookmarksPage"));
 const ReadingHistory = lazy(() => import("./components/reading/ReadingHistory"));
@@ -46,11 +48,13 @@ export default function App() {
   const { maintenanceMode } = useFeatureFlags();
   const [showLanding, setShowLanding] = useState(true);
   const [preAuthPath, setPreAuthPath] = useState(() => window.location.pathname.slice(1));
+  const [passwordRecovery, setPasswordRecovery] = useState(false);
 
   // Keep React Query cache in sync with Supabase auth state changes
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, newSession) => {
       queryClient.setQueryData(["session"], newSession);
+      if (event === "PASSWORD_RECOVERY") setPasswordRecovery(true);
     });
     return () => subscription.unsubscribe();
   }, [queryClient]);
@@ -97,6 +101,10 @@ export default function App() {
         </Suspense>
       </ErrorBoundary>
     );
+  }
+
+  if (passwordRecovery) {
+    return <ResetPasswordPage onDone={() => setPasswordRecovery(false)} />;
   }
 
   if (!user) {
@@ -166,8 +174,9 @@ function BibleApp({ user, onLogout, i18n }) {
   if (nav.page === "home") return <HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} />;
   if (nav.page === "main") return <ChecklistPage user={user} profile={profile} {...sharedNav} />;
 
-  if (nav.page === "admin")   return <Page><AdminPage currentUser={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
-  if (nav.page === "profile") return <Page><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  if (nav.page === "admin")    return <Page><AdminPage currentUser={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  if (nav.page === "profile")  return <Page><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  if (nav.page === "settings") return <Page><SettingsPage user={user} onBack={() => navigate("profile")} {...sharedNav} /></Page>;
   if (nav.page === "publicProfile") return (
     <Page>
       <ProfilePage user={user} viewedUserId={nav.userId} isOwner={false} onBack={() => navigate("home")} {...sharedNav} />

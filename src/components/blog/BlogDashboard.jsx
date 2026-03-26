@@ -77,8 +77,10 @@ function PostEditor({ userId, post, onDone }) {
       </div>
 
       <div className="blog-editor-form">
-        <label className="blog-editor-label">{t("blogDash.titleLabel")}</label>
+        <label htmlFor="blog-title" className="blog-editor-label">{t("blogDash.titleLabel")}</label>
         <input
+          id="blog-title"
+          name="title"
           className="blog-editor-input"
           placeholder={t("blogDash.titlePlaceholder")}
           value={form.title}
@@ -87,8 +89,10 @@ function PostEditor({ userId, post, onDone }) {
           maxLength={150}
         />
 
-        <label className="blog-editor-label">{t("blogDash.excerptLabel")} <span className="blog-editor-hint">{t("blogDash.excerptHint")}</span></label>
+        <label htmlFor="blog-excerpt" className="blog-editor-label">{t("blogDash.excerptLabel")} <span className="blog-editor-hint">{t("blogDash.excerptHint")}</span></label>
         <textarea
+          id="blog-excerpt"
+          name="excerpt"
           className="blog-editor-textarea blog-editor-textarea--sm"
           placeholder={t("blogDash.excerptPlaceholder")}
           value={form.excerpt}
@@ -97,7 +101,7 @@ function PostEditor({ userId, post, onDone }) {
           maxLength={300}
         />
 
-        <label className="blog-editor-label">{t("blogDash.coverLabel")} <span className="blog-editor-hint">{t("blogDash.coverHint")}</span></label>
+        <label htmlFor="blog-cover-url" className="blog-editor-label">{t("blogDash.coverLabel")} <span className="blog-editor-hint">{t("blogDash.coverHint")}</span></label>
         <div className="blog-cover-upload-row">
           {form.cover_url && (
             <img src={form.cover_url} className="blog-cover-preview" alt="cover preview" />
@@ -105,6 +109,8 @@ function PostEditor({ userId, post, onDone }) {
           <div className="blog-cover-controls">
             <input
               ref={fileInputRef}
+              id="blog-cover-upload"
+              name="cover"
               type="file"
               accept="image/jpeg,image/png,image/webp,image/gif"
               style={{ display: "none" }}
@@ -120,6 +126,8 @@ function PostEditor({ userId, post, onDone }) {
             </button>
             <span className="blog-editor-hint">{t("blogDash.coverOrUrl")}</span>
             <input
+              id="blog-cover-url"
+              name="cover_url"
               className="blog-editor-input"
               placeholder={t("blogDash.coverPlaceholder")}
               value={form.cover_url}

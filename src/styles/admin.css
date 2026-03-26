@@ -209,6 +209,30 @@
   overflow-x: auto;
 }
 
+.admin-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+}
+.admin-page-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s, opacity 0.15s;
+}
+.admin-page-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.admin-page-btn:disabled { opacity: 0.4; cursor: default; }
+.admin-page-info { font-size: 13px; color: var(--text-muted); font-weight: 600; min-width: 60px; text-align: center; }
+
 .admin-table {
   width: 100%;
   border-collapse: collapse;

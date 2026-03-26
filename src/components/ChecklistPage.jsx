@@ -178,6 +178,8 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
               <path d="M10 10L13 13" stroke="#666" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
             <input
+              id="checklist-search"
+              name="q"
               className="search-input"
               type="text"
               placeholder={t("app.searchPlaceholder")}
