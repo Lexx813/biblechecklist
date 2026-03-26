@@ -1,7 +1,20 @@
-const CACHE = "nwt-v3";
+const CACHE = "nwt-v4";
 const STATIC_EXTENSIONS = /\.(js|css|png|jpg|jpeg|svg|gif|webp|woff2?|ico)$/;
 
-self.addEventListener("install", () => self.skipWaiting());
+// Precache critical assets on install so repeat visits are instant
+const PRECACHE = [
+  "/",
+  "/fonts/plus-jakarta-sans-variable.woff2",
+  "/locales/en/translation.json",
+  "/manifest.json",
+];
+
+self.addEventListener("install", (e) => {
+  e.waitUntil(
+    caches.open(CACHE).then((cache) => cache.addAll(PRECACHE))
+  );
+  self.skipWaiting();
+});
 
 self.addEventListener("activate", (e) => {
   e.waitUntil(
