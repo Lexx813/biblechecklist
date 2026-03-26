@@ -167,9 +167,6 @@ function BibleApp({ user, onLogout, i18n }) {
     const path = buildPath(page, params);
     history.pushState(null, "", path);
     setNav({ page, ...params });
-    if (typeof gtag !== "undefined") {
-      gtag("event", "page_view", { page_title: page, page_path: path });
-    }
   };
 
   const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page };

@@ -44,7 +44,7 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
             <li className="about-feature"><span className="about-feature-icon">✅</span><div>To sync your reading progress across devices</div></li>
             <li className="about-feature"><span className="about-feature-icon">✅</span><div>To send transactional emails (email confirmation, password reset)</div></li>
             <li className="about-feature"><span className="about-feature-icon">✅</span><div>To display your public profile and content to other users</div></li>
-            <li className="about-feature"><span className="about-feature-icon">✅</span><div>To improve the App using anonymized analytics</div></li>
+            <li className="about-feature"><span className="about-feature-icon">✅</span><div>To improve the App using anonymized analytics (Vercel Analytics)</div></li>
           </ul>
           <p className="about-section-body" style={{ marginTop: 16 }}>
             We do <strong>not</strong> sell your data. We do <strong>not</strong> use your data for advertising.
@@ -58,7 +58,7 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
             <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Supabase</strong> — database, authentication, and file storage</div></li>
             <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Vercel</strong> — hosting and deployment</div></li>
             <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Resend</strong> — transactional email delivery</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Google Analytics</strong> — anonymized usage analytics</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Vercel Analytics</strong> — anonymized usage analytics</div></li>
           </ul>
           <p className="about-section-body" style={{ marginTop: 16 }}>
             Each of these services has their own privacy policy governing their data handling.
@@ -89,7 +89,7 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
         <section className="about-section">
           <h2 className="about-section-title">7. Cookies</h2>
           <p className="about-section-body">
-            The App uses browser localStorage to store your theme preference and cached data for offline use. Google Analytics uses cookies to track anonymized usage. You can disable cookies in your browser settings or use an ad blocker to prevent analytics tracking.
+            The App uses browser localStorage to store your theme preference and cached data for offline use. Vercel Analytics collects anonymized, cookie-free usage data to help improve the App.
           </p>
         </section>
 

@@ -45,29 +45,7 @@
 
     <title>NWT Progress</title>
 
-    <!-- Google Analytics — loaded during browser idle time so it never
-         competes with FCP/LCP critical resources -->
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      function loadGA() {
-        var s = document.createElement('script');
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-WVBXCJFGWQ';
-        s.async = true;
-        document.head.appendChild(s);
-        s.onload = function() {
-          gtag('js', new Date());
-          gtag('config', 'G-WVBXCJFGWQ');
-        };
-      }
-      window.addEventListener('load', function () {
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(loadGA, { timeout: 4000 });
-        } else {
-          setTimeout(loadGA, 3000);
-        }
-      });
-    </script>
+
   </head>
   <body>
     <div id="root"></div>

@@ -97,7 +97,8 @@
       "Bash(cat:*)",
       "Bash(grep -rn \"^img\\\\b\" /home/alexi/projects/nwt-progress/src/styles/*.css)",
       "Bash(grep -rn \"img {.*width\\\\|img {.*100%\" /home/alexi/projects/nwt-progress/src/styles/*.css)",
-      "Bash(grep -rn \"ProseMirror\\\\|tiptap\\\\|rich-text\" /home/alexi/projects/nwt-progress/src/styles/*.css)"
+      "Bash(grep -rn \"ProseMirror\\\\|tiptap\\\\|rich-text\" /home/alexi/projects/nwt-progress/src/styles/*.css)",
+      "Bash(grep -rn \"signUp\\\\|supabase.auth\" /home/alexi/projects/nwt-progress/src/api/*.js)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"
