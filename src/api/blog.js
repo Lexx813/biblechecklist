@@ -1,4 +1,5 @@
 import { supabase } from "../lib/supabase";
+import { assertNoPII } from "../lib/pii";
 
 const generateSlug = (title) =>
   title.toLowerCase()
@@ -39,6 +40,7 @@ export const blogApi = {
   },
 
   create: async (userId, post) => {
+    assertNoPII(post.title, post.excerpt, post.content);
     const { data, error } = await supabase
       .from("blog_posts")
       .insert({ author_id: userId, slug: generateSlug(post.title), ...post })
@@ -49,6 +51,7 @@ export const blogApi = {
   },
 
   update: async (postId, updates) => {
+    assertNoPII(updates.title, updates.excerpt, updates.content);
     const { data, error } = await supabase
       .from("blog_posts")
       .update({ ...updates, updated_at: new Date().toISOString() })
@@ -75,6 +78,7 @@ export const blogApi = {
   },
 
   createComment: async (userId, postId, content) => {
+    assertNoPII(content);
     const { data, error } = await supabase
       .from("blog_comments")
       .insert({ author_id: userId, post_id: postId, content })

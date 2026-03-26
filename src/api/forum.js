@@ -1,4 +1,5 @@
 import { supabase } from "../lib/supabase";
+import { assertNoPII } from "../lib/pii";
 
 const PROFILE_FIELDS = "profiles!author_id(display_name, avatar_url, top_badge_level)";
 
@@ -50,6 +51,7 @@ export const forumApi = {
   },
 
   createThread: async (userId, categoryId, title, content) => {
+    assertNoPII(title, content);
     const { data, error } = await supabase
       .from("forum_threads")
       .insert({ author_id: userId, category_id: categoryId, title, content })
@@ -60,6 +62,7 @@ export const forumApi = {
   },
 
   createReply: async (userId, threadId, content) => {
+    assertNoPII(content);
     const { data, error } = await supabase
       .from("forum_replies")
       .insert({ author_id: userId, thread_id: threadId, content })
@@ -70,6 +73,7 @@ export const forumApi = {
   },
 
   updateThread: async (threadId, { title, content }) => {
+    assertNoPII(title, content);
     const { data, error } = await supabase
       .from("forum_threads")
       .update({ title, content, updated_at: new Date().toISOString() })
@@ -86,6 +90,7 @@ export const forumApi = {
   },
 
   updateReply: async (replyId, content) => {
+    assertNoPII(content);
     const { data, error } = await supabase
       .from("forum_replies")
       .update({ content })

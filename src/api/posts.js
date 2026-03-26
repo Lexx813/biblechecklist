@@ -1,7 +1,9 @@
 import { supabase } from "../lib/supabase";
+import { assertNoPII } from "../lib/pii";
 
 export const postsApi = {
   create: async (userId, content) => {
+    assertNoPII(content);
     const { data, error } = await supabase
       .from("user_posts")
       .insert({ user_id: userId, content: content.trim() })

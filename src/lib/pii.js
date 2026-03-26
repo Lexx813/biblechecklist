@@ -1,0 +1,53 @@
+/**
+ * PII detection — blocks emails, phone numbers, and street addresses
+ * from being stored in user-generated content (forum, blog, posts).
+ *
+ * Applied in the API layer before every insert/update, and enforced
+ * server-side via a Supabase trigger as a backup.
+ */
+
+// Strips HTML tags and common entities to get plain text for scanning
+function stripHtml(html = "") {
+  return html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&[a-z]+;/gi, " ")
+    .replace(/&#\d+;/g, " ");
+}
+
+// Email:  user@domain.tld
+const EMAIL_RE = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/;
+
+// Phone: handles +1 (555) 555-5555 · 555.555.5555 · 5555555555 · +44 7700 900000 etc.
+const PHONE_RE =
+  /(\+?\d{1,3}[\s.\-]?)?\(?\d{3}\)?[\s.\-]?\d{3}[\s.\-]?\d{4}/;
+
+// Street address: "123 Main St", "456 Oak Avenue", "789 Elm Blvd" etc.
+const ADDRESS_RE =
+  /\b\d{1,5}\s+[a-z0-9 ]{2,30}\s+(st\.?|street|ave\.?|avenue|blvd\.?|boulevard|rd\.?|road|dr\.?|drive|ln\.?|lane|ct\.?|court|pl\.?|place|way|circle|cir\.?|terrace|ter\.?)\b/i;
+
+/**
+ * Returns a description of the first PII type found, or null if clean.
+ * Accepts plain text or HTML.
+ */
+export function detectPII(text = "") {
+  const plain = stripHtml(text);
+  if (EMAIL_RE.test(plain)) return "email address";
+  if (PHONE_RE.test(plain)) return "phone number";
+  if (ADDRESS_RE.test(plain)) return "physical address";
+  return null;
+}
+
+/**
+ * Throws a user-friendly Error if any PII is detected.
+ * Call this before every API insert/update.
+ */
+export function assertNoPII(...fields) {
+  for (const text of fields) {
+    const found = detectPII(text);
+    if (found) {
+      throw new Error(
+        `Your post appears to contain a ${found}. For everyone's safety, personal contact information is not allowed.`
+      );
+    }
+  }
+}
