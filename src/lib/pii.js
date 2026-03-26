@@ -1,6 +1,7 @@
 /**
- * PII detection — blocks emails, phone numbers, and street addresses
- * from being stored in user-generated content (forum, blog, posts).
+ * PII detection — blocks emails, phone numbers, street addresses,
+ * personal social media links/handles, and insecure (http://) links
+ * from user-generated content.
  *
  * Applied in the API layer before every insert/update, and enforced
  * server-side via a Supabase trigger as a backup.
@@ -25,6 +26,18 @@ const PHONE_RE =
 const ADDRESS_RE =
   /\b\d{1,5}\s+[a-z0-9 ]{2,30}\s+(st\.?|street|ave\.?|avenue|blvd\.?|boulevard|rd\.?|road|dr\.?|drive|ln\.?|lane|ct\.?|court|pl\.?|place|way|circle|cir\.?|terrace|ter\.?)\b/i;
 
+// Social media URLs — facebook, instagram, twitter/x, tiktok, snapchat,
+// youtube, linkedin, threads, telegram, whatsapp, discord invite links
+const SOCIAL_URL_RE =
+  /\b(facebook\.com|fb\.com|instagram\.com|twitter\.com|x\.com|tiktok\.com|snapchat\.com|youtube\.com|youtu\.be|linkedin\.com|threads\.net|t\.me|telegram\.me|wa\.me|whatsapp\.com|discord\.gg|discord\.com\/invite)\b/i;
+
+// Standalone social handles: @username (min 2 chars, not part of an email)
+// Negative lookbehind ensures it isn't the @ in an email address
+const SOCIAL_HANDLE_RE = /(?<![a-zA-Z0-9._%+\-])@[a-zA-Z0-9_.]{2,}/;
+
+// Insecure links: http:// (only https:// is allowed)
+const INSECURE_URL_RE = /\bhttp:\/\//i;
+
 /**
  * Returns a description of the first PII type found, or null if clean.
  * Accepts plain text or HTML.
@@ -34,6 +47,9 @@ export function detectPII(text = "") {
   if (EMAIL_RE.test(plain)) return "email address";
   if (PHONE_RE.test(plain)) return "phone number";
   if (ADDRESS_RE.test(plain)) return "physical address";
+  if (SOCIAL_URL_RE.test(plain)) return "social media link";
+  if (SOCIAL_HANDLE_RE.test(plain)) return "social media handle";
+  if (INSECURE_URL_RE.test(plain)) return "insecure link (http://)";
   return null;
 }
 
@@ -46,7 +62,7 @@ export function assertNoPII(...fields) {
     const found = detectPII(text);
     if (found) {
       throw new Error(
-        `Your post appears to contain a ${found}. For everyone's safety, personal contact information is not allowed.`
+        `Your post appears to contain a ${found}. To keep the community safe, personal contact information, social media links, and insecure (http://) links are not allowed — please use https:// links only.`
       );
     }
   }
