@@ -1,4 +1,5 @@
 import { supabase } from "../lib/supabase";
+import { assertNoPII } from "../lib/pii";
 
 export const profileApi = {
   get: async (userId) => {
@@ -12,6 +13,7 @@ export const profileApi = {
   },
 
   update: async (userId, updates) => {
+    assertNoPII(updates.bio, updates.display_name);
     const { data, error } = await supabase
       .from("profiles")
       .update(updates)
