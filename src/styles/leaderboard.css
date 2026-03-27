@@ -78,7 +78,7 @@
   padding: 12px 16px;
   background: var(--card-bg); border: 1px solid var(--border);
   border-radius: 14px; cursor: pointer;
-  transition: border-color 0.15s, transform 0.1s;
+  transition: border-color 0.2s, transform 0.2s;
 }
 .lb-row:hover { border-color: var(--accent); transform: translateY(-1px); }
 .lb-row--me { border-color: var(--accent); background: rgba(var(--accent-rgb, 107,70,193), 0.06); }

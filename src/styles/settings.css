@@ -50,9 +50,9 @@
   font-size: 14px; color: var(--text-primary);
   font-family: 'Plus Jakarta Sans Variable', sans-serif;
   outline: none; width: 100%; box-sizing: border-box;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
-.st-input:focus { border-color: var(--accent); }
+.st-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(139,92,246,0.15); }
 .st-field-edit-row { display: flex; gap: 8px; align-items: center; }
 .st-field-edit-row .st-input { flex: 1; }
 .st-field-read-row { display: flex; align-items: center; gap: 10px; }
@@ -77,7 +77,7 @@
 .st-btn {
   padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700;
   font-family: 'Plus Jakarta Sans Variable', sans-serif; cursor: pointer;
-  border: none; white-space: nowrap; transition: opacity 0.15s, background 0.15s;
+  border: none; white-space: nowrap; transition: opacity 0.15s, background 0.15s, border-color 0.15s, color 0.15s;
 }
 .st-btn:disabled { opacity: 0.45; cursor: default; }
 .st-btn--primary { background: var(--accent); color: #fff; }
