@@ -9,6 +9,7 @@
  *   STRIPE_SECRET_KEY         — sk_test_...
  *   SUPABASE_URL              — auto-injected
  *   SUPABASE_SERVICE_ROLE_KEY — auto-injected
+ *   SUPABASE_ANON_KEY         — auto-injected
  */
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
@@ -30,18 +31,20 @@ function corsHeaders(req: Request) {
   };
 }
 
+function json(body: unknown, status: number, cors: Record<string, string>) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...cors, "Content-Type": "application/json" },
+  });
+}
+
 Deno.serve(async (req) => {
   const cors = corsHeaders(req);
   if (req.method === "OPTIONS") return new Response(null, { headers: cors });
 
   try {
-    // ── Auth ──────────────────────────────────────────────────────────────────
     const authHeader = req.headers.get("Authorization");
-    if (!authHeader) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
-        status: 401, headers: { ...cors, "Content-Type": "application/json" },
-      });
-    }
+    if (!authHeader) return json({ error: "Unauthorized" }, 401, cors);
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
@@ -50,66 +53,41 @@ Deno.serve(async (req) => {
     );
 
     const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
-        status: 401, headers: { ...cors, "Content-Type": "application/json" },
-      });
-    }
+    if (authError || !user) return json({ error: "Unauthorized" }, 401, cors);
 
-    // ── Verify caller is admin ────────────────────────────────────────────────
     const { data: callerProfile } = await supabaseAdmin
       .from("profiles")
       .select("is_admin")
       .eq("id", user.id)
       .single();
 
-    if (!callerProfile?.is_admin) {
-      return new Response(JSON.stringify({ error: "Forbidden" }), {
-        status: 403, headers: { ...cors, "Content-Type": "application/json" },
-      });
-    }
+    if (!callerProfile?.is_admin) return json({ error: "Forbidden" }, 403, cors);
 
-    // ── Body ──────────────────────────────────────────────────────────────────
     const { userId } = await req.json() as { userId: string };
-    if (!userId) {
-      return new Response(JSON.stringify({ error: "userId required" }), {
-        status: 400, headers: { ...cors, "Content-Type": "application/json" },
-      });
-    }
+    if (!userId) return json({ error: "userId required" }, 400, cors);
 
-    // ── Fetch target user's subscription ─────────────────────────────────────
     const { data: profile } = await supabaseAdmin
       .from("profiles")
-      .select("stripe_subscription_id, subscription_status")
+      .select("stripe_subscription_id")
       .eq("id", userId)
       .single();
 
     if (!profile?.stripe_subscription_id) {
-      return new Response(JSON.stringify({ error: "No active subscription found" }), {
-        status: 400, headers: { ...cors, "Content-Type": "application/json" },
-      });
+      return json({ error: "No active subscription found" }, 400, cors);
     }
 
-    // ── Cancel in Stripe ─────────────────────────────────────────────────────
     await stripe.subscriptions.cancel(profile.stripe_subscription_id);
 
-    // ── Update profiles table ────────────────────────────────────────────────
     await supabaseAdmin
       .from("profiles")
-      .update({
-        subscription_status: "canceled",
-        stripe_subscription_id: null,
-      })
+      .update({ subscription_status: "canceled", stripe_subscription_id: null })
       .eq("id", userId);
 
-    return new Response(JSON.stringify({ ok: true }), {
-      headers: { ...cors, "Content-Type": "application/json" },
-    });
+    return json({ ok: true }, 200, cors);
 
   } catch (err) {
+    const message = err instanceof Error ? err.message : "Internal server error";
     console.error("admin-cancel-subscription error:", err);
-    return new Response(JSON.stringify({ error: err.message }), {
-      status: 500, headers: { ...cors, "Content-Type": "application/json" },
-    });
+    return json({ error: message }, 500, cors);
   }
 });

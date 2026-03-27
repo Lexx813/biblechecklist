@@ -22,7 +22,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
   const [menuOpen, setMenuOpen] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
   const openUpgrade = () => {
-    if (isAdmin) openUpgrade();
+    if (isAdmin) setShowUpgrade(true);
   };
   const [moreOpen, setMoreOpen] = useState(false);
   const [communityOpen, setCommunityOpen] = useState(false);

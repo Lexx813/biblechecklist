@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import PageNav from "../PageNav";
 import ConfirmModal from "../ConfirmModal";
 import {
   useConversations,
@@ -729,8 +728,7 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
 
   return (
     <div className="msg-page">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="messages" />
-<div className="msg-layout">
+      <div className="msg-layout">
         <aside className={`msg-sidebar${!showList ? " msg-sidebar--hidden-mobile" : ""}`}>
           <div className="msg-sidebar-header">
             <button className="msg-back-page-btn" onClick={() => navigate("home")}>←</button>
