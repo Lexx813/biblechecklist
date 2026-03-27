@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import "../styles/celebration.css";
 
@@ -31,7 +32,7 @@ export default function BookCelebration({ bookName, bookIcon, chaptersCount, tot
     return () => clearTimeout(timer);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return (
+  return createPortal(
     <div className="celebrate-overlay" onClick={onClose}>
       <div className="celebrate-confetti" />
       <div className="celebrate-modal" onClick={e => e.stopPropagation()}>
@@ -45,6 +46,7 @@ export default function BookCelebration({ bookName, bookIcon, chaptersCount, tot
         </p>
         <button className="celebrate-close" onClick={onClose}>{t("celebrate.continue")}</button>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

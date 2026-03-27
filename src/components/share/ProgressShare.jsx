@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import "../../styles/progress-share.css";
 
@@ -190,7 +191,7 @@ export default function ProgressShare({ stats, onClose }) {
     } catch { download(); }
   };
 
-  return (
+  return createPortal(
     <div className="share-overlay" onClick={onClose}>
       <div className="share-modal" onClick={e => e.stopPropagation()}>
         <div className="share-modal-header">
@@ -212,6 +213,7 @@ export default function ProgressShare({ stats, onClose }) {
           <p className="share-hint">{t("share.hint")}</p>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

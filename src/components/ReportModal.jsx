@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 
 export default function ReportModal({ onSubmit, onClose, isPending }) {
   const [reason, setReason] = useState("");
   const { t } = useTranslation();
-  return (
+  return createPortal(
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-box" onClick={e => e.stopPropagation()} style={{ maxWidth: 420 }}>
         <h3 className="modal-title">🚩 {t("report.title")}</h3>
@@ -29,6 +30,7 @@ export default function ReportModal({ onSubmit, onClose, isPending }) {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

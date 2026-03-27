@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import "../styles/onboarding.css";
 
@@ -30,7 +31,7 @@ export default function OnboardingModal({ onClose }) {
   const current = STEPS[step];
   const isLast = step === STEPS.length - 1;
 
-  return (
+  return createPortal(
     <div className="onboard-overlay" role="dialog" aria-modal="true">
       <div className="onboard-modal">
         <button className="onboard-skip" onClick={handleSkip}>{t("onboarding.skip")}</button>
@@ -49,7 +50,8 @@ export default function OnboardingModal({ onClose }) {
           {isLast ? t("onboarding.getStarted") : t("onboarding.next")}
         </button>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

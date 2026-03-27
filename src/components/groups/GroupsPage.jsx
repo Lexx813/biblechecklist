@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { useMyGroups, usePublicGroups, useCreateGroup, useJoinGroup, useJoinByCode } from "../../hooks/useGroups";
 import PageNav from "../PageNav";
 import "../../styles/groups.css";
@@ -53,7 +54,7 @@ function CreateGroupModal({ onClose, onCreated }) {
     );
   }
 
-  return (
+  return createPortal(
     <div className="grp-modal-overlay" onClick={onClose}>
       <div className="grp-modal" onClick={e => e.stopPropagation()}>
         <div className="grp-modal-header">
@@ -118,7 +119,8 @@ function CreateGroupModal({ onClose, onCreated }) {
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
@@ -138,7 +140,7 @@ function JoinCodeModal({ onClose, onJoined }) {
     });
   }
 
-  return (
+  return createPortal(
     <div className="grp-modal-overlay" onClick={onClose}>
       <div className="grp-modal grp-modal--sm" onClick={e => e.stopPropagation()}>
         <div className="grp-modal-header">
@@ -166,7 +168,8 @@ function JoinCodeModal({ onClose, onJoined }) {
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

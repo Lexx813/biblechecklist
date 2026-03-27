@@ -1,8 +1,9 @@
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 
 export default function ConfirmModal({ message, onConfirm, onCancel, confirmLabel, danger = true }) {
   const { t } = useTranslation();
-  return (
+  return createPortal(
     <div className="confirm-overlay" onClick={onCancel}>
       <div className="confirm-modal" onClick={e => e.stopPropagation()}>
         <div className="confirm-body">
@@ -19,6 +20,7 @@ export default function ConfirmModal({ message, onConfirm, onCancel, confirmLabe
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
