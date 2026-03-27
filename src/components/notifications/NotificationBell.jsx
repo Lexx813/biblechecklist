@@ -14,7 +14,9 @@ function timeAgo(iso) {
 export default function NotificationBell({ userId, navigate }) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [dropStyle, setDropStyle] = useState({});
   const ref = useRef(null);
+  const btnRef = useRef(null);
   const { data: notifications = [] } = useNotifications(userId);
   const markRead   = useMarkNotificationsRead(userId);
   const deleteOne  = useDeleteNotification(userId);
@@ -29,6 +31,21 @@ export default function NotificationBell({ userId, navigate }) {
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, []);
+
+  useEffect(() => {
+    if (!open || !btnRef.current) return;
+    const rect = btnRef.current.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const dropW = 320;
+    const pad = 12;
+    if (vw < 480) {
+      setDropStyle({ top: rect.bottom + 8, left: pad, right: pad, width: "auto", maxHeight: "70vh" });
+    } else {
+      const right = vw - rect.right;
+      const left = rect.right - dropW;
+      setDropStyle({ top: rect.bottom + 8, right: Math.max(right, pad), left: left < pad ? pad : "auto" });
+    }
+  }, [open]);
 
   function handleOpen() {
     setOpen(o => !o);
@@ -67,6 +84,7 @@ export default function NotificationBell({ userId, navigate }) {
   return (
     <div className="notif-wrap" ref={ref}>
       <button
+        ref={btnRef}
         className="page-nav-icon-btn notif-bell-btn"
         onClick={handleOpen}
         title={t("notifications.title")}
@@ -78,7 +96,7 @@ export default function NotificationBell({ userId, navigate }) {
       </button>
 
       {open && (
-        <div className="notif-dropdown">
+        <div className="notif-dropdown" style={dropStyle}>
           <div className="notif-header">
             <span className="notif-title">{t("notifications.title")}</span>
             <div className="notif-header-actions">

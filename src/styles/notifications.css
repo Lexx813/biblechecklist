@@ -13,22 +13,10 @@
 }
 
 .notif-dropdown {
-  position: absolute; right: 0; top: calc(100% + 8px); z-index: 300;
+  position: fixed; z-index: 300;
   width: 320px; max-height: 440px; overflow-y: auto;
   background: var(--card-bg); border: 1px solid var(--border);
   border-radius: var(--radius); box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-}
-
-@media (max-width: 480px) {
-  .notif-dropdown {
-    position: fixed;
-    top: 64px;
-    left: 12px;
-    right: 12px;
-    width: auto;
-    max-height: 70vh;
-    border-radius: var(--radius);
-  }
 }
 
 .notif-header {
