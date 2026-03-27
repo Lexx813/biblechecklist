@@ -198,7 +198,9 @@
       "Bash(ls -la /home/alexi/projects/nwt-progress/dist/assets/index-*.js)",
       "Bash(ls -la /home/alexi/projects/nwt-progress/dist/assets/*.js)",
       "Bash(sort echo:*)",
-      "Bash(find /home/alexi/projects/nwt-progress/src/components -type d -empty -delete)"
+      "Bash(find /home/alexi/projects/nwt-progress/src/components -type d -empty -delete)",
+      "Bash(ls /home/alexi/projects/nwt-progress/dist/assets/*.css)",
+      "Bash(ls /home/alexi/projects/nwt-progress/.vercel/output/static/assets/index-*.css)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects",
