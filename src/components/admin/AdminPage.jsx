@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
 import PageNav from "../PageNav";
 import LoadingSpinner from "../LoadingSpinner";
-import { useUsers, useDeleteUser, useSetAdmin, useSetModerator, useSetBlog, useCreateUser, useBanUser, useCancelSubscription } from "../../hooks/useAdmin";
+import { useUsers, useDeleteUser, useSetAdmin, useSetModerator, useSetBlog, useCreateUser, useBanUser, useCancelSubscription, useGiftPremium } from "../../hooks/useAdmin";
 import { useReports, useUpdateReport, useDeleteReport, useDeleteReportedContent } from "../../hooks/useReports";
 import { useAllAnnouncements, useCreateAnnouncement, useToggleAnnouncement, useDeleteAnnouncement } from "../../hooks/useAnnouncements";
 import { useAllQuizQuestions, useCreateQuizQuestion, useUpdateQuizQuestion, useDeleteQuizQuestion } from "../../hooks/useQuiz";
@@ -30,6 +30,7 @@ function UsersTab({ currentUser, navigate }) {
   const banUser = useBanUser();
   const createUser = useCreateUser();
   const cancelSub = useCancelSubscription();
+  const giftPremium = useGiftPremium();
   const { t } = useTranslation();
 
   const [showAddForm, setShowAddForm] = useState(false);
@@ -46,7 +47,7 @@ function UsersTab({ currentUser, navigate }) {
   const pageUsers = users.slice(page * USERS_PAGE_SIZE, (page + 1) * USERS_PAGE_SIZE);
 
   function handleDelete(user) {
-    if (user.id === currentUser.id) return alert(t("admin.selfDeleteError"));
+    if (user.id === currentUser.id) return;
     setConfirmDelete(user);
   }
 
@@ -178,6 +179,14 @@ function UsersTab({ currentUser, navigate }) {
                           {user.can_blog ? t("admin.writer") : t("admin.allowBlog")}
                         </button>
                         <span className="admin-actions-sep" />
+                        <button
+                          className={`admin-action-btn ${user.subscription_status === "gifted" ? "admin-action-btn--active" : ""}`}
+                          onClick={() => giftPremium.mutate({ userId: user.id, value: user.subscription_status !== "gifted" })}
+                          disabled={giftPremium.isPending}
+                          title={user.subscription_status === "gifted" ? "Revoke free Premium" : "Grant free Premium"}
+                        >
+                          {user.subscription_status === "gifted" ? "⭐ Revoke Gift" : "⭐ Gift Premium"}
+                        </button>
                         {(user.subscription_status === "active" || user.subscription_status === "trialing") && (
                           <button
                             className="admin-action-btn admin-action-btn--danger"

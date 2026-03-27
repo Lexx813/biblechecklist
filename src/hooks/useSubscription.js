@@ -16,7 +16,8 @@ export function useSubscription(userId) {
   const isPremium =
     profile?.is_admin === true ||
     profile?.subscription_status === "active" ||
-    profile?.subscription_status === "trialing";
+    profile?.subscription_status === "trialing" ||
+    profile?.subscription_status === "gifted";
 
   const status = profile?.subscription_status ?? "inactive";
 

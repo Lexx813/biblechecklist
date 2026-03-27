@@ -437,10 +437,14 @@
 .admin-action-btn:active:not(:disabled) { transform: translateY(0); }
 .admin-action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .admin-action-btn--active { background: rgba(124, 58, 237, 0.12); border-color: #7c3aed; color: #a78bfa; }
+.admin-action-btn--danger {
+  border-color: rgba(220, 38, 38, 0.5);
+  color: #f87171;
+}
 .admin-action-btn--danger:hover:not(:disabled) {
-  border-color: #c62828;
-  color: #c62828;
-  background: #fff5f5;
+  border-color: #dc2626;
+  color: #fff;
+  background: rgba(220, 38, 38, 0.2);
 }
 
 /* ── Tabs ────────────────────────────────────────────────────────────────── */

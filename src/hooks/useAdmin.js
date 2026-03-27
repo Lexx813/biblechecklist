@@ -103,3 +103,11 @@ export function useCancelSubscription() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "users"] }),
   });
 }
+
+export function useGiftPremium() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ userId, value }) => adminApi.giftPremium(userId, value),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "users"] }),
+  });
+}
