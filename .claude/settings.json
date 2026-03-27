@@ -165,7 +165,12 @@
       "Bash(grep -r \"transition\\\\|animation\" /home/alexi/projects/nwt-progress/src/styles/*.css -l)",
       "Bash(grep -n \"TODO\\\\|FIXME\\\\|HACK\\\\|XXX\" /home/alexi/projects/nwt-progress/src/components/**/*.jsx)",
       "Bash(grep -n \"placeholder\\\\|Loading\\\\|Hide AI\\\\|Ask AI\" /home/alexi/projects/nwt-progress/src/components/**/*.jsx)",
-      "Bash(grep -r \"nwtprogress\\\\|vercel\\\\|production.*url\\\\|VITE_.*URL\\\\|site.*url\" /home/alexi/projects/nwt-progress/.env*)"
+      "Bash(grep -r \"nwtprogress\\\\|vercel\\\\|production.*url\\\\|VITE_.*URL\\\\|site.*url\" /home/alexi/projects/nwt-progress/.env*)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_33336cd58d21daa0951cdd26f7d0ca2dfa9ed40d npx supabase functions deploy create-checkout-session --project-ref yudyhigvqaodnoqwwtns)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_68f8c5d09d71b93a78482a8cc832cd473dc00319 npx supabase functions deploy create-checkout-session --project-ref yudyhigvqaodnoqwwtns --debug)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_68f8c5d09d71b93a78482a8cc832cd473dc00319 npx supabase functions deploy create-checkout-session --project-ref yudyhigvqaodnoqwwtns)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_68f8c5d09d71b93a78482a8cc832cd473dc00319 npx supabase functions deploy cancel-subscription --project-ref yudyhigvqaodnoqwwtns)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_68f8c5d09d71b93a78482a8cc832cd473dc00319 npx supabase functions deploy admin-cancel-subscription --project-ref yudyhigvqaodnoqwwtns)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"
