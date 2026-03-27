@@ -187,7 +187,8 @@
       "mcp__claude_ai_Vercel__search_vercel_documentation",
       "mcp__claude_ai_Supabase__get_edge_function",
       "Bash(supabase functions:*)",
-      "Bash(SUPABASE_ACCESS_TOKEN=sbp_58e779bdc2f126dd4a3c836a0028bcb6d2974a95 npx supabase functions deploy stripe-webhook --project-ref yudyhigvqaodnoqwwtns)"
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_58e779bdc2f126dd4a3c836a0028bcb6d2974a95 npx supabase functions deploy stripe-webhook --project-ref yudyhigvqaodnoqwwtns)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_58e779bdc2f126dd4a3c836a0028bcb6d2974a95 npx supabase functions deploy create-checkout-session --project-ref yudyhigvqaodnoqwwtns)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"

@@ -38,7 +38,7 @@ function json(body: unknown, status: number, cors: Record<string, string>) {
   });
 }
 
-const VALID_ORIGIN = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$|^https:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const SITE_URL = Deno.env.get("SITE_URL") ?? "https://nwtprogress.com";
 
 Deno.serve(async (req) => {
   const cors = corsHeaders(req);
@@ -57,17 +57,7 @@ Deno.serve(async (req) => {
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     if (authError || !user) return json({ error: "Unauthorized" }, 401, cors);
 
-    let siteOrigin: string;
-    try {
-      const body = await req.json();
-      siteOrigin = body?.origin;
-    } catch {
-      return json({ error: "Invalid request body" }, 400, cors);
-    }
-
-    if (!siteOrigin || typeof siteOrigin !== "string" || !VALID_ORIGIN.test(siteOrigin)) {
-      return json({ error: "Invalid origin" }, 400, cors);
-    }
+    const siteOrigin = SITE_URL;
 
     const { data: profile } = await supabaseAdmin
       .from("profiles")
