@@ -74,6 +74,14 @@ export class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, info) {
     console.error("[ErrorBoundary]", error, info.componentStack);
+    // Stale chunk after a new deploy — reload once to get fresh assets
+    const isChunkError =
+      error?.message?.includes("Failed to fetch dynamically imported module") ||
+      error?.message?.includes("Importing a module script failed");
+    if (isChunkError && !sessionStorage.getItem("chunkReloaded")) {
+      sessionStorage.setItem("chunkReloaded", "1");
+      window.location.reload();
+    }
   }
 
   render() {

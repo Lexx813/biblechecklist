@@ -1,4 +1,4 @@
-const CACHE = "nwt-v4";
+const CACHE = "nwt-v5";
 const STATIC_EXTENSIONS = /\.(js|css|png|jpg|jpeg|svg|gif|webp|woff2?|ico)$/;
 
 // Precache critical assets on install so repeat visits are instant
