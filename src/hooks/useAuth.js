@@ -1,6 +1,30 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { authApi } from "../api/auth";
 
+export function useIdentities() {
+  return useQuery({
+    queryKey: ["identities"],
+    queryFn: authApi.getIdentities,
+    staleTime: 1000 * 60 * 5,
+  });
+}
+
+export function useLinkGoogle() {
+  return useMutation({
+    meta: { silent: true },
+    mutationFn: authApi.linkGoogle,
+  });
+}
+
+export function useUnlinkGoogle() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    meta: { silent: true },
+    mutationFn: (identity) => authApi.unlinkGoogle(identity),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["identities"] }),
+  });
+}
+
 export function useSession() {
   return useQuery({
     queryKey: ["session"],

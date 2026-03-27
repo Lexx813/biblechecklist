@@ -59,6 +59,14 @@
 .st-field-value { font-size: 14px; color: var(--text-primary); font-weight: 500; flex: 1; }
 .st-field-value--muted { color: var(--text-muted); font-weight: 400; }
 
+/* Connected accounts */
+.st-connected-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.st-connected-info {
+  display: flex; align-items: center; gap: 12px;
+}
+
 /* Toggle rows */
 .st-toggle-row {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
