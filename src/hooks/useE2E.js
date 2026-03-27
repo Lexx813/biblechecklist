@@ -6,34 +6,10 @@ import { getOrCreateKeyPair, importPublicKey, deriveSharedKey } from "../lib/e2e
  * Initialise E2E keys for the current user.
  * Generates a key pair if none exists, then publishes the public key to Supabase.
  */
-export function useE2EKeys(userId) {
-  const [keyPair, setKeyPair] = useState(null);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    if (!userId) return;
-    let cancelled = false;
-    async function init() {
-      try {
-        const kp = await getOrCreateKeyPair(userId);
-        if (cancelled) return;
-        // Publish public key (upsert so re-visits just update)
-        await supabase.from("user_keys").upsert(
-          { user_id: userId, public_key_jwk: kp.publicJwk, updated_at: new Date().toISOString() },
-          { onConflict: "user_id" }
-        );
-        if (cancelled) return;
-        setKeyPair(kp);
-        setReady(true);
-      } catch (err) {
-        console.error("[E2E] Key init failed:", err);
-      }
-    }
-    init();
-    return () => { cancelled = true; };
-  }, [userId]);
-
-  return { keyPair, ready };
+// E2E encryption disabled — messages are protected by Supabase RLS.
+// Key exchange infrastructure is preserved for future re-enablement.
+export function useE2EKeys(_userId) {
+  return { keyPair: null, ready: false };
 }
 
 /**

@@ -178,7 +178,12 @@
       "Bash(SUPABASE_ACCESS_TOKEN=sbp_0ee749e78ee2c5374d4e4fd9b6aa96ae794950b5 npx supabase functions deploy create-checkout-session --project-ref yudyhigvqaodnoqwwtns --no-verify-jwt)",
       "Bash(SUPABASE_ACCESS_TOKEN=sbp_0ee749e78ee2c5374d4e4fd9b6aa96ae794950b5 npx supabase functions deploy cancel-subscription --project-ref yudyhigvqaodnoqwwtns --no-verify-jwt)",
       "Bash(SUPABASE_ACCESS_TOKEN=sbp_0ee749e78ee2c5374d4e4fd9b6aa96ae794950b5 npx supabase functions deploy admin-cancel-subscription --project-ref yudyhigvqaodnoqwwtns --no-verify-jwt)",
-      "Bash(grep -l \"createPortal\" /home/alexi/projects/nwt-progress/src/components/*.jsx /home/alexi/projects/nwt-progress/src/components/**/*.jsx)"
+      "Bash(grep -l \"createPortal\" /home/alexi/projects/nwt-progress/src/components/*.jsx /home/alexi/projects/nwt-progress/src/components/**/*.jsx)",
+      "Bash(grep \"SERVICE_ROLE\\\\|SUPABASE_KEY\\\\|service_role\" /home/alexi/projects/nwt-progress/.env*)",
+      "Bash(curl -s \"https://yudyhigvqaodnoqwwtns.supabase.co/rest/v1/forum_categories?select=id,name&apikey=sb_publishable_MwOQKaaF72q-dqGTdOEWqw_ng7BrwFX\")",
+      "Bash(curl -s \"https://yudyhigvqaodnoqwwtns.supabase.co/rest/v1/profiles?select=id,display_name&is_admin=eq.true&apikey=sb_publishable_MwOQKaaF72q-dqGTdOEWqw_ng7BrwFX\")",
+      "Bash(curl -s -X POST \"https://api.supabase.com/v1/projects/yudyhigvqaodnoqwwtns/database/query\" -H \"Authorization: Bearer sbp_0ee749e78ee2c5374d4e4fd9b6aa96ae794950b5\" -H \"Content-Type: application/json\" -d '{\"\"query\"\": \"\"SELECT id, display_name FROM profiles WHERE is_admin = true LIMIT 1\"\"}')",
+      "Bash(curl -s \"https://yudyhigvqaodnoqwwtns.supabase.co/rest/v1/profiles?select=id,display_name&is_admin=eq.true&limit=1\" -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1ZHloaWd2cWFvZG5vcXd3dG5zIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDE4OTI4NCwiZXhwIjoyMDg5NzY1Mjg0fQ.-3aRiAePZN5u6OM4pUR_tAkxL6nPdi6blTLaRVQG1Fw\" -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1ZHloaWd2cWFvZG5vcXd3dG5zIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NDE4OTI4NCwiZXhwIjoyMDg5NzY1Mjg0fQ.-3aRiAePZN5u6OM4pUR_tAkxL6nPdi6blTLaRVQG1Fw\")"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"

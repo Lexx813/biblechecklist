@@ -304,7 +304,9 @@ function MiniThread({ conv, user, keyPair, onBack }) {
       const results = await Promise.all(
         messages.map(async (msg) => ({
           ...msg,
-          content: sharedKey ? await decryptMessage(msg.content, sharedKey) : msg.content,
+          content: sharedKey
+            ? await decryptMessage(msg.content, sharedKey)
+            : msg.content?.startsWith("enc:") ? "[🔒 Encrypted message]" : msg.content,
         }))
       );
       if (!cancelled) setDecryptedMessages(results);
