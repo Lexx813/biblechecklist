@@ -44,6 +44,25 @@ export const authApi = {
     if (error) throw new Error(error.message);
   },
 
+  getIdentities: async () => {
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (error) throw new Error(error.message);
+    return user?.identities ?? [];
+  },
+
+  linkGoogle: async () => {
+    const { error } = await supabase.auth.linkIdentity({
+      provider: "google",
+      options: { redirectTo: window.location.origin },
+    });
+    if (error) throw new Error(error.message);
+  },
+
+  unlinkGoogle: async (identity) => {
+    const { error } = await supabase.auth.unlinkIdentity(identity);
+    if (error) throw new Error(error.message);
+  },
+
   logout: async () => {
     const { error } = await supabase.auth.signOut();
     if (error) throw new Error(error.message);

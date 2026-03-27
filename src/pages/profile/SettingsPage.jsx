@@ -5,7 +5,7 @@ import ConfirmModal from "../../components/ConfirmModal";
 import { useMeta } from "../../hooks/useMeta";
 import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
 import { usePushNotifications } from "../../hooks/usePushNotifications";
-import { useUpdatePassword } from "../../hooks/useAuth";
+import { useUpdatePassword, useIdentities, useLinkGoogle, useUnlinkGoogle } from "../../hooks/useAuth";
 import { useSubscription } from "../../hooks/useSubscription";
 import { adminApi } from "../../api/admin";
 import "../../styles/profile.css";
@@ -47,6 +47,12 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
   ];
 
   // ── Change password ───────────────────────────────────────
+  const { data: identities = [] } = useIdentities();
+  const linkGoogle   = useLinkGoogle();
+  const unlinkGoogle = useUnlinkGoogle();
+  const googleIdentity  = identities.find(i => i.provider === "google");
+  const hasPasswordLogin = identities.some(i => i.provider === "email");
+
   const updatePassword = useUpdatePassword();
   const [pwCurrent, setPwCurrent] = useState("");
   const [pwNew, setPwNew] = useState("");
@@ -169,6 +175,50 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
               <span id="st-email" className="st-field-value st-field-value--muted">{user.email}</span>
             </div>
           </div>
+        </section>
+
+        {/* ── Connected accounts ───────────────────────────── */}
+        <section className="st-section">
+          <h2 className="st-section-title">Connected Accounts</h2>
+          <div className="st-connected-row">
+            <div className="st-connected-info">
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style={{ flexShrink: 0 }}>
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              <div>
+                <span className="st-toggle-label">Google</span>
+                <span className="st-toggle-desc" style={{ display: "block" }}>
+                  {googleIdentity ? "Connected" : "Not connected"}
+                </span>
+              </div>
+            </div>
+            {googleIdentity ? (
+              <button
+                className="st-btn st-btn--ghost"
+                onClick={() => unlinkGoogle.mutate(googleIdentity)}
+                disabled={unlinkGoogle.isPending || !hasPasswordLogin}
+                title={!hasPasswordLogin ? "Set a password before disconnecting Google" : undefined}
+              >
+                {unlinkGoogle.isPending ? "Disconnecting…" : "Disconnect"}
+              </button>
+            ) : (
+              <button
+                className="st-btn st-btn--secondary"
+                onClick={() => linkGoogle.mutate()}
+                disabled={linkGoogle.isPending}
+              >
+                {linkGoogle.isPending ? "Redirecting…" : "Connect"}
+              </button>
+            )}
+          </div>
+          {googleIdentity && !hasPasswordLogin && (
+            <p className="st-error" style={{ marginTop: 8, fontSize: 12 }}>
+              Set a password first before disconnecting Google — otherwise you'll lose access to your account.
+            </p>
+          )}
         </section>
 
         {/* ── Notifications ────────────────────────────────── */}
