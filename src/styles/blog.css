@@ -316,6 +316,32 @@
   font-weight: 600;
 }
 
+.blog-lang-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.blog-lang-toggle-btn {
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.blog-lang-toggle-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.blog-lang-toggle-btn:not(.active):hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .blog-post-body {
   max-width: 720px;
   margin: 0 auto;

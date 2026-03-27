@@ -1,4 +1,4 @@
-import { useState, useMemo, memo, useEffect } from "react";
+import { useState, useMemo, memo, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
 import PageNav from "../../components/PageNav";
@@ -180,22 +180,34 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
   const { t } = useTranslation();
   const isAdmin = profile?.is_admin;
 
+  // Language toggle: auto-use Spanish if user's language is es and translation exists
+  const currentLang = i18n?.language?.split("-")[0] ?? "en";
+  const hasEsTranslation = !!(post?.translations?.es);
+  const [showEs, setShowEs] = useState(false);
+  useEffect(() => {
+    setShowEs(currentLang === "es" && hasEsTranslation);
+  }, [currentLang, hasEsTranslation]);
+
+  const displayTitle   = (showEs && post?.translations?.es?.title)   || post?.title;
+  const displayExcerpt = (showEs && post?.translations?.es?.excerpt) || post?.excerpt;
+  const displayContent = (showEs && post?.translations?.es?.content) || post?.content;
+
   const minRead = useMemo(() => {
-    const words = (post?.content || "").split(/\s+/).length;
+    const words = (displayContent || "").split(/\s+/).length;
     return Math.max(1, Math.ceil(words / 200));
-  }, [post?.content]);
+  }, [displayContent]);
 
   const sanitizedContent = useMemo(() => {
-    if (!post?.content) return "";
-    const html = /<[a-z][\s\S]*>/i.test(post.content)
-      ? post.content
-      : post.content.split(/\n\n+/).map(p => `<p>${p}</p>`).join("");
+    if (!displayContent) return "";
+    const html = /<[a-z][\s\S]*>/i.test(displayContent)
+      ? displayContent
+      : displayContent.split(/\n\n+/).map(p => `<p>${p}</p>`).join("");
     return sanitizeRich(html);
-  }, [post?.content]);
+  }, [displayContent]);
 
   useMeta({
-    title: post?.title,
-    description: post?.excerpt,
+    title: displayTitle,
+    description: displayExcerpt,
     image: post?.cover_url || undefined,
   });
 
@@ -214,12 +226,12 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
         <img
           src={post.cover_url || getFallbackImage(post.id)}
           className="blog-post-hero-img"
-          alt={post.title}
+          alt={displayTitle}
         />
         <div className="blog-post-hero-overlay">
           <button className="blog-post-back-btn" onClick={onBack}>{t("blog.backToBlog")}</button>
           <div className="blog-post-hero-meta">
-            <h1 className="blog-post-hero-title">{post.title}</h1>
+            <h1 className="blog-post-hero-title">{displayTitle}</h1>
             <div className="blog-post-hero-byline">
               <div className="blog-author-avatar blog-author-avatar--sm blog-avatar--clickable" onClick={() => navigate("publicProfile", { userId: post.author_id })}>
                 {post.profiles?.avatar_url
@@ -238,7 +250,19 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
       </div>
 
       <div className="blog-post-body">
-        {post.excerpt && <p className="blog-post-excerpt">{post.excerpt}</p>}
+        {hasEsTranslation && (
+          <div className="blog-lang-toggle">
+            <button
+              className={`blog-lang-toggle-btn${!showEs ? " active" : ""}`}
+              onClick={() => setShowEs(false)}
+            >🇺🇸 English</button>
+            <button
+              className={`blog-lang-toggle-btn${showEs ? " active" : ""}`}
+              onClick={() => setShowEs(true)}
+            >🇪🇸 Español</button>
+          </div>
+        )}
+        {displayExcerpt && <p className="blog-post-excerpt">{displayExcerpt}</p>}
         <div className="blog-post-content">
           {sanitizedContent && <div className="rich-content" dangerouslySetInnerHTML={{ __html: sanitizedContent }} />}
         </div>
@@ -341,8 +365,12 @@ function RelatedPosts({ currentPost, onSelect, navigate, user }) {
 }
 
 // ── Post listing card ─────────────────────────────────────────────────────────
-const PostCard = memo(function PostCard({ post, onSelect, navigate, user }) {
+const PostCard = memo(function PostCard({ post, onSelect, navigate, user, lang }) {
   const { t } = useTranslation();
+  const showEs = lang === "es" && !!post.translations?.es;
+  const displayTitle   = (showEs && post.translations?.es?.title)   || post.title;
+  const displayExcerpt = (showEs && post.translations?.es?.excerpt) || post.excerpt;
+
   const minRead = useMemo(() => {
     const words = (post.content || "").split(/\s+/).length;
     return Math.max(1, Math.ceil(words / 200));
@@ -354,14 +382,14 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user }) {
         <img
           src={post.cover_url || getFallbackImage(post.id)}
           className="blog-card-cover-img"
-          alt={post.title}
+          alt={displayTitle}
           loading="lazy"
         />
         <div className="blog-card-cover-shine" />
       </div>
       <div className="blog-card-body">
-        <p className="blog-card-excerpt">{post.excerpt || t("blog.readMore")}</p>
-        <h2 className="blog-card-title">{post.title}</h2>
+        <p className="blog-card-excerpt">{displayExcerpt || t("blog.readMore")}</p>
+        <h2 className="blog-card-title">{displayTitle}</h2>
         <div className="blog-card-footer">
           <div className="blog-author-avatar blog-author-avatar--xs blog-avatar--clickable" onClick={e => { e.stopPropagation(); navigate("publicProfile", { userId: post.author_id }); }}>
             {post.profiles?.avatar_url
@@ -388,6 +416,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
   const { data: posts = [], isLoading } = usePublishedPosts();
   const { t } = useTranslation();
   const [visibleCount, setVisibleCount] = useState(9);
+  const lang = i18n?.language?.split("-")[0] ?? "en";
 
   useMeta(!slug ? { title: "Blog", description: "Reflections, studies, and insights from the NWT Progress community." } : {});
 
@@ -449,7 +478,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
           <>
             <div className="blog-grid">
               {visiblePosts.map(post => (
-                <PostCard key={post.id} post={post} onSelect={onSelectPost} navigate={navigate} user={user} />
+                <PostCard key={post.id} post={post} onSelect={onSelectPost} navigate={navigate} user={user} lang={lang} />
               ))}
             </div>
             {hasMore && (

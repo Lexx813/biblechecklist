@@ -11,7 +11,7 @@ export const blogApi = {
   listPublished: async () => {
     const { data, error } = await supabase
       .from("blog_posts")
-      .select("id, title, slug, excerpt, cover_url, published, created_at, author_id, like_count, profiles!author_id(display_name, avatar_url)")
+      .select("id, title, slug, excerpt, cover_url, published, created_at, author_id, like_count, translations, profiles!author_id(display_name, avatar_url)")
       .eq("published", true)
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
