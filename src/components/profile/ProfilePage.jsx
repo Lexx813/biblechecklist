@@ -15,6 +15,7 @@ import { useQuizProgress } from "../../hooks/useQuiz";
 import { useFollowCounts, useIsFollowing, useToggleFollow } from "../../hooks/useFollows";
 import { useUserPosts, useCreatePost, useDeletePost } from "../../hooks/usePosts";
 import { useGetOrCreateDM } from "../../hooks/useMessages";
+import { useSubscription } from "../../hooks/useSubscription";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 import "../../styles/profile.css";
@@ -418,7 +419,7 @@ function PostsSection({ profileId, isOwner, t }) {
   );
 }
 
-// ── Message button (dev-only) ──────────────────────────────
+// ── Message button ─────────────────────────────────────────
 function MessageButton({ targetId, otherDisplayName, otherAvatarUrl, navigate }) {
   const getOrCreate = useGetOrCreateDM();
   function handleClick() {
@@ -432,41 +433,46 @@ function MessageButton({ targetId, otherDisplayName, otherAvatarUrl, navigate })
   }
   return (
     <button
-      className="pf-follow-btn"
+      className="pf-msg-btn"
       onClick={handleClick}
       disabled={getOrCreate.isPending}
     >
-      💬 Message
+      {getOrCreate.isPending ? <span className="btn-spin" /> : <span className="pf-msg-icon">💬</span>}
+      Message
     </button>
   );
 }
 
 // ── Follow button + counts ─────────────────────────────────
-function FollowSection({ currentUserId, targetId, t }) {
+function FollowSection({ currentUserId, targetId, t, extraAction }) {
   const { data: counts = { followers: 0, following: 0 } } = useFollowCounts(targetId);
   const { data: isFollowing = false } = useIsFollowing(currentUserId, targetId);
   const toggle = useToggleFollow(currentUserId, targetId);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+    <div className="pf-follow-section">
       <div className="pf-follow-counts">
         <div className="pf-follow-count-item">
           <span className="pf-follow-count-num">{counts.followers}</span>
           <span className="pf-follow-count-label">{t("follow.followers")}</span>
         </div>
+        <div className="pf-follow-count-divider" />
         <div className="pf-follow-count-item">
           <span className="pf-follow-count-num">{counts.following}</span>
           <span className="pf-follow-count-label">{t("follow.following")}</span>
         </div>
       </div>
       {currentUserId !== targetId && (
-        <button
-          className={`pf-follow-btn ${isFollowing ? "pf-follow-btn--following" : "pf-follow-btn--follow"}`}
-          onClick={() => toggle.mutate()}
-          disabled={toggle.isPending}
-        >
-          {isFollowing ? t("follow.unfollow") : t("follow.follow")}
-        </button>
+        <div className="pf-action-btns">
+          <button
+            className={`pf-follow-btn ${isFollowing ? "pf-follow-btn--following" : "pf-follow-btn--follow"}`}
+            onClick={() => toggle.mutate()}
+            disabled={toggle.isPending}
+          >
+            {isFollowing ? t("follow.unfollow") : t("follow.follow")}
+          </button>
+          {extraAction}
+        </div>
       )}
     </div>
   );
@@ -655,6 +661,7 @@ function ReadingGoal({ profile, chaptersRead, totalDays, isOwner, t }) {
 // ── Main ProfilePage ──────────────────────────────────────
 export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const profileId = viewedUserId ?? user.id;
+  const { isPremium } = useSubscription(user.id);
   const { data: profile, isLoading: profileLoading } = useFullProfile(profileId);
   const { data: notes = [], isLoading: notesLoading } = useNotes(isOwner ? profileId : null);
   const { data: readingProgress = {} } = useProgress(profileId);
@@ -735,15 +742,19 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
             <DisplayName profile={profile} userId={profileId} editable={isOwner} />
             {isOwner && <p className="pf-email">{user.email}</p>}
             <p className="pf-since">{t("profile.memberSince", { date: profile ? formatDate(profile.created_at) : "—" })}</p>
-            <FollowSection currentUserId={user.id} targetId={profileId} t={t} />
-            {!isOwner && (
-              <MessageButton
-                targetId={profileId}
-                otherDisplayName={profile?.display_name || profile?.email?.split("@")[0] || "User"}
-                otherAvatarUrl={profile?.avatar_url ?? null}
-                navigate={navigate}
-              />
-            )}
+            <FollowSection
+              currentUserId={user.id}
+              targetId={profileId}
+              t={t}
+              extraAction={!isOwner && isPremium ? (
+                <MessageButton
+                  targetId={profileId}
+                  otherDisplayName={profile?.display_name || profile?.email?.split("@")[0] || "User"}
+                  otherAvatarUrl={profile?.avatar_url ?? null}
+                  navigate={navigate}
+                />
+              ) : null}
+            />
             {isOwner && (
               <div className="pf-stats-row">
                 <div className="pf-stat"><strong>{notes.length}</strong> {t("profile.notesCount", { count: notes.length }).split(" ")[1]}</div>

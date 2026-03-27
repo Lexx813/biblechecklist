@@ -164,7 +164,8 @@
       "Bash(grep -n \"skeleton\\\\|loading\\\\|Loading\" /home/alexi/projects/nwt-progress/src/styles/*.css)",
       "Bash(grep -r \"transition\\\\|animation\" /home/alexi/projects/nwt-progress/src/styles/*.css -l)",
       "Bash(grep -n \"TODO\\\\|FIXME\\\\|HACK\\\\|XXX\" /home/alexi/projects/nwt-progress/src/components/**/*.jsx)",
-      "Bash(grep -n \"placeholder\\\\|Loading\\\\|Hide AI\\\\|Ask AI\" /home/alexi/projects/nwt-progress/src/components/**/*.jsx)"
+      "Bash(grep -n \"placeholder\\\\|Loading\\\\|Hide AI\\\\|Ask AI\" /home/alexi/projects/nwt-progress/src/components/**/*.jsx)",
+      "Bash(grep -r \"nwtprogress\\\\|vercel\\\\|production.*url\\\\|VITE_.*URL\\\\|site.*url\" /home/alexi/projects/nwt-progress/.env*)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"

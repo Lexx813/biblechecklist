@@ -76,8 +76,16 @@
   overflow: hidden;
 }
 .pf-card-banner {
-  height: 80px;
-  background: linear-gradient(135deg, var(--teal-darker), var(--teal));
+  height: 110px;
+  background: linear-gradient(135deg, #1a0635 0%, #3b1080 45%, #6d28d9 100%);
+  position: relative;
+  overflow: hidden;
+}
+.pf-card-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(192,132,252,0.25) 0%, transparent 65%);
 }
 .pf-card-body {
   padding: 0 24px 24px;
@@ -89,16 +97,16 @@
 
 /* ── AVATAR ── */
 .pf-avatar-wrap {
-  width: 88px;
-  height: 88px;
+  width: 92px;
+  height: 92px;
   border-radius: 50%;
   border: 4px solid var(--card-bg);
   background: var(--teal-light);
-  margin-top: -44px;
+  margin-top: -46px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.35), var(--shadow-md);
   flex-shrink: 0;
   transition: transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-base) var(--ease-out);
 }

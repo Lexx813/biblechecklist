@@ -21,15 +21,18 @@ const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!);
 
 const ALLOWED_ORIGINS = [
   "https://www.nwtprogress.com",
+  "https://nwtprogress.com",
   "http://localhost:5173",
   "http://localhost:4173",
+  "http://127.0.0.1:5173",
+  "http://127.0.0.1:4173",
 ];
 
 function corsHeaders(req: Request) {
   const origin = req.headers.get("origin") ?? "";
-  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : null;
   return {
-    "Access-Control-Allow-Origin": allowed,
+    ...(allowed ? { "Access-Control-Allow-Origin": allowed } : {}),
     "Access-Control-Allow-Headers": "authorization, content-type",
   };
 }

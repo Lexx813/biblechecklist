@@ -1,6 +1,6 @@
 import { useRef } from "react";
+import { createPortal } from "react-dom";
 import { useClickOutside } from "../hooks/useClickOutside";
-import { isDev } from "../lib/devOnly";
 import "../styles/upgrade-modal.css";
 
 const FEATURES = [
@@ -14,7 +14,7 @@ export default function UpgradeModal({ onClose, onSubscribe, loading }) {
   const ref = useRef(null);
   useClickOutside(ref, true, onClose);
 
-  return (
+  return createPortal(
     <div className="upm-overlay" role="dialog" aria-modal="true" aria-labelledby="upm-title">
       <div className="upm-modal" ref={ref}>
         {/* Header */}
@@ -50,14 +50,10 @@ export default function UpgradeModal({ onClose, onSubscribe, loading }) {
           >
             {loading ? "Redirecting…" : "Subscribe with Stripe"}
           </button>
-          {isDev && (
-            <p className="upm-note">
-              Test mode — use card <code>4242 4242 4242 4242</code>, any future date &amp; CVC
-            </p>
-          )}
           <button className="upm-cancel" onClick={onClose}>Maybe later</button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

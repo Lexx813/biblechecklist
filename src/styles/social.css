@@ -202,66 +202,119 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 22px;
+  padding: 9px 24px;
   border-radius: 999px;
   font-family: 'Plus Jakarta Sans Variable', sans-serif;
   font-size: 13px;
   font-weight: 800;
   cursor: pointer;
-  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-fast) var(--ease-out);
-  border: 2px solid var(--teal);
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s;
+  border: 2px solid transparent;
 }
-.pf-follow-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
-}
+.pf-follow-btn:hover { transform: translateY(-1px); }
+.pf-follow-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
 
 .pf-follow-btn--follow {
-  background: var(--teal);
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
   color: #fff;
+  box-shadow: 0 3px 12px rgba(124,58,237,0.35);
 }
 .pf-follow-btn--follow:hover {
-  background: var(--teal-dark);
-  border-color: var(--teal-dark);
+  box-shadow: 0 5px 18px rgba(124,58,237,0.5);
 }
 
 .pf-follow-btn--following {
   background: transparent;
-  color: var(--teal);
+  color: var(--text-secondary);
+  border-color: var(--border);
 }
 .pf-follow-btn--following:hover {
-  background: #fee2e2;
   border-color: #ef4444;
   color: #ef4444;
+  background: rgba(239,68,68,0.06);
+}
+
+/* ── Message button ──────────────────────────────────────── */
+.pf-msg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 20px;
+  border-radius: 999px;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  background: rgba(124,58,237,0.1);
+  border: 2px solid rgba(124,58,237,0.35);
+  color: #a78bfa;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.pf-msg-btn:hover {
+  background: rgba(124,58,237,0.18);
+  border-color: rgba(124,58,237,0.6);
+  color: #c084fc;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(124,58,237,0.2);
+}
+.pf-msg-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+.pf-msg-icon { font-size: 15px; line-height: 1; }
+
+.pf-follow-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+  width: 100%;
 }
 
 .pf-follow-counts {
   display: flex;
-  gap: 20px;
+  align-items: center;
+  gap: 0;
   justify-content: center;
-  margin-top: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px 24px;
+}
+
+.pf-follow-count-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+  margin: 0 20px;
 }
 
 .pf-follow-count-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1px;
+  gap: 2px;
 }
 
 .pf-follow-count-num {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--text-primary);
   line-height: 1;
 }
 
 .pf-follow-count-label {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+}
+
+.pf-action-btns {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* ── Post composer ───────────────────────────────────────── */
