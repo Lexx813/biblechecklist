@@ -12,6 +12,11 @@ const AuthedApp   = lazy(() => import("./AuthedApp"));
 // Sync localStorage check — no Supabase loaded at all
 function hasStoredSession() {
   try {
+    // OAuth callback: PKCE flow puts ?code= in URL, implicit flow puts #access_token= in hash.
+    // Either means Supabase is mid-handshake — load AuthedApp so it can finish the exchange.
+    if (new URLSearchParams(window.location.search).has("code")) return true;
+    if (window.location.hash.includes("access_token=")) return true;
+
     const ref = import.meta.env.VITE_SUPABASE_URL?.match(/\/\/([^.]+)/)?.[1] ?? "";
     const raw = localStorage.getItem(`sb-${ref}-auth-token`);
     if (!raw) return false;
