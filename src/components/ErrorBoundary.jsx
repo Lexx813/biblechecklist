@@ -83,10 +83,14 @@ export class ErrorBoundary extends React.Component {
         this.state.error?.message?.includes("Importing a module script failed");
       // Stale chunk after a new deploy — silently reload once per error occurrence
       if (isChunkError) {
-        const reloadedAt = sessionStorage.getItem("chunkReloadedAt");
+        // Track retries per chunk URL so a second stale chunk doesn't get blocked
+        // by the 30-second window set for the first one.
+        const failedUrl = this.state.error?.message?.match(/https?:\/\/\S+/)?.[0] ?? "unknown";
+        const key = `chunkReloaded:${failedUrl}`;
+        const reloadedAt = sessionStorage.getItem(key);
         const recentlyReloaded = reloadedAt && Date.now() - Number(reloadedAt) < 30_000;
         if (!recentlyReloaded) {
-          sessionStorage.setItem("chunkReloadedAt", String(Date.now()));
+          sessionStorage.setItem(key, String(Date.now()));
           // Unregister SW and wipe all caches so poisoned/stale chunks are gone,
           // then reload — next load goes straight to CDN for fresh assets.
           const cleanup = [];
