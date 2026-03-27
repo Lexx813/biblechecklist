@@ -17,7 +17,7 @@ export const subscriptionApi = {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${session.access_token}`,
       },
-      body: JSON.stringify({ origin: window.location.origin }),
+      body: JSON.stringify({ origin: import.meta.env.VITE_APP_URL ?? window.location.origin }),
     });
 
     if (!res.ok) {
