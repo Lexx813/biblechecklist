@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import PageNav from "../PageNav";
+import ConfirmModal from "../ConfirmModal";
 import CustomSelect from "../CustomSelect";
 import RichTextEditor from "../RichTextEditor";
 import AICompanion from "../AICompanion";
@@ -226,6 +227,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
 
   const [editing, setEditing] = useState(null); // null | "new" | note object
   const [search, setSearch] = useState("");
+  const [noteToDelete, setNoteToDelete] = useState(null);
   const [activeTag, setActiveTag] = useState(null);
 
   const allTags = useMemo(() => {
@@ -267,8 +269,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
   }
 
   function handleDelete(noteId) {
-    if (!confirm("Delete this note?")) return;
-    deleteNote.mutate(noteId);
+    setNoteToDelete(noteId);
   }
 
   if (editing) {
@@ -360,6 +361,14 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
           </div>
         )}
       </div>
+
+      {noteToDelete && (
+        <ConfirmModal
+          message="Delete this note?"
+          onConfirm={() => { deleteNote.mutate(noteToDelete); setNoteToDelete(null); }}
+          onCancel={() => setNoteToDelete(null)}
+        />
+      )}
     </div>
   );
 }

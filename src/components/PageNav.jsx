@@ -21,9 +21,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
   const { data: unreadMessages = 0 } = useUnreadMessageCount();
   const [menuOpen, setMenuOpen] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
-  const openUpgrade = () => {
-    if (isAdmin) setShowUpgrade(true);
-  };
+  const openUpgrade = () => setShowUpgrade(true);
   const [moreOpen, setMoreOpen] = useState(false);
   const [communityOpen, setCommunityOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
