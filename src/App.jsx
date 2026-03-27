@@ -18,7 +18,6 @@ import { useFeatureFlags } from "./hooks/useFeatureFlags";
 import { useSubscription } from "./hooks/useSubscription";
 import { supabase } from "./lib/supabase";
 import { parsePath, buildPath } from "./lib/router";
-import { isDev } from "./lib/devOnly";
 import { toast } from "./lib/toast";
 import "./styles/app.css";
 
@@ -38,12 +37,12 @@ const LeaderboardPage = lazy(() => import("./components/LeaderboardPage"));
 const AboutPage      = lazy(() => import("./components/AboutPage"));
 const TermsPage      = lazy(() => import("./components/TermsPage"));
 const PrivacyPage    = lazy(() => import("./components/PrivacyPage"));
-const ReadingPlansPage = isDev ? lazy(() => import("./components/readingplans/ReadingPlansPage")) : null;
-const StudyNotesPage   = isDev ? lazy(() => import("./components/studynotes/StudyNotesPage")) : null;
-const MessagesPage   = isDev ? lazy(() => import("./components/messages/MessagesPage")) : null;
-const FloatingChat   = isDev ? lazy(() => import("./components/messages/FloatingChat")) : null;
-const GroupsPage     = isDev ? lazy(() => import("./components/groups/GroupsPage")) : null;
-const GroupDetail    = isDev ? lazy(() => import("./components/groups/GroupDetail")) : null;
+const ReadingPlansPage = lazy(() => import("./components/readingplans/ReadingPlansPage"));
+const StudyNotesPage   = lazy(() => import("./components/studynotes/StudyNotesPage"));
+const MessagesPage     = lazy(() => import("./components/messages/MessagesPage"));
+const FloatingChat     = lazy(() => import("./components/messages/FloatingChat"));
+const GroupsPage       = lazy(() => import("./components/groups/GroupsPage"));
+const GroupDetail      = lazy(() => import("./components/groups/GroupDetail"));
 
 // ── Auth shell ────────────────────────────────────────────────────────────────
 
@@ -230,15 +229,15 @@ function BibleApp({ user, onLogout, i18n }) {
   else if (nav.page === "bookmarks") pageContent = <Page><BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "history")   pageContent = <Page><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Page>;
   else if (nav.page === "feed")      pageContent = <Page><ActivityFeed user={user} {...sharedNav} /></Page>;
-  else if (isDev && isPremium && nav.page === "readingPlans" && ReadingPlansPage) pageContent = <Page><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></Page>;
-  else if (isDev && isPremium && nav.page === "studyNotes"   && StudyNotesPage)   pageContent = <Page><StudyNotesPage user={user} navigate={navigate} {...sharedNav} /></Page>;
+  else if (isPremium && nav.page === "readingPlans") pageContent = <Page><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></Page>;
+  else if (isPremium && nav.page === "studyNotes")   pageContent = <Page><StudyNotesPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "leaderboard") pageContent = <Page><LeaderboardPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "about")     pageContent = <Page><AboutPage {...sharedNav} /></Page>;
   else if (nav.page === "terms")     pageContent = <Page><TermsPage {...sharedNav} /></Page>;
   else if (nav.page === "privacy")   pageContent = <Page><PrivacyPage {...sharedNav} /></Page>;
-  else if (isDev && isPremium && nav.page === "messages" && MessagesPage) pageContent = <Page><MessagesPage {...sharedNav} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
-  else if (isDev && isPremium && nav.page === "groups" && GroupsPage)       pageContent = <Page><GroupsPage {...sharedNav} /></Page>;
-  else if (isDev && isPremium && nav.page === "groupDetail" && GroupDetail) pageContent = <Page><GroupDetail {...sharedNav} groupId={nav.groupId} /></Page>;
+  else if (isPremium && nav.page === "messages")     pageContent = <Page><MessagesPage {...sharedNav} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
+  else if (isPremium && nav.page === "groups")       pageContent = <Page><GroupsPage {...sharedNav} /></Page>;
+  else if (isPremium && nav.page === "groupDetail")  pageContent = <Page><GroupDetail {...sharedNav} groupId={nav.groupId} /></Page>;
 
   if (!pageContent) { navigate("home"); return null; }
 
@@ -247,7 +246,7 @@ function BibleApp({ user, onLogout, i18n }) {
       <div key={nav.page} className="page-fade-in">
         {pageContent}
       </div>
-      {isDev && FloatingChat && (
+      {isPremium && (
         <Suspense fallback={null}>
           <FloatingChat
             user={user}

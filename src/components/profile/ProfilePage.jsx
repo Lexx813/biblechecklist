@@ -15,7 +15,6 @@ import { useQuizProgress } from "../../hooks/useQuiz";
 import { useFollowCounts, useIsFollowing, useToggleFollow } from "../../hooks/useFollows";
 import { useUserPosts, useCreatePost, useDeletePost } from "../../hooks/usePosts";
 import { useGetOrCreateDM } from "../../hooks/useMessages";
-import { isDev } from "../../lib/devOnly";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 import "../../styles/profile.css";
@@ -737,7 +736,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
             {isOwner && <p className="pf-email">{user.email}</p>}
             <p className="pf-since">{t("profile.memberSince", { date: profile ? formatDate(profile.created_at) : "—" })}</p>
             <FollowSection currentUserId={user.id} targetId={profileId} t={t} />
-            {isDev && !isOwner && (
+            {!isOwner && (
               <MessageButton
                 targetId={profileId}
                 otherDisplayName={profile?.display_name || profile?.email?.split("@")[0] || "User"}
