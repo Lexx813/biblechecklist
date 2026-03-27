@@ -26,7 +26,7 @@ export const authApi = {
 
   resetPassword: async (email) => {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/`,
+      redirectTo: `${import.meta.env.VITE_APP_URL ?? window.location.origin}/`,
     });
     if (error) throw new Error(error.message);
   },
