@@ -5,16 +5,27 @@
   padding: 24px 20px 0;
 }
 
-/* Back button */
+/* Back button — matches search page style */
 .lb-header .admin-back-btn {
-  background: none;
-  border: none;
-  color: var(--teal, #0d9488);
-  padding: 6px 10px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.85);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 700;
 }
 .lb-header .admin-back-btn:hover {
-  background: var(--teal-light, rgba(13,148,136,0.12));
+  background: rgba(255,255,255,0.15);
   transform: translateY(-1px);
+}
+[data-theme="light"] .lb-header .admin-back-btn {
+  background: rgba(0,0,0,0.05);
+  border-color: rgba(0,0,0,0.1);
+  color: var(--text-primary);
+}
+[data-theme="light"] .lb-header .admin-back-btn:hover {
+  background: rgba(0,0,0,0.1);
 }
 .lb-title { font-size: 24px; font-weight: 900; color: var(--text-primary); margin: 8px 0 4px; }
 .lb-sub { font-size: 14px; color: var(--text-muted); margin: 0; }
