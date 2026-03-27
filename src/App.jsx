@@ -64,6 +64,10 @@ export default function App() {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, newSession) => {
       queryClient.setQueryData(["session"], newSession);
       if (event === "PASSWORD_RECOVERY") setPasswordRecovery(true);
+      // Force sign-out if the account was deleted by an admin
+      if (event === "USER_DELETED" || (event === "SIGNED_OUT" && !newSession)) {
+        queryClient.clear();
+      }
     });
     return () => subscription.unsubscribe();
   }, [queryClient]);
