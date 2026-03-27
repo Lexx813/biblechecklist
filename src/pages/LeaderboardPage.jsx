@@ -1,15 +1,32 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import PageNav from "../components/PageNav";
-import LoadingSpinner from "../components/LoadingSpinner";
 import { useReadingLeaderboard, useQuizLeaderboard } from "../hooks/useLeaderboard";
+
+function SkeletonList() {
+  return (
+    <div className="lb-list">
+      {Array.from({ length: 8 }, (_, i) => (
+        <div key={i} className="lb-skeleton-row">
+          <div className="lb-skel lb-skel--rank" />
+          <div className="lb-skel lb-skel--circle" />
+          <div style={{ flex: 1 }}>
+            <div className="lb-skel lb-skel--name" />
+            <div className="lb-skel lb-skel--sub" />
+          </div>
+          <div className="lb-skel lb-skel--stat" />
+        </div>
+      ))}
+    </div>
+  );
+}
 import "../styles/leaderboard.css";
 
 const MEDALS = ["🥇", "🥈", "🥉"];
 
 function Avatar({ row }) {
   if (row.avatar_url) {
-    return <img className="lb-avatar" src={row.avatar_url} alt="" width={36} height={36} loading="lazy" />;
+    return <img className="lb-avatar" src={row.avatar_url} alt="" width={40} height={40} />;
   }
   const initials = (row.display_name || "?")[0].toUpperCase();
   return <div className="lb-avatar lb-avatar--fallback">{initials}</div>;
@@ -96,7 +113,7 @@ export default function LeaderboardPage({ user, onBack, navigate, darkMode, setD
 
       <div className="lb-content">
         {isLoading ? (
-          <LoadingSpinner />
+          <SkeletonList />
         ) : tab === "reading" ? (
           readingData.length === 0
             ? <p className="lb-empty">{t("leaderboard.empty")}</p>

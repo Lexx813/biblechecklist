@@ -45,8 +45,31 @@
   color: #fff;
 }
 
-.lb-content { max-width: 640px; margin: 16px auto; padding: 0 20px 40px; }
+.lb-content { max-width: 640px; margin: 16px auto; padding: 0 20px 40px; min-height: 480px; }
 .lb-empty { text-align: center; color: var(--text-muted); padding: 40px 0; }
+
+/* Skeleton rows */
+.lb-skeleton-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px;
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 14px; height: 64px;
+}
+.lb-skel {
+  background: var(--border);
+  border-radius: 6px;
+  animation: lb-shimmer 1.4s ease-in-out infinite;
+}
+.lb-skel--circle { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; }
+.lb-skel--rank   { width: 28px; height: 24px; flex-shrink: 0; }
+.lb-skel--name   { width: 120px; height: 13px; }
+.lb-skel--sub    { width: 80px; height: 11px; margin-top: 5px; }
+.lb-skel--stat   { width: 50px; height: 20px; margin-left: auto; flex-shrink: 0; }
+
+@keyframes lb-shimmer {
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
+}
 
 .lb-list { display: flex; flex-direction: column; gap: 8px; }
 
