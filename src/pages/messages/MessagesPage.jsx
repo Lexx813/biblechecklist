@@ -47,23 +47,23 @@ function initial(profile) {
   return n[0].toUpperCase();
 }
 
-function timeAgo(iso) {
+function timeAgo(iso, t) {
   if (!iso) return "";
   const diff = Date.now() - new Date(iso).getTime();
   const m = Math.floor(diff / 60000);
-  if (m < 1)  return "just now";
-  if (m < 60) return `${m}m ago`;
+  if (m < 1)  return t ? t("messages.justNow") : "just now";
+  if (m < 60) return `${m}${t ? t("messages.minutesAgo") : "m ago"}`;
   const h = Math.floor(m / 60);
-  if (h < 24) return `${h}h ago`;
-  return `${Math.floor(h / 24)}d ago`;
+  if (h < 24) return `${h}${t ? t("messages.hoursAgo") : "h ago"}`;
+  return `${Math.floor(h / 24)}${t ? t("messages.daysAgo") : "d ago"}`;
 }
 
-function formatDay(date) {
+function formatDay(date, t) {
   const today = new Date();
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
-  if (date.toDateString() === today.toDateString()) return "Today";
-  if (date.toDateString() === yesterday.toDateString()) return "Yesterday";
+  if (date.toDateString() === today.toDateString()) return t ? t("messages.today") : "Today";
+  if (date.toDateString() === yesterday.toDateString()) return t ? t("messages.yesterday") : "Yesterday";
   return date.toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric" });
 }
 
@@ -71,13 +71,13 @@ function formatTime(iso) {
   return new Date(iso).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
 }
 
-function groupByDay(messages) {
+function groupByDay(messages, t) {
   const items = [];
   let lastDay = null;
   for (const msg of messages) {
     const day = new Date(msg.created_at).toDateString();
     if (day !== lastDay) {
-      items.push({ type: "day", label: formatDay(new Date(msg.created_at)), key: "day-" + day });
+      items.push({ type: "day", label: formatDay(new Date(msg.created_at), t), key: "day-" + day });
       lastDay = day;
     }
     items.push({ type: "message", ...msg });
@@ -125,8 +125,9 @@ function Avatar({ profile, size = 36, online = false }) {
 // ── Reply preview (inside composer) ──────────────────────────────────────────
 
 function ReplyPreview({ message, onCancel }) {
+  const { t } = useTranslation();
   if (!message) return null;
-  const preview = message.content?.startsWith("enc:") ? "🔒 Encrypted message" : (message.content || "");
+  const preview = message.content?.startsWith("enc:") ? t("messages.encrypted") : (message.content || "");
   return (
     <div className="msg-reply-preview">
       <div className="msg-reply-preview-bar" />
@@ -142,9 +143,10 @@ function ReplyPreview({ message, onCancel }) {
 // ── Quoted reply (inside bubble) ──────────────────────────────────────────────
 
 function QuotedReply({ replyToId, messages }) {
+  const { t } = useTranslation();
   const orig = messages.find(m => m.id === replyToId);
   if (!orig) return null;
-  const preview = orig.content?.startsWith("enc:") ? "🔒 Encrypted" : (orig.content || "");
+  const preview = orig.content?.startsWith("enc:") ? t("messages.encryptedShort") : (orig.content || "");
   return (
     <div className="msg-quoted">
       <div className="msg-quoted-bar" />
@@ -201,6 +203,7 @@ function ReactionPicker({ onPick, onClose }) {
 // ── Message bubble ────────────────────────────────────────────────────────────
 
 function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, showSeen, reactions, userId, onToggleReaction, allMessages }) {
+  const { t } = useTranslation();
   const [showActions, setShowActions] = useState(false);
   const [showReactionPicker, setShowReactionPicker] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -252,11 +255,11 @@ function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, showSeen, react
             <p className="msg-bubble-text">{msg.content}</p>
           )}
           <div className="msg-bubble-footer">
-            <span className="msg-bubble-time">{timeAgo(msg.created_at)}</span>
-            {msg.edited_at && <span className="msg-edited-label">edited</span>}
+            <span className="msg-bubble-time">{timeAgo(msg.created_at, t)}</span>
+            {msg.edited_at && <span className="msg-edited-label">{t("messages.edited")}</span>}
             {isMine && (
               <span className="msg-status-ticks">
-                {showSeen ? "✓✓" : "✓"}
+                {showSeen ? t("messages.read") : t("messages.sent")}
               </span>
             )}
           </div>
@@ -267,14 +270,14 @@ function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, showSeen, react
           userId={userId}
           onToggle={(emoji) => onToggleReaction(msg.id, emoji)}
         />
-        {showSeen && <span className="msg-seen">Seen</span>}
+        {showSeen && <span className="msg-seen">{t("messages.seen")}</span>}
       </div>
 
       {/* Action buttons */}
       {showActions && !editing && (
         <div className={`msg-bubble-actions${isMine ? " msg-bubble-actions--mine" : ""}`}>
           <div style={{ position: "relative" }}>
-            <button className="msg-action-btn" title="React" onClick={() => setShowReactionPicker(s => !s)}>😊</button>
+            <button className="msg-action-btn" title={t("messages.react")} onClick={() => setShowReactionPicker(s => !s)}>😊</button>
             {showReactionPicker && (
               <ReactionPicker
                 onPick={(emoji) => onToggleReaction(msg.id, emoji)}
@@ -282,11 +285,11 @@ function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, showSeen, react
               />
             )}
           </div>
-          <button className="msg-action-btn" title="Reply" onClick={() => onReply(msg)}>↩</button>
+          <button className="msg-action-btn" title={t("messages.reply")} onClick={() => onReply(msg)}>↩</button>
           {isMine && (
             <>
-              <button className="msg-action-btn" title="Edit" onClick={() => { setEditing(true); setEditText(msg.content); }}>✎</button>
-              <button className="msg-action-btn msg-action-btn--danger" title="Delete" onClick={() => onDelete(msg.id)}>✕</button>
+              <button className="msg-action-btn" title={t("common.edit")} onClick={() => { setEditing(true); setEditText(msg.content); }}>✎</button>
+              <button className="msg-action-btn msg-action-btn--danger" title={t("common.delete")} onClick={() => onDelete(msg.id)}>✕</button>
             </>
           )}
         </div>
@@ -312,6 +315,7 @@ function TypingDots() {
 // ── Conversation list item ────────────────────────────────────────────────────
 
 function ConvItem({ conv, active, onClick, currentUserId, onDelete, onlineUsers }) {
+  const { t } = useTranslation();
   const isUnread = conv.unread_count > 0;
   const isMine = conv.last_message_sender_id === currentUserId;
   const isOnline = onlineUsers.has(conv.other_user_id);
@@ -324,15 +328,15 @@ function ConvItem({ conv, active, onClick, currentUserId, onDelete, onlineUsers 
       <Avatar profile={{ display_name: conv.other_display_name, avatar_url: conv.other_avatar_url }} online={isOnline} />
       <div className="msg-conv-info">
         <div className="msg-conv-header">
-          <span className="msg-conv-name">{conv.other_display_name || "User"}</span>
+          <span className="msg-conv-name">{conv.other_display_name || t("messages.user")}</span>
           {conv.last_message_at && (
-            <span className="msg-conv-time">{timeAgo(conv.last_message_at)}</span>
+            <span className="msg-conv-time">{timeAgo(conv.last_message_at, t)}</span>
           )}
         </div>
         <div className="msg-conv-preview">
           {conv.last_message_content
-            ? `${isMine ? "You: " : ""}${conv.last_message_content.startsWith("enc:") ? "🔒 Encrypted message" : conv.last_message_content}`
-            : "No messages yet"}
+            ? `${isMine ? `${t("messages.you")}: ` : ""}${conv.last_message_content.startsWith("enc:") ? t("messages.encrypted") : conv.last_message_content}`
+            : t("messages.noMessagesYet")}
         </div>
       </div>
       <div className="msg-conv-actions">
@@ -352,6 +356,7 @@ function ConvItem({ conv, active, onClick, currentUserId, onDelete, onlineUsers 
 // ── Thread view ───────────────────────────────────────────────────────────────
 
 function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled }) {
+  const { t } = useTranslation();
   const { data: messages = [], isLoading } = useMessages(conv.conversation_id);
   const sendMessage = useSendMessage(conv.conversation_id);
   const deleteMessage = useDeleteMessage(conv.conversation_id);
@@ -545,15 +550,15 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
     ? myMsgs.filter(m => new Date(m.created_at) <= otherLastRead).at(-1)?.id ?? null
     : null;
 
-  const grouped = groupByDay(decryptedMessages);
+  const grouped = groupByDay(decryptedMessages, t);
   const nearLimit = input.length > 1800;
   const isEncrypted = !!sharedKey;
 
   // Presence status line
   let presenceLine = null;
   if (isOtherTyping) presenceLine = null; // shown separately as typing dots
-  else if (isOtherOnline) presenceLine = <span className="msg-presence-status msg-presence-status--online">Online</span>;
-  else if (otherLastSeen) presenceLine = <span className="msg-presence-status">Last seen {timeAgo(otherLastSeen)}</span>;
+  else if (isOtherOnline) presenceLine = <span className="msg-presence-status msg-presence-status--online">{t("messages.online")}</span>;
+  else if (otherLastSeen) presenceLine = <span className="msg-presence-status">Last seen {timeAgo(otherLastSeen, t)}</span>;
 
   return (
     <div className="msg-thread">
@@ -565,21 +570,21 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
           online={isOtherOnline}
         />
         <div className="msg-thread-header-info">
-          <span className="msg-thread-name">{conv.other_display_name || "User"}</span>
+          <span className="msg-thread-name">{conv.other_display_name || t("messages.user")}</span>
           {isOtherTyping ? (
-            <span className="msg-presence-status msg-presence-status--typing">typing…</span>
+            <span className="msg-presence-status msg-presence-status--typing">{t("messages.typing")}</span>
           ) : presenceLine}
           {isEncrypted
-            ? <span className="msg-e2e-badge">🔒 End-to-end encrypted</span>
+            ? <span className="msg-e2e-badge">{t("messages.endToEndEncrypted")}</span>
             : otherHasKey === false
-              ? <span className="msg-e2e-badge msg-e2e-badge--warn">⚠️ Not yet encrypted</span>
+              ? <span className="msg-e2e-badge msg-e2e-badge--warn">{t("messages.notYetEncrypted")}</span>
               : null
           }
         </div>
         <button
           className={`msg-sound-btn${soundEnabled ? " msg-sound-btn--on" : ""}`}
           onClick={() => setSoundEnabled(s => !s)}
-          title={soundEnabled ? "Mute sounds" : "Enable sounds"}
+          title={soundEnabled ? t("messages.muteSounds") : t("messages.enableSounds")}
         >
           {soundEnabled ? "🔔" : "🔕"}
         </button>
@@ -587,12 +592,12 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
 
       <div className="msg-thread-body" ref={bodyRef} onScroll={handleScroll}>
         {isLoading ? (
-          <p className="msg-empty">Loading…</p>
+          <p className="msg-empty">{t("common.loading")}</p>
         ) : decryptedMessages.length === 0 ? (
           <div className="msg-empty-thread">
             <span>👋</span>
-            <strong>Start the conversation!</strong>
-            <p>Say hello to {conv.other_display_name || "User"}!</p>
+            <strong>{t("messages.startConversation")}</strong>
+            <p>{t("messages.sayHelloTo")} {conv.other_display_name || t("messages.user")}!</p>
           </div>
         ) : (
           grouped.map((item) =>
@@ -672,6 +677,7 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
 // ── Main page ─────────────────────────────────────────────────────────────────
 
 export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, initialConv = null }) {
+  const { t } = useTranslation();
   const { data: conversations = [], isLoading } = useConversations();
   const [activeConv, setActiveConv] = useState(initialConv);
   const [convToDelete, setConvToDelete] = useState(null);
@@ -733,7 +739,7 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
         <aside className={`msg-sidebar${!showList ? " msg-sidebar--hidden-mobile" : ""}`}>
           <div className="msg-sidebar-header">
             <button className="msg-back-page-btn" onClick={() => navigate("home")}>←</button>
-            <h2 className="msg-sidebar-title">Messages</h2>
+            <h2 className="msg-sidebar-title">{t("messages.title")}</h2>
           </div>
           <div className="msg-search-wrap">
             <input
@@ -749,15 +755,15 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
             <div className="msg-push-banner">
               <span className="msg-push-banner-icon">🔔</span>
               <div className="msg-push-banner-text">
-                <strong>Stay notified</strong>
-                <span>Get alerts for new messages</span>
+                <strong>{t("messages.stayNotified")}</strong>
+                <span>{t("messages.stayNotifiedDesc")}</span>
               </div>
               <button
                 className="msg-push-banner-btn msg-push-banner-btn--primary"
                 onClick={() => subscribe().then(ok => ok && setPushDismissed(true))}
                 disabled={pushLoading}
               >
-                Enable
+                {t("messages.enableNotifications")}
               </button>
               <button
                 className="msg-push-banner-btn"
@@ -771,10 +777,10 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
 
           <div className="msg-conv-list">
             {isLoading ? (
-              <p className="msg-empty">Loading…</p>
+              <p className="msg-empty">{t("common.loading")}</p>
             ) : filtered.length === 0 ? (
               <p className="msg-empty">
-                {search ? "No results." : "No conversations yet.\nStart one from a user's profile."}
+                {search ? t("messages.noResults") : t("messages.noConversations")}
               </p>
             ) : (
               filtered.map((conv) => (
@@ -805,8 +811,8 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
           ) : (
             <div className="msg-empty-state">
               <span className="msg-empty-icon">💬</span>
-              <h3>No Conversation Selected</h3>
-              <p>Select a conversation on the left to start messaging.</p>
+              <h3>{t("messages.noConversationSelected")}</h3>
+              <p>{t("messages.noConversationSelectedDesc")}</p>
             </div>
           )}
         </main>
@@ -814,7 +820,7 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
 
       {convToDelete && (
         <ConfirmModal
-          message="Delete this conversation? All messages will be permanently removed."
+          message={t("messages.deleteConversationConfirm")}
           onConfirm={confirmDelete}
           onCancel={() => setConvToDelete(null)}
         />

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { insertEmojiAtCursor } from "../../components/EmojiPickerPopup";
 import { EMOJI_CATEGORIES } from "../../lib/emojiData";
 import {
@@ -21,36 +22,36 @@ import "../../styles/groups.css";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function timeAgo(iso) {
+function timeAgo(iso, t) {
   if (!iso) return "";
   const m = Math.floor((Date.now() - new Date(iso)) / 60000);
-  if (m < 1) return "just now";
-  if (m < 60) return `${m}m ago`;
+  if (m < 1) return t ? t("messages.justNow") : "just now";
+  if (m < 60) return `${m}${t ? t("messages.minutesAgo") : "m ago"}`;
   const h = Math.floor(m / 60);
-  if (h < 24) return `${h}h ago`;
-  return `${Math.floor(h / 24)}d ago`;
+  if (h < 24) return `${h}${t ? t("messages.hoursAgo") : "h ago"}`;
+  return `${Math.floor(h / 24)}${t ? t("messages.daysAgo") : "d ago"}`;
 }
 
 function formatTime(iso) {
   return new Date(iso).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
 }
 
-function formatDay(date) {
+function formatDay(date, t) {
   const today = new Date();
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
-  if (date.toDateString() === today.toDateString()) return "Today";
-  if (date.toDateString() === yesterday.toDateString()) return "Yesterday";
+  if (date.toDateString() === today.toDateString()) return t ? t("messages.today") : "Today";
+  if (date.toDateString() === yesterday.toDateString()) return t ? t("messages.yesterday") : "Yesterday";
   return date.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
 }
 
-function groupByDay(messages) {
+function groupByDay(messages, t) {
   const items = [];
   let lastDay = null;
   for (const msg of messages) {
     const day = new Date(msg.created_at).toDateString();
     if (day !== lastDay) {
-      items.push({ type: "day", label: formatDay(new Date(msg.created_at)), key: "day-" + day });
+      items.push({ type: "day", label: formatDay(new Date(msg.created_at), t), key: "day-" + day });
       lastDay = day;
     }
     items.push({ type: "message", ...msg });
@@ -125,6 +126,7 @@ function GrpReactionPicker({ onPick, onClose }) {
 }
 
 function GrpBubble({ msg, isMine, canDelete, allMessages, reactions, userId, onDelete, onReply, onEdit, onToggleReaction }) {
+  const { t } = useTranslation();
   const [showActions, setShowActions] = useState(false);
   const [showReactPicker, setShowReactPicker] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -156,13 +158,13 @@ function GrpBubble({ msg, isMine, canDelete, allMessages, reactions, userId, onD
     >
       {!isMine && <Avatar name={msg.sender?.display_name} avatarUrl={msg.sender?.avatar_url} size={28} />}
       <div className="grp-msg-col">
-        {!isMine && <span className="grp-msg-sender">{msg.sender?.display_name || "Member"}</span>}
+        {!isMine && <span className="grp-msg-sender">{msg.sender?.display_name || t("groups.member")}</span>}
 
         {replyOrig && (
           <div className="grp-quoted">
             <div className="grp-quoted-bar" />
             <div className="grp-quoted-body">
-              <span className="grp-quoted-name">{replyOrig.sender?.display_name || "User"}</span>
+              <span className="grp-quoted-name">{replyOrig.sender?.display_name || t("messages.user")}</span>
               <span className="grp-quoted-text">{(replyOrig.content || "").slice(0, 60)}</span>
             </div>
           </div>
@@ -186,7 +188,7 @@ function GrpBubble({ msg, isMine, canDelete, allMessages, reactions, userId, onD
           )}
           <div className="grp-bubble-footer">
             <span className="grp-bubble-time">{formatTime(msg.created_at)}</span>
-            {msg.edited_at && <span className="grp-edited-label">edited</span>}
+            {msg.edited_at && <span className="grp-edited-label">{t("groups.edited")}</span>}
           </div>
         </div>
 
@@ -208,14 +210,14 @@ function GrpBubble({ msg, isMine, canDelete, allMessages, reactions, userId, onD
       {showActions && !editing && (
         <div className={`grp-bubble-actions${isMine ? " grp-bubble-actions--mine" : ""}`}>
           <div style={{ position: "relative" }}>
-            <button className="grp-action-btn" title="React" onClick={() => setShowReactPicker(s => !s)}>😊</button>
+            <button className="grp-action-btn" title={t("groups.react")} onClick={() => setShowReactPicker(s => !s)}>😊</button>
             {showReactPicker && (
               <GrpReactionPicker onPick={(em) => onToggleReaction(msg.id, em)} onClose={() => setShowReactPicker(false)} />
             )}
           </div>
-          <button className="grp-action-btn" title="Reply" onClick={() => onReply(msg)}>↩</button>
-          {isMine && <button className="grp-action-btn" title="Edit" onClick={() => { setEditing(true); setEditText(msg.content); }}>✎</button>}
-          {canDelete && <button className="grp-action-btn grp-action-btn--danger" title="Delete" onClick={() => onDelete(msg.id)}>✕</button>}
+          <button className="grp-action-btn" title={t("groups.reply")} onClick={() => onReply(msg)}>↩</button>
+          {isMine && <button className="grp-action-btn" title={t("common.edit")} onClick={() => { setEditing(true); setEditText(msg.content); }}>✎</button>}
+          {canDelete && <button className="grp-action-btn grp-action-btn--danger" title={t("common.delete")} onClick={() => onDelete(msg.id)}>✕</button>}
         </div>
       )}
     </div>
@@ -225,6 +227,7 @@ function GrpBubble({ msg, isMine, canDelete, allMessages, reactions, userId, onD
 // ── Chat tab ──────────────────────────────────────────────────────────────────
 
 function ChatTab({ groupId, user, isAdmin }) {
+  const { t } = useTranslation();
   const { data: messages = [], isLoading } = useGroupMessages(groupId);
   const { data: reactions = [] } = useGroupReactions(groupId);
   const sendMessage = useSendGroupMessage(groupId);
@@ -279,18 +282,18 @@ function ChatTab({ groupId, user, isAdmin }) {
     if (e.key === "Escape" && replyTo) setReplyTo(null);
   }
 
-  const items = groupByDay(messages);
+  const items = groupByDay(messages, t);
 
   return (
     <div className="grp-chat">
       <div className="grp-chat-messages">
         {isLoading ? (
-          <p className="grp-empty">Loading…</p>
+          <p className="grp-empty">{t("common.loading")}</p>
         ) : messages.length === 0 ? (
           <div className="grp-chat-empty">
             <span>💬</span>
-            <strong>No messages yet</strong>
-            <p>Be the first to say something!</p>
+            <strong>{t("groups.noMessages")}</strong>
+            <p>{t("groups.beFirst")}</p>
           </div>
         ) : (
           items.map(item => {
@@ -323,7 +326,7 @@ function ChatTab({ groupId, user, isAdmin }) {
           <div className="grp-reply-preview">
             <div className="grp-reply-preview-bar" />
             <div className="grp-reply-preview-content">
-              <span className="grp-reply-preview-name">{replyTo.sender?.display_name || "User"}</span>
+              <span className="grp-reply-preview-name">{replyTo.sender?.display_name || t("messages.user")}</span>
               <span className="grp-reply-preview-text">{(replyTo.content || "").slice(0, 60)}</span>
             </div>
             <button className="grp-reply-preview-cancel" onClick={() => setReplyTo(null)}>✕</button>
@@ -334,7 +337,7 @@ function ChatTab({ groupId, user, isAdmin }) {
           <textarea
             ref={inputRef}
             className="grp-chat-input"
-            placeholder="Message the group…"
+            placeholder={t("groups.messagePlaceholder")}
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -351,10 +354,11 @@ function ChatTab({ groupId, user, isAdmin }) {
 // ── Leaderboard tab ───────────────────────────────────────────────────────────
 
 function LeaderboardTab({ groupId, userId }) {
+  const { t } = useTranslation();
   const { data: board = [], isLoading } = useGroupLeaderboard(groupId);
 
   if (isLoading) return <div className="grp-spinner-wrap"><div className="grp-spinner" /></div>;
-  if (!board.length) return <p className="grp-empty grp-empty--pad">No data yet.</p>;
+  if (!board.length) return <p className="grp-empty grp-empty--pad">{t("groups.noData")}</p>;
 
   return (
     <div className="grp-leaderboard">
@@ -367,11 +371,11 @@ function LeaderboardTab({ groupId, userId }) {
             <Avatar name={entry.displayName} avatarUrl={entry.avatarUrl} size={34} />
             <div className="grp-lb-info">
               <span className="grp-lb-name">{entry.displayName}{isMe ? " (you)" : ""}</span>
-              <span className="grp-lb-sub">Longest: {entry.longestStreak}d</span>
+              <span className="grp-lb-sub">{t("groups.longestStreak")} {entry.longestStreak}d</span>
             </div>
             <div className="grp-lb-streak">
               <span className="grp-lb-streak-num">{entry.currentStreak}</span>
-              <span className="grp-lb-streak-label">day streak 🔥</span>
+              <span className="grp-lb-streak-label">{t("groups.dayStreak")} 🔥</span>
             </div>
           </div>
         );
@@ -383,6 +387,7 @@ function LeaderboardTab({ groupId, userId }) {
 // ── Members tab ───────────────────────────────────────────────────────────────
 
 function MembersTab({ groupId, userId, isAdmin, onRemove }) {
+  const { t } = useTranslation();
   const { data: members = [], isLoading } = useGroupMembers(groupId);
 
   if (isLoading) return <div className="grp-spinner-wrap"><div className="grp-spinner" /></div>;
@@ -393,15 +398,15 @@ function MembersTab({ groupId, userId, isAdmin, onRemove }) {
         <div key={m.userId} className="grp-member-row">
           <Avatar name={m.display_name} avatarUrl={m.avatar_url} size={36} />
           <div className="grp-member-info">
-            <span className="grp-member-name">{m.display_name || "Member"}</span>
-            <span className="grp-member-role">{m.role === "admin" ? "👑 Admin" : "Member"} · Joined {timeAgo(m.joinedAt)}</span>
+            <span className="grp-member-name">{m.display_name || t("groups.member")}</span>
+            <span className="grp-member-role">{m.role === "admin" ? t("groups.kingAdmin") : t("groups.member")} · {t("groups.joined")} {timeAgo(m.joinedAt, t)}</span>
           </div>
           {isAdmin && m.userId !== userId && (
             <button
               className="grp-btn grp-btn--sm grp-btn--danger"
               onClick={() => onRemove(m.userId)}
             >
-              Remove
+              {t("common.delete")}
             </button>
           )}
         </div>
@@ -413,6 +418,7 @@ function MembersTab({ groupId, userId, isAdmin, onRemove }) {
 // ── Main detail page ──────────────────────────────────────────────────────────
 
 export default function GroupDetail({ groupId, user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+  const { t } = useTranslation();
   const [tab, setTab] = useState("chat");
   const [confirmLeave, setConfirmLeave] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -427,8 +433,8 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
   const isAdmin = myMembership?.role === "admin";
   const isMember = !!myMembership;
 
-  if (loadingGroup) return <p className="grp-empty grp-empty--pad">Loading…</p>;
-  if (!group) return <p className="grp-empty grp-empty--pad">Group not found.</p>;
+  if (loadingGroup) return <p className="grp-empty grp-empty--pad">{t("common.loading")}</p>;
+  if (!group) return <p className="grp-empty grp-empty--pad">{t("groups.notFound")}</p>;
 
   function handleLeave() {
     leaveGroup.mutate(groupId, {
@@ -477,15 +483,15 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
             </p>
           )}
           <div className="grp-detail-meta">
-            <span>👥 {members.length} member{members.length !== 1 ? "s" : ""}</span>
-            {group.is_private && <span>🔒 Private</span>}
+            <span>👥 {members.length} {t("groups.members")}</span>
+            {group.is_private && <span>{t("groups.private")}</span>}
             {isAdmin && group.invite_code && (
               <span
                 className="grp-invite-code"
                 title="Click to copy"
                 onClick={() => { navigator.clipboard.writeText(group.invite_code); }}
               >
-                Code: <strong>{group.invite_code}</strong> 📋
+                {t("groups.code")} <strong>{group.invite_code}</strong> 📋
               </span>
             )}
           </div>
@@ -493,12 +499,12 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
         <div className="grp-detail-actions">
           {isMember && !isAdmin && (
             <button className="grp-btn grp-btn--ghost grp-btn--sm" onClick={() => setConfirmLeave(true)}>
-              Leave
+              {t("groups.leave")}
             </button>
           )}
           {isAdmin && (
             <button className="grp-btn grp-btn--danger grp-btn--sm" onClick={() => setConfirmDelete(true)}>
-              Delete
+              {t("common.delete")}
             </button>
           )}
         </div>
@@ -506,9 +512,9 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
 
       {/* Tabs */}
       <div className="grp-tabs grp-tabs--detail">
-        <button className={`grp-tab${tab === "chat" ? " grp-tab--active" : ""}`} onClick={() => setTab("chat")}>💬 Chat</button>
-        <button className={`grp-tab${tab === "leaderboard" ? " grp-tab--active" : ""}`} onClick={() => setTab("leaderboard")}>🏆 Leaderboard</button>
-        <button className={`grp-tab${tab === "members" ? " grp-tab--active" : ""}`} onClick={() => setTab("members")}>👥 Members</button>
+        <button className={`grp-tab${tab === "chat" ? " grp-tab--active" : ""}`} onClick={() => setTab("chat")}>{t("groups.chat")}</button>
+        <button className={`grp-tab${tab === "leaderboard" ? " grp-tab--active" : ""}`} onClick={() => setTab("leaderboard")}>{t("groups.leaderboard")}</button>
+        <button className={`grp-tab${tab === "members" ? " grp-tab--active" : ""}`} onClick={() => setTab("members")}>{t("groups.membersTab")}</button>
       </div>
 
       {/* Tab content */}
@@ -527,21 +533,21 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
 
       {confirmLeave && (
         <ConfirmModal
-          message="Leave this group? You can rejoin anytime if it's public."
+          message={t("groups.leaveConfirm")}
           onConfirm={handleLeave}
           onCancel={() => setConfirmLeave(false)}
         />
       )}
       {confirmDelete && (
         <ConfirmModal
-          message="Delete this group? All messages and members will be permanently removed."
+          message={t("groups.deleteConfirm")}
           onConfirm={handleDelete}
           onCancel={() => setConfirmDelete(false)}
         />
       )}
       {removeTarget && (
         <ConfirmModal
-          message="Remove this member from the group?"
+          message={t("groups.removeMemberConfirm")}
           onConfirm={() => handleRemove(removeTarget)}
           onCancel={() => setRemoveTarget(null)}
         />

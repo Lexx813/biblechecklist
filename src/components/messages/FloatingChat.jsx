@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { EMOJI_CATEGORIES } from "../../lib/emojiData";
 import ConfirmModal from "../ConfirmModal";
 import {
@@ -20,14 +21,14 @@ import "../../styles/floating-chat.css";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function timeAgo(iso) {
+function timeAgo(iso, t) {
   if (!iso) return "";
   const m = Math.floor((Date.now() - new Date(iso)) / 60000);
-  if (m < 1) return "just now";
-  if (m < 60) return `${m}m`;
+  if (m < 1) return t ? t("messages.justNow") : "just now";
+  if (m < 60) return `${m}${t ? t("messages.minutesAgo") : "m"}`;
   const h = Math.floor(m / 60);
-  if (h < 24) return `${h}h`;
-  return `${Math.floor(h / 24)}d`;
+  if (h < 24) return `${h}${t ? t("messages.hoursAgo") : "h"}`;
+  return `${Math.floor(h / 24)}${t ? t("messages.daysAgo") : "d"}`;
 }
 
 function initial(name) {
@@ -95,22 +96,22 @@ function formatTime(iso) {
   return new Date(iso).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
 }
 
-function formatDay(date) {
+function formatDay(date, t) {
   const today = new Date();
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
-  if (date.toDateString() === today.toDateString()) return "Today";
-  if (date.toDateString() === yesterday.toDateString()) return "Yesterday";
+  if (date.toDateString() === today.toDateString()) return t ? t("messages.today") : "Today";
+  if (date.toDateString() === yesterday.toDateString()) return t ? t("messages.yesterday") : "Yesterday";
   return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
 }
 
-function groupByDay(messages) {
+function groupByDay(messages, t) {
   const items = [];
   let lastDay = null;
   for (const msg of messages) {
     const day = new Date(msg.created_at).toDateString();
     if (day !== lastDay) {
-      items.push({ type: "day", label: formatDay(new Date(msg.created_at)), key: "day-" + day });
+      items.push({ type: "day", label: formatDay(new Date(msg.created_at), t), key: "day-" + day });
       lastDay = day;
     }
     items.push({ type: "message", ...msg });
@@ -153,6 +154,7 @@ function FCReactionPicker({ onPick, onClose }) {
 // ── FC Message bubble ─────────────────────────────────────────────────────────
 
 function FCBubble({ msg, isMine, allMessages, reactions, userId, onDelete, onReply, onEdit, onToggleReaction, isLast }) {
+  const { t } = useTranslation();
   const [showActions, setShowActions] = useState(false);
   const [showReactPicker, setShowReactPicker] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -189,8 +191,8 @@ function FCBubble({ msg, isMine, allMessages, reactions, userId, onDelete, onRep
           <div className="fc-quoted">
             <div className="fc-quoted-bar" />
             <div className="fc-quoted-body">
-              <span className="fc-quoted-name">{replyOrig.sender?.display_name || "User"}</span>
-              <span className="fc-quoted-text">{(replyOrig.content?.startsWith("enc:") ? "🔒 Encrypted" : replyOrig.content || "").slice(0, 50)}</span>
+              <span className="fc-quoted-name">{replyOrig.sender?.display_name || t("messages.user")}</span>
+              <span className="fc-quoted-text">{(replyOrig.content?.startsWith("enc:") ? t("messages.encryptedShort") : replyOrig.content || "").slice(0, 50)}</span>
             </div>
           </div>
         )}
@@ -213,8 +215,8 @@ function FCBubble({ msg, isMine, allMessages, reactions, userId, onDelete, onRep
           )}
           <div className="fc-bubble-footer">
             <span className="fc-bubble-time">{formatTime(msg.created_at)}</span>
-            {msg.edited_at && <span className="fc-edited-label">edited</span>}
-            {isMine && <span className="fc-status-ticks">{isLast ? "✓✓" : "✓"}</span>}
+            {msg.edited_at && <span className="fc-edited-label">{t("messages.edited")}</span>}
+            {isMine && <span className="fc-status-ticks">{isLast ? t("messages.read") : t("messages.sent")}</span>}
           </div>
         </div>
 
@@ -236,7 +238,7 @@ function FCBubble({ msg, isMine, allMessages, reactions, userId, onDelete, onRep
       {showActions && !editing && (
         <div className={`fc-bubble-actions${isMine ? " fc-bubble-actions--mine" : ""}`}>
           <div style={{ position: "relative" }}>
-            <button className="fc-action-btn" title="React" onClick={() => setShowReactPicker(s => !s)}>😊</button>
+            <button className="fc-action-btn" title={t("messages.react")} onClick={() => setShowReactPicker(s => !s)}>😊</button>
             {showReactPicker && (
               <FCReactionPicker
                 onPick={(em) => onToggleReaction(msg.id, em)}
@@ -244,11 +246,11 @@ function FCBubble({ msg, isMine, allMessages, reactions, userId, onDelete, onRep
               />
             )}
           </div>
-          <button className="fc-action-btn" title="Reply" onClick={() => onReply(msg)}>↩</button>
+          <button className="fc-action-btn" title={t("messages.reply")} onClick={() => onReply(msg)}>↩</button>
           {isMine && (
             <>
-              <button className="fc-action-btn" title="Edit" onClick={() => { setEditing(true); setEditText(msg.content); }}>✎</button>
-              <button className="fc-action-btn fc-action-btn--danger" title="Delete" onClick={() => onDelete(msg.id)}>✕</button>
+              <button className="fc-action-btn" title={t("common.edit")} onClick={() => { setEditing(true); setEditText(msg.content); }}>✎</button>
+              <button className="fc-action-btn fc-action-btn--danger" title={t("common.delete")} onClick={() => onDelete(msg.id)}>✕</button>
             </>
           )}
         </div>
@@ -260,6 +262,7 @@ function FCBubble({ msg, isMine, allMessages, reactions, userId, onDelete, onRep
 // ── Mini thread ───────────────────────────────────────────────────────────────
 
 function MiniThread({ conv, user, keyPair, onBack }) {
+  const { t } = useTranslation();
   const { data: messages = [], isLoading } = useMessages(conv.conversation_id);
   const sendMessage = useSendMessage(conv.conversation_id);
   const deleteMessage = useDeleteMessage(conv.conversation_id);
@@ -379,7 +382,7 @@ function MiniThread({ conv, user, keyPair, onBack }) {
     if (e.key === "Escape" && replyTo) setReplyTo(null);
   }
 
-  const items = groupByDay(decryptedMessages);
+  const items = groupByDay(decryptedMessages, t);
   const myLastMsgIdx = decryptedMessages.reduce((acc, m, i) => m.sender_id === user.id ? i : acc, -1);
 
   return (
@@ -393,19 +396,19 @@ function MiniThread({ conv, user, keyPair, onBack }) {
           online={isOtherOnline}
         />
         <div className="fc-thread-header-info">
-          <span className="fc-thread-name">{conv.other_display_name || "User"}</span>
+          <span className="fc-thread-name">{conv.other_display_name || t("messages.user")}</span>
           {isOtherTyping
-            ? <span className="fc-typing-label">typing…</span>
-            : isOtherOnline && <span className="fc-typing-label" style={{ fontStyle: "normal" }}>● online</span>
+            ? <span className="fc-typing-label">{t("messages.typing")}</span>
+            : isOtherOnline && <span className="fc-typing-label" style={{ fontStyle: "normal" }}>{t("messages.onlineDot")}</span>
           }
         </div>
       </div>
 
       <div className="fc-messages">
         {isLoading ? (
-          <p className="fc-empty">Loading…</p>
+          <p className="fc-empty">{t("common.loading")}</p>
         ) : decryptedMessages.length === 0 ? (
-          <p className="fc-empty">Say hello! 👋</p>
+          <p className="fc-empty">{t("messages.sayHello")} 👋</p>
         ) : (
           items.map((item, idx) => {
             if (item.type === "day") {
@@ -448,9 +451,9 @@ function MiniThread({ conv, user, keyPair, onBack }) {
           <div className="fc-reply-preview">
             <div className="fc-reply-preview-bar" />
             <div className="fc-reply-preview-content">
-              <span className="fc-reply-preview-name">{replyTo.sender?.display_name || "User"}</span>
+              <span className="fc-reply-preview-name">{replyTo.sender?.display_name || t("messages.user")}</span>
               <span className="fc-reply-preview-text">
-                {(replyTo.content?.startsWith("enc:") ? "🔒 Encrypted" : replyTo.content || "").slice(0, 60)}
+                {(replyTo.content?.startsWith("enc:") ? t("messages.encryptedShort") : replyTo.content || "").slice(0, 60)}
               </span>
             </div>
             <button className="fc-reply-preview-cancel" onClick={() => setReplyTo(null)}>✕</button>
@@ -485,17 +488,18 @@ function MiniThread({ conv, user, keyPair, onBack }) {
 // ── Conversation list ─────────────────────────────────────────────────────────
 
 function ConvList({ conversations, currentUserId, onSelect, onDelete, onlineUsers }) {
+  const { t } = useTranslation();
   return (
     <div className="fc-conv-list">
       {conversations.length === 0 ? (
-        <p className="fc-empty">No conversations yet.</p>
+        <p className="fc-empty">{t("messages.noConversationsShort")}</p>
       ) : (
         conversations.map(conv => {
           const isUnread = conv.unread_count > 0;
           const isOnline = onlineUsers.has(conv.other_user_id);
           const isMine = conv.last_message_sender_id === currentUserId;
           const preview = conv.last_message_content?.startsWith("enc:")
-            ? "🔒 Encrypted message"
+            ? t("messages.encrypted")
             : conv.last_message_content;
           return (
             <div key={conv.conversation_id} className="fc-conv-item" onClick={() => onSelect(conv)}>
@@ -508,14 +512,14 @@ function ConvList({ conversations, currentUserId, onSelect, onDelete, onlineUser
               <div className="fc-conv-info">
                 <div className="fc-conv-header">
                   <span className={`fc-conv-name${isUnread ? " fc-conv-name--unread" : ""}`}>
-                    {conv.other_display_name || "User"}
+                    {conv.other_display_name || t("messages.user")}
                   </span>
                   {conv.last_message_at && (
-                    <span className="fc-conv-time">{timeAgo(conv.last_message_at)}</span>
+                    <span className="fc-conv-time">{timeAgo(conv.last_message_at, t)}</span>
                   )}
                 </div>
                 <span className="fc-conv-preview">
-                  {preview ? `${isMine ? "You: " : ""}${preview}` : "No messages yet"}
+                  {preview ? `${isMine ? `${t("messages.you")}: ` : ""}${preview}` : t("messages.noMessagesYet")}
                 </span>
               </div>
               <div className="fc-conv-actions">
@@ -539,6 +543,7 @@ function ConvList({ conversations, currentUserId, onSelect, onDelete, onlineUser
 // ── Main floating chat ────────────────────────────────────────────────────────
 
 export default function FloatingChat({ user, navigate, initialConvId = null, initialConvName = null, initialConvAvatar = null }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(!!initialConvId);
   const [activeConv, setActiveConv] = useState(
     initialConvId
@@ -611,11 +616,11 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
         <div className="fc-panel">
           <div className="fc-panel-header">
             <span className="fc-panel-title">
-              {activeConv ? (activeConv.other_display_name || "Chat") : "Messages"}
+              {activeConv ? (activeConv.other_display_name || t("messages.chat")) : t("messages.title")}
             </span>
             <div className="fc-panel-header-actions">
-              <button className="fc-header-btn" onClick={openFullMessages} title="Open full view">⤢</button>
-              <button className="fc-header-btn" onClick={() => setOpen(false)} title="Close">✕</button>
+              <button className="fc-header-btn" onClick={openFullMessages} title={t("messages.openFullView")}>⤢</button>
+              <button className="fc-header-btn" onClick={() => setOpen(false)} title={t("messages.close")}>✕</button>
             </div>
           </div>
 
@@ -628,7 +633,7 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
             />
           ) : (
             isLoading ? (
-              <p className="fc-empty" style={{ padding: "24px" }}>Loading…</p>
+              <p className="fc-empty" style={{ padding: "24px" }}>{t("common.loading")}</p>
             ) : (
               <ConvList
                 conversations={conversations}
@@ -655,7 +660,7 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
 
       {convToDelete && (
         <ConfirmModal
-          message="Delete this conversation? All messages will be permanently removed."
+          message={t("messages.deleteConversationConfirm")}
           onConfirm={confirmDelete}
           onCancel={() => setConvToDelete(null)}
         />

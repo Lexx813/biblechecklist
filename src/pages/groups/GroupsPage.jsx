@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { useMyGroups, usePublicGroups, useCreateGroup, useJoinGroup, useJoinByCode } from "../../hooks/useGroups";
 import "../../styles/groups.css";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function timeAgo(iso) {
+function timeAgo(iso, t) {
   if (!iso) return "";
   const d = Math.floor((Date.now() - new Date(iso)) / 86400000);
-  if (d === 0) return "today";
-  if (d === 1) return "yesterday";
-  return `${d}d ago`;
+  if (d === 0) return t ? t("messages.today") : "today";
+  if (d === 1) return t ? t("messages.yesterday") : "yesterday";
+  return `${d}${t ? t("messages.daysAgo") : "d ago"}`;
 }
 
 function initial(name) {
@@ -20,6 +21,7 @@ function initial(name) {
 // ── Create group modal ────────────────────────────────────────────────────────
 
 function CreateGroupModal({ onClose, onCreated }) {
+  const { t } = useTranslation();
   const createGroup = useCreateGroup();
   const [form, setForm] = useState({
     name: "",
@@ -57,44 +59,44 @@ function CreateGroupModal({ onClose, onCreated }) {
     <div className="grp-modal-overlay" onClick={onClose}>
       <div className="grp-modal" onClick={e => e.stopPropagation()}>
         <div className="grp-modal-header">
-          <h2 className="grp-modal-title">Create Study Group</h2>
+          <h2 className="grp-modal-title">{t("groups.createGroupBtn")}</h2>
           <button className="grp-modal-close" onClick={onClose}>✕</button>
         </div>
         <form className="grp-modal-body" onSubmit={handleSubmit}>
           <label className="grp-field">
-            <span>Group name *</span>
+            <span>{t("groups.groupName")}</span>
             <input
               className="grp-input"
               value={form.name}
               onChange={e => set("name", e.target.value)}
-              placeholder="e.g. Morning Bible Readers"
+              placeholder={t("groups.groupNamePlaceholder")}
               maxLength={60}
               required
             />
           </label>
           <label className="grp-field">
-            <span>Description</span>
+            <span>{t("groups.description")}</span>
             <textarea
               className="grp-input grp-textarea"
               value={form.description}
               onChange={e => set("description", e.target.value)}
-              placeholder="What is this group about?"
+              placeholder={t("groups.descriptionPlaceholder")}
               maxLength={300}
               rows={3}
             />
           </label>
           <label className="grp-field">
-            <span>Reading goal</span>
+            <span>{t("groups.readingGoal")}</span>
             <input
               className="grp-input"
               value={form.goalLabel}
               onChange={e => set("goalLabel", e.target.value)}
-              placeholder="e.g. Read the whole NWT by December"
+              placeholder={t("groups.readingGoalPlaceholder")}
               maxLength={100}
             />
           </label>
           <label className="grp-field">
-            <span>Goal deadline</span>
+            <span>{t("groups.goalDeadline")}</span>
             <input
               className="grp-input"
               type="date"
@@ -108,13 +110,13 @@ function CreateGroupModal({ onClose, onCreated }) {
               checked={form.isPrivate}
               onChange={e => set("isPrivate", e.target.checked)}
             />
-            <span>Private group (invite-only)</span>
+            <span>{t("groups.isPrivate")}</span>
           </label>
           {error && <p className="grp-error">{error}</p>}
           <div className="grp-modal-actions">
-            <button type="button" className="grp-btn grp-btn--ghost" onClick={onClose}>Cancel</button>
+            <button type="button" className="grp-btn grp-btn--ghost" onClick={onClose}>{t("common.cancel")}</button>
             <button type="submit" className="grp-btn grp-btn--primary" disabled={createGroup.isPending || !form.name.trim()}>
-              {createGroup.isPending ? "Creating…" : "Create Group"}
+              {createGroup.isPending ? t("groups.creating") : t("groups.createGroupBtn")}
             </button>
           </div>
         </form>
@@ -127,6 +129,7 @@ function CreateGroupModal({ onClose, onCreated }) {
 // ── Join by code modal ────────────────────────────────────────────────────────
 
 function JoinCodeModal({ onClose, onJoined }) {
+  const { t } = useTranslation();
   const joinByCode = useJoinByCode();
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
@@ -144,26 +147,26 @@ function JoinCodeModal({ onClose, onJoined }) {
     <div className="grp-modal-overlay" onClick={onClose}>
       <div className="grp-modal grp-modal--sm" onClick={e => e.stopPropagation()}>
         <div className="grp-modal-header">
-          <h2 className="grp-modal-title">Join with Code</h2>
+          <h2 className="grp-modal-title">{t("groups.joinWithCode")}</h2>
           <button className="grp-modal-close" onClick={onClose}>✕</button>
         </div>
         <form className="grp-modal-body" onSubmit={handleSubmit}>
           <label className="grp-field">
-            <span>Invite code</span>
+            <span>{t("groups.inviteCode")}</span>
             <input
               className="grp-input"
               value={code}
               onChange={e => setCode(e.target.value)}
-              placeholder="Enter 8-character code"
+              placeholder={t("groups.inviteCodePlaceholder")}
               maxLength={8}
               autoFocus
             />
           </label>
           {error && <p className="grp-error">{error}</p>}
           <div className="grp-modal-actions">
-            <button type="button" className="grp-btn grp-btn--ghost" onClick={onClose}>Cancel</button>
+            <button type="button" className="grp-btn grp-btn--ghost" onClick={onClose}>{t("common.cancel")}</button>
             <button type="submit" className="grp-btn grp-btn--primary" disabled={joinByCode.isPending || !code.trim()}>
-              {joinByCode.isPending ? "Joining…" : "Join"}
+              {joinByCode.isPending ? t("groups.joining") : t("groups.join")}
             </button>
           </div>
         </form>
@@ -176,6 +179,7 @@ function JoinCodeModal({ onClose, onJoined }) {
 // ── Group card ────────────────────────────────────────────────────────────────
 
 function GroupCard({ group, onClick, onJoin, joined, joining }) {
+  const { t } = useTranslation();
   return (
     <div className="grp-card" onClick={onClick}>
       <div className="grp-card-avatar">
@@ -187,15 +191,15 @@ function GroupCard({ group, onClick, onJoin, joined, joining }) {
       <div className="grp-card-info">
         <div className="grp-card-top">
           <h3 className="grp-card-name">{group.name}</h3>
-          {group.is_private && <span className="grp-badge grp-badge--private">🔒 Private</span>}
-          {group.myRole === "admin" && <span className="grp-badge grp-badge--admin">Admin</span>}
+          {group.is_private && <span className="grp-badge grp-badge--private">{t("groups.private")}</span>}
+          {group.myRole === "admin" && <span className="grp-badge grp-badge--admin">{t("groups.admin")}</span>}
         </div>
         {group.description && <p className="grp-card-desc">{group.description}</p>}
         {group.goal_label && (
           <p className="grp-card-goal">🎯 {group.goal_label}{group.goal_deadline ? ` · ${new Date(group.goal_deadline).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}` : ""}</p>
         )}
         <div className="grp-card-meta">
-          <span>Created {timeAgo(group.created_at)}</span>
+          <span>Created {timeAgo(group.created_at, t)}</span>
         </div>
       </div>
       {!joined && onJoin && (
@@ -204,7 +208,7 @@ function GroupCard({ group, onClick, onJoin, joined, joining }) {
           onClick={e => { e.stopPropagation(); onJoin(group.id); }}
           disabled={joining}
         >
-          Join
+          {t("groups.join")}
         </button>
       )}
     </div>
@@ -214,6 +218,7 @@ function GroupCard({ group, onClick, onJoin, joined, joining }) {
 // ── Main page ─────────────────────────────────────────────────────────────────
 
 export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+  const { t } = useTranslation();
   const [tab, setTab] = useState("mine");
   const [showCreate, setShowCreate] = useState(false);
   const [showJoinCode, setShowJoinCode] = useState(false);
@@ -235,37 +240,37 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
     <div className="grp-page">
       <div className="grp-page-header">
         <div className="grp-page-header-left">
-          <button className="grp-back-btn" onClick={() => navigate("home")}>← Home</button>
+          <button className="grp-back-btn" onClick={() => navigate("home")}>{t("common.back")}</button>
           <div>
-            <h1 className="grp-page-title">Study Groups</h1>
-            <p className="grp-page-subtitle">Read together, grow together</p>
+            <h1 className="grp-page-title">{t("groups.title")}</h1>
+            <p className="grp-page-subtitle">{t("groups.subtitle")}</p>
           </div>
         </div>
         <div className="grp-page-header-actions">
-          <button className="grp-btn grp-btn--ghost" onClick={() => setShowJoinCode(true)}>🔑 Join with Code</button>
-          <button className="grp-btn grp-btn--primary" onClick={() => setShowCreate(true)}>+ Create Group</button>
+          <button className="grp-btn grp-btn--ghost" onClick={() => setShowJoinCode(true)}>{t("groups.joinWithCode")}</button>
+          <button className="grp-btn grp-btn--primary" onClick={() => setShowCreate(true)}>{t("groups.createGroup")}</button>
         </div>
       </div>
 
       <div className="grp-tabs">
         <button className={`grp-tab${tab === "mine" ? " grp-tab--active" : ""}`} onClick={() => setTab("mine")}>
-          My Groups {myGroups.length > 0 && <span className="grp-tab-count">{myGroups.length}</span>}
+          {t("groups.myGroups")} {myGroups.length > 0 && <span className="grp-tab-count">{myGroups.length}</span>}
         </button>
         <button className={`grp-tab${tab === "explore" ? " grp-tab--active" : ""}`} onClick={() => setTab("explore")}>
-          Explore
+          {t("groups.explore")}
         </button>
       </div>
 
       <div className="grp-list">
         {tab === "mine" && (
           loadingMine ? (
-            <p className="grp-empty">Loading…</p>
+            <p className="grp-empty">{t("common.loading")}</p>
           ) : myGroups.length === 0 ? (
             <div className="grp-empty-state">
               <span className="grp-empty-icon">👥</span>
-              <h3>No Groups Yet</h3>
-              <p>You haven't joined any groups yet.</p>
-              <button className="grp-btn grp-btn--primary" onClick={() => setTab("explore")}>Explore Groups</button>
+              <h3>{t("groups.noGroups")}</h3>
+              <p>{t("groups.noGroupsDesc")}</p>
+              <button className="grp-btn grp-btn--primary" onClick={() => setTab("explore")}>{t("groups.exploreBtn")}</button>
             </div>
           ) : (
             myGroups.map(g => (
@@ -281,13 +286,13 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
 
         {tab === "explore" && (
           loadingPublic ? (
-            <p className="grp-empty">Loading…</p>
+            <p className="grp-empty">{t("common.loading")}</p>
           ) : publicGroups.length === 0 ? (
             <div className="grp-empty-state">
               <span className="grp-empty-icon">🌐</span>
-              <h3>No Public Groups</h3>
-              <p>No public groups yet. Be the first to create one!</p>
-              <button className="grp-btn grp-btn--primary" onClick={() => setShowCreate(true)}>Create Group</button>
+              <h3>{t("groups.noPublicGroups")}</h3>
+              <p>{t("groups.noPublicGroupsDesc")}</p>
+              <button className="grp-btn grp-btn--primary" onClick={() => setShowCreate(true)}>{t("groups.createGroupBtn")}</button>
             </div>
           ) : (
             publicGroups
