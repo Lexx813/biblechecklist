@@ -52,19 +52,16 @@ function authorInitial(post) {
   return (post.profiles?.display_name || post.profiles?.email || "A")[0].toUpperCase();
 }
 
-function renderContent(text) {
+const RichContent = memo(function RichContent({ text }) {
   if (!text) return null;
-  // Legacy plain text → wrap in paragraphs
-  const html = /<[a-z][\s\S]*>/i.test(text)
-    ? text
-    : text.split(/\n\n+/).map(p => `<p>${p}</p>`).join("");
-  return (
-    <div
-      className="rich-content"
-      dangerouslySetInnerHTML={{ __html: sanitizeRich(html) }}
-    />
-  );
-}
+  const html = useMemo(() => {
+    const h = /<[a-z][\s\S]*>/i.test(text)
+      ? text
+      : text.split(/\n\n+/).map(p => `<p>${p}</p>`).join("");
+    return sanitizeRich(h);
+  }, [text]);
+  return <div className="rich-content" dangerouslySetInnerHTML={{ __html: html }} />;
+});
 
 // ── Comments ──────────────────────────────────────────────────────────────────
 function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate }) {
@@ -110,7 +107,7 @@ function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate 
             <div key={c.id} className="blog-comment">
               <div className="blog-comment-avatar blog-avatar--clickable" onClick={() => navigate("publicProfile", { userId: c.author_id })}>
                 {c.profiles?.avatar_url
-                  ? <img src={c.profiles.avatar_url} alt={c.profiles?.display_name || c.profiles?.email?.split("@")[0] || "User"} />
+                  ? <img src={c.profiles.avatar_url} alt={c.profiles?.display_name || c.profiles?.email?.split("@")[0] || "User"} width={36} height={36} loading="lazy" />
                   : (c.profiles?.display_name || c.profiles?.email || "?")[0].toUpperCase()
                 }
               </div>
@@ -226,7 +223,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
             <div className="blog-post-hero-byline">
               <div className="blog-author-avatar blog-author-avatar--sm blog-avatar--clickable" onClick={() => navigate("publicProfile", { userId: post.author_id })}>
                 {post.profiles?.avatar_url
-                  ? <img src={post.profiles.avatar_url} alt={authorName(post)} />
+                  ? <img src={post.profiles.avatar_url} alt={authorName(post)} width={32} height={32} loading="lazy" />
                   : authorInitial(post)
                 }
               </div>
@@ -250,7 +247,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
         <div className="blog-author-card">
           <div className="blog-author-avatar blog-author-avatar--lg blog-avatar--clickable" onClick={() => navigate("publicProfile", { userId: post.author_id })}>
             {post.profiles?.avatar_url
-              ? <img src={post.profiles.avatar_url} alt={authorName(post)} />
+              ? <img src={post.profiles.avatar_url} alt={authorName(post)} width={48} height={48} loading="lazy" />
               : authorInitial(post)
             }
           </div>
@@ -368,7 +365,7 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user }) {
         <div className="blog-card-footer">
           <div className="blog-author-avatar blog-author-avatar--xs blog-avatar--clickable" onClick={e => { e.stopPropagation(); navigate("publicProfile", { userId: post.author_id }); }}>
             {post.profiles?.avatar_url
-              ? <img src={post.profiles.avatar_url} alt={authorName(post)} />
+              ? <img src={post.profiles.avatar_url} alt={authorName(post)} width={24} height={24} loading="lazy" />
               : authorInitial(post)
             }
           </div>

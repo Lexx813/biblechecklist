@@ -21,7 +21,7 @@ function timeAgo(iso, t) {
 function FeedAvatar({ author }) {
   const initial = (author?.display_name || author?.email || "?")[0].toUpperCase();
   if (author?.avatar_url) {
-    return <img className="feed-avatar" src={author.avatar_url} alt="" />;
+    return <img className="feed-avatar" src={author.avatar_url} alt="" width={36} height={36} loading="lazy" />;
   }
   return <div className="feed-avatar feed-avatar--fallback">{initial}</div>;
 }

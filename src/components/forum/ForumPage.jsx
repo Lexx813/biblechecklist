@@ -64,7 +64,7 @@ function Avatar({ profile, size = "md", onClick }) {
   const cls = `forum-avatar forum-avatar--${size}${onClick ? " forum-avatar--clickable" : ""}`;
   const px = AVATAR_PX[size] ?? 36;
   if (profile?.avatar_url) {
-    return <img className={cls} src={profile.avatar_url} alt={displayName(profile)} width={px} height={px} onClick={onClick} />;
+    return <img className={cls} src={profile.avatar_url} alt={displayName(profile)} width={px} height={px} loading="lazy" onClick={onClick} />;
   }
   return <div className={`${cls} forum-avatar--fallback`} onClick={onClick}>{initial(profile)}</div>;
 }

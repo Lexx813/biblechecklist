@@ -50,8 +50,8 @@ export function useMessages(conversationId) {
     queryKey: ["messages", conversationId],
     queryFn: () => messagesApi.getMessages(conversationId),
     enabled: !!conversationId,
-    staleTime: 3_000,
-    refetchInterval: 5_000, // fallback polling in case realtime is not enabled
+    staleTime: 30_000,
+    refetchInterval: 30_000, // fallback polling in case realtime is not enabled
   });
 }
 

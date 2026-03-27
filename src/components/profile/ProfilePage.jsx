@@ -47,18 +47,22 @@ function Initials({ name, email }) {
 function Avatar({ profile, userId, editable }) {
   const fileRef = useRef();
   const upload = useUploadAvatar(userId);
+  const [preview, setPreview] = useState(null);
 
   function handleFile(e) {
     const file = e.target.files[0];
     if (!file) return;
-    upload.mutate(file);
+    setPreview(URL.createObjectURL(file));
+    upload.mutate(file, { onSettled: () => setPreview(null) });
   }
+
+  const src = preview ?? profile?.avatar_url;
 
   if (!editable) {
     return (
       <div className="pf-avatar-wrap pf-avatar-wrap--static">
         {profile?.avatar_url
-          ? <img src={profile.avatar_url} alt="avatar" className="pf-avatar-img" />
+          ? <img src={profile.avatar_url} alt="avatar" className="pf-avatar-img" width={80} height={80} loading="lazy" />
           : <span className="pf-avatar-initials"><Initials name={profile?.display_name} email={profile?.email} /></span>
         }
       </div>
@@ -67,8 +71,8 @@ function Avatar({ profile, userId, editable }) {
 
   return (
     <div className="pf-avatar-wrap" onClick={() => fileRef.current.click()} title="Change photo">
-      {profile?.avatar_url
-        ? <img src={profile.avatar_url} alt="avatar" className="pf-avatar-img" />
+      {src
+        ? <img src={src} alt="avatar" className="pf-avatar-img" width={80} height={80} loading="lazy" />
         : <span className="pf-avatar-initials"><Initials name={profile?.display_name} email={profile?.email} /></span>
       }
       <div className="pf-avatar-overlay">

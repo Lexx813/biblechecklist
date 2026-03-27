@@ -53,7 +53,9 @@ export default function AuthPage({ onBack }) {
         },
       });
     } else {
-      login.mutate({ email, password });
+      login.mutate({ email, password }, {
+        onError: () => setPassword(""),
+      });
     }
   }
 
@@ -163,7 +165,8 @@ export default function AuthPage({ onBack }) {
           <div className="auth-field">
             <label className="auth-label" htmlFor="email">{t("auth.emailLabel")}</label>
             <input id="email" className="auth-input" type="email" placeholder={t("auth.emailPlaceholder")}
-              value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" disabled={busy} />
+              value={email} onChange={e => setEmail(e.target.value)}
+              autoComplete={mode === "login" ? "username" : "email"} disabled={busy} />
           </div>
 
           {mode === "signup" && (

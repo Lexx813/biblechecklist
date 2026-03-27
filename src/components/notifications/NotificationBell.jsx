@@ -111,7 +111,7 @@ export default function NotificationBell({ userId, navigate }) {
                   <div className="notif-item-main" onClick={() => handleClick(n)}>
                     <div className="notif-actor-avatar">
                       {n.actor?.avatar_url
-                        ? <img src={n.actor.avatar_url} alt="" />
+                        ? <img src={n.actor.avatar_url} alt="" width={32} height={32} loading="lazy" />
                         : (n.actor?.display_name || "?")[0].toUpperCase()
                       }
                     </div>

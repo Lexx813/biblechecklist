@@ -106,7 +106,11 @@ export const blogApi = {
   },
 
   uploadCover: async (userId, file) => {
-    const ext = file.name.split(".").pop();
+    const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+    const MAX_SIZE = 5 * 1024 * 1024; // 5 MB
+    if (!ALLOWED_TYPES.includes(file.type)) throw new Error("Only JPEG, PNG, WebP, or GIF images are allowed.");
+    if (file.size > MAX_SIZE) throw new Error("Image must be under 5 MB.");
+    const ext = file.name.split(".").pop().toLowerCase().replace(/[^a-z0-9]/g, "");
     const path = `${userId}/${Date.now()}.${ext}`;
     const { error: upErr } = await supabase.storage
       .from("blog-covers")

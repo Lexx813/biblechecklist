@@ -38,7 +38,7 @@ function Avatar({ name, avatarUrl, size = 32, online = false }) {
   return (
     <div className="fc-avatar-wrap" style={{ width: size, height: size }}>
       {avatarUrl ? (
-        <img className="fc-avatar" src={avatarUrl} alt={name} width={size} height={size} style={{ width: size, height: size }} />
+        <img className="fc-avatar" src={avatarUrl} alt={name} width={size} height={size} style={{ width: size, height: size }} loading="lazy" />
       ) : (
         <div className="fc-avatar fc-avatar--fallback" style={{ width: size, height: size, fontSize: size * 0.38 }}>
           {initial(name)}

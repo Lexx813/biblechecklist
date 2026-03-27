@@ -188,10 +188,17 @@
       "mcp__claude_ai_Supabase__get_edge_function",
       "Bash(supabase functions:*)",
       "Bash(SUPABASE_ACCESS_TOKEN=sbp_58e779bdc2f126dd4a3c836a0028bcb6d2974a95 npx supabase functions deploy stripe-webhook --project-ref yudyhigvqaodnoqwwtns)",
-      "Bash(SUPABASE_ACCESS_TOKEN=sbp_58e779bdc2f126dd4a3c836a0028bcb6d2974a95 npx supabase functions deploy create-checkout-session --project-ref yudyhigvqaodnoqwwtns)"
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_58e779bdc2f126dd4a3c836a0028bcb6d2974a95 npx supabase functions deploy create-checkout-session --project-ref yudyhigvqaodnoqwwtns)",
+      "Read(//tmp/**)",
+      "Bash(grep -n \"refetchInterval\" /home/alexi/projects/nwt-progress/src/hooks/*.js)",
+      "Bash(find /home/alexi/projects/nwt-progress/src/components -name \"*.jsx\" -exec wc -l {} +)",
+      "Bash(grep -n \"createPortal\\\\|dangerouslySetInnerHTML\\\\|innerHTML\" /home/alexi/projects/nwt-progress/src/components/*.jsx)",
+      "Bash(grep -n \"refetchInterval\\\\|refetchOnMount\\\\|refetchOnWindowFocus\" /home/alexi/projects/nwt-progress/src/hooks/*.js)",
+      "Bash(identify /home/alexi/projects/nwt-progress/public/og-image.png)"
     ],
     "additionalDirectories": [
-      "/home/alexi/projects"
+      "/home/alexi/projects",
+      "/tmp"
     ]
   }
 }

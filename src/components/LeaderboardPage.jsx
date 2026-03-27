@@ -9,7 +9,7 @@ const MEDALS = ["🥇", "🥈", "🥉"];
 
 function Avatar({ row }) {
   if (row.avatar_url) {
-    return <img className="lb-avatar" src={row.avatar_url} alt="" />;
+    return <img className="lb-avatar" src={row.avatar_url} alt="" width={36} height={36} loading="lazy" />;
   }
   const initials = (row.display_name || "?")[0].toUpperCase();
   return <div className="lb-avatar lb-avatar--fallback">{initials}</div>;

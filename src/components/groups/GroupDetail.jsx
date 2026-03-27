@@ -74,7 +74,7 @@ function initial(name) { return (name || "?")[0].toUpperCase(); }
 
 function Avatar({ name, avatarUrl, size = 36 }) {
   return avatarUrl ? (
-    <img className="grp-avatar" src={avatarUrl} alt={name} style={{ width: size, height: size }} />
+    <img className="grp-avatar" src={avatarUrl} alt={name} width={size} height={size} style={{ width: size, height: size }} loading="lazy" />
   ) : (
     <div className="grp-avatar grp-avatar--fallback" style={{ width: size, height: size, fontSize: size * 0.38 }}>
       {initial(name)}

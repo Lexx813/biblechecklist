@@ -233,7 +233,7 @@ function MentionList({ items, activeIdx, onSelect }) {
         >
           <div className="mention-option-avatar">
             {u.avatar_url
-              ? <img src={u.avatar_url} alt="" />
+              ? <img src={u.avatar_url} alt="" width={28} height={28} loading="lazy" />
               : (u.display_name || "?")[0].toUpperCase()
             }
           </div>

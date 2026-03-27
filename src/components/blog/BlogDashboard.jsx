@@ -161,9 +161,13 @@ function PostEditor({ userId, post, onDone }) {
               value={form.cover_url}
               onChange={e => {
                 const val = e.target.value.trim();
-                const lower = val.toLowerCase();
-                if (!lower.startsWith("javascript:") && !lower.startsWith("data:") && !lower.startsWith("vbscript:")) {
-                  set("cover_url", val);
+                if (!val) { set("cover_url", ""); return; }
+                try {
+                  const url = new URL(val);
+                  if (url.protocol === "https:") set("cover_url", val);
+                } catch {
+                  // not a valid URL yet — allow partial typing only if it could become https://
+                  if (val.startsWith("https://")) set("cover_url", val);
                 }
               }}
               disabled={isPending || uploading}

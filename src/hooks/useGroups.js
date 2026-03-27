@@ -160,8 +160,8 @@ export function useGroupMessages(groupId) {
     queryKey: ["group-messages", groupId],
     queryFn: () => groupsApi.getMessages(groupId),
     enabled: !!groupId,
-    staleTime: 5_000,
-    refetchInterval: 10_000,
+    staleTime: 30_000,
+    refetchInterval: 30_000,
   });
 }
 
