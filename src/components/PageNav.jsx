@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import "../styles/pagenav.css";
 import AnnouncementBanner from "./AnnouncementBanner";
 import NotificationBell from "./notifications/NotificationBell";
-import UpgradeModal from "./UpgradeModal";
 import { LANGUAGES } from "../i18n";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { useFullProfile } from "../hooks/useAdmin";
@@ -17,11 +16,9 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
   const { data: profile } = useFullProfile(user?.id);
   const isAdmin = profile?.is_admin;
   const canModerate = isAdmin || profile?.is_moderator;
-  const { isPremium, subscribe } = useSubscription(user?.id);
+  const { isPremium } = useSubscription(user?.id);
   const { data: unreadMessages = 0 } = useUnreadMessageCount();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showUpgrade, setShowUpgrade] = useState(false);
-  const openUpgrade = () => setShowUpgrade(true);
   const [moreOpen, setMoreOpen] = useState(false);
   const [communityOpen, setCommunityOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -111,10 +108,10 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               <button className={`page-nav-icon-btn${currentPage === "bookmarks" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("bookmarks")} data-tip={t("bookmarks.title")}>🔖</button>
               {isPremium
                 ? <button className={`page-nav-icon-btn${currentPage === "readingPlans" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("readingPlans")} data-tip="Reading Plans">📅</button>
-                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature" onClick={() => openUpgrade()}>📅</button>}
+                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature">📅</button>}
               {isPremium
                 ? <button className={`page-nav-icon-btn${currentPage === "studyNotes" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("studyNotes")} data-tip="Study Notes">📝</button>
-                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature" onClick={() => openUpgrade()}>📝</button>}
+                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature">📝</button>}
             </div>
           )}
           {user && (
@@ -123,14 +120,14 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                   💬
                   {unreadMessages > 0 && <span className="page-nav-msg-badge">{unreadMessages}</span>}
                 </button>
-              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature" onClick={() => openUpgrade()} style={{ position: "relative" }}>
+              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature" style={{ position: "relative" }}>
                   💬
                 </button>
           )}
           {user && (
             isPremium
               ? <button className={`page-nav-icon-btn page-nav-collapses${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("groups")} data-tip="Study Groups">👥</button>
-              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn page-nav-collapses" data-tip="🔒 Pro feature" onClick={() => openUpgrade()}>👥</button>
+              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn page-nav-collapses" data-tip="🔒 Pro feature">👥</button>
           )}
           {user && (
             <button
@@ -239,13 +236,6 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
         )}
       </nav>
       <AnnouncementBanner />
-      {showUpgrade && (
-        <UpgradeModal
-          onClose={() => setShowUpgrade(false)}
-          onSubscribe={() => subscribe.mutate()}
-          loading={subscribe.isPending}
-        />
-      )}
     </>
   );
 }
