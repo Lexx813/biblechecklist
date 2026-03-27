@@ -81,11 +81,15 @@ export class ErrorBoundary extends React.Component {
       const isChunkError =
         this.state.error?.message?.includes("Failed to fetch dynamically imported module") ||
         this.state.error?.message?.includes("Importing a module script failed");
-      // Stale chunk after a new deploy — silently reload once, show nothing in the meantime
-      if (isChunkError && !sessionStorage.getItem("chunkReloaded")) {
-        sessionStorage.setItem("chunkReloaded", "1");
-        window.location.reload();
-        return null;
+      // Stale chunk after a new deploy — silently reload once per error occurrence
+      if (isChunkError) {
+        const reloadedAt = sessionStorage.getItem("chunkReloadedAt");
+        const recentlyReloaded = reloadedAt && Date.now() - Number(reloadedAt) < 30_000;
+        if (!recentlyReloaded) {
+          sessionStorage.setItem("chunkReloadedAt", String(Date.now()));
+          window.location.reload();
+          return null;
+        }
       }
       return (
         <ErrorPage

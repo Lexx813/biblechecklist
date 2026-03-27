@@ -225,6 +225,31 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 {isAdmin ? t("app.admin") : "Moderation"}
               </button>
             )}
+            <div className="page-nav-mobile-section-label">Tools</div>
+            <button className={`page-nav-mobile-link${currentPage === "feed" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("feed")}>📰 {t("feed.navLink")}</button>
+            <button className={`page-nav-mobile-link${currentPage === "bookmarks" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("bookmarks")}>🔖 {t("bookmarks.title")}</button>
+            <button className={`page-nav-mobile-link${currentPage === "leaderboard" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("leaderboard")}>🏆 {t("leaderboard.title")}</button>
+
+            {isPremium ? (
+              <>
+                <div className="page-nav-mobile-section-label">✦ Premium</div>
+                <button className={`page-nav-mobile-link${currentPage === "messages" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("messages")}>
+                  💬 Messages {unreadMessages > 0 && <span className="page-nav-mobile-badge">{unreadMessages}</span>}
+                </button>
+                <button className={`page-nav-mobile-link${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("groups")}>👥 Study Groups</button>
+                <button className={`page-nav-mobile-link${currentPage === "readingPlans" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("readingPlans")}>📅 Reading Plans</button>
+                <button className={`page-nav-mobile-link${currentPage === "studyNotes" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyNotes")}>📝 Study Notes</button>
+              </>
+            ) : (
+              <>
+                <div className="page-nav-mobile-section-label page-nav-mobile-section-label--locked">✦ Premium</div>
+                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>💬 Messages</button>
+                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>👥 Study Groups</button>
+                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>📅 Reading Plans</button>
+                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>📝 Study Notes</button>
+              </>
+            )}
+
             <div className="page-nav-mobile-divider" />
             {user && onLogout && (
               <button className="page-nav-mobile-link page-nav-mobile-logout" onClick={() => { setMenuOpen(false); onLogout(); }} style={{ marginTop: 4 }}>

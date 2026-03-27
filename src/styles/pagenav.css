@@ -414,6 +414,16 @@
   pointer-events: none;
   font-size: 13px;
 }
+.page-nav-mobile-section-label--locked { opacity: 0.5; }
+
+/* Unread badge in mobile menu */
+.page-nav-mobile-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 18px; height: 18px; padding: 0 4px;
+  background: #a855f7; color: #fff;
+  font-size: 10px; font-weight: 800; border-radius: 9px;
+  margin-left: 6px;
+}
 
 /* ── Pro locked buttons ─────────────────────────────────── */
 .page-nav-icon-btn--locked {

@@ -64,7 +64,7 @@ function Page({ children }) {
 
 function BibleApp({ user, onLogout, i18n }) {
   const queryClient = useQueryClient();
-  const { data: profile } = useFullProfile(user.id);
+  const { data: profile, isLoading: profileLoading } = useFullProfile(user.id);
   const { isPremium } = useSubscription(user.id);
   const [nav, setNav] = useState(parsePath);
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem("nwt-theme") === "dark");
@@ -165,7 +165,11 @@ function BibleApp({ user, onLogout, i18n }) {
   else if (isPremium && nav.page === "groups")       pageContent = <Page><GroupsPage {...sharedNav} /></Page>;
   else if (isPremium && nav.page === "groupDetail")  pageContent = <Page><GroupDetail {...sharedNav} groupId={nav.groupId} /></Page>;
 
-  if (!pageContent) { navigate("home"); return null; }
+  if (!pageContent) {
+    if (profileLoading) return null; // wait for subscription status before deciding
+    navigate("home");
+    return null;
+  }
 
   return (
     <>

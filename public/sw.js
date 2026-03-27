@@ -1,4 +1,4 @@
-const CACHE = "nwt-v5";
+const CACHE = "nwt-v6";
 const STATIC_EXTENSIONS = /\.(js|css|png|jpg|jpeg|svg|gif|webp|woff2?|ico)$/;
 
 // Precache critical assets on install so repeat visits are instant
@@ -48,10 +48,12 @@ self.addEventListener("fetch", (e) => {
       caches.match(e.request).then((cached) => {
         if (cached) return cached;
         return fetch(e.request).then((res) => {
-          if (res.ok) {
-            const clone = res.clone();
-            caches.open(CACHE).then((cache) => cache.put(e.request, clone));
-          }
+          // Don't cache or serve HTML responses for JS/CSS/asset requests
+          // (happens when Vercel's SPA rewrite returns index.html for a missing chunk)
+          const ct = res.headers.get("Content-Type") || "";
+          if (!res.ok || ct.includes("text/html")) return Response.error();
+          const clone = res.clone();
+          caches.open(CACHE).then((cache) => cache.put(e.request, clone));
           return res;
         });
       })
