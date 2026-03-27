@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import ConfirmModal from "../../components/ConfirmModal";
 import AICompanion from "../../components/AICompanion";
@@ -36,6 +37,7 @@ function formatDate(iso) {
 // ── Plan template card (browse) ───────────────────────────────────────────────
 
 function TemplateCard({ template, enrolled, onEnroll, enrolling }) {
+  const { t } = useTranslation();
   return (
     <div className="rp-template-card">
       <div className="rp-template-icon">{template.icon}</div>
@@ -53,7 +55,7 @@ function TemplateCard({ template, enrolled, onEnroll, enrolling }) {
         <div className="rp-template-meta">
           <span>📅 {template.totalDays} days</span>
           <span>📖 {template.totalChapters} chapters</span>
-          <span>~{(template.totalChapters / template.totalDays).toFixed(1)} ch/day</span>
+          <span>~{(template.totalChapters / template.totalDays).toFixed(1)} {t("readingPlans.chDay")}</span>
         </div>
       </div>
       <button
@@ -61,7 +63,7 @@ function TemplateCard({ template, enrolled, onEnroll, enrolling }) {
         onClick={onEnroll}
         disabled={enrolled || enrolling}
       >
-        {enrolled ? "✓ Enrolled" : enrolling ? "Starting…" : "Start Plan"}
+        {enrolled ? t("readingPlans.enrolled") : enrolling ? t("readingPlans.starting") : t("readingPlans.startPlan")}
       </button>
     </div>
   );
@@ -70,6 +72,7 @@ function TemplateCard({ template, enrolled, onEnroll, enrolling }) {
 // ── Active plan card ──────────────────────────────────────────────────────────
 
 function ActivePlanCard({ plan, onClick }) {
+  const { t } = useTranslation();
   const template = getTemplate(plan.template_key);
   const { data: completions = [] } = usePlanCompletions(plan.id);
   if (!template) return null;
@@ -86,7 +89,7 @@ function ActivePlanCard({ plan, onClick }) {
         <span className="rp-active-icon">{template.icon}</span>
         <div className="rp-active-info">
           <h3 className="rp-active-name">{template.name}</h3>
-          <span className="rp-active-meta">Started {formatDate(plan.start_date)} · Day {currentDay} of {template.totalDays}</span>
+          <span className="rp-active-meta">Started {formatDate(plan.start_date)} · {t("readingPlans.day")} {currentDay} {t("readingPlans.of")} {template.totalDays}</span>
         </div>
         <span className="rp-active-pct">{pct}%</span>
       </div>
@@ -95,7 +98,7 @@ function ActivePlanCard({ plan, onClick }) {
       </div>
       <div className="rp-active-footer">
         <span className={`rp-today-badge${todayDone ? " rp-today-badge--done" : ""}`}>
-          {todayDone ? "✓ Today complete" : "📖 Today pending"}
+          {todayDone ? t("readingPlans.todayComplete") : t("readingPlans.todayPending")}
         </span>
         <span className="rp-active-done-count">{completedCount}/{template.totalDays} days</span>
       </div>
@@ -106,6 +109,7 @@ function ActivePlanCard({ plan, onClick }) {
 // ── Plan detail view ──────────────────────────────────────────────────────────
 
 function PlanDetail({ plan, onBack, isAdmin }) {
+  const { t } = useTranslation();
   const template = getTemplate(plan.template_key);
   const { data: completions = [], isLoading } = usePlanCompletions(plan.id);
   const markDay = useMarkDay(plan.id);
@@ -140,7 +144,7 @@ function PlanDetail({ plan, onBack, isAdmin }) {
   return (
     <div className="rp-detail">
       <div className="rp-detail-header">
-        <button className="rp-back-btn" onClick={onBack}>← Back</button>
+        <button className="rp-back-btn" onClick={onBack}>{t("common.back")}</button>
         <div className="rp-detail-title-row">
           <span className="rp-detail-icon">{template.icon}</span>
           <div>
@@ -158,19 +162,19 @@ function PlanDetail({ plan, onBack, isAdmin }) {
         <div className="rp-detail-stats">
           <div className="rp-stat">
             <span className="rp-stat-val">{pct}%</span>
-            <span className="rp-stat-label">Complete</span>
+            <span className="rp-stat-label">{t("readingPlans.complete")}</span>
           </div>
           <div className="rp-stat">
             <span className="rp-stat-val">{completedCount}</span>
-            <span className="rp-stat-label">Days done</span>
+            <span className="rp-stat-label">{t("readingPlans.daysDone")}</span>
           </div>
           <div className="rp-stat">
             <span className="rp-stat-val">{template.totalDays - completedCount}</span>
-            <span className="rp-stat-label">Remaining</span>
+            <span className="rp-stat-label">{t("readingPlans.remaining")}</span>
           </div>
           <div className="rp-stat">
-            <span className="rp-stat-val">Day {currentDay}</span>
-            <span className="rp-stat-label">Today</span>
+            <span className="rp-stat-val">{t("readingPlans.day")} {currentDay}</span>
+            <span className="rp-stat-label">{t("readingPlans.today")}</span>
           </div>
         </div>
       </div>
@@ -178,7 +182,7 @@ function PlanDetail({ plan, onBack, isAdmin }) {
       {/* Today's reading */}
       {schedule[currentDay - 1] && (
         <div className={`rp-today-card${doneSet.has(currentDay) ? " rp-today-card--done" : ""}`}>
-          <div className="rp-today-label">Today's Reading — Day {currentDay}</div>
+          <div className="rp-today-label">{t("readingPlans.todaysReading")} {currentDay}</div>
           <div className="rp-today-readings">
             {schedule[currentDay - 1].readings.map((r, i) => (
               <span key={i} className="rp-reading-chip">{r.bookAbbr} {r.chapter}</span>
@@ -189,7 +193,7 @@ function PlanDetail({ plan, onBack, isAdmin }) {
             onClick={() => toggleDay(currentDay)}
             disabled={isLoading || markDay.isPending || unmarkDay.isPending}
           >
-            {doneSet.has(currentDay) ? "✓ Mark as Unread" : "Mark as Read"}
+            {doneSet.has(currentDay) ? t("readingPlans.markUnread") : t("readingPlans.markRead")}
           </button>
         </div>
       )}
@@ -205,9 +209,9 @@ function PlanDetail({ plan, onBack, isAdmin }) {
 
       {/* Day list */}
       <div className="rp-day-list">
-        <h3 className="rp-day-list-title">Reading Schedule</h3>
+        <h3 className="rp-day-list-title">{t("readingPlans.readingSchedule")}</h3>
         {isLoading ? (
-          <p className="rp-empty">Loading…</p>
+          <p className="rp-empty">{t("common.loading")}</p>
         ) : (
           <>
             {visibleDays.map(({ day, readings }) => {
@@ -227,7 +231,7 @@ function PlanDetail({ plan, onBack, isAdmin }) {
                     {done ? "✓" : ""}
                   </button>
                   <div className="rp-day-info">
-                    <span className="rp-day-num">Day {day}{isToday ? " · Today" : ""}</span>
+                    <span className="rp-day-num">{t("readingPlans.day")} {day}{isToday ? ` · ${t("readingPlans.today")}` : ""}</span>
                     <div className="rp-day-readings">
                       {readings.map((r, i) => (
                         <span key={i} className="rp-reading-chip rp-reading-chip--sm">{r.bookAbbr} {r.chapter}</span>
@@ -239,7 +243,7 @@ function PlanDetail({ plan, onBack, isAdmin }) {
             })}
             {!showAll && schedule.length > currentDay + 6 && (
               <button className="rp-show-all-btn" onClick={() => setShowAll(true)}>
-                Show all {schedule.length} days
+                {t("readingPlans.showAll")} {schedule.length} {t("readingPlans.days")}
               </button>
             )}
           </>
@@ -247,12 +251,12 @@ function PlanDetail({ plan, onBack, isAdmin }) {
       </div>
 
       <div className="rp-danger-zone">
-        <button className="rp-unenroll-btn" onClick={() => setConfirmDelete(true)}>Remove this plan</button>
+        <button className="rp-unenroll-btn" onClick={() => setConfirmDelete(true)}>{t("readingPlans.removePlan")}</button>
       </div>
 
       {confirmDelete && (
         <ConfirmModal
-          message={`Remove "${template.name}" from your plans? Your progress will be lost.`}
+          message={`${t("readingPlans.remove")} "${template.name}" ${t("readingPlans.removeConfirmSuffix")}`}
           onConfirm={handleUnenroll}
           onCancel={() => setConfirmDelete(false)}
         />
@@ -264,6 +268,7 @@ function PlanDetail({ plan, onBack, isAdmin }) {
 // ── Main page ─────────────────────────────────────────────────────────────────
 
 export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
+  const { t } = useTranslation();
   const [tab, setTab] = useState("mine");
   const [detailPlan, setDetailPlan] = useState(null);
   const { data: myPlans = [], isLoading } = useMyPlans();
@@ -292,32 +297,32 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
       <PageNav {...sharedNav} user={user} navigate={navigate} />
 
       <div className="rp-header">
-        <button className="rp-nav-back" onClick={() => navigate("home")}>← Home</button>
+        <button className="rp-nav-back" onClick={() => navigate("home")}>{t("common.back")}</button>
         <div>
-          <h1 className="rp-title">Reading Plans</h1>
-          <p className="rp-subtitle">Structured schedules to guide your Bible reading</p>
+          <h1 className="rp-title">{t("readingPlans.title")}</h1>
+          <p className="rp-subtitle">{t("readingPlans.subtitle")}</p>
         </div>
       </div>
 
       <div className="rp-tabs">
         <button className={`rp-tab${tab === "mine" ? " rp-tab--active" : ""}`} onClick={() => setTab("mine")}>
-          My Plans {myPlans.length > 0 && <span className="rp-tab-count">{myPlans.length}</span>}
+          {t("readingPlans.myPlans")} {myPlans.length > 0 && <span className="rp-tab-count">{myPlans.length}</span>}
         </button>
         <button className={`rp-tab${tab === "browse" ? " rp-tab--active" : ""}`} onClick={() => setTab("browse")}>
-          Browse Plans
+          {t("readingPlans.browsePlans")}
         </button>
       </div>
 
       {tab === "mine" && (
         <div className="rp-content">
           {isLoading ? (
-            <p className="rp-empty">Loading…</p>
+            <p className="rp-empty">{t("common.loading")}</p>
           ) : myPlans.length === 0 ? (
             <div className="rp-empty-state">
               <span className="rp-empty-icon">📅</span>
-              <h3>No Active Plans</h3>
-              <p>You haven't started any reading plans yet.</p>
-              <button className="rp-primary-btn" onClick={() => setTab("browse")}>Browse Plans</button>
+              <h3>{t("readingPlans.noActivePlans")}</h3>
+              <p>{t("readingPlans.noActivePlansDesc")}</p>
+              <button className="rp-primary-btn" onClick={() => setTab("browse")}>{t("readingPlans.browsePlansBtn")}</button>
             </div>
           ) : (
             <div className="rp-active-list">

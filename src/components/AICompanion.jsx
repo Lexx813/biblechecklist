@@ -1,14 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { useAICompanion } from "../hooks/useAICompanion";
 import "../styles/ai-companion.css";
-
-const SUGGESTED_PROMPTS = [
-  "Explain this passage",
-  "Historical context",
-  "Original language insights",
-  "How to apply this today",
-  "Cross-references",
-];
 
 /**
  * AI Study Companion panel.
@@ -19,6 +12,14 @@ const SUGGESTED_PROMPTS = [
  *   className {string}  — Extra class names (optional)
  */
 export default function AICompanion({ passage = "", reference = "", className = "" }) {
+  const { t } = useTranslation();
+  const SUGGESTED_PROMPTS = [
+    t("aiCompanion.prompt1"),
+    t("aiCompanion.prompt2"),
+    t("aiCompanion.prompt3"),
+    t("aiCompanion.prompt4"),
+    t("aiCompanion.prompt5"),
+  ];
   const { text, loading, error, ask, reset } = useAICompanion();
   const [question, setQuestion] = useState("");
   const textareaRef = useRef(null);
@@ -68,13 +69,13 @@ export default function AICompanion({ passage = "", reference = "", className = 
         <div className="aic-header-left">
           <span className="aic-icon">✨</span>
           <div>
-            <div className="aic-title">AI Study Companion</div>
-            <div className="aic-subtitle">Powered by Claude</div>
+            <div className="aic-title">{t("aiCompanion.title")}</div>
+            <div className="aic-subtitle">{t("aiCompanion.poweredBy")}</div>
           </div>
         </div>
         {hasContent && (
-          <button className="aic-reset-btn" onClick={handleReset} title="Clear">
-            Clear
+          <button className="aic-reset-btn" onClick={handleReset} title={t("aiCompanion.clear")}>
+            {t("aiCompanion.clear")}
           </button>
         )}
       </div>
@@ -110,7 +111,7 @@ export default function AICompanion({ passage = "", reference = "", className = 
         <textarea
           ref={textareaRef}
           className="aic-textarea"
-          placeholder="Ask anything about this passage…"
+          placeholder={t("aiCompanion.placeholder")}
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -135,7 +136,7 @@ export default function AICompanion({ passage = "", reference = "", className = 
             <div className="aic-dot" />
             <div className="aic-dot" />
             <div className="aic-dot" />
-            <span style={{ marginLeft: 6 }}>Thinking…</span>
+            <span style={{ marginLeft: 6 }}>{t("aiCompanion.thinking")}</span>
           </div>
         )}
 
@@ -150,7 +151,7 @@ export default function AICompanion({ passage = "", reference = "", className = 
 
         {!loading && !text && !error && (
           <div className="aic-response-empty">
-            Ask a question or tap a prompt above to get started.
+            {t("aiCompanion.emptyHint")}
           </div>
         )}
       </div>

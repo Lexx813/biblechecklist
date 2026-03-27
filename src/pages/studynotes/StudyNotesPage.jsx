@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import ConfirmModal from "../../components/ConfirmModal";
 import CustomSelect from "../../components/CustomSelect";
@@ -39,6 +40,7 @@ const EMPTY_NOTE = { title: "", content: "", tags: [], book_index: null, chapter
 // ── Tag input ─────────────────────────────────────────────────────────────────
 
 function TagInput({ tags, onChange }) {
+  const { t } = useTranslation();
   const [input, setInput] = useState("");
 
   function add() {
@@ -65,13 +67,13 @@ function TagInput({ tags, onChange }) {
       <div className="sn-tag-row">
         <input
           className="sn-tag-field"
-          placeholder="Add tag…"
+          placeholder={t("studyNotes.addTag")}
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => { if (e.key === "Enter" || e.key === ",") { e.preventDefault(); add(); } }}
           maxLength={30}
         />
-        <button type="button" className="sn-tag-add-btn" onClick={add}>Add</button>
+        <button type="button" className="sn-tag-add-btn" onClick={add}>{t("studyNotes.add")}</button>
       </div>
     </div>
   );
@@ -80,6 +82,7 @@ function TagInput({ tags, onChange }) {
 // ── Note editor ───────────────────────────────────────────────────────────────
 
 function NoteEditor({ note, onSave, onCancel, saving, isAdmin }) {
+  const { t } = useTranslation();
   const [form, setForm] = useState(note ?? EMPTY_NOTE);
   const maxChapter = form.book_index != null ? (BOOKS[form.book_index]?.chapters ?? 1) : 1;
 
@@ -96,12 +99,12 @@ function NoteEditor({ note, onSave, onCancel, saving, isAdmin }) {
   return (
     <form className="sn-editor" onSubmit={handleSubmit}>
       <div className="sn-editor-header">
-        <button type="button" className="sn-back-btn" onClick={onCancel}>← Back</button>
-        <h2 className="sn-editor-title">{note ? "Edit Note" : "New Note"}</h2>
+        <button type="button" className="sn-back-btn" onClick={onCancel}>{t("common.back")}</button>
+        <h2 className="sn-editor-title">{note ? t("studyNotes.editNote") : t("studyNotes.newNoteTitle")}</h2>
       </div>
 
       <div className="sn-editor-body">
-        <label className="sn-label">Title</label>
+        <label className="sn-label">{t("studyNotes.fieldTitle")}</label>
         <input
           className="sn-input"
           placeholder="Note title…"
@@ -110,13 +113,13 @@ function NoteEditor({ note, onSave, onCancel, saving, isAdmin }) {
           maxLength={120}
         />
 
-        <label className="sn-label">Passage <span className="sn-optional">(optional)</span></label>
+        <label className="sn-label">{t("studyNotes.fieldPassage")} <span className="sn-optional">{t("studyNotes.fieldPassageOptional")}</span></label>
         <div className="sn-passage-row">
           <CustomSelect
             value={form.book_index}
             onChange={bi => setForm(prev => ({ ...prev, book_index: bi, chapter: bi != null ? 1 : null }))}
-            options={[{ value: null, label: "— Book —" }, ...BOOKS.map((b, i) => ({ value: i, label: b.name }))]}
-            placeholder="— Book —"
+            options={[{ value: null, label: t("studyNotes.fieldBook") }, ...BOOKS.map((b, i) => ({ value: i, label: b.name }))]}
+            placeholder={t("studyNotes.fieldBook")}
             searchable
           />
 
@@ -132,7 +135,7 @@ function NoteEditor({ note, onSave, onCancel, saving, isAdmin }) {
           {form.book_index != null && (
             <input
               className="sn-verse-input"
-              placeholder="Verse"
+              placeholder={t("studyNotes.fieldVerse")}
               value={form.verse ?? ""}
               onChange={e => set("verse", e.target.value)}
               maxLength={10}
@@ -140,15 +143,15 @@ function NoteEditor({ note, onSave, onCancel, saving, isAdmin }) {
           )}
         </div>
 
-        <label className="sn-label">Tags</label>
+        <label className="sn-label">{t("studyNotes.fieldTags")}</label>
         <TagInput tags={form.tags ?? []} onChange={val => set("tags", val)} />
 
-        <label className="sn-label">Content</label>
+        <label className="sn-label">{t("studyNotes.fieldContent")}</label>
         <div className="sn-editor-rich">
           <RichTextEditor
             content={form.content}
             onChange={val => set("content", val)}
-            placeholder="Write your study note here…"
+            placeholder={t("studyNotes.contentPlaceholder")}
           />
         </div>
 
@@ -167,16 +170,16 @@ function NoteEditor({ note, onSave, onCancel, saving, isAdmin }) {
               checked={form.is_public}
               onChange={e => set("is_public", e.target.checked)}
             />
-            <span>Make public</span>
+            <span>{t("studyNotes.makePublic")}</span>
           </label>
           <div className="sn-editor-actions">
-            <button type="button" className="sn-cancel-btn" onClick={onCancel}>Cancel</button>
+            <button type="button" className="sn-cancel-btn" onClick={onCancel}>{t("common.cancel")}</button>
             <button
               type="submit"
               className="sn-save-btn"
               disabled={saving || (!form.title.trim() && !stripHtml(form.content))}
             >
-              {saving ? "Saving…" : "Save Note"}
+              {saving ? t("common.saving") : t("studyNotes.saveNote")}
             </button>
           </div>
         </div>
@@ -188,17 +191,18 @@ function NoteEditor({ note, onSave, onCancel, saving, isAdmin }) {
 // ── Note card ─────────────────────────────────────────────────────────────────
 
 function NoteCard({ note, onClick, onDelete }) {
+  const { t } = useTranslation();
   const passage = passageLabel(note);
   const preview = stripHtml(note.content).slice(0, 140);
 
   return (
     <div className="sn-card" onClick={onClick}>
       <div className="sn-card-header">
-        <h3 className="sn-card-title">{note.title || "Untitled Note"}</h3>
+        <h3 className="sn-card-title">{note.title || t("studyNotes.untitled")}</h3>
         <button
           className="sn-card-delete"
           onClick={e => { e.stopPropagation(); onDelete(note.id); }}
-          title="Delete"
+          title={t("common.delete")}
         >✕</button>
       </div>
       {passage && <span className="sn-card-passage">📖 {passage}</span>}
@@ -211,7 +215,7 @@ function NoteCard({ note, onClick, onDelete }) {
         </div>
         <span className="sn-card-date">{formatDate(note.updated_at)}</span>
       </div>
-      {note.is_public && <span className="sn-public-badge">Public</span>}
+      {note.is_public && <span className="sn-public-badge">{t("studyNotes.public")}</span>}
     </div>
   );
 }
@@ -219,6 +223,7 @@ function NoteCard({ note, onClick, onDelete }) {
 // ── Main page ─────────────────────────────────────────────────────────────────
 
 export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
+  const { t } = useTranslation();
   const { data: notes = [], isLoading } = useStudyNotes();
   const createNote = useCreateStudyNote();
   const updateNote = useUpdateStudyNote();
@@ -292,13 +297,13 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
       <PageNav {...sharedNav} user={user} navigate={navigate} />
 
       <div className="sn-header">
-        <button className="sn-nav-back" onClick={() => navigate("home")}>← Home</button>
+        <button className="sn-nav-back" onClick={() => navigate("home")}>{t("common.back")}</button>
         <div className="sn-header-row">
           <div>
-            <h1 className="sn-title">Study Notes</h1>
-            <p className="sn-subtitle">Your personal Bible study library</p>
+            <h1 className="sn-title">{t("studyNotes.title")}</h1>
+            <p className="sn-subtitle">{t("studyNotes.subtitle")}</p>
           </div>
-          <button className="sn-new-btn" onClick={() => setEditing("new")}>+ New Note</button>
+          <button className="sn-new-btn" onClick={() => setEditing("new")}>{t("studyNotes.newNote")}</button>
         </div>
       </div>
 
@@ -306,7 +311,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
         <input
           className="sn-search"
           type="search"
-          placeholder="Search notes…"
+          placeholder={t("studyNotes.search")}
           value={search}
           onChange={e => setSearch(e.target.value)}
         />
@@ -315,7 +320,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
             <button
               className={`sn-filter-chip${!activeTag ? " sn-filter-chip--active" : ""}`}
               onClick={() => setActiveTag(null)}
-            >All</button>
+            >{t("studyNotes.all")}</button>
             {allTags.map(tag => (
               <button
                 key={tag}
@@ -337,14 +342,14 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
             <span className="sn-empty-icon">📝</span>
             {notes.length === 0 ? (
               <>
-                <h3>No Study Notes Yet</h3>
-                <p>You haven't written any study notes yet.</p>
-                <button className="sn-new-btn" onClick={() => setEditing("new")}>Write Your First Note</button>
+                <h3>{t("studyNotes.emptyTitle")}</h3>
+                <p>{t("studyNotes.emptyDesc")}</p>
+                <button className="sn-new-btn" onClick={() => setEditing("new")}>{t("studyNotes.emptyBtn")}</button>
               </>
             ) : (
               <>
-                <h3>No Matches</h3>
-                <p>No notes match your search.</p>
+                <h3>{t("studyNotes.noMatchTitle")}</h3>
+                <p>{t("studyNotes.noMatchDesc")}</p>
               </>
             )}
           </div>
@@ -364,7 +369,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
 
       {noteToDelete && (
         <ConfirmModal
-          message="Delete this note?"
+          message={t("studyNotes.deleteConfirm")}
           onConfirm={() => { deleteNote.mutate(noteToDelete); setNoteToDelete(null); }}
           onCancel={() => setNoteToDelete(null)}
         />

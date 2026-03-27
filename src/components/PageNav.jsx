@@ -73,7 +73,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               className={`page-nav-link page-nav-more-btn${communityActive ? " page-nav-link--active" : ""}${communityOpen ? " page-nav-more-btn--open" : ""}`}
               onClick={() => setCommunityOpen(o => !o)}
             >
-              Community ▾
+              {t("nav.community")} ▾
             </button>
             {communityOpen && (
               <div className="page-nav-more-menu">
@@ -89,7 +89,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               className={`page-nav-link page-nav-more-btn${moreActive ? " page-nav-link--active" : ""}${moreOpen ? " page-nav-more-btn--open" : ""}`}
               onClick={() => setMoreOpen(o => !o)}
             >
-              More ▾
+              {t("nav.more")} ▾
             </button>
             {moreOpen && (
               <div className="page-nav-more-menu">
@@ -106,27 +106,27 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               <button className={`page-nav-icon-btn${currentPage === "feed" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("feed")} data-tip={t("feed.navLink")}>📰</button>
               <button className={`page-nav-icon-btn${currentPage === "bookmarks" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("bookmarks")} data-tip={t("bookmarks.title")}>🔖</button>
               {isPremium
-                ? <button className={`page-nav-icon-btn${currentPage === "readingPlans" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("readingPlans")} data-tip="Reading Plans">📅</button>
-                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature">📅</button>}
+                ? <button className={`page-nav-icon-btn${currentPage === "readingPlans" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("readingPlans")} data-tip={t("nav.readingPlans")}>📅</button>
+                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip={t("nav.proFeature")}>📅</button>}
               {isPremium
-                ? <button className={`page-nav-icon-btn${currentPage === "studyNotes" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("studyNotes")} data-tip="Study Notes">📝</button>
-                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature">📝</button>}
+                ? <button className={`page-nav-icon-btn${currentPage === "studyNotes" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("studyNotes")} data-tip={t("nav.studyNotes")}>📝</button>
+                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip={t("nav.proFeature")}>📝</button>}
             </div>
           )}
           {user && (
             isPremium
-              ? <button className={`page-nav-icon-btn${currentPage === "messages" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("messages")} data-tip="Messages" style={{ position: "relative" }}>
+              ? <button className={`page-nav-icon-btn${currentPage === "messages" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("messages")} data-tip={t("nav.messages")} style={{ position: "relative" }}>
                   💬
                   {unreadMessages > 0 && <span className="page-nav-msg-badge">{unreadMessages}</span>}
                 </button>
-              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature" style={{ position: "relative" }}>
+              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip={t("nav.proFeature")} style={{ position: "relative" }}>
                   💬
                 </button>
           )}
           {user && (
             isPremium
-              ? <button className={`page-nav-icon-btn page-nav-collapses${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("groups")} data-tip="Study Groups">👥</button>
-              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn page-nav-collapses" data-tip="🔒 Pro feature">👥</button>
+              ? <button className={`page-nav-icon-btn page-nav-collapses${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("groups")} data-tip={t("nav.studyGroups")}>👥</button>
+              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn page-nav-collapses" data-tip={t("nav.proFeature")}>👥</button>
           )}
           {user && (
             <button
@@ -152,7 +152,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               <button
                 className={`page-nav-icon-btn page-nav-lang-btn${langOpen ? " page-nav-icon-btn--active" : ""}`}
                 onClick={() => setLangOpen(o => !o)}
-                data-tip="Language"
+                data-tip={t("nav.language")}
               >
                 {FLAGS[currentLangCode]}
               </button>
@@ -216,7 +216,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
             <button className={`page-nav-mobile-link${currentPage === "quiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("quiz")}>{t("quiz.nav")}</button>
 
 
-            <div className="page-nav-mobile-section-label">Community</div>
+            <div className="page-nav-mobile-section-label">{t("nav.community")}</div>
             <button className={`page-nav-mobile-link${currentPage === "blog" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("blog")}>{t("app.blog")}</button>
             <button className={`page-nav-mobile-link${currentPage === "forum" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("forum")}>{t("app.forum")}</button>
             <button className={`page-nav-mobile-link${currentPage === "about" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("about")}>{t("app.about")}</button>
@@ -225,28 +225,28 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 {isAdmin ? t("app.admin") : "Moderation"}
               </button>
             )}
-            <div className="page-nav-mobile-section-label">Tools</div>
+            <div className="page-nav-mobile-section-label">{t("nav.tools")}</div>
             <button className={`page-nav-mobile-link${currentPage === "feed" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("feed")}>📰 {t("feed.navLink")}</button>
             <button className={`page-nav-mobile-link${currentPage === "bookmarks" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("bookmarks")}>🔖 {t("bookmarks.title")}</button>
             <button className={`page-nav-mobile-link${currentPage === "leaderboard" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("leaderboard")}>🏆 {t("leaderboard.title")}</button>
 
             {isPremium ? (
               <>
-                <div className="page-nav-mobile-section-label">✦ Premium</div>
+                <div className="page-nav-mobile-section-label">{t("nav.premium")}</div>
                 <button className={`page-nav-mobile-link${currentPage === "messages" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("messages")}>
-                  💬 Messages {unreadMessages > 0 && <span className="page-nav-mobile-badge">{unreadMessages}</span>}
+                  💬 {t("nav.messages")} {unreadMessages > 0 && <span className="page-nav-mobile-badge">{unreadMessages}</span>}
                 </button>
-                <button className={`page-nav-mobile-link${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("groups")}>👥 Study Groups</button>
-                <button className={`page-nav-mobile-link${currentPage === "readingPlans" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("readingPlans")}>📅 Reading Plans</button>
-                <button className={`page-nav-mobile-link${currentPage === "studyNotes" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyNotes")}>📝 Study Notes</button>
+                <button className={`page-nav-mobile-link${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("groups")}>👥 {t("nav.studyGroups")}</button>
+                <button className={`page-nav-mobile-link${currentPage === "readingPlans" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("readingPlans")}>📅 {t("nav.readingPlans")}</button>
+                <button className={`page-nav-mobile-link${currentPage === "studyNotes" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyNotes")}>📝 {t("nav.studyNotes")}</button>
               </>
             ) : (
               <>
-                <div className="page-nav-mobile-section-label page-nav-mobile-section-label--locked">✦ Premium</div>
-                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>💬 Messages</button>
-                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>👥 Study Groups</button>
-                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>📅 Reading Plans</button>
-                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>📝 Study Notes</button>
+                <div className="page-nav-mobile-section-label page-nav-mobile-section-label--locked">{t("nav.premium")}</div>
+                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>💬 {t("nav.messages")}</button>
+                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>👥 {t("nav.studyGroups")}</button>
+                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>📅 {t("nav.readingPlans")}</button>
+                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>📝 {t("nav.studyNotes")}</button>
               </>
             )}
 
