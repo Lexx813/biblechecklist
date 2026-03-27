@@ -200,7 +200,11 @@
       "Bash(sort echo:*)",
       "Bash(find /home/alexi/projects/nwt-progress/src/components -type d -empty -delete)",
       "Bash(ls /home/alexi/projects/nwt-progress/dist/assets/*.css)",
-      "Bash(ls /home/alexi/projects/nwt-progress/.vercel/output/static/assets/index-*.css)"
+      "Bash(ls /home/alexi/projects/nwt-progress/.vercel/output/static/assets/index-*.css)",
+      "Bash(for lang:*)",
+      "Bash(node -e \"const f=require\\(''/home/alexi/projects/nwt-progress/public/locales/$lang/translation.json''\\); const keys=[''checkEmailTitle'',''checkEmailSubtitle'',''checkEmailBody'']; keys.forEach\\(k => console.log\\(k+'':'', f.auth?.[k] ?? ''MISSING''\\)\\)\")",
+      "Bash(node -e \"const f=require\\(''/home/alexi/projects/nwt-progress/public/locales/$lang/translation.json''\\); const keys=[''resetSentTitle'',''resetSentSubtitle'',''resetSentBody'',''backToLogin'']; keys.forEach\\(k => console.log\\(k+'':'', f.auth?.[k] ?? ''MISSING''\\)\\)\")",
+      "Bash(find /home/alexi/projects/nwt-progress -name *.env* -o -name supabase.ts -o -name supabase.js)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects",

@@ -3,14 +3,13 @@ import { useTranslation } from "react-i18next";
 import { useLogin, useRegister, useResetPassword } from "../../hooks/useAuth";
 import "../../styles/auth.css";
 
-export default function AuthPage({ onBack }) {
+export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, onConfirmDismiss }) {
   const [mode, setMode] = useState("login"); // "login" | "signup" | "forgot"
   const [email, setEmail] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [fieldError, setFieldError] = useState("");
-  const [confirmed, setConfirmed] = useState(false);
   const [resetSent, setResetSent] = useState(false);
   const { t } = useTranslation();
 
@@ -24,7 +23,6 @@ export default function AuthPage({ onBack }) {
   function switchMode(next) {
     setMode(next);
     setFieldError("");
-    setConfirmed(false);
     setResetSent(false);
     login.reset();
     register.reset();
@@ -48,8 +46,8 @@ export default function AuthPage({ onBack }) {
       if (password.length < 8) return setFieldError(t("auth.errorPasswordShort"));
       if (password !== confirm) return setFieldError(t("auth.errorPasswordMismatch"));
       register.mutate({ email, password, displayName: displayName.trim() }, {
-        onSuccess: ({ needsConfirmation }) => {
-          if (needsConfirmation) setConfirmed(true);
+        onSuccess: () => {
+          onRegisterSuccess?.(email);
         },
       });
     } else {
@@ -81,14 +79,14 @@ export default function AuthPage({ onBack }) {
     );
   }
 
-  if (confirmed) {
+  if (confirmedEmail) {
     return (
       <div className="auth-wrap">
         <div className="auth-card">
           <div className="auth-header">
             <div className="auth-logo">📖</div>
             <h1 className="auth-title">{t("auth.checkEmailTitle")}</h1>
-            <p className="auth-subtitle">{t("auth.checkEmailSubtitle", { email })}</p>
+            <p className="auth-subtitle">{t("auth.checkEmailSubtitle", { email: confirmedEmail })}</p>
           </div>
           <div style={{ padding: "24px", textAlign: "center" }}>
             <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>
@@ -97,7 +95,7 @@ export default function AuthPage({ onBack }) {
             <button
               className="auth-switch-btn"
               style={{ marginTop: 16, fontSize: 13 }}
-              onClick={() => switchMode("login")}
+              onClick={onConfirmDismiss}
             >
               {t("auth.backToLogin")}
             </button>

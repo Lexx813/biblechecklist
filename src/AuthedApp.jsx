@@ -197,6 +197,7 @@ export default function AuthedApp({ onShowLanding, i18n }) {
   const { t } = useTranslation();
   const { maintenanceMode } = useFeatureFlags();
   const [passwordRecovery, setPasswordRecovery] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState(null);
 
   // Keep React Query cache in sync with Supabase auth state changes
   useEffect(() => {
@@ -243,8 +244,30 @@ export default function AuthedApp({ onShowLanding, i18n }) {
     return <main id="main-content"><Suspense fallback={null}><ResetPasswordPage onDone={() => setPasswordRecovery(false)} /></Suspense></main>;
   }
 
+  // Show email confirmation screen after signup — rendered here so it
+  // survives even if Supabase sets a session before the user confirms.
+  if (registeredEmail) {
+    return (
+      <main id="main-content">
+        <Suspense fallback={null}>
+          <AuthPage
+            onBack={onShowLanding}
+            confirmedEmail={registeredEmail}
+            onConfirmDismiss={() => setRegisteredEmail(null)}
+          />
+        </Suspense>
+      </main>
+    );
+  }
+
   if (!user) {
-    return <main id="main-content"><Suspense fallback={null}><AuthPage onBack={onShowLanding} /></Suspense></main>;
+    return (
+      <main id="main-content">
+        <Suspense fallback={null}>
+          <AuthPage onBack={onShowLanding} onRegisterSuccess={(email) => setRegisteredEmail(email)} />
+        </Suspense>
+      </main>
+    );
   }
 
   return (

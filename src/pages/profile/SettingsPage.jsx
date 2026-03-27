@@ -35,11 +35,10 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
   const fileRef = useRef(null);
 
   // ── Notifications ─────────────────────────────────────────
-  const { permission, subscribed, loading: pushLoading, subscribe, unsubscribe } = usePushNotifications(user.id);
+  const { supported: pushSupported, permission, subscribed, loading: pushLoading, subscribe, unsubscribe } = usePushNotifications();
   const emailBlog   = profile?.email_notifications_blog   ?? false;
   const emailDigest = profile?.email_notifications_digest ?? false;
   const emailStreak = profile?.email_notifications_streak ?? false;
-  const pushSupported = "Notification" in window && "serviceWorker" in navigator && permission !== "unsupported";
 
   const emailToggles = [
     { key: "email_notifications_blog",   value: emailBlog,   labelKey: "notifBlogLabel",   descKey: "notifBlogDesc" },

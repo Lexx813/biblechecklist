@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
+import { usePushNotifications } from "../../hooks/usePushNotifications";
 import {
   useConversations,
   useMessages,
@@ -677,8 +678,11 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
   const [search, setSearch] = useState("");
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [onlineUsers, setOnlineUsers] = useState(new Set());
+  const [pushDismissed, setPushDismissed] = useState(false);
   const deleteConversation = useDeleteConversation();
   const { keyPair } = useE2EKeys(user.id);
+  const { supported: pushSupported, permission, subscribed, loading: pushLoading, subscribe } = usePushNotifications();
+  const showPushBanner = pushSupported && permission === "default" && !subscribed && !pushDismissed;
 
   // Global presence channel for sidebar online dots
   useEffect(() => {
@@ -740,6 +744,31 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
               onChange={e => setSearch(e.target.value)}
             />
           </div>
+
+          {showPushBanner && (
+            <div className="msg-push-banner">
+              <span className="msg-push-banner-icon">🔔</span>
+              <div className="msg-push-banner-text">
+                <strong>Stay notified</strong>
+                <span>Get alerts for new messages</span>
+              </div>
+              <button
+                className="msg-push-banner-btn msg-push-banner-btn--primary"
+                onClick={() => subscribe().then(ok => ok && setPushDismissed(true))}
+                disabled={pushLoading}
+              >
+                Enable
+              </button>
+              <button
+                className="msg-push-banner-btn"
+                onClick={() => setPushDismissed(true)}
+                aria-label="Dismiss"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
           <div className="msg-conv-list">
             {isLoading ? (
               <p className="msg-empty">Loading…</p>
