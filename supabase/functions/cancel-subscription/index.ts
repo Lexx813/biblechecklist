@@ -12,7 +12,7 @@
 import { createClient } from "jsr:@supabase/supabase-js@2";
 import Stripe from "npm:stripe@^16.0.0";
 
-const supabase = createClient(
+const supabaseAdmin = createClient(
   Deno.env.get("SUPABASE_URL")!,
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
 );
@@ -41,9 +41,13 @@ Deno.serve(async (req) => {
       });
     }
 
-    const { data: { user }, error: authError } = await supabase.auth.getUser(
-      authHeader.replace("Bearer ", ""),
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_ANON_KEY")!,
+      { global: { headers: { Authorization: authHeader } } },
     );
+
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
     if (authError || !user) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 401, headers: { ...cors, "Content-Type": "application/json" },
@@ -51,7 +55,7 @@ Deno.serve(async (req) => {
     }
 
     // ── Fetch user's subscription ─────────────────────────────────────────────
-    const { data: profile } = await supabase
+    const { data: profile } = await supabaseAdmin
       .from("profiles")
       .select("stripe_subscription_id, subscription_status")
       .eq("id", user.id)
@@ -67,7 +71,7 @@ Deno.serve(async (req) => {
     await stripe.subscriptions.cancel(profile.stripe_subscription_id);
 
     // ── Update profiles table ────────────────────────────────────────────────
-    await supabase
+    await supabaseAdmin
       .from("profiles")
       .update({
         subscription_status: "canceled",

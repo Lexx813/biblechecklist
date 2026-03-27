@@ -170,7 +170,14 @@
       "Bash(SUPABASE_ACCESS_TOKEN=sbp_68f8c5d09d71b93a78482a8cc832cd473dc00319 npx supabase functions deploy create-checkout-session --project-ref yudyhigvqaodnoqwwtns --debug)",
       "Bash(SUPABASE_ACCESS_TOKEN=sbp_68f8c5d09d71b93a78482a8cc832cd473dc00319 npx supabase functions deploy create-checkout-session --project-ref yudyhigvqaodnoqwwtns)",
       "Bash(SUPABASE_ACCESS_TOKEN=sbp_68f8c5d09d71b93a78482a8cc832cd473dc00319 npx supabase functions deploy cancel-subscription --project-ref yudyhigvqaodnoqwwtns)",
-      "Bash(SUPABASE_ACCESS_TOKEN=sbp_68f8c5d09d71b93a78482a8cc832cd473dc00319 npx supabase functions deploy admin-cancel-subscription --project-ref yudyhigvqaodnoqwwtns)"
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_68f8c5d09d71b93a78482a8cc832cd473dc00319 npx supabase functions deploy admin-cancel-subscription --project-ref yudyhigvqaodnoqwwtns)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_68f8c5d09d71b93a78482a8cc832cd473dc00319 npx supabase functions deploy create-checkout-session --project-ref yudyhigvqaodnoqwwtns --no-verify-jwt)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_0ee749e78ee2c5374d4e4fd9b6aa96ae794950b5 npx supabase functions deploy create-checkout-session --project-ref yudyhigvqaodnoqwwtns)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_0ee749e78ee2c5374d4e4fd9b6aa96ae794950b5 npx supabase functions deploy cancel-subscription --project-ref yudyhigvqaodnoqwwtns)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_0ee749e78ee2c5374d4e4fd9b6aa96ae794950b5 npx supabase functions deploy admin-cancel-subscription --project-ref yudyhigvqaodnoqwwtns)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_0ee749e78ee2c5374d4e4fd9b6aa96ae794950b5 npx supabase functions deploy create-checkout-session --project-ref yudyhigvqaodnoqwwtns --no-verify-jwt)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_0ee749e78ee2c5374d4e4fd9b6aa96ae794950b5 npx supabase functions deploy cancel-subscription --project-ref yudyhigvqaodnoqwwtns --no-verify-jwt)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_0ee749e78ee2c5374d4e4fd9b6aa96ae794950b5 npx supabase functions deploy admin-cancel-subscription --project-ref yudyhigvqaodnoqwwtns --no-verify-jwt)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects"
