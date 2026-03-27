@@ -15,9 +15,11 @@ import PageFooter from "./components/PageFooter";
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useFullProfile } from "./hooks/useAdmin";
 import { useFeatureFlags } from "./hooks/useFeatureFlags";
+import { useSubscription } from "./hooks/useSubscription";
 import { supabase } from "./lib/supabase";
 import { parsePath, buildPath } from "./lib/router";
 import { isDev } from "./lib/devOnly";
+import { toast } from "./lib/toast";
 import "./styles/app.css";
 
 const AdminPage      = lazy(() => import("./components/admin/AdminPage"));
@@ -155,9 +157,23 @@ function Page({ children }) {
 // ── Authenticated app with routing ────────────────────────────────────────────
 
 function BibleApp({ user, onLogout, i18n }) {
+  const queryClient = useQueryClient();
   const { data: profile } = useFullProfile(user.id);
+  const { isPremium } = useSubscription(user.id);
   const [nav, setNav] = useState(parsePath);
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem("nwt-theme") === "dark");
+
+  // Handle Stripe redirect callbacks
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has("subscribed")) {
+      queryClient.invalidateQueries({ queryKey: ["fullProfile", user.id] });
+      toast("🎉 Welcome to Premium! Your features are now unlocked.");
+      history.replaceState(null, "", window.location.pathname);
+    } else if (params.has("checkout_canceled")) {
+      history.replaceState(null, "", window.location.pathname);
+    }
+  }, [queryClient, user.id]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = darkMode ? "dark" : "light";
@@ -214,21 +230,23 @@ function BibleApp({ user, onLogout, i18n }) {
   else if (nav.page === "bookmarks") pageContent = <Page><BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "history")   pageContent = <Page><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Page>;
   else if (nav.page === "feed")      pageContent = <Page><ActivityFeed user={user} {...sharedNav} /></Page>;
-  else if (isDev && nav.page === "readingPlans" && ReadingPlansPage) pageContent = <Page><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></Page>;
-  else if (isDev && nav.page === "studyNotes"   && StudyNotesPage)   pageContent = <Page><StudyNotesPage user={user} navigate={navigate} {...sharedNav} /></Page>;
+  else if (isDev && isPremium && nav.page === "readingPlans" && ReadingPlansPage) pageContent = <Page><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></Page>;
+  else if (isDev && isPremium && nav.page === "studyNotes"   && StudyNotesPage)   pageContent = <Page><StudyNotesPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "leaderboard") pageContent = <Page><LeaderboardPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "about")     pageContent = <Page><AboutPage {...sharedNav} /></Page>;
   else if (nav.page === "terms")     pageContent = <Page><TermsPage {...sharedNav} /></Page>;
   else if (nav.page === "privacy")   pageContent = <Page><PrivacyPage {...sharedNav} /></Page>;
-  else if (isDev && nav.page === "messages" && MessagesPage) pageContent = <Page><MessagesPage user={user} navigate={navigate} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
-  else if (isDev && nav.page === "groups" && GroupsPage)       pageContent = <Page><GroupsPage user={user} navigate={navigate} /></Page>;
-  else if (isDev && nav.page === "groupDetail" && GroupDetail) pageContent = <Page><GroupDetail groupId={nav.groupId} user={user} navigate={navigate} /></Page>;
+  else if (isDev && isPremium && nav.page === "messages" && MessagesPage) pageContent = <Page><MessagesPage {...sharedNav} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
+  else if (isDev && isPremium && nav.page === "groups" && GroupsPage)       pageContent = <Page><GroupsPage {...sharedNav} /></Page>;
+  else if (isDev && isPremium && nav.page === "groupDetail" && GroupDetail) pageContent = <Page><GroupDetail {...sharedNav} groupId={nav.groupId} /></Page>;
 
   if (!pageContent) { navigate("home"); return null; }
 
   return (
     <>
-      {pageContent}
+      <div key={nav.page} className="page-fade-in">
+        {pageContent}
+      </div>
       {isDev && FloatingChat && (
         <Suspense fallback={null}>
           <FloatingChat

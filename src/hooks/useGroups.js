@@ -168,7 +168,7 @@ export function useGroupMessages(groupId) {
 export function useSendGroupMessage(groupId) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ senderId, content, replyToId }) => groupsApi.sendMessage(groupId, senderId, content, replyToId),
+    mutationFn: ({ content, replyToId }) => groupsApi.sendMessage(groupId, content, replyToId),
     onMutate: async ({ senderId, content, replyToId }) => {
       await queryClient.cancelQueries({ queryKey: ["group-messages", groupId] });
       const previous = queryClient.getQueryData(["group-messages", groupId]);

@@ -3,23 +3,35 @@ import { useTranslation } from "react-i18next";
 import "../styles/pagenav.css";
 import AnnouncementBanner from "./AnnouncementBanner";
 import NotificationBell from "./notifications/NotificationBell";
-import LanguageSelect from "./LanguageSelect";
+import UpgradeModal from "./UpgradeModal";
+import { LANGUAGES } from "../i18n";
+import { useClickOutside } from "../hooks/useClickOutside";
 import { useFullProfile } from "../hooks/useAdmin";
+import { useSubscription } from "../hooks/useSubscription";
 import { useUnreadMessageCount } from "../hooks/useMessages";
-import { isDev } from "../lib/devOnly";
+
+const FLAGS = { en: "🇺🇸", es: "🇪🇸", pt: "🇧🇷", tl: "🇵🇭", fr: "🇫🇷" };
 
 export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage }) {
   const { t } = useTranslation();
   const { data: profile } = useFullProfile(user?.id);
   const isAdmin = profile?.is_admin;
   const canModerate = isAdmin || profile?.is_moderator;
+  const { isPremium, subscribe } = useSubscription(user?.id);
   const { data: unreadMessages = 0 } = useUnreadMessageCount();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showUpgrade, setShowUpgrade] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const [communityOpen, setCommunityOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
   const menuRef = useRef(null);
   const moreRef = useRef(null);
   const communityRef = useRef(null);
+  const langRef = useRef(null);
+
+  const currentLangCode = i18n
+    ? (LANGUAGES.find(l => i18n.language?.split("-")[0]?.startsWith(l.code))?.code ?? "en")
+    : "en";
 
   const morePages = new Set(["about", "admin"]);
   const moreActive = morePages.has(currentPage);
@@ -31,42 +43,17 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
     navigate(page);
   }
 
-  // Close menu on outside click
-  useEffect(() => {
-    if (!menuOpen) return;
-    function handler(e) {
-      if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false);
-    }
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [menuOpen]);
+  useClickOutside(menuRef,      menuOpen,      () => setMenuOpen(false));
+  useClickOutside(moreRef,      moreOpen,      () => setMoreOpen(false));
+  useClickOutside(communityRef, communityOpen, () => setCommunityOpen(false));
+  useClickOutside(langRef,      langOpen,      () => setLangOpen(false));
 
-  // Close menu on resize to desktop
+  // Close mobile menu on resize to desktop
   useEffect(() => {
     function handler() { if (window.innerWidth > 1180) setMenuOpen(false); }
     window.addEventListener("resize", handler);
     return () => window.removeEventListener("resize", handler);
   }, []);
-
-  // Close "More" dropdown on outside click
-  useEffect(() => {
-    if (!moreOpen) return;
-    function handler(e) {
-      if (moreRef.current && !moreRef.current.contains(e.target)) setMoreOpen(false);
-    }
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [moreOpen]);
-
-  // Close "Community" dropdown on outside click
-  useEffect(() => {
-    if (!communityOpen) return;
-    function handler(e) {
-      if (communityRef.current && !communityRef.current.contains(e.target)) setCommunityOpen(false);
-    }
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [communityOpen]);
 
   return (
     <>
@@ -111,7 +98,6 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               <div className="page-nav-more-menu">
                 <button className={`page-nav-more-item${currentPage === "about" ? " page-nav-more-item--active" : ""}`} onClick={() => { setMoreOpen(false); go("about"); }}>{t("app.about")}</button>
                 {canModerate && <button className={`page-nav-more-item${currentPage === "admin" ? " page-nav-more-item--active" : ""}`} onClick={() => { setMoreOpen(false); go("admin"); }}>{isAdmin ? t("app.admin") : "Moderation"}</button>}
-                {i18n && <div className="page-nav-more-lang"><LanguageSelect /></div>}
               </div>
             )}
           </div>
@@ -120,36 +106,36 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
         <div className="page-nav-actions">
           {user && (
             <div className="page-nav-dev-icons">
-              <button className={`page-nav-icon-btn${currentPage === "feed" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("feed")} title={t("feed.navLink")}>📰</button>
-              <button className={`page-nav-icon-btn${currentPage === "bookmarks" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("bookmarks")} title={t("bookmarks.title")}>🔖</button>
-              {isAdmin
-                ? <button className={`page-nav-icon-btn${currentPage === "readingPlans" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("readingPlans")} title="Reading Plans">📅</button>
-                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature" onClick={e => e.preventDefault()} title="">📅</button>}
-              {isAdmin
-                ? <button className={`page-nav-icon-btn${currentPage === "studyNotes" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("studyNotes")} title="Study Notes">📝</button>
-                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature" onClick={e => e.preventDefault()} title="">📝</button>}
+              <button className={`page-nav-icon-btn${currentPage === "feed" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("feed")} data-tip={t("feed.navLink")}>📰</button>
+              <button className={`page-nav-icon-btn${currentPage === "bookmarks" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("bookmarks")} data-tip={t("bookmarks.title")}>🔖</button>
+              {isPremium
+                ? <button className={`page-nav-icon-btn${currentPage === "readingPlans" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("readingPlans")} data-tip="Reading Plans">📅</button>
+                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature" onClick={() => setShowUpgrade(true)}>📅</button>}
+              {isPremium
+                ? <button className={`page-nav-icon-btn${currentPage === "studyNotes" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("studyNotes")} data-tip="Study Notes">📝</button>
+                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature" onClick={() => setShowUpgrade(true)}>📝</button>}
             </div>
           )}
           {user && (
-            isAdmin
-              ? <button className={`page-nav-icon-btn${currentPage === "messages" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("messages")} title="Messages" style={{ position: "relative" }}>
+            isPremium
+              ? <button className={`page-nav-icon-btn${currentPage === "messages" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("messages")} data-tip="Messages" style={{ position: "relative" }}>
                   💬
                   {unreadMessages > 0 && <span className="page-nav-msg-badge">{unreadMessages}</span>}
                 </button>
-              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature" onClick={e => e.preventDefault()} title="" style={{ position: "relative" }}>
+              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature" onClick={() => setShowUpgrade(true)} style={{ position: "relative" }}>
                   💬
                 </button>
           )}
           {user && (
-            isAdmin
-              ? <button className={`page-nav-icon-btn${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("groups")} title="Study Groups">👥</button>
-              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip="🔒 Pro feature" onClick={e => e.preventDefault()} title="">👥</button>
+            isPremium
+              ? <button className={`page-nav-icon-btn page-nav-collapses${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("groups")} data-tip="Study Groups">👥</button>
+              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn page-nav-collapses" data-tip="🔒 Pro feature" onClick={() => setShowUpgrade(true)}>👥</button>
           )}
           {user && (
             <button
               className="page-nav-icon-btn"
               onClick={() => go("search")}
-              title={t("search.placeholder")}
+              data-tip={t("search.placeholder")}
             >
               🔍
             </button>
@@ -159,10 +145,36 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
             <button
               className="page-nav-icon-btn"
               onClick={() => setDarkMode(d => !d)}
-              title={darkMode ? t("app.lightMode") : t("app.darkMode")}
+              data-tip={darkMode ? t("app.lightMode") : t("app.darkMode")}
             >
               {darkMode ? "☀️" : "🌙"}
             </button>
+          )}
+          {i18n && (
+            <div className="page-nav-lang-picker" ref={langRef}>
+              <button
+                className={`page-nav-icon-btn page-nav-lang-btn${langOpen ? " page-nav-icon-btn--active" : ""}`}
+                onClick={() => setLangOpen(o => !o)}
+                data-tip="Language"
+              >
+                {FLAGS[currentLangCode]}
+              </button>
+              {langOpen && (
+                <div className="page-nav-lang-menu">
+                  {LANGUAGES.map(l => (
+                    <button
+                      key={l.code}
+                      className={`page-nav-lang-item${l.code === currentLangCode ? " page-nav-lang-item--active" : ""}`}
+                      onClick={() => { i18n.changeLanguage(l.code); setLangOpen(false); }}
+                    >
+                      <span>{FLAGS[l.code]}</span>
+                      <span>{l.label}</span>
+                      {l.code === currentLangCode && <span className="page-nav-lang-check">✓</span>}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
           {user && onLogout && (
             <button
@@ -205,6 +217,8 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
             <button className={`page-nav-mobile-link${currentPage === "home" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("home")}>{t("app.home")}</button>
             <button className={`page-nav-mobile-link${currentPage === "main" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("main")}>{t("home.navTracker")}</button>
             <button className={`page-nav-mobile-link${currentPage === "quiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("quiz")}>{t("quiz.nav")}</button>
+
+
             <div className="page-nav-mobile-section-label">Community</div>
             <button className={`page-nav-mobile-link${currentPage === "blog" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("blog")}>{t("app.blog")}</button>
             <button className={`page-nav-mobile-link${currentPage === "forum" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("forum")}>{t("app.forum")}</button>
@@ -214,9 +228,9 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 {isAdmin ? t("app.admin") : "Moderation"}
               </button>
             )}
-            {i18n && <div className="page-nav-mobile-lang"><LanguageSelect /></div>}
+            <div className="page-nav-mobile-divider" />
             {user && onLogout && (
-              <button className="page-nav-mobile-link page-nav-mobile-logout" onClick={() => { setMenuOpen(false); onLogout(); }}>
+              <button className="page-nav-mobile-link page-nav-mobile-logout" onClick={() => { setMenuOpen(false); onLogout(); }} style={{ marginTop: 4 }}>
                 {t("app.logOut")}
               </button>
             )}
@@ -224,6 +238,13 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
         )}
       </nav>
       <AnnouncementBanner />
+      {showUpgrade && (
+        <UpgradeModal
+          onClose={() => setShowUpgrade(false)}
+          onSubscribe={() => subscribe.mutate()}
+          loading={subscribe.isPending}
+        />
+      )}
     </>
   );
 }

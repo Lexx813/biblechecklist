@@ -4,6 +4,7 @@ import PageNav from "../PageNav";
 import LoadingSpinner from "../LoadingSpinner";
 import AICompanion from "../AICompanion";
 import { useFullProfile } from "../../hooks/useAdmin";
+import { useSubscription } from "../../hooks/useSubscription";
 import {
   useQuizProgress,
   useQuizQuestions,
@@ -141,7 +142,7 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
 export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const { data: profile } = useFullProfile(user?.id);
-  const isAdmin = profile?.is_admin;
+  const { isPremium } = useSubscription(user?.id);
   const levelData = LEVELS.find((l) => l.level === level) ?? LEVELS[0];
   const theme = t(levelData.themeKey);
   const badgeName = t(levelData.badgeNameKey);
@@ -345,7 +346,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
           )}
         </div>
 
-        {isAnswered && isAdmin && (
+        {isAnswered && isPremium && (
           <AICompanion
             passage={currentQuestion.question}
             reference={`Quiz · Level ${level} · ${theme}`}

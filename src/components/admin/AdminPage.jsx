@@ -1,9 +1,10 @@
 import { useState } from "react";
+import CustomSelect from "../CustomSelect";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
 import PageNav from "../PageNav";
 import LoadingSpinner from "../LoadingSpinner";
-import { useUsers, useDeleteUser, useSetAdmin, useSetModerator, useSetBlog, useCreateUser, useBanUser } from "../../hooks/useAdmin";
+import { useUsers, useDeleteUser, useSetAdmin, useSetModerator, useSetBlog, useCreateUser, useBanUser, useCancelSubscription } from "../../hooks/useAdmin";
 import { useReports, useUpdateReport, useDeleteReport, useDeleteReportedContent } from "../../hooks/useReports";
 import { useAllAnnouncements, useCreateAnnouncement, useToggleAnnouncement, useDeleteAnnouncement } from "../../hooks/useAnnouncements";
 import { useAllQuizQuestions, useCreateQuizQuestion, useUpdateQuizQuestion, useDeleteQuizQuestion } from "../../hooks/useQuiz";
@@ -28,6 +29,7 @@ function UsersTab({ currentUser, navigate }) {
   const setBlog = useSetBlog();
   const banUser = useBanUser();
   const createUser = useCreateUser();
+  const cancelSub = useCancelSubscription();
   const { t } = useTranslation();
 
   const [showAddForm, setShowAddForm] = useState(false);
@@ -37,6 +39,7 @@ function UsersTab({ currentUser, navigate }) {
   const [addSuccess, setAddSuccess] = useState("");
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [confirmBan, setConfirmBan] = useState(null);
+  const [confirmCancelSub, setConfirmCancelSub] = useState(null);
   const [page, setPage] = useState(0);
 
   const totalPages = Math.ceil(users.length / USERS_PAGE_SIZE);
@@ -112,6 +115,7 @@ function UsersTab({ currentUser, navigate }) {
                 <th>{t("admin.colUser")}</th>
                 <th>{t("admin.colJoined")}</th>
                 <th>{t("admin.colRole")}</th>
+                <th>Sub</th>
                 <th>{t("admin.colActions")}</th>
               </tr>
             </thead>
@@ -140,6 +144,15 @@ function UsersTab({ currentUser, navigate }) {
                       {user.is_admin ? t("admin.roleAdmin") : t("admin.roleMember")}
                     </span>
                   </td>
+                  <td>
+                    {user.subscription_status && user.subscription_status !== "inactive" ? (
+                      <span className={`admin-sub-badge admin-sub-badge--${user.subscription_status}`}>
+                        {user.subscription_status}
+                      </span>
+                    ) : (
+                      <span className="admin-sub-badge admin-sub-badge--none">—</span>
+                    )}
+                  </td>
                   <td className="admin-col-actions">
                     {user.id !== currentUser.id && (
                       <div className="admin-actions">
@@ -165,6 +178,15 @@ function UsersTab({ currentUser, navigate }) {
                           {user.can_blog ? t("admin.writer") : t("admin.allowBlog")}
                         </button>
                         <span className="admin-actions-sep" />
+                        {(user.subscription_status === "active" || user.subscription_status === "trialing") && (
+                          <button
+                            className="admin-action-btn admin-action-btn--danger"
+                            onClick={() => setConfirmCancelSub(user)}
+                            disabled={cancelSub.isPending}
+                          >
+                            Cancel Sub
+                          </button>
+                        )}
                         <button
                           className={`admin-action-btn ${user.is_banned ? "admin-action-btn--active" : "admin-action-btn--danger"}`}
                           onClick={() => setConfirmBan(user)}
@@ -226,6 +248,14 @@ function UsersTab({ currentUser, navigate }) {
             : `Ban ${confirmBan.email}? They will no longer be able to post any content.`}
           onConfirm={() => { banUser.mutate({ userId: confirmBan.id, value: !confirmBan.is_banned }); setConfirmBan(null); }}
           onCancel={() => setConfirmBan(null)}
+        />
+      )}
+
+      {confirmCancelSub && (
+        <ConfirmModal
+          message={`Cancel subscription for ${confirmCancelSub.email}? This will immediately end their Premium access.`}
+          onConfirm={() => { cancelSub.mutate(confirmCancelSub.id); setConfirmCancelSub(null); }}
+          onCancel={() => setConfirmCancelSub(null)}
         />
       )}
     </div>
@@ -389,17 +419,11 @@ function QuizTab() {
   return (
     <div>
       <div className="admin-quiz-controls">
-        <select
-          id="admin-quiz-level"
-          name="quiz_level"
-          className="admin-quiz-level-select"
+        <CustomSelect
           value={selectedLevel}
-          onChange={e => { setSelectedLevel(Number(e.target.value)); setShowForm(false); }}
-        >
-          {LEVELS.map(l => (
-            <option key={l} value={l}>{t("adminQuiz.level")} {l}</option>
-          ))}
-        </select>
+          onChange={val => { setSelectedLevel(val); setShowForm(false); }}
+          options={LEVELS.map(l => ({ value: l, label: `${t("adminQuiz.level")} ${l}` }))}
+        />
         <button className="admin-add-btn" onClick={openAddForm}>
           {t("adminQuiz.addQuestion")}
         </button>
@@ -442,15 +466,11 @@ function QuizTab() {
 
           <div>
             <label htmlFor="admin-level" className="admin-form-label">{t("adminQuiz.level")}</label>
-            <select
-              id="admin-level"
-              name="level"
-              className="admin-quiz-level-select"
+            <CustomSelect
               value={form.level}
-              onChange={e => setForm(f => ({ ...f, level: Number(e.target.value) }))}
-            >
-              {LEVELS.map(l => <option key={l} value={l}>{l}</option>)}
-            </select>
+              onChange={val => setForm(f => ({ ...f, level: val }))}
+              options={LEVELS.map(l => ({ value: l, label: String(l) }))}
+            />
           </div>
 
           <div>
@@ -491,17 +511,11 @@ function QuizTab() {
 
           <div>
             <label htmlFor="admin-correct" className="admin-form-label">{t("adminQuiz.correctAnswer")}</label>
-            <select
-              id="admin-correct"
-              name="correct_index"
-              className="admin-correct-select"
+            <CustomSelect
               value={form.correct_index}
-              onChange={e => setForm(f => ({ ...f, correct_index: Number(e.target.value) }))}
-            >
-              {OPTION_LABELS.map((label, i) => (
-                <option key={i} value={i}>{label}: {form.options[i] || `Option ${label}`}</option>
-              ))}
-            </select>
+              onChange={val => setForm(f => ({ ...f, correct_index: val }))}
+              options={OPTION_LABELS.map((label, i) => ({ value: i, label: `${label}: ${form.options[i] || `Option ${label}`}` }))}
+            />
           </div>
 
           <div className="admin-form-row">
@@ -643,6 +657,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
 
   const adminCount   = users.filter(u => u.is_admin).length;
   const blogCount    = users.filter(u => u.can_blog).length;
+  const subCount     = users.filter(u => u.subscription_status === "active" || u.subscription_status === "trialing").length;
   const pendingCount = reports.filter(r => r.status === "pending").length;
 
   return (
@@ -677,6 +692,10 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
             <div className="admin-stat-card">
               <div className="admin-stat-value">{blogCount}</div>
               <div className="admin-stat-label">{t("admin.blogWriters")}</div>
+            </div>
+            <div className="admin-stat-card">
+              <div className="admin-stat-value">{subCount}</div>
+              <div className="admin-stat-label">Subscribers</div>
             </div>
           </div>
         )}

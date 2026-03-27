@@ -142,15 +142,6 @@ export const groupsApi = {
     if (error) throw new Error(error.message);
   },
 
-  promoteMember: async (groupId, userId) => {
-    const { error } = await supabase
-      .from("study_group_members")
-      .update({ role: "admin" })
-      .eq("group_id", groupId)
-      .eq("user_id", userId);
-    if (error) throw new Error(error.message);
-  },
-
   getMemberCount: async (groupId) => {
     const { count, error } = await supabase
       .from("study_group_members")
@@ -218,10 +209,12 @@ export const groupsApi = {
     }));
   },
 
-  sendMessage: async (groupId, senderId, content, replyToId = null) => {
+  sendMessage: async (groupId, content, replyToId = null) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
     const { data, error } = await supabase
       .from("study_group_messages")
-      .insert({ group_id: groupId, sender_id: senderId, content: content.trim(), reply_to_id: replyToId })
+      .insert({ group_id: groupId, sender_id: user.id, content: content.trim(), reply_to_id: replyToId })
       .select()
       .single();
     if (error) throw new Error(error.message);

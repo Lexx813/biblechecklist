@@ -31,10 +31,46 @@ function authorName(obj) {
   return obj?.profiles?.display_name || obj?.profiles?.email?.split("@")[0] || "Anonymous";
 }
 
+function formatNum(n) {
+  return (n ?? 0).toLocaleString();
+}
+
+function BlogSkeleton() {
+  return (
+    <div className="home-blog-grid">
+      {[0, 1, 2].map(i => (
+        <div key={i} className={`home-blog-card${i === 0 ? " home-blog-card--featured" : ""}`}>
+          <div className="home-blog-cover skeleton" />
+          <div className="home-blog-body" style={{ gap: 8 }}>
+            <div className="skeleton" style={{ height: 12, width: "60%", borderRadius: 6 }}>&nbsp;</div>
+            <div className="skeleton" style={{ height: 18, width: "90%", borderRadius: 6 }}>&nbsp;</div>
+            <div className="skeleton" style={{ height: 12, width: "45%", borderRadius: 6 }}>&nbsp;</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ForumSkeleton() {
+  return (
+    <div className="home-forum-list">
+      {[0, 1, 2, 3].map(i => (
+        <div key={i} className="home-forum-row" style={{ pointerEvents: "none" }}>
+          <div className="home-forum-row-body" style={{ gap: 8 }}>
+            <div className="skeleton" style={{ height: 16, width: "70%", borderRadius: 6 }}>&nbsp;</div>
+            <div className="skeleton" style={{ height: 11, width: "40%", borderRadius: 6 }}>&nbsp;</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n }) {
   const { t } = useTranslation();
-  const { data: posts = [] } = usePublishedPosts();
-  const { data: topThreads = [] } = useTopThreads(4);
+  const { data: posts = [], isLoading: postsLoading } = usePublishedPosts();
+  const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4);
   const { data: profile } = useFullProfile(user?.id);
   const updateProfile = useUpdateProfile(user?.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 } } = useReadingStreak(user?.id);
@@ -194,8 +230,13 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           </button>
         </div>
 
-        {blogPreview.length === 0 ? (
-          <div className="home-empty">{t("home.blogEmpty")}</div>
+        {postsLoading ? <BlogSkeleton /> : blogPreview.length === 0 ? (
+          <div className="home-empty">
+            <div className="home-empty-icon">✍️</div>
+            <p className="home-empty-title">No posts yet</p>
+            <p className="home-empty-sub">Be the first to share something with the community.</p>
+            <button className="home-empty-btn" onClick={() => navigate("blogDash")}>Write a post →</button>
+          </div>
         ) : (
           <div className="home-blog-grid">
             {blogPreview.map((post, i) => (
@@ -210,7 +251,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 >
                   {post.cover_url && <img src={post.cover_url} alt="" />}
                   {post.like_count > 0 && (
-                    <span className="home-blog-badge">👍 {post.like_count}</span>
+                    <span className="home-blog-badge">👍 {formatNum(post.like_count)}</span>
                   )}
                 </div>
                 <div className="home-blog-body">
@@ -241,8 +282,13 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           </button>
         </div>
 
-        {topThreads.length === 0 ? (
-          <div className="home-empty">{t("home.forumEmpty")}</div>
+        {threadsLoading ? <ForumSkeleton /> : topThreads.length === 0 ? (
+          <div className="home-empty">
+            <div className="home-empty-icon">💬</div>
+            <p className="home-empty-title">No discussions yet</p>
+            <p className="home-empty-sub">Start the first conversation in the community.</p>
+            <button className="home-empty-btn" onClick={() => navigate("forum")}>Start a thread →</button>
+          </div>
         ) : (
           <div className="home-forum-list">
             {topThreads.map(thread => (
@@ -261,10 +307,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 </div>
                 <div className="home-forum-row-stats">
                   {thread.like_count > 0 && (
-                    <span className="home-forum-stat">👍 {thread.like_count}</span>
+                    <span className="home-forum-stat">👍 {formatNum(thread.like_count)}</span>
                   )}
                   <span className="home-forum-stat">
-                    💬 {thread.forum_replies?.[0]?.count ?? 0}
+                    💬 {formatNum(thread.forum_replies?.[0]?.count ?? 0)}
                   </span>
                 </div>
               </div>

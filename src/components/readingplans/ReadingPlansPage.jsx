@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import PageNav from "../PageNav";
 import AICompanion from "../AICompanion";
 import { useFullProfile } from "../../hooks/useAdmin";
+import { useSubscription } from "../../hooks/useSubscription";
 import {
   useMyPlans,
   usePlanCompletions,
@@ -258,8 +259,7 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
   const [detailPlan, setDetailPlan] = useState(null);
   const { data: myPlans = [], isLoading } = useMyPlans();
   const enrollPlan = useEnrollPlan();
-  const { data: profile } = useFullProfile(user?.id);
-  const isAdmin = profile?.is_admin;
+  const { isPremium } = useSubscription(user?.id);
 
   const enrolledKeys = new Set(myPlans.map(p => p.template_key));
 
@@ -273,7 +273,7 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
     return (
       <div className="rp-page">
         <PageNav {...sharedNav} user={user} navigate={navigate} />
-        <PlanDetail plan={detailPlan} onBack={() => setDetailPlan(null)} isAdmin={isAdmin} />
+        <PlanDetail plan={detailPlan} onBack={() => setDetailPlan(null)} isAdmin={isPremium} />
       </div>
     );
   }
@@ -306,6 +306,7 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
           ) : myPlans.length === 0 ? (
             <div className="rp-empty-state">
               <span className="rp-empty-icon">📅</span>
+              <h3>No Active Plans</h3>
               <p>You haven't started any reading plans yet.</p>
               <button className="rp-primary-btn" onClick={() => setTab("browse")}>Browse Plans</button>
             </div>

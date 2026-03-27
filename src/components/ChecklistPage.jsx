@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { BOOKS, OT_COUNT } from "../data/books";
 import AICompanion from "./AICompanion";
 import BookCard from "./BookCard";
+import CustomSelect from "./CustomSelect";
 import PageNav from "./PageNav";
 import PageFooter from "./PageFooter";
 import ConfirmModal from "./ConfirmModal";
@@ -12,6 +13,7 @@ import ProgressShare from "./share/ProgressShare";
 import LoadingSpinner from "./LoadingSpinner";
 import BookCelebration from "./BookCelebration";
 import { useProgress, useSaveProgress, useChapterTimestamps, useReadingStreak } from "../hooks/useProgress";
+import { useSubscription } from "../hooks/useSubscription";
 import { progressApi } from "../api/progress";
 import { useNotes, useCreateNote } from "../hooks/useNotes";
 import { readingApi } from "../api/reading";
@@ -24,6 +26,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   const { data: chapterTimestamps = {} } = useChapterTimestamps(user.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 } } = useReadingStreak(user.id);
   const saveProgress = useSaveProgress(user.id);
+  const { isPremium } = useSubscription(user.id);
 
   // Debounced reading log — batches chapter toggles into one API call per second
   const pendingDelta = useRef(0);
@@ -208,6 +211,9 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
           <button className="reset-btn" style={{ fontSize: 12, padding: "5px 14px" }} onClick={() => navigate("history")}>
             📅 {t("history.viewBtn")}
           </button>
+          <button className="reset-btn" style={{ fontSize: 12, padding: "5px 14px" }} onClick={() => navigate("leaderboard")}>
+            🏆 {t("leaderboard.title")}
+          </button>
         </div>
 
         <div className="book-list">
@@ -273,7 +279,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
             userId={user.id}
             bookIndex={noteModal.bookIndex}
             onClose={() => setNoteModal(null)}
-            isAdmin={profile?.is_admin}
+            isPremium={isPremium}
           />
         )}
       </div>
@@ -284,7 +290,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
 
 // ── Quick Note Modal ───────────────────────────────────────────────────────────
 
-function QuickNoteModal({ userId, bookIndex, onClose, isAdmin }) {
+function QuickNoteModal({ userId, bookIndex, onClose, isPremium }) {
   const { t } = useTranslation();
   const createNote = useCreateNote(userId);
   const book = BOOKS[bookIndex];
@@ -331,11 +337,12 @@ function QuickNoteModal({ userId, bookIndex, onClose, isAdmin }) {
             </div>
             <div className="qn-field qn-field--sm">
               <label className="qn-label" htmlFor="qn-chapter">{t("profile.chapterLabel")}</label>
-              <select id="qn-chapter" name="chapter" className="qn-select" value={chapter} onChange={e => setChapter(Number(e.target.value))}>
-                {Array.from({ length: totalChapters }, (_, i) => (
-                  <option key={i + 1} value={i + 1}>{i + 1}</option>
-                ))}
-              </select>
+              <CustomSelect
+                value={chapter}
+                onChange={setChapter}
+                options={Array.from({ length: totalChapters }, (_, i) => ({ value: i + 1, label: String(i + 1) }))}
+                className="cs-wrap--sm"
+              />
             </div>
             <div className="qn-field qn-field--sm">
               <label className="qn-label" htmlFor="qn-verse">
@@ -376,7 +383,7 @@ function QuickNoteModal({ userId, bookIndex, onClose, isAdmin }) {
           </div>
         </form>
 
-        {isAdmin && (
+        {isPremium && (
           <AICompanion
             reference={`${bookName} ${chapter}${verse ? `:${verse}` : ""}`}
             passage={`${bookName} chapter ${chapter}${verse ? ` verse ${verse}` : ""}`}

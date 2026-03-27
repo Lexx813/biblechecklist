@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import PageNav from "../PageNav";
 import { insertEmojiAtCursor } from "../EmojiPickerPopup";
 import { EMOJI_CATEGORIES } from "../../lib/emojiData";
 import {
@@ -289,7 +290,8 @@ function ChatTab({ groupId, user, isAdmin }) {
         ) : messages.length === 0 ? (
           <div className="grp-chat-empty">
             <span>💬</span>
-            <p>No messages yet. Start the conversation!</p>
+            <strong>No messages yet</strong>
+            <p>Be the first to say something!</p>
           </div>
         ) : (
           items.map(item => {
@@ -352,7 +354,7 @@ function ChatTab({ groupId, user, isAdmin }) {
 function LeaderboardTab({ groupId, userId }) {
   const { data: board = [], isLoading } = useGroupLeaderboard(groupId);
 
-  if (isLoading) return <p className="grp-empty grp-empty--pad">Loading leaderboard…</p>;
+  if (isLoading) return <div className="grp-spinner-wrap"><div className="grp-spinner" /></div>;
   if (!board.length) return <p className="grp-empty grp-empty--pad">No data yet.</p>;
 
   return (
@@ -384,7 +386,7 @@ function LeaderboardTab({ groupId, userId }) {
 function MembersTab({ groupId, userId, isAdmin, onRemove }) {
   const { data: members = [], isLoading } = useGroupMembers(groupId);
 
-  if (isLoading) return <p className="grp-empty grp-empty--pad">Loading…</p>;
+  if (isLoading) return <div className="grp-spinner-wrap"><div className="grp-spinner" /></div>;
 
   return (
     <div className="grp-members">
@@ -411,7 +413,7 @@ function MembersTab({ groupId, userId, isAdmin, onRemove }) {
 
 // ── Main detail page ──────────────────────────────────────────────────────────
 
-export default function GroupDetail({ groupId, user, navigate }) {
+export default function GroupDetail({ groupId, user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const [tab, setTab] = useState("chat");
   const [confirmLeave, setConfirmLeave] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -453,9 +455,10 @@ export default function GroupDetail({ groupId, user, navigate }) {
 
   return (
     <div className="grp-detail">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="groupDetail" />
       {/* Header */}
       <div className="grp-detail-header">
-        <button className="grp-back-btn" onClick={() => navigate("groups")}>←</button>
+        <button className="grp-detail-back-btn" onClick={() => navigate("groups")}>←</button>
         <div className="grp-detail-avatar">
           {group.cover_url
             ? <img src={group.cover_url} alt="" />

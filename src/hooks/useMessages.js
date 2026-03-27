@@ -102,8 +102,8 @@ export function useGetOrCreateDM() {
 export function useSendMessage(conversationId) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ senderId, content, replyToId }) =>
-      messagesApi.sendMessage(conversationId, senderId, content, replyToId),
+    mutationFn: ({ content, replyToId }) =>
+      messagesApi.sendMessage(conversationId, content, replyToId),
     onMutate: async ({ senderId, content, replyToId }) => {
       await queryClient.cancelQueries({ queryKey: ["messages", conversationId] });
       const previous = queryClient.getQueryData(["messages", conversationId]);

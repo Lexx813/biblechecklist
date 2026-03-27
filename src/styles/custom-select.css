@@ -1,0 +1,140 @@
+/* ── Custom Select ────────────────────────────────────────────────────────── */
+
+.cs-wrap {
+  position: relative;
+}
+
+.cs-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 500;
+  background: rgba(124, 58, 237, 0.05);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.cs-btn:hover {
+  border-color: rgba(124, 58, 237, 0.4);
+}
+
+.cs-btn.is-open {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.cs-btn-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cs-placeholder { color: var(--text-muted); }
+
+.cs-arrow {
+  font-size: 10px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 0.15s;
+  line-height: 1;
+}
+
+.cs-btn.is-open .cs-arrow {
+  transform: rotate(180deg);
+}
+
+.cs-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  min-width: 100%;
+  background: var(--bg);
+  border: 1.5px solid rgba(124, 58, 237, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(124, 58, 237, 0.06);
+  z-index: 200;
+  overflow: hidden;
+}
+
+.cs-search-wrap {
+  padding: 8px 8px 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cs-search {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  background: rgba(124, 58, 237, 0.06);
+  color: var(--text-primary);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.cs-search:focus { border-color: #7c3aed; }
+
+.cs-list {
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.cs-list::-webkit-scrollbar { width: 4px; }
+.cs-list::-webkit-scrollbar-track { background: transparent; }
+.cs-list::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.25);
+  border-radius: 4px;
+}
+
+.cs-item {
+  display: block;
+  width: 100%;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+  white-space: nowrap;
+}
+
+.cs-item:hover {
+  background: rgba(124, 58, 237, 0.08);
+  color: #a78bfa;
+}
+
+.cs-item.is-selected {
+  background: rgba(124, 58, 237, 0.12);
+  color: #a78bfa;
+  font-weight: 700;
+}
+
+.cs-wrap--sm { min-width: 80px; }
+.cs-wrap--sm .cs-btn { padding: 8px 10px; }
+
+.cs-no-results {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 12px;
+  padding: 12px;
+  margin: 0;
+}

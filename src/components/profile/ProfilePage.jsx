@@ -1,5 +1,6 @@
 import { useState, useRef, useMemo, useEffect, useCallback } from "react";
 import EmojiPickerPopup, { insertEmojiAtCursor } from "../EmojiPickerPopup";
+import CustomSelect from "../CustomSelect";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../ConfirmModal";
@@ -158,8 +159,8 @@ function NoteForm({ userId, initial, onDone }) {
     });
   }, [content]);
 
-  function handleBookChange(e) {
-    setBookIndex(Number(e.target.value));
+  function handleBookChange(val) {
+    setBookIndex(Number(val));
     setChapter(1);
   }
 
@@ -178,20 +179,22 @@ function NoteForm({ userId, initial, onDone }) {
     <form className="note-form" onSubmit={handleSubmit}>
       <div className="note-form-row">
         <div className="note-form-field">
-          <label htmlFor="note-book" className="note-form-label">{t("profile.bookLabel")}</label>
-          <select id="note-book" name="book" className="note-form-select" value={bookIndex} onChange={handleBookChange}>
-            {BOOKS.map((b, i) => (
-              <option key={i} value={i}>{t(`bookNames.${i}`, b.name)}</option>
-            ))}
-          </select>
+          <label className="note-form-label">{t("profile.bookLabel")}</label>
+          <CustomSelect
+            value={bookIndex}
+            onChange={handleBookChange}
+            options={BOOKS.map((b, i) => ({ value: i, label: t(`bookNames.${i}`, b.name) }))}
+            searchable
+          />
         </div>
         <div className="note-form-field note-form-field--sm">
-          <label htmlFor="note-chapter" className="note-form-label">{t("profile.chapterLabel")}</label>
-          <select id="note-chapter" name="chapter" className="note-form-select" value={chapter} onChange={e => setChapter(Number(e.target.value))}>
-            {Array.from({ length: maxChapter }, (_, i) => (
-              <option key={i + 1} value={i + 1}>{i + 1}</option>
-            ))}
-          </select>
+          <label className="note-form-label">{t("profile.chapterLabel")}</label>
+          <CustomSelect
+            value={chapter}
+            onChange={setChapter}
+            options={Array.from({ length: maxChapter }, (_, i) => ({ value: i + 1, label: String(i + 1) }))}
+            className="cs-wrap--sm"
+          />
         </div>
         <div className="note-form-field note-form-field--sm">
           <label htmlFor="note-verse" className="note-form-label">{t("profile.verseLabel")} <span className="note-form-optional">{t("profile.verseOptional")}</span></label>
@@ -856,18 +859,14 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
             )}
 
             <div className="pf-filters">
-              <select
-                id="pf-filter-book"
-                name="filter_book"
-                className="pf-filter-select"
+              <CustomSelect
                 value={filterBook}
-                onChange={e => setFilterBook(e.target.value)}
-              >
-                <option value="all">{t("profile.allBooks")}</option>
-                {booksWithNotes.map(i => (
-                  <option key={i} value={i}>{t(`bookNames.${i}`, BOOKS[i]?.name)}</option>
-                ))}
-              </select>
+                onChange={setFilterBook}
+                options={[
+                  { value: "all", label: t("profile.allBooks") },
+                  ...booksWithNotes.map(i => ({ value: i, label: t(`bookNames.${i}`, BOOKS[i]?.name) })),
+                ]}
+              />
               <input
                 id="pf-notes-search"
                 name="q"

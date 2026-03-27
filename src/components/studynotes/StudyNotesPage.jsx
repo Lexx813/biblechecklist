@@ -1,8 +1,9 @@
 import { useState, useMemo } from "react";
 import PageNav from "../PageNav";
+import CustomSelect from "../CustomSelect";
 import RichTextEditor from "../RichTextEditor";
 import AICompanion from "../AICompanion";
-import { useFullProfile } from "../../hooks/useAdmin";
+import { useSubscription } from "../../hooks/useSubscription";
 import { BOOKS } from "../../data/books";
 import {
   useStudyNotes,
@@ -110,33 +111,26 @@ function NoteEditor({ note, onSave, onCancel, saving, isAdmin }) {
 
         <label className="sn-label">Passage <span className="sn-optional">(optional)</span></label>
         <div className="sn-passage-row">
-          <select
-            className="sn-select"
-            value={form.book_index ?? ""}
-            onChange={e => {
-              const bi = e.target.value === "" ? null : Number(e.target.value);
-              setForm(prev => ({ ...prev, book_index: bi, chapter: bi != null ? 1 : null }));
-            }}
-          >
-            <option value="">— Book —</option>
-            {BOOKS.map((b, i) => <option key={i} value={i}>{b.name}</option>)}
-          </select>
+          <CustomSelect
+            value={form.book_index}
+            onChange={bi => setForm(prev => ({ ...prev, book_index: bi, chapter: bi != null ? 1 : null }))}
+            options={[{ value: null, label: "— Book —" }, ...BOOKS.map((b, i) => ({ value: i, label: b.name }))]}
+            placeholder="— Book —"
+            searchable
+          />
 
           {form.book_index != null && (
-            <select
-              className="sn-select sn-select--sm"
+            <CustomSelect
               value={form.chapter ?? 1}
-              onChange={e => set("chapter", Number(e.target.value))}
-            >
-              {Array.from({ length: maxChapter }, (_, i) => (
-                <option key={i + 1} value={i + 1}>{i + 1}</option>
-              ))}
-            </select>
+              onChange={val => set("chapter", val)}
+              options={Array.from({ length: maxChapter }, (_, i) => ({ value: i + 1, label: String(i + 1) }))}
+              className="cs-wrap--sm"
+            />
           )}
 
           {form.book_index != null && (
             <input
-              className="sn-select sn-select--xs"
+              className="sn-verse-input"
               placeholder="Verse"
               value={form.verse ?? ""}
               onChange={e => set("verse", e.target.value)}
@@ -228,8 +222,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
   const createNote = useCreateStudyNote();
   const updateNote = useUpdateStudyNote();
   const deleteNote = useDeleteStudyNote();
-  const { data: profile } = useFullProfile(user?.id);
-  const isAdmin = profile?.is_admin;
+  const { isPremium } = useSubscription(user?.id);
 
   const [editing, setEditing] = useState(null); // null | "new" | note object
   const [search, setSearch] = useState("");
@@ -287,7 +280,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
           onSave={handleSave}
           onCancel={() => setEditing(null)}
           saving={createNote.isPending || updateNote.isPending}
-          isAdmin={isAdmin}
+          isAdmin={isPremium}
         />
       </div>
     );
@@ -337,17 +330,21 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
 
       <div className="sn-content">
         {isLoading ? (
-          <p className="sn-empty">Loading…</p>
+          <div className="sn-spinner-wrap"><div className="sn-spinner" /></div>
         ) : filtered.length === 0 ? (
           <div className="sn-empty-state">
             <span className="sn-empty-icon">📝</span>
             {notes.length === 0 ? (
               <>
+                <h3>No Study Notes Yet</h3>
                 <p>You haven't written any study notes yet.</p>
                 <button className="sn-new-btn" onClick={() => setEditing("new")}>Write Your First Note</button>
               </>
             ) : (
-              <p>No notes match your search.</p>
+              <>
+                <h3>No Matches</h3>
+                <p>No notes match your search.</p>
+              </>
             )}
           </div>
         ) : (

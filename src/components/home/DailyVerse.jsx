@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { VERSE_COUNT, getDailyVerseIndex } from "../../data/verses";
-import { useFullProfile } from "../../hooks/useAdmin";
 import AICompanion from "../AICompanion";
+import { useSubscription } from "../../hooks/useSubscription";
 import "../../styles/daily-verse.css";
 
 export default function DailyVerse({ user }) {
   const { t } = useTranslation();
   const [idx, setIdx] = useState(getDailyVerseIndex);
   const [showAI, setShowAI] = useState(false);
-  const { data: profile } = useFullProfile(user?.id);
-  const isAdmin = profile?.is_admin;
+  const { isPremium } = useSubscription(user?.id);
 
   const prev = () => setIdx(i => (i - 1 + VERSE_COUNT) % VERSE_COUNT);
   const next = () => setIdx(i => (i + 1) % VERSE_COUNT);
@@ -43,7 +42,7 @@ export default function DailyVerse({ user }) {
         <button className="daily-verse-arrow" onClick={next} title={t("dailyVerse.next")}>›</button>
       </div>
 
-      {user && isAdmin && (
+      {user && isPremium && (
         <button
           className="daily-verse-ai-btn"
           onClick={() => setShowAI(v => !v)}
@@ -52,7 +51,7 @@ export default function DailyVerse({ user }) {
         </button>
       )}
 
-      {user && isAdmin && showAI && (
+      {user && isPremium && showAI && (
         <AICompanion
           passage={t(`verses.${idx}.text`)}
           reference={t(`verses.${idx}.ref`)}

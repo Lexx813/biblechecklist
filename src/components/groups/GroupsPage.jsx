@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMyGroups, usePublicGroups, useCreateGroup, useJoinGroup, useJoinByCode } from "../../hooks/useGroups";
+import PageNav from "../PageNav";
 import "../../styles/groups.css";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -209,7 +210,7 @@ function GroupCard({ group, onClick, onJoin, joined, joining }) {
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 
-export default function GroupsPage({ user, navigate }) {
+export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const [tab, setTab] = useState("mine");
   const [showCreate, setShowCreate] = useState(false);
   const [showJoinCode, setShowJoinCode] = useState(false);
@@ -229,6 +230,7 @@ export default function GroupsPage({ user, navigate }) {
 
   return (
     <div className="grp-page">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="groups" />
       <div className="grp-page-header">
         <div className="grp-page-header-left">
           <button className="grp-back-btn" onClick={() => navigate("home")}>← Home</button>
@@ -259,6 +261,7 @@ export default function GroupsPage({ user, navigate }) {
           ) : myGroups.length === 0 ? (
             <div className="grp-empty-state">
               <span className="grp-empty-icon">👥</span>
+              <h3>No Groups Yet</h3>
               <p>You haven't joined any groups yet.</p>
               <button className="grp-btn grp-btn--primary" onClick={() => setTab("explore")}>Explore Groups</button>
             </div>
@@ -280,6 +283,7 @@ export default function GroupsPage({ user, navigate }) {
           ) : publicGroups.length === 0 ? (
             <div className="grp-empty-state">
               <span className="grp-empty-icon">🌐</span>
+              <h3>No Public Groups</h3>
               <p>No public groups yet. Be the first to create one!</p>
               <button className="grp-btn grp-btn--primary" onClick={() => setShowCreate(true)}>Create Group</button>
             </div>

@@ -36,7 +36,7 @@ export const messagesApi = {
     // Profiles for other users
     const otherIds = [...new Set((others ?? []).map(o => o.user_id))];
     const { data: profileRows, error: e4 } = otherIds.length
-      ? await supabase.from("profiles").select("id, display_name, email, avatar_url").in("id", otherIds)
+      ? await supabase.from("profiles").select("id, display_name, avatar_url").in("id", otherIds)
       : { data: [], error: null };
     if (e4) throw new Error(e4.message);
 
@@ -90,8 +90,10 @@ export const messagesApi = {
   },
 
   // Send a message (with optional reply_to_id)
-  sendMessage: async (conversationId, senderId, content, replyToId = null) => {
-    const row = { conversation_id: conversationId, sender_id: senderId, content: content.trim() };
+  sendMessage: async (conversationId, content, replyToId = null) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+    const row = { conversation_id: conversationId, sender_id: user.id, content: content.trim() };
     if (replyToId) row.reply_to_id = replyToId;
     const { data, error } = await supabase
       .from("messages")

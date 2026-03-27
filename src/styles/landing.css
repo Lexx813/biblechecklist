@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
+  overflow: clip;
   font-family: 'Plus Jakarta Sans Variable', sans-serif;
 }
 
@@ -167,6 +167,53 @@
     opacity: 0;
     transform: translateX(120vw) rotate(-14deg);
   }
+}
+
+/* ── Language picker (landing) ────────────────────────────────── */
+.landing-lang {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+}
+.landing-lang .cs-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+.landing-lang .cs-btn:hover,
+.landing-lang .cs-btn.is-open {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+.landing-lang .cs-arrow {
+  color: rgba(255, 255, 255, 0.7);
+}
+.landing-lang .cs-menu {
+  background: #1e0a3c;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  right: 0;
+  left: auto;
+  min-width: 140px;
+}
+.landing-lang .cs-item {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+}
+.landing-lang .cs-item:hover {
+  background: rgba(124, 58, 237, 0.2);
+  color: #fff;
+}
+.landing-lang .cs-item.is-selected {
+  color: #c084fc;
+  background: rgba(124, 58, 237, 0.15);
 }
 
 /* ── Hero Content ─────────────────────────────────────────────── */
@@ -415,6 +462,233 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* ── Pricing Section ──────────────────────────────────────────── */
+.landing-pricing {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 860px;
+  padding: 0 24px 80px;
+  box-sizing: border-box;
+  animation: fade-up 0.7s 0.5s ease both;
+}
+
+.landing-pricing-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.landing-pricing-title {
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.landing-pricing-sub {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.landing-pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+  width: 100%;
+}
+
+/* ── Plan Card ────────────────────────────────────────────────── */
+.landing-plan {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  transition: border-color 0.2s;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.landing-plan--premium {
+  background: linear-gradient(160deg, rgba(91, 33, 182, 0.25) 0%, rgba(124, 58, 237, 0.12) 100%);
+  border-color: rgba(124, 58, 237, 0.45);
+  box-shadow: 0 0 60px rgba(124, 58, 237, 0.12);
+}
+
+.landing-plan-popular {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.landing-plan-name {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.landing-plan--premium .landing-plan-name {
+  color: #c084fc;
+}
+
+.landing-plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.landing-plan-amount {
+  font-size: 40px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.landing-plan-period {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 600;
+}
+
+.landing-plan-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Features list */
+.landing-plan-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding-top: 16px;
+}
+
+.landing-plan-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 500;
+}
+
+.landing-plan-feature--detailed {
+  align-items: flex-start;
+}
+
+.landing-plan-feature--detailed span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.landing-plan-feature--detailed strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.landing-plan-feature-desc {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.4;
+}
+
+.landing-plan-feature-icon {
+  font-size: 16px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.landing-plan--premium .landing-plan-feature-icon {
+  background: rgba(124, 58, 237, 0.18);
+}
+
+/* CTA buttons */
+.landing-plan-cta {
+  width: 100%;
+  padding: 13px;
+  border-radius: 12px;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s, transform 0.15s;
+  margin-top: 4px;
+}
+
+.landing-plan-cta--ghost {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.75);
+}
+.landing-plan-cta--ghost:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.landing-plan-cta--primary {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.45);
+}
+.landing-plan-cta--primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.landing-plan-note {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .landing-pricing {
+    padding: 0 16px 60px;
+  }
+  .landing-pricing-cards {
+    grid-template-columns: 1fr;
+  }
+  .landing-plan--premium {
+    order: -1;
   }
 }
 

@@ -13,7 +13,7 @@ create table if not exists public.notifications (
 );
 alter table public.notifications enable row level security;
 create policy "users_see_own_notifs" on public.notifications for select using (auth.uid() = user_id);
-create policy "insert_notifs" on public.notifications for insert with check (true);
+-- Direct inserts are blocked; use create_notification() RPC (security definer) instead
 create policy "users_update_own_notifs" on public.notifications for update using (auth.uid() = user_id);
 create index if not exists notif_user_idx on public.notifications(user_id, read, created_at desc);
 

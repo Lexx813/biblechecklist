@@ -118,7 +118,7 @@ export default function NotificationBell({ userId, navigate }) {
                     <div className="notif-body">
                       <span className="notif-actor">{n.actor?.display_name || "Someone"}</span>
                       {" "}<span className="notif-verb">{getVerb(n)}</span>
-                      {n.body_preview && (
+                      {n.body_preview && n.type !== "message" && (
                         <p className="notif-preview">"{n.body_preview}"</p>
                       )}
                       <span className="notif-time">{timeAgo(n.created_at)}</span>

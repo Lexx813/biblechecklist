@@ -98,3 +98,31 @@
 /* Feedback messages */
 .st-error { font-size: 0.85rem; color: #dc2626; margin: 8px 0 0; }
 .st-success { font-size: 0.85rem; color: #16a34a; margin: 8px 0 0; }
+
+/* Subscription section */
+.st-sub-active,
+.st-sub-inactive { display: flex; flex-direction: column; gap: 12px; }
+
+.st-sub-status { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+.st-sub-badge {
+  font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+.st-sub-badge--active {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: #fff;
+}
+
+.st-sub-status-label { font-size: 13px; color: var(--text-muted); font-weight: 600; }
+
+.st-sub-desc { font-size: 13px; color: var(--text-muted); margin: 0; line-height: 1.55; }
+
+.st-sub-cancel-btn { color: #dc2626; border-color: rgba(220,38,38,0.3); align-self: flex-start; }
+.st-sub-cancel-btn:hover { color: #b91c1c; border-color: #dc2626; }
+
+@media (max-width: 400px) {
+  .st-sub-inactive .st-btn--primary { width: 100%; text-align: center; }
+  .st-field-edit-row { flex-wrap: wrap; }
+  .st-field-edit-row .st-input { min-width: 0; }
+}

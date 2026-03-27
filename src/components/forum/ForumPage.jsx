@@ -406,7 +406,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
               {replyError && <div className="forum-reply-error">{replyError}</div>}
               <div className="forum-reply-actions">
                 <button className="forum-reply-btn" type="submit" disabled={createReply.isPending || !replyText || replyText === "<p></p>"}>
-                  {createReply.isPending ? t("forum.posting") : t("forum.postReply")}
+                  {createReply.isPending && <span className="btn-spin" />}{createReply.isPending ? t("forum.posting") : t("forum.postReply")}
                 </button>
               </div>
             </div>
@@ -482,7 +482,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
           {formError && <div className="forum-form-error">{formError}</div>}
           <div className="forum-form-actions">
             <button className="forum-submit-btn" type="submit" disabled={createThread.isPending}>
-              {createThread.isPending ? t("forum.posting") : t("forum.postThread")}
+              {createThread.isPending && <span className="btn-spin" />}{createThread.isPending ? t("forum.posting") : t("forum.postThread")}
             </button>
           </div>
         </form>

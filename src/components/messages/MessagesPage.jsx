@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import PageNav from "../PageNav";
 import ConfirmModal from "../ConfirmModal";
 import {
   useConversations,
@@ -591,6 +592,7 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
         ) : decryptedMessages.length === 0 ? (
           <div className="msg-empty-thread">
             <span>👋</span>
+            <strong>Start the conversation!</strong>
             <p>Say hello to {conv.other_display_name || "User"}!</p>
           </div>
         ) : (
@@ -670,7 +672,7 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 
-export default function MessagesPage({ user, navigate, initialConv = null }) {
+export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, initialConv = null }) {
   const { data: conversations = [], isLoading } = useConversations();
   const [activeConv, setActiveConv] = useState(initialConv);
   const [convToDelete, setConvToDelete] = useState(null);
@@ -725,6 +727,7 @@ export default function MessagesPage({ user, navigate, initialConv = null }) {
 
   return (
     <div className="msg-page">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="messages" />
       <div className="msg-dev-banner">⚙️ Dev-only feature — not visible in production</div>
 
       <div className="msg-layout">
@@ -778,7 +781,8 @@ export default function MessagesPage({ user, navigate, initialConv = null }) {
           ) : (
             <div className="msg-empty-state">
               <span className="msg-empty-icon">💬</span>
-              <p>Select a conversation to start messaging</p>
+              <h3>No Conversation Selected</h3>
+              <p>Select a conversation on the left to start messaging.</p>
             </div>
           )}
         </main>

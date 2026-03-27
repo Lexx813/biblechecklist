@@ -54,3 +54,21 @@
 }
 
 .search-result-sub { font-size: 12px; color: var(--text-muted); }
+
+/* ── Back button dark mode fix ───────────────────────────── */
+.search-back-btn {
+  color: #a78bfa;
+  border: 1px solid rgba(138, 75, 255, 0.2);
+}
+.search-back-btn:hover {
+  background: rgba(138, 75, 255, 0.1) !important;
+  color: #c084fc;
+}
+[data-theme="light"] .search-back-btn {
+  color: var(--teal);
+  border-color: transparent;
+}
+[data-theme="light"] .search-back-btn:hover {
+  background: var(--teal-light) !important;
+  color: var(--teal);
+}

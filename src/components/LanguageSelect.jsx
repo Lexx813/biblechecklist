@@ -1,23 +1,18 @@
 import { useTranslation } from "react-i18next";
 import { LANGUAGES } from "../i18n";
+import CustomSelect from "./CustomSelect";
 
 export default function LanguageSelect({ style }) {
   const { i18n } = useTranslation();
-  const current = i18n.language.split("-")[0];
+  const current = LANGUAGES.find(l => i18n.language?.split("-")[0]?.startsWith(l.code))?.code ?? "en";
 
   return (
-    <select
-      id="language-select"
-      name="language"
-      className="lang-select"
-      value={LANGUAGES.find(l => current.startsWith(l.code))?.code ?? "en"}
-      onChange={e => i18n.changeLanguage(e.target.value)}
-      aria-label="Select language"
-      style={style}
-    >
-      {LANGUAGES.map(l => (
-        <option key={l.code} value={l.code}>{l.label}</option>
-      ))}
-    </select>
+    <div style={style}>
+      <CustomSelect
+        value={current}
+        onChange={val => i18n.changeLanguage(val)}
+        options={LANGUAGES.map(l => ({ value: l.code, label: l.label }))}
+      />
+    </div>
   );
 }

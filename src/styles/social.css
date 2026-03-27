@@ -27,21 +27,33 @@
 
 /* Empty state */
 .feed-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  padding: 60px 16px;
+  padding: 64px 16px;
+  gap: 14px;
   color: var(--text-muted);
 }
 
 .feed-empty-icon {
   font-size: 48px;
-  margin-bottom: 16px;
+  width: 92px;
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, rgba(124,58,237,0.04) 70%, transparent 100%);
+  box-shadow: 0 0 0 1px rgba(124,58,237,0.12), 0 8px 24px rgba(124,58,237,0.12);
+  margin-bottom: 4px;
 }
 
 .feed-empty h3 {
   font-size: 18px;
   font-weight: 800;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin: 0;
 }
 
 .feed-empty p {
@@ -49,6 +61,7 @@
   line-height: 1.6;
   max-width: 300px;
   margin: 0 auto;
+  color: var(--text-muted);
 }
 
 /* Loading */

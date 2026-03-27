@@ -6,6 +6,7 @@ import { useMeta } from "../../hooks/useMeta";
 import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
 import { usePushNotifications } from "../../hooks/usePushNotifications";
 import { useUpdatePassword } from "../../hooks/useAuth";
+import { useSubscription } from "../../hooks/useSubscription";
 import { adminApi } from "../../api/admin";
 import "../../styles/profile.css";
 import "../../styles/settings.css";
@@ -71,6 +72,10 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
       onError: (err) => setPwError(err.message),
     });
   }
+
+  // ── Subscription ──────────────────────────────────────────
+  const { isPremium, status, subscribe: startCheckout, cancel } = useSubscription(user.id);
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
 
   // ── Delete account ────────────────────────────────────────
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -147,7 +152,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
                   autoFocus
                   maxLength={40}
                 />
-                <button className="st-btn st-btn--primary" onClick={saveName} disabled={!nameVal.trim() || update.isPending}>{t("common.save")}</button>
+                <button className="st-btn st-btn--primary" onClick={saveName} disabled={!nameVal.trim() || update.isPending}>{update.isPending && <span className="btn-spin" />}{t("common.save")}</button>
                 <button className="st-btn st-btn--ghost" onClick={() => setEditingName(false)}>{t("common.cancel")}</button>
               </div>
             ) : (
@@ -210,6 +215,47 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
           ))}
         </section>
 
+        {/* ── Subscription ─────────────────────────────────── */}
+        {!profile?.is_admin && (
+          <section className="st-section">
+            <h2 className="st-section-title">Subscription</h2>
+            {isPremium ? (
+              <div className="st-sub-active">
+                <div className="st-sub-status">
+                  <span className="st-sub-badge st-sub-badge--active">
+                    ✦ Premium
+                  </span>
+                  <span className="st-sub-status-label">
+                    {status === "trialing" ? "Free trial active" : "Active — $3 / month"}
+                  </span>
+                </div>
+                <p className="st-sub-desc">
+                  You have access to Reading Plans, Study Notes, Messages, Study Groups, and the AI Companion.
+                </p>
+                <button
+                  className="st-btn st-btn--ghost st-sub-cancel-btn"
+                  onClick={() => setShowCancelConfirm(true)}
+                >
+                  Cancel subscription
+                </button>
+              </div>
+            ) : (
+              <div className="st-sub-inactive">
+                <p className="st-sub-desc">
+                  Upgrade to Premium for $3/month to unlock Reading Plans, Study Notes, Messages, Study Groups, and the AI Companion.
+                </p>
+                <button
+                  className="st-btn st-btn--primary"
+                  onClick={() => startCheckout.mutate()}
+                  disabled={startCheckout.isPending}
+                >
+                  {startCheckout.isPending ? "Redirecting…" : "Upgrade to Premium — $3/mo"}
+                </button>
+              </div>
+            )}
+          </section>
+        )}
+
         {/* ── Change password ──────────────────────────────── */}
         <section className="st-section">
           <h2 className="st-section-title">{t("settings.changePasswordSection")}</h2>
@@ -245,7 +291,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
               className="st-btn st-btn--primary"
               disabled={updatePassword.isPending}
             >
-              {updatePassword.isPending ? t("common.saving") : t("settings.updatePassword")}
+              {updatePassword.isPending && <span className="btn-spin" />}{updatePassword.isPending ? t("common.saving") : t("settings.updatePassword")}
             </button>
           </form>
         </section>
@@ -260,6 +306,16 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
         </section>
 
       </div>
+
+      {showCancelConfirm && (
+        <ConfirmModal
+          message="Cancel your Premium subscription? You'll lose access to all premium features immediately."
+          confirmLabel={cancel.isPending ? "Canceling…" : "Yes, cancel"}
+          onConfirm={() => { cancel.mutate(); setShowCancelConfirm(false); }}
+          onCancel={() => setShowCancelConfirm(false)}
+          danger
+        />
+      )}
 
       {showDeleteConfirm && (
         <ConfirmModal

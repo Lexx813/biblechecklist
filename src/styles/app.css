@@ -893,14 +893,24 @@ body { font-family: 'Plus Jakarta Sans Variable', sans-serif; background: var(--
 }
 .skeleton {
   background: linear-gradient(90deg,
-    var(--teal-light) 0%,
-    var(--teal-soft)  40%,
-    var(--teal-light) 80%
+    rgba(255,255,255,0.04) 0%,
+    rgba(255,255,255,0.10) 40%,
+    rgba(255,255,255,0.04) 80%
   );
   background-size: 600px 100%;
   animation: shimmer 1.6s ease-in-out infinite;
-  border-radius: var(--radius-sm);
+  border-radius: 8px;
   color: transparent !important;
+  pointer-events: none;
+  user-select: none;
+}
+[data-theme="light"] .skeleton {
+  background: linear-gradient(90deg,
+    rgba(0,0,0,0.06) 0%,
+    rgba(0,0,0,0.12) 40%,
+    rgba(0,0,0,0.06) 80%
+  );
+  background-size: 600px 100%;
 }
 
 /* ── Slide-up entrance — attach to any list child ─────── */
@@ -910,6 +920,29 @@ body { font-family: 'Plus Jakarta Sans Variable', sans-serif; background: var(--
 }
 .animate-in {
   animation: slide-up 0.3s var(--ease-out) both;
+}
+
+/* ── Page transition ──────────────────────────────────── */
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-fade-in {
+  animation: page-fade-in 0.2s ease-out both;
+}
+
+/* ── Inline button spinner ────────────────────────────── */
+.btn-spin {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+  flex-shrink: 0;
 }
 
 /* ── Modal overlay — generic upgrade ─────────────────── */

@@ -52,7 +52,7 @@ export const PLAN_TEMPLATES = [
     key: "nt-90-days",
     name: "New Testament in 90 Days",
     description: "Read all 27 books of the Christian Greek Scriptures in just 90 days.",
-    icon: "✝️",
+    icon: "📘",
     totalDays: 90,
     difficulty: "Moderate",
     bookIndices: NT,
