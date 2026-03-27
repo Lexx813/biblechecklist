@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { useMyGroups, usePublicGroups, useCreateGroup, useJoinGroup, useJoinByCode } from "../../hooks/useGroups";
-import PageNav from "../PageNav";
 import "../../styles/groups.css";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -233,7 +232,6 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
 
   return (
     <div className="grp-page">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="groups" />
       <div className="grp-page-header">
         <div className="grp-page-header-left">
           <button className="grp-back-btn" onClick={() => navigate("home")}>← Home</button>

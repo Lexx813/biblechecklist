@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import PageNav from "../PageNav";
 import { insertEmojiAtCursor } from "../EmojiPickerPopup";
 import { EMOJI_CATEGORIES } from "../../lib/emojiData";
 import {
@@ -455,7 +454,6 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
 
   return (
     <div className="grp-detail">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="groupDetail" />
       {/* Header */}
       <div className="grp-detail-header">
         <button className="grp-detail-back-btn" onClick={() => navigate("groups")}>←</button>

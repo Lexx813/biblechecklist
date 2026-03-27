@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import PageNav from "../PageNav";
+import ConfirmModal from "../ConfirmModal";
 import AICompanion from "../AICompanion";
 import { useFullProfile } from "../../hooks/useAdmin";
 import { useSubscription } from "../../hooks/useSubscription";
@@ -111,6 +112,7 @@ function PlanDetail({ plan, onBack, isAdmin }) {
   const unmarkDay = useUnmarkDay(plan.id);
   const unenroll = useUnenrollPlan();
   const [showAll, setShowAll] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const schedule = useMemo(() => generateSchedule(template.bookIndices, template.totalDays), [template]);
   const doneSet = useMemo(() => new Set(completions.map(c => c.day_number)), [completions]);
@@ -132,7 +134,6 @@ function PlanDetail({ plan, onBack, isAdmin }) {
   }
 
   function handleUnenroll() {
-    if (!confirm(`Remove "${template.name}" from your plans? Your progress will be lost.`)) return;
     unenroll.mutate(plan.id, { onSuccess: onBack });
   }
 
@@ -246,8 +247,16 @@ function PlanDetail({ plan, onBack, isAdmin }) {
       </div>
 
       <div className="rp-danger-zone">
-        <button className="rp-unenroll-btn" onClick={handleUnenroll}>Remove this plan</button>
+        <button className="rp-unenroll-btn" onClick={() => setConfirmDelete(true)}>Remove this plan</button>
       </div>
+
+      {confirmDelete && (
+        <ConfirmModal
+          message={`Remove "${template.name}" from your plans? Your progress will be lost.`}
+          onConfirm={handleUnenroll}
+          onCancel={() => setConfirmDelete(false)}
+        />
+      )}
     </div>
   );
 }
