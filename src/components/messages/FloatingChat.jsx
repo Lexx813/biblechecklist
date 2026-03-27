@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { EMOJI_CATEGORIES } from "../../lib/emojiData";
+import ConfirmModal from "../ConfirmModal";
 import {
   useConversations,
   useMessages,
@@ -7,6 +8,7 @@ import {
   useDeleteMessage,
   useMarkRead,
   useUnreadMessageCount,
+  useDeleteConversation,
   useReactions,
   useToggleReaction,
   useEditMessage,
@@ -482,7 +484,7 @@ function MiniThread({ conv, user, keyPair, onBack }) {
 
 // ── Conversation list ─────────────────────────────────────────────────────────
 
-function ConvList({ conversations, currentUserId, onSelect, onlineUsers }) {
+function ConvList({ conversations, currentUserId, onSelect, onDelete, onlineUsers }) {
   return (
     <div className="fc-conv-list">
       {conversations.length === 0 ? (
@@ -496,7 +498,7 @@ function ConvList({ conversations, currentUserId, onSelect, onlineUsers }) {
             ? "🔒 Encrypted message"
             : conv.last_message_content;
           return (
-            <button key={conv.conversation_id} className="fc-conv-item" onClick={() => onSelect(conv)}>
+            <div key={conv.conversation_id} className="fc-conv-item" onClick={() => onSelect(conv)}>
               <Avatar
                 name={conv.other_display_name}
                 avatarUrl={conv.other_avatar_url}
@@ -516,8 +518,17 @@ function ConvList({ conversations, currentUserId, onSelect, onlineUsers }) {
                   {preview ? `${isMine ? "You: " : ""}${preview}` : "No messages yet"}
                 </span>
               </div>
-              {isUnread && <span className="fc-unread-dot">{conv.unread_count}</span>}
-            </button>
+              <div className="fc-conv-actions">
+                {isUnread && <span className="fc-unread-dot">{conv.unread_count}</span>}
+                <button
+                  className="fc-conv-delete-btn"
+                  onClick={e => { e.stopPropagation(); onDelete(conv.conversation_id); }}
+                  title="Delete conversation"
+                >
+                  🗑
+                </button>
+              </div>
+            </div>
           );
         })
       )}
@@ -535,8 +546,10 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
       : null
   );
   const [onlineUsers, setOnlineUsers] = useState(new Set());
+  const [convToDelete, setConvToDelete] = useState(null);
   const { data: conversations = [], isLoading } = useConversations();
   const { data: unreadCount = 0 } = useUnreadMessageCount();
+  const deleteConversation = useDeleteConversation();
   const { keyPair } = useE2EKeys(user.id);
   const panelRef = useRef(null);
 
@@ -573,6 +586,15 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, [open]);
+
+  function confirmDelete() {
+    deleteConversation.mutate(convToDelete, {
+      onSuccess: () => {
+        if (activeConv?.conversation_id === convToDelete) setActiveConv(null);
+        setConvToDelete(null);
+      },
+    });
+  }
 
   function openFullMessages() {
     setOpen(false);
@@ -612,6 +634,7 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
                 conversations={conversations}
                 currentUserId={user.id}
                 onSelect={setActiveConv}
+                onDelete={setConvToDelete}
                 onlineUsers={onlineUsers}
               />
             )
@@ -629,6 +652,14 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
           <span className="fc-fab-badge">{unreadCount > 9 ? "9+" : unreadCount}</span>
         )}
       </button>
+
+      {convToDelete && (
+        <ConfirmModal
+          message="Delete this conversation? All messages will be permanently removed."
+          onConfirm={confirmDelete}
+          onCancel={() => setConvToDelete(null)}
+        />
+      )}
     </div>
   );
 }

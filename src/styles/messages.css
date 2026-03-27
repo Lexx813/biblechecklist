@@ -172,6 +172,13 @@
   text-overflow: ellipsis;
 }
 
+.msg-conv-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
 .msg-unread-dot {
   background: var(--teal);
   color: #fff;
@@ -191,15 +198,30 @@
   font-size: 14px;
   padding: 4px 6px;
   border-radius: 6px;
-  opacity: 0.5;
   flex-shrink: 0;
   transition: opacity 0.15s, background 0.15s;
   line-height: 1;
+  /* Hidden on desktop until hover */
+  opacity: 0;
+  pointer-events: none;
+}
+
+.msg-conv-item:hover .msg-conv-delete-btn {
+  opacity: 0.6;
+  pointer-events: auto;
 }
 
 .msg-conv-delete-btn:hover {
-  opacity: 1;
+  opacity: 1 !important;
   background: rgba(239, 68, 68, 0.1);
+}
+
+/* Always visible on touch devices */
+@media (hover: none) {
+  .msg-conv-delete-btn {
+    opacity: 0.5;
+    pointer-events: auto;
+  }
 }
 
 /* ── Avatar + online dot ─────────────────────────────────────────────────── */

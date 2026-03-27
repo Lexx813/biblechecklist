@@ -311,7 +311,6 @@ function TypingDots() {
 // ── Conversation list item ────────────────────────────────────────────────────
 
 function ConvItem({ conv, active, onClick, currentUserId, onDelete, onlineUsers }) {
-  const [hovered, setHovered] = useState(false);
   const isUnread = conv.unread_count > 0;
   const isMine = conv.last_message_sender_id === currentUserId;
   const isOnline = onlineUsers.has(conv.other_user_id);
@@ -319,8 +318,6 @@ function ConvItem({ conv, active, onClick, currentUserId, onDelete, onlineUsers 
   return (
     <div
       className={`msg-conv-item${active ? " msg-conv-item--active" : ""}${isUnread ? " msg-conv-item--unread" : ""}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       onClick={onClick}
     >
       <Avatar profile={{ display_name: conv.other_display_name, avatar_url: conv.other_avatar_url }} online={isOnline} />
@@ -337,8 +334,8 @@ function ConvItem({ conv, active, onClick, currentUserId, onDelete, onlineUsers 
             : "No messages yet"}
         </div>
       </div>
-      {isUnread && !hovered && <span className="msg-unread-dot">{conv.unread_count}</span>}
-      {hovered && (
+      <div className="msg-conv-actions">
+        {isUnread && <span className="msg-unread-dot">{conv.unread_count}</span>}
         <button
           className="msg-conv-delete-btn"
           onClick={e => { e.stopPropagation(); onDelete(conv.conversation_id); }}
@@ -346,7 +343,7 @@ function ConvItem({ conv, active, onClick, currentUserId, onDelete, onlineUsers 
         >
           🗑
         </button>
-      )}
+      </div>
     </div>
   );
 }

@@ -126,15 +126,50 @@
   gap: 10px;
   width: 100%;
   padding: 11px 14px;
-  background: none;
-  border: none;
   border-bottom: 1px solid var(--border);
   cursor: pointer;
-  text-align: left;
   transition: background 0.12s;
 }
 
 .fc-conv-item:hover { background: var(--teal-soft); }
+
+.fc-conv-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.fc-conv-delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 3px 5px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  transition: opacity 0.15s, background 0.15s;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fc-conv-item:hover .fc-conv-delete-btn {
+  opacity: 0.6;
+  pointer-events: auto;
+}
+
+.fc-conv-delete-btn:hover {
+  opacity: 1 !important;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+@media (hover: none) {
+  .fc-conv-delete-btn {
+    opacity: 0.5;
+    pointer-events: auto;
+  }
+}
 
 .fc-conv-info { flex: 1; min-width: 0; }
 
