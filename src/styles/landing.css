@@ -280,17 +280,23 @@
 .landing-icon {
   font-size: 44px;
   z-index: 1;
+}
+
+/* Glow behind the icon — opacity-only so it's GPU composited */
+.landing-icon-wrap::before {
+  content: '';
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(192, 132, 252, 0.7) 0%, transparent 70%);
   animation: icon-glow 3s ease-in-out infinite;
+  z-index: 0;
 }
 
 @keyframes icon-glow {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 14px rgba(192, 132, 252, 0.5));
-  }
-  50% {
-    filter: drop-shadow(0 0 32px rgba(192, 132, 252, 0.95));
-  }
+  0%, 100% { opacity: 0.5; }
+  50%       { opacity: 1; }
 }
 
 .landing-badge {
@@ -324,21 +330,15 @@
 .landing-title-accent {
   display: block;
   background: linear-gradient(135deg, #c084fc 0%, #e879f9 50%, #a78bfa 100%);
-  background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradient-shift 5s ease infinite;
+  animation: accent-pulse 5s ease-in-out infinite;
 }
 
-@keyframes gradient-shift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+@keyframes accent-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.8; }
 }
 
 .landing-subtitle {
@@ -387,7 +387,6 @@
   align-items: center;
   gap: 10px;
   background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #c084fc 100%);
-  background-size: 200% 200%;
   color: #fff;
   border: none;
   font-family: 'Plus Jakarta Sans Variable', sans-serif;
@@ -397,29 +396,34 @@
   border-radius: 999px;
   cursor: pointer;
   position: relative;
-  overflow: hidden;
   box-shadow: 0 0 40px rgba(124, 58, 237, 0.45), 0 4px 28px rgba(0, 0, 0, 0.35);
-  transition: transform 0.2s, box-shadow 0.2s, background-position 0.4s;
-  animation: fade-up 0.7s 0.5s ease both, cta-glow 3s 1.5s ease-in-out infinite;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: fade-up 0.7s 0.5s ease both;
   margin-bottom: 20px;
 }
-.landing-cta:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 0 60px rgba(192, 132, 252, 0.55), 0 10px 36px rgba(0, 0, 0, 0.4);
-  background-position: right center;
-}
-.landing-cta:active {
-  transform: translateY(-1px) scale(1.01);
+
+/* Pulsing glow layer — opacity-only so it's GPU composited */
+.landing-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  box-shadow: 0 0 60px rgba(192, 132, 252, 0.6), 0 8px 32px rgba(0, 0, 0, 0.4);
+  animation: cta-glow 3s 1.5s ease-in-out infinite;
+  pointer-events: none;
 }
 
 @keyframes cta-glow {
-  0%,
-  100% {
-    box-shadow: 0 0 40px rgba(124, 58, 237, 0.45), 0 4px 28px rgba(0, 0, 0, 0.35);
-  }
-  50% {
-    box-shadow: 0 0 60px rgba(192, 132, 252, 0.6), 0 8px 32px rgba(0, 0, 0, 0.4);
-  }
+  0%, 100% { opacity: 0; }
+  50%       { opacity: 1; }
+}
+
+.landing-cta:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 0 60px rgba(192, 132, 252, 0.55), 0 10px 36px rgba(0, 0, 0, 0.4);
+}
+.landing-cta:active {
+  transform: translateY(-1px) scale(1.01);
 }
 
 .landing-cta-arrow {
@@ -726,7 +730,7 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradient-shift 5s ease infinite;
+  animation: accent-pulse 5s ease-in-out infinite;
   margin-bottom: 8px;
   letter-spacing: -0.04em;
 }
