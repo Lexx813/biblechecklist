@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 const AuthPage          = lazy(() => import("./components/auth/AuthPage"));
@@ -14,6 +14,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import PageFooter from "./components/PageFooter";
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useFullProfile } from "./hooks/useAdmin";
+import { profileApi } from "./api/profile";
 import { useFeatureFlags } from "./hooks/useFeatureFlags";
 import { useSubscription } from "./hooks/useSubscription";
 import { supabase } from "./lib/supabase";
@@ -163,12 +164,32 @@ function BibleApp({ user, onLogout, i18n }) {
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem("nwt-theme") === "dark");
 
   // Handle Stripe redirect callbacks
+  const pollingRef = useRef(null);
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.has("subscribed")) {
-      queryClient.invalidateQueries({ queryKey: ["fullProfile", user.id] });
-      toast("🎉 Welcome to Premium! Your features are now unlocked.");
       history.replaceState(null, "", window.location.pathname);
+      // Poll until the webhook updates subscription_status (up to 12s)
+      let attempts = 0;
+      pollingRef.current = setInterval(async () => {
+        try {
+          const data = await queryClient.fetchQuery({
+            queryKey: ["fullProfile", user.id],
+            queryFn: () => profileApi.get(user.id),
+            staleTime: 0,
+          });
+          if (data?.subscription_status === "active" || data?.subscription_status === "trialing") {
+            clearInterval(pollingRef.current);
+            toast("🎉 Welcome to Premium! Your features are now unlocked.");
+          } else if (++attempts >= 6) {
+            clearInterval(pollingRef.current);
+            toast("🎉 Subscription received! Refresh if features aren't unlocked yet.");
+          }
+        } catch {
+          clearInterval(pollingRef.current);
+        }
+      }, 2000);
+      return () => clearInterval(pollingRef.current);
     } else if (params.has("checkout_canceled")) {
       history.replaceState(null, "", window.location.pathname);
     }
