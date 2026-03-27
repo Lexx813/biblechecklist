@@ -7,7 +7,6 @@ import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persist
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ErrorBoundary } from './components/ErrorBoundary.jsx'
 import App from './App.jsx'
-import { SpeedInsights } from "@vercel/speed-insights/react"
 import { Analytics } from "@vercel/analytics/react"
 import { toast } from './lib/toast'
 
@@ -74,8 +73,7 @@ createRoot(document.getElementById('root')).render(
         }}
       >
         <App />
-        <SpeedInsights />
-        <Analytics />
+<Analytics />
         <ReactQueryDevtools initialIsOpen={false} />
       </PersistQueryClientProvider>
     </ErrorBoundary>
