@@ -12,10 +12,21 @@ function timeAgo(iso) {
   return Math.floor(s / 86400) + "d ago";
 }
 
+function calcStyle(btnEl) {
+  const rect = btnEl.getBoundingClientRect();
+  const vw = window.innerWidth;
+  const pad = 8;
+  if (vw < 520) {
+    return { top: rect.bottom + 6, left: pad, width: vw - pad * 2, maxHeight: "70vh" };
+  }
+  const rightFromEdge = vw - rect.right;
+  return { top: rect.bottom + 8, right: Math.max(rightFromEdge, pad) };
+}
+
 export default function NotificationBell({ userId, navigate }) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const [dropStyle, setDropStyle] = useState({});
+  const [dropStyle, setDropStyle] = useState(null);
   const wrapRef = useRef(null);
   const btnRef = useRef(null);
   const dropRef = useRef(null);
@@ -26,7 +37,6 @@ export default function NotificationBell({ userId, navigate }) {
 
   const unread = notifications.filter(n => !n.read);
 
-  // Close on outside click — must check both the wrap AND the portal dropdown
   useEffect(() => {
     function handler(e) {
       if (
@@ -38,33 +48,11 @@ export default function NotificationBell({ userId, navigate }) {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  // Position dropdown relative to viewport using getBoundingClientRect so
-  // parent transforms (common in animated headers) don't affect placement.
-  useEffect(() => {
-    if (!open || !btnRef.current) return;
-    const rect = btnRef.current.getBoundingClientRect();
-    const vw = window.innerWidth;
-    const pad = 8;
-    if (vw < 520) {
-      // Full-width sheet on small screens
-      setDropStyle({
-        top: rect.bottom + 6,
-        left: pad,
-        right: pad,
-        width: "auto",
-        maxHeight: "70vh",
-      });
-    } else {
-      // Align right edge with bell, clamp so it never overflows left
-      const rightFromEdge = vw - rect.right;
-      setDropStyle({
-        top: rect.bottom + 8,
-        right: Math.max(rightFromEdge, pad),
-      });
-    }
-  }, [open]);
-
   function handleOpen() {
+    if (!open && btnRef.current) {
+      // Compute position before first render so dropdown appears correctly on frame 1
+      setDropStyle(calcStyle(btnRef.current));
+    }
     setOpen(o => !o);
   }
 
@@ -98,7 +86,7 @@ export default function NotificationBell({ userId, navigate }) {
     return t("notifications.typeMention");
   }
 
-  const dropdown = open ? (
+  const dropdown = (open && dropStyle) ? (
     <div ref={dropRef} className="notif-dropdown" style={dropStyle}>
       <div className="notif-header">
         <span className="notif-title">{t("notifications.title")}</span>
