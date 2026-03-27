@@ -32,7 +32,7 @@ function inlineMainCss() {
         if (linkPattern.test(html)) {
           html = html.replace(linkPattern, `<style>${css}</style>`);
           fs.writeFileSync(htmlPath, html);
-          fs.unlinkSync(cssPath); // Remove the now-unused CSS file
+          // Keep the CSS file — lazy chunks reference it at runtime and need it to exist
         }
       },
     },
