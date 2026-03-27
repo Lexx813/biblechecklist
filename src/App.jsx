@@ -6,12 +6,12 @@ const ResetPasswordPage = lazy(() => import("./components/auth/ResetPasswordPage
 const HomePage          = lazy(() => import("./components/HomePage"));
 const LandingPage       = lazy(() => import("./components/LandingPage"));
 const ChecklistPage     = lazy(() => import("./components/ChecklistPage"));
-import OfflineBanner from "./components/OfflineBanner";
-import Toast from "./components/Toast";
-import InstallPrompt from "./components/InstallPrompt";
+const OfflineBanner  = lazy(() => import("./components/OfflineBanner"));
+const Toast          = lazy(() => import("./components/Toast"));
+const InstallPrompt  = lazy(() => import("./components/InstallPrompt"));
+const PageFooter     = lazy(() => import("./components/PageFooter"));
 import LoadingSpinner from "./components/LoadingSpinner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
-import PageFooter from "./components/PageFooter";
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useFullProfile } from "./hooks/useAdmin";
 import { profileApi } from "./api/profile";
@@ -128,9 +128,9 @@ export default function App() {
   return (
     <>
       <a href="#main-content" className="skip-link">Skip to main content</a>
-      <OfflineBanner />
-      <Toast />
-      <InstallPrompt />
+      <Suspense fallback={null}><OfflineBanner /></Suspense>
+      <Suspense fallback={null}><Toast /></Suspense>
+      <Suspense fallback={null}><InstallPrompt /></Suspense>
       <BibleApp
         user={user}
         onLogout={() => { logout.mutate(); setShowLanding(true); }}

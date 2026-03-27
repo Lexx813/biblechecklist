@@ -194,7 +194,9 @@
       "Bash(find /home/alexi/projects/nwt-progress/src/components -name \"*.jsx\" -exec wc -l {} +)",
       "Bash(grep -n \"createPortal\\\\|dangerouslySetInnerHTML\\\\|innerHTML\" /home/alexi/projects/nwt-progress/src/components/*.jsx)",
       "Bash(grep -n \"refetchInterval\\\\|refetchOnMount\\\\|refetchOnWindowFocus\" /home/alexi/projects/nwt-progress/src/hooks/*.js)",
-      "Bash(identify /home/alexi/projects/nwt-progress/public/og-image.png)"
+      "Bash(identify /home/alexi/projects/nwt-progress/public/og-image.png)",
+      "Bash(ls -la /home/alexi/projects/nwt-progress/dist/assets/index-*.js)",
+      "Bash(ls -la /home/alexi/projects/nwt-progress/dist/assets/*.js)"
     ],
     "additionalDirectories": [
       "/home/alexi/projects",
