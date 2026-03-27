@@ -41,7 +41,13 @@ function UsersTab({ currentUser, navigate }) {
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [confirmBan, setConfirmBan] = useState(null);
   const [confirmCancelSub, setConfirmCancelSub] = useState(null);
+  const [toggleError, setToggleError] = useState("");
   const [page, setPage] = useState(0);
+
+  function onToggleError(err) {
+    setToggleError(err.message || "Action failed. Please try again.");
+    setTimeout(() => setToggleError(""), 4000);
+  }
 
   const totalPages = Math.ceil(users.length / USERS_PAGE_SIZE);
   const pageUsers = users.slice(page * USERS_PAGE_SIZE, (page + 1) * USERS_PAGE_SIZE);
@@ -106,6 +112,8 @@ function UsersTab({ currentUser, navigate }) {
         </form>
       )}
 
+      {toggleError && <div className="admin-form-error" style={{ marginBottom: 12 }}>{toggleError}</div>}
+
       {isLoading ? (
         <LoadingSpinner />
       ) : (
@@ -159,21 +167,21 @@ function UsersTab({ currentUser, navigate }) {
                       <div className="admin-actions">
                         <button
                           className="admin-action-btn"
-                          onClick={() => setAdmin.mutate({ userId: user.id, value: !user.is_admin })}
+                          onClick={() => setAdmin.mutate({ userId: user.id, value: !user.is_admin }, { onError: onToggleError })}
                           disabled={setAdmin.isPending}
                         >
                           {user.is_admin ? t("admin.removeAdmin") : t("admin.makeAdmin")}
                         </button>
                         <button
                           className={`admin-action-btn ${user.is_moderator ? "admin-action-btn--active" : ""}`}
-                          onClick={() => setModerator.mutate({ userId: user.id, value: !user.is_moderator })}
+                          onClick={() => setModerator.mutate({ userId: user.id, value: !user.is_moderator }, { onError: onToggleError })}
                           disabled={setModerator.isPending}
                         >
                           {user.is_moderator ? "Unmod" : "Make Mod"}
                         </button>
                         <button
                           className={`admin-action-btn ${user.can_blog ? "admin-action-btn--active" : ""}`}
-                          onClick={() => setBlog.mutate({ userId: user.id, value: !user.can_blog })}
+                          onClick={() => setBlog.mutate({ userId: user.id, value: !user.can_blog }, { onError: onToggleError })}
                           disabled={setBlog.isPending}
                         >
                           {user.can_blog ? t("admin.writer") : t("admin.allowBlog")}
@@ -181,7 +189,7 @@ function UsersTab({ currentUser, navigate }) {
                         <span className="admin-actions-sep" />
                         <button
                           className={`admin-action-btn ${user.subscription_status === "gifted" ? "admin-action-btn--active" : ""}`}
-                          onClick={() => giftPremium.mutate({ userId: user.id, value: user.subscription_status !== "gifted" })}
+                          onClick={() => giftPremium.mutate({ userId: user.id, value: user.subscription_status !== "gifted" }, { onError: onToggleError })}
                           disabled={giftPremium.isPending}
                           title={user.subscription_status === "gifted" ? "Revoke free Premium" : "Grant free Premium"}
                         >

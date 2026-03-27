@@ -73,7 +73,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4);
   const { data: profile } = useFullProfile(user?.id);
   const updateProfile = useUpdateProfile(user?.id);
-  const { data: streak = { current_streak: 0, longest_streak: 0 } } = useReadingStreak(user?.id);
+  const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
   const [showOnboarding, closeOnboarding] = useOnboarding();
   const [notifDismissed, setNotifDismissed] = useState(() => !!localStorage.getItem("nwt-notif-dismissed"));
 
@@ -132,9 +132,11 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         <DailyVerse user={user} />
       </section>
 
-      {/* ── Streak banner ── */}
-      {streak.current_streak > 0 && (
-        <section className="home-section home-section--slim">
+      {/* ── Streak banner — always rendered to reserve layout space and prevent CLS ── */}
+      <section className="home-section home-section--slim">
+        {streakLoading ? (
+          <div className="home-streak-skeleton" />
+        ) : streak.current_streak > 0 ? (
           <div className="home-streak-banner" onClick={() => navigate("profile")}>
             <span className="home-streak-fire">🔥</span>
             <span className="home-streak-text">
@@ -144,8 +146,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <span className="home-streak-best">🏆 {t("home.streakBest")}: {streak.longest_streak}</span>
             )}
           </div>
-        </section>
-      )}
+        ) : null}
+      </section>
 
       {/* ── Bible Tracker section ── */}
       <section className="home-section">

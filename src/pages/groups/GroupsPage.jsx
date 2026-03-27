@@ -28,6 +28,7 @@ function CreateGroupModal({ onClose, onCreated }) {
     goalLabel: "",
     goalDeadline: "",
   });
+  const [error, setError] = useState("");
 
   function set(key, value) {
     setForm(f => ({ ...f, [key]: value }));
@@ -36,6 +37,7 @@ function CreateGroupModal({ onClose, onCreated }) {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!form.name.trim()) return;
+    setError("");
     createGroup.mutate(
       {
         name: form.name.trim(),
@@ -45,10 +47,8 @@ function CreateGroupModal({ onClose, onCreated }) {
         goalDeadline: form.goalDeadline || null,
       },
       {
-        onSuccess: (group) => {
-          onCreated(group);
-          onClose();
-        },
+        onSuccess: (group) => { onCreated(group); onClose(); },
+        onError: (err) => setError(err.message || "Failed to create group."),
       }
     );
   }
@@ -110,6 +110,7 @@ function CreateGroupModal({ onClose, onCreated }) {
             />
             <span>Private group (invite-only)</span>
           </label>
+          {error && <p className="grp-error">{error}</p>}
           <div className="grp-modal-actions">
             <button type="button" className="grp-btn grp-btn--ghost" onClick={onClose}>Cancel</button>
             <button type="submit" className="grp-btn grp-btn--primary" disabled={createGroup.isPending || !form.name.trim()}>

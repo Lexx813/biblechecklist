@@ -31,17 +31,19 @@ export const progressApi = {
   },
 
   markChapterRead: async (userId, bookIndex, chapter) => {
-    await supabase.from("chapter_reads").upsert({
+    const { error } = await supabase.from("chapter_reads").upsert({
       user_id: userId, book_index: bookIndex, chapter, read_at: new Date().toISOString(),
     });
+    if (error) throw new Error(error.message);
   },
 
   unmarkChapterRead: async (userId, bookIndex, chapter) => {
-    await supabase.from("chapter_reads")
+    const { error } = await supabase.from("chapter_reads")
       .delete()
       .eq("user_id", userId)
       .eq("book_index", bookIndex)
       .eq("chapter", chapter);
+    if (error) throw new Error(error.message);
   },
 
   loadChapterTimestamps: async (userId) => {
