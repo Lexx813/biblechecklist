@@ -31,7 +31,7 @@ export default function LandingPage({ onGetStarted }) {
   ];
 
   return (
-    <div className="landing-wrap">
+    <div className="landing-wrap" role="main" id="main-content">
       {/* Animated background */}
       <div className="landing-bg" aria-hidden="true">
         <div className="landing-orb landing-orb--1" />
