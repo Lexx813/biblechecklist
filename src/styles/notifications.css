@@ -2,6 +2,12 @@
 
 .notif-bell-btn { position: relative; }
 
+/* On small screens the dropdown's containing block becomes .page-nav
+   (position:sticky, full viewport width) so left/right are viewport-relative */
+@media (max-width: 519px) {
+  .notif-wrap { position: static; }
+}
+
 .notif-badge {
   position: absolute; top: -4px; right: -4px;
   background: #e53e3e; color: #fff;
@@ -13,10 +19,22 @@
 }
 
 .notif-dropdown {
-  position: fixed; z-index: 300;
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: 300;
   width: 320px; max-height: 440px; overflow-y: auto;
   background: var(--card-bg); border: 1px solid var(--border);
   border-radius: var(--radius); box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+
+@media (max-width: 519px) {
+  .notif-dropdown {
+    /* .notif-wrap is position:static so containing block is .page-nav
+       (position:sticky, width:100vw, top:0). Place panel below the 52px nav. */
+    left: 8px;
+    right: 8px;
+    top: 52px;
+    width: auto;
+    max-height: 70vh;
+  }
 }
 
 .notif-header {
