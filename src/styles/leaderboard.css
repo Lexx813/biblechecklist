@@ -4,6 +4,18 @@
   max-width: 640px; margin: 0 auto;
   padding: 24px 20px 0;
 }
+
+/* Back button */
+.lb-header .admin-back-btn {
+  background: none;
+  border: none;
+  color: var(--teal, #0d9488);
+  padding: 6px 10px;
+}
+.lb-header .admin-back-btn:hover {
+  background: var(--teal-light, rgba(13,148,136,0.12));
+  transform: translateY(-1px);
+}
 .lb-title { font-size: 24px; font-weight: 900; color: var(--text-primary); margin: 8px 0 4px; }
 .lb-sub { font-size: 14px; color: var(--text-muted); margin: 0; }
 
