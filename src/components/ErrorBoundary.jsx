@@ -87,7 +87,21 @@ export class ErrorBoundary extends React.Component {
         const recentlyReloaded = reloadedAt && Date.now() - Number(reloadedAt) < 30_000;
         if (!recentlyReloaded) {
           sessionStorage.setItem("chunkReloadedAt", String(Date.now()));
-          window.location.reload();
+          // Unregister SW and wipe all caches so poisoned/stale chunks are gone,
+          // then reload — next load goes straight to CDN for fresh assets.
+          const cleanup = [];
+          if ("serviceWorker" in navigator) {
+            cleanup.push(
+              navigator.serviceWorker.getRegistrations()
+                .then(regs => Promise.all(regs.map(r => r.unregister())))
+            );
+          }
+          if ("caches" in window) {
+            cleanup.push(
+              caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))))
+            );
+          }
+          Promise.all(cleanup).finally(() => window.location.reload());
           return null;
         }
       }
