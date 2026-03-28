@@ -221,7 +221,30 @@
     "makeAdmin": "Make Admin",
     "deleteConfirm": "Delete {{email}}? This cannot be undone.",
     "inviteSent": "Invite sent to {{email}}. They must confirm their email before logging in.",
-    "selfDeleteError": "You cannot delete your own account."
+    "selfDeleteError": "You cannot delete your own account.",
+    "subscribers": "Subscribers",
+    "banned": "Banned",
+    "gifted": "Gifted",
+    "makeMod": "Make Mod",
+    "removeMod": "Unmod",
+    "ban": "Ban",
+    "unban": "Unban",
+    "cancelSub": "Cancel Sub",
+    "giftPremium": "⭐ Gift Premium",
+    "revokeGift": "⭐ Revoke Gift",
+    "moderation": "Moderation",
+    "searchUsers": "Search users…",
+    "filterAll": "All",
+    "filterAdmins": "Admins",
+    "filterMods": "Mods",
+    "filterBanned": "Banned",
+    "filterPremium": "Premium",
+    "filterGifted": "Gifted",
+    "exportCSV": "Export CSV",
+    "recentSignups": "New (7d)",
+    "mrr": "MRR",
+    "messageUser": "Message",
+    "colName": "Display Name"
   },
   "profile": {
     "title": "My Profile",
@@ -525,7 +548,11 @@
   "adminTabs": {
     "users": "Users",
     "reports": "Reports",
+    "blog": "Blog Posts",
+    "comments": "Comments",
+    "forum": "Forum Threads",
     "quiz": "Quiz Editor",
+    "quizStats": "Quiz Stats",
     "announcements": "Announcements"
   },
   "adminReports": {
@@ -535,7 +562,43 @@
     "delete": "Delete",
     "reportedBy": "Reported by",
     "reason": "Reason:",
-    "noReason": "No reason provided"
+    "noReason": "No reason provided",
+    "viewContent": "View Content",
+    "deleteContent": "Delete Content",
+    "filterPending": "Pending",
+    "filterResolved": "Resolved",
+    "filterAll": "All"
+  },
+  "adminBlog": {
+    "noPosts": "No blog posts yet.",
+    "deleteConfirm": "Delete \"{{title}}\"? This cannot be undone.",
+    "published": "Published",
+    "draft": "Draft"
+  },
+  "adminForum": {
+    "noThreads": "No forum threads yet.",
+    "deleteConfirm": "Delete \"{{title}}\"? All replies will be removed.",
+    "pin": "Pin",
+    "unpin": "Unpin",
+    "lock": "Lock",
+    "unlock": "Unlock",
+    "replies": "replies",
+    "pinned": "📌 Pinned",
+    "locked": "🔒 Locked"
+  },
+  "adminComments": {
+    "noComments": "No comments yet.",
+    "comment": "comment",
+    "on": "on",
+    "deleteConfirm": "Delete this comment? This cannot be undone."
+  },
+  "adminQuizStats": {
+    "level": "Level",
+    "unlocked": "Users Reached",
+    "passed": "Passed",
+    "passRate": "Pass Rate",
+    "avgScore": "Avg Score",
+    "attempts": "Attempts"
   },
   "adminQuiz": {
     "selectLevel": "Select Level",
