@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { adminApi } from "../api/admin";
 import { profileApi } from "../api/profile";
+import { blogApi } from "../api/blog";
+import { forumApi } from "../api/forum";
 
 export function useProfile(userId) {
   return useQuery({
@@ -109,5 +111,83 @@ export function useGiftPremium() {
   return useMutation({
     mutationFn: ({ userId, value }) => adminApi.giftPremium(userId, value),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "users"] }),
+  });
+}
+
+export function useAllComments() {
+  return useQuery({
+    queryKey: ["admin", "comments"],
+    queryFn: adminApi.listAllComments,
+    staleTime: 60 * 1000,
+  });
+}
+
+export function useAdminDeleteComment() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (commentId) => blogApi.deleteComment(commentId),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "comments"] }),
+  });
+}
+
+export function useAdminQuizStats() {
+  return useQuery({
+    queryKey: ["admin", "quizStats"],
+    queryFn: adminApi.getQuizStats,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useAllBlogPosts() {
+  return useQuery({
+    queryKey: ["admin", "blog"],
+    queryFn: adminApi.listAllBlogPosts,
+    staleTime: 60 * 1000,
+  });
+}
+
+export function useAdminDeleteBlogPost() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (postId) => blogApi.delete(postId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["admin", "blog"] });
+      queryClient.invalidateQueries({ queryKey: ["blog", "published"] });
+    },
+  });
+}
+
+export function useAllForumThreads() {
+  return useQuery({
+    queryKey: ["admin", "forum"],
+    queryFn: adminApi.listAllForumThreads,
+    staleTime: 60 * 1000,
+  });
+}
+
+export function useAdminDeleteForumThread() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (threadId) => forumApi.deleteThread(threadId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["admin", "forum"] });
+      queryClient.invalidateQueries({ queryKey: ["forum"] });
+    },
+  });
+}
+
+export function useAdminPinThread() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ threadId, value }) => forumApi.pinThread(threadId, value),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "forum"] }),
+  });
+}
+
+export function useAdminLockThread() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ threadId, value }) => forumApi.lockThread(threadId, value),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "forum"] }),
   });
 }

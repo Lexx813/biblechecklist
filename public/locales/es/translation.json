@@ -221,7 +221,30 @@
     "makeAdmin": "Hacer Admin",
     "deleteConfirm": "¿Eliminar a {{email}}? Esta acción no se puede deshacer.",
     "inviteSent": "Invitación enviada a {{email}}. Debe confirmar su correo antes de iniciar sesión.",
-    "selfDeleteError": "No puedes eliminar tu propia cuenta."
+    "selfDeleteError": "No puedes eliminar tu propia cuenta.",
+    "subscribers": "Suscriptores",
+    "banned": "Bloqueado",
+    "gifted": "Regalo",
+    "makeMod": "Hacer Mod",
+    "removeMod": "Quitar Mod",
+    "ban": "Bloquear",
+    "unban": "Desbloquear",
+    "cancelSub": "Cancelar Sub",
+    "giftPremium": "⭐ Regalar Premium",
+    "revokeGift": "⭐ Revocar Regalo",
+    "moderation": "Moderación",
+    "searchUsers": "Buscar usuarios…",
+    "filterAll": "Todos",
+    "filterAdmins": "Admins",
+    "filterMods": "Mods",
+    "filterBanned": "Bloqueados",
+    "filterPremium": "Premium",
+    "filterGifted": "Regalados",
+    "exportCSV": "Exportar CSV",
+    "recentSignups": "Nuevos (7d)",
+    "mrr": "Ingresos Mensuales",
+    "messageUser": "Mensaje",
+    "colName": "Nombre de Usuario"
   },
   "profile": {
     "title": "Mi Perfil",
@@ -506,7 +529,11 @@
   "adminTabs": {
     "users": "Usuarios",
     "reports": "Reportes",
+    "blog": "Entradas del Blog",
+    "comments": "Comentarios",
+    "forum": "Hilos del Foro",
     "quiz": "Editor de Quiz",
+    "quizStats": "Estadísticas del Quiz",
     "announcements": "Anuncios"
   },
   "adminReports": {
@@ -516,7 +543,43 @@
     "delete": "Eliminar",
     "reportedBy": "Reportado por",
     "reason": "Razón:",
-    "noReason": "Sin razón proporcionada"
+    "noReason": "Sin razón proporcionada",
+    "viewContent": "Ver Contenido",
+    "deleteContent": "Eliminar Contenido",
+    "filterPending": "Pendiente",
+    "filterResolved": "Resuelto",
+    "filterAll": "Todos"
+  },
+  "adminBlog": {
+    "noPosts": "Aún no hay entradas del blog.",
+    "deleteConfirm": "¿Eliminar \"{{title}}\"? Esta acción no se puede deshacer.",
+    "published": "Publicado",
+    "draft": "Borrador"
+  },
+  "adminForum": {
+    "noThreads": "Aún no hay hilos del foro.",
+    "deleteConfirm": "¿Eliminar \"{{title}}\"? Se eliminarán todas las respuestas.",
+    "pin": "Fijar",
+    "unpin": "Desfijar",
+    "lock": "Bloquear",
+    "unlock": "Desbloquear",
+    "replies": "respuestas",
+    "pinned": "📌 Fijado",
+    "locked": "🔒 Bloqueado"
+  },
+  "adminComments": {
+    "noComments": "Aún no hay comentarios.",
+    "comment": "comentario",
+    "on": "en",
+    "deleteConfirm": "¿Eliminar este comentario? Esta acción no se puede deshacer."
+  },
+  "adminQuizStats": {
+    "level": "Nivel",
+    "unlocked": "Usuarios",
+    "passed": "Aprobaron",
+    "passRate": "Tasa de Aprobación",
+    "avgScore": "Puntaje Promedio",
+    "attempts": "Intentos"
   },
   "adminQuiz": {
     "selectLevel": "Seleccionar Nivel",

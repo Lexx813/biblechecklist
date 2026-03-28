@@ -221,7 +221,30 @@
     "makeAdmin": "Tornar Admin",
     "deleteConfirm": "Excluir {{email}}? Essa ação não pode ser desfeita.",
     "inviteSent": "Convite enviado para {{email}}. Eles devem confirmar o e-mail antes de fazer login.",
-    "selfDeleteError": "Você não pode excluir sua própria conta."
+    "selfDeleteError": "Você não pode excluir sua própria conta.",
+    "subscribers": "Assinantes",
+    "banned": "Banido",
+    "gifted": "Presente",
+    "makeMod": "Tornar Mod",
+    "removeMod": "Remover Mod",
+    "ban": "Banir",
+    "unban": "Desbanir",
+    "cancelSub": "Cancelar Sub",
+    "giftPremium": "⭐ Presentear Premium",
+    "revokeGift": "⭐ Revogar Presente",
+    "moderation": "Moderação",
+    "searchUsers": "Buscar usuários…",
+    "filterAll": "Todos",
+    "filterAdmins": "Admins",
+    "filterMods": "Mods",
+    "filterBanned": "Banidos",
+    "filterPremium": "Premium",
+    "filterGifted": "Presenteados",
+    "exportCSV": "Exportar CSV",
+    "recentSignups": "Novos (7d)",
+    "mrr": "Receita Mensal",
+    "messageUser": "Mensagem",
+    "colName": "Nome de Exibição"
   },
   "profile": {
     "title": "Meu Perfil",
@@ -506,7 +529,11 @@
   "adminTabs": {
     "users": "Usuários",
     "reports": "Denúncias",
+    "blog": "Posts do Blog",
+    "comments": "Comentários",
+    "forum": "Tópicos do Fórum",
     "quiz": "Editor de Quiz",
+    "quizStats": "Estatísticas do Quiz",
     "announcements": "Anúncios"
   },
   "adminReports": {
@@ -516,7 +543,43 @@
     "delete": "Excluir",
     "reportedBy": "Denunciado por",
     "reason": "Motivo:",
-    "noReason": "Nenhum motivo fornecido"
+    "noReason": "Nenhum motivo fornecido",
+    "viewContent": "Ver Conteúdo",
+    "deleteContent": "Excluir Conteúdo",
+    "filterPending": "Pendente",
+    "filterResolved": "Resolvido",
+    "filterAll": "Todos"
+  },
+  "adminBlog": {
+    "noPosts": "Ainda não há posts no blog.",
+    "deleteConfirm": "Excluir \"{{title}}\"? Esta ação não pode ser desfeita.",
+    "published": "Publicado",
+    "draft": "Rascunho"
+  },
+  "adminForum": {
+    "noThreads": "Ainda não há tópicos no fórum.",
+    "deleteConfirm": "Excluir \"{{title}}\"? Todas as respostas serão removidas.",
+    "pin": "Fixar",
+    "unpin": "Desafixar",
+    "lock": "Bloquear",
+    "unlock": "Desbloquear",
+    "replies": "respostas",
+    "pinned": "📌 Fixado",
+    "locked": "🔒 Bloqueado"
+  },
+  "adminComments": {
+    "noComments": "Ainda não há comentários.",
+    "comment": "comentário",
+    "on": "em",
+    "deleteConfirm": "Excluir este comentário? Esta ação não pode ser desfeita."
+  },
+  "adminQuizStats": {
+    "level": "Nível",
+    "unlocked": "Usuários",
+    "passed": "Aprovados",
+    "passRate": "Taxa de Aprovação",
+    "avgScore": "Pontuação Média",
+    "attempts": "Tentativas"
   },
   "adminQuiz": {
     "selectLevel": "Selecionar Nível",

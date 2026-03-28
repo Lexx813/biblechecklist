@@ -221,7 +221,30 @@
     "makeAdmin": "Rendre admin",
     "deleteConfirm": "Supprimer {{email}} ? Cette action est irréversible.",
     "inviteSent": "Invitation envoyée à {{email}}. Il doit confirmer son e-mail avant de se connecter.",
-    "selfDeleteError": "Vous ne pouvez pas supprimer votre propre compte."
+    "selfDeleteError": "Vous ne pouvez pas supprimer votre propre compte.",
+    "subscribers": "Abonnés",
+    "banned": "Banni",
+    "gifted": "Offert",
+    "makeMod": "Modérateur",
+    "removeMod": "Retirer Mod",
+    "ban": "Bannir",
+    "unban": "Débannir",
+    "cancelSub": "Annuler Abo.",
+    "giftPremium": "⭐ Offrir Premium",
+    "revokeGift": "⭐ Révoquer Cadeau",
+    "moderation": "Modération",
+    "searchUsers": "Rechercher des utilisateurs…",
+    "filterAll": "Tous",
+    "filterAdmins": "Admins",
+    "filterMods": "Mods",
+    "filterBanned": "Bannis",
+    "filterPremium": "Premium",
+    "filterGifted": "Offerts",
+    "exportCSV": "Exporter CSV",
+    "recentSignups": "Nouveaux (7j)",
+    "mrr": "Revenu Mensuel",
+    "messageUser": "Message",
+    "colName": "Nom d'Affichage"
   },
   "profile": {
     "title": "Mon Profil",
@@ -506,7 +529,11 @@
   "adminTabs": {
     "users": "Utilisateurs",
     "reports": "Signalements",
+    "blog": "Articles du Blog",
+    "comments": "Commentaires",
+    "forum": "Fils du Forum",
     "quiz": "Éditeur de Quiz",
+    "quizStats": "Statistiques du Quiz",
     "announcements": "Annonces"
   },
   "adminReports": {
@@ -516,7 +543,43 @@
     "delete": "Supprimer",
     "reportedBy": "Signalé par",
     "reason": "Motif :",
-    "noReason": "Aucun motif fourni"
+    "noReason": "Aucun motif fourni",
+    "viewContent": "Voir le Contenu",
+    "deleteContent": "Supprimer le Contenu",
+    "filterPending": "En attente",
+    "filterResolved": "Résolu",
+    "filterAll": "Tous"
+  },
+  "adminBlog": {
+    "noPosts": "Aucun article de blog pour l'instant.",
+    "deleteConfirm": "Supprimer \"{{title}}\" ? Cette action est irréversible.",
+    "published": "Publié",
+    "draft": "Brouillon"
+  },
+  "adminForum": {
+    "noThreads": "Aucun fil de forum pour l'instant.",
+    "deleteConfirm": "Supprimer \"{{title}}\" ? Toutes les réponses seront supprimées.",
+    "pin": "Épingler",
+    "unpin": "Désépingler",
+    "lock": "Verrouiller",
+    "unlock": "Déverrouiller",
+    "replies": "réponses",
+    "pinned": "📌 Épinglé",
+    "locked": "🔒 Verrouillé"
+  },
+  "adminComments": {
+    "noComments": "Aucun commentaire pour l'instant.",
+    "comment": "commentaire",
+    "on": "sur",
+    "deleteConfirm": "Supprimer ce commentaire ? Cette action est irréversible."
+  },
+  "adminQuizStats": {
+    "level": "Niveau",
+    "unlocked": "Utilisateurs",
+    "passed": "Réussi",
+    "passRate": "Taux de Réussite",
+    "avgScore": "Score Moyen",
+    "attempts": "Tentatives"
   },
   "adminQuiz": {
     "selectLevel": "Sélectionner le Niveau",

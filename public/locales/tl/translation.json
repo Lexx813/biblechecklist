@@ -221,7 +221,30 @@
     "makeAdmin": "Gawing Admin",
     "deleteConfirm": "Burahin ang {{email}}? Hindi ito maaaring bawiin.",
     "inviteSent": "Naipadala ang imbitasyon sa {{email}}. Kailangan nilang kumpirmahin ang kanilang email bago mag-login.",
-    "selfDeleteError": "Hindi mo mabubura ang iyong sariling account."
+    "selfDeleteError": "Hindi mo mabubura ang iyong sariling account.",
+    "subscribers": "Mga Subscriber",
+    "banned": "Ipinagbawal",
+    "gifted": "Hinirang",
+    "makeMod": "Gawing Mod",
+    "removeMod": "Alisin ang Mod",
+    "ban": "I-ban",
+    "unban": "I-unban",
+    "cancelSub": "Kanselahin ang Sub",
+    "giftPremium": "⭐ Bigyan ng Premium",
+    "revokeGift": "⭐ Bawiin ang Regalo",
+    "moderation": "Moderasyon",
+    "searchUsers": "Maghanap ng mga gumagamit…",
+    "filterAll": "Lahat",
+    "filterAdmins": "Mga Admin",
+    "filterMods": "Mga Mod",
+    "filterBanned": "Mga Na-ban",
+    "filterPremium": "Premium",
+    "filterGifted": "Mga Hinirang",
+    "exportCSV": "I-export ang CSV",
+    "recentSignups": "Bago (7d)",
+    "mrr": "Buwanang Kita",
+    "messageUser": "Mensahe",
+    "colName": "Display Name"
   },
   "profile": {
     "title": "Aking Profile",
@@ -506,7 +529,11 @@
   "adminTabs": {
     "users": "Mga Gumagamit",
     "reports": "Mga Ulat",
+    "blog": "Mga Post sa Blog",
+    "comments": "Mga Komento",
+    "forum": "Mga Thread sa Forum",
     "quiz": "Editor ng Quiz",
+    "quizStats": "Istatistika ng Quiz",
     "announcements": "Mga Anunsyo"
   },
   "adminReports": {
@@ -516,7 +543,43 @@
     "delete": "Burahin",
     "reportedBy": "Iniulat ng",
     "reason": "Dahilan:",
-    "noReason": "Walang ibinigay na dahilan"
+    "noReason": "Walang ibinigay na dahilan",
+    "viewContent": "Tingnan ang Nilalaman",
+    "deleteContent": "Burahin ang Nilalaman",
+    "filterPending": "Nakabinbin",
+    "filterResolved": "Nalutas",
+    "filterAll": "Lahat"
+  },
+  "adminBlog": {
+    "noPosts": "Wala pang mga post sa blog.",
+    "deleteConfirm": "Burahin ang \"{{title}}\"? Hindi ito maaaring ibalik.",
+    "published": "Nailathala",
+    "draft": "Draft"
+  },
+  "adminForum": {
+    "noThreads": "Wala pang mga thread sa forum.",
+    "deleteConfirm": "Burahin ang \"{{title}}\"? Lahat ng mga tugon ay aalisin.",
+    "pin": "I-pin",
+    "unpin": "I-unpin",
+    "lock": "I-lock",
+    "unlock": "I-unlock",
+    "replies": "mga tugon",
+    "pinned": "📌 Naka-pin",
+    "locked": "🔒 Naka-lock"
+  },
+  "adminComments": {
+    "noComments": "Wala pang mga komento.",
+    "comment": "komento",
+    "on": "sa",
+    "deleteConfirm": "Burahin ang komentong ito? Hindi ito maaaring ibalik."
+  },
+  "adminQuizStats": {
+    "level": "Antas",
+    "unlocked": "Mga Gumagamit",
+    "passed": "Nakapasa",
+    "passRate": "Antas ng Pagpasa",
+    "avgScore": "Avg na Marka",
+    "attempts": "Mga Pagtatangka"
   },
   "adminQuiz": {
     "selectLevel": "Piliin ang Antas",

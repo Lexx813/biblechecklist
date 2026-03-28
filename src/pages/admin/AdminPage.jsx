@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import CustomSelect from "../../components/CustomSelect";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
 import PageNav from "../../components/PageNav";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import { useUsers, useDeleteUser, useSetAdmin, useSetModerator, useSetBlog, useCreateUser, useBanUser, useCancelSubscription, useGiftPremium } from "../../hooks/useAdmin";
+import {
+  useUsers, useDeleteUser, useSetAdmin, useSetModerator, useSetBlog,
+  useCreateUser, useBanUser, useCancelSubscription, useGiftPremium,
+  useAllBlogPosts, useAdminDeleteBlogPost,
+  useAllForumThreads, useAdminDeleteForumThread, useAdminPinThread, useAdminLockThread,
+  useAllComments, useAdminDeleteComment, useAdminQuizStats,
+} from "../../hooks/useAdmin";
+
+const MONTHLY_PRICE = 4.99;
 import { useReports, useUpdateReport, useDeleteReport, useDeleteReportedContent } from "../../hooks/useReports";
 import { useAllAnnouncements, useCreateAnnouncement, useToggleAnnouncement, useDeleteAnnouncement } from "../../hooks/useAnnouncements";
 import { useAllQuizQuestions, useCreateQuizQuestion, useUpdateQuizQuestion, useDeleteQuizQuestion } from "../../hooks/useQuiz";
@@ -20,6 +28,89 @@ function formatDate(iso) {
 
 // ── Users Tab ─────────────────────────────────────────────────────────────────
 const USERS_PAGE_SIZE = 20;
+const USER_FILTERS = ["all", "admins", "mods", "banned", "premium", "gifted"];
+
+function exportUsersCSV(users) {
+  const headers = ["Email", "Display Name", "Joined", "Role", "Subscription", "Banned", "Can Blog"];
+  const rows = users.map(u => [
+    u.email ?? "",
+    u.display_name ?? "",
+    new Date(u.created_at).toLocaleDateString(),
+    u.is_admin ? "Admin" : u.is_moderator ? "Moderator" : "Member",
+    u.subscription_status ?? "inactive",
+    u.is_banned ? "Yes" : "No",
+    u.can_blog ? "Yes" : "No",
+  ]);
+  const csv = [headers, ...rows].map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n");
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `users-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function UserActionsDropdown({ user, currentUser, navigate, setAdmin, setModerator, setBlog, banUser, cancelSub, giftPremium, deleteUser, onToggleError, setConfirmDelete, setConfirmBan, setConfirmCancelSub, t }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function handleClick(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [open]);
+
+  function action(fn) {
+    setOpen(false);
+    fn();
+  }
+
+  return (
+    <div className="admin-dropdown" ref={ref}>
+      <button className="admin-dropdown-trigger" onClick={() => setOpen(v => !v)} title={t("admin.colActions")}>
+        ⋯
+      </button>
+      {open && (
+        <div className="admin-dropdown-menu">
+          <button className="admin-dropdown-item" onClick={() => action(() => navigate("publicProfile", { userId: user.id }))}>
+            👤 {t("admin.messageUser")}
+          </button>
+          <div className="admin-dropdown-sep" />
+          <button className="admin-dropdown-item" onClick={() => action(() => setAdmin.mutate({ userId: user.id, value: !user.is_admin }, { onError: onToggleError }))} disabled={setAdmin.isPending}>
+            {user.is_admin ? "⬇ " + t("admin.removeAdmin") : "⬆ " + t("admin.makeAdmin")}
+          </button>
+          <button className={`admin-dropdown-item${user.is_moderator ? " admin-dropdown-item--active" : ""}`} onClick={() => action(() => setModerator.mutate({ userId: user.id, value: !user.is_moderator }, { onError: onToggleError }))} disabled={setModerator.isPending}>
+            🛡️ {user.is_moderator ? t("admin.removeMod") : t("admin.makeMod")}
+          </button>
+          <button className={`admin-dropdown-item${user.can_blog ? " admin-dropdown-item--active" : ""}`} onClick={() => action(() => setBlog.mutate({ userId: user.id, value: !user.can_blog }, { onError: onToggleError }))} disabled={setBlog.isPending}>
+            ✍️ {user.can_blog ? t("admin.writer") : t("admin.allowBlog")}
+          </button>
+          <div className="admin-dropdown-sep" />
+          <button className={`admin-dropdown-item${user.subscription_status === "gifted" ? " admin-dropdown-item--active" : ""}`} onClick={() => action(() => giftPremium.mutate({ userId: user.id, value: user.subscription_status !== "gifted" }, { onError: onToggleError }))} disabled={giftPremium.isPending}>
+            ⭐ {user.subscription_status === "gifted" ? t("admin.revokeGift") : t("admin.giftPremium")}
+          </button>
+          {(user.subscription_status === "active" || user.subscription_status === "trialing") && (
+            <button className="admin-dropdown-item admin-dropdown-item--danger" onClick={() => action(() => setConfirmCancelSub(user))} disabled={cancelSub.isPending}>
+              ✂️ {t("admin.cancelSub")}
+            </button>
+          )}
+          <div className="admin-dropdown-sep" />
+          <button className={`admin-dropdown-item${user.is_banned ? " admin-dropdown-item--active" : " admin-dropdown-item--danger"}`} onClick={() => action(() => setConfirmBan(user))} disabled={banUser.isPending}>
+            🚫 {user.is_banned ? t("admin.unban") : t("admin.ban")}
+          </button>
+          <div className="admin-dropdown-sep" />
+          <button className="admin-dropdown-item admin-dropdown-item--danger" onClick={() => action(() => setConfirmDelete(user))} disabled={deleteUser.isPending}>
+            🗑️ {t("common.delete")}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function UsersTab({ currentUser, navigate }) {
   const { data: users = [], isLoading } = useUsers();
@@ -43,19 +134,34 @@ function UsersTab({ currentUser, navigate }) {
   const [confirmCancelSub, setConfirmCancelSub] = useState(null);
   const [toggleError, setToggleError] = useState("");
   const [page, setPage] = useState(0);
+  const [search, setSearch] = useState("");
+  const [roleFilter, setRoleFilter] = useState("all");
 
   function onToggleError(err) {
     setToggleError(err.message || "Action failed. Please try again.");
     setTimeout(() => setToggleError(""), 4000);
   }
 
-  const totalPages = Math.ceil(users.length / USERS_PAGE_SIZE);
-  const pageUsers = users.slice(page * USERS_PAGE_SIZE, (page + 1) * USERS_PAGE_SIZE);
-
-  function handleDelete(user) {
-    if (user.id === currentUser.id) return;
-    setConfirmDelete(user);
+  function handleFilterChange(f) {
+    setRoleFilter(f);
+    setPage(0);
   }
+
+  const filtered = users.filter(u => {
+    const matchesSearch = !search.trim() ||
+      (u.email || "").toLowerCase().includes(search.toLowerCase()) ||
+      (u.display_name || "").toLowerCase().includes(search.toLowerCase());
+    if (!matchesSearch) return false;
+    if (roleFilter === "admins")  return u.is_admin;
+    if (roleFilter === "mods")    return u.is_moderator;
+    if (roleFilter === "banned")  return u.is_banned;
+    if (roleFilter === "premium") return u.subscription_status === "active" || u.subscription_status === "trialing";
+    if (roleFilter === "gifted")  return u.subscription_status === "gifted";
+    return true;
+  });
+
+  const totalPages = Math.ceil(filtered.length / USERS_PAGE_SIZE);
+  const pageUsers = filtered.slice(page * USERS_PAGE_SIZE, (page + 1) * USERS_PAGE_SIZE);
 
   async function handleAddUser(e) {
     e.preventDefault();
@@ -77,9 +183,14 @@ function UsersTab({ currentUser, navigate }) {
     <div className="admin-section">
       <div className="admin-section-header">
         <h2>{t("admin.usersSection")}</h2>
-        <button className="admin-add-btn" onClick={() => { setShowAddForm(v => !v); setAddError(""); setAddSuccess(""); }}>
-          {showAddForm ? t("common.cancel") : t("admin.addUser")}
-        </button>
+        <div style={{ display: "flex", gap: 8 }}>
+          <button className="admin-action-btn" onClick={() => exportUsersCSV(filtered)} title={t("admin.exportCSV")}>
+            ⬇ {t("admin.exportCSV")}
+          </button>
+          <button className="admin-add-btn" onClick={() => { setShowAddForm(v => !v); setAddError(""); setAddSuccess(""); }}>
+            {showAddForm ? t("common.cancel") : t("admin.addUser")}
+          </button>
+        </div>
       </div>
 
       {showAddForm && (
@@ -112,6 +223,28 @@ function UsersTab({ currentUser, navigate }) {
         </form>
       )}
 
+      {/* Search + filter */}
+      <div className="admin-user-controls">
+        <input
+          className="admin-input admin-search-input"
+          type="search"
+          placeholder={t("admin.searchUsers")}
+          value={search}
+          onChange={e => { setSearch(e.target.value); setPage(0); }}
+        />
+        <div className="admin-filter-pills">
+          {USER_FILTERS.map(f => (
+            <button
+              key={f}
+              className={`admin-filter-pill${roleFilter === f ? " admin-filter-pill--active" : ""}`}
+              onClick={() => handleFilterChange(f)}
+            >
+              {t(`admin.filter${f.charAt(0).toUpperCase() + f.slice(1)}`)}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {toggleError && <div className="admin-form-error" style={{ marginBottom: 12 }}>{toggleError}</div>}
 
       {isLoading ? (
@@ -122,103 +255,71 @@ function UsersTab({ currentUser, navigate }) {
             <thead>
               <tr>
                 <th>{t("admin.colUser")}</th>
-                <th>{t("admin.colJoined")}</th>
-                <th>{t("admin.colRole")}</th>
-                <th>Sub</th>
-                <th>{t("admin.colActions")}</th>
+                <th className="admin-col-name">{t("admin.colName")}</th>
+                <th className="admin-col-joined">{t("admin.colJoined")}</th>
+                <th className="admin-col-role">{t("admin.colRole")}</th>
+                <th className="admin-col-sub">{t("admin.subscribers")}</th>
+                <th style={{ width: 48 }}></th>
               </tr>
             </thead>
             <tbody>
               {pageUsers.map(user => (
                 <tr key={user.id} className={user.id === currentUser.id ? "admin-table-row--self" : ""}>
-                  <td className="admin-col-user">
+                  <td>
                     <div
                       className="admin-user-cell"
                       onClick={() => navigate("publicProfile", { userId: user.id })}
-                      style={{ cursor: "pointer" }}
-                      title="View profile"
                     >
                       <div className="admin-avatar">{initials(user.email)}</div>
-                      <div>
+                      <div className="admin-user-info">
                         <div className="admin-email">{user.email}</div>
-                        {user.id === currentUser.id && <div className="admin-you-tag">{t("admin.you")}</div>}
-                        {user.is_moderator && !user.is_admin && <div className="admin-mod-tag">🛡️ Mod</div>}
-                        {user.is_banned && <div className="admin-banned-tag">🚫 Banned</div>}
+                        <div className="admin-user-tags">
+                          {user.id === currentUser.id && <span className="admin-you-tag">{t("admin.you")}</span>}
+                          {user.is_admin && <span className="admin-role-badge admin-role-badge--admin">{t("admin.roleAdmin")}</span>}
+                          {user.is_moderator && !user.is_admin && <span className="admin-mod-tag">🛡️ {t("admin.filterMods")}</span>}
+                          {user.is_banned && <span className="admin-banned-tag">🚫 {t("admin.banned")}</span>}
+                          {user.subscription_status && user.subscription_status !== "inactive" && (
+                            <span className={`admin-sub-badge admin-sub-badge--${user.subscription_status}`}>{user.subscription_status}</span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </td>
+                  <td className="admin-col-name admin-date">{user.display_name || "—"}</td>
                   <td className="admin-col-joined admin-date">{formatDate(user.created_at)}</td>
                   <td className="admin-col-role">
                     <span className={`admin-role-badge ${user.is_admin ? "admin-role-badge--admin" : "admin-role-badge--member"}`}>
                       {user.is_admin ? t("admin.roleAdmin") : t("admin.roleMember")}
                     </span>
                   </td>
-                  <td>
+                  <td className="admin-col-sub">
                     {user.subscription_status && user.subscription_status !== "inactive" ? (
                       <span className={`admin-sub-badge admin-sub-badge--${user.subscription_status}`}>
                         {user.subscription_status}
                       </span>
                     ) : (
-                      <span className="admin-sub-badge admin-sub-badge--none">—</span>
+                      <span style={{ color: "var(--text-muted)", fontSize: 13 }}>—</span>
                     )}
                   </td>
-                  <td className="admin-col-actions">
+                  <td style={{ textAlign: "right", paddingRight: 12 }}>
                     {user.id !== currentUser.id && (
-                      <div className="admin-actions">
-                        <button
-                          className="admin-action-btn"
-                          onClick={() => setAdmin.mutate({ userId: user.id, value: !user.is_admin }, { onError: onToggleError })}
-                          disabled={setAdmin.isPending}
-                        >
-                          {user.is_admin ? t("admin.removeAdmin") : t("admin.makeAdmin")}
-                        </button>
-                        <button
-                          className={`admin-action-btn ${user.is_moderator ? "admin-action-btn--active" : ""}`}
-                          onClick={() => setModerator.mutate({ userId: user.id, value: !user.is_moderator }, { onError: onToggleError })}
-                          disabled={setModerator.isPending}
-                        >
-                          {user.is_moderator ? "Unmod" : "Make Mod"}
-                        </button>
-                        <button
-                          className={`admin-action-btn ${user.can_blog ? "admin-action-btn--active" : ""}`}
-                          onClick={() => setBlog.mutate({ userId: user.id, value: !user.can_blog }, { onError: onToggleError })}
-                          disabled={setBlog.isPending}
-                        >
-                          {user.can_blog ? t("admin.writer") : t("admin.allowBlog")}
-                        </button>
-                        <span className="admin-actions-sep" />
-                        <button
-                          className={`admin-action-btn ${user.subscription_status === "gifted" ? "admin-action-btn--active" : ""}`}
-                          onClick={() => giftPremium.mutate({ userId: user.id, value: user.subscription_status !== "gifted" }, { onError: onToggleError })}
-                          disabled={giftPremium.isPending}
-                          title={user.subscription_status === "gifted" ? "Revoke free Premium" : "Grant free Premium"}
-                        >
-                          {user.subscription_status === "gifted" ? "⭐ Revoke Gift" : "⭐ Gift Premium"}
-                        </button>
-                        {(user.subscription_status === "active" || user.subscription_status === "trialing") && (
-                          <button
-                            className="admin-action-btn admin-action-btn--danger"
-                            onClick={() => setConfirmCancelSub(user)}
-                            disabled={cancelSub.isPending}
-                          >
-                            Cancel Sub
-                          </button>
-                        )}
-                        <button
-                          className={`admin-action-btn ${user.is_banned ? "admin-action-btn--active" : "admin-action-btn--danger"}`}
-                          onClick={() => setConfirmBan(user)}
-                          disabled={banUser.isPending}
-                        >
-                          {user.is_banned ? "Unban" : "Ban"}
-                        </button>
-                        <button
-                          className="admin-action-btn admin-action-btn--danger"
-                          onClick={() => handleDelete(user)}
-                          disabled={deleteUser.isPending}
-                        >
-                          {t("common.delete")}
-                        </button>
-                      </div>
+                      <UserActionsDropdown
+                        user={user}
+                        currentUser={currentUser}
+                        navigate={navigate}
+                        setAdmin={setAdmin}
+                        setModerator={setModerator}
+                        setBlog={setBlog}
+                        banUser={banUser}
+                        cancelSub={cancelSub}
+                        giftPremium={giftPremium}
+                        deleteUser={deleteUser}
+                        onToggleError={onToggleError}
+                        setConfirmDelete={setConfirmDelete}
+                        setConfirmBan={setConfirmBan}
+                        setConfirmCancelSub={setConfirmCancelSub}
+                        t={t}
+                      />
                     )}
                   </td>
                 </tr>
@@ -230,23 +331,9 @@ function UsersTab({ currentUser, navigate }) {
 
       {totalPages > 1 && (
         <div className="admin-pagination">
-          <button
-            className="admin-page-btn"
-            onClick={() => setPage(p => p - 1)}
-            disabled={page === 0}
-          >
-            ← Prev
-          </button>
-          <span className="admin-page-info">
-            {page + 1} / {totalPages}
-          </span>
-          <button
-            className="admin-page-btn"
-            onClick={() => setPage(p => p + 1)}
-            disabled={page >= totalPages - 1}
-          >
-            Next →
-          </button>
+          <button className="admin-page-btn" onClick={() => setPage(p => p - 1)} disabled={page === 0}>← Prev</button>
+          <span className="admin-page-info">{page + 1} / {totalPages}</span>
+          <button className="admin-page-btn" onClick={() => setPage(p => p + 1)} disabled={page >= totalPages - 1}>Next →</button>
         </div>
       )}
 
@@ -261,8 +348,8 @@ function UsersTab({ currentUser, navigate }) {
       {confirmBan && (
         <ConfirmModal
           message={confirmBan.is_banned
-            ? `Unban ${confirmBan.email}? They will be able to post again.`
-            : `Ban ${confirmBan.email}? They will no longer be able to post any content.`}
+            ? `${t("admin.unban")} ${confirmBan.email}? They will be able to post again.`
+            : `${t("admin.ban")} ${confirmBan.email}? They will no longer be able to post any content.`}
           onConfirm={() => { banUser.mutate({ userId: confirmBan.id, value: !confirmBan.is_banned }); setConfirmBan(null); }}
           onCancel={() => setConfirmBan(null)}
         />
@@ -270,7 +357,7 @@ function UsersTab({ currentUser, navigate }) {
 
       {confirmCancelSub && (
         <ConfirmModal
-          message={`Cancel subscription for ${confirmCancelSub.email}? This will immediately end their Premium access.`}
+          message={`${t("admin.cancelSub")} for ${confirmCancelSub.email}? This will immediately end their Premium access.`}
           onConfirm={() => { cancelSub.mutate(confirmCancelSub.id); setConfirmCancelSub(null); }}
           onCancel={() => setConfirmCancelSub(null)}
         />
@@ -280,26 +367,44 @@ function UsersTab({ currentUser, navigate }) {
 }
 
 // ── Reports Tab ───────────────────────────────────────────────────────────────
-function ReportsTab() {
+function ReportsTab({ navigate }) {
   const { t } = useTranslation();
   const { data: reports = [], isLoading } = useReports();
   const updateReport = useUpdateReport();
   const deleteReport = useDeleteReport();
   const deleteContent = useDeleteReportedContent();
   const [confirmDeleteContent, setConfirmDeleteContent] = useState(null);
+  const [reportFilter, setReportFilter] = useState("pending");
 
-  const pending = reports.filter(r => r.status === "pending");
-  const others  = reports.filter(r => r.status !== "pending");
-  const sorted  = [...pending, ...others];
+  const sorted = reportFilter === "all"
+    ? [...reports].sort((a, b) => (a.status === "pending" ? -1 : 1) - (b.status === "pending" ? -1 : 1))
+    : reportFilter === "resolved"
+      ? reports.filter(r => r.status !== "pending")
+      : reports.filter(r => r.status === "pending");
+
+  function handleViewContent(r) {
+    if (r.content_type === "post")    navigate("blog");
+    if (r.content_type === "comment") navigate("blog");
+    if (r.content_type === "thread")  navigate("forum");
+    if (r.content_type === "reply")   navigate("forum");
+  }
 
   if (isLoading) return <LoadingSpinner />;
 
-  if (sorted.length === 0) {
-    return <div className="admin-loading">{t("adminReports.empty")}</div>;
-  }
-
   return (
     <>
+      <div className="admin-filter-pills" style={{ padding: "12px 20px", borderBottom: "1px solid var(--border)" }}>
+        {["pending", "resolved", "all"].map(f => (
+          <button key={f} className={`admin-filter-pill${reportFilter === f ? " admin-filter-pill--active" : ""}`} onClick={() => setReportFilter(f)}>
+            {t(`adminReports.filter${f.charAt(0).toUpperCase() + f.slice(1)}`)}
+            {f === "pending" && reports.filter(r => r.status === "pending").length > 0 &&
+              <span style={{ marginLeft: 4 }}>({reports.filter(r => r.status === "pending").length})</span>}
+          </button>
+        ))}
+      </div>
+
+      {sorted.length === 0 && <div className="admin-loading">{t("adminReports.empty")}</div>}
+
       <div className="admin-report-list">
         {sorted.map(r => (
           <div key={r.id} className={`admin-report-card${r.status !== "pending" ? " admin-report-card--reviewed" : ""}`}>
@@ -337,13 +442,21 @@ function ReportsTab() {
                 </>
               )}
               {r.content_id && (
-                <button
-                  className="admin-action-btn admin-action-btn--danger"
-                  onClick={() => setConfirmDeleteContent(r)}
-                  disabled={deleteContent.isPending}
-                >
-                  Delete Content
-                </button>
+                <>
+                  <button
+                    className="admin-action-btn"
+                    onClick={() => handleViewContent(r)}
+                  >
+                    {t("adminReports.viewContent")}
+                  </button>
+                  <button
+                    className="admin-action-btn admin-action-btn--danger"
+                    onClick={() => setConfirmDeleteContent(r)}
+                    disabled={deleteContent.isPending}
+                  >
+                    {t("adminReports.deleteContent")}
+                  </button>
+                </>
               )}
               <button
                 className="admin-action-btn admin-action-btn--danger"
@@ -359,7 +472,7 @@ function ReportsTab() {
 
       {confirmDeleteContent && (
         <ConfirmModal
-          message={`Delete this ${confirmDeleteContent.content_type}? "${confirmDeleteContent.content_preview ?? ""}". This will permanently remove the content and dismiss the report.`}
+          message={`${t("adminReports.deleteContent")}? "${confirmDeleteContent.content_preview ?? ""}". This will permanently remove the content and dismiss the report.`}
           onConfirm={() => {
             deleteContent.mutate({
               reportId: confirmDeleteContent.id,
@@ -372,6 +485,295 @@ function ReportsTab() {
         />
       )}
     </>
+  );
+}
+
+// ── Blog Tab ──────────────────────────────────────────────────────────────────
+function BlogTab({ navigate }) {
+  const { t } = useTranslation();
+  const { data: posts = [], isLoading } = useAllBlogPosts();
+  const deletePost = useAdminDeleteBlogPost();
+  const [confirmDelete, setConfirmDelete] = useState(null);
+  const [search, setSearch] = useState("");
+
+  const filtered = search.trim()
+    ? posts.filter(p => p.title?.toLowerCase().includes(search.toLowerCase()) || p.profiles?.display_name?.toLowerCase().includes(search.toLowerCase()))
+    : posts;
+
+  if (isLoading) return <LoadingSpinner />;
+
+  return (
+    <>
+      <div style={{ padding: "12px 20px", borderBottom: "1px solid var(--border)" }}>
+        <input className="admin-input admin-search-input" type="search" placeholder={t("admin.searchUsers")} value={search} onChange={e => setSearch(e.target.value)} />
+      </div>
+      {filtered.length === 0 ? <div className="admin-loading">{t("adminBlog.noPosts")}</div> : (
+      <div className="admin-table-wrap">
+        <table className="admin-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>{t("admin.colActions")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map(post => (
+              <tr key={post.id}>
+                <td style={{ maxWidth: 260, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {post.title}
+                </td>
+                <td>{post.profiles?.display_name || "—"}</td>
+                <td>
+                  <span className={`admin-sub-badge admin-sub-badge--${post.published ? "active" : "none"}`}>
+                    {post.published ? t("adminBlog.published") : t("adminBlog.draft")}
+                  </span>
+                </td>
+                <td className="admin-date">{formatDate(post.created_at)}</td>
+                <td>
+                  <div className="admin-actions">
+                    <button className="admin-action-btn" onClick={() => navigate("blog")}>
+                      {t("adminReports.viewContent")}
+                    </button>
+                    <button
+                      className="admin-action-btn admin-action-btn--danger"
+                      onClick={() => setConfirmDelete(post)}
+                      disabled={deletePost.isPending}
+                    >
+                      {t("common.delete")}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      )}
+
+      {confirmDelete && (
+        <ConfirmModal
+          message={t("adminBlog.deleteConfirm", { title: confirmDelete.title })}
+          onConfirm={() => { deletePost.mutate(confirmDelete.id); setConfirmDelete(null); }}
+          onCancel={() => setConfirmDelete(null)}
+        />
+      )}
+    </>
+  );
+}
+
+// ── Forum Tab ─────────────────────────────────────────────────────────────────
+function ForumTab({ navigate }) {
+  const { t } = useTranslation();
+  const { data: threads = [], isLoading } = useAllForumThreads();
+  const deleteThread = useAdminDeleteForumThread();
+  const pinThread = useAdminPinThread();
+  const lockThread = useAdminLockThread();
+  const [confirmDelete, setConfirmDelete] = useState(null);
+  const [search, setSearch] = useState("");
+
+  const filtered = search.trim()
+    ? threads.filter(th => th.title?.toLowerCase().includes(search.toLowerCase()) || th.profiles?.display_name?.toLowerCase().includes(search.toLowerCase()))
+    : threads;
+
+  if (isLoading) return <LoadingSpinner />;
+
+  return (
+    <>
+      <div style={{ padding: "12px 20px", borderBottom: "1px solid var(--border)" }}>
+        <input className="admin-input admin-search-input" type="search" placeholder={t("admin.searchUsers")} value={search} onChange={e => setSearch(e.target.value)} />
+      </div>
+      {filtered.length === 0 ? <div className="admin-loading">{t("adminForum.noThreads")}</div> : (
+      <div className="admin-table-wrap">
+        <table className="admin-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Replies</th>
+              <th>Date</th>
+              <th>{t("admin.colActions")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map(thread => (
+              <tr key={thread.id}>
+                <td style={{ maxWidth: 220, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {thread.pinned && <span title={t("adminForum.pinned")} style={{ marginRight: 4 }}>📌</span>}
+                  {thread.locked && <span title={t("adminForum.locked")} style={{ marginRight: 4 }}>🔒</span>}
+                  {thread.title}
+                </td>
+                <td>{thread.profiles?.display_name || "—"}</td>
+                <td>{thread.forum_replies?.[0]?.count ?? 0}</td>
+                <td className="admin-date">{formatDate(thread.created_at)}</td>
+                <td>
+                  <div className="admin-actions">
+                    <button className="admin-action-btn" onClick={() => navigate("forum")}>
+                      {t("adminReports.viewContent")}
+                    </button>
+                    <button
+                      className={`admin-action-btn ${thread.pinned ? "admin-action-btn--active" : ""}`}
+                      onClick={() => pinThread.mutate({ threadId: thread.id, value: !thread.pinned })}
+                      disabled={pinThread.isPending}
+                    >
+                      {thread.pinned ? t("adminForum.unpin") : t("adminForum.pin")}
+                    </button>
+                    <button
+                      className={`admin-action-btn ${thread.locked ? "admin-action-btn--active" : ""}`}
+                      onClick={() => lockThread.mutate({ threadId: thread.id, value: !thread.locked })}
+                      disabled={lockThread.isPending}
+                    >
+                      {thread.locked ? t("adminForum.unlock") : t("adminForum.lock")}
+                    </button>
+                    <button
+                      className="admin-action-btn admin-action-btn--danger"
+                      onClick={() => setConfirmDelete(thread)}
+                      disabled={deleteThread.isPending}
+                    >
+                      {t("common.delete")}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      )}
+
+      {confirmDelete && (
+        <ConfirmModal
+          message={t("adminForum.deleteConfirm", { title: confirmDelete.title })}
+          onConfirm={() => { deleteThread.mutate(confirmDelete.id); setConfirmDelete(null); }}
+          onCancel={() => setConfirmDelete(null)}
+        />
+      )}
+    </>
+  );
+}
+
+// ── Blog Comments Tab ─────────────────────────────────────────────────────────
+function BlogCommentsTab() {
+  const { t } = useTranslation();
+  const { data: comments = [], isLoading } = useAllComments();
+  const deleteComment = useAdminDeleteComment();
+  const [confirmDelete, setConfirmDelete] = useState(null);
+  const [search, setSearch] = useState("");
+
+  const filtered = search.trim()
+    ? comments.filter(c =>
+        c.content?.toLowerCase().includes(search.toLowerCase()) ||
+        c.profiles?.display_name?.toLowerCase().includes(search.toLowerCase()) ||
+        c.blog_posts?.title?.toLowerCase().includes(search.toLowerCase())
+      )
+    : comments;
+
+  if (isLoading) return <LoadingSpinner />;
+
+  return (
+    <>
+      <div style={{ padding: "12px 20px", borderBottom: "1px solid var(--border)" }}>
+        <input className="admin-input admin-search-input" type="search" placeholder={t("admin.searchUsers")} value={search} onChange={e => setSearch(e.target.value)} />
+      </div>
+      {filtered.length === 0 ? (
+        <div className="admin-loading">{t("adminComments.noComments")}</div>
+      ) : (
+        <div className="admin-report-list">
+          {filtered.map(c => (
+            <div key={c.id} className="admin-report-card">
+              <div className="admin-report-meta">
+                <span className="admin-report-type admin-report-type--comment">{t("adminComments.comment")}</span>
+                <span style={{ fontSize: 12, color: "var(--text-secondary)" }}>
+                  {c.profiles?.display_name || "Unknown"} {t("adminComments.on")} <em>{c.blog_posts?.title || "—"}</em>
+                </span>
+                <span style={{ fontSize: 11, color: "var(--text-muted)", marginLeft: "auto" }}>{formatDate(c.created_at)}</span>
+              </div>
+              <div className="admin-report-preview">"{c.content?.slice(0, 200)}"</div>
+              <div className="admin-report-actions" style={{ marginTop: 8 }}>
+                <button
+                  className="admin-action-btn admin-action-btn--danger"
+                  onClick={() => setConfirmDelete(c)}
+                  disabled={deleteComment.isPending}
+                >
+                  {t("common.delete")}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {confirmDelete && (
+        <ConfirmModal
+          message={t("adminComments.deleteConfirm")}
+          onConfirm={() => { deleteComment.mutate(confirmDelete.id); setConfirmDelete(null); }}
+          onCancel={() => setConfirmDelete(null)}
+        />
+      )}
+    </>
+  );
+}
+
+// ── Quiz Stats Tab ────────────────────────────────────────────────────────────
+function QuizStatsTab() {
+  const { t } = useTranslation();
+  const { data: rawData = [], isLoading } = useAdminQuizStats();
+
+  const stats = Array.from({ length: 12 }, (_, i) => {
+    const level = i + 1;
+    const rows = rawData.filter(r => r.level === level);
+    const unlocked = rows.filter(r => r.unlocked).length;
+    const earned = rows.filter(r => r.badge_earned).length;
+    const scores = rows.filter(r => r.best_score > 0).map(r => r.best_score);
+    const attempts = rows.reduce((sum, r) => sum + (r.attempts || 0), 0);
+    return {
+      level,
+      unlocked,
+      earned,
+      passRate: unlocked ? Math.round(earned / unlocked * 100) : 0,
+      avgScore: scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0,
+      attempts,
+    };
+  });
+
+  if (isLoading) return <LoadingSpinner />;
+
+  return (
+    <div className="admin-table-wrap">
+      <table className="admin-table">
+        <thead>
+          <tr>
+            <th>{t("adminQuizStats.level")}</th>
+            <th>{t("adminQuizStats.unlocked")}</th>
+            <th>{t("adminQuizStats.passed")}</th>
+            <th>{t("adminQuizStats.passRate")}</th>
+            <th>{t("adminQuizStats.avgScore")}</th>
+            <th>{t("adminQuizStats.attempts")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {stats.map(s => (
+            <tr key={s.level}>
+              <td><strong>{t("adminQuiz.level")} {s.level}</strong></td>
+              <td>{s.unlocked}</td>
+              <td>{s.earned}</td>
+              <td>
+                <span style={{
+                  fontWeight: 700,
+                  color: s.passRate >= 70 ? "var(--success, #22c55e)" : s.passRate >= 40 ? "var(--warning, #f59e0b)" : "var(--danger, #ef4444)"
+                }}>
+                  {s.passRate}%
+                </span>
+              </td>
+              <td>{s.avgScore > 0 ? `${s.avgScore}%` : "—"}</td>
+              <td>{s.attempts}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
@@ -395,8 +797,12 @@ function QuizTab() {
   const [editingId, setEditingId]         = useState(null);
   const [form, setForm]                   = useState(emptyForm(1));
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+  const [qPage, setQPage] = useState(0);
 
+  const QUIZ_PAGE_SIZE = 5;
   const levelQuestions = allQuestions.filter(q => q.level === selectedLevel);
+  const totalQPages = Math.ceil(levelQuestions.length / QUIZ_PAGE_SIZE);
+  const pageQuestions = levelQuestions.slice(qPage * QUIZ_PAGE_SIZE, (qPage + 1) * QUIZ_PAGE_SIZE);
 
   function openAddForm() {
     setEditingId(null);
@@ -420,7 +826,7 @@ function QuizTab() {
       level: form.level,
       question: form.question.trim(),
       options: form.options.map(o => o.trim()),
-      correct_index: form.correct_index,
+      correctIndex: form.correct_index,
     };
     if (!payload.question || payload.options.some(o => !o)) return;
 
@@ -438,7 +844,7 @@ function QuizTab() {
       <div className="admin-quiz-controls">
         <CustomSelect
           value={selectedLevel}
-          onChange={val => { setSelectedLevel(val); setShowForm(false); }}
+          onChange={val => { setSelectedLevel(val); setShowForm(false); setQPage(0); }}
           options={LEVELS.map(l => ({ value: l, label: `${t("adminQuiz.level")} ${l}` }))}
         />
         <button className="admin-add-btn" onClick={openAddForm}>
@@ -446,37 +852,7 @@ function QuizTab() {
         </button>
       </div>
 
-      {/* Question list */}
-      {levelQuestions.length === 0 && !showForm ? (
-        <div className="admin-loading">{t("adminQuiz.noQuestions")}</div>
-      ) : (
-        <div className="admin-question-list">
-          {levelQuestions.map(q => (
-            <div key={q.id} className="admin-question-card">
-              <div className="admin-question-text">{q.question}</div>
-              <div className="admin-question-options">
-                {(Array.isArray(q.options) ? q.options : []).map((opt, i) => (
-                  <div key={i} className={`admin-question-option${i === q.correct_index ? " admin-question-option--correct" : ""}`}>
-                    {OPTION_LABELS[i]}. {opt}{i === q.correct_index ? " ✓" : ""}
-                  </div>
-                ))}
-              </div>
-              <div className="admin-question-actions">
-                <button className="admin-action-btn" onClick={() => openEditForm(q)}>{t("common.edit")}</button>
-                <button
-                  className="admin-action-btn admin-action-btn--danger"
-                  onClick={() => setConfirmDeleteId(q.id)}
-                  disabled={deleteQuestion.isPending}
-                >
-                  {t("common.delete")}
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Add/Edit form */}
+      {/* Form always at the top */}
       {showForm && (
         <div className="admin-question-form">
           <h3>{editingId ? t("adminQuiz.editQuestion") : t("adminQuiz.addQuestion")}</h3>
@@ -547,6 +923,44 @@ function QuizTab() {
               {t("common.cancel")}
             </button>
           </div>
+        </div>
+      )}
+
+      {/* Paginated question list below the form */}
+      {levelQuestions.length === 0 && !showForm ? (
+        <div className="admin-loading">{t("adminQuiz.noQuestions")}</div>
+      ) : (
+        <div className="admin-question-list">
+          {pageQuestions.map(q => (
+            <div key={q.id} className="admin-question-card">
+              <div className="admin-question-text">{q.question}</div>
+              <div className="admin-question-options">
+                {(Array.isArray(q.options) ? q.options : []).map((opt, i) => (
+                  <div key={i} className={`admin-question-option${i === q.correct_index ? " admin-question-option--correct" : ""}`}>
+                    {OPTION_LABELS[i]}. {opt}{i === q.correct_index ? " ✓" : ""}
+                  </div>
+                ))}
+              </div>
+              <div className="admin-question-actions">
+                <button className="admin-action-btn" onClick={() => openEditForm(q)}>{t("common.edit")}</button>
+                <button
+                  className="admin-action-btn admin-action-btn--danger"
+                  onClick={() => setConfirmDeleteId(q.id)}
+                  disabled={deleteQuestion.isPending}
+                >
+                  {t("common.delete")}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {totalQPages > 1 && (
+        <div className="admin-pagination">
+          <button className="admin-page-btn" onClick={() => setQPage(p => p - 1)} disabled={qPage === 0}>← Prev</button>
+          <span className="admin-page-info">{qPage + 1} / {totalQPages}</span>
+          <button className="admin-page-btn" onClick={() => setQPage(p => p + 1)} disabled={qPage >= totalQPages - 1}>Next →</button>
         </div>
       )}
 
@@ -675,7 +1089,12 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
   const adminCount   = users.filter(u => u.is_admin).length;
   const blogCount    = users.filter(u => u.can_blog).length;
   const subCount     = users.filter(u => u.subscription_status === "active" || u.subscription_status === "trialing").length;
+  const giftedCount  = users.filter(u => u.subscription_status === "gifted").length;
+  const bannedCount  = users.filter(u => u.is_banned).length;
   const pendingCount = reports.filter(r => r.status === "pending").length;
+  const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+  const recentSignups = users.filter(u => new Date(u.created_at) > sevenDaysAgo).length;
+  const mrr = (subCount * MONTHLY_PRICE).toFixed(2);
 
   return (
     <div className="admin-wrap">
@@ -685,7 +1104,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
           <button className="admin-back-btn" onClick={onBack}>{t("common.back")}</button>
           <div className="admin-header-text">
             <span className="admin-logo">{isCurrentUserAdmin ? "⚙️" : "🛡️"}</span>
-            <h1>{isCurrentUserAdmin ? t("admin.title") : "Moderation"}</h1>
+            <h1>{isCurrentUserAdmin ? t("admin.title") : t("admin.moderation")}</h1>
           </div>
         </div>
       </header>
@@ -712,7 +1131,23 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
             </div>
             <div className="admin-stat-card">
               <div className="admin-stat-value">{subCount}</div>
-              <div className="admin-stat-label">Subscribers</div>
+              <div className="admin-stat-label">{t("admin.subscribers")}</div>
+            </div>
+            <div className="admin-stat-card">
+              <div className="admin-stat-value">{giftedCount}</div>
+              <div className="admin-stat-label">{t("admin.gifted")}</div>
+            </div>
+            <div className="admin-stat-card">
+              <div className="admin-stat-value">{bannedCount}</div>
+              <div className="admin-stat-label">{t("admin.banned")}</div>
+            </div>
+            <div className="admin-stat-card">
+              <div className="admin-stat-value">+{recentSignups}</div>
+              <div className="admin-stat-label">{t("admin.recentSignups")}</div>
+            </div>
+            <div className="admin-stat-card">
+              <div className="admin-stat-value">${mrr}</div>
+              <div className="admin-stat-label">{t("admin.mrr")}</div>
             </div>
           </div>
         )}
@@ -729,8 +1164,28 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
             {pendingCount > 0 && <span className="admin-tab-badge">{pendingCount}</span>}
           </button>
           {isCurrentUserAdmin && (
+            <button className={`admin-tab${tab === "blog" ? " admin-tab--active" : ""}`} onClick={() => setTab("blog")}>
+              📝 {t("adminTabs.blog")}
+            </button>
+          )}
+          {isCurrentUserAdmin && (
+            <button className={`admin-tab${tab === "comments" ? " admin-tab--active" : ""}`} onClick={() => setTab("comments")}>
+              💬 {t("adminTabs.comments")}
+            </button>
+          )}
+          {isCurrentUserAdmin && (
+            <button className={`admin-tab${tab === "forum" ? " admin-tab--active" : ""}`} onClick={() => setTab("forum")}>
+              🧵 {t("adminTabs.forum")}
+            </button>
+          )}
+          {isCurrentUserAdmin && (
             <button className={`admin-tab${tab === "quiz" ? " admin-tab--active" : ""}`} onClick={() => setTab("quiz")}>
-              📝 {t("adminTabs.quiz")}
+              🎯 {t("adminTabs.quiz")}
+            </button>
+          )}
+          {isCurrentUserAdmin && (
+            <button className={`admin-tab${tab === "quizStats" ? " admin-tab--active" : ""}`} onClick={() => setTab("quizStats")}>
+              📊 {t("adminTabs.quizStats")}
             </button>
           )}
           {isCurrentUserAdmin && (
@@ -741,10 +1196,14 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
         </div>
 
         {/* Tab content */}
-        {tab === "users" && isCurrentUserAdmin && <UsersTab currentUser={currentUser} navigate={navigate} />}
-        {tab === "reports" && <ReportsTab />}
-        {tab === "quiz" && isCurrentUserAdmin && <QuizTab />}
-        {tab === "announcements" && isCurrentUserAdmin && <AnnouncementsTab currentUser={currentUser} />}
+        {tab === "users"          && isCurrentUserAdmin && <UsersTab currentUser={currentUser} navigate={navigate} />}
+        {tab === "reports"        && <ReportsTab navigate={navigate} />}
+        {tab === "blog"           && isCurrentUserAdmin && <BlogTab navigate={navigate} />}
+        {tab === "comments"       && isCurrentUserAdmin && <BlogCommentsTab />}
+        {tab === "forum"          && isCurrentUserAdmin && <ForumTab navigate={navigate} />}
+        {tab === "quiz"           && isCurrentUserAdmin && <QuizTab />}
+        {tab === "quizStats"      && isCurrentUserAdmin && <QuizStatsTab />}
+        {tab === "announcements"  && isCurrentUserAdmin && <AnnouncementsTab currentUser={currentUser} />}
       </div>
     </div>
   );
