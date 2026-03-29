@@ -96,7 +96,7 @@
   justify-content: space-between;
   padding: 12px 14px;
   border-bottom: 1px solid var(--border);
-  background: linear-gradient(135deg, var(--teal), #5b21b6);
+  background: var(--conv-accent, linear-gradient(135deg, var(--teal), #5b21b6));
   flex-shrink: 0;
 }
 
@@ -386,7 +386,7 @@
 }
 
 .fc-bubble--mine {
-  background: linear-gradient(135deg, var(--teal), #5b21b6);
+  background: var(--conv-accent, linear-gradient(135deg, var(--teal), #5b21b6));
   border-color: transparent;
   border-radius: 16px 16px 4px 16px;
   color: #fff;
@@ -474,7 +474,7 @@
 .fc-send-btn {
   width: 34px;
   height: 34px;
-  background: linear-gradient(135deg, var(--teal), #5b21b6);
+  background: var(--conv-accent, linear-gradient(135deg, var(--teal), #5b21b6));
   color: #fff;
   border: none;
   border-radius: 50%;

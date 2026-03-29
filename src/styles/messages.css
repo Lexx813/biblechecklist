@@ -1640,5 +1640,5 @@
   .msg-emoji-picker { width: 240px; grid-template-columns: repeat(6, 1fr); left: -10px; }
 
   /* Hide site footer on mobile so only the composer is visible */
-  .msg-page ~ .page-footer { display: none; }
+  main:has(.msg-page) ~ .page-footer { display: none; }
 }
