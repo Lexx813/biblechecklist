@@ -390,7 +390,7 @@
   border-color: transparent;
   border-radius: 16px 16px 4px 16px;
   color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 180, 160, 0.2);
+  box-shadow: -3px 3px 6px rgba(0,0,0,0.35);
 }
 
 /* ── Typing indicator ────────────────────────────────────────────────────── */
@@ -1140,7 +1140,7 @@
 
 /* ── Starred indicator ────────────────────────────────────────────────────── */
 
-.fc-bubble--starred { border-color: gold; }
+.fc-bubble--starred { border-color: rgba(234,179,8,0.4); }
 .fc-star-indicator { font-size: 9px; }
 
 /* ── Message formatting links ─────────────────────────────────────────────── */

@@ -586,7 +586,7 @@
   background: var(--conv-accent, linear-gradient(135deg, var(--teal), #5b21b6));
   border-color: transparent;
   border-radius: 18px 18px 4px 18px;
-  box-shadow: 0 2px 8px rgba(0, 180, 160, 0.25);
+  box-shadow: -3px 3px 6px rgba(0,0,0,0.35);
 }
 
 @keyframes bubble-pop {
