@@ -264,7 +264,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                   className="home-blog-cover"
                   style={{ background: post.cover_url ? undefined : getGradient(post.id) }}
                 >
-                  {post.cover_url && <img src={post.cover_url} alt="" />}
+                  {post.cover_url && <img src={post.cover_url} alt={post.title} loading="lazy" />}
                   {post.like_count > 0 && (
                     <span className="home-blog-badge">👍 {formatNum(post.like_count)}</span>
                   )}
