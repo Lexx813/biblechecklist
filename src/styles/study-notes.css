@@ -855,6 +855,20 @@
 .sn-card:hover .sn-card-export-btn { opacity: 1; }
 .sn-card-export-btn:hover { color: #7c3aed; }
 
+.sn-like-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 12px;
+  color: rgba(240, 234, 255, 0.45);
+  transition: color 0.15s, background 0.15s;
+}
+.sn-like-btn:hover { color: #e879a0; background: rgba(232, 121, 160, 0.1); }
+.sn-like-btn--liked { color: #e879a0; }
+
 /* ── Folder field in editor ──────────────────────────────────────────────── */
 
 .sn-select {

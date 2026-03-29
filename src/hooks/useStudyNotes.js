@@ -17,6 +17,28 @@ export function usePublicNotes() {
   });
 }
 
+export function useToggleNoteLike() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (noteId) => studyNotesApi.toggleLike(noteId),
+    onMutate: async (noteId) => {
+      await qc.cancelQueries({ queryKey: ["study-notes-public"] });
+      const prev = qc.getQueryData(["study-notes-public"]);
+      qc.setQueryData(["study-notes-public"], (old = []) =>
+        old.map(n => n.id === noteId
+          ? { ...n, user_has_liked: !n.user_has_liked, like_count: n.like_count + (n.user_has_liked ? -1 : 1) }
+          : n
+        )
+      );
+      return { prev };
+    },
+    onError: (_err, _noteId, ctx) => {
+      if (ctx?.prev) qc.setQueryData(["study-notes-public"], ctx.prev);
+    },
+    onSettled: () => qc.invalidateQueries({ queryKey: ["study-notes-public"] }),
+  });
+}
+
 export function useCreateStudyNote() {
   const qc = useQueryClient();
   return useMutation({

@@ -608,6 +608,25 @@
   white-space: nowrap;
 }
 
+.home-note-like-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: color 0.15s, background 0.15s;
+  color: rgba(240, 234, 255, 0.5);
+}
+.home-note-like-btn:hover {
+  color: #e879a0;
+  background: rgba(232, 121, 160, 0.1);
+}
+.home-note-like-btn--liked {
+  color: #e879a0;
+}
+
 /* ── Empty states ── */
 .home-empty {
   text-align: center;
