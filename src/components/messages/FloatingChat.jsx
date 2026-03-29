@@ -610,14 +610,15 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
     } : {});
   }
 
-  // Lock body scroll when panel is open
+  // Lock scroll when panel is open (scroll is on <html>, not <body>)
   useEffect(() => {
+    const el = document.documentElement;
     if (open) {
-      document.body.style.overflow = "hidden";
+      el.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "";
+      el.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => { el.style.overflow = ""; };
   }, [open]);
 
   return (

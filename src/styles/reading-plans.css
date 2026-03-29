@@ -451,9 +451,10 @@
 }
 .rp-mark-btn:hover:not(:disabled) { opacity: 0.88; }
 .rp-mark-btn--done {
-  background: var(--teal-soft);
+  background: transparent;
   color: var(--teal);
-  font-weight: 600;
+  border: 1.5px solid var(--teal);
+  font-weight: 700;
 }
 .rp-mark-btn:disabled { opacity: 0.5; cursor: default; }
 

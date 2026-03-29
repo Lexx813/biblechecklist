@@ -20,11 +20,11 @@
 .fc-root {
   position: fixed;
   bottom: 80px;
-  right: 24px;
+  left: 24px;
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 10px;
 }
 
