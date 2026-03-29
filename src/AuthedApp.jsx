@@ -157,8 +157,8 @@ function BibleApp({ user, onLogout, i18n }) {
   if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} isPremium={isPremium} onUpgrade={openUpgrade} /></Page>;
   else if (nav.page === "main") pageContent = <Page><ChecklistPage user={user} profile={profile} {...sharedNav} /></Page>;
   else if (nav.page === "admin") {
-    if (!profile?.is_admin && !profile?.is_moderator) navigate("home");
-    else pageContent = <Page><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+    if (!profileLoading && !profile?.is_admin && !profile?.is_moderator) navigate("home");
+    else if (profile?.is_admin || profile?.is_moderator) pageContent = <Page><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   }
   else if (nav.page === "profile")  pageContent = <Page><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "settings") pageContent = <Page><SettingsPage user={user} onBack={() => navigate("profile")} {...sharedNav} /></Page>;
@@ -175,8 +175,8 @@ function BibleApp({ user, onLogout, i18n }) {
     </Page>
   );
   else if (nav.page === "blogDash") {
-    if (profile && !profile.can_blog && !profile.is_admin) navigate("blog");
-    else pageContent = <Page><BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+    if (!profileLoading && profile && !profile.can_blog && !profile.is_admin) navigate("blog");
+    else if (!profile || profile.can_blog || profile.is_admin) pageContent = <Page><BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   }
   else if (nav.page === "forum") pageContent = (
     <Page>
