@@ -10,6 +10,7 @@ export const LANGUAGES = [
   { code: "pt", label: "Português" },
   { code: "tl", label: "Tagalog" },
   { code: "fr", label: "Français" },
+  { code: "zh", label: "中文" },
 ];
 
 i18n
