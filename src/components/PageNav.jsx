@@ -116,11 +116,11 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
           )}
           {user && (
             isPremium
-              ? <button className={`page-nav-icon-btn${currentPage === "messages" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("messages")} data-tip={t("nav.messages")} style={{ position: "relative" }}>
+              ? <button className={`page-nav-icon-btn page-nav-msg-btn${currentPage === "messages" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("messages")} data-tip={t("nav.messages")} style={{ position: "relative" }}>
                   💬
                   {unreadMessages > 0 && <span className="page-nav-msg-badge">{unreadMessages}</span>}
                 </button>
-              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip={t("nav.proFeature")} style={{ position: "relative" }} onClick={onUpgrade}>
+              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn page-nav-msg-btn" data-tip={t("nav.proFeature")} style={{ position: "relative" }} onClick={onUpgrade}>
                   💬
                 </button>
           )}
@@ -187,7 +187,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
             <button
               className="page-nav-avatar-btn"
               onClick={() => go("profile")}
-              title={profile?.display_name || user.email}
+              data-tip={profile?.display_name || user.email}
             >
               {profile?.avatar_url
                 ? <img src={profile.avatar_url} className="page-nav-avatar-img" alt="avatar" />

@@ -956,6 +956,7 @@
   cursor: pointer;
   padding: 4px 5px;
   border-radius: 6px;
+  color: #fff;
   opacity: 0.6;
   transition: opacity 0.15s, background 0.15s;
   line-height: 1;
@@ -963,6 +964,18 @@
 
 .fc-header-icon-btn:hover { opacity: 1; background: var(--teal-soft); }
 .fc-header-icon-btn--active { opacity: 1; background: var(--teal-soft); }
+
+/* Tooltips go below (chat header is at the top of the panel) */
+.fc-header-icon-btn[data-tip]::after,
+.fc-header-btn[data-tip]::after {
+  bottom: auto;
+  top: calc(100% + 7px);
+  transform: translateX(-50%) translateY(-4px);
+}
+.fc-header-icon-btn[data-tip]:hover::after,
+.fc-header-btn[data-tip]:hover::after {
+  transform: translateX(-50%) translateY(0);
+}
 
 /* ── Rich toolbar ─────────────────────────────────────────────────────────── */
 
