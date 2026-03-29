@@ -876,7 +876,10 @@
     "cta": "通过 Stripe 订阅 →",
     "ctaLoading": "跳转中…",
     "note": "无需承诺 · 随时取消 · 通过 Stripe 安全付款",
-    "cancel": "稍后再说"
+    "cancel": "稍后再说",
+    "bannerTitle": "解锁高级版",
+    "bannerSub": "AI 学习助手、阅读计划、学习笔记、私信和学习小组 — $3/月",
+    "bannerCta": "立即升级 →"
   },
   "admin": {
     "title": "管理后台",

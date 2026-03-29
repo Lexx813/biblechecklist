@@ -1566,6 +1566,9 @@
     "cta": "S'abonner avec Stripe →",
     "ctaLoading": "Redirection…",
     "note": "Sans engagement · Annulez quand vous voulez · Paiement sécurisé via Stripe",
-    "cancel": "Peut-être plus tard"
+    "cancel": "Peut-être plus tard",
+    "bannerTitle": "Débloquer Premium",
+    "bannerSub": "Compagnon IA, Plans de Lecture, Notes, Messages et Groupes — 3$/mois",
+    "bannerCta": "Passer à Premium →"
   }
 }
