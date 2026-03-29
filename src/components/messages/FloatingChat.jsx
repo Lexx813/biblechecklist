@@ -610,53 +610,73 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
     } : {});
   }
 
-  return (
-    <div className="fc-root" ref={panelRef}>
-      {open && (
-        <div className="fc-panel">
-          <div className="fc-panel-header">
-            <span className="fc-panel-title">
-              {activeConv ? (activeConv.other_display_name || t("messages.chat")) : t("messages.title")}
-            </span>
-            <div className="fc-panel-header-actions">
-              <button className="fc-header-btn" onClick={openFullMessages} title={t("messages.openFullView")}>⤢</button>
-              <button className="fc-header-btn" onClick={() => setOpen(false)} title={t("messages.close")}>✕</button>
-            </div>
-          </div>
+  // Lock body scroll when panel is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
 
-          {activeConv ? (
-            <MiniThread
-              conv={activeConv}
-              user={user}
-              keyPair={keyPair}
-              onBack={() => setActiveConv(null)}
-            />
-          ) : (
-            isLoading ? (
-              <p className="fc-empty" style={{ padding: "24px" }}>{t("common.loading")}</p>
-            ) : (
-              <ConvList
-                conversations={conversations}
-                currentUserId={user.id}
-                onSelect={setActiveConv}
-                onDelete={setConvToDelete}
-                onlineUsers={onlineUsers}
-              />
-            )
-          )}
-        </div>
+  return (
+    <>
+      {/* Backdrop — blocks page interaction while chat is open */}
+      {open && (
+        <div className="fc-backdrop" onClick={() => setOpen(false)} />
       )}
 
-      <button
-        className="fc-fab"
-        onClick={() => setOpen(o => !o)}
-        title="Messages"
-      >
-        💬
-        {unreadCount > 0 && (
-          <span className="fc-fab-badge">{unreadCount > 9 ? "9+" : unreadCount}</span>
+      <div className="fc-root" ref={panelRef}>
+        {open && (
+          <div className="fc-panel">
+            <div className="fc-panel-header">
+              <span className="fc-panel-title">
+                {activeConv ? (activeConv.other_display_name || t("messages.chat")) : t("messages.title")}
+              </span>
+              <div className="fc-panel-header-actions">
+                <button className="fc-header-btn" onClick={openFullMessages} title={t("messages.openFullView")}>⤢</button>
+                <button className="fc-header-btn" onClick={() => setOpen(false)} title={t("messages.close")}>✕</button>
+              </div>
+            </div>
+
+            {activeConv ? (
+              <MiniThread
+                conv={activeConv}
+                user={user}
+                keyPair={keyPair}
+                onBack={() => setActiveConv(null)}
+              />
+            ) : (
+              isLoading ? (
+                <p className="fc-empty" style={{ padding: "24px" }}>{t("common.loading")}</p>
+              ) : (
+                <ConvList
+                  conversations={conversations}
+                  currentUserId={user.id}
+                  onSelect={setActiveConv}
+                  onDelete={setConvToDelete}
+                  onlineUsers={onlineUsers}
+                />
+              )
+            )}
+          </div>
         )}
-      </button>
+
+        {/* FAB hidden when panel is open */}
+        {!open && (
+          <button
+            className="fc-fab"
+            onClick={() => setOpen(true)}
+            title="Messages"
+          >
+            💬
+            {unreadCount > 0 && (
+              <span className="fc-fab-badge">{unreadCount > 9 ? "9+" : unreadCount}</span>
+            )}
+          </button>
+        )}
+      </div>
 
       {convToDelete && (
         <ConfirmModal
@@ -665,6 +685,6 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
           onCancel={() => setConvToDelete(null)}
         />
       )}
-    </div>
+    </>
   );
 }

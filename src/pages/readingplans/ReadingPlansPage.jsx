@@ -25,6 +25,7 @@ import {
   generateSchedule,
   DIFFICULTY_COLOR,
 } from "../../data/readingPlanTemplates";
+import { wolChapterUrl } from "../../utils/wol";
 import "../../styles/reading-plans.css";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -530,7 +531,9 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate }
           <div className="rp-today-label">{t("readingPlans.todaysReading")} {currentDay}</div>
           <div className="rp-today-readings">
             {schedule[currentDay - 1].readings.map((r, i) => (
-              <span key={i} className="rp-reading-chip">{r.bookAbbr} {r.chapter}</span>
+              <a key={i} className="rp-reading-chip" href={wolChapterUrl(r.bookIndex, r.chapter)} target="_blank" rel="noopener noreferrer">
+                {r.bookAbbr} {r.chapter}
+              </a>
             ))}
           </div>
           <div className="rp-today-actions">
@@ -603,7 +606,9 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate }
                     <span className="rp-day-num">{t("readingPlans.day")} {day}{isToday ? ` · ${t("readingPlans.today")}` : ""}</span>
                     <div className="rp-day-readings">
                       {readings.map((r, i) => (
-                        <span key={i} className="rp-reading-chip rp-reading-chip--sm">{r.bookAbbr} {r.chapter}</span>
+                        <a key={i} className="rp-reading-chip rp-reading-chip--sm" href={wolChapterUrl(r.bookIndex, r.chapter)} target="_blank" rel="noopener noreferrer">
+                          {r.bookAbbr} {r.chapter}
+                        </a>
                       ))}
                     </div>
                   </div>
