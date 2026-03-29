@@ -119,14 +119,26 @@ export default async function handler(req, res) {
       return res.status(200).end("OK");
     }
 
-    // Build per-recipient payloads with their unread notification count for the badge
+    // Build per-recipient payloads with their real unread message count for the badge.
+    // Unread = messages sent by others after the recipient's last_read_at.
     const recipientPayloads = await Promise.all(
       participants.map(async (p) => {
-        const unreadRows = await sbGet(
-          `/notifications?user_id=eq.${p.user_id}&read=eq.false&select=id`
+        // Get all conversations the recipient is in, with their last_read_at
+        const myConvs = await sbGet(
+          `/conversation_participants?user_id=eq.${p.user_id}&select=conversation_id,last_read_at`
         );
-        // +1 for the incoming message itself
-        const badgeCount = (Array.isArray(unreadRows) ? unreadRows.length : 0) + 1;
+        let totalUnread = 0;
+        if (Array.isArray(myConvs) && myConvs.length > 0) {
+          await Promise.all(myConvs.map(async (cp) => {
+            const cutoff = cp.last_read_at ?? "1970-01-01T00:00:00Z";
+            const unread = await sbGet(
+              `/messages?conversation_id=eq.${cp.conversation_id}&sender_id=neq.${p.user_id}&deleted_at=is.null&created_at=gt.${encodeURIComponent(cutoff)}&select=id`
+            );
+            totalUnread += Array.isArray(unread) ? unread.length : 0;
+          }));
+        }
+        // Include the current incoming message in the count
+        const badgeCount = Math.max(totalUnread, 1);
         return {
           user_id: p.user_id,
           payload: JSON.stringify({
