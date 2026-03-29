@@ -1566,6 +1566,9 @@
     "cta": "Mag-subscribe sa Stripe →",
     "ctaLoading": "Iniredirekta…",
     "note": "Walang pangako · Kanselahin anumang oras · Ligtas na pagbabayad sa pamamagitan ng Stripe",
-    "cancel": "Marahil mamaya"
+    "cancel": "Marahil mamaya",
+    "bannerTitle": "I-unlock ang Premium",
+    "bannerSub": "AI Companion, Mga Plano sa Pagbabasa, Mga Tala, Mensahe at Mga Grupo — $3/buwan",
+    "bannerCta": "I-upgrade →"
   }
 }
