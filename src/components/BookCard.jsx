@@ -1,6 +1,7 @@
 import { memo, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOK_INFO } from "../data/bookInfo";
+import { wolChapterUrl } from "../utils/wol";
 
 function formatReadDate(iso) {
   if (!iso) return null;
@@ -133,17 +134,26 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
               if (hasNote) tooltipParts.push(chNotes.map(n => n.content).join(" · "));
               const tooltipText = tooltipParts.length ? tooltipParts.join("\n") : null;
               return (
-                <button
-                  key={ch}
-                  className={`ch-pill${isDone ? " done" : ""}${hasNote ? " has-note" : ""}`}
-                  onClick={() => onToggleChapter(bookIndex, ch)}
-                  title={t("book.chapterTitle", { ch })}
-                >
-                  {ch}
-                  {tooltipText && (
-                    <span className="ch-pill-tooltip">{tooltipText}</span>
-                  )}
-                </button>
+                <div key={ch} className={`ch-pill${isDone ? " done" : ""}${hasNote ? " has-note" : ""}`}>
+                  <button
+                    className="ch-pill-toggle"
+                    onClick={() => onToggleChapter(bookIndex, ch)}
+                    title={tooltipText ?? t("book.chapterTitle", { ch })}
+                  >
+                    {ch}
+                    {tooltipText && (
+                      <span className="ch-pill-tooltip">{tooltipText}</span>
+                    )}
+                  </button>
+                  <a
+                    className="ch-pill-wol"
+                    href={wolChapterUrl(bookIndex, ch)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={`Read on JW.org`}
+                    onClick={e => e.stopPropagation()}
+                  >↗</a>
+                </div>
               );
             })}
           </div>

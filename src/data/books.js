@@ -21,7 +21,7 @@ export const BOOKS = [
   { name: "Psalms", chapters: 150, abbr: "Ps" },
   { name: "Proverbs", chapters: 31, abbr: "Prov" },
   { name: "Ecclesiastes", chapters: 12, abbr: "Eccl" },
-  { name: "Song of Solomon", chapters: 8, abbr: "Song" },
+  { name: "Song of Solomon", chapters: 8, abbr: "Song of Sol." },
   { name: "Isaiah", chapters: 66, abbr: "Isa" },
   { name: "Jeremiah", chapters: 52, abbr: "Jer" },
   { name: "Lamentations", chapters: 5, abbr: "Lam" },

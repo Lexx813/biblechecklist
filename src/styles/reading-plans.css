@@ -427,6 +427,14 @@
   padding: 3px 8px;
   font-size: 12px;
   font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: background 0.12s, color 0.12s;
+}
+.rp-reading-chip:hover {
+  background: var(--teal);
+  color: #fff;
 }
 .rp-reading-chip--sm { font-size: 11px; padding: 2px 6px; }
 

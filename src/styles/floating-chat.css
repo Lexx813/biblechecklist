@@ -1,8 +1,25 @@
 /* ── Floating Chat ────────────────────────────────────────────────────────── */
 
+/* ── Backdrop ─────────────────────────────────────────────────────────────── */
+
+.fc-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 999;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  animation: fc-fade-in 0.18s ease;
+}
+
+@keyframes fc-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 .fc-root {
   position: fixed;
-  bottom: 24px;
+  bottom: 80px;
   right: 24px;
   z-index: 1000;
   display: flex;
