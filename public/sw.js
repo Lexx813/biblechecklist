@@ -1,4 +1,4 @@
-const CACHE = "nwt-v9";
+const CACHE = "nwt-v10";
 const STATIC_EXTENSIONS = /\.(js|css|png|jpg|jpeg|svg|gif|webp|woff2?|ico)$/;
 
 // Precache critical assets on install so repeat visits are instant
@@ -87,15 +87,26 @@ self.addEventListener("push", (e) => {
   let data;
   try { data = e.data.json(); } catch { return; }
 
+  const targetUrl = data.url ?? "/";
+
   e.waitUntil(
-    self.registration.showNotification(data.title ?? "NWT Progress", {
-      body: data.body ?? "",
-      icon: "/icon-192.png",
-      badge: "/badge-96.png",
-      data: { url: data.url ?? "/" },
-      tag: data.tag ?? "nwt-notification",
-      renotify: true,   // re-alert (sound + vibration) even when replacing same tag
-      vibrate: [200, 100, 200],
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then((list) => {
+      // If the user already has the target page open and focused, skip the OS popup —
+      // the in-app realtime listener handles it. Still notify if they're on a different page.
+      const focused = list.find(
+        (c) => c.focused && c.url.includes(targetUrl.replace(/^\//, ""))
+      );
+      if (focused) return; // app is open on that exact page — don't double-notify
+
+      return self.registration.showNotification(data.title ?? "NWT Progress", {
+        body: data.body ?? "",
+        icon: "/icon-192.png",
+        badge: "/badge-96.png",
+        data: { url: targetUrl },
+        tag: data.tag ?? "nwt-notification",
+        renotify: true,
+        vibrate: [200, 100, 200],
+      });
     })
   );
 });
