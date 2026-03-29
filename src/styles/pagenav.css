@@ -151,11 +151,11 @@
   top: calc(100% + 9px);
   left: 50%;
   transform: translateX(-50%) translateY(-4px);
-  background: #1a0f35;
-  border: 1px solid rgba(138, 75, 255, 0.3);
-  color: #e9d5ff;
-  font-size: 13px;
-  font-weight: 600;
+  background: #1e1035;
+  border: 1px solid rgba(138, 75, 255, 0.25);
+  color: #ede9fe;
+  font-size: 12px;
+  font-weight: 500;
   white-space: nowrap;
   padding: 5px 10px;
   border-radius: 8px;

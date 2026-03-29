@@ -671,7 +671,7 @@
   color: #1e1035;
   word-break: break-word;
   white-space: pre-wrap;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  box-shadow: -3px 3px 6px rgba(0,0,0,0.35);
 }
 
 [data-theme="dark"] .grp-msg-bubble {
@@ -685,7 +685,7 @@
   border-color: transparent;
   border-radius: 18px 18px 4px 18px;
   color: #fff;
-  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.35);
+  box-shadow: -3px 3px 6px rgba(0,0,0,0.35);
 }
 
 /* ── Quoted reply ─────────────────────────────────────────── */
@@ -1157,6 +1157,26 @@
   .grp-page-header { flex-direction: column; }
   .grp-msg-wrap { max-width: 88%; }
   .grp-detail-header { flex-wrap: wrap; }
+  .grp-tabs { gap: 4px; }
+  .grp-tab { font-size: 13px; padding: 8px 10px; }
+}
+
+@media (max-width: 479px) {
+  .grp-page { padding: 12px 10px 60px; }
+  .grp-detail-header { padding: 12px 12px 10px; gap: 8px; }
+  .grp-detail-name { font-size: 15px; }
+  .grp-detail-desc { font-size: 12px; }
+  .grp-chat-input { font-size: 16px; } /* prevent iOS zoom */
+  .grp-member-row { padding: 10px 12px; gap: 10px; }
+  .grp-tabs { gap: 2px; }
+  .grp-tab { font-size: 12px; padding: 7px 8px; }
+}
+
+@media (max-width: 360px) {
+  .grp-page { padding: 10px 8px 60px; }
+  .grp-detail-header { padding: 10px; }
+  .grp-tab { font-size: 11px; padding: 6px 6px; }
+  .grp-msg-wrap { max-width: 94%; }
 }
 
 /* ── Search bar ──────────────────────────────────────────────────────────── */

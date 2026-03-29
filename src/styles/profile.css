@@ -553,8 +553,8 @@
 .pf-infotip-bubble {
   position: absolute;
   transform: translateX(-50%);
-  background: #1e1b2e;
-  color: rgba(255, 255, 255, 0.9);
+  background: #1e1035;
+  color: #ede9fe;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.5;
@@ -572,7 +572,7 @@
   left: 50%;
   transform: translateX(-50%);
   border: 5px solid transparent;
-  border-bottom-color: #1e1b2e;
+  border-bottom-color: #1e1035;
 }
 
 /* ── NOTES SECTION ── */
