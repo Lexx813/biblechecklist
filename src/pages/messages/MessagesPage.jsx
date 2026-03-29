@@ -981,13 +981,13 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
           }
         </div>
         <div className="msg-header-actions">
-          <button className="msg-header-icon-btn" title="Search" onClick={() => { setShowSearch(true); setShowStarred(false); setShowSettings(false); }}>🔍</button>
-          <button className={`msg-header-icon-btn${showStarred ? " msg-header-icon-btn--active" : ""}`} title="Starred" onClick={() => { setShowStarred(s => !s); setShowSearch(false); setShowSettings(false); }}>⭐</button>
-          <button className={`msg-header-icon-btn${showSettings ? " msg-header-icon-btn--active" : ""}`} title="Settings" onClick={() => { setShowSettings(s => !s); setShowSearch(false); setShowStarred(false); }}>⚙</button>
+          <button className="msg-header-icon-btn" data-tip="Search" onClick={() => { setShowSearch(true); setShowStarred(false); setShowSettings(false); }}>🔍</button>
+          <button className={`msg-header-icon-btn${showStarred ? " msg-header-icon-btn--active" : ""}`} data-tip="Starred" onClick={() => { setShowStarred(s => !s); setShowSearch(false); setShowSettings(false); }}>⭐</button>
+          <button className={`msg-header-icon-btn${showSettings ? " msg-header-icon-btn--active" : ""}`} data-tip="Settings" onClick={() => { setShowSettings(s => !s); setShowSearch(false); setShowStarred(false); }}>⚙</button>
           <button
             className={`msg-sound-btn${soundEnabled ? " msg-sound-btn--on" : ""}`}
             onClick={() => setSoundEnabled(s => !s)}
-            title={soundEnabled ? t("messages.muteSounds") : t("messages.enableSounds")}
+            data-tip={soundEnabled ? t("messages.muteSounds") : t("messages.enableSounds")}
           >
             {soundEnabled ? "🔔" : "🔕"}
           </button>
@@ -1082,16 +1082,16 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
               <button
                 type="button"
                 className={`msg-toolbar-btn${isPrayerMode ? " msg-toolbar-btn--active" : ""}`}
-                title="Prayer Request"
+                data-tip="Prayer Request"
                 onClick={() => setIsPrayerMode(v => !v)}
               >🙏</button>
-              <button type="button" className="msg-toolbar-btn" title="Share Bible Verse" onClick={() => setShowVersePicker(true)}>📖</button>
-              <button type="button" className="msg-toolbar-btn msg-toolbar-btn--img" title="Share Image" onClick={() => fileRef.current?.click()}>
+              <button type="button" className="msg-toolbar-btn" data-tip="Share Bible Verse" onClick={() => setShowVersePicker(true)}>📖</button>
+              <button type="button" className="msg-toolbar-btn msg-toolbar-btn--img" data-tip="Share Image" onClick={() => fileRef.current?.click()}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
                 </svg>
               </button>
-              <button type="button" className="msg-toolbar-btn" title="Share Reading Plan" onClick={() => setShowPlanPicker(true)}>📅</button>
+              <button type="button" className="msg-toolbar-btn" data-tip="Share Reading Plan" onClick={() => setShowPlanPicker(true)}>📅</button>
             </>
           )}
           <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/gif,image/webp" style={{ display: "none" }} onChange={handleFileChange} />
@@ -1103,7 +1103,7 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
 
         <div className="msg-composer-row">
           <div className="msg-emoji-wrap" ref={emojiRef}>
-            <button type="button" className="msg-emoji-btn" onClick={() => setShowEmoji(s => !s)} title="Emoji">
+            <button type="button" className="msg-emoji-btn" onClick={() => setShowEmoji(s => !s)} data-tip="Emoji">
               😊
             </button>
             {showEmoji && (
@@ -1131,7 +1131,7 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
             className="msg-send-btn"
             type="submit"
             disabled={!input.trim() || sendMessage.isPending}
-            title="Send"
+            data-tip="Send"
           >
             ➤
           </button>

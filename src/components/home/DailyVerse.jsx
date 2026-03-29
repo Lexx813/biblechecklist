@@ -25,7 +25,7 @@ export default function DailyVerse({ user }) {
       <p className="daily-verse-text">{t(`verses.${idx}.text`)}</p>
       <span className="daily-verse-ref">— {t(`verses.${idx}.ref`)}</span>
       <div className="daily-verse-nav">
-        <button className="daily-verse-arrow" onClick={prev} title={t("dailyVerse.prev")}>‹</button>
+        <button className="daily-verse-arrow" onClick={prev} data-tip={t("dailyVerse.prev")}>‹</button>
         <div className="daily-verse-dots">
           {Array.from({ length: dotCount }, (_, i) => {
             const dotIdx = startDot + i;
@@ -39,7 +39,7 @@ export default function DailyVerse({ user }) {
             );
           })}
         </div>
-        <button className="daily-verse-arrow" onClick={next} title={t("dailyVerse.next")}>›</button>
+        <button className="daily-verse-arrow" onClick={next} data-tip={t("dailyVerse.next")}>›</button>
       </div>
 
       {user && isPremium && (

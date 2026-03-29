@@ -69,7 +69,7 @@ export default function NotificationBell({ userId, navigate }) {
       <button
         className="page-nav-icon-btn notif-bell-btn"
         onClick={handleOpen}
-        title={t("notifications.title")}
+        data-tip={t("notifications.title")}
       >
         🔔
         {unread.length > 0 && (

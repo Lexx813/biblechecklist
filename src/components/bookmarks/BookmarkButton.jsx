@@ -25,7 +25,7 @@ export default function BookmarkButton({ userId, threadId, postId, className = "
     <button
       className={`bookmark-btn${isBookmarked ? " bookmark-btn--active" : ""} ${className}`}
       onClick={handleClick}
-      title={isBookmarked ? t("bookmarks.remove") : t("bookmarks.add")}
+      data-tip={isBookmarked ? t("bookmarks.remove") : t("bookmarks.add")}
       disabled={toggle.isPending}
     >
       {isBookmarked ? "🔖" : "🏷️"}

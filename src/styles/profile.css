@@ -554,25 +554,23 @@
   position: absolute;
   transform: translateX(-50%);
   background: #1e1035;
+  border: 1px solid rgba(138, 75, 255, 0.25);
   color: #ede9fe;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.5;
-  padding: 8px 12px;
+  padding: 5px 10px;
   border-radius: 8px;
   white-space: nowrap;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.35);
   pointer-events: none;
   z-index: 9999;
 }
-.pf-infotip-bubble::after {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 5px solid transparent;
-  border-bottom-color: #1e1035;
+[data-theme="light"] .pf-infotip-bubble {
+  background: #fff;
+  border-color: rgba(124, 58, 237, 0.2);
+  color: #3b0764;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
 }
 
 /* ── NOTES SECTION ── */

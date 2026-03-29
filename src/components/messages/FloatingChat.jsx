@@ -980,9 +980,9 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
           }
         </div>
         <div className="fc-thread-header-actions">
-          <button className="fc-header-icon-btn" title="Search" onClick={() => setShowSearch(true)}>🔍</button>
-          <button className={`fc-header-icon-btn${showStarred ? " fc-header-icon-btn--active" : ""}`} title="Starred" onClick={() => setShowStarred(true)}>⭐</button>
-          <button className={`fc-header-icon-btn${showSettings ? " fc-header-icon-btn--active" : ""}`} title="Settings" onClick={() => setShowSettings(s => !s)}>⚙</button>
+          <button className="fc-header-icon-btn" data-tip="Search" onClick={() => setShowSearch(true)}>🔍</button>
+          <button className={`fc-header-icon-btn${showStarred ? " fc-header-icon-btn--active" : ""}`} data-tip="Starred" onClick={() => setShowStarred(true)}>⭐</button>
+          <button className={`fc-header-icon-btn${showSettings ? " fc-header-icon-btn--active" : ""}`} data-tip="Settings" onClick={() => setShowSettings(s => !s)}>⚙</button>
         </div>
       </div>
 
@@ -1066,16 +1066,16 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
               <button
                 type="button"
                 className={`fc-toolbar-btn${isPrayerMode ? " fc-toolbar-btn--active" : ""}`}
-                title="Prayer Request"
+                data-tip="Prayer Request"
                 onClick={() => setIsPrayerMode(v => !v)}
               >🙏</button>
-              <button type="button" className="fc-toolbar-btn" title="Share Bible Verse" onClick={() => setShowVersePicker(true)}>📖</button>
-              <button type="button" className="fc-toolbar-btn fc-toolbar-btn--img" title="Share Image" onClick={() => fileRef.current?.click()}>
+              <button type="button" className="fc-toolbar-btn" data-tip="Share Bible Verse" onClick={() => setShowVersePicker(true)}>📖</button>
+              <button type="button" className="fc-toolbar-btn fc-toolbar-btn--img" data-tip="Share Image" onClick={() => fileRef.current?.click()}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
                 </svg>
               </button>
-              <button type="button" className="fc-toolbar-btn" title="Share Reading Plan" onClick={() => setShowPlanPicker(true)}>📅</button>
+              <button type="button" className="fc-toolbar-btn" data-tip="Share Reading Plan" onClick={() => setShowPlanPicker(true)}>📅</button>
             </>
           )}
           <input ref={fileRef} type="file" accept="image/*" style={{ display: "none" }} onChange={handleFileChange} />
@@ -1097,7 +1097,7 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
         )}
 
         <form className="fc-composer" onSubmit={handleSend}>
-          <button type="button" className="fc-emoji-toggle" onClick={() => setShowEmoji(v => !v)} title="Emoji">😊</button>
+          <button type="button" className="fc-emoji-toggle" onClick={() => setShowEmoji(v => !v)} data-tip="Emoji">😊</button>
           <input
             ref={inputRef}
             className={`fc-input${isPrayerMode ? " fc-input--prayer" : ""}`}
@@ -1314,8 +1314,8 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
                 {activeConv ? (activeConv.other_display_name || t("messages.chat")) : t("messages.title")}
               </span>
               <div className="fc-panel-header-actions">
-                <button className="fc-header-btn fc-fullview-btn" onClick={openFullMessages} title={t("messages.openFullView")}>⤢</button>
-                <button className="fc-header-btn" onClick={() => setOpen(false)} title={t("messages.close")}>✕</button>
+                <button className="fc-header-btn fc-fullview-btn" onClick={openFullMessages} data-tip={t("messages.openFullView")}>⤢</button>
+                <button className="fc-header-btn" onClick={() => setOpen(false)} data-tip={t("messages.close")}>✕</button>
               </div>
             </div>
 

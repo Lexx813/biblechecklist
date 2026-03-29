@@ -1149,13 +1149,25 @@ main:has(.msg-page) {
   font-size: 16px;
   padding: 5px 7px;
   border-radius: 8px;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   transition: background 0.12s;
   line-height: 1;
 }
 
 .msg-header-icon-btn:hover { background: var(--teal-soft); }
 .msg-header-icon-btn--active { background: var(--teal-soft); color: var(--conv-accent, var(--teal)); }
+
+/* Tooltips go below header buttons (parent has overflow:hidden above) */
+.msg-header-icon-btn[data-tip]::after,
+.msg-sound-btn[data-tip]::after {
+  bottom: auto;
+  top: calc(100% + 7px);
+  transform: translateX(-50%) translateY(-4px);
+}
+.msg-header-icon-btn[data-tip]:hover::after,
+.msg-sound-btn[data-tip]:hover::after {
+  transform: translateX(-50%) translateY(0);
+}
 
 /* ── Overlay panels (starred / search / settings) ────────────────────────── */
 
