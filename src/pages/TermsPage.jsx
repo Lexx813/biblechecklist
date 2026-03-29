@@ -2,11 +2,11 @@ import PageNav from "../components/PageNav";
 import { useMeta } from "../hooks/useMeta";
 import "../styles/about.css";
 
-export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout }) {
+export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout, onUpgrade }) {
   useMeta({ title: "Terms of Service" });
   return (
     <div className="about-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
 
       <section className="about-hero" style={{ paddingTop: "80px", paddingBottom: "48px" }}>
         <div className="about-hero-glow about-hero-glow--1" />

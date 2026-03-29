@@ -1231,7 +1231,7 @@ function AuditLogTab() {
 }
 
 // ── Main AdminPage ─────────────────────────────────────────────────────────────
-export default function AdminPage({ currentUser, currentProfile, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+export default function AdminPage({ currentUser, currentProfile, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const isCurrentUserAdmin = currentProfile?.is_admin;
   const { data: users = [], isLoading: usersLoading } = useUsers();
   const { data: reports = [], isLoading: reportsLoading } = useReports();
@@ -1242,7 +1242,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
   if ((isCurrentUserAdmin && usersLoading) || reportsLoading) {
     return (
       <div className="admin-wrap">
-        <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={currentUser} onLogout={onLogout} />
+        <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={currentUser} onLogout={onLogout}  onUpgrade={onUpgrade}/>
         <LoadingSpinner />
       </div>
     );
@@ -1260,7 +1260,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
 
   return (
     <div className="admin-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={currentUser} onLogout={onLogout} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={currentUser} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <header className="admin-header">
         <div className="admin-header-inner">
           <button className="admin-back-btn" onClick={onBack}>{t("common.back")}</button>

@@ -259,7 +259,7 @@ export default function AIToolsPage({ navigate, ...navProps }) {
 
   return (
     <>
-      <PageNav navigate={navigate} {...navProps} currentPage="aiTools" />
+      
       <div className="ait-page">
         <div className="ait-hero">
           <div className="ait-hero-icon">✨</div>

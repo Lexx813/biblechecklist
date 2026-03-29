@@ -222,7 +222,7 @@ function PostEditor({ userId, post, onDone }) {
 }
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────
-export default function BlogDashboard({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+export default function BlogDashboard({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { data: posts = [], isLoading } = useMyPosts(user.id);
   const deletePost = useDeletePost(user.id);
   const [editing, setEditing] = useState(() => {
@@ -263,7 +263,7 @@ export default function BlogDashboard({ user, onBack, navigate, darkMode, setDar
 
   return (
     <div className="blog-dash-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <header className="blog-dash-header">
         <button className="blog-back-btn" onClick={onBack}>{t("common.back")}</button>
         <h1>{t("blogDash.myPostsTitle")}</h1>

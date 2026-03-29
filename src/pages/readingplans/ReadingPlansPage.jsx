@@ -740,7 +740,7 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
   if (detailPlan) {
     return (
       <div className="rp-page">
-        <PageNav {...sharedNav} user={user} navigate={navigate} />
+        
         <PlanDetail
           plan={detailPlan}
           allPlans={myPlans}
@@ -754,7 +754,7 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
 
   return (
     <div className="rp-page">
-      <PageNav {...sharedNav} user={user} navigate={navigate} />
+      
 
       <div className="rp-header">
         <button className="rp-nav-back" onClick={() => navigate("home")}>{t("common.back")}</button>

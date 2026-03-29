@@ -547,7 +547,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
   if (editing) {
     return (
       <div className="sn-page">
-        <PageNav {...sharedNav} user={user} navigate={navigate} />
+        
         <NoteEditor
           note={editing === "new" ? null : editing}
           folders={folders}
@@ -562,7 +562,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
 
   return (
     <div className="sn-page">
-      <PageNav {...sharedNav} user={user} navigate={navigate} />
+      
 
       <div className="sn-header">
         <button className="sn-nav-back" onClick={() => navigate("home")}>{t("common.back")}</button>

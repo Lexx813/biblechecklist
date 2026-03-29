@@ -92,7 +92,7 @@ function QuizBoard({ data, userId, onProfile }) {
   );
 }
 
-export default function LeaderboardPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+export default function LeaderboardPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { t } = useTranslation();
   const [tab, setTab] = useState("reading");
 
@@ -108,7 +108,7 @@ export default function LeaderboardPage({ user, onBack, navigate, darkMode, setD
 
   return (
     <div className="lb-page">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
 
       <header className="lb-header">
         <button className="admin-back-btn" onClick={onBack}>{t("common.back")}</button>

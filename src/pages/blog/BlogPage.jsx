@@ -172,7 +172,7 @@ function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate 
 }
 
 // ── Single post view ─────────────────────────────────────────────────────────
-function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, ...rest }) {
+function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade, ...rest }) {
   const { data: post, isLoading } = usePostBySlug(slug);
   const { data: likedIds = [] } = useUserBlogLikes(user?.id);
   const toggleLike = useToggleBlogLike(user?.id);
@@ -221,7 +221,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
 
   return (
     <div className="blog-post-view">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <div className="blog-post-hero">
         <img
           src={post.cover_url || getFallbackImage(post.id)}
@@ -412,7 +412,7 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user, lang }
 });
 
 // ── Main Blog Page ────────────────────────────────────────────────────────────
-export default function BlogPage({ user, profile, onBack, onWriteClick, slug, onSelectPost, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+export default function BlogPage({ user, profile, onBack, onWriteClick, slug, onSelectPost, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { t } = useTranslation();
   const userLang = i18n?.language?.split("-")[0] ?? "en";
   const [visibleCount, setVisibleCount] = useState(9);
@@ -430,7 +430,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
       user={user}
       profile={profile}
       navigate={user ? navigate : () => toLanding()}
-      darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout}
+      darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} onUpgrade={onUpgrade}
     />;
   }
 
@@ -439,7 +439,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
 
   return (
     <div className="blog-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       {/* Nav */}
       <nav className="blog-nav">
         <button className="blog-back-btn" onClick={onBack}>{t("blog.backToBible")}</button>
