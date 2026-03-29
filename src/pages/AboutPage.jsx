@@ -81,6 +81,37 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
           </ul>
         </section>
 
+        {/* Subscription transparency */}
+        <section className="about-section about-section--transparency">
+          <div className="about-section-icon">🤝</div>
+          <h2 className="about-section-title">{t("about.subTitle", "Why There's a Subscription")}</h2>
+          <p className="about-section-body">
+            {t("about.subBody1", "This app is built and maintained by one person who loves Jehovah and wants to help those in the faith study His Word. Keeping it running requires real monthly costs:")}
+          </p>
+          <ul className="about-sub-costs">
+            <li><span>🖥️</span><span>{t("about.subCost1", "Hosting & infrastructure (Vercel)")}</span></li>
+            <li><span>🗄️</span><span>{t("about.subCost2", "Database (Supabase)")}</span></li>
+            <li><span>✨</span><span>{t("about.subCost3", "AI API — the engine behind the AI Study Companion (Claude / Anthropic)")}</span></li>
+            <li><span>🌐</span><span>{t("about.subCost4", "Domain name")}</span></li>
+          </ul>
+          <p className="about-section-body">
+            {t("about.subBody2", "The $3/month subscription is set at cost — not for profit. Every dollar goes toward keeping the lights on.")}
+          </p>
+          <div className="about-sub-surplus">
+            <span className="about-sub-surplus-icon">❤️</span>
+            <p>
+              {t("about.subSurplus", "Any surplus left after covering these costs will be used to support brothers and sisters in need and for donations to JW.org — because that's what this community is about.")}
+            </p>
+          </div>
+          <p className="about-sub-hardship">
+            {t("about.subHardship1", "If the subscription is a financial hardship, please")}{" "}
+            <a href="mailto:luaq777@gmail.com" className="about-sub-hardship-link">
+              {t("about.subHardship2", "reach out")}
+            </a>
+            {t("about.subHardship3", " — no one in the faith should be left out.")}
+          </p>
+        </section>
+
         {/* Creator */}
         <section className="about-section about-section--creator">
           <div className="about-creator-card">

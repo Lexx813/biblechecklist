@@ -356,6 +356,77 @@
 }
 .about-footer-link:hover { opacity: 0.8; }
 
+/* ── Subscription Transparency ───────────────────────────────────── */
+.about-section--transparency {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid var(--border);
+}
+
+.about-sub-costs {
+  list-style: none;
+  margin: 16px 0 20px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.about-sub-costs li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.about-sub-costs li span:first-child {
+  font-size: 18px;
+  width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.about-sub-surplus {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(20,184,166,0.07);
+  border: 1px solid rgba(20,184,166,0.2);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-top: 20px;
+}
+
+.about-sub-surplus-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.about-sub-surplus p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--text-primary);
+}
+
+.about-sub-hardship {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 16px 0 0;
+  font-style: italic;
+}
+
+.about-sub-hardship-link {
+  color: var(--teal, #0d9488);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.about-sub-hardship-link:hover { opacity: 0.8; }
+
 /* ── Responsive ───────────────────────────────────────────────────── */
 @media (max-width: 640px) {
   .about-hero { padding: 52px 16px 48px; }
