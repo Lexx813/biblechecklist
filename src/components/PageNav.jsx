@@ -9,7 +9,7 @@ import { useFullProfile } from "../hooks/useAdmin";
 import { useSubscription } from "../hooks/useSubscription";
 import { useUnreadMessageCount } from "../hooks/useMessages";
 
-const FLAGS = { en: "🇺🇸", es: "🇪🇸", pt: "🇧🇷", tl: "🇵🇭", fr: "🇫🇷" };
+const FLAGS = { en: "🇺🇸", es: "🇪🇸", pt: "🇧🇷", tl: "🇵🇭", fr: "🇫🇷", zh: "🇨🇳" };
 
 export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage, onUpgrade }) {
   const { t } = useTranslation();
