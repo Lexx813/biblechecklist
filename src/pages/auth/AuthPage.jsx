@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useLogin, useRegister, useResetPassword } from "../../hooks/useAuth";
 import { authApi } from "../../api/auth";
@@ -6,6 +6,12 @@ import "../../styles/auth.css";
 
 export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, onConfirmDismiss }) {
   const [mode, setMode] = useState("login"); // "login" | "signup" | "forgot"
+  const [darkMode, setDarkMode] = useState(() => document.documentElement.dataset.theme === "dark");
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = darkMode ? "dark" : "light";
+    localStorage.setItem("nwt-theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
   const [email, setEmail] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [password, setPassword] = useState("");
@@ -156,9 +162,14 @@ export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, on
 
   return (
     <div className="auth-wrap">
-      {onBack && (
-        <button className="auth-back-btn" onClick={onBack}>{t("auth.back")}</button>
-      )}
+      <div className="auth-topbar">
+        {onBack && (
+          <button className="auth-back-btn" onClick={onBack}>{t("auth.back")}</button>
+        )}
+        <button className="auth-theme-toggle" onClick={() => setDarkMode(d => !d)} title={darkMode ? "Light mode" : "Dark mode"}>
+          {darkMode ? "☀️" : "🌙"}
+        </button>
+      </div>
       <div className="auth-card">
         <div className="auth-header">
           <div className="auth-logo">📖</div>

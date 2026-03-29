@@ -11,6 +11,28 @@
   gap: 16px;
 }
 
+.auth-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-theme-toggle {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 8px;
+  line-height: 1;
+  transition: background 0.15s;
+  margin-left: auto;
+}
+
+.auth-theme-toggle:hover { background: var(--teal-soft); }
+
 .auth-back-btn {
   background: none;
   border: none;

@@ -6,7 +6,6 @@ export const messagesApi = {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return [];
 
-    // My participations
     const { data: mine, error: e1 } = await supabase
       .from("conversation_participants")
       .select("conversation_id, last_read_at")
@@ -16,7 +15,6 @@ export const messagesApi = {
 
     const convIds = mine.map(p => p.conversation_id);
 
-    // Other participant IDs + latest messages (parallel)
     const [{ data: others, error: e2 }, { data: msgs, error: e3 }] = await Promise.all([
       supabase
         .from("conversation_participants")
@@ -25,7 +23,7 @@ export const messagesApi = {
         .neq("user_id", user.id),
       supabase
         .from("messages")
-        .select("id, conversation_id, content, created_at, sender_id")
+        .select("id, conversation_id, content, created_at, sender_id, message_type")
         .in("conversation_id", convIds)
         .is("deleted_at", null)
         .order("created_at", { ascending: false }),
@@ -33,7 +31,6 @@ export const messagesApi = {
     if (e2) throw new Error(e2.message);
     if (e3) throw new Error(e3.message);
 
-    // Profiles for other users
     const otherIds = [...new Set((others ?? []).map(o => o.user_id))];
     const { data: profileRows, error: e4 } = otherIds.length
       ? await supabase.from("profiles").select("id, display_name, avatar_url").in("id", otherIds)
@@ -56,6 +53,7 @@ export const messagesApi = {
         other_avatar_url: profile?.avatar_url ?? null,
         other_last_read_at: other?.last_read_at ?? null,
         last_message_content: last?.content ?? null,
+        last_message_type: last?.message_type ?? "text",
         last_message_at: last?.created_at ?? null,
         last_message_sender_id: last?.sender_id ?? null,
         unread_count: unread,
@@ -67,20 +65,16 @@ export const messagesApi = {
     });
   },
 
-  // Get or create a DM conversation with another user
   getOrCreateDM: async (otherUserId) => {
-    const { data, error } = await supabase.rpc("get_or_create_dm", {
-      other_user_id: otherUserId,
-    });
+    const { data, error } = await supabase.rpc("get_or_create_dm", { other_user_id: otherUserId });
     if (error) throw new Error(error.message);
     return data;
   },
 
-  // Get messages in a conversation (oldest first, last 100)
   getMessages: async (conversationId) => {
     const { data, error } = await supabase
       .from("messages")
-      .select("id, content, created_at, deleted_at, sender_id, reply_to_id, edited_at, sender:profiles(id, display_name, avatar_url)")
+      .select("id, content, created_at, deleted_at, sender_id, reply_to_id, edited_at, message_type, metadata, starred_by, expires_at, sender:profiles(id, display_name, avatar_url)")
       .eq("conversation_id", conversationId)
       .is("deleted_at", null)
       .order("created_at", { ascending: true })
@@ -89,22 +83,22 @@ export const messagesApi = {
     return data ?? [];
   },
 
-  // Send a message (with optional reply_to_id)
-  sendMessage: async (conversationId, content, replyToId = null) => {
+  sendMessage: async (conversationId, content, replyToId = null, messageType = "text", metadata = null) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
-    const row = { conversation_id: conversationId, sender_id: user.id, content: content.trim() };
+    const row = {
+      conversation_id: conversationId,
+      sender_id: user.id,
+      content: content.trim(),
+      message_type: messageType,
+    };
     if (replyToId) row.reply_to_id = replyToId;
-    const { data, error } = await supabase
-      .from("messages")
-      .insert(row)
-      .select()
-      .single();
+    if (metadata) row.metadata = metadata;
+    const { data, error } = await supabase.from("messages").insert(row).select().single();
     if (error) throw new Error(error.message);
     return data;
   },
 
-  // Edit a message
   editMessage: async (messageId, content) => {
     const { error } = await supabase
       .from("messages")
@@ -113,16 +107,11 @@ export const messagesApi = {
     if (error) throw new Error(error.message);
   },
 
-  // Hard-delete a conversation (cascades to participants + messages)
   deleteConversation: async (conversationId) => {
-    const { error } = await supabase
-      .from("conversations")
-      .delete()
-      .eq("id", conversationId);
+    const { error } = await supabase.from("conversations").delete().eq("id", conversationId);
     if (error) throw new Error(error.message);
   },
 
-  // Soft-delete a message
   deleteMessage: async (messageId) => {
     const { error } = await supabase
       .from("messages")
@@ -131,7 +120,6 @@ export const messagesApi = {
     if (error) throw new Error(error.message);
   },
 
-  // Mark conversation as read (update last_read_at)
   markRead: async (conversationId, userId) => {
     const { error } = await supabase
       .from("conversation_participants")
@@ -141,7 +129,6 @@ export const messagesApi = {
     if (error) throw new Error(error.message);
   },
 
-  // Get all reactions for messages in a conversation
   getReactions: async (conversationId) => {
     const { data: msgs } = await supabase
       .from("messages")
@@ -158,7 +145,6 @@ export const messagesApi = {
     return data ?? [];
   },
 
-  // Toggle a reaction (insert or delete)
   toggleReaction: async (messageId, userId, emoji) => {
     const { data: existing } = await supabase
       .from("message_reactions")
@@ -176,13 +162,105 @@ export const messagesApi = {
     }
   },
 
-  // Total unread count across all conversations (for nav badge)
   getUnreadCount: async () => {
     try {
       const convs = await messagesApi.getConversations();
       return convs.reduce((sum, c) => sum + (Number(c.unread_count) || 0), 0);
     } catch {
       return 0;
+    }
+  },
+
+  // ── Star ──────────────────────────────────────────────────────────────────────
+  toggleStar: async (messageId) => {
+    const { data, error } = await supabase.rpc("toggle_message_star", { p_message_id: messageId });
+    if (error) throw new Error(error.message);
+    return data; // true = starred, false = unstarred
+  },
+
+  getStarred: async (conversationId) => {
+    const { data, error } = await supabase.rpc("get_starred_messages", { p_conversation_id: conversationId });
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
+
+  // ── Search ────────────────────────────────────────────────────────────────────
+  searchMessages: async (conversationId, query) => {
+    const { data, error } = await supabase.rpc("search_messages", { p_conversation_id: conversationId, p_query: query });
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
+
+  // ── Conversation settings ─────────────────────────────────────────────────────
+  getConvSettings: async (conversationId) => {
+    const { data, error } = await supabase.rpc("get_conversation_settings", { p_conversation_id: conversationId });
+    if (error) throw new Error(error.message);
+    return data?.[0] ?? { theme_accent: null, disappear_after: null };
+  },
+
+  saveConvSettings: async (conversationId, themeAccent, disappearAfter) => {
+    const { error } = await supabase.rpc("upsert_conversation_settings", {
+      p_conversation_id: conversationId,
+      p_theme_accent: themeAccent,
+      p_disappear_after: disappearAfter,
+    });
+    if (error) throw new Error(error.message);
+  },
+
+  // ── Image upload ──────────────────────────────────────────────────────────────
+  uploadImage: async (file) => {
+    const ALLOWED_TYPES = { "image/jpeg": "jpg", "image/png": "png", "image/gif": "gif", "image/webp": "webp" };
+    const MAX_BYTES = 5 * 1024 * 1024; // 5 MB
+
+    if (!ALLOWED_TYPES[file.type]) throw new Error("Only JPEG, PNG, GIF, and WebP images are allowed.");
+    if (file.size > MAX_BYTES) throw new Error("Image must be smaller than 5 MB.");
+
+    const ext = ALLOWED_TYPES[file.type];
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    const { error } = await supabase.storage.from("chat-images").upload(path, file, { contentType: file.type });
+    if (error) throw new Error(error.message);
+    const { data } = supabase.storage.from("chat-images").getPublicUrl(path);
+    return data.publicUrl;
+  },
+
+  // ── Link previews ─────────────────────────────────────────────────────────────
+  getLinkPreviews: async (conversationId) => {
+    const { data: msgs } = await supabase.from("messages").select("id").eq("conversation_id", conversationId).is("deleted_at", null);
+    if (!msgs?.length) return [];
+    const ids = msgs.map(m => m.id);
+    const { data, error } = await supabase.from("message_link_previews").select("*").in("message_id", ids);
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
+
+  fetchLinkPreview: async (messageId, url) => {
+    const { data: { session } } = await supabase.auth.getSession();
+    const base = import.meta.env.VITE_SUPABASE_URL;
+    try {
+      const res = await fetch(`${base}/functions/v1/fetch-link-preview`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${session?.access_token}` },
+        body: JSON.stringify({ message_id: messageId, url }),
+      });
+      if (!res.ok) return null;
+      return await res.json();
+    } catch {
+      return null;
+    }
+  },
+
+  // ── Push notification for new message ────────────────────────────────────────
+  notifyRecipient: async (conversationId, recipientId) => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user || user.id === recipientId) return;
+      await supabase.rpc("create_message_notification", {
+        p_conversation_id: conversationId,
+        p_recipient_id: recipientId,
+        p_actor_id: user.id,
+      });
+    } catch {
+      // non-critical
     }
   },
 };
