@@ -2,22 +2,6 @@ import { useTranslation } from "react-i18next";
 import "../styles/landing.css";
 import LanguageSelect from "../components/LanguageSelect";
 
-const FREE_FEATURES = [
-  { icon: "📖", label: "Track all 66 books & chapters" },
-  { icon: "🧠", label: "Bible quiz with 1,000+ questions" },
-  { icon: "✍️", label: "Community blog" },
-  { icon: "💬", label: "Public discussion forum" },
-  { icon: "🔖", label: "Bookmarks & activity feed" },
-  { icon: "🔔", label: "Notifications" },
-];
-
-const PREMIUM_FEATURES = [
-  { icon: "📅", label: "Reading Plans", desc: "Structured multi-week plans through any book" },
-  { icon: "📝", label: "Study Notes", desc: "Rich-text notes tied to any passage or chapter" },
-  { icon: "✨", label: "AI Companion", desc: "Ask AI about any verse, quiz question, or passage" },
-  { icon: "💬", label: "Direct Messages", desc: "Private conversations with other members" },
-  { icon: "👥", label: "Study Groups", desc: "Group chat and shared progress tracking" },
-];
 
 export default function LandingPage({ onGetStarted }) {
   const { t } = useTranslation();
@@ -91,62 +75,6 @@ export default function LandingPage({ onGetStarted }) {
         </p>
       </div>
 
-      {/* Pricing */}
-      <section className="landing-pricing">
-        <div className="landing-pricing-header">
-          <h2 className="landing-pricing-title">Simple, honest pricing</h2>
-          <p className="landing-pricing-sub">Start free. Upgrade when you're ready.</p>
-        </div>
-
-        <div className="landing-pricing-cards">
-          {/* Free */}
-          <div className="landing-plan landing-plan--free">
-            <p className="landing-plan-name">Free</p>
-            <div className="landing-plan-price">
-              <span className="landing-plan-amount">$0</span>
-              <span className="landing-plan-period"> / forever</span>
-            </div>
-            <p className="landing-plan-desc">Everything you need to start tracking your reading journey.</p>
-            <ul className="landing-plan-features">
-              {FREE_FEATURES.map(({ icon, label }) => (
-                <li key={label} className="landing-plan-feature">
-                  <span className="landing-plan-feature-icon">{icon}</span>
-                  <span>{label}</span>
-                </li>
-              ))}
-            </ul>
-            <button className="landing-plan-cta landing-plan-cta--ghost" onClick={onGetStarted}>
-              Get started free
-            </button>
-          </div>
-
-          {/* Premium */}
-          <div className="landing-plan landing-plan--premium">
-            <div className="landing-plan-popular">Most Popular</div>
-            <p className="landing-plan-name">Premium</p>
-            <div className="landing-plan-price">
-              <span className="landing-plan-amount">$3</span>
-              <span className="landing-plan-period"> / month</span>
-            </div>
-            <p className="landing-plan-desc">The complete NWT Progress experience — everything in Free, plus:</p>
-            <ul className="landing-plan-features">
-              {PREMIUM_FEATURES.map(({ icon, label, desc }) => (
-                <li key={label} className="landing-plan-feature landing-plan-feature--detailed">
-                  <span className="landing-plan-feature-icon">{icon}</span>
-                  <span>
-                    <strong>{label}</strong>
-                    <span className="landing-plan-feature-desc">{desc}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <button className="landing-plan-cta landing-plan-cta--primary" onClick={onGetStarted}>
-              Get started →
-            </button>
-            <p className="landing-plan-note">No commitment · Cancel anytime</p>
-          </div>
-        </div>
-      </section>
 
       <footer style={{
         position: "relative", zIndex: 10,
