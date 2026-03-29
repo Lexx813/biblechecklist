@@ -27,20 +27,12 @@
     <meta name="msapplication-TileColor" content="#1E0D3C" />
 
     <!-- SEO -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <title>Bible Reading Tracker for New World Translation | NWT Progress</title>
     <meta name="description" content="Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community. Free Bible tracker app." />
     <meta name="keywords" content="NWT, New World Translation, Bible reading tracker, Bible tracker, Bible quiz, Jehovah's Witnesses, Bible progress app, Bible reading app" />
     <meta name="author" content="NWT Progress" />
-    <link rel="canonical" href="https://nwtprogress.com" />
-
-    <!-- hreflang — multilingual support -->
-    <link rel="alternate" hreflang="en" href="https://nwtprogress.com" />
-    <link rel="alternate" hreflang="es" href="https://nwtprogress.com" />
-    <link rel="alternate" hreflang="pt" href="https://nwtprogress.com" />
-    <link rel="alternate" hreflang="fr" href="https://nwtprogress.com" />
-    <link rel="alternate" hreflang="tl" href="https://nwtprogress.com" />
-    <link rel="alternate" hreflang="zh" href="https://nwtprogress.com" />
-    <link rel="alternate" hreflang="x-default" href="https://nwtprogress.com" />
+    <link rel="canonical" href="https://nwtprogress.com/" />
 
     <!-- Open Graph (Facebook, WhatsApp, Discord previews) -->
     <meta property="og:type" content="website" />
@@ -49,6 +41,8 @@
     <meta property="og:description" content="Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community. Free Bible tracker app." />
     <meta property="og:site_name" content="NWT Progress" />
     <meta property="og:image" content="https://nwtprogress.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter / X card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -56,6 +50,7 @@
     <meta name="twitter:title" content="Bible Reading Tracker for New World Translation | NWT Progress" />
     <meta name="twitter:description" content="Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community. Free Bible tracker app." />
     <meta name="twitter:image" content="https://nwtprogress.com/og-image.png" />
+    <meta name="twitter:image:alt" content="NWT Progress — Bible Reading Tracker" />
 
     <!-- Schema.org structured data -->
     <script type="application/ld+json">
@@ -104,7 +99,12 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "NWT Progress",
-      "url": "https://nwtprogress.com"
+      "url": "https://nwtprogress.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://nwtprogress.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
     }
     </script>
 
