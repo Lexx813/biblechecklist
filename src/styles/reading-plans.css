@@ -400,8 +400,12 @@
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 24px;
+  transition: background 0.3s, border-color 0.3s;
 }
-.rp-today-card--done { border-color: var(--border); background: var(--bg-subtle, #f9f9f9); }
+.rp-today-card--done {
+  border-color: var(--teal);
+  background: linear-gradient(135deg, rgba(0,180,160,0.13), rgba(0,180,160,0.05));
+}
 
 .rp-today-label {
   font-size: 12px;
@@ -410,8 +414,11 @@
   letter-spacing: 0.06em;
   color: var(--teal);
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-.rp-today-card--done .rp-today-label { color: var(--text-muted); }
+.rp-today-card--done .rp-today-label { color: var(--teal); }
 
 .rp-today-readings {
   display: flex;
@@ -451,11 +458,13 @@
 }
 .rp-mark-btn:hover:not(:disabled) { opacity: 0.88; }
 .rp-mark-btn--done {
-  background: transparent;
-  color: var(--teal);
-  border: 1.5px solid var(--teal);
+  background: var(--teal);
+  color: #fff;
+  border: none;
   font-weight: 700;
+  opacity: 0.9;
 }
+.rp-mark-btn--done:hover:not(:disabled) { opacity: 1; }
 .rp-mark-btn:disabled { opacity: 0.5; cursor: default; }
 
 /* ── Day list ──────────────────────────────────────────────────────────────── */

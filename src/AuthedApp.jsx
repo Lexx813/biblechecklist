@@ -182,7 +182,7 @@ function BibleApp({ user, onLogout, i18n }) {
       <div key={nav.page} className="page-fade-in">
         {pageContent}
       </div>
-      {isPremium && (
+      {isPremium && nav.page !== "messages" && (
         <Suspense fallback={null}>
           <FloatingChat
             user={user}
