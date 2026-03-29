@@ -119,6 +119,20 @@ function BibleApp({ user, onLogout, i18n }) {
     return () => window.removeEventListener("popstate", handler);
   }, []);
 
+  // Handle push notification tap — service worker posts { type: "push-navigate", url }
+  // instead of using client.navigate() which is unreliable on Android Chrome.
+  useEffect(() => {
+    function handler(e) {
+      if (e.data?.type === "push-navigate" && typeof e.data.url === "string") {
+        const path = e.data.url;
+        history.pushState(null, "", path);
+        setNav(parsePath());
+      }
+    }
+    navigator.serviceWorker?.addEventListener("message", handler);
+    return () => navigator.serviceWorker?.removeEventListener("message", handler);
+  }, []);
+
   const navigate = (page, params = {}) => {
     const path = buildPath(page, params);
     history.pushState(null, "", path);
