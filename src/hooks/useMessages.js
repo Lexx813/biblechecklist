@@ -196,8 +196,10 @@ export function useDeleteMessage(conversationId) {
 // ── Mark read ─────────────────────────────────────────────────────────────────
 
 export function useMarkRead(conversationId, userId) {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: () => messagesApi.markRead(conversationId, userId),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["conversations"] }),
   });
 }
 
@@ -223,6 +225,17 @@ export function useUnreadMessageCount() {
       })
       .subscribe();
     return () => supabase.removeChannel(channel);
+  }, [queryClient]);
+
+  // Refetch when the user returns to the app — realtime misses events while backgrounded
+  useEffect(() => {
+    function onVisible() {
+      if (document.visibilityState === "visible") {
+        queryClient.invalidateQueries({ queryKey: ["conversations"] });
+      }
+    }
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
   }, [queryClient]);
 
   return useQuery({

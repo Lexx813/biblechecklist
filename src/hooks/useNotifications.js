@@ -23,12 +23,24 @@ export function useNotifications(userId) {
     return () => { supabase.removeChannel(channel); };
   }, [userId, queryClient]);
 
+  // Refetch when user returns to app — realtime misses events while backgrounded
+  useEffect(() => {
+    if (!userId) return;
+    function onVisible() {
+      if (document.visibilityState === "visible") {
+        queryClient.invalidateQueries({ queryKey: ["notifications", userId] });
+      }
+    }
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, [userId, queryClient]);
+
   return useQuery({
     queryKey: ["notifications", userId],
     queryFn: notificationsApi.list,
     enabled: !!userId,
-    staleTime: 5 * 60 * 1000,      // realtime handles new inserts; no need to refetch often
-    refetchOnWindowFocus: false,    // realtime subscription keeps data fresh
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }
 
