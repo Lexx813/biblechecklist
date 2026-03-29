@@ -528,7 +528,9 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate }
       {/* Today's reading */}
       {!plan.is_paused && schedule[currentDay - 1] && (
         <div className={`rp-today-card${doneSet.has(currentDay) ? " rp-today-card--done" : ""}`}>
-          <div className="rp-today-label">{t("readingPlans.todaysReading")} {currentDay}</div>
+          <div className="rp-today-label">
+            {doneSet.has(currentDay) ? "✓" : "📖"} {t("readingPlans.todaysReading")} {currentDay}
+          </div>
           <div className="rp-today-readings">
             {schedule[currentDay - 1].readings.map((r, i) => (
               <a key={i} className="rp-reading-chip" href={wolChapterUrl(r.bookIndex, r.chapter)} target="_blank" rel="noopener noreferrer">
