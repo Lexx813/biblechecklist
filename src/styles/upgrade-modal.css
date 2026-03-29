@@ -155,6 +155,68 @@
   line-height: 1.4;
 }
 
+/* ── Transparency ────────────────────────────────────────────────────────────── */
+
+.upm-transparency {
+  padding: 16px 24px;
+  background: rgba(124,58,237,0.04);
+  border-bottom: 1px solid var(--border);
+}
+
+.upm-transparency-heading {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7c3aed;
+  margin: 0 0 10px;
+}
+
+.upm-cost-list {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.upm-cost-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+.upm-cost-icon {
+  font-size: 14px;
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.upm-transparency-surplus {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0 0 8px;
+  font-style: italic;
+}
+
+.upm-hardship {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.upm-hardship-link {
+  color: #7c3aed;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* ── Footer / CTA ────────────────────────────────────────────────────────────── */
 
 .upm-footer {

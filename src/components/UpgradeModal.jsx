@@ -42,6 +42,25 @@ export default function UpgradeModal({ onClose, onSubscribe, loading }) {
           ))}
         </ul>
 
+        {/* Transparency */}
+        <div className="upm-transparency">
+          <p className="upm-transparency-heading">Where your $3 goes</p>
+          <ul className="upm-cost-list">
+            <li><span className="upm-cost-icon">🖥️</span><span>Hosting &amp; infrastructure (Vercel)</span></li>
+            <li><span className="upm-cost-icon">🗄️</span><span>Database (Supabase)</span></li>
+            <li><span className="upm-cost-icon">✨</span><span>AI API (Claude / Anthropic)</span></li>
+            <li><span className="upm-cost-icon">🌐</span><span>Domain name</span></li>
+          </ul>
+          <p className="upm-transparency-surplus">
+            Any surplus after covering these costs goes toward supporting brothers and sisters in need and donations to JW.org.
+          </p>
+          <p className="upm-hardship">
+            If the subscription is a financial hardship, please{" "}
+            <a href="mailto:luaq777@gmail.com" className="upm-hardship-link">reach out</a>
+            {" "}— no one in the faith should be left out.
+          </p>
+        </div>
+
         {/* CTA */}
         <div className="upm-footer">
           <button
