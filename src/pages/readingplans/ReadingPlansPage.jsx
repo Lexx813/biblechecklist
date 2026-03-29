@@ -551,7 +551,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate }
                   prefill: { bookIndex: schedule[currentDay - 1].readings[0]?.bookIndex, chapter: schedule[currentDay - 1].readings[0]?.chapter }
                 })}
               >
-                📝 {t("readingPlans.addNote")}
+                {t("readingPlans.addNote")}
               </button>
             )}
           </div>
