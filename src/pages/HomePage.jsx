@@ -6,7 +6,6 @@ import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
 import DailyVerse from "../components/home/DailyVerse";
 import PageNav from "../components/PageNav";
-import PageFooter from "../components/PageFooter";
 import OnboardingModal, { useOnboarding } from "../components/OnboardingModal";
 import "../styles/home.css";
 
@@ -352,7 +351,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         </div>
       )}
 
-      <PageFooter />
       {showOnboarding && <OnboardingModal onClose={closeOnboarding} />}
     </div>
   );
