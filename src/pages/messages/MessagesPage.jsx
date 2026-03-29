@@ -691,6 +691,7 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
   const { sharedKey, otherHasKey } = useSharedKey(keyPair, conv.other_user_id);
   const { uploading, uploadAndSend } = useUploadImage(conv.conversation_id);
   const toggleStar = useToggleStar(conv.conversation_id);
+  const { data: convSettings } = useConvSettings(conv.conversation_id);
 
   const [input, setInput] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
@@ -709,6 +710,13 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
   const [showSearch, setShowSearch] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [accentColor, setAccentColor] = useState(null);
+
+  // Sync accent color from saved settings
+  useEffect(() => {
+    if (convSettings?.theme_accent !== undefined) {
+      setAccentColor(convSettings.theme_accent ?? null);
+    }
+  }, [convSettings?.theme_accent]);
 
   const bottomRef = useRef(null);
   const bodyRef = useRef(null);
@@ -938,7 +946,7 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
   else if (otherLastSeen) presenceLine = <span className="msg-presence-status">Last seen {timeAgo(otherLastSeen, t)}</span>;
 
   return (
-    <div className="msg-thread">
+    <div className="msg-thread" style={accentColor ? { "--conv-accent": accentColor } : {}}>
       <div className="msg-thread-header">
         <button className="msg-back-btn" onClick={onBack}>←</button>
         <Avatar
