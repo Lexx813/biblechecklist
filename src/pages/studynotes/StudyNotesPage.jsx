@@ -20,6 +20,7 @@ import {
   useCreateNoteFolder,
   useRenameNoteFolder,
   useDeleteNoteFolder,
+  useToggleNoteLike,
 } from "../../hooks/useStudyNotes";
 import "../../styles/study-notes.css";
 
@@ -318,7 +319,7 @@ function NoteEditor({ note, folders, onSave, onCancel, saving, isAdmin }) {
 
 // ── Note card ─────────────────────────────────────────────────────────────────
 
-function NoteCard({ note, onClick, onDelete, onExportMd, onExportPdf, showAuthor }) {
+function NoteCard({ note, onClick, onDelete, onExportMd, onExportPdf, showAuthor, onLike }) {
   const { t } = useTranslation();
   const passage = passageLabel(note);
   const preview = stripHtml(note.content).slice(0, 140);
@@ -347,6 +348,15 @@ function NoteCard({ note, onClick, onDelete, onExportMd, onExportPdf, showAuthor
           ))}
         </div>
         <div className="sn-card-actions">
+          {onLike && (
+            <button
+              className={`sn-like-btn${note.user_has_liked ? " sn-like-btn--liked" : ""}`}
+              onClick={e => { e.stopPropagation(); onLike(note.id); }}
+              aria-label={note.user_has_liked ? "Unlike" : "Like"}
+            >
+              {note.user_has_liked ? "♥" : "♡"}{note.like_count > 0 ? ` ${note.like_count}` : ""}
+            </button>
+          )}
           {onExportMd && (
             <button className="sn-card-export-btn" onClick={e => { e.stopPropagation(); onExportMd(note); }} title={t("studyNotes.exportMarkdown")}>⬇</button>
           )}
@@ -490,6 +500,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
   const { data: notes = [], isLoading } = useStudyNotes();
   const { data: publicNotes = [], isLoading: loadingPublic } = usePublicNotes();
   const { data: folders = [] } = useNoteFolders();
+  const toggleLike = useToggleNoteLike();
   const createNote = useCreateStudyNote();
   const updateNote = useUpdateStudyNote();
   const deleteNote = useDeleteStudyNote();
@@ -733,6 +744,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
                     note={note}
                     onClick={() => {}}
                     showAuthor
+                    onLike={(id) => toggleLike.mutate(id)}
                   />
                 ))}
               </div>

@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import { useTopThreads } from "../hooks/useForum";
+import { usePublicNotes, useToggleNoteLike } from "../hooks/useStudyNotes";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
 import DailyVerse from "../components/home/DailyVerse";
@@ -70,6 +71,9 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { t } = useTranslation();
   const { data: posts = [], isLoading: postsLoading } = usePublishedPosts();
   const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4);
+  const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes();
+  const toggleNoteLike = useToggleNoteLike();
+  const previewNotes = publicNotes.slice(0, 4);
   const { data: profile } = useFullProfile(user?.id);
   const updateProfile = useUpdateProfile(user?.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
@@ -230,6 +234,70 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <span className="home-tracker-cta">{t("quiz.homeCard")}</span>
           </div>
         </div>
+      </section>
+
+      {/* ── Community Notes section ── */}
+      <section className="home-section">
+        <div className="home-section-label">📝 Community</div>
+        <div className="home-section-row">
+          <div>
+            <h2 className="home-section-title">Community Notes</h2>
+            <p className="home-section-sub">Insights and reflections shared by brothers and sisters.</p>
+          </div>
+          <button className="home-section-link" onClick={() => navigate("studyNotes")}>
+            See all
+          </button>
+        </div>
+
+        {notesLoading ? (
+          <div className="home-forum-list">
+            {[0,1,2,3].map(i => (
+              <div key={i} className="home-forum-row" style={{ pointerEvents: "none" }}>
+                <div className="home-forum-row-body" style={{ gap: 8 }}>
+                  <div className="skeleton" style={{ height: 16, width: "70%", borderRadius: 6 }}>&nbsp;</div>
+                  <div className="skeleton" style={{ height: 11, width: "40%", borderRadius: 6 }}>&nbsp;</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : previewNotes.length === 0 ? (
+          <div className="home-empty">
+            <div className="home-empty-icon">📝</div>
+            <p className="home-empty-title">No public notes yet</p>
+            <p className="home-empty-sub">Be the first to share a study note with the community.</p>
+            <button className="home-empty-btn" onClick={() => navigate("studyNotes")}>Write a note →</button>
+          </div>
+        ) : (
+          <div className="home-forum-list">
+            {previewNotes.map(note => {
+              const passage = note.book_index != null
+                ? `${["Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes","Song of Solomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi","Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"][note.book_index] ?? ""} ${note.chapter ?? ""}`.trim()
+                : null;
+              return (
+                <div key={note.id} className="home-forum-row" onClick={() => navigate("studyNotes")}>
+                  <div className="home-forum-row-body">
+                    <h4 className="home-forum-row-title">{note.title || "Untitled"}</h4>
+                    <div className="home-forum-row-meta">
+                      <span>👤 {note.author?.display_name ?? "Anonymous"}</span>
+                      {passage && <><span className="home-dot">·</span><span>📖 {passage}</span></>}
+                      <span className="home-dot">·</span>
+                      <span>{formatDate(note.updated_at)}</span>
+                    </div>
+                  </div>
+                  <div className="home-forum-row-stats">
+                    <button
+                      className={`home-forum-stat home-note-like-btn${note.user_has_liked ? " home-note-like-btn--liked" : ""}`}
+                      onClick={e => { e.stopPropagation(); toggleNoteLike.mutate(note.id); }}
+                      aria-label={note.user_has_liked ? "Unlike" : "Like"}
+                    >
+                      {note.user_has_liked ? "♥" : "♡"} {note.like_count > 0 ? note.like_count : ""}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </section>
 
       {/* ── Blog section ── */}

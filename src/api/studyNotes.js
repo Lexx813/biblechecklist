@@ -14,21 +14,29 @@ export const studyNotesApi = {
   },
 
   getPublicNotes: async () => {
+    const { data: { user } } = await supabase.auth.getUser();
     const { data, error } = await supabase
       .from("study_notes")
-      .select("id, title, content, tags, book_index, chapter, verse, updated_at, user_id")
+      .select("id, title, content, tags, book_index, chapter, verse, updated_at, user_id, like_count")
       .eq("is_public", true)
       .order("updated_at", { ascending: false })
       .limit(60);
     if (error) throw new Error(error.message);
     if (!data?.length) return [];
     const userIds = [...new Set(data.map(n => n.user_id))];
-    const { data: profiles } = await supabase
-      .from("profiles")
-      .select("id, display_name, avatar_url")
-      .in("id", userIds);
+    const [{ data: profiles }, { data: likedIds }] = await Promise.all([
+      supabase.from("profiles").select("id, display_name, avatar_url").in("id", userIds),
+      user ? supabase.rpc("get_user_note_likes", { p_user_id: user.id }) : { data: [] },
+    ]);
     const profileMap = Object.fromEntries((profiles ?? []).map(p => [p.id, p]));
-    return data.map(n => ({ ...n, author: profileMap[n.user_id] ?? null }));
+    const likedSet = new Set(likedIds ?? []);
+    return data.map(n => ({ ...n, author: profileMap[n.user_id] ?? null, user_has_liked: likedSet.has(n.id) }));
+  },
+
+  toggleLike: async (noteId) => {
+    const { data, error } = await supabase.rpc("toggle_study_note_like", { p_note_id: noteId });
+    if (error) throw new Error(error.message);
+    return data;
   },
 
   createNote: async (note) => {

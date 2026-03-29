@@ -66,7 +66,7 @@ function Page({ children, noFooter = false }) {
 
 // ── Authenticated app with routing ────────────────────────────────────────────
 
-function BibleApp({ user, onLogout, i18n }) {
+function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   const queryClient = useQueryClient();
   const { data: profile, isLoading: profileLoading } = useFullProfile(user.id);
 
@@ -197,7 +197,7 @@ function BibleApp({ user, onLogout, i18n }) {
   else if (nav.page === "feed")      pageContent = <Page><ActivityFeed user={user} {...sharedNav} /></Page>;
   else if (isPremium && nav.page === "readingPlans") pageContent = <Page><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (isPremium && nav.page === "studyNotes")   pageContent = <Page><StudyNotesPage user={user} navigate={navigate} {...sharedNav} /></Page>;
-  else if (nav.page === "aiTools")     pageContent = <Page><AIToolsPage user={user} {...sharedNav} /></Page>;
+  else if (nav.page === "aiTools" && aiEnabled) pageContent = <Page><AIToolsPage user={user} {...sharedNav} /></Page>;
   else if (nav.page === "leaderboard") pageContent = <Page><LeaderboardPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "about")     pageContent = <Page><AboutPage {...sharedNav} /></Page>;
   else if (nav.page === "terms")     pageContent = <Page><TermsPage {...sharedNav} /></Page>;
@@ -264,7 +264,7 @@ export default function AuthedApp({ onShowLanding, i18n }) {
   const logout = useLogout();
   const user = session?.user ?? null;
   const { t } = useTranslation();
-  const { maintenanceMode } = useFeatureFlags();
+  const { maintenanceMode, aiEnabled } = useFeatureFlags();
   const [passwordRecovery, setPasswordRecovery] = useState(false);
   const [registeredEmail, setRegisteredEmail] = useState(null);
 
@@ -371,6 +371,7 @@ export default function AuthedApp({ onShowLanding, i18n }) {
         onLogout={() => { logout.mutate(); onShowLanding(); }}
         i18n={i18n}
         t={t}
+        aiEnabled={aiEnabled}
       />
     </>
   );
