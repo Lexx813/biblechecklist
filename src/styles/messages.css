@@ -1638,4 +1638,7 @@
   .msg-back-btn { display: flex; }
   .msg-bubble-wrap { max-width: 88%; }
   .msg-emoji-picker { width: 240px; grid-template-columns: repeat(6, 1fr); left: -10px; }
+
+  /* Hide site footer on mobile so only the composer is visible */
+  .msg-page ~ .page-footer { display: none; }
 }
