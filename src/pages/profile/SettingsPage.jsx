@@ -265,7 +265,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
         </section>
 
         {/* ── Subscription ─────────────────────────────────── */}
-        {!profile?.is_admin && (
+        {true && (
           <section className="st-section">
             <h2 className="st-section-title">Subscription</h2>
             {isPremium ? (

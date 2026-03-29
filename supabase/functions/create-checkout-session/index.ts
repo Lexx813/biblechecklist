@@ -22,7 +22,12 @@ const supabaseAdmin = createClient(
 
 const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!);
 
-const ALLOWED_ORIGINS = ["https://nwtprogress.com", "https://www.nwtprogress.com"];
+const ALLOWED_ORIGINS = [
+  "https://nwtprogress.com",
+  "https://www.nwtprogress.com",
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+];
 
 function corsHeaders(req: Request) {
   const requested = req.headers.get("origin") ?? "";
