@@ -636,7 +636,7 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
                 {activeConv ? (activeConv.other_display_name || t("messages.chat")) : t("messages.title")}
               </span>
               <div className="fc-panel-header-actions">
-                <button className="fc-header-btn" onClick={openFullMessages} title={t("messages.openFullView")}>⤢</button>
+                <button className="fc-header-btn fc-fullview-btn" onClick={openFullMessages} title={t("messages.openFullView")}>⤢</button>
                 <button className="fc-header-btn" onClick={() => setOpen(false)} title={t("messages.close")}>✕</button>
               </div>
             </div>
