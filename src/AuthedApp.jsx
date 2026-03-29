@@ -69,6 +69,7 @@ function Page({ children, noFooter = false }) {
 function BibleApp({ user, onLogout, i18n }) {
   const queryClient = useQueryClient();
   const { data: profile, isLoading: profileLoading } = useFullProfile(user.id);
+
   const { isPremium, subscribe } = useSubscription(user.id);
   const [nav, setNav] = useState(parsePath);
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem("nwt-theme") === "dark");
