@@ -14,7 +14,7 @@
 .msg-page {
   display: flex;
   flex-direction: column;
-  height: calc(100dvh - 52px);
+  height: 100dvh;
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -1705,7 +1705,7 @@
   .msg-bubble { font-size: 13px; padding: 7px 10px; }
   .msg-input { font-size: 16px; } /* prevent iOS zoom */
   .msg-composer {
-    padding-bottom: calc(6.5px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(11.5px + env(safe-area-inset-bottom, 0px));
   }
   .msg-composer-row { padding: 8px 12px 0; gap: 6px; }
   .msg-rich-toolbar { padding: 3px 6px 2px; gap: 1px; }
