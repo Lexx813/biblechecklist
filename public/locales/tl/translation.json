@@ -1509,7 +1509,8 @@
     "noData": "Wala pang datos.",
     "read": "✓✓",
     "sent": "✓",
-    "loading": "Nino-load…"
+    "loading": "Nino-load…",
+    "notifBlocked": "Naka-block ang mga notification — i-enable sa settings ng browser"
   },
   "aiCompanion": {
     "title": "AI na Kasama sa Pag-aaral",

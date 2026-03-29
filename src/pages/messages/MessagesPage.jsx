@@ -1167,11 +1167,23 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
   const [search, setSearch] = useState("");
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [onlineUsers, setOnlineUsers] = useState(new Set());
-  const [pushDismissed, setPushDismissed] = useState(false);
+  const PUSH_DISMISS_KEY = "nwt-push-prompt-dismissed";
+  const [pushDismissed, setPushDismissed] = useState(() => {
+    try {
+      const until = localStorage.getItem(PUSH_DISMISS_KEY);
+      return until ? Date.now() < Number(until) : false;
+    } catch { return false; }
+  });
   const deleteConversation = useDeleteConversation();
   const { keyPair } = useE2EKeys(user.id);
   const { supported: pushSupported, permission, subscribed, loading: pushLoading, subscribe } = usePushNotifications();
-  const showPushBanner = pushSupported && permission === "default" && !subscribed && !pushDismissed;
+  const showPushBanner = pushSupported && !subscribed && !pushDismissed && (permission === "default" || permission === "denied");
+
+  function dismissPushBanner() {
+    // Don't re-show for 7 days
+    try { localStorage.setItem(PUSH_DISMISS_KEY, Date.now() + 7 * 24 * 60 * 60 * 1000); } catch {}
+    setPushDismissed(true);
+  }
 
   // Global presence channel for sidebar online dots
   useEffect(() => {
@@ -1247,22 +1259,21 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
               <span className="msg-push-banner-icon">🔔</span>
               <div className="msg-push-banner-text">
                 <strong>{t("messages.stayNotified")}</strong>
-                <span>{t("messages.stayNotifiedDesc")}</span>
+                <span>{permission === "denied"
+                  ? t("messages.notifBlocked", "Notifications blocked — enable them in your browser settings")
+                  : t("messages.stayNotifiedDesc")
+                }</span>
               </div>
-              <button
-                className="msg-push-banner-btn msg-push-banner-btn--primary"
-                onClick={() => subscribe().then(ok => ok && setPushDismissed(true))}
-                disabled={pushLoading}
-              >
-                {t("messages.enableNotifications")}
-              </button>
-              <button
-                className="msg-push-banner-btn"
-                onClick={() => setPushDismissed(true)}
-                aria-label="Dismiss"
-              >
-                ✕
-              </button>
+              {permission !== "denied" && (
+                <button
+                  className="msg-push-banner-btn msg-push-banner-btn--primary"
+                  onClick={() => subscribe().then(ok => ok && dismissPushBanner())}
+                  disabled={pushLoading}
+                >
+                  {t("messages.enableNotifications")}
+                </button>
+              )}
+              <button className="msg-push-banner-btn" onClick={dismissPushBanner} aria-label="Dismiss">✕</button>
             </div>
           )}
 

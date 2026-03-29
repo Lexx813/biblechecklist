@@ -70,6 +70,7 @@ export default function AnnouncementBanner() {
 
     window.addEventListener("popstate", dismissAll);
     window.addEventListener("fc:open", dismissAll);
+    document.addEventListener("click", dismissAll, { capture: true });
 
     // Also catch pushState-based navigation (navigate() calls)
     const origPush = history.pushState.bind(history);
@@ -81,6 +82,7 @@ export default function AnnouncementBanner() {
     return () => {
       window.removeEventListener("popstate", dismissAll);
       window.removeEventListener("fc:open", dismissAll);
+      document.removeEventListener("click", dismissAll, { capture: true });
       history.pushState = origPush;
     };
   }, [announcements, dismissed]);

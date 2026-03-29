@@ -1509,7 +1509,8 @@
     "noData": "Sem dados ainda.",
     "read": "✓✓",
     "sent": "✓",
-    "loading": "Carregando…"
+    "loading": "Carregando…",
+    "notifBlocked": "Notificações bloqueadas — ative-as nas configurações do navegador"
   },
   "aiCompanion": {
     "title": "Companheiro de Estudo IA",

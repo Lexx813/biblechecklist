@@ -1541,7 +1541,8 @@
     "noData": "No data yet.",
     "read": "✓✓",
     "sent": "✓",
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "notifBlocked": "Notifications blocked — enable them in your browser settings"
   },
   "aiCompanion": {
     "title": "AI Study Companion",
