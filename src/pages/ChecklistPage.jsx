@@ -6,7 +6,6 @@ import AICompanion from "../components/AICompanion";
 import BookCard from "../components/BookCard";
 import CustomSelect from "../components/CustomSelect";
 import PageNav from "../components/PageNav";
-import PageFooter from "../components/PageFooter";
 import ConfirmModal from "../components/ConfirmModal";
 import ReadingPlanWidget from "../components/reading/ReadingPlanWidget";
 import ProgressShare from "../components/share/ProgressShare";
@@ -283,7 +282,6 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
           />
         )}
       </div>
-      <PageFooter />
     </>
   );
 }
