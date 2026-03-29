@@ -1,4 +1,5 @@
 import "./i18n";
+import * as Sentry from "@sentry/react";
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { QueryClient } from '@tanstack/react-query'
@@ -9,6 +10,31 @@ import { ErrorBoundary } from './components/ErrorBoundary.jsx'
 import App from './App.jsx'
 import { Analytics } from "@vercel/analytics/react"
 import { toast } from './lib/toast'
+
+// ── Sentry error monitoring ───────────────────────────────────────────────────
+// Set VITE_SENTRY_DSN in your Vercel environment variables to enable.
+Sentry.init({
+  dsn: "https://80f4998fb6a60485dfe09312b6caca28@o4511128078843904.ingest.us.sentry.io/4511128080285696",
+  environment: import.meta.env.MODE,
+  integrations: [Sentry.browserTracingIntegration()],
+  tracesSampleRate: 0.1,
+  enabled: import.meta.env.PROD,
+  ignoreErrors: [
+    "ResizeObserver loop limit exceeded",
+    "Non-Error promise rejection captured",
+    "Network request failed",
+    "Failed to fetch",
+  ],
+  beforeSend(event) {
+    if (event.request?.url) {
+      try {
+        const url = new URL(event.request.url);
+        event.request.url = url.origin + url.pathname;
+      } catch {}
+    }
+    return event;
+  },
+});
 
 if ("serviceWorker" in navigator) {
   if (import.meta.env.PROD) {

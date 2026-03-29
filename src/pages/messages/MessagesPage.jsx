@@ -710,6 +710,8 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
   const [showSearch, setShowSearch] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [accentColor, setAccentColor] = useState(null);
+  const [sendError, setSendError] = useState(null);
+  const [failedPayload, setFailedPayload] = useState(null);
 
   // Sync accent color from saved settings
   useEffect(() => {
@@ -859,6 +861,17 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
     typingTimeoutRef.current = setTimeout(() => broadcastTyping(false), 2000);
   }
 
+  function doSend(payload) {
+    setSendError(null);
+    setFailedPayload(null);
+    sendMessage.mutate(payload, {
+      onError: () => {
+        setSendError("Message failed to send.");
+        setFailedPayload(payload);
+      },
+    });
+  }
+
   async function handleSend(e) {
     e.preventDefault();
     const raw = input.trim();
@@ -866,12 +879,13 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
     const sanitized = sanitizeContent(raw);
     if (!sanitized) return;
     const toSend = sharedKey ? await encryptMessage(sanitized, sharedKey) : sanitized;
-    sendMessage.mutate({
+    const payload = {
       senderId: user.id,
       content: toSend,
       replyToId: replyTo?.id ?? null,
       messageType: isPrayerMode ? "prayer_request" : "text",
-    });
+    };
+    doSend(payload);
     setInput("");
     setIsPrayerMode(false);
     setReplyTo(null);
@@ -1034,6 +1048,21 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
           </button>
         )}
       </div>
+
+      {sendError && (
+        <div className="msg-send-error">
+          <span>{sendError}</span>
+          <button
+            type="button"
+            className="msg-send-retry-btn"
+            onClick={() => failedPayload && doSend(failedPayload)}
+            disabled={sendMessage.isPending}
+          >
+            Retry
+          </button>
+          <button type="button" className="msg-send-error-dismiss" onClick={() => { setSendError(null); setFailedPayload(null); }}>✕</button>
+        </div>
+      )}
 
       <form className="msg-composer" onSubmit={handleSend}>
         <ReplyPreview message={replyTo} onCancel={() => setReplyTo(null)} />

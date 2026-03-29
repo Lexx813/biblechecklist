@@ -8,6 +8,7 @@
  *   OPENAI_API_KEY            — from platform.openai.com
  *   SUPABASE_URL              — auto-injected
  *   SUPABASE_SERVICE_ROLE_KEY — auto-injected
+ *   SUPABASE_ANON_KEY         — auto-injected
  */
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
@@ -34,6 +35,21 @@ async function embed(text: string): Promise<number[]> {
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
 
+  // Require a valid Supabase JWT — prevents unauthenticated OpenAI API abuse
+  const authHeader = req.headers.get("Authorization");
+  if (!authHeader) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
+  }
+  const userClient = createClient(
+    Deno.env.get("SUPABASE_URL")!,
+    Deno.env.get("SUPABASE_ANON_KEY")!,
+    { global: { headers: { Authorization: authHeader } } },
+  );
+  const { data: { user }, error: authError } = await userClient.auth.getUser();
+  if (authError || !user) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
+  }
+
   let query: string;
   try {
     ({ query } = await req.json());
@@ -45,9 +61,12 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify({ verses: [], posts: [] }), { status: 200 });
   }
 
+  // Enforce a reasonable query length to limit API cost
+  const trimmed = query.trim().slice(0, 500);
+
   let embedding: number[];
   try {
-    embedding = await embed(query.trim());
+    embedding = await embed(trimmed);
   } catch (err) {
     console.error("Embed error:", err);
     return new Response(JSON.stringify({ error: "embedding failed" }), { status: 502 });

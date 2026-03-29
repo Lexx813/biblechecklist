@@ -44,6 +44,7 @@ const MessagesPage      = lazy(() => import("./pages/messages/MessagesPage"));
 const FloatingChat      = lazy(() => import("./components/messages/FloatingChat"));
 const GroupsPage        = lazy(() => import("./pages/groups/GroupsPage"));
 const GroupDetail       = lazy(() => import("./pages/groups/GroupDetail"));
+const NotFoundPage      = lazy(() => import("./pages/NotFoundPage"));
 
 // ── Lazy-page wrapper with error boundary ─────────────────────────────────────
 
@@ -128,7 +129,10 @@ function BibleApp({ user, onLogout, i18n }) {
   let pageContent = null;
   if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} isPremium={isPremium} onUpgrade={openUpgrade} /></Page>;
   else if (nav.page === "main") pageContent = <Page><ChecklistPage user={user} profile={profile} {...sharedNav} /></Page>;
-  else if (nav.page === "admin")    pageContent = <Page><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  else if (nav.page === "admin") {
+    if (!profile?.is_admin && !profile?.is_moderator) navigate("home");
+    else pageContent = <Page><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  }
   else if (nav.page === "profile")  pageContent = <Page><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "settings") pageContent = <Page><SettingsPage user={user} onBack={() => navigate("profile")} {...sharedNav} /></Page>;
   else if (nav.page === "publicProfile") pageContent = <Page><ProfilePage user={user} viewedUserId={nav.userId} isOwner={false} onBack={() => navigate("home")} {...sharedNav} /></Page>;
@@ -143,7 +147,10 @@ function BibleApp({ user, onLogout, i18n }) {
       />
     </Page>
   );
-  else if (nav.page === "blogDash")  pageContent = <Page><BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  else if (nav.page === "blogDash") {
+    if (profile && !profile.can_blog && !profile.is_admin) navigate("blog");
+    else pageContent = <Page><BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  }
   else if (nav.page === "forum") pageContent = (
     <Page>
       <ForumPage
@@ -170,10 +177,21 @@ function BibleApp({ user, onLogout, i18n }) {
   else if (isPremium && nav.page === "messages")     pageContent = <Page><MessagesPage {...sharedNav} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
   else if (isPremium && nav.page === "groups")       pageContent = <Page><GroupsPage {...sharedNav} /></Page>;
   else if (isPremium && nav.page === "groupDetail")  pageContent = <Page><GroupDetail {...sharedNav} groupId={nav.groupId} /></Page>;
+  // Premium-gated pages for non-premium users → send home (with upgrade prompt)
+  else if (!isPremium && ["messages", "groups", "groupDetail", "readingPlans", "studyNotes"].includes(nav.page)) {
+    if (!profileLoading) { navigate("home"); openUpgrade(); }
+  }
+  // Truly unknown URL → 404
+  else if (nav.page === "notFound") {
+    pageContent = (
+      <Page>
+        <NotFoundPage navigate={navigate} />
+      </Page>
+    );
+  }
 
   if (!pageContent) {
-    if (profileLoading) return null; // wait for subscription status before deciding
-    navigate("home");
+    if (profileLoading) return null;
     return null;
   }
 
@@ -296,6 +314,15 @@ export default function AuthedApp({ onShowLanding, i18n }) {
   }
 
   if (!user) {
+    if (publicNav.page === "notFound") {
+      return (
+        <ErrorBoundary>
+          <Suspense fallback={<LoadingSpinner />}>
+            <NotFoundPage navigate={() => { history.pushState(null, "", "/"); onShowLanding(); }} />
+          </Suspense>
+        </ErrorBoundary>
+      );
+    }
     return (
       <main id="main-content">
         <Suspense fallback={null}>

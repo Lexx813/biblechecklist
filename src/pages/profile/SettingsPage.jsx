@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import ConfirmModal from "../../components/ConfirmModal";
@@ -96,7 +97,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
     }
   }
 
-  if (isLoading) return null;
+  if (isLoading) return <LoadingSpinner />;
 
   const displayName = profile?.display_name || user.email?.split("@")[0] || "";
   const avatarUrl = profile?.avatar_url;
