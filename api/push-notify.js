@@ -88,7 +88,7 @@ export default async function handler(req, res) {
     // Get push subscriptions for each recipient
     const recipientIds = participants.map(p => p.user_id).join(",");
     const subs = await sbGet(
-      `/push_subscriptions?user_id=in.(${recipientIds})&select=endpoint,p256dh,auth_key`
+      `/push_subscriptions?user_id=in.(${recipientIds})&select=endpoint,p256dh,auth`
     );
     if (!Array.isArray(subs) || subs.length === 0) {
       return res.status(200).end("OK");
@@ -106,7 +106,7 @@ export default async function handler(req, res) {
       subs.map(async (sub) => {
         try {
           await webpush.sendNotification(
-            { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth_key } },
+            { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
             payload
           );
         } catch (err) {

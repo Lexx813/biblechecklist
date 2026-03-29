@@ -8,7 +8,7 @@ export const pushApi = {
     const { error } = await supabase
       .from("push_subscriptions")
       .upsert(
-        { user_id: user.id, endpoint, p256dh, auth_key: auth },
+        { user_id: user.id, endpoint, p256dh, auth },
         { onConflict: "user_id,endpoint" }
       );
     if (error) throw new Error(error.message);

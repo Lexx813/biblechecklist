@@ -10,8 +10,12 @@ const PRECACHE = [
 ];
 
 self.addEventListener("install", (e) => {
+  // Swallow individual fetch failures so a slow CDN or missing asset
+  // never prevents the SW from installing and becoming active.
   e.waitUntil(
-    caches.open(CACHE).then((cache) => cache.addAll(PRECACHE))
+    caches.open(CACHE).then((cache) =>
+      Promise.allSettled(PRECACHE.map((url) => cache.add(url)))
+    )
   );
   self.skipWaiting();
 });
