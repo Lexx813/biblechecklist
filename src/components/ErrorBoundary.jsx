@@ -1,4 +1,5 @@
 import React from "react";
+import * as Sentry from "@sentry/react";
 import "../styles/landing.css";
 
 // ── Error page UI ──────────────────────────────────────────────
@@ -74,6 +75,7 @@ export class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, info) {
     console.error("[ErrorBoundary]", error, info.componentStack);
+    Sentry.captureException(error, { extra: { componentStack: info.componentStack } });
   }
 
   render() {

@@ -560,6 +560,16 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
   const [content, setContent] = useState(() => { try { return JSON.parse(localStorage.getItem(draftKey) || "{}").content || ""; } catch { return ""; } });
   const [formError, setFormError] = useState("");
 
+  const isDirty = title.trim().length > 0 || (content && content !== "<p></p>");
+
+  // Warn on page unload when form has content
+  useEffect(() => {
+    if (!isDirty || !showForm) return;
+    const handler = (e) => { e.preventDefault(); e.returnValue = ""; };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [isDirty, showForm]);
+
   // Persist thread draft and form open state
   useEffect(() => {
     try { localStorage.setItem(draftKey, JSON.stringify({ title, content })); } catch {}
@@ -623,7 +633,11 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
           <span className="forum-list-category-icon">{category.icon}</span>
           <h2 className="forum-list-title">{category.name}</h2>
         </div>
-        <button className="forum-new-btn" onClick={() => setShowForm(v => !v)}>
+        <button className="forum-new-btn" onClick={() => {
+          if (showForm && isDirty && !window.confirm("You have unsaved changes. Leave anyway?")) return;
+          if (showForm) { setTitle(""); setContent(""); }
+          setShowForm(v => !v);
+        }}>
           {showForm ? t("common.cancel") : t("forum.newThread")}
         </button>
       </div>

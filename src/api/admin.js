@@ -110,4 +110,14 @@ export const adminApi = {
     if (error) throw new Error(error.message);
     return data;
   },
+
+  listAuditLog: async ({ limit = 100, offset = 0 } = {}) => {
+    const { data, error } = await supabase
+      .from("admin_audit_log")
+      .select("id, action, target_id, target_email, metadata, created_at, actor:actor_id(display_name, email)")
+      .order("created_at", { ascending: false })
+      .range(offset, offset + limit - 1);
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
 };

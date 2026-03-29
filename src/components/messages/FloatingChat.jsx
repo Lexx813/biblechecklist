@@ -786,6 +786,8 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
   const [showPushPrompt, setShowPushPrompt] = useState(true);
   const [isPrayerMode, setIsPrayerMode] = useState(false);
   const [pendingImageFile, setPendingImageFile] = useState(null);
+  const [sendError, setSendError] = useState(null);
+  const [failedPayload, setFailedPayload] = useState(null);
   const bottomRef = useRef(null);
   const inputRef = useRef(null);
   const fileRef = useRef(null);
@@ -859,6 +861,17 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
     typingTimeoutRef.current = setTimeout(() => broadcastTyping(false), 2000);
   }
 
+  async function doSend(payload) {
+    setSendError(null);
+    setFailedPayload(null);
+    sendMessage.mutate(payload, {
+      onError: () => {
+        setSendError("Message failed to send.");
+        setFailedPayload(payload);
+      },
+    });
+  }
+
   async function handleSend(e) {
     e.preventDefault();
     const raw = input.trim();
@@ -866,13 +879,14 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
     const sanitized = sanitizeContent(raw);
     if (!sanitized) return;
     const toSend = sharedKey ? await encryptMessage(sanitized, sharedKey) : sanitized;
-    sendMessage.mutate({
+    const payload = {
       senderId: user.id,
       recipientId: conv.other_user_id,
       content: toSend,
       replyToId: replyTo?.id ?? null,
       messageType: isPrayerMode ? "prayer_request" : "text",
-    });
+    };
+    doSend(payload);
     setInput("");
     setReplyTo(null);
     setIsPrayerMode(false);
@@ -1048,6 +1062,21 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
           )}
           <input ref={fileRef} type="file" accept="image/*" style={{ display: "none" }} onChange={handleFileChange} />
         </div>
+
+        {sendError && (
+          <div className="fc-send-error">
+            <span>{sendError}</span>
+            <button
+              type="button"
+              className="fc-send-retry-btn"
+              onClick={() => failedPayload && doSend(failedPayload)}
+              disabled={sendMessage.isPending}
+            >
+              Retry
+            </button>
+            <button type="button" className="fc-send-error-dismiss" onClick={() => { setSendError(null); setFailedPayload(null); }}>✕</button>
+          </div>
+        )}
 
         <form className="fc-composer" onSubmit={handleSend}>
           <button type="button" className="fc-emoji-toggle" onClick={() => setShowEmoji(v => !v)} title="Emoji">😊</button>

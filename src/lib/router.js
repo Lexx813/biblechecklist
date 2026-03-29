@@ -29,7 +29,7 @@ export function parsePath() {
   if (h === "about") return { page: "about" };
   if (h === "terms") return { page: "terms" };
   if (h === "privacy") return { page: "privacy" };
-  return { page: "home" };
+  return { page: "notFound" };
 }
 
 export function buildPath(page, params = {}) {

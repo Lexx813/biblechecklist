@@ -191,3 +191,11 @@ export function useAdminLockThread() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "forum"] }),
   });
 }
+
+export function useAdminAuditLog({ limit = 100, offset = 0 } = {}) {
+  return useQuery({
+    queryKey: ["admin", "auditLog", limit, offset],
+    queryFn: () => adminApi.listAuditLog({ limit, offset }),
+    staleTime: 30 * 1000,
+  });
+}

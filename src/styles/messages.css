@@ -14,7 +14,7 @@
 .msg-page {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 56px);
+  height: calc(100dvh - 52px);
   max-width: 1000px;
   margin: 0 auto;
 }
@@ -925,6 +925,52 @@
 
 /* ── Composer ────────────────────────────────────────────────────────────── */
 
+.msg-send-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(220, 38, 38, 0.1);
+  border-top: 1px solid rgba(220, 38, 38, 0.25);
+  font-size: 12px;
+  color: #dc2626;
+}
+
+[data-theme="dark"] .msg-send-error {
+  background: rgba(220, 38, 38, 0.15);
+  color: #fca5a5;
+}
+
+.msg-send-error span { flex: 1; }
+
+.msg-send-retry-btn {
+  padding: 2px 10px;
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.msg-send-retry-btn:hover { opacity: 0.85; }
+.msg-send-retry-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.msg-send-error-dismiss {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  color: inherit;
+  opacity: 0.6;
+  padding: 0 2px;
+  line-height: 1;
+}
+
+.msg-send-error-dismiss:hover { opacity: 1; }
+
 .msg-composer {
   padding: 0 0 12px;
   border-top: 1px solid var(--border);
@@ -1658,7 +1704,9 @@
   .msg-bubble-wrap { max-width: 92%; }
   .msg-bubble { font-size: 13px; padding: 7px 10px; }
   .msg-input { font-size: 16px; } /* prevent iOS zoom */
-  .msg-composer { padding-bottom: 8px; }
+  .msg-composer {
+    padding-bottom: calc(6.5px + env(safe-area-inset-bottom, 0px));
+  }
   .msg-composer-row { padding: 8px 12px 0; gap: 6px; }
   .msg-rich-toolbar { padding: 3px 6px 2px; gap: 1px; }
   .msg-toolbar-btn { font-size: 15px; padding: 4px 5px; }

@@ -9,7 +9,7 @@ import {
   useCreateUser, useBanUser, useCancelSubscription, useGiftPremium,
   useAllBlogPosts, useAdminDeleteBlogPost,
   useAllForumThreads, useAdminDeleteForumThread, useAdminPinThread, useAdminLockThread,
-  useAllComments, useAdminDeleteComment, useAdminQuizStats,
+  useAllComments, useAdminDeleteComment, useAdminQuizStats, useAdminAuditLog,
 } from "../../hooks/useAdmin";
 
 const MONTHLY_PRICE = 4.99;
@@ -1175,6 +1175,61 @@ function AnnouncementsTab({ currentUser }) {
   );
 }
 
+// ── Audit Log Tab ─────────────────────────────────────────────────────────────
+const ACTION_LABELS = {
+  delete_user:      { icon: "🗑️", label: "Deleted user" },
+  grant_admin:      { icon: "⬆️", label: "Granted admin" },
+  revoke_admin:     { icon: "⬇️", label: "Revoked admin" },
+  grant_moderator:  { icon: "🛡️", label: "Granted moderator" },
+  revoke_moderator: { icon: "🛡️", label: "Revoked moderator" },
+  ban_user:         { icon: "🚫", label: "Banned user" },
+  unban_user:       { icon: "✅", label: "Unbanned user" },
+  grant_blog:       { icon: "✍️", label: "Granted blog access" },
+  revoke_blog:      { icon: "✍️", label: "Revoked blog access" },
+  gift_premium:     { icon: "⭐", label: "Gifted premium" },
+  revoke_premium:   { icon: "⭐", label: "Revoked premium" },
+};
+
+function AuditLogTab() {
+  const { data: entries = [], isLoading } = useAdminAuditLog({ limit: 200 });
+
+  if (isLoading) return <LoadingSpinner />;
+
+  if (!entries.length) return (
+    <div className="admin-empty">No audit log entries yet. Actions taken by admins will appear here.</div>
+  );
+
+  return (
+    <div className="admin-table-wrap">
+      <table className="admin-table">
+        <thead>
+          <tr>
+            <th>When</th>
+            <th>Actor</th>
+            <th>Action</th>
+            <th>Target</th>
+          </tr>
+        </thead>
+        <tbody>
+          {entries.map(entry => {
+            const def = ACTION_LABELS[entry.action] ?? { icon: "🔧", label: entry.action };
+            return (
+              <tr key={entry.id}>
+                <td className="admin-audit-time">
+                  {new Date(entry.created_at).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
+                </td>
+                <td>{entry.actor?.display_name || entry.actor?.email || "—"}</td>
+                <td><span className="admin-audit-action">{def.icon} {def.label}</span></td>
+                <td className="admin-audit-target">{entry.target_email || entry.target_id || "—"}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 // ── Main AdminPage ─────────────────────────────────────────────────────────────
 export default function AdminPage({ currentUser, currentProfile, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const isCurrentUserAdmin = currentProfile?.is_admin;
@@ -1305,6 +1360,11 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
               📢 {t("adminTabs.announcements")}
             </button>
           )}
+          {isCurrentUserAdmin && (
+            <button className={`admin-tab${tab === "auditLog" ? " admin-tab--active" : ""}`} onClick={() => setTab("auditLog")}>
+              🔒 Audit Log
+            </button>
+          )}
         </div>
 
         {/* Tab content */}
@@ -1317,6 +1377,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
         {tab === "quizStats"      && isCurrentUserAdmin && <QuizStatsTab />}
         {tab === "forumCats"      && isCurrentUserAdmin && <ForumCategoriesTab />}
         {tab === "announcements"  && isCurrentUserAdmin && <AnnouncementsTab currentUser={currentUser} />}
+        {tab === "auditLog"       && isCurrentUserAdmin && <AuditLogTab />}
       </div>
     </div>
   );

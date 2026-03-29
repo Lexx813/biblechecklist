@@ -17,16 +17,29 @@ function formatDate(iso) {
 
 // ── Post editor ───────────────────────────────────────────────────────────────
 function PostEditor({ userId, post, onDone }) {
-  const [form, setForm] = useState(post
+  const initialForm = post
     ? { title: post.title, excerpt: post.excerpt, content: post.content, cover_url: post.cover_url ?? "", published: post.published }
-    : EMPTY_FORM
-  );
+    : EMPTY_FORM;
+  const [form, setForm] = useState(initialForm);
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
   const [showExcerptEmoji, setShowExcerptEmoji] = useState(false);
   const fileInputRef = useRef(null);
   const excerptRef = useRef(null);
+  const isDirty = JSON.stringify(form) !== JSON.stringify(initialForm);
+
+  useEffect(() => {
+    if (!isDirty) return;
+    const handler = (e) => { e.preventDefault(); e.returnValue = ""; };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [isDirty]);
+
+  function handleBack() {
+    if (isDirty && !window.confirm("You have unsaved changes. Leave anyway?")) return;
+    onDone();
+  }
 
   const insertExcerptEmoji = useCallback((em) => {
     const next = insertEmojiAtCursor(excerptRef.current, form.excerpt, em);
@@ -89,7 +102,7 @@ function PostEditor({ userId, post, onDone }) {
   return (
     <div className="blog-editor">
       <div className="blog-editor-header">
-        <button className="blog-back-btn" onClick={onDone}>{t("blogDash.editorBack")}</button>
+        <button className="blog-back-btn" onClick={handleBack}>{t("blogDash.editorBack")}</button>
         <h2>{post ? t("blogDash.editPostTitle") : t("blogDash.newPostTitle")}</h2>
       </div>
 
