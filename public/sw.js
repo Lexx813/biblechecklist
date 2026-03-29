@@ -80,14 +80,18 @@ self.addEventListener("fetch", (e) => {
 // ── Push notifications ─────────────────────────────────────
 self.addEventListener("push", (e) => {
   if (!e.data) return;
-  const data = e.data.json();
+  let data;
+  try { data = e.data.json(); } catch { return; }
+
   e.waitUntil(
     self.registration.showNotification(data.title ?? "NWT Progress", {
       body: data.body ?? "",
-      icon: "/icon-192.png",
-      badge: "/icon-192.png",
+      icon: "/favicon.svg",
+      // badge omitted — requires a dedicated maskable monochrome PNG
       data: { url: data.url ?? "/" },
       tag: data.tag ?? "nwt-notification",
+      renotify: true,   // re-alert (sound + vibration) even when replacing same tag
+      vibrate: [200, 100, 200],
     })
   );
 });
@@ -97,9 +101,16 @@ self.addEventListener("notificationclick", (e) => {
   const url = e.notification.data?.url ?? "/";
   e.waitUntil(
     clients.matchAll({ type: "window", includeUncontrolled: true }).then((list) => {
-      const existing = list.find((c) => c.url.includes(self.location.origin));
-      if (existing) { existing.focus(); existing.navigate(url); }
-      else clients.openWindow(url);
+      // Focus existing tab if open; otherwise open a new one.
+      // Avoid client.navigate() — it is unreliable on Android Chrome.
+      const existing = list.find((c) => c.url.startsWith(self.location.origin));
+      if (existing) {
+        existing.focus();
+        // Tell the React app to navigate via postMessage
+        existing.postMessage({ type: "push-navigate", url });
+      } else {
+        clients.openWindow(url);
+      }
     })
   );
 });
