@@ -155,10 +155,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           <div className="home-premium-banner" onClick={onUpgrade}>
             <span className="home-premium-banner-icon">✦</span>
             <div className="home-premium-banner-text">
-              <strong>Unlock Premium</strong>
-              <span>AI Companion, Reading Plans, Study Notes, Messages & Groups — $3/mo</span>
+              <strong>{t("upm.bannerTitle")}</strong>
+              <span>{t("upm.bannerSub")}</span>
             </div>
-            <span className="home-premium-banner-cta">Upgrade →</span>
+            <span className="home-premium-banner-cta">{t("upm.bannerCta")}</span>
           </div>
         </section>
       )}
