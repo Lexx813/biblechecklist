@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
+import { useAISkill } from "../../hooks/useAISkill";
+import "../../styles/ai-tools.css";
 import ConfirmModal from "../../components/ConfirmModal";
 import RichTextEditor from "../../components/RichTextEditor";
 import ReportModal from "../../components/ReportModal";
@@ -21,6 +23,7 @@ import {
 } from "../../hooks/useForum";
 import { toast } from "../../lib/toast";
 import { useSubmitReport } from "../../hooks/useReports";
+import { useSubscription } from "../../hooks/useSubscription";
 import { useMeta } from "../../hooks/useMeta";
 import "../../styles/forum.css";
 import "../../styles/social.css";
@@ -537,12 +540,70 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
   );
 }
 
+// ── Forum Post Assistant ──────────────────────────────────────────────────────
+
+function ForumPostAssistant({ topic, draft }) {
+  const { text, loading, error, run, reset } = useAISkill();
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  useEffect(() => { if (ref.current && text) ref.current.scrollTop = ref.current.scrollHeight; }, [text]);
+
+  function handleAssist() {
+    if (!topic.trim() || loading) return;
+    const cleanDraft = draft?.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+    run("forum_post", { topic: topic.trim(), draft: cleanDraft || undefined });
+  }
+
+  return (
+    <div className="ait-inline" style={{ marginTop: "0.5rem" }}>
+      <div className="ait-inline-header" onClick={() => setOpen(o => !o)}>
+        <span className="ait-inline-title">✨ AI Post Assistant</span>
+        <span className={`ait-inline-chevron${open ? " ait-inline-chevron--open" : ""}`}>▼</span>
+      </div>
+      {open && (
+        <div className="ait-inline-body">
+          <p style={{ fontSize: "0.85rem", color: "var(--text-muted,#888)", margin: "0 0 0.75rem" }}>
+            Get help crafting a warm, scripturally-grounded forum post based on your topic and draft.
+          </p>
+          <button
+            className="ait-submit-btn"
+            type="button"
+            onClick={handleAssist}
+            disabled={loading || !topic.trim()}
+          >
+            {loading ? "Writing…" : "✦ Help Me Write This Post"}
+          </button>
+          {(loading || text || error) && (
+            <div className="ait-result" style={{ marginTop: "0.75rem" }}>
+              <div className="ait-result-header">
+                <span className="ait-result-label">AI Suggestion</span>
+                {!loading && (text || error) && <button className="ait-result-clear" type="button" onClick={reset}>Clear</button>}
+              </div>
+              <div className="ait-result-body" ref={ref}>
+                {loading && !text && (
+                  <div className="ait-loading">
+                    <span className="ait-dot" /><span className="ait-dot" /><span className="ait-dot" />
+                    <span className="ait-loading-label">Thinking…</span>
+                  </div>
+                )}
+                {error && <div className="ait-error">{error}</div>}
+                {text && <div className="ait-response-text">{text}{loading && <span className="ait-cursor" />}</div>}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Thread List ───────────────────────────────────────────────────────────────
 const THREADS_PER_PAGE = 20;
 const SORT_OPTIONS = ["latest", "liked", "replied", "unanswered", "solved"];
 
 function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
+  const { isPremium } = useSubscription(user?.id);
   const userLang = i18n?.language?.split("-")[0] ?? "en";
   const [limit, setLimit] = useState(THREADS_PER_PAGE);
   const [langFilter, setLangFilter] = useState(userLang);
@@ -701,6 +762,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
             minimal
             disabled={createThread.isPending}
           />
+          {isPremium && <ForumPostAssistant topic={title} draft={content} />}
           {formError && <div className="forum-form-error">{formError}</div>}
           <div className="forum-form-actions">
             <button className="forum-submit-btn" type="submit" disabled={createThread.isPending}>
