@@ -1,4 +1,5 @@
 import { useState, useMemo, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import ConfirmModal from "../../components/ConfirmModal";
@@ -442,6 +443,44 @@ function FolderSidebar({ folders, activeFolder, onSelect, onCreate, onRename, on
   );
 }
 
+// ── Styled prompt modal ───────────────────────────────────────────────────────
+
+function PromptModal({ label, onConfirm, onCancel }) {
+  const [val, setVal] = useState("");
+  const inputRef = useRef(null);
+  useEffect(() => { inputRef.current?.focus(); }, []);
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (val.trim()) onConfirm(val.trim());
+  }
+  return createPortal(
+    <div className="confirm-overlay" onClick={onCancel}>
+      <div className="confirm-modal" onClick={e => e.stopPropagation()}>
+        <form className="confirm-body" onSubmit={handleSubmit}>
+          <div className="confirm-title">{label}</div>
+          <input
+            ref={inputRef}
+            className="sn-prompt-input"
+            value={val}
+            onChange={e => setVal(e.target.value)}
+            placeholder={label}
+          />
+        </form>
+        <div className="confirm-actions">
+          <button className="confirm-cancel-btn" type="button" onClick={onCancel}>Cancel</button>
+          <button
+            className="confirm-ok-btn"
+            type="button"
+            disabled={!val.trim()}
+            onClick={() => val.trim() && onConfirm(val.trim())}
+          >OK</button>
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+}
+
 // ── Main page ─────────────────────────────────────────────────────────────────
 
 const SORT_OPTIONS = ["updated", "created", "title"];
@@ -471,6 +510,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
   const [activeTag, setActiveTag] = useState(null);
   const [activeFolder, setActiveFolder] = useState(null);
   const [sortBy, setSortBy] = useState("updated");
+  const [showFolderPrompt, setShowFolderPrompt] = useState(false);
 
   // Persist editor state across reloads
   useEffect(() => {
@@ -635,11 +675,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
 
         {tab === "mine" && folders.length === 0 && (
           <div className="sn-folder-create-hint">
-            <button className="sn-folder-hint-btn" onClick={() => {
-              // show folder creation inline via a quick prompt
-              const name = window.prompt(t("studyNotes.folderName"));
-              if (name?.trim()) createFolder.mutate(name.trim());
-            }}>
+            <button className="sn-folder-hint-btn" onClick={() => setShowFolderPrompt(true)}>
               + {t("studyNotes.newFolder")}
             </button>
           </div>
@@ -710,6 +746,13 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
           message={t("studyNotes.deleteConfirm")}
           onConfirm={() => { deleteNote.mutate(noteToDelete); setNoteToDelete(null); }}
           onCancel={() => setNoteToDelete(null)}
+        />
+      )}
+      {showFolderPrompt && (
+        <PromptModal
+          label={t("studyNotes.folderName")}
+          onConfirm={(name) => { createFolder.mutate(name); setShowFolderPrompt(false); }}
+          onCancel={() => setShowFolderPrompt(false)}
         />
       )}
     </div>

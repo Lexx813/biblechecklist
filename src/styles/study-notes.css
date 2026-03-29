@@ -868,3 +868,18 @@
   .sn-body { flex-direction: column; }
   .sn-folders { width: 100%; }
 }
+
+.sn-prompt-input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--teal-soft);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  margin-top: 8px;
+  transition: border-color 0.15s;
+}
+.sn-prompt-input:focus { border-color: var(--teal); }
