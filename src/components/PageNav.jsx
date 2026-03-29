@@ -66,6 +66,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
           <button className={`page-nav-link${currentPage === "home" ? " page-nav-link--active" : ""}`} onClick={() => go("home")}>{t("app.home")}</button>
           <button className={`page-nav-link${currentPage === "main" ? " page-nav-link--active" : ""}`} onClick={() => go("main")}>{t("home.navTracker")}</button>
           <button className={`page-nav-link${currentPage === "quiz" ? " page-nav-link--active" : ""}`} onClick={() => go("quiz")}>{t("quiz.nav")}</button>
+          <button className={`page-nav-link${currentPage === "aiTools" ? " page-nav-link--active" : ""}`} onClick={() => go("aiTools")}>✨ {t("nav.aiTools", "AI Tools")}</button>
 
           {/* Community dropdown */}
           <div className="page-nav-more" ref={communityRef}>
@@ -214,7 +215,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
             <button className={`page-nav-mobile-link${currentPage === "home" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("home")}>{t("app.home")}</button>
             <button className={`page-nav-mobile-link${currentPage === "main" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("main")}>{t("home.navTracker")}</button>
             <button className={`page-nav-mobile-link${currentPage === "quiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("quiz")}>{t("quiz.nav")}</button>
-
+            <button className={`page-nav-mobile-link${currentPage === "aiTools" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("aiTools")}>✨ {t("nav.aiTools", "AI Tools")}</button>
 
             <div className="page-nav-mobile-section-label">{t("nav.community")}</div>
             <button className={`page-nav-mobile-link${currentPage === "blog" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("blog")}>{t("app.blog")}</button>

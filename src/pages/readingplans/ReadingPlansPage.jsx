@@ -1,9 +1,11 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import ConfirmModal from "../../components/ConfirmModal";
 import AICompanion from "../../components/AICompanion";
+import { useAISkill } from "../../hooks/useAISkill";
+import "../../styles/ai-tools.css";
 import { useSubscription } from "../../hooks/useSubscription";
 import { BOOKS } from "../../data/books";
 import {
@@ -405,6 +407,61 @@ function PlanAnalytics({ plan, template, completions }) {
   );
 }
 
+// ── Reading Summary widget ────────────────────────────────────────────────────
+
+function ReadingSummaryWidget({ todayReadings }) {
+  const { text, loading, error, run, reset } = useAISkill();
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  useEffect(() => { if (ref.current && text) ref.current.scrollTop = ref.current.scrollHeight; }, [text]);
+
+  if (!todayReadings?.length) return null;
+
+  function handleSummarize() {
+    if (loading) return;
+    const books = [...new Set(todayReadings.map(r => r.bookName))].join(", ");
+    const chapters = [...new Set(todayReadings.map(r => String(r.chapter)))].join(", ");
+    run("reading_summary", { book: books, chapters });
+  }
+
+  return (
+    <div className="ait-inline" style={{ marginTop: "1rem" }}>
+      <div className="ait-inline-header" onClick={() => setOpen(o => !o)}>
+        <span className="ait-inline-title">✨ Reading Summary & Reflection</span>
+        <span className={`ait-inline-chevron${open ? " ait-inline-chevron--open" : ""}`}>▼</span>
+      </div>
+      {open && (
+        <div className="ait-inline-body">
+          <p style={{ fontSize: "0.85rem", color: "var(--text-muted,#888)", margin: "0 0 0.75rem" }}>
+            Get a warm debrief of today's reading — key events, characters, lessons, and spiritual application.
+          </p>
+          <button className="ait-submit-btn" type="button" onClick={handleSummarize} disabled={loading}>
+            {loading ? "Summarizing…" : "✦ Summarize Today's Reading"}
+          </button>
+          {(loading || text || error) && (
+            <div className="ait-result" style={{ marginTop: "0.75rem" }}>
+              <div className="ait-result-header">
+                <span className="ait-result-label">AI Summary</span>
+                {!loading && (text || error) && <button className="ait-result-clear" type="button" onClick={reset}>Clear</button>}
+              </div>
+              <div className="ait-result-body" ref={ref}>
+                {loading && !text && (
+                  <div className="ait-loading">
+                    <span className="ait-dot" /><span className="ait-dot" /><span className="ait-dot" />
+                    <span className="ait-loading-label">Thinking…</span>
+                  </div>
+                )}
+                {error && <div className="ait-error">{error}</div>}
+                {text && <div className="ait-response-text">{text}{loading && <span className="ait-cursor" />}</div>}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Plan detail view ──────────────────────────────────────────────────────────
 
 function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate }) {
@@ -579,6 +636,13 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate }
           devotionalMode
           className="rp-ai-companion"
         />
+      )}
+
+      {/* AI Reading Summary (premium) */}
+      {isPremium && !plan.is_paused && todayReadings.length > 0 && (
+        <div style={{ padding: "0 1rem" }}>
+          <ReadingSummaryWidget todayReadings={todayReadings} />
+        </div>
       )}
 
       {/* Day list */}

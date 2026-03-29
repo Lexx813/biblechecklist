@@ -45,6 +45,7 @@ const FloatingChat      = lazy(() => import("./components/messages/FloatingChat"
 const GroupsPage        = lazy(() => import("./pages/groups/GroupsPage"));
 const GroupDetail       = lazy(() => import("./pages/groups/GroupDetail"));
 const NotFoundPage      = lazy(() => import("./pages/NotFoundPage"));
+const AIToolsPage       = lazy(() => import("./pages/aitools/AIToolsPage"));
 
 // ── Lazy-page wrapper with error boundary ─────────────────────────────────────
 
@@ -170,6 +171,7 @@ function BibleApp({ user, onLogout, i18n }) {
   else if (nav.page === "feed")      pageContent = <Page><ActivityFeed user={user} {...sharedNav} /></Page>;
   else if (isPremium && nav.page === "readingPlans") pageContent = <Page><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (isPremium && nav.page === "studyNotes")   pageContent = <Page><StudyNotesPage user={user} navigate={navigate} {...sharedNav} /></Page>;
+  else if (nav.page === "aiTools")     pageContent = <Page><AIToolsPage user={user} {...sharedNav} /></Page>;
   else if (nav.page === "leaderboard") pageContent = <Page><LeaderboardPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "about")     pageContent = <Page><AboutPage {...sharedNav} /></Page>;
   else if (nav.page === "terms")     pageContent = <Page><TermsPage {...sharedNav} /></Page>;
