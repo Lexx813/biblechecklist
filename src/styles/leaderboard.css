@@ -101,3 +101,20 @@
 
 .lb-stat { font-size: 18px; font-weight: 900; color: var(--accent); white-space: nowrap; }
 .lb-stat-label { font-size: 11px; font-weight: 600; color: var(--text-muted); }
+
+/* ── Premium badge ─────────────────────────────────────────────────────────── */
+.lb-premium-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 900;
+  color: #a78bfa;
+  background: rgba(124,58,237,0.12);
+  border: 1px solid rgba(124,58,237,0.25);
+  border-radius: 4px;
+  padding: 1px 5px;
+  margin-left: 6px;
+  vertical-align: middle;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  flex-shrink: 0;
+}

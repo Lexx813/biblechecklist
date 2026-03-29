@@ -1154,3 +1154,154 @@
   .grp-msg-wrap { max-width: 88%; }
   .grp-detail-header { flex-wrap: wrap; }
 }
+
+/* ── Search bar ──────────────────────────────────────────────────────────── */
+
+.grp-search-bar { padding: 0 0 12px; }
+.grp-search-input {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+.grp-search-input:focus { border-color: #7c3aed; }
+
+/* ── Join request badge ──────────────────────────────────────────────────── */
+
+.grp-badge--pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: #d97706;
+  border-radius: 8px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ── Announcements tab ───────────────────────────────────────────────────── */
+
+.grp-announcements {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 0;
+}
+.grp-announce-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--card-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 4px;
+}
+.grp-announce-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border);
+  border-left: 4px solid #7c3aed;
+  border-radius: 12px;
+  padding: 14px;
+}
+.grp-announce-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.grp-announce-author { font-weight: 700; font-size: 13px; color: var(--text-primary); }
+.grp-announce-time { font-size: 12px; color: var(--text-muted); flex: 1; }
+.grp-announce-delete {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+.grp-announce-delete:hover { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+.grp-announce-content { font-size: 14px; color: var(--text-primary); line-height: 1.6; margin: 0; white-space: pre-wrap; }
+
+/* ── Progress tab ────────────────────────────────────────────────────────── */
+
+.grp-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 0;
+}
+.grp-progress-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--card-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+}
+.grp-progress-row--me { border-color: #7c3aed; background: rgba(124, 58, 237, 0.05); }
+.grp-progress-rank { font-size: 12px; color: var(--text-muted); width: 24px; flex-shrink: 0; padding-top: 2px; }
+.grp-progress-info { flex: 1; min-width: 0; }
+.grp-progress-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.grp-progress-name { font-weight: 600; font-size: 13px; color: var(--text-primary); }
+.grp-progress-count { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+.grp-progress-bar-wrap {
+  height: 6px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.grp-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #7c3aed, #a78bfa);
+  border-radius: 4px;
+  transition: width 0.4s ease;
+  min-width: 4px;
+}
+.grp-progress-last { font-size: 11px; color: var(--text-muted); }
+
+/* ── Join requests (members tab) ─────────────────────────────────────────── */
+
+.grp-join-requests {
+  background: rgba(245, 158, 11, 0.06);
+  border: 1.5px solid rgba(245, 158, 11, 0.25);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+.grp-join-requests-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.grp-request-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-top: 1px solid var(--border);
+}
+.grp-request-name { flex: 1; font-size: 13px; font-weight: 600; color: var(--text-primary); }
+.grp-request-time { font-size: 11px; color: var(--text-muted); }
+
+/* ── "you" text in progress ──────────────────────────────────────────────── */
+
+.grp-progress-row--me .grp-progress-name { color: #7c3aed; }

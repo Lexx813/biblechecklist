@@ -262,4 +262,126 @@ export const groupsApi = {
       if (error) throw new Error(error.message);
     }
   },
+
+  // ── Announcements ─────────────────────────────────────────────────────────
+
+  getAnnouncements: async (groupId) => {
+    const { data, error } = await supabase
+      .from("group_announcements")
+      .select("id, content, created_at, created_by")
+      .eq("group_id", groupId)
+      .order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    if (!data?.length) return [];
+    const userIds = [...new Set(data.map(a => a.created_by))];
+    const { data: profiles } = await supabase
+      .from("profiles")
+      .select("id, display_name, avatar_url")
+      .in("id", userIds);
+    const profileMap = Object.fromEntries((profiles ?? []).map(p => [p.id, p]));
+    return data.map(a => ({ ...a, author: profileMap[a.created_by] ?? null }));
+  },
+
+  createAnnouncement: async (groupId, content) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+    const { data, error } = await supabase
+      .from("group_announcements")
+      .insert({ group_id: groupId, created_by: user.id, content: content.trim() })
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  deleteAnnouncement: async (announcementId) => {
+    const { error } = await supabase
+      .from("group_announcements")
+      .delete()
+      .eq("id", announcementId);
+    if (error) throw new Error(error.message);
+  },
+
+  // ── Join requests ─────────────────────────────────────────────────────────
+
+  requestJoin: async (groupId) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+    const { data, error } = await supabase
+      .from("group_join_requests")
+      .insert({ group_id: groupId, user_id: user.id })
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  getJoinRequests: async (groupId) => {
+    const { data, error } = await supabase
+      .from("group_join_requests")
+      .select("id, user_id, status, created_at")
+      .eq("group_id", groupId)
+      .eq("status", "pending")
+      .order("created_at", { ascending: true });
+    if (error) throw new Error(error.message);
+    if (!data?.length) return [];
+    const userIds = data.map(r => r.user_id);
+    const { data: profiles } = await supabase
+      .from("profiles")
+      .select("id, display_name, avatar_url")
+      .in("id", userIds);
+    const profileMap = Object.fromEntries((profiles ?? []).map(p => [p.id, p]));
+    return data.map(r => ({ ...r, profile: profileMap[r.user_id] ?? null }));
+  },
+
+  approveJoinRequest: async (requestId, groupId, userId) => {
+    const { error: ue } = await supabase
+      .from("group_join_requests")
+      .update({ status: "approved" })
+      .eq("id", requestId);
+    if (ue) throw new Error(ue.message);
+    const { error: me } = await supabase
+      .from("study_group_members")
+      .insert({ group_id: groupId, user_id: userId, role: "member" });
+    if (me) throw new Error(me.message);
+  },
+
+  denyJoinRequest: async (requestId) => {
+    const { error } = await supabase
+      .from("group_join_requests")
+      .update({ status: "denied" })
+      .eq("id", requestId);
+    if (error) throw new Error(error.message);
+  },
+
+  getMyJoinRequest: async (groupId) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
+    const { data } = await supabase
+      .from("group_join_requests")
+      .select("id, status")
+      .eq("group_id", groupId)
+      .eq("user_id", user.id)
+      .maybeSingle();
+    return data ?? null;
+  },
+
+  cancelJoinRequest: async (groupId) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+    const { error } = await supabase
+      .from("group_join_requests")
+      .delete()
+      .eq("group_id", groupId)
+      .eq("user_id", user.id);
+    if (error) throw new Error(error.message);
+  },
+
+  // ── Reading progress ──────────────────────────────────────────────────────
+
+  getGroupProgress: async (groupId) => {
+    const { data, error } = await supabase.rpc("get_group_reading_progress", { p_group_id: groupId });
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
 };

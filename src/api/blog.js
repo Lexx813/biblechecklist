@@ -8,12 +8,14 @@ const generateSlug = (title) =>
     .replace(/\s+/g, "-") + "-" + Date.now().toString(36);
 
 export const blogApi = {
-  listPublished: async () => {
-    const { data, error } = await supabase
+  listPublished: async (lang = null) => {
+    let q = supabase
       .from("blog_posts")
-      .select("id, title, slug, excerpt, cover_url, published, created_at, author_id, like_count, translations, profiles!author_id(display_name, avatar_url)")
+      .select("id, title, slug, excerpt, cover_url, published, created_at, author_id, like_count, translations, lang, profiles!author_id(display_name, avatar_url)")
       .eq("published", true)
       .order("created_at", { ascending: false });
+    if (lang) q = q.eq("lang", lang);
+    const { data, error } = await q;
     if (error) throw new Error(error.message);
     return data ?? [];
   },

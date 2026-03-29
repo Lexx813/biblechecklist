@@ -26,10 +26,42 @@ export function useEnrollPlan() {
   });
 }
 
+export function useEnrollCustomPlan() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (config) => readingPlansApi.enrollCustom(config),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["reading-plans"] }),
+  });
+}
+
 export function useUnenrollPlan() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (planId) => readingPlansApi.unenroll(planId),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["reading-plans"] }),
+  });
+}
+
+export function usePausePlan() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (planId) => readingPlansApi.pause(planId),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["reading-plans"] }),
+  });
+}
+
+export function useResumePlan() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (plan) => readingPlansApi.resume(plan),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["reading-plans"] }),
+  });
+}
+
+export function useCatchUp() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ planId, completedCount }) => readingPlansApi.catchUp(planId, completedCount),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["reading-plans"] }),
   });
 }

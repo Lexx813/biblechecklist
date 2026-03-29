@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
 import ConfirmModal from "../../components/ConfirmModal";
@@ -7,6 +7,7 @@ import ReportModal from "../../components/ReportModal";
 import PageNav from "../../components/PageNav";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
+import { forumApi } from "../../api/forum";
 import {
   useCategories, useThreads, useThread, useReplies,
   useTopThreads,
@@ -15,12 +16,16 @@ import {
   usePinThread, useLockThread,
   useUserForumLikes, useToggleThreadLike, useToggleReplyLike,
   useMarkSolution,
+  useUserWatches, useToggleWatch,
+  useThreadReactions, useToggleReaction,
 } from "../../hooks/useForum";
 import { toast } from "../../lib/toast";
 import { useSubmitReport } from "../../hooks/useReports";
 import { useMeta } from "../../hooks/useMeta";
 import "../../styles/forum.css";
 import "../../styles/social.css";
+
+const REACTION_EMOJIS = ["🙏", "❤️", "💡"];
 
 const LEVEL_EMOJIS = [null,"📖","📚","🌱","👨‍👩‍👦","🏺","⚔️","🎵","📯","🕊️","🌍","🔮","👑"];
 function BadgeChip({ level }) {
@@ -69,10 +74,37 @@ function Avatar({ profile, size = "md", onClick }) {
   return <div className={`${cls} forum-avatar--fallback`} onClick={onClick}>{initial(profile)}</div>;
 }
 
+// ── Reactions bar ─────────────────────────────────────────────────────────────
+function ReactionsBar({ contentType, contentId, reactions, onToggle }) {
+  const key = (emoji) => `${contentType}:${contentId}:${emoji}`;
+  return (
+    <div className="forum-reactions">
+      {REACTION_EMOJIS.map(emoji => {
+        const k = key(emoji);
+        const count = reactions?.counts?.[k] ?? 0;
+        const active = reactions?.mine?.includes(k) ?? false;
+        return (
+          <button
+            key={emoji}
+            className={`forum-reaction-btn${active ? " forum-reaction-btn--active" : ""}`}
+            onClick={() => onToggle(contentType, contentId, emoji)}
+            title={emoji}
+          >
+            {emoji} {count > 0 && <span className="forum-reaction-count">{count}</span>}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 // ── Thread View ───────────────────────────────────────────────────────────────
-function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+const REPLIES_PER_PAGE = 20;
+
+function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { data: thread, isLoading: threadLoading } = useThread(threadId);
-  const { data: replies = [], isLoading: repliesLoading } = useReplies(threadId);
+  const { data: allReplies = [], isLoading: repliesLoading } = useReplies(threadId);
+  const [visibleReplies, setVisibleReplies] = useState(REPLIES_PER_PAGE);
   const createReply = useCreateReply(threadId, thread?.author_id, categoryId);
   const updateReply = useUpdateReply(threadId);
   const deleteReply = useDeleteReply(threadId);
@@ -84,10 +116,20 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
   const { data: forumLikes = { threads: [], replies: [] } } = useUserForumLikes(user.id);
   const toggleThreadLike = useToggleThreadLike(user.id, categoryId);
   const toggleReplyLike  = useToggleReplyLike(user.id, threadId);
+  const { data: watches = [] } = useUserWatches(user.id);
+  const toggleWatch = useToggleWatch(user.id, threadId);
+  const { data: reactions = { counts: {}, mine: [] } } = useThreadReactions(threadId, user.id);
+  const toggleReaction = useToggleReaction(user.id, threadId);
   const submitReport = useSubmitReport();
   const { t } = useTranslation();
 
-  const [replyText, setReplyText]         = useState("");
+  const isWatching = watches.includes(threadId);
+  const replies = allReplies.slice(0, visibleReplies);
+  const hasMoreReplies = visibleReplies < allReplies.length;
+
+  const [replyText, setReplyText]         = useState(() => {
+    try { return localStorage.getItem(`forum-draft-reply-${threadId}`) || ""; } catch { return ""; }
+  });
   const [replyError, setReplyError]       = useState("");
   const [mentionedIds, setMentionedIds]   = useState([]);
   const [editing, setEditing]             = useState(false);
@@ -98,6 +140,16 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
   const [confirm, setConfirm] = useState(null);
   const [reportTarget, setReportTarget]   = useState(null); // { type, id, preview }
   const bottomRef = useRef(null);
+
+  // Increment view count on mount
+  useEffect(() => {
+    if (threadId) forumApi.incrementView(threadId).catch(() => {});
+  }, [threadId]);
+
+  // Persist reply draft
+  useEffect(() => {
+    try { localStorage.setItem(`forum-draft-reply-${threadId}`, replyText); } catch {}
+  }, [replyText, threadId]);
 
   function handleReport(reason) {
     if (!reportTarget) return;
@@ -134,7 +186,9 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
     createReply.mutate({ userId: user.id, content: replyText.trim(), mentionedUserIds: mentionedIds }, {
       onSuccess: () => {
         setReplyText("");
+        try { localStorage.removeItem(`forum-draft-reply-${threadId}`); } catch {}
         setMentionedIds([]);
+        setVisibleReplies(v => v + 1);
         setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
       },
       onError: (err) => setReplyError(err.message),
@@ -148,6 +202,24 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
     });
   }
 
+  function handleShare() {
+    const url = `${window.location.origin}${window.location.pathname}#forum/${categoryId}/${threadId}`;
+    navigator.clipboard?.writeText(url).then(() => toast(t("forum.linkCopied"))).catch(() => {});
+  }
+
+  function handleQuote(reply) {
+    const authorText = displayName(reply.profiles);
+    const plainText = reply.content?.replace(/<[^>]*>/g, "").slice(0, 200) ?? "";
+    const quoteHtml = `<blockquote><p><strong>${authorText}:</strong></p><p>${plainText}</p></blockquote><p></p>`;
+    setReplyText(quoteHtml);
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function isEdited(item) {
+    if (!item?.updated_at || !item?.created_at) return false;
+    return new Date(item.updated_at) - new Date(item.created_at) > 60000;
+  }
+
   useMeta({ title: thread?.title, description: thread?.content?.replace(/<[^>]*>/g, "").slice(0, 140) });
 
   if (threadLoading) return <LoadingSpinner />;
@@ -156,14 +228,32 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
   return (
     <div className="forum-thread-view">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
+
+      {/* Breadcrumb */}
+      <nav className="forum-breadcrumb">
+        <button className="forum-breadcrumb-item" onClick={() => navigate("forum")}>{t("forum.breadcrumbForum")}</button>
+        <span className="forum-breadcrumb-sep">›</span>
+        <button className="forum-breadcrumb-item" onClick={onBack}>{categoryName}</button>
+        <span className="forum-breadcrumb-sep">›</span>
+        <span className="forum-breadcrumb-current">{thread.title}</span>
+      </nav>
+
       {/* Thread header */}
       <div className="forum-thread-header">
-        <button className="forum-back-btn" onClick={onBack}>{t("common.back")}</button>
         <div className="forum-thread-header-badges">
           {thread.pinned && <span className="forum-badge forum-badge--pin">📌 Pinned</span>}
           {thread.locked && <span className="forum-badge forum-badge--lock">🔒 Locked</span>}
+          {thread.view_count > 0 && <span className="forum-view-count">👁 {thread.view_count.toLocaleString()}</span>}
         </div>
         <div className="forum-admin-tools">
+          <button className="forum-tool-btn" onClick={handleShare} title={t("forum.share")}>🔗 {t("forum.share")}</button>
+          <button
+            className={`forum-tool-btn${isWatching ? " forum-tool-btn--active" : ""}`}
+            onClick={() => toggleWatch.mutate()}
+            title={isWatching ? t("forum.unwatch") : t("forum.watch")}
+          >
+            {isWatching ? "🔔" : "🔕"} {isWatching ? t("forum.watching") : t("forum.watch")}
+          </button>
           <BookmarkButton userId={user.id} threadId={threadId} />
           {canModerate && (
             <>
@@ -195,7 +285,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
             <BadgeChip level={thread.profiles?.top_badge_level} />
             <ModBadge profile={thread.profiles} />
           </span>
-          <span className="forum-post-time">{timeAgo(thread.created_at, t)}</span>
+          <span className="forum-post-time">
+            {timeAgo(thread.created_at, t)}
+            {isEdited(thread) && <span className="forum-edited-tag"> · {t("forum.edited")}</span>}
+          </span>
           <span className="forum-post-badge forum-post-badge--op">{t("forum.op")}</span>
         </div>
         <div className="forum-post-body">
@@ -231,22 +324,30 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
                 className="forum-post-content rich-content"
                 dangerouslySetInnerHTML={{ __html: sanitizeRich(thread.content ?? "") }}
               />
-              <button
-                className={`forum-like-btn${forumLikes.threads?.includes(threadId) ? " liked" : ""}`}
-                onClick={() => toggleThreadLike.mutate(threadId, { onError: () => toast(t("forum.likeError")) })}
-                disabled={toggleThreadLike.isPending}
-              >
-                👍 <span className="forum-like-count">{thread.like_count ?? 0}</span>
-              </button>
-              {thread.author_id !== user.id && (
+              <div className="forum-post-actions">
                 <button
-                  className="forum-report-btn"
-                  onClick={e => { e.stopPropagation(); setReportTarget({ type: "thread", id: thread.id, preview: thread.title }); }}
-                  title={t("report.flag")}
+                  className={`forum-like-btn${forumLikes.threads?.includes(threadId) ? " liked" : ""}`}
+                  onClick={() => toggleThreadLike.mutate(threadId, { onError: () => toast(t("forum.likeError")) })}
+                  disabled={toggleThreadLike.isPending}
                 >
-                  🚩
+                  👍 <span className="forum-like-count">{thread.like_count ?? 0}</span>
                 </button>
-              )}
+                <ReactionsBar
+                  contentType="thread"
+                  contentId={threadId}
+                  reactions={reactions}
+                  onToggle={(ct, cid, emoji) => toggleReaction.mutate({ contentType: ct, contentId: cid, emoji })}
+                />
+                {thread.author_id !== user.id && (
+                  <button
+                    className="forum-report-btn"
+                    onClick={e => { e.stopPropagation(); setReportTarget({ type: "thread", id: thread.id, preview: thread.title }); }}
+                    title={t("report.flag")}
+                  >
+                    🚩
+                  </button>
+                )}
+              </div>
             </>
           )}
         </div>
@@ -257,8 +358,8 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
         <LoadingSpinner />
       ) : (
         <div className="forum-replies">
-          {replies.length > 0 && (
-            <div className="forum-replies-count">{t("forum.replyCount", { count: replies.length })}</div>
+          {allReplies.length > 0 && (
+            <div className="forum-replies-count">{t("forum.replyCount", { count: allReplies.length })}</div>
           )}
           {replies.map((reply, i) => {
             const canModify = canModerate || reply.author_id === user.id;
@@ -272,7 +373,10 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
                     <BadgeChip level={reply.profiles?.top_badge_level} />
                     <ModBadge profile={reply.profiles} />
                   </span>
-                  <span className="forum-post-time">{timeAgo(reply.created_at, t)}</span>
+                  <span className="forum-post-time">
+                    {timeAgo(reply.created_at, t)}
+                    {isEdited(reply) && <span className="forum-edited-tag"> · {t("forum.edited")}</span>}
+                  </span>
                   {reply.is_solution
                     ? <span className="forum-solution-badge">✓ {t("forum.solution")}</span>
                     : <span className="forum-post-num">#{i + 1}</span>
@@ -313,7 +417,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
                     />
                   )}
                   {!isEditingThis && (
-                    <div style={{ display: "flex", gap: 12, marginTop: 8, alignItems: "center", flexWrap: "wrap" }}>
+                    <div className="forum-post-actions">
                       <button
                         className={`forum-like-btn${forumLikes.replies?.includes(reply.id) ? " liked" : ""}`}
                         onClick={() => toggleReplyLike.mutate(reply.id, { onError: () => toast(t("forum.likeError")) })}
@@ -321,6 +425,17 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
                       >
                         👍 <span className="forum-like-count">{reply.like_count ?? 0}</span>
                       </button>
+                      <ReactionsBar
+                        contentType="reply"
+                        contentId={reply.id}
+                        reactions={reactions}
+                        onToggle={(ct, cid, emoji) => toggleReaction.mutate({ contentType: ct, contentId: cid, emoji })}
+                      />
+                      {!isLocked && (
+                        <button className="forum-quote-btn" onClick={() => handleQuote(reply)} title={t("forum.quote")}>
+                          💬 {t("forum.quote")}
+                        </button>
+                      )}
                       {(isAuthor || canModerate) && (
                         <button
                           className={`forum-solution-btn${reply.is_solution ? " forum-solution-btn--active" : ""}`}
@@ -365,6 +480,11 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
               </div>
             );
           })}
+          {hasMoreReplies && (
+            <button className="forum-load-more" onClick={() => setVisibleReplies(v => v + REPLIES_PER_PAGE)}>
+              {t("forum.loadMoreReplies", { count: allReplies.length - visibleReplies })}
+            </button>
+          )}
           <div ref={bottomRef} />
         </div>
       )}
@@ -419,26 +539,56 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, navigate, dar
 
 // ── Thread List ───────────────────────────────────────────────────────────────
 const THREADS_PER_PAGE = 20;
+const SORT_OPTIONS = ["latest", "liked", "replied", "unanswered", "solved"];
 
 function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
-  const [limit, setLimit] = useState(THREADS_PER_PAGE);
-  const { data: threads = [], isLoading } = useThreads(category.id, limit);
-  const createThread = useCreateThread(category.id);
   const { t } = useTranslation();
+  const userLang = i18n?.language?.split("-")[0] ?? "en";
+  const [limit, setLimit] = useState(THREADS_PER_PAGE);
+  const [langFilter, setLangFilter] = useState(userLang);
+  const [sort, setSort] = useState("latest");
+  const [search, setSearch] = useState("");
+  const { data: rawThreads = [], isLoading } = useThreads(category.id, limit, langFilter);
+  const createThread = useCreateThread(category.id);
 
+  const draftKey = `forum-draft-thread-${category.id}`;
   const [showForm, setShowForm] = useState(false);
-  const [title, setTitle]     = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle]   = useState(() => { try { return JSON.parse(localStorage.getItem(draftKey) || "{}").title || ""; } catch { return ""; } });
+  const [content, setContent] = useState(() => { try { return JSON.parse(localStorage.getItem(draftKey) || "{}").content || ""; } catch { return ""; } });
   const [formError, setFormError] = useState("");
+
+  // Persist thread draft
+  useEffect(() => {
+    try { localStorage.setItem(draftKey, JSON.stringify({ title, content })); } catch {}
+  }, [title, content, draftKey]);
+
+  // Filter + sort threads client-side
+  const threads = useCallback(() => {
+    let list = [...rawThreads];
+    // Search
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      list = list.filter(th => th.title?.toLowerCase().includes(q));
+    }
+    // Sort (pinned always first)
+    const pinned = list.filter(th => th.pinned);
+    let rest = list.filter(th => !th.pinned);
+    if (sort === "liked") rest.sort((a, b) => (b.like_count ?? 0) - (a.like_count ?? 0));
+    else if (sort === "replied") rest.sort((a, b) => (b.forum_replies?.[0]?.count ?? 0) - (a.forum_replies?.[0]?.count ?? 0));
+    else if (sort === "unanswered") rest = rest.filter(th => (th.forum_replies?.[0]?.count ?? 0) === 0 && !th.locked);
+    else if (sort === "solved") rest = rest.filter(th => th.has_solution);
+    return [...pinned, ...rest];
+  }, [rawThreads, search, sort])();
 
   function handleCreate(e) {
     e.preventDefault();
     setFormError("");
     if (!title.trim()) return setFormError(t("forum.errorTitleRequired"));
     if (!content || content === "<p></p>") return setFormError(t("forum.errorContentRequired"));
-    createThread.mutate({ userId: user.id, title: title.trim(), content: content.trim() }, {
+    createThread.mutate({ userId: user.id, title: title.trim(), content: content.trim(), lang: userLang }, {
       onSuccess: (thread) => {
         setTitle(""); setContent(""); setShowForm(false);
+        try { localStorage.removeItem(draftKey); } catch {}
         onSelectThread(thread.id);
       },
       onError: (err) => setFormError(err.message),
@@ -448,6 +598,14 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
   return (
     <div className="forum-thread-list">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
+
+      {/* Breadcrumb */}
+      <nav className="forum-breadcrumb">
+        <button className="forum-breadcrumb-item" onClick={() => navigate("forum")}>{t("forum.breadcrumbForum")}</button>
+        <span className="forum-breadcrumb-sep">›</span>
+        <span className="forum-breadcrumb-current">{category.name}</span>
+      </nav>
+
       {/* Header */}
       <div className="forum-list-header">
         <div className="forum-list-header-left">
@@ -457,6 +615,46 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
         </div>
         <button className="forum-new-btn" onClick={() => setShowForm(v => !v)}>
           {showForm ? t("common.cancel") : t("forum.newThread")}
+        </button>
+      </div>
+
+      {/* Search */}
+      <div className="forum-search-bar">
+        <input
+          className="forum-search-input"
+          type="search"
+          placeholder={t("forum.searchPlaceholder")}
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
+      </div>
+
+      {/* Sort tabs */}
+      <div className="forum-sort-tabs">
+        {SORT_OPTIONS.map(s => (
+          <button
+            key={s}
+            className={`forum-sort-tab${sort === s ? " forum-sort-tab--active" : ""}`}
+            onClick={() => setSort(s)}
+          >
+            {t(`forum.sort_${s}`)}
+          </button>
+        ))}
+      </div>
+
+      {/* Language filter pills */}
+      <div className="forum-lang-filter">
+        <button
+          className={`forum-lang-pill${langFilter === userLang ? " forum-lang-pill--active" : ""}`}
+          onClick={() => { setLangFilter(userLang); setLimit(THREADS_PER_PAGE); }}
+        >
+          {t("forum.myLanguage")}
+        </button>
+        <button
+          className={`forum-lang-pill${langFilter === null ? " forum-lang-pill--active" : ""}`}
+          onClick={() => { setLangFilter(null); setLimit(THREADS_PER_PAGE); }}
+        >
+          {t("forum.allLanguages")}
         </button>
       </div>
 
@@ -494,11 +692,13 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
       ) : threads.length === 0 ? (
         <div className="forum-empty">
           <div className="forum-empty-icon">💬</div>
-          <h3>{t("forum.noThreads")}</h3>
-          <p>{t("forum.noThreadsSub")}</p>
-          <button className="forum-empty-cta" onClick={() => setShowForm(true)}>
-            {t("forum.beFirstThread")}
-          </button>
+          <h3>{search ? t("forum.noResults") : t("forum.noThreads")}</h3>
+          <p>{search ? "" : t("forum.noThreadsSub")}</p>
+          {!search && (
+            <button className="forum-empty-cta" onClick={() => setShowForm(true)}>
+              {t("forum.beFirstThread")}
+            </button>
+          )}
         </div>
       ) : (
         <div className="forum-rows">
@@ -527,6 +727,9 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
                     </span>
                     <span className="forum-dot">·</span>
                     <span>{timeAgo(thread.updated_at, t)}</span>
+                    {thread.view_count > 0 && (
+                      <><span className="forum-dot">·</span><span>👁 {thread.view_count}</span></>
+                    )}
                   </div>
                 </div>
                 <div className="forum-row-right">
@@ -542,7 +745,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
               </div>
             );
           })}
-          {threads.length === limit && (
+          {rawThreads.length === limit && (
             <button
               className="forum-load-more"
               onClick={() => setLimit(l => l + THREADS_PER_PAGE)}
@@ -649,6 +852,7 @@ export default function ForumPage({ user, profile, onBack, categoryId, threadId,
         user={user}
         profile={profile}
         categoryId={categoryId}
+        categoryName={activeCategory?.name ?? ""}
         onBack={() => onNavigate(categoryId, null)}
         {...navProps}
       />

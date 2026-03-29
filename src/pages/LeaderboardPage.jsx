@@ -24,12 +24,20 @@ import "../styles/leaderboard.css";
 
 const MEDALS = ["🥇", "🥈", "🥉"];
 
+function isPremiumUser(row) {
+  return row.subscription_status === "active" || row.subscription_status === "trialing" || row.subscription_status === "gifted";
+}
+
 function Avatar({ row }) {
   if (row.avatar_url) {
     return <img className="lb-avatar" src={row.avatar_url} alt="" width={40} height={40} />;
   }
   const initials = (row.display_name || "?")[0].toUpperCase();
   return <div className="lb-avatar lb-avatar--fallback">{initials}</div>;
+}
+
+function PremiumBadge() {
+  return <span className="lb-premium-badge" title="Premium member">✦</span>;
 }
 
 function ReadingBoard({ data, userId, onProfile }) {
@@ -45,7 +53,10 @@ function ReadingBoard({ data, userId, onProfile }) {
           <span className="lb-rank">{MEDALS[i] ?? `#${i + 1}`}</span>
           <Avatar row={row} />
           <div className="lb-info">
-            <span className="lb-name">{row.display_name || t("leaderboard.anonymous")}</span>
+            <span className="lb-name">
+              {row.display_name || t("leaderboard.anonymous")}
+              {isPremiumUser(row) && <PremiumBadge />}
+            </span>
             <span className="lb-sub">{row.pct}% {t("leaderboard.complete")}</span>
           </div>
           <span className="lb-stat">{Number(row.chapters_read).toLocaleString()} <span className="lb-stat-label">{t("leaderboard.chapters")}</span></span>
@@ -68,7 +79,10 @@ function QuizBoard({ data, userId, onProfile }) {
           <span className="lb-rank">{MEDALS[i] ?? `#${i + 1}`}</span>
           <Avatar row={row} />
           <div className="lb-info">
-            <span className="lb-name">{row.display_name || t("leaderboard.anonymous")}</span>
+            <span className="lb-name">
+              {row.display_name || t("leaderboard.anonymous")}
+              {isPremiumUser(row) && <PremiumBadge />}
+            </span>
             <span className="lb-sub">{t("leaderboard.levelsComplete", { count: Number(row.levels_completed) })}</span>
           </div>
           <span className="lb-stat">{Number(row.levels_completed)} / 12</span>

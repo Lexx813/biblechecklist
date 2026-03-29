@@ -126,6 +126,37 @@
   letter-spacing: 0.04em;
 }
 
+/* ── Language filter pills ───────────────────────────────────── */
+.blog-lang-filter {
+  display: flex;
+  gap: 8px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px 4px;
+}
+
+.blog-lang-pill {
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.blog-lang-pill:hover {
+  border-color: #7c3aed;
+  color: #a78bfa;
+}
+.blog-lang-pill--active {
+  background: rgba(124,58,237,0.15);
+  border-color: #7c3aed;
+  color: #a78bfa;
+  font-weight: 700;
+}
+
 /* ── Content area ────────────────────────────────────────────── */
 .blog-content {
   max-width: 900px;

@@ -538,8 +538,545 @@
 }
 .rp-unenroll-btn:hover { background: #fee2e2; }
 
+/* ── Header row with custom plan button ────────────────────────────────────── */
+
+.rp-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rp-header-row .rp-title { margin: 0; }
+
+.rp-custom-plan-btn {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+  align-self: flex-end;
+  margin-top: 4px;
+}
+.rp-custom-plan-btn:hover { opacity: 0.88; }
+
+/* ── Category filter chips ──────────────────────────────────────────────────── */
+
+.rp-category-filter {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.rp-category-btn {
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.rp-category-btn:hover { border-color: #7c3aed; color: #7c3aed; }
+.rp-category-btn--active {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  border-color: #7c3aed;
+  color: #fff;
+}
+
+/* ── Premium template badge ─────────────────────────────────────────────────── */
+
+.rp-premium-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+
+.rp-template-card--premium {
+  border-left-color: #f59e0b !important;
+}
+.rp-template-card--premium:hover {
+  border-color: rgba(245,158,11,0.5);
+  border-left-color: #f59e0b !important;
+  box-shadow: 0 6px 22px rgba(245,158,11,0.14);
+}
+
+/* ── Paused / behind badges ─────────────────────────────────────────────────── */
+
+.rp-paused-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(245,158,11,0.12);
+  color: #d97706;
+  border-radius: 999px;
+  padding: 2px 8px;
+  margin-left: 6px;
+}
+
+.rp-behind-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(239,68,68,0.1);
+  color: #ef4444;
+  border-radius: 999px;
+  padding: 2px 8px;
+  margin-left: 6px;
+}
+
+/* ── Active card footer right ───────────────────────────────────────────────── */
+
+.rp-active-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── Detail header actions ──────────────────────────────────────────────────── */
+
+.rp-detail-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.rp-pause-btn {
+  background: none;
+  border: 1px solid #f59e0b;
+  color: #d97706;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.rp-pause-btn:hover { background: rgba(245,158,11,0.1); }
+
+.rp-pause-btn--resume {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+.rp-pause-btn--resume:hover { background: var(--teal-soft); }
+
+.rp-analytics-toggle-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.rp-analytics-toggle-btn:hover { background: var(--teal-soft); color: var(--text-primary); }
+
+/* ── Paused notice ──────────────────────────────────────────────────────────── */
+
+.rp-paused-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #92400e;
+  margin-bottom: 16px;
+}
+
+/* ── Analytics panel ────────────────────────────────────────────────────────── */
+
+.rp-analytics {
+  background: var(--card-bg, #fff);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+
+.rp-analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.rp-analytics-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.rp-analytics-val {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--teal);
+}
+.rp-analytics-val--warn { color: #f59e0b; }
+.rp-analytics-val--good { color: var(--teal); }
+.rp-analytics-val--sm { font-size: 15px; }
+
+.rp-analytics-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ── 7-day week bar ─────────────────────────────────────────────────────────── */
+
+.rp-week-bar { margin-top: 4px; }
+
+.rp-week-bar-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.rp-week-bar-cells {
+  display: flex;
+  gap: 4px;
+}
+
+.rp-week-cell {
+  flex: 1;
+  height: 28px;
+  border-radius: 4px;
+  background: var(--border);
+  transition: background 0.15s;
+}
+.rp-week-cell--done { background: var(--teal); }
+.rp-week-cell--today {
+  background: var(--border);
+  outline: 2px solid var(--teal);
+  outline-offset: 1px;
+}
+.rp-week-cell--done.rp-week-cell--today { background: var(--teal); }
+
+/* ── Catch-up banner ────────────────────────────────────────────────────────── */
+
+.rp-catchup-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(239,68,68,0.07);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.rp-catchup-banner p {
+  flex: 1;
+  font-size: 13px;
+  color: #b91c1c;
+  margin: 0;
+  min-width: 160px;
+}
+
+.rp-catchup-btn {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.rp-catchup-btn:hover { opacity: 0.88; }
+
+/* ── Today actions row ──────────────────────────────────────────────────────── */
+
+.rp-today-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.rp-note-shortcut-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 10px;
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.rp-note-shortcut-btn:hover { background: var(--teal-soft); color: var(--text-primary); border-color: var(--teal); }
+
+/* ── Empty actions (no plans enrolled yet) ──────────────────────────────────── */
+
+.rp-empty-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.rp-ghost-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.rp-ghost-btn:hover { background: var(--teal-soft); color: var(--text-primary); }
+
+/* ── Custom plan modal ──────────────────────────────────────────────────────── */
+
+.rp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.48);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.rp-modal {
+  background: var(--card-bg, #fff);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.24);
+  overflow: hidden;
+}
+
+.rp-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 0;
+  flex-shrink: 0;
+}
+
+.rp-modal-title {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.rp-modal-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 1;
+}
+.rp-modal-close:hover { background: var(--teal-soft); }
+
+.rp-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.rp-field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.rp-field-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.12s;
+}
+.rp-field-input:focus { border-color: #7c3aed; }
+
+.rp-quick-sets {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.rp-quick-set-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+}
+.rp-quick-set-btn:hover { border-color: #7c3aed; color: #7c3aed; }
+
+.rp-book-picker {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.rp-book-section-toggle {
+  width: 100%;
+  background: var(--bg);
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.1s;
+}
+.rp-book-section-toggle:hover { background: var(--teal-soft); }
+.rp-book-section-toggle:last-child { border-bottom: none; }
+
+.rp-book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+  gap: 4px;
+  padding: 10px;
+  background: var(--card-bg, #fff);
+}
+
+.rp-book-chip {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rp-book-chip:hover { border-color: #7c3aed; color: #7c3aed; }
+.rp-book-chip--on {
+  background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(91,33,182,0.08));
+  border-color: #7c3aed;
+  color: #7c3aed;
+}
+
+.rp-day-options {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.rp-day-option-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+}
+.rp-day-option-btn:hover { border-color: #7c3aed; color: #7c3aed; }
+.rp-day-option-btn--active {
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  border-color: #7c3aed;
+  color: #fff;
+}
+
+.rp-custom-preview {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.rp-error {
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: 4px;
+}
+
+.rp-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
 @media (max-width: 600px) {
   .rp-template-card { flex-direction: column; }
   .rp-enroll-btn { width: 100%; }
   .rp-detail-stats { gap: 16px; }
+  .rp-analytics-grid { grid-template-columns: repeat(2, 1fr); }
+  .rp-modal { max-height: 96vh; border-radius: 16px 16px 0 0; align-self: flex-end; }
+  .rp-book-grid { grid-template-columns: repeat(auto-fill, minmax(58px, 1fr)); }
 }

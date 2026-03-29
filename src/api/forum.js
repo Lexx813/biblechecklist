@@ -16,14 +16,17 @@ export const forumApi = {
   },
 
   // Threads in a category with reply count + author
-  listThreads: async (categoryId, limit = 20) => {
-    const { data, error } = await supabase
+  // lang: undefined = all languages, string = filter to that lang
+  listThreads: async (categoryId, limit = 20, lang = null) => {
+    let q = supabase
       .from("forum_threads")
       .select(`*, ${PROFILE_FIELDS}, forum_replies(count)`)
       .eq("category_id", categoryId)
       .order("pinned", { ascending: false })
       .order("updated_at", { ascending: false })
       .limit(limit);
+    if (lang) q = q.eq("lang", lang);
+    const { data, error } = await q;
     if (error) throw new Error(error.message);
     return data ?? [];
   },
@@ -50,11 +53,11 @@ export const forumApi = {
     return data ?? [];
   },
 
-  createThread: async (userId, categoryId, title, content) => {
+  createThread: async (userId, categoryId, title, content, lang = "en") => {
     assertNoPII(title, content);
     const { data, error } = await supabase
       .from("forum_threads")
-      .insert({ author_id: userId, category_id: categoryId, title, content })
+      .insert({ author_id: userId, category_id: categoryId, title, content, lang })
       .select()
       .single();
     if (error) throw new Error(error.message);
@@ -152,6 +155,74 @@ export const forumApi = {
       p_thread_id: threadId,
       p_value: value,
     });
+    if (error) throw new Error(error.message);
+  },
+
+  incrementView: async (threadId) => {
+    await supabase.rpc("increment_thread_view", { p_thread_id: threadId });
+  },
+
+  toggleWatch: async (threadId) => {
+    const { data, error } = await supabase.rpc("toggle_thread_watch", { p_thread_id: threadId });
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  getUserWatches: async (userId) => {
+    const { data, error } = await supabase.rpc("get_user_thread_watches", { p_user_id: userId });
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
+
+  toggleReaction: async (contentType, contentId, emoji) => {
+    const { data, error } = await supabase.rpc("toggle_forum_reaction", {
+      p_content_type: contentType,
+      p_content_id: contentId,
+      p_emoji: emoji,
+    });
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  getThreadReactions: async (threadId, userId) => {
+    const { data, error } = await supabase.rpc("get_thread_reactions", {
+      p_thread_id: threadId,
+      p_user_id: userId,
+    });
+    if (error) throw new Error(error.message);
+    return data ?? { counts: {}, mine: [] };
+  },
+
+  getUserForumStats: async (userId) => {
+    const { data, error } = await supabase.rpc("get_user_forum_stats", { p_user_id: userId });
+    if (error) throw new Error(error.message);
+    return data ?? { threads: 0, replies: 0 };
+  },
+
+  // Category management (admin)
+  createCategory: async (icon, name, description, sortOrder) => {
+    const { data, error } = await supabase
+      .from("forum_categories")
+      .insert({ icon, name, description, sort_order: sortOrder })
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  updateCategory: async (categoryId, updates) => {
+    const { data, error } = await supabase
+      .from("forum_categories")
+      .update(updates)
+      .eq("id", categoryId)
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  deleteCategory: async (categoryId) => {
+    const { error } = await supabase.from("forum_categories").delete().eq("id", categoryId);
     if (error) throw new Error(error.message);
   },
 };

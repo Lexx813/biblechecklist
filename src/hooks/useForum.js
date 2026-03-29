@@ -20,7 +20,7 @@ export function useCategories() {
   });
 }
 
-export function useThreads(categoryId, limit = 20) {
+export function useThreads(categoryId, limit = 20, lang = null) {
   const queryClient = useQueryClient();
 
   // Real-time: sync new, edited, and deleted threads live
@@ -38,8 +38,8 @@ export function useThreads(categoryId, limit = 20) {
   }, [categoryId, queryClient]);
 
   return useQuery({
-    queryKey: ["forum", "threads", categoryId, limit],
-    queryFn: () => forumApi.listThreads(categoryId, limit),
+    queryKey: ["forum", "threads", categoryId, limit, lang],
+    queryFn: () => forumApi.listThreads(categoryId, limit, lang),
     enabled: !!categoryId,
     staleTime: 30 * 1000,
   });
@@ -82,7 +82,7 @@ export function useReplies(threadId) {
 export function useCreateThread(categoryId) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ userId, title, content }) => forumApi.createThread(userId, categoryId, title, content),
+    mutationFn: ({ userId, title, content, lang = "en" }) => forumApi.createThread(userId, categoryId, title, content, lang),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["forum", "threads", categoryId] });
       queryClient.invalidateQueries({ queryKey: ["forum", "categories"] });
@@ -217,6 +217,65 @@ export function useMarkSolution(threadId) {
   return useMutation({
     mutationFn: ({ replyId, value }) => forumApi.markSolution(replyId, threadId, value),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["forum", "replies", threadId] }),
+  });
+}
+
+export function useUserWatches(userId) {
+  return useQuery({
+    queryKey: ["forum", "watches", userId],
+    queryFn: () => forumApi.getUserWatches(userId),
+    enabled: !!userId,
+    staleTime: 60 * 1000,
+  });
+}
+
+export function useToggleWatch(userId, threadId) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () => forumApi.toggleWatch(threadId),
+    onSuccess: (result) => {
+      queryClient.setQueryData(["forum", "watches", userId], (prev = []) =>
+        result.watching
+          ? [...prev, threadId]
+          : prev.filter(id => id !== threadId)
+      );
+    },
+  });
+}
+
+export function useThreadReactions(threadId, userId) {
+  return useQuery({
+    queryKey: ["forum", "reactions", threadId],
+    queryFn: () => forumApi.getThreadReactions(threadId, userId),
+    enabled: !!threadId && !!userId,
+    staleTime: 30 * 1000,
+  });
+}
+
+export function useToggleReaction(userId, threadId) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ contentType, contentId, emoji }) =>
+      forumApi.toggleReaction(contentType, contentId, emoji),
+    onSuccess: (result, { contentType, contentId, emoji }) => {
+      queryClient.setQueryData(["forum", "reactions", threadId], (prev = { counts: {}, mine: [] }) => {
+        const key = `${contentType}:${contentId}:${emoji}`;
+        const newCounts = { ...prev.counts, [key]: result.count };
+        const newMine = result.added
+          ? [...prev.mine, key]
+          : prev.mine.filter(k => k !== key);
+        return { counts: newCounts, mine: newMine };
+      });
+    },
+  });
+}
+
+export function useUserForumStats(userId) {
+  return useQuery({
+    queryKey: ["forum", "stats", userId],
+    queryFn: () => forumApi.getUserForumStats(userId),
+    enabled: !!userId,
+    staleTime: 5 * 60 * 1000,
   });
 }
 

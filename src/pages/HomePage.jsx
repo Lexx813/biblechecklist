@@ -67,7 +67,7 @@ function ForumSkeleton() {
   );
 }
 
-export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n }) {
+export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, isPremium, onUpgrade }) {
   const { t } = useTranslation();
   const { data: posts = [], isLoading: postsLoading } = usePublishedPosts();
   const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4);
@@ -148,6 +148,20 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           </div>
         ) : null}
       </section>
+
+      {/* ── Premium upsell banner — free users only ── */}
+      {!isPremium && (
+        <section className="home-section home-section--slim">
+          <div className="home-premium-banner" onClick={onUpgrade}>
+            <span className="home-premium-banner-icon">✦</span>
+            <div className="home-premium-banner-text">
+              <strong>Unlock Premium</strong>
+              <span>AI Companion, Reading Plans, Study Notes, Messages & Groups — $3/mo</span>
+            </div>
+            <span className="home-premium-banner-cta">Upgrade →</span>
+          </div>
+        </section>
+      )}
 
       {/* ── Bible Tracker section ── */}
       <section className="home-section">

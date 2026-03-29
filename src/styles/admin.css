@@ -235,6 +235,17 @@
 
 .admin-table-wrap { overflow-x: auto; }
 
+/* ── Category management ── */
+.admin-forum-cats { display: flex; flex-direction: column; gap: 20px; padding: 20px; }
+.admin-cat-form { display: flex; flex-direction: column; gap: 10px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+.admin-cat-form-title { font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0 0 4px; }
+.admin-cat-form-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.admin-error { color: #ef4444; font-size: 13px; }
+.admin-save-btn { padding: 8px 18px; background: #7c3aed; color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; }
+.admin-save-btn:hover { opacity: 0.9; }
+.admin-save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.admin-cancel-btn { padding: 8px 14px; background: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; cursor: pointer; }
+
 /* ── User search + filter ── */
 .admin-user-controls {
   display: flex;
