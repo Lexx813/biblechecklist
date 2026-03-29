@@ -222,6 +222,18 @@ export default function AuthedApp({ onShowLanding, i18n }) {
   const [passwordRecovery, setPasswordRecovery] = useState(false);
   const [registeredEmail, setRegisteredEmail] = useState(null);
 
+  // Apply saved theme immediately so auth/sign-up pages respect dark mode
+  useEffect(() => {
+    const saved = localStorage.getItem("nwt-theme");
+    if (saved === "dark" || saved === "light") {
+      document.documentElement.dataset.theme = saved;
+    } else {
+      // Fall back to OS preference for new users
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.theme = prefersDark ? "dark" : "light";
+    }
+  }, []);
+
   // Keep React Query cache in sync with Supabase auth state changes
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, newSession) => {

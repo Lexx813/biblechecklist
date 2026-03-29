@@ -12,11 +12,16 @@ import {
   useReactions,
   useToggleReaction,
   useEditMessage,
+  useUploadImage,
 } from "../../hooks/useMessages";
 import "../../styles/messages.css";
 import { useE2EKeys, useSharedKey } from "../../hooks/useE2E";
 import { encryptMessage, decryptMessage, sanitizeContent, MAX_MSG_LENGTH } from "../../lib/e2e";
 import { supabase } from "../../lib/supabase";
+import { BOOKS } from "../../data/books";
+import { wolChapterUrl } from "../../utils/wol";
+import { getTemplate } from "../../data/readingPlanTemplates";
+import { useMyPlans } from "../../hooks/useReadingPlans";
 
 // ── Audio ─────────────────────────────────────────────────────────────────────
 
@@ -200,6 +205,149 @@ function ReactionPicker({ onPick, onClose }) {
   );
 }
 
+// ── Rich message cards ────────────────────────────────────────────────────────
+
+function MSGImageCard({ content, metadata }) {
+  const url = metadata?.url || content;
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <div className="msg-image-card">
+      <img
+        src={url}
+        alt={metadata?.filename || "Image"}
+        className={`msg-image-thumb${loaded ? " msg-image-thumb--loaded" : ""}`}
+        onLoad={() => setLoaded(true)}
+        onClick={() => window.open(url, "_blank")}
+      />
+    </div>
+  );
+}
+
+function MSGVerseCard({ metadata, isMine }) {
+  if (!metadata) return null;
+  const url = wolChapterUrl(metadata.book, metadata.chapter);
+  return (
+    <div className={`msg-verse-card${isMine ? " msg-verse-card--mine" : ""}`}>
+      <div className="msg-verse-card-ref">📖 {metadata.ref}</div>
+      {metadata.note && <p className="msg-verse-card-note">{metadata.note}</p>}
+      {url && <a href={url} target="_blank" rel="noopener noreferrer" className="msg-verse-card-link">View on WOL →</a>}
+    </div>
+  );
+}
+
+function MSGPrayerCard({ content, isMine }) {
+  return (
+    <div className={`msg-prayer-card${isMine ? " msg-prayer-card--mine" : ""}`}>
+      <div className="msg-prayer-card-tag">🙏 Prayer Request</div>
+      <p className="msg-prayer-card-text">{content}</p>
+    </div>
+  );
+}
+
+function MSGPlanCard({ metadata, isMine }) {
+  if (!metadata) return null;
+  const friendlyTitle = getTemplate(metadata.templateKey)?.name || metadata.title || metadata.templateKey;
+  return (
+    <div className={`msg-plan-card${isMine ? " msg-plan-card--mine" : ""}`}>
+      <span className="msg-plan-card-icon">📅</span>
+      <div className="msg-plan-card-body">
+        <div className="msg-plan-card-title">{friendlyTitle}</div>
+        <div className="msg-plan-card-sub">Reading Plan</div>
+      </div>
+    </div>
+  );
+}
+
+// ── Image upload warning modal ─────────────────────────────────────────────────
+
+function MSGImageWarningModal({ file, onConfirm, onCancel }) {
+  const previewUrl = file ? URL.createObjectURL(file) : null;
+  return (
+    <div className="msg-modal-overlay" onClick={onCancel}>
+      <div className="msg-warn-modal" onClick={e => e.stopPropagation()}>
+        <div className="msg-warn-icon">⚠️</div>
+        <h3 className="msg-warn-title">Before you share</h3>
+        <p className="msg-warn-body">
+          Please ensure this image is appropriate for a Bible study community.
+          <strong> Sharing explicit, offensive, or inappropriate content is strictly prohibited</strong> and
+          may result in account suspension.
+        </p>
+        {previewUrl && (
+          <img src={previewUrl} alt="Preview" className="msg-warn-preview" onLoad={() => URL.revokeObjectURL(previewUrl)} />
+        )}
+        <p className="msg-warn-agree">By continuing, you confirm this image is wholesome and appropriate.</p>
+        <div className="msg-warn-actions">
+          <button type="button" className="msg-warn-cancel" onClick={onCancel}>Cancel</button>
+          <button type="button" className="msg-warn-confirm" onClick={onConfirm}>Send Image</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Verse picker ──────────────────────────────────────────────────────────────
+
+function MSGVersePicker({ onSend, onClose }) {
+  const [bookIdx, setBookIdx] = useState(0);
+  const [chapter, setChapter] = useState(1);
+  const [note, setNote] = useState("");
+  const book = BOOKS[bookIdx];
+  const chapterCount = book?.chapters || 1;
+  function handleSend() {
+    const ref = `${book.name} ${chapter}`;
+    onSend({ ref, book: book.name, chapter, note: note.trim() });
+    onClose();
+  }
+  return (
+    <div className="msg-modal-overlay" onClick={onClose}>
+      <div className="msg-picker-modal" onClick={e => e.stopPropagation()}>
+        <div className="msg-picker-header">
+          <span>📖 Share Bible Verse</span>
+          <button className="msg-picker-close" onClick={onClose}>✕</button>
+        </div>
+        <div className="msg-picker-body">
+          <select className="msg-picker-select" value={bookIdx} onChange={e => { setBookIdx(+e.target.value); setChapter(1); }}>
+            {BOOKS.map((b, i) => <option key={i} value={i}>{b.name}</option>)}
+          </select>
+          <select className="msg-picker-select" value={chapter} onChange={e => setChapter(+e.target.value)}>
+            {Array.from({ length: chapterCount }, (_, i) => i + 1).map(c => <option key={c} value={c}>Chapter {c}</option>)}
+          </select>
+          <input className="msg-picker-input" placeholder="Add a note (optional)…" value={note} onChange={e => setNote(e.target.value)} maxLength={200} />
+          <button className="msg-picker-send" onClick={handleSend}>Share</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Plan picker ───────────────────────────────────────────────────────────────
+
+function MSGPlanPicker({ onSend, onClose }) {
+  const { data: plans = [] } = useMyPlans();
+  return (
+    <div className="msg-modal-overlay" onClick={onClose}>
+      <div className="msg-picker-modal" onClick={e => e.stopPropagation()}>
+        <div className="msg-picker-header">
+          <span>📅 Share Reading Plan</span>
+          <button className="msg-picker-close" onClick={onClose}>✕</button>
+        </div>
+        <div className="msg-picker-body">
+          {plans.length === 0 ? (
+            <p className="msg-picker-empty">No active reading plans found.</p>
+          ) : plans.map(plan => {
+            const name = getTemplate(plan.template_key)?.name || plan.title || plan.template_key;
+            return (
+              <button key={plan.id} className="msg-plan-pick-item" onClick={() => { onSend({ templateKey: plan.template_key, title: name }); onClose(); }}>
+                <span>📅</span><span>{name}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Message bubble ────────────────────────────────────────────────────────────
 
 function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, showSeen, reactions, userId, onToggleReaction, allMessages }) {
@@ -251,6 +399,14 @@ function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, showSeen, react
               onKeyDown={handleEditKeyDown}
               rows={1}
             />
+          ) : msg.message_type === "image" ? (
+            <MSGImageCard content={msg.content} metadata={msg.metadata} />
+          ) : msg.message_type === "verse" ? (
+            <MSGVerseCard metadata={msg.metadata} isMine={isMine} />
+          ) : msg.message_type === "prayer_request" ? (
+            <MSGPrayerCard content={msg.content} isMine={isMine} />
+          ) : msg.message_type === "reading_plan" ? (
+            <MSGPlanCard metadata={msg.metadata} isMine={isMine} />
           ) : (
             <p className="msg-bubble-text">{msg.content}</p>
           )}
@@ -365,6 +521,7 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
   const { data: reactions = [] } = useReactions(conv.conversation_id);
   const toggleReaction = useToggleReaction(conv.conversation_id);
   const { sharedKey, otherHasKey } = useSharedKey(keyPair, conv.other_user_id);
+  const { uploading, uploadAndSend } = useUploadImage(conv.conversation_id);
 
   const [input, setInput] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
@@ -375,11 +532,16 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
   const [isOtherTyping, setIsOtherTyping] = useState(false);
   const [isOtherOnline, setIsOtherOnline] = useState(false);
   const [otherLastSeen, setOtherLastSeen] = useState(null);
+  const [isPrayerMode, setIsPrayerMode] = useState(false);
+  const [showVersePicker, setShowVersePicker] = useState(false);
+  const [showPlanPicker, setShowPlanPicker] = useState(false);
+  const [pendingImageFile, setPendingImageFile] = useState(null);
 
   const bottomRef = useRef(null);
   const bodyRef = useRef(null);
   const inputRef = useRef(null);
   const emojiRef = useRef(null);
+  const fileRef = useRef(null);
   const presenceChannelRef = useRef(null);
   const typingTimeoutRef = useRef(null);
   const prevCountRef = useRef(0);
@@ -523,8 +685,14 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
     const sanitized = sanitizeContent(raw);
     if (!sanitized) return;
     const toSend = sharedKey ? await encryptMessage(sanitized, sharedKey) : sanitized;
-    sendMessage.mutate({ senderId: user.id, content: toSend, replyToId: replyTo?.id ?? null });
+    sendMessage.mutate({
+      senderId: user.id,
+      content: toSend,
+      replyToId: replyTo?.id ?? null,
+      messageType: isPrayerMode ? "prayer_request" : "text",
+    });
     setInput("");
+    setIsPrayerMode(false);
     setReplyTo(null);
     broadcastTyping(false);
     clearTimeout(typingTimeoutRef.current);
@@ -542,6 +710,42 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
   function insertEmoji(emoji) {
     setInput(prev => prev + emoji);
     inputRef.current?.focus();
+  }
+
+  function handleFileChange(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setPendingImageFile(file);
+    e.target.value = "";
+  }
+
+  function confirmImageUpload() {
+    if (!pendingImageFile) return;
+    uploadAndSend(pendingImageFile, user.id, replyTo?.id ?? null);
+    setReplyTo(null);
+    setPendingImageFile(null);
+  }
+
+  function sendVerse(verseData) {
+    sendMessage.mutate({
+      senderId: user.id,
+      content: `📖 ${verseData.ref}`,
+      replyToId: null,
+      messageType: "verse",
+      metadata: verseData,
+    });
+    setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 50);
+  }
+
+  function sendPlan(planData) {
+    sendMessage.mutate({
+      senderId: user.id,
+      content: `📅 ${planData.title}`,
+      replyToId: null,
+      messageType: "reading_plan",
+      metadata: planData,
+    });
+    setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 50);
   }
 
   const otherLastRead = conv.other_last_read_at ? new Date(conv.other_last_read_at) : null;
@@ -634,6 +838,38 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
         {nearLimit && (
           <div className="msg-char-count">{input.length} / 2000</div>
         )}
+
+        {/* Rich toolbar */}
+        <div className="msg-rich-toolbar">
+          {uploading ? (
+            <div className="msg-upload-status">
+              <span className="msg-upload-spinner" />
+              <span className="msg-upload-status-text">Uploading image…</span>
+            </div>
+          ) : (
+            <>
+              <button
+                type="button"
+                className={`msg-toolbar-btn${isPrayerMode ? " msg-toolbar-btn--active" : ""}`}
+                title="Prayer Request"
+                onClick={() => setIsPrayerMode(v => !v)}
+              >🙏</button>
+              <button type="button" className="msg-toolbar-btn" title="Share Bible Verse" onClick={() => setShowVersePicker(true)}>📖</button>
+              <button type="button" className="msg-toolbar-btn msg-toolbar-btn--img" title="Share Image" onClick={() => fileRef.current?.click()}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+                </svg>
+              </button>
+              <button type="button" className="msg-toolbar-btn" title="Share Reading Plan" onClick={() => setShowPlanPicker(true)}>📅</button>
+            </>
+          )}
+          <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/gif,image/webp" style={{ display: "none" }} onChange={handleFileChange} />
+        </div>
+
+        {isPrayerMode && (
+          <div className="msg-prayer-hint">🙏 Prayer request mode — your message will be highlighted</div>
+        )}
+
         <div className="msg-composer-row">
           <div className="msg-emoji-wrap" ref={emojiRef}>
             <button type="button" className="msg-emoji-btn" onClick={() => setShowEmoji(s => !s)} title="Emoji">
@@ -651,8 +887,8 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
           </div>
           <textarea
             ref={inputRef}
-            className="msg-input"
-            placeholder={isEncrypted ? "🔒 Message (encrypted)…" : "Message…"}
+            className={`msg-input${isPrayerMode ? " msg-input--prayer" : ""}`}
+            placeholder={isPrayerMode ? "Share your prayer request…" : isEncrypted ? "🔒 Message (encrypted)…" : "Message…"}
             value={input}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
@@ -670,6 +906,16 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
           </button>
         </div>
       </form>
+
+      {showVersePicker && <MSGVersePicker onSend={sendVerse} onClose={() => setShowVersePicker(false)} />}
+      {showPlanPicker && <MSGPlanPicker onSend={sendPlan} onClose={() => setShowPlanPicker(false)} />}
+      {pendingImageFile && (
+        <MSGImageWarningModal
+          file={pendingImageFile}
+          onConfirm={confirmImageUpload}
+          onCancel={() => setPendingImageFile(null)}
+        />
+      )}
     </div>
   );
 }

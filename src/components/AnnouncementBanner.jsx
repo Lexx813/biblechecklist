@@ -58,6 +58,31 @@ export default function AnnouncementBanner() {
     sessionStorage.setItem("dismissed-announcements", JSON.stringify(next));
   }
 
+  // Immediately dismiss all visible announcements on any route change
+  useEffect(() => {
+    function dismissAll() {
+      const visible = announcements.filter(a => !dismissed.includes(a.id));
+      if (!visible.length) return;
+      const next = [...dismissed, ...visible.map(a => a.id)];
+      setDismissed(next);
+      sessionStorage.setItem("dismissed-announcements", JSON.stringify(next));
+    }
+
+    window.addEventListener("popstate", dismissAll);
+
+    // Also catch pushState-based navigation (navigate() calls)
+    const origPush = history.pushState.bind(history);
+    history.pushState = function (...args) {
+      origPush(...args);
+      dismissAll();
+    };
+
+    return () => {
+      window.removeEventListener("popstate", dismissAll);
+      history.pushState = origPush;
+    };
+  }, [announcements, dismissed]);
+
   const visible = announcements.filter(a => !dismissed.includes(a.id));
   if (!visible.length) return null;
 

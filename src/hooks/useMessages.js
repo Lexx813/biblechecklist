@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { supabase } from "../lib/supabase";
 import { messagesApi } from "../api/messages";
 
@@ -27,9 +27,7 @@ export function useMessages(conversationId) {
         { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${conversationId}` },
         (payload) => {
           queryClient.setQueryData(["messages", conversationId], (old = []) => {
-            // Already have the real message — no-op
             if (old.some((m) => m.id === payload.new.id)) return old;
-            // Strip optimistic placeholders so the real message replaces them
             const cleaned = old.filter((m) => !String(m.id).startsWith("optimistic-"));
             return [...cleaned, payload.new];
           });
@@ -54,7 +52,7 @@ export function useMessages(conversationId) {
     queryFn: () => messagesApi.getMessages(conversationId),
     enabled: !!conversationId,
     staleTime: 30_000,
-    refetchInterval: 30_000, // fallback polling in case realtime is not enabled
+    refetchInterval: 30_000,
   });
 }
 
@@ -105,9 +103,9 @@ export function useGetOrCreateDM() {
 export function useSendMessage(conversationId) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ content, replyToId }) =>
-      messagesApi.sendMessage(conversationId, content, replyToId),
-    onMutate: async ({ senderId, content, replyToId }) => {
+    mutationFn: ({ content, replyToId, messageType, metadata }) =>
+      messagesApi.sendMessage(conversationId, content, replyToId, messageType, metadata),
+    onMutate: async ({ senderId, content, replyToId, messageType, metadata }) => {
       await queryClient.cancelQueries({ queryKey: ["messages", conversationId] });
       const previous = queryClient.getQueryData(["messages", conversationId]);
       const optimistic = {
@@ -119,6 +117,9 @@ export function useSendMessage(conversationId) {
         edited_at: null,
         created_at: new Date().toISOString(),
         deleted_at: null,
+        message_type: messageType ?? "text",
+        metadata: metadata ?? null,
+        starred_by: [],
         sender: null,
       };
       queryClient.setQueryData(["messages", conversationId], (old = []) => [...old, optimistic]);
@@ -126,6 +127,21 @@ export function useSendMessage(conversationId) {
     },
     onError: (_err, _vars, ctx) => {
       if (ctx?.previous) queryClient.setQueryData(["messages", conversationId], ctx.previous);
+    },
+    onSuccess: async (data, variables) => {
+      // Fire push notification to recipient (non-blocking)
+      if (variables.recipientId) {
+        messagesApi.notifyRecipient(conversationId, variables.recipientId);
+      }
+      // Fetch link preview if message contains a URL
+      if (data?.id && variables.messageType !== "image" && variables.content) {
+        const urlMatch = variables.content.match(/https?:\/\/[^\s]+/);
+        if (urlMatch) {
+          messagesApi.fetchLinkPreview(data.id, urlMatch[0]).then(() => {
+            queryClient.invalidateQueries({ queryKey: ["linkPreviews", conversationId] });
+          });
+        }
+      }
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["messages", conversationId] });
@@ -185,21 +201,10 @@ export function useMarkRead(conversationId, userId) {
 
 // ── Presence (typing + online) ────────────────────────────────────────────────
 
-/**
- * Returns:
- *   broadcastTyping(isTyping) — call when input changes
- *   isOtherTyping             — boolean
- *   isOtherOnline             — boolean
- *   otherLastSeen             — ISO string or null
- */
 export function usePresence(conversationId, userId, otherUserId) {
   const channelRef = useRef(null);
   const typingRef = useRef(false);
   const typingTimeoutRef = useRef(null);
-
-  // We expose state via a ref-based approach + a callback to avoid re-renders
-  // The component reads from the channel's presence state directly
-  // Instead, we return a channel ref so MessagesPage can track presence itself
   return { channelRef, typingRef, typingTimeoutRef };
 }
 
@@ -224,4 +229,101 @@ export function useUnreadMessageCount() {
     staleTime: 30_000,
     select: (data) => data.reduce((sum, c) => sum + (Number(c.unread_count) || 0), 0),
   });
+}
+
+// ── Star / Starred messages ───────────────────────────────────────────────────
+
+export function useToggleStar(conversationId) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (messageId) => messagesApi.toggleStar(messageId),
+    onMutate: async (messageId) => {
+      await queryClient.cancelQueries({ queryKey: ["messages", conversationId] });
+      const previous = queryClient.getQueryData(["messages", conversationId]);
+      // We don't know the user id here so just invalidate on settle
+      return { previous };
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["messages", conversationId] });
+      queryClient.invalidateQueries({ queryKey: ["starred", conversationId] });
+    },
+  });
+}
+
+export function useStarredMessages(conversationId) {
+  return useQuery({
+    queryKey: ["starred", conversationId],
+    queryFn: () => messagesApi.getStarred(conversationId),
+    enabled: !!conversationId,
+    staleTime: 10_000,
+  });
+}
+
+// ── Search messages ───────────────────────────────────────────────────────────
+
+export function useSearchMessages(conversationId, query) {
+  return useQuery({
+    queryKey: ["searchMessages", conversationId, query],
+    queryFn: () => messagesApi.searchMessages(conversationId, query),
+    enabled: !!conversationId && !!query && query.length >= 2,
+    staleTime: 10_000,
+  });
+}
+
+// ── Conversation settings ─────────────────────────────────────────────────────
+
+export function useConvSettings(conversationId) {
+  return useQuery({
+    queryKey: ["convSettings", conversationId],
+    queryFn: () => messagesApi.getConvSettings(conversationId),
+    enabled: !!conversationId,
+    staleTime: 60_000,
+  });
+}
+
+export function useSaveConvSettings(conversationId) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ themeAccent, disappearAfter }) =>
+      messagesApi.saveConvSettings(conversationId, themeAccent, disappearAfter),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["convSettings", conversationId] }),
+  });
+}
+
+// ── Link previews ─────────────────────────────────────────────────────────────
+
+export function useLinkPreviews(conversationId) {
+  return useQuery({
+    queryKey: ["linkPreviews", conversationId],
+    queryFn: () => messagesApi.getLinkPreviews(conversationId),
+    enabled: !!conversationId,
+    staleTime: 60_000,
+  });
+}
+
+// ── Image upload ──────────────────────────────────────────────────────────────
+
+export function useUploadImage(conversationId) {
+  const [uploading, setUploading] = useState(false);
+  const sendMessage = useSendMessage(conversationId);
+
+  const uploadAndSend = useCallback(async (file, senderId, replyToId = null) => {
+    setUploading(true);
+    try {
+      const url = await messagesApi.uploadImage(file);
+      sendMessage.mutate({
+        senderId,
+        content: url,
+        replyToId,
+        messageType: "image",
+        metadata: { url, filename: file.name, size: file.size },
+      });
+    } catch (err) {
+      console.error("[upload] failed:", err);
+    } finally {
+      setUploading(false);
+    }
+  }, [sendMessage]);
+
+  return { uploading, uploadAndSend };
 }
