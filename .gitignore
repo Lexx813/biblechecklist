@@ -19,6 +19,15 @@ dist-ssr
 
 # Claude Code — contains sensitive tokens and local dev tooling
 .claude/
+.agents/
+memory/
+skills-lock.json
+
+# Test / scratch files
+test-sanitize.html
+
+# Supabase temp files
+supabase/.temp/
 
 # Editor directories and files
 .vscode/*
