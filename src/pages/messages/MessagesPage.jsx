@@ -13,6 +13,11 @@ import {
   useToggleReaction,
   useEditMessage,
   useUploadImage,
+  useToggleStar,
+  useStarredMessages,
+  useSearchMessages,
+  useConvSettings,
+  useSaveConvSettings,
 } from "../../hooks/useMessages";
 import "../../styles/messages.css";
 import { useE2EKeys, useSharedKey } from "../../hooks/useE2E";
@@ -258,6 +263,167 @@ function MSGPlanCard({ metadata, isMine }) {
   );
 }
 
+// ── Theme + disappear constants ───────────────────────────────────────────────
+
+const MSG_THEME_COLORS = [
+  { label: "Teal",    value: null },
+  { label: "Purple",  value: "#7c3aed" },
+  { label: "Blue",    value: "#2563eb" },
+  { label: "Rose",    value: "#e11d48" },
+  { label: "Amber",   value: "#d97706" },
+  { label: "Emerald", value: "#059669" },
+  { label: "Indigo",  value: "#4f46e5" },
+  { label: "Pink",    value: "#db2777" },
+];
+
+const MSG_DISAPPEAR_OPTIONS = [
+  { label: "Off",     value: null },
+  { label: "24h",     value: 1 },
+  { label: "7 days",  value: 7 },
+  { label: "30 days", value: 30 },
+];
+
+// ── Starred panel ─────────────────────────────────────────────────────────────
+
+function MSGStarredPanel({ convId, userId, onClose }) {
+  const { data: starred = [], isLoading } = useStarredMessages(convId);
+  const toggleStar = useToggleStar(convId);
+  return (
+    <div className="msg-overlay-panel">
+      <div className="msg-overlay-header">
+        <button className="msg-overlay-back" onClick={onClose}>←</button>
+        <span>⭐ Starred Messages</span>
+      </div>
+      <div className="msg-overlay-body">
+        {isLoading ? (
+          <p className="msg-empty">Loading…</p>
+        ) : starred.length === 0 ? (
+          <p className="msg-empty">No starred messages yet.</p>
+        ) : starred.map(msg => (
+          <div key={msg.id} className="msg-starred-item">
+            <div className="msg-starred-content">
+              {msg.message_type === "verse" && msg.metadata ? (
+                <span>📖 {msg.metadata.ref}</span>
+              ) : msg.message_type === "image" ? (
+                <span>🖼 Image</span>
+              ) : msg.message_type === "prayer_request" ? (
+                <span>🙏 {msg.content?.slice(0, 80)}</span>
+              ) : (
+                <span>{msg.content?.slice(0, 80)}</span>
+              )}
+            </div>
+            <div className="msg-starred-meta">
+              <span>{formatTime(msg.created_at)}</span>
+              <button className="msg-starred-remove" onClick={() => toggleStar.mutate(msg.id)}>✕</button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Search panel ──────────────────────────────────────────────────────────────
+
+function MSGSearchPanel({ convId, onClose }) {
+  const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  const timerRef = useRef(null);
+  const { data: results = [], isFetching } = useSearchMessages(convId, debouncedQuery);
+
+  function handleChange(e) {
+    const v = e.target.value;
+    setQuery(v);
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setDebouncedQuery(v), 350);
+  }
+
+  return (
+    <div className="msg-overlay-panel">
+      <div className="msg-overlay-header">
+        <button className="msg-overlay-back" onClick={onClose}>←</button>
+        <input className="msg-overlay-search-input" placeholder="Search messages…" value={query} onChange={handleChange} autoFocus />
+      </div>
+      <div className="msg-overlay-body">
+        {isFetching ? (
+          <p className="msg-empty">Searching…</p>
+        ) : debouncedQuery.length < 2 ? (
+          <p className="msg-empty">Type to search.</p>
+        ) : results.length === 0 ? (
+          <p className="msg-empty">No results for "{debouncedQuery}".</p>
+        ) : results.map(msg => (
+          <div key={msg.id} className="msg-search-result">
+            <span className="msg-search-result-text">{msg.content?.slice(0, 120)}</span>
+            <span className="msg-search-result-time">{formatTime(msg.created_at)}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Conversation settings panel ───────────────────────────────────────────────
+
+function MSGConvSettingsPanel({ convId, onClose, accentColor, onAccentChange }) {
+  const { data: settings } = useConvSettings(convId);
+  const saveSettings = useSaveConvSettings(convId);
+  const [theme, setTheme] = useState(settings?.theme_accent ?? null);
+  const [disappear, setDisappear] = useState(settings?.disappear_after ?? null);
+
+  useEffect(() => {
+    if (settings) {
+      setTheme(settings.theme_accent ?? null);
+      setDisappear(settings.disappear_after ?? null);
+    }
+  }, [settings]);
+
+  function save() {
+    saveSettings.mutate({ themeAccent: theme, disappearAfter: disappear });
+    onAccentChange(theme);
+    onClose();
+  }
+
+  return (
+    <div className="msg-overlay-panel">
+      <div className="msg-overlay-header">
+        <button className="msg-overlay-back" onClick={onClose}>←</button>
+        <span>⚙ Chat Settings</span>
+      </div>
+      <div className="msg-overlay-body">
+        <div className="msg-settings-section">
+          <span className="msg-settings-label">🎨 Theme Color</span>
+          <div className="msg-theme-swatches">
+            {MSG_THEME_COLORS.map(tc => (
+              <button
+                key={tc.label}
+                className={`msg-swatch${theme === tc.value ? " msg-swatch--active" : ""}`}
+                style={{ background: tc.value ?? "linear-gradient(135deg, var(--teal), #5b21b6)" }}
+                title={tc.label}
+                onClick={() => setTheme(tc.value)}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="msg-settings-section">
+          <span className="msg-settings-label">⏱ Disappearing Messages</span>
+          <div className="msg-disappear-opts">
+            {MSG_DISAPPEAR_OPTIONS.map(opt => (
+              <button
+                key={opt.label}
+                className={`msg-disappear-btn${disappear === opt.value ? " msg-disappear-btn--active" : ""}`}
+                onClick={() => setDisappear(opt.value)}
+              >{opt.label}</button>
+            ))}
+          </div>
+        </div>
+        <button className="msg-settings-save" onClick={save} disabled={saveSettings.isPending}>
+          {saveSettings.isPending ? "Saving…" : "Save"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ── Image upload warning modal ─────────────────────────────────────────────────
 
 function MSGImageWarningModal({ file, onConfirm, onCancel }) {
@@ -350,9 +516,10 @@ function MSGPlanPicker({ onSend, onClose }) {
 
 // ── Message bubble ────────────────────────────────────────────────────────────
 
-function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, showSeen, reactions, userId, onToggleReaction, allMessages }) {
+function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, onStar, showSeen, reactions, userId, onToggleReaction, allMessages }) {
   const { t } = useTranslation();
   const [showActions, setShowActions] = useState(false);
+  const isStarred = Array.isArray(msg.starred_by) && msg.starred_by.includes(userId);
   const [showReactionPicker, setShowReactionPicker] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editText, setEditText] = useState(msg.content);
@@ -442,6 +609,7 @@ function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, showSeen, react
             )}
           </div>
           <button className="msg-action-btn" title={t("messages.reply")} onClick={() => onReply(msg)}>↩</button>
+          <button className={`msg-action-btn${isStarred ? " msg-action-btn--active" : ""}`} title={isStarred ? "Unstar" : "Star"} onClick={() => onStar?.(msg.id)}>⭐</button>
           {isMine && (
             <>
               <button className="msg-action-btn" title={t("common.edit")} onClick={() => { setEditing(true); setEditText(msg.content); }}>✎</button>
@@ -522,6 +690,7 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
   const toggleReaction = useToggleReaction(conv.conversation_id);
   const { sharedKey, otherHasKey } = useSharedKey(keyPair, conv.other_user_id);
   const { uploading, uploadAndSend } = useUploadImage(conv.conversation_id);
+  const toggleStar = useToggleStar(conv.conversation_id);
 
   const [input, setInput] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
@@ -536,6 +705,10 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
   const [showVersePicker, setShowVersePicker] = useState(false);
   const [showPlanPicker, setShowPlanPicker] = useState(false);
   const [pendingImageFile, setPendingImageFile] = useState(null);
+  const [showStarred, setShowStarred] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  const [accentColor, setAccentColor] = useState(null);
 
   const bottomRef = useRef(null);
   const bodyRef = useRef(null);
@@ -785,14 +958,34 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
               : null
           }
         </div>
-        <button
-          className={`msg-sound-btn${soundEnabled ? " msg-sound-btn--on" : ""}`}
-          onClick={() => setSoundEnabled(s => !s)}
-          title={soundEnabled ? t("messages.muteSounds") : t("messages.enableSounds")}
-        >
-          {soundEnabled ? "🔔" : "🔕"}
-        </button>
+        <div className="msg-header-actions">
+          <button className="msg-header-icon-btn" title="Search" onClick={() => { setShowSearch(true); setShowStarred(false); setShowSettings(false); }}>🔍</button>
+          <button className={`msg-header-icon-btn${showStarred ? " msg-header-icon-btn--active" : ""}`} title="Starred" onClick={() => { setShowStarred(s => !s); setShowSearch(false); setShowSettings(false); }}>⭐</button>
+          <button className={`msg-header-icon-btn${showSettings ? " msg-header-icon-btn--active" : ""}`} title="Settings" onClick={() => { setShowSettings(s => !s); setShowSearch(false); setShowStarred(false); }}>⚙</button>
+          <button
+            className={`msg-sound-btn${soundEnabled ? " msg-sound-btn--on" : ""}`}
+            onClick={() => setSoundEnabled(s => !s)}
+            title={soundEnabled ? t("messages.muteSounds") : t("messages.enableSounds")}
+          >
+            {soundEnabled ? "🔔" : "🔕"}
+          </button>
+        </div>
       </div>
+
+      {showStarred && (
+        <MSGStarredPanel convId={conv.conversation_id} userId={user.id} onClose={() => setShowStarred(false)} />
+      )}
+      {showSearch && (
+        <MSGSearchPanel convId={conv.conversation_id} onClose={() => setShowSearch(false)} />
+      )}
+      {showSettings && (
+        <MSGConvSettingsPanel
+          convId={conv.conversation_id}
+          onClose={() => setShowSettings(false)}
+          accentColor={accentColor}
+          onAccentChange={setAccentColor}
+        />
+      )}
 
       <div className="msg-thread-body" ref={bodyRef} onScroll={handleScroll}>
         {isLoading ? (
@@ -819,6 +1012,7 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
                 reactions={reactions}
                 userId={user.id}
                 onToggleReaction={(messageId, emoji) => toggleReaction.mutate({ messageId, userId: user.id, emoji })}
+                onStar={(id) => toggleStar.mutate(id)}
                 allMessages={decryptedMessages}
               />
             )

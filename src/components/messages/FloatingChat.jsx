@@ -1257,7 +1257,7 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
                 <ConvList
                   conversations={conversations}
                   currentUserId={user.id}
-                  onSelect={setActiveConv}
+                  onSelect={(conv) => { setActiveConv(conv); window.dispatchEvent(new Event("fc:open")); }}
                   onDelete={setConvToDelete}
                   onlineUsers={onlineUsers}
                 />
