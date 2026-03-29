@@ -13,15 +13,21 @@
 
 import webpush from "web-push";
 
-const VAPID_PUBLIC  = process.env.VAPID_PUBLIC_KEY ?? "";
-const VAPID_PRIVATE = process.env.VAPID_PRIVATE_KEY ?? "";
-const VAPID_MAILTO  = process.env.VAPID_MAILTO ?? "mailto:admin@nwtprogress.com";
-const SUPABASE_URL  = (process.env.VITE_SUPABASE_URL ?? "").trim();
-const SERVICE_KEY   = process.env.SUPABASE_SERVICE_ROLE_KEY ?? "";
-const WEBHOOK_SECRET = process.env.PUSH_WEBHOOK_SECRET ?? "";
+// Strip surrounding quotes and whitespace — Vercel sometimes stores values with extra quotes
+function cleanEnv(val) { return (val ?? "").trim().replace(/^["']|["']$/g, ""); }
+
+const VAPID_PUBLIC   = cleanEnv(process.env.VAPID_PUBLIC_KEY);
+const VAPID_PRIVATE  = cleanEnv(process.env.VAPID_PRIVATE_KEY);
+const VAPID_MAILTO   = cleanEnv(process.env.VAPID_MAILTO) || "mailto:admin@nwtprogress.com";
+const SUPABASE_URL   = cleanEnv(process.env.VITE_SUPABASE_URL);
+const SERVICE_KEY    = cleanEnv(process.env.SUPABASE_SERVICE_ROLE_KEY);
+const WEBHOOK_SECRET = cleanEnv(process.env.PUSH_WEBHOOK_SECRET);
 
 if (VAPID_PUBLIC && VAPID_PRIVATE) {
   webpush.setVapidDetails(VAPID_MAILTO, VAPID_PUBLIC, VAPID_PRIVATE);
+  console.log("[push-notify] VAPID configured, public key length:", VAPID_PUBLIC.length);
+} else {
+  console.error("[push-notify] VAPID keys missing — PUBLIC:", !!VAPID_PUBLIC, "PRIVATE:", !!VAPID_PRIVATE);
 }
 
 // ── Supabase REST helper (service role — bypasses RLS) ──────────────────────

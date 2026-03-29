@@ -1,4 +1,4 @@
-const CACHE = "nwt-v8";
+const CACHE = "nwt-v9";
 const STATIC_EXTENSIONS = /\.(js|css|png|jpg|jpeg|svg|gif|webp|woff2?|ico)$/;
 
 // Precache critical assets on install so repeat visits are instant
@@ -90,8 +90,8 @@ self.addEventListener("push", (e) => {
   e.waitUntil(
     self.registration.showNotification(data.title ?? "NWT Progress", {
       body: data.body ?? "",
-      icon: "/favicon.svg",
-      // badge omitted — requires a dedicated maskable monochrome PNG
+      icon: "/icon-192.png",
+      badge: "/badge-96.png",
       data: { url: data.url ?? "/" },
       tag: data.tag ?? "nwt-notification",
       renotify: true,   // re-alert (sound + vibration) even when replacing same tag
