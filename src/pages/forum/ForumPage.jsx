@@ -552,15 +552,25 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
   const createThread = useCreateThread(category.id);
 
   const draftKey = `forum-draft-thread-${category.id}`;
-  const [showForm, setShowForm] = useState(false);
+  const formKey = `forum-form-open-${category.id}`;
+  const [showForm, setShowForm] = useState(() => {
+    try { return sessionStorage.getItem(formKey) === "1"; } catch { return false; }
+  });
   const [title, setTitle]   = useState(() => { try { return JSON.parse(localStorage.getItem(draftKey) || "{}").title || ""; } catch { return ""; } });
   const [content, setContent] = useState(() => { try { return JSON.parse(localStorage.getItem(draftKey) || "{}").content || ""; } catch { return ""; } });
   const [formError, setFormError] = useState("");
 
-  // Persist thread draft
+  // Persist thread draft and form open state
   useEffect(() => {
     try { localStorage.setItem(draftKey, JSON.stringify({ title, content })); } catch {}
   }, [title, content, draftKey]);
+
+  useEffect(() => {
+    try {
+      if (showForm) sessionStorage.setItem(formKey, "1");
+      else sessionStorage.removeItem(formKey);
+    } catch {}
+  }, [showForm, formKey]);
 
   // Filter + sort threads client-side
   const threads = useCallback(() => {

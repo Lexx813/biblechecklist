@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import EmojiPickerPopup, { insertEmojiAtCursor } from "../../components/EmojiPickerPopup";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
@@ -212,8 +212,27 @@ function PostEditor({ userId, post, onDone }) {
 export default function BlogDashboard({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { data: posts = [], isLoading } = useMyPosts(user.id);
   const deletePost = useDeletePost(user.id);
-  const [editing, setEditing] = useState(null);
+  const [editing, setEditing] = useState(() => {
+    try {
+      const saved = sessionStorage.getItem("blog:editing");
+      return saved ? JSON.parse(saved) : null;
+    } catch { return null; }
+  });
   const [confirmDelete, setConfirmDelete] = useState(null);
+
+  useEffect(() => {
+    try {
+      if (editing !== null) sessionStorage.setItem("blog:editing", JSON.stringify(editing));
+      else sessionStorage.removeItem("blog:editing");
+    } catch {}
+  }, [editing]);
+
+  // Upgrade restored post with fresh data once posts load
+  useEffect(() => {
+    if (!editing || editing === "new" || !posts.length) return;
+    const fresh = posts.find(p => p.id === editing.id);
+    if (fresh) setEditing(fresh);
+  }, [posts]);
   const { t } = useTranslation();
 
   if (editing !== null) {

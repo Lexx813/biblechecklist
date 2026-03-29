@@ -1139,12 +1139,17 @@ function ConvList({ conversations, currentUserId, onSelect, onDelete, onlineUser
 
 export default function FloatingChat({ user, navigate, initialConvId = null, initialConvName = null, initialConvAvatar = null }) {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(!!initialConvId);
-  const [activeConv, setActiveConv] = useState(
-    initialConvId
-      ? { conversation_id: initialConvId, other_display_name: initialConvName, other_avatar_url: initialConvAvatar, other_user_id: null }
-      : null
-  );
+  const [open, setOpen] = useState(() => {
+    if (initialConvId) return true;
+    try { return sessionStorage.getItem("fc:open") === "1"; } catch { return false; }
+  });
+  const [activeConv, setActiveConv] = useState(() => {
+    if (initialConvId) return { conversation_id: initialConvId, other_display_name: initialConvName, other_avatar_url: initialConvAvatar, other_user_id: null };
+    try {
+      const saved = sessionStorage.getItem("fc:conv");
+      return saved ? JSON.parse(saved) : null;
+    } catch { return null; }
+  });
   const [onlineUsers, setOnlineUsers] = useState(new Set());
   const [convToDelete, setConvToDelete] = useState(null);
   const [accentColor, setAccentColor] = useState(null);
@@ -1183,6 +1188,32 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
     const full = conversations.find(c => c.conversation_id === activeConv.conversation_id);
     if (full) setActiveConv(full);
   }, [conversations]);
+
+  // Persist open state and active conversation across reloads
+  useEffect(() => {
+    try {
+      if (open) {
+        sessionStorage.setItem("fc:open", "1");
+      } else {
+        sessionStorage.removeItem("fc:open");
+      }
+    } catch {}
+  }, [open]);
+
+  useEffect(() => {
+    try {
+      if (activeConv) {
+        sessionStorage.setItem("fc:conv", JSON.stringify({
+          conversation_id: activeConv.conversation_id,
+          other_display_name: activeConv.other_display_name,
+          other_avatar_url: activeConv.other_avatar_url,
+          other_user_id: activeConv.other_user_id ?? null,
+        }));
+      } else {
+        sessionStorage.removeItem("fc:conv");
+      }
+    } catch {}
+  }, [activeConv]);
 
   // Close panel on outside click
   useEffect(() => {

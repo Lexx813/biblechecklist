@@ -622,6 +622,30 @@
 @media (max-width: 600px) {
   .sn-grid { grid-template-columns: 1fr; }
   .sn-header-row { flex-direction: column; align-items: flex-start; }
+  .sn-controls-row { flex-wrap: wrap; }
+}
+
+@media (max-width: 479px) {
+  .sn-header { padding: 20px 14px 16px; }
+  .sn-controls { padding: 0 14px; }
+  .sn-header-title { font-size: 20px; }
+  .sn-new-btn { font-size: 12px; padding: 7px 14px; }
+  .sn-editor-header { padding: 12px 14px; }
+  .sn-editor-title { font-size: 16px; }
+  .sn-form { padding: 16px 14px; gap: 12px; }
+  .sn-label { font-size: 11px; }
+  .sn-input { font-size: 16px; } /* prevent iOS zoom */
+  .sn-passage-row { flex-direction: column; }
+  .sn-tag-row { flex-wrap: wrap; }
+  .sn-footer { padding: 12px 14px; flex-wrap: wrap; gap: 8px; }
+  .sn-save-btn, .sn-cancel-btn { font-size: 12px; padding: 7px 16px; }
+}
+
+@media (max-width: 360px) {
+  .sn-header { padding: 16px 10px 12px; }
+  .sn-controls { padding: 0 10px; }
+  .sn-form { padding: 14px 10px; }
+  .sn-footer { padding: 10px; }
 }
 
 /* ── Tabs ─────────────────────────────────────────────────────────────────── */

@@ -665,8 +665,8 @@
 }
 
 .fc-action-menu-item:hover {
-  background: var(--teal-soft);
-  color: var(--text-primary);
+  background: rgba(124, 58, 237, 0.08);
+  color: #a78bfa;
 }
 
 .fc-action-menu-item span { font-size: 14px; }
@@ -871,6 +871,21 @@
   .fc-backdrop { display: none; }
 
   .fc-fullview-btn { display: none; }
+}
+
+@media (max-width: 479px) {
+  .fc-thread-header { padding: 8px 10px; gap: 8px; }
+  .fc-thread-name { font-size: 13px; }
+  .fc-bubble { font-size: 13px; padding: 7px 10px; }
+  .fc-input { font-size: 16px; } /* prevent iOS zoom */
+  .fc-toolbar-btn { font-size: 15px; padding: 4px 5px; }
+  .fc-thread-header-actions { gap: 0; }
+  .fc-send-btn { width: 30px; height: 30px; font-size: 13px; }
+}
+
+@media (max-width: 360px) {
+  .fc-thread-header { padding: 6px 8px; }
+  .fc-bubble { padding: 6px 9px; }
 }
 
 /* ── Thread header actions ────────────────────────────────────────────────── */

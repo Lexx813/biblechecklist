@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import ConfirmModal from "../../components/ConfirmModal";
@@ -166,14 +166,14 @@ function NoteEditor({ note, folders, onSave, onCancel, saving, isAdmin }) {
         {folders.length > 0 && (
           <>
             <label className="sn-label">{t("studyNotes.folder")}</label>
-            <select
-              className="sn-input sn-select"
+            <CustomSelect
               value={form.folder_id ?? ""}
-              onChange={e => set("folder_id", e.target.value || null)}
-            >
-              <option value="">{t("studyNotes.noFolder")}</option>
-              {folders.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}
-            </select>
+              onChange={v => set("folder_id", v || null)}
+              options={[
+                { value: "", label: t("studyNotes.noFolder") },
+                ...folders.map(f => ({ value: f.id, label: f.name })),
+              ]}
+            />
           </>
         )}
 
@@ -397,12 +397,35 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
   const { isPremium } = useSubscription(user?.id);
 
   const [tab, setTab] = useState("mine"); // "mine" | "public"
-  const [editing, setEditing] = useState(null);
+  const [editing, setEditing] = useState(() => {
+    try {
+      const saved = sessionStorage.getItem("sn:editing");
+      return saved ? JSON.parse(saved) : null;
+    } catch { return null; }
+  });
   const [search, setSearch] = useState("");
   const [noteToDelete, setNoteToDelete] = useState(null);
   const [activeTag, setActiveTag] = useState(null);
   const [activeFolder, setActiveFolder] = useState(null);
   const [sortBy, setSortBy] = useState("updated");
+
+  // Persist editor state across reloads
+  useEffect(() => {
+    try {
+      if (editing !== null) {
+        sessionStorage.setItem("sn:editing", JSON.stringify(editing));
+      } else {
+        sessionStorage.removeItem("sn:editing");
+      }
+    } catch {}
+  }, [editing]);
+
+  // Upgrade restored note stub with fresh data once notes load
+  useEffect(() => {
+    if (!editing || editing === "new" || !notes.length) return;
+    const fresh = notes.find(n => n.id === editing.id);
+    if (fresh) setEditing(fresh);
+  }, [notes]);
 
   const allTags = useMemo(() => {
     const set = new Set();
@@ -509,15 +532,11 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
           onChange={e => setSearch(e.target.value)}
         />
         {tab === "mine" && (
-          <select
-            className="sn-sort-select"
+          <CustomSelect
             value={sortBy}
-            onChange={e => setSortBy(e.target.value)}
-          >
-            {SORT_OPTIONS.map(s => (
-              <option key={s} value={s}>{t(`studyNotes.sort_${s}`)}</option>
-            ))}
-          </select>
+            onChange={setSortBy}
+            options={SORT_OPTIONS.map(s => ({ value: s, label: t(`studyNotes.sort_${s}`) }))}
+          />
         )}
       </div>
 
