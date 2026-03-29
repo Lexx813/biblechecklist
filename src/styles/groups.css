@@ -931,6 +931,7 @@
   align-items: flex-end;
   gap: 8px;
   padding: 10px 16px;
+  padding-right: 70px;
   background: var(--bg);
 }
 
