@@ -40,7 +40,7 @@ function PostEditor({ userId, post, onDone }) {
       el.setSelectionRange(pos, pos);
     });
   }, [form.excerpt]);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const createPost = useCreatePost(userId);
   const updatePost = useUpdatePost(userId);
 
@@ -71,7 +71,8 @@ function PostEditor({ userId, post, onDone }) {
     const contentEmpty = !form.content || form.content === "<p></p>";
     if (contentEmpty) return setError(t("blogDash.errorContentRequired"));
 
-    const payload = { ...form, published: publish };
+    const userLang = i18n?.language?.split("-")[0] ?? "en";
+    const payload = { ...form, published: publish, lang: post?.lang ?? userLang };
     if (post) {
       updatePost.mutate({ postId: post.id, updates: payload }, {
         onSuccess: onDone,

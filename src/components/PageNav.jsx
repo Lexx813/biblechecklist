@@ -11,7 +11,7 @@ import { useUnreadMessageCount } from "../hooks/useMessages";
 
 const FLAGS = { en: "🇺🇸", es: "🇪🇸", pt: "🇧🇷", tl: "🇵🇭", fr: "🇫🇷" };
 
-export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage }) {
+export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage, onUpgrade }) {
   const { t } = useTranslation();
   const { data: profile } = useFullProfile(user?.id);
   const isAdmin = profile?.is_admin;
@@ -107,10 +107,10 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               <button className={`page-nav-icon-btn${currentPage === "bookmarks" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("bookmarks")} data-tip={t("bookmarks.title")}>🔖</button>
               {isPremium
                 ? <button className={`page-nav-icon-btn${currentPage === "readingPlans" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("readingPlans")} data-tip={t("nav.readingPlans")}>📅</button>
-                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip={t("nav.proFeature")}>📅</button>}
+                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip={t("nav.proFeature")} onClick={onUpgrade}>📅</button>}
               {isPremium
                 ? <button className={`page-nav-icon-btn${currentPage === "studyNotes" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("studyNotes")} data-tip={t("nav.studyNotes")}>📝</button>
-                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip={t("nav.proFeature")}>📝</button>}
+                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip={t("nav.proFeature")} onClick={onUpgrade}>📝</button>}
             </div>
           )}
           {user && (
@@ -119,14 +119,14 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                   💬
                   {unreadMessages > 0 && <span className="page-nav-msg-badge">{unreadMessages}</span>}
                 </button>
-              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip={t("nav.proFeature")} style={{ position: "relative" }}>
+              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip={t("nav.proFeature")} style={{ position: "relative" }} onClick={onUpgrade}>
                   💬
                 </button>
           )}
           {user && (
             isPremium
               ? <button className={`page-nav-icon-btn page-nav-collapses${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("groups")} data-tip={t("nav.studyGroups")}>👥</button>
-              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn page-nav-collapses" data-tip={t("nav.proFeature")}>👥</button>
+              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn page-nav-collapses" data-tip={t("nav.proFeature")} onClick={onUpgrade}>👥</button>
           )}
           {user && (
             <button
@@ -242,11 +242,12 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               </>
             ) : (
               <>
-                <div className="page-nav-mobile-section-label page-nav-mobile-section-label--locked">{t("nav.premium")}</div>
-                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>💬 {t("nav.messages")}</button>
-                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>👥 {t("nav.studyGroups")}</button>
-                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>📅 {t("nav.readingPlans")}</button>
-                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => go("settings")}>📝 {t("nav.studyNotes")}</button>
+                <div className="page-nav-mobile-section-label page-nav-mobile-section-label--locked">{t("nav.premium")} ✦</div>
+                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}>💬 {t("nav.messages")} <span className="page-nav-mobile-lock">🔒</span></button>
+                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}>👥 {t("nav.studyGroups")} <span className="page-nav-mobile-lock">🔒</span></button>
+                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}>📅 {t("nav.readingPlans")} <span className="page-nav-mobile-lock">🔒</span></button>
+                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}>📝 {t("nav.studyNotes")} <span className="page-nav-mobile-lock">🔒</span></button>
+                <button className="page-nav-mobile-upgrade-btn" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}>✦ Upgrade to Premium — $3/mo</button>
               </>
             )}
 

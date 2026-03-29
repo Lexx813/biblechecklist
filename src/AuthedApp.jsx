@@ -11,6 +11,8 @@ import { parsePath, buildPath } from "./lib/router";
 import { toast } from "./lib/toast";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import UpgradeModal from "./components/UpgradeModal";
+import WelcomePremiumModal from "./components/WelcomePremiumModal";
 
 const AuthPage          = lazy(() => import("./pages/auth/AuthPage"));
 const ResetPasswordPage = lazy(() => import("./pages/auth/ResetPasswordPage"));
@@ -65,9 +67,13 @@ function Page({ children }) {
 function BibleApp({ user, onLogout, i18n }) {
   const queryClient = useQueryClient();
   const { data: profile, isLoading: profileLoading } = useFullProfile(user.id);
-  const { isPremium } = useSubscription(user.id);
+  const { isPremium, subscribe } = useSubscription(user.id);
   const [nav, setNav] = useState(parsePath);
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem("nwt-theme") === "dark");
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
+
+  function openUpgrade() { setShowUpgradeModal(true); }
 
   // Handle Stripe redirect callbacks
   const pollingRef = useRef(null);
@@ -85,7 +91,7 @@ function BibleApp({ user, onLogout, i18n }) {
           });
           if (data?.subscription_status === "active" || data?.subscription_status === "trialing") {
             clearInterval(pollingRef.current);
-            toast("🎉 Welcome to Premium! Your features are now unlocked.");
+            setShowWelcomeModal(true);
           } else if (++attempts >= 6) {
             clearInterval(pollingRef.current);
             toast("🎉 Subscription received! Refresh if features aren't unlocked yet.");
@@ -117,10 +123,10 @@ function BibleApp({ user, onLogout, i18n }) {
     setNav({ page, ...params });
   };
 
-  const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page };
+  const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page, onUpgrade: openUpgrade };
 
   let pageContent = null;
-  if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} /></Page>;
+  if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} isPremium={isPremium} onUpgrade={openUpgrade} /></Page>;
   else if (nav.page === "main") pageContent = <Page><ChecklistPage user={user} profile={profile} {...sharedNav} /></Page>;
   else if (nav.page === "admin")    pageContent = <Page><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "profile")  pageContent = <Page><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
@@ -186,6 +192,19 @@ function BibleApp({ user, onLogout, i18n }) {
             initialConvAvatar={nav.otherAvatarUrl ?? null}
           />
         </Suspense>
+      )}
+      {showUpgradeModal && (
+        <UpgradeModal
+          onClose={() => setShowUpgradeModal(false)}
+          onSubscribe={() => subscribe.mutate()}
+          loading={subscribe.isPending}
+        />
+      )}
+      {showWelcomeModal && (
+        <WelcomePremiumModal
+          onClose={() => setShowWelcomeModal(false)}
+          navigate={navigate}
+        />
       )}
     </>
   );

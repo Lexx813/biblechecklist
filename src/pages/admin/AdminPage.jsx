@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import CustomSelect from "../../components/CustomSelect";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
@@ -16,6 +16,9 @@ const MONTHLY_PRICE = 4.99;
 import { useReports, useUpdateReport, useDeleteReport, useDeleteReportedContent } from "../../hooks/useReports";
 import { useAllAnnouncements, useCreateAnnouncement, useToggleAnnouncement, useDeleteAnnouncement } from "../../hooks/useAnnouncements";
 import { useAllQuizQuestions, useCreateQuizQuestion, useUpdateQuizQuestion, useDeleteQuizQuestion } from "../../hooks/useQuiz";
+import { forumApi } from "../../api/forum";
+import { useCategories } from "../../hooks/useForum";
+import { useQueryClient } from "@tanstack/react-query";
 import "../../styles/admin.css";
 
 function initials(email) {
@@ -654,6 +657,110 @@ function ForumTab({ navigate }) {
   );
 }
 
+// ── Forum Categories Tab ──────────────────────────────────────────────────────
+function ForumCategoriesTab() {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const { data: categories = [], isLoading } = useCategories();
+  const [form, setForm] = useState({ icon: "", name: "", description: "", sort_order: "" });
+  const [editId, setEditId] = useState(null);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+  const [confirmDelete, setConfirmDelete] = useState(null);
+
+  function resetForm() { setForm({ icon: "", name: "", description: "", sort_order: "" }); setEditId(null); setError(""); }
+
+  function startEdit(cat) {
+    setEditId(cat.id);
+    setForm({ icon: cat.icon ?? "", name: cat.name ?? "", description: cat.description ?? "", sort_order: String(cat.sort_order ?? "") });
+  }
+
+  async function handleSave(e) {
+    e.preventDefault();
+    setError("");
+    if (!form.name.trim()) return setError("Name is required.");
+    setSaving(true);
+    try {
+      const payload = { icon: form.icon.trim(), name: form.name.trim(), description: form.description.trim(), sort_order: Number(form.sort_order) || 0 };
+      if (editId) await forumApi.updateCategory(editId, payload);
+      else await forumApi.createCategory(payload.icon, payload.name, payload.description, payload.sort_order);
+      queryClient.invalidateQueries({ queryKey: ["forum", "categories"] });
+      resetForm();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function handleDelete(catId) {
+    setSaving(true);
+    try {
+      await forumApi.deleteCategory(catId);
+      queryClient.invalidateQueries({ queryKey: ["forum", "categories"] });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSaving(false);
+      setConfirmDelete(null);
+    }
+  }
+
+  if (isLoading) return <LoadingSpinner />;
+
+  return (
+    <>
+      <div className="admin-forum-cats">
+        <form className="admin-cat-form" onSubmit={handleSave}>
+          <h3 className="admin-cat-form-title">{editId ? t("admin.editCategory") : t("admin.createCategory")}</h3>
+          <div className="admin-cat-form-row">
+            <input className="admin-input" placeholder="Icon (emoji)" value={form.icon} onChange={e => setForm(p => ({ ...p, icon: e.target.value }))} style={{ width: 80 }} />
+            <input className="admin-input" placeholder={t("admin.categoryName")} value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} style={{ flex: 1 }} required />
+            <input className="admin-input" placeholder={t("admin.categoryOrder")} type="number" value={form.sort_order} onChange={e => setForm(p => ({ ...p, sort_order: e.target.value }))} style={{ width: 80 }} />
+          </div>
+          <input className="admin-input" placeholder={t("admin.categoryDescription")} value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} />
+          {error && <div className="admin-error">{error}</div>}
+          <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+            <button className="admin-save-btn" type="submit" disabled={saving}>{saving ? t("common.saving") : editId ? t("common.save") : t("admin.createCategory")}</button>
+            {editId && <button type="button" className="admin-cancel-btn" onClick={resetForm}>{t("common.cancel")}</button>}
+          </div>
+        </form>
+
+        <div className="admin-table-wrap">
+          <table className="admin-table">
+            <thead><tr><th>Icon</th><th>Name</th><th>Description</th><th>Order</th><th>Threads</th><th>{t("admin.colActions")}</th></tr></thead>
+            <tbody>
+              {categories.map(cat => (
+                <tr key={cat.id}>
+                  <td style={{ fontSize: 20 }}>{cat.icon}</td>
+                  <td>{cat.name}</td>
+                  <td style={{ maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{cat.description}</td>
+                  <td>{cat.sort_order}</td>
+                  <td>{cat.forum_threads?.[0]?.count ?? 0}</td>
+                  <td>
+                    <div className="admin-actions">
+                      <button className="admin-action-btn" onClick={() => startEdit(cat)}>{t("common.edit")}</button>
+                      <button className="admin-action-btn admin-action-btn--danger" onClick={() => setConfirmDelete(cat)} disabled={saving}>{t("common.delete")}</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {confirmDelete && (
+        <ConfirmModal
+          message={`Delete category "${confirmDelete.name}"? All threads in it will also be deleted.`}
+          onConfirm={() => handleDelete(confirmDelete.id)}
+          onCancel={() => setConfirmDelete(null)}
+        />
+      )}
+    </>
+  );
+}
+
 // ── Blog Comments Tab ─────────────────────────────────────────────────────────
 function BlogCommentsTab() {
   const { t } = useTranslation();
@@ -1189,6 +1296,11 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
             </button>
           )}
           {isCurrentUserAdmin && (
+            <button className={`admin-tab${tab === "forumCats" ? " admin-tab--active" : ""}`} onClick={() => setTab("forumCats")}>
+              🗂️ {t("adminTabs.forumCats")}
+            </button>
+          )}
+          {isCurrentUserAdmin && (
             <button className={`admin-tab${tab === "announcements" ? " admin-tab--active" : ""}`} onClick={() => setTab("announcements")}>
               📢 {t("adminTabs.announcements")}
             </button>
@@ -1203,6 +1315,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
         {tab === "forum"          && isCurrentUserAdmin && <ForumTab navigate={navigate} />}
         {tab === "quiz"           && isCurrentUserAdmin && <QuizTab />}
         {tab === "quizStats"      && isCurrentUserAdmin && <QuizStatsTab />}
+        {tab === "forumCats"      && isCurrentUserAdmin && <ForumCategoriesTab />}
         {tab === "announcements"  && isCurrentUserAdmin && <AnnouncementsTab currentUser={currentUser} />}
       </div>
     </div>

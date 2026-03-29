@@ -235,3 +235,118 @@ export function useToggleGroupReaction(groupId) {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["group-reactions", groupId] }),
   });
 }
+
+// ── Announcements ─────────────────────────────────────────────────────────────
+
+export function useGroupAnnouncements(groupId) {
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    if (!groupId) return;
+    const channel = supabase
+      .channel(`group-announcements:${groupId}`)
+      .on("postgres_changes", { event: "*", schema: "public", table: "group_announcements", filter: `group_id=eq.${groupId}` }, () => {
+        queryClient.invalidateQueries({ queryKey: ["group-announcements", groupId] });
+      })
+      .subscribe();
+    return () => supabase.removeChannel(channel);
+  }, [groupId, queryClient]);
+  return useQuery({
+    queryKey: ["group-announcements", groupId],
+    queryFn: () => groupsApi.getAnnouncements(groupId),
+    enabled: !!groupId,
+    staleTime: 30_000,
+  });
+}
+
+export function useCreateAnnouncement(groupId) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (content) => groupsApi.createAnnouncement(groupId, content),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["group-announcements", groupId] }),
+  });
+}
+
+export function useDeleteAnnouncement(groupId) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id) => groupsApi.deleteAnnouncement(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["group-announcements", groupId] }),
+  });
+}
+
+// ── Join requests ─────────────────────────────────────────────────────────────
+
+export function useJoinRequests(groupId) {
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    if (!groupId) return;
+    const channel = supabase
+      .channel(`group-join-requests:${groupId}`)
+      .on("postgres_changes", { event: "*", schema: "public", table: "group_join_requests", filter: `group_id=eq.${groupId}` }, () => {
+        queryClient.invalidateQueries({ queryKey: ["join-requests", groupId] });
+      })
+      .subscribe();
+    return () => supabase.removeChannel(channel);
+  }, [groupId, queryClient]);
+  return useQuery({
+    queryKey: ["join-requests", groupId],
+    queryFn: () => groupsApi.getJoinRequests(groupId),
+    enabled: !!groupId,
+    staleTime: 15_000,
+  });
+}
+
+export function useMyJoinRequest(groupId) {
+  return useQuery({
+    queryKey: ["my-join-request", groupId],
+    queryFn: () => groupsApi.getMyJoinRequest(groupId),
+    enabled: !!groupId,
+    staleTime: 15_000,
+  });
+}
+
+export function useRequestJoin() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (groupId) => groupsApi.requestJoin(groupId),
+    onSuccess: (_d, groupId) => queryClient.invalidateQueries({ queryKey: ["my-join-request", groupId] }),
+  });
+}
+
+export function useCancelJoinRequest() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (groupId) => groupsApi.cancelJoinRequest(groupId),
+    onSuccess: (_d, groupId) => queryClient.invalidateQueries({ queryKey: ["my-join-request", groupId] }),
+  });
+}
+
+export function useApproveJoinRequest(groupId) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ requestId, userId }) => groupsApi.approveJoinRequest(requestId, groupId, userId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["join-requests", groupId] });
+      queryClient.invalidateQueries({ queryKey: ["group-members", groupId] });
+    },
+  });
+}
+
+export function useDenyJoinRequest(groupId) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (requestId) => groupsApi.denyJoinRequest(requestId),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["join-requests", groupId] }),
+  });
+}
+
+// ── Reading progress ──────────────────────────────────────────────────────────
+
+export function useGroupProgress(groupId) {
+  return useQuery({
+    queryKey: ["group-progress", groupId],
+    queryFn: () => groupsApi.getGroupProgress(groupId),
+    enabled: !!groupId,
+    staleTime: 60_000,
+  });
+}

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import ConfirmModal from "../../components/ConfirmModal";
@@ -9,9 +9,14 @@ import { useSubscription } from "../../hooks/useSubscription";
 import { BOOKS } from "../../data/books";
 import {
   useStudyNotes,
+  usePublicNotes,
   useCreateStudyNote,
   useUpdateStudyNote,
   useDeleteStudyNote,
+  useNoteFolders,
+  useCreateNoteFolder,
+  useRenameNoteFolder,
+  useDeleteNoteFolder,
 } from "../../hooks/useStudyNotes";
 import "../../styles/study-notes.css";
 
@@ -35,7 +40,46 @@ function stripHtml(html) {
   return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 }
 
-const EMPTY_NOTE = { title: "", content: "", tags: [], book_index: null, chapter: null, verse: "", is_public: false };
+const EMPTY_NOTE = { title: "", content: "", tags: [], book_index: null, chapter: null, verse: "", is_public: false, folder_id: null };
+
+// ── Export helpers ────────────────────────────────────────────────────────────
+
+function exportAsMarkdown(note) {
+  const passage = passageLabel(note);
+  const lines = [];
+  if (note.title) lines.push(`# ${note.title}`, "");
+  if (passage) lines.push(`**Passage:** ${passage}`, "");
+  if (note.tags?.length) lines.push(`**Tags:** ${note.tags.map(t => `#${t}`).join(" ")}`, "");
+  if (note.content) lines.push(stripHtml(note.content));
+  lines.push("", `*Updated: ${formatDate(note.updated_at)}*`);
+  const blob = new Blob([lines.join("\n")], { type: "text/markdown" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${(note.title || "note").replace(/[^a-z0-9]/gi, "_")}.md`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function exportAsPrint(note) {
+  const passage = passageLabel(note);
+  const win = window.open("", "_blank");
+  win.document.write(`<!DOCTYPE html><html><head><title>${note.title || "Note"}</title>
+  <style>body{font-family:Georgia,serif;max-width:700px;margin:40px auto;color:#111}
+  h1{font-size:1.6em;margin-bottom:4px}
+  .meta{color:#666;font-size:.9em;margin-bottom:16px}
+  .tags span{background:#eee;padding:2px 8px;border-radius:12px;font-size:.8em;margin-right:4px}
+  .content{line-height:1.7;margin-top:16px}
+  @media print{body{margin:20px}}</style></head><body>
+  ${note.title ? `<h1>${note.title}</h1>` : ""}
+  <div class="meta">${[passage, formatDate(note.updated_at)].filter(Boolean).join(" · ")}</div>
+  ${note.tags?.length ? `<div class="tags">${note.tags.map(t => `<span>#${t}</span>`).join("")}</div>` : ""}
+  <div class="content">${note.content || ""}</div>
+  </body></html>`);
+  win.document.close();
+  win.focus();
+  win.print();
+}
 
 // ── Tag input ─────────────────────────────────────────────────────────────────
 
@@ -81,7 +125,7 @@ function TagInput({ tags, onChange }) {
 
 // ── Note editor ───────────────────────────────────────────────────────────────
 
-function NoteEditor({ note, onSave, onCancel, saving, isAdmin }) {
+function NoteEditor({ note, folders, onSave, onCancel, saving, isAdmin }) {
   const { t } = useTranslation();
   const [form, setForm] = useState(note ?? EMPTY_NOTE);
   const maxChapter = form.book_index != null ? (BOOKS[form.book_index]?.chapters ?? 1) : 1;
@@ -101,6 +145,12 @@ function NoteEditor({ note, onSave, onCancel, saving, isAdmin }) {
       <div className="sn-editor-header">
         <button type="button" className="sn-back-btn" onClick={onCancel}>{t("common.back")}</button>
         <h2 className="sn-editor-title">{note ? t("studyNotes.editNote") : t("studyNotes.newNoteTitle")}</h2>
+        {note && (
+          <div className="sn-editor-export">
+            <button type="button" className="sn-export-btn" onClick={() => exportAsMarkdown(note)} title={t("studyNotes.exportMarkdown")}>⬇ .md</button>
+            <button type="button" className="sn-export-btn" onClick={() => exportAsPrint(note)} title={t("studyNotes.exportPdf")}>🖨 PDF</button>
+          </div>
+        )}
       </div>
 
       <div className="sn-editor-body">
@@ -112,6 +162,20 @@ function NoteEditor({ note, onSave, onCancel, saving, isAdmin }) {
           onChange={e => set("title", e.target.value)}
           maxLength={120}
         />
+
+        {folders.length > 0 && (
+          <>
+            <label className="sn-label">{t("studyNotes.folder")}</label>
+            <select
+              className="sn-input sn-select"
+              value={form.folder_id ?? ""}
+              onChange={e => set("folder_id", e.target.value || null)}
+            >
+              <option value="">{t("studyNotes.noFolder")}</option>
+              {folders.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}
+            </select>
+          </>
+        )}
 
         <label className="sn-label">{t("studyNotes.fieldPassage")} <span className="sn-optional">{t("studyNotes.fieldPassageOptional")}</span></label>
         <div className="sn-passage-row">
@@ -190,7 +254,7 @@ function NoteEditor({ note, onSave, onCancel, saving, isAdmin }) {
 
 // ── Note card ─────────────────────────────────────────────────────────────────
 
-function NoteCard({ note, onClick, onDelete }) {
+function NoteCard({ note, onClick, onDelete, onExportMd, onExportPdf, showAuthor }) {
   const { t } = useTranslation();
   const passage = passageLabel(note);
   const preview = stripHtml(note.content).slice(0, 140);
@@ -199,12 +263,17 @@ function NoteCard({ note, onClick, onDelete }) {
     <div className="sn-card" onClick={onClick}>
       <div className="sn-card-header">
         <h3 className="sn-card-title">{note.title || t("studyNotes.untitled")}</h3>
-        <button
-          className="sn-card-delete"
-          onClick={e => { e.stopPropagation(); onDelete(note.id); }}
-          title={t("common.delete")}
-        >✕</button>
+        {onDelete && (
+          <button
+            className="sn-card-delete"
+            onClick={e => { e.stopPropagation(); onDelete(note.id); }}
+            title={t("common.delete")}
+          >✕</button>
+        )}
       </div>
+      {showAuthor && note.author && (
+        <span className="sn-card-author">👤 {note.author.display_name}</span>
+      )}
       {passage && <span className="sn-card-passage">📖 {passage}</span>}
       {preview && <p className="sn-card-preview">{preview}{preview.length >= 140 ? "…" : ""}</p>}
       <div className="sn-card-footer">
@@ -213,27 +282,127 @@ function NoteCard({ note, onClick, onDelete }) {
             <span key={tag} className="sn-tag-chip">#{tag}</span>
           ))}
         </div>
-        <span className="sn-card-date">{formatDate(note.updated_at)}</span>
+        <div className="sn-card-actions">
+          {onExportMd && (
+            <button className="sn-card-export-btn" onClick={e => { e.stopPropagation(); onExportMd(note); }} title={t("studyNotes.exportMarkdown")}>⬇</button>
+          )}
+          <span className="sn-card-date">{formatDate(note.updated_at)}</span>
+        </div>
       </div>
       {note.is_public && <span className="sn-public-badge">{t("studyNotes.public")}</span>}
     </div>
   );
 }
 
+// ── Folder sidebar ────────────────────────────────────────────────────────────
+
+function FolderSidebar({ folders, activeFolder, onSelect, onCreate, onRename, onDelete }) {
+  const { t } = useTranslation();
+  const [newName, setNewName] = useState("");
+  const [creating, setCreating] = useState(false);
+  const [renamingId, setRenamingId] = useState(null);
+  const [renameVal, setRenameVal] = useState("");
+
+  function handleCreate(e) {
+    e.preventDefault();
+    if (!newName.trim()) return;
+    onCreate(newName.trim());
+    setNewName("");
+    setCreating(false);
+  }
+
+  function handleRename(e, folderId) {
+    e.preventDefault();
+    if (!renameVal.trim()) { setRenamingId(null); return; }
+    onRename(folderId, renameVal.trim());
+    setRenamingId(null);
+  }
+
+  return (
+    <div className="sn-folders">
+      <div className="sn-folder-header">
+        <span className="sn-folder-title">{t("studyNotes.folders")}</span>
+        <button className="sn-folder-add-btn" onClick={() => setCreating(v => !v)} title={t("studyNotes.newFolder")}>+</button>
+      </div>
+
+      {creating && (
+        <form className="sn-folder-create" onSubmit={handleCreate}>
+          <input
+            className="sn-folder-input"
+            value={newName}
+            onChange={e => setNewName(e.target.value)}
+            placeholder={t("studyNotes.folderName")}
+            autoFocus
+            maxLength={40}
+          />
+          <button type="submit" className="sn-folder-save-btn">✓</button>
+          <button type="button" className="sn-folder-cancel-btn" onClick={() => setCreating(false)}>✕</button>
+        </form>
+      )}
+
+      <button
+        className={`sn-folder-item${activeFolder === null ? " sn-folder-item--active" : ""}`}
+        onClick={() => onSelect(null)}
+      >
+        📁 {t("studyNotes.allNotes")}
+      </button>
+
+      {folders.map(f => (
+        <div key={f.id} className="sn-folder-row">
+          {renamingId === f.id ? (
+            <form className="sn-folder-rename" onSubmit={e => handleRename(e, f.id)}>
+              <input
+                className="sn-folder-input"
+                value={renameVal}
+                onChange={e => setRenameVal(e.target.value)}
+                autoFocus
+                maxLength={40}
+              />
+              <button type="submit" className="sn-folder-save-btn">✓</button>
+              <button type="button" className="sn-folder-cancel-btn" onClick={() => setRenamingId(null)}>✕</button>
+            </form>
+          ) : (
+            <>
+              <button
+                className={`sn-folder-item${activeFolder === f.id ? " sn-folder-item--active" : ""}`}
+                onClick={() => onSelect(f.id)}
+              >
+                📂 {f.name}
+              </button>
+              <button className="sn-folder-edit-btn" onClick={() => { setRenamingId(f.id); setRenameVal(f.name); }} title={t("common.edit")}>✎</button>
+              <button className="sn-folder-del-btn" onClick={() => onDelete(f.id)} title={t("common.delete")}>✕</button>
+            </>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ── Main page ─────────────────────────────────────────────────────────────────
+
+const SORT_OPTIONS = ["updated", "created", "title"];
 
 export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
   const { t } = useTranslation();
   const { data: notes = [], isLoading } = useStudyNotes();
+  const { data: publicNotes = [], isLoading: loadingPublic } = usePublicNotes();
+  const { data: folders = [] } = useNoteFolders();
   const createNote = useCreateStudyNote();
   const updateNote = useUpdateStudyNote();
   const deleteNote = useDeleteStudyNote();
+  const createFolder = useCreateNoteFolder();
+  const renameFolder = useRenameNoteFolder();
+  const deleteFolder = useDeleteNoteFolder();
   const { isPremium } = useSubscription(user?.id);
 
-  const [editing, setEditing] = useState(null); // null | "new" | note object
+  const [tab, setTab] = useState("mine"); // "mine" | "public"
+  const [editing, setEditing] = useState(null);
   const [search, setSearch] = useState("");
   const [noteToDelete, setNoteToDelete] = useState(null);
   const [activeTag, setActiveTag] = useState(null);
+  const [activeFolder, setActiveFolder] = useState(null);
+  const [sortBy, setSortBy] = useState("updated");
 
   const allTags = useMemo(() => {
     const set = new Set();
@@ -243,6 +412,9 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
 
   const filtered = useMemo(() => {
     let list = notes;
+    if (activeFolder !== undefined && activeFolder !== null) {
+      list = list.filter(n => n.folder_id === activeFolder);
+    }
     if (activeTag) list = list.filter(n => (n.tags ?? []).includes(activeTag));
     if (search.trim()) {
       const q = search.toLowerCase();
@@ -252,8 +424,20 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
         (n.tags ?? []).some(t => t.includes(q))
       );
     }
+    if (sortBy === "created") list = [...list].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    else if (sortBy === "title") list = [...list].sort((a, b) => (a.title ?? "").localeCompare(b.title ?? ""));
     return list;
-  }, [notes, search, activeTag]);
+  }, [notes, search, activeTag, activeFolder, sortBy]);
+
+  const filteredPublic = useMemo(() => {
+    if (!search.trim()) return publicNotes;
+    const q = search.toLowerCase();
+    return publicNotes.filter(n =>
+      (n.title ?? "").toLowerCase().includes(q) ||
+      stripHtml(n.content).toLowerCase().includes(q) ||
+      (n.tags ?? []).some(t => t.includes(q))
+    );
+  }, [publicNotes, search]);
 
   function handleSave(form) {
     const payload = {
@@ -264,6 +448,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
       chapter: form.chapter,
       verse: form.verse?.trim() || null,
       is_public: form.is_public,
+      folder_id: form.folder_id ?? null,
     };
 
     if (editing && editing !== "new") {
@@ -273,16 +458,13 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
     }
   }
 
-  function handleDelete(noteId) {
-    setNoteToDelete(noteId);
-  }
-
   if (editing) {
     return (
       <div className="sn-page">
         <PageNav {...sharedNav} user={user} navigate={navigate} />
         <NoteEditor
           note={editing === "new" ? null : editing}
+          folders={folders}
           onSave={handleSave}
           onCancel={() => setEditing(null)}
           saving={createNote.isPending || updateNote.isPending}
@@ -307,6 +489,17 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
         </div>
       </div>
 
+      {/* Tabs */}
+      <div className="sn-tabs">
+        <button className={`sn-tab${tab === "mine" ? " sn-tab--active" : ""}`} onClick={() => setTab("mine")}>
+          {t("studyNotes.myNotes")}
+          {notes.length > 0 && <span className="sn-tab-count">{notes.length}</span>}
+        </button>
+        <button className={`sn-tab${tab === "public" ? " sn-tab--active" : ""}`} onClick={() => setTab("public")}>
+          {t("studyNotes.communityNotes")}
+        </button>
+      </div>
+
       <div className="sn-controls">
         <input
           className="sn-search"
@@ -315,56 +508,119 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
           value={search}
           onChange={e => setSearch(e.target.value)}
         />
-        {allTags.length > 0 && (
-          <div className="sn-tag-filter">
-            <button
-              className={`sn-filter-chip${!activeTag ? " sn-filter-chip--active" : ""}`}
-              onClick={() => setActiveTag(null)}
-            >{t("studyNotes.all")}</button>
-            {allTags.map(tag => (
-              <button
-                key={tag}
-                className={`sn-filter-chip${activeTag === tag ? " sn-filter-chip--active" : ""}`}
-                onClick={() => setActiveTag(activeTag === tag ? null : tag)}
-              >
-                #{tag}
-              </button>
+        {tab === "mine" && (
+          <select
+            className="sn-sort-select"
+            value={sortBy}
+            onChange={e => setSortBy(e.target.value)}
+          >
+            {SORT_OPTIONS.map(s => (
+              <option key={s} value={s}>{t(`studyNotes.sort_${s}`)}</option>
             ))}
-          </div>
+          </select>
         )}
       </div>
 
-      <div className="sn-content">
-        {isLoading ? (
-          <div className="sn-spinner-wrap"><div className="sn-spinner" /></div>
-        ) : filtered.length === 0 ? (
-          <div className="sn-empty-state">
-            <span className="sn-empty-icon">📝</span>
-            {notes.length === 0 ? (
-              <>
-                <h3>{t("studyNotes.emptyTitle")}</h3>
-                <p>{t("studyNotes.emptyDesc")}</p>
-                <button className="sn-new-btn" onClick={() => setEditing("new")}>{t("studyNotes.emptyBtn")}</button>
-              </>
-            ) : (
-              <>
-                <h3>{t("studyNotes.noMatchTitle")}</h3>
-                <p>{t("studyNotes.noMatchDesc")}</p>
-              </>
-            )}
-          </div>
-        ) : (
-          <div className="sn-grid">
-            {filtered.map(note => (
-              <NoteCard
-                key={note.id}
-                note={note}
-                onClick={() => setEditing(note)}
-                onDelete={handleDelete}
-              />
-            ))}
+      {tab === "mine" && allTags.length > 0 && (
+        <div className="sn-tag-filter">
+          <button
+            className={`sn-filter-chip${!activeTag ? " sn-filter-chip--active" : ""}`}
+            onClick={() => setActiveTag(null)}
+          >{t("studyNotes.all")}</button>
+          {allTags.map(tag => (
+            <button
+              key={tag}
+              className={`sn-filter-chip${activeTag === tag ? " sn-filter-chip--active" : ""}`}
+              onClick={() => setActiveTag(activeTag === tag ? null : tag)}
+            >
+              #{tag}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div className="sn-body">
+        {tab === "mine" && folders.length > 0 && (
+          <FolderSidebar
+            folders={folders}
+            activeFolder={activeFolder}
+            onSelect={setActiveFolder}
+            onCreate={(name) => createFolder.mutate(name)}
+            onRename={(folderId, name) => renameFolder.mutate({ folderId, name })}
+            onDelete={(folderId) => deleteFolder.mutate(folderId)}
+          />
+        )}
+
+        {tab === "mine" && folders.length === 0 && (
+          <div className="sn-folder-create-hint">
+            <button className="sn-folder-hint-btn" onClick={() => {
+              // show folder creation inline via a quick prompt
+              const name = window.prompt(t("studyNotes.folderName"));
+              if (name?.trim()) createFolder.mutate(name.trim());
+            }}>
+              + {t("studyNotes.newFolder")}
+            </button>
           </div>
         )}
+
+        <div className="sn-content">
+          {tab === "mine" && (
+            isLoading ? (
+              <div className="sn-spinner-wrap"><div className="sn-spinner" /></div>
+            ) : filtered.length === 0 ? (
+              <div className="sn-empty-state">
+                <span className="sn-empty-icon">📝</span>
+                {notes.length === 0 ? (
+                  <>
+                    <h3>{t("studyNotes.emptyTitle")}</h3>
+                    <p>{t("studyNotes.emptyDesc")}</p>
+                    <button className="sn-new-btn" onClick={() => setEditing("new")}>{t("studyNotes.emptyBtn")}</button>
+                  </>
+                ) : (
+                  <>
+                    <h3>{t("studyNotes.noMatchTitle")}</h3>
+                    <p>{t("studyNotes.noMatchDesc")}</p>
+                  </>
+                )}
+              </div>
+            ) : (
+              <div className="sn-grid">
+                {filtered.map(note => (
+                  <NoteCard
+                    key={note.id}
+                    note={note}
+                    onClick={() => setEditing(note)}
+                    onDelete={(id) => setNoteToDelete(id)}
+                    onExportMd={exportAsMarkdown}
+                  />
+                ))}
+              </div>
+            )
+          )}
+
+          {tab === "public" && (
+            loadingPublic ? (
+              <div className="sn-spinner-wrap"><div className="sn-spinner" /></div>
+            ) : filteredPublic.length === 0 ? (
+              <div className="sn-empty-state">
+                <span className="sn-empty-icon">🌐</span>
+                <h3>{t("studyNotes.noPublicNotes")}</h3>
+                <p>{t("studyNotes.noPublicNotesDesc")}</p>
+              </div>
+            ) : (
+              <div className="sn-grid">
+                {filteredPublic.map(note => (
+                  <NoteCard
+                    key={note.id}
+                    note={note}
+                    onClick={() => {}}
+                    showAuthor
+                  />
+                ))}
+              </div>
+            )
+          )}
+        </div>
       </div>
 
       {noteToDelete && (

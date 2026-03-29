@@ -1,0 +1,214 @@
+/* ── Welcome to Premium Modal ─────────────────────────────────────────────────── */
+
+.wpm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 600;
+  padding: 20px;
+  animation: wpm-fade-in 0.2s ease-out;
+}
+
+@keyframes wpm-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.wpm-modal {
+  background: var(--card-bg, #fff);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.3), 0 0 0 1px rgba(124,58,237,0.2);
+  overflow: hidden;
+  animation: wpm-slide-up 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes wpm-slide-up {
+  from { opacity: 0; transform: translateY(32px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────────── */
+
+.wpm-header {
+  position: relative;
+  padding: 28px 28px 22px;
+  background: linear-gradient(135deg, #1a0545 0%, #4c1d95 45%, #7c3aed 80%, #a78bfa 100%);
+  text-align: center;
+  overflow: hidden;
+}
+
+.wpm-confetti {
+  font-size: 18px;
+  letter-spacing: 12px;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 12px;
+  animation: wpm-confetti-drift 3s ease-in-out infinite alternate;
+}
+
+@keyframes wpm-confetti-drift {
+  from { letter-spacing: 10px; opacity: 0.3; }
+  to   { letter-spacing: 16px; opacity: 0.55; }
+}
+
+.wpm-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #e9d5ff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.wpm-title {
+  font-size: 26px;
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 8px;
+  line-height: 1.15;
+}
+
+.wpm-subtitle {
+  font-size: 13px;
+  color: rgba(255,255,255,0.72);
+  margin: 0;
+  line-height: 1.5;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.wpm-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 13px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s, color 0.12s;
+}
+.wpm-close:hover { background: rgba(255,255,255,0.24); color: #fff; }
+
+/* ── Feature list ────────────────────────────────────────────────────────────── */
+
+.wpm-features {
+  list-style: none;
+  margin: 0;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-bottom: 1px solid var(--border);
+}
+
+.wpm-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px;
+  border-radius: 12px;
+  transition: background 0.12s;
+}
+
+.wpm-feature--clickable {
+  cursor: pointer;
+}
+.wpm-feature--clickable:hover {
+  background: rgba(124, 58, 237, 0.07);
+}
+.wpm-feature--clickable:hover .wpm-feature-label {
+  color: #a78bfa;
+}
+
+.wpm-feature-icon {
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: rgba(124,58,237,0.1);
+  flex-shrink: 0;
+}
+
+.wpm-feature-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.wpm-feature-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  transition: color 0.12s;
+}
+
+.wpm-feature-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.wpm-feature-arrow {
+  font-size: 20px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: color 0.12s, transform 0.12s;
+}
+.wpm-feature--clickable:hover .wpm-feature-arrow {
+  color: #a78bfa;
+  transform: translateX(2px);
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────────── */
+
+.wpm-footer {
+  padding: 16px 20px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.wpm-cta {
+  padding: 12px 32px;
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(124,58,237,0.35);
+  transition: opacity 0.15s, transform 0.12s;
+  letter-spacing: -0.01em;
+}
+.wpm-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+.wpm-cta:active { transform: translateY(0); }
+
+@media (max-width: 400px) {
+  .wpm-overlay { padding: 12px; }
+  .wpm-header { padding: 22px 16px 18px; }
+  .wpm-title { font-size: 22px; }
+  .wpm-features { padding: 10px 10px; }
+  .wpm-feature { padding: 8px 8px; gap: 10px; }
+}

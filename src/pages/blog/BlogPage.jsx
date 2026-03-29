@@ -413,10 +413,11 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user, lang }
 
 // ── Main Blog Page ────────────────────────────────────────────────────────────
 export default function BlogPage({ user, profile, onBack, onWriteClick, slug, onSelectPost, navigate, darkMode, setDarkMode, i18n, onLogout }) {
-  const { data: posts = [], isLoading } = usePublishedPosts();
   const { t } = useTranslation();
+  const userLang = i18n?.language?.split("-")[0] ?? "en";
   const [visibleCount, setVisibleCount] = useState(9);
-  const lang = i18n?.language?.split("-")[0] ?? "en";
+  const [langFilter, setLangFilter] = useState(userLang);
+  const { data: posts = [], isLoading } = usePublishedPosts(langFilter);
 
   useMeta(!slug ? { title: "Blog", description: "Reflections, studies, and insights from the NWT Progress community." } : {});
 
@@ -464,6 +465,22 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
         </div>
       </div>
 
+      {/* Language filter pills */}
+      <div className="blog-lang-filter">
+        <button
+          className={`blog-lang-pill${langFilter === userLang ? " blog-lang-pill--active" : ""}`}
+          onClick={() => { setLangFilter(userLang); setVisibleCount(9); }}
+        >
+          {t("forum.myLanguage")}
+        </button>
+        <button
+          className={`blog-lang-pill${langFilter === null ? " blog-lang-pill--active" : ""}`}
+          onClick={() => { setLangFilter(null); setVisibleCount(9); }}
+        >
+          {t("forum.allLanguages")}
+        </button>
+      </div>
+
       {/* Posts */}
       <div className="blog-content">
         {isLoading ? (
@@ -478,7 +495,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
           <>
             <div className="blog-grid">
               {visiblePosts.map(post => (
-                <PostCard key={post.id} post={post} onSelect={onSelectPost} navigate={navigate} user={user} lang={lang} />
+                <PostCard key={post.id} post={post} onSelect={onSelectPost} navigate={navigate} user={user} lang={userLang} />
               ))}
             </div>
             {hasMore && (

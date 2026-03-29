@@ -13,6 +13,7 @@ import { useNotes, useCreateNote, useUpdateNote, useDeleteNote } from "../../hoo
 import { useProgress, useReadingStreak } from "../../hooks/useProgress";
 import { useQuizProgress } from "../../hooks/useQuiz";
 import { useFollowCounts, useIsFollowing, useToggleFollow } from "../../hooks/useFollows";
+import { useUserForumStats } from "../../hooks/useForum";
 import { useUserPosts, useCreatePost, useDeletePost } from "../../hooks/usePosts";
 import { useGetOrCreateDM } from "../../hooks/useMessages";
 import { useSubscription } from "../../hooks/useSubscription";
@@ -671,6 +672,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
   const { data: readingProgress = {} } = useProgress(profileId);
   const { data: quizProgress = [] } = useQuizProgress(profileId);
   const { data: streak = { current_streak: 0, longest_streak: 0, total_days: 0 } } = useReadingStreak(profileId);
+  const { data: forumStats = { threads: 0, replies: 0 } } = useUserForumStats(profileId);
   const { t } = useTranslation();
   useMeta({ title: profile?.display_name ? `${profile.display_name}'s Profile` : "Profile" });
 
@@ -821,6 +823,25 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
             </div>
           </div>
         </div>
+
+        {/* Forum Stats */}
+        {(forumStats.threads > 0 || forumStats.replies > 0) && (
+          <div className="pf-section pf-section--stats">
+            <div className="pf-section-header">
+              <h2>💬 {t("profile.forumActivity")}</h2>
+            </div>
+            <div className="pf-streak-row">
+              <div className="pf-streak-card">
+                <span className="pf-streak-val">{Number(forumStats.threads).toLocaleString()}</span>
+                <span className="pf-streak-label">{t("profile.forumThreads")}</span>
+              </div>
+              <div className="pf-streak-card">
+                <span className="pf-streak-val">{Number(forumStats.replies).toLocaleString()}</span>
+                <span className="pf-streak-label">{t("profile.forumReplies")}</span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Quiz Progress */}
         <div className="pf-section pf-section--stats">

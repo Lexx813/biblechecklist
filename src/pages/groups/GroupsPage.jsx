@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
-import { useMyGroups, usePublicGroups, useCreateGroup, useJoinGroup, useJoinByCode } from "../../hooks/useGroups";
+import { useMyGroups, usePublicGroups, useCreateGroup, useJoinGroup, useJoinByCode, useRequestJoin } from "../../hooks/useGroups";
 import "../../styles/groups.css";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -178,8 +178,18 @@ function JoinCodeModal({ onClose, onJoined }) {
 
 // ── Group card ────────────────────────────────────────────────────────────────
 
-function GroupCard({ group, onClick, onJoin, joined, joining }) {
+function GroupCard({ group, onClick, onJoin, onRequestJoin, joined, joining, requesting, requested }) {
   const { t } = useTranslation();
+
+  function renderJoinBtn(e) {
+    e.stopPropagation();
+    if (group.is_private) {
+      onRequestJoin(group.id);
+    } else {
+      onJoin(group.id);
+    }
+  }
+
   return (
     <div className="grp-card" onClick={onClick}>
       <div className="grp-card-avatar">
@@ -199,17 +209,21 @@ function GroupCard({ group, onClick, onJoin, joined, joining }) {
           <p className="grp-card-goal">🎯 {group.goal_label}{group.goal_deadline ? ` · ${new Date(group.goal_deadline).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}` : ""}</p>
         )}
         <div className="grp-card-meta">
-          <span>Created {timeAgo(group.created_at, t)}</span>
+          <span>{t("groups.created")} {timeAgo(group.created_at, t)}</span>
         </div>
       </div>
-      {!joined && onJoin && (
-        <button
-          className="grp-btn grp-btn--sm grp-btn--primary"
-          onClick={e => { e.stopPropagation(); onJoin(group.id); }}
-          disabled={joining}
-        >
-          {t("groups.join")}
-        </button>
+      {!joined && (onJoin || onRequestJoin) && (
+        requested ? (
+          <span className="grp-badge grp-badge--pending">{t("groups.requested")}</span>
+        ) : (
+          <button
+            className="grp-btn grp-btn--sm grp-btn--primary"
+            onClick={renderJoinBtn}
+            disabled={joining || requesting}
+          >
+            {group.is_private ? t("groups.requestJoin") : t("groups.join")}
+          </button>
+        )
       )}
     </div>
   );
@@ -222,11 +236,25 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
   const [tab, setTab] = useState("mine");
   const [showCreate, setShowCreate] = useState(false);
   const [showJoinCode, setShowJoinCode] = useState(false);
+  const [search, setSearch] = useState("");
+  const [requestedIds, setRequestedIds] = useState(new Set());
   const { data: myGroups = [], isLoading: loadingMine } = useMyGroups();
   const { data: publicGroups = [], isLoading: loadingPublic } = usePublicGroups();
   const joinGroup = useJoinGroup();
+  const requestJoin = useRequestJoin();
 
   const myGroupIds = new Set(myGroups.map(g => g.id));
+
+  const filteredPublic = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    const notMine = publicGroups.filter(g => !myGroupIds.has(g.id));
+    if (!q) return notMine;
+    return notMine.filter(g =>
+      g.name.toLowerCase().includes(q) ||
+      (g.description ?? "").toLowerCase().includes(q) ||
+      (g.goal_label ?? "").toLowerCase().includes(q)
+    );
+  }, [publicGroups, myGroupIds, search]);
 
   function handleCreated(group) {
     navigate("groupDetail", { groupId: group.id });
@@ -234,6 +262,12 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
 
   function handleJoined(groupId) {
     navigate("groupDetail", { groupId });
+  }
+
+  function handleRequestJoin(groupId) {
+    requestJoin.mutate(groupId, {
+      onSuccess: () => setRequestedIds(s => new Set([...s, groupId])),
+    });
   }
 
   return (
@@ -261,6 +295,18 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
         </button>
       </div>
 
+      {tab === "explore" && (
+        <div className="grp-search-bar">
+          <input
+            className="grp-search-input"
+            type="search"
+            placeholder={t("groups.searchPlaceholder")}
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+          />
+        </div>
+      )}
+
       <div className="grp-list">
         {tab === "mine" && (
           loadingMine ? (
@@ -287,26 +333,27 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
         {tab === "explore" && (
           loadingPublic ? (
             <p className="grp-empty">{t("common.loading")}</p>
-          ) : publicGroups.length === 0 ? (
+          ) : filteredPublic.length === 0 ? (
             <div className="grp-empty-state">
               <span className="grp-empty-icon">🌐</span>
-              <h3>{t("groups.noPublicGroups")}</h3>
-              <p>{t("groups.noPublicGroupsDesc")}</p>
-              <button className="grp-btn grp-btn--primary" onClick={() => setShowCreate(true)}>{t("groups.createGroupBtn")}</button>
+              <h3>{search ? t("groups.noSearchResults") : t("groups.noPublicGroups")}</h3>
+              <p>{search ? t("groups.noSearchResultsDesc") : t("groups.noPublicGroupsDesc")}</p>
+              {!search && <button className="grp-btn grp-btn--primary" onClick={() => setShowCreate(true)}>{t("groups.createGroupBtn")}</button>}
             </div>
           ) : (
-            publicGroups
-              .filter(g => !myGroupIds.has(g.id))
-              .map(g => (
-                <GroupCard
-                  key={g.id}
-                  group={g}
-                  joined={false}
-                  onClick={() => navigate("groupDetail", { groupId: g.id })}
-                  onJoin={(id) => joinGroup.mutate(id, { onSuccess: () => handleJoined(id) })}
-                  joining={joinGroup.isPending}
-                />
-              ))
+            filteredPublic.map(g => (
+              <GroupCard
+                key={g.id}
+                group={g}
+                joined={false}
+                onClick={() => navigate("groupDetail", { groupId: g.id })}
+                onJoin={(id) => joinGroup.mutate(id, { onSuccess: () => handleJoined(id) })}
+                onRequestJoin={handleRequestJoin}
+                joining={joinGroup.isPending}
+                requesting={requestJoin.isPending}
+                requested={requestedIds.has(g.id)}
+              />
+            ))
           )
         )}
       </div>

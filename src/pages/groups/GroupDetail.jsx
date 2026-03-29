@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { insertEmojiAtCursor } from "../../components/EmojiPickerPopup";
 import { EMOJI_CATEGORIES } from "../../lib/emojiData";
+import MentionAutocomplete from "../../components/mentions/MentionAutocomplete";
+import { renderMentions } from "../../utils/mentions";
 import {
   useGroup,
   useGroupMembers,
@@ -15,6 +17,13 @@ import {
   useLeaveGroup,
   useRemoveMember,
   useDeleteGroup,
+  useGroupAnnouncements,
+  useCreateAnnouncement,
+  useDeleteAnnouncement,
+  useJoinRequests,
+  useApproveJoinRequest,
+  useDenyJoinRequest,
+  useGroupProgress,
 } from "../../hooks/useGroups";
 import ConfirmModal from "../../components/ConfirmModal";
 import { sanitizeContent, MAX_MSG_LENGTH } from "../../lib/e2e";
@@ -184,7 +193,7 @@ function GrpBubble({ msg, isMine, canDelete, allMessages, reactions, userId, onD
               rows={1}
             />
           ) : (
-            <span>{msg.content}</span>
+            <span dangerouslySetInnerHTML={{ __html: renderMentions(msg.content) }} />
           )}
           <div className="grp-bubble-footer">
             <span className="grp-bubble-time">{formatTime(msg.created_at)}</span>
@@ -334,15 +343,13 @@ function ChatTab({ groupId, user, isAdmin }) {
         )}
         <form className="grp-chat-composer" onSubmit={handleSend}>
           <button type="button" className="grp-emoji-toggle" onClick={() => setShowEmoji(v => !v)} title="Emoji">😊</button>
-          <textarea
-            ref={inputRef}
-            className="grp-chat-input"
-            placeholder={t("groups.messagePlaceholder")}
+          <MentionAutocomplete
             value={input}
-            onChange={e => setInput(e.target.value)}
+            onChange={e => setInput(e.target.value.slice(0, MAX_MSG_LENGTH))}
             onKeyDown={handleKeyDown}
-            maxLength={MAX_MSG_LENGTH}
+            placeholder={t("groups.messagePlaceholder")}
             rows={1}
+            className="grp-chat-input"
           />
           <button className="grp-chat-send" type="submit" disabled={!input.trim() || sendMessage.isPending}>➤</button>
         </form>
@@ -389,11 +396,38 @@ function LeaderboardTab({ groupId, userId }) {
 function MembersTab({ groupId, userId, isAdmin, onRemove }) {
   const { t } = useTranslation();
   const { data: members = [], isLoading } = useGroupMembers(groupId);
+  const { data: requests = [] } = useJoinRequests(groupId);
+  const approveRequest = useApproveJoinRequest(groupId);
+  const denyRequest = useDenyJoinRequest(groupId);
 
   if (isLoading) return <div className="grp-spinner-wrap"><div className="grp-spinner" /></div>;
 
   return (
     <div className="grp-members">
+      {isAdmin && requests.length > 0 && (
+        <div className="grp-join-requests">
+          <h4 className="grp-join-requests-title">
+            {t("groups.joinRequests")} <span className="grp-tab-count">{requests.length}</span>
+          </h4>
+          {requests.map(r => (
+            <div key={r.id} className="grp-request-row">
+              <Avatar name={r.profile?.display_name} avatarUrl={r.profile?.avatar_url} size={32} />
+              <span className="grp-request-name">{r.profile?.display_name || t("groups.member")}</span>
+              <span className="grp-request-time">{timeAgo(r.created_at, t)}</span>
+              <button
+                className="grp-btn grp-btn--sm grp-btn--primary"
+                onClick={() => approveRequest.mutate({ requestId: r.id, userId: r.user_id })}
+                disabled={approveRequest.isPending}
+              >{t("groups.approve")}</button>
+              <button
+                className="grp-btn grp-btn--sm grp-btn--ghost"
+                onClick={() => denyRequest.mutate(r.id)}
+                disabled={denyRequest.isPending}
+              >{t("groups.deny")}</button>
+            </div>
+          ))}
+        </div>
+      )}
       {members.map(m => (
         <div key={m.userId} className="grp-member-row">
           <Avatar name={m.display_name} avatarUrl={m.avatar_url} size={36} />
@@ -411,6 +445,107 @@ function MembersTab({ groupId, userId, isAdmin, onRemove }) {
           )}
         </div>
       ))}
+    </div>
+  );
+}
+
+// ── Announcements tab ─────────────────────────────────────────────────────────
+
+function AnnouncementsTab({ groupId, isAdmin }) {
+  const { t } = useTranslation();
+  const { data: announcements = [], isLoading } = useGroupAnnouncements(groupId);
+  const createAnnouncement = useCreateAnnouncement(groupId);
+  const deleteAnnouncement = useDeleteAnnouncement(groupId);
+  const [text, setText] = useState("");
+  const [error, setError] = useState("");
+
+  function handlePost(e) {
+    e.preventDefault();
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    setError("");
+    createAnnouncement.mutate(trimmed, {
+      onSuccess: () => setText(""),
+      onError: (err) => setError(err.message),
+    });
+  }
+
+  if (isLoading) return <div className="grp-spinner-wrap"><div className="grp-spinner" /></div>;
+
+  return (
+    <div className="grp-announcements">
+      {isAdmin && (
+        <form className="grp-announce-form" onSubmit={handlePost}>
+          <textarea
+            className="grp-input grp-textarea"
+            placeholder={t("groups.announcementPlaceholder")}
+            value={text}
+            onChange={e => setText(e.target.value)}
+            maxLength={500}
+            rows={3}
+          />
+          {error && <p className="grp-error">{error}</p>}
+          <button type="submit" className="grp-btn grp-btn--primary grp-btn--sm" disabled={!text.trim() || createAnnouncement.isPending}>
+            {t("groups.postAnnouncement")}
+          </button>
+        </form>
+      )}
+      {announcements.length === 0 ? (
+        <p className="grp-empty grp-empty--pad">{t("groups.noAnnouncements")}</p>
+      ) : (
+        announcements.map(a => (
+          <div key={a.id} className="grp-announce-card">
+            <div className="grp-announce-header">
+              <Avatar name={a.author?.display_name} avatarUrl={a.author?.avatar_url} size={28} />
+              <span className="grp-announce-author">{a.author?.display_name}</span>
+              <span className="grp-announce-time">{timeAgo(a.created_at, t)}</span>
+              {isAdmin && (
+                <button className="grp-announce-delete" onClick={() => deleteAnnouncement.mutate(a.id)} title={t("common.delete")}>✕</button>
+              )}
+            </div>
+            <p className="grp-announce-content">{a.content}</p>
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+
+// ── Reading progress tab ──────────────────────────────────────────────────────
+
+function ProgressTab({ groupId, userId }) {
+  const { t } = useTranslation();
+  const { data: progress = [], isLoading } = useGroupProgress(groupId);
+
+  if (isLoading) return <div className="grp-spinner-wrap"><div className="grp-spinner" /></div>;
+  if (!progress.length) return <p className="grp-empty grp-empty--pad">{t("groups.noData")}</p>;
+
+  const maxChapters = Math.max(...progress.map(p => Number(p.total_chapters)), 1);
+
+  return (
+    <div className="grp-progress">
+      {progress.map((entry, i) => {
+        const isMe = entry.user_id === userId;
+        const pct = Math.round((Number(entry.total_chapters) / maxChapters) * 100);
+        return (
+          <div key={entry.user_id} className={`grp-progress-row${isMe ? " grp-progress-row--me" : ""}`}>
+            <span className="grp-progress-rank">#{i + 1}</span>
+            <Avatar name={entry.display_name} avatarUrl={entry.avatar_url} size={32} />
+            <div className="grp-progress-info">
+              <div className="grp-progress-top">
+                <span className="grp-progress-name">{entry.display_name}{isMe ? ` (${t("groups.you")})` : ""}</span>
+                <span className="grp-progress-count">{Number(entry.total_chapters).toLocaleString()} {t("groups.chaptersRead")}</span>
+              </div>
+              <div className="grp-progress-bar-wrap">
+                <div className="grp-progress-bar" style={{ width: `${pct}%` }} />
+              </div>
+              {entry.last_read_date && (
+                <span className="grp-progress-last">{t("groups.lastRead")}: {new Date(entry.last_read_date).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>
+              )}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -513,6 +648,8 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
       {/* Tabs */}
       <div className="grp-tabs grp-tabs--detail">
         <button className={`grp-tab${tab === "chat" ? " grp-tab--active" : ""}`} onClick={() => setTab("chat")}>{t("groups.chat")}</button>
+        <button className={`grp-tab${tab === "announcements" ? " grp-tab--active" : ""}`} onClick={() => setTab("announcements")}>{t("groups.announcements")}</button>
+        <button className={`grp-tab${tab === "progress" ? " grp-tab--active" : ""}`} onClick={() => setTab("progress")}>{t("groups.progress")}</button>
         <button className={`grp-tab${tab === "leaderboard" ? " grp-tab--active" : ""}`} onClick={() => setTab("leaderboard")}>{t("groups.leaderboard")}</button>
         <button className={`grp-tab${tab === "members" ? " grp-tab--active" : ""}`} onClick={() => setTab("members")}>{t("groups.membersTab")}</button>
       </div>
@@ -520,6 +657,8 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
       {/* Tab content */}
       <div className="grp-detail-body">
         {tab === "chat" && <ChatTab groupId={groupId} user={user} isAdmin={isAdmin} />}
+        {tab === "announcements" && <AnnouncementsTab groupId={groupId} isAdmin={isAdmin} />}
+        {tab === "progress" && <ProgressTab groupId={groupId} userId={user.id} />}
         {tab === "leaderboard" && <LeaderboardTab groupId={groupId} userId={user.id} />}
         {tab === "members" && (
           <MembersTab

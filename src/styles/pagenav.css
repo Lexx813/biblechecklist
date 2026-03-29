@@ -694,3 +694,32 @@
   text-align: center;
   line-height: 1.4;
 }
+
+/* ── Mobile premium upgrade ──────────────────────────────────────────────── */
+.page-nav-mobile-lock {
+  font-size: 12px;
+  margin-left: 4px;
+  opacity: 0.7;
+}
+
+.page-nav-mobile-upgrade-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 11px 16px;
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(124,58,237,0.35);
+  transition: opacity 0.15s, transform 0.12s;
+  letter-spacing: -0.01em;
+}
+.page-nav-mobile-upgrade-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}

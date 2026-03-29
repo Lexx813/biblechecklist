@@ -1,4 +1,4 @@
-.mention-wrap { position: relative; }
+.mention-wrap { position: relative; flex: 1; min-width: 0; }
 
 .mention-dropdown {
   position: absolute; left: 0; top: 100%; z-index: 400;
