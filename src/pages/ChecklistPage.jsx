@@ -18,7 +18,7 @@ import { progressApi } from "../api/progress";
 import { useNotes, useCreateNote } from "../hooks/useNotes";
 import { readingApi } from "../api/reading";
 
-export default function ChecklistPage({ user, profile, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+export default function ChecklistPage({ user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { data: remoteProgress, isLoading: progressLoading } = useProgress(user.id);
@@ -148,7 +148,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
 
   return (
     <>
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="main" />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="main"  onUpgrade={onUpgrade}/>
       <div className="app-wrap" id="main-content">
         <header className="app-header">
           <div className="header-top">

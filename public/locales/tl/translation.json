@@ -654,23 +654,140 @@
     "linkPrompt": "Ilagay ang URL"
   },
   "bookNames": [
-    "Genesis","Exodo","Levitico","Mga Bilang","Deuteronomio","Josue","Mga Hukom","Ruth",
-    "1 Samuel","2 Samuel","1 Mga Hari","2 Mga Hari","1 Mga Cronica","2 Mga Cronica","Esdras",
-    "Nehemias","Ester","Job","Mga Awit","Kawikaan","Mangangaral","Awit ng mga Awit",
-    "Isaias","Jeremias","Mga Panaghoy","Ezekiel","Daniel","Oseas","Joel","Amos",
-    "Obadias","Jonas","Mikas","Nahum","Habakuk","Sofonias","Ageo","Zacarias",
-    "Malakias","Mateo","Marcos","Lucas","Juan","Mga Gawa","Mga Romano","1 Mga Corinto",
-    "2 Mga Corinto","Mga Galata","Mga Efeso","Mga Filipos","Mga Colosas",
-    "1 Mga Tesalonica","2 Mga Tesalonica","1 Timoteo","2 Timoteo","Tito","Filemon",
-    "Mga Hebreo","Santiago","1 Pedro","2 Pedro","1 Juan","2 Juan","3 Juan","Judas","Pahayag"
+    "Genesis",
+    "Exodo",
+    "Levitico",
+    "Mga Bilang",
+    "Deuteronomio",
+    "Josue",
+    "Mga Hukom",
+    "Ruth",
+    "1 Samuel",
+    "2 Samuel",
+    "1 Mga Hari",
+    "2 Mga Hari",
+    "1 Mga Cronica",
+    "2 Mga Cronica",
+    "Esdras",
+    "Nehemias",
+    "Ester",
+    "Job",
+    "Mga Awit",
+    "Kawikaan",
+    "Mangangaral",
+    "Awit ng mga Awit",
+    "Isaias",
+    "Jeremias",
+    "Mga Panaghoy",
+    "Ezekiel",
+    "Daniel",
+    "Oseas",
+    "Joel",
+    "Amos",
+    "Obadias",
+    "Jonas",
+    "Mikas",
+    "Nahum",
+    "Habakuk",
+    "Sofonias",
+    "Ageo",
+    "Zacarias",
+    "Malakias",
+    "Mateo",
+    "Marcos",
+    "Lucas",
+    "Juan",
+    "Mga Gawa",
+    "Mga Romano",
+    "1 Mga Corinto",
+    "2 Mga Corinto",
+    "Mga Galata",
+    "Mga Efeso",
+    "Mga Filipos",
+    "Mga Colosas",
+    "1 Mga Tesalonica",
+    "2 Mga Tesalonica",
+    "1 Timoteo",
+    "2 Timoteo",
+    "Tito",
+    "Filemon",
+    "Mga Hebreo",
+    "Santiago",
+    "1 Pedro",
+    "2 Pedro",
+    "1 Juan",
+    "2 Juan",
+    "3 Juan",
+    "Judas",
+    "Pahayag"
   ],
   "bookAbbrs": [
-    "Gen","Ex","Lev","Bil","Deu","Jos","Huk","Rut","1Sam","2Sam","1Har","2Har",
-    "1Cro","2Cro","Esd","Neh","Est","Job","Awit","Kaw","Man","AWS","Isa","Jer",
-    "Pan","Eze","Dan","Ose","Joel","Amos","Oba","Jon","Mik","Nah","Hab","Sof",
-    "Age","Zac","Mal","Mat","Mar","Luk","Juan","Gaw","Rom","1Cor","2Cor",
-    "Gal","Ef","Fil","Col","1Tes","2Tes","1Tim","2Tim","Tit","Flm","Heb","San",
-    "1Ped","2Ped","1Ju","2Ju","3Ju","Jud","Pah"
+    "Gen",
+    "Ex",
+    "Lev",
+    "Bil",
+    "Deu",
+    "Jos",
+    "Huk",
+    "Rut",
+    "1Sam",
+    "2Sam",
+    "1Har",
+    "2Har",
+    "1Cro",
+    "2Cro",
+    "Esd",
+    "Neh",
+    "Est",
+    "Job",
+    "Awit",
+    "Kaw",
+    "Man",
+    "AWS",
+    "Isa",
+    "Jer",
+    "Pan",
+    "Eze",
+    "Dan",
+    "Ose",
+    "Joel",
+    "Amos",
+    "Oba",
+    "Jon",
+    "Mik",
+    "Nah",
+    "Hab",
+    "Sof",
+    "Age",
+    "Zac",
+    "Mal",
+    "Mat",
+    "Mar",
+    "Luk",
+    "Juan",
+    "Gaw",
+    "Rom",
+    "1Cor",
+    "2Cor",
+    "Gal",
+    "Ef",
+    "Fil",
+    "Col",
+    "1Tes",
+    "2Tes",
+    "1Tim",
+    "2Tim",
+    "Tit",
+    "Flm",
+    "Heb",
+    "San",
+    "1Ped",
+    "2Ped",
+    "1Ju",
+    "2Ju",
+    "3Ju",
+    "Jud",
+    "Pah"
   ],
   "notifications": {
     "title": "Mga Notification",
@@ -719,7 +836,72 @@
     "next": "Susunod na talata"
   },
   "bookThemes": [
-    "Pinagmulan at Paglikha","Katubusan at Pagpapalaya","Kabanalan at Pagsamba","Katapatan sa Ilang","Pagpapanibago ng Tipan","Pananakop at Katapatan","Mga Siklo ng Kasalanan at Pagpapalaya","Katapatan at Katubusan","Ang Monarkiyang Naitatag","Ang Tipan kay David","Nagkaisang at Hinating Kaharian","Ang Pagbagsak ng Dalawang Kaharian","Mga Paghahanda ni David","Templo, Pagbabago at Reporma","Pagbabalik at Pagpapanumbalik","Muling Pagtatayo at Pagbabago","Probidensya at Tapang","Pagdurusa at Soberanya ng Diyos","Pagsamba, Dasal at Pagdaing","Praktikal na Karunungan","Kahulugan ng Buhay","Pag-ibig at Debosyon","Kaligtasan at ang Darating na Mesias","Bagong Tipan","Pagdadalamhati at Pag-asa","Kaluwalhatian at Pagpapanumbalik ng Diyos","Soberanya ng Diyos sa Kasaysayan","Di-matitinag na Pag-ibig ng Diyos","Ang Araw ng Panginoon","Katarungan at Katuwiran","Paghatol sa Pagmamalaki","Awa ng Diyos para sa Lahat ng Bansa","Katarungan, Awa at ang Mesias","Paghatol ng Diyos sa Kasamaan","Pananampalataya sa Soberanya ng Diyos","Paghatol at Masayang Pagpapanumbalik","Unahin ang Bahay ng Diyos","Mesianikong Pag-asa at Pagpapanumbalik","Katapatan sa Tipan","Si Jesus, ang Hari at Mesias","Si Jesus, ang Lingkod","Si Jesus, ang Tagapagligtas ng Lahat","Si Jesus, ang Anak ng Diyos","Ang Banal na Espiritu at Paglago ng Iglesya","Kaligtasan sa Pamamagitan ng Pananampalataya","Kristiyanong Buhay at Pagkakaisa","Kaginhawaan at Lakas ng Diyos","Kalayaan kay Kristo","Ang Iglesya at Pagkakaisa kay Kristo","Kagalakan at Kasiyahan kay Kristo","Ang Kataasan ni Kristo","Ang Ikalawang Pagparito","Ang Araw ng Panginoon","Pamumuno ng Iglesya","Pagtitiis at Kasulatan","Malusog na Doktrina at Kabanalan","Pagpapatawad at Pagkakasundo","Si Kristo, ang Ating Dakilang Punong Pari","Pananampalatayang Pinatunayan ng mga Gawa","Pag-asa sa Pagdurusa","Paglago sa Biyaya at Katotohanan","Pag-ibig, Liwanag at Pakikipag-isa","Paglalakad sa Katotohanan at Pag-ibig","Pagtulong at Katotohanan","Pagtatanggol sa Pananampalataya","Tagumpay, Pagsamba at Bagong Paglikha"
+    "Pinagmulan at Paglikha",
+    "Katubusan at Pagpapalaya",
+    "Kabanalan at Pagsamba",
+    "Katapatan sa Ilang",
+    "Pagpapanibago ng Tipan",
+    "Pananakop at Katapatan",
+    "Mga Siklo ng Kasalanan at Pagpapalaya",
+    "Katapatan at Katubusan",
+    "Ang Monarkiyang Naitatag",
+    "Ang Tipan kay David",
+    "Nagkaisang at Hinating Kaharian",
+    "Ang Pagbagsak ng Dalawang Kaharian",
+    "Mga Paghahanda ni David",
+    "Templo, Pagbabago at Reporma",
+    "Pagbabalik at Pagpapanumbalik",
+    "Muling Pagtatayo at Pagbabago",
+    "Probidensya at Tapang",
+    "Pagdurusa at Soberanya ng Diyos",
+    "Pagsamba, Dasal at Pagdaing",
+    "Praktikal na Karunungan",
+    "Kahulugan ng Buhay",
+    "Pag-ibig at Debosyon",
+    "Kaligtasan at ang Darating na Mesias",
+    "Bagong Tipan",
+    "Pagdadalamhati at Pag-asa",
+    "Kaluwalhatian at Pagpapanumbalik ng Diyos",
+    "Soberanya ng Diyos sa Kasaysayan",
+    "Di-matitinag na Pag-ibig ng Diyos",
+    "Ang Araw ng Panginoon",
+    "Katarungan at Katuwiran",
+    "Paghatol sa Pagmamalaki",
+    "Awa ng Diyos para sa Lahat ng Bansa",
+    "Katarungan, Awa at ang Mesias",
+    "Paghatol ng Diyos sa Kasamaan",
+    "Pananampalataya sa Soberanya ng Diyos",
+    "Paghatol at Masayang Pagpapanumbalik",
+    "Unahin ang Bahay ng Diyos",
+    "Mesianikong Pag-asa at Pagpapanumbalik",
+    "Katapatan sa Tipan",
+    "Si Jesus, ang Hari at Mesias",
+    "Si Jesus, ang Lingkod",
+    "Si Jesus, ang Tagapagligtas ng Lahat",
+    "Si Jesus, ang Anak ng Diyos",
+    "Ang Banal na Espiritu at Paglago ng Iglesya",
+    "Kaligtasan sa Pamamagitan ng Pananampalataya",
+    "Kristiyanong Buhay at Pagkakaisa",
+    "Kaginhawaan at Lakas ng Diyos",
+    "Kalayaan kay Kristo",
+    "Ang Iglesya at Pagkakaisa kay Kristo",
+    "Kagalakan at Kasiyahan kay Kristo",
+    "Ang Kataasan ni Kristo",
+    "Ang Ikalawang Pagparito",
+    "Ang Araw ng Panginoon",
+    "Pamumuno ng Iglesya",
+    "Pagtitiis at Kasulatan",
+    "Malusog na Doktrina at Kabanalan",
+    "Pagpapatawad at Pagkakasundo",
+    "Si Kristo, ang Ating Dakilang Punong Pari",
+    "Pananampalatayang Pinatunayan ng mga Gawa",
+    "Pag-asa sa Pagdurusa",
+    "Paglago sa Biyaya at Katotohanan",
+    "Pag-ibig, Liwanag at Pakikipag-isa",
+    "Paglalakad sa Katotohanan at Pag-ibig",
+    "Pagtulong at Katotohanan",
+    "Pagtatanggol sa Pananampalataya",
+    "Tagumpay, Pagsamba at Bagong Paglikha"
   ],
   "bookSummaries": [
     "Itinala ng Genesis ang paglikha ng sansinukob, ang pagkahulog ng sangkatauhan, ang baha, at ang pagtawag kay Abraham — itinatag ang pundasyon ng plano ng Diyos para sa katubusan.",
@@ -840,72 +1022,270 @@
     "chBadge_other": "{{count}} kab"
   },
   "verses": [
-    { "ref": "Juan 3:16", "text": "Sapagkat gayon na lamang ang pagmamahal ng Diyos sa sanlibutan na ibinigay niya ang kaniyang bugtong na Anak, upang ang bawat isa na nag-eehersisiyo ng pananampalataya sa kaniya ay hindi mapuksa kundi magkaroon ng buhay na walang hanggan." },
-    { "ref": "Jeremias 29:11", "text": "Sapagkat alam ko nang mabuti ang mga kaisipan na iniisip ko para sa inyo,' ang pahayag ni Jehova, 'mga kaisipan ng kapayapaan, at hindi ng kalamidad, upang bigyan kayo ng kinabukasan at pag-asa." },
-    { "ref": "Filipos 4:13", "text": "Para sa lahat ng bagay ay mayroon akong lakas sa pamamagitan ng isa na nagbibigay sa akin ng kapangyarihan." },
-    { "ref": "Roma 8:28", "text": "Alam natin na pinagtutulungan ng Diyos ang lahat ng kaniyang mga gawa para sa ikabubuti niyaong mga umiibig sa Diyos, niyaong mga tinawag ayon sa kaniyang layunin." },
-    { "ref": "Kawikaan 3:5–6", "text": "Magtiwala ka kay Jehova nang buong puso mo at huwag kang umasa sa iyong sariling pag-unawa. Sa lahat ng iyong mga landas ay kilalanin mo siya, at itutuwid niya ang iyong mga landas." },
-    { "ref": "Isaias 40:31", "text": "Ngunit ang mga umaasa kay Jehova ay muling magtatamo ng lakas. Aakyat silang may mga pakpak na tulad ng mga agila. Tatakbo sila at hindi magsasawang pagod; lalakad sila at hindi mapapagod." },
-    { "ref": "Awit 23:1", "text": "Si Jehova ang aking Pastol. Hindi ako magkukulang ng anuman." },
-    { "ref": "Mateo 6:33", "text": "Kaya magpatuloy kang hanapin muna ang Kaharian at ang kaniyang katuwiran, at lahat ng iba pang bagay na ito ay idadagdag sa inyo." },
-    { "ref": "Efeso 2:8–9", "text": "Sa pamamagitan ng di-nararapat na kabaitan na ito ay naligtas kayo sa pamamagitan ng pananampalataya, at ito ay hindi nagmumula sa inyo; ito ay kaloob ng Diyos. Hindi, hindi ito resulta ng mga gawa, upang walang sinuman ang magkaroon ng dahilan para ipagmalaki ang sarili." },
-    { "ref": "2 Timoteo 3:16–17", "text": "Ang lahat ng Kasulatan ay inspirado ng Diyos at kapaki-pakinabang para sa pagtuturo, para sa pagsaway, para sa pag-aayos ng mga bagay, para sa disiplina sa katuwiran, upang ang tao ng Diyos ay maging ganap na may kakayahan, ganap na handa para sa bawat mabuting gawa." },
-    { "ref": "Isaias 53:5", "text": "Ngunit siya ay tinusuban dahil sa ating pagsalansang; siya ay binuog dahil sa ating mga pagkakamali. Ang parusa para sa ating kapayapaan ay nahulog sa kaniya, at dahil sa kaniyang mga sugat ay gumaling tayo." },
-    { "ref": "Panaghoy 3:22–23", "text": "Dahil sa tapat na pagmamahal ni Jehova ay hindi tayo napuksa, sapagkat ang kaniyang mga awa ay hindi natatapos. Bago sila sa bawat umaga; dakila ang iyong katapatan!" },
-    { "ref": "Josue 1:9", "text": "Hindi ba ako mismo nag-utos sa iyo? Maging matapang at malakas. Huwag kang matakot o mapuno ng pangamba, sapagkat si Jehova na iyong Diyos ay kasama mo saan ka man pumunta." },
-    { "ref": "Awit 46:1", "text": "Ang Diyos ay ating kanlungan at lakas, tulong na madaling masumpungan sa mga panahon ng kapanglawan." },
-    { "ref": "Roma 8:38–39", "text": "Sapagkat natitiyak ko na ni kamatayan ni buhay ni mga anghel ni mga pamahalaan ni mga bagay na narito ngayon ni mga bagay na darating ni mga kapangyarihan ni taas ni kailaliman ni anupamang nilalaman ay hindi makahihiwalay sa atin mula sa pagmamahal ng Diyos na nasa kay Kristo Jesus na ating Panginoon." },
-    { "ref": "Mateo 11:28", "text": "Halika sa akin, kayong lahat na nagpapagod at nabibigatan, at papahingahin ko kayo." },
-    { "ref": "1 Corinto 13:13", "text": "Ngayon, gayunman, ang tatlong ito ay nananatili: pananampalataya, pag-asa, pagmamahal, ang pinakadakila sa mga ito ay pagmamahal." },
-    { "ref": "Hebreo 11:1", "text": "Ang pananampalataya ay ang tiyak na inaasahan ng mga bagay na inaasahan, ang maliwanag na katibayan ng mga katotohanang hindi nakikita." },
-    { "ref": "Mikas 6:8", "text": "Sinabi niya sa iyo, O tao, kung ano ang mabuti. At ano ang hinihingi ni Jehova sa iyo? Ang ehersisiyo lamang ng katarungan, ang pagmamahal ng katapatan, at ang paglakad nang may kababaang-loob kasama ang iyong Diyos!" },
-    { "ref": "Awit 119:105", "text": "Ang iyong salita ay ilaw sa aking paa at liwanag sa aking landas." },
-    { "ref": "Juan 14:6", "text": "Sinabi sa kaniya ni Jesus: 'Ako ang daan at ang katotohanan at ang buhay. Walang sinuman ang dumarating sa Ama maliban sa pamamagitan ko.'" },
-    { "ref": "2 Corinto 5:17", "text": "Kaya kung ang sinuman ay nakipag-isa kay Kristo, siya ay isang bagong nilalang; ang mga lumang bagay ay lumipas na; tingnan! ang mga bagong bagay ay nagsimulang umiral." },
-    { "ref": "Roma 12:2", "text": "At itigil na ang paghulma ng sistemang ito ng mga bagay sa inyo, ngunit magpalit sa pamamagitan ng pagbabago ng inyong isipan, upang mapatunayan ninyo sa inyong sarili ang mabuti at katanggap-tanggap at perpektong kalooban ng Diyos." },
-    { "ref": "Deuteronomio 6:4–5", "text": "Pakinggan, O Israel: Si Jehova na aming Diyos ay isang si Jehova. Mahalin mo si Jehova na iyong Diyos nang buong puso mo at buong kaluluwa mo at buong lakas mo." },
-    { "ref": "Juan 10:10", "text": "Ang magnanakaw ay dumarating lamang upang magnakaw at pumatay at pumuksa. Naparito ako upang magkaroon sila ng buhay at magkaroon nito nang sagana." },
-    { "ref": "Awit 139:14", "text": "Pupurihin kita sapagkat sa paraang nagbibigay-pagkamangha ay kahanga-hanga akong ginawa. Ang iyong mga gawa ay kahanga-hanga; alam ko itong mabuti." },
-    { "ref": "Filipos 4:6–7", "text": "Huwag magpahintulot sa inyo na mabalisa sa anumang bagay, kundi sa lahat ng bagay sa pamamagitan ng panalangin at pagsusumamo kasama ang pasasalamat, ipaalam sa Diyos ang inyong mga kahilingan; at ang kapayapaan ng Diyos na higit sa lahat ng pag-unawa ay mag-iingat ng inyong mga puso at ng inyong mga kapangyarihang pangkaisipan sa pamamagitan ni Kristo Jesus." },
-    { "ref": "Genesis 1:1", "text": "Sa simula ay nilikha ng Diyos ang langit at ang lupa." },
-    { "ref": "Habakuk 2:4", "text": "Ngunit ang matuwid ay mabubuhay dahil sa kaniyang katapatan." },
-    { "ref": "Ezekiel 36:26", "text": "Bibigyan kita ng bagong puso at maglalagay ng bagong espiritu sa loob mo, at aalisin ko ang pusong bato sa iyong katawan at bibigyan kita ng pusong laman." },
-    { "ref": "Sofonias 3:17", "text": "Si Jehova na iyong Diyos ay nasa iyong gitna, isang makapangyarihang makapagliligtas. Magagalak siya sa iyo nang may dakilang kagalakan. Sa kaniyang pagmamahal ay magiging tahimik siya. Magpapagalak siya sa iyo nang may masayang sigaw." },
-    { "ref": "1 Juan 4:8", "text": "Ang hindi nagmamahal ay hindi nakaabot sa pagkakilala sa Diyos, sapagkat ang Diyos ay pagmamahal." },
-    { "ref": "Santiago 1:22", "text": "Gayunman, maging mga gumagawa ng salita, at hindi lamang mga tagapakinig, na nanloloko sa inyong mga sarili sa pamamagitan ng maling pangangatwiran." },
-    { "ref": "2 Cronica 7:14", "text": "Kung gayon, kung ang aking bayan na tinatawagan ng aking pangalan ay magpapakumbaba at magdarasal at hahanapin ang aking mukha at tatalikod mula sa kanilang masasamang landas, maririnig ko mula sa langit at patatawarin ko ang kanilang kasalanan at pagalingin ko ang kanilang lupain." },
-    { "ref": "Kawikaan 31:25", "text": "Siya ay nararamtan ng lakas at karingalan, at tinitingnan niya ang kinabukasan nang may ngiti." },
-    { "ref": "Colosas 3:17", "text": "At anuman ang inyong ginagawa, maging sa salita o sa gawa, gawin ninyo ang lahat sa pangalan ng Panginoong Jesus, na nagpapasalamat sa Diyos na Ama sa pamamagitan niya." },
-    { "ref": "Mga Gawa 1:8", "text": "Ngunit tatanggap kayo ng kapangyarihan pagdating ng banal na espiritu sa inyo, at kayo ay magiging mga saksi ko sa Jerusalem, sa buong Judea at Samaria, at hanggang sa pinakamalayong bahagi ng lupa." },
-    { "ref": "Ruth 1:16", "text": "Saan ka man pumunta, pupunta rin ako, at kung saan ka man tumigil para sa gabi, mananatili rin ako. Ang iyong bayan ay magiging aking bayan at ang iyong Diyos ang aking Diyos." },
-    { "ref": "Ester 4:14", "text": "At sino ang nakakaalam kung para sa isang panahon na tulad nito ay narating mo ang iyong maharlikang katayuan?" },
-    { "ref": "Job 19:25", "text": "Sapagkat alam ko na ang aking Manunubos ay buhay, at sa katapusan ay tatayo siya sa ibabaw ng alikabok." },
-    { "ref": "Daniel 3:17–18", "text": "Kung gayon, ang aming Diyos na aming pinaglilingkuran ay kayang iligtas tayo mula sa nagliliyab na pugon, O hari, at ililigtas niya tayo mula sa iyong kamay. Ngunit kahit hindi niya gawin, ipaalam sa iyo, O hari, na hindi namin paglilingkuran ang iyong mga diyos." },
-    { "ref": "1 Pedro 5:7", "text": "habang ibinabato ninyo sa kaniya ang lahat ng inyong pagkabalisa, sapagkat siya ay nagmamalasakit sa inyo." },
-    { "ref": "Nehemias 8:10", "text": "Sapagkat ang kagalakan ni Jehova ay inyong kuta." },
-    { "ref": "Awit 37:4", "text": "Maghanap ng pinong kasiyahan kay Jehova, at ibibigay niya sa iyo ang mga ninanasa ng iyong puso." },
-    { "ref": "Isaias 41:10", "text": "Huwag kang matakot, sapagkat kasama mo ako. Huwag kang mabalisa, sapagkat ako ang iyong Diyos. Palalakasin kita, oo, tutulungan kita, oo, talagang hahawakan kita ng aking kanang kamay ng katuwiran." },
-    { "ref": "Mateo 5:14", "text": "Kayo ang liwanag ng sanlibutan. Ang isang lungsod ay hindi maaaring magtago kapag ito ay matatagpuan sa isang bundok." },
-    { "ref": "Juan 15:5", "text": "Ako ang puno ng ubas; kayo ang mga sanga. Ang sinumang nananatili nang nakipag-isa sa akin at ako sa kaniya, ito ay nagbubunga nang marami; sapagkat hiwalay sa akin ay hindi kayo makakagawa ng anuman." },
-    { "ref": "Pahayag 21:4", "text": "At papahirin niya ang bawat luha mula sa kanilang mga mata, at ang kamatayan ay hindi na mananatili, ni ang pagdadalamhati ni ang pagsigaw ni ang sakit ay mananatili pa. Ang mga nakaraang bagay ay lumipas na." },
-    { "ref": "Roma 5:8", "text": "Ngunit inirerekomenda ng Diyos ang kaniyang sariling pagmamahal sa atin sa paraan na, habang kami ay mga makasalanan pa rin, si Kristo ay namatay para sa amin." },
-    { "ref": "Awit 34:8", "text": "Lasapin at tingnan na si Jehova ay mabuti; mapalad ang taong naghahanap ng kanlungan sa kaniya." },
-    { "ref": "Amos 5:24", "text": "Ngunit hayaan na ang katarungan ay dumating tulad ng mga tubig, at ang katuwiran tulad ng isang palaging umaagos na batis." },
-    { "ref": "2 Pedro 3:9", "text": "Si Jehova ay hindi mabagal tungkol sa kaniyang pangako, gaya ng iniisip ng ilang tao na kabagalan, kundi siya ay maagap sa inyo sapagkat hindi niya nais na may sinumang mapuksa kundi nais niya na ang lahat ay makarating sa pagsisisi." },
-    { "ref": "Marcos 10:45", "text": "Sapagkat ang Anak ng tao mismo ay naparito, hindi upang paglingkuran, kundi upang maglingkod at ibigay ang kaniyang buhay bilang pantubos kapalit ng marami." },
-    { "ref": "Lucas 19:10", "text": "Sapagkat ang Anak ng tao ay naparito upang hanapin at iligtas ang nawala." },
-    { "ref": "Hebreo 4:12", "text": "Sapagkat ang salita ng Diyos ay buhay at nagtataglay ng kapangyarihan at mas matalas kaysa sa anumang espada na may dalawang talim at tumatagos hanggang sa paghahati ng kaluluwa at espiritu, at ng mga kasukasuan mula sa utak, at nakakapagkilala ng mga kaisipan at hangarin ng puso." },
-    { "ref": "1 Tesalonica 5:16–18", "text": "Laging magalak. Patuloy na manalangin. Magpasalamat sa lahat ng bagay. Sapagkat ito ang kalooban ng Diyos na nakipag-isa kay Kristo Jesus para sa inyo." },
-    { "ref": "Joel 2:28", "text": "Pagkatapos nito ay ibubuhos ko ang aking espiritu sa bawat uri ng laman, at ang inyong mga anak na lalaki at babae ay tiyak na magpropesiya, ang inyong mga matatanda ay magkakaroon ng mga panaginip, at ang inyong mga kabataan ay makakakita ng mga pangitain." },
-    { "ref": "Zacarias 4:6", "text": "'Hindi sa pamamagitan ng isang puwersa ng militar, ni sa kapangyarihan, kundi sa pamamagitan ng aking espiritu,' sabi ni Jehova ng mga hukbo." },
-    { "ref": "Mateo 28:19–20", "text": "Humayo ka, samakatuwid, at gumawa ng mga alagad ng mga tao ng lahat ng bansa, na binabautismuhan sila sa pangalan ng Ama at ng Anak at ng banal na espiritu, na tinuturuan silang sundin ang lahat ng bagay na iniutos ko sa inyo." },
-    { "ref": "Awit 103:12", "text": "Kasing layo ng silangan mula sa kanluran, gayon niya inilayo mula sa atin ang ating mga pagsalansang." },
-    { "ref": "Isaias 9:6", "text": "Sapagkat isang bata ang ipinanganak sa atin, isang anak ang ibinigay sa atin; at ang pamamahala ay mapapasa kaniyang balikat. Ang kaniyang pangalan ay tatawaging Kahanga-hangang Tagapayo, Makapangyarihang Diyos, Walang Hanggang Ama, Prinsipe ng Kapayapaan." },
-    { "ref": "Judas 3", "text": "Natuklasan kong kinakailangan na sumulat sa inyo para hikayatin kayong makipaglaban nang matindi para sa pananampalatayang isang beses na naihatid sa mga banal." },
-    { "ref": "Malakias 3:10", "text": "Dalhin ang buong ikasampung bahagi sa bodega, upang may pagkain sa aking bahay; at subukan ninyo ako, pakiusap, sa bagay na ito,' sabi ni Jehova ng mga hukbo, 'upang tingnan kung hindi ko bubuksan para sa inyo ang mga silo ng langit at magbubuhos sa inyo ng isang pagpapala hanggang sa wala nang kulang." },
-    { "ref": "Awit 1:1–2", "text": "Mapalad ang tao na hindi lumalakad ayon sa payo ng masasama at hindi nakatayo sa landas ng mga makasalanan at hindi nakaupo sa upuan ng mga manuuyam. Kundi ang kaniyang kasiyahan ay nasa kautusan ni Jehova, at siya ay nagnilay sa kaniyang kautusan araw at gabi." },
-    { "ref": "2 Corinto 12:9", "text": "Ngunit sinabi niya sa akin: 'Ang aking di-nararapat na kabaitan ay sapat para sa iyo, sapagkat ang aking kapangyarihan ay ginagawang perpekto sa kahinaan.' Kaya naman, nang may malaking kagalakan, magmamalaki ako sa aking mga kahinaan, upang ang kapangyarihan ni Kristo ay manatili sa ibabaw ko tulad ng isang tolda." },
-    { "ref": "Exodo 14:14", "text": "Lalaban si Jehova para sa inyo, at kayo ay mananatiling tahimik." }
+    {
+      "ref": "Juan 3:16",
+      "text": "Sapagkat gayon na lamang ang pagmamahal ng Diyos sa sanlibutan na ibinigay niya ang kaniyang bugtong na Anak, upang ang bawat isa na nag-eehersisiyo ng pananampalataya sa kaniya ay hindi mapuksa kundi magkaroon ng buhay na walang hanggan."
+    },
+    {
+      "ref": "Jeremias 29:11",
+      "text": "Sapagkat alam ko nang mabuti ang mga kaisipan na iniisip ko para sa inyo,' ang pahayag ni Jehova, 'mga kaisipan ng kapayapaan, at hindi ng kalamidad, upang bigyan kayo ng kinabukasan at pag-asa."
+    },
+    {
+      "ref": "Filipos 4:13",
+      "text": "Para sa lahat ng bagay ay mayroon akong lakas sa pamamagitan ng isa na nagbibigay sa akin ng kapangyarihan."
+    },
+    {
+      "ref": "Roma 8:28",
+      "text": "Alam natin na pinagtutulungan ng Diyos ang lahat ng kaniyang mga gawa para sa ikabubuti niyaong mga umiibig sa Diyos, niyaong mga tinawag ayon sa kaniyang layunin."
+    },
+    {
+      "ref": "Kawikaan 3:5–6",
+      "text": "Magtiwala ka kay Jehova nang buong puso mo at huwag kang umasa sa iyong sariling pag-unawa. Sa lahat ng iyong mga landas ay kilalanin mo siya, at itutuwid niya ang iyong mga landas."
+    },
+    {
+      "ref": "Isaias 40:31",
+      "text": "Ngunit ang mga umaasa kay Jehova ay muling magtatamo ng lakas. Aakyat silang may mga pakpak na tulad ng mga agila. Tatakbo sila at hindi magsasawang pagod; lalakad sila at hindi mapapagod."
+    },
+    {
+      "ref": "Awit 23:1",
+      "text": "Si Jehova ang aking Pastol. Hindi ako magkukulang ng anuman."
+    },
+    {
+      "ref": "Mateo 6:33",
+      "text": "Kaya magpatuloy kang hanapin muna ang Kaharian at ang kaniyang katuwiran, at lahat ng iba pang bagay na ito ay idadagdag sa inyo."
+    },
+    {
+      "ref": "Efeso 2:8–9",
+      "text": "Sa pamamagitan ng di-nararapat na kabaitan na ito ay naligtas kayo sa pamamagitan ng pananampalataya, at ito ay hindi nagmumula sa inyo; ito ay kaloob ng Diyos. Hindi, hindi ito resulta ng mga gawa, upang walang sinuman ang magkaroon ng dahilan para ipagmalaki ang sarili."
+    },
+    {
+      "ref": "2 Timoteo 3:16–17",
+      "text": "Ang lahat ng Kasulatan ay inspirado ng Diyos at kapaki-pakinabang para sa pagtuturo, para sa pagsaway, para sa pag-aayos ng mga bagay, para sa disiplina sa katuwiran, upang ang tao ng Diyos ay maging ganap na may kakayahan, ganap na handa para sa bawat mabuting gawa."
+    },
+    {
+      "ref": "Isaias 53:5",
+      "text": "Ngunit siya ay tinusuban dahil sa ating pagsalansang; siya ay binuog dahil sa ating mga pagkakamali. Ang parusa para sa ating kapayapaan ay nahulog sa kaniya, at dahil sa kaniyang mga sugat ay gumaling tayo."
+    },
+    {
+      "ref": "Panaghoy 3:22–23",
+      "text": "Dahil sa tapat na pagmamahal ni Jehova ay hindi tayo napuksa, sapagkat ang kaniyang mga awa ay hindi natatapos. Bago sila sa bawat umaga; dakila ang iyong katapatan!"
+    },
+    {
+      "ref": "Josue 1:9",
+      "text": "Hindi ba ako mismo nag-utos sa iyo? Maging matapang at malakas. Huwag kang matakot o mapuno ng pangamba, sapagkat si Jehova na iyong Diyos ay kasama mo saan ka man pumunta."
+    },
+    {
+      "ref": "Awit 46:1",
+      "text": "Ang Diyos ay ating kanlungan at lakas, tulong na madaling masumpungan sa mga panahon ng kapanglawan."
+    },
+    {
+      "ref": "Roma 8:38–39",
+      "text": "Sapagkat natitiyak ko na ni kamatayan ni buhay ni mga anghel ni mga pamahalaan ni mga bagay na narito ngayon ni mga bagay na darating ni mga kapangyarihan ni taas ni kailaliman ni anupamang nilalaman ay hindi makahihiwalay sa atin mula sa pagmamahal ng Diyos na nasa kay Kristo Jesus na ating Panginoon."
+    },
+    {
+      "ref": "Mateo 11:28",
+      "text": "Halika sa akin, kayong lahat na nagpapagod at nabibigatan, at papahingahin ko kayo."
+    },
+    {
+      "ref": "1 Corinto 13:13",
+      "text": "Ngayon, gayunman, ang tatlong ito ay nananatili: pananampalataya, pag-asa, pagmamahal, ang pinakadakila sa mga ito ay pagmamahal."
+    },
+    {
+      "ref": "Hebreo 11:1",
+      "text": "Ang pananampalataya ay ang tiyak na inaasahan ng mga bagay na inaasahan, ang maliwanag na katibayan ng mga katotohanang hindi nakikita."
+    },
+    {
+      "ref": "Mikas 6:8",
+      "text": "Sinabi niya sa iyo, O tao, kung ano ang mabuti. At ano ang hinihingi ni Jehova sa iyo? Ang ehersisiyo lamang ng katarungan, ang pagmamahal ng katapatan, at ang paglakad nang may kababaang-loob kasama ang iyong Diyos!"
+    },
+    {
+      "ref": "Awit 119:105",
+      "text": "Ang iyong salita ay ilaw sa aking paa at liwanag sa aking landas."
+    },
+    {
+      "ref": "Juan 14:6",
+      "text": "Sinabi sa kaniya ni Jesus: 'Ako ang daan at ang katotohanan at ang buhay. Walang sinuman ang dumarating sa Ama maliban sa pamamagitan ko.'"
+    },
+    {
+      "ref": "2 Corinto 5:17",
+      "text": "Kaya kung ang sinuman ay nakipag-isa kay Kristo, siya ay isang bagong nilalang; ang mga lumang bagay ay lumipas na; tingnan! ang mga bagong bagay ay nagsimulang umiral."
+    },
+    {
+      "ref": "Roma 12:2",
+      "text": "At itigil na ang paghulma ng sistemang ito ng mga bagay sa inyo, ngunit magpalit sa pamamagitan ng pagbabago ng inyong isipan, upang mapatunayan ninyo sa inyong sarili ang mabuti at katanggap-tanggap at perpektong kalooban ng Diyos."
+    },
+    {
+      "ref": "Deuteronomio 6:4–5",
+      "text": "Pakinggan, O Israel: Si Jehova na aming Diyos ay isang si Jehova. Mahalin mo si Jehova na iyong Diyos nang buong puso mo at buong kaluluwa mo at buong lakas mo."
+    },
+    {
+      "ref": "Juan 10:10",
+      "text": "Ang magnanakaw ay dumarating lamang upang magnakaw at pumatay at pumuksa. Naparito ako upang magkaroon sila ng buhay at magkaroon nito nang sagana."
+    },
+    {
+      "ref": "Awit 139:14",
+      "text": "Pupurihin kita sapagkat sa paraang nagbibigay-pagkamangha ay kahanga-hanga akong ginawa. Ang iyong mga gawa ay kahanga-hanga; alam ko itong mabuti."
+    },
+    {
+      "ref": "Filipos 4:6–7",
+      "text": "Huwag magpahintulot sa inyo na mabalisa sa anumang bagay, kundi sa lahat ng bagay sa pamamagitan ng panalangin at pagsusumamo kasama ang pasasalamat, ipaalam sa Diyos ang inyong mga kahilingan; at ang kapayapaan ng Diyos na higit sa lahat ng pag-unawa ay mag-iingat ng inyong mga puso at ng inyong mga kapangyarihang pangkaisipan sa pamamagitan ni Kristo Jesus."
+    },
+    {
+      "ref": "Genesis 1:1",
+      "text": "Sa simula ay nilikha ng Diyos ang langit at ang lupa."
+    },
+    {
+      "ref": "Habakuk 2:4",
+      "text": "Ngunit ang matuwid ay mabubuhay dahil sa kaniyang katapatan."
+    },
+    {
+      "ref": "Ezekiel 36:26",
+      "text": "Bibigyan kita ng bagong puso at maglalagay ng bagong espiritu sa loob mo, at aalisin ko ang pusong bato sa iyong katawan at bibigyan kita ng pusong laman."
+    },
+    {
+      "ref": "Sofonias 3:17",
+      "text": "Si Jehova na iyong Diyos ay nasa iyong gitna, isang makapangyarihang makapagliligtas. Magagalak siya sa iyo nang may dakilang kagalakan. Sa kaniyang pagmamahal ay magiging tahimik siya. Magpapagalak siya sa iyo nang may masayang sigaw."
+    },
+    {
+      "ref": "1 Juan 4:8",
+      "text": "Ang hindi nagmamahal ay hindi nakaabot sa pagkakilala sa Diyos, sapagkat ang Diyos ay pagmamahal."
+    },
+    {
+      "ref": "Santiago 1:22",
+      "text": "Gayunman, maging mga gumagawa ng salita, at hindi lamang mga tagapakinig, na nanloloko sa inyong mga sarili sa pamamagitan ng maling pangangatwiran."
+    },
+    {
+      "ref": "2 Cronica 7:14",
+      "text": "Kung gayon, kung ang aking bayan na tinatawagan ng aking pangalan ay magpapakumbaba at magdarasal at hahanapin ang aking mukha at tatalikod mula sa kanilang masasamang landas, maririnig ko mula sa langit at patatawarin ko ang kanilang kasalanan at pagalingin ko ang kanilang lupain."
+    },
+    {
+      "ref": "Kawikaan 31:25",
+      "text": "Siya ay nararamtan ng lakas at karingalan, at tinitingnan niya ang kinabukasan nang may ngiti."
+    },
+    {
+      "ref": "Colosas 3:17",
+      "text": "At anuman ang inyong ginagawa, maging sa salita o sa gawa, gawin ninyo ang lahat sa pangalan ng Panginoong Jesus, na nagpapasalamat sa Diyos na Ama sa pamamagitan niya."
+    },
+    {
+      "ref": "Mga Gawa 1:8",
+      "text": "Ngunit tatanggap kayo ng kapangyarihan pagdating ng banal na espiritu sa inyo, at kayo ay magiging mga saksi ko sa Jerusalem, sa buong Judea at Samaria, at hanggang sa pinakamalayong bahagi ng lupa."
+    },
+    {
+      "ref": "Ruth 1:16",
+      "text": "Saan ka man pumunta, pupunta rin ako, at kung saan ka man tumigil para sa gabi, mananatili rin ako. Ang iyong bayan ay magiging aking bayan at ang iyong Diyos ang aking Diyos."
+    },
+    {
+      "ref": "Ester 4:14",
+      "text": "At sino ang nakakaalam kung para sa isang panahon na tulad nito ay narating mo ang iyong maharlikang katayuan?"
+    },
+    {
+      "ref": "Job 19:25",
+      "text": "Sapagkat alam ko na ang aking Manunubos ay buhay, at sa katapusan ay tatayo siya sa ibabaw ng alikabok."
+    },
+    {
+      "ref": "Daniel 3:17–18",
+      "text": "Kung gayon, ang aming Diyos na aming pinaglilingkuran ay kayang iligtas tayo mula sa nagliliyab na pugon, O hari, at ililigtas niya tayo mula sa iyong kamay. Ngunit kahit hindi niya gawin, ipaalam sa iyo, O hari, na hindi namin paglilingkuran ang iyong mga diyos."
+    },
+    {
+      "ref": "1 Pedro 5:7",
+      "text": "habang ibinabato ninyo sa kaniya ang lahat ng inyong pagkabalisa, sapagkat siya ay nagmamalasakit sa inyo."
+    },
+    {
+      "ref": "Nehemias 8:10",
+      "text": "Sapagkat ang kagalakan ni Jehova ay inyong kuta."
+    },
+    {
+      "ref": "Awit 37:4",
+      "text": "Maghanap ng pinong kasiyahan kay Jehova, at ibibigay niya sa iyo ang mga ninanasa ng iyong puso."
+    },
+    {
+      "ref": "Isaias 41:10",
+      "text": "Huwag kang matakot, sapagkat kasama mo ako. Huwag kang mabalisa, sapagkat ako ang iyong Diyos. Palalakasin kita, oo, tutulungan kita, oo, talagang hahawakan kita ng aking kanang kamay ng katuwiran."
+    },
+    {
+      "ref": "Mateo 5:14",
+      "text": "Kayo ang liwanag ng sanlibutan. Ang isang lungsod ay hindi maaaring magtago kapag ito ay matatagpuan sa isang bundok."
+    },
+    {
+      "ref": "Juan 15:5",
+      "text": "Ako ang puno ng ubas; kayo ang mga sanga. Ang sinumang nananatili nang nakipag-isa sa akin at ako sa kaniya, ito ay nagbubunga nang marami; sapagkat hiwalay sa akin ay hindi kayo makakagawa ng anuman."
+    },
+    {
+      "ref": "Pahayag 21:4",
+      "text": "At papahirin niya ang bawat luha mula sa kanilang mga mata, at ang kamatayan ay hindi na mananatili, ni ang pagdadalamhati ni ang pagsigaw ni ang sakit ay mananatili pa. Ang mga nakaraang bagay ay lumipas na."
+    },
+    {
+      "ref": "Roma 5:8",
+      "text": "Ngunit inirerekomenda ng Diyos ang kaniyang sariling pagmamahal sa atin sa paraan na, habang kami ay mga makasalanan pa rin, si Kristo ay namatay para sa amin."
+    },
+    {
+      "ref": "Awit 34:8",
+      "text": "Lasapin at tingnan na si Jehova ay mabuti; mapalad ang taong naghahanap ng kanlungan sa kaniya."
+    },
+    {
+      "ref": "Amos 5:24",
+      "text": "Ngunit hayaan na ang katarungan ay dumating tulad ng mga tubig, at ang katuwiran tulad ng isang palaging umaagos na batis."
+    },
+    {
+      "ref": "2 Pedro 3:9",
+      "text": "Si Jehova ay hindi mabagal tungkol sa kaniyang pangako, gaya ng iniisip ng ilang tao na kabagalan, kundi siya ay maagap sa inyo sapagkat hindi niya nais na may sinumang mapuksa kundi nais niya na ang lahat ay makarating sa pagsisisi."
+    },
+    {
+      "ref": "Marcos 10:45",
+      "text": "Sapagkat ang Anak ng tao mismo ay naparito, hindi upang paglingkuran, kundi upang maglingkod at ibigay ang kaniyang buhay bilang pantubos kapalit ng marami."
+    },
+    {
+      "ref": "Lucas 19:10",
+      "text": "Sapagkat ang Anak ng tao ay naparito upang hanapin at iligtas ang nawala."
+    },
+    {
+      "ref": "Hebreo 4:12",
+      "text": "Sapagkat ang salita ng Diyos ay buhay at nagtataglay ng kapangyarihan at mas matalas kaysa sa anumang espada na may dalawang talim at tumatagos hanggang sa paghahati ng kaluluwa at espiritu, at ng mga kasukasuan mula sa utak, at nakakapagkilala ng mga kaisipan at hangarin ng puso."
+    },
+    {
+      "ref": "1 Tesalonica 5:16–18",
+      "text": "Laging magalak. Patuloy na manalangin. Magpasalamat sa lahat ng bagay. Sapagkat ito ang kalooban ng Diyos na nakipag-isa kay Kristo Jesus para sa inyo."
+    },
+    {
+      "ref": "Joel 2:28",
+      "text": "Pagkatapos nito ay ibubuhos ko ang aking espiritu sa bawat uri ng laman, at ang inyong mga anak na lalaki at babae ay tiyak na magpropesiya, ang inyong mga matatanda ay magkakaroon ng mga panaginip, at ang inyong mga kabataan ay makakakita ng mga pangitain."
+    },
+    {
+      "ref": "Zacarias 4:6",
+      "text": "'Hindi sa pamamagitan ng isang puwersa ng militar, ni sa kapangyarihan, kundi sa pamamagitan ng aking espiritu,' sabi ni Jehova ng mga hukbo."
+    },
+    {
+      "ref": "Mateo 28:19–20",
+      "text": "Humayo ka, samakatuwid, at gumawa ng mga alagad ng mga tao ng lahat ng bansa, na binabautismuhan sila sa pangalan ng Ama at ng Anak at ng banal na espiritu, na tinuturuan silang sundin ang lahat ng bagay na iniutos ko sa inyo."
+    },
+    {
+      "ref": "Awit 103:12",
+      "text": "Kasing layo ng silangan mula sa kanluran, gayon niya inilayo mula sa atin ang ating mga pagsalansang."
+    },
+    {
+      "ref": "Isaias 9:6",
+      "text": "Sapagkat isang bata ang ipinanganak sa atin, isang anak ang ibinigay sa atin; at ang pamamahala ay mapapasa kaniyang balikat. Ang kaniyang pangalan ay tatawaging Kahanga-hangang Tagapayo, Makapangyarihang Diyos, Walang Hanggang Ama, Prinsipe ng Kapayapaan."
+    },
+    {
+      "ref": "Judas 3",
+      "text": "Natuklasan kong kinakailangan na sumulat sa inyo para hikayatin kayong makipaglaban nang matindi para sa pananampalatayang isang beses na naihatid sa mga banal."
+    },
+    {
+      "ref": "Malakias 3:10",
+      "text": "Dalhin ang buong ikasampung bahagi sa bodega, upang may pagkain sa aking bahay; at subukan ninyo ako, pakiusap, sa bagay na ito,' sabi ni Jehova ng mga hukbo, 'upang tingnan kung hindi ko bubuksan para sa inyo ang mga silo ng langit at magbubuhos sa inyo ng isang pagpapala hanggang sa wala nang kulang."
+    },
+    {
+      "ref": "Awit 1:1–2",
+      "text": "Mapalad ang tao na hindi lumalakad ayon sa payo ng masasama at hindi nakatayo sa landas ng mga makasalanan at hindi nakaupo sa upuan ng mga manuuyam. Kundi ang kaniyang kasiyahan ay nasa kautusan ni Jehova, at siya ay nagnilay sa kaniyang kautusan araw at gabi."
+    },
+    {
+      "ref": "2 Corinto 12:9",
+      "text": "Ngunit sinabi niya sa akin: 'Ang aking di-nararapat na kabaitan ay sapat para sa iyo, sapagkat ang aking kapangyarihan ay ginagawang perpekto sa kahinaan.' Kaya naman, nang may malaking kagalakan, magmamalaki ako sa aking mga kahinaan, upang ang kapangyarihan ni Kristo ay manatili sa ibabaw ko tulad ng isang tolda."
+    },
+    {
+      "ref": "Exodo 14:14",
+      "text": "Lalaban si Jehova para sa inyo, at kayo ay mananatiling tahimik."
+    }
   ],
   "studyNotes": {
     "title": "Mga Tala ng Pag-aaral",
@@ -1155,5 +1535,37 @@
     "studyNotes": "Mga Tala ng Pag-aaral",
     "language": "Wika",
     "proFeature": "🔒 Tampok na Pro"
+  },
+  "upm": {
+    "badge": "✦ Premium",
+    "title": "I-unlock ang buong karanasan",
+    "period": "/ buwan",
+    "feat": {
+      "aiLabel": "AI Study Companion",
+      "aiDesc": "Magtanong kay Claude tungkol sa anumang talata, tanong sa pagsusulit, o sipi",
+      "plansLabel": "Mga Plano sa Pagbabasa",
+      "plansDesc": "Mga nakabalangkas na plano sa loob ng maraming linggo sa anumang aklat",
+      "notesLabel": "Mga Tala ng Pag-aaral",
+      "notesDesc": "Mga tala ng mayamang teksto na nakatali sa anumang sipi o kabanata",
+      "dmLabel": "Mga Direktang Mensahe",
+      "dmDesc": "Mga pribado at naka-encrypt na pag-uusap sa ibang miyembro",
+      "groupsLabel": "Mga Grupo ng Pag-aaral",
+      "groupsDesc": "Group chat at pagsubaybay ng ibinahaging pag-unlad"
+    },
+    "transparency": {
+      "heading": "Saan napupunta ang iyong $3",
+      "hosting": "Hosting at imprastraktura (Vercel)",
+      "db": "Database (Supabase)",
+      "ai": "AI API (Claude / Anthropic)",
+      "domain": "Pangalan ng domain",
+      "surplus": "Anumang labis pagkatapos masaklaw ang mga gastos ay mapupunta sa pagtulong sa mga kapatid na may pangangailangan at mga donasyon sa JW.org.",
+      "hardship": "Kung ang subscription ay isang pinansiyal na pabigat, mangyaring",
+      "hardshipLink": "makipag-ugnayan",
+      "hardshipSuffix": " — walang sinuman sa pananampalataya ang dapat maiwan."
+    },
+    "cta": "Mag-subscribe sa Stripe →",
+    "ctaLoading": "Iniredirekta…",
+    "note": "Walang pangako · Kanselahin anumang oras · Ligtas na pagbabayad sa pamamagitan ng Stripe",
+    "cancel": "Marahil mamaya"
   }
 }

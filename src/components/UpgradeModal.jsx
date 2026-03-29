@@ -1,30 +1,32 @@
 import { useRef } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { useClickOutside } from "../hooks/useClickOutside";
 import "../styles/upgrade-modal.css";
 
-const FEATURES = [
-  { icon: "✨", label: "AI Study Companion", desc: "Ask Claude anything about any verse, quiz question, or passage" },
-  { icon: "📅", label: "Reading Plans", desc: "Structured multi-week plans through any book" },
-  { icon: "📝", label: "Study Notes", desc: "Rich-text notes tied to any passage or chapter" },
-  { icon: "💬", label: "Direct Messages", desc: "Private, encrypted conversations with other members" },
-  { icon: "👥", label: "Study Groups", desc: "Group chat and shared progress tracking" },
-];
-
 export default function UpgradeModal({ onClose, onSubscribe, loading }) {
+  const { t } = useTranslation();
   const ref = useRef(null);
   useClickOutside(ref, true, onClose);
+
+  const FEATURES = [
+    { icon: "✨", label: t("upm.feat.aiLabel"), desc: t("upm.feat.aiDesc") },
+    { icon: "📅", label: t("upm.feat.plansLabel"), desc: t("upm.feat.plansDesc") },
+    { icon: "📝", label: t("upm.feat.notesLabel"), desc: t("upm.feat.notesDesc") },
+    { icon: "💬", label: t("upm.feat.dmLabel"), desc: t("upm.feat.dmDesc") },
+    { icon: "👥", label: t("upm.feat.groupsLabel"), desc: t("upm.feat.groupsDesc") },
+  ];
 
   return createPortal(
     <div className="upm-overlay" role="dialog" aria-modal="true" aria-labelledby="upm-title">
       <div className="upm-modal" ref={ref}>
         {/* Header */}
         <div className="upm-header">
-          <div className="upm-badge">✦ Premium</div>
-          <h2 className="upm-title" id="upm-title">Unlock the full experience</h2>
+          <div className="upm-badge">{t("upm.badge")}</div>
+          <h2 className="upm-title" id="upm-title">{t("upm.title")}</h2>
           <p className="upm-price">
             <span className="upm-amount">$3</span>
-            <span className="upm-period">&nbsp;/ month</span>
+            <span className="upm-period">&nbsp;{t("upm.period")}</span>
           </p>
           <button className="upm-close" onClick={onClose} aria-label="Close">✕</button>
         </div>
@@ -44,34 +46,28 @@ export default function UpgradeModal({ onClose, onSubscribe, loading }) {
 
         {/* Transparency */}
         <div className="upm-transparency">
-          <p className="upm-transparency-heading">Where your $3 goes</p>
+          <p className="upm-transparency-heading">{t("upm.transparency.heading")}</p>
           <ul className="upm-cost-list">
-            <li><span className="upm-cost-icon">🖥️</span><span>Hosting &amp; infrastructure (Vercel)</span></li>
-            <li><span className="upm-cost-icon">🗄️</span><span>Database (Supabase)</span></li>
-            <li><span className="upm-cost-icon">✨</span><span>AI API (Claude / Anthropic)</span></li>
-            <li><span className="upm-cost-icon">🌐</span><span>Domain name</span></li>
+            <li><span className="upm-cost-icon">🖥️</span><span>{t("upm.transparency.hosting")}</span></li>
+            <li><span className="upm-cost-icon">🗄️</span><span>{t("upm.transparency.db")}</span></li>
+            <li><span className="upm-cost-icon">✨</span><span>{t("upm.transparency.ai")}</span></li>
+            <li><span className="upm-cost-icon">🌐</span><span>{t("upm.transparency.domain")}</span></li>
           </ul>
-          <p className="upm-transparency-surplus">
-            Any surplus after covering these costs goes toward supporting brothers and sisters in need and donations to JW.org.
-          </p>
+          <p className="upm-transparency-surplus">{t("upm.transparency.surplus")}</p>
           <p className="upm-hardship">
-            If the subscription is a financial hardship, please{" "}
-            <a href="mailto:luaq777@gmail.com" className="upm-hardship-link">reach out</a>
-            {" "}— no one in the faith should be left out.
+            {t("upm.transparency.hardship")}{" "}
+            <a href="mailto:luaq777@gmail.com" className="upm-hardship-link">{t("upm.transparency.hardshipLink")}</a>
+            {t("upm.transparency.hardshipSuffix")}
           </p>
         </div>
 
         {/* CTA */}
         <div className="upm-footer">
-          <button
-            className="upm-cta"
-            onClick={onSubscribe}
-            disabled={loading}
-          >
-            {loading ? "Redirecting…" : "Subscribe with Stripe →"}
+          <button className="upm-cta" onClick={onSubscribe} disabled={loading}>
+            {loading ? t("upm.ctaLoading") : t("upm.cta")}
           </button>
-          <p className="upm-note">No commitment · Cancel anytime · Secure payment via Stripe</p>
-          <button className="upm-cancel" onClick={onClose}>Maybe later</button>
+          <p className="upm-note">{t("upm.note")}</p>
+          <button className="upm-cancel" onClick={onClose}>{t("upm.cancel")}</button>
         </div>
       </div>
     </div>,

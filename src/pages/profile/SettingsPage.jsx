@@ -12,7 +12,7 @@ import { adminApi } from "../../api/admin";
 import "../../styles/profile.css";
 import "../../styles/settings.css";
 
-export default function SettingsPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+export default function SettingsPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { data: profile, isLoading } = useFullProfile(user.id);
   const update = useUpdateProfile(user.id);
   const uploadAvatar = useUploadAvatar(user.id);
@@ -104,7 +104,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
 
   return (
     <div className="st-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
 
       <header className="st-header">
         <div className="st-header-inner">

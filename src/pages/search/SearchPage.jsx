@@ -6,7 +6,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import { useSearch, useSemanticSearch } from "../../hooks/useSearch";
 import "../../styles/search.css";
 
-export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
@@ -45,7 +45,7 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
 
   return (
     <div className="search-page">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
 
       <div className="search-hero">
         <button className="blog-back-btn search-back-btn" onClick={onBack}>{t("common.back")}</button>

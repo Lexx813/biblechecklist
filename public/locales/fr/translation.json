@@ -654,23 +654,140 @@
     "linkPrompt": "Saisissez l'URL"
   },
   "bookNames": [
-    "Genèse","Exode","Lévitique","Nombres","Deutéronome","Josué","Juges","Ruth",
-    "1 Samuel","2 Samuel","1 Rois","2 Rois","1 Chroniques","2 Chroniques","Esdras",
-    "Néhémie","Esther","Job","Psaumes","Proverbes","Ecclésiaste","Cantique des cantiques",
-    "Ésaïe","Jérémie","Lamentations","Ézéchiel","Daniel","Osée","Joël","Amos",
-    "Abdias","Jonas","Michée","Nahum","Habacuc","Sophonie","Aggée","Zacharie",
-    "Malachie","Matthieu","Marc","Luc","Jean","Actes","Romains","1 Corinthiens",
-    "2 Corinthiens","Galates","Éphésiens","Philippiens","Colossiens",
-    "1 Thessaloniciens","2 Thessaloniciens","1 Timothée","2 Timothée","Tite","Philémon",
-    "Hébreux","Jacques","1 Pierre","2 Pierre","1 Jean","2 Jean","3 Jean","Jude","Révélation"
+    "Genèse",
+    "Exode",
+    "Lévitique",
+    "Nombres",
+    "Deutéronome",
+    "Josué",
+    "Juges",
+    "Ruth",
+    "1 Samuel",
+    "2 Samuel",
+    "1 Rois",
+    "2 Rois",
+    "1 Chroniques",
+    "2 Chroniques",
+    "Esdras",
+    "Néhémie",
+    "Esther",
+    "Job",
+    "Psaumes",
+    "Proverbes",
+    "Ecclésiaste",
+    "Cantique des cantiques",
+    "Ésaïe",
+    "Jérémie",
+    "Lamentations",
+    "Ézéchiel",
+    "Daniel",
+    "Osée",
+    "Joël",
+    "Amos",
+    "Abdias",
+    "Jonas",
+    "Michée",
+    "Nahum",
+    "Habacuc",
+    "Sophonie",
+    "Aggée",
+    "Zacharie",
+    "Malachie",
+    "Matthieu",
+    "Marc",
+    "Luc",
+    "Jean",
+    "Actes",
+    "Romains",
+    "1 Corinthiens",
+    "2 Corinthiens",
+    "Galates",
+    "Éphésiens",
+    "Philippiens",
+    "Colossiens",
+    "1 Thessaloniciens",
+    "2 Thessaloniciens",
+    "1 Timothée",
+    "2 Timothée",
+    "Tite",
+    "Philémon",
+    "Hébreux",
+    "Jacques",
+    "1 Pierre",
+    "2 Pierre",
+    "1 Jean",
+    "2 Jean",
+    "3 Jean",
+    "Jude",
+    "Révélation"
   ],
   "bookAbbrs": [
-    "Gen","Ex","Lév","Nb","Dt","Jos","Jug","Ruth","1Sam","2Sam","1Roi","2Roi",
-    "1Chr","2Chr","Esd","Né","Est","Job","Ps","Prov","Eccl","Cant","Ésa","Jér",
-    "Lam","Ézé","Dan","Osé","Joël","Amos","Abd","Jon","Mich","Nah","Hab","Soph",
-    "Agg","Zach","Mal","Matt","Marc","Luc","Jean","Act","Rom","1Cor","2Cor",
-    "Gal","Éph","Phil","Col","1Th","2Th","1Tim","2Tim","Tit","Phm","Hébr","Jac",
-    "1Pi","2Pi","1Jn","2Jn","3Jn","Jude","Rév"
+    "Gen",
+    "Ex",
+    "Lév",
+    "Nb",
+    "Dt",
+    "Jos",
+    "Jug",
+    "Ruth",
+    "1Sam",
+    "2Sam",
+    "1Roi",
+    "2Roi",
+    "1Chr",
+    "2Chr",
+    "Esd",
+    "Né",
+    "Est",
+    "Job",
+    "Ps",
+    "Prov",
+    "Eccl",
+    "Cant",
+    "Ésa",
+    "Jér",
+    "Lam",
+    "Ézé",
+    "Dan",
+    "Osé",
+    "Joël",
+    "Amos",
+    "Abd",
+    "Jon",
+    "Mich",
+    "Nah",
+    "Hab",
+    "Soph",
+    "Agg",
+    "Zach",
+    "Mal",
+    "Matt",
+    "Marc",
+    "Luc",
+    "Jean",
+    "Act",
+    "Rom",
+    "1Cor",
+    "2Cor",
+    "Gal",
+    "Éph",
+    "Phil",
+    "Col",
+    "1Th",
+    "2Th",
+    "1Tim",
+    "2Tim",
+    "Tit",
+    "Phm",
+    "Hébr",
+    "Jac",
+    "1Pi",
+    "2Pi",
+    "1Jn",
+    "2Jn",
+    "3Jn",
+    "Jude",
+    "Rév"
   ],
   "notifications": {
     "title": "Notifications",
@@ -719,7 +836,72 @@
     "next": "Verset suivant"
   },
   "bookThemes": [
-    "Origines et Création","Rédemption et Délivrance","Sainteté et Adoration","Fidélité dans le Désert","Renouvellement de l'Alliance","Conquête et Fidélité","Cycles de Péché et Délivrance","Loyauté et Rédemption","La Monarchie Établie","L'Alliance Davidique","Royaume Uni et Divisé","La Chute des Deux Royaumes","Les Préparatifs de David","Temple, Réveil et Réforme","Retour et Restauration","Reconstruction et Renouveau","Providence et Courage","Souffrance et Souveraineté de Dieu","Adoration, Prière et Lamentation","Sagesse Pratique","Le Sens de la Vie","Amour et Dévotion","Salut et le Messie à Venir","Nouvelle Alliance","Deuil et Espérance","Gloire et Restauration de Dieu","La Souveraineté de Dieu sur l'Histoire","L'Amour Inébranlable de Dieu","Le Jour du Seigneur","Justice et Droiture","Jugement sur l'Orgueil","La Miséricorde de Dieu pour Toutes les Nations","Justice, Miséricorde et le Messie","Le Jugement de Dieu sur le Mal","Foi en la Souveraineté de Dieu","Jugement et Restauration Joyeuse","Priorité à la Maison de Dieu","Espérance Messianique et Restauration","Fidélité à l'Alliance","Jésus, le Roi et Messie","Jésus, le Serviteur","Jésus, le Sauveur de Tous","Jésus, le Fils de Dieu","Le Saint-Esprit et la Croissance de l'Église","Salut par la Foi","Vie Chrétienne et Unité","Réconfort et Force de Dieu","Liberté en Christ","L'Église et l'Unité en Christ","Joie et Contentement en Christ","La Suprématie de Christ","Le Second Avènement","Le Jour du Seigneur","Leadership de l'Église","Endurance et les Écritures","Saine Doctrine et Piété","Pardon et Réconciliation","Christ Notre Grand Souverain Sacrificateur","La Foi Prouvée par les Œuvres","Espérance dans la Souffrance","Croître en Grâce et Connaissance","Amour, Lumière et Communion","Marcher dans la Vérité et l'Amour","Hospitalité et Vérité","Défendre la Foi","Victoire, Adoration et Nouvelle Création"
+    "Origines et Création",
+    "Rédemption et Délivrance",
+    "Sainteté et Adoration",
+    "Fidélité dans le Désert",
+    "Renouvellement de l'Alliance",
+    "Conquête et Fidélité",
+    "Cycles de Péché et Délivrance",
+    "Loyauté et Rédemption",
+    "La Monarchie Établie",
+    "L'Alliance Davidique",
+    "Royaume Uni et Divisé",
+    "La Chute des Deux Royaumes",
+    "Les Préparatifs de David",
+    "Temple, Réveil et Réforme",
+    "Retour et Restauration",
+    "Reconstruction et Renouveau",
+    "Providence et Courage",
+    "Souffrance et Souveraineté de Dieu",
+    "Adoration, Prière et Lamentation",
+    "Sagesse Pratique",
+    "Le Sens de la Vie",
+    "Amour et Dévotion",
+    "Salut et le Messie à Venir",
+    "Nouvelle Alliance",
+    "Deuil et Espérance",
+    "Gloire et Restauration de Dieu",
+    "La Souveraineté de Dieu sur l'Histoire",
+    "L'Amour Inébranlable de Dieu",
+    "Le Jour du Seigneur",
+    "Justice et Droiture",
+    "Jugement sur l'Orgueil",
+    "La Miséricorde de Dieu pour Toutes les Nations",
+    "Justice, Miséricorde et le Messie",
+    "Le Jugement de Dieu sur le Mal",
+    "Foi en la Souveraineté de Dieu",
+    "Jugement et Restauration Joyeuse",
+    "Priorité à la Maison de Dieu",
+    "Espérance Messianique et Restauration",
+    "Fidélité à l'Alliance",
+    "Jésus, le Roi et Messie",
+    "Jésus, le Serviteur",
+    "Jésus, le Sauveur de Tous",
+    "Jésus, le Fils de Dieu",
+    "Le Saint-Esprit et la Croissance de l'Église",
+    "Salut par la Foi",
+    "Vie Chrétienne et Unité",
+    "Réconfort et Force de Dieu",
+    "Liberté en Christ",
+    "L'Église et l'Unité en Christ",
+    "Joie et Contentement en Christ",
+    "La Suprématie de Christ",
+    "Le Second Avènement",
+    "Le Jour du Seigneur",
+    "Leadership de l'Église",
+    "Endurance et les Écritures",
+    "Saine Doctrine et Piété",
+    "Pardon et Réconciliation",
+    "Christ Notre Grand Souverain Sacrificateur",
+    "La Foi Prouvée par les Œuvres",
+    "Espérance dans la Souffrance",
+    "Croître en Grâce et Connaissance",
+    "Amour, Lumière et Communion",
+    "Marcher dans la Vérité et l'Amour",
+    "Hospitalité et Vérité",
+    "Défendre la Foi",
+    "Victoire, Adoration et Nouvelle Création"
   ],
   "bookSummaries": [
     "La Genèse relate la création de l'univers, la chute de l'humanité, le déluge et l'appel d'Abraham — posant les bases du plan rédempteur de Dieu.",
@@ -840,72 +1022,270 @@
     "chBadge_other": "{{count}} ch"
   },
   "verses": [
-    { "ref": "Jean 3:16", "text": "Car Dieu a tant aimé le monde qu'il a donné son Fils unique, afin que quiconque exerce la foi en lui ne soit pas détruit, mais ait la vie éternelle." },
-    { "ref": "Jérémie 29:11", "text": "Car je connais bien les pensées que je pense à votre égard', déclare Jéhovah, 'des pensées de paix, et non de calamité, pour vous donner un avenir et une espérance." },
-    { "ref": "Philippiens 4:13", "text": "J'ai la force pour toutes choses grâce à celui qui me donne de la puissance." },
-    { "ref": "Romains 8:28", "text": "Nous savons que Dieu fait coopérer toutes ses œuvres ensemble pour le bien de ceux qui aiment Dieu, de ceux qui sont appelés selon son dessein." },
-    { "ref": "Proverbes 3:5–6", "text": "Fais confiance à Jéhovah de tout ton cœur et ne t'appuie pas sur ta propre intelligence. Reconnais-le dans toutes tes voies, et il rendra droit tes sentiers." },
-    { "ref": "Ésaïe 40:31", "text": "Mais ceux qui espèrent en Jéhovah recouvreront leurs forces. Ils s'élèveront avec des ailes comme des aigles. Ils courront sans se lasser ; ils marcheront sans se fatiguer." },
-    { "ref": "Psaume 23:1", "text": "Jéhovah est mon berger. Je ne manquerai de rien." },
-    { "ref": "Matthieu 6:33", "text": "Continuez donc à chercher d'abord le Royaume et sa justice, et toutes ces autres choses vous seront données par-dessus." },
-    { "ref": "Éphésiens 2:8–9", "text": "C'est par cette bonté imméritée que vous avez été sauvés au moyen de la foi, et cela ne vient pas de vous ; c'est le don de Dieu. Non, ce n'est pas le résultat des œuvres, afin que personne n'ait de raison de se vanter." },
-    { "ref": "2 Timothée 3:16–17", "text": "Toute l'Écriture est inspirée de Dieu et utile pour enseigner, pour reprendre, pour redresser les choses, pour discipliner dans la droiture, afin que l'homme de Dieu soit pleinement compétent, complètement équipé pour toute œuvre bonne." },
-    { "ref": "Ésaïe 53:5", "text": "Mais il a été transpercé à cause de notre transgression ; il a été écrasé à cause de nos erreurs. Le châtiment pour notre paix est tombé sur lui, et c'est par ses blessures que nous avons été guéris." },
-    { "ref": "Lamentations 3:22–23", "text": "C'est grâce à l'amour loyal de Jéhovah que nous ne sommes pas anéantis, car ses miséricordes ne finissent jamais. Elles sont nouvelles chaque matin ; grande est ta fidélité !" },
-    { "ref": "Josué 1:9", "text": "Ne t'ai-je pas moi-même commandé ? Sois courageux et fort. Ne sois pas terrifié ni rempli de crainte, car Jéhovah ton Dieu est avec toi partout où tu vas." },
-    { "ref": "Psaume 46:1", "text": "Dieu est notre refuge et notre force, un secours facilement trouvé dans les moments de détresse." },
-    { "ref": "Romains 8:38–39", "text": "Car je suis convaincu que ni la mort ni la vie ni les anges ni les gouvernements ni les choses présentes ni les choses à venir ni les puissances ni la hauteur ni la profondeur ni aucune autre créature ne pourront nous séparer de l'amour de Dieu qui est en Christ Jésus notre Seigneur." },
-    { "ref": "Matthieu 11:28", "text": "Venez à moi, vous tous qui peinez et qui êtes chargés, et je vous rafraîchirai." },
-    { "ref": "1 Corinthiens 13:13", "text": "Maintenant, cependant, ces trois choses demeurent : la foi, l'espérance, l'amour, la plus grande d'entre elles étant l'amour." },
-    { "ref": "Hébreux 11:1", "text": "La foi est l'attente assurée des choses espérées, la démonstration évidente de réalités qui ne se voient pas." },
-    { "ref": "Michée 6:8", "text": "Il t'a dit, ô homme, ce qui est bon. Et qu'est-ce que Jéhovah exige de toi ? Seulement exercer la justice, chérir la loyauté et marcher avec modestie avec ton Dieu !" },
-    { "ref": "Psaume 119:105", "text": "Ta parole est une lampe pour mon pied et une lumière pour mon sentier." },
-    { "ref": "Jean 14:6", "text": "Jésus lui dit : 'Je suis le chemin, la vérité et la vie. Personne ne vient au Père si ce n'est par moi.'" },
-    { "ref": "2 Corinthiens 5:17", "text": "Par conséquent, si quelqu'un est en union avec Christ, il est une nouvelle création ; les choses anciennes ont passé ; voyez ! de nouvelles choses sont apparues." },
-    { "ref": "Romains 12:2", "text": "Et cessez de vous laisser modeler par ce système de choses, mais transformez-vous en renouvelant votre intelligence, pour que vous puissiez vous convaincre vous-mêmes de la bonne, acceptable et parfaite volonté de Dieu." },
-    { "ref": "Deutéronome 6:4–5", "text": "Écoute, Israël : Jéhovah notre Dieu est un seul Jéhovah. Tu dois aimer Jéhovah ton Dieu de tout ton cœur, de toute ton âme et de toute ta force." },
-    { "ref": "Jean 10:10", "text": "Le voleur ne vient que pour voler, tuer et détruire. Je suis venu afin qu'ils aient la vie et qu'ils l'aient en abondance." },
-    { "ref": "Psaume 139:14", "text": "Je te loue parce que d'une manière qui inspire l'admiration j'ai été fait de façon merveilleuse. Tes œuvres sont merveilleuses ; je le sais fort bien." },
-    { "ref": "Philippiens 4:6–7", "text": "Ne vous inquiétez de rien, mais en toutes choses, par la prière et la supplication accompagnées d'actions de grâces, faites connaître vos demandes à Dieu ; et la paix de Dieu qui surpasse toute intelligence gardera vos cœurs et vos facultés mentales par le moyen de Christ Jésus." },
-    { "ref": "Genèse 1:1", "text": "Au commencement Dieu créa les cieux et la terre." },
-    { "ref": "Habacuc 2:4", "text": "Mais le juste vivra par sa fidélité." },
-    { "ref": "Ézéchiel 36:26", "text": "Je vous donnerai un cœur nouveau et je mettrai en vous un esprit nouveau, et j'ôterai de votre corps le cœur de pierre et je vous donnerai un cœur de chair." },
-    { "ref": "Sophonie 3:17", "text": "Jéhovah ton Dieu est dans ton sein, un puissant qui sauvera. Il se réjouira sur toi avec grande joie. Il gardera le silence dans son amour. Il exultera sur toi avec des cris de joie." },
-    { "ref": "1 Jean 4:8", "text": "Celui qui n'aime pas n'est pas parvenu à connaître Dieu, parce que Dieu est amour." },
-    { "ref": "Jacques 1:22", "text": "Cependant, devenez des pratiquants de la parole, et pas seulement des auditeurs, vous trompant vous-mêmes par un faux raisonnement." },
-    { "ref": "2 Chroniques 7:14", "text": "Alors, si mon peuple sur lequel mon nom est invoqué s'humilie et prie et cherche ma face et se détourne de ses mauvaises voies, j'entendrai des cieux et pardonnerai son péché et guérirai son pays." },
-    { "ref": "Proverbes 31:25", "text": "Elle est revêtue de force et de splendeur, et elle envisage l'avenir avec un sourire." },
-    { "ref": "Colossiens 3:17", "text": "Et quoi que vous fassiez, en paroles ou en actes, faites tout au nom du Seigneur Jésus, rendant grâces à Dieu le Père par son intermédiaire." },
-    { "ref": "Actes 1:8", "text": "Mais vous recevrez de la puissance quand l'esprit saint viendra sur vous, et vous serez mes témoins à Jérusalem, dans toute la Judée et la Samarie, et jusqu'à la partie la plus éloignée de la terre." },
-    { "ref": "Ruth 1:16", "text": "Où tu iras j'irai, et où tu passeras la nuit je passerai la nuit. Ton peuple sera mon peuple et ton Dieu mon Dieu." },
-    { "ref": "Esther 4:14", "text": "Et qui sait si ce n'est pas pour un moment tel que celui-ci que tu as accédé à ta condition royale ?" },
-    { "ref": "Job 19:25", "text": "Car je sais que mon Rédempteur est vivant, et qu'en fin de compte il se lèvera sur la poussière." },
-    { "ref": "Daniel 3:17–18", "text": "S'il le faut, notre Dieu que nous servons est capable de nous délivrer de la fournaise ardente, ô roi, et il nous délivrera de ta main. Mais même s'il ne le fait pas, qu'il te soit connu, ô roi, que nous ne servirons pas tes dieux." },
-    { "ref": "1 Pierre 5:7", "text": "tout en déchargeant sur lui toute votre anxiété, parce qu'il prend soin de vous." },
-    { "ref": "Néhémie 8:10", "text": "Car la joie de Jéhovah est votre forteresse." },
-    { "ref": "Psaume 37:4", "text": "Trouve ton plaisir délicat en Jéhovah, et il t'accordera ce que ton cœur désire." },
-    { "ref": "Ésaïe 41:10", "text": "N'aie pas peur, car je suis avec toi. Ne sois pas anxieux, car je suis ton Dieu. Je te fortifierai, oui, je t'aiderai, oui, je te soutiendrai de ma main droite de droiture." },
-    { "ref": "Matthieu 5:14", "text": "Vous êtes la lumière du monde. Une ville ne peut pas être cachée quand elle est située sur une montagne." },
-    { "ref": "Jean 15:5", "text": "Je suis la vigne ; vous êtes les sarments. Quiconque demeure en union avec moi et moi en union avec lui, celui-là porte beaucoup de fruit ; car séparés de moi vous ne pouvez rien faire du tout." },
-    { "ref": "Révélation 21:4", "text": "Et il essuiera toute larme de leurs yeux, et la mort ne sera plus, ni le deuil ni les cris ni la douleur ne seront plus. Les choses d'avant ont disparu." },
-    { "ref": "Romains 5:8", "text": "Mais Dieu recommande son propre amour envers nous en ce que, alors que nous étions encore pécheurs, Christ est mort pour nous." },
-    { "ref": "Psaume 34:8", "text": "Goûtez et voyez que Jéhovah est bon ; heureux est l'homme qui cherche refuge en lui." },
-    { "ref": "Amos 5:24", "text": "Mais que la justice coule comme des eaux, et la droiture comme un torrent qui ne tarit jamais." },
-    { "ref": "2 Pierre 3:9", "text": "Jéhovah n'est pas lent à l'égard de sa promesse, comme certains considèrent la lenteur, mais il est patient envers vous, parce qu'il ne désire pas qu'un seul soit détruit, mais désire que tous parviennent à la repentance." },
-    { "ref": "Marc 10:45", "text": "Car même le Fils de l'homme n'est pas venu pour être servi, mais pour servir et donner sa vie en rançon en échange de beaucoup." },
-    { "ref": "Luc 19:10", "text": "Car le Fils de l'homme est venu chercher et sauver ce qui était perdu." },
-    { "ref": "Hébreux 4:12", "text": "Car la parole de Dieu est vivante et exerce de la puissance et est plus tranchante que toute épée à deux tranchants et pénètre jusqu'au point de diviser âme et esprit, et articulations et moelle, et est capable de discerner des pensées et des intentions du cœur." },
-    { "ref": "1 Thessaloniciens 5:16–18", "text": "Réjouissez-vous toujours. Priez sans cesse. Rendez grâces pour toutes choses. Car c'est là la volonté de Dieu en union avec Christ Jésus pour vous." },
-    { "ref": "Joël 2:28", "text": "Après cela, je répandrai mon esprit sur toute chair, et vos fils et vos filles prophétiseront certainement, vos vieillards auront des songes, et vos jeunes gens verront des visions." },
-    { "ref": "Zacharie 4:6", "text": "'Non par une force militaire, ni par la puissance, mais par mon esprit', dit Jéhovah des armées." },
-    { "ref": "Matthieu 28:19–20", "text": "Allez donc et faites des disciples de gens de toutes les nations, les baptisant au nom du Père et du Fils et de l'esprit saint, leur enseignant à observer toutes les choses que je vous ai commandées." },
-    { "ref": "Psaume 103:12", "text": "Aussi loin que l'orient est de l'occident, aussi loin de nous il a mis nos transgressions." },
-    { "ref": "Ésaïe 9:6", "text": "Car un enfant nous est né, un fils nous a été donné ; et la domination reposera sur son épaule. On l'appellera Conseiller admirable, Dieu puissant, Père éternel, Prince de la paix." },
-    { "ref": "Jude 3", "text": "J'ai trouvé nécessaire de vous écrire pour vous exhorter à vous battre avec acharnement pour la foi qui a été livrée une fois pour toutes aux saints." },
-    { "ref": "Malachie 3:10", "text": "Apportez tout le dixième dans le magasin, afin qu'il y ait de la nourriture dans ma maison ; et mettez-moi à l'épreuve, s'il vous plaît, à cet égard', dit Jéhovah des armées, 'pour voir si je n'ouvrirai pas pour vous les écluses des cieux et ne répandrai pas sur vous une bénédiction jusqu'à ce qu'il n'y ait plus rien qui manque." },
-    { "ref": "Psaume 1:1–2", "text": "Heureux est l'homme qui ne marche pas selon le conseil des méchants et ne se tient pas dans le chemin des pécheurs et ne s'assied pas dans le siège des railleurs. Mais son plaisir est dans la loi de Jéhovah, et il médite dans sa loi jour et nuit." },
-    { "ref": "2 Corinthiens 12:9", "text": "Mais il m'a dit : 'Ma bonté imméritée te suffit, car ma puissance est rendue parfaite dans la faiblesse.' Très volontiers donc je me glorifierai de mes faiblesses, afin que la puissance du Christ repose sur moi comme une tente." },
-    { "ref": "Exode 14:14", "text": "Jéhovah combattra pour vous, et vous garderez le silence." }
+    {
+      "ref": "Jean 3:16",
+      "text": "Car Dieu a tant aimé le monde qu'il a donné son Fils unique, afin que quiconque exerce la foi en lui ne soit pas détruit, mais ait la vie éternelle."
+    },
+    {
+      "ref": "Jérémie 29:11",
+      "text": "Car je connais bien les pensées que je pense à votre égard', déclare Jéhovah, 'des pensées de paix, et non de calamité, pour vous donner un avenir et une espérance."
+    },
+    {
+      "ref": "Philippiens 4:13",
+      "text": "J'ai la force pour toutes choses grâce à celui qui me donne de la puissance."
+    },
+    {
+      "ref": "Romains 8:28",
+      "text": "Nous savons que Dieu fait coopérer toutes ses œuvres ensemble pour le bien de ceux qui aiment Dieu, de ceux qui sont appelés selon son dessein."
+    },
+    {
+      "ref": "Proverbes 3:5–6",
+      "text": "Fais confiance à Jéhovah de tout ton cœur et ne t'appuie pas sur ta propre intelligence. Reconnais-le dans toutes tes voies, et il rendra droit tes sentiers."
+    },
+    {
+      "ref": "Ésaïe 40:31",
+      "text": "Mais ceux qui espèrent en Jéhovah recouvreront leurs forces. Ils s'élèveront avec des ailes comme des aigles. Ils courront sans se lasser ; ils marcheront sans se fatiguer."
+    },
+    {
+      "ref": "Psaume 23:1",
+      "text": "Jéhovah est mon berger. Je ne manquerai de rien."
+    },
+    {
+      "ref": "Matthieu 6:33",
+      "text": "Continuez donc à chercher d'abord le Royaume et sa justice, et toutes ces autres choses vous seront données par-dessus."
+    },
+    {
+      "ref": "Éphésiens 2:8–9",
+      "text": "C'est par cette bonté imméritée que vous avez été sauvés au moyen de la foi, et cela ne vient pas de vous ; c'est le don de Dieu. Non, ce n'est pas le résultat des œuvres, afin que personne n'ait de raison de se vanter."
+    },
+    {
+      "ref": "2 Timothée 3:16–17",
+      "text": "Toute l'Écriture est inspirée de Dieu et utile pour enseigner, pour reprendre, pour redresser les choses, pour discipliner dans la droiture, afin que l'homme de Dieu soit pleinement compétent, complètement équipé pour toute œuvre bonne."
+    },
+    {
+      "ref": "Ésaïe 53:5",
+      "text": "Mais il a été transpercé à cause de notre transgression ; il a été écrasé à cause de nos erreurs. Le châtiment pour notre paix est tombé sur lui, et c'est par ses blessures que nous avons été guéris."
+    },
+    {
+      "ref": "Lamentations 3:22–23",
+      "text": "C'est grâce à l'amour loyal de Jéhovah que nous ne sommes pas anéantis, car ses miséricordes ne finissent jamais. Elles sont nouvelles chaque matin ; grande est ta fidélité !"
+    },
+    {
+      "ref": "Josué 1:9",
+      "text": "Ne t'ai-je pas moi-même commandé ? Sois courageux et fort. Ne sois pas terrifié ni rempli de crainte, car Jéhovah ton Dieu est avec toi partout où tu vas."
+    },
+    {
+      "ref": "Psaume 46:1",
+      "text": "Dieu est notre refuge et notre force, un secours facilement trouvé dans les moments de détresse."
+    },
+    {
+      "ref": "Romains 8:38–39",
+      "text": "Car je suis convaincu que ni la mort ni la vie ni les anges ni les gouvernements ni les choses présentes ni les choses à venir ni les puissances ni la hauteur ni la profondeur ni aucune autre créature ne pourront nous séparer de l'amour de Dieu qui est en Christ Jésus notre Seigneur."
+    },
+    {
+      "ref": "Matthieu 11:28",
+      "text": "Venez à moi, vous tous qui peinez et qui êtes chargés, et je vous rafraîchirai."
+    },
+    {
+      "ref": "1 Corinthiens 13:13",
+      "text": "Maintenant, cependant, ces trois choses demeurent : la foi, l'espérance, l'amour, la plus grande d'entre elles étant l'amour."
+    },
+    {
+      "ref": "Hébreux 11:1",
+      "text": "La foi est l'attente assurée des choses espérées, la démonstration évidente de réalités qui ne se voient pas."
+    },
+    {
+      "ref": "Michée 6:8",
+      "text": "Il t'a dit, ô homme, ce qui est bon. Et qu'est-ce que Jéhovah exige de toi ? Seulement exercer la justice, chérir la loyauté et marcher avec modestie avec ton Dieu !"
+    },
+    {
+      "ref": "Psaume 119:105",
+      "text": "Ta parole est une lampe pour mon pied et une lumière pour mon sentier."
+    },
+    {
+      "ref": "Jean 14:6",
+      "text": "Jésus lui dit : 'Je suis le chemin, la vérité et la vie. Personne ne vient au Père si ce n'est par moi.'"
+    },
+    {
+      "ref": "2 Corinthiens 5:17",
+      "text": "Par conséquent, si quelqu'un est en union avec Christ, il est une nouvelle création ; les choses anciennes ont passé ; voyez ! de nouvelles choses sont apparues."
+    },
+    {
+      "ref": "Romains 12:2",
+      "text": "Et cessez de vous laisser modeler par ce système de choses, mais transformez-vous en renouvelant votre intelligence, pour que vous puissiez vous convaincre vous-mêmes de la bonne, acceptable et parfaite volonté de Dieu."
+    },
+    {
+      "ref": "Deutéronome 6:4–5",
+      "text": "Écoute, Israël : Jéhovah notre Dieu est un seul Jéhovah. Tu dois aimer Jéhovah ton Dieu de tout ton cœur, de toute ton âme et de toute ta force."
+    },
+    {
+      "ref": "Jean 10:10",
+      "text": "Le voleur ne vient que pour voler, tuer et détruire. Je suis venu afin qu'ils aient la vie et qu'ils l'aient en abondance."
+    },
+    {
+      "ref": "Psaume 139:14",
+      "text": "Je te loue parce que d'une manière qui inspire l'admiration j'ai été fait de façon merveilleuse. Tes œuvres sont merveilleuses ; je le sais fort bien."
+    },
+    {
+      "ref": "Philippiens 4:6–7",
+      "text": "Ne vous inquiétez de rien, mais en toutes choses, par la prière et la supplication accompagnées d'actions de grâces, faites connaître vos demandes à Dieu ; et la paix de Dieu qui surpasse toute intelligence gardera vos cœurs et vos facultés mentales par le moyen de Christ Jésus."
+    },
+    {
+      "ref": "Genèse 1:1",
+      "text": "Au commencement Dieu créa les cieux et la terre."
+    },
+    {
+      "ref": "Habacuc 2:4",
+      "text": "Mais le juste vivra par sa fidélité."
+    },
+    {
+      "ref": "Ézéchiel 36:26",
+      "text": "Je vous donnerai un cœur nouveau et je mettrai en vous un esprit nouveau, et j'ôterai de votre corps le cœur de pierre et je vous donnerai un cœur de chair."
+    },
+    {
+      "ref": "Sophonie 3:17",
+      "text": "Jéhovah ton Dieu est dans ton sein, un puissant qui sauvera. Il se réjouira sur toi avec grande joie. Il gardera le silence dans son amour. Il exultera sur toi avec des cris de joie."
+    },
+    {
+      "ref": "1 Jean 4:8",
+      "text": "Celui qui n'aime pas n'est pas parvenu à connaître Dieu, parce que Dieu est amour."
+    },
+    {
+      "ref": "Jacques 1:22",
+      "text": "Cependant, devenez des pratiquants de la parole, et pas seulement des auditeurs, vous trompant vous-mêmes par un faux raisonnement."
+    },
+    {
+      "ref": "2 Chroniques 7:14",
+      "text": "Alors, si mon peuple sur lequel mon nom est invoqué s'humilie et prie et cherche ma face et se détourne de ses mauvaises voies, j'entendrai des cieux et pardonnerai son péché et guérirai son pays."
+    },
+    {
+      "ref": "Proverbes 31:25",
+      "text": "Elle est revêtue de force et de splendeur, et elle envisage l'avenir avec un sourire."
+    },
+    {
+      "ref": "Colossiens 3:17",
+      "text": "Et quoi que vous fassiez, en paroles ou en actes, faites tout au nom du Seigneur Jésus, rendant grâces à Dieu le Père par son intermédiaire."
+    },
+    {
+      "ref": "Actes 1:8",
+      "text": "Mais vous recevrez de la puissance quand l'esprit saint viendra sur vous, et vous serez mes témoins à Jérusalem, dans toute la Judée et la Samarie, et jusqu'à la partie la plus éloignée de la terre."
+    },
+    {
+      "ref": "Ruth 1:16",
+      "text": "Où tu iras j'irai, et où tu passeras la nuit je passerai la nuit. Ton peuple sera mon peuple et ton Dieu mon Dieu."
+    },
+    {
+      "ref": "Esther 4:14",
+      "text": "Et qui sait si ce n'est pas pour un moment tel que celui-ci que tu as accédé à ta condition royale ?"
+    },
+    {
+      "ref": "Job 19:25",
+      "text": "Car je sais que mon Rédempteur est vivant, et qu'en fin de compte il se lèvera sur la poussière."
+    },
+    {
+      "ref": "Daniel 3:17–18",
+      "text": "S'il le faut, notre Dieu que nous servons est capable de nous délivrer de la fournaise ardente, ô roi, et il nous délivrera de ta main. Mais même s'il ne le fait pas, qu'il te soit connu, ô roi, que nous ne servirons pas tes dieux."
+    },
+    {
+      "ref": "1 Pierre 5:7",
+      "text": "tout en déchargeant sur lui toute votre anxiété, parce qu'il prend soin de vous."
+    },
+    {
+      "ref": "Néhémie 8:10",
+      "text": "Car la joie de Jéhovah est votre forteresse."
+    },
+    {
+      "ref": "Psaume 37:4",
+      "text": "Trouve ton plaisir délicat en Jéhovah, et il t'accordera ce que ton cœur désire."
+    },
+    {
+      "ref": "Ésaïe 41:10",
+      "text": "N'aie pas peur, car je suis avec toi. Ne sois pas anxieux, car je suis ton Dieu. Je te fortifierai, oui, je t'aiderai, oui, je te soutiendrai de ma main droite de droiture."
+    },
+    {
+      "ref": "Matthieu 5:14",
+      "text": "Vous êtes la lumière du monde. Une ville ne peut pas être cachée quand elle est située sur une montagne."
+    },
+    {
+      "ref": "Jean 15:5",
+      "text": "Je suis la vigne ; vous êtes les sarments. Quiconque demeure en union avec moi et moi en union avec lui, celui-là porte beaucoup de fruit ; car séparés de moi vous ne pouvez rien faire du tout."
+    },
+    {
+      "ref": "Révélation 21:4",
+      "text": "Et il essuiera toute larme de leurs yeux, et la mort ne sera plus, ni le deuil ni les cris ni la douleur ne seront plus. Les choses d'avant ont disparu."
+    },
+    {
+      "ref": "Romains 5:8",
+      "text": "Mais Dieu recommande son propre amour envers nous en ce que, alors que nous étions encore pécheurs, Christ est mort pour nous."
+    },
+    {
+      "ref": "Psaume 34:8",
+      "text": "Goûtez et voyez que Jéhovah est bon ; heureux est l'homme qui cherche refuge en lui."
+    },
+    {
+      "ref": "Amos 5:24",
+      "text": "Mais que la justice coule comme des eaux, et la droiture comme un torrent qui ne tarit jamais."
+    },
+    {
+      "ref": "2 Pierre 3:9",
+      "text": "Jéhovah n'est pas lent à l'égard de sa promesse, comme certains considèrent la lenteur, mais il est patient envers vous, parce qu'il ne désire pas qu'un seul soit détruit, mais désire que tous parviennent à la repentance."
+    },
+    {
+      "ref": "Marc 10:45",
+      "text": "Car même le Fils de l'homme n'est pas venu pour être servi, mais pour servir et donner sa vie en rançon en échange de beaucoup."
+    },
+    {
+      "ref": "Luc 19:10",
+      "text": "Car le Fils de l'homme est venu chercher et sauver ce qui était perdu."
+    },
+    {
+      "ref": "Hébreux 4:12",
+      "text": "Car la parole de Dieu est vivante et exerce de la puissance et est plus tranchante que toute épée à deux tranchants et pénètre jusqu'au point de diviser âme et esprit, et articulations et moelle, et est capable de discerner des pensées et des intentions du cœur."
+    },
+    {
+      "ref": "1 Thessaloniciens 5:16–18",
+      "text": "Réjouissez-vous toujours. Priez sans cesse. Rendez grâces pour toutes choses. Car c'est là la volonté de Dieu en union avec Christ Jésus pour vous."
+    },
+    {
+      "ref": "Joël 2:28",
+      "text": "Après cela, je répandrai mon esprit sur toute chair, et vos fils et vos filles prophétiseront certainement, vos vieillards auront des songes, et vos jeunes gens verront des visions."
+    },
+    {
+      "ref": "Zacharie 4:6",
+      "text": "'Non par une force militaire, ni par la puissance, mais par mon esprit', dit Jéhovah des armées."
+    },
+    {
+      "ref": "Matthieu 28:19–20",
+      "text": "Allez donc et faites des disciples de gens de toutes les nations, les baptisant au nom du Père et du Fils et de l'esprit saint, leur enseignant à observer toutes les choses que je vous ai commandées."
+    },
+    {
+      "ref": "Psaume 103:12",
+      "text": "Aussi loin que l'orient est de l'occident, aussi loin de nous il a mis nos transgressions."
+    },
+    {
+      "ref": "Ésaïe 9:6",
+      "text": "Car un enfant nous est né, un fils nous a été donné ; et la domination reposera sur son épaule. On l'appellera Conseiller admirable, Dieu puissant, Père éternel, Prince de la paix."
+    },
+    {
+      "ref": "Jude 3",
+      "text": "J'ai trouvé nécessaire de vous écrire pour vous exhorter à vous battre avec acharnement pour la foi qui a été livrée une fois pour toutes aux saints."
+    },
+    {
+      "ref": "Malachie 3:10",
+      "text": "Apportez tout le dixième dans le magasin, afin qu'il y ait de la nourriture dans ma maison ; et mettez-moi à l'épreuve, s'il vous plaît, à cet égard', dit Jéhovah des armées, 'pour voir si je n'ouvrirai pas pour vous les écluses des cieux et ne répandrai pas sur vous une bénédiction jusqu'à ce qu'il n'y ait plus rien qui manque."
+    },
+    {
+      "ref": "Psaume 1:1–2",
+      "text": "Heureux est l'homme qui ne marche pas selon le conseil des méchants et ne se tient pas dans le chemin des pécheurs et ne s'assied pas dans le siège des railleurs. Mais son plaisir est dans la loi de Jéhovah, et il médite dans sa loi jour et nuit."
+    },
+    {
+      "ref": "2 Corinthiens 12:9",
+      "text": "Mais il m'a dit : 'Ma bonté imméritée te suffit, car ma puissance est rendue parfaite dans la faiblesse.' Très volontiers donc je me glorifierai de mes faiblesses, afin que la puissance du Christ repose sur moi comme une tente."
+    },
+    {
+      "ref": "Exode 14:14",
+      "text": "Jéhovah combattra pour vous, et vous garderez le silence."
+    }
   ],
   "studyNotes": {
     "title": "Notes d'Étude",
@@ -1155,5 +1535,37 @@
     "studyNotes": "Notes d'Étude",
     "language": "Langue",
     "proFeature": "🔒 Fonctionnalité Pro"
+  },
+  "upm": {
+    "badge": "✦ Premium",
+    "title": "Débloquez l'expérience complète",
+    "period": "/ mois",
+    "feat": {
+      "aiLabel": "Assistant d'Étude IA",
+      "aiDesc": "Posez à Claude n'importe quelle question sur un verset, une question de quiz ou un passage",
+      "plansLabel": "Plans de Lecture",
+      "plansDesc": "Plans structurés sur plusieurs semaines à travers n'importe quel livre",
+      "notesLabel": "Notes d'Étude",
+      "notesDesc": "Notes enrichies liées à n'importe quel passage ou chapitre",
+      "dmLabel": "Messages Directs",
+      "dmDesc": "Conversations privées et chiffrées avec d'autres membres",
+      "groupsLabel": "Groupes d'Étude",
+      "groupsDesc": "Chat de groupe et suivi des progrès partagé"
+    },
+    "transparency": {
+      "heading": "Où va votre 3 $",
+      "hosting": "Hébergement et infrastructure (Vercel)",
+      "db": "Base de données (Supabase)",
+      "ai": "API IA (Claude / Anthropic)",
+      "domain": "Nom de domaine",
+      "surplus": "Tout excédent après avoir couvert ces coûts est destiné à soutenir des frères et sœurs dans le besoin et aux dons à JW.org.",
+      "hardship": "Si l'abonnement représente une difficulté financière, veuillez",
+      "hardshipLink": "nous contacter",
+      "hardshipSuffix": " — personne dans la foi ne devrait être laissé de côté."
+    },
+    "cta": "S'abonner avec Stripe →",
+    "ctaLoading": "Redirection…",
+    "note": "Sans engagement · Annulez quand vous voulez · Paiement sécurisé via Stripe",
+    "cancel": "Peut-être plus tard"
   }
 }

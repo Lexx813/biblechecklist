@@ -7,12 +7,12 @@ import "../styles/about.css";
 // Set this to the creator's actual photo URL to show a real avatar
 const CREATOR_AVATAR_URL = null;
 
-export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout }) {
+export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout, onUpgrade }) {
   const { t } = useTranslation();
   useMeta({ title: "About", description: "Learn about NWT Progress — a Bible reading tracker built for Jehovah's Witnesses and Bible students." });
   return (
     <div className="about-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
 
       {/* Hero */}
       <section className="about-hero">

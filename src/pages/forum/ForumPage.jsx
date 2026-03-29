@@ -104,7 +104,7 @@ function ReactionsBar({ contentType, contentId, reactions, onToggle }) {
 // ── Thread View ───────────────────────────────────────────────────────────────
 const REPLIES_PER_PAGE = 20;
 
-function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { data: thread, isLoading: threadLoading } = useThread(threadId);
   const { data: allReplies = [], isLoading: repliesLoading } = useReplies(threadId);
   const [visibleReplies, setVisibleReplies] = useState(REPLIES_PER_PAGE);
@@ -230,7 +230,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
 
   return (
     <div className="forum-thread-view">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
 
       {/* Breadcrumb */}
       <nav className="forum-breadcrumb">
@@ -601,7 +601,7 @@ function ForumPostAssistant({ topic, draft }) {
 const THREADS_PER_PAGE = 20;
 const SORT_OPTIONS = ["latest", "liked", "replied", "unanswered", "solved"];
 
-function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { t } = useTranslation();
   const { isPremium } = useSubscription(user?.id);
   const userLang = i18n?.language?.split("-")[0] ?? "en";
@@ -678,7 +678,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 
   return (
     <div className="forum-thread-list">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
 
       {/* Breadcrumb */}
       <nav className="forum-breadcrumb">
@@ -846,7 +846,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 }
 
 // ── Category List ─────────────────────────────────────────────────────────────
-function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMode, i18n, user, onLogout, onSelectThread }) {
+function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMode, i18n, user, onLogout, onSelectThread, onUpgrade }) {
   const { data: categories = [], isLoading } = useCategories();
   const { data: trending = [] } = useTopThreads(5);
   const { t } = useTranslation();
@@ -858,7 +858,7 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
 
   return (
     <div className="forum-categories">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} />
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       {/* Hero */}
       <div className="forum-hero">
         <div className="forum-hero-glow forum-hero-glow--1" />
@@ -925,7 +925,7 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
 }
 
 // ── Main ForumPage ────────────────────────────────────────────────────────────
-export default function ForumPage({ user, profile, onBack, categoryId, threadId, onNavigate, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+export default function ForumPage({ user, profile, onBack, categoryId, threadId, onNavigate, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { data: categories = [], isLoading: catsLoading } = useCategories();
   const activeCategory = categoryId ? categories.find(c => c.id === categoryId) ?? null : null;
 
@@ -940,6 +940,7 @@ export default function ForumPage({ user, profile, onBack, categoryId, threadId,
         categoryId={categoryId}
         categoryName={activeCategory?.name ?? ""}
         onBack={() => onNavigate(categoryId, null)}
+        onUpgrade={onUpgrade}
         {...navProps}
       />
     );
@@ -953,10 +954,11 @@ export default function ForumPage({ user, profile, onBack, categoryId, threadId,
         user={user}
         onSelectThread={(id) => onNavigate(categoryId, id)}
         onBack={() => onNavigate(null, null)}
+        onUpgrade={onUpgrade}
         {...navProps}
       />
     );
   }
 
-  return <CategoryList onSelectCategory={(cat) => onNavigate(cat.id, null)} onSelectThread={(catId, threadId) => onNavigate(catId, threadId)} onBack={onBack} {...navProps} />;
+  return <CategoryList onSelectCategory={(cat) => onNavigate(cat.id, null)} onSelectThread={(catId, threadId) => onNavigate(catId, threadId)} onBack={onBack} onUpgrade={onUpgrade} {...navProps} />;
 }

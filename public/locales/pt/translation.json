@@ -654,23 +654,140 @@
     "linkPrompt": "Insira a URL"
   },
   "bookNames": [
-    "Gênesis","Êxodo","Levítico","Números","Deuteronômio","Josué","Juízes","Rute",
-    "1 Samuel","2 Samuel","1 Reis","2 Reis","1 Crônicas","2 Crônicas","Esdras",
-    "Neemias","Ester","Jó","Salmos","Provérbios","Eclesiastes","Cântico dos Cânticos",
-    "Isaías","Jeremias","Lamentações","Ezequiel","Daniel","Oseias","Joel","Amós",
-    "Obadias","Jonas","Miquéias","Naum","Habacuque","Sofonias","Ageu","Zacarias",
-    "Malaquias","Mateus","Marcos","Lucas","João","Atos","Romanos","1 Coríntios",
-    "2 Coríntios","Gálatas","Efésios","Filipenses","Colossenses",
-    "1 Tessalonicenses","2 Tessalonicenses","1 Timóteo","2 Timóteo","Tito","Filemom",
-    "Hebreus","Tiago","1 Pedro","2 Pedro","1 João","2 João","3 João","Judas","Apocalipse"
+    "Gênesis",
+    "Êxodo",
+    "Levítico",
+    "Números",
+    "Deuteronômio",
+    "Josué",
+    "Juízes",
+    "Rute",
+    "1 Samuel",
+    "2 Samuel",
+    "1 Reis",
+    "2 Reis",
+    "1 Crônicas",
+    "2 Crônicas",
+    "Esdras",
+    "Neemias",
+    "Ester",
+    "Jó",
+    "Salmos",
+    "Provérbios",
+    "Eclesiastes",
+    "Cântico dos Cânticos",
+    "Isaías",
+    "Jeremias",
+    "Lamentações",
+    "Ezequiel",
+    "Daniel",
+    "Oseias",
+    "Joel",
+    "Amós",
+    "Obadias",
+    "Jonas",
+    "Miquéias",
+    "Naum",
+    "Habacuque",
+    "Sofonias",
+    "Ageu",
+    "Zacarias",
+    "Malaquias",
+    "Mateus",
+    "Marcos",
+    "Lucas",
+    "João",
+    "Atos",
+    "Romanos",
+    "1 Coríntios",
+    "2 Coríntios",
+    "Gálatas",
+    "Efésios",
+    "Filipenses",
+    "Colossenses",
+    "1 Tessalonicenses",
+    "2 Tessalonicenses",
+    "1 Timóteo",
+    "2 Timóteo",
+    "Tito",
+    "Filemom",
+    "Hebreus",
+    "Tiago",
+    "1 Pedro",
+    "2 Pedro",
+    "1 João",
+    "2 João",
+    "3 João",
+    "Judas",
+    "Apocalipse"
   ],
   "bookAbbrs": [
-    "Gên","Êx","Lev","Núm","Deut","Jos","Juí","Rute","1Sam","2Sam","1Rei","2Rei",
-    "1Cr","2Cr","Esd","Nee","Est","Jó","Sal","Prov","Ecl","Cânt","Isa","Jer",
-    "Lam","Ezq","Dan","Ose","Joel","Amós","Oba","Jon","Miq","Nau","Hab","Sof",
-    "Age","Zac","Mal","Mat","Mc","Lc","Jo","At","Rom","1Cor","2Cor",
-    "Gál","Ef","Fil","Col","1Ts","2Ts","1Tim","2Tim","Tit","Flm","Heb","Tg",
-    "1Pe","2Pe","1Jo","2Jo","3Jo","Jud","Ap"
+    "Gên",
+    "Êx",
+    "Lev",
+    "Núm",
+    "Deut",
+    "Jos",
+    "Juí",
+    "Rute",
+    "1Sam",
+    "2Sam",
+    "1Rei",
+    "2Rei",
+    "1Cr",
+    "2Cr",
+    "Esd",
+    "Nee",
+    "Est",
+    "Jó",
+    "Sal",
+    "Prov",
+    "Ecl",
+    "Cânt",
+    "Isa",
+    "Jer",
+    "Lam",
+    "Ezq",
+    "Dan",
+    "Ose",
+    "Joel",
+    "Amós",
+    "Oba",
+    "Jon",
+    "Miq",
+    "Nau",
+    "Hab",
+    "Sof",
+    "Age",
+    "Zac",
+    "Mal",
+    "Mat",
+    "Mc",
+    "Lc",
+    "Jo",
+    "At",
+    "Rom",
+    "1Cor",
+    "2Cor",
+    "Gál",
+    "Ef",
+    "Fil",
+    "Col",
+    "1Ts",
+    "2Ts",
+    "1Tim",
+    "2Tim",
+    "Tit",
+    "Flm",
+    "Heb",
+    "Tg",
+    "1Pe",
+    "2Pe",
+    "1Jo",
+    "2Jo",
+    "3Jo",
+    "Jud",
+    "Ap"
   ],
   "notifications": {
     "title": "Notificações",
@@ -719,7 +836,72 @@
     "next": "Próximo versículo"
   },
   "bookThemes": [
-    "Origens e Criação","Redenção e Libertação","Santidade e Adoração","Fidelidade no Deserto","Renovação da Aliança","Conquista e Fidelidade","Ciclos de Pecado e Libertação","Lealdade e Redenção","A Monarquia Estabelecida","A Aliança Davídica","Reino Unido e Dividido","A Queda dos Dois Reinos","Preparativos de Davi","Templo, Avivamento e Reforma","Retorno e Restauração","Reconstrução e Renovação","Providência e Coragem","Sofrimento e Soberania de Deus","Adoração, Oração e Lamento","Sabedoria Prática","O Sentido da Vida","Amor e Devoção","Salvação e o Messias Vindouro","Nova Aliança","Luto e Esperança","Glória e Restauração de Deus","Soberania de Deus sobre a História","Amor Inabalável de Deus","O Dia do Senhor","Justiça e Retidão","Julgamento do Orgulho","A Misericórdia de Deus para Todas as Nações","Justiça, Misericórdia e o Messias","Julgamento de Deus sobre a Maldade","Fé na Soberania de Deus","Julgamento e Restauração Alegre","Priorizar a Casa de Deus","Esperança Messiânica e Restauração","Fidelidade à Aliança","Jesus, o Rei e Messias","Jesus, o Servo","Jesus, o Salvador de Todos","Jesus, o Filho de Deus","O Espírito Santo e o Crescimento da Igreja","Salvação pela Fé","Vida Cristã e Unidade","Conforto e Força de Deus","Liberdade em Cristo","A Igreja e a Unidade em Cristo","Alegria e Contentamento em Cristo","A Supremacia de Cristo","A Segunda Vinda","O Dia do Senhor","Liderança da Igreja","Perseverança e as Escrituras","Doutrina Sã e Piedade","Perdão e Reconciliação","Cristo, Nosso Sumo Sacerdote","Fé Provada pelas Obras","Esperança no Sofrimento","Crescendo em Graça e Verdade","Amor, Luz e Comunhão","Caminhando na Verdade e no Amor","Hospitalidade e Verdade","Defendendo a Fé","Vitória, Adoração e Nova Criação"
+    "Origens e Criação",
+    "Redenção e Libertação",
+    "Santidade e Adoração",
+    "Fidelidade no Deserto",
+    "Renovação da Aliança",
+    "Conquista e Fidelidade",
+    "Ciclos de Pecado e Libertação",
+    "Lealdade e Redenção",
+    "A Monarquia Estabelecida",
+    "A Aliança Davídica",
+    "Reino Unido e Dividido",
+    "A Queda dos Dois Reinos",
+    "Preparativos de Davi",
+    "Templo, Avivamento e Reforma",
+    "Retorno e Restauração",
+    "Reconstrução e Renovação",
+    "Providência e Coragem",
+    "Sofrimento e Soberania de Deus",
+    "Adoração, Oração e Lamento",
+    "Sabedoria Prática",
+    "O Sentido da Vida",
+    "Amor e Devoção",
+    "Salvação e o Messias Vindouro",
+    "Nova Aliança",
+    "Luto e Esperança",
+    "Glória e Restauração de Deus",
+    "Soberania de Deus sobre a História",
+    "Amor Inabalável de Deus",
+    "O Dia do Senhor",
+    "Justiça e Retidão",
+    "Julgamento do Orgulho",
+    "A Misericórdia de Deus para Todas as Nações",
+    "Justiça, Misericórdia e o Messias",
+    "Julgamento de Deus sobre a Maldade",
+    "Fé na Soberania de Deus",
+    "Julgamento e Restauração Alegre",
+    "Priorizar a Casa de Deus",
+    "Esperança Messiânica e Restauração",
+    "Fidelidade à Aliança",
+    "Jesus, o Rei e Messias",
+    "Jesus, o Servo",
+    "Jesus, o Salvador de Todos",
+    "Jesus, o Filho de Deus",
+    "O Espírito Santo e o Crescimento da Igreja",
+    "Salvação pela Fé",
+    "Vida Cristã e Unidade",
+    "Conforto e Força de Deus",
+    "Liberdade em Cristo",
+    "A Igreja e a Unidade em Cristo",
+    "Alegria e Contentamento em Cristo",
+    "A Supremacia de Cristo",
+    "A Segunda Vinda",
+    "O Dia do Senhor",
+    "Liderança da Igreja",
+    "Perseverança e as Escrituras",
+    "Doutrina Sã e Piedade",
+    "Perdão e Reconciliação",
+    "Cristo, Nosso Sumo Sacerdote",
+    "Fé Provada pelas Obras",
+    "Esperança no Sofrimento",
+    "Crescendo em Graça e Verdade",
+    "Amor, Luz e Comunhão",
+    "Caminhando na Verdade e no Amor",
+    "Hospitalidade e Verdade",
+    "Defendendo a Fé",
+    "Vitória, Adoração e Nova Criação"
   ],
   "bookSummaries": [
     "Gênesis registra a criação do universo, a queda da humanidade, o dilúvio e o chamado de Abraão — estabelecendo o fundamento do plano redentor de Deus.",
@@ -840,72 +1022,270 @@
     "chBadge_other": "{{count}} caps"
   },
   "verses": [
-    { "ref": "João 3:16", "text": "Pois Deus amou tanto o mundo que deu o seu Filho unigênito, para que todo aquele que exercer fé nele não seja destruído, mas tenha vida eterna." },
-    { "ref": "Jeremias 29:11", "text": "Pois eu conheço bem os pensamentos que estou pensando a vosso respeito', declara Jeová, 'pensamentos de paz, e não de calamidade, para dar-lhes um futuro e uma esperança." },
-    { "ref": "Filipenses 4:13", "text": "Para todas as coisas tenho força por meio daquele que me dá poder." },
-    { "ref": "Romanos 8:28", "text": "Sabemos que Deus faz todas as suas obras cooperarem juntas para o bem dos que amam a Deus, os que são chamados segundo o seu propósito." },
-    { "ref": "Provérbios 3:5–6", "text": "Confie em Jeová com todo o seu coração e não se apoie no seu próprio entendimento. Em todos os seus caminhos, dê-lhe atenção, e ele endireitará as suas veredas." },
-    { "ref": "Isaías 40:31", "text": "Mas os que esperam em Jeová recuperarão as forças. Elevarão o voo com asas como águias. Correrão e não se cansarão; caminharão e não se fatigarão." },
-    { "ref": "Salmo 23:1", "text": "Jeová é o meu Pastor. Nada me faltará." },
-    { "ref": "Mateus 6:33", "text": "Continuai, pois, a procurar primeiro o Reino e a sua justiça, e todas essas outras coisas lhes serão acrescentadas." },
-    { "ref": "Efésios 2:8–9", "text": "Por esta bondade imerecida fostes salvos mediante a fé, e isto não provém de vós mesmos; é dádiva de Deus. Não, não é resultado de obras, para que ninguém tenha motivo de gabar-se." },
-    { "ref": "2 Timóteo 3:16–17", "text": "Toda a Escritura é inspirada de Deus e benéfica para ensinar, para repreender, para endireitar coisas, para disciplinar em retidão, a fim de que o homem de Deus seja plenamente competente, completamente equipado para toda obra boa." },
-    { "ref": "Isaías 53:5", "text": "Mas ele foi trespassado pela nossa transgressão; foi esmagado pelas nossas erros. O castigo para a nossa paz foi sobre ele, e por meio de seus ferimentos fomos curados." },
-    { "ref": "Lamentações 3:22–23", "text": "É por causa do amor leal de Jeová que não chegamos ao fim, pois as suas misericórdias nunca terminam. São novas a cada manhã; grande é a tua fidelidade!" },
-    { "ref": "Josué 1:9", "text": "Não te ordenei eu mesmo? Sê corajoso e forte. Não te apavores nem te enches de pavor, pois Jeová, o teu Deus, está contigo para onde quer que vás." },
-    { "ref": "Salmo 46:1", "text": "Deus é o nosso refúgio e fortaleza, uma ajuda prontamente encontrada em tempos de angústia." },
-    { "ref": "Romanos 8:38–39", "text": "Pois estou convicto de que nem morte nem vida nem anjos nem governos nem coisas presentes nem coisas por vir nem poderes nem altura nem profundidade nem nenhuma outra criatura poderá separar-nos do amor de Deus que está em Cristo Jesus, o nosso Senhor." },
-    { "ref": "Mateus 11:28", "text": "Vinde a mim, todos os que estais trabalhando arduamente e carregados, e eu vos darei refrigério." },
-    { "ref": "1 Coríntios 13:13", "text": "Agora, porém, estas três coisas permanecem: fé, esperança, amor; a maior delas é o amor." },
-    { "ref": "Hebreus 11:1", "text": "A fé é a expectativa assegurada das coisas esperadas, a demonstração evidente de realidades que não são vistas." },
-    { "ref": "Miquéias 6:8", "text": "Ele te disse, ó homem, o que é bom. E que é que Jeová está requerendo de ti? Apenas exercer justiça, amar a lealdade e caminhar em modéstia com o teu Deus!" },
-    { "ref": "Salmo 119:105", "text": "A tua palavra é lâmpada para os meus pés e luz para o meu caminho." },
-    { "ref": "João 14:6", "text": "Jesus disse-lhe: 'Eu sou o caminho, a verdade e a vida. Ninguém vem ao Pai a não ser por mim.'" },
-    { "ref": "2 Coríntios 5:17", "text": "Portanto, se alguém está em união com Cristo, é uma nova criação; as coisas antigas passaram; vejam! as coisas novas passaram a existir." },
-    { "ref": "Romanos 12:2", "text": "E parem de ser moldados por este sistema de coisas, mas sejam transformados renovando a sua mente, para que possam provar a si mesmos qual é a boa, aceitável e perfeita vontade de Deus." },
-    { "ref": "Deuteronômio 6:4–5", "text": "Ouvi, ó Israel: Jeová, o nosso Deus, é um só Jeová. Deveis amar a Jeová, o vosso Deus, com todo o vosso coração, toda a vossa alma e toda a vossa força." },
-    { "ref": "João 10:10", "text": "O ladrão não vem a não ser para roubar, matar e destruir. Vim para que tenham vida e a tenham em abundância." },
-    { "ref": "Salmo 139:14", "text": "Eu te louvo porque de maneira inspiradora de respeito fui feito de modo maravilhoso. As tuas obras são maravilhosas; eu sei muito bem isso." },
-    { "ref": "Filipenses 4:6–7", "text": "Não vos angustieis por nenhuma coisa, mas em tudo por oração e súplica junto com ação de graças, fazei os vossos pedidos chegarem ao conhecimento de Deus; e a paz de Deus, que supera todo entendimento, guardará os vossos corações e os vossos poderes mentais por meio de Cristo Jesus." },
-    { "ref": "Gênesis 1:1", "text": "No princípio Deus criou os céus e a terra." },
-    { "ref": "Habacuque 2:4", "text": "Mas o justo viverá pela sua fidelidade." },
-    { "ref": "Ezequiel 36:26", "text": "Darei a vós um novo coração e porei um novo espírito dentro de vós, e removerei o coração de pedra do vosso corpo e vos darei um coração de carne." },
-    { "ref": "Sofonias 3:17", "text": "Jeová, o teu Deus, está no teu meio, um poderoso que salvará. Ele se regozijará sobre ti com grande alegria. Em seu amor se tornará silencioso. Exultará sobre ti com gritos de alegria." },
-    { "ref": "1 João 4:8", "text": "Quem não ama não chegou a conhecer a Deus, porque Deus é amor." },
-    { "ref": "Tiago 1:22", "text": "Porém tornai-vos praticantes da palavra, e não apenas ouvintes, iludindo-vos com raciocínio falso." },
-    { "ref": "2 Crônicas 7:14", "text": "Então, se o meu povo sobre o qual o meu nome é chamado se humilhar e orar e procurar a minha face e se afastar dos seus maus caminhos, ouvirei dos céus e perdoarei o seu pecado e curarei a sua terra." },
-    { "ref": "Provérbios 31:25", "text": "Ela é revestida de força e esplendor, e encara o futuro com um sorriso." },
-    { "ref": "Colossenses 3:17", "text": "E tudo o que fizerdes, seja em palavra seja em ação, fazei tudo em nome do Senhor Jesus, dando graças a Deus o Pai por meio dele." },
-    { "ref": "Atos 1:8", "text": "Mas recebereis poder quando o espírito santo vier sobre vós, e sereis testemunhas de mim em Jerusalém, em toda a Judeia e Samaria, e até a parte mais distante da terra." },
-    { "ref": "Rute 1:16", "text": "Para onde fores eu irei, e onde passares a noite eu passarei a noite. O teu povo será o meu povo e o teu Deus será o meu Deus." },
-    { "ref": "Ester 4:14", "text": "E quem sabe se não foi para um tempo como este que chegaste à condição real?" },
-    { "ref": "Jó 19:25", "text": "Pois sei que o meu Redentor vive, e que no final ele se erguerá sobre o pó." },
-    { "ref": "Daniel 3:17–18", "text": "Se assim for, o nosso Deus a quem servimos é capaz de nos livrar da fornalha ardente, ó rei, e ele nos livrará da tua mão. Mas mesmo que não o faça, seja-te sabido, ó rei, que não serviremos aos teus deuses." },
-    { "ref": "1 Pedro 5:7", "text": "enquanto lançais sobre ele toda a vossa ansiedade, porque ele cuida de vós." },
-    { "ref": "Neemias 8:10", "text": "Pois a alegria de Jeová é a vossa fortaleza." },
-    { "ref": "Salmo 37:4", "text": "Delicia-te em Jeová, e ele concederá os desejos do teu coração." },
-    { "ref": "Isaías 41:10", "text": "Não tenhas medo, pois estou contigo. Não te angusties, pois eu sou o teu Deus. Eu te fortalecerei, sim, te ajudarei, sim, de fato te sustentarei com a minha mão direita de retidão." },
-    { "ref": "Mateus 5:14", "text": "Vós sois a luz do mundo. Uma cidade não pode ser ocultada quando está localizada sobre uma montanha." },
-    { "ref": "João 15:5", "text": "Eu sou a videira; vós sois os ramos. Quem permanecer em união comigo e eu em união com ele, este dará muito fruto; porque separados de mim não podeis fazer coisa alguma." },
-    { "ref": "Apocalipse 21:4", "text": "E ele enxugará toda lágrima dos seus olhos, e a morte não mais existirá, tampouco haverá mais luto nem gritos de dor nem dor. As coisas anteriores passaram." },
-    { "ref": "Romanos 5:8", "text": "Mas Deus recomenda o seu próprio amor por nós em que, enquanto ainda éramos pecadores, Cristo morreu por nós." },
-    { "ref": "Salmo 34:8", "text": "Experimentai e vede que Jeová é bom; feliz é o homem que busca refúgio nele." },
-    { "ref": "Amós 5:24", "text": "Mas que a justiça flua como águas, e a retidão como um ribeiro que nunca seca." },
-    { "ref": "2 Pedro 3:9", "text": "Jeová não está lento com relação à sua promessa, como alguns consideram lentidão, mas é paciente com vós porque não deseja que nenhum seja destruído, mas deseja que todos cheguem ao arrependimento." },
-    { "ref": "Marcos 10:45", "text": "Pois o próprio Filho do homem veio, não para ser servido, mas para servir e dar a sua vida como resgate em troca de muitos." },
-    { "ref": "Lucas 19:10", "text": "Pois o Filho do homem veio para procurar e salvar o que estava perdido." },
-    { "ref": "Hebreus 4:12", "text": "Pois a palavra de Deus está viva e exerce poder e é mais cortante do que qualquer espada de dois gumes e penetra até ao ponto de dividir alma e espírito, e articulações e medula, e é capaz de discernir pensamentos e intenções do coração." },
-    { "ref": "1 Tessalonicenses 5:16–18", "text": "Estai sempre alegres. Orai continuamente. Dai graças por tudo. Pois isto é a vontade de Deus em união com Cristo Jesus para vós." },
-    { "ref": "Joel 2:28", "text": "Depois disso derramarei o meu espírito sobre toda espécie de carne, e os vossos filhos e as vossas filhas certamente profetizarão, os vossos anciãos terão sonhos, e os vossos jovens verão visões." },
-    { "ref": "Zacarias 4:6", "text": "'Não por uma força militar, nem por poder, mas pelo meu espírito', diz Jeová dos exércitos." },
-    { "ref": "Mateus 28:19–20", "text": "Ide, portanto, e fazei discípulos de pessoas de todas as nações, batizando-as em nome do Pai e do Filho e do espírito santo, ensinando-as a observar todas as coisas que vos mandei." },
-    { "ref": "Salmo 103:12", "text": "Assim como o nascente está longe do poente, assim ele pôs as nossas transgressões longe de nós." },
-    { "ref": "Isaías 9:6", "text": "Pois uma criança nos nasceu, um filho nos foi dado; e o governo estará sobre o seu ombro. O seu nome será chamado Conselheiro Maravilhoso, Deus Poderoso, Pai Eterno, Príncipe da Paz." },
-    { "ref": "Judas 3", "text": "Achei necessário escrever-vos para exortar-vos a travar um combate difícil pela fé que foi entregue de uma vez para sempre aos santos." },
-    { "ref": "Malaquias 3:10", "text": "Trazei todo o dízimo ao depósito, para que haja alimento na minha casa; e assim me ponde à prova, por favor, a este respeito', diz Jeová dos exércitos, 'para ver se não abrirei para vós as comportas dos céus e derramarei sobre vós uma bênção até que não haja falta." },
-    { "ref": "Salmo 1:1–2", "text": "Feliz é o homem que não anda segundo o conselho dos ímpios e não se põe no caminho dos pecadores e não se assenta na cadeira dos zombadores. Mas o seu prazer está na lei de Jeová, e medita na sua lei dia e noite." },
-    { "ref": "2 Coríntios 12:9", "text": "Mas ele me disse: 'A minha bondade imerecida é suficiente para ti, pois o meu poder é aperfeiçoado em fraqueza.' Portanto, muito alegremente me gloriarei nas minhas fraquezas, para que o poder de Cristo repouse sobre mim como uma tenda." },
-    { "ref": "Êxodo 14:14", "text": "Jeová lutará por vós, e vós guardareis silêncio." }
+    {
+      "ref": "João 3:16",
+      "text": "Pois Deus amou tanto o mundo que deu o seu Filho unigênito, para que todo aquele que exercer fé nele não seja destruído, mas tenha vida eterna."
+    },
+    {
+      "ref": "Jeremias 29:11",
+      "text": "Pois eu conheço bem os pensamentos que estou pensando a vosso respeito', declara Jeová, 'pensamentos de paz, e não de calamidade, para dar-lhes um futuro e uma esperança."
+    },
+    {
+      "ref": "Filipenses 4:13",
+      "text": "Para todas as coisas tenho força por meio daquele que me dá poder."
+    },
+    {
+      "ref": "Romanos 8:28",
+      "text": "Sabemos que Deus faz todas as suas obras cooperarem juntas para o bem dos que amam a Deus, os que são chamados segundo o seu propósito."
+    },
+    {
+      "ref": "Provérbios 3:5–6",
+      "text": "Confie em Jeová com todo o seu coração e não se apoie no seu próprio entendimento. Em todos os seus caminhos, dê-lhe atenção, e ele endireitará as suas veredas."
+    },
+    {
+      "ref": "Isaías 40:31",
+      "text": "Mas os que esperam em Jeová recuperarão as forças. Elevarão o voo com asas como águias. Correrão e não se cansarão; caminharão e não se fatigarão."
+    },
+    {
+      "ref": "Salmo 23:1",
+      "text": "Jeová é o meu Pastor. Nada me faltará."
+    },
+    {
+      "ref": "Mateus 6:33",
+      "text": "Continuai, pois, a procurar primeiro o Reino e a sua justiça, e todas essas outras coisas lhes serão acrescentadas."
+    },
+    {
+      "ref": "Efésios 2:8–9",
+      "text": "Por esta bondade imerecida fostes salvos mediante a fé, e isto não provém de vós mesmos; é dádiva de Deus. Não, não é resultado de obras, para que ninguém tenha motivo de gabar-se."
+    },
+    {
+      "ref": "2 Timóteo 3:16–17",
+      "text": "Toda a Escritura é inspirada de Deus e benéfica para ensinar, para repreender, para endireitar coisas, para disciplinar em retidão, a fim de que o homem de Deus seja plenamente competente, completamente equipado para toda obra boa."
+    },
+    {
+      "ref": "Isaías 53:5",
+      "text": "Mas ele foi trespassado pela nossa transgressão; foi esmagado pelas nossas erros. O castigo para a nossa paz foi sobre ele, e por meio de seus ferimentos fomos curados."
+    },
+    {
+      "ref": "Lamentações 3:22–23",
+      "text": "É por causa do amor leal de Jeová que não chegamos ao fim, pois as suas misericórdias nunca terminam. São novas a cada manhã; grande é a tua fidelidade!"
+    },
+    {
+      "ref": "Josué 1:9",
+      "text": "Não te ordenei eu mesmo? Sê corajoso e forte. Não te apavores nem te enches de pavor, pois Jeová, o teu Deus, está contigo para onde quer que vás."
+    },
+    {
+      "ref": "Salmo 46:1",
+      "text": "Deus é o nosso refúgio e fortaleza, uma ajuda prontamente encontrada em tempos de angústia."
+    },
+    {
+      "ref": "Romanos 8:38–39",
+      "text": "Pois estou convicto de que nem morte nem vida nem anjos nem governos nem coisas presentes nem coisas por vir nem poderes nem altura nem profundidade nem nenhuma outra criatura poderá separar-nos do amor de Deus que está em Cristo Jesus, o nosso Senhor."
+    },
+    {
+      "ref": "Mateus 11:28",
+      "text": "Vinde a mim, todos os que estais trabalhando arduamente e carregados, e eu vos darei refrigério."
+    },
+    {
+      "ref": "1 Coríntios 13:13",
+      "text": "Agora, porém, estas três coisas permanecem: fé, esperança, amor; a maior delas é o amor."
+    },
+    {
+      "ref": "Hebreus 11:1",
+      "text": "A fé é a expectativa assegurada das coisas esperadas, a demonstração evidente de realidades que não são vistas."
+    },
+    {
+      "ref": "Miquéias 6:8",
+      "text": "Ele te disse, ó homem, o que é bom. E que é que Jeová está requerendo de ti? Apenas exercer justiça, amar a lealdade e caminhar em modéstia com o teu Deus!"
+    },
+    {
+      "ref": "Salmo 119:105",
+      "text": "A tua palavra é lâmpada para os meus pés e luz para o meu caminho."
+    },
+    {
+      "ref": "João 14:6",
+      "text": "Jesus disse-lhe: 'Eu sou o caminho, a verdade e a vida. Ninguém vem ao Pai a não ser por mim.'"
+    },
+    {
+      "ref": "2 Coríntios 5:17",
+      "text": "Portanto, se alguém está em união com Cristo, é uma nova criação; as coisas antigas passaram; vejam! as coisas novas passaram a existir."
+    },
+    {
+      "ref": "Romanos 12:2",
+      "text": "E parem de ser moldados por este sistema de coisas, mas sejam transformados renovando a sua mente, para que possam provar a si mesmos qual é a boa, aceitável e perfeita vontade de Deus."
+    },
+    {
+      "ref": "Deuteronômio 6:4–5",
+      "text": "Ouvi, ó Israel: Jeová, o nosso Deus, é um só Jeová. Deveis amar a Jeová, o vosso Deus, com todo o vosso coração, toda a vossa alma e toda a vossa força."
+    },
+    {
+      "ref": "João 10:10",
+      "text": "O ladrão não vem a não ser para roubar, matar e destruir. Vim para que tenham vida e a tenham em abundância."
+    },
+    {
+      "ref": "Salmo 139:14",
+      "text": "Eu te louvo porque de maneira inspiradora de respeito fui feito de modo maravilhoso. As tuas obras são maravilhosas; eu sei muito bem isso."
+    },
+    {
+      "ref": "Filipenses 4:6–7",
+      "text": "Não vos angustieis por nenhuma coisa, mas em tudo por oração e súplica junto com ação de graças, fazei os vossos pedidos chegarem ao conhecimento de Deus; e a paz de Deus, que supera todo entendimento, guardará os vossos corações e os vossos poderes mentais por meio de Cristo Jesus."
+    },
+    {
+      "ref": "Gênesis 1:1",
+      "text": "No princípio Deus criou os céus e a terra."
+    },
+    {
+      "ref": "Habacuque 2:4",
+      "text": "Mas o justo viverá pela sua fidelidade."
+    },
+    {
+      "ref": "Ezequiel 36:26",
+      "text": "Darei a vós um novo coração e porei um novo espírito dentro de vós, e removerei o coração de pedra do vosso corpo e vos darei um coração de carne."
+    },
+    {
+      "ref": "Sofonias 3:17",
+      "text": "Jeová, o teu Deus, está no teu meio, um poderoso que salvará. Ele se regozijará sobre ti com grande alegria. Em seu amor se tornará silencioso. Exultará sobre ti com gritos de alegria."
+    },
+    {
+      "ref": "1 João 4:8",
+      "text": "Quem não ama não chegou a conhecer a Deus, porque Deus é amor."
+    },
+    {
+      "ref": "Tiago 1:22",
+      "text": "Porém tornai-vos praticantes da palavra, e não apenas ouvintes, iludindo-vos com raciocínio falso."
+    },
+    {
+      "ref": "2 Crônicas 7:14",
+      "text": "Então, se o meu povo sobre o qual o meu nome é chamado se humilhar e orar e procurar a minha face e se afastar dos seus maus caminhos, ouvirei dos céus e perdoarei o seu pecado e curarei a sua terra."
+    },
+    {
+      "ref": "Provérbios 31:25",
+      "text": "Ela é revestida de força e esplendor, e encara o futuro com um sorriso."
+    },
+    {
+      "ref": "Colossenses 3:17",
+      "text": "E tudo o que fizerdes, seja em palavra seja em ação, fazei tudo em nome do Senhor Jesus, dando graças a Deus o Pai por meio dele."
+    },
+    {
+      "ref": "Atos 1:8",
+      "text": "Mas recebereis poder quando o espírito santo vier sobre vós, e sereis testemunhas de mim em Jerusalém, em toda a Judeia e Samaria, e até a parte mais distante da terra."
+    },
+    {
+      "ref": "Rute 1:16",
+      "text": "Para onde fores eu irei, e onde passares a noite eu passarei a noite. O teu povo será o meu povo e o teu Deus será o meu Deus."
+    },
+    {
+      "ref": "Ester 4:14",
+      "text": "E quem sabe se não foi para um tempo como este que chegaste à condição real?"
+    },
+    {
+      "ref": "Jó 19:25",
+      "text": "Pois sei que o meu Redentor vive, e que no final ele se erguerá sobre o pó."
+    },
+    {
+      "ref": "Daniel 3:17–18",
+      "text": "Se assim for, o nosso Deus a quem servimos é capaz de nos livrar da fornalha ardente, ó rei, e ele nos livrará da tua mão. Mas mesmo que não o faça, seja-te sabido, ó rei, que não serviremos aos teus deuses."
+    },
+    {
+      "ref": "1 Pedro 5:7",
+      "text": "enquanto lançais sobre ele toda a vossa ansiedade, porque ele cuida de vós."
+    },
+    {
+      "ref": "Neemias 8:10",
+      "text": "Pois a alegria de Jeová é a vossa fortaleza."
+    },
+    {
+      "ref": "Salmo 37:4",
+      "text": "Delicia-te em Jeová, e ele concederá os desejos do teu coração."
+    },
+    {
+      "ref": "Isaías 41:10",
+      "text": "Não tenhas medo, pois estou contigo. Não te angusties, pois eu sou o teu Deus. Eu te fortalecerei, sim, te ajudarei, sim, de fato te sustentarei com a minha mão direita de retidão."
+    },
+    {
+      "ref": "Mateus 5:14",
+      "text": "Vós sois a luz do mundo. Uma cidade não pode ser ocultada quando está localizada sobre uma montanha."
+    },
+    {
+      "ref": "João 15:5",
+      "text": "Eu sou a videira; vós sois os ramos. Quem permanecer em união comigo e eu em união com ele, este dará muito fruto; porque separados de mim não podeis fazer coisa alguma."
+    },
+    {
+      "ref": "Apocalipse 21:4",
+      "text": "E ele enxugará toda lágrima dos seus olhos, e a morte não mais existirá, tampouco haverá mais luto nem gritos de dor nem dor. As coisas anteriores passaram."
+    },
+    {
+      "ref": "Romanos 5:8",
+      "text": "Mas Deus recomenda o seu próprio amor por nós em que, enquanto ainda éramos pecadores, Cristo morreu por nós."
+    },
+    {
+      "ref": "Salmo 34:8",
+      "text": "Experimentai e vede que Jeová é bom; feliz é o homem que busca refúgio nele."
+    },
+    {
+      "ref": "Amós 5:24",
+      "text": "Mas que a justiça flua como águas, e a retidão como um ribeiro que nunca seca."
+    },
+    {
+      "ref": "2 Pedro 3:9",
+      "text": "Jeová não está lento com relação à sua promessa, como alguns consideram lentidão, mas é paciente com vós porque não deseja que nenhum seja destruído, mas deseja que todos cheguem ao arrependimento."
+    },
+    {
+      "ref": "Marcos 10:45",
+      "text": "Pois o próprio Filho do homem veio, não para ser servido, mas para servir e dar a sua vida como resgate em troca de muitos."
+    },
+    {
+      "ref": "Lucas 19:10",
+      "text": "Pois o Filho do homem veio para procurar e salvar o que estava perdido."
+    },
+    {
+      "ref": "Hebreus 4:12",
+      "text": "Pois a palavra de Deus está viva e exerce poder e é mais cortante do que qualquer espada de dois gumes e penetra até ao ponto de dividir alma e espírito, e articulações e medula, e é capaz de discernir pensamentos e intenções do coração."
+    },
+    {
+      "ref": "1 Tessalonicenses 5:16–18",
+      "text": "Estai sempre alegres. Orai continuamente. Dai graças por tudo. Pois isto é a vontade de Deus em união com Cristo Jesus para vós."
+    },
+    {
+      "ref": "Joel 2:28",
+      "text": "Depois disso derramarei o meu espírito sobre toda espécie de carne, e os vossos filhos e as vossas filhas certamente profetizarão, os vossos anciãos terão sonhos, e os vossos jovens verão visões."
+    },
+    {
+      "ref": "Zacarias 4:6",
+      "text": "'Não por uma força militar, nem por poder, mas pelo meu espírito', diz Jeová dos exércitos."
+    },
+    {
+      "ref": "Mateus 28:19–20",
+      "text": "Ide, portanto, e fazei discípulos de pessoas de todas as nações, batizando-as em nome do Pai e do Filho e do espírito santo, ensinando-as a observar todas as coisas que vos mandei."
+    },
+    {
+      "ref": "Salmo 103:12",
+      "text": "Assim como o nascente está longe do poente, assim ele pôs as nossas transgressões longe de nós."
+    },
+    {
+      "ref": "Isaías 9:6",
+      "text": "Pois uma criança nos nasceu, um filho nos foi dado; e o governo estará sobre o seu ombro. O seu nome será chamado Conselheiro Maravilhoso, Deus Poderoso, Pai Eterno, Príncipe da Paz."
+    },
+    {
+      "ref": "Judas 3",
+      "text": "Achei necessário escrever-vos para exortar-vos a travar um combate difícil pela fé que foi entregue de uma vez para sempre aos santos."
+    },
+    {
+      "ref": "Malaquias 3:10",
+      "text": "Trazei todo o dízimo ao depósito, para que haja alimento na minha casa; e assim me ponde à prova, por favor, a este respeito', diz Jeová dos exércitos, 'para ver se não abrirei para vós as comportas dos céus e derramarei sobre vós uma bênção até que não haja falta."
+    },
+    {
+      "ref": "Salmo 1:1–2",
+      "text": "Feliz é o homem que não anda segundo o conselho dos ímpios e não se põe no caminho dos pecadores e não se assenta na cadeira dos zombadores. Mas o seu prazer está na lei de Jeová, e medita na sua lei dia e noite."
+    },
+    {
+      "ref": "2 Coríntios 12:9",
+      "text": "Mas ele me disse: 'A minha bondade imerecida é suficiente para ti, pois o meu poder é aperfeiçoado em fraqueza.' Portanto, muito alegremente me gloriarei nas minhas fraquezas, para que o poder de Cristo repouse sobre mim como uma tenda."
+    },
+    {
+      "ref": "Êxodo 14:14",
+      "text": "Jeová lutará por vós, e vós guardareis silêncio."
+    }
   ],
   "studyNotes": {
     "title": "Notas de Estudo",
@@ -1155,5 +1535,37 @@
     "studyNotes": "Notas de Estudo",
     "language": "Idioma",
     "proFeature": "🔒 Recurso Pro"
+  },
+  "upm": {
+    "badge": "✦ Premium",
+    "title": "Desbloqueie a experiência completa",
+    "period": "/ mês",
+    "feat": {
+      "aiLabel": "Assistente de Estudo com IA",
+      "aiDesc": "Pergunte ao Claude qualquer coisa sobre qualquer versículo, questão ou passagem",
+      "plansLabel": "Planos de Leitura",
+      "plansDesc": "Planos estruturados de várias semanas em qualquer livro",
+      "notesLabel": "Notas de Estudo",
+      "notesDesc": "Notas em texto rico vinculadas a qualquer passagem ou capítulo",
+      "dmLabel": "Mensagens Diretas",
+      "dmDesc": "Conversas privadas e criptografadas com outros membros",
+      "groupsLabel": "Grupos de Estudo",
+      "groupsDesc": "Chat em grupo e acompanhamento de progresso compartilhado"
+    },
+    "transparency": {
+      "heading": "Para onde vai o seu $3",
+      "hosting": "Hospedagem e infraestrutura (Vercel)",
+      "db": "Banco de dados (Supabase)",
+      "ai": "API de IA (Claude / Anthropic)",
+      "domain": "Nome de domínio",
+      "surplus": "Qualquer excedente após cobrir esses custos vai para apoiar irmãos e irmãs em necessidade e doações para JW.org.",
+      "hardship": "Se a assinatura for um encargo financeiro, por favor",
+      "hardshipLink": "entre em contato",
+      "hardshipSuffix": " — ninguém na fé deve ficar de fora."
+    },
+    "cta": "Assinar com Stripe →",
+    "ctaLoading": "Redirecionando…",
+    "note": "Sem compromisso · Cancele quando quiser · Pagamento seguro via Stripe",
+    "cancel": "Talvez depois"
   }
 }
