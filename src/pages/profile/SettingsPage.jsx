@@ -36,7 +36,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
   const fileRef = useRef(null);
 
   // ── Notifications ─────────────────────────────────────────
-  const { supported: pushSupported, permission, subscribed, loading: pushLoading, subscribe, unsubscribe } = usePushNotifications();
+  const { supported: pushSupported, permission, subscribed, loading: pushLoading, error: pushError, subscribe, unsubscribe } = usePushNotifications();
   const emailBlog   = profile?.email_notifications_blog   ?? false;
   const emailDigest = profile?.email_notifications_digest ?? false;
   const emailStreak = profile?.email_notifications_streak ?? false;
@@ -227,23 +227,33 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
           <h2 className="st-section-title">{t("profile.notificationsTitle")}</h2>
 
           {pushSupported && (
-            <div className="st-toggle-row">
-              <div className="st-toggle-info">
-                <span className="st-toggle-label">{t("profile.notifPushLabel")}</span>
-                <span className="st-toggle-desc">
-                  {permission === "denied" ? t("profile.notifPushDenied") : t("profile.notifPushDesc")}
-                </span>
+            <>
+              <div className="st-toggle-row">
+                <div className="st-toggle-info">
+                  <span className="st-toggle-label">{t("profile.notifPushLabel")}</span>
+                  <span className="st-toggle-desc">
+                    {permission === "denied"
+                      ? t("profile.notifPushDenied")
+                      : subscribed
+                        ? t("profile.notifPushEnabled", "Enabled — you'll receive message notifications")
+                        : t("profile.notifPushDesc")}
+                  </span>
+                </div>
+                <button
+                  role="switch"
+                  aria-checked={subscribed}
+                  className={`pf-toggle${subscribed ? " pf-toggle--on" : ""}${pushLoading ? " pf-toggle--loading" : ""}`}
+                  onClick={subscribed ? unsubscribe : subscribe}
+                  disabled={pushLoading || permission === "denied"}
+                  title={pushLoading ? "Working…" : permission === "denied" ? "Notifications blocked in browser settings" : undefined}
+                >
+                  <span className="pf-toggle-thumb" />
+                </button>
               </div>
-              <button
-                role="switch"
-                aria-checked={subscribed}
-                className={`pf-toggle${subscribed ? " pf-toggle--on" : ""}`}
-                onClick={subscribed ? unsubscribe : subscribe}
-                disabled={pushLoading || permission === "denied"}
-              >
-                <span className="pf-toggle-thumb" />
-              </button>
-            </div>
+              {pushError && (
+                <p className="st-error" style={{ marginTop: 6, fontSize: "0.8rem" }}>{pushError}</p>
+              )}
+            </>
           )}
 
           {emailToggles.map(({ key, value, labelKey, descKey }) => (
