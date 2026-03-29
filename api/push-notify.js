@@ -119,20 +119,36 @@ export default async function handler(req, res) {
       return res.status(200).end("OK");
     }
 
-    const payload = JSON.stringify({
-      title: senderName,
-      body: msgBody,
-      url: "/messages",
-      tag: `msg-${record.conversation_id}`,
-    });
+    // Build per-recipient payloads with their unread notification count for the badge
+    const recipientPayloads = await Promise.all(
+      participants.map(async (p) => {
+        const unreadRows = await sbGet(
+          `/notifications?user_id=eq.${p.user_id}&read=eq.false&select=id`
+        );
+        // +1 for the incoming message itself
+        const badgeCount = (Array.isArray(unreadRows) ? unreadRows.length : 0) + 1;
+        return {
+          user_id: p.user_id,
+          payload: JSON.stringify({
+            title: senderName,
+            body: msgBody,
+            url: "/messages",
+            tag: `msg-${record.conversation_id}`,
+            badge: badgeCount,
+          }),
+        };
+      })
+    );
 
     // Send to all subscriptions, clean up expired ones
     const results = await Promise.allSettled(
       subs.map(async (sub) => {
+        const recipPayload = recipientPayloads.find(r => r.user_id === sub.user_id)?.payload
+          ?? recipientPayloads[0]?.payload;
         try {
           const result = await webpush.sendNotification(
             { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
-            payload,
+            recipPayload,
             { urgency: "high", TTL: 3600 }
           );
           console.log("[push-notify] sent OK to", sub.endpoint?.slice(0, 40), "status:", result.statusCode);

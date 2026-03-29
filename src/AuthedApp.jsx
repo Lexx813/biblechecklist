@@ -51,14 +51,14 @@ const AIToolsPage       = lazy(() => import("./pages/aitools/AIToolsPage"));
 
 const pageFallback = <LoadingSpinner />;
 
-function Page({ children }) {
+function Page({ children, noFooter = false }) {
   return (
     <ErrorBoundary>
       <Suspense fallback={pageFallback}>
         <main id="main-content">
           {children}
         </main>
-        <PageFooter />
+        {!noFooter && <PageFooter />}
       </Suspense>
     </ErrorBoundary>
   );
@@ -133,6 +133,17 @@ function BibleApp({ user, onLogout, i18n }) {
     return () => navigator.serviceWorker?.removeEventListener("message", handler);
   }, []);
 
+  // Clear the app icon badge when the user returns to the app
+  useEffect(() => {
+    function clearBadge() {
+      if ("clearAppBadge" in navigator) navigator.clearAppBadge().catch(() => {});
+    }
+    clearBadge(); // clear on mount
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") clearBadge();
+    });
+  }, []);
+
   const navigate = (page, params = {}) => {
     const path = buildPath(page, params);
     history.pushState(null, "", path);
@@ -190,7 +201,7 @@ function BibleApp({ user, onLogout, i18n }) {
   else if (nav.page === "about")     pageContent = <Page><AboutPage {...sharedNav} /></Page>;
   else if (nav.page === "terms")     pageContent = <Page><TermsPage {...sharedNav} /></Page>;
   else if (nav.page === "privacy")   pageContent = <Page><PrivacyPage {...sharedNav} /></Page>;
-  else if (isPremium && nav.page === "messages")     pageContent = <Page><MessagesPage {...sharedNav} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
+  else if (isPremium && nav.page === "messages")     pageContent = <Page noFooter><MessagesPage {...sharedNav} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
   else if (isPremium && nav.page === "groups")       pageContent = <Page><GroupsPage {...sharedNav} /></Page>;
   else if (isPremium && nav.page === "groupDetail")  pageContent = <Page><GroupDetail {...sharedNav} groupId={nav.groupId} /></Page>;
   // Premium-gated pages for non-premium users → send home (with upgrade prompt)

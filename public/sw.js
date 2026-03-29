@@ -1,4 +1,4 @@
-const CACHE = "nwt-v10";
+const CACHE = "nwt-v11";
 const STATIC_EXTENSIONS = /\.(js|css|png|jpg|jpeg|svg|gif|webp|woff2?|ico)$/;
 
 // Precache critical assets on install so repeat visits are instant
@@ -98,11 +98,16 @@ self.addEventListener("push", (e) => {
       );
       if (focused) return; // app is open on that exact page — don't double-notify
 
+      const badgeCount = typeof data.badge === "number" ? data.badge : 0;
+      if (badgeCount > 0 && "setAppBadge" in self.registration) {
+        self.registration.setAppBadge(badgeCount).catch(() => {});
+      }
+
       return self.registration.showNotification(data.title ?? "NWT Progress", {
         body: data.body ?? "",
         icon: "/icon-192.png",
         badge: "/badge-96.png",
-        data: { url: targetUrl },
+        data: { url: targetUrl, badgeCount },
         tag: data.tag ?? "nwt-notification",
         renotify: true,
         vibrate: [200, 100, 200],
@@ -113,6 +118,10 @@ self.addEventListener("push", (e) => {
 
 self.addEventListener("notificationclick", (e) => {
   e.notification.close();
+  // Clear the app icon badge when user taps the notification
+  if ("clearAppBadge" in self.registration) {
+    self.registration.clearAppBadge().catch(() => {});
+  }
   const url = e.notification.data?.url ?? "/";
   e.waitUntil(
     clients.matchAll({ type: "window", includeUncontrolled: true }).then((list) => {
