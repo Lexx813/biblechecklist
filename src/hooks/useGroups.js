@@ -143,7 +143,8 @@ export function useGroupMessages(groupId) {
         (payload) => {
           queryClient.setQueryData(["group-messages", groupId], (old = []) => {
             if (old.some(m => m.id === payload.new.id)) return old;
-            return [...old, payload.new];
+            const cleaned = old.filter(m => !String(m.id).startsWith("optimistic-"));
+            return [...cleaned, payload.new];
           });
         }
       )

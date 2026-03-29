@@ -27,8 +27,11 @@ export function useMessages(conversationId) {
         { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${conversationId}` },
         (payload) => {
           queryClient.setQueryData(["messages", conversationId], (old = []) => {
+            // Already have the real message — no-op
             if (old.some((m) => m.id === payload.new.id)) return old;
-            return [...old, payload.new];
+            // Strip optimistic placeholders so the real message replaces them
+            const cleaned = old.filter((m) => !String(m.id).startsWith("optimistic-"));
+            return [...cleaned, payload.new];
           });
           queryClient.invalidateQueries({ queryKey: ["conversations"] });
         }
