@@ -26,6 +26,7 @@ export function useMessages(conversationId) {
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${conversationId}` },
         (payload) => {
+          if (!payload?.new?.id) return;
           queryClient.setQueryData(["messages", conversationId], (old = []) => {
             if (old.some((m) => m.id === payload.new.id)) return old;
             const cleaned = old.filter((m) => !String(m.id).startsWith("optimistic-"));
@@ -38,6 +39,7 @@ export function useMessages(conversationId) {
         "postgres_changes",
         { event: "UPDATE", schema: "public", table: "messages", filter: `conversation_id=eq.${conversationId}` },
         (payload) => {
+          if (!payload?.new?.id) return;
           queryClient.setQueryData(["messages", conversationId], (old = []) =>
             old.map(m => m.id === payload.new.id ? { ...m, ...payload.new } : m)
           );
