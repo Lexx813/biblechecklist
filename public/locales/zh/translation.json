@@ -776,7 +776,8 @@
     "unknown": "未知",
     "user": "用户",
     "yesterday": "昨天",
-    "you": "您"
+    "you": "您",
+    "notifBlocked": "通知已被屏蔽 — 请在浏览器设置中启用"
   },
   "aiCompanion": {
     "title": "AI 学习助手",

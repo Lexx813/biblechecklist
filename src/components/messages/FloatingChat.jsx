@@ -512,13 +512,23 @@ function SearchPanel({ convId, onClose }) {
 
 // ── Push notification prompt ───────────────────────────────────────────────────
 
+const PUSH_DISMISS_KEY = "nwt-push-prompt-dismissed";
+
 function PushPrompt({ onDismiss }) {
-  const { supported, permission, subscribe } = usePushNotifications();
-  if (!supported || permission !== "default") return null;
+  const { supported, permission, subscribed, subscribe } = usePushNotifications();
+  if (!supported || subscribed) return null;
+  if (permission !== "default" && permission !== "denied") return null;
   return (
     <div className="fc-push-prompt">
-      <span>🔔 Get notified of new messages</span>
-      <button className="fc-push-btn" onClick={async () => { await subscribe(); onDismiss(); }}>Enable</button>
+      <span className="fc-push-prompt-icon">🔔</span>
+      <span className="fc-push-prompt-text">
+        {permission === "denied"
+          ? "Notifications blocked — enable in browser settings"
+          : "Get notified of new messages"}
+      </span>
+      {permission !== "denied" && (
+        <button className="fc-push-btn" onClick={async () => { await subscribe(); onDismiss(); }}>Enable</button>
+      )}
       <button className="fc-push-dismiss" onClick={onDismiss}>✕</button>
     </div>
   );
@@ -783,7 +793,12 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
   const [showSettings, setShowSettings] = useState(false);
   const [showStarred, setShowStarred] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const [showPushPrompt, setShowPushPrompt] = useState(true);
+  const [showPushPrompt, setShowPushPrompt] = useState(() => {
+    try {
+      const until = localStorage.getItem(PUSH_DISMISS_KEY);
+      return until ? Date.now() >= Number(until) : true;
+    } catch { return true; }
+  });
   const [isPrayerMode, setIsPrayerMode] = useState(false);
   const [pendingImageFile, setPendingImageFile] = useState(null);
   const [sendError, setSendError] = useState(null);
@@ -1021,7 +1036,10 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
       </div>
 
       <div className="fc-composer-wrap">
-        {showPushPrompt && <PushPrompt onDismiss={() => setShowPushPrompt(false)} />}
+        {showPushPrompt && <PushPrompt onDismiss={() => {
+          try { localStorage.setItem(PUSH_DISMISS_KEY, Date.now() + 7 * 24 * 60 * 60 * 1000); } catch {}
+          setShowPushPrompt(false);
+        }} />}
         {showEmoji && <EmojiPicker onSelect={insertEmoji} onClose={() => setShowEmoji(false)} />}
         {replyTo && (
           <div className="fc-reply-preview">
