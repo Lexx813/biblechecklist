@@ -84,18 +84,16 @@ export class ErrorBoundary extends React.Component {
         this.state.error?.message?.includes("Failed to fetch dynamically imported module") ||
         this.state.error?.message?.includes("Importing a module script failed") ||
         this.state.error?.message?.includes("error loading dynamically imported module");
-      // Stale chunk after a new deploy — silently reload once per error occurrence
+
       if (isChunkError) {
-        // Track retries per chunk URL so a second stale chunk doesn't get blocked
-        // by the 30-second window set for the first one.
-        const failedUrl = this.state.error?.message?.match(/https?:\/\/\S+/)?.[0] ?? "unknown";
-        const key = `chunkReloaded:${failedUrl}`;
-        const reloadedAt = sessionStorage.getItem(key);
-        const recentlyReloaded = reloadedAt && Date.now() - Number(reloadedAt) < 30_000;
-        if (!recentlyReloaded) {
-          sessionStorage.setItem(key, String(Date.now()));
-          // Unregister SW and wipe all caches so poisoned/stale chunks are gone,
-          // then reload — next load goes straight to CDN for fresh assets.
+        const lastReload = Number(sessionStorage.getItem("chunkReloadAt") || "0");
+        const reloadCount = Date.now() - lastReload < 60_000
+          ? Number(sessionStorage.getItem("chunkReloadCount") || "0")
+          : 0; // reset if last attempt was >60s ago
+        if (reloadCount < 2) {
+          sessionStorage.setItem("chunkReloadCount", String(reloadCount + 1));
+          sessionStorage.setItem("chunkReloadAt", String(Date.now()));
+          // Unregister SW and wipe all caches so stale chunks are gone, then hard-reload.
           const cleanup = [];
           if ("serviceWorker" in navigator) {
             cleanup.push(
@@ -108,10 +106,23 @@ export class ErrorBoundary extends React.Component {
               caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))))
             );
           }
-          Promise.all(cleanup).finally(() => window.location.reload());
+          // Hard reload with cache-buster so browsers don't serve stale HTML
+          Promise.all(cleanup).finally(() => {
+            const url = new URL(window.location.href);
+            url.searchParams.set("_r", Date.now());
+            window.location.replace(url.toString());
+          });
           return null;
         }
+        // Exceeded retries — show a targeted message
+        return (
+          <ErrorPage
+            error={{ message: "The app was updated. Please reload to get the latest version." }}
+            onReset={null}
+          />
+        );
       }
+
       return (
         <ErrorPage
           error={this.state.error}
