@@ -1156,7 +1156,13 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
 export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, initialConv = null }) {
   const { t } = useTranslation();
   const { data: conversations = [], isLoading } = useConversations();
-  const [activeConv, setActiveConv] = useState(initialConv);
+  const [activeConv, setActiveConv] = useState(() => {
+    if (initialConv) return initialConv;
+    try {
+      const saved = sessionStorage.getItem("msg:activeConv");
+      return saved ? JSON.parse(saved) : null;
+    } catch { return null; }
+  });
   const [convToDelete, setConvToDelete] = useState(null);
   const [search, setSearch] = useState("");
   const [soundEnabled, setSoundEnabled] = useState(true);
@@ -1194,6 +1200,14 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
       },
     });
   }
+
+  // Persist active conversation across reloads
+  useEffect(() => {
+    try {
+      if (activeConv) sessionStorage.setItem("msg:activeConv", JSON.stringify(activeConv));
+      else sessionStorage.removeItem("msg:activeConv");
+    } catch {}
+  }, [activeConv]);
 
   // Upgrade stub conv with full data once list loads
   useEffect(() => {
