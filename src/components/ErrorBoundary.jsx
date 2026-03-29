@@ -106,11 +106,9 @@ export class ErrorBoundary extends React.Component {
               caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))))
             );
           }
-          // Hard reload with cache-buster so browsers don't serve stale HTML
+          // Navigate to root so Vercel always serves the latest index.html
           Promise.all(cleanup).finally(() => {
-            const url = new URL(window.location.href);
-            url.searchParams.set("_r", Date.now());
-            window.location.replace(url.toString());
+            window.location.href = "/";
           });
           return null;
         }
