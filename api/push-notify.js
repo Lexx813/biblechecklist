@@ -113,7 +113,8 @@ export default async function handler(req, res) {
         try {
           await webpush.sendNotification(
             { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
-            payload
+            payload,
+            { urgency: "high", TTL: 3600 }
           );
         } catch (err) {
           // 410 Gone = subscription expired/unsubscribed — remove it
