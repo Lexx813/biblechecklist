@@ -820,4 +820,6 @@
   }
 
   .fc-backdrop { display: none; }
+
+  .fc-fullview-btn { display: none; }
 }

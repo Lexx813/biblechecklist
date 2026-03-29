@@ -480,7 +480,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate }
             </button>
           )}
           <button className="rp-analytics-toggle-btn" onClick={() => setShowAnalytics(v => !v)}>
-            📊 {t("readingPlans.analytics")}
+            {t("readingPlans.analytics")}
           </button>
         </div>
       </div>
@@ -700,7 +700,7 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
             <p className="rp-subtitle">{t("readingPlans.subtitle")}</p>
           </div>
           <button className="rp-custom-plan-btn" onClick={() => setShowCustomModal(true)}>
-            ✨ {t("readingPlans.buildCustom")}
+            {t("readingPlans.buildCustom")}
           </button>
         </div>
       </div>
@@ -725,7 +725,7 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
               <p>{t("readingPlans.noActivePlansDesc")}</p>
               <div className="rp-empty-actions">
                 <button className="rp-primary-btn" onClick={() => setTab("browse")}>{t("readingPlans.browsePlansBtn")}</button>
-                <button className="rp-ghost-btn" onClick={() => setShowCustomModal(true)}>✨ {t("readingPlans.buildCustom")}</button>
+                <button className="rp-ghost-btn" onClick={() => setShowCustomModal(true)}>{t("readingPlans.buildCustom")}</button>
               </div>
             </div>
           ) : (
