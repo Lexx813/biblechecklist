@@ -33,12 +33,18 @@ if (VAPID_PUBLIC && VAPID_PRIVATE) {
 // ── Supabase REST helper (service role — bypasses RLS) ──────────────────────
 
 async function sbGet(path) {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1${path}`, {
+  const url = `${SUPABASE_URL}/rest/v1${path}`;
+  const res = await fetch(url, {
     headers: {
       apikey: SERVICE_KEY,
       Authorization: `Bearer ${SERVICE_KEY}`,
     },
   });
+  if (!res.ok) {
+    const text = await res.text();
+    console.error("[push-notify] sbGet failed:", res.status, url, text.slice(0, 200));
+    return [];
+  }
   return res.json();
 }
 
@@ -62,11 +68,17 @@ export default async function handler(req, res) {
   // Verify webhook secret
   const incomingSecret = req.headers["x-webhook-secret"] ?? "";
   if (WEBHOOK_SECRET && incomingSecret !== WEBHOOK_SECRET) {
+    console.warn("[push-notify] Unauthorized — bad webhook secret");
     return res.status(401).end("Unauthorized");
   }
 
-  const { type, record } = req.body ?? {};
+  const body = req.body ?? {};
+  const { type, record, table } = body;
+
+  console.log("[push-notify] webhook received — type:", type, "table:", table, "record keys:", Object.keys(record ?? {}));
+
   if (type !== "INSERT" || !record?.conversation_id || !record?.sender_id) {
+    console.log("[push-notify] skipping — not an INSERT with conversation_id+sender_id");
     return res.status(200).end("OK");
   }
 
@@ -81,7 +93,10 @@ export default async function handler(req, res) {
     const participants = await sbGet(
       `/conversation_participants?conversation_id=eq.${record.conversation_id}&user_id=neq.${record.sender_id}&select=user_id`
     );
+    console.log("[push-notify] participants found:", participants.length, participants);
+
     if (!Array.isArray(participants) || participants.length === 0) {
+      console.log("[push-notify] no other participants, skipping");
       return res.status(200).end("OK");
     }
 
@@ -90,13 +105,17 @@ export default async function handler(req, res) {
       `/profiles?id=eq.${record.sender_id}&select=display_name`
     );
     const senderName = senderRows?.[0]?.display_name ?? "Someone";
+    console.log("[push-notify] sender:", senderName);
 
     // Get push subscriptions for each recipient
     const recipientIds = participants.map(p => p.user_id).join(",");
     const subs = await sbGet(
-      `/push_subscriptions?user_id=in.(${recipientIds})&select=endpoint,p256dh,auth`
+      `/push_subscriptions?user_id=in.(${recipientIds})&select=endpoint,p256dh,auth,user_id`
     );
+    console.log("[push-notify] subscriptions found:", subs.length, subs.map(s => ({ user_id: s.user_id, ep: s.endpoint?.slice(0, 40) })));
+
     if (!Array.isArray(subs) || subs.length === 0) {
+      console.log("[push-notify] no push subscriptions for recipients");
       return res.status(200).end("OK");
     }
 
@@ -108,28 +127,35 @@ export default async function handler(req, res) {
     });
 
     // Send to all subscriptions, clean up expired ones
-    await Promise.allSettled(
+    const results = await Promise.allSettled(
       subs.map(async (sub) => {
         try {
-          await webpush.sendNotification(
+          const result = await webpush.sendNotification(
             { endpoint: sub.endpoint, keys: { p256dh: sub.p256dh, auth: sub.auth } },
             payload,
             { urgency: "high", TTL: 3600 }
           );
+          console.log("[push-notify] sent OK to", sub.endpoint?.slice(0, 40), "status:", result.statusCode);
+          return "ok";
         } catch (err) {
+          console.error("[push-notify] sendNotification failed:", err.statusCode, err.body, sub.endpoint?.slice(0, 40));
           // 410 Gone = subscription expired/unsubscribed — remove it
-          if (err.statusCode === 410) {
+          // 410/404 = expired; 401 = VAPID key mismatch — all mean remove
+          if (err.statusCode === 410 || err.statusCode === 404 || err.statusCode === 401) {
             await sbDelete(
               `/push_subscriptions?endpoint=eq.${encodeURIComponent(sub.endpoint)}`
             );
+            console.log("[push-notify] removed stale/invalid subscription, status:", err.statusCode);
           }
+          return `err-${err.statusCode}`;
         }
       })
     );
 
+    console.log("[push-notify] results:", results.map(r => r.value ?? r.reason));
     return res.status(200).end("OK");
   } catch (err) {
-    console.error("[push-notify]", err);
+    console.error("[push-notify] unexpected error:", err);
     return res.status(500).end("Internal Server Error");
   }
 }
