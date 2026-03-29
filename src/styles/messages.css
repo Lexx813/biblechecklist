@@ -582,6 +582,12 @@
   border-color: rgba(138, 75, 255, 0.2);
 }
 
+[data-theme="dark"] .msg-bubble--mine {
+  background: var(--conv-accent, linear-gradient(135deg, var(--teal), #5b21b6));
+  color: #fff;
+  border-color: transparent;
+}
+
 .msg-bubble--mine {
   background: var(--conv-accent, linear-gradient(135deg, var(--teal), #5b21b6));
   border-color: transparent;
