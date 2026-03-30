@@ -356,25 +356,61 @@ body { font-family: 'Plus Jakarta Sans Variable', sans-serif; background: var(--
   padding: 0; min-width: 0;
 }
 
-/* WOL link — hidden until hover, appears as tiny corner link */
+/* WOL link — hidden until hover, appears as styled badge with tooltip */
 .ch-pill-wol {
   display: none;
   position: absolute;
-  top: -6px; right: -6px;
-  width: 14px; height: 14px;
-  background: var(--teal);
+  top: -7px; right: -7px;
+  width: 16px; height: 16px;
+  background: linear-gradient(135deg, #5b8dd9, #3a6bbf);
   color: #fff;
-  font-size: 8px;
-  font-weight: 800;
   border-radius: 50%;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  line-height: 1;
   z-index: 10;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 6px rgba(58,107,191,0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .ch-pill:hover .ch-pill-wol { display: flex; }
+.ch-pill-wol:hover {
+  transform: scale(1.2);
+  box-shadow: 0 3px 10px rgba(58,107,191,0.6);
+}
+
+.ch-pill-wol-icon {
+  font-size: 8px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.ch-pill-wol-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 50%;
+  transform: translateX(50%);
+  white-space: nowrap;
+  background: rgba(15, 5, 35, 0.95);
+  color: #e0d6ff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(91,141,217,0.35);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.ch-pill-wol-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(15, 5, 35, 0.95);
+}
+.ch-pill-wol:hover .ch-pill-wol-tooltip { opacity: 1; }
 
 .ch-actions { display: flex; gap: 8px; margin-top: 10px; }
 .ch-action-btn {
@@ -510,9 +546,10 @@ body { font-family: 'Plus Jakarta Sans Variable', sans-serif; background: var(--
   border: 1px solid var(--border);
   border-radius: var(--radius);
   width: 100%; max-width: 520px;
+  max-height: 90vh;
   box-shadow: 0 8px 40px rgba(0,0,0,0.18);
   display: flex; flex-direction: column; gap: 0;
-  overflow: hidden;
+  overflow-y: auto;
 }
 .qn-header {
   display: flex; align-items: center; justify-content: space-between;

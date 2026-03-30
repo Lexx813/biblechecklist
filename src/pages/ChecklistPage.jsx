@@ -13,6 +13,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import BookCelebration from "../components/BookCelebration";
 import { useProgress, useSaveProgress, useChapterTimestamps, useReadingStreak } from "../hooks/useProgress";
 import { useSubscription } from "../hooks/useSubscription";
+import { useFeatureFlags } from "../hooks/useFeatureFlags";
 import { progressApi } from "../api/progress";
 import { useNotes, useCreateNote } from "../hooks/useNotes";
 import { readingApi } from "../api/reading";
@@ -290,6 +291,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
 
 function QuickNoteModal({ userId, bookIndex, onClose, isPremium }) {
   const { t } = useTranslation();
+  const { aiEnabled } = useFeatureFlags();
   const createNote = useCreateNote(userId);
   const book = BOOKS[bookIndex];
   const totalChapters = book?.chapters ?? 1;
@@ -381,7 +383,7 @@ function QuickNoteModal({ userId, bookIndex, onClose, isPremium }) {
           </div>
         </form>
 
-        {isPremium && (
+        {isPremium && aiEnabled && (
           <AICompanion
             reference={`${bookName} ${chapter}${verse ? `:${verse}` : ""}`}
             passage={`${bookName} chapter ${chapter}${verse ? ` verse ${verse}` : ""}`}

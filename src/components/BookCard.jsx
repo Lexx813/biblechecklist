@@ -150,9 +150,11 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                     href={wolChapterUrl(bookIndex, ch)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    title={`Read on JW.org`}
                     onClick={e => e.stopPropagation()}
-                  >↗</a>
+                  >
+                    <span className="ch-pill-wol-icon">↗</span>
+                    <span className="ch-pill-wol-tooltip">Read on JW.org</span>
+                  </a>
                 </div>
               );
             })}
