@@ -20,13 +20,10 @@ import { forumApi } from "../../api/forum";
 import { useCategories } from "../../hooks/useForum";
 import { useQueryClient } from "@tanstack/react-query";
 import "../../styles/admin.css";
+import { formatDate } from "../../utils/formatters";
 
 function initials(email) {
   return email ? email[0].toUpperCase() : "?";
-}
-
-function formatDate(iso) {
-  return new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
 
 // ── Users Tab ─────────────────────────────────────────────────────────────────

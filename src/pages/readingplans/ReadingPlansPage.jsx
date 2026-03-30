@@ -29,6 +29,7 @@ import {
 } from "../../data/readingPlanTemplates";
 import { wolChapterUrl } from "../../utils/wol";
 import "../../styles/reading-plans.css";
+import { formatDate } from "../../utils/formatters";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -50,10 +51,6 @@ function effectiveDay(plan) {
     pausedDays += Math.max(0, Math.floor((today - pausedDate) / 86400000));
   }
   return Math.max(1, raw - pausedDays);
-}
-
-function formatDate(iso) {
-  return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
 }
 
 function projectedFinish(plan, completedCount, totalDays) {

@@ -13,6 +13,7 @@ import { useMeta } from "../../hooks/useMeta";
 import "../../styles/blog.css";
 import "../../styles/editor.css";
 import "../../styles/mentions.css";
+import { formatDate, authorName as authorNameUtil } from "../../utils/formatters";
 
 // Curated Unsplash fallback images for posts without a cover photo.
 // All are bible / nature / faith themed and freely available via the CDN.
@@ -40,13 +41,9 @@ function getFallbackImage(id) {
   return FALLBACK_IMAGES[hashId(id) % FALLBACK_IMAGES.length];
 }
 
-function formatDate(iso) {
-  return new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
-}
-
-function authorName(post) {
-  return post.profiles?.display_name || post.profiles?.email?.split("@")[0] || "Anonymous";
-}
+// BlogPage uses long month format and a post-shaped object
+function formatDateLong(iso) { return formatDate(iso, "long"); }
+function authorName(post) { return authorNameUtil(post); }
 
 function authorInitial(post) {
   return (post.profiles?.display_name || post.profiles?.email || "A")[0].toUpperCase();
@@ -241,7 +238,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
               </div>
               <span>{authorName(post)}</span>
               <span className="blog-dot">·</span>
-              <span>{formatDate(post.created_at)}</span>
+              <span>{formatDateLong(post.created_at)}</span>
               <span className="blog-dot">·</span>
               <span>{t("blog.minRead", { count: minRead })}</span>
             </div>
@@ -399,7 +396,7 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user, lang }
           </div>
           <span className="blog-card-author">{authorName(post)}</span>
           <span className="blog-dot">·</span>
-          <span className="blog-card-date">{formatDate(post.created_at)}</span>
+          <span className="blog-card-date">{formatDateLong(post.created_at)}</span>
           <span className="blog-card-readtime">{t("blog.minRead", { count: minRead })}</span>
           {post.like_count > 0 && (
             <span className="blog-card-likes">👍 {post.like_count}</span>

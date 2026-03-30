@@ -23,12 +23,9 @@ import {
   useToggleNoteLike,
 } from "../../hooks/useStudyNotes";
 import "../../styles/study-notes.css";
+import { formatDate, stripHtml } from "../../utils/formatters";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
-
-function formatDate(iso) {
-  return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
-}
 
 function passageLabel(note) {
   if (note.book_index == null) return null;
@@ -37,11 +34,6 @@ function passageLabel(note) {
   if (note.chapter) label += ` ${note.chapter}`;
   if (note.verse) label += `:${note.verse}`;
   return label;
-}
-
-function stripHtml(html) {
-  if (!html) return "";
-  return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 }
 
 const EMPTY_NOTE = { title: "", content: "", tags: [], book_index: null, chapter: null, verse: "", is_public: false, folder_id: null };
