@@ -608,6 +608,37 @@
   white-space: nowrap;
 }
 
+.home-note-row-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.home-note-avatar {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: rgba(138, 75, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s;
+  overflow: hidden;
+}
+.home-note-avatar:hover { opacity: 0.8; }
+.home-note-avatar-img { width: 100%; height: 100%; object-fit: cover; }
+.home-note-avatar-initials {
+  font-size: 14px;
+  font-weight: 700;
+  color: #c4b5fd;
+}
+
 .home-note-like-btn {
   background: none;
   border: none;
