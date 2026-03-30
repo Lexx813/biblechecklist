@@ -260,11 +260,13 @@ body { font-family: 'Plus Jakarta Sans Variable', sans-serif; background: var(--
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  overflow: hidden;
+  overflow: visible;
   transition: box-shadow var(--dur-base) var(--ease-out),
               border-color var(--dur-base) var(--ease-out),
               transform var(--dur-base) var(--ease-spring);
 }
+.book-row { border-radius: var(--radius) var(--radius) 0 0; }
+.chapters-panel { border-radius: 0 0 var(--radius) var(--radius); }
 .book-card:hover {
   box-shadow: var(--shadow-lg);
   border-color: var(--teal-mid);
@@ -326,7 +328,7 @@ body { font-family: 'Plus Jakarta Sans Variable', sans-serif; background: var(--
 }
 .ch-section-label::after { content: ''; flex: 1; height: 1px; background: var(--teal-mid); }
 
-.ch-grid { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
+.ch-grid { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; position: relative; }
 
 .ch-pill {
   width: 34px; height: 34px; border-radius: var(--radius-sm);
@@ -344,6 +346,7 @@ body { font-family: 'Plus Jakarta Sans Variable', sans-serif; background: var(--
   border-color: var(--teal); color: var(--teal);
   transform: scale(1.15) translateY(-1px);
   box-shadow: 0 4px 12px rgba(106,61,170,0.25);
+  z-index: 100;
 }
 .ch-pill.done { background: var(--teal); border-color: var(--teal); color: #fff; }
 .ch-pill.done:hover { background: var(--teal-dark); transform: scale(1.08); }
@@ -737,7 +740,7 @@ body { font-family: 'Plus Jakarta Sans Variable', sans-serif; background: var(--
 
 .ch-pill-tooltip {
   position: absolute;
-  bottom: calc(100% + 7px);
+  top: calc(100% + 7px);
   left: 50%;
   transform: translateX(-50%);
   background: #1e1035;
@@ -753,7 +756,7 @@ body { font-family: 'Plus Jakarta Sans Variable', sans-serif; background: var(--
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.15s;
-  z-index: 50;
+  z-index: 100;
   box-shadow: 0 4px 14px rgba(0,0,0,0.35);
   border: 1px solid rgba(255,255,255,0.1);
   text-align: left;
@@ -761,10 +764,10 @@ body { font-family: 'Plus Jakarta Sans Variable', sans-serif; background: var(--
 .ch-pill-tooltip::after {
   content: '';
   position: absolute;
-  top: 100%; left: 50%;
+  bottom: 100%; left: 50%;
   transform: translateX(-50%);
   border: 5px solid transparent;
-  border-top-color: #1e1035;
+  border-bottom-color: #1e1035;
 }
 .ch-pill:hover .ch-pill-tooltip { opacity: 1; }
 

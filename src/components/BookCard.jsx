@@ -138,13 +138,12 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                   <button
                     className="ch-pill-toggle"
                     onClick={() => onToggleChapter(bookIndex, ch)}
-                    title={tooltipText ?? t("book.chapterTitle", { ch })}
                   >
                     {ch}
-                    {tooltipText && (
-                      <span className="ch-pill-tooltip">{tooltipText}</span>
-                    )}
                   </button>
+                  {tooltipText && (
+                    <span className="ch-pill-tooltip">{tooltipText}</span>
+                  )}
                   <a
                     className="ch-pill-wol"
                     href={wolChapterUrl(bookIndex, ch)}
