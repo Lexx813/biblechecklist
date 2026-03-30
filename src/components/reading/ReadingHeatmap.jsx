@@ -48,8 +48,13 @@ export default function ReadingHeatmap({ data = [], dailyGoal = 3 }) {
                   key={di}
                   className="heatmap-cell"
                   data-level={cell ? cell.level : (di < week.length ? 0 : -1)}
-                  title={cell ? `${cell.date}: ${cell.chapters} chapter${cell.chapters !== 1 ? "s" : ""}` : ""}
-                />
+                >
+                  {cell && (
+                    <span className="heatmap-tooltip">
+                      {cell.date}<br />{cell.chapters} chapter{cell.chapters !== 1 ? "s" : ""}
+                    </span>
+                  )}
+                </div>
               );
             })}
           </div>
