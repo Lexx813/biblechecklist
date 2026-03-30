@@ -79,6 +79,7 @@ export default function ReadingPlanWidget({ userId, dailyGoal = 3, readonly = fa
         <div className="reading-plan-goal-row">
           {editingGoal ? (
             <>
+              <span className="reading-plan-goal-label">Daily goal:</span>
               <input
                 id="reading-plan-goal"
                 name="daily_goal"

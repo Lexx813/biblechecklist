@@ -21,6 +21,7 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 import "../../styles/profile.css";
 import "../../styles/social.css";
+import { formatDate } from "../../utils/formatters";
 
 const TOTAL_CHAPTERS = BOOKS.reduce((s, b) => s + b.chapters, 0);
 
@@ -34,10 +35,6 @@ const LEVEL_BADGES = [
 ];
 
 const OT_COUNT = 39;
-
-function formatDate(iso) {
-  return new Date(iso).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
-}
 
 function Initials({ name, email }) {
   const str = name || email || "?";

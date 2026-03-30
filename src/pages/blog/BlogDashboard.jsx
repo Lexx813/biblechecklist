@@ -8,12 +8,9 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import { useMyPosts, useCreatePost, useUpdatePost, useDeletePost } from "../../hooks/useBlog";
 import { blogApi } from "../../api/blog";
 import "../../styles/blog.css";
+import { formatDate } from "../../utils/formatters";
 
 const EMPTY_FORM = { title: "", excerpt: "", content: "", cover_url: "", published: false };
-
-function formatDate(iso) {
-  return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
-}
 
 // ── Post editor ───────────────────────────────────────────────────────────────
 function PostEditor({ userId, post, onDone }) {

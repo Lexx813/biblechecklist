@@ -3,10 +3,14 @@ import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import { useTopThreads } from "../hooks/useForum";
 import { usePublicNotes, useToggleNoteLike } from "../hooks/useStudyNotes";
+import { formatDate, authorName, formatNum } from "../utils/formatters";
+import { BOOKS } from "../data/books";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
 import DailyVerse from "../components/home/DailyVerse";
 import PageNav from "../components/PageNav";
+import SectionHeader from "../components/SectionHeader";
+import EmptyState from "../components/EmptyState";
 import OnboardingModal, { useOnboarding } from "../components/OnboardingModal";
 import "../styles/home.css";
 
@@ -21,18 +25,6 @@ const GRADIENTS = [
 
 function getGradient(id) {
   return GRADIENTS[(id?.charCodeAt(0) ?? 0) % GRADIENTS.length];
-}
-
-function formatDate(iso) {
-  return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
-}
-
-function authorName(obj) {
-  return obj?.profiles?.display_name || obj?.profiles?.email?.split("@")[0] || "Anonymous";
-}
-
-function formatNum(n) {
-  return (n ?? 0).toLocaleString();
 }
 
 function BlogSkeleton() {
@@ -168,9 +160,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
       {/* ── Bible Tracker section ── */}
       <section className="home-section">
-        <div className="home-section-label">{t("home.trackerLabel")}</div>
-        <h2 className="home-section-title">{t("home.trackerTitle")}</h2>
-        <p className="home-section-sub">{t("home.trackerSub")}</p>
+        <SectionHeader label={t("home.trackerLabel")} title={t("home.trackerTitle")} sub={t("home.trackerSub")} />
 
         <div className="home-tracker-card" onClick={() => navigate("main")}>
           <div className="home-tracker-visual">
@@ -212,9 +202,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
       {/* ── Quiz section ── */}
       <section className="home-section">
-        <div className="home-section-label">{t("quiz.homeLabel")}</div>
-        <h2 className="home-section-title">{t("quiz.homeTitle")}</h2>
-        <p className="home-section-sub">{t("quiz.homeSub")}</p>
+        <SectionHeader label={t("quiz.homeLabel")} title={t("quiz.homeTitle")} sub={t("quiz.homeSub")} />
 
         <div className="home-tracker-card" onClick={() => navigate("quiz")}>
           <div className="home-tracker-visual">
@@ -238,40 +226,21 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
       {/* ── Community Notes section ── */}
       <section className="home-section">
-        <div className="home-section-label">📝 Community</div>
-        <div className="home-section-row">
-          <div>
-            <h2 className="home-section-title">Community Notes</h2>
-            <p className="home-section-sub">Insights and reflections shared by brothers and sisters.</p>
-          </div>
-          <button className="home-section-link" onClick={() => navigate("studyNotes", { tab: "public" })}>
-            See all
-          </button>
-        </div>
+        <SectionHeader
+          label="📝 Community"
+          title="Community Notes"
+          sub="Insights and reflections shared by brothers and sisters."
+          onViewAll={() => navigate("studyNotes", { tab: "public" })}
+          viewAllLabel="See all"
+        />
 
-        {notesLoading ? (
-          <div className="home-forum-list">
-            {[0,1,2,3].map(i => (
-              <div key={i} className="home-forum-row" style={{ pointerEvents: "none" }}>
-                <div className="home-forum-row-body" style={{ gap: 8 }}>
-                  <div className="skeleton" style={{ height: 16, width: "70%", borderRadius: 6 }}>&nbsp;</div>
-                  <div className="skeleton" style={{ height: 11, width: "40%", borderRadius: 6 }}>&nbsp;</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : previewNotes.length === 0 ? (
-          <div className="home-empty">
-            <div className="home-empty-icon">📝</div>
-            <p className="home-empty-title">No public notes yet</p>
-            <p className="home-empty-sub">Be the first to share a study note with the community.</p>
-            <button className="home-empty-btn" onClick={() => navigate("studyNotes", { tab: "public" })}>Write a note →</button>
-          </div>
+        {notesLoading ? <ForumSkeleton /> : previewNotes.length === 0 ? (
+          <EmptyState icon="📝" title="No public notes yet" sub="Be the first to share a study note with the community." btnLabel="Write a note →" onBtn={() => navigate("studyNotes", { tab: "public" })} />
         ) : (
           <div className="home-forum-list">
             {previewNotes.map(note => {
               const passage = note.book_index != null
-                ? `${["Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes","Song of Solomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi","Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"][note.book_index] ?? ""} ${note.chapter ?? ""}`.trim()
+                ? `${BOOKS[note.book_index]?.name ?? ""} ${note.chapter ?? ""}`.trim()
                 : null;
               return (
                 <div key={note.id} className="home-forum-row" onClick={() => navigate("studyNotes", { tab: "public" })}>
@@ -314,24 +283,16 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
       {/* ── Blog section ── */}
       <section className="home-section">
-        <div className="home-section-label">{t("home.blogLabel")}</div>
-        <div className="home-section-row">
-          <div>
-            <h2 className="home-section-title">{t("home.blogTitle")}</h2>
-            <p className="home-section-sub">{t("home.blogSub")}</p>
-          </div>
-          <button className="home-section-link" onClick={() => navigate("blog")}>
-            {t("home.blogViewAll")}
-          </button>
-        </div>
+        <SectionHeader
+          label={t("home.blogLabel")}
+          title={t("home.blogTitle")}
+          sub={t("home.blogSub")}
+          onViewAll={() => navigate("blog")}
+          viewAllLabel={t("home.blogViewAll")}
+        />
 
         {postsLoading ? <BlogSkeleton /> : blogPreview.length === 0 ? (
-          <div className="home-empty">
-            <div className="home-empty-icon">✍️</div>
-            <p className="home-empty-title">No posts yet</p>
-            <p className="home-empty-sub">Be the first to share something with the community.</p>
-            <button className="home-empty-btn" onClick={() => navigate("blogDash")}>Write a post →</button>
-          </div>
+          <EmptyState icon="✍️" title="No posts yet" sub="Be the first to share something with the community." btnLabel="Write a post →" onBtn={() => navigate("blogDash")} />
         ) : (
           <div className="home-blog-grid">
             {blogPreview.map((post, i) => (
@@ -366,24 +327,16 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
       {/* ── Forum section ── */}
       <section className="home-section">
-        <div className="home-section-label">{t("home.forumLabel")}</div>
-        <div className="home-section-row">
-          <div>
-            <h2 className="home-section-title">{t("home.forumTitle")}</h2>
-            <p className="home-section-sub">{t("home.forumSub")}</p>
-          </div>
-          <button className="home-section-link" onClick={() => navigate("forum")}>
-            {t("home.forumViewAll")}
-          </button>
-        </div>
+        <SectionHeader
+          label={t("home.forumLabel")}
+          title={t("home.forumTitle")}
+          sub={t("home.forumSub")}
+          onViewAll={() => navigate("forum")}
+          viewAllLabel={t("home.forumViewAll")}
+        />
 
         {threadsLoading ? <ForumSkeleton /> : topThreads.length === 0 ? (
-          <div className="home-empty">
-            <div className="home-empty-icon">💬</div>
-            <p className="home-empty-title">No discussions yet</p>
-            <p className="home-empty-sub">Start the first conversation in the community.</p>
-            <button className="home-empty-btn" onClick={() => navigate("forum")}>Start a thread →</button>
-          </div>
+          <EmptyState icon="💬" title="No discussions yet" sub="Start the first conversation in the community." btnLabel="Start a thread →" onBtn={() => navigate("forum")} />
         ) : (
           <div className="home-forum-list">
             {topThreads.map(thread => (
