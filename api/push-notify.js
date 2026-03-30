@@ -65,10 +65,10 @@ export default async function handler(req, res) {
     return res.status(405).end("Method Not Allowed");
   }
 
-  // Verify webhook secret
+  // Verify webhook secret — reject all requests if secret is not configured
   const incomingSecret = req.headers["x-webhook-secret"] ?? "";
-  if (WEBHOOK_SECRET && incomingSecret !== WEBHOOK_SECRET) {
-    console.warn("[push-notify] Unauthorized — bad webhook secret");
+  if (!WEBHOOK_SECRET || incomingSecret !== WEBHOOK_SECRET) {
+    console.warn("[push-notify] Unauthorized — bad or missing webhook secret");
     return res.status(401).end("Unauthorized");
   }
 

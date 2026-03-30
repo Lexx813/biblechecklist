@@ -135,7 +135,7 @@ export default async function handler(req) {
   if (req.method === "OPTIONS") {
     return new Response(null, {
       headers: {
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "https://nwtprogress.com",
         "Access-Control-Allow-Headers": "authorization, content-type",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
       },
@@ -220,7 +220,7 @@ export default async function handler(req) {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
       "X-Accel-Buffering": "no",
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": "https://nwtprogress.com",
     },
   });
 }

@@ -98,7 +98,7 @@ export default async function handler(req) {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
       "X-Accel-Buffering": "no",
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": "https://nwtprogress.com",
     },
   });
 }
