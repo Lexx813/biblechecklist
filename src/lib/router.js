@@ -24,7 +24,8 @@ export function parsePath() {
   if (h === "groups") return { page: "groups" };
   if (h.startsWith("groups/")) return { page: "groupDetail", groupId: h.slice(7) };
   if (h === "reading-plans") return { page: "readingPlans" };
-  if (h === "study-notes")   return { page: "studyNotes" };
+  if (h === "study-notes")            return { page: "studyNotes" };
+  if (h === "study-notes/community")  return { page: "studyNotes", tab: "public" };
   if (h === "ai-tools")      return { page: "aiTools" };
   if (h === "leaderboard")   return { page: "leaderboard" };
   if (h === "about") return { page: "about" };
@@ -54,7 +55,7 @@ export function buildPath(page, params = {}) {
     case "groups":       return "/groups";
     case "groupDetail":  return "/groups/" + params.groupId;
     case "readingPlans": return "/reading-plans";
-    case "studyNotes":   return "/study-notes";
+    case "studyNotes":   return params.tab === "public" ? "/study-notes/community" : "/study-notes";
     case "aiTools":      return "/ai-tools";
     case "leaderboard":  return "/leaderboard";
     case "about":         return "/about";

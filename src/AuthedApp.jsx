@@ -196,7 +196,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (nav.page === "history")   pageContent = <Page><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Page>;
   else if (nav.page === "feed")      pageContent = <Page><ActivityFeed user={user} {...sharedNav} /></Page>;
   else if (isPremium && nav.page === "readingPlans") pageContent = <Page><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></Page>;
-  else if (isPremium && nav.page === "studyNotes")   pageContent = <Page><StudyNotesPage user={user} navigate={navigate} {...sharedNav} /></Page>;
+  else if (isPremium && nav.page === "studyNotes")   pageContent = <Page><StudyNotesPage user={user} navigate={navigate} initialTab={nav.tab ?? "mine"} {...sharedNav} /></Page>;
   else if (nav.page === "aiTools" && aiEnabled) pageContent = <Page><AIToolsPage user={user} {...sharedNav} /></Page>;
   else if (nav.page === "leaderboard") pageContent = <Page><LeaderboardPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "about")     pageContent = <Page><AboutPage {...sharedNav} /></Page>;

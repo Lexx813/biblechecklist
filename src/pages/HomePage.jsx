@@ -244,7 +244,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <h2 className="home-section-title">Community Notes</h2>
             <p className="home-section-sub">Insights and reflections shared by brothers and sisters.</p>
           </div>
-          <button className="home-section-link" onClick={() => navigate("studyNotes")}>
+          <button className="home-section-link" onClick={() => navigate("studyNotes", { tab: "public" })}>
             See all
           </button>
         </div>
@@ -265,7 +265,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <div className="home-empty-icon">📝</div>
             <p className="home-empty-title">No public notes yet</p>
             <p className="home-empty-sub">Be the first to share a study note with the community.</p>
-            <button className="home-empty-btn" onClick={() => navigate("studyNotes")}>Write a note →</button>
+            <button className="home-empty-btn" onClick={() => navigate("studyNotes", { tab: "public" })}>Write a note →</button>
           </div>
         ) : (
           <div className="home-forum-list">
@@ -274,14 +274,26 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 ? `${["Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1 Samuel","2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah","Esther","Job","Psalms","Proverbs","Ecclesiastes","Song of Solomon","Isaiah","Jeremiah","Lamentations","Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk","Zephaniah","Haggai","Zechariah","Malachi","Matthew","Mark","Luke","John","Acts","Romans","1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians","1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews","James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"][note.book_index] ?? ""} ${note.chapter ?? ""}`.trim()
                 : null;
               return (
-                <div key={note.id} className="home-forum-row" onClick={() => navigate("studyNotes")}>
-                  <div className="home-forum-row-body">
-                    <h4 className="home-forum-row-title">{note.title || "Untitled"}</h4>
-                    <div className="home-forum-row-meta">
-                      <span>👤 {note.author?.display_name ?? "Anonymous"}</span>
-                      {passage && <><span className="home-dot">·</span><span>📖 {passage}</span></>}
-                      <span className="home-dot">·</span>
-                      <span>{formatDate(note.updated_at)}</span>
+                <div key={note.id} className="home-forum-row" onClick={() => navigate("studyNotes", { tab: "public" })}>
+                  <div className="home-note-row-left">
+                    <button
+                      className="home-note-avatar"
+                      onClick={e => { e.stopPropagation(); navigate("publicProfile", { userId: note.user_id }); }}
+                      title={note.author?.display_name ?? "Anonymous"}
+                    >
+                      {note.author?.avatar_url
+                        ? <img src={note.author.avatar_url} alt={note.author.display_name} className="home-note-avatar-img" />
+                        : <span className="home-note-avatar-initials">{(note.author?.display_name ?? "A")[0].toUpperCase()}</span>
+                      }
+                    </button>
+                    <div className="home-forum-row-body">
+                      <h4 className="home-forum-row-title">{note.title || "Untitled"}</h4>
+                      <div className="home-forum-row-meta">
+                        <span>{note.author?.display_name ?? "Anonymous"}</span>
+                        {passage && <><span className="home-dot">·</span><span>📖 {passage}</span></>}
+                        <span className="home-dot">·</span>
+                        <span>{formatDate(note.updated_at)}</span>
+                      </div>
                     </div>
                   </div>
                   <div className="home-forum-row-stats">

@@ -495,7 +495,7 @@ function PromptModal({ label, onConfirm, onCancel }) {
 
 const SORT_OPTIONS = ["updated", "created", "title"];
 
-export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
+export default function StudyNotesPage({ user, navigate, initialTab = "mine", ...sharedNav }) {
   const { t } = useTranslation();
   const { data: notes = [], isLoading } = useStudyNotes();
   const { data: publicNotes = [], isLoading: loadingPublic } = usePublicNotes();
@@ -509,7 +509,7 @@ export default function StudyNotesPage({ user, navigate, ...sharedNav }) {
   const deleteFolder = useDeleteNoteFolder();
   const { isPremium } = useSubscription(user?.id);
 
-  const [tab, setTab] = useState("mine"); // "mine" | "public"
+  const [tab, setTab] = useState(initialTab); // "mine" | "public"
   const [editing, setEditing] = useState(() => {
     try {
       const saved = sessionStorage.getItem("sn:editing");
