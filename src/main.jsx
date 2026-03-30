@@ -24,6 +24,7 @@ Sentry.init({
     "Non-Error promise rejection captured",
     "Network request failed",
     "Failed to fetch",
+    "Unable to preload CSS",
   ],
   beforeSend(event) {
     if (event.request?.url) {
@@ -34,6 +35,11 @@ Sentry.init({
     }
     return event;
   },
+});
+
+// When a new deploy invalidates old chunk hashes, reload once to get fresh assets
+window.addEventListener("vite:preloadError", () => {
+  window.location.reload();
 });
 
 if ("serviceWorker" in navigator) {
