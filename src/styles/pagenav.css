@@ -47,6 +47,7 @@
 .page-nav-brand:hover { background: rgba(138, 75, 255, 0.1); }
 
 .page-nav-brand-icon { display: flex; align-items: center; color: #a78bfa; }
+[data-theme="light"] .page-nav-brand-icon { color: #7c3aed; }
 
 .page-nav-brand-name {
   background: linear-gradient(90deg, #c084fc, #7c3aed);
