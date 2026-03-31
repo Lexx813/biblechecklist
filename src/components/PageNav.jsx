@@ -200,8 +200,10 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 className={`page-nav-icon-btn page-nav-lang-btn${langOpen ? " page-nav-icon-btn--active" : ""}`}
                 onClick={() => setLangOpen(o => !o)}
                 data-tip={t("nav.language")}
+                aria-label={t("nav.language")}
+                aria-expanded={langOpen}
               >
-                {FLAGS[currentLangCode]}
+                <span aria-hidden="true">{FLAGS[currentLangCode]}</span>
               </button>
               {langOpen && (
                 <div className="page-nav-lang-menu">
@@ -234,6 +236,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               className="page-nav-avatar-btn"
               onClick={() => go("profile")}
               data-tip={profile?.display_name || user.email}
+              aria-label={t("nav.profile", "Profile")}
             >
               {profile?.avatar_url
                 ? <img src={profile.avatar_url} className="page-nav-avatar-img" alt="avatar" />
@@ -295,7 +298,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("nav.studyGroups")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
                 <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.readingPlans")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
                 <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Notes}</span> {t("nav.studyNotes")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
-                <button className="page-nav-mobile-upgrade-btn" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}>✦ Upgrade to Premium — $3/mo</button>
+                <button className="page-nav-mobile-upgrade-btn" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span aria-hidden="true">✦</span> Upgrade to Premium — $3/mo</button>
               </>
             )}
 

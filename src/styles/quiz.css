@@ -398,7 +398,7 @@
 
 .quiz-option-text {
   flex: 1;
-  line-height: 1.35;
+  line-height: 1.5;
 }
 
 .quiz-option-indicator {
@@ -519,12 +519,22 @@
   align-items: center;
   gap: 6px;
   margin-top: 6px;
-  animation: badge-pop 0.5s cubic-bezier(.18,.89,.32,1.28) both;
 }
 
 @keyframes badge-pop {
   from { opacity: 0; transform: scale(0.5) rotate(-10deg); }
   to   { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+@keyframes badge-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .quiz-badge-reveal { animation: badge-pop 0.5s cubic-bezier(.18,.89,.32,1.28) both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quiz-badge-reveal { animation: badge-fade 0.3s ease both; }
 }
 
 .quiz-badge-emoji {
@@ -605,7 +615,7 @@
   font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);
-  line-height: 1.4;
+  line-height: 1.5;
   flex: 1;
 }
 
