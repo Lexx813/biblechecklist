@@ -436,17 +436,17 @@ main:has(.msg-page) {
   background: none;
   border: none;
   cursor: pointer;
-  opacity: 0.5;
+  color: var(--text-muted);
   padding: 7px;
   min-width: 34px; min-height: 34px;
   display: flex; align-items: center; justify-content: center;
   border-radius: 8px;
-  transition: opacity 0.15s, background 0.12s;
+  transition: color 0.15s, background 0.12s;
   flex-shrink: 0;
 }
 
-.msg-sound-btn--on { opacity: 0.8; }
-.msg-sound-btn:hover { opacity: 1; }
+.msg-sound-btn--on { color: var(--text-secondary); }
+.msg-sound-btn:hover { color: var(--text-primary); background: var(--teal-soft); }
 
 /* ── Thread body ─────────────────────────────────────────────────────────── */
 
