@@ -51,7 +51,8 @@ export default function ReadingHeatmap({ data = [], dailyGoal = 3 }) {
                 >
                   {cell && (
                     <span className="heatmap-tooltip">
-                      {cell.date}<br />{cell.chapters} chapter{cell.chapters !== 1 ? "s" : ""}
+                      {new Date(cell.date + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}
+                      {cell.chapters > 0 && <><br />{cell.chapters} chapter{cell.chapters !== 1 ? "s" : ""}</>}
                     </span>
                   )}
                 </div>
