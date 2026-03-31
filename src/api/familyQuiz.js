@@ -29,7 +29,7 @@ export const familyQuizApi = {
   getChallenge: async (challengeId) => {
     const { data: challenge, error: cErr } = await supabase
       .from("family_challenges")
-      .select("id, title, creator_id, created_at, profiles!creator_id(display_name)")
+      .select("id, title, creator_id, created_at, question_ids, profiles!creator_id(display_name)")
       .eq("id", challengeId)
       .maybeSingle();
     if (cErr) throw new Error(cErr.message);
