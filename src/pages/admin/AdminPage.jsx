@@ -57,11 +57,15 @@ function UserActionsDropdown({ user, currentUser, navigate, setAdmin, setModerat
   const [menuPos, setMenuPos] = useState({ top: 0, right: 0 });
   const ref = useRef(null);
   const triggerRef = useRef(null);
+  const menuRef = useRef(null);
 
   useEffect(() => {
     if (!open) return;
     function handleClick(e) {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+      if (
+        ref.current && !ref.current.contains(e.target) &&
+        menuRef.current && !menuRef.current.contains(e.target)
+      ) setOpen(false);
     }
     function handleScroll() { setOpen(false); }
     document.addEventListener("mousedown", handleClick);
@@ -91,7 +95,7 @@ function UserActionsDropdown({ user, currentUser, navigate, setAdmin, setModerat
         ⋯
       </button>
       {open && createPortal(
-        <div className="admin-dropdown-menu" style={{ position: "fixed", top: menuPos.top, right: menuPos.right, left: "auto" }}>
+        <div ref={menuRef} className="admin-dropdown-menu" style={{ position: "fixed", top: menuPos.top, right: menuPos.right, left: "auto" }}>
           <button className="admin-dropdown-item" onClick={() => action(() => navigate("publicProfile", { userId: user.id }))}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             {t("admin.messageUser")}
