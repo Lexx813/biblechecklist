@@ -227,15 +227,15 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       {/* ── Community Notes section ── */}
       <section className="home-section">
         <SectionHeader
-          label="📝 Community"
-          title="Community Notes"
-          sub="Insights and reflections shared by brothers and sisters."
+          label={t("home.notesLabel")}
+          title={t("home.notesTitle")}
+          sub={t("home.notesSub")}
           onViewAll={() => navigate("studyNotes", { tab: "public" })}
-          viewAllLabel="See all"
+          viewAllLabel={t("home.notesViewAll")}
         />
 
         {notesLoading ? <ForumSkeleton /> : previewNotes.length === 0 ? (
-          <EmptyState icon="📝" title="No public notes yet" sub="Be the first to share a study note with the community." btnLabel="Write a note →" onBtn={() => navigate("studyNotes", { tab: "public" })} />
+          <EmptyState icon="📝" title={t("home.notesEmpty")} sub={t("home.notesEmptySub")} btnLabel={t("home.notesWriteBtn")} onBtn={() => navigate("studyNotes", { tab: "public" })} />
         ) : (
           <div className="home-forum-list">
             {previewNotes.map(note => {
