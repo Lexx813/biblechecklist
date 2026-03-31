@@ -1,8 +1,8 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, lazy, Suspense } from "react";
 import EmojiPickerPopup, { insertEmojiAtCursor } from "../../components/EmojiPickerPopup";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
-import RichTextEditor from "../../components/RichTextEditor";
+const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
 import PageNav from "../../components/PageNav";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useMyPosts, useCreatePost, useUpdatePost, useDeletePost } from "../../hooks/useBlog";
@@ -188,12 +188,14 @@ function PostEditor({ userId, post, onDone }) {
         </div>
 
         <label className="blog-editor-label">{t("blogDash.contentLabel")}</label>
-        <RichTextEditor
-          content={form.content}
-          onChange={html => set("content", html)}
-          placeholder={t("blogDash.contentPlaceholder")}
-          disabled={isPending}
-        />
+        <Suspense fallback={<div style={{ height: 200 }} />}>
+          <RichTextEditor
+            content={form.content}
+            onChange={html => set("content", html)}
+            placeholder={t("blogDash.contentPlaceholder")}
+            disabled={isPending}
+          />
+        </Suspense>
 
         {error && <div className="blog-editor-error">{error}</div>}
 

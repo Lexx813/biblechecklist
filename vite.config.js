@@ -64,6 +64,30 @@ function devApiPlugin(env) {
   };
 }
 
+// ── Inject modulepreload for vendor-supabase after build ─────────────────────
+// vendor-supabase is discovered late in the load waterfall for returning users.
+// This plugin finds the generated chunk filename and injects a modulepreload tag.
+function modulePreloadSupabasePlugin() {
+  let supabaseChunkFile = null;
+  return {
+    name: 'modulepreload-supabase',
+    apply: 'build',
+    generateBundle(_, bundle) {
+      for (const [fileName, chunk] of Object.entries(bundle)) {
+        if (chunk.type === 'chunk' && chunk.name === 'vendor-supabase') {
+          supabaseChunkFile = fileName;
+          break;
+        }
+      }
+    },
+    transformIndexHtml(html) {
+      if (!supabaseChunkFile) return html;
+      const tag = `<link rel="modulepreload" href="/assets/${supabaseChunkFile}" crossorigin>`;
+      return html.replace('</head>', `  ${tag}\n  </head>`);
+    },
+  };
+}
+
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
@@ -81,6 +105,7 @@ export default defineConfig(({ mode }) => {
         greedy: [/ql-/, /tiptap/, /ProseMirror/],
       },
     }),
+    modulePreloadSupabasePlugin(),
   ],
   build: {
     rollupOptions: {
@@ -97,6 +122,9 @@ export default defineConfig(({ mode }) => {
           }
           if (id.includes("@supabase/")) {
             return "vendor-supabase";
+          }
+          if (id.includes("@sentry/")) {
+            return "vendor-sentry";
           }
         },
       },

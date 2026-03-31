@@ -1,5 +1,4 @@
 import "./i18n";
-import * as Sentry from "@sentry/react";
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { QueryClient } from '@tanstack/react-query'
@@ -12,30 +11,39 @@ import { Analytics } from "@vercel/analytics/react"
 import { toast } from './lib/toast'
 
 // ── Sentry error monitoring ───────────────────────────────────────────────────
-// Set VITE_SENTRY_DSN in your Vercel environment variables to enable.
-Sentry.init({
-  dsn: "https://80f4998fb6a60485dfe09312b6caca28@o4511128078843904.ingest.us.sentry.io/4511128080285696",
-  environment: import.meta.env.MODE,
-  integrations: [Sentry.browserTracingIntegration()],
-  tracesSampleRate: 0.1,
-  enabled: import.meta.env.PROD,
-  ignoreErrors: [
-    "ResizeObserver loop limit exceeded",
-    "Non-Error promise rejection captured",
-    "Network request failed",
-    "Failed to fetch",
-    "Unable to preload CSS",
-  ],
-  beforeSend(event) {
-    if (event.request?.url) {
-      try {
-        const url = new URL(event.request.url);
-        event.request.url = url.origin + url.pathname;
-      } catch {}
-    }
-    return event;
-  },
-});
+// Loaded lazily after app mounts so it doesn't block first paint.
+if (import.meta.env.PROD) {
+  const initSentry = () =>
+    import("@sentry/react").then(({ init, browserTracingIntegration }) =>
+      init({
+        dsn: "https://80f4998fb6a60485dfe09312b6caca28@o4511128078843904.ingest.us.sentry.io/4511128080285696",
+        environment: import.meta.env.MODE,
+        integrations: [browserTracingIntegration()],
+        tracesSampleRate: 0.1,
+        ignoreErrors: [
+          "ResizeObserver loop limit exceeded",
+          "Non-Error promise rejection captured",
+          "Network request failed",
+          "Failed to fetch",
+          "Unable to preload CSS",
+        ],
+        beforeSend(event) {
+          if (event.request?.url) {
+            try {
+              const url = new URL(event.request.url);
+              event.request.url = url.origin + url.pathname;
+            } catch {}
+          }
+          return event;
+        },
+      })
+    );
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(initSentry);
+  } else {
+    setTimeout(initSentry, 1);
+  }
+}
 
 // When a new deploy invalidates old chunk hashes, reload once to get fresh assets
 window.addEventListener("vite:preloadError", () => {

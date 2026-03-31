@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
 import { useAISkill } from "../../hooks/useAISkill";
 import "../../styles/ai-tools.css";
 import ConfirmModal from "../../components/ConfirmModal";
-import RichTextEditor from "../../components/RichTextEditor";
+const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
 import ReportModal from "../../components/ReportModal";
 import PageNav from "../../components/PageNav";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -305,12 +305,14 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                 onChange={e => setEditTitle(e.target.value)}
                 disabled={updateThread.isPending}
               />
-              <RichTextEditor
-                content={editContent}
-                onChange={setEditContent}
-                minimal
-                disabled={updateThread.isPending}
-              />
+              <Suspense fallback={<div style={{ height: 80 }} />}>
+                <RichTextEditor
+                  content={editContent}
+                  onChange={setEditContent}
+                  minimal
+                  disabled={updateThread.isPending}
+                />
+              </Suspense>
               <div style={{ display: "flex", gap: 8 }}>
                 <button className="forum-submit-btn" type="submit" disabled={updateThread.isPending}>
                   {updateThread.isPending ? t("common.saving") : t("common.save")}
@@ -388,13 +390,15 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                 <div className="forum-post-body">
                   {isEditingThis ? (
                     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                      <RichTextEditor
-                        content={editReplyContent}
-                        onChange={setEditReplyContent}
-                        minimal
-                        compact
-                        disabled={updateReply.isPending}
-                      />
+                      <Suspense fallback={<div style={{ height: 60 }} />}>
+                        <RichTextEditor
+                          content={editReplyContent}
+                          onChange={setEditReplyContent}
+                          minimal
+                          compact
+                          disabled={updateReply.isPending}
+                        />
+                      </Suspense>
                       <div style={{ display: "flex", gap: 8 }}>
                         <button
                           className="forum-submit-btn"
@@ -516,16 +520,18 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
           <div className="forum-reply-form-inner">
             <Avatar profile={profile} size="sm" />
             <div className="forum-reply-input-wrap">
-              <RichTextEditor
-                content={replyText}
-                onChange={setReplyText}
-                onMention={(u) => setMentionedIds(prev => prev.includes(u.id) ? prev : [...prev, u.id])}
-                placeholder={t("forum.replyPlaceholder")}
-                minimal
-                compact
-                disabled={createReply.isPending}
-                allowMentions
-              />
+              <Suspense fallback={<div style={{ height: 60 }} />}>
+                <RichTextEditor
+                  content={replyText}
+                  onChange={setReplyText}
+                  onMention={(u) => setMentionedIds(prev => prev.includes(u.id) ? prev : [...prev, u.id])}
+                  placeholder={t("forum.replyPlaceholder")}
+                  minimal
+                  compact
+                  disabled={createReply.isPending}
+                  allowMentions
+                />
+              </Suspense>
               {replyError && <div className="forum-reply-error">{replyError}</div>}
               <div className="forum-reply-actions">
                 <button className="forum-reply-btn" type="submit" disabled={createReply.isPending || !replyText || replyText === "<p></p>"}>
@@ -755,13 +761,15 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
             onChange={e => setTitle(e.target.value)}
             disabled={createThread.isPending}
           />
-          <RichTextEditor
-            content={content}
-            onChange={setContent}
-            placeholder={t("forum.threadContentPlaceholder")}
-            minimal
-            disabled={createThread.isPending}
-          />
+          <Suspense fallback={<div style={{ height: 120 }} />}>
+            <RichTextEditor
+              content={content}
+              onChange={setContent}
+              placeholder={t("forum.threadContentPlaceholder")}
+              minimal
+              disabled={createThread.isPending}
+            />
+          </Suspense>
           {isPremium && <ForumPostAssistant topic={title} draft={content} />}
           {formError && <div className="forum-form-error">{formError}</div>}
           <div className="forum-form-actions">
