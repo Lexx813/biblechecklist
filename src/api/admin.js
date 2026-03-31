@@ -39,8 +39,17 @@ export const adminApi = {
   },
 
   deleteUser: async (userId) => {
-    const { error } = await supabase.rpc("admin_delete_user", { target_user_id: userId });
-    if (error) throw new Error(error.message);
+    const { data: { session } } = await supabase.auth.getSession();
+    const res = await fetch("/api/admin-delete-user", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.access_token}`,
+      },
+      body: JSON.stringify({ userId }),
+    });
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.error ?? "Failed to delete user");
   },
 
   setAdmin: async (userId, value) => {
