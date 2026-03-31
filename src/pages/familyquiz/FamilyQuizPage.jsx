@@ -263,7 +263,7 @@ function CreateForm({ user, onClose, onCreated }) {
 
 function ChallengeView({ user, challengeId, justCreated, onBack }) {
   const queryClient = useQueryClient();
-  const [phase, setPhase] = useState(justCreated ? "landing" : "loading");
+  const [phase, setPhase] = useState("landing");
   const [qIndex, setQIndex] = useState(0);
   const [answers, setAnswers] = useState([]); // array of chosen indices
   const [selected, setSelected] = useState(null);
@@ -276,9 +276,6 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
     staleTime: 5 * 60_000,
   });
 
-  useEffect(() => {
-    if (challenge && phase === "loading") setPhase("landing");
-  }, [challenge, phase]);
 
   const { data: myAttempt } = useQuery({
     queryKey: ["myAttempt", challengeId, user.id],
@@ -343,21 +340,20 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
 
   // ── render states ──────────────────────────────────────────────────────────
 
-  if (cLoading || phase === "loading") {
+  if (cLoading || !challenge) {
+    if (cError) {
+      return (
+        <div className="fq-center">
+          <div className="fq-error-icon">⚠</div>
+          <p>Challenge not found or no longer available.</p>
+          <button className="fq-back-link" onClick={onBack}>← Back</button>
+        </div>
+      );
+    }
     return (
       <div className="fq-center">
         <div className="fq-spinner" />
         <p>Loading challenge…</p>
-      </div>
-    );
-  }
-
-  if (cError || !challenge) {
-    return (
-      <div className="fq-center">
-        <div className="fq-error-icon">⚠</div>
-        <p>Challenge not found or no longer available.</p>
-        <button className="fq-back-link" onClick={onBack}>← Back</button>
       </div>
     );
   }
