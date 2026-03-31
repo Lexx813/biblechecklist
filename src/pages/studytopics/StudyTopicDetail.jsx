@@ -1,10 +1,12 @@
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import { getTopicBySlug, STUDY_TOPICS } from "../../data/studyTopics";
+import { wolRefUrl } from "../../utils/wol";
 import "../../styles/study-topics.css";
 
 export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.split("-")[0] ?? "en";
   const topic = getTopicBySlug(slug);
 
   if (!topic) {
@@ -48,7 +50,10 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
               <div className="std-scriptures">
                 {section.scriptures.map((s, k) => (
                   <div key={k} className="std-scripture">
-                    <div className="std-scripture-ref">{s.ref}</div>
+                    {wolRefUrl(s.ref, lang)
+                      ? <a className="std-scripture-ref" href={wolRefUrl(s.ref, lang)} target="_blank" rel="noopener noreferrer">{s.ref} ↗</a>
+                      : <div className="std-scripture-ref">{s.ref}</div>
+                    }
                     <div className="std-scripture-text">{s.text}</div>
                   </div>
                 ))}

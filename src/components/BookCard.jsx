@@ -1,7 +1,7 @@
 import { memo, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOK_INFO } from "../data/bookInfo";
-import { wolChapterUrl } from "../utils/wol";
+import { wolChapterUrl, wolRefUrl } from "../utils/wol";
 
 function formatReadDate(iso) {
   if (!iso) return null;
@@ -115,9 +115,12 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                 <div className="book-info-verses">
                   <span className="book-info-meta-label">{t("book.infoKeyVerses")}</span>
                   <div className="book-info-verse-pills">
-                    {info.keyVerses.map(v => (
-                      <span key={v} className="book-info-verse-pill">{v}</span>
-                    ))}
+                    {info.keyVerses.map(v => {
+                      const url = wolRefUrl(v, lang);
+                      return url
+                        ? <a key={v} className="book-info-verse-pill" href={url} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}>{v} ↗</a>
+                        : <span key={v} className="book-info-verse-pill">{v}</span>;
+                    })}
                   </div>
                 </div>
               )}

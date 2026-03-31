@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { wolRefUrl } from "../../utils/wol";
 import { VERSE_COUNT, getDailyVerseIndex } from "../../data/verses";
 import AICompanion from "../AICompanion";
 import { useSubscription } from "../../hooks/useSubscription";
 import "../../styles/daily-verse.css";
 
 export default function DailyVerse({ user }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.split("-")[0] ?? "en";
   const [idx, setIdx] = useState(getDailyVerseIndex);
   const [showAI, setShowAI] = useState(false);
   const { isPremium } = useSubscription(user?.id);
@@ -23,7 +25,13 @@ export default function DailyVerse({ user }) {
     <div className="daily-verse">
       <div className="daily-verse-label">✦ {t("dailyVerse.label")}</div>
       <p className="daily-verse-text">{t(`verses.${idx}.text`)}</p>
-      <span className="daily-verse-ref">— {t(`verses.${idx}.ref`)}</span>
+      {(() => {
+        const ref = t(`verses.${idx}.ref`);
+        const url = wolRefUrl(ref, lang);
+        return url
+          ? <a className="daily-verse-ref" href={url} target="_blank" rel="noopener noreferrer">— {ref} ↗</a>
+          : <span className="daily-verse-ref">— {ref}</span>;
+      })()}
       <div className="daily-verse-nav">
         <button className="daily-verse-arrow" onClick={prev} data-tip={t("dailyVerse.prev")}>‹</button>
         <div className="daily-verse-dots">
