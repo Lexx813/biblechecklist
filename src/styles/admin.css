@@ -118,12 +118,7 @@ html.nav-hidden .admin-header { top: 0; }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  overflow: visible;
-}
-
-/* Clip only the table scroll area, not the whole section */
-.admin-section .admin-table-wrap {
-  overflow-x: auto;
+  overflow: hidden;
 }
 
 .admin-section-header {
