@@ -33,7 +33,7 @@
 .reading-plan-stat { display: flex; flex-direction: column; gap: 3px; }
 
 .reading-plan-stat-value {
-  font-size: 22px; font-weight: 800; color: var(--text-primary);
+  font-size: 22px; font-weight: 800; color: var(--teal);
 }
 
 .reading-plan-stat-label {
@@ -109,6 +109,12 @@
   width: 10px; height: 10px; border-radius: 2px;
   background: var(--border); flex-shrink: 0;
   position: relative;
+}
+
+@media (max-width: 600px) {
+  .heatmap-cell { width: 13px; height: 13px; border-radius: 3px; }
+  .heatmap-grid { gap: 3px; }
+  .heatmap-col { gap: 3px; }
 }
 .heatmap-cell:hover { opacity: 1 !important; filter: brightness(1.3); }
 

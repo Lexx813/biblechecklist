@@ -72,10 +72,10 @@
   gap: 6px;
 }
 .rp-tab:hover { color: var(--text-primary); }
-.rp-tab--active { color: #a78bfa; border-bottom-color: #7c3aed; }
+.rp-tab--active { color: var(--accent); border-bottom-color: var(--teal); }
 
 .rp-tab-count {
-  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
   color: #fff;
   border-radius: 999px;
   font-size: 10px;
@@ -131,7 +131,7 @@
 }
 
 .rp-primary-btn {
-  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -166,9 +166,9 @@
   box-shadow: 0 1px 4px rgba(74,45,133,0.07);
 }
 .rp-template-card:hover {
-  box-shadow: 0 6px 22px rgba(124,58,237,0.14);
-  border-color: rgba(124,58,237,0.35);
-  border-left-color: #7c3aed;
+  box-shadow: var(--shadow-md);
+  border-color: var(--teal-mid);
+  border-left-color: var(--teal);
   transform: translateY(-1px);
 }
 
@@ -214,7 +214,7 @@
 }
 
 .rp-enroll-btn {
-  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -294,7 +294,7 @@
 
 .rp-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--teal), #5b21b6);
+  background: linear-gradient(90deg, var(--teal), var(--teal-dark));
   border-radius: 999px;
   transition: width 0.4s ease;
   min-width: 4px;
@@ -446,7 +446,7 @@
 .rp-reading-chip--sm { font-size: 11px; padding: 2px 6px; }
 
 .rp-mark-btn {
-  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -569,7 +569,7 @@
 .rp-header-row .rp-title { margin: 0; }
 
 .rp-custom-plan-btn {
-  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -605,10 +605,10 @@
   cursor: pointer;
   transition: background 0.12s, color 0.12s, border-color 0.12s;
 }
-.rp-category-btn:hover { border-color: #7c3aed; color: #7c3aed; }
+.rp-category-btn:hover { border-color: var(--teal); color: var(--teal); }
 .rp-category-btn--active {
-  background: linear-gradient(135deg, #7c3aed, #5b21b6);
-  border-color: #7c3aed;
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  border-color: var(--teal);
   color: #fff;
 }
 
@@ -963,7 +963,7 @@
   outline: none;
   transition: border-color 0.12s;
 }
-.rp-field-input:focus { border-color: #7c3aed; }
+.rp-field-input:focus { border-color: var(--teal); }
 
 .rp-quick-sets {
   display: flex;
@@ -983,7 +983,7 @@
   cursor: pointer;
   transition: background 0.1s, color 0.1s, border-color 0.1s;
 }
-.rp-quick-set-btn:hover { border-color: #7c3aed; color: #7c3aed; }
+.rp-quick-set-btn:hover { border-color: var(--teal); color: var(--teal); }
 
 .rp-book-picker {
   border: 1px solid var(--border);
@@ -1033,11 +1033,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.rp-book-chip:hover { border-color: #7c3aed; color: #7c3aed; }
+.rp-book-chip:hover { border-color: var(--teal); color: var(--teal); }
 .rp-book-chip--on {
-  background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(91,33,182,0.08));
-  border-color: #7c3aed;
-  color: #7c3aed;
+  background: var(--teal-soft);
+  border-color: var(--teal);
+  color: var(--teal);
 }
 
 .rp-day-options {
@@ -1058,10 +1058,10 @@
   cursor: pointer;
   transition: background 0.1s, color 0.1s, border-color 0.1s;
 }
-.rp-day-option-btn:hover { border-color: #7c3aed; color: #7c3aed; }
+.rp-day-option-btn:hover { border-color: var(--teal); color: var(--teal); }
 .rp-day-option-btn--active {
-  background: linear-gradient(135deg, #7c3aed, #5b21b6);
-  border-color: #7c3aed;
+  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  border-color: var(--teal);
   color: #fff;
 }
 

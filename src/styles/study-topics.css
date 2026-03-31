@@ -1,13 +1,14 @@
-/* ── Study Topics ─────────────────────────────────────────────────────────── */
+/* ── Study Topics List Page ──────────────────────────────────────────────── */
+/* Note: prefix "stp-" (study topics page) avoids collision with settings.css "st-" */
 
-.st-page {
+.stp-page {
   min-height: 100vh;
   background: var(--bg);
 }
 
 /* ── Header ──────────────────────────────────────────────────────────────── */
 
-.st-header {
+.stp-header {
   max-width: 860px;
   margin: 0 auto;
   padding: 28px 20px 20px;
@@ -15,35 +16,36 @@
   margin-bottom: 24px;
 }
 
-.st-header::after {
+.stp-header::after {
   content: '';
   position: absolute;
   bottom: 0; left: 20px; right: 20px;
   height: 1px;
-  background: linear-gradient(90deg, rgba(124,58,237,0.4), rgba(124,58,237,0.1), transparent);
+  background: linear-gradient(90deg, rgba(106,61,170,0.4), rgba(106,61,170,0.1), transparent);
 }
 
-.st-nav-back {
+.stp-nav-back {
   align-self: flex-start;
   background: none;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 5px 12px;
   font-size: 13px;
   color: var(--text-muted);
   cursor: pointer;
   margin-bottom: 14px;
-  transition: background 0.12s, color 0.12s, border-color 0.12s;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
   display: inline-block;
+  font-family: inherit;
 }
 
-.st-nav-back:hover {
-  background: rgba(124, 58, 237, 0.08);
-  border-color: rgba(124, 58, 237, 0.3);
-  color: #a78bfa;
+.stp-nav-back:hover {
+  background: var(--teal-soft);
+  border-color: var(--teal);
+  color: var(--teal);
 }
 
-.st-title {
+.stp-title {
   font-size: 26px;
   font-weight: 900;
   background: linear-gradient(135deg, var(--text-primary) 30%, #7c3aed 100%);
@@ -54,7 +56,7 @@
   line-height: 1.2;
 }
 
-.st-subtitle {
+.stp-subtitle {
   font-size: 14px;
   color: var(--text-muted);
   margin: 0;
@@ -63,7 +65,7 @@
 
 /* ── Topic Grid ──────────────────────────────────────────────────────────── */
 
-.st-grid {
+.stp-grid {
   max-width: 860px;
   margin: 0 auto;
   padding: 0 20px 60px;
@@ -72,31 +74,34 @@
   gap: 16px;
 }
 
-.st-card {
+.stp-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius-md);
   padding: 22px 20px;
   cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.12s;
+  transition: border-color var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out),
+              transform var(--dur-base) var(--ease-spring);
   text-align: left;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  font-family: inherit;
 }
 
-.st-card:hover {
-  border-color: rgba(124, 58, 237, 0.5);
-  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.12);
+.stp-card:hover {
+  border-color: var(--teal);
+  box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }
 
-.st-card-icon {
+.stp-card-icon {
   font-size: 28px;
   line-height: 1;
 }
 
-.st-card-title {
+.stp-card-title {
   font-size: 16px;
   font-weight: 700;
   color: var(--text-primary);
@@ -104,17 +109,17 @@
   line-height: 1.3;
 }
 
-.st-card-subtitle {
+.stp-card-subtitle {
   font-size: 13px;
   color: var(--text-muted);
   margin: 0;
   line-height: 1.45;
 }
 
-.st-card-arrow {
+.stp-card-arrow {
   margin-top: auto;
   font-size: 13px;
-  color: #a78bfa;
+  color: var(--accent);
   font-weight: 600;
   padding-top: 6px;
 }
@@ -139,7 +144,7 @@
   position: absolute;
   bottom: 0; left: 20px; right: 20px;
   height: 1px;
-  background: linear-gradient(90deg, rgba(124,58,237,0.4), rgba(124,58,237,0.1), transparent);
+  background: linear-gradient(90deg, rgba(106,61,170,0.4), rgba(106,61,170,0.1), transparent);
 }
 
 .std-icon {
@@ -189,7 +194,7 @@
   color: var(--text-primary);
   margin: 0;
   padding-bottom: 8px;
-  border-bottom: 2px solid rgba(124, 58, 237, 0.2);
+  border-bottom: 2px solid var(--teal-light);
 }
 
 .std-para {
@@ -209,16 +214,21 @@
 }
 
 .std-scripture {
-  background: rgba(124, 58, 237, 0.06);
-  border-left: 3px solid rgba(124, 58, 237, 0.5);
-  border-radius: 0 8px 8px 0;
+  background: var(--teal-soft);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   padding: 10px 14px;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.std-scripture:hover {
+  background: var(--teal-light);
 }
 
 .std-scripture-ref {
   font-size: 12px;
   font-weight: 700;
-  color: #a78bfa;
+  color: var(--teal);
   letter-spacing: 0.03em;
   margin-bottom: 3px;
   display: block;
@@ -228,7 +238,7 @@
 
 a.std-scripture-ref:hover {
   text-decoration: underline;
-  color: #c4b5fd;
+  color: var(--accent);
 }
 
 .std-scripture-text {
@@ -253,23 +263,30 @@ a.std-scripture-ref:hover {
 .std-nav-btn {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   padding: 10px 16px;
   font-size: 13px;
   color: var(--text-muted);
   cursor: pointer;
-  transition: background 0.12s, border-color 0.12s, color 0.12s;
+  transition: background var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              transform var(--dur-base) var(--ease-spring),
+              box-shadow var(--dur-base) var(--ease-out);
   display: flex;
   align-items: center;
   gap: 6px;
   max-width: 48%;
   text-align: left;
+  font-family: inherit;
 }
 
 .std-nav-btn:hover {
-  background: rgba(124, 58, 237, 0.08);
-  border-color: rgba(124, 58, 237, 0.3);
+  background: var(--teal-soft);
+  border-color: var(--teal);
   color: var(--text-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
 }
 
 .std-nav-btn--next {
@@ -280,7 +297,7 @@ a.std-scripture-ref:hover {
 
 .std-nav-btn-label {
   font-size: 11px;
-  color: #a78bfa;
+  color: var(--accent);
   font-weight: 600;
   display: block;
 }
@@ -293,11 +310,11 @@ a.std-scripture-ref:hover {
 /* ── Responsive ──────────────────────────────────────────────────────────── */
 
 @media (max-width: 600px) {
-  .st-grid {
+  .stp-grid {
     grid-template-columns: 1fr;
   }
 
-  .st-title, .std-title {
+  .stp-title, .std-title {
     font-size: 22px;
   }
 
