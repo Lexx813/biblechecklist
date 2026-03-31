@@ -425,9 +425,10 @@ function PostsSection({ profileId, isOwner, t }) {
 }
 
 // ── Message button ─────────────────────────────────────────
-function MessageButton({ targetId, otherDisplayName, otherAvatarUrl, navigate }) {
+function MessageButton({ targetId, otherDisplayName, otherAvatarUrl, navigate, isPremium, onUpgrade }) {
   const getOrCreate = useGetOrCreateDM();
   function handleClick() {
+    if (!isPremium) { onUpgrade?.(); return; }
     getOrCreate.mutate(targetId, {
       onSuccess: (conversationId) => navigate("messages", {
         conversationId,
@@ -438,18 +439,18 @@ function MessageButton({ targetId, otherDisplayName, otherAvatarUrl, navigate })
   }
   return (
     <button
-      className="pf-msg-btn"
+      className={`pf-msg-btn${!isPremium ? " pf-msg-btn--locked" : ""}`}
       onClick={handleClick}
       disabled={getOrCreate.isPending}
     >
       {getOrCreate.isPending ? <span className="btn-spin" /> : <span className="pf-msg-icon">💬</span>}
-      Message
+      Message{!isPremium && <span className="msg-btn-pro-badge">✦</span>}
     </button>
   );
 }
 
 // ── Followers / Following modal list ──────────────────────
-function FollowListModal({ targetId, mode, currentUserId, onClose, navigate, t }) {
+function FollowListModal({ targetId, mode, currentUserId, onClose, navigate, t, isPremium, onUpgrade }) {
   const { data: followers = [] } = useFollowers(mode === "followers" ? targetId : null);
   const { data: following = [] } = useFollowing(mode === "following" ? targetId : null);
   const list = mode === "followers" ? followers : following;
@@ -481,13 +482,16 @@ function FollowListModal({ targetId, mode, currentUserId, onClose, navigate, t }
               </button>
               {u.id !== currentUserId && (
                 <button
-                  className="pf-follow-modal-msg"
+                  className={`pf-follow-modal-msg${!isPremium ? " pf-follow-modal-msg--locked" : ""}`}
                   disabled={getOrCreate.isPending}
-                  onClick={() => getOrCreate.mutate(u.id, {
-                    onSuccess: (cid) => { onClose(); navigate("messages", { conversationId: cid, otherDisplayName: u.display_name, otherAvatarUrl: u.avatar_url }); },
-                  })}
+                  onClick={isPremium
+                    ? () => getOrCreate.mutate(u.id, {
+                        onSuccess: (cid) => { onClose(); navigate("messages", { conversationId: cid, otherDisplayName: u.display_name, otherAvatarUrl: u.avatar_url }); },
+                      })
+                    : () => { onClose(); onUpgrade?.(); }
+                  }
                 >
-                  Message
+                  Message{!isPremium && <span className="msg-btn-pro-badge">✦</span>}
                 </button>
               )}
             </div>
@@ -500,7 +504,7 @@ function FollowListModal({ targetId, mode, currentUserId, onClose, navigate, t }
 }
 
 // ── Follow button + counts ─────────────────────────────────
-function FollowSection({ currentUserId, targetId, t, extraAction, navigate }) {
+function FollowSection({ currentUserId, targetId, t, extraAction, navigate, isPremium, onUpgrade }) {
   const { data: counts = { followers: 0, following: 0 } } = useFollowCounts(targetId);
   const { data: isFollowing = false } = useIsFollowing(currentUserId, targetId);
   const toggle = useToggleFollow(currentUserId, targetId);
@@ -539,6 +543,8 @@ function FollowSection({ currentUserId, targetId, t, extraAction, navigate }) {
           onClose={() => setListModal(null)}
           navigate={navigate}
           t={t}
+          isPremium={isPremium}
+          onUpgrade={onUpgrade}
         />
       )}
     </div>
@@ -815,12 +821,16 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
               targetId={profileId}
               t={t}
               navigate={navigate}
-              extraAction={!isOwner && isPremium ? (
+              isPremium={isPremium}
+              onUpgrade={onUpgrade}
+              extraAction={!isOwner ? (
                 <MessageButton
                   targetId={profileId}
                   otherDisplayName={profile?.display_name || profile?.email?.split("@")[0] || "User"}
                   otherAvatarUrl={profile?.avatar_url ?? null}
                   navigate={navigate}
+                  isPremium={isPremium}
+                  onUpgrade={onUpgrade}
                 />
               ) : null}
             />
