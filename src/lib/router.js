@@ -20,7 +20,10 @@ export function parsePath() {
   if (h === "bookmarks") return { page: "bookmarks" };
   if (h === "history") return { page: "history" };
   if (h === "feed") return { page: "feed" };
-  if (h === "messages") return { page: "messages" };
+  if (h === "messages") {
+    const conv = new URLSearchParams(window.location.search).get("conv");
+    return conv ? { page: "messages", conversationId: conv } : { page: "messages" };
+  }
   if (h.startsWith("messages/")) return { page: "messages", conversationId: h.slice(9) };
   if (h === "groups") return { page: "groups" };
   if (h.startsWith("groups/")) return { page: "groupDetail", groupId: h.slice(7) };
