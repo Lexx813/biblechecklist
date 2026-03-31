@@ -3,7 +3,7 @@ export const STUDY_TOPICS = [
   {
     id: "is-jesus-god",
     slug: "is-jesus-god",
-    icon: "✝️",
+    icon: "👑",
     title: "Is Jesus God?",
     subtitle: "Understanding Jesus' identity as the Son of God — distinct from Jehovah",
     sections: [
