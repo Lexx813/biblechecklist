@@ -53,7 +53,7 @@ export default function ReadingHistory({ user, onBack, navigate, darkMode, setDa
 
       <div className="history-inner">
         <div className="history-header">
-          <button className="history-back-btn" onClick={onBack}>{t("common.back")}</button>
+          <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
           <h1 className="history-title">{t("history.title")}</h1>
           {history.length > 0 && (
             <span className="history-subtitle">{t("history.readingDays", { count: totalDays })}</span>

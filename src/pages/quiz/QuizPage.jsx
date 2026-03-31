@@ -282,7 +282,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
       <div className="quiz-active">
         {/* Level header */}
         <div className="quiz-level-header">
-          <button className="quiz-back-btn" onClick={onBack}>{t("quiz.backToLevels")}</button>
+          <button className="back-btn" onClick={onBack}>{t("quiz.backToLevels")}</button>
           <div className="quiz-level-info">
             <span className="quiz-level-badge">{levelData.badge}</span>
             <span className="quiz-level-name">{t("quiz.level", { n: level })} · {theme}</span>

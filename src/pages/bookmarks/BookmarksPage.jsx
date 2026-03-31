@@ -13,7 +13,7 @@ export default function BookmarksPage({ user, onBack, navigate, darkMode, setDar
     <div className="bm-wrap">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <div className="bm-header">
-        <button className="blog-back-btn" onClick={onBack}>{t("common.back")}</button>
+        <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
         <h1 className="bm-title">{t("bookmarks.title")}</h1>
       </div>
 

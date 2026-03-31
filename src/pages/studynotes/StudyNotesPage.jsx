@@ -195,7 +195,7 @@ function NoteEditor({ note, folders, onSave, onCancel, saving, isAdmin }) {
   return (
     <form className="sn-editor" onSubmit={handleSubmit}>
       <div className="sn-editor-header">
-        <button type="button" className="sn-back-btn" onClick={onCancel}>{t("common.back")}</button>
+        <button type="button" className="back-btn" onClick={onCancel}>{t("common.back")}</button>
         <h2 className="sn-editor-title">{note ? t("studyNotes.editNote") : t("studyNotes.newNoteTitle")}</h2>
         {note && (
           <div className="sn-editor-export">

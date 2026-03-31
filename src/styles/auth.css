@@ -33,22 +33,7 @@
 
 .auth-theme-toggle:hover { background: var(--teal-soft); }
 
-.auth-back-btn {
-  background: none;
-  border: none;
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--teal);
-  cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 8px;
-  align-self: flex-start;
-  transition: background 0.15s;
-}
-.auth-back-btn:hover {
-  background: var(--teal-light);
-}
+.auth-back-btn { align-self: flex-start; }
 
 .auth-card {
   width: 100%;

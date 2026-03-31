@@ -48,7 +48,7 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
 
       <div className="search-hero">
-        <button className="search-back-btn" onClick={onBack}>{t("common.back")}</button>
+        <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
         <div className="search-input-wrap">
           <svg className="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />

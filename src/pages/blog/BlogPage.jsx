@@ -212,7 +212,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
   if (!post) return (
     <div className="blog-not-found">
       <p>{t("blog.notFound")}</p>
-      <button className="blog-back-btn" onClick={onBack}>{t("blog.backToBlog")}</button>
+      <button className="back-btn" onClick={onBack}>{t("blog.backToBlog")}</button>
     </div>
   );
 
@@ -226,7 +226,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
           alt={displayTitle}
         />
         <div className="blog-post-hero-overlay">
-          <button className="blog-post-back-btn" onClick={onBack}>{t("blog.backToBlog")}</button>
+          <button className="back-btn" onClick={onBack}>{t("blog.backToBlog")}</button>
           <div className="blog-post-hero-meta">
             <h1 className="blog-post-hero-title">{displayTitle}</h1>
             <div className="blog-post-hero-byline">
@@ -439,7 +439,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       {/* Nav */}
       <nav className="blog-nav">
-        <button className="blog-back-btn" onClick={onBack}>{t("blog.backToBible")}</button>
+        <button className="back-btn" onClick={onBack}>{t("blog.backToBible")}</button>
         <div className="blog-nav-right">
           {(profile?.can_blog || profile?.is_admin) && (
             <button className="blog-write-btn" onClick={onWriteClick}>{t("blog.myPosts")}</button>

@@ -326,18 +326,7 @@
   padding: 28px 20px 80px;
 }
 
-.rp-back-btn {
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 5px 12px;
-  font-size: 13px;
-  color: var(--text-muted);
-  cursor: pointer;
-  margin-bottom: 20px;
-  transition: background 0.12s, color 0.12s;
-}
-.rp-back-btn:hover { background: var(--teal-soft); color: var(--text-primary); }
+.rp-back-btn { margin-bottom: 20px; }
 
 .rp-detail-header { margin-bottom: 24px; }
 

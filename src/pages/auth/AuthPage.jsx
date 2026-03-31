@@ -127,7 +127,7 @@ export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, on
     return (
       <div className="auth-wrap">
         {onBack && (
-          <button className="auth-back-btn" onClick={onBack}>{t("auth.back")}</button>
+          <button className="back-btn" onClick={onBack}>{t("auth.back")}</button>
         )}
         <div className="auth-card">
           <div className="auth-header">
@@ -164,7 +164,7 @@ export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, on
     <div className="auth-wrap">
       <div className="auth-topbar">
         {onBack && (
-          <button className="auth-back-btn" onClick={onBack}>{t("auth.back")}</button>
+          <button className="back-btn" onClick={onBack}>{t("auth.back")}</button>
         )}
         <button className="auth-theme-toggle" onClick={() => setDarkMode(d => !d)} title={darkMode ? "Light mode" : "Dark mode"}>
           {darkMode ? "☀️" : "🌙"}

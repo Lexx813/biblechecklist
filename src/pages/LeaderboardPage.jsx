@@ -111,7 +111,7 @@ export default function LeaderboardPage({ user, onBack, navigate, darkMode, setD
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
 
       <header className="lb-header">
-        <button className="admin-back-btn" onClick={onBack}>{t("common.back")}</button>
+        <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
         <h1 className="lb-title">🏆 {t("leaderboard.title")}</h1>
         <p className="lb-sub">{t("leaderboard.subtitle")}</p>
       </header>
