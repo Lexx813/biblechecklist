@@ -1,6 +1,12 @@
 
 
-/* Plus Jakarta Sans loaded via Google Fonts in index.html */
+@font-face {
+  font-family: 'Plus Jakarta Sans Variable';
+  src: url('/fonts/plus-jakarta-sans-variable.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* Skip-to-content link — visually hidden until focused by keyboard/screen reader */
 .skip-link {
