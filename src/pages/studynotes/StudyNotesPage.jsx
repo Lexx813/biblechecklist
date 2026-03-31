@@ -1,10 +1,10 @@
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo, useRef, useEffect, lazy, Suspense } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import ConfirmModal from "../../components/ConfirmModal";
 import CustomSelect from "../../components/CustomSelect";
-import RichTextEditor from "../../components/RichTextEditor";
+const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
 import AICompanion from "../../components/AICompanion";
 import { useAISkill } from "../../hooks/useAISkill";
 import { useSubscription } from "../../hooks/useSubscription";
@@ -264,11 +264,13 @@ function NoteEditor({ note, folders, onSave, onCancel, saving, isAdmin }) {
 
         <label className="sn-label">{t("studyNotes.fieldContent")}</label>
         <div className="sn-editor-rich">
-          <RichTextEditor
-            content={form.content}
-            onChange={val => set("content", val)}
-            placeholder={t("studyNotes.contentPlaceholder")}
-          />
+          <Suspense fallback={<div style={{ height: 160 }} />}>
+            <RichTextEditor
+              content={form.content}
+              onChange={val => set("content", val)}
+              placeholder={t("studyNotes.contentPlaceholder")}
+            />
+          </Suspense>
         </div>
 
         {isAdmin && (
