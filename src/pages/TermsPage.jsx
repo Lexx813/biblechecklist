@@ -14,7 +14,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <div className="about-hero-inner">
           <div className="about-hero-badge">Legal</div>
           <h1 className="about-hero-title">Terms of Service</h1>
-          <p className="about-hero-sub">Last updated: March 25, 2026</p>
+          <p className="about-hero-sub">Last updated: March 31, 2026</p>
         </div>
       </section>
 
@@ -30,20 +30,23 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <section className="about-section">
           <h2 className="about-section-title">2. Description of Service</h2>
           <p className="about-section-body">
-            NWT Progress is a free Bible reading tracker and community platform designed for readers of the New World Translation. The App provides tools for tracking reading progress, participating in forums, writing blog posts, taking quizzes, and connecting with other users.
+            NWT Progress is a Bible reading tracker and community platform designed for readers of the New World Translation. The App provides tools for tracking reading progress, participating in forums, writing blog posts, taking quizzes, and connecting with other users. Core features are available free of charge. Premium features are available through a paid subscription.
           </p>
           <p className="about-section-body">
-            The App is provided free of charge with no ads. We reserve the right to modify, suspend, or discontinue any part of the service at any time.
+            We reserve the right to modify, suspend, or discontinue any part of the service at any time.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">3. User Accounts</h2>
+          <h2 className="about-section-title">3. User Accounts &amp; Age Requirements</h2>
           <p className="about-section-body">
             You must create an account to access most features. You are responsible for maintaining the confidentiality of your account credentials and for all activity that occurs under your account. You must provide accurate information when registering.
           </p>
           <p className="about-section-body">
-            You must be at least 13 years of age to use this App. By creating an account, you confirm that you meet this requirement.
+            <strong>Age requirement:</strong> You must be at least 13 years of age to use this App. Users between the ages of 13 and 17 must have the permission of a parent or legal guardian. By creating an account, you confirm that you meet this requirement and, if under 18, that a parent or guardian has reviewed and agreed to these Terms on your behalf.
+          </p>
+          <p className="about-section-body">
+            If we discover that an account belongs to a user under 13, we will terminate that account and remove associated data without notice.
           </p>
         </section>
 
@@ -57,7 +60,8 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
           </p>
           <ul className="about-features" style={{ marginTop: 8 }}>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Hateful, abusive, harassing, or threatening toward any person or group</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Sexually explicit or harmful to minors</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Sexually explicit or pornographic in any form</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Harmful, exploitative, or sexualizing toward minors in any way</div></li>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Spam, misinformation, or deliberately misleading</div></li>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Infringing on another person's intellectual property</div></li>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Illegal under applicable law</div></li>
@@ -68,22 +72,53 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <section className="about-section">
           <h2 className="about-section-title">5. Personal Information &amp; Link Policy</h2>
           <p className="about-section-body">
-            To protect the privacy and safety of all users, the following are strictly prohibited in all user-generated content — including forum posts, blog posts, comments, profile bios, and display names:
+            To protect the privacy and safety of all users — especially minors — the following are strictly prohibited in all user-generated content, including forum posts, blog posts, comments, profile bios, and display names:
           </p>
           <ul className="about-features" style={{ marginTop: 8 }}>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Email addresses</strong> — do not share your own or anyone else's email</div></li>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Phone numbers</strong> — including mobile, landline, or WhatsApp numbers</div></li>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Physical addresses</strong> — street addresses, home addresses, or meeting locations</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Social media links or handles</strong> — links to Facebook, Instagram, Twitter/X, TikTok, Snapchat, YouTube, LinkedIn, Threads, Telegram, WhatsApp, Discord, or similar platforms, as well as @username handles</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Social media links or handles</strong> — links to or @username handles for Facebook, Instagram, Twitter/X, TikTok, Snapchat, YouTube, LinkedIn, Telegram, WhatsApp, Discord, or similar platforms</div></li>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Insecure links (http://)</strong> — only secure links beginning with https:// are permitted</div></li>
           </ul>
           <p className="about-section-body" style={{ marginTop: 16 }}>
-            These restrictions exist to keep this a safe, private environment and to prevent the App from being used to exchange contact information or redirect users to external platforms. Our systems automatically scan all content before it is submitted and will block any post that contains prohibited information.
+            These restrictions exist to keep this a safe, private environment and to prevent the App from being used to exchange contact information or redirect users to external platforms. Our systems automatically scan all content before submission and will block any post containing prohibited information.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">6. Community Standards</h2>
+          <h2 className="about-section-title" style={{ color: "var(--text-primary)" }}>
+            🛡️ 6. Child Safety Policy
+          </h2>
+          <p className="about-section-body">
+            The safety of children is a non-negotiable priority at NWT Progress. We have a zero-tolerance policy for any content or behavior that endangers, exploits, or sexualizes minors.
+          </p>
+          <p className="about-section-body"><strong>The following are strictly prohibited and will result in immediate permanent ban:</strong></p>
+          <ul className="about-features" style={{ marginTop: 8 }}>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Child Sexual Abuse Material (CSAM) of any kind — images, text, video, or links</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Grooming behavior — attempting to build inappropriate relationships with minors to gain their trust for exploitation</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Soliciting personal information from minors, including age, location, school, or contact details</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Any sexual content directed at or involving minors</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Attempting to move a conversation with a minor to another platform for the purpose of exploitation</div></li>
+          </ul>
+          <p className="about-section-body" style={{ marginTop: 16 }}>
+            <strong>We will report violations to authorities.</strong> Any content or behavior that we identify as involving the sexual exploitation of children will be reported immediately to:
+          </p>
+          <ul className="about-features" style={{ marginTop: 8 }}>
+            <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>The National Center for Missing &amp; Exploited Children (NCMEC)</strong> via the CyberTipline at CyberTipLine.org — as required by U.S. federal law (18 U.S.C. § 2258A)</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>Local law enforcement</strong> and relevant national authorities in the user's jurisdiction</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>The Internet Watch Foundation (IWF)</strong> for international cases involving child sexual abuse imagery</div></li>
+          </ul>
+          <p className="about-section-body" style={{ marginTop: 16 }}>
+            We preserve all relevant account data, IP addresses, timestamps, and content associated with reported violations and will cooperate fully with law enforcement investigations.
+          </p>
+          <p className="about-section-body">
+            <strong>If you witness behavior that may endanger a child on this platform, please report it immediately</strong> using the report function available on any post or profile, or contact us directly. If you believe a child is in immediate danger, contact your local emergency services (911 in the US) first.
+          </p>
+        </section>
+
+        <section className="about-section">
+          <h2 className="about-section-title">7. Community Standards</h2>
           <p className="about-section-body">
             NWT Progress is a spiritually-focused community platform. We ask that all users engage respectfully and in a manner consistent with the values of the community. Debates intended to discourage faith or disrespect other users' beliefs are not permitted.
           </p>
@@ -93,50 +128,67 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">7. Enforcement &amp; Account Bans</h2>
+          <h2 className="about-section-title">8. Premium Subscriptions &amp; Billing</h2>
+          <p className="about-section-body">
+            Certain features of NWT Progress require an active Premium subscription. By subscribing, you agree to pay the subscription fee displayed at the time of purchase.
+          </p>
+          <ul className="about-features" style={{ marginTop: 8 }}>
+            <li className="about-feature"><span className="about-feature-icon">💳</span><div><strong>Billing:</strong> Subscriptions are billed on a recurring basis (monthly or annually) through our payment processor, Stripe. Your payment method will be charged automatically at the start of each billing period.</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔄</span><div><strong>Cancellation:</strong> You may cancel your subscription at any time through your account settings. Cancellation takes effect at the end of the current billing period. No partial refunds are issued for unused time.</div></li>
+            <li className="about-feature"><span className="about-feature-icon">💰</span><div><strong>Refunds:</strong> Subscription fees are generally non-refundable. Exceptions may be made at our sole discretion for documented technical failures that prevented access to paid features.</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Changes to pricing:</strong> We reserve the right to change subscription pricing at any time. You will be notified of price changes before your next billing cycle.</div></li>
+          </ul>
+          <p className="about-section-body" style={{ marginTop: 16 }}>
+            Payment processing is handled by Stripe. We do not store your full card number or payment credentials. By subscribing, you also agree to Stripe's Terms of Service.
+          </p>
+        </section>
+
+        <section className="about-section">
+          <h2 className="about-section-title">9. Enforcement &amp; Account Bans</h2>
           <p className="about-section-body">
             Violations of these Terms — including posting prohibited content, attempting to circumvent automated filters, or engaging in harmful behavior toward other users — may result in:
           </p>
           <ul className="about-features" style={{ marginTop: 8 }}>
             <li className="about-feature"><span className="about-feature-icon">⚠️</span><div><strong>Content removal</strong> — violating posts, comments, or profile content will be removed without notice</div></li>
             <li className="about-feature"><span className="about-feature-icon">⚠️</span><div><strong>Temporary suspension</strong> — your account may be suspended pending review</div></li>
-            <li className="about-feature"><span className="about-feature-icon">⚠️</span><div><strong>Permanent ban</strong> — serious or repeated violations will result in a permanent ban from the App with no right to appeal</div></li>
+            <li className="about-feature"><span className="about-feature-icon">⚠️</span><div><strong>Permanent ban</strong> — serious or repeated violations will result in a permanent ban with no right to appeal</div></li>
+            <li className="about-feature"><span className="about-feature-icon">⚠️</span><div><strong>Report to authorities</strong> — violations involving child safety or illegal content will be reported to law enforcement and relevant agencies without prior notice</div></li>
           </ul>
           <p className="about-section-body" style={{ marginTop: 16 }}>
-            We reserve the right to take enforcement action at our sole discretion. The severity of the response will be proportional to the nature of the violation, but we are not obligated to issue warnings before taking action. By using this App, you accept that we may remove your access at any time if these Terms are violated.
+            We reserve the right to take enforcement action at our sole discretion. We are not obligated to issue warnings before taking action.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">9. Intellectual Property</h2>
+          <h2 className="about-section-title">10. Intellectual Property</h2>
           <p className="about-section-body">
             The NWT Progress name, logo, design, and original code are the intellectual property of Lexx Solutionz. Scripture quotations are from the New World Translation of the Holy Scriptures and are used for personal and community study purposes.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">10. Disclaimer of Warranties</h2>
+          <h2 className="about-section-title">11. Disclaimer of Warranties</h2>
           <p className="about-section-body">
             The App is provided "as is" without warranties of any kind. We do not guarantee that the App will be error-free, uninterrupted, or that data will never be lost. Use the App at your own risk.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">11. Limitation of Liability</h2>
+          <h2 className="about-section-title">12. Limitation of Liability</h2>
           <p className="about-section-body">
             To the fullest extent permitted by law, NWT Progress and Lexx Solutionz shall not be liable for any indirect, incidental, or consequential damages arising from your use of the App.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">12. Changes to Terms</h2>
+          <h2 className="about-section-title">13. Changes to Terms</h2>
           <p className="about-section-body">
             We may update these Terms at any time. Continued use of the App after changes are posted constitutes acceptance of the updated Terms. We will update the "Last updated" date at the top of this page.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">13. Contact</h2>
+          <h2 className="about-section-title">14. Contact</h2>
           <p className="about-section-body">
             If you have questions about these Terms, you can reach us through the App's community forum or via the contact information listed on nwtprogress.com.
           </p>
