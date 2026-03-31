@@ -448,7 +448,10 @@ function StarredPanel({ convId, userId, onClose }) {
         <button className="fc-back-btn" onClick={onClose} aria-label="Back">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
-        <span>⭐ Starred Messages</span>
+        <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="goldenrod" stroke="goldenrod" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Starred Messages
+        </span>
       </div>
       <div className="fc-overlay-body">
         {isLoading ? <p className="fc-empty">Loading…</p> : starred.length === 0 ? (
@@ -458,9 +461,15 @@ function StarredPanel({ convId, userId, onClose }) {
             <div key={msg.id} className="fc-starred-item">
               <div className="fc-starred-content">
                 {msg.message_type === "verse" && msg.metadata ? (
-                  <span>📖 {msg.metadata.ref}</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    {msg.metadata.ref}
+                  </span>
                 ) : msg.message_type === "image" ? (
-                  <span>🖼 Image</span>
+                  <span style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    Image
+                  </span>
                 ) : (
                   <span>{msg.content?.slice(0, 80)}</span>
                 )}
@@ -552,7 +561,10 @@ function FCVerseCard({ metadata, isMine }) {
   if (!metadata) return null;
   return (
     <div className={`fc-verse-card${isMine ? " fc-verse-card--mine" : ""}`}>
-      <div className="fc-verse-card-ref">📖 {metadata.ref}</div>
+      <div className="fc-verse-card-ref">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0 }}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        {metadata.ref}
+      </div>
       {metadata.note && <div className="fc-verse-card-note">{metadata.note}</div>}
       <a href={metadata.url} target="_blank" rel="noopener noreferrer" className="fc-verse-card-link">
         Read on WOL ↗
@@ -582,7 +594,9 @@ function FCPlanCard({ metadata, isMine }) {
   const friendlyTitle = getTemplate(metadata.templateKey)?.name || metadata.title || metadata.templateKey;
   return (
     <div className={`fc-plan-card${isMine ? " fc-plan-card--mine" : ""}`}>
-      <div className="fc-plan-card-icon">📅</div>
+      <div className="fc-plan-card-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
       <div className="fc-plan-card-body">
         <div className="fc-plan-card-title">{friendlyTitle}</div>
         <div className="fc-plan-card-sub">Reading Plan Invitation</div>
@@ -594,7 +608,10 @@ function FCPlanCard({ metadata, isMine }) {
 function FCPrayerCard({ content, isMine }) {
   return (
     <div className={`fc-prayer-card${isMine ? " fc-prayer-card--mine" : ""}`}>
-      <div className="fc-prayer-card-tag">🙏 Prayer Request</div>
+      <div className="fc-prayer-card-tag">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0 }}><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        Prayer Request
+      </div>
       <div className="fc-prayer-card-text">{content}</div>
     </div>
   );
@@ -697,7 +714,8 @@ function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPreviews, o
           {showMenu && !editing && (
             <div className="fc-action-menu">
               <button ref={reactBtnRef} className="fc-action-menu-item" onClick={() => setShowReactPicker(s => !s)}>
-                <span>😊</span> React
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                React
               </button>
               <button className="fc-action-menu-item" onClick={() => { onReply(msg); closeMenu(); }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>
@@ -751,7 +769,7 @@ function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPreviews, o
                 <span>{renderFormattedContent(msg.content)}</span>
               )}
               <div className="fc-bubble-footer">
-                {isStarred && <span className="fc-star-indicator">⭐</span>}
+                {isStarred && <span className="fc-star-indicator"><svg width="10" height="10" viewBox="0 0 24 24" fill="goldenrod" stroke="goldenrod" strokeWidth="2" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>}
                 <span className="fc-bubble-time">{formatTime(msg.created_at)}</span>
                 {msg.edited_at && <span className="fc-edited-label">{t("messages.edited")}</span>}
                 {isMine && <span className="fc-status-ticks">{isLast ? t("messages.read") : t("messages.sent")}</span>}
@@ -1093,15 +1111,22 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
                 type="button"
                 className={`fc-toolbar-btn${isPrayerMode ? " fc-toolbar-btn--active" : ""}`}
                 data-tip="Prayer Request"
+                aria-label="Prayer request"
                 onClick={() => setIsPrayerMode(v => !v)}
-              >🙏</button>
-              <button type="button" className="fc-toolbar-btn" data-tip="Share Bible Verse" onClick={() => setShowVersePicker(true)}>📖</button>
+              >
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              </button>
+              <button type="button" className="fc-toolbar-btn" data-tip="Share Bible Verse" aria-label="Share Bible verse" onClick={() => setShowVersePicker(true)}>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </button>
               <button type="button" className="fc-toolbar-btn fc-toolbar-btn--img" data-tip="Share Image" onClick={() => fileRef.current?.click()}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
                 </svg>
               </button>
-              <button type="button" className="fc-toolbar-btn" data-tip="Share Reading Plan" onClick={() => setShowPlanPicker(true)}>📅</button>
+              <button type="button" className="fc-toolbar-btn" data-tip="Share Reading Plan" aria-label="Share reading plan" onClick={() => setShowPlanPicker(true)}>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </button>
             </>
           )}
           <input ref={fileRef} type="file" accept="image/*" style={{ display: "none" }} onChange={handleFileChange} />
@@ -1125,7 +1150,9 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
         )}
 
         <form className="fc-composer" onSubmit={handleSend}>
-          <button type="button" className="fc-emoji-toggle" onClick={() => setShowEmoji(v => !v)} data-tip="Emoji">😊</button>
+          <button type="button" className="fc-emoji-toggle" onClick={() => setShowEmoji(v => !v)} data-tip="Emoji" aria-label="Emoji">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          </button>
           <input
             ref={inputRef}
             className={`fc-input${isPrayerMode ? " fc-input--prayer" : ""}`}
@@ -1137,9 +1164,11 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
             autoFocus
           />
           {uploading ? (
-            <span className="fc-upload-spinner">⏳</span>
+            <span className="fc-upload-spinner" aria-label="Uploading" />
           ) : (
-            <button className="fc-send-btn" type="submit" disabled={!input.trim() || sendMessage.isPending}>➤</button>
+            <button className="fc-send-btn" type="submit" disabled={!input.trim() || sendMessage.isPending} aria-label="Send">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
           )}
         </form>
 
