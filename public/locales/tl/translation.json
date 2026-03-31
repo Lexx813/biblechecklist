@@ -1543,7 +1543,17 @@
     "readingPlans": "Mga Plano sa Pagbabasa",
     "studyNotes": "Mga Tala ng Pag-aaral",
     "language": "Wika",
-    "proFeature": "🔒 Tampok na Pro"
+    "proFeature": "🔒 Tampok na Pro",
+    "studyTopics": "Mga Paksa ng Pag-aaral"
+  },
+  "studyTopics": {
+    "title": "Mga Paksa ng Pag-aaral",
+    "subtitle": "Tuklasin ang mga pangunahing paksa ng Bibliya na may mga sagot batay sa Kasulatan",
+    "readMore": "Magbasa pa",
+    "allTopics": "Lahat ng paksa",
+    "notFound": "Paksa ay hindi natagpuan",
+    "previous": "Nakaraan",
+    "next": "Susunod"
   },
   "upm": {
     "badge": "✦ Premium",

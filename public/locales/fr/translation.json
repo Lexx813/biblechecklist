@@ -1543,7 +1543,17 @@
     "readingPlans": "Plans de Lecture",
     "studyNotes": "Notes d'Étude",
     "language": "Langue",
-    "proFeature": "🔒 Fonctionnalité Pro"
+    "proFeature": "🔒 Fonctionnalité Pro",
+    "studyTopics": "Sujets d'Étude"
+  },
+  "studyTopics": {
+    "title": "Sujets d'Étude",
+    "subtitle": "Explorez des thèmes bibliques clés avec des réponses basées sur les Écritures",
+    "readMore": "Lire plus",
+    "allTopics": "Tous les sujets",
+    "notFound": "Sujet introuvable",
+    "previous": "Précédent",
+    "next": "Suivant"
   },
   "upm": {
     "badge": "✦ Premium",
