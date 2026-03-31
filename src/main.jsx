@@ -1,3 +1,4 @@
+import "@fontsource-variable/plus-jakarta-sans";
 import "./i18n";
 import * as Sentry from "@sentry/react";
 import { StrictMode } from 'react'

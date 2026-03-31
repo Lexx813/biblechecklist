@@ -76,7 +76,7 @@ export default defineConfig(({ mode }) => {
       content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
       safelist: {
         // Keep dynamic classes: dark mode, data attributes, JS-toggled states
-        standard: [/^dark/, /^light/, /theme/, /toast/, /active/, /open/, /show/, /hidden/, /disabled/, /loading/, /error/, /success/, /pinned/, /locked/, /solved/, /badge/, /level/],
+        standard: [/^dark/, /^light/, /theme/, /toast/, /active/, /open/, /show/, /hidden/, /disabled/, /loading/, /error/, /success/, /pinned/, /locked/, /solved/, /badge/, /level/, /font-face/],
         deep: [/data-theme/, /data-level/],
         greedy: [/ql-/, /tiptap/, /ProseMirror/],
       },
