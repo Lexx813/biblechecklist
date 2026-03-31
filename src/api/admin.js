@@ -33,7 +33,8 @@ export const adminApi = {
         body: JSON.stringify({ userId }),
       }
     );
-    const json = await res.json();
+    const text = await res.text();
+    const json = text ? JSON.parse(text) : {};
     if (!res.ok) throw new Error(json.error ?? "Failed to cancel subscription");
     return json;
   },
@@ -48,7 +49,8 @@ export const adminApi = {
       },
       body: JSON.stringify({ userId }),
     });
-    const json = await res.json();
+    const text = await res.text();
+    const json = text ? JSON.parse(text) : {};
     if (!res.ok) throw new Error(json.error ?? "Failed to delete user");
   },
 
