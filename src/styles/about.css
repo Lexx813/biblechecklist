@@ -321,14 +321,20 @@
   font-size: 14px;
   font-weight: 800;
   padding: 13px 32px;
+  min-height: 44px;
   border-radius: 999px;
   cursor: pointer;
   box-shadow: var(--shadow-md);
-  transition: transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-base) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+  transition: transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-base) var(--ease-out), background var(--dur-fast) var(--ease-out);
 }
 .about-cta-btn:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-xl);
+  background: #f5f0ff;
+}
+.about-cta-btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-md);
 }
 
 /* ── Footer disclaimer ────────────────────────────────────────────── */
@@ -347,14 +353,16 @@
 .about-footer-link {
   background: none;
   border: none;
-  padding: 0;
+  padding: 2px 4px;
+  border-radius: 4px;
   color: var(--teal, #7c3aed);
   font-size: inherit;
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 3px;
+  transition: opacity 0.15s, background 0.15s;
 }
-.about-footer-link:hover { opacity: 0.8; }
+.about-footer-link:hover { opacity: 0.8; background: var(--teal-soft); }
 
 /* ── Subscription Transparency ───────────────────────────────────── */
 .about-section--transparency {

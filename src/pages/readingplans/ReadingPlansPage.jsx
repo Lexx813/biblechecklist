@@ -237,6 +237,7 @@ function CustomPlanModal({ onClose, onCreated }) {
             <input
               className="rp-field-input rp-field-input--sm"
               type="number"
+              inputMode="numeric"
               min={1}
               max={3650}
               value={customDays}

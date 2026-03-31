@@ -14,7 +14,7 @@
 }
 .search-input-wrap:focus-within { border-color: var(--teal); }
 
-.search-icon { font-size: 18px; }
+.search-icon { flex-shrink: 0; opacity: 0.5; color: var(--text-muted); }
 
 .search-input-wrap .search-input {
   flex: 1; background: none; border: none; outline: none;

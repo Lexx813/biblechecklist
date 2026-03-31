@@ -50,12 +50,15 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
       <div className="search-hero">
         <button className="blog-back-btn search-back-btn" onClick={onBack}>{t("common.back")}</button>
         <div className="search-input-wrap">
-          <span className="search-icon">🔍</span>
+          <svg className="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
+          </svg>
           <input
             id="search-input"
             name="q"
             aria-label={t("search.placeholder")}
             className="search-input"
+            inputMode="search"
             placeholder={t("search.placeholder")}
             value={query}
             onChange={e => handleInput(e.target.value)}

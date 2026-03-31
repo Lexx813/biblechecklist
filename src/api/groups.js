@@ -8,7 +8,7 @@ export const groupsApi = {
     if (!user) return [];
     const { data, error } = await supabase
       .from("study_group_members")
-      .select("role, joined_at, group:study_groups(id, name, description, cover_url, is_private, invite_code, goal_label, goal_deadline, creator_id, created_at)")
+      .select("role, joined_at, group:study_groups(id, name, description, cover_url, is_private, invite_code, goal_label, goal_deadline, group_type, creator_id, created_at)")
       .eq("user_id", user.id)
       .order("joined_at", { ascending: false });
     if (error) throw new Error(error.message);
@@ -18,7 +18,7 @@ export const groupsApi = {
   getPublicGroups: async () => {
     const { data, error } = await supabase
       .from("study_groups")
-      .select("id, name, description, cover_url, goal_label, goal_deadline, created_at, creator_id")
+      .select("id, name, description, cover_url, goal_label, goal_deadline, group_type, created_at, creator_id")
       .eq("is_private", false)
       .order("created_at", { ascending: false })
       .limit(50);
@@ -36,13 +36,13 @@ export const groupsApi = {
     return data;
   },
 
-  createGroup: async ({ name, description, isPrivate, goalLabel, goalDeadline }) => {
+  createGroup: async ({ name, description, isPrivate, goalLabel, goalDeadline, groupType }) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     // Insert group
     const { data: group, error: ge } = await supabase
       .from("study_groups")
-      .insert({ name, description, is_private: isPrivate, goal_label: goalLabel, goal_deadline: goalDeadline || null, creator_id: user.id })
+      .insert({ name, description, is_private: isPrivate, goal_label: goalLabel, goal_deadline: goalDeadline || null, group_type: groupType || "bible_study", creator_id: user.id })
       .select()
       .single();
     if (ge) throw new Error(ge.message);

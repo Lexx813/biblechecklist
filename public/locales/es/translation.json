@@ -29,7 +29,8 @@
     "delete": "Eliminar",
     "deleting": "Eliminando…",
     "edit": "Editar",
-    "loading": "Cargando…"
+    "loading": "Cargando…",
+    "close": "Close"
   },
   "app": {
     "title": "Lista de Lectura Bíblica",
@@ -1399,8 +1400,8 @@
     "chapters": "capítulos"
   },
   "groups": {
-    "title": "Grupos de Estudio",
-    "subtitle": "Lee juntos, creced juntos",
+    "title": "Grupos",
+    "subtitle": "Conéctate, crece y estudia juntos",
     "joinWithCode": "🔑 Unirse con Código",
     "createGroup": "+ Crear Grupo",
     "myGroups": "Mis Grupos",
@@ -1464,7 +1465,14 @@
     "joined": "Unido",
     "edited": "editado",
     "react": "Reaccionar",
-    "reply": "Responder"
+    "reply": "Responder",
+    "typeBibleStudy": "Estudio Bíblico",
+    "typePrayer": "Oración",
+    "typeFamily": "Familia",
+    "typeCongregation": "Congregación",
+    "typeGeneral": "General",
+    "groupType": "Tipo de grupo",
+    "clickToCopy": "Haz clic para copiar"
   },
   "messages": {
     "title": "Mensajes",

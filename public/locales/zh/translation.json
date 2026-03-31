@@ -10,7 +10,8 @@
     "delete": "删除",
     "deleting": "删除中…",
     "edit": "编辑",
-    "loading": "加载中…"
+    "loading": "加载中…",
+    "close": "Close"
   },
   "celebrate": {
     "title": "书卷读完！🎉",
@@ -454,8 +455,8 @@
     "all": "全部"
   },
   "groups": {
-    "title": "学习小组",
-    "subtitle": "与他人一起研读圣经",
+    "title": "群组",
+    "subtitle": "一起联系、成长和学习",
     "myGroups": "我的小组",
     "explore": "探索",
     "exploreBtn": "探索所有小组",
@@ -519,7 +520,14 @@
     "created": "已创建",
     "reply": "回复",
     "react": "回应",
-    "edited": "已编辑"
+    "edited": "已编辑",
+    "typeBibleStudy": "圣经研读",
+    "typePrayer": "祷告",
+    "typeFamily": "家庭",
+    "typeCongregation": "会众",
+    "typeGeneral": "一般",
+    "groupType": "群组类型",
+    "clickToCopy": "点击复制"
   },
   "profile": {
     "title": "我的主页",

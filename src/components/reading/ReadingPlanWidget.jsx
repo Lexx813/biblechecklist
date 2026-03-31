@@ -83,7 +83,7 @@ export default function ReadingPlanWidget({ userId, dailyGoal = 3, readonly = fa
               <input
                 id="reading-plan-goal"
                 name="daily_goal"
-                type="number" min={1} max={30}
+                type="number" inputMode="numeric" min={1} max={30}
                 className="reading-plan-goal-input"
                 value={goalInput}
                 onChange={e => setGoalInput(e.target.value)}

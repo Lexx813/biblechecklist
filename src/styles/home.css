@@ -185,6 +185,7 @@
 
 .home-hero-cta {
   padding: 13px 28px;
+  min-height: 44px;
   background: linear-gradient(135deg, #7c3aed, #a855f7);
   border: none;
   border-radius: 12px;
@@ -193,13 +194,15 @@
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
-  transition: opacity 0.15s, transform 0.15s;
+  transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
   box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
 }
-.home-hero-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+.home-hero-cta:hover { background: linear-gradient(135deg, #6d28d9, #9333ea); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(124, 58, 237, 0.5); }
+.home-hero-cta:active { transform: translateY(0); box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4); }
 
 .home-hero-secondary {
   padding: 13px 28px;
+  min-height: 44px;
   background: rgba(138, 75, 255, 0.1);
   border: 1px solid rgba(138, 75, 255, 0.3);
   border-radius: 12px;
@@ -208,12 +211,14 @@
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
 }
 .home-hero-secondary:hover {
   background: rgba(138, 75, 255, 0.18);
   border-color: rgba(138, 75, 255, 0.5);
+  transform: translateY(-1px);
 }
+.home-hero-secondary:active { transform: translateY(0); }
 
 /* ── Sections ── */
 .home-section {
@@ -325,11 +330,15 @@
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
-  padding: 0;
+  padding: 8px 10px;
+  min-height: 44px;
+  border-radius: 8px;
   white-space: nowrap;
-  transition: color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.15s, background 0.15s;
 }
-.home-section-link:hover { color: #c084fc; }
+.home-section-link:hover { color: #c084fc; background: rgba(138, 75, 255, 0.1); }
 
 /* ── Tracker card ── */
 .home-tracker-card {

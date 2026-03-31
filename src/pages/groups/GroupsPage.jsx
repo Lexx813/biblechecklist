@@ -4,6 +4,16 @@ import { useTranslation } from "react-i18next";
 import { useMyGroups, usePublicGroups, useCreateGroup, useJoinGroup, useJoinByCode, useRequestJoin } from "../../hooks/useGroups";
 import "../../styles/groups.css";
 
+// ── Constants ─────────────────────────────────────────────────────────────────
+
+const GROUP_TYPES = [
+  { value: "bible_study", labelKey: "groups.typeBibleStudy", icon: "book" },
+  { value: "prayer", labelKey: "groups.typePrayer", icon: "heart" },
+  { value: "family", labelKey: "groups.typeFamily", icon: "home" },
+  { value: "congregation", labelKey: "groups.typeCongregation", icon: "users" },
+  { value: "general", labelKey: "groups.typeGeneral", icon: "chat" },
+];
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function timeAgo(iso, t) {
@@ -27,6 +37,7 @@ function CreateGroupModal({ onClose, onCreated }) {
     name: "",
     description: "",
     isPrivate: false,
+    groupType: "bible_study",
     goalLabel: "",
     goalDeadline: "",
   });
@@ -45,8 +56,9 @@ function CreateGroupModal({ onClose, onCreated }) {
         name: form.name.trim(),
         description: form.description.trim() || null,
         isPrivate: form.isPrivate,
-        goalLabel: form.goalLabel.trim() || null,
-        goalDeadline: form.goalDeadline || null,
+        groupType: form.groupType,
+        goalLabel: form.groupType === "bible_study" ? (form.goalLabel.trim() || null) : null,
+        goalDeadline: form.groupType === "bible_study" ? (form.goalDeadline || null) : null,
       },
       {
         onSuccess: (group) => { onCreated(group); onClose(); },
@@ -60,9 +72,26 @@ function CreateGroupModal({ onClose, onCreated }) {
       <div className="grp-modal" onClick={e => e.stopPropagation()}>
         <div className="grp-modal-header">
           <h2 className="grp-modal-title">{t("groups.createGroupBtn")}</h2>
-          <button className="grp-modal-close" onClick={onClose}>✕</button>
+          <button className="grp-modal-close" onClick={onClose} aria-label={t("common.close")}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         </div>
         <form className="grp-modal-body" onSubmit={handleSubmit}>
+          <div className="grp-field">
+            <span className="grp-field-label">{t("groups.groupType")}</span>
+            <div className="grp-type-picker">
+              {GROUP_TYPES.map(({ value, labelKey }) => (
+                <button
+                  key={value}
+                  type="button"
+                  className={`grp-type-btn${form.groupType === value ? " grp-type-btn--active" : ""}`}
+                  onClick={() => set("groupType", value)}
+                >
+                  {t(labelKey)}
+                </button>
+              ))}
+            </div>
+          </div>
           <label className="grp-field">
             <span>{t("groups.groupName")}</span>
             <input
@@ -85,25 +114,29 @@ function CreateGroupModal({ onClose, onCreated }) {
               rows={3}
             />
           </label>
-          <label className="grp-field">
-            <span>{t("groups.readingGoal")}</span>
-            <input
-              className="grp-input"
-              value={form.goalLabel}
-              onChange={e => set("goalLabel", e.target.value)}
-              placeholder={t("groups.readingGoalPlaceholder")}
-              maxLength={100}
-            />
-          </label>
-          <label className="grp-field">
-            <span>{t("groups.goalDeadline")}</span>
-            <input
-              className="grp-input"
-              type="date"
-              value={form.goalDeadline}
-              onChange={e => set("goalDeadline", e.target.value)}
-            />
-          </label>
+          {form.groupType === "bible_study" && (
+            <>
+              <label className="grp-field">
+                <span>{t("groups.readingGoal")}</span>
+                <input
+                  className="grp-input"
+                  value={form.goalLabel}
+                  onChange={e => set("goalLabel", e.target.value)}
+                  placeholder={t("groups.readingGoalPlaceholder")}
+                  maxLength={100}
+                />
+              </label>
+              <label className="grp-field">
+                <span>{t("groups.goalDeadline")}</span>
+                <input
+                  className="grp-input"
+                  type="date"
+                  value={form.goalDeadline}
+                  onChange={e => set("goalDeadline", e.target.value)}
+                />
+              </label>
+            </>
+          )}
           <label className="grp-field grp-field--row">
             <input
               type="checkbox"
@@ -148,7 +181,9 @@ function JoinCodeModal({ onClose, onJoined }) {
       <div className="grp-modal grp-modal--sm" onClick={e => e.stopPropagation()}>
         <div className="grp-modal-header">
           <h2 className="grp-modal-title">{t("groups.joinWithCode")}</h2>
-          <button className="grp-modal-close" onClick={onClose}>✕</button>
+          <button className="grp-modal-close" onClick={onClose} aria-label={t("common.close")}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         </div>
         <form className="grp-modal-body" onSubmit={handleSubmit}>
           <label className="grp-field">
@@ -201,12 +236,17 @@ function GroupCard({ group, onClick, onJoin, onRequestJoin, joined, joining, req
       <div className="grp-card-info">
         <div className="grp-card-top">
           <h3 className="grp-card-name">{group.name}</h3>
+          {group.group_type && group.group_type !== "bible_study" && (
+            <span className={`grp-badge grp-badge--type grp-badge--type-${group.group_type}`}>
+              {t(`groups.type${group.group_type.replace(/_([a-z])/g, (_, c) => c.toUpperCase()).replace(/^./, c => c.toUpperCase())}`)}
+            </span>
+          )}
           {group.is_private && <span className="grp-badge grp-badge--private">{t("groups.private")}</span>}
           {group.myRole === "admin" && <span className="grp-badge grp-badge--admin">{t("groups.admin")}</span>}
         </div>
         {group.description && <p className="grp-card-desc">{group.description}</p>}
         {group.goal_label && (
-          <p className="grp-card-goal">🎯 {group.goal_label}{group.goal_deadline ? ` · ${new Date(group.goal_deadline).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}` : ""}</p>
+          <p className="grp-card-goal">{group.goal_label}{group.goal_deadline ? ` · ${new Date(group.goal_deadline).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}` : ""}</p>
         )}
         <div className="grp-card-meta">
           <span>{t("groups.created")} {timeAgo(group.created_at, t)}</span>
@@ -252,7 +292,8 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
     return notMine.filter(g =>
       g.name.toLowerCase().includes(q) ||
       (g.description ?? "").toLowerCase().includes(q) ||
-      (g.goal_label ?? "").toLowerCase().includes(q)
+      (g.goal_label ?? "").toLowerCase().includes(q) ||
+      (g.group_type ?? "").toLowerCase().includes(q)
     );
   }, [publicGroups, myGroupIds, search]);
 
@@ -274,7 +315,10 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
     <div className="grp-page">
       <div className="grp-page-header">
         <div className="grp-page-header-left">
-          <button className="grp-back-btn" onClick={() => navigate("home")}>{t("common.back")}</button>
+          <button className="grp-back-btn" onClick={() => navigate("home")}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            {t("common.back")}
+          </button>
           <div>
             <h1 className="grp-page-title">{t("groups.title")}</h1>
             <p className="grp-page-subtitle">{t("groups.subtitle")}</p>
@@ -313,7 +357,9 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
             <p className="grp-empty">{t("common.loading")}</p>
           ) : myGroups.length === 0 ? (
             <div className="grp-empty-state">
-              <span className="grp-empty-icon">👥</span>
+              <span className="grp-empty-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </span>
               <h3>{t("groups.noGroups")}</h3>
               <p>{t("groups.noGroupsDesc")}</p>
               <button className="grp-btn grp-btn--primary" onClick={() => setTab("explore")}>{t("groups.exploreBtn")}</button>
@@ -335,7 +381,9 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
             <p className="grp-empty">{t("common.loading")}</p>
           ) : filteredPublic.length === 0 ? (
             <div className="grp-empty-state">
-              <span className="grp-empty-icon">🌐</span>
+              <span className="grp-empty-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </span>
               <h3>{search ? t("groups.noSearchResults") : t("groups.noPublicGroups")}</h3>
               <p>{search ? t("groups.noSearchResultsDesc") : t("groups.noPublicGroupsDesc")}</p>
               {!search && <button className="grp-btn grp-btn--primary" onClick={() => setShowCreate(true)}>{t("groups.createGroupBtn")}</button>}
