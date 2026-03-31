@@ -86,8 +86,8 @@
 }
 
 .home-nav-avatar {
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 2px solid rgba(138, 75, 255, 0.4);
   background: linear-gradient(135deg, #4f2d85, #7c3aed);
@@ -172,7 +172,7 @@
 .home-hero-sub {
   font-size: 17px;
   line-height: 1.65;
-  color: rgba(240, 234, 255, 0.65);
+  color: rgba(240, 234, 255, 0.82);
   margin: 0 0 36px;
 }
 
@@ -263,11 +263,13 @@
   height: 54px; border-radius: 12px;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  animation: home-shimmer 1.4s ease-in-out infinite;
 }
 @keyframes home-shimmer {
   0%, 100% { opacity: 0.4; }
   50%       { opacity: 0.7; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .home-streak-skeleton { animation: home-shimmer 1.4s ease-in-out infinite; }
 }
 
 .home-streak-banner {
@@ -307,7 +309,7 @@
 
 .home-section-sub {
   font-size: 15px;
-  color: rgba(240, 234, 255, 0.5);
+  color: rgba(240, 234, 255, 0.72);
   margin: 0 0 36px;
 }
 
