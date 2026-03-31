@@ -32,6 +32,8 @@ export function useMessages(conversationId) {
             const cleaned = old.filter((m) => !String(m.id).startsWith("optimistic-"));
             return [...cleaned, payload.new];
           });
+          // Refetch to get full message data (sender profile join) for both sender and receiver
+          queryClient.invalidateQueries({ queryKey: ["messages", conversationId] });
           queryClient.invalidateQueries({ queryKey: ["conversations"] });
         }
       )
@@ -146,7 +148,8 @@ export function useSendMessage(conversationId) {
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["messages", conversationId] });
+      // Messages are invalidated by the realtime INSERT handler to avoid racing
+      // with setQueryData. Only refresh the conversations list here.
       queryClient.invalidateQueries({ queryKey: ["conversations"] });
     },
   });
