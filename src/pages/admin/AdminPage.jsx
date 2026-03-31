@@ -53,16 +53,31 @@ function exportUsersCSV(users) {
 
 function UserActionsDropdown({ user, currentUser, navigate, setAdmin, setModerator, setBlog, banUser, cancelSub, giftPremium, deleteUser, onToggleError, setConfirmDelete, setConfirmBan, setConfirmCancelSub, t }) {
   const [open, setOpen] = useState(false);
+  const [menuPos, setMenuPos] = useState({ top: 0, right: 0 });
   const ref = useRef(null);
+  const triggerRef = useRef(null);
 
   useEffect(() => {
     if (!open) return;
     function handleClick(e) {
       if (ref.current && !ref.current.contains(e.target)) setOpen(false);
     }
+    function handleScroll() { setOpen(false); }
     document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [open]);
+
+  function handleOpen() {
+    if (!open && triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      setMenuPos({ top: rect.bottom + 4, right: window.innerWidth - rect.right });
+    }
+    setOpen(v => !v);
+  }
 
   function action(fn) {
     setOpen(false);
@@ -71,11 +86,11 @@ function UserActionsDropdown({ user, currentUser, navigate, setAdmin, setModerat
 
   return (
     <div className="admin-dropdown" ref={ref}>
-      <button className="admin-dropdown-trigger" onClick={() => setOpen(v => !v)} title={t("admin.colActions")}>
+      <button ref={triggerRef} className="admin-dropdown-trigger" onClick={handleOpen} title={t("admin.colActions")}>
         ⋯
       </button>
       {open && (
-        <div className="admin-dropdown-menu">
+        <div className="admin-dropdown-menu" style={{ position: "fixed", top: menuPos.top, right: menuPos.right, left: "auto" }}>
           <button className="admin-dropdown-item" onClick={() => action(() => navigate("publicProfile", { userId: user.id }))}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             {t("admin.messageUser")}

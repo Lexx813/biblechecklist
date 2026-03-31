@@ -537,10 +537,7 @@ html.nav-hidden .admin-header { top: 0; }
 }
 
 .admin-dropdown-menu {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 4px);
-  z-index: 200;
+  z-index: 9000;
   background: var(--card-bg);
   border: 1.5px solid var(--border);
   border-radius: 12px;
