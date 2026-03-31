@@ -99,18 +99,18 @@
 .reading-plan-goal-edit-btn:hover { border-color: var(--teal); color: var(--teal); }
 
 /* ── Heatmap ─────────────────────────────────────────────────── */
-.heatmap-outer { overflow-x: auto; padding-bottom: 4px; }
+.heatmap-outer { overflow-x: auto; overflow-y: visible; padding-bottom: 4px; }
 
-.heatmap-grid { display: flex; gap: 2px; }
+.heatmap-grid { display: flex; gap: 2px; overflow: visible; }
 
-.heatmap-col { display: flex; flex-direction: column; gap: 2px; }
+.heatmap-col { display: flex; flex-direction: column; gap: 2px; overflow: visible; }
 
 .heatmap-cell {
   width: 10px; height: 10px; border-radius: 2px;
   background: var(--border); flex-shrink: 0;
   position: relative;
 }
-.heatmap-cell:hover { opacity: 1 !important; filter: brightness(1.3); }
+.heatmap-cell:hover { opacity: 1 !important; filter: brightness(1.3); z-index: 10; }
 
 .heatmap-tooltip {
   display: none;
@@ -129,8 +129,9 @@
   border: 1px solid rgba(139, 92, 246, 0.3);
   box-shadow: 0 4px 16px rgba(0,0,0,0.5);
   pointer-events: none;
-  z-index: 200;
+  z-index: 9999;
   text-align: center;
+  isolation: isolate;
 }
 .heatmap-tooltip::after {
   content: "";
