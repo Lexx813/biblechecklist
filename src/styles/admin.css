@@ -17,6 +17,17 @@
 }
 html.nav-hidden .admin-header { top: 0; }
 
+.admin-header .back-btn {
+  border-color: rgba(255,255,255,0.3) !important;
+  color: rgba(255,255,255,0.9) !important;
+  background: rgba(255,255,255,0.08) !important;
+}
+.admin-header .back-btn:hover {
+  background: rgba(255,255,255,0.18) !important;
+  border-color: rgba(255,255,255,0.55) !important;
+  color: #fff !important;
+}
+
 .admin-header-inner {
   max-width: 960px;
   margin: 0 auto;
