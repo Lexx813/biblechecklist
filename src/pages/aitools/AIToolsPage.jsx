@@ -295,7 +295,7 @@ function WatchtowerTab() {
         <input
           type="text"
           className="ait-input"
-          placeholder="e.g. "Draw Close to Jehovah Through Prayer""
+          placeholder={'e.g. \u201cDraw Close to Jehovah Through Prayer\u201d'}
           value={articleTitle}
           onChange={e => setArticleTitle(e.target.value)}
           maxLength={150}
