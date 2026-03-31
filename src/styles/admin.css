@@ -13,7 +13,9 @@
   top: 52px;
   z-index: 50;
   box-shadow: 0 4px 24px rgba(91, 33, 182, 0.35);
+  transition: top 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+html.nav-hidden .admin-header { top: 0; }
 
 .admin-header-inner {
   max-width: 960px;

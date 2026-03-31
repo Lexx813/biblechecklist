@@ -91,6 +91,11 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.classList.toggle("nav-hidden", navHidden);
+    return () => document.documentElement.classList.remove("nav-hidden");
+  }, [navHidden]);
+
   return (
     <>
       <nav className={`page-nav${navHidden ? " page-nav--hidden" : ""}`} ref={menuRef}>
