@@ -842,6 +842,23 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .book-card-skeleton .sk-circle { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; }
 
 /* FOOTER RESET */
+/* ── Global back button ───────────────────────────────────────────────────── */
+.back-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-spring);
+}
+.back-btn:hover { background: var(--teal-soft); border-color: var(--teal); color: var(--teal); transform: translateY(-1px); }
+.back-btn:active { transform: translateY(0); }
+
 .footer-reset { text-align: center; padding: 6px 0 16px; }
 .reset-btn {
   background: none; border: 1.5px solid var(--border);

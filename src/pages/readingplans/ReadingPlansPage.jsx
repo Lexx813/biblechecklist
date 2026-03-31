@@ -511,7 +511,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate }
   return (
     <div className="rp-detail">
       <div className="rp-detail-header">
-        <button className="rp-back-btn" onClick={onBack}>{t("common.back")}</button>
+        <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
         <div className="rp-detail-title-row">
           <span className="rp-detail-icon">{template.icon}</span>
           <div>

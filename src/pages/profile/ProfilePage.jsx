@@ -729,7 +729,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
       {/* Header */}
       <header className="pf-header">
         <div className="pf-header-inner">
-          <button className="pf-back-btn" onClick={onBack}>{t("common.back")}</button>
+          <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
           <h1 className="pf-header-title">{isOwner ? t("profile.title") : (profile?.display_name || profile?.email?.split("@")[0] || t("profile.title"))}</h1>
           {isOwner && <button className="pf-settings-btn" onClick={() => navigate("settings")}>{t("settings.openSettings")}</button>}
         </div>

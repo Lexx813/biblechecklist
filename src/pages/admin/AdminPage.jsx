@@ -1260,7 +1260,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={currentUser} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <header className="admin-header">
         <div className="admin-header-inner">
-          <button className="admin-back-btn" onClick={onBack}>{t("common.back")}</button>
+          <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
           <div className="admin-header-text">
             <span className="admin-logo">{isCurrentUserAdmin ? "⚙️" : "🛡️"}</span>
             <h1>{isCurrentUserAdmin ? t("admin.title") : t("admin.moderation")}</h1>

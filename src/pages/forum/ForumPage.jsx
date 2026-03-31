@@ -690,7 +690,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
       {/* Header */}
       <div className="forum-list-header">
         <div className="forum-list-header-left">
-          <button className="forum-back-btn" onClick={onBack}>{t("forum.backToForums")}</button>
+          <button className="back-btn" onClick={onBack}>{t("forum.backToForums")}</button>
           <span className="forum-list-category-icon">{category.icon}</span>
           <h2 className="forum-list-title">{category.name}</h2>
         </div>
@@ -864,7 +864,7 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
         <div className="forum-hero-glow forum-hero-glow--1" />
         <div className="forum-hero-glow forum-hero-glow--2" />
         <div className="forum-hero-inner">
-          <button className="forum-hero-back" onClick={onBack}>{t("forum.backToApp")}</button>
+          <button className="back-btn forum-hero-back" onClick={onBack}>{t("forum.backToApp")}</button>
           <div className="forum-hero-badge">{t("forum.badge")}</div>
           <h1 className="forum-hero-title">{t("forum.title")}</h1>
           <p className="forum-hero-sub">{t("forum.subtitle")}</p>

@@ -99,7 +99,7 @@ function PostEditor({ userId, post, onDone }) {
   return (
     <div className="blog-editor">
       <div className="blog-editor-header">
-        <button className="blog-back-btn" onClick={handleBack}>{t("blogDash.editorBack")}</button>
+        <button className="back-btn" onClick={handleBack}>{t("blogDash.editorBack")}</button>
         <h2>{post ? t("blogDash.editPostTitle") : t("blogDash.newPostTitle")}</h2>
       </div>
 
@@ -262,7 +262,7 @@ export default function BlogDashboard({ user, onBack, navigate, darkMode, setDar
     <div className="blog-dash-wrap">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <header className="blog-dash-header">
-        <button className="blog-back-btn" onClick={onBack}>{t("common.back")}</button>
+        <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
         <h1>{t("blogDash.myPostsTitle")}</h1>
         <button className="blog-write-btn" onClick={() => setEditing("new")}>{t("blogDash.newPost")}</button>
       </header>

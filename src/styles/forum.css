@@ -31,17 +31,7 @@
   position: absolute;
   top: -36px;
   left: 0;
-  background: none;
-  border: none;
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.7);
-  cursor: pointer;
-  padding: 4px 0;
-  transition: color 0.15s;
 }
-.forum-hero-back:hover { color: #fff; }
 
 .forum-hero-badge {
   display: inline-block;
@@ -708,15 +698,6 @@
 [data-theme="dark"] .forum-solution-btn--active { background: rgba(16,185,129,0.15); color: #6EE7B7; border-color: #10B981; }
 
 /* ── Shared ──────────────────────────────────────────────────── */
-.forum-back-btn {
-  background: none; border: none;
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
-  font-size: 13px; font-weight: 700;
-  color: rgba(255,255,255,0.8);
-  cursor: pointer; padding: 6px 0;
-  transition: color 0.15s; flex-shrink: 0;
-}
-.forum-back-btn:hover { color: #fff; }
 
 .forum-dot { color: var(--text-muted); font-size: 10px; }
 

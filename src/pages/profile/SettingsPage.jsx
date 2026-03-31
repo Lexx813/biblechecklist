@@ -108,7 +108,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
 
       <header className="st-header">
         <div className="st-header-inner">
-          <button className="pf-back-btn" onClick={onBack}>{t("common.back")}</button>
+          <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
           <h1 className="st-title">{t("settings.title")}</h1>
         </div>
       </header>

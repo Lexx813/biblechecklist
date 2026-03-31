@@ -30,7 +30,7 @@ function authorName(author) {
   return author?.display_name || author?.email?.split("@")[0] || "Someone";
 }
 
-export default function ActivityFeed({ user, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function ActivityFeed({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { t } = useTranslation();
   const { data: items = [], isLoading } = useActivityFeed(user.id);
 
@@ -40,6 +40,7 @@ export default function ActivityFeed({ user, navigate, darkMode, setDarkMode, i1
 
       <div className="feed-inner">
         <div className="feed-header">
+          <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
           <h1 className="feed-title">{t("feed.title")}</h1>
           <p className="feed-sub">{t("feed.subtitle")}</p>
         </div>

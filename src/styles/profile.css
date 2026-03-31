@@ -19,24 +19,6 @@
   align-items: center;
   gap: 16px;
 }
-.pf-back-btn {
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.25);
-  color: rgba(255,255,255,0.9);
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 6px 14px;
-  min-height: 44px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  transition: background 0.15s, transform 0.1s;
-  flex-shrink: 0;
-}
-.pf-back-btn:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
-.pf-back-btn:active { transform: translateY(0); }
 .pf-settings-btn {
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.25);
@@ -848,7 +830,7 @@
   .pf-header { padding: 13px 14px; }
   .pf-header-inner { gap: 12px; }
   .pf-header-title { font-size: 16px; }
-  .pf-back-btn { font-size: 12px; padding: 5px 11px; }
+  .back-btn { font-size: 12px; padding: 5px 11px; }
   .pf-content { padding: 18px 10px 32px; gap: 14px; }
   .pf-card-body { padding: 0 16px 20px; }
   .pf-avatar-wrap { width: 76px; height: 76px; margin-top: -38px; }
