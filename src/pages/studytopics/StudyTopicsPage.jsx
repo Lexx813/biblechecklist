@@ -20,18 +20,23 @@ export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
       </div>
 
       <div className="stp-grid">
-        {STUDY_TOPICS.map(topic => (
-          <button
-            key={topic.id}
-            className="stp-card"
-            onClick={() => navigate("studyTopicDetail", { slug: topic.slug })}
-          >
-            <span className="stp-card-icon">{topic.icon}</span>
-            <h2 className="stp-card-title">{topic.title}</h2>
-            <p className="stp-card-subtitle">{topic.subtitle}</p>
-            <span className="stp-card-arrow">{t("studyTopics.readMore", "Read more")} →</span>
-          </button>
-        ))}
+        {STUDY_TOPICS.map(topic => {
+          const loc = t(`studyTopics.topics.${topic.slug}`, { returnObjects: true });
+          const title = (loc && typeof loc === "object" && loc.title) || topic.title;
+          const subtitle = (loc && typeof loc === "object" && loc.subtitle) || topic.subtitle;
+          return (
+            <button
+              key={topic.id}
+              className="stp-card"
+              onClick={() => navigate("studyTopicDetail", { slug: topic.slug })}
+            >
+              <span className="stp-card-icon">{topic.icon}</span>
+              <h2 className="stp-card-title">{title}</h2>
+              <p className="stp-card-subtitle">{subtitle}</p>
+              <span className="stp-card-arrow">{t("studyTopics.readMore", "Read more")} →</span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

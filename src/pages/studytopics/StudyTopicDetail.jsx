@@ -8,6 +8,22 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
   const { t, i18n } = useTranslation();
   const lang = i18n.language?.split("-")[0] ?? "en";
   const topic = getTopicBySlug(slug);
+  const loc = topic ? t(`studyTopics.topics.${slug}`, { returnObjects: true }) : null;
+  const localTopic = (loc && typeof loc === "object")
+    ? {
+        ...topic,
+        title: loc.title || topic.title,
+        subtitle: loc.subtitle || topic.subtitle,
+        sections: (Array.isArray(loc.sections) ? loc.sections : topic.sections).map((s, i) => {
+          const base = topic.sections[i] ?? {};
+          return {
+            heading: s.heading || base.heading,
+            paragraphs: Array.isArray(s.paragraphs) ? s.paragraphs : base.paragraphs,
+            scriptures: Array.isArray(s.scriptures) ? s.scriptures : base.scriptures,
+          };
+        }),
+      }
+    : topic;
 
   if (!topic) {
     return (
@@ -34,13 +50,13 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
         <button className="stp-nav-back" onClick={() => navigate("studyTopics")}>
           ← {t("studyTopics.allTopics", "All Topics")}
         </button>
-        <span className="std-icon">{topic.icon}</span>
-        <h1 className="std-title">{topic.title}</h1>
-        <p className="std-subtitle">{topic.subtitle}</p>
+        <span className="std-icon">{localTopic.icon}</span>
+        <h1 className="std-title">{localTopic.title}</h1>
+        <p className="std-subtitle">{localTopic.subtitle}</p>
       </div>
 
       <div className="std-body">
-        {topic.sections.map((section, i) => (
+        {localTopic.sections.map((section, i) => (
           <div key={i} className="std-section">
             <h2 className="std-section-heading">{section.heading}</h2>
             {section.paragraphs.map((para, j) => (
@@ -72,7 +88,7 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
             <span>←</span>
             <span>
               <span className="std-nav-btn-label">{t("studyTopics.previous", "Previous")}</span>
-              <span className="std-nav-btn-title">{prevTopic.icon} {prevTopic.title}</span>
+              <span className="std-nav-btn-title">{prevTopic.icon} {(t(`studyTopics.topics.${prevTopic.slug}`, { returnObjects: true })?.title) || prevTopic.title}</span>
             </span>
           </button>
         ) : <span />}
@@ -84,7 +100,7 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
             <span>→</span>
             <span>
               <span className="std-nav-btn-label">{t("studyTopics.next", "Next")}</span>
-              <span className="std-nav-btn-title">{nextTopic.icon} {nextTopic.title}</span>
+              <span className="std-nav-btn-title">{nextTopic.icon} {(t(`studyTopics.topics.${nextTopic.slug}`, { returnObjects: true })?.title) || nextTopic.title}</span>
             </span>
           </button>
         )}

@@ -21,6 +21,7 @@ export function parsePath() {
   if (h === "history") return { page: "history" };
   if (h === "feed") return { page: "feed" };
   if (h === "messages") return { page: "messages" };
+  if (h.startsWith("messages/")) return { page: "messages", conversationId: h.slice(9) };
   if (h === "groups") return { page: "groups" };
   if (h.startsWith("groups/")) return { page: "groupDetail", groupId: h.slice(7) };
   if (h === "reading-plans") return { page: "readingPlans" };
@@ -53,7 +54,7 @@ export function buildPath(page, params = {}) {
     case "bookmarks":     return "/bookmarks";
     case "history":       return "/history";
     case "feed":          return "/feed";
-    case "messages":     return "/messages";
+    case "messages":     return params.conversationId ? "/messages/" + params.conversationId : "/messages";
     case "groups":       return "/groups";
     case "groupDetail":  return "/groups/" + params.groupId;
     case "readingPlans": return "/reading-plans";

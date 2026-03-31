@@ -37,21 +37,28 @@ export default function NotificationBell({ userId, navigate }) {
   function handleClick(n) {
     if (!n.read) markRead.mutate([n.id]);
     setOpen(false);
-    if (!n.link_hash) return;
 
     const h = n.link_hash;
+
+    // Messages — open the specific conversation
+    if (n.type === "message") {
+      const convId = h?.startsWith("messages/") ? h.slice(9) : null;
+      navigate("messages", convId ? {
+        conversationId: convId,
+        otherDisplayName: n.actor?.display_name ?? null,
+        otherAvatarUrl: n.actor?.avatar_url ?? null,
+      } : {});
+      return;
+    }
+
+    if (!h) return;
+
     if (h.startsWith("blog/")) {
       const slug = decodeURIComponent(h.slice(5));
       navigate("blog", { slug });
-      setTimeout(() => {
-        document.querySelector(".blog-comments")?.scrollIntoView({ behavior: "smooth" });
-      }, 600);
     } else if (h.startsWith("forum/")) {
       const parts = h.slice(6).split("/");
       navigate("forum", { categoryId: parts[0] || null, threadId: parts[1] || null });
-      setTimeout(() => {
-        document.querySelector(".forum-replies")?.scrollIntoView({ behavior: "smooth" });
-      }, 600);
     } else {
       navigate(h);
     }
