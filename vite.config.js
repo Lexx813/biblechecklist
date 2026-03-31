@@ -82,7 +82,7 @@ function modulePreloadSupabasePlugin() {
     },
     transformIndexHtml(html) {
       if (!supabaseChunkFile) return html;
-      const tag = `<link rel="modulepreload" href="/assets/${supabaseChunkFile}" crossorigin>`;
+      const tag = `<link rel="modulepreload" href="/${supabaseChunkFile}" crossorigin>`;
       return html.replace('</head>', `  ${tag}\n  </head>`);
     },
   };
