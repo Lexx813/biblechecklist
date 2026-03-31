@@ -101,7 +101,7 @@
 }
 
 html { overflow-y: scroll; }
-body { font-family: inherit; background: var(--bg); color: var(--text-primary); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body { font-family: 'Plus Jakarta Sans Variable', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
 /* ── Touch & interaction ────────────────────────────────────────────────── */
 button, a, [role="button"], input, select, textarea { touch-action: manipulation; }
