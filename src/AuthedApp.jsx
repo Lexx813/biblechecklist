@@ -241,6 +241,10 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     return null;
   }
 
+  if (!profileLoading && profile && !profile.terms_accepted_at) {
+    return <ConsentGate userId={user.id} />;
+  }
+
   return (
     <>
       <div key={nav.page} className="page-fade-in">
@@ -376,12 +380,6 @@ export default function AuthedApp({ onShowLanding, i18n }) {
         </Suspense>
       </main>
     );
-  }
-
-  // Block app access until terms are accepted (applies to Google OAuth and
-  // any existing user who hasn't yet agreed to the updated policies).
-  if (!profileLoading && profile && !profile.terms_accepted_at) {
-    return <ConsentGate userId={user.id} />;
   }
 
   return (
