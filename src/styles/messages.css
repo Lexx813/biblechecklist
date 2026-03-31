@@ -724,15 +724,18 @@ main:has(.msg-page) {
   display: flex;
   align-items: center;
   gap: 2px;
-  align-self: center;
+  position: absolute;
+  top: 50%;
+  right: -8px;
+  transform: translateX(100%) translateY(-50%);
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 20px;
   padding: 3px 5px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.12);
   z-index: 20;
-  flex-shrink: 0;
   animation: bubble-pop 0.15s ease;
+  white-space: nowrap;
 }
 
 .msg-action-btn {
