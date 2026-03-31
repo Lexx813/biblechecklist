@@ -5,11 +5,19 @@ export const profileApi = {
   get: async (userId) => {
     const { data, error } = await supabase
       .from("profiles")
-      .select("id, email, is_admin, is_moderator, can_blog, display_name, avatar_url, created_at, reading_goal_date, bio, subscription_status, email_notifications_blog, email_notifications_digest, email_notifications_streak")
+      .select("id, email, is_admin, is_moderator, can_blog, display_name, avatar_url, created_at, reading_goal_date, bio, subscription_status, email_notifications_blog, email_notifications_digest, email_notifications_streak, terms_accepted_at")
       .eq("id", userId)
       .maybeSingle();
     if (error) throw new Error(error.message);
     return data;
+  },
+
+  acceptTerms: async (userId) => {
+    const { error } = await supabase
+      .from("profiles")
+      .update({ terms_accepted_at: new Date().toISOString() })
+      .eq("id", userId);
+    if (error) throw new Error(error.message);
   },
 
   update: async (userId, updates) => {

@@ -13,6 +13,7 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import UpgradeModal from "./components/UpgradeModal";
 import WelcomePremiumModal from "./components/WelcomePremiumModal";
+import ConsentGate from "./components/ConsentGate";
 
 const AuthPage          = lazy(() => import("./pages/auth/AuthPage"));
 const ResetPasswordPage = lazy(() => import("./pages/auth/ResetPasswordPage"));
@@ -375,6 +376,12 @@ export default function AuthedApp({ onShowLanding, i18n }) {
         </Suspense>
       </main>
     );
+  }
+
+  // Block app access until terms are accepted (applies to Google OAuth and
+  // any existing user who hasn't yet agreed to the updated policies).
+  if (!profileLoading && profile && !profile.terms_accepted_at) {
+    return <ConsentGate userId={user.id} />;
   }
 
   return (
