@@ -5,25 +5,6 @@
   padding: 24px 20px 0;
 }
 
-/* Back button */
-.lb-header .admin-back-btn {
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 5px 12px;
-  font-size: 13px;
-  font-weight: 700;
-  font-family: inherit;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-spring);
-}
-.lb-header .admin-back-btn:hover {
-  background: var(--teal-soft);
-  border-color: var(--teal);
-  color: var(--teal);
-  transform: translateY(-1px);
-}
 .lb-title { font-size: 24px; font-weight: 900; color: var(--text-primary); margin: 8px 0 4px; }
 .lb-sub { font-size: 14px; color: var(--text-muted); margin: 0; }
 
