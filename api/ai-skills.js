@@ -142,9 +142,6 @@ export default async function handler(req) {
     });
   }
 
-  // AI features are currently disabled — remove this block when billing is live
-  return new Response("AI features are coming soon.", { status: 503 });
-
   if (req.method !== "POST") return new Response("Method Not Allowed", { status: 405 });
 
   // ── Auth ──────────────────────────────────────────────────────────────────
