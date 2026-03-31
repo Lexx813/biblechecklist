@@ -74,7 +74,10 @@ function Avatar({ profile, userId, editable }) {
         : <span className="pf-avatar-initials"><Initials name={profile?.display_name} email={profile?.email} /></span>
       }
       <div className="pf-avatar-overlay">
-        {upload.isPending ? "⏳" : "📷"}
+        {upload.isPending
+          ? <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          : <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        }
       </div>
       <input ref={fileRef} type="file" accept="image/*" style={{ display: "none" }} onChange={handleFile} />
     </div>
@@ -776,7 +779,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
         {/* Bible Reading Progress */}
         <div className="pf-section pf-section--stats">
           <div className="pf-section-header">
-            <h2>📖 {t("profile.bibleProgress")}</h2>
+            <h2><span className="pf-section-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>{t("profile.bibleProgress")}</h2>
           </div>
           <div className="pf-reading-stats">
             <div className="pf-reading-bar-wrap">
@@ -803,16 +806,18 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
         {/* Reading Streak */}
         <div className="pf-section pf-section--stats">
           <div className="pf-section-header">
-            <h2>🔥 {t("profile.readingStreak")}</h2>
+            <h2><span className="pf-section-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 0.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg></span>{t("profile.readingStreak")}</h2>
           </div>
           <div className="pf-streak-row">
-            <div className="pf-streak-card">
+            <div className="pf-streak-card pf-streak-card--primary">
               <span className="pf-streak-val">{streak.current_streak}</span>
               <span className="pf-streak-label">{t("profile.currentStreak")}</span>
+              <div className="pf-streak-bar"><div className="pf-streak-bar-fill" style={{ width: streak.longest_streak > 0 ? `${Math.min(streak.current_streak / streak.longest_streak * 100, 100)}%` : "100%" }} /></div>
             </div>
             <div className="pf-streak-card">
               <span className="pf-streak-val">{streak.longest_streak}</span>
               <span className="pf-streak-label">{t("profile.longestStreak")}</span>
+              <div className="pf-streak-bar"><div className="pf-streak-bar-fill" style={{ width: "100%" }} /></div>
             </div>
             <div className="pf-streak-card">
               <span className="pf-streak-val">{streak.total_days}</span>
@@ -825,7 +830,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
         {(forumStats.threads > 0 || forumStats.replies > 0) && (
           <div className="pf-section pf-section--stats">
             <div className="pf-section-header">
-              <h2>💬 {t("profile.forumActivity")}</h2>
+              <h2><span className="pf-section-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>{t("profile.forumActivity")}</h2>
             </div>
             <div className="pf-streak-row">
               <div className="pf-streak-card">
@@ -843,7 +848,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
         {/* Quiz Progress */}
         <div className="pf-section pf-section--stats">
           <div className="pf-section-header">
-            <h2>🏆 {t("profile.quizProgress")}</h2>
+            <h2><span className="pf-section-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="8 17 8 21"/><polyline points="16 17 16 21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M6 21h12"/><path d="M8 17h8a4 4 0 0 0 4-4V5H4v8a4 4 0 0 0 4 4z"/><path d="M4 5H2"/><path d="M20 5h2"/></svg></span>{t("profile.quizProgress")}</h2>
             {highestUnlocked > 0 && (
               <span className="pf-quiz-meta">{levelsCompleted} / 12 {t("profile.levelsComplete")}</span>
             )}
