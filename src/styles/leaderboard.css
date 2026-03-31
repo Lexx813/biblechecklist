@@ -5,27 +5,24 @@
   padding: 24px 20px 0;
 }
 
-/* Back button — matches search page style */
+/* Back button */
 .lb-header .admin-back-btn {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.85);
-  border-radius: 8px;
-  padding: 6px 14px;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 5px 12px;
   font-size: 13px;
   font-weight: 700;
+  font-family: inherit;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-spring);
 }
 .lb-header .admin-back-btn:hover {
-  background: rgba(255,255,255,0.15);
+  background: var(--teal-soft);
+  border-color: var(--teal);
+  color: var(--teal);
   transform: translateY(-1px);
-}
-[data-theme="light"] .lb-header .admin-back-btn {
-  background: rgba(0,0,0,0.05);
-  border-color: rgba(0,0,0,0.1);
-  color: var(--text-primary);
-}
-[data-theme="light"] .lb-header .admin-back-btn:hover {
-  background: rgba(0,0,0,0.1);
 }
 .lb-title { font-size: 24px; font-weight: 900; color: var(--text-primary); margin: 8px 0 4px; }
 .lb-sub { font-size: 14px; color: var(--text-muted); margin: 0; }
