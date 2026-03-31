@@ -125,7 +125,7 @@ html.nav-hidden .admin-header { top: 0; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  padding: 14px 16px;
   border-bottom: 1px solid var(--border);
   background: rgba(124, 58, 237, 0.04);
 }
@@ -327,7 +327,7 @@ html.nav-hidden .admin-header { top: 0; }
 }
 
 .admin-table th {
-  padding: 10px 20px;
+  padding: 10px 12px;
   text-align: left;
   font-size: 11px;
   font-weight: 800;
@@ -338,7 +338,7 @@ html.nav-hidden .admin-header { top: 0; }
 }
 
 .admin-table td {
-  padding: 12px 20px;
+  padding: 12px 12px;
   border-bottom: 1px solid var(--border);
   color: var(--text-primary);
   vertical-align: middle;
@@ -346,7 +346,7 @@ html.nav-hidden .admin-header { top: 0; }
 
 .admin-table tbody tr:last-child td { border-bottom: none; }
 .admin-table td:last-child,
-.admin-table th:last-child { padding-right: 16px; }
+.admin-table th:last-child { padding-right: 12px; }
 .admin-table tbody tr:hover { background: rgba(124, 58, 237, 0.05); }
 .admin-table-row--self { background: rgba(124, 58, 237, 0.07); }
 

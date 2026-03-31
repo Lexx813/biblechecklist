@@ -286,7 +286,7 @@ function UsersTab({ currentUser, navigate }) {
                 <th className="admin-col-joined">{t("admin.colJoined")}</th>
                 <th className="admin-col-role">{t("admin.colRole")}</th>
                 <th className="admin-col-sub">{t("admin.subscribers")}</th>
-                <th style={{ width: 64 }}></th>
+                <th style={{ width: 52 }}></th>
               </tr>
             </thead>
             <tbody>
@@ -328,7 +328,7 @@ function UsersTab({ currentUser, navigate }) {
                       <span style={{ color: "var(--text-muted)", fontSize: 13 }}>—</span>
                     )}
                   </td>
-                  <td style={{ textAlign: "right", paddingRight: 20 }}>
+                  <td style={{ textAlign: "right", paddingRight: 8 }}>
                     {user.id !== currentUser.id && (
                       <UserActionsDropdown
                         user={user}
