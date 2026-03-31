@@ -5,7 +5,7 @@ CREATE TABLE family_challenges (
   id          uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
   creator_id  uuid        NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   title       text        NOT NULL DEFAULT 'Family Bible Challenge',
-  question_ids integer[]  NOT NULL,
+  question_ids uuid[]     NOT NULL,
   created_at  timestamptz NOT NULL DEFAULT now()
 );
 
