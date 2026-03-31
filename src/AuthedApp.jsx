@@ -49,6 +49,7 @@ const NotFoundPage      = lazy(() => import("./pages/NotFoundPage"));
 const AIToolsPage       = lazy(() => import("./pages/aitools/AIToolsPage"));
 const StudyTopicsPage   = lazy(() => import("./pages/studytopics/StudyTopicsPage"));
 const StudyTopicDetail  = lazy(() => import("./pages/studytopics/StudyTopicDetail"));
+const FamilyQuizPage    = lazy(() => import("./pages/familyquiz/FamilyQuizPage"));
 
 // ── Lazy-page wrapper with error boundary ─────────────────────────────────────
 
@@ -216,6 +217,15 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (nav.page === "aiTools" && aiEnabled && isPremium) pageContent = <Page><AIToolsPage user={user} {...sharedNav} /></Page>;
   else if (nav.page === "studyTopics")      pageContent = <Page><StudyTopicsPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "studyTopicDetail") pageContent = <Page><StudyTopicDetail user={user} navigate={navigate} slug={nav.slug} {...sharedNav} /></Page>;
+  else if (nav.page === "familyQuiz") pageContent = (
+    <Page>
+      <FamilyQuizPage
+        user={user}
+        {...sharedNav}
+        {...(nav.challengeId ? { initialChallengeId: nav.challengeId } : {})}
+      />
+    </Page>
+  );
   else if (nav.page === "leaderboard") pageContent = <Page><LeaderboardPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "about")     pageContent = <Page><AboutPage {...sharedNav} /></Page>;
   else if (nav.page === "terms")     pageContent = <Page><TermsPage {...sharedNav} /></Page>;

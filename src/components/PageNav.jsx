@@ -112,6 +112,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
           {currentPage !== "home" && <button className="page-nav-link" onClick={() => go("home")}>{t("app.home")}</button>}
           <button className={`page-nav-link${currentPage === "main" ? " page-nav-link--active" : ""}`} onClick={() => go("main")}>{t("home.navTracker")}</button>
           <button className={`page-nav-link${currentPage === "quiz" ? " page-nav-link--active" : ""}`} onClick={() => go("quiz")}>{t("quiz.nav")}</button>
+          <button className={`page-nav-link${currentPage === "familyQuiz" ? " page-nav-link--active" : ""}`} onClick={() => go("familyQuiz")}>Family Challenge</button>
           {aiEnabled && isPremium && <button className={`page-nav-link${currentPage === "aiTools" ? " page-nav-link--active" : ""}`} onClick={() => go("aiTools")}>{Icon.Sparkle} {t("nav.aiTools", "AI Tools")}</button>}
 
           {/* Community dropdown */}
@@ -267,6 +268,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
             {currentPage !== "home" && <button className="page-nav-mobile-link" onClick={() => go("home")}><span className="page-nav-mobile-icon">{Icon.Home}</span> {t("app.home")}</button>}
             <button className={`page-nav-mobile-link${currentPage === "main" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("main")}><span className="page-nav-mobile-icon">{Icon.Book}</span> {t("home.navTracker")}</button>
             <button className={`page-nav-mobile-link${currentPage === "quiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("quiz")}><span className="page-nav-mobile-icon">{Icon.Quiz}</span> {t("quiz.nav")}</button>
+            <button className={`page-nav-mobile-link${currentPage === "familyQuiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("familyQuiz")}><span className="page-nav-mobile-icon">👨‍👩‍👦</span> Family Challenge</button>
             {aiEnabled && isPremium && <button className={`page-nav-mobile-link${currentPage === "aiTools" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("aiTools")}><span className="page-nav-mobile-icon">{Icon.Sparkle}</span> {t("nav.aiTools", "AI Tools")}</button>}
 
             <div className="page-nav-mobile-section-label">{t("nav.community")}</div>

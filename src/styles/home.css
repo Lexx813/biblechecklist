@@ -862,6 +862,32 @@
   background: linear-gradient(135deg, #ede0ff 0%, #d8b4fe 100%);
 }
 
+/* Family quiz card — green tint variant */
+.home-tracker-card--alt {
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.55) 0%, rgba(4, 47, 46, 0.8) 100%);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+.home-tracker-card--alt:hover {
+  border-color: rgba(16, 185, 129, 0.45);
+  box-shadow: 0 12px 40px rgba(16, 185, 129, 0.18);
+}
+.home-tracker-card--alt .home-tracker-visual {
+  background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+}
+.home-tracker-glow--green {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, transparent 70%);
+}
+[data-theme="light"] .home-tracker-card--alt {
+  background: #fff;
+  border-color: rgba(16, 185, 129, 0.2);
+}
+[data-theme="light"] .home-tracker-card--alt:hover {
+  box-shadow: 0 12px 40px rgba(16, 185, 129, 0.12);
+}
+[data-theme="light"] .home-tracker-card--alt .home-tracker-visual {
+  background: linear-gradient(135deg, #d1fae5 0%, #6ee7b7 100%);
+}
+
 [data-theme="light"] .home-tracker-icon-wrap {
   background: rgba(124, 58, 237, 0.12);
   border-color: rgba(124, 58, 237, 0.25);

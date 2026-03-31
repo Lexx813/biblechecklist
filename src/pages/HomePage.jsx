@@ -222,6 +222,25 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <span className="home-tracker-cta">{t("quiz.homeCard")}</span>
           </div>
         </button>
+
+        <button className="home-tracker-card home-tracker-card--alt" onClick={() => navigate("familyQuiz")}>
+          <div className="home-tracker-visual">
+            <div className="home-tracker-glow home-tracker-glow--green" />
+            <div className="home-tracker-icon-wrap">
+              <span className="home-tracker-big-icon" aria-hidden="true">👨‍👩‍👦</span>
+            </div>
+            <div className="home-tracker-stats-preview">
+              <div className="home-tracker-stat-pill">Create a Quiz</div>
+              <div className="home-tracker-stat-pill">Share a Link</div>
+              <div className="home-tracker-stat-pill">Family Leaderboard</div>
+            </div>
+          </div>
+          <div className="home-tracker-info">
+            <h3 className="home-tracker-title">Family Bible Challenge</h3>
+            <p className="home-tracker-desc">Challenge your family and friends with a custom Bible quiz and see who scores highest.</p>
+            <span className="home-tracker-cta">Create a challenge →</span>
+          </div>
+        </button>
       </section>
 
       {/* ── Community Notes section ── */}
