@@ -9,8 +9,19 @@
   background: linear-gradient(135deg, var(--teal-darker) 0%, var(--teal-dark) 60%, var(--teal) 100%);
   padding: 16px 20px;
   position: sticky;
-  top: 0;
+  top: 52px;
   z-index: 50;
+}
+/* Back button override for gradient header */
+.pf-header .back-btn {
+  border-color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.85);
+}
+.pf-header .back-btn:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.55);
+  color: #fff;
+  transform: translateY(-1px);
 }
 .pf-header-inner {
   max-width: 720px;
