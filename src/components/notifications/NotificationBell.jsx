@@ -85,7 +85,7 @@ export default function NotificationBell({ userId, navigate }) {
         onClick={handleOpen}
         data-tip={t("notifications.title")}
       >
-        🔔
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         {unread.length > 0 && (
           <span className="notif-badge">{unread.length > 9 ? "9+" : unread.length}</span>
         )}
@@ -144,7 +144,7 @@ export default function NotificationBell({ userId, navigate }) {
                     title={t("notifications.delete")}
                     aria-label={t("notifications.delete")}
                   >
-                    ✕
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                   </button>
                 </div>
               ))}

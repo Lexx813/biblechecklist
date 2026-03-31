@@ -3,7 +3,7 @@
 .about-wrap {
   min-height: 100vh;
   background: var(--bg);
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
 }
 
 /* ── Hero ─────────────────────────────────────────────────────────── */
@@ -317,7 +317,7 @@
   background: #fff;
   color: var(--teal-dark);
   border: none;
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 14px;
   font-weight: 800;
   padding: 13px 32px;
