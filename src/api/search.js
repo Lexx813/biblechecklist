@@ -8,7 +8,7 @@ export const searchApi = {
       p_limit: 6,
     });
     if (error) throw new Error(error.message);
-    return data ?? { posts: [], threads: [] };
+    return data ?? { posts: [], threads: [], users: [] };
   },
 
   semanticSearch: async (query) => {

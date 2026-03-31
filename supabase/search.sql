@@ -36,6 +36,15 @@ begin
         where t.search_vector @@ v_ts
         order by rank desc limit p_limit
       ) r
+    ), '[]'::jsonb),
+    'users', coalesce((
+      select jsonb_agg(r) from (
+        select id, display_name, avatar_url
+        from public.profiles
+        where display_name ilike '%' || p_query || '%'
+          and display_name is not null
+        order by display_name limit p_limit
+      ) r
     ), '[]'::jsonb)
   );
 end; $$;

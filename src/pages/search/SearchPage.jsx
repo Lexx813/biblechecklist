@@ -39,8 +39,9 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
 
   const posts = results?.posts ?? [];
   const threads = results?.threads ?? [];
+  const users = results?.users ?? [];
   const semanticVerses = semantic?.verses ?? [];
-  const hasResults = bookResults.length > 0 || posts.length > 0 || threads.length > 0 || semanticVerses.length > 0;
+  const hasResults = bookResults.length > 0 || posts.length > 0 || threads.length > 0 || semanticVerses.length > 0 || users.length > 0;
   const isTyping = debouncedQuery.trim().length >= 2;
 
   return (
