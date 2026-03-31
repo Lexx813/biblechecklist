@@ -34,6 +34,13 @@ export default function NotificationBell({ userId, navigate }) {
     setOpen(o => !o);
   }
 
+  function extractConvId(h) {
+    if (!h) return null;
+    if (h.startsWith("messages/")) return h.slice(9);
+    const m = h.match(/[?&]conv=([^&]+)/);
+    return m ? m[1] : null;
+  }
+
   function handleClick(n) {
     if (!n.read) markRead.mutate([n.id]);
     setOpen(false);
@@ -42,7 +49,7 @@ export default function NotificationBell({ userId, navigate }) {
 
     // Messages — open the specific conversation
     if (n.type === "message") {
-      const convId = h?.startsWith("messages/") ? h.slice(9) : null;
+      const convId = extractConvId(h);
       navigate("messages", convId ? {
         conversationId: convId,
         otherDisplayName: n.actor?.display_name ?? null,

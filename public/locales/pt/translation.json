@@ -1553,7 +1553,260 @@
     "allTopics": "Todos os tópicos",
     "notFound": "Tópico não encontrado",
     "previous": "Anterior",
-    "next": "Próximo"
+    "next": "Próximo",
+    "topics": {
+      "is-jesus-god": {
+        "title": "Jesus é Deus?",
+        "subtitle": "Entendendo a identidade de Jesus como o Filho de Deus — distinto de Jeová",
+        "sections": [
+          {
+            "heading": "O que a Bíblia diz",
+            "paragraphs": [
+              "Muitas pessoas presumem que Jesus é Deus Todo-Poderoso, mas a Bíblia mostra consistentemente que Jesus é distinto de seu Pai. O próprio Jesus disse: 'O Pai é maior do que eu.' (João 14:28) Ele também ensinou seus discípulos a orar para 'nosso Pai nos céus.' (Mateus 6:9) Se Jesus fosse Deus, essas afirmações não fariam sentido.",
+              "O apóstolo Paulo escreveu: 'Para nós há realmente um só Deus, o Pai, de quem são todas as coisas e nós para ele; e um só Senhor, Jesus Cristo, por meio de quem são todas as coisas e nós por meio dele.' (1 Coríntios 8:6) Esse versículo distingue claramente Jeová como Deus e Jesus como Senhor — duas pessoas separadas."
+            ],
+            "scriptures": [
+              { "ref": "João 14:28", "text": "O Pai é maior do que eu." },
+              { "ref": "1 Coríntios 8:6", "text": "Há um só Deus, o Pai… e um só Senhor, Jesus Cristo." },
+              { "ref": "João 17:3", "text": "Isto significa vida eterna: o seu conhecê-lo a você, o único Deus verdadeiro, e ao que enviou, Jesus Cristo." }
+            ]
+          },
+          {
+            "heading": "Jesus é o Filho de Deus, não o próprio Deus",
+            "paragraphs": [
+              "As Escrituras chamam Jesus repetidamente de 'o Filho de Deus.' Em seu batismo, uma voz do céu declarou: 'Este é o meu Filho, o amado, a quem aprovei.' (Mateus 3:17) Um filho é um indivíduo separado de seu pai. Jesus teve um começo — era 'o primogênito de toda a criação.' (Colossenses 1:15)",
+              "O próprio Jesus disse: 'Vou para o Pai, porque o Pai é maior do que eu.' Ele também reconheceu que havia coisas que não sabia, dizendo que ninguém sabe o dia ou a hora 'exceto o Pai.' (Mateus 24:36) Essas limitações seriam impossíveis se Jesus fosse Deus Todo-Poderoso."
+            ],
+            "scriptures": [
+              { "ref": "Mateus 3:17", "text": "Este é o meu Filho, o amado, a quem aprovei." },
+              { "ref": "Colossenses 1:15", "text": "Ele é a imagem do Deus invisível, o primogênito de toda a criação." },
+              { "ref": "Mateus 24:36", "text": "Quanto a esse dia e hora, ninguém sabe, nem os anjos dos céus nem o Filho, mas só o Pai." }
+            ]
+          },
+          {
+            "heading": "A doutrina da Trindade — bíblica ou tradicional?",
+            "paragraphs": [
+              "A palavra 'Trindade' não aparece em nenhum lugar da Bíblia. A doutrina foi formalizada no Concílio de Niceia em 325 EC, muito depois de os apóstolos terem morrido. A Nova Enciclopédia Católica reconhece que 'a doutrina da Trindade não é ensinada no Antigo Testamento.' Os primeiros cristãos entendiam claramente que Jeová Deus e Jesus Cristo eram duas pessoas distintas.",
+              "Orar a Jeová por meio de Jesus Cristo é o padrão mostrado em todo o Novo Testamento. Jesus é nosso Sumo Sacerdote e mediador — funções que só fazem sentido se ele for distinto de Deus o Pai. (1 Timóteo 2:5; Hebreus 7:25)"
+            ],
+            "scriptures": [
+              { "ref": "1 Timóteo 2:5", "text": "Há um só Deus, e um só mediador entre Deus e os homens, um homem, Cristo Jesus." },
+              { "ref": "Hebreus 7:25", "text": "Ele é capaz de salvar completamente os que se aproximam de Deus por meio dele." }
+            ]
+          }
+        ]
+      },
+      "jesus-and-michael": {
+        "title": "Jesus e Miguel o Arcanjo",
+        "subtitle": "Evidência bíblica de que Jesus Cristo é Miguel o arcanjo",
+        "sections": [
+          {
+            "heading": "Quem é Miguel?",
+            "paragraphs": [
+              "Miguel é descrito na Bíblia como 'o grande príncipe que está de pé em favor do seu povo.' (Daniel 12:1) O nome Miguel significa 'Quem é como Deus?' — um nome adequado para quem defende a soberania de Jeová. Judas 9 o chama de 'Miguel o arcanjo', e 1 Tessalonicenses 4:16 diz que na ressurreição 'o próprio Senhor descerá do céu com um chamado de comando, com voz de arcanjo.'",
+              "Como apenas um arcanjo é mencionado nas Escrituras, e o Jesus ressuscitado desce com voz de arcanjo, isso implica fortemente que Jesus é esse arcanjo."
+            ],
+            "scriptures": [
+              { "ref": "Daniel 12:1", "text": "Miguel se levantará, o grande príncipe que está de pé em favor do seu povo." },
+              { "ref": "Judas 9", "text": "Quando Miguel o arcanjo teve uma disputa com o Diabo e argumentava sobre o corpo de Moisés, não ousou proferir um julgamento condenatório contra ele." },
+              { "ref": "1 Tessalonicenses 4:16", "text": "O próprio Senhor descerá do céu com um chamado de comando, com voz de arcanjo." }
+            ]
+          },
+          {
+            "heading": "Conectando Jesus a Miguel",
+            "paragraphs": [
+              "No Apocalipse, é Jesus quem trava guerra contra Satanás: 'Miguel e seus anjos travaram batalha com o dragão… o grande dragão foi lançado abaixo, a serpente original, o que é chamado Diabo e Satanás.' (Apocalipse 12:7-9) Jesus é descrito em outras partes do Apocalipse como o conquistador cavaleiro no cavalo branco, o Rei dos reis que derrota as nações. O líder dos exércitos angélicos de Deus em ambas as passagens é a mesma pessoa — Jesus Cristo, conhecido em seu papel celestial como Miguel.",
+              "Antes de seu nascimento humano, Jesus existia no céu como uma poderosa criatura espiritual — 'o primogênito de toda a criação' (Colossenses 1:15). Seu nome pré-humano era Miguel. Após sua ressurreição, Filipenses 2:9 diz que Deus lhe deu 'o nome que está acima de todo outro nome' — Jesus Cristo — exaltado à posição mais elevada."
+            ],
+            "scriptures": [
+              { "ref": "Apocalipse 12:7-9", "text": "Miguel e seus anjos travaram batalha com o dragão… o grande dragão foi lançado abaixo." },
+              { "ref": "Colossenses 1:15-16", "text": "Ele é a imagem do Deus invisível, o primogênito de toda a criação; porque por meio dele foram criadas todas as outras coisas." },
+              { "ref": "Filipenses 2:9", "text": "Deus o exaltou a uma posição superior e bondosamente lhe deu o nome que está acima de todo outro nome." }
+            ]
+          }
+        ]
+      },
+      "holy-spirit": {
+        "title": "Espírito Santo — pessoa ou força?",
+        "subtitle": "A Bíblia mostra que o espírito santo é a força ativa de Deus, não uma terceira pessoa",
+        "sections": [
+          {
+            "heading": "A força ativa de Deus",
+            "paragraphs": [
+              "O espírito santo é a força ativa de Jeová Deus — o poder que ele usa para realizar sua vontade. Na criação, 'a força ativa de Deus se movia sobre a superfície das águas.' (Gênesis 1:2) Essa força capacitou profetas, guiou apóstolos e realizou milagres. Ela não é descrita como uma pessoa-Deus separada com personalidade própria.",
+              "Quando Jesus foi batizado, 'os céus se abriram e ele viu o espírito de Deus descer como uma pomba.' (Mateus 3:16) Uma pomba é símbolo de mansidão e paz — o espírito aqui é retratado como uma força ou influência, não como um terceiro ser divino de pé ao lado do Pai e do Filho."
+            ],
+            "scriptures": [
+              { "ref": "Gênesis 1:2", "text": "A força ativa de Deus se movia sobre a superfície das águas." },
+              { "ref": "Atos 2:4", "text": "Todos foram cheios de espírito santo e começaram a falar em diferentes línguas." },
+              { "ref": "Lucas 1:35", "text": "Espírito santo virá sobre você, e o poder do Altíssimo a cobrirá com sombra." }
+            ]
+          },
+          {
+            "heading": "Por que o espírito santo não é uma pessoa",
+            "paragraphs": [
+              "Pessoas têm nomes; o espírito santo não tem nenhum. Pessoas originam ações; o espírito santo é consistentemente descrito como algo que é derramado, enviado ou dado — nunca como alguém que age independentemente. Atos 2:17 diz: 'Derramarei do meu espírito sobre toda sorte de pessoas.' Derrama-se uma substância, não uma pessoa.",
+              "Os dons do espírito santo — sabedoria, fé, cura, falar em línguas — são distribuídos pelo poder de Deus, não por um terceiro indivíduo divino tomando decisões independentes. Paulo escreve que 'tudo isso é a obra de um e o mesmo espírito, distribuindo a cada pessoa como quer' (1 Coríntios 12:11) — mas isso reflete o alinhamento do espírito com a vontade de Deus, não uma personalidade separada."
+            ],
+            "scriptures": [
+              { "ref": "Atos 2:17", "text": "Derramarei do meu espírito sobre toda sorte de pessoas." },
+              { "ref": "Romanos 8:26", "text": "O próprio espírito intercede por nós com gemidos inexprimíveis." },
+              { "ref": "1 Coríntios 12:11", "text": "Tudo isso é a obra de um e o mesmo espírito." }
+            ]
+          }
+        ]
+      },
+      "what-is-the-soul": {
+        "title": "O que é a alma?",
+        "subtitle": "A Bíblia define a alma como um ser vivo — não uma entidade interior imortal",
+        "sections": [
+          {
+            "heading": "A alma é a pessoa",
+            "paragraphs": [
+              "A maioria das tradições religiosas ensina que os humanos têm uma alma imortal que deixa o corpo na morte. Mas a Bíblia ensina algo bem diferente: 'Jeová Deus procedeu a formar o homem do pó do solo e a soprar nas suas narinas o fôlego de vida, e o homem se tornou uma pessoa vivente.' (Gênesis 2:7, TNM) A palavra hebraica traduzida 'pessoa' aqui é nefesh — tradicionalmente traduzida 'alma.' O homem não recebeu uma alma; ele se tornou uma alma.",
+              "Os animais também são chamados de 'almas' nas Escrituras. Gênesis 1:20 em hebraico usa nefesh para criaturas do mar e aves. A alma não é uma parte espiritual especial exclusiva dos humanos — ela se refere a qualquer criatura viva que respira."
+            ],
+            "scriptures": [
+              { "ref": "Gênesis 2:7", "text": "O homem se tornou uma pessoa [alma] vivente." },
+              { "ref": "Ezequiel 18:4", "text": "Vejam! Todas as almas me pertencem. A alma que pecar é a que morirá." },
+              { "ref": "1 Coríntios 15:45", "text": "Assim está escrito: 'O primeiro homem Adão se tornou uma pessoa [alma] vivente.'" }
+            ]
+          },
+          {
+            "heading": "A alma pode morrer",
+            "paragraphs": [
+              "Ezequiel 18:4 declara claramente: 'A alma que pecar é a que morirá.' Se a alma fosse imortal, essa afirmação não teria sentido. Apocalipse 16:3 fala de 'toda alma vivente no mar' morrendo. A ideia de uma alma imortal não vem da Bíblia, mas da filosofia grega, especialmente dos ensinamentos de Platão sobre a imortalidade da alma.",
+              "Entender que a alma é a própria pessoa — não uma entidade separada — torna a esperança da ressurreição ainda mais bela. Deus recriará a pessoa inteira, restaurando tudo o que definia quem ela era."
+            ],
+            "scriptures": [
+              { "ref": "Ezequiel 18:4", "text": "A alma que pecar é a que morirá." },
+              { "ref": "Apocalipse 16:3", "text": "Toda alma vivente no mar morreu." },
+              { "ref": "Atos 3:23", "text": "Toda alma que não ouvir esse Profeta será completamente destruída dentre o povo." }
+            ]
+          }
+        ]
+      },
+      "what-happens-when-we-die": {
+        "title": "O que acontece quando morremos?",
+        "subtitle": "A morte é um estado de sono inconsciente — não céu, inferno ou purgatório",
+        "sections": [
+          {
+            "heading": "A morte é como o sono",
+            "paragraphs": [
+              "Quando Jesus soube que Lázaro havia morrido, disse: 'Lázaro, nosso amigo, adormeceu, mas vou até lá para despertá-lo.' (João 11:11) Os discípulos não entenderam, então Jesus esclareceu: 'Lázaro morreu.' O sono é uma metáfora poderosa e consistente para a morte em toda a Escritura, porque no sono não há atividade nem consciência — e ainda assim o dorminhoco pode ser despertado.",
+              "O rei Salomão escreveu: 'Os vivos sabem que morrerão, mas os mortos não sabem absolutamente nada.' (Eclesiastes 9:5) Não há consciência, sofrimento nem alegria — a morte é uma cessação completa da vida até a ressurreição."
+            ],
+            "scriptures": [
+              { "ref": "João 11:11-14", "text": "'Lázaro, nosso amigo, adormeceu… Lázaro morreu.'" },
+              { "ref": "Eclesiastes 9:5", "text": "Os vivos sabem que morrerão, mas os mortos não sabem absolutamente nada." },
+              { "ref": "Salmo 146:4", "text": "Seu espírito sai, ele volta ao solo; naquele mesmo dia seus pensamentos perecem." }
+            ]
+          },
+          {
+            "heading": "A esperança da ressurreição",
+            "paragraphs": [
+              "Como a morte não é definitiva, a ressurreição é a grande esperança das Escrituras. Jesus disse: 'Não se admirem com isso, pois a hora está chegando em que todos os que estão nos túmulos memoriais ouvirão sua voz e sairão.' (João 5:28-29) Não é a alma imortal escapando para o céu — é a pessoa inteira sendo restaurada à vida.",
+              "O apóstolo Paulo chamou a ressurreição de Cristo de fundamento da esperança cristã: 'Se os mortos não devem ser ressuscitados, comamos e bebamos, pois amanhã vamos morrer.' (1 Coríntios 15:32) A ressurreição dos mortos — não a imortalidade da alma — é a resposta da Bíblia à morte."
+            ],
+            "scriptures": [
+              { "ref": "João 5:28-29", "text": "Todos os que estão nos túmulos memoriais ouvirão sua voz e sairão." },
+              { "ref": "Atos 24:15", "text": "Haverá uma ressurreição tanto dos justos como dos injustos." },
+              { "ref": "1 Coríntios 15:26", "text": "O último inimigo, a morte, será reduzido a nada." }
+            ]
+          }
+        ]
+      },
+      "gods-kingdom": {
+        "title": "O Reino de Deus — o que é?",
+        "subtitle": "Um governo real no céu que governará sobre uma terra paradisíaca",
+        "sections": [
+          {
+            "heading": "Um governo celestial",
+            "paragraphs": [
+              "O Reino de Deus não é uma condição no coração — é um governo real. Daniel profetizou: 'O Deus do céu estabelecerá um reino que jamais será destruído… esmagará e porá fim a todos esses reinos, e ele sozinho permanecerá para sempre.' (Daniel 2:44) Esse reino tem um rei (Jesus Cristo), súditos, leis e território — a própria terra.",
+              "Jesus ensinou seus discípulos a orar: 'Venha o teu Reino. Seja feita a tua vontade, como no céu, também na terra.' (Mateus 6:10) Essa oração implica que o domínio do Reino um dia se estenderá à terra, transformando-a assim como o céu já reflete a vontade perfeita de Deus."
+            ],
+            "scriptures": [
+              { "ref": "Daniel 2:44", "text": "O Deus do céu estabelecerá um reino que jamais será destruído." },
+              { "ref": "Mateus 6:10", "text": "Venha o teu Reino. Seja feita a tua vontade, como no céu, também na terra." },
+              { "ref": "Lucas 1:33", "text": "Ele reinará como Rei sobre a casa de Jacó para sempre, e não haverá fim ao seu Reino." }
+            ]
+          },
+          {
+            "heading": "O que o Reino realizará",
+            "paragraphs": [
+              "Sob o Reino de Deus, a terra será transformada em paraíso. Apocalipse 21:3-4 promete: 'O próprio Deus estará com eles. E ele enxugará toda lágrima dos seus olhos, e a morte não existirá mais, nem o luto nem o clamor nem a dor existirão mais. As coisas anteriores passaram.' Doença, morte, guerra, pobreza — tudo será eliminado.",
+              "Isaías 65:21-22 pinta um quadro da vida sob o Reino: 'Construirão casas e habitarão nelas, plantarão vinhas e comerão o seu fruto.' A convivência pacífica entre humanos e animais também é prometida: 'O lobo e o cordeiro comerão juntos.' (Isaías 65:25)"
+            ],
+            "scriptures": [
+              { "ref": "Apocalipse 21:3-4", "text": "Ele enxugará toda lágrima dos seus olhos, e a morte não existirá mais." },
+              { "ref": "Isaías 65:21-22", "text": "Construirão casas e habitarão nelas, plantarão vinhas e comerão o seu fruto." },
+              { "ref": "Salmo 37:29", "text": "Os justos possuirão a terra, e nela viverão para sempre." }
+            ]
+          }
+        ]
+      },
+      "why-god-allows-suffering": {
+        "title": "Por que Deus permite o sofrimento?",
+        "subtitle": "Entendendo a questão da soberania universal e por que Jeová permite o mal por enquanto",
+        "sections": [
+          {
+            "heading": "Um desafio foi levantado",
+            "paragraphs": [
+              "O relato de Jó revela um motivo fundamental pelo qual Deus permite o sofrimento. Satanás desafiou Deus afirmando que os humanos só o servem por razões egoístas: 'Acaso Jó teme a Deus de graça? Você não pôs uma cerca protetora ao redor dele… tudo o que ele tem? Mas, por uma mudança, estenda a sua mão e golpeie tudo o que ele tem, e ele certamente o amaldiçoará bem na sua face.' (Jó 1:9-11) Satanás levantou uma questão sobre a integridade dos adoradores humanos — uma questão que precisava ser respondida.",
+              "Quando Satanás disse no Éden 'vocês certamente não morrerão' (Gênesis 3:4), ele estava chamando Deus de mentiroso e sugerindo que os humanos poderiam viver independentemente de Deus. Esses desafios ao direito de Deus de governar e à lealdade de seus adoradores não podiam ser resolvidos instantaneamente — exigiam tempo e experiência humana para serem completamente resolvidos."
+            ],
+            "scriptures": [
+              { "ref": "Jó 1:9-11", "text": "Acaso Jó teme a Deus de graça?" },
+              { "ref": "Gênesis 3:4-5", "text": "Vocês certamente não morrerão. Deus sabe que… seus olhos se abrirão e vocês serão como Deus." },
+              { "ref": "Romanos 3:4", "text": "Que Deus se mostre verdadeiro, mesmo que todo homem seja mentiroso." }
+            ]
+          },
+          {
+            "heading": "Por que Deus não intervém imediatamente",
+            "paragraphs": [
+              "Deus está dando tempo para que os humanos demonstrem que podem permanecer leais sob provação, e para que os resultados da independência de Deus sejam completamente vistos. Pedro escreve: 'Jeová não é lento em relação à sua promessa, como alguns consideram lentidão, mas ele é paciente com vocês porque não deseja que ninguém seja destruído, mas deseja que todos cheguem ao arrependimento.' (2 Pedro 3:9)",
+              "A permissão de Deus para o sofrimento é temporária. Seu propósito para a terra — um paraíso livre de dor e morte — nunca mudou. O sofrimento que vemos agora não é prova da indiferença de Deus, mas das consequências da independência humana da orientação divina. Em breve, Deus 'destruirá os que destroem a terra.' (Apocalipse 11:18)"
+            ],
+            "scriptures": [
+              { "ref": "2 Pedro 3:9", "text": "Jeová não é lento em relação à sua promessa… ele é paciente com vocês." },
+              { "ref": "Romanos 8:22", "text": "Sabemos que toda a criação continua gemendo e sofrendo dores de parto até agora." },
+              { "ref": "Apocalipse 11:18", "text": "Chegou o tempo… de destruir os que destroem a terra." }
+            ]
+          }
+        ]
+      },
+      "blood-sacred": {
+        "title": "A santidade do sangue",
+        "subtitle": "Por que Jeová nos manda abster-nos do sangue — e o que isso significa hoje",
+        "sections": [
+          {
+            "heading": "O sangue representa a vida",
+            "paragraphs": [
+              "Deus disse a Noé após o Dilúvio: 'Somente a carne com sua vida — seu sangue — não devem comer.' (Gênesis 9:4) O sangue é sagrado porque representa a própria vida, e toda vida pertence a Deus. Não era apenas um mandamento dietético — era uma declaração de propriedade. A vida é um dom de Deus; não temos o direito de fazer mau uso dela.",
+              "A Lei Mosaica reforçou esse princípio: 'Quanto a qualquer homem da casa de Israel ou a qualquer estrangeiro que esteja residindo entre vocês que coma qualquer sorte de sangue, eu certamente porei minha face contra essa pessoa que estiver comendo o sangue.' (Levítico 17:10) A proibição do sangue estava entre os requisitos que o concílio de Jerusalém em Atos 15 confirmou como obrigatórios para todos os cristãos."
+            ],
+            "scriptures": [
+              { "ref": "Gênesis 9:4", "text": "Somente a carne com sua vida — seu sangue — não devem comer." },
+              { "ref": "Levítico 17:14", "text": "Não devem comer o sangue de nenhuma sorte de carne, porque a vida de toda sorte de carne é seu sangue." },
+              { "ref": "Atos 15:28-29", "text": "O espírito santo e nós próprios decidimos não acrescentar a vocês nenhum outro fardo, exceto estas coisas necessárias: continuar se abstendo de… sangue." }
+            ]
+          },
+          {
+            "heading": "O sangue na fé cristã hoje",
+            "paragraphs": [
+              "O decreto do concílio apostólico em Atos 15:28-29 deixou claro que abster-se do sangue se aplica aos cristãos sob o novo pacto. Não é uma lei cerimonial judaica que foi abolida — foi explicitamente reafirmada para os crentes gentios. As Testemunhas de Jeová, portanto, recusam transfusões de sangue, entendendo que isso é uma questão de obediência ao mandamento de Deus.",
+              "As alternativas médicas modernas à transfusão — recuperação de células, expansores de volume e técnicas cirúrgicas sem sangue — avançaram significativamente, e muitos hospitais agora oferecem essas opções. Escolher honrar o requisito de Deus sobre o sangue é um ato de fé e confiança de que os padrões de Deus são sempre para nosso melhor interesse."
+            ],
+            "scriptures": [
+              { "ref": "Atos 15:28-29", "text": "Continuar se abstendo de… sangue." },
+              { "ref": "1 João 5:3", "text": "Isto é o que o amor a Deus significa: guardar os seus mandamentos; e, no entanto, os seus mandamentos não são pesados." },
+              { "ref": "Provérbios 3:5", "text": "Confie em Jeová com todo o seu coração e não se apoie no seu próprio entendimento." }
+            ]
+          }
+        ]
+      }
+    }
   },
   "upm": {
     "badge": "✦ Premium",
