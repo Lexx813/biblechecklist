@@ -29,6 +29,26 @@ export const followsApi = {
     }
   },
 
+  getFollowers: async (userId) => {
+    const { data, error } = await supabase
+      .from("user_follows")
+      .select("follower_id, profiles!follower_id(id, display_name, avatar_url)")
+      .eq("following_id", userId)
+      .order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return (data ?? []).map(r => r.profiles).filter(Boolean);
+  },
+
+  getFollowing: async (userId) => {
+    const { data, error } = await supabase
+      .from("user_follows")
+      .select("following_id, profiles!following_id(id, display_name, avatar_url)")
+      .eq("follower_id", userId)
+      .order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return (data ?? []).map(r => r.profiles).filter(Boolean);
+  },
+
   getActivityFeed: async (userId, limit = 40) => {
     const { data: follows, error: fe } = await supabase
       .from("user_follows")

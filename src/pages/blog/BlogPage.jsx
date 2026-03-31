@@ -10,6 +10,8 @@ import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDel
 import { toast } from "../../lib/toast";
 import { useSubmitReport } from "../../hooks/useReports";
 import { useMeta } from "../../hooks/useMeta";
+import { useGetOrCreateDM } from "../../hooks/useMessages";
+import { useSubscription } from "../../hooks/useSubscription";
 import "../../styles/blog.css";
 import "../../styles/editor.css";
 import "../../styles/mentions.css";
@@ -176,6 +178,8 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
   const deletePost = useDeletePost(user?.id);
   const { t } = useTranslation();
   const isAdmin = profile?.is_admin;
+  const { isPremium } = useSubscription(user?.id);
+  const getOrCreateDM = useGetOrCreateDM();
 
   // Language toggle: auto-use Spanish if user's language is es and translation exists
   const currentLang = i18n?.language?.split("-")[0] ?? "en";
@@ -272,10 +276,26 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
               : authorInitial(post)
             }
           </div>
-          <div>
+          <div className="blog-author-card-info">
             <div className="blog-author-card-name">{authorName(post)}</div>
             <div className="blog-author-card-email">{post.profiles?.email}</div>
           </div>
+          {user && post.author_id !== user.id && isPremium && (
+            <button
+              className="blog-author-msg-btn"
+              disabled={getOrCreateDM.isPending}
+              onClick={() => getOrCreateDM.mutate(post.author_id, {
+                onSuccess: (cid) => navigate("messages", {
+                  conversationId: cid,
+                  otherDisplayName: authorName(post),
+                  otherAvatarUrl: post.profiles?.avatar_url ?? null,
+                }),
+              })}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Message
+            </button>
+          )}
         </div>
 
         {user && (

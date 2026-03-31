@@ -12,7 +12,7 @@ import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/u
 import { useNotes, useCreateNote, useUpdateNote, useDeleteNote } from "../../hooks/useNotes";
 import { useProgress, useReadingStreak } from "../../hooks/useProgress";
 import { useQuizProgress } from "../../hooks/useQuiz";
-import { useFollowCounts, useIsFollowing, useToggleFollow } from "../../hooks/useFollows";
+import { useFollowCounts, useIsFollowing, useToggleFollow, useFollowers, useFollowing } from "../../hooks/useFollows";
 import { useUserForumStats } from "../../hooks/useForum";
 import { useUserPosts, useCreatePost, useDeletePost } from "../../hooks/usePosts";
 import { useGetOrCreateDM } from "../../hooks/useMessages";
@@ -448,24 +448,76 @@ function MessageButton({ targetId, otherDisplayName, otherAvatarUrl, navigate })
   );
 }
 
+// ── Followers / Following modal list ──────────────────────
+function FollowListModal({ targetId, mode, currentUserId, onClose, navigate, t }) {
+  const { data: followers = [] } = useFollowers(mode === "followers" ? targetId : null);
+  const { data: following = [] } = useFollowing(mode === "following" ? targetId : null);
+  const list = mode === "followers" ? followers : following;
+  const getOrCreate = useGetOrCreateDM();
+
+  return createPortal(
+    <div className="pf-follow-modal-backdrop" onClick={onClose}>
+      <div className="pf-follow-modal" onClick={e => e.stopPropagation()}>
+        <div className="pf-follow-modal-header">
+          <span>{mode === "followers" ? t("follow.followers") : t("follow.following")}</span>
+          <button className="pf-follow-modal-close" onClick={onClose} aria-label="Close">✕</button>
+        </div>
+        <div className="pf-follow-modal-list">
+          {list.length === 0 && (
+            <p className="pf-follow-modal-empty">
+              {mode === "followers" ? t("follow.noFollowers", "No followers yet.") : t("follow.noFollowing", "Not following anyone yet.")}
+            </p>
+          )}
+          {list.map(u => (
+            <div key={u.id} className="pf-follow-modal-row">
+              <button className="pf-follow-modal-avatar" onClick={() => { onClose(); navigate("publicProfile", { userId: u.id }); }}>
+                {u.avatar_url
+                  ? <img src={u.avatar_url} alt={u.display_name || "User"} width={38} height={38} />
+                  : <span className="pf-follow-modal-initial">{(u.display_name || "?")[0].toUpperCase()}</span>
+                }
+              </button>
+              <button className="pf-follow-modal-name" onClick={() => { onClose(); navigate("publicProfile", { userId: u.id }); }}>
+                {u.display_name || t("profile.anonymous", "Anonymous")}
+              </button>
+              {u.id !== currentUserId && (
+                <button
+                  className="pf-follow-modal-msg"
+                  disabled={getOrCreate.isPending}
+                  onClick={() => getOrCreate.mutate(u.id, {
+                    onSuccess: (cid) => { onClose(); navigate("messages", { conversationId: cid, otherDisplayName: u.display_name, otherAvatarUrl: u.avatar_url }); },
+                  })}
+                >
+                  Message
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+}
+
 // ── Follow button + counts ─────────────────────────────────
-function FollowSection({ currentUserId, targetId, t, extraAction }) {
+function FollowSection({ currentUserId, targetId, t, extraAction, navigate }) {
   const { data: counts = { followers: 0, following: 0 } } = useFollowCounts(targetId);
   const { data: isFollowing = false } = useIsFollowing(currentUserId, targetId);
   const toggle = useToggleFollow(currentUserId, targetId);
+  const [listModal, setListModal] = useState(null); // "followers" | "following" | null
 
   return (
     <div className="pf-follow-section">
       <div className="pf-follow-counts">
-        <div className="pf-follow-count-item">
+        <button className="pf-follow-count-item pf-follow-count-btn" onClick={() => setListModal("followers")}>
           <span className="pf-follow-count-num">{counts.followers}</span>
           <span className="pf-follow-count-label">{t("follow.followers")}</span>
-        </div>
+        </button>
         <div className="pf-follow-count-divider" />
-        <div className="pf-follow-count-item">
+        <button className="pf-follow-count-item pf-follow-count-btn" onClick={() => setListModal("following")}>
           <span className="pf-follow-count-num">{counts.following}</span>
           <span className="pf-follow-count-label">{t("follow.following")}</span>
-        </div>
+        </button>
       </div>
       {currentUserId !== targetId && (
         <div className="pf-action-btns">
@@ -478,6 +530,16 @@ function FollowSection({ currentUserId, targetId, t, extraAction }) {
           </button>
           {extraAction}
         </div>
+      )}
+      {listModal && (
+        <FollowListModal
+          targetId={targetId}
+          mode={listModal}
+          currentUserId={currentUserId}
+          onClose={() => setListModal(null)}
+          navigate={navigate}
+          t={t}
+        />
       )}
     </div>
   );
@@ -752,6 +814,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
               currentUserId={user.id}
               targetId={profileId}
               t={t}
+              navigate={navigate}
               extraAction={!isOwner && isPremium ? (
                 <MessageButton
                   targetId={profileId}
