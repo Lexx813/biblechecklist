@@ -159,6 +159,14 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
               <h1>{t("app.title")}</h1>
               <p>{t("app.subtitle")}</p>
             </div>
+            {streak.current_streak > 0 && (
+              <div className="header-streak-badge" title={t("app.longestStreak", { n: streak.longest_streak })}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M13.5 0.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/>
+                </svg>
+                {streak.current_streak}
+              </div>
+            )}
           </div>
           <div className="global-progress" style={{ padding: "0 0 12px" }}>
             <div className="progress-meta">
@@ -196,11 +204,38 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
           </div>
         </div>
 
-        <div className="stats-pills">
-          <span className="stat-pill">{t("app.statBooks")}: <b>{doneBooks}/66</b></span>
-          <span className="stat-pill">{t("app.statChapters")}: <b>{doneCh}/{totalCh}</b></span>
-          {tab !== "nt" && <span className="stat-pill">{t("app.statHebrew")}: <b>{otDone}/39</b></span>}
-          {tab !== "ot" && <span className="stat-pill">{t("app.statGreek")}: <b>{ntDone}/27</b></span>}
+        <div className="tracker-stats">
+          <div className={`tracker-stat-card${doneBooks === 66 ? " tracker-stat-card--complete" : ""}`}>
+            <span className="tracker-stat-label">{t("app.statBooks")}</span>
+            <span className="tracker-stat-value">{doneBooks}<span className="tracker-stat-denom">/66</span></span>
+            <div className="tracker-stat-bar"><div className="tracker-stat-bar-fill" style={{ width: `${(doneBooks / 66 * 100).toFixed(1)}%` }} /></div>
+          </div>
+          <div className={`tracker-stat-card${doneCh === totalCh && totalCh > 0 ? " tracker-stat-card--complete" : ""}`}>
+            <span className="tracker-stat-label">{t("app.statChapters")}</span>
+            <span className="tracker-stat-value">{doneCh}<span className="tracker-stat-denom">/{totalCh}</span></span>
+            <div className="tracker-stat-bar"><div className="tracker-stat-bar-fill" style={{ width: totalCh > 0 ? `${(doneCh / totalCh * 100).toFixed(1)}%` : "0%" }} /></div>
+          </div>
+          {tab !== "nt" && (
+            <div className={`tracker-stat-card${otDone === 39 ? " tracker-stat-card--complete" : ""}`}>
+              <span className="tracker-stat-label">{t("app.statHebrew")}</span>
+              <span className="tracker-stat-value">{otDone}<span className="tracker-stat-denom">/39</span></span>
+              <div className="tracker-stat-bar"><div className="tracker-stat-bar-fill" style={{ width: `${(otDone / 39 * 100).toFixed(1)}%` }} /></div>
+            </div>
+          )}
+          {tab !== "ot" && (
+            <div className={`tracker-stat-card${ntDone === 27 ? " tracker-stat-card--complete" : ""}`}>
+              <span className="tracker-stat-label">{t("app.statGreek")}</span>
+              <span className="tracker-stat-value">{ntDone}<span className="tracker-stat-denom">/27</span></span>
+              <div className="tracker-stat-bar"><div className="tracker-stat-bar-fill" style={{ width: `${(ntDone / 27 * 100).toFixed(1)}%` }} /></div>
+            </div>
+          )}
+          {streak.current_streak > 0 && (
+            <div className="tracker-stat-card">
+              <span className="tracker-stat-label">{t("app.streak", "Streak")}</span>
+              <span className="tracker-stat-value">{streak.current_streak}<span className="tracker-stat-denom"> {t("app.days", "d")}</span></span>
+              <div className="tracker-stat-bar"><div className="tracker-stat-bar-fill" style={{ width: streak.longest_streak > 0 ? `${Math.min(streak.current_streak / streak.longest_streak * 100, 100).toFixed(1)}%` : "100%" }} /></div>
+            </div>
+          )}
         </div>
 
         <div style={{ padding: "0 16px 4px" }}>

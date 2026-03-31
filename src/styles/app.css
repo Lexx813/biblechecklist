@@ -272,6 +272,65 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 }
 .stat-pill b { color: var(--teal-dark); }
 
+/* ── Tracker stat cards ────────────────────────────────────────────────────── */
+.tracker-stats {
+  display: flex; gap: 8px;
+  padding: 12px 16px 4px;
+  overflow-x: auto; scrollbar-width: none;
+}
+.tracker-stats::-webkit-scrollbar { display: none; }
+
+.tracker-stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px 8px;
+  min-width: 88px; flex-shrink: 0;
+  box-shadow: var(--shadow-xs);
+  display: flex; flex-direction: column; gap: 2px;
+  transition: border-color var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+}
+.tracker-stat-card--complete { border-color: var(--teal); }
+
+.tracker-stat-label {
+  font-size: 10px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.07em; color: var(--text-muted);
+}
+
+.tracker-stat-value {
+  font-size: 22px; font-weight: 900; color: var(--text-primary);
+  line-height: 1.1;
+}
+.tracker-stat-card--complete .tracker-stat-value { color: var(--teal); }
+
+.tracker-stat-denom {
+  font-size: 12px; font-weight: 600; color: var(--text-muted);
+}
+
+.tracker-stat-bar {
+  height: 3px; background: var(--border); border-radius: 2px;
+  overflow: hidden; margin-top: 6px;
+}
+.tracker-stat-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--accent));
+  border-radius: 2px; transition: width 0.5s var(--ease-out);
+}
+.tracker-stat-card--complete .tracker-stat-bar-fill { background: var(--teal); }
+
+/* ── Header streak badge ───────────────────────────────────────────────────── */
+.header-streak-badge {
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: var(--radius-pill);
+  padding: 4px 11px 4px 8px;
+  font-size: 13px; font-weight: 800; color: #fff;
+  flex-shrink: 0; white-space: nowrap;
+}
+.header-streak-badge svg { flex-shrink: 0; }
+
 /* BOOK LIST */
 .book-list { flex: 1; padding: 10px 12px 20px; display: flex; flex-direction: column; gap: 6px; }
 
