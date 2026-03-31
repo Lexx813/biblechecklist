@@ -45,10 +45,12 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
   const [moreOpen, setMoreOpen] = useState(false);
   const [communityOpen, setCommunityOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [navHidden, setNavHidden] = useState(false);
   const menuRef = useRef(null);
   const moreRef = useRef(null);
   const communityRef = useRef(null);
   const langRef = useRef(null);
+  const lastScrollY = useRef(0);
 
   const currentLangCode = i18n
     ? (LANGUAGES.find(l => i18n.language?.split("-")[0]?.startsWith(l.code))?.code ?? "en")
@@ -76,9 +78,22 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
     return () => window.removeEventListener("resize", handler);
   }, []);
 
+  // Hide nav on scroll down, reveal on scroll up
+  useEffect(() => {
+    function onScroll() {
+      const y = window.scrollY;
+      if (y < 60) { setNavHidden(false); lastScrollY.current = y; return; }
+      if (y > lastScrollY.current + 6) { setNavHidden(true); setMenuOpen(false); }
+      else if (y < lastScrollY.current - 4) { setNavHidden(false); }
+      lastScrollY.current = y;
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <>
-      <nav className="page-nav" ref={menuRef}>
+      <nav className={`page-nav${navHidden ? " page-nav--hidden" : ""}`} ref={menuRef}>
         <button className="page-nav-brand" onClick={() => go("home")}>
           <span className="page-nav-brand-icon">{Icon.Book}</span>
           <span className="page-nav-brand-name">NWT Progress</span>
