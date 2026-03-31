@@ -47,9 +47,9 @@ export default function NotificationBell({ userId, navigate }) {
 
     const h = n.link_hash;
 
-    // Messages — open the specific conversation
+    // Messages — use conversation_id directly
     if (n.type === "message") {
-      const convId = extractConvId(h);
+      const convId = n.conversation_id ?? extractConvId(h);
       navigate("messages", convId ? {
         conversationId: convId,
         otherDisplayName: n.actor?.display_name ?? null,
@@ -58,17 +58,29 @@ export default function NotificationBell({ userId, navigate }) {
       return;
     }
 
-    if (!h) return;
-
-    if (h.startsWith("blog/")) {
-      const slug = decodeURIComponent(h.slice(5));
-      navigate("blog", { slug });
-    } else if (h.startsWith("forum/")) {
-      const parts = h.slice(6).split("/");
-      navigate("forum", { categoryId: parts[0] || null, threadId: parts[1] || null });
-    } else {
-      navigate(h);
+    // Forum reply/mention — use joined thread.category_id + thread_id directly
+    if (n.type === "reply" || n.type === "mention") {
+      const threadId = n.thread_id;
+      const categoryId = n.thread?.category_id ?? (h?.startsWith("forum/") ? h.slice(6).split("/")[0] : null);
+      if (threadId && categoryId) {
+        navigate("forum", { categoryId, threadId });
+      } else if (threadId) {
+        navigate("forum", { threadId });
+      } else {
+        navigate("forum", {});
+      }
+      return;
     }
+
+    // Blog comment — use joined post.slug + post_id directly
+    if (n.type === "comment") {
+      const slug = n.post?.slug ?? (h?.startsWith("blog/") ? decodeURIComponent(h.slice(5)) : null);
+      navigate("blog", slug ? { slug } : {});
+      return;
+    }
+
+    if (!h) return;
+    navigate(h);
   }
 
   function getVerb(n) {

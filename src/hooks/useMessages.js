@@ -133,10 +133,6 @@ export function useSendMessage(conversationId) {
       if (ctx?.previous) queryClient.setQueryData(["messages", conversationId], ctx.previous);
     },
     onSuccess: async (data, variables) => {
-      // Fire push notification to recipient (non-blocking)
-      if (variables.recipientId) {
-        messagesApi.notifyRecipient(conversationId, variables.recipientId);
-      }
       // Fetch link preview if message contains a URL
       if (data?.id && variables.messageType !== "image" && variables.content) {
         const urlMatch = variables.content.match(/https?:\/\/[^\s]+/);

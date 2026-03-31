@@ -1258,7 +1258,7 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
   function confirmDelete() {
     deleteConversation.mutate(convToDelete, {
       onSuccess: () => {
-        if (activeConv?.conversation_id === convToDelete) setActiveConv(null);
+        if (activeConv?.conversation_id === convToDelete) openConv(null);
         setConvToDelete(null);
       },
     });
@@ -1271,6 +1271,19 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
       else sessionStorage.removeItem("msg:activeConv");
     } catch {}
   }, [activeConv]);
+
+  function openConv(conv) {
+    setActiveConv(conv);
+    history.replaceState(null, "", conv ? `/messages/${conv.conversation_id}` : "/messages");
+  }
+
+  // Respond to prop-driven navigation (e.g. clicking a notification while already on this page)
+  useEffect(() => {
+    if (initialConv?.conversation_id) {
+      setActiveConv(initialConv);
+      history.replaceState(null, "", `/messages/${initialConv.conversation_id}`);
+    }
+  }, [initialConv?.conversation_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Upgrade stub conv with full data once list loads
   useEffect(() => {
@@ -1346,7 +1359,7 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
                   conv={conv}
                   active={activeConv?.conversation_id === conv.conversation_id}
                   currentUserId={user.id}
-                  onClick={() => setActiveConv(conv)}
+                  onClick={() => openConv(conv)}
                   onDelete={(id) => setConvToDelete(id)}
                   onlineUsers={onlineUsers}
                 />
@@ -1361,7 +1374,7 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
               conv={activeConv}
               user={user}
               keyPair={keyPair}
-              onBack={() => setActiveConv(null)}
+              onBack={() => openConv(null)}
               soundEnabled={soundEnabled}
               setSoundEnabled={setSoundEnabled}
             />

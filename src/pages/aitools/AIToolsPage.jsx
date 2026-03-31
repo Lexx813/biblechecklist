@@ -244,13 +244,171 @@ function CrossReferenceTab() {
   );
 }
 
+// ── Watchtower Study Helper ───────────────────────────────────────────────────
+
+function WatchtowerTab() {
+  const { text, loading, error, run, reset } = useAISkill();
+  const [question, setQuestion] = useState("");
+  const [paragraph, setParagraph] = useState("");
+  const [articleTitle, setArticleTitle] = useState("");
+
+  function submit(e) {
+    e.preventDefault();
+    if (!question.trim() || loading) return;
+    run("watchtower", {
+      question: question.trim(),
+      paragraph: paragraph.trim() || undefined,
+      articleTitle: articleTitle.trim() || undefined,
+    });
+  }
+
+  return (
+    <div className="ait-tab-content">
+      <div className="ait-tab-desc">
+        Paste a Watchtower study question and get a natural, heartfelt comment suggestion — ready for the meeting.
+      </div>
+      <form className="ait-form" onSubmit={submit}>
+        <label className="ait-label">Study question <span className="ait-required">*</span></label>
+        <textarea
+          className="ait-textarea"
+          placeholder="e.g. How does Jehovah show that he values our prayers?"
+          value={question}
+          onChange={e => setQuestion(e.target.value)}
+          maxLength={400}
+          rows={3}
+          disabled={loading}
+        />
+        <div className="ait-char-count">{question.length}/400</div>
+
+        <label className="ait-label">Paragraph text <span className="ait-optional">(optional — paste for more context)</span></label>
+        <textarea
+          className="ait-textarea"
+          placeholder="Paste the paragraph the question is based on…"
+          value={paragraph}
+          onChange={e => setParagraph(e.target.value)}
+          maxLength={800}
+          rows={4}
+          disabled={loading}
+        />
+
+        <label className="ait-label">Article title <span className="ait-optional">(optional)</span></label>
+        <input
+          type="text"
+          className="ait-input"
+          placeholder="e.g. "Draw Close to Jehovah Through Prayer""
+          value={articleTitle}
+          onChange={e => setArticleTitle(e.target.value)}
+          maxLength={150}
+          disabled={loading}
+        />
+
+        <button className="ait-submit-btn" disabled={!question.trim() || loading}>
+          {loading ? "Preparing…" : "✦ Prepare My Comment"}
+        </button>
+      </form>
+      <SkillResult text={text} loading={loading} error={error} onClear={reset} />
+    </div>
+  );
+}
+
+// ── Talk Preparation ──────────────────────────────────────────────────────────
+
+const TALK_TYPES = [
+  { value: "Student Talk", label: "Student Talk (2–4 min)" },
+  { value: "Public Talk", label: "Public Talk (30 min)" },
+  { value: "Bible Reading", label: "Bible Reading (4 min)" },
+];
+
+function TalkPrepTab() {
+  const { text, loading, error, run, reset } = useAISkill();
+  const [talkType, setTalkType] = useState("Student Talk");
+  const [theme, setTheme] = useState("");
+  const [scriptures, setScriptures] = useState("");
+  const [audience, setAudience] = useState("");
+
+  function submit(e) {
+    e.preventDefault();
+    if (!theme.trim() || loading) return;
+    run("talk_prep", {
+      talkType,
+      theme: theme.trim(),
+      scriptures: scriptures.trim() || undefined,
+      audience: audience.trim() || undefined,
+    });
+  }
+
+  return (
+    <div className="ait-tab-content">
+      <div className="ait-tab-desc">
+        Get a complete talk outline with main points, supporting scriptures, and delivery tips — tailored to your assignment.
+      </div>
+      <form className="ait-form" onSubmit={submit}>
+        <label className="ait-label">Talk type <span className="ait-required">*</span></label>
+        <div className="ait-segment">
+          {TALK_TYPES.map(t => (
+            <button
+              key={t.value}
+              type="button"
+              className={`ait-segment-btn${talkType === t.value ? " ait-segment-btn--active" : ""}`}
+              onClick={() => setTalkType(t.value)}
+              disabled={loading}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+
+        <label className="ait-label">Theme or title <span className="ait-required">*</span></label>
+        <input
+          type="text"
+          className="ait-input"
+          placeholder="e.g. Why Jehovah's Kingdom is our only hope"
+          value={theme}
+          onChange={e => setTheme(e.target.value)}
+          maxLength={200}
+          disabled={loading}
+        />
+
+        <label className="ait-label">Key scriptures <span className="ait-optional">(optional)</span></label>
+        <input
+          type="text"
+          className="ait-input"
+          placeholder="e.g. Matthew 6:9, 10; Daniel 2:44"
+          value={scriptures}
+          onChange={e => setScriptures(e.target.value)}
+          maxLength={200}
+          disabled={loading}
+        />
+
+        <label className="ait-label">Audience note <span className="ait-optional">(optional)</span></label>
+        <input
+          type="text"
+          className="ait-input"
+          placeholder="e.g. Encouraging for young people; includes Bible students"
+          value={audience}
+          onChange={e => setAudience(e.target.value)}
+          maxLength={200}
+          disabled={loading}
+        />
+
+        <button className="ait-submit-btn" disabled={!theme.trim() || loading}>
+          {loading ? "Building outline…" : "✦ Build Talk Outline"}
+        </button>
+      </form>
+      <SkillResult text={text} loading={loading} error={error} onClear={reset} />
+    </div>
+  );
+}
+
 // ── Main page ─────────────────────────────────────────────────────────────────
 
 const TABS = [
-  { id: "prayer",        label: "🙏 Prayer",        component: PrayerTab },
-  { id: "character",     label: "📜 Characters",     component: CharacterTab },
-  { id: "memorize",      label: "🧠 Memorize",       component: MemorizeTab },
-  { id: "crossref",      label: "🔗 Cross-References", component: CrossReferenceTab },
+  { id: "prayer",       label: "🙏 Prayer",           component: PrayerTab },
+  { id: "character",    label: "📜 Characters",        component: CharacterTab },
+  { id: "memorize",     label: "🧠 Memorize",          component: MemorizeTab },
+  { id: "crossref",     label: "🔗 Cross-References",  component: CrossReferenceTab },
+  { id: "watchtower",   label: "📖 Watchtower",        component: WatchtowerTab },
+  { id: "talkprep",     label: "🎙️ Talk Prep",         component: TalkPrepTab },
 ];
 
 export default function AIToolsPage({ navigate, ...navProps }) {
