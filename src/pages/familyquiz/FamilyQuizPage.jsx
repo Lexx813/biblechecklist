@@ -368,7 +368,7 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
           <div className="fq-landing-icon">🏆</div>
           <h1 className="fq-landing-title">{challenge.title}</h1>
           <p className="fq-landing-meta">
-            Created by <strong>{challenge.profiles?.display_name ?? "someone"}</strong>
+            Created by <strong>{challenge.creatorName ?? "someone"}</strong>
             {" · "}{challenge.questions.length} questions
           </p>
         </div>
