@@ -31,6 +31,7 @@ const Icon = {
   Shield:       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
   Home:         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>,
   Quiz:         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>,
+  FamilyQuiz:   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><line x1="12" y1="17" x2="23" y2="17"/><polyline points="19 14 23 17 19 20"/></svg>,
 };
 
 export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage, onUpgrade }) {
@@ -112,7 +113,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
           {currentPage !== "home" && <button className="page-nav-link" onClick={() => go("home")}>{t("app.home")}</button>}
           <button className={`page-nav-link${currentPage === "main" ? " page-nav-link--active" : ""}`} onClick={() => go("main")}>{t("home.navTracker")}</button>
           <button className={`page-nav-link${currentPage === "quiz" ? " page-nav-link--active" : ""}`} onClick={() => go("quiz")}>{t("quiz.nav")}</button>
-          <button className={`page-nav-link${currentPage === "familyQuiz" ? " page-nav-link--active" : ""}`} onClick={() => go("familyQuiz")}>Family Challenge</button>
+          <button className={`page-nav-link${currentPage === "familyQuiz" ? " page-nav-link--active" : ""}`} onClick={() => go("familyQuiz")}>{Icon.FamilyQuiz} Family Challenge</button>
           {aiEnabled && isPremium && <button className={`page-nav-link${currentPage === "aiTools" ? " page-nav-link--active" : ""}`} onClick={() => go("aiTools")}>{Icon.Sparkle} {t("nav.aiTools", "AI Tools")}</button>}
 
           {/* Community dropdown */}
@@ -268,7 +269,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
             {currentPage !== "home" && <button className="page-nav-mobile-link" onClick={() => go("home")}><span className="page-nav-mobile-icon">{Icon.Home}</span> {t("app.home")}</button>}
             <button className={`page-nav-mobile-link${currentPage === "main" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("main")}><span className="page-nav-mobile-icon">{Icon.Book}</span> {t("home.navTracker")}</button>
             <button className={`page-nav-mobile-link${currentPage === "quiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("quiz")}><span className="page-nav-mobile-icon">{Icon.Quiz}</span> {t("quiz.nav")}</button>
-            <button className={`page-nav-mobile-link${currentPage === "familyQuiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("familyQuiz")}><span className="page-nav-mobile-icon">👨‍👩‍👦</span> Family Challenge</button>
+            <button className={`page-nav-mobile-link${currentPage === "familyQuiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("familyQuiz")}><span className="page-nav-mobile-icon">{Icon.FamilyQuiz}</span> Family Challenge</button>
             {aiEnabled && isPremium && <button className={`page-nav-mobile-link${currentPage === "aiTools" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("aiTools")}><span className="page-nav-mobile-icon">{Icon.Sparkle}</span> {t("nav.aiTools", "AI Tools")}</button>}
 
             <div className="page-nav-mobile-section-label">{t("nav.community")}</div>
