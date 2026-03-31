@@ -39,7 +39,11 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
   return (
     <div className={`book-card${allDone ? " fully-done" : ""}`}>
       <div className="book-row" onClick={() => setOpen(o => !o)}>
-        <div className="book-num">{bookIndex + 1}</div>
+        <div className="book-num">
+          {allDone ? (
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+          ) : bookIndex + 1}
+        </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div className="book-name">{bookName}</div>
           <div className="book-abbr">{bookAbbr} · {t("book.chapters", { count: total })}</div>
