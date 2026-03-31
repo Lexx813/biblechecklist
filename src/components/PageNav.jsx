@@ -42,6 +42,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
   const { data: unreadMessages = 0 } = useUnreadMessageCount();
   const { aiEnabled } = useFeatureFlags();
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuOpenRef = useRef(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const [communityOpen, setCommunityOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -66,6 +67,8 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
     navigate(page);
   }
 
+  useEffect(() => { menuOpenRef.current = menuOpen; }, [menuOpen]);
+
   useClickOutside(menuRef,      menuOpen,      () => setMenuOpen(false));
   useClickOutside(moreRef,      moreOpen,      () => setMoreOpen(false));
   useClickOutside(communityRef, communityOpen, () => setCommunityOpen(false));
@@ -83,7 +86,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
     function onScroll() {
       const y = window.scrollY;
       if (y < 60) { setNavHidden(false); lastScrollY.current = y; return; }
-      if (y > lastScrollY.current + 6) { setNavHidden(true); setMenuOpen(false); }
+      if (y > lastScrollY.current + 6) { if (!menuOpenRef.current) { setNavHidden(true); } }
       else if (y < lastScrollY.current - 4) { setNavHidden(false); }
       lastScrollY.current = y;
     }
