@@ -323,12 +323,13 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
   }
 
   function handleNext() {
+    if (!challenge?.questions) return;
     const q = challenge.questions[qIndex];
     const newAnswers = [...answers, selected];
 
     if (qIndex + 1 >= challenge.questions.length) {
       // Last question — submit
-      const score = newAnswers.filter((a, i) => a === challenge.questions[i].correct_index).length;
+      const score = newAnswers.filter((a, i) => a === challenge.questions[i]?.correct_index).length;
       submit.mutate({ answers: newAnswers, score, total: challenge.questions.length });
     } else {
       setAnswers(newAnswers);
@@ -340,8 +341,17 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
 
   // ── render states ──────────────────────────────────────────────────────────
 
-  if (cLoading || !challenge) {
+  if (!challenge?.questions) {
     if (cError) {
+      return (
+        <div className="fq-center">
+          <div className="fq-error-icon">⚠</div>
+          <p>Challenge not found or no longer available.</p>
+          <button className="fq-back-link" onClick={onBack}>← Back</button>
+        </div>
+      );
+    }
+    if (!cLoading && challenge === null) {
       return (
         <div className="fq-center">
           <div className="fq-error-icon">⚠</div>
