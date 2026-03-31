@@ -100,6 +100,11 @@ AS $$
 DECLARE
   conv_id UUID;
 BEGIN
+  -- Prevent self-messaging
+  IF other_user_id = auth.uid() THEN
+    RAISE EXCEPTION 'Cannot create a conversation with yourself';
+  END IF;
+
   -- Look for an existing 1-on-1 conversation between the two users
   SELECT cp1.conversation_id INTO conv_id
   FROM conversation_participants cp1
