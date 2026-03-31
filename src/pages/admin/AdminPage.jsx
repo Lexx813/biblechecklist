@@ -713,7 +713,7 @@ function ForumCategoriesTab() {
           <div className="admin-cat-form-row">
             <input className="admin-input" placeholder="Icon (emoji)" value={form.icon} onChange={e => setForm(p => ({ ...p, icon: e.target.value }))} style={{ width: 80 }} />
             <input className="admin-input" placeholder={t("admin.categoryName")} value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} style={{ flex: 1 }} required />
-            <input className="admin-input" placeholder={t("admin.categoryOrder")} type="number" value={form.sort_order} onChange={e => setForm(p => ({ ...p, sort_order: e.target.value }))} style={{ width: 80 }} />
+            <input className="admin-input" placeholder={t("admin.categoryOrder")} type="number" inputMode="numeric" value={form.sort_order} onChange={e => setForm(p => ({ ...p, sort_order: e.target.value }))} style={{ width: 80 }} />
           </div>
           <input className="admin-input" placeholder={t("admin.categoryDescription")} value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} />
           {error && <div className="admin-error">{error}</div>}

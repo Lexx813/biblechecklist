@@ -294,7 +294,9 @@ function VersePicker({ onSend, onClose }) {
       <div className="fc-modal" onClick={e => e.stopPropagation()}>
         <div className="fc-modal-header">
           <span>📖 Share a Bible Verse</span>
-          <button className="fc-modal-close" onClick={onClose}>✕</button>
+          <button className="fc-modal-close" onClick={onClose} aria-label="Close">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         </div>
         <div className="fc-modal-body">
           <label className="fc-modal-label">Book</label>
@@ -310,7 +312,7 @@ function VersePicker({ onSend, onClose }) {
             </div>
             <div className="fc-modal-field">
               <label className="fc-modal-label">Verse</label>
-              <input className="fc-modal-input" type="number" min={1} max={200} value={verse} onChange={e => setVerse(+e.target.value)} />
+              <input className="fc-modal-input" type="number" inputMode="numeric" min={1} max={200} value={verse} onChange={e => setVerse(+e.target.value)} />
             </div>
           </div>
           <label className="fc-modal-label">Note (optional)</label>
@@ -346,7 +348,9 @@ function PlanPicker({ onSend, onClose }) {
       <div className="fc-modal" onClick={e => e.stopPropagation()}>
         <div className="fc-modal-header">
           <span>📅 Share a Reading Plan</span>
-          <button className="fc-modal-close" onClick={onClose}>✕</button>
+          <button className="fc-modal-close" onClick={onClose} aria-label="Close">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         </div>
         <div className="fc-modal-body">
           {plans.length === 0 ? (
@@ -441,7 +445,9 @@ function StarredPanel({ convId, userId, onClose }) {
   return (
     <div className="fc-overlay-panel">
       <div className="fc-overlay-header">
-        <button className="fc-back-btn" onClick={onClose}>←</button>
+        <button className="fc-back-btn" onClick={onClose} aria-label="Back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
         <span>⭐ Starred Messages</span>
       </div>
       <div className="fc-overlay-body">
@@ -461,7 +467,9 @@ function StarredPanel({ convId, userId, onClose }) {
               </div>
               <div className="fc-starred-meta">
                 <span>{formatTime(msg.created_at)}</span>
-                <button className="fc-action-btn" onClick={() => toggleStar.mutate(msg.id)}>✕</button>
+                <button className="fc-action-btn" onClick={() => toggleStar.mutate(msg.id)} aria-label="Remove star">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
               </div>
             </div>
           ))
@@ -489,7 +497,9 @@ function SearchPanel({ convId, onClose }) {
   return (
     <div className="fc-overlay-panel">
       <div className="fc-overlay-header">
-        <button className="fc-back-btn" onClick={onClose}>←</button>
+        <button className="fc-back-btn" onClick={onClose} aria-label="Back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
         <input className="fc-search-input" placeholder="Search messages…" value={query} onChange={handleChange} autoFocus />
       </div>
       <div className="fc-overlay-body">
@@ -529,7 +539,9 @@ function PushPrompt({ onDismiss }) {
       {permission !== "denied" && (
         <button className="fc-push-btn" onClick={async () => { await subscribe(); onDismiss(); }}>Enable</button>
       )}
-      <button className="fc-push-dismiss" onClick={onDismiss}>✕</button>
+      <button className="fc-push-dismiss" onClick={onDismiss} aria-label="Dismiss">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
   );
 }
@@ -688,19 +700,23 @@ function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPreviews, o
                 <span>😊</span> React
               </button>
               <button className="fc-action-menu-item" onClick={() => { onReply(msg); closeMenu(); }}>
-                <span>↩</span> Reply
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>
+                Reply
               </button>
               <button className="fc-action-menu-item" onClick={() => { onStar(msg.id); closeMenu(); }}>
-                <span>{isStarred ? "✩" : "⭐"}</span> {isStarred ? "Unstar" : "Star"}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill={isStarred ? "goldenrod" : "none"} stroke={isStarred ? "goldenrod" : "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                {isStarred ? "Unstar" : "Star"}
               </button>
               {isMine && !isPrayer && !isVerse && !isImage && !isPlan && (
                 <button className="fc-action-menu-item" onClick={() => { setEditing(true); setEditText(msg.content); closeMenu(); }}>
-                  <span>✎</span> Edit
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                  Edit
                 </button>
               )}
               {isMine && (
                 <button className="fc-action-menu-item fc-action-menu-item--danger" onClick={() => { onDelete(msg.id); closeMenu(); }}>
-                  <span>✕</span> Delete
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                  Delete
                 </button>
               )}
               {showReactPicker && (
@@ -970,7 +986,9 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
   return (
     <div className="fc-thread" style={accentStyle}>
       <div className="fc-thread-header">
-        <button className="fc-back-btn" onClick={onBack}>←</button>
+        <button className="fc-back-btn" onClick={onBack} aria-label="Back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
         <Avatar name={conv.other_display_name} avatarUrl={conv.other_avatar_url} size={28} online={isOtherOnline} />
         <div className="fc-thread-header-info">
           <span className="fc-thread-name">{conv.other_display_name || t("messages.user")}</span>
@@ -980,9 +998,15 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
           }
         </div>
         <div className="fc-thread-header-actions">
-          <button className="fc-header-icon-btn" data-tip="Search" onClick={() => setShowSearch(true)}>🔍</button>
-          <button className={`fc-header-icon-btn${showStarred ? " fc-header-icon-btn--active" : ""}`} data-tip="Starred" onClick={() => setShowStarred(true)}>⭐</button>
-          <button className={`fc-header-icon-btn${showSettings ? " fc-header-icon-btn--active" : ""}`} data-tip="Settings" onClick={() => setShowSettings(s => !s)}>⚙</button>
+          <button className="fc-header-icon-btn" data-tip="Search" aria-label="Search messages" onClick={() => setShowSearch(true)}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </button>
+          <button className={`fc-header-icon-btn${showStarred ? " fc-header-icon-btn--active" : ""}`} data-tip="Starred" aria-label="Starred messages" onClick={() => setShowStarred(true)}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill={showStarred ? "goldenrod" : "none"} stroke={showStarred ? "goldenrod" : "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </button>
+          <button className={`fc-header-icon-btn${showSettings ? " fc-header-icon-btn--active" : ""}`} data-tip="Settings" aria-label="Chat settings" onClick={() => setShowSettings(s => !s)}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </button>
         </div>
       </div>
 
@@ -1050,7 +1074,9 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
                 {(replyTo.content?.startsWith("enc:") ? t("messages.encryptedShort") : replyTo.content || "").slice(0, 60)}
               </span>
             </div>
-            <button className="fc-reply-preview-cancel" onClick={() => setReplyTo(null)}>✕</button>
+            <button className="fc-reply-preview-cancel" onClick={() => setReplyTo(null)} aria-label="Cancel reply">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
           </div>
         )}
 
@@ -1092,7 +1118,9 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
             >
               Retry
             </button>
-            <button type="button" className="fc-send-error-dismiss" onClick={() => { setSendError(null); setFailedPayload(null); }}>✕</button>
+            <button type="button" className="fc-send-error-dismiss" onClick={() => { setSendError(null); setFailedPayload(null); }} aria-label="Dismiss">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
           </div>
         )}
 
@@ -1314,8 +1342,12 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
                 {activeConv ? (activeConv.other_display_name || t("messages.chat")) : t("messages.title")}
               </span>
               <div className="fc-panel-header-actions">
-                <button className="fc-header-btn fc-fullview-btn" onClick={openFullMessages} data-tip={t("messages.openFullView")}>⤢</button>
-                <button className="fc-header-btn" onClick={() => setOpen(false)} data-tip={t("messages.close")}>✕</button>
+                <button className="fc-header-btn fc-fullview-btn" onClick={openFullMessages} data-tip={t("messages.openFullView")} aria-label={t("messages.openFullView")}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </button>
+                <button className="fc-header-btn" onClick={() => setOpen(false)} data-tip={t("messages.close")} aria-label={t("messages.close")}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
               </div>
             </div>
 
@@ -1345,8 +1377,8 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
         )}
 
         {!open && (
-          <button className="fc-fab" onClick={() => setOpen(true)} title="Messages">
-            💬
+          <button className="fc-fab" onClick={() => setOpen(true)} title="Messages" aria-label="Open messages">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             {unreadCount > 0 && <span className="fc-fab-badge">{unreadCount > 9 ? "9+" : unreadCount}</span>}
           </button>
         )}

@@ -29,7 +29,8 @@
     "delete": "Burahin",
     "deleting": "Binubura…",
     "edit": "I-edit",
-    "loading": "Naglo-load…"
+    "loading": "Naglo-load…",
+    "close": "Close"
   },
   "app": {
     "title": "Listahan ng Pagbabasa ng Bibliya",
@@ -1399,8 +1400,8 @@
     "chapters": "mga kabanata"
   },
   "groups": {
-    "title": "Mga Grupo ng Pag-aaral",
-    "subtitle": "Magbasa nang magkasama, lumago nang magkasama",
+    "title": "Mga Grupo",
+    "subtitle": "Kumonekta, lumago, at mag-aral nang magkasama",
     "joinWithCode": "🔑 Sumali gamit ang Code",
     "createGroup": "+ Lumikha ng Grupo",
     "myGroups": "Aking mga Grupo",
@@ -1464,7 +1465,14 @@
     "joined": "Sumali",
     "edited": "na-edit",
     "react": "Mag-react",
-    "reply": "Tumugon"
+    "reply": "Tumugon",
+    "typeBibleStudy": "Pag-aaral ng Bibliya",
+    "typePrayer": "Panalangin",
+    "typeFamily": "Pamilya",
+    "typeCongregation": "Kongregasyon",
+    "typeGeneral": "Pangkalahatan",
+    "groupType": "Uri ng grupo",
+    "clickToCopy": "I-click para kopyahin"
   },
   "messages": {
     "title": "Mga Mensahe",

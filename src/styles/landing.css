@@ -278,7 +278,9 @@
 }
 
 .landing-icon {
-  font-size: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 1;
 }
 
@@ -427,11 +429,23 @@
 }
 
 .landing-cta-arrow {
-  font-size: 20px;
+  display: flex;
+  align-items: center;
   transition: transform 0.2s;
 }
 .landing-cta:hover .landing-cta-arrow {
   transform: translateX(5px);
+}
+
+.landing-social-proof {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 12px;
+  animation: fade-up 0.7s 0.55s ease both;
 }
 
 .landing-signin {

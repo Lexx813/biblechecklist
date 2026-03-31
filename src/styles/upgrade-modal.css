@@ -88,14 +88,14 @@
 
 .upm-close {
   position: absolute;
-  top: 14px;
-  right: 16px;
+  top: 8px;
+  right: 8px;
   background: rgba(255,255,255,0.12);
   border: none;
   color: rgba(255,255,255,0.7);
-  font-size: 13px;
-  width: 28px;
-  height: 28px;
+  font-size: 15px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -105,6 +105,7 @@
   line-height: 1;
 }
 .upm-close:hover { background: rgba(255,255,255,0.22); color: #fff; }
+.upm-close:active { background: rgba(255,255,255,0.32); }
 
 /* ── Feature list ────────────────────────────────────────────────────────────── */
 
@@ -230,6 +231,7 @@
 .upm-cta {
   width: 100%;
   padding: 14px;
+  min-height: 44px;
   background: linear-gradient(135deg, #7c3aed, #5b21b6);
   color: #fff;
   border: none;
@@ -238,11 +240,12 @@
   font-weight: 800;
   cursor: pointer;
   box-shadow: 0 4px 18px rgba(124,58,237,0.4);
-  transition: opacity 0.15s, transform 0.12s;
+  transition: background 0.15s, transform 0.12s, box-shadow 0.15s;
   letter-spacing: -0.01em;
 }
-.upm-cta:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
-.upm-cta:disabled { opacity: 0.6; cursor: default; box-shadow: none; }
+.upm-cta:hover:not(:disabled) { background: linear-gradient(135deg, #6d28d9, #4c1d95); box-shadow: 0 6px 24px rgba(124,58,237,0.5); transform: translateY(-1px); }
+.upm-cta:active:not(:disabled) { transform: translateY(0); box-shadow: 0 4px 18px rgba(124,58,237,0.4); }
+.upm-cta:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; }
 
 .upm-note {
   font-size: 11px;
@@ -266,10 +269,13 @@
   font-size: 13px;
   color: var(--text-muted);
   cursor: pointer;
-  padding: 4px;
-  transition: color 0.12s;
+  padding: 10px 16px;
+  min-height: 44px;
+  border-radius: 8px;
+  transition: color 0.12s, background 0.12s;
 }
-.upm-cancel:hover { color: var(--text-primary); }
+.upm-cancel:hover { color: var(--text-primary); background: var(--teal-soft); }
+.upm-cancel:active { background: var(--teal-light); }
 
 @media (max-width: 400px) {
   .upm-overlay { padding: 12px; }

@@ -27,8 +27,11 @@
   font-size: 13px;
   font-weight: 700;
   padding: 6px 14px;
+  min-height: 44px;
   border-radius: 8px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
   transition: background 0.15s, transform 0.1s;
   flex-shrink: 0;
 }
@@ -42,8 +45,11 @@
   font-size: 13px;
   font-weight: 700;
   padding: 6px 14px;
+  min-height: 44px;
   border-radius: 8px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
   transition: background 0.15s, transform 0.1s;
   flex-shrink: 0;
   margin-left: auto;

@@ -29,7 +29,8 @@
     "delete": "Delete",
     "deleting": "Deleting…",
     "edit": "Edit",
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "close": "Close"
   },
   "app": {
     "title": "Bible Reading Checklist",
@@ -1431,8 +1432,8 @@
     "chapters": "chapters"
   },
   "groups": {
-    "title": "Study Groups",
-    "subtitle": "Read together, grow together",
+    "title": "Groups",
+    "subtitle": "Connect, grow, and study together",
     "joinWithCode": "🔑 Join with Code",
     "createGroup": "+ Create Group",
     "myGroups": "My Groups",
@@ -1496,7 +1497,14 @@
     "joined": "Joined",
     "edited": "edited",
     "react": "React",
-    "reply": "Reply"
+    "reply": "Reply",
+    "typeBibleStudy": "Bible Study",
+    "typePrayer": "Prayer",
+    "typeFamily": "Family",
+    "typeCongregation": "Congregation",
+    "typeGeneral": "General",
+    "groupType": "Group type",
+    "clickToCopy": "Click to copy"
   },
   "messages": {
     "title": "Messages",

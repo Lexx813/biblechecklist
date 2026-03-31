@@ -219,14 +219,22 @@ function GrpBubble({ msg, isMine, canDelete, allMessages, reactions, userId, onD
       {showActions && !editing && (
         <div className={`grp-bubble-actions${isMine ? " grp-bubble-actions--mine" : ""}`}>
           <div style={{ position: "relative" }}>
-            <button className="grp-action-btn" title={t("groups.react")} onClick={() => setShowReactPicker(s => !s)}>😊</button>
+            <button className="grp-action-btn" title={t("groups.react")} onClick={() => setShowReactPicker(s => !s)}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </button>
             {showReactPicker && (
               <GrpReactionPicker onPick={(em) => onToggleReaction(msg.id, em)} onClose={() => setShowReactPicker(false)} />
             )}
           </div>
-          <button className="grp-action-btn" title={t("groups.reply")} onClick={() => onReply(msg)}>↩</button>
-          {isMine && <button className="grp-action-btn" title={t("common.edit")} onClick={() => { setEditing(true); setEditText(msg.content); }}>✎</button>}
-          {canDelete && <button className="grp-action-btn grp-action-btn--danger" title={t("common.delete")} onClick={() => onDelete(msg.id)}>✕</button>}
+          <button className="grp-action-btn" title={t("groups.reply")} onClick={() => onReply(msg)}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>
+          </button>
+          {isMine && <button className="grp-action-btn" title={t("common.edit")} onClick={() => { setEditing(true); setEditText(msg.content); }}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>}
+          {canDelete && <button className="grp-action-btn grp-action-btn--danger" title={t("common.delete")} onClick={() => onDelete(msg.id)}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>}
         </div>
       )}
     </div>
@@ -300,7 +308,9 @@ function ChatTab({ groupId, user, isAdmin }) {
           <p className="grp-empty">{t("common.loading")}</p>
         ) : messages.length === 0 ? (
           <div className="grp-chat-empty">
-            <span>💬</span>
+            <span>
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </span>
             <strong>{t("groups.noMessages")}</strong>
             <p>{t("groups.beFirst")}</p>
           </div>
@@ -338,11 +348,15 @@ function ChatTab({ groupId, user, isAdmin }) {
               <span className="grp-reply-preview-name">{replyTo.sender?.display_name || t("messages.user")}</span>
               <span className="grp-reply-preview-text">{(replyTo.content || "").slice(0, 60)}</span>
             </div>
-            <button className="grp-reply-preview-cancel" onClick={() => setReplyTo(null)}>✕</button>
+            <button className="grp-reply-preview-cancel" onClick={() => setReplyTo(null)} aria-label={t("common.cancel")}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
           </div>
         )}
         <form className="grp-chat-composer" onSubmit={handleSend}>
-          <button type="button" className="grp-emoji-toggle" onClick={() => setShowEmoji(v => !v)} title="Emoji">😊</button>
+          <button type="button" className="grp-emoji-toggle" onClick={() => setShowEmoji(v => !v)} title="Emoji" aria-label="Emoji">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          </button>
           <MentionAutocomplete
             value={input}
             onChange={e => setInput(e.target.value.slice(0, MAX_MSG_LENGTH))}
@@ -351,7 +365,9 @@ function ChatTab({ groupId, user, isAdmin }) {
             rows={1}
             className="grp-chat-input"
           />
-          <button className="grp-chat-send" type="submit" disabled={!input.trim() || sendMessage.isPending}>➤</button>
+          <button className="grp-chat-send" type="submit" disabled={!input.trim() || sendMessage.isPending} aria-label={t("messages.send")}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
         </form>
       </div>
     </div>
@@ -382,7 +398,7 @@ function LeaderboardTab({ groupId, userId }) {
             </div>
             <div className="grp-lb-streak">
               <span className="grp-lb-streak-num">{entry.currentStreak}</span>
-              <span className="grp-lb-streak-label">{t("groups.dayStreak")} 🔥</span>
+              <span className="grp-lb-streak-label">{t("groups.dayStreak")}</span>
             </div>
           </div>
         );
@@ -500,7 +516,9 @@ function AnnouncementsTab({ groupId, isAdmin }) {
               <span className="grp-announce-author">{a.author?.display_name}</span>
               <span className="grp-announce-time">{timeAgo(a.created_at, t)}</span>
               {isAdmin && (
-                <button className="grp-announce-delete" onClick={() => deleteAnnouncement.mutate(a.id)} title={t("common.delete")}>✕</button>
+                <button className="grp-announce-delete" onClick={() => deleteAnnouncement.mutate(a.id)} title={t("common.delete")} aria-label={t("common.delete")}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
               )}
             </div>
             <p className="grp-announce-content">{a.content}</p>
@@ -593,11 +611,15 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
     ? Math.ceil((new Date(group.goal_deadline) - Date.now()) / 86400000)
     : null;
 
+  const isReadingGroup = !group.group_type || group.group_type === "bible_study";
+
   return (
     <div className="grp-detail">
       {/* Header */}
       <div className="grp-detail-header">
-        <button className="grp-detail-back-btn" onClick={() => navigate("groups")}>←</button>
+        <button className="grp-detail-back-btn" onClick={() => navigate("groups")} aria-label={t("common.back")}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
         <div className="grp-detail-avatar">
           {group.cover_url
             ? <img src={group.cover_url} alt="" />
@@ -609,7 +631,7 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
           {group.description && <p className="grp-detail-desc">{group.description}</p>}
           {group.goal_label && (
             <p className="grp-detail-goal">
-              🎯 {group.goal_label}
+              {group.goal_label}
               {daysLeft !== null && (
                 <span className={`grp-deadline${daysLeft < 7 ? " grp-deadline--urgent" : ""}`}>
                   {daysLeft > 0 ? ` · ${daysLeft}d left` : " · Deadline passed"}
@@ -618,16 +640,20 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
             </p>
           )}
           <div className="grp-detail-meta">
-            <span>👥 {members.length} {t("groups.members")}</span>
+            <span className="grp-detail-meta-item">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              {members.length} {t("groups.members")}
+            </span>
             {group.is_private && <span>{t("groups.private")}</span>}
             {isAdmin && group.invite_code && (
-              <span
+              <button
                 className="grp-invite-code"
-                title="Click to copy"
+                title={t("groups.clickToCopy")}
                 onClick={() => { navigator.clipboard.writeText(group.invite_code); }}
               >
-                {t("groups.code")} <strong>{group.invite_code}</strong> 📋
-              </span>
+                {t("groups.code")} <strong>{group.invite_code}</strong>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
             )}
           </div>
         </div>
@@ -649,8 +675,8 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
       <div className="grp-tabs grp-tabs--detail">
         <button className={`grp-tab${tab === "chat" ? " grp-tab--active" : ""}`} onClick={() => setTab("chat")}>{t("groups.chat")}</button>
         <button className={`grp-tab${tab === "announcements" ? " grp-tab--active" : ""}`} onClick={() => setTab("announcements")}>{t("groups.announcements")}</button>
-        <button className={`grp-tab${tab === "progress" ? " grp-tab--active" : ""}`} onClick={() => setTab("progress")}>{t("groups.progress")}</button>
-        <button className={`grp-tab${tab === "leaderboard" ? " grp-tab--active" : ""}`} onClick={() => setTab("leaderboard")}>{t("groups.leaderboard")}</button>
+        {isReadingGroup && <button className={`grp-tab${tab === "progress" ? " grp-tab--active" : ""}`} onClick={() => setTab("progress")}>{t("groups.progress")}</button>}
+        {isReadingGroup && <button className={`grp-tab${tab === "leaderboard" ? " grp-tab--active" : ""}`} onClick={() => setTab("leaderboard")}>{t("groups.leaderboard")}</button>}
         <button className={`grp-tab${tab === "members" ? " grp-tab--active" : ""}`} onClick={() => setTab("members")}>{t("groups.membersTab")}</button>
       </div>
 
@@ -658,8 +684,8 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
       <div className="grp-detail-body">
         {tab === "chat" && <ChatTab groupId={groupId} user={user} isAdmin={isAdmin} />}
         {tab === "announcements" && <AnnouncementsTab groupId={groupId} isAdmin={isAdmin} />}
-        {tab === "progress" && <ProgressTab groupId={groupId} userId={user.id} />}
-        {tab === "leaderboard" && <LeaderboardTab groupId={groupId} userId={user.id} />}
+        {tab === "progress" && isReadingGroup && <ProgressTab groupId={groupId} userId={user.id} />}
+        {tab === "leaderboard" && isReadingGroup && <LeaderboardTab groupId={groupId} userId={user.id} />}
         {tab === "members" && (
           <MembersTab
             groupId={groupId}

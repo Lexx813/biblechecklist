@@ -325,7 +325,9 @@ function NoteCard({ note, onClick, onDelete, onExportMd, onExportPdf, showAuthor
             className="sn-card-delete"
             onClick={e => { e.stopPropagation(); onDelete(note.id); }}
             title={t("common.delete")}
-          >✕</button>
+          aria-label={t("common.delete")}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         )}
       </div>
       {showAuthor && note.author && (
@@ -401,8 +403,12 @@ function FolderSidebar({ folders, activeFolder, onSelect, onCreate, onRename, on
             autoFocus
             maxLength={40}
           />
-          <button type="submit" className="sn-folder-save-btn">✓</button>
-          <button type="button" className="sn-folder-cancel-btn" onClick={() => setCreating(false)}>✕</button>
+          <button type="submit" className="sn-folder-save-btn" aria-label="Save">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          </button>
+          <button type="button" className="sn-folder-cancel-btn" onClick={() => setCreating(false)} aria-label="Cancel">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         </form>
       )}
 
@@ -424,8 +430,12 @@ function FolderSidebar({ folders, activeFolder, onSelect, onCreate, onRename, on
                 autoFocus
                 maxLength={40}
               />
-              <button type="submit" className="sn-folder-save-btn">✓</button>
-              <button type="button" className="sn-folder-cancel-btn" onClick={() => setRenamingId(null)}>✕</button>
+              <button type="submit" className="sn-folder-save-btn" aria-label="Save">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              </button>
+              <button type="button" className="sn-folder-cancel-btn" onClick={() => setRenamingId(null)} aria-label="Cancel">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
             </form>
           ) : (
             <>
@@ -435,8 +445,12 @@ function FolderSidebar({ folders, activeFolder, onSelect, onCreate, onRename, on
               >
                 📂 {f.name}
               </button>
-              <button className="sn-folder-edit-btn" onClick={() => { setRenamingId(f.id); setRenameVal(f.name); }} title={t("common.edit")}>✎</button>
-              <button className="sn-folder-del-btn" onClick={() => onDelete(f.id)} title={t("common.delete")}>✕</button>
+              <button className="sn-folder-edit-btn" onClick={() => { setRenamingId(f.id); setRenameVal(f.name); }} title={t("common.edit")} aria-label={t("common.edit")}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </button>
+              <button className="sn-folder-del-btn" onClick={() => onDelete(f.id)} title={t("common.delete")} aria-label={t("common.delete")}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
             </>
           )}
         </div>
