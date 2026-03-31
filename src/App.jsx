@@ -2,9 +2,9 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import LandingPage from "./pages/LandingPage";
 import "./styles/app.css";
 
-const LandingPage = lazy(() => import("./pages/LandingPage"));
 const TermsPage   = lazy(() => import("./pages/TermsPage"));
 const PrivacyPage = lazy(() => import("./pages/PrivacyPage"));
 const AuthedApp   = lazy(() => import("./AuthedApp"));
@@ -55,9 +55,5 @@ export default function App() {
   if (preAuthPath === "privacy") return <main id="main-content"><Suspense fallback={null}><PrivacyPage {...legalProps} /></Suspense></main>;
 
   // No session — show landing page with zero Supabase loaded
-  return (
-    <Suspense fallback={null}>
-      <LandingPage onGetStarted={() => setShowApp(true)} />
-    </Suspense>
-  );
+  return <LandingPage onGetStarted={() => setShowApp(true)} />;
 }
