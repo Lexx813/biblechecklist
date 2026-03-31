@@ -132,29 +132,29 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         {streakLoading ? (
           <div className="home-streak-skeleton" />
         ) : streak.current_streak > 0 ? (
-          <div className="home-streak-banner" onClick={() => navigate("profile")}>
-            <span className="home-streak-fire">🔥</span>
+          <button className="home-streak-banner" onClick={() => navigate("profile")}>
+            <span className="home-streak-fire" aria-hidden="true">🔥</span>
             <span className="home-streak-text">
               <strong>{streak.current_streak}</strong>-{t("home.streakDay")} {t("home.streakLabel")}
             </span>
             {streak.longest_streak > streak.current_streak && (
-              <span className="home-streak-best">🏆 {t("home.streakBest")}: {streak.longest_streak}</span>
+              <span className="home-streak-best"><span aria-hidden="true">🏆</span> {t("home.streakBest")}: {streak.longest_streak}</span>
             )}
-          </div>
+          </button>
         ) : null}
       </section>
 
       {/* ── Premium upsell banner — free users only ── */}
       {!isPremium && (
         <section className="home-section home-section--slim">
-          <div className="home-premium-banner" onClick={onUpgrade}>
-            <span className="home-premium-banner-icon">✦</span>
+          <button className="home-premium-banner" onClick={onUpgrade}>
+            <span className="home-premium-banner-icon" aria-hidden="true">✦</span>
             <div className="home-premium-banner-text">
               <strong>{t("upm.bannerTitle")}</strong>
               <span>{t("upm.bannerSub")}</span>
             </div>
             <span className="home-premium-banner-cta">{t("upm.bannerCta")}</span>
-          </div>
+          </button>
         </section>
       )}
 
@@ -162,11 +162,11 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       <section className="home-section">
         <SectionHeader label={t("home.trackerLabel")} title={t("home.trackerTitle")} sub={t("home.trackerSub")} />
 
-        <div className="home-tracker-card" onClick={() => navigate("main")}>
+        <button className="home-tracker-card" onClick={() => navigate("main")}>
           <div className="home-tracker-visual">
             <div className="home-tracker-glow" />
             <div className="home-tracker-icon-wrap">
-              <span className="home-tracker-big-icon">📖</span>
+              <span className="home-tracker-big-icon" aria-hidden="true">📖</span>
             </div>
             <div className="home-tracker-stats-preview">
               <div className="home-tracker-stat-pill">{t("home.trackerStat1")}</div>
@@ -185,30 +185,30 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             </ul>
             <span className="home-tracker-cta">{t("home.trackerCta")}</span>
           </div>
-        </div>
+        </button>
       </section>
 
       {/* ── Leaderboard CTA ── */}
       <section className="home-section home-section--compact">
-        <div className="home-lb-cta" onClick={() => navigate("leaderboard")}>
-          <span className="home-lb-icon">🏆</span>
+        <button className="home-lb-cta" onClick={() => navigate("leaderboard")}>
+          <span className="home-lb-icon" aria-hidden="true">🏆</span>
           <div>
             <div className="home-lb-title">{t("home.leaderboardTitle")}</div>
             <div className="home-lb-sub">{t("home.leaderboardSub")}</div>
           </div>
           <span className="home-lb-arrow">›</span>
-        </div>
+        </button>
       </section>
 
       {/* ── Quiz section ── */}
       <section className="home-section">
         <SectionHeader label={t("quiz.homeLabel")} title={t("quiz.homeTitle")} sub={t("quiz.homeSub")} />
 
-        <div className="home-tracker-card" onClick={() => navigate("quiz")}>
+        <button className="home-tracker-card" onClick={() => navigate("quiz")}>
           <div className="home-tracker-visual">
             <div className="home-tracker-glow" />
             <div className="home-tracker-icon-wrap">
-              <span className="home-tracker-big-icon">🏆</span>
+              <span className="home-tracker-big-icon" aria-hidden="true">🏆</span>
             </div>
             <div className="home-tracker-stats-preview">
               <div className="home-tracker-stat-pill">12 Levels</div>
@@ -221,7 +221,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <p className="home-tracker-desc">{t("quiz.homeSub")}</p>
             <span className="home-tracker-cta">{t("quiz.homeCard")}</span>
           </div>
-        </div>
+        </button>
       </section>
 
       {/* ── Community Notes section ── */}

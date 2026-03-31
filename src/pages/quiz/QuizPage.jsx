@@ -68,7 +68,7 @@ function QuizLevelCard({ levelData, progress, onClick }) {
       </div>
 
       <div className="quiz-level-emoji">
-        {isUnlocked ? badge : (
+        {isUnlocked ? <span role="img" aria-label={badgeName}>{badge}</span> : (
           <svg className="quiz-level-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         )}
       </div>
@@ -214,7 +214,9 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
       <div className="quiz-wrap">
         <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
         <div className="quiz-active quiz-active--loading">
-          <LoadingSpinner />
+          <div role="status" aria-label={t("quiz.loading")}>
+            <LoadingSpinner />
+          </div>
         </div>
       </div>
     );
@@ -234,7 +236,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
               </p>
               {badgeEarned && (
                 <div className="quiz-badge-reveal">
-                  <span className="quiz-badge-emoji">{levelData.badge}</span>
+                  <span className="quiz-badge-emoji" role="img" aria-label={badgeName}>{levelData.badge}</span>
                   <span className="quiz-badge-name">{t("quiz.badgeEarned", { name: badgeName })}</span>
                 </div>
               )}

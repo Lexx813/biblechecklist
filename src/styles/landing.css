@@ -48,7 +48,6 @@
   top: -320px;
   left: -220px;
   opacity: 0.55;
-  animation: orb-a 14s ease-in-out infinite;
 }
 .landing-orb--2 {
   width: 650px;
@@ -57,7 +56,6 @@
   bottom: -280px;
   right: -180px;
   opacity: 0.4;
-  animation: orb-b 11s ease-in-out infinite;
 }
 .landing-orb--3 {
   width: 550px;
@@ -67,7 +65,6 @@
   left: 45%;
   transform: translate(-50%, -50%);
   opacity: 0.35;
-  animation: orb-c 18s ease-in-out infinite;
 }
 .landing-orb--4 {
   width: 420px;
@@ -76,7 +73,6 @@
   top: 8%;
   right: 8%;
   opacity: 0.28;
-  animation: orb-a 9s ease-in-out infinite reverse;
 }
 .landing-orb--5 {
   width: 380px;
@@ -85,7 +81,14 @@
   bottom: 12%;
   left: 4%;
   opacity: 0.22;
-  animation: orb-b 13s ease-in-out infinite reverse;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .landing-orb--1 { animation: orb-a 14s ease-in-out infinite; }
+  .landing-orb--2 { animation: orb-b 11s ease-in-out infinite; }
+  .landing-orb--3 { animation: orb-c 18s ease-in-out infinite; }
+  .landing-orb--4 { animation: orb-a 9s ease-in-out infinite reverse; }
+  .landing-orb--5 { animation: orb-b 13s ease-in-out infinite reverse; }
 }
 
 @keyframes orb-a {
@@ -134,22 +137,25 @@
   width: 140px;
   top: 12%;
   left: -10%;
-  animation: shoot 7s 0.5s linear infinite;
   transform: rotate(-14deg);
 }
 .landing-star--2 {
   width: 90px;
   top: 38%;
   left: -10%;
-  animation: shoot 7s 3s linear infinite;
   transform: rotate(-11deg);
 }
 .landing-star--3 {
   width: 180px;
   top: 65%;
   left: -10%;
-  animation: shoot 7s 5.5s linear infinite;
   transform: rotate(-17deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .landing-star--1 { animation: shoot 7s 0.5s linear infinite; }
+  .landing-star--2 { animation: shoot 7s 3s linear infinite; }
+  .landing-star--3 { animation: shoot 7s 5.5s linear infinite; }
 }
 
 @keyframes shoot {
