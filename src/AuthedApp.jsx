@@ -74,7 +74,12 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
 
   const { isPremium, subscribe } = useSubscription(user.id);
   const [nav, setNav] = useState(parsePath);
-  const [darkMode, setDarkMode] = useState(() => localStorage.getItem("nwt-theme") === "dark");
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem("nwt-theme");
+    if (saved === "dark") return true;
+    if (saved === "light") return false;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
 
@@ -115,6 +120,14 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     document.documentElement.dataset.theme = darkMode ? "dark" : "light";
     localStorage.setItem("nwt-theme", darkMode ? "dark" : "light");
   }, [darkMode]);
+
+  // Follow OS theme changes in real time (user can still manually override via the toggle)
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    function onOsChange(e) { setDarkMode(e.matches); }
+    mq.addEventListener("change", onOsChange);
+    return () => mq.removeEventListener("change", onOsChange);
+  }, []);
 
   useEffect(() => {
     const handler = () => setNav(parsePath());
