@@ -40,8 +40,6 @@ export const messagesApi = {
     return convIds.map(convId => {
       const me = mine.find(p => p.conversation_id === convId);
       const other = (others ?? []).find(o => o.conversation_id === convId);
-      // Skip self-conversations (no other participant found)
-      if (!other) return null;
       const profile = (profileRows ?? []).find(p => p.id === other?.user_id);
       const convMsgs = (msgs ?? []).filter(m => m.conversation_id === convId);
       const last = convMsgs[0] ?? null;
@@ -60,7 +58,7 @@ export const messagesApi = {
         last_message_sender_id: last?.sender_id ?? null,
         unread_count: unread,
       };
-    }).filter(Boolean).sort((a, b) => {
+    }).sort((a, b) => {
       if (!a.last_message_at) return 1;
       if (!b.last_message_at) return -1;
       return new Date(b.last_message_at) - new Date(a.last_message_at);
