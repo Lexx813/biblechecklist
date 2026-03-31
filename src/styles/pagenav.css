@@ -41,7 +41,7 @@
 }
 .page-nav-brand:hover { background: rgba(138, 75, 255, 0.1); }
 
-.page-nav-brand-icon { font-size: 16px; }
+.page-nav-brand-icon { display: flex; align-items: center; color: #a78bfa; }
 
 .page-nav-brand-name {
   background: linear-gradient(90deg, #c084fc, #7c3aed);
@@ -651,9 +651,17 @@
 
 /* ── Mobile premium upgrade ──────────────────────────────────────────────── */
 .page-nav-mobile-lock {
-  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
   margin-left: 4px;
   opacity: 0.7;
+}
+
+.page-nav-mobile-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px;
+  opacity: 0.8;
 }
 
 .page-nav-mobile-upgrade-btn {

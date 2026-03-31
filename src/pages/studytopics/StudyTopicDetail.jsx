@@ -14,7 +14,7 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
       <div className="std-page">
         <PageNav user={user} navigate={navigate} {...sharedNav} />
         <div className="std-header">
-          <button className="st-nav-back" onClick={() => navigate("studyTopics")}>
+          <button className="stp-nav-back" onClick={() => navigate("studyTopics")}>
             {t("common.back")}
           </button>
           <h1 className="std-title">{t("studyTopics.notFound", "Topic not found")}</h1>
@@ -31,7 +31,7 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
     <div className="std-page">
       <PageNav user={user} navigate={navigate} {...sharedNav} />
       <div className="std-header">
-        <button className="st-nav-back" onClick={() => navigate("studyTopics")}>
+        <button className="stp-nav-back" onClick={() => navigate("studyTopics")}>
           ← {t("studyTopics.allTopics", "All Topics")}
         </button>
         <span className="std-icon">{topic.icon}</span>
