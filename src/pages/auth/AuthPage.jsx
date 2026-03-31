@@ -16,6 +16,8 @@ export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, on
   const [displayName, setDisplayName] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [agreeAge, setAgreeAge] = useState(false);
+  const [agreeTerms, setAgreeTerms] = useState(false);
   const [fieldError, setFieldError] = useState("");
   const [resetSent, setResetSent] = useState(false);
   const [googleBusy, setGoogleBusy] = useState(false);
@@ -42,6 +44,8 @@ export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, on
     setMode(next);
     setFieldError("");
     setResetSent(false);
+    setAgreeAge(false);
+    setAgreeTerms(false);
     login.reset();
     register.reset();
     resetPassword.reset();
@@ -63,6 +67,8 @@ export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, on
       if (!displayName.trim()) return setFieldError(t("auth.errorDisplayNameRequired"));
       if (password.length < 8) return setFieldError(t("auth.errorPasswordShort"));
       if (password !== confirm) return setFieldError(t("auth.errorPasswordMismatch"));
+      if (!agreeAge) return setFieldError("Please confirm your age or parental consent.");
+      if (!agreeTerms) return setFieldError("Please agree to the Terms of Service and Privacy Policy.");
       register.mutate({ email, password, displayName: displayName.trim() }, {
         onSuccess: () => {
           onRegisterSuccess?.(email);
@@ -224,11 +230,45 @@ export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, on
             </div>
           )}
 
+          {mode === "signup" && (
+            <div className="auth-consents">
+              <label className="auth-consent-label">
+                <input
+                  type="checkbox"
+                  className="auth-consent-check"
+                  checked={agreeAge}
+                  onChange={e => setAgreeAge(e.target.checked)}
+                  disabled={busy}
+                />
+                <span>
+                  I am <strong>13 years of age or older</strong>. If I am under 18, I have my parent or guardian's permission to use this app and they have read the{" "}
+                  <button type="button" className="auth-policy-link" onClick={() => window.open("/terms", "_blank")}>Terms of Service</button>.
+                </span>
+              </label>
+              <label className="auth-consent-label">
+                <input
+                  type="checkbox"
+                  className="auth-consent-check"
+                  checked={agreeTerms}
+                  onChange={e => setAgreeTerms(e.target.checked)}
+                  disabled={busy}
+                />
+                <span>
+                  I agree to the{" "}
+                  <button type="button" className="auth-policy-link" onClick={() => window.open("/terms", "_blank")}>Terms of Service</button>
+                  {" "}and{" "}
+                  <button type="button" className="auth-policy-link" onClick={() => window.open("/privacy", "_blank")}>Privacy Policy</button>
+                  , including the <strong>Child Safety Policy</strong>.
+                </span>
+              </label>
+            </div>
+          )}
+
           {(fieldError || serverError) && (
             <div className="auth-error">{fieldError || serverError}</div>
           )}
 
-          <button className="auth-submit" type="submit" disabled={busy}>
+          <button className="auth-submit" type="submit" disabled={busy || (mode === "signup" && (!agreeAge || !agreeTerms))}>
             {busy && !googleBusy ? t("auth.submitLoading") : mode === "login" ? t("auth.submitLogin") : t("auth.submitSignup")}
           </button>
         </form>

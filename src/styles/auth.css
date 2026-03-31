@@ -280,6 +280,54 @@
 }
 .auth-switch-btn:hover { color: var(--teal-dark); }
 
+/* ── Consent checkboxes ───────────────────────────────────────── */
+
+.auth-consents {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 0 2px;
+}
+
+.auth-consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.auth-consent-check {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  accent-color: var(--teal);
+  cursor: pointer;
+}
+
+.auth-consent-check:disabled {
+  cursor: not-allowed;
+}
+
+.auth-policy-link {
+  background: none;
+  border: none;
+  color: var(--teal);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.auth-policy-link:hover {
+  color: var(--teal-dark);
+}
+
 /* ── Small phones (< 480px) ───────────────────────────────────── */
 @media (max-width: 479px) {
   .auth-wrap { padding: 16px 12px; gap: 12px; }
