@@ -118,7 +118,12 @@ html.nav-hidden .admin-header { top: 0; }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  overflow: hidden;
+  overflow: visible;
+}
+
+/* Clip only the table scroll area, not the whole section */
+.admin-section .admin-table-wrap {
+  overflow-x: auto;
 }
 
 .admin-section-header {
@@ -345,6 +350,8 @@ html.nav-hidden .admin-header { top: 0; }
 }
 
 .admin-table tbody tr:last-child td { border-bottom: none; }
+.admin-table td:last-child,
+.admin-table th:last-child { padding-right: 16px; }
 .admin-table tbody tr:hover { background: rgba(124, 58, 237, 0.05); }
 .admin-table-row--self { background: rgba(124, 58, 237, 0.07); }
 
