@@ -1,33 +1,59 @@
 import React from "react";
-import * as Sentry from "@sentry/react";
-import "../styles/landing.css";
+
+const errorWrapStyle = {
+  minHeight: "100vh",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  background: "linear-gradient(135deg, #1E0D3C 0%, #341C5C 50%, #1E0D3C 100%)",
+  padding: "2rem",
+  fontFamily: "inherit",
+};
+const errorContentStyle = {
+  textAlign: "center",
+  maxWidth: 480,
+  color: "#f0eaff",
+};
+const errorCodeStyle = {
+  fontSize: "4rem",
+  fontWeight: 800,
+  background: "linear-gradient(135deg, #a78bfa, #14b8a6)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+  marginBottom: "0.5rem",
+};
+const errorTitleStyle = { fontSize: "1.4rem", fontWeight: 700, margin: "0 0 0.75rem" };
+const errorSubStyle = { fontSize: "0.95rem", opacity: 0.75, margin: "0 0 1.5rem", lineHeight: 1.6 };
+const errorActionsStyle = { display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" };
+const btnStyle = {
+  padding: "0.65rem 1.25rem",
+  borderRadius: 8,
+  border: "1.5px solid rgba(167,139,250,0.4)",
+  background: "rgba(124,58,237,0.2)",
+  color: "#f0eaff",
+  fontSize: "0.9rem",
+  fontWeight: 600,
+  cursor: "pointer",
+};
+const btnGhostStyle = { ...btnStyle, background: "transparent" };
 
 // ── Error page UI ──────────────────────────────────────────────
 export function ErrorPage({ error, onReset }) {
   return (
-    <div className="error-wrap">
-      <div className="landing-bg" aria-hidden="true">
-        <div className="landing-orb landing-orb--1" />
-        <div className="landing-orb landing-orb--2" />
-        <div className="landing-orb landing-orb--3" />
-        <div className="landing-grid" />
-      </div>
-      <div className="error-content">
-        <div className="error-code">500</div>
-        <h1 className="error-title">Something went wrong</h1>
-        <p className="error-sub">
+    <div style={errorWrapStyle}>
+      <div style={errorContentStyle}>
+        <div style={errorCodeStyle}>500</div>
+        <h1 style={errorTitleStyle}>Something went wrong</h1>
+        <p style={errorSubStyle}>
           {error?.message || "An unexpected error occurred. Please try again."}
         </p>
-        <div className="error-actions">
+        <div style={errorActionsStyle}>
           {onReset && (
-            <button className="error-btn" onClick={onReset}>
+            <button style={btnStyle} onClick={onReset}>
               ↩ Try Again
             </button>
           )}
-          <button
-            className="error-btn error-btn--ghost"
-            onClick={() => window.location.reload()}
-          >
+          <button style={btnGhostStyle} onClick={() => window.location.reload()}>
             ↺ Reload Page
           </button>
         </div>
@@ -39,21 +65,15 @@ export function ErrorPage({ error, onReset }) {
 // ── 404 / Not Found page ───────────────────────────────────────
 export function NotFoundPage({ onBack }) {
   return (
-    <div className="error-wrap">
-      <div className="landing-bg" aria-hidden="true">
-        <div className="landing-orb landing-orb--1" />
-        <div className="landing-orb landing-orb--2" />
-        <div className="landing-orb landing-orb--3" />
-        <div className="landing-grid" />
-      </div>
-      <div className="error-content">
-        <div className="error-code">404</div>
-        <h1 className="error-title">Page not found</h1>
-        <p className="error-sub">
+    <div style={errorWrapStyle}>
+      <div style={errorContentStyle}>
+        <div style={errorCodeStyle}>404</div>
+        <h1 style={errorTitleStyle}>Page not found</h1>
+        <p style={errorSubStyle}>
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
-        <div className="error-actions">
-          <button className="error-btn" onClick={onBack || (() => (window.location.href = "/"))}>
+        <div style={errorActionsStyle}>
+          <button style={btnStyle} onClick={onBack || (() => (window.location.href = "/"))}>
             ← Go Home
           </button>
         </div>
@@ -75,7 +95,12 @@ export class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, info) {
     console.error("[ErrorBoundary]", error, info.componentStack);
-    Sentry.captureException(error, { extra: { componentStack: info.componentStack } });
+    // Lazy-load Sentry only when an error actually occurs — keeps it off the critical path
+    import("@sentry/react")
+      .then(({ captureException }) =>
+        captureException(error, { extra: { componentStack: info.componentStack } })
+      )
+      .catch(() => {});
   }
 
   render() {
