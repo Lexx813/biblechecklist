@@ -16,7 +16,11 @@
     "step3Title": "Test Your Knowledge",
     "step3Body": "Take quizzes on 12 different Bible themes and earn badges as you complete each level.",
     "step4Title": "Build a Reading Habit",
-    "step4Body": "Set a daily chapter goal, track your streak, and use the reading heatmap to stay consistent."
+    "step4Body": "Set a daily chapter goal, track your streak, and use the reading heatmap to stay consistent.",
+    "step5Title": "Unlock the Full Experience",
+    "step5Body": "AI Study Companion, Reading Plans, Study Notes, Messages & Groups — everything you need to go deeper in your study for just $3/month.",
+    "seePremium": "See Premium →",
+    "maybeLater": "Maybe later"
   },
   "a11y": {
     "skipToContent": "Skip to main content"

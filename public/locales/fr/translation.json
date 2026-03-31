@@ -16,7 +16,11 @@
     "step3Title": "Testez vos Connaissances",
     "step3Body": "Passez des quiz sur 12 thèmes bibliques différents et gagnez des badges en complétant chaque niveau.",
     "step4Title": "Créez une Habitude de Lecture",
-    "step4Body": "Fixez un objectif quotidien de chapitres, suivez votre série et utilisez la grille de lecture pour rester régulier."
+    "step4Body": "Fixez un objectif quotidien de chapitres, suivez votre série et utilisez la grille de lecture pour rester régulier.",
+    "step5Title": "Débloquez l'Expérience Complète",
+    "step5Body": "Compagnon d'Étude IA, Plans de Lecture, Notes d'Étude, Messages et Groupes — tout pour seulement 3$/mois.",
+    "seePremium": "Voir Premium →",
+    "maybeLater": "Peut-être plus tard"
   },
   "a11y": {
     "skipToContent": "Aller au contenu principal"
@@ -1573,9 +1577,18 @@
               "L'apôtre Paul a écrit : « Il y a en réalité pour nous un seul Dieu, le Père, dont viennent toutes choses et pour qui nous existons ; et un seul Seigneur, Jésus Christ, par qui sont toutes choses et par qui nous existons. » (1 Corinthiens 8:6) Ce verset distingue clairement Jéhovah en tant que Dieu et Jésus en tant que Seigneur — deux personnes séparées."
             ],
             "scriptures": [
-              { "ref": "Jean 14:28", "text": "Le Père est plus grand que moi." },
-              { "ref": "1 Corinthiens 8:6", "text": "Il y a un seul Dieu, le Père… et un seul Seigneur, Jésus Christ." },
-              { "ref": "Jean 17:3", "text": "Ceci signifie la vie éternelle : qu'ils apprennent à te connaître toi, le seul vrai Dieu, et celui que tu as envoyé, Jésus Christ." }
+              {
+                "ref": "Jean 14:28",
+                "text": "Le Père est plus grand que moi."
+              },
+              {
+                "ref": "1 Corinthiens 8:6",
+                "text": "Il y a un seul Dieu, le Père… et un seul Seigneur, Jésus Christ."
+              },
+              {
+                "ref": "Jean 17:3",
+                "text": "Ceci signifie la vie éternelle : qu'ils apprennent à te connaître toi, le seul vrai Dieu, et celui que tu as envoyé, Jésus Christ."
+              }
             ]
           },
           {
@@ -1585,9 +1598,18 @@
               "Jésus lui-même a dit : « Je vais vers le Père, car le Père est plus grand que moi. » Il a aussi reconnu qu'il y avait des choses qu'il ne savait pas, déclarant que personne ne connaît le jour ni l'heure « excepté le Père. » (Matthieu 24:36) Ces limitations seraient impossibles si Jésus était Dieu Tout-Puissant."
             ],
             "scriptures": [
-              { "ref": "Matthieu 3:17", "text": "Celui-ci est mon Fils, le bien-aimé, que j'ai approuvé." },
-              { "ref": "Colossiens 1:15", "text": "Il est l'image du Dieu invisible, le premier-né de toute la création." },
-              { "ref": "Matthieu 24:36", "text": "Concernant ce jour-là et cette heure-là, personne ne les connaît, ni les anges des cieux ni le Fils, mais seulement le Père." }
+              {
+                "ref": "Matthieu 3:17",
+                "text": "Celui-ci est mon Fils, le bien-aimé, que j'ai approuvé."
+              },
+              {
+                "ref": "Colossiens 1:15",
+                "text": "Il est l'image du Dieu invisible, le premier-né de toute la création."
+              },
+              {
+                "ref": "Matthieu 24:36",
+                "text": "Concernant ce jour-là et cette heure-là, personne ne les connaît, ni les anges des cieux ni le Fils, mais seulement le Père."
+              }
             ]
           },
           {
@@ -1597,8 +1619,14 @@
               "Prier Jéhovah par l'intermédiaire de Jésus Christ est le modèle montré tout au long du Nouveau Testament. Jésus est notre Grand Prêtre et médiateur — des rôles qui n'ont de sens que s'il est distinct de Dieu le Père. (1 Timothée 2:5 ; Hébreux 7:25)"
             ],
             "scriptures": [
-              { "ref": "1 Timothée 2:5", "text": "Il y a un seul Dieu, et un seul médiateur entre Dieu et les hommes, un homme, Christ Jésus." },
-              { "ref": "Hébreux 7:25", "text": "Il est capable de sauver complètement ceux qui s'approchent de Dieu par lui." }
+              {
+                "ref": "1 Timothée 2:5",
+                "text": "Il y a un seul Dieu, et un seul médiateur entre Dieu et les hommes, un homme, Christ Jésus."
+              },
+              {
+                "ref": "Hébreux 7:25",
+                "text": "Il est capable de sauver complètement ceux qui s'approchent de Dieu par lui."
+              }
             ]
           }
         ]
@@ -1614,9 +1642,18 @@
               "Puisqu'un seul archange est mentionné dans les Écritures, et que le Jésus ressuscité descend avec une voix d'archange, cela implique fortement que Jésus est cet archange."
             ],
             "scriptures": [
-              { "ref": "Daniel 12:1", "text": "Michel se lèvera, le grand prince qui se tient en faveur de ton peuple." },
-              { "ref": "Jude 9", "text": "Lorsque Michel l'archange eut un différend avec le Diable et argumentait au sujet du corps de Moïse, il n'osa pas prononcer un jugement de condamnation contre lui." },
-              { "ref": "1 Thessaloniciens 4:16", "text": "Le Seigneur lui-même descendra du ciel avec un cri de commandement, avec une voix d'archange." }
+              {
+                "ref": "Daniel 12:1",
+                "text": "Michel se lèvera, le grand prince qui se tient en faveur de ton peuple."
+              },
+              {
+                "ref": "Jude 9",
+                "text": "Lorsque Michel l'archange eut un différend avec le Diable et argumentait au sujet du corps de Moïse, il n'osa pas prononcer un jugement de condamnation contre lui."
+              },
+              {
+                "ref": "1 Thessaloniciens 4:16",
+                "text": "Le Seigneur lui-même descendra du ciel avec un cri de commandement, avec une voix d'archange."
+              }
             ]
           },
           {
@@ -1626,9 +1663,18 @@
               "Avant sa naissance humaine, Jésus existait au ciel comme une puissante créature spirituelle — « le premier-né de toute la création » (Colossiens 1:15). Son nom pré-humain était Michel. Après sa résurrection, Philippiens 2:9 dit que Dieu lui a accordé « le nom qui est au-dessus de tout autre nom » — Jésus Christ — élevé à la position la plus haute."
             ],
             "scriptures": [
-              { "ref": "Apocalypse 12:7-9", "text": "Michel et ses anges combattirent le dragon… le grand dragon fut précipité." },
-              { "ref": "Colossiens 1:15-16", "text": "Il est l'image du Dieu invisible, le premier-né de toute la création ; car c'est par lui que toutes les autres choses ont été créées." },
-              { "ref": "Philippiens 2:9", "text": "Dieu l'a élevé à une position supérieure et lui a gracieusement accordé le nom qui est au-dessus de tout autre nom." }
+              {
+                "ref": "Apocalypse 12:7-9",
+                "text": "Michel et ses anges combattirent le dragon… le grand dragon fut précipité."
+              },
+              {
+                "ref": "Colossiens 1:15-16",
+                "text": "Il est l'image du Dieu invisible, le premier-né de toute la création ; car c'est par lui que toutes les autres choses ont été créées."
+              },
+              {
+                "ref": "Philippiens 2:9",
+                "text": "Dieu l'a élevé à une position supérieure et lui a gracieusement accordé le nom qui est au-dessus de tout autre nom."
+              }
             ]
           }
         ]
@@ -1644,9 +1690,18 @@
               "Quand Jésus fut baptisé, « les cieux s'ouvrirent et il vit l'esprit de Dieu descendre comme une colombe. » (Matthieu 3:16) Une colombe est un symbole de douceur et de paix — l'esprit est ici représenté comme une force ou une influence, non comme un troisième être divin se tenant aux côtés du Père et du Fils."
             ],
             "scriptures": [
-              { "ref": "Genèse 1:2", "text": "La force active de Dieu se déplaçait sur la surface des eaux." },
-              { "ref": "Actes 2:4", "text": "Ils furent tous remplis d'esprit saint et commencèrent à parler en différentes langues." },
-              { "ref": "Luc 1:35", "text": "L'esprit saint viendra sur toi, et la puissance du Très-Haut te couvrira de son ombre." }
+              {
+                "ref": "Genèse 1:2",
+                "text": "La force active de Dieu se déplaçait sur la surface des eaux."
+              },
+              {
+                "ref": "Actes 2:4",
+                "text": "Ils furent tous remplis d'esprit saint et commencèrent à parler en différentes langues."
+              },
+              {
+                "ref": "Luc 1:35",
+                "text": "L'esprit saint viendra sur toi, et la puissance du Très-Haut te couvrira de son ombre."
+              }
             ]
           },
           {
@@ -1656,9 +1711,18 @@
               "Les dons de l'esprit saint — sagesse, foi, guérison, parler en langues — sont distribués par la puissance de Dieu, non par un troisième individu divin prenant des décisions indépendantes. Paul écrit que « tout cela est l'œuvre d'un seul et même esprit, distribuant à chacun selon sa volonté » (1 Corinthiens 12:11) — mais cela reflète l'alignement de l'esprit sur la volonté de Dieu, non une personnalité distincte."
             ],
             "scriptures": [
-              { "ref": "Actes 2:17", "text": "Je répandrai de mon esprit sur toute sorte d'hommes." },
-              { "ref": "Romains 8:26", "text": "L'esprit lui-même intercède pour nous par des gémissements inexprimibles." },
-              { "ref": "1 Corinthiens 12:11", "text": "Tout cela est l'œuvre d'un seul et même esprit." }
+              {
+                "ref": "Actes 2:17",
+                "text": "Je répandrai de mon esprit sur toute sorte d'hommes."
+              },
+              {
+                "ref": "Romains 8:26",
+                "text": "L'esprit lui-même intercède pour nous par des gémissements inexprimibles."
+              },
+              {
+                "ref": "1 Corinthiens 12:11",
+                "text": "Tout cela est l'œuvre d'un seul et même esprit."
+              }
             ]
           }
         ]
@@ -1674,9 +1738,18 @@
               "Les animaux sont également appelés « âmes » dans les Écritures. Genèse 1:20 en hébreu utilise nèphèsh pour les créatures de la mer et les oiseaux. L'âme n'est pas une partie spirituelle spéciale propre aux humains — elle désigne toute créature vivante qui respire."
             ],
             "scriptures": [
-              { "ref": "Genèse 2:7", "text": "L'homme devint une personne [âme] vivante." },
-              { "ref": "Ézéchiel 18:4", "text": "Voyez ! Toutes les âmes m'appartiennent. L'âme qui pèche est celle qui mourra." },
-              { "ref": "1 Corinthiens 15:45", "text": "Ainsi il est écrit : « Le premier homme Adam devint une personne [âme] vivante. »" }
+              {
+                "ref": "Genèse 2:7",
+                "text": "L'homme devint une personne [âme] vivante."
+              },
+              {
+                "ref": "Ézéchiel 18:4",
+                "text": "Voyez ! Toutes les âmes m'appartiennent. L'âme qui pèche est celle qui mourra."
+              },
+              {
+                "ref": "1 Corinthiens 15:45",
+                "text": "Ainsi il est écrit : « Le premier homme Adam devint une personne [âme] vivante. »"
+              }
             ]
           },
           {
@@ -1686,9 +1759,18 @@
               "Comprendre que l'âme, c'est la personne elle-même — et non une entité séparée — rend l'espérance de la résurrection encore plus belle. Dieu recréera la personne entière, restaurant tout ce qui définissait qui elle était."
             ],
             "scriptures": [
-              { "ref": "Ézéchiel 18:4", "text": "L'âme qui pèche est celle qui mourra." },
-              { "ref": "Apocalypse 16:3", "text": "Toute âme vivante dans la mer mourut." },
-              { "ref": "Actes 3:23", "text": "Toute âme qui n'écoutera pas ce Prophète sera complètement retranchée du peuple." }
+              {
+                "ref": "Ézéchiel 18:4",
+                "text": "L'âme qui pèche est celle qui mourra."
+              },
+              {
+                "ref": "Apocalypse 16:3",
+                "text": "Toute âme vivante dans la mer mourut."
+              },
+              {
+                "ref": "Actes 3:23",
+                "text": "Toute âme qui n'écoutera pas ce Prophète sera complètement retranchée du peuple."
+              }
             ]
           }
         ]
@@ -1704,9 +1786,18 @@
               "Le roi Salomon a écrit : « Les vivants savent qu'ils mourront, mais les morts ne savent absolument rien. » (Ecclésiaste 9:5) Il n'y a ni conscience, ni souffrance, ni joie — la mort est une cessation complète de la vie jusqu'à la résurrection."
             ],
             "scriptures": [
-              { "ref": "Jean 11:11-14", "text": "« Lazare, notre ami, s'est endormi… Lazare est mort. »" },
-              { "ref": "Ecclésiaste 9:5", "text": "Les vivants savent qu'ils mourront, mais les morts ne savent absolument rien." },
-              { "ref": "Psaume 146:4", "text": "Son esprit s'en va, il retourne au sol ; ce jour-là, ses pensées périssent." }
+              {
+                "ref": "Jean 11:11-14",
+                "text": "« Lazare, notre ami, s'est endormi… Lazare est mort. »"
+              },
+              {
+                "ref": "Ecclésiaste 9:5",
+                "text": "Les vivants savent qu'ils mourront, mais les morts ne savent absolument rien."
+              },
+              {
+                "ref": "Psaume 146:4",
+                "text": "Son esprit s'en va, il retourne au sol ; ce jour-là, ses pensées périssent."
+              }
             ]
           },
           {
@@ -1716,9 +1807,18 @@
               "L'apôtre Paul a appelé la résurrection du Christ le fondement de l'espérance chrétienne : « Si les morts ne doivent pas être ressuscités, mangeons et buvons, car demain nous mourrons. » (1 Corinthiens 15:32) La résurrection des morts — et non l'immortalité de l'âme — est la réponse de la Bible à la mort."
             ],
             "scriptures": [
-              { "ref": "Jean 5:28-29", "text": "Tous ceux qui sont dans les tombeaux commémoratifs entendront sa voix et sortiront." },
-              { "ref": "Actes 24:15", "text": "Il va y avoir une résurrection des justes et des injustes." },
-              { "ref": "1 Corinthiens 15:26", "text": "Le dernier ennemi, la mort, sera réduit à néant." }
+              {
+                "ref": "Jean 5:28-29",
+                "text": "Tous ceux qui sont dans les tombeaux commémoratifs entendront sa voix et sortiront."
+              },
+              {
+                "ref": "Actes 24:15",
+                "text": "Il va y avoir une résurrection des justes et des injustes."
+              },
+              {
+                "ref": "1 Corinthiens 15:26",
+                "text": "Le dernier ennemi, la mort, sera réduit à néant."
+              }
             ]
           }
         ]
@@ -1734,9 +1834,18 @@
               "Jésus a enseigné à ses disciples à prier : « Que ton Royaume vienne. Que ta volonté soit faite, comme au ciel, aussi sur la terre. » (Matthieu 6:10) Cette prière sous-entend que la domination du Royaume s'étendra un jour à la terre, la transformant tout comme le ciel reflète déjà la volonté parfaite de Dieu."
             ],
             "scriptures": [
-              { "ref": "Daniel 2:44", "text": "Le Dieu des cieux établira un royaume qui ne sera jamais réduit à néant." },
-              { "ref": "Matthieu 6:10", "text": "Que ton Royaume vienne. Que ta volonté soit faite, comme au ciel, aussi sur la terre." },
-              { "ref": "Luc 1:33", "text": "Il régnera comme Roi sur la maison de Jacob pour toujours, et son Royaume n'aura pas de fin." }
+              {
+                "ref": "Daniel 2:44",
+                "text": "Le Dieu des cieux établira un royaume qui ne sera jamais réduit à néant."
+              },
+              {
+                "ref": "Matthieu 6:10",
+                "text": "Que ton Royaume vienne. Que ta volonté soit faite, comme au ciel, aussi sur la terre."
+              },
+              {
+                "ref": "Luc 1:33",
+                "text": "Il régnera comme Roi sur la maison de Jacob pour toujours, et son Royaume n'aura pas de fin."
+              }
             ]
           },
           {
@@ -1746,9 +1855,18 @@
               "Isaïe 65:21-22 peint un tableau de la vie sous le Royaume : « Ils construiront des maisons et y habiteront, et ils planteront des vignes et en mangeront le fruit. » La coexistence pacifique entre les humains et les animaux est également promise : « Le loup et l'agneau se nourriront ensemble. » (Isaïe 65:25)"
             ],
             "scriptures": [
-              { "ref": "Apocalypse 21:3-4", "text": "Il essuiera toute larme de leurs yeux, et la mort ne sera plus." },
-              { "ref": "Isaïe 65:21-22", "text": "Ils construiront des maisons et y habiteront, et ils planteront des vignes et en mangeront le fruit." },
-              { "ref": "Psaume 37:29", "text": "Les justes posséderont la terre, et ils y vivront pour toujours." }
+              {
+                "ref": "Apocalypse 21:3-4",
+                "text": "Il essuiera toute larme de leurs yeux, et la mort ne sera plus."
+              },
+              {
+                "ref": "Isaïe 65:21-22",
+                "text": "Ils construiront des maisons et y habiteront, et ils planteront des vignes et en mangeront le fruit."
+              },
+              {
+                "ref": "Psaume 37:29",
+                "text": "Les justes posséderont la terre, et ils y vivront pour toujours."
+              }
             ]
           }
         ]
@@ -1764,9 +1882,18 @@
               "Quand Satan a dit dans l'Éden « vous ne mourrez certainement pas » (Genèse 3:4), il traitait Dieu de menteur et suggérait que les humains pouvaient vivre indépendamment de Dieu. Ces défis au droit de Dieu de gouverner et à la loyauté de ses adorateurs ne pouvaient pas être réglés instantanément — ils nécessitaient du temps et l'expérience humaine pour être entièrement résolus."
             ],
             "scriptures": [
-              { "ref": "Job 1:9-11", "text": "Job craint-il Dieu pour rien ?" },
-              { "ref": "Genèse 3:4-5", "text": "Vous ne mourrez certainement pas. Dieu sait que… vos yeux s'ouvriront et vous serez comme Dieu." },
-              { "ref": "Romains 3:4", "text": "Que Dieu se révèle vrai, même si tout homme est menteur." }
+              {
+                "ref": "Job 1:9-11",
+                "text": "Job craint-il Dieu pour rien ?"
+              },
+              {
+                "ref": "Genèse 3:4-5",
+                "text": "Vous ne mourrez certainement pas. Dieu sait que… vos yeux s'ouvriront et vous serez comme Dieu."
+              },
+              {
+                "ref": "Romains 3:4",
+                "text": "Que Dieu se révèle vrai, même si tout homme est menteur."
+              }
             ]
           },
           {
@@ -1776,9 +1903,18 @@
               "La permission accordée par Dieu à la souffrance est temporaire. Son dessein pour la terre — un paradis exempt de douleur et de mort — n'a jamais changé. La souffrance que nous voyons aujourd'hui n'est pas la preuve de l'indifférence de Dieu, mais les conséquences de l'indépendance humaine vis-à-vis de la direction divine. Bientôt, Dieu « détruira ceux qui détruisent la terre. » (Apocalypse 11:18)"
             ],
             "scriptures": [
-              { "ref": "2 Pierre 3:9", "text": "Jéhovah n'est pas lent en ce qui concerne sa promesse… il est patient envers vous." },
-              { "ref": "Romains 8:22", "text": "Nous savons que toute la création continue de gémir et d'être dans les douleurs de l'accouchement jusqu'à maintenant." },
-              { "ref": "Apocalypse 11:18", "text": "L'heure est venue… de détruire ceux qui détruisent la terre." }
+              {
+                "ref": "2 Pierre 3:9",
+                "text": "Jéhovah n'est pas lent en ce qui concerne sa promesse… il est patient envers vous."
+              },
+              {
+                "ref": "Romains 8:22",
+                "text": "Nous savons que toute la création continue de gémir et d'être dans les douleurs de l'accouchement jusqu'à maintenant."
+              },
+              {
+                "ref": "Apocalypse 11:18",
+                "text": "L'heure est venue… de détruire ceux qui détruisent la terre."
+              }
             ]
           }
         ]
@@ -1794,9 +1930,18 @@
               "La Loi mosaïque a renforcé ce principe : « Quant à tout homme de la maison d'Israël ou à tout étranger qui réside parmi vous qui mange du sang de quelque sorte que ce soit, je mettrai certainement ma face contre cette personne qui mange du sang. » (Lévitique 17:10) L'interdiction du sang figurait parmi les exigences que le concile de Jérusalem en Actes 15 a confirmées comme obligatoires pour tous les chrétiens."
             ],
             "scriptures": [
-              { "ref": "Genèse 9:4", "text": "Seulement la chair avec sa vie — son sang — vous ne devez pas en manger." },
-              { "ref": "Lévitique 17:14", "text": "Vous ne devez pas manger le sang de quelque sorte de chair que ce soit, car la vie de toute sorte de chair, c'est son sang." },
-              { "ref": "Actes 15:28-29", "text": "L'esprit saint et nous-mêmes avons jugé bon de ne pas vous imposer d'autre charge que ces choses nécessaires : vous abstenir… du sang." }
+              {
+                "ref": "Genèse 9:4",
+                "text": "Seulement la chair avec sa vie — son sang — vous ne devez pas en manger."
+              },
+              {
+                "ref": "Lévitique 17:14",
+                "text": "Vous ne devez pas manger le sang de quelque sorte de chair que ce soit, car la vie de toute sorte de chair, c'est son sang."
+              },
+              {
+                "ref": "Actes 15:28-29",
+                "text": "L'esprit saint et nous-mêmes avons jugé bon de ne pas vous imposer d'autre charge que ces choses nécessaires : vous abstenir… du sang."
+              }
             ]
           },
           {
@@ -1806,9 +1951,18 @@
               "Les alternatives médicales modernes à la transfusion — récupération de cellules, solutés d'expansion volumique et techniques chirurgicales sans sang — ont considérablement progressé, et de nombreux hôpitaux proposent désormais ces options. Choisir d'honorer l'exigence de Dieu concernant le sang est un acte de foi et de confiance que les normes de Dieu sont toujours dans notre meilleur intérêt."
             ],
             "scriptures": [
-              { "ref": "Actes 15:28-29", "text": "Vous abstenir… du sang." },
-              { "ref": "1 Jean 5:3", "text": "C'est cela que l'amour de Dieu signifie : que nous observions ses commandements ; et pourtant ses commandements ne sont pas un fardeau." },
-              { "ref": "Proverbes 3:5", "text": "Fais confiance à Jéhovah de tout ton cœur et ne t'appuie pas sur ta propre intelligence." }
+              {
+                "ref": "Actes 15:28-29",
+                "text": "Vous abstenir… du sang."
+              },
+              {
+                "ref": "1 Jean 5:3",
+                "text": "C'est cela que l'amour de Dieu signifie : que nous observions ses commandements ; et pourtant ses commandements ne sont pas un fardeau."
+              },
+              {
+                "ref": "Proverbes 3:5",
+                "text": "Fais confiance à Jéhovah de tout ton cœur et ne t'appuie pas sur ta propre intelligence."
+              }
             ]
           }
         ]

@@ -271,10 +271,12 @@ function NoteEditor({ note, folders, onSave, onCancel, saving, isAdmin }) {
           />
         </div>
 
-        <EnhanceNoteWidget
-          noteContent={form.content}
-          passage={passageLabel(form) ?? undefined}
-        />
+        {isAdmin && (
+          <EnhanceNoteWidget
+            noteContent={form.content}
+            passage={passageLabel(form) ?? undefined}
+          />
+        )}
 
         {isAdmin && form.book_index != null && (
           <AICompanion

@@ -16,7 +16,11 @@
     "step3Title": "Teste Seu Conhecimento",
     "step3Body": "Faça testes em 12 temas bíblicos e ganhe emblemas ao concluir cada nível.",
     "step4Title": "Construa um Hábito de Leitura",
-    "step4Body": "Defina uma meta diária de capítulos, acompanhe sua sequência e use o mapa de leitura para manter a consistência."
+    "step4Body": "Defina uma meta diária de capítulos, acompanhe sua sequência e use o mapa de leitura para manter a consistência.",
+    "step5Title": "Desbloqueie a Experiência Completa",
+    "step5Body": "Companheiro de Estudo com IA, Planos de Leitura, Notas de Estudo, Mensagens e Grupos — tudo por apenas $3/mês.",
+    "seePremium": "Ver Premium →",
+    "maybeLater": "Talvez depois"
   },
   "a11y": {
     "skipToContent": "Pular para o conteúdo principal"
@@ -1573,9 +1577,18 @@
               "O apóstolo Paulo escreveu: 'Para nós há realmente um só Deus, o Pai, de quem são todas as coisas e nós para ele; e um só Senhor, Jesus Cristo, por meio de quem são todas as coisas e nós por meio dele.' (1 Coríntios 8:6) Esse versículo distingue claramente Jeová como Deus e Jesus como Senhor — duas pessoas separadas."
             ],
             "scriptures": [
-              { "ref": "João 14:28", "text": "O Pai é maior do que eu." },
-              { "ref": "1 Coríntios 8:6", "text": "Há um só Deus, o Pai… e um só Senhor, Jesus Cristo." },
-              { "ref": "João 17:3", "text": "Isto significa vida eterna: o seu conhecê-lo a você, o único Deus verdadeiro, e ao que enviou, Jesus Cristo." }
+              {
+                "ref": "João 14:28",
+                "text": "O Pai é maior do que eu."
+              },
+              {
+                "ref": "1 Coríntios 8:6",
+                "text": "Há um só Deus, o Pai… e um só Senhor, Jesus Cristo."
+              },
+              {
+                "ref": "João 17:3",
+                "text": "Isto significa vida eterna: o seu conhecê-lo a você, o único Deus verdadeiro, e ao que enviou, Jesus Cristo."
+              }
             ]
           },
           {
@@ -1585,9 +1598,18 @@
               "O próprio Jesus disse: 'Vou para o Pai, porque o Pai é maior do que eu.' Ele também reconheceu que havia coisas que não sabia, dizendo que ninguém sabe o dia ou a hora 'exceto o Pai.' (Mateus 24:36) Essas limitações seriam impossíveis se Jesus fosse Deus Todo-Poderoso."
             ],
             "scriptures": [
-              { "ref": "Mateus 3:17", "text": "Este é o meu Filho, o amado, a quem aprovei." },
-              { "ref": "Colossenses 1:15", "text": "Ele é a imagem do Deus invisível, o primogênito de toda a criação." },
-              { "ref": "Mateus 24:36", "text": "Quanto a esse dia e hora, ninguém sabe, nem os anjos dos céus nem o Filho, mas só o Pai." }
+              {
+                "ref": "Mateus 3:17",
+                "text": "Este é o meu Filho, o amado, a quem aprovei."
+              },
+              {
+                "ref": "Colossenses 1:15",
+                "text": "Ele é a imagem do Deus invisível, o primogênito de toda a criação."
+              },
+              {
+                "ref": "Mateus 24:36",
+                "text": "Quanto a esse dia e hora, ninguém sabe, nem os anjos dos céus nem o Filho, mas só o Pai."
+              }
             ]
           },
           {
@@ -1597,8 +1619,14 @@
               "Orar a Jeová por meio de Jesus Cristo é o padrão mostrado em todo o Novo Testamento. Jesus é nosso Sumo Sacerdote e mediador — funções que só fazem sentido se ele for distinto de Deus o Pai. (1 Timóteo 2:5; Hebreus 7:25)"
             ],
             "scriptures": [
-              { "ref": "1 Timóteo 2:5", "text": "Há um só Deus, e um só mediador entre Deus e os homens, um homem, Cristo Jesus." },
-              { "ref": "Hebreus 7:25", "text": "Ele é capaz de salvar completamente os que se aproximam de Deus por meio dele." }
+              {
+                "ref": "1 Timóteo 2:5",
+                "text": "Há um só Deus, e um só mediador entre Deus e os homens, um homem, Cristo Jesus."
+              },
+              {
+                "ref": "Hebreus 7:25",
+                "text": "Ele é capaz de salvar completamente os que se aproximam de Deus por meio dele."
+              }
             ]
           }
         ]
@@ -1614,9 +1642,18 @@
               "Como apenas um arcanjo é mencionado nas Escrituras, e o Jesus ressuscitado desce com voz de arcanjo, isso implica fortemente que Jesus é esse arcanjo."
             ],
             "scriptures": [
-              { "ref": "Daniel 12:1", "text": "Miguel se levantará, o grande príncipe que está de pé em favor do seu povo." },
-              { "ref": "Judas 9", "text": "Quando Miguel o arcanjo teve uma disputa com o Diabo e argumentava sobre o corpo de Moisés, não ousou proferir um julgamento condenatório contra ele." },
-              { "ref": "1 Tessalonicenses 4:16", "text": "O próprio Senhor descerá do céu com um chamado de comando, com voz de arcanjo." }
+              {
+                "ref": "Daniel 12:1",
+                "text": "Miguel se levantará, o grande príncipe que está de pé em favor do seu povo."
+              },
+              {
+                "ref": "Judas 9",
+                "text": "Quando Miguel o arcanjo teve uma disputa com o Diabo e argumentava sobre o corpo de Moisés, não ousou proferir um julgamento condenatório contra ele."
+              },
+              {
+                "ref": "1 Tessalonicenses 4:16",
+                "text": "O próprio Senhor descerá do céu com um chamado de comando, com voz de arcanjo."
+              }
             ]
           },
           {
@@ -1626,9 +1663,18 @@
               "Antes de seu nascimento humano, Jesus existia no céu como uma poderosa criatura espiritual — 'o primogênito de toda a criação' (Colossenses 1:15). Seu nome pré-humano era Miguel. Após sua ressurreição, Filipenses 2:9 diz que Deus lhe deu 'o nome que está acima de todo outro nome' — Jesus Cristo — exaltado à posição mais elevada."
             ],
             "scriptures": [
-              { "ref": "Apocalipse 12:7-9", "text": "Miguel e seus anjos travaram batalha com o dragão… o grande dragão foi lançado abaixo." },
-              { "ref": "Colossenses 1:15-16", "text": "Ele é a imagem do Deus invisível, o primogênito de toda a criação; porque por meio dele foram criadas todas as outras coisas." },
-              { "ref": "Filipenses 2:9", "text": "Deus o exaltou a uma posição superior e bondosamente lhe deu o nome que está acima de todo outro nome." }
+              {
+                "ref": "Apocalipse 12:7-9",
+                "text": "Miguel e seus anjos travaram batalha com o dragão… o grande dragão foi lançado abaixo."
+              },
+              {
+                "ref": "Colossenses 1:15-16",
+                "text": "Ele é a imagem do Deus invisível, o primogênito de toda a criação; porque por meio dele foram criadas todas as outras coisas."
+              },
+              {
+                "ref": "Filipenses 2:9",
+                "text": "Deus o exaltou a uma posição superior e bondosamente lhe deu o nome que está acima de todo outro nome."
+              }
             ]
           }
         ]
@@ -1644,9 +1690,18 @@
               "Quando Jesus foi batizado, 'os céus se abriram e ele viu o espírito de Deus descer como uma pomba.' (Mateus 3:16) Uma pomba é símbolo de mansidão e paz — o espírito aqui é retratado como uma força ou influência, não como um terceiro ser divino de pé ao lado do Pai e do Filho."
             ],
             "scriptures": [
-              { "ref": "Gênesis 1:2", "text": "A força ativa de Deus se movia sobre a superfície das águas." },
-              { "ref": "Atos 2:4", "text": "Todos foram cheios de espírito santo e começaram a falar em diferentes línguas." },
-              { "ref": "Lucas 1:35", "text": "Espírito santo virá sobre você, e o poder do Altíssimo a cobrirá com sombra." }
+              {
+                "ref": "Gênesis 1:2",
+                "text": "A força ativa de Deus se movia sobre a superfície das águas."
+              },
+              {
+                "ref": "Atos 2:4",
+                "text": "Todos foram cheios de espírito santo e começaram a falar em diferentes línguas."
+              },
+              {
+                "ref": "Lucas 1:35",
+                "text": "Espírito santo virá sobre você, e o poder do Altíssimo a cobrirá com sombra."
+              }
             ]
           },
           {
@@ -1656,9 +1711,18 @@
               "Os dons do espírito santo — sabedoria, fé, cura, falar em línguas — são distribuídos pelo poder de Deus, não por um terceiro indivíduo divino tomando decisões independentes. Paulo escreve que 'tudo isso é a obra de um e o mesmo espírito, distribuindo a cada pessoa como quer' (1 Coríntios 12:11) — mas isso reflete o alinhamento do espírito com a vontade de Deus, não uma personalidade separada."
             ],
             "scriptures": [
-              { "ref": "Atos 2:17", "text": "Derramarei do meu espírito sobre toda sorte de pessoas." },
-              { "ref": "Romanos 8:26", "text": "O próprio espírito intercede por nós com gemidos inexprimíveis." },
-              { "ref": "1 Coríntios 12:11", "text": "Tudo isso é a obra de um e o mesmo espírito." }
+              {
+                "ref": "Atos 2:17",
+                "text": "Derramarei do meu espírito sobre toda sorte de pessoas."
+              },
+              {
+                "ref": "Romanos 8:26",
+                "text": "O próprio espírito intercede por nós com gemidos inexprimíveis."
+              },
+              {
+                "ref": "1 Coríntios 12:11",
+                "text": "Tudo isso é a obra de um e o mesmo espírito."
+              }
             ]
           }
         ]
@@ -1674,9 +1738,18 @@
               "Os animais também são chamados de 'almas' nas Escrituras. Gênesis 1:20 em hebraico usa nefesh para criaturas do mar e aves. A alma não é uma parte espiritual especial exclusiva dos humanos — ela se refere a qualquer criatura viva que respira."
             ],
             "scriptures": [
-              { "ref": "Gênesis 2:7", "text": "O homem se tornou uma pessoa [alma] vivente." },
-              { "ref": "Ezequiel 18:4", "text": "Vejam! Todas as almas me pertencem. A alma que pecar é a que morirá." },
-              { "ref": "1 Coríntios 15:45", "text": "Assim está escrito: 'O primeiro homem Adão se tornou uma pessoa [alma] vivente.'" }
+              {
+                "ref": "Gênesis 2:7",
+                "text": "O homem se tornou uma pessoa [alma] vivente."
+              },
+              {
+                "ref": "Ezequiel 18:4",
+                "text": "Vejam! Todas as almas me pertencem. A alma que pecar é a que morirá."
+              },
+              {
+                "ref": "1 Coríntios 15:45",
+                "text": "Assim está escrito: 'O primeiro homem Adão se tornou uma pessoa [alma] vivente.'"
+              }
             ]
           },
           {
@@ -1686,9 +1759,18 @@
               "Entender que a alma é a própria pessoa — não uma entidade separada — torna a esperança da ressurreição ainda mais bela. Deus recriará a pessoa inteira, restaurando tudo o que definia quem ela era."
             ],
             "scriptures": [
-              { "ref": "Ezequiel 18:4", "text": "A alma que pecar é a que morirá." },
-              { "ref": "Apocalipse 16:3", "text": "Toda alma vivente no mar morreu." },
-              { "ref": "Atos 3:23", "text": "Toda alma que não ouvir esse Profeta será completamente destruída dentre o povo." }
+              {
+                "ref": "Ezequiel 18:4",
+                "text": "A alma que pecar é a que morirá."
+              },
+              {
+                "ref": "Apocalipse 16:3",
+                "text": "Toda alma vivente no mar morreu."
+              },
+              {
+                "ref": "Atos 3:23",
+                "text": "Toda alma que não ouvir esse Profeta será completamente destruída dentre o povo."
+              }
             ]
           }
         ]
@@ -1704,9 +1786,18 @@
               "O rei Salomão escreveu: 'Os vivos sabem que morrerão, mas os mortos não sabem absolutamente nada.' (Eclesiastes 9:5) Não há consciência, sofrimento nem alegria — a morte é uma cessação completa da vida até a ressurreição."
             ],
             "scriptures": [
-              { "ref": "João 11:11-14", "text": "'Lázaro, nosso amigo, adormeceu… Lázaro morreu.'" },
-              { "ref": "Eclesiastes 9:5", "text": "Os vivos sabem que morrerão, mas os mortos não sabem absolutamente nada." },
-              { "ref": "Salmo 146:4", "text": "Seu espírito sai, ele volta ao solo; naquele mesmo dia seus pensamentos perecem." }
+              {
+                "ref": "João 11:11-14",
+                "text": "'Lázaro, nosso amigo, adormeceu… Lázaro morreu.'"
+              },
+              {
+                "ref": "Eclesiastes 9:5",
+                "text": "Os vivos sabem que morrerão, mas os mortos não sabem absolutamente nada."
+              },
+              {
+                "ref": "Salmo 146:4",
+                "text": "Seu espírito sai, ele volta ao solo; naquele mesmo dia seus pensamentos perecem."
+              }
             ]
           },
           {
@@ -1716,9 +1807,18 @@
               "O apóstolo Paulo chamou a ressurreição de Cristo de fundamento da esperança cristã: 'Se os mortos não devem ser ressuscitados, comamos e bebamos, pois amanhã vamos morrer.' (1 Coríntios 15:32) A ressurreição dos mortos — não a imortalidade da alma — é a resposta da Bíblia à morte."
             ],
             "scriptures": [
-              { "ref": "João 5:28-29", "text": "Todos os que estão nos túmulos memoriais ouvirão sua voz e sairão." },
-              { "ref": "Atos 24:15", "text": "Haverá uma ressurreição tanto dos justos como dos injustos." },
-              { "ref": "1 Coríntios 15:26", "text": "O último inimigo, a morte, será reduzido a nada." }
+              {
+                "ref": "João 5:28-29",
+                "text": "Todos os que estão nos túmulos memoriais ouvirão sua voz e sairão."
+              },
+              {
+                "ref": "Atos 24:15",
+                "text": "Haverá uma ressurreição tanto dos justos como dos injustos."
+              },
+              {
+                "ref": "1 Coríntios 15:26",
+                "text": "O último inimigo, a morte, será reduzido a nada."
+              }
             ]
           }
         ]
@@ -1734,9 +1834,18 @@
               "Jesus ensinou seus discípulos a orar: 'Venha o teu Reino. Seja feita a tua vontade, como no céu, também na terra.' (Mateus 6:10) Essa oração implica que o domínio do Reino um dia se estenderá à terra, transformando-a assim como o céu já reflete a vontade perfeita de Deus."
             ],
             "scriptures": [
-              { "ref": "Daniel 2:44", "text": "O Deus do céu estabelecerá um reino que jamais será destruído." },
-              { "ref": "Mateus 6:10", "text": "Venha o teu Reino. Seja feita a tua vontade, como no céu, também na terra." },
-              { "ref": "Lucas 1:33", "text": "Ele reinará como Rei sobre a casa de Jacó para sempre, e não haverá fim ao seu Reino." }
+              {
+                "ref": "Daniel 2:44",
+                "text": "O Deus do céu estabelecerá um reino que jamais será destruído."
+              },
+              {
+                "ref": "Mateus 6:10",
+                "text": "Venha o teu Reino. Seja feita a tua vontade, como no céu, também na terra."
+              },
+              {
+                "ref": "Lucas 1:33",
+                "text": "Ele reinará como Rei sobre a casa de Jacó para sempre, e não haverá fim ao seu Reino."
+              }
             ]
           },
           {
@@ -1746,9 +1855,18 @@
               "Isaías 65:21-22 pinta um quadro da vida sob o Reino: 'Construirão casas e habitarão nelas, plantarão vinhas e comerão o seu fruto.' A convivência pacífica entre humanos e animais também é prometida: 'O lobo e o cordeiro comerão juntos.' (Isaías 65:25)"
             ],
             "scriptures": [
-              { "ref": "Apocalipse 21:3-4", "text": "Ele enxugará toda lágrima dos seus olhos, e a morte não existirá mais." },
-              { "ref": "Isaías 65:21-22", "text": "Construirão casas e habitarão nelas, plantarão vinhas e comerão o seu fruto." },
-              { "ref": "Salmo 37:29", "text": "Os justos possuirão a terra, e nela viverão para sempre." }
+              {
+                "ref": "Apocalipse 21:3-4",
+                "text": "Ele enxugará toda lágrima dos seus olhos, e a morte não existirá mais."
+              },
+              {
+                "ref": "Isaías 65:21-22",
+                "text": "Construirão casas e habitarão nelas, plantarão vinhas e comerão o seu fruto."
+              },
+              {
+                "ref": "Salmo 37:29",
+                "text": "Os justos possuirão a terra, e nela viverão para sempre."
+              }
             ]
           }
         ]
@@ -1764,9 +1882,18 @@
               "Quando Satanás disse no Éden 'vocês certamente não morrerão' (Gênesis 3:4), ele estava chamando Deus de mentiroso e sugerindo que os humanos poderiam viver independentemente de Deus. Esses desafios ao direito de Deus de governar e à lealdade de seus adoradores não podiam ser resolvidos instantaneamente — exigiam tempo e experiência humana para serem completamente resolvidos."
             ],
             "scriptures": [
-              { "ref": "Jó 1:9-11", "text": "Acaso Jó teme a Deus de graça?" },
-              { "ref": "Gênesis 3:4-5", "text": "Vocês certamente não morrerão. Deus sabe que… seus olhos se abrirão e vocês serão como Deus." },
-              { "ref": "Romanos 3:4", "text": "Que Deus se mostre verdadeiro, mesmo que todo homem seja mentiroso." }
+              {
+                "ref": "Jó 1:9-11",
+                "text": "Acaso Jó teme a Deus de graça?"
+              },
+              {
+                "ref": "Gênesis 3:4-5",
+                "text": "Vocês certamente não morrerão. Deus sabe que… seus olhos se abrirão e vocês serão como Deus."
+              },
+              {
+                "ref": "Romanos 3:4",
+                "text": "Que Deus se mostre verdadeiro, mesmo que todo homem seja mentiroso."
+              }
             ]
           },
           {
@@ -1776,9 +1903,18 @@
               "A permissão de Deus para o sofrimento é temporária. Seu propósito para a terra — um paraíso livre de dor e morte — nunca mudou. O sofrimento que vemos agora não é prova da indiferença de Deus, mas das consequências da independência humana da orientação divina. Em breve, Deus 'destruirá os que destroem a terra.' (Apocalipse 11:18)"
             ],
             "scriptures": [
-              { "ref": "2 Pedro 3:9", "text": "Jeová não é lento em relação à sua promessa… ele é paciente com vocês." },
-              { "ref": "Romanos 8:22", "text": "Sabemos que toda a criação continua gemendo e sofrendo dores de parto até agora." },
-              { "ref": "Apocalipse 11:18", "text": "Chegou o tempo… de destruir os que destroem a terra." }
+              {
+                "ref": "2 Pedro 3:9",
+                "text": "Jeová não é lento em relação à sua promessa… ele é paciente com vocês."
+              },
+              {
+                "ref": "Romanos 8:22",
+                "text": "Sabemos que toda a criação continua gemendo e sofrendo dores de parto até agora."
+              },
+              {
+                "ref": "Apocalipse 11:18",
+                "text": "Chegou o tempo… de destruir os que destroem a terra."
+              }
             ]
           }
         ]
@@ -1794,9 +1930,18 @@
               "A Lei Mosaica reforçou esse princípio: 'Quanto a qualquer homem da casa de Israel ou a qualquer estrangeiro que esteja residindo entre vocês que coma qualquer sorte de sangue, eu certamente porei minha face contra essa pessoa que estiver comendo o sangue.' (Levítico 17:10) A proibição do sangue estava entre os requisitos que o concílio de Jerusalém em Atos 15 confirmou como obrigatórios para todos os cristãos."
             ],
             "scriptures": [
-              { "ref": "Gênesis 9:4", "text": "Somente a carne com sua vida — seu sangue — não devem comer." },
-              { "ref": "Levítico 17:14", "text": "Não devem comer o sangue de nenhuma sorte de carne, porque a vida de toda sorte de carne é seu sangue." },
-              { "ref": "Atos 15:28-29", "text": "O espírito santo e nós próprios decidimos não acrescentar a vocês nenhum outro fardo, exceto estas coisas necessárias: continuar se abstendo de… sangue." }
+              {
+                "ref": "Gênesis 9:4",
+                "text": "Somente a carne com sua vida — seu sangue — não devem comer."
+              },
+              {
+                "ref": "Levítico 17:14",
+                "text": "Não devem comer o sangue de nenhuma sorte de carne, porque a vida de toda sorte de carne é seu sangue."
+              },
+              {
+                "ref": "Atos 15:28-29",
+                "text": "O espírito santo e nós próprios decidimos não acrescentar a vocês nenhum outro fardo, exceto estas coisas necessárias: continuar se abstendo de… sangue."
+              }
             ]
           },
           {
@@ -1806,9 +1951,18 @@
               "As alternativas médicas modernas à transfusão — recuperação de células, expansores de volume e técnicas cirúrgicas sem sangue — avançaram significativamente, e muitos hospitais agora oferecem essas opções. Escolher honrar o requisito de Deus sobre o sangue é um ato de fé e confiança de que os padrões de Deus são sempre para nosso melhor interesse."
             ],
             "scriptures": [
-              { "ref": "Atos 15:28-29", "text": "Continuar se abstendo de… sangue." },
-              { "ref": "1 João 5:3", "text": "Isto é o que o amor a Deus significa: guardar os seus mandamentos; e, no entanto, os seus mandamentos não são pesados." },
-              { "ref": "Provérbios 3:5", "text": "Confie em Jeová com todo o seu coração e não se apoie no seu próprio entendimento." }
+              {
+                "ref": "Atos 15:28-29",
+                "text": "Continuar se abstendo de… sangue."
+              },
+              {
+                "ref": "1 João 5:3",
+                "text": "Isto é o que o amor a Deus significa: guardar os seus mandamentos; e, no entanto, os seus mandamentos não são pesados."
+              },
+              {
+                "ref": "Provérbios 3:5",
+                "text": "Confie em Jeová com todo o seu coração e não se apoie no seu próprio entendimento."
+              }
             ]
           }
         ]
