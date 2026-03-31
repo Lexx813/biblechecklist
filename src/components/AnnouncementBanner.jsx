@@ -4,10 +4,14 @@ import { useActiveAnnouncements } from "../hooks/useAnnouncements";
 
 const DURATION = 5000; // ms to show each announcement
 
+const INFO_ICON    = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>;
+const WARN_ICON    = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>;
+const SUCCESS_ICON = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>;
+
 const TYPE_STYLES = {
-  info:    { bg: "rgba(14,165,233,0.14)",  border: "#0EA5E9", icon: "📢" },
-  warning: { bg: "rgba(234,179,8,0.14)",   border: "#EAB308", icon: "⚠️" },
-  success: { bg: "rgba(34,197,94,0.14)",   border: "#22C55E", icon: "✅" },
+  info:    { bg: "rgba(14,165,233,0.14)",  border: "#0EA5E9", icon: INFO_ICON },
+  warning: { bg: "rgba(234,179,8,0.14)",   border: "#EAB308", icon: WARN_ICON },
+  success: { bg: "rgba(34,197,94,0.14)",   border: "#22C55E", icon: SUCCESS_ICON },
 };
 
 function AnnouncementToast({ announcement, onDone }) {
@@ -37,7 +41,7 @@ function AnnouncementToast({ announcement, onDone }) {
         className="ann-toast-close"
         onClick={() => setVisible(false)}
         aria-label="Dismiss"
-      >✕</button>
+      ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
       <div className="ann-toast-bar" style={{ borderColor: s.border }}>
         <div className="ann-toast-bar-fill" style={{ background: s.border }} />
       </div>

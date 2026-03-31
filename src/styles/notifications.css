@@ -1,6 +1,7 @@
 .notif-wrap { position: relative; }
 
 .notif-bell-btn { position: relative; }
+.notif-bell-btn > svg { width: 20px; height: 20px; }
 
 /* On small screens the dropdown's containing block becomes .page-nav
    (position:sticky, full viewport width) so left/right are viewport-relative */

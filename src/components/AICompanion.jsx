@@ -67,7 +67,9 @@ export default function AICompanion({ passage = "", reference = "", className = 
       {/* Header */}
       <div className="aic-header">
         <div className="aic-header-left">
-          <span className="aic-icon">✨</span>
+          <span className="aic-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 2L9.1 9.1 2 12l7.1 2.9L12 22l2.9-7.1L22 12l-7.1-2.9z"/></svg>
+          </span>
           <div>
             <div className="aic-title">{t("aiCompanion.title")}</div>
             <div className="aic-subtitle">{t("aiCompanion.poweredBy")}</div>

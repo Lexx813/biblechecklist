@@ -4,7 +4,7 @@
 .forum-thread-view {
   min-height: 100vh;
   background: var(--bg);
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
 }
 
 /* ── Hero ────────────────────────────────────────────────────── */
@@ -45,7 +45,7 @@
 }
 
 .forum-hero-title {
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: clamp(32px, 7vw, 58px);
   font-weight: 700;
   color: #fff;
@@ -142,7 +142,7 @@
 .forum-list-header-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
 .forum-list-category-icon { font-size: 20px; }
 .forum-list-title {
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 17px; font-weight: 700;
   color: #fff; margin: 0;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
@@ -152,7 +152,7 @@
   background: rgba(255,255,255,0.15);
   border: 1px solid rgba(255,255,255,0.3);
   color: #fff;
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 13px; font-weight: 700;
   padding: 7px 16px; border-radius: 8px;
   min-height: 44px;
@@ -359,7 +359,7 @@
 .forum-input,
 .forum-textarea {
   width: 100%;
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 14px;
   color: var(--text-primary);
   background: var(--teal-soft);
@@ -387,7 +387,7 @@
 .forum-submit-btn {
   background: var(--teal); color: #fff;
   border: none; border-radius: 10px;
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 13px; font-weight: 700;
   padding: 9px 24px; cursor: pointer;
   box-shadow: var(--shadow-sm);
@@ -455,7 +455,7 @@
 .forum-admin-tools { display: flex; gap: 6px; flex-wrap: wrap; }
 
 .forum-tool-btn {
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 11px; font-weight: 700;
   padding: 5px 12px; border-radius: 8px;
   background: rgba(255,255,255,0.12);
@@ -525,7 +525,7 @@
 }
 
 .forum-post-title {
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 20px; font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 12px;
@@ -543,7 +543,7 @@
 .forum-delete-btn {
   margin-top: 10px;
   background: none; border: none;
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 11px; font-weight: 700;
   color: var(--text-muted);
   cursor: pointer; padding: 0;
@@ -595,7 +595,7 @@
 
 .forum-reply-textarea {
   width: 100%;
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 14px; color: var(--text-primary);
   border: none; outline: none;
   resize: none; background: transparent;
@@ -612,7 +612,7 @@
 .forum-reply-btn {
   background: var(--teal); color: #fff;
   border: none; border-radius: 10px;
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 12px; font-weight: 700;
   padding: 8px 20px; cursor: pointer;
   box-shadow: var(--shadow-sm);

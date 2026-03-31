@@ -57,7 +57,7 @@
 }
 
 .auth-title {
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 20px;
   font-weight: 700;
   color: #fff;
@@ -80,7 +80,7 @@
   min-height: 44px;
   border: none;
   background: none;
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 13px;
   font-weight: 700;
   color: var(--text-muted);
@@ -130,7 +130,7 @@
 .auth-forgot-btn {
   background: none;
   border: none;
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 13px;
   font-weight: 700;
   color: var(--teal);
@@ -145,7 +145,7 @@
   padding: 10px 14px;
   border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 14px;
   color: var(--text-primary);
   background: var(--teal-soft);
@@ -185,7 +185,7 @@
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 14px;
   font-weight: 800;
   cursor: pointer;
@@ -229,7 +229,7 @@
   background: #fff; color: #3c4043;
   border: 1.5px solid #dadce0;
   border-radius: var(--radius-sm);
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 14px; font-weight: 600;
   cursor: pointer;
   transition: background 0.15s, box-shadow 0.15s, border-color 0.15s;
@@ -262,7 +262,7 @@
   background: none;
   border: none;
   color: var(--teal);
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;

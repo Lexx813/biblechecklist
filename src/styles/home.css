@@ -3,7 +3,7 @@
   min-height: 100vh;
   background: var(--bg, #0a0514);
   color: var(--text-primary, #f0eaff);
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   overflow-x: hidden;
 }
 
@@ -706,7 +706,7 @@
   padding: 8px 18px;
   border-radius: 999px;
   cursor: pointer;
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   transition: background 0.15s, border-color 0.15s;
 }
 .home-empty-btn:hover {

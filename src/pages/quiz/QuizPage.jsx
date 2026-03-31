@@ -60,10 +60,18 @@ function QuizLevelCard({ levelData, progress, onClick }) {
         {isCompleted && (
           <span className="quiz-level-badge-icon" title={badgeName}>{badge}</span>
         )}
-        {!isUnlocked && <span className="quiz-lock-icon">🔒</span>}
+        {!isUnlocked && (
+          <span className="quiz-lock-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </span>
+        )}
       </div>
 
-      <div className="quiz-level-emoji">{isUnlocked ? badge : "🔒"}</div>
+      <div className="quiz-level-emoji">
+        {isUnlocked ? badge : (
+          <svg className="quiz-level-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        )}
+      </div>
       <div className="quiz-level-theme">{theme}</div>
 
       {isUnlocked && (
@@ -240,7 +248,12 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
                 return (
                   <div key={q.id} className={`quiz-review-item ${wasCorrect ? "quiz-review-item--correct" : "quiz-review-item--wrong"}`}>
                     <div className="quiz-review-q">
-                      <span className="quiz-review-icon">{wasCorrect ? "✓" : "✗"}</span>
+                      <span className="quiz-review-icon">
+                          {wasCorrect
+                            ? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                            : <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                          }
+                        </span>
                       <span className="quiz-review-text">{q.question}</span>
                     </div>
                     <div className="quiz-review-answers">
@@ -327,10 +340,14 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
                   <span className="quiz-option-letter">{["A", "B", "C", "D"][idx]}</span>
                   <span className="quiz-option-text">{opt}</span>
                   {isAnswered && idx === currentQuestion.correct_index && (
-                    <span className="quiz-option-indicator">✓</span>
+                    <span className="quiz-option-indicator">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
                   )}
                   {isAnswered && idx === selectedIndex && idx !== currentQuestion.correct_index && (
-                    <span className="quiz-option-indicator">✗</span>
+                    <span className="quiz-option-indicator">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </span>
                   )}
                 </button>
               );

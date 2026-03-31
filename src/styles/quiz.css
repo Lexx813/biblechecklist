@@ -25,7 +25,7 @@
 }
 
 .quiz-hub-title {
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 28px;
   font-weight: 700;
   color: var(--text-primary);
@@ -123,14 +123,30 @@
 }
 
 .quiz-lock-icon {
-  font-size: 13px;
+  display: flex;
+  align-items: center;
   opacity: 0.6;
+}
+.quiz-lock-icon svg {
+  width: 14px;
+  height: 14px;
+  color: var(--text-muted);
 }
 
 .quiz-level-emoji {
   font-size: 36px;
   line-height: 1;
   margin: 4px 0 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-level-lock {
+  width: 34px;
+  height: 34px;
+  color: var(--text-muted);
+  opacity: 0.65;
 }
 
 .quiz-level-theme {
@@ -309,7 +325,7 @@
   border: 2px solid var(--border);
   border-radius: 12px;
   background: var(--teal-soft);
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
@@ -386,10 +402,14 @@
 }
 
 .quiz-option-indicator {
-  font-size: 16px;
-  font-weight: 800;
   flex-shrink: 0;
   margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+.quiz-option-indicator svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* Next button area */
@@ -402,7 +422,7 @@
 /* ── Buttons ─────────────────────────────────────────────────────── */
 
 .quiz-btn {
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 14px;
   font-weight: 800;
   padding: 12px 24px;
@@ -457,7 +477,7 @@
 }
 
 .quiz-results-title {
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: inherit;
   font-size: 24px;
   font-weight: 700;
   color: var(--text-primary);
@@ -551,8 +571,6 @@
 }
 
 .quiz-review-icon {
-  font-size: 14px;
-  font-weight: 800;
   flex-shrink: 0;
   width: 20px;
   height: 20px;
@@ -561,6 +579,10 @@
   align-items: center;
   justify-content: center;
   margin-top: 1px;
+}
+.quiz-review-icon svg {
+  width: 11px;
+  height: 11px;
 }
 
 .quiz-review-item--correct .quiz-review-icon {
