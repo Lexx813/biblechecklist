@@ -11,7 +11,8 @@ function formatReadDate(iso) {
 const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, onToggleChapter, onToggleBook, notes = [], onAddNote }) {
   const [open, setOpen] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.split("-")[0] ?? "en";
   const total = book.chapters;
   const bookChapters = chaptersState[bookIndex];
   const done = bookChapters ? Object.values(bookChapters).filter(Boolean).length : 0;
@@ -148,7 +149,7 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                   )}
                   <a
                     className="ch-pill-wol"
-                    href={wolChapterUrl(bookIndex, ch)}
+                    href={wolChapterUrl(bookIndex, ch, lang)}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={e => e.stopPropagation()}
