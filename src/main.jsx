@@ -16,7 +16,7 @@ if (import.meta.env.PROD) {
   const initSentry = () =>
     import("@sentry/react").then(({ init, browserTracingIntegration }) =>
       init({
-        dsn: "https://80f4998fb6a60485dfe09312b6caca28@o4511128078843904.ingest.us.sentry.io/4511128080285696",
+        dsn: import.meta.env.VITE_SENTRY_DSN,
         environment: import.meta.env.MODE,
         integrations: [browserTracingIntegration()],
         tracesSampleRate: 0.1,

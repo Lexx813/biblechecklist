@@ -272,6 +272,67 @@
   letter-spacing: 0.05em;
 }
 
+.ait-result-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ait-result-save {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--purple, #7c3aed);
+  background: none;
+  border: 1px solid var(--purple, #7c3aed);
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 0.2rem 0.65rem;
+  transition: background 0.15s, color 0.15s;
+}
+
+.ait-result-save:hover:not(:disabled) {
+  background: var(--purple, #7c3aed);
+  color: #fff;
+}
+
+.ait-save-visibility {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.ait-vis-btn {
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  color: var(--text-muted, #888);
+  cursor: pointer;
+  padding: 0.2rem 0.6rem;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.ait-vis-btn--active {
+  background: var(--purple, #7c3aed);
+  color: #fff;
+}
+
+.ait-vis-btn:not(.ait-vis-btn--active):hover {
+  color: var(--text);
+}
+
+.ait-save-status {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted, #888);
+}
+
+.ait-save-status--saved { color: #16a34a; }
+.ait-save-status--error { color: #e53e3e; }
+
 .ait-result-clear {
   font-size: 0.78rem;
   color: var(--text-muted, #888);
