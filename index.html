@@ -15,13 +15,16 @@
     <link rel="preconnect" href="https://api.anthropic.com" crossorigin="anonymous" />
     <link rel="dns-prefetch" href="https://api.anthropic.com" />
 
+    <!-- Preload default locale so translation is ready before first render -->
+    <link rel="preload" href="/locales/en/translation.json" as="fetch" type="application/json" crossorigin="anonymous" />
+
     <!-- Viewport & mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="NWT Progress" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
 
     <!-- Theme -->
     <meta name="theme-color" content="#1E0D3C" />
@@ -37,7 +40,7 @@
 
     <!-- Open Graph (Facebook, WhatsApp, Discord previews) -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://nwtprogress.com" />
+    <meta property="og:url" content="https://nwtprogress.com/" />
     <meta property="og:title" content="Bible Reading Tracker for New World Translation | NWT Progress" />
     <meta property="og:description" content="Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community. Free Bible tracker app." />
     <meta property="og:site_name" content="NWT Progress" />
@@ -47,7 +50,7 @@
 
     <!-- Twitter / X card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://nwtprogress.com" />
+    <meta name="twitter:url" content="https://nwtprogress.com/" />
     <meta name="twitter:title" content="Bible Reading Tracker for New World Translation | NWT Progress" />
     <meta name="twitter:description" content="Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community. Free Bible tracker app." />
     <meta name="twitter:image" content="https://nwtprogress.com/og-image.png" />
@@ -64,7 +67,20 @@
       "image": "https://nwtprogress.com/og-image.png",
       "applicationCategory": "ProductivityApplication",
       "operatingSystem": "Web",
+      "browserRequirements": "Requires JavaScript. Requires a modern browser.",
+      "availability": "https://schema.org/OnlineOnly",
       "inLanguage": ["en", "es", "pt", "fr", "tl", "zh"],
+      "screenshot": "https://nwtprogress.com/og-image.png",
+      "featureList": [
+        "Bible reading progress tracker for all 66 books",
+        "Bible knowledge quizzes with badge rewards",
+        "Community forum and blog",
+        "AI-powered Bible study tools",
+        "Reading plans and study notes",
+        "Direct messaging and study groups",
+        "Offline support via PWA",
+        "6-language support"
+      ],
       "offers": [
         {
           "@type": "Offer",
@@ -91,7 +107,12 @@
       "name": "NWT Progress",
       "url": "https://nwtprogress.com",
       "logo": "https://nwtprogress.com/icon-512.png",
-      "description": "A community-driven Bible reading tracker for the New World Translation"
+      "description": "A community-driven Bible reading tracker for the New World Translation",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "availableLanguage": ["English", "Spanish", "Portuguese", "French", "Tagalog", "Chinese"]
+      }
     }
     </script>
 
@@ -100,12 +121,7 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "NWT Progress",
-      "url": "https://nwtprogress.com/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://nwtprogress.com/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
+      "url": "https://nwtprogress.com/"
     }
     </script>
 
@@ -119,7 +135,7 @@
           "name": "What is NWT Progress?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "NWT Progress is a free Bible reading tracker designed specifically for the New World Translation. It lets you track progress through all 66 books, take quizzes, connect with a community, and earn badges."
+            "text": "NWT Progress is a free Bible reading tracker designed specifically for the New World Translation (NWT). It lets you track your reading progress chapter by chapter through all 66 books of the Bible — both the Hebrew Scriptures and the Christian Greek Scriptures. You can also take Bible knowledge quizzes to earn badges, join a community forum, read spiritual blog posts, and use AI-powered study tools grounded in Watch Tower teachings."
           }
         },
         {
@@ -127,7 +143,7 @@
           "name": "Is NWT Progress free?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. NWT Progress has a free plan with access to the Bible tracker, blog, forum, and quiz. A premium plan adds reading plans, study notes, AI companion, direct messaging, and study groups."
+            "text": "Yes. NWT Progress has a free plan that includes the full Bible reading tracker for all 66 books, Bible knowledge quizzes, badge rewards, the community blog and forum, and basic study tools. A premium plan unlocks additional features including structured reading plans, personal study notes, AI-powered Bible study tools (prayer composer, character studies, verse memorization, cross-references, Watchtower study helper, and talk preparation), direct messaging with other users, and study groups."
           }
         },
         {
@@ -135,7 +151,7 @@
           "name": "How many books does the Bible tracker cover?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The tracker covers all 66 books of the Bible according to the New World Translation, split between the Hebrew Scriptures and the Christian Greek Scriptures."
+            "text": "The NWT Progress tracker covers all 66 books of the Bible as organized in the New World Translation — 39 books of the Hebrew Scriptures (what is commonly called the Old Testament) and 27 books of the Christian Greek Scriptures (New Testament). You can mark individual chapters as read and see your overall progress for each book and for the entire Bible."
           }
         },
         {
@@ -143,7 +159,7 @@
           "name": "Can I track my Bible reading offline?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. NWT Progress is a Progressive Web App (PWA) that can be installed on your home screen and works offline for reading and tracking."
+            "text": "Yes. NWT Progress is built as a Progressive Web App (PWA), which means you can install it on your phone or tablet's home screen just like a native app. Once installed, the app works offline — you can view your reading progress and mark chapters as read even without an internet connection. Your changes will sync automatically when you reconnect."
           }
         },
         {
@@ -151,7 +167,31 @@
           "name": "What languages does NWT Progress support?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "NWT Progress is available in English, Spanish, Portuguese, French, Tagalog, and Mandarin Chinese."
+            "text": "NWT Progress currently supports six languages: English, Spanish (Español), Portuguese (Português), French (Français), Tagalog, and Mandarin Chinese (中文). The app automatically detects your browser language and can be switched at any time from the navigation menu. More languages may be added in future updates."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What AI Bible study tools are available?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Premium members have access to a suite of AI-powered Bible study tools powered by Claude and grounded in Watch Tower teachings and the New World Translation. These include: a Prayer Composer that creates personalized, scripture-based prayers; a Bible Character Study tool for in-depth profiles of Bible figures; a Verse Memorization helper with memory hooks and mental images; a Cross-Reference Finder that surfaces related scriptures; a Watchtower Study Helper for preparing meeting comments; and a Talk Preparation tool that builds outlines for student talks, public talks, and Bible readings."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the Bible quiz work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Bible quiz tests your knowledge of the New World Translation with questions drawn from across the entire Bible. You earn badge rewards for completing quizzes and demonstrating knowledge of different books. Quizzes are available to all users on the free plan and are a fun way to reinforce your reading as you work through each book."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I connect with other Bible readers on NWT Progress?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. NWT Progress includes a community forum where you can start or join discussions about Bible topics, ask questions, and share insights. There is also a blog with spiritual articles. Premium members can send direct messages to other users and join or create study groups for collaborative reading and discussion."
           }
         }
       ]

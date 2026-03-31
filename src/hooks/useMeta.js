@@ -9,11 +9,29 @@ function setMetaContent(selector, value) {
   if (el && value) el.setAttribute("content", value);
 }
 
-export function useMeta({ title, description, image } = {}) {
+const BASE_URL = "https://nwtprogress.com";
+
+function setCanonical(url) {
+  let el = document.querySelector('link[rel="canonical"]');
+  if (!el) {
+    el = document.createElement("link");
+    el.setAttribute("rel", "canonical");
+    document.head.appendChild(el);
+  }
+  el.setAttribute("href", url);
+}
+
+function setOgUrl(url) {
+  setMetaContent('meta[property="og:url"]', url);
+  setMetaContent('meta[name="twitter:url"]', url);
+}
+
+export function useMeta({ title, description, image, path } = {}) {
   useEffect(() => {
     const fullTitle = title ? `${title} — ${SITE}` : SITE;
     const desc = description || DEFAULT_DESC;
     const img = image || DEFAULT_IMG;
+    const canonicalUrl = path ? `${BASE_URL}${path}` : `${BASE_URL}/`;
 
     document.title = fullTitle;
     setMetaContent('meta[name="description"]', desc);
@@ -23,6 +41,8 @@ export function useMeta({ title, description, image } = {}) {
     setMetaContent('meta[name="twitter:title"]', fullTitle);
     setMetaContent('meta[name="twitter:description"]', desc);
     setMetaContent('meta[name="twitter:image"]', img);
+    setCanonical(canonicalUrl);
+    setOgUrl(canonicalUrl);
 
     return () => {
       document.title = SITE;
@@ -33,6 +53,8 @@ export function useMeta({ title, description, image } = {}) {
       setMetaContent('meta[name="twitter:title"]', SITE);
       setMetaContent('meta[name="twitter:description"]', DEFAULT_DESC);
       setMetaContent('meta[name="twitter:image"]', DEFAULT_IMG);
+      setCanonical(`${BASE_URL}/`);
+      setOgUrl(`${BASE_URL}/`);
     };
-  }, [title, description, image]);
+  }, [title, description, image, path]);
 }

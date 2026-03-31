@@ -32,4 +32,9 @@ i18n
     },
   });
 
+// Keep <html lang="..."> in sync so screen readers and crawlers see the correct language
+i18n.on("languageChanged", (lng) => {
+  document.documentElement.lang = lng.split("-")[0];
+});
+
 export default i18n;
