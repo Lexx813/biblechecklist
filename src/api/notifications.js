@@ -6,7 +6,7 @@ export const notificationsApi = {
     if (!user) return [];
     const { data, error } = await supabase
       .from("notifications")
-      .select("*, actor:actor_id(display_name, avatar_url)")
+      .select("*, actor:actor_id(display_name, avatar_url), thread:thread_id(category_id), post:post_id(slug)")
       .eq("user_id", user.id)
       .order("created_at", { ascending: false })
       .limit(40);
