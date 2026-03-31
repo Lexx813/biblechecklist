@@ -738,6 +738,12 @@ main:has(.msg-page) {
   white-space: nowrap;
 }
 
+.msg-bubble-actions--mine {
+  right: auto;
+  left: -8px;
+  transform: translateX(-100%) translateY(-50%);
+}
+
 .msg-action-btn {
   background: none;
   border: none;
