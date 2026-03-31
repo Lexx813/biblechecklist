@@ -31,6 +31,24 @@ export function useToggleFollow(currentUserId, targetId) {
   });
 }
 
+export function useFollowers(userId) {
+  return useQuery({
+    queryKey: ["followers", userId],
+    queryFn: () => followsApi.getFollowers(userId),
+    enabled: !!userId,
+    staleTime: 2 * 60_000,
+  });
+}
+
+export function useFollowing(userId) {
+  return useQuery({
+    queryKey: ["following", userId],
+    queryFn: () => followsApi.getFollowing(userId),
+    enabled: !!userId,
+    staleTime: 2 * 60_000,
+  });
+}
+
 export function useActivityFeed(userId) {
   return useQuery({
     queryKey: ["activityFeed", userId],

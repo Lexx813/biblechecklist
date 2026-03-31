@@ -24,6 +24,7 @@ import {
 import { toast } from "../../lib/toast";
 import { useSubmitReport } from "../../hooks/useReports";
 import { useSubscription } from "../../hooks/useSubscription";
+import { useGetOrCreateDM } from "../../hooks/useMessages";
 import { useMeta } from "../../hooks/useMeta";
 import "../../styles/forum.css";
 import "../../styles/social.css";
@@ -124,6 +125,8 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
   const { data: reactions = { counts: {}, mine: [] } } = useThreadReactions(threadId, user.id);
   const toggleReaction = useToggleReaction(user.id, threadId);
   const submitReport = useSubmitReport();
+  const { isPremium } = useSubscription(user?.id);
+  const getOrCreateDM = useGetOrCreateDM();
   const { t } = useTranslation();
 
   const isWatching = watches.includes(threadId);
@@ -293,6 +296,18 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
             {isEdited(thread) && <span className="forum-edited-tag"> · {t("forum.edited")}</span>}
           </span>
           <span className="forum-post-badge forum-post-badge--op">{t("forum.op")}</span>
+          {isPremium && thread.author_id !== user.id && (
+            <button
+              className="forum-msg-btn"
+              disabled={getOrCreateDM.isPending}
+              onClick={() => getOrCreateDM.mutate(thread.author_id, {
+                onSuccess: (cid) => navigate("messages", { conversationId: cid, otherDisplayName: displayName(thread.profiles), otherAvatarUrl: thread.profiles?.avatar_url ?? null }),
+              })}
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              {t("common.message", "Message")}
+            </button>
+          )}
         </div>
         <div className="forum-post-body">
           {editing ? (
@@ -386,6 +401,18 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                     ? <span className="forum-solution-badge">✓ {t("forum.solution")}</span>
                     : <span className="forum-post-num">#{i + 1}</span>
                   }
+                  {isPremium && reply.author_id !== user.id && (
+                    <button
+                      className="forum-msg-btn"
+                      disabled={getOrCreateDM.isPending}
+                      onClick={() => getOrCreateDM.mutate(reply.author_id, {
+                        onSuccess: (cid) => navigate("messages", { conversationId: cid, otherDisplayName: displayName(reply.profiles), otherAvatarUrl: reply.profiles?.avatar_url ?? null }),
+                      })}
+                    >
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                      {t("common.message", "Message")}
+                    </button>
+                  )}
                 </div>
                 <div className="forum-post-body">
                   {isEditingThis ? (
