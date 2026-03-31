@@ -28,8 +28,13 @@
 }
 
 .aic-icon {
-  font-size: 20px;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+.aic-icon svg {
+  width: 20px;
+  height: 20px;
+  color: #c084fc;
 }
 
 .aic-title {
