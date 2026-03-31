@@ -27,13 +27,22 @@ export const familyQuizApi = {
 
   // Load a challenge's metadata + its full questions (in order)
   getChallenge: async (challengeId) => {
+    // Fetch challenge without any FK join to avoid ambiguity (creator_id has
+    // two FKs: one to auth.users and one to profiles)
     const { data: challenge, error: cErr } = await supabase
       .from("family_challenges")
-      .select("id, title, creator_id, created_at, question_ids, profiles!creator_id(display_name)")
+      .select("id, title, creator_id, created_at, question_ids")
       .eq("id", challengeId)
       .maybeSingle();
     if (cErr) throw new Error(cErr.message);
     if (!challenge) return null;
+
+    // Fetch creator display name separately to avoid FK ambiguity
+    const { data: creator } = await supabase
+      .from("profiles")
+      .select("display_name")
+      .eq("id", challenge.creator_id)
+      .maybeSingle();
 
     const { data: questions, error: qErr } = await supabase
       .from("quiz_questions")
@@ -44,19 +53,28 @@ export const familyQuizApi = {
     // Restore original insertion order
     const qMap = Object.fromEntries((questions ?? []).map(q => [q.id, q]));
     const ordered = challenge.question_ids.map(id => qMap[id]).filter(Boolean);
-    return { ...challenge, questions: ordered };
+    return { ...challenge, creatorName: creator?.display_name ?? null, questions: ordered };
   },
 
   // Get all completed attempts for a challenge, joined with display names
   getAttempts: async (challengeId) => {
     const { data, error } = await supabase
       .from("challenge_attempts")
-      .select("id, user_id, score, total, completed_at, profiles!user_id(display_name, avatar_url)")
+      .select("id, user_id, score, total, completed_at")
       .eq("challenge_id", challengeId)
       .order("score", { ascending: false })
       .order("completed_at", { ascending: true });
     if (error) throw new Error(error.message);
-    return data ?? [];
+    if (!data?.length) return [];
+
+    // Fetch profiles separately to avoid FK ambiguity on user_id
+    const userIds = [...new Set(data.map(a => a.user_id))];
+    const { data: profileRows } = await supabase
+      .from("profiles")
+      .select("id, display_name, avatar_url")
+      .in("id", userIds);
+    const profileMap = Object.fromEntries((profileRows ?? []).map(p => [p.id, p]));
+    return data.map(a => ({ ...a, profiles: profileMap[a.user_id] ?? null }));
   },
 
   // Check if current user already has an attempt for this challenge
@@ -99,7 +117,7 @@ export const familyQuizApi = {
   getMyAttemptedChallenges: async (userId) => {
     const { data, error } = await supabase
       .from("challenge_attempts")
-      .select("challenge_id, score, total, completed_at, family_challenges(id, title, creator_id, created_at, profiles!creator_id(display_name))")
+      .select("challenge_id, score, total, completed_at, family_challenges(id, title, creator_id, created_at, question_ids)")
       .eq("user_id", userId)
       .order("completed_at", { ascending: false })
       .limit(20);
