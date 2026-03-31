@@ -1,4 +1,5 @@
 import { supabase } from "../lib/supabase";
+import { assertNoPII } from "../lib/pii";
 
 export const messagesApi = {
   // List all conversations for current user with last message + unread count
@@ -86,6 +87,7 @@ export const messagesApi = {
   sendMessage: async (conversationId, content, replyToId = null, messageType = "text", metadata = null) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
+    if (messageType === "text") assertNoPII(content);
     const row = {
       conversation_id: conversationId,
       sender_id: user.id,
@@ -100,6 +102,7 @@ export const messagesApi = {
   },
 
   editMessage: async (messageId, content) => {
+    assertNoPII(content);
     const { error } = await supabase
       .from("messages")
       .update({ content: content.trim(), edited_at: new Date().toISOString() })

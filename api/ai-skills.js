@@ -22,6 +22,7 @@ export const config = { runtime: "edge" };
 const SUPABASE_URL  = (process.env.VITE_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON = (process.env.VITE_SUPABASE_ANON_KEY ?? "").trim();
 const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY ?? "";
+const APP_ORIGIN    = (process.env.VITE_APP_URL ?? "https://nwtprogress.com").replace(/\/$/, "");
 
 // Shared base injected before every skill prompt so the combined system text
 // reliably exceeds the 1024-token minimum required for prompt caching.
@@ -236,7 +237,7 @@ const SSE_HEADERS = {
   "Content-Type": "text/event-stream",
   "Cache-Control": "no-cache",
   "X-Accel-Buffering": "no",
-  "Access-Control-Allow-Origin": "https://nwtprogress.com",
+  "Access-Control-Allow-Origin": APP_ORIGIN,
 };
 
 function textToSseStream(text) {
@@ -256,7 +257,7 @@ export default async function handler(req) {
   if (req.method === "OPTIONS") {
     return new Response(null, {
       headers: {
-        "Access-Control-Allow-Origin": "https://nwtprogress.com",
+        "Access-Control-Allow-Origin": APP_ORIGIN,
         "Access-Control-Allow-Headers": "authorization, content-type",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
       },

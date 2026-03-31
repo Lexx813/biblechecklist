@@ -1,25 +1,81 @@
 import { useState, useRef, useEffect } from "react";
 import PageNav from "../../components/PageNav";
 import { useAISkill } from "../../hooks/useAISkill";
+import { useCreateStudyNote } from "../../hooks/useStudyNotes";
 import "../../styles/ai-tools.css";
 
 // ── Shared streaming result display ───────────────────────────────────────────
 
-function SkillResult({ text, loading, error, onClear }) {
+function SkillResult({ text, loading, error, onClear, skillLabel }) {
   const ref = useRef(null);
+  const [saveState, setSaveState] = useState("idle"); // idle | choosing | saving | saved | error
+  const [isPublic, setIsPublic] = useState(false);
+  const createNote = useCreateStudyNote();
+
   useEffect(() => {
     if (ref.current && text) ref.current.scrollTop = ref.current.scrollHeight;
   }, [text]);
 
+  // Reset save UI when response is cleared
+  useEffect(() => {
+    if (!text) { setSaveState("idle"); setIsPublic(false); }
+  }, [text]);
+
+  async function handleConfirmSave() {
+    if (!text || saveState === "saving") return;
+    setSaveState("saving");
+    try {
+      const title = skillLabel
+        ? `${skillLabel} — ${new Date().toLocaleDateString()}`
+        : `AI Response — ${new Date().toLocaleDateString()}`;
+      await createNote.mutateAsync({ title, content: text, tags: ["ai-generated"], is_public: isPublic });
+      setSaveState("saved");
+      setTimeout(() => setSaveState("idle"), 2500);
+    } catch {
+      setSaveState("error");
+      setTimeout(() => setSaveState("idle"), 2500);
+    }
+  }
+
   if (!loading && !text && !error) return null;
+
+  const canSave = !loading && !!text;
 
   return (
     <div className="ait-result">
       <div className="ait-result-header">
         <span className="ait-result-label">AI Response</span>
-        {!loading && (text || error) && (
-          <button className="ait-result-clear" onClick={onClear}>Clear</button>
-        )}
+        <div className="ait-result-actions">
+          {canSave && saveState === "idle" && (
+            <button className="ait-result-save" onClick={() => setSaveState("choosing")}>
+              Save to Notes
+            </button>
+          )}
+          {canSave && saveState === "choosing" && (
+            <>
+              <div className="ait-save-visibility">
+                <button
+                  type="button"
+                  className={`ait-vis-btn${!isPublic ? " ait-vis-btn--active" : ""}`}
+                  onClick={() => setIsPublic(false)}
+                >🔒 Private</button>
+                <button
+                  type="button"
+                  className={`ait-vis-btn${isPublic ? " ait-vis-btn--active" : ""}`}
+                  onClick={() => setIsPublic(true)}
+                >🌐 Public</button>
+              </div>
+              <button className="ait-result-save" onClick={handleConfirmSave}>Save</button>
+              <button className="ait-result-clear" onClick={() => setSaveState("idle")}>Cancel</button>
+            </>
+          )}
+          {saveState === "saving" && <span className="ait-save-status">Saving…</span>}
+          {saveState === "saved"  && <span className="ait-save-status ait-save-status--saved">✓ Saved</span>}
+          {saveState === "error"  && <span className="ait-save-status ait-save-status--error">Failed</span>}
+          {saveState !== "choosing" && !loading && (text || error) && (
+            <button className="ait-result-clear" onClick={onClear}>Clear</button>
+          )}
+        </div>
       </div>
       <div className="ait-result-body" ref={ref}>
         {loading && !text && (
@@ -86,7 +142,7 @@ function PrayerTab() {
           {loading ? "Composing…" : "✦ Compose Prayer"}
         </button>
       </form>
-      <SkillResult text={text} loading={loading} error={error} onClear={reset} />
+      <SkillResult text={text} loading={loading} error={error} onClear={reset} skillLabel="Prayer" />
     </div>
   );
 }
@@ -139,7 +195,7 @@ function CharacterTab() {
           {loading ? "Studying…" : "✦ Study Character"}
         </button>
       </form>
-      <SkillResult text={text} loading={loading} error={error} onClear={reset} />
+      <SkillResult text={text} loading={loading} error={error} onClear={reset} skillLabel="Character Study" />
     </div>
   );
 }
@@ -189,7 +245,7 @@ function MemorizeTab() {
           {loading ? "Preparing…" : "✦ Help Me Memorize"}
         </button>
       </form>
-      <SkillResult text={text} loading={loading} error={error} onClear={reset} />
+      <SkillResult text={text} loading={loading} error={error} onClear={reset} skillLabel="Verse Memorization" />
     </div>
   );
 }
@@ -239,7 +295,7 @@ function CrossReferenceTab() {
           {loading ? "Searching…" : "✦ Find Cross-References"}
         </button>
       </form>
-      <SkillResult text={text} loading={loading} error={error} onClear={reset} />
+      <SkillResult text={text} loading={loading} error={error} onClear={reset} skillLabel="Cross-References" />
     </div>
   );
 }
@@ -306,7 +362,7 @@ function WatchtowerTab() {
           {loading ? "Preparing…" : "✦ Prepare My Comment"}
         </button>
       </form>
-      <SkillResult text={text} loading={loading} error={error} onClear={reset} />
+      <SkillResult text={text} loading={loading} error={error} onClear={reset} skillLabel="Watchtower Comment" />
     </div>
   );
 }
@@ -395,7 +451,7 @@ function TalkPrepTab() {
           {loading ? "Building outline…" : "✦ Build Talk Outline"}
         </button>
       </form>
-      <SkillResult text={text} loading={loading} error={error} onClear={reset} />
+      <SkillResult text={text} loading={loading} error={error} onClear={reset} skillLabel="Talk Outline" />
     </div>
   );
 }
@@ -417,7 +473,7 @@ export default function AIToolsPage({ navigate, ...navProps }) {
 
   return (
     <>
-      
+      <PageNav navigate={navigate} {...navProps} />
       <div className="ait-page">
         <div className="ait-hero">
           <div className="ait-hero-icon">✨</div>
