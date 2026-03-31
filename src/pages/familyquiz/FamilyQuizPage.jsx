@@ -45,6 +45,11 @@ function Lobby({ user, onPlay }) {
     staleTime: 60_000,
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: (id) => familyQuizApi.deleteChallenge(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["myChallenges", user.id] }),
+  });
+
   const { data: attempted = [], isLoading: attLoading } = useQuery({
     queryKey: ["myAttempted", user.id],
     queryFn: () => familyQuizApi.getMyAttemptedChallenges(user.id),
@@ -85,7 +90,8 @@ function Lobby({ user, onPlay }) {
         ) : (
           <ul className="fq-card-list">
             {myChallenges.map(c => (
-              <ChallengeCard key={c.id} challenge={c} onOpen={() => onPlay(c.id, false)} isOwn />
+              <ChallengeCard key={c.id} challenge={c} onOpen={() => onPlay(c.id, false)} isOwn
+                onDelete={() => deleteMutation.mutate(c.id)} />
             ))}
           </ul>
         )}
@@ -117,14 +123,31 @@ function Lobby({ user, onPlay }) {
 
 // ── CHALLENGE CARD ────────────────────────────────────────────────────────────
 
-function ChallengeCard({ challenge, onOpen, isOwn, myScore, myTotal }) {
+function ChallengeCard({ challenge, onOpen, isOwn, myScore, myTotal, onDelete }) {
   const [copied, setCopied] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   async function handleCopy(e) {
     e.stopPropagation();
     await copyLink(challenge.id);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  }
+
+  function handleDeleteClick(e) {
+    e.stopPropagation();
+    setConfirmDelete(true);
+  }
+
+  function handleConfirmDelete(e) {
+    e.stopPropagation();
+    setConfirmDelete(false);
+    onDelete();
+  }
+
+  function handleCancelDelete(e) {
+    e.stopPropagation();
+    setConfirmDelete(false);
   }
 
   const qs = challenge.question_ids?.length ?? 0;
@@ -145,9 +168,27 @@ function ChallengeCard({ challenge, onOpen, isOwn, myScore, myTotal }) {
           )}
         </div>
       </div>
-      <button className="fq-copy-btn" onClick={handleCopy} aria-label="Copy share link">
-        {copied ? "✓ Copied" : "Share"}
-      </button>
+      <div className="fq-card-actions" onClick={e => e.stopPropagation()}>
+        {confirmDelete ? (
+          <>
+            <button className="fq-delete-confirm-btn" onClick={handleConfirmDelete}>Delete</button>
+            <button className="fq-delete-cancel-btn" onClick={handleCancelDelete}>Cancel</button>
+          </>
+        ) : (
+          <>
+            <button className="fq-copy-btn" onClick={handleCopy} aria-label="Copy share link">
+              {copied ? "✓ Copied" : "Share"}
+            </button>
+            {isOwn && (
+              <button className="fq-delete-btn" onClick={handleDeleteClick} aria-label="Delete challenge">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+                </svg>
+              </button>
+            )}
+          </>
+        )}
+      </div>
     </li>
   );
 }

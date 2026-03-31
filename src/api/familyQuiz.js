@@ -113,6 +113,15 @@ export const familyQuizApi = {
     return data ?? [];
   },
 
+  // Delete a challenge (creator only — enforced by RLS)
+  deleteChallenge: async (challengeId) => {
+    const { error } = await supabase
+      .from("family_challenges")
+      .delete()
+      .eq("id", challengeId);
+    if (error) throw new Error(error.message);
+  },
+
   // List challenges the user has attempted (most recent first)
   getMyAttemptedChallenges: async (userId) => {
     const { data, error } = await supabase
