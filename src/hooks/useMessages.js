@@ -148,8 +148,7 @@ export function useSendMessage(conversationId) {
       }
     },
     onSettled: () => {
-      // Messages are invalidated by the realtime INSERT handler to avoid racing
-      // with setQueryData. Only refresh the conversations list here.
+      queryClient.invalidateQueries({ queryKey: ["messages", conversationId] });
       queryClient.invalidateQueries({ queryKey: ["conversations"] });
     },
   });
