@@ -16,7 +16,11 @@
     "step3Title": "Subukan ang Iyong Kaalaman",
     "step3Body": "Sagutin ang mga pagsubok sa 12 iba't ibang temang Biblikal at kumita ng mga badge habang tinatatapos ang bawat antas.",
     "step4Title": "Bumuo ng Ugali sa Pagbabasa",
-    "step4Body": "Magtakda ng pang-araw-araw na layunin sa kabanata, subaybayan ang iyong streak, at gamitin ang reading heatmap para manatiling regular."
+    "step4Body": "Magtakda ng pang-araw-araw na layunin sa kabanata, subaybayan ang iyong streak, at gamitin ang reading heatmap para manatiling regular.",
+    "step5Title": "I-unlock ang Buong Karanasan",
+    "step5Body": "AI Study Companion, Reading Plans, Study Notes, Messages at Groups — lahat para sa $3/buwan.",
+    "seePremium": "Tingnan ang Premium →",
+    "maybeLater": "Mamaya na lang"
   },
   "a11y": {
     "skipToContent": "Lumipat sa pangunahing nilalaman"
@@ -1573,9 +1577,18 @@
               "Isinulat ng apostol Pablo: 'Para sa atin ay may iisang Diyos, ang Ama, na mula sa kanya ang lahat ng bagay at para sa kanya tayo; at may iisang Panginoon, si Jesucristo, sa pamamagitan niya ang lahat ng bagay at sa pamamagitan niya tayo.' (1 Corinto 8:6) Malinaw na tinutukoy ng talatang ito si Jehova bilang Diyos at si Jesus bilang Panginoon — dalawang magkahiwalay na tao."
             ],
             "scriptures": [
-              { "ref": "Juan 14:28", "text": "Ang Ama ay mas dakila kaysa sa akin." },
-              { "ref": "1 Corinto 8:6", "text": "May iisang Diyos, ang Ama… at may iisang Panginoon, si Jesucristo." },
-              { "ref": "Juan 17:3", "text": "Ito ay nangangahulugang buhay na walang hanggan: ang makilala nila ikaw, ang tanging tunay na Diyos, at ang iyong isinugong si Jesucristo." }
+              {
+                "ref": "Juan 14:28",
+                "text": "Ang Ama ay mas dakila kaysa sa akin."
+              },
+              {
+                "ref": "1 Corinto 8:6",
+                "text": "May iisang Diyos, ang Ama… at may iisang Panginoon, si Jesucristo."
+              },
+              {
+                "ref": "Juan 17:3",
+                "text": "Ito ay nangangahulugang buhay na walang hanggan: ang makilala nila ikaw, ang tanging tunay na Diyos, at ang iyong isinugong si Jesucristo."
+              }
             ]
           },
           {
@@ -1585,9 +1598,18 @@
               "Sinabi mismo ni Jesus: 'Pupunta ako sa Ama, sapagkat ang Ama ay mas dakila kaysa sa akin.' Kinilala rin niya na may mga bagay na hindi niya alam, na sinasabing walang nakakaalam ng araw o ng oras 'maliban sa Ama.' (Mateo 24:36) Imposible ang mga limitasyong ito kung si Jesus ay Makapangyarihang Diyos."
             ],
             "scriptures": [
-              { "ref": "Mateo 3:17", "text": "Ito ang aking Anak, ang minamahal, na aking inaprubahan." },
-              { "ref": "Colosas 1:15", "text": "Siya ang larawan ng di-nakikitang Diyos, ang panganay ng lahat ng nilikha." },
-              { "ref": "Mateo 24:36", "text": "Tungkol sa araw at oras na iyon, walang nakakaalam, ni ang mga anghel ng langit ni ang Anak, kundi ang Ama lamang." }
+              {
+                "ref": "Mateo 3:17",
+                "text": "Ito ang aking Anak, ang minamahal, na aking inaprubahan."
+              },
+              {
+                "ref": "Colosas 1:15",
+                "text": "Siya ang larawan ng di-nakikitang Diyos, ang panganay ng lahat ng nilikha."
+              },
+              {
+                "ref": "Mateo 24:36",
+                "text": "Tungkol sa araw at oras na iyon, walang nakakaalam, ni ang mga anghel ng langit ni ang Anak, kundi ang Ama lamang."
+              }
             ]
           },
           {
@@ -1597,8 +1619,14 @@
               "Ang pananalangin kay Jehova sa pamamagitan ni Jesucristo ay ang huwaran na makikita sa buong Bagong Tipan. Si Jesus ang ating Punong Pari at tagapamagitan — mga papel na may kahulugan lamang kung siya ay naiiba sa Diyos Ama. (1 Timoteo 2:5; Hebreo 7:25)"
             ],
             "scriptures": [
-              { "ref": "1 Timoteo 2:5", "text": "May iisang Diyos, at iisang tagapamagitan sa pagitan ng Diyos at ng mga tao, isang tao, si Cristo Jesus." },
-              { "ref": "Hebreo 7:25", "text": "Kaya naman lubos niyang maililigtas ang mga lumalapitsa Diyos sa pamamagitan niya." }
+              {
+                "ref": "1 Timoteo 2:5",
+                "text": "May iisang Diyos, at iisang tagapamagitan sa pagitan ng Diyos at ng mga tao, isang tao, si Cristo Jesus."
+              },
+              {
+                "ref": "Hebreo 7:25",
+                "text": "Kaya naman lubos niyang maililigtas ang mga lumalapitsa Diyos sa pamamagitan niya."
+              }
             ]
           }
         ]
@@ -1614,9 +1642,18 @@
               "Yamang isang arkanghel lamang ang binanggit sa Kasulatan, at ang muling nabuhay na si Jesus ay bababa na may tinig ng arkanghel, ito ay malakas na nagpapahiwatig na si Jesus ang arkanghel na iyon."
             ],
             "scriptures": [
-              { "ref": "Daniel 12:1", "text": "Si Miguel ay tatayo, ang dakilang prinsipe na nakatayo para sa kapakanan ng iyong bayan." },
-              { "ref": "Judas 9", "text": "Nang ang arkanghel na si Miguel ay nagkaroon ng alitan sa Diyablo at nakikipgtalo tungkol sa katawan ni Moises, hindi siya nangahas na magsalita ng hatol na pang-aabuso laban sa kanya." },
-              { "ref": "1 Tesalonica 4:16", "text": "Ang Panginoon mismo ay bababa mula sa langit na may isang utos na tawag, na may tinig ng isang arkanghel." }
+              {
+                "ref": "Daniel 12:1",
+                "text": "Si Miguel ay tatayo, ang dakilang prinsipe na nakatayo para sa kapakanan ng iyong bayan."
+              },
+              {
+                "ref": "Judas 9",
+                "text": "Nang ang arkanghel na si Miguel ay nagkaroon ng alitan sa Diyablo at nakikipgtalo tungkol sa katawan ni Moises, hindi siya nangahas na magsalita ng hatol na pang-aabuso laban sa kanya."
+              },
+              {
+                "ref": "1 Tesalonica 4:16",
+                "text": "Ang Panginoon mismo ay bababa mula sa langit na may isang utos na tawag, na may tinig ng isang arkanghel."
+              }
             ]
           },
           {
@@ -1626,9 +1663,18 @@
               "Bago ang kaniyang kapanganakan sa lupa, si Jesus ay umiiral sa langit bilang isang makapangyarihang nilalang na espiritu — ang 'panganay ng lahat ng nilikha' (Colosas 1:15). Ang kaniyang pre-human na pangalan ay Miguel. Pagkatapos ng kaniyang pagkabuhay-muli, sinasabi ng Filipos 2:9 na binigyan siya ng Diyos ng 'pangalan na higit sa lahat ng iba pang pangalan' — si Jesucristo — itinangal sa pinakamataas na posisyon."
             ],
             "scriptures": [
-              { "ref": "Apocalipsis 12:7-9", "text": "Si Miguel at ang kaniyang mga anghel ay nakipaglaban sa dragon… ang dakilang dragon ay ibinaba." },
-              { "ref": "Colosas 1:15-16", "text": "Siya ang larawan ng di-nakikitang Diyos, ang panganay ng lahat ng nilikha; sapagkat sa pamamagitan niya ay nilikha ang lahat ng iba pang bagay." },
-              { "ref": "Filipos 2:9", "text": "Itinangal siya ng Diyos sa isang nakataas na posisyon at nagbigay sa kanya ng pangalan na higit sa lahat ng iba pang pangalan." }
+              {
+                "ref": "Apocalipsis 12:7-9",
+                "text": "Si Miguel at ang kaniyang mga anghel ay nakipaglaban sa dragon… ang dakilang dragon ay ibinaba."
+              },
+              {
+                "ref": "Colosas 1:15-16",
+                "text": "Siya ang larawan ng di-nakikitang Diyos, ang panganay ng lahat ng nilikha; sapagkat sa pamamagitan niya ay nilikha ang lahat ng iba pang bagay."
+              },
+              {
+                "ref": "Filipos 2:9",
+                "text": "Itinangal siya ng Diyos sa isang nakataas na posisyon at nagbigay sa kanya ng pangalan na higit sa lahat ng iba pang pangalan."
+              }
             ]
           }
         ]
@@ -1644,9 +1690,18 @@
               "Nang si Jesus ay binautismuhan, 'ang mga langit ay nabuksan at nakita niya ang espiritu ng Diyos na bumababa tulad ng isang kalapati.' (Mateo 3:16) Ang kalapati ay simbolo ng kabaitan at kapayapaan — ang espiritu dito ay inilalarawan bilang isang puwersa o impluwensiya, hindi bilang isang ikatlong banal na nilalang na nakatayo sa tabi ng Ama at ng Anak."
             ],
             "scriptures": [
-              { "ref": "Genesis 1:2", "text": "Ang aktibong puwersa ng Diyos ay gumagalaw sa ibabaw ng mga tubig." },
-              { "ref": "Gawa 2:4", "text": "Silang lahat ay napuno ng banal na espiritu at nagsimulang magsalita sa iba't ibang wika." },
-              { "ref": "Lucas 1:35", "text": "Ang banal na espiritu ay darating sa iyo, at ang kapangyarihan ng Kataas-taasan ay maglilikod sa iyo ng anino." }
+              {
+                "ref": "Genesis 1:2",
+                "text": "Ang aktibong puwersa ng Diyos ay gumagalaw sa ibabaw ng mga tubig."
+              },
+              {
+                "ref": "Gawa 2:4",
+                "text": "Silang lahat ay napuno ng banal na espiritu at nagsimulang magsalita sa iba't ibang wika."
+              },
+              {
+                "ref": "Lucas 1:35",
+                "text": "Ang banal na espiritu ay darating sa iyo, at ang kapangyarihan ng Kataas-taasan ay maglilikod sa iyo ng anino."
+              }
             ]
           },
           {
@@ -1656,9 +1711,18 @@
               "Ang mga kaloob ng banal na espiritu — karunungan, pananampalataya, pagpapagaling, pagsasalita sa iba't ibang wika — ay ipinamamahagi ng kapangyarihan ng Diyos, hindi ng isang ikatlong banal na indibidwal na gumagawa ng sariling mga desisyon. Isinulat ni Pablo na 'lahat ng ito ay gawa ng iisa at iyon ding espiritu, na namamahagi sa bawat tao ayon sa pagnanasa nito' (1 Corinto 12:11) — ngunit ito ay nagpapakita ng pagkakaisa ng espiritu sa kalooban ng Diyos, hindi ng hiwalay na pagkatao."
             ],
             "scriptures": [
-              { "ref": "Gawa 2:17", "text": "Ibubuhos ko ang aking espiritu sa lahat ng uri ng tao." },
-              { "ref": "Roma 8:26", "text": "Ang espiritu mismo ay nakikiusap para sa atin sa pamamagitan ng mga buntong-hiningang hindi mapahayag." },
-              { "ref": "1 Corinto 12:11", "text": "Lahat ng ito ay gawa ng iisa at iyon ding espiritu." }
+              {
+                "ref": "Gawa 2:17",
+                "text": "Ibubuhos ko ang aking espiritu sa lahat ng uri ng tao."
+              },
+              {
+                "ref": "Roma 8:26",
+                "text": "Ang espiritu mismo ay nakikiusap para sa atin sa pamamagitan ng mga buntong-hiningang hindi mapahayag."
+              },
+              {
+                "ref": "1 Corinto 12:11",
+                "text": "Lahat ng ito ay gawa ng iisa at iyon ding espiritu."
+              }
             ]
           }
         ]
@@ -1674,9 +1738,18 @@
               "Ang mga hayop ay tinatawag din na 'mga kaluluwa' sa Kasulatan. Ginagamit ang nephesh sa Genesis 1:20 sa Hebreo para sa mga nilalang sa dagat at mga ibon. Ang kaluluwa ay hindi isang espesyal na espirituwal na bahagi na eksklusibo sa mga tao — ito ay tumutukoy sa anumang buhay na nilalaang humihinga."
             ],
             "scriptures": [
-              { "ref": "Genesis 2:7", "text": "Ang tao ay naging isang buhay na tao [kaluluwa]." },
-              { "ref": "Ezekiel 18:4", "text": "Tingnan! Lahat ng kaluluwa ay pag-aari ko. Ang kaluluwa na nagkakasala ay ang mamamatay." },
-              { "ref": "1 Corinto 15:45", "text": "Kaya nakatala: 'Ang unang tao na si Adan ay naging isang buhay na tao [kaluluwa].'" }
+              {
+                "ref": "Genesis 2:7",
+                "text": "Ang tao ay naging isang buhay na tao [kaluluwa]."
+              },
+              {
+                "ref": "Ezekiel 18:4",
+                "text": "Tingnan! Lahat ng kaluluwa ay pag-aari ko. Ang kaluluwa na nagkakasala ay ang mamamatay."
+              },
+              {
+                "ref": "1 Corinto 15:45",
+                "text": "Kaya nakatala: 'Ang unang tao na si Adan ay naging isang buhay na tao [kaluluwa].'"
+              }
             ]
           },
           {
@@ -1686,9 +1759,18 @@
               "Ang pag-unawa na ang kaluluwa ay ang tao mismo — hindi isang hiwalay na entidad — ay nagpapaganda pa ng pag-asa ng pagkabuhay-muli. Muling lilikha ng Diyos ng buong tao, ibabalik ang lahat ng nagpakilala kung sino sila."
             ],
             "scriptures": [
-              { "ref": "Ezekiel 18:4", "text": "Ang kaluluwa na nagkakasala ay ang mamamatay." },
-              { "ref": "Apocalipsis 16:3", "text": "Bawat buhay na kaluluwa sa dagat ay namatay." },
-              { "ref": "Gawa 3:23", "text": "Anumang kaluluwa na hindi makikinig sa Propetang iyon ay lubusang mawawasak mula sa bayan." }
+              {
+                "ref": "Ezekiel 18:4",
+                "text": "Ang kaluluwa na nagkakasala ay ang mamamatay."
+              },
+              {
+                "ref": "Apocalipsis 16:3",
+                "text": "Bawat buhay na kaluluwa sa dagat ay namatay."
+              },
+              {
+                "ref": "Gawa 3:23",
+                "text": "Anumang kaluluwa na hindi makikinig sa Propetang iyon ay lubusang mawawasak mula sa bayan."
+              }
             ]
           }
         ]
@@ -1704,9 +1786,18 @@
               "Isinulat ni Haring Solomon: 'Ang mga buhay ay may kamalayan na sila ay mamamatay, ngunit ang mga patay ay walang kamalayan sa anumang bagay.' (Ecclesiastes 9:5) Walang kamalayan, walang pagdurusa, walang kagalakan — ang kamatayan ay ganap na pagttigil ng buhay hanggang sa pagkabuhay-muli."
             ],
             "scriptures": [
-              { "ref": "Juan 11:11-14", "text": "'Si Lazaro na ating kaibigan ay nakatulog… Si Lazaro ay namatay.'" },
-              { "ref": "Ecclesiastes 9:5", "text": "Ang mga buhay ay may kamalayan na sila ay mamamatay, ngunit ang mga patay ay walang kamalayan sa anumang bagay." },
-              { "ref": "Awit 146:4", "text": "Ang kaniyang espiritu ay lumalabas, siya ay bumabalik sa lupa; sa araw ding iyon ang kaniyang mga pag-iisip ay nawawala." }
+              {
+                "ref": "Juan 11:11-14",
+                "text": "'Si Lazaro na ating kaibigan ay nakatulog… Si Lazaro ay namatay.'"
+              },
+              {
+                "ref": "Ecclesiastes 9:5",
+                "text": "Ang mga buhay ay may kamalayan na sila ay mamamatay, ngunit ang mga patay ay walang kamalayan sa anumang bagay."
+              },
+              {
+                "ref": "Awit 146:4",
+                "text": "Ang kaniyang espiritu ay lumalabas, siya ay bumabalik sa lupa; sa araw ding iyon ang kaniyang mga pag-iisip ay nawawala."
+              }
             ]
           },
           {
@@ -1716,9 +1807,18 @@
               "Tinawag ng apostol Pablo ang pagkabuhay-muli ni Cristo bilang pundasyon ng pag-asang Kristiyano: 'Kung ang mga patay ay hindi dapat muling buhayin, kumain tayo at uminom, sapagkat bukas ay mamamatay tayo.' (1 Corinto 15:32) Ang pagkabuhay-muli ng mga patay — hindi ang immortalidad ng kaluluwa — ang sagot ng Bibliya sa kamatayan."
             ],
             "scriptures": [
-              { "ref": "Juan 5:28-29", "text": "Lahat ng nasa mga libing-alaala ay maririnig ang kaniyang tinig at lalabas." },
-              { "ref": "Gawa 24:15", "text": "Magkakaroon ng pagkabuhay-muli ng kapwa matuwid at hindi matuwid." },
-              { "ref": "1 Corinto 15:26", "text": "Ang huling kaaway, ang kamatayan, ay itatanggal." }
+              {
+                "ref": "Juan 5:28-29",
+                "text": "Lahat ng nasa mga libing-alaala ay maririnig ang kaniyang tinig at lalabas."
+              },
+              {
+                "ref": "Gawa 24:15",
+                "text": "Magkakaroon ng pagkabuhay-muli ng kapwa matuwid at hindi matuwid."
+              },
+              {
+                "ref": "1 Corinto 15:26",
+                "text": "Ang huling kaaway, ang kamatayan, ay itatanggal."
+              }
             ]
           }
         ]
@@ -1734,9 +1834,18 @@
               "Itinuro ni Jesus sa kaniyang mga alagad na manalangin: 'Dumating nawa ang iyong Kaharian. Mangyari nawa ang iyong kalooban, gaya sa langit, gayon din sa lupa.' (Mateo 6:10) Ang panlangin na ito ay nagpapahiwatig na ang paghahari ng Kaharian ay magiging ganap sa lupa balang araw, binabago ito gaya na ang langit ay sumasalamin na sa perpektong kalooban ng Diyos."
             ],
             "scriptures": [
-              { "ref": "Daniel 2:44", "text": "Ang Diyos ng langit ay magtatayo ng isang kaharian na hindi kailanman mawawasak." },
-              { "ref": "Mateo 6:10", "text": "Dumating nawa ang iyong Kaharian. Mangyari nawa ang iyong kalooban, gaya sa langit, gayon din sa lupa." },
-              { "ref": "Lucas 1:33", "text": "Maghahari siya bilang Hari sa sambahayan ni Jacob magpakailanman, at walang katapusan ang kaniyang Kaharian." }
+              {
+                "ref": "Daniel 2:44",
+                "text": "Ang Diyos ng langit ay magtatayo ng isang kaharian na hindi kailanman mawawasak."
+              },
+              {
+                "ref": "Mateo 6:10",
+                "text": "Dumating nawa ang iyong Kaharian. Mangyari nawa ang iyong kalooban, gaya sa langit, gayon din sa lupa."
+              },
+              {
+                "ref": "Lucas 1:33",
+                "text": "Maghahari siya bilang Hari sa sambahayan ni Jacob magpakailanman, at walang katapusan ang kaniyang Kaharian."
+              }
             ]
           },
           {
@@ -1746,9 +1855,18 @@
               "Naglarawan si Isaias 65:21-22 ng buhay sa ilalim ng Kaharian: 'Magtatayo sila ng mga bahay at maninirahan sa mga iyon, at magtatanim sila ng mga ubasan at kakainin nila ang kanilang bunga.' Ang mapayapang pakikisama sa pagitan ng mga tao at hayop ay ipinangako rin: 'Ang lobo at ang tupa ay sabay na kakain.' (Isaias 65:25)"
             ],
             "scriptures": [
-              { "ref": "Apocalipsis 21:3-4", "text": "Papahirin niya ang bawat luha mula sa kanilang mga mata, at ang kamatayan ay wala na." },
-              { "ref": "Isaias 65:21-22", "text": "Magtatayo sila ng mga bahay at maninirahan sa mga iyon, at magtatanim sila ng mga ubasan at kakainin nila ang kanilang bunga." },
-              { "ref": "Awit 37:29", "text": "Ang mga matuwid ay magmamana ng lupa, at mabubuhay sila roon magpakailanman." }
+              {
+                "ref": "Apocalipsis 21:3-4",
+                "text": "Papahirin niya ang bawat luha mula sa kanilang mga mata, at ang kamatayan ay wala na."
+              },
+              {
+                "ref": "Isaias 65:21-22",
+                "text": "Magtatayo sila ng mga bahay at maninirahan sa mga iyon, at magtatanim sila ng mga ubasan at kakainin nila ang kanilang bunga."
+              },
+              {
+                "ref": "Awit 37:29",
+                "text": "Ang mga matuwid ay magmamana ng lupa, at mabubuhay sila roon magpakailanman."
+              }
             ]
           }
         ]
@@ -1764,9 +1882,18 @@
               "Nang sabihin ni Satanas sa Eden 'talagang hindi kayo mamamatay' (Genesis 3:4), tinatawag niya ang Diyos na sinungaling at nagmumungkahi na ang mga tao ay maaaring mabuhay nang nagsasarili mula sa Diyos. Ang mga hamong ito sa karapatan ng Diyos na mamahala at sa katapatan ng kaniyang mga mananamba ay hindi maaring malutas agad — nangangailangan ng panahon at karanasan ng tao upang ganap na malutas."
             ],
             "scriptures": [
-              { "ref": "Job 1:9-11", "text": "Natatakot ba si Job sa Diyos nang walang dahilan?" },
-              { "ref": "Genesis 3:4-5", "text": "Talagang hindi kayo mamamatay. Alam ng Diyos na… mabubuksan ang inyong mga mata at magiging katulad ng Diyos kayo." },
-              { "ref": "Roma 3:4", "text": "Hayaan ang Diyos na mapatunayang totoo, kahit na ang bawat tao ay sinungaling." }
+              {
+                "ref": "Job 1:9-11",
+                "text": "Natatakot ba si Job sa Diyos nang walang dahilan?"
+              },
+              {
+                "ref": "Genesis 3:4-5",
+                "text": "Talagang hindi kayo mamamatay. Alam ng Diyos na… mabubuksan ang inyong mga mata at magiging katulad ng Diyos kayo."
+              },
+              {
+                "ref": "Roma 3:4",
+                "text": "Hayaan ang Diyos na mapatunayang totoo, kahit na ang bawat tao ay sinungaling."
+              }
             ]
           },
           {
@@ -1776,9 +1903,18 @@
               "Ang pahintulot ng Diyos sa pagdurusa ay pansamantala. Ang kaniyang layunin para sa lupa — isang paraiso na walang sakit at kamatayan — ay hindi kailanman nagbago. Ang pagdurusang nakikita natin ngayon ay hindi patunay ng pagwawalang-kibo ng Diyos kundi ng mga kahihinatnan ng kalayaan ng tao mula sa banal na gabay. Sa lalong madaling panahon, 'wawasakin ng Diyos ang mga nagwawasak sa lupa.' (Apocalipsis 11:18)"
             ],
             "scriptures": [
-              { "ref": "2 Pedro 3:9", "text": "Si Jehova ay hindi mabagal tungkol sa kaniyang pangako… siya ay matiyaga sa inyo." },
-              { "ref": "Roma 8:22", "text": "Nalalaman natin na ang buong sangnilikha ay patuloy na umaangal at nagdaranas ng sakit na magkasama hanggang ngayon." },
-              { "ref": "Apocalipsis 11:18", "text": "Dumating na ang panahon… upang wasakin ang mga nagwawasak sa lupa." }
+              {
+                "ref": "2 Pedro 3:9",
+                "text": "Si Jehova ay hindi mabagal tungkol sa kaniyang pangako… siya ay matiyaga sa inyo."
+              },
+              {
+                "ref": "Roma 8:22",
+                "text": "Nalalaman natin na ang buong sangnilikha ay patuloy na umaangal at nagdaranas ng sakit na magkasama hanggang ngayon."
+              },
+              {
+                "ref": "Apocalipsis 11:18",
+                "text": "Dumating na ang panahon… upang wasakin ang mga nagwawasak sa lupa."
+              }
             ]
           }
         ]
@@ -1794,9 +1930,18 @@
               "Pinagtibay ng Batas Mosaic ang prinsipyong ito: 'Kung sinuman sa sambahayan ng Israel o ang sinumang dayuhan na naninirahan sa inyo na kumain ng anumang uri ng dugo, tiyak na itatapat ko ang aking mukha laban sa taong kumakain ng dugo.' (Levitico 17:10) Ang pagbabawal sa dugo ay kabilang sa mga kinakailangan na tinupad ng konsilyo ng Jerusalem sa Gawa 15 bilang obligado para sa lahat ng Kristiyano."
             ],
             "scriptures": [
-              { "ref": "Genesis 9:4", "text": "Ang laman lamang na may buhay nito — ang dugo nito — ay hindi ninyo dapat kainin." },
-              { "ref": "Levitico 17:14", "text": "Hindi ninyo dapat kainin ang dugo ng anumang uri ng laman, sapagkat ang buhay ng bawat uri ng laman ay ang dugo nito." },
-              { "ref": "Gawa 15:28-29", "text": "Ang banal na espiritu at kami mismo ay nagpabor na huwag magdagdag ng iba pang pasanin sa inyo maliban sa mga kinakailangang bagay na ito: patuloy na umiwas sa… dugo." }
+              {
+                "ref": "Genesis 9:4",
+                "text": "Ang laman lamang na may buhay nito — ang dugo nito — ay hindi ninyo dapat kainin."
+              },
+              {
+                "ref": "Levitico 17:14",
+                "text": "Hindi ninyo dapat kainin ang dugo ng anumang uri ng laman, sapagkat ang buhay ng bawat uri ng laman ay ang dugo nito."
+              },
+              {
+                "ref": "Gawa 15:28-29",
+                "text": "Ang banal na espiritu at kami mismo ay nagpabor na huwag magdagdag ng iba pang pasanin sa inyo maliban sa mga kinakailangang bagay na ito: patuloy na umiwas sa… dugo."
+              }
             ]
           },
           {
@@ -1806,9 +1951,18 @@
               "Ang mga modernong medikal na alternatibo sa transfusyon — cell salvage, mga pampalawak ng dami ng dugo, at mga teknik sa operasyon na walang dugo — ay malaki ang pag-unlad, at maraming ospital na ang nag-aalok ng mga pagpipiliang ito. Ang pagpili na igalang ang hinihingi ng Diyos tungkol sa dugo ay isang gawa ng pananampalataya at tiwala na ang mga pamantayan ng Diyos ay palaging para sa ating kabutihan."
             ],
             "scriptures": [
-              { "ref": "Gawa 15:28-29", "text": "Patuloy na umiwas sa… dugo." },
-              { "ref": "1 Juan 5:3", "text": "Ito ang ibig sabihin ng pagmamahal sa Diyos: ang sundin ang kaniyang mga utos; at gayunpaman ang kaniyang mga utos ay hindi mabigat." },
-              { "ref": "Kawikaan 3:5", "text": "Magtiwala kay Jehova nang buong puso mo at huwag umasa sa iyong sariling pag-unawa." }
+              {
+                "ref": "Gawa 15:28-29",
+                "text": "Patuloy na umiwas sa… dugo."
+              },
+              {
+                "ref": "1 Juan 5:3",
+                "text": "Ito ang ibig sabihin ng pagmamahal sa Diyos: ang sundin ang kaniyang mga utos; at gayunpaman ang kaniyang mga utos ay hindi mabigat."
+              },
+              {
+                "ref": "Kawikaan 3:5",
+                "text": "Magtiwala kay Jehova nang buong puso mo at huwag umasa sa iyong sariling pag-unawa."
+              }
             ]
           }
         ]

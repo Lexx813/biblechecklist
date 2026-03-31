@@ -384,7 +384,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         </div>
       )}
 
-      {showOnboarding && <OnboardingModal onClose={closeOnboarding} />}
+      {showOnboarding && <OnboardingModal onClose={closeOnboarding} onUpgrade={onUpgrade} />}
     </div>
   );
 }
