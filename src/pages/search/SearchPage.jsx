@@ -150,6 +150,32 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
                 ))}
               </section>
             )}
+
+            {users.length > 0 && (
+              <section className="search-section">
+                <h3 className="search-section-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{display:"inline",verticalAlign:"middle",marginRight:6}}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  {t("search.usersSection", "Users")}
+                </h3>
+                {users.map(u => (
+                  <div
+                    key={u.id}
+                    className="search-result"
+                    onClick={() => navigate("publicProfile", { userId: u.id })}
+                  >
+                    <span className="search-result-icon search-result-icon--avatar">
+                      {u.avatar_url
+                        ? <img src={u.avatar_url} alt="" width={32} height={32} loading="lazy" style={{borderRadius:"50%",objectFit:"cover"}} />
+                        : (u.display_name || "?")[0].toUpperCase()
+                      }
+                    </span>
+                    <div className="search-result-body">
+                      <span className="search-result-title">{u.display_name}</span>
+                    </div>
+                  </div>
+                ))}
+              </section>
+            )}
           </>
         )}
       </div>

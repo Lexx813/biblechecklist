@@ -1553,7 +1553,260 @@
     "allTopics": "Todos los temas",
     "notFound": "Tema no encontrado",
     "previous": "Anterior",
-    "next": "Siguiente"
+    "next": "Siguiente",
+    "topics": {
+      "is-jesus-god": {
+        "title": "¿Es Jesús Dios?",
+        "subtitle": "Comprender la identidad de Jesús como el Hijo de Dios, distinto de Jehová",
+        "sections": [
+          {
+            "heading": "Lo que dice la Biblia",
+            "paragraphs": [
+              "Muchas personas suponen que Jesús es Dios Todopoderoso, pero la Biblia muestra consistentemente que Jesús es distinto de su Padre. El propio Jesús dijo: 'El Padre es mayor que yo.' (Juan 14:28) También enseñó a sus discípulos a orar a 'nuestro Padre en los cielos.' (Mateo 6:9) Si Jesús fuera Dios, estas afirmaciones no tendrían sentido.",
+              "El apóstol Pablo escribió: 'Para nosotros solo hay un Dios, el Padre, de quien proceden todas las cosas y para quien vivimos; y un solo Señor, Jesucristo, por medio de quien son todas las cosas y por medio del cual existimos.' (1 Corintios 8:6) Este versículo distingue claramente a Jehová como Dios y a Jesús como Señor: dos personas distintas."
+            ],
+            "scriptures": [
+              { "ref": "Juan 14:28", "text": "El Padre es mayor que yo." },
+              { "ref": "1 Corintios 8:6", "text": "Para nosotros solo hay un Dios, el Padre… y un solo Señor, Jesucristo." },
+              { "ref": "Juan 17:3", "text": "Esto significa vida eterna: que te conozcan a ti, el único Dios verdadero, y al que enviaste, Jesucristo." }
+            ]
+          },
+          {
+            "heading": "Jesús es el Hijo de Dios, no Dios mismo",
+            "paragraphs": [
+              "Las Escrituras llaman repetidamente a Jesús 'el Hijo de Dios.' En su bautismo, una voz del cielo declaró: 'Este es mi Hijo, el amado, a quien he aprobado.' (Mateo 3:17) Un hijo es un individuo separado de su padre. Jesús tuvo un comienzo: era 'el primogénito de toda la creación.' (Colosenses 1:15)",
+              "El propio Jesús dijo: 'Voy al Padre, porque el Padre es mayor que yo.' También reconoció que había cosas que no sabía, diciendo que nadie conoce el día ni la hora 'excepto el Padre.' (Mateo 24:36) Estas limitaciones serían imposibles si Jesús fuera Dios Todopoderoso."
+            ],
+            "scriptures": [
+              { "ref": "Mateo 3:17", "text": "Este es mi Hijo, el amado, a quien he aprobado." },
+              { "ref": "Colosenses 1:15", "text": "Él es la imagen del Dios invisible, el primogénito de toda la creación." },
+              { "ref": "Mateo 24:36", "text": "En cuanto a ese día y hora, nadie lo sabe, ni los ángeles de los cielos ni el Hijo, sino solo el Padre." }
+            ]
+          },
+          {
+            "heading": "La doctrina de la Trinidad: ¿bíblica o tradicional?",
+            "paragraphs": [
+              "La palabra 'Trinidad' no aparece en ningún lugar de la Biblia. La doctrina fue formalizada en el Concilio de Nicea en el año 325 d.C., mucho después de que murieran los apóstoles. La Nueva Enciclopedia Católica reconoce que 'la doctrina de la Trinidad no se enseña en el Antiguo Testamento.' Los primeros cristianos comprendían claramente que Jehová Dios y Jesucristo eran dos personas distintas.",
+              "Orar a Jehová por medio de Jesucristo es el patrón que se muestra en todo el Nuevo Testamento. Jesús es nuestro Sumo Sacerdote y mediador: funciones que solo tienen sentido si él es distinto de Dios el Padre. (1 Timoteo 2:5; Hebreos 7:25)"
+            ],
+            "scriptures": [
+              { "ref": "1 Timoteo 2:5", "text": "Hay un solo Dios, y un solo mediador entre Dios y los hombres, un hombre, Cristo Jesús." },
+              { "ref": "Hebreos 7:25", "text": "Él puede salvar completamente a los que se acercan a Dios por medio de él." }
+            ]
+          }
+        ]
+      },
+      "jesus-and-michael": {
+        "title": "Jesús y Miguel el Arcángel",
+        "subtitle": "Evidencia bíblica de que Jesucristo es Miguel el arcángel",
+        "sections": [
+          {
+            "heading": "¿Quién es Miguel?",
+            "paragraphs": [
+              "Miguel es descrito en la Biblia como 'el gran príncipe que está de pie a favor de tu pueblo.' (Daniel 12:1) El nombre Miguel significa '¿Quién es como Dios?', un nombre adecuado para quien defiende la soberanía de Jehová. Judas 9 lo llama 'Miguel el arcángel', y 1 Tesalonicenses 4:16 dice que en la resurrección 'el propio Señor descenderá del cielo con un llamado de mando, con voz de arcángel.'",
+              "Como solo se menciona un arcángel en las Escrituras y el Jesús resucitado desciende con voz de arcángel, esto implica fuertemente que Jesús es ese arcángel."
+            ],
+            "scriptures": [
+              { "ref": "Daniel 12:1", "text": "Miguel se pondrá de pie, el gran príncipe que está de pie a favor de tu pueblo." },
+              { "ref": "Judas 9", "text": "Cuando Miguel el arcángel tuvo una disputa con el Diablo y debatía sobre el cuerpo de Moisés, no se atrevió a pronunciar un juicio de condenación contra él." },
+              { "ref": "1 Tesalonicenses 4:16", "text": "El propio Señor descenderá del cielo con un llamado de mando, con voz de arcángel." }
+            ]
+          },
+          {
+            "heading": "La conexión entre Jesús y Miguel",
+            "paragraphs": [
+              "En el Apocalipsis es Jesús quien hace la guerra contra Satanás: 'Miguel y sus ángeles batallaron con el dragón… el gran dragón fue arrojado, la serpiente original, el que se llama Diablo y Satanás.' (Apocalipsis 12:7-9) En otras partes del Apocalipsis, Jesús es descrito como el conquistador jinete sobre el caballo blanco, el Rey de reyes que derrota a las naciones. El líder de los ejércitos angélicos de Dios en ambos pasajes es la misma persona: Jesucristo, conocido en su papel celestial como Miguel.",
+              "Antes de su nacimiento humano, Jesús existía en el cielo como una poderosa criatura espiritual: 'el primogénito de toda la creación' (Colosenses 1:15). Su nombre prehuman era Miguel. Después de su resurrección, Filipenses 2:9 dice que Dios le concedió 'el nombre que está sobre todo otro nombre', Jesucristo, exaltado a la posición más elevada."
+            ],
+            "scriptures": [
+              { "ref": "Apocalipsis 12:7-9", "text": "Miguel y sus ángeles batallaron con el dragón… el gran dragón fue arrojado." },
+              { "ref": "Colosenses 1:15-16", "text": "Él es la imagen del Dios invisible, el primogénito de toda la creación; porque por medio de él fueron creadas todas las demás cosas." },
+              { "ref": "Filipenses 2:9", "text": "Dios lo exaltó a una posición superior y amablemente le concedió el nombre que está sobre todo otro nombre." }
+            ]
+          }
+        ]
+      },
+      "holy-spirit": {
+        "title": "El Espíritu Santo: ¿persona o fuerza?",
+        "subtitle": "La Biblia muestra que el espíritu santo es la fuerza activa de Dios, no una tercera persona",
+        "sections": [
+          {
+            "heading": "La fuerza activa de Dios",
+            "paragraphs": [
+              "El espíritu santo es la fuerza activa de Jehová Dios: el poder que él usa para llevar a cabo su voluntad. En la creación, 'la fuerza activa de Dios se movía sobre la superficie de las aguas.' (Génesis 1:2) Esta fuerza empoderó a los profetas, guió a los apóstoles y realizó milagros. No se describe como una persona-Dios separada con personalidad propia.",
+              "Cuando Jesús fue bautizado, 'los cielos se abrieron y él vio el espíritu de Dios descender como una paloma.' (Mateo 3:16) La paloma es símbolo de gentileza y paz; el espíritu aquí se muestra como una fuerza o influencia, no como un tercer ser divino que está junto al Padre y al Hijo."
+            ],
+            "scriptures": [
+              { "ref": "Génesis 1:2", "text": "La fuerza activa de Dios se movía sobre la superficie de las aguas." },
+              { "ref": "Hechos 2:4", "text": "Todos fueron llenados de espíritu santo y comenzaron a hablar en diferentes idiomas." },
+              { "ref": "Lucas 1:35", "text": "El espíritu santo vendrá sobre ti, y el poder del Altísimo te cubrirá como sombra." }
+            ]
+          },
+          {
+            "heading": "Por qué el espíritu santo no es una persona",
+            "paragraphs": [
+              "Las personas tienen nombres; el espíritu santo no tiene ninguno. Las personas originan acciones; el espíritu santo es descrito constantemente como algo que se derrama, se envía o se da, nunca como alguien que actúa de forma independiente. Hechos 2:17 dice: 'Derramaré de mi espíritu sobre toda clase de personas.' Se derrama una sustancia, no una persona.",
+              "Los dones del espíritu santo (sabiduría, fe, sanidad, hablar en lenguas) son distribuidos por el poder de Dios, no por un tercer individuo divino que toma decisiones independientes. Pablo escribe que 'todo esto lo hace el mismo espíritu, distribuyendo a cada uno según su voluntad' (1 Corintios 12:11), lo que refleja la alineación del espíritu con la voluntad de Dios, no una personalidad separada."
+            ],
+            "scriptures": [
+              { "ref": "Hechos 2:17", "text": "Derramaré de mi espíritu sobre toda clase de personas." },
+              { "ref": "Romanos 8:26", "text": "El propio espíritu intercede por nosotros con gemidos que no pueden expresarse con palabras." },
+              { "ref": "1 Corintios 12:11", "text": "Todo esto lo hace el mismo y único espíritu." }
+            ]
+          }
+        ]
+      },
+      "what-is-the-soul": {
+        "title": "¿Qué es el alma?",
+        "subtitle": "La Biblia define el alma como un ser viviente, no como una entidad interior inmortal",
+        "sections": [
+          {
+            "heading": "El alma es la persona",
+            "paragraphs": [
+              "La mayoría de las tradiciones religiosas enseñan que los humanos tienen un alma inmortal que abandona el cuerpo al morir. Pero la Biblia enseña algo muy diferente: 'Jehová Dios procedió a formar al hombre del polvo del suelo y a soplar en su nariz el aliento de vida, y el hombre llegó a ser una persona viviente.' (Génesis 2:7, TNM) La palabra hebrea traducida 'persona' aquí es néfesh, que tradicionalmente se traduce 'alma.' El hombre no recibió un alma; se convirtió en un alma.",
+              "Los animales también son llamados 'almas' en las Escrituras. Génesis 1:20 en hebreo usa néfesh para las criaturas del mar y las aves. El alma no es una parte espiritual especial exclusiva de los humanos: se refiere a cualquier criatura viva que respira."
+            ],
+            "scriptures": [
+              { "ref": "Génesis 2:7", "text": "El hombre llegó a ser una persona [alma] viviente." },
+              { "ref": "Ezequiel 18:4", "text": "He aquí, todas las almas me pertenecen. La misma alma que peca es la que morirá." },
+              { "ref": "1 Corintios 15:45", "text": "Así está escrito: 'El primer hombre Adán llegó a ser una persona [alma] viviente.'" }
+            ]
+          },
+          {
+            "heading": "El alma puede morir",
+            "paragraphs": [
+              "Ezequiel 18:4 afirma claramente: 'La misma alma que peca es la que morirá.' Si el alma fuera inmortal, esta afirmación carecería de sentido. Apocalipsis 16:3 habla de 'toda alma viviente en el mar' muriendo. La idea de un alma inmortal no proviene de la Biblia, sino de la filosofía griega, especialmente de las enseñanzas de Platón sobre la inmortalidad del alma.",
+              "Comprender que el alma es la persona misma, no una entidad separada, hace que la esperanza de la resurrección sea aún más hermosa. Dios re-creará a la persona completa, restaurando todo lo que definía quién era."
+            ],
+            "scriptures": [
+              { "ref": "Ezequiel 18:4", "text": "La misma alma que peca es la que morirá." },
+              { "ref": "Apocalipsis 16:3", "text": "Murió toda alma viviente en el mar." },
+              { "ref": "Hechos 3:23", "text": "Toda alma que no escuche a ese Profeta será destruida completamente del pueblo." }
+            ]
+          }
+        ]
+      },
+      "what-happens-when-we-die": {
+        "title": "¿Qué ocurre cuando morimos?",
+        "subtitle": "La muerte es un estado de sueño inconsciente, no el cielo, el infierno ni el purgatorio",
+        "sections": [
+          {
+            "heading": "La muerte es como el sueño",
+            "paragraphs": [
+              "Cuando Jesús supo que Lázaro había muerto, dijo: 'Nuestro amigo Lázaro ha caído dormido, pero voy allá a despertarlo.' (Juan 11:11) Los discípulos malentendieron, así que Jesús aclaró: 'Lázaro ha muerto.' El sueño es una metáfora poderosa y consistente para la muerte en toda la Escritura, porque en el sueño no hay actividad ni conciencia, y sin embargo el durmiente puede ser despertado.",
+              "El rey Salomón escribió: 'Los vivos saben que morirán, pero los muertos no saben absolutamente nada.' (Eclesiastés 9:5) No hay conciencia, sufrimiento ni alegría: la muerte es un cese completo de la vida hasta la resurrección."
+            ],
+            "scriptures": [
+              { "ref": "Juan 11:11-14", "text": "'Nuestro amigo Lázaro ha caído dormido… Lázaro ha muerto.'" },
+              { "ref": "Eclesiastés 9:5", "text": "Los vivos saben que morirán, pero los muertos no saben absolutamente nada." },
+              { "ref": "Salmo 146:4", "text": "Su espíritu sale, él vuelve al suelo; en ese mismo día sus pensamientos perecen." }
+            ]
+          },
+          {
+            "heading": "La esperanza de la resurrección",
+            "paragraphs": [
+              "Como la muerte no es definitiva, la resurrección es la gran esperanza de las Escrituras. Jesús dijo: 'No se asombren de esto, porque se acerca la hora en que todos los que están en las tumbas conmemorativas escucharán su voz y saldrán.' (Juan 5:28-29) No es el alma inmortal escapando al cielo: es la persona completa siendo restaurada a la vida.",
+              "El apóstol Pablo llamó a la resurrección de Cristo el fundamento de la esperanza cristiana: 'Si los muertos no han de ser resucitados, comamos y bebamos, porque mañana moriremos.' (1 Corintios 15:32) La resurrección de los muertos, no la inmortalidad del alma, es la respuesta de la Biblia a la muerte."
+            ],
+            "scriptures": [
+              { "ref": "Juan 5:28-29", "text": "Todos los que están en las tumbas conmemorativas escucharán su voz y saldrán." },
+              { "ref": "Hechos 24:15", "text": "Va a haber una resurrección tanto de los justos como de los injustos." },
+              { "ref": "1 Corintios 15:26", "text": "El último enemigo que ha de ser eliminado es la muerte." }
+            ]
+          }
+        ]
+      },
+      "gods-kingdom": {
+        "title": "El Reino de Dios: ¿qué es?",
+        "subtitle": "Un gobierno real en el cielo que gobernará sobre una tierra paradisíaca",
+        "sections": [
+          {
+            "heading": "Un gobierno celestial",
+            "paragraphs": [
+              "El Reino de Dios no es una condición en el corazón: es un gobierno real. Daniel profetizó: 'El Dios del cielo establecerá un reino que jamás será destruido… aplastará y pondrá fin a todos esos reinos, y él solo permanecerá para siempre.' (Daniel 2:44) Este reino tiene un rey (Jesucristo), súbditos, leyes y territorio: la propia tierra.",
+              "Jesús enseñó a sus discípulos a orar: 'Venga tu Reino. Hágase tu voluntad, así en la tierra como en el cielo.' (Mateo 6:10) Esta oración implica que el dominio del Reino se extenderá un día a la tierra, transformándola tal como el cielo ya refleja la voluntad perfecta de Dios."
+            ],
+            "scriptures": [
+              { "ref": "Daniel 2:44", "text": "El Dios del cielo establecerá un reino que jamás será destruido." },
+              { "ref": "Mateo 6:10", "text": "Venga tu Reino. Hágase tu voluntad, así en la tierra como en el cielo." },
+              { "ref": "Lucas 1:33", "text": "Reinará como rey sobre la casa de Jacob para siempre, y su Reino no tendrá fin." }
+            ]
+          },
+          {
+            "heading": "Lo que el Reino logrará",
+            "paragraphs": [
+              "Bajo el Reino de Dios, la tierra será transformada en un paraíso. Apocalipsis 21:3-4 promete: 'El propio Dios estará con ellos. Y les enjugará toda lágrima de los ojos, y la muerte no existirá más, ni el luto ni el clamor ni el dolor existirán más. Las cosas anteriores han pasado.' La enfermedad, la muerte, la guerra, la pobreza: todo será eliminado.",
+              "Isaías 65:21-22 pinta un cuadro de la vida bajo el Reino: 'Edificarán casas y vivirán en ellas, plantarán viñas y comerán su fruto.' También se promete la convivencia pacífica entre humanos y animales: 'El lobo y el cordero comerán juntos.' (Isaías 65:25)"
+            ],
+            "scriptures": [
+              { "ref": "Apocalipsis 21:3-4", "text": "Les enjugará toda lágrima de los ojos, y la muerte no existirá más." },
+              { "ref": "Isaías 65:21-22", "text": "Edificarán casas y vivirán en ellas, plantarán viñas y comerán su fruto." },
+              { "ref": "Salmo 37:29", "text": "Los justos poseerán la tierra y vivirán en ella para siempre." }
+            ]
+          }
+        ]
+      },
+      "why-god-allows-suffering": {
+        "title": "¿Por qué Dios permite el sufrimiento?",
+        "subtitle": "Comprender el asunto de la soberanía universal y por qué Jehová permite el mal por ahora",
+        "sections": [
+          {
+            "heading": "Se planteó un desafío",
+            "paragraphs": [
+              "El relato de Job revela una razón clave por la que Dios permite el sufrimiento. Satanás desafió a Dios afirmando que los humanos solo le sirven por razones egoístas: '¿Acaso teme Job a Dios de balde? ¿No has puesto una valla protectora alrededor de él… todo lo que tiene? Pero extiende tu mano y golpea todo lo que tiene, y sin duda te maldecirá en tu propia cara.' (Job 1:9-11) Satanás planteó una pregunta sobre la integridad de los adoradores humanos: una pregunta que tenía que ser respondida.",
+              "Cuando Satanás dijo en Edén 'ciertamente no morirán' (Génesis 3:4), estaba llamando mentiroso a Dios y sugiriendo que los humanos podían vivir independientemente de él. Estos desafíos al derecho de Dios a gobernar y a la lealtad de sus adoradores no podían resolverse de inmediato: requerían tiempo y experiencia humana para resolverse completamente."
+            ],
+            "scriptures": [
+              { "ref": "Job 1:9-11", "text": "¿Acaso teme Job a Dios de balde?" },
+              { "ref": "Génesis 3:4-5", "text": "Ciertamente no morirán. Dios sabe que… se les abrirán los ojos y serán como Dios." },
+              { "ref": "Romanos 3:4", "text": "Que Dios sea hallado verdadero aunque todo hombre sea mentiroso." }
+            ]
+          },
+          {
+            "heading": "Por qué Dios no interviene de inmediato",
+            "paragraphs": [
+              "Dios está dando tiempo a los humanos para demostrar que pueden mantenerse leales bajo la prueba y para que los resultados de la independencia de Dios sean completamente visibles. Pedro escribe: 'Jehová no tarda en cumplir su promesa, como algunos consideran tardanza, sino que es paciente con ustedes porque no desea que nadie sea destruido sino que todos lleguen al arrepentimiento.' (2 Pedro 3:9)",
+              "El permiso de Dios para el sufrimiento es temporal. Su propósito para la tierra (un paraíso libre de dolor y muerte) nunca ha cambiado. El sufrimiento que vemos ahora no es prueba de la indiferencia de Dios, sino de las consecuencias de la independencia humana de la guía divina. Pronto, Dios 'destruirá a los que destruyen la tierra.' (Apocalipsis 11:18)"
+            ],
+            "scriptures": [
+              { "ref": "2 Pedro 3:9", "text": "Jehová no tarda en cumplir su promesa… es paciente con ustedes." },
+              { "ref": "Romanos 8:22", "text": "Sabemos que toda la creación sigue gimiendo y sufriendo dolores de parto hasta ahora." },
+              { "ref": "Apocalipsis 11:18", "text": "Llegó el tiempo… de destruir a los que destruyen la tierra." }
+            ]
+          }
+        ]
+      },
+      "blood-sacred": {
+        "title": "La santidad de la sangre",
+        "subtitle": "Por qué Jehová nos manda abstenernos de la sangre y qué significa esto hoy",
+        "sections": [
+          {
+            "heading": "La sangre representa la vida",
+            "paragraphs": [
+              "Dios le dijo a Noé después del Diluvio: 'Solo la carne con su vida, su sangre, no deben comer.' (Génesis 9:4) La sangre es sagrada porque representa la vida misma, y toda vida pertenece a Dios. No era solo un mandato dietético: era una declaración de propiedad. La vida es un don de Dios; no tenemos derecho a hacer mal uso de ella.",
+              "La Ley mosaica reforzó este principio: 'En cuanto a cualquier hombre de la casa de Israel o cualquier extranjero que esté residiendo entre ustedes que coma cualquier clase de sangre, yo pondré mi rostro contra esa persona que come la sangre.' (Levítico 17:10) La prohibición de la sangre estuvo entre los requisitos que el concilio de Jerusalén en Hechos 15 confirmó como vinculantes para todos los cristianos."
+            ],
+            "scriptures": [
+              { "ref": "Génesis 9:4", "text": "Solo la carne con su vida, su sangre, no deben comer." },
+              { "ref": "Levítico 17:14", "text": "No deben comer la sangre de ninguna clase de carne, porque la vida de toda carne es su sangre." },
+              { "ref": "Hechos 15:28-29", "text": "El espíritu santo y nosotros mismos hemos decidido no añadirles ninguna carga más, excepto estas cosas necesarias: que se abstengan de… la sangre." }
+            ]
+          },
+          {
+            "heading": "La sangre en la fe cristiana hoy",
+            "paragraphs": [
+              "El decreto del concilio apostólico en Hechos 15:28-29 dejó claro que abstenerse de la sangre aplica a los cristianos bajo el nuevo pacto. No es una ley ceremonial judía que fue abolida: fue reafirmada explícitamente para los creyentes gentiles. Los Testigos de Jehová por tanto declinan las transfusiones de sangre, entendiendo que esto es un asunto de obediencia al mandato de Dios.",
+              "Las alternativas médicas modernas a la transfusión (recuperación de células, expansores de volumen y técnicas quirúrgicas sin sangre) han avanzado significativamente, y muchos hospitales ahora ofrecen estas opciones. Elegir honrar el requisito de Dios sobre la sangre es un acto de fe y confianza en que las normas de Dios siempre son para nuestro propio bien."
+            ],
+            "scriptures": [
+              { "ref": "Hechos 15:28-29", "text": "Que se abstengan de… la sangre." },
+              { "ref": "1 Juan 5:3", "text": "El amor a Dios consiste en esto: en que guardemos sus mandamientos; y sus mandamientos no son gravosos." },
+              { "ref": "Proverbios 3:5", "text": "Confía en Jehová con todo tu corazón y no te apoyes en tu propio entendimiento." }
+            ]
+          }
+        ]
+      }
+    }
   },
   "upm": {
     "badge": "✦ Premium",

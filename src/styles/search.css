@@ -46,6 +46,12 @@
 }
 
 .search-result-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.search-result-icon--avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--teal-soft); color: var(--teal);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; overflow: hidden; margin-top: 0;
+}
 
 .search-result-body { display: flex; flex-direction: column; gap: 2px; }
 
