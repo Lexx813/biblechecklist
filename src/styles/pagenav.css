@@ -72,7 +72,7 @@
 .page-nav-link {
   background: none;
   border: none;
-  color: rgba(240, 234, 255, 0.55);
+  color: rgba(240, 234, 255, 0.75);
   font-size: 13px;
   font-weight: 600;
   font-family: inherit;
@@ -288,8 +288,8 @@
   justify-content: center;
   align-items: center;
   gap: 5px;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   background: none;
   border: 1px solid rgba(138, 75, 255, 0.2);
   border-radius: 8px;
@@ -326,12 +326,15 @@
   background: rgba(10, 5, 20, 0.97);
   border-top: 1px solid rgba(138, 75, 255, 0.14);
   padding: 8px 0 12px;
-  animation: menu-slide-down 0.18s ease-out;
 }
 
 @keyframes menu-slide-down {
   from { opacity: 0; transform: translateY(-6px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .page-nav-mobile-menu { animation: menu-slide-down 0.18s ease-out; }
 }
 
 [data-theme="light"] .page-nav-mobile-menu {
@@ -377,15 +380,15 @@
 }
 
 .page-nav-mobile-section-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: rgba(240, 234, 255, 0.3);
+  color: rgba(240, 234, 255, 0.6);
   padding: 8px 20px 2px;
   text-align: right;
 }
-[data-theme="light"] .page-nav-mobile-section-label { color: rgba(30, 16, 53, 0.35); }
+[data-theme="light"] .page-nav-mobile-section-label { color: rgba(30, 16, 53, 0.6); }
 
 .page-nav-mobile-logout {
   color: rgba(252, 165, 165, 0.7);
@@ -515,11 +518,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 2px;
   background: rgba(138, 75, 255, 0.08);
   border: 1px solid rgba(138, 75, 255, 0.15);
   border-radius: 8px;
   padding: 6px 10px;
+  min-width: 44px;
+  min-height: 44px;
   cursor: pointer;
   font-size: 18px;
   color: #a78bfa;
@@ -573,7 +579,10 @@
   gap: 2px;
   z-index: 300;
   box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-  animation: menu-slide-down 0.15s ease-out;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .page-nav-more-menu { animation: menu-slide-down 0.15s ease-out; }
 }
 
 [data-theme="light"] .page-nav-more-menu {
