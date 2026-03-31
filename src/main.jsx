@@ -106,7 +106,7 @@ createRoot(document.getElementById('root')).render(
       >
         <App />
 <Analytics />
-        <ReactQueryDevtools initialIsOpen={false} />
+        {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
       </PersistQueryClientProvider>
     </ErrorBoundary>
   </StrictMode>,

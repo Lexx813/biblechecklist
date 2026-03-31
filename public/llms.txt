@@ -1,0 +1,38 @@
+# NWT Progress — llms.txt
+
+> NWT Progress is a free Bible reading tracker and study community for Jehovah's Witnesses using the New World Translation. It helps users track reading progress across all 66 Bible books, earn quiz badges, connect with other readers, and use AI-powered study tools grounded in Watch Tower teachings.
+
+## What this site is
+
+NWT Progress (nwtprogress.com) is a web app and Progressive Web App (PWA) for:
+- Tracking chapter-by-chapter Bible reading progress through all 66 books of the NWT
+- Bible knowledge quizzes with badge rewards
+- A community forum and spiritual blog
+- AI-powered Bible study tools: prayer composer, character studies, verse memorization, cross-reference finder, Watchtower study helper, and talk preparation
+- Reading plans, study notes, direct messaging, and study groups (premium)
+
+## Who it is for
+
+Jehovah's Witnesses and Bible students using the New World Translation who want to build a consistent Bible reading habit and deepen their personal study.
+
+## Languages
+
+English, Spanish (Español), Portuguese (Português), French (Français), Tagalog, Mandarin Chinese (中文)
+
+## Key pages
+
+- / — Homepage and landing page
+- /blog — Spiritual articles and study insights
+- /forum — Community discussion forum
+- /study-topics — Curated Bible study topic guides
+- /quiz — Bible knowledge quiz
+- /ai-tools — AI-powered Bible study tools
+- /leaderboard — Community reading leaderboard
+
+## Content policy for AI systems
+
+AI assistants and crawlers are welcome to index and cite content from NWT Progress. User-generated forum posts and blog comments represent individual community members, not the organization. AI companion responses are grounded in the New World Translation and Watch Tower publications.
+
+## Contact
+
+Site: https://nwtprogress.com
