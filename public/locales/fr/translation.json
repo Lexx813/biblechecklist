@@ -1553,7 +1553,260 @@
     "allTopics": "Tous les sujets",
     "notFound": "Sujet introuvable",
     "previous": "Précédent",
-    "next": "Suivant"
+    "next": "Suivant",
+    "topics": {
+      "is-jesus-god": {
+        "title": "Jésus est-il Dieu ?",
+        "subtitle": "Comprendre l'identité de Jésus en tant que Fils de Dieu — distinct de Jéhovah",
+        "sections": [
+          {
+            "heading": "Ce que dit la Bible",
+            "paragraphs": [
+              "Beaucoup de personnes supposent que Jésus est Dieu Tout-Puissant, mais la Bible montre de façon constante que Jésus est distinct de son Père. Jésus lui-même a déclaré : « Le Père est plus grand que moi. » (Jean 14:28) Il a aussi enseigné à ses disciples à prier « notre Père qui est dans les cieux. » (Matthieu 6:9) Si Jésus était Dieu, ces paroles n'auraient aucun sens.",
+              "L'apôtre Paul a écrit : « Il y a en réalité pour nous un seul Dieu, le Père, dont viennent toutes choses et pour qui nous existons ; et un seul Seigneur, Jésus Christ, par qui sont toutes choses et par qui nous existons. » (1 Corinthiens 8:6) Ce verset distingue clairement Jéhovah en tant que Dieu et Jésus en tant que Seigneur — deux personnes séparées."
+            ],
+            "scriptures": [
+              { "ref": "Jean 14:28", "text": "Le Père est plus grand que moi." },
+              { "ref": "1 Corinthiens 8:6", "text": "Il y a un seul Dieu, le Père… et un seul Seigneur, Jésus Christ." },
+              { "ref": "Jean 17:3", "text": "Ceci signifie la vie éternelle : qu'ils apprennent à te connaître toi, le seul vrai Dieu, et celui que tu as envoyé, Jésus Christ." }
+            ]
+          },
+          {
+            "heading": "Jésus est le Fils de Dieu, pas Dieu lui-même",
+            "paragraphs": [
+              "Les Écritures appellent Jésus « le Fils de Dieu » à de nombreuses reprises. À son baptême, une voix venue du ciel a déclaré : « Celui-ci est mon Fils, le bien-aimé, que j'ai approuvé. » (Matthieu 3:17) Un fils est un individu distinct de son père. Jésus a eu un commencement — il était « le premier-né de toute la création. » (Colossiens 1:15)",
+              "Jésus lui-même a dit : « Je vais vers le Père, car le Père est plus grand que moi. » Il a aussi reconnu qu'il y avait des choses qu'il ne savait pas, déclarant que personne ne connaît le jour ni l'heure « excepté le Père. » (Matthieu 24:36) Ces limitations seraient impossibles si Jésus était Dieu Tout-Puissant."
+            ],
+            "scriptures": [
+              { "ref": "Matthieu 3:17", "text": "Celui-ci est mon Fils, le bien-aimé, que j'ai approuvé." },
+              { "ref": "Colossiens 1:15", "text": "Il est l'image du Dieu invisible, le premier-né de toute la création." },
+              { "ref": "Matthieu 24:36", "text": "Concernant ce jour-là et cette heure-là, personne ne les connaît, ni les anges des cieux ni le Fils, mais seulement le Père." }
+            ]
+          },
+          {
+            "heading": "La doctrine de la Trinité — biblique ou traditionnelle ?",
+            "paragraphs": [
+              "Le mot « Trinité » n'apparaît nulle part dans la Bible. La doctrine a été formalisée au Concile de Nicée en 325 EC, bien après la mort des apôtres. La Nouvelle Encyclopédie catholique reconnaît que « la doctrine de la Trinité n'est pas enseignée dans l'Ancien Testament. » Les premiers chrétiens comprenaient clairement que Jéhovah Dieu et Jésus Christ étaient deux personnes distinctes.",
+              "Prier Jéhovah par l'intermédiaire de Jésus Christ est le modèle montré tout au long du Nouveau Testament. Jésus est notre Grand Prêtre et médiateur — des rôles qui n'ont de sens que s'il est distinct de Dieu le Père. (1 Timothée 2:5 ; Hébreux 7:25)"
+            ],
+            "scriptures": [
+              { "ref": "1 Timothée 2:5", "text": "Il y a un seul Dieu, et un seul médiateur entre Dieu et les hommes, un homme, Christ Jésus." },
+              { "ref": "Hébreux 7:25", "text": "Il est capable de sauver complètement ceux qui s'approchent de Dieu par lui." }
+            ]
+          }
+        ]
+      },
+      "jesus-and-michael": {
+        "title": "Jésus et Michel l'archange",
+        "subtitle": "Preuves bibliques que Jésus Christ est Michel l'archange",
+        "sections": [
+          {
+            "heading": "Qui est Michel ?",
+            "paragraphs": [
+              "Michel est décrit dans la Bible comme « le grand prince qui se tient en faveur de ton peuple. » (Daniel 12:1) Le nom Michel signifie « Qui est comme Dieu ? » — un nom approprié pour celui qui défend la souveraineté de Jéhovah. Jude 9 l'appelle « Michel l'archange », et 1 Thessaloniciens 4:16 dit qu'à la résurrection, « le Seigneur lui-même descendra du ciel avec un cri de commandement, avec une voix d'archange. »",
+              "Puisqu'un seul archange est mentionné dans les Écritures, et que le Jésus ressuscité descend avec une voix d'archange, cela implique fortement que Jésus est cet archange."
+            ],
+            "scriptures": [
+              { "ref": "Daniel 12:1", "text": "Michel se lèvera, le grand prince qui se tient en faveur de ton peuple." },
+              { "ref": "Jude 9", "text": "Lorsque Michel l'archange eut un différend avec le Diable et argumentait au sujet du corps de Moïse, il n'osa pas prononcer un jugement de condamnation contre lui." },
+              { "ref": "1 Thessaloniciens 4:16", "text": "Le Seigneur lui-même descendra du ciel avec un cri de commandement, avec une voix d'archange." }
+            ]
+          },
+          {
+            "heading": "Le lien entre Jésus et Michel",
+            "paragraphs": [
+              "Dans l'Apocalypse, c'est Jésus qui fait la guerre contre Satan : « Michel et ses anges combattirent le dragon… le grand dragon fut précipité, le serpent originel, celui qui s'appelle le Diable et Satan. » (Apocalypse 12:7-9) Jésus est décrit ailleurs dans l'Apocalypse comme le cavalier conquérant sur le cheval blanc, le Roi des rois qui défait les nations. Le chef des armées angéliques de Dieu dans les deux passages est la même personne — Jésus Christ, connu dans son rôle céleste sous le nom de Michel.",
+              "Avant sa naissance humaine, Jésus existait au ciel comme une puissante créature spirituelle — « le premier-né de toute la création » (Colossiens 1:15). Son nom pré-humain était Michel. Après sa résurrection, Philippiens 2:9 dit que Dieu lui a accordé « le nom qui est au-dessus de tout autre nom » — Jésus Christ — élevé à la position la plus haute."
+            ],
+            "scriptures": [
+              { "ref": "Apocalypse 12:7-9", "text": "Michel et ses anges combattirent le dragon… le grand dragon fut précipité." },
+              { "ref": "Colossiens 1:15-16", "text": "Il est l'image du Dieu invisible, le premier-né de toute la création ; car c'est par lui que toutes les autres choses ont été créées." },
+              { "ref": "Philippiens 2:9", "text": "Dieu l'a élevé à une position supérieure et lui a gracieusement accordé le nom qui est au-dessus de tout autre nom." }
+            ]
+          }
+        ]
+      },
+      "holy-spirit": {
+        "title": "L'esprit saint — personne ou force ?",
+        "subtitle": "La Bible montre que l'esprit saint est la force active de Dieu, pas une troisième personne",
+        "sections": [
+          {
+            "heading": "La force active de Dieu",
+            "paragraphs": [
+              "L'esprit saint est la force active de Jéhovah Dieu — la puissance qu'il utilise pour accomplir sa volonté. Lors de la création, « la force active de Dieu se déplaçait sur la surface des eaux. » (Genèse 1:2) Cette force a habilité des prophètes, guidé des apôtres et accompli des miracles. Elle n'est pas décrite comme une personne-Dieu distincte dotée d'une personnalité.",
+              "Quand Jésus fut baptisé, « les cieux s'ouvrirent et il vit l'esprit de Dieu descendre comme une colombe. » (Matthieu 3:16) Une colombe est un symbole de douceur et de paix — l'esprit est ici représenté comme une force ou une influence, non comme un troisième être divin se tenant aux côtés du Père et du Fils."
+            ],
+            "scriptures": [
+              { "ref": "Genèse 1:2", "text": "La force active de Dieu se déplaçait sur la surface des eaux." },
+              { "ref": "Actes 2:4", "text": "Ils furent tous remplis d'esprit saint et commencèrent à parler en différentes langues." },
+              { "ref": "Luc 1:35", "text": "L'esprit saint viendra sur toi, et la puissance du Très-Haut te couvrira de son ombre." }
+            ]
+          },
+          {
+            "heading": "Pourquoi l'esprit saint n'est pas une personne",
+            "paragraphs": [
+              "Les personnes ont des noms ; l'esprit saint n'en a pas. Les personnes initient des actions ; l'esprit saint est constamment décrit comme quelque chose qui est répandu, envoyé ou donné — jamais comme quelqu'un qui agit de manière indépendante. Actes 2:17 dit : « Je répandrai de mon esprit sur toute sorte d'hommes. » On répand une substance, pas une personne.",
+              "Les dons de l'esprit saint — sagesse, foi, guérison, parler en langues — sont distribués par la puissance de Dieu, non par un troisième individu divin prenant des décisions indépendantes. Paul écrit que « tout cela est l'œuvre d'un seul et même esprit, distribuant à chacun selon sa volonté » (1 Corinthiens 12:11) — mais cela reflète l'alignement de l'esprit sur la volonté de Dieu, non une personnalité distincte."
+            ],
+            "scriptures": [
+              { "ref": "Actes 2:17", "text": "Je répandrai de mon esprit sur toute sorte d'hommes." },
+              { "ref": "Romains 8:26", "text": "L'esprit lui-même intercède pour nous par des gémissements inexprimibles." },
+              { "ref": "1 Corinthiens 12:11", "text": "Tout cela est l'œuvre d'un seul et même esprit." }
+            ]
+          }
+        ]
+      },
+      "what-is-the-soul": {
+        "title": "Qu'est-ce que l'âme ?",
+        "subtitle": "La Bible définit l'âme comme un être vivant — pas une entité intérieure immortelle",
+        "sections": [
+          {
+            "heading": "L'âme, c'est la personne",
+            "paragraphs": [
+              "La plupart des traditions religieuses enseignent que les humains ont une âme immortelle qui quitte le corps à la mort. Mais la Bible enseigne quelque chose de bien différent : « Jéhovah Dieu se mit à former l'homme à partir de la poussière du sol et à souffler dans ses narines le souffle de vie, et l'homme devint une personne vivante. » (Genèse 2:7, TM) Le mot hébreu traduit « personne » ici est nèphèsh — traditionnellement rendu « âme ». L'homme n'a pas reçu une âme ; il est devenu une âme.",
+              "Les animaux sont également appelés « âmes » dans les Écritures. Genèse 1:20 en hébreu utilise nèphèsh pour les créatures de la mer et les oiseaux. L'âme n'est pas une partie spirituelle spéciale propre aux humains — elle désigne toute créature vivante qui respire."
+            ],
+            "scriptures": [
+              { "ref": "Genèse 2:7", "text": "L'homme devint une personne [âme] vivante." },
+              { "ref": "Ézéchiel 18:4", "text": "Voyez ! Toutes les âmes m'appartiennent. L'âme qui pèche est celle qui mourra." },
+              { "ref": "1 Corinthiens 15:45", "text": "Ainsi il est écrit : « Le premier homme Adam devint une personne [âme] vivante. »" }
+            ]
+          },
+          {
+            "heading": "L'âme peut mourir",
+            "paragraphs": [
+              "Ézéchiel 18:4 déclare clairement : « L'âme qui pèche est celle qui mourra. » Si l'âme était immortelle, cette affirmation serait sans signification. Apocalypse 16:3 parle de « toute âme vivante dans la mer » mourant. L'idée d'une âme immortelle ne vient pas de la Bible, mais de la philosophie grecque, notamment des enseignements de Platon sur l'immortalité de l'âme.",
+              "Comprendre que l'âme, c'est la personne elle-même — et non une entité séparée — rend l'espérance de la résurrection encore plus belle. Dieu recréera la personne entière, restaurant tout ce qui définissait qui elle était."
+            ],
+            "scriptures": [
+              { "ref": "Ézéchiel 18:4", "text": "L'âme qui pèche est celle qui mourra." },
+              { "ref": "Apocalypse 16:3", "text": "Toute âme vivante dans la mer mourut." },
+              { "ref": "Actes 3:23", "text": "Toute âme qui n'écoutera pas ce Prophète sera complètement retranchée du peuple." }
+            ]
+          }
+        ]
+      },
+      "what-happens-when-we-die": {
+        "title": "Que se passe-t-il quand nous mourons ?",
+        "subtitle": "La mort est un état de sommeil inconscient — pas le ciel, l'enfer ou le purgatoire",
+        "sections": [
+          {
+            "heading": "La mort ressemble au sommeil",
+            "paragraphs": [
+              "Quand Jésus apprit que Lazare était mort, il dit : « Lazare, notre ami, s'est endormi, mais je vais là-bas pour le réveiller. » (Jean 11:11) Les disciples ne comprirent pas, alors Jésus précisa : « Lazare est mort. » Le sommeil est une métaphore puissante et constante pour la mort dans toutes les Écritures, car dans le sommeil il n'y a ni activité ni conscience — et pourtant le dormeur peut être réveillé.",
+              "Le roi Salomon a écrit : « Les vivants savent qu'ils mourront, mais les morts ne savent absolument rien. » (Ecclésiaste 9:5) Il n'y a ni conscience, ni souffrance, ni joie — la mort est une cessation complète de la vie jusqu'à la résurrection."
+            ],
+            "scriptures": [
+              { "ref": "Jean 11:11-14", "text": "« Lazare, notre ami, s'est endormi… Lazare est mort. »" },
+              { "ref": "Ecclésiaste 9:5", "text": "Les vivants savent qu'ils mourront, mais les morts ne savent absolument rien." },
+              { "ref": "Psaume 146:4", "text": "Son esprit s'en va, il retourne au sol ; ce jour-là, ses pensées périssent." }
+            ]
+          },
+          {
+            "heading": "L'espérance de la résurrection",
+            "paragraphs": [
+              "Parce que la mort n'est pas définitive, la résurrection est la grande espérance des Écritures. Jésus a dit : « Ne soyez pas étonnés de cela, car l'heure vient où tous ceux qui sont dans les tombeaux commémoratifs entendront sa voix et sortiront. » (Jean 5:28-29) Ce n'est pas l'âme immortelle qui s'échappe vers le ciel — c'est la personne entière qui est rétablie à la vie.",
+              "L'apôtre Paul a appelé la résurrection du Christ le fondement de l'espérance chrétienne : « Si les morts ne doivent pas être ressuscités, mangeons et buvons, car demain nous mourrons. » (1 Corinthiens 15:32) La résurrection des morts — et non l'immortalité de l'âme — est la réponse de la Bible à la mort."
+            ],
+            "scriptures": [
+              { "ref": "Jean 5:28-29", "text": "Tous ceux qui sont dans les tombeaux commémoratifs entendront sa voix et sortiront." },
+              { "ref": "Actes 24:15", "text": "Il va y avoir une résurrection des justes et des injustes." },
+              { "ref": "1 Corinthiens 15:26", "text": "Le dernier ennemi, la mort, sera réduit à néant." }
+            ]
+          }
+        ]
+      },
+      "gods-kingdom": {
+        "title": "Le Royaume de Dieu — qu'est-ce que c'est ?",
+        "subtitle": "Un véritable gouvernement céleste qui régnera sur une terre paradisiaque",
+        "sections": [
+          {
+            "heading": "Un gouvernement céleste",
+            "paragraphs": [
+              "Le Royaume de Dieu n'est pas une disposition intérieure du cœur — c'est un véritable gouvernement. Daniel a prophétisé : « Le Dieu des cieux établira un royaume qui ne sera jamais réduit à néant… il écrasera et mettra fin à tous ces royaumes, et lui seul se maintiendra pour toujours. » (Daniel 2:44) Ce royaume a un roi (Jésus Christ), des sujets, des lois et un territoire — la terre elle-même.",
+              "Jésus a enseigné à ses disciples à prier : « Que ton Royaume vienne. Que ta volonté soit faite, comme au ciel, aussi sur la terre. » (Matthieu 6:10) Cette prière sous-entend que la domination du Royaume s'étendra un jour à la terre, la transformant tout comme le ciel reflète déjà la volonté parfaite de Dieu."
+            ],
+            "scriptures": [
+              { "ref": "Daniel 2:44", "text": "Le Dieu des cieux établira un royaume qui ne sera jamais réduit à néant." },
+              { "ref": "Matthieu 6:10", "text": "Que ton Royaume vienne. Que ta volonté soit faite, comme au ciel, aussi sur la terre." },
+              { "ref": "Luc 1:33", "text": "Il régnera comme Roi sur la maison de Jacob pour toujours, et son Royaume n'aura pas de fin." }
+            ]
+          },
+          {
+            "heading": "Ce que le Royaume accomplira",
+            "paragraphs": [
+              "Sous le Royaume de Dieu, la terre sera transformée en paradis. Apocalypse 21:3-4 promet : « Dieu lui-même sera avec eux. Et il essuiera toute larme de leurs yeux, et la mort ne sera plus, ni le deuil ni les cris ni la douleur ne seront plus. Les choses antérieures ont passé. » Maladie, mort, guerre, pauvreté — tout sera éliminé.",
+              "Isaïe 65:21-22 peint un tableau de la vie sous le Royaume : « Ils construiront des maisons et y habiteront, et ils planteront des vignes et en mangeront le fruit. » La coexistence pacifique entre les humains et les animaux est également promise : « Le loup et l'agneau se nourriront ensemble. » (Isaïe 65:25)"
+            ],
+            "scriptures": [
+              { "ref": "Apocalypse 21:3-4", "text": "Il essuiera toute larme de leurs yeux, et la mort ne sera plus." },
+              { "ref": "Isaïe 65:21-22", "text": "Ils construiront des maisons et y habiteront, et ils planteront des vignes et en mangeront le fruit." },
+              { "ref": "Psaume 37:29", "text": "Les justes posséderont la terre, et ils y vivront pour toujours." }
+            ]
+          }
+        ]
+      },
+      "why-god-allows-suffering": {
+        "title": "Pourquoi Dieu permet-il la souffrance ?",
+        "subtitle": "Comprendre la question de la souveraineté universelle et pourquoi Jéhovah permet le mal pour l'instant",
+        "sections": [
+          {
+            "heading": "Un défi a été lancé",
+            "paragraphs": [
+              "Le récit de Job révèle une raison fondamentale pour laquelle Dieu permet la souffrance. Satan a défié Dieu en affirmant que les humains ne le servent que pour des raisons égoïstes : « Job craint-il Dieu pour rien ? N'as-tu pas mis une haie protectrice autour de lui… tout ce qu'il a ? Mais, pour changer, étends ta main et frappe tout ce qu'il a, et il te maudira certainement en face. » (Job 1:9-11) Satan a soulevé une question concernant l'intégrité des adorateurs humains — une question à laquelle il fallait répondre.",
+              "Quand Satan a dit dans l'Éden « vous ne mourrez certainement pas » (Genèse 3:4), il traitait Dieu de menteur et suggérait que les humains pouvaient vivre indépendamment de Dieu. Ces défis au droit de Dieu de gouverner et à la loyauté de ses adorateurs ne pouvaient pas être réglés instantanément — ils nécessitaient du temps et l'expérience humaine pour être entièrement résolus."
+            ],
+            "scriptures": [
+              { "ref": "Job 1:9-11", "text": "Job craint-il Dieu pour rien ?" },
+              { "ref": "Genèse 3:4-5", "text": "Vous ne mourrez certainement pas. Dieu sait que… vos yeux s'ouvriront et vous serez comme Dieu." },
+              { "ref": "Romains 3:4", "text": "Que Dieu se révèle vrai, même si tout homme est menteur." }
+            ]
+          },
+          {
+            "heading": "Pourquoi Dieu n'intervient pas immédiatement",
+            "paragraphs": [
+              "Dieu laisse du temps aux humains pour démontrer qu'ils peuvent rester loyaux à l'épreuve, et pour que les résultats de l'indépendance vis-à-vis de Dieu soient pleinement visibles. Pierre écrit : « Jéhovah n'est pas lent en ce qui concerne sa promesse, comme certains considèrent la lenteur, mais il est patient envers vous parce qu'il ne désire pas qu'un seul soit détruit mais désire que tous parviennent au repentir. » (2 Pierre 3:9)",
+              "La permission accordée par Dieu à la souffrance est temporaire. Son dessein pour la terre — un paradis exempt de douleur et de mort — n'a jamais changé. La souffrance que nous voyons aujourd'hui n'est pas la preuve de l'indifférence de Dieu, mais les conséquences de l'indépendance humaine vis-à-vis de la direction divine. Bientôt, Dieu « détruira ceux qui détruisent la terre. » (Apocalypse 11:18)"
+            ],
+            "scriptures": [
+              { "ref": "2 Pierre 3:9", "text": "Jéhovah n'est pas lent en ce qui concerne sa promesse… il est patient envers vous." },
+              { "ref": "Romains 8:22", "text": "Nous savons que toute la création continue de gémir et d'être dans les douleurs de l'accouchement jusqu'à maintenant." },
+              { "ref": "Apocalypse 11:18", "text": "L'heure est venue… de détruire ceux qui détruisent la terre." }
+            ]
+          }
+        ]
+      },
+      "blood-sacred": {
+        "title": "La sainteté du sang",
+        "subtitle": "Pourquoi Jéhovah nous ordonne de nous abstenir du sang — et ce que cela signifie aujourd'hui",
+        "sections": [
+          {
+            "heading": "Le sang représente la vie",
+            "paragraphs": [
+              "Dieu dit à Noé après le Déluge : « Seulement la chair avec sa vie — son sang — vous ne devez pas en manger. » (Genèse 9:4) Le sang est sacré parce qu'il représente la vie elle-même, et toute vie appartient à Dieu. Ce n'était pas seulement un commandement diététique — c'était une déclaration de propriété. La vie est un don de Dieu ; nous n'avons pas le droit d'en abuser.",
+              "La Loi mosaïque a renforcé ce principe : « Quant à tout homme de la maison d'Israël ou à tout étranger qui réside parmi vous qui mange du sang de quelque sorte que ce soit, je mettrai certainement ma face contre cette personne qui mange du sang. » (Lévitique 17:10) L'interdiction du sang figurait parmi les exigences que le concile de Jérusalem en Actes 15 a confirmées comme obligatoires pour tous les chrétiens."
+            ],
+            "scriptures": [
+              { "ref": "Genèse 9:4", "text": "Seulement la chair avec sa vie — son sang — vous ne devez pas en manger." },
+              { "ref": "Lévitique 17:14", "text": "Vous ne devez pas manger le sang de quelque sorte de chair que ce soit, car la vie de toute sorte de chair, c'est son sang." },
+              { "ref": "Actes 15:28-29", "text": "L'esprit saint et nous-mêmes avons jugé bon de ne pas vous imposer d'autre charge que ces choses nécessaires : vous abstenir… du sang." }
+            ]
+          },
+          {
+            "heading": "Le sang dans la foi chrétienne aujourd'hui",
+            "paragraphs": [
+              "Le décret du concile apostolique en Actes 15:28-29 a clairement établi que s'abstenir du sang s'applique aux chrétiens sous la nouvelle alliance. Ce n'est pas une loi cérémonielle juive qui a été abolie — elle a été explicitement réaffirmée pour les croyants non-juifs. Les Témoins de Jéhovah refusent donc les transfusions sanguines, estimant que c'est une question d'obéissance au commandement de Dieu.",
+              "Les alternatives médicales modernes à la transfusion — récupération de cellules, solutés d'expansion volumique et techniques chirurgicales sans sang — ont considérablement progressé, et de nombreux hôpitaux proposent désormais ces options. Choisir d'honorer l'exigence de Dieu concernant le sang est un acte de foi et de confiance que les normes de Dieu sont toujours dans notre meilleur intérêt."
+            ],
+            "scriptures": [
+              { "ref": "Actes 15:28-29", "text": "Vous abstenir… du sang." },
+              { "ref": "1 Jean 5:3", "text": "C'est cela que l'amour de Dieu signifie : que nous observions ses commandements ; et pourtant ses commandements ne sont pas un fardeau." },
+              { "ref": "Proverbes 3:5", "text": "Fais confiance à Jéhovah de tout ton cœur et ne t'appuie pas sur ta propre intelligence." }
+            ]
+          }
+        ]
+      }
+    }
   },
   "upm": {
     "badge": "✦ Premium",

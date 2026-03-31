@@ -77,34 +77,44 @@ function UserActionsDropdown({ user, currentUser, navigate, setAdmin, setModerat
       {open && (
         <div className="admin-dropdown-menu">
           <button className="admin-dropdown-item" onClick={() => action(() => navigate("publicProfile", { userId: user.id }))}>
-            👤 {t("admin.messageUser")}
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            {t("admin.messageUser")}
           </button>
           <div className="admin-dropdown-sep" />
           <button className="admin-dropdown-item" onClick={() => action(() => setAdmin.mutate({ userId: user.id, value: !user.is_admin }, { onError: onToggleError }))} disabled={setAdmin.isPending}>
-            {user.is_admin ? "⬇ " + t("admin.removeAdmin") : "⬆ " + t("admin.makeAdmin")}
+            {user.is_admin
+              ? <><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg> {t("admin.removeAdmin")}</>
+              : <><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> {t("admin.makeAdmin")}</>
+            }
           </button>
           <button className={`admin-dropdown-item${user.is_moderator ? " admin-dropdown-item--active" : ""}`} onClick={() => action(() => setModerator.mutate({ userId: user.id, value: !user.is_moderator }, { onError: onToggleError }))} disabled={setModerator.isPending}>
-            🛡️ {user.is_moderator ? t("admin.removeMod") : t("admin.makeMod")}
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            {user.is_moderator ? t("admin.removeMod") : t("admin.makeMod")}
           </button>
           <button className={`admin-dropdown-item${user.can_blog ? " admin-dropdown-item--active" : ""}`} onClick={() => action(() => setBlog.mutate({ userId: user.id, value: !user.can_blog }, { onError: onToggleError }))} disabled={setBlog.isPending}>
-            ✍️ {user.can_blog ? t("admin.writer") : t("admin.allowBlog")}
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            {user.can_blog ? t("admin.writer") : t("admin.allowBlog")}
           </button>
           <div className="admin-dropdown-sep" />
           <button className={`admin-dropdown-item${user.subscription_status === "gifted" ? " admin-dropdown-item--active" : ""}`} onClick={() => action(() => giftPremium.mutate({ userId: user.id, value: user.subscription_status !== "gifted" }, { onError: onToggleError }))} disabled={giftPremium.isPending}>
-            ⭐ {user.subscription_status === "gifted" ? t("admin.revokeGift") : t("admin.giftPremium")}
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            {user.subscription_status === "gifted" ? t("admin.revokeGift") : t("admin.giftPremium")}
           </button>
           {(user.subscription_status === "active" || user.subscription_status === "trialing") && (
             <button className="admin-dropdown-item admin-dropdown-item--danger" onClick={() => action(() => setConfirmCancelSub(user))} disabled={cancelSub.isPending}>
-              ✂️ {t("admin.cancelSub")}
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              {t("admin.cancelSub")}
             </button>
           )}
           <div className="admin-dropdown-sep" />
           <button className={`admin-dropdown-item${user.is_banned ? " admin-dropdown-item--active" : " admin-dropdown-item--danger"}`} onClick={() => action(() => setConfirmBan(user))} disabled={banUser.isPending}>
-            🚫 {user.is_banned ? t("admin.unban") : t("admin.ban")}
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+            {user.is_banned ? t("admin.unban") : t("admin.ban")}
           </button>
           <div className="admin-dropdown-sep" />
           <button className="admin-dropdown-item admin-dropdown-item--danger" onClick={() => action(() => setConfirmDelete(user))} disabled={deleteUser.isPending}>
-            🗑️ {t("common.delete")}
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+            {t("common.delete")}
           </button>
         </div>
       )}
@@ -276,8 +286,8 @@ function UsersTab({ currentUser, navigate }) {
                         <div className="admin-user-tags">
                           {user.id === currentUser.id && <span className="admin-you-tag">{t("admin.you")}</span>}
                           {user.is_admin && <span className="admin-role-badge admin-role-badge--admin">{t("admin.roleAdmin")}</span>}
-                          {user.is_moderator && !user.is_admin && <span className="admin-mod-tag">🛡️ {t("admin.filterMods")}</span>}
-                          {user.is_banned && <span className="admin-banned-tag">🚫 {t("admin.banned")}</span>}
+                          {user.is_moderator && !user.is_admin && <span className="admin-mod-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>{t("admin.filterMods")}</span>}
+                          {user.is_banned && <span className="admin-banned-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>{t("admin.banned")}</span>}
                           {user.subscription_status && user.subscription_status !== "inactive" && (
                             <span className={`admin-sub-badge admin-sub-badge--${user.subscription_status}`}>{user.subscription_status}</span>
                           )}
@@ -601,8 +611,8 @@ function ForumTab({ navigate }) {
             {filtered.map(thread => (
               <tr key={thread.id}>
                 <td style={{ maxWidth: 220, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                  {thread.pinned && <span title={t("adminForum.pinned")} style={{ marginRight: 4 }}>📌</span>}
-                  {thread.locked && <span title={t("adminForum.locked")} style={{ marginRight: 4 }}>🔒</span>}
+                  {thread.pinned && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" title={t("adminForum.pinned")} style={{display:"inline",marginRight:4,flexShrink:0}} aria-hidden="true"><line x1="12" y1="17" x2="12" y2="22"/><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V17z"/></svg>}
+                  {thread.locked && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" title={t("adminForum.locked")} style={{display:"inline",marginRight:4,flexShrink:0}} aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>}
                   {thread.title}
                 </td>
                 <td>{thread.profiles?.display_name || "—"}</td>
@@ -1262,7 +1272,12 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
         <div className="admin-header-inner">
           <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
           <div className="admin-header-text">
-            <span className="admin-logo">{isCurrentUserAdmin ? "⚙️" : "🛡️"}</span>
+            <span className="admin-logo">
+            {isCurrentUserAdmin
+              ? <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              : <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            }
+          </span>
             <h1>{isCurrentUserAdmin ? t("admin.title") : t("admin.moderation")}</h1>
           </div>
         </div>
@@ -1315,66 +1330,76 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
         <div className="admin-tabs">
           {isCurrentUserAdmin && (
             <button className={`admin-tab${tab === "users" ? " admin-tab--active" : ""}`} onClick={() => setTab("users")}>
-              👥 {t("adminTabs.users")}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              {t("adminTabs.users")}
             </button>
           )}
           <button className={`admin-tab${tab === "reports" ? " admin-tab--active" : ""}`} onClick={() => setTab("reports")}>
-            🚩 {t("adminTabs.reports")}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+            {t("adminTabs.reports")}
             {pendingCount > 0 && <span className="admin-tab-badge">{pendingCount}</span>}
           </button>
           {isCurrentUserAdmin && (
             <button className={`admin-tab${tab === "blog" ? " admin-tab--active" : ""}`} onClick={() => setTab("blog")}>
-              📝 {t("adminTabs.blog")}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              {t("adminTabs.blog")}
             </button>
           )}
           {isCurrentUserAdmin && (
             <button className={`admin-tab${tab === "comments" ? " admin-tab--active" : ""}`} onClick={() => setTab("comments")}>
-              💬 {t("adminTabs.comments")}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              {t("adminTabs.comments")}
             </button>
           )}
           {isCurrentUserAdmin && (
             <button className={`admin-tab${tab === "forum" ? " admin-tab--active" : ""}`} onClick={() => setTab("forum")}>
-              🧵 {t("adminTabs.forum")}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="15" y2="10"/></svg>
+              {t("adminTabs.forum")}
             </button>
           )}
           {isCurrentUserAdmin && (
             <button className={`admin-tab${tab === "quiz" ? " admin-tab--active" : ""}`} onClick={() => setTab("quiz")}>
-              🎯 {t("adminTabs.quiz")}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              {t("adminTabs.quiz")}
             </button>
           )}
           {isCurrentUserAdmin && (
             <button className={`admin-tab${tab === "quizStats" ? " admin-tab--active" : ""}`} onClick={() => setTab("quizStats")}>
-              📊 {t("adminTabs.quizStats")}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              {t("adminTabs.quizStats")}
             </button>
           )}
           {isCurrentUserAdmin && (
             <button className={`admin-tab${tab === "forumCats" ? " admin-tab--active" : ""}`} onClick={() => setTab("forumCats")}>
-              🗂️ {t("adminTabs.forumCats")}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+              {t("adminTabs.forumCats")}
             </button>
           )}
           {isCurrentUserAdmin && (
             <button className={`admin-tab${tab === "announcements" ? " admin-tab--active" : ""}`} onClick={() => setTab("announcements")}>
-              📢 {t("adminTabs.announcements")}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              {t("adminTabs.announcements")}
             </button>
           )}
           {isCurrentUserAdmin && (
             <button className={`admin-tab${tab === "auditLog" ? " admin-tab--active" : ""}`} onClick={() => setTab("auditLog")}>
-              🔒 Audit Log
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Audit Log
             </button>
           )}
         </div>
 
         {/* Tab content */}
-        {tab === "users"          && isCurrentUserAdmin && <UsersTab currentUser={currentUser} navigate={navigate} />}
-        {tab === "reports"        && <ReportsTab navigate={navigate} />}
-        {tab === "blog"           && isCurrentUserAdmin && <BlogTab navigate={navigate} />}
-        {tab === "comments"       && isCurrentUserAdmin && <BlogCommentsTab />}
-        {tab === "forum"          && isCurrentUserAdmin && <ForumTab navigate={navigate} />}
-        {tab === "quiz"           && isCurrentUserAdmin && <QuizTab />}
-        {tab === "quizStats"      && isCurrentUserAdmin && <QuizStatsTab />}
-        {tab === "forumCats"      && isCurrentUserAdmin && <ForumCategoriesTab />}
-        {tab === "announcements"  && isCurrentUserAdmin && <AnnouncementsTab currentUser={currentUser} />}
-        {tab === "auditLog"       && isCurrentUserAdmin && <AuditLogTab />}
+        {tab === "users"         && isCurrentUserAdmin && <UsersTab currentUser={currentUser} navigate={navigate} />}
+        {tab === "reports"       && <div className="admin-section"><ReportsTab navigate={navigate} /></div>}
+        {tab === "blog"          && isCurrentUserAdmin && <div className="admin-section"><BlogTab navigate={navigate} /></div>}
+        {tab === "comments"      && isCurrentUserAdmin && <div className="admin-section"><BlogCommentsTab /></div>}
+        {tab === "forum"         && isCurrentUserAdmin && <div className="admin-section"><ForumTab navigate={navigate} /></div>}
+        {tab === "quiz"          && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><QuizTab /></div>}
+        {tab === "quizStats"     && isCurrentUserAdmin && <div className="admin-section"><QuizStatsTab /></div>}
+        {tab === "forumCats"     && isCurrentUserAdmin && <div className="admin-section"><ForumCategoriesTab /></div>}
+        {tab === "announcements" && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><AnnouncementsTab currentUser={currentUser} /></div>}
+        {tab === "auditLog"      && isCurrentUserAdmin && <div className="admin-section"><AuditLogTab /></div>}
       </div>
     </div>
   );
