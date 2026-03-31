@@ -27,6 +27,8 @@ export function parsePath() {
   if (h === "study-notes")            return { page: "studyNotes" };
   if (h === "study-notes/community")  return { page: "studyNotes", tab: "public" };
   if (h === "ai-tools")      return { page: "aiTools" };
+  if (h === "study-topics")  return { page: "studyTopics" };
+  if (h.startsWith("study-topics/")) return { page: "studyTopicDetail", slug: decodeURIComponent(h.slice(13)) };
   if (h === "leaderboard")   return { page: "leaderboard" };
   if (h === "about") return { page: "about" };
   if (h === "terms") return { page: "terms" };
@@ -56,8 +58,10 @@ export function buildPath(page, params = {}) {
     case "groupDetail":  return "/groups/" + params.groupId;
     case "readingPlans": return "/reading-plans";
     case "studyNotes":   return params.tab === "public" ? "/study-notes/community" : "/study-notes";
-    case "aiTools":      return "/ai-tools";
-    case "leaderboard":  return "/leaderboard";
+    case "aiTools":           return "/ai-tools";
+    case "studyTopics":       return "/study-topics";
+    case "studyTopicDetail":  return "/study-topics/" + encodeURIComponent(params.slug);
+    case "leaderboard":       return "/leaderboard";
     case "about":         return "/about";
     case "terms":         return "/terms";
     case "privacy":       return "/privacy";

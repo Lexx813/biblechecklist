@@ -811,7 +811,17 @@
     "studyNotes": "学习笔记",
     "language": "语言",
     "proFeature": "🔒 高级功能",
-    "aiTools": "AI 工具"
+    "aiTools": "AI 工具",
+    "studyTopics": "学习主题"
+  },
+  "studyTopics": {
+    "title": "学习主题",
+    "subtitle": "通过基于圣经的答案探索关键的圣经主题",
+    "readMore": "阅读更多",
+    "allTopics": "所有主题",
+    "notFound": "未找到主题",
+    "previous": "上一个",
+    "next": "下一个"
   },
   "about": {
     "heroBadge": "📖 关于 NWT Progress",

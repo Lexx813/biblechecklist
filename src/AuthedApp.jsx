@@ -46,6 +46,8 @@ const GroupsPage        = lazy(() => import("./pages/groups/GroupsPage"));
 const GroupDetail       = lazy(() => import("./pages/groups/GroupDetail"));
 const NotFoundPage      = lazy(() => import("./pages/NotFoundPage"));
 const AIToolsPage       = lazy(() => import("./pages/aitools/AIToolsPage"));
+const StudyTopicsPage   = lazy(() => import("./pages/studytopics/StudyTopicsPage"));
+const StudyTopicDetail  = lazy(() => import("./pages/studytopics/StudyTopicDetail"));
 
 // ── Lazy-page wrapper with error boundary ─────────────────────────────────────
 
@@ -198,6 +200,8 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (isPremium && nav.page === "readingPlans") pageContent = <Page><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (isPremium && nav.page === "studyNotes")   pageContent = <Page><StudyNotesPage user={user} navigate={navigate} initialTab={nav.tab ?? "mine"} {...sharedNav} /></Page>;
   else if (nav.page === "aiTools" && aiEnabled) pageContent = <Page><AIToolsPage user={user} {...sharedNav} /></Page>;
+  else if (nav.page === "studyTopics")      pageContent = <Page><StudyTopicsPage user={user} navigate={navigate} {...sharedNav} /></Page>;
+  else if (nav.page === "studyTopicDetail") pageContent = <Page><StudyTopicDetail user={user} navigate={navigate} slug={nav.slug} {...sharedNav} /></Page>;
   else if (nav.page === "leaderboard") pageContent = <Page><LeaderboardPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "about")     pageContent = <Page><AboutPage {...sharedNav} /></Page>;
   else if (nav.page === "terms")     pageContent = <Page><TermsPage {...sharedNav} /></Page>;

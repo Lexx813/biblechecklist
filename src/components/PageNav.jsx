@@ -35,7 +35,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
 
   const morePages = new Set(["about", "admin"]);
   const moreActive = morePages.has(currentPage);
-  const communityPages = new Set(["blog", "forum"]);
+  const communityPages = new Set(["blog", "forum", "studyTopics", "studyTopicDetail"]);
   const communityActive = communityPages.has(currentPage);
 
   function go(page) {
@@ -82,6 +82,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               <div className="page-nav-more-menu">
                 <button className={`page-nav-more-item${currentPage === "blog" ? " page-nav-more-item--active" : ""}`} onClick={() => { setCommunityOpen(false); go("blog"); }}>{t("app.blog")}</button>
                 <button className={`page-nav-more-item${currentPage === "forum" ? " page-nav-more-item--active" : ""}`} onClick={() => { setCommunityOpen(false); go("forum"); }}>{t("app.forum")}</button>
+                <button className={`page-nav-more-item${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-more-item--active" : ""}`} onClick={() => { setCommunityOpen(false); go("studyTopics"); }}>{t("nav.studyTopics", "Study Topics")}</button>
               </div>
             )}
           </div>
@@ -222,6 +223,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
             <div className="page-nav-mobile-section-label">{t("nav.community")}</div>
             <button className={`page-nav-mobile-link${currentPage === "blog" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("blog")}>{t("app.blog")}</button>
             <button className={`page-nav-mobile-link${currentPage === "forum" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("forum")}>{t("app.forum")}</button>
+            <button className={`page-nav-mobile-link${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyTopics")}>{t("nav.studyTopics", "Study Topics")}</button>
             <button className={`page-nav-mobile-link${currentPage === "about" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("about")}>{t("app.about")}</button>
             {canModerate && (
               <button className={`page-nav-mobile-link${currentPage === "admin" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("admin")}>

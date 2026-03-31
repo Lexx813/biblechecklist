@@ -1575,7 +1575,17 @@
     "readingPlans": "Reading Plans",
     "studyNotes": "Study Notes",
     "language": "Language",
-    "proFeature": "🔒 Pro feature"
+    "proFeature": "🔒 Pro feature",
+    "studyTopics": "Study Topics"
+  },
+  "studyTopics": {
+    "title": "Study Topics",
+    "subtitle": "Explore key Bible topics with scripture-based answers",
+    "readMore": "Read more",
+    "allTopics": "All Topics",
+    "notFound": "Topic not found",
+    "previous": "Previous",
+    "next": "Next"
   },
   "upm": {
     "badge": "✦ Premium",
