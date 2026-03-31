@@ -221,6 +221,14 @@
   color: #a78bfa;
   letter-spacing: 0.03em;
   margin-bottom: 3px;
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a.std-scripture-ref:hover {
+  text-decoration: underline;
+  color: #c4b5fd;
 }
 
 .std-scripture-text {
