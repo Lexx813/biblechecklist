@@ -137,6 +137,15 @@
   border: 5px solid transparent;
   border-top-color: rgba(15, 5, 35, 0.97);
 }
+.heatmap-tooltip-portal--below {
+  transform: translate(-50%, 0);
+}
+.heatmap-tooltip-portal--below::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: rgba(15, 5, 35, 0.97);
+}
 
 .heatmap-cell[data-level="-1"] { background: transparent; }
 .heatmap-cell[data-level="0"]  { background: var(--border); opacity: 0.7; }

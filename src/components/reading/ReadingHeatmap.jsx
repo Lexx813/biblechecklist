@@ -15,9 +15,14 @@ export default function ReadingHeatmap({ data = [], dailyGoal = 3 }) {
   const handleMouseEnter = useCallback((e, cell) => {
     if (!cell) return;
     const rect = e.currentTarget.getBoundingClientRect();
+    const HALF = 75; // estimated half-width of tooltip
+    const GAP = 10;
+    const rawX = rect.left + rect.width / 2;
+    const x = Math.max(HALF + 8, Math.min(rawX, window.innerWidth - HALF - 8));
+    const below = rect.top < 80;
+    const y = below ? rect.bottom + GAP : rect.top - GAP;
     setTooltip({
-      x: rect.left + rect.width / 2,
-      y: rect.top - 10,
+      x, y, below,
       date: new Date(cell.date + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }),
       chapters: cell.chapters,
     });
@@ -76,7 +81,7 @@ export default function ReadingHeatmap({ data = [], dailyGoal = 3 }) {
 
       {tooltip && createPortal(
         <div
-          className="heatmap-tooltip-portal"
+          className={`heatmap-tooltip-portal${tooltip.below ? " heatmap-tooltip-portal--below" : ""}`}
           style={{ left: tooltip.x, top: tooltip.y }}
         >
           {tooltip.date}
