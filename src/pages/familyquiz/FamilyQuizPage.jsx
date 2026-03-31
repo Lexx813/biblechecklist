@@ -368,37 +368,39 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
     const alreadyDone = !!myAttempt;
     return (
       <div className="fq-landing">
-        <div className="fq-landing-icon">🏆</div>
-        <h1 className="fq-landing-title">{challenge.title}</h1>
-        <p className="fq-landing-meta">
-          Created by <strong>{challenge.profiles?.display_name ?? "someone"}</strong>
-          {" · "}{challenge.questions.length} questions
-        </p>
+        <div className="fq-landing-hero">
+          <div className="fq-landing-icon">🏆</div>
+          <h1 className="fq-landing-title">{challenge.title}</h1>
+          <p className="fq-landing-meta">
+            Created by <strong>{challenge.profiles?.display_name ?? "someone"}</strong>
+            {" · "}{challenge.questions.length} questions
+          </p>
+        </div>
+
+        {alreadyDone && (
+          <div className="fq-already-done">
+            You scored <strong>{myAttempt.score}/{myAttempt.total}</strong> on this challenge.
+          </div>
+        )}
 
         <div className="fq-landing-actions">
           {alreadyDone ? (
-            <>
-              <div className="fq-already-done">
-                You scored <strong>{myAttempt.score}/{myAttempt.total}</strong> on this challenge.
-              </div>
-              <button className="fq-primary-btn" onClick={() => setPhase("results")}>
-                View Leaderboard
-              </button>
-            </>
+            <button className="fq-primary-btn" onClick={() => setPhase("results")}>
+              View Leaderboard
+            </button>
           ) : (
             <button className="fq-primary-btn" onClick={startQuiz}>
               Start Quiz
             </button>
           )}
-
           <button className="fq-share-btn" onClick={handleCopy}>
-            {copied ? "✓ Link Copied!" : "Copy Share Link"}
+            {copied ? "✓ Link Copied!" : "Share Challenge"}
           </button>
         </div>
 
         {justCreated && (
           <div className="fq-created-hint">
-            Share this link with family and friends so they can take the challenge too!
+            Share this challenge link with family and friends so they can compete for the top score!
           </div>
         )}
       </div>
@@ -448,14 +450,16 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
         </div>
 
         {revealed && (
-          <div className="fq-feedback">
-            {selected === q.correct_index ? (
-              <span className="fq-feedback--correct">Correct!</span>
-            ) : (
-              <span className="fq-feedback--wrong">
-                The answer was: <strong>{q.options[q.correct_index]}</strong>
-              </span>
-            )}
+          <div className={`fq-feedback ${selected === q.correct_index ? "fq-feedback--is-correct" : "fq-feedback--is-wrong"}`}>
+            <div className="fq-feedback-msg">
+              {selected === q.correct_index ? (
+                <span className="fq-feedback--correct">Correct!</span>
+              ) : (
+                <span className="fq-feedback--wrong">
+                  Answer: <strong>{q.options[q.correct_index]}</strong>
+                </span>
+              )}
+            </div>
             <button
               className="fq-next-btn"
               onClick={handleNext}
@@ -463,7 +467,7 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
             >
               {qIndex + 1 >= total
                 ? (submit.isPending ? "Saving…" : "Finish")
-                : "Next Question →"}
+                : "Next →"}
             </button>
           </div>
         )}
@@ -509,9 +513,7 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
                 const isMe = a.user_id === user.id;
                 return (
                   <li key={a.id} className={`fq-lb-row${isMe ? " fq-lb-row--me" : ""}`}>
-                    <span className="fq-lb-rank">
-                      {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `${i + 1}.`}
-                    </span>
+                    <span className="fq-lb-rank">{i + 1}</span>
                     <span className="fq-lb-name">
                       {a.profiles?.display_name ?? "Anonymous"}
                       {isMe && <span className="fq-lb-you"> (you)</span>}
