@@ -21,7 +21,7 @@ export default function ConsentGate({ userId }) {
     setError("");
     try {
       await profileApi.acceptTerms(userId);
-      await qc.invalidateQueries({ queryKey: ["full-profile", userId] });
+      await qc.invalidateQueries({ queryKey: ["fullProfile", userId] });
     } catch {
       setError("Something went wrong. Please try again.");
       setBusy(false);
