@@ -2,6 +2,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpBackend from "i18next-http-backend";
+import enTranslation from "../public/locales/en/translation.json";
 
 // Add a new language here — one entry is all that's needed
 export const LANGUAGES = [
@@ -18,10 +19,15 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    // Only load the user's detected language — others load on demand if switched
+    // English is bundled inline — no HTTP fetch needed for the majority of users.
+    // Non-English languages still load on demand via HttpBackend.
     fallbackLng: "en",
     supportedLngs: LANGUAGES.map(l => l.code),
     interpolation: { escapeValue: false },
+    partialBundledLanguages: true,
+    resources: {
+      en: { translation: enTranslation },
+    },
     detection: {
       order: ["localStorage", "navigator"],
       caches: ["localStorage"],

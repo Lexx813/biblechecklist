@@ -30,8 +30,7 @@
     <link rel="preconnect" href="https://api.anthropic.com" crossorigin="anonymous" />
     <link rel="dns-prefetch" href="https://api.anthropic.com" />
 
-    <!-- Preload default locale so translation is ready before first render -->
-    <link rel="preload" href="/locales/en/translation.json" as="fetch" type="application/json" crossorigin="anonymous" />
+    <!-- English locale is bundled in JS — non-English locales load on demand via HttpBackend -->
 
     <!-- Viewport & mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
