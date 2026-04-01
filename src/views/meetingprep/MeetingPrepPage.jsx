@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -49,6 +49,43 @@ function CheckItem({ label, checked, onToggle }) {
       </span>
       <span className="mp-item-text">{label}</span>
     </button>
+  );
+}
+
+// ── Notes editor with debounce + saved indicator ─────────────────────────────
+function NotesEditor({ value, placeholder, onSave }) {
+  const [local, setLocal] = useState(value ?? "");
+  const [status, setStatus] = useState(null); // null | "saving" | "saved"
+  const timer = useRef(null);
+
+  // Sync if external value changes (e.g. week switch)
+  useEffect(() => { setLocal(value ?? ""); }, [value]);
+
+  function handleChange(e) {
+    setLocal(e.target.value);
+    setStatus("saving");
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      onSave(e.target.value);
+      setStatus("saved");
+      setTimeout(() => setStatus(null), 2000);
+    }, 800);
+  }
+
+  return (
+    <div className="mp-notes-wrap">
+      <div className="mp-notes-label">
+        Notes
+        {status === "saving" && <span className="mp-notes-status">saving…</span>}
+        {status === "saved"  && <span className="mp-notes-status mp-notes-status--saved">✓ Saved</span>}
+      </div>
+      <textarea
+        className="mp-notes-textarea"
+        placeholder={placeholder}
+        value={local}
+        onChange={handleChange}
+      />
+    </div>
   );
 }
 
@@ -143,15 +180,11 @@ function ClamTab({ week, prep, onTogglePart, onNoteChange, isPremium, onUpgrade 
 
       {/* Notes (premium) */}
       {isPremium ? (
-        <div className="mp-notes-wrap">
-          <div className="mp-notes-label">Notes</div>
-          <textarea
-            className="mp-notes-textarea"
-            placeholder="Add your notes for this week's CLAM meeting…"
-            value={prep?.clam_notes ?? ""}
-            onChange={(e) => onNoteChange("clam_notes", e.target.value)}
-          />
-        </div>
+        <NotesEditor
+          value={prep?.clam_notes}
+          placeholder="Add your notes for this week's CLAM meeting…"
+          onSave={(v) => onNoteChange("clam_notes", v)}
+        />
       ) : (
         <div className="mp-notes-wrap">
           <button className="mp-item mp-item--locked" onClick={onUpgrade} style={{ width: "100%", justifyContent: "center" }}>
@@ -234,15 +267,11 @@ function WatchtowerTab({ week, prep, onTogglePara, onNoteChange, isPremium, onUp
 
       {/* Notes (premium) */}
       {isPremium ? (
-        <div className="mp-notes-wrap">
-          <div className="mp-notes-label">Notes</div>
-          <textarea
-            className="mp-notes-textarea"
-            placeholder="Add your notes for this week's Watchtower study…"
-            value={prep?.wt_notes ?? ""}
-            onChange={(e) => onNoteChange("wt_notes", e.target.value)}
-          />
-        </div>
+        <NotesEditor
+          value={prep?.wt_notes}
+          placeholder="Add your notes for this week's Watchtower study…"
+          onSave={(v) => onNoteChange("wt_notes", v)}
+        />
       ) : (
         <div className="mp-notes-wrap">
           <button className="mp-item" onClick={onUpgrade} style={{ width: "100%", justifyContent: "center" }}>
