@@ -833,7 +833,7 @@
   },
   "readingPlan": {
     "todayGoal": "Today: {{done}}/{{goal}} chaps",
-    "currentStreak": "Don't break it",
+    "currentStreak": "Don't break it · {{count}}d",
     "longestStreak": "Best: {{count}} days",
     "setGoal": "Set Daily Goal",
     "goalLabel": "Daily chapters (1–30)",

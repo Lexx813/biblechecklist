@@ -429,7 +429,7 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
           </div>
           {streak > 0 && (
             <div className="mp-streak">
-              🔥 {streak}-week prep streak{streak >= 2 ? " · Don't break it" : " · Keep it going"}
+              🔥 {streak}-week streak<span className="mp-streak-suffix">{streak >= 2 ? " · Don't break it" : " · Keep it going"}</span>
             </div>
           )}
         </div>

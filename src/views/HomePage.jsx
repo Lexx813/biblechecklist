@@ -69,7 +69,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { data: profile } = useFullProfile(user?.id);
   const updateProfile = useUpdateProfile(user?.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
-  const [showOnboarding, closeOnboarding] = useOnboarding();
+  const [showOnboarding, closeOnboarding] = useOnboarding(user?.created_at);
   const [notifDismissed, setNotifDismissed] = useState(() => !!localStorage.getItem("nwt-notif-dismissed"));
 
   const showNotifBanner = user && profile && !profile.email_notifications_blog && !notifDismissed;

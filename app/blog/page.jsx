@@ -22,6 +22,26 @@ export const metadata = {
   },
 };
 
+const schemaBlog = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": "https://nwtprogress.com/blog",
+  name: "NWT Progress Blog",
+  description: "Spiritual insights, Bible study articles, and community reflections from the NWT Progress community.",
+  url: "https://nwtprogress.com/blog",
+  publisher: { "@type": "Organization", "@id": "https://nwtprogress.com/#organization" },
+  inLanguage: "en",
+};
+
+const schemaBreadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://nwtprogress.com" },
+    { "@type": "ListItem", position: 2, name: "Blog", item: "https://nwtprogress.com/blog" },
+  ],
+};
+
 export default async function BlogListPage() {
   const queryClient = new QueryClient();
 
@@ -33,8 +53,12 @@ export default async function BlogListPage() {
     .catch(() => {});
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ClientShell />
-    </HydrationBoundary>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBlog) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <ClientShell />
+      </HydrationBoundary>
+    </>
   );
 }

@@ -46,6 +46,10 @@
 }
 [data-theme=dark] .mp-streak { background: rgba(251,146,60,.08); border-color: rgba(251,146,60,.2); color: #fb923c; }
 
+@media (max-width: 480px) {
+  .mp-streak-suffix { display: none; }
+}
+
 /* Week selector */
 .mp-week-nav {
   display: flex;

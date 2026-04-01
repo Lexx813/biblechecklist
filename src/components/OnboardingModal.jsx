@@ -87,13 +87,21 @@ export default function OnboardingModal({ onClose, onUpgrade }) {
   );
 }
 
-export function useOnboarding() {
+export function useOnboarding(userCreatedAt) {
   const [show, setShow] = useState(false);
   useEffect(() => {
-    if (!localStorage.getItem("nwt-onboarded")) {
-      const t = setTimeout(() => setShow(true), 600);
-      return () => clearTimeout(t);
+    if (localStorage.getItem("nwt-onboarded")) return;
+    // Wait until we know the account age before deciding
+    if (userCreatedAt === undefined) return;
+    if (userCreatedAt) {
+      const ageMs = Date.now() - new Date(userCreatedAt).getTime();
+      if (ageMs > 2 * 24 * 60 * 60 * 1000) {
+        localStorage.setItem("nwt-onboarded", "1");
+        return;
+      }
     }
-  }, []);
+    const t = setTimeout(() => setShow(true), 600);
+    return () => clearTimeout(t);
+  }, [userCreatedAt]);
   return [show, () => setShow(false)];
 }

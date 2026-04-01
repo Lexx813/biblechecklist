@@ -47,27 +47,29 @@ const schemaWebApp = {
   "@type": "WebApplication",
   name: "NWT Progress",
   description:
-    "Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community.",
+    "A spiritual growth companion that teaches Jehovah's Witnesses how to study God's word — with reading tracking, meeting prep, quizzes, AI study tools, and a worldwide community.",
   url: "https://nwtprogress.com",
   image: "https://nwtprogress.com/og-image.webp",
-  applicationCategory: "ProductivityApplication",
+  applicationCategory: "EducationApplication",
   operatingSystem: "Web",
   browserRequirements: "Requires JavaScript. Requires a modern browser.",
   availability: "https://schema.org/OnlineOnly",
   inLanguage: ["en", "es", "pt", "fr", "tl", "zh"],
   screenshot: "https://nwtprogress.com/og-image.webp",
   featureList: [
-    "Bible reading progress tracker for all 66 books",
+    "Bible reading progress tracker for all 66 books of the New World Translation",
+    "Meeting prep checklists for CLAM and Watchtower study",
+    "AI study assistant for deep Bible study",
     "Bible knowledge quizzes with badge rewards",
-    "Community forum and blog",
-    "Reading plans and study notes",
-    "Direct messaging and study groups",
+    "Structured reading plans with streak tracking",
+    "Personal study notes tied to any passage or chapter",
+    "Community forum, blog, and study groups",
     "Offline support via PWA",
     "6-language support",
   ],
   offers: [
-    { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free Plan", description: "Track Bible reading progress, access blog, forum, and quiz" },
-    { "@type": "Offer", price: "3.00", priceCurrency: "USD", name: "Premium Plan", description: "Reading plans, study notes, direct messaging, and study groups" },
+    { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free Plan", description: "Bible reading tracker, community forum, blog, quiz, and leaderboard — free forever" },
+    { "@type": "Offer", price: "3.00", priceCurrency: "USD", name: "Premium Plan", description: "Reading plans, study notes, meeting prep, AI study assistant, direct messaging, and study groups" },
   ],
 };
 
@@ -83,11 +85,23 @@ const schemaOrg = {
     width: 512,
     height: 512,
   },
-  description: "A community-driven Bible reading tracker for the New World Translation",
-  contactPoint: { "@type": "ContactPoint", contactType: "customer support", availableLanguage: ["English", "Spanish", "Portuguese", "French", "Tagalog", "Chinese"] },
+  description: "A spiritual growth companion for Jehovah's Witnesses — Bible reading tracker, meeting prep, study tools, and worldwide community.",
+  email: "support@nwtprogress.com",
+  contactPoint: { "@type": "ContactPoint", email: "support@nwtprogress.com", contactType: "customer support", availableLanguage: ["English", "Spanish", "Portuguese", "French", "Tagalog", "Chinese"] },
 };
 
-const schemaWebSite = { "@context": "https://schema.org", "@type": "WebSite", "@id": "https://nwtprogress.com/#website", name: "NWT Progress", url: "https://nwtprogress.com/" };
+const schemaWebSite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://nwtprogress.com/#website",
+  name: "NWT Progress",
+  url: "https://nwtprogress.com/",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: { "@type": "EntryPoint", urlTemplate: "https://nwtprogress.com/?q={search_term_string}" },
+    "query-input": "required name=search_term_string",
+  },
+};
 
 export default function RootLayout({ children }) {
   return (

@@ -24,6 +24,7 @@ import {
 } from "../../hooks/useStudyNotes";
 import "../../styles/study-notes.css";
 import { formatDate, stripHtml } from "../../utils/formatters";
+import { sanitizeRich } from "../../lib/sanitize";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -199,8 +200,14 @@ function NoteEditor({ note, folders, onSave, onCancel, saving, isAdmin }) {
         <h2 className="sn-editor-title">{note ? t("studyNotes.editNote") : t("studyNotes.newNoteTitle")}</h2>
         {note && (
           <div className="sn-editor-export">
-            <button type="button" className="sn-export-btn" onClick={() => exportAsMarkdown(note)} title={t("studyNotes.exportMarkdown")}>⬇ .md</button>
-            <button type="button" className="sn-export-btn" onClick={() => exportAsPrint(note)} title={t("studyNotes.exportPdf")}>🖨 PDF</button>
+            <button type="button" className="sn-export-btn" onClick={() => exportAsMarkdown(note)} title={t("studyNotes.exportMarkdown")}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              .md
+            </button>
+            <button type="button" className="sn-export-btn" onClick={() => exportAsPrint(note)} title={t("studyNotes.exportPdf")}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              PDF
+            </button>
           </div>
         )}
       </div>
@@ -337,9 +344,17 @@ function NoteCard({ note, onClick, onDelete, onExportMd, onExportPdf, showAuthor
         )}
       </div>
       {showAuthor && note.author && (
-        <span className="sn-card-author">👤 {note.author.display_name}</span>
+        <span className="sn-card-author">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{display:"inline",verticalAlign:"middle",marginRight:4}}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          {note.author.display_name}
+        </span>
       )}
-      {passage && <span className="sn-card-passage">📖 {passage}</span>}
+      {passage && (
+        <span className="sn-card-passage">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{display:"inline",verticalAlign:"middle",marginRight:4}}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          {passage}
+        </span>
+      )}
       {preview && <p className="sn-card-preview">{preview}{preview.length >= 140 ? "…" : ""}</p>}
       <div className="sn-card-footer">
         <div className="sn-card-tags">
@@ -358,13 +373,87 @@ function NoteCard({ note, onClick, onDelete, onExportMd, onExportPdf, showAuthor
             </button>
           )}
           {onExportMd && (
-            <button className="sn-card-export-btn" onClick={e => { e.stopPropagation(); onExportMd(note); }} title={t("studyNotes.exportMarkdown")}>⬇</button>
+            <button className="sn-card-export-btn" onClick={e => { e.stopPropagation(); onExportMd(note); }} title={t("studyNotes.exportMarkdown")} aria-label={t("studyNotes.exportMarkdown")}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </button>
           )}
           <span className="sn-card-date">{formatDate(note.updated_at)}</span>
         </div>
       </div>
       {note.is_public && <span className="sn-public-badge">{t("studyNotes.public")}</span>}
     </div>
+  );
+}
+
+// ── Community note view modal ─────────────────────────────────────────────────
+
+function NoteViewModal({ note, userId, onClose, onLike, onDelete }) {
+  const { t } = useTranslation();
+  const passage = passageLabel(note);
+  const isOwner = note.user_id === userId;
+
+  function handleOverlayClick(e) {
+    if (e.target === e.currentTarget) onClose();
+  }
+
+  return createPortal(
+    <div className="sn-view-overlay" role="dialog" aria-modal="true" onClick={handleOverlayClick}>
+      <div className="sn-view-modal">
+        <div className="sn-view-header">
+          <div className="sn-view-meta">
+            {note.author && (
+              <span className="sn-view-author">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{display:"inline",verticalAlign:"middle",marginRight:4}}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                {note.author.display_name}
+              </span>
+            )}
+            {passage && (
+              <span className="sn-view-passage">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{display:"inline",verticalAlign:"middle",marginRight:4}}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                {passage}
+              </span>
+            )}
+          </div>
+          <button className="sn-view-close" onClick={onClose} aria-label={t("common.close")}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <h2 className="sn-view-title">{note.title || t("studyNotes.untitled")}</h2>
+
+        {(note.tags ?? []).length > 0 && (
+          <div className="sn-view-tags">
+            {note.tags.map(tag => <span key={tag} className="sn-tag-chip">#{tag}</span>)}
+          </div>
+        )}
+
+        <div
+          className="sn-view-content rich-content"
+          dangerouslySetInnerHTML={{ __html: sanitizeRich(note.content) }}
+        />
+
+        <div className="sn-view-footer">
+          <button
+            className={`sn-like-btn${note.user_has_liked ? " sn-like-btn--liked" : ""}`}
+            onClick={() => onLike(note.id)}
+            aria-label={note.user_has_liked ? "Unlike" : "Like"}
+          >
+            {note.user_has_liked ? "♥" : "♡"}{note.like_count > 0 ? ` ${note.like_count}` : ""}
+          </button>
+          <span className="sn-card-date">{formatDate(note.updated_at)}</span>
+          {isOwner && (
+            <button
+              className="sn-view-delete"
+              onClick={() => { onDelete(note.id); onClose(); }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+              {t("common.delete")}
+            </button>
+          )}
+        </div>
+      </div>
+    </div>,
+    document.body
   );
 }
 
@@ -422,7 +511,8 @@ function FolderSidebar({ folders, activeFolder, onSelect, onCreate, onRename, on
         className={`sn-folder-item${activeFolder === null ? " sn-folder-item--active" : ""}`}
         onClick={() => onSelect(null)}
       >
-        📁 {t("studyNotes.allNotes")}
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        {t("studyNotes.allNotes")}
       </button>
 
       {folders.map(f => (
@@ -449,7 +539,8 @@ function FolderSidebar({ folders, activeFolder, onSelect, onCreate, onRename, on
                 className={`sn-folder-item${activeFolder === f.id ? " sn-folder-item--active" : ""}`}
                 onClick={() => onSelect(f.id)}
               >
-                📂 {f.name}
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{display:"inline",verticalAlign:"middle",marginRight:5}}><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                {f.name}
               </button>
               <button className="sn-folder-edit-btn" onClick={() => { setRenamingId(f.id); setRenameVal(f.name); }} title={t("common.edit")} aria-label={t("common.edit")}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
@@ -702,6 +793,7 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
     } catch { return null; }
   });
   const [search, setSearch] = useState("");
+  const [viewingNote, setViewingNote] = useState(null);
   const [noteToDelete, setNoteToDelete] = useState(null);
   const [activeTag, setActiveTag] = useState(null);
   const [activeFolder, setActiveFolder] = useState(null);
@@ -845,7 +937,7 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
         <div className="sn-tag-filter">
           <button
             className={`sn-filter-chip${!activeTag ? " sn-filter-chip--active" : ""}`}
-            onClick={() => setActiveTag(null)}
+            onClick={() => { setActiveTag(null); setSearch(""); setActiveFolder(null); }}
           >{t("studyNotes.all")}</button>
           {allTags.map(tag => (
             <button
@@ -929,7 +1021,7 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
                   <NoteCard
                     key={note.id}
                     note={note}
-                    onClick={() => {}}
+                    onClick={() => setViewingNote(note)}
                     showAuthor
                     onLike={(id) => toggleLike.mutate(id)}
                   />
@@ -939,6 +1031,23 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
           )}
         </div>
       </div>
+
+      {viewingNote && (
+        <NoteViewModal
+          note={viewingNote}
+          userId={user?.id}
+          onClose={() => setViewingNote(null)}
+          onLike={(id) => {
+            toggleLike.mutate(id);
+            setViewingNote(n => n ? {
+              ...n,
+              user_has_liked: !n.user_has_liked,
+              like_count: n.like_count + (n.user_has_liked ? -1 : 1),
+            } : n);
+          }}
+          onDelete={(id) => setNoteToDelete(id)}
+        />
+      )}
 
       {noteToDelete && (
         <ConfirmModal

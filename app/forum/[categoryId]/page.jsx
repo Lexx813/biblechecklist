@@ -30,6 +30,12 @@ export async function generateMetadata({ params }) {
 export default async function ForumCategoryPage({ params }) {
   const queryClient = new QueryClient();
 
+  let categoryName = null;
+  try {
+    const categories = await forumApi.listCategories();
+    categoryName = categories.find((c) => c.id === params.categoryId)?.name ?? null;
+  } catch {}
+
   await Promise.allSettled([
     queryClient.prefetchQuery({
       queryKey: ["forum", "categories"],
@@ -41,9 +47,24 @@ export default async function ForumCategoryPage({ params }) {
     }),
   ]);
 
+  const schemaBreadcrumb = categoryName ? {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://nwtprogress.com" },
+      { "@type": "ListItem", position: 2, name: "Forum", item: "https://nwtprogress.com/forum" },
+      { "@type": "ListItem", position: 3, name: categoryName, item: `https://nwtprogress.com/forum/${params.categoryId}` },
+    ],
+  } : null;
+
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ClientShell />
-    </HydrationBoundary>
+    <>
+      {schemaBreadcrumb && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      )}
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <ClientShell />
+      </HydrationBoundary>
+    </>
   );
 }
