@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import { useTopThreads } from "../hooks/useForum";
@@ -8,10 +8,12 @@ import { BOOKS } from "../data/books";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
 import DailyVerse from "../components/home/DailyVerse";
+import TodaysFocusCard from "../components/home/TodaysFocusCard";
 import PageNav from "../components/PageNav";
 import SectionHeader from "../components/SectionHeader";
 import EmptyState from "../components/EmptyState";
 import OnboardingModal, { useOnboarding } from "../components/OnboardingModal";
+import UpgradePrompt, { isDismissed, dismissPrompt } from "../components/UpgradePrompt";
 import "../styles/home.css";
 
 const GRADIENTS = [
@@ -21,6 +23,35 @@ const GRADIENTS = [
   "linear-gradient(135deg, #6A3DAA 0%, #C084FC 100%)",
   "linear-gradient(135deg, #2D1B4E 0%, #8E44AD 100%)",
   "linear-gradient(135deg, #3B1F6E 0%, #7B2FBE 100%)",
+];
+
+const STREAK_MILESTONES = [7, 14, 30, 60, 90, 180, 365];
+
+const BANNER_ROTATIONS = [
+  {
+    icon: "📅",
+    title: "Reading Plans",
+    sub: "Daily assignments. Streaks. Finish the Bible in 1 year.",
+    cta: "Explore Plans →",
+  },
+  {
+    icon: "📝",
+    title: "Study Notes",
+    sub: "Rich-text notes for any chapter. Export to Markdown or PDF.",
+    cta: "Try Notes →",
+  },
+  {
+    icon: "✨",
+    title: "AI Study Assistant",
+    sub: "Ask anything about any verse. Grounded in Scripture.",
+    cta: "Try AI Tools →",
+  },
+  {
+    icon: "📋",
+    title: "Meeting Prep",
+    sub: "CLAM + Watchtower checklists. Never miss an assignment.",
+    cta: "Open Meeting Prep →",
+  },
 ];
 
 function getGradient(id) {
@@ -61,6 +92,7 @@ function ForumSkeleton() {
 
 export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, isPremium, onUpgrade }) {
   const { t } = useTranslation();
+  const lang = i18n?.language?.split("-")[0] ?? "en";
   const { data: posts = [], isLoading: postsLoading } = usePublishedPosts();
   const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4);
   const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes();
@@ -71,8 +103,21 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
   const [showOnboarding, closeOnboarding] = useOnboarding(user?.created_at);
   const [notifDismissed, setNotifDismissed] = useState(() => !!localStorage.getItem("nwt-notif-dismissed"));
+  const [showStreakPrompt, setShowStreakPrompt] = useState(false);
+  const [streakMilestone, setStreakMilestone] = useState(null);
 
   const showNotifBanner = user && profile && !profile.email_notifications_blog && !notifDismissed;
+
+  useEffect(() => {
+    if (isPremium || streakLoading) return;
+    const n = streak.current_streak;
+    if (!STREAK_MILESTONES.includes(n)) return;
+    const key = `streak-milestone-${n}`;
+    if (!isDismissed(key)) {
+      setStreakMilestone(n);
+      setShowStreakPrompt(true);
+    }
+  }, [streak.current_streak, isPremium, streakLoading]);
 
   function handleEnableNotif() {
     updateProfile.mutate({ email_notifications_blog: true });
@@ -93,6 +138,9 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
     if (newest && !seen.has(newest.id)) result.push(newest);
     return result.slice(0, 3);
   }, [posts]);
+
+  // eslint-disable-next-line react-hooks/purity -- Date.now() evaluated once per session; rotation changes weekly
+  const bannerRotation = BANNER_ROTATIONS[Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000)) % BANNER_ROTATIONS.length];
 
   return (
     <div className="home-wrap">
@@ -127,6 +175,17 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
         {/* ── MAIN column: feature cards ── */}
         <div className="home-col-main">
+
+          {/* ── Today's Focus ── */}
+          <section className="home-section">
+            <TodaysFocusCard
+              userId={user?.id}
+              navigate={navigate}
+              isPremium={isPremium}
+              onUpgrade={onUpgrade}
+              lang={lang}
+            />
+          </section>
 
           {/* Bible Tracker */}
           <section className="home-section">
@@ -279,12 +338,12 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {!isPremium && (
             <section className="home-section home-section--slim">
               <button className="home-premium-banner" onClick={onUpgrade}>
-                <span className="home-premium-banner-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg></span>
+                <span className="home-premium-banner-icon" aria-hidden="true">{bannerRotation.icon}</span>
                 <div className="home-premium-banner-text">
-                  <strong>{t("upm.bannerTitle")}</strong>
-                  <span>{t("upm.bannerSub")}</span>
+                  <strong>{bannerRotation.title}</strong>
+                  <span>{bannerRotation.sub}</span>
                 </div>
-                <span className="home-premium-banner-cta">{t("upm.bannerCta")}</span>
+                <span className="home-premium-banner-cta">{bannerRotation.cta}</span>
               </button>
             </section>
           )}
@@ -405,6 +464,24 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
       </main>
 
+      {showStreakPrompt && (
+        <UpgradePrompt
+          icon="🔥"
+          title={`${streak.current_streak}-day streak!`}
+          message="Keep it structured — reading plans give you a daily assignment so you always know exactly what to read next."
+          ctaLabel="View Reading Plans"
+          onCta={() => {
+            dismissPrompt(`streak-milestone-${streakMilestone}`);
+            setShowStreakPrompt(false);
+            navigate("readingPlans");
+          }}
+          onDismiss={() => {
+            dismissPrompt(`streak-milestone-${streakMilestone}`);
+            setShowStreakPrompt(false);
+          }}
+        />
+      )}
+
       {showNotifBanner && (
         <div className="home-notif-banner">
           <span className="home-notif-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>
@@ -419,7 +496,14 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         </div>
       )}
 
-      {showOnboarding && <OnboardingModal onClose={closeOnboarding} onUpgrade={onUpgrade} />}
+      {showOnboarding && (
+        <OnboardingModal
+          onClose={closeOnboarding}
+          onUpgrade={onUpgrade}
+          navigate={navigate}
+          user={user}
+        />
+      )}
     </div>
   );
 }

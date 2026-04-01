@@ -11,6 +11,7 @@ import {
   useSubmitQuiz,
   useInitQuizProgress,
 } from "../../hooks/useQuiz";
+import UpgradePrompt, { isDismissed, dismissPrompt } from "../../components/UpgradePrompt";
 import "../../styles/quiz.css";
 
 const LEVELS = [
@@ -107,12 +108,22 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
   const { t } = useTranslation();
   const { data: progress = [], isLoading } = useQuizProgress(user.id);
   const initProgress = useInitQuizProgress(user.id);
+  const [showQuizPrompt, setShowQuizPrompt] = useState(false);
+  const { isPremium } = useSubscription(user.id);
 
   // Ensure level 1 is unlocked on first visit
   useEffect(() => {
     initProgress.mutate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const badgeCount = progress.filter(p => p.badge_earned).length;
+
+  useEffect(() => {
+    if (isPremium || isLoading) return;
+    if (badgeCount !== 3) return;
+    if (!isDismissed("quiz-3-badges")) setShowQuizPrompt(true);
+  }, [badgeCount, isPremium, isLoading]);
 
   const progressMap = Object.fromEntries(progress.map((p) => [p.level, p]));
 
@@ -141,6 +152,23 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
           </div>
         )}
       </div>
+      {showQuizPrompt && (
+        <UpgradePrompt
+          icon="🧠"
+          title="Go deeper with AI"
+          message="Ask the AI study assistant anything about the verses you just answered. Understand the context, not just the answer."
+          ctaLabel="Try AI Study Tools"
+          onCta={() => {
+            dismissPrompt("quiz-3-badges");
+            setShowQuizPrompt(false);
+            navigate("aiTools");
+          }}
+          onDismiss={() => {
+            dismissPrompt("quiz-3-badges");
+            setShowQuizPrompt(false);
+          }}
+        />
+      )}
     </div>
   );
 }

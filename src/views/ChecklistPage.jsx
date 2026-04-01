@@ -10,6 +10,7 @@ import ConfirmModal from "../components/ConfirmModal";
 import ReadingPlanWidget from "../components/reading/ReadingPlanWidget";
 import ProgressShare from "../components/share/ProgressShare";
 import BookCelebration from "../components/BookCelebration";
+import UpgradePrompt, { isDismissed, dismissPrompt } from "../components/UpgradePrompt";
 import { useProgress, useSaveProgress, useChapterTimestamps, useReadingStreak } from "../hooks/useProgress";
 import { useSubscription } from "../hooks/useSubscription";
 import { useFeatureFlags } from "../hooks/useFeatureFlags";
@@ -52,6 +53,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   const [showShare, setShowShare] = useState(false);
   const [celebrateBook, setCelebrateBook] = useState(null); // { name, icon, chapters }
   const [noteModal, setNoteModal] = useState(null); // { bookIndex } | null
+  const [showBookPrompt, setShowBookPrompt] = useState(false);
 
   // Populate state once remote progress has loaded
   useEffect(() => {
@@ -325,7 +327,27 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
             bookIcon={celebrateBook.icon}
             chaptersCount={celebrateBook.chapters}
             totalDoneBooks={doneBooks}
-            onClose={() => setCelebrateBook(null)}
+            onClose={() => {
+              setCelebrateBook(null);
+              if (!isPremium && !isDismissed("book-complete")) setShowBookPrompt(true);
+            }}
+          />
+        )}
+        {showBookPrompt && (
+          <UpgradePrompt
+            icon="📅"
+            title="Keep the momentum going"
+            message="Join a reading plan to work through the whole NWT with a daily schedule and streak tracking."
+            ctaLabel="View Reading Plans"
+            onCta={() => {
+              dismissPrompt("book-complete");
+              setShowBookPrompt(false);
+              navigate("readingPlans");
+            }}
+            onDismiss={() => {
+              dismissPrompt("book-complete");
+              setShowBookPrompt(false);
+            }}
           />
         )}
 
