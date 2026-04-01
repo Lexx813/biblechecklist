@@ -26,6 +26,33 @@ const GRADIENTS = [
 
 const STREAK_MILESTONES = [7, 14, 30, 60, 90, 180, 365];
 
+const BANNER_ROTATIONS = [
+  {
+    icon: "📅",
+    title: "Reading Plans",
+    sub: "Daily assignments. Streaks. Finish the Bible in 1 year.",
+    cta: "Explore Plans →",
+  },
+  {
+    icon: "📝",
+    title: "Study Notes",
+    sub: "Rich-text notes for any chapter. Export to Markdown or PDF.",
+    cta: "Try Notes →",
+  },
+  {
+    icon: "✨",
+    title: "AI Study Assistant",
+    sub: "Ask anything about any verse. Grounded in Scripture.",
+    cta: "Try AI Tools →",
+  },
+  {
+    icon: "📋",
+    title: "Meeting Prep",
+    sub: "CLAM + Watchtower checklists. Never miss an assignment.",
+    cta: "Open Meeting Prep →",
+  },
+];
+
 function getGradient(id) {
   return GRADIENTS[(id?.charCodeAt(0) ?? 0) % GRADIENTS.length];
 }
@@ -109,6 +136,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
     if (newest && !seen.has(newest.id)) result.push(newest);
     return result.slice(0, 3);
   }, [posts]);
+
+  const bannerRotation = BANNER_ROTATIONS[Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000)) % BANNER_ROTATIONS.length];
 
   return (
     <div className="home-wrap">
@@ -295,12 +324,12 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {!isPremium && (
             <section className="home-section home-section--slim">
               <button className="home-premium-banner" onClick={onUpgrade}>
-                <span className="home-premium-banner-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg></span>
+                <span className="home-premium-banner-icon" aria-hidden="true">{bannerRotation.icon}</span>
                 <div className="home-premium-banner-text">
-                  <strong>{t("upm.bannerTitle")}</strong>
-                  <span>{t("upm.bannerSub")}</span>
+                  <strong>{bannerRotation.title}</strong>
+                  <span>{bannerRotation.sub}</span>
                 </div>
-                <span className="home-premium-banner-cta">{t("upm.bannerCta")}</span>
+                <span className="home-premium-banner-cta">{bannerRotation.cta}</span>
               </button>
             </section>
           )}
