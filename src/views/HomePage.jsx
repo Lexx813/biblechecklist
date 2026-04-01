@@ -8,6 +8,7 @@ import { BOOKS } from "../data/books";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
 import DailyVerse from "../components/home/DailyVerse";
+import TodaysFocusCard from "../components/home/TodaysFocusCard";
 import PageNav from "../components/PageNav";
 import SectionHeader from "../components/SectionHeader";
 import EmptyState from "../components/EmptyState";
@@ -91,6 +92,7 @@ function ForumSkeleton() {
 
 export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, isPremium, onUpgrade }) {
   const { t } = useTranslation();
+  const lang = i18n?.language?.split("-")[0] ?? "en";
   const { data: posts = [], isLoading: postsLoading } = usePublishedPosts();
   const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4);
   const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes();
@@ -172,6 +174,17 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
         {/* ── MAIN column: feature cards ── */}
         <div className="home-col-main">
+
+          {/* ── Today's Focus ── */}
+          <section className="home-section">
+            <TodaysFocusCard
+              userId={user?.id}
+              navigate={navigate}
+              isPremium={isPremium}
+              onUpgrade={onUpgrade}
+              lang={lang}
+            />
+          </section>
 
           {/* Bible Tracker */}
           <section className="home-section">
@@ -482,7 +495,14 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         </div>
       )}
 
-      {showOnboarding && <OnboardingModal onClose={closeOnboarding} onUpgrade={onUpgrade} />}
+      {showOnboarding && (
+        <OnboardingModal
+          onClose={closeOnboarding}
+          onUpgrade={onUpgrade}
+          navigate={navigate}
+          user={user}
+        />
+      )}
     </div>
   );
 }
