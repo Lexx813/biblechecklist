@@ -30,10 +30,10 @@ export function useMessages(conversationId) {
           queryClient.setQueryData(["messages", conversationId], (old = []) => {
             if (old.some((m) => m.id === payload.new.id)) return old;
             const cleaned = old.filter((m) => !String(m.id).startsWith("optimistic-"));
-            return [...cleaned, payload.new];
+            // Reuse sender profile already in cache if available — avoids a full refetch
+            const sender = old.find((m) => m.sender?.id === payload.new.sender_id)?.sender ?? null;
+            return [...cleaned, { ...payload.new, sender }];
           });
-          // Refetch to get full message data (sender profile join) for both sender and receiver
-          queryClient.invalidateQueries({ queryKey: ["messages", conversationId] });
           queryClient.invalidateQueries({ queryKey: ["conversations"] });
         }
       )

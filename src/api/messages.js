@@ -27,7 +27,8 @@ export const messagesApi = {
         .select("id, conversation_id, content, created_at, sender_id, message_type")
         .in("conversation_id", convIds)
         .is("deleted_at", null)
-        .order("created_at", { ascending: false }),
+        .order("created_at", { ascending: false })
+        .limit(200),
     ]);
     if (e2) throw new Error(e2.message);
     if (e3) throw new Error(e3.message);
