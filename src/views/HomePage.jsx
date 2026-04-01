@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import { useTopThreads } from "../hooks/useForum";
@@ -12,6 +12,7 @@ import PageNav from "../components/PageNav";
 import SectionHeader from "../components/SectionHeader";
 import EmptyState from "../components/EmptyState";
 import OnboardingModal, { useOnboarding } from "../components/OnboardingModal";
+import UpgradePrompt, { isDismissed, dismissPrompt } from "../components/UpgradePrompt";
 import "../styles/home.css";
 
 const GRADIENTS = [
@@ -22,6 +23,8 @@ const GRADIENTS = [
   "linear-gradient(135deg, #2D1B4E 0%, #8E44AD 100%)",
   "linear-gradient(135deg, #3B1F6E 0%, #7B2FBE 100%)",
 ];
+
+const STREAK_MILESTONES = [7, 14, 30, 60, 90, 180, 365];
 
 function getGradient(id) {
   return GRADIENTS[(id?.charCodeAt(0) ?? 0) % GRADIENTS.length];
@@ -71,8 +74,17 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
   const [showOnboarding, closeOnboarding] = useOnboarding(user?.created_at);
   const [notifDismissed, setNotifDismissed] = useState(() => !!localStorage.getItem("nwt-notif-dismissed"));
+  const [showStreakPrompt, setShowStreakPrompt] = useState(false);
 
   const showNotifBanner = user && profile && !profile.email_notifications_blog && !notifDismissed;
+
+  useEffect(() => {
+    if (isPremium || streakLoading) return;
+    const n = streak.current_streak;
+    if (!STREAK_MILESTONES.includes(n)) return;
+    const key = `streak-milestone-${n}`;
+    if (!isDismissed(key)) setShowStreakPrompt(true);
+  }, [streak.current_streak, isPremium, streakLoading]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function handleEnableNotif() {
     updateProfile.mutate({ email_notifications_blog: true });
@@ -404,6 +416,24 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
 
       </main>
+
+      {showStreakPrompt && (
+        <UpgradePrompt
+          icon="🔥"
+          title={`${streak.current_streak}-day streak!`}
+          message="Keep it structured — reading plans give you a daily assignment so you always know exactly what to read next."
+          ctaLabel="View Reading Plans"
+          onCta={() => {
+            dismissPrompt(`streak-milestone-${streak.current_streak}`);
+            setShowStreakPrompt(false);
+            navigate("readingPlans");
+          }}
+          onDismiss={() => {
+            dismissPrompt(`streak-milestone-${streak.current_streak}`);
+            setShowStreakPrompt(false);
+          }}
+        />
+      )}
 
       {showNotifBanner && (
         <div className="home-notif-banner">
