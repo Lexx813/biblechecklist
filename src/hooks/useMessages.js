@@ -27,13 +27,18 @@ export function useMessages(conversationId) {
         { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${conversationId}` },
         (payload) => {
           if (!payload?.new?.id) return;
+          let needsProfileRefetch = false;
           queryClient.setQueryData(["messages", conversationId], (old = []) => {
             if (old.some((m) => m.id === payload.new.id)) return old;
             const cleaned = old.filter((m) => !String(m.id).startsWith("optimistic-"));
-            // Reuse sender profile already in cache if available — avoids a full refetch
             const sender = old.find((m) => m.sender?.id === payload.new.sender_id)?.sender ?? null;
+            if (!sender) needsProfileRefetch = true;
             return [...cleaned, { ...payload.new, sender }];
           });
+          // If sender profile wasn't in cache, refetch to get the joined profile data
+          if (needsProfileRefetch) {
+            queryClient.invalidateQueries({ queryKey: ["messages", conversationId] });
+          }
           queryClient.invalidateQueries({ queryKey: ["conversations"] });
         }
       )
@@ -55,8 +60,7 @@ export function useMessages(conversationId) {
     queryKey: ["messages", conversationId],
     queryFn: () => messagesApi.getMessages(conversationId),
     enabled: !!conversationId,
-    staleTime: 30_000,
-    refetchInterval: 30_000,
+    staleTime: 60_000,
   });
 }
 

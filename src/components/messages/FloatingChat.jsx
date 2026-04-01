@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { EMOJI_CATEGORIES } from "../../lib/emojiData";
 import ConfirmModal from "../ConfirmModal";
@@ -820,6 +820,7 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
   const [showEmoji, setShowEmoji] = useState(false);
   const [replyTo, setReplyTo] = useState(null);
   const [decryptedMessages, setDecryptedMessages] = useState([]);
+  const decryptCacheRef = useRef(new Map());
   const [isOtherTyping, setIsOtherTyping] = useState(false);
   const [isOtherOnline, setIsOtherOnline] = useState(false);
   const [showVersePicker, setShowVersePicker] = useState(false);
@@ -863,14 +864,18 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
   useEffect(() => {
     if (!messages.length) { setDecryptedMessages((prev) => prev.length ? [] : prev); return; }
     let cancelled = false;
+    const cache = decryptCacheRef.current;
     async function decrypt() {
       const results = await Promise.all(
-        messages.map(async (msg) => ({
-          ...msg,
-          content: (msg.message_type === "text" || msg.message_type === "prayer_request") && sharedKey
+        messages.map(async (msg) => {
+          const cacheKey = `${msg.id}:${msg.content}`;
+          if (cache.has(cacheKey)) return { ...msg, content: cache.get(cacheKey) };
+          const decrypted = (msg.message_type === "text" || msg.message_type === "prayer_request") && sharedKey
             ? await decryptMessage(msg.content, sharedKey)
-            : msg.content?.startsWith("enc:") ? "[🔒 Encrypted message]" : msg.content,
-        }))
+            : msg.content?.startsWith("enc:") ? "[🔒 Encrypted message]" : msg.content;
+          cache.set(cacheKey, decrypted);
+          return { ...msg, content: decrypted };
+        })
       );
       if (!cancelled) setDecryptedMessages(results);
     }
@@ -994,8 +999,8 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
     });
   }
 
-  const items = groupByDay(decryptedMessages, t);
-  const myLastMsgIdx = decryptedMessages.reduce((acc, m, i) => m.sender_id === user.id ? i : acc, -1);
+  const items = useMemo(() => groupByDay(decryptedMessages, t), [decryptedMessages, t]);
+  const myLastMsgIdx = useMemo(() => decryptedMessages.reduce((acc, m, i) => m.sender_id === user.id ? i : acc, -1), [decryptedMessages, user.id]);
   const accentStyle = accentColor ? { "--conv-accent": accentColor } : {};
 
   if (showStarred) return <StarredPanel convId={conv.conversation_id} userId={user.id} onClose={() => setShowStarred(false)} />;

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo, memo } from "react";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
 import { usePushNotifications } from "../../hooks/usePushNotifications";
@@ -536,7 +536,7 @@ function MSGPlanPicker({ onSend, onClose }) {
 
 // ── Message bubble ────────────────────────────────────────────────────────────
 
-function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, onStar, showSeen, reactions, userId, onToggleReaction, allMessages }) {
+const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, onStar, showSeen, reactions, userId, onToggleReaction, allMessages }) {
   const { t } = useTranslation();
   const [showActions, setShowActions] = useState(false);
   const isStarred = Array.isArray(msg.starred_by) && msg.starred_by.includes(userId);
@@ -650,7 +650,7 @@ function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, onStar, showSee
       )}
     </div>
   );
-}
+});
 
 // ── Typing indicator ──────────────────────────────────────────────────────────
 
@@ -731,6 +731,7 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
   const [newMsgCount, setNewMsgCount] = useState(0);
   const [replyTo, setReplyTo] = useState(null);
   const [decryptedMessages, setDecryptedMessages] = useState([]);
+  const decryptCacheRef = useRef(new Map());
   const [isOtherTyping, setIsOtherTyping] = useState(false);
   const [isOtherOnline, setIsOtherOnline] = useState(false);
   const [otherLastSeen, setOtherLastSeen] = useState(null);
@@ -765,22 +766,26 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
   // Mark read on open
   useEffect(() => { markRead.mutate(); }, [conv.conversation_id]);
 
-  // Decrypt all messages
+  // Decrypt only new/changed messages — cache previously decrypted content
   useEffect(() => {
     if (!messages.length) { setDecryptedMessages([]); return; }
     let cancelled = false;
-    async function decryptAll() {
+    const cache = decryptCacheRef.current;
+    async function decryptIncremental() {
       const results = await Promise.all(
-        messages.map(async (msg) => ({
-          ...msg,
-          content: sharedKey
+        messages.map(async (msg) => {
+          const cacheKey = `${msg.id}:${msg.content}`;
+          if (cache.has(cacheKey)) return { ...msg, content: cache.get(cacheKey) };
+          const decrypted = sharedKey
             ? await decryptMessage(msg.content, sharedKey)
-            : msg.content?.startsWith("enc:") ? "[🔒 Encrypted message]" : msg.content,
-        }))
+            : msg.content?.startsWith("enc:") ? "[🔒 Encrypted message]" : msg.content;
+          cache.set(cacheKey, decrypted);
+          return { ...msg, content: decrypted };
+        })
       );
       if (!cancelled) setDecryptedMessages(results);
     }
-    decryptAll();
+    decryptIncremental();
     return () => { cancelled = true; };
   }, [messages, sharedKey]);
 
@@ -976,12 +981,13 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
   }
 
   const otherLastRead = conv.other_last_read_at ? new Date(conv.other_last_read_at) : null;
-  const myMsgs = decryptedMessages.filter(m => m.sender_id === user.id && !String(m.id).startsWith("optimistic"));
-  const lastSeenId = otherLastRead
-    ? myMsgs.filter(m => new Date(m.created_at) <= otherLastRead).at(-1)?.id ?? null
-    : null;
+  const lastSeenId = useMemo(() => {
+    if (!otherLastRead) return null;
+    const myMsgs = decryptedMessages.filter(m => m.sender_id === user.id && !String(m.id).startsWith("optimistic"));
+    return myMsgs.filter(m => new Date(m.created_at) <= otherLastRead).at(-1)?.id ?? null;
+  }, [decryptedMessages, user.id, otherLastRead]);
 
-  const grouped = groupByDay(decryptedMessages, t);
+  const grouped = useMemo(() => groupByDay(decryptedMessages, t), [decryptedMessages, t]);
   const nearLimit = input.length > 1800;
   const isEncrypted = !!sharedKey;
 
