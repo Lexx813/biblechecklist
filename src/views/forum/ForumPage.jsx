@@ -319,21 +319,6 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                 {timeAgo(thread.created_at, t)}
                 {isEdited(thread) && <span className="forum-edited-tag"> · {t("forum.edited")}</span>}
               </span>
-              {thread.author_id !== user.id && (
-                <button
-                  className={`forum-msg-btn${!isPremium ? " forum-msg-btn--locked" : ""}`}
-                  disabled={getOrCreateDM.isPending}
-                  onClick={isPremium
-                    ? () => getOrCreateDM.mutate(thread.author_id, {
-                        onSuccess: (cid) => navigate("messages", { conversationId: cid, otherDisplayName: displayName(thread.profiles), otherAvatarUrl: thread.profiles?.avatar_url ?? null }),
-                      })
-                    : onUpgrade
-                  }
-                >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                  {t("common.message", "Message")}{!isPremium && <span className="msg-btn-pro-badge">✦</span>}
-                </button>
-              )}
             </div>
           </div>
           {editing ? (
@@ -388,14 +373,29 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                   onToggle={(ct, cid, emoji) => toggleReaction.mutate({ contentType: ct, contentId: cid, emoji })}
                 />
                 {thread.author_id !== user.id && (
-                  <button
-                    className="forum-report-btn"
-                    onClick={e => { e.stopPropagation(); setReportTarget({ type: "thread", id: thread.id, preview: thread.title }); }}
-                    title={t("report.flag")}
-                    aria-label={t("report.flag")}
-                  >
-                    <IconFlag />
-                  </button>
+                  <>
+                    <button
+                      className={`forum-msg-btn${!isPremium ? " forum-msg-btn--locked" : ""}`}
+                      disabled={getOrCreateDM.isPending}
+                      onClick={isPremium
+                        ? () => getOrCreateDM.mutate(thread.author_id, {
+                            onSuccess: (cid) => navigate("messages", { conversationId: cid, otherDisplayName: displayName(thread.profiles), otherAvatarUrl: thread.profiles?.avatar_url ?? null }),
+                          })
+                        : onUpgrade
+                      }
+                    >
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                      {t("common.message", "Message")}{!isPremium && <span className="msg-btn-pro-badge">✦</span>}
+                    </button>
+                    <button
+                      className="forum-report-btn"
+                      onClick={e => { e.stopPropagation(); setReportTarget({ type: "thread", id: thread.id, preview: thread.title }); }}
+                      title={t("report.flag")}
+                      aria-label={t("report.flag")}
+                    >
+                      <IconFlag />
+                    </button>
+                  </>
                 )}
               </div>
             </>
@@ -437,21 +437,6 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                         {timeAgo(reply.created_at, t)}
                         {isEdited(reply) && <span className="forum-edited-tag"> · {t("forum.edited")}</span>}
                       </span>
-                      {reply.author_id !== user.id && (
-                        <button
-                          className={`forum-msg-btn${!isPremium ? " forum-msg-btn--locked" : ""}`}
-                          disabled={getOrCreateDM.isPending}
-                          onClick={isPremium
-                            ? () => getOrCreateDM.mutate(reply.author_id, {
-                                onSuccess: (cid) => navigate("messages", { conversationId: cid, otherDisplayName: displayName(reply.profiles), otherAvatarUrl: reply.profiles?.avatar_url ?? null }),
-                              })
-                            : onUpgrade
-                          }
-                        >
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                          {t("common.message", "Message")}{!isPremium && <span className="msg-btn-pro-badge">✦</span>}
-                        </button>
-                      )}
                     </div>
                   </div>
                   {isEditingThis ? (
@@ -541,14 +526,29 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                         </>
                       )}
                       {reply.author_id !== user.id && (
-                        <button
-                          className="forum-report-btn"
-                          onClick={e => { e.stopPropagation(); setReportTarget({ type: "reply", id: reply.id, preview: reply.content?.replace(/<[^>]*>/g, "").slice(0, 80) ?? "" }); }}
-                          title={t("report.flag")}
-                          aria-label={t("report.flag")}
-                        >
-                          <IconFlag />
-                        </button>
+                        <>
+                          <button
+                            className={`forum-msg-btn${!isPremium ? " forum-msg-btn--locked" : ""}`}
+                            disabled={getOrCreateDM.isPending}
+                            onClick={isPremium
+                              ? () => getOrCreateDM.mutate(reply.author_id, {
+                                  onSuccess: (cid) => navigate("messages", { conversationId: cid, otherDisplayName: displayName(reply.profiles), otherAvatarUrl: reply.profiles?.avatar_url ?? null }),
+                                })
+                              : onUpgrade
+                            }
+                          >
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            {t("common.message", "Message")}{!isPremium && <span className="msg-btn-pro-badge">✦</span>}
+                          </button>
+                          <button
+                            className="forum-report-btn"
+                            onClick={e => { e.stopPropagation(); setReportTarget({ type: "reply", id: reply.id, preview: reply.content?.replace(/<[^>]*>/g, "").slice(0, 80) ?? "" }); }}
+                            title={t("report.flag")}
+                            aria-label={t("report.flag")}
+                          >
+                            <IconFlag />
+                          </button>
+                        </>
                       )}
                     </div>
                   )}
