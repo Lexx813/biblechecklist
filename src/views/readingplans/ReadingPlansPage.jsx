@@ -132,7 +132,7 @@ function CustomPlanModal({ onClose, onCreated }) {
     setError("");
     const bookIndices = [...selectedBooks].sort((a, b) => a - b);
     enrollCustom.mutate(
-      { name: name.trim(), bookIndices, totalDays, totalChapters, icon: "🗂️" },
+      { name: name.trim(), bookIndices, totalDays, totalChapters, icon: "custom" },
       {
         onSuccess: (plan) => { onCreated(plan); onClose(); },
         onError: (err) => setError(err.message),
@@ -144,7 +144,7 @@ function CustomPlanModal({ onClose, onCreated }) {
     <div className="rp-modal-overlay" onClick={onClose}>
       <div className="rp-modal" onClick={e => e.stopPropagation()}>
         <div className="rp-modal-header">
-          <h2 className="rp-modal-title">✨ {t("readingPlans.customPlanTitle")}</h2>
+          <h2 className="rp-modal-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:6}}><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>{t("readingPlans.customPlanTitle")}</h2>
           <button className="rp-modal-close" onClick={onClose}>✕</button>
         </div>
 

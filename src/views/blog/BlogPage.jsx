@@ -5,6 +5,8 @@ import PageNav from "../../components/PageNav";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ReportModal from "../../components/ReportModal";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
+import ShareButtons from "../../components/ShareButtons";
+import "../../styles/share-buttons.css";
 import MentionAutocomplete from "../../components/mentions/MentionAutocomplete";
 import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment, useDeletePost, useUserBlogLikes, useToggleBlogLike } from "../../hooks/useBlog";
 import { toast } from "../../lib/toast";
@@ -132,7 +134,7 @@ function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate 
                       onClick={() => setReportTarget({ id: c.id, preview: c.content?.slice(0, 80) ?? "" })}
                       title={t("report.flag")}
                     >
-                      🚩
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
                     </button>
                   )}
                 </div>
@@ -180,6 +182,13 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
   const isAdmin = profile?.is_admin;
   const { isPremium } = useSubscription(user?.id);
   const getOrCreateDM = useGetOrCreateDM();
+
+  // Increment view count once per post view
+  useEffect(() => {
+    if (post?.id) {
+      import("../../api/blog").then(({ blogApi }) => blogApi.incrementViewCount(post.id));
+    }
+  }, [post?.id]);
 
   // Language toggle: auto-use Spanish if user's language is es and translation exists
   const currentLang = i18n?.language?.split("-")[0] ?? "en";
@@ -245,7 +254,9 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
               <span>{formatDateLong(post.created_at)}</span>
               <span className="blog-dot">·</span>
               <span>{t("blog.minRead", { count: minRead })}</span>
+              {post.view_count > 0 && <><span className="blog-dot">·</span><span>{post.view_count.toLocaleString()} views</span></>}
             </div>
+            <ShareButtons path={`/blog/${post.slug}`} title={displayTitle} type="blog" />
           </div>
         </div>
       </div>
@@ -296,7 +307,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
               }
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              Message{!isPremium && <span className="msg-btn-pro-badge">✦</span>}
+              Message{!isPremium && <span className="msg-btn-pro-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></span>}
             </button>
           )}
         </div>
@@ -308,7 +319,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
               onClick={() => toggleLike.mutate(post.id, { onError: () => toast(t("blog.likeError")) })}
               disabled={toggleLike.isPending}
             >
-              👍 <span className="blog-like-count">{post.like_count ?? 0}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg> <span className="blog-like-count">{post.like_count ?? 0}</span>
             </button>
             <BookmarkButton userId={user.id} postId={post.id} />
             {(isAdmin || post.author_id === user.id) && (
@@ -422,7 +433,7 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user, lang }
           <span className="blog-card-date">{formatDateLong(post.created_at)}</span>
           <span className="blog-card-readtime">{t("blog.minRead", { count: minRead })}</span>
           {post.like_count > 0 && (
-            <span className="blog-card-likes">👍 {post.like_count}</span>
+            <span className="blog-card-likes"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle"}}><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg> {post.like_count}</span>
           )}
           {user && <BookmarkButton userId={user.id} postId={post.id} />}
         </div>
@@ -507,7 +518,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
           <LoadingSpinner />
         ) : posts.length === 0 ? (
           <div className="blog-empty">
-            <div className="blog-empty-icon">📝</div>
+            <div className="blog-empty-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
             <h3>{t("blog.noPosts")}</h3>
             <p>{t("blog.noPostsSub")}</p>
           </div>

@@ -9,6 +9,7 @@ import { useSubscription } from "./hooks/useSubscription";
 import { supabase } from "./lib/supabase";
 import { parsePath, buildPath } from "./lib/router";
 import { toast } from "./lib/toast";
+import { getStoredReferralCode, clearStoredReferralCode, trackSignup } from "./lib/analytics";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import UpgradeModal from "./components/UpgradeModal";
@@ -75,6 +76,24 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   const { data: profile, isLoading: profileLoading } = useFullProfile(user.id);
 
   const { isPremium, subscribe } = useSubscription(user.id);
+
+  // Apply referral code if present (runs once after profile loads)
+  useEffect(() => {
+    if (!profile || profile.referred_by) return;
+    const refCode = getStoredReferralCode();
+    if (!refCode) return;
+    import("./api/referral").then(({ referralApi }) => {
+      referralApi.applyReferral(user.id, refCode).then((applied) => {
+        if (applied) clearStoredReferralCode();
+      }).catch(() => {});
+    });
+  }, [profile, user.id]);
+
+  // Update last_active_at for re-engagement email targeting
+  useEffect(() => {
+    supabase.from("profiles").update({ last_active_at: new Date().toISOString() }).eq("id", user.id).then(() => {});
+  }, [user.id]);
+
   const [nav, setNav] = useState(parsePath);
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem("nwt-theme");

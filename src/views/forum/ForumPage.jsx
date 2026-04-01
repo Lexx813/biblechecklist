@@ -9,6 +9,8 @@ import ReportModal from "../../components/ReportModal";
 import PageNav from "../../components/PageNav";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
+import ShareButtons from "../../components/ShareButtons";
+import "../../styles/share-buttons.css";
 import { forumApi } from "../../api/forum";
 import {
   useCategories, useThreads, useThread, useReplies,
@@ -352,6 +354,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
           ) : (
             <>
               <h2 className="forum-post-title">{thread.title}</h2>
+              <ShareButtons path={`/forum/${thread.category_id}/${thread.id}`} title={thread.title} type="forum" />
               <div
                 className="forum-post-content rich-content"
                 dangerouslySetInnerHTML={{ __html: sanitizeRich(thread.content ?? "") }}

@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ErrorBoundary } from "../src/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react";
 import { toast } from "../src/lib/toast";
+import { captureUtmParams, captureReferralCode } from "../src/lib/analytics";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,6 +44,10 @@ function SideEffects() {
   useEffect(() => {
     if (ran.current) return;
     ran.current = true;
+
+    // Capture UTM parameters and referral codes from URL
+    captureUtmParams();
+    captureReferralCode();
 
     // Register service worker in production
     if ("serviceWorker" in navigator) {

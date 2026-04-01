@@ -1,4 +1,7 @@
+import Script from "next/script";
 import Providers from "./providers";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export const metadata = {
   title: "Bible Reading Tracker for New World Translation | NWT Progress",
@@ -9,6 +12,18 @@ export const metadata = {
   authors: [{ name: "NWT Progress" }],
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   metadataBase: new URL("https://nwtprogress.com"),
+  alternates: {
+    canonical: "https://nwtprogress.com",
+    languages: {
+      en: "https://nwtprogress.com",
+      es: "https://nwtprogress.com?lang=es",
+      pt: "https://nwtprogress.com?lang=pt",
+      fr: "https://nwtprogress.com?lang=fr",
+      tl: "https://nwtprogress.com?lang=tl",
+      zh: "https://nwtprogress.com?lang=zh",
+      "x-default": "https://nwtprogress.com",
+    },
+  },
   openGraph: {
     type: "website",
     url: "https://nwtprogress.com/",
@@ -87,6 +102,7 @@ export default function RootLayout({ children }) {
           }}
         />
         <style dangerouslySetInnerHTML={{ __html: `@font-face{font-family:'Plus Jakarta Sans Variable';src:url('/fonts/plus-jakarta-sans-variable.woff2') format('woff2');font-weight:200 800;font-style:normal;font-display:swap;}body{font-family:'Plus Jakarta Sans Variable',sans-serif;}.nwt-skeleton{display:flex;flex-direction:column;min-height:100vh;background:#F7F4FC;color:#1E1035}[data-theme=dark] .nwt-skeleton{background:#0d0820;color:#ede9fe}.nwt-skeleton-nav{height:56px;background:#fff;border-bottom:1px solid #DDD0F5;display:flex;align-items:center;padding:0 1.25rem;gap:.75rem}[data-theme=dark] .nwt-skeleton-nav{background:#160f2e;border-color:#2a1f4a}.nwt-skeleton-logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#6A3DAA,#C084FC);flex-shrink:0}.nwt-skeleton-title{width:110px;height:14px;border-radius:6px;background:#DDD0F5;animation:sk-pulse 1.6s ease-in-out infinite}[data-theme=dark] .nwt-skeleton-title{background:#2a1f4a}.nwt-skeleton-body{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;padding:2rem}.nwt-skeleton-spinner{width:40px;height:40px;border-radius:50%;border:3px solid #DDD0F5;border-top-color:#6A3DAA;animation:sk-spin .8s linear infinite}[data-theme=dark] .nwt-skeleton-spinner{border-color:#2a1f4a;border-top-color:#C084FC}@keyframes sk-spin{to{transform:rotate(360deg)}}@keyframes sk-pulse{0%,100%{opacity:.6}50%{opacity:1}}` }} />
+        <link rel="alternate" type="application/rss+xml" title="NWT Progress Blog" href="/blog/feed.xml" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="preconnect" href="https://yudyhigvqaodnoqwwtns.supabase.co" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://yudyhigvqaodnoqwwtns.supabase.co" />
@@ -102,6 +118,12 @@ export default function RootLayout({ children }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaWebSite) }} />
       </head>
       <body>
+        {GA_ID && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+            <Script id="ga4-init" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA_ID}',{send_page_view:true})` }} />
+          </>
+        )}
         <Providers>{children}</Providers>
       </body>
     </html>

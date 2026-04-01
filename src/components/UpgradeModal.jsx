@@ -48,10 +48,10 @@ export default function UpgradeModal({ onClose, onSubscribe, loading }) {
         <div className="upm-transparency">
           <p className="upm-transparency-heading">{t("upm.transparency.heading")}</p>
           <ul className="upm-cost-list">
-            <li><span className="upm-cost-icon">🖥️</span><span>{t("upm.transparency.hosting")}</span></li>
-            <li><span className="upm-cost-icon">🗄️</span><span>{t("upm.transparency.db")}</span></li>
-            <li><span className="upm-cost-icon">✨</span><span>{t("upm.transparency.ai")}</span></li>
-            <li><span className="upm-cost-icon">🌐</span><span>{t("upm.transparency.domain")}</span></li>
+            <li><span className="upm-cost-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span><span>{t("upm.transparency.hosting")}</span></li>
+            <li><span className="upm-cost-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></span><span>{t("upm.transparency.db")}</span></li>
+            <li><span className="upm-cost-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><span>{t("upm.transparency.ai")}</span></li>
+            <li><span className="upm-cost-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span>{t("upm.transparency.domain")}</span></li>
           </ul>
           <p className="upm-transparency-surplus">{t("upm.transparency.surplus")}</p>
           <p className="upm-hardship">

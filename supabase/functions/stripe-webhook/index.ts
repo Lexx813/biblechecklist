@@ -12,6 +12,7 @@
  *
  * Events to enable in Stripe Dashboard:
  *   checkout.session.completed
+ *   checkout.session.expired
  *   customer.subscription.updated
  *   customer.subscription.deleted
  *   invoice.payment_failed
@@ -297,6 +298,76 @@ Deno.serve(async (req) => {
         console.error("Cancellation email failed:", emailErr);
       }
 
+      break;
+    }
+
+    case "checkout.session.expired": {
+      // Abandoned checkout — send recovery email
+      const expiredSession = event.data.object as Stripe.Checkout.Session;
+      const expiredCustomerId = expiredSession.customer as string;
+      if (!expiredCustomerId) break;
+
+      try {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("id, display_name")
+          .eq("stripe_customer_id", expiredCustomerId)
+          .single();
+
+        if (profile?.id) {
+          const { data: { user: authUser } } = await supabase.auth.admin.getUserById(profile.id);
+          if (authUser?.email) {
+            const name = profile.display_name || authUser.email.split("@")[0];
+            const RESEND_KEY = Deno.env.get("RESEND_API_KEY");
+            if (RESEND_KEY) {
+              await fetch("https://api.resend.com/emails", {
+                method: "POST",
+                headers: {
+                  Authorization: `Bearer ${RESEND_KEY}`,
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  from: "NWT Progress <notifications@nwtprogress.com>",
+                  to: authUser.email,
+                  subject: "You're almost there! Complete your Premium signup",
+                  html: `<!DOCTYPE html>
+<html>
+<body style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#0a0514;margin:0;padding:0">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0514;padding:40px 16px">
+    <tr><td align="center">
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#14082a;border-radius:20px;overflow:hidden;border:1px solid rgba(124,58,237,0.25)">
+        <tr><td style="background:linear-gradient(135deg,#2e0b6e 0%,#5b21b6 55%,#7c3aed 100%);padding:36px 40px;text-align:center">
+          <p style="margin:0 0 12px;font-size:32px">💫</p>
+          <h1 style="margin:0 0 8px;font-size:24px;font-weight:800;color:#fff">You were so close, ${name}!</h1>
+          <p style="margin:0;font-size:15px;color:rgba(255,255,255,0.7)">Your Premium checkout didn't go through</p>
+        </td></tr>
+        <tr><td style="padding:32px 40px">
+          <p style="margin:0 0 20px;font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6">
+            It looks like your checkout session expired before completing. No worries — your 7-day free trial is still available.
+          </p>
+          <p style="margin:0 0 24px;font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6">
+            Premium gives you reading plans, study notes, direct messages, study groups, and the AI study companion — all for just <strong style="color:#c084fc">$3/month</strong> after the trial.
+          </p>
+          <div style="text-align:center;margin-bottom:12px">
+            <a href="https://nwtprogress.com/settings" style="display:inline-block;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;text-decoration:none;font-size:15px;font-weight:800;padding:14px 36px;border-radius:999px">Try Premium Free →</a>
+          </div>
+        </td></tr>
+        <tr><td style="padding:20px 40px;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
+          <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.25)">NWT Progress · <a href="https://nwtprogress.com/settings" style="color:rgba(139,92,246,0.6)">Manage preferences</a></p>
+        </td></tr>
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`,
+                }),
+              });
+            }
+          }
+        }
+      } catch (err) {
+        console.error("Abandoned checkout email failed:", err);
+      }
       break;
     }
 

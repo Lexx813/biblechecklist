@@ -37,7 +37,7 @@ function Avatar({ row }) {
 }
 
 function PremiumBadge() {
-  return <span className="lb-premium-badge" title="Premium member">✦</span>;
+  return <span className="lb-premium-badge" title="Premium member"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg></span>;
 }
 
 function ReadingBoard({ data, userId, onProfile }) {
@@ -112,16 +112,16 @@ export default function LeaderboardPage({ user, onBack, navigate, darkMode, setD
 
       <header className="lb-header">
         <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
-        <h1 className="lb-title">🏆 {t("leaderboard.title")}</h1>
+        <h1 className="lb-title"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style={{verticalAlign:"middle",marginRight:6}}><path d="M5 3h14l-1.5 5H18a5 5 0 0 1-4 4.9V17h3a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2h3v-4.1A5 5 0 0 1 6 8h-.5L4 3h1zm7 10a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg>{t("leaderboard.title")}</h1>
         <p className="lb-sub">{t("leaderboard.subtitle")}</p>
       </header>
 
       <div className="lb-tabs">
         <button className={`lb-tab${tab === "reading" ? " lb-tab--active" : ""}`} onClick={() => setTab("reading")}>
-          📖 {t("leaderboard.tabReading")}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:4}}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>{t("leaderboard.tabReading")}
         </button>
         <button className={`lb-tab${tab === "quiz" ? " lb-tab--active" : ""}`} onClick={() => setTab("quiz")}>
-          🧠 {t("leaderboard.tabQuiz")}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:4}}><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>{t("leaderboard.tabQuiz")}
         </button>
       </div>
 

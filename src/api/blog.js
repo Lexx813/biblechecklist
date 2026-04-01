@@ -31,6 +31,11 @@ export const blogApi = {
     return data;
   },
 
+  incrementViewCount: async (postId) => {
+    const { error } = await supabase.rpc("increment_blog_view", { p_post_id: postId });
+    if (error) console.error("View count error:", error.message);
+  },
+
   listMine: async (userId) => {
     const { data, error } = await supabase
       .from("blog_posts")

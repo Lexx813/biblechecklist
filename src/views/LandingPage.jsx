@@ -1,6 +1,8 @@
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "../styles/landing.css";
 import LanguageSelect from "../components/LanguageSelect";
+import { supabase } from "../lib/supabase";
 
 const IconBook = () => (
   <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -43,8 +45,43 @@ const FEATURE_ICONS = {
   ),
 };
 
+function useCommunityStats() {
+  const [stats, setStats] = useState({ users: 500, chaptersRead: 0 });
+  useEffect(() => {
+    async function load() {
+      try {
+        const { count } = await supabase.from("profiles").select("id", { count: "exact", head: true });
+        const { data } = await supabase.rpc("get_global_chapter_count").maybeSingle();
+        setStats({
+          users: Math.max(count ?? 500, 500),
+          chaptersRead: data ?? 0,
+        });
+      } catch {}
+    }
+    load();
+  }, []);
+  return stats;
+}
+
+const FREE_FEATURES = [
+  { icon: "📖", label: "Reading Tracker", desc: "Track all 66 books chapter by chapter" },
+  { icon: "🧠", label: "Bible Quiz", desc: "1,000+ questions across 12 themes" },
+  { icon: "💬", label: "Community Forum", desc: "Discuss and learn together" },
+  { icon: "✍️", label: "Blog", desc: "Read and write study articles" },
+  { icon: "🔥", label: "Streaks & Heatmap", desc: "Build a daily reading habit" },
+];
+
+const PREMIUM_FEATURES = [
+  { icon: "📅", label: "Reading Plans", desc: "Structured multi-week study plans" },
+  { icon: "📝", label: "Study Notes", desc: "Rich-text notes tied to passages" },
+  { icon: "💬", label: "Direct Messages", desc: "Private conversations with members" },
+  { icon: "👥", label: "Study Groups", desc: "Group chat and progress tracking" },
+  { icon: "✨", label: "AI Study Companion", desc: "Ask anything about any verse" },
+];
+
 export default function LandingPage({ onGetStarted }) {
   const { t } = useTranslation();
+  const communityStats = useCommunityStats();
 
   const FEATURES = [
     { icon: FEATURE_ICONS.book,  label: t("landing.feature66Books") },
@@ -111,7 +148,7 @@ export default function LandingPage({ onGetStarted }) {
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ opacity: 0.7 }}>
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
           </svg>
-          Join 500+ readers tracking their progress
+          Join {communityStats.users.toLocaleString()}+ readers{communityStats.chaptersRead > 0 ? ` · ${communityStats.chaptersRead.toLocaleString()} chapters read` : ""} tracking their progress
         </p>
 
         <p className="landing-signin">
@@ -122,6 +159,56 @@ export default function LandingPage({ onGetStarted }) {
         </p>
       </div>
 
+
+      {/* Pricing */}
+      <section className="landing-pricing">
+        <div className="landing-pricing-header">
+          <h2 className="landing-pricing-title">Simple, transparent pricing</h2>
+          <p className="landing-pricing-sub">Start free. Upgrade when you're ready to go deeper.</p>
+        </div>
+
+        <div className="landing-pricing-cards">
+          {/* Free plan */}
+          <div className="landing-plan">
+            <p className="landing-plan-name">Free</p>
+            <div className="landing-plan-price">
+              <span className="landing-plan-amount">$0</span>
+              <span className="landing-plan-period">/ forever</span>
+            </div>
+            <p className="landing-plan-desc">Everything you need to start tracking your Bible reading.</p>
+            <ul className="landing-plan-features">
+              {FREE_FEATURES.map(f => (
+                <li key={f.label} className="landing-plan-feature landing-plan-feature--detailed">
+                  <span className="landing-plan-feature-icon">{f.icon}</span>
+                  <span><strong>{f.label}</strong><span className="landing-plan-feature-desc">{f.desc}</span></span>
+                </li>
+              ))}
+            </ul>
+            <button className="landing-plan-cta landing-plan-cta--ghost" onClick={onGetStarted}>Get Started Free</button>
+          </div>
+
+          {/* Premium plan */}
+          <div className="landing-plan landing-plan--premium">
+            <div className="landing-plan-popular">Most Popular</div>
+            <p className="landing-plan-name">Premium</p>
+            <div className="landing-plan-price">
+              <span className="landing-plan-amount">$3</span>
+              <span className="landing-plan-period">/ month</span>
+            </div>
+            <p className="landing-plan-desc">Go deeper with structured plans, notes, messaging, and AI.</p>
+            <ul className="landing-plan-features">
+              {PREMIUM_FEATURES.map(f => (
+                <li key={f.label} className="landing-plan-feature landing-plan-feature--detailed">
+                  <span className="landing-plan-feature-icon">{f.icon}</span>
+                  <span><strong>{f.label}</strong><span className="landing-plan-feature-desc">{f.desc}</span></span>
+                </li>
+              ))}
+            </ul>
+            <button className="landing-plan-cta landing-plan-cta--primary" onClick={onGetStarted}>Start 7-Day Free Trial</button>
+            <p className="landing-plan-note">Cancel anytime · No commitment</p>
+          </div>
+        </div>
+      </section>
 
       <footer style={{
         position: "relative", zIndex: 10,

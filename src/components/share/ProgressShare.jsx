@@ -156,11 +156,16 @@ function draw(canvas, stats, t) {
   ctx.textAlign = "center";
   ctx.fillText(motiveLine, W / 2, stats.streak > 0 ? 714 : 648);
 
-  // Date
+  // Date + CTA
   const today = new Date().toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric" });
   ctx.font = "400 13px system-ui, -apple-system, sans-serif";
   ctx.fillStyle = "rgba(255,255,255,0.28)";
-  ctx.fillText(today, W / 2, H - 24);
+  ctx.fillText(today, W / 2, H - 42);
+
+  // Signup link
+  ctx.font = "600 12px system-ui, -apple-system, sans-serif";
+  ctx.fillStyle = "rgba(192,132,252,0.6)";
+  ctx.fillText("nwtprogress.com", W / 2, H - 18);
 }
 
 export default function ProgressShare({ stats, onClose }) {
@@ -184,7 +189,7 @@ export default function ProgressShare({ stats, onClose }) {
       const blob = await new Promise(res => canvasRef.current.toBlob(res, "image/png"));
       const file = new File([blob], "bible-progress.png", { type: "image/png" });
       if (navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], title: "My Bible Reading Progress", text: `I've read ${stats.pct}% of the Bible on NWT Progress!` });
+        await navigator.share({ files: [file], title: "My Bible Reading Progress", text: `I've read ${stats.pct}% of the Bible on NWT Progress! Track yours at nwtprogress.com` });
       } else {
         download();
       }

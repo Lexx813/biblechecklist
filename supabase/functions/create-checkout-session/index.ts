@@ -101,6 +101,7 @@ Deno.serve(async (req) => {
       cancel_url: `${siteOrigin}?checkout_canceled=true`,
       allow_promotion_codes: true,
       subscription_data: {
+        trial_period_days: 7,
         metadata: { supabase_user_id: user.id },
       },
     });

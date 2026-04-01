@@ -80,7 +80,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
         const total = BOOKS[bi].chapters;
         const nowDone = Object.values(next[bi]).filter(Boolean).length;
         if (nowDone === total) {
-          setTimeout(() => setCelebrateBook({ name: BOOKS[bi].name, icon: "📖", chapters: total }), 300);
+          setTimeout(() => setCelebrateBook({ name: BOOKS[bi].name, icon: null, chapters: total }), 300);
         }
       }
       return next;
@@ -98,7 +98,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
       const chs = {};
       for (let c = 1; c <= total; c++) chs[c] = val;
       if (val && !allDone) {
-        setTimeout(() => setCelebrateBook({ name: BOOKS[bi].name, icon: "📖", chapters: total }), 300);
+        setTimeout(() => setCelebrateBook({ name: BOOKS[bi].name, icon: null, chapters: total }), 300);
       }
       return { ...prev, [bi]: chs };
     });
