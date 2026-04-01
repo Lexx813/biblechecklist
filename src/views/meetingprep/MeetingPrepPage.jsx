@@ -340,7 +340,11 @@ const TABS = ["midweek", "weekend", "history"];
 
 export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const currentWeek = getMondayOfWeek();
-  const [selectedWeek, setSelectedWeek] = useState(currentWeek);
+  // If Wed (3) or later, midweek meeting already happened — default to next week
+  const defaultWeek = new Date().getDay() >= 3
+    ? new Date(new Date(currentWeek + "T00:00:00").getTime() + 7 * 86400000).toISOString().slice(0, 10)
+    : currentWeek;
+  const [selectedWeek, setSelectedWeek] = useState(defaultWeek);
   const [activeTab, setActiveTab] = useState("midweek");
 
   const { isPremium } = useSubscription(user.id);
@@ -437,7 +441,7 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
                 className={`mp-week-chip${w === selectedWeek ? " mp-week-chip--active" : ""}`}
                 onClick={() => setSelectedWeek(w)}
               >
-                {w === currentWeek ? "This week" : formatWeekLabel(w)}
+                {w === currentWeek ? "This week" : w === defaultWeek && defaultWeek !== currentWeek ? "Next week" : formatWeekLabel(w)}
               </button>
             ))}
           </div>
