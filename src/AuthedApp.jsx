@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, lazy, Suspense } from "react";
+import { useState, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useSession, useLogout } from "./hooks/useAuth";
@@ -71,6 +71,41 @@ function Page({ children, noFooter = false }) {
   );
 }
 
+// ── Feature gate prompts (module scope, no re-creation) ───────────────────────
+
+const FEATURE_PROMPTS = {
+  studyNotes: {
+    icon: "📝",
+    title: "Study Notes",
+    message: "Write rich-text notes for any chapter, organise by folder, and export as Markdown or PDF.",
+    ctaLabel: "Unlock Premium — $3/mo",
+  },
+  readingPlans: {
+    icon: "📅",
+    title: "Reading Plans",
+    message: "Follow structured plans like NWT in 1 Year with daily assignments and progress tracking.",
+    ctaLabel: "Unlock Premium — $3/mo",
+  },
+  aiTools: {
+    icon: "✨",
+    title: "AI Study Assistant",
+    message: "Ask anything about any verse and get grounded, passage-linked answers from Scripture.",
+    ctaLabel: "Unlock Premium — $3/mo",
+  },
+  messages: {
+    icon: "💬",
+    title: "Direct Messages",
+    message: "Private conversations with other publishers in the community.",
+    ctaLabel: "Unlock Premium — $3/mo",
+  },
+  groups: {
+    icon: "👥",
+    title: "Study Groups",
+    message: "Group chat, shared progress tracking, and weekly leaderboards with your study group.",
+    ctaLabel: "Unlock Premium — $3/mo",
+  },
+};
+
 // ── Authenticated app with routing ────────────────────────────────────────────
 
 function BibleApp({ user, onLogout, i18n, aiEnabled }) {
@@ -107,40 +142,20 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
   const [gatedFeature, setGatedFeature] = useState(null);
 
-  const FEATURE_PROMPTS = {
-    studyNotes: {
-      icon: "📝",
-      title: "Study Notes",
-      message: "Write rich-text notes for any chapter, organise by folder, and export as Markdown or PDF.",
-      ctaLabel: "Unlock Premium — $3/mo",
-    },
-    readingPlans: {
-      icon: "📅",
-      title: "Reading Plans",
-      message: "Follow structured plans like NWT in 1 Year with daily assignments and progress tracking.",
-      ctaLabel: "Unlock Premium — $3/mo",
-    },
-    aiTools: {
-      icon: "✨",
-      title: "AI Study Assistant",
-      message: "Ask anything about any verse and get grounded, passage-linked answers from Scripture.",
-      ctaLabel: "Unlock Premium — $3/mo",
-    },
-    messages: {
-      icon: "💬",
-      title: "Direct Messages",
-      message: "Private conversations with other publishers in the community.",
-      ctaLabel: "Unlock Premium — $3/mo",
-    },
-    groups: {
-      icon: "👥",
-      title: "Study Groups",
-      message: "Group chat, shared progress tracking, and weekly leaderboards with your study group.",
-      ctaLabel: "Unlock Premium — $3/mo",
-    },
-  };
-
   function openUpgrade() { setShowUpgradeModal(true); }
+
+  const handleGateCta = useCallback(() => {
+    if (!gatedFeature) return;
+    dismissPrompt(`gate-${gatedFeature}`);
+    setGatedFeature(null);
+    openUpgrade();
+  }, [gatedFeature]);
+
+  const handleGateDismiss = useCallback(() => {
+    if (!gatedFeature) return;
+    dismissPrompt(`gate-${gatedFeature}`);
+    setGatedFeature(null);
+  }, [gatedFeature]);
 
   // Handle Stripe redirect callbacks
   const pollingRef = useRef(null);
@@ -351,15 +366,8 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
           title={FEATURE_PROMPTS[gatedFeature].title}
           message={FEATURE_PROMPTS[gatedFeature].message}
           ctaLabel={FEATURE_PROMPTS[gatedFeature].ctaLabel}
-          onCta={() => {
-            dismissPrompt(`gate-${gatedFeature}`);
-            setGatedFeature(null);
-            openUpgrade();
-          }}
-          onDismiss={() => {
-            dismissPrompt(`gate-${gatedFeature}`);
-            setGatedFeature(null);
-          }}
+          onCta={handleGateCta}
+          onDismiss={handleGateDismiss}
         />
       )}
     </>
