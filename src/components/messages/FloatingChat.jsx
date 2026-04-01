@@ -861,7 +861,7 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
   }, [decryptedMessages.length]);
 
   useEffect(() => {
-    if (!messages.length) { setDecryptedMessages([]); return; }
+    if (!messages.length) { setDecryptedMessages((prev) => prev.length ? [] : prev); return; }
     let cancelled = false;
     async function decrypt() {
       const results = await Promise.all(
