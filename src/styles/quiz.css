@@ -331,7 +331,7 @@
   color: var(--text-primary);
   cursor: pointer;
   text-align: left;
-  transition: all 0.15s;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
   width: 100%;
 }
 .quiz-option:hover:not(:disabled):not(.quiz-option--correct):not(.quiz-option--wrong):not(.quiz-option--dim) {
@@ -429,7 +429,7 @@
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .quiz-btn--primary {

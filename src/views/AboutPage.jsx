@@ -29,7 +29,9 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
 
         {/* Purpose */}
         <section className="about-section">
-          <div className="about-section-icon">🎯</div>
+          <div className="about-section-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+</svg></div>
           <h2 className="about-section-title">{t("about.purposeTitle")}</h2>
           <p className="about-section-body">{t("about.purposeBody1")}</p>
           <p className="about-section-body">{t("about.purposeBody2")}</p>
@@ -40,7 +42,9 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
           <h2 className="about-section-title about-section-title--center">{t("about.audienceTitle")}</h2>
           <div className="about-cards">
             <div className="about-card">
-              <div className="about-card-icon">📚</div>
+              <div className="about-card-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+</svg></div>
               <h3 className="about-card-title">{t("about.card1Title")}</h3>
               <p className="about-card-body">{t("about.card1Body")}</p>
             </div>

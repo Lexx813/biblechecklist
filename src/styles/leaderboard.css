@@ -16,7 +16,7 @@
   flex: 1; padding: 10px; border-radius: 12px;
   background: var(--card-bg); border: 1.5px solid var(--border);
   font-size: 14px; font-weight: 700; color: var(--text-muted);
-  cursor: pointer; transition: all 0.15s;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 .lb-tab--active {
   background: var(--accent); border-color: var(--accent);

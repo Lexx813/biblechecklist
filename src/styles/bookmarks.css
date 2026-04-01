@@ -31,7 +31,7 @@
 .bm-item {
   display: flex; align-items: center; gap: 12px; padding: 14px 18px;
   background: var(--card-bg); border: 1px solid var(--border);
-  border-radius: var(--radius); cursor: pointer; transition: all 0.15s;
+  border-radius: var(--radius); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
 }
 .bm-item:hover {
   border-color: var(--teal); box-shadow: var(--shadow);

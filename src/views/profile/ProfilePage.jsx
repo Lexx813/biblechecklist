@@ -68,7 +68,15 @@ function Avatar({ profile, userId, editable }) {
   }
 
   return (
-    <div className="pf-avatar-wrap" onClick={() => fileRef.current.click()} title="Change photo">
+    <div
+      className="pf-avatar-wrap"
+      onClick={() => fileRef.current.click()}
+      onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileRef.current.click(); } }}
+      role="button"
+      tabIndex={0}
+      title="Change photo"
+      aria-label="Change profile photo"
+    >
       {src
         ? <img src={src} alt="avatar" className="pf-avatar-img" width={80} height={80} loading="lazy" />
         : <span className="pf-avatar-initials"><Initials name={profile?.display_name} email={profile?.email} /></span>
@@ -443,7 +451,7 @@ function MessageButton({ targetId, otherDisplayName, otherAvatarUrl, navigate, i
       onClick={handleClick}
       disabled={getOrCreate.isPending}
     >
-      {getOrCreate.isPending ? <span className="btn-spin" /> : <span className="pf-msg-icon">💬</span>}
+      {getOrCreate.isPending ? <span className="btn-spin" /> : <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="pf-msg-icon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>}
       Message{!isPremium && <span className="msg-btn-pro-badge">✦</span>}
     </button>
   );

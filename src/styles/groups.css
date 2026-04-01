@@ -360,7 +360,7 @@
   align-items: center;
   justify-content: center;
   min-width: 30px;
-  min-height: 30px;
+  min-height: 44px;
 }
 
 .grp-modal-close:hover {
@@ -511,7 +511,7 @@
   align-items: center;
   justify-content: center;
   min-width: 32px;
-  min-height: 32px;
+  min-height: 44px;
   border-radius: 8px;
 }
 

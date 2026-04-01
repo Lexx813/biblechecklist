@@ -312,7 +312,7 @@ function VersePicker({ onSend, onClose }) {
             </div>
             <div className="fc-modal-field">
               <label className="fc-modal-label">Verse</label>
-              <input className="fc-modal-input" type="number" inputMode="numeric" min={1} max={200} value={verse} onChange={e => setVerse(+e.target.value)} />
+              <input className="fc-modal-input" type="number" inputMode="numeric" min={1} max={200} value={verse} onChange={e => setVerse(+e.target.value)} aria-label="Verse number" />
             </div>
           </div>
           <label className="fc-modal-label">Note (optional)</label>

@@ -12,10 +12,10 @@
 
 export const config = { runtime: "edge" };
 
-const SUPABASE_URL         = (process.env.VITE_SUPABASE_URL ?? "").trim();
-const SUPABASE_ANON        = (process.env.VITE_SUPABASE_ANON_KEY ?? "").trim();
+const SUPABASE_URL         = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").trim();
+const SUPABASE_ANON        = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
 const SUPABASE_SERVICE_KEY = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim();
-const APP_ORIGIN           = (process.env.VITE_APP_URL ?? "https://nwtprogress.com").replace(/\/$/, "");
+const APP_ORIGIN           = (process.env.NEXT_PUBLIC_APP_URL ?? "https://nwtprogress.com").replace(/\/$/, "");
 
 const CORS = {
   "Access-Control-Allow-Origin": APP_ORIGIN,

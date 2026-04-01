@@ -8,10 +8,10 @@
 
 export const config = { runtime: "edge" };
 
-const SUPABASE_URL  = (process.env.VITE_SUPABASE_URL  ?? "").trim();
-const SUPABASE_ANON = (process.env.VITE_SUPABASE_ANON_KEY ?? "").trim();
+const SUPABASE_URL  = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
+const SUPABASE_ANON = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
 const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY ?? "";
-const APP_ORIGIN    = (process.env.VITE_APP_URL ?? "https://nwtprogress.com").replace(/\/$/, "");
+const APP_ORIGIN    = (process.env.NEXT_PUBLIC_APP_URL ?? "https://nwtprogress.com").replace(/\/$/, "");
 
 const SYSTEM_PROMPT =
   "You are a Bible study companion for Jehovah's Witnesses, aligned with the teachings and " +
