@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
 import {
   useMyPlans,
   usePlanCompletions,
@@ -61,7 +60,6 @@ function readingsLabel(readings) {
 }
 
 export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade, lang = "en" }) {
-  const { t } = useTranslation();
   const { data: plans = [] } = useMyPlans();
   const activePlan = plans.find(p => !p.is_paused && !p.completed_at) ?? null;
 
