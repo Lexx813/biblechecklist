@@ -7,8 +7,8 @@ export async function getMeetingWeek(weekStart) {
     .from("meeting_weeks")
     .select("*")
     .eq("week_start", weekStart)
-    .single();
-  if (error && error.code !== "PGRST116") throw error;
+    .maybeSingle();
+  if (error) throw error;
   return data;
 }
 
@@ -30,8 +30,8 @@ export async function getPrepForWeek(userId, weekStart) {
     .select("*")
     .eq("user_id", userId)
     .eq("week_start", weekStart)
-    .single();
-  if (error && error.code !== "PGRST116") throw error;
+    .maybeSingle();
+  if (error) throw error;
   return data;
 }
 
