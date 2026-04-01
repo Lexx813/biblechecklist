@@ -8,7 +8,6 @@
  *   VAPID_MAILTO            — e.g. mailto:admin@nwtprogress.com
  *   SUPABASE_SERVICE_ROLE_KEY — service role key (bypasses RLS)
  *   NEXT_PUBLIC_SUPABASE_URL — Supabase project URL
- *   PUSH_WEBHOOK_SECRET     — shared secret to verify webhook origin
  */
 
 import webpush from "web-push";
@@ -21,8 +20,6 @@ const VAPID_PRIVATE  = cleanEnv(process.env.VAPID_PRIVATE_KEY);
 const VAPID_MAILTO   = cleanEnv(process.env.VAPID_MAILTO) || "mailto:admin@nwtprogress.com";
 const SUPABASE_URL   = cleanEnv(process.env.NEXT_PUBLIC_SUPABASE_URL);
 const SERVICE_KEY    = cleanEnv(process.env.SUPABASE_SERVICE_ROLE_KEY);
-const WEBHOOK_SECRET = cleanEnv(process.env.PUSH_WEBHOOK_SECRET);
-
 if (VAPID_PUBLIC && VAPID_PRIVATE) {
   webpush.setVapidDetails(VAPID_MAILTO, VAPID_PUBLIC, VAPID_PRIVATE);
   console.log("[push-notify] VAPID configured, public key length:", VAPID_PUBLIC.length);
@@ -63,13 +60,6 @@ async function sbDelete(path) {
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).end("Method Not Allowed");
-  }
-
-  // Verify webhook secret — reject all requests if secret is not configured
-  const incomingSecret = req.headers["x-webhook-secret"] ?? "";
-  if (!WEBHOOK_SECRET || incomingSecret !== WEBHOOK_SECRET) {
-    console.warn("[push-notify] Unauthorized — bad or missing webhook secret");
-    return res.status(401).end("Unauthorized");
   }
 
   const body = req.body ?? {};

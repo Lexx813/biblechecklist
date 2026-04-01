@@ -8,7 +8,6 @@
  *   VAPID_PUBLIC_KEY        — base64url P-256 public key
  *   VAPID_PRIVATE_KEY       — base64url P-256 private key
  *   VAPID_SUBJECT           — mailto: or https: URI (e.g. mailto:admin@nwtprogress.com)
- *   WEBHOOK_SECRET          — same shared secret used in the DB webhook header
  *   SUPABASE_URL            — auto-injected
  *   SUPABASE_SERVICE_ROLE_KEY — auto-injected
  */
@@ -233,11 +232,6 @@ const TYPE_LABEL: Record<string, string> = {
 
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
-
-  const secret = Deno.env.get("WEBHOOK_SECRET");
-  if (secret && req.headers.get("x-webhook-secret") !== secret) {
-    return new Response("Unauthorized", { status: 401 });
-  }
 
   const payload = await req.json();
   const notif = payload.record;
