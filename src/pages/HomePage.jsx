@@ -219,8 +219,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <h3 className="home-quiz-card-title">{t("quiz.homeTitle")}</h3>
               <p className="home-quiz-card-desc">{t("quiz.homeSub")}</p>
               <div className="home-quiz-chips">
-                <span className="home-quiz-chip">12 Levels</span>
-                <span className="home-quiz-chip">240 Questions</span>
+                <span className="home-quiz-chip">24 Levels</span>
+                <span className="home-quiz-chip">480 Questions</span>
                 <span className="home-quiz-chip">Badges</span>
               </div>
               <span className="home-quiz-card-cta">{t("quiz.homeCard")}</span>
