@@ -142,7 +142,8 @@
     "infoAuthor": "May-akda",
     "infoWritten": "Isinulat",
     "infoTheme": "Tema",
-    "infoKeyVerses": "Mga pangunahing talata"
+    "infoKeyVerses": "Mga pangunahing talata",
+    "infoStudyQuestions": "Mga Tanong sa Pag-aaral"
   },
   "posts": {
     "sectionTitle": "Mga Update",
@@ -2003,5 +2004,469 @@
     "bannerTitle": "I-unlock ang Premium",
     "bannerSub": "AI Companion, Mga Plano sa Pagbabasa, Mga Tala, Mensahe at Mga Grupo — $3/buwan",
     "bannerCta": "I-upgrade →"
-  }
+  },
+  "bookQuestions": [
+    [
+      "Ano ang inihahayag ng ulat ng paglikha sa Genesis 1–2 tungkol sa kapangyarihan ni Jehova at sa kaniyang orihinal na layunin para sa lupa at sa sangkatauhan?",
+      "Paano ginamit ni Satanas ang ahas para hamunin ang soberanya ni Jehova, at ano ang kahalagahan ng unang propesiya sa Genesis 3:15?",
+      "Anong mga katangian ng pananampalataya at pagsunod ang ipinakita ni Noe, at ano ang ituturo ng kaniyang halimbawa tungkol sa lubos na pagtitiwala kay Jehova?",
+      "Bakit pinili ni Jehova si Abraham, at ano ang ituturo ng mga pagsubok sa pananampalataya ni Abraham — kasama na ang utos na ialay si Isaac — tungkol sa katapatan kay Jehova?",
+      "Paano ipinakita ng ulat ni Jose na maaaring magdala ng kabutihan si Jehova kahit sa pinaka-makasali at masakit na mga pangyayari?"
+    ],
+    [
+      "Ano ang ituturo ng pagpapahayag ni Jehova ng kaniyang pangalan sa Exodo 3:14–15 at 6:3 tungkol sa kahalagahan ng paggamit at pagpaparangal sa personal na pangalan ni Jehova?",
+      "Paano ipinakita ng sampung salot ang nakatataas na kapangyarihan ni Jehova kaysa sa mga diyos ng Ehipto, at ano ang ituturo nito tungkol sa tunay na pagsamba?",
+      "Ano ang kahalagahan ng Paskuwa para sa Israel, at paano nito pina-unang-anino ang sakripisyo ni Jesucristo bilang 'ating Kordero ng Paskuwa'?",
+      "Paano naisasalamin ng Sampung Utos ang mga pamantayan ni Jehova sa katuwiran, at alin sa mga prinsipyong ito ang naaangkop pa rin sa mga Kristiyano ngayon?",
+      "Ano ang ituturo ng detalyadong pagtatayo ng Tabernakulo tungkol sa kahalagahang ibinibigay ni Jehova sa wastong, organisadong pagsamba?"
+    ],
+    [
+      "Ano ang ibig sabihin ng paulit-ulit na panawagan ni Jehova na maging banal — 'Maging banal, sapagkat ako ay banal' — para sa mga Saksi ni Jehova ngayon?",
+      "Paano pina-unang-anino ng iba't ibang hain ng hayop sa Levitico ang higit na sakripisyo ni Jesucristo?",
+      "Ano ang ituturo ng Araw ng Pagbabayad-sala (Levitico 16) tungkol sa pangangailangan ng pagbabayad-sala, at paano ito natupad sa pagkatao ni Jesucristo bilang Dakilang Punong Saserdote?",
+      "Paano inihiwalay ng mga batas sa pagkain at kalinisan ang Israel mula sa mga karatig-bansa, at anong prinsipyo ng paghihiwalay mula sa sanlibutan ang naaangkop sa mga Kristiyano?",
+      "Ano ang ituturo ng Taon ng Jubileo tungkol sa pagmamalasakit ni Jehova sa mga mahihirap at sa kaniyang plano para maibalik ang nawalang mga bagay?"
+    ],
+    [
+      "Ano ang ituturo ng paulit-ulit na pagbubulong at pag-rereklamo ng Israel sa ilang tungkol sa panganib ng kawalan ng pasasalamat kay Jehova?",
+      "Paano ipinakita ng kasalanan sa Kades-barnea (mga kabanata 13–14) — nang tumanggi ang Israel na pumasok sa Lupang Pangako — ang seryosong bunga ng kakulangan ng pananampalataya?",
+      "Ano ang ituturo ng pag-alsa ni Kora at ng kaniyang kalalabasan tungkol sa paggalang sa mga itinakda ni Jehova para sa pamumuno sa kaniyang kongregasyon?",
+      "Paano ipinakita ng pagtatangkang sumpain ni Balaam ang Israel at ng kabiguan nito na walang sinuman ang makaaabala sa mga layunin ni Jehova?",
+      "Bakit mahalaga ang ulat ng tanso na ahas (Mga Bilang 21:4–9), at ano ang sinabi ni Jesus tungkol sa kabuluhan nito sa Juan 3:14–15?"
+    ],
+    [
+      "Bakit binigyang-diin ni Moises na dapat ibigin ng Israel si Jehova 'nang buong puso mo at buong kaluluwa mo at buong lakas mo' (6:5), at paano ito naaangkop ngayon?",
+      "Ano ang sinasabi ng Deuteronomio 18:15–18 tungkol sa isang propeta na katulad ni Moises, at paano natupad ang propesiyang ito ni Jesucristo?",
+      "Anong mga babala ang ibinigay ni Moises tungkol sa mga panganib ng kasaganaan na makapagpapabay sa Israel sa pagkalimot kay Jehova, at paano naaangkop ang mga babalang iyon sa atin ngayon?",
+      "Paano inilarawan ng awit ni Moises (Deuteronomio 32) ang mga katangian ni Jehova, at anong mga aral ang maaari nating makuha dito?",
+      "Ano ang ituturo ng seremonya ng pagpapanibago ng tipan ni Moises tungkol sa kahalagahan ng regular na paalala at personal na muling pagtalima sa mga batas ni Jehova?"
+    ],
+    [
+      "Paano inihanda ni Jehova si Josue para sa pamumuno, at anong mga katangian ng tapang at pananampalataya ang ipinakita ni Josue na maaari nating tularan?",
+      "Ano ang ituturo ng ulat ni Rahab (Josue 2; 6) tungkol sa kung paano maaaring makarating ang habag ni Jehova sa mga nasa labas ng Israel na kumikilos nang may pananampalataya?",
+      "Bakit napaka-seryoso ng kasalanan ni Akan (Josue 7), at ano ang ituturo nito tungkol sa kung paano maaaring makaapekto ang indibidwal na kasalanan sa buong kongregasyon?",
+      "Paano hininamon ng pangwakas na talumpati ni Josue (Josue 24) ang mga tao na gumawa ng malinaw na pagpili para kay Jehova, at anong pagpili ang dapat nating gawin ngayon?",
+      "Ano ang ituturo ng rekord ni Josue ng pagtupad ni Jehova sa bawat pangako (Josue 21:45; 23:14) tungkol sa katapatan ni Jehova?"
+    ],
+    [
+      "Anong paulit-ulit na siklo ang lilitaw sa buong aklat ng Mga Hukom, at ano ang ituturo nito tungkol sa nangyayari kapag ang mga tao ay lumayo sa Jehova?",
+      "Paano ipinakita ng tagumpay ni Gideo na may 300 lamang na lalaki (Mga Hukom 7) na ang kapangyarihan ni Jehova ay hindi limitado ng bilang o ng likas na kakayahan ng tao?",
+      "Anong mga aral tungkol sa mga bunga ng presyon ng kapwa at ng kompromiso ang ituturo ng ulat ni Samson?",
+      "Paano inilalarawan ng ulat nina Debora at Barak (Mga Hukom 4–5) na ginagamit ni Jehova ang parehong lalaki at babae para maisakatuparan ang kaniyang layunin?",
+      "Ano ang inihahayag ng mga huling kabanata ng Mga Hukom (17–21) tungkol sa moral na pagguho na sumusunod kapag pinabayaan ng mga tao ang mga pamantayan ni Jehova?"
+    ],
+    [
+      "Ano ang ituturo ng pahayag ng katapatan ni Ruth kay Naomi — 'Saan ka man pumunta, pupunta rin ako' — tungkol sa katangian ng tapat na pagmamahal at pangako?",
+      "Paano naisalamin ng pagpayag ni Ruth na iwan ang kaniyang tinubuang-bayan para kay Jehova ang tunay na pananampalataya, at paano maikukumpara ang kaniyang sakripisyo sa mga pagpipiliang ginagawa ng mga Saksi ni Jehova ngayon?",
+      "Ano ang ituturo ng papel ni Boaz bilang 'malapit na kamag-anak na manunubos' tungkol sa itinakda ni Jehova para sa pagprotekta at pagtubos sa mga nabibilang sa kanya?",
+      "Paano humantong ang mapagpakumbabang kasipagan at katapatan ni Ruth sa kaniyang pagiging kasama ng ninuno ni Jesucristo?",
+      "Ano ang ituturo ng aklat na ito tungkol sa kung paano ginagantimpalaan ni Jehova ang mga nagtatago sa ilalim ng kaniyang mga pakpak, kahit na tila walang pag-asa ang mga kalagayan?"
+    ],
+    [
+      "Ano ang ituturo ng panalangin ni Hana at ng kapanganakan ni Samuel tungkol sa taimtim, mabuting loob na panalangin kay Jehova?",
+      "Bakit napaka-seryoso ng kabiguan ni Eli bilang ama (mga kabanata 2–3), at anong mga aral ang ituturo nito tungkol sa pagpapalaki ng mga anak upang mahalin si Jehova?",
+      "Paano ipinakita ng pagkatalo ni David kay Goliat (kabanata 17) na ang mga labanan ay kay Jehova at hindi natutukoy ng lakas o hitsura ng tao?",
+      "Ano ang ituturo ng paulit-ulit na kabiguan ni Saul na ganap na sumunod kay Jehova tungkol sa kahalagahan ng kumpletong, hindi bahagyang pagsunod?",
+      "Paano ipinakita ng pagtrato ni David kay Saul (mga kabanata 24; 26) — ang pagtanggi na saktan ang 'pinahirang tao ni Jehova' — ang malalim na paggalang sa mga itinakda ni Jehova?"
+    ],
+    [
+      "Ano ang ituturo ng mga tagumpay ni David at ng pagtatatag ng Jerusalem tungkol sa suporta ni Jehova para sa mga umaasa sa kanya?",
+      "Ano ang inihahayag ng tipan ni Jehova kay David (kabanata 7) tungkol sa darating na Hari ng Mesiyas at sa walang hanggang Kaharian?",
+      "Paano ipinakita ng kasalanan ni David kay Bat-sheba at ng pagtakpan na sumunod (mga kabanata 11–12) na ang mga nakatagong kasalanan ay hindi tunay na nakatago kay Jehova?",
+      "Ano ang ituturo ng pamamaraan ni Natan ng paggamit ng isang talinghaga upang harapin si David tungkol sa karunungan at paggamit ng mga ilustrasyon sa pagtugon sa mga mali?",
+      "Paano nagsilbing positibong halimbawa ang agarang pagkilala at pagsisisi ni David pagkatapos ng saway ni Natan kumpara sa pagiging mapagdepensa ni Saul?"
+    ],
+    [
+      "Ano ang ituturo ng kahilingan ni Solomon para sa karunungan sa halip na yaman o katanyagan (kabanata 3) tungkol sa tamang priyoridad sa panalangin?",
+      "Paano natupad ng pagtatayo ni Solomon ng Templo ang pangako ni Jehova kay David, at ano ang kinakatawan nito tungkol sa pananahanan ni Jehova kasama ang kaniyang bayan?",
+      "Ano ang nagdulot ng paghahati ng kaharian pagkatapos ng paghahari ni Solomon, at ano ang ituturo nito tungkol sa espirituwal na mga panganib ng pagsunod sa mga kaugaliang pagano?",
+      "Paano ipinakita ng tagumpay ni Elias laban sa mga propeta ni Baal sa Bundok ng Carmel (kabanata 18) na si Jehova lamang ang tunay na Diyos?",
+      "Ano ang ituturo ng 'mahinhin, mahinang tinig' na nagsalita kay Elias (kabanata 19) tungkol sa kung paano nakikipag-usap si Jehova sa at nagmamalasakit sa kaniyang mga lingkod?"
+    ],
+    [
+      "Ano ang ituturo ng kahilingan ni Eliseo para sa doble na bahagi ng espiritu ni Elias tungkol sa mga katangiang kailangan para sa epektibong paglilingkod kay Jehova?",
+      "Paano ipinakita ng panalangin ni Hezekias nang harapin ang banta ng Asiria (mga kabanata 18–19) ang kapangyarihan ng ganap na pagtitiwala kay Jehova?",
+      "Anong mga aral ang itinuturo ng buhay ng mga tapat na hari tulad ni Josias tungkol sa epekto ng isang espirituwal na lider sa isang buong bayan?",
+      "Bakit nahulog ang Israel sa Asiria (kabanata 17), at anong babala ang taglay nito para sa mga naghahaluan ng huwad na pagsamba sa dalisay na pagsamba kay Jehova?",
+      "Ano ang ituturo ng pagkatuklas ng Kautusan ni Jehova sa panahon ng paghahari ni Josias (kabanata 22) tungkol sa kahalagahan ng regular na pag-aaral at pagsasabuhay ng salita ni Jehova?"
+    ],
+    [
+      "Bakit naglaan si David ng napakaraming pagsisikap at mapagkukunan para sa paghahanda ng Templo ni Jehova kahit na hindi siya ang magtatatayo nito?",
+      "Ano ang ituturo ng pagkamatay ni Uzza nang mahawakan niya ang Kaban (kabanata 13) tungkol sa pagsapit ng dalisay na pagsamba nang may wastong paggalang sa mga tagubilin ni Jehova?",
+      "Paano inayos ni David ang mga saserdote, mga Levita, at mga musikero para sa pagsamba sa Templo, at ano ang inihahayag nito tungkol sa pagpapahalaga ni Jehova sa maayos na pagsamba?",
+      "Ano ang ituturo ng pampublikong pagpupuri at mapagbigay na kontribusyon ni David para sa Templo (kabanata 29) tungkol sa pagbibigay nang may pusong handang-handa?",
+      "Anong mga katangian na inilarawan sa parirala na 'isang taong naaayon sa puso ni Jehova' ang maaari nating sikapin na paunlarin sa ating sariling pagsamba?"
+    ],
+    [
+      "Ano ang inihahayag ng pangako ni Jehova kay Solomon sa 2 Mga Cronica 7:14 tungkol sa mga kondisyon na hinihiling ni Jehova para sa kapatawaran at pagpapanumbalik?",
+      "Paano ipinakita ng panalangin ni Jehoshafat at ng himalaang interbensyon ni Jehova (kabanata 20) ang kapangyarihan ng pagtitiwala kay Jehova sa isang krisis?",
+      "Anong mga karaniwang katangian ang taglay ng mga nagpabagong hari na sina Asa, Hezekias, at Josias, at paano nakaapekto ang kanilang espirituwal na pamumuno sa kanilang bayan?",
+      "Anong pattern sa 2 Mga Cronica ang nagpapakita ng ugnayan sa pagitan ng katapatan kay Jehova at ng pagpapala, at sa pagitan ng kawalan ng katapatan at ng kalamidad?",
+      "Paano ipinakita ng mapag-asang katapusan ng aklat na may utos ni Cyrus (36:23) ang kakayahan ni Jehova na gamitin ang sinuman para matupad ang kaniyang layunin?"
+    ],
+    [
+      "Ano ang nag-udyok sa unang grupo ng mga Hudyong bihag na bumalik sa Jerusalem, at ano ang ituturo nito tungkol sa pagbibigay-priyoridad sa pagsamba kay Jehova kaysa sa personal na kaginhawahan?",
+      "Paano sinubukan ng pagtutol sa muling pagtatayo ng Templo ang pananampalataya ng mga nagbalik na bihag, at paano sila nakatulong ni Jehova na mapagtagumpayan ito?",
+      "Ano ang ituturo ng personal na paghahanda ni Esdras — 'Inihanda ni Esdras ang kaniyang puso upang pag-aralan ang Kautusan ni Jehova, isagawa ito, at ituro ito' (7:10) — tungkol sa personal na pag-aaral ng Bibliya?",
+      "Paano ipinakita ng problema ng mga pakikipagsama sa dayuhan (mga kabanata 9–10) ang seryosong espirituwal na panganib ng malapit na pakikisama sa mga hindi sumasamba kay Jehova?",
+      "Ano ang ituturo ng emosyonal na tugon ng mga tao nang marinig nilang binabasa ang Kautusan ni Jehova tungkol sa ating saloobin sa Kasulatan?"
+    ],
+    [
+      "Ano ang ituturo ng panalangin ni Nehemias bago lapitan si Haring Artaxerxes (kabanata 1) tungkol sa papel ng panalangin sa ating mga plano at desisyon?",
+      "Paano pinangasiwaan ni Nehemias ang pangungutya at mga banta mula kina Sanbalat at Tobias, at anong praktikal na mga aral ang ibinibigay nito para sa pakikitungo sa pagtutol?",
+      "Ano ang ituturo ng desisyon ni Nehemias na magpagtayo ang mga manggagawa na may hawak na armas (4:17) tungkol sa pagiging 'matalinong tulad ng mga ahas' habang ginagawa ang gawa ni Jehova?",
+      "Paano ipinakita ng pagharap ni Nehemias sa ekonomikong kawalan ng katarungan (kabanata 5) na ang espirituwal na pamumuno ay sumasaklaw din sa pag-aalala para sa praktikal na katarungan?",
+      "Ano ang ituturo ng pampublikong pagbabasa ng Kautusan ni Jehova at ng emosyonal na tugon ng bayan (kabanata 8) tungkol sa nangyayari kapag ang mga tao ay wastong pinakain ng espirituwal?"
+    ],
+    [
+      "Paano inilalarawan ng aklat ng Ester ang nakatagong probidensya ni Jehova kahit ang kaniyang pangalan ay hindi tahasang binanggit sa teksto?",
+      "Ano ang ituturo ng tapang ni Ester sa paglapit sa hari nang hindi inaanyayahan — 'Kung mapahamak man ako, mapahamak na' — tungkol sa paglalagay ng kapakanan ng bayan ni Jehova nang higit kaysa sa personal na kaligtasan?",
+      "Paano naisalamin ng pagtanggi ni Mordecai na yumuko kay Haman ang uri ng katapatan kay Jehova na dapat panatilihin ng kaniyang bayan kahit sa ilalim ng presyon?",
+      "Ano ang ituturo ng pagkabagsak ni Haman tungkol sa prinsipyong ang pagmamalaki ay laging humahantong sa pagkabagsak, at na ang mga pakana laban sa bayan ni Jehova ay hindi magtatagumpay?",
+      "Paano inilalarawan ng pag-aayuno na ipinatapon ni Ester bago lapitan ang hari ang kahalagahan ng paghahanap ng patnubay ni Jehova bago gumawa ng isang malaking hakbang?"
+    ],
+    [
+      "Ano ang tunay na isyu sa likod ng pagdurusa ni Job, at bakit mahalaga ang pag-unawa sa kontekstong ito para sa mga Saksi ni Jehova ngayon?",
+      "Paano nabigo ang mga 'kaaliwan' ni Job sa kanya, at ano ang ituturo nito tungkol sa kung paano tunay na sinusuportahan ang mga nagdadanas ng mga pagsubok?",
+      "Ano ang inihahayag ng sagot ni Jehova kay Job mula sa bagyo (mga kabanata 38–41) tungkol sa karunungan at kapangyarihan ni Jehova kumpara sa pag-unawa ng tao?",
+      "Paano pinanatili ni Job ang kaniyang integridad sa ilalim ng matinding pagsubok, at ano ang ituturo ng kaniyang halimbawa tungkol sa pag-titiis ng walang katwiran na pagdurusa nang may katapatan?",
+      "Ano ang ituturo ng kumpletong pagpapanumbalik ni Job (kabanata 42) tungkol sa pagmamalasakit ni Jehova sa mga nagpapanatili ng integridad, at paano ito nagtuturo sa pag-asa ng muling pagkabuhay?"
+    ],
+    [
+      "Paano itinuturo ng mga awit ng pagdaing (tulad ng Mga Awit 22, 42, 88) sa atin na maging tapat kay Jehova tungkol sa ating mga damdamin sa panahon ng pagdurusa?",
+      "Ano ang ituturo ng Awit 83:18 tungkol sa kahalagahan ng pangalan ni Jehova, at paano nito naiuudyukan ang mga Saksi ni Jehova sa kanilang ministeryo?",
+      "Paano nag-aambag ang mga awit ng paghahari (tulad ng Mga Awit 93, 96–99) sa ating pag-unawa sa Kaharian ni Jehova at sa kaniyang karapatang mamuno?",
+      "Ano ang ituturo ng Awit 119 — ang pinakamahabang awit — tungkol sa tamang saloobin na dapat nating taglay sa batas at salita ni Jehova?",
+      "Paano pina-unang-anino ng mga Mesianikong awit (tulad ng Mga Awit 2, 22, 110) si Jesucristo, at alin sa mga tiyak na pangyayari ang natupad?"
+    ],
+    [
+      "Ano ang ibig sabihin ng Kawikaan 1:7 — 'Ang pagkatakot kay Jehova ay simula ng karunungan' — at paano ginagabayan ng wastong takot kay Jehova ang mga pang-araw-araw na desisyon?",
+      "Paano naaangkop ang Kawikaan 3:5–6 — 'Magtiwala ka kay Jehova nang buong puso mo' — sa praktikal na paraan kapag gumagawa ng malalaking desisyon sa buhay?",
+      "Anong mga babala ang ibinibigay ng Kawikaan tungkol sa mga panganib ng masamang pakikisama, at paano naaangkop ang mga ito sa mga Saksi ni Jehova sa pagpili ng mga kaibigan?",
+      "Paano naisalamin ng paglalarawan ng 'mahusay na asawa' sa Kawikaan 31 ang mga katangian na pinahahalagahan ni Jehova sa lahat ng kaniyang mga lingkod?",
+      "Anong praktikal na gabay ang ibinibigay ng Kawikaan tungkol sa paggamit ng dila, at paano natin maaaring ilapat ang karunungang ito sa araw-araw?"
+    ],
+    [
+      "Ano ang ituturo ng konklusyon ni Solomon na lahat ng mga paghahanap ay 'walang kabuluhan' tungkol sa mga panganib ng paghahanap ng pangmatagalang kasiyahan malayo kay Jehova?",
+      "Paano tinutulungan ng Mangangaral 3:1–8 — 'may takdang panahon para sa bawat layunin sa ilalim ng langit' — ang mga Saksi ni Jehova na mapanatili ang balanse sa mga aktibidad ng buhay?",
+      "Ano ang ituturo ng Mangangaral tungkol sa kamatayan at sa kalagayan ng mga patay (9:5, 10) na sumusuporta sa turo ng Bibliya tungkol sa pag-asa ng muling pagkabuhay?",
+      "Paano naiuudyukan ng Mangangaral 12:1 — 'Alalahanin ang iyong Maylalang sa mga araw ng iyong kabataan' — ang mga kabataan na magtalaga ng kanilang sarili kay Jehova nang maaga sa buhay?",
+      "Ano ang ituturo ng panghuling konklusyon ng Mangangaral (12:13–14) — ang matakot kay Jehova at sumunod sa kaniyang mga utos — tungkol sa tunay na layunin ng sangkatauhan?"
+    ],
+    [
+      "Ano ang ituturo ng Awit ng mga Awit tungkol sa kahalagahang ibinibigay ni Jehova sa pag-ibig, katapatan, at pangako sa loob ng kasal?",
+      "Paano inilalarawan ng mutual na pagpapahalaga at bukas na komunikasyon na inilarawan sa Awit ng mga Awit ang mga katangian na nagpapatibay ng anumang malapit na relasyon?",
+      "Ano ang ituturo ng 'pag-ibig ay kasing lakas ng kamatayan' (8:6) tungkol sa kalikasan ng tunay na katapatan at pangako sa isang relasyon?",
+      "Paano inilalarawan ng pagbabantay at katapatan ng Sulamita para sa kaniyang pastol ang kalidad ng debosyon na pinahahalagahan ni Jehova?",
+      "Anong mga prinsipyo mula sa Awit ng mga Awit ang tumutulong sa mga Saksi ni Jehova sa pagpapanatili ng malusog, marangal na mga relasyon?"
+    ],
+    [
+      "Paano inilalarawan ng Isaias 9:6–7 ang darating na Hari ng Mesiyas, at paano natupad ang mga katangiang ito ni Jesucristo?",
+      "Ano ang ituturo ng Isaias 40:28–31 tungkol sa walang kapagurang lakas ni Jehova at sa kaniyang pagmamalasakit para sa mga napapagod?",
+      "Paano inilalarawan ng apat na 'Awit ng Lingkod' sa Isaias (42:1–4; 49:1–6; 50:4–9; 52:13–53:12) ang pagdurusa at ministeryo ng Mesiyas?",
+      "Ano ang inilarawan ng Isaias 65:17–25 tungkol sa darating na bagong lupa, at paano pinananatili ng pangitaing ito ang pag-asa ng bayan ni Jehova?",
+      "Paano naisalamin ng tugon ni Isaias sa kaniyang pangitain sa kabanata 6 — 'Suguin mo ako!' — ang kusang loob na espiritu na ipinakikita ng mga Saksi ni Jehova sa kanilang ministeryo?"
+    ],
+    [
+      "Ano ang ituturo ng Jeremias 1:5 — 'Bago kita hinubog sa bahay-bata ay nakilala na kita' — tungkol sa pagkaalam ni Jehova nang maaga at sa layunin para sa bawat tao?",
+      "Paano nanatiling tapat si Jeremias sa kabila ng matinding pag-uusig, pangungutya, at paminsan-minsang pagdurusa, at ano ang maaari nating matuto mula sa kaniyang halimbawa?",
+      "Ano ang ituturo ng pangako ni Jehova ng isang bagong tipan (Jeremias 31:31–34) tungkol sa kahigitan ng kapamahalaan na pinangalagaan ni Jesus?",
+      "Paano inilapat ng liham ni Jeremias sa mga bihag sa Babilonia (kabanata 29) — na nagsasabi sa kanila na hanapin ang kapayapaan ng lungsod — ang prinsipyo ng pagiging 'hindi bahagi ng sanlibutan'?",
+      "Ano ang ituturo ng pagbili ni Jeremias ng isang palaisdaan (kabanata 32) kahit habang bumabagsak ang Jerusalem tungkol sa kumpiyansa sa mga pangako ni Jehova para sa hinaharap?"
+    ],
+    [
+      "Paano ginagawang modelo ng aklat ng Mga Panaghoy ang tapat na pagdaing habang pinapanatili ang pag-asa sa tapat na pagmamahal ni Jehova?",
+      "Ano ang ituturo ng Mga Panaghoy 3:22–23 — ang tapat na pagmamahal ni Jehova ay 'hindi natatapos' at 'ang mga awa ay bago sa bawat umaga' — tungkol sa walang sawang katapatan ni Jehova?",
+      "Paano naisalamin ng kalungkutan ni Jeremias sa pagkawasak ng Jerusalem kung paano dapat maramdaman ng mga lingkod ni Jehova ngayon ang kasamaan sa sanlibutan?",
+      "Ano ang ituturo ng Mga Panaghoy tungkol sa mga bunga ng pag-alis sa mga pamantayan ni Jehova, at paano ito nagsisilbing babala para sa atin?",
+      "Paano naisalamin ang tamang tugon sa disiplina ni Jehova ng pagkilala ng mga bihag sa Mga Panaghoy 3:40 — 'Siyasatin at suriin natin ang ating mga landas'?"
+    ],
+    [
+      "Ano ang ituturo ng mga paunang pangitain ni Ezekiel (mga kabanata 1–3) ng karong-trono ni Jehova tungkol sa kamahalan ni Jehova at sa pagpapatakbo ng kaniyang banal na espiritu?",
+      "Paano inilalarawan ng papel ni Ezekiel bilang 'bantay' (mga kabanata 3, 33) ang responsibilidad ng mga Saksi ni Jehova na babalaan ang iba tungkol sa paghatol ni Jehova?",
+      "Ano ang ituturo ng Ezekiel 18:23 — 'Hindi ako nagagalak sa kamatayan ng masamang tao' — tungkol sa pagnanasa ni Jehova para sa lahat na magsisi at mabuhay?",
+      "Paano pina-unang-anino ng pangitain ng lambak ng mga tuyong buto (kabanata 37) ang muling pagkabuhay ng mga patay sa ilalim ng Kaharian ni Jehova?",
+      "Ano ang ituturo ng pangitain ni Ezekiel ng hinaharap na Templo (mga kabanata 40–48) tungkol sa kahalagahan ng dalisay, organisadong pagsamba kay Jehova?"
+    ],
+    [
+      "Paano ipinakita nina Daniel at ng kaniyang tatlong kasama (mga kabanata 1–6) na posibleng mapanatili ang integridad sa ilalim ng matinding presyon mula sa isang makapangyarihang kapangyarihan sa mundo?",
+      "Ano ang ituturo ng Daniel 2:44 — ang pagtatatag ni Jehova ng isang kahariang hindi kailanman masisira — tungkol sa katiyakan ng Kaharian ni Jehova?",
+      "Paano nagpakita ang ulat nina Sadrach, Mesach, at Abednego (kabanata 3) ng uri ng pananampalatayang 'kahit hindi' na maaaring kailanganin ng mga Saksi ni Jehova sa panahon ng pag-uusig?",
+      "Ano ang inihahayag ng propesiya ng Panahon ng mga Hentil (Daniel 4) at ng malaking estatwa sa Daniel 2 tungkol sa pagkakasunod-sunod ng mga kapangyarihan sa mundo at sa timetable ni Jehova?",
+      "Paano itinuturo ng tapat na gawi sa panalangin ni Daniel — tatlong beses na nananalangin araw-araw anuman ang kautusan ng hari (kabanata 6) — ang kahalagahan ng tuluy-tuloy na regular na pagsamba?"
+    ],
+    [
+      "Paano ginamit ni Jehova ang kasal ni Oseas bilang isang buhay na ilustrasyon ng espirituwal na kawalan ng katapatan ng Israel, at paano nito tinutulungan tayong maunawaan ang kaseryosohan ng espirituwal na pangangalunya?",
+      "Ano ang ituturo ng Oseas 6:6 — 'Nais ko ng tapat na pagmamahal, hindi hain; at kaalaman sa Diyos kaysa sa mga handog na susunugin' — tungkol sa pinaka-pinahahalagahan ni Jehova?",
+      "Paano ipinakikita ng patuloy na habag ni Jehova at imbitasyon para sa Israel na bumalik (kabanata 14) ang lalim ng kaniyang tapat na pagmamahal at kakayahan para sa kapatawaran?",
+      "Ano ang ituturo ni Oseas tungkol sa espirituwal na panganib ng paghahalo ng tunay na pagsamba sa mga relihiyosong gawi ng mga karatig-bansa?",
+      "Paano kumonekta ang propesiya ni Oseas (13:14) tungkol sa pagtubos mula sa kapangyarihan ng libingan sa mga salita ni Pablo sa 1 Corinto 15:55?"
+    ],
+    [
+      "Paano ginamit ni Joel ang salot ng mga balang bilang isang tawag sa tunay na pagsisisi, at ano ang ibig sabihin ng 'punitin ang inyong mga puso, hindi ang inyong mga damit' (2:13) para sa pagsamba ngayon?",
+      "Ano ang ituturo ng propesiya ni Joel tungkol sa pagbubuhos ni Jehova ng kaniyang espiritu (2:28–29), lalo na ang natupad sa Pentekostes 33 CE (Mga Gawa 2:1–21)?",
+      "Paano nagkatulad ang 'Araw ni Jehova' sa Joel sa inilarawan ng Pahayag tungkol sa malaking kapighatian at Armagedon?",
+      "Ano ang ituturo ng propesiya ni Joel tungkol sa mga bansang hahatulan sa 'Lambak ng Desisyon' (3:14) tungkol sa darating na paghatol ni Jehova?",
+      "Ano ang ituturo ng pangako ni Joel ng pagpapanumbalik (2:18–27; 3:17–18) tungkol sa mga pagpapalang inihanda ni Jehova para sa mga bumabalik sa kanya?"
+    ],
+    [
+      "Ano ang ituturo ng Amos 3:7 — 'Tiyak na walang ginagawa ang Soberanong Panginoong Jehova nang hindi muna inihahayag ang kaniyang lihim na bagay sa kaniyang mga lingkod na mga propeta' — tungkol sa komunikasyon ni Jehova sa kaniyang bayan?",
+      "Paano naaangkop ang pagkondena ni Amos sa walang kabuluhang relihiyosong pagmamasid (mga kabanata 5–6) sa panganib ng pagsasagawa ng mga kilos ng pagsamba nang walang katapatan?",
+      "Ano ang ituturo ni Amos tungkol sa pagmamalasakit ni Jehova sa panlipunang katarungan at sa pagtrato sa mga mahihirap, at paano naisasalamin nito ang mga pagpapahalaga ni Jehova?",
+      "Ano ang ituturo ng mga paghatol sa mga karatig-bansa (mga kabanata 1–2) tungkol sa pagtangan ni Jehova ng lahat ng tao — hindi lamang Israel — na may pananagutang sumunod sa mga pangunahing pamantayang moral?",
+      "Paano kumonekta ang propesiya ni Amos tungkol sa 'nabagsak na kubol ni David' (9:11) sa pagpapanumbalik ng dalisay na pagsamba at sa Kaharian ni Jehova?"
+    ],
+    [
+      "Anong tiyak na mga kasalanan ng Edom ang humantong sa paghatol ni Jehova, at ano ang ituturo nito tungkol sa mga panganib ng pagmamalaki at pagtitiwala sa sariling kakayahan?",
+      "Paano lumabag sa prinsipyo ng pagmamalasakit sa kapatid ang pagkagalak ng Edom sa pagbagsak ng Jerusalem (mga talata 12–14), at anong babala ang taglay nito para sa atin?",
+      "Ano ang ituturo ni Obadias tungkol sa prinsipyong 'kung ano ang ginawa mo, gagawin din sa iyo' (talata 15)?",
+      "Paano ipinakita ng kumpletong paghatol ni Jehova sa Edom — isang bansang tila hindi matalo — na walang plano ng tao ang makatatayo laban sa layunin ni Jehova?",
+      "Ano ang inaasahan ng huling talata ng Obadias — 'Ang kaharian ay magiging kay Jehova' — tungkol sa hinaharap sa ilalim ng Kaharian ni Jehova?"
+    ],
+    [
+      "Ano ang mali sa paunang pagtanggi ni Jonas na pumunta sa Ninive, at paano nito hinahamon tayo na pagnilayan ang ating sariling saloobin sa pagbabahagi ng mabuting balita sa lahat ng uri ng tao?",
+      "Paano ipinakita ng matiyagang pagharap ni Jehova sa saloobin ni Jonas — mula sa isda hanggang sa puno ng upo — ang kaniyang pagnanasang magturo kaysa sa simpleng magparusa?",
+      "Ano ang ituturo ng tunay na pagsisisi ng Ninive at ng desisyon ni Jehova na huwag magdala ng kalamidad (3:10) tungkol sa bisa ng taos-pusong pagsisisi?",
+      "Paano ginagawang modelo ng panalangin ni Jonas mula sa loob ng isda (kabanata 2) ang tapat, personal na panalangin kay Jehova kahit sa pinaka-desperadong mga pangyayari?",
+      "Ano ang ituturo ng ulat ni Jonas tungkol sa interes ni Jehova sa espirituwal na kapakanan ng lahat ng bayan, na pina-unang-anino ang pandaigdigang gawain ng pangangaral?"
+    ],
+    [
+      "Paano ipinakita ng Mikas 5:2 — ang pagpopropesiya ng kapanganakan ng Mesiyas sa Bethlehem — ang pagiging mapagkakatiwalaan ng propesiya ni Jehova nang matupad ito sa kapanganakan ni Jesus?",
+      "Ano ang inilarawang mahahalagang katangian ng Mikas 6:8 — 'gumawa ng katarungan, ibigin ang katapatan, at lumakad nang may kababaang-loob kasama ang iyong Diyos' — na hinihingi ni Jehova?",
+      "Paano inilalarawan ng paglalarawan ni Mikas ng mga huling araw (4:1–4) — kapag ang mga tao ay dumaloy sa 'bundok' ni Jehova para sa tagubilin — ang nangyayari sa mga Saksi ni Jehova ngayon?",
+      "Ano ang ituturo ni Mikas tungkol sa kaibahan ng tiwaling pamumuno (kabanata 3) at ng matuwid na pamumunong pinahahalagahan ni Jehova?",
+      "Paano inilalarawan ng Mikas 7:18–20 ang mga katangian ng kapatawaran at tapat na pagmamahal ni Jehova sa paraang nagbibigay ng kaaliwan sa mga nagkamali?"
+    ],
+    [
+      "Anong mga katangian ni Jehova ang inilarawan ng Nahum 1:2–7 — ang kaniyang pagseselos, kahinahunan, at kadakilaan — at paano sila nagtatrabaho nang magkasama?",
+      "Ano ang ituturo ng pagbagsak ng Ninive tungkol sa kung paano ang pinaka-makapangyarihang kapangyarihang tao ay napapailalim sa paghatol ni Jehova?",
+      "Paano nagbibigay ng kaaliwan ang Nahum 1:7 — 'Si Jehova ay mabuti, isang sanggalang sa araw ng kapighatian; at nakikilala niya ang mga naghahanap ng kanlungan sa kanya' — sa panahon ng mahihirap na panahon?",
+      "Paano itinuturo ng kaibahan sa pagitan ng pagtrato ni Jehova sa Ninive sa Jonas (habag sa pagsisisi) at sa Nahum (paghatol sa pagbabalik sa kasamaan) ang mga hangganan ng pasensya ni Jehova?",
+      "Anong prinsipyo ng katarungan ni Jehova — na siya ay 'hindi pababayaang walang parusa ang mga nagkasala' — ang nakikita nating natutupad sa pagbagsak ng Ninive?"
+    ],
+    [
+      "Paano ipinakita ng pagpayag ni Habakuk na tanungin si Jehova nang tapat tungkol sa tila kawalan ng katarungan (mga kabanata 1–2) na maaari nating dalhin ang ating pinakamalalim na mga alalahanin sa panalangin kay Jehova?",
+      "Ano ang ibig sabihin ng Habakuk 2:4 — 'ang matuwid ay mabubuhay sa pamamagitan ng kaniyang katapatan' — at paano ginamit ni Pablo ang talatang ito sa Roma at Galacia?",
+      "Paano hinallenging ng sagot ni Jehova — na itinaas niya ang Babilonia bilang kaniyang instrumento — ang pag-unawa ni Habakuk, at ano ang ituturo nito tungkol sa pagtitiwala sa karunungan ni Jehova?",
+      "Ano ang ginagawang modelo ng Habakuk 3:17–18 — ang pagagalak kay Jehova kahit mabigo ang lahat ng natural na pagpapala — tungkol sa pagpapanatili ng kagalakan sa anumang pangyayari?",
+      "Paano ginagawang modelo ng paglalakbay ni Habakuk mula sa reklamo hanggang sa papuri ang malusog na espirituwal na proseso para sa mga Saksi ni Jehova na nagbabaka-sakali sa mahahirap na katanungan?"
+    ],
+    [
+      "Paano inihahanda ng paglalarawan ni Sofonias sa 'Araw ni Jehova' bilang parehong nakatatakot at makapag-uudyok ng pag-asa ang mga Saksi ni Jehova para sa darating na malaking kapighatian?",
+      "Ano ang inihahayag ng Sofonias 3:17 — 'Si Jehova na iyong Diyos ay nasa iyong gitna...Magagalak siya sa iyo nang may dakilang kagalakan' — tungkol sa damdamin ni Jehova para sa kaniyang bayan?",
+      "Ano ang ibig sabihin ng panawagan ni Sofonias na 'hanapin si Jehova, kayong lahat na maamo ng lupa' (2:3) sa praktikal na paraan para sa ating pang-araw-araw na buhay?",
+      "Paano ipinakita ng propesiya ni Sofonias laban sa mga bansa (kabanata 2) ang moral na awtoridad ni Jehova sa lahat ng bayan ng lupa?",
+      "Ano ang inaasahan ng pangako ni Sofonias ng isang 'dalisay na wika' (3:9) — na lahat ng bayan ay tatawag sa pangalan ni Jehova — tungkol sa pagpapanumbalik ng dalisay na pagsamba?"
+    ],
+    [
+      "Ano ang espirituwal na problema na natukoy ni Ageo nang sabihin ng bayan na 'hindi pa dumating ang takdang panahon para itayo ang bahay ni Jehova' (1:2), at paano maaaring lumitaw ang rasyonalisasyong ito sa ating sariling buhay?",
+      "Paano sumagot si Jehova sa agarang pagsunod ng bayan pagkatapos ng mensahe ni Ageo (1:12–15), at ano ang ituturo nito tungkol sa gantimpala ng mabilis na pagsunod?",
+      "Ano ang ituturo ng Ageo 2:9 — 'Ang kaluwalhatian ng bahay na ito sa hinaharap ay magiging mas dakila kaysa sa dati' — tungkol sa kakayahan ni Jehova na lampasan ang ating mga inaasahan?",
+      "Paano naaangkop ang mensahe ni Ageo tungkol sa paglalagay ng bahay ni Jehova muna bago ang sarili nating bahay sa kung paano inaayos ng mga Saksi ni Jehova ang kanilang mga priyoridad ngayon?",
+      "Ano ang ituturo ng Ageo 2:4 — 'Maging matapang...at gumawa, sapagkat kasama ninyo ako' (paulit-ulit kay Zerubbabel, Josue, at ang bayan) — tungkol sa katiyakan ni Jehova para sa mga gumagawa ng kaniyang gawa?"
+    ],
+    [
+      "Paano nagbibigay ng kumpiyansa ang pangitain ni Zechariah ng Satanas na kumakalaban kay Josue na punong saserdote (kabanata 3) at ng pagsaway ni Jehova kay Satanas na pinoprotektahan ni Jehova ang kaniyang mga lingkod?",
+      "Ano ang ituturo ng Zechariah 4:6 — 'Hindi sa pamamagitan ng isang puwersa ng militar, ni sa kapangyarihan, kundi sa pamamagitan ng aking espiritu, sabi ni Jehova' — tungkol sa paraan ng pagsasakatuparan ni Jehova ng kaniyang layunin?",
+      "Paano kumonekta ang Zechariah 9:9 — ang hinalang hari na pumasok sa Jerusalem na nakasakay sa isang asno — sa matagumpay na pagpasok ni Jesus at nagpapatunay ng pagiging mapagkakatiwalaan ng propesiya?",
+      "Ano ang pina-unang-anino ng Zechariah 12:10 — 'Titingnan nila ang isa na kanilang tinusok' — at paano ito ikinonekta ni Juan sa Jesus sa Pahayag 1:7?",
+      "Paano pinananatili ng pangkalahatang mensahe ni Zechariah — babalik si Jehova sa Sion at mananahan kasama ang kaniyang bayan — ang pag-asa ng mga Saksi ni Jehova para sa bagong mundo?"
+    ],
+    [
+      "Paano inihayag ng tanong ni Jehova na 'Paano ninyo ako minahal?' (1:2) ang espirituwal na kaginhawahan na tinutugunan ni Malakias, at paano tayo maaaring magingat laban sa saloobing ito?",
+      "Ano ang ituturo ng pagkondena ni Malakias sa mga di-dalisay na hain (kabanata 1) tungkol sa kalidad ng pagsamba — oras, lakas, at atensyon — na karapat-dapat kay Jehova?",
+      "Ano ang ituturo ng Malakias 3:10 — 'Dalhin ang buong ikasampung bahagi...at subukan ninyo ako' — tungkol sa prinsipyo ng paglalagay ng mga interes ni Jehova muna?",
+      "Paano ipinakita ng 'aklat ng pag-aalala' na isinulat para sa mga nagkatakot kay Jehova (3:16) na mabuti na pinapansin ni Jehova ang mga tapat?",
+      "Paano kumonekta ang mga huling talata ni Malakias — na nagpopropesiya kay Elias bago ang dakilang araw ni Jehova — sa preparatoryong ministeryo ni Juan Bautista?"
+    ],
+    [
+      "Paano inilalahad ng Sermon sa Bundok ni Jesus (mga kabanata 5–7) ang mga pamantayan ng pag-uugali at mga pagpapahalaga na nagtatangi sa mga mamamayan ng Kaharian ni Jehova?",
+      "Ano ang ituturo ng huwaran na panalangin ni Jesus (Mateo 6:9–13) tungkol sa dapat na maging una sa ating mga panalangin — ang pangalan ni Jehova, ang kaniyang Kaharian, at ang kaniyang kalooban?",
+      "Paano inilalarawan ng mga talinghaga ng Kaharian sa Mateo 13 ang iba't ibang tugon sa mensahe ng Kaharian, at alin sa mga tugon ang sinikap ng mga Saksi ni Jehova na linangin?",
+      "Ano ang inihahayag ng Dakilang Utos ni Jesus (28:19–20) — 'gumawa ng mga alagad ng mga tao ng lahat ng bansa' — tungkol sa pandaigdigang saklaw at patuloy na kalikasan ng gawain ng pangangaral?",
+      "Paano nagpapatibay ng kumpiyansa sa pagiging mapagkakatiwalaan ng salita ni Jehova ang pagpapakita ni Mateo kay Jesus bilang katuparan ng propesiya ng Hebreong Kasulatan?"
+    ],
+    [
+      "Ano ang inihahayag ng mabilis na takbo ng Ebanghelyo ni Marcos at ng pagbibigay-diin nito sa makapangyarihang mga gawa ni Jesus tungkol kay Jesus bilang itinalagang lingkod ni Jehova?",
+      "Paano binubuod ng Marcos 10:45 — 'ang Anak ng tao ay naparito, hindi upang paglingkuran, kundi upang maglingkod at ibigay ang kaniyang buhay bilang pantubos kapalit ng marami' — ang buong layunin ni Jesus?",
+      "Ano ang ituturo ng ulat ng dalawang barya ng biyuda (Marcos 12:41–44) tungkol sa pinahahalagahan ni Jehova sa mga kilos ng pagsamba at pagbibigay?",
+      "Paano inilalarawan ng utos ni Jesus na 'sumunod ka sa akin' (Marcos 1:17; 8:34) kung ano ang hinihingi ng ganap na pagiging alagad sa mga naglilingkod kay Jehova ngayon?",
+      "Ano ang itinuturo ng Marcos 8:29 — 'Ikaw ang Kristo' — at ng kasunod na turo tungkol sa isang nagdurusing Mesiyas tungkol sa pagwawasto ng maling inaasahan tungkol sa layunin ni Jehova?"
+    ],
+    [
+      "Paano naisalamin ng pagbibigay-diin ni Lucas sa pagpapakita ni Jesus ng habag sa mga itinapon, mahihirap, at mga Hentil ang pagmamahal ni Jehova sa lahat ng bayan?",
+      "Ano ang ituturo ng talinghaga ng nawala sa anak (Lucas 15) tungkol sa kagalakan ni Jehova kapag nagsisi ang mga makasalanan at bumabalik sa kanya?",
+      "Paano tinutukoy ng ulat ni Lucas ng Mabuting Samaritano (10:25–37) kung ano ang ibig sabihin ng 'ibigin ang iyong kapwa,' at paano ito naaangkop sa mga Saksi ni Jehova ngayon?",
+      "Ano ang ituturo ng Lucas 4:18 — ang pahayag ni Jesus ng kaniyang misyon — tungkol sa espirituwal na kalayaan na dinadala ng Kaharian ni Jehova?",
+      "Paano naiuudyukan ng Lucas 19:10 — 'ang Anak ng tao ay naparito upang hanapin at iligtas ang nawala' — ang mga Saksi ni Jehova sa kanilang ministeryo na maabot ang lahat ng uri ng tao?"
+    ],
+    [
+      "Paano inilalarawan ng Juan 1:1 at 1:14 si Jesus bilang ang Salita (Logos), at ano ang inihahayag ng gramatika ng Griyego sa Juan 1:1 tungkol sa kalikasan ni Jesus kaugnay ni Jehova?",
+      "Ano ang ituturo ng pahayag ni Jesus na 'ang Ama ay mas dakila kaysa sa akin' (Juan 14:28) at ng mga kaugnay na talata tungkol sa relasyon sa pagitan ni Jehova at ni Jesus?",
+      "Paano inihahayag ng pitong pahayag na 'AKO NGA AY' (ang tinapay, liwanag, pastol, muling pagkabuhay, daan, puno ng ubas, pintuan) ang papel ni Jesus bilang daluyan ng mga pagpapala ni Jehova?",
+      "Ano ang ituturo ng panalangin ni Jesus sa Juan 17 — kasama na ang kahilingan na ang kaniyang mga alagad ay 'maging isa gaya na kami ay isa' — tungkol sa pagkakaisa sa kongregasyon?",
+      "Paano inilalarawan ng turo ni Jesus tungkol sa banal na espiritu bilang 'katulong' (parakleto) sa Juan 14–16 ang papel ng espiritu ni Jehova sa paggabay at pagpapalakas ng kaniyang bayan?"
+    ],
+    [
+      "Paano kinatawan ng pagbubuhos ng banal na espiritu ni Jehova sa Pentekostes 33 CE (kabanata 2) ang simula ng kongregasyon ng bagong tipan, at ano ang mga agarang resulta?",
+      "Ano ang ituturo ng pattern ng paglago ng maagang kongregasyon sa Mga Gawa — kahit sa harap ng matinding pag-uusig — tungkol sa di-matitinag na kalikasan ng layunin ni Jehova?",
+      "Paano ginagawang modelo ng halimbawa ng katapangan nina Pedro at Pablo sa harap ng mga hukuman at konseho (mga kabanata 4–5; 22–26) ang saloobing maaari sa mga Saksi ni Jehova kapag idinedepensa ang mabuting balita?",
+      "Ano ang sinasabi ng Mga Gawa 17:11 tungkol sa mga Beroeano, at anong katangian ang binibigyang-diin ng kanilang halimbawa para sa personal na pag-aaral ng Bibliya?",
+      "Paano ipinakita ng pagpapalawak ng gawain ng pangangaral mula Jerusalem patungong Roma (Mga Gawa 1:8) ang katuparan ng utos ni Jesus at kung paano ginagabayan ng espiritu ni Jehova ang gawain?"
+    ],
+    [
+      "Ano ang ipinaliwanag ni Pablo tungkol sa kung paano lahat ng tao ay 'nagkulang sa kaluwalhatian ng Diyos' (3:23) at ang lunas sa pamamagitan ng pananampalataya kay Jesus na nagpapakita kung bakit natin kailangan ang pantubos?",
+      "Paano ipinaliwanag ng Roma 5:12 — 'sa pamamagitan ng isang tao ay pumasok ang kasalanan sa sanlibutan at ang kamatayan sa pamamagitan ng kasalanan' — ang ugnayan sa pagitan ng kasalanan ni Adan at ng kalagayan ng sangkatauhan?",
+      "Ano ang ibig sabihin ng turo ni Pablo sa Roma 8:28 — 'gumagawa kasama ang Diyos ang lahat ng kaniyang mga gawa para sa ikabubuti' — para sa mga Saksi ni Jehova na nahaharap sa mga pagsubok?",
+      "Paano tinutukoy ng Roma 12:1–2 — 'iharap ang inyong mga katawan bilang isang buhay na hain' at 'huminto sa paghubog ng sistemang ito ng mga bagay sa inyo' — kung ano ang hitsura ng buong-pusong paglilingkod kay Jehova?",
+      "Ano ang ituturo ng turo ni Pablo tungkol sa pagpapasakop sa mga namamahalang awtoridad (Roma 13:1–7) at ng mga hangganan nito (Mga Gawa 5:29) tungkol sa ating relasyon sa mga pamahalaan ng tao?"
+    ],
+    [
+      "Ano ang ituturo ng turo ni Pablo sa mga espirituwal na kaloob sa mga kabanata 12–14 tungkol sa wastong paggamit ng mga kaloob sa kongregasyon, na ang pagmamahal ang pinaka-mahahalagang katangian?",
+      "Paano humahamong suriin ang ating mga relasyon sa loob ng kongregasyon ang paglalarawan ni Pablo ng pagmamahal sa kabanata 13 — mapagtiis, mabait, hindi naiinggit, hindi naghahanap ng sariling interes?",
+      "Ano ang ituturo ng masusing pagtatanggol ni Pablo ng muling pagkabuhay sa kabanata 15 tungkol sa kung bakit ang pag-asa ng muling pagkabuhay ay sentral sa Kristiyanong pananampalataya?",
+      "Paano naisasalamin ng payo ni Pablo sa pag-aayos ng mga alitan sa pagitan ng mga kapatid (kabanata 6) ang kahalagahan ng pagpapanatili ng pagkakaisa ng kongregasyon at ng hindi paglalabas ng mga problema sa harapan ng sanlibutan?",
+      "Ano ang ituturo ng tagubilin ni Pablo tungkol sa Hapunan ng Panginoon (11:23–26) tungkol sa kabuluhan nito, wastong pakikilahok, at dalas ng pagdiriwang nito?"
+    ],
+    [
+      "Ano ang ituturo ng paglalarawan ni Pablo ng kaniyang mga pagdurusa (mga kabanata 4–6; 11) at ng kaniyang patuloy na ministeryo sa kabila ng mga ito tungkol sa paghahanap ng lakas kay Jehova?",
+      "Paano binibigyang-kahulugan muli ng pahayag ni Pablo na 'kapag mahina ako, saka ako makapangyarihan' (12:10) kung ano ang hitsura ng espirituwal na lakas?",
+      "Ano ang ibig sabihin ng turo ni Pablo tungkol sa 'bagong nilalang' (5:17) para sa mga pumapasok sa isang relasyon kay Jehova sa pamamagitan ni Kristo?",
+      "Paano naaangkop ang apela ni Pablo para sa mapagbigay na pagbibigay para sa mga banal (mga kabanata 8–9) — kasama na ang 'nagagalak si Jehova sa masayang nagbibigay' — sa kung paano natin tinitingnan ang mga kontribusyon at mapagsakripisyong pagbibigay?",
+      "Ano ang ibig sabihin sa praktikal na paraan ng babala ni Pablo tungkol sa pagiging 'hindi pantay na nakahiwa sa mga hindi naniniwala' (6:14) para sa mga Saksi ni Jehova sa pakikipagkaibigan, kasal, at negosyo?"
+    ],
+    [
+      "Anong 'iba't ibang mabuting balita' ang itinataguyod ng mga Judaizer (kabanata 1), at bakit sinabi ni Pablo na ang sinumang nangangaral nito ay 'dapat sumpain'?",
+      "Paano ipinakita ng ulat ni Pablo ng pampublikong pagharap kay Pedro (kabanata 2) ang kahalagahan ng pagtatanggol ng katotohanang doktrinasal kahit kapag ang ibig sabihin ay kumalaban sa isang kilalang tao?",
+      "Ano ang ituturo ng ilustrasyon nina Hagar at Sara (kabanata 4) tungkol sa pagkakaiba ng lumang tipan at ng bagong tipan?",
+      "Paano tinutukoy ng paglalarawan ni Pablo ng 'bunga ng espiritu' (5:22–23) ang mga katangiang dapat maglarawan sa lahat ng naglilingkod kay Jehova?",
+      "Ano ang ituturo ng prinsipyo ni Pablo na 'ang isang tao ay aanihin ang kaniyang itinanim' (6:7) tungkol sa pangmatagalang bunga ng ating pang-araw-araw na mga pagpipilian?"
+    ],
+    [
+      "Ano ang ituturo ng paglalarawan ni Pablo ng kongregasyon bilang 'katawan ni Kristo' (mga kabanata 1; 4) tungkol sa pagkakaisa at pagkakasaling-ugnayan ng lahat ng miyembro ng kongregasyon?",
+      "Paano nilinaw ng Efeso 2:8–9 — 'naligtas kayo sa pamamagitan ng pananampalataya...hindi ito nagmumula sa mga gawa' — ang batayan ng ating pag-asa para sa kaligtasan?",
+      "Ano ang ituturo ng metapor ng 'buong sandata ng Diyos' (6:10–18) tungkol sa espirituwal na pakikipaglaban na kinakaharap ng mga Saksi ni Jehova at kung paano itatanggol ang kanilang sarili?",
+      "Paano naisasalamin ng payo ni Pablo para sa mga Kristiyanong sambahayan — mga asawang lalaki at babae, mga anak at magulang (mga kabanata 5–6) — ang mga pamantayan ni Jehova para sa buhay-pamilya?",
+      "Ano ang ituturo ng Efeso 4:4–6 — 'isang katawan, isang espiritu, isang pag-asa...isang Panginoon, isang pananampalataya, isang bautismo, isang Diyos at Ama' — tungkol sa batayan ng tunay na pagkakaisa?"
+    ],
+    [
+      "Anong mga praktikal na hakbang para sa pagpapanatili ng kapayapaan ng isip ang ibinibigay ng Filipos 4:6–7 — 'huwag mapahintulotang mabalisa ang sinuman...kundi ipaalam sa Diyos ang inyong mga kahilingan'?",
+      "Paano itinuturo ng paglalarawan ni Pablo kay Jesus na 'nagbakante ng kaniyang sarili' (2:5–8) kung ano ang dapat na isipan at saloobin ng isang Kristiyano?",
+      "Ano ang ituturo ng pahayag ni Pablo na 'natututo akong maging kontento sa anumang kalagayan na aking kinaroroonan' (4:11) tungkol sa kasiyahan bilang isang kasanayang dapat paunlarin?",
+      "Paano ipinakita ng masayang tono ni Pablo sa buong Filipos — isinulat habang nasa kulungan — na ang tunay na kagalakan ay nagmumula sa relasyon ng isang tao kay Jehova, hindi sa mga pangyayari?",
+      "Ano ang inihahayag ng Filipos 1:21 — 'para sa akin, ang mabuhay ay si Kristo at ang mamatay ay pakinabang' — tungkol sa pananaw ni Pablo sa buhay, kamatayan, at pag-asa ng muling pagkabuhay?"
+    ],
+    [
+      "Paano nilinaw ng paglalarawan ni Pablo kay Jesus bilang 'panganay ng lahat ng nilikha' at 'panganay ng mga patay' (1:15–18) ang natatanging posisyon ni Jesus sa harapan ni Jehova?",
+      "Anong mga maling pilosopiya at 'mga tradisyon ng tao' (2:8) ang binalaan ni Pablo sa mga Colosas laban sa, at anong mga katulad na panganib ang kinakaharap ng mga Saksi ni Jehova ngayon?",
+      "Paano inilarawan ng tagubilin ni Pablo na 'hayaan ang kapayapaan ni Kristo na mamuno sa inyong mga puso' (3:15) at 'hayaang manirahan nang sagana sa inyo ang salita ni Kristo' (3:16) ang priyoridad ng salita ng Diyos sa buhay ng kongregasyon?",
+      "Ano ang inihahayag ng payo ni Pablo para sa mga relasyon — mga asawa/asawang babae, mga anak/magulang (3:18–4:1) — tungkol sa pagsasabuhay ng mga prinsipyong Kristiyano sa pang-araw-araw na buhay?",
+      "Paano binabago ng prinsipyong 'anuman ang inyong ginagawa, gawin ninyo nang buong puso para kay Jehova at hindi para sa mga tao' (3:23) ang ating diskarte sa pang-araw-araw na trabaho at mga responsibilidad?"
+    ],
+    [
+      "Anong mga tiyak na pangyayari ang inilarawan ni Pablo sa pagpapabalik ni Kristo (4:13–18), at bakit nakakaaliw ang turong ito para sa mga nawalan ng mga mahal sa buhay sa kamatayan?",
+      "Paano inilalarawan ng paglalarawan ni Pablo ng aktibong pananampalataya ng mga Tesalonica — 'gawa ng pananampalataya, pagsisikap ng pagmamahal, pagtitiis na puno ng pag-asa' (1:3) — ang balanse, buong-pusong pamumuhay Kristiyano?",
+      "Ano ang ituturo ng tagubilin ni Pablo na 'panatilihing banal ang inyong mga sisidlan' (4:4–5) tungkol sa seksuwal na kalinisan?",
+      "Paano naaangkop ang payo ni Pablo na 'huwag patayin ang espiritu' (5:19) sa ating saloobin sa espirituwal na patnubay at direksyon ni Jehova ngayon?",
+      "Ano ang ituturo ng turo ni Pablo tungkol sa 'Araw ni Jehova na darating na parang magnanakaw sa gabi' (5:2) tungkol sa kahalagahan ng espirituwal na pagbabantay at pagiging handa?"
+    ],
+    [
+      "Ano ang tinutulungan tayong matukoy ng paglalarawan ni Pablo ng 'taong walang batas' (2:3–12), at paano nito nag-aambag sa ating pag-unawa sa apostasya?",
+      "Paano nagbibigay ng lakas sa panahon ng mga pagsubok ang katiyakan ni Pablo na si Jehova ay 'magpapatibay sa inyo at magbabantay sa inyo laban sa masamang tao' (3:3)?",
+      "Ano ang ituturo ng pagwawasto ni Pablo sa mga tumigil sa pagtatrabaho dahil naniniwala silang malapit na ang Araw ni Jehova (kabanata 3) tungkol sa pagpapanatili ng balanse, tapat na rutina?",
+      "Paano ginagabayan ng panalangin ni Pablo na pagalingin ni Jehova ang inyong mga puso at 'patataginan kayo sa bawat mabuting gawa at salita' (2:16–17) ang ating paraan ng pagsuporta sa isa't isa sa kongregasyon?",
+      "Ano ang inilarawan ng 2 Mga Tesalonica 1:7–10 tungkol sa kaginhawahan na mararamdaman ng bayan ni Jehova kapag kumikilos siya, at paano nito pinapanatili ang pagtitiis?"
+    ],
+    [
+      "Anong mga kwalipikasyon para sa mga matatanda sa kongregasyon at ministeryal na lingkod (kabanata 3) ang inilahad ni Pablo, at ano ang ituturo ng mga ito tungkol sa mga pamantayan ni Jehova para sa pamumuno ng kongregasyon?",
+      "Paano naisasalamin ng tagubilin ni Pablo tungkol sa panalangin 'para sa mga hari at sa lahat ng nasa mga katungkulan' (2:1–2) ang balanseng saloobin ng mga Saksi ni Jehova sa mga pamahalaan ng tao?",
+      "Ano ang ituturo ng 1 Timoteo 6:6–10 tungkol sa panganib ng 'pagmamahal sa pera' at ng kasiyahang kasamahan ng debosyon sa Diyos?",
+      "Paano naaangkop sa mga espirituwal na labanan na kinakaharap ng bawat Saksi ni Jehova ang utos ni Pablo kay Timoteo na 'ipaglaban ang magandang laban ng pananampalataya' (6:12)?",
+      "Ano ang ituturo ng pahayag na 'may iisang Diyos, at may iisang tagapamagitan sa pagitan ng Diyos at ng mga tao, isang tao, si Kristo Jesus' (2:5) tungkol sa natatanging papel ni Jesus at sa ating pag-access kay Jehova?"
+    ],
+    [
+      "Ano ang ituturo ng utos ni Pablo kay Timoteo na 'ipangaral ang salita, maging seryoso rito sa mga pabor at mahirap na panahon' (4:2) tungkol sa pagtitiyaga sa gawain ng pangangaral?",
+      "Paano tinutulungan ang mga Saksi ni Jehova na makilala ang tanda ng mga panahon kung saan tayo naninirahan ng paglalarawan ni Pablo ng 'mga huling araw' (3:1–5)?",
+      "Ano ang ituturo ng 2 Timoteo 3:16–17 tungkol sa inspirasyon ng Kasulatan at ng kaniyang papel sa paghahanda ng mga lingkod ni Jehova 'nang ganap para sa bawat mabuting gawa'?",
+      "Paano ginagawang modelo ng halimbawa ni Pablo — 'nilabanan ko ang magandang laban, tinahak ko ang kurso hanggang sa katapusan, pinanatili ko ang pananampalataya' (4:7) — ang saloobing dapat nating taglay sa ating buong buhay ng paglilingkod?",
+      "Ano ang ituturo ng turo ni Pablo tungkol sa 'wastong paghawak ng salita ng katotohanan' (2:15) tungkol sa responsibilidad ng mga nagtuturo sa kongregasyon?"
+    ],
+    [
+      "Ano ang ituturo ng Tito 2:11–12 — ang di-karapatdapat na kabaitan ni Jehova ay 'nagtuturo sa atin na tanggihan ang kasamaan' — tungkol sa kung paano humuhubog sa ating pag-uugali ang pag-aaral ng Kasulatan?",
+      "Paano ipinakita ng payo ni Pablo para sa mas matatandang lalaki, mas matatandang babae, mas batang babae, at mas batang lalaki (2:2–8) ang interes ni Jehova sa makadiyos na pag-uugali sa bawat yugto ng buhay?",
+      "Ano ang ituturo ng Tito 3:5 — 'naligtas...sa pamamagitan ng paliligo na nagbigay sa atin ng bagong buhay at sa pamamagitan ng pagbabago ng banal na espiritu' — tungkol sa papel ng banal na espiritu sa ating espirituwal na buhay?",
+      "Paano pinagsasabay ng tagubilin ni Pablo kay Tito tungkol sa 'pagtanggi sa isang taong nagdudulot ng pagkakabaha-bahagi' (3:10) pagkatapos ng dalawang babala ang pasensya sa pangangailangan ng pagprotekta ng kapayapaan ng kongregasyon?",
+      "Ano ang ituturo ng pagbibigay-diin sa buong Tito tungkol sa mga matatanda na maging 'walang kapintasan' tungkol sa ugnayan sa pagitan ng personal na reputasyon at ng epektibong espirituwal na pamumuno?"
+    ],
+    [
+      "Ano ang ituturo ng apela ni Pablo kay Filemon na tanggapin si Onesimo pabalik 'hindi na bilang isang alipin, kundi...bilang isang kapatid' (t. 16) tungkol sa kung paano binabago ng pananampalataya kay Kristo ang mga ugnayang panlipunan?",
+      "Paano ginagawang modelo ng pamamaraan ni Pablo — nakikiusap batay sa pagmamahal kaysa sa pag-uutos (t. 8–9) — ang kung paano dapat ang mga bagay na may kaugnayan sa kongregasyon na pangasiwaan nang mainam?",
+      "Ano ang ituturo ni Filemon tungkol sa prinsipyo ng kapatawaran at pagbibigay ng pagkakataon sa iba, naaayon sa sariling halimbawa ni Jehova?",
+      "Paano ipinakita ng pagbabago ni Onesimo mula sa tumakas na alipin tungkol sa 'mapaki-kinabangan' (t. 11) na ministeryo ang nagbabagong kapangyarihan ng pagtanggap ng mabuting balita?",
+      "Ano ang inihahayag ng personal na liham na ito tungkol sa malalim na pagmamalasakit ni Pablo sa mga indibidwal at sa kalidad ng mga relasyon sa loob ng maagang Kristiyanong kongregasyon?"
+    ],
+    [
+      "Paano itinatag ng Mga Hebreo mga kabanata 1–2 ang kahigitan ni Jesus sa mga anghel habang binibigyang-diin din ang kaniyang kumpletong pagkatao, at bakit mahalaga ang parehong aspeto?",
+      "Ano ang ituturo ng Hebreo 4:12 — 'ang salita ng Diyos ay buhay at nagtataglay ng kapangyarihan' — tungkol sa kung paano lapitan ang personal na pag-aaral ng Bibliya at ang salita ni Jehova?",
+      "Paano ginagamit ng 'kabanata ng pananampalataya' (kabanata 11) ang mga halimbawa mula kay Abel hanggang sa mga propeta upang tukuyin ang pananampalataya bilang parehong paniniwala at aksyon, at alin sa mga halimbawa ang pinakahandog-loob sa iyo?",
+      "Ano ang ituturo ng Hebreo 12:1–2 — 'tumakbo nang may pagtitiis sa laro na itinakda para sa atin, na nakatitig nang lubusan sa Pangunahing Ahente at Tagaperpekto ng ating pananampalataya' — tungkol sa pagtitiis sa mga paghihirap?",
+      "Paano tinutulungan ng pagpapakita ng Mga Hebreo na ang sakripisyo ni Jesus ay natupad at nalampasan ang lahat ng Levitikong kapamahalaan na maipaliwanag ang relasyon sa pagitan ng Hebreong Kasulatan at ng Kristiyanong Griyegong Kasulatan?"
+    ],
+    [
+      "Ano ang ituturo ng Santiago 1:2–4 tungkol sa pagtingin sa mga pagsubok bilang mga pagkakataon para sa espirituwal na paglago at pag-unlad ng pagtitiis?",
+      "Paano nilinaw ng babala ni Santiago tungkol sa 'pananampalataya nang walang mga gawa' (2:14–26) na ang tunay na pananampalataya ay natural na nagbubunga ng nakikitang aksyon?",
+      "Anong tiyak na payo ang ibinibigay ni Santiago tungkol sa pagpipigil ng dila (kabanata 3), at bakit tinatawag niya itong 'isang sanlibutan ng kalikuan' kung ito ay maling gamitin?",
+      "Paano inilarawan ng Santiago 5:14–16 ang papel ng mga matatanda sa kongregasyon sa panalangin at pagmamalasakit sa mga may sakit o espirituwal na mahina sa kongregasyon?",
+      "Ano ang ituturo ng paglalarawan ni Santiago ng 'karunungan na mula sa itaas' (3:17–18) — 'dalisay, mapayapa, makatuwiran, handang sumunod, puno ng habag' — tungkol sa uri ng karunungang pinahahalagahan ni Jehova?"
+    ],
+    [
+      "Paano humuhubog sa ating saloobin sa sistema ng sanlibutan at sa ating mga pangunahing katapatan ang paglalarawan ni Pedro sa mga Kristiyano bilang 'mga dayuhan at pansamantalang residente' (2:11)?",
+      "Ano ang ituturo ng payo ni Pedro na 'magpasakop sa bawat nilalang ng tao' (2:13–17) at ng mga hangganan nito tungkol sa balanseng relasyon ng mga Saksi ni Jehova sa mga pamahalaan ng tao?",
+      "Paano naaangkop sa mga Kristiyanong sambahayan ngayon ang tagubilin ni Pedro para sa mga asawang babae at lalaki (3:1–7) — kasama na ang prinsipyo ng 'isang mahinahon at malambot na espiritu'?",
+      "Ano ang ituturo ng panawagan ni Pedro na 'laging maging handa na gumawa ng depensa' para sa ating pag-asa (3:15) tungkol sa espirituwal na paghahanda para sa mga pag-uusap tungkol sa ating pananampalataya?",
+      "Paano naiuudyukan ng paglalarawan ni Pedro sa diyablo bilang 'isang umaalulong na leon' na naghahanap ng manlalamon (5:8) ang mga Saksi ni Jehova na mapanatili ang espirituwal na pagbabantay?"
+    ],
+    [
+      "Ano ang ituturo ng listahan ni Pedro ng mga katangiang 'idagdag sa tabi ng inyong pananampalataya' (1:5–7) — kabutihan, kaalaman, pagpipigil sa sarili, pagtitiis, debosyon sa Diyos, pagmamahal sa kapatid, pagmamahal — tungkol sa espirituwal na paglago?",
+      "Paano inilarawan ni Pedro ang katiyakan ng Araw ni Jehova at ng bagong langit at bagong lupa (3:10–13), at paano dapat makaapekto sa ating pag-uugali ang kaalamang ito?",
+      "Ano ang ituturo ng babala ni Pedro tungkol sa mga maling guro na 'lihim na nagdadala ng mapaminsalang mga sekta' (2:1) tungkol sa kahalagahan ng doktrinasal na pagbabantay sa kongregasyon?",
+      "Paano itinuturo ng 2 Pedro 3:9 — 'Si Jehova ay hindi mabagal tungkol sa kaniyang pangako...hindi niya nais na may sinumang mapuksa kundi nais niya na ang lahat ay makarating sa pagsisisi' — tungkol sa pasensya ni Jehova?",
+      "Ano ang ituturo ng panghuling pag-uudyok ni Pedro na 'lumago sa di-karapatdapat na kabaitan at kaalaman ng ating Panginoon' (3:18) tungkol sa patuloy na kalikasan ng espirituwal na pag-unlad?"
+    ],
+    [
+      "Paano tinutukoy ni Juan ang tunay na pakikisama kay Jehova — 'paglalakad sa liwanag' (1:5–7) — at ano ang ibig sabihin nito sa praktikal na paraan para sa ating pang-araw-araw na pag-uugali?",
+      "Anong tatlong pagsubok ang ibinibigay ni Juan upang matukoy ang tunay na mga Kristiyano — pagsunod, pagmamahal sa mga kapatid, at paniniwala kay Jesus bilang Kristo — at paano sila nagtatrabaho nang magkasama?",
+      "Paano binubuo ng pahayag ni Juan na 'ang Diyos ay pagmamahal' (4:8, 16) ang batayan para sa pag-unawa sa lahat ng pakikitungo ni Jehova sa mga tao?",
+      "Ano ang ituturo ni Juan tungkol sa 'sanlibutan' — ang kaniyang tagapamuno, ang pagnanasa ng laman at mga mata, at ang mapagmataas na pagtatanghal ng isa pang paraan ng pamumuhay (2:15–17) — at paano dapat makaapekto ito sa ating mga pagpipilian?",
+      "Paano inilalarawan ng 1 Juan 5:13 — 'Isinusulat ko ang mga bagay na ito sa inyo upang malaman ninyo na mayroon kayong buhay' — ang katiyakang nais ng Jehova para sa kaniyang mga lingkod tungkol sa walang hanggang buhay?"
+    ],
+    [
+      "Ano ang ibig sabihin ng pagbibigay-diin ni Juan sa 'paglalakad sa katotohanan' (talata 4), at bakit ang katumpakan ng doktrina ay hindi maihihiwalay sa pagmamahal sa turo ni Juan?",
+      "Ano ang ituturo ng babala ni Juan na huwag tanggapin sa tahanan ang mga nagtataguyod ng maling doktrina (talata 10) tungkol sa pagprotekta ng kongregasyon mula sa mapaminsalang impluwensya?",
+      "Paano inilalarawan ni Juan ang 'utos na mayroon tayo mula sa simula' (talata 5) — ang magmahal sa isa't isa — bilang pangunahin sa pagkakakilanlan ng Kristiyano?",
+      "Ano ang ituturo ng maikling liham na ito tungkol sa kahalagahan ng pagbabantay laban sa mga 'hindi nananatili sa turo ni Kristo' (talata 9)?",
+      "Paano ginagawang modelo ng balanseng mensahe ni Juan — mainit na nagpapatibay ng pagmamahal at katotohanan habang nagbababala rin laban sa kompromiso — kung paano makipag-usap nang tapat?"
+    ],
+    [
+      "Ano ang ituturo ng pagpupuri ni Juan kay Gaio para sa pagtatanggap sa mga naglalakbay na misyonero tungkol sa kahalagahan ng pagpapanatiling mabuting pakikitungo sa pagsuporta sa gawain ng pangangaral?",
+      "Paano nagbababala ang pagsaway ni Juan kay Diotrefes — na 'nagnanais na maging una' at tumanggi sa mga kapatid — laban sa pagmamalaki at pagpapahalaga sa sarili sa kongregasyon?",
+      "Ano ang ibig sabihin ng 'paglalakad sa katotohanan' (mga talata 3–4) sa praktikal na paraan, at bakit sinasabi ni Juan na ito ang nagbibigay sa kanya ng mas malaking kagalakan kaysa sa kahit anong bagay?",
+      "Paano inilarawan ng positibong halimbawa ni Demetrio (talata 12) — 'pinatunayan ng lahat, oo ng katotohanan mismo' — ang uri ng reputasyon na dapat sikapin ng mga Saksi ni Jehova?",
+      "Ano ang ituturo ng maikling liham na ito tungkol sa mga praktikal na paraan ng pagsuporta sa mga 'nagtatrabaho alang-alang sa pangalan' (talata 7)?"
+    ],
+    [
+      "Ano ang ituturo ng apurasyong panawagan ni Judas na 'ipaglaban nang matindi ang pananampalataya' (talata 3) tungkol sa responsibilidad ng bawat indibidwal na Kristiyano na ipagtanggol ang tunay na doktrina?",
+      "Paano ginagamit ni Judas ang mga makasaysayang halimbawa — ang mga Israelita sa ilang, ang mga anghel na umalis sa kanilang wastong tirahan, Sodoma at Gomorra — upang babalaan tungkol sa mga bunga ng apostasya?",
+      "Ano ang ituturo ni Judas tungkol sa mga 'lihim na pumasok' (talata 4), at paano maaaring makilala ng mga Saksi ni Jehova at maprotektahan ang kanilang sarili laban sa katulad na impluwensya ngayon?",
+      "Paano inilalarawan ng paglalarawan ni Judas ng 'pag-itatayo ng inyong sarili sa inyong pinakababanal na pananampalataya, nananalangin sa banal na espiritu' (talata 20) ang espirituwal na pagpapatibay na kailangan upang labanan ang maling turo?",
+      "Ano ang ituturo ng pangwakas na doxolohiya ni Judas (mga talata 24–25) — 'Ngayon sa isa na may kakayahang magbantay sa inyo mula sa pagkadapa' — tungkol sa pag-asa kay Jehova para sa espirituwal na proteksyon?"
+    ],
+    [
+      "Paano itinatag ng pangitain ni Pahayag ni Jehova sa kaniyang trono (kabanata 4) at ng Kordero na tumatanggap ng balumbon (kabanata 5) ang batayan ng karapatan ni Jehova na humatol at kumilos?",
+      "Ano ang ituturo ng pitong liham sa mga kongregasyon (mga kabanata 2–3) tungkol sa mga tiyak na lakas at kahinaan na napansin ni Jehova sa kaniyang bayan?",
+      "Paano inilalarawan ng pangitain ng dakilang karamihan (kabanata 7) at ng 144,000 ang dalawang grupo ng bayan ni Jehova na makakatanggap ng kaligtasan?",
+      "Ano ang kinakatawan ng 'Dakilang Babilonia' (mga kabanata 17–18), at ano ang ibig sabihin ng panawagan ni Jehova na 'lumabas sa kanya, aking bayan' para sa kaniyang mga lingkod ngayon?",
+      "Paano pinapanatili ng panghuling pangitain ng Pahayag — ang bagong Jerusalem, ang pag-aalis ng kamatayan, at ang paninirahan ni Jehova kasama ang mga tao (mga kabanata 21–22) — ang pag-asa ng mga Saksi ni Jehova para sa paraiso?"
+    ]
+  ]
 }

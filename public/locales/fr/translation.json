@@ -142,7 +142,8 @@
     "infoAuthor": "Auteur",
     "infoWritten": "Rédigé",
     "infoTheme": "Thème",
-    "infoKeyVerses": "Versets clés"
+    "infoKeyVerses": "Versets clés",
+    "infoStudyQuestions": "Questions d'étude"
   },
   "posts": {
     "sectionTitle": "Mises à jour",
@@ -2003,5 +2004,469 @@
     "bannerTitle": "Débloquer Premium",
     "bannerSub": "Compagnon IA, Plans de Lecture, Notes, Messages et Groupes — 3$/mois",
     "bannerCta": "Passer à Premium →"
-  }
+  },
+  "bookQuestions": [
+    [
+      "Que révèle le récit de la création en Genèse 1–2 sur la puissance de Jéhovah et son dessein originel pour la terre et pour l'humanité ?",
+      "Comment Satan a-t-il utilisé le serpent pour remettre en question la souveraineté de Jéhovah, et quelle est la signification de la première prophétie en Genèse 3:15 ?",
+      "Quelles qualités de foi et d'obéissance Noé a-t-il manifestées, et que nous enseigne son exemple sur la confiance totale en Jéhovah ?",
+      "Pourquoi Jéhovah a-t-il choisi Abraham, et qu'enseignent les épreuves de la foi d'Abraham — notamment l'ordre d'offrir Isaac — sur la loyauté envers Jéhovah ?",
+      "Comment le récit de Joseph montre-t-il que Jéhovah peut faire sortir le bien même des circonstances les plus injustes et les plus douloureuses ?"
+    ],
+    [
+      "Que révèle la révélation du nom de Jéhovah en Exode 3:14–15 et 6:3 sur l'importance d'utiliser et d'honorer le nom personnel de Jéhovah ?",
+      "Comment les dix plaies ont-elles démontré la supériorité de la puissance de Jéhovah sur les dieux d'Égypte, et qu'est-ce que cela nous enseigne sur le vrai culte ?",
+      "Quelle est la signification de la Pâque pour Israël, et comment préfigure-t-elle le sacrifice de Jésus-Christ en tant qu'« agneau pascal » ?",
+      "Comment les Dix Commandements reflètent-ils les normes de justice de Jéhovah, et quels principes s'appliquent encore aux chrétiens aujourd'hui ?",
+      "Que nous enseigne la construction détaillée du Tabernacle sur l'importance que Jéhovah accorde à un culte approprié et organisé ?"
+    ],
+    [
+      "Que signifie l'appel répété de Jéhovah à la sainteté — « Soyez saints, car je suis saint » — pour les Témoins de Jéhovah aujourd'hui ?",
+      "Comment les divers sacrifices d'animaux dans le Lévitique préfigurent-ils le sacrifice supérieur de Jésus-Christ ?",
+      "Que nous enseigne le Jour des Expiations (Lévitique 16) sur la nécessité de l'expiation, et comment cela s'est-il accompli en Jésus-Christ en tant que Grand Prêtre ?",
+      "Comment les lois alimentaires et de pureté ont-elles séparé Israël des nations environnantes, et quel principe de séparation du monde s'applique aux chrétiens ?",
+      "Que nous enseigne l'Année du Jubilé sur le souci de Jéhovah pour les pauvres et son plan de restaurer ce qui avait été perdu ?"
+    ],
+    [
+      "Que nous enseigne le murmure et les plaintes répétées d'Israël dans le désert sur le danger de l'ingratitude envers Jéhovah ?",
+      "Comment le péché à Kadès-Barnéa (chapitres 13–14) — quand Israël a refusé d'entrer dans le pays promis — a-t-il démontré les graves conséquences du manque de foi ?",
+      "Que nous enseignent la rébellion de Coré et son issue sur le respect des dispositions de Jéhovah concernant la direction dans sa congrégation ?",
+      "Comment la tentative de Balaam de maudire Israël et son échec ont-ils démontré que personne ne peut contrecarrer les desseins de Jéhovah ?",
+      "Pourquoi le récit du serpent de bronze (Nombres 21:4–9) est-il important, et que Jésus a-t-il dit sur sa signification en Jean 3:14–15 ?"
+    ],
+    [
+      "Pourquoi Moïse a-t-il insisté sur le fait qu'Israël devait aimer Jéhovah « de tout son cœur, de toute son âme et de toute sa vigueur » (6:5), et comment cela s'applique-t-il aujourd'hui ?",
+      "Que dit Deutéronome 18:15–18 sur un prophète semblable à Moïse, et comment cette prophétie s'est-elle accomplie en Jésus-Christ ?",
+      "Quelles mises en garde Moïse a-t-il formulées contre les dangers que la prospérité fasse oublier Jéhovah à Israël, et comment ces avertissements nous concernent-ils aujourd'hui ?",
+      "Comment le chant d'adieu de Moïse (Deutéronome 32) décrit-il les qualités de Jéhovah, et quelles leçons pouvons-nous en tirer ?",
+      "Que nous enseigne la cérémonie de renouvellement de l'alliance de Moïse sur l'importance de rappels réguliers et d'un engagement personnel renouvelé envers les lois de Jéhovah ?"
+    ],
+    [
+      "Comment Jéhovah a-t-il préparé Josué au rôle de dirigeant, et quelles qualités de courage et de foi Josué a-t-il manifestées que nous pouvons imiter ?",
+      "Que nous enseigne le récit de Rahab (Josué 2 ; 6) sur la manière dont la miséricorde de Jéhovah peut s'étendre à ceux qui, en dehors d'Israël, agissent avec foi ?",
+      "Pourquoi le péché d'Achan (Josué 7) était-il si grave, et que nous enseigne-t-il sur la façon dont le péché individuel peut affecter toute la congrégation ?",
+      "Comment le discours d'adieu de Josué (Josué 24) a-t-il invité le peuple à faire un choix clair en faveur de Jéhovah, et quel choix devons-nous faire aujourd'hui ?",
+      "Que nous enseigne l'affirmation de Josué selon laquelle Jéhovah a accompli chaque promesse (Josué 21:45 ; 23:14) sur la fidélité de Jéhovah ?"
+    ],
+    [
+      "Quel cycle récurrent apparaît tout au long des Juges, et que nous enseigne-t-il sur ce qui se passe quand les gens s'éloignent de Jéhovah ?",
+      "Comment la victoire de Gédéon avec seulement 300 hommes (Juges 7) a-t-elle démontré que la puissance de Jéhovah n'est pas limitée par le nombre ou les ressources humaines ?",
+      "Quelles leçons sur les conséquences de la pression des pairs et du compromis le récit de Samson nous enseigne-t-il ?",
+      "Comment le récit de Déborah et de Barak (Juges 4–5) illustre-t-il que Jéhovah utilise hommes et femmes pour accomplir son dessein ?",
+      "Que révèlent les derniers chapitres des Juges (17–21) sur l'effondrement moral qui suit quand les gens abandonnent les normes de Jéhovah ?"
+    ],
+    [
+      "Que nous enseigne la déclaration de loyauté de Ruth envers Naomi — « Là où tu iras j'irai » — sur la qualité de l'amour fidèle (hésed) et de l'engagement ?",
+      "Comment la volonté de Ruth de quitter sa patrie pour Jéhovah a-t-elle reflété une vraie foi, et comment son sacrifice peut-il être comparé aux choix que font les Témoins de Jéhovah aujourd'hui ?",
+      "Que nous enseigne le rôle de Boaz en tant que « rédempteur de parenté » sur la disposition de Jéhovah de protéger et de racheter ceux qui lui appartiennent ?",
+      "Comment le travail assidu et la fidélité humbles de Ruth l'ont-ils finalement conduite à être incluse dans la lignée ancestrale de Jésus-Christ ?",
+      "Que nous enseigne ce livre sur la façon dont Jéhovah récompense ceux qui cherchent refuge sous ses ailes, même quand les circonstances semblent sans espoir ?"
+    ],
+    [
+      "Que nous enseignent la prière de Hanna et la naissance de Samuel sur la prière persistante et sincère adressée à Jéhovah ?",
+      "Pourquoi l'échec d'Éli en tant que père (chapitres 2–3) était-il si grave, et quelles leçons nous enseigne-t-il sur l'éducation d'enfants qui aiment Jéhovah ?",
+      "Comment la victoire de David sur Goliath (chapitre 17) a-t-elle démontré que les batailles appartiennent à Jéhovah et ne sont pas déterminées par la force humaine ou les apparences ?",
+      "Que nous enseigne l'échec répété de Saül à obéir pleinement à Jéhovah sur l'importance d'une obéissance complète, et non partielle ?",
+      "Comment le traitement de David envers Saül (chapitres 24 ; 26) — refusant de nuire à « l'oint de Jéhovah » — a-t-il montré un profond respect pour les dispositions de Jéhovah ?"
+    ],
+    [
+      "Que nous enseignent les victoires de David et l'établissement de Jérusalem sur le soutien de Jéhovah à ceux qui s'appuient sur lui ?",
+      "Que révèle l'alliance de Jéhovah avec David (chapitre 7) sur le Roi messianique à venir et le Royaume éternel ?",
+      "Comment le péché de David avec Bath-Chéba et la dissimulation qui a suivi (chapitres 11–12) ont-ils démontré que les péchés cachés ne sont jamais vraiment cachés à Jéhovah ?",
+      "Que nous enseigne l'approche de Nathan consistant à utiliser une parabole pour confronter David sur la sagesse et l'utilisation d'illustrations pour aborder les torts ?",
+      "Comment la reconnaissance immédiate et le repentir de David après la réprimande de Nathan ont-ils servi d'exemple positif par opposition à l'attitude défensive de Saül ?"
+    ],
+    [
+      "Que nous enseigne la demande de Salomon pour la sagesse plutôt que pour la richesse ou la gloire (chapitre 3) sur les bonnes priorités dans la prière ?",
+      "Comment la construction du Temple par Salomon a-t-elle accompli la promesse de Jéhovah à David, et que représente-t-elle sur la demeure de Jéhovah parmi son peuple ?",
+      "Qu'est-ce qui a causé la division du royaume après le règne de Salomon, et que nous enseigne cela sur les dangers spirituels de suivre des coutumes païennes ?",
+      "Comment la victoire d'Élie sur les prophètes de Baal sur le mont Carmel (chapitre 18) a-t-elle démontré que Jéhovah seul est le vrai Dieu ?",
+      "Que nous enseigne la « voix douce et basse » qui a parlé à Élie (chapitre 19) sur la façon dont Jéhovah communique avec ses serviteurs et prend soin d'eux ?"
+    ],
+    [
+      "Que nous enseigne la demande d'Élisée d'une double portion de l'esprit d'Élie sur les qualités nécessaires au service efficace auprès de Jéhovah ?",
+      "Comment la prière d'Ézéchias face à la menace assyrienne (chapitres 18–19) a-t-elle démontré la puissance de la confiance totale en Jéhovah ?",
+      "Quelles leçons tirons-nous de la vie de rois fidèles comme Josias sur l'impact qu'un dirigeant spirituel peut avoir sur tout un peuple ?",
+      "Pourquoi Israël est-il tombé sous la domination assyrienne (chapitre 17), et quel avertissement cela représente-t-il pour ceux qui mélangent le faux culte au culte pur de Jéhovah ?",
+      "Que nous enseigne la découverte de la Loi de Jéhovah sous le règne de Josias (chapitre 22) sur l'importance d'étudier et d'appliquer régulièrement la parole de Jéhovah ?"
+    ],
+    [
+      "Pourquoi David a-t-il consacré tant d'efforts et de ressources à la préparation du Temple de Jéhovah même s'il ne le bâtirait pas lui-même ?",
+      "Que nous enseigne la mort d'Uzzah quand il a touché l'arche (chapitre 13) sur l'approche du culte pur avec la révérence appropriée envers les instructions de Jéhovah ?",
+      "Comment David a-t-il organisé les prêtres, les Lévites et les musiciens pour le culte au Temple, et que nous révèle cela sur l'appréciation de Jéhovah pour un culte ordonné ?",
+      "Que nous enseigne la louange publique de David et sa généreuse contribution pour le Temple (chapitre 29) sur la façon de donner de bon cœur ?",
+      "Quelles qualités décrites dans l'expression « un homme selon le cœur de Jéhovah » pouvons-nous chercher à développer dans notre propre culte ?"
+    ],
+    [
+      "Que révèle la promesse de Jéhovah à Salomon en 2 Chroniques 7:14 sur les conditions que Jéhovah exige pour le pardon et la restauration ?",
+      "Comment la prière de Josaphat et l'intervention miraculeuse de Jéhovah (chapitre 20) ont-elles démontré la puissance de la confiance en Jéhovah dans une crise ?",
+      "Quelles qualités communes les rois réformateurs Asa, Ézéchias et Josias partageaient-ils, et comment leur direction spirituelle a-t-elle affecté leur peuple ?",
+      "Quel schéma dans 2 Chroniques montre le lien entre la fidélité à Jéhovah et la bénédiction, et entre l'infidélité et la calamité ?",
+      "Comment la fin pleine d'espoir du livre avec le décret de Cyrus (36:23) montre-t-elle la capacité de Jéhovah à utiliser quiconque pour accomplir son dessein ?"
+    ],
+    [
+      "Qu'est-ce qui a motivé le premier groupe d'exilés juifs à retourner à Jérusalem, et que nous enseigne cela sur la priorité donnée au culte de Jéhovah par rapport au confort personnel ?",
+      "Comment l'opposition à la reconstruction du Temple a-t-elle mis à l'épreuve la foi des exilés de retour, et comment Jéhovah les a-t-il finalement aidés à la surmonter ?",
+      "Que nous enseigne la préparation personnelle d'Esdras — « Esdras avait mis son cœur à consulter la loi de Jéhovah, à la mettre en pratique et à l'enseigner » (7:10) — sur l'étude personnelle de la Bible ?",
+      "Comment le problème des mariages mixtes (chapitres 9–10) a-t-il montré le grave danger spirituel des relations étroites avec ceux qui ne servent pas Jéhovah ?",
+      "Que nous enseigne la réaction émotionnelle du peuple en entendant la Loi de Jéhovah lue à haute voix sur notre attitude envers les Écritures ?"
+    ],
+    [
+      "Que nous enseigne la prière de Néhémie avant d'approcher le roi Artaxerxès (chapitre 1) sur le rôle de la prière dans nos plans et nos décisions ?",
+      "Comment Néhémie a-t-il géré les moqueries et les menaces de Sanballat et de Tobiya, et quelles leçons pratiques cela donne-t-il pour faire face à l'opposition ?",
+      "Que nous enseigne la décision de Néhémie de faire travailler les ouvriers d'une main tout en tenant une arme de l'autre (4:17) sur le fait d'être « prudents comme des serpents » tout en faisant l'œuvre de Jéhovah ?",
+      "Comment la confrontation de Néhémie à l'injustice économique (chapitre 5) montre-t-elle que la direction spirituelle comprend le souci de l'équité pratique ?",
+      "Que nous enseigne la lecture publique de la Loi de Jéhovah et la réaction émotionnelle du peuple (chapitre 8) sur ce qui se passe quand les gens sont correctement nourris spirituellement ?"
+    ],
+    [
+      "Comment le livre d'Esther illustre-t-il la providence directrice de Jéhovah même lorsque son nom n'est pas explicitement mentionné dans le texte ?",
+      "Que nous enseigne le courage d'Esther en approchant le roi sans y avoir été invitée — « Si je péris, je péris » — sur le fait de placer le bien-être du peuple de Jéhovah au-dessus de la sécurité personnelle ?",
+      "Comment le refus de Mardochée de se prosterner devant Haman reflète-t-il le type de loyauté envers Jéhovah que son peuple doit maintenir même sous la pression ?",
+      "Que nous enseigne la chute de Haman sur le principe que l'orgueil mène toujours à la ruine, et que les complots contre le peuple de Jéhovah ne réussiront pas ?",
+      "Comment le jeûne qu'Esther a convoqué avant d'approcher le roi illustre-t-il l'importance de chercher la direction de Jéhovah avant de prendre une décision importante ?"
+    ],
+    [
+      "Quelle était la vraie question derrière les souffrances de Job, et pourquoi est-il important que les Témoins de Jéhovah comprennent ce contexte aujourd'hui ?",
+      "Comment les « consolateurs » de Job ont-ils failli envers lui, et que nous enseigne cela sur la façon de vraiment soutenir ceux qui traversent des épreuves ?",
+      "Que révèle la réponse de Jéhovah à Job depuis la tempête (chapitres 38–41) sur la sagesse et la puissance de Jéhovah comparées à la compréhension humaine ?",
+      "Comment Job a-t-il maintenu son intégrité sous une épreuve extrême, et que nous enseigne son exemple sur l'endurance dans une souffrance injuste avec fidélité ?",
+      "Que nous enseigne la restauration complète de Job (chapitre 42) sur le souci de Jéhovah pour ceux qui maintiennent leur intégrité, et comment cela pointe-t-il vers l'espérance de la résurrection ?"
+    ],
+    [
+      "Comment les psaumes de lamentation (comme les Psaumes 22, 42, 88) nous enseignent-ils à être honnêtes avec Jéhovah sur nos sentiments pendant les périodes de souffrance ?",
+      "Que nous enseigne le Psaume 83:18 sur l'importance du nom de Jéhovah, et comment cela motive-t-il les Témoins de Jéhovah dans leur ministère ?",
+      "Comment les psaumes d'intronisation (comme les Psaumes 93, 96–99) contribuent-ils à notre compréhension du Royaume de Jéhovah et de son droit à régner ?",
+      "Que nous enseigne le Psaume 119 — le plus long des psaumes — sur l'attitude correcte que nous devrions avoir envers la loi et la parole de Jéhovah ?",
+      "Comment les psaumes messianiques (comme les Psaumes 2, 22, 110) préfigurent-ils Jésus-Christ, et quels événements précis se sont accomplis ?"
+    ],
+    [
+      "Que signifie Proverbes 1:7 — « La crainte de Jéhovah est le commencement de la sagesse » — et comment la crainte appropriée de Jéhovah guide-t-elle les décisions quotidiennes ?",
+      "Comment Proverbes 3:5–6 — « Fais confiance à Jéhovah de tout ton cœur » — s'applique-t-il concrètement lorsqu'on prend des décisions importantes dans la vie ?",
+      "Quels avertissements Proverbes donne-t-il sur les dangers des mauvaises fréquentations, et comment ceux-ci s'appliquent-ils aux Témoins de Jéhovah dans le choix de leurs amis ?",
+      "Comment la description de la « femme capable » dans Proverbes 31 reflète-t-elle les qualités que Jéhovah apprécie chez tous ses serviteurs ?",
+      "Quels conseils pratiques Proverbes donne-t-il sur l'usage de la langue, et comment pouvons-nous appliquer cette sagesse au quotidien ?"
+    ],
+    [
+      "Que nous enseigne la conclusion de Salomon que toutes les activités sont une « vanité » sur les dangers de chercher une satisfaction durable en dehors de Jéhovah ?",
+      "Comment Ecclésiaste 3:1–8 — « un temps pour chaque chose sous le ciel » — aide-t-il les Témoins de Jéhovah à maintenir l'équilibre dans les activités de la vie ?",
+      "Que nous enseigne l'Ecclésiaste sur la mort et l'état des morts (9:5, 10) qui soutient l'enseignement biblique sur l'espérance de la résurrection ?",
+      "Comment Ecclésiaste 12:1 — « Souviens-toi de ton Créateur dans les jours de ta jeunesse » — motive-t-il les jeunes à se consacrer tôt à Jéhovah ?",
+      "Que nous enseigne la conclusion finale de l'Ecclésiaste (12:13–14) — craindre Jéhovah et garder ses commandements — sur le vrai but de l'humanité ?"
+    ],
+    [
+      "Que nous enseigne le Cantique des cantiques sur l'importance que Jéhovah attache à l'amour, à la loyauté et à l'engagement dans le mariage ?",
+      "Comment l'admiration mutuelle et la communication ouverte décrites dans le Cantique modèlent-elles des qualités qui renforcent toute relation étroite ?",
+      "Que nous enseigne « l'amour est fort comme la mort » (8:6) sur la nature de la vraie loyauté et de l'engagement dans une relation ?",
+      "Comment la vigilance et la fidélité de la Sulamite pour son berger illustrent-elles la qualité de dévotion que Jéhovah apprécie ?",
+      "Quels principes tirés du Cantique des cantiques aident les Témoins de Jéhovah à maintenir des relations saines et honorables ?"
+    ],
+    [
+      "Comment Ésaïe 9:6–7 décrit-il le Roi messianique à venir, et comment ces qualités se sont-elles accomplies en Jésus-Christ ?",
+      "Que nous enseigne Ésaïe 40:28–31 sur l'énergie inépuisable de Jéhovah et son souci de ceux qui sont fatigués ?",
+      "Comment les quatre « chants du Serviteur » dans Ésaïe (42:1–4 ; 49:1–6 ; 50:4–9 ; 52:13–53:12) décrivent-ils les souffrances et le ministère du Messie ?",
+      "Que décrit Ésaïe 65:17–25 sur la nouvelle terre à venir, et comment cette vision soutient-elle l'espérance du peuple de Jéhovah ?",
+      "Comment la réponse d'Ésaïe à sa vision au chapitre 6 — « Envoie-moi ! » — reflète-t-elle l'esprit de volonté que les Témoins de Jéhovah manifestent dans leur ministère ?"
+    ],
+    [
+      "Que nous enseigne Jérémie 1:5 — « Avant de te former dans le ventre maternel, je t'ai connu » — sur la prescience de Jéhovah et son dessein pour chaque personne ?",
+      "Comment Jérémie est-il resté fidèle malgré la persécution intense, le ridicule et parfois le désespoir, et que pouvons-nous apprendre de son exemple ?",
+      "Que nous enseigne la promesse de Jéhovah d'une nouvelle alliance (Jérémie 31:31–34) sur la supériorité de la disposition dont Jésus s'est fait le médiateur ?",
+      "Comment la lettre de Jérémie aux exilés à Babylone (chapitre 29) — leur demandant de rechercher la paix de la ville — applique-t-elle le principe d'être « pas du monde » ?",
+      "Que nous enseigne l'achat d'un champ par Jérémie (chapitre 32) alors même que Jérusalem tombait sur la confiance dans les promesses de Jéhovah pour l'avenir ?"
+    ],
+    [
+      "Comment le livre des Lamentations modèle-t-il un deuil honnête tout en maintenant l'espérance dans l'amour fidèle de Jéhovah ?",
+      "Que nous enseigne Lamentations 3:22–23 — l'amour fidèle de Jéhovah « ne prend jamais fin » et « ses miséricordes se renouvellent chaque matin » — sur la fidélité durable de Jéhovah ?",
+      "Comment la douleur de Jérémie face à la destruction de Jérusalem reflète-t-elle les sentiments que les serviteurs de Jéhovah devraient éprouver aujourd'hui face à la méchanceté dans le monde ?",
+      "Que nous enseigne les Lamentations sur les conséquences de l'abandon des normes de Jéhovah, et comment cela nous sert-il d'avertissement ?",
+      "Comment la reconnaissance des exilés dans Lamentations 3:40 — « Examinons et scrutons nos voies » — reflète-t-elle la réaction appropriée à la discipline de Jéhovah ?"
+    ],
+    [
+      "Que nous enseignent les visions inaugurales d'Ézéchiel (chapitres 1–3) du char-trône de Jéhovah sur la majesté de Jéhovah et l'action de son esprit saint ?",
+      "Comment le rôle d'Ézéchiel en tant que « guetteur » (chapitres 3, 33) est-il parallèle à la responsabilité des Témoins de Jéhovah d'avertir les autres du jugement de Jéhovah ?",
+      "Que nous enseigne Ézéchiel 18:23 — « Je ne prends aucun plaisir à la mort du méchant » — sur le désir de Jéhovah que tous se repentent et vivent ?",
+      "Comment la vision de la vallée des ossements desséchés (chapitre 37) préfigure-t-elle la résurrection des morts sous le Royaume de Jéhovah ?",
+      "Que nous enseigne la vision du futur Temple par Ézéchiel (chapitres 40–48) sur l'importance d'un culte pur et organisé envers Jéhovah ?"
+    ],
+    [
+      "Comment Daniel et ses trois compagnons (chapitres 1–6) ont-ils démontré qu'il est possible de maintenir son intégrité sous la pression intense d'une puissance mondiale hostile ?",
+      "Que nous enseigne Daniel 2:44 — Jéhovah établissant un Royaume qui ne sera jamais détruit — sur la certitude du Royaume de Jéhovah ?",
+      "Comment le récit de Shadrac, Méchac et Abed-Nego (chapitre 3) a-t-il illustré la foi du « même si non » que les Témoins de Jéhovah pourraient avoir besoin de manifester pendant la persécution ?",
+      "Que révèlent la prophétie des Temps des Gentils (Daniel 4) et la grande statue de Daniel 2 sur la succession des puissances mondiales et le calendrier de Jéhovah ?",
+      "Comment la pratique fidèle de prière de Daniel — prier trois fois par jour quels que soient les décrets royaux (chapitre 6) — enseigne-t-elle l'importance d'un culte cohérent et régulier ?"
+    ],
+    [
+      "Comment Jéhovah a-t-il utilisé le mariage d'Osée comme illustration vivante de l'infidélité spirituelle d'Israël, et comment cela nous aide-t-il à comprendre la gravité de l'adultère spirituel ?",
+      "Que nous enseigne Osée 6:6 — « Je veux de l'amour fidèle, et non un sacrifice ; et la connaissance de Dieu plutôt que des holocaustes » — sur ce que Jéhovah apprécie le plus ?",
+      "Comment la compassion continue de Jéhovah et l'invitation à Israël de retourner (chapitre 14) démontrent-elles la profondeur de son amour fidèle et sa capacité de pardon ?",
+      "Que nous enseigne Osée sur le danger spirituel de mêler le vrai culte aux pratiques religieuses des nations environnantes ?",
+      "Comment la prophétie d'Osée (13:14) sur le rachat du pouvoir du shéol se relie-t-elle aux paroles de Paul en 1 Corinthiens 15:55 ?"
+    ],
+    [
+      "Comment Joël a-t-il utilisé le fléau de sauterelles comme appel à un repentir sincère, et que signifie « déchirez vos cœurs et non vos vêtements » (2:13) pour le culte aujourd'hui ?",
+      "Que nous enseigne la prophétie de Joël sur le déversement de l'esprit de Jéhovah (2:28–29), en particulier telle qu'elle s'est accomplie à la Pentecôte de l'an 33 (Actes 2:1–21) ?",
+      "Comment le « jour de Jéhovah » dans Joël se compare-t-il à ce que la Révélation décrit sur la grande tribulation et Har-Maguedôn ?",
+      "Que nous enseigne la prophétie de Joël sur le jugement des nations dans la « Vallée de la Décision » (3:14) sur le jugement à venir de Jéhovah ?",
+      "Que nous enseigne la promesse de restauration de Joël (2:18–27 ; 3:17–18) sur les bénédictions que Jéhovah réserve à ceux qui reviennent à lui ?"
+    ],
+    [
+      "Que nous enseigne Amos 3:7 — « Le Souverain Seigneur Jéhovah ne fait certainement rien sans avoir révélé son secret à ses serviteurs les prophètes » — sur la communication de Jéhovah avec son peuple ?",
+      "Comment la condamnation d'Amos des pratiques religieuses creuses (chapitres 5–6) s'applique-t-elle au danger de pratiquer le culte par routine sans sincérité ?",
+      "Que nous enseigne Amos sur le souci de Jéhovah pour la justice sociale et le traitement des pauvres, et comment cela reflète-t-il les valeurs de Jéhovah ?",
+      "Que nous enseignent les jugements sur les nations environnantes (chapitres 1–2) sur le fait que Jéhovah tient tous les peuples — pas seulement Israël — responsables des normes morales fondamentales ?",
+      "Comment la prophétie d'Amos sur la « tente tombée de David » (9:11) se relie-t-elle à la restauration du culte pur et au Royaume de Jéhovah ?"
+    ],
+    [
+      "Quels péchés précis d'Édom ont conduit au jugement de Jéhovah, et que nous enseignent-ils sur les dangers de l'orgueil et de la suffisance ?",
+      "Comment le triomphe d'Édom sur la chute de Jérusalem (versets 12–14) a-t-il violé le principe de l'amour fraternel, et quel avertissement cela nous donne-t-il ?",
+      "Que nous enseigne Abdias sur le principe « comme tu as fait, il sera fait pour toi » (verset 15) ?",
+      "Comment le jugement complet de Jéhovah sur Édom — une nation qui semblait imprenable — démontre-t-il qu'aucun plan humain ne peut s'opposer au dessein de Jéhovah ?",
+      "Qu'anticipe le dernier verset d'Abdias — « Le Royaume deviendra celui de Jéhovah » — sur l'avenir sous le Royaume de Jéhovah ?"
+    ],
+    [
+      "Qu'est-ce qui était erroné dans le refus initial de Jonas d'aller à Ninive, et comment cela nous invite-t-il à réfléchir à notre propre attitude envers le partage de la bonne nouvelle avec tous les types de personnes ?",
+      "Comment le traitement patient de Jéhovah envers l'attitude de Jonas — du grand poisson jusqu'à la vigne — démontre-t-il son désir d'enseigner plutôt que de simplement punir ?",
+      "Que nous enseigne le repentir sincère de Ninive et la décision de Jéhovah de ne pas apporter de calamité (3:10) sur l'efficacité d'un repentir sincère ?",
+      "Comment la prière de Jonas de l'intérieur du poisson (chapitre 2) modèle-t-elle une prière honnête et personnelle adressée à Jéhovah même dans les circonstances les plus désespérées ?",
+      "Que nous enseigne le récit de Jonas sur l'intérêt de Jéhovah pour le bien-être spirituel de tous les peuples, préfigurant l'œuvre de prédication mondiale ?"
+    ],
+    [
+      "Comment Michée 5:2 — prophétisant la naissance du Messie à Bethléem — démontre-t-il la fiabilité de la prophétie de Jéhovah lors de son accomplissement à la naissance de Jésus ?",
+      "Que nous enseigne Michée 6:8 — « agir avec justice, chérir la loyauté et marcher avec modestie avec ton Dieu » — sur les qualités essentielles que Jéhovah requiert ?",
+      "Comment la description de Michée des derniers jours (4:1–4) — quand les gens se tourneront vers la « montagne » de Jéhovah pour recevoir des instructions — décrit-elle ce qui se passe avec les Témoins de Jéhovah aujourd'hui ?",
+      "Que nous enseigne Michée sur le contraste entre la direction corrompue (chapitre 3) et la direction juste que Jéhovah apprécie ?",
+      "Comment Michée 7:18–20 décrit-il les qualités de pardon et d'amour fidèle de Jéhovah d'une manière qui réconforte ceux qui ont commis des erreurs ?"
+    ],
+    [
+      "Quelles qualités de Jéhovah Nahum 1:2–7 décrit-il — sa jalousie, sa lenteur à la colère et sa grandeur — et comment s'articulent-elles ensemble ?",
+      "Que nous enseigne la chute de Ninive sur la façon dont même les puissances humaines les plus puissantes sont finalement soumises au jugement de Jéhovah ?",
+      "Comment Nahum 1:7 — « Jéhovah est bon, une forteresse au jour de la détresse ; il connaît ceux qui cherchent refuge en lui » — apporte-t-il du réconfort dans les moments difficiles ?",
+      "Comment le contraste entre le traitement de Ninive par Jéhovah dans Jonas (miséricorde lors du repentir) et dans Nahum (jugement pour le retour à la méchanceté) nous enseigne-t-il les limites de la patience de Jéhovah ?",
+      "Quel principe sur la justice de Jéhovah — qu'il « ne laissera certainement pas le coupable sans punition » — voyons-nous illustré dans la chute de Ninive ?"
+    ],
+    [
+      "Comment la volonté d'Habacuc d'interroger honnêtement Jéhovah sur l'injustice apparente (chapitres 1–2) démontre-t-elle que nous pouvons apporter nos préoccupations les plus profondes à Jéhovah dans la prière ?",
+      "Que signifie Habacuc 2:4 — « le juste vivra par sa fidélité » — et comment Paul utilise-t-il ce verset dans Romains et Galates ?",
+      "Comment la réponse de Jéhovah — qu'il élevait Babylone comme son instrument — a-t-elle défié la compréhension d'Habacuc, et que nous enseigne cela sur la confiance en la sagesse de Jéhovah ?",
+      "Que nous enseigne Habacuc 3:17–18 — se réjouir en Jéhovah même quand toutes les bénédictions naturelles font défaut — sur le maintien de la joie en toutes circonstances ?",
+      "Comment le cheminement d'Habacuc de la plainte à la louange modèle-t-il un processus spirituel sain pour les Témoins de Jéhovah qui luttent avec des questions difficiles ?"
+    ],
+    [
+      "Comment la description de Sophonie du « jour de Jéhovah » comme à la fois terrifiant et plein d'espoir prépare-t-elle les Témoins de Jéhovah à la grande tribulation à venir ?",
+      "Que révèle Sophonie 3:17 — « Jéhovah ton Dieu est au milieu de toi...Il se réjouira sur toi avec grande joie » — sur les sentiments de Jéhovah envers son peuple ?",
+      "Que signifie concrètement l'appel de Sophonie à « chercher Jéhovah, vous tous les humbles de la terre » (2:3) pour notre vie quotidienne ?",
+      "Comment la prophétie de Sophonie contre les nations (chapitre 2) démontre-t-elle l'autorité morale de Jéhovah sur tous les peuples de la terre ?",
+      "Que prophétise Sophonie sur un « langage pur » (3:9) — que tous les peuples invoqueront le nom de Jéhovah — concernant la restauration du culte pur ?"
+    ],
+    [
+      "Quel était le problème spirituel qu'Aggée a identifié quand le peuple disait « le moment n'est pas encore venu pour construire la maison de Jéhovah » (1:2), et comment cette rationalisation peut-elle se manifester dans nos propres vies ?",
+      "Comment Jéhovah a-t-il répondu à l'obéissance immédiate du peuple après le message d'Aggée (1:12–15), et que nous enseigne cela sur la récompense de l'obéissance prompte ?",
+      "Que nous enseigne Aggée 2:9 — « La gloire de cette maison future sera plus grande que celle de la précédente » — sur la capacité de Jéhovah de dépasser nos attentes ?",
+      "Comment le message d'Aggée sur la priorité donnée à la maison de Jéhovah avant la nôtre s'applique-t-il à la façon dont les Témoins de Jéhovah organisent leurs priorités aujourd'hui ?",
+      "Que nous enseigne Aggée 2:4 — « Sois fort...et agis, car je suis avec toi » (dit à Zorobabel, à Josué et au peuple) — sur la réassurance de Jéhovah à ceux qui font son œuvre ?"
+    ],
+    [
+      "Comment la vision de Zacharie de Satan s'opposant à Josué le grand prêtre (chapitre 3) et la réprimande de Satan par Jéhovah donnent-elles confiance que Jéhovah défend ses serviteurs ?",
+      "Que nous enseigne Zacharie 4:6 — « Non par une force militaire, ni par la puissance, mais par mon esprit, dit Jéhovah » — sur la façon dont Jéhovah accomplit son dessein ?",
+      "Comment Zacharie 9:9 — le roi prophétisé entrant à Jérusalem monté sur un âne — se rattache-t-il à l'entrée triomphale de Jésus et confirme-t-il la fiabilité de la prophétie ?",
+      "Que préfigure Zacharie 12:10 — « Ils regarderont vers celui qu'ils ont transpercé » — et comment Révélation 1:7 le relie-t-il à Jésus ?",
+      "Comment le message global de Zacharie — Jéhovah retournera à Sion et demeurera au milieu de son peuple — soutient-il l'espérance des Témoins de Jéhovah pour le nouveau monde ?"
+    ],
+    [
+      "Comment la question de Jéhovah « En quoi nous avez-vous aimés ? » (1:2) a-t-elle révélé la complaisance spirituelle que Malachie a dénoncée, et comment pouvons-nous nous garder de cette attitude ?",
+      "Que nous enseigne la condamnation par Malachie des offrandes impures (chapitre 1) sur la qualité du culte — temps, énergie et attention — que Jéhovah mérite ?",
+      "Que nous enseigne Malachie 3:10 — « Apportez le dixième en entier...et mettez-moi à l'épreuve » — sur le principe de mettre les intérêts de Jéhovah en premier ?",
+      "Comment le « livre de mémorial » écrit pour ceux qui craignaient Jéhovah (3:16) montre-t-il que Jéhovah remarque soigneusement ceux qui sont fidèles ?",
+      "Comment les versets finals de Malachie — prophétisant Élie avant le grand jour de Jéhovah — se rattachent-ils au ministère préparatoire de Jean le Baptiseur ?"
+    ],
+    [
+      "Comment le Sermon sur la montagne de Jésus (chapitres 5–7) présente-t-il les normes de conduite et les valeurs qui distinguent les citoyens du Royaume de Jéhovah ?",
+      "Que nous enseigne la prière modèle de Jésus (Matthieu 6:9–13) sur ce qui devrait passer en premier dans nos prières — le nom de Jéhovah, son Royaume et sa volonté ?",
+      "Comment les paraboles du Royaume dans Matthieu 13 décrivent-elles différentes réactions au message du Royaume, et quelle réaction les Témoins de Jéhovah cherchent-ils à cultiver ?",
+      "Que révèle le grand mandat de Jésus (28:19–20) — « faites des disciples de gens de toutes les nations » — sur la portée mondiale et la nature continue de l'œuvre de prédication ?",
+      "Comment la présentation de Jésus par Matthieu comme l'accomplissement de la prophétie des Écritures hébraïques renforce-t-elle la confiance dans la fiabilité de la parole de Jéhovah ?"
+    ],
+    [
+      "Que révèlent le rythme rapide de l'Évangile de Marc et son accent sur les actes puissants de Jésus sur Jésus en tant que serviteur désigné de Jéhovah ?",
+      "Comment Marc 10:45 — « le Fils de l'homme est venu, non pour être servi, mais pour servir et donner sa vie en rançon en échange de beaucoup » — résume-t-il tout le dessein de Jésus ?",
+      "Que nous enseigne le récit de la veuve aux deux petites pièces (Marc 12:41–44) sur ce que Jéhovah apprécie dans les actes de culte et de générosité ?",
+      "Comment le commandement de Jésus « suis-moi » (Marc 1:17 ; 8:34) décrit-il ce qu'exige un discipulat complet pour ceux qui servent Jéhovah aujourd'hui ?",
+      "Que nous enseigne Marc 8:29 — « Tu es le Christ » — et l'enseignement subséquent sur un Messie souffrant sur la correction des fausses attentes concernant le dessein de Jéhovah ?"
+    ],
+    [
+      "Comment l'accent de Luc sur la compassion de Jésus envers les marginalisés, les pauvres et les Gentils reflète-t-il l'amour universel de Jéhovah pour tous les peuples ?",
+      "Que nous enseigne la parabole du fils prodigue (Luc 15) sur la joie de Jéhovah quand les pécheurs se repentent et reviennent à lui ?",
+      "Comment le récit du bon Samaritain de Luc (10:25–37) définit-il ce que signifie « aimer son prochain », et comment cela s'applique-t-il aux Témoins de Jéhovah aujourd'hui ?",
+      "Que nous enseigne Luc 4:18 — la déclaration de Jésus de sa mission — sur la délivrance spirituelle qu'apporte le Royaume de Jéhovah ?",
+      "Comment Luc 19:10 — « le Fils de l'homme est venu chercher et sauver ce qui était perdu » — motive-t-il les Témoins de Jéhovah dans leur ministère pour atteindre tous les types de personnes ?"
+    ],
+    [
+      "Comment Jean 1:1 et 1:14 décrivent-ils Jésus comme le Verbe (Logos), et que révèle la grammaire grecque de Jean 1:1 sur la nature de Jésus par rapport à Jéhovah ?",
+      "Que nous enseignent la déclaration de Jésus « le Père est plus grand que moi » (Jean 14:28) et les passages connexes sur la relation entre Jéhovah et Jésus ?",
+      "Comment les sept déclarations « Je suis » (le pain, la lumière, le berger, la résurrection, le chemin, la vigne, la porte) révèlent-elles le rôle de Jésus comme canal des bénédictions de Jéhovah ?",
+      "Que nous enseigne la prière de Jésus en Jean 17 — y compris la demande que ses disciples « soient un tout comme nous sommes un » — sur l'unité dans la congrégation ?",
+      "Comment l'enseignement de Jésus sur l'esprit saint comme « aide » (paraclet) en Jean 14–16 décrit-il le rôle de l'esprit de Jéhovah pour guider et fortifier son peuple ?"
+    ],
+    [
+      "Comment le déversement de l'esprit saint de Jéhovah à la Pentecôte de l'an 33 (chapitre 2) a-t-il marqué le début de la congrégation de la nouvelle alliance, et quels en ont été les résultats immédiats ?",
+      "Que nous enseigne le schéma de croissance de la première congrégation dans Actes — malgré la persécution intense — sur la nature irrésistible du dessein de Jéhovah ?",
+      "Comment l'exemple de hardiesse de Pierre et de Paul devant les tribunaux et les conseils (chapitres 4–5 ; 22–26) a-t-il modélisé l'attitude que les Témoins de Jéhovah peuvent avoir en défendant la bonne nouvelle ?",
+      "Que dit Actes 17:11 sur les Béréens, et quelle qualité leur exemple met-il en valeur pour l'étude personnelle de la Bible ?",
+      "Comment l'expansion de l'œuvre de prédication de Jérusalem à Rome (Actes 1:8) montre-t-elle l'accomplissement du mandat de Jésus et la façon dont l'esprit de Jéhovah a dirigé l'œuvre ?"
+    ],
+    [
+      "Que nous enseigne l'explication de Paul sur la façon dont tous les humains ont « manqué de la gloire de Dieu » (3:23) et le remède par la foi en Jésus sur la raison pour laquelle nous avons besoin de la rançon ?",
+      "Comment Romains 5:12 — « par le biais d'un seul homme le péché est entré dans le monde et la mort par le péché » — explique-t-il le lien entre le péché d'Adam et la condition de l'humanité ?",
+      "Que signifie Romains 8:28 — « toutes choses concourent ensemble au bien de ceux qui aiment Dieu » — pour les Témoins de Jéhovah qui traversent des épreuves ?",
+      "Comment Romains 12:1–2 — « présentez vos corps comme un sacrifice vivant » et « cessez de vous laisser modeler par ce système de choses » — définit-il ce à quoi ressemble le service de tout son être envers Jéhovah ?",
+      "Que nous enseigne l'enseignement de Paul sur la sujétion aux autorités gouvernantes (Romains 13:1–7) et ses limites (Actes 5:29) sur notre relation avec les gouvernements humains ?"
+    ],
+    [
+      "Que nous enseigne l'enseignement de Paul sur les dons spirituels dans les chapitres 12–14 sur l'usage approprié des dons dans la congrégation, l'amour étant la qualité la plus essentielle ?",
+      "Comment la description de l'amour par Paul au chapitre 13 — patient, bon, non jaloux, ne cherchant pas ses propres intérêts — nous invite-t-elle à examiner nos relations au sein de la congrégation ?",
+      "Que nous enseigne la défense approfondie de la résurrection par Paul au chapitre 15 sur la raison pour laquelle l'espérance de la résurrection est centrale dans la foi chrétienne ?",
+      "Comment le conseil de Paul sur le règlement des différends entre frères (chapitre 6) reflète-t-il l'importance de maintenir l'unité de la congrégation et de ne pas étaler les problèmes devant le monde ?",
+      "Que nous enseigne l'instruction de Paul sur le repas du Seigneur (11:23–26) sur sa signification, une participation appropriée et la fréquence avec laquelle il est observé ?"
+    ],
+    [
+      "Que nous enseigne la description par Paul de ses souffrances (chapitres 4–6 ; 11) et la continuation de son ministère malgré elles sur la façon de puiser sa force en Jéhovah ?",
+      "Comment la déclaration de Paul « quand je suis faible, c'est alors que je suis puissant » (12:10) redéfinit-elle l'aspect de la force spirituelle ?",
+      "Que signifie l'enseignement de Paul sur la « nouvelle création » (5:17) pour ceux qui entrent dans une relation avec Jéhovah par le biais du Christ ?",
+      "Comment l'appel de Paul à une généreuse contribution pour les saints (chapitres 8–9) — y compris « Jéhovah aime un donateur joyeux » — s'applique-t-il à notre façon de considérer les contributions et les dons sacrificiels ?",
+      "Que signifie concrètement l'avertissement de Paul contre le fait d'être « inégalement attelé avec des incroyants » (6:14) pour les Témoins de Jéhovah dans les amitiés, le mariage et les affaires ?"
+    ],
+    [
+      "Quelle « bonne nouvelle différente » les judéo-chrétiens promouvaient-ils (chapitre 1), et pourquoi Paul a-t-il dit que quiconque la prêchait devrait être « maudit » ?",
+      "Comment le récit de Paul confrontant publiquement Pierre (chapitre 2) démontre-t-il l'importance de défendre la vérité doctrinale même quand cela signifie s'opposer à une personne éminente ?",
+      "Que nous enseigne l'illustration de Hagar et de Sara (chapitre 4) sur la différence entre l'ancienne alliance et la nouvelle alliance ?",
+      "Comment la description par Paul du « fruit de l'esprit » (5:22–23) identifie-t-elle des qualités qui devraient caractériser tous ceux qui servent Jéhovah ?",
+      "Que nous enseigne le principe de Paul « on récolte ce qu'on sème » (6:7) sur les conséquences à long terme de nos choix quotidiens ?"
+    ],
+    [
+      "Que nous enseigne la description par Paul de la congrégation comme le « corps du Christ » (chapitres 1 ; 4) sur l'unité et l'interdépendance de tous les membres de la congrégation ?",
+      "Comment Éphésiens 2:8–9 — « vous avez été sauvés par la foi...non à cause de vos œuvres » — clarifie-t-il le fondement de notre espérance de salut ?",
+      "Que nous enseigne la métaphore du « complet équipement d'armure de Dieu » (6:10–18) sur la guerre spirituelle que mènent les Témoins de Jéhovah et sur la façon de se défendre ?",
+      "Comment le conseil de Paul pour les ménages chrétiens — maris, femmes, enfants, parents (chapitres 5–6) — reflète-t-il les normes de Jéhovah pour la vie familiale ?",
+      "Que nous enseigne Éphésiens 4:4–6 — « un seul corps, un seul esprit, une seule espérance...un seul Seigneur, une seule foi, un seul baptême, un seul Dieu et Père » — sur le fondement de la vraie unité ?"
+    ],
+    [
+      "Quelles étapes pratiques pour maintenir la paix de l'esprit Philippiens 4:6–7 — « ne vous inquiétez de rien, mais faites connaître vos demandes à Dieu » — offre-t-il ?",
+      "Comment la description par Paul de Jésus « s'étant vidé lui-même » (2:5–8) enseigne-t-elle quelle devrait être l'attitude et la mentalité d'un chrétien ?",
+      "Que nous enseigne la déclaration de Paul « j'ai appris à être content quelle que soit la situation » (4:11) sur le contentement comme une compétence à développer ?",
+      "Comment le ton joyeux de Paul tout au long de Philippiens — écrit en prison — démontre-t-il que la vraie joie vient de sa relation avec Jéhovah, et non des circonstances ?",
+      "Que révèle Philippiens 1:21 — « pour moi, vivre c'est le Christ et mourir c'est un gain » — sur la perspective de Paul concernant la vie, la mort et l'espérance de la résurrection ?"
+    ],
+    [
+      "Comment la description par Paul de Jésus comme « le premier-né de toute la création » et « le premier-né d'entre les morts » (1:15–18) clarifie-t-elle la position unique de Jésus devant Jéhovah ?",
+      "Contre quelles fausses philosophies et « traditions humaines » (2:8) Paul mettait-il en garde les Colossiens, et quels parallèles existent avec les dangers que les Témoins de Jéhovah affrontent aujourd'hui ?",
+      "Comment l'instruction de Paul de « laisser la paix du Christ gouverner vos cœurs » (3:15) et « laisser la parole du Christ résider en vous richement » (3:16) décrit-elle la priorité de la parole de Dieu dans la vie de la congrégation ?",
+      "Que révèle le conseil de Paul pour les relations — maris/femmes, enfants/parents (3:18–4:1) — sur l'application des principes chrétiens dans la vie quotidienne ?",
+      "Comment le principe « quoi que vous fassiez, travaillez de tout votre être comme pour Jéhovah et non pour les hommes » (3:23) transforme-t-il notre approche du travail quotidien et de nos responsabilités ?"
+    ],
+    [
+      "Quels événements précis Paul décrit-il autour du retour du Christ (4:13–18), et pourquoi cet enseignement est-il réconfortant pour ceux qui ont perdu des êtres chers dans la mort ?",
+      "Comment la description par Paul des Thessaloniciens de leur foi active — « œuvre de foi, labeur d'amour, endurance inspirée par l'espérance » (1:3) — décrit-elle une vie chrétienne équilibrée et de tout cœur ?",
+      "Que nous enseigne l'instruction de Paul de « garder son vase dans la sainteté et l'honneur, non dans la passion du désir sexuel » (4:4–5) sur la pureté sexuelle ?",
+      "Comment le conseil de Paul « n'éteignez pas l'esprit » (5:19) s'applique-t-il à notre attitude envers les directives spirituelles de Jéhovah aujourd'hui ?",
+      "Que nous enseigne l'enseignement de Paul sur le « jour de Jéhovah venant comme un voleur dans la nuit » (5:2) sur l'importance de la vigilance et de la préparation spirituelles ?"
+    ],
+    [
+      "Que nous enseigne la description par Paul de « l'homme d'iniquité » (2:3–12) à identifier, et comment contribue-t-elle à notre compréhension de l'apostasie ?",
+      "Comment l'assurance de Paul que Jéhovah « vous affermira et vous gardera du malin » (3:3) apporte-t-elle de la force pendant les épreuves ?",
+      "Que nous enseigne la correction de Paul à ceux qui avaient cessé de travailler parce qu'ils pensaient que le jour de Jéhovah était imminent (chapitre 3) sur le maintien d'une routine fidèle et équilibrée ?",
+      "Comment la prière de Paul que Jéhovah « réconforte vos cœurs et vous affermisse dans toute bonne œuvre et parole » (2:16–17) nous guide-t-il dans notre soutien mutuel dans la congrégation ?",
+      "Que décrit 2 Thessaloniciens 1:7–10 sur le soulagement que le peuple de Jéhovah connaîtra quand il agira, et comment cela soutient-il l'endurance ?"
+    ],
+    [
+      "Quelles qualifications pour les anciens et les assistants ministériels (chapitre 3) Paul expose-t-il, et que nous enseignent-elles sur les normes que Jéhovah fixe pour la direction dans la congrégation ?",
+      "Comment l'instruction de Paul sur la prière « pour les rois et tous ceux qui sont en position d'autorité » (2:1–2) reflète-t-elle l'attitude équilibrée des Témoins de Jéhovah envers les gouvernements humains ?",
+      "Que nous enseigne 1 Timothée 6:6–10 sur le danger de « l'amour de l'argent » et le contentement qui vient avec le dévouement pieux ?",
+      "Comment l'injonction de Paul à Timothée de « combattre le beau combat de la foi » (6:12) s'applique-t-elle aux batailles spirituelles que chaque Témoin de Jéhovah affronte ?",
+      "Que nous enseigne la déclaration « il y a un seul Dieu, et un seul médiateur entre Dieu et les hommes, un homme, le Christ Jésus » (2:5) sur le rôle unique de Jésus et notre accès à Jéhovah ?"
+    ],
+    [
+      "Que nous enseigne l'injonction de Paul à Timothée de « prêcher la parole, insister dans les temps favorables et les temps difficiles » (4:2) sur la persévérance dans l'œuvre de prédication ?",
+      "Comment la description par Paul des « derniers jours » (3:1–5) aide-t-elle les Témoins de Jéhovah à reconnaître le signe de l'époque dans laquelle nous vivons ?",
+      "Que nous enseigne 2 Timothée 3:16–17 sur l'inspiration des Écritures et leur rôle dans l'équipement des serviteurs de Jéhovah « complètement pour toute bonne œuvre » ?",
+      "Comment l'exemple de Paul — « j'ai combattu le beau combat, j'ai terminé la course, j'ai gardé la foi » (4:7) — a-t-il modélisé l'attitude que nous devrions avoir envers toute notre vie de service ?",
+      "Que nous enseigne l'enseignement de Paul sur le fait de « manier correctement la parole de vérité » (2:15) sur la responsabilité de ceux qui enseignent dans la congrégation ?"
+    ],
+    [
+      "Que nous enseigne Tite 2:11–12 — la bienveillance gratuite de Jéhovah « nous entraîne à rejeter l'impiété » — sur la façon dont l'étude des Écritures façonne notre conduite ?",
+      "Comment le conseil de Paul pour les hommes plus âgés, les femmes plus âgées, les femmes plus jeunes et les hommes plus jeunes (2:2–8) montre-t-il l'intérêt de Jéhovah pour une conduite pieuse à chaque étape de la vie ?",
+      "Que nous enseigne Tite 3:5 — « sauvé...par le bain qui a apporté la vie et par le renouvellement par l'esprit saint » — sur le rôle de l'esprit saint dans notre vie spirituelle ?",
+      "Comment l'instruction de Paul à Tite de « rejeter un homme diviseur » (3:10) après deux avertissements équilibre-t-elle la patience avec le besoin de protéger la paix de la congrégation ?",
+      "Que nous enseigne l'accent mis tout au long de Tite sur les anciens qui sont « irréprochables » sur le lien entre la réputation personnelle et le leadership spirituel efficace ?"
+    ],
+    [
+      "Que nous enseigne l'appel de Paul à Philémon de recevoir Onésime « non plus comme un esclave, mais...comme un frère » (v. 16) sur la façon dont la foi en Christ transforme les relations sociales ?",
+      "Comment l'approche de Paul — faire appel sur la base de l'amour plutôt que de donner un ordre (v. 8–9) — a-t-elle modélisé la façon dont les questions de congrégation devraient idéalement être traitées ?",
+      "Que nous enseigne Philémon sur le principe du pardon et du fait de donner à d'autres un nouveau départ, conformément à l'exemple de Jéhovah lui-même ?",
+      "Comment la transformation d'Onésime d'esclave fugitif en ministre « utile » (v. 11) démontre-t-elle la puissance transformatrice de l'acceptation de la bonne nouvelle ?",
+      "Que nous révèle cette lettre personnelle sur le souci profond de Paul pour les individus et la qualité des relations au sein de la première congrégation chrétienne ?"
+    ],
+    [
+      "Comment les chapitres 1–2 des Hébreux établissent-ils la supériorité de Jésus sur les anges tout en soulignant son humanité complète, et pourquoi les deux aspects sont-ils importants ?",
+      "Que nous enseigne Hébreux 4:12 — « la parole de Dieu est vivante et exerce une puissance » — sur la façon d'aborder l'étude personnelle de la Bible et la parole de Jéhovah ?",
+      "Comment le « chapitre de la foi » (chapitre 11) utilise-t-il des exemples allant d'Abel jusqu'aux prophètes pour définir la foi à la fois comme une croyance et une action, et quel exemple trouvez-vous le plus motivant ?",
+      "Que nous enseigne Hébreux 12:1–2 — « courons avec endurance la course qui est devant nous, regardant fixement l'Agent principal et le Perfecteur de notre foi » — sur l'endurance dans les difficultés ?",
+      "Comment la démonstration par les Hébreux que le sacrifice de Jésus a accompli et surpassé toutes les dispositions lévitiques aide-t-elle à expliquer la relation entre les Écritures hébraïques et les Écritures grecques chrétiennes ?"
+    ],
+    [
+      "Que nous enseigne Jacques 1:2–4 sur la façon de considérer les épreuves comme des occasions de croissance spirituelle et de développement de l'endurance ?",
+      "Comment l'avertissement de Jacques sur la « foi sans les œuvres » (2:14–26) clarifie-t-il que la foi véritable produit naturellement une action visible ?",
+      "Quels conseils précis Jacques donne-t-il sur le contrôle de la langue (chapitre 3), et pourquoi l'appelle-t-il « un monde d'injustice » si elle est mal utilisée ?",
+      "Comment Jacques 5:14–16 décrit-il le rôle des anciens dans la prière sur et le soin de ceux qui sont malades ou spirituellement faibles dans la congrégation ?",
+      "Que nous enseigne la description par Jacques de la « sagesse d'en haut » (3:17–18) — « pure, pacifique, raisonnable, prête à obéir, pleine de miséricorde » — sur le type de sagesse que Jéhovah apprécie ?"
+    ],
+    [
+      "Comment la description par Pierre des chrétiens comme des « étrangers et des résidents temporaires » (2:11) façonne-t-elle notre attitude envers le système mondial et nos loyautés prioritaires ?",
+      "Que nous enseigne le conseil de Pierre de « se soumettre à toute création humaine » (2:13–17) et ses limites sur la relation équilibrée que les Témoins de Jéhovah ont avec les gouvernements humains ?",
+      "Comment l'instruction de Pierre aux femmes et aux maris (3:1–7) — y compris le principe d'un « esprit tranquille et doux » — s'applique-t-elle dans les ménages chrétiens aujourd'hui ?",
+      "Que nous enseigne l'appel de Pierre à « toujours être prêts à faire une défense » pour notre espérance (3:15) sur la préparation spirituelle pour les conversations sur notre foi ?",
+      "Comment la description par Pierre du diable comme « un lion rugissant » cherchant à dévorer (5:8) motive-t-elle les Témoins de Jéhovah à maintenir leur vigilance spirituelle ?"
+    ],
+    [
+      "Que nous enseigne la liste de qualités de Pierre à « fournir en sus de votre foi » (1:5–7) — vertu, connaissance, maîtrise de soi, endurance, dévouement pieux, affection fraternelle, amour — sur la croissance spirituelle ?",
+      "Comment Pierre décrit-il la certitude du jour de Jéhovah et des nouveaux cieux et de la nouvelle terre (3:10–13), et comment cette connaissance devrait-elle affecter notre conduite ?",
+      "Que nous enseigne l'avertissement de Pierre contre les faux enseignants qui « introduisent secrètement des sectes destructrices » (2:1) sur l'importance de la vigilance doctrinale dans la congrégation ?",
+      "Comment 2 Pierre 3:9 — « Jéhovah n'est pas lent en ce qui concerne sa promesse...il ne désire pas qu'un seul soit détruit, mais désire que tous parviennent à la repentance » — enseigne-t-il la patience de Jéhovah ?",
+      "Que nous enseigne l'exhortation finale de Pierre à « continuer à croître dans la bienveillance gratuite et la connaissance de notre Seigneur » (3:18) sur la nature continue du développement spirituel ?"
+    ],
+    [
+      "Comment Jean définit-il la véritable communion avec Jéhovah — « marcher dans la lumière » (1:5–7) — et qu'est-ce que cela signifie concrètement pour notre conduite quotidienne ?",
+      "Quels trois tests Jean fournit-il pour identifier les vrais chrétiens — l'obéissance, l'amour pour les frères et la foi en Jésus comme le Christ — et comment fonctionnent-ils ensemble ?",
+      "Comment la déclaration de Jean « Dieu est amour » (4:8, 16) constitue-t-elle le fondement de la compréhension de tous les agissements de Jéhovah envers les humains ?",
+      "Que nous enseigne Jean sur « le monde » — son dirigeant, le désir de la chair et des yeux, et l'étalage de ses moyens de vie (2:15–17) — et comment cela devrait-il affecter nos choix ?",
+      "Comment 1 Jean 5:13 — « J'ai écrit ces choses afin que vous sachiez que vous avez la vie » — décrit-il l'assurance que Jéhovah veut que ses serviteurs aient concernant la vie éternelle ?"
+    ],
+    [
+      "Que signifie l'accent mis par Jean sur le fait de « marcher dans la vérité » (verset 4), et pourquoi l'exactitude doctrinale est-elle inséparable de l'amour dans l'enseignement de Jean ?",
+      "Que nous enseigne l'avertissement de Jean de ne pas accueillir chez soi ceux qui promeuvent la fausse doctrine (verset 10) sur la protection de la congrégation contre les influences néfastes ?",
+      "Comment Jean décrit-il « le commandement que nous avons eu depuis le début » (verset 5) — s'aimer les uns les autres — comme fondamental à l'identité chrétienne ?",
+      "Que nous enseigne cette brève lettre sur l'importance de la vigilance envers ceux qui « ne demeurent pas dans l'enseignement du Christ » (verset 9) ?",
+      "Comment le message équilibré de Jean — affirmant chaleureusement l'amour et la vérité tout en mettant en garde contre le compromis — modèle-t-il une communication fidèle ?"
+    ],
+    [
+      "Que nous enseigne la commendation de Jean envers Gaïus pour avoir accueilli des missionnaires itinérants sur l'importance de l'hospitalité pour soutenir l'œuvre de prédication ?",
+      "Comment la réprimande de Jean envers Diotrèphe — qui « aime occuper la première place » et refusait d'accueillir les frères — nous met-elle en garde contre l'orgueil et l'importance de soi dans la congrégation ?",
+      "Que signifie concrètement « marcher dans la vérité » (versets 3–4), et pourquoi Jean dit-il que cela lui donne une plus grande joie que toute autre chose ?",
+      "Comment l'exemple positif de Démétrius (verset 12) — « témoigné par tous, oui par la vérité elle-même » — décrit-il le type de réputation que les Témoins de Jéhovah devraient chercher à bâtir ?",
+      "Que nous enseigne cette courte lettre sur les façons concrètes dont nous pouvons soutenir ceux qui « travaillent pour le nom » (verset 7) ?"
+    ],
+    [
+      "Que nous enseigne l'appel urgent de Jude à « se battre avec acharnement pour la foi » (verset 3) sur la responsabilité de chaque chrétien individuel de défendre la vraie doctrine ?",
+      "Comment Jude utilise-t-il des exemples historiques — les Israélites dans le désert, les anges qui ont abandonné leur demeure convenable, Sodome et Gomorrhe — pour mettre en garde contre les conséquences de l'apostasie ?",
+      "Que nous enseigne Jude sur ceux qui « se sont glissés à l'intérieur » (verset 4), et comment les Témoins de Jéhovah peuvent-ils reconnaître et se protéger d'une influence similaire aujourd'hui ?",
+      "Comment la description par Jude de « vous édifier sur votre foi très sainte, priant avec l'esprit saint » (verset 20) décrit-elle le renforcement spirituel nécessaire pour résister aux faux enseignements ?",
+      "Que nous enseigne la doxologie finale de Jude (versets 24–25) — « Maintenant, à celui qui est capable de vous garder de tout faux pas » — sur le fait de compter sur Jéhovah pour la protection spirituelle ?"
+    ],
+    [
+      "Comment la vision de Jéhovah sur son trône (chapitre 4) et l'Agneau recevant le rouleau (chapitre 5) dans la Révélation établissent-ils le fondement du droit de Jéhovah de juger et d'agir ?",
+      "Que nous enseignent les sept lettres aux congrégations (chapitres 2–3) sur les forces et les faiblesses spécifiques que Jéhovah observe dans son peuple ?",
+      "Comment la vision de la grande foule (chapitre 7) et les 144 000 décrivent-ils les deux groupes du peuple de Jéhovah qui recevront le salut ?",
+      "Que représente « Babylone la Grande » (chapitres 17–18), et que signifie l'appel de Jéhovah « sortez d'elle, mon peuple » pour ses serviteurs aujourd'hui ?",
+      "Comment la vision culminante de la Révélation — la nouvelle Jérusalem, la suppression de la mort et Jéhovah demeurant avec les humains (chapitres 21–22) — soutient-elle l'espérance des Témoins de Jéhovah pour le paradis ?"
+    ]
+  ]
 }

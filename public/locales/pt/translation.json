@@ -142,7 +142,8 @@
     "infoAuthor": "Autor",
     "infoWritten": "Escrito",
     "infoTheme": "Tema",
-    "infoKeyVerses": "Versículos-chave"
+    "infoKeyVerses": "Versículos-chave",
+    "infoStudyQuestions": "Perguntas de Estudo"
   },
   "posts": {
     "sectionTitle": "Atualizações",
@@ -2003,5 +2004,469 @@
     "bannerTitle": "Desbloquear Premium",
     "bannerSub": "Assistente IA, Planos de Leitura, Notas, Mensagens e Grupos — $3/mês",
     "bannerCta": "Assinar →"
-  }
+  },
+  "bookQuestions": [
+    [
+      "O que o relato da criação em Gênesis 1–2 revela sobre o poder de Jeová e seu propósito original para a terra e para a humanidade?",
+      "Como Satanás usou a serpente para desafiar a soberania de Jeová, e qual é o significado da primeira profecia em Gênesis 3:15?",
+      "Que qualidades de fé e obediência Noé demonstrou, e o que seu exemplo ensina sobre confiar plenamente em Jeová?",
+      "Por que Jeová escolheu Abraão, e o que as provações da fé de Abraão — incluindo a ordem de oferecer Isaque — ensinam sobre a lealdade a Jeová?",
+      "Como o relato de José mostra que Jeová pode tirar o bem mesmo das circunstâncias mais injustas e dolorosas?"
+    ],
+    [
+      "O que a revelação do nome de Jeová em Êxodo 3:14–15 e 6:3 ensina sobre a importância de usar e honrar o nome pessoal de Jeová?",
+      "Como as dez pragas demonstraram o poder superior de Jeová sobre os deuses do Egito, e o que isso ensina sobre a adoração verdadeira?",
+      "Qual é o significado da Páscoa para Israel, e como ela prefigura o sacrifício de Jesus Cristo como 'nosso cordeiro pascal'?",
+      "Como os Dez Mandamentos refletem os padrões de retidão de Jeová, e quais princípios ainda se aplicam aos cristãos hoje?",
+      "O que a construção detalhada do Tabernáculo ensina sobre a importância que Jeová atribui à adoração adequada e organizada?"
+    ],
+    [
+      "O que o chamado repetido de Jeová à santidade — 'Sede santos, pois eu sou santo' — significa para as Testemunhas de Jeová hoje?",
+      "Como os vários sacrifícios de animais em Levítico prefiguram o sacrifício superior de Jesus Cristo?",
+      "O que o Dia da Expiação (Levítico 16) ensina sobre a necessidade de expiação, e como foi cumprido em Jesus Cristo como Sumo Sacerdote?",
+      "Como as leis alimentares e de pureza separaram Israel das nações vizinhas, e que princípio de separação do mundo se aplica aos cristãos?",
+      "O que o Ano do Jubileu ensina sobre o cuidado de Jeová com os pobres e seu plano de restaurar o que se perdeu?"
+    ],
+    [
+      "O que as murmurações e reclamações repetidas de Israel no deserto ensinam sobre o perigo da ingratidão para com Jeová?",
+      "Como o pecado em Cades-Barneia (capítulos 13–14) — quando Israel se recusou a entrar na Terra Prometida — demonstrou as sérias consequências da falta de fé?",
+      "O que a rebelião de Corá e seu desfecho ensinam sobre respeitar os arranjos designados por Jeová para a liderança em sua congregação?",
+      "Como a tentativa de Balaão de amaldiçoar Israel e seu fracasso demonstraram que ninguém pode frustrar os propósitos de Jeová?",
+      "Por que o relato da serpente de bronze (Números 21:4–9) é significativo, e o que Jesus disse sobre seu significado em João 3:14–15?"
+    ],
+    [
+      "Por que Moisés enfatizou que Israel devia amar a Jeová 'com todo o seu coração, com toda a sua alma e com toda a sua força vital' (6:5), e como isso se aplica hoje?",
+      "O que Deuteronômio 18:15–18 diz sobre um profeta semelhante a Moisés, e como essa profecia foi cumprida por Jesus Cristo?",
+      "Que advertências Moisés deu sobre os perigos de a prosperidade fazer Israel esquecer Jeová, e como essas advertências se aplicam a nós hoje?",
+      "Como o cântico de despedida de Moisés (Deuteronômio 32) descreve as qualidades de Jeová, e que lições podemos tirar dele?",
+      "O que a cerimônia de renovação da aliança de Moisés ensina sobre a importância de lembretes regulares e do recompromisso pessoal com as leis de Jeová?"
+    ],
+    [
+      "Como Jeová preparou Josué para a liderança, e que qualidades de coragem e fé Josué demonstrou que podemos imitar?",
+      "O que o relato de Raabe (Josué 2; 6) ensina sobre como a misericórdia de Jeová pode se estender àqueles fora de Israel que agem com fé?",
+      "Por que o pecado de Acã (Josué 7) foi tão grave, e o que ensina sobre como o pecado individual pode afetar toda a congregação?",
+      "Como o discurso de despedida de Josué (Josué 24) desafiou o povo a fazer uma escolha clara por Jeová, e que escolha devemos fazer hoje?",
+      "O que o registro de Josué sobre o cumprimento de cada promessa por parte de Jeová (Josué 21:45; 23:14) ensina sobre a fidelidade de Jeová?"
+    ],
+    [
+      "Que ciclo recorrente aparece em todo o livro de Juízes, e o que ele ensina sobre o que acontece quando as pessoas se afastam de Jeová?",
+      "Como o relato da vitória de Gideão com apenas 300 homens (Juízes 7) demonstrou que o poder de Jeová não é limitado por números ou recursos humanos?",
+      "Que lições sobre as consequências da pressão dos outros e do compromisso o relato de Sansão ensina?",
+      "Como o relato de Débora e Baraque (Juízes 4–5) ilustra que Jeová usa tanto homens quanto mulheres para realizar seu propósito?",
+      "O que os capítulos finais de Juízes (17–21) revelam sobre o colapso moral que ocorre quando as pessoas abandonam os padrões de Jeová?"
+    ],
+    [
+      "O que a declaração de lealdade de Rute a Noemi — 'Para onde fores, irei' — ensina sobre a qualidade do amor leal e do compromisso?",
+      "Como a disposição de Rute de deixar sua terra natal por Jeová refletiu fé genuína, e como seu sacrifício pode ser comparado às escolhas que as Testemunhas de Jeová fazem hoje?",
+      "O que o papel de Boaz como 'resgatador da família' ensina sobre o arranjo de Jeová para proteger e resgatar aqueles que lhe pertencem?",
+      "Como a diligência humilde e a fidelidade de Rute a levaram a fazer parte da ancestralidade de Jesus Cristo?",
+      "O que esse livro ensina sobre como Jeová recompensa os que buscam refúgio sob suas asas, mesmo quando as circunstâncias parecem sem esperança?"
+    ],
+    [
+      "O que a oração de Ana e o nascimento de Samuel ensinam sobre a oração persistente e de coração para Jeová?",
+      "Por que o fracasso de Eli como pai (capítulos 2–3) foi tão sério, e que lições ele ensina sobre criar filhos para amar a Jeová?",
+      "Como a derrota de Golias por Davi (capítulo 17) demonstrou que as batalhas pertencem a Jeová e não são determinadas pela força ou aparência humana?",
+      "O que o fracasso repetido de Saul em obedecer plenamente a Jeová ensina sobre a importância da obediência completa, e não parcial?",
+      "Como o tratamento de Davi a Saul (capítulos 24; 26) — recusando-se a prejudicar 'o ungido de Jeová' — mostrou profundo respeito pelos arranjos de Jeová?"
+    ],
+    [
+      "O que as vitórias de Davi e o estabelecimento de Jerusalém ensinam sobre o apoio de Jeová àqueles que nele confiam?",
+      "O que a aliança de Jeová com Davi (capítulo 7) revela sobre o Rei Messiânico que viria e o Reino eterno?",
+      "Como o pecado de Davi com Bate-Seba e o encobrimento que se seguiu (capítulos 11–12) demonstraram que os pecados ocultos nunca estão realmente escondidos de Jeová?",
+      "O que a abordagem de Natã de usar uma parábola para confrontar Davi ensina sobre sabedoria e o uso de ilustrações para tratar de erros?",
+      "Como o reconhecimento imediato e o arrependimento de Davi após a repreensão de Natã serviram de exemplo positivo em comparação com a atitude defensiva de Saul?"
+    ],
+    [
+      "O que o pedido de Salomão por sabedoria em vez de riqueza ou fama (capítulo 3) ensina sobre as prioridades corretas na oração?",
+      "Como a construção do Templo por Salomão cumpriu a promessa de Jeová a Davi, e o que representa sobre Jeová habitando com seu povo?",
+      "O que causou a divisão do reino após o reinado de Salomão, e o que isso ensina sobre os perigos espirituais de seguir costumes pagãos?",
+      "Como a vitória de Elias sobre os profetas de Baal no Monte Carmelo (capítulo 18) demonstrou que Jeová sozinho é o verdadeiro Deus?",
+      "O que a 'voz suave e tranquila' que falou a Elias (capítulo 19) ensina sobre como Jeová se comunica com seus servos e cuida deles?"
+    ],
+    [
+      "O que o pedido de Eliseu por uma porção dupla do espírito de Elias ensina sobre as qualidades necessárias para o serviço eficaz a Jeová?",
+      "Como a oração de Ezequias diante da ameaça assíria (capítulos 18–19) demonstrou o poder de confiar plenamente em Jeová?",
+      "Que lições a vida de reis fiéis como Josias ensina sobre o impacto que um líder espiritual pode ter sobre todo um povo?",
+      "Por que Israel caiu diante da Assíria (capítulo 17), e que advertência isso representa para aqueles que misturam a falsa adoração com a adoração pura a Jeová?",
+      "O que a descoberta da Lei de Jeová durante o reinado de Josias (capítulo 22) ensina sobre a importância de estudar e aplicar regularmente a palavra de Jeová?"
+    ],
+    [
+      "Por que Davi dedicou tanto esforço e recursos para preparar o Templo de Jeová, mesmo sabendo que não o construiria ele mesmo?",
+      "O que a morte de Uzá quando tocou na Arca (capítulo 13) ensina sobre se aproximar da adoração pura com a devida reverência pelas instruções de Jeová?",
+      "Como Davi organizou os sacerdotes, levitas e músicos para o culto no Templo, e o que isso revela sobre o apreço de Jeová pela adoração ordenada?",
+      "O que o louvor público de Davi e sua generosa contribuição para o Templo (capítulo 29) ensinam sobre dar com um coração disposto?",
+      "Que qualidades descritas na expressão 'um homem do agrado do coração de Jeová' podemos buscar desenvolver em nossa própria adoração?"
+    ],
+    [
+      "O que a promessa de Jeová a Salomão em 2 Crônicas 7:14 revela sobre as condições que Jeová requer para o perdão e a restauração?",
+      "Como a oração de Josafá e a intervenção miraculosa de Jeová (capítulo 20) demonstraram o poder de confiar em Jeová em uma crise?",
+      "Que qualidades em comum tinham os reis reformadores Asa, Ezequias e Josias, e como sua liderança espiritual afetou o povo?",
+      "Que padrão em 2 Crônicas mostra a ligação entre fidelidade a Jeová e bênção, e entre infidelidade e calamidade?",
+      "Como o final esperançoso do livro com o decreto de Ciro (36:23) mostra a capacidade de Jeová de usar qualquer pessoa para cumprir seu propósito?"
+    ],
+    [
+      "O que motivou o primeiro grupo de exilados judeus a retornar a Jerusalém, e o que isso ensina sobre priorizar a adoração a Jeová em vez do conforto pessoal?",
+      "Como a oposição à reconstrução do Templo testou a fé dos exilados que retornavam, e como Jeová os ajudou a superá-la?",
+      "O que a preparação pessoal de Esdras — 'Esdras tinha preparado o seu coração para consultar a Lei de Jeová, praticá-la e ensiná-la' (7:10) — ensina sobre o estudo pessoal da Bíblia?",
+      "Como o problema dos casamentos com estrangeiros (capítulos 9–10) mostrou o sério perigo espiritual de uma associação íntima com aqueles que não adoram a Jeová?",
+      "O que a resposta emocional do povo ao ouvir a Lei de Jeová lida em voz alta ensina sobre nossa atitude em relação às Escrituras?"
+    ],
+    [
+      "O que a oração de Neemias antes de se aproximar do rei Artaxerxes (capítulo 1) ensina sobre o papel da oração em nossos planos e decisões?",
+      "Como Neemias lidou com o ridículo e as ameaças de Sambalate e Tobias, e que lições práticas isso oferece para lidar com a oposição?",
+      "O que a decisão de Neemias de fazer os trabalhadores construírem com uma mão e segurarem uma arma na outra (4:17) ensina sobre ser 'prudente como serpentes' ao fazer a obra de Jeová?",
+      "Como o confronto de Neemias com a injustiça econômica (capítulo 5) mostrou que a liderança espiritual inclui preocupação com a equidade prática?",
+      "O que a leitura pública da Lei de Jeová e a resposta emocional do povo (capítulo 8) ensinam sobre o que acontece quando as pessoas são adequadamente alimentadas espiritualmente?"
+    ],
+    [
+      "Como o livro de Ester ilustra a providência orientadora de Jeová mesmo quando seu nome não é explicitamente mencionado no texto?",
+      "O que a coragem de Ester ao se aproximar do rei sem ser convocada — 'Se eu perecer, perecerei' — ensina sobre colocar o bem-estar do povo de Jeová acima da segurança pessoal?",
+      "Como a recusa de Mardoqueu em se curvar perante Hamã reflete o tipo de lealdade a Jeová que seu povo deve manter mesmo sob pressão?",
+      "O que a queda de Hamã ensina sobre o princípio de que o orgulho sempre leva a uma queda, e que os esquemas contra o povo de Jeová não terão sucesso?",
+      "Como o jejum que Ester convocou antes de se aproximar do rei ilustra a importância de buscar a orientação de Jeová antes de tomar uma decisão importante?"
+    ],
+    [
+      "Qual era a questão real por trás do sofrimento de Jó, e por que compreender esse contexto é importante para as Testemunhas de Jeová hoje?",
+      "Como os 'consoladores' de Jó falharam com ele, e o que isso ensina sobre como realmente apoiar aqueles que passam por provações?",
+      "O que a resposta de Jeová a Jó desde a tempestade de vento (capítulos 38–41) revela sobre a sabedoria e o poder de Jeová em comparação com o entendimento humano?",
+      "Como Jó manteve sua integridade em meio a uma provação extrema, e o que seu exemplo ensina sobre suportar o sofrimento injusto com fidelidade?",
+      "O que a restauração completa de Jó (capítulo 42) ensina sobre o cuidado de Jeová por aqueles que mantêm a integridade, e como isso aponta para a esperança da ressurreição?"
+    ],
+    [
+      "Como os salmos de lamento (como os Salmos 22, 42, 88) nos ensinam a ser honestos com Jeová sobre nossos sentimentos durante períodos de sofrimento?",
+      "O que o Salmo 83:18 ensina sobre a importância do nome de Jeová, e como isso motiva as Testemunhas de Jeová em seu ministério?",
+      "Como os salmos de entronamento (como os Salmos 93, 96–99) contribuem para nosso entendimento do Reino de Jeová e seu direito de governar?",
+      "O que o Salmo 119 — o salmo mais longo — ensina sobre a atitude correta que devemos ter para com a lei e a palavra de Jeová?",
+      "Como os salmos messiânicos (como os Salmos 2, 22, 110) prefiguram Jesus Cristo, e quais eventos específicos foram cumpridos?"
+    ],
+    [
+      "O que Provérbios 1:7 — 'O temor de Jeová é o princípio da sabedoria' — significa, e como o temor adequado de Jeová orienta as decisões diárias?",
+      "Como Provérbios 3:5–6 — 'Confie em Jeová com todo o seu coração' — se aplica na prática ao tomar grandes decisões na vida?",
+      "Que advertências Provérbios dá sobre os perigos das más associações, e como elas se aplicam às Testemunhas de Jeová na escolha de amigos?",
+      "Como a descrição da 'mulher capaz' em Provérbios 31 reflete qualidades que Jeová valoriza em todos os seus servos?",
+      "Que orientação prática Provérbios oferece sobre o uso da língua, e como podemos aplicar essa sabedoria diariamente?"
+    ],
+    [
+      "O que a conclusão de Salomão de que todos os empreendimentos são 'vaidade' ensina sobre os perigos de buscar satisfação duradoura fora de Jeová?",
+      "Como Eclesiastes 3:1–8 — 'há um tempo para tudo debaixo do céu' — ajuda as Testemunhas de Jeová a manter equilíbrio nas atividades da vida?",
+      "O que Eclesiastes ensina sobre a morte e a condição dos mortos (9:5, 10) que sustenta o ensinamento bíblico sobre a esperança da ressurreição?",
+      "Como Eclesiastes 12:1 — 'Lembra-te do teu Criador nos dias da tua juventude' — motiva os jovens a se dedicarem a Jeová desde cedo?",
+      "O que a conclusão final de Eclesiastes (12:13–14) — temer a Jeová e guardar seus mandamentos — ensina sobre o verdadeiro propósito da humanidade?"
+    ],
+    [
+      "O que o Cântico dos Cânticos ensina sobre a importância que Jeová dá ao amor, à lealdade e ao compromisso dentro do casamento?",
+      "Como a admiração mútua e a comunicação aberta descritas no Cântico modelam qualidades que fortalecem qualquer relacionamento íntimo?",
+      "O que 'o amor é tão forte quanto a morte' (8:6) ensina sobre a natureza da lealdade e do compromisso verdadeiros num relacionamento?",
+      "Como a vigilância e a fidelidade da sulamita para com seu pastor ilustram a qualidade da devoção que Jeová valoriza?",
+      "Que princípios do Cântico dos Cânticos ajudam as Testemunhas de Jeová a manter relacionamentos saudáveis e honrosos?"
+    ],
+    [
+      "Como Isaías 9:6–7 descreve o Rei Messiânico que viria, e como essas qualidades foram cumpridas em Jesus Cristo?",
+      "O que Isaías 40:28–31 ensina sobre a energia inesgotável de Jeová e seu cuidado por aqueles que estão cansados?",
+      "Como os quatro 'Cânticos do Servo' em Isaías (42:1–4; 49:1–6; 50:4–9; 52:13–53:12) descrevem o sofrimento e o ministério do Messias?",
+      "O que Isaías 65:17–25 descreve sobre a nova terra que virá, e como essa visão sustenta a esperança do povo de Jeová?",
+      "Como a resposta de Isaías à sua visão no capítulo 6 — 'Envia-me a mim!' — reflete o espírito voluntarioso que as Testemunhas de Jeová demonstram em seu ministério?"
+    ],
+    [
+      "O que Jeremias 1:5 — 'Antes de eu te formar no ventre, eu te conhecia' — ensina sobre o conhecimento prévio e o propósito de Jeová para cada pessoa?",
+      "Como Jeremias permaneceu fiel apesar de perseguições intensas, ridículo e, por vezes, desespero, e o que podemos aprender com seu exemplo?",
+      "O que a promessa de Jeová de uma nova aliança (Jeremias 31:31–34) ensina sobre a superioridade do arranjo mediado por Jesus?",
+      "Como a carta de Jeremias aos exilados na Babilônia (capítulo 29) — dizendo-lhes que buscassem a paz da cidade — aplicou o princípio de ser 'nenhuma parte do mundo'?",
+      "O que a compra de um campo por Jeremias (capítulo 32), mesmo enquanto Jerusalém caía, ensina sobre a confiança nas promessas de Jeová para o futuro?"
+    ],
+    [
+      "Como o livro de Lamentações modela o luto honesto enquanto ainda mantém esperança no amor leal de Jeová?",
+      "O que Lamentações 3:22–23 — o amor leal de Jeová 'nunca acaba' e 'as misericórdias se renovam a cada manhã' — ensina sobre a fidelidade duradoura de Jeová?",
+      "Como o luto de Jeremias pela destruição de Jerusalém reflete como os servos de Jeová hoje deveriam se sentir diante da maldade no mundo?",
+      "O que Lamentações ensina sobre as consequências de abandonar os padrões de Jeová, e como isso serve de advertência para nós?",
+      "Como o reconhecimento dos exilados em Lamentações 3:40 — 'Examinemos e exploremos os nossos caminhos' — refletiu a resposta correta à disciplina de Jeová?"
+    ],
+    [
+      "O que as visões inaugurais de Ezequiel (capítulos 1–3) do carro-trono de Jeová ensinam sobre a majestade de Jeová e a operação do seu espírito santo?",
+      "Como o papel de Ezequiel como 'sentinela' (capítulos 3, 33) corresponde à responsabilidade das Testemunhas de Jeová de advertir outros sobre o julgamento de Jeová?",
+      "O que Ezequiel 18:23 — 'Não me agrado da morte do ímpio' — ensina sobre o desejo de Jeová de que todos se arrependam e vivam?",
+      "Como a visão do vale dos ossos secos (capítulo 37) prefigura a ressurreição dos mortos sob o Reino de Jeová?",
+      "O que a visão de Ezequiel do Templo futuro (capítulos 40–48) ensina sobre a importância da adoração pura e organizada a Jeová?"
+    ],
+    [
+      "Como Daniel e seus três companheiros (capítulos 1–6) demonstraram que é possível manter a integridade sob pressão intensa de uma potência mundial hostil?",
+      "O que Daniel 2:44 — Jeová estabelecendo um reino que nunca será destruído — ensina sobre a certeza do Reino de Jeová?",
+      "Como o relato de Sadraque, Mesaque e Abednego (capítulo 3) exemplificou a fé do 'mesmo que não' que as Testemunhas de Jeová podem precisar durante a perseguição?",
+      "O que a profecia dos Tempos dos Gentios (Daniel 4) e a grande estátua em Daniel 2 revelam sobre a sucessão de potências mundiais e o calendário de Jeová?",
+      "Como a prática fiel de oração de Daniel — orando três vezes ao dia independentemente do decreto real (capítulo 6) — ensina a importância do culto consistente e regular?"
+    ],
+    [
+      "Como Jeová usou o casamento de Oseias como ilustração viva da infidelidade espiritual de Israel, e como isso nos ajuda a entender a seriedade do adultério espiritual?",
+      "O que Oseias 6:6 — 'Quero amor leal, não sacrifício; e conhecimento de Deus mais do que holocaustos' — ensina sobre o que Jeová valoriza mais?",
+      "Como a compaixão contínua de Jeová e o convite para Israel retornar (capítulo 14) demonstram a profundidade do seu amor leal e sua capacidade de perdão?",
+      "O que Oseias ensina sobre o perigo espiritual de misturar a adoração verdadeira com as práticas religiosas das nações vizinhas?",
+      "Como a profecia de Oseias (13:14) sobre resgatar do poder do túmulo se relaciona com as palavras de Paulo em 1 Coríntios 15:55?"
+    ],
+    [
+      "Como Joel usou a praga de gafanhotos como um chamado ao arrependimento genuíno, e o que 'rasgai o vosso coração e não as vossas vestes' (2:13) significa para a adoração hoje?",
+      "O que a profecia de Joel sobre Jeová derramando seu espírito (2:28–29) ensina, especialmente quanto ao cumprimento no Pentecostes de 33 EC (Atos 2:1–21)?",
+      "Como o 'dia de Jeová' em Joel se compara ao que Apocalipse descreve sobre a grande tribulação e Armagedom?",
+      "O que a profecia de Joel sobre o julgamento das nações no 'Vale da Decisão' (3:14) ensina sobre o julgamento vindouro de Jeová?",
+      "O que a promessa de restauração de Joel (2:18–27; 3:17–18) ensina sobre as bênçãos que Jeová reserva para aqueles que retornam a ele?"
+    ],
+    [
+      "O que Amós 3:7 — 'O Soberano Senhor Jeová certamente não fará nada sem revelar seu segredo confidencial a seus servos os profetas' — ensina sobre a comunicação de Jeová com seu povo?",
+      "Como a condenação de Amós ao culto religioso vazio (capítulos 5–6) se aplica ao perigo de praticar a adoração sem sinceridade?",
+      "O que Amós ensina sobre o interesse de Jeová na justiça social e no tratamento dos pobres, e como isso reflete os valores de Jeová?",
+      "O que os julgamentos sobre as nações vizinhas (capítulos 1–2) ensinam sobre Jeová responsabilizando todos — não apenas Israel — por padrões morais básicos?",
+      "Como a profecia de Amós sobre a 'cabana caída de Davi' (9:11) se conecta à restauração da adoração pura e ao Reino de Jeová?"
+    ],
+    [
+      "Que pecados específicos de Edom levaram ao julgamento de Jeová, e o que eles ensinam sobre os perigos do orgulho e da autossuficiência?",
+      "Como o regozijo de Edom com a queda de Jerusalém (versículos 12–14) violou o princípio do amor fraternal, e que advertência isso representa para nós?",
+      "O que Obadias ensina sobre o princípio 'como fizeste, assim te será feito' (versículo 15)?",
+      "Como o julgamento completo de Jeová sobre Edom — uma nação que parecia inexpugnável — demonstra que nenhum esquema humano pode resistir ao propósito de Jeová?",
+      "O que o versículo final de Obadias — 'O reino passará a pertencer a Jeová' — antecipa sobre o futuro sob o Reino de Jeová?"
+    ],
+    [
+      "O que havia de errado com a recusa inicial de Jonas em ir a Nínive, e como isso nos desafia a refletir sobre nossa própria atitude ao compartilhar as boas novas com todo tipo de pessoa?",
+      "Como o tratamento paciente de Jeová da atitude de Jonas — desde o peixe até a vinha de cabaceira — demonstra o seu desejo de ensinar em vez de simplesmente punir?",
+      "O que o arrependimento genuíno de Nínive e a decisão de Jeová de não trazer calamidade (3:10) ensinam sobre a eficácia do arrependimento de coração?",
+      "Como a oração de Jonas de dentro do peixe (capítulo 2) modela uma oração honesta e pessoal a Jeová mesmo nas circunstâncias mais desesperadoras?",
+      "O que o relato de Jonas ensina sobre o interesse de Jeová no bem-estar espiritual de todos os povos, prefigurando a obra de pregação mundial?"
+    ],
+    [
+      "Como Miquéias 5:2 — anunciando o nascimento do Messias em Belém — demonstra a confiabilidade da profecia de Jeová ao ser cumprido no nascimento de Jesus?",
+      "O que Miquéias 6:8 — 'praticar a justiça, amar a lealdade e caminhar modestamente com o teu Deus' — identifica como as qualidades essenciais que Jeová requer?",
+      "Como a descrição de Miquéias sobre os últimos dias (4:1–4) — quando os povos afluirão à 'montanha' de Jeová em busca de instrução — descreve o que está acontecendo com as Testemunhas de Jeová hoje?",
+      "O que Miquéias ensina sobre o contraste entre a liderança corrupta (capítulo 3) e a liderança justa que Jeová valoriza?",
+      "Como Miquéias 7:18–20 descreve as qualidades de perdão e amor leal de Jeová de uma forma que conforta aqueles que cometeram erros?"
+    ],
+    [
+      "Que qualidades de Jeová Naum 1:2–7 descreve — seu zelo, sua lentidão para a ira e sua grandeza — e como elas se combinam?",
+      "O que a queda de Nínive ensina sobre como mesmo as potências humanas mais poderosas estão sujeitas ao julgamento de Jeová?",
+      "Como Naum 1:7 — 'Jeová é bom, uma fortaleza no dia de angústia; e ele conhece os que buscam refúgio nele' — oferece conforto em tempos difíceis?",
+      "Como o contraste entre o tratamento de Jeová a Nínive em Jonas (misericórdia mediante arrependimento) e em Naum (julgamento por retornar à maldade) ensina sobre os limites da paciência de Jeová?",
+      "Que princípio sobre a justiça de Jeová — que ele 'certamente não deixará o culpado sem punição' — vemos demonstrado na queda de Nínive?"
+    ],
+    [
+      "Como a disposição de Habacuque de questionar Jeová honestamente sobre a aparente injustiça (capítulos 1–2) demonstra que podemos apresentar nossas mais profundas preocupações a Jeová em oração?",
+      "O que Habacuque 2:4 — 'o justo viverá pela sua fidelidade' — significa, e como Paulo usa esse versículo em Romanos e Gálatas?",
+      "Como a resposta de Jeová — que estava levantando a Babilônia como seu instrumento — desafiou o entendimento de Habacuque, e o que isso ensina sobre confiar na sabedoria de Jeová?",
+      "O que Habacuque 3:17–18 — regozijar em Jeová mesmo quando todas as bênçãos naturais falham — modela sobre manter a alegria em qualquer circunstância?",
+      "Como a jornada de Habacuque da reclamação ao louvor modela um processo espiritual saudável para as Testemunhas de Jeová que lutam com questões difíceis?"
+    ],
+    [
+      "Como a descrição de Sofonias do 'dia de Jeová' como ao mesmo tempo terrível e esperançoso prepara as Testemunhas de Jeová para a grande tribulação que vem?",
+      "O que Sofonias 3:17 — 'Jeová, o teu Deus, está no teu meio...Ele se regozijará sobre ti com grande alegria' — revela sobre os sentimentos de Jeová para com seu povo?",
+      "O que o chamado de Sofonias para 'buscar a Jeová, vós todos os mansos da terra' (2:3) significa em sentido prático para nossas vidas diárias?",
+      "Como a profecia de Sofonias contra as nações (capítulo 2) demonstra a autoridade moral de Jeová sobre todos os povos da terra?",
+      "O que a promessa de Sofonias de uma 'linguagem pura' (3:9) — para que todos os povos invoquem o nome de Jeová — antecipa sobre a restauração da adoração pura?"
+    ],
+    [
+      "Qual era o problema espiritual que Ageu identificou quando o povo disse 'ainda não chegou o tempo de reconstruir a casa de Jeová' (1:2), e como essa racionalização pode aparecer em nossas próprias vidas?",
+      "Como Jeová respondeu à obediência imediata do povo após a mensagem de Ageu (1:12–15), e o que isso ensina sobre a recompensa pela obediência rápida?",
+      "O que Ageu 2:9 — 'A glória desta última casa será maior do que a da anterior' — ensina sobre a capacidade de Jeová de superar nossas expectativas?",
+      "Como a mensagem de Ageu sobre colocar a casa de Jeová em primeiro lugar, antes das nossas próprias casas, se aplica à forma como as Testemunhas de Jeová ordenam suas prioridades hoje?",
+      "O que Ageu 2:4 — 'Sede fortes...e agí, pois estou convosco' (repetido a Zorobabel, a Josué e ao povo) — ensina sobre a garantia de Jeová àqueles que fazem sua obra?"
+    ],
+    [
+      "Como a visão de Zacarias de Satanás se opondo a Josué, o sumo sacerdote (capítulo 3), e a repreensão de Jeová a Satanás dão confiança de que Jeová defende seus servos?",
+      "O que Zacarias 4:6 — 'Não por força militar, nem por poder, mas pelo meu espírito, diz Jeová' — ensina sobre a forma como Jeová realiza seu propósito?",
+      "Como Zacarias 9:9 — o rei profetizado que entra em Jerusalém montado num jumento — se conecta à entrada triunfal de Jesus e confirma a confiabilidade da profecia?",
+      "O que Zacarias 12:10 — 'Olharão para aquele que traspassaram' — prefigura, e como Apocalipse 1:7 o conecta a Jesus?",
+      "Como a mensagem abrangente de Zacarias — Jeová voltará a Sião e habitará com seu povo — sustenta a esperança das Testemunhas de Jeová pelo novo mundo?"
+    ],
+    [
+      "Como a pergunta de Jeová 'Como nos amastes?' (1:2) revelou a complacência espiritual que Malaquias abordou, e como podemos nos guardar dessa atitude?",
+      "O que a condenação de Malaquias às ofertas impuras (capítulo 1) ensina sobre a qualidade da adoração — tempo, energia e atenção — que Jeová merece?",
+      "O que Malaquias 3:10 — 'Trazei todo o dízimo...e me pondes à prova' — ensina sobre o princípio de colocar os interesses de Jeová em primeiro lugar?",
+      "Como o 'livro de lembrança' escrito para os que temiam a Jeová (3:16) mostrou que Jeová presta atenção cuidadosa àqueles que são fiéis?",
+      "Como os versículos finais de Malaquias — anunciando Elias antes do grande dia de Jeová — se conectam ao ministério preparatório de João Batista?"
+    ],
+    [
+      "Como o Sermão do Monte de Jesus (capítulos 5–7) apresenta os padrões de conduta e os valores que distinguem os cidadãos do Reino de Jeová?",
+      "O que a oração modelo de Jesus (Mateus 6:9–13) ensina sobre o que deve vir primeiro em nossas orações — o nome de Jeová, seu Reino e sua vontade?",
+      "Como as parábolas do Reino em Mateus 13 descrevem as diferentes respostas à mensagem do Reino, e qual resposta as Testemunhas de Jeová buscam cultivar?",
+      "O que a Grande Comissão de Jesus (28:19–20) — 'fazei discípulos de pessoas de todas as nações' — revela sobre o alcance global e a natureza contínua da obra de pregação?",
+      "Como a apresentação de Jesus por Mateus como cumprimento das profecias das Escrituras Hebraicas fortalece a confiança na confiabilidade da palavra de Jeová?"
+    ],
+    [
+      "O que o ritmo acelerado do Evangelho de Marcos e sua ênfase nas poderosas obras de Jesus revelam sobre Jesus como servo designado de Jeová?",
+      "Como Marcos 10:45 — 'o Filho do homem veio, não para ser servido, mas para servir e dar a sua vida como resgate em troca de muitos' — resume o propósito inteiro de Jesus?",
+      "O que o relato das duas moedas da viúva (Marcos 12:41–44) ensina sobre o que Jeová valoriza nos atos de adoração e generosidade?",
+      "Como o chamado de Jesus para 'seguir-me' (Marcos 1:17; 8:34) descreve o que o discipulado pleno requer dos que servem a Jeová hoje?",
+      "O que Marcos 8:29 — 'Tu és o Cristo' — e o ensinamento subsequente sobre um Messias sofredor nos dizem sobre corrigir expectativas errôneas sobre o propósito de Jeová?"
+    ],
+    [
+      "Como a ênfase de Lucas em Jesus mostrando compaixão pelos marginalizados, pelos pobres e pelos gentios reflete o amor universal de Jeová por todos os povos?",
+      "O que a parábola do filho pródigo (Lucas 15) ensina sobre a alegria de Jeová quando os pecadores se arrependem e retornam a ele?",
+      "Como o relato do Bom Samaritano por Lucas (10:25–37) define o que significa 'amar ao próximo', e como isso se aplica às Testemunhas de Jeová hoje?",
+      "O que Lucas 4:18 — a declaração de Jesus sobre sua missão — ensina sobre a libertação espiritual que o Reino de Jeová traz?",
+      "Como Lucas 19:10 — 'o Filho do homem veio para procurar e salvar o que estava perdido' — motiva as Testemunhas de Jeová em seu ministério para alcançar todo tipo de pessoa?"
+    ],
+    [
+      "Como João 1:1 e 1:14 descrevem Jesus como o Verbo (Logos), e o que a gramática grega de João 1:1 revela sobre a natureza de Jesus em relação a Jeová?",
+      "O que a afirmação de Jesus 'o Pai é maior do que eu' (João 14:28) e passagens relacionadas ensinam sobre o relacionamento entre Jeová e Jesus?",
+      "Como os sete ditos 'Eu sou' (o pão, a luz, o pastor, a ressurreição, o caminho, a videira, a porta) revelam o papel de Jesus como canal das bênçãos de Jeová?",
+      "O que a oração de Jesus em João 17 — incluindo o pedido de que seus discípulos 'sejam um, assim como nós somos um' — ensina sobre a unidade na congregação?",
+      "Como o ensinamento de Jesus sobre o espírito santo como 'ajudante' (parácleto) em João 14–16 descreve o papel do espírito de Jeová em guiar e fortalecer seu povo?"
+    ],
+    [
+      "Como o derramamento do espírito santo de Jeová no Pentecostes de 33 EC (capítulo 2) marcou o início da congregação da nova aliança, e quais foram os resultados imediatos?",
+      "O que o padrão de crescimento da congregação primitiva em Atos — apesar da perseguição intensa — ensina sobre a natureza imparável do propósito de Jeová?",
+      "Como o exemplo de ousadia de Pedro e Paulo diante dos tribunais e conselhos (capítulos 4–5; 22–26) modela a atitude que as Testemunhas de Jeová podem ter ao defender as boas novas?",
+      "O que Atos 17:11 diz sobre os bereanos, e que qualidade o exemplo deles destaca para o estudo pessoal da Bíblia?",
+      "Como a expansão da obra de pregação de Jerusalém a Roma (Atos 1:8) mostra o cumprimento da comissão de Jesus e como o espírito de Jeová dirigiu a obra?"
+    ],
+    [
+      "O que a explicação de Paulo de como todos os seres humanos 'ficaram aquém da glória de Deus' (3:23) e o remédio pela fé em Jesus ensinam sobre por que precisamos do resgate?",
+      "Como Romanos 5:12 — 'por meio de um só homem o pecado entrou no mundo e a morte pelo pecado' — explica a ligação entre o pecado de Adão e a condição da humanidade?",
+      "O que o ensinamento de Paulo em Romanos 8:28 — 'todas as coisas cooperam juntas para o bem dos que amam a Deus' — significa para as Testemunhas de Jeová que enfrentam provações?",
+      "Como Romanos 12:1–2 — 'apresentai os vossos corpos como sacrifício vivo' e 'parem de ser moldados por este sistema de coisas' — define como é o serviço de coração inteiro a Jeová?",
+      "O que o ensinamento de Paulo sobre sujeição às autoridades governantes (Romanos 13:1–7) e seus limites (Atos 5:29) ensina sobre nosso relacionamento com os governos humanos?"
+    ],
+    [
+      "O que o ensinamento de Paulo sobre os dons espirituais nos capítulos 12–14 ensina sobre o uso adequado dos dons na congregação, com o amor como a qualidade mais essencial?",
+      "Como a descrição do amor por Paulo no capítulo 13 — paciente, bondoso, não ciumento, não buscando seus próprios interesses — nos desafia a examinar nossos relacionamentos dentro da congregação?",
+      "O que a defesa minuciosa da ressurreição por Paulo no capítulo 15 ensina sobre por que a esperança da ressurreição é central para a fé cristã?",
+      "Como o conselho de Paulo para resolver disputas entre irmãos (capítulo 6) reflete a importância de manter a unidade da congregação e não expor problemas diante do mundo?",
+      "O que a instrução de Paulo sobre a Ceia do Senhor (11:23–26) ensina sobre seu significado, a participação adequada e a frequência com que ela é observada?"
+    ],
+    [
+      "O que a descrição de Paulo de seus sofrimentos (capítulos 4–6; 11) e seu ministério contínuo apesar deles ensina sobre encontrar força em Jeová?",
+      "Como a afirmação de Paulo 'quando sou fraco, então sou poderoso' (12:10) redefine como é a força espiritual?",
+      "O que o ensinamento de Paulo sobre a 'nova criação' (5:17) significa para aqueles que entram num relacionamento com Jeová por meio de Cristo?",
+      "Como o apelo de Paulo para dádivas generosas aos santos (capítulos 8–9) — incluindo 'Jeová ama um doador alegre' — se aplica à forma como encaramos as contribuições e as dádivas sacrificiais?",
+      "O que a advertência de Paulo sobre 'não andar unido em jugo desigual com os incrédulos' (6:14) significa praticamente para as Testemunhas de Jeová nas amizades, no casamento e nos negócios?"
+    ],
+    [
+      "Que 'boas novas diferentes' os judaizantes promoviam (capítulo 1), e por que Paulo disse que qualquer um que as pregasse deveria ser 'maldito'?",
+      "Como o relato de Paulo ao confrontar Pedro publicamente (capítulo 2) demonstra a importância de defender a verdade doutrinária, mesmo quando isso significa se opor a uma pessoa proeminente?",
+      "O que a ilustração de Hagar e Sara (capítulo 4) ensina sobre a diferença entre a antiga aliança e a nova aliança?",
+      "Como a descrição de Paulo do 'fruto do espírito' (5:22–23) identifica qualidades que deveriam caracterizar todos os que servem a Jeová?",
+      "O que o princípio de Paulo 'o que uma pessoa semear, isso também ceifará' (6:7) ensina sobre as consequências a longo prazo de nossas escolhas diárias?"
+    ],
+    [
+      "O que a descrição de Paulo da congregação como o 'corpo de Cristo' (capítulos 1; 4) ensina sobre a unidade e a interdependência de todos os membros da congregação?",
+      "Como Efésios 2:8–9 — 'fostes salvos mediante a fé...não provém de vós mesmos' — esclarece o fundamento da nossa esperança de salvação?",
+      "O que a metáfora do 'equipamento completo de armadura de Deus' (6:10–18) ensina sobre a guerra espiritual que as Testemunhas de Jeová enfrentam e como se defender?",
+      "Como o conselho de Paulo para os lares cristãos — maridos, esposas, filhos, pais (capítulos 5–6) — reflete os padrões de Jeová para a vida familiar?",
+      "O que Efésios 4:4–6 — 'um só corpo, um só espírito, uma só esperança...um só Senhor, uma só fé, um só batismo, um só Deus e Pai' — ensina sobre o fundamento da verdadeira unidade?"
+    ],
+    [
+      "Que passos práticos para manter a paz de espírito Filipenses 4:6–7 — 'não vos angustieis por nenhuma coisa, mas em tudo...fazei os vossos pedidos chegarem ao conhecimento de Deus' — fornece?",
+      "Como a descrição de Paulo de Jesus 'esvaziando-se a si mesmo' (2:5–8) ensina como deve ser a mentalidade e a atitude de um cristão?",
+      "O que a afirmação de Paulo 'aprendi a estar satisfeito em qualquer que seja a circunstância em que me encontre' (4:11) ensina sobre o contentamento como uma habilidade a desenvolver?",
+      "Como o tom alegre de Paulo em toda a carta aos Filipenses — escrita enquanto estava preso — demonstra que a verdadeira alegria vem do relacionamento com Jeová, e não das circunstâncias?",
+      "O que Filipenses 1:21 — 'para mim, viver é Cristo e morrer é ganho' — revela sobre a perspectiva de Paulo sobre a vida, a morte e a esperança da ressurreição?"
+    ],
+    [
+      "Como a descrição de Paulo de Jesus como 'o primogênito de toda a criação' e 'o primogênito dentre os mortos' (1:15–18) esclarece a posição única de Jesus diante de Jeová?",
+      "Que falsas filosofias e 'tradições humanas' (2:8) Paulo estava advertindo os colossenses, e que paralelos existem com os perigos que as Testemunhas de Jeová enfrentam hoje?",
+      "Como a instrução de Paulo para 'deixar que a paz do Cristo controle os vossos corações' (3:15) e 'deixar que a palavra do Cristo resida em vós abundantemente' (3:16) descreve a prioridade da palavra de Deus na vida da congregação?",
+      "O que o conselho de Paulo para os relacionamentos — maridos/esposas, filhos/pais (3:18–4:1) — revela sobre a aplicação dos princípios cristãos na vida cotidiana?",
+      "Como o princípio 'tudo o que fizerdes, trabalhai de coração inteiro como para Jeová e não para os homens' (3:23) transforma nossa abordagem ao trabalho e às responsabilidades diárias?"
+    ],
+    [
+      "Que eventos específicos Paulo descreve em torno do retorno de Cristo (4:13–18), e por que esse ensinamento é reconfortante para os que perderam entes queridos na morte?",
+      "Como a descrição de Paulo dos tessalonicenses em sua fé ativa — 'obra da fé, trabalho do amor, perseverança inspirada pela esperança' (1:3) — descreve uma vida cristã equilibrada e de coração inteiro?",
+      "O que a instrução de Paulo para 'santificar o vosso vaso em santidade e honra, não na paixão do apetite sexual' (4:4–5) ensina sobre a pureza sexual?",
+      "Como o conselho de Paulo 'não apagueis o espírito' (5:19) se aplica à nossa atitude em relação à orientação e direção espiritual de Jeová hoje?",
+      "O que o ensinamento de Paulo sobre 'o dia de Jeová que vem como ladrão durante a noite' (5:2) ensina sobre a importância da vigilância espiritual e da prontidão?"
+    ],
+    [
+      "O que a descrição de Paulo do 'homem da ilegalidade' (2:3–12) nos ajuda a identificar, e como isso contribui para o nosso entendimento da apostasia?",
+      "Como a certeza de Paulo de que Jeová 'vos tornará firmes e vos guardará do maligno' (3:3) proporciona força durante as provações?",
+      "O que a correção de Paulo àqueles que haviam parado de trabalhar por achar que o dia de Jeová era iminente (capítulo 3) ensina sobre manter uma rotina equilibrada e fiel?",
+      "Como a oração de Paulo para que Jeová 'conforte os vossos corações e vos torne firmes em toda obra e palavra boas' (2:16–17) orienta como nos apoiamos mutuamente na congregação?",
+      "O que 2 Tessalonicenses 1:7–10 descreve sobre o alívio que o povo de Jeová experimentará quando ele agir, e como isso sustenta a perseverança?"
+    ],
+    [
+      "Que qualificações para anciãos e servos ministeriais (capítulo 3) Paulo delineia, e o que elas ensinam sobre os padrões que Jeová estabelece para a liderança da congregação?",
+      "Como a instrução de Paulo sobre a oração 'por reis e por todos os que estão em posições de autoridade' (2:1–2) reflete a atitude equilibrada das Testemunhas de Jeová para com os governos humanos?",
+      "O que 1 Timóteo 6:6–10 ensina sobre o perigo do 'amor ao dinheiro' e o contentamento que vem com a devoção piedosa?",
+      "Como o encargo de Paulo a Timóteo de 'travar a bela luta da fé' (6:12) se aplica às batalhas espirituais que cada Testemunha de Jeová enfrenta?",
+      "O que a afirmação 'há um só Deus, e um só mediador entre Deus e os homens, um homem, Cristo Jesus' (2:5) ensina sobre o papel único de Jesus e o nosso acesso a Jeová?"
+    ],
+    [
+      "O que o encargo de Paulo a Timóteo de 'pregar a palavra, insistir nisto em época favorável e em época difícil' (4:2) ensina sobre a perseverança na obra de pregação?",
+      "Como a descrição de Paulo dos 'últimos dias' (3:1–5) ajuda as Testemunhas de Jeová a reconhecer o sinal dos tempos em que vivemos?",
+      "O que 2 Timóteo 3:16–17 ensina sobre a inspiração das Escrituras e seu papel em equipar plenamente os servos de Jeová 'para toda obra boa'?",
+      "Como o exemplo de Paulo — 'travei a bela luta, percorri a carreira até o fim, guardei a fé' (4:7) — modela a atitude que devemos ter em relação a toda a nossa vida de serviço?",
+      "O que o ensinamento de Paulo sobre 'manusear corretamente a palavra da verdade' (2:15) ensina sobre a responsabilidade dos que ensinam na congregação?"
+    ],
+    [
+      "O que Tito 2:11–12 — a bondade imerecida de Jeová 'nos treina para rejeitar a impiedade' — ensina sobre como o estudo das Escrituras molda nossa conduta?",
+      "Como o conselho de Paulo para homens mais velhos, mulheres mais velhas, mulheres mais jovens e homens mais jovens (2:2–8) mostra o interesse de Jeová em uma conduta piedosa em cada fase da vida?",
+      "O que Tito 3:5 — 'salvo...pelo banho que nos trouxe a vida e pela renovação pelo espírito santo' — ensina sobre o papel do espírito santo em nossa vida espiritual?",
+      "Como a instrução de Paulo a Tito sobre 'rejeitar um homem divisivo' (3:10) após dois avisos equilibra a paciência com a necessidade de proteger a paz da congregação?",
+      "O que a ênfase em toda a carta a Tito de que os anciãos devem ser 'irrepreensíveis' ensina sobre a ligação entre a reputação pessoal e a liderança espiritual eficaz?"
+    ],
+    [
+      "O que o apelo de Paulo a Filemon para receber Onésimo de volta 'não mais como escravo, mas...como irmão' (v. 16) ensina sobre como a fé em Cristo transforma os relacionamentos sociais?",
+      "Como a abordagem de Paulo — apelando com base no amor em vez de dar uma ordem (v. 8–9) — modela como os assuntos da congregação deveriam idealmente ser tratados?",
+      "O que Filemom ensina sobre o princípio do perdão e de dar às pessoas um novo começo, consistente com o próprio exemplo de Jeová?",
+      "Como a transformação de Onésimo de escravo fugitivo em ministro 'útil' (v. 11) demonstra o poder transformador de aceitar as boas novas?",
+      "O que essa carta pessoal revela sobre o profundo cuidado de Paulo pelos indivíduos e a qualidade dos relacionamentos dentro da congregação cristã primitiva?"
+    ],
+    [
+      "Como os capítulos 1–2 de Hebreus estabelecem a superioridade de Jesus sobre os anjos, enquanto também enfatizam sua plena humanidade, e por que ambos os aspectos são importantes?",
+      "O que Hebreus 4:12 — 'a palavra de Deus está viva e exerce poder' — ensina sobre como abordar o estudo pessoal da Bíblia e a palavra de Jeová?",
+      "Como o 'capítulo da fé' (capítulo 11) usa exemplos de Abel até os profetas para definir a fé como crença e ação, e qual exemplo você acha mais motivador?",
+      "O que Hebreus 12:1–2 — 'corramos com perseverança a corrida que está diante de nós, olhando atentamente para o Iniciador e Aperfeiçoador da nossa fé' — ensina sobre suportar as dificuldades?",
+      "Como a demonstração em Hebreus de que o sacrifício de Jesus cumpriu e superou todos os arranjos levíticos ajuda a explicar o relacionamento entre as Escrituras Hebraicas e as Escrituras Gregas Cristãs?"
+    ],
+    [
+      "O que Tiago 1:2–4 ensina sobre encarar as provações como oportunidades para o crescimento espiritual e o desenvolvimento da perseverança?",
+      "Como a advertência de Tiago sobre a 'fé sem obras' (2:14–26) esclarece que a fé genuína naturalmente produz ação visível?",
+      "Que conselho específico Tiago dá sobre controlar a língua (capítulo 3), e por que ele a chama de 'um mundo de injustiça' se mal utilizada?",
+      "Como Tiago 5:14–16 descreve o papel dos anciãos em orar por aqueles que estão doentes ou espiritualmente fracos na congregação e cuidar deles?",
+      "O que a descrição de Tiago da 'sabedoria que vem de cima' (3:17–18) — 'pura, pacífica, razoável, pronta para obedecer, cheia de misericórdia' — ensina sobre o tipo de sabedoria que Jeová valoriza?"
+    ],
+    [
+      "Como a descrição de Pedro dos cristãos como 'estrangeiros e residentes temporários' (2:11) molda nossa atitude para com o sistema mundial e nossas lealdades primárias?",
+      "O que o conselho de Pedro para 'estar sujeito a toda criação humana' (2:13–17) e seus limites ensinam sobre o relacionamento equilibrado das Testemunhas de Jeová com os governos humanos?",
+      "Como a instrução de Pedro às esposas e aos maridos (3:1–7) — incluindo o princípio de 'um espírito quieto e manso' — se aplica nos lares cristãos hoje?",
+      "O que o chamado de Pedro para 'estar sempre prontos a fazer uma defesa' da nossa esperança (3:15) ensina sobre a preparação espiritual para conversas sobre nossa fé?",
+      "Como a descrição de Pedro do diabo como 'um leão que ruge' que procura devorar (5:8) motiva as Testemunhas de Jeová a manter a vigilância espiritual?"
+    ],
+    [
+      "O que a lista de Pedro de qualidades a 'suprir ao lado da sua fé' (1:5–7) — virtude, conhecimento, autocontrole, perseverança, devoção piedosa, afeição fraternal, amor — ensina sobre o crescimento espiritual?",
+      "Como Pedro descreve a certeza do dia de Jeová e do novo céu e nova terra (3:10–13), e como esse conhecimento deve afetar nossa conduta?",
+      "O que a advertência de Pedro sobre falsos mestres que 'introduzem secretamente seitas destrutivas' (2:1) ensina sobre a importância da vigilância doutrinária na congregação?",
+      "Como 2 Pedro 3:9 — 'Jeová não está lento com relação à sua promessa...ele não deseja que nenhum seja destruído, mas deseja que todos cheguem ao arrependimento' — ensina sobre a paciência de Jeová?",
+      "O que a exortação final de Pedro para 'crescer na bondade imerecida e no conhecimento do nosso Senhor' (3:18) ensina sobre a natureza contínua do desenvolvimento espiritual?"
+    ],
+    [
+      "Como João define a verdadeira comunhão com Jeová — 'andar na luz' (1:5–7) — e o que isso significa praticamente para nossa conduta diária?",
+      "Que três provas João fornece para identificar os cristãos genuínos — obediência, amor pelos irmãos e fé em Jesus como o Cristo — e como elas funcionam juntas?",
+      "Como a afirmação de João 'Deus é amor' (4:8, 16) forma a base para entender todos os tratos de Jeová com os seres humanos?",
+      "O que João ensina sobre 'o mundo' — seu governante, a cobiça da carne e dos olhos, e a ostentação dos recursos de alguém (2:15–17) — e como isso deve afetar nossas escolhas?",
+      "Como 1 João 5:13 — 'Escrevo estas coisas a vós para que saibais que tendes vida' — descreve a certeza que Jeová quer que seus servos tenham sobre a vida eterna?"
+    ],
+    [
+      "O que a ênfase de João em 'andar na verdade' (versículo 4) significa, e por que a precisão doutrinária é inseparável do amor no ensinamento de João?",
+      "O que a advertência de João de não acolher em casa os que promovem falsa doutrina (versículo 10) ensina sobre proteger a congregação de influências prejudiciais?",
+      "Como João descreve 'o mandamento que tivemos desde o princípio' (versículo 5) — de nos amarmos uns aos outros — como fundamental para a identidade cristã?",
+      "O que essa breve carta ensina sobre a importância da vigilância contra os que 'não permanecem no ensinamento do Cristo' (versículo 9)?",
+      "Como a mensagem equilibrada de João — afirmando calorosa e sinceramente o amor e a verdade enquanto também adverte contra o compromisso — modela como comunicar fielmente?"
+    ],
+    [
+      "O que a commendação de João a Gaio por acolher missionários viajantes ensina sobre a importância da hospitalidade no apoio à obra de pregação?",
+      "Como a repreensão de João a Diótrefes — que 'gosta de ter o primeiro lugar' e se recusava a acolher os irmãos — adverte contra o orgulho e a autoimportância na congregação?",
+      "O que 'andar na verdade' (versículos 3–4) significa praticamente, e por que João diz que isso lhe dá maior alegria do que qualquer outra coisa?",
+      "Como o exemplo positivo de Demétrio (versículo 12) — 'testemunhado por todos, sim, pela própria verdade' — descreve o tipo de reputação que as Testemunhas de Jeová devem buscar construir?",
+      "O que essa breve carta ensina sobre as formas práticas pelas quais podemos apoiar os que trabalham 'em nome' de Jeová (versículo 7)?"
+    ],
+    [
+      "O que o urgente chamado de Judas para 'travar um combate difícil pela fé' (versículo 3) ensina sobre a responsabilidade de cada cristão individualmente de defender a doutrina verdadeira?",
+      "Como Judas usa exemplos históricos — os israelitas no deserto, os anjos que abandonaram sua habitação adequada, Sodoma e Gomorra — para advertir sobre as consequências da apostasia?",
+      "O que Judas ensina sobre os que 'se introduziram secretamente' (versículo 4), e como as Testemunhas de Jeová podem reconhecer e se proteger de influência semelhante hoje?",
+      "Como a descrição de Judas de 'edificar-vos sobre a vossa fé santíssima, orando com espírito santo' (versículo 20) descreve o fortalecimento espiritual necessário para resistir ao falso ensinamento?",
+      "O que a doxologia final de Judas (versículos 24–25) — 'Agora àquele que é capaz de guardar-vos sem que tropeçais' — ensina sobre confiar em Jeová para a proteção espiritual?"
+    ],
+    [
+      "Como a visão de Jeová em seu trono (capítulo 4) e o Cordeiro recebendo o rolo (capítulo 5) em Apocalipse estabelecem o fundamento do direito de Jeová de julgar e agir?",
+      "O que as sete cartas às congregações (capítulos 2–3) ensinam sobre os pontos fortes e fracos específicos que Jeová observa em seu povo?",
+      "Como a visão da grande multidão (capítulo 7) e os 144.000 descrevem os dois grupos do povo de Jeová que receberão a salvação?",
+      "O que 'a Babilônia a Grande' representa (capítulos 17–18), e o que o chamado de Jeová 'saí dela, povo meu' significa para seus servos hoje?",
+      "Como a visão culminante de Apocalipse — a nova Jerusalém, a remoção da morte e Jeová habitando com os humanos (capítulos 21–22) — sustenta a esperança das Testemunhas de Jeová pelo paraíso?"
+    ]
+  ]
 }

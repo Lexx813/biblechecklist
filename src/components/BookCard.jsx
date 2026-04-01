@@ -27,6 +27,9 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
   const info = BOOK_INFO[bookIndex];
   const summary = info ? t(`bookSummaries.${bookIndex}`, info.summary) : null;
   const theme = info ? t(`bookThemes.${bookIndex}`, info.theme) : null;
+  const questions = info?.questions
+    ? t(`bookQuestions.${bookIndex}`, { returnObjects: true, defaultValue: info.questions })
+    : null;
 
   const notesByChapter = useMemo(() => {
     const map = new Map();
@@ -130,11 +133,11 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                   </div>
                 </div>
               )}
-              {info.questions?.length > 0 && (
+              {Array.isArray(questions) && questions.length > 0 && (
                 <div className="book-info-questions">
                   <span className="book-info-meta-label">{t("book.infoStudyQuestions", "Study Questions")}</span>
                   <ol className="book-info-question-list">
-                    {info.questions.map((q, i) => (
+                    {questions.map((q, i) => (
                       <li key={i} className="book-info-question-item">{q}</li>
                     ))}
                   </ol>
