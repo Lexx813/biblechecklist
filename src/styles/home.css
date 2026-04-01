@@ -464,6 +464,149 @@
   margin-top: 4px;
 }
 
+/* ── Quiz feature cards (2-up grid) ── */
+.home-quiz-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.home-quiz-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(52, 28, 92, 0.6) 0%, rgba(30, 12, 60, 0.8) 100%);
+  border: 1px solid rgba(138, 75, 255, 0.2);
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.home-quiz-card:hover {
+  border-color: rgba(138, 75, 255, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.2);
+}
+.home-quiz-card-banner {
+  position: relative;
+  height: 130px;
+  background: linear-gradient(135deg, #341c5c 0%, #1a1035 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.home-quiz-card-glow {
+  position: absolute;
+  width: 180px; height: 180px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.45) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.home-quiz-card-icon {
+  position: relative;
+  z-index: 1;
+  width: 68px; height: 68px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(138, 75, 255, 0.3), rgba(192, 132, 252, 0.15));
+  border: 1px solid rgba(138, 75, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(192, 132, 252, 0.9);
+}
+.home-quiz-card-body {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.home-quiz-card-title {
+  font-size: 17px;
+  font-weight: 900;
+  color: #f0eaff;
+  margin: 0;
+}
+.home-quiz-card-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(240, 234, 255, 0.6);
+  margin: 0;
+}
+.home-quiz-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+.home-quiz-chip {
+  padding: 3px 10px;
+  background: rgba(138, 75, 255, 0.12);
+  border: 1px solid rgba(138, 75, 255, 0.22);
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(192, 132, 252, 0.85);
+}
+.home-quiz-card-cta {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--teal);
+  margin-top: auto;
+  padding-top: 6px;
+}
+/* Family variant */
+.home-quiz-card--family {
+  background: linear-gradient(135deg, rgba(76, 29, 149, 0.55) 0%, rgba(45, 15, 110, 0.8) 100%);
+  border-color: rgba(192, 132, 252, 0.25);
+}
+.home-quiz-card--family:hover {
+  border-color: rgba(192, 132, 252, 0.5);
+  box-shadow: 0 12px 40px rgba(192, 132, 252, 0.2);
+}
+.home-quiz-card--family .home-quiz-card-banner {
+  background: linear-gradient(135deg, #3b0764 0%, #1a0942 100%);
+}
+.home-quiz-card--family .home-quiz-card-glow {
+  background: radial-gradient(circle, rgba(192, 132, 252, 0.4) 0%, transparent 70%);
+}
+/* Light mode */
+[data-theme="light"] .home-quiz-card {
+  background: #fff;
+  border-color: rgba(124, 58, 237, 0.15);
+  box-shadow: 0 2px 12px rgba(124, 58, 237, 0.06);
+}
+[data-theme="light"] .home-quiz-card:hover {
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.12);
+}
+[data-theme="light"] .home-quiz-card-banner {
+  background: linear-gradient(135deg, #ede0ff 0%, #d8b4fe 100%);
+}
+[data-theme="light"] .home-quiz-card-icon {
+  background: rgba(124, 58, 237, 0.15);
+  border-color: rgba(124, 58, 237, 0.25);
+  color: #6A3DAA;
+}
+[data-theme="light"] .home-quiz-card-glow {
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.2) 0%, transparent 70%);
+}
+[data-theme="light"] .home-quiz-card-title { color: #1e1035; }
+[data-theme="light"] .home-quiz-card-desc  { color: #5b3e8a; }
+[data-theme="light"] .home-quiz-chip {
+  background: rgba(124, 58, 237, 0.08);
+  border-color: rgba(124, 58, 237, 0.15);
+  color: #6A3DAA;
+}
+[data-theme="light"] .home-quiz-card-cta  { color: #6A3DAA; }
+[data-theme="light"] .home-quiz-card--family .home-quiz-card-banner {
+  background: linear-gradient(135deg, #ede0ff 0%, #c4b5fd 100%);
+}
+/* Mobile: stack vertically */
+@media (max-width: 540px) {
+  .home-quiz-grid { grid-template-columns: 1fr; }
+}
+
 /* ── Blog grid ── */
 .home-blog-grid {
   display: grid;
