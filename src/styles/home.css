@@ -1190,6 +1190,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  width: 100%;
   padding: 14px 18px;
   background: linear-gradient(135deg, rgba(46,11,110,0.92) 0%, rgba(91,33,182,0.9) 60%, rgba(124,58,237,0.88) 100%);
   border-radius: 14px;
