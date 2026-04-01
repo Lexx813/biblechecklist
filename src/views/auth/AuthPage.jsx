@@ -108,7 +108,9 @@ export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, on
       <div className="auth-wrap">
         <div className="auth-card">
           <div className="auth-header">
-            <div className="auth-logo">📖</div>
+            <div className="auth-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+</svg></div>
             <h1 className="auth-title">{t("auth.checkEmailTitle")}</h1>
             <p className="auth-subtitle">{t("auth.checkEmailSubtitle", { email: confirmedEmail })}</p>
           </div>
@@ -178,7 +180,9 @@ export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, on
       </div>
       <div className="auth-card">
         <div className="auth-header">
-          <div className="auth-logo">📖</div>
+          <div className="auth-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+</svg></div>
           <h1 className="auth-title">{t("auth.title")}</h1>
           <p className="auth-subtitle">{t("auth.subtitle")}</p>
         </div>

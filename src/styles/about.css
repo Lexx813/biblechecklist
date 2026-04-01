@@ -98,6 +98,7 @@
   line-height: 1.8;
   color: var(--text-secondary);
   margin: 0;
+  max-width: 70ch;
 }
 .about-section-body strong { color: var(--text-primary); font-weight: 700; }
 

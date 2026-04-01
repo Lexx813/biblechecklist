@@ -319,7 +319,7 @@ function ActivePlanCard({ plan, onClick }) {
   const behind = currentDay - completedCount;
 
   return (
-    <div className="rp-active-card" onClick={onClick}>
+    <div className="rp-active-card" onClick={onClick} role="button" tabIndex={0} onKeyDown={e => { if (e.key === "Enter" || e.key === " ") onClick(); }}>
       <div className="rp-active-card-top">
         <span className="rp-active-icon">{template.icon}</span>
         <div className="rp-active-info">

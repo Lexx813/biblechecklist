@@ -59,7 +59,9 @@ function Lobby({ user, onPlay }) {
   return (
     <div className="fq-lobby">
       <div className="fq-lobby-header">
-        <div className="fq-lobby-icon">🏆</div>
+        <div className="fq-lobby-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <polyline points="8 17 12 21 16 17"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/>
+</svg></div>
         <h1 className="fq-lobby-title">Family Bible Challenge</h1>
         <p className="fq-lobby-sub">
           Create a quiz, share the link, and challenge your family to beat your score!
@@ -416,7 +418,9 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
     return (
       <div className="fq-landing">
         <div className="fq-landing-hero">
-          <div className="fq-landing-icon">🏆</div>
+          <div className="fq-landing-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <polyline points="8 17 12 21 16 17"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/>
+</svg></div>
           <h1 className="fq-landing-title">{challenge.title}</h1>
           <p className="fq-landing-meta">
             Created by <strong>{challenge.creatorName ?? "someone"}</strong>
@@ -531,7 +535,9 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
     return (
       <div className="fq-results">
         <div className="fq-results-header">
-          <div className="fq-results-trophy">🏆</div>
+          <div className="fq-results-trophy"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <polyline points="8 17 12 21 16 17"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/>
+</svg></div>
           <h1 className="fq-results-title">{challenge.title}</h1>
           {myResult && (
             <div className="fq-my-score">

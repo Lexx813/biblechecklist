@@ -260,6 +260,7 @@ function UsersTab({ currentUser, navigate }) {
           className="admin-input admin-search-input"
           type="search"
           placeholder={t("admin.searchUsers")}
+          aria-label={t("admin.searchUsers")}
           value={search}
           onChange={e => { setSearch(e.target.value); setPage(0); }}
         />
@@ -536,7 +537,7 @@ function BlogTab({ navigate }) {
   return (
     <>
       <div style={{ padding: "12px 20px", borderBottom: "1px solid var(--border)" }}>
-        <input className="admin-input admin-search-input" type="search" placeholder={t("admin.searchUsers")} value={search} onChange={e => setSearch(e.target.value)} />
+        <input className="admin-input admin-search-input" type="search" placeholder={t("admin.searchUsers")} aria-label={t("admin.searchUsers")} value={search} onChange={e => setSearch(e.target.value)} />
       </div>
       {filtered.length === 0 ? <div className="admin-loading">{t("adminBlog.noPosts")}</div> : (
       <div className="admin-table-wrap">
@@ -614,7 +615,7 @@ function ForumTab({ navigate }) {
   return (
     <>
       <div style={{ padding: "12px 20px", borderBottom: "1px solid var(--border)" }}>
-        <input className="admin-input admin-search-input" type="search" placeholder={t("admin.searchUsers")} value={search} onChange={e => setSearch(e.target.value)} />
+        <input className="admin-input admin-search-input" type="search" placeholder={t("admin.searchUsers")} aria-label={t("admin.searchUsers")} value={search} onChange={e => setSearch(e.target.value)} />
       </div>
       {filtered.length === 0 ? <div className="admin-loading">{t("adminForum.noThreads")}</div> : (
       <div className="admin-table-wrap">
@@ -744,7 +745,7 @@ function ForumCategoriesTab() {
           <div className="admin-cat-form-row">
             <input className="admin-input" placeholder="Icon (emoji)" value={form.icon} onChange={e => setForm(p => ({ ...p, icon: e.target.value }))} style={{ width: 80 }} />
             <input className="admin-input" placeholder={t("admin.categoryName")} value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} style={{ flex: 1 }} required />
-            <input className="admin-input" placeholder={t("admin.categoryOrder")} type="number" inputMode="numeric" value={form.sort_order} onChange={e => setForm(p => ({ ...p, sort_order: e.target.value }))} style={{ width: 80 }} />
+            <input className="admin-input" placeholder={t("admin.categoryOrder")} aria-label={t("admin.categoryOrder")} type="number" inputMode="numeric" value={form.sort_order} onChange={e => setForm(p => ({ ...p, sort_order: e.target.value }))} style={{ width: 80 }} />
           </div>
           <input className="admin-input" placeholder={t("admin.categoryDescription")} value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} />
           {error && <div className="admin-error">{error}</div>}
@@ -810,7 +811,7 @@ function BlogCommentsTab() {
   return (
     <>
       <div style={{ padding: "12px 20px", borderBottom: "1px solid var(--border)" }}>
-        <input className="admin-input admin-search-input" type="search" placeholder={t("admin.searchUsers")} value={search} onChange={e => setSearch(e.target.value)} />
+        <input className="admin-input admin-search-input" type="search" placeholder={t("admin.searchUsers")} aria-label={t("admin.searchUsers")} value={search} onChange={e => setSearch(e.target.value)} />
       </div>
       {filtered.length === 0 ? (
         <div className="admin-loading">{t("adminComments.noComments")}</div>

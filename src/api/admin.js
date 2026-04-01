@@ -23,7 +23,7 @@ export const adminApi = {
   cancelSubscription: async (userId) => {
     const { data: { session } } = await supabase.auth.getSession();
     const res = await fetch(
-      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-cancel-subscription`,
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/admin-cancel-subscription`,
       {
         method: "POST",
         headers: {
