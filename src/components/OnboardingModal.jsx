@@ -76,11 +76,11 @@ export default function OnboardingModal({ onClose, onUpgrade, navigate, user }) 
   }
 
   return createPortal(
-    <div className="onboard-overlay" role="dialog" aria-modal="true">
+    <div className="onboard-overlay" role="dialog" aria-modal="true" aria-labelledby="onboard-title">
       <div className="onboard-modal onboard-modal--v2">
         {step === 0 && (
           <>
-            <h2 className="onboard-title">
+            <h2 className="onboard-title" id="onboard-title">
               {t("onboarding.welcomeTitle", { name: user?.user_metadata?.full_name?.split(" ")[0] ?? "" })}
             </h2>
             <p className="onboard-body">{t("onboarding.welcomeSub")}</p>
@@ -106,7 +106,7 @@ export default function OnboardingModal({ onClose, onUpgrade, navigate, user }) 
 
         {step === 1 && (
           <>
-            <h2 className="onboard-title">{t("onboarding.goalTitle")}</h2>
+            <h2 className="onboard-title" id="onboard-title">{t("onboarding.goalTitle")}</h2>
             <p className="onboard-body">{t("onboarding.goalSub")}</p>
             <div className="onboard-goal-row">
               <button className="onboard-goal-btn" onClick={() => setGoalInput(v => Math.max(1, v - 1))}>−</button>
@@ -121,7 +121,7 @@ export default function OnboardingModal({ onClose, onUpgrade, navigate, user }) 
 
         {step === 2 && (
           <>
-            <h2 className="onboard-title">{t("onboarding.notifTitle")}</h2>
+            <h2 className="onboard-title" id="onboard-title">{t("onboarding.notifTitle")}</h2>
             <p className="onboard-body">{t("onboarding.notifSub")}</p>
             <button className="onboard-next" onClick={handleEnableNotif}>
               {t("onboarding.notifEnable")}

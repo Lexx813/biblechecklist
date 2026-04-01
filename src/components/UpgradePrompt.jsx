@@ -40,10 +40,10 @@ export default function UpgradePrompt({ icon = "✦", title, message, ctaLabel, 
   if (!mounted) return null;
 
   return createPortal(
-    <div className="up-overlay" role="dialog" aria-modal="true" onClick={onDismiss}>
+    <div className="up-overlay" role="dialog" aria-modal="true" aria-labelledby="up-title" onClick={onDismiss}>
       <div className="up-card" onClick={e => e.stopPropagation()}>
         <div className="up-icon">{icon}</div>
-        <h3 className="up-title">{title}</h3>
+        <h3 className="up-title" id="up-title">{title}</h3>
         <p className="up-message">{message}</p>
         <div className="up-actions">
           <button className="up-cta" onClick={onCta}>{ctaLabel}</button>
