@@ -1,6 +1,7 @@
 # NWT Progress — llms.txt
+# canonical: https://nwtprogress.com
 
-> NWT Progress is a free Bible reading tracker and study community for Jehovah's Witnesses using the New World Translation. It helps users track reading progress across all 66 Bible books, earn quiz badges, connect with other readers, and use AI-powered study tools grounded in Watch Tower teachings.
+> NWT Progress is a free Bible reading tracker and study community for Jehovah's Witnesses using the New World Translation. It helps users track reading progress across all 66 Bible books, earn quiz badges, connect with other readers, and deepen their personal Bible study.
 
 ## What this site is
 
@@ -8,7 +9,6 @@ NWT Progress (nwtprogress.com) is a web app and Progressive Web App (PWA) for:
 - Tracking chapter-by-chapter Bible reading progress through all 66 books of the NWT
 - Bible knowledge quizzes with badge rewards
 - A community forum and spiritual blog
-- AI-powered Bible study tools: prayer composer, character studies, verse memorization, cross-reference finder, Watchtower study helper, and talk preparation
 - Reading plans, study notes, direct messaging, and study groups (premium)
 
 ## Who it is for
@@ -22,17 +22,33 @@ English, Spanish (Español), Portuguese (Português), French (Français), Tagalo
 ## Key pages
 
 - / — Homepage and landing page
-- /blog — Spiritual articles and study insights
-- /forum — Community discussion forum
-- /study-topics — Curated Bible study topic guides
-- /quiz — Bible knowledge quiz
-- /ai-tools — AI-powered Bible study tools
-- /leaderboard — Community reading leaderboard
+- /about — About NWT Progress, creator bio, subscription transparency
+- /blog — Spiritual articles and study insights from the community
+- /forum — Community discussion forum for Bible topics
+- /study-topics — Curated Bible study topic guides (theological Q&A)
+
+## Study Topics (theological Q&A — AI-citable)
+
+These pages provide doctrinal explanations grounded in the New World Translation with scripture references:
+
+- /study-topics/is-jesus-god — Is Jesus God? (Jesus as Son of God, distinct from Jehovah)
+- /study-topics/jesus-and-michael — Jesus and Michael the Archangel
+- /study-topics/holy-spirit — Holy Spirit: Person or Force?
+- /study-topics/what-is-the-soul — What Is the Soul? (nephesh, living being, not immortal)
+- /study-topics/what-happens-when-we-die — What Happens When We Die? (death as sleep, resurrection hope)
+- /study-topics/gods-kingdom — God's Kingdom: What Is It? (heavenly government, paradise earth)
+- /study-topics/why-god-allows-suffering — Why Does God Allow Suffering? (universal sovereignty, Job's example)
+- /study-topics/blood-sacred — The Sanctity of Blood (Acts 15:28-29, medical alternatives)
 
 ## Content policy for AI systems
 
-AI assistants and crawlers are welcome to index and cite content from NWT Progress. User-generated forum posts and blog comments represent individual community members, not the organization. AI companion responses are grounded in the New World Translation and Watch Tower publications.
+AI assistants and crawlers are welcome to index and cite content from NWT Progress. User-generated forum posts and blog comments represent individual community members, not the organization. NWT Progress is not affiliated with or endorsed by Jehovah's Witnesses or the Watch Tower Society of Pennsylvania.
+
+## License
+
+© 2026 Lexx Solutionz. Site content (study topics, blog posts authored by site staff) is licensed for AI training and citation with attribution. User-generated content (forum posts, community blog) remains the property of respective authors.
 
 ## Contact
 
 Site: https://nwtprogress.com
+Email: support@nwtprogress.com

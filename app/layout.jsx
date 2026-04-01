@@ -9,7 +9,6 @@ export const metadata = {
   authors: [{ name: "NWT Progress" }],
   robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   metadataBase: new URL("https://nwtprogress.com"),
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: "https://nwtprogress.com/",
@@ -35,7 +34,7 @@ const schemaWebApp = {
   description:
     "Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community.",
   url: "https://nwtprogress.com",
-  image: "https://nwtprogress.com/og-image.png",
+  image: "https://nwtprogress.com/og-image.webp",
   applicationCategory: "ProductivityApplication",
   operatingSystem: "Web",
   browserRequirements: "Requires JavaScript. Requires a modern browser.",
@@ -46,7 +45,6 @@ const schemaWebApp = {
     "Bible reading progress tracker for all 66 books",
     "Bible knowledge quizzes with badge rewards",
     "Community forum and blog",
-    "AI-powered Bible study tools",
     "Reading plans and study notes",
     "Direct messaging and study groups",
     "Offline support via PWA",
@@ -54,35 +52,27 @@ const schemaWebApp = {
   ],
   offers: [
     { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free Plan", description: "Track Bible reading progress, access blog, forum, and quiz" },
-    { "@type": "Offer", price: "4.99", priceCurrency: "USD", name: "Premium Plan", description: "Reading plans, study notes, AI companion, direct messaging, and study groups" },
+    { "@type": "Offer", price: "3.00", priceCurrency: "USD", name: "Premium Plan", description: "Reading plans, study notes, direct messaging, and study groups" },
   ],
 };
 
 const schemaOrg = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": "https://nwtprogress.com/#organization",
   name: "NWT Progress",
   url: "https://nwtprogress.com",
-  logo: "https://nwtprogress.com/icon-512.png",
+  logo: {
+    "@type": "ImageObject",
+    url: "https://nwtprogress.com/icon-512.png",
+    width: 512,
+    height: 512,
+  },
   description: "A community-driven Bible reading tracker for the New World Translation",
   contactPoint: { "@type": "ContactPoint", contactType: "customer support", availableLanguage: ["English", "Spanish", "Portuguese", "French", "Tagalog", "Chinese"] },
 };
 
-const schemaWebSite = { "@context": "https://schema.org", "@type": "WebSite", name: "NWT Progress", url: "https://nwtprogress.com/" };
-
-const schemaFAQ = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    { "@type": "Question", name: "What is NWT Progress?", acceptedAnswer: { "@type": "Answer", text: "NWT Progress is a free Bible reading tracker designed specifically for the New World Translation (NWT). It lets you track your reading progress chapter by chapter through all 66 books of the Bible — both the Hebrew Scriptures and the Christian Greek Scriptures. You can also take Bible knowledge quizzes to earn badges, join a community forum, read spiritual blog posts, and use AI-powered study tools grounded in Watch Tower teachings." } },
-    { "@type": "Question", name: "Is NWT Progress free?", acceptedAnswer: { "@type": "Answer", text: "Yes. NWT Progress has a free plan that includes the full Bible reading tracker for all 66 books, Bible knowledge quizzes, badge rewards, the community blog and forum, and basic study tools. A premium plan unlocks additional features including structured reading plans, personal study notes, AI-powered Bible study tools, direct messaging with other users, and study groups." } },
-    { "@type": "Question", name: "How many books does the Bible tracker cover?", acceptedAnswer: { "@type": "Answer", text: "The NWT Progress tracker covers all 66 books of the Bible as organized in the New World Translation — 39 books of the Hebrew Scriptures and 27 books of the Christian Greek Scriptures. You can mark individual chapters as read and see your overall progress for each book and for the entire Bible." } },
-    { "@type": "Question", name: "Can I track my Bible reading offline?", acceptedAnswer: { "@type": "Answer", text: "Yes. NWT Progress is built as a Progressive Web App (PWA), which means you can install it on your phone or tablet's home screen just like a native app. Once installed, the app works offline — you can view your reading progress and mark chapters as read even without an internet connection. Your changes will sync automatically when you reconnect." } },
-    { "@type": "Question", name: "What languages does NWT Progress support?", acceptedAnswer: { "@type": "Answer", text: "NWT Progress currently supports six languages: English, Spanish (Español), Portuguese (Português), French (Français), Tagalog, and Mandarin Chinese (中文). The app automatically detects your browser language and can be switched at any time from the navigation menu." } },
-    { "@type": "Question", name: "How does the Bible quiz work?", acceptedAnswer: { "@type": "Answer", text: "The Bible quiz tests your knowledge of the New World Translation with questions drawn from across the entire Bible. You earn badge rewards for completing quizzes and demonstrating knowledge of different books." } },
-    { "@type": "Question", name: "Can I connect with other Bible readers on NWT Progress?", acceptedAnswer: { "@type": "Answer", text: "Yes. NWT Progress includes a community forum where you can start or join discussions about Bible topics, ask questions, and share insights. There is also a blog with spiritual articles. Premium members can send direct messages to other users and join or create study groups." } },
-  ],
-};
+const schemaWebSite = { "@context": "https://schema.org", "@type": "WebSite", "@id": "https://nwtprogress.com/#website", name: "NWT Progress", url: "https://nwtprogress.com/" };
 
 export default function RootLayout({ children }) {
   return (
@@ -100,8 +90,6 @@ export default function RootLayout({ children }) {
         <link rel="manifest" href="/manifest.json" />
         <link rel="preconnect" href="https://yudyhigvqaodnoqwwtns.supabase.co" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://yudyhigvqaodnoqwwtns.supabase.co" />
-        <link rel="preconnect" href="https://api.anthropic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://api.anthropic.com" />
         <meta name="theme-color" content="#1E0D3C" />
         <meta name="msapplication-TileColor" content="#1E0D3C" />
         <meta name="mobile-web-app-capable" content="yes" />
@@ -112,7 +100,6 @@ export default function RootLayout({ children }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaWebApp) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaWebSite) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }} />
       </head>
       <body>
         <Providers>{children}</Providers>

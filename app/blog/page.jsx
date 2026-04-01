@@ -8,6 +8,7 @@ export const metadata = {
   title: "Blog | NWT Progress",
   description:
     "Spiritual insights, Bible study articles, and community reflections from the NWT Progress community.",
+  alternates: { canonical: "https://nwtprogress.com/blog" },
   openGraph: {
     title: "Blog | NWT Progress",
     description:

@@ -1,0 +1,63 @@
+import { createClient } from "@supabase/supabase-js";
+import { STUDY_TOPICS } from "../src/data/studyTopics";
+
+export const revalidate = 3600; // regenerate hourly
+
+const BASE = "https://nwtprogress.com";
+
+export default async function sitemap() {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  );
+
+  const staticPages = [
+    { url: `${BASE}`, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
+    { url: `${BASE}/blog`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
+    { url: `${BASE}/forum`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
+    { url: `${BASE}/study-topics`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${BASE}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+  ];
+
+  const studyTopicPages = STUDY_TOPICS.map((t) => ({
+    url: `${BASE}/study-topics/${t.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  let blogPages = [];
+  try {
+    const { data: posts } = await supabase
+      .from("blog_posts")
+      .select("slug, updated_at")
+      .eq("published", true);
+    blogPages = (posts ?? []).map((p) => ({
+      url: `${BASE}/blog/${p.slug}`,
+      lastModified: new Date(p.updated_at),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    }));
+  } catch {
+    // Supabase unavailable at build time — omit blog pages
+  }
+
+  let forumPages = [];
+  try {
+    const { data: threads } = await supabase
+      .from("forum_threads")
+      .select("id, category_id, updated_at");
+    forumPages = (threads ?? []).map((t) => ({
+      url: `${BASE}/forum/${t.category_id}/${t.id}`,
+      lastModified: new Date(t.updated_at),
+      changeFrequency: "weekly",
+      priority: 0.5,
+    }));
+  } catch {
+    // Supabase unavailable at build time — omit forum pages
+  }
+
+  return [...staticPages, ...studyTopicPages, ...blogPages, ...forumPages];
+}

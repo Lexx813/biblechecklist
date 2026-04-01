@@ -20,6 +20,7 @@ export async function generateMetadata({ params }) {
     return {
       title: `${thread.title} | NWT Progress Forum`,
       description: desc,
+      alternates: { canonical: `https://nwtprogress.com/forum/${params.categoryId}/${params.threadId}` },
       openGraph: {
         title: thread.title,
         description: desc,
@@ -43,24 +44,70 @@ export async function generateMetadata({ params }) {
 export default async function ForumThreadPage({ params }) {
   const queryClient = new QueryClient();
 
-  await Promise.allSettled([
-    queryClient.prefetchQuery({
-      queryKey: ["forum", "thread", params.threadId],
-      queryFn: () => forumApi.getThread(params.threadId),
-    }),
-    queryClient.prefetchQuery({
-      queryKey: ["forum", "replies", params.threadId],
-      queryFn: () => forumApi.listReplies(params.threadId),
-    }),
-    queryClient.prefetchQuery({
-      queryKey: ["forum", "categories"],
-      queryFn: () => forumApi.listCategories(),
-    }),
+  const [thread] = await Promise.all([
+    forumApi.getThread(params.threadId).catch(() => null),
+    queryClient
+      .prefetchQuery({
+        queryKey: ["forum", "thread", params.threadId],
+        queryFn: () => forumApi.getThread(params.threadId),
+      })
+      .catch(() => {}),
+    queryClient
+      .prefetchQuery({
+        queryKey: ["forum", "replies", params.threadId],
+        queryFn: () => forumApi.listReplies(params.threadId),
+      })
+      .catch(() => {}),
+    queryClient
+      .prefetchQuery({
+        queryKey: ["forum", "categories"],
+        queryFn: () => forumApi.listCategories(),
+      })
+      .catch(() => {}),
   ]);
 
+  const threadUrl = `https://nwtprogress.com/forum/${params.categoryId}/${params.threadId}`;
+
+  const schemaPosting = thread
+    ? {
+        "@context": "https://schema.org",
+        "@type": "DiscussionForumPosting",
+        "@id": `${threadUrl}#posting`,
+        headline: thread.title,
+        text: stripHtml(thread.content).slice(0, 500),
+        datePublished: thread.created_at,
+        dateModified: thread.updated_at ?? thread.created_at,
+        url: threadUrl,
+        author: thread.profiles?.display_name
+          ? { "@type": "Person", name: thread.profiles.display_name }
+          : undefined,
+        publisher: {
+          "@type": "Organization",
+          "@id": "https://nwtprogress.com/#organization",
+          name: "NWT Progress",
+        },
+      }
+    : null;
+
+  const schemaBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://nwtprogress.com" },
+      { "@type": "ListItem", position: 2, name: "Forum", item: "https://nwtprogress.com/forum" },
+      ...(thread ? [{ "@type": "ListItem", position: 3, name: thread.title, item: threadUrl }] : []),
+    ],
+  };
+
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ClientShell />
-    </HydrationBoundary>
+    <>
+      {schemaPosting && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaPosting) }} />
+      )}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <ClientShell />
+      </HydrationBoundary>
+    </>
   );
 }

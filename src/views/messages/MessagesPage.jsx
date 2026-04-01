@@ -709,9 +709,11 @@ function ConvItem({ conv, active, onClick, currentUserId, onDelete, onlineUsers 
 
 // ── Thread view ───────────────────────────────────────────────────────────────
 
+const EMPTY_MESSAGES = [];
+
 function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled }) {
   const { t } = useTranslation();
-  const { data: messages = [], isLoading } = useMessages(conv.conversation_id);
+  const { data: messages = EMPTY_MESSAGES, isLoading } = useMessages(conv.conversation_id);
   const sendMessage = useSendMessage(conv.conversation_id);
   const deleteMessage = useDeleteMessage(conv.conversation_id);
   const editMessage = useEditMessage(conv.conversation_id);

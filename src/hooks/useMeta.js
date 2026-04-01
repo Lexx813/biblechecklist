@@ -31,7 +31,7 @@ export function useMeta({ title, description, image, path } = {}) {
     const fullTitle = title ? `${title} — ${SITE}` : SITE;
     const desc = description || DEFAULT_DESC;
     const img = image || DEFAULT_IMG;
-    const canonicalUrl = path ? `${BASE_URL}${path}` : `${BASE_URL}/`;
+    const canonicalUrl = path ? `${BASE_URL}${path}` : `${BASE_URL}${window.location.pathname}`;
 
     document.title = fullTitle;
     setMetaContent('meta[name="description"]', desc);

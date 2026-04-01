@@ -1,7 +1,21 @@
 {
   "installCommand": "npm install",
   "buildCommand": "npm run build",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.nwtprogress.com" }],
+      "destination": "https://nwtprogress.com/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
+    {
+      "source": "/og-image.webp",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800, stale-while-revalidate=86400" }
+      ]
+    },
     {
       "source": "/_next/static/(.*)",
       "headers": [

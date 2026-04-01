@@ -109,7 +109,7 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
           </div>
           <p className="about-sub-hardship">
             {t("about.subHardship1", "If the subscription is a financial hardship, please")}{" "}
-            <a href="mailto:luaq777@gmail.com" className="about-sub-hardship-link">
+            <a href="mailto:support@nwtprogress.com" className="about-sub-hardship-link">
               {t("about.subHardship2", "reach out")}
             </a>
             {t("about.subHardship3", " — no one in the faith should be left out.")}
