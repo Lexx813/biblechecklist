@@ -24,8 +24,9 @@ const Icon = {
   Search:       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>,
   Sun:          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>,
   Moon:         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>,
-  Lock:         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>,
+  Lock:         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>,
   Trophy:       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="8 17 8 21"/><polyline points="16 17 16 21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M6 21h12"/><path d="M8 17h8a4 4 0 0 0 4-4V5H4v8a4 4 0 0 0 4 4z"/><path d="M4 5H2"/><path d="M20 5h2"/></svg>,
+  Chevron:      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>,
   Sparkle:      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3L13.5 8.5L19 10L13.5 11.5L12 17L10.5 11.5L5 10L10.5 8.5Z"/></svg>,
   Info:         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>,
   Shield:       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
@@ -44,13 +45,22 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
   const { aiEnabled } = useFeatureFlags();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuOpenRef = useRef(false);
-  const [moreOpen, setMoreOpen] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false);
+  const [studyOpen, setStudyOpen] = useState(false);
   const [communityOpen, setCommunityOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  // Mobile accordion sections — auto-open whichever section the current page is in
+  const [mobileQuizOpen, setMobileQuizOpen] = useState(() => ["quiz","familyQuiz","leaderboard"].includes(currentPage));
+  const [mobileStudyOpen, setMobileStudyOpen] = useState(() => ["feed","bookmarks","studyTopics","studyTopicDetail","readingPlans","studyNotes","aiTools"].includes(currentPage));
+  const [mobileCommunityOpen, setMobileCommunityOpen] = useState(() => ["blog","forum","groups","groupDetail"].includes(currentPage));
+  const [mobileMoreOpen, setMobileMoreOpen] = useState(() => ["about","admin"].includes(currentPage));
   const [navHidden, setNavHidden] = useState(false);
   const menuRef = useRef(null);
-  const moreRef = useRef(null);
+  const quizRef = useRef(null);
+  const studyRef = useRef(null);
   const communityRef = useRef(null);
+  const moreRef = useRef(null);
   const langRef = useRef(null);
   const lastScrollY = useRef(0);
 
@@ -58,21 +68,32 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
     ? (LANGUAGES.find(l => i18n.language?.split("-")[0]?.startsWith(l.code))?.code ?? "en")
     : "en";
 
+  const quizPages = new Set(["quiz", "familyQuiz", "leaderboard"]);
+  const studyPages = new Set(["feed", "bookmarks", "readingPlans", "studyNotes", "aiTools", "studyTopics", "studyTopicDetail"]);
+  const communityPages = new Set(["blog", "forum", "groups", "groupDetail"]);
   const morePages = new Set(["about", "admin"]);
-  const moreActive = morePages.has(currentPage);
-  const communityPages = new Set(["blog", "forum", "studyTopics", "studyTopicDetail"]);
+
+  const quizActive = quizPages.has(currentPage);
+  const studyActive = studyPages.has(currentPage);
   const communityActive = communityPages.has(currentPage);
+  const moreActive = morePages.has(currentPage);
 
   function go(page) {
     setMenuOpen(false);
+    setQuizOpen(false);
+    setStudyOpen(false);
+    setCommunityOpen(false);
+    setMoreOpen(false);
     navigate(page);
   }
 
   useEffect(() => { menuOpenRef.current = menuOpen; }, [menuOpen]);
 
   useClickOutside(menuRef,      menuOpen,      () => setMenuOpen(false));
-  useClickOutside(moreRef,      moreOpen,      () => setMoreOpen(false));
+  useClickOutside(quizRef,      quizOpen,      () => setQuizOpen(false));
+  useClickOutside(studyRef,     studyOpen,     () => setStudyOpen(false));
   useClickOutside(communityRef, communityOpen, () => setCommunityOpen(false));
+  useClickOutside(moreRef,      moreOpen,      () => setMoreOpen(false));
   useClickOutside(langRef,      langOpen,      () => setLangOpen(false));
 
   // Close mobile menu on resize to desktop
@@ -81,6 +102,16 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
     window.addEventListener("resize", handler);
     return () => window.removeEventListener("resize", handler);
   }, []);
+
+  // Reset mobile accordion sections when menu closes
+  useEffect(() => {
+    if (!menuOpen) {
+      setMobileQuizOpen(false);
+      setMobileStudyOpen(false);
+      setMobileCommunityOpen(false);
+      setMobileMoreOpen(false);
+    }
+  }, [menuOpen]);
 
   // Hide nav on scroll down, reveal on scroll up
   useEffect(() => {
@@ -112,9 +143,53 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
         <div className="page-nav-links">
           {currentPage !== "home" && <button className="page-nav-link" onClick={() => go("home")}>{t("app.home")}</button>}
           <button className={`page-nav-link${currentPage === "main" ? " page-nav-link--active" : ""}`} onClick={() => go("main")}>{t("home.navTracker")}</button>
-          <button className={`page-nav-link${currentPage === "quiz" ? " page-nav-link--active" : ""}`} onClick={() => go("quiz")}>{t("quiz.nav")}</button>
-          <button className={`page-nav-link${currentPage === "familyQuiz" ? " page-nav-link--active" : ""}`} onClick={() => go("familyQuiz")}>{Icon.FamilyQuiz} Family Challenge</button>
-          {aiEnabled && isPremium && <button className={`page-nav-link${currentPage === "aiTools" ? " page-nav-link--active" : ""}`} onClick={() => go("aiTools")}>{Icon.Sparkle} {t("nav.aiTools", "AI Tools")}</button>}
+
+          {/* Quiz dropdown */}
+          <div className="page-nav-more" ref={quizRef}>
+            <button
+              className={`page-nav-link page-nav-more-btn${quizActive ? " page-nav-link--active" : ""}${quizOpen ? " page-nav-more-btn--open" : ""}`}
+              onClick={() => setQuizOpen(o => !o)}
+            >
+              {t("quiz.nav", "Quiz")} ▾
+            </button>
+            {quizOpen && (
+              <div className="page-nav-more-menu">
+                <div className="page-nav-more-group-label">{t("quiz.nav", "Quiz")}</div>
+                <button className={`page-nav-more-item${currentPage === "quiz" ? " page-nav-more-item--active" : ""}`} onClick={() => go("quiz")}>{Icon.Quiz} {t("quiz.nav")}</button>
+                <button className={`page-nav-more-item${currentPage === "familyQuiz" ? " page-nav-more-item--active" : ""}`} onClick={() => go("familyQuiz")}>{Icon.FamilyQuiz} Family Challenge</button>
+                <button className={`page-nav-more-item${currentPage === "leaderboard" ? " page-nav-more-item--active" : ""}`} onClick={() => go("leaderboard")}>{Icon.Trophy} {t("leaderboard.title", "Leaderboard")}</button>
+              </div>
+            )}
+          </div>
+
+          {/* Study dropdown */}
+          <div className="page-nav-more" ref={studyRef}>
+            <button
+              className={`page-nav-link page-nav-more-btn${studyActive ? " page-nav-link--active" : ""}${studyOpen ? " page-nav-more-btn--open" : ""}`}
+              onClick={() => setStudyOpen(o => !o)}
+            >
+              {t("nav.study", "Study")} ▾
+            </button>
+            {studyOpen && (
+              <div className="page-nav-more-menu">
+                <div className="page-nav-more-group-label">{t("nav.free", "Free")}</div>
+                <button className={`page-nav-more-item${currentPage === "feed" ? " page-nav-more-item--active" : ""}`} onClick={() => go("feed")}>{Icon.Feed} {t("feed.navLink")}</button>
+                <button className={`page-nav-more-item${currentPage === "bookmarks" ? " page-nav-more-item--active" : ""}`} onClick={() => go("bookmarks")}>{Icon.Bookmark} {t("bookmarks.title")}</button>
+                <button className={`page-nav-more-item${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-more-item--active" : ""}`} onClick={() => go("studyTopics")}>{Icon.Book} {t("nav.studyTopics", "Study Topics")}</button>
+                <div className="page-nav-more-divider" />
+                <div className="page-nav-more-group-label">{t("nav.premium", "Premium")}</div>
+                {isPremium
+                  ? <button className={`page-nav-more-item${currentPage === "readingPlans" ? " page-nav-more-item--active" : ""}`} onClick={() => go("readingPlans")}>{Icon.Calendar} {t("nav.readingPlans")}</button>
+                  : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setStudyOpen(false); onUpgrade?.(); }}>{Icon.Calendar} {t("nav.readingPlans")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
+                {isPremium
+                  ? <button className={`page-nav-more-item${currentPage === "studyNotes" ? " page-nav-more-item--active" : ""}`} onClick={() => go("studyNotes")}>{Icon.Notes} {t("nav.studyNotes")}</button>
+                  : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setStudyOpen(false); onUpgrade?.(); }}>{Icon.Notes} {t("nav.studyNotes")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
+                {(aiEnabled && isPremium) || isAdmin
+                  ? <button className={`page-nav-more-item${currentPage === "aiTools" ? " page-nav-more-item--active" : ""}`} onClick={() => go("aiTools")}>{Icon.Sparkle} {t("nav.aiTools", "AI Tools")}</button>
+                  : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setStudyOpen(false); onUpgrade?.(); }}>{Icon.Sparkle} {t("nav.aiTools", "AI Tools")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
+              </div>
+            )}
+          </div>
 
           {/* Community dropdown */}
           <div className="page-nav-more" ref={communityRef}>
@@ -126,9 +201,14 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
             </button>
             {communityOpen && (
               <div className="page-nav-more-menu">
-                <button className={`page-nav-more-item${currentPage === "blog" ? " page-nav-more-item--active" : ""}`} onClick={() => { setCommunityOpen(false); go("blog"); }}>{Icon.Feed} {t("app.blog")}</button>
-                <button className={`page-nav-more-item${currentPage === "forum" ? " page-nav-more-item--active" : ""}`} onClick={() => { setCommunityOpen(false); go("forum"); }}>{Icon.Users} {t("app.forum")}</button>
-                <button className={`page-nav-more-item${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-more-item--active" : ""}`} onClick={() => { setCommunityOpen(false); go("studyTopics"); }}>{Icon.Book} {t("nav.studyTopics", "Study Topics")}</button>
+                <div className="page-nav-more-group-label">{t("nav.community")}</div>
+                <button className={`page-nav-more-item${currentPage === "blog" ? " page-nav-more-item--active" : ""}`} onClick={() => go("blog")}>{Icon.Feed} {t("app.blog")}</button>
+                <button className={`page-nav-more-item${currentPage === "forum" ? " page-nav-more-item--active" : ""}`} onClick={() => go("forum")}>{Icon.Users} {t("app.forum")}</button>
+                <div className="page-nav-more-divider" />
+                <div className="page-nav-more-group-label">{t("nav.premium", "Premium")}</div>
+                {isPremium
+                  ? <button className={`page-nav-more-item${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-more-item--active" : ""}`} onClick={() => go("groups")}>{Icon.Users} {t("nav.studyGroups")}</button>
+                  : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setCommunityOpen(false); onUpgrade?.(); }}>{Icon.Users} {t("nav.studyGroups")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
               </div>
             )}
           </div>
@@ -143,26 +223,14 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
             </button>
             {moreOpen && (
               <div className="page-nav-more-menu">
-                <button className={`page-nav-more-item${currentPage === "about" ? " page-nav-more-item--active" : ""}`} onClick={() => { setMoreOpen(false); go("about"); }}>{Icon.Info} {t("app.about")}</button>
-                {canModerate && <button className={`page-nav-more-item${currentPage === "admin" ? " page-nav-more-item--active" : ""}`} onClick={() => { setMoreOpen(false); go("admin"); }}>{Icon.Shield} {isAdmin ? t("app.admin") : "Moderation"}</button>}
+                <button className={`page-nav-more-item${currentPage === "about" ? " page-nav-more-item--active" : ""}`} onClick={() => go("about")}>{Icon.Info} {t("app.about")}</button>
+                {canModerate && <button className={`page-nav-more-item${currentPage === "admin" ? " page-nav-more-item--active" : ""}`} onClick={() => go("admin")}>{Icon.Shield} {isAdmin ? t("app.admin") : "Moderation"}</button>}
               </div>
             )}
           </div>
         </div>
 
         <div className="page-nav-actions">
-          {user && (
-            <div className="page-nav-dev-icons">
-              <button className={`page-nav-icon-btn${currentPage === "feed" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("feed")} data-tip={t("feed.navLink")} aria-label={t("feed.navLink")}>{Icon.Feed}</button>
-              <button className={`page-nav-icon-btn${currentPage === "bookmarks" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("bookmarks")} data-tip={t("bookmarks.title")} aria-label={t("bookmarks.title")}>{Icon.Bookmark}</button>
-              {isPremium
-                ? <button className={`page-nav-icon-btn${currentPage === "readingPlans" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("readingPlans")} data-tip={t("nav.readingPlans")} aria-label={t("nav.readingPlans")}>{Icon.Calendar}</button>
-                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip={t("nav.proFeature")} aria-label={t("nav.readingPlans")} onClick={onUpgrade}>{Icon.Calendar}</button>}
-              {isPremium
-                ? <button className={`page-nav-icon-btn${currentPage === "studyNotes" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("studyNotes")} data-tip={t("nav.studyNotes")} aria-label={t("nav.studyNotes")}>{Icon.Notes}</button>
-                : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn" data-tip={t("nav.proFeature")} aria-label={t("nav.studyNotes")} onClick={onUpgrade}>{Icon.Notes}</button>}
-            </div>
-          )}
           {user && (
             isPremium
               ? <button className={`page-nav-icon-btn page-nav-msg-btn${currentPage === "messages" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("messages")} data-tip={t("nav.messages")} aria-label={t("nav.messages")} style={{ position: "relative" }}>
@@ -172,11 +240,6 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn page-nav-msg-btn" data-tip={t("nav.proFeature")} aria-label={t("nav.messages")} style={{ position: "relative" }} onClick={onUpgrade}>
                   {Icon.Message}
                 </button>
-          )}
-          {user && (
-            isPremium
-              ? <button className={`page-nav-icon-btn page-nav-collapses${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("groups")} data-tip={t("nav.studyGroups")} aria-label={t("nav.studyGroups")}>{Icon.Users}</button>
-              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn page-nav-collapses" data-tip={t("nav.proFeature")} aria-label={t("nav.studyGroups")} onClick={onUpgrade}>{Icon.Users}</button>
           )}
           {user && (
             <button
@@ -268,44 +331,89 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
           <div className="page-nav-mobile-menu">
             {currentPage !== "home" && <button className="page-nav-mobile-link" onClick={() => go("home")}><span className="page-nav-mobile-icon">{Icon.Home}</span> {t("app.home")}</button>}
             <button className={`page-nav-mobile-link${currentPage === "main" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("main")}><span className="page-nav-mobile-icon">{Icon.Book}</span> {t("home.navTracker")}</button>
-            <button className={`page-nav-mobile-link${currentPage === "quiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("quiz")}><span className="page-nav-mobile-icon">{Icon.Quiz}</span> {t("quiz.nav")}</button>
-            <button className={`page-nav-mobile-link${currentPage === "familyQuiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("familyQuiz")}><span className="page-nav-mobile-icon">{Icon.FamilyQuiz}</span> Family Challenge</button>
-            {aiEnabled && isPremium && <button className={`page-nav-mobile-link${currentPage === "aiTools" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("aiTools")}><span className="page-nav-mobile-icon">{Icon.Sparkle}</span> {t("nav.aiTools", "AI Tools")}</button>}
 
-            <div className="page-nav-mobile-section-label">{t("nav.community")}</div>
-            <button className={`page-nav-mobile-link${currentPage === "blog" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("blog")}><span className="page-nav-mobile-icon">{Icon.Feed}</span> {t("app.blog")}</button>
-            <button className={`page-nav-mobile-link${currentPage === "forum" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("forum")}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("app.forum")}</button>
-            <button className={`page-nav-mobile-link${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyTopics")}><span className="page-nav-mobile-icon">{Icon.Book}</span> {t("nav.studyTopics", "Study Topics")}</button>
-            <button className={`page-nav-mobile-link${currentPage === "about" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("about")}><span className="page-nav-mobile-icon">{Icon.Info}</span> {t("app.about")}</button>
-            {canModerate && (
-              <button className={`page-nav-mobile-link${currentPage === "admin" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("admin")}>
-                <span className="page-nav-mobile-icon">{Icon.Shield}</span> {isAdmin ? t("app.admin") : "Moderation"}
-              </button>
+            {/* Quiz accordion */}
+            <button className={`page-nav-mobile-section-toggle${quizActive ? " page-nav-mobile-section-toggle--active" : ""}`} onClick={() => setMobileQuizOpen(o => !o)} aria-expanded={mobileQuizOpen}>
+              <span>{t("quiz.nav", "Quiz")}</span>
+              <span className={`page-nav-mobile-chevron${mobileQuizOpen ? " page-nav-mobile-chevron--open" : ""}`}>{Icon.Chevron}</span>
+            </button>
+            {mobileQuizOpen && (
+              <div className="page-nav-mobile-section-items">
+                <button className={`page-nav-mobile-link${currentPage === "quiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("quiz")}><span className="page-nav-mobile-icon">{Icon.Quiz}</span> {t("quiz.nav")}</button>
+                <button className={`page-nav-mobile-link${currentPage === "familyQuiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("familyQuiz")}><span className="page-nav-mobile-icon">{Icon.FamilyQuiz}</span> Family Challenge</button>
+                <button className={`page-nav-mobile-link${currentPage === "leaderboard" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("leaderboard")}><span className="page-nav-mobile-icon">{Icon.Trophy}</span> {t("leaderboard.title", "Leaderboard")}</button>
+              </div>
             )}
-            <div className="page-nav-mobile-section-label">{t("nav.tools")}</div>
-            <button className={`page-nav-mobile-link${currentPage === "feed" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("feed")}><span className="page-nav-mobile-icon">{Icon.Feed}</span> {t("feed.navLink")}</button>
-            <button className={`page-nav-mobile-link${currentPage === "bookmarks" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("bookmarks")}><span className="page-nav-mobile-icon">{Icon.Bookmark}</span> {t("bookmarks.title")}</button>
-            <button className={`page-nav-mobile-link${currentPage === "leaderboard" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("leaderboard")}><span className="page-nav-mobile-icon">{Icon.Trophy}</span> {t("leaderboard.title")}</button>
 
-            {isPremium ? (
-              <>
-                <div className="page-nav-mobile-section-label">{t("nav.premium")}</div>
-                <button className={`page-nav-mobile-link${currentPage === "messages" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("messages")}>
+            {/* Study accordion */}
+            <button className={`page-nav-mobile-section-toggle${studyActive ? " page-nav-mobile-section-toggle--active" : ""}`} onClick={() => setMobileStudyOpen(o => !o)} aria-expanded={mobileStudyOpen}>
+              <span>{t("nav.study", "Study")}</span>
+              <span className={`page-nav-mobile-chevron${mobileStudyOpen ? " page-nav-mobile-chevron--open" : ""}`}>{Icon.Chevron}</span>
+            </button>
+            {mobileStudyOpen && (
+              <div className="page-nav-mobile-section-items">
+                <button className={`page-nav-mobile-link${currentPage === "feed" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("feed")}><span className="page-nav-mobile-icon">{Icon.Feed}</span> {t("feed.navLink")}</button>
+                <button className={`page-nav-mobile-link${currentPage === "bookmarks" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("bookmarks")}><span className="page-nav-mobile-icon">{Icon.Bookmark}</span> {t("bookmarks.title")}</button>
+                <button className={`page-nav-mobile-link${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyTopics")}><span className="page-nav-mobile-icon">{Icon.Book}</span> {t("nav.studyTopics", "Study Topics")}</button>
+                {isPremium ? (
+                  <>
+                    <button className={`page-nav-mobile-link${currentPage === "readingPlans" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("readingPlans")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.readingPlans")}</button>
+                    <button className={`page-nav-mobile-link${currentPage === "studyNotes" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyNotes")}><span className="page-nav-mobile-icon">{Icon.Notes}</span> {t("nav.studyNotes")}</button>
+                    {(aiEnabled || isAdmin)
+                      ? <button className={`page-nav-mobile-link${currentPage === "aiTools" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("aiTools")}><span className="page-nav-mobile-icon">{Icon.Sparkle}</span> {t("nav.aiTools", "AI Tools")}</button>
+                      : <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Sparkle}</span> {t("nav.aiTools", "AI Tools")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>}
+                  </>
+                ) : (
+                  <>
+                    <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.readingPlans")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
+                    <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Notes}</span> {t("nav.studyNotes")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
+                    <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Sparkle}</span> {t("nav.aiTools", "AI Tools")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* Community accordion */}
+            <button className={`page-nav-mobile-section-toggle${communityActive ? " page-nav-mobile-section-toggle--active" : ""}`} onClick={() => setMobileCommunityOpen(o => !o)} aria-expanded={mobileCommunityOpen}>
+              <span>{t("nav.community")}</span>
+              <span className={`page-nav-mobile-chevron${mobileCommunityOpen ? " page-nav-mobile-chevron--open" : ""}`}>{Icon.Chevron}</span>
+            </button>
+            {mobileCommunityOpen && (
+              <div className="page-nav-mobile-section-items">
+                <button className={`page-nav-mobile-link${currentPage === "blog" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("blog")}><span className="page-nav-mobile-icon">{Icon.Feed}</span> {t("app.blog")}</button>
+                <button className={`page-nav-mobile-link${currentPage === "forum" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("forum")}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("app.forum")}</button>
+                {isPremium
+                  ? <button className={`page-nav-mobile-link${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("groups")}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("nav.studyGroups")}</button>
+                  : <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("nav.studyGroups")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>}
+              </div>
+            )}
+
+            {/* More accordion */}
+            <button className={`page-nav-mobile-section-toggle${moreActive ? " page-nav-mobile-section-toggle--active" : ""}`} onClick={() => setMobileMoreOpen(o => !o)} aria-expanded={mobileMoreOpen}>
+              <span>{t("nav.more")}</span>
+              <span className={`page-nav-mobile-chevron${mobileMoreOpen ? " page-nav-mobile-chevron--open" : ""}`}>{Icon.Chevron}</span>
+            </button>
+            {mobileMoreOpen && (
+              <div className="page-nav-mobile-section-items">
+                <button className={`page-nav-mobile-link${currentPage === "about" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("about")}><span className="page-nav-mobile-icon">{Icon.Info}</span> {t("app.about")}</button>
+                {canModerate && (
+                  <button className={`page-nav-mobile-link${currentPage === "admin" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("admin")}>
+                    <span className="page-nav-mobile-icon">{Icon.Shield}</span> {isAdmin ? t("app.admin") : "Moderation"}
+                  </button>
+                )}
+              </div>
+            )}
+
+            {/* Messages */}
+            <div className="page-nav-mobile-divider" />
+            {isPremium
+              ? <button className={`page-nav-mobile-link${currentPage === "messages" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("messages")}>
                   <span className="page-nav-mobile-icon">{Icon.Message}</span> {t("nav.messages")} {unreadMessages > 0 && <span className="page-nav-mobile-badge">{unreadMessages}</span>}
                 </button>
-                <button className={`page-nav-mobile-link${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("groups")}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("nav.studyGroups")}</button>
-                <button className={`page-nav-mobile-link${currentPage === "readingPlans" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("readingPlans")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.readingPlans")}</button>
-                <button className={`page-nav-mobile-link${currentPage === "studyNotes" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyNotes")}><span className="page-nav-mobile-icon">{Icon.Notes}</span> {t("nav.studyNotes")}</button>
-              </>
-            ) : (
-              <>
-                <div className="page-nav-mobile-section-label page-nav-mobile-section-label--locked">{t("nav.premium")} ✦</div>
-                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Message}</span> {t("nav.messages")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
-                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("nav.studyGroups")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
-                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.readingPlans")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
-                <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Notes}</span> {t("nav.studyNotes")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
-                <button className="page-nav-mobile-upgrade-btn" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span aria-hidden="true">✦</span> Upgrade to Premium — $3/mo</button>
-              </>
+              : <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Message}</span> {t("nav.messages")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>}
+
+            {!isPremium && (
+              <button className="page-nav-mobile-upgrade-btn" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span aria-hidden="true">✦</span> Upgrade to Premium — $3/mo</button>
             )}
 
             <div className="page-nav-mobile-divider" />
