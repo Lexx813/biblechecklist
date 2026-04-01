@@ -394,6 +394,10 @@
 }
 
 .home-tracker-big-icon { font-size: 36px; }
+.home-tracker-svg-icon {
+  color: rgba(192, 132, 252, 0.9);
+  flex-shrink: 0;
+}
 
 .home-tracker-stats-preview {
   position: relative;
@@ -862,30 +866,30 @@
   background: linear-gradient(135deg, #ede0ff 0%, #d8b4fe 100%);
 }
 
-/* Family quiz card — green tint variant */
+/* Family quiz card — accent violet variant */
 .home-tracker-card--alt {
-  background: linear-gradient(135deg, rgba(6, 78, 59, 0.55) 0%, rgba(4, 47, 46, 0.8) 100%);
-  border-color: rgba(16, 185, 129, 0.2);
+  background: linear-gradient(135deg, rgba(76, 29, 149, 0.55) 0%, rgba(45, 15, 110, 0.8) 100%);
+  border-color: rgba(192, 132, 252, 0.25);
 }
 .home-tracker-card--alt:hover {
-  border-color: rgba(16, 185, 129, 0.45);
-  box-shadow: 0 12px 40px rgba(16, 185, 129, 0.18);
+  border-color: rgba(192, 132, 252, 0.5);
+  box-shadow: 0 12px 40px rgba(192, 132, 252, 0.2);
 }
 .home-tracker-card--alt .home-tracker-visual {
-  background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+  background: linear-gradient(135deg, #3b0764 0%, #1a0942 100%);
 }
-.home-tracker-glow--green {
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, transparent 70%);
+.home-tracker-glow--accent {
+  background: radial-gradient(circle, rgba(192, 132, 252, 0.4) 0%, transparent 70%);
 }
 [data-theme="light"] .home-tracker-card--alt {
   background: #fff;
-  border-color: rgba(16, 185, 129, 0.2);
+  border-color: rgba(192, 132, 252, 0.25);
 }
 [data-theme="light"] .home-tracker-card--alt:hover {
-  box-shadow: 0 12px 40px rgba(16, 185, 129, 0.12);
+  box-shadow: 0 12px 40px rgba(192, 132, 252, 0.15);
 }
 [data-theme="light"] .home-tracker-card--alt .home-tracker-visual {
-  background: linear-gradient(135deg, #d1fae5 0%, #6ee7b7 100%);
+  background: linear-gradient(135deg, #ede0ff 0%, #c4b5fd 100%);
 }
 
 [data-theme="light"] .home-tracker-icon-wrap {
