@@ -220,6 +220,41 @@
 }
 .home-hero-secondary:active { transform: translateY(0); }
 
+/* ── Desktop 2-column grid ── */
+.home-body-grid {
+  max-width: 1520px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1100px) {
+  .home-body-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    align-items: start;
+    padding: 0 40px;
+    gap: 0;
+  }
+
+  /* Remove per-section max-width centering inside columns */
+  .home-col-main .home-section,
+  .home-col-side .home-section {
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Sidebar: left border separator, sticky top */
+  .home-col-side {
+    border-left: 1px solid rgba(138, 75, 255, 0.1);
+    position: sticky;
+    top: 52px; /* below nav */
+    max-height: calc(100vh - 52px);
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .home-col-side::-webkit-scrollbar { display: none; }
+}
+
 /* ── Sections ── */
 .home-section {
   max-width: 1100px;
