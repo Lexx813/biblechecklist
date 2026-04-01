@@ -22,6 +22,7 @@ import "react-day-picker/style.css";
 import "../../styles/profile.css";
 import "../../styles/social.css";
 import { formatDate } from "../../utils/formatters";
+import ReferralPanel from "../../components/ReferralPanel";
 
 const TOTAL_CHAPTERS = BOOKS.reduce((s, b) => s + b.chapters, 0);
 
@@ -959,6 +960,9 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
 
         {/* Public posts / status updates */}
         <PostsSection profileId={profileId} isOwner={isOwner} t={t} />
+
+        {/* Referral program — owner only */}
+        {isOwner && <ReferralPanel userId={profileId} />}
 
         {/* Notes section — owner only */}
         {isOwner && (
