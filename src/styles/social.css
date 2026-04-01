@@ -665,7 +665,6 @@
   font-weight: 600;
   color: var(--text-muted);
   cursor: pointer;
-  margin-top: 4px;
   transition: border-color 0.15s, color 0.15s, background 0.15s;
 }
 .forum-msg-btn:hover {

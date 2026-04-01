@@ -286,33 +286,39 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
       <div className="forum-post forum-post--op">
         <div className="forum-post-aside">
           <Avatar profile={thread.profiles} onClick={() => navigate("publicProfile", { userId: thread.author_id })} />
-          <span className="forum-post-author">
-            {displayName(thread.profiles)}
-            <BadgeChip level={thread.profiles?.top_badge_level} />
-            <ModBadge profile={thread.profiles} />
-          </span>
-          <span className="forum-post-time">
-            {timeAgo(thread.created_at, t)}
-            {isEdited(thread) && <span className="forum-edited-tag"> · {t("forum.edited")}</span>}
-          </span>
-          <span className="forum-post-badge forum-post-badge--op">{t("forum.op")}</span>
-          {thread.author_id !== user.id && (
-            <button
-              className={`forum-msg-btn${!isPremium ? " forum-msg-btn--locked" : ""}`}
-              disabled={getOrCreateDM.isPending}
-              onClick={isPremium
-                ? () => getOrCreateDM.mutate(thread.author_id, {
-                    onSuccess: (cid) => navigate("messages", { conversationId: cid, otherDisplayName: displayName(thread.profiles), otherAvatarUrl: thread.profiles?.avatar_url ?? null }),
-                  })
-                : onUpgrade
-              }
-            >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              {t("common.message", "Message")}{!isPremium && <span className="msg-btn-pro-badge">✦</span>}
-            </button>
-          )}
         </div>
         <div className="forum-post-body">
+          <div className="forum-post-header">
+            <div className="forum-post-header-left">
+              <span className="forum-post-author" onClick={() => navigate("publicProfile", { userId: thread.author_id })}>
+                {displayName(thread.profiles)}
+              </span>
+              <BadgeChip level={thread.profiles?.top_badge_level} />
+              <ModBadge profile={thread.profiles} />
+              <span className="forum-post-badge forum-post-badge--op">{t("forum.op")}</span>
+            </div>
+            <div className="forum-post-header-right">
+              <span className="forum-post-time">
+                {timeAgo(thread.created_at, t)}
+                {isEdited(thread) && <span className="forum-edited-tag"> · {t("forum.edited")}</span>}
+              </span>
+              {thread.author_id !== user.id && (
+                <button
+                  className={`forum-msg-btn${!isPremium ? " forum-msg-btn--locked" : ""}`}
+                  disabled={getOrCreateDM.isPending}
+                  onClick={isPremium
+                    ? () => getOrCreateDM.mutate(thread.author_id, {
+                        onSuccess: (cid) => navigate("messages", { conversationId: cid, otherDisplayName: displayName(thread.profiles), otherAvatarUrl: thread.profiles?.avatar_url ?? null }),
+                      })
+                    : onUpgrade
+                  }
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  {t("common.message", "Message")}{!isPremium && <span className="msg-btn-pro-badge">✦</span>}
+                </button>
+              )}
+            </div>
+          </div>
           {editing ? (
             <form onSubmit={handleSaveEdit} style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               <input
@@ -391,36 +397,42 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
               <div key={reply.id} className={`forum-post${reply.is_solution ? " forum-post--solution" : ""}`}>
                 <div className="forum-post-aside">
                   <Avatar profile={reply.profiles} onClick={() => navigate("publicProfile", { userId: reply.author_id })} />
-                  <span className="forum-post-author">
-                    {displayName(reply.profiles)}
-                    <BadgeChip level={reply.profiles?.top_badge_level} />
-                    <ModBadge profile={reply.profiles} />
-                  </span>
-                  <span className="forum-post-time">
-                    {timeAgo(reply.created_at, t)}
-                    {isEdited(reply) && <span className="forum-edited-tag"> · {t("forum.edited")}</span>}
-                  </span>
-                  {reply.is_solution
-                    ? <span className="forum-solution-badge">✓ {t("forum.solution")}</span>
-                    : <span className="forum-post-num">#{i + 1}</span>
-                  }
-                  {reply.author_id !== user.id && (
-                    <button
-                      className={`forum-msg-btn${!isPremium ? " forum-msg-btn--locked" : ""}`}
-                      disabled={getOrCreateDM.isPending}
-                      onClick={isPremium
-                        ? () => getOrCreateDM.mutate(reply.author_id, {
-                            onSuccess: (cid) => navigate("messages", { conversationId: cid, otherDisplayName: displayName(reply.profiles), otherAvatarUrl: reply.profiles?.avatar_url ?? null }),
-                          })
-                        : onUpgrade
-                      }
-                    >
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                      {t("common.message", "Message")}{!isPremium && <span className="msg-btn-pro-badge">✦</span>}
-                    </button>
-                  )}
                 </div>
                 <div className="forum-post-body">
+                  <div className="forum-post-header">
+                    <div className="forum-post-header-left">
+                      <span className="forum-post-author" onClick={() => navigate("publicProfile", { userId: reply.author_id })}>
+                        {displayName(reply.profiles)}
+                      </span>
+                      <BadgeChip level={reply.profiles?.top_badge_level} />
+                      <ModBadge profile={reply.profiles} />
+                      {reply.is_solution
+                        ? <span className="forum-solution-badge">✓ {t("forum.solution")}</span>
+                        : <span className="forum-post-num">#{i + 1}</span>
+                      }
+                    </div>
+                    <div className="forum-post-header-right">
+                      <span className="forum-post-time">
+                        {timeAgo(reply.created_at, t)}
+                        {isEdited(reply) && <span className="forum-edited-tag"> · {t("forum.edited")}</span>}
+                      </span>
+                      {reply.author_id !== user.id && (
+                        <button
+                          className={`forum-msg-btn${!isPremium ? " forum-msg-btn--locked" : ""}`}
+                          disabled={getOrCreateDM.isPending}
+                          onClick={isPremium
+                            ? () => getOrCreateDM.mutate(reply.author_id, {
+                                onSuccess: (cid) => navigate("messages", { conversationId: cid, otherDisplayName: displayName(reply.profiles), otherAvatarUrl: reply.profiles?.avatar_url ?? null }),
+                              })
+                            : onUpgrade
+                          }
+                        >
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                          {t("common.message", "Message")}{!isPremium && <span className="msg-btn-pro-badge">✦</span>}
+                        </button>
+                      )}
+                    </div>
+                  </div>
                   {isEditingThis ? (
                     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                       <Suspense fallback={<div style={{ height: 60 }} />}>
