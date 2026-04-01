@@ -19,6 +19,8 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
   const allDone = done === total;
   const partial = done > 0 && !allDone;
   const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  const remaining = total - done;
+  const nearDone = !allDone && remaining <= 5 && done > 0;
 
   const bookName = t(`bookNames.${bookIndex}`, book.name);
   const bookAbbr = t(`bookAbbrs.${bookIndex}`, book.abbr);
@@ -49,7 +51,7 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
           <div className="book-abbr">{bookAbbr} · {t("book.chapters", { count: total })}</div>
         </div>
         <div className="book-meta">
-          <div className="book-ch-count">{done}/{total}</div>
+          <div className="book-ch-count">{nearDone ? t("book.chaptersLeft", { count: remaining }) : `${done}/${total}`}</div>
           <div className="mini-bar">
             <div className="mini-bar-fill" style={{ width: pct + "%" }} />
           </div>
@@ -126,6 +128,16 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                         : <span key={v} className="book-info-verse-pill">{v}</span>;
                     })}
                   </div>
+                </div>
+              )}
+              {info.questions?.length > 0 && (
+                <div className="book-info-questions">
+                  <span className="book-info-meta-label">{t("book.infoStudyQuestions", "Study Questions")}</span>
+                  <ol className="book-info-question-list">
+                    {info.questions.map((q, i) => (
+                      <li key={i} className="book-info-question-item">{q}</li>
+                    ))}
+                  </ol>
                 </div>
               )}
             </div>

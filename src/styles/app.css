@@ -578,6 +578,17 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   color: var(--teal-dark); border: 1px solid var(--border);
 }
 
+.book-info-questions { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+
+.book-info-question-list {
+  margin: 0; padding: 0 0 0 18px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+
+.book-info-question-item {
+  font-size: 13px; line-height: 1.5; color: var(--text-secondary);
+}
+
 /* CONTEXTUAL NOTES */
 .ch-notes { margin-top: 4px; }
 
