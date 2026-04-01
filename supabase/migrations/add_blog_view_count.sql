@@ -2,6 +2,8 @@
 
 ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS view_count integer NOT NULL DEFAULT 0;
 
+DROP FUNCTION IF EXISTS increment_blog_view(uuid);
+
 CREATE OR REPLACE FUNCTION increment_blog_view(post_id uuid)
 RETURNS void
 LANGUAGE sql

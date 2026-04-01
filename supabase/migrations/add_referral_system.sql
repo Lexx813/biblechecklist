@@ -50,6 +50,8 @@ END;
 $$;
 
 -- 4. Apply a referral code for a new user
+DROP FUNCTION IF EXISTS apply_referral(uuid, text);
+
 CREATE OR REPLACE FUNCTION apply_referral(p_new_user_id uuid, p_code text)
 RETURNS boolean
 LANGUAGE plpgsql
