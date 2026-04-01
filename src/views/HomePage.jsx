@@ -75,6 +75,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const [showOnboarding, closeOnboarding] = useOnboarding(user?.created_at);
   const [notifDismissed, setNotifDismissed] = useState(() => !!localStorage.getItem("nwt-notif-dismissed"));
   const [showStreakPrompt, setShowStreakPrompt] = useState(false);
+  const [streakMilestone, setStreakMilestone] = useState(null);
 
   const showNotifBanner = user && profile && !profile.email_notifications_blog && !notifDismissed;
 
@@ -83,7 +84,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
     const n = streak.current_streak;
     if (!STREAK_MILESTONES.includes(n)) return;
     const key = `streak-milestone-${n}`;
-    if (!isDismissed(key)) setShowStreakPrompt(true);
+    if (!isDismissed(key)) {
+      setStreakMilestone(n);
+      setShowStreakPrompt(true);
+    }
   }, [streak.current_streak, isPremium, streakLoading]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function handleEnableNotif() {
@@ -424,12 +428,12 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           message="Keep it structured — reading plans give you a daily assignment so you always know exactly what to read next."
           ctaLabel="View Reading Plans"
           onCta={() => {
-            dismissPrompt(`streak-milestone-${streak.current_streak}`);
+            dismissPrompt(`streak-milestone-${streakMilestone}`);
             setShowStreakPrompt(false);
             navigate("readingPlans");
           }}
           onDismiss={() => {
-            dismissPrompt(`streak-milestone-${streak.current_streak}`);
+            dismissPrompt(`streak-milestone-${streakMilestone}`);
             setShowStreakPrompt(false);
           }}
         />
