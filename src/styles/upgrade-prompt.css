@@ -4,7 +4,6 @@
   backdrop-filter: blur(4px);
   display: flex; align-items: flex-end; justify-content: center;
   padding: 0 0 32px;
-  animation: up-fade-in 0.2s ease;
 }
 @keyframes up-fade-in {
   from { opacity: 0; }
@@ -18,11 +17,18 @@
   max-width: 380px; width: calc(100% - 32px);
   text-align: center;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
-  animation: up-slide-up 0.25s ease;
 }
 @keyframes up-slide-up {
   from { transform: translateY(24px); opacity: 0; }
   to   { transform: translateY(0);    opacity: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .up-overlay {
+    animation: up-fade-in 0.2s ease;
+  }
+  .up-card {
+    animation: up-slide-up 0.25s ease;
+  }
 }
 .up-icon { font-size: 22px; color: #a78bfa; margin-bottom: 10px; }
 .up-title { font-size: 16px; font-weight: 700; margin: 0 0 8px; color: var(--text-primary); }
