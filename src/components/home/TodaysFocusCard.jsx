@@ -69,15 +69,15 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
   const { data: streak = { current_streak: 0 } } = useReadingStreak(userId);
   const lastRead = useLastReadChapter(userId);
 
-  const { template, schedule, currentDay, doneSet, todayReadings, pct } = useMemo(() => {
-    if (!activePlan) return { template: null, schedule: [], currentDay: 1, doneSet: new Set(), todayReadings: [], pct: 0 };
+  const { template, currentDay, doneSet, todayReadings, pct } = useMemo(() => {
+    if (!activePlan) return { template: null, currentDay: 1, doneSet: new Set(), todayReadings: [], pct: 0 };
     const tpl = getTemplateOrCustom(activePlan);
     const sched = generateSchedule(tpl.bookIndices, tpl.totalDays);
     const day = Math.min(effectiveDay(activePlan), tpl.totalDays);
     const done = new Set(completions.map(c => c.day_number));
     const readings = sched[day - 1]?.readings ?? [];
     const percent = Math.round((done.size / tpl.totalDays) * 100);
-    return { template: tpl, schedule: sched, currentDay: day, doneSet: done, todayReadings: readings, pct: percent };
+    return { template: tpl, currentDay: day, doneSet: done, todayReadings: readings, pct: percent };
   }, [activePlan, completions]);
 
   const todayDone = doneSet.has(currentDay);

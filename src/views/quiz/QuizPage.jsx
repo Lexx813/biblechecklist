@@ -123,7 +123,7 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
     if (isPremium || isLoading) return;
     if (badgeCount !== 3) return;
     if (!isDismissed("quiz-3-badges")) setShowQuizPrompt(true);
-  }, [badgeCount, isPremium, isLoading]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [badgeCount, isPremium, isLoading]);
 
   const progressMap = Object.fromEntries(progress.map((p) => [p.level, p]));
 

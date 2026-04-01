@@ -117,7 +117,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       setStreakMilestone(n);
       setShowStreakPrompt(true);
     }
-  }, [streak.current_streak, isPremium, streakLoading]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [streak.current_streak, isPremium, streakLoading]);
 
   function handleEnableNotif() {
     updateProfile.mutate({ email_notifications_blog: true });
@@ -139,6 +139,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
     return result.slice(0, 3);
   }, [posts]);
 
+  // eslint-disable-next-line react-hooks/purity -- Date.now() evaluated once per session; rotation changes weekly
   const bannerRotation = BANNER_ROTATIONS[Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000)) % BANNER_ROTATIONS.length];
 
   return (

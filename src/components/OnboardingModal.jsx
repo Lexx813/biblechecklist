@@ -41,7 +41,7 @@ const CHOICES = [
   },
 ];
 
-export default function OnboardingModal({ onClose, onUpgrade, navigate, user }) {
+export default function OnboardingModal({ onClose, navigate, user }) {
   const { t } = useTranslation();
   const [step, setStep] = useState(0); // 0=intent, 1=goal, 2=notif
   const [selectedPage, setSelectedPage] = useState(null);
