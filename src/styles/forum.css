@@ -485,24 +485,49 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  width: 72px;
+  width: 52px;
   flex-shrink: 0;
   padding-top: 14px;
 }
 
-.forum-post-author {
-  font-size: 11px; font-weight: 800;
-  color: var(--text-secondary);
-  text-align: center;
-  word-break: break-all;
-  max-width: 64px;
+/* ── Post header row (author + meta inline) ─────────────── */
+.forum-post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 
+.forum-post-header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.forum-post-header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.forum-post-author {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.forum-post-author:hover { color: var(--teal); }
+
 .forum-post-time {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--text-muted);
-  text-align: center;
+  white-space: nowrap;
 }
 
 .forum-post-badge,
@@ -759,8 +784,7 @@
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 600px) {
   .forum-post { padding: 0 12px; }
-  .forum-post-aside { width: 52px; }
-  .forum-post-author { max-width: 44px; font-size: 10px; }
+  .forum-post-aside { width: 44px; }
   .forum-rows, .forum-replies, .forum-reply-form { padding: 0 12px; }
   .forum-admin-tools { width: 100%; }
   .forum-row-right { display: none; }
@@ -783,8 +807,7 @@
   .forum-row { padding: 11px 12px; gap: 8px; }
   .forum-row-title { font-size: 13px; }
   .forum-post { padding: 0 10px; }
-  .forum-post-aside { width: 46px; }
-  .forum-post-author { max-width: 40px; font-size: 9px; }
+  .forum-post-aside { width: 40px; }
   .forum-post-body { padding: 13px 14px; }
   .forum-post-title { font-size: 17px; }
   .forum-post-content { font-size: 13px; }
@@ -897,9 +920,7 @@
   .forum-rows { padding: 0 8px; }
   .forum-row { padding: 10px; }
   .forum-post { padding: 0 8px; }
-  .forum-post-aside { width: 38px; }
-  .forum-post-author { max-width: 32px; font-size: 9px; }
-  .forum-post-time { font-size: 9px; }
+  .forum-post-aside { width: 34px; }
   .forum-replies, .forum-reply-form { padding: 0 8px; }
   .forum-reply-form-inner { padding: 10px 12px; gap: 8px; }
   .forum-admin-tools { gap: 4px; }
