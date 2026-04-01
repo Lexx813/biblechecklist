@@ -1,11 +1,7 @@
 "use client";
 
-import "../src/i18n";
 import { useState, useEffect, useRef } from "react";
-import { QueryClient } from "@tanstack/react-query";
-import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
-import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ErrorBoundary } from "../src/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react";
 import { toast } from "../src/lib/toast";
@@ -25,14 +21,6 @@ const queryClient = new QueryClient({
     },
   },
 });
-
-// Stable no-op persister used during SSR and before hydration so both passes
-// render the same JSX structure — avoids React hydration mismatch.
-const noOpPersister = {
-  persistClient: () => {},
-  restoreClient: async () => undefined,
-  removeClient: () => {},
-};
 
 const persistOptions = {
   maxAge: 1000 * 60 * 60 * 24,
@@ -102,38 +90,52 @@ function SideEffects() {
         setTimeout(initSentry, 1);
       }
     }
+
+    // Defer loading query persistence — avoids adding ~40 KiB to the initial bundle.
+    // Cache is restored asynchronously after mount; users see fresh data immediately.
+    Promise.all([
+      import("@tanstack/react-query-persist-client"),
+      import("@tanstack/query-sync-storage-persister"),
+    ]).then(([{ persistQueryClient }, { createSyncStoragePersister }]) => {
+      const persister = createSyncStoragePersister({
+        storage: window.localStorage,
+        key: "nwt-query-cache-v2",
+      });
+      persistQueryClient({
+        queryClient,
+        persister,
+        maxAge: persistOptions.maxAge,
+        dehydrateOptions: persistOptions.dehydrateOptions,
+        hydrateOptions: persistOptions.hydrateOptions,
+      });
+    });
   }, []);
 
   return null;
 }
 
 export default function Providers({ children }) {
-  // Start with noOpPersister so server and initial client render match.
-  // Swap to real localStorage persister after mount.
-  const [persister, setPersister] = useState(noOpPersister);
-
-  useEffect(() => {
-    setPersister(
-      createSyncStoragePersister({
-        storage: window.localStorage,
-        key: "nwt-query-cache-v2",
-      })
-    );
-  }, []);
-
   return (
     <ErrorBoundary>
-      <PersistQueryClientProvider
-        client={queryClient}
-        persistOptions={{ ...persistOptions, persister }}
-      >
+      <QueryClientProvider client={queryClient}>
         <SideEffects />
         {children}
         <Analytics />
         {process.env.NODE_ENV !== "production" && (
-          <ReactQueryDevtools initialIsOpen={false} />
+          <DevTools />
         )}
-      </PersistQueryClientProvider>
+      </QueryClientProvider>
     </ErrorBoundary>
   );
+}
+
+// Lazy-load devtools so they never appear in the production bundle
+function DevTools() {
+  const [Tools, setTools] = useState(null);
+  useEffect(() => {
+    import("@tanstack/react-query-devtools").then(({ ReactQueryDevtools }) => {
+      setTools(() => ReactQueryDevtools);
+    });
+  }, []);
+  return Tools ? <Tools initialIsOpen={false} /> : null;
 }
