@@ -127,11 +127,9 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         <DailyVerse user={user} />
       </section>
 
-      {/* ── Streak banner — always rendered to reserve layout space and prevent CLS ── */}
-      <section className="home-section home-section--slim">
-        {streakLoading ? (
-          <div className="home-streak-skeleton" />
-        ) : streak.current_streak > 0 ? (
+      {/* ── Streak banner — only rendered when there is an active streak ── */}
+      {!streakLoading && streak.current_streak > 0 && (
+        <section className="home-section home-section--slim">
           <button className="home-streak-banner" onClick={() => navigate("profile")}>
             <span className="home-streak-fire" aria-hidden="true">🔥</span>
             <span className="home-streak-text">
@@ -141,8 +139,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <span className="home-streak-best"><span aria-hidden="true">🏆</span> {t("home.streakBest")}: {streak.longest_streak}</span>
             )}
           </button>
-        ) : null}
-      </section>
+        </section>
+      )}
 
       {/* ── Premium upsell banner — free users only ── */}
       {!isPremium && (
