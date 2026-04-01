@@ -335,13 +335,13 @@
   width: 100%;
   background: none;
   border: none;
-  outline: none;
   resize: none;
   font-family: inherit;
   font-size: 14px;
   color: var(--text-primary);
   line-height: 1.55;
 }
+.post-composer-input:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
 .post-composer-input::placeholder { color: var(--text-muted); }
 
 .post-composer-footer {
@@ -481,6 +481,45 @@
 .forum-role-chip--admin {
   background: #ede9fe;
   color: #6d28d9;
+}
+
+/* ── Badge tooltips ──────────────────────────────────────── */
+.forum-badge-chip[data-tooltip],
+.forum-role-chip[data-tooltip],
+.forum-post-badge[data-tooltip],
+.forum-solution-badge[data-tooltip] {
+  position: relative;
+}
+
+.forum-badge-chip[data-tooltip]::after,
+.forum-role-chip[data-tooltip]::after,
+.forum-post-badge[data-tooltip]::after,
+.forum-solution-badge[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  background: var(--teal-darker, #341C5C);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 4px 9px;
+  border-radius: 6px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s, transform 0.15s;
+  z-index: 200;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+.forum-badge-chip[data-tooltip]:hover::after,
+.forum-role-chip[data-tooltip]:hover::after,
+.forum-post-badge[data-tooltip]:hover::after,
+.forum-solution-badge[data-tooltip]:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
 }
 
 /* ── Followers/Following list modal ──────────────────────── */

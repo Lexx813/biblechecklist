@@ -32,18 +32,32 @@ import "../../styles/social.css";
 const REACTION_EMOJIS = ["🙏", "❤️", "💡"];
 
 const LEVEL_EMOJIS = [null,"📖","📚","🌱","👨‍👩‍👦","🏺","⚔️","🎵","📯","🕊️","🌍","🔮","👑"];
+
+// ── SVG Icons ─────────────────────────────────────────────────────────────────
+const IC = { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true" };
+function IconPin()      { return <svg {...IC} width="12" height="12"><line x1="12" y1="17" x2="12" y2="22"/><path d="M5 17H19V15L17 11V4H7V11L5 15V17Z"/></svg>; }
+function IconLock()     { return <svg {...IC} width="12" height="12"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>; }
+function IconEye()      { return <svg {...IC} width="13" height="13"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>; }
+function IconLink()     { return <svg {...IC} width="13" height="13"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>; }
+function IconBell()     { return <svg {...IC} width="13" height="13"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>; }
+function IconBellOff()  { return <svg {...IC} width="13" height="13"><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M18.63 13A17.89 17.89 0 0 1 18 8"/><path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"/><path d="M18 8a6 6 0 0 0-9.33-5"/><line x1="1" y1="1" x2="23" y2="23"/></svg>; }
+function IconThumbsUp() { return <svg {...IC} width="13" height="13"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>; }
+function IconFlag()     { return <svg {...IC} width="13" height="13"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>; }
+function IconQuote()    { return <svg {...IC} width="13" height="13"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>; }
+function IconShield()   { return <svg {...IC} width="12" height="12"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>; }
+function IconSettings() { return <svg {...IC} width="12" height="12"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>; }
 function BadgeChip({ level }) {
   if (!level || level < 1) return null;
   return (
-    <span className="forum-badge-chip" title={`Level ${level}`}>
+    <span className="forum-badge-chip" data-tooltip={`Level ${level}`} title={`Level ${level}`}>
       {LEVEL_EMOJIS[Math.min(level, 12)]}
     </span>
   );
 }
 
 function ModBadge({ profile }) {
-  if (profile?.is_admin) return <span className="forum-role-chip forum-role-chip--admin" title="Admin">⚙️</span>;
-  if (profile?.is_moderator) return <span className="forum-role-chip forum-role-chip--mod" title="Moderator">🛡️</span>;
+  if (profile?.is_admin) return <span className="forum-role-chip forum-role-chip--admin" data-tooltip="Admin" title="Admin"><IconSettings /></span>;
+  if (profile?.is_moderator) return <span className="forum-role-chip forum-role-chip--mod" data-tooltip="Moderator" title="Moderator"><IconShield /></span>;
   return null;
 }
 
@@ -93,6 +107,8 @@ function ReactionsBar({ contentType, contentId, reactions, onToggle }) {
             className={`forum-reaction-btn${active ? " forum-reaction-btn--active" : ""}`}
             onClick={() => onToggle(contentType, contentId, emoji)}
             title={emoji}
+            aria-label={`${emoji}${count > 0 ? ` ${count}` : ""}`}
+            aria-pressed={active}
           >
             {emoji} {count > 0 && <span className="forum-reaction-count">{count}</span>}
           </button>
@@ -247,26 +263,27 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
       {/* Thread header */}
       <div className="forum-thread-header">
         <div className="forum-thread-header-badges">
-          {thread.pinned && <span className="forum-badge forum-badge--pin">📌 Pinned</span>}
-          {thread.locked && <span className="forum-badge forum-badge--lock">🔒 Locked</span>}
-          {thread.view_count > 0 && <span className="forum-view-count">👁 {thread.view_count.toLocaleString()}</span>}
+          {thread.pinned && <span className="forum-badge forum-badge--pin"><IconPin /> Pinned</span>}
+          {thread.locked && <span className="forum-badge forum-badge--lock"><IconLock /> Locked</span>}
+          {thread.view_count > 0 && <span className="forum-view-count"><IconEye /> {thread.view_count.toLocaleString()}</span>}
         </div>
         <div className="forum-admin-tools">
-          <button className="forum-tool-btn" onClick={handleShare} title={t("forum.share")}>🔗 {t("forum.share")}</button>
+          <button className="forum-tool-btn" onClick={handleShare} title={t("forum.share")}><IconLink /> {t("forum.share")}</button>
           <button
             className={`forum-tool-btn${isWatching ? " forum-tool-btn--active" : ""}`}
             onClick={() => toggleWatch.mutate()}
+            disabled={toggleWatch.isPending}
             title={isWatching ? t("forum.unwatch") : t("forum.watch")}
           >
-            {isWatching ? "🔔" : "🔕"} {isWatching ? t("forum.watching") : t("forum.watch")}
+            {isWatching ? <IconBell /> : <IconBellOff />} {isWatching ? t("forum.watching") : t("forum.watch")}
           </button>
           <BookmarkButton userId={user.id} threadId={threadId} />
           {canModerate && (
             <>
-              <button className="forum-tool-btn" onClick={() => pinThread.mutate({ threadId, value: !thread.pinned })}>
+              <button className="forum-tool-btn" onClick={() => pinThread.mutate({ threadId, value: !thread.pinned })} disabled={pinThread.isPending}>
                 {thread.pinned ? t("forum.unpin") : t("forum.pin")}
               </button>
-              <button className="forum-tool-btn" onClick={() => lockThread.mutate({ threadId, value: !thread.locked })}>
+              <button className="forum-tool-btn" onClick={() => lockThread.mutate({ threadId, value: !thread.locked })} disabled={lockThread.isPending}>
                 {thread.locked ? t("forum.unlock") : t("forum.lock")}
               </button>
             </>
@@ -295,7 +312,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
               </span>
               <BadgeChip level={thread.profiles?.top_badge_level} />
               <ModBadge profile={thread.profiles} />
-              <span className="forum-post-badge forum-post-badge--op">{t("forum.op")}</span>
+              <span className="forum-post-badge forum-post-badge--op" data-tooltip={t("forum.opTooltip", "Original Poster")} title={t("forum.opTooltip", "Original Poster")}>{t("forum.op")}</span>
             </div>
             <div className="forum-post-header-right">
               <span className="forum-post-time">
@@ -320,7 +337,8 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
             </div>
           </div>
           {editing ? (
-            <form onSubmit={handleSaveEdit} style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <form className="forum-edit-form" onSubmit={handleSaveEdit}>
+              <label htmlFor="forum-edit-title" className="forum-edit-label">{t("forum.threadTitlePlaceholder")}</label>
               <input
                 id="forum-edit-title"
                 name="title"
@@ -337,11 +355,11 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                   disabled={updateThread.isPending}
                 />
               </Suspense>
-              <div style={{ display: "flex", gap: 8 }}>
+              <div className="forum-edit-actions">
                 <button className="forum-submit-btn" type="submit" disabled={updateThread.isPending}>
                   {updateThread.isPending ? t("common.saving") : t("common.save")}
                 </button>
-                <button type="button" className="forum-delete-btn" onClick={() => setEditing(false)} style={{ alignSelf: "center" }}>
+                <button type="button" className="forum-delete-btn" onClick={() => setEditing(false)}>
                   {t("common.cancel")}
                 </button>
               </div>
@@ -356,10 +374,12 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
               <div className="forum-post-actions">
                 <button
                   className={`forum-like-btn${forumLikes.threads?.includes(threadId) ? " liked" : ""}`}
+                  aria-label={t("forum.like") + (thread.like_count ? ` (${thread.like_count})` : "")}
+                  aria-pressed={forumLikes.threads?.includes(threadId)}
                   onClick={() => toggleThreadLike.mutate(threadId, { onError: () => toast(t("forum.likeError")) })}
                   disabled={toggleThreadLike.isPending}
                 >
-                  👍 <span className="forum-like-count">{thread.like_count ?? 0}</span>
+                  <IconThumbsUp /> <span className="forum-like-count">{thread.like_count ?? 0}</span>
                 </button>
                 <ReactionsBar
                   contentType="thread"
@@ -372,8 +392,9 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                     className="forum-report-btn"
                     onClick={e => { e.stopPropagation(); setReportTarget({ type: "thread", id: thread.id, preview: thread.title }); }}
                     title={t("report.flag")}
+                    aria-label={t("report.flag")}
                   >
-                    🚩
+                    <IconFlag />
                   </button>
                 )}
               </div>
@@ -407,7 +428,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                       <BadgeChip level={reply.profiles?.top_badge_level} />
                       <ModBadge profile={reply.profiles} />
                       {reply.is_solution
-                        ? <span className="forum-solution-badge">✓ {t("forum.solution")}</span>
+                        ? <span className="forum-solution-badge" data-tooltip={t("forum.solutionTooltip", "Marked as solution")} title={t("forum.solutionTooltip", "Marked as solution")}>✓ {t("forum.solution")}</span>
                         : <span className="forum-post-num">#{i + 1}</span>
                       }
                     </div>
@@ -434,7 +455,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                     </div>
                   </div>
                   {isEditingThis ? (
-                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    <div className="forum-edit-form">
                       <Suspense fallback={<div style={{ height: 60 }} />}>
                         <RichTextEditor
                           content={editReplyContent}
@@ -444,7 +465,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                           disabled={updateReply.isPending}
                         />
                       </Suspense>
-                      <div style={{ display: "flex", gap: 8 }}>
+                      <div className="forum-edit-actions">
                         <button
                           className="forum-submit-btn"
                           disabled={updateReply.isPending || !editReplyContent || editReplyContent === "<p></p>"}
@@ -457,7 +478,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                         >
                           {updateReply.isPending ? t("common.saving") : t("forum.saveReply")}
                         </button>
-                        <button type="button" className="forum-delete-btn" style={{ alignSelf: "center" }} onClick={() => setEditingReplyId(null)}>
+                        <button type="button" className="forum-delete-btn" onClick={() => setEditingReplyId(null)}>
                           {t("common.cancel")}
                         </button>
                       </div>
@@ -472,10 +493,12 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                     <div className="forum-post-actions">
                       <button
                         className={`forum-like-btn${forumLikes.replies?.includes(reply.id) ? " liked" : ""}`}
+                        aria-label={t("forum.like") + (reply.like_count ? ` (${reply.like_count})` : "")}
+                        aria-pressed={forumLikes.replies?.includes(reply.id)}
                         onClick={() => toggleReplyLike.mutate(reply.id, { onError: () => toast(t("forum.likeError")) })}
                         disabled={toggleReplyLike.isPending}
                       >
-                        👍 <span className="forum-like-count">{reply.like_count ?? 0}</span>
+                        <IconThumbsUp /> <span className="forum-like-count">{reply.like_count ?? 0}</span>
                       </button>
                       <ReactionsBar
                         contentType="reply"
@@ -484,8 +507,8 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                         onToggle={(ct, cid, emoji) => toggleReaction.mutate({ contentType: ct, contentId: cid, emoji })}
                       />
                       {!isLocked && (
-                        <button className="forum-quote-btn" onClick={() => handleQuote(reply)} title={t("forum.quote")}>
-                          💬 {t("forum.quote")}
+                        <button className="forum-quote-btn" onClick={() => handleQuote(reply)} title={t("forum.quote")} aria-label={t("forum.quote")}>
+                          <IconQuote /> {t("forum.quote")}
                         </button>
                       )}
                       {(isAuthor || canModerate) && (
@@ -501,7 +524,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                       {canModify && (
                         <>
                           <button
-                            className="forum-delete-btn"
+                            className="forum-edit-btn"
                             onClick={() => { setEditingReplyId(reply.id); setEditReplyContent(reply.content ?? ""); }}
                           >
                             {t("forum.editReply")}
@@ -522,8 +545,9 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                           className="forum-report-btn"
                           onClick={e => { e.stopPropagation(); setReportTarget({ type: "reply", id: reply.id, preview: reply.content?.replace(/<[^>]*>/g, "").slice(0, 80) ?? "" }); }}
                           title={t("report.flag")}
+                          aria-label={t("report.flag")}
                         >
-                          🚩
+                          <IconFlag />
                         </button>
                       )}
                     </div>
@@ -854,8 +878,8 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
                 </div>
                 <div className="forum-row-mid">
                   <div className="forum-row-title">
-                    {thread.pinned && <span className="forum-badge forum-badge--pin">📌</span>}
-                    {thread.locked && <span className="forum-badge forum-badge--lock">🔒</span>}
+                    {thread.pinned && <span className="forum-badge forum-badge--pin"><IconPin /></span>}
+                    {thread.locked && <span className="forum-badge forum-badge--lock"><IconLock /></span>}
                     {thread.has_solution && <span className="forum-badge forum-badge--solved">✓</span>}
                     {thread.title}
                   </div>
@@ -867,7 +891,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
                     <span className="forum-dot">·</span>
                     <span>{timeAgo(thread.updated_at, t)}</span>
                     {thread.view_count > 0 && (
-                      <><span className="forum-dot">·</span><span>👁 {thread.view_count}</span></>
+                      <><span className="forum-dot">·</span><span className="forum-row-meta-icon"><IconEye /> {thread.view_count}</span></>
                     )}
                   </div>
                 </div>
@@ -877,7 +901,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
                     <span className="forum-row-stat-label">{t("forum.replyCount", { count: replyCount }).split(" ")[1]}</span>
                   </div>
                   {thread.like_count > 0 && (
-                    <div className="forum-row-likes">👍 {thread.like_count}</div>
+                    <div className="forum-row-likes"><IconThumbsUp /> {thread.like_count}</div>
                   )}
                   <BookmarkButton userId={user.id} threadId={thread.id} />
                 </div>
@@ -942,8 +966,8 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
               >
                 <span className="forum-trending-title">{thread.title}</span>
                 <div className="forum-trending-stats">
-                  {thread.like_count > 0 && <span>👍 {thread.like_count}</span>}
-                  <span>💬 {thread.forum_replies?.[0]?.count ?? 0}</span>
+                  {thread.like_count > 0 && <span className="forum-row-meta-icon"><IconThumbsUp /> {thread.like_count}</span>}
+                  <span className="forum-row-meta-icon"><IconQuote /> {thread.forum_replies?.[0]?.count ?? 0}</span>
                 </div>
               </button>
             ))}

@@ -129,7 +129,7 @@
   font-size: 12px;
   color: var(--text-muted);
   cursor: pointer;
-  min-height: 30px;
+  min-height: 44px;
   display: inline-flex; align-items: center;
   transition: background 0.12s, color 0.12s, border-color 0.12s;
 }
@@ -265,7 +265,7 @@
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  padding: 5px;
+  padding: 8px;
   min-width: 28px; min-height: 28px;
   display: flex; align-items: center; justify-content: center;
   border-radius: 6px;
@@ -492,7 +492,7 @@
   border: none;
   color: #a78bfa;
   cursor: pointer;
-  padding: 2px 3px;
+  padding: 12px;
   min-width: 20px; min-height: 20px;
   display: flex; align-items: center; justify-content: center;
   border-radius: 4px;
@@ -686,8 +686,8 @@
   font-size: 13px;
   color: var(--text-primary);
   cursor: pointer;
-  outline: none;
 }
+.sn-sort-select:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
 
 /* ── Body layout (sidebar + content) ─────────────────────────────────────── */
 
@@ -723,7 +723,7 @@
   border: none;
   color: #7c3aed;
   cursor: pointer;
-  padding: 4px;
+  padding: 8px;
   min-width: 28px; min-height: 28px;
   display: flex; align-items: center; justify-content: center;
   border-radius: 6px;
@@ -758,7 +758,7 @@
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  padding: 4px;
+  padding: 10px;
   min-width: 24px; min-height: 24px;
   display: flex; align-items: center; justify-content: center;
   border-radius: 5px;
@@ -782,15 +782,15 @@
   padding: 5px 8px;
   font-size: 12px;
   color: var(--text-primary);
-  outline: none;
   min-width: 0;
 }
+.sn-folder-input:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
 .sn-folder-save-btn {
   background: #7c3aed;
   color: #fff;
   border: none;
   border-radius: 5px;
-  padding: 5px 8px;
+  padding: 9px 8px;
   min-width: 26px; min-height: 26px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
@@ -799,7 +799,7 @@
   background: none;
   border: 1px solid var(--border);
   border-radius: 5px;
-  padding: 5px 8px;
+  padding: 9px 8px;
   min-width: 26px; min-height: 26px;
   display: flex; align-items: center; justify-content: center;
   color: var(--text-muted);

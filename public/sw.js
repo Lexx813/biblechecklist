@@ -35,21 +35,40 @@ self.addEventListener("fetch", (e) => {
   // Only handle same-origin GET requests; pass through Supabase/external calls
   if (e.request.method !== "GET" || url.origin !== self.location.origin) return;
 
-  // Never cache Vite dev server source files or HMR endpoints
-  if (url.pathname.startsWith("/src/") || url.pathname.startsWith("/@")) return;
+  // Never cache Next.js internal routes, HMR endpoints, or API routes
+  if (
+    url.pathname.startsWith("/_next/webpack-hmr") ||
+    url.pathname.startsWith("/_next/static/development/") ||
+    url.pathname.startsWith("/__nextjs") ||
+    url.pathname.startsWith("/api/")
+  ) return;
 
-  // Never cache index.html — always fetch fresh so new deploys load immediately
-  if (url.pathname === "/" || url.pathname === "/index.html") {
+  // Never cache HTML pages — always fetch fresh so new deploys load immediately
+  if (url.pathname === "/" || !url.pathname.includes(".")) {
     e.respondWith(
-      fetch(e.request).catch(() => caches.match("/index.html"))
+      fetch(e.request).catch(() => caches.match("/"))
     );
     return;
   }
 
-  // Hashed Vite chunks under /assets/ — network-only, never cache.
-  // Content hashes already bust CDN cache; caching here risks serving poisoned
-  // HTML entries if Vercel's SPA rewrite ever matched an /assets/ URL.
-  if (url.pathname.startsWith("/assets/")) return;
+  // Hashed Next.js chunks under /_next/static/ — cache-first (immutable hashes)
+  if (url.pathname.startsWith("/_next/static/")) {
+    e.respondWith(
+      caches.open(CACHE).then((cache) => cache.match(e.request)).then((cached) => {
+        if (cached) return cached;
+        return fetch(e.request).then((res) => {
+          if (!res.ok) return res;
+          const clone = res.clone();
+          caches.open(CACHE).then((c) => c.put(e.request, clone));
+          return res;
+        });
+      })
+    );
+    return;
+  }
+
+  // /_next/image and other next internals — network-only
+  if (url.pathname.startsWith("/_next/")) return;
 
   // Other static assets (fonts, icons, images) — cache-first
   if (STATIC_EXTENSIONS.test(url.pathname)) {

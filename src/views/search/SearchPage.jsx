@@ -93,7 +93,9 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
                 <h3 className="search-section-title">✨ {t("search.semanticSection")}</h3>
                 {semanticVerses.map(v => (
                   <div key={v.id} className="search-result" onClick={() => navigate("main")}>
-                    <span className="search-result-icon">📖</span>
+                    <span className="search-result-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+</svg></span>
                     <div className="search-result-body">
                       <span className="search-result-title">{v.book_name} — {v.book_theme}</span>
                       <span className="search-result-sub">{v.verse_ref}: {v.verse_text}</span>
@@ -108,7 +110,9 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
                 <h3 className="search-section-title">📖 {t("search.booksSection")}</h3>
                 {bookResults.map(b => (
                   <div key={b.index} className="search-result" onClick={() => navigate("main")}>
-                    <span className="search-result-icon">📖</span>
+                    <span className="search-result-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+</svg></span>
                     <div className="search-result-body">
                       <span className="search-result-title">{b.localName}</span>
                       <span className="search-result-sub">{b.chapters} chapters</span>
@@ -142,7 +146,9 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
                     className="search-result"
                     onClick={() => navigate("forum", { categoryId: th.category_id, threadId: th.id })}
                   >
-                    <span className="search-result-icon">💬</span>
+                    <span className="search-result-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+</svg></span>
                     <div className="search-result-body">
                       <span className="search-result-title">{th.title}</span>
                     </div>

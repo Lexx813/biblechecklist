@@ -2,11 +2,11 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
-import LandingPage from "./pages/LandingPage";
+import LandingPage from "./views/LandingPage";
 import "./styles/app.css";
 
-const TermsPage   = lazy(() => import("./pages/TermsPage"));
-const PrivacyPage = lazy(() => import("./pages/PrivacyPage"));
+const TermsPage   = lazy(() => import("./views/TermsPage"));
+const PrivacyPage = lazy(() => import("./views/PrivacyPage"));
 const AuthedApp   = lazy(() => import("./AuthedApp"));
 
 // Sync localStorage check — no Supabase loaded at all
@@ -17,7 +17,7 @@ function hasStoredSession() {
     if (new URLSearchParams(window.location.search).has("code")) return true;
     if (window.location.hash.includes("access_token=")) return true;
 
-    const ref = import.meta.env.VITE_SUPABASE_URL?.match(/\/\/([^.]+)/)?.[1] ?? "";
+    const ref = process.env.NEXT_PUBLIC_SUPABASE_URL?.match(/\/\/([^.]+)/)?.[1] ?? "";
     const raw = localStorage.getItem(`sb-${ref}-auth-token`);
     if (!raw) return false;
     // Presence of refresh_token means Supabase can restore the session even if access token expired

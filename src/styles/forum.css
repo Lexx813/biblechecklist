@@ -214,7 +214,7 @@
   transition: border-color 0.12s;
   box-sizing: border-box;
 }
-.forum-search-input:focus { border-color: #7c3aed; }
+.forum-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
 
 /* ── Sort tabs ───────────────────────────────────────────────── */
 .forum-sort-tabs {
@@ -305,10 +305,10 @@
 .forum-edited-tag { font-size: 11px; color: var(--text-muted); font-style: italic; }
 
 /* ── Watch button (uses forum-tool-btn--active) ──────────────── */
-.forum-tool-btn--active {
-  background: rgba(124,58,237,0.18) !important;
-  color: #a78bfa !important;
-  border-color: #7c3aed !important;
+.forum-thread-header .forum-tool-btn.forum-tool-btn--active {
+  background: rgba(124,58,237,0.35);
+  color: #e9d5ff;
+  border-color: #a78bfa;
 }
 
 /* ── Language filter pills ───────────────────────────────────── */
@@ -382,8 +382,36 @@
   color: #c62828; background: #FFEBEE;
   padding: 8px 12px; border-radius: 8px;
 }
+[data-theme="dark"] .forum-form-error,
+.dark .forum-form-error {
+  color: #fca5a5; background: rgba(198,40,40,0.18);
+}
 
 .forum-form-actions { display: flex; justify-content: flex-end; }
+
+/* ── Edit form (inline thread/reply edit) ────────────────────── */
+.forum-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.forum-edit-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.forum-edit-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Icon + text inline helper ───────────────────────────────── */
+.forum-row-meta-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
 .forum-submit-btn {
   background: var(--teal); color: #fff;
   border: none; border-radius: 10px;
@@ -575,6 +603,16 @@
   transition: color 0.15s;
 }
 .forum-delete-btn:hover { color: #c62828; }
+
+.forum-edit-btn {
+  background: none; border: none;
+  font-family: inherit;
+  font-size: 11px; font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer; padding: 0;
+  transition: color 0.15s;
+}
+.forum-edit-btn:hover { color: var(--teal); }
 
 /* ── Replies section ─────────────────────────────────────────── */
 .forum-replies {

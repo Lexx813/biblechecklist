@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { pushApi } from "../api/pushSubscriptions";
 
-const VAPID_PUBLIC_KEY = import.meta.env.VITE_VAPID_PUBLIC_KEY ?? "";
+const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? "";
 const LS_KEY = "nwt-push-subscribed";
 
 function urlBase64ToUint8Array(base64) {

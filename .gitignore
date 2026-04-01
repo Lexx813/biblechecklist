@@ -16,6 +16,7 @@ node_modules
 dist
 dist-ssr
 *.local
+.next/
 
 # Claude Code — contains sensitive tokens and local dev tooling
 .claude/

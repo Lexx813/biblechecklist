@@ -73,6 +73,14 @@
   --text-base: clamp(15px, 2vw,   16px);
   --text-lg:   clamp(15px, 2.5vw, 17px);
   --text-xl:   clamp(18px, 3vw,   20px);
+
+  /* z-index scale */
+  --z-base:    10;
+  --z-sticky:  100;
+  --z-overlay: 200;
+  --z-modal:   500;
+  --z-toast:   1000;
+  --z-top:     2000;
 }
 
 /* ---- Dark mode overrides ---- */
@@ -222,7 +230,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .progress-meta span { font-size: 12px; color: rgba(255,255,255,0.8); font-weight: 600; }
 .progress-meta strong { font-size: 14px; color: #fff; }
 .progress-track { height: 7px; background: rgba(255,255,255,0.2); border-radius: 999px; overflow: hidden; }
-.progress-fill { height: 100%; background: #C084FC; border-radius: 999px; transition: width 0.4s cubic-bezier(.4,0,.2,1); }
+.progress-fill { height: 100%; background: var(--teal-mid); border-radius: 999px; transition: width 0.4s cubic-bezier(.4,0,.2,1); }
 
 /* TABS */
 .tabs { display: flex; background: rgba(0,0,0,0.18); width: calc(100% + 40px); margin-left: -20px; }
@@ -234,7 +242,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   white-space: nowrap;
 }
 .tab-btn:hover { color: rgba(255,255,255,0.9); }
-.tab-btn.active { color: #fff; border-bottom-color: #C084FC; }
+.tab-btn.active { color: #fff; border-bottom-color: var(--teal-mid); }
 
 /* SEARCH */
 .toolbar {
@@ -379,7 +387,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   width: 28px; height: 28px; border-radius: 50%;
   border: 2px solid var(--border); flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: all 0.15s; background: #fff;
+  cursor: pointer; transition: border-color 0.15s, background 0.15s; background: #fff;
   touch-action: manipulation; position: relative;
 }
 /* Expand tap area to 44×44 via invisible padding zone */
@@ -525,7 +533,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   background: none; border: 1px solid var(--border);
   border-radius: 8px; padding: 8px 12px;
   font-size: 13px; font-weight: 700; color: var(--text-secondary);
-  cursor: pointer; transition: all 0.15s; font-family: inherit;
+  cursor: pointer; transition: border-color 0.15s, color 0.15s; font-family: inherit;
   touch-action: manipulation;
 }
 .book-info-toggle:hover { border-color: var(--teal); color: var(--teal); }
@@ -792,7 +800,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   border: 1.5px solid var(--border); border-radius: 10px;
   background: none; font-family: inherit;
   font-size: 14px; font-weight: 700; color: var(--text-muted);
-  cursor: pointer; transition: all 0.15s; touch-action: manipulation;
+  cursor: pointer; transition: border-color 0.15s, color 0.15s; touch-action: manipulation;
 }
 .confirm-cancel-btn:hover { border-color: var(--text-muted); color: var(--text-primary); }
 .confirm-ok-btn {
@@ -860,7 +868,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   background: none; border: 1.5px solid var(--border);
   color: var(--text-muted); font-family: inherit;
   font-size: 12px; font-weight: 700; padding: 7px 20px;
-  border-radius: 8px; cursor: pointer; transition: all 0.15s;
+  border-radius: 8px; cursor: pointer; transition: border-color 0.15s, color 0.15s;
 }
 .reset-btn:hover { border-color: #c62828; color: #c62828; }
 .reset-btn:active { transform: translateY(0); }
@@ -871,7 +879,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   background: none; border: 1.5px solid var(--border);
   color: var(--text-secondary); font-family: inherit;
   font-size: 12px; font-weight: 700; padding: 7px 14px;
-  border-radius: 8px; cursor: pointer; transition: all 0.15s;
+  border-radius: 8px; cursor: pointer; transition: border-color 0.15s, color 0.15s, background 0.15s, transform 0.15s;
   touch-action: manipulation;
 }
 .quick-action-btn:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-light); transform: translateY(-1px); }
@@ -885,7 +893,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   top: 4px; right: 4px;
   width: 5px; height: 5px;
   border-radius: 50%;
-  background: #C084FC;
+  background: var(--teal-mid);
   pointer-events: none;
 }
 .ch-pill.done.has-note::after { background: rgba(255,255,255,0.8); }
@@ -895,7 +903,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   top: calc(100% + 7px);
   left: 50%;
   transform: translateX(-50%);
-  background: #1e1035;
+  background: var(--teal-darker);
   color: #ede9fe;
   font-size: 11px;
   font-weight: 500;
@@ -919,7 +927,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   bottom: 100%; left: 50%;
   transform: translateX(-50%);
   border: 5px solid transparent;
-  border-bottom-color: #1e1035;
+  border-bottom-color: var(--teal-darker);
 }
 .ch-pill:hover .ch-pill-tooltip { opacity: 1; }
 
@@ -1120,13 +1128,13 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .modal-cancel-btn {
   background: none; border: 1.5px solid var(--border); color: var(--text-muted);
   font-family: inherit; font-size: 13px; font-weight: 700;
-  padding: 8px 18px; border-radius: 8px; cursor: pointer; transition: all 0.15s;
+  padding: 8px 18px; border-radius: 8px; cursor: pointer; transition: border-color 0.15s, color 0.15s;
 }
 .modal-cancel-btn:hover { border-color: var(--teal); color: var(--teal); }
 .modal-submit-btn {
   background: var(--teal); color: #fff; border: none;
   font-family: inherit; font-size: 13px; font-weight: 800;
-  padding: 8px 18px; border-radius: 8px; cursor: pointer; transition: all 0.15s;
+  padding: 8px 18px; border-radius: 8px; cursor: pointer; transition: background 0.15s;
 }
 .modal-submit-btn--danger { background: #c62828; }
 .modal-submit-btn--danger:hover { background: #b71c1c; }

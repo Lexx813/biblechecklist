@@ -238,7 +238,7 @@ export const messagesApi = {
 
   fetchLinkPreview: async (messageId, url) => {
     const { data: { session } } = await supabase.auth.getSession();
-    const base = import.meta.env.VITE_SUPABASE_URL;
+    const base = process.env.NEXT_PUBLIC_SUPABASE_URL;
     try {
       const res = await fetch(`${base}/functions/v1/fetch-link-preview`, {
         method: "POST",

@@ -1,6 +1,6 @@
 import { supabase } from "../lib/supabase";
 
-const FUNCTIONS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1`;
+const FUNCTIONS_URL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1`;
 
 export const subscriptionApi = {
   /**

@@ -669,7 +669,7 @@
   background: var(--card-bg);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.12s;
+  transition: border-color 0.12s, color 0.12s;
 }
 .blog-dash-action-btn:hover { border-color: var(--teal); color: var(--teal); }
 .blog-dash-action-btn--danger:hover { border-color: #c62828; color: #c62828; }
@@ -760,7 +760,7 @@
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: border-color 0.15s, color 0.15s, background 0.15s, transform 0.15s, box-shadow 0.15s;
 }
 .blog-editor-btn--draft {
   background: var(--card-bg);
