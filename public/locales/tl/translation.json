@@ -16,7 +16,7 @@
     "step3Title": "Subukan ang Iyong Kaalaman",
     "step3Body": "Sagutin ang mga pagsubok sa 12 iba't ibang temang Biblikal at kumita ng mga badge habang tinatatapos ang bawat antas.",
     "step4Title": "Bumuo ng Ugali sa Pagbabasa",
-    "step4Body": "Magtakda ng pang-araw-araw na layunin sa kabanata, subaybayan ang iyong streak, at gamitin ang reading heatmap para manatiling regular.",
+    "step4Body": "Magtakda ng pang-araw-araw na layunin at bumuo ng di-matitinag na gawi sa pagbabasa. Ang iyong streak ay nagsisimula sa sandaling basahin mo ang iyong unang kabanata — pangalagaan ito.",
     "step5Title": "I-unlock ang Buong Karanasan",
     "step5Body": "AI Study Companion, Reading Plans, Study Notes, Messages at Groups — lahat para sa $3/buwan.",
     "seePremium": "Tingnan ang Premium →",
@@ -34,7 +34,7 @@
     "deleting": "Binubura…",
     "edit": "I-edit",
     "loading": "Naglo-load…",
-    "close": "Close"
+    "close": "Isara"
   },
   "app": {
     "title": "Listahan ng Pagbabasa ng Bibliya",
@@ -131,6 +131,7 @@
   },
   "book": {
     "chapters": "{{count}} kabanata",
+    "chaptersLeft": "{{count}} natitira",
     "markUnread": "Markahan bilang hindi nabasa",
     "markBookRead": "Markahan ang buong aklat bilang nabasa",
     "chLabel": "Mga Kabanata — pindutin para markahan bilang nabasa",
@@ -197,7 +198,7 @@
     "motiveLine100": "Nabasa mo na ang buong Bibliya. Kahanga-hanga!"
   },
   "admin": {
-    "title": "Admin Dashboard",
+    "title": "Dashboard ng Admin",
     "totalUsers": "Kabuuang Mga Gumagamit",
     "admins": "Mga Admin",
     "members": "Mga Miyembro",
@@ -282,6 +283,18 @@
     "bibleProgress": "Pag-unlad sa Pagbabasa ng Bibliya",
     "chapters": "kabanata",
     "booksComplete": "aklat na natapos",
+    "goalTarget": "Layunin",
+    "goalOnTrack": "Nasa tamang landas",
+    "goalBehind": "Nahuhuli",
+    "goalNotSet": "Walang itinakdang layunin sa pagbabasa",
+    "goalSet": "Magtakda ng layunin",
+    "goalRemove": "Alisin ang layunin",
+    "goalPace": "{{pace}} kab/araw na bilis",
+    "goalProjected": "Tinatayang katapusan",
+    "readingStreak": "Streak ng Pagbabasa",
+    "currentStreak": "Kasalukuyang Streak",
+    "longestStreak": "Pinakamahaba na Streak",
+    "totalDays": "Kabuuang Araw na Nabasa",
     "quizProgress": "Pag-unlad sa Quiz",
     "levelsComplete": "antas na natapos",
     "quizNotStarted": "Wala pang aktibidad sa quiz.",
@@ -298,6 +311,9 @@
     "notifDigestDesc": "Isang Linggong buod ng iyong mga istatistika sa pagbabasa, pinakamahusay na post, at aktibidad sa forum.",
     "notifStreakLabel": "Mga alerto sa streak",
     "notifStreakDesc": "Makatanggap ng paalala kung hindi ka pa nagbabasa at ang iyong streak ay nasa panganib.",
+    "notifPushLabel": "Mga push notification sa browser",
+    "notifPushDesc": "Maabisuhan agad kapag may sumagot sa iyo.",
+    "notifPushDenied": "Naka-block ang mga notification — mangyaring i-enable sa mga setting ng browser.",
     "forumActivity": "Aktibidad sa Forum",
     "forumThreads": "Mga Thread",
     "forumReplies": "Mga Sagot"
@@ -310,7 +326,7 @@
     "uploading": "Ina-upload…",
     "displayName": "Display Name",
     "email": "Email Address",
-    "dangerZone": "Danger Zone",
+    "dangerZone": "Mapanganib na Zone",
     "deleteDesc": "Permanenteng burahin ang iyong account at lahat ng kaugnay na data. Hindi ito maaaring ibalik.",
     "deleteAccount": "Burahin ang Aking Account",
     "deleteConfirmTitle": "Burahin ang Account",
@@ -400,6 +416,7 @@
     "posting": "Nipo-post…",
     "errorTitleRequired": "Kinakailangan ang pamagat.",
     "errorContentRequired": "Kinakailangan ang nilalaman.",
+    "loadMore": "Mag-load pa",
     "myLanguage": "Aking wika",
     "allLanguages": "Lahat ng wika",
     "noThreads": "Wala pang mga thread",
@@ -438,7 +455,7 @@
     "watch": "Subaybayan",
     "unwatch": "Itigil ang pagsunod",
     "watching": "Sinusubaybayan",
-    "quote": "Quote",
+    "quote": "I-quote",
     "edited": "na-edit",
     "noResults": "Walang mga thread na tumutugma sa iyong paghahanap.",
     "searchPlaceholder": "Maghanap ng mga thread…",
@@ -450,7 +467,10 @@
     "loadMoreReplies": "Mag-load ng {{count}} pang mga sagot"
   },
   "home": {
+    "navLeaderboard": "Ranggo",
     "navTracker": "Tracker",
+    "leaderboardTitle": "Ranggo",
+    "leaderboardSub": "Tingnan kung ano ang ginagawa ng mga pinaka-dedikadong mambabasa",
     "heroBadge": "Iyong Paglalakbay sa Bibliya",
     "heroTitleLine1": "Magbasa.",
     "heroTitleLine2": "Magnilay.",
@@ -458,7 +478,7 @@
     "heroSub": "Subaybayan ang bawat kabanata, itala ang iyong mga saloobin, at kumonekta sa isang komunidad na naglalakad sa parehong landas.",
     "heroCta": "Buksan ang Bible Tracker →",
     "heroSecondary": "Basahin ang Blog",
-    "trackerLabel": "Feature",
+    "trackerLabel": "Tampok",
     "trackerTitle": "Tracker ng Pagbabasa ng Bibliya",
     "trackerSub": "66 aklat. 1,189 kabanata. Ang iyong pag-unlad, ang iyong bilis.",
     "trackerStat1": "66 Aklat",
@@ -494,7 +514,7 @@
     "notifEnable": "Abisuhan ako",
     "notifDismiss": "Hindi, salamat",
     "streakDay": "araw",
-    "streakLabel": "sunod-sunod na pagbabasa",
+    "streakLabel": "streak · Huwag sirain!",
     "streakBest": "Pinakamahusay"
   },
   "stats": {
@@ -658,12 +678,12 @@
     "strike": "May tuldok",
     "bulletList": "Listahan na may bullet",
     "orderedList": "Numbered na listahan",
-    "blockquote": "Blockquote",
+    "blockquote": "Sipi",
     "code": "Inline na code",
     "codeBlock": "Code block",
     "link": "Magdagdag ng link",
     "unlink": "Alisin ang link",
-    "hr": "Divider",
+    "hr": "Dibisyon",
     "linkPrompt": "Ilagay ang URL"
   },
   "bookNames": [
@@ -814,7 +834,7 @@
   },
   "readingPlan": {
     "todayGoal": "Ngayon: {{done}}/{{goal}} kab.",
-    "currentStreak": "{{count}}-araw na streak",
+    "currentStreak": "Huwag sirain! · {{count}}d",
     "longestStreak": "Pinakamahusay: {{count}} araw",
     "setGoal": "Magtakda ng Pang-araw-araw na Layunin",
     "goalLabel": "Pang-araw-araw na kabanata (1–30)",
@@ -822,11 +842,24 @@
     "goalMet": "Naabot ang layunin ngayon! 🎉",
     "finishIn": "~{{days}} araw para matapos"
   },
+  "leaderboard": {
+    "title": "Ranggo",
+    "subtitle": "Tingnan kung ano ang ginagawa ng mga pinaka-dedikadong mambabasa",
+    "tabReading": "Pagbabasa",
+    "tabQuiz": "Quiz",
+    "anonymous": "Hindi kilala",
+    "complete": "kumpleto",
+    "chapters": "kab",
+    "levelsComplete_one": "{{count}} antas na natapos",
+    "levelsComplete_other": "{{count}} antas na natapos",
+    "empty": "Wala pang resulta. Magsimulang magbasa para lumabas dito!"
+  },
   "search": {
     "placeholder": "Maghanap ng mga aklat, post, thread…",
     "booksSection": "Mga Aklat sa Bibliya",
     "postsSection": "Mga Post sa Blog",
     "threadsSection": "Mga Thread sa Forum",
+    "semanticSection": "Mga Kaugnay na Aklat sa Bibliya",
     "noResults": "Walang resulta para sa \"{{query}}\"",
     "typeToSearch": "Mag-type ng hindi bababa sa 2 karakter para maghanap"
   },
@@ -1380,7 +1413,7 @@
     "paused": "Naka-pause",
     "planPaused": "Naka-pause ang plano",
     "pausedNotice": "Naka-pause ang iyong plano. Ituloy upang patuloy na subaybayan ang iyong progreso.",
-    "analytics": "📊 Analytics",
+    "analytics": "📊 Mga Istatistika",
     "planStreak": "Sunud-sunod",
     "daysBehind": "Araw na nahuhuli",
     "daysAhead": "Araw na nauna",
@@ -1525,7 +1558,7 @@
     "react": "Mag-react",
     "reply": "Tumugon",
     "unknown": "Hindi kilala",
-    "user": "User",
+    "user": "Gumagamit",
     "noData": "Wala pang datos.",
     "read": "✓✓",
     "sent": "✓",
@@ -1972,7 +2005,7 @@
   },
   "upm": {
     "badge": "✦ Premium",
-    "title": "I-unlock ang buong karanasan",
+    "title": "Ang iyong progreso, tala, streak — i-unlock ang lahat",
     "period": "/ buwan",
     "feat": {
       "aiLabel": "AI Study Companion",
@@ -2001,9 +2034,9 @@
     "ctaLoading": "Iniredirekta…",
     "note": "Walang pangako · Kanselahin anumang oras · Ligtas na pagbabayad sa pamamagitan ng Stripe",
     "cancel": "Marahil mamaya",
-    "bannerTitle": "I-unlock ang Premium",
-    "bannerSub": "AI Companion, Mga Plano sa Pagbabasa, Mga Tala, Mensahe at Mga Grupo — $3/buwan",
-    "bannerCta": "I-upgrade →"
+    "bannerTitle": "Nagtatag ka ng tunay na progreso",
+    "bannerSub": "Protektahan ang iyong streak · Mga Plano, Tala, Mensahe at Grupo — $3/buwan",
+    "bannerCta": "I-unlock ang Lahat →"
   },
   "bookQuestions": [
     [

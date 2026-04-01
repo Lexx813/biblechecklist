@@ -11,7 +11,7 @@
     "deleting": "删除中…",
     "edit": "编辑",
     "loading": "加载中…",
-    "close": "Close"
+    "close": "关闭"
   },
   "celebrate": {
     "title": "书卷读完！🎉",
@@ -30,7 +30,7 @@
     "step3Title": "测试您的知识",
     "step3Body": "参加 12 个圣经主题的问答，逐关获得徽章。",
     "step4Title": "培养阅读习惯",
-    "step4Body": "设定每日章节目标，追踪连续阅读天数，用热力图保持规律。",
+    "step4Body": "设定每日章节目标，培养坚不可摧的阅读习惯。从阅读第一章的那一刻起，你的连续记录就开始了——好好保护它。",
     "step5Title": "解锁完整体验",
     "step5Body": "AI学习伴侣、阅读计划、学习笔记、消息和小组 — 每月仅需$3。",
     "seePremium": "查看高级版 →",
@@ -159,9 +159,9 @@
     "navTracker": "进度追踪",
     "navLeaderboard": "排行榜",
     "leaderboardTitle": "排行榜",
-    "leaderboardSub": "查看顶级读者和问答冠军",
+    "leaderboardSub": "看看最专注的读者在做什么",
     "streakDay": "天",
-    "streakLabel": "连续阅读",
+    "streakLabel": "连续阅读 · 别中断！",
     "streakBest": "最长",
     "heroBadge": "您的圣经之旅",
     "heroTitleLine1": "阅读。",
@@ -214,6 +214,7 @@
   },
   "book": {
     "chapters": "{{count}} 章",
+    "chaptersLeft": "剩余 {{count}} 章",
     "markUnread": "标记为未读",
     "markBookRead": "标记全书已读",
     "chLabel": "章节 — 点击标记已读",
@@ -318,7 +319,7 @@
   },
   "leaderboard": {
     "title": "排行榜",
-    "subtitle": "顶级读者和问答冠军",
+    "subtitle": "看看最专注的读者在做什么",
     "tabReading": "阅读",
     "tabQuiz": "问答",
     "anonymous": "匿名",
@@ -349,7 +350,7 @@
   },
   "readingPlan": {
     "todayGoal": "今日：{{done}}/{{goal}} 章",
-    "currentStreak": "连续 {{count}} 天",
+    "currentStreak": "别中断！· {{count}}天",
     "longestStreak": "最长：{{count}} 天",
     "setGoal": "设置每日目标",
     "goalLabel": "每日章节（1–30）",
@@ -412,6 +413,7 @@
     "customPlanTitle": "自定义计划",
     "createAndStart": "创建并开始",
     "quickSelect": "快速选择",
+    "custom": "自定义",
     "enterDays": "输入天数",
     "customNameRequired": "请为计划命名。",
     "customBooksRequired": "请至少选择一卷书。",
@@ -1282,7 +1284,7 @@
   },
   "upm": {
     "badge": "✦ 高级版",
-    "title": "解锁完整体验",
+    "title": "你的进度、笔记、连续记录——全部解锁",
     "period": "/ 月",
     "feat": {
       "aiLabel": "AI 学习助手",
@@ -1311,9 +1313,9 @@
     "ctaLoading": "跳转中…",
     "note": "无需承诺 · 随时取消 · 通过 Stripe 安全付款",
     "cancel": "稍后再说",
-    "bannerTitle": "解锁高级版",
-    "bannerSub": "AI 学习助手、阅读计划、学习笔记、私信和学习小组 — $3/月",
-    "bannerCta": "立即升级 →"
+    "bannerTitle": "你已取得真实的进步",
+    "bannerSub": "保护你的连续记录 · 阅读计划、学习笔记、私信和小组 — $3/月",
+    "bannerCta": "全部解锁 →"
   },
   "admin": {
     "title": "管理后台",

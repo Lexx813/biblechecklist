@@ -16,7 +16,7 @@
     "step3Title": "Pon a prueba tu conocimiento",
     "step3Body": "Responde cuestionarios sobre 12 temas bíblicos diferentes y gana insignias al completar cada nivel.",
     "step4Title": "Desarrolla el hábito de lectura",
-    "step4Body": "Establece una meta diaria de capítulos, sigue tu racha y usa el mapa de calor de lectura para mantenerte constante.",
+    "step4Body": "Establece una meta diaria de capítulos y crea un hábito de lectura inquebrantable. Tu racha comienza en el momento que lees tu primer capítulo — protégela.",
     "step5Title": "Desbloquea la Experiencia Completa",
     "step5Body": "Compañero de Estudio con IA, Planes de Lectura, Notas de Estudio, Mensajes y Grupos — todo por solo $3/mes.",
     "seePremium": "Ver Premium →",
@@ -34,7 +34,7 @@
     "deleting": "Eliminando…",
     "edit": "Editar",
     "loading": "Cargando…",
-    "close": "Close"
+    "close": "Cerrar"
   },
   "app": {
     "title": "Lista de Lectura Bíblica",
@@ -131,6 +131,7 @@
   },
   "book": {
     "chapters": "{{count}} capítulos",
+    "chaptersLeft": "{{count}} restantes",
     "markUnread": "Marcar como no leído",
     "markBookRead": "Marcar libro completo como leído",
     "chLabel": "Capítulos — toca para marcar como leído",
@@ -282,6 +283,18 @@
     "bibleProgress": "Progreso de Lectura Bíblica",
     "chapters": "capítulos",
     "booksComplete": "libros completos",
+    "goalTarget": "Meta",
+    "goalOnTrack": "Al día",
+    "goalBehind": "Con retraso",
+    "goalNotSet": "Sin meta de lectura definida",
+    "goalSet": "Establecer meta",
+    "goalRemove": "Eliminar meta",
+    "goalPace": "Ritmo de {{pace}} cap/día",
+    "goalProjected": "Fin estimado",
+    "readingStreak": "Racha de Lectura",
+    "currentStreak": "Racha Actual",
+    "longestStreak": "Racha Más Larga",
+    "totalDays": "Total de Días Leídos",
     "quizProgress": "Progreso del Quiz",
     "levelsComplete": "niveles completados",
     "quizNotStarted": "Aún sin actividad en el quiz.",
@@ -292,6 +305,9 @@
     "aboutPlaceholder": "Comparte algo sobre ti…",
     "aboutEmpty": "Sin bio aún.",
     "notificationsTitle": "Notificaciones",
+    "notifPushLabel": "Notificaciones push del navegador",
+    "notifPushDesc": "Recibe una notificación instantánea cuando alguien te responda.",
+    "notifPushDenied": "Notificaciones bloqueadas — actívalas en la configuración del navegador.",
     "notifBlogLabel": "Correos de nuevas publicaciones",
     "notifBlogDesc": "Recibe un correo cuando se publique un nuevo artículo.",
     "notifDigestLabel": "Resumen semanal",
@@ -400,6 +416,7 @@
     "posting": "Publicando…",
     "errorTitleRequired": "El título es obligatorio.",
     "errorContentRequired": "El contenido es obligatorio.",
+    "loadMore": "Cargar más",
     "myLanguage": "Mi idioma",
     "allLanguages": "Todos los idiomas",
     "noThreads": "Aún no hay hilos",
@@ -450,7 +467,10 @@
     "loadMoreReplies": "Cargar {{count}} respuestas más"
   },
   "home": {
+    "navLeaderboard": "Clasificación",
     "navTracker": "Rastreador",
+    "leaderboardTitle": "Clasificación",
+    "leaderboardSub": "Mira lo que hacen los lectores más dedicados",
     "heroBadge": "Tu Recorrido Bíblico",
     "heroTitleLine1": "Lee.",
     "heroTitleLine2": "Reflexiona.",
@@ -494,7 +514,7 @@
     "notifEnable": "Notificarme",
     "notifDismiss": "No, gracias",
     "streakDay": "día",
-    "streakLabel": "racha de lectura",
+    "streakLabel": "racha · ¡No la rompas!",
     "streakBest": "Mejor"
   },
   "stats": {
@@ -814,7 +834,7 @@
   },
   "readingPlan": {
     "todayGoal": "Hoy: {{done}}/{{goal}} cap.",
-    "currentStreak": "{{count}} días seguidos",
+    "currentStreak": "¡No la rompas! · {{count}}d",
     "longestStreak": "Mejor: {{count}} días",
     "setGoal": "Meta Diaria",
     "goalLabel": "Capítulos diarios (1–30)",
@@ -822,11 +842,24 @@
     "goalMet": "¡Meta alcanzada hoy! 🎉",
     "finishIn": "~{{days}} días para terminar"
   },
+  "leaderboard": {
+    "title": "Clasificación",
+    "subtitle": "Mira lo que hacen los lectores más dedicados",
+    "tabReading": "Lectura",
+    "tabQuiz": "Quiz",
+    "anonymous": "Anónimo",
+    "complete": "completado",
+    "chapters": "cap.",
+    "levelsComplete_one": "{{count}} nivel completado",
+    "levelsComplete_other": "{{count}} niveles completados",
+    "empty": "Aún no hay resultados. ¡Comienza a leer para aparecer aquí!"
+  },
   "search": {
     "placeholder": "Buscar libros, entradas, hilos…",
     "booksSection": "Libros Bíblicos",
     "postsSection": "Entradas del Blog",
     "threadsSection": "Hilos del Foro",
+    "semanticSection": "Libros Bíblicos Relacionados",
     "noResults": "Sin resultados para \"{{query}}\"",
     "typeToSearch": "Escribe al menos 2 caracteres para buscar"
   },
@@ -1972,7 +2005,7 @@
   },
   "upm": {
     "badge": "✦ Premium",
-    "title": "Desbloquea la experiencia completa",
+    "title": "Tu progreso, tus notas, tu racha — desbloquea todo",
     "period": "/ mes",
     "feat": {
       "aiLabel": "Asistente de Estudio con IA",
@@ -2001,9 +2034,9 @@
     "ctaLoading": "Redirigiendo…",
     "note": "Sin compromiso · Cancela cuando quieras · Pago seguro con Stripe",
     "cancel": "Quizás después",
-    "bannerTitle": "Desbloquear Premium",
-    "bannerSub": "Asistente IA, Planes de Lectura, Notas, Mensajes y Grupos — $3/mes",
-    "bannerCta": "Mejorar →"
+    "bannerTitle": "Has construido un progreso real",
+    "bannerSub": "Protege tu racha · Planes de Lectura, Notas, Mensajes y Grupos — $3/mes",
+    "bannerCta": "Desbloquear todo →"
   },
   "bookQuestions": [
     [
