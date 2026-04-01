@@ -2,7 +2,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpBackend from "i18next-http-backend";
-import enTranslation from "../public/locales/en/translation.json";
+import enTranslation from "./locales/en/translation.json";
 
 // Add a new language here — one entry is all that's needed
 export const LANGUAGES = [
