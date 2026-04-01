@@ -4,7 +4,8 @@
   border-radius: 16px;
   padding: 14px 18px 12px;
   overflow: hidden;
-  margin: 0;
+  max-width: 680px;
+  margin: 0 auto;
 }
 
 .daily-verse::before {
