@@ -16,7 +16,7 @@
     "step3Title": "Test Your Knowledge",
     "step3Body": "Take quizzes on 12 different Bible themes and earn badges as you complete each level.",
     "step4Title": "Build a Reading Habit",
-    "step4Body": "Set a daily chapter goal, track your streak, and use the reading heatmap to stay consistent.",
+    "step4Body": "Set a daily chapter goal and build an unbreakable reading habit. Your streak starts the moment you read your first chapter — protect it.",
     "step5Title": "Unlock the Full Experience",
     "step5Body": "AI Study Companion, Reading Plans, Study Notes, Messages & Groups — everything you need to go deeper in your study for just $3/month.",
     "seePremium": "See Premium →",
@@ -131,6 +131,7 @@
   },
   "book": {
     "chapters": "{{count}} chapters",
+    "chaptersLeft": "{{count}} left",
     "markUnread": "Mark unread",
     "markBookRead": "Mark whole book read",
     "chLabel": "Chapters — tap to mark read",
@@ -468,9 +469,9 @@
     "navLeaderboard": "Leaderboard",
     "navTracker": "Tracker",
     "leaderboardTitle": "Leaderboard",
-    "leaderboardSub": "See top readers and quiz champions",
+    "leaderboardSub": "See what the most dedicated readers are doing",
     "streakDay": "day",
-    "streakLabel": "reading streak",
+    "streakLabel": "streak · Don't break it",
     "streakBest": "Best",
     "heroBadge": "Your Bible Journey",
     "heroTitleLine1": "Read.",
@@ -832,7 +833,7 @@
   },
   "readingPlan": {
     "todayGoal": "Today: {{done}}/{{goal}} chaps",
-    "currentStreak": "{{count}}-day streak",
+    "currentStreak": "Don't break it",
     "longestStreak": "Best: {{count}} days",
     "setGoal": "Set Daily Goal",
     "goalLabel": "Daily chapters (1–30)",
@@ -842,7 +843,7 @@
   },
   "leaderboard": {
     "title": "Leaderboard",
-    "subtitle": "Top readers and quiz champions",
+    "subtitle": "See what the most dedicated readers are doing",
     "tabReading": "Reading",
     "tabQuiz": "Quiz",
     "anonymous": "Anonymous",
@@ -1600,7 +1601,7 @@
   },
   "upm": {
     "badge": "✦ Premium",
-    "title": "Unlock the full experience",
+    "title": "Your progress, your notes, your streak — unlock everything",
     "period": "/ month",
     "feat": {
       "aiLabel": "AI Study Companion",
@@ -1629,8 +1630,8 @@
     "ctaLoading": "Redirecting…",
     "note": "No commitment · Cancel anytime · Secure payment via Stripe",
     "cancel": "Maybe later",
-    "bannerTitle": "Unlock Premium",
-    "bannerSub": "AI Companion, Reading Plans, Study Notes, Messages & Groups — $3/mo",
-    "bannerCta": "Upgrade →"
+    "bannerTitle": "You've built real progress",
+    "bannerSub": "Protect your streak · Reading Plans, Study Notes, Messages & Groups — $3/mo",
+    "bannerCta": "Unlock Everything →"
   }
 }

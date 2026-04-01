@@ -189,7 +189,7 @@ function ClamTab({ week, prep, onTogglePart, onNoteChange, isPremium, onUpgrade 
         <div className="mp-notes-wrap">
           <button className="mp-item mp-item--locked" onClick={onUpgrade} style={{ width: "100%", justifyContent: "center" }}>
             <span className="mp-item-text" style={{ textAlign: "center", color: "var(--text-muted)" }}>
-              🔒 Add notes — Premium feature
+              🔒 Save your notes — Premium
             </span>
           </button>
         </div>
@@ -240,7 +240,7 @@ function WatchtowerTab({ week, prep, onTogglePara, onNoteChange, isPremium, onUp
           <div className="mp-progress-bar-fill" style={{ width: `${pct}%` }} />
         </div>
         <div className="mp-progress-label">
-          <span>{done}/{total} paragraphs</span>
+          <span>{done === 0 ? `${total} paragraphs to review` : `${done} of ${total} paragraphs reviewed`}</span>
           <span>{pct}%</span>
         </div>
       </div>
@@ -276,7 +276,7 @@ function WatchtowerTab({ week, prep, onTogglePara, onNoteChange, isPremium, onUp
         <div className="mp-notes-wrap">
           <button className="mp-item" onClick={onUpgrade} style={{ width: "100%", justifyContent: "center" }}>
             <span className="mp-item-text" style={{ textAlign: "center", color: "var(--text-muted)" }}>
-              🔒 Add notes — Premium feature
+              🔒 Save your notes — Premium
             </span>
           </button>
         </div>
@@ -428,7 +428,9 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
             </p>
           </div>
           {streak > 0 && (
-            <div className="mp-streak">🔥 {streak} week{streak !== 1 ? "s" : ""}</div>
+            <div className="mp-streak">
+              🔥 {streak}-week prep streak{streak >= 2 ? " · Don't break it" : " · Keep it going"}
+            </div>
           )}
         </div>
 

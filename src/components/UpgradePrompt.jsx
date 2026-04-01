@@ -17,13 +17,13 @@ const FEATURE_ICONS = {
 const FEATURE_INFO = {
   readingPlans: {
     icon: FEATURE_ICONS.readingPlans,
-    title: "Unlock Reading Plans",
-    desc: "Follow structured multi-week plans through any book of the Bible. Stay on track with daily goals and catch-up mode.",
+    title: "Give your reading a plan",
+    desc: "You're already building a streak — structured plans keep that momentum going. Multi-week guides through any Bible book, with daily goals and catch-up mode.",
   },
   studyNotes: {
     icon: FEATURE_ICONS.studyNotes,
-    title: "Unlock Study Notes",
-    desc: "Take rich-text notes tied to specific passages and chapters. Organize with folders and tags, export as PDF.",
+    title: "Your insights deserve to be saved",
+    desc: "Don't lose what you've learned. Rich notes tied to any passage or chapter, organized with folders and tags, exportable as PDF.",
   },
   messages: {
     icon: FEATURE_ICONS.messages,
@@ -32,8 +32,8 @@ const FEATURE_INFO = {
   },
   groups: {
     icon: FEATURE_ICONS.groups,
-    title: "Unlock Study Groups",
-    desc: "Create or join study groups with shared progress tracking, group chat, and leaderboards.",
+    title: "Join readers who are growing faster",
+    desc: "Brothers and sisters in study groups read more consistently and finish more books. Create or join a group with shared progress and leaderboards.",
   },
   ai: {
     icon: FEATURE_ICONS.ai,
@@ -75,9 +75,9 @@ export default function UpgradePrompt({ feature, onClose, userId }) {
         <p className="up-price-note">7-day free trial · Cancel anytime</p>
 
         <button className="up-cta" onClick={handleUpgrade} disabled={subscribe.isPending}>
-          {subscribe.isPending ? "Redirecting..." : "Start Free Trial"}
+          {subscribe.isPending ? "Redirecting..." : "Start Free Trial →"}
         </button>
-        <button className="up-skip" onClick={onClose}>Maybe later</button>
+        <button className="up-skip" onClick={onClose}>Not right now</button>
       </div>
     </div>,
     document.body
