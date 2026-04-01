@@ -204,53 +204,55 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       <section className="home-section">
         <SectionHeader label={t("quiz.homeLabel")} title={t("quiz.homeTitle")} sub={t("quiz.homeSub")} />
 
-        <button className="home-tracker-card" onClick={() => navigate("quiz")}>
-          <div className="home-tracker-visual">
-            <div className="home-tracker-glow" />
-            <div className="home-tracker-icon-wrap">
-              <svg className="home-tracker-svg-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-                <path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
-                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
-                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
-              </svg>
+        <div className="home-quiz-grid">
+          <button className="home-quiz-card" onClick={() => navigate("quiz")}>
+            <div className="home-quiz-card-banner">
+              <div className="home-quiz-card-glow" />
+              <div className="home-quiz-card-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                  <path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                  <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                  <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                </svg>
+              </div>
             </div>
-            <div className="home-tracker-stats-preview">
-              <div className="home-tracker-stat-pill">12 Levels</div>
-              <div className="home-tracker-stat-pill">240 Questions</div>
-              <div className="home-tracker-stat-pill">Earn Badges</div>
+            <div className="home-quiz-card-body">
+              <h3 className="home-quiz-card-title">{t("quiz.homeTitle")}</h3>
+              <p className="home-quiz-card-desc">{t("quiz.homeSub")}</p>
+              <div className="home-quiz-chips">
+                <span className="home-quiz-chip">12 Levels</span>
+                <span className="home-quiz-chip">240 Questions</span>
+                <span className="home-quiz-chip">Badges</span>
+              </div>
+              <span className="home-quiz-card-cta">{t("quiz.homeCard")}</span>
             </div>
-          </div>
-          <div className="home-tracker-info">
-            <h3 className="home-tracker-title">{t("quiz.homeTitle")}</h3>
-            <p className="home-tracker-desc">{t("quiz.homeSub")}</p>
-            <span className="home-tracker-cta">{t("quiz.homeCard")}</span>
-          </div>
-        </button>
+          </button>
 
-        <button className="home-tracker-card home-tracker-card--alt" onClick={() => navigate("familyQuiz")}>
-          <div className="home-tracker-visual">
-            <div className="home-tracker-glow home-tracker-glow--accent" />
-            <div className="home-tracker-icon-wrap">
-              <svg className="home-tracker-svg-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                <circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-              </svg>
+          <button className="home-quiz-card home-quiz-card--family" onClick={() => navigate("familyQuiz")}>
+            <div className="home-quiz-card-banner">
+              <div className="home-quiz-card-glow" />
+              <div className="home-quiz-card-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
             </div>
-            <div className="home-tracker-stats-preview">
-              <div className="home-tracker-stat-pill">Create a Quiz</div>
-              <div className="home-tracker-stat-pill">Share a Link</div>
-              <div className="home-tracker-stat-pill">Family Leaderboard</div>
+            <div className="home-quiz-card-body">
+              <h3 className="home-quiz-card-title">Family Bible Challenge</h3>
+              <p className="home-quiz-card-desc">Challenge your family and friends with a custom quiz and see who scores highest.</p>
+              <div className="home-quiz-chips">
+                <span className="home-quiz-chip">Create a Quiz</span>
+                <span className="home-quiz-chip">Share Link</span>
+                <span className="home-quiz-chip">Leaderboard</span>
+              </div>
+              <span className="home-quiz-card-cta">Create a challenge →</span>
             </div>
-          </div>
-          <div className="home-tracker-info">
-            <h3 className="home-tracker-title">Family Bible Challenge</h3>
-            <p className="home-tracker-desc">Challenge your family and friends with a custom Bible quiz and see who scores highest.</p>
-            <span className="home-tracker-cta">Create a challenge →</span>
-          </div>
-        </button>
+          </button>
+        </div>
       </section>
 
       {/* ── Community Notes section ── */}
