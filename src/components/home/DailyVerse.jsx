@@ -23,7 +23,7 @@ export default function DailyVerse({ user }) {
 
   return (
     <div className="daily-verse">
-      <div className="daily-verse-label">✦ {t("dailyVerse.label")}</div>
+      <div className="daily-verse-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg> {t("dailyVerse.label")}</div>
       <p className="daily-verse-text">{t(`verses.${idx}.text`)}</p>
       {(() => {
         const ref = t(`verses.${idx}.ref`);
@@ -55,7 +55,7 @@ export default function DailyVerse({ user }) {
           className="daily-verse-ai-btn"
           onClick={() => setShowAI(v => !v)}
         >
-          {showAI ? "Hide AI Companion" : "✨ Ask AI about this verse"}
+          {showAI ? "Hide AI Companion" : <><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{verticalAlign:"middle",marginRight:4}}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Ask AI about this verse</>}
         </button>
       )}
 

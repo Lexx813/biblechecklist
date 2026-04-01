@@ -131,12 +131,12 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       {!streakLoading && streak.current_streak > 0 && (
         <section className="home-section home-section--slim">
           <button className="home-streak-banner" onClick={() => navigate("profile")}>
-            <span className="home-streak-fire" aria-hidden="true">🔥</span>
+            <span className="home-streak-fire" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-8-3.03-8-7 0-2.44 1.34-4.81 2.5-6.35A1 1 0 0 1 8.18 10c.34 1.14 1.1 2.13 2.05 2.75C10.31 10 12 6 12 2a1 1 0 0 1 1.66-.75c2.24 1.92 5.84 5.63 5.84 10.75 0 5.68-3.55 11-7.5 11z"/></svg></span>
             <span className="home-streak-text">
               <strong>{streak.current_streak}</strong>-{t("home.streakDay")} {t("home.streakLabel")}
             </span>
             {streak.longest_streak > streak.current_streak && (
-              <span className="home-streak-best"><span aria-hidden="true">🏆</span> {t("home.streakBest")}: {streak.longest_streak}</span>
+              <span className="home-streak-best"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3h14l-1.5 5H18a5 5 0 0 1-4 4.9V17h3a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2h3v-4.1A5 5 0 0 1 6 8h-.5L4 3h1zm7 10a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg> {t("home.streakBest")}: {streak.longest_streak}</span>
             )}
           </button>
         </section>
@@ -146,7 +146,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       {!isPremium && (
         <section className="home-section home-section--slim">
           <button className="home-premium-banner" onClick={onUpgrade}>
-            <span className="home-premium-banner-icon" aria-hidden="true">✦</span>
+            <span className="home-premium-banner-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg></span>
             <div className="home-premium-banner-text">
               <strong>{t("upm.bannerTitle")}</strong>
               <span>{t("upm.bannerSub")}</span>
@@ -164,7 +164,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           <div className="home-tracker-visual">
             <div className="home-tracker-glow" />
             <div className="home-tracker-icon-wrap">
-              <span className="home-tracker-big-icon" aria-hidden="true">📖</span>
+              <span className="home-tracker-big-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
             </div>
             <div className="home-tracker-stats-preview">
               <div className="home-tracker-stat-pill">{t("home.trackerStat1")}</div>
@@ -189,7 +189,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       {/* ── Leaderboard CTA ── */}
       <section className="home-section home-section--compact">
         <button className="home-lb-cta" onClick={() => navigate("leaderboard")}>
-          <span className="home-lb-icon" aria-hidden="true">🏆</span>
+          <span className="home-lb-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3h14l-1.5 5H18a5 5 0 0 1-4 4.9V17h3a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2h3v-4.1A5 5 0 0 1 6 8h-.5L4 3h1zm7 10a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg></span>
           <div>
             <div className="home-lb-title">{t("home.leaderboardTitle")}</div>
             <div className="home-lb-sub">{t("home.leaderboardSub")}</div>
@@ -264,7 +264,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         />
 
         {notesLoading ? <ForumSkeleton /> : previewNotes.length === 0 ? (
-          <EmptyState icon="📝" title={t("home.notesEmpty")} sub={t("home.notesEmptySub")} btnLabel={t("home.notesWriteBtn")} onBtn={() => navigate("studyNotes", { tab: "public" })} />
+          <EmptyState icon={<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>} title={t("home.notesEmpty")} sub={t("home.notesEmptySub")} btnLabel={t("home.notesWriteBtn")} onBtn={() => navigate("studyNotes", { tab: "public" })} />
         ) : (
           <div className="home-forum-list">
             {previewNotes.map(note => {
@@ -280,7 +280,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                       title={note.author?.display_name ?? "Anonymous"}
                     >
                       {note.author?.avatar_url
-                        ? <img src={note.author.avatar_url} alt={note.author.display_name} className="home-note-avatar-img" />
+                        ? <img src={note.author.avatar_url} alt={note.author.display_name} className="home-note-avatar-img" width={32} height={32} />
                         : <span className="home-note-avatar-initials">{(note.author?.display_name ?? "A")[0].toUpperCase()}</span>
                       }
                     </button>
@@ -288,7 +288,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                       <h4 className="home-forum-row-title">{note.title || "Untitled"}</h4>
                       <div className="home-forum-row-meta">
                         <span>{note.author?.display_name ?? "Anonymous"}</span>
-                        {passage && <><span className="home-dot">·</span><span>📖 {passage}</span></>}
+                        {passage && <><span className="home-dot">·</span><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:3}}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>{passage}</span></>}
                         <span className="home-dot">·</span>
                         <span>{formatDate(note.updated_at)}</span>
                       </div>
@@ -334,9 +334,9 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                   className="home-blog-cover"
                   style={{ background: post.cover_url ? undefined : getGradient(post.id) }}
                 >
-                  {post.cover_url && <img src={post.cover_url} alt={post.title} loading="lazy" />}
+                  {post.cover_url && <img src={post.cover_url} alt={post.title} loading="lazy" width={400} height={200} />}
                   {post.like_count > 0 && (
-                    <span className="home-blog-badge">👍 {formatNum(post.like_count)}</span>
+                    <span className="home-blog-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 22V11l5-9a1 1 0 0 1 1.8.5L13 7h7a2 2 0 0 1 2 2.4l-2 10A2 2 0 0 1 18 21H7zM2 11h3v11H2z"/></svg> {formatNum(post.like_count)}</span>
                   )}
                 </div>
                 <div className="home-blog-body">
@@ -365,7 +365,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         />
 
         {threadsLoading ? <ForumSkeleton /> : topThreads.length === 0 ? (
-          <EmptyState icon="💬" title="No discussions yet" sub="Start the first conversation in the community." btnLabel="Start a thread →" onBtn={() => navigate("forum")} />
+          <EmptyState icon={<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>} title="No discussions yet" sub="Start the first conversation in the community." btnLabel="Start a thread →" onBtn={() => navigate("forum")} />
         ) : (
           <div className="home-forum-list">
             {topThreads.map(thread => (
@@ -384,10 +384,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 </div>
                 <div className="home-forum-row-stats">
                   {thread.like_count > 0 && (
-                    <span className="home-forum-stat">👍 {formatNum(thread.like_count)}</span>
+                    <span className="home-forum-stat"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 22V11l5-9a1 1 0 0 1 1.8.5L13 7h7a2 2 0 0 1 2 2.4l-2 10A2 2 0 0 1 18 21H7zM2 11h3v11H2z"/></svg> {formatNum(thread.like_count)}</span>
                   )}
                   <span className="home-forum-stat">
-                    💬 {formatNum(thread.forum_replies?.[0]?.count ?? 0)}
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> {formatNum(thread.forum_replies?.[0]?.count ?? 0)}
                   </span>
                 </div>
               </div>
@@ -401,7 +401,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
       {showNotifBanner && (
         <div className="home-notif-banner">
-          <span className="home-notif-icon">🔔</span>
+          <span className="home-notif-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>
           <div className="home-notif-text">
             <strong>{t("home.notifBannerTitle")}</strong>
             <span>{t("home.notifBannerSub")}</span>

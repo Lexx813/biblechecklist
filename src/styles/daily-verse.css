@@ -64,16 +64,28 @@
 }
 
 .daily-verse-dot {
-  width: 5px;
-  height: 5px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.25);
-  transition: background 0.2s, transform 0.2s;
+  background: none;
+  transition: background 0.2s;
   cursor: pointer;
   border: none;
   padding: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.daily-verse-dot.active {
+.daily-verse-dot::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  transition: background 0.2s, transform 0.2s;
+}
+.daily-verse-dot.active::after {
   background: #C084FC;
   transform: scale(1.4);
 }

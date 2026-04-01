@@ -307,7 +307,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               aria-label={t("nav.profile", "Profile")}
             >
               {profile?.avatar_url
-                ? <img src={profile.avatar_url} className="page-nav-avatar-img" alt="avatar" />
+                ? <img src={profile.avatar_url} className="page-nav-avatar-img" alt="avatar" width={36} height={36} />
                 : <span className="page-nav-avatar-initials">
                     {(profile?.display_name || user.email)?.[0]?.toUpperCase()}
                   </span>
@@ -413,7 +413,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               : <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Message}</span> {t("nav.messages")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>}
 
             {!isPremium && (
-              <button className="page-nav-mobile-upgrade-btn" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span aria-hidden="true">✦</span> Upgrade to Premium — $3/mo</button>
+              <button className="page-nav-mobile-upgrade-btn" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg> Upgrade to Premium — $3/mo</button>
             )}
 
             <div className="page-nav-mobile-divider" />

@@ -705,7 +705,7 @@
 }
 
 .home-blog-author { font-weight: 600; }
-.home-dot { opacity: 0.4; }
+.home-dot { opacity: 0.55; }
 
 /* ── Forum list ── */
 .home-forum-list {
@@ -1127,9 +1127,11 @@
   box-shadow: 0 8px 32px rgba(0,0,0,0.35);
   max-width: 480px;
   width: calc(100% - 32px);
-  animation: notif-slide-up 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .home-notif-banner { animation: notif-slide-up 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+}
 @keyframes notif-slide-up {
   from { opacity: 0; transform: translateX(-50%) translateY(20px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -1204,7 +1206,9 @@
   font-size: 22px;
   color: #e9d5ff;
   flex-shrink: 0;
-  animation: premium-pulse 2.5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .home-premium-banner-icon { animation: premium-pulse 2.5s ease-in-out infinite; }
 }
 @keyframes premium-pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
