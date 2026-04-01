@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import { wolRefUrl } from "../../utils/wol";
 import { VERSE_COUNT, getDailyVerseIndex } from "../../data/verses";
-import AICompanion from "../AICompanion";
+const AICompanion = lazy(() => import("../AICompanion"));
 import { useSubscription } from "../../hooks/useSubscription";
 import "../../styles/daily-verse.css";
 
@@ -60,11 +60,13 @@ export default function DailyVerse({ user }) {
       )}
 
       {user && isPremium && showAI && (
-        <AICompanion
-          passage={t(`verses.${idx}.text`)}
-          reference={t(`verses.${idx}.ref`)}
-          className="daily-verse-ai-panel"
-        />
+        <Suspense fallback={null}>
+          <AICompanion
+            passage={t(`verses.${idx}.text`)}
+            reference={t(`verses.${idx}.ref`)}
+            className="daily-verse-ai-panel"
+          />
+        </Suspense>
       )}
     </div>
   );

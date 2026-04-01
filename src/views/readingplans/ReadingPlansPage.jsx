@@ -1,9 +1,9 @@
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo, useRef, useEffect, lazy, Suspense } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import ConfirmModal from "../../components/ConfirmModal";
-import AICompanion from "../../components/AICompanion";
+const AICompanion = lazy(() => import("../../components/AICompanion"));
 import { useAISkill } from "../../hooks/useAISkill";
 import "../../styles/ai-tools.css";
 import { useSubscription } from "../../hooks/useSubscription";
@@ -627,13 +627,15 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate }
 
       {/* AI Devotional (premium) */}
       {isPremium && !plan.is_paused && schedule[currentDay - 1] && (
-        <AICompanion
-          reference={`${t("readingPlans.day")} ${currentDay} — ${template.name}`}
-          passage={todayPassage}
-          initialPrompt={devotionalPrompt}
-          devotionalMode
-          className="rp-ai-companion"
-        />
+        <Suspense fallback={null}>
+          <AICompanion
+            reference={`${t("readingPlans.day")} ${currentDay} — ${template.name}`}
+            passage={todayPassage}
+            initialPrompt={devotionalPrompt}
+            devotionalMode
+            className="rp-ai-companion"
+          />
+        </Suspense>
       )}
 
       {/* AI Reading Summary (premium) */}

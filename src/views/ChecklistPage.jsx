@@ -1,8 +1,8 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef, lazy, Suspense } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { BOOKS, OT_COUNT } from "../data/books";
-import AICompanion from "../components/AICompanion";
+const AICompanion = lazy(() => import("../components/AICompanion"));
 import BookCard from "../components/BookCard";
 import CustomSelect from "../components/CustomSelect";
 import PageNav from "../components/PageNav";
@@ -441,11 +441,13 @@ function QuickNoteModal({ userId, bookIndex, onClose, isPremium }) {
         </form>
 
         {isPremium && aiEnabled && (
-          <AICompanion
-            reference={`${bookName} ${chapter}${verse ? `:${verse}` : ""}`}
-            passage={`${bookName} chapter ${chapter}${verse ? ` verse ${verse}` : ""}`}
-            className="qn-ai-companion"
-          />
+          <Suspense fallback={null}>
+            <AICompanion
+              reference={`${bookName} ${chapter}${verse ? `:${verse}` : ""}`}
+              passage={`${bookName} chapter ${chapter}${verse ? ` verse ${verse}` : ""}`}
+              className="qn-ai-companion"
+            />
+          </Suspense>
         )}
       </div>
     </div>

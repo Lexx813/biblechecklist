@@ -5,7 +5,7 @@ import PageNav from "../../components/PageNav";
 import ConfirmModal from "../../components/ConfirmModal";
 import CustomSelect from "../../components/CustomSelect";
 const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
-import AICompanion from "../../components/AICompanion";
+const AICompanion = lazy(() => import("../../components/AICompanion"));
 import { useAISkill } from "../../hooks/useAISkill";
 import { useSubscription } from "../../hooks/useSubscription";
 import { BOOKS } from "../../data/books";
@@ -281,11 +281,13 @@ function NoteEditor({ note, folders, onSave, onCancel, saving, isAdmin }) {
         )}
 
         {isAdmin && form.book_index != null && (
-          <AICompanion
-            reference={passageLabel(form)}
-            passage={`${BOOKS[form.book_index]?.name ?? ""} chapter ${form.chapter ?? 1}${form.verse ? ` verse ${form.verse}` : ""}`}
-            className="sn-ai-companion"
-          />
+          <Suspense fallback={null}>
+            <AICompanion
+              reference={passageLabel(form)}
+              passage={`${BOOKS[form.book_index]?.name ?? ""} chapter ${form.chapter ?? 1}${form.verse ? ` verse ${form.verse}` : ""}`}
+              className="sn-ai-companion"
+            />
+          </Suspense>
         )}
 
         <div className="sn-editor-footer">
