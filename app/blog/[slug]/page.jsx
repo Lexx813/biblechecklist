@@ -96,12 +96,50 @@ export default async function BlogPostPage({ params }) {
     ],
   };
 
+  const SEO_HIDE = {
+    position: "absolute", width: 1, height: 1,
+    overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap",
+  };
+
   return (
     <>
       {schemaArticle && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaArticle) }} />
       )}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      {post && (
+        <div style={SEO_HIDE}>
+          <h1>{post.title}</h1>
+          <p>{post.excerpt || stripHtml(post.content).slice(0, 200)}</p>
+          <nav aria-label="Related resources">
+            <h2>Explore Bible Books on NWT Progress</h2>
+            <ul>
+              <li><a href="/books">All 66 Books of the Bible — NWT Study Guides</a></li>
+              <li><a href="/books/genesis">Genesis</a></li>
+              <li><a href="/books/psalms">Psalms</a></li>
+              <li><a href="/books/proverbs">Proverbs</a></li>
+              <li><a href="/books/isaiah">Isaiah</a></li>
+              <li><a href="/books/matthew">Matthew</a></li>
+              <li><a href="/books/john">John</a></li>
+              <li><a href="/books/acts">Acts</a></li>
+              <li><a href="/books/romans">Romans</a></li>
+              <li><a href="/books/revelation">Revelation</a></li>
+            </ul>
+            <h2>Bible Reading Plans</h2>
+            <ul>
+              <li><a href="/plans">All Bible Reading Plans for Jehovah&apos;s Witnesses</a></li>
+            </ul>
+            <h2>Study Topics</h2>
+            <ul>
+              <li><a href="/study-topics">Bible Study Topics</a></li>
+            </ul>
+            <h2>More from the Blog</h2>
+            <ul>
+              <li><a href="/blog">NWT Progress Blog</a></li>
+            </ul>
+          </nav>
+        </div>
+      )}
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ClientShell />
       </HydrationBoundary>
