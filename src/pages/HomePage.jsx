@@ -97,7 +97,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   return (
     <div className="home-wrap">
 
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="home" onUpgrade={onUpgrade}/>
 
       {/* ── Hero ── */}
       <main id="main-content">

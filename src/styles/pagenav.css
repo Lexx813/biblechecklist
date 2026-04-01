@@ -390,6 +390,65 @@
 }
 [data-theme="light"] .page-nav-mobile-section-label { color: rgba(30, 16, 53, 0.6); }
 
+/* ── Mobile accordion toggle ────────────────────────────── */
+.page-nav-mobile-section-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(192, 132, 252, 0.7);
+  cursor: pointer;
+  padding: 10px 20px 10px;
+  border-top: 1px solid rgba(138, 75, 255, 0.1);
+  transition: color 0.15s, background 0.15s;
+}
+.page-nav-mobile-section-toggle:hover {
+  color: #c084fc;
+  background: rgba(138, 75, 255, 0.06);
+}
+.page-nav-mobile-section-toggle--active {
+  color: #c084fc;
+}
+[data-theme="light"] .page-nav-mobile-section-toggle {
+  color: rgba(124, 58, 237, 0.55);
+  border-top-color: rgba(124, 58, 237, 0.12);
+}
+[data-theme="light"] .page-nav-mobile-section-toggle:hover { color: #7c3aed; background: rgba(124, 58, 237, 0.05); }
+[data-theme="light"] .page-nav-mobile-section-toggle--active { color: #7c3aed; }
+
+.page-nav-mobile-chevron {
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+.page-nav-mobile-chevron--open {
+  transform: rotate(180deg);
+}
+
+/* ── Mobile accordion items container ───────────────────── */
+.page-nav-mobile-section-items {
+  background: rgba(138, 75, 255, 0.05);
+  border-bottom: 1px solid rgba(138, 75, 255, 0.08);
+}
+[data-theme="light"] .page-nav-mobile-section-items {
+  background: rgba(124, 58, 237, 0.04);
+  border-bottom-color: rgba(124, 58, 237, 0.08);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .page-nav-mobile-section-items {
+    animation: menu-slide-down 0.15s ease-out;
+  }
+}
+
 .page-nav-mobile-logout {
   color: rgba(252, 165, 165, 0.7);
 }
@@ -426,16 +485,44 @@
 
 /* pro button uses global [data-tip] tooltip (shows above by default) */
 
-/* ── Dev feature icon group ─────────────────────────────── */
-.page-nav-dev-icons {
-  display: flex;
-  gap: 2px;
-  padding-right: 6px;
-  margin-right: 4px;
-  border-right: 1px solid rgba(138, 75, 255, 0.2);
+/* ── Dropdown group labels & dividers ───────────────────── */
+.page-nav-more-group-label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(192, 132, 252, 0.6);
+  padding: 6px 12px 2px;
 }
-[data-theme="light"] .page-nav-dev-icons {
-  border-right-color: rgba(124, 58, 237, 0.18);
+[data-theme="light"] .page-nav-more-group-label {
+  color: rgba(124, 58, 237, 0.5);
+}
+
+.page-nav-more-divider {
+  height: 1px;
+  background: rgba(138, 75, 255, 0.15);
+  margin: 4px 8px;
+}
+[data-theme="light"] .page-nav-more-divider {
+  background: rgba(124, 58, 237, 0.15);
+}
+
+.page-nav-more-item--locked {
+  opacity: 0.45;
+  cursor: pointer;
+  justify-content: space-between;
+}
+.page-nav-more-item--locked:hover {
+  opacity: 0.7;
+}
+
+.page-nav-more-lock {
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+  padding-left: 8px;
+  opacity: 0.8;
+  flex-shrink: 0;
 }
 
 .page-nav-icon-btn--active {
