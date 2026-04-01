@@ -1,6 +1,7 @@
 "use client";
 
 import "../src/i18n";
+import { useState, useEffect, useRef } from "react";
 import { QueryClient } from "@tanstack/react-query";
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
@@ -8,7 +9,6 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ErrorBoundary } from "../src/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react";
 import { toast } from "../src/lib/toast";
-import { useEffect, useRef } from "react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,13 +26,29 @@ const queryClient = new QueryClient({
   },
 });
 
-function makeClient() {
-  if (typeof window === "undefined") return null;
-  return createSyncStoragePersister({
-    storage: window.localStorage,
-    key: "nwt-query-cache-v2",
-  });
-}
+// Stable no-op persister used during SSR and before hydration so both passes
+// render the same JSX structure — avoids React hydration mismatch.
+const noOpPersister = {
+  persistClient: () => {},
+  restoreClient: async () => undefined,
+  removeClient: () => {},
+};
+
+const persistOptions = {
+  maxAge: 1000 * 60 * 60 * 24,
+  dehydrateOptions: {
+    shouldDehydrateQuery: (query) => {
+      const key = query.queryKey[0];
+      return ["progress", "profile", "notes", "blog", "reading"].includes(key);
+    },
+  },
+  hydrateOptions: {
+    shouldHydrateQuery: (query) => {
+      const key = query.queryKey[0];
+      return ["progress", "profile", "notes", "blog", "reading"].includes(key);
+    },
+  },
+};
 
 function SideEffects() {
   const ran = useRef(false);
@@ -92,40 +108,24 @@ function SideEffects() {
 }
 
 export default function Providers({ children }) {
-  const persister = makeClient();
+  // Start with noOpPersister so server and initial client render match.
+  // Swap to real localStorage persister after mount.
+  const [persister, setPersister] = useState(noOpPersister);
 
-  if (!persister) {
-    // SSR: render without persistence
-    return (
-      <ErrorBoundary>
-        <PersistQueryClientProvider client={queryClient} persistOptions={{ persister: { persistClient: () => {}, restoreClient: async () => undefined, removeClient: () => {} }, maxAge: 0 }}>
-          {children}
-          <Analytics />
-        </PersistQueryClientProvider>
-      </ErrorBoundary>
+  useEffect(() => {
+    setPersister(
+      createSyncStoragePersister({
+        storage: window.localStorage,
+        key: "nwt-query-cache-v2",
+      })
     );
-  }
+  }, []);
 
   return (
     <ErrorBoundary>
       <PersistQueryClientProvider
         client={queryClient}
-        persistOptions={{
-          persister,
-          maxAge: 1000 * 60 * 60 * 24,
-          dehydrateOptions: {
-            shouldDehydrateQuery: (query) => {
-              const key = query.queryKey[0];
-              return ["progress", "profile", "notes", "blog", "reading"].includes(key);
-            },
-          },
-          hydrateOptions: {
-            shouldHydrateQuery: (query) => {
-              const key = query.queryKey[0];
-              return ["progress", "profile", "notes", "blog", "reading"].includes(key);
-            },
-          },
-        }}
+        persistOptions={{ ...persistOptions, persister }}
       >
         <SideEffects />
         {children}
