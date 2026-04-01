@@ -202,27 +202,48 @@ Deno.serve(async (req) => {
     let weekStart: Date;
     if (req.method === "POST") {
       const body = await req.json().catch(() => ({}));
-      weekStart = body.week_start ? new Date(body.week_start) : getMondayOfWeek(new Date());
+      weekStart = body.week_start ? new Date(body.week_start + "T00:00:00") : getMondayOfWeek(new Date());
     } else {
       weekStart = getMondayOfWeek(new Date());
     }
 
     const weekStartStr = weekStart.toISOString().slice(0, 10);
 
-    // Use Wednesday of the week for the date endpoint (most reliable — both meetings show)
-    const wednesday = new Date(weekStart);
-    wednesday.setDate(weekStart.getDate() + 2);
-    const yr = wednesday.getFullYear();
-    const mo = wednesday.getMonth() + 1;
-    const dy = wednesday.getDate();
+    // Helper: fetch docIds for a given Monday
+    async function fetchDocIds(monday: Date) {
+      // MWB appears on Mon/Tue; use Tuesday (index 1) for best coverage
+      const tuesday = new Date(monday);
+      tuesday.setDate(monday.getDate() + 1);
+      const yr = tuesday.getFullYear();
+      const mo = tuesday.getMonth() + 1;
+      const dy = tuesday.getDate();
+      const html = await wol(`/en/wol/dt/r1/lp-e/${yr}/${mo}/${dy}`);
+      return {
+        html,
+        mwbDocId: extractDocId(html, "mwb"),
+        wtDocId: extractDocId(html, "w"),
+        wtAnchorPid: extractWtAnchorPid(html),
+      };
+    }
 
-    console.log(`Scraping week ${weekStartStr} (Wednesday: ${yr}/${mo}/${dy})`);
+    console.log(`Scraping week ${weekStartStr}`);
 
-    // Step 1: Get docIds
-    const dateHtml = await wol(`/en/wol/dt/r1/lp-e/${yr}/${mo}/${dy}`);
-    const mwbDocId = extractDocId(dateHtml, "mwb");
-    const wtDocId = extractDocId(dateHtml, "w");
-    const wtAnchorPid = extractWtAnchorPid(dateHtml);
+    // Step 1: Get docIds — if MWB missing for current week (already passed), try next week
+    let { mwbDocId, wtDocId, wtAnchorPid } = await fetchDocIds(weekStart);
+    let actualWeekStart = weekStart;
+
+    if (!mwbDocId) {
+      console.log("MWB not found for current week, trying next week");
+      const nextMonday = new Date(weekStart);
+      nextMonday.setDate(weekStart.getDate() + 7);
+      const next = await fetchDocIds(nextMonday);
+      if (next.mwbDocId) {
+        mwbDocId = next.mwbDocId;
+        wtDocId = next.wtDocId ?? wtDocId;
+        wtAnchorPid = next.wtAnchorPid ?? wtAnchorPid;
+        actualWeekStart = nextMonday;
+      }
+    }
 
     if (!mwbDocId) throw new Error("Could not find MWB docId for this week");
     if (!wtDocId) throw new Error("Could not find WT docId for this week");
@@ -239,11 +260,13 @@ Deno.serve(async (req) => {
     console.log(`CLAM: "${clam.weekTitle}", ${clam.parts.length} parts`);
     console.log(`WT: "${wt.articleTitle}", ${wt.paragraphCount} paragraphs`);
 
+    const actualWeekStartStr = actualWeekStart.toISOString().slice(0, 10);
+
     // Step 4: Upsert into meeting_weeks
     const { error } = await supabase
       .from("meeting_weeks")
       .upsert({
-        week_start: weekStartStr,
+        week_start: actualWeekStartStr,
         clam_doc_id: mwbDocId,
         clam_week_title: clam.weekTitle,
         clam_bible_reading: clam.bibleReading,
@@ -264,7 +287,7 @@ Deno.serve(async (req) => {
 
     return new Response(JSON.stringify({
       ok: true,
-      week_start: weekStartStr,
+      week_start: actualWeekStartStr,
       clam_week_title: clam.weekTitle,
       clam_parts: clam.parts.length,
       wt_article_title: wt.articleTitle,
