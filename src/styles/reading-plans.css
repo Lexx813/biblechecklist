@@ -354,6 +354,7 @@
 .rp-detail-meta { font-size: 13px; color: var(--text-muted); margin: 0; }
 
 .rp-detail-progress {
+  position: relative;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -1112,4 +1113,20 @@
   .rp-content { padding: 0 10px 36px; }
   .rp-tabs { padding: 0 10px; }
   .rp-book-grid { grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); }
+}
+
+/* ── Completion confetti ── */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes confetti-scatter {
+    0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+  }
+  .confetti-dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: confetti-scatter 600ms ease-out both;
+    pointer-events: none;
+  }
 }

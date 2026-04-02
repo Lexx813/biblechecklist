@@ -478,9 +478,32 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate }
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [confirmCatchUp, setConfirmCatchUp] = useState(false);
   const [showAnalytics, setShowAnalytics] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const confettiFired = useRef(false);
 
   const schedule = useMemo(() => generateSchedule(template.bookIndices, template.totalDays), [template]);
   const doneSet = useMemo(() => new Set(completions.map(c => c.day_number)), [completions]);
+
+  const confettiDots = [
+    { tx: '30px',  ty: '-40px', color: '#f59e0b' },
+    { tx: '-30px', ty: '-40px', color: '#7c3aed' },
+    { tx: '45px',  ty: '-20px', color: '#10b981' },
+    { tx: '-45px', ty: '-20px', color: '#ef4444' },
+    { tx: '20px',  ty: '35px',  color: '#3b82f6' },
+    { tx: '-20px', ty: '35px',  color: '#f59e0b' },
+    { tx: '40px',  ty: '20px',  color: '#7c3aed' },
+    { tx: '-40px', ty: '20px',  color: '#10b981' },
+  ];
+
+  const earlyPct = template ? Math.round((doneSet.size / template.totalDays) * 100) : 0;
+  useEffect(() => {
+    if (!confettiFired.current && earlyPct === 100) {
+      confettiFired.current = true;
+      setShowConfetti(true);
+      const t = setTimeout(() => setShowConfetti(false), 700);
+      return () => clearTimeout(t);
+    }
+  }, [earlyPct]);
 
   if (!template) return null;
 
@@ -557,6 +580,18 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate }
 
       {/* Progress overview */}
       <div className="rp-detail-progress">
+        {showConfetti && confettiDots.map((dot, i) => (
+          <span
+            key={i}
+            className="confetti-dot"
+            style={{
+              '--tx': dot.tx,
+              '--ty': dot.ty,
+              background: dot.color,
+              animationDelay: `${i * 12}ms`,
+            }}
+          />
+        ))}
         <div className="rp-progress-bar rp-progress-bar--lg">
           <div className="rp-progress-fill" style={{ width: `${pct}%` }} />
         </div>
