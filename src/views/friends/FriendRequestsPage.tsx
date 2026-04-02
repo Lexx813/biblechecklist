@@ -5,6 +5,7 @@ import {
   useCancelFriendRequest,
   OutgoingRequest,
 } from "../../hooks/useFriends";
+import PageNav from "../../components/PageNav";
 import "../../styles/friends.css";
 
 function timeAgo(iso: string | null | undefined): string {
@@ -21,6 +22,12 @@ function timeAgo(iso: string | null | undefined): string {
 interface Props {
   user: { id: string };
   navigate: (page: string, params?: Record<string, unknown>) => void;
+  darkMode?: boolean;
+  setDarkMode?: any;
+  i18n?: any;
+  onLogout?: () => void;
+  onUpgrade?: () => void;
+  currentPage?: string;
 }
 
 // useCancelFriendRequest requires targetId at hook-creation time, so use a
@@ -61,7 +68,7 @@ function OutgoingRow({ userId, req }: { userId: string; req: OutgoingRequest }) 
   );
 }
 
-export default function FriendRequestsPage({ user, navigate }: Props) {
+export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade, currentPage }: Props) {
   const { incoming, outgoing } = useFriendRequests(user.id);
   const accept = useAcceptFriendRequest(user.id);
   const decline = useDeclineFriendRequest(user.id);
@@ -71,6 +78,7 @@ export default function FriendRequestsPage({ user, navigate }: Props) {
 
   return (
     <div className="friends-page">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} onUpgrade={onUpgrade} currentPage={currentPage} />
       <div className="friends-page-header">
         <button
           style={{

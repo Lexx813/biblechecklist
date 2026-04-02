@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useFriends, useInviteToken, useRemoveFriend, FriendProfile } from "../../hooks/useFriends";
 import { useGetOrCreateDM } from "../../hooks/useMessages";
+import PageNav from "../../components/PageNav";
 import "../../styles/friends.css";
 
 function timeAgo(iso: string | null | undefined): string | null {
@@ -18,9 +19,14 @@ interface Props {
   navigate: (page: string, params?: Record<string, unknown>) => void;
   isPremium: boolean;
   onUpgrade?: () => void;
+  darkMode?: boolean;
+  setDarkMode?: any;
+  i18n?: any;
+  onLogout?: () => void;
+  currentPage?: string;
 }
 
-export default function FriendsPage({ user, navigate, isPremium, onUpgrade }: Props) {
+export default function FriendsPage({ user, navigate, isPremium, onUpgrade, darkMode, setDarkMode, i18n, onLogout, currentPage }: Props) {
   const { data: friendsData, isLoading } = useFriends(user.id);
   const friends: FriendProfile[] = (friendsData as FriendProfile[] | undefined) ?? [];
   const { data: token } = useInviteToken(user.id);
@@ -54,6 +60,7 @@ export default function FriendsPage({ user, navigate, isPremium, onUpgrade }: Pr
 
   return (
     <div className="friends-page">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} onUpgrade={onUpgrade} currentPage={currentPage} />
       <div className="friends-page-header">
         <h1 className="friends-page-title">Friends</h1>
         <button
