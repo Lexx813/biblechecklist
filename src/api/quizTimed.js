@@ -21,7 +21,7 @@ export const quizTimedApi = {
       `)
       .eq("level", level)
       .order("score", { ascending: false })
-      .limit(50);
+      .limit(200); // fetch extra rows to ensure dedup covers all distinct users
 
     if (error) throw error;
 
