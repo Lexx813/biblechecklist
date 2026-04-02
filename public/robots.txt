@@ -37,4 +37,7 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 
+User-agent: CCBot
+Allow: /
+
 Sitemap: https://nwtprogress.com/sitemap.xml

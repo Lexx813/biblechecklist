@@ -16,11 +16,6 @@ export const metadata = {
     canonical: "https://nwtprogress.com",
     languages: {
       en: "https://nwtprogress.com",
-      es: "https://nwtprogress.com?lang=es",
-      pt: "https://nwtprogress.com?lang=pt",
-      fr: "https://nwtprogress.com?lang=fr",
-      tl: "https://nwtprogress.com?lang=tl",
-      zh: "https://nwtprogress.com?lang=zh",
       "x-default": "https://nwtprogress.com",
     },
   },
@@ -31,7 +26,7 @@ export const metadata = {
     description:
       "Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community. Free Bible tracker app.",
     siteName: "NWT Progress",
-    images: [{ url: "/og-image.webp", width: 1200, height: 630 }],
+    images: [{ url: "/og-image.webp", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -68,8 +63,8 @@ const schemaWebApp = {
     "6-language support",
   ],
   offers: [
-    { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free Plan", description: "Bible reading tracker, community forum, blog, quiz, and leaderboard — free forever" },
-    { "@type": "Offer", price: "3.00", priceCurrency: "USD", name: "Premium Plan", description: "Reading plans, study notes, meeting prep, AI study assistant, direct messaging, and study groups" },
+    { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free Plan", description: "Bible reading tracker, community forum, blog, quiz, and leaderboard — free forever", availability: "https://schema.org/OnlineOnly" },
+    { "@type": "Offer", price: "3.00", priceCurrency: "USD", name: "Premium Plan", description: "Reading plans, study notes, meeting prep, AI study assistant, direct messaging, and study groups", availability: "https://schema.org/OnlineOnly" },
   ],
 };
 
@@ -88,6 +83,7 @@ const schemaOrg = {
   description: "A spiritual growth companion for Jehovah's Witnesses — Bible reading tracker, meeting prep, study tools, and worldwide community.",
   email: "support@nwtprogress.com",
   contactPoint: { "@type": "ContactPoint", email: "support@nwtprogress.com", contactType: "customer support", availableLanguage: ["English", "Spanish", "Portuguese", "French", "Tagalog", "Chinese"] },
+  sameAs: [],
 };
 
 const schemaWebSite = {
@@ -96,11 +92,6 @@ const schemaWebSite = {
   "@id": "https://nwtprogress.com/#website",
   name: "NWT Progress",
   url: "https://nwtprogress.com/",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: { "@type": "EntryPoint", urlTemplate: "https://nwtprogress.com/?q={search_term_string}" },
-    "query-input": "required name=search_term_string",
-  },
 };
 
 export default function RootLayout({ children }) {
