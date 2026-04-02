@@ -41,6 +41,21 @@ export default function StudyTopicsPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <div style={SEO_HIDE}>
+        <h1>Bible Study Topics for Jehovah's Witnesses</h1>
+        <p>
+          Explore key Bible topics from the New World Translation perspective. Each topic includes
+          in-depth scriptural analysis covering doctrine, prophecy, and practical Christian living.
+        </p>
+        <ul>
+          {STUDY_TOPICS.map((topic) => (
+            <li key={topic.slug}>
+              <a href={`/study-topics/${topic.slug}`}>{topic.title}</a>
+              <span> — {topic.subtitle}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
       <ClientShell />
     </>
   );
