@@ -58,6 +58,7 @@
   font-size: clamp(26px, 5vw, 38px);
   color: var(--text-primary);
   margin: 0 0 4px;
+  letter-spacing: -0.02em;
 }
 
 .sn-subtitle {
@@ -80,6 +81,7 @@
   border-radius: 999px;
   padding: 3px 10px;
   align-self: flex-start;
+  margin-bottom: 20px;
 }
 
 .sn-new-btn {
