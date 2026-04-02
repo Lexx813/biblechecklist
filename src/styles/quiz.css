@@ -87,18 +87,18 @@
 
 .quiz-level-card--completed {
   cursor: pointer;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(192, 132, 252, 0.25), var(--shadow-md);
+  border-color: rgba(245,158,11,0.4);
+  box-shadow: 0 0 0 2px rgba(245,158,11,0.18), var(--shadow-md);
 }
 .quiz-level-card--completed:hover {
   transform: translateY(-3px);
-  box-shadow: 0 0 0 3px rgba(192, 132, 252, 0.4), var(--shadow-md);
+  box-shadow: 0 0 0 3px rgba(245,158,11,0.35), var(--shadow-md);
 }
 .quiz-level-card--completed::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(192,132,252,0.07) 0%, transparent 60%);
+  background: linear-gradient(135deg, rgba(245,158,11,0.07) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -542,7 +542,7 @@
 .quiz-badge-emoji {
   font-size: 52px;
   line-height: 1;
-  filter: drop-shadow(0 4px 12px rgba(192,132,252,0.5));
+  filter: drop-shadow(0 0 12px rgba(245,158,11,0.5));
 }
 
 .quiz-badge-name {

@@ -613,19 +613,18 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+  background: linear-gradient(135deg, var(--gold), #d97706);
   color: #fff;
   border-radius: 999px;
   padding: 2px 7px;
 }
 
 .rp-template-card--premium {
-  border-left-color: #f59e0b !important;
+  border-left-color: var(--gold) !important;
 }
 .rp-template-card--premium:hover {
   border-color: rgba(245,158,11,0.5);
-  border-left-color: #f59e0b !important;
-  box-shadow: 0 6px 22px rgba(245,158,11,0.14);
+  border-left-color: var(--gold) !important;
 }
 
 /* ── Paused / behind badges ─────────────────────────────────────────────────── */
