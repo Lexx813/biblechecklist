@@ -22,7 +22,7 @@ export const quizApi = {
 
     if (error) throw error;
 
-    return (data ?? []).map((q) => {
+    const questions = (data ?? []).map((q) => {
       const tx = q.quiz_question_translations?.find((t) => t.language === language);
       return {
         id: q.id,
@@ -32,6 +32,7 @@ export const quizApi = {
         explanation: tx?.explanation ?? q.explanation ?? null,
       };
     });
+    return questions.sort(() => Math.random() - 0.5).slice(0, 10);
   },
 
   getUserProgress: async (userId) => {
