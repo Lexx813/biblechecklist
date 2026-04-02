@@ -97,6 +97,91 @@ html.nav-hidden .pf-header { top: 0; }
   text-align: center;
 }
 
+/* ── PROFILE TABS ── */
+.pf-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--border);
+  background: var(--card-bg);
+  border-radius: 0;
+  margin-bottom: 0;
+}
+.pf-tab-btn {
+  flex: 1;
+  padding: 12px 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.pf-tab-btn:hover { color: var(--text-primary); }
+.pf-tab-btn--active {
+  color: var(--accent, #7c3aed);
+  border-bottom-color: var(--accent, #7c3aed);
+}
+
+/* ── FRIENDS TAB BUTTONS ── */
+.pf-freq-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 16px;
+  margin-bottom: 10px;
+  background: rgba(124, 58, 237, 0.07);
+  border: 1px solid rgba(124, 58, 237, 0.18);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  color: #7c3aed;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.15s;
+}
+.pf-freq-btn:hover { background: rgba(124, 58, 237, 0.12); }
+.pf-freq-badge {
+  position: absolute;
+  top: -6px;
+  right: 10px;
+  background: #e53e3e;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pf-invite-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  background: rgba(56, 178, 172, 0.07);
+  border: 1px solid rgba(56, 178, 172, 0.2);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--teal, #38b2ac);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.pf-invite-btn:hover:not(:disabled) { background: rgba(56, 178, 172, 0.12); }
+.pf-invite-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.pf-invite-btn--copied { color: var(--teal, #38b2ac); }
+
 /* ── AVATAR ── */
 .pf-avatar-wrap {
   width: 92px;

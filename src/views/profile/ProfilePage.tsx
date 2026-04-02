@@ -29,6 +29,7 @@ import { formatDate } from "../../utils/formatters";
 import ReferralPanel from "../../components/ReferralPanel";
 import { FriendRequestButton } from "../../components/FriendRequestButton";
 import { friendsApi } from "../../api/friends";
+import ProfileFriendsTab from "./ProfileFriendsTab";
 
 const TOTAL_CHAPTERS = BOOKS.reduce((s, b) => s + b.chapters, 0);
 
@@ -750,7 +751,7 @@ function ReadingGoal({ profile, chaptersRead, totalDays, isOwner, t }) {
 }
 
 // ── Main ProfilePage ──────────────────────────────────────
-export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade, defaultTab = "overview" }) {
   const profileId = viewedUserId ?? user.id;
   const { isPremium } = useSubscription(user.id);
   const { data: profile, isLoading: profileLoading } = useFullProfile(profileId);
@@ -794,6 +795,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
     return () => { document.title = "NWT Progress"; };
   }, [profile?.display_name, profile?.email]);
 
+  const [activeTab, setActiveTab] = useState(defaultTab);
   const [showAddForm, setShowAddForm] = useState(false);
   const [filterBook, setFilterBook] = useState("all");
   const [search, setSearch] = useState("");
@@ -874,6 +876,23 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
           </div>
         </div>
 
+        {/* Tab bar — owner only */}
+        {isOwner && (
+          <div className="pf-tabs">
+            <button className={`pf-tab-btn${activeTab === "overview" ? " pf-tab-btn--active" : ""}`} onClick={() => setActiveTab("overview")}>Overview</button>
+            <button className={`pf-tab-btn${activeTab === "friends" ? " pf-tab-btn--active" : ""}`} onClick={() => setActiveTab("friends")}>Friends</button>
+            <button className={`pf-tab-btn${activeTab === "notes" ? " pf-tab-btn--active" : ""}`} onClick={() => setActiveTab("notes")}>Notes</button>
+          </div>
+        )}
+
+        {/* Friends tab */}
+        {isOwner && activeTab === "friends" && (
+          <ProfileFriendsTab user={user} navigate={navigate} isPremium={isPremium} onUpgrade={onUpgrade} />
+        )}
+
+        {/* Overview tab content */}
+        {(!isOwner || activeTab === "overview") && (
+          <>
         {/* About Me */}
         {(isOwner || profile?.bio) && (
           <AboutMe profile={profile} userId={profileId} isOwner={isOwner} t={t} />
@@ -1014,9 +1033,11 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
 
         {/* Referral program — owner only */}
         {isOwner && <ReferralPanel userId={profileId} />}
+          </>
+        )}
 
         {/* Notes section — owner only */}
-        {isOwner && (
+        {isOwner && activeTab === "notes" && (
           <div className="pf-section">
             <div className="pf-section-header">
               <h2>{t("profile.myNotes")} <InfoTip text={t("profile.notesTip")} /></h2>

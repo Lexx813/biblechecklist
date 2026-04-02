@@ -54,7 +54,6 @@ const StudyTopicsPage   = lazy(() => import("./views/studytopics/StudyTopicsPage
 const StudyTopicDetail  = lazy(() => import("./views/studytopics/StudyTopicDetail"));
 const FamilyQuizPage    = lazy(() => import("./views/familyquiz/FamilyQuizPage"));
 const MeetingPrepPage   = lazy(() => import("./views/meetingprep/MeetingPrepPage"));
-const FriendsPage        = lazy(() => import("./views/friends/FriendsPage"));
 const FriendRequestsPage = lazy(() => import("./views/friends/FriendRequestsPage"));
 const InviteLandingPage  = lazy(() => import("./views/friends/InviteLandingPage"));
 
@@ -338,7 +337,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (isPremium && nav.page === "groupDetail")  pageContent = <Page><GroupDetail {...sharedNav} groupId={nav.groupId} /></Page>;
   else if (isPremium && nav.page === "meetingPrep") pageContent = <Page><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "friends")
-    pageContent = <Page><FriendsPage user={user} navigate={navigate} isPremium={isPremium} {...sharedNav} /></Page>;
+    pageContent = <Page><ProfilePage user={user} onBack={() => navigate("home")} defaultTab="friends" {...sharedNav} /></Page>;
   else if (nav.page === "friendRequests")
     pageContent = <Page><FriendRequestsPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   // Premium-gated pages for non-premium users → send home (with upgrade prompt)
