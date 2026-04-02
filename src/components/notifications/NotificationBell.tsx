@@ -80,6 +80,12 @@ export default function NotificationBell({ userId, navigate }) {
       return;
     }
 
+    // Friend request — navigate to friend requests page
+    if (n.type === "friend_request") {
+      navigate("friendRequests");
+      return;
+    }
+
     if (!h) return;
     navigate(h);
   }
@@ -88,6 +94,7 @@ export default function NotificationBell({ userId, navigate }) {
     if (n.type === "reply") return t("notifications.typeReply");
     if (n.type === "comment") return t("notifications.typeComment");
     if (n.type === "message") return "sent you a message";
+    if (n.type === "friend_request") return "wants to be your friend";
     return t("notifications.typeMention");
   }
 
