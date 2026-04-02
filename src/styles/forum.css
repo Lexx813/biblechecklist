@@ -278,8 +278,11 @@
 .forum-reaction-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 3px;
   padding: 3px 8px;
+  min-height: 44px;
+  min-width: 44px;
   border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--card-bg);
@@ -677,11 +680,16 @@
 .forum-reply-actions { display: flex; justify-content: flex-end; }
 
 .forum-reply-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: var(--teal); color: #fff;
   border: none; border-radius: 10px;
   font-family: inherit;
   font-size: 12px; font-weight: 700;
-  padding: 8px 20px; cursor: pointer;
+  padding: 8px 20px;
+  min-height: 44px;
+  cursor: pointer;
   box-shadow: var(--shadow-sm);
   transition: background var(--dur-fast) var(--ease-out), transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-fast) var(--ease-out);
 }
@@ -863,8 +871,10 @@
 .forum-like-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 5px;
   padding: 5px 13px;
+  min-height: 44px;
   border-radius: 16px;
   border: 1.5px solid var(--border);
   background: var(--card-bg);

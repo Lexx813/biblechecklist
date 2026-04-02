@@ -220,11 +220,15 @@
 }
 
 .rp-enroll-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(135deg, var(--teal), var(--teal-dark));
   color: #fff;
   border: none;
   border-radius: 10px;
   padding: 8px 18px;
+  min-height: 44px;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -442,11 +446,15 @@
 .rp-reading-chip--sm { font-size: 11px; padding: 2px 6px; }
 
 .rp-mark-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(135deg, var(--teal), var(--teal-dark));
   color: #fff;
   border: none;
   border-radius: 10px;
   padding: 10px 22px;
+  min-height: 44px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
