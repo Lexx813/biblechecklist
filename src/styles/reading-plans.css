@@ -625,6 +625,7 @@
 .rp-template-card--premium:hover {
   border-color: rgba(245,158,11,0.5);
   border-left-color: var(--gold) !important;
+  box-shadow: 0 6px 22px rgba(245,158,11,0.14);
 }
 
 /* ── Paused / behind badges ─────────────────────────────────────────────────── */
