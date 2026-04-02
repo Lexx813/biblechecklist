@@ -15,21 +15,17 @@ import {
 import { useSubscription } from "../../hooks/useSubscription";
 import "../../styles/meeting-prep.css";
 
-const SECTION_LABELS = {
-  treasures: "Treasures from God's Word",
-  ministry:  "Apply Yourself to the Ministry",
-  living:    "Living as Christians",
-};
 
 // ── Song chip ─────────────────────────────────────────────────────────────────
 function SongChip({ num, label }) {
+  const { t } = useTranslation();
   if (!num) return null;
   return (
     <span className="mp-song">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM21 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
       </svg>
-      Song {num}{label ? ` — ${label}` : ""}
+      {t("meetingPrep.song", { num })}{label ? ` — ${label}` : ""}
     </span>
   );
 }
@@ -54,6 +50,7 @@ function CheckItem({ label, checked, onToggle }) {
 
 // ── Notes editor with debounce + saved indicator ─────────────────────────────
 function NotesEditor({ value, placeholder, onSave }) {
+  const { t } = useTranslation();
   const [local, setLocal] = useState(value ?? "");
   const [status, setStatus] = useState(null); // null | "saving" | "saved"
   const timer = useRef(null);
@@ -75,9 +72,9 @@ function NotesEditor({ value, placeholder, onSave }) {
   return (
     <div className="mp-notes-wrap">
       <div className="mp-notes-label">
-        Notes
-        {status === "saving" && <span className="mp-notes-status">saving…</span>}
-        {status === "saved"  && <span className="mp-notes-status mp-notes-status--saved">✓ Saved</span>}
+        {t("meetingPrep.notesLabel")}
+        {status === "saving" && <span className="mp-notes-status">{t("meetingPrep.notesSaving")}</span>}
+        {status === "saved"  && <span className="mp-notes-status mp-notes-status--saved">{t("meetingPrep.notesSaved")}</span>}
       </div>
       <textarea
         className="mp-notes-textarea"
@@ -91,10 +88,11 @@ function NotesEditor({ value, placeholder, onSave }) {
 
 // ── CLAM tab ──────────────────────────────────────────────────────────────────
 function ClamTab({ week, prep, onTogglePart, onNoteChange, isPremium, onUpgrade }) {
+  const { t } = useTranslation();
   if (!week) {
     return (
       <div className="mp-scrape-notice">
-        ⚠ This week's content hasn't been loaded yet. Content is refreshed weekly.
+        {t("meetingPrep.contentNotLoaded")}
       </div>
     );
   }
@@ -107,6 +105,11 @@ function ClamTab({ week, prep, onTogglePart, onNoteChange, isPremium, onUpgrade 
 
   // Group parts by section
   const sections = ["treasures", "ministry", "living"];
+  const sectionLabels = {
+    treasures: t("meetingPrep.sectionTreasures"),
+    ministry:  t("meetingPrep.sectionMinistry"),
+    living:    t("meetingPrep.sectionLiving"),
+  };
   const grouped = sections.reduce((acc, s) => {
     acc[s] = parts.filter((p) => p.section === s);
     return acc;
@@ -129,7 +132,7 @@ function ClamTab({ week, prep, onTogglePart, onNoteChange, isPremium, onUpgrade 
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
             </svg>
-            Open on WOL
+            {t("meetingPrep.openOnWol")}
           </a>
         )}
       </div>
@@ -148,7 +151,7 @@ function ClamTab({ week, prep, onTogglePart, onNoteChange, isPremium, onUpgrade 
             <div className="mp-progress-bar-fill" style={{ width: `${pct}%` }} />
           </div>
           <div className="mp-progress-label">
-            <span>{done}/{total} parts</span>
+            <span>{t("meetingPrep.parts", { done, total })}</span>
             <span>{pct}%</span>
           </div>
         </div>
@@ -162,7 +165,7 @@ function ClamTab({ week, prep, onTogglePart, onNoteChange, isPremium, onUpgrade 
           <div key={section} className="mp-section">
             <div className="mp-section-header">
               <span className={`mp-section-dot mp-section-dot--${section}`} aria-hidden="true" />
-              <span className="mp-section-label">{SECTION_LABELS[section]}</span>
+              <span className="mp-section-label">{sectionLabels[section]}</span>
             </div>
             <div className="mp-items">
               {sectionParts.map((part) => (
@@ -189,7 +192,7 @@ function ClamTab({ week, prep, onTogglePart, onNoteChange, isPremium, onUpgrade 
         <div className="mp-notes-wrap">
           <button className="mp-item mp-item--locked" onClick={onUpgrade} style={{ width: "100%", justifyContent: "center" }}>
             <span className="mp-item-text" style={{ textAlign: "center", color: "var(--text-muted)" }}>
-              🔒 Save your notes — Premium
+              {t("meetingPrep.notesLockedMsg")}
             </span>
           </button>
         </div>
@@ -200,10 +203,11 @@ function ClamTab({ week, prep, onTogglePart, onNoteChange, isPremium, onUpgrade 
 
 // ── Watchtower tab ────────────────────────────────────────────────────────────
 function WatchtowerTab({ week, prep, onTogglePara, onNoteChange, isPremium, onUpgrade }) {
+  const { t } = useTranslation();
   if (!week) {
     return (
       <div className="mp-scrape-notice">
-        ⚠ This week's content hasn't been loaded yet.
+        {t("meetingPrep.contentNotLoadedShort")}
       </div>
     );
   }
@@ -217,7 +221,7 @@ function WatchtowerTab({ week, prep, onTogglePara, onNoteChange, isPremium, onUp
     <>
       {/* Article card */}
       <div className="mp-wt-card">
-        <p className="mp-wt-title">{week.wt_article_title || "Watchtower Study Article"}</p>
+        <p className="mp-wt-title">{week.wt_article_title || t("meetingPrep.watchtowerStudyArticle")}</p>
         {week.wt_theme_scripture && (
           <p className="mp-wt-theme">"{week.wt_theme_scripture}"</p>
         )}
@@ -229,7 +233,7 @@ function WatchtowerTab({ week, prep, onTogglePara, onNoteChange, isPremium, onUp
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
             </svg>
-            Read on WOL
+            {t("meetingPrep.readOnWol")}
           </a>
         )}
       </div>
@@ -240,7 +244,7 @@ function WatchtowerTab({ week, prep, onTogglePara, onNoteChange, isPremium, onUp
           <div className="mp-progress-bar-fill" style={{ width: `${pct}%` }} />
         </div>
         <div className="mp-progress-label">
-          <span>{done === 0 ? `${total} paragraphs to review` : `${done} of ${total} paragraphs reviewed`}</span>
+          <span>{done === 0 ? t("meetingPrep.paragraphsToReview", { total }) : t("meetingPrep.paragraphsReviewed", { done, total })}</span>
           <span>{pct}%</span>
         </div>
       </div>
@@ -249,7 +253,7 @@ function WatchtowerTab({ week, prep, onTogglePara, onNoteChange, isPremium, onUp
       <div className="mp-section">
         <div className="mp-section-header">
           <span className="mp-section-dot mp-section-dot--wt" aria-hidden="true" />
-          <span className="mp-section-label">Mark paragraphs as you read</span>
+          <span className="mp-section-label">{t("meetingPrep.markParagraphs")}</span>
         </div>
       </div>
       <div className="mp-para-grid">
@@ -276,7 +280,7 @@ function WatchtowerTab({ week, prep, onTogglePara, onNoteChange, isPremium, onUp
         <div className="mp-notes-wrap">
           <button className="mp-item" onClick={onUpgrade} style={{ width: "100%", justifyContent: "center" }}>
             <span className="mp-item-text" style={{ textAlign: "center", color: "var(--text-muted)" }}>
-              🔒 Save your notes — Premium
+              {t("meetingPrep.notesLockedMsg")}
             </span>
           </button>
         </div>
@@ -287,16 +291,17 @@ function WatchtowerTab({ week, prep, onTogglePara, onNoteChange, isPremium, onUp
 
 // ── History tab ───────────────────────────────────────────────────────────────
 function HistoryTab({ userId, isPremium, onUpgrade }) {
+  const { t } = useTranslation();
   const { data: history = [], isLoading } = usePrepHistory(userId);
 
   if (!isPremium) {
     return (
       <div className="mp-empty">
         <div className="mp-empty-icon">📅</div>
-        <p className="mp-empty-msg">Prep History</p>
-        <p className="mp-empty-sub">Upgrade to Premium to view your full prep history.</p>
+        <p className="mp-empty-msg">{t("meetingPrep.historyTitle")}</p>
+        <p className="mp-empty-sub">{t("meetingPrep.historyUpgradeMsg")}</p>
         <button className="mp-complete-btn" style={{ marginTop: "1rem", width: "auto", padding: ".6rem 1.5rem" }} onClick={onUpgrade}>
-          Upgrade to Premium
+          {t("meetingPrep.historyUpgradeBtn")}
         </button>
       </div>
     );
@@ -307,15 +312,15 @@ function HistoryTab({ userId, isPremium, onUpgrade }) {
     return (
       <div className="mp-empty">
         <div className="mp-empty-icon">📋</div>
-        <p className="mp-empty-msg">No history yet</p>
-        <p className="mp-empty-sub">Complete your first week's prep to start tracking.</p>
+        <p className="mp-empty-msg">{t("meetingPrep.historyEmptyTitle")}</p>
+        <p className="mp-empty-sub">{t("meetingPrep.historyEmptyMsg")}</p>
       </div>
     );
   }
 
   return (
     <div className="mp-history">
-      <div className="mp-history-title">Past Weeks</div>
+      <div className="mp-history-title">{t("meetingPrep.pastWeeks")}</div>
       <div className="mp-history-grid">
         {history.map((h) => (
           <div key={h.week_start} className="mp-history-cell">
@@ -431,6 +436,8 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
   const clamDone = prep?.clam_completed;
   const wtDone = prep?.wt_completed;
 
+  const { t } = useTranslation();
+
   return (
     <div>
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="meetingPrep" onUpgrade={onUpgrade} />
@@ -439,15 +446,15 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
         {/* Header */}
         <div className="mp-header">
           <div className="mp-header-left">
-            <h1 className="mp-title">Meeting Prep</h1>
+            <h1 className="mp-title">{t("meetingPrep.pageTitle")}</h1>
             <p className="mp-subtitle">
               {week?.clam_week_title || formatWeekLabel(selectedWeek)}
             </p>
-            <span className="mp-premium-label">✦ Premium</span>
+            <span className="mp-premium-label">{t("meetingPrep.premiumLabel")}</span>
           </div>
           {streak > 0 && (
             <div className="mp-streak">
-              🔥 {streak}-week streak<span className="mp-streak-suffix">{streak >= 2 ? " · Don't break it" : " · Keep it going"}</span>
+              🔥 {t("meetingPrep.streakLabel", { count: streak })}<span className="mp-streak-suffix"> · {streak >= 2 ? t("meetingPrep.streakSuffixKeep") : t("meetingPrep.streakSuffixNew")}</span>
             </div>
           )}
         </div>
@@ -461,7 +468,7 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
                 className={`mp-week-chip${w === selectedWeek ? " mp-week-chip--active" : ""}`}
                 onClick={() => setSelectedWeek(w)}
               >
-                {w === currentWeek ? "This week" : w === defaultWeek && defaultWeek !== currentWeek ? "Next week" : formatWeekLabel(w)}
+                {w === currentWeek ? t("meetingPrep.thisWeek") : w === defaultWeek && defaultWeek !== currentWeek ? t("meetingPrep.nextWeek") : formatWeekLabel(w)}
               </button>
             ))}
           </div>
@@ -474,19 +481,19 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
               <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
             </svg>
-            Midweek {clamDone ? "✓" : ""}
+            {t("meetingPrep.tabMidweek")} {clamDone ? "✓" : ""}
           </button>
           <button className={`mp-tab${activeTab === "weekend" ? " mp-tab--active" : ""}`} onClick={() => setActiveTab("weekend")}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
             </svg>
-            Weekend {wtDone ? "✓" : ""}
+            {t("meetingPrep.tabWeekend")} {wtDone ? "✓" : ""}
           </button>
           <button className={`mp-tab${activeTab === "history" ? " mp-tab--active" : ""}`} onClick={() => setActiveTab("history")}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
             </svg>
-            History
+            {t("meetingPrep.tabHistory")}
           </button>
         </div>
 
@@ -508,7 +515,7 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
                 className={`mp-complete-btn${clamDone ? " mp-complete-btn--done" : ""}`}
                 onClick={() => clamDone ? null : handleMarkComplete("clam")}
               >
-                {clamDone ? "✓ CLAM Prep Complete" : "Mark All Parts Done"}
+                {clamDone ? t("meetingPrep.clamComplete") : t("meetingPrep.markAllDone")}
               </button>
             )}
           </>
@@ -527,7 +534,7 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
                 className={`mp-complete-btn${wtDone ? " mp-complete-btn--done" : ""}`}
                 onClick={() => wtDone ? null : handleMarkComplete("wt")}
               >
-                {wtDone ? "✓ WT Study Complete" : "Mark All Paragraphs Done"}
+                {wtDone ? t("meetingPrep.wtComplete") : t("meetingPrep.markAllParas")}
               </button>
             )}
           </>

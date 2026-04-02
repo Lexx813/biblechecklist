@@ -180,7 +180,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
 
         {/* ── Connected accounts ───────────────────────────── */}
         <section className="st-section">
-          <h2 className="st-section-title">Connected Accounts</h2>
+          <h2 className="st-section-title">{t("settings.connectedAccounts")}</h2>
           <div className="st-connected-row">
             <div className="st-connected-info">
               <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style={{ flexShrink: 0 }}>
@@ -192,7 +192,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
               <div>
                 <span className="st-toggle-label">Google</span>
                 <span className="st-toggle-desc" style={{ display: "block" }}>
-                  {googleIdentity ? "Connected" : "Not connected"}
+                  {googleIdentity ? t("settings.connected") : t("settings.notConnected")}
                 </span>
               </div>
             </div>
@@ -201,9 +201,9 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
                 className="st-btn st-btn--ghost"
                 onClick={() => unlinkGoogle.mutate(googleIdentity)}
                 disabled={unlinkGoogle.isPending || !hasPasswordLogin}
-                title={!hasPasswordLogin ? "Set a password before disconnecting Google" : undefined}
+                title={!hasPasswordLogin ? t("settings.setPasswordFirst") : undefined}
               >
-                {unlinkGoogle.isPending ? "Disconnecting…" : "Disconnect"}
+                {unlinkGoogle.isPending ? t("settings.disconnecting") : t("settings.disconnect")}
               </button>
             ) : (
               <button
@@ -211,13 +211,13 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
                 onClick={() => linkGoogle.mutate()}
                 disabled={linkGoogle.isPending}
               >
-                {linkGoogle.isPending ? "Redirecting…" : "Connect"}
+                {linkGoogle.isPending ? t("settings.redirecting") : t("settings.connect")}
               </button>
             )}
           </div>
           {googleIdentity && !hasPasswordLogin && (
             <p className="st-error" style={{ marginTop: 8, fontSize: 12 }}>
-              Set a password first before disconnecting Google — otherwise you'll lose access to your account.
+              {t("settings.setPasswordWarning")}
             </p>
           )}
         </section>
@@ -278,7 +278,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
         {/* ── Subscription ─────────────────────────────────── */}
         {true && (
           <section className="st-section">
-            <h2 className="st-section-title">Subscription</h2>
+            <h2 className="st-section-title">{t("settings.subscriptionSection")}</h2>
             {isPremium ? (
               <div className="st-sub-active">
                 <div className="st-sub-status">
@@ -286,30 +286,30 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
                     ✦ Premium
                   </span>
                   <span className="st-sub-status-label">
-                    {status === "trialing" ? "Free trial active" : "Active — $3 / month"}
+                    {status === "trialing" ? t("settings.trialActive") : t("settings.subscriptionActive")}
                   </span>
                 </div>
                 <p className="st-sub-desc">
-                  You have access to Reading Plans, Study Notes, Messages, Study Groups, and the AI Companion.
+                  {t("settings.subscriptionDesc")}
                 </p>
                 <button
                   className="st-btn st-btn--ghost st-sub-cancel-btn"
                   onClick={() => setShowCancelConfirm(true)}
                 >
-                  Cancel subscription
+                  {t("settings.cancelSubscription")}
                 </button>
               </div>
             ) : (
               <div className="st-sub-inactive">
                 <p className="st-sub-desc">
-                  Upgrade to Premium for $3/month to unlock Reading Plans, Study Notes, Messages, Study Groups, and the AI Companion.
+                  {t("settings.subscriptionDesc")}
                 </p>
                 <button
                   className="st-btn st-btn--primary"
                   onClick={() => startCheckout.mutate()}
                   disabled={startCheckout.isPending}
                 >
-                  {startCheckout.isPending ? "Redirecting…" : "Upgrade to Premium — $3/mo"}
+                  {startCheckout.isPending ? t("settings.redirecting") : t("settings.upgradePrompt")}
                 </button>
               </div>
             )}

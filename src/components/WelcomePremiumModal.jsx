@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { useClickOutside } from "../hooks/useClickOutside";
 import "../styles/welcome-premium.css";
 
@@ -10,17 +11,19 @@ const ICONS = {
   chat: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
   users: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
 };
-const FEATURES = [
-  { icon: ICONS.bolt, label: "AI Study Companion", page: null, desc: "Available on the daily verse, quiz, reading plans, and study notes" },
-  { icon: ICONS.calendar, label: "Reading Plans", page: "readingPlans", desc: "Start a structured journey through any book" },
-  { icon: ICONS.edit, label: "Study Notes", page: "studyNotes", desc: "Take rich-text notes tied to any passage" },
-  { icon: ICONS.chat, label: "Direct Messages", page: "messages", desc: "Message other members privately" },
-  { icon: ICONS.users, label: "Study Groups", page: "groups", desc: "Learn together with group chat and progress tracking" },
-];
 
 export default function WelcomePremiumModal({ onClose, navigate }) {
+  const { t } = useTranslation();
   const ref = useRef(null);
   useClickOutside(ref, true, onClose);
+
+  const FEATURES = [
+    { icon: ICONS.bolt,     label: t("welcomePremium.featureAiLabel"),     page: null,           desc: t("welcomePremium.featureAiDesc") },
+    { icon: ICONS.calendar, label: t("welcomePremium.featurePlansLabel"),   page: "readingPlans", desc: t("welcomePremium.featurePlansDesc") },
+    { icon: ICONS.edit,     label: t("welcomePremium.featureNotesLabel"),   page: "studyNotes",   desc: t("welcomePremium.featureNotesDesc") },
+    { icon: ICONS.chat,     label: t("welcomePremium.featureDmLabel"),      page: "messages",     desc: t("welcomePremium.featureDmDesc") },
+    { icon: ICONS.users,    label: t("welcomePremium.featureGroupsLabel"),  page: "groups",       desc: t("welcomePremium.featureGroupsDesc") },
+  ];
 
   function go(page) {
     onClose();
@@ -32,9 +35,9 @@ export default function WelcomePremiumModal({ onClose, navigate }) {
       <div className="wpm-modal" ref={ref}>
         <div className="wpm-header">
           <div className="wpm-confetti" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg> <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg> <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg></div>
-          <div className="wpm-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg> Welcome to Premium</div>
-          <h2 className="wpm-title" id="wpm-title">You're all set!</h2>
-          <p className="wpm-subtitle">All premium features are now unlocked. Here's what you can explore:</p>
+          <div className="wpm-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg> {t("welcomePremium.badge")}</div>
+          <h2 className="wpm-title" id="wpm-title">{t("welcomePremium.title")}</h2>
+          <p className="wpm-subtitle">{t("welcomePremium.subtitle")}</p>
           <button className="wpm-close" onClick={onClose} aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
         </div>
 
@@ -59,7 +62,7 @@ export default function WelcomePremiumModal({ onClose, navigate }) {
         </ul>
 
         <div className="wpm-footer">
-          <button className="wpm-cta" onClick={onClose}>Start exploring →</button>
+          <button className="wpm-cta" onClick={onClose}>{t("welcomePremium.cta")} →</button>
         </div>
       </div>
     </div>,

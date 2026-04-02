@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import { useAISkill } from "../../hooks/useAISkill";
 import { useCreateStudyNote } from "../../hooks/useStudyNotes";
@@ -7,6 +8,7 @@ import "../../styles/ai-tools.css";
 // ── Shared streaming result display ───────────────────────────────────────────
 
 function SkillResult({ text, loading, error, onClear, skillLabel }) {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const [saveState, setSaveState] = useState("idle"); // idle | choosing | saving | saved | error
   const [isPublic, setIsPublic] = useState(false);
@@ -44,11 +46,11 @@ function SkillResult({ text, loading, error, onClear, skillLabel }) {
   return (
     <div className="ait-result">
       <div className="ait-result-header">
-        <span className="ait-result-label">AI Response</span>
+        <span className="ait-result-label">{t("aiTools.responseLabel")}</span>
         <div className="ait-result-actions">
           {canSave && saveState === "idle" && (
             <button className="ait-result-save" onClick={() => setSaveState("choosing")}>
-              Save to Notes
+              {t("aiTools.saveToNotes")}
             </button>
           )}
           {canSave && saveState === "choosing" && (
@@ -58,22 +60,22 @@ function SkillResult({ text, loading, error, onClear, skillLabel }) {
                   type="button"
                   className={`ait-vis-btn${!isPublic ? " ait-vis-btn--active" : ""}`}
                   onClick={() => setIsPublic(false)}
-                >🔒 Private</button>
+                >{t("aiTools.private")}</button>
                 <button
                   type="button"
                   className={`ait-vis-btn${isPublic ? " ait-vis-btn--active" : ""}`}
                   onClick={() => setIsPublic(true)}
-                >🌐 Public</button>
+                >{t("aiTools.public")}</button>
               </div>
-              <button className="ait-result-save" onClick={handleConfirmSave}>Save</button>
-              <button className="ait-result-clear" onClick={() => setSaveState("idle")}>Cancel</button>
+              <button className="ait-result-save" onClick={handleConfirmSave}>{t("common.save")}</button>
+              <button className="ait-result-clear" onClick={() => setSaveState("idle")}>{t("common.cancel")}</button>
             </>
           )}
-          {saveState === "saving" && <span className="ait-save-status">Saving…</span>}
-          {saveState === "saved"  && <span className="ait-save-status ait-save-status--saved">✓ Saved</span>}
-          {saveState === "error"  && <span className="ait-save-status ait-save-status--error">Failed</span>}
+          {saveState === "saving" && <span className="ait-save-status">{t("common.saving")}</span>}
+          {saveState === "saved"  && <span className="ait-save-status ait-save-status--saved">{t("common.saved")}</span>}
+          {saveState === "error"  && <span className="ait-save-status ait-save-status--error">{t("common.failed")}</span>}
           {saveState !== "choosing" && !loading && (text || error) && (
-            <button className="ait-result-clear" onClick={onClear}>Clear</button>
+            <button className="ait-result-clear" onClick={onClear}>{t("common.clear")}</button>
           )}
         </div>
       </div>
@@ -81,7 +83,7 @@ function SkillResult({ text, loading, error, onClear, skillLabel }) {
         {loading && !text && (
           <div className="ait-loading">
             <span className="ait-dot" /><span className="ait-dot" /><span className="ait-dot" />
-            <span className="ait-loading-label">Thinking…</span>
+            <span className="ait-loading-label">{t("aiTools.thinking")}</span>
           </div>
         )}
         {error && <div className="ait-error">{error}</div>}
@@ -468,8 +470,9 @@ const TABS = [
 ];
 
 export default function AIToolsPage({ navigate, ...navProps }) {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("prayer");
-  const ActiveComp = TABS.find(t => t.id === activeTab)?.component ?? PrayerTab;
+  const ActiveComp = TABS.find(tab => tab.id === activeTab)?.component ?? PrayerTab;
 
   return (
     <>
@@ -479,10 +482,8 @@ export default function AIToolsPage({ navigate, ...navProps }) {
           <div className="ait-hero-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
   <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
 </svg></div>
-          <h1 className="ait-hero-title">AI Bible Study Tools</h1>
-          <p className="ait-hero-subtitle">
-            Powered by Claude — grounded in Watch Tower teachings and the New World Translation.
-          </p>
+          <h1 className="ait-hero-title">{t("aiTools.pageTitle")}</h1>
+          <p className="ait-hero-subtitle">{t("aiTools.pageSubtitle")}</p>
         </div>
 
         <div className="ait-container">

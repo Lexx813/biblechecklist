@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import "../styles/upgrade-prompt.css";
 
 const DISMISS_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
@@ -23,6 +24,7 @@ export function dismissPrompt(triggerKey) {
 }
 
 export default function UpgradePrompt({ icon = "✦", title, message, ctaLabel, onCta, onDismiss }) {
+  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -47,7 +49,7 @@ export default function UpgradePrompt({ icon = "✦", title, message, ctaLabel, 
         <p className="up-message">{message}</p>
         <div className="up-actions">
           <button className="up-cta" onClick={onCta}>{ctaLabel}</button>
-          <button className="up-dismiss" onClick={onDismiss}>Not now</button>
+          <button className="up-dismiss" onClick={onDismiss}>{t("common.notNow")}</button>
         </div>
       </div>
     </div>,
