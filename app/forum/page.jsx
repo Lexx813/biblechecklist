@@ -13,12 +13,14 @@ export const metadata = {
     title: "Community Forum | NWT Progress",
     description:
       "Join Bible discussions, ask questions, and share insights with the NWT Progress community.",
+    images: [{ url: "https://nwtprogress.com/og-image.webp", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Community Forum | NWT Progress",
     description:
       "Join Bible discussions, ask questions, and share insights with the NWT Progress community.",
+    images: [{ url: "https://nwtprogress.com/og-image.webp", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
   },
 };
 

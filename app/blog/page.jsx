@@ -5,20 +5,22 @@ import ClientShell from "../_components/ClientShell";
 export const revalidate = 120;
 
 export const metadata = {
-  title: "Blog | NWT Progress",
+  title: "Bible Study Blog for Jehovah's Witnesses | NWT Progress",
   description:
-    "Spiritual insights, Bible study articles, and community reflections from the NWT Progress community.",
+    "Spiritual insights, Bible study articles, scripture reflections, and community encouragement for Jehovah's Witnesses and NWT readers.",
   alternates: { canonical: "https://nwtprogress.com/blog" },
   openGraph: {
-    title: "Blog | NWT Progress",
+    title: "Bible Study Blog for Jehovah's Witnesses | NWT Progress",
     description:
-      "Spiritual insights, Bible study articles, and community reflections from the NWT Progress community.",
+      "Spiritual insights, Bible study articles, scripture reflections, and community encouragement for Jehovah's Witnesses and NWT readers.",
+    images: [{ url: "https://nwtprogress.com/og-image.webp", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
   },
   twitter: {
-    card: "summary",
-    title: "Blog | NWT Progress",
+    card: "summary_large_image",
+    title: "Bible Study Blog for Jehovah's Witnesses | NWT Progress",
     description:
-      "Spiritual insights, Bible study articles, and community reflections from the NWT Progress community.",
+      "Spiritual insights, Bible study articles, scripture reflections, and community encouragement for Jehovah's Witnesses and NWT readers.",
+    images: [{ url: "https://nwtprogress.com/og-image.webp", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
   },
 };
 
