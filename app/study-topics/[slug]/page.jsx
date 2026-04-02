@@ -48,10 +48,24 @@ export default function StudyTopicPage({ params }) {
     description: topic.subtitle,
     articleBody: allParagraphs.join(" "),
     url: `https://nwtprogress.com/study-topics/${topic.slug}`,
+    datePublished: "2025-11-01",
+    dateModified: "2026-01-01",
+    image: "https://nwtprogress.com/og-image.webp",
+    author: {
+      "@type": "Organization",
+      "@id": "https://nwtprogress.com/#organization",
+      name: "NWT Progress",
+    },
     publisher: {
       "@type": "Organization",
       "@id": "https://nwtprogress.com/#organization",
       name: "NWT Progress",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://nwtprogress.com/icon-512.png",
+        width: 512,
+        height: 512,
+      },
     },
     inLanguage: "en",
   };

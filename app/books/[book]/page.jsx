@@ -66,10 +66,24 @@ export default async function BookPage({ params }) {
     description: book.summary,
     articleBody: `${book.summary} Written by ${book.author} approximately ${book.date}. Theme: ${book.theme}. Key verses: ${book.keyVerses.join(", ")}. The book of ${book.name} contains ${book.chapters} chapters and is part of the ${testament}.`,
     url: `${BASE}/books/${slug}`,
+    datePublished: "2025-11-01",
+    dateModified: "2026-01-01",
+    image: "https://nwtprogress.com/og-image.webp",
+    author: {
+      "@type": "Organization",
+      "@id": "https://nwtprogress.com/#organization",
+      name: "NWT Progress",
+    },
     publisher: {
       "@type": "Organization",
       "@id": `${BASE}/#organization`,
       name: "NWT Progress",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://nwtprogress.com/icon-512.png",
+        width: 512,
+        height: 512,
+      },
     },
     inLanguage: "en",
   };

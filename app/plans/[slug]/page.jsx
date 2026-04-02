@@ -59,6 +59,16 @@ export default async function PlanPage({ params }) {
       "@id": `${BASE}/#organization`,
       name: "NWT Progress",
     },
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: "online",
+      courseWorkload: `P${plan.totalDays}D`,
+      instructor: {
+        "@type": "Organization",
+        "@id": "https://nwtprogress.com/#organization",
+        name: "NWT Progress",
+      },
+    },
     inLanguage: "en",
   };
 
