@@ -3,15 +3,18 @@
 // bookNum is 1-based (Genesis=1 … Revelation=66), matching bookIndex+1
 
 // ── JW Library deep link ──────────────────────────────────────────────────────
-// jwlibrary:// scheme opens the JW Library app directly on iOS and Android.
-// book is 1-based (Genesis=1 … Revelation=66), chapter is 1-based.
+// Format: jwlibrary://bible/{BookName}/{Chapter}/{Verse}
+// e.g.   jwlibrary://bible/Ephesians/6/11
+
+import { BOOKS } from "../data/books";
 
 /**
- * Returns a jwlibrary:// deep link that opens the given book+chapter in the
- * JW Library app. Works on iOS and Android if the app is installed.
+ * Returns a jwlibrary:// deep link that opens the exact chapter (verse 1) in
+ * the JW Library app. Works on iOS and Android if the app is installed.
  */
 export function jwLibraryChapterUrl(bookIndex, chapter) {
-  return `jwlibrary://ui?contentId=bible&book=${bookIndex + 1}&chapter=${chapter}`;
+  const name = encodeURIComponent(BOOKS[bookIndex]?.name ?? "Genesis");
+  return `jwlibrary://bible/${name}/${chapter}/1`;
 }
 
 // ── Language map ──────────────────────────────────────────────────────────────
