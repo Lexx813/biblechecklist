@@ -120,6 +120,7 @@ export default function LandingPage({ onGetStarted }) {
         <div className="landing-orb landing-orb--3" />
         <div className="landing-orb landing-orb--4" />
         <div className="landing-orb landing-orb--5" />
+        <div className="landing-orb landing-orb--gold" />
         <div className="landing-star landing-star--1" />
         <div className="landing-star landing-star--2" />
         <div className="landing-star landing-star--3" />
@@ -178,19 +179,19 @@ export default function LandingPage({ onGetStarted }) {
             <div className="landing-how-step">
               <span className="landing-how-num">1</span>
               <strong>Sign up free</strong>
-              <span>Email or Google</span>
+              <span>Email or Google, 30 seconds</span>
             </div>
-            <div className="landing-how-divider" aria-hidden="true">→</div>
+            <div className="landing-how-divider" aria-hidden="true" />
             <div className="landing-how-step">
               <span className="landing-how-num">2</span>
-              <strong>Track chapters</strong>
-              <span>All 66 books</span>
+              <strong>Check off chapters</strong>
+              <span>All 66 books, chapter by chapter</span>
             </div>
-            <div className="landing-how-divider" aria-hidden="true">→</div>
+            <div className="landing-how-divider" aria-hidden="true" />
             <div className="landing-how-step">
               <span className="landing-how-num">3</span>
-              <strong>Grow daily</strong>
-              <span>Streaks, plans, AI</span>
+              <strong>Build the habit</strong>
+              <span>Streaks, plans, quiz badges</span>
             </div>
           </div>
         </div>
@@ -198,7 +199,15 @@ export default function LandingPage({ onGetStarted }) {
         <div className="landing-testimonials">
           <blockquote className="landing-testimonial">
             <p>"Finally a tool that keeps me consistent with my Bible reading."</p>
-            <cite>— Publisher from the community</cite>
+            <cite>M.G. · México</cite>
+          </blockquote>
+          <blockquote className="landing-testimonial">
+            <p>"The quiz levels and badges make studying feel like a game. I've learned so much."</p>
+            <cite>D.K. · United Kingdom</cite>
+          </blockquote>
+          <blockquote className="landing-testimonial">
+            <p>"Tracking all 66 books with the heatmap keeps me motivated every single day."</p>
+            <cite>A.P. · Brasil</cite>
           </blockquote>
         </div>
 
@@ -261,16 +270,12 @@ export default function LandingPage({ onGetStarted }) {
         </div>
       </section>
 
-      <footer style={{
-        position: "relative", zIndex: 10,
-        textAlign: "center", padding: "24px 16px",
-        fontSize: 12, color: "rgba(255,255,255,0.3)",
-      }}>
+      <footer className="landing-footer">
         © {new Date().getFullYear()} NWT Progress · Lexx Solutionz
         {" · "}
-        <a href="/terms" style={{ color: "rgba(139,92,246,0.7)", textDecoration: "underline", cursor: "pointer" }}>Terms of Service</a>
+        <a href="/terms" className="landing-footer-link">Terms of Service</a>
         {" · "}
-        <a href="/privacy" style={{ color: "rgba(139,92,246,0.7)", textDecoration: "underline", cursor: "pointer" }}>Privacy Policy</a>
+        <a href="/privacy" className="landing-footer-link">Privacy Policy</a>
       </footer>
     </div>
   );

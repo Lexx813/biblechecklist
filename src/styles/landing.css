@@ -1,5 +1,13 @@
 
 
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap');
+
+:root {
+  --landing-gold: #f59e0b;
+  --landing-gold-dim: rgba(245, 158, 11, 0.15);
+  --landing-gold-text: #fde68a;
+}
+
 /* ── Landing Wrap ─────────────────────────────────────────────── */
 .landing-wrap {
   min-height: 100vh;
@@ -81,6 +89,17 @@
   bottom: 12%;
   left: 4%;
   opacity: 0.22;
+}
+/* Gold counterpoint orb */
+.landing-orb--gold {
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle at 50% 50%, #b45309, transparent 70%);
+  top: 20%;
+  right: -60px;
+  opacity: 0.18;
+  filter: blur(90px);
+  animation: orb-b 16s ease-in-out infinite reverse;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -311,9 +330,9 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(192, 132, 252, 0.1);
-  border: 1px solid rgba(192, 132, 252, 0.28);
-  color: #e9d5ff;
+  background: var(--landing-gold-dim);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: var(--landing-gold-text);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -325,19 +344,21 @@
 }
 
 .landing-title {
-  font-family: inherit;
-  font-size: clamp(44px, 9vw, 86px);
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(52px, 10vw, 96px);
+  font-weight: 300;
   color: #fff;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  letter-spacing: -0.01em;
+  line-height: 1.0;
   margin-bottom: 22px;
   animation: fade-up 0.7s 0.2s ease both;
 }
 
 .landing-title-accent {
   display: block;
-  background: linear-gradient(135deg, #c084fc 0%, #e879f9 50%, #a78bfa 100%);
+  font-style: italic;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--landing-gold) 0%, #c084fc 55%, #a78bfa 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -716,6 +737,29 @@
   }
 }
 
+/* ── Footer ───────────────────────────────────────────────────── */
+.landing-footer {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  text-align: center;
+  padding: 24px 16px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.28);
+  margin-top: auto;
+}
+
+.landing-footer-link {
+  color: rgba(139, 92, 246, 0.65);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.landing-footer-link:hover {
+  color: #c084fc;
+}
+
 /* ── Error / Not Found Page ───────────────────────────────────── */
 .error-wrap {
   min-height: 100vh;
@@ -825,6 +869,31 @@
     font-size: 15px;
     padding: 15px 30px;
   }
+  .landing-how {
+    max-width: 100%;
+  }
+  .landing-how-steps {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .landing-how-step {
+    flex-direction: row;
+    text-align: left;
+    gap: 16px;
+    width: 100%;
+    max-width: 260px;
+  }
+  .landing-how-num {
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+  .landing-how-divider {
+    width: 1px;
+    height: 16px;
+    margin: 0 auto;
+    background: linear-gradient(180deg, rgba(245, 158, 11, 0.2), rgba(124, 58, 237, 0.25));
+  }
 }
 
 /* ── Small phones (< 480px) ───────────────────────────────────── */
@@ -863,78 +932,116 @@
 /* ── How it works ─────────────────────────────────────────────────────────── */
 
 .landing-how {
-  margin: 28px auto 0;
-  max-width: 400px;
+  margin: 44px auto 0;
+  max-width: 560px;
+  width: 100%;
   text-align: center;
 }
 
 .landing-how-label {
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 1.2px;
+  letter-spacing: 0.12em;
   color: rgba(255, 255, 255, 0.35);
-  margin: 0 0 14px;
+  margin: 0 0 24px;
 }
 
 .landing-how-steps {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 0;
 }
 
 .landing-how-step {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  flex: 1;
+  padding: 0 8px;
 }
 
 .landing-how-num {
-  width: 28px; height: 28px;
-  background: rgba(124, 58, 237, 0.25);
-  border: 1px solid rgba(124, 58, 237, 0.4);
+  width: 44px;
+  height: 44px;
+  background: var(--landing-gold-dim);
+  border: 1px solid rgba(245, 158, 11, 0.3);
   border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 700; color: #a78bfa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--landing-gold-text);
+  margin-bottom: 4px;
 }
 
-.landing-how-step strong { font-size: 12px; font-weight: 600; color: rgba(255, 255, 255, 0.9); }
-.landing-how-step span   { font-size: 10px; color: rgba(255, 255, 255, 0.4); }
+.landing-how-step strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.3;
+}
+
+.landing-how-step span {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.4;
+}
 
 .landing-how-divider {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.2);
-  padding-bottom: 18px;
+  width: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.2), rgba(124, 58, 237, 0.25));
+  margin-top: 22px;
+  flex-shrink: 0;
 }
 
 /* ── Testimonials ──────────────────────────────────────────────────────────── */
 
 .landing-testimonials {
-  margin: 24px auto 0;
-  max-width: 360px;
+  margin: 36px auto 0;
+  max-width: 660px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
 }
 
 .landing-testimonial {
-  background: rgba(255, 255, 255, 0.04);
-  border-left: 2px solid rgba(124, 58, 237, 0.5);
-  border-radius: 0 8px 8px 0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 2px solid rgba(245, 158, 11, 0.3);
+  border-radius: 12px;
   margin: 0;
-  padding: 12px 14px;
+  padding: 16px;
   text-align: left;
 }
 
 .landing-testimonial p {
-  font-size: 13px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 15px;
   font-style: italic;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 6px;
-  line-height: 1.55;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0 0 10px;
+  line-height: 1.6;
 }
 
 .landing-testimonial cite {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.35);
+  color: var(--landing-gold-text);
+  opacity: 0.7;
   font-style: normal;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 600px) {
+  .landing-testimonials {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+  }
 }
