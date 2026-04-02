@@ -63,26 +63,27 @@ function useCommunityStats() {
   return stats;
 }
 
-const FREE_FEATURES = [
-  { icon: "📖", label: "Reading Tracker", desc: "Track all 66 books chapter by chapter" },
-  { icon: "🧠", label: "Bible Quiz", desc: "1,000+ questions across 12 themes" },
-  { icon: "💬", label: "Community Forum", desc: "Discuss and learn together" },
-  { icon: "✍️", label: "Blog", desc: "Read and write study articles" },
-  { icon: "🔥", label: "Streaks & Heatmap", desc: "Build a daily reading habit" },
-];
-
-const PREMIUM_FEATURES = [
-  { icon: "📅", label: "Reading Plans",       desc: "Structured multi-week study plans" },
-  { icon: "📝", label: "Study Notes",         desc: "Rich-text notes tied to passages" },
-  { icon: "📋", label: "Meeting Prep",        desc: "CLAM + Watchtower study checklists" },
-  { icon: "✨", label: "AI Study Assistant",  desc: "Ask anything about any verse" },
-  { icon: "💬", label: "Direct Messages",     desc: "Private conversations with members" },
-  { icon: "👥", label: "Study Groups",        desc: "Group chat and progress tracking" },
-];
 
 export default function LandingPage({ onGetStarted }) {
   const { t } = useTranslation();
   const communityStats = useCommunityStats();
+
+  const FREE_FEATURES = [
+    { icon: "📖", label: t("landing.freeFeatureReadingTrackerLabel"), desc: t("landing.freeFeatureReadingTrackerDesc") },
+    { icon: "🧠", label: t("landing.freeFeatureQuizLabel"),           desc: t("landing.freeFeatureQuizDesc") },
+    { icon: "💬", label: t("landing.freeFeatureForumLabel"),          desc: t("landing.freeFeatureForumDesc") },
+    { icon: "✍️", label: t("landing.freeFeatureBlogLabel"),           desc: t("landing.freeFeatureBlogDesc") },
+    { icon: "🔥", label: t("landing.freeFeatureStreaksLabel"),        desc: t("landing.freeFeatureStreaksDesc") },
+  ];
+
+  const PREMIUM_FEATURES = [
+    { icon: "📅", label: t("landing.premiumFeaturePlansLabel"),       desc: t("landing.premiumFeaturePlansDesc") },
+    { icon: "📝", label: t("landing.premiumFeatureNotesLabel"),       desc: t("landing.premiumFeatureNotesDesc") },
+    { icon: "📋", label: t("landing.premiumFeatureMeetingPrepLabel"), desc: t("landing.premiumFeatureMeetingPrepDesc") },
+    { icon: "✨", label: t("landing.premiumFeatureAiLabel"),          desc: t("landing.premiumFeatureAiDesc") },
+    { icon: "💬", label: t("landing.premiumFeatureDmLabel"),          desc: t("landing.premiumFeatureDmDesc") },
+    { icon: "👥", label: t("landing.premiumFeatureGroupsLabel"),      desc: t("landing.premiumFeatureGroupsDesc") },
+  ];
 
   const FEATURE_ICONS_V2 = {
     calendar: (
@@ -106,9 +107,9 @@ export default function LandingPage({ onGetStarted }) {
   const FEATURES = [
     { icon: FEATURE_ICONS.book,          label: t("landing.feature66Books") },
     { icon: FEATURE_ICONS.check,         label: t("landing.featureChapters") },
-    { icon: FEATURE_ICONS_V2.calendar,   label: "Reading Plans" },
-    { icon: FEATURE_ICONS_V2.ai,         label: "AI Study Tools" },
-    { icon: FEATURE_ICONS_V2.clipboard,  label: "Meeting Prep" },
+    { icon: FEATURE_ICONS_V2.calendar,   label: t("landing.featureReadingPlans") },
+    { icon: FEATURE_ICONS_V2.ai,         label: t("landing.featureAiTools") },
+    { icon: FEATURE_ICONS_V2.clipboard,  label: t("landing.featureMeetingPrep") },
   ];
 
   return (
@@ -169,29 +170,29 @@ export default function LandingPage({ onGetStarted }) {
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ opacity: 0.7 }}>
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
           </svg>
-          Join {communityStats.users.toLocaleString()}+ publishers worldwide
-          {communityStats.chaptersRead > 0 && ` · ${communityStats.chaptersRead.toLocaleString()} chapters read`}
+          {t("landing.joinPublishers", { count: communityStats.users.toLocaleString() })}
+          {communityStats.chaptersRead > 0 && ` · ${t("landing.chaptersRead", { count: communityStats.chaptersRead.toLocaleString() })}`}
         </p>
 
         <div className="landing-how">
-          <p className="landing-how-label">How it works</p>
+          <p className="landing-how-label">{t("landing.howItWorks")}</p>
           <div className="landing-how-steps">
             <div className="landing-how-step">
               <span className="landing-how-num">1</span>
-              <strong>Sign up free</strong>
-              <span>Email or Google, 30 seconds</span>
+              <strong>{t("landing.howStep1Title")}</strong>
+              <span>{t("landing.howStep1Desc")}</span>
             </div>
             <div className="landing-how-divider" aria-hidden="true" />
             <div className="landing-how-step">
               <span className="landing-how-num">2</span>
-              <strong>Check off chapters</strong>
-              <span>All 66 books, chapter by chapter</span>
+              <strong>{t("landing.howStep2Title")}</strong>
+              <span>{t("landing.howStep2Desc")}</span>
             </div>
             <div className="landing-how-divider" aria-hidden="true" />
             <div className="landing-how-step">
               <span className="landing-how-num">3</span>
-              <strong>Build the habit</strong>
-              <span>Streaks, plans, quiz badges</span>
+              <strong>{t("landing.howStep3Title")}</strong>
+              <span>{t("landing.howStep3Desc")}</span>
             </div>
           </div>
         </div>
@@ -223,19 +224,19 @@ export default function LandingPage({ onGetStarted }) {
       {/* Pricing */}
       <section className="landing-pricing">
         <div className="landing-pricing-header">
-          <h2 className="landing-pricing-title">Simple, transparent pricing</h2>
-          <p className="landing-pricing-sub">Start free. Upgrade when you're ready to go deeper.</p>
+          <h2 className="landing-pricing-title">{t("landing.pricingTitle")}</h2>
+          <p className="landing-pricing-sub">{t("landing.pricingSub")}</p>
         </div>
 
         <div className="landing-pricing-cards">
           {/* Free plan */}
           <div className="landing-plan">
-            <p className="landing-plan-name">Free</p>
+            <p className="landing-plan-name">{t("landing.planFreeName")}</p>
             <div className="landing-plan-price">
               <span className="landing-plan-amount">$0</span>
-              <span className="landing-plan-period">/ forever</span>
+              <span className="landing-plan-period">{t("landing.planFreePeriod")}</span>
             </div>
-            <p className="landing-plan-desc">Everything you need to start tracking your Bible reading.</p>
+            <p className="landing-plan-desc">{t("landing.planFreeDesc")}</p>
             <ul className="landing-plan-features">
               {FREE_FEATURES.map(f => (
                 <li key={f.label} className="landing-plan-feature landing-plan-feature--detailed">
@@ -244,18 +245,18 @@ export default function LandingPage({ onGetStarted }) {
                 </li>
               ))}
             </ul>
-            <button className="landing-plan-cta landing-plan-cta--ghost" onClick={onGetStarted}>Get Started Free</button>
+            <button className="landing-plan-cta landing-plan-cta--ghost" onClick={onGetStarted}>{t("landing.planFreeCtaLabel")}</button>
           </div>
 
           {/* Premium plan */}
           <div className="landing-plan landing-plan--premium">
-            <div className="landing-plan-popular">Most Popular</div>
-            <p className="landing-plan-name">Premium</p>
+            <div className="landing-plan-popular">{t("landing.planPremiumPopular")}</div>
+            <p className="landing-plan-name">{t("landing.planPremiumName")}</p>
             <div className="landing-plan-price">
               <span className="landing-plan-amount">$3</span>
-              <span className="landing-plan-period">/ month</span>
+              <span className="landing-plan-period">{t("landing.planPremiumPeriod")}</span>
             </div>
-            <p className="landing-plan-desc">Go deeper with structured plans, notes, messaging, and AI.</p>
+            <p className="landing-plan-desc">{t("landing.planPremiumDesc")}</p>
             <ul className="landing-plan-features">
               {PREMIUM_FEATURES.map(f => (
                 <li key={f.label} className="landing-plan-feature landing-plan-feature--detailed">
@@ -264,8 +265,8 @@ export default function LandingPage({ onGetStarted }) {
                 </li>
               ))}
             </ul>
-            <button className="landing-plan-cta landing-plan-cta--primary" onClick={onGetStarted}>Start 7-Day Free Trial</button>
-            <p className="landing-plan-note">Cancel anytime · No commitment</p>
+            <button className="landing-plan-cta landing-plan-cta--primary" onClick={onGetStarted}>{t("landing.planPremiumCtaLabel")}</button>
+            <p className="landing-plan-note">{t("landing.planPremiumNote")}</p>
           </div>
         </div>
       </section>
