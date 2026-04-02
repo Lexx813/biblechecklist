@@ -99,7 +99,17 @@
 .reading-plan-goal-edit-btn:hover { border-color: var(--teal); color: var(--teal); }
 
 /* ── Heatmap ─────────────────────────────────────────────────── */
-.heatmap-outer { overflow-x: auto; overflow-y: visible; padding-bottom: 4px; }
+.heatmap-outer {
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #7c3aed33 transparent;
+}
+.heatmap-outer::-webkit-scrollbar { height: 4px; }
+.heatmap-outer::-webkit-scrollbar-track { background: transparent; }
+.heatmap-outer::-webkit-scrollbar-thumb { background: #7c3aed55; border-radius: 2px; }
+.heatmap-outer::-webkit-scrollbar-thumb:hover { background: #7c3aed99; }
 
 .heatmap-grid { display: flex; gap: 2px; overflow: visible; }
 
