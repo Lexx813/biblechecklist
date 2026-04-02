@@ -9,8 +9,9 @@ function stripHtml(html = "") {
 }
 
 export async function generateMetadata({ params }) {
+  const { slug } = params;
   try {
-    const post = await blogApi.getBySlug(params.slug);
+    const post = await blogApi.getBySlug(slug);
     if (!post) return {};
 
     const desc =
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }) {
       stripHtml(post.content).slice(0, 160) ||
       `Read "${post.title}" on NWT Progress`;
 
-    return {
+    const metadata = {
       title: `${post.title} | NWT Progress`,
       description: desc,
       alternates: { canonical: `https://nwtprogress.com/blog/${post.slug}` },
@@ -39,6 +40,12 @@ export async function generateMetadata({ params }) {
         images: post.cover_url ? [post.cover_url] : [],
       },
     };
+
+    if (slug === "2026-04-01-test-insight") {
+      return { ...metadata, robots: { index: false, follow: false } };
+    }
+
+    return metadata;
   } catch {
     return {};
   }
@@ -76,11 +83,24 @@ export default async function BlogPostPage({ params }) {
         author: post.profiles?.display_name
           ? { "@type": "Person", name: post.profiles.display_name }
           : { "@type": "Organization", "@id": "https://nwtprogress.com/#organization", name: "NWT Progress" },
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": `https://nwtprogress.com/blog/${post.slug}`,
+        },
         publisher: {
           "@type": "Organization",
           "@id": "https://nwtprogress.com/#organization",
           name: "NWT Progress",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://nwtprogress.com/icon-512.png",
+            width: 512,
+            height: 512,
+          },
         },
+        wordCount: post.content
+          ? post.content.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length
+          : undefined,
         url: `https://nwtprogress.com/blog/${post.slug}`,
         image: post.cover_url || "https://nwtprogress.com/og-image.webp",
       }
@@ -110,34 +130,34 @@ export default async function BlogPostPage({ params }) {
             {post.content && (
               <div dangerouslySetInnerHTML={{ __html: post.content }} />
             )}
-            <nav aria-label="Related resources">
-              <h2>Explore Bible Books on NWT Progress</h2>
-              <ul>
-                <li><a href="/books">All 66 Books of the Bible — NWT Study Guides</a></li>
-                <li><a href="/books/genesis">Genesis</a></li>
-                <li><a href="/books/psalms">Psalms</a></li>
-                <li><a href="/books/proverbs">Proverbs</a></li>
-                <li><a href="/books/isaiah">Isaiah</a></li>
-                <li><a href="/books/matthew">Matthew</a></li>
-                <li><a href="/books/john">John</a></li>
-                <li><a href="/books/acts">Acts</a></li>
-                <li><a href="/books/romans">Romans</a></li>
-                <li><a href="/books/revelation">Revelation</a></li>
-              </ul>
-              <h2>Bible Reading Plans</h2>
-              <ul>
-                <li><a href="/plans">All Bible Reading Plans for Jehovah&apos;s Witnesses</a></li>
-              </ul>
-              <h2>Study Topics</h2>
-              <ul>
-                <li><a href="/study-topics">Bible Study Topics</a></li>
-              </ul>
-              <h2>More from the Blog</h2>
-              <ul>
-                <li><a href="/blog">NWT Progress Blog</a></li>
-              </ul>
-            </nav>
           </article>
+          <nav aria-label="Related resources">
+            <h2>Explore Bible Books on NWT Progress</h2>
+            <ul>
+              <li><a href="/books">All 66 Books of the Bible — NWT Study Guides</a></li>
+              <li><a href="/books/genesis">Genesis</a></li>
+              <li><a href="/books/psalms">Psalms</a></li>
+              <li><a href="/books/proverbs">Proverbs</a></li>
+              <li><a href="/books/isaiah">Isaiah</a></li>
+              <li><a href="/books/matthew">Matthew</a></li>
+              <li><a href="/books/john">John</a></li>
+              <li><a href="/books/acts">Acts</a></li>
+              <li><a href="/books/romans">Romans</a></li>
+              <li><a href="/books/revelation">Revelation</a></li>
+            </ul>
+            <h2>Bible Reading Plans</h2>
+            <ul>
+              <li><a href="/plans">All Bible Reading Plans for Jehovah&apos;s Witnesses</a></li>
+            </ul>
+            <h2>Study Topics</h2>
+            <ul>
+              <li><a href="/study-topics">Bible Study Topics</a></li>
+            </ul>
+            <h2>More from the Blog</h2>
+            <ul>
+              <li><a href="/blog">NWT Progress Blog</a></li>
+            </ul>
+          </nav>
         </div>
       )}
       {/* Runs synchronously during HTML parse — hides fallback before first paint so users never see it */}
