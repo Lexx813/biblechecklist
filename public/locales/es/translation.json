@@ -929,7 +929,9 @@
     "chapters": "cap.",
     "levelsComplete_one": "{{count}} nivel completado",
     "levelsComplete_other": "{{count}} niveles completados",
-    "empty": "Aún no hay resultados. ¡Comienza a leer para aparecer aquí!"
+    "empty": "Aún no hay resultados. ¡Comienza a leer para aparecer aquí!",
+    "noScores": "Aún no hay puntuaciones para este nivel.",
+    "pts": "pts"
   },
   "search": {
     "placeholder": "Buscar libros, entradas, hilos…",

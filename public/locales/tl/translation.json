@@ -929,7 +929,9 @@
     "chapters": "kab",
     "levelsComplete_one": "{{count}} antas na natapos",
     "levelsComplete_other": "{{count}} antas na natapos",
-    "empty": "Wala pang resulta. Magsimulang magbasa para lumabas dito!"
+    "empty": "Wala pang resulta. Magsimulang magbasa para lumabas dito!",
+    "noScores": "Wala pang puntos para sa antas na ito.",
+    "pts": "pts"
   },
   "search": {
     "placeholder": "Maghanap ng mga aklat, post, thread…",

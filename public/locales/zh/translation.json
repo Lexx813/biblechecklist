@@ -389,7 +389,9 @@
     "chapters": "章",
     "levelsComplete_one": "完成 {{count}} 关",
     "levelsComplete_other": "完成 {{count}} 关",
-    "empty": "暂无结果。开始阅读即可上榜！"
+    "empty": "暂无结果。开始阅读即可上榜！",
+    "noScores": "该等级暂无成绩。",
+    "pts": "分"
   },
   "history": {
     "title": "阅读历史",

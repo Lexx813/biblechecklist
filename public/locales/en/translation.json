@@ -927,7 +927,9 @@
     "chapters": "ch",
     "levelsComplete_one": "{{count}} level completed",
     "levelsComplete_other": "{{count}} levels completed",
-    "empty": "No results yet. Start reading to appear here!"
+    "empty": "No results yet. Start reading to appear here!",
+    "noScores": "No scores yet for this level.",
+    "pts": "pts"
   },
   "search": {
     "placeholder": "Search books, posts, threads…",

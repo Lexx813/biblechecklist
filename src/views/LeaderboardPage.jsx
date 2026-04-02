@@ -94,12 +94,13 @@ function QuizBoard({ data, userId, onProfile }) {
 }
 
 function TimedLeaderboardList({ level, currentUserId }) {
+  const { t } = useTranslation();
   const { data: entries = [], isLoading } = useTimedLeaderboard(level);
 
   if (isLoading) return <SkeletonList />;
   if (!entries.length) return (
     <p style={{ textAlign: "center", color: "var(--text-secondary)", padding: "32px 0" }}>
-      No scores yet for this level.
+      {t("leaderboard.noScores", "No scores yet for this level.")}
     </p>
   );
 
@@ -112,7 +113,7 @@ function TimedLeaderboardList({ level, currentUserId }) {
         >
           <span className="lb-rank">#{entry.rank}</span>
           <span className="lb-name">{entry.displayName}</span>
-          <span className="lb-score">{entry.score} pts</span>
+          <span className="lb-score">{entry.score} {t("leaderboard.pts", "pts")}</span>
           <span className="lb-date">
             {new Date(entry.achievedAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
           </span>

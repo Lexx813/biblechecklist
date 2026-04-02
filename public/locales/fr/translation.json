@@ -929,7 +929,9 @@
     "chapters": "ch",
     "levelsComplete_one": "{{count}} niveau terminé",
     "levelsComplete_other": "{{count}} niveaux terminés",
-    "empty": "Aucun résultat pour l'instant. Commencez à lire pour apparaître ici !"
+    "empty": "Aucun résultat pour l'instant. Commencez à lire pour apparaître ici !",
+    "noScores": "Aucun score pour ce niveau.",
+    "pts": "pts"
   },
   "search": {
     "placeholder": "Rechercher des livres, articles, fils…",
