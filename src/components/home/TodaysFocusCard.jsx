@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import {
   useMyPlans,
   usePlanCompletions,
@@ -68,6 +68,13 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
   const unmarkDay = useUnmarkDay(activePlan?.id ?? null);
   const { data: streak = { current_streak: 0 } } = useReadingStreak(userId);
   const lastRead = useLastReadChapter(userId);
+
+  const [streakPop, setStreakPop] = useState(false);
+  useEffect(() => {
+    if (streak?.current_streak > 0) {
+      setStreakPop(true);
+    }
+  }, []); // fire once on mount
 
   const { template, currentDay, doneSet, todayReadings, pct } = useMemo(() => {
     if (!activePlan) return { template: null, currentDay: 1, doneSet: new Set(), todayReadings: [], pct: 0 };
@@ -140,7 +147,12 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
               <div className="tf-streak-label">Streak</div>
               <div className="tf-streak-value">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="#fb923c" aria-hidden="true"><path d="M12 23c-4.97 0-8-3.03-8-7 0-2.44 1.34-4.81 2.5-6.35A1 1 0 0 1 8.18 10c.34 1.14 1.1 2.13 2.05 2.75C10.31 10 12 6 12 2a1 1 0 0 1 1.66-.75c2.24 1.92 5.84 5.63 5.84 10.75 0 5.68-3.55 11-7.5 11z"/></svg>
-                {streak.current_streak}
+                <span
+                  className={`tf-streak-number${streakPop ? ' streak-pop' : ''}`}
+                  onAnimationEnd={() => setStreakPop(false)}
+                >
+                  {streak.current_streak}
+                </span>
               </div>
             </div>
           )}
