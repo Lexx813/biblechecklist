@@ -17,10 +17,13 @@ import { useUserForumStats } from "../../hooks/useForum";
 import { useUserPosts, useCreatePost, useDeletePost } from "../../hooks/usePosts";
 import { useGetOrCreateDM } from "../../hooks/useMessages";
 import { useSubscription } from "../../hooks/useSubscription";
+import { useBadges } from "../../hooks/useBadges";
+import { BADGES } from "../../data/badges";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 import "../../styles/profile.css";
 import "../../styles/social.css";
+import "../../styles/gamification.css";
 import { formatDate } from "../../utils/formatters";
 import ReferralPanel from "../../components/ReferralPanel";
 
@@ -773,6 +776,12 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
   const levelsCompleted = quizProgress.filter(p => p.badge_earned).length;
   const highestUnlocked = quizProgress.filter(p => p.unlocked).reduce((max, p) => Math.max(max, p.level), 0);
 
+  // Milestone badges
+  const { data: earnedBadges = [] } = useBadges(user?.id);
+  const earnedKeys = new Set(earnedBadges.map((b) => b.badge_key));
+  const earnedMap = Object.fromEntries(earnedBadges.map((b) => [b.badge_key, b.earned_at]));
+  const earnedCount = earnedKeys.size;
+
   useEffect(() => {
     const name = profile?.display_name || profile?.email?.split("@")[0];
     if (name) document.title = `${name} — NWT Progress`;
@@ -956,6 +965,36 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
               })}
             </div>
           )}
+        </div>
+
+        {/* Achievements / Milestone Badges */}
+        <div className="achievements-section">
+          <h3 className="achievements-title">
+            Achievements ({earnedCount} / {BADGES.length})
+          </h3>
+          <div className="badge-grid">
+            {BADGES.map((badge) => {
+              const earned = earnedKeys.has(badge.key);
+              const earnedAt = earnedMap[badge.key];
+              return (
+                <div
+                  key={badge.key}
+                  className={`badge-card ${earned ? "badge-card--earned" : "badge-card--locked"}`}
+                  title={badge.description + (earnedAt ? `\nEarned ${new Date(earnedAt).toLocaleDateString()}` : "")}
+                >
+                  <span className="badge-emoji" role="img" aria-label={badge.label}>
+                    {badge.emoji}
+                  </span>
+                  <span className="badge-label">{badge.label}</span>
+                  {earned && earnedAt && (
+                    <span className="badge-earned-date">
+                      {new Date(earnedAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                    </span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Public posts / status updates */}
