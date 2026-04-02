@@ -54,6 +54,9 @@ const StudyTopicsPage   = lazy(() => import("./views/studytopics/StudyTopicsPage
 const StudyTopicDetail  = lazy(() => import("./views/studytopics/StudyTopicDetail"));
 const FamilyQuizPage    = lazy(() => import("./views/familyquiz/FamilyQuizPage"));
 const MeetingPrepPage   = lazy(() => import("./views/meetingprep/MeetingPrepPage"));
+const FriendsPage        = lazy(() => import("./views/friends/FriendsPage"));
+const FriendRequestsPage = lazy(() => import("./views/friends/FriendRequestsPage"));
+const InviteLandingPage  = lazy(() => import("./views/friends/InviteLandingPage"));
 
 // ── Lazy-page wrapper with error boundary ─────────────────────────────────────
 
@@ -115,7 +118,7 @@ const FEATURE_PROMPTS = {
 
 // ── Authenticated app with routing ────────────────────────────────────────────
 
-const VALID_PAGES = ["readingPlans", "studyNotes", "quiz", "forum", "blog", "main"];
+const VALID_PAGES = ["readingPlans", "studyNotes", "quiz", "forum", "blog", "main", "friends", "friendRequests"];
 
 function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   const queryClient = useQueryClient();
@@ -334,6 +337,10 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (isPremium && nav.page === "groups")       pageContent = <Page><GroupsPage {...sharedNav} /></Page>;
   else if (isPremium && nav.page === "groupDetail")  pageContent = <Page><GroupDetail {...sharedNav} groupId={nav.groupId} /></Page>;
   else if (isPremium && nav.page === "meetingPrep") pageContent = <Page><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></Page>;
+  else if (nav.page === "friends")
+    pageContent = <Page><FriendsPage user={user} navigate={navigate} isPremium={isPremium} onUpgrade={openUpgrade} /></Page>;
+  else if (nav.page === "friendRequests")
+    pageContent = <Page><FriendRequestsPage user={user} navigate={navigate} /></Page>;
   // Premium-gated pages for non-premium users → send home (with upgrade prompt)
   else if (!isPremium && ["messages", "groups", "groupDetail", "readingPlans", "studyNotes", "aiTools", "meetingPrep"].includes(nav.page)) {
     if (!profileLoading) {
@@ -464,6 +471,16 @@ export default function AuthedApp({ onShowLanding, i18n }) {
             i18n={i18n} onLogout={null}
           />
           <PageFooter />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+
+  if (!user && publicNav.page === "invite") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingSpinner />}>
+          <InviteLandingPage token={(publicNav as any).token} onShowLanding={onShowLanding} />
         </Suspense>
       </ErrorBoundary>
     );

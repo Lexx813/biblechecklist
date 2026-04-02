@@ -40,6 +40,9 @@ export function parsePath() {
   if (h === "about") return { page: "about" };
   if (h === "terms") return { page: "terms" };
   if (h === "privacy") return { page: "privacy" };
+  if (h === "friends") return { page: "friends" };
+  if (h === "friends/requests") return { page: "friendRequests" };
+  if (h.startsWith("invite/")) return { page: "invite", token: h.slice(7) };
   return { page: "notFound" };
 }
 
@@ -73,6 +76,9 @@ export function buildPath(page, params = {}) {
     case "about":         return "/about";
     case "terms":         return "/terms";
     case "privacy":       return "/privacy";
+    case "friends":        return "/friends";
+    case "friendRequests": return "/friends/requests";
+    case "invite":         return `/invite/${(params as { token?: string }).token ?? ""}`;
     case "main":          return "/checklist";
     default:              return "/";
   }
