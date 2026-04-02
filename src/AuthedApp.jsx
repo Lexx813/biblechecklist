@@ -104,6 +104,12 @@ const FEATURE_PROMPTS = {
     message: "Group chat, shared progress tracking, and weekly leaderboards with your study group.",
     ctaLabel: "Unlock Premium — $3/mo",
   },
+  meetingPrep: {
+    icon: "📋",
+    title: "Meeting Prep",
+    message: "Prepare for midweek and weekend meetings with structured checklists and study notes.",
+    ctaLabel: "Unlock Premium — $3/mo",
+  },
 };
 
 // ── Authenticated app with routing ────────────────────────────────────────────
@@ -316,9 +322,9 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (isPremium && nav.page === "messages")     pageContent = <Page noFooter><MessagesPage {...sharedNav} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
   else if (isPremium && nav.page === "groups")       pageContent = <Page><GroupsPage {...sharedNav} /></Page>;
   else if (isPremium && nav.page === "groupDetail")  pageContent = <Page><GroupDetail {...sharedNav} groupId={nav.groupId} /></Page>;
-  else if (nav.page === "meetingPrep") pageContent = <Page><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></Page>;
+  else if (isPremium && nav.page === "meetingPrep") pageContent = <Page><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   // Premium-gated pages for non-premium users → send home (with upgrade prompt)
-  else if (!isPremium && ["messages", "groups", "groupDetail", "readingPlans", "studyNotes", "aiTools"].includes(nav.page)) {
+  else if (!isPremium && ["messages", "groups", "groupDetail", "readingPlans", "studyNotes", "aiTools", "meetingPrep"].includes(nav.page)) {
     if (!profileLoading) {
       const feature = nav.page === "groupDetail" ? "groups" : nav.page;
       navigate("home");

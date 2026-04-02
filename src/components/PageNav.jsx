@@ -176,9 +176,11 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 <button className={`page-nav-more-item${currentPage === "feed" ? " page-nav-more-item--active" : ""}`} onClick={() => go("feed")}>{Icon.Feed} {t("feed.navLink")}</button>
                 <button className={`page-nav-more-item${currentPage === "bookmarks" ? " page-nav-more-item--active" : ""}`} onClick={() => go("bookmarks")}>{Icon.Bookmark} {t("bookmarks.title")}</button>
                 <button className={`page-nav-more-item${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-more-item--active" : ""}`} onClick={() => go("studyTopics")}>{Icon.Book} {t("nav.studyTopics", "Study Topics")}</button>
-                <button className={`page-nav-more-item${currentPage === "meetingPrep" ? " page-nav-more-item--active" : ""}`} onClick={() => go("meetingPrep")}>{Icon.Calendar} {t("nav.meetingPrep", "Meeting Prep")}</button>
                 <div className="page-nav-more-divider" />
                 <div className="page-nav-more-group-label">{t("nav.premium", "Premium")}</div>
+                {isPremium
+                  ? <button className={`page-nav-more-item${currentPage === "meetingPrep" ? " page-nav-more-item--active" : ""}`} onClick={() => go("meetingPrep")}>{Icon.Calendar} {t("nav.meetingPrep", "Meeting Prep")}</button>
+                  : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setStudyOpen(false); onUpgrade?.(); }}>{Icon.Calendar} {t("nav.meetingPrep", "Meeting Prep")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
                 {isPremium
                   ? <button className={`page-nav-more-item${currentPage === "readingPlans" ? " page-nav-more-item--active" : ""}`} onClick={() => go("readingPlans")}>{Icon.Calendar} {t("nav.readingPlans")}</button>
                   : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setStudyOpen(false); onUpgrade?.(); }}>{Icon.Calendar} {t("nav.readingPlans")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
@@ -356,9 +358,9 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 <button className={`page-nav-mobile-link${currentPage === "feed" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("feed")}><span className="page-nav-mobile-icon">{Icon.Feed}</span> {t("feed.navLink")}</button>
                 <button className={`page-nav-mobile-link${currentPage === "bookmarks" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("bookmarks")}><span className="page-nav-mobile-icon">{Icon.Bookmark}</span> {t("bookmarks.title")}</button>
                 <button className={`page-nav-mobile-link${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyTopics")}><span className="page-nav-mobile-icon">{Icon.Book}</span> {t("nav.studyTopics", "Study Topics")}</button>
-                <button className={`page-nav-mobile-link${currentPage === "meetingPrep" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("meetingPrep")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.meetingPrep", "Meeting Prep")}</button>
                 {isPremium ? (
                   <>
+                    <button className={`page-nav-mobile-link${currentPage === "meetingPrep" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("meetingPrep")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.meetingPrep", "Meeting Prep")}</button>
                     <button className={`page-nav-mobile-link${currentPage === "readingPlans" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("readingPlans")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.readingPlans")}</button>
                     <button className={`page-nav-mobile-link${currentPage === "studyNotes" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyNotes")}><span className="page-nav-mobile-icon">{Icon.Notes}</span> {t("nav.studyNotes")}</button>
                     {(aiEnabled || isAdmin)
@@ -367,6 +369,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                   </>
                 ) : (
                   <>
+                    <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.meetingPrep", "Meeting Prep")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
                     <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.readingPlans")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
                     <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Notes}</span> {t("nav.studyNotes")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
                     <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Sparkle}</span> {t("nav.aiTools", "AI Tools")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
