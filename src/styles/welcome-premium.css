@@ -215,3 +215,24 @@
   .wpm-features { padding: 10px 10px; }
   .wpm-feature { padding: 8px 8px; gap: 10px; }
 }
+
+@media (max-width: 480px) {
+  .wpm-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .wpm-modal {
+    border-radius: 22px 22px 0 0;
+    max-width: 100%;
+    width: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .wpm-modal {
+      animation: sheet-up-wpm 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    @keyframes sheet-up-wpm {
+      from { transform: translateY(100%); opacity: 0.6; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+  }
+}

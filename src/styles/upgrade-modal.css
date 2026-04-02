@@ -289,3 +289,24 @@
   .upm-feature-icon { width: 36px; height: 36px; font-size: 18px; border-radius: 10px; }
   .upm-footer { padding: 16px 16px 20px; }
 }
+
+@media (max-width: 480px) {
+  .upm-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+  .upm-modal {
+    border-radius: 22px 22px 0 0;
+    max-width: 100%;
+    width: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .upm-modal {
+      animation: sheet-up 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    @keyframes sheet-up {
+      from { transform: translateY(100%); opacity: 0.6; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+  }
+}
