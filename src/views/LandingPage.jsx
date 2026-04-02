@@ -265,13 +265,27 @@ export default function LandingPage({ onGetStarted }) {
 
           {/* Premium plan */}
           <div className="landing-plan landing-plan--premium">
-            <div className="landing-plan-popular">{t("landing.planPremiumPopular")}</div>
+            <div className="landing-plan-popular">
+              {communityStats.spotsLeft > 0 ? t("landing.planPremiumPopularPromo") : t("landing.planPremiumPopular")}
+            </div>
             <p className="landing-plan-name">{t("landing.planPremiumName")}</p>
             <div className="landing-plan-price">
-              <span className="landing-plan-amount">$3</span>
-              <span className="landing-plan-period">{t("landing.planPremiumPeriod")}</span>
+              {communityStats.spotsLeft > 0 ? (
+                <>
+                  <span className="landing-plan-amount" style={{ textDecoration: "line-through", opacity: 0.4, fontSize: "0.7em" }}>$3</span>
+                  <span className="landing-plan-amount" style={{ color: "#c084fc" }}>$0</span>
+                  <span className="landing-plan-period">{t("landing.planPremiumPeriodPromo")}</span>
+                </>
+              ) : (
+                <>
+                  <span className="landing-plan-amount">$3</span>
+                  <span className="landing-plan-period">{t("landing.planPremiumPeriod")}</span>
+                </>
+              )}
             </div>
-            <p className="landing-plan-desc">{t("landing.planPremiumDesc")}</p>
+            <p className="landing-plan-desc">
+              {communityStats.spotsLeft > 0 ? t("landing.planPremiumDescPromo") : t("landing.planPremiumDesc")}
+            </p>
             <ul className="landing-plan-features">
               {PREMIUM_FEATURES.map(f => (
                 <li key={f.label} className="landing-plan-feature landing-plan-feature--detailed">
@@ -280,8 +294,14 @@ export default function LandingPage({ onGetStarted }) {
                 </li>
               ))}
             </ul>
-            <button className="landing-plan-cta landing-plan-cta--primary" onClick={onGetStarted}>{t("landing.planPremiumCtaLabel")}</button>
-            <p className="landing-plan-note">{t("landing.planPremiumNote")}</p>
+            <button className="landing-plan-cta landing-plan-cta--primary" onClick={onGetStarted}>
+              {communityStats.spotsLeft > 0 ? t("landing.ctaPromo") : t("landing.planPremiumCtaLabel")}
+            </button>
+            <p className="landing-plan-note">
+              {communityStats.spotsLeft > 0
+                ? t("landing.planPremiumNotePromo", { count: communityStats.spotsLeft })
+                : t("landing.planPremiumNote")}
+            </p>
           </div>
         </div>
       </section>

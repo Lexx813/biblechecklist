@@ -127,9 +127,13 @@
     "premiumFeatureDmDesc": "Conversaciones privadas con miembros",
     "premiumFeatureGroupsLabel": "Grupos de Estudio",
     "premiumFeatureGroupsDesc": "Chat grupal y seguimiento del progreso",
-    "promoTitle": "Los primeros 500 usuarios reciben Premium gratis",
+    "promoTitle": "Los primeros 500 usuarios reciben Premium gratis — de por vida",
     "promoSpotsLeft": "{{count}} lugares disponibles",
-    "ctaPromo": "Reclamar Tu Lugar Premium Gratis"
+    "ctaPromo": "Reclamar Tu Premium Gratis — De Por Vida",
+    "planPremiumPopularPromo": "🎁 Gratis para Pioneros",
+    "planPremiumPeriodPromo": "/ de por vida",
+    "planPremiumDescPromo": "Eres de los primeros 500 — recibe acceso Premium de por vida, completamente gratis.",
+    "planPremiumNotePromo": "Sin tarjeta · Gratis de por vida · {{count}} lugares disponibles"
   },
   "auth": {
     "title": "Lista de Lectura Bíblica",

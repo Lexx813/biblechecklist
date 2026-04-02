@@ -127,9 +127,13 @@
     "premiumFeatureDmDesc": "Mga pribadong pag-uusap sa mga miyembro",
     "premiumFeatureGroupsLabel": "Mga Grupo sa Pag-aaral",
     "premiumFeatureGroupsDesc": "Group chat at pagsubaybay sa pag-unlad",
-    "promoTitle": "Ang unang 500 gumagamit ay makakakuha ng Premium nang libre",
+    "promoTitle": "Ang unang 500 gumagamit ay makakakuha ng Premium nang libre — habambuhay",
     "promoSpotsLeft": "{{count}} puwesto na natitira",
-    "ctaPromo": "I-claim ang Iyong Libreng Premium"
+    "ctaPromo": "I-claim ang Libreng Premium — Habambuhay",
+    "planPremiumPopularPromo": "🎁 Libre para mga Unang Gumagamit",
+    "planPremiumPeriodPromo": "/ habambuhay",
+    "planPremiumDescPromo": "Ikaw ay isa sa unang 500 — i-claim ang iyong habambuhay na Premium nang libre.",
+    "planPremiumNotePromo": "Walang credit card · Libre habambuhay · {{count}} puwesto"
   },
   "auth": {
     "title": "Listahan ng Pagbabasa ng Bibliya",

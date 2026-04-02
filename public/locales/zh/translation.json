@@ -153,9 +153,13 @@
     "premiumFeatureDmDesc": "与成员的私人对话",
     "premiumFeatureGroupsLabel": "学习小组",
     "premiumFeatureGroupsDesc": "群聊和进度跟踪",
-    "promoTitle": "前500名用户免费获得高级版",
+    "promoTitle": "前500名用户终身免费获得高级版",
     "promoSpotsLeft": "剩余{{count}}个名额",
-    "ctaPromo": "立即领取免费高级版名额"
+    "ctaPromo": "立即领取终身免费高级版名额",
+    "planPremiumPopularPromo": "🎁 早期用户专享",
+    "planPremiumPeriodPromo": "/ 终身",
+    "planPremiumDescPromo": "您是前500名用户之一 — 免费获得终身高级版访问权限。",
+    "planPremiumNotePromo": "无需信用卡 · 终身免费 · 剩余{{count}}个名额"
   },
   "auth": {
     "title": "圣经阅读清单",

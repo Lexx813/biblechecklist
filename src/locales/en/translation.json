@@ -130,9 +130,13 @@
     "premiumFeatureDmDesc": "Private conversations with members",
     "premiumFeatureGroupsLabel": "Study Groups",
     "premiumFeatureGroupsDesc": "Group chat and progress tracking",
-    "promoTitle": "First 500 users get Premium free",
+    "promoTitle": "First 500 users get Premium free — for life",
     "promoSpotsLeft": "{{count}} spots left",
-    "ctaPromo": "Claim Your Free Premium Spot"
+    "ctaPromo": "Claim Your Free Premium — For Life",
+    "planPremiumPopularPromo": "🎁 Free for Early Adopters",
+    "planPremiumPeriodPromo": "/ for life",
+    "planPremiumDescPromo": "You're one of the first 500 — claim your lifetime Premium access, completely free.",
+    "planPremiumNotePromo": "No credit card · Free for life · {{count}} spots left"
   },
   "auth": {
     "title": "Bible Reading Checklist",
