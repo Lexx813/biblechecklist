@@ -32,7 +32,15 @@ interface Props {
 
 // useCancelFriendRequest requires targetId at hook-creation time, so use a
 // per-row sub-component to satisfy the Rules of Hooks.
-function OutgoingRow({ userId, req }: { userId: string; req: OutgoingRequest }) {
+function OutgoingRow({
+  userId,
+  req,
+  navigate,
+}: {
+  userId: string;
+  req: OutgoingRequest;
+  navigate: (page: string, params?: Record<string, unknown>) => void;
+}) {
   const cancel = useCancelFriendRequest(userId, req.to_user_id);
   return (
     <div className="freq-card">
@@ -41,12 +49,14 @@ function OutgoingRow({ userId, req }: { userId: string; req: OutgoingRequest }) 
           className="friend-avatar"
           src={req.recipient.avatar_url}
           alt={req.recipient.display_name ?? "User"}
-          style={{ width: 40, height: 40 }}
+          style={{ width: 40, height: 40, cursor: "pointer" }}
+          onClick={() => navigate("publicProfile", { userId: req.to_user_id })}
         />
       ) : (
         <div
           className="friend-avatar-placeholder"
-          style={{ width: 40, height: 40, fontSize: 16 }}
+          style={{ width: 40, height: 40, fontSize: 16, cursor: "pointer" }}
+          onClick={() => navigate("publicProfile", { userId: req.to_user_id })}
         >
           {(req.recipient?.display_name ?? "?")[0].toUpperCase()}
         </div>
@@ -126,12 +136,14 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
                 className="friend-avatar"
                 src={req.sender.avatar_url}
                 alt={req.sender.display_name ?? "User"}
-                style={{ width: 40, height: 40 }}
+                style={{ width: 40, height: 40, cursor: "pointer" }}
+                onClick={() => navigate("publicProfile", { userId: req.from_user_id })}
               />
             ) : (
               <div
                 className="friend-avatar-placeholder"
-                style={{ width: 40, height: 40, fontSize: 16 }}
+                style={{ width: 40, height: 40, fontSize: 16, cursor: "pointer" }}
+                onClick={() => navigate("publicProfile", { userId: req.from_user_id })}
               >
                 {(req.sender?.display_name ?? "?")[0].toUpperCase()}
               </div>
@@ -168,7 +180,7 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
           </div>
         )}
         {outgoingList.map((req) => (
-          <OutgoingRow key={req.id} userId={user.id} req={req} />
+          <OutgoingRow key={req.id} userId={user.id} req={req} navigate={navigate} />
         ))}
       </div>
     </div>
