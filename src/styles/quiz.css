@@ -867,3 +867,184 @@
 .quiz-ai-companion {
   margin-top: 16px;
 }
+
+/* ── Explanation panel ─────────────────────────────────────────────────── */
+.quiz-explanation {
+  margin-top: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  overflow: hidden;
+  animation: explanation-slide-up 0.25s ease both;
+}
+
+@keyframes explanation-slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quiz-explanation { animation: none; }
+}
+
+.quiz-explanation-inner {
+  padding: 14px 16px;
+}
+
+.quiz-explanation-ref {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.quiz-explanation-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.quiz-explanation--locked .quiz-explanation-text {
+  filter: blur(4px);
+  user-select: none;
+}
+
+.quiz-explanation-gate {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--gold);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* ── Timed Mode ────────────────────────────────────────────────── */
+.quiz-timed-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 0 4px;
+}
+
+.quiz-timed-toggle-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.quiz-timed-toggle-label .gold-badge {
+  font-size: 0.7rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.quiz-timed-toggle {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.quiz-timed-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.quiz-timed-toggle-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: var(--border);
+  transition: background 0.2s;
+}
+
+.quiz-timed-toggle input:checked + .quiz-timed-toggle-track {
+  background: var(--accent);
+}
+
+.quiz-timed-toggle-thumb {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: white;
+  top: 3px;
+  left: 3px;
+  transition: left 0.2s;
+}
+
+.quiz-timed-toggle input:checked ~ .quiz-timed-toggle-thumb {
+  left: 21px;
+}
+
+.quiz-timer-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.quiz-timer-ring {
+  position: relative;
+  width: 56px;
+  height: 56px;
+}
+
+.quiz-timer-ring svg {
+  transform: rotate(-90deg);
+}
+
+.quiz-timer-ring circle.track {
+  stroke: var(--border);
+  fill: none;
+}
+
+.quiz-timer-ring circle.fill {
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear, stroke 0.5s;
+}
+
+.quiz-timer-ring-number {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.quiz-multiplier-badge {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--accent);
+  min-width: 32px;
+  text-align: center;
+}
+
+.quiz-timed-result {
+  margin-top: 8px;
+  padding: 10px 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.88rem;
+}
+
+.quiz-timed-new-best {
+  color: var(--gold);
+  font-weight: 700;
+  margin-top: 4px;
+}
