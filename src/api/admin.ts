@@ -1,8 +1,7 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
 
 export const adminApi = {
-  getProfile: async (userId) => {
+  getProfile: async (userId: string) => {
     const { data, error } = await supabase
       .from("profiles")
       .select("id, email, is_admin, is_moderator, can_blog, is_banned, created_at")
@@ -21,7 +20,7 @@ export const adminApi = {
     return data ?? [];
   },
 
-  cancelSubscription: async (userId) => {
+  cancelSubscription: async (userId: string) => {
     const { data: { session } } = await supabase.auth.getSession();
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/admin-cancel-subscription`,
@@ -29,7 +28,7 @@ export const adminApi = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${session.access_token}`,
+          Authorization: `Bearer ${session!.access_token}`,
         },
         body: JSON.stringify({ userId }),
       }
@@ -40,13 +39,13 @@ export const adminApi = {
     return json;
   },
 
-  deleteUser: async (userId) => {
+  deleteUser: async (userId: string) => {
     const { data: { session } } = await supabase.auth.getSession();
     const res = await fetch("/api/admin-delete-user", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${session.access_token}`,
+        Authorization: `Bearer ${session!.access_token}`,
       },
       body: JSON.stringify({ userId }),
     });
@@ -55,27 +54,27 @@ export const adminApi = {
     if (!res.ok) throw new Error(json.error ?? "Failed to delete user");
   },
 
-  setAdmin: async (userId, value) => {
+  setAdmin: async (userId: string, value: boolean) => {
     const { error } = await supabase.rpc("admin_set_admin", { target_user_id: userId, new_value: value });
     if (error) throw new Error(error.message);
   },
 
-  setBlog: async (userId, value) => {
+  setBlog: async (userId: string, value: boolean) => {
     const { error } = await supabase.rpc("admin_set_blog", { target_user_id: userId, new_value: value });
     if (error) throw new Error(error.message);
   },
 
-  setModerator: async (userId, value) => {
+  setModerator: async (userId: string, value: boolean) => {
     const { error } = await supabase.rpc("admin_set_moderator", { target_user_id: userId, new_value: value });
     if (error) throw new Error(error.message);
   },
 
-  giftPremium: async (userId, value) => {
+  giftPremium: async (userId: string, value: boolean) => {
     const { error } = await supabase.rpc("admin_gift_premium", { target_user_id: userId, new_value: value });
     if (error) throw new Error(error.message);
   },
 
-  banUser: async (userId, value) => {
+  banUser: async (userId: string, value: boolean) => {
     const { error } = await supabase.rpc("admin_ban_user", { target_user_id: userId, new_value: value });
     if (error) throw new Error(error.message);
   },
@@ -117,13 +116,13 @@ export const adminApi = {
     return data ?? [];
   },
 
-  createUser: async (email, password) => {
+  createUser: async (email: string, password: string) => {
     const { data, error } = await supabase.auth.signUp({ email, password });
     if (error) throw new Error(error.message);
     return data;
   },
 
-  listAuditLog: async ({ limit = 100, offset = 0 } = {}) => {
+  listAuditLog: async ({ limit = 100, offset = 0 }: { limit?: number; offset?: number } = {}) => {
     const { data, error } = await supabase
       .from("admin_audit_log")
       .select("id, action, target_id, target_email, metadata, created_at, actor:actor_id(display_name, email)")

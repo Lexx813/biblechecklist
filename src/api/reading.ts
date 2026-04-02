@@ -1,9 +1,8 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
 
 export const readingApi = {
   // delta = +N when marking chapters read, -N when unmarking
-  logChapter: async (delta) => {
+  logChapter: async (delta: number) => {
     if (delta === 0) return;
     const today = new Date().toISOString().slice(0, 10);
     const { error } = await supabase.rpc("increment_reading_log", {
@@ -13,26 +12,26 @@ export const readingApi = {
     if (error) throw new Error(error.message);
   },
 
-  getHeatmap: async (userId) => {
+  getHeatmap: async (userId: string) => {
     const { data, error } = await supabase.rpc("get_reading_heatmap", { p_user_id: userId, p_days: 364 });
     if (error) return [];
     return data ?? [];
   },
 
-  getStreaks: async (userId) => {
+  getStreaks: async (userId: string) => {
     const { data, error } = await supabase.rpc("get_reading_streaks", { p_user_id: userId });
     if (error) return { current_streak: 0, longest_streak: 0 };
     return data ?? { current_streak: 0, longest_streak: 0 };
   },
 
-  setDailyGoal: async (goal) => {
+  setDailyGoal: async (goal: number) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
     const { error } = await supabase.from("profiles").update({ daily_chapter_goal: goal }).eq("id", user.id);
     if (error) throw new Error(error.message);
   },
 
-  getHistory: async (userId, limit = 120) => {
+  getHistory: async (userId: string, limit = 120) => {
     const { data, error } = await supabase
       .from("reading_log")
       .select("date, chapters_read")
@@ -44,7 +43,7 @@ export const readingApi = {
     return data ?? [];
   },
 
-  getStats: async (userId) => {
+  getStats: async (userId: string) => {
     const since = new Date(Date.now() - 60 * 86400000).toISOString().slice(0, 10);
     const { data, error } = await supabase
       .from("reading_log")
@@ -86,7 +85,7 @@ export const readingApi = {
       .reduce((sum, r) => sum + r.chapters_read, 0);
 
     // 14-day activity grid (oldest → newest)
-    const grid = [];
+    const grid: { date: string; chapters: number }[] = [];
     for (let i = 13; i >= 0; i--) {
       const ds = new Date(Date.now() - i * 86400000).toISOString().slice(0, 10);
       grid.push({ date: ds, chapters: activeMap.get(ds) ?? 0 });

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
 
 export const announcementsApi = {
@@ -21,7 +20,7 @@ export const announcementsApi = {
     return data ?? [];
   },
 
-  create: async (authorId, message, type) => {
+  create: async (authorId: string, message: string, type: string) => {
     const { data, error } = await supabase
       .from("announcements")
       .insert({ author_id: authorId, message, type })
@@ -31,12 +30,12 @@ export const announcementsApi = {
     return data;
   },
 
-  toggle: async (id, active) => {
+  toggle: async (id: string, active: boolean) => {
     const { error } = await supabase.from("announcements").update({ active }).eq("id", id);
     if (error) throw new Error(error.message);
   },
 
-  delete: async (id) => {
+  delete: async (id: string) => {
     const { error } = await supabase.from("announcements").delete().eq("id", id);
     if (error) throw new Error(error.message);
   },

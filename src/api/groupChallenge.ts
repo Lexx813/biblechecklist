@@ -1,15 +1,19 @@
-// @ts-nocheck
-// src/api/groupChallenge.js
+// src/api/groupChallenge.ts
 import { supabase } from "../lib/supabase";
 import { PLAN_TEMPLATES } from "../data/readingPlanTemplates";
 import { BOOKS } from "../data/books";
 
+interface PlanChapter {
+  bookIndex: number;
+  chapter: number;
+}
+
 // Build the flat chapter list for a plan key — returns [{bookIndex, chapter}]
 // Templates store bookIndices (e.g. [39,40,41,42]); we expand each book's chapters.
-function getPlanChapters(planKey) {
+function getPlanChapters(planKey: string): PlanChapter[] {
   const template = PLAN_TEMPLATES.find((t) => t.key === planKey);
   if (!template) return [];
-  const chapters = [];
+  const chapters: PlanChapter[] = [];
   for (const bookIndex of template.bookIndices) {
     const book = BOOKS[bookIndex];
     for (let ch = 1; ch <= book.chapters; ch++) {
@@ -20,7 +24,7 @@ function getPlanChapters(planKey) {
 }
 
 export const groupChallengeApi = {
-  getActiveChallenge: async (groupId) => {
+  getActiveChallenge: async (groupId: string) => {
     const { data, error } = await supabase
       .from("group_challenges")
       .select("id, group_id, plan_key, start_date, created_by, created_at")
@@ -34,7 +38,7 @@ export const groupChallengeApi = {
     return data ?? null;
   },
 
-  startChallenge: async (groupId, planKey, userId) => {
+  startChallenge: async (groupId: string, planKey: string, userId: string) => {
     // End any existing active challenge first
     await supabase
       .from("group_challenges")
@@ -58,7 +62,7 @@ export const groupChallengeApi = {
     return data;
   },
 
-  endChallenge: async (challengeId) => {
+  endChallenge: async (challengeId: string) => {
     const { error } = await supabase
       .from("group_challenges")
       .update({ ended_at: new Date().toISOString() })
@@ -67,7 +71,7 @@ export const groupChallengeApi = {
     if (error) throw error;
   },
 
-  getChallengeProgress: async (challengeId, planKey) => {
+  getChallengeProgress: async (challengeId: string, planKey: string) => {
     const planChapters = getPlanChapters(planKey);
     const { data, error } = await supabase.rpc("get_group_challenge_progress", {
       p_challenge_id: challengeId,
@@ -78,7 +82,7 @@ export const groupChallengeApi = {
     return data ?? [];
   },
 
-  getUserGroupChallenges: async (userId) => {
+  getUserGroupChallenges: async (userId: string) => {
     const { data: memberRows, error: memberError } = await supabase
       .from("study_group_members")
       .select("group_id")

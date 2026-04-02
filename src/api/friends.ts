@@ -1,5 +1,10 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
+
+interface ProfileBasic {
+  id: string;
+  display_name: string | null;
+  avatar_url: string | null;
+}
 
 export const friendsApi = {
   // ── Friend requests ──────────────────────────────────────
@@ -105,7 +110,7 @@ export const friendsApi = {
       .select("*", { count: "exact", head: true })
       .eq("user_a_id", a)
       .eq("user_b_id", b);
-    if (friendCount > 0) return "friends";
+    if ((friendCount ?? 0) > 0) return "friends";
 
     // Check sent request
     const { count: sentCount } = await supabase
@@ -114,7 +119,7 @@ export const friendsApi = {
       .eq("from_user_id", user.id)
       .eq("to_user_id", targetId)
       .eq("status", "pending");
-    if (sentCount > 0) return "pending_sent";
+    if ((sentCount ?? 0) > 0) return "pending_sent";
 
     // Check received request
     const { count: recvCount } = await supabase
@@ -123,7 +128,7 @@ export const friendsApi = {
       .eq("from_user_id", targetId)
       .eq("to_user_id", user.id)
       .eq("status", "pending");
-    if (recvCount > 0) return "pending_received";
+    if ((recvCount ?? 0) > 0) return "pending_received";
 
     return "none";
   },
@@ -144,7 +149,9 @@ export const friendsApi = {
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
     return (data ?? []).map(f => {
-      const friend = f.user_a?.id === user.id ? f.user_b : f.user_a;
+      const userA = f.user_a as unknown as (ProfileBasic & { last_active_at?: string | null }) | null;
+      const userB = f.user_b as unknown as (ProfileBasic & { last_active_at?: string | null }) | null;
+      const friend = userA?.id === user.id ? userB : userA;
       return { ...friend, friendship_id: f.id, sponsored_by: f.sponsored_by, friendship_created_at: f.created_at };
     });
   },
@@ -179,14 +186,14 @@ export const friendsApi = {
     return created.token;
   },
 
-  getInviterByToken: async (token: string) => {
+  getInviterByToken: async (token: string): Promise<ProfileBasic | null> => {
     const { data, error } = await supabase
       .from("invite_tokens")
       .select("user_id, profiles:user_id(id, display_name, avatar_url)")
       .eq("token", token)
       .single();
     if (error || !data) return null;
-    return data.profiles;
+    return data.profiles as unknown as ProfileBasic;
   },
 
   processInviteSignup: async (token: string) => {
@@ -204,7 +211,7 @@ export const friendsApi = {
 
     const inviterIsPremium =
       inviterProfile?.is_admin ||
-      ["active","trialing","gifted"].includes(inviterProfile?.subscription_status);
+      ["active","trialing","gifted"].includes(inviterProfile?.subscription_status ?? "");
 
     const { data: myProfile } = await supabase
       .from("profiles")
@@ -214,7 +221,7 @@ export const friendsApi = {
 
     const myIsPremium =
       myProfile?.is_admin ||
-      ["active","trialing","gifted"].includes(myProfile?.subscription_status);
+      ["active","trialing","gifted"].includes(myProfile?.subscription_status ?? "");
 
     const { error: reqErr } = await supabase
       .from("friend_requests")

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
 import { assertNoPII } from "../lib/pii";
 
@@ -18,7 +17,7 @@ export const forumApi = {
 
   // Threads in a category with reply count + author
   // lang: undefined = all languages, string = filter to that lang
-  listThreads: async (categoryId, limit = 20, lang = null) => {
+  listThreads: async (categoryId: string, limit = 20, lang: string | null = null) => {
     let q = supabase
       .from("forum_threads")
       .select(`*, ${PROFILE_FIELDS}, forum_replies(count)`)
@@ -33,7 +32,7 @@ export const forumApi = {
   },
 
   // Single thread
-  getThread: async (threadId) => {
+  getThread: async (threadId: string) => {
     const { data, error } = await supabase
       .from("forum_threads")
       .select(`*, ${PROFILE_FIELDS}`)
@@ -44,7 +43,7 @@ export const forumApi = {
   },
 
   // Replies for a thread
-  listReplies: async (threadId) => {
+  listReplies: async (threadId: string) => {
     const { data, error } = await supabase
       .from("forum_replies")
       .select(`*, ${PROFILE_FIELDS}`)
@@ -54,7 +53,7 @@ export const forumApi = {
     return data ?? [];
   },
 
-  createThread: async (userId, categoryId, title, content, lang = "en") => {
+  createThread: async (userId: string, categoryId: string, title: string, content: string, lang = "en") => {
     assertNoPII(title, content);
     const { data, error } = await supabase
       .from("forum_threads")
@@ -65,7 +64,7 @@ export const forumApi = {
     return data;
   },
 
-  createReply: async (userId, threadId, content) => {
+  createReply: async (userId: string, threadId: string, content: string) => {
     assertNoPII(content);
     const { data, error } = await supabase
       .from("forum_replies")
@@ -76,7 +75,7 @@ export const forumApi = {
     return data;
   },
 
-  updateThread: async (threadId, { title, content }) => {
+  updateThread: async (threadId: string, { title, content }: { title: string; content: string }) => {
     assertNoPII(title, content);
     const { data, error } = await supabase
       .from("forum_threads")
@@ -88,12 +87,12 @@ export const forumApi = {
     return data;
   },
 
-  deleteThread: async (threadId) => {
+  deleteThread: async (threadId: string) => {
     const { error } = await supabase.from("forum_threads").delete().eq("id", threadId);
     if (error) throw new Error(error.message);
   },
 
-  updateReply: async (replyId, content) => {
+  updateReply: async (replyId: string, content: string) => {
     assertNoPII(content);
     const { data, error } = await supabase
       .from("forum_replies")
@@ -105,17 +104,17 @@ export const forumApi = {
     return data;
   },
 
-  deleteReply: async (replyId) => {
+  deleteReply: async (replyId: string) => {
     const { error } = await supabase.from("forum_replies").delete().eq("id", replyId);
     if (error) throw new Error(error.message);
   },
 
-  pinThread: async (threadId, value) => {
+  pinThread: async (threadId: string, value: boolean) => {
     const { error } = await supabase.rpc("admin_pin_thread", { p_thread_id: threadId, new_value: value });
     if (error) throw new Error(error.message);
   },
 
-  lockThread: async (threadId, value) => {
+  lockThread: async (threadId: string, value: boolean) => {
     const { error } = await supabase.rpc("admin_lock_thread", { p_thread_id: threadId, new_value: value });
     if (error) throw new Error(error.message);
   },
@@ -131,26 +130,26 @@ export const forumApi = {
     return data ?? [];
   },
 
-  getUserLikes: async (userId) => {
+  getUserLikes: async (userId: string) => {
     const { data, error } = await supabase.rpc("get_user_forum_likes", { p_user_id: userId });
     if (error) throw new Error(error.message);
     return data ?? { threads: [], replies: [] };
   },
 
-  toggleThreadLike: async (threadId) => {
+  toggleThreadLike: async (threadId: string) => {
     const { data, error } = await supabase.rpc("toggle_thread_like", { p_thread_id: threadId });
     if (error) throw new Error(error.message);
     return data;
   },
 
-  toggleReplyLike: async (replyId) => {
+  toggleReplyLike: async (replyId: string) => {
     const { data, error } = await supabase.rpc("toggle_reply_like", { p_reply_id: replyId });
     if (error) throw new Error(error.message);
     return data;
   },
 
   // Mark/unmark a reply as the accepted solution for a thread
-  markSolution: async (replyId, threadId, value) => {
+  markSolution: async (replyId: string, threadId: string, value: boolean) => {
     const { error } = await supabase.rpc("mark_reply_as_solution", {
       p_reply_id: replyId,
       p_thread_id: threadId,
@@ -159,23 +158,23 @@ export const forumApi = {
     if (error) throw new Error(error.message);
   },
 
-  incrementView: async (threadId) => {
+  incrementView: async (threadId: string) => {
     await supabase.rpc("increment_thread_view", { p_thread_id: threadId });
   },
 
-  toggleWatch: async (threadId) => {
+  toggleWatch: async (threadId: string) => {
     const { data, error } = await supabase.rpc("toggle_thread_watch", { p_thread_id: threadId });
     if (error) throw new Error(error.message);
     return data;
   },
 
-  getUserWatches: async (userId) => {
+  getUserWatches: async (userId: string) => {
     const { data, error } = await supabase.rpc("get_user_thread_watches", { p_user_id: userId });
     if (error) throw new Error(error.message);
     return data ?? [];
   },
 
-  toggleReaction: async (contentType, contentId, emoji) => {
+  toggleReaction: async (contentType: string, contentId: string, emoji: string) => {
     const { data, error } = await supabase.rpc("toggle_forum_reaction", {
       p_content_type: contentType,
       p_content_id: contentId,
@@ -185,7 +184,7 @@ export const forumApi = {
     return data;
   },
 
-  getThreadReactions: async (threadId, userId) => {
+  getThreadReactions: async (threadId: string, userId: string) => {
     const { data, error } = await supabase.rpc("get_thread_reactions", {
       p_thread_id: threadId,
       p_user_id: userId,
@@ -194,14 +193,14 @@ export const forumApi = {
     return data ?? { counts: {}, mine: [] };
   },
 
-  getUserForumStats: async (userId) => {
+  getUserForumStats: async (userId: string) => {
     const { data, error } = await supabase.rpc("get_user_forum_stats", { p_user_id: userId });
     if (error) throw new Error(error.message);
     return data ?? { threads: 0, replies: 0 };
   },
 
   // Category management (admin)
-  createCategory: async (icon, name, description, sortOrder) => {
+  createCategory: async (icon: string, name: string, description: string, sortOrder: number) => {
     const { data, error } = await supabase
       .from("forum_categories")
       .insert({ icon, name, description, sort_order: sortOrder })
@@ -211,7 +210,7 @@ export const forumApi = {
     return data;
   },
 
-  updateCategory: async (categoryId, updates) => {
+  updateCategory: async (categoryId: string, updates: Record<string, unknown>) => {
     const { data, error } = await supabase
       .from("forum_categories")
       .update(updates)
@@ -222,7 +221,7 @@ export const forumApi = {
     return data;
   },
 
-  deleteCategory: async (categoryId) => {
+  deleteCategory: async (categoryId: string) => {
     const { error } = await supabase.from("forum_categories").delete().eq("id", categoryId);
     if (error) throw new Error(error.message);
   },

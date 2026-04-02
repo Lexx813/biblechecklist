@@ -1,9 +1,8 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
 
 export const familyQuizApi = {
   // Pick N random questions from specified levels (empty array = all levels)
-  pickQuestions: async (count, levels = []) => {
+  pickQuestions: async (count: number, levels: number[] = []) => {
     let query = supabase
       .from("quiz_questions")
       .select("id, level, question, options, correct_index");
@@ -16,7 +15,7 @@ export const familyQuizApi = {
   },
 
   // Create a new challenge; questions already picked by caller
-  createChallenge: async (creatorId, title, questionIds) => {
+  createChallenge: async (creatorId: string, title: string, questionIds: string[]) => {
     const { data, error } = await supabase
       .from("family_challenges")
       .insert({ creator_id: creatorId, title, question_ids: questionIds })
@@ -27,7 +26,7 @@ export const familyQuizApi = {
   },
 
   // Load a challenge's metadata + its full questions (in order)
-  getChallenge: async (challengeId) => {
+  getChallenge: async (challengeId: string) => {
     // Fetch challenge without any FK join to avoid ambiguity (creator_id has
     // two FKs: one to auth.users and one to profiles)
     const { data: challenge, error: cErr } = await supabase
@@ -53,12 +52,12 @@ export const familyQuizApi = {
 
     // Restore original insertion order
     const qMap = Object.fromEntries((questions ?? []).map(q => [q.id, q]));
-    const ordered = challenge.question_ids.map(id => qMap[id]).filter(Boolean);
+    const ordered = challenge.question_ids.map((id: string) => qMap[id]).filter(Boolean);
     return { ...challenge, creatorName: creator?.display_name ?? null, questions: ordered };
   },
 
   // Get all completed attempts for a challenge, joined with display names
-  getAttempts: async (challengeId) => {
+  getAttempts: async (challengeId: string) => {
     const { data, error } = await supabase
       .from("challenge_attempts")
       .select("id, user_id, score, total, completed_at")
@@ -79,7 +78,7 @@ export const familyQuizApi = {
   },
 
   // Check if current user already has an attempt for this challenge
-  getMyAttempt: async (challengeId, userId) => {
+  getMyAttempt: async (challengeId: string, userId: string) => {
     const { data, error } = await supabase
       .from("challenge_attempts")
       .select("id, score, total, answers, completed_at")
@@ -91,7 +90,7 @@ export const familyQuizApi = {
   },
 
   // Submit a completed attempt
-  submitAttempt: async (challengeId, userId, answers, score, total) => {
+  submitAttempt: async (challengeId: string, userId: string, answers: number[], score: number, total: number) => {
     const { error } = await supabase.from("challenge_attempts").insert({
       challenge_id: challengeId,
       user_id: userId,
@@ -103,7 +102,7 @@ export const familyQuizApi = {
   },
 
   // List challenges created by a user (most recent first)
-  getMyChallenges: async (userId) => {
+  getMyChallenges: async (userId: string) => {
     const { data, error } = await supabase
       .from("family_challenges")
       .select("id, title, created_at, question_ids")
@@ -115,7 +114,7 @@ export const familyQuizApi = {
   },
 
   // Delete a challenge (creator only — enforced by RLS)
-  deleteChallenge: async (challengeId) => {
+  deleteChallenge: async (challengeId: string) => {
     const { error } = await supabase
       .from("family_challenges")
       .delete()
@@ -124,7 +123,7 @@ export const familyQuizApi = {
   },
 
   // List challenges the user has attempted (most recent first)
-  getMyAttemptedChallenges: async (userId) => {
+  getMyAttemptedChallenges: async (userId: string) => {
     const { data, error } = await supabase
       .from("challenge_attempts")
       .select("challenge_id, score, total, completed_at, family_challenges(id, title, creator_id, created_at, question_ids)")
@@ -133,7 +132,7 @@ export const familyQuizApi = {
       .limit(20);
     if (error) throw new Error(error.message);
     return (data ?? []).map(a => ({
-      ...a.family_challenges,
+      ...(a.family_challenges as unknown as Record<string, unknown>),
       myScore: a.score,
       myTotal: a.total,
       attemptedAt: a.completed_at,

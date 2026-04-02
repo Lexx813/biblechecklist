@@ -1,9 +1,8 @@
-// @ts-nocheck
-// src/api/streakFreeze.js
+// src/api/streakFreeze.ts
 import { supabase } from "../lib/supabase";
 
 export const streakFreezeApi = {
-  getFreezeStatus: async (userId) => {
+  getFreezeStatus: async (userId: string) => {
     const [profileRes, freezeRes] = await Promise.all([
       supabase
         .from("profiles")
@@ -23,7 +22,7 @@ export const streakFreezeApi = {
     return { tokens, recentFreezes };
   },
 
-  applyFreeze: async (userId, date) => {
+  applyFreeze: async (userId: string, date: string) => {
     // date: "YYYY-MM-DD" for the day to freeze
     const { error: insertError } = await supabase
       .from("streak_freeze_uses")

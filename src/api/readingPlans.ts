@@ -1,5 +1,11 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
+
+interface UserReadingPlan {
+  id: string;
+  paused_at: string | null;
+  paused_days: number | null;
+  [key: string]: unknown;
+}
 
 export const readingPlansApi = {
   getMyPlans: async () => {
@@ -14,7 +20,7 @@ export const readingPlansApi = {
     return data ?? [];
   },
 
-  enroll: async (templateKey) => {
+  enroll: async (templateKey: string) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { data, error } = await supabase
@@ -26,7 +32,14 @@ export const readingPlansApi = {
     return data;
   },
 
-  enrollCustom: async ({ name, bookIndices, totalDays, totalChapters, icon, difficulty }) => {
+  enrollCustom: async ({ name, bookIndices, totalDays, totalChapters, icon, difficulty }: {
+    name: string;
+    bookIndices: number[];
+    totalDays: number;
+    totalChapters: number;
+    icon?: string;
+    difficulty?: string;
+  }) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const custom_config = { name, bookIndices, totalDays, totalChapters, icon: icon ?? "🗂️", difficulty: difficulty ?? "Custom" };
@@ -44,7 +57,7 @@ export const readingPlansApi = {
     return data;
   },
 
-  unenroll: async (planId) => {
+  unenroll: async (planId: string) => {
     const { error } = await supabase
       .from("user_reading_plans")
       .delete()
@@ -54,7 +67,7 @@ export const readingPlansApi = {
 
   // ── Pause / Resume ────────────────────────────────────────────────────────
 
-  pause: async (planId) => {
+  pause: async (planId: string) => {
     const { error } = await supabase
       .from("user_reading_plans")
       .update({ is_paused: true, paused_at: new Date().toISOString() })
@@ -62,7 +75,7 @@ export const readingPlansApi = {
     if (error) throw new Error(error.message);
   },
 
-  resume: async (plan) => {
+  resume: async (plan: UserReadingPlan) => {
     // Accumulate the days this pause lasted into paused_days, then clear paused_at
     let additionalDays = 0;
     if (plan.paused_at) {
@@ -70,7 +83,7 @@ export const readingPlansApi = {
       pausedDate.setHours(0, 0, 0, 0);
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      additionalDays = Math.floor((today - pausedDate) / 86400000);
+      additionalDays = Math.floor((today.getTime() - pausedDate.getTime()) / 86400000);
     }
     const { error } = await supabase
       .from("user_reading_plans")
@@ -85,7 +98,7 @@ export const readingPlansApi = {
 
   // ── Catch-up: adjust start_date so user is only 2 days behind ─────────────
 
-  catchUp: async (planId, completedCount) => {
+  catchUp: async (planId: string, completedCount: number) => {
     // New effective start: make effectiveDay = completedCount + 2
     // effectiveDay = daysSince(start_date) - paused_days
     // We want daysSince(new_start) = completedCount + 2 (with paused_days=0 reset)
@@ -105,7 +118,7 @@ export const readingPlansApi = {
 
   // ── Completions ───────────────────────────────────────────────────────────
 
-  getCompletions: async (planId) => {
+  getCompletions: async (planId: string) => {
     const { data, error } = await supabase
       .from("reading_plan_completions")
       .select("day_number, completed_at")
@@ -114,7 +127,7 @@ export const readingPlansApi = {
     return data ?? [];
   },
 
-  markDay: async (planId, dayNumber) => {
+  markDay: async (planId: string, dayNumber: number) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { error } = await supabase
@@ -123,7 +136,7 @@ export const readingPlansApi = {
     if (error && !error.message.includes("duplicate")) throw new Error(error.message);
   },
 
-  unmarkDay: async (planId, dayNumber) => {
+  unmarkDay: async (planId: string, dayNumber: number) => {
     const { error } = await supabase
       .from("reading_plan_completions")
       .delete()

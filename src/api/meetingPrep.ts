@@ -1,9 +1,8 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
 
 // ── Meeting weeks (scraped content) ──────────────────────────────────────────
 
-export async function getMeetingWeek(weekStart) {
+export async function getMeetingWeek(weekStart: string) {
   const { data, error } = await supabase
     .from("meeting_weeks")
     .select("*")
@@ -25,7 +24,7 @@ export async function getRecentMeetingWeeks(limit = 8) {
 
 // ── User prep progress ────────────────────────────────────────────────────────
 
-export async function getPrepForWeek(userId, weekStart) {
+export async function getPrepForWeek(userId: string, weekStart: string) {
   const { data, error } = await supabase
     .from("user_meeting_prep")
     .select("*")
@@ -36,7 +35,7 @@ export async function getPrepForWeek(userId, weekStart) {
   return data;
 }
 
-export async function upsertPrep(userId, weekStart, updates) {
+export async function upsertPrep(userId: string, weekStart: string, updates: Record<string, unknown>) {
   const now = new Date().toISOString();
   const { data, error } = await supabase
     .from("user_meeting_prep")
@@ -52,7 +51,7 @@ export async function upsertPrep(userId, weekStart, updates) {
   return data;
 }
 
-export async function getPrepHistory(userId, limit = 12) {
+export async function getPrepHistory(userId: string, limit = 12) {
   const { data, error } = await supabase
     .from("user_meeting_prep")
     .select("week_start, clam_completed, wt_completed, updated_at")
@@ -63,7 +62,7 @@ export async function getPrepHistory(userId, limit = 12) {
   return data ?? [];
 }
 
-export async function getPrepStreak(userId) {
+export async function getPrepStreak(userId: string) {
   const { data, error } = await supabase.rpc("get_prep_streak", { p_user_id: userId });
   if (error) throw error;
   return data ?? 0;
@@ -71,10 +70,10 @@ export async function getPrepStreak(userId) {
 
 // ── Trigger scraper for a week ────────────────────────────────────────────────
 
-export async function triggerScrape(weekStart) {
+export async function triggerScrape(weekStart: string) {
   const { data: { session } } = await supabase.auth.getSession();
   const res = await fetch(
-    `${import.meta.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/scrape-meeting-content`,
+    `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/scrape-meeting-content`,
     {
       method: "POST",
       headers: {

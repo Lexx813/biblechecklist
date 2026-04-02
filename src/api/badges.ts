@@ -1,9 +1,8 @@
-// @ts-nocheck
-// src/api/badges.js
+// src/api/badges.ts
 import { supabase } from "../lib/supabase";
 
 export const badgesApi = {
-  getUserBadges: async (userId) => {
+  getUserBadges: async (userId: string) => {
     const { data, error } = await supabase
       .from("user_badges")
       .select("badge_key, earned_at")
@@ -12,7 +11,7 @@ export const badgesApi = {
     return data ?? [];
   },
 
-  awardBadge: async (userId, badgeKey) => {
+  awardBadge: async (userId: string, badgeKey: string) => {
     const { error } = await supabase
       .from("user_badges")
       .insert({ user_id: userId, badge_key: badgeKey });

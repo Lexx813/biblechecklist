@@ -1,8 +1,7 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
 
 export const quizApi = {
-  getQuestionsForLevel: async (level, language = "en") => {
+  getQuestionsForLevel: async (level: number, language = "en") => {
     const { data, error } = await supabase
       .from("quiz_questions")
       .select(`
@@ -36,7 +35,7 @@ export const quizApi = {
     return questions.sort(() => Math.random() - 0.5).slice(0, 10);
   },
 
-  getUserProgress: async (userId) => {
+  getUserProgress: async (userId: string) => {
     const { data, error } = await supabase
       .from("user_quiz_progress")
       .select("*")
@@ -46,7 +45,7 @@ export const quizApi = {
     return data ?? [];
   },
 
-  submitResult: async (userId, level, score) => {
+  submitResult: async (userId: string, level: number, score: number) => {
     const { data, error } = await supabase.rpc("submit_quiz_result", {
       p_user_id: userId,
       p_level: level,
@@ -56,7 +55,7 @@ export const quizApi = {
     return data;
   },
 
-  initProgress: async (userId) => {
+  initProgress: async (userId: string) => {
     // Ensure level 1 is unlocked for new users
     const { error } = await supabase
       .from("user_quiz_progress")
@@ -68,7 +67,7 @@ export const quizApi = {
   },
 
   // Admin: create a question
-  createQuestion: async (level, question, options, correctIndex) => {
+  createQuestion: async (level: number, question: string, options: string[], correctIndex: number) => {
     const { data, error } = await supabase
       .from("quiz_questions")
       .insert({ level, question, options, correct_index: correctIndex })
@@ -79,7 +78,7 @@ export const quizApi = {
   },
 
   // Admin: update a question
-  updateQuestion: async (id, level, question, options, correctIndex) => {
+  updateQuestion: async (id: string, level: number, question: string, options: string[], correctIndex: number) => {
     const { data, error } = await supabase
       .from("quiz_questions")
       .update({ level, question, options, correct_index: correctIndex })
@@ -91,7 +90,7 @@ export const quizApi = {
   },
 
   // Admin: delete a question
-  deleteQuestion: async (id) => {
+  deleteQuestion: async (id: string) => {
     const { error } = await supabase.from("quiz_questions").delete().eq("id", id);
     if (error) throw new Error(error.message);
   },
