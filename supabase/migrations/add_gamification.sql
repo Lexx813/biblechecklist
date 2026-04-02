@@ -68,6 +68,8 @@ declare
   tot_days   int := 0;
   d          date;
   anchor     date;
+  prev_date  date := null;
+  run_len    int  := 0;
 begin
   -- Combined active days: reading_activity UNION streak_freeze_uses
   create temp table _active_days on commit drop as
@@ -99,21 +101,16 @@ begin
     end loop;
   end if;
 
-  declare
-    prev_date date := null;
-    run_len   int  := 0;
-  begin
-    for d in (select active_date from _active_days order by active_date desc) loop
-      if prev_date is null or prev_date - d = 1 then
-        run_len := run_len + 1;
-        lng_streak := greatest(lng_streak, run_len);
-      else
-        run_len := 1;
-      end if;
-      prev_date := d;
-    end loop;
-    lng_streak := greatest(lng_streak, run_len);
-  end;
+  for d in (select active_date from _active_days order by active_date desc) loop
+    if prev_date is null or prev_date - d = 1 then
+      run_len := run_len + 1;
+      lng_streak := greatest(lng_streak, run_len);
+    else
+      run_len := 1;
+    end if;
+    prev_date := d;
+  end loop;
+  lng_streak := greatest(lng_streak, run_len);
 
   return query select cur_streak, lng_streak, tot_days;
 end;
