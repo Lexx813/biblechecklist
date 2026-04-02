@@ -20,12 +20,12 @@ export function jwLibraryChapterUrl(bookIndex, chapter) {
 // ── Language map ──────────────────────────────────────────────────────────────
 
 const WOL_LANG = {
-  en: { locale: "en",       r: "r1",  lp: "lp-e"   },
-  es: { locale: "es",       r: "r4",  lp: "lp-s"   },
-  pt: { locale: "pt",       r: "r5",  lp: "lp-t"   },
-  fr: { locale: "fr",       r: "r30", lp: "lp-f"   },
-  tl: { locale: "tl",       r: "r9",  lp: "lp-tl"  },
-  zh: { locale: "cmn-Hans", r: "r23", lp: "lp-chs" },
+  en: { locale: "en",       r: "r1",  lp: "lp-e",   wtlocale: "E"   },
+  es: { locale: "es",       r: "r4",  lp: "lp-s",   wtlocale: "S"   },
+  pt: { locale: "pt",       r: "r5",  lp: "lp-t",   wtlocale: "T"   },
+  fr: { locale: "fr",       r: "r30", lp: "lp-f",   wtlocale: "F"   },
+  tl: { locale: "tl",       r: "r9",  lp: "lp-tl",  wtlocale: "TGL" },
+  zh: { locale: "cmn-Hans", r: "r23", lp: "lp-chs", wtlocale: "CHS" },
 };
 
 function wolBase(lang) {
@@ -33,30 +33,17 @@ function wolBase(lang) {
   return `https://wol.jw.org/${locale}/wol/b/${r}/${lp}/nwtsty`;
 }
 
-// ── jw.org study bible URL slugs (0-based, matches bookIndex) ────────────────
-const JW_ORG_BOOK_SLUGS = [
-  "genesis","exodus","leviticus","numbers","deuteronomy","joshua","judges","ruth",
-  "1-samuel","2-samuel","1-kings","2-kings","1-chronicles","2-chronicles",
-  "ezra","nehemiah","esther","job","psalms","proverbs","ecclesiastes","song-of-solomon",
-  "isaiah","jeremiah","lamentations","ezekiel","daniel",
-  "hosea","joel","amos","obadiah","jonah","micah","nahum","habakkuk",
-  "zephaniah","haggai","zechariah","malachi",
-  "matthew","mark","luke","john","acts","romans",
-  "1-corinthians","2-corinthians","galatians","ephesians","philippians","colossians",
-  "1-thessalonians","2-thessalonians","1-timothy","2-timothy","titus","philemon",
-  "hebrews","james","1-peter","2-peter","1-john","2-john","3-john","jude","revelation",
-];
-
 /**
- * Returns a jw.org study bible URL for an exact book/chapter (and optional verse).
- * Used as a desktop fallback when the jwlibrary:// deep link is unavailable.
- * Verse anchor format mirrors WOL: #v{bookNum}_{chapter}_{verse}
+ * Returns a jw.org /finder URL for an exact book/chapter/verse in any language.
+ * Uses the same BBCCCVVV bible parameter as the jwlibrary deep link — no
+ * localized slugs, works for all supported languages.
  */
 export function jwOrgBibleUrl(bookIndex, chapter, lang = "en", verse = null) {
-  const { locale } = WOL_LANG[lang] ?? WOL_LANG.en;
-  const slug = JW_ORG_BOOK_SLUGS[bookIndex] ?? JW_ORG_BOOK_SLUGS[0];
-  const base = `https://www.jw.org/${locale}/library/bible/study-bible/books/${slug}/${chapter}/`;
-  return verse ? `${base}#v${bookIndex + 1}_${chapter}_${verse}` : base;
+  const { wtlocale } = WOL_LANG[lang] ?? WOL_LANG.en;
+  const bb  = String(bookIndex + 1).padStart(2, "0");
+  const ccc = String(chapter).padStart(3, "0");
+  const vvv = String(verse ?? 1).padStart(3, "0");
+  return `https://www.jw.org/finder?wtlocale=${wtlocale}&pub=nwtsty&bible=${bb}${ccc}${vvv}`;
 }
 
 // ── Book name → 0-based index map ─────────────────────────────────────────────
