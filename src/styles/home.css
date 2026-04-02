@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap');
+
 /* ── Layout ── */
 .home-wrap {
   min-height: 100vh;
@@ -137,6 +139,36 @@
   background: radial-gradient(circle, rgba(52, 28, 92, 0.6) 0%, transparent 70%);
   top: 30%; left: 5%;
 }
+/* Gold counterpoint glow */
+.home-hero-glow--gold {
+  position: absolute;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(180, 83, 9, 0.22) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  top: 10%; right: 8%;
+}
+
+/* 66 book-spine bars — decorative, 66×10px = 660px wide */
+.home-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 660px;
+  height: 64px;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(192, 132, 252, 0.18) 0px,
+    rgba(192, 132, 252, 0.18) 6px,
+    transparent 6px,
+    transparent 10px
+  );
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 100%);
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 100%);
+}
 
 .home-hero-inner {
   position: relative;
@@ -147,23 +179,26 @@
 .home-hero-badge {
   display: inline-block;
   padding: 4px 14px;
-  background: rgba(138, 75, 255, 0.15);
-  border: 1px solid rgba(138, 75, 255, 0.3);
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
   border-radius: 100px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #c084fc;
+  color: #fde68a;
   margin-bottom: 24px;
 }
 
 .home-hero-title {
-  font-size: clamp(48px, 8vw, 80px);
-  font-weight: 900;
-  line-height: 1.05;
-  margin: 0 0 20px;
-  background: linear-gradient(135deg, #f0eaff 0%, #c084fc 50%, #7c3aed 100%);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(72px, 13vw, 128px);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  margin: 0 0 24px;
+  background: linear-gradient(160deg, #fde68a 0%, #f0eaff 30%, #c084fc 65%, #7c3aed 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -260,16 +295,24 @@
   max-width: 1100px;
   margin: 0 auto;
   padding: 32px 24px;
-  border-top: 1px solid rgba(138, 75, 255, 0.1);
+  position: relative;
+}
+.home-section + .home-section::before,
+.home-section--verse + .home-section::before,
+.home-section--slim + .home-section::before,
+.home-section--compact + .home-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 24px; right: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(138, 75, 255, 0.18) 30%, rgba(138, 75, 255, 0.18) 70%, transparent 100%);
 }
 .home-section--verse {
   padding: 12px 24px 10px;
-  border-top: none;
 }
 .home-section--slim {
   padding-top: 0;
   padding-bottom: 16px;
-  border-top: none;
 }
 .home-section--compact {
   padding-top: 8px;
@@ -1232,15 +1275,25 @@
   cursor: pointer;
   transition: transform 0.15s, box-shadow 0.15s;
   box-shadow: 0 4px 20px rgba(124,58,237,0.3);
-  border: 1px solid rgba(167,139,250,0.25);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+/* Gold shimmer edge */
+.home-premium-banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(245,158,11,0.6) 50%, transparent 100%);
 }
 .home-premium-banner:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 28px rgba(124,58,237,0.4);
+  border-color: rgba(245, 158, 11, 0.5);
 }
 .home-premium-banner-icon {
   font-size: 22px;
-  color: #e9d5ff;
   flex-shrink: 0;
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -1259,7 +1312,7 @@
 .home-premium-banner-text strong {
   font-size: 14px;
   font-weight: 800;
-  color: #fff;
+  color: #fde68a;
 }
 .home-premium-banner-text span {
   font-size: 12px;
@@ -1269,17 +1322,18 @@
 .home-premium-banner-cta {
   font-size: 13px;
   font-weight: 800;
-  color: #e9d5ff;
+  color: #fde68a;
   white-space: nowrap;
   flex-shrink: 0;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
   padding: 5px 12px;
   border-radius: 8px;
-  transition: background 0.12s;
+  transition: background 0.12s, border-color 0.12s;
 }
 .home-premium-banner:hover .home-premium-banner-cta {
-  background: rgba(255,255,255,0.2);
+  background: rgba(245, 158, 11, 0.25);
+  border-color: rgba(245, 158, 11, 0.5);
 }
 @media (max-width: 480px) {
   .home-premium-banner { gap: 10px; padding: 12px 14px; }

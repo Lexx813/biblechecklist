@@ -153,6 +153,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         <div className="home-hero-glow home-hero-glow--1" />
         <div className="home-hero-glow home-hero-glow--2" />
         <div className="home-hero-glow home-hero-glow--3" />
+        <div className="home-hero-glow home-hero-glow--gold" />
         <div className="home-hero-inner">
           <div className="home-hero-badge">{t("home.heroBadge")}</div>
           <h1 className="home-hero-title">
