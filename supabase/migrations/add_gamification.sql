@@ -85,22 +85,20 @@ begin
     anchor := today_str;
   elsif exists (select 1 from _active_days where active_date = yest_str) then
     anchor := yest_str;
-  else
-    current_streak := 0;
-    goto compute_longest;
   end if;
 
-  d := anchor;
-  loop
-    if exists (select 1 from _active_days where active_date = d) then
-      cur_streak := cur_streak + 1;
-      d := d - 1;
-    else
-      exit;
-    end if;
-  end loop;
+  if anchor is not null then
+    d := anchor;
+    loop
+      if exists (select 1 from _active_days where active_date = d) then
+        cur_streak := cur_streak + 1;
+        d := d - 1;
+      else
+        exit;
+      end if;
+    end loop;
+  end if;
 
-  <<compute_longest>>
   declare
     prev_date date := null;
     run_len   int  := 0;
