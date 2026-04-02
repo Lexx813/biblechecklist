@@ -96,7 +96,7 @@ function QuizBoard({ data, userId, onProfile }) {
 function TimedLeaderboardList({ level, currentUserId }) {
   const { data: entries = [], isLoading } = useTimedLeaderboard(level);
 
-  if (isLoading) return <div className="skeleton" style={{ height: 200, borderRadius: 12 }} />;
+  if (isLoading) return <SkeletonList />;
   if (!entries.length) return (
     <p style={{ textAlign: "center", color: "var(--text-secondary)", padding: "32px 0" }}>
       No scores yet for this level.
@@ -108,7 +108,7 @@ function TimedLeaderboardList({ level, currentUserId }) {
       {entries.map((entry) => (
         <li
           key={entry.userId}
-          className={`lb-row${entry.userId === currentUserId ? " lb-row--self" : ""}`}
+          className={`lb-row${entry.userId === currentUserId ? " lb-row--me" : ""}`}
         >
           <span className="lb-rank">#{entry.rank}</span>
           <span className="lb-name">{entry.displayName}</span>
@@ -155,7 +155,7 @@ export default function LeaderboardPage({ user, onBack, navigate, darkMode, setD
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:4}}><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>{t("leaderboard.tabQuiz")}
         </button>
         <button className={`lb-tab${tab === "timed" ? " lb-tab--active" : ""}`} onClick={() => setTab("timed")}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:4}}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Timed
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:4}}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>{t("leaderboard.tabTimed")}
         </button>
       </div>
 
@@ -174,14 +174,14 @@ export default function LeaderboardPage({ user, onBack, navigate, darkMode, setD
         {tab === "timed" && (
           <div className="lb-timed">
             <div className="lb-timed-filter">
-              <label htmlFor="timed-level-select">Level</label>
+              <label htmlFor="timed-level-select">{t("leaderboard.levelLabel")}</label>
               <select
                 id="timed-level-select"
                 value={timedLevel}
                 onChange={(e) => setTimedLevel(Number(e.target.value))}
               >
                 {Array.from({ length: 12 }, (_, i) => (
-                  <option key={i + 1} value={i + 1}>Level {i + 1}</option>
+                  <option key={i + 1} value={i + 1}>{t("leaderboard.levelLabel")} {i + 1}</option>
                 ))}
               </select>
             </div>

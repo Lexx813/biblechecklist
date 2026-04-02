@@ -921,6 +921,8 @@
     "subtitle": "Voyez ce que font les lecteurs les plus assidus",
     "tabReading": "Lecture",
     "tabQuiz": "Quiz",
+    "tabTimed": "Chronométré",
+    "levelLabel": "Niveau",
     "anonymous": "Anonyme",
     "complete": "terminé",
     "chapters": "ch",
