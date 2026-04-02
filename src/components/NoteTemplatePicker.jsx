@@ -24,6 +24,8 @@ export default function NoteTemplatePicker({ userId, onSelect, onDismiss, onUpgr
     onSelect(template.content);
   }
 
+  if (typeof document === "undefined") return null;
+
   return createPortal(
     <div
       className="ntp-overlay"
