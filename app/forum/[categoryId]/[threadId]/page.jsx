@@ -105,6 +105,17 @@ export default async function ForumThreadPage({ params }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaPosting) }} />
       )}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      {thread && (
+        <div id="ssr-fallback">
+          <article>
+            <h1>{thread.title}</h1>
+            {thread.profiles?.display_name && <p>Posted by {thread.profiles.display_name}</p>}
+            {thread.content && (
+              <div dangerouslySetInnerHTML={{ __html: thread.content }} />
+            )}
+          </article>
+        </div>
+      )}
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ClientShell />
       </HydrationBoundary>

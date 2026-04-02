@@ -45,21 +45,47 @@ const schemaBreadcrumb = {
 export default async function ForumIndexPage() {
   const queryClient = new QueryClient();
 
-  await Promise.allSettled([
-    queryClient.prefetchQuery({
-      queryKey: ["forum", "categories"],
-      queryFn: () => forumApi.listCategories(),
-    }),
-    queryClient.prefetchQuery({
-      queryKey: ["forum", "top", 4],
-      queryFn: () => forumApi.listTopThreads(4),
-    }),
+  const results = await Promise.allSettled([
+    forumApi.listCategories(),
+    forumApi.listTopThreads(4),
+    queryClient.prefetchQuery({ queryKey: ["forum", "categories"], queryFn: () => forumApi.listCategories() }),
+    queryClient.prefetchQuery({ queryKey: ["forum", "top", 4],     queryFn: () => forumApi.listTopThreads(4) }),
   ]);
+  const categories = results[0].status === "fulfilled" ? results[0].value : [];
+  const topThreads = results[1].status === "fulfilled" ? results[1].value : [];
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaForum) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      {(categories?.length > 0 || topThreads?.length > 0) && (
+        <div id="ssr-fallback">
+          <h1>NWT Progress Community Forum</h1>
+          <p>Join Bible discussions, ask questions, and share insights with Jehovah&apos;s Witnesses worldwide.</p>
+          {categories?.length > 0 && (
+            <ul>
+              {categories.map(cat => (
+                <li key={cat.id}>
+                  <a href={`/forum/${cat.id}`}><strong>{cat.name}</strong></a>
+                  {cat.description && <p>{cat.description}</p>}
+                </li>
+              ))}
+            </ul>
+          )}
+          {topThreads?.length > 0 && (
+            <section>
+              <h2>Recent Discussions</h2>
+              <ul>
+                {topThreads.map(thread => (
+                  <li key={thread.id}>
+                    <a href={`/forum/${thread.category_id}/${thread.id}`}>{thread.title}</a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+      )}
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ClientShell />
       </HydrationBoundary>

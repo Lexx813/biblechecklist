@@ -31,6 +31,12 @@ export default function App() {
   const [showApp, setShowApp] = useState(hasStoredSession);
   const [preAuthPath, setPreAuthPath] = useState(() => window.location.pathname.slice(1));
 
+  // Remove SSR fallback content once the SPA has mounted — crawlers see it,
+  // users don't because this runs before the first paint of the SPA.
+  useEffect(() => {
+    document.getElementById("ssr-fallback")?.remove();
+  }, []);
+
   // Track popstate so legal pages work before login (browser back/forward)
   useEffect(() => {
     const handler = () => setPreAuthPath(window.location.pathname.slice(1));
