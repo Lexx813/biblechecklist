@@ -1,5 +1,5 @@
 // Brief info for each of the 66 Bible books (indexed 0–65)
-// Fields: author, date, theme, keyVerses, summary, questions
+// Fields: author, date, theme, keyVerses, notablePassages, summary, questions
 // Language is consistent with Jehovah's Witness doctrine and NWT terminology.
 export const BOOK_INFO = [
   // ── Hebrew Scriptures ──────────────────────────────────────────────────────
@@ -8,6 +8,11 @@ export const BOOK_INFO = [
     date: "c. 1440 BC",
     theme: "Origins & Jehovah's Purpose",
     keyVerses: ["Gen 1:1", "Gen 12:1–3", "Gen 50:20"],
+    notablePassages: [
+      { ref: "Genesis 1:1", note: "The opening declaration establishing Jehovah as Creator of the heavens and earth, foundational to all JW theology on Jehovah's sovereignty." },
+      { ref: "Genesis 12:1–3", note: "Jehovah's covenant with Abraham — the foundation of the promised seed that would bless all nations of the earth." },
+      { ref: "Genesis 50:20", note: "Joseph's testimony that Jehovah can turn adversity into good, illustrating his sovereign care for those who trust him." },
+    ],
     summary: "Genesis records the creation of the universe, the fall of humanity, the global Flood, and Jehovah's calling of Abraham — establishing the foundation of His purpose to bless all families of the earth through the promised Seed.",
     questions: [
       "What does the creation account in Genesis 1–2 reveal about Jehovah's power and his original purpose for the earth and humanity?",
@@ -22,6 +27,11 @@ export const BOOK_INFO = [
     date: "c. 1440 BC",
     theme: "Redemption & Deliverance",
     keyVerses: ["Ex 3:14", "Ex 6:3", "Ex 20:2–3"],
+    notablePassages: [
+      { ref: "Exodus 3:14", note: "Jehovah reveals his name and the meaning 'I Will Become What I Choose to Become,' underscoring the importance of knowing and using Jehovah's personal name." },
+      { ref: "Exodus 6:3", note: "Jehovah emphasizes that his name distinguishes him from all other gods, a key NWT proof-text for restoring the divine name throughout Scripture." },
+      { ref: "Exodus 20:2–3", note: "The first two commandments establish that Jehovah alone is God and must have exclusive devotion — the bedrock of pure worship." },
+    ],
     summary: "Exodus tells the dramatic story of Israel's deliverance from Egypt through Moses, the revelation of Jehovah's name, the giving of the Ten Commandments, and the construction of the Tabernacle as Jehovah's dwelling place among his people.",
     questions: [
       "What does Jehovah's revelation of his name at Exodus 3:14–15 and 6:3 teach about the importance of using and honoring Jehovah's personal name?",
@@ -36,6 +46,11 @@ export const BOOK_INFO = [
     date: "c. 1440 BC",
     theme: "Holiness & Pure Worship",
     keyVerses: ["Lev 19:2", "Lev 17:11"],
+    notablePassages: [
+      { ref: "Leviticus 19:2", note: "Jehovah's call to holiness — 'You should be holy, because I, Jehovah your God, am holy' — sets the moral standard for all who bear his name." },
+      { ref: "Leviticus 17:11", note: "The declaration that 'the life of the flesh is in the blood' establishes the sanctity of blood and underpins JW understanding of the blood issue." },
+      { ref: "Leviticus 16:30", note: "The annual Day of Atonement provided national cleansing, foreshadowing Jesus Christ's superior sacrifice as High Priest on behalf of all humanity." },
+    ],
     summary: "Leviticus provides detailed instructions for Israel's worship, sacrifices, and priestly duties — all centered on Jehovah's call to his people to be holy because he is holy, foreshadowing the greater sacrifice of Jesus Christ.",
     questions: [
       "What does Jehovah's repeated call to holiness — 'Be holy, for I am holy' — mean for Jehovah's Witnesses today?",
@@ -50,6 +65,11 @@ export const BOOK_INFO = [
     date: "c. 1440 BC",
     theme: "Faithfulness in the Wilderness",
     keyVerses: ["Num 6:24–26", "Num 14:18"],
+    notablePassages: [
+      { ref: "Numbers 6:24–26", note: "The Aaronic blessing — 'Jehovah bless you and safeguard you' — reveals Jehovah's personal care and protective interest in his people." },
+      { ref: "Numbers 14:18", note: "Jehovah's description of himself as 'slow to anger and abounding in loyal love' while still holding the guilty accountable captures the balance of his justice and mercy." },
+      { ref: "Numbers 23:19", note: "Balaam's declaration that 'God is not a man who tells lies' affirms the absolute reliability of Jehovah's promises and prophecies." },
+    ],
     summary: "Numbers chronicles Israel's 40-year wilderness journey, their repeated failures and complaints, and Jehovah's faithful provision and patient discipline as he guided them toward the Promised Land.",
     questions: [
       "What does Israel's repeated murmuring and complaining in the wilderness teach about the danger of ingratitude toward Jehovah?",
@@ -64,6 +84,11 @@ export const BOOK_INFO = [
     date: "c. 1406 BC",
     theme: "Covenant Renewal",
     keyVerses: ["Deut 6:4–5", "Deut 28:1–2", "Deut 30:19"],
+    notablePassages: [
+      { ref: "Deuteronomy 6:4–5", note: "The Shema — 'Jehovah our God is one Jehovah' — is the cornerstone of Israel's monotheistic faith and Jesus' own summary of the greatest commandment." },
+      { ref: "Deuteronomy 28:1–2", note: "Jehovah's promise of abundant blessing upon full obedience demonstrates the direct connection between covenant faithfulness and divine favor." },
+      { ref: "Deuteronomy 30:19", note: "Jehovah's call to 'choose life' places before every person the personal responsibility to align their will with Jehovah's standards." },
+    ],
     summary: "Deuteronomy records Moses' farewell address to Israel before entering Canaan, recalling their history and renewing the covenant with a passionate call to love and obey Jehovah with the whole heart.",
     questions: [
       "Why did Moses emphasize that Israel should love Jehovah 'with all your heart and all your soul and all your vital force' (6:5), and how does this apply today?",
@@ -78,6 +103,11 @@ export const BOOK_INFO = [
     date: "c. 1380 BC",
     theme: "Conquest & Jehovah's Faithfulness",
     keyVerses: ["Josh 1:9", "Josh 24:15"],
+    notablePassages: [
+      { ref: "Joshua 1:9", note: "Jehovah's command 'be courageous and strong' assures Joshua that divine presence removes the basis for fear — a promise equally relevant to Jehovah's servants today." },
+      { ref: "Joshua 24:15", note: "Joshua's declaration 'as for me and my household, we will serve Jehovah' represents the personal choice every family must make for exclusive devotion." },
+      { ref: "Joshua 21:45", note: "The affirmation that 'not a word failed out of all the good things that Jehovah had spoken' establishes the perfect reliability of every divine promise." },
+    ],
     summary: "Joshua records Israel's conquest and settlement of Canaan under Joshua's leadership, demonstrating that Jehovah is faithful to every promise he made to Abraham and that courage comes from trusting in Jehovah.",
     questions: [
       "How did Jehovah prepare Joshua for leadership, and what qualities of courage and faith did Joshua demonstrate that we can imitate?",
@@ -92,6 +122,11 @@ export const BOOK_INFO = [
     date: "c. 1050 BC",
     theme: "Cycles of Sin & Deliverance",
     keyVerses: ["Judg 2:16", "Judg 21:25"],
+    notablePassages: [
+      { ref: "Judges 2:16", note: "Jehovah raising up judges to deliver Israel shows his patient mercy even toward those who repeatedly cycle through unfaithfulness." },
+      { ref: "Judges 21:25", note: "The summary that 'everyone was doing what was right in his own eyes' describes the moral chaos that follows rejection of Jehovah's authority." },
+      { ref: "Judges 7:2", note: "Jehovah reducing Gideon's army to 300 men demonstrated that victory belongs to Jehovah, not to human numbers or strength." },
+    ],
     summary: "Judges documents a recurring pattern: Israel abandons Jehovah, faces oppression from surrounding nations, cries out, and Jehovah raises up a judge to deliver them. It reveals humanity's need to remain loyal to Jehovah.",
     questions: [
       "What recurring cycle appears throughout Judges, and what does it teach about what happens when people drift away from Jehovah?",
@@ -106,6 +141,11 @@ export const BOOK_INFO = [
     date: "c. 1050 BC",
     theme: "Loyal Love & Redemption",
     keyVerses: ["Ruth 1:16", "Ruth 2:12", "Ruth 4:14"],
+    notablePassages: [
+      { ref: "Ruth 1:16", note: "Ruth's declaration 'your people will be my people and your God my God' is a powerful expression of loyal love and wholehearted devotion to Jehovah." },
+      { ref: "Ruth 2:12", note: "Boaz's blessing that Jehovah would reward Ruth for seeking refuge 'under his wings' illustrates Jehovah's protective care for those who draw close to him." },
+      { ref: "Ruth 4:14", note: "The women's blessing over Naomi celebrates Jehovah as the one who never leaves his people without a redeemer, pointing to the ultimate redemption through Christ." },
+    ],
     summary: "Ruth is a beautiful story of loyal love set during the time of the judges. Ruth's faithfulness to Naomi and to Jehovah becomes a picture of how Jehovah rewards those who take refuge under his wings.",
     questions: [
       "What does Ruth's declaration of loyalty to Naomi — 'Where you go I will go' — teach about the quality of loyal love (hesed) and commitment?",
@@ -120,6 +160,11 @@ export const BOOK_INFO = [
     date: "c. 1000 BC",
     theme: "The Monarchy Established",
     keyVerses: ["1 Sam 16:7", "1 Sam 17:47"],
+    notablePassages: [
+      { ref: "1 Samuel 16:7", note: "Jehovah's declaration 'Jehovah sees into the heart' establishes that he evaluates people on the basis of inner qualities, not outward appearances." },
+      { ref: "1 Samuel 17:47", note: "David's proclamation that 'the battle belongs to Jehovah' before defeating Goliath affirms that true victory always comes through reliance on Jehovah's power." },
+      { ref: "1 Samuel 2:2", note: "Hannah's song affirming that 'there is no one like Jehovah' celebrates his incomparable holiness and power, foreshadowing Mary's Magnificat." },
+    ],
     summary: "First Samuel covers the transition from judges to kings — the ministry of Samuel, Saul's unfaithful reign, and the rise of David as Jehovah's chosen king, showing that Jehovah looks at the heart.",
     questions: [
       "What does Hannah's prayer and the birth of Samuel teach about persistent, heartfelt prayer to Jehovah?",
@@ -134,6 +179,11 @@ export const BOOK_INFO = [
     date: "c. 960 BC",
     theme: "The Davidic Covenant",
     keyVerses: ["2 Sam 7:12–13", "2 Sam 22:2–3"],
+    notablePassages: [
+      { ref: "2 Samuel 7:12–13", note: "Jehovah's covenant with David promising an everlasting kingdom through his offspring is a key Messianic prophecy fulfilled in Jesus Christ." },
+      { ref: "2 Samuel 22:2–3", note: "David's declaration of Jehovah as 'my rock...my stronghold...my refuge' expresses the deep personal trust in Jehovah that characterized his entire reign." },
+      { ref: "2 Samuel 12:13", note: "David's immediate confession 'I have sinned against Jehovah' upon Nathan's rebuke models the genuine repentance that Jehovah accepts and forgives." },
+    ],
     summary: "Second Samuel recounts David's reign in full — his victories, his sin with Bath-sheba, and the painful consequences that followed — while revealing Jehovah's covenant faithfulness in establishing an everlasting kingdom through David's line.",
     questions: [
       "What do David's victories and the establishment of Jerusalem teach about Jehovah's support for those who rely on him?",
@@ -148,6 +198,11 @@ export const BOOK_INFO = [
     date: "c. 550 BC",
     theme: "Kingdom United & Divided",
     keyVerses: ["1 Ki 8:23", "1 Ki 18:21"],
+    notablePassages: [
+      { ref: "1 Kings 8:23", note: "Solomon's prayer acknowledging there is 'no God like you in the heavens above or on the earth below' celebrates Jehovah's incomparable loyalty to his covenant." },
+      { ref: "1 Kings 18:21", note: "Elijah's challenge 'How long will you be limping between two opinions?' calls Israel to end the fatal compromise of mixing Baal worship with worship of Jehovah." },
+      { ref: "1 Kings 3:9", note: "Solomon's request for a 'listening heart' to judge Jehovah's people wisely demonstrates the humility Jehovah honors in those who lead his people." },
+    ],
     summary: "First Kings covers Solomon's glorious reign, the building of Jehovah's Temple, and the tragic division of the kingdom — showing that faithfulness to Jehovah brings blessing while unfaithfulness brings ruin.",
     questions: [
       "What does Solomon's request for wisdom rather than wealth or fame (chapter 3) teach about right priorities in prayer?",
@@ -162,6 +217,11 @@ export const BOOK_INFO = [
     date: "c. 550 BC",
     theme: "The Fall of Both Kingdoms",
     keyVerses: ["2 Ki 17:7–8", "2 Ki 22:13"],
+    notablePassages: [
+      { ref: "2 Kings 17:7–8", note: "The explanation that Israel fell because they 'feared other gods' and followed the practices of surrounding nations gives the theological reason for the Assyrian exile." },
+      { ref: "2 Kings 22:13", note: "Josiah's urgent response upon hearing Jehovah's law — 'Jehovah's rage must be great' — models the responsive heart of one who takes Jehovah's word seriously." },
+      { ref: "2 Kings 19:35", note: "Jehovah's angel destroying 185,000 Assyrian soldiers in one night vindicates Hezekiah's prayer and demonstrates Jehovah's power to save against any odds." },
+    ],
     summary: "Second Kings records the progressive decline and fall of both Israel (to Assyria) and Judah (to Babylon), showing the severe consequences of persistent unfaithfulness to Jehovah's covenant.",
     questions: [
       "What does Elisha's request for a double portion of Elijah's spirit teach about the qualities needed for effective service to Jehovah?",
@@ -176,6 +236,11 @@ export const BOOK_INFO = [
     date: "c. 430 BC",
     theme: "David's Preparations for True Worship",
     keyVerses: ["1 Chr 16:23–24", "1 Chr 29:11"],
+    notablePassages: [
+      { ref: "1 Chronicles 16:23–24", note: "David's song calling all the earth to 'declare Jehovah's salvation from day to day' and tell his glory among the nations anticipates the global preaching work." },
+      { ref: "1 Chronicles 29:11", note: "David's prayer acknowledging that 'everything in the heavens and on earth belongs to Jehovah' reflects the proper attitude of complete dependence on him." },
+      { ref: "1 Chronicles 28:9", note: "David's charge to Solomon to serve Jehovah 'with a complete heart and a delightful soul' captures Jehovah's standard for wholehearted devotion." },
+    ],
     summary: "First Chronicles retells Israel's history from a priestly perspective, focusing on David's preparations for Jehovah's Temple and his efforts to establish pure, organized worship centered on Jehovah's name.",
     questions: [
       "Why did David dedicate so much effort and resources to preparing for Jehovah's Temple even though he would not build it himself?",
@@ -190,6 +255,11 @@ export const BOOK_INFO = [
     date: "c. 430 BC",
     theme: "Temple, Revival & Reform",
     keyVerses: ["2 Chr 7:14", "2 Chr 20:15"],
+    notablePassages: [
+      { ref: "2 Chronicles 7:14", note: "Jehovah's conditional promise to 'forgive their sin and heal their land' if his people humble themselves and pray remains a template for restoration after spiritual failure." },
+      { ref: "2 Chronicles 20:15", note: "Jehovah's assurance 'the battle is not yours, but God's' to Jehoshaphat's outnumbered army teaches that complete trust in Jehovah is always the right strategy." },
+      { ref: "2 Chronicles 36:23", note: "Cyrus' decree permitting the exiles to return to rebuild Jehovah's house shows Jehovah's ability to move the hearts of world rulers to fulfill his purpose." },
+    ],
     summary: "Second Chronicles highlights the reigns of Judah's kings, emphasizing times of spiritual revival and reform under faithful rulers, and concludes with Cyrus' decree allowing the exiles to return and rebuild Jehovah's house.",
     questions: [
       "What does Jehovah's promise to Solomon in 2 Chronicles 7:14 reveal about the conditions Jehovah requires for forgiveness and restoration?",
@@ -204,6 +274,11 @@ export const BOOK_INFO = [
     date: "c. 450 BC",
     theme: "Return & Restoration",
     keyVerses: ["Ezra 7:10", "Ezra 3:11"],
+    notablePassages: [
+      { ref: "Ezra 7:10", note: "Ezra's preparation to 'consult the Law of Jehovah, to practice it, and to teach it' sets the model for the personal Bible study habits Jehovah values in all his servants." },
+      { ref: "Ezra 3:11", note: "The joyful singing 'Jehovah is good, his loyal love toward Israel endures forever' at the Temple's foundation-laying shows that Jehovah's loyal love motivates heartfelt praise." },
+      { ref: "Ezra 1:1", note: "Jehovah's stirring of Cyrus' heart to issue his decree fulfilling Jeremiah's prophecy demonstrates that no human ruler can prevent Jehovah from accomplishing his purpose." },
+    ],
     summary: "Ezra records the return of Jewish exiles to Jerusalem under Zerubbabel and later Ezra himself, the rebuilding of Jehovah's Temple, and the spiritual reforms that restored pure worship among the returned remnant.",
     questions: [
       "What motivated the first group of Jewish exiles to return to Jerusalem, and what does this teach about prioritizing Jehovah's worship over personal comfort?",
@@ -218,6 +293,11 @@ export const BOOK_INFO = [
     date: "c. 430 BC",
     theme: "Rebuilding & Renewal",
     keyVerses: ["Neh 8:10", "Neh 1:5–6"],
+    notablePassages: [
+      { ref: "Nehemiah 8:10", note: "The declaration 'the joy of Jehovah is your strength' during the public reading of the Law links genuine spiritual nourishment with the inner strength needed to face daily challenges." },
+      { ref: "Nehemiah 1:5–6", note: "Nehemiah's confession-prayer appealing to Jehovah's loyal love and his own role in his people's sin models the kind of intercession that moves Jehovah to act." },
+      { ref: "Nehemiah 4:14", note: "Nehemiah's call to 'fight for your brothers, your sons, your daughters, your wives, and your homes' shows that protecting Jehovah's people requires both spiritual and practical courage." },
+    ],
     summary: "Nehemiah tells the story of rebuilding Jerusalem's walls in 52 days despite fierce opposition, followed by spiritual renewal through public reading of Jehovah's Law and a renewed commitment to keep his covenant.",
     questions: [
       "What does Nehemiah's prayer before approaching King Artaxerxes (chapter 1) teach about the role of prayer in our plans and decisions?",
@@ -232,6 +312,11 @@ export const BOOK_INFO = [
     date: "c. 480 BC",
     theme: "Jehovah's Hidden Providence & Courage",
     keyVerses: ["Esth 4:14", "Esth 8:11"],
+    notablePassages: [
+      { ref: "Esther 4:14", note: "Mordecai's challenge 'who knows whether it is for a time like this that you have come to your royal position' calls Esther to trust in Jehovah's providential timing even at personal risk." },
+      { ref: "Esther 8:11", note: "The decree reversing Haman's murderous plot demonstrates that Jehovah can turn threatening circumstances completely around for those who remain faithful to him." },
+      { ref: "Esther 2:10", note: "Although Jehovah's name does not appear in the text, his guiding hand is visible throughout, reminding Jehovah's Witnesses that his protection operates even when unseen." },
+    ],
     summary: "Esther shows Jehovah's guiding providence as Queen Esther courageously risked her life to save the Jewish people from Haman's murderous plot — a reminder that Jehovah watches over those who trust in him.",
     questions: [
       "How does the book of Esther illustrate Jehovah's guiding providence even when his name is not explicitly mentioned in the text?",
@@ -246,6 +331,11 @@ export const BOOK_INFO = [
     date: "c. 1500 BC (setting)",
     theme: "Integrity Under Trial",
     keyVerses: ["Job 1:21", "Job 19:25", "Job 38:4"],
+    notablePassages: [
+      { ref: "Job 1:21", note: "Job's response 'Jehovah has given, and Jehovah has taken away. Let the name of Jehovah continue to be praised' is the supreme example of integrity under the most extreme personal loss." },
+      { ref: "Job 19:25", note: "Job's confident declaration 'my Redeemer is alive' expresses the resurrection hope that sustains Jehovah's people through the most severe trials." },
+      { ref: "Job 38:4", note: "Jehovah's rhetorical question 'Where were you when I laid the foundations of the earth?' establishes the vast difference between Jehovah's wisdom and human understanding." },
+    ],
     summary: "Job grapples with undeserved suffering through poetic dialogues, ultimately affirming Jehovah's boundless wisdom and sovereignty. Job's faithful integrity under extreme trial vindicated Jehovah's name against Satan's challenge.",
     questions: [
       "What was the real issue behind Job's suffering, and why is understanding this context important for Jehovah's Witnesses today?",
@@ -260,6 +350,11 @@ export const BOOK_INFO = [
     date: "c. 1000–430 BC",
     theme: "Worship, Prayer & Praise to Jehovah",
     keyVerses: ["Ps 23:1", "Ps 46:1", "Ps 83:18"],
+    notablePassages: [
+      { ref: "Psalm 23:1", note: "The opening 'Jehovah is my Shepherd' captures the intimate, personal relationship of trust and dependence on Jehovah that flows throughout the entire Psalter." },
+      { ref: "Psalm 46:1", note: "The declaration that 'God is our refuge and strength, a help that is readily found in times of distress' affirms Jehovah as the reliable source of stability in any crisis." },
+      { ref: "Psalm 83:18", note: "The statement 'that people may know that you, whose name is Jehovah, you alone are the Most High over all the earth' captures the central JW mission to vindicate Jehovah's name." },
+    ],
     summary: "The Psalms are 150 inspired songs and prayers covering the full range of human experience — praise, lament, thanksgiving, and trust in Jehovah — providing a rich guide to heartfelt prayer and worship of Jehovah.",
     questions: [
       "How do the psalms of lament (such as Psalms 22, 42, 88) teach us to be honest with Jehovah about our feelings during times of suffering?",
@@ -274,6 +369,11 @@ export const BOOK_INFO = [
     date: "c. 950 BC",
     theme: "Practical Wisdom",
     keyVerses: ["Prov 1:7", "Prov 3:5–6", "Prov 31:30"],
+    notablePassages: [
+      { ref: "Proverbs 1:7", note: "The foundational statement 'the fear of Jehovah is the beginning of wisdom' establishes that true wisdom is inseparable from a correct relationship with Jehovah." },
+      { ref: "Proverbs 3:5–6", note: "The counsel to 'trust in Jehovah with all your heart and not rely on your own understanding' calls for surrender of personal judgment to Jehovah's direction." },
+      { ref: "Proverbs 31:30", note: "The affirmation that 'a woman who fears Jehovah is the one who is praised' identifies reverence for Jehovah as the defining quality of true excellence." },
+    ],
     summary: "Proverbs is a collection of wise sayings for righteous living, emphasizing that true wisdom begins with fear of Jehovah and shapes every area of daily life — from speech and work to relationships and personal integrity.",
     questions: [
       "What does Proverbs 1:7 — 'The fear of Jehovah is the beginning of wisdom' — mean, and how does proper fear of Jehovah guide daily decisions?",
@@ -288,6 +388,11 @@ export const BOOK_INFO = [
     date: "c. 935 BC",
     theme: "Life's True Meaning",
     keyVerses: ["Eccl 1:2", "Eccl 3:1", "Eccl 12:13"],
+    notablePassages: [
+      { ref: "Ecclesiastes 1:2", note: "The refrain 'the greatest futility — everything is futile' sets the backdrop for Solomon's investigation, showing that life without Jehovah's perspective has no lasting meaning." },
+      { ref: "Ecclesiastes 3:1", note: "The teaching that Jehovah has appointed a time for every purpose under heaven encourages trust in his timing rather than anxious self-reliance." },
+      { ref: "Ecclesiastes 12:13", note: "The final conclusion — 'fear the true God and keep his commandments, for this is the whole obligation of man' — identifies complete devotion to Jehovah as humanity's true purpose." },
+    ],
     summary: "Ecclesiastes explores the emptiness of life apart from Jehovah, concluding that fearing Jehovah and keeping his commandments is the whole purpose of humanity — the one foundation that gives life real meaning.",
     questions: [
       "What does Solomon's conclusion that all pursuits are 'vanity' teach about the dangers of seeking lasting satisfaction apart from Jehovah?",
@@ -302,6 +407,11 @@ export const BOOK_INFO = [
     date: "c. 965 BC",
     theme: "Love & Devotion",
     keyVerses: ["Song 2:4", "Song 8:6–7"],
+    notablePassages: [
+      { ref: "Song of Solomon 2:4", note: "The declaration 'his intention toward me is love' captures the security and joy that comes from a relationship built on genuine, protective loyal love." },
+      { ref: "Song of Solomon 8:6–7", note: "The description of love as 'strong as death' and 'its flames are flames of fire, the flame of Jah' celebrates Jehovah-given love as the most powerful of human bonds." },
+      { ref: "Song of Solomon 1:3", note: "The Shulammite's praise of her beloved's name being 'like a fragrant oil poured out' illustrates how a person's reputation and character draw others to them." },
+    ],
     summary: "The Song of Solomon celebrates the beauty of loyal love between a husband and wife, affirming that romantic love and commitment within marriage are gifts from Jehovah to be cherished and protected.",
     questions: [
       "What does the Song of Solomon teach about the importance Jehovah places on love, loyalty, and commitment within marriage?",
@@ -316,6 +426,11 @@ export const BOOK_INFO = [
     date: "c. 740–700 BC",
     theme: "Jehovah's Salvation & the Coming Messiah",
     keyVerses: ["Isa 9:6", "Isa 40:31", "Isa 53:5"],
+    notablePassages: [
+      { ref: "Isaiah 9:6", note: "The Messianic titles 'Wonderful Counselor, Mighty God, Eternal Father, Prince of Peace' reveal the extraordinary qualities Jehovah would give his appointed King." },
+      { ref: "Isaiah 40:31", note: "The promise that those 'waiting on Jehovah' will renew their strength like eagles provides enduring comfort for his servants during prolonged hardships." },
+      { ref: "Isaiah 53:5", note: "The Suffering Servant prophecy that 'he was pierced for our transgression' is one of the most precise Messianic predictions, fulfilled in Jesus Christ's atoning sacrifice." },
+    ],
     summary: "Isaiah contains some of the most majestic prophecies in the Hebrew Scriptures — judgment on unfaithful Judah, comfort for exiles, and vivid descriptions of the coming Messiah whose sacrifice would bring salvation and whose Kingdom would have no end.",
     questions: [
       "How does Isaiah 9:6–7 describe the coming Messianic King, and how were these qualities fulfilled in Jesus Christ?",
@@ -330,6 +445,11 @@ export const BOOK_INFO = [
     date: "c. 626–586 BC",
     theme: "New Covenant",
     keyVerses: ["Jer 17:9", "Jer 29:11", "Jer 31:31–33"],
+    notablePassages: [
+      { ref: "Jeremiah 17:9", note: "The declaration that 'the heart is more treacherous than anything else' underlines the need for Jehovah's guidance rather than reliance on imperfect human inclinations." },
+      { ref: "Jeremiah 29:11", note: "Jehovah's promise 'I well know the thoughts that I am thinking toward you — thoughts of peace, and not of calamity' assures his exiled people that his purposes for them are always good." },
+      { ref: "Jeremiah 31:31–33", note: "Jehovah's promise of a new covenant 'written on the heart' rather than stone tablets points to the superior arrangement mediated by Jesus Christ." },
+    ],
     summary: "Called the 'weeping prophet,' Jeremiah faithfully proclaimed Jehovah's judgment to a stubborn Judah, while also announcing the glorious promise of a new covenant — one written on the heart rather than on stone tablets.",
     questions: [
       "What does Jeremiah 1:5 — 'Before I formed you in the womb I knew you' — teach about Jehovah's foreknowledge and purpose for each person?",
@@ -344,6 +464,11 @@ export const BOOK_INFO = [
     date: "c. 586 BC",
     theme: "Grief & Unwavering Hope",
     keyVerses: ["Lam 3:22–23", "Lam 3:40"],
+    notablePassages: [
+      { ref: "Lamentations 3:22–23", note: "The affirmation that Jehovah's loyal love 'never ends' and 'his mercies never come to an end; they are renewed each morning' is the anchor of hope in the book's deepest grief." },
+      { ref: "Lamentations 3:40", note: "The call to 'examine and explore our ways, and turn back to Jehovah' models the self-examination Jehovah desires as a first step toward spiritual recovery." },
+      { ref: "Lamentations 3:26", note: "The counsel to 'wait quietly for the salvation of Jehovah' teaches that patient endurance in faith is the appropriate response to waiting on Jehovah's timing." },
+    ],
     summary: "Lamentations is a collection of five poetic laments over the destruction of Jerusalem, expressing profound grief at Jehovah's judgment while holding firmly to the truth that Jehovah's loyal love never ends.",
     questions: [
       "How does the book of Lamentations model honest grief while still maintaining hope in Jehovah's loyal love?",
@@ -358,6 +483,11 @@ export const BOOK_INFO = [
     date: "c. 593–571 BC",
     theme: "Jehovah's Glory & Future Restoration",
     keyVerses: ["Ezek 18:23", "Ezek 36:26", "Ezek 37:1–4"],
+    notablePassages: [
+      { ref: "Ezekiel 18:23", note: "Jehovah's declaration 'Do I take any pleasure in the death of the wicked one?' affirms his desire for all people to repent and live, a key JW evangelistic motivation." },
+      { ref: "Ezekiel 36:26", note: "The promise that Jehovah will replace 'the heart of stone' with 'a heart of flesh' describes the transformation his spirit produces in those who return to him." },
+      { ref: "Ezekiel 37:1–4", note: "The valley of dry bones vision powerfully foreshadows the resurrection of the dead, when Jehovah will restore life to countless millions under his Kingdom." },
+    ],
     summary: "Ezekiel, a priest-prophet among the exiles in Babylon, received spectacular visions of Jehovah's glory, pronounced judgment on Jerusalem and surrounding nations, and proclaimed a glorious future restoration of Jehovah's people.",
     questions: [
       "What do Ezekiel's inaugural visions (chapters 1–3) of Jehovah's chariot-throne teach about Jehovah's majesty and the operation of his holy spirit?",
@@ -372,6 +502,11 @@ export const BOOK_INFO = [
     date: "c. 605–535 BC",
     theme: "Jehovah's Sovereignty over All Kingdoms",
     keyVerses: ["Dan 2:44", "Dan 3:17–18", "Dan 6:26"],
+    notablePassages: [
+      { ref: "Daniel 2:44", note: "The prophecy that 'the God of heaven will set up a kingdom that will never be destroyed' is foundational to JW understanding of Jehovah's Kingdom as the only lasting government." },
+      { ref: "Daniel 3:17–18", note: "Shadrach, Meshach, and Abednego's declaration 'even if he does not' deliver us exemplifies absolute integrity before Jehovah regardless of consequences — the 'even if not' faith." },
+      { ref: "Daniel 6:26", note: "Darius' proclamation that Daniel's God 'is the living God and he endures forever' shows how faithful integrity can move even pagan rulers to acknowledge Jehovah's sovereignty." },
+    ],
     summary: "Daniel blends remarkable narrative accounts and prophetic visions to show that Jehovah is sovereign over all human empires and history. Daniel 2:44 foretells Jehovah's Kingdom that will crush all rival governments and stand forever.",
     questions: [
       "How did Daniel and his three companions (chapters 1–6) demonstrate that it is possible to maintain integrity under intense pressure from a hostile world power?",
@@ -386,6 +521,11 @@ export const BOOK_INFO = [
     date: "c. 755–715 BC",
     theme: "Jehovah's Unfailing Loyal Love",
     keyVerses: ["Hos 2:19–20", "Hos 6:6", "Hos 14:4"],
+    notablePassages: [
+      { ref: "Hosea 2:19–20", note: "Jehovah's promise to 'take you as my wife in righteousness and in justice, in loyal love and in mercy' reveals the depth of the covenant relationship Jehovah desires with his people." },
+      { ref: "Hosea 6:6", note: "Jehovah's declaration 'I want loyal love, not sacrifice' identifies the inner disposition of the heart as what Jehovah values above ritual observance." },
+      { ref: "Hosea 14:4", note: "Jehovah's promise 'I will heal their unfaithfulness; I will love them of my own free will' demonstrates that his loyal love pursues and restores even those who have strayed." },
+    ],
     summary: "Jehovah commanded Hosea to marry an unfaithful wife as a living parable of Israel's spiritual unfaithfulness — and Jehovah's relentless loyal love that pursues, disciplines, and restores those who return to him.",
     questions: [
       "How did Jehovah use Hosea's marriage as a living illustration of Israel's spiritual unfaithfulness, and how does this help us understand the seriousness of spiritual adultery?",
@@ -400,6 +540,11 @@ export const BOOK_INFO = [
     date: "c. 835 BC (or 400s BC)",
     theme: "Jehovah's Day",
     keyVerses: ["Joel 2:13", "Joel 2:28–29"],
+    notablePassages: [
+      { ref: "Joel 2:13", note: "The call to 'rend your hearts and not your garments' emphasizes that Jehovah desires genuine inward repentance rather than outward religious performance." },
+      { ref: "Joel 2:28–29", note: "Jehovah's promise to 'pour out my spirit on every sort of flesh' was fulfilled at Pentecost 33 CE and marks the beginning of the last-days anointed congregation." },
+      { ref: "Joel 2:32", note: "The declaration that 'everyone who calls on the name of Jehovah will be saved' points to the universal scope of salvation available to all who seek Jehovah." },
+    ],
     summary: "Joel uses a devastating locust plague as a call to repentance, warning of the coming day of Jehovah and promising that Jehovah would pour out his spirit on his servants — a prophecy fulfilled at Pentecost 33 CE.",
     questions: [
       "How did Joel use the locust plague as a call to genuine repentance, and what does 'rend your hearts, not your garments' (2:13) mean for worship today?",
@@ -414,6 +559,11 @@ export const BOOK_INFO = [
     date: "c. 760 BC",
     theme: "Justice & Righteousness",
     keyVerses: ["Amos 3:7", "Amos 5:24"],
+    notablePassages: [
+      { ref: "Amos 3:7", note: "Jehovah's principle of revealing his 'confidential matter' to his servants the prophets before acting shows his respect for his covenant people and his transparency with them." },
+      { ref: "Amos 5:24", note: "The call to 'let justice flow like waters and righteousness like a constantly flowing stream' affirms that Jehovah's standards for social justice reflect his own righteous character." },
+      { ref: "Amos 9:11", note: "The promise to raise up 'the fallen booth of David' is cited in Acts 15:16 as being fulfilled through the restored Christian congregation under Christ's Kingdom." },
+    ],
     summary: "Amos, a shepherd turned prophet, declared Jehovah's judgment on Israel's social injustice, hollow religious observance, and oppression of the poor, calling for justice to 'roll on like a river' before Jehovah's day arrived.",
     questions: [
       "What does Amos 3:7 — 'Surely the Sovereign Lord Jehovah does nothing without revealing his confidential matter to his servants the prophets' — teach about Jehovah's communication with his people?",
@@ -428,6 +578,11 @@ export const BOOK_INFO = [
     date: "c. 586 BC",
     theme: "Judgment on Pride",
     keyVerses: ["Obad 1:15", "Obad 1:3–4"],
+    notablePassages: [
+      { ref: "Obadiah 1:15", note: "The declaration 'as you have done, it will be done to you' states the principle of just retribution — that Jehovah ensures that wickedness done to his people will be repaid in kind." },
+      { ref: "Obadiah 1:3–4", note: "Edom's pride in its mountain stronghold is contrasted with Jehovah's power to bring them down, illustrating that self-reliant pride always precedes a fall." },
+      { ref: "Obadiah 1:21", note: "The closing promise that 'the kingdom will become Jehovah's' anticipates the ultimate vindication of his sovereignty when all enemy powers are removed." },
+    ],
     summary: "The shortest book of the Hebrew Scriptures pronounces Jehovah's judgment on Edom for taking pride in Jerusalem's destruction, affirming that Jehovah defends his people and that pride always leads to a fall.",
     questions: [
       "What specific sins of Edom led to Jehovah's judgment, and what do they teach about the dangers of pride and self-sufficiency?",
@@ -442,6 +597,11 @@ export const BOOK_INFO = [
     date: "c. 793–753 BC",
     theme: "Jehovah's Mercy to All Nations",
     keyVerses: ["Jonah 1:17", "Jonah 4:2", "Jonah 3:10"],
+    notablePassages: [
+      { ref: "Jonah 1:17", note: "Jehovah preparing a large fish to swallow Jonah demonstrates his ability to use any means necessary to redirect those he has appointed for his service." },
+      { ref: "Jonah 4:2", note: "Jonah's description of Jehovah as 'a gracious and merciful God, slow to anger and abundant in loyal love' affirms the core qualities that define Jehovah's dealings with all people." },
+      { ref: "Jonah 3:10", note: "Jehovah's decision not to bring calamity upon a repentant Nineveh shows his readiness to extend mercy to any nation that genuinely turns to him." },
+    ],
     summary: "Jonah's account of fleeing Jehovah's assignment, being swallowed by a great fish, and ultimately going to Nineveh reveals that Jehovah's mercy and compassion extends beyond Israel to people of all nations who respond with repentance.",
     questions: [
       "What was wrong with Jonah's initial refusal to go to Nineveh, and how does this challenge us to reflect on our own attitude toward sharing the good news with all types of people?",
@@ -456,6 +616,11 @@ export const BOOK_INFO = [
     date: "c. 737–696 BC",
     theme: "Justice, Loyal Love & the Messiah",
     keyVerses: ["Mic 5:2", "Mic 6:8"],
+    notablePassages: [
+      { ref: "Micah 5:2", note: "The prophecy that the Messianic ruler would come from Bethlehem 'whose origin is from ancient times' was precisely fulfilled by Jesus Christ and confirms Jehovah's reliable word." },
+      { ref: "Micah 6:8", note: "Jehovah's summary requirement to 'act justly, love loyalty, and walk humbly with your God' distills all of true worship into its three essential elements." },
+      { ref: "Micah 4:4", note: "The paradise promise that 'each one will sit under his vine and under his fig tree, with no one to make them afraid' is one of the clearest pictures of Jehovah's earthly purpose." },
+    ],
     summary: "Micah alternates between Jehovah's judgment and hope, condemning corruption and injustice while prophesying the Messiah's birth in Bethlehem and calling each person to act with justice, love loyalty, and walk humbly with Jehovah.",
     questions: [
       "How does Micah 5:2 — foretelling the Messiah's birth in Bethlehem — demonstrate the reliability of Jehovah's prophecy when fulfilled at Jesus' birth?",
@@ -470,6 +635,11 @@ export const BOOK_INFO = [
     date: "c. 663–612 BC",
     theme: "Jehovah's Judgment on Wickedness",
     keyVerses: ["Nah 1:3", "Nah 1:7"],
+    notablePassages: [
+      { ref: "Nahum 1:3", note: "The declaration that Jehovah is 'slow to anger but great in power' and 'will by no means leave the guilty unpunished' balances his patience with the certainty of his justice." },
+      { ref: "Nahum 1:7", note: "Jehovah being 'a stronghold in the day of distress' and knowing 'those seeking refuge in him' gives personal assurance that he cares for and protects the faithful." },
+      { ref: "Nahum 1:2", note: "Jehovah described as 'a God who is zealous and one who takes vengeance' on his adversaries affirms that he will ultimately defend his name and vindicate his people." },
+    ],
     summary: "Nahum declares the fall of Nineveh — the mighty Assyrian capital — as a demonstration that Jehovah is slow to anger but will by no means leave the guilty unpunished, and is a stronghold for those who take refuge in him.",
     questions: [
       "What qualities of Jehovah does Nahum 1:2–7 describe — his jealousy, slowness to anger, and greatness — and how do they work together?",
@@ -484,6 +654,11 @@ export const BOOK_INFO = [
     date: "c. 609–605 BC",
     theme: "Faith in Jehovah's Sovereignty",
     keyVerses: ["Hab 2:4", "Hab 3:17–18"],
+    notablePassages: [
+      { ref: "Habakkuk 2:4", note: "The declaration 'the righteous one will live by his faithfulness' became a foundational proof-text for Paul in explaining that righteousness before Jehovah comes through faith, not works of law." },
+      { ref: "Habakkuk 3:17–18", note: "The commitment to rejoice in Jehovah even when crops fail and flocks perish models the unconditional joy and praise that Jehovah's servants should maintain regardless of circumstances." },
+      { ref: "Habakkuk 2:14", note: "The promise that 'the earth will be filled with the knowledge of Jehovah's glory' points to the global spread of true worship as Jehovah's ultimate purpose for the earth." },
+    ],
     summary: "Habakkuk wrestles honestly with Jehovah about evil and injustice, and receives the assurance that the righteous one will live by faith — trusting Jehovah even when circumstances seem to contradict his justice.",
     questions: [
       "How does Habakkuk's willingness to question Jehovah honestly about apparent injustice (chapters 1–2) demonstrate that we can bring our deepest concerns to Jehovah in prayer?",
@@ -498,6 +673,11 @@ export const BOOK_INFO = [
     date: "c. 640–621 BC",
     theme: "Jehovah's Day & Joyful Restoration",
     keyVerses: ["Zeph 1:14", "Zeph 3:17"],
+    notablePassages: [
+      { ref: "Zephaniah 1:14", note: "The description of Jehovah's great day as 'near' and 'very close' creates the urgent sense of watchfulness that Jehovah's Witnesses maintain as they scan current world events." },
+      { ref: "Zephaniah 3:17", note: "The picture of Jehovah rejoicing over his people 'with a joyful cry' and exulting over them 'with a joyful song' reveals the deep emotional delight Jehovah has in his restored people." },
+      { ref: "Zephaniah 3:9", note: "Jehovah's promise to 'give all peoples a pure language' so they can call on his name together foreshadows the global unity of worship Jehovah's Witnesses already experience." },
+    ],
     summary: "Zephaniah warns of the coming day of Jehovah's judgment on unfaithful Judah and the nations, but concludes with a joyful promise that Jehovah will exult over his restored people with rejoicing and song.",
     questions: [
       "How does Zephaniah's description of the 'day of Jehovah' as both terrifying and hopeful prepare Jehovah's Witnesses for the coming great tribulation?",
@@ -512,6 +692,11 @@ export const BOOK_INFO = [
     date: "c. 520 BC",
     theme: "Prioritizing Jehovah's House",
     keyVerses: ["Hag 1:5–7", "Hag 2:9"],
+    notablePassages: [
+      { ref: "Haggai 1:5–7", note: "Jehovah's challenge to 'consider carefully your ways' after the people's crops failed connects spiritual priorities with practical outcomes — a pattern relevant for Jehovah's Witnesses today." },
+      { ref: "Haggai 2:9", note: "The promise that 'the glory of this later house will be greater than that of the former' encouraged modest beginnings, pointing to how Jehovah can bless humble efforts made in his service." },
+      { ref: "Haggai 2:4", note: "The triple exhortation to 'be strong' addressed to the governor, the high priest, and all the people shows that Jehovah's encouragement is available to every individual doing his work." },
+    ],
     summary: "Haggai delivered four short messages urging the returned exiles to stop neglecting Jehovah's Temple and rebuild it, promising that the future glory of that house would surpass the former as Jehovah's blessing returned.",
     questions: [
       "What was the spiritual problem Haggai identified when the people said 'the time has not yet come to build Jehovah's house' (1:2), and how can this rationalization appear in our own lives?",
@@ -526,6 +711,11 @@ export const BOOK_INFO = [
     date: "c. 520–480 BC",
     theme: "Messianic Hope & Restoration",
     keyVerses: ["Zech 4:6", "Zech 9:9", "Zech 12:10"],
+    notablePassages: [
+      { ref: "Zechariah 4:6", note: "Jehovah's principle 'not by a military force, nor by power, but by my spirit' assures that the work of true worship succeeds through Jehovah's spirit, not human strength." },
+      { ref: "Zechariah 9:9", note: "The prophecy of a king coming 'humble and riding on a donkey' was fulfilled precisely by Jesus on his entry into Jerusalem, confirming prophetic reliability." },
+      { ref: "Zechariah 12:10", note: "The prophecy that 'they will look to the one whom they pierced' was cited in John 19:37 and Revelation 1:7 as fulfilled in Jesus Christ, confirming Zechariah's Messianic insight." },
+    ],
     summary: "Zechariah encouraged the rebuilding of Jehovah's Temple through eight night visions and rich Messianic prophecies, including the foretelling of the humble King entering Jerusalem on a donkey — fulfilled by Jesus Christ.",
     questions: [
       "How does Zechariah's vision of Satan opposing Joshua the high priest (chapter 3) and Jehovah's rebuke of Satan give confidence that Jehovah defends his servants?",
@@ -540,6 +730,11 @@ export const BOOK_INFO = [
     date: "c. 430 BC",
     theme: "Covenant Faithfulness",
     keyVerses: ["Mal 3:1", "Mal 3:10", "Mal 3:16"],
+    notablePassages: [
+      { ref: "Malachi 3:1", note: "Jehovah's promise to send a messenger to 'clear up a way before him' was fulfilled in John the Baptist's preparatory ministry, demonstrating the precision of prophetic fulfillment." },
+      { ref: "Malachi 3:10", note: "Jehovah's invitation to 'test me out' by bringing the full tithe and see if he will 'pour out a blessing until there is no room for it' reveals his generosity to those who put him first." },
+      { ref: "Malachi 3:16", note: "The 'book of remembrance' written for those who feared Jehovah and meditated on his name assures every faithful servant that Jehovah takes careful, personal note of their devotion." },
+    ],
     summary: "Malachi, the final prophetic voice of the Hebrew Scriptures, rebukes priests and people for spiritual apathy and unfaithfulness, closing with a promise of Jehovah's coming messenger and the blessing awaiting those who fear Jehovah's name.",
     questions: [
       "How did Jehovah's question 'How have you loved us?' (1:2) reveal the spiritual complacency that Malachi addressed, and how can we guard against this attitude?",
@@ -556,6 +751,11 @@ export const BOOK_INFO = [
     date: "c. AD 50–60",
     theme: "Jesus the King & Messiah",
     keyVerses: ["Matt 4:17", "Matt 5:17", "Matt 28:19–20"],
+    notablePassages: [
+      { ref: "Matthew 4:17", note: "Jesus' proclamation 'Repent, for the Kingdom of the heavens has drawn near' launches the central theme of his entire ministry — the good news of Jehovah's Kingdom." },
+      { ref: "Matthew 5:17", note: "Jesus' declaration that he came not to destroy the Law but to fulfill it shows how his teaching perfectly completed Jehovah's purpose for the Mosaic covenant." },
+      { ref: "Matthew 28:19–20", note: "The Great Commission to 'make disciples of people of all the nations' provides the ongoing mandate for Jehovah's Witnesses' worldwide preaching and teaching work." },
+    ],
     summary: "Matthew presents Jesus as the fulfillment of Hebrew Scripture prophecy and the long-awaited Messianic King, structured around five major discourses including the Sermon on the Mount and Jesus' teachings about Jehovah's Kingdom.",
     questions: [
       "How does Jesus' Sermon on the Mount (chapters 5–7) present the standards of conduct and values that distinguish citizens of Jehovah's Kingdom?",
@@ -570,6 +770,11 @@ export const BOOK_INFO = [
     date: "c. AD 55–65",
     theme: "Jesus the Servant",
     keyVerses: ["Mark 1:1", "Mark 8:29", "Mark 10:45"],
+    notablePassages: [
+      { ref: "Mark 1:1", note: "The opening declaration 'the beginning of the good news about Jesus Christ, the Son of God' immediately establishes Jesus' identity as distinct from — and subordinate to — Jehovah." },
+      { ref: "Mark 8:29", note: "Peter's confession 'You are the Christ' at Caesarea Philippi marks the pivotal moment when the disciples grasped Jesus' true identity as Jehovah's appointed Messiah." },
+      { ref: "Mark 10:45", note: "Jesus' statement that 'the Son of Man came...to give his life as a ransom in exchange for many' succinctly expresses the redemptive purpose at the heart of his ministry." },
+    ],
     summary: "The shortest Gospel moves at a rapid pace, emphasizing Jesus' powerful deeds and miracles. Mark presents Jesus as the Son of God who came not to be ministered to but to minister and give his life as a ransom for many.",
     questions: [
       "What does the rapid pace of Mark's Gospel and its emphasis on Jesus' powerful deeds reveal about Jesus as Jehovah's appointed servant?",
@@ -584,6 +789,11 @@ export const BOOK_INFO = [
     date: "c. AD 60–62",
     theme: "Jesus the Savior of All Peoples",
     keyVerses: ["Luke 1:3–4", "Luke 4:18", "Luke 19:10"],
+    notablePassages: [
+      { ref: "Luke 1:3–4", note: "Luke's purpose to write an 'accurate account' for Theophilus reflects his commitment to historical reliability, strengthening confidence that the Gospel records are trustworthy." },
+      { ref: "Luke 4:18", note: "Jesus' declaration that he was anointed to 'declare good news to the poor' and 'proclaim liberty to the captives' defines his ministry as one of compassionate rescue — mirroring Jehovah's own heart." },
+      { ref: "Luke 19:10", note: "Jesus' mission statement 'to seek and to save the lost' motivates Jehovah's Witnesses to persevere in sharing the good news with all kinds of people." },
+    ],
     summary: "Luke's careful, orderly account emphasizes Jesus' compassion for the poor, outcasts, women, and people of all nations — showing that the good news of Jehovah's Kingdom and salvation through Jesus Christ is available to all who respond in faith.",
     questions: [
       "How does Luke's emphasis on Jesus showing compassion to outcasts, the poor, and Gentiles reflect Jehovah's universal love for all peoples?",
@@ -598,6 +808,11 @@ export const BOOK_INFO = [
     date: "c. AD 85–95",
     theme: "Jesus the Son of God",
     keyVerses: ["John 1:1", "John 3:16", "John 14:6", "John 20:31"],
+    notablePassages: [
+      { ref: "John 1:1", note: "The NWT's rendering 'the Word was a god' distinguishes Jesus as a mighty divine being while preserving Jehovah's unique identity as the only true God — a key Trinitarian discussion point." },
+      { ref: "John 3:16", note: "Jehovah's sending of his Son so that 'everyone exercising faith in him might not be destroyed but have everlasting life' encapsulates the love and redemptive plan at the heart of the good news." },
+      { ref: "John 14:6", note: "Jesus' declaration 'I am the way and the truth and the life; no one comes to the Father except through me' establishes his unique role as the mediator of access to Jehovah." },
+    ],
     summary: "John's deeply theological Gospel uses seven miraculous signs and seven 'I am' sayings to reveal Jesus as the Son of God and the Word of Jehovah, written so that readers would believe and have everlasting life through his name.",
     questions: [
       "How does John 1:1 and 1:14 describe Jesus as the Word (Logos), and what does the Greek grammar of John 1:1 reveal about Jesus' nature in relation to Jehovah?",
@@ -612,6 +827,11 @@ export const BOOK_INFO = [
     date: "c. AD 62",
     theme: "Jehovah's Spirit & Congregation Growth",
     keyVerses: ["Acts 1:8", "Acts 2:42", "Acts 17:11"],
+    notablePassages: [
+      { ref: "Acts 1:8", note: "Jesus' commission to be witnesses 'to the most distant part of the earth' defines the scope of the preaching work Jehovah intended for the early congregation and continues today." },
+      { ref: "Acts 2:42", note: "The early Christians' devotion to 'teaching, sharing of information, meals, and prayers' describes the pattern of congregational life that Jehovah values." },
+      { ref: "Acts 17:11", note: "The Beroeans 'carefully examining the Scriptures daily' to verify what they heard sets the gold standard for personal Bible study and doctrinal verification." },
+    ],
     summary: "Acts traces the spread of the good news from Jerusalem to Rome through the power of Jehovah's holy spirit, following the apostles Peter and Paul as the Christian congregation grew and expanded to all nations.",
     questions: [
       "How did the outpouring of Jehovah's holy spirit at Pentecost 33 CE (chapter 2) mark the beginning of the new covenant congregation, and what were the immediate results?",
@@ -626,6 +846,11 @@ export const BOOK_INFO = [
     date: "c. AD 57",
     theme: "Righteousness Through Faith",
     keyVerses: ["Rom 1:16–17", "Rom 3:23–24", "Rom 8:28", "Rom 12:1–2"],
+    notablePassages: [
+      { ref: "Romans 1:16–17", note: "Paul's declaration that the good news 'is the power of God for salvation' and reveals a righteousness 'by faith' establishes the foundational theme of the entire letter." },
+      { ref: "Romans 3:23–24", note: "The teaching that 'all have sinned' but are 'declared righteous...as a free gift by his undeserved kindness through the release by the ransom paid by Christ Jesus' summarizes the need for and provision of salvation." },
+      { ref: "Romans 8:28", note: "The assurance that 'Jehovah makes all his works cooperate together for the good of those who love God' provides deep comfort for those navigating trials with faith." },
+    ],
     summary: "Romans is Paul's most thorough presentation of the good news — all humans fall short of Jehovah's standard, but righteousness and life are available through faith in Jesus Christ's ransom sacrifice.",
     questions: [
       "What does Paul's explanation of how all humans have 'fallen short of the glory of God' (3:23) and the remedy through faith in Jesus teach about why we need the ransom?",
@@ -640,6 +865,11 @@ export const BOOK_INFO = [
     date: "c. AD 55",
     theme: "Congregation Life & Unity",
     keyVerses: ["1 Cor 1:18", "1 Cor 13:13", "1 Cor 15:3–4"],
+    notablePassages: [
+      { ref: "1 Corinthians 1:18", note: "Paul's observation that 'the word of the torture stake is foolishness to those perishing, but to us being saved it is the power of God' highlights the contrast between worldly wisdom and Jehovah's wisdom." },
+      { ref: "1 Corinthians 13:13", note: "The conclusion that 'the greatest of these is love' establishes love as the supreme quality Jehovah wants to see in every congregation member's life." },
+      { ref: "1 Corinthians 15:3–4", note: "Paul's summary of the core good news — that Christ died, was buried, and was raised — shows the resurrection as an indispensable pillar of Christian faith." },
+    ],
     summary: "Paul addresses serious problems in the Corinthian congregation — divisions, immorality, misuse of spiritual gifts, and doubts about resurrection — calling them to restore unity and love as a body of Christ.",
     questions: [
       "What does Paul's teaching on spiritual gifts in chapters 12–14 teach about the proper use of gifts in the congregation, with love as the most essential quality?",
@@ -654,6 +884,11 @@ export const BOOK_INFO = [
     date: "c. AD 55–56",
     theme: "Comfort & Jehovah's Strength",
     keyVerses: ["2 Cor 4:17", "2 Cor 5:17", "2 Cor 12:9"],
+    notablePassages: [
+      { ref: "2 Corinthians 4:17", note: "Paul's perspective that momentary 'light and temporary tribulation is producing for us a surpassing great eternal weight of glory' reframes suffering as purposeful and temporary." },
+      { ref: "2 Corinthians 5:17", note: "The declaration that 'if anyone is in union with Christ, he is a new creation' describes the transformation Jehovah's spirit produces in those who accept the good news." },
+      { ref: "2 Corinthians 12:9", note: "Jehovah's assurance 'my power is being made perfect in weakness' teaches that apparent human limitations are the ideal context for Jehovah's strength to be displayed." },
+    ],
     summary: "Paul's most personal letter defends his apostleship and ministry amid intense suffering, teaching that Jehovah's power is made perfect in weakness and that endurance through trials produces lasting spiritual fruit.",
     questions: [
       "What does Paul's description of his sufferings (chapters 4–6; 11) and his continued ministry despite them teach about finding strength in Jehovah?",
@@ -668,6 +903,11 @@ export const BOOK_INFO = [
     date: "c. AD 49",
     theme: "Freedom from the Mosaic Law",
     keyVerses: ["Gal 2:20", "Gal 3:28", "Gal 5:1"],
+    notablePassages: [
+      { ref: "Galatians 2:20", note: "Paul's declaration 'it is no longer I who live, but Christ who lives in me' describes the complete surrender to Christ's example that characterizes genuine discipleship." },
+      { ref: "Galatians 3:28", note: "The principle 'there is neither Jew nor Greek, slave nor free, male nor female — you are all one in Christ Jesus' reflects the unity and equality Jehovah values in his congregation." },
+      { ref: "Galatians 5:1", note: "Paul's charge to 'stand firm in the freedom' Christ purchased and 'not be confined again in a yoke of slavery' calls Christians to reject any addition to the ransom as a basis for approval." },
+    ],
     summary: "Paul passionately defends the good news against those adding circumcision and the Mosaic Law as requirements, declaring that righteousness comes through faith in Jesus Christ — not through works of the Law — and that all believers stand equal before Jehovah.",
     questions: [
       "What 'different good news' were the Judaizers promoting (chapter 1), and why did Paul say anyone preaching it should be 'accursed'?",
@@ -682,6 +922,11 @@ export const BOOK_INFO = [
     date: "c. AD 60–62",
     theme: "The Congregation & Unity in Christ",
     keyVerses: ["Eph 2:8–9", "Eph 4:4–6", "Eph 6:10–12"],
+    notablePassages: [
+      { ref: "Ephesians 2:8–9", note: "The teaching that salvation comes 'through faith' as 'a free gift from God — not owing to works' removes all human pride and establishes Jehovah's undeserved kindness as the sole basis for hope." },
+      { ref: "Ephesians 4:4–6", note: "The seven 'ones' — one body, one spirit, one hope, one Lord, one faith, one baptism, one God and Father — define the doctrinal and organizational unity that Jehovah expects in his congregation." },
+      { ref: "Ephesians 6:10–12", note: "Paul's counsel to 'put on the complete suit of armor from God' to stand against 'wicked spirit forces' provides the framework for understanding the spiritual warfare Jehovah's people face." },
+    ],
     summary: "Ephesians soars with rich teaching on the believer's standing before Jehovah, the unity of the congregation as the body of Christ, and the call to walk in love while standing firm against wicked spirit forces.",
     questions: [
       "What does Paul's description of the congregation as the 'body of Christ' (chapters 1; 4) teach about the unity and interdependence of all congregation members?",
@@ -696,6 +941,11 @@ export const BOOK_INFO = [
     date: "c. AD 61",
     theme: "Joy & Contentment",
     keyVerses: ["Phil 1:21", "Phil 4:7", "Phil 4:13"],
+    notablePassages: [
+      { ref: "Philippians 1:21", note: "Paul's declaration 'for me, to live is Christ and to die is gain' reveals his complete identification with Christ's purpose and his confident hope in the resurrection." },
+      { ref: "Philippians 4:7", note: "The promise that 'the peace of God that surpasses all understanding will guard your hearts and your mental powers' assures that genuine peace comes from Jehovah's own presence." },
+      { ref: "Philippians 4:13", note: "Paul's affirmation 'I have the strength for all things through the one who gives me power' is a personal testimony to relying on Jehovah's strength rather than one's own." },
+    ],
     summary: "Written from prison, Philippians radiates joy throughout. Paul urges the congregation to have the same humble mind as Christ Jesus and to find genuine contentment in all circumstances through Jehovah's strengthening power.",
     questions: [
       "What practical steps for maintaining peace of mind does Philippians 4:6–7 — 'do not be anxious...but let your petitions be made known to God' — provide?",
@@ -710,6 +960,11 @@ export const BOOK_INFO = [
     date: "c. AD 60–62",
     theme: "The Preeminence of Christ",
     keyVerses: ["Col 1:15–17", "Col 2:9–10", "Col 3:17"],
+    notablePassages: [
+      { ref: "Colossians 1:15–17", note: "The description of Jesus as 'the firstborn of all creation' through whom 'all other things were created' establishes his preeminence as Jehovah's unique first creation and agent of creation." },
+      { ref: "Colossians 2:9–10", note: "Paul's statement that 'the fullness of the divine quality dwells in him bodily' and that believers 'are filled completely' through Christ affirms Jesus' sufficiency for all spiritual needs." },
+      { ref: "Colossians 3:17", note: "The principle to do 'everything in the name of the Lord Jesus, thanking God the Father through him' establishes Christ as the channel through which all worship reaches Jehovah." },
+    ],
     summary: "Colossians counters false teaching by exalting Jesus Christ as the firstborn of all creation and the head of the congregation. In union with him, believers have everything they need and are complete before Jehovah.",
     questions: [
       "How does Paul's description of Jesus as 'the firstborn of all creation' and 'the firstborn from the dead' (1:15–18) clarify Jesus' unique position before Jehovah?",
@@ -724,6 +979,11 @@ export const BOOK_INFO = [
     date: "c. AD 50–51",
     theme: "Jesus' Return & Resurrection Hope",
     keyVerses: ["1 Thess 4:16–17", "1 Thess 5:16–18"],
+    notablePassages: [
+      { ref: "1 Thessalonians 4:16–17", note: "Paul's description of the resurrection at Christ's presence — 'those who are dead in Christ will rise first' — provides the concrete hope that comforts Jehovah's people who have lost loved ones." },
+      { ref: "1 Thessalonians 5:16–18", note: "The triple command to 'always rejoice, pray constantly, give thanks for everything' describes the sustained spiritual attitude Jehovah wants his people to maintain." },
+      { ref: "1 Thessalonians 5:2", note: "Paul's reminder that 'Jehovah's day is coming exactly as a thief in the night' underscores the urgency of remaining spiritually awake and prepared at all times." },
+    ],
     summary: "Paul's earliest letter encourages young believers facing persecution, instructs them on holy conduct, and gives beautiful hope about the resurrection of the dead and the presence of Christ Jesus at Jehovah's appointed time.",
     questions: [
       "What specific events does Paul describe around Christ's return (4:13–18), and why is this teaching comforting for those who have lost loved ones in death?",
@@ -738,6 +998,11 @@ export const BOOK_INFO = [
     date: "c. AD 51–52",
     theme: "Jehovah's Day",
     keyVerses: ["2 Thess 1:7", "2 Thess 3:3"],
+    notablePassages: [
+      { ref: "2 Thessalonians 1:7", note: "The promise of 'relief' for persecuted believers 'at the revelation of the Lord Jesus from heaven' assures that Jehovah's appointed time for intervention will bring justice and vindication." },
+      { ref: "2 Thessalonians 3:3", note: "The assurance 'Jehovah is faithful, and he will make you firm and guard you from the wicked one' is a direct promise of divine protection for those who rely on Jehovah." },
+      { ref: "2 Thessalonians 2:3", note: "Paul's warning about 'the apostasy' and 'the man of lawlessness' coming first provides a key framework for JW understanding of the great apostasy that arose within Christendom." },
+    ],
     summary: "Paul corrects misunderstandings about Jehovah's day — which had not yet arrived — and encourages endurance under persecution, calling believers to faithful and diligent living while trusting in Jehovah's promised intervention.",
     questions: [
       "What does Paul's description of 'the man of lawlessness' (2:3–12) help us identify, and how does it contribute to our understanding of apostasy?",
@@ -752,6 +1017,11 @@ export const BOOK_INFO = [
     date: "c. AD 62–64",
     theme: "Congregation Organization & Sound Doctrine",
     keyVerses: ["1 Tim 2:5", "1 Tim 4:12", "1 Tim 6:6"],
+    notablePassages: [
+      { ref: "1 Timothy 2:5", note: "The declaration 'there is one God, and one mediator between God and men, a man, Christ Jesus' establishes the distinct roles of Jehovah and Jesus, refuting the Trinity doctrine." },
+      { ref: "1 Timothy 4:12", note: "Paul's encouragement to Timothy to 'become an example to the faithful ones in speaking, in conduct, in love, in faith, in chasteness' sets the standard for young servants of Jehovah." },
+      { ref: "1 Timothy 6:6", note: "The principle that 'godly devotion along with contentment is a means of great gain' identifies spiritual richness before Jehovah as the true measure of a successful life." },
+    ],
     summary: "Paul writes his young associate Timothy with practical instructions for congregation order, qualifications for elders and ministerial servants, and the importance of protecting sound doctrine against false teaching in Ephesus.",
     questions: [
       "What qualifications for elders and ministerial servants (chapter 3) does Paul outline, and what do these teach about the standards Jehovah sets for congregation leadership?",
@@ -766,6 +1036,11 @@ export const BOOK_INFO = [
     date: "c. AD 66–67",
     theme: "Endurance & Jehovah's Word",
     keyVerses: ["2 Tim 1:7", "2 Tim 2:22", "2 Tim 3:16–17"],
+    notablePassages: [
+      { ref: "2 Timothy 1:7", note: "The reminder that 'God did not give us a spirit of cowardice, but one of power and love and soundness of mind' reassures Jehovah's servants that boldness in his service comes from him." },
+      { ref: "2 Timothy 2:22", note: "Paul's charge to 'flee from youthful desires, but pursue righteousness, faith, love, peace' outlines the active spiritual choices every young Christian must make." },
+      { ref: "2 Timothy 3:16–17", note: "The declaration that 'all Scripture is inspired of God' and 'beneficial for teaching, for reproving, for setting things straight' establishes the Bible as Jehovah's complete and sufficient guide." },
+    ],
     summary: "Paul's final letter, written near the time of his death, urges Timothy to remain faithful, preach Jehovah's word boldly, and endure suffering as a fine soldier of Christ Jesus — passing the faith on to the next generation.",
     questions: [
       "What does Paul's charge to Timothy to 'preach the word, be at it urgently in favorable times and difficult times' (4:2) teach about persistence in the preaching work?",
@@ -780,6 +1055,11 @@ export const BOOK_INFO = [
     date: "c. AD 63–65",
     theme: "Sound Doctrine & Godly Conduct",
     keyVerses: ["Tit 2:11–12", "Tit 3:5"],
+    notablePassages: [
+      { ref: "Titus 2:11–12", note: "The teaching that Jehovah's undeserved kindness 'trains us to reject ungodliness and worldly desires' shows that understanding his grace is itself a powerful motivator for righteous conduct." },
+      { ref: "Titus 3:5", note: "The affirmation that Jehovah 'saved us through the bath that brought us to life and through renewal by holy spirit' highlights that transformation and new life come entirely from Jehovah's initiative." },
+      { ref: "Titus 2:14", note: "Christ's purpose to 'cleanse for himself a people who are his own special possession, zealous for fine works' describes the identity and mission Jehovah intends for every dedicated Christian." },
+    ],
     summary: "Paul instructs Titus in organizing the congregations of Crete by appointing qualified elders and teaching sound doctrine — the kind that produces godly conduct befitting those who have received Jehovah's undeserved kindness.",
     questions: [
       "What does Titus 2:11–12 — Jehovah's undeserved kindness 'trains us to reject ungodliness' — teach about how studying the Scriptures shapes our conduct?",
@@ -794,6 +1074,11 @@ export const BOOK_INFO = [
     date: "c. AD 60–62",
     theme: "Forgiveness & Brotherhood",
     keyVerses: ["Philem 1:15–16", "Philem 1:8–9"],
+    notablePassages: [
+      { ref: "Philemon 1:15–16", note: "Paul's suggestion that Onesimus may have been separated 'so that you might have him back forever, no longer as a slave, but better than a slave, as a dear brother' shows how Jehovah can redeem difficult circumstances for a greater good." },
+      { ref: "Philemon 1:8–9", note: "Paul's choice to 'appeal on the basis of love rather than command' reflects Jehovah's own approach of drawing people with loving-kindness rather than demanding compliance." },
+      { ref: "Philemon 1:6", note: "Paul's prayer that Philemon's 'sharing in the faith may make others fully aware of every good thing that is in us for Christ's sake' highlights the testimony value of practical brotherly generosity." },
+    ],
     summary: "This brief personal letter appeals to Philemon to receive back his runaway slave Onesimus — now a fellow believer — as a dear brother in Christ, showing the transforming power of love within the Christian congregation.",
     questions: [
       "What does Paul's appeal to Philemon to receive Onesimus back 'no longer as a slave, but...as a brother' (v. 16) teach about how faith in Christ transforms social relationships?",
@@ -808,6 +1093,11 @@ export const BOOK_INFO = [
     date: "c. AD 60–70",
     theme: "Jesus Christ Our Great High Priest",
     keyVerses: ["Heb 4:12", "Heb 11:1", "Heb 12:1–2"],
+    notablePassages: [
+      { ref: "Hebrews 4:12", note: "The description of Jehovah's word as 'alive and exerts power' and 'pierces even to the dividing of soul and spirit' captures the active, life-changing quality of the Scriptures." },
+      { ref: "Hebrews 11:1", note: "The definition of faith as 'the assured expectation of what is hoped for, the evident demonstration of realities that are not seen' grounds Jehovah's Witness hope in confident evidence-based trust." },
+      { ref: "Hebrews 12:1–2", note: "The image of running 'the race set before us' while 'looking intently at Jesus' combines the collective cloud of faithful witnesses with Jesus as the supreme motivating example." },
+    ],
     summary: "Hebrews presents Jesus Christ as superior to angels, Moses, and the Levitical priesthood — the Great High Priest whose sacrifice opened the way to Jehovah. Its 'faith chapter' (chapter 11) celebrates the endurance of faithful servants of Jehovah.",
     questions: [
       "How do Hebrews chapters 1–2 establish Jesus' superiority over angels while also emphasizing his complete humanity, and why are both aspects important?",
@@ -822,6 +1112,11 @@ export const BOOK_INFO = [
     date: "c. AD 44–49",
     theme: "Faith Expressed Through Works",
     keyVerses: ["Jas 1:22", "Jas 2:17", "Jas 5:16"],
+    notablePassages: [
+      { ref: "James 1:22", note: "The charge to 'become doers of the word and not hearers only' challenges those who merely accumulate knowledge without translating it into active, Jehovah-pleasing conduct." },
+      { ref: "James 2:17", note: "The principle 'faith by itself, without works, is dead' clarifies that genuine faith in Jehovah naturally produces visible action — the two are inseparable." },
+      { ref: "James 5:16", note: "The assurance that 'the earnest supplication of a righteous person has much force' encourages Jehovah's people to bring every burden to him in fervent, specific prayer." },
+    ],
     summary: "James is a practical wisdom letter insisting that genuine faith in Jehovah will naturally express itself through good works — taming the tongue, caring for the poor, persevering through trials, and living with integrity.",
     questions: [
       "What does James 1:2–4 teach about viewing trials as opportunities for spiritual growth and the development of endurance?",
@@ -836,6 +1131,11 @@ export const BOOK_INFO = [
     date: "c. AD 62–64",
     theme: "Living Hope Through Resurrection",
     keyVerses: ["1 Pet 1:3", "1 Pet 2:9", "1 Pet 5:7"],
+    notablePassages: [
+      { ref: "1 Peter 1:3", note: "Peter's praise to Jehovah for giving 'a living hope through the resurrection of Jesus Christ' establishes the resurrection as the basis for the confident hope that sustains Jehovah's people." },
+      { ref: "1 Peter 2:9", note: "The description of Christians as 'a royal priesthood, a holy nation, a people for special possession' calls every Jehovah's Witness to see themselves as personally chosen by Jehovah for his purpose." },
+      { ref: "1 Peter 5:7", note: "The invitation to 'throw all your anxiety on him, because he cares for you' assures Jehovah's people of his personal, attentive concern for their individual burdens." },
+    ],
     summary: "Peter writes to scattered, persecuted believers, reminding them of their living hope through Jesus Christ's resurrection and calling them to holy conduct among the nations as a people belonging to Jehovah.",
     questions: [
       "How does Peter's description of Christians as 'foreigners and temporary residents' (2:11) shape our attitude toward the world system and our primary loyalties?",
@@ -850,6 +1150,11 @@ export const BOOK_INFO = [
     date: "c. AD 65–67",
     theme: "Growing in Knowledge & Endurance",
     keyVerses: ["2 Pet 1:3–4", "2 Pet 3:9", "2 Pet 3:18"],
+    notablePassages: [
+      { ref: "2 Peter 1:3–4", note: "Peter's assurance that Jehovah's 'divine power has given us everything needed for life and godly devotion' establishes that Jehovah has fully equipped his people for every spiritual challenge." },
+      { ref: "2 Peter 3:9", note: "The statement that Jehovah 'does not desire any to be destroyed but desires all to attain to repentance' reveals the evangelistic heart behind his patience before Armageddon." },
+      { ref: "2 Peter 3:18", note: "The final exhortation to 'keep growing in the undeserved kindness and knowledge of our Lord' establishes that spiritual growth is an ongoing lifelong process, not a destination." },
+    ],
     summary: "Peter warns against false teachers who distort the truth, urges spiritual growth in accurate knowledge of Jesus Christ, and reassures believers that Jehovah's promise of a new world is certain — he is not slow, but patient.",
     questions: [
       "What does Peter's list of qualities to 'supply alongside your faith' (1:5–7) — virtue, knowledge, self-control, endurance, godly devotion, brotherly affection, love — teach about spiritual growth?",
@@ -864,6 +1169,11 @@ export const BOOK_INFO = [
     date: "c. AD 85–95",
     theme: "Love, Light & Fellowship with Jehovah",
     keyVerses: ["1 John 1:9", "1 John 4:8", "1 John 5:13"],
+    notablePassages: [
+      { ref: "1 John 1:9", note: "The promise that 'if we confess our sins, he is faithful and righteous so as to forgive us our sins' assures Jehovah's people that sincere repentance always finds a willing Father ready to forgive." },
+      { ref: "1 John 4:8", note: "John's profound declaration 'God is love' reveals that love is not merely a quality Jehovah possesses but the very essence of his being, the source of all he does." },
+      { ref: "1 John 5:13", note: "John's stated purpose — 'that you may know you have life' — reflects Jehovah's desire for his servants to possess confident assurance about their standing and hope rather than living in doubt." },
+    ],
     summary: "John writes to counter early false teaching by affirming that Jesus truly came in the flesh, and testing genuine faith by its fruit: obedience to Jehovah's commandments, love for fellow believers, and belief that Jesus is the Son of God.",
     questions: [
       "How does John define genuine fellowship with Jehovah — 'walking in the light' (1:5–7) — and what does this mean practically for our daily conduct?",
@@ -878,6 +1188,11 @@ export const BOOK_INFO = [
     date: "c. AD 85–95",
     theme: "Walking in Truth & Love",
     keyVerses: ["2 John 1:6", "2 John 1:9"],
+    notablePassages: [
+      { ref: "2 John 1:6", note: "John's identification of love as 'walking according to his commandments' ties genuine love to practical obedience rather than mere sentiment — love without obedience is incomplete before Jehovah." },
+      { ref: "2 John 1:9", note: "The warning that 'everyone who pushes ahead and does not remain in the teaching of the Christ does not have God' establishes doctrinal fidelity as a prerequisite for fellowship with Jehovah." },
+      { ref: "2 John 1:10", note: "The instruction not to 'receive him into your homes or say a greeting to him' when someone brings false teaching reflects the seriousness with which Jehovah regards protection of the congregation." },
+    ],
     summary: "The shortest book in the Christian Greek Scriptures warns a congregation not to receive those promoting false teaching about Jesus, while urging continued love and obedience to the commandments received from Jehovah.",
     questions: [
       "What does John's emphasis on 'walking in truth' (verse 4) mean, and why is doctrinal accuracy inseparable from love in John's teaching?",
@@ -892,6 +1207,11 @@ export const BOOK_INFO = [
     date: "c. AD 85–95",
     theme: "Hospitality & Faithfulness",
     keyVerses: ["3 John 1:4", "3 John 1:11"],
+    notablePassages: [
+      { ref: "3 John 1:4", note: "John's declaration 'no greater joy do I have than to hear that my children go on walking in the truth' captures the deep satisfaction Jehovah and his servants feel when others live by his standards." },
+      { ref: "3 John 1:11", note: "The principle 'the one who does good originates with God; the one who does bad has not seen God' identifies character and conduct as the clearest evidence of a genuine relationship with Jehovah." },
+      { ref: "3 John 1:7", note: "The description of traveling missionaries as going out 'for the sake of his name' reminds every Jehovah's Witness that the preaching work is ultimately about vindicating and glorifying Jehovah's name." },
+    ],
     summary: "John commends Gaius for warmly welcoming traveling missionaries, rebukes the domineering Diotrephes who refuses them, and upholds Demetrius as a fine example of faithfulness and integrity in the congregation.",
     questions: [
       "What does John's commendation of Gaius for welcoming traveling missionaries teach about the importance of hospitality in supporting the preaching work?",
@@ -906,6 +1226,11 @@ export const BOOK_INFO = [
     date: "c. AD 65",
     theme: "Contending for the Faith",
     keyVerses: ["Jude 1:3", "Jude 1:20–21"],
+    notablePassages: [
+      { ref: "Jude 1:3", note: "Jude's urgent call to 'put up a hard fight for the faith that was once for all delivered to the holy ones' establishes the defense of pure doctrine as every Christian's personal responsibility." },
+      { ref: "Jude 1:20–21", note: "The counsel to build up faith, pray in holy spirit, and 'keep yourselves in God's love' provides the spiritual maintenance routine needed to resist apostasy and remain close to Jehovah." },
+      { ref: "Jude 1:24–25", note: "The closing doxology praising Jehovah as 'the one who is able to guard you from stumbling' assures that ultimate spiritual protection rests in Jehovah's hands, not human effort alone." },
+    ],
     summary: "Jude urgently calls believers to defend the faith that was once for all delivered to Jehovah's holy ones, warning against apostate teachers who had secretly slipped in and were distorting the undeserved kindness of Jehovah.",
     questions: [
       "What does Jude's urgent call to 'put up a hard fight for the faith' (verse 3) teach about the responsibility of every individual Christian to defend true doctrine?",
@@ -920,6 +1245,11 @@ export const BOOK_INFO = [
     date: "c. AD 95",
     theme: "Jehovah's Victory, Kingdom & New World",
     keyVerses: ["Rev 1:8", "Rev 5:12", "Rev 21:4", "Rev 22:20"],
+    notablePassages: [
+      { ref: "Revelation 1:8", note: "Jehovah's self-declaration as 'the Alpha and the Omega...the Almighty' in Revelation's opening verse frames the entire book as the account of the supreme God bringing history to his appointed conclusion." },
+      { ref: "Revelation 5:12", note: "The heavenly proclamation of the Lamb as worthy to receive 'power and riches and wisdom and strength and honor and glory and blessing' celebrates Christ's central role in Jehovah's purpose." },
+      { ref: "Revelation 21:4", note: "The promise that Jehovah 'will wipe out every tear from their eyes, and death will be no more' is the climactic expression of Jehovah's Kingdom purpose — the complete removal of all suffering." },
+    ],
     summary: "Revelation is a prophetic vision of Jehovah's ultimate victory over Satan and all wickedness, the vindication of Jehovah's name and sovereignty, and the creation of a new earth where Jehovah will dwell with resurrected humanity forever in paradise.",
     questions: [
       "How does Revelation's vision of Jehovah on his throne (chapter 4) and the Lamb receiving the scroll (chapter 5) establish the basis for Jehovah's right to judge and act?",
