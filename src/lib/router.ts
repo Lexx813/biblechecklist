@@ -1,5 +1,38 @@
-// @ts-nocheck
-export function parsePath() {
+export type NavState =
+  | { page: "home" }
+  | { page: "main" }
+  | { page: "admin" }
+  | { page: "profile" }
+  | { page: "settings" }
+  | { page: "blogDash" }
+  | { page: "blog"; slug: string | null }
+  | { page: "forum"; categoryId: string | null; threadId: string | null }
+  | { page: "quiz" }
+  | { page: "quizLevel"; level: number }
+  | { page: "publicProfile"; userId: string }
+  | { page: "search" }
+  | { page: "bookmarks" }
+  | { page: "history" }
+  | { page: "feed" }
+  | { page: "messages"; conversationId?: string }
+  | { page: "groups" }
+  | { page: "groupDetail"; groupId: string }
+  | { page: "readingPlans" }
+  | { page: "studyNotes"; tab?: string }
+  | { page: "aiTools" }
+  | { page: "studyTopics" }
+  | { page: "studyTopicDetail"; slug: string }
+  | { page: "familyQuiz"; challengeId?: string }
+  | { page: "leaderboard" }
+  | { page: "about" }
+  | { page: "terms" }
+  | { page: "privacy" }
+  | { page: "friends" }
+  | { page: "friendRequests" }
+  | { page: "invite"; token: string }
+  | { page: "notFound" };
+
+export function parsePath(): NavState {
   const h = window.location.pathname.slice(1).replace(/^\//, "");
   if (!h) return { page: "home" };
   if (h === "checklist") return { page: "main" };
@@ -46,13 +79,13 @@ export function parsePath() {
   return { page: "notFound" };
 }
 
-export function buildPath(page, params = {}) {
+export function buildPath(page: string, params: Record<string, unknown> = {}): string {
   switch (page) {
     case "admin":         return "/admin";
     case "profile":       return "/profile";
     case "settings":      return "/settings";
     case "blogDash":      return "/blog-dash";
-    case "blog":          return params.slug ? `/blog/${encodeURIComponent(params.slug)}` : "/blog";
+    case "blog":          return params.slug ? `/blog/${encodeURIComponent(params.slug as string)}` : "/blog";
     case "forum":         return params.categoryId
       ? (params.threadId ? `/forum/${params.categoryId}/${params.threadId}` : `/forum/${params.categoryId}`)
       : "/forum";
@@ -70,7 +103,7 @@ export function buildPath(page, params = {}) {
     case "studyNotes":   return params.tab === "public" ? "/study-notes/community" : "/study-notes";
     case "aiTools":           return "/ai-tools";
     case "studyTopics":       return "/study-topics";
-    case "studyTopicDetail":  return "/study-topics/" + encodeURIComponent(params.slug);
+    case "studyTopicDetail":  return "/study-topics/" + encodeURIComponent(params.slug as string);
     case "familyQuiz":        return params.challengeId ? `/family-quiz/${params.challengeId}` : "/family-quiz";
     case "leaderboard":       return "/leaderboard";
     case "about":         return "/about";
@@ -78,7 +111,7 @@ export function buildPath(page, params = {}) {
     case "privacy":       return "/privacy";
     case "friends":        return "/friends";
     case "friendRequests": return "/friends/requests";
-    case "invite":         return `/invite/${(params as { token?: string }).token ?? ""}`;
+    case "invite":         return `/invite/${(params.token as string) ?? ""}`;
     case "main":          return "/checklist";
     default:              return "/";
   }

@@ -1,5 +1,9 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
+
+interface BookmarkToggleOptions {
+  threadId?: string | null;
+  postId?: string | null;
+}
 
 export const bookmarksApi = {
   list: async () => {
@@ -37,7 +41,7 @@ export const bookmarksApi = {
     };
   },
 
-  toggle: async (options) => {
+  toggle: async (options: BookmarkToggleOptions) => {
     const { data, error } = await supabase.rpc("toggle_bookmark", {
       p_thread_id: options.threadId ?? null,
       p_post_id: options.postId ?? null,

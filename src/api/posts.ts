@@ -1,9 +1,8 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
 import { assertNoPII } from "../lib/pii";
 
 export const postsApi = {
-  create: async (userId, content) => {
+  create: async (userId: string, content: string) => {
     assertNoPII(content);
     const { data, error } = await supabase
       .from("user_posts")
@@ -14,7 +13,7 @@ export const postsApi = {
     return data;
   },
 
-  list: async (userId, limit = 30) => {
+  list: async (userId: string, limit = 30) => {
     const { data, error } = await supabase
       .from("user_posts")
       .select("*")
@@ -25,7 +24,7 @@ export const postsApi = {
     return data ?? [];
   },
 
-  delete: async (postId) => {
+  delete: async (postId: string) => {
     const { error } = await supabase.from("user_posts").delete().eq("id", postId);
     if (error) throw new Error(error.message);
   },

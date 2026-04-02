@@ -1,5 +1,17 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
+
+interface CreateGroupOptions {
+  name: string;
+  description?: string;
+  isPrivate?: boolean;
+  goalLabel?: string;
+  goalDeadline?: string;
+  groupType?: string;
+}
+
+interface GroupUpdates {
+  [key: string]: unknown;
+}
 
 export const groupsApi = {
   // ── Groups ──────────────────────────────────────────────────────────────────
@@ -27,7 +39,7 @@ export const groupsApi = {
     return data ?? [];
   },
 
-  getGroup: async (groupId) => {
+  getGroup: async (groupId: string) => {
     const { data, error } = await supabase
       .from("study_groups")
       .select("*")
@@ -37,7 +49,7 @@ export const groupsApi = {
     return data;
   },
 
-  createGroup: async ({ name, description, isPrivate, goalLabel, goalDeadline, groupType }) => {
+  createGroup: async ({ name, description, isPrivate, goalLabel, goalDeadline, groupType }: CreateGroupOptions) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     // Insert group
@@ -55,7 +67,7 @@ export const groupsApi = {
     return group;
   },
 
-  updateGroup: async (groupId, updates) => {
+  updateGroup: async (groupId: string, updates: GroupUpdates) => {
     const { error } = await supabase
       .from("study_groups")
       .update(updates)
@@ -63,7 +75,7 @@ export const groupsApi = {
     if (error) throw new Error(error.message);
   },
 
-  deleteGroup: async (groupId) => {
+  deleteGroup: async (groupId: string) => {
     const { error } = await supabase
       .from("study_groups")
       .delete()
@@ -73,7 +85,7 @@ export const groupsApi = {
 
   // ── Membership ───────────────────────────────────────────────────────────────
 
-  getMembers: async (groupId) => {
+  getMembers: async (groupId: string) => {
     const { data: members, error } = await supabase
       .from("study_group_members")
       .select("role, joined_at, user_id")
@@ -98,7 +110,7 @@ export const groupsApi = {
     }));
   },
 
-  joinGroup: async (groupId) => {
+  joinGroup: async (groupId: string) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { error } = await supabase
@@ -107,7 +119,7 @@ export const groupsApi = {
     if (error) throw new Error(error.message);
   },
 
-  joinByCode: async (code) => {
+  joinByCode: async (code: string) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { data: group, error: ge } = await supabase
@@ -123,7 +135,7 @@ export const groupsApi = {
     return group.id;
   },
 
-  leaveGroup: async (groupId) => {
+  leaveGroup: async (groupId: string) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { error } = await supabase
@@ -134,7 +146,7 @@ export const groupsApi = {
     if (error) throw new Error(error.message);
   },
 
-  removeMember: async (groupId, userId) => {
+  removeMember: async (groupId: string, userId: string) => {
     const { error } = await supabase
       .from("study_group_members")
       .delete()
@@ -143,7 +155,7 @@ export const groupsApi = {
     if (error) throw new Error(error.message);
   },
 
-  getMemberCount: async (groupId) => {
+  getMemberCount: async (groupId: string) => {
     const { count, error } = await supabase
       .from("study_group_members")
       .select("*", { count: "exact", head: true })
@@ -154,7 +166,7 @@ export const groupsApi = {
 
   // ── Group leaderboard (streaks from existing RPC) ─────────────────────────
 
-  getLeaderboard: async (groupId) => {
+  getLeaderboard: async (groupId: string) => {
     const { data: members, error } = await supabase
       .from("study_group_members")
       .select("user_id")
@@ -186,7 +198,7 @@ export const groupsApi = {
 
   // ── Group chat ────────────────────────────────────────────────────────────
 
-  getMessages: async (groupId) => {
+  getMessages: async (groupId: string) => {
     const { data: msgs, error } = await supabase
       .from("study_group_messages")
       .select("id, content, created_at, sender_id, reply_to_id, edited_at")
@@ -210,7 +222,7 @@ export const groupsApi = {
     }));
   },
 
-  sendMessage: async (groupId, content, replyToId = null) => {
+  sendMessage: async (groupId: string, content: string, replyToId: string | null = null) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { data, error } = await supabase
@@ -222,7 +234,7 @@ export const groupsApi = {
     return data;
   },
 
-  editMessage: async (messageId, content) => {
+  editMessage: async (messageId: string, content: string) => {
     const { error } = await supabase
       .from("study_group_messages")
       .update({ content: content.trim(), edited_at: new Date().toISOString() })
@@ -230,7 +242,7 @@ export const groupsApi = {
     if (error) throw new Error(error.message);
   },
 
-  deleteMessage: async (messageId) => {
+  deleteMessage: async (messageId: string) => {
     const { error } = await supabase
       .from("study_group_messages")
       .delete()
@@ -238,7 +250,7 @@ export const groupsApi = {
     if (error) throw new Error(error.message);
   },
 
-  getGroupReactions: async (groupId) => {
+  getGroupReactions: async (groupId: string) => {
     const { data, error } = await supabase
       .from("study_group_message_reactions")
       .select("id, message_id, user_id, emoji")
@@ -247,7 +259,7 @@ export const groupsApi = {
     return data ?? [];
   },
 
-  toggleGroupReaction: async (messageId, groupId, emoji, userId) => {
+  toggleGroupReaction: async (messageId: string, groupId: string, emoji: string, userId: string) => {
     const { data: existing } = await supabase
       .from("study_group_message_reactions")
       .select("id")
@@ -266,7 +278,7 @@ export const groupsApi = {
 
   // ── Announcements ─────────────────────────────────────────────────────────
 
-  getAnnouncements: async (groupId) => {
+  getAnnouncements: async (groupId: string) => {
     const { data, error } = await supabase
       .from("group_announcements")
       .select("id, content, created_at, created_by")
@@ -283,7 +295,7 @@ export const groupsApi = {
     return data.map(a => ({ ...a, author: profileMap[a.created_by] ?? null }));
   },
 
-  createAnnouncement: async (groupId, content) => {
+  createAnnouncement: async (groupId: string, content: string) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { data, error } = await supabase
@@ -295,7 +307,7 @@ export const groupsApi = {
     return data;
   },
 
-  deleteAnnouncement: async (announcementId) => {
+  deleteAnnouncement: async (announcementId: string) => {
     const { error } = await supabase
       .from("group_announcements")
       .delete()
@@ -305,7 +317,7 @@ export const groupsApi = {
 
   // ── Join requests ─────────────────────────────────────────────────────────
 
-  requestJoin: async (groupId) => {
+  requestJoin: async (groupId: string) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { data, error } = await supabase
@@ -317,7 +329,7 @@ export const groupsApi = {
     return data;
   },
 
-  getJoinRequests: async (groupId) => {
+  getJoinRequests: async (groupId: string) => {
     const { data, error } = await supabase
       .from("group_join_requests")
       .select("id, user_id, status, created_at")
@@ -335,7 +347,7 @@ export const groupsApi = {
     return data.map(r => ({ ...r, profile: profileMap[r.user_id] ?? null }));
   },
 
-  approveJoinRequest: async (requestId, groupId, userId) => {
+  approveJoinRequest: async (requestId: string, groupId: string, userId: string) => {
     const { error: ue } = await supabase
       .from("group_join_requests")
       .update({ status: "approved" })
@@ -347,7 +359,7 @@ export const groupsApi = {
     if (me) throw new Error(me.message);
   },
 
-  denyJoinRequest: async (requestId) => {
+  denyJoinRequest: async (requestId: string) => {
     const { error } = await supabase
       .from("group_join_requests")
       .update({ status: "denied" })
@@ -355,7 +367,7 @@ export const groupsApi = {
     if (error) throw new Error(error.message);
   },
 
-  getMyJoinRequest: async (groupId) => {
+  getMyJoinRequest: async (groupId: string) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return null;
     const { data } = await supabase
@@ -367,7 +379,7 @@ export const groupsApi = {
     return data ?? null;
   },
 
-  cancelJoinRequest: async (groupId) => {
+  cancelJoinRequest: async (groupId: string) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { error } = await supabase
@@ -380,7 +392,7 @@ export const groupsApi = {
 
   // ── Reading progress ──────────────────────────────────────────────────────
 
-  getGroupProgress: async (groupId) => {
+  getGroupProgress: async (groupId: string) => {
     const { data, error } = await supabase.rpc("get_group_reading_progress", { p_group_id: groupId });
     if (error) throw new Error(error.message);
     return data ?? [];
