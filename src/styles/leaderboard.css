@@ -5,7 +5,14 @@
   padding: 24px 20px 0;
 }
 
-.lb-title { font-size: 24px; font-weight: 900; color: var(--text-primary); margin: 8px 0 4px; }
+.lb-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(28px, 5vw, 44px);
+  color: var(--text-primary);
+  margin: 8px 0 4px;
+}
 .lb-sub { font-size: 14px; color: var(--text-muted); margin: 0; }
 
 .lb-tabs {

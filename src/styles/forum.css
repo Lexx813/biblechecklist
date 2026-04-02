@@ -45,12 +45,12 @@
 }
 
 .forum-hero-title {
-  font-family: inherit;
-  font-size: clamp(32px, 7vw, 58px);
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(36px, 7vw, 64px);
   color: #fff;
   margin: 0 0 12px;
-  letter-spacing: -0.02em;
   line-height: 1.1;
 }
 

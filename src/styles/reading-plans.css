@@ -29,8 +29,10 @@
 .rp-nav-back:hover { background: var(--teal-soft); color: var(--text-primary); }
 
 .rp-title {
-  font-size: 26px;
-  font-weight: 900;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(28px, 5vw, 44px);
   background: linear-gradient(135deg, var(--text-primary) 30%, #7c3aed 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
