@@ -335,32 +335,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             </section>
           )}
 
-          {/* Premium upsell banner */}
-          {!isPremium && (
-            <section className="home-section home-section--slim">
-              <button className="home-premium-banner" onClick={onUpgrade}>
-                <span className="home-premium-banner-icon" aria-hidden="true">{bannerRotation.icon}</span>
-                <div className="home-premium-banner-text">
-                  <strong>{bannerRotation.title}</strong>
-                  <span>{bannerRotation.sub}</span>
-                </div>
-                <span className="home-premium-banner-cta">{bannerRotation.cta}</span>
-              </button>
-            </section>
-          )}
-
-          {/* Leaderboard CTA */}
-          <section className="home-section home-section--compact">
-            <button className="home-lb-cta" onClick={() => navigate("leaderboard")}>
-              <span className="home-lb-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3h14l-1.5 5H18a5 5 0 0 1-4 4.9V17h3a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2h3v-4.1A5 5 0 0 1 6 8h-.5L4 3h1zm7 10a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg></span>
-              <div>
-                <div className="home-lb-title">{t("home.leaderboardTitle")}</div>
-                <div className="home-lb-sub">{t("home.leaderboardSub")}</div>
-              </div>
-              <span className="home-lb-arrow">›</span>
-            </button>
-          </section>
-
           {/* Community Notes */}
           <section className="home-section">
             <SectionHeader
@@ -456,6 +430,32 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 ))}
               </div>
             )}
+          </section>
+
+          {/* Premium upsell banner */}
+          {!isPremium && (
+            <section className="home-section home-section--slim">
+              <button className="home-premium-banner" onClick={onUpgrade}>
+                <span className="home-premium-banner-icon" aria-hidden="true">{bannerRotation.icon}</span>
+                <div className="home-premium-banner-text">
+                  <strong>{bannerRotation.title}</strong>
+                  <span>{bannerRotation.sub}</span>
+                </div>
+                <span className="home-premium-banner-cta">{bannerRotation.cta}</span>
+              </button>
+            </section>
+          )}
+
+          {/* Leaderboard CTA */}
+          <section className="home-section home-section--compact">
+            <button className="home-lb-cta" onClick={() => navigate("leaderboard")}>
+              <span className="home-lb-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3h14l-1.5 5H18a5 5 0 0 1-4 4.9V17h3a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2h3v-4.1A5 5 0 0 1 6 8h-.5L4 3h1zm7 10a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg></span>
+              <div>
+                <div className="home-lb-title">{t("home.leaderboardTitle")}</div>
+                <div className="home-lb-sub">{t("home.leaderboardSub")}</div>
+              </div>
+              <span className="home-lb-arrow">›</span>
+            </button>
           </section>
 
         </div>{/* end .home-col-side */}
