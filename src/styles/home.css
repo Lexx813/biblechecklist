@@ -184,7 +184,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #fde68a;
+  color: var(--gold-text);
   margin-bottom: 24px;
 }
 
@@ -1310,7 +1310,7 @@
 .home-premium-banner-text strong {
   font-size: 14px;
   font-weight: 800;
-  color: #fde68a;
+  color: var(--gold-text);
 }
 .home-premium-banner-text span {
   font-size: 12px;
@@ -1320,7 +1320,7 @@
 .home-premium-banner-cta {
   font-size: 13px;
   font-weight: 800;
-  color: #fde68a;
+  color: var(--gold-text);
   white-space: nowrap;
   flex-shrink: 0;
   background: rgba(245, 158, 11, 0.15);
