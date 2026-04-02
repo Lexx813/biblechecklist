@@ -27,6 +27,7 @@ export function useStartChallenge(groupId) {
       groupChallengeApi.startChallenge(groupId, planKey, userId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["groupChallenge", groupId] });
+      queryClient.invalidateQueries({ queryKey: ["userGroupChallenges"] });
     },
   });
 }

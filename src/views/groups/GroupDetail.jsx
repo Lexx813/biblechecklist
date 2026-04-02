@@ -602,7 +602,7 @@ function ChallengePicker({ onConfirm, onClose }) {
               <div className="gc-picker-item-name">{template.name}</div>
               <div className="gc-picker-item-meta">
                 {template.totalChapters ?? "?"} chapters
-                {template.estimatedDays ? ` · ~${template.estimatedDays} days` : ""}
+                {template.totalDays ? ` · ~${template.totalDays} days` : ""}
               </div>
             </button>
           ))}
@@ -720,7 +720,12 @@ function ChallengeSection({ groupId, currentUser, isAdmin, onUpgrade }) {
       {showPicker && (
         <ChallengePicker
           onConfirm={(planKey) => {
-            startChallenge.mutate({ planKey, userId: currentUser?.id });
+            startChallenge.mutate(
+              { planKey, userId: currentUser?.id },
+              {
+                onError: (err) => console.error("Failed to start challenge:", err),
+              }
+            );
             setShowPicker(false);
           }}
           onClose={() => setShowPicker(false)}
