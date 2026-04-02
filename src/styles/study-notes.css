@@ -66,6 +66,22 @@
   margin: 0;
 }
 
+.sn-premium-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold-text);
+  background: var(--gold-dim);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: 999px;
+  padding: 3px 10px;
+  align-self: flex-start;
+}
+
 .sn-new-btn {
   background: #7c3aed;
   color: #fff;

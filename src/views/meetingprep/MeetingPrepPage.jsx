@@ -426,6 +426,7 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
             <p className="mp-subtitle">
               {week?.clam_week_title || formatWeekLabel(selectedWeek)}
             </p>
+            <span className="mp-premium-label">✦ Premium</span>
           </div>
           {streak > 0 && (
             <div className="mp-streak">
