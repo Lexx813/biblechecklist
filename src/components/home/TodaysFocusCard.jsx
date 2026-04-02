@@ -11,6 +11,8 @@ import { wolChapterUrl } from "../../utils/wol";
 import { BOOKS } from "../../data/books";
 import { formatDate } from "../../utils/formatters";
 import "../../styles/todays-focus.css";
+import "../../styles/gamification.css";
+import { useFreezeStatus, useApplyFreeze } from "../../hooks/useStreakFreeze";
 
 function effectiveDay(plan) {
   const start = new Date(plan.start_date + "T00:00:00");
@@ -68,6 +70,14 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
   const unmarkDay = useUnmarkDay(activePlan?.id ?? null);
   const { data: streak = { current_streak: 0 } } = useReadingStreak(userId);
   const lastRead = useLastReadChapter(userId);
+
+  const { data: freezeStatus } = useFreezeStatus(userId);
+  const applyFreeze = useApplyFreeze(userId);
+  const [showFreezeConfirm, setShowFreezeConfirm] = useState(false);
+
+  const yesterdayStr = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+  const yesterdayFrozen = freezeStatus?.recentFreezes?.includes(yesterdayStr);
+  const canFreeze = (freezeStatus?.tokens ?? 0) > 0 && !yesterdayFrozen && (streak?.current_streak ?? 0) > 0;
 
   const [streakPop, setStreakPop] = useState(false);
   const streakPopFired = useRef(false);
@@ -159,6 +169,63 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
             </div>
           )}
         </div>
+
+        {/* Streak freeze */}
+        {isPremium ? (
+          <div className="tf-freeze-row">
+            <span className="tf-freeze-token-count">
+              ❄️ {freezeStatus?.tokens ?? 2} {(freezeStatus?.tokens ?? 2) === 1 ? "freeze" : "freezes"} left
+            </span>
+            {canFreeze && (
+              <button
+                className="tf-freeze-btn"
+                onClick={() => setShowFreezeConfirm(true)}
+                disabled={applyFreeze.isPending}
+              >
+                Freeze streak
+              </button>
+            )}
+            {(freezeStatus?.tokens ?? 0) === 0 && (
+              <span style={{ opacity: 0.5, fontSize: "0.78rem" }}>No freezes left this month</span>
+            )}
+          </div>
+        ) : (
+          <button
+            className="tf-freeze-locked"
+            onClick={() => onUpgrade?.()}
+            aria-label="Streak Freeze — Premium feature"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            ✦ Streak Freeze (Premium)
+          </button>
+        )}
+
+        {showFreezeConfirm && (
+          <div className="freeze-confirm-overlay" onClick={() => setShowFreezeConfirm(false)}>
+            <div className="freeze-confirm-dialog" onClick={(e) => e.stopPropagation()}>
+              <p style={{ margin: "0 0 8px", fontWeight: 600 }}>Use a freeze token?</p>
+              <p style={{ margin: "0 0 0", color: "var(--text-secondary)", fontSize: "0.85rem" }}>
+                {freezeStatus?.tokens ?? 0} token{(freezeStatus?.tokens ?? 0) !== 1 ? "s" : ""} remaining after this.
+              </p>
+              <div className="freeze-confirm-actions">
+                <button className="tf-freeze-btn" onClick={() => setShowFreezeConfirm(false)}>Cancel</button>
+                <button
+                  className="tf-freeze-btn"
+                  style={{ background: "var(--accent)", color: "#fff", borderColor: "var(--accent)" }}
+                  onClick={() => {
+                    applyFreeze.mutate(yesterdayStr);
+                    setShowFreezeConfirm(false);
+                  }}
+                >
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="tf-progress">
           <div className="tf-progress-bar-track">

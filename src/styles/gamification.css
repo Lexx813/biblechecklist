@@ -1,0 +1,131 @@
+/* src/styles/gamification.css */
+
+/* ── Streak freeze ─────────────────────────────────────────── */
+.tf-freeze-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.tf-freeze-token-count {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tf-freeze-btn {
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.tf-freeze-btn:hover {
+  background: var(--surface-hover);
+}
+
+.tf-freeze-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tf-freeze-locked {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.freeze-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.freeze-confirm-dialog {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  max-width: 300px;
+  width: 90%;
+}
+
+.freeze-confirm-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+/* ── Badge grid (profile page) ─────────────────────────────── */
+.achievements-section {
+  margin-top: 28px;
+}
+
+.achievements-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 12px;
+}
+
+.badge-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 8px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.badge-card--earned {
+  border-color: var(--accent);
+}
+
+.badge-card--locked {
+  opacity: 0.45;
+  filter: grayscale(1);
+}
+
+.badge-emoji {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.badge-label {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.2;
+}
+
+.badge-earned-date {
+  font-size: 0.65rem;
+  color: var(--text-tertiary);
+}
