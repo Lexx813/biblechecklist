@@ -150,7 +150,7 @@ function day7Html(name: string) {
           <p style="margin:6px 0 0;font-size:12px;color:rgba(255,255,255,0.4)">7-day free trial · Cancel anytime</p>
         </td></tr>
       </table>
-      <div style="text-align:center;margin-bottom:12px">${ctaButton("Start Free Trial →", `${SITE}/settings`)}</div>
+      <div style="text-align:center;margin-bottom:12px">${ctaButton("Start Free Trial →", `${SITE}?upgrade=1`)}</div>
       <p style="text-align:center;font-size:12px;color:rgba(255,255,255,0.3);margin:0">
         If the subscription is a financial hardship, <a href="mailto:luaq777@gmail.com" style="color:rgba(139,92,246,0.6)">reach out</a> — no one should be left out.
       </p>
@@ -173,7 +173,7 @@ function day14Html(name: string) {
         ${[
           ["1", "Join the forum", "Ask questions, share insights, and learn from others studying the same books."],
           ["2", "Share your progress", "Use the Share button on your profile to show friends how far you've come."],
-          ["3", "Invite a friend", "Know someone who'd benefit? Share your referral link and study together."],
+          ["3", "Join a Study Group", "Find one in the Community tab or create one for your congregation — group progress tracking included."],
         ].map(([num, title, desc]) => `
         <tr><td style="padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.06)">
           <table cellpadding="0" cellspacing="0"><tr>
@@ -205,6 +205,25 @@ function day30Html(name: string) {
         If you haven't tried Premium yet, now is a great time. Start with a <strong style="color:#c084fc">7-day free trial</strong> and see how structured reading plans and study notes can transform your study routine.
       </p>
       <div style="text-align:center;margin-bottom:16px">${ctaButton("Check Your Progress →", SITE)}</div>
+    </td></tr>
+  `);
+}
+
+function day60Html(name: string) {
+  return baseHtml(`
+    <tr><td style="background:linear-gradient(135deg,#1a0a2e 0%,#3b1f6e 100%);padding:36px 40px;text-align:center">
+      <p style="margin:0 0 10px;font-size:28px">📅</p>
+      <h1 style="margin:0 0 8px;font-size:24px;font-weight:800;color:#fff">Two months — here's what you're missing</h1>
+      <p style="margin:0;font-size:14px;color:rgba(255,255,255,0.6)">You've been on free for two months, ${name}</p>
+    </td></tr>
+    <tr><td style="padding:32px 40px">
+      <p style="margin:0 0 16px;font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6">
+        Premium members on NWT Progress have been building a daily reading habit with structured plans, keeping study notes that compound over months, and connecting with their congregation through study groups.
+      </p>
+      <p style="margin:0 0 24px;font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6">
+        Premium is $3/mo — less than a coffee. Your 7-day free trial is still available.
+      </p>
+      <div style="text-align:center">${ctaButton("Start Free Trial →", `${SITE}?upgrade=1`)}</div>
     </td></tr>
   `);
 }
@@ -273,10 +292,10 @@ Deno.serve(async (req) => {
   }
 
   const now = new Date();
-  const results: Record<string, number> = { welcome: 0, day3: 0, day7: 0, day14: 0, day30: 0, reEngage7: 0, reEngage14: 0, errors: 0 };
+  const results: Record<string, number> = { welcome: 0, day3: 0, day7: 0, day14: 0, day30: 0, day60: 0, reEngage7: 0, reEngage14: 0, errors: 0 };
 
   // Define onboarding cohorts
-  const cohorts: Array<{ step: string; daysAgo: number; subject: string; buildHtml: (name: string) => string }> = [
+  const cohorts: Array<{ step: string; daysAgo: number; subject: string; buildHtml: (name: string) => string; freeOnly?: boolean }> = [
     {
       step: "welcome",
       daysAgo: 1,
@@ -307,6 +326,13 @@ Deno.serve(async (req) => {
       subject: "One month milestone 🎉",
       buildHtml: day30Html,
     },
+    {
+      step: "day60",
+      daysAgo: 60,
+      subject: "Two months in — here's what premium members are doing",
+      buildHtml: day60Html,
+      freeOnly: true,
+    },
   ];
 
   for (const cohort of cohorts) {
@@ -314,12 +340,14 @@ Deno.serve(async (req) => {
     const windowEnd   = new Date(now.getTime() - cohort.daysAgo * 86400_000).toISOString();
 
     // Find users created in this day window who haven't received this email yet
-    const { data: profiles, error } = await supabase
+    let query = supabase
       .from("profiles")
       .select("id, display_name, onboarding_emails_sent")
       .gte("created_at", windowStart)
       .lt("created_at", windowEnd)
       .not("onboarding_emails_sent", "cs", `{"${cohort.step}"}`);
+    if (cohort.freeOnly) query = query.neq("stripe_subscription_status", "active");
+    const { data: profiles, error } = await query;
 
     if (error) {
       console.error(`DB error for ${cohort.step}:`, error.message);

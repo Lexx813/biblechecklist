@@ -108,6 +108,8 @@ const FEATURE_PROMPTS = {
 
 // ── Authenticated app with routing ────────────────────────────────────────────
 
+const VALID_PAGES = ["readingPlans", "studyNotes", "quiz", "forum", "blog", "main"];
+
 function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   const queryClient = useQueryClient();
   const { data: profile, isLoading: profileLoading } = useFullProfile(user.id);
@@ -237,6 +239,17 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     history.pushState(null, "", path);
     setNav({ page, ...params });
   };
+
+  // Handle email deep-link params: ?page=X navigates into the app; ?upgrade=1 opens the upgrade modal
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get("page");
+    const upgrade = params.get("upgrade");
+    if (!page && !upgrade) return;
+    history.replaceState(null, "", window.location.pathname);
+    if (page && VALID_PAGES.includes(page)) navigate(page);
+    if (upgrade === "1") openUpgrade();
+  }, []); // runs once on mount
 
   const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page, onUpgrade: openUpgrade };
 

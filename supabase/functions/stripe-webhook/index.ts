@@ -110,49 +110,48 @@ Deno.serve(async (req) => {
         <!-- Header -->
         <tr><td style="background:linear-gradient(135deg,#2e0b6e 0%,#5b21b6 55%,#7c3aed 100%);padding:36px 40px;text-align:center">
           <p style="margin:0 0 12px;font-size:32px">🎉</p>
-          <h1 style="margin:0 0 8px;font-size:26px;font-weight:800;color:#fff;letter-spacing:-0.02em">You're now Premium!</h1>
+          <h1 style="margin:0 0 8px;font-size:26px;font-weight:800;color:#fff;letter-spacing:-0.02em">You're Premium!</h1>
           <p style="margin:0;font-size:15px;color:rgba(255,255,255,0.7)">Welcome to the full NWT Progress experience, ${name}.</p>
         </td></tr>
 
         <!-- Body -->
         <tr><td style="padding:32px 40px">
-          <p style="margin:0 0 24px;font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6">
-            Your subscription is active. Here's everything you now have access to:
-          </p>
-          <table width="100%" cellpadding="0" cellspacing="0">
+
+          <!-- Start here block -->
+          <table width="100%" cellpadding="0" cellspacing="0" style="background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.3);border-radius:14px;margin-bottom:28px">
+            <tr><td style="padding:20px 24px">
+              <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(192,132,252,0.8)">Start here</p>
+              <p style="margin:0 0 8px;font-size:16px;font-weight:700;color:#fff">Set up your first reading plan</p>
+              <p style="margin:0 0 16px;font-size:13px;color:rgba(255,255,255,0.6);line-height:1.5">It gives you a daily assignment so you always know what to read next.</p>
+              <a href="https://www.nwtprogress.com?page=readingPlans" style="display:inline-block;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;text-decoration:none;font-size:14px;font-weight:700;padding:11px 24px;border-radius:8px">
+                Start My Reading Plan →
+              </a>
+            </td></tr>
+          </table>
+
+          <!-- Feature access guide -->
+          <p style="margin:0 0 14px;font-size:13px;font-weight:600;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.07em">How to access your features</p>
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px">
             ${[
-              ["📅", "Reading Plans", "Structured multi-week reading plans through any book"],
-              ["📝", "Study Notes", "Rich-text notes tied to any passage or chapter"],
-              ["✨", "AI Companion", "Ask AI about any verse, quiz question, or passage"],
-              ["💬", "Direct Messages", "Private conversations with other members"],
-              ["👥", "Study Groups", "Group chat and shared progress tracking"],
-            ].map(([icon, title, desc]) => `
+              ["📅", "Reading Plans", "linked above"],
+              ["📝", "Study Notes", "open any chapter, tap \"Add Note\""],
+              ["📋", "Meeting Prep", "tap Meeting Prep in the sidebar"],
+              ["✨", "AI Study Tools", "open any chapter, tap \"Ask AI\""],
+              ["💬", "Messages &amp; Groups", "tap the Community icon"],
+            ].map(([icon, title, how]) => `
             <tr>
               <td style="padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06)">
                 <table cellpadding="0" cellspacing="0"><tr>
-                  <td style="width:42px;height:42px;background:rgba(124,58,237,0.15);border-radius:10px;text-align:center;vertical-align:middle;font-size:20px">${icon}</td>
-                  <td style="padding-left:14px;vertical-align:middle">
+                  <td style="width:36px;height:36px;background:rgba(124,58,237,0.15);border-radius:9px;text-align:center;vertical-align:middle;font-size:17px">${icon}</td>
+                  <td style="padding-left:12px;vertical-align:middle">
                     <p style="margin:0;font-size:14px;font-weight:700;color:#fff">${title}</p>
-                    <p style="margin:2px 0 0;font-size:12px;color:rgba(255,255,255,0.5)">${desc}</p>
+                    <p style="margin:1px 0 0;font-size:12px;color:rgba(255,255,255,0.45)">${how}</p>
                   </td>
                 </tr></table>
               </td>
             </tr>`).join("")}
           </table>
 
-          <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:24px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);border-radius:12px">
-            <tr><td style="padding:16px 20px">
-              <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.5)">Billing</p>
-              <p style="margin:4px 0 0;font-size:18px;font-weight:800;color:#fff">$3.00 / month</p>
-              <p style="margin:4px 0 0;font-size:12px;color:rgba(255,255,255,0.4)">Recurring — cancel anytime from your Settings page</p>
-            </td></tr>
-          </table>
-
-          <div style="margin-top:28px;text-align:center">
-            <a href="https://www.nwtprogress.com" style="display:inline-block;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;text-decoration:none;font-size:15px;font-weight:800;padding:14px 36px;border-radius:999px">
-              Open NWT Progress →
-            </a>
-          </div>
         </td></tr>
 
         <!-- Footer -->
