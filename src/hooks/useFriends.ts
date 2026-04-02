@@ -46,7 +46,7 @@ export type FriendStatus = "friends" | "pending_sent" | "pending_received" | "no
 export function useFriends(userId: string) {
   return useQuery<FriendProfile[]>({
     queryKey: ["friends", userId],
-    queryFn: () => friendsApi.getFriends(),
+    queryFn: () => friendsApi.getFriends() as unknown as Promise<FriendProfile[]>,
     enabled: !!userId,
     staleTime: 2 * 60_000,
   });
