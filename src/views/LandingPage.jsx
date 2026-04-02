@@ -46,15 +46,19 @@ const FEATURE_ICONS = {
 };
 
 function useCommunityStats() {
-  const [stats, setStats] = useState({ users: 500, chaptersRead: 0 });
+  const [stats, setStats] = useState({ users: 500, chaptersRead: 0, spotsLeft: null });
   useEffect(() => {
     async function load() {
       try {
-        const { count } = await supabase.from("profiles").select("id", { count: "exact", head: true });
-        const { data } = await supabase.rpc("get_global_chapter_count").maybeSingle();
+        const [{ count }, { data: chapters }, { data: spots }] = await Promise.all([
+          supabase.from("profiles").select("id", { count: "exact", head: true }),
+          supabase.rpc("get_global_chapter_count").maybeSingle(),
+          supabase.rpc("get_early_adopter_spots_left").maybeSingle(),
+        ]);
         setStats({
           users: Math.max(count ?? 500, 500),
-          chaptersRead: data ?? 0,
+          chaptersRead: chapters ?? 0,
+          spotsLeft: spots ?? null,
         });
       } catch {}
     }
@@ -161,8 +165,19 @@ export default function LandingPage({ onGetStarted }) {
           ))}
         </div>
 
+        {communityStats.spotsLeft !== null && communityStats.spotsLeft > 0 && (
+          <div className="landing-promo" role="status" aria-live="polite">
+            <span className="landing-promo-fire">🎁</span>
+            <span>
+              <strong>{t("landing.promoTitle")}</strong>
+              {" — "}
+              {t("landing.promoSpotsLeft", { count: communityStats.spotsLeft })}
+            </span>
+          </div>
+        )}
+
         <button className="landing-cta" onClick={onGetStarted}>
-          <span>{t("landing.cta")}</span>
+          <span>{communityStats.spotsLeft > 0 ? t("landing.ctaPromo") : t("landing.cta")}</span>
           <span className="landing-cta-arrow"><IconArrow /></span>
         </button>
 

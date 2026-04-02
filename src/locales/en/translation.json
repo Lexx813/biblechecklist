@@ -129,7 +129,10 @@
     "premiumFeatureDmLabel": "Direct Messages",
     "premiumFeatureDmDesc": "Private conversations with members",
     "premiumFeatureGroupsLabel": "Study Groups",
-    "premiumFeatureGroupsDesc": "Group chat and progress tracking"
+    "premiumFeatureGroupsDesc": "Group chat and progress tracking",
+    "promoTitle": "First 500 users get Premium free",
+    "promoSpotsLeft": "{{count}} spots left",
+    "ctaPromo": "Claim Your Free Premium Spot"
   },
   "auth": {
     "title": "Bible Reading Checklist",

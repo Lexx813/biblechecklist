@@ -126,7 +126,10 @@
     "premiumFeatureDmLabel": "Mga Direktang Mensahe",
     "premiumFeatureDmDesc": "Mga pribadong pag-uusap sa mga miyembro",
     "premiumFeatureGroupsLabel": "Mga Grupo sa Pag-aaral",
-    "premiumFeatureGroupsDesc": "Group chat at pagsubaybay sa pag-unlad"
+    "premiumFeatureGroupsDesc": "Group chat at pagsubaybay sa pag-unlad",
+    "promoTitle": "Ang unang 500 gumagamit ay makakakuha ng Premium nang libre",
+    "promoSpotsLeft": "{{count}} puwesto na natitira",
+    "ctaPromo": "I-claim ang Iyong Libreng Premium"
   },
   "auth": {
     "title": "Listahan ng Pagbabasa ng Bibliya",

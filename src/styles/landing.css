@@ -454,6 +454,30 @@
   transform: translateX(5px);
 }
 
+/* ── Early-adopter promo banner ───────────────────────────────── */
+.landing-promo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(192, 132, 252, 0.15), rgba(245, 158, 11, 0.12));
+  border: 1px solid rgba(192, 132, 252, 0.4);
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 20px;
+  animation: fade-up 0.7s 0.45s ease both;
+  max-width: 420px;
+  text-align: left;
+}
+.landing-promo strong {
+  color: #c084fc;
+}
+.landing-promo-fire {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
 .landing-social-proof {
   display: flex;
   align-items: center;

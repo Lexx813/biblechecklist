@@ -152,7 +152,10 @@
     "premiumFeatureDmLabel": "私信",
     "premiumFeatureDmDesc": "与成员的私人对话",
     "premiumFeatureGroupsLabel": "学习小组",
-    "premiumFeatureGroupsDesc": "群聊和进度跟踪"
+    "premiumFeatureGroupsDesc": "群聊和进度跟踪",
+    "promoTitle": "前500名用户免费获得高级版",
+    "promoSpotsLeft": "剩余{{count}}个名额",
+    "ctaPromo": "立即领取免费高级版名额"
   },
   "auth": {
     "title": "圣经阅读清单",

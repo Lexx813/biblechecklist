@@ -126,7 +126,10 @@
     "premiumFeatureDmLabel": "Mensajes Directos",
     "premiumFeatureDmDesc": "Conversaciones privadas con miembros",
     "premiumFeatureGroupsLabel": "Grupos de Estudio",
-    "premiumFeatureGroupsDesc": "Chat grupal y seguimiento del progreso"
+    "premiumFeatureGroupsDesc": "Chat grupal y seguimiento del progreso",
+    "promoTitle": "Los primeros 500 usuarios reciben Premium gratis",
+    "promoSpotsLeft": "{{count}} lugares disponibles",
+    "ctaPromo": "Reclamar Tu Lugar Premium Gratis"
   },
   "auth": {
     "title": "Lista de Lectura Bíblica",
