@@ -1,8 +1,43 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
 
+export interface NotificationActor {
+  display_name: string | null;
+  avatar_url: string | null;
+}
+
+export interface NotificationThread {
+  category_id: string | null;
+}
+
+export interface NotificationPost {
+  slug: string | null;
+}
+
+export interface Notification {
+  id: string;
+  user_id: string;
+  actor_id: string | null;
+  type: string;
+  thread_id: string | null;
+  post_id: string | null;
+  preview: string | null;
+  link_hash: string | null;
+  read: boolean;
+  created_at: string;
+  actor: NotificationActor | null;
+  thread: NotificationThread | null;
+  post: NotificationPost | null;
+}
+
+export interface CreateNotificationOptions {
+  threadId?: string | null;
+  postId?: string | null;
+  preview?: string | null;
+  linkHash?: string | null;
+}
+
 export const notificationsApi = {
-  list: async () => {
+  list: async (): Promise<Notification[]> => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return [];
     const { data, error } = await supabase
@@ -12,15 +47,15 @@ export const notificationsApi = {
       .order("created_at", { ascending: false })
       .limit(40);
     if (error) throw new Error(error.message);
-    return data ?? [];
+    return (data ?? []) as Notification[];
   },
 
-  markRead: async (ids) => {
+  markRead: async (ids: string[]): Promise<void> => {
     const { error } = await supabase.rpc("mark_notifications_read", { p_ids: ids });
     if (error) throw new Error(error.message);
   },
 
-  markAllRead: async () => {
+  markAllRead: async (): Promise<void> => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
     const { error } = await supabase
@@ -31,12 +66,12 @@ export const notificationsApi = {
     if (error) throw new Error(error.message);
   },
 
-  delete: async (id) => {
+  delete: async (id: string): Promise<void> => {
     const { error } = await supabase.from("notifications").delete().eq("id", id);
     if (error) throw new Error(error.message);
   },
 
-  clearAll: async () => {
+  clearAll: async (): Promise<void> => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
     const { error } = await supabase.from("notifications").delete().eq("user_id", user.id);
@@ -44,7 +79,12 @@ export const notificationsApi = {
   },
 
   // Called client-side after creating a reply/comment/mention
-  create: async (userId, actorId, type, options = {}) => {
+  create: async (
+    userId: string,
+    actorId: string,
+    type: string,
+    options: CreateNotificationOptions = {}
+  ): Promise<void> => {
     const { error } = await supabase.rpc("create_notification", {
       p_user_id: userId,
       p_actor_id: actorId,

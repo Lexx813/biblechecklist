@@ -1,24 +1,67 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
 
+export interface FollowProfile {
+  id: string;
+  display_name: string | null;
+  avatar_url: string | null;
+}
+
+export interface FollowCounts {
+  followers: number;
+  following: number;
+}
+
+interface ThreadAuthor {
+  display_name: string | null;
+  avatar_url: string | null;
+}
+
+interface FeedThread {
+  type: "thread";
+  id: string;
+  authorId: string;
+  title: string;
+  author: ThreadAuthor | ThreadAuthor[] | null;
+  ts: string;
+}
+
+interface FeedBadge {
+  type: "badge";
+  level: string;
+  authorId: string;
+  author: FollowProfile | null;
+  ts: string;
+}
+
+interface FeedPost {
+  type: "post";
+  id: string;
+  authorId: string;
+  content: string;
+  author: ThreadAuthor | ThreadAuthor[] | null;
+  ts: string;
+}
+
+export type FeedItem = FeedThread | FeedBadge | FeedPost;
+
 export const followsApi = {
-  toggleFollow: async (targetId) => {
+  toggleFollow: async (targetId: string): Promise<boolean> => {
     const { data, error } = await supabase.rpc("toggle_follow", { p_following_id: targetId });
     if (error) throw new Error(error.message);
-    return data; // true = now following, false = unfollowed
+    return data as boolean; // true = now following, false = unfollowed
   },
 
-  isFollowing: async (followerId, targetId) => {
+  isFollowing: async (followerId: string, targetId: string): Promise<boolean> => {
     const { count, error } = await supabase
       .from("user_follows")
       .select("*", { count: "exact", head: true })
       .eq("follower_id", followerId)
       .eq("following_id", targetId);
     if (error) return false;
-    return count > 0;
+    return (count ?? 0) > 0;
   },
 
-  getFollowCounts: async (userId) => {
+  getFollowCounts: async (userId: string): Promise<FollowCounts> => {
     try {
       const [{ count: followers }, { count: following }] = await Promise.all([
         supabase.from("user_follows").select("*", { count: "exact", head: true }).eq("following_id", userId),
@@ -30,7 +73,7 @@ export const followsApi = {
     }
   },
 
-  getFollowers: async (userId) => {
+  getFollowers: async (userId: string): Promise<unknown[]> => {
     const { data, error } = await supabase
       .from("user_follows")
       .select("follower_id, profiles!follower_id(id, display_name, avatar_url)")
@@ -40,7 +83,7 @@ export const followsApi = {
     return (data ?? []).map(r => r.profiles).filter(Boolean);
   },
 
-  getFollowing: async (userId) => {
+  getFollowing: async (userId: string): Promise<unknown[]> => {
     const { data, error } = await supabase
       .from("user_follows")
       .select("following_id, profiles!following_id(id, display_name, avatar_url)")
@@ -50,7 +93,7 @@ export const followsApi = {
     return (data ?? []).map(r => r.profiles).filter(Boolean);
   },
 
-  getActivityFeed: async (userId, limit = 40) => {
+  getActivityFeed: async (userId: string, limit = 40): Promise<FeedItem[]> => {
     const { data: follows, error: fe } = await supabase
       .from("user_follows")
       .select("following_id")
@@ -85,41 +128,41 @@ export const followsApi = {
     const postRows  = results[2].status === "fulfilled" ? results[2].value.data : null;
 
     // Fetch profiles for badge row authors separately (user_quiz_progress → profiles join)
-    let badgeAuthorMap = new Map();
+    const badgeAuthorMap = new Map<string, FollowProfile>();
     if (badgeRows?.length) {
-      const badgeUserIds = [...new Set(badgeRows.map(b => b.user_id))];
+      const badgeUserIds = [...new Set(badgeRows.map(b => b.user_id as string))];
       const { data: profiles } = await supabase
         .from("profiles")
         .select("id, display_name, avatar_url")
         .in("id", badgeUserIds);
-      for (const p of profiles ?? []) badgeAuthorMap.set(p.id, p);
+      for (const p of profiles ?? []) badgeAuthorMap.set(p.id as string, p as FollowProfile);
     }
 
-    const items = [
+    const items: FeedItem[] = [
       ...(threads ?? []).map(t => ({
-        type: "thread",
-        id: t.id,
-        authorId: t.author_id,
-        title: t.title,
-        author: t.profiles,
-        ts: t.created_at,
+        type: "thread" as const,
+        id: t.id as string,
+        authorId: t.author_id as string,
+        title: t.title as string,
+        author: t.profiles as ThreadAuthor | ThreadAuthor[] | null,
+        ts: t.created_at as string,
       })),
       ...(badgeRows ?? []).map(b => ({
-        type: "badge",
-        level: b.level,
-        authorId: b.user_id,
-        author: badgeAuthorMap.get(b.user_id) ?? null,
-        ts: b.updated_at,
+        type: "badge" as const,
+        level: b.level as string,
+        authorId: b.user_id as string,
+        author: badgeAuthorMap.get(b.user_id as string) ?? null,
+        ts: b.updated_at as string,
       })),
       ...(postRows ?? []).map(p => ({
-        type: "post",
-        id: p.id,
-        authorId: p.user_id,
-        content: p.content,
-        author: p.profiles,
-        ts: p.created_at,
+        type: "post" as const,
+        id: p.id as string,
+        authorId: p.user_id as string,
+        content: p.content as string,
+        author: p.profiles as ThreadAuthor | ThreadAuthor[] | null,
+        ts: p.created_at as string,
       })),
-    ].sort((a, b) => new Date(b.ts) - new Date(a.ts)).slice(0, limit);
+    ].sort((a, b) => new Date(b.ts).getTime() - new Date(a.ts).getTime()).slice(0, limit);
 
     return items;
   },
