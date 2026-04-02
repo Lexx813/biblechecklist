@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { insertEmojiAtCursor } from "../../components/EmojiPickerPopup";
 import { EMOJI_CATEGORIES } from "../../lib/emojiData";
@@ -27,7 +28,16 @@ import {
 } from "../../hooks/useGroups";
 import ConfirmModal from "../../components/ConfirmModal";
 import { sanitizeContent, MAX_MSG_LENGTH } from "../../lib/e2e";
+import { PLAN_TEMPLATES, BOOKS } from "../../data/readingPlanTemplates";
+import {
+  useActiveChallenge,
+  useStartChallenge,
+  useEndChallenge,
+  useChallengeProgress,
+} from "../../hooks/useGroupChallenge";
+import { useSubscription } from "../../hooks/useSubscription";
 import "../../styles/groups.css";
+import "../../styles/group-challenge.css";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -568,6 +578,158 @@ function ProgressTab({ groupId, userId }) {
   );
 }
 
+// ── Reading Challenge components ──────────────────────────────────────────────
+
+function ChallengePicker({ onConfirm, onClose }) {
+  const [selectedKey, setSelectedKey] = useState(PLAN_TEMPLATES[0]?.key ?? "");
+
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
+    <div
+      className="gc-picker-overlay"
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+    >
+      <div className="gc-picker-sheet" role="dialog" aria-modal="true">
+        <h2 className="gc-picker-title">Choose a Reading Plan</h2>
+        <div className="gc-picker-list">
+          {PLAN_TEMPLATES.map((template) => (
+            <button
+              key={template.key}
+              className={`gc-picker-item${selectedKey === template.key ? " gc-picker-item--selected" : ""}`}
+              onClick={() => setSelectedKey(template.key)}
+            >
+              <div className="gc-picker-item-name">{template.name}</div>
+              <div className="gc-picker-item-meta">
+                {template.totalChapters ?? "?"} chapters
+                {template.estimatedDays ? ` · ~${template.estimatedDays} days` : ""}
+              </div>
+            </button>
+          ))}
+        </div>
+        <button
+          className="gc-picker-confirm"
+          disabled={!selectedKey}
+          onClick={() => selectedKey && onConfirm(selectedKey)}
+        >
+          Start Challenge →
+        </button>
+      </div>
+    </div>,
+    document.body
+  );
+}
+
+function ChallengeSection({ groupId, currentUser, isAdmin, onUpgrade }) {
+  const { isPremium } = useSubscription(currentUser?.id);
+  const { data: challenge, isLoading: challengeLoading } = useActiveChallenge(groupId);
+  const { data: progress = [], isLoading: progressLoading } = useChallengeProgress(
+    challenge?.id,
+    challenge?.plan_key
+  );
+  const startChallenge = useStartChallenge(groupId);
+  const endChallenge = useEndChallenge(groupId);
+  const [showPicker, setShowPicker] = useState(false);
+
+  if (challengeLoading) return null;
+
+  const planName = PLAN_TEMPLATES.find((t) => t.key === challenge?.plan_key)?.name
+    ?? challenge?.plan_key;
+
+  function handleStartClick() {
+    if (!isAdmin) return;
+    if (!isPremium) { onUpgrade?.(); return; }
+    setShowPicker(true);
+  }
+
+  return (
+    <section className="gc-section">
+      <h2 className="gc-section-title">Reading Challenge</h2>
+
+      {!challenge ? (
+        <div
+          className="gc-start-card"
+          onClick={handleStartClick}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === "Enter" && handleStartClick()}
+        >
+          <p className="gc-start-label">+ Start a Reading Challenge</p>
+          <p className="gc-start-sub">
+            {isAdmin
+              ? (isPremium ? "Pick a plan and track the whole group's progress" : "✦ Requires Premium")
+              : "Ask your group admin to start a challenge"}
+          </p>
+        </div>
+      ) : (
+        <>
+          <div className="gc-active-header">
+            <div>
+              <div className="gc-plan-name">{planName}</div>
+              <div className="gc-start-date">
+                Started {new Date(challenge.start_date).toLocaleDateString(undefined, {
+                  month: "short", day: "numeric", year: "numeric"
+                })}
+              </div>
+            </div>
+            {isAdmin && (
+              <button
+                className="gc-end-btn"
+                onClick={() => endChallenge.mutate(challenge.id)}
+                disabled={endChallenge.isPending}
+              >
+                End Challenge
+              </button>
+            )}
+          </div>
+
+          {progressLoading ? (
+            <div className="skeleton" style={{ height: 120, borderRadius: 12 }} />
+          ) : (
+            <ul className="gc-member-list" style={{ listStyle: "none", padding: 0 }}>
+              {progress.map((member) => (
+                <li key={member.user_id} className="gc-member-row">
+                  <span className="gc-avatar">
+                    {member.avatar_url
+                      ? <img src={member.avatar_url} alt={member.display_name} />
+                      : member.display_name?.[0]?.toUpperCase() ?? "?"}
+                  </span>
+                  <div className="gc-member-info">
+                    <div className="gc-member-name">{member.display_name}</div>
+                    {member.chapters_done > 0 ? (
+                      <div className="gc-progress-bar">
+                        <div
+                          className="gc-progress-fill"
+                          style={{ width: `${member.pct}%` }}
+                        />
+                      </div>
+                    ) : (
+                      <span className="gc-not-started">Not started</span>
+                    )}
+                  </div>
+                  <span className="gc-member-pct">
+                    {member.chapters_done > 0 ? `${member.pct}%` : "0%"}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
+      )}
+
+      {showPicker && (
+        <ChallengePicker
+          onConfirm={(planKey) => {
+            startChallenge.mutate({ planKey, userId: currentUser?.id });
+            setShowPicker(false);
+          }}
+          onClose={() => setShowPicker(false)}
+        />
+      )}
+    </section>
+  );
+}
+
 // ── Main detail page ──────────────────────────────────────────────────────────
 
 export default function GroupDetail({ groupId, user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
@@ -695,6 +857,15 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
           />
         )}
       </div>
+
+      {isReadingGroup && (
+        <ChallengeSection
+          groupId={groupId}
+          currentUser={user}
+          isAdmin={isAdmin}
+          onUpgrade={() => navigate("premium")}
+        />
+      )}
 
       {confirmLeave && (
         <ConfirmModal
