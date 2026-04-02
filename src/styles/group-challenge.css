@@ -1,0 +1,269 @@
+/* src/styles/group-challenge.css */
+
+/* ── Section wrapper ───────────────────────────────────────── */
+.gc-section {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.gc-section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+/* ── No active challenge ───────────────────────────────────── */
+.gc-start-card {
+  background: var(--card-bg);
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.gc-start-card:hover {
+  background: var(--surface-hover);
+}
+
+.gc-start-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.gc-start-sub {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* ── Active challenge ──────────────────────────────────────── */
+.gc-active-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 12px;
+}
+
+.gc-plan-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.gc-start-date {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.gc-end-btn {
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.gc-end-btn:hover {
+  background: var(--surface-hover);
+}
+
+/* ── Member progress list ──────────────────────────────────── */
+.gc-member-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gc-member-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gc-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--border);
+  object-fit: cover;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  overflow: hidden;
+}
+
+.gc-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gc-member-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.gc-member-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.gc-progress-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.gc-progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+
+.gc-member-pct {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  min-width: 36px;
+  text-align: right;
+}
+
+.gc-not-started {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+/* ── Challenge picker modal ────────────────────────────────── */
+.gc-picker-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 300;
+}
+
+@media (min-width: 540px) {
+  .gc-picker-overlay { align-items: center; }
+}
+
+.gc-picker-sheet {
+  background: var(--card-bg);
+  border-radius: 22px 22px 0 0;
+  padding: 24px 20px 32px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: gc-slide-up 0.2s ease both;
+}
+
+@media (min-width: 540px) {
+  .gc-picker-sheet { border-radius: 18px; }
+}
+
+@keyframes gc-slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gc-picker-sheet { animation: none; }
+}
+
+.gc-picker-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+
+.gc-picker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.gc-picker-item {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 2px solid var(--border);
+  background: var(--card-bg);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.gc-picker-item:hover {
+  background: var(--surface-hover);
+}
+
+.gc-picker-item--selected {
+  border-color: var(--accent);
+}
+
+.gc-picker-item-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.gc-picker-item-meta {
+  font-size: 0.77rem;
+  color: var(--text-secondary);
+}
+
+.gc-picker-confirm {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.gc-picker-confirm:hover { opacity: 0.9; }
+.gc-picker-confirm:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Reading Plans page badge ──────────────────────────────── */
+.rp-challenge-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
