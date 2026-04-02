@@ -294,6 +294,8 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
                   onToggleBook={handleToggleBook}
                   notes={notesByBook.get(book.index) ?? []}
                   onAddNote={(bookIndex) => setNoteModal({ bookIndex })}
+                  userId={user?.id}
+                  onUpgrade={onUpgrade}
                 />
               </div>
             );

@@ -698,6 +698,79 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   font-size: 13px; line-height: 1.5; color: var(--text-secondary);
 }
 
+/* Book info panel — premium gate */
+.book-info-panel--locked .book-info-summary,
+.book-info-panel--locked .book-info-meta-row,
+.book-info-panel--locked .book-info-verses,
+.book-info-panel--locked .book-info-questions,
+.book-info-panel--locked .book-info-notable {
+  filter: blur(4px);
+  user-select: none;
+  pointer-events: none;
+}
+
+.book-info-gate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.book-info-gate-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold, #f59e0b);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.book-info-gate-cta {
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: var(--gold, #f59e0b);
+  color: #000;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+/* Notable passages section */
+.book-info-notable {
+  margin-top: 12px;
+}
+
+.book-info-notable-list {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.book-info-notable-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.book-info-notable-ref {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.book-info-notable-note {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
 /* CONTEXTUAL NOTES */
 .ch-notes { margin-top: 4px; }
 

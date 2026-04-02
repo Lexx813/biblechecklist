@@ -2,16 +2,18 @@ import { memo, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOK_INFO } from "../data/bookInfo";
 import { wolChapterUrl, wolRefUrl } from "../utils/wol";
+import { useSubscription } from "../hooks/useSubscription";
 
 function formatReadDate(iso) {
   if (!iso) return null;
   return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
 }
 
-const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, onToggleChapter, onToggleBook, notes = [], onAddNote }) {
+const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, onToggleChapter, onToggleBook, notes = [], onAddNote, userId, onUpgrade }) {
   const [open, setOpen] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const { t, i18n } = useTranslation();
+  const { isPremium } = useSubscription(userId);
   const lang = i18n.language?.split("-")[0] ?? "en";
   const total = book.chapters;
   const bookChapters = chaptersState[bookIndex];
@@ -98,7 +100,7 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
 
           {/* Book info panel */}
           {showInfo && info && (
-            <div className="book-info-panel">
+            <div className={`book-info-panel${!isPremium ? " book-info-panel--locked" : ""}`}>
               <p className="book-info-summary">{summary}</p>
               <div className="book-info-meta-row">
                 {info.author && (
@@ -120,6 +122,21 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                   </div>
                 )}
               </div>
+
+              {info.notablePassages?.length > 0 && (
+                <div className="book-info-notable">
+                  <span className="book-info-meta-label">{t("book.infoNotablePassages", "Notable Passages")}</span>
+                  <ul className="book-info-notable-list">
+                    {info.notablePassages.map((p, i) => (
+                      <li key={i} className="book-info-notable-item">
+                        <span className="book-info-notable-ref">{p.ref}</span>
+                        <span className="book-info-notable-note">{p.note}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               {info.keyVerses?.length > 0 && (
                 <div className="book-info-verses">
                   <span className="book-info-meta-label">{t("book.infoKeyVerses")}</span>
@@ -133,6 +150,7 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                   </div>
                 </div>
               )}
+
               {Array.isArray(questions) && questions.length > 0 && (
                 <div className="book-info-questions">
                   <span className="book-info-meta-label">{t("book.infoStudyQuestions", "Study Questions")}</span>
@@ -141,6 +159,18 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                       <li key={i} className="book-info-question-item">{q}</li>
                     ))}
                   </ol>
+                </div>
+              )}
+
+              {!isPremium && (
+                <div className="book-info-gate">
+                  <span className="book-info-gate-label">✦ Premium Feature</span>
+                  <button
+                    className="book-info-gate-cta"
+                    onClick={(e) => { e.stopPropagation(); onUpgrade?.(); }}
+                  >
+                    Unlock with Premium
+                  </button>
                 </div>
               )}
             </div>
