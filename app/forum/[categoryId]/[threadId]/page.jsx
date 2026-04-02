@@ -116,6 +116,7 @@ export default async function ForumThreadPage({ params }) {
           </article>
         </div>
       )}
+      <script dangerouslySetInnerHTML={{ __html: `(function(){var e=document.getElementById('ssr-fallback');if(e)e.style.display='none';}())` }} />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ClientShell />
       </HydrationBoundary>

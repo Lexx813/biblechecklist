@@ -71,6 +71,7 @@ export default async function BlogListPage() {
           </ul>
         </div>
       )}
+      <script dangerouslySetInnerHTML={{ __html: `(function(){var e=document.getElementById('ssr-fallback');if(e)e.style.display='none';}())` }} />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ClientShell />
       </HydrationBoundary>
