@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.{js,jsx,css}\"",
-    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\""
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\"",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@sentry/react": "^10.46.0",
@@ -55,6 +57,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^17.4.0",
     "prettier": "^3.8.1",
-    "sharp": "^0.34.5"
+    "sharp": "^0.34.5",
+    "vitest": "^4.1.2"
   }
 }
