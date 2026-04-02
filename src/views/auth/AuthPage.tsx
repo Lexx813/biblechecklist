@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useLogin, useRegister, useResetPassword } from "../../hooks/useAuth";
 import { authApi } from "../../api/auth";
+import { friendsApi } from "../../api/friends";
 import "../../styles/auth.css";
 
 export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, onConfirmDismiss }) {
@@ -71,7 +72,14 @@ export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, on
       if (!agreeAge) return setFieldError("Please confirm your age or parental consent.");
       if (!agreeTerms) return setFieldError("Please agree to the Terms of Service and Privacy Policy.");
       register.mutate({ email, password, displayName: displayName.trim() }, {
-        onSuccess: () => {
+        onSuccess: async (result) => {
+          if (result?.session) {
+            const inviteToken = sessionStorage.getItem("invite_token");
+            if (inviteToken) {
+              sessionStorage.removeItem("invite_token");
+              await friendsApi.processInviteSignup(inviteToken);
+            }
+          }
           onRegisterSuccess?.(email);
         },
       });
