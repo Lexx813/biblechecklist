@@ -514,6 +514,17 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .ch-pill.done { background: var(--teal); border-color: var(--teal); color: #fff; }
 .ch-pill.done:hover { background: var(--teal-dark); transform: scale(1.08); }
 
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes check-pop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  .ch-pill.done {
+    animation: check-pop 200ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+}
+
 /* Inner toggle button (fills entire pill normally) */
 .ch-pill-toggle {
   flex: 1; border: none; background: none; cursor: pointer;
