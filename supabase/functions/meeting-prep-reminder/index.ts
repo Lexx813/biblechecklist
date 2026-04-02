@@ -13,6 +13,7 @@ const supabase = createClient(
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
 );
 
+// NOTE: Uses UTC dates throughout — the cron runs at a fixed UTC time so this is consistent.
 function getMondayOfCurrentWeek(): string {
   const d = new Date();
   const day = d.getUTCDay(); // 0=Sun
@@ -21,7 +22,12 @@ function getMondayOfCurrentWeek(): string {
   return d.toISOString().slice(0, 10);
 }
 
-Deno.serve(async () => {
+Deno.serve(async (req) => {
+  const secret = Deno.env.get("CRON_SECRET");
+  if (secret && req.headers.get("authorization") !== `Bearer ${secret}`) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
   const weekStart = getMondayOfCurrentWeek();
   let notified = 0;
   let skipped = 0;
@@ -63,7 +69,7 @@ Deno.serve(async () => {
 
   const clamParts: unknown[] = meetingWeek?.clam_parts ?? [];
   const totalParts = clamParts.length;
-  const effectiveTotal = totalParts > 0 ? totalParts : 9;
+  const effectiveTotal = totalParts > 0 ? totalParts : 9; // 9 = typical CLAM part count when week record is missing
 
   // 4. Get existing prep records for this week
   const { data: prepRecords } = await supabase

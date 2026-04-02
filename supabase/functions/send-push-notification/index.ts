@@ -226,7 +226,11 @@ const TYPE_LABEL: Record<string, string> = {
   mention: "mentioned you in a reply",
   comment: "commented on your post",
   message: "sent you a message",
+  meeting_prep_reminder: "Meeting Prep Reminder",
 };
+
+// System notification types have no actor — use the type label directly as the title.
+const SYSTEM_TYPES = new Set(["meeting_prep_reminder"]);
 
 // ── Main handler ──────────────────────────────────────────────────────────────
 
@@ -250,17 +254,26 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify({ skipped: "no subscriptions" }), { status: 200 });
   }
 
-  // Get actor name
-  const { data: actor } = await supabase
-    .from("profiles")
-    .select("display_name")
-    .eq("id", notif.actor_id)
-    .single();
+  let title: string;
+  let body: string;
 
-  const actorName = actor?.display_name || "Someone";
-  const action = TYPE_LABEL[notif.type] || "sent you a notification";
-  const title = `NWT Progress`;
-  const body = `${actorName} ${action}`;
+  if (!notif.actor_id || SYSTEM_TYPES.has(notif.type)) {
+    // System-generated notification — no actor, use type label as title and body_preview as body.
+    title = TYPE_LABEL[notif.type] || "NWT Progress";
+    body = notif.body_preview || title;
+  } else {
+    // User-triggered notification — fetch actor name and build "Name did X" body.
+    const { data: actor } = await supabase
+      .from("profiles")
+      .select("display_name")
+      .eq("id", notif.actor_id)
+      .single();
+
+    const actorName = actor?.display_name || "Someone";
+    const action = TYPE_LABEL[notif.type] || "sent you a notification";
+    title = "NWT Progress";
+    body = `${actorName} ${action}`;
+  }
   const url = notif.link_hash ? `/${notif.link_hash}` : "/";
 
   const message = JSON.stringify({ title, body, url, tag: `notif-${notif.id}` });
