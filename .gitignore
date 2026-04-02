@@ -21,6 +21,7 @@ dist-ssr
 # Claude Code — contains sensitive tokens and local dev tooling
 .claude/
 .agents/
+.superpowers/
 memory/
 skills-lock.json
 
