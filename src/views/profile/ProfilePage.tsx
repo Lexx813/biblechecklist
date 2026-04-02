@@ -28,6 +28,7 @@ import "../../styles/gamification.css";
 import { formatDate } from "../../utils/formatters";
 import ReferralPanel from "../../components/ReferralPanel";
 import { FriendRequestButton } from "../../components/FriendRequestButton";
+import { friendsApi } from "../../api/friends";
 
 const TOTAL_CHAPTERS = BOOKS.reduce((s, b) => s + b.chapters, 0);
 
@@ -441,8 +442,11 @@ function PostsSection({ profileId, isOwner, t }) {
 // ── Message button ─────────────────────────────────────────
 function MessageButton({ targetId, otherDisplayName, otherAvatarUrl, navigate, isPremium, onUpgrade }) {
   const getOrCreate = useGetOrCreateDM();
-  function handleClick() {
-    if (!isPremium) { onUpgrade?.(); return; }
+  async function handleClick() {
+    if (!isPremium) {
+      const canMessage = await friendsApi.canMessageUser(targetId, isPremium);
+      if (!canMessage) { onUpgrade?.(); return; }
+    }
     getOrCreate.mutate(targetId, {
       onSuccess: (conversationId) => navigate("messages", {
         conversationId,
