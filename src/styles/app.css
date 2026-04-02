@@ -1,5 +1,7 @@
 
 
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap');
+
 /* Font: Plus Jakarta Sans Variable — self-hosted in /public/fonts/, preloaded in index.html */
 
 /* Skip-to-content link — visually hidden until focused by keyboard/screen reader */
@@ -58,6 +60,11 @@
   --radius-md: 16px;
   --radius-lg: 20px;
   --radius-pill: 999px;
+
+  /* ── Gold accent ── */
+  --gold: #f59e0b;
+  --gold-dim: rgba(245, 158, 11, 0.15);
+  --gold-text: #fde68a;
 
   /* ── Animation ── */
   --ease-out:    cubic-bezier(0, 0, 0.2, 1);
