@@ -1,8 +1,7 @@
-// @ts-nocheck
 import { useQuery } from "@tanstack/react-query";
 import { searchApi } from "../api/search";
 
-export function useSearch(query) {
+export function useSearch(query: string) {
   return useQuery({
     queryKey: ["search", query],
     queryFn: () => searchApi.search(query),
@@ -11,7 +10,7 @@ export function useSearch(query) {
   });
 }
 
-export function useSemanticSearch(query) {
+export function useSemanticSearch(query: string) {
   return useQuery({
     queryKey: ["semantic-search", query],
     queryFn: () => searchApi.semanticSearch(query),

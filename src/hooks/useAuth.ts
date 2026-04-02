@@ -1,5 +1,5 @@
-// @ts-nocheck
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import type { UserIdentity } from "@supabase/supabase-js";
 import { authApi } from "../api/auth";
 
 export function useIdentities() {
@@ -21,7 +21,7 @@ export function useUnlinkGoogle() {
   const queryClient = useQueryClient();
   return useMutation({
     meta: { silent: true },
-    mutationFn: (identity) => authApi.unlinkGoogle(identity),
+    mutationFn: (identity: UserIdentity) => authApi.unlinkGoogle(identity),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["identities"] }),
   });
 }
@@ -39,7 +39,8 @@ export function useLogin() {
   const queryClient = useQueryClient();
   return useMutation({
     meta: { silent: true }, // AuthPage shows inline error — no toast needed
-    mutationFn: ({ email, password }) => authApi.login(email, password),
+    mutationFn: ({ email, password }: { email: string; password: string }) =>
+      authApi.login(email, password),
     onSuccess: (session) => {
       queryClient.setQueryData(["session"], session);
     },
@@ -49,7 +50,8 @@ export function useLogin() {
 export function useRegister() {
   return useMutation({
     meta: { silent: true }, // AuthPage shows inline error — no toast needed
-    mutationFn: ({ email, password, displayName }) => authApi.register(email, password, displayName),
+    mutationFn: ({ email, password, displayName }: { email: string; password: string; displayName: string }) =>
+      authApi.register(email, password, displayName),
     // session is set via onAuthStateChange if confirmation is disabled;
     // if confirmation is required the component shows a message instead
   });
@@ -58,14 +60,14 @@ export function useRegister() {
 export function useResetPassword() {
   return useMutation({
     meta: { silent: true }, // AuthPage shows inline error — no toast needed
-    mutationFn: (email) => authApi.resetPassword(email),
+    mutationFn: (email: string) => authApi.resetPassword(email),
   });
 }
 
 export function useUpdatePassword() {
   return useMutation({
     meta: { silent: true },
-    mutationFn: (newPassword) => authApi.updatePassword(newPassword),
+    mutationFn: (newPassword: string) => authApi.updatePassword(newPassword),
   });
 }
 

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useFullProfile } from "./useAdmin";
 import { subscriptionApi } from "../api/subscription";
@@ -10,7 +9,7 @@ import { subscriptionApi } from "../api/subscription";
  * status    — raw value from profiles.subscription_status
  * subscribe — mutation: call .mutate() to redirect to Stripe Checkout
  */
-export function useSubscription(userId) {
+export function useSubscription(userId: string | null | undefined) {
   const queryClient = useQueryClient();
   const { data: profile } = useFullProfile(userId);
 
@@ -24,7 +23,7 @@ export function useSubscription(userId) {
 
   const subscribe = useMutation({
     mutationFn: subscriptionApi.createCheckoutSession,
-    onSuccess: (url) => {
+    onSuccess: (url: string) => {
       window.location.href = url;
     },
   });

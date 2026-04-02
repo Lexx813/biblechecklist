@@ -1,10 +1,9 @@
-// @ts-nocheck
 import { useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../lib/supabase";
 import { notificationsApi } from "../api/notifications";
 
-export function useNotifications(userId) {
+export function useNotifications(userId: string | null | undefined) {
   const queryClient = useQueryClient();
 
   // Real-time: push new notifications live
@@ -45,25 +44,25 @@ export function useNotifications(userId) {
   });
 }
 
-export function useMarkNotificationsRead(userId) {
+export function useMarkNotificationsRead(userId: string | null | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (ids) => ids === "all"
+    mutationFn: (ids: string[] | "all") => ids === "all"
       ? notificationsApi.markAllRead()
       : notificationsApi.markRead(ids),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["notifications", userId] }),
   });
 }
 
-export function useDeleteNotification(userId) {
+export function useDeleteNotification(userId: string | null | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id) => notificationsApi.delete(id),
+    mutationFn: (id: string) => notificationsApi.delete(id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["notifications", userId] }),
   });
 }
 
-export function useClearAllNotifications(userId) {
+export function useClearAllNotifications(userId: string | null | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: notificationsApi.clearAll,
