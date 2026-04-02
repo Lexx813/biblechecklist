@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import ConfirmModal from "../../components/ConfirmModal";
+import NoteTemplatePicker from "../../components/NoteTemplatePicker";
 import CustomSelect from "../../components/CustomSelect";
 const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
 const AICompanion = lazy(() => import("../../components/AICompanion"));
@@ -178,9 +179,9 @@ function EnhanceNoteWidget({ noteContent, passage }) {
 
 // ── Note editor ───────────────────────────────────────────────────────────────
 
-function NoteEditor({ note, folders, onSave, onCancel, saving, isAdmin }) {
+function NoteEditor({ note, initialContent = "", folders, onSave, onCancel, saving, isAdmin }) {
   const { t } = useTranslation();
-  const [form, setForm] = useState(note ?? EMPTY_NOTE);
+  const [form, setForm] = useState(note ?? { ...EMPTY_NOTE, content: initialContent });
   const maxChapter = form.book_index != null ? (BOOKS[form.book_index]?.chapters ?? 1) : 1;
 
   function set(field, val) {
@@ -786,6 +787,8 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
   const { isPremium } = useSubscription(user?.id);
 
   const [tab, setTab] = useState(initialTab); // "mine" | "public"
+  const [showTemplatePicker, setShowTemplatePicker] = useState(false);
+  const [templateContent, setTemplateContent] = useState("");
   const [editing, setEditing] = useState(() => {
     try {
       const saved = sessionStorage.getItem("sn:editing");
@@ -874,15 +877,22 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
     }
   }
 
+  function handleTemplateSelect(content) {
+    setTemplateContent(content);
+    setShowTemplatePicker(false);
+    setEditing("new");
+  }
+
   if (editing) {
     return (
       <div className="sn-page">
-        
+
         <NoteEditor
           note={editing === "new" ? null : editing}
+          initialContent={editing === "new" ? templateContent : ""}
           folders={folders}
           onSave={handleSave}
-          onCancel={() => setEditing(null)}
+          onCancel={() => { setEditing(null); setTemplateContent(""); }}
           saving={createNote.isPending || updateNote.isPending}
           isAdmin={isPremium}
         />
@@ -902,7 +912,7 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
             <p className="sn-subtitle">{t("studyNotes.subtitle")}</p>
             <span className="sn-premium-label">✦ Premium</span>
           </div>
-          <button className="sn-new-btn" onClick={() => setEditing("new")}>{t("studyNotes.newNote")}</button>
+          <button className="sn-new-btn" onClick={() => setShowTemplatePicker(true)}>{t("studyNotes.newNote")}</button>
         </div>
       </div>
 
@@ -983,7 +993,7 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
                   <>
                     <h3>{t("studyNotes.emptyTitle")}</h3>
                     <p>{t("studyNotes.emptyDesc")}</p>
-                    <button className="sn-new-btn" onClick={() => setEditing("new")}>{t("studyNotes.emptyBtn")}</button>
+                    <button className="sn-new-btn" onClick={() => setShowTemplatePicker(true)}>{t("studyNotes.emptyBtn")}</button>
                   </>
                 ) : (
                   <>
@@ -1062,6 +1072,14 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
           label={t("studyNotes.folderName")}
           onConfirm={(name) => { createFolder.mutate(name); setShowFolderPrompt(false); }}
           onCancel={() => setShowFolderPrompt(false)}
+        />
+      )}
+      {showTemplatePicker && (
+        <NoteTemplatePicker
+          userId={user?.id}
+          onSelect={handleTemplateSelect}
+          onDismiss={() => setShowTemplatePicker(false)}
+          onUpgrade={sharedNav.onUpgrade}
         />
       )}
     </div>
