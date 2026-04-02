@@ -67,6 +67,11 @@
 }
 .lb-row:hover { border-color: var(--accent); transform: translateY(-1px); }
 .lb-row--me { border-color: var(--accent); background: rgba(var(--accent-rgb, 107,70,193), 0.06); }
+.lb-row--first {
+  border-color: rgba(245,158,11,0.4);
+  background: rgba(245,158,11,0.05);
+}
+.lb-row--first:hover { border-color: rgba(245,158,11,0.65); }
 
 .lb-rank { font-size: 20px; width: 32px; text-align: center; flex-shrink: 0; }
 

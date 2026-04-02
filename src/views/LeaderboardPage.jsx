@@ -47,7 +47,7 @@ function ReadingBoard({ data, userId, onProfile }) {
       {data.map((row, i) => (
         <div
           key={row.user_id}
-          className={`lb-row${row.user_id === userId ? " lb-row--me" : ""}`}
+          className={`lb-row${i === 0 ? " lb-row--first" : ""}${row.user_id === userId ? " lb-row--me" : ""}`}
           onClick={() => onProfile(row.user_id)}
         >
           <span className="lb-rank">{MEDALS[i] ?? `#${i + 1}`}</span>
@@ -73,7 +73,7 @@ function QuizBoard({ data, userId, onProfile }) {
       {data.map((row, i) => (
         <div
           key={row.user_id}
-          className={`lb-row${row.user_id === userId ? " lb-row--me" : ""}`}
+          className={`lb-row${i === 0 ? " lb-row--first" : ""}${row.user_id === userId ? " lb-row--me" : ""}`}
           onClick={() => onProfile(row.user_id)}
         >
           <span className="lb-rank">{MEDALS[i] ?? `#${i + 1}`}</span>
