@@ -2,27 +2,16 @@
 // Base: https://wol.jw.org/{locale}/wol/b/{r}/{lp}/nwtsty/{bookNum}/{chapter}
 // bookNum is 1-based (Genesis=1 … Revelation=66), matching bookIndex+1
 
-// ── JW Library universal link ─────────────────────────────────────────────────
-// https://www.jw.org/finder opens JW Library app if installed, web otherwise.
-// bible param: BBCCCVVV (book 2-digit, chapter 3-digit, verse 3-digit)
-
-const JWL_LOCALE = {
-  en: "E",
-  es: "S",
-  pt: "T",
-  fr: "F",
-  tl: "TL",
-  zh: "CHS",
-};
+// ── JW Library deep link ──────────────────────────────────────────────────────
+// jwlibrary:// scheme opens the JW Library app directly on iOS and Android.
+// book is 1-based (Genesis=1 … Revelation=66), chapter is 1-based.
 
 /**
- * Returns a jw.org/finder URL that opens the given book+chapter in JW Library.
+ * Returns a jwlibrary:// deep link that opens the given book+chapter in the
+ * JW Library app. Works on iOS and Android if the app is installed.
  */
-export function jwLibraryChapterUrl(bookIndex, chapter, lang = "en") {
-  const locale = JWL_LOCALE[lang] ?? "E";
-  const bb = String(bookIndex + 1).padStart(2, "0");
-  const ccc = String(chapter).padStart(3, "0");
-  return `https://www.jw.org/finder?srcid=jwlapp&wtlocale=${locale}&pub=nwtsty&bible=${bb}${ccc}001`;
+export function jwLibraryChapterUrl(bookIndex, chapter) {
+  return `jwlibrary://ui?contentId=bible&book=${bookIndex + 1}&chapter=${chapter}`;
 }
 
 // ── Language map ──────────────────────────────────────────────────────────────
