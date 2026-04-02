@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { useEffect, useMemo, useState, useRef, useCallback } from "react";
+import React, { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import EmojiPickerPopup from "./EmojiPickerPopup";
 import StarterKit from "@tiptap/starter-kit";
@@ -125,7 +124,15 @@ const AlignRightIcon = () => (
 );
 
 // ── Toolbar button ────────────────────────────────────────────────────────────
-function Btn({ active, onClick, title, children, style }) {
+interface BtnProps {
+  active: boolean;
+  onClick: () => void;
+  title?: string;
+  children: React.ReactNode;
+  style?: React.CSSProperties;
+}
+
+function Btn({ active, onClick, title, children, style }: BtnProps) {
   return (
     <button
       type="button"
@@ -140,14 +147,23 @@ function Btn({ active, onClick, title, children, style }) {
 }
 
 // ── Color palette popup ───────────────────────────────────────────────────────
-function ColorPalette({ colors, onSelect, onClear, currentColor, label, children }) {
+interface ColorPaletteProps {
+  colors: string[];
+  onSelect: (color: string) => void;
+  onClear: () => void;
+  currentColor: string | null;
+  label: string;
+  children: React.ReactNode;
+}
+
+function ColorPalette({ colors, onSelect, onClear, currentColor, label, children }: ColorPaletteProps) {
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState({ top: 0, left: 0 });
-  const btnRef = useRef(null);
-  const popupRef = useRef(null);
-  const customRef = useRef(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
+  const customRef = useRef<HTMLInputElement>(null);
 
-  function handleOpen(e) {
+  function handleOpen(e: React.MouseEvent) {
     e.preventDefault();
     if (!open && btnRef.current) {
       const rect = btnRef.current.getBoundingClientRect();
@@ -161,8 +177,8 @@ function ColorPalette({ colors, onSelect, onClear, currentColor, label, children
 
   useEffect(() => {
     if (!open) return;
-    function close(e) {
-      if (!popupRef.current?.contains(e.target) && !btnRef.current?.contains(e.target)) {
+    function close(e: MouseEvent) {
+      if (!popupRef.current?.contains(e.target as Node) && !btnRef.current?.contains(e.target as Node)) {
         setOpen(false);
       }
     }
@@ -213,7 +229,7 @@ function ColorPalette({ colors, onSelect, onClear, currentColor, label, children
             name="custom_color"
             type="color"
             style={{ opacity: 0, position: "absolute", pointerEvents: "none", width: 0, height: 0 }}
-            onInput={e => { onSelect(e.target.value); setOpen(false); }}
+            onInput={e => { onSelect((e.target as HTMLInputElement).value); setOpen(false); }}
           />
         </div>
       )}
@@ -222,7 +238,19 @@ function ColorPalette({ colors, onSelect, onClear, currentColor, label, children
 }
 
 // ── Mention suggestion list ───────────────────────────────────────────────────
-function MentionList({ items, activeIdx, onSelect }) {
+interface MentionUser {
+  id: string;
+  display_name: string;
+  avatar_url?: string;
+}
+
+interface MentionListProps {
+  items: MentionUser[];
+  activeIdx: number;
+  onSelect: (user: MentionUser) => void;
+}
+
+function MentionList({ items, activeIdx, onSelect }: MentionListProps) {
   if (!items.length) return null;
   return (
     <div className="mention-dropdown">
@@ -246,6 +274,17 @@ function MentionList({ items, activeIdx, onSelect }) {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
+interface RichTextEditorProps {
+  content?: string;
+  onChange?: (html: string) => void;
+  onMention?: (user: MentionUser) => void;
+  placeholder?: string;
+  minimal?: boolean;
+  compact?: boolean;
+  disabled?: boolean;
+  allowMentions?: boolean;
+}
+
 export default function RichTextEditor({
   content = "",
   onChange,
@@ -255,13 +294,13 @@ export default function RichTextEditor({
   compact = false,
   disabled = false,
   allowMentions = false,
-}) {
+}: RichTextEditorProps) {
   const { t } = useTranslation();
 
   // @mention state
-  const [mentionItems, setMentionItems] = useState([]);
+  const [mentionItems, setMentionItems] = useState<MentionUser[]>([]);
   const [mentionActiveIdx, setMentionActiveIdx] = useState(0);
-  const mentionTimerRef = useRef(null);
+  const mentionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const allowMentionsRef = useRef(allowMentions);
   useEffect(() => { allowMentionsRef.current = allowMentions; }, [allowMentions]);
 
@@ -366,13 +405,13 @@ export default function RichTextEditor({
   }, [disabled, editor]);
 
   const [showEmoji, setShowEmoji] = useState(false);
-  const insertEditorEmoji = useCallback((em) => {
+  const insertEditorEmoji = useCallback((em: string) => {
     editor?.chain().focus().insertContent(em).run();
     setShowEmoji(false);
   }, [editor]);
 
-  const [linkModal, setLinkModal] = useState({ open: false, value: "" });
-  const linkInputRef = useRef(null);
+  const [linkModal, setLinkModal] = useState<{ open: boolean; value: string }>({ open: false, value: "" });
+  const linkInputRef = useRef<HTMLInputElement>(null);
 
   function openLinkModal() {
     const existing = editor.getAttributes("link").href || "";
@@ -381,7 +420,7 @@ export default function RichTextEditor({
     setTimeout(() => linkInputRef.current?.focus(), 0);
   }
 
-  function submitLink(e) {
+  function submitLink(e?: React.FormEvent) {
     e?.preventDefault();
     const trimmed = linkModal.value.trim();
     if (!trimmed) { editor.chain().focus().unsetLink().run(); }

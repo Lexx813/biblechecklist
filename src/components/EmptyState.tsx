@@ -1,5 +1,14 @@
-// @ts-nocheck
-export default function EmptyState({ icon, title, sub, btnLabel, onBtn }) {
+import React from "react";
+
+interface Props {
+  icon?: React.ReactNode;
+  title?: string;
+  sub?: string;
+  btnLabel?: string;
+  onBtn?: () => void;
+}
+
+export default function EmptyState({ icon, title, sub, btnLabel, onBtn }: Props) {
   return (
     <div className="home-empty">
       <div className="home-empty-icon">{icon}</div>

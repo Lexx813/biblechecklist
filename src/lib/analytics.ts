@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * Google Analytics 4 + conversion tracking utility.
  *
@@ -7,27 +6,33 @@
  * without worrying about whether gtag is loaded yet.
  */
 
-function gtag(...args) {
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+function gtag(...args: unknown[]): void {
   if (typeof window !== "undefined" && window.gtag) {
     window.gtag(...args);
   }
 }
 
 // ── Page view (called automatically by GA4, but useful for SPA transitions) ──
-export function trackPageView(path) {
+export function trackPageView(path: string): void {
   gtag("event", "page_view", { page_path: path });
 }
 
 // ── Conversion funnel events ─────────────────────────────────────────────────
-export function trackSignup(method = "email") {
+export function trackSignup(method = "email"): void {
   gtag("event", "sign_up", { method });
 }
 
-export function trackLogin(method = "email") {
+export function trackLogin(method = "email"): void {
   gtag("event", "login", { method });
 }
 
-export function trackBeginCheckout() {
+export function trackBeginCheckout(): void {
   gtag("event", "begin_checkout", {
     currency: "USD",
     value: 3.0,
@@ -35,7 +40,7 @@ export function trackBeginCheckout() {
   });
 }
 
-export function trackPurchase(transactionId) {
+export function trackPurchase(transactionId: string): void {
   gtag("event", "purchase", {
     transaction_id: transactionId,
     currency: "USD",
@@ -44,41 +49,41 @@ export function trackPurchase(transactionId) {
   });
 }
 
-export function trackTrialStart() {
+export function trackTrialStart(): void {
   gtag("event", "trial_start", { plan: "premium" });
 }
 
 // ── Engagement events ────────────────────────────────────────────────────────
-export function trackShare(contentType, itemId) {
+export function trackShare(contentType: string, itemId: string): void {
   gtag("event", "share", { content_type: contentType, item_id: itemId });
 }
 
-export function trackSearch(searchTerm) {
+export function trackSearch(searchTerm: string): void {
   gtag("event", "search", { search_term: searchTerm });
 }
 
-export function trackContentView(contentType, contentId) {
+export function trackContentView(contentType: string, contentId: string): void {
   gtag("event", "view_item", { content_type: contentType, content_id: contentId });
 }
 
-export function trackFeatureUse(featureName) {
+export function trackFeatureUse(featureName: string): void {
   gtag("event", "feature_use", { feature_name: featureName });
 }
 
-export function trackUpgradePromptView(feature) {
+export function trackUpgradePromptView(feature: string): void {
   gtag("event", "upgrade_prompt_view", { feature });
 }
 
-export function trackUpgradePromptClick(feature) {
+export function trackUpgradePromptClick(feature: string): void {
   gtag("event", "upgrade_prompt_click", { feature });
 }
 
 // ── UTM parameter capture ────────────────────────────────────────────────────
-export function captureUtmParams() {
+export function captureUtmParams(): void {
   if (typeof window === "undefined") return;
   const params = new URLSearchParams(window.location.search);
   const utmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
-  const utm = {};
+  const utm: Record<string, string> = {};
   let hasUtm = false;
 
   for (const key of utmKeys) {
@@ -98,17 +103,17 @@ export function captureUtmParams() {
   }
 }
 
-export function getStoredUtm() {
+export function getStoredUtm(): Record<string, string> | null {
   if (typeof window === "undefined") return null;
   try {
-    return JSON.parse(sessionStorage.getItem("nwt_utm"));
+    return JSON.parse(sessionStorage.getItem("nwt_utm") ?? "null") as Record<string, string> | null;
   } catch {
     return null;
   }
 }
 
 // ── Referral code capture ────────────────────────────────────────────────────
-export function captureReferralCode() {
+export function captureReferralCode(): void {
   if (typeof window === "undefined") return;
   const params = new URLSearchParams(window.location.search);
   const ref = params.get("ref");
@@ -117,12 +122,12 @@ export function captureReferralCode() {
   }
 }
 
-export function getStoredReferralCode() {
+export function getStoredReferralCode(): string | null {
   if (typeof window === "undefined") return null;
   return localStorage.getItem("nwt_referral_code");
 }
 
-export function clearStoredReferralCode() {
+export function clearStoredReferralCode(): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem("nwt_referral_code");
 }

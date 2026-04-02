@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useEffect, useRef } from "react";
 import { EMOJI_CATEGORIES } from "../lib/emojiData";
 import "../styles/emoji-picker.css";
@@ -12,13 +11,20 @@ import "../styles/emoji-picker.css";
  *   onClose()               — called when user clicks outside
  *   align                   — "left" | "right" (default "left")
  */
-export default function EmojiPickerPopup({ onSelect, onClose, align = "left" }) {
+
+interface Props {
+  onSelect: (emoji: string) => void;
+  onClose: () => void;
+  align?: "left" | "right";
+}
+
+export default function EmojiPickerPopup({ onSelect, onClose, align = "left" }: Props) {
   const [tab, setTab] = useState(0);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    function handler(e) {
-      if (ref.current && !ref.current.contains(e.target)) onClose();
+    function handler(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
     }
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);

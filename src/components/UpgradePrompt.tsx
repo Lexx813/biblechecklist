@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
@@ -6,7 +5,7 @@ import "../styles/upgrade-prompt.css";
 
 const DISMISS_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
-export function isDismissed(triggerKey) {
+export function isDismissed(triggerKey: string) {
   try {
     const val = localStorage.getItem(`nwt-prompt-dismissed-${triggerKey}`);
     if (!val) return false;
@@ -16,7 +15,7 @@ export function isDismissed(triggerKey) {
   }
 }
 
-export function dismissPrompt(triggerKey) {
+export function dismissPrompt(triggerKey: string) {
   try {
     localStorage.setItem(`nwt-prompt-dismissed-${triggerKey}`, String(Date.now()));
   } catch {
@@ -24,7 +23,16 @@ export function dismissPrompt(triggerKey) {
   }
 }
 
-export default function UpgradePrompt({ icon = "✦", title, message, ctaLabel, onCta, onDismiss }) {
+interface Props {
+  icon?: string;
+  title: string;
+  message: string;
+  ctaLabel: string;
+  onCta: () => void;
+  onDismiss: () => void;
+}
+
+export default function UpgradePrompt({ icon = "✦", title, message, ctaLabel, onCta, onDismiss }: Props) {
   const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
 
@@ -33,7 +41,7 @@ export default function UpgradePrompt({ icon = "✦", title, message, ctaLabel, 
   }, []);
 
   useEffect(() => {
-    function handleKeyDown(e) {
+    function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") onDismiss();
     }
     document.addEventListener("keydown", handleKeyDown);

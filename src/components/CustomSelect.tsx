@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useEffect, useRef } from "react";
 import "../styles/custom-select.css";
 
@@ -13,15 +12,30 @@ import "../styles/custom-select.css";
  *   searchable  — show a search input for long lists (default false)
  *   className   — extra class on the wrapper (optional)
  */
-export default function CustomSelect({ value, onChange, options, placeholder = "Select…", searchable = false, className = "" }) {
+
+interface Option {
+  value: string | number;
+  label: string;
+}
+
+interface Props {
+  value: string | number;
+  onChange: (value: string | number) => void;
+  options: Option[];
+  placeholder?: string;
+  searchable?: boolean;
+  className?: string;
+}
+
+export default function CustomSelect({ value, onChange, options, placeholder = "Select…", searchable = false, className = "" }: Props) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!open) return;
-    function handler(e) {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    function handler(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     }
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -33,7 +47,7 @@ export default function CustomSelect({ value, onChange, options, placeholder = "
 
   const selected = options.find(o => o.value === value);
 
-  function pick(val) {
+  function pick(val: string | number) {
     onChange(val);
     setOpen(false);
     setSearch("");

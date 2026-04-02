@@ -1,9 +1,14 @@
-// @ts-nocheck
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 
-export default function ReportModal({ onSubmit, onClose, isPending }) {
+interface Props {
+  onSubmit: (reason: string) => void;
+  onClose: () => void;
+  isPending?: boolean;
+}
+
+export default function ReportModal({ onSubmit, onClose, isPending }: Props) {
   const [reason, setReason] = useState("");
   const { t } = useTranslation();
   return createPortal(

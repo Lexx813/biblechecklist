@@ -1,7 +1,7 @@
-// @ts-nocheck
+import React from "react";
 import "../styles/pagefooter.css";
 
-function legalLink(e, path) {
+function legalLink(e: React.MouseEvent<HTMLAnchorElement>, path: string) {
   e.preventDefault();
   history.pushState(null, "", path);
   window.dispatchEvent(new PopStateEvent("popstate"));

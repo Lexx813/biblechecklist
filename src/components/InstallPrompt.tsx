@@ -1,18 +1,22 @@
-// @ts-nocheck
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+}
+
 export default function InstallPrompt() {
   const { t } = useTranslation();
-  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [dismissed, setDismissed] = useState(
     () => localStorage.getItem("nwt-install-dismissed") === "1"
   );
 
   useEffect(() => {
-    function handler(e) {
+    function handler(e: Event) {
       e.preventDefault();
-      setDeferredPrompt(e);
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
     }
     window.addEventListener("beforeinstallprompt", handler);
     return () => window.removeEventListener("beforeinstallprompt", handler);
@@ -21,8 +25,8 @@ export default function InstallPrompt() {
   if (!deferredPrompt || dismissed) return null;
 
   function handleInstall() {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(() => setDeferredPrompt(null));
+    deferredPrompt!.prompt();
+    deferredPrompt!.userChoice.then(() => setDeferredPrompt(null));
   }
 
   function handleDismiss() {

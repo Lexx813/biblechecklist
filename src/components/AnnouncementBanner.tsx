@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useActiveAnnouncements } from "../hooks/useAnnouncements";
 
@@ -9,24 +8,35 @@ const INFO_ICON    = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" 
 const WARN_ICON    = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>;
 const SUCCESS_ICON = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>;
 
-const TYPE_STYLES = {
+const TYPE_STYLES: Record<string, { bg: string; border: string; icon: React.ReactNode }> = {
   info:    { bg: "rgba(14,165,233,0.14)",  border: "#0EA5E9", icon: INFO_ICON },
   warning: { bg: "rgba(234,179,8,0.14)",   border: "#EAB308", icon: WARN_ICON },
   success: { bg: "rgba(34,197,94,0.14)",   border: "#22C55E", icon: SUCCESS_ICON },
 };
 
-function AnnouncementToast({ announcement, onDone }) {
+interface Announcement {
+  id: string;
+  message: string;
+  type: string;
+}
+
+interface ToastProps {
+  announcement: Announcement;
+  onDone: () => void;
+}
+
+function AnnouncementToast({ announcement, onDone }: ToastProps) {
   const [visible, setVisible] = useState(true);
-  const timerRef = useRef(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const s = TYPE_STYLES[announcement.type] ?? TYPE_STYLES.info;
 
   useEffect(() => {
     timerRef.current = setTimeout(() => setVisible(false), DURATION);
-    return () => clearTimeout(timerRef.current);
+    return () => clearTimeout(timerRef.current ?? undefined);
   }, []);
 
   // After slide-out animation ends, notify parent
-  function handleAnimEnd(e) {
+  function handleAnimEnd(e: React.AnimationEvent) {
     if (e.animationName === "ann-slide-out") onDone();
   }
 
@@ -57,7 +67,7 @@ export default function AnnouncementBanner() {
     catch { return []; }
   });
 
-  function dismiss(id) {
+  function dismiss(id: string) {
     const next = [...dismissed, id];
     setDismissed(next);
     sessionStorage.setItem("dismissed-announcements", JSON.stringify(next));

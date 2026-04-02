@@ -1,15 +1,20 @@
-// @ts-nocheck
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { trackShare } from "../lib/analytics";
 
 const SITE = "https://nwtprogress.com";
 
-function encode(str) {
+function encode(str: string) {
   return encodeURIComponent(str);
 }
 
-export default function ShareButtons({ path, title, type = "blog" }) {
+interface Props {
+  path: string;
+  title: string;
+  type?: string;
+}
+
+export default function ShareButtons({ path, title, type = "blog" }: Props) {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const url = `${SITE}${path}`;
@@ -23,7 +28,7 @@ export default function ShareButtons({ path, title, type = "blog" }) {
     trackShare(type, path);
   }
 
-  function open(href) {
+  function open(href: string) {
     window.open(href, "_blank", "width=600,height=400,noopener,noreferrer");
     trackShare(type, path);
   }

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
@@ -42,27 +41,38 @@ const CHOICES = [
   },
 ];
 
-export default function OnboardingModal({ onClose, navigate, user }) {
+interface User {
+  id?: string;
+  user_metadata?: { full_name?: string };
+}
+
+interface Props {
+  onClose: () => void;
+  navigate?: (page: string) => void;
+  user?: User;
+}
+
+export default function OnboardingModal({ onClose, navigate, user }: Props) {
   const { t } = useTranslation();
   const [step, setStep] = useState(0); // 0=intent, 1=goal, 2=notif
-  const [selectedPage, setSelectedPage] = useState(null);
+  const [selectedPage, setSelectedPage] = useState<string | null>(null);
   const [goalInput, setGoalInput] = useState(3);
   const updateProfile = useUpdateProfile(user?.id);
   const { subscribe: requestPushPermission } = usePushNotifications();
 
-  function complete(destination) {
+  function complete(destination: string | null) {
     localStorage.setItem("nwt-onboarded", "1");
     onClose();
     if (destination) navigate?.(destination);
   }
 
-  function handleChoiceSelect(page) {
+  function handleChoiceSelect(page: string) {
     setSelectedPage(page);
     setStep(1);
   }
 
   function handleGoalSave() {
-    const g = Math.min(30, Math.max(1, parseInt(goalInput) || 1));
+    const g = Math.min(30, Math.max(1, goalInput || 1));
     updateProfile.mutate({ daily_chapter_goal: g });
     setStep(2);
   }
@@ -144,7 +154,7 @@ export default function OnboardingModal({ onClose, navigate, user }) {
   );
 }
 
-export function useOnboarding(userCreatedAt) {
+export function useOnboarding(userCreatedAt: string | undefined | null): [boolean, () => void] {
   const [show, setShow] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("nwt-onboarded")) return;

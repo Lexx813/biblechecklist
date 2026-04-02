@@ -1,12 +1,11 @@
-// @ts-nocheck
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import "../styles/celebration.css";
 
 const CONFETTI_COLORS = ["#9B59B6", "#6A3DAA", "#C084FC", "#F59E0B", "#10B981", "#3B82F6", "#EC4899"];
 
-function createConfetti(container) {
+function createConfetti(container: Element) {
   for (let i = 0; i < 60; i++) {
     const el = document.createElement("div");
     el.className = "confetti-piece";
@@ -23,7 +22,15 @@ function createConfetti(container) {
   }
 }
 
-export default function BookCelebration({ bookName, bookIcon, chaptersCount, totalDoneBooks, onClose }) {
+interface Props {
+  bookName: string;
+  bookIcon?: React.ReactNode;
+  chaptersCount: number;
+  totalDoneBooks: number;
+  onClose: () => void;
+}
+
+export default function BookCelebration({ bookName, bookIcon, chaptersCount, totalDoneBooks, onClose }: Props) {
   const { t } = useTranslation();
 
   useEffect(() => {

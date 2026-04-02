@@ -1,5 +1,12 @@
-// @ts-nocheck
-export default function SectionHeader({ label, title, sub, onViewAll, viewAllLabel = "View all" }) {
+interface Props {
+  label?: string;
+  title?: string;
+  sub?: string;
+  onViewAll?: () => void;
+  viewAllLabel?: string;
+}
+
+export default function SectionHeader({ label, title, sub, onViewAll, viewAllLabel = "View all" }: Props) {
   return (
     <>
       <div className="home-section-label">{label}</div>

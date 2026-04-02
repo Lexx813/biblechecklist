@@ -1,5 +1,4 @@
-// @ts-nocheck
-// src/components/NoteTemplatePicker.jsx
+// src/components/NoteTemplatePicker.tsx
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
@@ -7,12 +6,27 @@ import { NOTE_TEMPLATES } from "../data/noteTemplates";
 import { useSubscription } from "../hooks/useSubscription";
 import "../styles/note-templates.css";
 
-export default function NoteTemplatePicker({ userId, onSelect, onDismiss, onUpgrade }) {
+interface NoteTemplate {
+  key: string;
+  name: string;
+  isPremium?: boolean;
+  content: string;
+  previewLines: string[];
+}
+
+interface Props {
+  userId?: string;
+  onSelect: (content: string) => void;
+  onDismiss: () => void;
+  onUpgrade?: () => void;
+}
+
+export default function NoteTemplatePicker({ userId, onSelect, onDismiss, onUpgrade }: Props) {
   const { t } = useTranslation();
   const { isPremium } = useSubscription(userId);
   const [selectedKey, setSelectedKey] = useState("blank");
 
-  function handleCardClick(template) {
+  function handleCardClick(template: NoteTemplate) {
     if (template.isPremium && !isPremium) {
       onUpgrade?.();
       return;

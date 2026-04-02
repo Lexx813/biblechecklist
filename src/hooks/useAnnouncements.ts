@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { announcementsApi } from "../api/announcements";
 
@@ -21,7 +20,8 @@ export function useAllAnnouncements() {
 export function useCreateAnnouncement() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ authorId, message, type }) => announcementsApi.create(authorId, message, type),
+    mutationFn: ({ authorId, message, type }: { authorId: string; message: string; type: string }) =>
+      announcementsApi.create(authorId, message, type),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["announcements"] });
     },
@@ -31,7 +31,7 @@ export function useCreateAnnouncement() {
 export function useToggleAnnouncement() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, active }) => announcementsApi.toggle(id, active),
+    mutationFn: ({ id, active }: { id: string; active: boolean }) => announcementsApi.toggle(id, active),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["announcements"] }),
   });
 }
@@ -39,7 +39,7 @@ export function useToggleAnnouncement() {
 export function useDeleteAnnouncement() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id) => announcementsApi.delete(id),
+    mutationFn: (id: string) => announcementsApi.delete(id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["announcements"] }),
   });
 }

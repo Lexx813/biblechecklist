@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * End-to-end encryption for direct messages.
  * Uses ECDH P-256 for key exchange, HKDF for key derivation, AES-256-GCM for encryption.
@@ -6,49 +5,62 @@
  * Public keys are published to Supabase so the other party can derive the shared key.
  */
 
-const STORAGE_KEY = (userId) => `nwt-e2e-${userId}`;
+const STORAGE_KEY = (userId: string) => `nwt-e2e-${userId}`;
 
 // ── Base64url helpers ─────────────────────────────────────────────────────────
 
-function b64url(buf) {
+function b64url(buf: ArrayBuffer): string {
   return btoa(String.fromCharCode(...new Uint8Array(buf)))
     .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
-function fromB64url(str) {
+function fromB64url(str: string): Uint8Array {
   const pad = "=".repeat((4 - (str.length % 4)) % 4);
   return Uint8Array.from(atob((str + pad).replace(/-/g, "+").replace(/_/g, "/")), c => c.charCodeAt(0));
 }
 
 // ── Key operations ────────────────────────────────────────────────────────────
 
-async function importPublicKey(jwk) {
+async function importPublicKey(jwk: JsonWebKey): Promise<CryptoKey> {
   return crypto.subtle.importKey("jwk", jwk, { name: "ECDH", namedCurve: "P-256" }, true, []);
 }
 
-async function importPrivateKey(jwk) {
+async function importPrivateKey(jwk: JsonWebKey): Promise<CryptoKey> {
   return crypto.subtle.importKey("jwk", jwk, { name: "ECDH", namedCurve: "P-256" }, true, ["deriveBits"]);
+}
+
+interface KeyPairResult {
+  privateKey: CryptoKey;
+  publicKey: CryptoKey;
+  publicJwk: JsonWebKey;
+  privateJwk: JsonWebKey;
 }
 
 /**
  * Generate a fresh ECDH P-256 key pair.
  * Returns { privateKey, publicKey, publicJwk }
  */
-export async function generateKeyPair() {
+export async function generateKeyPair(): Promise<KeyPairResult> {
   const kp = await crypto.subtle.generateKey({ name: "ECDH", namedCurve: "P-256" }, true, ["deriveBits"]);
   const publicJwk = await crypto.subtle.exportKey("jwk", kp.publicKey);
   const privateJwk = await crypto.subtle.exportKey("jwk", kp.privateKey);
   return { privateKey: kp.privateKey, publicKey: kp.publicKey, publicJwk, privateJwk };
 }
 
+interface StoredKeyPair {
+  privateKey: CryptoKey;
+  publicKey: CryptoKey;
+  publicJwk: JsonWebKey;
+}
+
 /**
  * Load key pair from localStorage, or generate and persist a new one.
  */
-export async function getOrCreateKeyPair(userId) {
+export async function getOrCreateKeyPair(userId: string): Promise<StoredKeyPair> {
   const stored = localStorage.getItem(STORAGE_KEY(userId));
   if (stored) {
     try {
-      const { privateJwk, publicJwk } = JSON.parse(stored);
+      const { privateJwk, publicJwk } = JSON.parse(stored) as { privateJwk: JsonWebKey; publicJwk: JsonWebKey };
       const [privateKey, publicKey] = await Promise.all([
         importPrivateKey(privateJwk),
         importPublicKey(publicJwk),
@@ -67,7 +79,7 @@ export async function getOrCreateKeyPair(userId) {
  * Derive a shared AES-256-GCM key from ECDH + HKDF.
  * Alice(privateKey) + Bob(publicKey) === Bob(privateKey) + Alice(publicKey)
  */
-export async function deriveSharedKey(myPrivateKey, theirPublicKey) {
+export async function deriveSharedKey(myPrivateKey: CryptoKey, theirPublicKey: CryptoKey): Promise<CryptoKey> {
   const sharedBits = await crypto.subtle.deriveBits(
     { name: "ECDH", public: theirPublicKey },
     myPrivateKey,
@@ -98,25 +110,25 @@ export { importPublicKey };
 /**
  * Encrypt a plaintext string. Returns "enc:{iv}:{ciphertext}" (base64url).
  */
-export async function encryptMessage(plaintext, aesKey) {
+export async function encryptMessage(plaintext: string, aesKey: CryptoKey): Promise<string> {
   const iv = crypto.getRandomValues(new Uint8Array(12));
   const encoded = new TextEncoder().encode(plaintext);
   const ciphertext = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, aesKey, encoded);
-  return `enc:${b64url(iv)}:${b64url(ciphertext)}`;
+  return `enc:${b64url(iv as any)}:${b64url(ciphertext as any)}`;
 }
 
 /**
  * Decrypt an "enc:iv:ct" string. Returns plaintext.
  * If content doesn't start with "enc:", it's a legacy plaintext message — returned as-is.
  */
-export async function decryptMessage(content, aesKey) {
+export async function decryptMessage(content: string, aesKey: CryptoKey): Promise<string> {
   if (!content?.startsWith("enc:")) return content ?? "";
   try {
     const parts = content.split(":");
     if (parts.length < 3) return "[🔒 Malformed message]";
     const iv = fromB64url(parts[1]);
     const ct = fromB64url(parts.slice(2).join(":")); // handle colons in ciphertext
-    const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, aesKey, ct);
+    const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: iv as any }, aesKey, ct as any);
     return new TextDecoder().decode(plain);
   } catch {
     return "[🔒 Unable to decrypt]";
@@ -142,7 +154,7 @@ export const MAX_MSG_LENGTH = 2000;
  * time, so this sanitisation is a belt-and-suspenders measure for the stored
  * copy and for any future surface that might render content differently.
  */
-export function sanitizeContent(content) {
+export function sanitizeContent(content: unknown): string {
   if (typeof content !== "string") return "";
 
   // Step 1: use DOMParser to safely extract plain text from any HTML

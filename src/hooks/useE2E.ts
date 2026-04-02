@@ -1,7 +1,12 @@
-// @ts-nocheck
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import { getOrCreateKeyPair, importPublicKey, deriveSharedKey } from "../lib/e2e";
+
+interface KeyPair {
+  privateKey: CryptoKey;
+  publicKey: CryptoKey;
+  publicJwk: JsonWebKey;
+}
 
 /**
  * Initialise E2E keys for the current user.
@@ -9,7 +14,7 @@ import { getOrCreateKeyPair, importPublicKey, deriveSharedKey } from "../lib/e2e
  */
 // E2E encryption disabled — messages are protected by Supabase RLS.
 // Key exchange infrastructure is preserved for future re-enablement.
-export function useE2EKeys(_userId) {
+export function useE2EKeys(_userId: string | undefined): { keyPair: null; ready: false } {
   return { keyPair: null, ready: false };
 }
 
@@ -17,9 +22,9 @@ export function useE2EKeys(_userId) {
  * Derive the shared AES key for a conversation between the current user and another user.
  * Returns null until both parties have published their public keys.
  */
-export function useSharedKey(keyPair, otherUserId) {
-  const [sharedKey, setSharedKey] = useState(null);
-  const [otherHasKey, setOtherHasKey] = useState(null); // null=loading, true/false
+export function useSharedKey(keyPair: KeyPair | null, otherUserId: string | undefined) {
+  const [sharedKey, setSharedKey] = useState<CryptoKey | null>(null);
+  const [otherHasKey, setOtherHasKey] = useState<boolean | null>(null); // null=loading, true/false
 
   useEffect(() => {
     if (!keyPair || !otherUserId) return;
@@ -41,7 +46,7 @@ export function useSharedKey(keyPair, otherUserId) {
         }
 
         setOtherHasKey(true);
-        const theirPublicKey = await importPublicKey(data.public_key_jwk);
+        const theirPublicKey = await importPublicKey(data.public_key_jwk as JsonWebKey);
         const key = await deriveSharedKey(keyPair.privateKey, theirPublicKey);
         if (!cancelled) setSharedKey(key);
       } catch (err) {

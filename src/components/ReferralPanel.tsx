@@ -1,13 +1,22 @@
-// @ts-nocheck
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { referralApi } from "../api/referral";
 import "../styles/referral.css";
 
-export default function ReferralPanel({ userId }) {
+interface Referral {
+  id: string;
+  status: string;
+  profiles?: { display_name?: string };
+}
+
+interface Props {
+  userId: string;
+}
+
+export default function ReferralPanel({ userId }: Props) {
   const { t } = useTranslation();
-  const [code, setCode] = useState(null);
-  const [referrals, setReferrals] = useState([]);
+  const [code, setCode] = useState<string | null>(null);
+  const [referrals, setReferrals] = useState<Referral[]>([]);
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -20,7 +29,7 @@ export default function ReferralPanel({ userId }) {
           referralApi.getMyReferrals(userId),
         ]);
         setCode(c);
-        setReferrals(r);
+        setReferrals(r as any);
       } catch (err) {
         console.error("Referral load error:", err);
       } finally {

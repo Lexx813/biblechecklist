@@ -1,11 +1,16 @@
-// @ts-nocheck
 import { useRef } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { useClickOutside } from "../hooks/useClickOutside";
 import "../styles/upgrade-modal.css";
 
-export default function UpgradeModal({ onClose, onSubscribe, loading }) {
+interface Props {
+  onClose: () => void;
+  onSubscribe: () => void;
+  loading?: boolean;
+}
+
+export default function UpgradeModal({ onClose, onSubscribe, loading }: Props) {
   const { t } = useTranslation();
   const ref = useRef(null);
   useClickOutside(ref, true, onClose);

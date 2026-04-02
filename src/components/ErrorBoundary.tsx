@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from "react";
 
 const errorWrapStyle = {
@@ -10,7 +9,7 @@ const errorWrapStyle = {
   padding: "2rem",
   fontFamily: "inherit",
 };
-const errorContentStyle = {
+const errorContentStyle: React.CSSProperties = {
   textAlign: "center",
   maxWidth: 480,
   color: "#f0eaff",
@@ -25,7 +24,7 @@ const errorCodeStyle = {
 };
 const errorTitleStyle = { fontSize: "1.4rem", fontWeight: 700, margin: "0 0 0.75rem" };
 const errorSubStyle = { fontSize: "0.95rem", opacity: 0.75, margin: "0 0 1.5rem", lineHeight: 1.6 };
-const errorActionsStyle = { display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" };
+const errorActionsStyle: React.CSSProperties = { display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" };
 const btnStyle = {
   padding: "0.65rem 1.25rem",
   borderRadius: 8,
@@ -38,8 +37,13 @@ const btnStyle = {
 };
 const btnGhostStyle = { ...btnStyle, background: "transparent" };
 
+interface ErrorPageProps {
+  error?: { message?: string } | null;
+  onReset?: (() => void) | null;
+}
+
 // ── Error page UI ──────────────────────────────────────────────
-export function ErrorPage({ error, onReset }) {
+export function ErrorPage({ error, onReset }: ErrorPageProps) {
   return (
     <div style={errorWrapStyle}>
       <div style={errorContentStyle}>
@@ -63,8 +67,12 @@ export function ErrorPage({ error, onReset }) {
   );
 }
 
+interface NotFoundPageProps {
+  onBack?: () => void;
+}
+
 // ── 404 / Not Found page ───────────────────────────────────────
-export function NotFoundPage({ onBack }) {
+export function NotFoundPage({ onBack }: NotFoundPageProps) {
   return (
     <div style={errorWrapStyle}>
       <div style={errorContentStyle}>
@@ -83,18 +91,23 @@ export function NotFoundPage({ onBack }) {
   );
 }
 
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
 // ── Error Boundary (class component — required by React) ───────
-export class ErrorBoundary extends React.Component {
-  constructor(props) {
+export class ErrorBoundary extends React.Component<React.PropsWithChildren, ErrorBoundaryState> {
+  constructor(props: React.PropsWithChildren) {
     super(props);
     this.state = { hasError: false, error: null };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error: Error, info: React.ErrorInfo) {
     console.error("[ErrorBoundary]", error, info.componentStack);
     // Lazy-load Sentry only when an error actually occurs — keeps it off the critical path
     import("@sentry/react")

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import DOMPurify from "dompurify";
 
 // Allow a curated set of CSS properties in rich content (color, highlight, alignment).
@@ -10,7 +9,7 @@ if (typeof window !== "undefined") {
     if (data.attrName !== "style") return;
     const el = document.createElement("span");
     el.style.cssText = data.attrValue;
-    const safe = [];
+    const safe: string[] = [];
     for (const prop of SAFE_CSS) {
       const val = el.style.getPropertyValue(prop);
       if (val) safe.push(`${prop}:${val}`);
@@ -24,11 +23,11 @@ if (typeof window !== "undefined") {
 }
 
 /** Sanitize user-generated rich HTML, preserving safe inline styles. */
-export function sanitizeRich(html) {
+export function sanitizeRich(html: string): string {
   return DOMPurify.sanitize(html || "", { ADD_ATTR: ["style"] });
 }
 
 /** Plain sanitize for non-rich content (no styles allowed). */
-export function sanitize(html) {
+export function sanitize(html: string): string {
   return DOMPurify.sanitize(html || "");
 }

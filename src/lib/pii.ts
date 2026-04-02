@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * PII detection — blocks emails, phone numbers, street addresses,
  * personal social media links/handles, and insecure (http://) links
@@ -10,7 +9,7 @@
  */
 
 // Strips HTML tags and common entities to get plain text for scanning
-function stripHtml(html = "") {
+function stripHtml(html = ""): string {
   return html
     .replace(/<[^>]*>/g, " ")
     .replace(/&[a-z]+;/gi, " ")
@@ -44,7 +43,7 @@ const INSECURE_URL_RE = /\bhttp:\/\//i;
  * Returns a description of the first PII type found, or null if clean.
  * Accepts plain text or HTML.
  */
-export function detectPII(text = "") {
+export function detectPII(text = ""): string | null {
   const plain = stripHtml(text);
   if (EMAIL_RE.test(plain)) return "email address";
   if (PHONE_RE.test(plain)) return "phone number";
@@ -60,7 +59,7 @@ export function detectPII(text = "") {
  * Call this before every API insert/update.
  * Profanity is caught server-side by the Supabase trigger.
  */
-export function assertNoPII(...fields) {
+export function assertNoPII(...fields: string[]): void {
   for (const text of fields) {
     const found = detectPII(text);
     if (found) {

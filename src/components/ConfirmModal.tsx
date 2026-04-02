@@ -1,8 +1,15 @@
-// @ts-nocheck
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 
-export default function ConfirmModal({ message, onConfirm, onCancel, confirmLabel, danger = true }) {
+interface Props {
+  message: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+  confirmLabel?: string;
+  danger?: boolean;
+}
+
+export default function ConfirmModal({ message, onConfirm, onCancel, confirmLabel, danger = true }: Props) {
   const { t } = useTranslation();
   return createPortal(
     <div className="confirm-overlay" onClick={onCancel}>

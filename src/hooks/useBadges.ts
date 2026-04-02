@@ -1,22 +1,21 @@
-// @ts-nocheck
 // src/hooks/useBadges.js
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { badgesApi } from "../api/badges";
 import { BADGES } from "../data/badges";
 
-export function useBadges(userId) {
+export function useBadges(userId: string | undefined) {
   return useQuery({
     queryKey: ["badges", userId],
-    queryFn: () => badgesApi.getUserBadges(userId),
+    queryFn: () => badgesApi.getUserBadges(userId!),
     enabled: !!userId,
     staleTime: 10 * 60 * 1000,
   });
 }
 
-export function useAwardBadge(userId) {
+export function useAwardBadge(userId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (badgeKey) => badgesApi.awardBadge(userId, badgeKey),
+    mutationFn: (badgeKey: string) => badgesApi.awardBadge(userId!, badgeKey),
     onSuccess: (result, badgeKey) => {
       if (!result?.alreadyEarned) {
         queryClient.invalidateQueries({ queryKey: ["badges", userId] });

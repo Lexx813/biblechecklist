@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState } from "react";
 import { profileApi } from "../api/profile";
 import { useQueryClient } from "@tanstack/react-query";
@@ -9,7 +8,12 @@ import "../styles/auth.css";
  * accepted the Terms of Service (email signup or Google OAuth).
  * Cannot be dismissed without checking both boxes.
  */
-export default function ConsentGate({ userId }) {
+
+interface Props {
+  userId: string;
+}
+
+export default function ConsentGate({ userId }: Props) {
   const [agreeAge, setAgreeAge] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [busy, setBusy] = useState(false);
