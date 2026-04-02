@@ -156,6 +156,31 @@
   .skeleton { animation: none; opacity: 0.5; }
 }
 
+/* ── Button loading state ── */
+.btn--loading {
+  pointer-events: none;
+  opacity: 0.75;
+  position: relative;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes btn-spin {
+    to { transform: translateY(-50%) rotate(360deg); }
+  }
+  .btn--loading::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255,255,255,0.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: btn-spin 0.6s linear infinite;
+  }
+}
+
 /* ---- Dark mode overrides ---- */
 [data-theme="dark"] {
   --bg: #0d0820;

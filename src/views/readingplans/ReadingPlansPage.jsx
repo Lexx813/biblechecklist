@@ -293,7 +293,7 @@ function TemplateCard({ template, enrolled, onEnroll, enrolling }) {
         </div>
       </div>
       <button
-        className={`rp-enroll-btn${enrolled ? " rp-enroll-btn--enrolled" : ""}`}
+        className={`rp-enroll-btn${enrolled ? " rp-enroll-btn--enrolled" : ""}${enrolling ? " btn--loading" : ""}`}
         onClick={onEnroll}
         disabled={enrolled || enrolling}
       >
@@ -595,7 +595,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate }
           </div>
           <div className="rp-today-actions">
             <button
-              className={`rp-mark-btn${doneSet.has(currentDay) ? " rp-mark-btn--done" : ""}`}
+              className={`rp-mark-btn${doneSet.has(currentDay) ? " rp-mark-btn--done" : ""}${(markDay.isPending || unmarkDay.isPending) ? " btn--loading" : ""}`}
               onClick={() => toggleDay(currentDay)}
               disabled={isLoading || markDay.isPending || unmarkDay.isPending}
             >
