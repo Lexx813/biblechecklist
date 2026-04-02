@@ -113,3 +113,39 @@
 }
 
 .notif-time { font-size: 11px; color: var(--text-muted); display: block; margin-top: 3px; }
+
+/* Friend request inline actions */
+.notif-friend-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.notif-accept-btn,
+.notif-decline-btn {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.notif-accept-btn:disabled,
+.notif-decline-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.notif-accept-btn {
+  background: var(--teal, #38b2ac);
+  color: #fff;
+}
+.notif-accept-btn:hover:not(:disabled) { opacity: 0.85; }
+
+.notif-decline-btn {
+  background: rgba(229, 62, 62, 0.12);
+  color: #e53e3e;
+}
+.notif-decline-btn:hover:not(:disabled) { background: rgba(229, 62, 62, 0.22); }

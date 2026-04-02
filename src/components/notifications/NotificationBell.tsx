@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNotifications, useMarkNotificationsRead, useDeleteNotification, useClearAllNotifications } from "../../hooks/useNotifications";
+import { useAcceptFriendRequest, useDeclineFriendRequest } from "../../hooks/useFriends";
 import "../../styles/notifications.css";
 
 function timeAgo(iso: string) {
@@ -16,6 +17,7 @@ interface AppNotification {
   read: boolean;
   link_hash?: string;
   type?: string;
+  actor_id?: string;
   conversation_id?: string;
   thread_id?: string;
   post?: { slug?: string };
@@ -35,9 +37,11 @@ export default function NotificationBell({ userId, navigate }: Props) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const { data: notifications = [] } = useNotifications(userId);
-  const markRead   = useMarkNotificationsRead(userId);
-  const deleteOne  = useDeleteNotification(userId);
-  const clearAll   = useClearAllNotifications(userId);
+  const markRead       = useMarkNotificationsRead(userId);
+  const deleteOne      = useDeleteNotification(userId);
+  const clearAll       = useClearAllNotifications(userId);
+  const acceptRequest  = useAcceptFriendRequest(userId ?? "");
+  const declineRequest = useDeclineFriendRequest(userId ?? "");
 
   const unread = notifications.filter(n => !n.read);
 
@@ -98,9 +102,8 @@ export default function NotificationBell({ userId, navigate }: Props) {
       return;
     }
 
-    // Friend request — navigate to friend requests page
+    // Friend request — handled by inline Accept/Decline buttons
     if (n.type === "friend_request") {
-      navigate("friendRequests");
       return;
     }
 
@@ -174,6 +177,30 @@ export default function NotificationBell({ userId, navigate }: Props) {
                         <p className="notif-preview">"{n.body_preview}"</p>
                       )}
                       <span className="notif-time">{timeAgo(n.created_at)}</span>
+                      {n.type === "friend_request" && n.actor_id && (
+                        <div className="notif-friend-actions">
+                          <button
+                            className="notif-accept-btn"
+                            disabled={acceptRequest.isPending || declineRequest.isPending}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              acceptRequest.mutate(n.actor_id!, { onSuccess: () => deleteOne.mutate(n.id) });
+                            }}
+                          >
+                            Accept
+                          </button>
+                          <button
+                            className="notif-decline-btn"
+                            disabled={acceptRequest.isPending || declineRequest.isPending}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              declineRequest.mutate(n.actor_id!, { onSuccess: () => deleteOne.mutate(n.id) });
+                            }}
+                          >
+                            Decline
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <button
