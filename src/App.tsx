@@ -1,6 +1,6 @@
 // @ts-nocheck
 import "./i18n";
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, useLayoutEffect, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
@@ -34,7 +34,7 @@ export default function App() {
 
   // Remove SSR fallback content once the SPA has mounted — crawlers see it,
   // users don't because this runs before the first paint of the SPA.
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.getElementById("ssr-fallback")?.remove();
   }, []);
 
