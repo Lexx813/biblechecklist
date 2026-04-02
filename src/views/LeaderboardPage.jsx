@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import PageNav from "../components/PageNav";
 import { useReadingLeaderboard, useQuizLeaderboard } from "../hooks/useLeaderboard";
+import { useTimedLeaderboard } from "../hooks/useQuizTimed";
 
 function SkeletonList() {
   return (
@@ -92,14 +93,44 @@ function QuizBoard({ data, userId, onProfile }) {
   );
 }
 
+function TimedLeaderboardList({ level, currentUserId }) {
+  const { data: entries = [], isLoading } = useTimedLeaderboard(level);
+
+  if (isLoading) return <div className="skeleton" style={{ height: 200, borderRadius: 12 }} />;
+  if (!entries.length) return (
+    <p style={{ textAlign: "center", color: "var(--text-secondary)", padding: "32px 0" }}>
+      No scores yet for this level.
+    </p>
+  );
+
+  return (
+    <ol className="lb-list">
+      {entries.map((entry) => (
+        <li
+          key={entry.userId}
+          className={`lb-row${entry.userId === currentUserId ? " lb-row--self" : ""}`}
+        >
+          <span className="lb-rank">#{entry.rank}</span>
+          <span className="lb-name">{entry.displayName}</span>
+          <span className="lb-score">{entry.score} pts</span>
+          <span className="lb-date">
+            {new Date(entry.achievedAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+          </span>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 export default function LeaderboardPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { t } = useTranslation();
   const [tab, setTab] = useState("reading");
+  const [timedLevel, setTimedLevel] = useState(1);
 
   const { data: readingData = [], isLoading: readingLoading } = useReadingLeaderboard();
   const { data: quizData = [], isLoading: quizLoading } = useQuizLeaderboard();
 
-  const isLoading = tab === "reading" ? readingLoading : quizLoading;
+  const isLoading = tab === "reading" ? readingLoading : tab === "quiz" ? quizLoading : false;
 
   function goProfile(userId) {
     if (userId === user.id) navigate("profile");
@@ -123,6 +154,9 @@ export default function LeaderboardPage({ user, onBack, navigate, darkMode, setD
         <button className={`lb-tab${tab === "quiz" ? " lb-tab--active" : ""}`} onClick={() => setTab("quiz")}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:4}}><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>{t("leaderboard.tabQuiz")}
         </button>
+        <button className={`lb-tab${tab === "timed" ? " lb-tab--active" : ""}`} onClick={() => setTab("timed")}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:4}}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Timed
+        </button>
       </div>
 
       <div className="lb-content">
@@ -132,10 +166,27 @@ export default function LeaderboardPage({ user, onBack, navigate, darkMode, setD
           readingData.length === 0
             ? <p className="lb-empty">{t("leaderboard.empty")}</p>
             : <ReadingBoard data={readingData} userId={user.id} onProfile={goProfile} />
-        ) : (
+        ) : tab === "quiz" ? (
           quizData.length === 0
             ? <p className="lb-empty">{t("leaderboard.empty")}</p>
             : <QuizBoard data={quizData} userId={user.id} onProfile={goProfile} />
+        ) : null}
+        {tab === "timed" && (
+          <div className="lb-timed">
+            <div className="lb-timed-filter">
+              <label htmlFor="timed-level-select">Level</label>
+              <select
+                id="timed-level-select"
+                value={timedLevel}
+                onChange={(e) => setTimedLevel(Number(e.target.value))}
+              >
+                {Array.from({ length: 12 }, (_, i) => (
+                  <option key={i + 1} value={i + 1}>Level {i + 1}</option>
+                ))}
+              </select>
+            </div>
+            <TimedLeaderboardList level={timedLevel} currentUserId={user?.id} />
+          </div>
         )}
       </div>
     </div>
