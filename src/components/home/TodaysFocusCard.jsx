@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import {
   useMyPlans,
   usePlanCompletions,
@@ -70,11 +70,13 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
   const lastRead = useLastReadChapter(userId);
 
   const [streakPop, setStreakPop] = useState(false);
+  const streakPopFired = useRef(false);
   useEffect(() => {
-    if (streak?.current_streak > 0) {
+    if (!streakPopFired.current && streak?.current_streak > 0) {
+      streakPopFired.current = true;
       setStreakPop(true);
     }
-  }, []); // fire once on mount
+  }, [streak?.current_streak]);
 
   const { template, currentDay, doneSet, todayReadings, pct } = useMemo(() => {
     if (!activePlan) return { template: null, currentDay: 1, doneSet: new Set(), todayReadings: [], pct: 0 };
