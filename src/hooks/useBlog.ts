@@ -30,7 +30,7 @@ export function useMyPosts(userId: string | undefined) {
 export function useCreatePost(userId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (post: Record<string, unknown>) => blogApi.create(userId!, post),
+    mutationFn: (post: Record<string, unknown>) => blogApi.create(userId!, post as any),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["blog", "mine", userId] });
       queryClient.invalidateQueries({ queryKey: ["blog", "published"] });

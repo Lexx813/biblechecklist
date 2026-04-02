@@ -1,31 +1,30 @@
-// @ts-nocheck
 // src/hooks/useGroupChallenge.js
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { groupChallengeApi } from "../api/groupChallenge";
 
-export function useActiveChallenge(groupId) {
+export function useActiveChallenge(groupId: string | undefined) {
   return useQuery({
     queryKey: ["groupChallenge", groupId],
-    queryFn: () => groupChallengeApi.getActiveChallenge(groupId),
+    queryFn: () => groupChallengeApi.getActiveChallenge(groupId!),
     enabled: !!groupId,
     staleTime: 5 * 60 * 1000,
   });
 }
 
-export function useChallengeProgress(challengeId, planKey) {
+export function useChallengeProgress(challengeId: string | undefined, planKey: string | undefined) {
   return useQuery({
     queryKey: ["challengeProgress", challengeId],
-    queryFn: () => groupChallengeApi.getChallengeProgress(challengeId, planKey),
+    queryFn: () => groupChallengeApi.getChallengeProgress(challengeId!, planKey!),
     enabled: !!challengeId && !!planKey,
     staleTime: 5 * 60 * 1000,
   });
 }
 
-export function useStartChallenge(groupId) {
+export function useStartChallenge(groupId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ planKey, userId }) =>
-      groupChallengeApi.startChallenge(groupId, planKey, userId),
+    mutationFn: ({ planKey, userId }: { planKey: string; userId: string }) =>
+      groupChallengeApi.startChallenge(groupId!, planKey, userId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["groupChallenge", groupId] });
       queryClient.invalidateQueries({ queryKey: ["userGroupChallenges"] });
@@ -33,10 +32,10 @@ export function useStartChallenge(groupId) {
   });
 }
 
-export function useEndChallenge(groupId) {
+export function useEndChallenge(groupId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (challengeId) => groupChallengeApi.endChallenge(challengeId),
+    mutationFn: (challengeId: string) => groupChallengeApi.endChallenge(challengeId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["groupChallenge", groupId] });
       queryClient.invalidateQueries({ queryKey: ["userGroupChallenges"] });
@@ -44,10 +43,10 @@ export function useEndChallenge(groupId) {
   });
 }
 
-export function useUserGroupChallenges(userId) {
+export function useUserGroupChallenges(userId: string | undefined) {
   return useQuery({
     queryKey: ["userGroupChallenges", userId],
-    queryFn: () => groupChallengeApi.getUserGroupChallenges(userId),
+    queryFn: () => groupChallengeApi.getUserGroupChallenges(userId!),
     enabled: !!userId,
     staleTime: 5 * 60 * 1000,
   });

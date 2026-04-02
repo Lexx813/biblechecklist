@@ -151,6 +151,7 @@ interface ColorPaletteProps {
   colors: string[];
   onSelect: (color: string) => void;
   onClear: () => void;
+  onCustom?: () => void;
   currentColor: string | null;
   label: string;
   children: React.ReactNode;
@@ -395,7 +396,7 @@ export default function RichTextEditor({
     if (!editor || editor.isDestroyed) return;
     const next = plainToHtml(content);
     if (editor.getHTML() !== next) {
-      editor.commands.setContent(next, false);
+      editor.commands.setContent(next, { emitUpdate: false });
     }
   }, [content, editor]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -466,7 +467,7 @@ export default function RichTextEditor({
             <div className="editor-sep" />
 
             {/* ── Headings (always shown) ── */}
-            {[1, 2, 3].map(level => (
+            {([1, 2, 3] as const).map(level => (
               <Btn key={level}
                 active={editor.isActive("heading", { level })}
                 onClick={() => editor.chain().focus().toggleHeading({ level }).run()}
@@ -504,7 +505,6 @@ export default function RichTextEditor({
               currentColor={activeTextColor}
               onSelect={c => editor.chain().focus().setColor(c).run()}
               onClear={() => editor.chain().focus().unsetColor().run()}
-              onCustom={() => {}}
               label="Text color"
             >
               <span style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
@@ -519,7 +519,6 @@ export default function RichTextEditor({
               currentColor={activeHighlight}
               onSelect={c => editor.chain().focus().setHighlight({ color: c }).run()}
               onClear={() => editor.chain().focus().unsetHighlight().run()}
-              onCustom={() => {}}
               label="Highlight"
             >
               <span style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>

@@ -1,10 +1,17 @@
-// @ts-nocheck
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { useBookmarkIds, useToggleBookmark } from "../../hooks/useBookmarks";
 import { toast } from "../../lib/toast";
 import "../../styles/bookmarks.css";
 
-export default function BookmarkButton({ userId, threadId, postId, className = "" }) {
+interface Props {
+  userId?: string;
+  threadId?: string;
+  postId?: string;
+  className?: string;
+}
+
+export default function BookmarkButton({ userId, threadId, postId, className = "" }: Props) {
   const { t } = useTranslation();
   const { data: ids = { threadIds: [], postIds: [] } } = useBookmarkIds(userId);
   const toggle = useToggleBookmark(userId);
@@ -15,7 +22,7 @@ export default function BookmarkButton({ userId, threadId, postId, className = "
     ? (ids.threadIds ?? []).includes(threadId)
     : (ids.postIds ?? []).includes(postId);
 
-  function handleClick(e) {
+  function handleClick(e: React.MouseEvent) {
     e.stopPropagation();
     toggle.mutate(threadId ? { threadId } : { postId }, {
       onError: () => toast(t("bookmarks.error")),

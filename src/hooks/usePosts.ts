@@ -1,33 +1,32 @@
-// @ts-nocheck
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { postsApi } from "../api/posts";
 
-export function useUserPosts(userId) {
+export function useUserPosts(userId: string | undefined) {
   return useQuery({
     queryKey: ["userPosts", userId],
-    queryFn: () => postsApi.list(userId),
+    queryFn: () => postsApi.list(userId!),
     enabled: !!userId,
     staleTime: 5 * 60_000,
   });
 }
 
-export function useCreatePost(userId) {
+export function useCreatePost(userId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (content) => postsApi.create(userId, content),
+    mutationFn: (content: string) => postsApi.create(userId!, content),
     onSuccess: (newPost) => {
-      queryClient.setQueryData(["userPosts", userId], (prev = []) => [newPost, ...prev]);
+      queryClient.setQueryData(["userPosts", userId], (prev: unknown[] = []) => [newPost, ...prev]);
       queryClient.invalidateQueries({ queryKey: ["activityFeed"] });
     },
   });
 }
 
-export function useDeletePost(userId) {
+export function useDeletePost(userId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (postId) => postsApi.delete(postId),
+    mutationFn: (postId: string) => postsApi.delete(postId),
     onSuccess: (_, postId) => {
-      queryClient.setQueryData(["userPosts", userId], (prev = []) =>
+      queryClient.setQueryData(["userPosts", userId], (prev: Array<{ id: string }> = []) =>
         prev.filter(p => p.id !== postId)
       );
     },

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { supabase } from "../lib/supabase";
 
 export const studyNotesApi = {
@@ -34,13 +33,13 @@ export const studyNotesApi = {
     return data.map(n => ({ ...n, author: profileMap[n.user_id] ?? null, user_has_liked: likedSet.has(n.id) }));
   },
 
-  toggleLike: async (noteId) => {
+  toggleLike: async (noteId: string) => {
     const { data, error } = await supabase.rpc("toggle_study_note_like", { p_note_id: noteId });
     if (error) throw new Error(error.message);
     return data;
   },
 
-  createNote: async (note) => {
+  createNote: async (note: Record<string, unknown>) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { data, error } = await supabase
@@ -52,7 +51,7 @@ export const studyNotesApi = {
     return data;
   },
 
-  updateNote: async (noteId, updates) => {
+  updateNote: async (noteId: string, updates: Record<string, unknown>) => {
     const { data, error } = await supabase
       .from("study_notes")
       .update(updates)
@@ -63,7 +62,7 @@ export const studyNotesApi = {
     return data;
   },
 
-  deleteNote: async (noteId) => {
+  deleteNote: async (noteId: string) => {
     const { error } = await supabase
       .from("study_notes")
       .delete()
@@ -85,7 +84,7 @@ export const studyNotesApi = {
     return data ?? [];
   },
 
-  createFolder: async (name) => {
+  createFolder: async (name: string) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { data, error } = await supabase
@@ -97,7 +96,7 @@ export const studyNotesApi = {
     return data;
   },
 
-  renameFolder: async (folderId, name) => {
+  renameFolder: async (folderId: string, name: string) => {
     const { error } = await supabase
       .from("note_folders")
       .update({ name: name.trim() })
@@ -105,7 +104,7 @@ export const studyNotesApi = {
     if (error) throw new Error(error.message);
   },
 
-  deleteFolder: async (folderId) => {
+  deleteFolder: async (folderId: string) => {
     const { error } = await supabase
       .from("note_folders")
       .delete()

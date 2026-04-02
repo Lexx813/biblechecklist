@@ -1,11 +1,10 @@
-// @ts-nocheck
 import { useState, useEffect } from "react";
 import { pushApi } from "../api/pushSubscriptions";
 
 const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? "";
 const LS_KEY = "nwt-push-subscribed";
 
-function urlBase64ToUint8Array(base64) {
+function urlBase64ToUint8Array(base64: string): Uint8Array {
   const padding = "=".repeat((4 - (base64.length % 4)) % 4);
   const b64 = (base64 + padding).replace(/-/g, "+").replace(/_/g, "/");
   const raw = atob(b64);
@@ -15,7 +14,7 @@ function urlBase64ToUint8Array(base64) {
 // Get the service worker registration without using navigator.serviceWorker.ready,
 // which hangs if the SW install event failed or is still in progress.
 // getRegistration() returns immediately with whatever registration exists.
-async function getSwReg() {
+async function getSwReg(): Promise<ServiceWorkerRegistration> {
   let reg = await navigator.serviceWorker.getRegistration("/");
 
   // No registration at all — try registering the SW ourselves.
@@ -32,12 +31,12 @@ async function getSwReg() {
       () => reject(new Error("App is still loading. Please refresh and try again.")),
       10000
     );
-    const done = () => { clearTimeout(timer); resolve(reg); };
+    const done = () => { clearTimeout(timer); resolve(reg!); };
 
-    const sw = reg.installing ?? reg.waiting;
-    if (!sw) { clearTimeout(timer); resolve(reg); return; }
+    const sw = reg!.installing ?? reg!.waiting;
+    if (!sw) { clearTimeout(timer); resolve(reg!); return; }
 
-    sw.addEventListener("statechange", function handler() {
+    sw.addEventListener("statechange", function handler(this: ServiceWorker) {
       if (this.state === "activated") { sw.removeEventListener("statechange", handler); done(); }
       if (this.state === "redundant") { sw.removeEventListener("statechange", handler); reject(new Error("Service worker failed. Refresh and try again.")); }
     });
@@ -52,18 +51,18 @@ export function usePushNotifications() {
     "PushManager" in window &&
     !!VAPID_PUBLIC_KEY;
 
-  const [permission, setPermission] = useState(() =>
+  const [permission, setPermission] = useState<NotificationPermission>(() =>
     typeof Notification !== "undefined" ? Notification.permission : "denied"
   );
 
   // localStorage is the source of truth for the toggle UI so it persists
   // across reloads instantly without waiting for async browser checks.
-  const [subscribed, setSubscribed] = useState(() => {
+  const [subscribed, setSubscribed] = useState<boolean>(() => {
     try { return localStorage.getItem(LS_KEY) === "1"; } catch { return false; }
   });
 
   const [loading, setLoading] = useState(false);
-  const [error, setError]     = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   // On mount: check the real browser subscription state.
   //   - If browser HAS a subscription  → confirm as subscribed (update localStorage)
@@ -102,7 +101,7 @@ export function usePushNotifications() {
           try {
             const newSub = await reg.pushManager.subscribe({
               userVisibleOnly: true,
-              applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
+              applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY) as any,
             });
             await pushApi.save(newSub);
             setSubscribed(true);
@@ -122,7 +121,7 @@ export function usePushNotifications() {
       });
   }, [supported]);
 
-  async function subscribe() {
+  async function subscribe(): Promise<boolean> {
     if (!supported) return false;
     setLoading(true);
     setError(null);
@@ -146,7 +145,7 @@ export function usePushNotifications() {
       if (!sub) {
         sub = await reg.pushManager.subscribe({
           userVisibleOnly: true,
-          applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
+          applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY) as any,
         });
       }
 
@@ -156,14 +155,14 @@ export function usePushNotifications() {
       return true;
     } catch (err) {
       console.error("[push] subscribe failed:", err);
-      setError(err.message || "Failed to enable notifications. Please try again.");
+      setError((err as Error).message || "Failed to enable notifications. Please try again.");
       return false;
     } finally {
       setLoading(false);
     }
   }
 
-  async function unsubscribe() {
+  async function unsubscribe(): Promise<void> {
     if (!supported) return;
     setLoading(true);
     setError(null);
@@ -181,7 +180,7 @@ export function usePushNotifications() {
       try { localStorage.removeItem(LS_KEY); } catch {}
     } catch (err) {
       console.error("[push] unsubscribe failed:", err);
-      setError(err.message || "Failed to disable notifications. Please try again.");
+      setError((err as Error).message || "Failed to disable notifications. Please try again.");
     } finally {
       setLoading(false);
     }

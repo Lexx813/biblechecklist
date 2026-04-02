@@ -1,7 +1,22 @@
-// @ts-nocheck
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { profileApi } from "../../api/profile";
 import "../../styles/mentions.css";
+
+interface SuggestionUser {
+  id: string;
+  display_name: string;
+  avatar_url?: string;
+}
+
+interface Props {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement> | { target: { value: string } }) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  placeholder?: string;
+  rows?: number;
+  disabled?: boolean;
+  className?: string;
+}
 
 export default function MentionAutocomplete({
   value,
@@ -11,19 +26,19 @@ export default function MentionAutocomplete({
   rows = 3,
   disabled,
   className,
-}) {
-  const [suggestions, setSuggestions] = useState([]);
+}: Props) {
+  const [suggestions, setSuggestions] = useState<SuggestionUser[]>([]);
   const [activeIdx, setActiveIdx] = useState(0);
-  const taRef = useRef(null);
-  const timerRef = useRef(null);
+  const taRef = useRef<HTMLTextAreaElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  function detectMentionFragment(text, cursorPos) {
+  function detectMentionFragment(text: string, cursorPos: number) {
     const before = text.slice(0, cursorPos);
     const match = before.match(/@([\w.-]*)$/);
     return match ? match[1] : null;
   }
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     const text = e.target.value;
     const cursor = e.target.selectionStart;
     onChange(e);
@@ -41,7 +56,7 @@ export default function MentionAutocomplete({
     }
   }
 
-  function insertMention(displayName) {
+  function insertMention(displayName: string) {
     const cursor = taRef.current.selectionStart;
     const text = value;
     const before = text.slice(0, cursor);
@@ -57,7 +72,7 @@ export default function MentionAutocomplete({
     }, 0);
   }
 
-  function handleKeyDown(e) {
+  function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (suggestions.length > 0) {
       if (e.key === "ArrowDown") {
         e.preventDefault();

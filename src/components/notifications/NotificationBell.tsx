@@ -1,21 +1,39 @@
-// @ts-nocheck
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNotifications, useMarkNotificationsRead, useDeleteNotification, useClearAllNotifications } from "../../hooks/useNotifications";
 import "../../styles/notifications.css";
 
-function timeAgo(iso) {
-  const s = Math.floor((Date.now() - new Date(iso)) / 1000);
+function timeAgo(iso: string) {
+  const s = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
   if (s < 60) return "just now";
   if (s < 3600) return Math.floor(s / 60) + "m ago";
   if (s < 86400) return Math.floor(s / 3600) + "h ago";
   return Math.floor(s / 86400) + "d ago";
 }
 
-export default function NotificationBell({ userId, navigate }) {
+interface AppNotification {
+  id: string;
+  read: boolean;
+  link_hash?: string;
+  type?: string;
+  conversation_id?: string;
+  thread_id?: string;
+  post?: { slug?: string };
+  thread?: { category_id?: string };
+  actor?: { display_name?: string; avatar_url?: string };
+  body_preview?: string;
+  created_at: string;
+}
+
+interface Props {
+  userId?: string;
+  navigate: (page: string, params?: Record<string, unknown>) => void;
+}
+
+export default function NotificationBell({ userId, navigate }: Props) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const { data: notifications = [] } = useNotifications(userId);
   const markRead   = useMarkNotificationsRead(userId);
   const deleteOne  = useDeleteNotification(userId);
@@ -24,8 +42,8 @@ export default function NotificationBell({ userId, navigate }) {
   const unread = notifications.filter(n => !n.read);
 
   useEffect(() => {
-    function handler(e) {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    function handler(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     }
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -35,14 +53,14 @@ export default function NotificationBell({ userId, navigate }) {
     setOpen(o => !o);
   }
 
-  function extractConvId(h) {
+  function extractConvId(h: string | null | undefined) {
     if (!h) return null;
     if (h.startsWith("messages/")) return h.slice(9);
     const m = h.match(/[?&]conv=([^&]+)/);
     return m ? m[1] : null;
   }
 
-  function handleClick(n) {
+  function handleClick(n: AppNotification) {
     if (!n.read) markRead.mutate([n.id]);
     setOpen(false);
 
@@ -90,7 +108,7 @@ export default function NotificationBell({ userId, navigate }) {
     navigate(h);
   }
 
-  function getVerb(n) {
+  function getVerb(n: { type?: string }) {
     if (n.type === "reply") return t("notifications.typeReply");
     if (n.type === "comment") return t("notifications.typeComment");
     if (n.type === "message") return "sent you a message";
@@ -137,7 +155,7 @@ export default function NotificationBell({ userId, navigate }) {
             <p className="notif-empty">{t("notifications.empty")}</p>
           ) : (
             <div className="notif-list">
-              {notifications.map(n => (
+              {(notifications as any[]).map((n: any) => (
                 <div
                   key={n.id}
                   className={`notif-item${n.read ? "" : " notif-item--unread"}`}

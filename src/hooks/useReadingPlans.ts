@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { readingPlansApi } from "../api/readingPlans";
 import { badgesApi } from "../api/badges";
@@ -11,10 +10,10 @@ export function useMyPlans() {
   });
 }
 
-export function usePlanCompletions(planId) {
+export function usePlanCompletions(planId: string | undefined) {
   return useQuery({
     queryKey: ["plan-completions", planId],
-    queryFn: () => readingPlansApi.getCompletions(planId),
+    queryFn: () => readingPlansApi.getCompletions(planId!),
     enabled: !!planId,
     staleTime: 10_000,
   });
@@ -23,7 +22,7 @@ export function usePlanCompletions(planId) {
 export function useEnrollPlan() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (templateKey) => readingPlansApi.enroll(templateKey),
+    mutationFn: (templateKey: string) => readingPlansApi.enroll(templateKey),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["reading-plans"] }),
   });
 }
@@ -31,7 +30,7 @@ export function useEnrollPlan() {
 export function useEnrollCustomPlan() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (config) => readingPlansApi.enrollCustom(config),
+    mutationFn: (config: Record<string, unknown>) => readingPlansApi.enrollCustom(config as any),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["reading-plans"] }),
   });
 }
@@ -39,7 +38,7 @@ export function useEnrollCustomPlan() {
 export function useUnenrollPlan() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (planId) => readingPlansApi.unenroll(planId),
+    mutationFn: (planId: string) => readingPlansApi.unenroll(planId),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["reading-plans"] }),
   });
 }
@@ -47,7 +46,7 @@ export function useUnenrollPlan() {
 export function usePausePlan() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (planId) => readingPlansApi.pause(planId),
+    mutationFn: (planId: string) => readingPlansApi.pause(planId),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["reading-plans"] }),
   });
 }
@@ -55,7 +54,7 @@ export function usePausePlan() {
 export function useResumePlan() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (plan) => readingPlansApi.resume(plan),
+    mutationFn: (plan: Record<string, unknown>) => readingPlansApi.resume(plan as any),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["reading-plans"] }),
   });
 }
@@ -63,24 +62,25 @@ export function useResumePlan() {
 export function useCatchUp() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ planId, completedCount }) => readingPlansApi.catchUp(planId, completedCount),
+    mutationFn: ({ planId, completedCount }: { planId: string; completedCount: number }) =>
+      readingPlansApi.catchUp(planId, completedCount),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["reading-plans"] }),
   });
 }
 
-export function useMarkDay(planId, userId, totalDays) {
+export function useMarkDay(planId: string | undefined, userId: string | undefined, totalDays: number | undefined) {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (dayNumber) => readingPlansApi.markDay(planId, dayNumber),
+    mutationFn: (dayNumber: number) => readingPlansApi.markDay(planId!, dayNumber),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["plan-completions", planId] });
       if (userId && totalDays) {
         qc.fetchQuery({
           queryKey: ["plan-completions", planId],
-          queryFn: () => readingPlansApi.getCompletions(planId),
+          queryFn: () => readingPlansApi.getCompletions(planId!),
           staleTime: 0,
-        }).then((completions) => {
-          if ((completions ?? []).length >= totalDays) {
+        }).then((completions: unknown[]) => {
+          if ((completions ?? []).length >= totalDays!) {
             badgesApi.awardBadge(userId, "plan_complete");
           }
         }).catch(() => {});
@@ -89,10 +89,10 @@ export function useMarkDay(planId, userId, totalDays) {
   });
 }
 
-export function useUnmarkDay(planId) {
+export function useUnmarkDay(planId: string | undefined) {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (dayNumber) => readingPlansApi.unmarkDay(planId, dayNumber),
+    mutationFn: (dayNumber: number) => readingPlansApi.unmarkDay(planId!, dayNumber),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["plan-completions", planId] }),
   });
 }

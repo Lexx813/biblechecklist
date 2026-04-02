@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useCallback, useRef } from "react";
 import { supabase } from "../lib/supabase";
 
@@ -12,10 +11,10 @@ import { supabase } from "../lib/supabase";
 export function useAICompanion() {
   const [text, setText]       = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError]     = useState(null);
-  const abortRef              = useRef(null);
+  const [error, setError]     = useState<string | null>(null);
+  const abortRef              = useRef<AbortController | null>(null);
 
-  const ask = useCallback(async (passage, question) => {
+  const ask = useCallback(async (passage: string, question: string) => {
     abortRef.current?.abort();
     const ctrl = new AbortController();
     abortRef.current = ctrl;
@@ -43,7 +42,7 @@ export function useAICompanion() {
         throw new Error(msg);
       }
 
-      const reader  = res.body.getReader();
+      const reader  = res.body!.getReader();
       const decoder = new TextDecoder();
       let   buffer  = "";
 
@@ -54,19 +53,19 @@ export function useAICompanion() {
 
         buffer += decoder.decode(value, { stream: true });
         const lines = buffer.split("\n");
-        buffer = lines.pop(); // hold back incomplete line
+        buffer = lines.pop() ?? ""; // hold back incomplete line
 
         for (const line of lines) {
           if (!line.startsWith("data: ")) continue;
           const raw = line.slice(6).trim();
           if (raw === "[DONE]") return;
           try {
-            const evt = JSON.parse(raw);
+            const evt = JSON.parse(raw) as { type: string; delta?: { type: string; text: string } };
             if (
               evt.type === "content_block_delta" &&
               evt.delta?.type === "text_delta"
             ) {
-              setText(prev => prev + evt.delta.text);
+              setText(prev => prev + evt.delta!.text);
             }
           } catch {
             // skip malformed SSE chunks
@@ -74,8 +73,8 @@ export function useAICompanion() {
         }
       }
     } catch (err) {
-      if (err.name !== "AbortError") {
-        setError(err.message || "Something went wrong. Please try again.");
+      if ((err as Error).name !== "AbortError") {
+        setError((err as Error).message || "Something went wrong. Please try again.");
       }
     } finally {
       setLoading(false);

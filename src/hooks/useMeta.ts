@@ -1,18 +1,17 @@
-// @ts-nocheck
 import { useEffect } from "react";
 
 const SITE = "NWT Progress";
 const DEFAULT_DESC = "Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community.";
 const DEFAULT_IMG = "https://nwtprogress.com/og-image.png";
 
-function setMetaContent(selector, value) {
+function setMetaContent(selector: string, value: string | undefined): void {
   const el = document.querySelector(selector);
   if (el && value) el.setAttribute("content", value);
 }
 
 const BASE_URL = "https://nwtprogress.com";
 
-function setCanonical(url) {
+function setCanonical(url: string): void {
   let el = document.querySelector('link[rel="canonical"]');
   if (!el) {
     el = document.createElement("link");
@@ -22,12 +21,19 @@ function setCanonical(url) {
   el.setAttribute("href", url);
 }
 
-function setOgUrl(url) {
+function setOgUrl(url: string): void {
   setMetaContent('meta[property="og:url"]', url);
   setMetaContent('meta[name="twitter:url"]', url);
 }
 
-export function useMeta({ title, description, image, path } = {}) {
+interface MetaOptions {
+  title?: string;
+  description?: string;
+  image?: string;
+  path?: string;
+}
+
+export function useMeta({ title, description, image, path }: MetaOptions = {}): void {
   useEffect(() => {
     const fullTitle = title ? `${title} — ${SITE}` : SITE;
     const desc = description || DEFAULT_DESC;

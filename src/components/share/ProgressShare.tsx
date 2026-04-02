@@ -1,10 +1,9 @@
-// @ts-nocheck
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import "../../styles/progress-share.css";
 
-function roundRect(ctx, x, y, w, h, r) {
+function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
   ctx.beginPath();
   ctx.moveTo(x + r, y);
   ctx.lineTo(x + w - r, y);
@@ -18,7 +17,20 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-function draw(canvas, stats, t) {
+interface Stats {
+  name?: string;
+  pct: string | number;
+  doneBooks: number;
+  doneCh: number;
+  totalCh: number;
+  otDone: number;
+  ntDone: number;
+  streak: number;
+}
+
+type TFunction = (key: string) => string;
+
+function draw(canvas: HTMLCanvasElement, stats: Stats, t: TFunction) {
   const dpr = window.devicePixelRatio || 1;
   const W = 540, H = 820;
   canvas.width = W * dpr;
@@ -79,7 +91,7 @@ function draw(canvas, stats, t) {
   ctx.fillStyle = "rgba(255,255,255,0.10)";
   ctx.fill();
 
-  const filled = bW * (parseFloat(stats.pct) / 100);
+  const filled = bW * (parseFloat(String(stats.pct)) / 100);
   const barGrad = ctx.createLinearGradient(bX, 0, bX + bW, 0);
   barGrad.addColorStop(0, "#9B59B6");
   barGrad.addColorStop(1, "#C084FC");
@@ -146,7 +158,7 @@ function draw(canvas, stats, t) {
 
   // Motivational text
   let motiveLine = t("share.motiveLine0");
-  const p = parseFloat(stats.pct);
+  const p = parseFloat(String(stats.pct));
   if (p >= 100) motiveLine = t("share.motiveLine100");
   else if (p >= 75) motiveLine = t("share.motiveLine75");
   else if (p >= 50) motiveLine = t("share.motiveLine50");
@@ -169,8 +181,13 @@ function draw(canvas, stats, t) {
   ctx.fillText("nwtprogress.com", W / 2, H - 18);
 }
 
-export default function ProgressShare({ stats, onClose }) {
-  const canvasRef = useRef(null);
+interface Props {
+  stats: Stats;
+  onClose: () => void;
+}
+
+export default function ProgressShare({ stats, onClose }: Props) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -179,7 +196,7 @@ export default function ProgressShare({ stats, onClose }) {
 
   const download = () => {
     const a = document.createElement("a");
-    a.href = canvasRef.current.toDataURL("image/png");
+    a.href = canvasRef.current!.toDataURL("image/png");
     a.download = "bible-progress.png";
     a.click();
   };
@@ -187,7 +204,8 @@ export default function ProgressShare({ stats, onClose }) {
   const webShare = async () => {
     if (!navigator.share || !navigator.canShare) return download();
     try {
-      const blob = await new Promise(res => canvasRef.current.toBlob(res, "image/png"));
+      const blob = await new Promise<Blob | null>(res => canvasRef.current!.toBlob(res, "image/png"));
+      if (!blob) return download();
       const file = new File([blob], "bible-progress.png", { type: "image/png" });
       if (navigator.canShare({ files: [file] })) {
         await navigator.share({ files: [file], title: "My Bible Reading Progress", text: `I've read ${stats.pct}% of the Bible on NWT Progress! Track yours at nwtprogress.com` });

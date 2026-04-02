@@ -1,19 +1,36 @@
-// @ts-nocheck
-import { useMemo, useState, useCallback } from "react";
+import React, { useMemo, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
 import "../../styles/reading-plan.css";
 
-function getLevel(chapters, goal) {
+function getLevel(chapters: number, goal: number) {
   if (!chapters || chapters === 0) return 0;
   if (chapters < Math.ceil(goal * 0.5)) return 1;
   if (chapters < goal) return 2;
   return 3;
 }
 
-export default function ReadingHeatmap({ data = [], dailyGoal = 3 }) {
-  const [tooltip, setTooltip] = useState(null); // { x, y, date, chapters }
+interface HeatmapDay {
+  date: string;
+  chapters: number;
+}
 
-  const handleMouseEnter = useCallback((e, cell) => {
+interface TooltipState {
+  x: number;
+  y: number;
+  below: boolean;
+  date: string;
+  chapters: number;
+}
+
+interface Props {
+  data?: HeatmapDay[];
+  dailyGoal?: number;
+}
+
+export default function ReadingHeatmap({ data = [], dailyGoal = 3 }: Props) {
+  const [tooltip, setTooltip] = useState<TooltipState | null>(null);
+
+  const handleMouseEnter = useCallback((e: React.MouseEvent<HTMLDivElement>, cell: HeatmapDay) => {
     if (!cell) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const HALF = 75; // estimated half-width of tooltip

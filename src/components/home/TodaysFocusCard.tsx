@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useMemo, useState, useEffect, useRef } from "react";
 import {
   useMyPlans,
@@ -15,23 +14,23 @@ import "../../styles/todays-focus.css";
 import "../../styles/gamification.css";
 import { useFreezeStatus, useApplyFreeze } from "../../hooks/useStreakFreeze";
 
-function effectiveDay(plan) {
+function effectiveDay(plan: { start_date: string; paused_days?: number; is_paused?: boolean; paused_at?: string }) {
   const start = new Date(plan.start_date + "T00:00:00");
   const now = new Date();
   now.setHours(0, 0, 0, 0);
-  const raw = Math.floor((now - start) / 86400000) + 1;
+  const raw = Math.floor((now.getTime() - start.getTime()) / 86400000) + 1;
   let pausedDays = plan.paused_days ?? 0;
   if (plan.is_paused && plan.paused_at) {
     const pausedDate = new Date(plan.paused_at);
     pausedDate.setHours(0, 0, 0, 0);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    pausedDays += Math.max(0, Math.floor((today - pausedDate) / 86400000));
+    pausedDays += Math.max(0, Math.floor((today.getTime() - pausedDate.getTime()) / 86400000));
   }
   return Math.max(1, raw - pausedDays);
 }
 
-function useLastReadChapter(userId) {
+function useLastReadChapter(userId: string | undefined) {
   const { data: timestamps = {} } = useChapterTimestamps(userId);
   return useMemo(() => {
     let best = null;
@@ -46,9 +45,9 @@ function useLastReadChapter(userId) {
   }, [timestamps]);
 }
 
-function readingsLabel(readings) {
+function readingsLabel(readings: Array<{ bookIndex: number; chapter: number }> | null | undefined) {
   if (!readings || readings.length === 0) return "—";
-  const byBook = {};
+  const byBook: Record<number, number[]> = {};
   for (const { bookIndex, chapter } of readings) {
     if (!byBook[bookIndex]) byBook[bookIndex] = [];
     byBook[bookIndex].push(chapter);
@@ -62,7 +61,15 @@ function readingsLabel(readings) {
     .join(", ");
 }
 
-export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade, lang = "en" }) {
+interface Props {
+  userId?: string;
+  navigate: (page: string) => void;
+  isPremium?: boolean;
+  onUpgrade?: () => void;
+  lang?: string;
+}
+
+export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade, lang = "en" }: Props) {
   const { data: plans = [] } = useMyPlans();
   const activePlan = plans.find(p => !p.is_paused && !p.completed_at) ?? null;
   const activePlanTotalDays = activePlan ? getTemplateOrCustom(activePlan).totalDays : undefined;
@@ -105,9 +112,11 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
 
   function handleMarkDone() {
     if (todayDone) {
-      unmarkDay.mutate(currentDay);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (unmarkDay.mutate as any)(currentDay);
     } else {
-      markDay.mutate(currentDay);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (markDay.mutate as any)(currentDay);
     }
   }
 
@@ -218,7 +227,8 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
                   className="tf-freeze-btn"
                   style={{ background: "var(--accent)", color: "#fff", borderColor: "var(--accent)" }}
                   onClick={() => {
-                    applyFreeze.mutate(yesterdayStr);
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    (applyFreeze.mutate as any)(yesterdayStr);
                     setShowFreezeConfirm(false);
                   }}
                 >

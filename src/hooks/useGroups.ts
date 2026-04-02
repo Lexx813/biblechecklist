@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { supabase } from "../lib/supabase";
@@ -23,10 +22,10 @@ export function usePublicGroups() {
   });
 }
 
-export function useGroup(groupId) {
+export function useGroup(groupId: string | undefined) {
   return useQuery({
     queryKey: ["group", groupId],
-    queryFn: () => groupsApi.getGroup(groupId),
+    queryFn: () => groupsApi.getGroup(groupId!),
     enabled: !!groupId,
     staleTime: 30_000,
   });
@@ -44,10 +43,10 @@ export function useCreateGroup() {
   });
 }
 
-export function useUpdateGroup(groupId) {
+export function useUpdateGroup(groupId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (updates) => groupsApi.updateGroup(groupId, updates),
+    mutationFn: (updates: Record<string, unknown>) => groupsApi.updateGroup(groupId!, updates),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["group", groupId] });
       queryClient.invalidateQueries({ queryKey: ["groups"] });
@@ -65,7 +64,7 @@ export function useDeleteGroup() {
 
 // ── Membership ────────────────────────────────────────────────────────────────
 
-export function useGroupMembers(groupId) {
+export function useGroupMembers(groupId: string | undefined) {
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -76,18 +75,18 @@ export function useGroupMembers(groupId) {
         queryClient.invalidateQueries({ queryKey: ["group-members", groupId] });
       })
       .subscribe();
-    return () => supabase.removeChannel(channel);
+    return () => { supabase.removeChannel(channel); };
   }, [groupId, queryClient]);
 
   return useQuery({
     queryKey: ["group-members", groupId],
-    queryFn: () => groupsApi.getMembers(groupId),
+    queryFn: () => groupsApi.getMembers(groupId!),
     enabled: !!groupId,
     staleTime: 15_000,
   });
 }
 
-export function useJoinGroup(userId) {
+export function useJoinGroup(userId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: groupsApi.joinGroup,
@@ -98,7 +97,7 @@ export function useJoinGroup(userId) {
   });
 }
 
-export function useJoinByCode(userId) {
+export function useJoinByCode(userId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: groupsApi.joinByCode,
@@ -117,20 +116,20 @@ export function useLeaveGroup() {
   });
 }
 
-export function useRemoveMember(groupId) {
+export function useRemoveMember(groupId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (userId) => groupsApi.removeMember(groupId, userId),
+    mutationFn: (userId: string) => groupsApi.removeMember(groupId!, userId),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["group-members", groupId] }),
   });
 }
 
 // ── Leaderboard ───────────────────────────────────────────────────────────────
 
-export function useGroupLeaderboard(groupId) {
+export function useGroupLeaderboard(groupId: string | undefined) {
   return useQuery({
     queryKey: ["group-leaderboard", groupId],
-    queryFn: () => groupsApi.getLeaderboard(groupId),
+    queryFn: () => groupsApi.getLeaderboard(groupId!),
     enabled: !!groupId,
     staleTime: 60_000,
   });
@@ -138,7 +137,18 @@ export function useGroupLeaderboard(groupId) {
 
 // ── Group chat ────────────────────────────────────────────────────────────────
 
-export function useGroupMessages(groupId) {
+interface GroupMessage {
+  id: string | number;
+  group_id: string;
+  sender_id: string;
+  content: string;
+  reply_to_id: string | null;
+  edited_at: string | null;
+  created_at: string;
+  sender: unknown;
+}
+
+export function useGroupMessages(groupId: string | undefined) {
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -149,10 +159,10 @@ export function useGroupMessages(groupId) {
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "study_group_messages", filter: `group_id=eq.${groupId}` },
         (payload) => {
-          queryClient.setQueryData(["group-messages", groupId], (old = []) => {
+          queryClient.setQueryData(["group-messages", groupId], (old: GroupMessage[] = []) => {
             if (old.some(m => m.id === payload.new.id)) return old;
             const cleaned = old.filter(m => !String(m.id).startsWith("optimistic-"));
-            return [...cleaned, payload.new];
+            return [...cleaned, payload.new as GroupMessage];
           });
         }
       )
@@ -162,28 +172,29 @@ export function useGroupMessages(groupId) {
         () => { queryClient.invalidateQueries({ queryKey: ["group-messages", groupId] }); }
       )
       .subscribe();
-    return () => supabase.removeChannel(channel);
+    return () => { supabase.removeChannel(channel); };
   }, [groupId, queryClient]);
 
   return useQuery({
     queryKey: ["group-messages", groupId],
-    queryFn: () => groupsApi.getMessages(groupId),
+    queryFn: () => groupsApi.getMessages(groupId!),
     enabled: !!groupId,
     staleTime: 30_000,
     refetchInterval: 30_000,
   });
 }
 
-export function useSendGroupMessage(groupId) {
+export function useSendGroupMessage(groupId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ content, replyToId }) => groupsApi.sendMessage(groupId, content, replyToId),
-    onMutate: async ({ senderId, content, replyToId }) => {
+    mutationFn: ({ content, replyToId }: any) =>
+      groupsApi.sendMessage(groupId!, content, replyToId),
+    onMutate: async ({ senderId, content, replyToId }: any) => {
       await queryClient.cancelQueries({ queryKey: ["group-messages", groupId] });
       const previous = queryClient.getQueryData(["group-messages", groupId]);
-      const optimistic = {
+      const optimistic: GroupMessage = {
         id: `optimistic-${Date.now()}`,
-        group_id: groupId,
+        group_id: groupId!,
         sender_id: senderId,
         content,
         reply_to_id: replyToId ?? null,
@@ -191,17 +202,17 @@ export function useSendGroupMessage(groupId) {
         created_at: new Date().toISOString(),
         sender: null,
       };
-      queryClient.setQueryData(["group-messages", groupId], (old = []) => [...old, optimistic]);
+      queryClient.setQueryData(["group-messages", groupId], (old: GroupMessage[] = []) => [...old, optimistic]);
       return { previous };
     },
-    onError: (_e, _v, ctx) => {
+    onError: (_e: unknown, _v: unknown, ctx: { previous: unknown } | undefined) => {
       if (ctx?.previous) queryClient.setQueryData(["group-messages", groupId], ctx.previous);
     },
     onSettled: () => queryClient.invalidateQueries({ queryKey: ["group-messages", groupId] }),
   });
 }
 
-export function useDeleteGroupMessage(groupId) {
+export function useDeleteGroupMessage(groupId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: groupsApi.deleteMessage,
@@ -209,15 +220,16 @@ export function useDeleteGroupMessage(groupId) {
   });
 }
 
-export function useEditGroupMessage(groupId) {
+export function useEditGroupMessage(groupId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ messageId, content }) => groupsApi.editMessage(messageId, content),
+    mutationFn: ({ messageId, content }: { messageId: string; content: string }) =>
+      groupsApi.editMessage(messageId, content),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["group-messages", groupId] }),
   });
 }
 
-export function useGroupReactions(groupId) {
+export function useGroupReactions(groupId: string | undefined) {
   const queryClient = useQueryClient();
   useEffect(() => {
     if (!groupId) return;
@@ -227,27 +239,28 @@ export function useGroupReactions(groupId) {
         queryClient.invalidateQueries({ queryKey: ["group-reactions", groupId] });
       })
       .subscribe();
-    return () => supabase.removeChannel(channel);
+    return () => { supabase.removeChannel(channel); };
   }, [groupId, queryClient]);
   return useQuery({
     queryKey: ["group-reactions", groupId],
-    queryFn: () => groupsApi.getGroupReactions(groupId),
+    queryFn: () => groupsApi.getGroupReactions(groupId!),
     enabled: !!groupId,
     staleTime: 5_000,
   });
 }
 
-export function useToggleGroupReaction(groupId) {
+export function useToggleGroupReaction(groupId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ messageId, emoji, userId }) => groupsApi.toggleGroupReaction(messageId, groupId, emoji, userId),
+    mutationFn: ({ messageId, emoji, userId }: { messageId: string; emoji: string; userId: string }) =>
+      groupsApi.toggleGroupReaction(messageId, groupId!, emoji, userId),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["group-reactions", groupId] }),
   });
 }
 
 // ── Announcements ─────────────────────────────────────────────────────────────
 
-export function useGroupAnnouncements(groupId) {
+export function useGroupAnnouncements(groupId: string | undefined) {
   const queryClient = useQueryClient();
   useEffect(() => {
     if (!groupId) return;
@@ -257,35 +270,35 @@ export function useGroupAnnouncements(groupId) {
         queryClient.invalidateQueries({ queryKey: ["group-announcements", groupId] });
       })
       .subscribe();
-    return () => supabase.removeChannel(channel);
+    return () => { supabase.removeChannel(channel); };
   }, [groupId, queryClient]);
   return useQuery({
     queryKey: ["group-announcements", groupId],
-    queryFn: () => groupsApi.getAnnouncements(groupId),
+    queryFn: () => groupsApi.getAnnouncements(groupId!),
     enabled: !!groupId,
     staleTime: 30_000,
   });
 }
 
-export function useCreateAnnouncement(groupId) {
+export function useCreateAnnouncement(groupId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (content) => groupsApi.createAnnouncement(groupId, content),
+    mutationFn: (content: string) => groupsApi.createAnnouncement(groupId!, content),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["group-announcements", groupId] }),
   });
 }
 
-export function useDeleteAnnouncement(groupId) {
+export function useDeleteAnnouncement(groupId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id) => groupsApi.deleteAnnouncement(id),
+    mutationFn: (id: string) => groupsApi.deleteAnnouncement(id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["group-announcements", groupId] }),
   });
 }
 
 // ── Join requests ─────────────────────────────────────────────────────────────
 
-export function useJoinRequests(groupId) {
+export function useJoinRequests(groupId: string | undefined) {
   const queryClient = useQueryClient();
   useEffect(() => {
     if (!groupId) return;
@@ -295,20 +308,20 @@ export function useJoinRequests(groupId) {
         queryClient.invalidateQueries({ queryKey: ["join-requests", groupId] });
       })
       .subscribe();
-    return () => supabase.removeChannel(channel);
+    return () => { supabase.removeChannel(channel); };
   }, [groupId, queryClient]);
   return useQuery({
     queryKey: ["join-requests", groupId],
-    queryFn: () => groupsApi.getJoinRequests(groupId),
+    queryFn: () => groupsApi.getJoinRequests(groupId!),
     enabled: !!groupId,
     staleTime: 15_000,
   });
 }
 
-export function useMyJoinRequest(groupId) {
+export function useMyJoinRequest(groupId: string | undefined) {
   return useQuery({
     queryKey: ["my-join-request", groupId],
-    queryFn: () => groupsApi.getMyJoinRequest(groupId),
+    queryFn: () => groupsApi.getMyJoinRequest(groupId!),
     enabled: !!groupId,
     staleTime: 15_000,
   });
@@ -317,23 +330,26 @@ export function useMyJoinRequest(groupId) {
 export function useRequestJoin() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (groupId) => groupsApi.requestJoin(groupId),
-    onSuccess: (_d, groupId) => queryClient.invalidateQueries({ queryKey: ["my-join-request", groupId] }),
+    mutationFn: (groupId: string) => groupsApi.requestJoin(groupId),
+    onSuccess: (_d: unknown, groupId: string) =>
+      queryClient.invalidateQueries({ queryKey: ["my-join-request", groupId] }),
   });
 }
 
 export function useCancelJoinRequest() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (groupId) => groupsApi.cancelJoinRequest(groupId),
-    onSuccess: (_d, groupId) => queryClient.invalidateQueries({ queryKey: ["my-join-request", groupId] }),
+    mutationFn: (groupId: string) => groupsApi.cancelJoinRequest(groupId),
+    onSuccess: (_d: unknown, groupId: string) =>
+      queryClient.invalidateQueries({ queryKey: ["my-join-request", groupId] }),
   });
 }
 
-export function useApproveJoinRequest(groupId) {
+export function useApproveJoinRequest(groupId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ requestId, userId }) => groupsApi.approveJoinRequest(requestId, groupId, userId),
+    mutationFn: ({ requestId, userId }: { requestId: string; userId: string }) =>
+      groupsApi.approveJoinRequest(requestId, groupId!, userId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["join-requests", groupId] });
       queryClient.invalidateQueries({ queryKey: ["group-members", groupId] });
@@ -341,20 +357,20 @@ export function useApproveJoinRequest(groupId) {
   });
 }
 
-export function useDenyJoinRequest(groupId) {
+export function useDenyJoinRequest(groupId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (requestId) => groupsApi.denyJoinRequest(requestId),
+    mutationFn: (requestId: string) => groupsApi.denyJoinRequest(requestId),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["join-requests", groupId] }),
   });
 }
 
 // ── Reading progress ──────────────────────────────────────────────────────────
 
-export function useGroupProgress(groupId) {
+export function useGroupProgress(groupId: string | undefined) {
   return useQuery({
     queryKey: ["group-progress", groupId],
-    queryFn: () => groupsApi.getGroupProgress(groupId),
+    queryFn: () => groupsApi.getGroupProgress(groupId!),
     enabled: !!groupId,
     staleTime: 60_000,
   });

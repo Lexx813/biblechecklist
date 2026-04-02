@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getMeetingWeek,
@@ -11,7 +10,7 @@ import {
 
 // ── Utility ───────────────────────────────────────────────────────────────────
 
-export function getMondayOfWeek(d = new Date()) {
+export function getMondayOfWeek(d = new Date()): string {
   const day = d.getDay(); // 0=Sun
   const diff = day === 0 ? -6 : 1 - day;
   const monday = new Date(d);
@@ -19,20 +18,20 @@ export function getMondayOfWeek(d = new Date()) {
   return monday.toISOString().slice(0, 10);
 }
 
-export function formatWeekLabel(weekStart) {
+export function formatWeekLabel(weekStart: string): string {
   const d = new Date(weekStart + "T00:00:00");
   const end = new Date(d);
   end.setDate(d.getDate() + 6);
-  const fmt = (date) => date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  const fmt = (date: Date) => date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
   return `${fmt(d)} – ${fmt(end)}`;
 }
 
 // ── Hooks ─────────────────────────────────────────────────────────────────────
 
-export function useMeetingWeek(weekStart) {
+export function useMeetingWeek(weekStart: string | undefined) {
   return useQuery({
     queryKey: ["meetingWeek", weekStart],
-    queryFn: () => getMeetingWeek(weekStart),
+    queryFn: () => getMeetingWeek(weekStart!),
     staleTime: 1000 * 60 * 60 * 24, // 24h — scraped content rarely changes
     enabled: !!weekStart,
   });
@@ -46,46 +45,46 @@ export function useRecentMeetingWeeks() {
   });
 }
 
-export function usePrepForWeek(userId, weekStart) {
+export function usePrepForWeek(userId: string | undefined, weekStart: string | undefined) {
   return useQuery({
     queryKey: ["prep", userId, weekStart],
-    queryFn: () => getPrepForWeek(userId, weekStart),
+    queryFn: () => getPrepForWeek(userId!, weekStart!),
     enabled: !!userId && !!weekStart,
     staleTime: 30_000,
   });
 }
 
-export function usePrepHistory(userId) {
+export function usePrepHistory(userId: string | undefined) {
   return useQuery({
     queryKey: ["prepHistory", userId],
-    queryFn: () => getPrepHistory(userId, 12),
+    queryFn: () => getPrepHistory(userId!, 12),
     enabled: !!userId,
     staleTime: 60_000,
   });
 }
 
-export function usePrepStreak(userId) {
+export function usePrepStreak(userId: string | undefined) {
   return useQuery({
     queryKey: ["prepStreak", userId],
-    queryFn: () => getPrepStreak(userId),
+    queryFn: () => getPrepStreak(userId!),
     enabled: !!userId,
     staleTime: 60_000,
   });
 }
 
-export function useUpdatePrep(userId, weekStart) {
+export function useUpdatePrep(userId: string | undefined, weekStart: string | undefined) {
   const qc = useQueryClient();
 
   return useMutation({
-    mutationFn: (updates) => upsertPrep(userId, weekStart, updates),
-    onMutate: async (updates) => {
+    mutationFn: (updates: any) => upsertPrep(userId!, weekStart!, updates),
+    onMutate: async (updates: any) => {
       const key = ["prep", userId, weekStart];
       await qc.cancelQueries({ queryKey: key });
       const prev = qc.getQueryData(key);
-      qc.setQueryData(key, (old) => ({ ...old, ...updates }));
+      qc.setQueryData(key, (old: Record<string, unknown> | undefined) => ({ ...old, ...updates }));
       return { prev };
     },
-    onError: (_err, _vars, ctx) => {
+    onError: (_err: unknown, _vars: unknown, ctx: { prev: unknown } | undefined) => {
       if (ctx?.prev !== undefined) {
         qc.setQueryData(["prep", userId, weekStart], ctx.prev);
       }

@@ -64,7 +64,7 @@ export default function EmojiPickerPopup({ onSelect, onClose, align = "left" }: 
  * Utility: insert emoji into a textarea/input at cursor position.
  * Returns the new value.
  */
-export function insertEmojiAtCursor(el, currentValue, emoji) {
+export function insertEmojiAtCursor(el: HTMLTextAreaElement | HTMLInputElement | null, currentValue: string, emoji: string): string {
   if (!el) return currentValue + emoji;
   const start = el.selectionStart ?? currentValue.length;
   const end = el.selectionEnd ?? currentValue.length;

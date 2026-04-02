@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import { wolRefUrl } from "../../utils/wol";
@@ -7,7 +6,15 @@ const AICompanion = lazy(() => import("../AICompanion"));
 import { useSubscription } from "../../hooks/useSubscription";
 import "../../styles/daily-verse.css";
 
-export default function DailyVerse({ user }) {
+interface User {
+  id?: string;
+}
+
+interface Props {
+  user?: User;
+}
+
+export default function DailyVerse({ user }: Props) {
   const { t, i18n } = useTranslation();
   const lang = i18n.language?.split("-")[0] ?? "en";
   const [idx, setIdx] = useState(getDailyVerseIndex);

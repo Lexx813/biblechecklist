@@ -1,11 +1,10 @@
-// @ts-nocheck
 import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useReadingHeatmap, useReadingStreaks, useSetDailyGoal } from "../../hooks/useReading";
 import ReadingHeatmap from "./ReadingHeatmap";
 import "../../styles/reading-plan.css";
 
-function estimateFinishDays(heatmap, chaptersRemaining) {
+function estimateFinishDays(heatmap: Array<{ date: string; chapters: number }>, chaptersRemaining: number) {
   if (chaptersRemaining <= 0) return null;
   const recent = heatmap.slice(-14);
   const activeDays = recent.filter(d => d.chapters > 0);
@@ -15,7 +14,15 @@ function estimateFinishDays(heatmap, chaptersRemaining) {
   return Math.ceil(chaptersRemaining / avgPerDay);
 }
 
-export default function ReadingPlanWidget({ userId, dailyGoal = 3, readonly = false, chaptersRead = 0, totalChapters = 1189 }) {
+interface Props {
+  userId?: string;
+  dailyGoal?: number;
+  readonly?: boolean;
+  chaptersRead?: number;
+  totalChapters?: number;
+}
+
+export default function ReadingPlanWidget({ userId, dailyGoal = 3, readonly = false, chaptersRead = 0, totalChapters = 1189 }: Props) {
   const { t } = useTranslation();
   const { data: heatmap = [] } = useReadingHeatmap(userId);
   const { data: streaks = { current_streak: 0, longest_streak: 0 } } = useReadingStreaks(userId);
@@ -34,7 +41,7 @@ export default function ReadingPlanWidget({ userId, dailyGoal = 3, readonly = fa
   );
 
   function handleGoalSave() {
-    const g = Math.min(30, Math.max(1, parseInt(goalInput) || 3));
+    const g = Math.min(30, Math.max(1, goalInput || 3));
     setGoal.mutate(g);
     setEditingGoal(false);
   }
@@ -87,7 +94,7 @@ export default function ReadingPlanWidget({ userId, dailyGoal = 3, readonly = fa
                 type="number" inputMode="numeric" min={1} max={30}
                 className="reading-plan-goal-input"
                 value={goalInput}
-                onChange={e => setGoalInput(e.target.value)}
+                onChange={e => setGoalInput(Number(e.target.value))}
                 onKeyDown={e => { if (e.key === "Enter") handleGoalSave(); if (e.key === "Escape") setEditingGoal(false); }}
                 autoFocus
               />
