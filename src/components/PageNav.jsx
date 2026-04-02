@@ -187,7 +187,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 {isPremium
                   ? <button className={`page-nav-more-item${currentPage === "studyNotes" ? " page-nav-more-item--active" : ""}`} onClick={() => go("studyNotes")}>{Icon.Notes} {t("nav.studyNotes")}</button>
                   : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setStudyOpen(false); onUpgrade?.(); }}>{Icon.Notes} {t("nav.studyNotes")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
-                {(aiEnabled && isPremium) || isAdmin
+                {isPremium || isAdmin
                   ? <button className={`page-nav-more-item${currentPage === "aiTools" ? " page-nav-more-item--active" : ""}`} onClick={() => go("aiTools")}>{Icon.Sparkle} {t("nav.aiTools", "AI Tools")}</button>
                   : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setStudyOpen(false); onUpgrade?.(); }}>{Icon.Sparkle} {t("nav.aiTools", "AI Tools")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
               </div>
@@ -363,9 +363,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                     <button className={`page-nav-mobile-link${currentPage === "meetingPrep" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("meetingPrep")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.meetingPrep", "Meeting Prep")}</button>
                     <button className={`page-nav-mobile-link${currentPage === "readingPlans" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("readingPlans")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.readingPlans")}</button>
                     <button className={`page-nav-mobile-link${currentPage === "studyNotes" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyNotes")}><span className="page-nav-mobile-icon">{Icon.Notes}</span> {t("nav.studyNotes")}</button>
-                    {(aiEnabled || isAdmin)
-                      ? <button className={`page-nav-mobile-link${currentPage === "aiTools" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("aiTools")}><span className="page-nav-mobile-icon">{Icon.Sparkle}</span> {t("nav.aiTools", "AI Tools")}</button>
-                      : <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Sparkle}</span> {t("nav.aiTools", "AI Tools")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>}
+                    <button className={`page-nav-mobile-link${currentPage === "aiTools" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("aiTools")}><span className="page-nav-mobile-icon">{Icon.Sparkle}</span> {t("nav.aiTools", "AI Tools")}</button>
                   </>
                 ) : (
                   <>
