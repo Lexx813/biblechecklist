@@ -7,6 +7,8 @@ import ReportModal from "../../components/ReportModal";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
 import ShareButtons from "../../components/ShareButtons";
 import "../../styles/share-buttons.css";
+import "../../styles/social.css";
+import "../../styles/forum.css";
 import MentionAutocomplete from "../../components/mentions/MentionAutocomplete";
 import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment, useDeletePost, useUserBlogLikes, useToggleBlogLike } from "../../hooks/useBlog";
 import { toast } from "../../lib/toast";
