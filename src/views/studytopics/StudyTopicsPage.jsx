@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import { STUDY_TOPICS } from "../../data/studyTopics";
+import { BOOKS } from "../../data/books";
+import { BOOK_INFO } from "../../data/bookInfo";
+import { useSubscription } from "../../hooks/useSubscription";
 import "../../styles/study-topics.css";
 
 function StudyTopicsSkeleton() {
@@ -22,6 +26,8 @@ function StudyTopicsSkeleton() {
 
 export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
   const { t } = useTranslation();
+  const { isPremium } = useSubscription(user?.id);
+  const [tab, setTab] = useState("topics"); // "topics" | "books"
 
   return (
     <div className="stp-page">
@@ -36,6 +42,26 @@ export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
         </p>
       </div>
 
+      <div className="stp-tabs" role="tablist">
+        <button
+          className={`stp-tab${tab === "topics" ? " stp-tab--active" : ""}`}
+          onClick={() => setTab("topics")}
+          role="tab"
+          aria-selected={tab === "topics"}
+        >
+          {t("studyTopics.tabTopics", "Topics")}
+        </button>
+        <button
+          className={`stp-tab${tab === "books" ? " stp-tab--active" : ""}`}
+          onClick={() => setTab("books")}
+          role="tab"
+          aria-selected={tab === "books"}
+        >
+          {t("studyTopics.tabBooks", "Bible Books")}
+        </button>
+      </div>
+
+      {tab === "topics" && (
       <div className="stp-grid">
         {STUDY_TOPICS.map(topic => {
           const loc = t(`studyTopics.topics.${topic.slug}`, { returnObjects: true });
@@ -55,6 +81,37 @@ export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
           );
         })}
       </div>
+      )}
+
+      {tab === "books" && (
+        <div className="stp-grid">
+          {BOOKS.map((book, bookIndex) => {
+            const info = BOOK_INFO[bookIndex];
+            const bookName = t(`bookNames.${bookIndex}`, book.name);
+            const theme = info ? t(`bookThemes.${bookIndex}`, info.theme) : "";
+            return (
+              <button
+                key={bookIndex}
+                className={`stp-card${!isPremium ? " stp-card--locked" : ""}`}
+                onClick={() => {
+                  if (!isPremium) { sharedNav.onUpgrade?.(); return; }
+                  navigate("readingTracker");
+                }}
+                aria-label={`${bookName}${!isPremium ? " (Premium)" : ""}`}
+              >
+                {!isPremium && (
+                  <span className="stp-card-lock" aria-hidden="true">✦</span>
+                )}
+                <h2 className="stp-card-title">{bookName}</h2>
+                <p className="stp-card-subtitle">{theme}</p>
+                <span className="stp-card-arrow">
+                  {isPremium ? t("studyTopics.readMore", "Read more") + " →" : "✦ Premium"}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

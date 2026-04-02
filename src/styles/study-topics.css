@@ -89,6 +89,7 @@
   flex-direction: column;
   gap: 8px;
   font-family: inherit;
+  position: relative;
 }
 
 .stp-card:hover {
@@ -328,4 +329,43 @@ a.std-scripture-ref:hover {
   .std-nav-footer {
     flex-direction: column;
   }
+}
+
+/* ── Tabs ─────────────────────────────────────────────────── */
+.stp-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+}
+
+.stp-tab {
+  padding: 7px 18px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  font-family: inherit;
+}
+
+.stp-tab--active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.stp-card-lock {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.75rem;
+  color: var(--gold, #f59e0b);
+  font-weight: 700;
 }
