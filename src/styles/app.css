@@ -1431,3 +1431,25 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   border-color: rgba(255,255,255,0.15);
   border-top-color: rgba(255,255,255,0.6);
 }
+
+/* ── Mobile touch feel ── */
+@media (hover: none) and (pointer: coarse) {
+  .quiz-level-card,
+  .lb-row,
+  .rp-template-card,
+  .forum-thread-row,
+  .sn-note-card,
+  .blog-card,
+  button:not(:disabled) {
+    transition: transform 80ms ease-out;
+  }
+  .quiz-level-card:active,
+  .lb-row:active,
+  .rp-template-card:active,
+  .forum-thread-row:active,
+  .sn-note-card:active,
+  .blog-card:active,
+  button:not(:disabled):active {
+    transform: scale(0.97);
+  }
+}
