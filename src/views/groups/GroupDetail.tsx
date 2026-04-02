@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState, useEffect, useRef, useCallback } from "react";
+import PageNav from "../../components/PageNav";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { insertEmojiAtCursor } from "../../components/EmojiPickerPopup";
@@ -738,7 +739,7 @@ function ChallengeSection({ groupId, currentUser, isAdmin, onUpgrade }) {
 
 // ── Main detail page ──────────────────────────────────────────────────────────
 
-export default function GroupDetail({ groupId, user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+export default function GroupDetail({ groupId, user, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { t } = useTranslation();
   const [tab, setTab] = useState("chat");
   const [confirmLeave, setConfirmLeave] = useState(false);
@@ -783,6 +784,7 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
 
   return (
     <div className="grp-detail">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} onUpgrade={onUpgrade} />
       {/* Header */}
       <div className="grp-detail-header">
         <button className="grp-detail-back-btn" onClick={() => navigate("groups")} aria-label={t("common.back")}>

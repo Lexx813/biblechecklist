@@ -338,9 +338,9 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (isPremium && nav.page === "groupDetail")  pageContent = <Page><GroupDetail {...sharedNav} groupId={nav.groupId} /></Page>;
   else if (isPremium && nav.page === "meetingPrep") pageContent = <Page><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "friends")
-    pageContent = <Page><FriendsPage user={user} navigate={navigate} isPremium={isPremium} onUpgrade={openUpgrade} /></Page>;
+    pageContent = <Page><FriendsPage user={user} navigate={navigate} isPremium={isPremium} {...sharedNav} /></Page>;
   else if (nav.page === "friendRequests")
-    pageContent = <Page><FriendRequestsPage user={user} navigate={navigate} /></Page>;
+    pageContent = <Page><FriendRequestsPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   // Premium-gated pages for non-premium users → send home (with upgrade prompt)
   else if (!isPremium && ["messages", "groups", "groupDetail", "readingPlans", "studyNotes", "aiTools", "meetingPrep"].includes(nav.page)) {
     if (!profileLoading) {
@@ -354,7 +354,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (nav.page === "notFound") {
     pageContent = (
       <Page>
-        <NotFoundPage navigate={navigate} />
+        <NotFoundPage navigate={navigate} {...sharedNav} />
       </Page>
     );
   }

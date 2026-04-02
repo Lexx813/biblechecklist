@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState, useEffect, useRef, useCallback, useMemo, memo } from "react";
+import PageNav from "../../components/PageNav";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
 import { NewConversationModal } from "../../components/NewConversationModal";
@@ -1329,6 +1330,7 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
 
   return (
     <div className="msg-page">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} onUpgrade={onUpgrade} />
       <div className="msg-layout">
         <aside className={`msg-sidebar${!showList ? " msg-sidebar--hidden-mobile" : ""}`}>
           <div className="msg-sidebar-header">

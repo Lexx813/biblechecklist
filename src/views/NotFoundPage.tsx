@@ -1,8 +1,9 @@
 // @ts-nocheck
 import { useEffect } from "react";
+import PageNav from "../components/PageNav";
 import "../styles/not-found.css";
 
-export default function NotFoundPage({ navigate }) {
+export default function NotFoundPage({ navigate, user, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   // Ensure the URL stays as-is so the user can see what they typed wrong
   useEffect(() => {
     document.title = "404 — Page Not Found";
@@ -11,6 +12,7 @@ export default function NotFoundPage({ navigate }) {
 
   return (
     <div className="nf-wrap">
+      {user && <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} onUpgrade={onUpgrade} />}
       <div className="nf-card">
         <div className="nf-glow" aria-hidden="true" />
         <div className="nf-code">404</div>

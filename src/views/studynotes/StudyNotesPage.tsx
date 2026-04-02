@@ -903,7 +903,7 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
 
   return (
     <div className="sn-page">
-      
+      <PageNav user={user} navigate={navigate} {...sharedNav} />
 
       <div className="sn-header">
         <button className="sn-nav-back" onClick={() => navigate("home")}>{t("common.back")}</button>

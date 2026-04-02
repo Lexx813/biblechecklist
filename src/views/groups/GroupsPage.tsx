@@ -3,6 +3,7 @@ import { useState, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { useMyGroups, usePublicGroups, useCreateGroup, useJoinGroup, useJoinByCode, useRequestJoin } from "../../hooks/useGroups";
+import PageNav from "../../components/PageNav";
 import "../../styles/groups.css";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -289,7 +290,7 @@ function GroupsSkeleton() {
   );
 }
 
-export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { t } = useTranslation();
   const [tab, setTab] = useState("mine");
   const [showCreate, setShowCreate] = useState(false);
@@ -331,6 +332,7 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
 
   return (
     <div className="grp-page">
+      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} onUpgrade={onUpgrade} />
       <div className="grp-page-header">
         <div className="grp-page-header-left">
           <button className="back-btn" onClick={() => navigate("home")}>
