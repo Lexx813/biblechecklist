@@ -102,6 +102,24 @@ function QuizLevelCard({ levelData, progress, onClick }) {
   );
 }
 
+// ── QuizHubSkeleton ───────────────────────────────────────────────────────────
+
+function QuizHubSkeleton() {
+  return (
+    <div className="quiz-hub">
+      <div className="quiz-hub-header">
+        <div className="skeleton" style={{ height: 44, width: '60%', margin: '0 auto 12px' }} />
+        <div className="skeleton" style={{ height: 18, width: '40%', margin: '0 auto' }} />
+      </div>
+      <div className="quiz-level-grid">
+        {Array.from({ length: 12 }, (_, i) => (
+          <div key={i} className="skeleton" style={{ height: 120, borderRadius: 16 }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ── QuizPage (Hub) ─────────────────────────────────────────────────────────────
 
 export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
@@ -138,7 +156,7 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
         </div>
 
         {isLoading ? (
-          <LoadingSpinner />
+          <QuizHubSkeleton />
         ) : (
           <div className="quiz-level-grid">
             {LEVELS.map((levelData) => (
