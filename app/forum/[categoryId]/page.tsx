@@ -5,6 +5,16 @@ import ClientShell from "../../_components/ClientShell";
 
 export const revalidate = 60;
 
+// Pre-render all forum categories at build time
+export async function generateStaticParams() {
+  try {
+    const categories = await forumApi.listCategories();
+    return categories.map((c) => ({ categoryId: c.id }));
+  } catch {
+    return [];
+  }
+}
+
 export async function generateMetadata({ params }) {
   try {
     const categories = await forumApi.listCategories();

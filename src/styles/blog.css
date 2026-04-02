@@ -988,6 +988,7 @@
 }
 .blog-related-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
 .blog-related-cover {
+  position: relative;
   height: 120px;
   overflow: hidden;
 }

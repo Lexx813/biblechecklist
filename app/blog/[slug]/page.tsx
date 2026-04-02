@@ -5,6 +5,16 @@ import ClientShell from "../../_components/ClientShell";
 
 export const revalidate = 60;
 
+// Pre-render all published blog posts at build time; new posts fall back to ISR
+export async function generateStaticParams() {
+  try {
+    const posts = await blogApi.listPublished();
+    return posts.map((post) => ({ slug: post.slug }));
+  } catch {
+    return [];
+  }
+}
+
 function stripHtml(html = "") {
   return html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
 }

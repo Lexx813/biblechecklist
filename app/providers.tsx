@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useReportWebVitals } from "next/web-vitals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ErrorBoundary } from "../src/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react";
@@ -39,6 +40,20 @@ const persistOptions = {
     },
   },
 };
+
+function WebVitals() {
+  useReportWebVitals((metric) => {
+    if (typeof window === "undefined" || !window.gtag) return;
+    window.gtag("event", metric.name, {
+      event_category: "Web Vitals",
+      event_label: metric.id,
+      // CLS is a ratio (0–1); convert to integer for GA
+      value: Math.round(metric.name === "CLS" ? metric.value * 1000 : metric.value),
+      non_interaction: true,
+    });
+  });
+  return null;
+}
 
 function SideEffects() {
   const ran = useRef(false);
@@ -125,6 +140,7 @@ export default function Providers({ children }) {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <SideEffects />
+        <WebVitals />
         {children}
         <Analytics />
         {process.env.NODE_ENV !== "production" && (

@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useState, useMemo, memo, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
 import PageNav from "../../components/PageNav";
@@ -236,10 +237,14 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
     <div className="blog-post-view">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <div className="blog-post-hero">
-        <img
+        <Image
           src={post.cover_url || getFallbackImage(post.id)}
           className="blog-post-hero-img"
           alt={displayTitle}
+          fill
+          sizes="100vw"
+          priority
+          style={{ objectFit: "cover" }}
         />
         <div className="blog-post-hero-overlay">
           <button className="back-btn" onClick={onBack}>{t("blog.backToBlog")}</button>
@@ -380,10 +385,12 @@ function RelatedPosts({ currentPost, onSelect, navigate, user }) {
         {related.map(post => (
           <article key={post.id} className="blog-related-card" onClick={() => onSelect(post.slug)}>
             <div className="blog-related-cover">
-              <img
+              <Image
                 src={post.cover_url || getFallbackImage(post.id)}
                 alt={post.title}
-                loading="lazy"
+                fill
+                sizes="(max-width: 640px) 100vw, 33vw"
+                style={{ objectFit: "cover" }}
               />
             </div>
             <div className="blog-related-body">
@@ -413,11 +420,13 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user, lang }
   return (
     <article className="blog-card" onClick={() => onSelect(post.slug)}>
       <div className="blog-card-cover">
-        <img
+        <Image
           src={post.cover_url || getFallbackImage(post.id)}
           className="blog-card-cover-img"
           alt={displayTitle}
-          loading="lazy"
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          style={{ objectFit: "cover" }}
         />
         <div className="blog-card-cover-shine" />
       </div>
