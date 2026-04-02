@@ -11,7 +11,8 @@
     "format": "prettier --write \"src/**/*.{js,jsx,css}\"",
     "format:check": "prettier --check \"src/**/*.{js,jsx,css}\"",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@sentry/react": "^10.46.0",
@@ -58,6 +59,7 @@
     "globals": "^17.4.0",
     "prettier": "^3.8.1",
     "sharp": "^0.34.5",
+    "typescript": "5.9.3",
     "vitest": "^4.1.2"
   }
 }
