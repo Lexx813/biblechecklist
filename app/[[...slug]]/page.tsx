@@ -1,10 +1,6 @@
 // @ts-nocheck
 import ClientShell from "../_components/ClientShell";
-
-const SEO_HIDE = {
-  position: "absolute", width: 1, height: 1,
-  overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap",
-};
+import LandingPageStatic from "../_components/LandingPageStatic";
 
 const FAQ_ITEMS = [
   {
@@ -70,51 +66,8 @@ export default async function Page({ params }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }}
         />
-        <div style={SEO_HIDE}>
-          <h1>NWT Progress — Free Bible Reading Tracker for Jehovah&apos;s Witnesses</h1>
-          <p>
-            Track your New World Translation Bible reading across all 66 books, follow structured
-            reading plans, earn quiz badges, and connect with a worldwide community of
-            Jehovah&apos;s Witnesses. Free to use on any device.
-          </p>
-
-          <h2>Frequently Asked Questions</h2>
-          {FAQ_ITEMS.map((item) => (
-            <div key={item.question}>
-              <h3>{item.question}</h3>
-              <p>{item.answer}</p>
-            </div>
-          ))}
-
-          <h2>Explore Bible Books</h2>
-          <ul>
-            <li><a href="/books">All 66 Books of the Bible — NWT Study Guides</a></li>
-            <li><a href="/books/genesis">Genesis — The Beginning of Jehovah&apos;s Purpose</a></li>
-            <li><a href="/books/psalms">Psalms — Songs of Praise to Jehovah</a></li>
-            <li><a href="/books/proverbs">Proverbs — Practical Wisdom from Jehovah</a></li>
-            <li><a href="/books/isaiah">Isaiah — Prophecy of the Messiah and New World</a></li>
-            <li><a href="/books/matthew">Matthew — The Life and Ministry of Jesus</a></li>
-            <li><a href="/books/john">John — Jesus as the Son of Jehovah</a></li>
-            <li><a href="/books/acts">Acts — Growth of the Early Congregation</a></li>
-            <li><a href="/books/romans">Romans — Righteousness Through Faith in Jesus</a></li>
-            <li><a href="/books/revelation">Revelation — Jehovah&apos;s Kingdom and Paradise Earth</a></li>
-          </ul>
-
-          <h2>Bible Reading Plans</h2>
-          <ul>
-            <li><a href="/plans">All Bible Reading Plans for Jehovah&apos;s Witnesses</a></li>
-          </ul>
-
-          <h2>Study Topics</h2>
-          <ul>
-            <li><a href="/study-topics">Bible Study Topics for Jehovah&apos;s Witnesses</a></li>
-          </ul>
-
-          <h2>Community</h2>
-          <ul>
-            <li><a href="/blog">NWT Progress Blog — Bible Study Articles</a></li>
-            <li><a href="/forum">Community Forum for Jehovah&apos;s Witnesses</a></li>
-          </ul>
+        <div id="ssr-fallback">
+          <LandingPageStatic />
         </div>
         <ClientShell />
       </>
