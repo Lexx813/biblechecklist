@@ -18,15 +18,15 @@ export default async function sitemap() {
   );
 
   const staticPages = [
-    { url: `${BASE}`, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
-    { url: `${BASE}/blog`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
+    { url: `${BASE}`, lastModified: new Date("2026-03-01"), changeFrequency: "weekly", priority: 1.0 },
+    { url: `${BASE}/blog`, lastModified: new Date("2026-04-01"), changeFrequency: "daily", priority: 0.9 },
     { url: `${BASE}/forum`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
-    { url: `${BASE}/study-topics`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/study-topics`, lastModified: new Date("2026-03-01"), changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/books`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE}/plans`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${BASE}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${BASE}/plans`, lastModified: new Date("2026-03-01"), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${BASE}/about`, lastModified: new Date("2026-02-01"), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${BASE}/privacy`, lastModified: new Date("2026-01-01"), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${BASE}/terms`, lastModified: new Date("2026-01-01"), changeFrequency: "yearly", priority: 0.3 },
   ];
 
   const bookPages = BOOKS.map((b) => ({
@@ -66,20 +66,5 @@ export default async function sitemap() {
     // Supabase unavailable at build time — omit blog pages
   }
 
-  let forumPages = [];
-  try {
-    const { data: threads } = await supabase
-      .from("forum_threads")
-      .select("id, category_id, updated_at");
-    forumPages = (threads ?? []).map((t) => ({
-      url: `${BASE}/forum/${t.category_id}/${t.id}`,
-      lastModified: new Date(t.updated_at),
-      changeFrequency: "weekly",
-      priority: 0.5,
-    }));
-  } catch {
-    // Supabase unavailable at build time — omit forum pages
-  }
-
-  return [...staticPages, ...studyTopicPages, ...bookPages, ...planPages, ...blogPages, ...forumPages];
+  return [...staticPages, ...studyTopicPages, ...bookPages, ...planPages, ...blogPages];
 }
