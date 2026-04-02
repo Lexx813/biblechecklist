@@ -335,6 +335,23 @@ function HistoryTab({ userId, isPremium, onUpgrade }) {
   );
 }
 
+// ── Skeleton ──────────────────────────────────────────────────────────────────
+function MeetingPrepSkeleton() {
+  return (
+    <div className="mp-container">
+      <div className="skeleton" style={{ height: 38, width: '55%', marginBottom: 24 }} />
+      {Array.from({ length: 4 }, (_, section) => (
+        <div key={section} style={{ marginBottom: 20 }}>
+          <div className="skeleton" style={{ height: 20, width: '30%', marginBottom: 10 }} />
+          {Array.from({ length: 3 }, (_, row) => (
+            <div key={row} className="skeleton" style={{ height: 16, width: `${75 - row * 10}%`, marginBottom: 8 }} />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 // ── Main page ─────────────────────────────────────────────────────────────────
 const TABS = ["midweek", "weekend", "history"];
 
@@ -475,7 +492,7 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
 
         {/* Tab content */}
         {weekLoading && activeTab !== "history" ? (
-          <LoadingSpinner />
+          <MeetingPrepSkeleton />
         ) : activeTab === "midweek" ? (
           <>
             <ClamTab

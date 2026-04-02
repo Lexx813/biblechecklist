@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
-import LoadingSpinner from "../../components/LoadingSpinner";
+
 import { useReadingHistory } from "../../hooks/useReading";
 import "../../styles/reading-history.css";
 
@@ -13,6 +13,22 @@ function formatDay(dateStr) {
 function formatMonth(dateStr) {
   const d = new Date(dateStr + "T12:00:00");
   return d.toLocaleDateString(undefined, { month: "long", year: "numeric" });
+}
+
+function ReadingHistorySkeleton() {
+  return (
+    <div className="reading-history">
+      {Array.from({ length: 8 }, (_, i) => (
+        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0' }}>
+          <div className="skeleton" style={{ width: 36, height: 36, borderRadius: '50%', flexShrink: 0 }} />
+          <div style={{ flex: 1 }}>
+            <div className="skeleton" style={{ height: 13, width: '35%', marginBottom: 6 }} />
+            <div className="skeleton" style={{ height: 15, width: '60%' }} />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 function dotLevel(chapters) {
@@ -84,7 +100,7 @@ export default function ReadingHistory({ user, onBack, navigate, darkMode, setDa
         )}
 
         {isLoading ? (
-          <LoadingSpinner />
+          <ReadingHistorySkeleton />
         ) : history.length === 0 ? (
           <div className="history-empty">
             <div className="history-empty-icon">📅</div>

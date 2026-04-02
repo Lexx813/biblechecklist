@@ -3,6 +3,23 @@ import PageNav from "../../components/PageNav";
 import { STUDY_TOPICS } from "../../data/studyTopics";
 import "../../styles/study-topics.css";
 
+function StudyTopicsSkeleton() {
+  return (
+    <div className="study-topics">
+      <div className="skeleton" style={{ height: 38, width: '45%', marginBottom: 20 }} />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 16 }}>
+        {Array.from({ length: 6 }, (_, i) => (
+          <div key={i} style={{ padding: 16, background: 'var(--card-bg)', borderRadius: 12, border: '1px solid var(--border)' }}>
+            <div className="skeleton" style={{ height: 20, width: '70%', marginBottom: 10 }} />
+            <div className="skeleton" style={{ height: 14, width: '90%', marginBottom: 6 }} />
+            <div className="skeleton" style={{ height: 14, width: '65%' }} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
   const { t } = useTranslation();
 
