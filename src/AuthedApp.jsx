@@ -62,7 +62,7 @@ function Page({ children, noFooter = false }) {
   return (
     <ErrorBoundary>
       <Suspense fallback={pageFallback}>
-        <main id="main-content">
+        <main id="main-content" className="page-transition">
           {children}
         </main>
         {!noFooter && <PageFooter />}
