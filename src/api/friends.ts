@@ -78,12 +78,19 @@ export const friendsApi = {
     if (!user) return [];
     const { data, error } = await supabase
       .from("friend_requests")
-      .select("*, sender:from_user_id(id, display_name, avatar_url)")
+      .select("*")
       .eq("to_user_id", user.id)
       .eq("status", "pending")
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
-    return data ?? [];
+    if (!data || data.length === 0) return [];
+    const senderIds = data.map((r) => r.from_user_id);
+    const { data: profiles } = await supabase
+      .from("profiles")
+      .select("id, display_name, avatar_url")
+      .in("id", senderIds);
+    const profileMap = new Map((profiles ?? []).map((p) => [p.id, p]));
+    return data.map((r) => ({ ...r, sender: profileMap.get(r.from_user_id) ?? null }));
   },
 
   getOutgoing: async () => {
@@ -91,12 +98,19 @@ export const friendsApi = {
     if (!user) return [];
     const { data, error } = await supabase
       .from("friend_requests")
-      .select("*, recipient:to_user_id(id, display_name, avatar_url)")
+      .select("*")
       .eq("from_user_id", user.id)
       .eq("status", "pending")
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
-    return data ?? [];
+    if (!data || data.length === 0) return [];
+    const recipientIds = data.map((r) => r.to_user_id);
+    const { data: profiles } = await supabase
+      .from("profiles")
+      .select("id, display_name, avatar_url")
+      .in("id", recipientIds);
+    const profileMap = new Map((profiles ?? []).map((p) => [p.id, p]));
+    return data.map((r) => ({ ...r, recipient: profileMap.get(r.to_user_id) ?? null }));
   },
 
   getStatus: async (targetId: string) => {

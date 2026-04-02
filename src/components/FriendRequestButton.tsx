@@ -1,4 +1,5 @@
 import { useFriendStatus, useSendFriendRequest, useCancelFriendRequest, useAcceptFriendRequest, useDeclineFriendRequest } from "../hooks/useFriends";
+import "../styles/friends.css";
 
 interface Props {
   currentUserId: string;
@@ -30,7 +31,9 @@ export function FriendRequestButton({ currentUserId, targetId }: Props) {
         className="pf-friend-btn pf-friend-btn--pending"
         onClick={() => cancel.mutate()}
         disabled={cancel.isPending}
+        title="Click to cancel request"
       >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         Request Sent
       </button>
     );

@@ -230,7 +230,16 @@
   color: #fff;
 }
 .pf-friend-btn--add:hover { opacity: 0.88; }
-.pf-friend-btn--pending { opacity: 0.6; cursor: default; }
+.pf-friend-btn--pending {
+  background: rgba(124,58,237,0.12);
+  border-color: rgba(124,58,237,0.35);
+  color: #7c3aed;
+  cursor: pointer;
+}
+.pf-friend-btn--pending:hover {
+  background: rgba(124,58,237,0.18);
+  border-color: rgba(124,58,237,0.5);
+}
 .pf-friend-btn--friends {
   border-color: #16a34a;
   color: #16a34a;
