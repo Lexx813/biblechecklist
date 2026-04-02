@@ -590,33 +590,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   flex-shrink: 0;
 }
 
-.ch-pill-wol-tooltip {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  right: 50%;
-  transform: translateX(50%);
-  white-space: nowrap;
-  background: rgba(15, 5, 35, 0.95);
-  color: #e0d6ff;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 5px 10px;
-  border-radius: 8px;
-  border: 1px solid rgba(91,141,217,0.35);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}
-.ch-pill-wol-tooltip::after {
-  content: "";
-  position: absolute;
-  top: 100%; left: 50%;
-  transform: translateX(-50%);
-  border: 5px solid transparent;
-  border-top-color: rgba(15, 5, 35, 0.95);
-}
-.ch-pill-wol:hover .ch-pill-wol-tooltip { opacity: 1; }
+.ch-pill-wol-tooltip { display: none; }
 
 .ch-actions { display: flex; gap: 8px; margin-top: 10px; }
 .ch-action-btn {

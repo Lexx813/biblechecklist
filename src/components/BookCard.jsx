@@ -219,14 +219,12 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                   )}
                   <a
                     className="ch-pill-wol"
-                    href={wolChapterUrl(bookIndex, ch, lang)}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={jwLibraryChapterUrl(bookIndex, ch)}
                     onClick={e => e.stopPropagation()}
-                    aria-label={`Read chapter ${ch} on JW.org`}
+                    aria-label={`Open chapter ${ch} in JW Library`}
                   >
                     <svg className="ch-pill-wol-icon" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                    <span className="ch-pill-wol-tooltip">Read on JW.org</span>
+                    <span className="ch-pill-wol-tooltip">JW Library</span>
                   </a>
                 </div>
               );
