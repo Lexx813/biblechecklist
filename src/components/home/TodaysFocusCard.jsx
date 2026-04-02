@@ -64,9 +64,10 @@ function readingsLabel(readings) {
 export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade, lang = "en" }) {
   const { data: plans = [] } = useMyPlans();
   const activePlan = plans.find(p => !p.is_paused && !p.completed_at) ?? null;
+  const activePlanTotalDays = activePlan ? getTemplateOrCustom(activePlan).totalDays : undefined;
 
   const { data: completions = [] } = usePlanCompletions(activePlan?.id ?? null);
-  const markDay = useMarkDay(activePlan?.id ?? null);
+  const markDay = useMarkDay(activePlan?.id ?? null, userId, activePlanTotalDays);
   const unmarkDay = useUnmarkDay(activePlan?.id ?? null);
   const { data: streak = { current_streak: 0 } } = useReadingStreak(userId);
   const lastRead = useLastReadChapter(userId);

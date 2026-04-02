@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
 import { useAISkill } from "../../hooks/useAISkill";
 import { useCreateStudyNote } from "../../hooks/useStudyNotes";
+import { useSession } from "../../hooks/useAuth";
 import "../../styles/ai-tools.css";
 
 // ── Shared streaming result display ───────────────────────────────────────────
@@ -12,7 +13,9 @@ function SkillResult({ text, loading, error, onClear, skillLabel }) {
   const ref = useRef(null);
   const [saveState, setSaveState] = useState("idle"); // idle | choosing | saving | saved | error
   const [isPublic, setIsPublic] = useState(false);
-  const createNote = useCreateStudyNote();
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+  const createNote = useCreateStudyNote(userId);
 
   useEffect(() => {
     if (ref.current && text) ref.current.scrollTop = ref.current.scrollHeight;

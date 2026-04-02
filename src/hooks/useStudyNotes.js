@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { studyNotesApi } from "../api/studyNotes";
+import { badgesApi } from "../api/badges";
 
 export function useStudyNotes() {
   return useQuery({
@@ -39,11 +40,14 @@ export function useToggleNoteLike() {
   });
 }
 
-export function useCreateStudyNote() {
+export function useCreateStudyNote(userId) {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (note) => studyNotesApi.createNote(note),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["study-notes"] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["study-notes"] });
+      if (userId) badgesApi.awardBadge(userId, "first_note");
+    },
   });
 }
 

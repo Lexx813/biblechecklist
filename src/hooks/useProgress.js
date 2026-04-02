@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { progressApi } from "../api/progress";
+import { badgesApi } from "../api/badges";
 
 export function useProgress(userId) {
   return useQuery({
@@ -21,6 +22,19 @@ export function useSaveProgress(userId) {
     onSuccess: () => {
       // Refresh streak after saving progress
       queryClient.invalidateQueries({ queryKey: ["streak", userId] });
+      if (userId) {
+        // Fetch fresh streak to check milestone badges
+        queryClient.fetchQuery({
+          queryKey: ["streak", userId],
+          queryFn: () => progressApi.getStreak(userId),
+          staleTime: 0,
+        }).then((streak) => {
+          const currentStreak = streak?.current_streak ?? 0;
+          if (currentStreak >= 30) badgesApi.awardBadge(userId, "streak_30");
+          if (currentStreak >= 100) badgesApi.awardBadge(userId, "streak_100");
+          if (currentStreak >= 365) badgesApi.awardBadge(userId, "streak_365");
+        }).catch(() => {});
+      }
     },
   });
 }

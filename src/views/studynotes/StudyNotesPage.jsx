@@ -778,7 +778,7 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
   const { data: publicNotes = [], isLoading: loadingPublic } = usePublicNotes();
   const { data: folders = [] } = useNoteFolders();
   const toggleLike = useToggleNoteLike();
-  const createNote = useCreateStudyNote();
+  const createNote = useCreateStudyNote(user?.id);
   const updateNote = useUpdateStudyNote();
   const deleteNote = useDeleteStudyNote();
   const createFolder = useCreateNoteFolder();

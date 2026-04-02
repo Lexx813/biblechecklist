@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { readingPlansApi } from "../api/readingPlans";
+import { badgesApi } from "../api/badges";
 
 export function useMyPlans() {
   return useQuery({
@@ -66,11 +67,24 @@ export function useCatchUp() {
   });
 }
 
-export function useMarkDay(planId) {
+export function useMarkDay(planId, userId, totalDays) {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (dayNumber) => readingPlansApi.markDay(planId, dayNumber),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["plan-completions", planId] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["plan-completions", planId] });
+      if (userId && totalDays) {
+        qc.fetchQuery({
+          queryKey: ["plan-completions", planId],
+          queryFn: () => readingPlansApi.getCompletions(planId),
+          staleTime: 0,
+        }).then((completions) => {
+          if ((completions ?? []).length >= totalDays) {
+            badgesApi.awardBadge(userId, "plan_complete");
+          }
+        }).catch(() => {});
+      }
+    },
   });
 }
 

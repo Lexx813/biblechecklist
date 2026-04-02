@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { quizApi } from "../api/quiz";
+import { badgesApi } from "../api/badges";
 
 export function useQuizProgress(userId) {
   return useQuery({
@@ -29,6 +30,17 @@ export function useSubmitQuiz(userId) {
     mutationFn: ({ level, score }) => quizApi.submitResult(userId, level, score),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["quiz", "progress", userId] });
+      if (userId) {
+        // Fetch fresh progress to check if all 12 levels have badge_earned
+        queryClient.fetchQuery({
+          queryKey: ["quiz", "progress", userId],
+          queryFn: () => quizApi.getUserProgress(userId),
+          staleTime: 0,
+        }).then((progress) => {
+          const allLevelsDone = (progress ?? []).filter(p => p.badge_earned).length === 12;
+          if (allLevelsDone) badgesApi.awardBadge(userId, "quiz_all_levels");
+        }).catch(() => {});
+      }
     },
   });
 }

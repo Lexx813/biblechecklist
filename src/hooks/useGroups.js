@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { supabase } from "../lib/supabase";
 import { groupsApi } from "../api/groups";
+import { badgesApi } from "../api/badges";
 
 // ── My groups + public browse ─────────────────────────────────────────────────
 
@@ -85,19 +86,25 @@ export function useGroupMembers(groupId) {
   });
 }
 
-export function useJoinGroup() {
+export function useJoinGroup(userId) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: groupsApi.joinGroup,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["groups"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["groups"] });
+      if (userId) badgesApi.awardBadge(userId, "first_group");
+    },
   });
 }
 
-export function useJoinByCode() {
+export function useJoinByCode(userId) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: groupsApi.joinByCode,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["groups"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["groups"] });
+      if (userId) badgesApi.awardBadge(userId, "first_group");
+    },
   });
 }
 

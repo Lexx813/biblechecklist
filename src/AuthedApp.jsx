@@ -240,6 +240,16 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     });
   }, []);
 
+  // Show a toast when a new badge is earned
+  useEffect(() => {
+    function handleBadgeEarned(e) {
+      const { badge } = e.detail;
+      toast(`${badge.emoji} Achievement Unlocked — ${badge.label}`);
+    }
+    window.addEventListener("badge-earned", handleBadgeEarned);
+    return () => window.removeEventListener("badge-earned", handleBadgeEarned);
+  }, []);
+
   const navigate = (page, params = {}) => {
     const path = buildPath(page, params);
     history.pushState(null, "", path);

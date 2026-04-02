@@ -462,13 +462,13 @@ function ReadingSummaryWidget({ todayReadings }) {
 
 // ── Plan detail view ──────────────────────────────────────────────────────────
 
-function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate }) {
+function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate, userId }) {
   const { t } = useTranslation();
   // Always read the freshest plan object from allPlans
   const plan = allPlans.find(p => p.id === initialPlan.id) ?? initialPlan;
   const template = getTemplateOrCustom(plan);
   const { data: completions = [], isLoading } = usePlanCompletions(plan.id);
-  const markDay = useMarkDay(plan.id);
+  const markDay = useMarkDay(plan.id, userId, template.totalDays);
   const unmarkDay = useUnmarkDay(plan.id);
   const unenroll = useUnenrollPlan();
   const pause = usePausePlan();
@@ -782,6 +782,7 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
           onBack={() => setDetailPlan(null)}
           isPremium={isPremium}
           navigate={navigate}
+          userId={user?.id}
         />
       </div>
     );

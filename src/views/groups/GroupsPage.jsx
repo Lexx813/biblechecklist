@@ -161,9 +161,9 @@ function CreateGroupModal({ onClose, onCreated }) {
 
 // ── Join by code modal ────────────────────────────────────────────────────────
 
-function JoinCodeModal({ onClose, onJoined }) {
+function JoinCodeModal({ onClose, onJoined, userId }) {
   const { t } = useTranslation();
-  const joinByCode = useJoinByCode();
+  const joinByCode = useJoinByCode(userId);
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
 
@@ -297,7 +297,7 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
   const [requestedIds, setRequestedIds] = useState(new Set());
   const { data: myGroups = [], isLoading: loadingMine } = useMyGroups();
   const { data: publicGroups = [], isLoading: loadingPublic } = usePublicGroups();
-  const joinGroup = useJoinGroup();
+  const joinGroup = useJoinGroup(user?.id);
   const requestJoin = useRequestJoin();
 
   const myGroupIds = new Set(myGroups.map(g => g.id));
@@ -426,7 +426,7 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
         <CreateGroupModal onClose={() => setShowCreate(false)} onCreated={handleCreated} />
       )}
       {showJoinCode && (
-        <JoinCodeModal onClose={() => setShowJoinCode(false)} onJoined={handleJoined} />
+        <JoinCodeModal onClose={() => setShowJoinCode(false)} onJoined={handleJoined} userId={user?.id} />
       )}
     </div>
   );
