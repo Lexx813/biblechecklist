@@ -1,6 +1,10 @@
 // @ts-nocheck
+import fs from "fs";
+import path from "path";
 import ClientShell from "../_components/ClientShell";
 import LandingPageStatic from "../_components/LandingPageStatic";
+
+const landingCss = fs.readFileSync(path.join(process.cwd(), "src/styles/landing.css"), "utf8");
 
 const FAQ_ITEMS = [
   {
@@ -67,6 +71,7 @@ export default async function Page({ params }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }}
         />
         <div id="ssr-fallback">
+          <style dangerouslySetInnerHTML={{ __html: landingCss }} />
           <LandingPageStatic />
         </div>
         <ClientShell />

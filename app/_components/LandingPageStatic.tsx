@@ -1,5 +1,3 @@
-import "../../src/styles/landing.css";
-
 export default function LandingPageStatic() {
   return (
     <div className="landing-wrap" role="main" id="main-content">
