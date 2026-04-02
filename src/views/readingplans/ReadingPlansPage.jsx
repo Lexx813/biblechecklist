@@ -7,6 +7,7 @@ const AICompanion = lazy(() => import("../../components/AICompanion"));
 import { useAISkill } from "../../hooks/useAISkill";
 import "../../styles/ai-tools.css";
 import { useSubscription } from "../../hooks/useSubscription";
+import { useUserGroupChallenges } from "../../hooks/useGroupChallenge";
 import { BOOKS } from "../../data/books";
 import {
   useMyPlans,
@@ -29,6 +30,7 @@ import {
 } from "../../data/readingPlanTemplates";
 import { wolChapterUrl } from "../../utils/wol";
 import "../../styles/reading-plans.css";
+import "../../styles/group-challenge.css";
 import { formatDate } from "../../utils/formatters";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -272,11 +274,22 @@ function CustomPlanModal({ onClose, onCreated }) {
 
 // ── Plan template card (browse) ───────────────────────────────────────────────
 
-function TemplateCard({ template, enrolled, onEnroll, enrolling }) {
+function TemplateCard({ template, enrolled, onEnroll, enrolling, activeChallengeKeys = new Set() }) {
   const { t } = useTranslation();
   return (
     <div className={`rp-template-card${template.isPremiumHighlight ? " rp-template-card--premium" : ""}`}>
       {template.isPremiumHighlight && <span className="rp-premium-tag">✦ Premium</span>}
+      {activeChallengeKeys.has(template.key) && (
+        <span className="rp-challenge-badge">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          Group challenge active
+        </span>
+      )}
       <div className="rp-template-icon">{template.icon}</div>
       <div className="rp-template-body">
         <div className="rp-template-header">
@@ -305,7 +318,7 @@ function TemplateCard({ template, enrolled, onEnroll, enrolling }) {
 
 // ── Active plan card ──────────────────────────────────────────────────────────
 
-function ActivePlanCard({ plan, onClick }) {
+function ActivePlanCard({ plan, onClick, activeChallengeKeys = new Set() }) {
   const { t } = useTranslation();
   const template = getTemplateOrCustom(plan);
   const { data: completions = [] } = usePlanCompletions(plan.id);
@@ -326,6 +339,17 @@ function ActivePlanCard({ plan, onClick }) {
           <h3 className="rp-active-name">
             {template.name}
             {plan.is_paused && <span className="rp-paused-badge">{t("readingPlans.paused")}</span>}
+            {activeChallengeKeys.has(plan.template_key) && (
+              <span className="rp-challenge-badge">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                Group challenge active
+              </span>
+            )}
           </h3>
           <span className="rp-active-meta">
             {t("readingPlans.started")} {formatDate(plan.start_date)} · {t("readingPlans.day")} {currentDay} {t("readingPlans.of")} {template.totalDays}
@@ -758,8 +782,10 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
   const { data: myPlans = [], isLoading } = useMyPlans();
   const enrollPlan = useEnrollPlan();
   const { isPremium } = useSubscription(user?.id);
+  const { data: groupChallenges = [] } = useUserGroupChallenges(user?.id);
 
   const enrolledKeys = new Set(myPlans.map(p => p.template_key));
+  const activeChallengeKeys = new Set(groupChallenges.map((c) => c.plan_key));
 
   const filteredTemplates = useMemo(() => {
     if (categoryFilter === "all") return PLAN_TEMPLATES;
@@ -831,7 +857,7 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
           ) : (
             <div className="rp-active-list">
               {myPlans.map(plan => (
-                <ActivePlanCard key={plan.id} plan={plan} onClick={() => setDetailPlan(plan)} />
+                <ActivePlanCard key={plan.id} plan={plan} onClick={() => setDetailPlan(plan)} activeChallengeKeys={activeChallengeKeys} />
               ))}
             </div>
           )}
@@ -860,6 +886,7 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
                 enrolled={enrolledKeys.has(tmpl.key)}
                 onEnroll={() => handleEnroll(tmpl.key)}
                 enrolling={enrollPlan.isPending && enrollPlan.variables === tmpl.key}
+                activeChallengeKeys={activeChallengeKeys}
               />
             ))}
           </div>
