@@ -59,9 +59,9 @@
 
 .wpm-badge {
   display: inline-block;
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: #e9d5ff;
+  background: rgba(245,158,11,0.2);
+  border: 1px solid rgba(245,158,11,0.4);
+  color: var(--gold-text);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -72,9 +72,11 @@
 }
 
 .wpm-title {
-  font-size: 26px;
-  font-weight: 900;
-  color: #fff;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 34px;
+  color: var(--gold-text);
   margin: 0 0 8px;
   line-height: 1.15;
 }
