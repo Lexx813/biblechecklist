@@ -3,18 +3,18 @@
 // bookNum is 1-based (Genesis=1 … Revelation=66), matching bookIndex+1
 
 // ── JW Library deep link ──────────────────────────────────────────────────────
-// Format: jwlibrary://bible/{BookName}/{Chapter}/{Verse}
-// e.g.   jwlibrary://bible/Ephesians/6/11
-
-import { BOOKS } from "../data/books";
+// Format: jwlibrary:///finder?bible=BBCCCVVV
+// BB = book number (2-digit, 1-based), CCC = chapter (3-digit), VVV = verse (3-digit)
+// e.g. Matthew 24:14 → jwlibrary:///finder?bible=40024014
 
 /**
- * Returns a jwlibrary:// deep link that opens the exact chapter (verse 1) in
- * the JW Library app. Works on iOS and Android if the app is installed.
+ * Returns a jwlibrary:///finder deep link that opens the exact chapter
+ * (verse 1) in the JW Library app. Works on iOS and Android if installed.
  */
 export function jwLibraryChapterUrl(bookIndex, chapter) {
-  const name = encodeURIComponent(BOOKS[bookIndex]?.name ?? "Genesis");
-  return `jwlibrary://bible/${name}/${chapter}/1`;
+  const bb  = String(bookIndex + 1).padStart(2, "0");
+  const ccc = String(chapter).padStart(3, "0");
+  return `jwlibrary:///finder?bible=${bb}${ccc}001`;
 }
 
 // ── Language map ──────────────────────────────────────────────────────────────
