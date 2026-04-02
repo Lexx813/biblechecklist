@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
-import LoadingSpinner from "../../components/LoadingSpinner";
 import { useActivityFeed } from "../../hooks/useFollows";
 import "../../styles/social.css";
 
@@ -30,6 +29,22 @@ function authorName(author) {
   return author?.display_name || author?.email?.split("@")[0] || "Someone";
 }
 
+function ActivityFeedSkeleton() {
+  return (
+    <div className="activity-feed">
+      {Array.from({ length: 5 }, (_, i) => (
+        <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 0', borderBottom: '1px solid var(--border)' }}>
+          <div className="skeleton" style={{ width: 36, height: 36, borderRadius: '50%', flexShrink: 0 }} />
+          <div style={{ flex: 1 }}>
+            <div className="skeleton" style={{ height: 15, width: `${55 + i * 4}%`, marginBottom: 7 }} />
+            <div className="skeleton" style={{ height: 12, width: '20%' }} />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function ActivityFeed({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { t } = useTranslation();
   const { data: items = [], isLoading } = useActivityFeed(user.id);
@@ -46,7 +61,7 @@ export default function ActivityFeed({ user, onBack, navigate, darkMode, setDark
         </div>
 
         {isLoading ? (
-          <LoadingSpinner />
+          <ActivityFeedSkeleton />
         ) : items.length === 0 ? (
           <div className="feed-empty">
             <div className="feed-empty-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>

@@ -271,6 +271,23 @@ function GroupCard({ group, onClick, onJoin, onRequestJoin, joined, joining, req
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 
+function GroupsSkeleton() {
+  return (
+    <div className="groups-page">
+      <div className="skeleton" style={{ height: 38, width: '40%', marginBottom: 20 }} />
+      {Array.from({ length: 4 }, (_, i) => (
+        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '12px 0', borderBottom: '1px solid var(--border)' }}>
+          <div className="skeleton" style={{ width: 48, height: 48, borderRadius: '50%', flexShrink: 0 }} />
+          <div style={{ flex: 1 }}>
+            <div className="skeleton" style={{ height: 17, width: '45%', marginBottom: 7 }} />
+            <div className="skeleton" style={{ height: 13, width: '25%' }} />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const [tab, setTab] = useState("mine");
@@ -353,7 +370,7 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
       <div className="grp-list">
         {tab === "mine" && (
           loadingMine ? (
-            <p className="grp-empty">{t("common.loading")}</p>
+            <GroupsSkeleton />
           ) : myGroups.length === 0 ? (
             <div className="grp-empty-state">
               <span className="grp-empty-icon">

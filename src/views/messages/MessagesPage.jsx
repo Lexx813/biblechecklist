@@ -1212,6 +1212,22 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 
+function MessagesSkeleton() {
+  return (
+    <div className="messages-page">
+      {Array.from({ length: 6 }, (_, i) => (
+        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
+          <div className="skeleton" style={{ width: 40, height: 40, borderRadius: '50%', flexShrink: 0 }} />
+          <div style={{ flex: 1 }}>
+            <div className="skeleton" style={{ height: 16, width: '40%', marginBottom: 7 }} />
+            <div className="skeleton" style={{ height: 13, width: '70%' }} />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, initialConv = null }) {
   const { t } = useTranslation();
   const { data: conversations = [], isLoading } = useConversations();
@@ -1355,7 +1371,7 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
 
           <div className="msg-conv-list">
             {isLoading ? (
-              <p className="msg-empty">{t("common.loading")}</p>
+              <MessagesSkeleton />
             ) : filtered.length === 0 ? (
               <p className="msg-empty">
                 {search ? t("messages.noResults") : t("messages.noConversations")}

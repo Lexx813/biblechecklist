@@ -2,9 +2,21 @@ import { useState, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOKS } from "../../data/books";
 import PageNav from "../../components/PageNav";
-import LoadingSpinner from "../../components/LoadingSpinner";
 import { useSearch, useSemanticSearch } from "../../hooks/useSearch";
 import "../../styles/search.css";
+
+function SearchSkeleton() {
+  return (
+    <div className="search-results">
+      {Array.from({ length: 5 }, (_, i) => (
+        <div key={i} style={{ padding: '12px 0', borderBottom: '1px solid var(--border)' }}>
+          <div className="skeleton" style={{ height: 18, width: `${60 + i * 5}%`, marginBottom: 8 }} />
+          <div className="skeleton" style={{ height: 14, width: `${40 + i * 3}%` }} />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { t } = useTranslation();
@@ -83,7 +95,7 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
         {!isTyping ? (
           <p className="search-hint">{t("search.typeToSearch")}</p>
         ) : isLoading ? (
-          <LoadingSpinner />
+          <SearchSkeleton />
         ) : !hasResults ? (
           <p className="search-hint">{t("search.noResults", { query: debouncedQuery })}</p>
         ) : (
