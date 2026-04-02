@@ -1,0 +1,455 @@
+/* ── Friends pages ──────────────────────────────────────────────────────────── */
+
+.friends-page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.friends-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.friends-page-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ── Invite link ── */
+.friends-invite-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+.friends-invite-btn:hover { opacity: 0.88; }
+.friends-invite-btn--copied { background: #16a34a; }
+
+/* ── Friend card ── */
+.friends-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.friend-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: border-color 0.15s;
+}
+.friend-card:hover { border-color: rgba(124,58,237,0.35); }
+
+.friend-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.friend-avatar-placeholder {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(124,58,237,0.13), rgba(124,58,237,0.27));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #7c3aed;
+  flex-shrink: 0;
+}
+
+.friend-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.friend-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.friend-last-active {
+  font-size: 11px;
+  color: var(--text-muted, #888);
+  margin-top: 2px;
+}
+
+.friend-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.friend-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.friend-action-btn:hover {
+  background: rgba(124,58,237,0.08);
+  border-color: rgba(124,58,237,0.35);
+}
+
+/* ── Empty state ── */
+.friends-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-muted, #888);
+}
+.friends-empty-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.friends-empty-sub { font-size: 13px; }
+
+/* ── Friend requests page ── */
+.freq-section { margin-bottom: 32px; }
+
+.freq-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted, #888);
+  margin-bottom: 12px;
+}
+
+.freq-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.freq-card-info { flex: 1; min-width: 0; }
+
+.freq-card-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.freq-card-time {
+  font-size: 11px;
+  color: var(--text-muted, #888);
+  margin-top: 2px;
+}
+
+.freq-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.freq-accept-btn {
+  padding: 7px 14px;
+  background: #7c3aed;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.freq-accept-btn:hover { opacity: 0.88; }
+
+.freq-decline-btn,
+.freq-cancel-btn {
+  padding: 7px 14px;
+  background: transparent;
+  color: var(--text-muted, #888);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.freq-decline-btn:hover,
+.freq-cancel-btn:hover { background: rgba(0,0,0,0.06); }
+
+/* ── FriendRequestButton (on profiles) ── */
+.pf-friend-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.pf-friend-btn--add {
+  background: #7c3aed;
+  border-color: #7c3aed;
+  color: #fff;
+}
+.pf-friend-btn--add:hover { opacity: 0.88; }
+.pf-friend-btn--pending { opacity: 0.6; cursor: default; }
+.pf-friend-btn--friends {
+  border-color: #16a34a;
+  color: #16a34a;
+  background: transparent;
+}
+
+/* ── NewConversationModal ── */
+.new-conv-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.new-conv-modal {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.35);
+}
+
+.new-conv-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.new-conv-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.new-conv-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted, #888);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.new-conv-close:hover { background: var(--border); }
+
+.new-conv-search {
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.new-conv-search-input {
+  width: 100%;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+.new-conv-search-input:focus { border-color: #7c3aed; }
+
+.new-conv-list {
+  overflow-y: auto;
+  flex: 1;
+  padding: 8px 0;
+}
+
+.new-conv-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.new-conv-row:hover { background: rgba(124,58,237,0.06); }
+
+.new-conv-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.new-conv-avatar-placeholder {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(124,58,237,0.13), rgba(124,58,237,0.27));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: #7c3aed;
+  flex-shrink: 0;
+}
+.new-conv-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ── Invite landing page ── */
+.invite-landing {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  background: var(--bg);
+}
+.invite-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 32px;
+  text-align: center;
+  max-width: 380px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+.invite-card-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 16px;
+}
+.invite-card-avatar-placeholder {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 auto 16px;
+}
+.invite-card-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.invite-card-sub {
+  font-size: 14px;
+  color: var(--text-muted, #888);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+.invite-card-cta {
+  width: 100%;
+  padding: 13px;
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  margin-bottom: 12px;
+}
+.invite-card-cta:hover { opacity: 0.88; }
+.invite-card-login {
+  font-size: 13px;
+  color: var(--text-muted, #888);
+}
+.invite-card-login a {
+  color: #7c3aed;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* ── Compose icon in msg-sidebar-header ── */
+.msg-compose-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted, #888);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+  margin-left: auto;
+}
+.msg-compose-btn:hover {
+  background: rgba(124,58,237,0.1);
+  color: #7c3aed;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .friends-page { padding: 16px 12px 48px; }
+  .friend-card { padding: 12px; }
+  .freq-card { padding: 12px; }
+  .new-conv-modal { border-radius: 12px; }
+}
