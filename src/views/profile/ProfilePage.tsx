@@ -27,6 +27,7 @@ import "../../styles/social.css";
 import "../../styles/gamification.css";
 import { formatDate } from "../../utils/formatters";
 import ReferralPanel from "../../components/ReferralPanel";
+import { FriendRequestButton } from "../../components/FriendRequestButton";
 
 const TOTAL_CHAPTERS = BOOKS.reduce((s, b) => s + b.chapters, 0);
 
@@ -843,14 +844,20 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
               isPremium={isPremium}
               onUpgrade={onUpgrade}
               extraAction={!isOwner ? (
-                <MessageButton
-                  targetId={profileId}
-                  otherDisplayName={profile?.display_name || profile?.email?.split("@")[0] || "User"}
-                  otherAvatarUrl={profile?.avatar_url ?? null}
-                  navigate={navigate}
-                  isPremium={isPremium}
-                  onUpgrade={onUpgrade}
-                />
+                <>
+                  <FriendRequestButton
+                    currentUserId={user.id}
+                    targetId={viewedUserId ?? user.id}
+                  />
+                  <MessageButton
+                    targetId={profileId}
+                    otherDisplayName={profile?.display_name || profile?.email?.split("@")[0] || "User"}
+                    otherAvatarUrl={profile?.avatar_url ?? null}
+                    navigate={navigate}
+                    isPremium={isPremium}
+                    onUpgrade={onUpgrade}
+                  />
+                </>
               ) : null}
             />
             {isOwner && (
