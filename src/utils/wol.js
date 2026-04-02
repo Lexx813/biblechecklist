@@ -2,6 +2,29 @@
 // Base: https://wol.jw.org/{locale}/wol/b/{r}/{lp}/nwtsty/{bookNum}/{chapter}
 // bookNum is 1-based (Genesis=1 … Revelation=66), matching bookIndex+1
 
+// ── JW Library universal link ─────────────────────────────────────────────────
+// https://www.jw.org/finder opens JW Library app if installed, web otherwise.
+// bible param: BBCCCVVV (book 2-digit, chapter 3-digit, verse 3-digit)
+
+const JWL_LOCALE = {
+  en: "E",
+  es: "S",
+  pt: "T",
+  fr: "F",
+  tl: "TL",
+  zh: "CHS",
+};
+
+/**
+ * Returns a jw.org/finder URL that opens the given book+chapter in JW Library.
+ */
+export function jwLibraryChapterUrl(bookIndex, chapter, lang = "en") {
+  const locale = JWL_LOCALE[lang] ?? "E";
+  const bb = String(bookIndex + 1).padStart(2, "0");
+  const ccc = String(chapter).padStart(3, "0");
+  return `https://www.jw.org/finder?srcid=jwlapp&wtlocale=${locale}&pub=nwtsty&bible=${bb}${ccc}001`;
+}
+
 // ── Language map ──────────────────────────────────────────────────────────────
 
 const WOL_LANG = {
