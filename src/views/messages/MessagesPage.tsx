@@ -1231,7 +1231,7 @@ function MessagesSkeleton() {
   );
 }
 
-export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, onBack, initialConv = null, isPremium = true, onUpgrade }) {
+export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, onBack = null, initialConv = null, isPremium = true, onUpgrade }) {
   const { t } = useTranslation();
   const { data: conversations = [], isLoading } = useConversations();
   const [activeConv, setActiveConv] = useState(() => {
