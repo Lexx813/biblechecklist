@@ -465,14 +465,13 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
   useMeta(!slug ? { title: "Blog", description: "Reflections, studies, and insights from the NWT Progress community." } : {});
 
   if (slug) {
-    const toLanding = () => onBack();
     return <PostView
       slug={slug}
-      onBack={user ? () => onSelectPost(null) : toLanding}
-      onSelectPost={user ? onSelectPost : toLanding}
+      onBack={() => onSelectPost ? onSelectPost(null) : onBack()}
+      onSelectPost={onSelectPost || onBack}
       user={user}
       profile={profile}
-      navigate={user ? navigate : () => toLanding()}
+      navigate={navigate}
       darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} onUpgrade={onUpgrade}
     />;
   }

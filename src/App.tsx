@@ -9,7 +9,16 @@ import "./styles/app.css";
 
 const TermsPage   = lazy(() => import("./views/TermsPage"));
 const PrivacyPage = lazy(() => import("./views/PrivacyPage"));
+const BlogPage    = lazy(() => import("./views/blog/BlogPage"));
 const AuthedApp   = lazy(() => import("./AuthedApp"));
+
+function getInitialDarkMode() {
+  try {
+    const saved = localStorage.getItem("nwt-theme");
+    if (saved) return saved === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  } catch { return false; }
+}
 
 // Sync localStorage check — no Supabase loaded at all
 function hasStoredSession() {
@@ -31,6 +40,7 @@ export default function App() {
   const { i18n } = useTranslation();
   const [showApp, setShowApp] = useState(hasStoredSession);
   const [preAuthPath, setPreAuthPath] = useState(() => window.location.pathname.slice(1));
+  const [darkMode, setDarkMode] = useState(getInitialDarkMode);
 
   // Remove SSR fallback content once the SPA has mounted — crawlers see it,
   // users don't because this runs before the first paint of the SPA.
@@ -58,9 +68,46 @@ export default function App() {
 
   // Pre-auth: legal pages accessible without login
   const legalNav = (p) => { history.pushState(null, "", "/" + p); setPreAuthPath(p); };
-  const legalProps = { navigate: legalNav, darkMode: false, setDarkMode: () => {}, i18n, user: null, onLogout: null };
+  const legalProps = { navigate: legalNav, darkMode, setDarkMode, i18n, user: null, onLogout: null };
   if (preAuthPath === "terms")   return <main id="main-content"><Suspense fallback={null}><TermsPage {...legalProps} /></Suspense></main>;
   if (preAuthPath === "privacy") return <main id="main-content"><Suspense fallback={null}><PrivacyPage {...legalProps} /></Suspense></main>;
+
+  // Pre-auth: blog is fully public — reading requires no account
+  const isBlogPath = preAuthPath === "blog" || preAuthPath.startsWith("blog/");
+  if (isBlogPath) {
+    const blogSlug = preAuthPath.startsWith("blog/") ? preAuthPath.slice(5) || null : null;
+    const goBlogList = () => { history.pushState(null, "", "/blog"); setPreAuthPath("blog"); };
+    const goBlogPost = (slug) => {
+      if (!slug) return goBlogList();
+      history.pushState(null, "", `/blog/${slug}`);
+      setPreAuthPath(`blog/${slug}`);
+    };
+    // Navigating to auth-required areas triggers signup
+    const blogNav = (page, params) => {
+      if (page === "blog") return params?.slug ? goBlogPost(params.slug) : goBlogList();
+      setShowApp(true);
+    };
+    return (
+      <main id="main-content">
+        <Suspense fallback={<LoadingSpinner className="spinner-wrap--fullscreen" />}>
+          <BlogPage
+            user={null}
+            profile={null}
+            slug={blogSlug}
+            onSelectPost={goBlogPost}
+            onBack={goBlogList}
+            onWriteClick={() => setShowApp(true)}
+            navigate={blogNav}
+            darkMode={darkMode}
+            setDarkMode={setDarkMode}
+            i18n={i18n}
+            onLogout={null}
+            onUpgrade={() => setShowApp(true)}
+          />
+        </Suspense>
+      </main>
+    );
+  }
 
   // No session — show landing page with zero Supabase loaded
   return <LandingPage onGetStarted={() => setShowApp(true)} />;
