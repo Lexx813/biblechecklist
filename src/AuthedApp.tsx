@@ -278,6 +278,12 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   const [homePanelRequest, setHomePanelRequest] = useState<{ panel: string; params: Record<string, any> } | null>(null);
 
   const navigate = (page, params = {}) => {
+    if (page === "home") {
+      if (window.location.pathname !== "/") history.pushState(null, "", "/");
+      setNav({ page: "home" });
+      setHomePanelRequest({ panel: "home", params: {} });
+      return;
+    }
     if (HOME_PANELS.has(page)) {
       // Premium gating for certain panels — show upgrade prompt instead of navigating
       if (PREMIUM_PANELS.has(page) && !isPremium) {

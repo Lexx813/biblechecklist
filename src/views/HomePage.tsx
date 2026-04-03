@@ -181,6 +181,13 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   useEffect(() => {
     if (!panelRequest) return;
     const { panel, params = {} } = panelRequest;
+    if (panel === "home") {
+      setActivePanel(null);
+      setQuizLevelState(null);
+      setPanelParams({});
+      onPanelConsumed?.();
+      return;
+    }
     if (INLINE_PANELS.has(panel)) {
       setActivePanel(panel);
       setPanelParams(params);
