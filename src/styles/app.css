@@ -84,6 +84,28 @@
   --z-modal:   500;
   --z-toast:   1000;
   --z-top:     2000;
+
+  /* ── Spacing scale ── */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+
+  /* ── Font weight ── */
+  --fw-normal: 500;
+  --fw-semi:   600;
+  --fw-bold:   700;
+  --fw-black:  800;
+
+  /* ── Hover / active opacity ── */
+  --hover-bg:        rgba(124, 58, 237, 0.10);
+  --active-bg:       rgba(124, 58, 237, 0.18);
+  --active-hover-bg: rgba(124, 58, 237, 0.22);
 }
 
 /* ── Page transition ── */
