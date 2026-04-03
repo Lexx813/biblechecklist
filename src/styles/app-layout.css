@@ -41,10 +41,10 @@
   cursor: pointer;
   font-family: inherit;
   margin-bottom: 6px;
-  transition: background 0.15s;
+  transition: background var(--dur-fast) var(--ease-out);
   text-align: left;
 }
-.al-profile:hover { background: rgba(124, 58, 237, 0.1); }
+.al-profile:hover { background: var(--hover-bg); }
 
 .al-avatar {
   width: 40px;
@@ -88,11 +88,11 @@
   font-weight: 500;
   color: var(--text-primary, #f0eaff);
   text-align: left;
-  transition: background 0.15s;
+  transition: background var(--dur-fast) var(--ease-out);
 }
-.al-item:hover { background: rgba(124, 58, 237, 0.1); }
-.al-item--active { background: rgba(124, 58, 237, 0.18); color: #c084fc; }
-.al-item--active:hover { background: rgba(124, 58, 237, 0.22); }
+.al-item:hover { background: var(--hover-bg); }
+.al-item--active { background: var(--active-bg); color: #c084fc; }
+.al-item--active:hover { background: var(--active-hover-bg); }
 
 .al-icon {
   width: 36px;
@@ -143,7 +143,7 @@
 /* ── Light theme ── */
 [data-theme="light"] .al-sidebar { border-color: rgba(124, 58, 237, 0.1); }
 [data-theme="light"] .al-profile:hover,
-[data-theme="light"] .al-item:hover { background: rgba(124, 58, 237, 0.07); }
+[data-theme="light"] .al-item:hover { background: var(--hover-bg); }
 [data-theme="light"] .al-item--active { background: rgba(124, 58, 237, 0.12); color: #7c3aed; }
 [data-theme="light"] .al-item--active:hover { background: rgba(124, 58, 237, 0.16); }
 [data-theme="light"] .al-name,
