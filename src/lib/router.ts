@@ -30,6 +30,7 @@ export type NavState =
   | { page: "friends" }
   | { page: "friendRequests" }
   | { page: "invite"; token: string }
+  | { page: "community" }
   | { page: "notFound" };
 
 export function parsePath(): NavState {
@@ -76,6 +77,7 @@ export function parsePath(): NavState {
   if (h === "friends") return { page: "friends" };
   if (h === "friends/requests") return { page: "friendRequests" };
   if (h.startsWith("invite/")) return { page: "invite", token: h.slice(7) };
+  if (h === "community") return { page: "community" };
   return { page: "notFound" };
 }
 
@@ -112,6 +114,7 @@ export function buildPath(page: string, params: Record<string, unknown> = {}): s
     case "friends":        return "/friends";
     case "friendRequests": return "/friends/requests";
     case "invite":         return `/invite/${(params.token as string) ?? ""}`;
+    case "community":      return "/community";
     case "main":          return "/checklist";
     default:              return "/";
   }
