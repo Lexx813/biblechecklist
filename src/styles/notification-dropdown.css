@@ -2,7 +2,7 @@
 .notif-overlay {
   position: fixed;
   inset: 0;
-  z-index: calc(var(--z-modal) - 1);
+  z-index: calc(var(--z-toast) + 1);
 }
 
 .notif-dropdown {
@@ -15,7 +15,7 @@
   border: 1px solid rgba(138, 75, 255, 0.25);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-xl);
-  z-index: var(--z-modal);
+  z-index: calc(var(--z-toast) + 2);
   overflow: hidden;
   display: flex;
   flex-direction: column;
