@@ -470,6 +470,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
         <CommandPalette
           navigate={navigate}
           onClose={() => setShowCmdPalette(false)}
+          isAdmin={!!profile?.is_admin || !!profile?.is_moderator}
         />
       )}
     </>

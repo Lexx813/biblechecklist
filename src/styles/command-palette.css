@@ -64,6 +64,15 @@
   font-family: monospace;
   flex-shrink: 0;
 }
+.cmd-kbd--btn {
+  cursor: pointer;
+  transition: background var(--dur-fast), border-color var(--dur-fast);
+}
+.cmd-kbd--btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: rgba(240, 234, 255, 0.7);
+}
 
 .cmd-section-label {
   font-size: 10px;
@@ -155,6 +164,11 @@
   background: rgba(0,0,0,0.05);
   border-color: rgba(0,0,0,0.12);
   color: rgba(30,16,53,0.5);
+}
+[data-theme="light"] .cmd-kbd--btn:hover {
+  background: rgba(0,0,0,0.1);
+  border-color: rgba(0,0,0,0.2);
+  color: rgba(30,16,53,0.7);
 }
 
 @media (max-width: 600px) {

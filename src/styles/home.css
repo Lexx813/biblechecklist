@@ -225,6 +225,15 @@
   font-weight: 700;
   color: var(--text-primary, #f0eaff);
 }
+.hfeed-title--link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+  text-align: left;
+}
+.hfeed-title--link:hover { text-decoration: underline; }
 .hfeed-link {
   font-size: 14px;
   font-weight: 600;

@@ -463,7 +463,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {/* Blog */}
           <div>
             <div className="hfeed-head">
-              <span className="hfeed-title">{t("home.blogTitle")}</span>
+              <button className="hfeed-title hfeed-title--link" onClick={() => navigate("blog")}>{t("home.blogTitle")}</button>
               <button className="hfeed-link" onClick={() => navigate("blog")}>{t("home.blogViewAll")}</button>
             </div>
             {postsLoading ? <BlogSkeleton /> : blogPreview.length === 0 ? (

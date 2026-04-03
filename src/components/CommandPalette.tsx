@@ -21,12 +21,15 @@ const NAV_PAGES = [
   { key: "search",       label: "Search",        bg: "#374151", icon: <><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></> },
 ];
 
+const ADMIN_PAGE = { key: "admin", label: "Admin", bg: "#dc2626", icon: <><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></> };
+
 interface Props {
   navigate: (page: string) => void;
   onClose: () => void;
+  isAdmin?: boolean;
 }
 
-export default function CommandPalette({ navigate, onClose }: Props) {
+export default function CommandPalette({ navigate, onClose, isAdmin }: Props) {
   const [query, setQuery] = useState("");
   const [activeIdx, setActiveIdx] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -35,7 +38,8 @@ export default function CommandPalette({ navigate, onClose }: Props) {
     inputRef.current?.focus();
   }, []);
 
-  const filtered = NAV_PAGES.filter(
+  const allPages = isAdmin ? [...NAV_PAGES, ADMIN_PAGE] : NAV_PAGES;
+  const filtered = allPages.filter(
     p => query === "" || p.label.toLowerCase().includes(query.toLowerCase())
   );
 
@@ -93,7 +97,7 @@ export default function CommandPalette({ navigate, onClose }: Props) {
             autoComplete="off"
             aria-label="Search pages"
           />
-          <span className="cmd-kbd">ESC</span>
+          <button className="cmd-kbd cmd-kbd--btn" onClick={onClose} aria-label="Close" type="button">ESC</button>
         </div>
 
         {/* Results */}
