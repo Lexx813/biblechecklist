@@ -13,7 +13,6 @@ import { useFriends, useFriendRequests } from "../hooks/useFriends";
 import DailyVerse from "../components/home/DailyVerse";
 import TodaysFocusCard from "../components/home/TodaysFocusCard";
 import PageNav from "../components/PageNav";
-import SectionHeader from "../components/SectionHeader";
 import EmptyState from "../components/EmptyState";
 import OnboardingModal, { useOnboarding } from "../components/OnboardingModal";
 import UpgradePrompt, { isDismissed, dismissPrompt } from "../components/UpgradePrompt";
@@ -31,46 +30,119 @@ const GRADIENTS = [
 const STREAK_MILESTONES = [7, 14, 30, 60, 90, 180, 365];
 
 const BANNER_ROTATIONS = [
-  {
-    icon: "📅",
-    title: "Reading Plans",
-    sub: "Daily assignments. Streaks. Finish the Bible in 1 year.",
-    cta: "Explore Plans →",
-  },
-  {
-    icon: "📝",
-    title: "Study Notes",
-    sub: "Rich-text notes for any chapter. Export to Markdown or PDF.",
-    cta: "Try Notes →",
-  },
-  {
-    icon: "✨",
-    title: "AI Study Assistant",
-    sub: "Ask anything about any verse. Grounded in Scripture.",
-    cta: "Try AI Tools →",
-  },
-  {
-    icon: "📋",
-    title: "Meeting Prep",
-    sub: "CLAM + Watchtower checklists. Never miss an assignment.",
-    cta: "Open Meeting Prep →",
-  },
+  { icon: "📅", title: "Reading Plans",    sub: "Daily assignments. Streaks. Finish the Bible in 1 year.",     cta: "Explore Plans →" },
+  { icon: "📝", title: "Study Notes",      sub: "Rich-text notes for any chapter. Export to Markdown or PDF.", cta: "Try Notes →" },
+  { icon: "✨", title: "AI Study Assistant",sub: "Ask anything about any verse. Grounded in Scripture.",        cta: "Try AI Tools →" },
+  { icon: "📋", title: "Meeting Prep",     sub: "CLAM + Watchtower checklists. Never miss an assignment.",     cta: "Open Meeting Prep →" },
 ];
 
 function getGradient(id) {
   return GRADIENTS[(id?.charCodeAt(0) ?? 0) % GRADIENTS.length];
 }
 
+const ONLINE_THRESHOLD_MS = 10 * 60 * 1000;
+
+// ── Left sidebar nav items ──────────────────────────────────────────────────
+const NAV_ITEMS = [
+  {
+    key: "home", label: "Home", bg: "#5b21b6",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>,
+  },
+  {
+    key: "main", label: "Bible Tracker", bg: "#7c3aed",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>,
+  },
+  {
+    key: "readingPlans", label: "Reading Plans", bg: "#0ea5e9",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
+  },
+  {
+    key: "studyNotes", label: "Study Notes", bg: "#2e9e6b",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>,
+  },
+  {
+    key: "forum", label: "Forum", bg: "#e05c2a",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
+  },
+  {
+    key: "blog", label: "Blog", bg: "#c084fc",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>,
+  },
+  {
+    key: "leaderboard", label: "Leaderboard", bg: "#f59e0b",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 17v4m4-8v8m4-12v12M2 20h20"/></svg>,
+  },
+];
+
+const NAV_ITEMS_2 = [
+  {
+    key: "friends", label: "Friends", bg: "#1d7ea6",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+  },
+  {
+    key: "messages", label: "Messages", bg: "#7c3aed",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
+  },
+];
+
+const NAV_SHORTCUTS = [
+  {
+    key: "quiz", label: "Bible Quiz", bg: "#374151",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>,
+  },
+  {
+    key: "meetingPrep", label: "Meeting Prep", bg: "#374151",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>,
+  },
+];
+
+// ── Mobile tab bar ──────────────────────────────────────────────────────────
+const TAB_ITEMS = [
+  { key: "home",     label: "Home",     icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> },
+  { key: "main",     label: "Bible",    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> },
+  { key: "messages", label: "Messages", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> },
+  { key: "friends",  label: "Friends",  icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
+  { key: "profile",  label: "Profile",  icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> },
+];
+
+function MobileTabBar({ navigate, currentPage, unreadMessages, pendingRequests }) {
+  return (
+    <nav className="mobile-tabbar" aria-label="Main navigation">
+      {TAB_ITEMS.map(item => {
+        const badge = item.key === "messages" ? (unreadMessages > 0 ? unreadMessages : null)
+                    : item.key === "friends"  ? (pendingRequests > 0 ? pendingRequests : null)
+                    : null;
+        const isActive = currentPage === item.key;
+        return (
+          <button
+            key={item.key}
+            className={`mobile-tabbar-item${isActive ? " mobile-tabbar-item--active" : ""}`}
+            onClick={() => navigate(item.key)}
+            aria-current={isActive ? "page" : undefined}
+          >
+            <span className="mobile-tabbar-icon">
+              {item.icon}
+              {badge != null && <span className="mobile-tabbar-badge">{badge > 99 ? "99+" : badge}</span>}
+            </span>
+            <span className="mobile-tabbar-label">{item.label}</span>
+          </button>
+        );
+      })}
+    </nav>
+  );
+}
+
+// ── Blog skeleton ────────────────────────────────────────────────────────────
 function BlogSkeleton() {
   return (
-    <div className="home-blog-grid">
+    <div className="hblog-skeleton">
       {[0, 1, 2].map(i => (
-        <div key={i} className={`home-blog-card${i === 0 ? " home-blog-card--featured" : ""}`}>
-          <div className="home-blog-cover skeleton" />
-          <div className="home-blog-body" style={{ gap: 8 }}>
-            <div className="skeleton" style={{ height: 12, width: "60%", borderRadius: 6 }}>&nbsp;</div>
-            <div className="skeleton" style={{ height: 18, width: "90%", borderRadius: 6 }}>&nbsp;</div>
-            <div className="skeleton" style={{ height: 12, width: "45%", borderRadius: 6 }}>&nbsp;</div>
+        <div key={i} className="hblog-skeleton-card">
+          <div className="skeleton" style={{ height: 108 }} />
+          <div style={{ padding: 12, display: "flex", flexDirection: "column", gap: 8 }}>
+            <div className="skeleton" style={{ height: 11, width: "50%", borderRadius: 6 }}>&nbsp;</div>
+            <div className="skeleton" style={{ height: 16, width: "90%", borderRadius: 6 }}>&nbsp;</div>
+            <div className="skeleton" style={{ height: 11, width: "40%", borderRadius: 6 }}>&nbsp;</div>
           </div>
         </div>
       ))}
@@ -80,142 +152,23 @@ function BlogSkeleton() {
 
 function ForumSkeleton() {
   return (
-    <div className="home-forum-list">
+    <div className="hforum-skeleton">
       {[0, 1, 2, 3].map(i => (
-        <div key={i} className="home-forum-row" style={{ pointerEvents: "none" }}>
-          <div className="home-forum-row-body" style={{ gap: 8 }}>
-            <div className="skeleton" style={{ height: 16, width: "70%", borderRadius: 6 }}>&nbsp;</div>
-            <div className="skeleton" style={{ height: 11, width: "40%", borderRadius: 6 }}>&nbsp;</div>
-          </div>
+        <div key={i} className="hforum-skeleton-row">
+          <div className="skeleton" style={{ height: 14, width: "70%", borderRadius: 6 }}>&nbsp;</div>
+          <div className="skeleton" style={{ height: 11, width: "40%", borderRadius: 6 }}>&nbsp;</div>
         </div>
       ))}
     </div>
   );
 }
 
-// ── Facebook-style quick-nav sidebar widget ───────────────────────────────────
-
-const QN_ITEMS = [
-  { key: "friends",   label: "Friends",      icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, iconBg: "#5b63eb" },
-  { key: "messages",  label: "Messages",     icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>, iconBg: "#7c3aed" },
-  { key: "feed",      label: "Activity Feed", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>, iconBg: "#e05c2a" },
-  { key: "bookmarks", label: "Bookmarks",    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>, iconBg: "#1d7ea6" },
-  { key: "groups",    label: "Groups",       icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, iconBg: "#2e9e6b" },
-  { key: "forum",     label: "Forum",        icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>, iconBg: "#7c3aed", more: true },
-  { key: "blog",      label: "Blog",         icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>, iconBg: "#c084fc", more: true },
-  { key: "studyTopics", label: "Study Topics", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>, iconBg: "#0ea5e9", more: true },
-];
-
-function QuickNav({ user, profile, navigate, currentPage, unreadMessages, pendingRequests }) {
-  const [expanded, setExpanded] = useState(false);
-  const initials = (profile?.display_name || user?.email || "U")[0].toUpperCase();
-  const visibleItems = expanded ? QN_ITEMS : QN_ITEMS.filter(i => !i.more);
-  const moreCount = QN_ITEMS.filter(i => i.more).length;
-
-  const BADGES = {
-    messages: unreadMessages > 0 ? unreadMessages : null,
-    friends: pendingRequests > 0 ? pendingRequests : null,
-  };
-
-  return (
-    <section className="home-section home-section--compact qn-wrap">
-      {/* Profile row */}
-      <button className="qn-profile-row" onClick={() => navigate("profile")}>
-        <span className="qn-avatar">
-          {profile?.avatar_url
-            ? <img src={profile.avatar_url} alt={profile.display_name ?? "Profile"} width={36} height={36} className="qn-avatar-img" />
-            : <span className="qn-avatar-initials">{initials}</span>}
-        </span>
-        <span className="qn-profile-name">{profile?.display_name || user?.email?.split("@")[0] || "My Profile"}</span>
-      </button>
-
-      <div className="qn-divider" />
-
-      {/* Nav items */}
-      <nav className="qn-items">
-        {visibleItems.map(item => {
-          const badge = BADGES[item.key];
-          return (
-            <button
-              key={item.key}
-              className={`qn-item${currentPage === item.key ? " qn-item--active" : ""}`}
-              onClick={() => navigate(item.key)}
-            >
-              <span className="qn-item-icon" style={{ background: item.iconBg }}>{item.icon}</span>
-              <span className="qn-item-label">{item.label}</span>
-              {badge != null && <span className="qn-badge">{badge > 99 ? "99+" : badge}</span>}
-            </button>
-          );
-        })}
-      </nav>
-
-      {/* See more / less */}
-      <button className="qn-more-btn" onClick={() => setExpanded(e => !e)}>
-        <span className={`qn-more-chevron${expanded ? " qn-more-chevron--open" : ""}`}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </span>
-        {expanded ? "See less" : `See ${moreCount} more`}
-      </button>
-    </section>
-  );
-}
-
-// ── Online friends panel ──────────────────────────────────────────────────────
-
-const ONLINE_THRESHOLD_MS = 10 * 60 * 1000; // 10 minutes
-
-function OnlineFriendsPanel({ friends, navigate }) {
-  const now = Date.now();
-  const online = friends
-    .filter(f => f.last_active_at && now - new Date(f.last_active_at).getTime() < ONLINE_THRESHOLD_MS)
-    .slice(0, 8);
-  const recent = friends
-    .filter(f => !f.last_active_at || now - new Date(f.last_active_at).getTime() >= ONLINE_THRESHOLD_MS)
-    .sort((a, b) => {
-      const ta = a.last_active_at ? new Date(a.last_active_at).getTime() : 0;
-      const tb = b.last_active_at ? new Date(b.last_active_at).getTime() : 0;
-      return tb - ta;
-    })
-    .slice(0, online.length < 4 ? 6 - online.length : 0);
-
-  const shown = [...online, ...recent];
-  if (shown.length === 0 && friends.length === 0) return null;
-
-  return (
-    <section className="home-section home-section--compact qn-wrap ofp-wrap">
-      <div className="ofp-header">
-        <span className="ofp-title">Friends</span>
-        <button className="ofp-see-all" onClick={() => navigate("friends")}>See all</button>
-      </div>
-      {friends.length === 0 ? (
-        <div className="ofp-empty">Add friends to see their activity here.</div>
-      ) : (
-        <div className="ofp-list">
-          {shown.map(f => {
-            const isOnline = f.last_active_at && now - new Date(f.last_active_at).getTime() < ONLINE_THRESHOLD_MS;
-            const initials = (f.display_name || "?")[0].toUpperCase();
-            return (
-              <button key={f.id} className="ofp-row" onClick={() => navigate("publicProfile", { userId: f.id })}>
-                <span className="ofp-avatar-wrap">
-                  {f.avatar_url
-                    ? <img src={f.avatar_url} alt={f.display_name ?? "Friend"} width={32} height={32} className="ofp-avatar-img" />
-                    : <span className="ofp-avatar-initials">{initials}</span>}
-                  {isOnline && <span className="ofp-online-dot" aria-label="Online" />}
-                </span>
-                <span className="ofp-name">{f.display_name || "Unknown"}</span>
-              </button>
-            );
-          })}
-        </div>
-      )}
-    </section>
-  );
-}
-
-
+// ── Main component ───────────────────────────────────────────────────────────
 export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, isPremium, onUpgrade }) {
   const { t } = useTranslation();
   const lang = i18n?.language?.split("-")[0] ?? "en";
+
+  // Data
   const { data: posts = [], isLoading: postsLoading } = usePublishedPosts();
   const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4);
   const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes();
@@ -228,6 +181,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const pendingRequests = incoming.data?.length ?? 0;
   const { data: friends = [] } = useFriends(user?.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
+
+  // Onboarding / modals
   const [showOnboarding, closeOnboarding] = useOnboarding(user?.created_at);
   const [notifDismissed, setNotifDismissed] = useState(() => !!localStorage.getItem("nwt-notif-dismissed"));
   const [showStreakPrompt, setShowStreakPrompt] = useState(false);
@@ -240,21 +195,11 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
     const n = streak.current_streak;
     if (!STREAK_MILESTONES.includes(n)) return;
     const key = `streak-milestone-${n}`;
-    if (!isDismissed(key)) {
-      setStreakMilestone(n);
-      setShowStreakPrompt(true);
-    }
+    if (!isDismissed(key)) { setStreakMilestone(n); setShowStreakPrompt(true); }
   }, [streak.current_streak, isPremium, streakLoading]);
 
-  function handleEnableNotif() {
-    updateProfile.mutate({ email_notifications_blog: true });
-    setNotifDismissed(true);
-  }
-
-  function handleDismissNotif() {
-    localStorage.setItem("nwt-notif-dismissed", "1");
-    setNotifDismissed(true);
-  }
+  function handleEnableNotif() { updateProfile.mutate({ email_notifications_blog: true }); setNotifDismissed(true); }
+  function handleDismissNotif() { localStorage.setItem("nwt-notif-dismissed", "1"); setNotifDismissed(true); }
 
   const blogPreview = useMemo(() => {
     const byLikes = [...posts].sort((a, b) => (b.like_count ?? 0) - (a.like_count ?? 0));
@@ -266,46 +211,95 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
     return result.slice(0, 3);
   }, [posts]);
 
-  // eslint-disable-next-line react-hooks/purity -- Date.now() evaluated once per session; rotation changes weekly
+  // eslint-disable-next-line react-hooks/purity
   const bannerRotation = BANNER_ROTATIONS[Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000)) % BANNER_ROTATIONS.length];
+
+  // Friends panel data
+  const now = Date.now();
+  const onlineFriends = friends.filter(f => f.last_active_at && now - new Date(f.last_active_at).getTime() < ONLINE_THRESHOLD_MS);
+  const recentFriends = friends
+    .filter(f => !onlineFriends.includes(f))
+    .sort((a, b) => {
+      const ta = a.last_active_at ? new Date(a.last_active_at).getTime() : 0;
+      const tb = b.last_active_at ? new Date(b.last_active_at).getTime() : 0;
+      return tb - ta;
+    });
+  const shownFriends = [...onlineFriends, ...recentFriends].slice(0, 6);
+
+  const initials = (profile?.display_name || user?.email || "U")[0].toUpperCase();
+  const displayName = profile?.display_name || user?.email?.split("@")[0] || "My Profile";
 
   return (
     <div className="home-wrap">
+      <PageNav
+        navigate={navigate}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        i18n={i18n}
+        user={user}
+        onLogout={onLogout}
+        currentPage="home"
+        onUpgrade={onUpgrade}
+      />
 
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="home" onUpgrade={onUpgrade}/>
+      <main id="main-content" className="home-layout">
 
-      {/* ── Hero ── */}
-      <main id="main-content">
-      <div className="home-hero">
-        <div className="home-hero-glow home-hero-glow--1" />
-        <div className="home-hero-glow home-hero-glow--2" />
-        <div className="home-hero-glow home-hero-glow--3" />
-        <div className="home-hero-glow home-hero-glow--gold" />
-        <div className="home-hero-inner">
-          <div className="home-hero-badge">{t("home.heroBadge")}</div>
-          <h1 className="home-hero-title">
-            {t("home.heroTitleLine1")}<br />{t("home.heroTitleLine2")}<br />{t("home.heroTitleLine3")}
-          </h1>
-          <p className="home-hero-sub">{t("home.heroSub")}</p>
-          <div className="home-hero-btns">
-            <button className="home-hero-cta" onClick={() => navigate("main")}>
-              {t("home.heroCta")}
+        {/* ═══════════════════════════════════════
+            LEFT SIDEBAR
+        ═══════════════════════════════════════ */}
+        <aside className="home-left-sidebar">
+          {/* Profile row */}
+          <button className="hls-profile" onClick={() => navigate("profile")}>
+            <span className="hls-avatar">
+              {profile?.avatar_url
+                ? <img src={profile.avatar_url} alt={displayName} />
+                : <span className="hls-avatar-initials">{initials}</span>}
+            </span>
+            <span className="hls-name">{displayName}</span>
+          </button>
+
+          {/* Primary nav */}
+          {NAV_ITEMS.map(item => (
+            <button
+              key={item.key}
+              className={`hls-item${item.key === "home" ? " hls-item--active" : ""}`}
+              onClick={() => navigate(item.key)}
+            >
+              <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
+              {item.label}
             </button>
-            <button className="home-hero-secondary" onClick={() => navigate("blog")}>
-              {t("home.heroSecondary")}
+          ))}
+
+          <div className="hls-divider" />
+
+          {/* Social */}
+          {NAV_ITEMS_2.map(item => (
+            <button key={item.key} className="hls-item" onClick={() => navigate(item.key)}>
+              <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
+              {item.label}
+              {item.key === "friends"  && pendingRequests > 0 && <span className="hls-badge">{pendingRequests}</span>}
+              {item.key === "messages" && unreadMessages  > 0 && <span className="hls-badge">{unreadMessages}</span>}
             </button>
-          </div>
-        </div>
-      </div>
+          ))}
 
-      {/* ── Desktop 2-column grid ── */}
-      <div className="home-body-grid">
+          <div className="hls-divider" />
+          <div className="hls-section-label">Shortcuts</div>
 
-        {/* ── MAIN column: feature cards ── */}
-        <div className="home-col-main">
+          {NAV_SHORTCUTS.map(item => (
+            <button key={item.key} className="hls-item" onClick={() => navigate(item.key)}>
+              <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
+              {item.label}
+            </button>
+          ))}
+        </aside>
 
-          {/* ── Today's Focus ── */}
-          <section className="home-section">
+        {/* ═══════════════════════════════════════
+            MAIN FEED
+        ═══════════════════════════════════════ */}
+        <div className="home-feed">
+
+          {/* Today's Focus */}
+          <div className="hcard hcard--focus">
             <TodaysFocusCard
               userId={user?.id}
               navigate={navigate}
@@ -313,306 +307,217 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               onUpgrade={onUpgrade}
               lang={lang}
             />
-          </section>
+          </div>
 
-          {/* Bible Tracker */}
-          <section className="home-section">
-            <SectionHeader label={t("home.trackerLabel")} title={t("home.trackerTitle")} sub={t("home.trackerSub")} />
-            <button className="home-tracker-card" onClick={() => navigate("main")}>
-              <div className="home-tracker-visual">
-                <div className="home-tracker-glow" />
-                <div className="home-tracker-icon-wrap">
-                  <span className="home-tracker-big-icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
-                </div>
-                <div className="home-tracker-stats-preview">
-                  <div className="home-tracker-stat-pill">{t("home.trackerStat1")}</div>
-                  <div className="home-tracker-stat-pill">{t("home.trackerStat2")}</div>
-                  <div className="home-tracker-stat-pill">{t("home.trackerStat3")}</div>
-                </div>
-              </div>
-              <div className="home-tracker-info">
-                <h3 className="home-tracker-title">{t("home.trackerCardTitle")}</h3>
-                <p className="home-tracker-desc">{t("home.trackerCardDesc")}</p>
-                <ul className="home-tracker-features">
-                  <li>{t("home.trackerFeature1")}</li>
-                  <li>{t("home.trackerFeature2")}</li>
-                  <li>{t("home.trackerFeature3")}</li>
-                  <li>{t("home.trackerFeature4")}</li>
-                </ul>
-                <span className="home-tracker-cta">{t("home.trackerCta")}</span>
-              </div>
+          {/* Streak chip */}
+          {!streakLoading && streak.current_streak > 0 && (
+            <button className="hstreak-chip" onClick={() => navigate("profile")}>
+              <span className="hstreak-fire">🔥</span>
+              <span className="hstreak-body">
+                <span className="hstreak-main"><span>{streak.current_streak}</span>-{t("home.streakDay")} {t("home.streakLabel")}</span>
+                <span className="hstreak-sub">Keep it going — you're on a roll!</span>
+              </span>
+              {streak.longest_streak > streak.current_streak && (
+                <span className="hstreak-best">{t("home.streakBest")}: {streak.longest_streak}</span>
+              )}
             </button>
-          </section>
-
-          {/* Quiz */}
-          <section className="home-section">
-            <SectionHeader label={t("quiz.homeLabel")} title={t("quiz.homeTitle")} sub={t("quiz.homeSub")} />
-            <div className="home-quiz-grid">
-              <button className="home-quiz-card" onClick={() => navigate("quiz")}>
-                <div className="home-quiz-card-banner">
-                  <div className="home-quiz-card-glow" />
-                  <div className="home-quiz-card-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
-                      <path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
-                      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
-                      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
-                    </svg>
-                  </div>
-                </div>
-                <div className="home-quiz-card-body">
-                  <h3 className="home-quiz-card-title">{t("quiz.homeTitle")}</h3>
-                  <p className="home-quiz-card-desc">{t("quiz.homeSub")}</p>
-                  <div className="home-quiz-chips">
-                    <span className="home-quiz-chip">24 Levels</span>
-                    <span className="home-quiz-chip">480 Questions</span>
-                    <span className="home-quiz-chip">Badges</span>
-                  </div>
-                  <span className="home-quiz-card-cta">{t("quiz.homeCard")}</span>
-                </div>
-              </button>
-              <button className="home-quiz-card home-quiz-card--family" onClick={() => navigate("familyQuiz")}>
-                <div className="home-quiz-card-banner">
-                  <div className="home-quiz-card-glow" />
-                  <div className="home-quiz-card-icon">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                      <circle cx="9" cy="7" r="4"/>
-                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                  </div>
-                </div>
-                <div className="home-quiz-card-body">
-                  <h3 className="home-quiz-card-title">Family Bible Challenge</h3>
-                  <p className="home-quiz-card-desc">Challenge your family and friends with a custom quiz and see who scores highest.</p>
-                  <div className="home-quiz-chips">
-                    <span className="home-quiz-chip">Create a Quiz</span>
-                    <span className="home-quiz-chip">Share Link</span>
-                    <span className="home-quiz-chip">Leaderboard</span>
-                  </div>
-                  <span className="home-quiz-card-cta">Create a challenge →</span>
-                </div>
-              </button>
-            </div>
-          </section>
+          )}
 
           {/* Blog */}
-          <section className="home-section">
-            <SectionHeader
-              label={t("home.blogLabel")}
-              title={t("home.blogTitle")}
-              sub={t("home.blogSub")}
-              onViewAll={() => navigate("blog")}
-              viewAllLabel={t("home.blogViewAll")}
-            />
+          <div>
+            <div className="hfeed-head">
+              <span className="hfeed-title">{t("home.blogTitle")}</span>
+              <button className="hfeed-link" onClick={() => navigate("blog")}>{t("home.blogViewAll")}</button>
+            </div>
             {postsLoading ? <BlogSkeleton /> : blogPreview.length === 0 ? (
-              <EmptyState icon="✍️" title="No posts yet" sub="Be the first to share something with the community." btnLabel="Write a post →" onBtn={() => navigate("blogDash")} />
+              <EmptyState icon="✍️" title="No posts yet" sub="Be the first to share something." btnLabel="Write a post →" onBtn={() => navigate("blogDash")} />
             ) : (
-              <div className="home-blog-grid">
-                {blogPreview.map((post, i) => (
-                  <article
-                    key={post.id}
-                    className={`home-blog-card${i === 0 ? " home-blog-card--featured" : ""}`}
-                    onClick={() => navigate("blog", { slug: post.slug })}
-                  >
-                    <div className="home-blog-cover" style={{ background: post.cover_url ? undefined : getGradient(post.id) }}>
-                      {post.cover_url && <img src={post.cover_url} alt={post.title} loading="lazy" width={400} height={200} />}
+              <div className="hblog-grid">
+                {blogPreview.map((post) => (
+                  <article key={post.id} className="hblog-card" onClick={() => navigate("blog", { slug: post.slug })}>
+                    <div
+                      className="hblog-cover"
+                      style={{ background: post.cover_url ? undefined : getGradient(post.id) }}
+                    >
+                      {post.cover_url && <img src={post.cover_url} alt={post.title} loading="lazy" />}
                       {post.like_count > 0 && (
-                        <span className="home-blog-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 22V11l5-9a1 1 0 0 1 1.8.5L13 7h7a2 2 0 0 1 2 2.4l-2 10A2 2 0 0 1 18 21H7zM2 11h3v11H2z"/></svg> {formatNum(post.like_count)}</span>
+                        <span className="hblog-likes">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 22V11l5-9a1 1 0 0 1 1.8.5L13 7h7a2 2 0 0 1 2 2.4l-2 10A2 2 0 0 1 18 21H7zM2 11h3v11H2z"/></svg>
+                          {formatNum(post.like_count)}
+                        </span>
                       )}
                     </div>
-                    <div className="home-blog-body">
-                      <p className="home-blog-excerpt">{post.excerpt}</p>
-                      <h3 className="home-blog-title">{post.title}</h3>
-                      <div className="home-blog-meta">
-                        <span className="home-blog-author">{authorName(post)}</span>
-                        <span className="home-dot">·</span>
-                        <span>{formatDate(post.created_at)}</span>
-                      </div>
+                    <div className="hblog-body">
+                      <div className="hblog-tag">{post.category || t("home.blogLabel")}</div>
+                      <div className="hblog-title">{post.title}</div>
+                      <div className="hblog-meta">{authorName(post)} · {formatDate(post.created_at)}</div>
                     </div>
                   </article>
                 ))}
               </div>
             )}
-          </section>
-
-        </div>{/* end .home-col-main */}
-
-        {/* ── SIDE column: widgets + community ── */}
-        <div className="home-col-side">
-
-          {/* Quick Nav */}
-          <QuickNav user={user} profile={profile} navigate={navigate} currentPage="home" unreadMessages={unreadMessages} pendingRequests={pendingRequests} />
-
-          {/* Online Friends */}
-          <OnlineFriendsPanel friends={friends} navigate={navigate} />
-
-          {/* Daily Verse */}
-          <section className="home-section home-section--verse">
-            <DailyVerse user={user} />
-          </section>
-
-          {/* Streak banner */}
-          {!streakLoading && streak.current_streak > 0 && (
-            <section className="home-section home-section--slim">
-              <button className="home-streak-banner" onClick={() => navigate("profile")}>
-                <span className="home-streak-fire" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-8-3.03-8-7 0-2.44 1.34-4.81 2.5-6.35A1 1 0 0 1 8.18 10c.34 1.14 1.1 2.13 2.05 2.75C10.31 10 12 6 12 2a1 1 0 0 1 1.66-.75c2.24 1.92 5.84 5.63 5.84 10.75 0 5.68-3.55 11-7.5 11z"/></svg></span>
-                <span className="home-streak-text">
-                  <strong>{streak.current_streak}</strong>-{t("home.streakDay")} {t("home.streakLabel")}
-                </span>
-                {streak.longest_streak > streak.current_streak && (
-                  <span className="home-streak-best"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3h14l-1.5 5H18a5 5 0 0 1-4 4.9V17h3a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2h3v-4.1A5 5 0 0 1 6 8h-.5L4 3h1zm7 10a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg> {t("home.streakBest")}: {streak.longest_streak}</span>
-                )}
-              </button>
-            </section>
-          )}
+          </div>
 
           {/* Community Notes */}
-          <section className="home-section">
-            <SectionHeader
-              label={t("home.notesLabel")}
-              title={t("home.notesTitle")}
-              sub={t("home.notesSub")}
-              onViewAll={() => navigate("studyNotes", { tab: "public" })}
-              viewAllLabel={t("home.notesViewAll")}
-            />
+          <div>
+            <div className="hfeed-head">
+              <span className="hfeed-title">{t("home.notesTitle")}</span>
+              <button className="hfeed-link" onClick={() => navigate("studyNotes", { tab: "public" })}>{t("home.notesViewAll")}</button>
+            </div>
             {notesLoading ? <ForumSkeleton /> : previewNotes.length === 0 ? (
-              <EmptyState icon={<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>} title={t("home.notesEmpty")} sub={t("home.notesEmptySub")} btnLabel={t("home.notesWriteBtn")} onBtn={() => navigate("studyNotes", { tab: "public" })} />
+              <EmptyState
+                icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>}
+                title={t("home.notesEmpty")} sub={t("home.notesEmptySub")}
+                btnLabel={t("home.notesWriteBtn")} onBtn={() => navigate("studyNotes", { tab: "public" })}
+              />
             ) : (
-              <div className="home-forum-list">
+              <div className="hcard">
                 {previewNotes.map(note => {
                   const passage = note.book_index != null
                     ? `${BOOKS[note.book_index]?.name ?? ""} ${note.chapter ?? ""}`.trim()
                     : null;
                   return (
-                    <div key={note.id} className="home-forum-row" onClick={() => navigate("studyNotes", { tab: "public" })}>
-                      <div className="home-note-row-left">
-                        <button
-                          className="home-note-avatar"
-                          onClick={e => { e.stopPropagation(); navigate("publicProfile", { userId: note.user_id }); }}
-                          title={note.author?.display_name ?? "Anonymous"}
-                        >
-                          {note.author?.avatar_url
-                            ? <img src={note.author.avatar_url} alt={note.author.display_name} className="home-note-avatar-img" width={32} height={32} />
-                            : <span className="home-note-avatar-initials">{(note.author?.display_name ?? "A")[0].toUpperCase()}</span>
-                          }
-                        </button>
-                        <div className="home-forum-row-body">
-                          <h4 className="home-forum-row-title">{note.title || "Untitled"}</h4>
-                          <div className="home-forum-row-meta">
-                            <span>{note.author?.display_name ?? "Anonymous"}</span>
-                            {passage && <><span className="home-dot">·</span><span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:3}}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>{passage}</span></>}
-                            <span className="home-dot">·</span>
-                            <span>{formatDate(note.updated_at)}</span>
-                          </div>
+                    <div key={note.id} className="hnote-row" onClick={() => navigate("studyNotes", { tab: "public" })}>
+                      <button
+                        className="hnote-avatar"
+                        onClick={e => { e.stopPropagation(); navigate("publicProfile", { userId: note.user_id }); }}
+                        title={note.author?.display_name ?? "Anonymous"}
+                      >
+                        {note.author?.avatar_url
+                          ? <img src={note.author.avatar_url} alt={note.author.display_name} />
+                          : (note.author?.display_name ?? "A")[0].toUpperCase()}
+                      </button>
+                      <div className="hnote-body">
+                        <div className="hnote-title">{note.title || "Untitled"}</div>
+                        <div className="hnote-meta">
+                          {note.author?.display_name ?? "Anonymous"}
+                          {passage && <> · <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:2}}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>{passage}</>}
+                          {" · "}{formatDate(note.updated_at)}
                         </div>
+                        {passage && <span className="hnote-passage">📖 {passage}</span>}
                       </div>
-                      <div className="home-forum-row-stats">
-                        <button
-                          className={`home-forum-stat home-note-like-btn${note.user_has_liked ? " home-note-like-btn--liked" : ""}`}
-                          onClick={e => { e.stopPropagation(); toggleNoteLike.mutate(note.id); }}
-                          aria-label={note.user_has_liked ? "Unlike" : "Like"}
-                        >
-                          {note.user_has_liked ? "♥" : "♡"} {note.like_count > 0 ? note.like_count : ""}
-                        </button>
-                      </div>
+                      <button
+                        className={`hnote-like-btn${note.user_has_liked ? " hnote-like-btn--liked" : ""}`}
+                        onClick={e => { e.stopPropagation(); toggleNoteLike.mutate(note.id); }}
+                        aria-label={note.user_has_liked ? "Unlike" : "Like"}
+                      >
+                        {note.user_has_liked ? "♥" : "♡"}{note.like_count > 0 ? ` ${note.like_count}` : ""}
+                      </button>
                     </div>
                   );
                 })}
               </div>
             )}
-          </section>
+          </div>
 
           {/* Forum */}
-          <section className="home-section">
-            <SectionHeader
-              label={t("home.forumLabel")}
-              title={t("home.forumTitle")}
-              sub={t("home.forumSub")}
-              onViewAll={() => navigate("forum")}
-              viewAllLabel={t("home.forumViewAll")}
-            />
+          <div>
+            <div className="hfeed-head">
+              <span className="hfeed-title">{t("home.forumTitle")}</span>
+              <button className="hfeed-link" onClick={() => navigate("forum")}>{t("home.forumViewAll")}</button>
+            </div>
             {threadsLoading ? <ForumSkeleton /> : topThreads.length === 0 ? (
-              <EmptyState icon={<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>} title="No discussions yet" sub="Start the first conversation in the community." btnLabel="Start a thread →" onBtn={() => navigate("forum")} />
+              <EmptyState
+                icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>}
+                title="No discussions yet" sub="Start the first conversation."
+                btnLabel="Start a thread →" onBtn={() => navigate("forum")}
+              />
             ) : (
-              <div className="home-forum-list">
+              <div className="hcard">
                 {topThreads.map(thread => (
                   <div
                     key={thread.id}
-                    className="home-forum-row"
+                    className="hforum-row"
                     onClick={() => navigate("forum", { categoryId: thread.category_id, threadId: thread.id })}
                   >
-                    <div className="home-forum-row-body">
-                      <h4 className="home-forum-row-title">{thread.title}</h4>
-                      <div className="home-forum-row-meta">
-                        <span>{authorName(thread)}</span>
-                        <span className="home-dot">·</span>
-                        <span>{formatDate(thread.updated_at)}</span>
-                      </div>
+                    <div className="hforum-avatar">
+                      {(authorName(thread) || "?")[0].toUpperCase()}
                     </div>
-                    <div className="home-forum-row-stats">
-                      {thread.like_count > 0 && (
-                        <span className="home-forum-stat"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 22V11l5-9a1 1 0 0 1 1.8.5L13 7h7a2 2 0 0 1 2 2.4l-2 10A2 2 0 0 1 18 21H7zM2 11h3v11H2z"/></svg> {formatNum(thread.like_count)}</span>
-                      )}
-                      <span className="home-forum-stat">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> {formatNum(thread.forum_replies?.[0]?.count ?? 0)}
-                      </span>
+                    <div className="hforum-body">
+                      <div className="hforum-title">{thread.title}</div>
+                      <div className="hforum-meta">{authorName(thread)} · {formatDate(thread.updated_at)}</div>
                     </div>
+                    <span className="hforum-count">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                      {formatNum(thread.forum_replies?.[0]?.count ?? 0)}
+                    </span>
                   </div>
                 ))}
               </div>
             )}
-          </section>
+          </div>
 
-          {/* Premium upsell banner */}
+        </div>
+
+        {/* ═══════════════════════════════════════
+            RIGHT SIDEBAR
+        ═══════════════════════════════════════ */}
+        <aside className="home-right-sidebar">
+
+          {/* Daily Verse */}
+          <div className="hwidget">
+            <DailyVerse user={user} />
+          </div>
+
+          {/* Friends online */}
+          <div className="hwidget">
+            <div className="hwidget-header">
+              <span className="hwidget-title">Friends</span>
+              <button className="hwidget-link" onClick={() => navigate("friends")}>See all</button>
+            </div>
+            {friends.length === 0 ? (
+              <div className="hfriend-empty">Add friends to see their activity here.</div>
+            ) : (
+              <>
+                {shownFriends.map(f => {
+                  const isOnline = f.last_active_at && now - new Date(f.last_active_at).getTime() < ONLINE_THRESHOLD_MS;
+                  const diff = f.last_active_at ? now - new Date(f.last_active_at).getTime() : null;
+                  const when = isOnline ? "Active now"
+                    : diff == null ? ""
+                    : diff < 3600000 ? `${Math.floor(diff/60000)}m ago`
+                    : diff < 86400000 ? `${Math.floor(diff/3600000)}h ago`
+                    : `${Math.floor(diff/86400000)}d ago`;
+                  return (
+                    <div key={f.id} className="hfriend-row" onClick={() => navigate("publicProfile", { userId: f.id })}>
+                      <span className="hfriend-av-wrap">
+                        <span className="hfriend-av">
+                          {f.avatar_url ? <img src={f.avatar_url} alt={f.display_name} /> : (f.display_name || "?")[0].toUpperCase()}
+                        </span>
+                        {isOnline && <span className="hfriend-dot" aria-label="Online" />}
+                      </span>
+                      <span className="hfriend-name">{f.display_name || "Unknown"}</span>
+                      <span className="hfriend-when">{when}</span>
+                    </div>
+                  );
+                })}
+                <div style={{ height: 8 }} />
+              </>
+            )}
+          </div>
+
+          {/* Upsell */}
           {!isPremium && (
-            <section className="home-section home-section--slim">
-              <button className="home-premium-banner" onClick={onUpgrade}>
-                <span className="home-premium-banner-icon" aria-hidden="true">{bannerRotation.icon}</span>
-                <div className="home-premium-banner-text">
-                  <strong>{bannerRotation.title}</strong>
-                  <span>{bannerRotation.sub}</span>
-                </div>
-                <span className="home-premium-banner-cta">{bannerRotation.cta}</span>
-              </button>
-            </section>
+            <button className="hwidget-upsell" onClick={onUpgrade}>
+              <div className="hwidget-upsell-icon">{bannerRotation.icon}</div>
+              <div className="hwidget-upsell-title">{bannerRotation.title}</div>
+              <div className="hwidget-upsell-sub">{bannerRotation.sub}</div>
+              <span className="hwidget-upsell-btn">{bannerRotation.cta}</span>
+            </button>
           )}
 
-          {/* Leaderboard CTA */}
-          <section className="home-section home-section--compact">
-            <button className="home-lb-cta" onClick={() => navigate("leaderboard")}>
-              <span className="home-lb-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3h14l-1.5 5H18a5 5 0 0 1-4 4.9V17h3a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2h3v-4.1A5 5 0 0 1 6 8h-.5L4 3h1zm7 10a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg></span>
-              <div>
-                <div className="home-lb-title">{t("home.leaderboardTitle")}</div>
-                <div className="home-lb-sub">{t("home.leaderboardSub")}</div>
-              </div>
-              <span className="home-lb-arrow">›</span>
-            </button>
-          </section>
-
-        </div>{/* end .home-col-side */}
-
-      </div>{/* end .home-body-grid */}
-
+        </aside>
 
       </main>
 
+      {/* ── Modals & overlays ── */}
       {showStreakPrompt && (
         <UpgradePrompt
           icon="🔥"
           title={`${streak.current_streak}-day streak!`}
           message="Keep it structured — reading plans give you a daily assignment so you always know exactly what to read next."
           ctaLabel="View Reading Plans"
-          onCta={() => {
-            dismissPrompt(`streak-milestone-${streakMilestone}`);
-            setShowStreakPrompt(false);
-            navigate("readingPlans");
-          }}
-          onDismiss={() => {
-            dismissPrompt(`streak-milestone-${streakMilestone}`);
-            setShowStreakPrompt(false);
-          }}
+          onCta={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); navigate("readingPlans"); }}
+          onDismiss={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); }}
         />
       )}
 
@@ -623,21 +528,16 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <strong>{t("home.notifBannerTitle")}</strong>
             <span>{t("home.notifBannerSub")}</span>
           </div>
-          <button className="home-notif-enable" onClick={handleEnableNotif} disabled={updateProfile.isPending}>
-            {t("home.notifEnable")}
-          </button>
+          <button className="home-notif-enable" onClick={handleEnableNotif} disabled={updateProfile.isPending}>{t("home.notifEnable")}</button>
           <button className="home-notif-dismiss" onClick={handleDismissNotif} aria-label="Dismiss">✕</button>
         </div>
       )}
 
       {showOnboarding && (
-        <OnboardingModal
-          onClose={closeOnboarding}
-          onUpgrade={onUpgrade}
-          navigate={navigate}
-          user={user}
-        />
+        <OnboardingModal onClose={closeOnboarding} onUpgrade={onUpgrade} navigate={navigate} user={user} />
       )}
+
+      <MobileTabBar navigate={navigate} currentPage="home" unreadMessages={unreadMessages} pendingRequests={pendingRequests} />
     </div>
   );
 }
