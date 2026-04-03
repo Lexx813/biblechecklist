@@ -275,6 +275,26 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
           ))}
         </section>
 
+        {/* ── Privacy ──────────────────────────────────────── */}
+        <section className="st-section">
+          <h2 className="st-section-title">Privacy</h2>
+          <div className="st-toggle-row">
+            <div className="st-toggle-info">
+              <span className="st-toggle-label">Show me as online</span>
+              <span className="st-toggle-desc">When off, you won't appear in the Who's Online list.</span>
+            </div>
+            <button
+              role="switch"
+              aria-checked={profile?.show_online ?? true}
+              className={`pf-toggle${(profile?.show_online ?? true) ? " pf-toggle--on" : ""}`}
+              onClick={() => update.mutate({ show_online: !(profile?.show_online ?? true) })}
+              disabled={update.isPending}
+            >
+              <span className="pf-toggle-thumb" />
+            </button>
+          </div>
+        </section>
+
         {/* ── Subscription ─────────────────────────────────── */}
         {true && (
           <section className="st-section">
