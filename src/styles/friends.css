@@ -139,40 +139,151 @@
 .friends-empty-sub { font-size: 13px; }
 
 /* ── Friend requests page ── */
-.freq-section { margin-bottom: 32px; }
+.freq-page {
+  min-height: 100vh;
+  background: var(--bg);
+}
 
-.freq-section-label {
+.freq-hero {
+  background: linear-gradient(135deg, #1a0635 0%, #3b1080 55%, #6d28d9 100%);
+  padding: 20px 20px 28px;
+  position: relative;
+  overflow: hidden;
+}
+.freq-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 80% 40%, rgba(192,132,252,0.2) 0%, transparent 65%);
+  pointer-events: none;
+}
+.freq-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.freq-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 6px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  transition: background 0.15s;
+}
+.freq-back-btn:hover { background: rgba(255,255,255,0.18); }
+.freq-hero-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.freq-hero-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+}
+
+.freq-content {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.freq-section {}
+
+.freq-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.freq-section-title {
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
   color: var(--text-muted, #888);
-  margin-bottom: 12px;
+}
+.freq-count-badge {
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(124,58,237,0.18);
+  color: #a78bfa;
+  border: 1px solid rgba(124,58,237,0.25);
+}
+.freq-count-badge--empty {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-muted, #888);
+  border-color: rgba(255,255,255,0.08);
 }
 
 .freq-card {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   padding: 14px 16px;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
   margin-bottom: 10px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.freq-card:last-child { margin-bottom: 0; }
+.freq-card:hover {
+  border-color: rgba(124,58,237,0.35);
+  background: rgba(124,58,237,0.03);
+}
+
+.freq-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #38b2ac);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.18);
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+}
+.freq-avatar:hover { box-shadow: 0 0 0 3px rgba(124,58,237,0.4); }
+
+.freq-avatar--img {
+  object-fit: cover;
+  background: none;
+  font-size: 0;
 }
 
 .freq-card-info { flex: 1; min-width: 0; }
 
 .freq-card-name {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   color: var(--text);
+  margin-bottom: 2px;
 }
 
 .freq-card-time {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted, #888);
-  margin-top: 2px;
 }
 
 .freq-card-actions {
@@ -182,32 +293,90 @@
 }
 
 .freq-accept-btn {
-  padding: 7px 14px;
-  background: #7c3aed;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 9px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: inherit;
   cursor: pointer;
-  transition: opacity 0.15s;
+  box-shadow: 0 2px 8px rgba(124,58,237,0.35);
+  transition: opacity 0.15s, transform 0.1s;
 }
-.freq-accept-btn:hover { opacity: 0.88; }
+.freq-accept-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+.freq-accept-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.freq-decline-btn,
-.freq-cancel-btn {
-  padding: 7px 14px;
+.freq-decline-btn {
+  padding: 8px 14px;
   background: transparent;
   color: var(--text-muted, #888);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 9px;
   font-size: 13px;
   font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.freq-decline-btn:hover:not(:disabled) {
+  background: rgba(239,68,68,0.08);
+  color: #ef4444;
+  border-color: rgba(239,68,68,0.3);
+}
+.freq-decline-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.freq-cancel-btn {
+  padding: 8px 14px;
+  background: transparent;
+  color: var(--text-muted, #888);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
   cursor: pointer;
   transition: background 0.15s;
 }
-.freq-decline-btn:hover,
-.freq-cancel-btn:hover { background: rgba(0,0,0,0.06); }
+.freq-cancel-btn:hover:not(:disabled) { background: rgba(255,255,255,0.06); }
+.freq-cancel-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Empty states ── */
+.freq-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px;
+  background: var(--card-bg);
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+  text-align: center;
+  gap: 6px;
+}
+.freq-empty-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(124,58,237,0.1);
+  border: 1px solid rgba(124,58,237,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+  color: #a78bfa;
+}
+.freq-empty-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.freq-empty-sub {
+  font-size: 12px;
+  color: var(--text-muted, #888);
+  max-width: 240px;
+  line-height: 1.5;
+}
 
 /* ── FriendRequestButton (on profiles) ── */
 .pf-friend-btn {
