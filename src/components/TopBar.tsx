@@ -1,10 +1,14 @@
 // @ts-nocheck
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { LANGUAGES } from "../i18n";
 import { useFullProfile } from "../hooks/useAdmin";
 import { useUnreadMessageCount } from "../hooks/useMessages";
 import { useUnreadNotificationCount } from "../hooks/useNotifications";
 import NotificationDropdown from "./NotificationDropdown";
 import "../styles/topbar.css";
+
+const FLAGS: Record<string, string> = { en: "🇺🇸", es: "🇪🇸", pt: "🇧🇷", tl: "🇵🇭", fr: "🇫🇷", zh: "🇨🇳" };
 
 const SunIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -62,6 +66,19 @@ export default function TopBar({
   const { data: unreadMessages = 0 } = useUnreadMessageCount();
   const unreadNotifs = useUnreadNotificationCount(user?.id);
   const [showNotifs, setShowNotifs] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
+  const { i18n } = useTranslation();
+  const currentLang = LANGUAGES.find(l => i18n.language?.split("-")[0]?.startsWith(l.code))?.code ?? "en";
+
+  useEffect(() => {
+    if (!langOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) setLangOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [langOpen]);
 
   const displayName = profile?.display_name || user?.email?.split("@")[0] || "?";
   const initials = displayName[0]?.toUpperCase() ?? "?";
@@ -110,6 +127,34 @@ export default function TopBar({
               </svg>
             </button>
           )}
+
+          {/* Language picker */}
+          <div className="topbar-lang" ref={langRef}>
+            <button
+              className="topbar-btn"
+              onClick={() => setLangOpen(o => !o)}
+              aria-label="Change language"
+              aria-expanded={langOpen}
+            >
+              <span aria-hidden="true">{FLAGS[currentLang]}</span>
+            </button>
+            {langOpen && (
+              <div className="topbar-lang-menu" role="menu">
+                {LANGUAGES.map(l => (
+                  <button
+                    key={l.code}
+                    className={`topbar-lang-item${l.code === currentLang ? " topbar-lang-item--active" : ""}`}
+                    role="menuitem"
+                    onClick={() => { i18n.changeLanguage(l.code); setLangOpen(false); }}
+                  >
+                    <span>{FLAGS[l.code]}</span>
+                    <span>{l.label}</span>
+                    {l.code === currentLang && <span className="topbar-lang-check">✓</span>}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Theme toggle */}
           {setDarkMode && (

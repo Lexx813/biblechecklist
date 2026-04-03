@@ -30,11 +30,14 @@
 
 /* Shared page section title (replaces hero sections) */
 .page-section-title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3rem);
   color: var(--text-primary);
   padding: 24px 20px 8px;
   margin: 0;
+  line-height: 1.15;
 }
 
 /* Profile row */
