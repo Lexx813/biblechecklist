@@ -14,6 +14,7 @@ import { getStoredReferralCode, clearStoredReferralCode, trackSignup } from "./l
 import LoadingSpinner from "./components/LoadingSpinner";
 import MobileTabBar from "./components/MobileTabBar";
 import TopBar from "./components/TopBar";
+import CommandPalette from "./components/CommandPalette";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import UpgradeModal from "./components/UpgradeModal";
 import UpgradePrompt, { isDismissed, dismissPrompt } from "./components/UpgradePrompt";
@@ -154,6 +155,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [showWelcomeModal, setShowWelcomeModal] = useState(false);
   const [gatedFeature, setGatedFeature] = useState(null);
+  const [showCmdPalette, setShowCmdPalette] = useState(false);
 
   function openUpgrade() { setShowUpgradeModal(true); }
 
@@ -220,6 +222,18 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     return () => window.removeEventListener("popstate", handler);
   }, []);
 
+  // ⌘K / Ctrl+K — open command palette
+  useEffect(() => {
+    function onKeyDown(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setShowCmdPalette(v => !v);
+      }
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, []);
+
   // Handle push notification tap — service worker posts { type: "push-navigate", url }
   // instead of using client.navigate() which is unreliable on Android Chrome.
   useEffect(() => {
@@ -272,7 +286,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     if (upgrade === "1") openUpgrade();
   }, []); // runs once on mount
 
-  const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page, onUpgrade: openUpgrade };
+  const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page, onUpgrade: openUpgrade, onSearchClick: () => setShowCmdPalette(true) };
 
   let pageContent = null;
   if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} isPremium={isPremium} onUpgrade={openUpgrade} /></Page>;
@@ -408,6 +422,12 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
           ctaLabel={FEATURE_PROMPTS[gatedFeature].ctaLabel}
           onCta={handleGateCta}
           onDismiss={handleGateDismiss}
+        />
+      )}
+      {showCmdPalette && (
+        <CommandPalette
+          navigate={navigate}
+          onClose={() => setShowCmdPalette(false)}
         />
       )}
     </>
