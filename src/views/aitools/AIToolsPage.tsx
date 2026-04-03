@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
+import AppLayout from "../../components/AppLayout";
 import { useAISkill } from "../../hooks/useAISkill";
 import { useCreateStudyNote } from "../../hooks/useStudyNotes";
 import { useSession } from "../../hooks/useAuth";
@@ -481,6 +482,7 @@ export default function AIToolsPage({ navigate, ...navProps }) {
   return (
     <>
       <PageNav navigate={navigate} {...navProps} />
+      <AppLayout navigate={navigate} user={navProps.user} currentPage="aiTools">
       <div className="ait-page">
         <div className="ait-hero">
           <div className="ait-hero-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -512,6 +514,7 @@ export default function AIToolsPage({ navigate, ...navProps }) {
           </div>
         </div>
       </div>
+      </AppLayout>
     </>
   );
 }
