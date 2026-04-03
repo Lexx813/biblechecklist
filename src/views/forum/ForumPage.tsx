@@ -26,6 +26,7 @@ import {
 } from "../../hooks/useForum";
 import { toast } from "../../lib/toast";
 import { useSubmitReport } from "../../hooks/useReports";
+import { useBlocks, useBlockUser, useUnblockUser } from "../../hooks/useBlocks";
 import { useSubscription } from "../../hooks/useSubscription";
 import { useGetOrCreateDM } from "../../hooks/useMessages";
 import { useMeta } from "../../hooks/useMeta";
@@ -688,6 +689,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
   const [search, setSearch] = useState("");
   const { data: rawThreads = [], isLoading } = useThreads(category.id, limit, langFilter);
   const createThread = useCreateThread(category.id);
+  const { data: blockedSet = new Set<string>() } = useBlocks(user?.id);
 
   const draftKey = `forum-draft-thread-${category.id}`;
   const formKey = `forum-form-open-${category.id}`;
@@ -722,7 +724,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 
   // Filter + sort threads client-side
   const threads = useCallback(() => {
-    let list = [...rawThreads];
+    let list = [...rawThreads].filter(th => !blockedSet.has(th.author_id));
     // Search
     if (search.trim()) {
       const q = search.toLowerCase();
@@ -736,7 +738,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
     else if (sort === "unanswered") rest = rest.filter(th => (th.forum_replies?.[0]?.count ?? 0) === 0 && !th.locked);
     else if (sort === "solved") rest = rest.filter(th => th.has_solution);
     return [...pinned, ...rest];
-  }, [rawThreads, search, sort])();
+  }, [rawThreads, search, sort, blockedSet])();
 
   function handleCreate(e) {
     e.preventDefault();
@@ -926,25 +928,27 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMode, i18n, user, onLogout, onSelectThread, onUpgrade }) {
   const { data: categories = [], isLoading } = useCategories();
   const { data: trending = [] } = useTopThreads(5);
+  const { data: blockedSet = new Set<string>() } = useBlocks(user?.id);
   const { t } = useTranslation();
 
   useMeta({ title: "Forum", description: "Join community discussions about Bible reading, faith, and spiritual growth." });
   const lang = i18n.language.split("-")[0];
 
   const totalThreads = categories.reduce((sum, c) => sum + (c.forum_threads?.[0]?.count ?? 0), 0);
+  const visibleTrending = trending.filter(th => !blockedSet.has(th.author_id));
 
   return (
     <div className="forum-categories">
       <h1 className="page-section-title">{t("forum.title")}</h1>
 
       {/* Trending threads */}
-      {trending.length > 0 && (
+      {visibleTrending.length > 0 && (
         <div className="forum-trending">
           <div className="forum-trending-header">
             <span className="forum-trending-label">🔥 {t("forum.trending")}</span>
           </div>
           <div className="forum-trending-list">
-            {trending.map(thread => (
+            {visibleTrending.map(thread => (
               <button
                 key={thread.id}
                 className="forum-trending-row"
