@@ -29,9 +29,10 @@ interface Props {
   user: { id?: string; email?: string } | null | undefined;
   currentPage: string;
   children: React.ReactNode;
+  rightPanel?: React.ReactNode;
 }
 
-export default function AppLayout({ navigate, user, currentPage, children }: Props) {
+export default function AppLayout({ navigate, user, currentPage, children, rightPanel }: Props) {
   const { data: profile } = useFullProfile(user?.id);
   const { data: unreadMessages = 0 } = useUnreadMessageCount();
   const { incoming } = useFriendRequests(user?.id);
@@ -46,7 +47,7 @@ export default function AppLayout({ navigate, user, currentPage, children }: Pro
                   : currentPage;
 
   return (
-    <div className="al-wrap">
+    <div className={`al-wrap${rightPanel ? " al-wrap--with-rp" : ""}`}>
       <aside className="al-sidebar" aria-label="Main navigation">
 
         {/* Profile row */}
@@ -108,6 +109,12 @@ export default function AppLayout({ navigate, user, currentPage, children }: Pro
       <div key={currentPage} className="al-content">
         {children}
       </div>
+
+      {rightPanel && (
+        <aside className="al-right" aria-label="Contextual widgets">
+          {rightPanel}
+        </aside>
+      )}
     </div>
   );
 }
