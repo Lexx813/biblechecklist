@@ -91,6 +91,63 @@ function ForumSkeleton() {
   );
 }
 
+// ── Facebook-style quick-nav sidebar widget ───────────────────────────────────
+
+const QN_ITEMS = [
+  { key: "friends",   label: "Friends",      icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, iconBg: "#5b63eb" },
+  { key: "feed",      label: "Activity Feed", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>, iconBg: "#e05c2a" },
+  { key: "bookmarks", label: "Bookmarks",    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>, iconBg: "#1d7ea6" },
+  { key: "groups",    label: "Groups",       icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>, iconBg: "#2e9e6b" },
+  { key: "forum",     label: "Forum",        icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>, iconBg: "#7c3aed", more: true },
+  { key: "blog",      label: "Blog",         icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>, iconBg: "#c084fc", more: true },
+  { key: "studyTopics", label: "Study Topics", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>, iconBg: "#0ea5e9", more: true },
+];
+
+function QuickNav({ user, profile, navigate, currentPage }) {
+  const [expanded, setExpanded] = useState(false);
+  const initials = (profile?.display_name || user?.email || "U")[0].toUpperCase();
+  const visibleItems = expanded ? QN_ITEMS : QN_ITEMS.filter(i => !i.more);
+  const moreCount = QN_ITEMS.filter(i => i.more).length;
+
+  return (
+    <section className="home-section home-section--compact qn-wrap">
+      {/* Profile row */}
+      <button className="qn-profile-row" onClick={() => navigate("profile")}>
+        <span className="qn-avatar">
+          {profile?.avatar_url
+            ? <img src={profile.avatar_url} alt={profile.display_name ?? "Profile"} width={36} height={36} className="qn-avatar-img" />
+            : <span className="qn-avatar-initials">{initials}</span>}
+        </span>
+        <span className="qn-profile-name">{profile?.display_name || user?.email?.split("@")[0] || "My Profile"}</span>
+      </button>
+
+      <div className="qn-divider" />
+
+      {/* Nav items */}
+      <nav className="qn-items">
+        {visibleItems.map(item => (
+          <button
+            key={item.key}
+            className={`qn-item${currentPage === item.key ? " qn-item--active" : ""}`}
+            onClick={() => navigate(item.key)}
+          >
+            <span className="qn-item-icon" style={{ background: item.iconBg }}>{item.icon}</span>
+            <span className="qn-item-label">{item.label}</span>
+          </button>
+        ))}
+      </nav>
+
+      {/* See more / less */}
+      <button className="qn-more-btn" onClick={() => setExpanded(e => !e)}>
+        <span className={`qn-more-chevron${expanded ? " qn-more-chevron--open" : ""}`}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </span>
+        {expanded ? "See less" : `See ${moreCount} more`}
+      </button>
+    </section>
+  );
+}
+
 export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, isPremium, onUpgrade }) {
   const { t } = useTranslation();
   const lang = i18n?.language?.split("-")[0] ?? "en";
@@ -315,6 +372,9 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
         {/* ── SIDE column: widgets + community ── */}
         <div className="home-col-side">
+
+          {/* Quick Nav */}
+          <QuickNav user={user} profile={profile} navigate={navigate} currentPage="home" />
 
           {/* Daily Verse */}
           <section className="home-section home-section--verse">
