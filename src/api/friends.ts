@@ -154,19 +154,21 @@ export const friendsApi = {
     if (!user) return [];
     const { data, error } = await supabase
       .from("friendships")
-      .select(`
-        id, sponsored_by, created_at,
-        user_a:user_a_id(id, display_name, avatar_url, last_active_at),
-        user_b:user_b_id(id, display_name, avatar_url, last_active_at)
-      `)
+      .select("id, sponsored_by, created_at, user_a_id, user_b_id")
       .or(`user_a_id.eq.${user.id},user_b_id.eq.${user.id}`)
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
-    return (data ?? []).map(f => {
-      const userA = f.user_a as unknown as (ProfileBasic & { last_active_at?: string | null }) | null;
-      const userB = f.user_b as unknown as (ProfileBasic & { last_active_at?: string | null }) | null;
-      const friend = userA?.id === user.id ? userB : userA;
-      return { ...friend, friendship_id: f.id, sponsored_by: f.sponsored_by, friendship_created_at: f.created_at };
+    if (!data || data.length === 0) return [];
+    const friendIds = data.map(f => f.user_a_id === user.id ? f.user_b_id : f.user_a_id);
+    const { data: profiles } = await supabase
+      .from("profiles")
+      .select("id, display_name, avatar_url, last_active_at")
+      .in("id", friendIds);
+    const profileMap = new Map((profiles ?? []).map(p => [p.id, p]));
+    return data.map(f => {
+      const friendId = f.user_a_id === user.id ? f.user_b_id : f.user_a_id;
+      const profile = profileMap.get(friendId) ?? null;
+      return { ...profile, friendship_id: f.id, sponsored_by: f.sponsored_by, friendship_created_at: f.created_at };
     });
   },
 
