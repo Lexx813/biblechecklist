@@ -37,9 +37,9 @@ export const progressApi = {
   },
 
   getStreak: async (userId: string): Promise<StreakData> => {
-    const { data, error } = await supabase.rpc("get_reading_streak", { p_user_id: userId });
+    const { data, error } = await supabase.rpc("get_reading_streaks", { p_user_id: userId });
     if (error) throw new Error(error.message);
-    return (data as StreakData[] | null)?.[0] ?? { current_streak: 0, longest_streak: 0, total_days: 0 };
+    return (data as StreakData | null) ?? { current_streak: 0, longest_streak: 0, total_days: 0 };
   },
 
   markChapterRead: async (userId: string, bookIndex: number, chapter: number): Promise<void> => {

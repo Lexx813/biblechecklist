@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useRef, useMemo, useEffect, useCallback } from "react";
 import EmojiPickerPopup, { insertEmojiAtCursor } from "../../components/EmojiPickerPopup";
 import CustomSelect from "../../components/CustomSelect";
@@ -865,7 +864,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
                     onUpgrade={onUpgrade}
                   />
                   <button
-                    className="pf-msg-btn"
+                    className="pf-block-btn"
                     onClick={() => {
                       if (blockedSet.has(profileId)) {
                         unblockUser.mutate(profileId);

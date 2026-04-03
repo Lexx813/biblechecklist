@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useMemo, memo, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
@@ -56,7 +55,7 @@ function authorInitial(post) {
   return (post.profiles?.display_name || post.profiles?.email || "A")[0].toUpperCase();
 }
 
-const RichContent = memo(function RichContent({ text }) {
+const RichContent = memo(function RichContent({ text }: { text: string }) {
   if (!text) return null;
   const html = useMemo(() => {
     const h = /<[a-z][\s\S]*>/i.test(text)
@@ -439,7 +438,7 @@ function RelatedPosts({ currentPost, onSelect, navigate, user }) {
 }
 
 // ── Post listing card ─────────────────────────────────────────────────────────
-const PostCard = memo(function PostCard({ post, onSelect, navigate, user, lang }) {
+const PostCard = memo(function PostCard({ post, onSelect, navigate, user, lang }: { post: any; onSelect: any; navigate: any; user: any; lang: string }) {
   const { t } = useTranslation();
   const showEs = lang === "es" && !!post.translations?.es;
   const displayTitle   = (showEs && post.translations?.es?.title)   || post.title;

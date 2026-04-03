@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useEffect, useRef } from "react";
 import { useNotifications, useMarkNotificationsRead } from "../hooks/useNotifications";
 import "../styles/notification-dropdown.css";
@@ -17,11 +16,13 @@ function timeAgo(dateStr: string): string {
 interface Props {
   userId: string | undefined;
   onClose: () => void;
+  navigate: (page: string, params?: Record<string, unknown>) => void;
 }
 
-export default function NotificationDropdown({ userId, onClose }: Props) {
+export default function NotificationDropdown({ userId, onClose, navigate }: Props) {
   const { data: notifications = [] } = useNotifications(userId);
   const markAll = useMarkNotificationsRead(userId);
+  const markRead = useMarkNotificationsRead(userId);
   const panelRef = useRef<HTMLDivElement>(null);
 
   // Close on Escape
@@ -38,7 +39,44 @@ export default function NotificationDropdown({ userId, onClose }: Props) {
     panelRef.current?.focus();
   }, []);
 
-  const unreadCount = notifications.filter((n: any) => !n.read).length;
+  function handleClick(n: any) {
+    if (!n.read) markRead.mutate([n.id]);
+    onClose();
+
+    if (n.type === "message") {
+      const convId = n.conversation_id ?? null;
+      navigate("messages", convId ? {
+        conversationId: convId,
+        otherDisplayName: n.actor?.display_name ?? null,
+        otherAvatarUrl: n.actor?.avatar_url ?? null,
+      } : {});
+      return;
+    }
+
+    if (n.type === "reply" || n.type === "mention") {
+      const threadId = n.thread_id;
+      const categoryId = n.thread?.category_id ?? null;
+      if (threadId && categoryId) navigate("forum", { categoryId, threadId });
+      else if (threadId) navigate("forum", { threadId });
+      else navigate("forum", {});
+      return;
+    }
+
+    if (n.type === "comment") {
+      const slug = n.post?.slug ?? null;
+      navigate("blog", slug ? { slug } : {});
+      return;
+    }
+
+    if (n.type === "friend_request") {
+      navigate("friends", {});
+      return;
+    }
+
+    if (n.link_hash) navigate(n.link_hash);
+  }
+
+  const unreadCount = (notifications as any[]).filter((n) => !n.read).length;
 
   return (
     <>
@@ -76,7 +114,9 @@ export default function NotificationDropdown({ userId, onClose }: Props) {
                 className={`notif-item${!n.read ? " unread" : ""}`}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => e.key === "Enter" && onClose()}
+                onClick={() => handleClick(n)}
+                onKeyDown={(e) => e.key === "Enter" && handleClick(n)}
+                style={{ cursor: "pointer" }}
               >
                 <div className="notif-avatar">
                   {n.actor?.avatar_url

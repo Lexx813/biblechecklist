@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOKS } from "../../data/books";

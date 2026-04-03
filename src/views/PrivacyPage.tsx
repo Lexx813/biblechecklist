@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useMeta } from "../hooks/useMeta";
 import "../styles/about.css";
 

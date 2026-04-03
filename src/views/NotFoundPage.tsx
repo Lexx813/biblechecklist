@@ -1,8 +1,7 @@
-// @ts-nocheck
 import { useEffect } from "react";
 import "../styles/not-found.css";
 
-export default function NotFoundPage({ navigate, user, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function NotFoundPage({ navigate, user = null, darkMode, setDarkMode, i18n, onLogout, onUpgrade }: { navigate: (page: string) => void; user?: unknown; darkMode?: boolean; setDarkMode?: (v: boolean) => void; i18n?: unknown; onLogout?: () => void; onUpgrade?: () => void }) {
   // Ensure the URL stays as-is so the user can see what they typed wrong
   useEffect(() => {
     document.title = "404 — Page Not Found";

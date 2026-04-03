@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useTranslation } from "react-i18next";
 import { getTopicBySlug, STUDY_TOPICS } from "../../data/studyTopics";
 import { wolRefUrl } from "../../utils/wol";

@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Study Topics — topical Bible study content based on NWT / JW teaching
 export const STUDY_TOPICS = [
   {

@@ -189,7 +189,7 @@
   position: fixed;
   top: 16px;
   right: 16px;
-  z-index: 100;
+  z-index: var(--z-sticky);
 }
 .landing-lang .cs-btn {
   background: rgba(255, 255, 255, 0.1);

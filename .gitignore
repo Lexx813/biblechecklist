@@ -17,6 +17,7 @@ dist
 dist-ssr
 *.local
 .next/
+tsconfig.tsbuildinfo
 
 # Claude Code — contains sensitive tokens and local dev tooling
 .claude/
@@ -24,9 +25,6 @@ dist-ssr
 .superpowers/
 memory/
 skills-lock.json
-
-# Test / scratch files
-test-sanitize.html
 
 # Supabase temp files
 supabase/.temp/

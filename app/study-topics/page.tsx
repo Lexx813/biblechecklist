@@ -1,11 +1,10 @@
-// @ts-nocheck
 import ClientShell from "../_components/ClientShell";
 import { STUDY_TOPICS } from "../../src/data/studyTopics";
 
 export const revalidate = false; // static
 
 const SEO_HIDE = {
-  position: "absolute", width: 1, height: 1,
+  position: "absolute" as const, width: 1, height: 1,
   overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap",
 };
 

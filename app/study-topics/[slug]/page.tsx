@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { notFound } from "next/navigation";
 import ClientShell from "../../_components/ClientShell";
 import { STUDY_TOPICS, getTopicBySlug } from "../../../src/data/studyTopics";

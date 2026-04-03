@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import CustomSelect from "../../components/CustomSelect";
@@ -529,7 +528,7 @@ function BlogTab({ navigate }) {
   const [search, setSearch] = useState("");
 
   const filtered = search.trim()
-    ? posts.filter(p => p.title?.toLowerCase().includes(search.toLowerCase()) || p.profiles?.display_name?.toLowerCase().includes(search.toLowerCase()))
+    ? posts.filter(p => p.title?.toLowerCase().includes(search.toLowerCase()) || (p.profiles as any)?.display_name?.toLowerCase().includes(search.toLowerCase()))
     : posts;
 
   if (isLoading) return <LoadingSpinner />;
@@ -557,7 +556,7 @@ function BlogTab({ navigate }) {
                 <td style={{ maxWidth: 260, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                   {post.title}
                 </td>
-                <td>{post.profiles?.display_name || "—"}</td>
+                <td>{(post.profiles as any)?.display_name || "—"}</td>
                 <td>
                   <span className={`admin-sub-badge admin-sub-badge--${post.published ? "active" : "none"}`}>
                     {post.published ? t("adminBlog.published") : t("adminBlog.draft")}
@@ -607,7 +606,7 @@ function ForumTab({ navigate }) {
   const [search, setSearch] = useState("");
 
   const filtered = search.trim()
-    ? threads.filter(th => th.title?.toLowerCase().includes(search.toLowerCase()) || th.profiles?.display_name?.toLowerCase().includes(search.toLowerCase()))
+    ? threads.filter(th => th.title?.toLowerCase().includes(search.toLowerCase()) || (th.profiles as any)?.display_name?.toLowerCase().includes(search.toLowerCase()))
     : threads;
 
   if (isLoading) return <LoadingSpinner />;
@@ -633,11 +632,11 @@ function ForumTab({ navigate }) {
             {filtered.map(thread => (
               <tr key={thread.id}>
                 <td style={{ maxWidth: 220, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                  {thread.pinned && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" title={t("adminForum.pinned")} style={{display:"inline",marginRight:4,flexShrink:0}} aria-hidden="true"><line x1="12" y1="17" x2="12" y2="22"/><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V17z"/></svg>}
-                  {thread.locked && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" title={t("adminForum.locked")} style={{display:"inline",marginRight:4,flexShrink:0}} aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>}
+                  {thread.pinned && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-label={t("adminForum.pinned")} style={{display:"inline",marginRight:4,flexShrink:0}} aria-hidden="true"><line x1="12" y1="17" x2="12" y2="22"/><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V17z"/></svg>}
+                  {thread.locked && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-label={t("adminForum.locked")} style={{display:"inline",marginRight:4,flexShrink:0}} aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>}
                   {thread.title}
                 </td>
-                <td>{thread.profiles?.display_name || "—"}</td>
+                <td>{(thread.profiles as any)?.display_name || "—"}</td>
                 <td>{thread.forum_replies?.[0]?.count ?? 0}</td>
                 <td className="admin-date">{formatDate(thread.created_at)}</td>
                 <td>
@@ -716,7 +715,7 @@ function ForumCategoriesTab() {
       queryClient.invalidateQueries({ queryKey: ["forum", "categories"] });
       resetForm();
     } catch (err) {
-      setError(err.message);
+      setError((err as Error).message);
     } finally {
       setSaving(false);
     }
@@ -728,7 +727,7 @@ function ForumCategoriesTab() {
       await forumApi.deleteCategory(catId);
       queryClient.invalidateQueries({ queryKey: ["forum", "categories"] });
     } catch (err) {
-      setError(err.message);
+      setError((err as Error).message);
     } finally {
       setSaving(false);
       setConfirmDelete(null);
@@ -801,8 +800,8 @@ function BlogCommentsTab() {
   const filtered = search.trim()
     ? comments.filter(c =>
         c.content?.toLowerCase().includes(search.toLowerCase()) ||
-        c.profiles?.display_name?.toLowerCase().includes(search.toLowerCase()) ||
-        c.blog_posts?.title?.toLowerCase().includes(search.toLowerCase())
+        (c.profiles as any)?.display_name?.toLowerCase().includes(search.toLowerCase()) ||
+        (c.blog_posts as any)?.title?.toLowerCase().includes(search.toLowerCase())
       )
     : comments;
 
@@ -822,7 +821,7 @@ function BlogCommentsTab() {
               <div className="admin-report-meta">
                 <span className="admin-report-type admin-report-type--comment">{t("adminComments.comment")}</span>
                 <span style={{ fontSize: 12, color: "var(--text-secondary)" }}>
-                  {c.profiles?.display_name || "Unknown"} {t("adminComments.on")} <em>{c.blog_posts?.title || "—"}</em>
+                  {(c.profiles as any)?.display_name || "Unknown"} {t("adminComments.on")} <em>{(c.blog_posts as any)?.title || "—"}</em>
                 </span>
                 <span style={{ fontSize: 11, color: "var(--text-muted)", marginLeft: "auto" }}>{formatDate(c.created_at)}</span>
               </div>
@@ -980,7 +979,7 @@ function QuizTab() {
       <div className="admin-quiz-controls">
         <CustomSelect
           value={selectedLevel}
-          onChange={val => { setSelectedLevel(val); setShowForm(false); setQPage(0); }}
+          onChange={val => { setSelectedLevel(Number(val)); setShowForm(false); setQPage(0); }}
           options={LEVELS.map(l => ({ value: l, label: `${t("adminQuiz.level")} ${l}` }))}
         />
         <button className="admin-add-btn" onClick={openAddForm}>
@@ -1042,7 +1041,7 @@ function QuizTab() {
             <label htmlFor="admin-correct" className="admin-form-label">{t("adminQuiz.correctAnswer")}</label>
             <CustomSelect
               value={form.correct_index}
-              onChange={val => setForm(f => ({ ...f, correct_index: val }))}
+              onChange={val => setForm(f => ({ ...f, correct_index: Number(val) }))}
               options={OPTION_LABELS.map((label, i) => ({ value: i, label: `${label}: ${form.options[i] || `Option ${label}`}` }))}
             />
           </div>
@@ -1206,17 +1205,17 @@ function AnnouncementsTab({ currentUser }) {
 
 // ── Audit Log Tab ─────────────────────────────────────────────────────────────
 const ACTION_LABELS = {
-  delete_user:      { icon: "🗑️", label: "Deleted user" },
-  grant_admin:      { icon: "⬆️", label: "Granted admin" },
-  revoke_admin:     { icon: "⬇️", label: "Revoked admin" },
-  grant_moderator:  { icon: "🛡️", label: "Granted moderator" },
-  revoke_moderator: { icon: "🛡️", label: "Revoked moderator" },
-  ban_user:         { icon: "🚫", label: "Banned user" },
-  unban_user:       { icon: "✅", label: "Unbanned user" },
-  grant_blog:       { icon: "✍️", label: "Granted blog access" },
-  revoke_blog:      { icon: "✍️", label: "Revoked blog access" },
-  gift_premium:     { icon: "⭐", label: "Gifted premium" },
-  revoke_premium:   { icon: "⭐", label: "Revoked premium" },
+  delete_user:      { icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>, label: "Deleted user" },
+  grant_admin:      { icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>, label: "Granted admin" },
+  revoke_admin:     { icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>, label: "Revoked admin" },
+  grant_moderator:  { icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>, label: "Granted moderator" },
+  revoke_moderator: { icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>, label: "Revoked moderator" },
+  ban_user:         { icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>, label: "Banned user" },
+  unban_user:       { icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>, label: "Unbanned user" },
+  grant_blog:       { icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>, label: "Granted blog access" },
+  revoke_blog:      { icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>, label: "Revoked blog access" },
+  gift_premium:     { icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>, label: "Gifted premium" },
+  revoke_premium:   { icon: <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>, label: "Revoked premium" },
 };
 
 function AuditLogTab() {
@@ -1247,7 +1246,7 @@ function AuditLogTab() {
                 <td className="admin-audit-time">
                   {new Date(entry.created_at).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
                 </td>
-                <td>{entry.actor?.display_name || entry.actor?.email || "—"}</td>
+                <td>{(entry.actor as any)?.display_name || (entry.actor as any)?.email || "—"}</td>
                 <td><span className="admin-audit-action">{def.icon} {def.label}</span></td>
                 <td className="admin-audit-target">{entry.target_email || entry.target_id || "—"}</td>
               </tr>
@@ -1288,19 +1287,6 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
 
   return (
     <div className="admin-wrap">
-      <header className="admin-header">
-        <div className="admin-header-inner">
-          <div className="admin-header-text">
-            <span className="admin-logo">
-            {isCurrentUserAdmin
-              ? <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-              : <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            }
-          </span>
-            <h1>{isCurrentUserAdmin ? t("admin.title") : t("admin.moderation")}</h1>
-          </div>
-        </div>
-      </header>
 
       <div className="admin-content">
         {/* Stats — admin only */}

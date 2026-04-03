@@ -149,6 +149,48 @@
 .topbar-avatar:hover { border-color: rgba(138, 75, 255, 0.6); }
 .topbar-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
+/* ── Avatar dropdown ── */
+.topbar-avatar-wrap { position: relative; }
+.topbar-avatar-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  z-index: calc(var(--z-sticky) + 10);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.topbar-avatar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: background 0.12s;
+}
+.topbar-avatar-item:hover { background: var(--surface-hover, rgba(138,75,255,0.08)); }
+.topbar-avatar-item--danger { color: #ef4444; }
+.topbar-avatar-item--danger:hover { background: rgba(239, 68, 68, 0.08); }
+.topbar-avatar-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
 /* ── Light theme ── */
 [data-theme="light"] .topbar {
   background: #fff;

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useEffect, useRef, useCallback } from "react";
 import AppLayout from "../../components/AppLayout";
 import { createPortal } from "react-dom";

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useTranslation } from "react-i18next";
 import AppLayout from "../../components/AppLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -7,7 +6,8 @@ import "../../styles/bookmarks.css";
 
 export default function BookmarksPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { t } = useTranslation();
-  const { data: bookmarks = { threads: [], posts: [] }, isLoading } = useBookmarks(user?.id);
+  const { data: bookmarksRaw = { threads: [], posts: [] }, isLoading } = useBookmarks(user?.id);
+  const bookmarks = bookmarksRaw as { threads: any[]; posts: any[] };
   const toggle = useToggleBookmark(user?.id);
 
   return (

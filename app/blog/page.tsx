@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { QueryClient, dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { blogApi } from "../../src/api/blog";
 import ClientShell from "../_components/ClientShell";
@@ -49,13 +48,14 @@ const schemaBreadcrumb = {
 export default async function BlogListPage() {
   const queryClient = new QueryClient();
 
-  const [posts] = await Promise.allSettled([
+  const results = await Promise.allSettled([
     blogApi.listPublished(),
     queryClient.prefetchQuery({
       queryKey: ["blog", "published", null],
       queryFn: () => blogApi.listPublished(),
     }),
-  ]).then(r => r.map(r => r.status === "fulfilled" ? r.value : null));
+  ]);
+  const posts = results[0].status === "fulfilled" ? (results[0].value ?? []) : [];
 
   return (
     <>

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createClient } from "@supabase/supabase-js";
 import { STUDY_TOPICS } from "../src/data/studyTopics";
 import { BOOKS } from "../src/data/books";

@@ -156,7 +156,7 @@
   border-color: rgba(124, 58, 237, 0.2);
 }
 [data-theme="light"] .cmd-input { color: #1e1035; }
-[data-theme="light"] .cmd-input::placeholder { color: rgba(30, 16, 53, 0.3); }
+[data-theme="light"] .cmd-input::placeholder { color: rgba(30, 16, 53, 0.45); }
 [data-theme="light"] .cmd-item-label { color: rgba(30, 16, 53, 0.85); }
 [data-theme="light"] .cmd-item:hover,
 [data-theme="light"] .cmd-item[data-active="true"] { background: rgba(124, 58, 237, 0.08); }

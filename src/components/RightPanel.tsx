@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useFullProfile } from "../hooks/useAdmin";
 import { useSubscription } from "../hooks/useSubscription";
 import "../styles/right-panel.css";

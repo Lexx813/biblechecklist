@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ImageResponse } from "next/og";
 import { blogApi } from "../../../src/api/blog";
 

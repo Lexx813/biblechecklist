@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -83,37 +82,37 @@ function Page({ children, noFooter = false }) {
 
 const FEATURE_PROMPTS = {
   studyNotes: {
-    icon: "📝",
+    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>,
     title: "Study Notes",
     message: "Write rich-text notes for any chapter, organise by folder, and export as Markdown or PDF.",
     ctaLabel: "Unlock Premium — $3/mo",
   },
   readingPlans: {
-    icon: "📅",
+    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
     title: "Reading Plans",
     message: "Follow structured plans like NWT in 1 Year with daily assignments and progress tracking.",
     ctaLabel: "Unlock Premium — $3/mo",
   },
   aiTools: {
-    icon: "✨",
+    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3L13.5 8.5L19 10L13.5 11.5L12 17L10.5 11.5L5 10L10.5 8.5Z"/></svg>,
     title: "AI Study Assistant",
     message: "Ask anything about any verse and get grounded, passage-linked answers from Scripture.",
     ctaLabel: "Unlock Premium — $3/mo",
   },
   messages: {
-    icon: "💬",
+    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
     title: "Direct Messages",
     message: "Private conversations with other publishers in the community.",
     ctaLabel: "Unlock Premium — $3/mo",
   },
   groups: {
-    icon: "👥",
+    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
     title: "Study Groups",
     message: "Group chat, shared progress tracking, and weekly leaderboards with your study group.",
     ctaLabel: "Unlock Premium — $3/mo",
   },
   meetingPrep: {
-    icon: "📋",
+    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>,
     title: "Meeting Prep",
     message: "Prepare for midweek and weekend meetings with structured checklists and study notes.",
     ctaLabel: "Unlock Premium — $3/mo",
@@ -273,12 +272,12 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
 
   // Pages rendered as inline panels inside the home page
   // Note: "quizLevel" maps to "quiz" panel with level params — kept here so external navigate("quizLevel") is intercepted
-  const HOME_PANELS = new Set(["main", "quiz", "quizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "messages"]);
+  const HOME_PANELS = new Set(["main", "quiz", "quizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile"]);
   const PREMIUM_PANELS = new Set(["readingPlans", "studyNotes", "meetingPrep"]);
 
   const [homePanelRequest, setHomePanelRequest] = useState<{ panel: string; params: Record<string, any> } | null>(null);
 
-  const navigate = (page, params = {}) => {
+  const navigate = (page, params: Record<string, any> = {}) => {
     if (page === "home") {
       if (window.location.pathname !== "/") history.pushState(null, "", "/");
       setNav({ page: "home" });
@@ -320,7 +319,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
 
   const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page, onUpgrade: openUpgrade, onSearchClick: () => setShowCmdPalette(true) };
 
-  const AL = ({ page, children }) => <AppLayout navigate={navigate} user={user} currentPage={page}>{children}</AppLayout>;
+  const AL = ({ page, children }) => <AppLayout navigate={navigate} user={user} currentPage={page} isPremium={isPremium}>{children}</AppLayout>;
 
   let pageContent = null;
   if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} isPremium={isPremium} onUpgrade={openUpgrade} panelRequest={homePanelRequest} onPanelConsumed={() => setHomePanelRequest(null)} /></Page>;
@@ -329,7 +328,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     if (!profileLoading && !profile?.is_admin && !profile?.is_moderator) navigate("home");
     else if (profile?.is_admin || profile?.is_moderator) pageContent = <Page><AL page="admin"><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></AL></Page>;
   }
-  else if (nav.page === "profile")  pageContent = <Page><AL page="profile"><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "profile")  pageContent = <Page><AL page="profile"><ProfilePage user={user} viewedUserId={user.id} onBack={() => navigate("home")} {...sharedNav} /></AL></Page>;
   else if (nav.page === "settings") pageContent = <Page><SettingsPage user={user} onBack={() => navigate("profile")} {...sharedNav} /></Page>;
   else if (nav.page === "publicProfile") pageContent = <Page><AL page="profile"><ProfilePage user={user} viewedUserId={nav.userId} isOwner={false} onBack={() => navigate("home")} {...sharedNav} /></AL></Page>;
   else if (nav.page === "blog") pageContent = (
@@ -393,7 +392,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (isPremium && nav.page === "groupDetail")  pageContent = <Page><AL page="groups"><GroupDetail {...sharedNav} groupId={nav.groupId} /></AL></Page>;
   else if (isPremium && nav.page === "meetingPrep") pageContent = <Page><AL page="meetingPrep"><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
   else if (nav.page === "friends")
-    pageContent = <Page><AL page="friends"><ProfilePage user={user} onBack={() => navigate("home")} defaultTab="friends" {...sharedNav} /></AL></Page>;
+    pageContent = <Page><AL page="friends"><ProfilePage user={user} viewedUserId={user.id} onBack={() => navigate("home")} defaultTab="friends" {...sharedNav} /></AL></Page>;
   else if (nav.page === "friendRequests")
     pageContent = <Page><AL page="friends"><FriendRequestsPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
   else if (nav.page === "community")
@@ -437,9 +436,9 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
           <FloatingChat
             user={user}
             navigate={navigate}
-            initialConvId={nav.conversationId ?? null}
-            initialConvName={nav.otherDisplayName ?? null}
-            initialConvAvatar={nav.otherAvatarUrl ?? null}
+            initialConvId={(nav as any).conversationId ?? null}
+            initialConvName={(nav as any).otherDisplayName ?? null}
+            initialConvAvatar={(nav as any).otherAvatarUrl ?? null}
           />
         </Suspense>
       )}
@@ -506,7 +505,7 @@ export default function AuthedApp({ onShowLanding, i18n }) {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, newSession) => {
       queryClient.setQueryData(["session"], newSession);
       if (event === "PASSWORD_RECOVERY") setPasswordRecovery(true);
-      if (event === "USER_DELETED" || (event === "SIGNED_OUT" && !newSession)) {
+      if ((event as string) === "USER_DELETED" || (event === "SIGNED_OUT" && !newSession)) {
         queryClient.removeQueries({ predicate: q => q.queryKey[0] !== "session" });
       }
     });
@@ -534,7 +533,7 @@ export default function AuthedApp({ onShowLanding, i18n }) {
             onWriteClick={null}
             navigate={publicNavigate}
             darkMode={false} setDarkMode={() => {}}
-            i18n={i18n} onLogout={null}
+            i18n={i18n} onLogout={null} onUpgrade={() => {}}
           />
           <PageFooter />
         </Suspense>
@@ -546,7 +545,7 @@ export default function AuthedApp({ onShowLanding, i18n }) {
     return (
       <ErrorBoundary>
         <Suspense fallback={<LoadingSpinner />}>
-          <InviteLandingPage token={(publicNav as any).token} onShowLanding={onShowLanding} />
+          <InviteLandingPage token={(publicNav as any).token} navigate={(page) => { history.pushState(null, "", "/" + page); }} />
         </Suspense>
       </ErrorBoundary>
     );
@@ -601,7 +600,6 @@ export default function AuthedApp({ onShowLanding, i18n }) {
         user={user}
         onLogout={() => { logout.mutate(); onShowLanding(); }}
         i18n={i18n}
-        t={t}
         aiEnabled={aiEnabled}
       />
     </>

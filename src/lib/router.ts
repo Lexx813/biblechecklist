@@ -14,7 +14,7 @@ export type NavState =
   | { page: "bookmarks" }
   | { page: "history" }
   | { page: "feed" }
-  | { page: "messages"; conversationId?: string }
+  | { page: "messages"; conversationId?: string; otherDisplayName?: string; otherAvatarUrl?: string }
   | { page: "groups" }
   | { page: "groupDetail"; groupId: string }
   | { page: "readingPlans" }
@@ -31,6 +31,7 @@ export type NavState =
   | { page: "friendRequests" }
   | { page: "invite"; token: string }
   | { page: "community" }
+  | { page: "meetingPrep" }
   | { page: "notFound" };
 
 export function parsePath(): NavState {

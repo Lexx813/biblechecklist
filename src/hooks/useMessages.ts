@@ -115,6 +115,7 @@ export function useGetOrCreateDM() {
 interface SendMessageVars {
   content: string;
   senderId?: string;
+  recipientId?: string;
   replyToId?: string | null;
   messageType?: string;
   metadata?: Json | null;

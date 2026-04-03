@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useMeta } from "../../hooks/useMeta";
 import { useOnlineMembers, ONLINE_THRESHOLD_MS, OnlineMember } from "../../hooks/useOnlineMembers";
 import "../../styles/community.css";

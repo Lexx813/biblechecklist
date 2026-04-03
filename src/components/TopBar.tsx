@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { LANGUAGES } from "../i18n";
@@ -60,14 +59,16 @@ interface Props {
 }
 
 export default function TopBar({
-  navigate, darkMode, setDarkMode, user, currentPage, onSearchClick, notificationDropdown
+  navigate, darkMode, setDarkMode, user, currentPage, onSearchClick, onLogout
 }: Props) {
   const { data: profile } = useFullProfile(user?.id);
   const { data: unreadMessages = 0 } = useUnreadMessageCount();
   const unreadNotifs = useUnreadNotificationCount(user?.id);
   const [showNotifs, setShowNotifs] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [avatarOpen, setAvatarOpen] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
+  const avatarRef = useRef<HTMLDivElement>(null);
   const { i18n } = useTranslation();
   const currentLang = LANGUAGES.find(l => i18n.language?.split("-")[0]?.startsWith(l.code))?.code ?? "en";
 
@@ -79,6 +80,15 @@ export default function TopBar({
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, [langOpen]);
+
+  useEffect(() => {
+    if (!avatarOpen) return;
+    const handler = (e: MouseEvent) => {
+      if (avatarRef.current && !avatarRef.current.contains(e.target as Node)) setAvatarOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [avatarOpen]);
 
   const displayName = profile?.display_name || user?.email?.split("@")[0] || "?";
   const initials = displayName[0]?.toUpperCase() ?? "?";
@@ -196,23 +206,44 @@ export default function TopBar({
             )}
           </button>
 
-          {/* User avatar */}
-          <button
-            className="topbar-avatar"
-            onClick={() => navigate("profile")}
-            aria-label={`Go to profile: ${displayName}`}
-            style={{ background: "linear-gradient(135deg, #4f2d85, #7c3aed)", border: "2px solid rgba(138,75,255,0.3)" }}
-          >
-            {profile?.avatar_url
-              ? <img src={profile.avatar_url} alt={displayName} />
-              : initials}
-          </button>
+          {/* User avatar + dropdown */}
+          <div className="topbar-avatar-wrap" ref={avatarRef}>
+            <button
+              className="topbar-avatar"
+              onClick={() => setAvatarOpen(o => !o)}
+              aria-label={`Account menu for ${displayName}`}
+              aria-expanded={avatarOpen}
+              style={{ background: "linear-gradient(135deg, #4f2d85, #7c3aed)", border: "2px solid rgba(138,75,255,0.3)" }}
+            >
+              {profile?.avatar_url
+                ? <img src={profile.avatar_url} alt={displayName} />
+                : initials}
+            </button>
+            {avatarOpen && (
+              <div className="topbar-avatar-menu" role="menu">
+                <button className="topbar-avatar-item" role="menuitem" onClick={() => { setAvatarOpen(false); navigate("profile"); }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Profile
+                </button>
+                <button className="topbar-avatar-item" role="menuitem" onClick={() => { setAvatarOpen(false); navigate("settings"); }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  Settings
+                </button>
+                <div className="topbar-avatar-divider" />
+                <button className="topbar-avatar-item topbar-avatar-item--danger" role="menuitem" onClick={() => { setAvatarOpen(false); onLogout?.(); }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                  Log out
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
       {showNotifs && (
         <NotificationDropdown
           userId={user?.id}
           onClose={() => setShowNotifs(false)}
+          navigate={navigate}
         />
       )}
     </>

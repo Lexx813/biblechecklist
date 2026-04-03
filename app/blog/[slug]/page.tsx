@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { QueryClient, dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { blogApi } from "../../../src/api/blog";
 import ClientShell from "../../_components/ClientShell";

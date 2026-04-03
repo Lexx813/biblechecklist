@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { EMOJI_CATEGORIES } from "../../lib/emojiData";
 import ConfirmModal from "../ConfirmModal";
@@ -36,7 +35,7 @@ import "../../styles/floating-chat.css";
 
 function timeAgo(iso, t) {
   if (!iso) return "";
-  const m = Math.floor((Date.now() - new Date(iso)) / 60000);
+  const m = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
   if (m < 1) return t ? t("messages.justNow") : "just now";
   if (m < 60) return `${m}${t ? t("messages.minutesAgo") : "m"}`;
   const h = Math.floor(m / 60);
@@ -73,8 +72,8 @@ function groupByDay(messages, t) {
   return items;
 }
 
-function groupReactions(reactions, messageId) {
-  const grouped = {};
+function groupReactions(reactions, messageId): Record<string, { count: number; users: string[] }> {
+  const grouped: Record<string, { count: number; users: string[] }> = {};
   reactions.filter(r => r.message_id === messageId).forEach(r => {
     if (!grouped[r.emoji]) grouped[r.emoji] = { count: 0, users: [] };
     grouped[r.emoji].count++;
@@ -233,15 +232,15 @@ function FCReactionPicker({ onPick, onClose, anchorEl }) {
   }, [onClose]);
 
   // Position fixed above the anchor button, centered on it
-  const style = {};
+  const style: React.CSSProperties = {};
   if (anchorEl) {
     const rect = anchorEl.getBoundingClientRect();
     const pickerW = 280; // approx width of 8 emojis
     let left = rect.left + rect.width / 2 - pickerW / 2 - 10;
     // clamp to viewport
     left = Math.max(8, Math.min(left, window.innerWidth - pickerW - 8));
-    style.left = left;
-    style.top = rect.top - 48;
+    (style as Record<string, unknown>).left = left;
+    (style as Record<string, unknown>).top = rect.top - 48;
   }
 
   return (
@@ -464,7 +463,7 @@ function StarredPanel({ convId, userId, onClose }) {
                 {msg.message_type === "verse" && msg.metadata ? (
                   <span style={{ display: "flex", alignItems: "center", gap: 5 }}>
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                    {msg.metadata.ref}
+                    {(msg.metadata as any)?.ref}
                   </span>
                 ) : msg.message_type === "image" ? (
                   <span style={{ display: "flex", alignItems: "center", gap: 5 }}>
@@ -679,7 +678,7 @@ function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPreviews, o
 
   const replyOrig = msg.reply_to_id ? allMessages.find(m => m.id === msg.reply_to_id) : null;
   const grouped = groupReactions(reactions, msg.id);
-  const accentStyle = accentColor ? { "--conv-accent": accentColor } : {};
+  const accentStyle = (accentColor ? { "--conv-accent": accentColor } : {}) as React.CSSProperties;
 
   const isPrayer = msg.message_type === "prayer_request";
   const isVerse = msg.message_type === "verse";
@@ -893,10 +892,10 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
     channel
       .on("presence", { event: "sync" }, () => {
         const state = channel.presenceState();
-        const others = Object.entries(state).filter(([key]) => key !== user.id).flatMap(([, p]) => p);
+        const others = Object.entries(state).filter(([key]) => key !== user.id).flatMap(([, p]) => p) as any[];
         const other = others.find(p => p.user_id === conv.other_user_id);
         setIsOtherOnline(!!other);
-        setIsOtherTyping(!!other?.typing);
+        setIsOtherTyping(!!(other?.typing));
       })
       .on("presence", { event: "join" }, ({ key }) => { if (key === conv.other_user_id) setIsOtherOnline(true); })
       .on("presence", { event: "leave" }, ({ key }) => { if (key === conv.other_user_id) { setIsOtherOnline(false); setIsOtherTyping(false); } })
@@ -1002,7 +1001,7 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
 
   const items = useMemo(() => groupByDay(decryptedMessages, t), [decryptedMessages, t]);
   const myLastMsgIdx = useMemo(() => decryptedMessages.reduce((acc, m, i) => m.sender_id === user.id ? i : acc, -1), [decryptedMessages, user.id]);
-  const accentStyle = accentColor ? { "--conv-accent": accentColor } : {};
+  const accentStyle = (accentColor ? { "--conv-accent": accentColor } : {}) as React.CSSProperties;
 
   if (showStarred) return <StarredPanel convId={conv.conversation_id} userId={user.id} onClose={() => setShowStarred(false)} />;
   if (showSearch) return <SearchPanel convId={conv.conversation_id} onClose={() => setShowSearch(false)} />;
@@ -1085,7 +1084,7 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
 
       <div className="fc-composer-wrap">
         {showPushPrompt && <PushPrompt onDismiss={() => {
-          try { localStorage.setItem(PUSH_DISMISS_KEY, Date.now() + 7 * 24 * 60 * 60 * 1000); } catch {}
+          try { localStorage.setItem(PUSH_DISMISS_KEY, String(Date.now() + 7 * 24 * 60 * 60 * 1000)); } catch {}
           setShowPushPrompt(false);
         }} />}
         {showEmoji && <EmojiPicker onSelect={insertEmoji} onClose={() => setShowEmoji(false)} />}
@@ -1289,7 +1288,7 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
       .subscribe(async (status) => {
         if (status === "SUBSCRIBED") await channel.track({ user_id: user.id });
       });
-    return () => supabase.removeChannel(channel);
+    return () => { supabase.removeChannel(channel); };
   }, [user.id]);
 
   // Upgrade activeConv stub with full data when conversations load
@@ -1361,9 +1360,9 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
     return () => { el.style.overflow = ""; };
   }, [open]);
 
-  const panelAccentStyle = accentColor && activeConv
+  const panelAccentStyle = (accentColor && activeConv
     ? { "--conv-accent": accentColor }
-    : {};
+    : {}) as React.CSSProperties;
 
   return (
     <>

@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -33,12 +32,7 @@ const persistOptions = {
       return ["progress", "profile", "notes", "blog", "reading"].includes(key);
     },
   },
-  hydrateOptions: {
-    shouldHydrateQuery: (query) => {
-      const key = query.queryKey[0];
-      return ["progress", "profile", "notes", "blog", "reading"].includes(key);
-    },
-  },
+  hydrateOptions: {},
 };
 
 function WebVitals() {

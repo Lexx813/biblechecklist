@@ -142,7 +142,7 @@
   border: 1px solid rgba(139, 92, 246, 0.3);
   box-shadow: 0 4px 16px rgba(0,0,0,0.5);
   pointer-events: none;
-  z-index: 9999;
+  z-index: var(--z-top);
   text-align: center;
 }
 .heatmap-tooltip-portal::after {

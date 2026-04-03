@@ -34,6 +34,7 @@ export default function BookmarkButton({ userId, threadId, postId, className = "
       className={`bookmark-btn${isBookmarked ? " bookmark-btn--active" : ""} ${className}`}
       onClick={handleClick}
       data-tip={isBookmarked ? t("bookmarks.remove") : t("bookmarks.add")}
+      aria-label={isBookmarked ? t("bookmarks.remove") : t("bookmarks.add")}
       disabled={toggle.isPending}
     >
       {isBookmarked

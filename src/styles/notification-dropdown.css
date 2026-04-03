@@ -158,7 +158,7 @@
 [data-theme="light"] .notif-title { color: #1e1035; }
 [data-theme="light"] .notif-text { color: rgba(30, 16, 53, 0.75); }
 [data-theme="light"] .notif-text strong { color: #1e1035; }
-[data-theme="light"] .notif-time { color: rgba(30, 16, 53, 0.4); }
+[data-theme="light"] .notif-time { color: rgba(30, 16, 53, 0.55); }
 [data-theme="light"] .notif-item.unread { background: rgba(124, 58, 237, 0.05); }
 [data-theme="light"] .notif-item:hover { background: rgba(124, 58, 237, 0.06); }
 

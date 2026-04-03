@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { useState, useEffect, useRef, useCallback, useMemo, memo } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo, memo } from "react";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
 import { NewConversationModal } from "../../components/NewConversationModal";
@@ -34,7 +33,7 @@ import { useMyPlans } from "../../hooks/useReadingPlans";
 
 function playChime() {
   try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.connect(gain);
@@ -98,8 +97,8 @@ function groupByDay(messages, t) {
 }
 
 // Group reactions by emoji: { "👍": [{ userId, ... }], ... }
-function groupReactions(reactions, messageId) {
-  const mine = {};
+function groupReactions(reactions, messageId): Record<string, { count: number; users: string[]; mine: boolean }> {
+  const mine: Record<string, { count: number; users: string[]; mine: boolean }> = {};
   reactions.filter(r => r.message_id === messageId).forEach(r => {
     if (!mine[r.emoji]) mine[r.emoji] = { count: 0, users: [], mine: false };
     mine[r.emoji].count++;
@@ -312,7 +311,7 @@ function MSGStarredPanel({ convId, userId, onClose }) {
           <div key={msg.id} className="msg-starred-item">
             <div className="msg-starred-content">
               {msg.message_type === "verse" && msg.metadata ? (
-                <span>📖 {msg.metadata.ref}</span>
+                <span>📖 {(msg.metadata as any)?.ref}</span>
               ) : msg.message_type === "image" ? (
                 <span>🖼 Image</span>
               ) : msg.message_type === "prayer_request" ? (
@@ -538,7 +537,7 @@ function MSGPlanPicker({ onSend, onClose }) {
 
 // ── Message bubble ────────────────────────────────────────────────────────────
 
-const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, onStar, showSeen, reactions, userId, onToggleReaction, allMessages }) {
+const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, onStar, showSeen, reactions, userId, onToggleReaction, allMessages }: { msg: any; isMine: boolean; onDelete: any; onReply: any; onEdit: any; onStar: any; showSeen?: boolean; reactions: any[]; userId: any; onToggleReaction: any; allMessages: any[] }) {
   const { t } = useTranslation();
   const [showActions, setShowActions] = useState(false);
   const isStarred = Array.isArray(msg.starred_by) && msg.starred_by.includes(userId);
@@ -821,18 +820,18 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
     channel
       .on("presence", { event: "sync" }, () => {
         const state = channel.presenceState();
-        const others = Object.entries(state)
+        const others = (Object.entries(state)
           .filter(([key]) => key !== user.id)
-          .flatMap(([, presences]) => presences);
+          .flatMap(([, presences]) => presences)) as any[];
         const otherPresence = others.find(p => p.user_id === conv.other_user_id);
         setIsOtherOnline(!!otherPresence);
-        setIsOtherTyping(!!otherPresence?.typing);
+        setIsOtherTyping(!!(otherPresence?.typing));
         if (!otherPresence) setOtherLastSeen(conv.other_last_read_at ?? null);
       })
       .on("presence", { event: "join" }, ({ key, newPresences }) => {
         if (key === conv.other_user_id) setIsOtherOnline(true);
-        const p = newPresences.find(p => p.user_id === conv.other_user_id);
-        if (p) setIsOtherTyping(!!p.typing);
+        const p = (newPresences as any[]).find(p => p.user_id === conv.other_user_id);
+        if (p) setIsOtherTyping(!!(p.typing));
       })
       .on("presence", { event: "leave" }, ({ key }) => {
         if (key === conv.other_user_id) {
@@ -1000,7 +999,7 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
   else if (otherLastSeen) presenceLine = <span className="msg-presence-status">Last seen {timeAgo(otherLastSeen, t)}</span>;
 
   return (
-    <div className="msg-thread" style={accentColor ? { "--conv-accent": accentColor } : {}}>
+    <div className="msg-thread" style={(accentColor ? { "--conv-accent": accentColor } : {}) as React.CSSProperties}>
       <div className="msg-thread-header">
         <button className="msg-back-btn" onClick={onBack} aria-label="Back to conversations">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
@@ -1261,7 +1260,7 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
 
   function dismissPushBanner() {
     // Don't re-show for 7 days
-    try { localStorage.setItem(PUSH_DISMISS_KEY, Date.now() + 7 * 24 * 60 * 60 * 1000); } catch {}
+    try { localStorage.setItem(PUSH_DISMISS_KEY, String(Date.now() + 7 * 24 * 60 * 60 * 1000)); } catch {}
     setPushDismissed(true);
   }
 
@@ -1281,7 +1280,7 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
           await channel.track({ user_id: user.id });
         }
       });
-    return () => supabase.removeChannel(channel);
+    return () => { supabase.removeChannel(channel); };
   }, [user.id]);
 
   function confirmDelete() {

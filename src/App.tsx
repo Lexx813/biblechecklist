@@ -1,4 +1,3 @@
-// @ts-nocheck
 import "./i18n";
 import { useState, useEffect, useLayoutEffect, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
@@ -83,7 +82,7 @@ export default function App() {
 
   // Pre-auth: legal pages accessible without login
   const legalNav = (p) => { history.pushState(null, "", "/" + p); setPreAuthPath(p); };
-  const legalProps = { navigate: legalNav, darkMode, setDarkMode, i18n, user: null, onLogout: null };
+  const legalProps = { navigate: legalNav, darkMode, setDarkMode, i18n, user: null, onLogout: null, onUpgrade: null };
   if (preAuthPath === "terms")   return <main id="main-content"><Suspense fallback={null}><TermsPage {...legalProps} /></Suspense></main>;
   if (preAuthPath === "privacy") return <main id="main-content"><Suspense fallback={null}><PrivacyPage {...legalProps} /></Suspense></main>;
 

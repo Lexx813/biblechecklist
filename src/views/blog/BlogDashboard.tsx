@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useRef, useCallback, useEffect, lazy, Suspense } from "react";
 import EmojiPickerPopup, { insertEmojiAtCursor } from "../../components/EmojiPickerPopup";
 import { useTranslation } from "react-i18next";

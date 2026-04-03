@@ -108,6 +108,15 @@
 .al-item--active { background: var(--active-bg); color: #c084fc; }
 .al-item--active:hover { background: var(--active-hover-bg); }
 
+.al-item--locked { opacity: 0.45; }
+.al-item--locked .al-icon { filter: grayscale(0.6); }
+.al-lock {
+  margin-left: auto;
+  font-size: 9px;
+  color: #c084fc;
+  opacity: 0.7;
+}
+
 .al-icon {
   width: 36px;
   height: 36px;

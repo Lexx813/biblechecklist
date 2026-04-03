@@ -32,6 +32,15 @@
   border-right: none;
 }
 
+/* Messages panel: full-width, no sidebars */
+.home-layout--messages {
+  grid-template-columns: 1fr;
+}
+.home-layout--messages .home-left-sidebar,
+.home-layout--messages .home-right-sidebar {
+  display: none;
+}
+
 /* ─────────────────────────────────────────────────────────
    LEFT SIDEBAR
    ───────────────────────────────────────────────────────── */
@@ -127,6 +136,15 @@
 .hls-item:hover { background: rgba(124, 58, 237, 0.1); }
 .hls-item--active { background: rgba(124, 58, 237, 0.18); color: #c084fc; }
 .hls-item--active:hover { background: rgba(124, 58, 237, 0.22); }
+
+.hls-item--locked { opacity: 0.45; }
+.hls-item--locked .hls-icon { filter: grayscale(0.6); }
+.hls-lock {
+  margin-left: auto;
+  font-size: 9px;
+  color: #c084fc;
+  opacity: 0.7;
+}
 
 .hls-icon {
   width: 36px;

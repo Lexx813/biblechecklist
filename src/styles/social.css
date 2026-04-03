@@ -197,32 +197,44 @@
   color: var(--text-muted);
 }
 
-/* ── Follow button (in ProfilePage) ──────────────────────── */
-.pf-follow-btn {
+/* ── Profile action buttons — shared base ────────────────── */
+.pf-follow-btn,
+.pf-msg-btn,
+.pf-block-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: 9px 24px;
+  padding: 0 20px;
+  height: 36px;
   border-radius: 999px;
   font-family: inherit;
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
   cursor: pointer;
+  white-space: nowrap;
   transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast), transform var(--dur-fast), box-shadow var(--dur-fast);
-  border: 2px solid transparent;
+  border: 1.5px solid transparent;
 }
-.pf-follow-btn:hover { transform: translateY(-1px); }
-.pf-follow-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+.pf-follow-btn:hover,
+.pf-msg-btn:hover,
+.pf-block-btn:hover { transform: translateY(-1px); }
+.pf-follow-btn:disabled,
+.pf-msg-btn:disabled,
+.pf-block-btn:disabled { opacity: 0.55; cursor: default; transform: none; }
 
+/* Follow — primary filled */
 .pf-follow-btn--follow {
   background: linear-gradient(135deg, #7c3aed, #5b21b6);
   color: #fff;
-  box-shadow: 0 3px 12px rgba(124,58,237,0.35);
+  border-color: transparent;
+  box-shadow: 0 2px 10px rgba(124,58,237,0.35);
 }
 .pf-follow-btn--follow:hover {
-  box-shadow: 0 5px 18px rgba(124,58,237,0.5);
+  box-shadow: 0 4px 16px rgba(124,58,237,0.5);
 }
 
+/* Following — ghost, turns red on hover to signal unfollow */
 .pf-follow-btn--following {
   background: transparent;
   color: var(--text-secondary);
@@ -234,31 +246,30 @@
   background: rgba(239,68,68,0.06);
 }
 
-/* ── Message button ──────────────────────────────────────── */
+/* Message — subtle purple ghost */
 .pf-msg-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 20px;
-  border-radius: 999px;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 800;
-  cursor: pointer;
-  background: rgba(124,58,237,0.1);
-  border: 2px solid rgba(124,58,237,0.35);
-  color: #a78bfa;
-  transition: background var(--dur-fast), border-color var(--dur-fast), transform var(--dur-fast), box-shadow var(--dur-fast);
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text-secondary);
 }
 .pf-msg-btn:hover {
-  background: rgba(124,58,237,0.18);
-  border-color: rgba(124,58,237,0.6);
-  color: #c084fc;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(124,58,237,0.2);
+  background: rgba(124,58,237,0.07);
+  border-color: rgba(124,58,237,0.45);
+  color: #7c3aed;
 }
-.pf-msg-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
-.pf-msg-icon { font-size: 15px; line-height: 1; }
+.pf-msg-icon { flex-shrink: 0; }
+
+/* Block — danger ghost */
+.pf-block-btn {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+.pf-block-btn:hover {
+  background: rgba(239,68,68,0.06);
+  border-color: rgba(239,68,68,0.4);
+  color: #ef4444;
+}
 
 .pf-follow-section {
   display: flex;
@@ -510,7 +521,7 @@
   pointer-events: none;
   opacity: 0;
   transition: opacity var(--dur-fast), transform var(--dur-fast);
-  z-index: 200;
+  z-index: var(--z-overlay);
   box-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
@@ -538,7 +549,7 @@
 .pf-follow-modal-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 9000;
+  z-index: var(--z-modal);
   background: rgba(0,0,0,0.5);
   display: flex;
   align-items: center;

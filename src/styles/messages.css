@@ -1213,7 +1213,7 @@ main:has(.msg-layout) {
   position: absolute;
   inset: 0;
   background: var(--bg);
-  z-index: 100;
+  z-index: var(--z-sticky);
   display: flex;
   flex-direction: column;
   border-radius: inherit;
@@ -1599,7 +1599,7 @@ main:has(.msg-layout) {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 3000;
+  z-index: var(--z-top);
   backdrop-filter: blur(2px);
 }
 

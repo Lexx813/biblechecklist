@@ -18,6 +18,8 @@ export interface Profile {
   email_notifications_streak: boolean | null;
   terms_accepted_at: string | null;
   show_online: boolean | null;
+  current_streak: number | null;
+  referred_by: string | null;
 }
 
 export type ProfileUpdates = Partial<Omit<Profile, "id" | "created_at">>;
@@ -32,7 +34,7 @@ export const profileApi = {
   get: async (userId: string): Promise<Profile | null> => {
     const { data, error } = await supabase
       .from("profiles")
-      .select("id, email, is_admin, is_moderator, can_blog, display_name, avatar_url, created_at, reading_goal_date, bio, subscription_status, email_notifications_blog, email_notifications_digest, email_notifications_streak, terms_accepted_at, show_online")
+      .select("id, email, is_admin, is_moderator, can_blog, display_name, avatar_url, created_at, reading_goal_date, bio, subscription_status, email_notifications_blog, email_notifications_digest, email_notifications_streak, terms_accepted_at, show_online, current_streak, referred_by")
       .eq("id", userId)
       .maybeSingle();
     if (error) throw new Error(error.message);

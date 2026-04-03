@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useCallback, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { familyQuizApi } from "../../api/familyQuiz";
@@ -46,7 +45,7 @@ function Lobby({ user, onPlay }) {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id) => familyQuizApi.deleteChallenge(id),
+    mutationFn: (id: string) => familyQuizApi.deleteChallenge(id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["myChallenges", user.id] }),
   });
 
@@ -125,7 +124,7 @@ function Lobby({ user, onPlay }) {
 
 // ── CHALLENGE CARD ────────────────────────────────────────────────────────────
 
-function ChallengeCard({ challenge, onOpen, isOwn, myScore, myTotal, onDelete }) {
+function ChallengeCard({ challenge, onOpen, isOwn = false, myScore = null, myTotal = null, onDelete = null }: { challenge: any; onOpen: any; isOwn?: boolean; myScore?: any; myTotal?: any; onDelete?: any }) {
   const [copied, setCopied] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
@@ -335,7 +334,7 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
   });
 
   const submit = useMutation({
-    mutationFn: ({ answers, score, total }) =>
+    mutationFn: ({ answers, score, total }: { answers: any[]; score: number; total: any }) =>
       familyQuizApi.submitAttempt(challengeId, user.id, answers, score, total),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["myAttempt", challengeId, user.id] });
@@ -593,7 +592,7 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
 
 // ── MAIN PAGE ─────────────────────────────────────────────────────────────────
 
-export default function FamilyQuizPage({ user, navigate, initialChallengeId, ...navProps }) {
+export default function FamilyQuizPage({ user, navigate, initialChallengeId = undefined, ...navProps }: { user: any; navigate: any; initialChallengeId?: string; [key: string]: any }) {
   const [openChallenge, setOpenChallenge] = useState(
     initialChallengeId ? { id: initialChallengeId, justCreated: false } : null
   );

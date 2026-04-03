@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useTranslation, Trans } from "react-i18next";
 import DOMPurify from "dompurify";
 import { useMeta } from "../hooks/useMeta";

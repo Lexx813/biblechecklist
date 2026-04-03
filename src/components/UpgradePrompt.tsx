@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import "../styles/upgrade-prompt.css";
@@ -24,7 +24,7 @@ export function dismissPrompt(triggerKey: string) {
 }
 
 interface Props {
-  icon?: string;
+  icon?: ReactNode;
   title: string;
   message: string;
   ctaLabel: string;
@@ -32,7 +32,11 @@ interface Props {
   onDismiss: () => void;
 }
 
-export default function UpgradePrompt({ icon = "✦", title, message, ctaLabel, onCta, onDismiss }: Props) {
+const DefaultIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+);
+
+export default function UpgradePrompt({ icon = <DefaultIcon />, title, message, ctaLabel, onCta, onDismiss }: Props) {
   const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
 

@@ -26,6 +26,7 @@ interface Stats {
   otDone: number;
   ntDone: number;
   streak: number;
+  longestStreak?: number;
 }
 
 type TFunction = (key: string) => string;

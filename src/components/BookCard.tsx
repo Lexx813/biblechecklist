@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { memo, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOK_INFO } from "../data/bookInfo";
@@ -15,7 +14,20 @@ function formatReadDate(iso) {
   return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
 }
 
-const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, onToggleChapter, onToggleBook, notes = [], onAddNote, userId, onUpgrade }) {
+interface BookCardProps {
+  book: { name: string; chapters: number; abbr: string };
+  bookIndex: number;
+  chaptersState: Record<number, Record<number, boolean>>;
+  chapterTimestamps?: Record<number, string>;
+  onToggleChapter: (bookIndex: number, chapter: number) => void;
+  onToggleBook: (bookIndex: number, value?: boolean) => void;
+  notes?: { id: string | number; chapter: number; verse?: number; content: string }[];
+  onAddNote?: (bookIndex: number) => void;
+  userId?: string;
+  onUpgrade?: () => void;
+}
+
+const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, onToggleChapter, onToggleBook, notes = [], onAddNote, userId, onUpgrade }: BookCardProps) {
   const [open, setOpen] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const { t, i18n } = useTranslation();

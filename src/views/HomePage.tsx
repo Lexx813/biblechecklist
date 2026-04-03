@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useMemo, useState, useEffect, lazy, Suspense } from "react";
 
 const QuizPageInline      = lazy(() => import("./quiz/QuizPage"));
@@ -55,10 +54,10 @@ function getFallbackImage(id) {
 const STREAK_MILESTONES = [7, 14, 30, 60, 90, 180, 365];
 
 const BANNER_ROTATIONS = [
-  { icon: "📅", title: "Reading Plans",    sub: "Daily assignments. Streaks. Finish the Bible in 1 year.",     cta: "Explore Plans →" },
-  { icon: "📝", title: "Study Notes",      sub: "Rich-text notes for any chapter. Export to Markdown or PDF.", cta: "Try Notes →" },
-  { icon: "✨", title: "AI Study Assistant",sub: "Ask anything about any verse. Grounded in Scripture.",        cta: "Try AI Tools →" },
-  { icon: "📋", title: "Meeting Prep",     sub: "CLAM + Watchtower checklists. Never miss an assignment.",     cta: "Open Meeting Prep →" },
+  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>, title: "Reading Plans",    sub: "Daily assignments. Streaks. Finish the Bible in 1 year.",     cta: "Explore Plans →" },
+  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>, title: "Study Notes",      sub: "Rich-text notes for any chapter. Export to Markdown or PDF.", cta: "Try Notes →" },
+  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3L13.5 8.5L19 10L13.5 11.5L12 17L10.5 11.5L5 10L10.5 8.5Z"/></svg>, title: "AI Study Assistant", sub: "Ask anything about any verse. Grounded in Scripture.",        cta: "Try AI Tools →" },
+  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>, title: "Meeting Prep",     sub: "CLAM + Watchtower checklists. Never miss an assignment.",     cta: "Open Meeting Prep →" },
 ];
 
 const ONLINE_THRESHOLD_MS = 10 * 60 * 1000;
@@ -74,11 +73,11 @@ const NAV_ITEMS = [
     icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>,
   },
   {
-    key: "readingPlans", label: "Reading Plans", bg: "#0ea5e9",
+    key: "readingPlans", label: "Reading Plans", bg: "#0ea5e9", premium: true,
     icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
   },
   {
-    key: "studyNotes", label: "Study Notes", bg: "#2e9e6b",
+    key: "studyNotes", label: "Study Notes", bg: "#2e9e6b", premium: true,
     icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>,
   },
   {
@@ -101,12 +100,12 @@ const NAV_ITEMS_2 = [
     icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
   },
   {
-    key: "messages", label: "Messages", bg: "#7c3aed",
+    key: "messages", label: "Messages", bg: "#7c3aed", premium: true,
     icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
   },
 ];
 
-const INLINE_PANELS = new Set(["main", "quiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile", "messages"]);
+const INLINE_PANELS = new Set(["main", "quiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile"]);
 
 const NAV_SHORTCUTS = [
   {
@@ -122,7 +121,7 @@ const NAV_SHORTCUTS = [
     icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
   },
   {
-    key: "meetingPrep", label: "Meeting Prep", bg: "#374151",
+    key: "meetingPrep", label: "Meeting Prep", bg: "#374151", premium: true,
     icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>,
   },
 ];
@@ -210,7 +209,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
     }
   }, [panelRequest]);
 
-  function panelNavigate(page, params = {}) {
+  function panelNavigate(page, params: Record<string, any> = {}) {
     if (page === "quiz") { setQuizLevelState(null); setActivePanel("quiz"); setPanelParams({}); }
     else if (page === "quizLevel") { setQuizLevelState({ level: params.level, timedMode: !!params.timedMode }); }
     else if (page === "blog") {
@@ -275,7 +274,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   return (
     <div className="home-wrap">
 
-      <main id="main-content" className={`home-layout${(activePanel === "main" || activePanel === "profile" || activePanel === "admin" || activePanel === "messages") ? " home-layout--tracker" : ""}`}>
+      <main id="main-content" className={`home-layout${activePanel === "messages" ? " home-layout--messages" : (activePanel === "main" || activePanel === "profile" || activePanel === "admin") ? " home-layout--tracker" : ""}`}>
 
         {/* ═══════════════════════════════════════
             LEFT SIDEBAR
@@ -292,52 +291,64 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           </button>
 
           {/* Primary nav */}
-          {NAV_ITEMS.map(item => (
-            <button
-              key={item.key}
-              className={`hls-item${(activePanel === null && item.key === "home") || activePanel === item.key ? " hls-item--active" : ""}`}
-              onClick={() => panelNavigate(item.key)}
-            >
-              <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
-              {item.label}
-            </button>
-          ))}
+          {NAV_ITEMS.map(item => {
+            const locked = !isPremium && item.premium;
+            return (
+              <button
+                key={item.key}
+                className={`hls-item${(activePanel === null && item.key === "home") || activePanel === item.key ? " hls-item--active" : ""}${locked ? " hls-item--locked" : ""}`}
+                onClick={() => panelNavigate(item.key)}
+              >
+                <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
+                {item.label}
+                {locked && <span className="hls-lock">✦</span>}
+              </button>
+            );
+          })}
 
           <div className="hls-divider" />
 
           {/* Social */}
-          {NAV_ITEMS_2.map(item => (
-            <button
-              key={item.key}
-              className={`hls-item${activePanel === item.key ? " hls-item--active" : ""}`}
-              onClick={() => {
-                if (INLINE_PANELS.has(item.key)) { setActivePanel(item.key); setQuizLevelState(null); }
-                else { setActivePanel(null); setQuizLevelState(null); navigate(item.key); }
-              }}
-            >
-              <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
-              {item.label}
-              {item.key === "friends"  && pendingRequests > 0 && <span className="hls-badge">{pendingRequests}</span>}
-              {item.key === "messages" && unreadMessages  > 0 && <span className="hls-badge">{unreadMessages}</span>}
-            </button>
-          ))}
+          {NAV_ITEMS_2.map(item => {
+            const locked = !isPremium && item.premium;
+            return (
+              <button
+                key={item.key}
+                className={`hls-item${activePanel === item.key ? " hls-item--active" : ""}${locked ? " hls-item--locked" : ""}`}
+                onClick={() => {
+                  if (INLINE_PANELS.has(item.key)) { setActivePanel(item.key); setQuizLevelState(null); }
+                  else { setActivePanel(null); setQuizLevelState(null); navigate(item.key); }
+                }}
+              >
+                <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
+                {item.label}
+                {locked && <span className="hls-lock">✦</span>}
+                {!locked && item.key === "friends"  && pendingRequests > 0 && <span className="hls-badge">{pendingRequests}</span>}
+                {!locked && item.key === "messages" && unreadMessages  > 0 && <span className="hls-badge">{unreadMessages}</span>}
+              </button>
+            );
+          })}
 
           <div className="hls-divider" />
           <div className="hls-section-label">Shortcuts</div>
 
-          {NAV_SHORTCUTS.map(item => (
-            <button
-              key={item.key}
-              className={`hls-item${activePanel === item.key ? " hls-item--active" : ""}`}
-              onClick={() => {
-                if (INLINE_PANELS.has(item.key)) { setActivePanel(item.key); setQuizLevelState(null); }
-                else { setActivePanel(null); navigate(item.key); }
-              }}
-            >
-              <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
-              {item.label}
-            </button>
-          ))}
+          {NAV_SHORTCUTS.map(item => {
+            const locked = !isPremium && item.premium;
+            return (
+              <button
+                key={item.key}
+                className={`hls-item${activePanel === item.key ? " hls-item--active" : ""}${locked ? " hls-item--locked" : ""}`}
+                onClick={() => {
+                  if (INLINE_PANELS.has(item.key)) { setActivePanel(item.key); setQuizLevelState(null); }
+                  else { setActivePanel(null); navigate(item.key); }
+                }}
+              >
+                <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
+                {item.label}
+                {locked && <span className="hls-lock">✦</span>}
+              </button>
+            );
+          })}
 
           {(profile?.is_admin || profile?.is_moderator) && (
             <>
@@ -423,7 +434,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           )}
           {activePanel === "profile" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <ProfileInline user={user} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <ProfileInline user={user} viewedUserId={user?.id} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
             </Suspense>
           )}
           {activePanel === "messages" && (
@@ -467,7 +478,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <button className="hfeed-link" onClick={() => navigate("blog")}>{t("home.blogViewAll")}</button>
             </div>
             {postsLoading ? <BlogSkeleton /> : blogPreview.length === 0 ? (
-              <EmptyState icon="✍️" title="No posts yet" sub="Be the first to share something." btnLabel="Write a post →" onBtn={() => navigate("blogDash")} />
+              <EmptyState icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>} title="No posts yet" sub="Be the first to share something." btnLabel="Write a post →" onBtn={() => navigate("blogDash")} />
             ) : (
               <div className="hblog-grid">
                 {blogPreview.map((post) => (
@@ -487,9 +498,9 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                       )}
                     </div>
                     <div className="hblog-body">
-                      <div className="hblog-tag">{post.category || t("home.blogLabel")}</div>
+                      <div className="hblog-tag">{(post as any).category || t("home.blogLabel")}</div>
                       <div className="hblog-title">{post.title}</div>
-                      <div className="hblog-meta">{authorName(post)} · {formatDate(post.created_at)}</div>
+                      <div className="hblog-meta">{authorName(post as any)} · {formatDate(post.created_at)}</div>
                     </div>
                   </article>
                 ))}
@@ -710,7 +721,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       {/* ── Modals & overlays ── */}
       {showStreakPrompt && (
         <UpgradePrompt
-          icon="🔥"
+          icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>}
           title={`${streak.current_streak}-day streak!`}
           message="Keep it structured — reading plans give you a daily assignment so you always know exactly what to read next."
           ctaLabel="View Reading Plans"
@@ -732,7 +743,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       )}
 
       {showOnboarding && (
-        <OnboardingModal onClose={closeOnboarding} onUpgrade={onUpgrade} navigate={navigate} user={user} />
+        <OnboardingModal onClose={closeOnboarding} navigate={navigate} user={user} />
       )}
 
     </div>

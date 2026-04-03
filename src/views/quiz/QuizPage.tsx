@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "../../components/LoadingSpinner";

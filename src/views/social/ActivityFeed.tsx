@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useTranslation } from "react-i18next";
 import AppLayout from "../../components/AppLayout";
 import { useActivityFeed } from "../../hooks/useFollows";

@@ -694,7 +694,7 @@ html.nav-hidden .pf-header { top: 0; }
   white-space: nowrap;
   box-shadow: 0 4px 14px rgba(0,0,0,0.35);
   pointer-events: none;
-  z-index: 9999;
+  z-index: var(--z-top);
 }
 [data-theme="light"] .pf-infotip-bubble {
   background: #fff;

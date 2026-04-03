@@ -1,4 +1,3 @@
-// @ts-nocheck
 import ClientShell from "../_components/ClientShell";
 import { BOOKS, OT_COUNT } from "../../src/data/books";
 
@@ -6,7 +5,7 @@ export const revalidate = false;
 
 const BASE = "https://nwtprogress.com";
 const SEO_HIDE = {
-  position: "absolute", width: 1, height: 1,
+  position: "absolute" as const, width: 1, height: 1,
   overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap",
 };
 

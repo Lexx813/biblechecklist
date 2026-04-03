@@ -29,7 +29,7 @@
 .ep-popup {
   position: absolute;
   bottom: calc(100% + 4px);
-  z-index: 9999;
+  z-index: var(--z-top);
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);

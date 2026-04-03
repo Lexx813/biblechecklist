@@ -5,7 +5,7 @@
   position: absolute;
   top: -999px;
   left: 0;
-  z-index: 99999;
+  z-index: var(--z-top);
   padding: 12px 20px;
   background: var(--teal, #6A3DAA);
   color: #fff;
@@ -287,7 +287,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   pointer-events: none;
   opacity: 0;
   transition: opacity var(--dur-fast), transform var(--dur-fast);
-  z-index: 9000;
+  z-index: var(--z-top);
   box-shadow: 0 4px 14px rgba(0,0,0,0.35);
 }
 [data-tip]:hover::after {
@@ -848,7 +848,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 
 /* Quick Note Modal */
 .qn-backdrop {
-  position: fixed; inset: 0; z-index: 1000;
+  position: fixed; inset: 0; z-index: var(--z-toast);
   background: rgba(0,0,0,0.45);
   display: flex; align-items: center; justify-content: center;
   padding: 20px;
@@ -980,7 +980,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   position: fixed; inset: 0;
   background: rgba(10, 5, 20, 0.60);
   display: flex; align-items: center; justify-content: center;
-  z-index: 200; padding: 16px;
+  z-index: var(--z-overlay); padding: 16px;
   backdrop-filter: blur(12px) saturate(140%);
 }
 .confirm-modal {

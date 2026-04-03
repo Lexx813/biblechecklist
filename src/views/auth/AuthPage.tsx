@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useLogin, useRegister, useResetPassword } from "../../hooks/useAuth";
@@ -6,7 +5,7 @@ import { authApi } from "../../api/auth";
 import { friendsApi } from "../../api/friends";
 import "../../styles/auth.css";
 
-export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, onConfirmDismiss }) {
+export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEmail = null, onConfirmDismiss = null }) {
   const [mode, setMode] = useState("login"); // "login" | "signup" | "forgot"
   const [darkMode, setDarkMode] = useState(() => document.documentElement.dataset.theme === "dark");
 
@@ -37,7 +36,7 @@ export default function AuthPage({ onBack, onRegisterSuccess, confirmedEmail, on
     try {
       await authApi.signInWithGoogle();
     } catch (err) {
-      setFieldError(err.message);
+      setFieldError((err as Error).message);
       setGoogleBusy(false);
     }
   }

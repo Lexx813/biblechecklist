@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { BOOKS } from "./books";
 
 // ── Schedule generator ────────────────────────────────────────────────────────
