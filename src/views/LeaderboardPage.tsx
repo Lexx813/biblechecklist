@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import PageNav from "../components/PageNav";
 import AppLayout from "../components/AppLayout";
 import { useReadingLeaderboard, useQuizLeaderboard } from "../hooks/useLeaderboard";
 import { useTimedLeaderboard } from "../hooks/useQuizTimed";
@@ -142,7 +141,6 @@ export default function LeaderboardPage({ user, onBack, navigate, darkMode, setD
 
   return (
     <div className="lb-page">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <AppLayout navigate={navigate} user={user} currentPage="leaderboard">
       <header className="lb-header">
         <button className="back-btn" onClick={onBack}>{t("common.back")}</button>

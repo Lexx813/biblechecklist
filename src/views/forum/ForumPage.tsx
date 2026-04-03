@@ -7,7 +7,6 @@ import "../../styles/ai-tools.css";
 import ConfirmModal from "../../components/ConfirmModal";
 const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
 import ReportModal from "../../components/ReportModal";
-import PageNav from "../../components/PageNav";
 import AppLayout from "../../components/AppLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
@@ -253,7 +252,6 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
 
   return (
     <div className="forum-thread-view">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <AppLayout navigate={navigate} user={user} currentPage="forum">
       {/* Breadcrumb */}
       <nav className="forum-breadcrumb">
@@ -759,7 +757,6 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 
   return (
     <div className="forum-thread-list">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <AppLayout navigate={navigate} user={user} currentPage="forum">
       {/* Breadcrumb */}
       <nav className="forum-breadcrumb">
@@ -942,7 +939,6 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
 
   return (
     <div className="forum-categories">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <AppLayout navigate={navigate} user={user} currentPage="forum">
       {/* Hero */}
       <div className="forum-hero">

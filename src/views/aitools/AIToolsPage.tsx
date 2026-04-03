@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import PageNav from "../../components/PageNav";
 import AppLayout from "../../components/AppLayout";
 import { useAISkill } from "../../hooks/useAISkill";
 import { useCreateStudyNote } from "../../hooks/useStudyNotes";
@@ -481,7 +480,6 @@ export default function AIToolsPage({ navigate, ...navProps }) {
 
   return (
     <>
-      <PageNav navigate={navigate} {...navProps} />
       <AppLayout navigate={navigate} user={navProps.user} currentPage="aiTools">
       <div className="ait-page">
         <div className="ait-hero">

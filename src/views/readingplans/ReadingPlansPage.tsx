@@ -2,7 +2,6 @@
 import { useState, useMemo, useRef, useEffect, lazy, Suspense } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
-import PageNav from "../../components/PageNav";
 import AppLayout from "../../components/AppLayout";
 import ConfirmModal from "../../components/ConfirmModal";
 const AICompanion = lazy(() => import("../../components/AICompanion"));

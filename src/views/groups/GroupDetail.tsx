@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { useState, useEffect, useRef, useCallback } from "react";
-import PageNav from "../../components/PageNav";
 import AppLayout from "../../components/AppLayout";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
@@ -785,7 +784,6 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
 
   return (
     <div className="grp-detail">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} onUpgrade={onUpgrade} />
       <AppLayout navigate={navigate} user={user} currentPage="groups">
       {/* Header */}
       <div className="grp-detail-header">

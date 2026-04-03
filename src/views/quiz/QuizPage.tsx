@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
-import PageNav from "../../components/PageNav";
 import AppLayout from "../../components/AppLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 const AICompanion = lazy(() => import("../../components/AICompanion"));
@@ -151,7 +150,6 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
 
   return (
     <div className="quiz-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <AppLayout navigate={navigate} user={user} currentPage="quiz">
       <div className="quiz-hub">
         <div className="quiz-hub-header">
@@ -395,7 +393,6 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
   if (isLoading || questions.length === 0) {
     return (
       <div className="quiz-wrap">
-        <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
         <AppLayout navigate={navigate} user={user} currentPage="quiz">
         <div className="quiz-active quiz-active--loading">
           <div role="status" aria-label={t("quiz.loading")}>
@@ -410,7 +407,6 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
   if (showResults) {
     return (
       <div className="quiz-wrap">
-        <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
         <AppLayout navigate={navigate} user={user} currentPage="quiz">
         <div className="quiz-active">
           <div className="quiz-results">
@@ -488,7 +484,6 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
 
   return (
     <div className="quiz-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <AppLayout navigate={navigate} user={user} currentPage="quiz">
       <div className="quiz-active">
         {/* Level header */}
