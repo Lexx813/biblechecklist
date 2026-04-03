@@ -1332,7 +1332,7 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
   const showList = !activeConv;
 
   return (
-    <div className="msg-page">
+    <>
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} onUpgrade={onUpgrade} />
       <AppLayout navigate={navigate} user={user} currentPage="messages">
       <div className="msg-layout">
@@ -1450,6 +1450,6 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
         />
       )}
       </AppLayout>
-    </div>
+    </>
   );
 }

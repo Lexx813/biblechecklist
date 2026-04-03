@@ -11,25 +11,16 @@
   text-transform: uppercase;
 }
 
-.msg-page {
-  display: flex;
-  flex-direction: column;
-  height: 100dvh;
-  width: 100%;
-  overflow: hidden;
-}
-
-/* AppLayout grid must flex-fill remaining height and stretch content column */
-.msg-page .al-wrap {
-  flex: 1;
+/* Make al-content fill full height when it contains the chat layout */
+.al-wrap:has(.msg-layout) {
+  height: calc(100dvh - 60px);
   min-height: 0;
-  overflow: hidden;
   align-items: stretch;
 }
 
-.msg-page .al-content {
-  min-height: 0;
+.al-wrap:has(.msg-layout) .al-content {
   overflow: hidden;
+  min-height: 0;
   display: flex;
   flex-direction: column;
 }
