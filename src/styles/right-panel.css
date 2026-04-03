@@ -1,0 +1,123 @@
+/* ── Right Panel widgets ── */
+.rp-widget {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(138, 75, 255, 0.15);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.rp-widget-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary, #f0eaff);
+  margin-bottom: 10px;
+}
+
+/* Daily verse */
+.rp-verse {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-secondary, rgba(240,234,255,0.7));
+  font-style: italic;
+}
+.rp-verse-ref {
+  font-size: 11px;
+  font-weight: 600;
+  color: #a78bfa;
+  margin-top: 6px;
+  font-style: normal;
+}
+
+/* Online friends */
+.rp-friend-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+}
+.rp-friend-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f2d85, #7c3aed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+}
+.rp-friend-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.rp-online-dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  border: 1.5px solid #0d0a1a;
+}
+.rp-friend-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary, #f0eaff);
+}
+
+/* Streak */
+.rp-streak-count {
+  font-size: 28px;
+  font-weight: 800;
+  color: #f59e0b;
+  line-height: 1;
+}
+.rp-streak-label {
+  font-size: 11px;
+  color: var(--text-secondary, rgba(240,234,255,0.5));
+  margin-top: 2px;
+}
+
+/* Upgrade banner */
+.rp-upgrade {
+  background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(167,139,250,0.10));
+  border-color: rgba(124, 58, 237, 0.3);
+  text-align: center;
+}
+.rp-upgrade-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary, #f0eaff);
+  margin-bottom: 6px;
+}
+.rp-upgrade-desc {
+  font-size: 11px;
+  color: var(--text-secondary, rgba(240,234,255,0.6));
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.rp-upgrade-btn {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+.rp-upgrade-btn:hover { opacity: 0.9; }
+
+/* Light theme */
+[data-theme="light"] .rp-widget {
+  background: #fff;
+  border-color: rgba(124, 58, 237, 0.18);
+}
+[data-theme="light"] .rp-friend-name,
+[data-theme="light"] .rp-widget-title { color: #1e1035; }
+[data-theme="light"] .rp-verse { color: rgba(30,16,53,0.65); }
+[data-theme="light"] .rp-online-dot { border-color: #fff; }

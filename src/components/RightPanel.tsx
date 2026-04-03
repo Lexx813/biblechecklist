@@ -1,0 +1,67 @@
+// @ts-nocheck
+import { useFullProfile } from "../hooks/useAdmin";
+import { useSubscription } from "../hooks/useSubscription";
+import "../styles/right-panel.css";
+
+// Daily verse — static rotation by day-of-year
+const DAILY_VERSES = [
+  { text: "Happy are those conscious of their spiritual need.", ref: "Matthew 5:3" },
+  { text: "Trust in Jehovah with all your heart.", ref: "Proverbs 3:5" },
+  { text: "The meek will possess the earth.", ref: "Psalm 37:11" },
+  { text: "Draw close to God and he will draw close to you.", ref: "James 4:8" },
+  { text: "Let your light shine before men.", ref: "Matthew 5:16" },
+  { text: "Love your neighbor as yourself.", ref: "Matthew 22:39" },
+  { text: "Do not be anxious over anything.", ref: "Philippians 4:6" },
+  { text: "This is the day Jehovah has made; let us be joyful.", ref: "Psalm 118:24" },
+  { text: "Put on the complete suit of armor from God.", ref: "Ephesians 6:11" },
+  { text: "Seek first the Kingdom and his righteousness.", ref: "Matthew 6:33" },
+];
+
+function getDailyVerse() {
+  const start = new Date(new Date().getFullYear(), 0, 0);
+  const dayOfYear = Math.floor((Date.now() - start.getTime()) / 86400000);
+  return DAILY_VERSES[dayOfYear % DAILY_VERSES.length];
+}
+
+interface Props {
+  page: string;
+  user: { id?: string; email?: string } | null | undefined;
+  navigate: (page: string) => void;
+  onUpgrade?: () => void;
+}
+
+export default function RightPanel({ page, user, navigate, onUpgrade }: Props) {
+  const { data: profile } = useFullProfile(user?.id);
+  const { isPremium } = useSubscription(user?.id);
+  const verse = getDailyVerse();
+  const streak = profile?.current_streak ?? 0;
+
+  return (
+    <>
+      {/* Daily Verse */}
+      <div className="rp-widget">
+        <div className="rp-widget-title">📖 Daily Verse</div>
+        <div className="rp-verse">"{verse.text}"</div>
+        <div className="rp-verse-ref">— {verse.ref}</div>
+      </div>
+
+      {/* Streak */}
+      {streak > 0 && (
+        <div className="rp-widget">
+          <div className="rp-widget-title">🔥 Your Streak</div>
+          <div className="rp-streak-count">{streak}</div>
+          <div className="rp-streak-label">day{streak !== 1 ? "s" : ""} in a row</div>
+        </div>
+      )}
+
+      {/* Upgrade banner (free users only) */}
+      {!isPremium && (
+        <div className="rp-widget rp-upgrade">
+          <div className="rp-upgrade-title">✨ Go Premium</div>
+          <div className="rp-upgrade-desc">Unlock reading plans, study notes, messages and more.</div>
+          <button className="rp-upgrade-btn" onClick={onUpgrade}>Upgrade — $3/mo</button>
+        </div>
+      )}
+    </>
+  );
+}
