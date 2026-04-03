@@ -61,7 +61,7 @@ export default async function BlogListPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBlog) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
       {posts?.length > 0 && (
-        <div id="ssr-fallback">
+        <div id="ssr-fallback" suppressHydrationWarning>
           <h1>NWT Progress Blog</h1>
           <p>Spiritual insights, Bible study articles, and community reflections.</p>
           <ul>

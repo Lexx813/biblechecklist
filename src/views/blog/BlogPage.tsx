@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { useState, useMemo, memo, useEffect, useCallback } from "react";
-import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
 import LoadingSpinner from "../../components/LoadingSpinner";
@@ -258,14 +257,12 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
   return (
     <div className="blog-post-view">
       <div className="blog-post-hero">
-        <Image
+        <img
           src={post.cover_url || getFallbackImage(post.id)}
           className="blog-post-hero-img"
           alt={displayTitle}
-          fill
-          sizes="100vw"
-          priority
-          style={{ objectFit: "cover" }}
+          fetchPriority="high"
+          onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
         />
         <div className="blog-post-hero-overlay">
           <button className="back-btn" onClick={onBack}>{t("blog.backToBlog")}</button>
@@ -421,12 +418,12 @@ function RelatedPosts({ currentPost, onSelect, navigate, user }) {
         {related.map(post => (
           <article key={post.id} className="blog-related-card" onClick={() => onSelect(post.slug)}>
             <div className="blog-related-cover">
-              <Image
+              <img
                 src={post.cover_url || getFallbackImage(post.id)}
                 alt={post.title}
-                fill
-                sizes="(max-width: 640px) 100vw, 33vw"
-                style={{ objectFit: "cover" }}
+                loading="lazy"
+                onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               />
             </div>
             <div className="blog-related-body">
@@ -456,13 +453,12 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user, lang }
   return (
     <article className="blog-card" onClick={() => onSelect(post.slug)}>
       <div className="blog-card-cover">
-        <Image
+        <img
           src={post.cover_url || getFallbackImage(post.id)}
           className="blog-card-cover-img"
           alt={displayTitle}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          style={{ objectFit: "cover" }}
+          loading="lazy"
+          onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
         />
         <div className="blog-card-cover-shine" />
       </div>
@@ -520,7 +516,6 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
     <div className="blog-wrap">
       {/* Nav */}
       <nav className="blog-nav">
-        <button className="back-btn" onClick={onBack}>{t("blog.backToBible")}</button>
         <div className="blog-nav-right">
           {(profile?.can_blog || profile?.is_admin) && (
             <button className="blog-write-btn" onClick={onWriteClick}>{t("blog.myPosts")}</button>

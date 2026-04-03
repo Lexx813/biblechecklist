@@ -33,14 +33,24 @@ import OnboardingModal, { useOnboarding } from "../components/OnboardingModal";
 import UpgradePrompt, { isDismissed, dismissPrompt } from "../components/UpgradePrompt";
 import "../styles/home.css";
 
-const GRADIENTS = [
-  "linear-gradient(135deg, #341C5C 0%, #6A3DAA 100%)",
-  "linear-gradient(135deg, #4F2D85 0%, #9B59B6 100%)",
-  "linear-gradient(135deg, #1A1035 0%, #4F2D85 100%)",
-  "linear-gradient(135deg, #6A3DAA 0%, #C084FC 100%)",
-  "linear-gradient(135deg, #2D1B4E 0%, #8E44AD 100%)",
-  "linear-gradient(135deg, #3B1F6E 0%, #7B2FBE 100%)",
+const FALLBACK_IMAGES = [
+  "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1455541504462-57ebb2a9cec1?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1519817914152-22d216bb9170?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?auto=format&fit=crop&w=800&q=80",
 ];
+
+function getFallbackImage(id) {
+  let h = 0;
+  for (const c of (id ?? "")) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return FALLBACK_IMAGES[h % FALLBACK_IMAGES.length];
+}
 
 const STREAK_MILESTONES = [7, 14, 30, 60, 90, 180, 365];
 
@@ -50,10 +60,6 @@ const BANNER_ROTATIONS = [
   { icon: "✨", title: "AI Study Assistant",sub: "Ask anything about any verse. Grounded in Scripture.",        cta: "Try AI Tools →" },
   { icon: "📋", title: "Meeting Prep",     sub: "CLAM + Watchtower checklists. Never miss an assignment.",     cta: "Open Meeting Prep →" },
 ];
-
-function getGradient(id) {
-  return GRADIENTS[(id?.charCodeAt(0) ?? 0) % GRADIENTS.length];
-}
 
 const ONLINE_THRESHOLD_MS = 10 * 60 * 1000;
 
@@ -466,11 +472,13 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <div className="hblog-grid">
                 {blogPreview.map((post) => (
                   <article key={post.id} className="hblog-card" onClick={() => navigate("blog", { slug: post.slug })}>
-                    <div
-                      className="hblog-cover"
-                      style={{ background: post.cover_url ? undefined : getGradient(post.id) }}
-                    >
-                      {post.cover_url && <img src={post.cover_url} alt={post.title} loading="lazy" />}
+                    <div className="hblog-cover">
+                      <img
+                        src={post.cover_url || getFallbackImage(post.id)}
+                        alt={post.title}
+                        loading="lazy"
+                        onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
+                      />
                       {post.like_count > 0 && (
                         <span className="hblog-likes">
                           <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 22V11l5-9a1 1 0 0 1 1.8.5L13 7h7a2 2 0 0 1 2 2.4l-2 10A2 2 0 0 1 18 21H7zM2 11h3v11H2z"/></svg>
