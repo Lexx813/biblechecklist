@@ -387,7 +387,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (nav.page === "about")     pageContent = <Page><AboutPage {...sharedNav} /></Page>;
   else if (nav.page === "terms")     pageContent = <Page><TermsPage {...sharedNav} /></Page>;
   else if (nav.page === "privacy")   pageContent = <Page><PrivacyPage {...sharedNav} /></Page>;
-  else if (isPremium && nav.page === "messages")     pageContent = <Page noFooter><MessagesPage {...sharedNav} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
+  else if (isPremium && nav.page === "messages")     pageContent = <Page noFooter><MessagesPage {...sharedNav} onBack={() => navigate("home")} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
   else if (isPremium && nav.page === "groups")       pageContent = <Page><AL page="groups"><GroupsPage {...sharedNav} /></AL></Page>;
   else if (isPremium && nav.page === "groupDetail")  pageContent = <Page><AL page="groups"><GroupDetail {...sharedNav} groupId={nav.groupId} /></AL></Page>;
   else if (isPremium && nav.page === "meetingPrep") pageContent = <Page><AL page="meetingPrep"><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;

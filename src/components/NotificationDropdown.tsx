@@ -136,11 +136,7 @@ export default function NotificationDropdown({ userId, onClose, navigate }: Prop
           )}
         </div>
 
-        <div className="notif-footer">
-          <button className="notif-see-all" onClick={onClose}>
-            See all notifications →
-          </button>
-        </div>
+
       </div>
     </>
   );
