@@ -714,7 +714,7 @@ function ConvItem({ conv, active, onClick, currentUserId, onDelete, onlineUsers 
 
 const EMPTY_MESSAGES = [];
 
-function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled }) {
+function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled, navigate }) {
   const { t } = useTranslation();
   const { data: messages = EMPTY_MESSAGES, isLoading } = useMessages(conv.conversation_id);
   const sendMessage = useSendMessage(conv.conversation_id);
@@ -1006,11 +1006,13 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
         <button className="msg-back-btn" onClick={onBack} aria-label="Back to conversations">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
-        <Avatar
-          profile={{ display_name: conv.other_display_name, avatar_url: conv.other_avatar_url }}
-          size={36}
-          online={isOtherOnline}
-        />
+        <span style={{ cursor: "pointer" }} onClick={() => navigate("publicProfile", { userId: conv.other_user_id })}>
+          <Avatar
+            profile={{ display_name: conv.other_display_name, avatar_url: conv.other_avatar_url }}
+            size={36}
+            online={isOtherOnline}
+          />
+        </span>
         <div className="msg-thread-header-info">
           <span className="msg-thread-name">{conv.other_display_name || t("messages.user")}</span>
           {isOtherTyping ? (
@@ -1416,6 +1418,7 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
               onBack={() => openConv(null)}
               soundEnabled={soundEnabled}
               setSoundEnabled={setSoundEnabled}
+              navigate={navigate}
             />
           ) : (
             <div className="msg-empty-state">
