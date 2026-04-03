@@ -11,19 +11,19 @@ export const quizApi = {
       correct_index,
       explanation,
       quiz_question_translations (
-        language,
+        lang,
         question,
         options,
         explanation
       )
     `)
       .eq("level", level)
-      .order("sort_order");
+      .order("created_at");
 
     if (error) throw error;
 
     const questions = (data ?? []).map((q) => {
-      const tx = q.quiz_question_translations?.find((t) => t.language === language);
+      const tx = q.quiz_question_translations?.find((t) => t.lang === language);
       return {
         id: q.id,
         question: tx?.question ?? q.question,
