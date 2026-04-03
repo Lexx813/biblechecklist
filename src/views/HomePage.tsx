@@ -25,6 +25,7 @@ import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
 import { useUnreadMessageCount } from "../hooks/useMessages";
 import { useFriends, useFriendRequests } from "../hooks/useFriends";
+import { useOnlineMembers, ONLINE_THRESHOLD_MS as WHO_THRESHOLD_MS } from "../hooks/useOnlineMembers";
 import DailyVerse from "../components/home/DailyVerse";
 import TodaysFocusCard from "../components/home/TodaysFocusCard";
 import EmptyState from "../components/EmptyState";
@@ -171,6 +172,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const pendingRequests = incoming.data?.length ?? 0;
   const { data: friends = [] } = useFriends(user?.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
+  const { onlineNow: whoOnline, recentlyActive: whoRecent, totalOnline, isLoading: whoLoading } = useOnlineMembers(50);
+  const whoMembers = [...whoOnline, ...whoRecent];
 
   // Inline panels (quiz, leaderboard, familyQuiz, etc.)
   const [activePanel, setActivePanel] = useState(null);
@@ -609,6 +612,63 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                         {isOnline && <span className="hfriend-dot" aria-label="Online" />}
                       </span>
                       <span className="hfriend-name">{f.display_name || "Unknown"}</span>
+                      <span className="hfriend-when">{when}</span>
+                    </div>
+                  );
+                })}
+                <div style={{ height: 8 }} />
+              </>
+            )}
+          </div>
+
+          {/* Who's Online */}
+          <div className="hwidget">
+            <div className="hwidget-header">
+              <span className="hwidget-title">Who's Online</span>
+              <button className="hwidget-link" onClick={() => navigate("community")}>
+                {totalOnline > 0 ? `See all (${totalOnline}) →` : "See all →"}
+              </button>
+            </div>
+            {whoLoading ? (
+              <div className="hwho-skeleton">
+                {[0, 1, 2].map(i => (
+                  <div key={i} className="hwho-skeleton-row">
+                    <div className="skeleton" style={{ width: 32, height: 32, borderRadius: "50%", flexShrink: 0 }} />
+                    <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 5 }}>
+                      <div className="skeleton" style={{ height: 12, width: "55%", borderRadius: 6 }}>&nbsp;</div>
+                      <div className="skeleton" style={{ height: 10, width: "35%", borderRadius: 6 }}>&nbsp;</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : whoMembers.length === 0 ? (
+              <div className="hfriend-empty">No one has been active recently.</div>
+            ) : (
+              <>
+                {whoMembers.slice(0, 6).map(m => {
+                  const isOnline = m.last_active_at != null &&
+                    now - new Date(m.last_active_at).getTime() < WHO_THRESHOLD_MS;
+                  const diff = m.last_active_at ? now - new Date(m.last_active_at).getTime() : null;
+                  const when = isOnline ? "Active now"
+                    : diff == null ? ""
+                    : diff < 3_600_000 ? `${Math.floor(diff / 60_000)}m ago`
+                    : diff < 86_400_000 ? `${Math.floor(diff / 3_600_000)}h ago`
+                    : `${Math.floor(diff / 86_400_000)}d ago`;
+                  return (
+                    <div
+                      key={m.id}
+                      className="hfriend-row"
+                      onClick={() => navigate("publicProfile", { userId: m.id })}
+                    >
+                      <span className="hfriend-av-wrap">
+                        <span className="hfriend-av">
+                          {m.avatar_url
+                            ? <img src={m.avatar_url} alt={m.display_name ?? ""} loading="lazy" />
+                            : (m.display_name || "?")[0].toUpperCase()}
+                        </span>
+                        {isOnline && <span className="hfriend-dot" aria-label="Online" />}
+                      </span>
+                      <span className="hfriend-name">{m.display_name || "Anonymous"}</span>
                       <span className="hfriend-when">{when}</span>
                     </div>
                   );
