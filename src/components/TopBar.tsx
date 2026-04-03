@@ -123,20 +123,28 @@ export default function TopBar({
             )}
           </button>
 
-          {/* Notifications bell */}
-          <button
-            className="topbar-btn"
-            onClick={() => setShowNotifs(v => !v)}
-            aria-label={`Notifications${unreadNotifs > 0 ? ` (${unreadNotifs} unread)` : ""}`}
-            aria-expanded={showNotifs}
-          >
-            <BellIcon />
-            {unreadNotifs > 0 && (
-              <span className="topbar-btn-badge" aria-hidden="true">
-                {unreadNotifs > 99 ? "99+" : unreadNotifs}
-              </span>
+          {/* Notifications bell — wrapper gives dropdown its anchor */}
+          <div className="topbar-notif-anchor">
+            <button
+              className="topbar-btn"
+              onClick={() => setShowNotifs(v => !v)}
+              aria-label={`Notifications${unreadNotifs > 0 ? ` (${unreadNotifs} unread)` : ""}`}
+              aria-expanded={showNotifs}
+            >
+              <BellIcon />
+              {unreadNotifs > 0 && (
+                <span className="topbar-btn-badge" aria-hidden="true">
+                  {unreadNotifs > 99 ? "99+" : unreadNotifs}
+                </span>
+              )}
+            </button>
+            {showNotifs && (
+              <NotificationDropdown
+                userId={user?.id}
+                onClose={() => setShowNotifs(false)}
+              />
             )}
-          </button>
+          </div>
 
           {/* User avatar */}
           <button
@@ -151,12 +159,6 @@ export default function TopBar({
           </button>
         </div>
       </header>
-      {showNotifs && (
-        <NotificationDropdown
-          userId={user?.id}
-          onClose={() => setShowNotifs(false)}
-        />
-      )}
     </>
   );
 }

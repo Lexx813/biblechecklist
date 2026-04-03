@@ -92,6 +92,11 @@
   align-items: center;
   gap: 4px;
 }
+/* Anchor for notification dropdown — keeps it in the flex row */
+.topbar-notif-anchor {
+  display: flex;
+  align-items: center;
+}
 .topbar-btn {
   position: relative;
   width: 36px;
