@@ -47,14 +47,14 @@ function hasStoredSession() {
 
 export default function App() {
   const { i18n } = useTranslation();
-  // null = not yet checked (avoid SSR/hydration mismatch with localStorage)
-  const [showApp, setShowApp] = useState<boolean | null>(null);
+  const [showApp, setShowApp] = useState(false);
   const [preAuthPath, setPreAuthPath] = useState(() => window.location.pathname.slice(1));
   const [darkMode, setDarkMode] = useState(getInitialDarkMode);
 
-  // Check localStorage only after mount — avoids server/client hydration mismatch
-  useEffect(() => {
-    setShowApp(hasStoredSession());
+  // useLayoutEffect runs synchronously before the browser paints — the landing page
+  // is never visually rendered when a session exists.
+  useLayoutEffect(() => {
+    if (hasStoredSession()) setShowApp(true);
   }, []);
 
   // Remove SSR fallback content once the SPA has mounted — crawlers see it,
@@ -69,9 +69,6 @@ export default function App() {
     window.addEventListener("popstate", handler);
     return () => window.removeEventListener("popstate", handler);
   }, []);
-
-  // Still checking localStorage — show nothing until resolved
-  if (showApp === null) return <LoadingSpinner className="spinner-wrap--fullscreen" />;
 
   // If authenticated shell is active, it handles all routing internally
   if (showApp) {
