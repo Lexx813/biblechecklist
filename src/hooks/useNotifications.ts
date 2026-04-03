@@ -44,6 +44,11 @@ export function useNotifications(userId: string | null | undefined) {
   });
 }
 
+export function useUnreadNotificationCount(userId: string | null | undefined) {
+  const { data = [] } = useNotifications(userId);
+  return data.filter((n: any) => !n.read).length;
+}
+
 export function useMarkNotificationsRead(userId: string | null | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
