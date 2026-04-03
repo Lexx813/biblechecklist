@@ -69,7 +69,7 @@ export default function NotificationDropdown({ userId, onClose, navigate }: Prop
     }
 
     if (n.type === "friend_request") {
-      navigate("friends", {});
+      navigate("friendRequests");
       return;
     }
 

@@ -1,5 +1,5 @@
-import { useFullProfile } from "../hooks/useAdmin";
 import { useSubscription } from "../hooks/useSubscription";
+import { useReadingStreak } from "../hooks/useProgress";
 import "../styles/right-panel.css";
 
 // Daily verse — static rotation by day-of-year
@@ -30,10 +30,10 @@ interface Props {
 }
 
 export default function RightPanel({ page, user, navigate, onUpgrade }: Props) {
-  const { data: profile } = useFullProfile(user?.id);
   const { isPremium } = useSubscription(user?.id);
+  const { data: streakData } = useReadingStreak(user?.id);
   const verse = getDailyVerse();
-  const streak = profile?.current_streak ?? 0;
+  const streak = streakData?.current_streak ?? 0;
 
   return (
     <>
