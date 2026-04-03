@@ -19,6 +19,20 @@
   overflow: hidden;
 }
 
+/* AppLayout grid must flex-fill remaining height and stretch content column */
+.msg-page .al-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  align-items: stretch;
+}
+
+.msg-page .al-content {
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
 
 .msg-layout {
   display: flex;
@@ -1713,7 +1727,7 @@
 
 /* ── Mobile ──────────────────────────────────────────────────────────────── */
 
-@media (max-width: 900px) {
+@media (max-width: 640px) {
   .msg-sidebar { width: 100%; border-right: none; }
   .msg-sidebar--hidden-mobile { display: none; }
   .msg-main--hidden-mobile { display: none; }
