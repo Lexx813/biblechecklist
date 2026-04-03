@@ -178,7 +178,7 @@
   max-width: 480px;
   max-height: 80vh;
   overflow-y: auto;
-  animation: gc-slide-up 0.2s ease both;
+  animation: gc-slide-up var(--dur-base) var(--ease-out) both;
 }
 
 @media (min-width: 540px) {
@@ -216,7 +216,7 @@
   background: var(--card-bg);
   text-align: left;
   cursor: pointer;
-  transition: border-color 0.15s;
+  transition: border-color var(--dur-fast);
 }
 
 .gc-picker-item:hover {

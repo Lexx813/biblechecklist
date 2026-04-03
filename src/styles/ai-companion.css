@@ -58,7 +58,7 @@
   font-size: 13px;
   padding: 4px 8px;
   border-radius: var(--radius-xs);
-  transition: color 0.15s, background 0.15s;
+  transition: color var(--dur-fast), background var(--dur-fast);
 }
 .aic-reset-btn:hover { color: #c084fc; background: rgba(138, 75, 255, 0.1); }
 
@@ -102,7 +102,7 @@
   font-weight: 600;
   padding: 4px 12px;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
   white-space: nowrap;
 }
 .aic-prompt-btn:hover {
@@ -137,7 +137,7 @@
   min-height: 38px;
   max-height: 96px;
   font-family: inherit;
-  transition: border-color 0.15s;
+  transition: border-color var(--dur-fast);
   field-sizing: content;
 }
 .aic-textarea::placeholder { color: #4a3f6b; }
@@ -159,7 +159,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.15s, transform 0.1s;
+  transition: opacity var(--dur-fast), transform 0.1s;
 }
 .aic-send-btn:hover:not(:disabled) { opacity: 0.85; transform: scale(1.05); }
 .aic-send-btn:disabled { opacity: 0.35; cursor: default; transform: none; }
@@ -227,7 +227,7 @@
   border-radius: 50%;
   animation: aic-bounce 1.2s ease-in-out infinite;
 }
-.aic-dot:nth-child(2) { animation-delay: 0.2s; }
+.aic-dot:nth-child(2) { animation-delay: var(--dur-base); }
 .aic-dot:nth-child(3) { animation-delay: 0.4s; }
 
 @keyframes aic-bounce {

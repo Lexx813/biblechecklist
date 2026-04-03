@@ -89,7 +89,7 @@
   font-weight: 600;
   cursor: pointer;
   border: none;
-  transition: opacity 0.15s, transform 0.15s;
+  transition: opacity var(--dur-fast), transform var(--dur-fast);
   font-family: inherit;
 }
 

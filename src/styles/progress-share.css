@@ -19,7 +19,7 @@
   max-width: 580px; width: 100%;
   display: flex; flex-direction: column; gap: 0;
   overflow: hidden;
-  animation: share-slide-in 0.2s ease;
+  animation: share-slide-in var(--dur-base) var(--ease-out);
   max-height: 92vh;
 }
 
@@ -42,7 +42,7 @@
   background: none; border: none;
   font-size: 16px; color: var(--text-muted);
   cursor: pointer; padding: 4px 8px; border-radius: var(--radius-xs);
-  transition: color 0.12s, background 0.12s;
+  transition: color var(--dur-fast), background var(--dur-fast);
 }
 .share-modal-close:hover { color: var(--text-primary); background: var(--teal-light); }
 
@@ -71,7 +71,7 @@
   background: var(--teal); border: none; border-radius: var(--radius-sm);
   font-family: inherit; font-size: 14px; font-weight: 800;
   color: #fff; cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
+  transition: background var(--dur-fast), transform 0.1s;
 }
 .share-download-btn:hover { background: var(--teal-dark); transform: translateY(-1px); }
 .share-download-btn:active { transform: translateY(0); }

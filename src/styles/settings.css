@@ -50,7 +50,7 @@
   font-size: 14px; color: var(--text-primary);
   font-family: inherit;
   outline: none; width: 100%; box-sizing: border-box;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
 }
 .st-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(139,92,246,0.15); }
 .st-field-edit-row { display: flex; gap: 8px; align-items: center; }
@@ -86,7 +86,7 @@
   padding: 8px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;
   font-family: inherit; cursor: pointer;
   border: none; white-space: nowrap; min-height: 44px;
-  transition: opacity 0.15s, background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s, box-shadow 0.15s;
+  transition: opacity var(--dur-fast), background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast), transform 0.1s, box-shadow var(--dur-fast);
 }
 .st-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 .st-btn--primary { background: var(--accent); color: #fff; box-shadow: 0 2px 8px rgba(139,92,246,0.25); }

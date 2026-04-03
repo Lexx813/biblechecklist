@@ -97,7 +97,7 @@
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
+  transition: background var(--dur-fast), transform 0.1s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,7 +125,7 @@
   font-size: 12px;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.15s;
+  transition: background var(--dur-fast);
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -159,7 +159,7 @@
   padding: 8px 14px; border-radius: 7px;
   font-size: 12px; font-weight: 600; cursor: pointer;
   white-space: nowrap;
-  transition: background 0.15s;
+  transition: background var(--dur-fast);
 }
 .tf-no-plan-cta:hover { background: #6d28d9; }
 
@@ -175,7 +175,7 @@
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background var(--dur-fast);
   width: 100%;
   text-align: left;
 }

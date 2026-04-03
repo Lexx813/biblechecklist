@@ -29,7 +29,7 @@
   min-height: 44px;
   border-radius: var(--radius-sm);
   line-height: 1;
-  transition: background 0.15s;
+  transition: background var(--dur-fast);
   margin-left: auto;
   display: flex;
   align-items: center;
@@ -94,7 +94,7 @@
   color: var(--text-muted);
   cursor: pointer;
   border-bottom: 2px solid transparent;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color var(--dur-fast), border-color var(--dur-fast);
 }
 
 .auth-tab:hover { color: var(--text-secondary); }
@@ -145,7 +145,7 @@
   cursor: pointer;
   padding: 2px 4px;
   border-radius: 4px;
-  transition: color 0.15s, background 0.15s;
+  transition: color var(--dur-fast), background var(--dur-fast);
 }
 .auth-forgot-btn:hover { color: var(--teal-dark); }
 
@@ -157,7 +157,7 @@
   font-size: 16px;
   color: var(--text-primary);
   background: var(--teal-soft);
-  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s, outline-color 0.15s;
+  transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast), outline-color var(--dur-fast);
 }
 
 .auth-input:hover:not(:focus):not(:disabled) {
@@ -199,7 +199,7 @@
   font-weight: 800;
   cursor: pointer;
   box-shadow: 0 2px 10px rgba(74,45,133,0.25);
-  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  transition: background var(--dur-fast), transform 0.1s, box-shadow var(--dur-fast);
   margin-top: 4px;
 }
 
@@ -241,7 +241,7 @@
   font-family: inherit;
   font-size: 14px; font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s, box-shadow 0.15s, border-color 0.15s;
+  transition: background var(--dur-fast), box-shadow var(--dur-fast), border-color var(--dur-fast);
 }
 .auth-google-btn:hover:not(:disabled) {
   background: #f8f9fa;
@@ -278,7 +278,7 @@
   text-decoration: underline;
   padding: 2px 4px;
   border-radius: 4px;
-  transition: color 0.15s, background 0.15s;
+  transition: color var(--dur-fast), background var(--dur-fast);
 }
 .auth-switch-btn:hover { color: var(--teal-dark); }
 
@@ -449,7 +449,7 @@
   color: var(--text-secondary);
   text-decoration: none;
   background: transparent;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  transition: border-color var(--dur-base), color var(--dur-base), background var(--dur-base);
 }
 
 .cg-policy-link svg {
@@ -481,7 +481,7 @@
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
+  transition: border-color var(--dur-base), background var(--dur-base);
   user-select: none;
 }
 
@@ -506,7 +506,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 1px;
-  transition: border-color 0.2s, background 0.2s;
+  transition: border-color var(--dur-base), background var(--dur-base);
 }
 
 .cg-check-row--checked .cg-check-box {
@@ -575,7 +575,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: opacity 0.2s, box-shadow 0.2s;
+  transition: opacity var(--dur-base), box-shadow var(--dur-base);
   box-shadow: 0 2px 12px rgba(109,40,217,0.35);
 }
 

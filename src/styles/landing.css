@@ -341,7 +341,7 @@
   letter-spacing: -0.01em;
   line-height: 1.0;
   margin-bottom: 22px;
-  animation: fade-up 0.7s 0.2s ease both;
+  animation: fade-up 0.7s var(--dur-base) var(--ease-out) both;
 }
 
 .landing-title-accent {
@@ -366,7 +366,7 @@
   line-height: 1.8;
   max-width: 540px;
   margin-bottom: 40px;
-  animation: fade-up 0.7s 0.3s ease both;
+  animation: fade-up 0.7s var(--dur-slow) var(--ease-out) both;
 }
 
 /* Features */
@@ -391,7 +391,7 @@
   padding: 8px 16px;
   border-radius: 999px;
   backdrop-filter: blur(6px);
-  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  transition: background var(--dur-base), border-color var(--dur-base), transform var(--dur-base);
   cursor: default;
 }
 .landing-feature:hover {
@@ -416,7 +416,7 @@
   cursor: pointer;
   position: relative;
   box-shadow: 0 0 40px rgba(124, 58, 237, 0.45), 0 4px 28px rgba(0, 0, 0, 0.35);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform var(--dur-base), box-shadow var(--dur-base);
   animation: fade-up 0.7s 0.5s ease both;
   margin-bottom: 20px;
 }
@@ -448,7 +448,7 @@
 .landing-cta-arrow {
   display: flex;
   align-items: center;
-  transition: transform 0.2s;
+  transition: transform var(--dur-base);
 }
 .landing-cta:hover .landing-cta-arrow {
   transform: translateX(5px);
@@ -505,7 +505,7 @@
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 3px;
-  transition: color 0.15s;
+  transition: color var(--dur-fast);
   padding: 0;
 }
 .landing-signin-link:hover {
@@ -572,7 +572,7 @@
   flex-direction: column;
   gap: 16px;
   position: relative;
-  transition: border-color 0.2s;
+  transition: border-color var(--dur-base);
   min-width: 0;
   box-sizing: border-box;
 }
@@ -708,7 +708,7 @@
   font-weight: 800;
   cursor: pointer;
   border: none;
-  transition: opacity 0.15s, transform 0.15s;
+  transition: opacity var(--dur-fast), transform var(--dur-fast);
   margin-top: 4px;
 }
 
@@ -768,7 +768,7 @@
   text-decoration: underline;
   text-underline-offset: 2px;
   cursor: pointer;
-  transition: color 0.15s;
+  transition: color var(--dur-fast);
 }
 .landing-footer-link:hover {
   color: #c084fc;
@@ -850,7 +850,7 @@
   border-radius: 999px;
   cursor: pointer;
   box-shadow: 0 0 30px rgba(124, 58, 237, 0.4);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform var(--dur-base), box-shadow var(--dur-base);
 }
 .error-btn:hover {
   transform: translateY(-3px);

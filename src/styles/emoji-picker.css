@@ -11,7 +11,7 @@
   padding: 2px 3px;
   border-radius: var(--radius-xs);
   opacity: 0.55;
-  transition: opacity 0.15s, transform 0.15s;
+  transition: opacity var(--dur-fast), transform var(--dur-fast);
   z-index: 1;
 }
 
@@ -60,7 +60,7 @@
   border-radius: var(--radius-xs);
   flex-shrink: 0;
   opacity: 0.55;
-  transition: opacity 0.12s, background 0.12s;
+  transition: opacity var(--dur-fast), background var(--dur-fast);
 }
 .ep-tab:hover { opacity: 1; background: var(--teal-soft); }
 .ep-tab--active { opacity: 1; background: var(--teal-soft); }

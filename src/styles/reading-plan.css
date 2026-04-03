@@ -15,7 +15,7 @@
 
 .reading-plan-dot {
   width: 11px; height: 11px; border-radius: 50%;
-  background: var(--border); transition: background 0.2s, transform 0.2s;
+  background: var(--border); transition: background var(--dur-base), transform var(--dur-base);
 }
 .reading-plan-dot--done {
   background: var(--teal); transform: scale(1.15);
@@ -66,7 +66,7 @@
   text-align: center; outline: none;
   -moz-appearance: textfield;
   appearance: textfield;
-  transition: box-shadow 0.15s;
+  transition: box-shadow var(--dur-fast);
 }
 .reading-plan-goal-input::-webkit-outer-spin-button,
 .reading-plan-goal-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
@@ -77,7 +77,7 @@
   border: none; cursor: pointer;
   font-size: 13px; font-weight: 700; font-family: inherit;
   background: var(--accent); color: #fff;
-  transition: opacity 0.15s;
+  transition: opacity var(--dur-fast);
 }
 .reading-plan-goal-save:hover { opacity: 0.85; }
 
@@ -86,7 +86,7 @@
   background: transparent; border: 1.5px solid var(--border);
   color: var(--text-muted); cursor: pointer;
   font-size: 13px; font-weight: 600; font-family: inherit;
-  transition: border-color 0.15s, color 0.15s;
+  transition: border-color var(--dur-fast), color var(--dur-fast);
 }
 .reading-plan-goal-cancel:hover { border-color: var(--text-muted); color: var(--text-primary); }
 
@@ -94,7 +94,7 @@
   background: none; border: 1px solid var(--border);
   border-radius: var(--radius-lg); padding: 5px 14px;
   font-size: 12px; color: var(--text-muted); cursor: pointer;
-  font-family: inherit; transition: border-color 0.15s, color 0.15s;
+  font-family: inherit; transition: border-color var(--dur-fast), color var(--dur-fast);
 }
 .reading-plan-goal-edit-btn:hover { border-color: var(--teal); color: var(--teal); }
 

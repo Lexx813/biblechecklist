@@ -351,7 +351,7 @@ a.std-scripture-ref:hover {
   font-size: 0.88rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast);
   font-family: inherit;
 }
 

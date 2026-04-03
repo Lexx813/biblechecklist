@@ -53,7 +53,7 @@
   font-size: 64px;
   line-height: 1;
   margin-bottom: 16px;
-  animation: celebrate-bounce 0.6s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: celebrate-bounce 0.6s var(--dur-base) cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 @keyframes celebrate-bounce {
@@ -95,7 +95,7 @@
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: opacity var(--dur-fast);
 }
 .celebrate-close:hover { opacity: 0.88; }
 

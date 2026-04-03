@@ -337,7 +337,7 @@
   color: var(--text-primary);
   cursor: pointer;
   text-align: left;
-  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+  transition: border-color var(--dur-fast), background var(--dur-fast), transform var(--dur-fast);
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -456,7 +456,7 @@
   border-radius: var(--radius-sm);
   border: none;
   cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition: transform var(--dur-fast), box-shadow var(--dur-fast);
 }
 
 .quiz-btn--primary {
@@ -563,7 +563,7 @@
   .quiz-badge-reveal { animation: badge-pop 0.5s cubic-bezier(.18,.89,.32,1.28) both; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .quiz-badge-reveal { animation: badge-fade 0.3s ease both; }
+  .quiz-badge-reveal { animation: badge-fade var(--dur-slow) var(--ease-out) both; }
 }
 
 .quiz-badge-emoji {
@@ -965,7 +965,7 @@
   inset: 0;
   border-radius: 22px;
   background: var(--border);
-  transition: background 0.2s;
+  transition: background var(--dur-base);
 }
 
 .quiz-timed-toggle input:checked + .quiz-timed-toggle-track {
@@ -980,7 +980,7 @@
   background: white;
   top: 3px;
   left: 3px;
-  transition: left 0.2s;
+  transition: left var(--dur-base);
 }
 
 .quiz-timed-toggle input:checked ~ .quiz-timed-toggle-thumb {

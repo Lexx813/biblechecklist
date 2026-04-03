@@ -77,7 +77,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   display: flex; align-items: center; justify-content: center;
   border-radius: var(--radius-sm);
   flex-shrink: 0;
-  transition: color 0.15s, background 0.12s;
+  transition: color var(--dur-fast), background var(--dur-fast);
 }
 
 .msg-back-page-btn:hover { color: var(--text-primary); }
@@ -93,7 +93,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   display: flex; align-items: center; justify-content: center;
   border-radius: var(--radius-sm);
   flex-shrink: 0;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
 }
 .msg-compose-btn:hover {
   background: rgba(124, 58, 237, 0.28);
@@ -130,7 +130,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   background: var(--teal-soft);
   color: var(--text-primary);
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color var(--dur-fast);
 }
 
 .msg-search:focus { border-color: var(--teal); }
@@ -170,7 +170,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   font-size: 11px;
   color: var(--text-muted);
   flex-shrink: 0;
-  transition: background 0.15s;
+  transition: background var(--dur-fast);
 }
 
 .msg-push-banner-btn--primary {
@@ -198,7 +198,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   border-bottom: 1px solid var(--border);
   cursor: pointer;
   text-align: left;
-  transition: background 0.12s;
+  transition: background var(--dur-fast);
   position: relative;
   user-select: none;
 }
@@ -275,7 +275,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   padding: 4px 6px;
   border-radius: var(--radius-xs);
   flex-shrink: 0;
-  transition: opacity 0.15s, background 0.15s;
+  transition: opacity var(--dur-fast), background var(--dur-fast);
   line-height: 1;
   /* Hidden on desktop until hover */
   opacity: 0;
@@ -412,7 +412,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   min-width: 36px; min-height: 36px;
   align-items: center; justify-content: center;
   border-radius: var(--radius-sm);
-  transition: color 0.15s, background 0.12s;
+  transition: color var(--dur-fast), background var(--dur-fast);
 }
 
 .msg-back-btn:hover { color: var(--text-primary); }
@@ -461,7 +461,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   min-width: 34px; min-height: 34px;
   display: flex; align-items: center; justify-content: center;
   border-radius: var(--radius-sm);
-  transition: color 0.15s, background 0.12s;
+  transition: color var(--dur-fast), background var(--dur-fast);
   flex-shrink: 0;
 }
 
@@ -536,7 +536,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition: transform var(--dur-fast), box-shadow var(--dur-fast);
   z-index: 10;
   flex-shrink: 0;
 }
@@ -630,7 +630,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-.msg-bubble--new { animation: bubble-pop 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.msg-bubble--new { animation: bubble-pop var(--dur-base) cubic-bezier(0.34, 1.56, 0.64, 1); }
 
 .msg-bubble-text {
   font-size: 13.5px;
@@ -753,7 +753,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   padding: 3px 5px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.12);
   z-index: 20;
-  animation: bubble-pop 0.15s ease;
+  animation: bubble-pop var(--dur-fast) var(--ease-out);
   white-space: nowrap;
 }
 
@@ -799,7 +799,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   gap: 2px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   z-index: 30;
-  animation: bubble-pop 0.15s ease;
+  animation: bubble-pop var(--dur-fast) var(--ease-out);
 }
 
 .msg-reaction-picker-btn {
@@ -810,7 +810,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   padding: 4px;
   border-radius: 50%;
   line-height: 1;
-  transition: background 0.1s, transform 0.12s;
+  transition: background 0.1s, transform var(--dur-fast);
 }
 
 .msg-reaction-picker-btn:hover {
@@ -837,7 +837,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   display: flex;
   align-items: center;
   gap: 3px;
-  transition: background 0.12s, border-color 0.12s, transform 0.1s;
+  transition: background var(--dur-fast), border-color var(--dur-fast), transform 0.1s;
   line-height: 1.4;
 }
 
@@ -907,7 +907,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   animation: typing-bounce 1.2s ease-in-out infinite;
 }
 
-.msg-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.msg-typing-dot:nth-child(2) { animation-delay: var(--dur-base); }
 .msg-typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
 /* ── Reply preview (composer) ────────────────────────────────────────────── */
@@ -956,7 +956,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   color: var(--text-muted);
   padding: 2px 4px;
   border-radius: 4px;
-  transition: color 0.12s;
+  transition: color var(--dur-fast);
   flex-shrink: 0;
 }
 
@@ -991,7 +991,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   font-size: 11px;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: opacity var(--dur-fast);
 }
 
 .msg-send-retry-btn:hover { opacity: 0.85; }
@@ -1040,7 +1040,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   background: var(--teal-soft);
   color: var(--text-primary);
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
   resize: none;
   overflow-y: hidden;
   line-height: 1.5;
@@ -1069,7 +1069,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   padding: 6px;
   border-radius: 50%;
   line-height: 1;
-  transition: background 0.15s, transform 0.15s;
+  transition: background var(--dur-fast), transform var(--dur-fast);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1096,7 +1096,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   box-shadow: 0 8px 30px rgba(0,0,0,0.15);
   z-index: 50;
   width: 280px;
-  animation: emoji-pop 0.15s cubic-bezier(0.34,1.56,0.64,1);
+  animation: emoji-pop var(--dur-fast) cubic-bezier(0.34,1.56,0.64,1);
 }
 
 @keyframes emoji-pop {
@@ -1132,7 +1132,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   border-radius: 50%;
   font-size: 16px;
   cursor: pointer;
-  transition: opacity 0.15s, transform 0.15s, box-shadow 0.15s;
+  transition: opacity var(--dur-fast), transform var(--dur-fast), box-shadow var(--dur-fast);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1181,7 +1181,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   display: flex; align-items: center; justify-content: center;
   border-radius: var(--radius-sm);
   color: var(--text-primary);
-  transition: background 0.12s;
+  transition: background var(--dur-fast);
 }
 
 .msg-header-icon-btn:hover { background: var(--teal-soft); }
@@ -1232,7 +1232,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   min-width: 34px; min-height: 34px;
   display: flex; align-items: center; justify-content: center;
   border-radius: var(--radius-xs);
-  transition: background 0.12s;
+  transition: background var(--dur-fast);
   flex-shrink: 0;
 }
 
@@ -1358,7 +1358,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
-  transition: transform 0.12s, border-color 0.12s;
+  transition: transform var(--dur-fast), border-color var(--dur-fast);
 }
 
 .msg-swatch:hover { transform: scale(1.15); }
@@ -1380,7 +1380,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   color: var(--text-secondary);
   cursor: pointer;
   font-family: inherit;
-  transition: background 0.12s, border-color 0.12s, color 0.12s;
+  transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
 }
 
 .msg-disappear-btn:hover { background: var(--teal-soft); }
@@ -1397,7 +1397,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   font-weight: 700;
   cursor: pointer;
   font-family: inherit;
-  transition: opacity 0.15s;
+  transition: opacity var(--dur-fast);
 }
 
 .msg-settings-save:hover:not(:disabled) { opacity: 0.9; }
@@ -1427,7 +1427,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   line-height: 1;
   color: var(--text-secondary);
   opacity: 0.8;
-  transition: background 0.12s, opacity 0.12s;
+  transition: background var(--dur-fast), opacity var(--dur-fast);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1641,7 +1641,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
 .msg-warn-confirm {
   background: var(--conv-accent, var(--teal));
   color: #fff;
-  transition: opacity 0.15s;
+  transition: opacity var(--dur-fast);
 }
 
 .msg-warn-confirm:hover { opacity: 0.9; }
@@ -1713,7 +1713,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   font-weight: 700;
   cursor: pointer;
   font-family: inherit;
-  transition: opacity 0.15s;
+  transition: opacity var(--dur-fast);
 }
 
 .msg-picker-send:hover { opacity: 0.9; }
@@ -1733,7 +1733,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   cursor: pointer;
   font-family: inherit;
   text-align: left;
-  transition: background 0.12s;
+  transition: background var(--dur-fast);
 }
 
 .msg-plan-pick-item:hover { background: var(--teal-light); }

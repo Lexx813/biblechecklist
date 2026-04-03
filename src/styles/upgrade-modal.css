@@ -103,7 +103,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.12s, color 0.12s;
+  transition: background var(--dur-fast), color var(--dur-fast);
   line-height: 1;
 }
 .upm-close:hover { background: rgba(255,255,255,0.22); color: #fff; }
@@ -243,7 +243,7 @@
   font-weight: 800;
   cursor: pointer;
   box-shadow: 0 0 0 1px rgba(245,158,11,0.3), 0 4px 16px rgba(245,158,11,0.2), 0 4px 18px rgba(124,58,237,0.4);
-  transition: background 0.15s, transform 0.12s, box-shadow 0.15s;
+  transition: background var(--dur-fast), transform var(--dur-fast), box-shadow var(--dur-fast);
   letter-spacing: -0.01em;
 }
 .upm-cta:hover:not(:disabled) { background: linear-gradient(135deg, #6d28d9, #4c1d95); box-shadow: 0 0 0 1px rgba(245,158,11,0.4), 0 6px 24px rgba(124,58,237,0.5); transform: translateY(-1px); }
@@ -275,7 +275,7 @@
   padding: 10px 16px;
   min-height: 44px;
   border-radius: var(--radius-sm);
-  transition: color 0.12s, background 0.12s;
+  transition: color var(--dur-fast), background var(--dur-fast);
 }
 .upm-cancel:hover { color: var(--text-primary); background: var(--teal-soft); }
 .upm-cancel:active { background: var(--teal-light); }

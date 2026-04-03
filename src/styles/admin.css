@@ -78,7 +78,7 @@ html.nav-hidden .admin-header { top: 0; }
   text-align: center;
   position: relative;
   overflow: hidden;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
 }
 
 .admin-stat-card::before {
@@ -147,7 +147,7 @@ html.nav-hidden .admin-header { top: 0; }
   border-radius: var(--radius-sm);
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
-  transition: opacity 0.15s, transform 0.1s;
+  transition: opacity var(--dur-fast), transform 0.1s;
 }
 .admin-add-btn:hover { opacity: 0.88; transform: translateY(-1px); }
 .admin-add-btn:active { transform: translateY(0); }
@@ -175,7 +175,7 @@ html.nav-hidden .admin-header { top: 0; }
   color: var(--text-primary);
   background: var(--card-bg);
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
 }
 .admin-input:focus {
   border-color: #7c3aed;
@@ -193,7 +193,7 @@ html.nav-hidden .admin-header { top: 0; }
   font-weight: 800;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
-  transition: opacity 0.15s, transform 0.1s;
+  transition: opacity var(--dur-fast), transform 0.1s;
   white-space: nowrap;
 }
 .admin-submit-btn:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
@@ -280,7 +280,7 @@ html.nav-hidden .admin-header { top: 0; }
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
 }
 .admin-filter-pill:hover {
   border-color: var(--accent);
@@ -310,7 +310,7 @@ html.nav-hidden .admin-header { top: 0; }
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
+  transition: border-color var(--dur-fast), color var(--dur-fast);
 }
 .admin-page-btn:hover:not(:disabled) { border-color: #7c3aed; color: #a78bfa; }
 .admin-page-btn:disabled { opacity: 0.4; cursor: default; }
@@ -357,7 +357,7 @@ html.nav-hidden .admin-header { top: 0; }
   border-radius: var(--radius-xs);
   padding: 4px 6px;
   margin: -4px -6px;
-  transition: background 0.15s;
+  transition: background var(--dur-fast);
   cursor: pointer;
 }
 .admin-user-cell:hover { background: rgba(124, 58, 237, 0.08); }
@@ -502,7 +502,7 @@ html.nav-hidden .admin-header { top: 0; }
   background: var(--card-bg);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: border-color 0.12s, color 0.12s, background 0.12s, transform 0.12s;
+  transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast), transform var(--dur-fast);
   white-space: nowrap;
 }
 .admin-action-btn:hover:not(:disabled) { border-color: #7c3aed; color: #a78bfa; background: rgba(124, 58, 237, 0.07); transform: translateY(-1px); }
@@ -539,7 +539,7 @@ html.nav-hidden .admin-header { top: 0; }
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.12s, color 0.12s, background 0.12s;
+  transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
   font-family: sans-serif;
   letter-spacing: 1px;
 }
@@ -560,7 +560,7 @@ html.nav-hidden .admin-header { top: 0; }
   display: flex;
   flex-direction: column;
   gap: 1px;
-  animation: adminDropdownIn 0.12s ease;
+  animation: adminDropdownIn var(--dur-fast) var(--ease-out);
 }
 
 @keyframes adminDropdownIn {
@@ -617,7 +617,7 @@ html.nav-hidden .admin-header { top: 0; }
   background: none; border: 1.5px solid var(--border); color: var(--text-muted);
   font-family: inherit; font-size: 13px; font-weight: 700;
   padding: 8px 16px; border-radius: var(--radius-sm); cursor: pointer;
-  transition: border-color 0.15s, color 0.15s, background 0.15s, box-shadow 0.15s; display: flex; align-items: center; gap: 6px;
+  transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast); display: flex; align-items: center; gap: 6px;
 }
 .admin-tab:hover { border-color: #7c3aed; color: #a78bfa; background: rgba(124, 58, 237, 0.06); }
 .admin-tab--active { background: linear-gradient(135deg, #7c3aed, #5b21b6); border-color: transparent; color: #fff; box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3); }
@@ -632,7 +632,7 @@ html.nav-hidden .admin-header { top: 0; }
 .admin-report-card {
   background: rgba(124, 58, 237, 0.04); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 14px 16px;
-  transition: border-color 0.15s;
+  transition: border-color var(--dur-fast);
 }
 .admin-report-card:hover { border-color: rgba(124, 58, 237, 0.3); }
 .admin-report-card--reviewed { opacity: 0.6; }
@@ -663,7 +663,7 @@ html.nav-hidden .admin-header { top: 0; }
 .admin-question-card {
   background: rgba(124, 58, 237, 0.04); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 14px 16px;
-  transition: border-color 0.15s;
+  transition: border-color var(--dur-fast);
 }
 .admin-question-card:hover { border-color: rgba(124, 58, 237, 0.3); }
 .admin-question-text { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
@@ -682,7 +682,7 @@ html.nav-hidden .admin-header { top: 0; }
   width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
   background: rgba(124, 58, 237, 0.04); color: var(--text-primary);
   font-family: inherit; font-size: 14px; padding: 10px 12px;
-  resize: vertical; outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+  resize: vertical; outline: none; transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
 }
 .admin-textarea:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1); }
 .admin-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -702,7 +702,7 @@ html.nav-hidden .admin-header { top: 0; }
 .admin-type-btn {
   flex: 1; padding: 8px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
   background: none; color: var(--text-muted); font-family: inherit;
-  font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s;
+  font-size: 13px; font-weight: 700; cursor: pointer; transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
 }
 .admin-type-btn--active.info { background: rgba(14,165,233,0.15); border-color: #0EA5E9; color: #0EA5E9; }
 .admin-type-btn--active.warning { background: rgba(234,179,8,0.15); border-color: #EAB308; color: #ca8a04; }
@@ -712,7 +712,7 @@ html.nav-hidden .admin-header { top: 0; }
   background: rgba(124, 58, 237, 0.04); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 14px 16px;
   display: flex; align-items: flex-start; gap: 12px;
-  transition: border-color 0.15s;
+  transition: border-color var(--dur-fast);
 }
 .admin-announcement-item:hover { border-color: rgba(124, 58, 237, 0.3); }
 .admin-announcement-msg { flex: 1; font-size: 14px; color: var(--text-primary); line-height: 1.45; }
@@ -722,7 +722,7 @@ html.nav-hidden .admin-header { top: 0; }
   background: none; border: 1.5px solid var(--border); color: var(--text-muted);
   font-family: inherit; font-size: 11px; font-weight: 700;
   padding: 4px 10px; border-radius: var(--radius-xs); cursor: pointer; white-space: nowrap;
-  transition: border-color 0.12s, color 0.12s;
+  transition: border-color var(--dur-fast), color var(--dur-fast);
 }
 .admin-toggle-btn:hover { border-color: #7c3aed; color: #a78bfa; }
 .admin-toggle-btn--active { border-color: #22C55E; color: #16a34a; }

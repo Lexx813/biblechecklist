@@ -82,7 +82,7 @@
   cursor: pointer;
   border-bottom: 2px solid transparent;
   margin-bottom: -2px;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color var(--dur-fast), border-color var(--dur-fast);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -170,7 +170,7 @@
   border: 1px solid var(--border);
   border-radius: 14px;
   cursor: pointer;
-  transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+  transition: box-shadow var(--dur-base), border-color var(--dur-base), transform var(--dur-fast);
   box-shadow: 0 1px 4px rgba(74,45,133,0.07), 0 1px 2px rgba(74,45,133,0.04);
 }
 
@@ -279,7 +279,7 @@
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.15s, transform 0.1s;
+  transition: opacity var(--dur-fast), transform 0.1s;
   font-family: inherit;
 }
 
@@ -355,7 +355,7 @@
   color: rgba(255,255,255,0.75);
   padding: 6px;
   border-radius: 7px;
-  transition: background 0.12s, color 0.12s;
+  transition: background var(--dur-fast), color var(--dur-fast);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -407,7 +407,7 @@
   background: rgba(124,58,237,0.04);
   color: var(--text-primary);
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast), background var(--dur-fast);
   width: 100%;
   box-sizing: border-box;
 }
@@ -444,7 +444,7 @@
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.12s, border-color 0.12s, color 0.12s;
+  transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
   font-family: inherit;
 }
 
@@ -504,7 +504,7 @@
   color: var(--text-muted);
   padding: 4px;
   line-height: 1;
-  transition: color 0.12s;
+  transition: color var(--dur-fast);
   flex-shrink: 0;
   margin-top: 2px;
   display: flex;
@@ -581,7 +581,7 @@
 .grp-invite-code {
   cursor: pointer;
   color: #a78bfa;
-  transition: opacity 0.15s;
+  transition: opacity var(--dur-fast);
   background: none;
   border: none;
   font-size: inherit;
@@ -827,7 +827,7 @@
   padding: 2px 7px;
   font-size: 13px;
   cursor: pointer;
-  transition: background 0.12s, border-color 0.12s;
+  transition: background var(--dur-fast), border-color var(--dur-fast);
 }
 .grp-reaction-pill:hover { background: rgba(124, 58, 237, 0.14); border-color: rgba(124, 58, 237, 0.3); }
 .grp-reaction-pill--mine { background: rgba(124, 58, 237, 0.14); border-color: #7c3aed; }
@@ -855,7 +855,7 @@
   padding: 5px;
   border-radius: var(--radius-xs);
   color: var(--text-muted);
-  transition: background 0.12s, color 0.12s;
+  transition: background var(--dur-fast), color var(--dur-fast);
   line-height: 1;
   display: flex;
   align-items: center;
@@ -919,7 +919,7 @@
   padding: 3px 5px;
   border-radius: var(--radius-xs);
   opacity: 0.5;
-  transition: opacity 0.12s, background 0.12s;
+  transition: opacity var(--dur-fast), background var(--dur-fast);
 }
 .grp-emoji-tab:hover { opacity: 0.8; }
 .grp-emoji-tab--active { opacity: 1; background: rgba(124, 58, 237, 0.1); }
@@ -1003,7 +1003,7 @@
   padding: 6px;
   border-radius: var(--radius-xs);
   line-height: 1;
-  transition: background 0.12s, color 0.12s;
+  transition: background var(--dur-fast), color var(--dur-fast);
   flex-shrink: 0;
   align-self: flex-end;
   margin-bottom: 2px;
@@ -1027,7 +1027,7 @@
   background: rgba(124, 58, 237, 0.05);
   color: var(--text-primary);
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
   resize: none;
   overflow-y: hidden;
   line-height: 1.4;
@@ -1056,7 +1056,7 @@
   justify-content: center;
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
-  transition: opacity 0.15s, transform 0.15s;
+  transition: opacity var(--dur-fast), transform var(--dur-fast);
 }
 
 .grp-chat-send:disabled { opacity: 0.4; cursor: not-allowed; box-shadow: none; }
@@ -1081,7 +1081,7 @@
   border-radius: var(--radius);
   background: var(--bg);
   border: 1px solid var(--border);
-  transition: border-color 0.15s;
+  transition: border-color var(--dur-fast);
 }
 
 .grp-lb-row--me {
@@ -1257,7 +1257,7 @@
   font-size: 14px;
   color: var(--text-primary);
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color var(--dur-fast);
   box-sizing: border-box;
 }
 .grp-search-input:focus { border-color: #7c3aed; }

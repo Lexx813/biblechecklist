@@ -21,7 +21,7 @@
   font-size: 12px;
   font-family: inherit;
   padding: 0;
-  transition: color 0.15s, text-decoration-color 0.15s;
+  transition: color var(--dur-fast), text-decoration-color var(--dur-fast);
 }
 .page-footer-link:hover {
   color: var(--text-secondary, rgba(255,255,255,0.6));

@@ -266,7 +266,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  animation: fq-fade-in 0.15s var(--ease-out);
+  animation: fq-fade-in var(--dur-fast) var(--ease-out);
 }
 @media (min-width: 520px) {
   .fq-create-overlay { align-items: center; }
@@ -740,12 +740,12 @@
 .fq-option--correct {
   border-color: #10b981;
   background: rgba(16,185,129,.08);
-  animation: fq-correct-pop 0.3s var(--ease-out);
+  animation: fq-correct-pop var(--dur-slow) var(--ease-out);
 }
 .fq-option--wrong {
   border-color: #ef4444;
   background: rgba(239,68,68,.07);
-  animation: fq-wrong-shake 0.3s var(--ease-out);
+  animation: fq-wrong-shake var(--dur-slow) var(--ease-out);
 }
 .fq-option:disabled { cursor: default; transform: none !important; }
 
@@ -801,7 +801,7 @@
   padding: 1rem 1.25rem max(1rem, env(safe-area-inset-bottom));
   border-top: 1px solid var(--border);
   z-index: 20;
-  animation: fq-slide-up 0.2s var(--ease-out);
+  animation: fq-slide-up var(--dur-base) var(--ease-out);
 }
 .fq-feedback--is-correct {
   background: rgba(16,185,129,.08);

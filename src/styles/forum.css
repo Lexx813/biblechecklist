@@ -76,7 +76,7 @@
   background: var(--card-bg); border: 1px solid var(--border);
   border-radius: var(--radius-sm); padding: 10px 14px;
   cursor: pointer; text-align: left; width: 100%;
-  font-family: inherit; transition: border-color 0.15s, background 0.15s;
+  font-family: inherit; transition: border-color var(--dur-fast), background var(--dur-fast);
 }
 .forum-trending-row:hover { border-color: var(--accent); background: var(--teal-soft); }
 .forum-trending-title {
@@ -131,7 +131,7 @@
 
 .forum-cat-stats { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .forum-cat-stat { font-size: 12px; font-weight: 700; color: var(--text-secondary); }
-.forum-cat-arrow { font-size: 20px; color: var(--text-muted); transition: transform 0.15s; }
+.forum-cat-arrow { font-size: 20px; color: var(--text-muted); transition: transform var(--dur-fast); }
 .forum-cat-card:hover .forum-cat-arrow { transform: translateX(3px); color: var(--teal); }
 
 /* ── Thread list ─────────────────────────────────────────────── */
@@ -162,7 +162,7 @@
   font-size: 13px; font-weight: 700;
   padding: 7px 16px; border-radius: var(--radius-sm);
   min-height: 44px;
-  cursor: pointer; transition: background 0.15s, transform 0.1s, border-color 0.15s; flex-shrink: 0;
+  cursor: pointer; transition: background var(--dur-fast), transform 0.1s, border-color var(--dur-fast); flex-shrink: 0;
 }
 .forum-new-btn:hover { background: rgba(255,255,255,0.25); transform: translateY(-1px); border-color: rgba(255,255,255,0.5); }
 .forum-new-btn:active { transform: translateY(0); }
@@ -189,7 +189,7 @@
   border-radius: var(--radius-xs);
   display: inline-flex;
   align-items: center;
-  transition: color 0.12s, background 0.12s;
+  transition: color var(--dur-fast), background var(--dur-fast);
 }
 .forum-breadcrumb-item:hover { color: #a78bfa; background: rgba(138, 75, 255, 0.08); }
 .forum-breadcrumb-sep { color: var(--text-muted); font-size: 14px; }
@@ -217,7 +217,7 @@
   color: var(--text-primary);
   font-size: 14px;
   outline: none;
-  transition: border-color 0.12s;
+  transition: border-color var(--dur-fast);
   box-sizing: border-box;
 }
 .forum-search-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
@@ -240,7 +240,7 @@
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.12s, color 0.12s, border-color 0.12s;
+  transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast);
   white-space: nowrap;
 }
 .forum-sort-tab:hover { border-color: #7c3aed; color: #a78bfa; }
@@ -288,7 +288,7 @@
   background: var(--card-bg);
   font-size: 14px;
   cursor: pointer;
-  transition: background 0.12s, border-color 0.12s, transform 0.1s;
+  transition: background var(--dur-fast), border-color var(--dur-fast), transform 0.1s;
 }
 .forum-reaction-btn:hover { border-color: #7c3aed; transform: scale(1.08); }
 .forum-reaction-btn--active {
@@ -306,7 +306,7 @@
   color: var(--text-muted);
   font-size: 12px;
   cursor: pointer;
-  transition: color 0.12s, border-color 0.12s;
+  transition: color var(--dur-fast), border-color var(--dur-fast);
 }
 .forum-quote-btn:hover { color: #a78bfa; border-color: #7c3aed; }
 
@@ -338,7 +338,7 @@
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.12s, color 0.12s, border-color 0.12s;
+  transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast);
 }
 .forum-lang-pill:hover {
   border-color: #7c3aed;
@@ -498,7 +498,7 @@
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.25);
   color: rgba(255,255,255,0.85);
-  cursor: pointer; transition: background 0.15s, transform 0.1s;
+  cursor: pointer; transition: background var(--dur-fast), transform 0.1s;
 }
 .forum-tool-btn:hover { background: rgba(255,255,255,0.22); transform: translateY(-1px); }
 .forum-tool-btn:active { transform: translateY(0); }
@@ -607,7 +607,7 @@
   font-size: 11px; font-weight: 700;
   color: var(--text-muted);
   cursor: pointer; padding: 0;
-  transition: color 0.15s;
+  transition: color var(--dur-fast);
 }
 .forum-delete-btn:hover { color: #c62828; }
 
@@ -617,7 +617,7 @@
   font-size: 11px; font-weight: 700;
   color: var(--text-muted);
   cursor: pointer; padding: 0;
-  transition: color 0.15s;
+  transition: color var(--dur-fast);
 }
 .forum-edit-btn:hover { color: var(--teal); }
 
@@ -728,7 +728,7 @@
 }
 .forum-avatar--clickable {
   cursor: pointer;
-  transition: opacity 0.15s, transform 0.15s;
+  transition: opacity var(--dur-fast), transform var(--dur-fast);
 }
 .forum-avatar--clickable:hover {
   opacity: 0.8;
@@ -766,7 +766,7 @@
   border-radius: var(--radius-lg); padding: 3px 10px;
   font-size: 12px; color: var(--text-muted);
   cursor: pointer; font-family: inherit; font-weight: 600;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  transition: border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
 }
 .forum-solution-btn:hover { border-color: #10B981; color: #10B981; }
 .forum-solution-btn--active { background: #D1FAE5; border-color: #10B981; color: #065F46; }
@@ -824,7 +824,7 @@
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(124,58,237,0.3);
-  transition: box-shadow 0.2s, transform 0.15s;
+  transition: box-shadow var(--dur-base), transform var(--dur-fast);
 }
 .forum-empty-cta:hover {
   box-shadow: 0 4px 14px rgba(124,58,237,0.4);
@@ -882,7 +882,7 @@
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.15s, background 0.15s, color 0.15s, transform 0.1s;
+  transition: border-color var(--dur-fast), background var(--dur-fast), color var(--dur-fast), transform 0.1s;
 }
 
 .forum-like-btn:hover {
@@ -985,7 +985,7 @@
   padding: 10px; background: none;
   border: 1.5px dashed var(--border); border-radius: var(--radius-sm);
   color: var(--text-muted); font-size: 13px; font-weight: 600;
-  cursor: pointer; transition: border-color 0.15s, color 0.15s;
+  cursor: pointer; transition: border-color var(--dur-fast), color var(--dur-fast);
 }
 .forum-load-more:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -993,7 +993,7 @@
 .forum-report-btn {
   background: none; border: none; color: var(--text-muted);
   font-size: 12px; cursor: pointer; padding: 3px 6px;
-  border-radius: 4px; opacity: 0.5; transition: opacity 0.15s, color 0.15s;
+  border-radius: 4px; opacity: 0.5; transition: opacity var(--dur-fast), color var(--dur-fast);
   margin-left: auto;
 }
 .forum-report-btn:hover { opacity: 1; color: #c62828; }

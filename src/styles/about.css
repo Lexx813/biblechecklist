@@ -362,7 +362,7 @@
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 3px;
-  transition: opacity 0.15s, background 0.15s;
+  transition: opacity var(--dur-fast), background var(--dur-fast);
 }
 .about-footer-link:hover { opacity: 0.8; background: var(--teal-soft); }
 

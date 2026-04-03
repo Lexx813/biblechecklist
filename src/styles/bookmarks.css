@@ -31,7 +31,7 @@
 .bm-item {
   display: flex; align-items: center; gap: 12px; padding: 14px 18px;
   background: var(--card-bg); border: 1px solid var(--border);
-  border-radius: var(--radius); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  border-radius: var(--radius); cursor: pointer; transition: border-color var(--dur-fast), box-shadow var(--dur-fast), transform var(--dur-fast);
 }
 .bm-item:hover {
   border-color: var(--teal); box-shadow: var(--shadow);
@@ -56,7 +56,7 @@
 .bookmark-btn {
   background: none; border: none; cursor: pointer;
   font-size: 16px; padding: 4px 6px; border-radius: var(--radius-xs);
-  transition: transform 0.15s, background 0.15s;
+  transition: transform var(--dur-fast), background var(--dur-fast);
   color: var(--text-muted); flex-shrink: 0; line-height: 1;
 }
 .bookmark-btn:hover { background: rgba(139,92,246,0.12); transform: scale(1.15); }

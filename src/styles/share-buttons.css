@@ -15,7 +15,7 @@
   background: var(--surface-secondary, rgba(0, 0, 0, 0.03));
   color: var(--text-secondary, #666);
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, transform 0.15s;
+  transition: background var(--dur-fast), color var(--dur-fast), transform var(--dur-fast);
 }
 
 .share-btn:hover {

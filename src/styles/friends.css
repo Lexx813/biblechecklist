@@ -33,7 +33,7 @@
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: opacity var(--dur-fast);
   white-space: nowrap;
 }
 .friends-invite-btn:hover { opacity: 0.88; }
@@ -54,7 +54,7 @@
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  transition: border-color 0.15s;
+  transition: border-color var(--dur-fast);
 }
 .friend-card:hover { border-color: rgba(124,58,237,0.35); }
 
@@ -117,7 +117,7 @@
   background: var(--bg);
   color: var(--text);
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
+  transition: background var(--dur-fast), border-color var(--dur-fast);
 }
 .friend-action-btn:hover {
   background: rgba(124,58,237,0.08);
@@ -177,7 +177,7 @@
   border-radius: 7px;
   cursor: pointer;
   margin-bottom: 16px;
-  transition: background 0.15s;
+  transition: background var(--dur-fast);
 }
 .freq-back-btn:hover { background: rgba(255,255,255,0.18); }
 .freq-hero-title {
@@ -240,7 +240,7 @@
   border: 1px solid var(--border);
   border-radius: 14px;
   margin-bottom: 10px;
-  transition: border-color 0.15s, background 0.15s;
+  transition: border-color var(--dur-fast), background var(--dur-fast);
 }
 .freq-card:last-child { margin-bottom: 0; }
 .freq-card:hover {
@@ -262,7 +262,7 @@
   flex-shrink: 0;
   box-shadow: 0 0 0 3px rgba(124,58,237,0.18);
   cursor: pointer;
-  transition: box-shadow 0.15s;
+  transition: box-shadow var(--dur-fast);
 }
 .freq-avatar:hover { box-shadow: 0 0 0 3px rgba(124,58,237,0.4); }
 
@@ -303,7 +303,7 @@
   font-family: inherit;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(124,58,237,0.35);
-  transition: opacity 0.15s, transform 0.1s;
+  transition: opacity var(--dur-fast), transform 0.1s;
 }
 .freq-accept-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
 .freq-accept-btn:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -318,7 +318,7 @@
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast);
 }
 .freq-decline-btn:hover:not(:disabled) {
   background: rgba(239,68,68,0.08);
@@ -337,7 +337,7 @@
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background var(--dur-fast);
 }
 .freq-cancel-btn:hover:not(:disabled) { background: rgba(255,255,255,0.06); }
 .freq-cancel-btn:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -391,7 +391,7 @@
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text);
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
 }
 .pf-friend-btn--add {
   background: #7c3aed;
@@ -465,7 +465,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s;
+  transition: background var(--dur-fast);
 }
 .new-conv-close:hover { background: var(--border); }
 
@@ -499,7 +499,7 @@
   gap: 12px;
   padding: 10px 20px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background var(--dur-fast);
 }
 .new-conv-row:hover { background: rgba(124,58,237,0.06); }
 
@@ -590,7 +590,7 @@
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: opacity var(--dur-fast);
   margin-bottom: 12px;
 }
 .invite-card-cta:hover { opacity: 0.88; }
@@ -616,7 +616,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s, color 0.15s;
+  transition: background var(--dur-fast), color var(--dur-fast);
   margin-left: auto;
 }
 .msg-compose-btn:hover {

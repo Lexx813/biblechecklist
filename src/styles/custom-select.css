@@ -19,7 +19,7 @@
   background: rgba(124, 58, 237, 0.05);
   color: var(--text-primary);
   cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
@@ -46,7 +46,7 @@
   font-size: 10px;
   color: var(--text-muted);
   flex-shrink: 0;
-  transition: transform 0.15s;
+  transition: transform var(--dur-fast);
   line-height: 1;
 }
 
@@ -83,7 +83,7 @@
   color: var(--text-primary);
   outline: none;
   box-sizing: border-box;
-  transition: border-color 0.15s;
+  transition: border-color var(--dur-fast);
 }
 
 .cs-search:focus { border-color: #7c3aed; }
