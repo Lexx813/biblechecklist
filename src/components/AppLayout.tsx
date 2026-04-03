@@ -105,7 +105,7 @@ export default function AppLayout({ navigate, user, currentPage, children }: Pro
 
       </aside>
 
-      <div className="al-content">
+      <div key={currentPage} className="al-content">
         {children}
       </div>
     </div>
