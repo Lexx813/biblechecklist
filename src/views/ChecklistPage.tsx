@@ -6,7 +6,6 @@ import { BOOKS, OT_COUNT } from "../data/books";
 const AICompanion = lazy(() => import("../components/AICompanion"));
 import BookCard from "../components/BookCard";
 import CustomSelect from "../components/CustomSelect";
-import PageNav from "../components/PageNav";
 import ConfirmModal from "../components/ConfirmModal";
 import ReadingPlanWidget from "../components/reading/ReadingPlanWidget";
 import ProgressShare from "../components/share/ProgressShare";
@@ -148,7 +147,6 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
 
   return (
     <>
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="main"  onUpgrade={onUpgrade}/>
       <div className="app-wrap" id="main-content">
         <header className="app-header">
           <div className="header-top">

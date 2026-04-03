@@ -12,7 +12,6 @@ import { useUnreadMessageCount } from "../hooks/useMessages";
 import { useFriends, useFriendRequests } from "../hooks/useFriends";
 import DailyVerse from "../components/home/DailyVerse";
 import TodaysFocusCard from "../components/home/TodaysFocusCard";
-import PageNav from "../components/PageNav";
 import EmptyState from "../components/EmptyState";
 import OnboardingModal, { useOnboarding } from "../components/OnboardingModal";
 import UpgradePrompt, { isDismissed, dismissPrompt } from "../components/UpgradePrompt";
@@ -197,16 +196,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
   return (
     <div className="home-wrap">
-      <PageNav
-        navigate={navigate}
-        darkMode={darkMode}
-        setDarkMode={setDarkMode}
-        i18n={i18n}
-        user={user}
-        onLogout={onLogout}
-        currentPage="home"
-        onUpgrade={onUpgrade}
-      />
 
       <main id="main-content" className="home-layout">
 

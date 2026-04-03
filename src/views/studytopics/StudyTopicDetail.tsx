@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { useTranslation } from "react-i18next";
-import PageNav from "../../components/PageNav";
 import { getTopicBySlug, STUDY_TOPICS } from "../../data/studyTopics";
 import { wolRefUrl } from "../../utils/wol";
 import "../../styles/study-topics.css";
@@ -29,7 +28,6 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
   if (!topic) {
     return (
       <div className="std-page">
-        <PageNav user={user} navigate={navigate} {...sharedNav} />
         <div className="std-header">
           <button className="stp-nav-back" onClick={() => navigate("studyTopics")}>
             {t("common.back")}
@@ -46,7 +44,6 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
 
   return (
     <div className="std-page">
-      <PageNav user={user} navigate={navigate} {...sharedNav} />
       <div className="std-header">
         <button className="stp-nav-back" onClick={() => navigate("studyTopics")}>
           ← {t("studyTopics.allTopics", "All Topics")}

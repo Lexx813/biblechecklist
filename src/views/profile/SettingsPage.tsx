@@ -2,7 +2,6 @@
 import { useState, useRef } from "react";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useTranslation } from "react-i18next";
-import PageNav from "../../components/PageNav";
 import ConfirmModal from "../../components/ConfirmModal";
 import { useMeta } from "../../hooks/useMeta";
 import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
@@ -105,7 +104,6 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
 
   return (
     <div className="st-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
 
       <header className="st-header">
         <div className="st-header-inner">

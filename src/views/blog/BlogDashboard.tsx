@@ -4,7 +4,6 @@ import EmojiPickerPopup, { insertEmojiAtCursor } from "../../components/EmojiPic
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
 const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
-import PageNav from "../../components/PageNav";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useMyPosts, useCreatePost, useUpdatePost, useDeletePost } from "../../hooks/useBlog";
 import { blogApi } from "../../api/blog";
@@ -263,7 +262,6 @@ export default function BlogDashboard({ user, onBack, navigate, darkMode, setDar
 
   return (
     <div className="blog-dash-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <header className="blog-dash-header">
         <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
         <h1>{t("blogDash.myPostsTitle")}</h1>

@@ -2,7 +2,6 @@
 import { useState, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOKS } from "../../data/books";
-import PageNav from "../../components/PageNav";
 import { useSearch, useSemanticSearch } from "../../hooks/useSearch";
 import "../../styles/search.css";
 
@@ -59,7 +58,6 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
 
   return (
     <div className="search-page">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
 
       <div className="search-hero">
         <button className="back-btn" onClick={onBack}>{t("common.back")}</button>

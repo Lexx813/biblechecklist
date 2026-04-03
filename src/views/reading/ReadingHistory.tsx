@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import PageNav from "../../components/PageNav";
 
 import { useReadingHistory } from "../../hooks/useReading";
 import "../../styles/reading-history.css";
@@ -66,7 +65,6 @@ export default function ReadingHistory({ user, onBack, navigate, darkMode, setDa
 
   return (
     <div className="history-page">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
 
       <div className="history-inner">
         <div className="history-header">

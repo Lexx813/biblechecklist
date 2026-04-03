@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import PageNav from "../../components/PageNav";
 import { STUDY_TOPICS } from "../../data/studyTopics";
 import { BOOKS } from "../../data/books";
 import { BOOK_INFO } from "../../data/bookInfo";
@@ -32,7 +31,6 @@ export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
 
   return (
     <div className="stp-page">
-      <PageNav user={user} navigate={navigate} {...sharedNav} />
       <div className="stp-header">
         <button className="stp-nav-back" onClick={() => navigate("home")}>
           {t("common.back")}

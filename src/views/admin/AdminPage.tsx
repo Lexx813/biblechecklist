@@ -4,7 +4,6 @@ import { createPortal } from "react-dom";
 import CustomSelect from "../../components/CustomSelect";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
-import PageNav from "../../components/PageNav";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import {
   useUsers, useDeleteUser, useSetAdmin, useSetModerator, useSetBlog,
@@ -1272,7 +1271,6 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
   if ((isCurrentUserAdmin && usersLoading) || reportsLoading) {
     return (
       <div className="admin-wrap">
-        <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={currentUser} onLogout={onLogout}  onUpgrade={onUpgrade}/>
         <LoadingSpinner />
       </div>
     );
@@ -1290,7 +1288,6 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
 
   return (
     <div className="admin-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={currentUser} onLogout={onLogout}  onUpgrade={onUpgrade}/>
       <header className="admin-header">
         <div className="admin-header-inner">
           <button className="back-btn" onClick={onBack}>{t("common.back")}</button>

@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { useTranslation, Trans } from "react-i18next";
 import DOMPurify from "dompurify";
-import PageNav from "../components/PageNav";
 import { useMeta } from "../hooks/useMeta";
 import "../styles/about.css";
 
@@ -13,7 +12,6 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
   useMeta({ title: "About", description: "Learn about NWT Progress — a Bible reading tracker built for Jehovah's Witnesses and Bible students." });
   return (
     <div className="about-wrap">
-      <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
 
       {/* Hero */}
       <section className="about-hero">
