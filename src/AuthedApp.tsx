@@ -60,6 +60,7 @@ const FamilyQuizPage    = lazy(() => import("./views/familyquiz/FamilyQuizPage")
 const MeetingPrepPage   = lazy(() => import("./views/meetingprep/MeetingPrepPage"));
 const FriendRequestsPage = lazy(() => import("./views/friends/FriendRequestsPage"));
 const InviteLandingPage  = lazy(() => import("./views/friends/InviteLandingPage"));
+const CommunityPage      = lazy(() => import("./views/community/CommunityPage"));
 
 // ── Lazy-page wrapper with error boundary ─────────────────────────────────────
 
@@ -395,6 +396,8 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     pageContent = <Page><AL page="friends"><ProfilePage user={user} onBack={() => navigate("home")} defaultTab="friends" {...sharedNav} /></AL></Page>;
   else if (nav.page === "friendRequests")
     pageContent = <Page><AL page="friends"><FriendRequestsPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "community")
+    pageContent = <Page><AL page="community"><CommunityPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
   // Premium-gated pages for non-premium users → send home (with upgrade prompt)
   else if (!isPremium && ["messages", "groups", "groupDetail", "readingPlans", "studyNotes", "aiTools", "meetingPrep"].includes(nav.page)) {
     if (!profileLoading) {
