@@ -93,7 +93,7 @@
   color: #fff;
   border: none;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -121,7 +121,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-primary);
   padding: 10px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 12px;
   cursor: pointer;
   white-space: nowrap;
@@ -169,7 +169,7 @@
   margin-top: 10px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 10px 14px;
   display: flex;
   align-items: center;

@@ -136,7 +136,7 @@
 .ntp-continue-btn {
   width: 100%;
   padding: 13px;
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: var(--accent);
   color: #fff;
   font-size: 0.95rem;

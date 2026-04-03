@@ -19,7 +19,7 @@
 
 .tf-freeze-btn {
   padding: 4px 10px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text);
@@ -99,7 +99,7 @@
   align-items: center;
   gap: 6px;
   padding: 14px 8px;
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: var(--card-bg);
   border: 1px solid var(--border);
   text-align: center;

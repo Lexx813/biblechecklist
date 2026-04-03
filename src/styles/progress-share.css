@@ -41,7 +41,7 @@
 .share-modal-close {
   background: none; border: none;
   font-size: 16px; color: var(--text-muted);
-  cursor: pointer; padding: 4px 8px; border-radius: 6px;
+  cursor: pointer; padding: 4px 8px; border-radius: var(--radius-xs);
   transition: color 0.12s, background 0.12s;
 }
 .share-modal-close:hover { color: var(--text-primary); background: var(--teal-light); }
@@ -68,7 +68,7 @@
 
 .share-download-btn {
   width: 100%; padding: 12px;
-  background: var(--teal); border: none; border-radius: 10px;
+  background: var(--teal); border: none; border-radius: var(--radius-sm);
   font-family: inherit; font-size: 14px; font-weight: 800;
   color: #fff; cursor: pointer;
   transition: background 0.15s, transform 0.1s;

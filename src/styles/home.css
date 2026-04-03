@@ -47,7 +47,7 @@
   padding: 10px 12px;
   background: none;
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius);
   cursor: pointer;
   font-family: inherit;
   margin-bottom: 6px;
@@ -103,7 +103,7 @@
   padding: 9px 12px;
   background: none;
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius);
   cursor: pointer;
   font-family: inherit;
   font-size: 15px;
@@ -137,7 +137,7 @@
   color: #fff;
   font-size: 11px;
   font-weight: 700;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -159,7 +159,7 @@
 .hcard {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(138, 75, 255, 0.12);
-  border-radius: 12px;
+  border-radius: var(--radius);
   overflow: hidden;
   transition: border-color 0.2s;
 }
@@ -181,7 +181,7 @@
   gap: 14px;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(138, 75, 255, 0.12);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 14px 18px;
   cursor: pointer;
   text-align: left;
@@ -218,7 +218,7 @@
   cursor: pointer;
   font-family: inherit;
   padding: 5px 10px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   transition: background 0.15s;
 }
 .hfeed-link:hover { background: rgba(124, 58, 237, 0.12); }
@@ -232,7 +232,7 @@
 .hblog-card {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(138, 75, 255, 0.12);
-  border-radius: 12px;
+  border-radius: var(--radius);
   overflow: hidden;
   cursor: pointer;
   transition: border-color 0.2s, transform 0.2s;
@@ -259,7 +259,7 @@
   font-size: 11px;
   font-weight: 600;
   padding: 2px 7px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   gap: 3px;
@@ -342,7 +342,7 @@
   font-size: 14px;
   color: rgba(240, 234, 255, 0.4);
   padding: 4px 6px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   font-family: inherit;
   transition: color 0.15s, background 0.15s;
   flex-shrink: 0;
@@ -415,7 +415,7 @@
 .hblog-skeleton-card {
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(138,75,255,0.12);
-  border-radius: 12px;
+  border-radius: var(--radius);
   overflow: hidden;
 }
 .hforum-skeleton { display: flex; flex-direction: column; }
@@ -445,7 +445,7 @@
 .hwidget {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(138, 75, 255, 0.12);
-  border-radius: 12px;
+  border-radius: var(--radius);
   overflow: hidden;
 }
 .hwidget-header {
@@ -468,7 +468,7 @@
   cursor: pointer;
   font-family: inherit;
   padding: 4px 8px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   transition: background 0.15s;
 }
 .hwidget-link:hover { background: rgba(124, 58, 237, 0.12); }
@@ -523,7 +523,7 @@
   text-align: left;
   font-family: inherit;
   width: 100%;
-  border-radius: 12px;
+  border-radius: var(--radius);
   border: 1px solid rgba(124, 58, 237, 0.25);
   transition: border-color 0.2s;
 }
@@ -549,7 +549,7 @@
   font-size: 13px;
   font-weight: 600;
   padding: 7px 16px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: none;
   cursor: pointer;
   transition: background 0.15s;
@@ -585,7 +585,7 @@
   background: #7c3aed;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 7px 14px;
   font-size: 13px;
   font-weight: 600;
@@ -604,7 +604,7 @@
   cursor: pointer;
   font-size: 16px;
   padding: 4px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   flex-shrink: 0;
   transition: color 0.15s;
 }
@@ -651,7 +651,7 @@
   top: -4px; right: -8px;
   min-width: 16px; height: 16px;
   padding: 0 3px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: #e03c3c;
   color: #fff;
   font-size: 10px;

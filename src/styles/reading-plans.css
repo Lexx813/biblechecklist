@@ -19,7 +19,7 @@
   align-self: flex-start;
   background: none;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 5px 12px;
   font-size: 13px;
   color: var(--text-muted);
@@ -136,7 +136,7 @@
   background: linear-gradient(135deg, var(--teal), var(--teal-dark));
   color: #fff;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 10px 22px;
   font-size: 14px;
   font-weight: 700;
@@ -160,7 +160,7 @@
   background: var(--card-bg, #fff);
   border: 1px solid var(--border);
   border-left: 3px solid transparent;
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 18px 20px;
   display: flex;
   align-items: flex-start;
@@ -226,7 +226,7 @@
   background: linear-gradient(135deg, var(--teal), var(--teal-dark));
   color: #fff;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 8px 18px;
   min-height: 44px;
   font-size: 13px;
@@ -256,7 +256,7 @@
 .rp-active-card {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 18px 20px;
   cursor: pointer;
   transition: box-shadow 0.15s, border-color 0.15s;
@@ -361,7 +361,7 @@
   position: relative;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 20px;
   margin-bottom: 20px;
 }
@@ -397,7 +397,7 @@
 .rp-today-card {
   background: linear-gradient(135deg, rgba(0,180,160,0.08), rgba(91,33,182,0.06));
   border: 2px solid var(--teal);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 20px;
   margin-bottom: 24px;
   transition: background 0.3s, border-color 0.3s;
@@ -430,7 +430,7 @@
 .rp-reading-chip {
   background: var(--teal-soft);
   color: var(--teal);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 3px 8px;
   font-size: 12px;
   font-weight: 700;
@@ -452,7 +452,7 @@
   background: linear-gradient(135deg, var(--teal), var(--teal-dark));
   color: #fff;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 10px 22px;
   min-height: 44px;
   font-size: 14px;
@@ -489,7 +489,7 @@
   padding: 10px 0;
   border-bottom: 1px solid var(--border);
 }
-.rp-day-row--today { background: var(--teal-soft); border-radius: 10px; padding: 10px 12px; border-color: transparent; }
+.rp-day-row--today { background: var(--teal-soft); border-radius: var(--radius-sm); padding: 10px 12px; border-color: transparent; }
 .rp-day-row--done { opacity: 0.6; }
 .rp-day-row--future { opacity: 0.5; }
 
@@ -535,7 +535,7 @@
   margin-top: 12px;
   background: none;
   border: 1px dashed var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 10px;
   font-size: 13px;
   color: var(--text-muted);
@@ -552,7 +552,7 @@
   background: none;
   border: 1px solid #ef4444;
   color: #ef4444;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 7px 14px;
   font-size: 13px;
   cursor: pointer;
@@ -576,7 +576,7 @@
   background: linear-gradient(135deg, var(--teal), var(--teal-dark));
   color: #fff;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 9px 18px;
   font-size: 13px;
   font-weight: 700;
@@ -691,7 +691,7 @@
   background: none;
   border: 1px solid var(--gold);
   color: var(--gold);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 6px 14px;
   font-size: 13px;
   font-weight: 600;
@@ -710,7 +710,7 @@
   background: none;
   border: 1px solid var(--border);
   color: var(--text-muted);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 6px 14px;
   font-size: 13px;
   font-weight: 600;
@@ -727,7 +727,7 @@
   gap: 10px;
   background: rgba(245,158,11,0.08);
   border: 1px solid rgba(245,158,11,0.3);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 12px 16px;
   font-size: 13px;
   color: #92400e;
@@ -739,7 +739,7 @@
 .rp-analytics {
   background: var(--card-bg, #fff);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 18px 20px;
   margin-bottom: 20px;
 }
@@ -813,7 +813,7 @@
   gap: 12px;
   background: rgba(239,68,68,0.07);
   border: 1px solid rgba(239,68,68,0.25);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 14px 16px;
   margin-bottom: 16px;
   flex-wrap: wrap;
@@ -831,7 +831,7 @@
   background: #ef4444;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 7px 16px;
   font-size: 13px;
   font-weight: 700;
@@ -854,7 +854,7 @@
   background: none;
   border: 1px solid var(--border);
   color: var(--text-muted);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 9px 16px;
   font-size: 13px;
   font-weight: 600;
@@ -876,7 +876,7 @@
 .rp-ghost-btn {
   background: none;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 9px 20px;
   font-size: 13px;
   font-weight: 600;
@@ -901,7 +901,7 @@
 
 .rp-modal {
   background: var(--card-bg, #fff);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   width: 100%;
   max-width: 600px;
   max-height: 88vh;
@@ -933,7 +933,7 @@
   color: var(--text-muted);
   cursor: pointer;
   padding: 4px 8px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   line-height: 1;
 }
 .rp-modal-close:hover { background: var(--teal-soft); }
@@ -960,7 +960,7 @@
   box-sizing: border-box;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 9px 12px;
   font-size: 14px;
   color: var(--text-primary);
@@ -979,7 +979,7 @@
 .rp-quick-set-btn {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 4px 12px;
   font-size: 12px;
   font-weight: 600;
@@ -991,7 +991,7 @@
 
 .rp-book-picker {
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   overflow: hidden;
 }
 
@@ -1025,7 +1025,7 @@
 .rp-book-chip {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   padding: 4px 6px;
   font-size: 11px;
   font-weight: 600;
@@ -1054,7 +1054,7 @@
 .rp-day-option-btn {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 5px 14px;
   font-size: 12px;
   font-weight: 600;
@@ -1072,7 +1072,7 @@
 .rp-custom-preview {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 12px 14px;
   font-size: 13px;
   color: var(--text-muted);

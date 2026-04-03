@@ -10,7 +10,7 @@
 .st-section {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -45,7 +45,7 @@
 .st-field { display: flex; flex-direction: column; gap: 6px; }
 .st-label { font-size: 13px; font-weight: 700; color: var(--text-secondary); }
 .st-input {
-  padding: 9px 12px; border-radius: 10px;
+  padding: 9px 12px; border-radius: var(--radius-sm);
   border: 1.5px solid var(--border); background: var(--bg);
   font-size: 14px; color: var(--text-primary);
   font-family: inherit;
@@ -83,7 +83,7 @@
 
 /* Buttons */
 .st-btn {
-  padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700;
+  padding: 8px 16px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;
   font-family: inherit; cursor: pointer;
   border: none; white-space: nowrap; min-height: 44px;
   transition: opacity 0.15s, background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s, box-shadow 0.15s;

@@ -117,7 +117,7 @@
 .about-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 24px 20px;
   box-shadow: var(--shadow-sm);
   transition: transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-base) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
@@ -149,7 +149,7 @@
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-left: 4px solid var(--teal);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 28px 28px;
   box-shadow: var(--shadow-sm);
 }
@@ -198,7 +198,7 @@
   padding: 16px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   font-size: 14px;
   line-height: 1.7;
   color: var(--text-secondary);
@@ -229,7 +229,7 @@
   gap: 24px;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   padding: 32px 28px;
   box-shadow: var(--shadow-md);
 }
@@ -285,7 +285,7 @@
 .about-cta {
   text-align: center;
   background: linear-gradient(135deg, var(--teal-darker), var(--teal-dark));
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   padding: 52px 32px;
   position: relative;
   overflow: hidden;
@@ -369,7 +369,7 @@
 /* ── Subscription Transparency ───────────────────────────────────── */
 .about-section--transparency {
   background: var(--card-bg);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 32px;
   border: 1px solid var(--border);
 }
@@ -404,7 +404,7 @@
   gap: 12px;
   background: rgba(20,184,166,0.07);
   border: 1px solid rgba(20,184,166,0.2);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 14px 16px;
   margin-top: 20px;
 }

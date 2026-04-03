@@ -1,7 +1,7 @@
 .daily-verse {
   position: relative;
   background: linear-gradient(135deg, #1E0D3C 0%, #341C5C 60%, #6A3DAA 100%);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 14px 18px 12px;
   overflow: hidden;
   max-width: 680px;
@@ -94,7 +94,7 @@
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.2);
   color: rgba(255,255,255,0.8);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   width: 30px;
   height: 30px;
   display: flex;
@@ -117,7 +117,7 @@
   margin-top: 12px;
   background: rgba(138, 75, 255, 0.12);
   border: 1px solid rgba(138, 75, 255, 0.25);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   color: #c084fc;
   font-size: 12px;
   font-weight: 600;

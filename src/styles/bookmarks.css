@@ -55,7 +55,7 @@
 /* Bookmark toggle button (used in cards and BookmarksPage) */
 .bookmark-btn {
   background: none; border: none; cursor: pointer;
-  font-size: 16px; padding: 4px 6px; border-radius: 6px;
+  font-size: 16px; padding: 4px 6px; border-radius: var(--radius-xs);
   transition: transform 0.15s, background 0.15s;
   color: var(--text-muted); flex-shrink: 0; line-height: 1;
 }

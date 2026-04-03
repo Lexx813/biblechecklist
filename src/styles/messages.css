@@ -75,7 +75,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   padding: 6px;
   min-width: 36px; min-height: 36px;
   display: flex; align-items: center; justify-content: center;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   flex-shrink: 0;
   transition: color 0.15s, background 0.12s;
 }
@@ -91,7 +91,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   padding: 6px;
   min-width: 34px; min-height: 34px;
   display: flex; align-items: center; justify-content: center;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   flex-shrink: 0;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
@@ -124,7 +124,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   width: 100%;
   padding: 7px 12px;
   border: 1.5px solid var(--border);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   font-size: 13px;
   font-family: inherit;
   background: var(--teal-soft);
@@ -166,7 +166,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   border: none;
   cursor: pointer;
   padding: 4px 8px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   font-size: 11px;
   color: var(--text-muted);
   flex-shrink: 0;
@@ -273,7 +273,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   cursor: pointer;
   font-size: 14px;
   padding: 4px 6px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   flex-shrink: 0;
   transition: opacity 0.15s, background 0.15s;
   line-height: 1;
@@ -411,7 +411,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   padding: 6px;
   min-width: 36px; min-height: 36px;
   align-items: center; justify-content: center;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   transition: color 0.15s, background 0.12s;
 }
 
@@ -460,7 +460,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   padding: 7px;
   min-width: 34px; min-height: 34px;
   display: flex; align-items: center; justify-content: center;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   transition: color 0.15s, background 0.12s;
   flex-shrink: 0;
 }
@@ -749,7 +749,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   transform: translateX(100%) translateY(-50%);
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   padding: 3px 5px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.12);
   z-index: 20;
@@ -769,7 +769,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   font-size: 14px;
   cursor: pointer;
   padding: 3px 5px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   line-height: 1;
   transition: background 0.1s, transform 0.1s;
   color: var(--text-muted);
@@ -830,7 +830,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
 .msg-reaction-pill {
   background: var(--teal-soft);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   padding: 2px 7px;
   font-size: 13px;
   cursor: pointer;
@@ -864,7 +864,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   color: var(--text-primary);
   background: rgba(255,255,255,0.15);
   border: 1px solid rgba(255,255,255,0.4);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 2px 6px;
   font-family: inherit;
   resize: none;
@@ -917,7 +917,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   align-items: center;
   gap: 8px;
   background: var(--teal-soft);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 6px 10px;
   margin-bottom: 6px;
 }
@@ -1110,7 +1110,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   font-size: 20px;
   cursor: pointer;
   padding: 5px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   line-height: 1;
   transition: background 0.1s, transform 0.1s;
   text-align: center;
@@ -1179,7 +1179,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   padding: 7px;
   min-width: 34px; min-height: 34px;
   display: flex; align-items: center; justify-content: center;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   color: var(--text-primary);
   transition: background 0.12s;
 }
@@ -1231,7 +1231,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   padding: 6px;
   min-width: 34px; min-height: 34px;
   display: flex; align-items: center; justify-content: center;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   transition: background 0.12s;
   flex-shrink: 0;
 }
@@ -1248,7 +1248,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
 .msg-overlay-search-input {
   flex: 1;
   border: 1.5px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 6px 10px;
   font-size: 13px;
   background: var(--teal-soft);
@@ -1297,7 +1297,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   padding: 6px;
   min-width: 30px; min-height: 30px;
   display: flex; align-items: center; justify-content: center;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   transition: background 0.1s, color 0.1s;
   flex-shrink: 0;
 }
@@ -1372,7 +1372,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
 
 .msg-disappear-btn {
   padding: 5px 10px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: 1.5px solid var(--border);
   background: none;
   font-size: 12px;
@@ -1392,7 +1392,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   background: var(--conv-accent, var(--teal));
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -1481,7 +1481,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
 
 .msg-image-card {
   max-width: 220px;
-  border-radius: 12px;
+  border-radius: var(--radius);
   overflow: hidden;
   cursor: pointer;
   background: rgba(128, 128, 128, 0.15);
@@ -1598,7 +1598,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
 .msg-warn-modal {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   max-width: 340px;
   width: calc(100% - 32px);
   padding: 24px 20px 20px;
@@ -1613,7 +1613,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
 .msg-warn-title { font-size: 16px; font-weight: 800; color: var(--text-primary); margin: 0; }
 .msg-warn-body { font-size: 13px; color: var(--text-secondary); line-height: 1.55; margin: 0; }
 .msg-warn-body strong { color: #e53935; }
-.msg-warn-preview { max-width: 100%; max-height: 120px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); }
+.msg-warn-preview { max-width: 100%; max-height: 120px; border-radius: var(--radius-sm); object-fit: cover; border: 1px solid var(--border); }
 .msg-warn-agree { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.4; }
 
 .msg-warn-actions { display: flex; gap: 8px; margin-top: 4px; width: 100%; }
@@ -1622,7 +1622,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
 .msg-warn-confirm {
   flex: 1;
   padding: 9px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 13px;
   font-weight: 700;
   border: none;
@@ -1649,7 +1649,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
 .msg-picker-modal {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   max-width: 360px;
   width: calc(100% - 32px);
   max-height: 70vh;
@@ -1691,7 +1691,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   width: 100%;
   padding: 8px 10px;
   border: 1.5px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 13px;
   background: var(--teal-soft);
   color: var(--text-primary);
@@ -1708,7 +1708,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   background: var(--conv-accent, var(--teal));
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
@@ -1726,7 +1726,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
   padding: 10px 12px;
   background: var(--teal-soft);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   font-size: 13px;
   font-weight: 600;
   color: var(--text-primary);

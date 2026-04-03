@@ -65,7 +65,7 @@
   padding: 4px 14px;
   background: var(--teal-light);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 12px;
   font-family: monospace;
   color: var(--text-muted);
@@ -84,7 +84,7 @@
 
 .nf-btn {
   padding: 10px 24px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;

@@ -40,7 +40,7 @@
   font-size: 14px;
   font-weight: 800;
   padding: 4px 8px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   margin-right: auto;
   transition: background 0.15s;
 }
@@ -141,7 +141,7 @@
   width: 44px;
   height: 44px;
   padding: 0;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -297,7 +297,7 @@
   height: 44px;
   background: none;
   border: 1px solid rgba(138, 75, 255, 0.2);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   padding: 0;
   flex-shrink: 0;
@@ -560,7 +560,7 @@
   right: 0;
   background: #1a0f35;
   border: 1px solid rgba(138, 75, 255, 0.25);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 4px;
   min-width: 160px;
   z-index: 300;
@@ -618,7 +618,7 @@
   gap: 2px;
   background: rgba(138, 75, 255, 0.08);
   border: 1px solid rgba(138, 75, 255, 0.15);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 6px 10px;
   min-width: 44px;
   min-height: 44px;
@@ -668,7 +668,7 @@
   min-width: 160px;
   background: rgba(18, 8, 38, 0.97);
   border: 1px solid rgba(138, 75, 255, 0.2);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 6px;
   display: flex;
   flex-direction: column;
@@ -697,7 +697,7 @@
   cursor: pointer;
   text-align: left;
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   width: 100%;
   transition: background 0.12s, color 0.12s;
   white-space: nowrap;
@@ -787,7 +787,7 @@
   background: linear-gradient(135deg, #7c3aed, #5b21b6);
   color: #fff;
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius);
   font-family: inherit;
   font-size: 13px;
   font-weight: 800;

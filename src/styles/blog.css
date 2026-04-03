@@ -32,7 +32,7 @@
   font-size: 12px;
   font-weight: 700;
   padding: 8px 16px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(74,45,133,0.2);
   transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
@@ -163,7 +163,7 @@
 .blog-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.2s cubic-bezier(.4,0,.2,1), box-shadow 0.2s;
@@ -328,7 +328,7 @@
 }
 .blog-lang-toggle-btn {
   padding: 6px 16px;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   border: 1.5px solid var(--border);
   background: transparent;
   color: var(--text-secondary);
@@ -380,7 +380,7 @@
   padding: 20px 24px;
   background: var(--teal-soft);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
 }
 .blog-author-card-name {
   font-size: 15px;
@@ -535,7 +535,7 @@
   color: var(--text-primary);
   background: var(--teal-soft);
   border: 1.5px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 10px 14px;
   outline: none;
   resize: vertical;
@@ -560,7 +560,7 @@
   font-size: 13px;
   font-weight: 700;
   padding: 9px 22px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(74,45,133,0.2);
   transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
@@ -602,7 +602,7 @@
   flex: 1;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 16px;
   text-align: center;
   box-shadow: var(--shadow);
@@ -628,7 +628,7 @@
   padding: 14px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
   transition: box-shadow 0.15s;
 }
@@ -667,7 +667,7 @@
   font-size: 12px;
   font-weight: 700;
   padding: 6px 14px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: 1.5px solid var(--border);
   background: var(--card-bg);
   color: var(--text-secondary);
@@ -726,7 +726,7 @@
   color: var(--text-primary);
   background: var(--card-bg);
   border: 1.5px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 10px 14px;
   outline: none;
   transition: border-color 0.15s;
@@ -744,7 +744,7 @@
   font-size: 13px;
   font-weight: 600;
   padding: 10px 14px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   margin-top: 8px;
 }
 
@@ -760,7 +760,7 @@
   font-size: 13px;
   font-weight: 700;
   padding: 10px 24px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   border: none;
   cursor: pointer;
   transition: border-color 0.15s, color 0.15s, background 0.15s, transform 0.15s, box-shadow 0.15s;
@@ -792,7 +792,7 @@
   width: 100px;
   height: 68px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   flex-shrink: 0;
 }
@@ -813,7 +813,7 @@
   font-size: 12px;
   font-weight: 700;
   padding: 7px 16px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: border-color 0.15s, color 0.15s, transform 0.1s;
 }
@@ -910,7 +910,7 @@
   align-items: center;
   gap: 6px;
   padding: 7px 16px;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   border: 1.5px solid var(--border);
   background: var(--card-bg);
   color: var(--text-secondary);

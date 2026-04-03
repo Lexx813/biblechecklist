@@ -96,7 +96,7 @@
   align-items: flex-start;
   gap: 12px;
   padding: 14px 16px;
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: var(--card-bg);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-xs);
@@ -321,7 +321,7 @@
 .post-composer {
   background: var(--card-bg);
   border: 1.5px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 12px 14px;
   margin-bottom: 16px;
   display: flex;
@@ -446,7 +446,7 @@
   margin: 6px 0 0;
   padding: 10px 12px;
   background: var(--teal-soft);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -506,7 +506,7 @@
   font-weight: 600;
   white-space: nowrap;
   padding: 4px 9px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.15s, transform 0.15s;
@@ -528,7 +528,7 @@
   border: none;
   cursor: pointer;
   padding: 6px 10px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   transition: background 0.15s;
 }
 .pf-follow-count-btn:hover {
@@ -549,7 +549,7 @@
 .pf-follow-modal {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   width: 100%;
   max-width: 400px;
   max-height: 70vh;
@@ -577,7 +577,7 @@
   color: var(--text-muted);
   font-size: 1rem;
   padding: 4px 8px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   line-height: 1;
 }
 .pf-follow-modal-close:hover { background: var(--border); }
@@ -646,7 +646,7 @@
 .pf-follow-modal-msg {
   flex-shrink: 0;
   padding: 5px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: 1.5px solid var(--border);
   background: transparent;
   font-size: 0.78rem;
@@ -674,7 +674,7 @@
   align-items: center;
   gap: 6px;
   padding: 7px 14px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: 1.5px solid var(--border);
   background: transparent;
   font-size: 0.82rem;
@@ -697,7 +697,7 @@
   align-items: center;
   gap: 5px;
   padding: 3px 10px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   border: 1px solid var(--border);
   background: transparent;
   font-size: 0.75rem;

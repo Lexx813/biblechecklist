@@ -30,7 +30,7 @@
   align-self: flex-start;
   background: none;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 5px 12px;
   font-size: 13px;
   color: var(--text-muted);
@@ -162,7 +162,7 @@
   flex: 1;
   padding: 8px 13px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 13px;
   font-family: inherit;
   background: var(--card-bg);
@@ -330,7 +330,7 @@
   position: relative;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 16px;
   cursor: pointer;
   transition: transform var(--dur-fast) var(--ease-spring),
@@ -487,7 +487,7 @@
   font-size: 12px;
   font-weight: 600;
   padding: 2px 6px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   color: var(--text-muted);
   transition: color 0.15s, background 0.15s;
 }
@@ -509,7 +509,7 @@
   flex-shrink: 0;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -668,7 +668,7 @@
 .sn-sort-select {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 8px 12px;
   font-size: 13px;
   color: var(--text-primary);
@@ -737,7 +737,7 @@
   width: 100%;
   padding: 9px 13px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 14px;
   font-weight: 600;
   font-family: inherit;
@@ -761,7 +761,7 @@
 .sn-select {
   padding: 8px 10px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 13px;
   font-family: inherit;
   background: var(--bg);
@@ -782,7 +782,7 @@
   width: 70px;
   padding: 8px 10px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 13px;
   font-family: inherit;
   background: var(--bg);
@@ -881,7 +881,7 @@
 
 .sn-editor-rich {
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
   margin-top: 4px;
   transition: border-color 0.15s, box-shadow 0.15s;
@@ -936,7 +936,7 @@
   background: #7c3aed;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 8px 20px;
   font-size: 13px;
   font-weight: 700;
@@ -954,7 +954,7 @@
 .sn-export-btn {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   padding: 4px 9px;
   font-size: 11px;
   color: var(--text-muted);
@@ -1000,7 +1000,7 @@
 
 .sn-view-modal {
   background: var(--card-bg);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
   border: 1px solid var(--border);
   width: 100%;
@@ -1094,7 +1094,7 @@
   gap: 5px;
   background: none;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   cursor: pointer;
   font-size: 12px;
   font-weight: 500;

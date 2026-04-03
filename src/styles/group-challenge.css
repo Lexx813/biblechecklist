@@ -63,7 +63,7 @@
 
 .gc-end-btn {
   padding: 5px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-secondary);
@@ -211,7 +211,7 @@
 .gc-picker-item {
   width: 100%;
   padding: 12px 14px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   border: 2px solid var(--border);
   background: var(--card-bg);
   text-align: left;
@@ -242,7 +242,7 @@
 .gc-picker-confirm {
   width: 100%;
   padding: 12px;
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: var(--accent);
   color: #fff;
   font-size: 0.95rem;
@@ -260,7 +260,7 @@
   align-items: center;
   gap: 4px;
   padding: 2px 8px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   background: color-mix(in srgb, var(--accent) 15%, transparent);
   color: var(--accent);
   font-size: 0.72rem;

@@ -1,7 +1,7 @@
 .ref-panel {
   background: var(--surface-secondary, rgba(0, 0, 0, 0.02));
   border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.08));
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 24px;
 }
 
@@ -44,7 +44,7 @@
 .ref-link-input {
   flex: 1;
   padding: 10px 12px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.1));
   background: var(--surface-primary, #fff);
   font-family: inherit;
@@ -62,7 +62,7 @@
 
 .ref-copy-btn {
   padding: 10px 18px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   background: var(--primary, #7c3aed);
   color: #fff;
   border: none;
@@ -86,7 +86,7 @@
 .ref-share-btn {
   flex: 1;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border-subtle, rgba(0, 0, 0, 0.1));
   background: var(--surface-primary, #fff);
   font-family: inherit;

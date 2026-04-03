@@ -135,7 +135,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: rgba(124,58,237,0.1);
   flex-shrink: 0;
 }
@@ -238,7 +238,7 @@
   background: linear-gradient(135deg, #7c3aed, #5b21b6);
   color: #fff;
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius);
   font-size: 15px;
   font-weight: 800;
   cursor: pointer;
@@ -274,7 +274,7 @@
   cursor: pointer;
   padding: 10px 16px;
   min-height: 44px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   transition: color 0.12s, background 0.12s;
 }
 .upm-cancel:hover { color: var(--text-primary); background: var(--teal-soft); }
@@ -286,7 +286,7 @@
   .upm-title { font-size: 18px; }
   .upm-amount { font-size: 32px; }
   .upm-features { padding: 16px 16px; gap: 12px; }
-  .upm-feature-icon { width: 36px; height: 36px; font-size: 18px; border-radius: 10px; }
+  .upm-feature-icon { width: 36px; height: 36px; font-size: 18px; border-radius: var(--radius-sm); }
   .upm-footer { padding: 16px 16px 20px; }
 }
 

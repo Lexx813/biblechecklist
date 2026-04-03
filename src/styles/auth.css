@@ -27,7 +27,7 @@
   padding: 6px 8px;
   min-width: 44px;
   min-height: 44px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   line-height: 1;
   transition: background 0.15s;
   margin-left: auto;
@@ -37,7 +37,7 @@
 }
 
 .auth-theme-toggle:hover { background: var(--teal-soft); }
-.auth-theme-toggle:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 8px; }
+.auth-theme-toggle:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: var(--radius-sm); }
 
 .auth-back-btn { align-self: flex-start; }
 
@@ -372,7 +372,7 @@
 .cg-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   padding: 0 0 32px;
   max-width: 500px;
   width: 100%;
@@ -443,7 +443,7 @@
   gap: 7px;
   padding: 10px 14px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-secondary);
@@ -479,7 +479,7 @@
   gap: 12px;
   padding: 14px 16px;
   border: 1.5px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   cursor: pointer;
   transition: border-color 0.2s, background 0.2s;
   user-select: none;
@@ -499,7 +499,7 @@
   flex-shrink: 0;
   width: 20px;
   height: 20px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   border: 2px solid var(--border);
   background: var(--card-bg);
   display: flex;
@@ -548,7 +548,7 @@
   padding: 10px 14px;
   background: rgba(220,38,38,0.07);
   border: 1px solid rgba(220,38,38,0.22);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   font-size: 0.82rem;
   color: #dc2626;
 }
@@ -567,7 +567,7 @@
   background: linear-gradient(135deg, #6D28D9, #7C3AED);
   color: #fff;
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius);
   font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;

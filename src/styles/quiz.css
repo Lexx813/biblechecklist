@@ -55,7 +55,7 @@
 .quiz-level-card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 20px 16px 16px;
   display: flex;
   flex-direction: column;
@@ -329,7 +329,7 @@
   gap: 12px;
   padding: 14px 16px;
   border: 2px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: var(--teal-soft);
   font-family: inherit;
   font-size: 14px;
@@ -397,7 +397,7 @@
 .quiz-option-letter {
   width: 26px;
   height: 26px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   background: var(--teal-light);
   color: var(--teal-dark);
   font-size: 11px;
@@ -453,7 +453,7 @@
   font-size: 14px;
   font-weight: 800;
   padding: 12px 24px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   border: none;
   cursor: pointer;
   transition: transform 0.15s, box-shadow 0.15s;
@@ -589,7 +589,7 @@
 .quiz-review-item {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 14px 16px;
   border-left-width: 4px;
 }
@@ -871,7 +871,7 @@
 /* ── Explanation panel ─────────────────────────────────────────────────── */
 .quiz-explanation {
   margin-top: 12px;
-  border-radius: 12px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   background: var(--card-bg);
   overflow: hidden;
@@ -1039,7 +1039,7 @@
   padding: 10px 14px;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   font-size: 0.88rem;
 }
 

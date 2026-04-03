@@ -3,7 +3,7 @@
 .aic-panel {
   background: #13082a;
   border: 1px solid rgba(138, 75, 255, 0.2);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -57,7 +57,7 @@
   color: #7c6aad;
   font-size: 13px;
   padding: 4px 8px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   transition: color 0.15s, background 0.15s;
 }
 .aic-reset-btn:hover { color: #c084fc; background: rgba(138, 75, 255, 0.1); }
@@ -96,7 +96,7 @@
 .aic-prompt-btn {
   background: rgba(138, 75, 255, 0.1);
   border: 1px solid rgba(138, 75, 255, 0.2);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   color: #a78bfa;
   font-size: 11px;
   font-weight: 600;
@@ -128,7 +128,7 @@
   flex: 1;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(138, 75, 255, 0.2);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   color: #ede9fe;
   font-size: 13px;
   line-height: 1.5;
@@ -150,7 +150,7 @@
   flex-shrink: 0;
   background: linear-gradient(135deg, #7c3aed, #6d28d9);
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   color: #fff;
   cursor: pointer;
   font-size: 16px;
@@ -206,7 +206,7 @@
   color: #fca5a5;
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.2);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   padding: 8px 12px;
   font-size: 12px;
 }
@@ -253,4 +253,4 @@
 /* ── Page-specific spacing ───────────────────────────────────────────────── */
 .sn-ai-companion  { margin: 0 0 16px; }
 .rp-ai-companion  { margin: 0 0 20px; }
-.qn-ai-companion  { margin: 16px 0 0; border-radius: 12px; }
+.qn-ai-companion  { margin: 16px 0 0; border-radius: var(--radius); }

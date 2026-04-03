@@ -57,7 +57,7 @@
 
 .ait-tab {
   padding: 0.45rem 0.9rem;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-muted, #888);
@@ -134,7 +134,7 @@
   width: 100%;
   padding: 0.65rem 0.85rem;
   border: 1.5px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: var(--input-bg, var(--bg));
   color: var(--text);
   font-size: 0.9rem;
@@ -174,7 +174,7 @@
 .ait-example-chip {
   padding: 0.25rem 0.7rem;
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   background: transparent;
   color: var(--text-muted, #888);
   font-size: 0.8rem;
@@ -225,7 +225,7 @@
   background: var(--purple, #7c3aed);
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 0.92rem;
   font-weight: 600;
   cursor: pointer;
@@ -246,7 +246,7 @@
 
 .ait-result {
   border: 1.5px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
   margin-top: 0.5rem;
 }
@@ -284,7 +284,7 @@
   color: var(--purple, #7c3aed);
   background: none;
   border: 1px solid var(--purple, #7c3aed);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   cursor: pointer;
   padding: 0.2rem 0.65rem;
   transition: background 0.15s, color 0.15s;
@@ -299,7 +299,7 @@
   display: flex;
   gap: 0;
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
 }
 
@@ -411,7 +411,7 @@
 
 .ait-inline {
   border: 1.5px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
   margin-top: 1rem;
 }

@@ -144,7 +144,7 @@ html.nav-hidden .admin-header { top: 0; }
   font-size: 12px;
   font-weight: 800;
   padding: 7px 16px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
   transition: opacity 0.15s, transform 0.1s;
@@ -246,14 +246,14 @@ html.nav-hidden .admin-header { top: 0; }
 
 /* ── Category management ── */
 .admin-forum-cats { display: flex; flex-direction: column; gap: 20px; padding: 20px; }
-.admin-cat-form { display: flex; flex-direction: column; gap: 10px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+.admin-cat-form { display: flex; flex-direction: column; gap: 10px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
 .admin-cat-form-title { font-size: 14px; font-weight: 700; color: var(--text-primary); margin: 0 0 4px; }
 .admin-cat-form-row { display: flex; gap: 8px; flex-wrap: wrap; }
 .admin-error { color: #ef4444; font-size: 13px; }
-.admin-save-btn { padding: 8px 18px; background: #7c3aed; color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; }
+.admin-save-btn { padding: 8px 18px; background: #7c3aed; color: #fff; border: none; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700; cursor: pointer; }
 .admin-save-btn:hover { opacity: 0.9; }
 .admin-save-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.admin-cancel-btn { padding: 8px 14px; background: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; cursor: pointer; }
+.admin-cancel-btn { padding: 8px 14px; background: var(--card-bg); color: var(--text-muted); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; cursor: pointer; }
 
 /* ── User search + filter ── */
 .admin-user-controls {
@@ -273,7 +273,7 @@ html.nav-hidden .admin-header { top: 0; }
 }
 .admin-filter-pill {
   padding: 4px 12px;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   border: 1.5px solid var(--border);
   background: transparent;
   color: var(--text-secondary);
@@ -302,7 +302,7 @@ html.nav-hidden .admin-header { top: 0; }
 }
 .admin-page-btn {
   padding: 6px 14px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: 1.5px solid var(--border);
   background: var(--card-bg);
   color: var(--text-primary);
@@ -354,7 +354,7 @@ html.nav-hidden .admin-header { top: 0; }
   display: flex;
   align-items: center;
   gap: 10px;
-  border-radius: 6px;
+  border-radius: var(--radius-xs);
   padding: 4px 6px;
   margin: -4px -6px;
   transition: background 0.15s;
@@ -497,7 +497,7 @@ html.nav-hidden .admin-header { top: 0; }
   font-size: 11px;
   font-weight: 700;
   padding: 5px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: 1.5px solid var(--border);
   background: var(--card-bg);
   color: var(--text-secondary);
@@ -529,7 +529,7 @@ html.nav-hidden .admin-header { top: 0; }
 .admin-dropdown-trigger {
   width: 32px;
   height: 32px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: 1.5px solid var(--border);
   background: var(--card-bg);
   color: var(--text-secondary);
@@ -553,7 +553,7 @@ html.nav-hidden .admin-header { top: 0; }
   z-index: 9000;
   background: var(--card-bg);
   border: 1.5px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.12);
   min-width: 190px;
   padding: 6px;
@@ -573,7 +573,7 @@ html.nav-hidden .admin-header { top: 0; }
   font-size: 13px;
   font-weight: 600;
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   border: none;
   background: none;
   color: var(--text-primary);
@@ -616,7 +616,7 @@ html.nav-hidden .admin-header { top: 0; }
 .admin-tab {
   background: none; border: 1.5px solid var(--border); color: var(--text-muted);
   font-family: inherit; font-size: 13px; font-weight: 700;
-  padding: 8px 16px; border-radius: 10px; cursor: pointer;
+  padding: 8px 16px; border-radius: var(--radius-sm); cursor: pointer;
   transition: border-color 0.15s, color 0.15s, background 0.15s, box-shadow 0.15s; display: flex; align-items: center; gap: 6px;
 }
 .admin-tab:hover { border-color: #7c3aed; color: #a78bfa; background: rgba(124, 58, 237, 0.06); }
@@ -631,7 +631,7 @@ html.nav-hidden .admin-header { top: 0; }
 .admin-report-list { display: flex; flex-direction: column; gap: 12px; }
 .admin-report-card {
   background: rgba(124, 58, 237, 0.04); border: 1px solid var(--border);
-  border-radius: 12px; padding: 14px 16px;
+  border-radius: var(--radius); padding: 14px 16px;
   transition: border-color 0.15s;
 }
 .admin-report-card:hover { border-color: rgba(124, 58, 237, 0.3); }
@@ -656,13 +656,13 @@ html.nav-hidden .admin-header { top: 0; }
 .admin-quiz-level-select {
   background: var(--card-bg); border: 1.5px solid var(--border); color: var(--text-primary);
   font-family: inherit; font-size: 14px; padding: 8px 12px;
-  border-radius: 10px; cursor: pointer;
+  border-radius: var(--radius-sm); cursor: pointer;
 }
 .admin-quiz-level-select:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
 .admin-question-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
 .admin-question-card {
   background: rgba(124, 58, 237, 0.04); border: 1px solid var(--border);
-  border-radius: 12px; padding: 14px 16px;
+  border-radius: var(--radius); padding: 14px 16px;
   transition: border-color 0.15s;
 }
 .admin-question-card:hover { border-color: rgba(124, 58, 237, 0.3); }
@@ -679,7 +679,7 @@ html.nav-hidden .admin-header { top: 0; }
 .admin-question-form h3 { font-size: 15px; font-weight: 800; color: var(--text-primary); }
 .admin-form-label { font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; display: block; }
 .admin-textarea {
-  width: 100%; border: 1.5px solid var(--border); border-radius: 10px;
+  width: 100%; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
   background: rgba(124, 58, 237, 0.04); color: var(--text-primary);
   font-family: inherit; font-size: 14px; padding: 10px 12px;
   resize: vertical; outline: none; transition: border-color 0.15s, box-shadow 0.15s;
@@ -690,7 +690,7 @@ html.nav-hidden .admin-header { top: 0; }
 .admin-correct-select {
   background: var(--card-bg); border: 1.5px solid var(--border); color: var(--text-primary);
   font-family: inherit; font-size: 14px; padding: 8px 12px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
 }
 .admin-correct-select:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
 .admin-form-row { display: flex; gap: 10px; }
@@ -700,7 +700,7 @@ html.nav-hidden .admin-header { top: 0; }
 .admin-announcement-form { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
 .admin-type-row { display: flex; gap: 8px; }
 .admin-type-btn {
-  flex: 1; padding: 8px; border: 1.5px solid var(--border); border-radius: 8px;
+  flex: 1; padding: 8px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
   background: none; color: var(--text-muted); font-family: inherit;
   font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
@@ -710,7 +710,7 @@ html.nav-hidden .admin-header { top: 0; }
 .admin-announcement-list { display: flex; flex-direction: column; gap: 10px; }
 .admin-announcement-item {
   background: rgba(124, 58, 237, 0.04); border: 1px solid var(--border);
-  border-radius: 12px; padding: 14px 16px;
+  border-radius: var(--radius); padding: 14px 16px;
   display: flex; align-items: flex-start; gap: 12px;
   transition: border-color 0.15s;
 }
@@ -721,7 +721,7 @@ html.nav-hidden .admin-header { top: 0; }
 .admin-toggle-btn {
   background: none; border: 1.5px solid var(--border); color: var(--text-muted);
   font-family: inherit; font-size: 11px; font-weight: 700;
-  padding: 4px 10px; border-radius: 6px; cursor: pointer; white-space: nowrap;
+  padding: 4px 10px; border-radius: var(--radius-xs); cursor: pointer; white-space: nowrap;
   transition: border-color 0.12s, color 0.12s;
 }
 .admin-toggle-btn:hover { border-color: #7c3aed; color: #a78bfa; }

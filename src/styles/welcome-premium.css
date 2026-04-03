@@ -127,7 +127,7 @@
   align-items: center;
   gap: 12px;
   padding: 10px 10px;
-  border-radius: 12px;
+  border-radius: var(--radius);
   transition: background 0.12s;
 }
 
@@ -148,7 +148,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   background: rgba(124,58,237,0.1);
   flex-shrink: 0;
 }
@@ -197,7 +197,7 @@
   background: linear-gradient(135deg, #7c3aed, #5b21b6);
   color: #fff;
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius);
   font-size: 15px;
   font-weight: 800;
   cursor: pointer;
