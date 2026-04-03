@@ -8,6 +8,8 @@ import { formatDate, authorName, formatNum } from "../utils/formatters";
 import { BOOKS } from "../data/books";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
+import { useUnreadMessageCount } from "../hooks/useMessages";
+import { useFriends, useFriendRequests } from "../hooks/useFriends";
 import DailyVerse from "../components/home/DailyVerse";
 import TodaysFocusCard from "../components/home/TodaysFocusCard";
 import PageNav from "../components/PageNav";
@@ -103,11 +105,16 @@ const QN_ITEMS = [
   { key: "studyTopics", label: "Study Topics", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>, iconBg: "#0ea5e9", more: true },
 ];
 
-function QuickNav({ user, profile, navigate, currentPage }) {
+function QuickNav({ user, profile, navigate, currentPage, unreadMessages, pendingRequests }) {
   const [expanded, setExpanded] = useState(false);
   const initials = (profile?.display_name || user?.email || "U")[0].toUpperCase();
   const visibleItems = expanded ? QN_ITEMS : QN_ITEMS.filter(i => !i.more);
   const moreCount = QN_ITEMS.filter(i => i.more).length;
+
+  const BADGES = {
+    messages: unreadMessages > 0 ? unreadMessages : null,
+    friends: pendingRequests > 0 ? pendingRequests : null,
+  };
 
   return (
     <section className="home-section home-section--compact qn-wrap">
@@ -125,16 +132,20 @@ function QuickNav({ user, profile, navigate, currentPage }) {
 
       {/* Nav items */}
       <nav className="qn-items">
-        {visibleItems.map(item => (
-          <button
-            key={item.key}
-            className={`qn-item${currentPage === item.key ? " qn-item--active" : ""}`}
-            onClick={() => navigate(item.key)}
-          >
-            <span className="qn-item-icon" style={{ background: item.iconBg }}>{item.icon}</span>
-            <span className="qn-item-label">{item.label}</span>
-          </button>
-        ))}
+        {visibleItems.map(item => {
+          const badge = BADGES[item.key];
+          return (
+            <button
+              key={item.key}
+              className={`qn-item${currentPage === item.key ? " qn-item--active" : ""}`}
+              onClick={() => navigate(item.key)}
+            >
+              <span className="qn-item-icon" style={{ background: item.iconBg }}>{item.icon}</span>
+              <span className="qn-item-label">{item.label}</span>
+              {badge != null && <span className="qn-badge">{badge > 99 ? "99+" : badge}</span>}
+            </button>
+          );
+        })}
       </nav>
 
       {/* See more / less */}
@@ -148,6 +159,95 @@ function QuickNav({ user, profile, navigate, currentPage }) {
   );
 }
 
+// ── Online friends panel ──────────────────────────────────────────────────────
+
+const ONLINE_THRESHOLD_MS = 10 * 60 * 1000; // 10 minutes
+
+function OnlineFriendsPanel({ friends, navigate }) {
+  const now = Date.now();
+  const online = friends
+    .filter(f => f.last_active_at && now - new Date(f.last_active_at).getTime() < ONLINE_THRESHOLD_MS)
+    .slice(0, 8);
+  const recent = friends
+    .filter(f => !f.last_active_at || now - new Date(f.last_active_at).getTime() >= ONLINE_THRESHOLD_MS)
+    .sort((a, b) => {
+      const ta = a.last_active_at ? new Date(a.last_active_at).getTime() : 0;
+      const tb = b.last_active_at ? new Date(b.last_active_at).getTime() : 0;
+      return tb - ta;
+    })
+    .slice(0, online.length < 4 ? 6 - online.length : 0);
+
+  const shown = [...online, ...recent];
+  if (shown.length === 0 && friends.length === 0) return null;
+
+  return (
+    <section className="home-section home-section--compact qn-wrap ofp-wrap">
+      <div className="ofp-header">
+        <span className="ofp-title">Friends</span>
+        <button className="ofp-see-all" onClick={() => navigate("friends")}>See all</button>
+      </div>
+      {friends.length === 0 ? (
+        <div className="ofp-empty">Add friends to see their activity here.</div>
+      ) : (
+        <div className="ofp-list">
+          {shown.map(f => {
+            const isOnline = f.last_active_at && now - new Date(f.last_active_at).getTime() < ONLINE_THRESHOLD_MS;
+            const initials = (f.display_name || "?")[0].toUpperCase();
+            return (
+              <button key={f.id} className="ofp-row" onClick={() => navigate("publicProfile", { userId: f.id })}>
+                <span className="ofp-avatar-wrap">
+                  {f.avatar_url
+                    ? <img src={f.avatar_url} alt={f.display_name ?? "Friend"} width={32} height={32} className="ofp-avatar-img" />
+                    : <span className="ofp-avatar-initials">{initials}</span>}
+                  {isOnline && <span className="ofp-online-dot" aria-label="Online" />}
+                </span>
+                <span className="ofp-name">{f.display_name || "Unknown"}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </section>
+  );
+}
+
+// ── Mobile bottom tab bar ─────────────────────────────────────────────────────
+
+const TAB_ITEMS = [
+  { key: "home",     label: "Home",     icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> },
+  { key: "main",     label: "Bible",    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> },
+  { key: "messages", label: "Messages", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> },
+  { key: "friends",  label: "Friends",  icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
+  { key: "profile",  label: "Profile",  icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> },
+];
+
+function MobileTabBar({ navigate, currentPage, unreadMessages, pendingRequests }) {
+  return (
+    <nav className="mobile-tabbar" aria-label="Main navigation">
+      {TAB_ITEMS.map(item => {
+        const badge = item.key === "messages" ? (unreadMessages > 0 ? unreadMessages : null)
+                    : item.key === "friends"  ? (pendingRequests > 0 ? pendingRequests : null)
+                    : null;
+        const isActive = currentPage === item.key;
+        return (
+          <button
+            key={item.key}
+            className={`mobile-tabbar-item${isActive ? " mobile-tabbar-item--active" : ""}`}
+            onClick={() => navigate(item.key)}
+            aria-current={isActive ? "page" : undefined}
+          >
+            <span className="mobile-tabbar-icon">
+              {item.icon}
+              {badge != null && <span className="mobile-tabbar-badge">{badge > 99 ? "99+" : badge}</span>}
+            </span>
+            <span className="mobile-tabbar-label">{item.label}</span>
+          </button>
+        );
+      })}
+    </nav>
+  );
+}
+
 export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, isPremium, onUpgrade }) {
   const { t } = useTranslation();
   const lang = i18n?.language?.split("-")[0] ?? "en";
@@ -158,6 +258,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const previewNotes = publicNotes.slice(0, 4);
   const { data: profile } = useFullProfile(user?.id);
   const updateProfile = useUpdateProfile(user?.id);
+  const unreadMessages = useUnreadMessageCount();
+  const { incoming } = useFriendRequests(user?.id);
+  const pendingRequests = incoming.data?.length ?? 0;
+  const { data: friends = [] } = useFriends(user?.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
   const [showOnboarding, closeOnboarding] = useOnboarding(user?.created_at);
   const [notifDismissed, setNotifDismissed] = useState(() => !!localStorage.getItem("nwt-notif-dismissed"));
@@ -374,7 +478,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         <div className="home-col-side">
 
           {/* Quick Nav */}
-          <QuickNav user={user} profile={profile} navigate={navigate} currentPage="home" />
+          <QuickNav user={user} profile={profile} navigate={navigate} currentPage="home" unreadMessages={unreadMessages} pendingRequests={pendingRequests} />
+
+          {/* Online Friends */}
+          <OnlineFriendsPanel friends={friends} navigate={navigate} />
 
           {/* Daily Verse */}
           <section className="home-section home-section--verse">
@@ -566,6 +673,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           user={user}
         />
       )}
+
+      <MobileTabBar navigate={navigate} currentPage="home" unreadMessages={unreadMessages} pendingRequests={pendingRequests} />
     </div>
   );
 }
