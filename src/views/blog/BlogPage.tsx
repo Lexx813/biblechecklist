@@ -14,6 +14,7 @@ import MentionAutocomplete from "../../components/mentions/MentionAutocomplete";
 import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment, useDeletePost, useUserBlogLikes, useToggleBlogLike } from "../../hooks/useBlog";
 import { toast } from "../../lib/toast";
 import { useSubmitReport } from "../../hooks/useReports";
+import { useBlocks, useBlockUser, useUnblockUser } from "../../hooks/useBlocks";
 import { useMeta } from "../../hooks/useMeta";
 import { useGetOrCreateDM } from "../../hooks/useMessages";
 import { useSubscription } from "../../hooks/useSubscription";
@@ -74,6 +75,9 @@ function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate 
   const createComment = useCreateComment(postId, postAuthorId, postSlug);
   const deleteComment = useDeleteComment(postId);
   const submitReport = useSubmitReport();
+  const { data: blockedSet = new Set<string>() } = useBlocks(user?.id);
+  const blockUser = useBlockUser();
+  const unblockUser = useUnblockUser();
   const [text, setText] = useState("");
   const [error, setError] = useState("");
   const [reportTarget, setReportTarget] = useState(null); // { id, preview }
@@ -107,7 +111,7 @@ function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate 
         <p className="blog-comments-empty">{t("blog.commentsNone")}</p>
       ) : (
         <div className="blog-comments-list">
-          {comments.map(c => (
+          {comments.filter(c => !blockedSet.has(c.author_id)).map(c => (
             <div key={c.id} className="blog-comment">
               <div className="blog-comment-avatar blog-avatar--clickable" onClick={() => navigate("publicProfile", { userId: c.author_id })}>
                 {c.profiles?.avatar_url
@@ -132,13 +136,29 @@ function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate 
                     </button>
                   )}
                   {c.author_id !== user?.id && (
-                    <button
-                      className="forum-report-btn"
-                      onClick={() => setReportTarget({ id: c.id, preview: c.content?.slice(0, 80) ?? "" })}
-                      title={t("report.flag")}
-                    >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
-                    </button>
+                    <>
+                      <button
+                        className="forum-report-btn"
+                        onClick={() => setReportTarget({ id: c.id, preview: c.content?.slice(0, 80) ?? "" })}
+                        title={t("report.flag")}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                      </button>
+                      <button
+                        className="forum-report-btn"
+                        onClick={() => {
+                          if (blockedSet.has(c.author_id)) {
+                            unblockUser.mutate(c.author_id);
+                          } else {
+                            blockUser.mutate(c.author_id);
+                          }
+                        }}
+                        title={blockedSet.has(c.author_id) ? "Unblock user" : "Block user"}
+                        aria-label={blockedSet.has(c.author_id) ? "Unblock user" : "Block user"}
+                      >
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+                      </button>
+                    </>
                   )}
                 </div>
               </div>
@@ -185,6 +205,9 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
   const isAdmin = profile?.is_admin;
   const { isPremium } = useSubscription(user?.id);
   const getOrCreateDM = useGetOrCreateDM();
+  const { data: blockedSet = new Set<string>() } = useBlocks(user?.id);
+  const blockUser = useBlockUser();
+  const unblockUser = useUnblockUser();
 
   // Increment view count once per post view
   useEffect(() => {
@@ -314,6 +337,21 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
               Message{!isPremium && <span className="msg-btn-pro-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></span>}
+            </button>
+          )}
+          {user && post.author_id !== user.id && (
+            <button
+              className="blog-author-msg-btn"
+              onClick={() => {
+                if (blockedSet.has(post.author_id)) {
+                  unblockUser.mutate(post.author_id);
+                } else {
+                  blockUser.mutate(post.author_id);
+                }
+              }}
+              disabled={blockUser.isPending || unblockUser.isPending}
+            >
+              {blockedSet.has(post.author_id) ? "Unblock" : "Block"}
             </button>
           )}
         </div>
@@ -459,6 +497,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
   const [visibleCount, setVisibleCount] = useState(9);
   const [langFilter, setLangFilter] = useState(userLang);
   const { data: posts = [], isLoading } = usePublishedPosts(langFilter);
+  const { data: blockedSet = new Set<string>() } = useBlocks(user?.id);
 
   useMeta(!slug ? { title: "Blog", description: "Reflections, studies, and insights from the NWT Progress community." } : {});
 
@@ -474,8 +513,8 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
     />;
   }
 
-  const visiblePosts = posts.slice(0, visibleCount);
-  const hasMore = visibleCount < posts.length;
+  const visiblePosts = posts.filter(p => !blockedSet.has(p.author_id)).slice(0, visibleCount);
+  const hasMore = visibleCount < posts.filter(p => !blockedSet.has(p.author_id)).length;
 
   return (
     <div className="blog-wrap">
