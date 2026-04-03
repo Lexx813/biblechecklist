@@ -149,8 +149,7 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
   const progressMap = Object.fromEntries(progress.map((p) => [p.level, p]));
 
   return (
-    <div className="quiz-wrap">
-      <AppLayout navigate={navigate} user={user} currentPage="quiz">
+    <AppLayout navigate={navigate} user={user} currentPage="quiz">
       <div className="quiz-hub">
         <div className="quiz-hub-header">
           <h1 className="quiz-hub-title">{t("quiz.hubTitle")}</h1>
@@ -208,8 +207,7 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
           }}
         />
       )}
-      </AppLayout>
-    </div>
+    </AppLayout>
   );
 }
 
@@ -392,22 +390,19 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
 
   if (isLoading || questions.length === 0) {
     return (
-      <div className="quiz-wrap">
-        <AppLayout navigate={navigate} user={user} currentPage="quiz">
+      <AppLayout navigate={navigate} user={user} currentPage="quiz">
         <div className="quiz-active quiz-active--loading">
           <div role="status" aria-label={t("quiz.loading")}>
             <LoadingSpinner />
           </div>
         </div>
-        </AppLayout>
-      </div>
+      </AppLayout>
     );
   }
 
   if (showResults) {
     return (
-      <div className="quiz-wrap">
-        <AppLayout navigate={navigate} user={user} currentPage="quiz">
+      <AppLayout navigate={navigate} user={user} currentPage="quiz">
         <div className="quiz-active">
           <div className="quiz-results">
             <div className="quiz-results-header">
@@ -473,8 +468,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
             </div>
           </div>
         </div>
-        </AppLayout>
-      </div>
+      </AppLayout>
     );
   }
 
@@ -483,8 +477,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
     : JSON.parse(currentQuestion.options);
 
   return (
-    <div className="quiz-wrap">
-      <AppLayout navigate={navigate} user={user} currentPage="quiz">
+    <AppLayout navigate={navigate} user={user} currentPage="quiz">
       <div className="quiz-active">
         {/* Level header */}
         <div className="quiz-level-header">
@@ -583,7 +576,6 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
           </Suspense>
         )}
       </div>
-      </AppLayout>
-    </div>
+    </AppLayout>
   );
 }

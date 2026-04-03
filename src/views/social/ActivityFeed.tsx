@@ -51,8 +51,7 @@ export default function ActivityFeed({ user, onBack, navigate, darkMode, setDark
   const { data: items = [], isLoading } = useActivityFeed(user.id);
 
   return (
-    <div className="feed-wrap">
-      <AppLayout navigate={navigate} user={user} currentPage="activityFeed">
+    <AppLayout navigate={navigate} user={user} currentPage="activityFeed">
       <div className="feed-inner">
         <div className="feed-header">
           <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
@@ -111,7 +110,6 @@ export default function ActivityFeed({ user, onBack, navigate, darkMode, setDark
           </div>
         )}
       </div>
-      </AppLayout>
-    </div>
+    </AppLayout>
   );
 }

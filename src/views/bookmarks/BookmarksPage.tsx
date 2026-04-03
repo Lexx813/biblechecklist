@@ -11,8 +11,7 @@ export default function BookmarksPage({ user, onBack, navigate, darkMode, setDar
   const toggle = useToggleBookmark(user?.id);
 
   return (
-    <div className="bm-wrap">
-      <AppLayout navigate={navigate} user={user} currentPage="bookmarks">
+    <AppLayout navigate={navigate} user={user} currentPage="bookmarks">
       <div className="bm-header">
         <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
         <h1 className="bm-title">{t("bookmarks.title")}</h1>
@@ -84,7 +83,6 @@ export default function BookmarksPage({ user, onBack, navigate, darkMode, setDar
           </>
         )}
       </div>
-      </AppLayout>
-    </div>
+    </AppLayout>
   );
 }
