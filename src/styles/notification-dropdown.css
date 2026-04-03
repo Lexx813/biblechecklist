@@ -1,8 +1,4 @@
 /* ── Notification Dropdown ── */
-.topbar-notif-anchor {
-  position: relative;
-}
-
 .notif-overlay {
   position: fixed;
   inset: 0;
@@ -10,9 +6,9 @@
 }
 
 .notif-dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
+  position: fixed;
+  top: 60px;
+  right: 12px;
   width: 360px;
   max-height: 480px;
   background: #120d22;
@@ -166,10 +162,11 @@
 [data-theme="light"] .notif-item.unread { background: rgba(124, 58, 237, 0.05); }
 [data-theme="light"] .notif-item:hover { background: rgba(124, 58, 237, 0.06); }
 
-/* ── Mobile: prevent overflow off left edge ── */
+/* ── Mobile ── */
 @media (max-width: 480px) {
   .notif-dropdown {
-    right: -8px;
-    width: min(360px, calc(100vw - 16px));
+    right: 8px;
+    left: 8px;
+    width: auto;
   }
 }
