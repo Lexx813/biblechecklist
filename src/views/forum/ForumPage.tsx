@@ -246,7 +246,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
 
   function isEdited(item) {
     if (!item?.updated_at || !item?.created_at) return false;
-    return new Date(item.updated_at) - new Date(item.created_at) > 60000;
+    return new Date(item.updated_at).getTime() - new Date(item.created_at).getTime() > 60000;
   }
 
   useMeta({ title: thread?.title, description: thread?.content?.replace(/<[^>]*>/g, "").slice(0, 140) });

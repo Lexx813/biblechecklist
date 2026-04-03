@@ -50,7 +50,7 @@ function Initials({ name, email }) {
 
 // ── Avatar ────────────────────────────────────────────────
 function Avatar({ profile, userId, editable }) {
-  const fileRef = useRef();
+  const fileRef = useRef<HTMLInputElement>(null);
   const upload = useUploadAvatar(userId);
   const [preview, setPreview] = useState(null);
 
@@ -77,8 +77,8 @@ function Avatar({ profile, userId, editable }) {
   return (
     <div
       className="pf-avatar-wrap"
-      onClick={() => fileRef.current.click()}
-      onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileRef.current.click(); } }}
+      onClick={() => fileRef.current?.click()}
+      onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileRef.current?.click(); } }}
       role="button"
       tabIndex={0}
       title="Change photo"
@@ -152,7 +152,7 @@ function DisplayName({ profile, userId, editable }) {
 }
 
 // ── Add / Edit note form ──────────────────────────────────
-function NoteForm({ userId, initial, onDone }) {
+function NoteForm({ userId, initial = null, onDone }: { userId: any; initial?: any; onDone: any }) {
   const [bookIndex, setBookIndex] = useState(initial?.book_index ?? 0);
   const [chapter, setChapter] = useState(initial?.chapter ?? 1);
   const [verse, setVerse] = useState(initial?.verse ?? "");
@@ -471,7 +471,7 @@ function MessageButton({ targetId, otherDisplayName, otherAvatarUrl, navigate, i
 function FollowListModal({ targetId, mode, currentUserId, onClose, navigate, t, isPremium, onUpgrade }) {
   const { data: followers = [] } = useFollowers(mode === "followers" ? targetId : null);
   const { data: following = [] } = useFollowing(mode === "following" ? targetId : null);
-  const list = mode === "followers" ? followers : following;
+  const list = (mode === "followers" ? followers : following) as any[];
   const getOrCreate = useGetOrCreateDM();
 
   return createPortal(
@@ -1076,7 +1076,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
             <div className="pf-filters">
               <CustomSelect
                 value={filterBook}
-                onChange={setFilterBook}
+                onChange={(v) => setFilterBook(String(v))}
                 options={[
                   { value: "all", label: t("profile.allBooks") },
                   ...booksWithNotes.map(i => ({ value: i, label: t(`bookNames.${i}`, BOOKS[i]?.name) })),

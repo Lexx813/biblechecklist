@@ -2,6 +2,7 @@ import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 
 interface Props {
+  title?: string;
   message: string;
   onConfirm: () => void;
   onCancel: () => void;

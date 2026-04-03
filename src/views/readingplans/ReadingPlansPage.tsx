@@ -38,7 +38,7 @@ function daysSince(dateStr) {
   const start = new Date(dateStr + "T00:00:00");
   const now = new Date();
   now.setHours(0, 0, 0, 0);
-  return Math.floor((now - start) / 86400000) + 1;
+  return Math.floor((now.getTime() - start.getTime()) / 86400000) + 1;
 }
 
 function effectiveDay(plan) {
@@ -49,7 +49,7 @@ function effectiveDay(plan) {
     pausedDate.setHours(0, 0, 0, 0);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    pausedDays += Math.max(0, Math.floor((today - pausedDate) / 86400000));
+    pausedDays += Math.max(0, Math.floor((today.getTime() - pausedDate.getTime()) / 86400000));
   }
   return Math.max(1, raw - pausedDays);
 }

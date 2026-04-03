@@ -44,7 +44,7 @@ import "../../styles/group-challenge.css";
 
 function timeAgo(iso, t) {
   if (!iso) return "";
-  const m = Math.floor((Date.now() - new Date(iso)) / 60000);
+  const m = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
   if (m < 1) return t ? t("messages.justNow") : "just now";
   if (m < 60) return `${m}${t ? t("messages.minutesAgo") : "m ago"}`;
   const h = Math.floor(m / 60);

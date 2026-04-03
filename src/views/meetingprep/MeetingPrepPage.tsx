@@ -16,7 +16,7 @@ import "../../styles/meeting-prep.css";
 
 
 // ── Song chip ─────────────────────────────────────────────────────────────────
-function SongChip({ num, label }) {
+function SongChip({ num, label = "" }: { num: any; label?: string }) {
   const { t } = useTranslation();
   if (!num) return null;
   return (

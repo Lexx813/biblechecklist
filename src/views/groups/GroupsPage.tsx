@@ -19,7 +19,7 @@ const GROUP_TYPES = [
 
 function timeAgo(iso, t) {
   if (!iso) return "";
-  const d = Math.floor((Date.now() - new Date(iso)) / 86400000);
+  const d = Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
   if (d === 0) return t ? t("messages.today") : "today";
   if (d === 1) return t ? t("messages.yesterday") : "yesterday";
   return `${d}${t ? t("messages.daysAgo") : "d ago"}`;
