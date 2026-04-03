@@ -11,6 +11,9 @@
   text-transform: uppercase;
 }
 
+/* Hide page footer on messages — chat fills full height */
+main:has(.msg-layout) ~ .page-footer { display: none; }
+
 /* Make al-content fill full height when it contains the chat layout */
 .al-wrap:has(.msg-layout) {
   height: calc(100dvh - 60px);
@@ -1728,7 +1731,7 @@
   .msg-header-actions { gap: 0; }
 
   /* Hide site footer so only the composer is visible */
-  main:has(.msg-page) ~ .page-footer { display: none; }
+  main:has(.msg-layout) ~ .page-footer { display: none; }
 }
 
 @media (max-width: 480px) {

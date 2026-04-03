@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { useMyGroups, usePublicGroups, useCreateGroup, useJoinGroup, useJoinByCode, useRequestJoin } from "../../hooks/useGroups";
 import PageNav from "../../components/PageNav";
+import AppLayout from "../../components/AppLayout";
 import "../../styles/groups.css";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -333,6 +334,7 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
   return (
     <div className="grp-page">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} onUpgrade={onUpgrade} />
+      <AppLayout navigate={navigate} user={user} currentPage="groups">
       <div className="grp-page-header">
         <div className="grp-page-header-left">
           <button className="back-btn" onClick={() => navigate("home")}>
@@ -431,6 +433,7 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
       {showJoinCode && (
         <JoinCodeModal onClose={() => setShowJoinCode(false)} onJoined={handleJoined} userId={user?.id} />
       )}
+      </AppLayout>
     </div>
   );
 }

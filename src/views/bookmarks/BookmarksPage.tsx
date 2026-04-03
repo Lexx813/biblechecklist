@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
+import AppLayout from "../../components/AppLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useBookmarks, useToggleBookmark } from "../../hooks/useBookmarks";
 import "../../styles/bookmarks.css";
@@ -13,6 +14,7 @@ export default function BookmarksPage({ user, onBack, navigate, darkMode, setDar
   return (
     <div className="bm-wrap">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
+      <AppLayout navigate={navigate} user={user} currentPage="bookmarks">
       <div className="bm-header">
         <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
         <h1 className="bm-title">{t("bookmarks.title")}</h1>
@@ -84,6 +86,7 @@ export default function BookmarksPage({ user, onBack, navigate, darkMode, setDar
           </>
         )}
       </div>
+      </AppLayout>
     </div>
   );
 }

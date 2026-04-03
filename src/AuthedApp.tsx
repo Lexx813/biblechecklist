@@ -373,7 +373,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
       <div key={nav.page} className="page-fade-in">
         {pageContent}
       </div>
-      <MobileTabBar navigate={navigate} currentPage={nav.page} userId={user?.id} />
+      {nav.page !== "messages" && <MobileTabBar navigate={navigate} currentPage={nav.page} userId={user?.id} />}
       {isPremium && nav.page !== "messages" && (
         <Suspense fallback={null}>
           <FloatingChat

@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
+import AppLayout from "../../components/AppLayout";
 import { useActivityFeed } from "../../hooks/useFollows";
 import "../../styles/social.css";
 
@@ -53,7 +54,7 @@ export default function ActivityFeed({ user, onBack, navigate, darkMode, setDark
   return (
     <div className="feed-wrap">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
-
+      <AppLayout navigate={navigate} user={user} currentPage="activityFeed">
       <div className="feed-inner">
         <div className="feed-header">
           <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
@@ -112,6 +113,7 @@ export default function ActivityFeed({ user, onBack, navigate, darkMode, setDark
           </div>
         )}
       </div>
+      </AppLayout>
     </div>
   );
 }
