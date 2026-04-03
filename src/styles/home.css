@@ -610,55 +610,7 @@
 }
 .home-notif-dismiss:hover { color: var(--text-primary, #f0eaff); }
 
-/* ─────────────────────────────────────────────────────────
-   MOBILE BOTTOM TAB BAR
-   ───────────────────────────────────────────────────────── */
-.mobile-tabbar {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 200;
-  background: rgba(10, 5, 20, 0.96);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(138, 75, 255, 0.15);
-  padding: 6px 0 env(safe-area-inset-bottom, 0);
-  flex-direction: row;
-  align-items: stretch;
-}
-.mobile-tabbar-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  padding: 6px 4px;
-  color: rgba(240, 234, 255, 0.5);
-  transition: color var(--dur-fast);
-}
-.mobile-tabbar-item--active { color: #c084fc; }
-.mobile-tabbar-item:hover  { color: rgba(240, 234, 255, 0.85); }
-.mobile-tabbar-icon { position: relative; display: flex; align-items: center; justify-content: center; }
-.mobile-tabbar-label { font-size: 10px; font-weight: 500; }
-.mobile-tabbar-badge {
-  position: absolute;
-  top: -4px; right: -8px;
-  min-width: 16px; height: 16px;
-  padding: 0 3px;
-  border-radius: var(--radius-sm);
-  background: #e03c3c;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 16px;
-  text-align: center;
-}
+/* mobile-tabbar styles moved to app.css (global) */
 
 /* ─────────────────────────────────────────────────────────
    LIGHT THEME
@@ -697,9 +649,7 @@
 [data-theme="light"] .hstreak-chip:hover { background: rgba(124, 58, 237, 0.04); }
 [data-theme="light"] .home-notif-banner { background: rgba(255,255,255,0.97); border-color: rgba(124,58,237,0.2); }
 [data-theme="light"] .home-notif-text strong { color: #1e1035; }
-[data-theme="light"] .mobile-tabbar { background: rgba(255,255,255,0.96); border-top-color: rgba(124,58,237,0.12); }
-[data-theme="light"] .mobile-tabbar-item { color: rgba(30, 16, 53, 0.4); }
-[data-theme="light"] .mobile-tabbar-item--active { color: #7c3aed; }
+
 [data-theme="light"] .hfriend-dot { border-color: #fff; }
 
 /* ─────────────────────────────────────────────────────────
@@ -711,7 +661,6 @@
   .home-layout { grid-template-columns: 1fr 280px; }
   .home-left-sidebar { display: none; }
   .home-wrap { padding-bottom: 70px; }
-  .mobile-tabbar { display: flex; }
 }
 
 /* Mobile: hide right sidebar too, single column */
