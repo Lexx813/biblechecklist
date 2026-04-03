@@ -10,6 +10,9 @@
   font-weight: 700;
   color: var(--text-primary, #f0eaff);
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 /* Daily verse */

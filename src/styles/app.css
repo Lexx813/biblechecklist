@@ -21,6 +21,14 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ── Global focus-visible: keyboard users get a clear ring, mouse users don't ── */
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 :root {
   /* ── Brand colours ── */
   --teal: #6A3DAA;
@@ -1564,7 +1572,8 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   border: none;
   cursor: pointer;
   font-family: inherit;
-  padding: 6px 4px;
+  padding: 8px 4px;
+  min-height: 48px; /* 44px minimum touch target */
   color: rgba(240, 234, 255, 0.5);
   transition: color var(--dur-fast);
 }
@@ -1589,5 +1598,5 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   .mobile-tabbar { display: flex; }
 }
 [data-theme="light"] .mobile-tabbar { background: rgba(255,255,255,0.96); border-top-color: rgba(124,58,237,0.12); }
-[data-theme="light"] .mobile-tabbar-item { color: rgba(30, 16, 53, 0.4); }
+[data-theme="light"] .mobile-tabbar-item { color: rgba(30, 16, 53, 0.55); } /* ≥4.5:1 */
 [data-theme="light"] .mobile-tabbar-item--active { color: #7c3aed; }

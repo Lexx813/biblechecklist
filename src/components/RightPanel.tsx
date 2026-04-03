@@ -40,7 +40,10 @@ export default function RightPanel({ page, user, navigate, onUpgrade }: Props) {
     <>
       {/* Daily Verse */}
       <div className="rp-widget">
-        <div className="rp-widget-title">📖 Daily Verse</div>
+        <div className="rp-widget-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Daily Verse
+        </div>
         <div className="rp-verse">"{verse.text}"</div>
         <div className="rp-verse-ref">— {verse.ref}</div>
       </div>
@@ -48,7 +51,10 @@ export default function RightPanel({ page, user, navigate, onUpgrade }: Props) {
       {/* Streak */}
       {streak > 0 && (
         <div className="rp-widget">
-          <div className="rp-widget-title">🔥 Your Streak</div>
+          <div className="rp-widget-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 2c0 0-5 5-5 10a5 5 0 0 0 10 0C17 7 12 2 12 2z"/></svg>
+            Your Streak
+          </div>
           <div className="rp-streak-count">{streak}</div>
           <div className="rp-streak-label">day{streak !== 1 ? "s" : ""} in a row</div>
         </div>
