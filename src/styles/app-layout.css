@@ -1,0 +1,158 @@
+/* ─────────────────────────────────────────────────────────
+   AppLayout — shared 2-column layout (left sidebar + content)
+   Used by all pages except HomePage (which has its own 3-col)
+   and Bible tracker (intentionally exempt).
+   ───────────────────────────────────────────────────────── */
+
+.al-wrap {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  max-width: 1440px;
+  margin: 0 auto;
+  min-height: calc(100vh - 60px);
+  align-items: start;
+}
+
+/* ── Left sidebar ── */
+.al-sidebar {
+  position: sticky;
+  top: 60px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  padding: 12px 8px 80px;
+  border-right: 1px solid rgba(138, 75, 255, 0.1);
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.al-sidebar::-webkit-scrollbar { display: none; }
+
+/* Profile row */
+.al-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  margin-bottom: 6px;
+  transition: background 0.15s;
+  text-align: left;
+}
+.al-profile:hover { background: rgba(124, 58, 237, 0.1); }
+
+.al-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f2d85, #7c3aed);
+  border: 2px solid rgba(138, 75, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+}
+.al-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.al-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary, #f0eaff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Nav item */
+.al-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 9px 12px;
+  background: none;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary, #f0eaff);
+  text-align: left;
+  transition: background 0.15s;
+}
+.al-item:hover { background: rgba(124, 58, 237, 0.1); }
+.al-item--active { background: rgba(124, 58, 237, 0.18); color: #c084fc; }
+.al-item--active:hover { background: rgba(124, 58, 237, 0.22); }
+
+.al-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.al-badge {
+  margin-left: auto;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  background: #e03c3c;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.al-divider {
+  height: 1px;
+  background: rgba(138, 75, 255, 0.1);
+  margin: 6px 12px;
+}
+
+.al-section-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(240, 234, 255, 0.4);
+  padding: 6px 12px 2px;
+}
+
+/* Content column */
+.al-content {
+  min-width: 0;
+  min-height: calc(100vh - 60px);
+}
+
+/* ── Light theme ── */
+[data-theme="light"] .al-sidebar { border-color: rgba(124, 58, 237, 0.1); }
+[data-theme="light"] .al-profile:hover,
+[data-theme="light"] .al-item:hover { background: rgba(124, 58, 237, 0.07); }
+[data-theme="light"] .al-item--active { background: rgba(124, 58, 237, 0.12); color: #7c3aed; }
+[data-theme="light"] .al-item--active:hover { background: rgba(124, 58, 237, 0.16); }
+[data-theme="light"] .al-name,
+[data-theme="light"] .al-item { color: #1e1035; }
+[data-theme="light"] .al-divider { background: rgba(124, 58, 237, 0.1); }
+[data-theme="light"] .al-section-label { color: rgba(30, 16, 53, 0.4); }
+
+/* ── Responsive: hide sidebar, show mobile tab bar ── */
+@media (max-width: 1100px) {
+  .al-wrap { grid-template-columns: 1fr; }
+  .al-sidebar { display: none; }
+}

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
 import PageNav from "../../components/PageNav";
+import AppLayout from "../../components/AppLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ReportModal from "../../components/ReportModal";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
@@ -236,6 +237,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
   return (
     <div className="blog-post-view">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
+      <AppLayout navigate={navigate} user={user} currentPage="blog">
       <div className="blog-post-hero">
         <Image
           src={post.cover_url || getFallbackImage(post.id)}
@@ -354,6 +356,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
       </div>
 
       <RelatedPosts currentPost={post} onSelect={onSelectPost || onBack} navigate={navigate} user={user} />
+      </AppLayout>
     </div>
   );
 }
@@ -482,6 +485,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
   return (
     <div className="blog-wrap">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
+      <AppLayout navigate={navigate} user={user} currentPage="blog">
       {/* Nav */}
       <nav className="blog-nav">
         <button className="back-btn" onClick={onBack}>{t("blog.backToBible")}</button>
@@ -550,6 +554,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
           </>
         )}
       </div>
+      </AppLayout>
     </div>
   );
 }

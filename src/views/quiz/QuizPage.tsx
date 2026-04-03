@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
+import AppLayout from "../../components/AppLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 const AICompanion = lazy(() => import("../../components/AICompanion"));
 import { useFullProfile } from "../../hooks/useAdmin";
@@ -151,7 +152,7 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
   return (
     <div className="quiz-wrap">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
-
+      <AppLayout navigate={navigate} user={user} currentPage="quiz">
       <div className="quiz-hub">
         <div className="quiz-hub-header">
           <h1 className="quiz-hub-title">{t("quiz.hubTitle")}</h1>
@@ -209,6 +210,7 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
           }}
         />
       )}
+      </AppLayout>
     </div>
   );
 }
@@ -394,11 +396,13 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
     return (
       <div className="quiz-wrap">
         <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
+        <AppLayout navigate={navigate} user={user} currentPage="quiz">
         <div className="quiz-active quiz-active--loading">
           <div role="status" aria-label={t("quiz.loading")}>
             <LoadingSpinner />
           </div>
         </div>
+        </AppLayout>
       </div>
     );
   }
@@ -407,6 +411,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
     return (
       <div className="quiz-wrap">
         <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
+        <AppLayout navigate={navigate} user={user} currentPage="quiz">
         <div className="quiz-active">
           <div className="quiz-results">
             <div className="quiz-results-header">
@@ -472,6 +477,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
             </div>
           </div>
         </div>
+        </AppLayout>
       </div>
     );
   }
@@ -483,6 +489,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
   return (
     <div className="quiz-wrap">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
+      <AppLayout navigate={navigate} user={user} currentPage="quiz">
       <div className="quiz-active">
         {/* Level header */}
         <div className="quiz-level-header">
@@ -581,6 +588,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
           </Suspense>
         )}
       </div>
+      </AppLayout>
     </div>
   );
 }

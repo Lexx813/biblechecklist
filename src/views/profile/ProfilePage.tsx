@@ -6,6 +6,7 @@ import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
 import PageNav from "../../components/PageNav";
+import AppLayout from "../../components/AppLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useMeta } from "../../hooks/useMeta";
 import { BOOKS } from "../../data/books";
@@ -815,7 +816,9 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
     return (
       <div className="pf-wrap">
         <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
+        <AppLayout navigate={navigate} user={user} currentPage="profile">
         <LoadingSpinner />
+        </AppLayout>
       </div>
     );
   }
@@ -823,6 +826,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
   return (
     <div className="pf-wrap">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
+      <AppLayout navigate={navigate} user={user} currentPage="profile">
       {/* Header */}
       <header className="pf-header">
         <div className="pf-header-inner">
@@ -1089,6 +1093,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
         )}
 
       </div>
+      </AppLayout>
     </div>
   );
 }

@@ -2,6 +2,7 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import PageNav from "../../components/PageNav";
+import AppLayout from "../../components/AppLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import {
   useMeetingWeek,
@@ -442,6 +443,7 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
   return (
     <div>
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} currentPage="meetingPrep" onUpgrade={onUpgrade} />
+      <AppLayout navigate={navigate} user={user} currentPage="meetingPrep">
       <div className="mp-page">
 
         {/* Header */}
@@ -544,6 +546,7 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
         )}
 
       </div>
+      </AppLayout>
     </div>
   );
 }

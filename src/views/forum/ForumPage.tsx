@@ -8,6 +8,7 @@ import ConfirmModal from "../../components/ConfirmModal";
 const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
 import ReportModal from "../../components/ReportModal";
 import PageNav from "../../components/PageNav";
+import AppLayout from "../../components/AppLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
 import ShareButtons from "../../components/ShareButtons";
@@ -253,7 +254,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
   return (
     <div className="forum-thread-view">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
-
+      <AppLayout navigate={navigate} user={user} currentPage="forum">
       {/* Breadcrumb */}
       <nav className="forum-breadcrumb">
         <button className="forum-breadcrumb-item" onClick={() => navigate("forum")}>{t("forum.breadcrumbForum")}</button>
@@ -615,6 +616,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
           </div>
         </form>
       )}
+      </AppLayout>
     </div>
   );
 }
@@ -758,7 +760,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
   return (
     <div className="forum-thread-list">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
-
+      <AppLayout navigate={navigate} user={user} currentPage="forum">
       {/* Breadcrumb */}
       <nav className="forum-breadcrumb">
         <button className="forum-breadcrumb-item" onClick={() => navigate("forum")}>{t("forum.breadcrumbForum")}</button>
@@ -922,6 +924,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
           )}
         </div>
       )}
+      </AppLayout>
     </div>
   );
 }
@@ -940,6 +943,7 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
   return (
     <div className="forum-categories">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout}  onUpgrade={onUpgrade}/>
+      <AppLayout navigate={navigate} user={user} currentPage="forum">
       {/* Hero */}
       <div className="forum-hero">
         <div className="forum-hero-glow forum-hero-glow--1" />
@@ -1001,6 +1005,7 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
           );
         })}
       </div>
+      </AppLayout>
     </div>
   );
 }

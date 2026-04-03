@@ -6,6 +6,7 @@ import {
   OutgoingRequest,
 } from "../../hooks/useFriends";
 import PageNav from "../../components/PageNav";
+import AppLayout from "../../components/AppLayout";
 import "../../styles/friends.css";
 
 function timeAgo(iso: string | null | undefined): string {
@@ -85,7 +86,7 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
   return (
     <div className="freq-page">
       <PageNav navigate={navigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} user={user} onLogout={onLogout} onUpgrade={onUpgrade} currentPage={currentPage} />
-
+      <AppLayout navigate={navigate} user={user} currentPage="friendRequests">
       {/* Hero header */}
       <div className="freq-hero">
         <div className="freq-hero-inner">
@@ -197,6 +198,7 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
         </div>
 
       </div>
+      </AppLayout>
     </div>
   );
 }
