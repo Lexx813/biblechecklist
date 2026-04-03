@@ -13,6 +13,7 @@ import { toast } from "./lib/toast";
 import { getStoredReferralCode, clearStoredReferralCode, trackSignup } from "./lib/analytics";
 import LoadingSpinner from "./components/LoadingSpinner";
 import MobileTabBar from "./components/MobileTabBar";
+import TopBar from "./components/TopBar";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import UpgradeModal from "./components/UpgradeModal";
 import UpgradePrompt, { isDismissed, dismissPrompt } from "./components/UpgradePrompt";
@@ -370,6 +371,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
 
   return (
     <>
+      <TopBar {...sharedNav} />
       <div key={nav.page} className="page-fade-in">
         {pageContent}
       </div>
