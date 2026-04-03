@@ -638,8 +638,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           user={user}
         />
       )}
-
-      <MobileTabBar navigate={navigate} currentPage="home" unreadMessages={unreadMessages} pendingRequests={pendingRequests} />
     </div>
   );
 }
