@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { useFullProfile } from "../hooks/useAdmin";
 import { useUnreadMessageCount } from "../hooks/useMessages";
+import { useUnreadNotificationCount } from "../hooks/useNotifications";
+import NotificationDropdown from "./NotificationDropdown";
 import "../styles/topbar.css";
 
 const SunIcon = () => (
@@ -51,7 +53,6 @@ interface Props {
   currentPage: string;
   onUpgrade?: () => void;
   onSearchClick?: () => void;
-  notificationDropdown?: React.ReactNode;
 }
 
 export default function TopBar({
@@ -59,6 +60,8 @@ export default function TopBar({
 }: Props) {
   const { data: profile } = useFullProfile(user?.id);
   const { data: unreadMessages = 0 } = useUnreadMessageCount();
+  const unreadNotifs = useUnreadNotificationCount(user?.id);
+  const [showNotifs, setShowNotifs] = useState(false);
 
   const displayName = profile?.display_name || user?.email?.split("@")[0] || "?";
   const initials = displayName[0]?.toUpperCase() ?? "?";
@@ -120,8 +123,20 @@ export default function TopBar({
             )}
           </button>
 
-          {/* Notifications bell — dropdown injected from parent */}
-          {notificationDropdown}
+          {/* Notifications bell */}
+          <button
+            className="topbar-btn"
+            onClick={() => setShowNotifs(v => !v)}
+            aria-label={`Notifications${unreadNotifs > 0 ? ` (${unreadNotifs} unread)` : ""}`}
+            aria-expanded={showNotifs}
+          >
+            <BellIcon />
+            {unreadNotifs > 0 && (
+              <span className="topbar-btn-badge" aria-hidden="true">
+                {unreadNotifs > 99 ? "99+" : unreadNotifs}
+              </span>
+            )}
+          </button>
 
           {/* User avatar */}
           <button
@@ -136,6 +151,12 @@ export default function TopBar({
           </button>
         </div>
       </header>
+      {showNotifs && (
+        <NotificationDropdown
+          userId={user?.id}
+          onClose={() => setShowNotifs(false)}
+        />
+      )}
     </>
   );
 }
