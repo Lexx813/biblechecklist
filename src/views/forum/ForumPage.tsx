@@ -8,6 +8,7 @@ import ConfirmModal from "../../components/ConfirmModal";
 const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
 import ReportModal from "../../components/ReportModal";
 import AppLayout from "../../components/AppLayout";
+import RightPanel from "../../components/RightPanel";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
 import ShareButtons from "../../components/ShareButtons";
@@ -252,7 +253,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
 
   return (
     <div className="forum-thread-view">
-      <AppLayout navigate={navigate} user={user} currentPage="forum">
+      <AppLayout navigate={navigate} user={user} currentPage="forum" rightPanel={<RightPanel page="forum" user={user} navigate={navigate} onUpgrade={onUpgrade} />}>
       {/* Breadcrumb */}
       <nav className="forum-breadcrumb">
         <button className="forum-breadcrumb-item" onClick={() => navigate("forum")}>{t("forum.breadcrumbForum")}</button>
@@ -757,7 +758,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 
   return (
     <div className="forum-thread-list">
-      <AppLayout navigate={navigate} user={user} currentPage="forum">
+      <AppLayout navigate={navigate} user={user} currentPage="forum" rightPanel={<RightPanel page="forum" user={user} navigate={navigate} onUpgrade={onUpgrade} />}>
       {/* Breadcrumb */}
       <nav className="forum-breadcrumb">
         <button className="forum-breadcrumb-item" onClick={() => navigate("forum")}>{t("forum.breadcrumbForum")}</button>
@@ -939,7 +940,7 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
 
   return (
     <div className="forum-categories">
-      <AppLayout navigate={navigate} user={user} currentPage="forum">
+      <AppLayout navigate={navigate} user={user} currentPage="forum" rightPanel={<RightPanel page="forum" user={user} navigate={navigate} onUpgrade={onUpgrade} />}>
       {/* Hero */}
       <div className="forum-hero">
         <div className="forum-hero-glow forum-hero-glow--1" />
