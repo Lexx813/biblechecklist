@@ -82,6 +82,25 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
 
 .msg-back-page-btn:hover { color: var(--text-primary); }
 
+.msg-compose-btn {
+  margin-left: auto;
+  background: rgba(124, 58, 237, 0.15);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  color: #c084fc;
+  cursor: pointer;
+  padding: 6px;
+  min-width: 34px; min-height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.msg-compose-btn:hover {
+  background: rgba(124, 58, 237, 0.28);
+  border-color: rgba(124, 58, 237, 0.55);
+  color: #e0aaff;
+}
+
 .msg-sidebar-title {
   font-size: 16px;
   font-weight: 800;
