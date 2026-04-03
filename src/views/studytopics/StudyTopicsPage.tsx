@@ -61,7 +61,7 @@ export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
       {tab === "topics" && (
       <div className="stp-grid">
         {STUDY_TOPICS.map(topic => {
-          const loc = t(`studyTopics.topics.${topic.slug}`, { returnObjects: true });
+          const loc = t(`studyTopics.topics.${topic.slug}`, { returnObjects: true }) as any;
           const title = (loc && typeof loc === "object" && loc.title) || topic.title;
           const subtitle = (loc && typeof loc === "object" && loc.subtitle) || topic.subtitle;
           return (

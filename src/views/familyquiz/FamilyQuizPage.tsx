@@ -105,7 +105,7 @@ function Lobby({ user, onPlay }) {
             <div className="fq-empty">Loading…</div>
           ) : (
             <ul className="fq-card-list">
-              {attempted.map(c => (
+              {(attempted as any[]).map(c => (
                 <ChallengeCard
                   key={c.id}
                   challenge={c}

@@ -70,7 +70,7 @@ export default function ActivityFeed({ user, onBack, navigate, darkMode, setDark
           <div className="feed-list">
             {items.map((item, i) => (
               <div
-                key={`${item.type}-${item.id ?? item.authorId}-${item.ts}-${i}`}
+                key={`${item.type}-${(item as any).id ?? item.authorId}-${item.ts}-${i}`}
                 className={`feed-item feed-item--${item.type}`}
                 onClick={item.type === "thread" ? () => navigate("forum", { threadId: item.id }) : undefined}
                 style={item.type === "thread" ? { cursor: "pointer" } : undefined}

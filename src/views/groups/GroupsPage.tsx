@@ -301,7 +301,7 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
   const joinGroup = useJoinGroup(user?.id);
   const requestJoin = useRequestJoin();
 
-  const myGroupIds = new Set(myGroups.map(g => g.id));
+  const myGroupIds = new Set((myGroups as any[]).map(g => g.id));
 
   const filteredPublic = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -383,11 +383,16 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
               <button className="grp-btn grp-btn--primary" onClick={() => setTab("explore")}>{t("groups.exploreBtn")}</button>
             </div>
           ) : (
-            myGroups.map(g => (
+            (myGroups as any[]).map(g => (
               <GroupCard
                 key={g.id}
                 group={g}
                 joined
+                onJoin={() => {}}
+                onRequestJoin={() => {}}
+                joining={false}
+                requesting={false}
+                requested={false}
                 onClick={() => navigate("groupDetail", { groupId: g.id })}
               />
             ))

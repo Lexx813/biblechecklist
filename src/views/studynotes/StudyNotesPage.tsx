@@ -324,7 +324,7 @@ function NoteEditor({ note, initialContent = "", folders, onSave, onCancel, savi
 
 // ── Note card ─────────────────────────────────────────────────────────────────
 
-function NoteCard({ note, onClick, onDelete, onExportMd, onExportPdf, showAuthor, onLike }) {
+function NoteCard({ note, onClick, onDelete = null, onExportMd = null, onExportPdf = null, showAuthor = false, onLike = null }: { note: any; onClick: any; onDelete?: any; onExportMd?: any; onExportPdf?: any; showAuthor?: any; onLike?: any }) {
   const { t } = useTranslation();
   const passage = passageLabel(note);
   const preview = stripHtml(note.content).slice(0, 140);
@@ -820,9 +820,9 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
     if (fresh) setEditing(fresh);
   }, [notes]);
 
-  const allTags = useMemo(() => {
-    const set = new Set();
-    notes.forEach(n => (n.tags ?? []).forEach(t => set.add(t)));
+  const allTags = useMemo<string[]>(() => {
+    const set = new Set<string>();
+    notes.forEach(n => (n.tags ?? []).forEach((t: string) => set.add(t)));
     return [...set].sort();
   }, [notes]);
 
@@ -840,7 +840,7 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
         (n.tags ?? []).some(t => t.includes(q))
       );
     }
-    if (sortBy === "created") list = [...list].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    if (sortBy === "created") list = [...list].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
     else if (sortBy === "title") list = [...list].sort((a, b) => (a.title ?? "").localeCompare(b.title ?? ""));
     return list;
   }, [notes, search, activeTag, activeFolder, sortBy]);
@@ -935,7 +935,7 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
         {tab === "mine" && (
           <CustomSelect
             value={sortBy}
-            onChange={setSortBy}
+            onChange={(v) => setSortBy(String(v))}
             options={SORT_OPTIONS.map(s => ({ value: s, label: t(`studyNotes.sort_${s}`) }))}
           />
         )}

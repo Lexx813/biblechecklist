@@ -87,7 +87,7 @@ function timeAgo(iso, t) {
 }
 
 const AVATAR_PX = { lg: 40, md: 36, sm: 28 };
-function Avatar({ profile, size = "md", onClick }) {
+function Avatar({ profile, size = "md", onClick = undefined }: { profile: any; size?: string; onClick?: any }) {
   const cls = `forum-avatar forum-avatar--${size}${onClick ? " forum-avatar--clickable" : ""}`;
   const px = AVATAR_PX[size] ?? 36;
   if (profile?.avatar_url) {
@@ -212,7 +212,7 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
     e.preventDefault();
     setReplyError("");
     if (!replyText.trim()) return setReplyError(t("forum.replyEmptyError"));
-    createReply.mutate({ userId: user.id, content: replyText.trim(), mentionedUserIds: mentionedIds }, {
+    createReply.mutate({ userId: user.id, content: replyText.trim(), mentionedUserIds: mentionedIds } as any, {
       onSuccess: () => {
         setReplyText("");
         try { localStorage.removeItem(`forum-draft-reply-${threadId}`); } catch {}

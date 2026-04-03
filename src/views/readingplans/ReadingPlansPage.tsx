@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect, lazy, Suspense } from "react";
+import React, { useState, useMemo, useRef, useEffect, lazy, Suspense } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
@@ -95,7 +95,7 @@ function CustomPlanModal({ onClose, onCreated }) {
   const { t } = useTranslation();
   const enrollCustom = useEnrollCustomPlan();
   const [name, setName] = useState("");
-  const [selectedBooks, setSelectedBooks] = useState(new Set());
+  const [selectedBooks, setSelectedBooks] = useState<Set<number>>(new Set());
   const [days, setDays] = useState(90);
   const [customDays, setCustomDays] = useState("");
   const [useCustomDays, setUseCustomDays] = useState(false);
@@ -612,7 +612,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate, 
               '--ty': dot.ty,
               background: dot.color,
               animationDelay: `${i * 12}ms`,
-            }}
+            } as React.CSSProperties}
           />
         ))}
         <div className="rp-progress-bar rp-progress-bar--lg">
@@ -686,13 +686,13 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate, 
       {/* AI Devotional (premium) */}
       {isPremium && !plan.is_paused && schedule[currentDay - 1] && (
         <Suspense fallback={null}>
-          <AICompanion
-            reference={`${t("readingPlans.day")} ${currentDay} — ${template.name}`}
-            passage={todayPassage}
-            initialPrompt={devotionalPrompt}
-            devotionalMode
-            className="rp-ai-companion"
-          />
+          {React.createElement(AICompanion as any, {
+            reference: `${t("readingPlans.day")} ${currentDay} — ${template.name}`,
+            passage: todayPassage,
+            initialPrompt: devotionalPrompt,
+            devotionalMode: true,
+            className: "rp-ai-companion",
+          })}
         </Suspense>
       )}
 

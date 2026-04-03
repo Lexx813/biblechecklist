@@ -8,14 +8,14 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
   const { t, i18n } = useTranslation();
   const lang = i18n.language?.split("-")[0] ?? "en";
   const topic = getTopicBySlug(slug);
-  const loc = topic ? t(`studyTopics.topics.${slug}`, { returnObjects: true }) : null;
+  const loc = topic ? t(`studyTopics.topics.${slug}`, { returnObjects: true }) as any : null;
   const localTopic = (loc && typeof loc === "object")
     ? {
         ...topic,
         title: loc.title || topic.title,
         subtitle: loc.subtitle || topic.subtitle,
-        sections: (Array.isArray(loc.sections) ? loc.sections : topic.sections).map((s, i) => {
-          const base = topic.sections[i] ?? {};
+        sections: (Array.isArray(loc.sections) ? loc.sections : topic.sections).map((s: any, i: number) => {
+          const base: any = topic.sections[i] ?? {};
           return {
             heading: s.heading || base.heading,
             paragraphs: Array.isArray(s.paragraphs) ? s.paragraphs : base.paragraphs,
@@ -86,7 +86,7 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
             <span>←</span>
             <span>
               <span className="std-nav-btn-label">{t("studyTopics.previous", "Previous")}</span>
-              <span className="std-nav-btn-title">{prevTopic.icon} {(t(`studyTopics.topics.${prevTopic.slug}`, { returnObjects: true })?.title) || prevTopic.title}</span>
+              <span className="std-nav-btn-title">{prevTopic.icon} {((t(`studyTopics.topics.${prevTopic.slug}`, { returnObjects: true }) as any)?.title) || prevTopic.title}</span>
             </span>
           </button>
         ) : <span />}
@@ -98,7 +98,7 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
             <span>→</span>
             <span>
               <span className="std-nav-btn-label">{t("studyTopics.next", "Next")}</span>
-              <span className="std-nav-btn-title">{nextTopic.icon} {(t(`studyTopics.topics.${nextTopic.slug}`, { returnObjects: true })?.title) || nextTopic.title}</span>
+              <span className="std-nav-btn-title">{nextTopic.icon} {((t(`studyTopics.topics.${nextTopic.slug}`, { returnObjects: true }) as any)?.title) || nextTopic.title}</span>
             </span>
           </button>
         )}

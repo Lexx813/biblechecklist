@@ -29,7 +29,8 @@ import {
 } from "../../hooks/useGroups";
 import ConfirmModal from "../../components/ConfirmModal";
 import { sanitizeContent, MAX_MSG_LENGTH } from "../../lib/e2e";
-import { PLAN_TEMPLATES, BOOKS } from "../../data/readingPlanTemplates";
+import { PLAN_TEMPLATES } from "../../data/readingPlanTemplates";
+import { BOOKS } from "../../data/books";
 import {
   useActiveChallenge,
   useStartChallenge,
@@ -79,8 +80,8 @@ function groupByDay(messages, t) {
   return items;
 }
 
-function groupReactions(reactions, messageId) {
-  const grouped = {};
+function groupReactions(reactions, messageId): Record<string, { count: number; users: string[] }> {
+  const grouped: Record<string, { count: number; users: string[] }> = {};
   (reactions || []).filter(r => r.message_id === messageId).forEach(r => {
     if (!grouped[r.emoji]) grouped[r.emoji] = { count: 0, users: [] };
     grouped[r.emoji].count++;
@@ -776,7 +777,7 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
   }
 
   const daysLeft = group.goal_deadline
-    ? Math.ceil((new Date(group.goal_deadline) - Date.now()) / 86400000)
+    ? Math.ceil((new Date(group.goal_deadline).getTime() - Date.now()) / 86400000)
     : null;
 
   const isReadingGroup = !group.group_type || group.group_type === "bible_study";
