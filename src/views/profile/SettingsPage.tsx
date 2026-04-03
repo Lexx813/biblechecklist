@@ -8,6 +8,7 @@ import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/u
 import { usePushNotifications } from "../../hooks/usePushNotifications";
 import { useUpdatePassword, useIdentities, useLinkGoogle, useUnlinkGoogle } from "../../hooks/useAuth";
 import { useSubscription } from "../../hooks/useSubscription";
+import { useMyBlocks, useUnblockUser } from "../../hooks/useBlocks";
 import { adminApi } from "../../api/admin";
 import "../../styles/profile.css";
 import AppLayout from "../../components/AppLayout";
@@ -83,6 +84,10 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
   // ── Subscription ──────────────────────────────────────────
   const { isPremium, status, subscribe: startCheckout, cancel } = useSubscription(user.id);
   const [showCancelConfirm, setShowCancelConfirm] = useState(false);
+
+  // ── Blocked users ─────────────────────────────────────────
+  const { data: blockedUsers = [] } = useMyBlocks(user.id);
+  const unblockUser = useUnblockUser();
 
   // ── Delete account ────────────────────────────────────────
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -374,6 +379,29 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
               {updatePassword.isPending && <span className="btn-spin" />}{updatePassword.isPending ? t("common.saving") : t("settings.updatePassword")}
             </button>
           </form>
+        </section>
+
+        {/* ── Blocked Users ───────────────────────────────── */}
+        <section className="st-section">
+          <h2 className="st-section-title">Privacy — Blocked Users</h2>
+          {blockedUsers.length === 0 ? (
+            <p className="st-danger-desc">You haven't blocked anyone.</p>
+          ) : (
+            blockedUsers.map(u => (
+              <div key={u.id} className="st-toggle-row">
+                <div className="st-toggle-info">
+                  <span className="st-toggle-label">{u.display_name || "Unknown user"}</span>
+                </div>
+                <button
+                  className="st-btn st-btn--ghost"
+                  onClick={() => unblockUser.mutate(u.id)}
+                  disabled={unblockUser.isPending}
+                >
+                  Unblock
+                </button>
+              </div>
+            ))
+          )}
         </section>
 
         {/* ── Danger zone ──────────────────────────────────── */}
