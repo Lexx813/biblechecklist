@@ -3,7 +3,7 @@ import { useMeta } from "../hooks/useMeta";
 import "../styles/about.css";
 
 export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout, onUpgrade }) {
-  useMeta({ title: "Privacy Policy" });
+  useMeta({ title: "Privacy Policy | NWT Progress", description: "Read the NWT Progress privacy policy — how we collect, use, and protect your personal information." });
   return (
     <div className="about-wrap">
 

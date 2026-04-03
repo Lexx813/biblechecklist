@@ -18,37 +18,36 @@ export default async function sitemap() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   );
 
+  const CONTENT_UPDATED = new Date("2026-04-03");
+
   const staticPages = [
-    { url: `${BASE}`, lastModified: new Date("2026-03-01"), changeFrequency: "weekly", priority: 1.0 },
-    { url: `${BASE}/blog`, lastModified: new Date("2026-04-01"), changeFrequency: "daily", priority: 0.9 },
-    { url: `${BASE}/forum`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
-    { url: `${BASE}/study-topics`, lastModified: new Date("2026-03-01"), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE}/books`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE}/plans`, lastModified: new Date("2026-03-01"), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${BASE}/about`, lastModified: new Date("2026-02-01"), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE}/privacy`, lastModified: new Date("2026-01-01"), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${BASE}/terms`, lastModified: new Date("2026-01-01"), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${BASE}`,                lastModified: new Date("2026-03-01") },
+    { url: `${BASE}/blog`,           lastModified: CONTENT_UPDATED },
+    { url: `${BASE}/forum`,          lastModified: CONTENT_UPDATED },
+    { url: `${BASE}/study-topics`,   lastModified: new Date("2026-03-01") },
+    { url: `${BASE}/books`,          lastModified: new Date("2026-03-01") },
+    { url: `${BASE}/plans`,          lastModified: new Date("2026-03-01") },
+    { url: `${BASE}/about`,          lastModified: new Date("2026-02-01") },
+    { url: `${BASE}/quiz`,           lastModified: new Date("2026-03-01") },
+    { url: `${BASE}/leaderboard`,    lastModified: CONTENT_UPDATED },
+    { url: `${BASE}/checklist`,      lastModified: new Date("2026-03-01") },
+    { url: `${BASE}/privacy`,        lastModified: new Date("2026-03-31") },
+    { url: `${BASE}/terms`,          lastModified: new Date("2026-03-31") },
   ];
 
   const bookPages = BOOKS.map((b) => ({
     url: `${BASE}/books/${bookToSlug(b.name)}`,
-    lastModified: new Date("2026-01-01"),
-    changeFrequency: "monthly",
-    priority: 0.7,
+    lastModified: new Date("2026-03-01"),
   }));
 
   const planPages = PLAN_TEMPLATES.map((p) => ({
     url: `${BASE}/plans/${p.key}`,
-    lastModified: new Date("2026-01-01"),
-    changeFrequency: "monthly",
-    priority: 0.7,
+    lastModified: new Date("2026-03-01"),
   }));
 
   const studyTopicPages = STUDY_TOPICS.map((t) => ({
     url: `${BASE}/study-topics/${t.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.8,
+    lastModified: new Date("2026-03-01"),
   }));
 
   let blogPages = [];
@@ -60,8 +59,6 @@ export default async function sitemap() {
     blogPages = (posts ?? []).map((p) => ({
       url: `${BASE}/blog/${p.slug}`,
       lastModified: new Date(p.updated_at),
-      changeFrequency: "monthly",
-      priority: 0.7,
     }));
   } catch {
     // Supabase unavailable at build time — omit blog pages

@@ -11,6 +11,7 @@ export const metadata = {
     "Spiritual insights, Bible study articles, scripture reflections, and community encouragement for Jehovah's Witnesses and NWT readers.",
   alternates: { canonical: "https://nwtprogress.com/blog" },
   openGraph: {
+    url: "https://nwtprogress.com/blog",
     title: "Bible Study Blog for Jehovah's Witnesses | NWT Progress",
     description:
       "Spiritual insights, Bible study articles, scripture reflections, and community encouragement for Jehovah's Witnesses and NWT readers.",

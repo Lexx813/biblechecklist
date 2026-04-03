@@ -1,6 +1,7 @@
 // @ts-nocheck
 import fs from "fs";
 import path from "path";
+import { notFound } from "next/navigation";
 import ClientShell from "../_components/ClientShell";
 import LandingPageStatic from "../_components/LandingPageStatic";
 
@@ -49,9 +50,24 @@ const FAQ_ITEMS = [
   },
 ];
 
+// All valid SPA client-side route first-segments
+const KNOWN_SPA_ROUTES = new Set([
+  "admin", "aiTools", "blogDash", "bookmarks", "checklist", "community",
+  "familyQuiz", "feed", "friendRequests", "friends", "groupDetail", "groups",
+  "history", "home", "invite", "leaderboard", "login", "main", "meetingPrep",
+  "messages", "notifications", "premium", "privacy", "profile", "publicProfile",
+  "quiz", "quizLevel", "readingPlans", "readingTracker", "referral", "search",
+  "settings", "signup", "studyNotes", "studyTopicDetail", "studyTopics",
+  "terms", "upgrade", "whosOnline",
+]);
+
 export default async function Page({ params }) {
   const { slug } = await params;
   const isRoot = !slug || slug.length === 0;
+
+  if (!isRoot && !KNOWN_SPA_ROUTES.has(slug[0])) {
+    notFound();
+  }
 
   if (isRoot) {
     const schemaFAQ = {

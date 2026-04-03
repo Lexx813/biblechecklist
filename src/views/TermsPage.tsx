@@ -3,7 +3,7 @@ import { useMeta } from "../hooks/useMeta";
 import "../styles/about.css";
 
 export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout, onUpgrade }) {
-  useMeta({ title: "Terms of Service" });
+  useMeta({ title: "Terms of Service | NWT Progress", description: "Review the NWT Progress terms of service governing use of the Bible reading tracker and community features." });
   return (
     <div className="about-wrap">
 
