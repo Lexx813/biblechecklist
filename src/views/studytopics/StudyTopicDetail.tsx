@@ -2,6 +2,7 @@
 import { useTranslation } from "react-i18next";
 import { getTopicBySlug, STUDY_TOPICS } from "../../data/studyTopics";
 import { wolRefUrl } from "../../utils/wol";
+import AppLayout from "../../components/AppLayout";
 import "../../styles/study-topics.css";
 
 export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav }) {
@@ -27,14 +28,13 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
 
   if (!topic) {
     return (
+      <AppLayout navigate={navigate} user={user} currentPage="studyTopics">
       <div className="std-page">
         <div className="std-header">
-          <button className="stp-nav-back" onClick={() => navigate("studyTopics")}>
-            {t("common.back")}
-          </button>
           <h1 className="std-title">{t("studyTopics.notFound", "Topic not found")}</h1>
         </div>
       </div>
+      </AppLayout>
     );
   }
 
@@ -43,6 +43,7 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
   const nextTopic = currentIndex < STUDY_TOPICS.length - 1 ? STUDY_TOPICS[currentIndex + 1] : null;
 
   return (
+    <AppLayout navigate={navigate} user={user} currentPage="studyTopics">
     <div className="std-page">
       <div className="std-header">
         <button className="stp-nav-back" onClick={() => navigate("studyTopics")}>
@@ -104,5 +105,6 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
         )}
       </div>
     </div>
+    </AppLayout>
   );
 }

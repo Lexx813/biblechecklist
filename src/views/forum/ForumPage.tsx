@@ -7,7 +7,6 @@ import "../../styles/ai-tools.css";
 import ConfirmModal from "../../components/ConfirmModal";
 const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
 import ReportModal from "../../components/ReportModal";
-import AppLayout from "../../components/AppLayout";
 import RightPanel from "../../components/RightPanel";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
@@ -253,7 +252,6 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
 
   return (
     <div className="forum-thread-view">
-      <AppLayout navigate={navigate} user={user} currentPage="forum" rightPanel={<RightPanel page="forum" user={user} navigate={navigate} onUpgrade={onUpgrade} />}>
       {/* Breadcrumb */}
       <nav className="forum-breadcrumb">
         <button className="forum-breadcrumb-item" onClick={() => navigate("forum")}>{t("forum.breadcrumbForum")}</button>
@@ -615,7 +613,6 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
           </div>
         </form>
       )}
-      </AppLayout>
     </div>
   );
 }
@@ -758,7 +755,6 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 
   return (
     <div className="forum-thread-list">
-      <AppLayout navigate={navigate} user={user} currentPage="forum" rightPanel={<RightPanel page="forum" user={user} navigate={navigate} onUpgrade={onUpgrade} />}>
       {/* Breadcrumb */}
       <nav className="forum-breadcrumb">
         <button className="forum-breadcrumb-item" onClick={() => navigate("forum")}>{t("forum.breadcrumbForum")}</button>
@@ -922,7 +918,6 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
           )}
         </div>
       )}
-      </AppLayout>
     </div>
   );
 }
@@ -940,21 +935,7 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
 
   return (
     <div className="forum-categories">
-      <AppLayout navigate={navigate} user={user} currentPage="forum" rightPanel={<RightPanel page="forum" user={user} navigate={navigate} onUpgrade={onUpgrade} />}>
-      {/* Hero */}
-      <div className="forum-hero">
-        <div className="forum-hero-glow forum-hero-glow--1" />
-        <div className="forum-hero-glow forum-hero-glow--2" />
-        <div className="forum-hero-inner">
-          <button className="back-btn forum-hero-back" onClick={onBack}>{t("forum.backToApp")}</button>
-          <div className="forum-hero-badge">{t("forum.badge")}</div>
-          <h1 className="forum-hero-title">{t("forum.title")}</h1>
-          <p className="forum-hero-sub">{t("forum.subtitle")}</p>
-          {totalThreads > 0 && (
-            <p className="forum-hero-count">{t("forum.threadCount", { count: totalThreads, cats: categories.length })}</p>
-          )}
-        </div>
-      </div>
+      <h1 className="page-section-title">{t("forum.title")}</h1>
 
       {/* Trending threads */}
       {trending.length > 0 && (
@@ -1002,7 +983,6 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
           );
         })}
       </div>
-      </AppLayout>
     </div>
   );
 }

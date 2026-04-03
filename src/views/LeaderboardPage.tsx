@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import AppLayout from "../components/AppLayout";
 import RightPanel from "../components/RightPanel";
 import { useReadingLeaderboard, useQuizLeaderboard } from "../hooks/useLeaderboard";
 import { useTimedLeaderboard } from "../hooks/useQuizTimed";
@@ -142,9 +141,7 @@ export default function LeaderboardPage({ user, onBack, navigate, darkMode, setD
 
   return (
     <div className="lb-page">
-      <AppLayout navigate={navigate} user={user} currentPage="leaderboard" rightPanel={<RightPanel page="leaderboard" user={user} navigate={navigate} onUpgrade={onUpgrade} />}>
       <header className="lb-header">
-        <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
         <h1 className="lb-title"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style={{verticalAlign:"middle",marginRight:6}}><path d="M5 3h14l-1.5 5H18a5 5 0 0 1-4 4.9V17h3a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2h3v-4.1A5 5 0 0 1 6 8h-.5L4 3h1zm7 10a3 3 0 0 0 3-3H9a3 3 0 0 0 3 3z"/></svg>{t("leaderboard.title")}</h1>
         <p className="lb-sub">{t("leaderboard.subtitle")}</p>
       </header>
@@ -191,7 +188,6 @@ export default function LeaderboardPage({ user, onBack, navigate, darkMode, setD
           </div>
         )}
       </div>
-      </AppLayout>
     </div>
   );
 }

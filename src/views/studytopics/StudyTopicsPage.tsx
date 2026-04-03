@@ -5,6 +5,7 @@ import { STUDY_TOPICS } from "../../data/studyTopics";
 import { BOOKS } from "../../data/books";
 import { BOOK_INFO } from "../../data/bookInfo";
 import { useSubscription } from "../../hooks/useSubscription";
+import AppLayout from "../../components/AppLayout";
 import "../../styles/study-topics.css";
 
 function StudyTopicsSkeleton() {
@@ -30,11 +31,9 @@ export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
   const [tab, setTab] = useState("topics"); // "topics" | "books"
 
   return (
+    <AppLayout navigate={navigate} user={user} currentPage="studyTopics">
     <div className="stp-page">
       <div className="stp-header">
-        <button className="stp-nav-back" onClick={() => navigate("home")}>
-          {t("common.back")}
-        </button>
         <h1 className="stp-title">{t("studyTopics.title", "Study Topics")}</h1>
         <p className="stp-subtitle">
           {t("studyTopics.subtitle", "Explore key Bible topics with scripture-based answers")}
@@ -112,5 +111,6 @@ export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
         </div>
       )}
     </div>
+    </AppLayout>
   );
 }

@@ -10,6 +10,7 @@ import { useUpdatePassword, useIdentities, useLinkGoogle, useUnlinkGoogle } from
 import { useSubscription } from "../../hooks/useSubscription";
 import { adminApi } from "../../api/admin";
 import "../../styles/profile.css";
+import AppLayout from "../../components/AppLayout";
 import "../../styles/settings.css";
 
 export default function SettingsPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
@@ -103,11 +104,11 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
   const avatarUrl = profile?.avatar_url;
 
   return (
+    <AppLayout navigate={navigate} user={user} currentPage="settings">
     <div className="st-wrap">
 
       <header className="st-header">
         <div className="st-header-inner">
-          <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
           <h1 className="st-title">{t("settings.title")}</h1>
         </div>
       </header>
@@ -387,5 +388,6 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
         />
       )}
     </div>
+    </AppLayout>
   );
 }

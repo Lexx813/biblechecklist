@@ -1,5 +1,20 @@
 // @ts-nocheck
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, lazy, Suspense } from "react";
+
+const QuizPageInline      = lazy(() => import("./quiz/QuizPage"));
+const QuizLevelInline     = lazy(() => import("./quiz/QuizPage").then(m => ({ default: m.QuizLevel })));
+const LeaderboardInline   = lazy(() => import("./LeaderboardPage"));
+const FamilyQuizInline    = lazy(() => import("./familyquiz/FamilyQuizPage"));
+const ReadingPlansInline  = lazy(() => import("./readingplans/ReadingPlansPage"));
+const StudyNotesInline    = lazy(() => import("./studynotes/StudyNotesPage"));
+const ForumInline         = lazy(() => import("./forum/ForumPage"));
+const BlogInline          = lazy(() => import("./blog/BlogPage"));
+const MeetingPrepInline   = lazy(() => import("./meetingprep/MeetingPrepPage"));
+const FriendsInline       = lazy(() => import("./friends/FriendsPage"));
+const AdminInline         = lazy(() => import("./admin/AdminPage"));
+const ProfileInline       = lazy(() => import("./profile/ProfilePage"));
+const MessagesInline      = lazy(() => import("./messages/MessagesPage"));
+const ChecklistInline     = lazy(() => import("./ChecklistPage"));
 import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import { useTopThreads } from "../hooks/useForum";
@@ -84,10 +99,20 @@ const NAV_ITEMS_2 = [
   },
 ];
 
+const INLINE_PANELS = new Set(["main", "quiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile", "messages"]);
+
 const NAV_SHORTCUTS = [
   {
     key: "quiz", label: "Bible Quiz", bg: "#374151",
     icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>,
+  },
+  {
+    key: "leaderboard", label: "Leaderboard", bg: "#f59e0b",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 17v4m4-8v8m4-12v12M2 20h20"/></svg>,
+  },
+  {
+    key: "familyQuiz", label: "Family Challenge", bg: "#1d7ea6",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
   },
   {
     key: "meetingPrep", label: "Meeting Prep", bg: "#374151",
@@ -129,7 +154,7 @@ function ForumSkeleton() {
 }
 
 // ── Main component ───────────────────────────────────────────────────────────
-export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, isPremium, onUpgrade }) {
+export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, isPremium, onUpgrade, panelRequest, onPanelConsumed }) {
   const { t } = useTranslation();
   const lang = i18n?.language?.split("-")[0] ?? "en";
 
@@ -146,6 +171,43 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const pendingRequests = incoming.data?.length ?? 0;
   const { data: friends = [] } = useFriends(user?.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
+
+  // Inline panels (quiz, leaderboard, familyQuiz, etc.)
+  const [activePanel, setActivePanel] = useState(null);
+  const [quizLevelState, setQuizLevelState] = useState(null); // null = hub, {level, timedMode}
+  const [panelParams, setPanelParams] = useState<Record<string, any>>({});
+
+  // Consume panel requests from the global navigate (e.g. clicking sidebar on another page)
+  useEffect(() => {
+    if (!panelRequest) return;
+    const { panel, params = {} } = panelRequest;
+    if (INLINE_PANELS.has(panel)) {
+      setActivePanel(panel);
+      setPanelParams(params);
+      // If navigating directly to a quiz level from outside, activate it immediately
+      if (panel === "quiz" && params.level != null) {
+        setQuizLevelState({ level: params.level, timedMode: !!params.timedMode });
+      } else {
+        setQuizLevelState(null);
+      }
+      onPanelConsumed?.();
+    }
+  }, [panelRequest]);
+
+  function panelNavigate(page, params = {}) {
+    if (page === "quiz") { setQuizLevelState(null); setActivePanel("quiz"); setPanelParams({}); }
+    else if (page === "quizLevel") { setQuizLevelState({ level: params.level, timedMode: !!params.timedMode }); }
+    else if (page === "blog") {
+      setActivePanel("blog"); setQuizLevelState(null); setPanelParams(params);
+      history.pushState(null, "", params.slug ? `/blog/${params.slug}` : "/blog");
+    }
+    else if (INLINE_PANELS.has(page)) { setActivePanel(page); setQuizLevelState(null); setPanelParams(params); }
+    else if (page === "home") {
+      setActivePanel(null); setQuizLevelState(null); setPanelParams({});
+      if (window.location.pathname.startsWith("/blog")) history.pushState(null, "", "/");
+    }
+    else { setActivePanel(null); setQuizLevelState(null); setPanelParams({}); navigate(page, params); }
+  }
 
   // Onboarding / modals
   const [showOnboarding, closeOnboarding] = useOnboarding(user?.created_at);
@@ -197,14 +259,14 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   return (
     <div className="home-wrap">
 
-      <main id="main-content" className="home-layout">
+      <main id="main-content" className={`home-layout${(activePanel === "main" || activePanel === "profile" || activePanel === "admin" || activePanel === "messages") ? " home-layout--tracker" : ""}`}>
 
         {/* ═══════════════════════════════════════
             LEFT SIDEBAR
         ═══════════════════════════════════════ */}
         <aside className="home-left-sidebar">
           {/* Profile row */}
-          <button className="hls-profile" onClick={() => navigate("profile")}>
+          <button className="hls-profile" onClick={() => { setActivePanel("profile"); setQuizLevelState(null); }}>
             <span className="hls-avatar">
               {profile?.avatar_url
                 ? <img src={profile.avatar_url} alt={displayName} />
@@ -217,8 +279,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {NAV_ITEMS.map(item => (
             <button
               key={item.key}
-              className={`hls-item${item.key === "home" ? " hls-item--active" : ""}`}
-              onClick={() => navigate(item.key)}
+              className={`hls-item${(activePanel === null && item.key === "home") || activePanel === item.key ? " hls-item--active" : ""}`}
+              onClick={() => panelNavigate(item.key)}
             >
               <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
               {item.label}
@@ -229,7 +291,14 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
           {/* Social */}
           {NAV_ITEMS_2.map(item => (
-            <button key={item.key} className="hls-item" onClick={() => navigate(item.key)}>
+            <button
+              key={item.key}
+              className={`hls-item${activePanel === item.key ? " hls-item--active" : ""}`}
+              onClick={() => {
+                if (INLINE_PANELS.has(item.key)) { setActivePanel(item.key); setQuizLevelState(null); }
+                else { setActivePanel(null); setQuizLevelState(null); navigate(item.key); }
+              }}
+            >
               <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
               {item.label}
               {item.key === "friends"  && pendingRequests > 0 && <span className="hls-badge">{pendingRequests}</span>}
@@ -241,17 +310,114 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           <div className="hls-section-label">Shortcuts</div>
 
           {NAV_SHORTCUTS.map(item => (
-            <button key={item.key} className="hls-item" onClick={() => navigate(item.key)}>
+            <button
+              key={item.key}
+              className={`hls-item${activePanel === item.key ? " hls-item--active" : ""}`}
+              onClick={() => {
+                if (INLINE_PANELS.has(item.key)) { setActivePanel(item.key); setQuizLevelState(null); }
+                else { setActivePanel(null); navigate(item.key); }
+              }}
+            >
               <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
               {item.label}
             </button>
           ))}
+
+          {(profile?.is_admin || profile?.is_moderator) && (
+            <>
+              <div className="hls-divider" />
+              <button
+                className={`hls-item${activePanel === "admin" ? " hls-item--active" : ""}`}
+                onClick={() => { setActivePanel("admin"); setQuizLevelState(null); }}
+              >
+                <span className="hls-icon" style={{ background: "#dc2626" }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                </span>
+                {profile?.is_admin ? "Admin" : "Moderation"}
+              </button>
+            </>
+          )}
         </aside>
 
         {/* ═══════════════════════════════════════
-            MAIN FEED
+            MAIN FEED / INLINE PANELS
         ═══════════════════════════════════════ */}
         <div className="home-feed">
+
+          {/* ── Inline panels ── */}
+          {activePanel === "main" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <ChecklistInline user={user} profile={null} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+          {activePanel === "quiz" && !quizLevelState && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <QuizPageInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+          {activePanel === "quiz" && quizLevelState && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <QuizLevelInline level={quizLevelState.level} timedMode={quizLevelState.timedMode} user={user} onBack={() => setQuizLevelState(null)} onComplete={() => setQuizLevelState(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+          {activePanel === "leaderboard" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <LeaderboardInline user={user} onBack={() => setActivePanel(null)} navigate={navigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+          {activePanel === "familyQuiz" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <FamilyQuizInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+          {activePanel === "readingPlans" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <ReadingPlansInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade, isPremium }} />
+            </Suspense>
+          )}
+          {activePanel === "studyNotes" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <StudyNotesInline user={user} navigate={panelNavigate} initialTab={panelParams.tab ?? "mine"} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+          {activePanel === "forum" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <ForumInline user={user} profile={profile} categoryId={panelParams.categoryId ?? null} threadId={panelParams.threadId ?? null} onNavigate={(categoryId, threadId) => setPanelParams({ categoryId, threadId })} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+          {activePanel === "blog" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <BlogInline user={user} profile={profile} slug={panelParams.slug ?? null} onSelectPost={(slug) => { setPanelParams({ slug }); history.pushState(null, "", `/blog/${slug}`); }} onBack={() => { setPanelParams({}); history.pushState(null, "", "/blog"); }} onWriteClick={() => navigate("blogDash")} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+          {activePanel === "meetingPrep" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <MeetingPrepInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+          {activePanel === "friends" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <FriendsInline user={user} navigate={panelNavigate} isPremium={isPremium} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+          {activePanel === "admin" && (profile?.is_admin || profile?.is_moderator) && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <AdminInline currentUser={user} currentProfile={profile} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+          {activePanel === "profile" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <ProfileInline user={user} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+          {activePanel === "messages" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <MessagesInline user={user} navigate={panelNavigate} isPremium={isPremium} initialConv={panelParams.conversationId ? { conversation_id: panelParams.conversationId, other_display_name: panelParams.otherDisplayName ?? null, other_avatar_url: panelParams.otherAvatarUrl ?? null } : null} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+
+          {/* ── Home feed (hidden when a panel is active) ── */}
+          {activePanel === null && <>
 
           {/* Today's Focus */}
           <div className="hcard hcard--focus">
@@ -401,6 +567,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               </div>
             )}
           </div>
+
+          </>}
 
         </div>
 

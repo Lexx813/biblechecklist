@@ -14,6 +14,7 @@ import { getStoredReferralCode, clearStoredReferralCode, trackSignup } from "./l
 import LoadingSpinner from "./components/LoadingSpinner";
 import MobileTabBar from "./components/MobileTabBar";
 import TopBar from "./components/TopBar";
+import AppLayout from "./components/AppLayout";
 import CommandPalette from "./components/CommandPalette";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import UpgradeModal from "./components/UpgradeModal";
@@ -269,7 +270,31 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     return () => window.removeEventListener("badge-earned", handleBadgeEarned);
   }, []);
 
+  // Pages rendered as inline panels inside the home page
+  // Note: "quizLevel" maps to "quiz" panel with level params — kept here so external navigate("quizLevel") is intercepted
+  const HOME_PANELS = new Set(["main", "quiz", "quizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "messages"]);
+  const PREMIUM_PANELS = new Set(["readingPlans", "studyNotes", "meetingPrep"]);
+
+  const [homePanelRequest, setHomePanelRequest] = useState<{ panel: string; params: Record<string, any> } | null>(null);
+
   const navigate = (page, params = {}) => {
+    if (HOME_PANELS.has(page)) {
+      // Premium gating for certain panels — show upgrade prompt instead of navigating
+      if (PREMIUM_PANELS.has(page) && !isPremium) {
+        if (!isDismissed(`gate-${page}`)) setGatedFeature(page);
+        else openUpgrade();
+        return;
+      }
+      // Blog gets real URLs for shareability + SEO
+      const url = page === "blog"
+        ? (params.slug ? `/blog/${params.slug}` : "/blog")
+        : "/";
+      history.pushState(null, "", url);
+      const panelKey = page === "quizLevel" ? "quiz" : page;
+      setNav({ page: "home" });
+      setHomePanelRequest({ panel: panelKey, params });
+      return;
+    }
     const path = buildPath(page, params);
     history.pushState(null, "", path);
     setNav({ page, ...params });
@@ -288,25 +313,29 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
 
   const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page, onUpgrade: openUpgrade, onSearchClick: () => setShowCmdPalette(true) };
 
+  const AL = ({ page, children }) => <AppLayout navigate={navigate} user={user} currentPage={page}>{children}</AppLayout>;
+
   let pageContent = null;
-  if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} isPremium={isPremium} onUpgrade={openUpgrade} /></Page>;
-  else if (nav.page === "main") pageContent = <Page><ChecklistPage user={user} profile={profile} {...sharedNav} /></Page>;
+  if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} isPremium={isPremium} onUpgrade={openUpgrade} panelRequest={homePanelRequest} onPanelConsumed={() => setHomePanelRequest(null)} /></Page>;
+  else if (nav.page === "main") pageContent = <Page><AL page="main"><ChecklistPage user={user} profile={profile} {...sharedNav} /></AL></Page>;
   else if (nav.page === "admin") {
     if (!profileLoading && !profile?.is_admin && !profile?.is_moderator) navigate("home");
-    else if (profile?.is_admin || profile?.is_moderator) pageContent = <Page><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+    else if (profile?.is_admin || profile?.is_moderator) pageContent = <Page><AL page="admin"><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></AL></Page>;
   }
-  else if (nav.page === "profile")  pageContent = <Page><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  else if (nav.page === "profile")  pageContent = <Page><AL page="profile"><ProfilePage user={user} onBack={() => navigate("home")} {...sharedNav} /></AL></Page>;
   else if (nav.page === "settings") pageContent = <Page><SettingsPage user={user} onBack={() => navigate("profile")} {...sharedNav} /></Page>;
-  else if (nav.page === "publicProfile") pageContent = <Page><ProfilePage user={user} viewedUserId={nav.userId} isOwner={false} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  else if (nav.page === "publicProfile") pageContent = <Page><AL page="profile"><ProfilePage user={user} viewedUserId={nav.userId} isOwner={false} onBack={() => navigate("home")} {...sharedNav} /></AL></Page>;
   else if (nav.page === "blog") pageContent = (
     <Page>
-      <BlogPage
-        user={user} profile={profile} slug={nav.slug ?? null}
-        onSelectPost={(slug) => navigate("blog", { slug })}
-        onBack={() => navigate("home")}
-        onWriteClick={() => navigate("blogDash")}
-        {...sharedNav}
-      />
+      <AL page="blog">
+        <BlogPage
+          user={user} profile={profile} slug={nav.slug ?? null}
+          onSelectPost={(slug) => navigate("blog", { slug })}
+          onBack={() => navigate("home")}
+          onWriteClick={() => navigate("blogDash")}
+          {...sharedNav}
+        />
+      </AL>
     </Page>
   );
   else if (nav.page === "blogDash") {
@@ -315,47 +344,51 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   }
   else if (nav.page === "forum") pageContent = (
     <Page>
-      <ForumPage
-        user={user} profile={profile}
-        categoryId={nav.categoryId ?? null} threadId={nav.threadId ?? null}
-        onNavigate={(categoryId, threadId) => navigate("forum", { categoryId, threadId })}
-        onBack={() => navigate("home")}
-        {...sharedNav}
-      />
+      <AL page="forum">
+        <ForumPage
+          user={user} profile={profile}
+          categoryId={nav.categoryId ?? null} threadId={nav.threadId ?? null}
+          onNavigate={(categoryId, threadId) => navigate("forum", { categoryId, threadId })}
+          onBack={() => navigate("home")}
+          {...sharedNav}
+        />
+      </AL>
     </Page>
   );
-  else if (nav.page === "quiz")      pageContent = <Page><QuizPage user={user} {...sharedNav} /></Page>;
-  else if (nav.page === "quizLevel") pageContent = <Page><QuizLevel level={nav.level} user={user} onBack={() => navigate("quiz")} onComplete={() => navigate("quiz")} {...sharedNav} /></Page>;
+  else if (nav.page === "quiz")      pageContent = <Page><AL page="quiz"><QuizPage user={user} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "quizLevel") pageContent = <Page><AL page="quiz"><QuizLevel level={nav.level} user={user} onBack={() => navigate("quiz")} onComplete={() => navigate("quiz")} {...sharedNav} /></AL></Page>;
   else if (nav.page === "search")    pageContent = <Page><SearchPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "bookmarks") pageContent = <Page><BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "history")   pageContent = <Page><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Page>;
   else if (nav.page === "feed")      pageContent = <Page><ActivityFeed user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
-  else if (isPremium && nav.page === "readingPlans") pageContent = <Page><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></Page>;
-  else if (isPremium && nav.page === "studyNotes")   pageContent = <Page><StudyNotesPage user={user} navigate={navigate} initialTab={nav.tab ?? "mine"} {...sharedNav} /></Page>;
-  else if (nav.page === "aiTools" && (profile?.is_admin || isPremium)) pageContent = <Page><AIToolsPage user={user} {...sharedNav} /></Page>;
+  else if (isPremium && nav.page === "readingPlans") pageContent = <Page><AL page="readingPlans"><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
+  else if (isPremium && nav.page === "studyNotes")   pageContent = <Page><AL page="studyNotes"><StudyNotesPage user={user} navigate={navigate} initialTab={nav.tab ?? "mine"} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "aiTools" && (profile?.is_admin || isPremium)) pageContent = <Page><AL page="aiTools"><AIToolsPage user={user} {...sharedNav} /></AL></Page>;
   else if (nav.page === "studyTopics")      pageContent = <Page><StudyTopicsPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "studyTopicDetail") pageContent = <Page><StudyTopicDetail user={user} navigate={navigate} slug={nav.slug} {...sharedNav} /></Page>;
   else if (nav.page === "familyQuiz") pageContent = (
     <Page>
-      <FamilyQuizPage
-        user={user}
-        {...sharedNav}
-        {...(nav.challengeId ? { initialChallengeId: nav.challengeId } : {})}
-      />
+      <AL page="familyQuiz">
+        <FamilyQuizPage
+          user={user}
+          {...sharedNav}
+          {...(nav.challengeId ? { initialChallengeId: nav.challengeId } : {})}
+        />
+      </AL>
     </Page>
   );
-  else if (nav.page === "leaderboard") pageContent = <Page><LeaderboardPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  else if (nav.page === "leaderboard") pageContent = <Page><AL page="leaderboard"><LeaderboardPage user={user} onBack={() => navigate("home")} {...sharedNav} /></AL></Page>;
   else if (nav.page === "about")     pageContent = <Page><AboutPage {...sharedNav} /></Page>;
   else if (nav.page === "terms")     pageContent = <Page><TermsPage {...sharedNav} /></Page>;
   else if (nav.page === "privacy")   pageContent = <Page><PrivacyPage {...sharedNav} /></Page>;
   else if (isPremium && nav.page === "messages")     pageContent = <Page noFooter><MessagesPage {...sharedNav} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
-  else if (isPremium && nav.page === "groups")       pageContent = <Page><GroupsPage {...sharedNav} /></Page>;
-  else if (isPremium && nav.page === "groupDetail")  pageContent = <Page><GroupDetail {...sharedNav} groupId={nav.groupId} /></Page>;
-  else if (isPremium && nav.page === "meetingPrep") pageContent = <Page><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></Page>;
+  else if (isPremium && nav.page === "groups")       pageContent = <Page><AL page="groups"><GroupsPage {...sharedNav} /></AL></Page>;
+  else if (isPremium && nav.page === "groupDetail")  pageContent = <Page><AL page="groups"><GroupDetail {...sharedNav} groupId={nav.groupId} /></AL></Page>;
+  else if (isPremium && nav.page === "meetingPrep") pageContent = <Page><AL page="meetingPrep"><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
   else if (nav.page === "friends")
-    pageContent = <Page><ProfilePage user={user} onBack={() => navigate("home")} defaultTab="friends" {...sharedNav} /></Page>;
+    pageContent = <Page><AL page="friends"><ProfilePage user={user} onBack={() => navigate("home")} defaultTab="friends" {...sharedNav} /></AL></Page>;
   else if (nav.page === "friendRequests")
-    pageContent = <Page><FriendRequestsPage user={user} navigate={navigate} {...sharedNav} /></Page>;
+    pageContent = <Page><AL page="friends"><FriendRequestsPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
   // Premium-gated pages for non-premium users → send home (with upgrade prompt)
   else if (!isPremium && ["messages", "groups", "groupDetail", "readingPlans", "studyNotes", "aiTools", "meetingPrep"].includes(nav.page)) {
     if (!profileLoading) {

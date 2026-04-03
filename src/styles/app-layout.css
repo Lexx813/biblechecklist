@@ -28,6 +28,15 @@
 }
 .al-sidebar::-webkit-scrollbar { display: none; }
 
+/* Shared page section title (replaces hero sections) */
+.page-section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  padding: 24px 20px 8px;
+  margin: 0;
+}
+
 /* Profile row */
 .al-profile {
   display: flex;
@@ -140,6 +149,11 @@
 .al-content {
   min-width: 0;
   min-height: calc(100vh - 52px);
+}
+
+/* Bible Tracker: let app-wrap fill the full content column instead of centering at 680px */
+.al-content .app-wrap {
+  max-width: none;
 }
 
 /* ── Light theme ── */

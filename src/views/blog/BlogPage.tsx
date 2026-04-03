@@ -3,7 +3,6 @@ import { useState, useMemo, memo, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
-import AppLayout from "../../components/AppLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import ReportModal from "../../components/ReportModal";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
@@ -235,7 +234,6 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
 
   return (
     <div className="blog-post-view">
-      <AppLayout navigate={navigate} user={user} currentPage="blog">
       <div className="blog-post-hero">
         <Image
           src={post.cover_url || getFallbackImage(post.id)}
@@ -354,7 +352,6 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
       </div>
 
       <RelatedPosts currentPost={post} onSelect={onSelectPost || onBack} navigate={navigate} user={user} />
-      </AppLayout>
     </div>
   );
 }
@@ -482,7 +479,6 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
 
   return (
     <div className="blog-wrap">
-      <AppLayout navigate={navigate} user={user} currentPage="blog">
       {/* Nav */}
       <nav className="blog-nav">
         <button className="back-btn" onClick={onBack}>{t("blog.backToBible")}</button>
@@ -493,20 +489,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
         </div>
       </nav>
 
-      {/* Hero */}
-      <div className="blog-hero">
-        <div className="blog-hero-glow blog-hero-glow--1" />
-        <div className="blog-hero-glow blog-hero-glow--2" />
-        <div className="blog-hero-glow blog-hero-glow--3" />
-        <div className="blog-hero-inner">
-          <div className="blog-hero-badge">{t("blog.badge")}</div>
-          <h1 className="blog-hero-title">{t("blog.title")}</h1>
-          <p className="blog-hero-sub">{t("blog.subtitle")}</p>
-          {posts.length > 0 && (
-            <p className="blog-hero-count">{t("blog.postCount", { count: posts.length })}</p>
-          )}
-        </div>
-      </div>
+      <h1 className="page-section-title">{t("blog.title")}</h1>
 
       {/* Language filter pills */}
       <div className="blog-lang-filter">
@@ -551,7 +534,6 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
           </>
         )}
       </div>
-      </AppLayout>
     </div>
   );
 }

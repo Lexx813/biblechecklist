@@ -1290,7 +1290,6 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
     <div className="admin-wrap">
       <header className="admin-header">
         <div className="admin-header-inner">
-          <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
           <div className="admin-header-text">
             <span className="admin-logo">
             {isCurrentUserAdmin

@@ -2,7 +2,6 @@
 import { useState, useMemo, useRef, useEffect, lazy, Suspense } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
-import AppLayout from "../../components/AppLayout";
 import ConfirmModal from "../../components/ConfirmModal";
 const AICompanion = lazy(() => import("../../components/AICompanion"));
 import { useAISkill } from "../../hooks/useAISkill";
@@ -802,7 +801,6 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
   if (detailPlan) {
     return (
       <div className="rp-page">
-        <AppLayout navigate={navigate} user={user} currentPage="readingPlans">
         <PlanDetail
           plan={detailPlan}
           allPlans={myPlans}
@@ -811,14 +809,12 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
           navigate={navigate}
           userId={user?.id}
         />
-        </AppLayout>
       </div>
     );
   }
 
   return (
     <div className="rp-page">
-      <AppLayout navigate={navigate} user={user} currentPage="readingPlans">
       <div className="rp-header">
         <button className="rp-nav-back" onClick={() => navigate("home")}>{t("common.back")}</button>
         <div className="rp-header-row">
@@ -900,7 +896,6 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
           onCreated={(plan) => { setDetailPlan(plan); setTab("mine"); }}
         />
       )}
-      </AppLayout>
     </div>
   );
 }

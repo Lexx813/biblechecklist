@@ -7,6 +7,7 @@ const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useMyPosts, useCreatePost, useUpdatePost, useDeletePost } from "../../hooks/useBlog";
 import { blogApi } from "../../api/blog";
+import AppLayout from "../../components/AppLayout";
 import "../../styles/blog.css";
 import { formatDate } from "../../utils/formatters";
 
@@ -249,11 +250,13 @@ export default function BlogDashboard({ user, onBack, navigate, darkMode, setDar
 
   if (editing !== null) {
     return (
-      <PostEditor
-        userId={user.id}
-        post={editing === "new" ? null : editing}
-        onDone={() => setEditing(null)}
-      />
+      <AppLayout navigate={navigate} user={user} currentPage="blog">
+        <PostEditor
+          userId={user.id}
+          post={editing === "new" ? null : editing}
+          onDone={() => setEditing(null)}
+        />
+      </AppLayout>
     );
   }
 
@@ -261,9 +264,9 @@ export default function BlogDashboard({ user, onBack, navigate, darkMode, setDar
   const drafts = posts.length - published;
 
   return (
+    <AppLayout navigate={navigate} user={user} currentPage="blog">
     <div className="blog-dash-wrap">
       <header className="blog-dash-header">
-        <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
         <h1>{t("blogDash.myPostsTitle")}</h1>
         <button className="blog-write-btn" onClick={() => setEditing("new")}>{t("blogDash.newPost")}</button>
       </header>
@@ -330,5 +333,6 @@ export default function BlogDashboard({ user, onBack, navigate, darkMode, setDar
         />
       )}
     </div>
+    </AppLayout>
   );
 }

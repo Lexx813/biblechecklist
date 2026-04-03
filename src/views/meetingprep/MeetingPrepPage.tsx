@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import AppLayout from "../../components/AppLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import {
   useMeetingWeek,
@@ -441,7 +440,6 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
 
   return (
     <div>
-      <AppLayout navigate={navigate} user={user} currentPage="meetingPrep">
       <div className="mp-page">
 
         {/* Header */}
@@ -544,7 +542,6 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
         )}
 
       </div>
-      </AppLayout>
     </div>
   );
 }

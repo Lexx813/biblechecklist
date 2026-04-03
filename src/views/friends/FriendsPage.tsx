@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useFriends, useInviteToken, useRemoveFriend, FriendProfile } from "../../hooks/useFriends";
 import { useGetOrCreateDM } from "../../hooks/useMessages";
-import AppLayout from "../../components/AppLayout";
 import "../../styles/friends.css";
 
 function timeAgo(iso: string | null | undefined): string | null {
@@ -60,7 +59,6 @@ export default function FriendsPage({ user, navigate, isPremium, onUpgrade, dark
 
   return (
     <div className="friends-page">
-      <AppLayout navigate={navigate} user={user} currentPage="friends">
       <div className="friends-page-header">
         <h1 className="friends-page-title">Friends</h1>
         <button
@@ -128,7 +126,6 @@ export default function FriendsPage({ user, navigate, isPremium, onUpgrade, dark
           );
         })}
       </div>
-      </AppLayout>
     </div>
   );
 }

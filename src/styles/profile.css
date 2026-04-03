@@ -83,6 +83,25 @@ html.nav-hidden .pf-header { top: 0; }
   position: relative;
   overflow: hidden;
 }
+
+.pf-settings-cog {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+}
+.pf-settings-cog:hover { background: rgba(0, 0, 0, 0.55); color: #fff; }
 .pf-card-banner::after {
   content: "";
   position: absolute;

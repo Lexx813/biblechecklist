@@ -21,6 +21,17 @@
   align-items: start;
 }
 
+/* Bible Tracker panel: hide right sidebar, let feed fill remaining space */
+.home-layout--tracker {
+  grid-template-columns: 260px 1fr;
+}
+.home-layout--tracker .home-right-sidebar {
+  display: none;
+}
+.home-layout--tracker .home-feed {
+  border-right: none;
+}
+
 /* ─────────────────────────────────────────────────────────
    LEFT SIDEBAR
    ───────────────────────────────────────────────────────── */
@@ -153,6 +164,11 @@
   gap: 12px;
   min-width: 0;
   border-right: 1px solid rgba(138, 75, 255, 0.1);
+}
+
+/* Bible Tracker inline panel: fill the feed column fully */
+.home-feed .app-wrap {
+  max-width: none;
 }
 
 /* Card base */

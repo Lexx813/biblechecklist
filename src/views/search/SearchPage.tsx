@@ -3,6 +3,7 @@ import { useState, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOKS } from "../../data/books";
 import { useSearch, useSemanticSearch } from "../../hooks/useSearch";
+import AppLayout from "../../components/AppLayout";
 import "../../styles/search.css";
 
 function SearchSkeleton() {
@@ -57,10 +58,10 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
   const isTyping = debouncedQuery.trim().length >= 2;
 
   return (
+    <AppLayout navigate={navigate} user={user} currentPage="search">
     <div className="search-page">
 
       <div className="search-hero">
-        <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
         <div className="search-input-wrap">
           <svg className="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
@@ -197,5 +198,6 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
         )}
       </div>
     </div>
+    </AppLayout>
   );
 }

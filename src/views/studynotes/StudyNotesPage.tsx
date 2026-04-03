@@ -2,7 +2,6 @@
 import { useState, useMemo, useRef, useEffect, lazy, Suspense } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
-import AppLayout from "../../components/AppLayout";
 import ConfirmModal from "../../components/ConfirmModal";
 import NoteTemplatePicker from "../../components/NoteTemplatePicker";
 import CustomSelect from "../../components/CustomSelect";
@@ -903,7 +902,6 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
 
   return (
     <div className="sn-page">
-      <AppLayout navigate={navigate} user={user} currentPage="studyNotes">
       <div className="sn-header">
         <button className="sn-nav-back" onClick={() => navigate("home")}>{t("common.back")}</button>
         <div className="sn-header-row">
@@ -1082,7 +1080,6 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
           onUpgrade={sharedNav.onUpgrade}
         />
       )}
-      </AppLayout>
     </div>
   );
 }

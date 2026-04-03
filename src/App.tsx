@@ -28,19 +28,34 @@ function hasStoredSession() {
     if (new URLSearchParams(window.location.search).has("code")) return true;
     if (window.location.hash.includes("access_token=")) return true;
 
-    const ref = process.env.NEXT_PUBLIC_SUPABASE_URL?.match(/\/\/([^.]+)/)?.[1] ?? "";
-    const raw = localStorage.getItem(`sb-${ref}-auth-token`);
-    if (!raw) return false;
-    // Presence of refresh_token means Supabase can restore the session even if access token expired
-    return !!JSON.parse(raw)?.refresh_token;
+    // Supabase auth-js stores the session under "supabase.auth.token".
+    // Presence of refresh_token means the session can be restored even if the access token expired.
+    const raw = localStorage.getItem("supabase.auth.token");
+    if (raw && JSON.parse(raw)?.currentSession?.refresh_token) return true;
+
+    // Fallback: scan for any sb-*-auth-token key (newer auth-js versions use project-ref-based keys)
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith("sb-") && key.endsWith("-auth-token")) {
+        const val = localStorage.getItem(key);
+        if (val && JSON.parse(val)?.refresh_token) return true;
+      }
+    }
+    return false;
   } catch { return false; }
 }
 
 export default function App() {
   const { i18n } = useTranslation();
-  const [showApp, setShowApp] = useState(hasStoredSession);
+  // null = not yet checked (avoid SSR/hydration mismatch with localStorage)
+  const [showApp, setShowApp] = useState<boolean | null>(null);
   const [preAuthPath, setPreAuthPath] = useState(() => window.location.pathname.slice(1));
   const [darkMode, setDarkMode] = useState(getInitialDarkMode);
+
+  // Check localStorage only after mount — avoids server/client hydration mismatch
+  useEffect(() => {
+    setShowApp(hasStoredSession());
+  }, []);
 
   // Remove SSR fallback content once the SPA has mounted — crawlers see it,
   // users don't because this runs before the first paint of the SPA.
@@ -54,6 +69,9 @@ export default function App() {
     window.addEventListener("popstate", handler);
     return () => window.removeEventListener("popstate", handler);
   }, []);
+
+  // Still checking localStorage — show nothing until resolved
+  if (showApp === null) return <LoadingSpinner className="spinner-wrap--fullscreen" />;
 
   // If authenticated shell is active, it handles all routing internally
   if (showApp) {

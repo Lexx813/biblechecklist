@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { useReadingHistory } from "../../hooks/useReading";
+import AppLayout from "../../components/AppLayout";
 import "../../styles/reading-history.css";
 
 function formatDay(dateStr) {
@@ -64,11 +65,11 @@ export default function ReadingHistory({ user, onBack, navigate, darkMode, setDa
   }, [history]);
 
   return (
+    <AppLayout navigate={navigate} user={user} currentPage="readingTracker">
     <div className="history-page">
 
       <div className="history-inner">
         <div className="history-header">
-          <button className="back-btn" onClick={onBack}>{t("common.back")}</button>
           <h1 className="history-title">{t("history.title")}</h1>
           {history.length > 0 && (
             <span className="history-subtitle">{t("history.readingDays", { count: totalDays })}</span>
@@ -135,5 +136,6 @@ export default function ReadingHistory({ user, onBack, navigate, darkMode, setDa
         )}
       </div>
     </div>
+    </AppLayout>
   );
 }

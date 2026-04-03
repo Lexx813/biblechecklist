@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
-import AppLayout from "../../components/AppLayout";
 import LoadingSpinner from "../../components/LoadingSpinner";
 const AICompanion = lazy(() => import("../../components/AICompanion"));
 import { useFullProfile } from "../../hooks/useAdmin";
@@ -149,7 +148,7 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
   const progressMap = Object.fromEntries(progress.map((p) => [p.level, p]));
 
   return (
-    <AppLayout navigate={navigate} user={user} currentPage="quiz">
+    <>
       <div className="quiz-hub">
         <div className="quiz-hub-header">
           <h1 className="quiz-hub-title">{t("quiz.hubTitle")}</h1>
@@ -207,7 +206,7 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
           }}
         />
       )}
-    </AppLayout>
+    </>
   );
 }
 
@@ -390,20 +389,17 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
 
   if (isLoading || questions.length === 0) {
     return (
-      <AppLayout navigate={navigate} user={user} currentPage="quiz">
-        <div className="quiz-active quiz-active--loading">
-          <div role="status" aria-label={t("quiz.loading")}>
-            <LoadingSpinner />
-          </div>
+      <div className="quiz-active quiz-active--loading">
+        <div role="status" aria-label={t("quiz.loading")}>
+          <LoadingSpinner />
         </div>
-      </AppLayout>
+      </div>
     );
   }
 
   if (showResults) {
     return (
-      <AppLayout navigate={navigate} user={user} currentPage="quiz">
-        <div className="quiz-active">
+      <div className="quiz-active">
           <div className="quiz-results">
             <div className="quiz-results-header">
               <h2 className="quiz-results-title">{t("quiz.results")}</h2>
@@ -468,7 +464,6 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
             </div>
           </div>
         </div>
-      </AppLayout>
     );
   }
 
@@ -477,7 +472,6 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
     : JSON.parse(currentQuestion.options);
 
   return (
-    <AppLayout navigate={navigate} user={user} currentPage="quiz">
       <div className="quiz-active">
         {/* Level header */}
         <div className="quiz-level-header">
@@ -576,6 +570,5 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
           </Suspense>
         )}
       </div>
-    </AppLayout>
   );
 }

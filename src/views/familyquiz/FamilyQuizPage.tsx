@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { useState, useCallback, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import AppLayout from "../../components/AppLayout";
 import { familyQuizApi } from "../../api/familyQuiz";
 import "../../styles/family-quiz.css";
 
@@ -608,21 +607,17 @@ export default function FamilyQuizPage({ user, navigate, initialChallengeId, ...
   }, []);
 
   return (
-    <>
-      <AppLayout navigate={navigate} user={user} currentPage="familyQuiz">
-        <div className="fq-page">
-          {openChallenge ? (
-            <ChallengeView
-              user={user}
-              challengeId={openChallenge.id}
-              justCreated={openChallenge.justCreated}
-              onBack={handleBack}
-            />
-          ) : (
-            <Lobby user={user} onPlay={handlePlay} />
-          )}
-        </div>
-      </AppLayout>
-    </>
+    <div className="fq-page">
+      {openChallenge ? (
+        <ChallengeView
+          user={user}
+          challengeId={openChallenge.id}
+          justCreated={openChallenge.justCreated}
+          onBack={handleBack}
+        />
+      ) : (
+        <Lobby user={user} onPlay={handlePlay} />
+      )}
+    </div>
   );
 }
