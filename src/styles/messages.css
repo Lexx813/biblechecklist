@@ -14,18 +14,11 @@
 .msg-page {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100dvh;
   width: 100%;
   overflow: hidden;
 }
 
-/* Constrain the main wrapper so msg-page fills exactly the space below the nav */
-main:has(.msg-page) {
-  height: calc(100dvh - 52px - env(safe-area-inset-bottom, 0px));
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
 
 .msg-layout {
   display: flex;
@@ -1720,7 +1713,7 @@ main:has(.msg-page) {
 
 /* ── Mobile ──────────────────────────────────────────────────────────────── */
 
-@media (max-width: 640px) {
+@media (max-width: 900px) {
   .msg-sidebar { width: 100%; border-right: none; }
   .msg-sidebar--hidden-mobile { display: none; }
   .msg-main--hidden-mobile { display: none; }
@@ -1729,11 +1722,11 @@ main:has(.msg-page) {
   .msg-emoji-picker { width: 240px; grid-template-columns: repeat(6, 1fr); left: -10px; }
   .msg-header-actions { gap: 0; }
 
-  /* Hide site footer on mobile so only the composer is visible */
+  /* Hide site footer so only the composer is visible */
   main:has(.msg-page) ~ .page-footer { display: none; }
 }
 
-@media (max-width: 479px) {
+@media (max-width: 480px) {
   .msg-sidebar-header { padding: 12px 14px; }
   .msg-thread-name { font-size: 13px; }
   .msg-thread-status { font-size: 11px; }
