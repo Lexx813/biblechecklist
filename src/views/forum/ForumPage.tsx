@@ -47,6 +47,7 @@ function IconBell()     { return <svg {...IC} width="13" height="13"><path d="M1
 function IconBellOff()  { return <svg {...IC} width="13" height="13"><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M18.63 13A17.89 17.89 0 0 1 18 8"/><path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"/><path d="M18 8a6 6 0 0 0-9.33-5"/><line x1="1" y1="1" x2="23" y2="23"/></svg>; }
 function IconThumbsUp() { return <svg {...IC} width="13" height="13"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>; }
 function IconFlag()     { return <svg {...IC} width="13" height="13"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>; }
+function IconBan()      { return <svg {...IC} width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>; }
 function IconQuote()    { return <svg {...IC} width="13" height="13"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>; }
 function IconShield()   { return <svg {...IC} width="12" height="12"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>; }
 function IconSettings() { return <svg {...IC} width="12" height="12"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>; }
@@ -145,6 +146,9 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
   const { data: reactions = { counts: {}, mine: [] } } = useThreadReactions(threadId, user.id);
   const toggleReaction = useToggleReaction(user.id, threadId);
   const submitReport = useSubmitReport();
+  const { data: blockedSet = new Set<string>() } = useBlocks(user?.id);
+  const blockUser = useBlockUser();
+  const unblockUser = useUnblockUser();
   const { isPremium } = useSubscription(user?.id);
   const getOrCreateDM = useGetOrCreateDM();
   const { t } = useTranslation();
@@ -398,6 +402,23 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                     >
                       <IconFlag />
                     </button>
+                    <button
+                      className="forum-report-btn"
+                      onClick={() => {
+                        if (blockedSet.has(thread.author_id)) {
+                          unblockUser.mutate(thread.author_id);
+                        } else {
+                          setConfirm({
+                            message: `Block ${displayName(thread.profiles)}? Their posts will be hidden from you, and yours from them.`,
+                            onConfirm: () => blockUser.mutate(thread.author_id),
+                          });
+                        }
+                      }}
+                      title={blockedSet.has(thread.author_id) ? "Unblock user" : "Block user"}
+                      aria-label={blockedSet.has(thread.author_id) ? "Unblock user" : "Block user"}
+                    >
+                      <IconBan />
+                    </button>
                   </>
                 )}
               </div>
@@ -550,6 +571,24 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
                             aria-label={t("report.flag")}
                           >
                             <IconFlag />
+                          </button>
+                          <button
+                            className="forum-report-btn"
+                            onClick={e => {
+                              e.stopPropagation();
+                              if (blockedSet.has(reply.author_id)) {
+                                unblockUser.mutate(reply.author_id);
+                              } else {
+                                setConfirm({
+                                  message: `Block ${displayName(reply.profiles)}? Their posts will be hidden from you, and yours from them.`,
+                                  onConfirm: () => blockUser.mutate(reply.author_id),
+                                });
+                              }
+                            }}
+                            title={blockedSet.has(reply.author_id) ? "Unblock user" : "Block user"}
+                            aria-label={blockedSet.has(reply.author_id) ? "Unblock user" : "Block user"}
+                          >
+                            <IconBan />
                           </button>
                         </>
                       )}
