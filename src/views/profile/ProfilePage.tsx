@@ -29,6 +29,7 @@ import ReferralPanel from "../../components/ReferralPanel";
 import { FriendRequestButton } from "../../components/FriendRequestButton";
 import { friendsApi } from "../../api/friends";
 import ProfileFriendsTab from "./ProfileFriendsTab";
+import { useBlocks, useMyBlocks, useBlockUser, useUnblockUser } from "../../hooks/useBlocks";
 
 const TOTAL_CHAPTERS = BOOKS.reduce((s, b) => s + b.chapters, 0);
 
@@ -753,6 +754,10 @@ function ReadingGoal({ profile, chaptersRead, totalDays, isOwner, t }) {
 export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade, defaultTab = "overview" }) {
   const profileId = viewedUserId ?? user.id;
   const { isPremium } = useSubscription(user.id);
+  const { data: blockedSet = new Set<string>() } = useBlocks(user.id);
+  const { data: myBlocks = [] } = useMyBlocks(user.id);
+  const blockUser = useBlockUser();
+  const unblockUser = useUnblockUser();
   const { data: profile, isLoading: profileLoading } = useFullProfile(profileId);
   const { data: notes = [], isLoading: notesLoading } = useNotes(isOwner ? profileId : null);
   const { data: readingProgress = {} } = useProgress(profileId);
@@ -793,6 +798,8 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
     if (name) document.title = `${name} — NWT Progress`;
     return () => { document.title = "NWT Progress"; };
   }, [profile?.display_name, profile?.email]);
+
+  const isViewedUserBlocked = !isOwner && blockedSet.has(profileId);
 
   const [activeTab, setActiveTab] = useState(defaultTab);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -857,6 +864,19 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
                     isPremium={isPremium}
                     onUpgrade={onUpgrade}
                   />
+                  <button
+                    className="pf-msg-btn"
+                    onClick={() => {
+                      if (blockedSet.has(profileId)) {
+                        unblockUser.mutate(profileId);
+                      } else {
+                        blockUser.mutate(profileId);
+                      }
+                    }}
+                    disabled={blockUser.isPending || unblockUser.isPending}
+                  >
+                    {blockedSet.has(profileId) ? "Unblock" : "Block"}
+                  </button>
                 </>
               ) : null}
             />
@@ -869,6 +889,14 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
             )}
           </div>
         </div>
+
+        {isViewedUserBlocked && (
+          <div className="pf-blocked-banner">
+            {myBlocks.some(b => b.id === profileId)
+              ? "You've blocked this user."
+              : "This user has blocked you."}
+          </div>
+        )}
 
         {/* Tab bar — owner only */}
         {isOwner && (
@@ -885,7 +913,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
         )}
 
         {/* Overview tab content */}
-        {(!isOwner || activeTab === "overview") && (
+        {(!isOwner || activeTab === "overview") && !isViewedUserBlocked && (
           <>
         {/* About Me */}
         {(isOwner || profile?.bio) && (
