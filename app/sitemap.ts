@@ -27,9 +27,6 @@ export default async function sitemap() {
     { url: `${BASE}/books`,          lastModified: new Date("2026-03-01") },
     { url: `${BASE}/plans`,          lastModified: new Date("2026-03-01") },
     { url: `${BASE}/about`,          lastModified: new Date("2026-02-01") },
-    { url: `${BASE}/quiz`,           lastModified: new Date("2026-03-01") },
-    { url: `${BASE}/leaderboard`,    lastModified: CONTENT_UPDATED },
-    { url: `${BASE}/checklist`,      lastModified: new Date("2026-03-01") },
     { url: `${BASE}/privacy`,        lastModified: new Date("2026-03-31") },
     { url: `${BASE}/terms`,          lastModified: new Date("2026-03-31") },
   ];
