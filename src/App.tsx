@@ -90,6 +90,7 @@ export default function App() {
   const isBlogPath = preAuthPath === "blog" || preAuthPath.startsWith("blog/");
   if (isBlogPath) {
     const blogSlug = preAuthPath.startsWith("blog/") ? preAuthPath.slice(5) || null : null;
+    const goLanding = () => { history.pushState(null, "", "/"); setPreAuthPath(""); };
     const goBlogList = () => { history.pushState(null, "", "/blog"); setPreAuthPath("blog"); };
     const goBlogPost = (slug) => {
       if (!slug) return goBlogList();
@@ -109,7 +110,7 @@ export default function App() {
             profile={null}
             slug={blogSlug}
             onSelectPost={goBlogPost}
-            onBack={goBlogList}
+            onBack={blogSlug ? goLanding : goBlogList}
             onWriteClick={() => setShowApp(true)}
             navigate={blogNav}
             darkMode={darkMode}

@@ -23,11 +23,12 @@ interface BookCardProps {
   onToggleBook: (bookIndex: number, value?: boolean) => void;
   notes?: { id: string | number; chapter: number; verse?: number; content: string }[];
   onAddNote?: (bookIndex: number) => void;
+  onDeleteNote?: (id: string) => void;
   userId?: string;
   onUpgrade?: () => void;
 }
 
-const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, onToggleChapter, onToggleBook, notes = [], onAddNote, userId, onUpgrade }: BookCardProps) {
+const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, onToggleChapter, onToggleBook, notes = [], onAddNote, onDeleteNote, userId, onUpgrade }: BookCardProps) {
   const [open, setOpen] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const { t, i18n } = useTranslation();
@@ -270,6 +271,14 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                     {t("profile.chAbbr")} {note.chapter}{note.verse ? ` ${t("profile.verseAbbr")}${note.verse}` : ""}
                   </span>
                   <span className="ch-note-content">{note.content}</span>
+                  {onDeleteNote && (
+                    <button
+                      className="ch-note-delete"
+                      onClick={e => { e.stopPropagation(); onDeleteNote(String(note.id)); }}
+                      title={t("common.delete")}
+                      aria-label={t("common.delete")}
+                    >✕</button>
+                  )}
                 </div>
               ))}
             </div>

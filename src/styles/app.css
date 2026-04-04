@@ -820,7 +820,23 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  flex: 1;
 }
+
+.ch-note-delete {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 0 2px;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+}
+.ch-note:hover .ch-note-delete { opacity: 1; }
+.ch-note-delete:hover { color: var(--danger, #e53935); }
 
 /* Book top actions row (About this book + Add Note) */
 .book-top-actions {

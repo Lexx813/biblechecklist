@@ -17,8 +17,10 @@
 .mp-header-left { flex: 1; min-width: 0; }
 .mp-title {
   margin: 0 0 .2rem;
-  font-size: 1.3rem;
-  font-weight: 800;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.75rem;
+  font-weight: 300;
   color: var(--text-primary, #1E1035);
 }
 .mp-subtitle {
@@ -34,13 +36,18 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--gold-text);
-  background: var(--gold-dim);
-  border: 1px solid rgba(245,158,11,0.25);
+  color: #92400e;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245,158,11,0.35);
   border-radius: 999px;
   padding: 3px 10px;
   margin-bottom: 20px;
   margin-top: 6px;
+}
+[data-theme=dark] .mp-premium-label {
+  color: #fde68a;
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245,158,11,0.25);
 }
 [data-theme=dark] .mp-title { color: #ede9fe; }
 [data-theme=dark] .mp-subtitle { color: #a78bfa; }

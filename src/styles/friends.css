@@ -15,8 +15,10 @@
 }
 
 .friends-page-title {
-  font-size: 22px;
-  font-weight: 700;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.75rem;
+  font-weight: 300;
   color: var(--text);
 }
 

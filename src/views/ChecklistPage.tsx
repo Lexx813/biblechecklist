@@ -14,7 +14,7 @@ import { useProgress, useSaveProgress, useChapterTimestamps, useReadingStreak } 
 import { useSubscription } from "../hooks/useSubscription";
 import { useFeatureFlags } from "../hooks/useFeatureFlags";
 import { progressApi } from "../api/progress";
-import { useNotes, useCreateNote } from "../hooks/useNotes";
+import { useNotes, useCreateNote, useDeleteNote } from "../hooks/useNotes";
 import { readingApi } from "../api/reading";
 
 export default function ChecklistPage({ user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
@@ -22,6 +22,8 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   const queryClient = useQueryClient();
   const { data: remoteProgress, isLoading: progressLoading } = useProgress(user.id);
   const { data: notes = [] } = useNotes(user.id);
+  const deleteNote = useDeleteNote(user.id);
+  const [noteToDelete, setNoteToDelete] = useState<string | null>(null);
   const { data: chapterTimestamps = {} } = useChapterTimestamps(user.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 } } = useReadingStreak(user.id);
   const saveProgress = useSaveProgress(user.id);
@@ -292,6 +294,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
                   onToggleBook={handleToggleBook}
                   notes={notesByBook.get(book.index) ?? []}
                   onAddNote={(bookIndex) => setNoteModal({ bookIndex })}
+                  onDeleteNote={(id) => setNoteToDelete(id)}
                   userId={user?.id}
                   onUpgrade={onUpgrade}
                 />
@@ -357,6 +360,14 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
             bookIndex={noteModal.bookIndex}
             onClose={() => setNoteModal(null)}
             isPremium={isPremium}
+          />
+        )}
+
+        {noteToDelete && (
+          <ConfirmModal
+            message={t("profile.deleteNoteConfirm")}
+            onConfirm={() => { deleteNote.mutate(noteToDelete); setNoteToDelete(null); }}
+            onCancel={() => setNoteToDelete(null)}
           />
         )}
       </div>
