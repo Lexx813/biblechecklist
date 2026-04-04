@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
-import LoadingSpinner from "../../components/LoadingSpinner";
 const AICompanion = lazy(() => import("../../components/AICompanion"));
 import { useFullProfile } from "../../hooks/useAdmin";
 import { useSubscription } from "../../hooks/useSubscription";
@@ -389,8 +388,11 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
   if (isLoading || questions.length === 0) {
     return (
       <div className="quiz-active quiz-active--loading">
-        <div role="status" aria-label={t("quiz.loading")}>
-          <LoadingSpinner />
+        <div role="status" aria-label={t("quiz.loading")} style={{ display: "flex", flexDirection: "column", gap: 14, width: "100%" }}>
+          <div className="skeleton" style={{ height: 22, width: "70%", borderRadius: 6 }} />
+          {[0, 1, 2, 3].map(i => (
+            <div key={i} className="skeleton" style={{ height: 44, width: "100%", borderRadius: 8 }} />
+          ))}
         </div>
       </div>
     );

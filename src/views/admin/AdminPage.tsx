@@ -3,7 +3,6 @@ import { createPortal } from "react-dom";
 import CustomSelect from "../../components/CustomSelect";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
-import LoadingSpinner from "../../components/LoadingSpinner";
 import {
   useUsers, useDeleteUser, useSetAdmin, useSetModerator, useSetBlog,
   useCreateUser, useBanUser, useCancelSubscription, useGiftPremium,
@@ -13,6 +12,16 @@ import {
 } from "../../hooks/useAdmin";
 
 const MONTHLY_PRICE = 4.99;
+
+function AdminSkeleton() {
+  return (
+    <div style={{ padding: "16px 20px", display: "flex", flexDirection: "column", gap: 10 }}>
+      {[0, 1, 2, 3, 4].map(i => (
+        <div key={i} className="skeleton" style={{ height: 36, borderRadius: 6 }} />
+      ))}
+    </div>
+  );
+}
 import { useReports, useUpdateReport, useDeleteReport, useDeleteReportedContent } from "../../hooks/useReports";
 import { useAllAnnouncements, useCreateAnnouncement, useToggleAnnouncement, useDeleteAnnouncement } from "../../hooks/useAnnouncements";
 import { useAllQuizQuestions, useCreateQuizQuestion, useUpdateQuizQuestion, useDeleteQuizQuestion } from "../../hooks/useQuiz";
@@ -279,7 +288,7 @@ function UsersTab({ currentUser, navigate }) {
       {toggleError && <div className="admin-form-error" style={{ marginBottom: 12 }}>{toggleError}</div>}
 
       {isLoading ? (
-        <LoadingSpinner />
+        <AdminSkeleton />
       ) : (
         <div className="admin-table-wrap">
           <table className="admin-table">
@@ -420,7 +429,7 @@ function ReportsTab({ navigate }) {
     if (r.content_type === "reply")   navigate("forum");
   }
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <AdminSkeleton />;
 
   return (
     <>
@@ -531,7 +540,7 @@ function BlogTab({ navigate }) {
     ? posts.filter(p => p.title?.toLowerCase().includes(search.toLowerCase()) || (p.profiles as any)?.display_name?.toLowerCase().includes(search.toLowerCase()))
     : posts;
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <AdminSkeleton />;
 
   return (
     <>
@@ -609,7 +618,7 @@ function ForumTab({ navigate }) {
     ? threads.filter(th => th.title?.toLowerCase().includes(search.toLowerCase()) || (th.profiles as any)?.display_name?.toLowerCase().includes(search.toLowerCase()))
     : threads;
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <AdminSkeleton />;
 
   return (
     <>
@@ -734,7 +743,7 @@ function ForumCategoriesTab() {
     }
   }
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <AdminSkeleton />;
 
   return (
     <>
@@ -805,7 +814,7 @@ function BlogCommentsTab() {
       )
     : comments;
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <AdminSkeleton />;
 
   return (
     <>
@@ -873,7 +882,7 @@ function QuizStatsTab() {
     };
   });
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <AdminSkeleton />;
 
   return (
     <div className="admin-table-wrap">
@@ -972,7 +981,7 @@ function QuizTab() {
     }
   }
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <AdminSkeleton />;
 
   return (
     <div>
@@ -1163,7 +1172,7 @@ function AnnouncementsTab({ currentUser }) {
       </div>
 
       {isLoading ? (
-        <LoadingSpinner />
+        <AdminSkeleton />
       ) : announcements.length === 0 ? (
         <div className="admin-loading">{t("adminAnnouncements.noAnnouncements")}</div>
       ) : (
@@ -1221,7 +1230,7 @@ const ACTION_LABELS = {
 function AuditLogTab() {
   const { data: entries = [], isLoading } = useAdminAuditLog({ limit: 200 });
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <AdminSkeleton />;
 
   if (!entries.length) return (
     <div className="admin-empty">No audit log entries yet. Actions taken by admins will appear here.</div>
@@ -1270,7 +1279,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
   if ((isCurrentUserAdmin && usersLoading) || reportsLoading) {
     return (
       <div className="admin-wrap">
-        <LoadingSpinner />
+        <AdminSkeleton />
       </div>
     );
   }

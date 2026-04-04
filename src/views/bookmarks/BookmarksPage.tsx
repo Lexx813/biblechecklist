@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import AppLayout from "../../components/AppLayout";
-import LoadingSpinner from "../../components/LoadingSpinner";
 import { useBookmarks, useToggleBookmark } from "../../hooks/useBookmarks";
 import "../../styles/bookmarks.css";
 
@@ -19,7 +18,20 @@ export default function BookmarksPage({ user, onBack, navigate, darkMode, setDar
 
       <div className="bm-content">
         {isLoading ? (
-          <LoadingSpinner />
+          <>
+            {[0, 1].map(section => (
+              <section key={section} className="bm-section">
+                <div className="skeleton" style={{ height: 16, width: 120, borderRadius: 6, marginBottom: 12 }} />
+                <div className="bm-list">
+                  {[0, 1, 2].map(i => (
+                    <div key={i} className="bm-item" style={{ pointerEvents: "none" }}>
+                      <div className="skeleton" style={{ height: 14, flex: 1, borderRadius: 6 }} />
+                    </div>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </>
         ) : (
           <>
             <section className="bm-section">

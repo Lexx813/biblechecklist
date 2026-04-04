@@ -7,7 +7,6 @@ import ConfirmModal from "../../components/ConfirmModal";
 const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
 import ReportModal from "../../components/ReportModal";
 import RightPanel from "../../components/RightPanel";
-import LoadingSpinner from "../../components/LoadingSpinner";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
 import ShareButtons from "../../components/ShareButtons";
 import "../../styles/share-buttons.css";
@@ -251,7 +250,20 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
 
   useMeta({ title: thread?.title, description: thread?.content?.replace(/<[^>]*>/g, "").slice(0, 140) });
 
-  if (threadLoading) return <LoadingSpinner />;
+  if (threadLoading) return (
+    <div className="forum-thread-view">
+      <div style={{ padding: "12px 0 20px", display: "flex", flexDirection: "column", gap: 12 }}>
+        <div className="skeleton" style={{ height: 13, width: 220, borderRadius: 6 }} />
+        <div className="skeleton" style={{ height: 26, width: "65%", borderRadius: 6 }} />
+        <div className="skeleton" style={{ height: 13, width: 180, borderRadius: 6 }} />
+        <div style={{ marginTop: 8, display: "flex", flexDirection: "column", gap: 8 }}>
+          <div className="skeleton" style={{ height: 13, width: "100%", borderRadius: 6 }} />
+          <div className="skeleton" style={{ height: 13, width: "100%", borderRadius: 6 }} />
+          <div className="skeleton" style={{ height: 13, width: "75%", borderRadius: 6 }} />
+        </div>
+      </div>
+    </div>
+  );
   if (!thread) return <div className="forum-empty"><p>{t("forum.threadNotFound")}</p></div>;
 
   return (
@@ -428,7 +440,18 @@ function ThreadView({ threadId, user, profile, onBack, categoryId, categoryName,
 
       {/* Replies */}
       {repliesLoading ? (
-        <LoadingSpinner />
+        <div className="forum-replies">
+          {[0,1,2].map(i => (
+            <div key={i} style={{ display: "flex", gap: 12, padding: "14px 0", borderBottom: "1px solid var(--border)" }}>
+              <div className="skeleton" style={{ width: 36, height: 36, borderRadius: "50%", flexShrink: 0 }} />
+              <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
+                <div className="skeleton" style={{ height: 13, width: "30%", borderRadius: 6 }} />
+                <div className="skeleton" style={{ height: 13, width: "100%", borderRadius: 6 }} />
+                <div className="skeleton" style={{ height: 13, width: "80%", borderRadius: 6 }} />
+              </div>
+            </div>
+          ))}
+        </div>
       ) : (
         <div className="forum-replies">
           {allReplies.length > 0 && (
@@ -891,7 +914,19 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 
       {/* Thread rows */}
       {isLoading ? (
-        <LoadingSpinner />
+        <div className="forum-rows">
+          {[0,1,2,3,4].map(i => (
+            <div key={i} className="forum-row" style={{ pointerEvents: "none" }}>
+              <div className="forum-row-left">
+                <div className="skeleton" style={{ width: 36, height: 36, borderRadius: "50%" }} />
+              </div>
+              <div className="forum-row-mid" style={{ flex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
+                <div className="skeleton" style={{ height: 14, width: "55%", borderRadius: 6 }} />
+                <div className="skeleton" style={{ height: 11, width: "35%", borderRadius: 6 }} />
+              </div>
+            </div>
+          ))}
+        </div>
       ) : threads.length === 0 ? (
         <div className="forum-empty">
           <div className="forum-empty-icon">💬</div>
@@ -1006,7 +1041,18 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
       {/* Category cards */}
       <div className="forum-cat-grid">
         {isLoading ? (
-          <LoadingSpinner />
+          [0,1,2,3].map(i => (
+            <div key={i} className="forum-cat-card" style={{ pointerEvents: "none" }}>
+              <div className="skeleton" style={{ width: 40, height: 40, borderRadius: 8, flexShrink: 0 }} />
+              <div className="forum-cat-body">
+                <div className="skeleton" style={{ height: 15, width: "55%", borderRadius: 6 }} />
+                <div className="skeleton" style={{ height: 12, width: "80%", borderRadius: 6, marginTop: 6 }} />
+              </div>
+              <div className="forum-cat-stats">
+                <div className="skeleton" style={{ height: 12, width: 50, borderRadius: 6 }} />
+              </div>
+            </div>
+          ))
         ) : categories.map(cat => {
           const threadCount = cat.forum_threads?.[0]?.count ?? 0;
           const tx = cat.forum_category_translations?.find(t => t.lang === lang);
@@ -1052,7 +1098,21 @@ export default function ForumPage({ user, profile, onBack, categoryId, threadId,
   }
 
   if (categoryId) {
-    if (catsLoading && !activeCategory) return <LoadingSpinner />;
+    if (catsLoading && !activeCategory) return (
+      <div className="forum-rows">
+        {[0,1,2,3,4].map(i => (
+          <div key={i} className="forum-row" style={{ pointerEvents: "none" }}>
+            <div className="forum-row-left">
+              <div className="skeleton" style={{ width: 36, height: 36, borderRadius: "50%" }} />
+            </div>
+            <div className="forum-row-mid" style={{ flex: 1, display: "flex", flexDirection: "column", gap: 8 }}>
+              <div className="skeleton" style={{ height: 14, width: "55%", borderRadius: 6 }} />
+              <div className="skeleton" style={{ height: 11, width: "35%", borderRadius: 6 }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
     if (activeCategory) return (
       <ThreadList
         category={activeCategory}

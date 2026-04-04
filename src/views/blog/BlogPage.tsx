@@ -1,7 +1,6 @@
 import { useState, useMemo, memo, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
-import LoadingSpinner from "../../components/LoadingSpinner";
 import ReportModal from "../../components/ReportModal";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
 import ShareButtons from "../../components/ShareButtons";
@@ -245,7 +244,22 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
     image: post?.cover_url || undefined,
   });
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return (
+    <div className="blog-post-view">
+      <div className="skeleton" style={{ width: "100%", height: 220 }} />
+      <div style={{ padding: "20px 16px", display: "flex", flexDirection: "column", gap: 12 }}>
+        <div className="skeleton" style={{ height: 28, width: "70%", borderRadius: 6 }} />
+        <div className="skeleton" style={{ height: 13, width: 180, borderRadius: 6 }} />
+        <div style={{ marginTop: 8, display: "flex", flexDirection: "column", gap: 8 }}>
+          <div className="skeleton" style={{ height: 13, width: "100%", borderRadius: 6 }} />
+          <div className="skeleton" style={{ height: 13, width: "100%", borderRadius: 6 }} />
+          <div className="skeleton" style={{ height: 13, width: "90%", borderRadius: 6 }} />
+          <div className="skeleton" style={{ height: 13, width: "100%", borderRadius: 6 }} />
+          <div className="skeleton" style={{ height: 13, width: "60%", borderRadius: 6 }} />
+        </div>
+      </div>
+    </div>
+  );
   if (!post) return (
     <div className="blog-not-found">
       <p>{t("blog.notFound")}</p>
@@ -543,7 +557,23 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
       {/* Posts */}
       <div className="blog-content">
         {isLoading ? (
-          <LoadingSpinner />
+          <div className="blog-grid">
+            {[0,1,2,3,4,5].map(i => (
+              <article key={i} className="blog-card" style={{ pointerEvents: "none" }}>
+                <div className="blog-card-cover">
+                  <div className="skeleton" style={{ width: "100%", height: "100%" }} />
+                </div>
+                <div className="blog-card-body">
+                  <div className="skeleton" style={{ height: 13, width: "90%", borderRadius: 6 }} />
+                  <div className="skeleton" style={{ height: 18, width: "70%", borderRadius: 6, marginTop: 8 }} />
+                  <div className="blog-card-footer" style={{ marginTop: 12 }}>
+                    <div className="skeleton" style={{ width: 24, height: 24, borderRadius: "50%" }} />
+                    <div className="skeleton" style={{ height: 11, width: 100, borderRadius: 6 }} />
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
         ) : posts.length === 0 ? (
           <div className="blog-empty">
             <div className="blog-empty-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>

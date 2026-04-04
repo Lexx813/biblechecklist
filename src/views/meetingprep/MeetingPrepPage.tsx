@@ -1,6 +1,5 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import LoadingSpinner from "../../components/LoadingSpinner";
 import {
   useMeetingWeek,
   useRecentMeetingWeeks,
@@ -306,7 +305,22 @@ function HistoryTab({ userId, isPremium, onUpgrade }) {
     );
   }
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return (
+    <div className="mp-history">
+      <div className="skeleton" style={{ height: 16, width: 120, borderRadius: 6, marginBottom: 16 }} />
+      <div className="mp-history-grid">
+        {[0, 1, 2, 3, 4, 5].map(i => (
+          <div key={i} className="mp-history-cell" style={{ pointerEvents: "none" }}>
+            <div className="skeleton" style={{ height: 13, width: "60%", borderRadius: 6, marginBottom: 8 }} />
+            <div style={{ display: "flex", gap: 6 }}>
+              <div className="skeleton" style={{ height: 22, width: 55, borderRadius: 4 }} />
+              <div className="skeleton" style={{ height: 22, width: 40, borderRadius: 4 }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
   if (!history.length) {
     return (
       <div className="mp-empty">

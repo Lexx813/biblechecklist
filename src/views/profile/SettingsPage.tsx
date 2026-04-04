@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import LoadingSpinner from "../../components/LoadingSpinner";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
 import { useMeta } from "../../hooks/useMeta";
@@ -102,7 +101,32 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
     }
   }
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return (
+    <AppLayout navigate={navigate} user={user} currentPage="settings">
+      <div className="st-wrap">
+        <header className="st-header"><div className="st-header-inner"><h1 className="st-title">{t("settings.title")}</h1></div></header>
+        <div className="st-content">
+          <section className="st-section">
+            <div className="st-avatar-row">
+              <div className="skeleton" style={{ width: 72, height: 72, borderRadius: "50%", flexShrink: 0 }} />
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                <div className="skeleton" style={{ height: 13, width: 160, borderRadius: 6 }} />
+                <div className="skeleton" style={{ height: 32, width: 120, borderRadius: 6 }} />
+              </div>
+            </div>
+            <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 16 }}>
+              {[0, 1, 2].map(i => (
+                <div key={i}>
+                  <div className="skeleton" style={{ height: 12, width: 100, borderRadius: 6, marginBottom: 8 }} />
+                  <div className="skeleton" style={{ height: 36, width: "100%", borderRadius: 6 }} />
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      </div>
+    </AppLayout>
+  );
 
   const displayName = profile?.display_name || user.email?.split("@")[0] || "";
   const avatarUrl = profile?.avatar_url;

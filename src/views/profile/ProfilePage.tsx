@@ -4,7 +4,6 @@ import CustomSelect from "../../components/CustomSelect";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
-import LoadingSpinner from "../../components/LoadingSpinner";
 import { useMeta } from "../../hooks/useMeta";
 import { BOOKS } from "../../data/books";
 import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
@@ -410,7 +409,15 @@ function PostsSection({ profileId, isOwner, t }) {
       )}
 
       {isLoading ? (
-        <LoadingSpinner />
+        <div className="post-list">
+          {[0, 1, 2].map(i => (
+            <div key={i} className="post-card" style={{ pointerEvents: "none" }}>
+              <div className="skeleton" style={{ height: 13, width: "100%", borderRadius: 6, marginBottom: 8 }} />
+              <div className="skeleton" style={{ height: 13, width: "80%", borderRadius: 6, marginBottom: 8 }} />
+              <div className="skeleton" style={{ height: 11, width: 80, borderRadius: 6 }} />
+            </div>
+          ))}
+        </div>
       ) : posts.length === 0 ? (
         <p className="pf-empty">{isOwner ? t("posts.emptyOwner") : t("posts.emptyOther")}</p>
       ) : (
@@ -819,7 +826,16 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
   if (profileLoading) {
     return (
       <div className="pf-wrap">
-        <LoadingSpinner />
+        <div className="pf-content">
+          <div className="pf-card">
+            <div className="pf-card-banner" />
+            <div className="pf-card-body" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+              <div className="skeleton" style={{ width: 72, height: 72, borderRadius: "50%" }} />
+              <div className="skeleton" style={{ height: 18, width: 140, borderRadius: 6 }} />
+              <div className="skeleton" style={{ height: 13, width: 100, borderRadius: 6 }} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -1094,7 +1110,15 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
             </div>
 
             {notesLoading ? (
-              <LoadingSpinner />
+              <div className="pf-notes-list">
+                {[0, 1, 2].map(i => (
+                  <div key={i} style={{ padding: "12px 0", borderBottom: "1px solid var(--border)", display: "flex", flexDirection: "column", gap: 8 }}>
+                    <div className="skeleton" style={{ height: 12, width: "30%", borderRadius: 6 }} />
+                    <div className="skeleton" style={{ height: 13, width: "100%", borderRadius: 6 }} />
+                    <div className="skeleton" style={{ height: 13, width: "75%", borderRadius: 6 }} />
+                  </div>
+                ))}
+              </div>
             ) : filtered.length === 0 ? (
               <div className="pf-empty">
                 {notes.length === 0 ? t("profile.noNotes") : t("profile.noNotesFilter")}

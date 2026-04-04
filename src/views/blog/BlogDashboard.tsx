@@ -3,7 +3,6 @@ import EmojiPickerPopup, { insertEmojiAtCursor } from "../../components/EmojiPic
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
 const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
-import LoadingSpinner from "../../components/LoadingSpinner";
 import { useMyPosts, useCreatePost, useUpdatePost, useDeletePost } from "../../hooks/useBlog";
 import { blogApi } from "../../api/blog";
 import AppLayout from "../../components/AppLayout";
@@ -288,7 +287,23 @@ export default function BlogDashboard({ user, onBack, navigate, darkMode, setDar
         </div>
 
         {isLoading ? (
-          <LoadingSpinner />
+          <div className="blog-dash-list">
+            {[0,1,2,3].map(i => (
+              <div key={i} className="blog-dash-row" style={{ pointerEvents: "none" }}>
+                <div className="blog-dash-row-info">
+                  <div className="skeleton" style={{ height: 15, width: "55%", borderRadius: 6 }} />
+                  <div className="blog-dash-row-meta" style={{ marginTop: 6 }}>
+                    <div className="skeleton" style={{ height: 11, width: 60, borderRadius: 10 }} />
+                    <div className="skeleton" style={{ height: 11, width: 80, borderRadius: 6, marginLeft: 8 }} />
+                  </div>
+                </div>
+                <div className="blog-dash-row-actions">
+                  <div className="skeleton" style={{ height: 30, width: 50, borderRadius: 6 }} />
+                  <div className="skeleton" style={{ height: 30, width: 60, borderRadius: 6 }} />
+                </div>
+              </div>
+            ))}
+          </div>
         ) : posts.length === 0 ? (
           <div className="blog-empty">
             <div className="blog-empty-icon">✍️</div>
