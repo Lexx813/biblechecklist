@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useLogin, useRegister, useResetPassword } from "../../hooks/useAuth";
 import { authApi } from "../../api/auth";
 import { friendsApi } from "../../api/friends";
+import { trackSignup, trackLogin } from "../../lib/analytics";
 import "../../styles/auth.css";
 
 export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEmail = null, onConfirmDismiss = null }) {
@@ -35,6 +36,7 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
     setGoogleBusy(true);
     try {
       await authApi.signInWithGoogle();
+      trackLogin("google");
     } catch (err) {
       setFieldError((err as Error).message);
       setGoogleBusy(false);
@@ -72,6 +74,7 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
       if (!agreeTerms) return setFieldError("Please agree to the Terms of Service and Privacy Policy.");
       register.mutate({ email, password, displayName: displayName.trim() }, {
         onSuccess: async (result) => {
+          trackSignup("email");
           if (result?.session) {
             const inviteToken = sessionStorage.getItem("invite_token");
             if (inviteToken) {
@@ -84,6 +87,7 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
       });
     } else {
       login.mutate({ email, password }, {
+        onSuccess: () => trackLogin("email"),
         onError: () => setPassword(""),
       });
     }

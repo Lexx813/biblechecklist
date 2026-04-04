@@ -1,5 +1,7 @@
 import { useMeta } from "../../hooks/useMeta";
 import { useOnlineMembers, ONLINE_THRESHOLD_MS, OnlineMember } from "../../hooks/useOnlineMembers";
+import { useTopThreads } from "../../hooks/useForum";
+import { usePublishedPosts } from "../../hooks/useBlog";
 import "../../styles/community.css";
 
 function timeAgo(lastActiveAt: string | null): string {
@@ -41,52 +43,130 @@ function MemberRow({ member, navigate }: { member: OnlineMember; navigate: Funct
 }
 
 export default function CommunityPage({ navigate }) {
-  useMeta({ title: "Community Members", path: "/community" });
-  const { onlineNow, recentlyActive, totalOnline, isLoading } = useOnlineMembers(100);
+  useMeta({ title: "Community", path: "/community" });
+  const { onlineNow, recentlyActive, totalOnline, isLoading: membersLoading } = useOnlineMembers(100);
+  const { data: threads = [], isLoading: threadsLoading } = useTopThreads(5);
+  const { data: posts = [], isLoading: postsLoading } = usePublishedPosts();
+  const recentPosts = posts.slice(0, 4);
   const totalShown = onlineNow.length + recentlyActive.length;
 
   return (
     <div className="cm-wrap">
       <header className="cm-header">
-        <h1 className="cm-title">Community Members</h1>
-        {!isLoading && (
+        <h1 className="cm-title">Community</h1>
+        {!membersLoading && (
           <p className="cm-subtitle">
             {totalOnline} online now · {totalShown} members shown
           </p>
         )}
       </header>
 
-      {isLoading ? (
-        <div className="cm-skeleton">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="cm-skeleton-row">
-              <div className="skeleton" style={{ width: 36, height: 36, borderRadius: "50%", flexShrink: 0 }} />
-              <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
-                <div className="skeleton" style={{ height: 13, width: "40%", borderRadius: 6 }}>&nbsp;</div>
-                <div className="skeleton" style={{ height: 11, width: "25%", borderRadius: 6 }}>&nbsp;</div>
-              </div>
-            </div>
-          ))}
+      {/* ── Forum highlights ── */}
+      <section className="cm-card">
+        <div className="cm-card-header">
+          <span className="cm-card-title">Trending Discussions</span>
+          <button className="cm-card-link" onClick={() => navigate("forum")}>View all →</button>
         </div>
-      ) : (
-        <>
-          {onlineNow.length > 0 && (
-            <section>
-              <div className="cm-section-label cm-section-label--online">Online Now</div>
-              {onlineNow.map(m => <MemberRow key={m.id} member={m} navigate={navigate} />)}
-            </section>
-          )}
-          {recentlyActive.length > 0 && (
-            <section>
-              <div className="cm-section-label">Recently Active</div>
-              {recentlyActive.map(m => <MemberRow key={m.id} member={m} navigate={navigate} />)}
-            </section>
-          )}
-          {onlineNow.length === 0 && recentlyActive.length === 0 && (
-            <p className="cm-empty">No members have been active recently.</p>
-          )}
-        </>
-      )}
+        {threadsLoading ? (
+          <div className="cm-list-skeleton">
+            {[0,1,2].map(i => (
+              <div key={i} className="cm-skeleton-row">
+                <div className="skeleton" style={{ height: 13, flex: 1, borderRadius: 6 }}>&nbsp;</div>
+              </div>
+            ))}
+          </div>
+        ) : threads.length === 0 ? (
+          <p className="cm-card-empty">No discussions yet. <button className="cm-inline-link" onClick={() => navigate("forum")}>Start one →</button></p>
+        ) : (
+          <div className="cm-thread-list">
+            {(threads as any[]).map(t => (
+              <div
+                key={t.id}
+                className="cm-thread-row"
+                role="button"
+                tabIndex={0}
+                onClick={() => navigate("forum", { categoryId: t.category_id, threadId: t.id })}
+                onKeyDown={e => e.key === "Enter" && navigate("forum", { categoryId: t.category_id, threadId: t.id })}
+              >
+                <span className="cm-thread-title">{t.title}</span>
+                <span className="cm-thread-meta">{t.reply_count ?? 0} replies</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* ── Recent blog posts ── */}
+      <section className="cm-card">
+        <div className="cm-card-header">
+          <span className="cm-card-title">From the Blog</span>
+          <button className="cm-card-link" onClick={() => navigate("blog")}>View all →</button>
+        </div>
+        {postsLoading ? (
+          <div className="cm-list-skeleton">
+            {[0,1,2].map(i => (
+              <div key={i} className="cm-skeleton-row">
+                <div className="skeleton" style={{ height: 13, flex: 1, borderRadius: 6 }}>&nbsp;</div>
+              </div>
+            ))}
+          </div>
+        ) : recentPosts.length === 0 ? (
+          <p className="cm-card-empty">No posts yet.</p>
+        ) : (
+          <div className="cm-thread-list">
+            {(recentPosts as any[]).map(p => (
+              <div
+                key={p.id}
+                className="cm-thread-row"
+                role="button"
+                tabIndex={0}
+                onClick={() => navigate("blog", { slug: p.slug })}
+                onKeyDown={e => e.key === "Enter" && navigate("blog", { slug: p.slug })}
+              >
+                <span className="cm-thread-title">{p.title}</span>
+                <span className="cm-thread-meta">{p.like_count ?? 0} likes</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* ── Members ── */}
+      <section>
+        <div className="cm-section-label cm-section-label--first">Members</div>
+
+        {membersLoading ? (
+          <div className="cm-skeleton">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="cm-skeleton-row">
+                <div className="skeleton" style={{ width: 36, height: 36, borderRadius: "50%", flexShrink: 0 }} />
+                <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
+                  <div className="skeleton" style={{ height: 13, width: "40%", borderRadius: 6 }}>&nbsp;</div>
+                  <div className="skeleton" style={{ height: 11, width: "25%", borderRadius: 6 }}>&nbsp;</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <>
+            {onlineNow.length > 0 && (
+              <div>
+                <div className="cm-section-label cm-section-label--online">Online Now</div>
+                {onlineNow.map(m => <MemberRow key={m.id} member={m} navigate={navigate} />)}
+              </div>
+            )}
+            {recentlyActive.length > 0 && (
+              <div>
+                {onlineNow.length > 0 && <div className="cm-section-label">Recently Active</div>}
+                {recentlyActive.map(m => <MemberRow key={m.id} member={m} navigate={navigate} />)}
+              </div>
+            )}
+            {onlineNow.length === 0 && recentlyActive.length === 0 && (
+              <p className="cm-empty">No members have been active recently.</p>
+            )}
+          </>
+        )}
+      </section>
     </div>
   );
 }

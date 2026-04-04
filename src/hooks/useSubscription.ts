@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useFullProfile } from "./useAdmin";
 import { subscriptionApi } from "../api/subscription";
+import { trackBeginCheckout } from "../lib/analytics";
 
 /**
  * Returns the user's subscription state and a mutation to start checkout.
@@ -23,6 +24,7 @@ export function useSubscription(userId: string | null | undefined) {
 
   const subscribe = useMutation({
     mutationFn: subscriptionApi.createCheckoutSession,
+    onMutate: () => { trackBeginCheckout(); },
     onSuccess: (url: string) => {
       window.location.href = url;
     },
