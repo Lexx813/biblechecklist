@@ -4,6 +4,8 @@ import ClientShell from "../../_components/ClientShell";
 
 export const revalidate = 60;
 
+const BASE = "https://nwtprogress.com";
+
 // Pre-render all published blog posts at build time; new posts fall back to ISR
 export async function generateStaticParams() {
   try {
@@ -24,23 +26,44 @@ export async function generateMetadata({ params }) {
     const post = await blogApi.getBySlug(slug);
     if (!post) return {};
 
+    const lang = (post as any).lang ?? "en";
+    const pairedSlug = (post as any).translations?.paired_slug ?? null;
+
     const desc =
       post.excerpt ||
       stripHtml(post.content).slice(0, 160) ||
       `Read "${post.title}" on NWT Progress`;
 
-    const metadata = {
+    // hreflang: point each post to its own language + the paired translation
+    const languages: Record<string, string> = {
+      [lang]: `${BASE}/blog/${slug}`,
+      "x-default": lang === "en" ? `${BASE}/blog/${slug}` : (pairedSlug ? `${BASE}/blog/${pairedSlug}` : `${BASE}/blog/${slug}`),
+    };
+    if (pairedSlug) {
+      const otherLang = lang === "en" ? "es" : "en";
+      languages[otherLang] = `${BASE}/blog/${pairedSlug}`;
+    }
+
+    const metadata: Record<string, unknown> = {
       title: `${post.title} | NWT Progress`,
       description: desc,
-      alternates: { canonical: `https://nwtprogress.com/blog/${post.slug}` },
+      alternates: {
+        canonical: `${BASE}/blog/${slug}`,
+        languages,
+      },
+      // Emit content-language so crawlers index it in the right language index
+      other: { "content-language": lang },
       openGraph: {
         title: post.title,
         description: desc,
         type: "article",
         publishedTime: post.created_at,
+        locale: lang === "es" ? "es_ES" : "en_US",
+        ...(pairedSlug && {
+          alternateLocale: lang === "es" ? "en_US" : "es_ES",
+        }),
         authors: post.profiles?.display_name ? [post.profiles.display_name] : [],
-        // Don't set images here — opengraph-image.tsx handles all OG images
-        // so it always wins and shows either the cover photo or branded card.
+        // opengraph-image.tsx drives og:image — don't set here
       },
       twitter: {
         card: "summary_large_image",
@@ -64,8 +87,9 @@ export default async function BlogPostPage({ params }) {
   const { slug } = await params;
   const queryClient = new QueryClient();
 
-  const [post] = await Promise.all([
+  const [post, allPosts] = await Promise.all([
     blogApi.getBySlug(slug).catch(() => null),
+    blogApi.listPublished(null).catch(() => []),
     queryClient
       .prefetchQuery({
         queryKey: ["blog", "post", slug],
@@ -78,32 +102,39 @@ export default async function BlogPostPage({ params }) {
         queryFn: () => blogApi.listPublished(),
       })
       .catch(() => {}),
-  ]);
+  ]) as [any, any[], ...unknown[]];
+
+  const lang = post?.lang ?? "en";
+
+  // Pick up to 5 other posts for internal links in the SSR fallback
+  const relatedPosts = (allPosts ?? [])
+    .filter((p) => p.slug !== slug)
+    .slice(0, 5);
 
   const schemaArticle = post
     ? {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "@id": `https://nwtprogress.com/blog/${post.slug}#article`,
+        "@id": `${BASE}/blog/${post.slug}#article`,
         headline: post.title,
-        description:
-          post.excerpt || stripHtml(post.content).slice(0, 160),
+        description: post.excerpt || stripHtml(post.content).slice(0, 160),
         datePublished: post.created_at,
         dateModified: post.updated_at ?? post.created_at,
+        inLanguage: lang,
         author: post.profiles?.display_name
           ? { "@type": "Person", name: post.profiles.display_name }
-          : { "@type": "Organization", "@id": "https://nwtprogress.com/#organization", name: "NWT Progress" },
+          : { "@type": "Organization", "@id": `${BASE}/#organization`, name: "NWT Progress" },
         mainEntityOfPage: {
           "@type": "WebPage",
-          "@id": `https://nwtprogress.com/blog/${post.slug}`,
+          "@id": `${BASE}/blog/${post.slug}`,
         },
         publisher: {
           "@type": "Organization",
-          "@id": "https://nwtprogress.com/#organization",
+          "@id": `${BASE}/#organization`,
           name: "NWT Progress",
           logo: {
             "@type": "ImageObject",
-            url: "https://nwtprogress.com/icon-512.png",
+            url: `${BASE}/icon-512.png`,
             width: 512,
             height: 512,
           },
@@ -111,8 +142,8 @@ export default async function BlogPostPage({ params }) {
         wordCount: post.content
           ? post.content.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length
           : undefined,
-        url: `https://nwtprogress.com/blog/${post.slug}`,
-        image: post.cover_url || "https://nwtprogress.com/og-image.webp",
+        url: `${BASE}/blog/${post.slug}`,
+        image: post.cover_url || `${BASE}/og-image.webp`,
       }
     : null;
 
@@ -120,9 +151,9 @@ export default async function BlogPostPage({ params }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://nwtprogress.com" },
-      { "@type": "ListItem", position: 2, name: "Blog", item: "https://nwtprogress.com/blog" },
-      ...(post ? [{ "@type": "ListItem", position: 3, name: post.title, item: `https://nwtprogress.com/blog/${post.slug}` }] : []),
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${BASE}/blog` },
+      ...(post ? [{ "@type": "ListItem", position: 3, name: post.title, item: `${BASE}/blog/${post.slug}` }] : []),
     ],
   };
 
@@ -133,7 +164,7 @@ export default async function BlogPostPage({ params }) {
       )}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
       {post && (
-        <div id="ssr-fallback">
+        <div id="ssr-fallback" lang={lang}>
           <article>
             <h1>{post.title}</h1>
             {post.excerpt && <p>{post.excerpt}</p>}
@@ -141,6 +172,22 @@ export default async function BlogPostPage({ params }) {
               <div dangerouslySetInnerHTML={{ __html: post.content }} />
             )}
           </article>
+
+          {/* Internal links to other posts — helps Google crawl and distribute PageRank */}
+          {relatedPosts.length > 0 && (
+            <nav aria-label="More articles">
+              <h2>More from the NWT Progress Blog</h2>
+              <ul>
+                {relatedPosts.map((p) => (
+                  <li key={p.slug}>
+                    <a href={`/blog/${p.slug}`}>{p.title}</a>
+                    {p.excerpt && <p>{p.excerpt}</p>}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+
           <nav aria-label="Related resources">
             <h2>Explore Bible Books on NWT Progress</h2>
             <ul>
@@ -162,10 +209,6 @@ export default async function BlogPostPage({ params }) {
             <h2>Study Topics</h2>
             <ul>
               <li><a href="/study-topics">Bible Study Topics</a></li>
-            </ul>
-            <h2>More from the Blog</h2>
-            <ul>
-              <li><a href="/blog">NWT Progress Blog</a></li>
             </ul>
           </nav>
         </div>

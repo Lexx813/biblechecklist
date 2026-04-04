@@ -962,6 +962,24 @@
   .blog-dash-row { gap: 8px; padding: 12px 14px; }
 }
 
+/* ── Bottom share prompt ─────────────────────────────────────── */
+.blog-share-prompt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0 4px;
+  border-top: 1px solid var(--border);
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+.blog-share-prompt-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 0;
+  white-space: nowrap;
+}
+
 /* ── Post navigation ─────────────────────────────────────────── */
 .blog-post-nav {
   max-width: 780px;

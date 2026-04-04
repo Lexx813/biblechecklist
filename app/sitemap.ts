@@ -53,12 +53,35 @@ export default async function sitemap() {
   try {
     const { data: posts } = await supabase
       .from("blog_posts")
-      .select("slug, updated_at")
+      .select("slug, updated_at, lang, translations")
       .eq("published", true);
-    blogPages = (posts ?? []).map((p) => ({
-      url: `${BASE}/blog/${p.slug}`,
-      lastModified: new Date(p.updated_at),
-    }));
+
+    // Build a map of paired slugs for hreflang
+    const pairedMap: Record<string, string> = {};
+    for (const p of posts ?? []) {
+      const paired = (p.translations as any)?.paired_slug;
+      if (paired) pairedMap[p.slug] = paired;
+    }
+
+    blogPages = (posts ?? []).map((p) => {
+      const lang = p.lang ?? "en";
+      const pairedSlug = pairedMap[p.slug];
+      const entry: Record<string, unknown> = {
+        url: `${BASE}/blog/${p.slug}`,
+        lastModified: new Date(p.updated_at),
+      };
+      if (pairedSlug) {
+        const otherLang = lang === "en" ? "es" : "en";
+        entry.alternates = {
+          languages: {
+            [lang]: `${BASE}/blog/${p.slug}`,
+            [otherLang]: `${BASE}/blog/${pairedSlug}`,
+            "x-default": lang === "en" ? `${BASE}/blog/${p.slug}` : `${BASE}/blog/${pairedSlug}`,
+          },
+        };
+      }
+      return entry;
+    });
   } catch {
     // Supabase unavailable at build time — omit blog pages
   }
