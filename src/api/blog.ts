@@ -53,7 +53,7 @@ export const blogApi = {
   listMine: async (userId: string) => {
     const { data, error } = await supabase
       .from("blog_posts")
-      .select("id, title, slug, excerpt, published, created_at, updated_at")
+      .select("id, title, slug, excerpt, content, cover_url, published, created_at, updated_at")
       .eq("author_id", userId)
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
