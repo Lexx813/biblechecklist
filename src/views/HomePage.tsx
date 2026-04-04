@@ -244,13 +244,13 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   function handleDismissNotif() { localStorage.setItem("nwt-notif-dismissed", "1"); setNotifDismissed(true); }
 
   const blogPreview = useMemo(() => {
-    const byLikes = [...posts].sort((a, b) => (b.like_count ?? 0) - (a.like_count ?? 0));
-    const top2 = byLikes.slice(0, 2);
+    if (posts.length === 0) return [];
+    // Always lead with the newest post, then fill with most liked
     const newest = posts[0];
-    const seen = new Set(top2.map(p => p.id));
-    const result = [...top2];
-    if (newest && !seen.has(newest.id)) result.push(newest);
-    return result.slice(0, 3);
+    const byLikes = [...posts]
+      .filter(p => p.id !== newest.id)
+      .sort((a, b) => (b.like_count ?? 0) - (a.like_count ?? 0));
+    return [newest, ...byLikes].slice(0, 3);
   }, [posts]);
 
   // eslint-disable-next-line react-hooks/purity

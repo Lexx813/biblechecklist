@@ -195,6 +195,7 @@ function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate 
 // ── Single post view ─────────────────────────────────────────────────────────
 function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade, ...rest }) {
   const { data: post, isLoading } = usePostBySlug(slug);
+  const { data: allPosts = [] } = usePublishedPosts(null);
   const { data: likedIds = [] } = useUserBlogLikes(user?.id);
   const toggleLike = useToggleBlogLike(user?.id);
   const deletePost = useDeletePost(user?.id);
@@ -399,7 +400,42 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
         }
       </div>
 
+      <PostNav allPosts={allPosts} currentPost={post} onSelect={onSelectPost} />
       <RelatedPosts currentPost={post} onSelect={onSelectPost || onBack} navigate={navigate} user={user} />
+    </div>
+  );
+}
+
+// ── Post navigation (prev / next) ─────────────────────────────────────────────
+function PostNav({ allPosts, currentPost, onSelect }) {
+  const idx = allPosts.findIndex(p => p.id === currentPost?.id);
+  if (idx < 0 || allPosts.length < 2) return null;
+  // allPosts is newest-first: lower index = newer, higher index = older
+  const prevPost = idx > 0 ? allPosts[idx - 1] : null;            // newer
+  const nextPost = idx < allPosts.length - 1 ? allPosts[idx + 1] : null; // older
+
+  return (
+    <div className="blog-post-nav">
+      <div className="blog-post-nav-inner">
+        {prevPost ? (
+          <button className="blog-post-nav-btn blog-post-nav-btn--prev" onClick={() => onSelect(prevPost.slug)}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            <span className="blog-post-nav-label">
+              <span className="blog-post-nav-dir">Previous</span>
+              <span className="blog-post-nav-title">{prevPost.title}</span>
+            </span>
+          </button>
+        ) : <span />}
+        {nextPost ? (
+          <button className="blog-post-nav-btn blog-post-nav-btn--next" onClick={() => onSelect(nextPost.slug)}>
+            <span className="blog-post-nav-label">
+              <span className="blog-post-nav-dir">Next</span>
+              <span className="blog-post-nav-title">{nextPost.title}</span>
+            </span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        ) : <span />}
+      </div>
     </div>
   );
 }
