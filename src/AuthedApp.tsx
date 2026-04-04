@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef, useCallback, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useFullProfile } from "./hooks/useAdmin";
-import { profileApi } from "./api/profile";
 import { useFeatureFlags } from "./hooks/useFeatureFlags";
 import { useSubscription } from "./hooks/useSubscription";
 import { supabase } from "./lib/supabase";
@@ -16,9 +15,6 @@ import TopBar from "./components/TopBar";
 import AppLayout from "./components/AppLayout";
 import CommandPalette from "./components/CommandPalette";
 import { ErrorBoundary } from "./components/ErrorBoundary";
-import UpgradeModal from "./components/UpgradeModal";
-import UpgradePrompt, { isDismissed, dismissPrompt } from "./components/UpgradePrompt";
-import WelcomePremiumModal from "./components/WelcomePremiumModal";
 import ConsentGate from "./components/ConsentGate";
 
 const AuthPage          = lazy(() => import("./views/auth/AuthPage"));
@@ -78,46 +74,6 @@ function Page({ children, noFooter = false }) {
   );
 }
 
-// ── Feature gate prompts (module scope, no re-creation) ───────────────────────
-
-const FEATURE_PROMPTS = {
-  studyNotes: {
-    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>,
-    title: "Study Notes",
-    message: "Write rich-text notes for any chapter, organise by folder, and export as Markdown or PDF.",
-    ctaLabel: "Unlock Premium — $3/mo",
-  },
-  readingPlans: {
-    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
-    title: "Reading Plans",
-    message: "Follow structured plans like NWT in 1 Year with daily assignments and progress tracking.",
-    ctaLabel: "Unlock Premium — $3/mo",
-  },
-  aiTools: {
-    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3L13.5 8.5L19 10L13.5 11.5L12 17L10.5 11.5L5 10L10.5 8.5Z"/></svg>,
-    title: "AI Study Assistant",
-    message: "Ask anything about any verse and get grounded, passage-linked answers from Scripture.",
-    ctaLabel: "Unlock Premium — $3/mo",
-  },
-  messages: {
-    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
-    title: "Direct Messages",
-    message: "Private conversations with other publishers in the community.",
-    ctaLabel: "Unlock Premium — $3/mo",
-  },
-  groups: {
-    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
-    title: "Study Groups",
-    message: "Group chat, shared progress tracking, and weekly leaderboards with your study group.",
-    ctaLabel: "Unlock Premium — $3/mo",
-  },
-  meetingPrep: {
-    icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>,
-    title: "Meeting Prep",
-    message: "Prepare for midweek and weekend meetings with structured checklists and study notes.",
-    ctaLabel: "Unlock Premium — $3/mo",
-  },
-};
 
 // ── Authenticated app with routing ────────────────────────────────────────────
 
@@ -127,7 +83,8 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   const queryClient = useQueryClient();
   const { data: profile, isLoading: profileLoading } = useFullProfile(user.id);
 
-  const { isPremium, subscribe } = useSubscription(user.id);
+  const { isPremium: _isPremium } = useSubscription(user.id);
+  const isPremium = true; // all features open while building community
 
   // Apply referral code if present (runs once after profile loads)
   useEffect(() => {
@@ -153,56 +110,10 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     if (saved === "light") return false;
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
-  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
-  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
-  const [gatedFeature, setGatedFeature] = useState(null);
   const [showCmdPalette, setShowCmdPalette] = useState(false);
 
-  function openUpgrade() { setShowUpgradeModal(true); }
+  function openUpgrade() {}
 
-  const handleGateCta = useCallback(() => {
-    if (!gatedFeature) return;
-    dismissPrompt(`gate-${gatedFeature}`);
-    setGatedFeature(null);
-    openUpgrade();
-  }, [gatedFeature]);
-
-  const handleGateDismiss = useCallback(() => {
-    if (!gatedFeature) return;
-    dismissPrompt(`gate-${gatedFeature}`);
-    setGatedFeature(null);
-  }, [gatedFeature]);
-
-  // Handle Stripe redirect callbacks
-  const pollingRef = useRef(null);
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.has("subscribed")) {
-      history.replaceState(null, "", window.location.pathname);
-      let attempts = 0;
-      pollingRef.current = setInterval(async () => {
-        try {
-          const data = await queryClient.fetchQuery({
-            queryKey: ["fullProfile", user.id],
-            queryFn: () => profileApi.get(user.id),
-            staleTime: 0,
-          });
-          if (data?.subscription_status === "active" || data?.subscription_status === "trialing") {
-            clearInterval(pollingRef.current);
-            setShowWelcomeModal(true);
-          } else if (++attempts >= 6) {
-            clearInterval(pollingRef.current);
-            toast("🎉 Subscription received! Refresh if features aren't unlocked yet.");
-          }
-        } catch {
-          clearInterval(pollingRef.current);
-        }
-      }, 2000);
-      return () => clearInterval(pollingRef.current);
-    } else if (params.has("checkout_canceled")) {
-      history.replaceState(null, "", window.location.pathname);
-    }
-  }, [queryClient, user.id]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = darkMode ? "dark" : "light";
@@ -271,9 +182,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   }, []);
 
   // Pages rendered as inline panels inside the home page
-  // Note: "quizLevel" maps to "quiz" panel with level params — kept here so external navigate("quizLevel") is intercepted
   const HOME_PANELS = new Set(["main", "quiz", "quizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile"]);
-  const PREMIUM_PANELS = new Set(["readingPlans", "studyNotes", "meetingPrep"]);
 
   const [homePanelRequest, setHomePanelRequest] = useState<{ panel: string; params: Record<string, any> } | null>(null);
 
@@ -285,12 +194,6 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
       return;
     }
     if (HOME_PANELS.has(page)) {
-      // Premium gating for certain panels — show upgrade prompt instead of navigating
-      if (PREMIUM_PANELS.has(page) && !isPremium) {
-        if (!isDismissed(`gate-${page}`)) setGatedFeature(page);
-        else openUpgrade();
-        return;
-      }
       // Blog gets real URLs for shareability + SEO
       const url = page === "blog"
         ? (params.slug ? `/blog/${params.slug}` : "/blog")
@@ -319,7 +222,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
 
   const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page, onUpgrade: openUpgrade, onSearchClick: () => setShowCmdPalette(true) };
 
-  const AL = ({ page, children }) => <AppLayout navigate={navigate} user={user} currentPage={page} isPremium={isPremium}>{children}</AppLayout>;
+  const AL = ({ page, children }) => <AppLayout navigate={navigate} user={user} currentPage={page}>{children}</AppLayout>;
 
   let pageContent = null;
   if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} isPremium={isPremium} onUpgrade={openUpgrade} panelRequest={homePanelRequest} onPanelConsumed={() => setHomePanelRequest(null)} /></Page>;
@@ -367,9 +270,9 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (nav.page === "bookmarks") pageContent = <Page><BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "history")   pageContent = <Page><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Page>;
   else if (nav.page === "feed")      pageContent = <Page><ActivityFeed user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
-  else if (isPremium && nav.page === "readingPlans") pageContent = <Page><AL page="readingPlans"><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
-  else if (isPremium && nav.page === "studyNotes")   pageContent = <Page><AL page="studyNotes"><StudyNotesPage user={user} navigate={navigate} initialTab={nav.tab ?? "mine"} {...sharedNav} /></AL></Page>;
-  else if (nav.page === "aiTools" && (profile?.is_admin || isPremium)) pageContent = <Page><AL page="aiTools"><AIToolsPage user={user} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "readingPlans") pageContent = <Page><AL page="readingPlans"><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "studyNotes")   pageContent = <Page><AL page="studyNotes"><StudyNotesPage user={user} navigate={navigate} initialTab={nav.tab ?? "mine"} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "aiTools" && profile?.is_admin) pageContent = <Page><AL page="aiTools"><AIToolsPage user={user} {...sharedNav} /></AL></Page>;
   else if (nav.page === "studyTopics")      pageContent = <Page><StudyTopicsPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "studyTopicDetail") pageContent = <Page><StudyTopicDetail user={user} navigate={navigate} slug={nav.slug} {...sharedNav} /></Page>;
   else if (nav.page === "familyQuiz") pageContent = (
@@ -387,24 +290,19 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (nav.page === "about")     pageContent = <Page><AboutPage {...sharedNav} /></Page>;
   else if (nav.page === "terms")     pageContent = <Page><TermsPage {...sharedNav} /></Page>;
   else if (nav.page === "privacy")   pageContent = <Page><PrivacyPage {...sharedNav} /></Page>;
-  else if (isPremium && nav.page === "messages")     pageContent = <Page noFooter><MessagesPage {...sharedNav} onBack={() => navigate("home")} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
-  else if (isPremium && nav.page === "groups")       pageContent = <Page><AL page="groups"><GroupsPage {...sharedNav} /></AL></Page>;
-  else if (isPremium && nav.page === "groupDetail")  pageContent = <Page><AL page="groups"><GroupDetail {...sharedNav} groupId={nav.groupId} /></AL></Page>;
-  else if (isPremium && nav.page === "meetingPrep") pageContent = <Page><AL page="meetingPrep"><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "messages")     pageContent = <Page noFooter><MessagesPage {...sharedNav} onBack={() => navigate("home")} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
+  else if (nav.page === "groups")       pageContent = <Page><AL page="groups"><GroupsPage {...sharedNav} /></AL></Page>;
+  else if (nav.page === "groupDetail")  pageContent = <Page><AL page="groups"><GroupDetail {...sharedNav} groupId={nav.groupId} /></AL></Page>;
+  else if (nav.page === "meetingPrep") pageContent = <Page><AL page="meetingPrep"><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
   else if (nav.page === "friends")
     pageContent = <Page><AL page="friends"><ProfilePage user={user} viewedUserId={user.id} onBack={() => navigate("home")} defaultTab="friends" {...sharedNav} /></AL></Page>;
   else if (nav.page === "friendRequests")
     pageContent = <Page><AL page="friends"><FriendRequestsPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
   else if (nav.page === "community")
     pageContent = <Page><AL page="community"><CommunityPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
-  // Premium-gated pages for non-premium users → send home (with upgrade prompt)
-  else if (!isPremium && ["messages", "groups", "groupDetail", "readingPlans", "studyNotes", "aiTools", "meetingPrep"].includes(nav.page)) {
-    if (!profileLoading) {
-      const feature = nav.page === "groupDetail" ? "groups" : nav.page;
-      navigate("home");
-      if (!isDismissed(`gate-${feature}`)) setGatedFeature(feature);
-      else openUpgrade();
-    }
+  // aiTools is admin-only — redirect non-admins home
+  else if (nav.page === "aiTools") {
+    if (!profileLoading) navigate("home");
   }
   // Truly unknown URL → 404
   else if (nav.page === "notFound") {
@@ -431,7 +329,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
         {pageContent}
       </div>
       {nav.page !== "messages" && <MobileTabBar navigate={navigate} currentPage={nav.page} userId={user?.id} />}
-      {isPremium && nav.page !== "messages" && (
+      {nav.page !== "messages" && (
         <Suspense fallback={null}>
           <FloatingChat
             user={user}
@@ -441,29 +339,6 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
             initialConvAvatar={(nav as any).otherAvatarUrl ?? null}
           />
         </Suspense>
-      )}
-      {showUpgradeModal && (
-        <UpgradeModal
-          onClose={() => setShowUpgradeModal(false)}
-          onSubscribe={() => subscribe.mutate()}
-          loading={subscribe.isPending}
-        />
-      )}
-      {showWelcomeModal && (
-        <WelcomePremiumModal
-          onClose={() => setShowWelcomeModal(false)}
-          navigate={navigate}
-        />
-      )}
-      {gatedFeature && FEATURE_PROMPTS[gatedFeature] && (
-        <UpgradePrompt
-          icon={FEATURE_PROMPTS[gatedFeature].icon}
-          title={FEATURE_PROMPTS[gatedFeature].title}
-          message={FEATURE_PROMPTS[gatedFeature].message}
-          ctaLabel={FEATURE_PROMPTS[gatedFeature].ctaLabel}
-          onCta={handleGateCta}
-          onDismiss={handleGateDismiss}
-        />
       )}
       {showCmdPalette && (
         <CommandPalette

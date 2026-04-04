@@ -29,7 +29,7 @@ import DailyVerse from "../components/home/DailyVerse";
 import TodaysFocusCard from "../components/home/TodaysFocusCard";
 import EmptyState from "../components/EmptyState";
 import OnboardingModal, { useOnboarding } from "../components/OnboardingModal";
-import UpgradePrompt, { isDismissed, dismissPrompt } from "../components/UpgradePrompt";
+import { isDismissed, dismissPrompt } from "../components/UpgradePrompt";
 import "../styles/home.css";
 
 const FALLBACK_IMAGES = [
@@ -160,7 +160,8 @@ function ForumSkeleton() {
 }
 
 // ── Main component ───────────────────────────────────────────────────────────
-export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, isPremium, onUpgrade, panelRequest, onPanelConsumed }) {
+export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, isPremium: _isPremium, onUpgrade, panelRequest, onPanelConsumed }) {
+  const isPremium = true; // all features open while building community
   const { t } = useTranslation();
   const lang = i18n?.language?.split("-")[0] ?? "en";
 
@@ -233,12 +234,12 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const showNotifBanner = user && profile && !profile.email_notifications_blog && !notifDismissed;
 
   useEffect(() => {
-    if (isPremium || streakLoading) return;
+    if (streakLoading) return;
     const n = streak.current_streak;
     if (!STREAK_MILESTONES.includes(n)) return;
     const key = `streak-milestone-${n}`;
     if (!isDismissed(key)) { setStreakMilestone(n); setShowStreakPrompt(true); }
-  }, [streak.current_streak, isPremium, streakLoading]);
+  }, [streak.current_streak, streakLoading]);
 
   function handleEnableNotif() { updateProfile.mutate({ email_notifications_blog: true }); setNotifDismissed(true); }
   function handleDismissNotif() { localStorage.setItem("nwt-notif-dismissed", "1"); setNotifDismissed(true); }
@@ -252,9 +253,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       .sort((a, b) => (b.like_count ?? 0) - (a.like_count ?? 0));
     return [newest, ...byLikes].slice(0, 3);
   }, [posts]);
-
-  // eslint-disable-next-line react-hooks/purity
-  const bannerRotation = BANNER_ROTATIONS[Math.floor(Date.now() / (7 * 24 * 60 * 60 * 1000)) % BANNER_ROTATIONS.length];
 
   // Friends panel data
   const now = Date.now();
@@ -291,64 +289,52 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           </button>
 
           {/* Primary nav */}
-          {NAV_ITEMS.map(item => {
-            const locked = !isPremium && item.premium;
-            return (
-              <button
-                key={item.key}
-                className={`hls-item${(activePanel === null && item.key === "home") || activePanel === item.key ? " hls-item--active" : ""}${locked ? " hls-item--locked" : ""}`}
-                onClick={() => panelNavigate(item.key)}
-              >
-                <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
-                {item.label}
-                {locked && <span className="hls-lock">✦</span>}
-              </button>
-            );
-          })}
+          {NAV_ITEMS.map(item => (
+            <button
+              key={item.key}
+              className={`hls-item${(activePanel === null && item.key === "home") || activePanel === item.key ? " hls-item--active" : ""}`}
+              onClick={() => panelNavigate(item.key)}
+            >
+              <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
+              {item.label}
+            </button>
+          ))}
 
           <div className="hls-divider" />
 
           {/* Social */}
-          {NAV_ITEMS_2.map(item => {
-            const locked = !isPremium && item.premium;
-            return (
-              <button
-                key={item.key}
-                className={`hls-item${activePanel === item.key ? " hls-item--active" : ""}${locked ? " hls-item--locked" : ""}`}
-                onClick={() => {
-                  if (INLINE_PANELS.has(item.key)) { setActivePanel(item.key); setQuizLevelState(null); }
-                  else { setActivePanel(null); setQuizLevelState(null); navigate(item.key); }
-                }}
-              >
-                <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
-                {item.label}
-                {locked && <span className="hls-lock">✦</span>}
-                {!locked && item.key === "friends"  && pendingRequests > 0 && <span className="hls-badge">{pendingRequests}</span>}
-                {!locked && item.key === "messages" && unreadMessages  > 0 && <span className="hls-badge">{unreadMessages}</span>}
-              </button>
-            );
-          })}
+          {NAV_ITEMS_2.map(item => (
+            <button
+              key={item.key}
+              className={`hls-item${activePanel === item.key ? " hls-item--active" : ""}`}
+              onClick={() => {
+                if (INLINE_PANELS.has(item.key)) { setActivePanel(item.key); setQuizLevelState(null); }
+                else { setActivePanel(null); setQuizLevelState(null); navigate(item.key); }
+              }}
+            >
+              <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
+              {item.label}
+              {item.key === "friends"  && pendingRequests > 0 && <span className="hls-badge">{pendingRequests}</span>}
+              {item.key === "messages" && unreadMessages  > 0 && <span className="hls-badge">{unreadMessages}</span>}
+            </button>
+          ))}
 
           <div className="hls-divider" />
           <div className="hls-section-label">Shortcuts</div>
 
-          {NAV_SHORTCUTS.map(item => {
-            const locked = !isPremium && item.premium;
-            return (
-              <button
-                key={item.key}
-                className={`hls-item${activePanel === item.key ? " hls-item--active" : ""}${locked ? " hls-item--locked" : ""}`}
-                onClick={() => {
-                  if (INLINE_PANELS.has(item.key)) { setActivePanel(item.key); setQuizLevelState(null); }
-                  else { setActivePanel(null); navigate(item.key); }
-                }}
-              >
-                <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
-                {item.label}
-                {locked && <span className="hls-lock">✦</span>}
-              </button>
-            );
-          })}
+          {NAV_SHORTCUTS.map(item => (
+            <button
+              key={item.key}
+              className={`hls-item${activePanel === item.key ? " hls-item--active" : ""}`}
+              onClick={() => {
+                if (INLINE_PANELS.has(item.key)) { setActivePanel(item.key); setQuizLevelState(null); }
+                else { setActivePanel(null); navigate(item.key); }
+              }}
+            >
+              <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
+              {item.label}
+            </button>
+          ))}
 
           {(profile?.is_admin || profile?.is_moderator) && (
             <>
@@ -704,15 +690,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             )}
           </div>
 
-          {/* Upsell */}
-          {!isPremium && (
-            <button className="hwidget-upsell" onClick={onUpgrade}>
-              <div className="hwidget-upsell-icon">{bannerRotation.icon}</div>
-              <div className="hwidget-upsell-title">{bannerRotation.title}</div>
-              <div className="hwidget-upsell-sub">{bannerRotation.sub}</div>
-              <span className="hwidget-upsell-btn">{bannerRotation.cta}</span>
-            </button>
-          )}
 
         </aside>
 
@@ -720,14 +697,15 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
       {/* ── Modals & overlays ── */}
       {showStreakPrompt && (
-        <UpgradePrompt
-          icon={<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>}
-          title={`${streak.current_streak}-day streak!`}
-          message="Keep it structured — reading plans give you a daily assignment so you always know exactly what to read next."
-          ctaLabel="View Reading Plans"
-          onCta={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); navigate("readingPlans"); }}
-          onDismiss={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); }}
-        />
+        <div className="home-notif-banner">
+          <span className="home-notif-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></span>
+          <div className="home-notif-text">
+            <strong>{streak.current_streak}-day streak!</strong>
+            <span>Check out reading plans to keep the momentum going.</span>
+          </div>
+          <button className="home-notif-enable" onClick={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); navigate("readingPlans"); }}>View Plans</button>
+          <button className="home-notif-dismiss" onClick={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); }} aria-label="Dismiss">✕</button>
+        </div>
       )}
 
       {showNotifBanner && (

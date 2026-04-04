@@ -30,10 +30,9 @@ interface Props {
   currentPage: string;
   children: React.ReactNode;
   rightPanel?: React.ReactNode;
-  isPremium?: boolean;
 }
 
-export default function AppLayout({ navigate, user, currentPage, children, rightPanel, isPremium }: Props) {
+export default function AppLayout({ navigate, user, currentPage, children, rightPanel }: Props) {
   const { data: profile } = useFullProfile(user?.id);
   const { data: unreadMessages = 0 } = useUnreadMessageCount();
   const { incoming } = useFriendRequests(user?.id);
@@ -62,60 +61,48 @@ export default function AppLayout({ navigate, user, currentPage, children, right
         </button>
 
         {/* Primary nav */}
-        {NAV_PRIMARY.map(item => {
-          const locked = !isPremium && item.premium;
-          return (
-            <button
-              key={item.key}
-              className={`al-item${activeKey === item.key ? " al-item--active" : ""}${locked ? " al-item--locked" : ""}`}
-              onClick={() => navigate(item.key)}
-              aria-current={activeKey === item.key ? "page" : undefined}
-            >
-              <span className="al-icon" style={{ background: item.bg }}>{item.icon}</span>
-              {item.label}
-              {locked && <span className="al-lock">✦</span>}
-            </button>
-          );
-        })}
+        {NAV_PRIMARY.map(item => (
+          <button
+            key={item.key}
+            className={`al-item${activeKey === item.key ? " al-item--active" : ""}`}
+            onClick={() => navigate(item.key)}
+            aria-current={activeKey === item.key ? "page" : undefined}
+          >
+            <span className="al-icon" style={{ background: item.bg }}>{item.icon}</span>
+            {item.label}
+          </button>
+        ))}
 
         <div className="al-divider" />
 
         {/* Social */}
-        {NAV_SOCIAL.map(item => {
-          const locked = !isPremium && item.premium;
-          return (
-            <button
-              key={item.key}
-              className={`al-item${activeKey === item.key ? " al-item--active" : ""}${locked ? " al-item--locked" : ""}`}
-              onClick={() => navigate(item.key)}
-              aria-current={activeKey === item.key ? "page" : undefined}
-            >
-              <span className="al-icon" style={{ background: item.bg }}>{item.icon}</span>
-              {item.label}
-              {locked && <span className="al-lock">✦</span>}
-              {!locked && item.key === "friends"  && pendingRequests > 0 && <span className="al-badge">{pendingRequests > 99 ? "99+" : pendingRequests}</span>}
-              {!locked && item.key === "messages" && unreadMessages  > 0 && <span className="al-badge">{unreadMessages  > 99 ? "99+" : unreadMessages}</span>}
-            </button>
-          );
-        })}
+        {NAV_SOCIAL.map(item => (
+          <button
+            key={item.key}
+            className={`al-item${activeKey === item.key ? " al-item--active" : ""}`}
+            onClick={() => navigate(item.key)}
+            aria-current={activeKey === item.key ? "page" : undefined}
+          >
+            <span className="al-icon" style={{ background: item.bg }}>{item.icon}</span>
+            {item.label}
+            {item.key === "friends"  && pendingRequests > 0 && <span className="al-badge">{pendingRequests > 99 ? "99+" : pendingRequests}</span>}
+            {item.key === "messages" && unreadMessages  > 0 && <span className="al-badge">{unreadMessages  > 99 ? "99+" : unreadMessages}</span>}
+          </button>
+        ))}
 
         <div className="al-divider" />
         <div className="al-section-label">Shortcuts</div>
 
-        {NAV_SHORTCUTS.map(item => {
-          const locked = !isPremium && item.premium;
-          return (
-            <button
-              key={item.key}
-              className={`al-item${activeKey === item.key ? " al-item--active" : ""}${locked ? " al-item--locked" : ""}`}
-              onClick={() => navigate(item.key)}
-            >
-              <span className="al-icon" style={{ background: item.bg }}>{item.icon}</span>
-              {item.label}
-              {locked && <span className="al-lock">✦</span>}
-            </button>
-          );
-        })}
+        {NAV_SHORTCUTS.map(item => (
+          <button
+            key={item.key}
+            className={`al-item${activeKey === item.key ? " al-item--active" : ""}`}
+            onClick={() => navigate(item.key)}
+          >
+            <span className="al-icon" style={{ background: item.bg }}>{item.icon}</span>
+            {item.label}
+          </button>
+        ))}
 
       </aside>
 

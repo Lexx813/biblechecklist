@@ -14,7 +14,6 @@ import { useSubmitReport } from "../../hooks/useReports";
 import { useBlocks, useBlockUser, useUnblockUser } from "../../hooks/useBlocks";
 import { useMeta } from "../../hooks/useMeta";
 import { useGetOrCreateDM } from "../../hooks/useMessages";
-import { useSubscription } from "../../hooks/useSubscription";
 import "../../styles/blog.css";
 import "../../styles/editor.css";
 import "../../styles/mentions.css";
@@ -201,7 +200,6 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
   const deletePost = useDeletePost(user?.id);
   const { t } = useTranslation();
   const isAdmin = profile?.is_admin;
-  const { isPremium } = useSubscription(user?.id);
   const getOrCreateDM = useGetOrCreateDM();
   const { data: blockedSet = new Set<string>() } = useBlocks(user?.id);
   const blockUser = useBlockUser();
@@ -333,21 +331,18 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
           </div>
           {user && post.author_id !== user.id && (
             <button
-              className={`blog-author-msg-btn${!isPremium ? " blog-author-msg-btn--locked" : ""}`}
+              className="blog-author-msg-btn"
               disabled={getOrCreateDM.isPending}
-              onClick={isPremium
-                ? () => getOrCreateDM.mutate(post.author_id, {
-                    onSuccess: (cid) => navigate("messages", {
-                      conversationId: cid,
-                      otherDisplayName: authorName(post),
-                      otherAvatarUrl: post.profiles?.avatar_url ?? null,
-                    }),
-                  })
-                : onUpgrade
-              }
+              onClick={() => getOrCreateDM.mutate(post.author_id, {
+                onSuccess: (cid) => navigate("messages", {
+                  conversationId: cid,
+                  otherDisplayName: authorName(post),
+                  otherAvatarUrl: post.profiles?.avatar_url ?? null,
+                }),
+              })}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              Message{!isPremium && <span className="msg-btn-pro-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg></span>}
+              Message
             </button>
           )}
           {user && post.author_id !== user.id && (
