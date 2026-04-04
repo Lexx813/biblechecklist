@@ -19,7 +19,7 @@ function stripHtml(html = "") {
 }
 
 export async function generateMetadata({ params }) {
-  const { slug } = params;
+  const { slug } = await params;
   try {
     const post = await blogApi.getBySlug(slug);
     if (!post) return {};
@@ -39,15 +39,14 @@ export async function generateMetadata({ params }) {
         type: "article",
         publishedTime: post.created_at,
         authors: post.profiles?.display_name ? [post.profiles.display_name] : [],
-        images: post.cover_url
-          ? [{ url: post.cover_url, width: 1200, height: 630 }]
-          : [{ url: "/og-image.webp", width: 1200, height: 630 }],
+        // Don't set images here — opengraph-image.tsx handles all OG images
+        // so it always wins and shows either the cover photo or branded card.
       },
       twitter: {
-        card: post.cover_url ? "summary_large_image" : "summary",
+        card: "summary_large_image",
         title: post.title,
         description: desc,
-        images: post.cover_url ? [post.cover_url] : [],
+        // opengraph-image.tsx also drives twitter:image
       },
     };
 
@@ -62,14 +61,15 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function BlogPostPage({ params }) {
+  const { slug } = await params;
   const queryClient = new QueryClient();
 
   const [post] = await Promise.all([
-    blogApi.getBySlug(params.slug).catch(() => null),
+    blogApi.getBySlug(slug).catch(() => null),
     queryClient
       .prefetchQuery({
-        queryKey: ["blog", "post", params.slug],
-        queryFn: () => blogApi.getBySlug(params.slug),
+        queryKey: ["blog", "post", slug],
+        queryFn: () => blogApi.getBySlug(slug),
       })
       .catch(() => {}),
     queryClient
