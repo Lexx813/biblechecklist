@@ -45,6 +45,21 @@ const FEATURE_ICONS = {
   ),
 };
 
+function useFeaturedPosts() {
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    supabase
+      .from("blog_posts")
+      .select("title, slug, excerpt, cover_url")
+      .eq("published", true)
+      .eq("lang", "en")
+      .order("created_at", { ascending: false })
+      .limit(3)
+      .then(({ data }) => { if (data) setPosts(data); });
+  }, []);
+  return posts;
+}
+
 function useCommunityStats() {
   const [stats, setStats] = useState({ users: 500, chaptersRead: 0, spotsLeft: null });
   useEffect(() => {
@@ -71,6 +86,7 @@ function useCommunityStats() {
 export default function LandingPage({ onGetStarted }) {
   const { t } = useTranslation();
   const communityStats = useCommunityStats();
+  const featuredPosts = useFeaturedPosts();
 
   const FREE_FEATURES = [
     { icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>, label: t("landing.freeFeatureReadingTrackerLabel"), desc: t("landing.freeFeatureReadingTrackerDesc") },
@@ -229,8 +245,35 @@ export default function LandingPage({ onGetStarted }) {
 
 
 
+      {featuredPosts.length > 0 && (
+        <section className="landing-blog">
+          <div className="landing-blog-header">
+            <h2 className="landing-blog-title">From the Blog</h2>
+            <p className="landing-blog-sub">Bible study insights for Jehovah&apos;s Witnesses</p>
+          </div>
+          <div className="landing-blog-grid">
+            {featuredPosts.map((post: any) => (
+              <a key={post.slug} href={`/blog/${post.slug}`} className="landing-blog-card">
+                {post.cover_url && (
+                  <div className="landing-blog-img-wrap">
+                    <img src={post.cover_url} alt={post.title} className="landing-blog-img" loading="lazy" />
+                  </div>
+                )}
+                <div className="landing-blog-content">
+                  <h3 className="landing-blog-post-title">{post.title}</h3>
+                  {post.excerpt && <p className="landing-blog-excerpt">{post.excerpt}</p>}
+                </div>
+              </a>
+            ))}
+          </div>
+          <a href="/blog" className="landing-blog-all">View all articles →</a>
+        </section>
+      )}
+
       <footer className="landing-footer">
         © {new Date().getFullYear()} NWT Progress · Lexx Solutionz
+        {" · "}
+        <a href="/blog" className="landing-footer-link">Blog</a>
         {" · "}
         <a href="/terms" className="landing-footer-link">Terms of Service</a>
         {" · "}
