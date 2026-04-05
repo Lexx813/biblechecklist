@@ -109,7 +109,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     const saved = localStorage.getItem("nwt-theme");
     if (saved === "dark") return true;
     if (saved === "light") return false;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    return true; // Default to dark — focused reading experience
   });
   const [showCmdPalette, setShowCmdPalette] = useState(false);
 
@@ -370,9 +370,8 @@ export default function AuthedApp({ onShowLanding, i18n }) {
     if (saved === "dark" || saved === "light") {
       document.documentElement.dataset.theme = saved;
     } else {
-      // Fall back to OS preference for new users
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      document.documentElement.dataset.theme = prefersDark ? "dark" : "light";
+      // Default to dark for new users — focused reading experience
+      document.documentElement.dataset.theme = "dark";
     }
   }, []);
 

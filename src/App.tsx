@@ -16,8 +16,8 @@ function getInitialDarkMode() {
   try {
     const saved = localStorage.getItem("nwt-theme");
     if (saved) return saved === "dark";
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
-  } catch { return false; }
+    return true; // Default to dark — focused reading experience
+  } catch { return true; }
 }
 
 // Sync localStorage check — no Supabase loaded at all
