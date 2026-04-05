@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { jwOrgBibleUrl } from "../utils/wol";
 
@@ -12,7 +13,7 @@ interface VerseModalProps {
   readVerses: number[];
   isChapterDone: boolean;
   pillEl: HTMLElement;          // live element — re-queried on scroll
-  initialRect: DOMRect;         // rect captured at click time, before React re-renders
+  initialRect: DOMRect;         // rect captured at pointerdown, before any browser scroll
   onClose: () => void;
   onMarkComplete: () => void;
   onToggleVerse: (verse: number) => void;
@@ -23,12 +24,10 @@ interface VerseModalProps {
 const MODAL_W = 308;
 
 function computePos(rect: DOMRect) {
-  // clientWidth/clientHeight exclude scrollbar, unaffected by horizontal overflow
   const vw = document.documentElement.clientWidth;
   const vh = document.documentElement.clientHeight;
   const pillCX = rect.left + rect.width / 2;
 
-  // Center under the pill, clamped to viewport edges
   let left = pillCX - MODAL_W / 2;
   left = Math.max(8, Math.min(vw - MODAL_W - 8, left));
 
@@ -36,7 +35,7 @@ function computePos(rect: DOMRect) {
   const maxHeight = Math.max(160, Math.min(vh - top - 8, 480));
   const caretLeft = Math.min(Math.max(16, pillCX - left), MODAL_W - 16);
 
-  return { top, left, above: false, caretLeft, maxHeight, ready: true };
+  return { top, left, caretLeft, maxHeight };
 }
 
 export default function VerseModal({
@@ -46,11 +45,9 @@ export default function VerseModal({
   const { i18n } = useTranslation();
   const lang = i18n.language?.split("-")[0] ?? "en";
   const modalRef = useRef<HTMLDivElement>(null);
-  // Seed from initialRect (captured at click time) — avoids Android timing issues
   const [pos, setPos] = useState(() => computePos(initialRect));
 
-  // Recompute on scroll (capture phase catches all scrollable containers) and resize
-  // Note: no update() call on mount — initialRect already seeded the correct position
+  // Track pill position on scroll/resize
   useLayoutEffect(() => {
     function update() { setPos(computePos(pillEl.getBoundingClientRect())); }
     window.addEventListener("scroll", update, { passive: true, capture: true });
@@ -68,8 +65,7 @@ export default function VerseModal({
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  // Focus first button on open — preventScroll stops Android from scrolling
-  // the underlying page when focusing an element inside a fixed dialog
+  // Focus trap — preventScroll so Android doesn't scroll on focus
   useEffect(() => {
     modalRef.current?.querySelector<HTMLElement>("button")?.focus({ preventScroll: true });
   }, []);
@@ -78,9 +74,9 @@ export default function VerseModal({
   const readCount = isChapterDone ? totalVerses : readVerses.length;
   const pct = totalVerses > 0 ? Math.round((readCount / totalVerses) * 100) : 0;
 
-  return (
+  return createPortal(
     <>
-      {/* Invisible backdrop */}
+      {/* Backdrop — rendered directly in body, no transformed ancestor */}
       <div className="vm-backdrop" onClick={onClose} aria-hidden="true" />
 
       {/* Modal card */}
@@ -192,6 +188,7 @@ export default function VerseModal({
         </div>{/* end vm-card-inner */}
 
       </div>
-    </>
+    </>,
+    document.body
   );
 }
