@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLogin, useRegister, useResetPassword } from "../../hooks/useAuth";
 import { authApi } from "../../api/auth";
@@ -6,14 +6,47 @@ import { friendsApi } from "../../api/friends";
 import { trackSignup, trackLogin } from "../../lib/analytics";
 import "../../styles/auth.css";
 
+/* ── SVG icons ───────────────────────────────────────────────── */
+const BookIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+  </svg>
+);
+const MailIcon = () => (
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+    <polyline points="22,6 12,13 2,6"/>
+  </svg>
+);
+const KeyIcon = () => (
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+  </svg>
+);
+const MoonIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+);
+const SunIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+    <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+  </svg>
+);
+
 export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEmail = null, onConfirmDismiss = null }) {
   const [mode, setMode] = useState("login"); // "login" | "signup" | "forgot"
   const [darkMode, setDarkMode] = useState(() => document.documentElement.dataset.theme === "dark");
 
-  useEffect(() => {
-    document.documentElement.dataset.theme = darkMode ? "dark" : "light";
-    localStorage.setItem("nwt-theme", darkMode ? "dark" : "light");
-  }, [darkMode]);
+  function toggleDark() {
+    const next = !darkMode;
+    setDarkMode(next);
+    document.documentElement.dataset.theme = next ? "dark" : "light";
+    localStorage.setItem("nwt-theme", next ? "dark" : "light");
+  }
   const [email, setEmail] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [password, setPassword] = useState("");
@@ -98,7 +131,7 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
       <div className="auth-wrap">
         <div className="auth-card">
           <div className="auth-header">
-            <div className="auth-logo">✉️</div>
+            <div className="auth-logo"><MailIcon /></div>
             <h1 className="auth-title">{t("auth.resetSentTitle")}</h1>
             <p className="auth-subtitle">{t("auth.resetSentSubtitle", { email })}</p>
           </div>
@@ -120,9 +153,7 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
       <div className="auth-wrap">
         <div className="auth-card">
           <div className="auth-header">
-            <div className="auth-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-</svg></div>
+            <div className="auth-logo"><BookIcon /></div>
             <h1 className="auth-title">{t("auth.checkEmailTitle")}</h1>
             <p className="auth-subtitle">{t("auth.checkEmailSubtitle", { email: confirmedEmail })}</p>
           </div>
@@ -151,7 +182,7 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
         )}
         <div className="auth-card">
           <div className="auth-header">
-            <div className="auth-logo">🔑</div>
+            <div className="auth-logo"><KeyIcon /></div>
             <h1 className="auth-title">{t("auth.forgotTitle")}</h1>
             <p className="auth-subtitle">{t("auth.forgotSubtitle")}</p>
           </div>
@@ -186,8 +217,8 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
         {onBack && (
           <button className="back-btn" onClick={onBack}>{t("auth.back")}</button>
         )}
-        <button className="auth-theme-toggle" onClick={() => setDarkMode(d => !d)} title={darkMode ? "Light mode" : "Dark mode"}>
-          {darkMode ? "☀️" : "🌙"}
+        <button className="auth-theme-toggle" onClick={toggleDark} aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}>
+          {darkMode ? <SunIcon /> : <MoonIcon />}
         </button>
       </div>
       <div className="auth-card">
