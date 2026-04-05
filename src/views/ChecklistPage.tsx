@@ -52,7 +52,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   // versesState: { [bookIndex]: { [chapter]: number[] } } — 1-based read verse numbers
   const [versesState, setVersesState] = useState<Record<number, Record<number, number[]>>>({});
   // Verse modal context
-  const [verseModal, setVerseModal] = useState<{ bookIndex: number; chapter: number; pillEl: HTMLElement } | null>(null);
+  const [verseModal, setVerseModal] = useState<{ bookIndex: number; chapter: number; pillEl: HTMLElement; pillRect: DOMRect } | null>(null);
   const [initialized, setInitialized] = useState(false);
   const [tab, setTab] = useState("all");
   const [search, setSearch] = useState("");
@@ -129,7 +129,9 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
 
   // ── Verse modal handlers ────────────────────────────────────────────────────
   const handleOpenChapterModal = (bi: number, ch: number, pillEl: HTMLElement) => {
-    setVerseModal({ bookIndex: bi, chapter: ch, pillEl });
+    // Capture rect immediately in the event handler — before React re-renders
+    // and before Android Chrome can scroll/resize the viewport
+    setVerseModal({ bookIndex: bi, chapter: ch, pillEl, pillRect: pillEl.getBoundingClientRect() });
   };
 
   const handleMarkChapterComplete = () => {
@@ -485,6 +487,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
             readVerses={versesState[verseModal.bookIndex]?.[verseModal.chapter] ?? []}
             isChapterDone={!!chaptersState[verseModal.bookIndex]?.[verseModal.chapter]}
             pillEl={verseModal.pillEl}
+            initialRect={verseModal.pillRect}
             onClose={() => setVerseModal(null)}
             onMarkComplete={handleMarkChapterComplete}
             onToggleVerse={handleToggleVerse}

@@ -11,7 +11,8 @@ interface VerseModalProps {
   totalVerses: number;
   readVerses: number[];
   isChapterDone: boolean;
-  pillEl: HTMLElement;          // live element — we re-query its rect on every scroll
+  pillEl: HTMLElement;          // live element — re-queried on scroll
+  initialRect: DOMRect;         // rect captured at click time, before React re-renders
   onClose: () => void;
   onMarkComplete: () => void;
   onToggleVerse: (verse: number) => void;
@@ -21,14 +22,13 @@ interface VerseModalProps {
 
 const MODAL_W = 308;
 
-function computePos(pillEl: HTMLElement) {
-  const rect = pillEl.getBoundingClientRect();
-  // clientWidth excludes scrollbar and is unaffected by horizontal overflow/scroll
+function computePos(rect: DOMRect) {
+  // clientWidth/clientHeight exclude scrollbar, unaffected by horizontal overflow
   const vw = document.documentElement.clientWidth;
   const vh = document.documentElement.clientHeight;
   const pillCX = rect.left + rect.width / 2;
 
-  // Always center under the pill, clamped to viewport edges
+  // Center under the pill, clamped to viewport edges
   let left = pillCX - MODAL_W / 2;
   left = Math.max(8, Math.min(vw - MODAL_W - 8, left));
 
@@ -41,17 +41,18 @@ function computePos(pillEl: HTMLElement) {
 
 export default function VerseModal({
   bookName, bookIndex, chapter, totalVerses, readVerses, isChapterDone,
-  pillEl, onClose, onMarkComplete, onToggleVerse, onSelectAll, onClearAll,
+  pillEl, initialRect, onClose, onMarkComplete, onToggleVerse, onSelectAll, onClearAll,
 }: VerseModalProps) {
   const { i18n } = useTranslation();
   const lang = i18n.language?.split("-")[0] ?? "en";
   const modalRef = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState(() => computePos(pillEl));
+  // Seed from initialRect (captured at click time) — avoids Android timing issues
+  const [pos, setPos] = useState(() => computePos(initialRect));
 
   // Recompute on scroll (capture phase catches all scrollable containers) and resize
+  // Note: no update() call on mount — initialRect already seeded the correct position
   useLayoutEffect(() => {
-    function update() { setPos(computePos(pillEl)); }
-    update();
+    function update() { setPos(computePos(pillEl.getBoundingClientRect())); }
     window.addEventListener("scroll", update, { passive: true, capture: true });
     window.addEventListener("resize", update, { passive: true });
     return () => {
