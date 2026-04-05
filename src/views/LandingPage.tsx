@@ -204,7 +204,12 @@ export default function LandingPage({ onGetStarted }) {
                   <div className="lp-blog-img-wrap">
                     {post.cover_url
                       ? <img src={post.cover_url} alt={post.title} className="lp-blog-img" loading="lazy" />
-                      : <div className="lp-blog-img-placeholder"><BookIcon /></div>
+                      : (
+                        <div className="lp-blog-img-placeholder">
+                          <span className="lp-blog-img-placeholder-icon"><BookIcon /></span>
+                          <span className="lp-blog-img-placeholder-title">{post.title}</span>
+                        </div>
+                      )
                     }
                   </div>
                   <div className="lp-blog-body">
