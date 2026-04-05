@@ -52,7 +52,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   // versesState: { [bookIndex]: { [chapter]: number[] } } — 1-based read verse numbers
   const [versesState, setVersesState] = useState<Record<number, Record<number, number[]>>>({});
   // Verse modal context
-  const [verseModal, setVerseModal] = useState<{ bookIndex: number; chapter: number; rect: DOMRect } | null>(null);
+  const [verseModal, setVerseModal] = useState<{ bookIndex: number; chapter: number; pillEl: HTMLElement } | null>(null);
   const [initialized, setInitialized] = useState(false);
   const [tab, setTab] = useState("all");
   const [search, setSearch] = useState("");
@@ -128,8 +128,8 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   };
 
   // ── Verse modal handlers ────────────────────────────────────────────────────
-  const handleOpenChapterModal = (bi: number, ch: number, rect: DOMRect) => {
-    setVerseModal({ bookIndex: bi, chapter: ch, rect });
+  const handleOpenChapterModal = (bi: number, ch: number, pillEl: HTMLElement) => {
+    setVerseModal({ bookIndex: bi, chapter: ch, pillEl });
   };
 
   const handleMarkChapterComplete = () => {
@@ -479,11 +479,12 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
         {verseModal && (
           <VerseModal
             bookName={t(`bookNames.${verseModal.bookIndex}`, BOOKS[verseModal.bookIndex].name)}
+            bookIndex={verseModal.bookIndex}
             chapter={verseModal.chapter}
             totalVerses={VERSE_COUNTS[verseModal.bookIndex]?.[verseModal.chapter - 1] ?? 0}
             readVerses={versesState[verseModal.bookIndex]?.[verseModal.chapter] ?? []}
             isChapterDone={!!chaptersState[verseModal.bookIndex]?.[verseModal.chapter]}
-            anchorRect={verseModal.rect}
+            pillEl={verseModal.pillEl}
             onClose={() => setVerseModal(null)}
             onMarkComplete={handleMarkChapterComplete}
             onToggleVerse={handleToggleVerse}

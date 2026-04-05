@@ -22,7 +22,7 @@ interface BookCardProps {
   versesState?: Record<number, Record<number, number[]>>;
   onToggleChapter: (bookIndex: number, chapter: number) => void;
   onToggleBook: (bookIndex: number, value?: boolean) => void;
-  onOpenChapterModal?: (bookIndex: number, chapter: number, rect: DOMRect) => void;
+  onOpenChapterModal?: (bookIndex: number, chapter: number, pillEl: HTMLElement) => void;
   notes?: { id: string | number; chapter: number; verse?: number; content: string }[];
   onAddNote?: (bookIndex: number) => void;
   onDeleteNote?: (id: string) => void;
@@ -238,7 +238,7 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                     className="ch-pill-toggle"
                     onClick={e => {
                       if (onOpenChapterModal) {
-                        onOpenChapterModal(bookIndex, ch, (e.currentTarget.closest(".ch-pill") as HTMLElement).getBoundingClientRect());
+                        onOpenChapterModal(bookIndex, ch, e.currentTarget.closest(".ch-pill") as HTMLElement);
                       } else {
                         onToggleChapter(bookIndex, ch);
                       }

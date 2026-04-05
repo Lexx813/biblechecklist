@@ -1,14 +1,19 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { jwLibraryChapterUrl, jwOrgBibleUrl } from "../utils/wol";
+
+const isTouchDevice = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
 
 interface VerseModalProps {
   bookName: string;
+  bookIndex: number;
   chapter: number;
   totalVerses: number;
-  readVerses: number[];       // 1-based verse numbers that are read
+  readVerses: number[];
   isChapterDone: boolean;
-  anchorRect: DOMRect;
+  pillEl: HTMLElement;          // live element — we re-query its rect on every scroll
   onClose: () => void;
-  onMarkComplete: () => void; // toggle chapter complete on/off
+  onMarkComplete: () => void;
   onToggleVerse: (verse: number) => void;
   onSelectAll: () => void;
   onClearAll: () => void;
@@ -16,61 +21,59 @@ interface VerseModalProps {
 
 const MODAL_W = 308;
 
+function computePos(pillEl: HTMLElement) {
+  const rect = pillEl.getBoundingClientRect();
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const pillCX = rect.left + rect.width / 2;
+
+  let left = pillCX - MODAL_W / 2;
+  left = Math.max(8, Math.min(vw - MODAL_W - 8, left));
+
+  const spaceBelow = vh - rect.bottom;
+  const above = spaceBelow < 240 && rect.top > 240;
+  const top = above ? rect.top - 8 : rect.bottom + 8;
+  const caretLeft = Math.min(Math.max(16, pillCX - left), MODAL_W - 16);
+
+  return { top, left, above, caretLeft, ready: true };
+}
+
 export default function VerseModal({
-  bookName, chapter, totalVerses, readVerses, isChapterDone,
-  anchorRect, onClose, onMarkComplete, onToggleVerse, onSelectAll, onClearAll,
+  bookName, bookIndex, chapter, totalVerses, readVerses, isChapterDone,
+  pillEl, onClose, onMarkComplete, onToggleVerse, onSelectAll, onClearAll,
 }: VerseModalProps) {
+  const { i18n } = useTranslation();
+  const lang = i18n.language?.split("-")[0] ?? "en";
   const modalRef = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState({ top: 0, left: 0, above: false, ready: false });
+  const [pos, setPos] = useState(() => computePos(pillEl));
 
-  // Calculate position on mount and on resize
+  // Recompute on scroll (capture phase catches all scrollable containers) and resize
   useLayoutEffect(() => {
-    function compute() {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const pillCX = anchorRect.left + anchorRect.width / 2;
+    function update() { setPos(computePos(pillEl)); }
+    update();
+    window.addEventListener("scroll", update, { passive: true, capture: true });
+    window.addEventListener("resize", update, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", update, { capture: true });
+      window.removeEventListener("resize", update);
+    };
+  }, [pillEl]);
 
-      // Horizontal: center on pill, clamp to viewport
-      let left = pillCX - MODAL_W / 2;
-      left = Math.max(8, Math.min(vw - MODAL_W - 8, left));
-
-      // Vertical: prefer below, flip above if < 240px space below
-      const spaceBelow = vh - anchorRect.bottom;
-      const above = spaceBelow < 240 && anchorRect.top > 240;
-      const top = above ? anchorRect.top - 8 : anchorRect.bottom + 8;
-
-      setPos({ top, left, above, ready: true });
-    }
-    compute();
-    window.addEventListener("resize", compute, { passive: true });
-    return () => window.removeEventListener("resize", compute);
-  }, [anchorRect]);
-
-  // Close on Escape or backdrop click
+  // Close on Escape
   useEffect(() => {
     function onKey(e: KeyboardEvent) { if (e.key === "Escape") onClose(); }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  // Trap focus inside modal
+  // Focus first button on open
   useEffect(() => {
-    const el = modalRef.current;
-    if (!el) return;
-    const firstBtn = el.querySelector<HTMLElement>("[tabindex], button");
-    firstBtn?.focus();
-  }, [pos.ready]);
+    modalRef.current?.querySelector<HTMLElement>("button")?.focus();
+  }, []);
 
   const readSet = new Set(readVerses);
   const readCount = isChapterDone ? totalVerses : readVerses.length;
   const pct = totalVerses > 0 ? Math.round((readCount / totalVerses) * 100) : 0;
-
-  const caretLeft = Math.min(
-    Math.max(16, (anchorRect.left + anchorRect.width / 2) - pos.left),
-    MODAL_W - 16,
-  );
-
-  if (!pos.ready) return null;
 
   return (
     <>
@@ -85,13 +88,12 @@ export default function VerseModal({
           top: pos.above ? undefined : pos.top,
           bottom: pos.above ? window.innerHeight - pos.top : undefined,
           left: pos.left,
-          "--caret-left": caretLeft + "px",
+          "--caret-left": pos.caretLeft + "px",
         } as React.CSSProperties}
         role="dialog"
         aria-modal="true"
         aria-label={`${bookName} Chapter ${chapter}`}
       >
-        {/* Caret */}
         {!pos.above && <div className="vm-caret vm-caret--top" />}
 
         {/* Header */}
@@ -121,28 +123,15 @@ export default function VerseModal({
             className={`vm-complete-btn${isChapterDone ? " vm-complete-btn--done" : ""}`}
             onClick={onMarkComplete}
           >
-            {isChapterDone ? (
-              <>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                Chapter Complete — Undo
-              </>
-            ) : (
-              <>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                Mark Chapter Complete
-              </>
-            )}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            {isChapterDone ? "Chapter Complete — Undo" : "Mark Chapter Complete"}
           </button>
         </div>
 
         {/* Divider */}
-        <div className="vm-divider">
-          <span>or select verses</span>
-        </div>
+        <div className="vm-divider"><span>or select verses</span></div>
 
         {/* Secondary actions */}
         <div className="vm-sec-row">
@@ -165,16 +154,33 @@ export default function VerseModal({
           {Array.from({ length: totalVerses }, (_, i) => {
             const v = i + 1;
             const isRead = isChapterDone || readSet.has(v);
+            const verseHref = isTouchDevice
+              ? `jwlibrary:///finder?bible=${String(bookIndex + 1).padStart(2, "0")}${String(chapter).padStart(3, "0")}${String(v).padStart(3, "0")}`
+              : jwOrgBibleUrl(bookIndex, chapter, lang, v);
             return (
-              <button
-                key={v}
-                className={`vm-verse${isRead ? " vm-verse--read" : ""}`}
-                onClick={() => onToggleVerse(v)}
-                aria-label={`Verse ${v}`}
-                aria-pressed={isRead}
-              >
-                {v}
-              </button>
+              <div key={v} className="vm-verse-wrap">
+                <button
+                  className={`vm-verse${isRead ? " vm-verse--read" : ""}`}
+                  onClick={() => onToggleVerse(v)}
+                  aria-label={`Verse ${v}`}
+                  aria-pressed={isRead}
+                >
+                  {v}
+                </button>
+                <a
+                  className="vm-verse-link"
+                  href={verseHref}
+                  target={isTouchDevice ? undefined : "_blank"}
+                  rel={isTouchDevice ? undefined : "noopener noreferrer"}
+                  onClick={e => e.stopPropagation()}
+                  aria-label={`Open verse ${v} in JW Library`}
+                >
+                  <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                </a>
+              </div>
             );
           })}
         </div>

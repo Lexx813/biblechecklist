@@ -805,6 +805,23 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .vm-verse-grid::-webkit-scrollbar { width: 3px; }
 .vm-verse-grid::-webkit-scrollbar-track { background: transparent; }
 .vm-verse-grid::-webkit-scrollbar-thumb { background: var(--teal-mid); border-radius: 99px; }
+.vm-verse-wrap { position: relative; flex-shrink: 0; }
+.vm-verse-link {
+  display: none;
+  position: absolute;
+  top: -5px; right: -5px;
+  width: 15px; height: 15px;
+  background: linear-gradient(135deg, #5b8dd9, #3a6bbf);
+  border-radius: 50%;
+  color: #fff;
+  align-items: center; justify-content: center;
+  z-index: 10;
+  box-shadow: 0 1px 4px rgba(58,107,191,0.45);
+  text-decoration: none;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.vm-verse-wrap:hover .vm-verse-link { display: flex; }
+.vm-verse-link:hover { transform: scale(1.2); }
 .vm-verse {
   width: 32px; height: 32px; border-radius: var(--radius-xs);
   border: 1.5px solid var(--border); background: var(--card-bg);
