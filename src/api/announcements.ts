@@ -23,7 +23,7 @@ export const announcementsApi = {
   create: async (authorId: string, message: string, type: string) => {
     const { data, error } = await supabase
       .from("announcements")
-      .insert({ author_id: authorId, message, type })
+      .insert({ author_id: authorId, message, type, active: true })
       .select()
       .single();
     if (error) throw new Error(error.message);
