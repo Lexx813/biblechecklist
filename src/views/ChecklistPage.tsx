@@ -128,10 +128,9 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   };
 
   // ── Verse modal handlers ────────────────────────────────────────────────────
-  const handleOpenChapterModal = (bi: number, ch: number, pillEl: HTMLElement) => {
-    // Capture rect immediately in the event handler — before React re-renders
-    // and before Android Chrome can scroll/resize the viewport
-    setVerseModal({ bookIndex: bi, chapter: ch, pillEl, pillRect: pillEl.getBoundingClientRect() });
+  const handleOpenChapterModal = (bi: number, ch: number, pillEl: HTMLElement, pillRect: DOMRect) => {
+    // pillRect captured at pointerdown in BookCard — before Chrome focus-scrolls the button
+    setVerseModal({ bookIndex: bi, chapter: ch, pillEl, pillRect });
   };
 
   const handleMarkChapterComplete = () => {

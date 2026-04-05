@@ -1,4 +1,4 @@
-import { memo, useState, useMemo } from "react";
+import { memo, useState, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOK_INFO } from "../data/bookInfo";
 import { wolChapterUrl, wolRefUrl, jwLibraryChapterUrl, jwOrgBibleUrl } from "../utils/wol";
@@ -22,7 +22,7 @@ interface BookCardProps {
   versesState?: Record<number, Record<number, number[]>>;
   onToggleChapter: (bookIndex: number, chapter: number) => void;
   onToggleBook: (bookIndex: number, value?: boolean) => void;
-  onOpenChapterModal?: (bookIndex: number, chapter: number, pillEl: HTMLElement) => void;
+  onOpenChapterModal?: (bookIndex: number, chapter: number, pillEl: HTMLElement, pillRect: DOMRect) => void;
   notes?: { id: string | number; chapter: number; verse?: number; content: string }[];
   onAddNote?: (bookIndex: number) => void;
   onDeleteNote?: (id: string) => void;
@@ -33,6 +33,8 @@ interface BookCardProps {
 const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, versesState, onToggleChapter, onToggleBook, onOpenChapterModal, notes = [], onAddNote, onDeleteNote, userId, onUpgrade }: BookCardProps) {
   const [open, setOpen] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  // Rect captured at pointerdown — before Chrome focus-scrolls the element
+  const pillRectRef = useRef<DOMRect | null>(null);
   const { t, i18n } = useTranslation();
   const { isPremium } = useSubscription(userId);
   const lang = i18n.language?.split("-")[0] ?? "en";
@@ -236,9 +238,15 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                 <div key={ch} className={pillClass}>
                   <button
                     className="ch-pill-toggle"
+                    onPointerDown={e => {
+                      // Capture rect before Chrome focus-scrolls the element into view
+                      const pill = e.currentTarget.closest(".ch-pill") as HTMLElement;
+                      if (pill) pillRectRef.current = pill.getBoundingClientRect();
+                    }}
                     onClick={e => {
                       if (onOpenChapterModal) {
-                        onOpenChapterModal(bookIndex, ch, e.currentTarget.closest(".ch-pill") as HTMLElement);
+                        const pill = e.currentTarget.closest(".ch-pill") as HTMLElement;
+                        onOpenChapterModal(bookIndex, ch, pill, pillRectRef.current ?? pill.getBoundingClientRect());
                       } else {
                         onToggleChapter(bookIndex, ch);
                       }
