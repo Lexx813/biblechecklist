@@ -2,8 +2,10 @@ import { useState, useEffect, useMemo, useRef, lazy, Suspense } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { BOOKS, OT_COUNT } from "../data/books";
+import { VERSE_COUNTS } from "../data/verseCounts";
 const AICompanion = lazy(() => import("../components/AICompanion"));
 import BookCard from "../components/BookCard";
+import VerseModal from "../components/VerseModal";
 import CustomSelect from "../components/CustomSelect";
 import ConfirmModal from "../components/ConfirmModal";
 import ReadingPlanWidget from "../components/reading/ReadingPlanWidget";
@@ -47,6 +49,10 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   };
 
   const [chaptersState, setChaptersState] = useState({});
+  // versesState: { [bookIndex]: { [chapter]: number[] } } — 1-based read verse numbers
+  const [versesState, setVersesState] = useState<Record<number, Record<number, number[]>>>({});
+  // Verse modal context
+  const [verseModal, setVerseModal] = useState<{ bookIndex: number; chapter: number; rect: DOMRect } | null>(null);
   const [initialized, setInitialized] = useState(false);
   const [tab, setTab] = useState("all");
   const [search, setSearch] = useState("");
@@ -59,7 +65,21 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   // Populate state once remote progress has loaded
   useEffect(() => {
     if (!progressLoading && !initialized) {
-      setChaptersState(remoteProgress ?? {});
+      const { _v: rawVerses, ...chapterData } = (remoteProgress ?? {}) as Record<string, unknown>;
+      setChaptersState(chapterData);
+      // Parse verse state (stored as { "[bi]": { "[ch]": number[] } })
+      if (rawVerses && typeof rawVerses === "object") {
+        const parsed: Record<number, Record<number, number[]>> = {};
+        for (const [bi, chs] of Object.entries(rawVerses as Record<string, unknown>)) {
+          if (chs && typeof chs === "object") {
+            parsed[Number(bi)] = {};
+            for (const [ch, vs] of Object.entries(chs as Record<string, unknown>)) {
+              if (Array.isArray(vs)) parsed[Number(bi)][Number(ch)] = vs;
+            }
+          }
+        }
+        setVersesState(parsed);
+      }
       setInitialized(true);
     }
   }, [progressLoading, remoteProgress, initialized]);
@@ -67,9 +87,9 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   // Debounced save to Supabase on every change
   useEffect(() => {
     if (!initialized) return;
-    const timer = setTimeout(() => saveProgress.mutate(chaptersState), 800);
+    const timer = setTimeout(() => saveProgress.mutate({ ...chaptersState, _v: versesState }), 800);
     return () => clearTimeout(timer);
-  }, [chaptersState, initialized]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [chaptersState, versesState, initialized]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleToggleChapter = (bi, ch) => {
     setChaptersState(prev => {
@@ -104,6 +124,89 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
         setTimeout(() => setCelebrateBook({ name: BOOKS[bi].name, icon: null, chapters: total }), 300);
       }
       return { ...prev, [bi]: chs };
+    });
+  };
+
+  // ── Verse modal handlers ────────────────────────────────────────────────────
+  const handleOpenChapterModal = (bi: number, ch: number, rect: DOMRect) => {
+    setVerseModal({ bookIndex: bi, chapter: ch, rect });
+  };
+
+  const handleMarkChapterComplete = () => {
+    if (!verseModal) return;
+    const { bookIndex: bi, chapter: ch } = verseModal;
+    const wasRead = !!chaptersState[bi]?.[ch];
+    if (!wasRead) {
+      // Mark complete + clear verse data
+      scheduleLog(1);
+      progressApi.markChapterRead(user.id, bi, ch);
+      setChaptersState(prev => {
+        const next = { ...prev, [bi]: { ...(prev[bi] || {}), [ch]: true } };
+        const total = BOOKS[bi].chapters;
+        const nowDone = Object.values(next[bi]).filter(Boolean).length;
+        if (nowDone === total) setTimeout(() => setCelebrateBook({ name: BOOKS[bi].name, icon: null, chapters: total }), 300);
+        return next;
+      });
+      setVersesState(prev => {
+        const bookVs = { ...(prev[bi] || {}) };
+        delete bookVs[ch];
+        return { ...prev, [bi]: bookVs };
+      });
+      setVerseModal(null);
+    } else {
+      // Undo complete
+      scheduleLog(-1);
+      progressApi.unmarkChapterRead(user.id, bi, ch);
+      setChaptersState(prev => ({ ...prev, [bi]: { ...(prev[bi] || {}), [ch]: false } }));
+    }
+  };
+
+  const handleToggleVerse = (verse: number) => {
+    if (!verseModal) return;
+    const { bookIndex: bi, chapter: ch } = verseModal;
+    // If chapter was done, switch to partial mode
+    if (chaptersState[bi]?.[ch]) {
+      scheduleLog(-1);
+      progressApi.unmarkChapterRead(user.id, bi, ch);
+      setChaptersState(prev => ({ ...prev, [bi]: { ...(prev[bi] || {}), [ch]: false } }));
+      // Seed verse data with all except the toggled one
+      const total = VERSE_COUNTS[bi]?.[ch - 1] ?? 0;
+      const allVerses = Array.from({ length: total }, (_, i) => i + 1).filter(v => v !== verse);
+      setVersesState(prev => ({ ...prev, [bi]: { ...(prev[bi] || {}), [ch]: allVerses } }));
+      return;
+    }
+    setVersesState(prev => {
+      const existing = prev[bi]?.[ch] ?? [];
+      const updated = existing.includes(verse)
+        ? existing.filter(v => v !== verse)
+        : [...existing, verse].sort((a, b) => a - b);
+      return { ...prev, [bi]: { ...(prev[bi] || {}), [ch]: updated } };
+    });
+  };
+
+  const handleSelectAll = () => {
+    if (!verseModal) return;
+    const { bookIndex: bi, chapter: ch } = verseModal;
+    const total = VERSE_COUNTS[bi]?.[ch - 1] ?? 0;
+    setVersesState(prev => ({
+      ...prev,
+      [bi]: { ...(prev[bi] || {}), [ch]: Array.from({ length: total }, (_, i) => i + 1) },
+    }));
+  };
+
+  const handleClearAll = () => {
+    if (!verseModal) return;
+    const { bookIndex: bi, chapter: ch } = verseModal;
+    // Also unmark chapter if it was done
+    if (chaptersState[bi]?.[ch]) {
+      scheduleLog(-1);
+      progressApi.unmarkChapterRead(user.id, bi, ch);
+      setChaptersState(prev => ({ ...prev, [bi]: { ...(prev[bi] || {}), [ch]: false } }));
+    }
+    setVersesState(prev => {
+      const bookVs = { ...(prev[bi] || {}) };
+      delete bookVs[ch];
+      return { ...prev, [bi]: bookVs };
     });
   };
 
@@ -290,8 +393,10 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
                   bookIndex={book.index}
                   chaptersState={chaptersState}
                   chapterTimestamps={chapterTimestamps[book.index] ?? {}}
+                  versesState={versesState}
                   onToggleChapter={handleToggleChapter}
                   onToggleBook={handleToggleBook}
+                  onOpenChapterModal={handleOpenChapterModal}
                   notes={notesByBook.get(book.index) ?? []}
                   onAddNote={(bookIndex) => setNoteModal({ bookIndex })}
                   onDeleteNote={(id) => setNoteToDelete(id)}
@@ -368,6 +473,22 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
             message={t("profile.deleteNoteConfirm")}
             onConfirm={() => { deleteNote.mutate(noteToDelete); setNoteToDelete(null); }}
             onCancel={() => setNoteToDelete(null)}
+          />
+        )}
+
+        {verseModal && (
+          <VerseModal
+            bookName={t(`bookNames.${verseModal.bookIndex}`, BOOKS[verseModal.bookIndex].name)}
+            chapter={verseModal.chapter}
+            totalVerses={VERSE_COUNTS[verseModal.bookIndex]?.[verseModal.chapter - 1] ?? 0}
+            readVerses={versesState[verseModal.bookIndex]?.[verseModal.chapter] ?? []}
+            isChapterDone={!!chaptersState[verseModal.bookIndex]?.[verseModal.chapter]}
+            anchorRect={verseModal.rect}
+            onClose={() => setVerseModal(null)}
+            onMarkComplete={handleMarkChapterComplete}
+            onToggleVerse={handleToggleVerse}
+            onSelectAll={handleSelectAll}
+            onClearAll={handleClearAll}
           />
         )}
       </div>

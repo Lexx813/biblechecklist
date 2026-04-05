@@ -19,8 +19,10 @@ interface BookCardProps {
   bookIndex: number;
   chaptersState: Record<number, Record<number, boolean>>;
   chapterTimestamps?: Record<number, string>;
+  versesState?: Record<number, Record<number, number[]>>;
   onToggleChapter: (bookIndex: number, chapter: number) => void;
   onToggleBook: (bookIndex: number, value?: boolean) => void;
+  onOpenChapterModal?: (bookIndex: number, chapter: number, rect: DOMRect) => void;
   notes?: { id: string | number; chapter: number; verse?: number; content: string }[];
   onAddNote?: (bookIndex: number) => void;
   onDeleteNote?: (id: string) => void;
@@ -28,7 +30,7 @@ interface BookCardProps {
   onUpgrade?: () => void;
 }
 
-const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, onToggleChapter, onToggleBook, notes = [], onAddNote, onDeleteNote, userId, onUpgrade }: BookCardProps) {
+const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, versesState, onToggleChapter, onToggleBook, onOpenChapterModal, notes = [], onAddNote, onDeleteNote, userId, onUpgrade }: BookCardProps) {
   const [open, setOpen] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const { t, i18n } = useTranslation();
@@ -220,6 +222,8 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
             {Array.from({ length: total }, (_, i) => {
               const ch = i + 1;
               const isDone = !!chaptersState[bookIndex]?.[ch];
+              const readVerses = versesState?.[bookIndex]?.[ch] ?? [];
+              const isPartial = !isDone && readVerses.length > 0;
               const chNotes = notesByChapter.get(ch);
               const hasNote = chNotes?.length > 0;
               const readDate = isDone ? formatReadDate(chapterTimestamps[ch]) : null;
@@ -227,11 +231,18 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
               if (readDate) tooltipParts.push(`✓ ${readDate}`);
               if (hasNote) tooltipParts.push(chNotes.map(n => n.content).join(" · "));
               const tooltipText = tooltipParts.length ? tooltipParts.join("\n") : null;
+              const pillClass = `ch-pill${isDone ? " done" : isPartial ? " partial" : ""}${hasNote ? " has-note" : ""}`;
               return (
-                <div key={ch} className={`ch-pill${isDone ? " done" : ""}${hasNote ? " has-note" : ""}`}>
+                <div key={ch} className={pillClass}>
                   <button
                     className="ch-pill-toggle"
-                    onClick={() => onToggleChapter(bookIndex, ch)}
+                    onClick={e => {
+                      if (onOpenChapterModal) {
+                        onOpenChapterModal(bookIndex, ch, (e.currentTarget.closest(".ch-pill") as HTMLElement).getBoundingClientRect());
+                      } else {
+                        onToggleChapter(bookIndex, ch);
+                      }
+                    }}
                   >
                     {ch}
                   </button>
@@ -252,6 +263,12 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                 </div>
               );
             })}
+          </div>
+          {/* Legend */}
+          <div className="ch-legend">
+            <div className="ch-legend-item"><div className="ch-legend-dot" />{t("book.legendNotStarted", "Not started")}</div>
+            <div className="ch-legend-item"><div className="ch-legend-dot ch-legend-dot--partial" />{t("book.legendPartial", "Partial")}</div>
+            <div className="ch-legend-item"><div className="ch-legend-dot ch-legend-dot--done" />{t("book.legendComplete", "Complete")}</div>
           </div>
           <div className="ch-actions">
             <button className="ch-action-btn" onClick={() => onToggleBook(bookIndex, false)}>
