@@ -239,6 +239,122 @@ export default function LandingPage({ onGetStarted, i18n }) {
         </div>
       </section>
 
+      {/* ── App Preview ─────────────────────────────────────────── */}
+      <section className="lp-preview" aria-label="App preview">
+        <div className="lp-preview-inner">
+          <div className="lp-preview-label">
+            <span className="lp-badge">Bible Tracker</span>
+            <h2 className="lp-preview-title">See every chapter at a glance</h2>
+            <p className="lp-preview-sub">Tap any chapter to mark it read — or select individual verses. Your progress is always saved and synced.</p>
+          </div>
+          <div className="lp-phone-wrap">
+            <div className="lp-phone">
+              <div className="lp-phone-bar">
+                <span className="lp-phone-dot" /><span className="lp-phone-dot" /><span className="lp-phone-dot" />
+                <span className="lp-phone-title">NWT Progress</span>
+              </div>
+              <div className="lp-phone-screen">
+                {/* Book 1 — Genesis */}
+                <div className="lp-mock-book">
+                  <div className="lp-mock-book-header">
+                    <div className="lp-mock-book-info">
+                      <span className="lp-mock-num">1</span>
+                      <div>
+                        <div className="lp-mock-book-name">Genesis</div>
+                        <div className="lp-mock-book-sub">Gen · 50 chapters</div>
+                      </div>
+                    </div>
+                    <div className="lp-mock-progress">
+                      <span className="lp-mock-frac">32/50</span>
+                      <div className="lp-mock-ring">
+                        <svg viewBox="0 0 32 32" aria-hidden="true">
+                          <circle cx="16" cy="16" r="13" fill="none" stroke="var(--lp-border)" strokeWidth="3"/>
+                          <circle cx="16" cy="16" r="13" fill="none" stroke="#6A3DAA" strokeWidth="3"
+                            strokeDasharray="81.68" strokeDashoffset="27.77" strokeLinecap="round"
+                            transform="rotate(-90 16 16)"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="lp-mock-grid">
+                    {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32].map(ch => (
+                      <div key={ch} className="lp-mock-pill lp-mock-pill--done">{ch}</div>
+                    ))}
+                    <div className="lp-mock-pill lp-mock-pill--partial">33</div>
+                    {[34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50].map(ch => (
+                      <div key={ch} className="lp-mock-pill">{ch}</div>
+                    ))}
+                  </div>
+                </div>
+                {/* Book 2 — Exodus */}
+                <div className="lp-mock-book lp-mock-book--collapsed">
+                  <div className="lp-mock-book-header">
+                    <div className="lp-mock-book-info">
+                      <span className="lp-mock-num">2</span>
+                      <div>
+                        <div className="lp-mock-book-name">Exodus</div>
+                        <div className="lp-mock-book-sub">Exo · 40 chapters</div>
+                      </div>
+                    </div>
+                    <div className="lp-mock-progress">
+                      <span className="lp-mock-frac">40/40</span>
+                      <div className="lp-mock-ring lp-mock-ring--full">
+                        <svg viewBox="0 0 32 32" aria-hidden="true">
+                          <circle cx="16" cy="16" r="13" fill="none" stroke="#6A3DAA" strokeWidth="3"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* Book 3 — Leviticus */}
+                <div className="lp-mock-book lp-mock-book--collapsed">
+                  <div className="lp-mock-book-header">
+                    <div className="lp-mock-book-info">
+                      <span className="lp-mock-num">3</span>
+                      <div>
+                        <div className="lp-mock-book-name">Leviticus</div>
+                        <div className="lp-mock-book-sub">Lev · 27 chapters</div>
+                      </div>
+                    </div>
+                    <div className="lp-mock-progress">
+                      <span className="lp-mock-frac">0/27</span>
+                      <div className="lp-mock-ring">
+                        <svg viewBox="0 0 32 32" aria-hidden="true">
+                          <circle cx="16" cy="16" r="13" fill="none" stroke="var(--lp-border)" strokeWidth="3"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="lp-phone-tabbar">
+                <div className="lp-phone-tab">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                  <span>Home</span>
+                </div>
+                <div className="lp-phone-tab lp-phone-tab--active">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                  <span>Bible</span>
+                </div>
+                <div className="lp-phone-tab">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  <span>Messages</span>
+                </div>
+                <div className="lp-phone-tab">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                  <span>Profile</span>
+                </div>
+              </div>
+            </div>
+            {/* Floating verse-modal callout */}
+            <div className="lp-phone-callout">
+              <div className="lp-callout-dot lp-callout-dot--done" />
+              <span>64% read</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Feature Pills ────────────────────────────────────────── */}
       <section className="lp-features">
         <div className="lp-features-inner">
