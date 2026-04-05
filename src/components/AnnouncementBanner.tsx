@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useActiveAnnouncements } from "../hooks/useAnnouncements";
 
-const DURATION = 5000; // ms to show each announcement
+const INFO_DURATION = 10000; // info toasts auto-dismiss after 10 s
 
 const INFO_ICON    = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>;
 const WARN_ICON    = <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>;
@@ -29,11 +29,21 @@ function AnnouncementToast({ announcement, onDone }: ToastProps) {
   const [visible, setVisible] = useState(true);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const s = TYPE_STYLES[announcement.type] ?? TYPE_STYLES.info;
+  const isInfo = announcement.type === "info";
 
+  // Auto-dismiss + click-to-dismiss only for info
   useEffect(() => {
-    timerRef.current = setTimeout(() => setVisible(false), DURATION);
-    return () => clearTimeout(timerRef.current ?? undefined);
-  }, []);
+    if (!isInfo) return;
+    timerRef.current = setTimeout(() => setVisible(false), INFO_DURATION);
+    function onInteract() { setVisible(false); }
+    document.addEventListener("click", onInteract, { capture: true, once: true });
+    document.addEventListener("touchstart", onInteract, { capture: true, once: true });
+    return () => {
+      clearTimeout(timerRef.current ?? undefined);
+      document.removeEventListener("click", onInteract, { capture: true });
+      document.removeEventListener("touchstart", onInteract, { capture: true });
+    };
+  }, [isInfo]);
 
   // After slide-out animation ends, notify parent
   function handleAnimEnd(e: React.AnimationEvent) {
@@ -53,9 +63,11 @@ function AnnouncementToast({ announcement, onDone }: ToastProps) {
         onClick={() => setVisible(false)}
         aria-label="Dismiss"
       ><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-      <div className="ann-toast-bar" style={{ borderColor: s.border }}>
-        <div className="ann-toast-bar-fill" style={{ background: s.border }} />
-      </div>
+      {isInfo && (
+        <div className="ann-toast-bar" style={{ borderColor: s.border }}>
+          <div className="ann-toast-bar-fill" style={{ background: s.border }} />
+        </div>
+      )}
     </div>
   );
 }
