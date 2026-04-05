@@ -110,7 +110,7 @@ export default function App() {
             profile={null}
             slug={blogSlug}
             onSelectPost={goBlogPost}
-            onBack={blogSlug ? goLanding : goBlogList}
+            onBack={goLanding}
             onWriteClick={() => setShowApp(true)}
             navigate={blogNav}
             darkMode={darkMode}
