@@ -164,6 +164,52 @@
   border-color: var(--lp-primary);
 }
 
+/* ── Language Picker ────────────────────────────────────────────── */
+.lp-lang-picker {
+  position: relative;
+}
+
+.lp-lang-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: var(--lp-card-bg);
+  border: 1px solid var(--lp-card-border);
+  border-radius: 10px;
+  box-shadow: var(--lp-card-shadow);
+  min-width: 160px;
+  padding: 4px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.lp-lang-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 7px;
+  font-size: 14px;
+  color: var(--lp-text);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s;
+}
+
+.lp-lang-item:hover { background: var(--lp-pill-bg); }
+
+.lp-lang-item--active { font-weight: 600; }
+
+.lp-lang-check {
+  margin-left: auto;
+  color: var(--lp-primary);
+  font-size: 13px;
+}
+
 .lp-nav-signin {
   padding: 7px 14px;
   border-radius: 8px;
@@ -432,31 +478,10 @@
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 20px;
-  box-sizing: border-box;
-  background: linear-gradient(135deg, #3B1F6E 0%, #5B21B6 50%, #7C3AED 100%);
-  text-align: center;
-}
-
-.lp-blog-img-placeholder-icon {
-  color: rgba(255,255,255,0.4);
-  display: flex;
-}
-
-.lp-blog-img-placeholder-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.9);
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  background: var(--lp-pill-bg);
+  color: var(--lp-primary);
 }
 
 .lp-blog-body {

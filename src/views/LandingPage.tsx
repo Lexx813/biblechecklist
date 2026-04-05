@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import "../styles/landing.css";
 import { supabase } from "../lib/supabase";
+import { LANGUAGES } from "../i18n";
 
 /* ── Hooks ───────────────────────────────────────────────────────── */
 function useCommunityStats() {
@@ -88,10 +89,27 @@ const CheckIcon = () => (
   </svg>
 );
 
+const FLAGS: Record<string, string> = { en: "🇺🇸", es: "🇪🇸", pt: "🇧🇷", tl: "🇵🇭", fr: "🇫🇷", zh: "🇨🇳" };
+
 /* ── Main Component ──────────────────────────────────────────────── */
-export default function LandingPage({ onGetStarted }) {
+export default function LandingPage({ onGetStarted, i18n }) {
   const { t } = useTranslation();
   const { dark, toggle } = useDarkMode();
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
+
+  const currentLangCode = i18n
+    ? (LANGUAGES.find(l => i18n.language?.split("-")[0]?.startsWith(l.code))?.code ?? "en")
+    : "en";
+
+  useEffect(() => {
+    if (!langOpen) return;
+    function handler(e: MouseEvent) {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) setLangOpen(false);
+    }
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [langOpen]);
   const stats = useCommunityStats();
   const featuredPosts = useFeaturedPosts();
 
@@ -133,6 +151,33 @@ export default function LandingPage({ onGetStarted }) {
           </nav>
 
           <div className="lp-nav-actions">
+            {i18n && (
+              <div className="lp-lang-picker" ref={langRef}>
+                <button
+                  className="lp-theme-toggle"
+                  onClick={() => setLangOpen(o => !o)}
+                  aria-label="Change language"
+                  aria-expanded={langOpen}
+                >
+                  <span aria-hidden="true">{FLAGS[currentLangCode] ?? "🌐"}</span>
+                </button>
+                {langOpen && (
+                  <div className="lp-lang-menu">
+                    {LANGUAGES.map(l => (
+                      <button
+                        key={l.code}
+                        className={`lp-lang-item${l.code === currentLangCode ? " lp-lang-item--active" : ""}`}
+                        onClick={() => { i18n.changeLanguage(l.code); setLangOpen(false); }}
+                      >
+                        <span>{FLAGS[l.code]}</span>
+                        <span>{l.label}</span>
+                        {l.code === currentLangCode && <span className="lp-lang-check">✓</span>}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
             <button
               className="lp-theme-toggle"
               onClick={toggle}
@@ -204,12 +249,7 @@ export default function LandingPage({ onGetStarted }) {
                   <div className="lp-blog-img-wrap">
                     {post.cover_url
                       ? <img src={post.cover_url} alt={post.title} className="lp-blog-img" loading="lazy" />
-                      : (
-                        <div className="lp-blog-img-placeholder">
-                          <span className="lp-blog-img-placeholder-icon"><BookIcon /></span>
-                          <span className="lp-blog-img-placeholder-title">{post.title}</span>
-                        </div>
-                      )
+                      : <div className="lp-blog-img-placeholder"><BookIcon /></div>
                     }
                   </div>
                   <div className="lp-blog-body">

@@ -8,6 +8,7 @@ import "./styles/app.css";
 
 const TermsPage   = lazy(() => import("./views/TermsPage"));
 const PrivacyPage = lazy(() => import("./views/PrivacyPage"));
+const AboutPage   = lazy(() => import("./views/AboutPage"));
 const BlogPage    = lazy(() => import("./views/blog/BlogPage"));
 const AuthedApp   = lazy(() => import("./AuthedApp"));
 
@@ -85,6 +86,7 @@ export default function App() {
   const legalProps = { navigate: legalNav, darkMode, setDarkMode, i18n, user: null, onLogout: null, onUpgrade: null };
   if (preAuthPath === "terms")   return <main id="main-content"><Suspense fallback={null}><TermsPage {...legalProps} /></Suspense></main>;
   if (preAuthPath === "privacy") return <main id="main-content"><Suspense fallback={null}><PrivacyPage {...legalProps} /></Suspense></main>;
+  if (preAuthPath === "about")   return <main id="main-content"><Suspense fallback={null}><AboutPage {...legalProps} /></Suspense></main>;
 
   // Pre-auth: blog is fully public — reading requires no account
   const isBlogPath = preAuthPath === "blog" || preAuthPath.startsWith("blog/");
@@ -125,5 +127,5 @@ export default function App() {
   }
 
   // No session — show landing page with zero Supabase loaded
-  return <LandingPage onGetStarted={() => setShowApp(true)} />;
+  return <LandingPage onGetStarted={() => setShowApp(true)} i18n={i18n} />;
 }
