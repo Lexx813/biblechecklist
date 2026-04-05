@@ -4,6 +4,29 @@ import "../styles/landing.css";
 import { supabase } from "../lib/supabase";
 import { LANGUAGES } from "../i18n";
 
+const FALLBACK_IMAGES = [
+  "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1455541504462-57ebb2a9cec1?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1519817914152-22d216bb9170?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?auto=format&fit=crop&w=800&q=80",
+];
+
+function hashId(id: string) {
+  let h = 0;
+  for (const c of (id ?? "")) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return h;
+}
+
+function getFallbackImage(id: string) {
+  return FALLBACK_IMAGES[hashId(id) % FALLBACK_IMAGES.length];
+}
+
 /* ── Hooks ───────────────────────────────────────────────────────── */
 function useCommunityStats() {
   const [stats, setStats] = useState({ users: 500, chaptersRead: 0 });
@@ -30,7 +53,7 @@ function useFeaturedPosts() {
   useEffect(() => {
     supabase
       .from("blog_posts")
-      .select("title, slug, excerpt, cover_url")
+      .select("id, title, slug, excerpt, cover_url")
       .eq("published", true)
       .eq("lang", "en")
       .order("created_at", { ascending: false })
@@ -247,10 +270,13 @@ export default function LandingPage({ onGetStarted, i18n }) {
               {featuredPosts.map(post => (
                 <a key={post.slug} href={`/blog/${post.slug}`} className="lp-blog-card">
                   <div className="lp-blog-img-wrap">
-                    {post.cover_url
-                      ? <img src={post.cover_url} alt={post.title} className="lp-blog-img" loading="lazy" />
-                      : <div className="lp-blog-img-placeholder"><BookIcon /></div>
-                    }
+                    <img
+                      src={post.cover_url || getFallbackImage(post.id)}
+                      alt={post.title}
+                      className="lp-blog-img"
+                      loading="lazy"
+                      onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
+                    />
                   </div>
                   <div className="lp-blog-body">
                     <h3 className="lp-blog-title">{post.title}</h3>
