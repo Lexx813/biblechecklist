@@ -137,18 +137,14 @@ export default function LandingPage({ onGetStarted, i18n }) {
   const featuredPosts = useFeaturedPosts();
 
   const features = [
-    { label: "66 Books tracked" },
-    { label: "Reading plans" },
-    { label: "Bible quiz" },
-    { label: "Community forum" },
-    { label: "Study notes" },
-    { label: "Meeting prep" },
+    t("landing.feat1"), t("landing.feat2"), t("landing.feat3"),
+    t("landing.feat4"), t("landing.feat5"), t("landing.feat6"),
   ];
 
   const steps = [
-    { num: "1", title: "Sign up free", desc: "Email or Google — 30 seconds, no credit card" },
-    { num: "2", title: "Check off chapters", desc: "Mark chapters as you read across all 66 books" },
-    { num: "3", title: "Build the habit", desc: "Streaks, badges, and a community keep you going" },
+    { num: "1", title: t("landing.step1Title"), desc: t("landing.step1Desc") },
+    { num: "2", title: t("landing.step2Title"), desc: t("landing.step2Desc") },
+    { num: "3", title: t("landing.step3Title"), desc: t("landing.step3Desc") },
   ];
 
   const testimonials = [
@@ -169,8 +165,8 @@ export default function LandingPage({ onGetStarted, i18n }) {
           </a>
 
           <nav className="lp-nav-links" aria-label="Main navigation">
-            <a href="/blog" className="lp-nav-link">Blog</a>
-            <a href="/about" className="lp-nav-link">About</a>
+            <a href="/blog" className="lp-nav-link">{t("landing.nav.blog")}</a>
+            <a href="/about" className="lp-nav-link">{t("landing.nav.about")}</a>
           </nav>
 
           <div className="lp-nav-actions">
@@ -179,7 +175,7 @@ export default function LandingPage({ onGetStarted, i18n }) {
                 <button
                   className="lp-theme-toggle"
                   onClick={() => setLangOpen(o => !o)}
-                  aria-label="Change language"
+                  aria-label={t("landing.nav.changeLanguage")}
                   aria-expanded={langOpen}
                 >
                   <span aria-hidden="true">{FLAGS[currentLangCode] ?? "🌐"}</span>
@@ -204,12 +200,12 @@ export default function LandingPage({ onGetStarted, i18n }) {
             <button
               className="lp-theme-toggle"
               onClick={toggle}
-              aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+              aria-label={dark ? t("landing.nav.switchLight") : t("landing.nav.switchDark")}
             >
               {dark ? <SunIcon /> : <MoonIcon />}
             </button>
-            <button className="lp-nav-signin" onClick={onGetStarted}>Sign in</button>
-            <button className="lp-nav-cta" onClick={onGetStarted}>Get Started</button>
+            <button className="lp-nav-signin" onClick={onGetStarted}>{t("landing.nav.signIn")}</button>
+            <button className="lp-nav-cta" onClick={onGetStarted}>{t("landing.nav.getStarted")}</button>
           </div>
         </div>
       </header>
@@ -217,31 +213,28 @@ export default function LandingPage({ onGetStarted, i18n }) {
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section className="lp-hero">
         <div className="lp-hero-inner">
-          <div className="lp-badge">Free Bible reading tracker</div>
+          <div className="lp-badge">{t("landing.heroBadge")}</div>
 
           <h1 className="lp-heading">
-            Grow Closer to Jehovah<br />
-            <span className="lp-heading-accent">One Chapter at a Time</span>
+            {t("landing.heroTitle1")}<br />
+            <span className="lp-heading-accent">{t("landing.heroTitle2")}</span>
           </h1>
 
-          <p className="lp-subtitle">
-            Track your New World Translation reading, earn quiz badges, prep for meetings,
-            and connect with a worldwide community of Jehovah's Witnesses.
-          </p>
+          <p className="lp-subtitle">{t("landing.heroSub")}</p>
 
           <div className="lp-hero-actions">
             <button className="lp-cta-primary" onClick={onGetStarted}>
-              Get Started <ArrowIcon />
+              {t("landing.nav.getStarted")} <ArrowIcon />
             </button>
-            <a href="/blog" className="lp-cta-secondary">Read the Blog</a>
+            <a href="/blog" className="lp-cta-secondary">{t("landing.readBlog")}</a>
           </div>
 
           <p className="lp-social-proof">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
             </svg>
-            {stats.users.toLocaleString()}+ publishers worldwide
-            {stats.chaptersRead > 0 && ` · ${stats.chaptersRead.toLocaleString()} chapters read`}
+            {t("landing.publishersCount", { count: stats.users.toLocaleString() })}
+            {stats.chaptersRead > 0 && t("landing.chaptersRead", { count: stats.chaptersRead.toLocaleString() })}
           </p>
         </div>
       </section>
@@ -250,9 +243,9 @@ export default function LandingPage({ onGetStarted, i18n }) {
       <section className="lp-features">
         <div className="lp-features-inner">
           {features.map(f => (
-            <div key={f.label} className="lp-feature-pill">
+            <div key={f} className="lp-feature-pill">
               <span className="lp-feature-check"><CheckIcon /></span>
-              {f.label}
+              {f}
             </div>
           ))}
         </div>
@@ -263,8 +256,8 @@ export default function LandingPage({ onGetStarted, i18n }) {
         <section className="lp-blog">
           <div className="lp-section-inner">
             <div className="lp-section-header">
-              <h2 className="lp-section-title">From the Blog</h2>
-              <p className="lp-section-sub">Bible study insights for Jehovah's Witnesses</p>
+              <h2 className="lp-section-title">{t("landing.blogTitle")}</h2>
+              <p className="lp-section-sub">{t("landing.blogSub")}</p>
             </div>
             <div className="lp-blog-grid">
               {featuredPosts.map(post => (
@@ -281,13 +274,13 @@ export default function LandingPage({ onGetStarted, i18n }) {
                   <div className="lp-blog-body">
                     <h3 className="lp-blog-title">{post.title}</h3>
                     {post.excerpt && <p className="lp-blog-excerpt">{post.excerpt}</p>}
-                    <span className="lp-blog-read">Read article →</span>
+                    <span className="lp-blog-read">{t("landing.readArticle")}</span>
                   </div>
                 </a>
               ))}
             </div>
             <div className="lp-blog-footer">
-              <a href="/blog" className="lp-blog-all">View all articles</a>
+              <a href="/blog" className="lp-blog-all">{t("landing.viewAll")}</a>
             </div>
           </div>
         </section>
@@ -297,7 +290,7 @@ export default function LandingPage({ onGetStarted, i18n }) {
       <section className="lp-how">
         <div className="lp-section-inner">
           <div className="lp-section-header">
-            <h2 className="lp-section-title">How it works</h2>
+            <h2 className="lp-section-title">{t("landing.howTitle")}</h2>
           </div>
           <div className="lp-steps">
             {steps.map((s, i) => (
@@ -316,7 +309,7 @@ export default function LandingPage({ onGetStarted, i18n }) {
       <section className="lp-testimonials">
         <div className="lp-section-inner">
           <div className="lp-section-header">
-            <h2 className="lp-section-title">What publishers say</h2>
+            <h2 className="lp-section-title">{t("landing.testiTitle")}</h2>
           </div>
           <div className="lp-testi-grid">
             {testimonials.map(t => (
@@ -332,14 +325,14 @@ export default function LandingPage({ onGetStarted, i18n }) {
       {/* ── Final CTA ────────────────────────────────────────────── */}
       <section className="lp-cta-banner">
         <div className="lp-cta-banner-inner">
-          <h2 className="lp-cta-banner-title">Start your reading journey today</h2>
-          <p className="lp-cta-banner-sub">Join thousands of publishers tracking their Bible reading.</p>
+          <h2 className="lp-cta-banner-title">{t("landing.ctaTitle")}</h2>
+          <p className="lp-cta-banner-sub">{t("landing.ctaSub")}</p>
           <button className="lp-cta-primary lp-cta-primary--large" onClick={onGetStarted}>
-            Create Your Account <ArrowIcon />
+            {t("landing.createAccount")} <ArrowIcon />
           </button>
           <p className="lp-cta-signin">
-            Already have an account?{" "}
-            <button className="lp-text-link" onClick={onGetStarted}>Sign in</button>
+            {t("landing.alreadyHave")}{" "}
+            <button className="lp-text-link" onClick={onGetStarted}>{t("landing.nav.signIn")}</button>
           </p>
         </div>
       </section>
@@ -352,12 +345,12 @@ export default function LandingPage({ onGetStarted, i18n }) {
             <span>NWT Progress</span>
           </div>
           <nav className="lp-footer-links" aria-label="Footer links">
-            <a href="/blog" className="lp-footer-link">Blog</a>
-            <a href="/about" className="lp-footer-link">About</a>
-            <a href="/terms" className="lp-footer-link">Terms</a>
-            <a href="/privacy" className="lp-footer-link">Privacy</a>
+            <a href="/blog" className="lp-footer-link">{t("landing.nav.blog")}</a>
+            <a href="/about" className="lp-footer-link">{t("landing.nav.about")}</a>
+            <a href="/terms" className="lp-footer-link">{t("landing.footerTerms")}</a>
+            <a href="/privacy" className="lp-footer-link">{t("landing.footerPrivacy")}</a>
           </nav>
-          <p className="lp-footer-copy">© {new Date().getFullYear()} NWT Progress · Lexx Solutionz</p>
+          <p className="lp-footer-copy">{t("landing.footerCopy", { year: new Date().getFullYear() })}</p>
         </div>
       </footer>
     </div>

@@ -90,37 +90,6 @@ export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user,
           </ul>
         </section>
 
-        {/* Subscription transparency */}
-        <section className="about-section about-section--transparency">
-          <div className="about-section-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20.8 12.5c0 .8-.3 1.5-.8 2l-4 4.5c-.5.5-1.1.8-1.8.8H9.3C8.6 19.8 8 19.5 7.5 19L3 14.5a2.8 2.8 0 0 1 4-4l1 1V6.5a2 2 0 0 1 4 0v3a2 2 0 0 1 2 0v1a2 2 0 0 1 2 0v1a2 2 0 0 1 4 0v1z"/></svg></div>
-          <h2 className="about-section-title">{t("about.subTitle", "Why There's a Subscription")}</h2>
-          <p className="about-section-body">
-            {t("about.subBody1", "This app is built and maintained by one person who loves Jehovah and wants to help those in the faith study His Word. Keeping it running requires real monthly costs:")}
-          </p>
-          <ul className="about-sub-costs">
-            <li><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span><span>{t("about.subCost1", "Hosting & infrastructure (Vercel)")}</span></li>
-            <li><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></span><span>{t("about.subCost2", "Database (Supabase)")}</span></li>
-            <li><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><span>{t("about.subCost3", "AI API — the engine behind the AI Study Companion (Claude / Anthropic)")}</span></li>
-            <li><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span>{t("about.subCost4", "Domain name")}</span></li>
-          </ul>
-          <p className="about-section-body">
-            {t("about.subBody2", "The $3/month subscription is set at cost — not for profit. Every dollar goes toward keeping the lights on.")}
-          </p>
-          <div className="about-sub-surplus">
-            <span className="about-sub-surplus-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.3l7.8-7.8 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>
-            <p>
-              {t("about.subSurplus", "Any surplus left after covering these costs will be used to support brothers and sisters in need and for donations to JW.org — because that's what this community is about.")}
-            </p>
-          </div>
-          <p className="about-sub-hardship">
-            {t("about.subHardship1", "If the subscription is a financial hardship, please")}{" "}
-            <a href="mailto:support@nwtprogress.com" className="about-sub-hardship-link">
-              {t("about.subHardship2", "reach out")}
-            </a>
-            {t("about.subHardship3", " — no one in the faith should be left out.")}
-          </p>
-        </section>
-
         {/* Creator */}
         <section className="about-section about-section--creator">
           <div className="about-creator-card">
