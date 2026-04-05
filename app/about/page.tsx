@@ -9,14 +9,14 @@ export const metadata = {
     title: "About NWT Progress | Bible Reading Tracker",
     description:
       "NWT Progress is an independent Bible reading tracker built for Jehovah's Witnesses and Bible students. Track all 66 books of the New World Translation.",
-    images: [{ url: "https://nwtprogress.com/og-image.webp", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
+    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "About NWT Progress | Bible Reading Tracker",
     description:
       "NWT Progress is an independent Bible reading tracker built for Jehovah's Witnesses and Bible students. Track all 66 books of the New World Translation.",
-    images: [{ url: "https://nwtprogress.com/og-image.webp", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
+    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
   },
 };
 

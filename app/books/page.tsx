@@ -22,7 +22,7 @@ export const metadata = {
     title: "All 66 Bible Books — NWT Study Guides | NWT Progress",
     description:
       "Study guides for every book of the New World Translation. Track your reading progress with NWT Progress.",
-    images: [{ url: "/og-image.webp", width: 1200, height: 630 }],
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",

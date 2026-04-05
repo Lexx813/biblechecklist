@@ -143,7 +143,7 @@ export default async function BlogPostPage({ params }) {
           ? post.content.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length
           : undefined,
         url: `${BASE}/blog/${post.slug}`,
-        image: post.cover_url || `${BASE}/og-image.webp`,
+        image: post.cover_url || `${BASE}/og-image.jpg`,
       }
     : null;
 

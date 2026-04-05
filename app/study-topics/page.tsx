@@ -17,14 +17,14 @@ export const metadata = {
     title: "Bible Study Topics | NWT Progress",
     description:
       "Explore key Bible topics from the New World Translation perspective — including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
-    images: [{ url: "https://nwtprogress.com/og-image.webp", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
+    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Bible Study Topics | NWT Progress",
     description:
       "Explore key Bible topics from the New World Translation perspective — including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
-    images: [{ url: "https://nwtprogress.com/og-image.webp", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
+    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
   },
 };
 

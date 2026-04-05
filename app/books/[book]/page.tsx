@@ -41,7 +41,7 @@ export async function generateMetadata({ params }) {
       title: `Book of ${book.name} — NWT Study Guide | NWT Progress`,
       description,
       type: "article",
-      images: [{ url: "/og-image.webp", width: 1200, height: 630 }],
+      images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
@@ -68,7 +68,7 @@ export default async function BookPage({ params }) {
     url: `${BASE}/books/${slug}`,
     datePublished: "2025-11-01",
     dateModified: "2026-01-01",
-    image: "https://nwtprogress.com/og-image.webp",
+    image: "https://nwtprogress.com/og-image.jpg",
     author: {
       "@type": "Organization",
       "@id": "https://nwtprogress.com/#organization",

@@ -26,14 +26,14 @@ export const metadata = {
     description:
       "Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community. Free Bible tracker app.",
     siteName: "NWT Progress",
-    images: [{ url: "/og-image.webp", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Bible Reading Tracker for New World Translation | NWT Progress",
     description:
       "Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community. Free Bible tracker app.",
-    images: [{ url: "/og-image.webp", alt: "NWT Progress — Bible Reading Tracker" }],
+    images: [{ url: "/og-image.jpg", alt: "NWT Progress — Bible Reading Tracker" }],
   },
 };
 
@@ -44,13 +44,13 @@ const schemaWebApp = {
   description:
     "A spiritual growth companion that teaches Jehovah's Witnesses how to study God's word — with reading tracking, meeting prep, quizzes, AI study tools, and a worldwide community.",
   url: "https://nwtprogress.com",
-  image: "https://nwtprogress.com/og-image.webp",
+  image: "https://nwtprogress.com/og-image.jpg",
   applicationCategory: "EducationApplication",
   operatingSystem: "Web",
   browserRequirements: "Requires JavaScript. Requires a modern browser.",
   availability: "https://schema.org/OnlineOnly",
   inLanguage: ["en", "es", "pt", "fr", "tl", "zh"],
-  screenshot: "https://nwtprogress.com/og-image.webp",
+  screenshot: "https://nwtprogress.com/og-image.jpg",
   featureList: [
     "Bible reading progress tracker for all 66 books of the New World Translation",
     "Meeting prep checklists for CLAM and Watchtower study",

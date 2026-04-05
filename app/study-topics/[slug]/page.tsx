@@ -23,7 +23,7 @@ export async function generateMetadata({ params }) {
       title: `${topic.title} | NWT Progress`,
       description,
       type: "article",
-      images: [{ url: "/og-image.webp", width: 1200, height: 630 }],
+      images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
@@ -50,7 +50,7 @@ export default function StudyTopicPage({ params }) {
     url: `https://nwtprogress.com/study-topics/${topic.slug}`,
     datePublished: "2025-11-01",
     dateModified: "2026-01-01",
-    image: "https://nwtprogress.com/og-image.webp",
+    image: "https://nwtprogress.com/og-image.jpg",
     author: {
       "@type": "Organization",
       "@id": "https://nwtprogress.com/#organization",
