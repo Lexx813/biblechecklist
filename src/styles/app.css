@@ -664,12 +664,9 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 }
 .vm-card {
   position: fixed; z-index: 300;
-  width: 308px;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  box-shadow: 0 8px 32px rgba(74,45,133,0.22), 0 2px 8px rgba(74,45,133,0.12);
-  overflow: hidden;
+  /* width adapts to narrow screens (min 16px total margin) */
+  width: min(308px, calc(100vw - 16px));
+  /* No overflow:hidden here — that would clip the caret arrow */
   animation: vm-pop 0.18s var(--ease-spring) both;
 }
 @keyframes vm-pop {
@@ -682,6 +679,20 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 @keyframes vm-pop-above {
   from { opacity: 0; transform: scale(0.92) translateY(4px); }
   to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Inner wrapper holds the visible card so overflow:hidden clips border-radius
+   correctly while the caret (outside this div) is never clipped */
+.vm-card-inner {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 32px rgba(74,45,133,0.22), 0 2px 8px rgba(74,45,133,0.12);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  /* Cap height so the card never bleeds off-screen on small phones */
+  max-height: min(88vh, 480px);
+  max-height: min(88dvh, 480px); /* dvh accounts for iOS URL bar */
 }
 
 /* Caret */
@@ -725,6 +736,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   display: flex; align-items: center; gap: 8px;
   padding: 10px 10px 8px;
   background: linear-gradient(135deg, var(--teal-darker) 0%, var(--teal) 100%);
+  flex-shrink: 0;
 }
 .vm-header-left { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
 .vm-badge {
@@ -745,7 +757,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 
 /* Progress bar */
 .vm-progress-track {
-  height: 3px; background: rgba(106,61,170,0.12);
+  height: 3px; background: rgba(106,61,170,0.12); flex-shrink: 0;
 }
 .vm-progress-fill {
   height: 100%; background: linear-gradient(90deg, var(--teal), var(--accent));
@@ -753,7 +765,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 }
 
 /* Primary action */
-.vm-primary-area { padding: 10px 10px 0; }
+.vm-primary-area { padding: 10px 10px 0; flex-shrink: 0; }
 .vm-complete-btn {
   width: 100%; padding: 10px;
   background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 60%, var(--accent) 100%);
@@ -774,7 +786,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 /* Divider */
 .vm-divider {
   display: flex; align-items: center; gap: 8px;
-  padding: 8px 10px 0;
+  padding: 8px 10px 0; flex-shrink: 0;
   font-size: 10px; font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.06em; color: var(--text-muted);
 }
@@ -783,7 +795,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 }
 
 /* Secondary row */
-.vm-sec-row { display: flex; gap: 6px; padding: 6px 10px 0; }
+.vm-sec-row { display: flex; gap: 6px; padding: 6px 10px 0; flex-shrink: 0; }
 .vm-sec-btn {
   flex: 1; padding: 6px 8px; border-radius: var(--radius-xs);
   border: 1.5px solid var(--border); background: var(--card-bg);
@@ -795,12 +807,13 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .vm-sec-btn:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-light); }
 .vm-sec-btn--danger:hover { border-color: #dc2626; color: #dc2626; background: #fef2f2; }
 
-/* Verse grid */
+/* Verse grid — flex:1 so it fills the space the card-inner max-height allows */
 .vm-verse-grid {
   display: flex; flex-wrap: wrap; gap: 4px;
   padding: 8px 10px 12px;
-  max-height: 200px; overflow-y: auto;
+  flex: 1; min-height: 80px; overflow-y: auto;
   overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch; /* smooth momentum on iOS */
 }
 .vm-verse-grid::-webkit-scrollbar { width: 3px; }
 .vm-verse-grid::-webkit-scrollbar-track { background: transparent; }
@@ -832,7 +845,8 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
               color var(--dur-fast), transform var(--dur-base) var(--ease-spring);
   touch-action: manipulation;
 }
-.vm-verse::before { content: ''; position: absolute; inset: -3px; }
+/* Expand tap area to 44×44 on touch without changing visual size */
+.vm-verse::before { content: ''; position: absolute; inset: -6px; }
 .vm-verse:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-light); transform: scale(1.1); z-index: 1; }
 .vm-verse--read { background: var(--teal); border-color: var(--teal); color: #fff; }
 .vm-verse--read:hover { background: var(--teal-dark); }

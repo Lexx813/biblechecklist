@@ -96,6 +96,8 @@ export default function VerseModal({
       >
         {!pos.above && <div className="vm-caret vm-caret--top" />}
 
+        <div className="vm-card-inner">
+
         {/* Header */}
         <div className="vm-header">
           <div className="vm-header-left">
@@ -184,6 +186,8 @@ export default function VerseModal({
             );
           })}
         </div>
+
+        </div>{/* end vm-card-inner */}
 
         {pos.above && <div className="vm-caret vm-caret--bottom" />}
       </div>
