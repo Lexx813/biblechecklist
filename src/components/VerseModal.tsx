@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { jwLibraryChapterUrl, jwOrgBibleUrl } from "../utils/wol";
+import { jwOrgBibleUrl } from "../utils/wol";
 
 const isTouchDevice = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
 
@@ -23,19 +23,20 @@ const MODAL_W = 308;
 
 function computePos(pillEl: HTMLElement) {
   const rect = pillEl.getBoundingClientRect();
-  const vw = window.innerWidth;
-  const vh = window.innerHeight;
+  // clientWidth excludes scrollbar and is unaffected by horizontal overflow/scroll
+  const vw = document.documentElement.clientWidth;
+  const vh = document.documentElement.clientHeight;
   const pillCX = rect.left + rect.width / 2;
 
+  // Always center under the pill, clamped to viewport edges
   let left = pillCX - MODAL_W / 2;
   left = Math.max(8, Math.min(vw - MODAL_W - 8, left));
 
-  const spaceBelow = vh - rect.bottom;
-  const above = spaceBelow < 240 && rect.top > 240;
-  const top = above ? rect.top - 8 : rect.bottom + 8;
+  const top = rect.bottom + 8;
+  const maxHeight = Math.max(160, Math.min(vh - top - 8, 480));
   const caretLeft = Math.min(Math.max(16, pillCX - left), MODAL_W - 16);
 
-  return { top, left, above, caretLeft, ready: true };
+  return { top, left, above: false, caretLeft, maxHeight, ready: true };
 }
 
 export default function VerseModal({
@@ -83,10 +84,9 @@ export default function VerseModal({
       {/* Modal card */}
       <div
         ref={modalRef}
-        className={`vm-card${pos.above ? " vm-card--above" : ""}`}
+        className="vm-card"
         style={{
-          top: pos.above ? undefined : pos.top,
-          bottom: pos.above ? window.innerHeight - pos.top : undefined,
+          top: pos.top,
           left: pos.left,
           "--caret-left": pos.caretLeft + "px",
         } as React.CSSProperties}
@@ -94,9 +94,9 @@ export default function VerseModal({
         aria-modal="true"
         aria-label={`${bookName} Chapter ${chapter}`}
       >
-        {!pos.above && <div className="vm-caret vm-caret--top" />}
+        <div className="vm-caret vm-caret--top" />
 
-        <div className="vm-card-inner">
+        <div className="vm-card-inner" style={{ maxHeight: pos.maxHeight }}>
 
         {/* Header */}
         <div className="vm-header">
@@ -189,7 +189,6 @@ export default function VerseModal({
 
         </div>{/* end vm-card-inner */}
 
-        {pos.above && <div className="vm-caret vm-caret--bottom" />}
       </div>
     </>
   );
