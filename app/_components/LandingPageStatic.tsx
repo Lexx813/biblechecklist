@@ -1,4 +1,27 @@
-export default function LandingPageStatic() {
+import { createClient } from "@supabase/supabase-js";
+
+async function getLatestPosts() {
+  try {
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    );
+    const { data } = await supabase
+      .from("blog_posts")
+      .select("title, slug, excerpt, cover_url")
+      .eq("published", true)
+      .eq("lang", "en")
+      .order("created_at", { ascending: false })
+      .limit(3);
+    return data ?? [];
+  } catch {
+    return [];
+  }
+}
+
+export default async function LandingPageStatic() {
+  const posts = await getLatestPosts();
+
   return (
     <div className="landing-wrap" role="main" id="main-content">
       {/* Animated background */}
@@ -117,6 +140,32 @@ export default function LandingPageStatic() {
         </p>
       </div>
 
+      {/* Featured Blog Posts */}
+      {posts.length > 0 && (
+        <section className="landing-blog">
+          <div className="landing-blog-header">
+            <h2 className="landing-blog-title">From the Blog</h2>
+            <p className="landing-blog-sub">Bible study insights for Jehovah&apos;s Witnesses</p>
+          </div>
+          <div className="landing-blog-grid">
+            {posts.map((post) => (
+              <a key={post.slug} href={`/blog/${post.slug}`} className="landing-blog-card">
+                {post.cover_url && (
+                  <div className="landing-blog-img-wrap">
+                    <img src={post.cover_url} alt={post.title} className="landing-blog-img" loading="lazy" />
+                  </div>
+                )}
+                <div className="landing-blog-content">
+                  <h3 className="landing-blog-post-title">{post.title}</h3>
+                  {post.excerpt && <p className="landing-blog-excerpt">{post.excerpt}</p>}
+                </div>
+              </a>
+            ))}
+          </div>
+          <a href="/blog" className="landing-blog-all">View all articles →</a>
+        </section>
+      )}
+
       {/* Pricing */}
       <section className="landing-pricing">
         <div className="landing-pricing-header">
@@ -184,6 +233,8 @@ export default function LandingPageStatic() {
 
       <footer className="landing-footer">
         © {new Date().getFullYear()} NWT Progress · Lexx Solutionz
+        {" · "}
+        <a href="/blog" className="landing-footer-link">Blog</a>
         {" · "}
         <a href="/terms" className="landing-footer-link">Terms of Service</a>
         {" · "}
