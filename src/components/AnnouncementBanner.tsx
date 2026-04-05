@@ -73,7 +73,7 @@ export default function AnnouncementBanner() {
     sessionStorage.setItem("dismissed-announcements", JSON.stringify(next));
   }
 
-  // Immediately dismiss all visible announcements on any route change
+  // Dismiss all on navigation (but NOT on every click)
   useEffect(() => {
     function dismissAll() {
       const visible = announcements.filter(a => !dismissed.includes(a.id));
@@ -84,10 +84,7 @@ export default function AnnouncementBanner() {
     }
 
     window.addEventListener("popstate", dismissAll);
-    window.addEventListener("fc:open", dismissAll);
-    document.addEventListener("click", dismissAll, { capture: true });
 
-    // Also catch pushState-based navigation (navigate() calls)
     const origPush = history.pushState.bind(history);
     history.pushState = function (...args) {
       origPush(...args);
@@ -96,8 +93,6 @@ export default function AnnouncementBanner() {
 
     return () => {
       window.removeEventListener("popstate", dismissAll);
-      window.removeEventListener("fc:open", dismissAll);
-      document.removeEventListener("click", dismissAll, { capture: true });
       history.pushState = origPush;
     };
   }, [announcements, dismissed]);

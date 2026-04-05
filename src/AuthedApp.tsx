@@ -21,7 +21,8 @@ const AuthPage          = lazy(() => import("./views/auth/AuthPage"));
 const ResetPasswordPage = lazy(() => import("./views/auth/ResetPasswordPage"));
 const HomePage          = lazy(() => import("./views/HomePage"));
 const ChecklistPage     = lazy(() => import("./views/ChecklistPage"));
-const OfflineBanner     = lazy(() => import("./components/OfflineBanner"));
+const OfflineBanner        = lazy(() => import("./components/OfflineBanner"));
+const AnnouncementBanner   = lazy(() => import("./components/AnnouncementBanner"));
 const Toast             = lazy(() => import("./components/Toast"));
 const InstallPrompt     = lazy(() => import("./components/InstallPrompt"));
 const PageFooter        = lazy(() => import("./components/PageFooter"));
@@ -469,6 +470,7 @@ export default function AuthedApp({ onShowLanding, i18n }) {
     <>
       <a href="#main-content" className="skip-link">Skip to main content</a>
       <Suspense fallback={null}><OfflineBanner /></Suspense>
+      <Suspense fallback={null}><AnnouncementBanner /></Suspense>
       <Suspense fallback={null}><Toast /></Suspense>
       <Suspense fallback={null}><InstallPrompt /></Suspense>
       <BibleApp
