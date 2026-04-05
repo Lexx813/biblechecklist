@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
-const AICompanion = lazy(() => import("../../components/AICompanion"));
 import { useFullProfile } from "../../hooks/useAdmin";
 import { useSubscription } from "../../hooks/useSubscription";
 import {
@@ -561,15 +560,6 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
           )}
         </div>
 
-        {isAnswered && isPremium && (
-          <Suspense fallback={null}>
-            <AICompanion
-              passage={currentQuestion.question}
-              reference={`Quiz · Level ${level} · ${theme}`}
-              className="quiz-ai-companion"
-            />
-          </Suspense>
-        )}
       </div>
   );
 }

@@ -2,7 +2,6 @@ import React, { useState, useMemo, useRef, useEffect, lazy, Suspense } from "rea
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
-const AICompanion = lazy(() => import("../../components/AICompanion"));
 import { useAISkill } from "../../hooks/useAISkill";
 import "../../styles/ai-tools.css";
 import { useSubscription } from "../../hooks/useSubscription";
@@ -552,8 +551,6 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate, 
 
   const todayReadings = schedule[currentDay - 1]?.readings ?? [];
   const todayPassage = todayReadings.map(r => `${r.bookName} ${r.chapter}`).join(", ");
-  const devotionalPrompt = `Today's reading is Day ${currentDay} of "${template.name}": ${todayPassage}. Please give me a short, warm devotional reflection (3-4 sentences) on these passages — include one key insight and a brief thought for the day.`;
-
   return (
     <div className="rp-detail">
       <div className="rp-detail-header">
@@ -683,18 +680,6 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate, 
         </div>
       )}
 
-      {/* AI Devotional (premium) */}
-      {isPremium && !plan.is_paused && schedule[currentDay - 1] && (
-        <Suspense fallback={null}>
-          {React.createElement(AICompanion as any, {
-            reference: `${t("readingPlans.day")} ${currentDay} — ${template.name}`,
-            passage: todayPassage,
-            initialPrompt: devotionalPrompt,
-            devotionalMode: true,
-            className: "rp-ai-companion",
-          })}
-        </Suspense>
-      )}
 
       {/* AI Reading Summary (premium) */}
       {isPremium && !plan.is_paused && todayReadings.length > 0 && (

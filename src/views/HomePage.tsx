@@ -594,7 +594,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
           {/* Daily Verse */}
           <div className="hwidget">
-            <DailyVerse user={user} />
+            <DailyVerse />
           </div>
 
           {/* Friends online */}

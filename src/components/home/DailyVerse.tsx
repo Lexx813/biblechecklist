@@ -1,25 +1,13 @@
-import { useState, lazy, Suspense } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { wolRefUrl } from "../../utils/wol";
 import { VERSE_COUNT, getDailyVerseIndex } from "../../data/verses";
-const AICompanion = lazy(() => import("../AICompanion"));
-import { useSubscription } from "../../hooks/useSubscription";
 import "../../styles/daily-verse.css";
 
-interface User {
-  id?: string;
-}
-
-interface Props {
-  user?: User;
-}
-
-export default function DailyVerse({ user }: Props) {
+export default function DailyVerse() {
   const { t, i18n } = useTranslation();
   const lang = i18n.language?.split("-")[0] ?? "en";
   const [idx, setIdx] = useState(getDailyVerseIndex);
-  const [showAI, setShowAI] = useState(false);
-  const { isPremium } = useSubscription(user?.id);
 
   const prev = () => setIdx(i => (i - 1 + VERSE_COUNT) % VERSE_COUNT);
   const next = () => setIdx(i => (i + 1) % VERSE_COUNT);
@@ -58,24 +46,6 @@ export default function DailyVerse({ user }: Props) {
         <button className="daily-verse-arrow" onClick={next} data-tip={t("dailyVerse.next")}>›</button>
       </div>
 
-      {user && isPremium && (
-        <button
-          className="daily-verse-ai-btn"
-          onClick={() => setShowAI(v => !v)}
-        >
-          {showAI ? "Hide AI Companion" : <><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{verticalAlign:"middle",marginRight:4}}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Ask AI about this verse</>}
-        </button>
-      )}
-
-      {user && isPremium && showAI && (
-        <Suspense fallback={null}>
-          <AICompanion
-            passage={t(`verses.${idx}.text`)}
-            reference={t(`verses.${idx}.ref`)}
-            className="daily-verse-ai-panel"
-          />
-        </Suspense>
-      )}
     </div>
   );
 }

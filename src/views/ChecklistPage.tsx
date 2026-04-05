@@ -3,7 +3,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { BOOKS, OT_COUNT } from "../data/books";
 import { VERSE_COUNTS } from "../data/verseCounts";
-const AICompanion = lazy(() => import("../components/AICompanion"));
 import BookCard from "../components/BookCard";
 import VerseModal from "../components/VerseModal";
 import CustomSelect from "../components/CustomSelect";
@@ -14,7 +13,6 @@ import BookCelebration from "../components/BookCelebration";
 import UpgradePrompt, { isDismissed, dismissPrompt } from "../components/UpgradePrompt";
 import { useProgress, useSaveProgress, useChapterTimestamps, useReadingStreak } from "../hooks/useProgress";
 import { useSubscription } from "../hooks/useSubscription";
-import { useFeatureFlags } from "../hooks/useFeatureFlags";
 import { progressApi } from "../api/progress";
 import { useNotes, useCreateNote, useDeleteNote } from "../hooks/useNotes";
 import { readingApi } from "../api/reading";
@@ -503,7 +501,6 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
 
 function QuickNoteModal({ userId, bookIndex, onClose, isPremium }) {
   const { t } = useTranslation();
-  const { aiEnabled } = useFeatureFlags();
   const createNote = useCreateNote(userId);
   const book = BOOKS[bookIndex];
   const totalChapters = book?.chapters ?? 1;
@@ -597,15 +594,6 @@ function QuickNoteModal({ userId, bookIndex, onClose, isPremium }) {
           </div>
         </form>
 
-        {isPremium && aiEnabled && (
-          <Suspense fallback={null}>
-            <AICompanion
-              reference={`${bookName} ${chapter}${verse ? `:${verse}` : ""}`}
-              passage={`${bookName} chapter ${chapter}${verse ? ` verse ${verse}` : ""}`}
-              className="qn-ai-companion"
-            />
-          </Suspense>
-        )}
       </div>
     </div>
   );
