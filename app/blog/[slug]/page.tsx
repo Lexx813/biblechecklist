@@ -164,7 +164,7 @@ export default async function BlogPostPage({ params }) {
       )}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
       {post && (
-        <div id="ssr-fallback" lang={lang}>
+        <div id="ssr-fallback" lang={lang} suppressHydrationWarning>
           <article>
             <h1>{post.title}</h1>
             {post.excerpt && <p>{post.excerpt}</p>}

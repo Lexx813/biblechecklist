@@ -106,7 +106,7 @@ export default async function ForumThreadPage({ params }) {
       )}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
       {thread && (
-        <div id="ssr-fallback">
+        <div id="ssr-fallback" suppressHydrationWarning>
           <article>
             <h1>{thread.title}</h1>
             {thread.profiles?.display_name && <p>Posted by {thread.profiles.display_name}</p>}

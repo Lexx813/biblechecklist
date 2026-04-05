@@ -85,7 +85,7 @@ export default async function Page({ params }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }}
         />
-        <div id="ssr-fallback">
+        <div id="ssr-fallback" suppressHydrationWarning>
           <style dangerouslySetInnerHTML={{ __html: landingCss }} />
           <LandingPageStatic />
         </div>

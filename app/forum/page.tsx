@@ -62,7 +62,7 @@ export default async function ForumIndexPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaForum) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
       {(categories?.length > 0 || topThreads?.length > 0) && (
-        <div id="ssr-fallback">
+        <div id="ssr-fallback" suppressHydrationWarning>
           <h1>NWT Progress Community Forum</h1>
           <p>Join Bible discussions, ask questions, and share insights with Jehovah&apos;s Witnesses worldwide.</p>
           {categories?.length > 0 && (
