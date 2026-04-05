@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1200"/>
+<title>NWT Progress — FB Post</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background: linear-gradient(135deg, #2D0A6E 0%, #4C1D95 40%, #6D28D9 75%, #7C3AED 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 72px;
+    padding: 0 72px;
+    position: relative;
+  }
+
+  /* Subtle dot-grid background */
+  body::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  /* ── Left copy ── */
+  .copy {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .logo-icon {
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+  }
+
+  .logo-text {
+    font-size: 17px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: -0.01em;
+  }
+
+  .headline {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 54px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+
+  .headline span {
+    display: block;
+    color: #C4B5FD;
+  }
+
+  .sub {
+    font-size: 17px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.75);
+    max-width: 360px;
+  }
+
+  .bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .bullet {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+  }
+
+  .bullet-dot {
+    width: 20px; height: 20px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 11px;
+  }
+
+  .url {
+    font-size: 15px;
+    font-weight: 700;
+    color: #C4B5FD;
+    letter-spacing: 0.01em;
+    margin-top: 4px;
+  }
+
+  /* ── Phone ── */
+  .phone-wrap {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+
+  .phone {
+    width: 260px;
+    border-radius: 32px;
+    background: #fff;
+    box-shadow:
+      0 40px 80px rgba(0,0,0,0.45),
+      0 8px 24px rgba(0,0,0,0.25),
+      0 0 0 1px rgba(255,255,255,0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phone-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 14px 7px;
+    border-bottom: 1px solid #F0ECF9;
+    background: #fff;
+  }
+
+  .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .dot-r { background: #fc5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+
+  .phone-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: #8B7BB5;
+    margin: 0 auto;
+    letter-spacing: 0.04em;
+  }
+
+  .phone-screen {
+    padding: 8px 8px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: #F4F2FF;
+  }
+
+  /* Mock book cards */
+  .book {
+    background: #fff;
+    border: 1px solid #E8E2F5;
+    border-radius: 11px;
+    padding: 9px 9px 7px;
+    flex-shrink: 0;
+  }
+
+  .book-collapsed { padding: 8px 9px; }
+
+  .book-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 7px;
+  }
+
+  .book-collapsed .book-header { margin-bottom: 0; }
+
+  .book-info { display: flex; align-items: center; gap: 7px; }
+
+  .book-num {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: #6A3DAA;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .book-name { font-size: 11px; font-weight: 700; color: #1a1a2e; line-height: 1.2; }
+  .book-sub  { font-size: 9px; color: #8B7BB5; line-height: 1.2; }
+
+  .book-progress { display: flex; align-items: center; gap: 5px; }
+  .book-frac { font-size: 9px; font-weight: 600; color: #8B7BB5; }
+
+  .ring { width: 22px; height: 22px; flex-shrink: 0; }
+  .ring svg { width: 100%; height: 100%; }
+
+  /* Chapter pill grid */
+  .grid { display: flex; flex-wrap: wrap; gap: 3px; }
+
+  .pill {
+    width: 20px; height: 20px;
+    border-radius: 5px;
+    border: 1.5px solid #E0DAF2;
+    background: #fff;
+    font-size: 7px;
+    font-weight: 700;
+    color: #8B7BB5;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .pill-done    { background: #6A3DAA; border-color: #6A3DAA; color: #fff; }
+  .pill-partial { border: 1.5px dashed #6A3DAA; color: #6A3DAA; background: rgba(106,61,170,0.06); }
+
+  /* Tab bar */
+  .tabbar {
+    display: flex;
+    border-top: 1px solid #E8E2F5;
+    background: #fff;
+    padding: 5px 0 8px;
+  }
+
+  .tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    font-size: 8px;
+    font-weight: 500;
+    color: #8B7BB5;
+  }
+
+  .tab-active { color: #6A3DAA; }
+  .tab-active svg { stroke: #6A3DAA; }
+
+  /* Floating badge */
+  .badge {
+    position: absolute;
+    bottom: 80px;
+    right: -28px;
+    background: #fff;
+    border: 1px solid #E8E2F5;
+    border-radius: 20px;
+    padding: 6px 12px 6px 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #1a1a2e;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    white-space: nowrap;
+  }
+
+  .badge-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: #6A3DAA;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Left: copy -->
+  <div class="copy">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+      </div>
+      <span class="logo-text">NWT Progress</span>
+    </div>
+
+    <h1 class="headline">
+      Track every chapter<br>
+      <span>of your NWT.</span>
+    </h1>
+
+    <p class="sub">A free Bible reading tracker built for Jehovah's Witnesses — with JW Library links, verse tracking, quizzes &amp; community.</p>
+
+    <div class="bullets">
+      <div class="bullet"><div class="bullet-dot">📖</div> All 66 books · chapter &amp; verse tracking</div>
+      <div class="bullet"><div class="bullet-dot">🔗</div> Tap any verse → opens in JW Library</div>
+      <div class="bullet"><div class="bullet-dot">🏆</div> Quizzes, badges &amp; worldwide community</div>
+    </div>
+
+    <div class="url">nwtprogress.com</div>
+  </div>
+
+  <!-- Right: phone mockup -->
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="phone-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="phone-title">NWT Progress</span>
+      </div>
+
+      <div class="phone-screen">
+        <!-- Genesis expanded -->
+        <div class="book">
+          <div class="book-header">
+            <div class="book-info">
+              <div class="book-num">1</div>
+              <div>
+                <div class="book-name">Genesis</div>
+                <div class="book-sub">Gen · 50 chapters</div>
+              </div>
+            </div>
+            <div class="book-progress">
+              <span class="book-frac">32/50</span>
+              <div class="ring">
+                <svg viewBox="0 0 32 32">
+                  <circle cx="16" cy="16" r="13" fill="none" stroke="#E0DAF2" stroke-width="3"/>
+                  <circle cx="16" cy="16" r="13" fill="none" stroke="#6A3DAA" stroke-width="3"
+                    stroke-dasharray="81.68" stroke-dashoffset="27.77" stroke-linecap="round"
+                    transform="rotate(-90 16 16)"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="pill pill-done">1</div><div class="pill pill-done">2</div><div class="pill pill-done">3</div><div class="pill pill-done">4</div><div class="pill pill-done">5</div><div class="pill pill-done">6</div><div class="pill pill-done">7</div><div class="pill pill-done">8</div><div class="pill pill-done">9</div><div class="pill pill-done">10</div>
+            <div class="pill pill-done">11</div><div class="pill pill-done">12</div><div class="pill pill-done">13</div><div class="pill pill-done">14</div><div class="pill pill-done">15</div><div class="pill pill-done">16</div><div class="pill pill-done">17</div><div class="pill pill-done">18</div><div class="pill pill-done">19</div><div class="pill pill-done">20</div>
+            <div class="pill pill-done">21</div><div class="pill pill-done">22</div><div class="pill pill-done">23</div><div class="pill pill-done">24</div><div class="pill pill-done">25</div><div class="pill pill-done">26</div><div class="pill pill-done">27</div><div class="pill pill-done">28</div><div class="pill pill-done">29</div><div class="pill pill-done">30</div>
+            <div class="pill pill-done">31</div><div class="pill pill-done">32</div><div class="pill pill-partial">33</div><div class="pill">34</div><div class="pill">35</div><div class="pill">36</div><div class="pill">37</div><div class="pill">38</div><div class="pill">39</div><div class="pill">40</div>
+            <div class="pill">41</div><div class="pill">42</div><div class="pill">43</div><div class="pill">44</div><div class="pill">45</div><div class="pill">46</div><div class="pill">47</div><div class="pill">48</div><div class="pill">49</div><div class="pill">50</div>
+          </div>
+        </div>
+
+        <!-- Exodus collapsed -->
+        <div class="book book-collapsed">
+          <div class="book-header">
+            <div class="book-info">
+              <div class="book-num">2</div>
+              <div>
+                <div class="book-name">Exodus</div>
+                <div class="book-sub">Exo · 40 chapters</div>
+              </div>
+            </div>
+            <div class="book-progress">
+              <span class="book-frac">40/40</span>
+              <div class="ring">
+                <svg viewBox="0 0 32 32">
+                  <circle cx="16" cy="16" r="13" fill="none" stroke="#6A3DAA" stroke-width="3"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leviticus collapsed -->
+        <div class="book book-collapsed">
+          <div class="book-header">
+            <div class="book-info">
+              <div class="book-num">3</div>
+              <div>
+                <div class="book-name">Leviticus</div>
+                <div class="book-sub">Lev · 27 chapters</div>
+              </div>
+            </div>
+            <div class="book-progress">
+              <span class="book-frac">0/27</span>
+              <div class="ring">
+                <svg viewBox="0 0 32 32">
+                  <circle cx="16" cy="16" r="13" fill="none" stroke="#E0DAF2" stroke-width="3"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tabbar">
+        <div class="tab">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8B7BB5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          Home
+        </div>
+        <div class="tab tab-active">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6A3DAA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          Bible
+        </div>
+        <div class="tab">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8B7BB5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Messages
+        </div>
+        <div class="tab">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8B7BB5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Profile
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating badge -->
+    <div class="badge">
+      <div class="badge-dot"></div>
+      64% complete
+    </div>
+  </div>
+
+</body>
+</html>
