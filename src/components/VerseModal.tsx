@@ -67,9 +67,10 @@ export default function VerseModal({
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  // Focus first button on open
+  // Focus first button on open — preventScroll stops Android from scrolling
+  // the underlying page when focusing an element inside a fixed dialog
   useEffect(() => {
-    modalRef.current?.querySelector<HTMLElement>("button")?.focus();
+    modalRef.current?.querySelector<HTMLElement>("button")?.focus({ preventScroll: true });
   }, []);
 
   const readSet = new Set(readVerses);
