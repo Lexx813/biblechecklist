@@ -6,7 +6,13 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
   return (
     <div className="about-wrap">
 
-      <section className="about-hero" style={{ paddingTop: "80px", paddingBottom: "48px" }}>
+      {!user && (
+        <div style={{ width: "100%", maxWidth: 720, padding: "16px 24px 0", boxSizing: "border-box" }}>
+          <button className="back-btn" onClick={() => navigate("")}>← Home</button>
+        </div>
+      )}
+
+      <section className="about-hero" style={{ paddingTop: "48px", paddingBottom: "48px" }}>
         <div className="about-hero-glow about-hero-glow--1" />
         <div className="about-hero-glow about-hero-glow--2" />
         <div className="about-hero-inner">
@@ -31,7 +37,6 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
           <p className="about-section-body"><strong>Reading progress:</strong> We store which Bible chapters you have marked as read so your progress syncs across devices.</p>
           <p className="about-section-body"><strong>User content:</strong> Blog posts, forum threads, replies, comments, notes, and profile information you create are stored and associated with your account.</p>
           <p className="about-section-body"><strong>Content scanning:</strong> All user-submitted content is automatically scanned before it is saved. This scanning checks for prohibited content including personal contact information (email addresses, phone numbers, physical addresses), social media links and handles, insecure links, and profanity. Content that is blocked is not stored.</p>
-          <p className="about-section-body"><strong>Payment information:</strong> If you subscribe to Premium, your payment is processed by Stripe. We receive a subscription status and a Stripe customer ID. We do not store your card number, expiration date, or CVV. Stripe's privacy policy governs how your payment data is handled.</p>
           <p className="about-section-body"><strong>Usage data:</strong> We use Vercel Analytics to collect anonymized data about how the App is used (pages visited, session duration, device type). No personally identifiable information is sent to analytics services.</p>
           <p className="about-section-body"><strong>Technical data:</strong> Standard server logs including IP address and browser type may be collected by our hosting provider (Vercel) and database provider (Supabase).</p>
         </section>
@@ -43,7 +48,6 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
             <li className="about-feature"><span className="about-feature-icon">✅</span><div>To sync your reading progress across devices</div></li>
             <li className="about-feature"><span className="about-feature-icon">✅</span><div>To send transactional emails (email confirmation, password reset)</div></li>
             <li className="about-feature"><span className="about-feature-icon">✅</span><div>To display your public profile and content to other users</div></li>
-            <li className="about-feature"><span className="about-feature-icon">✅</span><div>To process subscription payments and manage access to Premium features</div></li>
             <li className="about-feature"><span className="about-feature-icon">✅</span><div>To improve the App using anonymized analytics</div></li>
             <li className="about-feature"><span className="about-feature-icon">✅</span><div>To investigate violations and cooperate with law enforcement where required by law</div></li>
           </ul>
@@ -58,10 +62,8 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
           <ul className="about-features" style={{ marginTop: 8 }}>
             <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Supabase</strong> — database, authentication, and file storage</div></li>
             <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Vercel</strong> — hosting and deployment</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Stripe</strong> — payment processing for Premium subscriptions</div></li>
             <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Resend</strong> — transactional email delivery</div></li>
             <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Vercel Analytics</strong> — anonymized usage analytics</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Anthropic (Claude)</strong> — AI-powered Bible study tools for Premium users</div></li>
           </ul>
           <p className="about-section-body" style={{ marginTop: 16 }}>
             Each of these services has their own privacy policy governing their data handling.
@@ -92,7 +94,7 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
         <section className="about-section">
           <h2 className="about-section-title">7. Cookies &amp; Local Storage</h2>
           <p className="about-section-body">
-            The App uses browser localStorage to store your theme preference and cached data for offline use. Vercel Analytics collects anonymized, cookie-free usage data to help improve the App. Stripe may use cookies in connection with payment processing on subscription checkout pages.
+            The App uses browser localStorage to store your theme preference and cached data for offline use. Vercel Analytics collects anonymized, cookie-free usage data to help improve the App.
           </p>
         </section>
 

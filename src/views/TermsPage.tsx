@@ -6,7 +6,13 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
   return (
     <div className="about-wrap">
 
-      <section className="about-hero" style={{ paddingTop: "80px", paddingBottom: "48px" }}>
+      {!user && (
+        <div style={{ width: "100%", maxWidth: 720, padding: "16px 24px 0", boxSizing: "border-box" }}>
+          <button className="back-btn" onClick={() => navigate("")}>← Home</button>
+        </div>
+      )}
+
+      <section className="about-hero" style={{ paddingTop: "48px", paddingBottom: "48px" }}>
         <div className="about-hero-glow about-hero-glow--1" />
         <div className="about-hero-glow about-hero-glow--2" />
         <div className="about-hero-inner">
@@ -28,7 +34,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <section className="about-section">
           <h2 className="about-section-title">2. Description of Service</h2>
           <p className="about-section-body">
-            NWT Progress is a Bible reading tracker and community platform designed for readers of the New World Translation. The App provides tools for tracking reading progress, participating in forums, writing blog posts, taking quizzes, and connecting with other users. Core features are available free of charge. Premium features are available through a paid subscription.
+            NWT Progress is a Bible reading tracker and community platform designed for readers of the New World Translation. The App provides tools for tracking reading progress, participating in forums, writing blog posts, taking quizzes, and connecting with other users.
           </p>
           <p className="about-section-body">
             We reserve the right to modify, suspend, or discontinue any part of the service at any time.
@@ -126,23 +132,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">8. Premium Subscriptions &amp; Billing</h2>
-          <p className="about-section-body">
-            Certain features of NWT Progress require an active Premium subscription. By subscribing, you agree to pay the subscription fee displayed at the time of purchase.
-          </p>
-          <ul className="about-features" style={{ marginTop: 8 }}>
-            <li className="about-feature"><span className="about-feature-icon">💳</span><div><strong>Billing:</strong> Subscriptions are billed on a recurring basis (monthly or annually) through our payment processor, Stripe. Your payment method will be charged automatically at the start of each billing period.</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔄</span><div><strong>Cancellation:</strong> You may cancel your subscription at any time through your account settings. Cancellation takes effect at the end of the current billing period. No partial refunds are issued for unused time.</div></li>
-            <li className="about-feature"><span className="about-feature-icon">💰</span><div><strong>Refunds:</strong> Subscription fees are generally non-refundable. Exceptions may be made at our sole discretion for documented technical failures that prevented access to paid features.</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Changes to pricing:</strong> We reserve the right to change subscription pricing at any time. You will be notified of price changes before your next billing cycle.</div></li>
-          </ul>
-          <p className="about-section-body" style={{ marginTop: 16 }}>
-            Payment processing is handled by Stripe. We do not store your full card number or payment credentials. By subscribing, you also agree to Stripe's Terms of Service.
-          </p>
-        </section>
-
-        <section className="about-section">
-          <h2 className="about-section-title">9. Enforcement &amp; Account Bans</h2>
+          <h2 className="about-section-title">8. Enforcement &amp; Account Bans</h2>
           <p className="about-section-body">
             Violations of these Terms — including posting prohibited content, attempting to circumvent automated filters, or engaging in harmful behavior toward other users — may result in:
           </p>
@@ -158,35 +148,35 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">10. Intellectual Property</h2>
+          <h2 className="about-section-title">9. Intellectual Property</h2>
           <p className="about-section-body">
             The NWT Progress name, logo, design, and original code are the intellectual property of Lexx Solutionz. Scripture quotations are from the New World Translation of the Holy Scriptures and are used for personal and community study purposes.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">11. Disclaimer of Warranties</h2>
+          <h2 className="about-section-title">10. Disclaimer of Warranties</h2>
           <p className="about-section-body">
             The App is provided "as is" without warranties of any kind. We do not guarantee that the App will be error-free, uninterrupted, or that data will never be lost. Use the App at your own risk.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">12. Limitation of Liability</h2>
+          <h2 className="about-section-title">11. Limitation of Liability</h2>
           <p className="about-section-body">
             To the fullest extent permitted by law, NWT Progress and Lexx Solutionz shall not be liable for any indirect, incidental, or consequential damages arising from your use of the App.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">13. Changes to Terms</h2>
+          <h2 className="about-section-title">12. Changes to Terms</h2>
           <p className="about-section-body">
             We may update these Terms at any time. Continued use of the App after changes are posted constitutes acceptance of the updated Terms. We will update the "Last updated" date at the top of this page.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">14. Contact</h2>
+          <h2 className="about-section-title">13. Contact</h2>
           <p className="about-section-body">
             If you have questions about these Terms, you can reach us through the App's community forum or via the contact information listed on nwtprogress.com.
           </p>
