@@ -996,6 +996,102 @@
 
 .lp-callout-dot--done { background: #6A3DAA; }
 
+/* ── JW Integration ─────────────────────────────────────────────── */
+.lp-integration {
+  background: var(--lp-banner-bg);
+  padding: 72px 24px;
+}
+
+.lp-integration-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+.lp-integ-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: 620px;
+}
+
+.lp-integ-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+
+.lp-integ-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0;
+}
+
+.lp-integ-sub {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.7);
+  margin: 0;
+}
+
+.lp-integ-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.lp-integ-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.lp-integ-card:hover {
+  background: rgba(255,255,255,0.11);
+  border-color: rgba(255,255,255,0.22);
+}
+
+.lp-integ-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.lp-integ-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.lp-integ-card-desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.65);
+  margin: 0;
+}
+
 /* ── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .lp-nav-links { display: none; }
@@ -1010,6 +1106,9 @@
     margin-left: auto;
     margin-right: auto;
   }
+
+  .lp-integration { padding: 56px 20px; }
+  .lp-integ-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
 
   .lp-preview { padding: 0 20px 64px; }
   .lp-preview-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }

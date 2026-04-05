@@ -355,6 +355,47 @@ export default function LandingPage({ onGetStarted, i18n }) {
         </div>
       </section>
 
+      {/* ── JW Integration ───────────────────────────────────────── */}
+      <section className="lp-integration" aria-labelledby="lp-integ-title">
+        <div className="lp-integration-inner">
+          <div className="lp-integ-header">
+            <div className="lp-integ-eyebrow">Built for Jehovah's Witnesses</div>
+            <h2 id="lp-integ-title" className="lp-integ-title">The perfect JW Library companion</h2>
+            <p className="lp-integ-sub">Every book, chapter, and verse in the app links directly to the official New World Translation — one tap opens it right where you are.</p>
+          </div>
+          <div className="lp-integ-grid">
+            <div className="lp-integ-card">
+              <div className="lp-integ-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+              </div>
+              <h3 className="lp-integ-card-title">JW Library on mobile</h3>
+              <p className="lp-integ-card-desc">Tap any chapter or verse pill and it opens directly in the JW Library app — no copy-pasting, no searching.</p>
+            </div>
+            <div className="lp-integ-card">
+              <div className="lp-integ-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+              </div>
+              <h3 className="lp-integ-card-title">JW.org on desktop</h3>
+              <p className="lp-integ-card-desc">On desktop, chapter and verse links open the official NWT on JW.org — always the authorised New World Translation text.</p>
+            </div>
+            <div className="lp-integ-card">
+              <div className="lp-integ-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+              </div>
+              <h3 className="lp-integ-card-title">Verse-level precision</h3>
+              <p className="lp-integ-card-desc">Track reading down to the individual verse. Partially read chapters show a distinct state so you always know exactly where you left off.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Feature Pills ────────────────────────────────────────── */}
       <section className="lp-features">
         <div className="lp-features-inner">
