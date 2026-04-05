@@ -165,6 +165,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
         <div className="page-nav-links">
           {currentPage !== "home" && <button className="page-nav-link" onClick={() => go("home")}>{t("app.home")}</button>}
           <button className={`page-nav-link${currentPage === "main" ? " page-nav-link--active" : ""}`} onClick={() => go("main")}>{t("home.navTracker")}</button>
+          <button className={`page-nav-link${currentPage === "blog" ? " page-nav-link--active" : ""}`} onClick={() => go("blog")}>{t("app.blog")}</button>
 
           {/* Quiz dropdown */}
           <div className="page-nav-more" ref={quizRef}>
@@ -356,6 +357,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
           <div className="page-nav-mobile-menu">
             {currentPage !== "home" && <button className="page-nav-mobile-link" onClick={() => go("home")}><span className="page-nav-mobile-icon">{Icon.Home}</span> {t("app.home")}</button>}
             <button className={`page-nav-mobile-link${currentPage === "main" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("main")}><span className="page-nav-mobile-icon">{Icon.Book}</span> {t("home.navTracker")}</button>
+            <button className={`page-nav-mobile-link${currentPage === "blog" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("blog")}><span className="page-nav-mobile-icon">{Icon.Feed}</span> {t("app.blog")}</button>
 
             {/* Quiz accordion */}
             <button className={`page-nav-mobile-section-toggle${quizActive ? " page-nav-mobile-section-toggle--active" : ""}`} onClick={() => setMobileQuizOpen(o => !o)} aria-expanded={mobileQuizOpen}>
