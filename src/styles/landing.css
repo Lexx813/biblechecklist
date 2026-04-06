@@ -1097,16 +1097,14 @@
   padding: 80px 24px;
   background: var(--lp-bg);
 }
-
 .lp-install-inner {
-  max-width: 860px;
+  max-width: 1060px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 48px;
 }
-
 .lp-install-header {
   text-align: center;
   display: flex;
@@ -1114,7 +1112,6 @@
   align-items: center;
   gap: 12px;
 }
-
 .lp-install-title {
   font-size: clamp(24px, 4vw, 34px);
   font-weight: 800;
@@ -1122,86 +1119,64 @@
   margin: 0;
   line-height: 1.2;
 }
-
 .lp-install-sub {
   font-size: 16px;
   color: var(--lp-muted);
-  max-width: 500px;
+  max-width: 520px;
   margin: 0;
   line-height: 1.65;
 }
-
 .lp-install-cards {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   width: 100%;
 }
-
 .lp-install-card {
   background: var(--lp-card-bg);
   border: 1px solid var(--lp-border);
   border-radius: 16px;
-  padding: 28px 28px 32px;
+  padding: 0 0 28px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 0;
+  overflow: hidden;
 }
-
-.lp-install-card-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: var(--lp-pill-bg);
-  color: var(--lp-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
 .lp-install-card-title {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--lp-text);
-  margin: 0;
+  margin: 20px 24px 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
 }
-
+.lp-install-card-title svg { color: var(--lp-primary); flex-shrink: 0; }
 .lp-install-steps {
   list-style: none;
-  padding: 0;
+  padding: 12px 24px 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
-
 .lp-install-steps li {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  font-size: 14px;
+  gap: 9px;
+  font-size: 13px;
   color: var(--lp-muted);
   line-height: 1.5;
 }
-
-.lp-install-steps li strong {
-  color: var(--lp-text);
-}
-
-.lp-install-steps li svg {
-  display: inline;
-  vertical-align: middle;
-  color: var(--lp-muted);
-}
-
+.lp-install-steps li strong { color: var(--lp-text); }
+.lp-install-steps li svg { display: inline; vertical-align: middle; }
 .lp-install-step-num {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: var(--lp-pill-bg);
   color: var(--lp-primary);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -1209,12 +1184,327 @@
   flex-shrink: 0;
   margin-top: 1px;
 }
-
 .lp-install-note {
   font-size: 13px;
   color: var(--lp-muted);
   text-align: center;
   margin: 0;
+}
+
+/* ── Animated demo area ─────────────────────────── */
+.lp-install-demo {
+  height: 180px;
+  background: var(--lp-bg-alt);
+  border-bottom: 1px solid var(--lp-border);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Phone frame shared */
+.lid-phone {
+  width: 110px;
+  height: 150px;
+  background: #1a1630;
+  border-radius: 14px;
+  border: 2px solid #3a3260;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+.lid-bar {
+  height: 22px;
+  background: #231e38;
+  border-bottom: 1px solid #3a3260;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  gap: 4px;
+  font-size: 7px;
+}
+.lid-url {
+  flex: 1;
+  background: #18142a;
+  border-radius: 3px;
+  padding: 2px 4px;
+  color: #9b93c4;
+  font-size: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.lid-share-btn, .lid-dots {
+  color: #9b93c4;
+  font-size: 8px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.lid-screen {
+  padding: 8px 6px;
+}
+.lid-app-preview { display: flex; flex-direction: column; gap: 4px; }
+.lid-app-row {
+  height: 6px;
+  background: #3a3260;
+  border-radius: 3px;
+}
+.lid-app-row--short { width: 60%; }
+
+/* ── iOS — share sheet slides up, then app icon bounces in ── */
+.lid-sheet {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: #231e38;
+  border-top: 1px solid #3a3260;
+  border-radius: 8px 8px 0 0;
+  padding: 6px 0 4px;
+  transform: translateY(100%);
+  animation: lid-sheet-up 4s ease-in-out infinite;
+}
+@keyframes lid-sheet-up {
+  0%,15%  { transform: translateY(100%); }
+  25%,60% { transform: translateY(0); }
+  70%,100%{ transform: translateY(100%); }
+}
+.lid-sheet-handle {
+  width: 24px; height: 2px;
+  background: #3a3260;
+  border-radius: 2px;
+  margin: 0 auto 5px;
+}
+.lid-sheet-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-size: 7px;
+  color: #9b93c4;
+}
+.lid-sheet-row--aths {
+  background: rgba(124,103,201,0.15);
+  color: #c4b8f5;
+  font-weight: 700;
+  border-radius: 4px;
+  margin: 0 4px;
+  animation: lid-aths-pulse 4s ease-in-out infinite;
+}
+@keyframes lid-aths-pulse {
+  0%,30%  { background: rgba(124,103,201,0.15); }
+  40%,55% { background: rgba(124,103,201,0.35); }
+  65%,100%{ background: rgba(124,103,201,0.15); }
+}
+.lid-sheet-icon {
+  width: 12px; height: 12px;
+  background: #3a3260;
+  border-radius: 3px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: #7c67c9;
+}
+
+/* App icon appears after sheet closes */
+.lid-home-icon {
+  position: absolute;
+  bottom: 16px; left: 50%;
+  transform: translateX(-50%) scale(0);
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  animation: lid-icon-appear 4s ease-in-out infinite;
+}
+@keyframes lid-icon-appear {
+  0%,65%  { transform: translateX(-50%) scale(0); opacity: 0; }
+  75%     { transform: translateX(-50%) scale(1.15); opacity: 1; }
+  82%,92% { transform: translateX(-50%) scale(1); opacity: 1; }
+  100%    { transform: translateX(-50%) scale(0); opacity: 0; }
+}
+.lid-home-icon-inner {
+  width: 30px; height: 30px;
+  background: linear-gradient(135deg, #6a3daa, #7c67c9);
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+}
+.lid-home-label {
+  font-size: 6px; color: #f0edfb; white-space: nowrap;
+}
+
+/* ── Android — menu drops, install dialog appears ── */
+.lid-menu {
+  position: absolute;
+  top: 20px; right: 2px;
+  background: #2e2848;
+  border: 1px solid #3a3260;
+  border-radius: 6px;
+  width: 68px;
+  padding: 3px 0;
+  transform: scale(0.8) translateY(-4px);
+  transform-origin: top right;
+  opacity: 0;
+  animation: lid-menu-appear 4.5s ease-in-out infinite;
+}
+@keyframes lid-menu-appear {
+  0%,10%  { opacity: 0; transform: scale(0.8) translateY(-4px); }
+  20%,45% { opacity: 1; transform: scale(1) translateY(0); }
+  55%,100%{ opacity: 0; transform: scale(0.8) translateY(-4px); }
+}
+.lid-menu-row {
+  padding: 4px 8px;
+  font-size: 7px;
+  color: #9b93c4;
+  display: flex; align-items: center; gap: 4px;
+}
+.lid-menu-row--install {
+  color: #c4b8f5;
+  font-weight: 700;
+  background: rgba(124,103,201,0.2);
+  animation: lid-menu-install-pulse 4.5s ease-in-out infinite;
+}
+@keyframes lid-menu-install-pulse {
+  0%,25%  { background: rgba(124,103,201,0.2); }
+  35%,45% { background: rgba(124,103,201,0.4); }
+  55%,100%{ background: rgba(124,103,201,0.2); }
+}
+.lid-dialog {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: #231e38;
+  border-top: 1px solid #3a3260;
+  padding: 8px 8px 6px;
+  display: flex; flex-direction: column; gap: 6px;
+  transform: translateY(100%);
+  animation: lid-dialog-up 4.5s ease-in-out infinite;
+}
+@keyframes lid-dialog-up {
+  0%,50%  { transform: translateY(100%); }
+  60%,85% { transform: translateY(0); }
+  95%,100%{ transform: translateY(100%); }
+}
+.lid-dialog-icon {
+  width: 24px; height: 24px;
+  background: linear-gradient(135deg, #6a3daa, #7c67c9);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  align-self: center;
+}
+.lid-dialog-text { font-size: 7px; color: #f0edfb; text-align: center; font-weight: 600; }
+.lid-dialog-actions {
+  display: flex; gap: 4px; justify-content: flex-end;
+}
+.lid-dialog-cancel { font-size: 7px; color: #9b93c4; padding: 3px 5px; }
+.lid-dialog-install {
+  font-size: 7px; font-weight: 700;
+  background: #7c67c9; color: #fff;
+  border-radius: 4px; padding: 3px 7px;
+  animation: lid-install-btn-pulse 4.5s ease-in-out infinite;
+}
+@keyframes lid-install-btn-pulse {
+  0%,60%  { background: #7c67c9; }
+  70%,80% { background: #9b86e0; }
+  90%,100%{ background: #7c67c9; }
+}
+
+/* ── Desktop browser frame ── */
+.lid-browser {
+  width: 200px;
+  background: #1a1630;
+  border-radius: 8px;
+  border: 1.5px solid #3a3260;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  position: relative;
+}
+.lid-browser-bar {
+  height: 24px;
+  background: #231e38;
+  border-bottom: 1px solid #3a3260;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  gap: 6px;
+}
+.lid-browser-dots {
+  display: flex; gap: 3px; flex-shrink: 0;
+}
+.lid-browser-dots span {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #3a3260;
+}
+.lid-browser-url {
+  flex: 1;
+  background: #18142a;
+  border-radius: 4px;
+  padding: 2px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.lid-browser-url-text {
+  flex: 1;
+  font-size: 6.5px;
+  color: #9b93c4;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.lid-browser-install-icon {
+  color: #7c67c9;
+  display: flex; align-items: center;
+  flex-shrink: 0;
+  animation: lid-install-icon-pulse 4s ease-in-out infinite;
+}
+@keyframes lid-install-icon-pulse {
+  0%,20%  { opacity: 0.4; transform: scale(1); }
+  30%,50% { opacity: 1;   transform: scale(1.2); }
+  60%,100%{ opacity: 0.4; transform: scale(1); }
+}
+.lid-browser-screen {
+  padding: 10px 10px 12px;
+  display: flex; flex-direction: column; gap: 5px;
+}
+/* Install popup drops from address bar */
+.lid-browser-popup {
+  position: absolute;
+  top: 26px; right: 4px;
+  width: 110px;
+  background: #2e2848;
+  border: 1px solid #3a3260;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transform: scale(0.9) translateY(-6px);
+  transform-origin: top right;
+  opacity: 0;
+  animation: lid-popup-appear 4s ease-in-out infinite;
+}
+@keyframes lid-popup-appear {
+  0%,25%  { opacity: 0; transform: scale(0.9) translateY(-6px); }
+  35%,70% { opacity: 1; transform: scale(1) translateY(0); }
+  80%,100%{ opacity: 0; transform: scale(0.9) translateY(-6px); }
+}
+.lid-browser-popup-icon {
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg, #6a3daa, #7c67c9);
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  align-self: center;
+}
+.lid-browser-popup-body { text-align: center; }
+.lid-browser-popup-title { font-size: 8px; font-weight: 700; color: #f0edfb; }
+.lid-browser-popup-sub   { font-size: 7px; color: #9b93c4; }
+.lid-browser-popup-btn {
+  background: #7c67c9;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 5px;
+  padding: 4px 0;
+  animation: lid-popup-btn-pulse 4s ease-in-out infinite;
+}
+@keyframes lid-popup-btn-pulse {
+  0%,35%  { background: #7c67c9; }
+  55%,65% { background: #9b86e0; }
+  75%,100%{ background: #7c67c9; }
 }
 
 /* ── Responsive ─────────────────────────────────────────────────── */
@@ -1242,7 +1532,8 @@
   .lp-phone-callout { right: calc(50% - 160px); bottom: -20px; }
 
   .lp-install { padding: 56px 20px; }
-  .lp-install-cards { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+  .lp-install-cards { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .lp-install-demo { height: 160px; }
 
   .lp-blog { padding-top: 48px; padding-bottom: 48px; }
   .lp-how  { padding: 48px 0; }
