@@ -57,7 +57,7 @@ const KNOWN_SPA_ROUTES = new Set([
   "messages", "notifications", "premium", "privacy", "profile", "publicProfile",
   "quiz", "quizLevel", "readingPlans", "readingTracker", "referral", "search",
   "settings", "signup", "studyNotes", "studyTopicDetail", "studyTopics",
-  "terms", "upgrade", "whosOnline",
+  "terms", "try", "upgrade", "whosOnline",
 ]);
 
 export default async function Page({ params }) {
