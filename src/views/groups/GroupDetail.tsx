@@ -333,7 +333,7 @@ function MembersTab({ groupId, userId, isAdmin, isOwner }: { groupId: string; us
               <Avatar src={m.avatar_url} name={m.display_name} size={36} />
               <span className="grp-member-name">{m.display_name || "Unknown"}</span>
               <div className="grp-member-actions">
-                <button className="grp-btn grp-btn--sm grp-btn--primary" onClick={() => approve.mutate(m.id, { onError: () => toast.error("Failed to approve.") })}>Approve</button>
+                <button className="grp-btn grp-btn--sm grp-btn--primary" onClick={() => approve.mutate({ requestId: m.id, userId: m.user_id }, { onError: () => toast.error("Failed to approve.") })}>Approve</button>
                 <button className="grp-btn grp-btn--sm grp-btn--ghost" onClick={() => deny.mutate(m.id, { onError: () => toast.error("Failed to deny.") })}>Deny</button>
               </div>
             </div>
