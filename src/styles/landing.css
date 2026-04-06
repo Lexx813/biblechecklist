@@ -1136,7 +1136,7 @@
   background: var(--lp-card-bg);
   border: 1px solid var(--lp-border);
   border-radius: 16px;
-  padding: 0 0 28px;
+  padding: 24px 0 28px;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -1191,103 +1191,6 @@
   margin: 0;
 }
 
-/* ── Animated demo area ─────────────────────────── */
-.lp-install-demo {
-  padding: 24px 20px 20px;
-  background: var(--lp-bg-alt);
-  border-bottom: 1px solid var(--lp-border);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Scanning highlight bar that sweeps through the steps */
-.lp-install-demo::before {
-  content: '';
-  position: absolute;
-  left: 12px; right: 12px;
-  height: 42px;
-  background: var(--lp-primary);
-  border-radius: 10px;
-  opacity: 0.12;
-  animation: lid-scan 8s ease-in-out infinite;
-}
-[data-theme="dark"] .lp-install-demo::before {
-  opacity: 0.22;
-}
-
-@keyframes lid-scan {
-  0%,5%   { top: 24px; }
-  20%,28% { top: 86px; }
-  43%,51% { top: 148px; }
-  66%,80% { top: 210px; }
-  95%,100%{ top: 24px; }
-}
-
-.lid-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  position: relative;
-}
-
-.lid-step {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 10px;
-  border: 1.5px solid transparent;
-}
-
-.lid-step-num {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--lp-pill-bg);
-  color: var(--lp-primary);
-  font-size: 12px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  animation: lid-num-pulse 8s ease-in-out infinite;
-}
-.lid-step:nth-child(2) .lid-step-num { animation-delay: 2s; }
-.lid-step:nth-child(3) .lid-step-num { animation-delay: 4s; }
-.lid-step:nth-child(4) .lid-step-num { animation-delay: 6s; }
-
-@keyframes lid-num-pulse {
-  0%,10%    { background: var(--lp-primary); color: #fff; transform: scale(1.15); }
-  20%,100%  { background: var(--lp-pill-bg); color: var(--lp-primary); transform: scale(1); }
-}
-
-.lid-step-text {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--lp-text);
-  line-height: 1.3;
-}
-
-.lid-step-badge {
-  margin-left: auto;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--lp-primary);
-  color: #fff;
-  flex-shrink: 0;
-  opacity: 0;
-  animation: lid-badge-pop 8s ease-in-out infinite;
-  animation-delay: 6.5s;
-}
-
-@keyframes lid-badge-pop {
-  0%,10%  { opacity: 0; transform: scale(0.7); }
-  18%     { opacity: 1; transform: scale(1.1); }
-  25%,100%{ opacity: 1; transform: scale(1); }
-}
 
 /* ── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
