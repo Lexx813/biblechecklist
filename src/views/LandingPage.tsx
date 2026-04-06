@@ -226,7 +226,7 @@ export default function LandingPage({ onGetStarted, i18n }) {
             <button className="lp-cta-primary" onClick={onGetStarted}>
               {t("landing.nav.getStarted")} <ArrowIcon />
             </button>
-            <a href="/books" className="lp-cta-secondary">Explore all 66 books — no signup</a>
+            <a href="/try" className="lp-cta-secondary">Try the tracker — no signup</a>
           </div>
 
           <p className="lp-social-proof">
@@ -562,7 +562,7 @@ export default function LandingPage({ onGetStarted, i18n }) {
               },
               {
                 q: "Do I need to create an account to try it?",
-                a: "No. You can browse all 66 books, read the blog, and explore the study guides without signing up. An account is only needed if you want to save your reading progress across devices.",
+                a: "No. You can use the full Bible reading tracker without signing up — just visit Try the tracker, check off chapters, and your progress is saved on your device. Create a free account when you're ready to sync across devices and unlock streaks, notes, and reading plans.",
               },
               {
                 q: "Is my data private?",

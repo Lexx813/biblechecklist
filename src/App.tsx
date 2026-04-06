@@ -6,11 +6,12 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import LandingPage from "./views/LandingPage";
 import "./styles/app.css";
 
-const TermsPage   = lazy(() => import("./views/TermsPage"));
-const PrivacyPage = lazy(() => import("./views/PrivacyPage"));
-const AboutPage   = lazy(() => import("./views/AboutPage"));
-const BlogPage    = lazy(() => import("./views/blog/BlogPage"));
-const AuthedApp   = lazy(() => import("./AuthedApp"));
+const TermsPage         = lazy(() => import("./views/TermsPage"));
+const PrivacyPage       = lazy(() => import("./views/PrivacyPage"));
+const AboutPage         = lazy(() => import("./views/AboutPage"));
+const BlogPage          = lazy(() => import("./views/blog/BlogPage"));
+const AnonChecklistPage = lazy(() => import("./views/AnonChecklistPage"));
+const AuthedApp         = lazy(() => import("./AuthedApp"));
 
 function getInitialDarkMode() {
   try {
@@ -87,6 +88,18 @@ export default function App() {
   if (preAuthPath === "terms")   return <main id="main-content"><Suspense fallback={null}><TermsPage {...legalProps} /></Suspense></main>;
   if (preAuthPath === "privacy") return <main id="main-content"><Suspense fallback={null}><PrivacyPage {...legalProps} /></Suspense></main>;
   if (preAuthPath === "about")   return <main id="main-content"><Suspense fallback={null}><AboutPage {...legalProps} /></Suspense></main>;
+
+  // Pre-auth: anonymous Bible tracker — try the product without signing up
+  if (preAuthPath === "try") {
+    const goLanding = () => { history.pushState(null, "", "/"); setPreAuthPath(""); };
+    return (
+      <main id="main-content">
+        <Suspense fallback={<LoadingSpinner className="spinner-wrap--fullscreen" />}>
+          <AnonChecklistPage onSignUp={() => setShowApp(true)} onBack={goLanding} />
+        </Suspense>
+      </main>
+    );
+  }
 
   // Pre-auth: blog is fully public — reading requires no account
   const isBlogPath = preAuthPath === "blog" || preAuthPath.startsWith("blog/");

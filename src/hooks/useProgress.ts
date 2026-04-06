@@ -1,13 +1,54 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { progressApi } from "../api/progress";
 import { badgesApi } from "../api/badges";
+import { loadAnonProgress, clearAnonProgress, countAnonChapters } from "../lib/anonProgress";
 
 type ProgressBlob = Record<string, unknown>;
+
+/**
+ * Merge anonymous (logged-out) localStorage progress into a freshly loaded
+ * authenticated progress blob. Anon chapters never overwrite remote ones —
+ * only newly checked chapters from the anon session are added.
+ */
+async function mergeAnonProgress(userId: string, remote: ProgressBlob): Promise<ProgressBlob> {
+  const anon = loadAnonProgress();
+  if (countAnonChapters(anon) === 0) return remote;
+
+  const merged: ProgressBlob = { ...remote };
+  for (const [bi, chs] of Object.entries(anon)) {
+    if (!chs) continue;
+    const existing = (merged[bi] as Record<string, boolean> | undefined) ?? {};
+    const combined: Record<string, boolean> = { ...existing };
+    for (const [ch, val] of Object.entries(chs)) {
+      if (val) combined[ch] = true;
+    }
+    merged[bi] = combined;
+  }
+
+  try {
+    await progressApi.save(userId, merged);
+    // Best-effort: also create chapter_reads rows so heatmap reflects history
+    for (const [biStr, chs] of Object.entries(anon)) {
+      if (!chs) continue;
+      const bi = Number(biStr);
+      for (const [chStr, val] of Object.entries(chs)) {
+        if (val) progressApi.markChapterRead(userId, bi, Number(chStr)).catch(() => {});
+      }
+    }
+    clearAnonProgress();
+  } catch {
+    // Migration failed — keep anon data so we can retry next time
+  }
+  return merged;
+}
 
 export function useProgress(userId: string | null | undefined) {
   return useQuery({
     queryKey: ["progress", userId],
-    queryFn: () => progressApi.load(userId!),
+    queryFn: async () => {
+      const remote = await progressApi.load(userId!);
+      return mergeAnonProgress(userId!, remote);
+    },
     enabled: !!userId,
     staleTime: Infinity,
   });
