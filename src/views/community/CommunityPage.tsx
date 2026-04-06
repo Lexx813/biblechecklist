@@ -44,7 +44,7 @@ function MemberRow({ member, navigate }: { member: OnlineMember; navigate: Funct
 
 export default function CommunityPage({ navigate }) {
   useMeta({ title: "Community", path: "/community" });
-  const { onlineNow, recentlyActive, totalOnline, isLoading: membersLoading } = useOnlineMembers(100);
+  const { onlineNow, recentlyActive, totalOnline, isLoading: membersLoading, isError: membersError } = useOnlineMembers(100);
   const { data: threads = [], isLoading: threadsLoading } = useTopThreads(5);
   const { data: posts = [], isLoading: postsLoading } = usePublishedPosts();
   const recentPosts = posts.slice(0, 4);
@@ -147,6 +147,8 @@ export default function CommunityPage({ navigate }) {
               </div>
             ))}
           </div>
+        ) : membersError ? (
+          <p className="cm-empty">Unable to load members. Please try again.</p>
         ) : (
           <>
             {onlineNow.length > 0 && (

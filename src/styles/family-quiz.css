@@ -895,7 +895,7 @@
   margin-bottom: 0.75rem;
   background: linear-gradient(135deg, rgba(212,175,55,.2), rgba(255,215,0,.1));
   border: 1px solid rgba(212,175,55,.35);
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   font-size: 1.8rem;
   box-shadow: 0 0 24px rgba(212,175,55,.25);
 }

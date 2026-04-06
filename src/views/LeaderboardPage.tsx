@@ -128,10 +128,11 @@ export default function LeaderboardPage({ user, onBack, navigate, darkMode, setD
   const [tab, setTab] = useState("reading");
   const [timedLevel, setTimedLevel] = useState(1);
 
-  const { data: readingData = [], isLoading: readingLoading } = useReadingLeaderboard();
-  const { data: quizData = [], isLoading: quizLoading } = useQuizLeaderboard();
+  const { data: readingData = [], isLoading: readingLoading, error: readingError } = useReadingLeaderboard();
+  const { data: quizData = [], isLoading: quizLoading, error: quizError } = useQuizLeaderboard();
 
   const isLoading = tab === "reading" ? readingLoading : tab === "quiz" ? quizLoading : false;
+  const currentError = tab === "reading" ? readingError : tab === "quiz" ? quizError : null;
 
   function goProfile(userId) {
     if (userId === user.id) navigate("profile");
@@ -160,6 +161,11 @@ export default function LeaderboardPage({ user, onBack, navigate, darkMode, setD
       <div className="lb-content">
         {isLoading ? (
           <SkeletonList />
+        ) : currentError ? (
+          <div className="lb-error">
+            <p className="lb-error-msg">{t("leaderboard.errorLoad", "Unable to load leaderboard.")}</p>
+            <p className="lb-error-detail">{(currentError as Error).message}</p>
+          </div>
         ) : tab === "reading" ? (
           readingData.length === 0
             ? <p className="lb-empty">{t("leaderboard.empty")}</p>

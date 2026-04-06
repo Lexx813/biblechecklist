@@ -1098,3 +1098,256 @@
   transition: background var(--dur-fast), color var(--dur-fast);
 }
 .blog-load-more-btn:hover { background: var(--teal); color: #fff; }
+
+/* ── Rich-content article components ─────────────────────────── */
+/* Scripture blocks */
+.rich-content .sb {
+  margin: 1.25rem 0;
+  padding: 1rem 1.35rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.rich-content .sb .st {
+  font-style: italic;
+  font-size: 0.97rem;
+  line-height: 1.7;
+  margin-bottom: 0.35rem;
+  color: var(--text-primary);
+}
+.rich-content .sb .sr {
+  font-size: 0.75rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Debate boxes */
+.rich-content .db {
+  margin: 1.75rem 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.rich-content .dc {
+  padding: 0.9rem 1.2rem;
+  background: rgba(139, 26, 26, 0.08);
+  border-bottom: 1px solid rgba(139, 26, 26, 0.15);
+}
+.rich-content .dr {
+  padding: 0.9rem 1.2rem;
+  background: rgba(26, 107, 69, 0.08);
+}
+.rich-content .dl {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  display: block;
+}
+.rich-content .dc .dl { color: #e07070; }
+.rich-content .dr .dl { color: #4caf80; }
+.rich-content .dc p { font-style: italic; color: var(--text-primary); margin: 0; font-size: 0.93rem; }
+.rich-content .dr p { color: var(--text-primary); margin: 0; font-size: 0.93rem; line-height: 1.65; }
+
+[data-theme="light"] .rich-content .dc .dl { color: #8b1a1a; }
+[data-theme="light"] .rich-content .dr .dl { color: #1a6b45; }
+
+/* Timeline */
+.rich-content .timeline { margin: 1.25rem 0; }
+.rich-content .ti {
+  display: flex;
+  gap: 0.9rem;
+  margin-bottom: 1.1rem;
+  align-items: flex-start;
+}
+.rich-content .ty {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  min-width: 60px;
+  text-align: right;
+  padding-top: 0.15rem;
+}
+.rich-content .td {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #7c3aed;
+  margin-top: 0.35rem;
+  flex-shrink: 0;
+}
+.rich-content .tc {
+  flex: 1;
+  font-size: 0.93rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+}
+.rich-content .tc strong {
+  font-weight: 700;
+  display: block;
+  font-size: 0.88rem;
+  margin-bottom: 0.15rem;
+}
+
+/* Callout */
+.rich-content .callout {
+  margin: 1.75rem 0;
+  padding: 1.25rem 1.5rem;
+  border-left: 4px solid #7c3aed;
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+  background: rgba(124, 58, 237, 0.08);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+/* Greek term chips */
+.rich-content .greek-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 1rem 0 1.5rem;
+}
+.rich-content .gterm {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.9rem;
+}
+.rich-content .gterm-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #7c3aed;
+  display: block;
+  margin-bottom: 2px;
+}
+.rich-content .gterm-meaning {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Reference cards */
+.rich-content .ref-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 12px;
+  background: rgba(255,255,255,0.03);
+}
+[data-theme="light"] .rich-content .ref-card { background: var(--card-bg); }
+.rich-content .ref-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.4rem;
+}
+.rich-content .ref-badge {
+  font-size: 0.67rem;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.rich-content .badge-paul { background: rgba(26, 74, 139, 0.15); color: #7aabef; }
+.rich-content .badge-john { background: rgba(42, 94, 26, 0.15); color: #7acf80; }
+.rich-content .badge-heb  { background: rgba(122, 74, 10, 0.15); color: #e0a050; }
+.rich-content .badge-prov { background: rgba(139, 26, 26, 0.15); color: #e07070; }
+
+[data-theme="light"] .rich-content .badge-paul { background: #e6f0fb; color: #1a4a8b; }
+[data-theme="light"] .rich-content .badge-john { background: #eaf3de; color: #2a5e1a; }
+[data-theme="light"] .rich-content .badge-heb  { background: #fdf3e0; color: #7a4a0a; }
+[data-theme="light"] .rich-content .badge-prov { background: #fdf0f0; color: #8b1a1a; }
+.rich-content .ref-ref {
+  font-size: 0.74rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.rich-content .ref-greek {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+.rich-content .ref-verse {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin-bottom: 0.6rem;
+  border-left: 2px solid var(--border);
+  padding-left: 12px;
+  font-style: italic;
+  color: var(--text-primary);
+}
+.rich-content .ref-note {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.rich-content .ref-note strong { font-weight: 700; color: var(--text-primary); }
+
+/* Key points */
+.rich-content .kp {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  align-items: flex-start;
+}
+.rich-content .kn {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #7c3aed;
+  min-width: 22px;
+  line-height: 1.65;
+  flex-shrink: 0;
+}
+.rich-content .kp p { margin: 0; font-size: 0.93rem; line-height: 1.65; }
+
+/* Section markers */
+.rich-content .sec-num {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
+/* TOC inside rich content */
+.rich-content .toc {
+  background: var(--card-bg);
+  border-left: 3px solid #7c3aed;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 1rem 1.35rem;
+  margin-bottom: 2.5rem;
+  font-size: 0.9rem;
+}
+.rich-content .toc-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+}
+.rich-content .toc ol { padding-left: 1.2rem; color: var(--text-muted); }
+.rich-content .toc li { margin-bottom: 0.3rem; }
+.rich-content .toc a { color: #7c3aed; text-decoration: none; }
+.rich-content .toc a:hover { text-decoration: underline; }
+
+/* Divider */
+.rich-content hr.div {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+@media (max-width: 540px) {
+  .rich-content .ti { flex-wrap: wrap; }
+  .rich-content .ty { min-width: auto; text-align: left; }
+  .rich-content .greek-row { flex-direction: column; }
+}

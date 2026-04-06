@@ -28,7 +28,7 @@
 
 @media (min-width: 540px) {
   .ntp-sheet {
-    border-radius: 18px;
+    border-radius: var(--radius-lg);
     padding: 28px 24px;
   }
 }
@@ -67,7 +67,7 @@
 .ntp-card {
   position: relative;
   border: 2px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   padding: 14px 12px;
   cursor: pointer;
   background: var(--card-bg);

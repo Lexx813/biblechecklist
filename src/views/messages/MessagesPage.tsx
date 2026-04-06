@@ -26,6 +26,7 @@ import { encryptMessage, decryptMessage, sanitizeContent, MAX_MSG_LENGTH } from 
 import { supabase } from "../../lib/supabase";
 import { BOOKS } from "../../data/books";
 import { wolChapterUrl } from "../../utils/wol";
+import { toast } from "../../lib/toast";
 import { getTemplate } from "../../data/readingPlanTemplates";
 import { useMyPlans } from "../../hooks/useReadingPlans";
 
@@ -322,7 +323,7 @@ function MSGStarredPanel({ convId, userId, onClose }) {
             </div>
             <div className="msg-starred-meta">
               <span>{formatTime(msg.created_at)}</span>
-              <button className="msg-starred-remove" onClick={() => toggleStar.mutate(msg.id)} aria-label="Remove star">
+              <button className="msg-starred-remove" onClick={() => toggleStar.mutate(msg.id, { onError: () => toast.error("Failed to update star.") })} aria-label="Remove star">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </button>
             </div>
@@ -1080,14 +1081,14 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
                 key={item.id}
                 msg={item}
                 isMine={item.sender_id === user.id}
-                onDelete={(id) => deleteMessage.mutate(id)}
+                onDelete={(id) => deleteMessage.mutate(id, { onError: () => toast.error("Failed to delete message.") })}
                 onReply={(msg) => setReplyTo(msg)}
-                onEdit={(id, content) => editMessage.mutate({ messageId: id, content })}
+                onEdit={(id, content) => editMessage.mutate({ messageId: id, content }, { onError: () => toast.error("Failed to edit message.") })}
                 showSeen={item.id === lastSeenId}
                 reactions={reactions}
                 userId={user.id}
-                onToggleReaction={(messageId, emoji) => toggleReaction.mutate({ messageId, userId: user.id, emoji })}
-                onStar={(id) => toggleStar.mutate(id)}
+                onToggleReaction={(messageId, emoji) => toggleReaction.mutate({ messageId, userId: user.id, emoji }, { onError: () => toast.error("Failed to update reaction.") })}
+                onStar={(id) => toggleStar.mutate(id, { onError: () => toast.error("Failed to update star.") })}
                 allMessages={decryptedMessages}
               />
             )

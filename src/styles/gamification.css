@@ -62,7 +62,7 @@
 .freeze-confirm-dialog {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   padding: 20px;
   max-width: 300px;
   width: 90%;

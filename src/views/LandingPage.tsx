@@ -254,76 +254,82 @@ export default function LandingPage({ onGetStarted, i18n }) {
                 <span className="lp-phone-title">NWT Progress</span>
               </div>
               <div className="lp-phone-screen">
-                {/* Book 1 — Genesis */}
-                <div className="lp-mock-book">
-                  <div className="lp-mock-book-header">
-                    <div className="lp-mock-book-info">
-                      <span className="lp-mock-num">1</span>
-                      <div>
-                        <div className="lp-mock-book-name">Genesis</div>
-                        <div className="lp-mock-book-sub">Gen · 50 chapters</div>
-                      </div>
-                    </div>
-                    <div className="lp-mock-progress">
-                      <span className="lp-mock-frac">32/50</span>
-                      <div className="lp-mock-ring">
-                        <svg viewBox="0 0 32 32" aria-hidden="true">
-                          <circle cx="16" cy="16" r="13" fill="none" stroke="var(--lp-border)" strokeWidth="3"/>
-                          <circle cx="16" cy="16" r="13" fill="none" stroke="#6A3DAA" strokeWidth="3"
-                            strokeDasharray="81.68" strokeDashoffset="27.77" strokeLinecap="round"
-                            transform="rotate(-90 16 16)"/>
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="lp-mock-grid">
-                    {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32].map(ch => (
-                      <div key={ch} className="lp-mock-pill lp-mock-pill--done">{ch}</div>
-                    ))}
-                    <div className="lp-mock-pill lp-mock-pill--partial">33</div>
-                    {[34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50].map(ch => (
-                      <div key={ch} className="lp-mock-pill">{ch}</div>
-                    ))}
+                {/* App bar with tabs */}
+                <div className="lp-mock-appbar">
+                  <span className="lp-mock-appbar-title">Bible Tracker</span>
+                  <div className="lp-mock-tabs">
+                    <span className="lp-mock-tab lp-mock-tab--active">All</span>
+                    <span className="lp-mock-tab">OT</span>
+                    <span className="lp-mock-tab">NT</span>
                   </div>
                 </div>
-                {/* Book 2 — Exodus */}
-                <div className="lp-mock-book lp-mock-book--collapsed">
-                  <div className="lp-mock-book-header">
-                    <div className="lp-mock-book-info">
-                      <span className="lp-mock-num">2</span>
+
+                {/* JW Library-style flat tile grid */}
+                <div className="lp-mock-book-grid">
+                  {/* Testament divider */}
+                  <div className="lp-mock-testament">Hebrew Scriptures</div>
+
+                  {/* Genesis — expanded tile with chapter pills */}
+                  <div className="lp-mock-tile lp-mock-tile--expanded">
+                    <div className="lp-mock-tile-row">
                       <div>
-                        <div className="lp-mock-book-name">Exodus</div>
-                        <div className="lp-mock-book-sub">Exo · 40 chapters</div>
+                        <div className="lp-mock-tile-name">Genesis</div>
+                        <div className="lp-mock-tile-count">32 of 50 chapters</div>
                       </div>
                     </div>
-                    <div className="lp-mock-progress">
-                      <span className="lp-mock-frac">40/40</span>
-                      <div className="lp-mock-ring lp-mock-ring--full">
-                        <svg viewBox="0 0 32 32" aria-hidden="true">
-                          <circle cx="16" cy="16" r="13" fill="none" stroke="#6A3DAA" strokeWidth="3"/>
-                        </svg>
-                      </div>
+                    <div className="lp-mock-ch-grid">
+                      {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32].map(ch => (
+                        <div key={ch} className="lp-mock-ch lp-mock-ch--done">{ch}</div>
+                      ))}
+                      <div className="lp-mock-ch lp-mock-ch--partial">33</div>
+                      {[34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50].map(ch => (
+                        <div key={ch} className="lp-mock-ch">{ch}</div>
+                      ))}
                     </div>
                   </div>
-                </div>
-                {/* Book 3 — Leviticus */}
-                <div className="lp-mock-book lp-mock-book--collapsed">
-                  <div className="lp-mock-book-header">
-                    <div className="lp-mock-book-info">
-                      <span className="lp-mock-num">3</span>
-                      <div>
-                        <div className="lp-mock-book-name">Leviticus</div>
-                        <div className="lp-mock-book-sub">Lev · 27 chapters</div>
-                      </div>
-                    </div>
-                    <div className="lp-mock-progress">
-                      <span className="lp-mock-frac">0/27</span>
-                      <div className="lp-mock-ring">
-                        <svg viewBox="0 0 32 32" aria-hidden="true">
-                          <circle cx="16" cy="16" r="13" fill="none" stroke="var(--lp-border)" strokeWidth="3"/>
-                        </svg>
-                      </div>
-                    </div>
+
+                  {/* Exodus — fully done */}
+                  <div className="lp-mock-tile lp-mock-tile--done">
+                    <div className="lp-mock-tile-check">✓</div>
+                    <div className="lp-mock-tile-name">Exodus</div>
+                    <div className="lp-mock-tile-count">40/40</div>
+                    <div className="lp-mock-tile-strip"><div className="lp-mock-tile-strip-fill" style={{width:"100%"}} /></div>
+                  </div>
+
+                  {/* Leviticus — partial */}
+                  <div className="lp-mock-tile">
+                    <div className="lp-mock-tile-name">Leviticus</div>
+                    <div className="lp-mock-tile-count">14/27</div>
+                    <div className="lp-mock-tile-strip"><div className="lp-mock-tile-strip-fill" style={{width:"52%"}} /></div>
+                  </div>
+
+                  {/* Numbers — not started */}
+                  <div className="lp-mock-tile">
+                    <div className="lp-mock-tile-name">Numbers</div>
+                    <div className="lp-mock-tile-count">0/36</div>
+                    <div className="lp-mock-tile-strip"><div className="lp-mock-tile-strip-fill" style={{width:"0%"}} /></div>
+                  </div>
+
+                  {/* Deuteronomy — partial */}
+                  <div className="lp-mock-tile">
+                    <div className="lp-mock-tile-name">Deuteronomy</div>
+                    <div className="lp-mock-tile-count">11/34</div>
+                    <div className="lp-mock-tile-strip"><div className="lp-mock-tile-strip-fill" style={{width:"32%"}} /></div>
+                  </div>
+
+                  {/* Joshua — fully done */}
+                  <div className="lp-mock-tile lp-mock-tile--done">
+                    <div className="lp-mock-tile-check">✓</div>
+                    <div className="lp-mock-tile-name">Joshua</div>
+                    <div className="lp-mock-tile-count">24/24</div>
+                    <div className="lp-mock-tile-strip"><div className="lp-mock-tile-strip-fill" style={{width:"100%"}} /></div>
+                  </div>
+
+                  {/* Judges — not started */}
+                  <div className="lp-mock-tile">
+                    <div className="lp-mock-tile-name">Judges</div>
+                    <div className="lp-mock-tile-count">0/21</div>
+                    <div className="lp-mock-tile-strip"><div className="lp-mock-tile-strip-fill" style={{width:"0%"}} /></div>
                   </div>
                 </div>
               </div>
@@ -338,7 +344,7 @@ export default function LandingPage({ onGetStarted, i18n }) {
                 </div>
                 <div className="lp-phone-tab">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                  <span>Messages</span>
+                  <span>Community</span>
                 </div>
                 <div className="lp-phone-tab">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>

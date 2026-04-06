@@ -22,9 +22,9 @@ if (typeof window !== "undefined") {
   });
 }
 
-/** Sanitize user-generated rich HTML, preserving safe inline styles. */
+/** Sanitize user-generated rich HTML, preserving safe inline styles and class names. */
 export function sanitizeRich(html: string): string {
-  return DOMPurify.sanitize(html || "", { ADD_ATTR: ["style"] });
+  return DOMPurify.sanitize(html || "", { ADD_ATTR: ["style", "class"] });
 }
 
 /** Plain sanitize for non-rich content (no styles allowed). */

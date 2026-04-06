@@ -178,7 +178,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const pendingRequests = incoming.data?.length ?? 0;
   const { data: friends = [] } = useFriends(user?.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
-  const { onlineNow: whoOnline, recentlyActive: whoRecent, totalOnline, isLoading: whoLoading } = useOnlineMembers(50);
+  const { onlineNow: whoOnline, recentlyActive: whoRecent, totalOnline, isLoading: whoLoading, isError: whoError } = useOnlineMembers(50);
   const whoMembers = [...whoOnline, ...whoRecent];
 
   // Inline panels (quiz, leaderboard, familyQuiz, etc.)
@@ -653,6 +653,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                   </div>
                 ))}
               </div>
+            ) : whoError ? (
+              <div className="hfriend-empty">Unable to load members.</div>
             ) : whoMembers.length === 0 ? (
               <div className="hfriend-empty">No one has been active recently.</div>
             ) : (

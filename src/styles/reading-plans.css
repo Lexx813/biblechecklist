@@ -1099,7 +1099,7 @@
   .rp-enroll-btn { width: 100%; }
   .rp-detail-stats { gap: 16px; }
   .rp-analytics-grid { grid-template-columns: repeat(2, 1fr); }
-  .rp-modal { max-height: 96vh; border-radius: 16px 16px 0 0; align-self: flex-end; }
+  .rp-modal { max-height: 96vh; border-radius: var(--radius-lg) var(--radius-lg) 0 0; align-self: flex-end; }
   .rp-book-grid { grid-template-columns: repeat(auto-fill, minmax(58px, 1fr)); }
 }
 

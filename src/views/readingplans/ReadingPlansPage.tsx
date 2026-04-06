@@ -30,6 +30,7 @@ import { wolChapterUrl } from "../../utils/wol";
 import "../../styles/reading-plans.css";
 import "../../styles/group-challenge.css";
 import { formatDate } from "../../utils/formatters";
+import { toast } from "../../lib/toast";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -537,8 +538,8 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate, 
   const visibleDays = showAll ? schedule : schedule.slice(0, currentDay + 6);
 
   function toggleDay(dayNum) {
-    if (doneSet.has(dayNum)) unmarkDay.mutate(dayNum);
-    else markDay.mutate(dayNum);
+    if (doneSet.has(dayNum)) unmarkDay.mutate(dayNum, { onError: () => toast.error("Failed to update reading day.") });
+    else markDay.mutate(dayNum, { onError: () => toast.error("Failed to update reading day.") });
   }
 
   function handleUnenroll() {
@@ -569,11 +570,11 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate, 
         </div>
         <div className="rp-detail-header-actions">
           {plan.is_paused ? (
-            <button className="rp-pause-btn rp-pause-btn--resume" onClick={() => resume.mutate(plan)} disabled={resume.isPending}>
+            <button className="rp-pause-btn rp-pause-btn--resume" onClick={() => resume.mutate(plan, { onError: () => toast.error("Failed to resume plan.") })} disabled={resume.isPending}>
               ▶ {t("readingPlans.resume")}
             </button>
           ) : (
-            <button className="rp-pause-btn" onClick={() => pause.mutate(plan.id)} disabled={pause.isPending}>
+            <button className="rp-pause-btn" onClick={() => pause.mutate(plan.id, { onError: () => toast.error("Failed to pause plan.") })} disabled={pause.isPending}>
               ⏸ {t("readingPlans.pause")}
             </button>
           )}
@@ -674,7 +675,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate, 
         <div className="rp-paused-notice">
           <span>⏸</span>
           <p>{t("readingPlans.pausedNotice")}</p>
-          <button className="rp-pause-btn rp-pause-btn--resume" onClick={() => resume.mutate(plan)} disabled={resume.isPending}>
+          <button className="rp-pause-btn rp-pause-btn--resume" onClick={() => resume.mutate(plan, { onError: () => toast.error("Failed to resume plan.") })} disabled={resume.isPending}>
             ▶ {t("readingPlans.resume")}
           </button>
         </div>

@@ -42,7 +42,7 @@ main:has(.msg-layout) {
   overflow: hidden;
   border: 1px solid var(--border);
   border-top: none;
-  border-radius: 0 0 12px 12px;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 
 /* ── Sidebar ─────────────────────────────────────────────────────────────── */

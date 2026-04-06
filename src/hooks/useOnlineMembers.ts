@@ -26,7 +26,7 @@ export function splitByOnlineStatus(
 }
 
 export function useOnlineMembers(limit = 50) {
-  const { data = [], isLoading } = useQuery<OnlineMember[]>({
+  const { data = [], isLoading, isError } = useQuery<OnlineMember[]>({
     queryKey: ["onlineMembers", limit],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -42,5 +42,5 @@ export function useOnlineMembers(limit = 50) {
   });
 
   const { onlineNow, recentlyActive } = splitByOnlineStatus(data);
-  return { onlineNow, recentlyActive, totalOnline: onlineNow.length, isLoading };
+  return { onlineNow, recentlyActive, totalOnline: onlineNow.length, isLoading, isError };
 }

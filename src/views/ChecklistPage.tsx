@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef, lazy, Suspense } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { BOOKS, OT_COUNT } from "../data/books";
@@ -16,6 +16,7 @@ import { useSubscription } from "../hooks/useSubscription";
 import { progressApi } from "../api/progress";
 import { useNotes, useCreateNote, useDeleteNote } from "../hooks/useNotes";
 import { readingApi } from "../api/reading";
+import { toast } from "../lib/toast";
 
 export default function ChecklistPage({ user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { t } = useTranslation();
@@ -85,7 +86,10 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   // Debounced save to Supabase on every change
   useEffect(() => {
     if (!initialized) return;
-    const timer = setTimeout(() => saveProgress.mutate({ ...chaptersState, _v: versesState }), 800);
+    const timer = setTimeout(() => saveProgress.mutate(
+      { ...chaptersState, _v: versesState },
+      { onError: () => toast.error("Failed to save progress. Check your connection.") }
+    ), 800);
     return () => clearTimeout(timer);
   }, [chaptersState, versesState, initialized]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -382,9 +386,8 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
           {initialized && filteredBooks.map((book) => {
             const showOTDivider = tab === "all" && book.index === 0 && !search;
             const showNTDivider = tab === "all" && book.index === OT_COUNT && !search;
-            const wide = showOTDivider || showNTDivider;
             return (
-              <div key={book.index} className={`book-list-item${wide ? " book-list-item--wide" : ""}`}>
+              <React.Fragment key={book.index}>
                 {showOTDivider && <div className="testament-divider">{t("app.testamentOT")}</div>}
                 {showNTDivider && <div className="testament-divider">{t("app.testamentNT")}</div>}
                 <BookCard
@@ -402,7 +405,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
                   userId={user?.id}
                   onUpgrade={onUpgrade}
                 />
-              </div>
+              </React.Fragment>
             );
           })}
         </div>
