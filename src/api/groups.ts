@@ -134,13 +134,24 @@ export const groupsApi = {
     return data as Group;
   },
 
-  createGroup: async ({ name, description, privacy }: { name: string; description?: string; privacy: "public" | "private" }): Promise<Group> => {
+  uploadCoverPhoto: async (file: File): Promise<string> => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+    const ext = file.name.split(".").pop() ?? "jpg";
+    const path = `${user.id}/${Date.now()}.${ext}`;
+    const { error } = await supabase.storage.from("group-covers").upload(path, file, { upsert: true });
+    if (error) throw new Error(error.message);
+    const { data } = supabase.storage.from("group-covers").getPublicUrl(path);
+    return data.publicUrl;
+  },
+
+  createGroup: async ({ name, description, privacy, cover_url }: { name: string; description?: string; privacy: "public" | "private"; cover_url?: string }): Promise<Group> => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const slug = toSlug(name);
     const { data: group, error: ge } = await supabase
       .from("groups")
-      .insert({ name, slug, description: description || null, privacy, owner_id: user.id })
+      .insert({ name, slug, description: description || null, privacy, owner_id: user.id, cover_url: cover_url || null })
       .select()
       .single();
     if (ge) throw new Error(ge.message);

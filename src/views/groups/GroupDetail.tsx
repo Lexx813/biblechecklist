@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import { createPortal } from "react-dom";
-import AppLayout from "../../components/AppLayout";
 import {
   useGroup, useGroupMembers, useGroupPosts, useCreatePost, useDeletePost, useToggleLike,
   usePostComments, useAddComment, useDeleteComment,
@@ -468,81 +467,87 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
 
   if (groupLoading) {
     return (
-      <AppLayout navigate={navigate} user={user} currentPage="groups">
-        <div className="grp-detail-page">
-          <div className="grp-detail-header-skeleton">
-            <div className="skeleton" style={{ height: 26, width: "50%", marginBottom: 10 }} />
-            <div className="skeleton" style={{ height: 14, width: "30%" }} />
-          </div>
+      <div className="grp-detail-page">
+        <div className="grp-detail-header-skeleton">
+          <div className="skeleton" style={{ height: 26, width: "50%", marginBottom: 10 }} />
+          <div className="skeleton" style={{ height: 14, width: "30%" }} />
         </div>
-      </AppLayout>
+      </div>
     );
   }
 
   if (groupError || !group) {
     return (
-      <AppLayout navigate={navigate} user={user} currentPage="groups">
-        <div className="grp-detail-page">
-          <p className="grp-error">Group not found or you don't have access.</p>
-          <button className="grp-btn grp-btn--ghost" onClick={() => navigate("groups")}>← Back to groups</button>
-        </div>
-      </AppLayout>
+      <div className="grp-detail-page">
+        <p className="grp-error">Group not found or you don't have access.</p>
+        <button className="grp-btn grp-btn--ghost" onClick={() => navigate("groups")}>← Back to groups</button>
+      </div>
     );
   }
 
   // Pending users see a waiting screen
   if (myStatus === "pending") {
     return (
-      <AppLayout navigate={navigate} user={user} currentPage="groups">
-        <div className="grp-detail-page grp-pending-page">
-          <button className="grp-back-btn" onClick={() => navigate("groups")}>← Groups</button>
-          <h2 className="grp-detail-title">{group.name}</h2>
-          <div className="grp-pending-banner">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <h3>Request pending</h3>
-            <p>An admin needs to approve your request before you can see the group.</p>
-            <button className="grp-btn grp-btn--ghost" onClick={handleLeave}>Cancel request</button>
-          </div>
+      <div className="grp-detail-page grp-pending-page">
+        <div className="grp-hero grp-hero--sm">
+          {group.cover_url ? <img src={group.cover_url} alt={group.name} className="grp-hero-img" loading="lazy" /> : <div className="grp-hero-placeholder"><span>{(group.name||"?")[0].toUpperCase()}</span></div>}
+          <button className="grp-back-btn grp-back-btn--overlay" onClick={() => navigate("groups")}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg> Groups</button>
         </div>
-      </AppLayout>
+        <div className="grp-detail-info"><div className="grp-detail-info-main"><div><h1 className="grp-detail-title">{group.name}</h1></div></div></div>
+        <div className="grp-pending-banner">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <h3>Request pending</h3>
+          <p>An admin needs to approve your request before you can see the group.</p>
+          <button className="grp-btn grp-btn--ghost" onClick={handleLeave}>Cancel request</button>
+        </div>
+      </div>
     );
   }
 
   // Non-members of private groups see locked
   if (!isMember && group.privacy === "private") {
     return (
-      <AppLayout navigate={navigate} user={user} currentPage="groups">
-        <div className="grp-detail-page grp-pending-page">
-          <button className="grp-back-btn" onClick={() => navigate("groups")}>← Groups</button>
-          <h2 className="grp-detail-title">{group.name}</h2>
-          <div className="grp-pending-banner">
-            <p>{group.description}</p>
-            <p className="grp-pending-banner-sub">{group.member_count} members</p>
-          </div>
+      <div className="grp-detail-page grp-pending-page">
+        <div className="grp-hero grp-hero--sm">
+          {group.cover_url ? <img src={group.cover_url} alt={group.name} className="grp-hero-img" loading="lazy" /> : <div className="grp-hero-placeholder"><span>{(group.name||"?")[0].toUpperCase()}</span></div>}
+          <button className="grp-back-btn grp-back-btn--overlay" onClick={() => navigate("groups")}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg> Groups</button>
         </div>
-      </AppLayout>
+        <div className="grp-detail-info"><div className="grp-detail-info-main"><div><h1 className="grp-detail-title">{group.name}</h1></div></div></div>
+        <div className="grp-pending-banner">
+          <p>{group.description}</p>
+          <p className="grp-pending-banner-sub">{group.member_count} members</p>
+        </div>
+      </div>
     );
   }
 
   return (
-    <AppLayout navigate={navigate} user={user} currentPage="groups">
-      <div className="grp-detail-page">
-        {/* Header */}
-        <div className="grp-detail-header">
-          <button className="grp-back-btn" onClick={() => navigate("groups")}>← Groups</button>
-          <div className="grp-detail-header-main">
-            <div className="grp-detail-cover">
-              {group.cover_url
-                ? <img src={group.cover_url} alt="" className="grp-detail-cover-img" loading="lazy" />
-                : <span className="grp-detail-cover-initial">{(group.name || "?")[0].toUpperCase()}</span>}
-            </div>
-            <div className="grp-detail-header-info">
+    <>
+    <div className="grp-detail-page">
+        {/* Hero banner */}
+        <div className="grp-hero">
+          {group.cover_url
+            ? <img src={group.cover_url} alt={group.name} className="grp-hero-img" loading="lazy" />
+            : <div className="grp-hero-placeholder"><span>{(group.name || "?")[0].toUpperCase()}</span></div>}
+          <button className="grp-back-btn grp-back-btn--overlay" onClick={() => navigate("groups")}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            Groups
+          </button>
+        </div>
+
+        {/* Group info row */}
+        <div className="grp-detail-info">
+          <div className="grp-detail-info-main">
+            <div>
               <div className="grp-detail-title-row">
                 <h1 className="grp-detail-title">{group.name}</h1>
                 {group.privacy === "private" && <span className="grp-badge grp-badge--private">Private</span>}
               </div>
               {group.description && <p className="grp-detail-desc">{group.description}</p>}
-              <p className="grp-detail-meta">{group.member_count} {group.member_count === 1 ? "member" : "members"}</p>
+              <p className="grp-detail-meta">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                {group.member_count} {group.member_count === 1 ? "member" : "members"}
+              </p>
             </div>
             <div className="grp-detail-header-actions">
               {!isOwner && (
@@ -617,7 +622,6 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
         {/* Files */}
         {tab === "files" && <FilesTab groupId={groupId} userId={user.id} isAdmin={isAdmin} />}
       </div>
-
       {showCreateEvent && <CreateEventModal groupId={groupId} onClose={() => setShowCreateEvent(false)} />}
       {showLeaveConfirm && (
         <ConfirmModal
@@ -639,6 +643,6 @@ export default function GroupDetail({ groupId, user, navigate, darkMode, setDark
           danger
         />
       )}
-    </AppLayout>
+    </>
   );
 }
