@@ -1092,6 +1092,131 @@
   margin: 0;
 }
 
+/* ── Install Section ────────────────────────────────────────────── */
+.lp-install {
+  padding: 80px 24px;
+  background: var(--lp-bg);
+}
+
+.lp-install-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+.lp-install-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.lp-install-title {
+  font-size: clamp(24px, 4vw, 34px);
+  font-weight: 800;
+  color: var(--lp-text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.lp-install-sub {
+  font-size: 16px;
+  color: var(--lp-muted);
+  max-width: 500px;
+  margin: 0;
+  line-height: 1.65;
+}
+
+.lp-install-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+.lp-install-card {
+  background: var(--lp-card-bg);
+  border: 1px solid var(--lp-border);
+  border-radius: 16px;
+  padding: 28px 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lp-install-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--lp-pill-bg);
+  color: var(--lp-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.lp-install-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--lp-text);
+  margin: 0;
+}
+
+.lp-install-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lp-install-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--lp-muted);
+  line-height: 1.5;
+}
+
+.lp-install-steps li strong {
+  color: var(--lp-text);
+}
+
+.lp-install-steps li svg {
+  display: inline;
+  vertical-align: middle;
+  color: var(--lp-muted);
+}
+
+.lp-install-step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--lp-pill-bg);
+  color: var(--lp-primary);
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.lp-install-note {
+  font-size: 13px;
+  color: var(--lp-muted);
+  text-align: center;
+  margin: 0;
+}
+
 /* ── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .lp-nav-links { display: none; }
@@ -1115,6 +1240,9 @@
   .lp-preview-label { align-items: center; }
   .lp-preview-sub { max-width: 100%; }
   .lp-phone-callout { right: calc(50% - 160px); bottom: -20px; }
+
+  .lp-install { padding: 56px 20px; }
+  .lp-install-cards { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
 
   .lp-blog { padding-top: 48px; padding-bottom: 48px; }
   .lp-how  { padding: 48px 0; }
