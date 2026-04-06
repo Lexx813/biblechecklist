@@ -3,42 +3,12 @@
 -- Apply in Supabase SQL editor or via supabase db push
 -- ─────────────────────────────────────────────────────────────────────────────
 
--- ── Helper: check membership ──────────────────────────────────────────────────
+-- ── Step 1: Drop old helper functions (CASCADE removes their dependent policies) ──
 
-DROP FUNCTION IF EXISTS is_group_member(uuid);
-CREATE OR REPLACE FUNCTION is_group_member(p_group_id uuid)
-RETURNS boolean
-LANGUAGE sql SECURITY DEFINER SET search_path = public AS $$
-  SELECT EXISTS (
-    SELECT 1 FROM group_members
-    WHERE group_id = p_group_id
-      AND user_id  = auth.uid()
-      AND status   = 'member'
-  );
-$$;
+DROP FUNCTION IF EXISTS is_group_member(uuid) CASCADE;
+DROP FUNCTION IF EXISTS is_group_admin(uuid) CASCADE;
 
-DROP FUNCTION IF EXISTS is_group_admin(uuid);
-CREATE OR REPLACE FUNCTION is_group_admin(p_group_id uuid)
-RETURNS boolean
-LANGUAGE sql SECURITY DEFINER SET search_path = public AS $$
-  SELECT EXISTS (
-    SELECT 1 FROM group_members
-    WHERE group_id = p_group_id
-      AND user_id  = auth.uid()
-      AND status   = 'member'
-      AND role     IN ('owner', 'admin')
-  );
-$$;
-
--- ── Slug generator ────────────────────────────────────────────────────────────
-
-CREATE OR REPLACE FUNCTION generate_group_slug(p_name text)
-RETURNS text
-LANGUAGE sql IMMUTABLE AS $$
-  SELECT lower(regexp_replace(regexp_replace(trim(p_name), '[^a-zA-Z0-9\s-]', '', 'g'), '\s+', '-', 'g'));
-$$;
-
--- ── groups ────────────────────────────────────────────────────────────────────
+-- ── Step 2: Create tables (no RLS yet — helper functions don't exist yet) ────
 
 CREATE TABLE IF NOT EXISTS groups (
   id           uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -52,20 +22,6 @@ CREATE TABLE IF NOT EXISTS groups (
   created_at   timestamptz NOT NULL DEFAULT now()
 );
 
-ALTER TABLE groups ENABLE ROW LEVEL SECURITY;
-
--- Public groups visible to all; private visible to members or owner
-CREATE POLICY "groups_select" ON groups FOR SELECT USING (
-  privacy = 'public'
-  OR owner_id = auth.uid()
-  OR is_group_member(id)
-);
-CREATE POLICY "groups_insert" ON groups FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
-CREATE POLICY "groups_update" ON groups FOR UPDATE USING (is_group_admin(id));
-CREATE POLICY "groups_delete" ON groups FOR DELETE USING (owner_id = auth.uid());
-
--- ── group_members ─────────────────────────────────────────────────────────────
-
 CREATE TABLE IF NOT EXISTS group_members (
   id        uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
   group_id  uuid        NOT NULL REFERENCES groups ON DELETE CASCADE,
@@ -76,6 +32,50 @@ CREATE TABLE IF NOT EXISTS group_members (
   UNIQUE (group_id, user_id)
 );
 
+-- ── Step 3: Create helper functions (group_members now exists) ────────────────
+
+CREATE OR REPLACE FUNCTION is_group_member(p_group_id uuid)
+RETURNS boolean
+LANGUAGE sql SECURITY DEFINER SET search_path = public AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM group_members
+    WHERE group_id = p_group_id
+      AND user_id  = auth.uid()
+      AND status   = 'member'
+  );
+$$;
+
+CREATE OR REPLACE FUNCTION is_group_admin(p_group_id uuid)
+RETURNS boolean
+LANGUAGE sql SECURITY DEFINER SET search_path = public AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM group_members
+    WHERE group_id = p_group_id
+      AND user_id  = auth.uid()
+      AND status   = 'member'
+      AND role     IN ('owner', 'admin')
+  );
+$$;
+
+CREATE OR REPLACE FUNCTION generate_group_slug(p_name text)
+RETURNS text
+LANGUAGE sql IMMUTABLE AS $$
+  SELECT lower(regexp_replace(regexp_replace(trim(p_name), '[^a-zA-Z0-9\s-]', '', 'g'), '\s+', '-', 'g'));
+$$;
+
+-- ── Step 4: Enable RLS and add policies ───────────────────────────────────────
+
+ALTER TABLE groups ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "groups_select" ON groups FOR SELECT USING (
+  privacy = 'public'
+  OR owner_id = auth.uid()
+  OR is_group_member(id)
+);
+CREATE POLICY "groups_insert" ON groups FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "groups_update" ON groups FOR UPDATE USING (is_group_admin(id));
+CREATE POLICY "groups_delete" ON groups FOR DELETE USING (owner_id = auth.uid());
+
 ALTER TABLE group_members ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "gm_select" ON group_members FOR SELECT USING (
@@ -83,18 +83,13 @@ CREATE POLICY "gm_select" ON group_members FOR SELECT USING (
   OR is_group_member(group_id)
   OR EXISTS (SELECT 1 FROM groups WHERE id = group_id AND privacy = 'public')
 );
--- Users insert themselves (pending for private, member for public handled in app)
-CREATE POLICY "gm_insert" ON group_members FOR INSERT WITH CHECK (
-  auth.uid() = user_id
-);
--- Admins update others; users can update nothing (role/status changes are admin-only)
+CREATE POLICY "gm_insert" ON group_members FOR INSERT WITH CHECK (auth.uid() = user_id);
 CREATE POLICY "gm_update" ON group_members FOR UPDATE USING (is_group_admin(group_id));
--- Owner/admin removes others; user removes themselves (leave)
 CREATE POLICY "gm_delete" ON group_members FOR DELETE USING (
   user_id = auth.uid() OR is_group_admin(group_id)
 );
 
--- ── member_count trigger ──────────────────────────────────────────────────────
+-- ── Step 5: Triggers on group_members ────────────────────────────────────────
 
 CREATE OR REPLACE FUNCTION update_group_member_count()
 RETURNS trigger LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
@@ -119,7 +114,6 @@ CREATE TRIGGER trg_group_member_count
   AFTER INSERT OR UPDATE OF status OR DELETE ON group_members
   FOR EACH ROW EXECUTE FUNCTION update_group_member_count();
 
--- joined_at: set automatically when status becomes 'member'
 CREATE OR REPLACE FUNCTION set_group_member_joined_at()
 RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
@@ -135,7 +129,7 @@ CREATE TRIGGER trg_group_member_joined_at
   BEFORE INSERT OR UPDATE OF status ON group_members
   FOR EACH ROW EXECUTE FUNCTION set_group_member_joined_at();
 
--- ── group_posts ───────────────────────────────────────────────────────────────
+-- ── Step 6: Remaining tables ──────────────────────────────────────────────────
 
 CREATE TABLE IF NOT EXISTS group_posts (
   id              uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -152,7 +146,6 @@ CREATE TABLE IF NOT EXISTS group_posts (
 ALTER TABLE group_posts ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "gp_select" ON group_posts FOR SELECT USING (is_group_member(group_id));
--- Members can post; announcements require admin (enforced in app + DB check)
 CREATE POLICY "gp_insert" ON group_posts FOR INSERT WITH CHECK (
   auth.uid() = author_id
   AND is_group_member(group_id)
@@ -161,8 +154,6 @@ CREATE POLICY "gp_insert" ON group_posts FOR INSERT WITH CHECK (
 CREATE POLICY "gp_delete" ON group_posts FOR DELETE USING (
   author_id = auth.uid() OR is_group_admin(group_id)
 );
-
--- ── group_post_likes ──────────────────────────────────────────────────────────
 
 CREATE TABLE IF NOT EXISTS group_post_likes (
   post_id    uuid        NOT NULL REFERENCES group_posts ON DELETE CASCADE,
@@ -182,7 +173,6 @@ CREATE POLICY "gpl_insert" ON group_post_likes FOR INSERT WITH CHECK (
 );
 CREATE POLICY "gpl_delete" ON group_post_likes FOR DELETE USING (user_id = auth.uid());
 
--- like_count trigger
 CREATE OR REPLACE FUNCTION update_post_like_count()
 RETURNS trigger LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
 BEGIN
@@ -199,8 +189,6 @@ DROP TRIGGER IF EXISTS trg_post_like_count ON group_post_likes;
 CREATE TRIGGER trg_post_like_count
   AFTER INSERT OR DELETE ON group_post_likes
   FOR EACH ROW EXECUTE FUNCTION update_post_like_count();
-
--- ── group_post_comments ───────────────────────────────────────────────────────
 
 CREATE TABLE IF NOT EXISTS group_post_comments (
   id         uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -227,7 +215,6 @@ CREATE POLICY "gpc_delete" ON group_post_comments FOR DELETE USING (
   )
 );
 
--- comment_count trigger
 CREATE OR REPLACE FUNCTION update_post_comment_count()
 RETURNS trigger LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
 BEGIN
@@ -244,8 +231,6 @@ DROP TRIGGER IF EXISTS trg_post_comment_count ON group_post_comments;
 CREATE TRIGGER trg_post_comment_count
   AFTER INSERT OR DELETE ON group_post_comments
   FOR EACH ROW EXECUTE FUNCTION update_post_comment_count();
-
--- ── group_events ──────────────────────────────────────────────────────────────
 
 CREATE TABLE IF NOT EXISTS group_events (
   id          uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -269,8 +254,6 @@ CREATE POLICY "ge_insert" ON group_events FOR INSERT WITH CHECK (
 CREATE POLICY "ge_update" ON group_events FOR UPDATE USING (is_group_admin(group_id));
 CREATE POLICY "ge_delete" ON group_events FOR DELETE USING (is_group_admin(group_id));
 
--- ── group_event_rsvps ─────────────────────────────────────────────────────────
-
 CREATE TABLE IF NOT EXISTS group_event_rsvps (
   event_id   uuid        NOT NULL REFERENCES group_events ON DELETE CASCADE,
   user_id    uuid        NOT NULL REFERENCES auth.users ON DELETE CASCADE,
@@ -291,7 +274,6 @@ CREATE POLICY "ger_insert" ON group_event_rsvps FOR INSERT WITH CHECK (
 CREATE POLICY "ger_update" ON group_event_rsvps FOR UPDATE USING (user_id = auth.uid());
 CREATE POLICY "ger_delete" ON group_event_rsvps FOR DELETE USING (user_id = auth.uid());
 
--- rsvp_count trigger (counts 'going' only)
 CREATE OR REPLACE FUNCTION update_event_rsvp_count()
 RETURNS trigger LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
 BEGIN
@@ -314,8 +296,6 @@ DROP TRIGGER IF EXISTS trg_event_rsvp_count ON group_event_rsvps;
 CREATE TRIGGER trg_event_rsvp_count
   AFTER INSERT OR UPDATE OF status OR DELETE ON group_event_rsvps
   FOR EACH ROW EXECUTE FUNCTION update_event_rsvp_count();
-
--- ── group_files ───────────────────────────────────────────────────────────────
 
 CREATE TABLE IF NOT EXISTS group_files (
   id           uuid        PRIMARY KEY DEFAULT gen_random_uuid(),

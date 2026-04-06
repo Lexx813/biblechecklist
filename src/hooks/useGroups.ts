@@ -96,7 +96,8 @@ export function useLeaveGroup() {
 export function useApproveJoinRequest(groupId: string | undefined) {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: groupsApi.approveJoinRequest,
+    mutationFn: ({ requestId, userId }: { requestId: string; userId: string }) =>
+      groupsApi.approveJoinRequest(requestId, groupId!, userId),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["group-members", groupId] });
       qc.invalidateQueries({ queryKey: ["group", groupId] });
@@ -107,7 +108,7 @@ export function useApproveJoinRequest(groupId: string | undefined) {
 export function useDenyJoinRequest(groupId: string | undefined) {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: groupsApi.denyJoinRequest,
+    mutationFn: (requestId: string) => groupsApi.denyJoinRequest(requestId),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["group-members", groupId] }),
   });
 }
