@@ -1,902 +1,644 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import AppLayout from "../../components/AppLayout";
+import { useState, useRef } from "react";
 import { createPortal } from "react-dom";
-import { useTranslation } from "react-i18next";
-import { insertEmojiAtCursor } from "../../components/EmojiPickerPopup";
-import { EMOJI_CATEGORIES } from "../../lib/emojiData";
-import MentionAutocomplete from "../../components/mentions/MentionAutocomplete";
-import { renderMentions } from "../../utils/mentions";
+import AppLayout from "../../components/AppLayout";
 import {
-  useGroup,
-  useGroupMembers,
-  useGroupMessages,
-  useSendGroupMessage,
-  useDeleteGroupMessage,
-  useEditGroupMessage,
-  useGroupReactions,
-  useToggleGroupReaction,
-  useGroupLeaderboard,
-  useLeaveGroup,
-  useRemoveMember,
-  useDeleteGroup,
-  useGroupAnnouncements,
-  useCreateAnnouncement,
-  useDeleteAnnouncement,
-  useJoinRequests,
-  useApproveJoinRequest,
-  useDenyJoinRequest,
-  useGroupProgress,
+  useGroup, useGroupMembers, useGroupPosts, useCreatePost, useDeletePost, useToggleLike,
+  usePostComments, useAddComment, useDeleteComment,
+  useGroupEvents, useCreateEvent, useDeleteEvent, useSetRsvp, useRemoveRsvp,
+  useGroupFiles, useUploadFile, useDeleteFile,
+  useLeaveGroup, useRemoveMember, useDeleteGroup,
+  useApproveJoinRequest, useDenyJoinRequest, useUpdateMemberRole,
 } from "../../hooks/useGroups";
+import { groupsApi, GroupPost, GroupMember, GroupEvent, GroupFile } from "../../api/groups";
 import ConfirmModal from "../../components/ConfirmModal";
-import { sanitizeContent, MAX_MSG_LENGTH } from "../../lib/e2e";
-import { PLAN_TEMPLATES } from "../../data/readingPlanTemplates";
-import { BOOKS } from "../../data/books";
-import {
-  useActiveChallenge,
-  useStartChallenge,
-  useEndChallenge,
-  useChallengeProgress,
-} from "../../hooks/useGroupChallenge";
-import { useSubscription } from "../../hooks/useSubscription";
+import { toast } from "../../lib/toast";
 import "../../styles/groups.css";
-import "../../styles/group-challenge.css";
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+// ── Time helpers ──────────────────────────────────────────────────────────────
 
-function timeAgo(iso, t) {
-  if (!iso) return "";
-  const m = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
-  if (m < 1) return t ? t("messages.justNow") : "just now";
-  if (m < 60) return `${m}${t ? t("messages.minutesAgo") : "m ago"}`;
+function timeAgo(iso: string) {
+  const m = Math.floor((Date.now() - new Date(iso).getTime()) / 60_000);
+  if (m < 1) return "just now";
+  if (m < 60) return `${m}m ago`;
   const h = Math.floor(m / 60);
-  if (h < 24) return `${h}${t ? t("messages.hoursAgo") : "h ago"}`;
-  return `${Math.floor(h / 24)}${t ? t("messages.daysAgo") : "d ago"}`;
+  if (h < 24) return `${h}h ago`;
+  return `${Math.floor(h / 24)}d ago`;
 }
 
-function formatTime(iso) {
-  return new Date(iso).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
 }
 
-function formatDay(date, t) {
-  const today = new Date();
-  const yesterday = new Date(today);
-  yesterday.setDate(today.getDate() - 1);
-  if (date.toDateString() === today.toDateString()) return t ? t("messages.today") : "Today";
-  if (date.toDateString() === yesterday.toDateString()) return t ? t("messages.yesterday") : "Yesterday";
-  return date.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+function formatFileSize(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-function groupByDay(messages, t) {
-  const items = [];
-  let lastDay = null;
-  for (const msg of messages) {
-    const day = new Date(msg.created_at).toDateString();
-    if (day !== lastDay) {
-      items.push({ type: "day", label: formatDay(new Date(msg.created_at), t), key: "day-" + day });
-      lastDay = day;
-    }
-    items.push({ type: "message", ...msg });
-  }
-  return items;
+function Avatar({ src, name, size = 36 }: { src?: string | null; name?: string | null; size?: number }) {
+  const initial = (name || "?")[0].toUpperCase();
+  return src
+    ? <img src={src} alt={name ?? ""} className="grp-avatar" style={{ width: size, height: size }} loading="lazy" />
+    : <span className="grp-avatar grp-avatar--fallback" style={{ width: size, height: size, fontSize: size * 0.4 }}>{initial}</span>;
 }
 
-function groupReactions(reactions, messageId): Record<string, { count: number; users: string[] }> {
-  const grouped: Record<string, { count: number; users: string[] }> = {};
-  (reactions || []).filter(r => r.message_id === messageId).forEach(r => {
-    if (!grouped[r.emoji]) grouped[r.emoji] = { count: 0, users: [] };
-    grouped[r.emoji].count++;
-    grouped[r.emoji].users.push(r.user_id);
-  });
-  return grouped;
-}
+// ── Post card ─────────────────────────────────────────────────────────────────
 
-const REACTION_EMOJIS = ["👍","❤️","😂","😮","😢","🔥","🙏","👏"];
+function PostCard({ post, userId, isAdmin, groupId }: { post: GroupPost; userId: string; isAdmin: boolean; groupId: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const [commentText, setCommentText] = useState("");
+  const { data: comments = [], isLoading: commentsLoading } = usePostComments(expanded ? post.id : undefined);
+  const toggleLike = useToggleLike(groupId);
+  const deletePost = useDeletePost(groupId);
+  const addComment = useAddComment(groupId);
+  const deleteComment = useDeleteComment(groupId);
+  const isOwn = post.author_id === userId;
 
-function initial(name) { return (name || "?")[0].toUpperCase(); }
-
-function Avatar({ name, avatarUrl, size = 36 }) {
-  return avatarUrl ? (
-    <img className="grp-avatar" src={avatarUrl} alt={name} width={size} height={size} style={{ width: size, height: size }} loading="lazy" />
-  ) : (
-    <div className="grp-avatar grp-avatar--fallback" style={{ width: size, height: size, fontSize: size * 0.38 }}>
-      {initial(name)}
-    </div>
-  );
-}
-
-// ── Chat sub-components ───────────────────────────────────────────────────────
-
-function GrpEmojiPicker({ onSelect, onClose }) {
-  const [tab, setTab] = useState(0);
-  const ref = useRef(null);
-  useEffect(() => {
-    function handler(e) { if (ref.current && !ref.current.contains(e.target)) onClose(); }
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [onClose]);
-  return (
-    <div className="grp-emoji-picker" ref={ref}>
-      <div className="grp-emoji-tabs">
-        {EMOJI_CATEGORIES.map((cat, i) => (
-          <button key={i} className={`grp-emoji-tab${tab === i ? " grp-emoji-tab--active" : ""}`} onClick={() => setTab(i)}>{cat.label}</button>
-        ))}
-      </div>
-      <div className="grp-emoji-grid">
-        {EMOJI_CATEGORIES[tab].emojis.map(em => (
-          <button key={em} className="grp-emoji-btn" onClick={() => onSelect(em)}>{em}</button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function GrpReactionPicker({ onPick, onClose }) {
-  const ref = useRef(null);
-  useEffect(() => {
-    function handler(e) { if (ref.current && !ref.current.contains(e.target)) onClose(); }
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [onClose]);
-  return (
-    <div className="grp-reaction-picker" ref={ref}>
-      {REACTION_EMOJIS.map(em => (
-        <button key={em} className="grp-reaction-picker-btn" onClick={() => { onPick(em); onClose(); }}>{em}</button>
-      ))}
-    </div>
-  );
-}
-
-function GrpBubble({ msg, isMine, canDelete, allMessages, reactions, userId, onDelete, onReply, onEdit, onToggleReaction }) {
-  const { t } = useTranslation();
-  const [showActions, setShowActions] = useState(false);
-  const [showReactPicker, setShowReactPicker] = useState(false);
-  const [editing, setEditing] = useState(false);
-  const [editText, setEditText] = useState(msg.content);
-  const editRef = useRef(null);
-
-  useEffect(() => {
-    if (editing && editRef.current) {
-      editRef.current.focus();
-      editRef.current.selectionStart = editRef.current.value.length;
-    }
-  }, [editing]);
-
-  function submitEdit() {
-    const trimmed = editText.trim();
-    if (!trimmed || trimmed === msg.content) { setEditing(false); return; }
-    onEdit(msg.id, sanitizeContent(trimmed));
-    setEditing(false);
+  function submitComment(e: React.FormEvent) {
+    e.preventDefault();
+    if (!commentText.trim()) return;
+    addComment.mutate(
+      { postId: post.id, content: commentText.trim() },
+      {
+        onSuccess: () => setCommentText(""),
+        onError: () => toast.error("Failed to add comment."),
+      }
+    );
   }
 
-  const replyOrig = msg.reply_to_id ? allMessages.find(m => m.id === msg.reply_to_id) : null;
-  const grouped = groupReactions(reactions, msg.id);
-
   return (
-    <div
-      className={`grp-msg-wrap${isMine ? " grp-msg-wrap--mine" : ""}`}
-      onMouseEnter={() => setShowActions(true)}
-      onMouseLeave={() => { setShowActions(false); setShowReactPicker(false); }}
-    >
-      {!isMine && <Avatar name={msg.sender?.display_name} avatarUrl={msg.sender?.avatar_url} size={28} />}
-      <div className="grp-msg-col">
-        {!isMine && <span className="grp-msg-sender">{msg.sender?.display_name || t("groups.member")}</span>}
-
-        {replyOrig && (
-          <div className="grp-quoted">
-            <div className="grp-quoted-bar" />
-            <div className="grp-quoted-body">
-              <span className="grp-quoted-name">{replyOrig.sender?.display_name || t("messages.user")}</span>
-              <span className="grp-quoted-text">{(replyOrig.content || "").slice(0, 60)}</span>
-            </div>
-          </div>
-        )}
-
-        <div className={`grp-msg-bubble${isMine ? " grp-msg-bubble--mine" : ""}`}>
-          {editing ? (
-            <textarea
-              ref={editRef}
-              className="grp-edit-textarea"
-              value={editText}
-              onChange={e => setEditText(e.target.value)}
-              onKeyDown={e => {
-                if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submitEdit(); }
-                if (e.key === "Escape") { setEditing(false); setEditText(msg.content); }
-              }}
-              rows={1}
-            />
-          ) : (
-            <span dangerouslySetInnerHTML={{ __html: renderMentions(msg.content) }} />
-          )}
-          <div className="grp-bubble-footer">
-            <span className="grp-bubble-time">{formatTime(msg.created_at)}</span>
-            {msg.edited_at && <span className="grp-edited-label">{t("groups.edited")}</span>}
-          </div>
-        </div>
-
-        {Object.keys(grouped).length > 0 && (
-          <div className="grp-reaction-row">
-            {Object.entries(grouped).map(([em, { count, users }]) => (
-              <button
-                key={em}
-                className={`grp-reaction-pill${users.includes(userId) ? " grp-reaction-pill--mine" : ""}`}
-                onClick={() => onToggleReaction(msg.id, em)}
-              >
-                {em} <span>{count}</span>
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {showActions && !editing && (
-        <div className={`grp-bubble-actions${isMine ? " grp-bubble-actions--mine" : ""}`}>
-          <div style={{ position: "relative" }}>
-            <button className="grp-action-btn" title={t("groups.react")} onClick={() => setShowReactPicker(s => !s)}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-            </button>
-            {showReactPicker && (
-              <GrpReactionPicker onPick={(em) => onToggleReaction(msg.id, em)} onClose={() => setShowReactPicker(false)} />
-            )}
-          </div>
-          <button className="grp-action-btn" title={t("groups.reply")} onClick={() => onReply(msg)}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>
-          </button>
-          {isMine && <button className="grp-action-btn" title={t("common.edit")} onClick={() => { setEditing(true); setEditText(msg.content); }}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-          </button>}
-          {canDelete && <button className="grp-action-btn grp-action-btn--danger" title={t("common.delete")} onClick={() => onDelete(msg.id)}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>}
+    <div className={`grp-post${post.is_announcement ? " grp-post--announcement" : ""}`}>
+      {post.is_announcement && (
+        <div className="grp-post-announcement-label">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          Announcement
         </div>
       )}
-    </div>
-  );
-}
-
-// ── Chat tab ──────────────────────────────────────────────────────────────────
-
-function ChatTab({ groupId, user, isAdmin }) {
-  const { t } = useTranslation();
-  const { data: messages = [], isLoading } = useGroupMessages(groupId);
-  const { data: reactions = [] } = useGroupReactions(groupId);
-  const sendMessage = useSendGroupMessage(groupId);
-  const deleteMessage = useDeleteGroupMessage(groupId);
-  const editMessage = useEditGroupMessage(groupId);
-  const toggleReaction = useToggleGroupReaction(groupId);
-  const [input, setInput] = useState("");
-  const [showEmoji, setShowEmoji] = useState(false);
-  const [replyTo, setReplyTo] = useState(null);
-  const bottomRef = useRef(null);
-  const inputRef = useRef(null);
-
-  const insertEmoji = useCallback((em) => {
-    const next = insertEmojiAtCursor(inputRef.current, input, em);
-    setInput(next.slice(0, 2000));
-    setShowEmoji(false);
-    requestAnimationFrame(() => {
-      const el = inputRef.current;
-      if (!el) return;
-      const pos = (el.selectionStart ?? input.length) + em.length;
-      el.focus();
-      el.setSelectionRange(pos, pos);
-    });
-  }, [input]);
-
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages.length]);
-
-  useEffect(() => {
-    const el = inputRef.current;
-    if (!el) return;
-    el.style.height = "auto";
-    el.style.height = Math.min(el.scrollHeight, 100) + "px";
-  }, [input]);
-
-  function handleSend(e) {
-    e.preventDefault();
-    const raw = input.trim();
-    if (!raw) return;
-    const sanitized = sanitizeContent(raw);
-    if (!sanitized) return;
-    sendMessage.mutate({ senderId: user.id, content: sanitized, replyToId: replyTo?.id ?? null });
-    setInput("");
-    setReplyTo(null);
-    if (inputRef.current) inputRef.current.style.height = "auto";
-    setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 50);
-  }
-
-  function handleKeyDown(e) {
-    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(e); }
-    if (e.key === "Escape" && replyTo) setReplyTo(null);
-  }
-
-  const items = groupByDay(messages, t);
-
-  return (
-    <div className="grp-chat">
-      <div className="grp-chat-messages">
-        {isLoading ? (
-          <p className="grp-empty">{t("common.loading")}</p>
-        ) : messages.length === 0 ? (
-          <div className="grp-chat-empty">
-            <span>
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </span>
-            <strong>{t("groups.noMessages")}</strong>
-            <p>{t("groups.beFirst")}</p>
-          </div>
-        ) : (
-          items.map(item => {
-            if (item.type === "day") {
-              return <div key={item.key} className="grp-chat-divider"><span>{item.label}</span></div>;
-            }
-            const isMine = item.sender_id === user.id;
-            return (
-              <GrpBubble
-                key={item.id}
-                msg={item}
-                isMine={isMine}
-                canDelete={isMine || isAdmin}
-                allMessages={messages}
-                reactions={reactions}
-                userId={user.id}
-                onDelete={(id) => deleteMessage.mutate(id)}
-                onReply={(msg) => { setReplyTo(msg); inputRef.current?.focus(); }}
-                onEdit={(id, content) => editMessage.mutate({ messageId: id, content })}
-                onToggleReaction={(id, emoji) => toggleReaction.mutate({ messageId: id, emoji, userId: user.id })}
-              />
-            );
-          })
-        )}
-        <div ref={bottomRef} />
-      </div>
-      <div className="grp-chat-composer-wrap">
-        {showEmoji && <GrpEmojiPicker onSelect={insertEmoji} onClose={() => setShowEmoji(false)} />}
-        {replyTo && (
-          <div className="grp-reply-preview">
-            <div className="grp-reply-preview-bar" />
-            <div className="grp-reply-preview-content">
-              <span className="grp-reply-preview-name">{replyTo.sender?.display_name || t("messages.user")}</span>
-              <span className="grp-reply-preview-text">{(replyTo.content || "").slice(0, 60)}</span>
-            </div>
-            <button className="grp-reply-preview-cancel" onClick={() => setReplyTo(null)} aria-label={t("common.cancel")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-          </div>
-        )}
-        <form className="grp-chat-composer" onSubmit={handleSend}>
-          <button type="button" className="grp-emoji-toggle" onClick={() => setShowEmoji(v => !v)} title="Emoji" aria-label="Emoji">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      <div className="grp-post-header">
+        <Avatar src={post.author?.avatar_url} name={post.author?.display_name} size={34} />
+        <div className="grp-post-meta">
+          <span className="grp-post-author">{post.author?.display_name || "Unknown"}</span>
+          <span className="grp-post-time">{timeAgo(post.created_at)}</span>
+        </div>
+        {(isOwn || isAdmin) && (
+          <button
+            className="grp-post-delete"
+            onClick={() => deletePost.mutate(post.id, { onError: () => toast.error("Failed to delete post.") })}
+            aria-label="Delete post"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
           </button>
-          <MentionAutocomplete
-            value={input}
-            onChange={e => setInput(e.target.value.slice(0, MAX_MSG_LENGTH))}
-            onKeyDown={handleKeyDown}
-            placeholder={t("groups.messagePlaceholder")}
-            rows={1}
-            className="grp-chat-input"
-          />
-          <button className="grp-chat-send" type="submit" disabled={!input.trim() || sendMessage.isPending} aria-label={t("messages.send")}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          </button>
-        </form>
+        )}
       </div>
-    </div>
-  );
-}
-
-// ── Leaderboard tab ───────────────────────────────────────────────────────────
-
-function LeaderboardTab({ groupId, userId }) {
-  const { t } = useTranslation();
-  const { data: board = [], isLoading } = useGroupLeaderboard(groupId);
-
-  if (isLoading) return <div className="grp-spinner-wrap"><div className="grp-spinner" /></div>;
-  if (!board.length) return <p className="grp-empty grp-empty--pad">{t("groups.noData")}</p>;
-
-  return (
-    <div className="grp-leaderboard">
-      {board.map((entry, i) => {
-        const medal = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : null;
-        const isMe = entry.userId === userId;
-        return (
-          <div key={entry.userId} className={`grp-lb-row${isMe ? " grp-lb-row--me" : ""}`}>
-            <span className="grp-lb-rank">{medal || `#${i + 1}`}</span>
-            <Avatar name={entry.displayName} avatarUrl={entry.avatarUrl} size={34} />
-            <div className="grp-lb-info">
-              <span className="grp-lb-name">{entry.displayName}{isMe ? " (you)" : ""}</span>
-              <span className="grp-lb-sub">{t("groups.longestStreak")} {entry.longestStreak}d</span>
-            </div>
-            <div className="grp-lb-streak">
-              <span className="grp-lb-streak-num">{entry.currentStreak}</span>
-              <span className="grp-lb-streak-label">{t("groups.dayStreak")}</span>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-// ── Members tab ───────────────────────────────────────────────────────────────
-
-function MembersTab({ groupId, userId, isAdmin, onRemove }) {
-  const { t } = useTranslation();
-  const { data: members = [], isLoading } = useGroupMembers(groupId);
-  const { data: requests = [] } = useJoinRequests(groupId);
-  const approveRequest = useApproveJoinRequest(groupId);
-  const denyRequest = useDenyJoinRequest(groupId);
-
-  if (isLoading) return <div className="grp-spinner-wrap"><div className="grp-spinner" /></div>;
-
-  return (
-    <div className="grp-members">
-      {isAdmin && requests.length > 0 && (
-        <div className="grp-join-requests">
-          <h4 className="grp-join-requests-title">
-            {t("groups.joinRequests")} <span className="grp-tab-count">{requests.length}</span>
-          </h4>
-          {requests.map(r => (
-            <div key={r.id} className="grp-request-row">
-              <Avatar name={r.profile?.display_name} avatarUrl={r.profile?.avatar_url} size={32} />
-              <span className="grp-request-name">{r.profile?.display_name || t("groups.member")}</span>
-              <span className="grp-request-time">{timeAgo(r.created_at, t)}</span>
-              <button
-                className="grp-btn grp-btn--sm grp-btn--primary"
-                onClick={() => approveRequest.mutate({ requestId: r.id, userId: r.user_id })}
-                disabled={approveRequest.isPending}
-              >{t("groups.approve")}</button>
-              <button
-                className="grp-btn grp-btn--sm grp-btn--ghost"
-                onClick={() => denyRequest.mutate(r.id)}
-                disabled={denyRequest.isPending}
-              >{t("groups.deny")}</button>
-            </div>
+      <p className="grp-post-content">{post.content}</p>
+      {post.media_urls?.length > 0 && (
+        <div className="grp-post-media">
+          {post.media_urls.map((url, i) => (
+            <img key={i} src={url} alt="" className="grp-post-img" loading="lazy" />
           ))}
         </div>
       )}
-      {members.map(m => (
-        <div key={m.userId} className="grp-member-row">
-          <Avatar name={m.display_name} avatarUrl={m.avatar_url} size={36} />
-          <div className="grp-member-info">
-            <span className="grp-member-name">{m.display_name || t("groups.member")}</span>
-            <span className="grp-member-role">{m.role === "admin" ? t("groups.kingAdmin") : t("groups.member")} · {t("groups.joined")} {timeAgo(m.joinedAt, t)}</span>
-          </div>
-          {isAdmin && m.userId !== userId && (
-            <button
-              className="grp-btn grp-btn--sm grp-btn--danger"
-              onClick={() => onRemove(m.userId)}
-            >
-              {t("common.delete")}
-            </button>
+      <div className="grp-post-actions">
+        <button
+          className={`grp-post-like${post.liked_by_me ? " grp-post-like--active" : ""}`}
+          onClick={() => toggleLike.mutate(post.id, { onError: () => toast.error("Failed to update like.") })}
+          aria-label={post.liked_by_me ? "Unlike" : "Like"}
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill={post.liked_by_me ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          {post.like_count > 0 && post.like_count}
+        </button>
+        <button className="grp-post-comment-btn" onClick={() => setExpanded(v => !v)}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          {post.comment_count > 0 ? post.comment_count : "Comment"}
+        </button>
+      </div>
+
+      {expanded && (
+        <div className="grp-comments">
+          {commentsLoading ? (
+            <p className="grp-comments-loading">Loading…</p>
+          ) : (
+            comments.map(c => (
+              <div key={c.id} className="grp-comment">
+                <Avatar src={c.author?.avatar_url} name={c.author?.display_name} size={26} />
+                <div className="grp-comment-body">
+                  <div className="grp-comment-header">
+                    <span className="grp-comment-author">{c.author?.display_name || "Unknown"}</span>
+                    <span className="grp-comment-time">{timeAgo(c.created_at)}</span>
+                    {(c.author_id === userId || isAdmin) && (
+                      <button
+                        className="grp-comment-delete"
+                        onClick={() => deleteComment.mutate(
+                          { commentId: c.id, postId: post.id },
+                          { onError: () => toast.error("Failed to delete comment.") }
+                        )}
+                        aria-label="Delete comment"
+                      >
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                      </button>
+                    )}
+                  </div>
+                  <p className="grp-comment-content">{c.content}</p>
+                </div>
+              </div>
+            ))
           )}
+          <form className="grp-comment-form" onSubmit={submitComment}>
+            <input
+              className="grp-comment-input"
+              placeholder="Write a comment…"
+              value={commentText}
+              onChange={e => setCommentText(e.target.value)}
+              maxLength={1000}
+            />
+            <button type="submit" className="grp-comment-send" disabled={!commentText.trim() || addComment.isPending} aria-label="Send">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </form>
         </div>
-      ))}
+      )}
     </div>
   );
 }
 
-// ── Announcements tab ─────────────────────────────────────────────────────────
+// ── Compose box ───────────────────────────────────────────────────────────────
 
-function AnnouncementsTab({ groupId, isAdmin }) {
-  const { t } = useTranslation();
-  const { data: announcements = [], isLoading } = useGroupAnnouncements(groupId);
-  const createAnnouncement = useCreateAnnouncement(groupId);
-  const deleteAnnouncement = useDeleteAnnouncement(groupId);
-  const [text, setText] = useState("");
-  const [error, setError] = useState("");
+function ComposeBox({ groupId, isAdmin }: { groupId: string; isAdmin: boolean }) {
+  const [content, setContent] = useState("");
+  const [isAnnouncement, setIsAnnouncement] = useState(false);
+  const createPost = useCreatePost(groupId);
 
-  function handlePost(e) {
+  function submit(e: React.FormEvent) {
     e.preventDefault();
-    const trimmed = text.trim();
-    if (!trimmed) return;
-    setError("");
-    createAnnouncement.mutate(trimmed, {
-      onSuccess: () => setText(""),
-      onError: (err) => setError(err.message),
-    });
+    if (!content.trim()) return;
+    createPost.mutate(
+      { content: content.trim(), isAnnouncement: isAdmin && isAnnouncement },
+      {
+        onSuccess: () => { setContent(""); setIsAnnouncement(false); },
+        onError: () => toast.error("Failed to post."),
+      }
+    );
   }
 
-  if (isLoading) return <div className="grp-spinner-wrap"><div className="grp-spinner" /></div>;
-
   return (
-    <div className="grp-announcements">
-      {isAdmin && (
-        <form className="grp-announce-form" onSubmit={handlePost}>
-          <textarea
-            className="grp-input grp-textarea"
-            placeholder={t("groups.announcementPlaceholder")}
-            value={text}
-            onChange={e => setText(e.target.value)}
-            maxLength={500}
-            rows={3}
-          />
-          {error && <p className="grp-error">{error}</p>}
-          <button type="submit" className="grp-btn grp-btn--primary grp-btn--sm" disabled={!text.trim() || createAnnouncement.isPending}>
-            {t("groups.postAnnouncement")}
-          </button>
-        </form>
-      )}
-      {announcements.length === 0 ? (
-        <p className="grp-empty grp-empty--pad">{t("groups.noAnnouncements")}</p>
-      ) : (
-        announcements.map(a => (
-          <div key={a.id} className="grp-announce-card">
-            <div className="grp-announce-header">
-              <Avatar name={a.author?.display_name} avatarUrl={a.author?.avatar_url} size={28} />
-              <span className="grp-announce-author">{a.author?.display_name}</span>
-              <span className="grp-announce-time">{timeAgo(a.created_at, t)}</span>
-              {isAdmin && (
-                <button className="grp-announce-delete" onClick={() => deleteAnnouncement.mutate(a.id)} title={t("common.delete")} aria-label={t("common.delete")}>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                </button>
-              )}
-            </div>
-            <p className="grp-announce-content">{a.content}</p>
-          </div>
-        ))
-      )}
-    </div>
+    <form className="grp-compose" onSubmit={submit}>
+      <textarea
+        className="grp-compose-input"
+        placeholder="Share something with the group…"
+        value={content}
+        onChange={e => setContent(e.target.value)}
+        maxLength={2000}
+        rows={3}
+      />
+      <div className="grp-compose-actions">
+        {isAdmin && (
+          <label className="grp-compose-announce">
+            <input type="checkbox" checked={isAnnouncement} onChange={e => setIsAnnouncement(e.target.checked)} />
+            Pin as announcement
+          </label>
+        )}
+        <button type="submit" className="grp-btn grp-btn--primary grp-btn--sm" disabled={!content.trim() || createPost.isPending}>
+          {createPost.isPending ? "Posting…" : "Post"}
+        </button>
+      </div>
+    </form>
   );
 }
 
-// ── Reading progress tab ──────────────────────────────────────────────────────
+// ── Create event modal ────────────────────────────────────────────────────────
 
-function ProgressTab({ groupId, userId }) {
-  const { t } = useTranslation();
-  const { data: progress = [], isLoading } = useGroupProgress(groupId);
+function CreateEventModal({ groupId, onClose }: { groupId: string; onClose: () => void }) {
+  const createEvent = useCreateEvent(groupId);
+  const [form, setForm] = useState({ title: "", description: "", location: "", starts_at: "", ends_at: "" });
+  const [error, setError] = useState("");
+  const set = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }));
 
-  if (isLoading) return <div className="grp-spinner-wrap"><div className="grp-spinner" /></div>;
-  if (!progress.length) return <p className="grp-empty grp-empty--pad">{t("groups.noData")}</p>;
-
-  const maxChapters = Math.max(...progress.map(p => Number(p.total_chapters)), 1);
-
-  return (
-    <div className="grp-progress">
-      {progress.map((entry, i) => {
-        const isMe = entry.user_id === userId;
-        const pct = Math.round((Number(entry.total_chapters) / maxChapters) * 100);
-        return (
-          <div key={entry.user_id} className={`grp-progress-row${isMe ? " grp-progress-row--me" : ""}`}>
-            <span className="grp-progress-rank">#{i + 1}</span>
-            <Avatar name={entry.display_name} avatarUrl={entry.avatar_url} size={32} />
-            <div className="grp-progress-info">
-              <div className="grp-progress-top">
-                <span className="grp-progress-name">{entry.display_name}{isMe ? ` (${t("groups.you")})` : ""}</span>
-                <span className="grp-progress-count">{Number(entry.total_chapters).toLocaleString()} {t("groups.chaptersRead")}</span>
-              </div>
-              <div className="grp-progress-bar-wrap">
-                <div className="grp-progress-bar" style={{ width: `${pct}%` }} />
-              </div>
-              {entry.last_read_date && (
-                <span className="grp-progress-last">{t("groups.lastRead")}: {new Date(entry.last_read_date).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>
-              )}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-// ── Reading Challenge components ──────────────────────────────────────────────
-
-function ChallengePicker({ onConfirm, onClose }) {
-  const [selectedKey, setSelectedKey] = useState(PLAN_TEMPLATES[0]?.key ?? "");
-
-  if (typeof document === "undefined") return null;
+  function submit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!form.title.trim() || !form.starts_at) return;
+    setError("");
+    createEvent.mutate(
+      { title: form.title.trim(), description: form.description.trim() || undefined, location: form.location.trim() || undefined, starts_at: form.starts_at, ends_at: form.ends_at || undefined },
+      { onSuccess: () => onClose(), onError: (err: Error) => setError(err.message) }
+    );
+  }
 
   return createPortal(
-    <div
-      className="gc-picker-overlay"
-      onClick={(e) => e.target === e.currentTarget && onClose()}
-    >
-      <div className="gc-picker-sheet" role="dialog" aria-modal="true">
-        <h2 className="gc-picker-title">Choose a Reading Plan</h2>
-        <div className="gc-picker-list">
-          {PLAN_TEMPLATES.map((template) => (
-            <button
-              key={template.key}
-              className={`gc-picker-item${selectedKey === template.key ? " gc-picker-item--selected" : ""}`}
-              onClick={() => setSelectedKey(template.key)}
-            >
-              <div className="gc-picker-item-name">{template.name}</div>
-              <div className="gc-picker-item-meta">
-                {template.totalChapters ?? "?"} chapters
-                {template.totalDays ? ` · ~${template.totalDays} days` : ""}
-              </div>
-            </button>
-          ))}
+    <div className="grp-modal-overlay" onClick={onClose}>
+      <div className="grp-modal" onClick={e => e.stopPropagation()}>
+        <div className="grp-modal-header">
+          <h2 className="grp-modal-title">Create Event</h2>
+          <button className="grp-modal-close" onClick={onClose} aria-label="Close">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         </div>
-        <button
-          className="gc-picker-confirm"
-          disabled={!selectedKey}
-          onClick={() => selectedKey && onConfirm(selectedKey)}
-        >
-          Start Challenge →
-        </button>
+        <form className="grp-modal-body" onSubmit={submit}>
+          <label className="grp-field"><span>Title</span><input className="grp-input" value={form.title} onChange={e => set("title", e.target.value)} placeholder="Meeting title" maxLength={120} required autoFocus /></label>
+          <label className="grp-field"><span>Description <span className="grp-optional">(optional)</span></span><textarea className="grp-input grp-textarea" value={form.description} onChange={e => set("description", e.target.value)} maxLength={500} rows={2} /></label>
+          <label className="grp-field"><span>Location <span className="grp-optional">(optional)</span></span><input className="grp-input" value={form.location} onChange={e => set("location", e.target.value)} placeholder="Address or meeting link" maxLength={200} /></label>
+          <label className="grp-field"><span>Starts at</span><input className="grp-input" type="datetime-local" value={form.starts_at} onChange={e => set("starts_at", e.target.value)} required /></label>
+          <label className="grp-field"><span>Ends at <span className="grp-optional">(optional)</span></span><input className="grp-input" type="datetime-local" value={form.ends_at} onChange={e => set("ends_at", e.target.value)} /></label>
+          {error && <p className="grp-error">{error}</p>}
+          <div className="grp-modal-actions">
+            <button type="button" className="grp-btn grp-btn--ghost" onClick={onClose}>Cancel</button>
+            <button type="submit" className="grp-btn grp-btn--primary" disabled={createEvent.isPending || !form.title.trim() || !form.starts_at}>
+              {createEvent.isPending ? "Creating…" : "Create event"}
+            </button>
+          </div>
+        </form>
       </div>
     </div>,
     document.body
   );
 }
 
-function ChallengeSection({ groupId, currentUser, isAdmin, onUpgrade }) {
-  const { isPremium } = useSubscription(currentUser?.id);
-  const { data: challenge, isLoading: challengeLoading } = useActiveChallenge(groupId);
-  const { data: progress = [], isLoading: progressLoading } = useChallengeProgress(
-    challenge?.id,
-    challenge?.plan_key
-  );
-  const startChallenge = useStartChallenge(groupId);
-  const endChallenge = useEndChallenge(groupId);
-  const [showPicker, setShowPicker] = useState(false);
+// ── Event card ────────────────────────────────────────────────────────────────
 
-  if (challengeLoading) return null;
+function EventCard({ event, isAdmin, groupId }: { event: GroupEvent; isAdmin: boolean; groupId: string }) {
+  const setRsvp = useSetRsvp(groupId);
+  const removeRsvp = useRemoveRsvp(groupId);
+  const deleteEvent = useDeleteEvent(groupId);
+  const isPast = new Date(event.starts_at) < new Date();
 
-  const planName = PLAN_TEMPLATES.find((t) => t.key === challenge?.plan_key)?.name
-    ?? challenge?.plan_key;
-
-  function handleStartClick() {
-    if (!isAdmin) return;
-    if (!isPremium) { onUpgrade?.(); return; }
-    setShowPicker(true);
+  function handleRsvp(status: "going" | "maybe" | "not_going") {
+    if (event.my_rsvp === status) {
+      removeRsvp.mutate(event.id, { onError: () => toast.error("Failed to update RSVP.") });
+    } else {
+      setRsvp.mutate({ eventId: event.id, status }, { onError: () => toast.error("Failed to update RSVP.") });
+    }
   }
 
   return (
-    <section className="gc-section">
-      <h2 className="gc-section-title">Reading Challenge</h2>
-
-      {!challenge ? (
-        <div
-          className="gc-start-card"
-          onClick={handleStartClick}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => e.key === "Enter" && handleStartClick()}
-        >
-          <p className="gc-start-label">+ Start a Reading Challenge</p>
-          <p className="gc-start-sub">
-            {isAdmin
-              ? (isPremium ? "Pick a plan and track the whole group's progress" : "✦ Requires Premium")
-              : "Ask your group admin to start a challenge"}
-          </p>
-        </div>
-      ) : (
-        <>
-          <div className="gc-active-header">
-            <div>
-              <div className="gc-plan-name">{planName}</div>
-              <div className="gc-start-date">
-                Started {new Date(challenge.start_date).toLocaleDateString(undefined, {
-                  month: "short", day: "numeric", year: "numeric"
-                })}
-              </div>
-            </div>
-            {isAdmin && (
-              <button
-                className="gc-end-btn"
-                onClick={() => endChallenge.mutate(challenge.id)}
-                disabled={endChallenge.isPending}
-              >
-                End Challenge
-              </button>
-            )}
-          </div>
-
-          {progressLoading ? (
-            <div className="skeleton" style={{ height: 120, borderRadius: 12 }} />
-          ) : (
-            <ul className="gc-member-list" style={{ listStyle: "none", padding: 0 }}>
-              {progress.map((member) => (
-                <li key={member.user_id} className="gc-member-row">
-                  <span className="gc-avatar">
-                    {member.avatar_url
-                      ? <img src={member.avatar_url} alt={member.display_name} />
-                      : member.display_name?.[0]?.toUpperCase() ?? "?"}
-                  </span>
-                  <div className="gc-member-info">
-                    <div className="gc-member-name">{member.display_name}</div>
-                    {member.chapters_done > 0 ? (
-                      <div className="gc-progress-bar">
-                        <div
-                          className="gc-progress-fill"
-                          style={{ width: `${member.pct}%` }}
-                        />
-                      </div>
-                    ) : (
-                      <span className="gc-not-started">Not started</span>
-                    )}
-                  </div>
-                  <span className="gc-member-pct">
-                    {member.chapters_done > 0 ? `${member.pct}%` : "0%"}
-                  </span>
-                </li>
-              ))}
-            </ul>
+    <div className={`grp-event${isPast ? " grp-event--past" : ""}`}>
+      <div className="grp-event-date">
+        <span className="grp-event-month">{new Date(event.starts_at).toLocaleDateString(undefined, { month: "short" })}</span>
+        <span className="grp-event-day">{new Date(event.starts_at).getDate()}</span>
+      </div>
+      <div className="grp-event-info">
+        <div className="grp-event-title-row">
+          <h4 className="grp-event-title">{event.title}</h4>
+          {isAdmin && (
+            <button className="grp-post-delete" onClick={() => deleteEvent.mutate(event.id, { onError: () => toast.error("Failed to delete event.") })} aria-label="Delete event">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+            </button>
           )}
-        </>
-      )}
-
-      {showPicker && (
-        <ChallengePicker
-          onConfirm={(planKey) => {
-            startChallenge.mutate(
-              { planKey, userId: currentUser?.id },
-              {
-                onError: (err) => console.error("Failed to start challenge:", err),
-              }
-            );
-            setShowPicker(false);
-          }}
-          onClose={() => setShowPicker(false)}
-        />
-      )}
-    </section>
+        </div>
+        <div className="grp-event-meta">
+          <span>{formatDate(event.starts_at)}</span>
+          {event.location && <span>· {event.location}</span>}
+        </div>
+        {event.description && <p className="grp-event-desc">{event.description}</p>}
+        <div className="grp-event-rsvp">
+          <span className="grp-event-rsvp-count">{event.rsvp_count} going</span>
+          {!isPast && (
+            <div className="grp-rsvp-btns">
+              {(["going", "maybe", "not_going"] as const).map(s => (
+                <button
+                  key={s}
+                  className={`grp-rsvp-btn${event.my_rsvp === s ? " grp-rsvp-btn--active" : ""}`}
+                  onClick={() => handleRsvp(s)}
+                >
+                  {s === "going" ? "Going" : s === "maybe" ? "Maybe" : "Can't go"}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 
-// ── Main detail page ──────────────────────────────────────────────────────────
+// ── Members tab ───────────────────────────────────────────────────────────────
+
+function MembersTab({ groupId, userId, isAdmin, isOwner }: { groupId: string; userId: string; isAdmin: boolean; isOwner: boolean }) {
+  const { data: members = [], isLoading } = useGroupMembers(groupId);
+  const approve = useApproveJoinRequest(groupId);
+  const deny = useDenyJoinRequest(groupId);
+  const remove = useRemoveMember(groupId);
+  const updateRole = useUpdateMemberRole(groupId);
+
+  const pending = (members as GroupMember[]).filter(m => m.status === "pending");
+  const active = (members as GroupMember[]).filter(m => m.status === "member");
+
+  if (isLoading) return <div className="grp-tab-loading">Loading members…</div>;
+
+  return (
+    <div className="grp-members-tab">
+      {isAdmin && pending.length > 0 && (
+        <div className="grp-pending-section">
+          <h3 className="grp-section-label">Join Requests <span className="grp-tab-count">{pending.length}</span></h3>
+          {pending.map(m => (
+            <div key={m.id} className="grp-member-row grp-member-row--pending">
+              <Avatar src={m.avatar_url} name={m.display_name} size={36} />
+              <span className="grp-member-name">{m.display_name || "Unknown"}</span>
+              <div className="grp-member-actions">
+                <button className="grp-btn grp-btn--sm grp-btn--primary" onClick={() => approve.mutate(m.id, { onError: () => toast.error("Failed to approve.") })}>Approve</button>
+                <button className="grp-btn grp-btn--sm grp-btn--ghost" onClick={() => deny.mutate(m.id, { onError: () => toast.error("Failed to deny.") })}>Deny</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <h3 className="grp-section-label">Members <span className="grp-tab-count">{active.length}</span></h3>
+      {active.map(m => (
+        <div key={m.id} className="grp-member-row">
+          <Avatar src={m.avatar_url} name={m.display_name} size={36} />
+          <div className="grp-member-info">
+            <span className="grp-member-name">{m.display_name || "Unknown"}</span>
+            <span className="grp-member-role">{m.role}</span>
+          </div>
+          {isAdmin && m.user_id !== userId && m.role !== "owner" && (
+            <div className="grp-member-actions">
+              {isOwner && (
+                <button className="grp-btn grp-btn--sm grp-btn--ghost" onClick={() => updateRole.mutate(
+                  { memberId: m.id, role: m.role === "admin" ? "member" : "admin" },
+                  { onError: () => toast.error("Failed to update role.") }
+                )}>
+                  {m.role === "admin" ? "Remove admin" : "Make admin"}
+                </button>
+              )}
+              <button className="grp-btn grp-btn--sm grp-btn--danger" onClick={() => remove.mutate(m.id, { onError: () => toast.error("Failed to remove member.") })}>Remove</button>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ── Files tab ─────────────────────────────────────────────────────────────────
+
+function FilesTab({ groupId, userId, isAdmin }: { groupId: string; userId: string; isAdmin: boolean }) {
+  const { data: files = [], isLoading } = useGroupFiles(groupId);
+  const upload = useUploadFile(groupId);
+  const deleteFile = useDeleteFile(groupId);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0];
+    if (!f) return;
+    if (f.size > 50 * 1024 * 1024) { toast.error("File must be under 50 MB."); return; }
+    upload.mutate(f, { onError: () => toast.error("Failed to upload file.") });
+    e.target.value = "";
+  }
+
+  function fileIcon(mime: string) {
+    if (mime.startsWith("image/")) return "🖼";
+    if (mime.startsWith("video/")) return "🎬";
+    if (mime.includes("pdf")) return "📄";
+    if (mime.includes("word") || mime.includes("document")) return "📝";
+    if (mime.includes("sheet") || mime.includes("excel")) return "📊";
+    return "📎";
+  }
+
+  return (
+    <div className="grp-files-tab">
+      <div className="grp-files-header">
+        <h3 className="grp-section-label">Shared Files</h3>
+        <button className="grp-btn grp-btn--sm grp-btn--primary" onClick={() => fileRef.current?.click()} disabled={upload.isPending}>
+          {upload.isPending ? "Uploading…" : "Upload file"}
+        </button>
+        <input ref={fileRef} type="file" style={{ display: "none" }} onChange={handleFile} accept="image/*,video/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.mp3" />
+      </div>
+
+      {isLoading ? (
+        <p className="grp-tab-loading">Loading files…</p>
+      ) : (files as GroupFile[]).length === 0 ? (
+        <div className="grp-empty-state grp-empty-state--sm">
+          <p>No files yet. Upload one to share with the group.</p>
+        </div>
+      ) : (
+        <div className="grp-file-list">
+          {(files as GroupFile[]).map(f => (
+            <div key={f.id} className="grp-file-row">
+              <span className="grp-file-icon" aria-hidden="true">{fileIcon(f.mime_type)}</span>
+              <div className="grp-file-info">
+                <a href={groupsApi.getFileUrl(f.storage_path)} target="_blank" rel="noopener noreferrer" className="grp-file-name">{f.file_name}</a>
+                <span className="grp-file-meta">{formatFileSize(f.file_size)} · {f.uploader?.display_name || "Unknown"} · {timeAgo(f.created_at)}</span>
+              </div>
+              {(f.uploaded_by === userId || isAdmin) && (
+                <button className="grp-post-delete" onClick={() => deleteFile.mutate({ fileId: f.id, storagePath: f.storage_path }, { onError: () => toast.error("Failed to delete file.") })} aria-label="Delete file">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Main GroupDetail ──────────────────────────────────────────────────────────
+
+type Tab = "feed" | "members" | "events" | "files";
 
 export default function GroupDetail({ groupId, user, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
-  const { t } = useTranslation();
-  const [tab, setTab] = useState("chat");
-  const [confirmLeave, setConfirmLeave] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState(false);
-  const [removeTarget, setRemoveTarget] = useState(null);
-  const { data: group, isLoading: loadingGroup } = useGroup(groupId);
-  const { data: members = [] } = useGroupMembers(groupId);
+  const [tab, setTab] = useState<Tab>("feed");
+  const [showCreateEvent, setShowCreateEvent] = useState(false);
+  const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const { data: group, isLoading: groupLoading, isError: groupError } = useGroup(groupId);
+  const { data: posts = [], isLoading: postsLoading } = useGroupPosts(tab === "feed" ? groupId : undefined);
+  const { data: events = [], isLoading: eventsLoading } = useGroupEvents(tab === "events" ? groupId : undefined);
   const leaveGroup = useLeaveGroup();
   const deleteGroup = useDeleteGroup();
-  const removeMember = useRemoveMember(groupId);
 
-  const myMembership = members.find(m => m.userId === user.id);
-  const isAdmin = myMembership?.role === "admin";
-  const isMember = !!myMembership;
-
-  if (loadingGroup) return <p className="grp-empty grp-empty--pad">{t("common.loading")}</p>;
-  if (!group) return <p className="grp-empty grp-empty--pad">{t("groups.notFound")}</p>;
+  const myRole = group?.myRole;
+  const myStatus = group?.myStatus;
+  const isAdmin = myRole === "owner" || myRole === "admin";
+  const isOwner = myRole === "owner";
+  const isMember = myStatus === "member";
 
   function handleLeave() {
     leaveGroup.mutate(groupId, {
       onSuccess: () => navigate("groups"),
+      onError: () => toast.error("Failed to leave group."),
     });
   }
 
   function handleDelete() {
     deleteGroup.mutate(groupId, {
       onSuccess: () => navigate("groups"),
+      onError: () => toast.error("Failed to delete group."),
     });
   }
 
-  function handleRemove(userId) {
-    removeMember.mutate(userId, {
-      onSuccess: () => setRemoveTarget(null),
-    });
-  }
-
-  const daysLeft = group.goal_deadline
-    ? Math.ceil((new Date(group.goal_deadline).getTime() - Date.now()) / 86400000)
-    : null;
-
-  const isReadingGroup = !group.group_type || group.group_type === "bible_study";
-
-  return (
-    <div className="grp-detail">
+  if (groupLoading) {
+    return (
       <AppLayout navigate={navigate} user={user} currentPage="groups">
-      {/* Header */}
-      <div className="grp-detail-header">
-        <button className="grp-detail-back-btn" onClick={() => navigate("groups")} aria-label={t("common.back")}>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <div className="grp-detail-avatar">
-          {group.cover_url
-            ? <img src={group.cover_url} alt="" />
-            : <span>{initial(group.name)}</span>
-          }
-        </div>
-        <div className="grp-detail-header-info">
-          <h1 className="grp-detail-name">{group.name}</h1>
-          {group.description && <p className="grp-detail-desc">{group.description}</p>}
-          {group.goal_label && (
-            <p className="grp-detail-goal">
-              {group.goal_label}
-              {daysLeft !== null && (
-                <span className={`grp-deadline${daysLeft < 7 ? " grp-deadline--urgent" : ""}`}>
-                  {daysLeft > 0 ? ` · ${daysLeft}d left` : " · Deadline passed"}
-                </span>
-              )}
-            </p>
-          )}
-          <div className="grp-detail-meta">
-            <span className="grp-detail-meta-item">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              {members.length} {t("groups.members")}
-            </span>
-            {group.is_private && <span>{t("groups.private")}</span>}
-            {isAdmin && group.invite_code && (
-              <button
-                className="grp-invite-code"
-                title={t("groups.clickToCopy")}
-                onClick={() => { navigator.clipboard.writeText(group.invite_code); }}
-              >
-                {t("groups.code")} <strong>{group.invite_code}</strong>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              </button>
-            )}
+        <div className="grp-detail-page">
+          <div className="grp-detail-header-skeleton">
+            <div className="skeleton" style={{ height: 26, width: "50%", marginBottom: 10 }} />
+            <div className="skeleton" style={{ height: 14, width: "30%" }} />
           </div>
         </div>
-        <div className="grp-detail-actions">
-          {isMember && !isAdmin && (
-            <button className="grp-btn grp-btn--ghost grp-btn--sm" onClick={() => setConfirmLeave(true)}>
-              {t("groups.leave")}
-            </button>
-          )}
-          {isAdmin && (
-            <button className="grp-btn grp-btn--danger grp-btn--sm" onClick={() => setConfirmDelete(true)}>
-              {t("common.delete")}
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Tabs */}
-      <div className="grp-tabs grp-tabs--detail">
-        <button className={`grp-tab${tab === "chat" ? " grp-tab--active" : ""}`} onClick={() => setTab("chat")}>{t("groups.chat")}</button>
-        <button className={`grp-tab${tab === "announcements" ? " grp-tab--active" : ""}`} onClick={() => setTab("announcements")}>{t("groups.announcements")}</button>
-        {isReadingGroup && <button className={`grp-tab${tab === "progress" ? " grp-tab--active" : ""}`} onClick={() => setTab("progress")}>{t("groups.progress")}</button>}
-        {isReadingGroup && <button className={`grp-tab${tab === "leaderboard" ? " grp-tab--active" : ""}`} onClick={() => setTab("leaderboard")}>{t("groups.leaderboard")}</button>}
-        <button className={`grp-tab${tab === "members" ? " grp-tab--active" : ""}`} onClick={() => setTab("members")}>{t("groups.membersTab")}</button>
-      </div>
-
-      {/* Tab content */}
-      <div className="grp-detail-body">
-        {tab === "chat" && <ChatTab groupId={groupId} user={user} isAdmin={isAdmin} />}
-        {tab === "announcements" && <AnnouncementsTab groupId={groupId} isAdmin={isAdmin} />}
-        {tab === "progress" && isReadingGroup && <ProgressTab groupId={groupId} userId={user.id} />}
-        {tab === "leaderboard" && isReadingGroup && <LeaderboardTab groupId={groupId} userId={user.id} />}
-        {tab === "members" && (
-          <MembersTab
-            groupId={groupId}
-            userId={user.id}
-            isAdmin={isAdmin}
-            onRemove={(uid) => setRemoveTarget(uid)}
-          />
-        )}
-      </div>
-
-      {isReadingGroup && (
-        <ChallengeSection
-          groupId={groupId}
-          currentUser={user}
-          isAdmin={isAdmin}
-          onUpgrade={() => navigate("premium")}
-        />
-      )}
-
-      {confirmLeave && (
-        <ConfirmModal
-          message={t("groups.leaveConfirm")}
-          onConfirm={handleLeave}
-          onCancel={() => setConfirmLeave(false)}
-        />
-      )}
-      {confirmDelete && (
-        <ConfirmModal
-          message={t("groups.deleteConfirm")}
-          onConfirm={handleDelete}
-          onCancel={() => setConfirmDelete(false)}
-        />
-      )}
-      {removeTarget && (
-        <ConfirmModal
-          message={t("groups.removeMemberConfirm")}
-          onConfirm={() => handleRemove(removeTarget)}
-          onCancel={() => setRemoveTarget(null)}
-        />
-      )}
       </AppLayout>
-    </div>
+    );
+  }
+
+  if (groupError || !group) {
+    return (
+      <AppLayout navigate={navigate} user={user} currentPage="groups">
+        <div className="grp-detail-page">
+          <p className="grp-error">Group not found or you don't have access.</p>
+          <button className="grp-btn grp-btn--ghost" onClick={() => navigate("groups")}>← Back to groups</button>
+        </div>
+      </AppLayout>
+    );
+  }
+
+  // Pending users see a waiting screen
+  if (myStatus === "pending") {
+    return (
+      <AppLayout navigate={navigate} user={user} currentPage="groups">
+        <div className="grp-detail-page grp-pending-page">
+          <button className="grp-back-btn" onClick={() => navigate("groups")}>← Groups</button>
+          <h2 className="grp-detail-title">{group.name}</h2>
+          <div className="grp-pending-banner">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <h3>Request pending</h3>
+            <p>An admin needs to approve your request before you can see the group.</p>
+            <button className="grp-btn grp-btn--ghost" onClick={handleLeave}>Cancel request</button>
+          </div>
+        </div>
+      </AppLayout>
+    );
+  }
+
+  // Non-members of private groups see locked
+  if (!isMember && group.privacy === "private") {
+    return (
+      <AppLayout navigate={navigate} user={user} currentPage="groups">
+        <div className="grp-detail-page grp-pending-page">
+          <button className="grp-back-btn" onClick={() => navigate("groups")}>← Groups</button>
+          <h2 className="grp-detail-title">{group.name}</h2>
+          <div className="grp-pending-banner">
+            <p>{group.description}</p>
+            <p className="grp-pending-banner-sub">{group.member_count} members</p>
+          </div>
+        </div>
+      </AppLayout>
+    );
+  }
+
+  return (
+    <AppLayout navigate={navigate} user={user} currentPage="groups">
+      <div className="grp-detail-page">
+        {/* Header */}
+        <div className="grp-detail-header">
+          <button className="grp-back-btn" onClick={() => navigate("groups")}>← Groups</button>
+          <div className="grp-detail-header-main">
+            <div className="grp-detail-cover">
+              {group.cover_url
+                ? <img src={group.cover_url} alt="" className="grp-detail-cover-img" loading="lazy" />
+                : <span className="grp-detail-cover-initial">{(group.name || "?")[0].toUpperCase()}</span>}
+            </div>
+            <div className="grp-detail-header-info">
+              <div className="grp-detail-title-row">
+                <h1 className="grp-detail-title">{group.name}</h1>
+                {group.privacy === "private" && <span className="grp-badge grp-badge--private">Private</span>}
+              </div>
+              {group.description && <p className="grp-detail-desc">{group.description}</p>}
+              <p className="grp-detail-meta">{group.member_count} {group.member_count === 1 ? "member" : "members"}</p>
+            </div>
+            <div className="grp-detail-header-actions">
+              {!isOwner && (
+                <button className="grp-btn grp-btn--ghost grp-btn--sm" onClick={() => setShowLeaveConfirm(true)}>Leave</button>
+              )}
+              {isOwner && (
+                <button className="grp-btn grp-btn--danger grp-btn--sm" onClick={() => setShowDeleteConfirm(true)}>Delete group</button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <div className="grp-tabs grp-tabs--detail">
+          {(["feed", "members", "events", "files"] as Tab[]).map(t => (
+            <button key={t} className={`grp-tab${tab === t ? " grp-tab--active" : ""}`} onClick={() => setTab(t)}>
+              {t.charAt(0).toUpperCase() + t.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {/* Feed */}
+        {tab === "feed" && (
+          <div className="grp-feed">
+            <ComposeBox groupId={groupId} isAdmin={isAdmin} />
+            {postsLoading ? (
+              <div className="grp-posts-skeleton">
+                {[0, 1, 2].map(i => <div key={i} className="skeleton grp-post-skeleton" />)}
+              </div>
+            ) : (posts as GroupPost[]).length === 0 ? (
+              <div className="grp-empty-state grp-empty-state--sm">
+                <p>No posts yet. Be the first to share something!</p>
+              </div>
+            ) : (
+              (posts as GroupPost[]).map(p => (
+                <PostCard key={p.id} post={p} userId={user.id} isAdmin={isAdmin} groupId={groupId} />
+              ))
+            )}
+          </div>
+        )}
+
+        {/* Members */}
+        {tab === "members" && (
+          <MembersTab groupId={groupId} userId={user.id} isAdmin={isAdmin} isOwner={isOwner} />
+        )}
+
+        {/* Events */}
+        {tab === "events" && (
+          <div className="grp-events-tab">
+            {isAdmin && (
+              <div className="grp-events-header">
+                <button className="grp-btn grp-btn--primary grp-btn--sm" onClick={() => setShowCreateEvent(true)}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  Create event
+                </button>
+              </div>
+            )}
+            {eventsLoading ? (
+              <p className="grp-tab-loading">Loading events…</p>
+            ) : (events as GroupEvent[]).length === 0 ? (
+              <div className="grp-empty-state grp-empty-state--sm">
+                <p>{isAdmin ? "No events yet. Create one above." : "No events scheduled yet."}</p>
+              </div>
+            ) : (
+              (events as GroupEvent[]).map(e => (
+                <EventCard key={e.id} event={e} isAdmin={isAdmin} groupId={groupId} />
+              ))
+            )}
+          </div>
+        )}
+
+        {/* Files */}
+        {tab === "files" && <FilesTab groupId={groupId} userId={user.id} isAdmin={isAdmin} />}
+      </div>
+
+      {showCreateEvent && <CreateEventModal groupId={groupId} onClose={() => setShowCreateEvent(false)} />}
+      {showLeaveConfirm && (
+        <ConfirmModal
+          title="Leave group"
+          message={`Leave ${group.name}? You'll need to rejoin to see it again.`}
+          confirmLabel="Leave"
+          onConfirm={handleLeave}
+          onCancel={() => setShowLeaveConfirm(false)}
+          danger
+        />
+      )}
+      {showDeleteConfirm && (
+        <ConfirmModal
+          title="Delete group"
+          message={`Permanently delete "${group.name}" and all its content? This cannot be undone.`}
+          confirmLabel="Delete"
+          onConfirm={handleDelete}
+          onCancel={() => setShowDeleteConfirm(false)}
+          danger
+        />
+      )}
+    </AppLayout>
   );
 }
