@@ -198,16 +198,6 @@ export const groupsApi = {
     if (error) throw new Error(error.message);
   },
 
-  approveJoinRequest: async (memberId: string): Promise<void> => {
-    const { error } = await supabase.from("group_members").update({ status: "member" }).eq("id", memberId);
-    if (error) throw new Error(error.message);
-  },
-
-  denyJoinRequest: async (memberId: string): Promise<void> => {
-    const { error } = await supabase.from("group_members").delete().eq("id", memberId);
-    if (error) throw new Error(error.message);
-  },
-
   removeMember: async (memberId: string): Promise<void> => {
     const { error } = await supabase.from("group_members").delete().eq("id", memberId);
     if (error) throw new Error(error.message);
@@ -424,5 +414,214 @@ export const groupsApi = {
   getFileUrl: (storagePath: string): string => {
     const { data } = supabase.storage.from("group-files").getPublicUrl(storagePath);
     return data.publicUrl;
+  },
+
+  // ── Group leaderboard ─────────────────────────────────────────────────────
+
+  getLeaderboard: async (groupId: string) => {
+    const { data: members, error } = await supabase
+      .from("study_group_members")
+      .select("user_id")
+      .eq("group_id", groupId);
+    if (error) throw new Error(error.message);
+    if (!members?.length) return [];
+    const userIds = members.map(m => m.user_id);
+    const { data: profiles } = await supabase
+      .from("profiles")
+      .select("id, display_name, avatar_url")
+      .in("id", userIds);
+    const profileMap = Object.fromEntries((profiles ?? []).map(p => [p.id, p]));
+    const results = await Promise.all(
+      userIds.map(async (uid) => {
+        const { data: streak } = await supabase.rpc("get_reading_streaks", { p_user_id: uid });
+        return {
+          userId: uid,
+          displayName: profileMap[uid]?.display_name || "Unknown",
+          avatarUrl: profileMap[uid]?.avatar_url || null,
+          currentStreak: (streak as { current_streak?: number } | null)?.current_streak ?? 0,
+          longestStreak: (streak as { longest_streak?: number } | null)?.longest_streak ?? 0,
+        };
+      })
+    );
+    return results.sort((a, b) => b.currentStreak - a.currentStreak);
+  },
+
+  // ── Group chat ────────────────────────────────────────────────────────────
+
+  getMessages: async (groupId: string) => {
+    const { data: msgs, error } = await supabase
+      .from("study_group_messages")
+      .select("id, content, created_at, sender_id, reply_to_id, edited_at")
+      .eq("group_id", groupId)
+      .is("deleted_at", null)
+      .order("created_at", { ascending: true })
+      .limit(100);
+    if (error) throw new Error(error.message);
+    if (!msgs?.length) return [];
+    const senderIds = [...new Set(msgs.map(m => m.sender_id))];
+    const { data: profiles } = await supabase
+      .from("profiles")
+      .select("id, display_name, avatar_url")
+      .in("id", senderIds);
+    const profileMap = Object.fromEntries((profiles ?? []).map(p => [p.id, p]));
+    return msgs.map(m => ({ ...m, sender: profileMap[m.sender_id] ?? null }));
+  },
+
+  sendMessage: async (groupId: string, content: string, replyToId?: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+    const { data, error } = await supabase
+      .from("study_group_messages")
+      .insert({ group_id: groupId, sender_id: user.id, content: content.trim(), reply_to_id: replyToId ?? null })
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  editMessage: async (messageId: string, content: string) => {
+    const { error } = await supabase
+      .from("study_group_messages")
+      .update({ content: content.trim(), edited_at: new Date().toISOString() })
+      .eq("id", messageId);
+    if (error) throw new Error(error.message);
+  },
+
+  deleteMessage: async (messageId: string) => {
+    const { error } = await supabase.from("study_group_messages").delete().eq("id", messageId);
+    if (error) throw new Error(error.message);
+  },
+
+  getGroupReactions: async (groupId: string) => {
+    const { data, error } = await supabase
+      .from("study_group_message_reactions")
+      .select("id, message_id, user_id, emoji")
+      .eq("group_id", groupId);
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
+
+  toggleGroupReaction: async (messageId: string, groupId: string, emoji: string, userId: string) => {
+    const { data: existing } = await supabase
+      .from("study_group_message_reactions")
+      .select("id")
+      .eq("message_id", messageId)
+      .eq("user_id", userId)
+      .eq("emoji", emoji)
+      .maybeSingle();
+    if (existing) {
+      const { error } = await supabase.from("study_group_message_reactions").delete().eq("id", existing.id);
+      if (error) throw new Error(error.message);
+    } else {
+      const { error } = await supabase.from("study_group_message_reactions").insert({ message_id: messageId, group_id: groupId, user_id: userId, emoji });
+      if (error) throw new Error(error.message);
+    }
+  },
+
+  // ── Announcements ─────────────────────────────────────────────────────────
+
+  getAnnouncements: async (groupId: string) => {
+    const { data, error } = await supabase
+      .from("group_announcements")
+      .select("id, content, created_at, created_by")
+      .eq("group_id", groupId)
+      .order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    if (!data?.length) return [];
+    const userIds = [...new Set(data.map(a => a.created_by))];
+    const { data: profiles } = await supabase
+      .from("profiles")
+      .select("id, display_name, avatar_url")
+      .in("id", userIds);
+    const profileMap = Object.fromEntries((profiles ?? []).map(p => [p.id, p]));
+    return data.map(a => ({ ...a, author: profileMap[a.created_by] ?? null }));
+  },
+
+  createAnnouncement: async (groupId: string, content: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+    const { data, error } = await supabase
+      .from("group_announcements")
+      .insert({ group_id: groupId, created_by: user.id, content: content.trim() })
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  deleteAnnouncement: async (announcementId: string) => {
+    const { error } = await supabase.from("group_announcements").delete().eq("id", announcementId);
+    if (error) throw new Error(error.message);
+  },
+
+  // ── Join requests ─────────────────────────────────────────────────────────
+
+  requestJoin: async (groupId: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+    const { data, error } = await supabase
+      .from("group_join_requests")
+      .insert({ group_id: groupId, user_id: user.id })
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  getJoinRequests: async (groupId: string) => {
+    const { data, error } = await supabase
+      .from("group_join_requests")
+      .select("id, user_id, status, created_at")
+      .eq("group_id", groupId)
+      .eq("status", "pending")
+      .order("created_at", { ascending: true });
+    if (error) throw new Error(error.message);
+    if (!data?.length) return [];
+    const userIds = data.map(r => r.user_id);
+    const { data: profiles } = await supabase
+      .from("profiles")
+      .select("id, display_name, avatar_url")
+      .in("id", userIds);
+    const profileMap = Object.fromEntries((profiles ?? []).map(p => [p.id, p]));
+    return data.map(r => ({ ...r, profile: profileMap[r.user_id] ?? null }));
+  },
+
+  approveJoinRequest: async (requestId: string, groupId: string, userId: string) => {
+    const { error: ue } = await supabase.from("group_join_requests").update({ status: "approved" }).eq("id", requestId);
+    if (ue) throw new Error(ue.message);
+    const { error: me } = await supabase.from("study_group_members").insert({ group_id: groupId, user_id: userId, role: "member" });
+    if (me) throw new Error(me.message);
+  },
+
+  denyJoinRequest: async (requestId: string) => {
+    const { error } = await supabase.from("group_join_requests").update({ status: "denied" }).eq("id", requestId);
+    if (error) throw new Error(error.message);
+  },
+
+  getMyJoinRequest: async (groupId: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return null;
+    const { data } = await supabase
+      .from("group_join_requests")
+      .select("id, status")
+      .eq("group_id", groupId)
+      .eq("user_id", user.id)
+      .maybeSingle();
+    return data ?? null;
+  },
+
+  cancelJoinRequest: async (groupId: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+    const { error } = await supabase.from("group_join_requests").delete().eq("group_id", groupId).eq("user_id", user.id);
+    if (error) throw new Error(error.message);
+  },
+
+  // ── Reading progress ──────────────────────────────────────────────────────
+
+  getGroupProgress: async (groupId: string) => {
+    const { data, error } = await supabase.rpc("get_group_reading_progress", { p_group_id: groupId });
+    if (error) throw new Error(error.message);
+    return data ?? [];
   },
 };
