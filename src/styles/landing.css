@@ -638,6 +638,61 @@
   text-transform: uppercase;
 }
 
+/* ── FAQ ────────────────────────────────────────────────────────── */
+.lp-faq {
+  padding: 80px 24px;
+}
+.lp-faq-list {
+  max-width: 760px;
+  margin: 32px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.lp-faq-item {
+  background: var(--lp-card-bg, rgba(255,255,255,0.03));
+  border: 1px solid var(--lp-border, rgba(255,255,255,0.08));
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+.lp-faq-item[open] {
+  border-color: rgba(167, 139, 250, 0.45);
+  background: rgba(167, 139, 250, 0.05);
+}
+.lp-faq-q {
+  list-style: none;
+  cursor: pointer;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--lp-text);
+  user-select: none;
+}
+.lp-faq-q::-webkit-details-marker { display: none; }
+.lp-faq-chev {
+  flex-shrink: 0;
+  color: #A78BFA;
+  transition: transform 220ms ease;
+}
+.lp-faq-item[open] .lp-faq-chev { transform: rotate(180deg); }
+.lp-faq-a {
+  padding: 0 22px 20px;
+  margin: 0;
+  color: var(--lp-text-muted);
+  line-height: 1.65;
+  font-size: 15px;
+}
+@media (max-width: 640px) {
+  .lp-faq { padding: 56px 18px; }
+  .lp-faq-q { padding: 16px 18px; font-size: 15px; }
+  .lp-faq-a { padding: 0 18px 18px; font-size: 14px; }
+}
+
 /* ── CTA Banner ─────────────────────────────────────────────────── */
 .lp-cta-banner {
   padding: 80px 24px;

@@ -226,7 +226,7 @@ export default function LandingPage({ onGetStarted, i18n }) {
             <button className="lp-cta-primary" onClick={onGetStarted}>
               {t("landing.nav.getStarted")} <ArrowIcon />
             </button>
-            <a href="/blog" className="lp-cta-secondary">{t("landing.readBlog")}</a>
+            <a href="/books" className="lp-cta-secondary">Explore all 66 books — no signup</a>
           </div>
 
           <p className="lp-social-proof">
@@ -540,6 +540,52 @@ export default function LandingPage({ onGetStarted, i18n }) {
 
           </div>
           <p className="lp-install-note">Works on all devices — no download, no App Store, always up to date.</p>
+        </div>
+      </section>
+
+      {/* ── FAQ ──────────────────────────────────────────────────── */}
+      <section className="lp-faq" aria-labelledby="lp-faq-title">
+        <div className="lp-section-inner">
+          <div className="lp-section-header">
+            <h2 id="lp-faq-title" className="lp-section-title">Frequently asked questions</h2>
+            <p className="lp-section-sub">Everything you need to know before you sign up.</p>
+          </div>
+          <div className="lp-faq-list">
+            {[
+              {
+                q: "Is NWT Progress affiliated with the Watch Tower Society or jw.org?",
+                a: "No. NWT Progress is an independent tool built by a publisher to help fellow Witnesses track Bible reading and study. We are not endorsed by, sponsored by, or connected to the Watch Tower Bible and Tract Society. All Bible text and references link out to the official jw.org and JW Library.",
+              },
+              {
+                q: "Is it really free?",
+                a: "Yes. Reading tracking, the quiz, the forum, the blog, and streaks are 100% free forever — no trial, no card required. Premium ($3/month) is optional and adds reading plans, study notes, AI study tools, and group features.",
+              },
+              {
+                q: "Do I need to create an account to try it?",
+                a: "No. You can browse all 66 books, read the blog, and explore the study guides without signing up. An account is only needed if you want to save your reading progress across devices.",
+              },
+              {
+                q: "Is my data private?",
+                a: "Yes. Your reading progress, notes, and study data are private to you by default. We never share or sell your data. You can delete your account and all data at any time.",
+              },
+              {
+                q: "Does it work offline / on my phone?",
+                a: "Yes. NWT Progress is a Progressive Web App — install it on iPhone, Android, or desktop with one tap. It works like a native app, no App Store needed, and stays in sync across all your devices.",
+              },
+              {
+                q: "What if I'm not a Jehovah's Witness?",
+                a: "You're welcome here too. NWT Progress is built around the New World Translation, but anyone studying the Bible is free to use it.",
+              },
+            ].map((item) => (
+              <details key={item.q} className="lp-faq-item">
+                <summary className="lp-faq-q">
+                  <span>{item.q}</span>
+                  <svg className="lp-faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <p className="lp-faq-a">{item.a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
