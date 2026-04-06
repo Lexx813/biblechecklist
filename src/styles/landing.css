@@ -1192,20 +1192,44 @@
 }
 
 /* ── Animated demo area ─────────────────────────── */
-/* Step-highlight animation: each step lights up in sequence */
 .lp-install-demo {
-  padding: 20px 20px 16px;
+  padding: 24px 20px 20px;
   background: var(--lp-bg-alt);
   border-bottom: 1px solid var(--lp-border);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Scanning highlight bar that sweeps through the steps */
+.lp-install-demo::before {
+  content: '';
+  position: absolute;
+  left: 12px; right: 12px;
+  height: 42px;
+  background: var(--lp-primary);
+  border-radius: 10px;
+  opacity: 0.12;
+  animation: lid-scan 8s ease-in-out infinite;
+}
+[data-theme="dark"] .lp-install-demo::before {
+  opacity: 0.22;
+}
+
+@keyframes lid-scan {
+  0%,5%   { top: 24px; }
+  20%,28% { top: 86px; }
+  43%,51% { top: 148px; }
+  66%,80% { top: 210px; }
+  95%,100%{ top: 24px; }
 }
 
 .lid-steps {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+  position: relative;
 }
 
-/* Each step row */
 .lid-step {
   display: flex;
   align-items: center;
@@ -1213,8 +1237,6 @@
   padding: 8px 10px;
   border-radius: 10px;
   border: 1.5px solid transparent;
-  transition: none;
-  opacity: 0.35;
 }
 
 .lid-step-num {
@@ -1229,6 +1251,15 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  animation: lid-num-pulse 8s ease-in-out infinite;
+}
+.lid-step:nth-child(2) .lid-step-num { animation-delay: 2s; }
+.lid-step:nth-child(3) .lid-step-num { animation-delay: 4s; }
+.lid-step:nth-child(4) .lid-step-num { animation-delay: 6s; }
+
+@keyframes lid-num-pulse {
+  0%,10%    { background: var(--lp-primary); color: #fff; transform: scale(1.15); }
+  20%,100%  { background: var(--lp-pill-bg); color: var(--lp-primary); transform: scale(1); }
 }
 
 .lid-step-text {
@@ -1246,42 +1277,16 @@
   border-radius: 999px;
   background: var(--lp-primary);
   color: #fff;
-  opacity: 0;
-  transform: scale(0.8);
   flex-shrink: 0;
+  opacity: 0;
+  animation: lid-badge-pop 8s ease-in-out infinite;
+  animation-delay: 6.5s;
 }
 
-/* ── Step 1 animates first, then 2, 3, 4 ── */
-/* Each step is active for ~2s within a 10s cycle */
-.lid-step:nth-child(1) { animation: lid-step-glow 10s ease-in-out infinite 0s; }
-.lid-step:nth-child(2) { animation: lid-step-glow 10s ease-in-out infinite 2.2s; }
-.lid-step:nth-child(3) { animation: lid-step-glow 10s ease-in-out infinite 4.4s; }
-.lid-step:nth-child(4) { animation: lid-step-glow 10s ease-in-out infinite 6.6s; }
-
-.lid-step:nth-child(1) .lid-step-num { animation: lid-num-active 10s ease-in-out infinite 0s; }
-.lid-step:nth-child(2) .lid-step-num { animation: lid-num-active 10s ease-in-out infinite 2.2s; }
-.lid-step:nth-child(3) .lid-step-num { animation: lid-num-active 10s ease-in-out infinite 4.4s; }
-.lid-step:nth-child(4) .lid-step-num { animation: lid-num-active 10s ease-in-out infinite 6.6s; }
-
-.lid-step:nth-child(4) .lid-step-badge { animation: lid-badge-appear 10s ease-in-out infinite 6.6s; }
-
-@keyframes lid-step-glow {
-  0%          { opacity: 0.35; background: transparent; border-color: transparent; }
-  5%          { opacity: 1; background: var(--lp-pill-bg); border-color: var(--lp-primary); }
-  20%         { opacity: 1; background: var(--lp-pill-bg); border-color: var(--lp-primary); }
-  28%,100%    { opacity: 0.35; background: transparent; border-color: transparent; }
-}
-
-@keyframes lid-num-active {
-  0%          { background: var(--lp-pill-bg); color: var(--lp-primary); }
-  5%,20%      { background: var(--lp-primary); color: #fff; transform: scale(1.1); }
-  28%,100%    { background: var(--lp-pill-bg); color: var(--lp-primary); transform: scale(1); }
-}
-
-@keyframes lid-badge-appear {
-  0%,18%      { opacity: 0; transform: scale(0.8); }
-  22%         { opacity: 1; transform: scale(1.1); }
-  26%,100%    { opacity: 1; transform: scale(1); }
+@keyframes lid-badge-pop {
+  0%,10%  { opacity: 0; transform: scale(0.7); }
+  18%     { opacity: 1; transform: scale(1.1); }
+  25%,100%{ opacity: 1; transform: scale(1); }
 }
 
 /* ── Responsive ─────────────────────────────────────────────────── */
