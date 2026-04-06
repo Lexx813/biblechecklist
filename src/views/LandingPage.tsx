@@ -492,39 +492,12 @@ export default function LandingPage({ onGetStarted, i18n }) {
 
             {/* ── iOS ── */}
             <div className="lp-install-card">
-              {/* Animated mockup */}
-              <div className="lp-install-demo lp-install-demo--ios" aria-hidden="true">
-                <div className="lid-phone">
-                  <div className="lid-bar">
-                    <span className="lid-url">nwtprogress.com</span>
-                    <span className="lid-share-btn">
-                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-                    </span>
-                  </div>
-                  <div className="lid-screen">
-                    <div className="lid-app-preview">
-                      <div className="lid-app-row" /><div className="lid-app-row lid-app-row--short" />
-                    </div>
-                  </div>
-                  {/* Share sheet slides up */}
-                  <div className="lid-sheet">
-                    <div className="lid-sheet-handle" />
-                    <div className="lid-sheet-row lid-sheet-row--aths">
-                      <div className="lid-sheet-icon">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-                      </div>
-                      <span>Add to Home Screen</span>
-                    </div>
-                    <div className="lid-sheet-row"><div className="lid-sheet-icon" /><span>Copy</span></div>
-                    <div className="lid-sheet-row"><div className="lid-sheet-icon" /><span>Share</span></div>
-                  </div>
-                  {/* App icon lands on home */}
-                  <div className="lid-home-icon">
-                    <div className="lid-home-icon-inner">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
-                    </div>
-                    <span className="lid-home-label">NWT Progress</span>
-                  </div>
+              <div className="lp-install-demo" aria-hidden="true">
+                <div className="lid-steps">
+                  <div className="lid-step"><span className="lid-step-num">1</span><span className="lid-step-text">Open <strong>nwtprogress.com</strong> in Safari</span></div>
+                  <div className="lid-step"><span className="lid-step-num">2</span><span className="lid-step-text">Tap the <strong>Share</strong> button at the bottom</span></div>
+                  <div className="lid-step"><span className="lid-step-num">3</span><span className="lid-step-text">Tap <strong>"Add to Home Screen"</strong></span></div>
+                  <div className="lid-step"><span className="lid-step-num">4</span><span className="lid-step-text">Tap <strong>Add</strong><span className="lid-step-badge">Done!</span></span></div>
                 </div>
               </div>
               <h3 className="lp-install-card-title">
@@ -541,39 +514,12 @@ export default function LandingPage({ onGetStarted, i18n }) {
 
             {/* ── Android ── */}
             <div className="lp-install-card">
-              <div className="lp-install-demo lp-install-demo--android" aria-hidden="true">
-                <div className="lid-phone">
-                  <div className="lid-bar">
-                    <span className="lid-url">nwtprogress.com</span>
-                    <span className="lid-dots">⋮</span>
-                  </div>
-                  <div className="lid-screen">
-                    <div className="lid-app-preview">
-                      <div className="lid-app-row" /><div className="lid-app-row lid-app-row--short" />
-                    </div>
-                  </div>
-                  {/* Chrome dropdown menu */}
-                  <div className="lid-menu">
-                    <div className="lid-menu-row lid-menu-row--install">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                      <span>Install App</span>
-                    </div>
-                    <div className="lid-menu-row"><span>New tab</span></div>
-                    <div className="lid-menu-row"><span>Bookmarks</span></div>
-                  </div>
-                  {/* Install dialog */}
-                  <div className="lid-dialog">
-                    <div className="lid-dialog-icon">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/></svg>
-                    </div>
-                    <div className="lid-dialog-text">
-                      <strong>Install NWT Progress?</strong>
-                    </div>
-                    <div className="lid-dialog-actions">
-                      <span className="lid-dialog-cancel">Cancel</span>
-                      <span className="lid-dialog-install">Install</span>
-                    </div>
-                  </div>
+              <div className="lp-install-demo" aria-hidden="true">
+                <div className="lid-steps">
+                  <div className="lid-step"><span className="lid-step-num">1</span><span className="lid-step-text">Open <strong>nwtprogress.com</strong> in Chrome</span></div>
+                  <div className="lid-step"><span className="lid-step-num">2</span><span className="lid-step-text">Tap the <strong>menu</strong> (⋮) in the top right</span></div>
+                  <div className="lid-step"><span className="lid-step-num">3</span><span className="lid-step-text">Tap <strong>"Install App"</strong></span></div>
+                  <div className="lid-step"><span className="lid-step-num">4</span><span className="lid-step-text">Tap <strong>Install</strong><span className="lid-step-badge">Done!</span></span></div>
                 </div>
               </div>
               <h3 className="lp-install-card-title">
@@ -590,34 +536,12 @@ export default function LandingPage({ onGetStarted, i18n }) {
 
             {/* ── Desktop ── */}
             <div className="lp-install-card">
-              <div className="lp-install-demo lp-install-demo--desktop" aria-hidden="true">
-                <div className="lid-browser">
-                  <div className="lid-browser-bar">
-                    <div className="lid-browser-dots">
-                      <span /><span /><span />
-                    </div>
-                    <div className="lid-browser-url">
-                      <span className="lid-browser-url-text">nwtprogress.com</span>
-                      {/* Install icon pulses in address bar */}
-                      <span className="lid-browser-install-icon">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                      </span>
-                    </div>
-                  </div>
-                  <div className="lid-browser-screen">
-                    <div className="lid-app-row" /><div className="lid-app-row lid-app-row--short" />
-                  </div>
-                  {/* Install popup from address bar */}
-                  <div className="lid-browser-popup">
-                    <div className="lid-browser-popup-icon">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/></svg>
-                    </div>
-                    <div className="lid-browser-popup-body">
-                      <div className="lid-browser-popup-title">Install NWT Progress</div>
-                      <div className="lid-browser-popup-sub">nwtprogress.com</div>
-                    </div>
-                    <div className="lid-browser-popup-btn">Install</div>
-                  </div>
+              <div className="lp-install-demo" aria-hidden="true">
+                <div className="lid-steps">
+                  <div className="lid-step"><span className="lid-step-num">1</span><span className="lid-step-text">Open <strong>nwtprogress.com</strong> in Chrome or Edge</span></div>
+                  <div className="lid-step"><span className="lid-step-num">2</span><span className="lid-step-text">Click the <strong>install icon</strong> in the address bar</span></div>
+                  <div className="lid-step"><span className="lid-step-num">3</span><span className="lid-step-text">Click <strong>"Install"</strong> in the popup</span></div>
+                  <div className="lid-step"><span className="lid-step-num">4</span><span className="lid-step-text">App opens in its <strong>own window</strong><span className="lid-step-badge">Done!</span></span></div>
                 </div>
               </div>
               <h3 className="lp-install-card-title">
