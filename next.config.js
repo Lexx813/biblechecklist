@@ -12,13 +12,6 @@ const nextConfig = {
   // Keep static exports working for Vercel
   trailingSlash: false,
 
-  // Inline CSS into <head> to eliminate FOUC on streaming SSR pages.
-  // Without this, HTML can stream in faster than the CSS chunk downloads,
-  // briefly showing unstyled content.
-  experimental: {
-    inlineCss: true,
-  },
-
   // Redirect junk/invalid paths back to homepage
   async redirects() {
     return [
