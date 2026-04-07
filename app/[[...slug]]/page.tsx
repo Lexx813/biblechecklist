@@ -81,12 +81,20 @@ export default async function Page({ params }) {
 
     return (
       <>
+        {/* React 19 hoists <style href precedence> into <head> as render-blocking.
+            Without this the style tag streams inside <body> after thousands of
+            bytes of content, causing a flash of unstyled landing. */}
+        <style
+          // @ts-ignore — React 19 style hoisting props
+          href="nwt-landing"
+          precedence="high"
+          dangerouslySetInnerHTML={{ __html: landingCss }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }}
         />
         <div id="ssr-fallback" suppressHydrationWarning>
-          <style dangerouslySetInnerHTML={{ __html: landingCss }} />
           <LandingPageStatic />
         </div>
         <ClientShell />
