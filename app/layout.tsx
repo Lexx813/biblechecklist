@@ -1,5 +1,7 @@
 import Script from "next/script";
 import Providers from "./providers";
+// @ts-ignore - CSS side-effect import
+import "../src/styles/app.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
