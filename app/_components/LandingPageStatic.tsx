@@ -1,5 +1,3 @@
-// @ts-ignore
-import "../../src/styles/landing.css";
 import { createClient } from "@supabase/supabase-js";
 
 function getSupabase() {
