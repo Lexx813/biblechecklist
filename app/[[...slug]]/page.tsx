@@ -1,10 +1,6 @@
 import { notFound } from "next/navigation";
 import ClientShell from "../_components/ClientShell";
 import LandingPageStatic from "../_components/LandingPageStatic";
-// Static CSS import — Next.js bundles this into a render-blocking <link>
-// in the document <head>, eliminating FOUC.
-// @ts-ignore
-import "../../src/styles/landing.css";
 
 const FAQ_ITEMS = [
   {
