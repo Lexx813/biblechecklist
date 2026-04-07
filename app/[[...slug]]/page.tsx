@@ -1,5 +1,10 @@
 import { notFound } from "next/navigation";
 import ClientShell from "../_components/ClientShell";
+import LandingPageStatic from "../_components/LandingPageStatic";
+// Static CSS import — Next.js bundles this into a render-blocking <link>
+// in the document <head>, eliminating FOUC.
+// @ts-ignore
+import "../../src/styles/landing.css";
 
 const FAQ_ITEMS = [
   {
@@ -80,14 +85,8 @@ export default async function Page({ params }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }}
         />
-        <div id="ssr-fallback" className="nwt-skeleton" suppressHydrationWarning>
-          <div className="nwt-skeleton-nav">
-            <div className="nwt-skeleton-logo" />
-            <div className="nwt-skeleton-title" />
-          </div>
-          <div className="nwt-skeleton-body">
-            <div className="nwt-skeleton-spinner" />
-          </div>
+        <div id="ssr-fallback" suppressHydrationWarning>
+          <LandingPageStatic />
         </div>
         <ClientShell />
       </>
