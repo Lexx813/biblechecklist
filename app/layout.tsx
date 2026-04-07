@@ -1,15 +1,7 @@
 import Script from "next/script";
 import Providers from "./providers";
-// @ts-ignore - CSS side-effect imports (rendered as render-blocking <link> in the initial HTML to prevent FOUC)
+// @ts-ignore - CSS side-effect import
 import "../src/styles/app.css";
-// @ts-ignore
-import "../src/styles/app-layout.css";
-// @ts-ignore
-import "../src/styles/topbar.css";
-// @ts-ignore
-import "../src/styles/home.css";
-// @ts-ignore
-import "../src/styles/landing.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
