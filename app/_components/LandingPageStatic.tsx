@@ -49,7 +49,7 @@ const FEATURE_ICON = {
 
 const FAQS = [
   { q: "Is NWT Progress affiliated with the Watch Tower Society or jw.org?", a: "No. NWT Progress is an independent tool built by a publisher to help fellow Witnesses track Bible reading and study. We are not endorsed by, sponsored by, or connected to the Watch Tower Bible and Tract Society. All Bible text and references link out to the official jw.org and JW Library." },
-  { q: "Is it really free?", a: "Yes. Reading tracking, the quiz, the forum, the blog, and streaks are 100% free forever — no trial, no card required. Premium ($3/month) is optional and adds reading plans, study notes, AI study tools, and group features." },
+  { q: "Is it really free?", a: "Yes. NWT Progress is 100% free — no trial, no card, no hidden tiers. Everything on the site is free to use." },
   { q: "Do I need to create an account to try it?", a: "No. You can use the full Bible reading tracker without signing up — just visit Try the tracker, check off chapters, and your progress is saved on your device. Create a free account when you're ready to sync across devices and unlock streaks, notes, and reading plans." },
   { q: "Is my data private?", a: "Yes. Your reading progress, notes, and study data are private to you by default. We never share or sell your data. You can delete your account and all data at any time." },
   { q: "Does it work on my phone?", a: "Yes. NWT Progress is a Progressive Web App — install it on iPhone, Android, or desktop with one tap. It works like a native app, no App Store needed." },
@@ -221,71 +221,6 @@ export default async function LandingPageStatic() {
               <p className="landing-faq-a">{item.a}</p>
             </details>
           ))}
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section className="landing-pricing">
-        <div className="landing-pricing-header">
-          <h2 className="landing-pricing-title">Simple, transparent pricing</h2>
-          <p className="landing-pricing-sub">Start free. Upgrade when you&apos;re ready to go deeper.</p>
-        </div>
-
-        <div className="landing-pricing-cards">
-          {/* Free plan */}
-          <div className="landing-plan">
-            <p className="landing-plan-name">Free</p>
-            <div className="landing-plan-price">
-              <span className="landing-plan-amount">$0</span>
-              <span className="landing-plan-period">/ forever</span>
-            </div>
-            <p className="landing-plan-desc">Everything you need to start tracking your Bible reading.</p>
-            <ul className="landing-plan-features">
-              {[
-                { icon: FEATURE_ICON.book, label: "Reading Tracker", desc: "Track all 66 books chapter by chapter" },
-                { icon: FEATURE_ICON.brain, label: "Bible Quiz", desc: "1,000+ questions across 12 themes" },
-                { icon: FEATURE_ICON.chat, label: "Community Forum", desc: "Discuss and learn together" },
-                { icon: FEATURE_ICON.pencil, label: "Blog", desc: "Read and write study articles" },
-                { icon: FEATURE_ICON.fire, label: "Streaks & Heatmap", desc: "Build a daily reading habit" },
-              ].map(f => (
-                <li key={f.label} className="landing-plan-feature landing-plan-feature--detailed">
-                  <span className="landing-plan-feature-icon">{f.icon}</span>
-                  <span><strong>{f.label}</strong><span className="landing-plan-feature-desc">{f.desc}</span></span>
-                </li>
-              ))}
-            </ul>
-            <button className="landing-plan-cta landing-plan-cta--ghost" type="button">Get Started Free</button>
-          </div>
-
-          {/* Premium plan */}
-          <div className="landing-plan landing-plan--premium">
-            <div className="landing-plan-popular">Most Popular</div>
-            <p className="landing-plan-name">Premium</p>
-            <div className="landing-plan-price">
-              <span className="landing-plan-amount">$3</span>
-              <span className="landing-plan-period">/ month</span>
-            </div>
-            <p className="landing-plan-desc">Go deeper with structured plans, notes, messaging, and AI.</p>
-            <ul className="landing-plan-features">
-              {[
-                { icon: FEATURE_ICON.cal, label: "Reading Plans", desc: "Structured multi-week study plans" },
-                { icon: FEATURE_ICON.note, label: "Study Notes", desc: "Rich-text notes tied to passages" },
-                { icon: FEATURE_ICON.clip, label: "Meeting Prep", desc: "CLAM + Watchtower study checklists" },
-                { icon: FEATURE_ICON.ai, label: "AI Study Assistant", desc: "Ask anything about any verse" },
-                { icon: FEATURE_ICON.msg, label: "Direct Messages", desc: "Private conversations with members" },
-                { icon: FEATURE_ICON.group, label: "Study Groups", desc: "Group chat and progress tracking" },
-              ].map(f => (
-                <li key={f.label} className="landing-plan-feature landing-plan-feature--detailed">
-                  <span className="landing-plan-feature-icon">{f.icon}</span>
-                  <span><strong>{f.label}</strong><span className="landing-plan-feature-desc">{f.desc}</span></span>
-                </li>
-              ))}
-            </ul>
-            <button className="landing-plan-cta landing-plan-cta--primary" type="button">
-              Start 7-Day Free Trial
-            </button>
-            <p className="landing-plan-note">Cancel anytime · No commitment</p>
-          </div>
         </div>
       </section>
 

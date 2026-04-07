@@ -558,7 +558,7 @@ export default function LandingPage({ onGetStarted, i18n }) {
               },
               {
                 q: "Is it really free?",
-                a: "Yes. Reading tracking, the quiz, the forum, the blog, and streaks are 100% free forever — no trial, no card required. Premium ($3/month) is optional and adds reading plans, study notes, AI study tools, and group features.",
+                a: "Yes. NWT Progress is 100% free — no trial, no card, no hidden tiers. Everything on the site is free to use.",
               },
               {
                 q: "Do I need to create an account to try it?",
