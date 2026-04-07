@@ -1,5 +1,13 @@
+import fs from "fs";
+import path from "path";
 import { notFound } from "next/navigation";
 import ClientShell from "../_components/ClientShell";
+import LandingPageStatic from "../_components/LandingPageStatic";
+
+// Read landing CSS at build time and hoist to <head> via React 19 style hoisting.
+// This guarantees the stylesheet is render-blocking, so the SSR landing never
+// flashes unstyled.
+const landingCss = fs.readFileSync(path.join(process.cwd(), "src/styles/landing.css"), "utf8");
 
 const FAQ_ITEMS = [
   {
@@ -76,18 +84,19 @@ export default async function Page({ params }) {
 
     return (
       <>
+        {/* React 19 hoists <style href precedence> to <head> as render-blocking */}
+        <style
+          // @ts-ignore - React 19 style hoisting props
+          href="landing-css"
+          precedence="high"
+          dangerouslySetInnerHTML={{ __html: landingCss }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }}
         />
-        <div id="ssr-fallback" className="nwt-skeleton" suppressHydrationWarning>
-          <div className="nwt-skeleton-nav">
-            <div className="nwt-skeleton-logo" />
-            <div className="nwt-skeleton-title" />
-          </div>
-          <div className="nwt-skeleton-body">
-            <div className="nwt-skeleton-spinner" />
-          </div>
+        <div id="ssr-fallback" suppressHydrationWarning>
+          <LandingPageStatic />
         </div>
         <ClientShell />
       </>
