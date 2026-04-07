@@ -49,6 +49,14 @@ export const authApi = {
     if (error) throw new Error(error.message);
   },
 
+  signInWithFacebook: async (): Promise<void> => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "facebook",
+      options: { redirectTo: window.location.origin },
+    });
+    if (error) throw new Error(error.message);
+  },
+
   getIdentities: async (): Promise<UserIdentity[]> => {
     const { data: { user }, error } = await supabase.auth.getUser();
     if (error) throw new Error(error.message);
