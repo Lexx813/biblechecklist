@@ -400,6 +400,17 @@ export const groupsApi = {
     return data.map(f => ({ ...f, uploader: pm[f.uploaded_by] ?? null })) as GroupFile[];
   },
 
+  uploadPostImage: async (groupId: string, file: File): Promise<string> => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+    const ext = file.name.split(".").pop() || "jpg";
+    const path = `groups/${groupId}/posts/${crypto.randomUUID()}.${ext}`;
+    const { error } = await supabase.storage.from("group-files").upload(path, file, { contentType: file.type });
+    if (error) throw new Error(error.message);
+    const { data } = supabase.storage.from("group-files").getPublicUrl(path);
+    return data.publicUrl;
+  },
+
   uploadFile: async (groupId: string, file: File): Promise<GroupFile> => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");

@@ -10,6 +10,7 @@ import {
 } from "../../hooks/useGroups";
 import { groupsApi, GroupPost, GroupMember, GroupEvent, GroupFile } from "../../api/groups";
 import ConfirmModal from "../../components/ConfirmModal";
+import RichTextEditor from "../../components/RichTextEditor";
 import { toast } from "../../lib/toast";
 import "../../styles/groups.css";
 
@@ -89,7 +90,7 @@ function PostCard({ post, userId, isAdmin, groupId }: { post: GroupPost; userId:
           </button>
         )}
       </div>
-      <p className="grp-post-content">{post.content}</p>
+      <div className="grp-post-content editor-render" dangerouslySetInnerHTML={{ __html: post.content }} />
       {post.media_urls?.length > 0 && (
         <div className="grp-post-media">
           {post.media_urls.map((url, i) => (
@@ -165,38 +166,96 @@ function PostCard({ post, userId, isAdmin, groupId }: { post: GroupPost; userId:
 function ComposeBox({ groupId, isAdmin }: { groupId: string; isAdmin: boolean }) {
   const [content, setContent] = useState("");
   const [isAnnouncement, setIsAnnouncement] = useState(false);
+  const [mediaUrls, setMediaUrls] = useState<string[]>([]);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const createPost = useCreatePost(groupId);
+
+  function plainFromHtml(html: string) {
+    return html.replace(/<[^>]*>/g, "").trim();
+  }
+
+  async function handleFiles(files: FileList | null) {
+    if (!files || files.length === 0) return;
+    setUploading(true);
+    try {
+      const urls: string[] = [];
+      for (const f of Array.from(files)) {
+        if (!f.type.startsWith("image/")) continue;
+        const url = await groupsApi.uploadPostImage(groupId, f);
+        urls.push(url);
+      }
+      setMediaUrls(prev => [...prev, ...urls]);
+    } catch {
+      toast.error("Image upload failed.");
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }
+
+  function removeImage(url: string) {
+    setMediaUrls(prev => prev.filter(u => u !== url));
+  }
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!content.trim()) return;
+    const hasText = plainFromHtml(content).length > 0;
+    if (!hasText && mediaUrls.length === 0) return;
     createPost.mutate(
-      { content: content.trim(), isAnnouncement: isAdmin && isAnnouncement },
+      { content: hasText ? content : "", isAnnouncement: isAdmin && isAnnouncement, mediaUrls },
       {
-        onSuccess: () => { setContent(""); setIsAnnouncement(false); },
+        onSuccess: () => { setContent(""); setIsAnnouncement(false); setMediaUrls([]); },
         onError: () => toast.error("Failed to post."),
       }
     );
   }
 
+  const hasText = plainFromHtml(content).length > 0;
+
   return (
     <form className="grp-compose" onSubmit={submit}>
-      <textarea
-        className="grp-compose-input"
+      <RichTextEditor
+        content={content}
+        onChange={setContent}
         placeholder="Share something with the group…"
-        value={content}
-        onChange={e => setContent(e.target.value)}
-        maxLength={2000}
-        rows={3}
+        minimal
+        allowMentions
       />
+      {mediaUrls.length > 0 && (
+        <div className="grp-compose-media">
+          {mediaUrls.map(url => (
+            <div key={url} className="grp-compose-media-item">
+              <img src={url} alt="" />
+              <button type="button" className="grp-compose-media-remove" onClick={() => removeImage(url)} aria-label="Remove image">×</button>
+            </div>
+          ))}
+        </div>
+      )}
       <div className="grp-compose-actions">
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          multiple
+          style={{ display: "none" }}
+          onChange={e => handleFiles(e.target.files)}
+        />
+        <button
+          type="button"
+          className="grp-btn grp-btn--sm"
+          onClick={() => fileInputRef.current?.click()}
+          disabled={uploading}
+        >
+          {uploading ? "Uploading…" : "📷 Add image"}
+        </button>
         {isAdmin && (
           <label className="grp-compose-announce">
             <input type="checkbox" checked={isAnnouncement} onChange={e => setIsAnnouncement(e.target.checked)} />
             Pin as announcement
           </label>
         )}
-        <button type="submit" className="grp-btn grp-btn--primary grp-btn--sm" disabled={!content.trim() || createPost.isPending}>
+        <button type="submit" className="grp-btn grp-btn--primary grp-btn--sm" disabled={(!hasText && mediaUrls.length === 0) || createPost.isPending || uploading}>
           {createPost.isPending ? "Posting…" : "Post"}
         </button>
       </div>
