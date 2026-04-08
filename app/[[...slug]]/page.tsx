@@ -1,5 +1,18 @@
 import { notFound } from "next/navigation";
 import ClientShell from "../_components/ClientShell";
+import { BOOKS } from "../../src/data/books";
+import { PLAN_TEMPLATES } from "../../src/data/readingPlanTemplates";
+import { STUDY_TOPICS } from "../../src/data/studyTopics";
+
+const BASE = "https://nwtprogress.com";
+const SEO_HIDE = {
+  position: "absolute" as const, width: 1, height: 1,
+  overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" as const,
+};
+
+function bookToSlug(name: string) {
+  return name.toLowerCase().replace(/\s+/g, "-");
+}
 
 const FAQ_ITEMS = [
   {
@@ -80,6 +93,54 @@ export default async function Page({ params }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }}
         />
+        <div style={SEO_HIDE}>
+          <h1>NWT Progress — Free Bible Reading Tracker for Jehovah&apos;s Witnesses</h1>
+          <p>
+            Track your reading through all 66 books of the New World Translation, follow
+            structured reading plans, study key Bible topics, and connect with fellow publishers.
+            Use NWT Progress alongside JW Library and the research tools at wol.jw.org.
+          </p>
+
+          <h2>Explore All 66 Bible Books</h2>
+          <ul>
+            {BOOKS.map((b) => (
+              <li key={b.name}>
+                <a href={`${BASE}/books/${bookToSlug(b.name)}`}>Book of {b.name}</a>
+              </li>
+            ))}
+          </ul>
+
+          <h2>Bible Reading Plans</h2>
+          <ul>
+            {PLAN_TEMPLATES.map((p) => (
+              <li key={p.key}>
+                <a href={`${BASE}/plans/${p.key}`}>
+                  {p.name} — {p.totalDays} days, {p.totalChapters} chapters
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <h2>Bible Study Topics</h2>
+          <ul>
+            {STUDY_TOPICS.map((t) => (
+              <li key={t.slug}>
+                <a href={`${BASE}/study-topics/${t.slug}`}>
+                  {t.title} — {t.subtitle}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <h2>More from NWT Progress</h2>
+          <ul>
+            <li><a href={`${BASE}/books`}>All Bible Books</a></li>
+            <li><a href={`${BASE}/plans`}>All Reading Plans</a></li>
+            <li><a href={`${BASE}/study-topics`}>All Study Topics</a></li>
+            <li><a href={`${BASE}/blog`}>NWT Progress Blog</a></li>
+            <li><a href={`${BASE}/forum`}>Community Forum</a></li>
+          </ul>
+        </div>
         <ClientShell />
       </>
     );

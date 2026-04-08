@@ -9,7 +9,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const topic = getTopicBySlug(params.slug);
+  const { slug } = await params;
+  const topic = getTopicBySlug(slug);
   if (!topic) return {};
 
   const firstParagraph = topic.sections?.[0]?.paragraphs?.[0] ?? "";
@@ -33,12 +34,13 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function StudyTopicPage({ params }) {
-  const topic = getTopicBySlug(params.slug);
+export default async function StudyTopicPage({ params }) {
+  const { slug } = await params;
+  const topic = getTopicBySlug(slug);
   if (!topic) notFound();
 
   const allParagraphs = topic.sections.flatMap((s) => s.paragraphs);
-  const allScriptures = topic.sections.flatMap((s) => s.scriptures ?? []);
+  const otherTopics = STUDY_TOPICS.filter((t) => t.slug !== topic.slug);
 
   const schemaArticle = {
     "@context": "https://schema.org",
@@ -101,6 +103,33 @@ export default function StudyTopicPage({ params }) {
             )}
           </section>
         ))}
+
+        <h2>Keep Studying with NWT Progress</h2>
+        <p>
+          NWT Progress is a free Bible reading tracker for Jehovah&apos;s Witnesses. Read {topic.title} in the
+          New World Translation, take personal study notes, and build a consistent reading habit.
+          For deeper research, use the Insight on the Scriptures volumes and publications available
+          at wol.jw.org alongside JW Library.
+        </p>
+
+        <h2>Other Study Topics</h2>
+        <ul>
+          {otherTopics.map((t) => (
+            <li key={t.slug}>
+              <a href={`https://nwtprogress.com/study-topics/${t.slug}`}>
+                {t.title} — {t.subtitle}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <h2>Explore NWT Progress</h2>
+        <ul>
+          <li><a href="https://nwtprogress.com/books">All 66 Bible Books</a></li>
+          <li><a href="https://nwtprogress.com/plans">All Reading Plans</a></li>
+          <li><a href="https://nwtprogress.com/study-topics">All Study Topics</a></li>
+          <li><a href="https://nwtprogress.com/blog">NWT Progress Blog</a></li>
+        </ul>
       </div>
       <ClientShell />
     </>
