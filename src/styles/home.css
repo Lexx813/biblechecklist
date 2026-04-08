@@ -195,7 +195,8 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: border-color var(--dur-base);
+  transition: border-color var(--dur-base), box-shadow var(--dur-base);
+  box-shadow: -6px 10px 24px rgba(0, 0, 0, 0.45);
 }
 .hcard:hover { border-color: rgba(138, 75, 255, 0.22); }
 
@@ -278,9 +279,10 @@
   border-radius: var(--radius);
   overflow: hidden;
   cursor: pointer;
-  transition: border-color var(--dur-base), transform var(--dur-base);
+  transition: border-color var(--dur-base), transform var(--dur-base), box-shadow var(--dur-base);
   display: flex;
   flex-direction: column;
+  box-shadow: -6px 10px 24px rgba(0, 0, 0, 0.45);
 }
 .hblog-card:hover { border-color: rgba(138, 75, 255, 0.28); transform: translateY(-2px); }
 .hblog-cover {
