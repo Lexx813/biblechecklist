@@ -200,7 +200,6 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 <button className={`page-nav-more-item${currentPage === "bookmarks" ? " page-nav-more-item--active" : ""}`} onClick={() => go("bookmarks")}>{Icon.Bookmark} {t("bookmarks.title")}</button>
                 <button className={`page-nav-more-item${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-more-item--active" : ""}`} onClick={() => go("studyTopics")}>{Icon.Book} {t("nav.studyTopics", "Study Topics")}</button>
                 <div className="page-nav-more-divider" />
-                <div className="page-nav-more-group-label">{t("nav.premium", "Premium")}</div>
                 {isPremium
                   ? <button className={`page-nav-more-item${currentPage === "meetingPrep" ? " page-nav-more-item--active" : ""}`} onClick={() => go("meetingPrep")}>{Icon.Calendar} {t("nav.meetingPrep", "Meeting Prep")}</button>
                   : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setStudyOpen(false); onUpgrade?.(); }}>{Icon.Calendar} {t("nav.meetingPrep", "Meeting Prep")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
@@ -231,7 +230,6 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 <button className={`page-nav-more-item${currentPage === "blog" ? " page-nav-more-item--active" : ""}`} onClick={() => go("blog")}>{Icon.Feed} {t("app.blog")}</button>
                 <button className={`page-nav-more-item${currentPage === "forum" ? " page-nav-more-item--active" : ""}`} onClick={() => go("forum")}>{Icon.Users} {t("app.forum")}</button>
                 <div className="page-nav-more-divider" />
-                <div className="page-nav-more-group-label">{t("nav.premium", "Premium")}</div>
                 {isPremium
                   ? <button className={`page-nav-more-item${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-more-item--active" : ""}`} onClick={() => go("groups")}>{Icon.Users} {t("nav.studyGroups")}</button>
                   : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setCommunityOpen(false); onUpgrade?.(); }}>{Icon.Users} {t("nav.studyGroups")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
@@ -439,9 +437,6 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 </button>
               : <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Message}</span> {t("nav.messages")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>}
 
-            {!isPremium && (
-              <button className="page-nav-mobile-upgrade-btn" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg> Upgrade to Premium — $3/mo</button>
-            )}
 
             <div className="page-nav-mobile-divider" />
             {user && onLogout && (

@@ -5,7 +5,6 @@ import { useMeta } from "../../hooks/useMeta";
 import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
 import { usePushNotifications } from "../../hooks/usePushNotifications";
 import { useUpdatePassword, useIdentities, useLinkGoogle, useUnlinkGoogle } from "../../hooks/useAuth";
-import { useSubscription } from "../../hooks/useSubscription";
 import { useMyBlocks, useUnblockUser } from "../../hooks/useBlocks";
 import { adminApi } from "../../api/admin";
 import { toast } from "../../lib/toast";
@@ -83,9 +82,6 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
     });
   }
 
-  // ── Subscription ──────────────────────────────────────────
-  const { isPremium, status, subscribe: startCheckout, cancel } = useSubscription(user.id);
-  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
 
   // ── Blocked users ─────────────────────────────────────────
   const { data: blockedUsers = [] } = useMyBlocks(user.id);
@@ -327,46 +323,6 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
           </div>
         </section>
 
-        {/* ── Subscription ─────────────────────────────────── */}
-        {true && (
-          <section className="st-section">
-            <h2 className="st-section-title">{t("settings.subscriptionSection")}</h2>
-            {isPremium ? (
-              <div className="st-sub-active">
-                <div className="st-sub-status">
-                  <span className="st-sub-badge st-sub-badge--active">
-                    ✦ Premium
-                  </span>
-                  <span className="st-sub-status-label">
-                    {status === "trialing" ? t("settings.trialActive") : t("settings.subscriptionActive")}
-                  </span>
-                </div>
-                <p className="st-sub-desc">
-                  {t("settings.subscriptionDesc")}
-                </p>
-                <button
-                  className="st-btn st-btn--ghost st-sub-cancel-btn"
-                  onClick={() => setShowCancelConfirm(true)}
-                >
-                  {t("settings.cancelSubscription")}
-                </button>
-              </div>
-            ) : (
-              <div className="st-sub-inactive">
-                <p className="st-sub-desc">
-                  {t("settings.subscriptionDesc")}
-                </p>
-                <button
-                  className="st-btn st-btn--primary"
-                  onClick={() => startCheckout.mutate()}
-                  disabled={startCheckout.isPending}
-                >
-                  {startCheckout.isPending ? t("settings.redirecting") : t("settings.upgradePrompt")}
-                </button>
-              </div>
-            )}
-          </section>
-        )}
 
         {/* ── Change password ──────────────────────────────── */}
         <section className="st-section">
@@ -441,16 +397,6 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
         </section>
 
       </div>
-
-      {showCancelConfirm && (
-        <ConfirmModal
-          message="Cancel your Premium subscription? You'll lose access to all premium features immediately."
-          confirmLabel={cancel.isPending ? "Canceling…" : "Yes, cancel"}
-          onConfirm={() => { cancel.mutate(); setShowCancelConfirm(false); }}
-          onCancel={() => setShowCancelConfirm(false)}
-          danger
-        />
-      )}
 
       {showDeleteConfirm && (
         <ConfirmModal

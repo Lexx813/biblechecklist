@@ -63,8 +63,7 @@ const schemaWebApp = {
     "6-language support",
   ],
   offers: [
-    { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free Plan", description: "Bible reading tracker, community forum, blog, quiz, and leaderboard — free forever", availability: "https://schema.org/OnlineOnly" },
-    { "@type": "Offer", price: "3.00", priceCurrency: "USD", name: "Premium Plan", description: "Reading plans, study notes, meeting prep, AI study assistant, direct messaging, and study groups", availability: "https://schema.org/OnlineOnly" },
+    { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free", description: "Every feature included: Bible reading tracker, reading plans, study notes, meeting prep, direct messaging, study groups, community forum, blog, and quizzes — free forever", availability: "https://schema.org/OnlineOnly" },
   ],
 };
 

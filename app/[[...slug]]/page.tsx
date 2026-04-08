@@ -23,7 +23,7 @@ const FAQ_ITEMS = [
   {
     question: "Is NWT Progress free to use?",
     answer:
-      "Yes — NWT Progress is free. A $3/month Premium plan unlocks reading plans, study notes, direct messaging, and study groups. The free tier includes full Bible reading tracking, community forum, blog, and quiz access.",
+      "Yes — NWT Progress is completely free. Every feature is included: Bible reading tracking across all 66 books, reading plans, study notes, direct messaging, study groups, community forum, blog, and quizzes.",
   },
   {
     question: "What Bible translation does NWT Progress use?",

@@ -61,12 +61,11 @@ export default function AboutPage() {
           without losing progress. What started as a personal tool grew into a full community
           platform for others walking the same spiritual journey.
         </p>
-        <h2>Subscription Transparency</h2>
+        <h2>Free for Everyone</h2>
         <p>
-          The $3/month Premium subscription is set at cost — not for profit. Every dollar goes
-          toward keeping the lights on: server hosting (Vercel), database (Supabase), and
-          ongoing development. NWT Progress is built and maintained by one person who loves
-          Jehovah and wanted to build something useful for the community.
+          NWT Progress is completely free. There are no paid tiers, no locked features, and no
+          ads. Hosting (Vercel), database (Supabase), and ongoing development are covered out
+          of pocket by one Witness who wanted to build something useful for the community.
         </p>
         <p>
           NWT Progress is an independent community project and is not affiliated with or

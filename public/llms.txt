@@ -9,7 +9,7 @@ NWT Progress (nwtprogress.com) is a web app and Progressive Web App (PWA) for:
 - Tracking chapter-by-chapter Bible reading progress through all 66 books of the NWT
 - Bible knowledge quizzes with badge rewards
 - A community forum and spiritual blog
-- Reading plans, study notes, direct messaging, and study groups (premium)
+- Reading plans, study notes, direct messaging, and study groups (all free)
 
 ## Who it is for
 

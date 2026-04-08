@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useFullProfile } from "./useAdmin";
 import { subscriptionApi } from "../api/subscription";
 import { trackBeginCheckout } from "../lib/analytics";
 
@@ -12,15 +11,11 @@ import { trackBeginCheckout } from "../lib/analytics";
  */
 export function useSubscription(userId: string | null | undefined) {
   const queryClient = useQueryClient();
-  const { data: profile } = useFullProfile(userId);
 
-  const isPremium =
-    profile?.is_admin === true ||
-    profile?.subscription_status === "active" ||
-    profile?.subscription_status === "trialing" ||
-    profile?.subscription_status === "gifted";
-
-  const status = profile?.subscription_status ?? "inactive";
+  // All features are free — treat every user as premium.
+  // Stripe infra stays dormant for future re-enable.
+  const isPremium = true;
+  const status = "active";
 
   const subscribe = useMutation({
     mutationFn: subscriptionApi.createCheckoutSession,
