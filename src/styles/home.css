@@ -492,6 +492,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
+  box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.18);
 }
 .hwidget-header {
   display: flex;
@@ -674,7 +675,7 @@
 [data-theme="light"] .hcard,
 [data-theme="light"] .hwidget,
 [data-theme="light"] .hblog-card { background: #fff; border-color: var(--border); }
-[data-theme="light"] .hcard--focus { overflow: hidden; }
+[data-theme="light"] .hcard--focus { background: transparent; border-color: transparent; box-shadow: none; }
 [data-theme="light"] .hfeed-title,
 [data-theme="light"] .hwidget-title,
 [data-theme="light"] .hblog-title,
