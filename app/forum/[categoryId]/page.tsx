@@ -16,8 +16,9 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   try {
+    const { categoryId } = await params;
     const categories = await forumApi.listCategories();
-    const category = categories.find((c) => c.id === params.categoryId);
+    const category = categories.find((c) => c.id === categoryId);
     if (!category) return {};
     const name = category.name;
     return {
@@ -25,11 +26,15 @@ export async function generateMetadata({ params }) {
       description:
         category.description ||
         `Browse discussions in ${name} on NWT Progress`,
+      alternates: {
+        canonical: `https://nwtprogress.com/forum/${categoryId}`,
+      },
       openGraph: {
         title: `${name} | NWT Progress Forum`,
         description:
           category.description ||
           `Browse discussions in ${name} on NWT Progress`,
+        url: `https://nwtprogress.com/forum/${categoryId}`,
       },
     };
   } catch {
@@ -38,12 +43,13 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ForumCategoryPage({ params }) {
+  const { categoryId } = await params;
   const queryClient = new QueryClient();
 
   let categoryName = null;
   try {
     const categories = await forumApi.listCategories();
-    categoryName = categories.find((c) => c.id === params.categoryId)?.name ?? null;
+    categoryName = categories.find((c) => c.id === categoryId)?.name ?? null;
   } catch {}
 
   await Promise.allSettled([
@@ -52,8 +58,8 @@ export default async function ForumCategoryPage({ params }) {
       queryFn: () => forumApi.listCategories(),
     }),
     queryClient.prefetchQuery({
-      queryKey: ["forum", "threads", params.categoryId, 20, null],
-      queryFn: () => forumApi.listThreads(params.categoryId, 20, null),
+      queryKey: ["forum", "threads", categoryId, 20, null],
+      queryFn: () => forumApi.listThreads(categoryId, 20, null),
     }),
   ]);
 
@@ -63,7 +69,7 @@ export default async function ForumCategoryPage({ params }) {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: "https://nwtprogress.com" },
       { "@type": "ListItem", position: 2, name: "Forum", item: "https://nwtprogress.com/forum" },
-      { "@type": "ListItem", position: 3, name: categoryName, item: `https://nwtprogress.com/forum/${params.categoryId}` },
+      { "@type": "ListItem", position: 3, name: categoryName, item: `https://nwtprogress.com/forum/${categoryId}` },
     ],
   } : null;
 

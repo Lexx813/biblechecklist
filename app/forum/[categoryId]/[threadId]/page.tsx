@@ -10,7 +10,8 @@ function stripHtml(html = "") {
 
 export async function generateMetadata({ params }) {
   try {
-    const thread = await forumApi.getThread(params.threadId);
+    const { categoryId, threadId } = await params;
+    const thread = await forumApi.getThread(threadId);
     if (!thread) return {};
 
     const desc =
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }) {
     return {
       title: `${thread.title} | NWT Progress Forum`,
       description: desc,
-      alternates: { canonical: `https://nwtprogress.com/forum/${params.categoryId}/${params.threadId}` },
+      alternates: { canonical: `https://nwtprogress.com/forum/${categoryId}/${threadId}` },
       openGraph: {
         title: thread.title,
         description: desc,
@@ -42,20 +43,21 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ForumThreadPage({ params }) {
+  const { categoryId, threadId } = await params;
   const queryClient = new QueryClient();
 
   const [thread] = await Promise.all([
-    forumApi.getThread(params.threadId).catch(() => null),
+    forumApi.getThread(threadId).catch(() => null),
     queryClient
       .prefetchQuery({
-        queryKey: ["forum", "thread", params.threadId],
-        queryFn: () => forumApi.getThread(params.threadId),
+        queryKey: ["forum", "thread", threadId],
+        queryFn: () => forumApi.getThread(threadId),
       })
       .catch(() => {}),
     queryClient
       .prefetchQuery({
-        queryKey: ["forum", "replies", params.threadId],
-        queryFn: () => forumApi.listReplies(params.threadId),
+        queryKey: ["forum", "replies", threadId],
+        queryFn: () => forumApi.listReplies(threadId),
       })
       .catch(() => {}),
     queryClient
@@ -66,7 +68,7 @@ export default async function ForumThreadPage({ params }) {
       .catch(() => {}),
   ]);
 
-  const threadUrl = `https://nwtprogress.com/forum/${params.categoryId}/${params.threadId}`;
+  const threadUrl = `https://nwtprogress.com/forum/${categoryId}/${threadId}`;
 
   const schemaPosting = thread
     ? {
