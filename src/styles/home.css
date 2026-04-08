@@ -196,7 +196,7 @@
   border-radius: var(--radius);
   overflow: hidden;
   transition: border-color var(--dur-base), box-shadow var(--dur-base);
-  box-shadow: -6px 10px 24px rgba(0, 0, 0, 0.45);
+  box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.18);
 }
 .hcard:hover { border-color: rgba(138, 75, 255, 0.22); }
 
@@ -282,7 +282,7 @@
   transition: border-color var(--dur-base), transform var(--dur-base), box-shadow var(--dur-base);
   display: flex;
   flex-direction: column;
-  box-shadow: -6px 10px 24px rgba(0, 0, 0, 0.45);
+  box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.18);
 }
 .hblog-card:hover { border-color: rgba(138, 75, 255, 0.28); transform: translateY(-2px); }
 .hblog-cover {
@@ -674,6 +674,7 @@
 [data-theme="light"] .hcard,
 [data-theme="light"] .hwidget,
 [data-theme="light"] .hblog-card { background: #fff; border-color: var(--border); }
+[data-theme="light"] .hcard--focus { overflow: hidden; }
 [data-theme="light"] .hfeed-title,
 [data-theme="light"] .hwidget-title,
 [data-theme="light"] .hblog-title,
