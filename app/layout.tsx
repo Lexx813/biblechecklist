@@ -16,6 +16,11 @@ export const metadata = {
     canonical: "https://nwtprogress.com",
     languages: {
       en: "https://nwtprogress.com",
+      es: "https://nwtprogress.com",
+      pt: "https://nwtprogress.com",
+      fr: "https://nwtprogress.com",
+      tl: "https://nwtprogress.com",
+      zh: "https://nwtprogress.com",
       "x-default": "https://nwtprogress.com",
     },
   },
@@ -81,6 +86,7 @@ const schemaOrg = {
   },
   description: "A spiritual growth companion for Jehovah's Witnesses — Bible reading tracker, meeting prep, study tools, and worldwide community.",
   email: "support@nwtprogress.com",
+  sameAs: ["https://jwstudy.org"],
   contactPoint: { "@type": "ContactPoint", email: "support@nwtprogress.com", contactType: "customer support", availableLanguage: ["English", "Spanish", "Portuguese", "French", "Tagalog", "Chinese"] },
 };
 

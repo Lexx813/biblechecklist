@@ -7,6 +7,18 @@
       "has": [{ "type": "host", "value": "www.nwtprogress.com" }],
       "destination": "https://nwtprogress.com/:path*",
       "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "jwstudy.org" }],
+      "destination": "https://nwtprogress.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.jwstudy.org" }],
+      "destination": "https://nwtprogress.com/:path*",
+      "permanent": true
     }
   ],
   "headers": [

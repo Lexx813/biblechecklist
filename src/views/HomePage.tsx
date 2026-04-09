@@ -170,7 +170,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const lang = i18n?.language?.split("-")[0] ?? "en";
 
   // Data
-  const { data: posts = [], isLoading: postsLoading } = usePublishedPosts(lang);
+  const { data: langPosts = [], isLoading: langPostsLoading } = usePublishedPosts(lang);
+  const { data: enPosts = [], isLoading: enPostsLoading } = usePublishedPosts(lang === "en" ? null : "en");
+  const posts = langPosts.length > 0 ? langPosts : enPosts;
+  const postsLoading = langPostsLoading || (langPosts.length === 0 && enPostsLoading);
   const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4);
   const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes();
   const toggleNoteLike = useToggleNoteLike();
@@ -250,16 +253,12 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
   const blogPreview = useMemo(() => {
     if (posts.length === 0) return [];
-    // Posts in user's language; fall back to all (EN) if none exist
-    const inLang = posts.filter((p: any) => p.lang === lang || (p.translations && p.translations[lang]));
-    const pool = inLang.length > 0 ? inLang : posts;
-    if (pool.length === 0) return [];
-    const newest = pool[0];
-    const byLikes = [...pool]
+    const newest = posts[0];
+    const byLikes = [...posts]
       .filter(p => p.id !== newest.id)
       .sort((a, b) => (b.like_count ?? 0) - (a.like_count ?? 0));
     return [newest, ...byLikes].slice(0, 3);
-  }, [posts, lang]);
+  }, [posts]);
 
   // Friends panel data
   const now = Date.now();

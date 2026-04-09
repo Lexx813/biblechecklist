@@ -1,5 +1,6 @@
 # NWT Progress — llms.txt
 # canonical: https://nwtprogress.com
+# alternate: https://jwstudy.org (301 redirects to canonical)
 
 > NWT Progress is a free Bible reading tracker and study community for Jehovah's Witnesses using the New World Translation. It helps users track reading progress across all 66 Bible books, earn quiz badges, connect with other readers, and deepen their personal Bible study.
 
@@ -77,4 +78,5 @@ Guided Bible reading schedules available on NWT Progress:
 ## Contact
 
 Site: https://nwtprogress.com
+Alternate domain: https://jwstudy.org (redirects to nwtprogress.com)
 Email: support@nwtprogress.com
