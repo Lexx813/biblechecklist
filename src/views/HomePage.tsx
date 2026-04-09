@@ -250,13 +250,15 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
   const blogPreview = useMemo(() => {
     if (posts.length === 0) return [];
-    // Always lead with the newest post, then fill with most liked
-    const newest = posts[0];
-    const byLikes = [...posts]
+    // Prefer posts in the user's language; fall back to all only if none exist
+    const inLang = posts.filter((p: any) => p.lang === lang || (p.translations && p.translations[lang]));
+    const pool = inLang.length > 0 ? inLang : posts;
+    const newest = pool[0];
+    const byLikes = [...pool]
       .filter(p => p.id !== newest.id)
       .sort((a, b) => (b.like_count ?? 0) - (a.like_count ?? 0));
     return [newest, ...byLikes].slice(0, 3);
-  }, [posts]);
+  }, [posts, lang]);
 
   // Friends panel data
   const now = Date.now();
