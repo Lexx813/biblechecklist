@@ -1,4 +1,4 @@
-# NWT Progress — Full-Site Improvement Sprint
+# JW Study — Full-Site Improvement Sprint
 
 **Date:** 2026-04-01  
 **Status:** Approved  

@@ -18,7 +18,7 @@ export default function ShareButtons({ path, title, type = "blog" }: Props) {
   const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const url = `${SITE}${path}`;
-  const text = `${title} — NWT Progress`;
+  const text = `${title} — JW Study`;
 
   function copy() {
     navigator.clipboard.writeText(url).then(() => {

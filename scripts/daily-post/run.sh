@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# NWT Progress — Daily Auto-Post Agent
+# JW Study — Daily Auto-Post Agent
 # Runs via Windows Task Scheduler daily. Uses Claude Code (Max subscription).
 # Setup: see README in this folder.
 
@@ -82,7 +82,7 @@ CONTENT TYPE: Book Spotlight (BLOG POST)
       cross-references with other books, theocratic context)
 
       ## For Your Reading Log
-      Encourage readers to track their progress on NWT Progress
+      Encourage readers to track their progress on JW Study
 - Slug: ${TODAY}-book-spotlight-$(echo "${BOOK}" | tr '[:upper:] ' '[:lower:]-')
 - published: true
 - author_id: 7e698046-4dcb-4421-b697-a0230294b618
@@ -112,7 +112,7 @@ CONTENT TYPE: Community Discussion Prompt (FORUM THREAD)
 fi
 
 # ── Full agent prompt ─────────────────────────────────────────────────────────
-PROMPT="You are the NWT Progress content agent. Today is ${TODAY}.
+PROMPT="You are the JW Study content agent. Today is ${TODAY}.
 Your job is to generate one piece of high-quality daily content and insert it
 directly into the Supabase database using the mcp__claude_ai_Supabase__execute_sql tool.
 

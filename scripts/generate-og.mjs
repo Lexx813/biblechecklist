@@ -72,7 +72,7 @@ const svg = `
   <text x="195" y="97" font-family="Georgia, serif" font-size="15" font-weight="600" fill="#C084FC" text-anchor="middle" letter-spacing="2">✦ NWT BIBLE</text>
 
   <!-- Main title -->
-  <text x="80" y="205" font-family="Georgia, serif" font-size="88" font-weight="700" fill="url(#titleGrad)" letter-spacing="-2">NWT Progress</text>
+  <text x="80" y="205" font-family="Georgia, serif" font-size="88" font-weight="700" fill="url(#titleGrad)" letter-spacing="-2">JW Study</text>
 
   <!-- Tagline -->
   <text x="80" y="268" font-family="Georgia, serif" font-size="28" fill="rgba(220,200,255,0.75)" letter-spacing="0.5">Track · Learn · Grow in Scripture</text>

@@ -259,7 +259,7 @@ Deno.serve(async (req) => {
 
   if (!notif.actor_id || SYSTEM_TYPES.has(notif.type)) {
     // System-generated notification — no actor, use type label as title and body_preview as body.
-    title = TYPE_LABEL[notif.type] || "NWT Progress";
+    title = TYPE_LABEL[notif.type] || "JW Study";
     body = notif.body_preview || title;
   } else {
     // User-triggered notification — fetch actor name and build "Name did X" body.
@@ -271,7 +271,7 @@ Deno.serve(async (req) => {
 
     const actorName = actor?.display_name || "Someone";
     const action = TYPE_LABEL[notif.type] || "sent you a notification";
-    title = "NWT Progress";
+    title = "JW Study";
     body = `${actorName} ${action}`;
   }
   const url = notif.link_hash ? `/${notif.link_hash}` : "/";

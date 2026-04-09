@@ -9,7 +9,7 @@
     "skip": "Pular",
     "next": "Próximo →",
     "getStarted": "Começar",
-    "step1Title": "Bem-vindo ao NWT Progress! 👋",
+    "step1Title": "Bem-vindo ao JW Study! 👋",
     "step1Body": "Acompanhe sua leitura bíblica em todos os 66 livros. Marque capítulos à medida que lê e veja seu progresso crescer.",
     "step2Title": "Junte-se à Comunidade",
     "step2Body": "Compartilhe reflexões no blog, discuta escrituras no fórum e siga outros em sua jornada de leitura.",
@@ -114,7 +114,7 @@
     "alreadyHave": "Já tem uma conta?",
     "footerTerms": "Termos",
     "footerPrivacy": "Privacidade",
-    "footerCopy": "© {{year}} NWT Progress · Lexx Solutionz"
+    "footerCopy": "© {{year}} JW Study · Lexx Solutionz"
   },
   "auth": {
     "title": "Lista de Leitura Bíblica",
@@ -210,7 +210,7 @@
     "message": "Você está offline — alguns recursos podem estar indisponíveis."
   },
   "install": {
-    "title": "Adicionar NWT Progress à tela inicial",
+    "title": "Adicionar JW Study à tela inicial",
     "subtitle": "Leia e acompanhe offline, a qualquer hora.",
     "install": "Instalar",
     "dismiss": "Dispensar"
@@ -559,7 +559,7 @@
     "forumSub": "Os tópicos mais ativos e curtidos da comunidade.",
     "forumViewAll": "Visitar o fórum →",
     "forumEmpty": "Sem tópicos ainda — inicie a primeira conversa.",
-    "footer": "NWT Progress · Construído com propósito",
+    "footer": "JW Study · Construído com propósito",
     "notifBannerTitle": "Fique por dentro",
     "notifBannerSub": "Receba um e-mail quando uma nova postagem do blog for publicada.",
     "notifEnable": "Notifique-me",
@@ -1073,11 +1073,11 @@
     "Apocalipse é uma visão profética da vitória final de Cristo sobre o mal, o julgamento das nações e a criação de um novo céu e uma nova terra onde Deus habita com Seu povo para sempre."
   ],
   "about": {
-    "heroBadge": "📖 Sobre o NWT Progress",
+    "heroBadge": "📖 Sobre o JW Study",
     "heroTitle": "Um Lar para Leitores da Bíblia",
     "heroSub": "Acompanhe sua leitura, conecte-se com companheiros estudantes e cresça em seu amor pela Palavra de Deus.",
     "purposeTitle": "Por Que Este Aplicativo Existe",
-    "purposeBody1": "O NWT Progress foi construído com um objetivo simples: dar aos estudantes da Bíblia um rastreador persistente e multidispositivo para sua leitura bíblica. Seja no seu telefone no Salão do Reino, no laptop em casa ou no tablet durante o culto familiar — seu progresso está sempre com você.",
+    "purposeBody1": "O JW Study foi construído com um objetivo simples: dar aos estudantes da Bíblia um rastreador persistente e multidispositivo para sua leitura bíblica. Seja no seu telefone no Salão do Reino, no laptop em casa ou no tablet durante o culto familiar — seu progresso está sempre com você.",
     "purposeBody2": "Além do rastreamento, queríamos criar um espaço onde pessoas que estudam com as Testemunhas de Jeová — e as Testemunhas ativas — possam se encorajar, compartilhar pensamentos e crescer juntas como uma comunidade de estudantes da Bíblia.",
     "audienceTitle": "Para Quem É Isso?",
     "card1Title": "Estudantes da Bíblia",
@@ -1087,7 +1087,7 @@
     "card3Title": "Famílias e Grupos",
     "card3Body": "Famílias que fazem culto familiar, ou grupos de estudo que desejam encorajar o progresso de leitura uns dos outros e compartilhar insights.",
     "jwTitle": "Funciona ao Lado do JW Library",
-    "jwBody": "O NWT Progress é projetado como companheiro do aplicativo JW Library. Faça sua leitura no JW Library — onde você pode acessar uma cópia digital gratuita da Tradução do Novo Mundo — e então venha aqui para registrar seus capítulos, fazer anotações e compartilhar sua jornada com a comunidade.",
+    "jwBody": "O JW Study é projetado como companheiro do aplicativo JW Library. Faça sua leitura no JW Library — onde você pode acessar uma cópia digital gratuita da Tradução do Novo Mundo — e então venha aqui para registrar seus capítulos, fazer anotações e compartilhar sua jornada com a comunidade.",
     "featuresTitle": "O Que Você Pode Fazer Aqui",
     "feat1": "<strong>Acompanhe cada capítulo</strong> — marque capítulos lidos em todos os 66 livros da Bíblia, com seu progresso salvo na nuvem para segui-lo em qualquer lugar.",
     "feat2": "<strong>Salve anotações pessoais</strong> — escreva anotações privadas vinculadas a qualquer livro e capítulo durante seu estudo.",
@@ -1097,11 +1097,11 @@
     "feat6": "<strong>Compartilhe seu progresso</strong> — gere uma imagem compartilhável do seu progresso de leitura para encorajar outros.",
     "creatorLabel": "Criado por",
     "creatorName": "Lexx",
-    "creatorBio": "Lexx é um estudante da Bíblia e Testemunha de Jeová que construiu o NWT Progress de uma necessidade pessoal — uma maneira simples e confiável de rastrear a leitura bíblica em qualquer dispositivo, sem perder o progresso. O que começou como uma ferramenta pessoal cresceu em uma plataforma comunitária completa para outros que percorrem a mesma jornada espiritual.",
+    "creatorBio": "Lexx é um estudante da Bíblia e Testemunha de Jeová que construiu o JW Study de uma necessidade pessoal — uma maneira simples e confiável de rastrear a leitura bíblica em qualquer dispositivo, sem perder o progresso. O que começou como uma ferramenta pessoal cresceu em uma plataforma comunitária completa para outros que percorrem a mesma jornada espiritual.",
     "ctaTitle": "Pronto para Começar?",
     "ctaSub": "Crie uma conta gratuita e comece a rastrear sua leitura bíblica hoje.",
     "ctaBtn": "Começar — É Gratuito",
-    "footer": "O NWT Progress é um projeto comunitário independente e não é afiliado nem endossado pelas Testemunhas de Jeová ou pela Watch Tower Society."
+    "footer": "O JW Study é um projeto comunitário independente e não é afiliado nem endossado pelas Testemunhas de Jeová ou pela Watch Tower Society."
   },
   "history": {
     "title": "Histórico de Leitura",

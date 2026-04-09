@@ -1,22 +1,22 @@
 import ClientShell from "../_components/ClientShell";
 
 export const metadata = {
-  title: "About NWT Progress | Bible Reading Tracker for Jehovah's Witnesses",
+  title: "About JW Study | Bible Reading Tracker for Jehovah's Witnesses",
   description:
-    "NWT Progress is an independent Bible reading tracker built for Jehovah's Witnesses and Bible students. Track all 66 books of the New World Translation. Built by a Bible student for the community.",
+    "JW Study is an independent Bible reading tracker built for Jehovah's Witnesses and Bible students. Track all 66 books of the New World Translation. Built by a Bible student for the community.",
   alternates: { canonical: "https://nwtprogress.com/about" },
   openGraph: {
-    title: "About NWT Progress | Bible Reading Tracker",
+    title: "About JW Study | Bible Reading Tracker",
     description:
-      "NWT Progress is an independent Bible reading tracker built for Jehovah's Witnesses and Bible students. Track all 66 books of the New World Translation.",
-    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
+      "JW Study is an independent Bible reading tracker built for Jehovah's Witnesses and Bible students. Track all 66 books of the New World Translation.",
+    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "About NWT Progress | Bible Reading Tracker",
+    title: "About JW Study | Bible Reading Tracker",
     description:
-      "NWT Progress is an independent Bible reading tracker built for Jehovah's Witnesses and Bible students. Track all 66 books of the New World Translation.",
-    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
+      "JW Study is an independent Bible reading tracker built for Jehovah's Witnesses and Bible students. Track all 66 books of the New World Translation.",
+    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
   },
 };
 
@@ -38,7 +38,7 @@ export default function AboutPage() {
         <h1>A Home for Bible Readers</h1>
         <h2>Why This App Exists</h2>
         <p>
-          NWT Progress was built with one simple goal: give Bible students a persistent,
+          JW Study was built with one simple goal: give Bible students a persistent,
           cross-device tracker for their Bible reading. Whether you&apos;re on your phone at the
           Kingdom Hall, on your laptop at home, or on a tablet during family worship — your
           progress is always with you.
@@ -50,25 +50,25 @@ export default function AboutPage() {
         </p>
         <h2>Works Alongside JW Library</h2>
         <p>
-          NWT Progress is designed as a companion to the JW Library app, not a replacement.
+          JW Study is designed as a companion to the JW Library app, not a replacement.
           Do your reading in JW Library — then come here to log your chapters, take notes,
           and share your journey with the community.
         </p>
         <h2>About the Creator</h2>
         <p>
-          Lexx is a Bible student and Jehovah&apos;s Witness who built NWT Progress out of a
+          Lexx is a Bible student and Jehovah&apos;s Witness who built JW Study out of a
           personal need — a simple, reliable way to track Bible reading across any device,
           without losing progress. What started as a personal tool grew into a full community
           platform for others walking the same spiritual journey.
         </p>
         <h2>Free for Everyone</h2>
         <p>
-          NWT Progress is completely free. There are no paid tiers, no locked features, and no
+          JW Study is completely free. There are no paid tiers, no locked features, and no
           ads. Hosting (Vercel), database (Supabase), and ongoing development are covered out
           of pocket by one Witness who wanted to build something useful for the community.
         </p>
         <p>
-          NWT Progress is an independent community project and is not affiliated with or
+          JW Study is an independent community project and is not affiliated with or
           endorsed by Jehovah&apos;s Witnesses or the Watch Tower Society of Pennsylvania.
         </p>
         <address>

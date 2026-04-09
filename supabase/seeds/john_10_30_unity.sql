@@ -1,5 +1,5 @@
 -- ============================================================
--- NWT Progress — Blog post: "I and the Father Are One"
+-- JW Study — Blog post: "I and the Father Are One"
 -- John 10:30 — unity of purpose, not identity of being
 -- English content + Spanish translation (translations.es)
 -- ============================================================
@@ -150,7 +150,7 @@ That's the relationship Scripture presents. And it's far more compelling than th
 
 ---
 
-*Want to dig deeper into what the Bible teaches about Jesus and his Father? [NWT Progress](https://nwtprogress.com) offers study tools designed to help you explore Scripture on your own terms.*
+*Want to dig deeper into what the Bible teaches about Jesus and his Father? [JW Study](https://nwtprogress.com) offers study tools designed to help you explore Scripture on your own terms.*
 $en$,
   true,
   'en',
@@ -298,7 +298,7 @@ Esa es la relación que presenta la Escritura. Y es mucho más convincente que l
 
 ---
 
-*¿Quiere profundizar en lo que la Biblia enseña sobre Jesús y su Padre? [NWT Progress](https://nwtprogress.com) ofrece herramientas de estudio diseñadas para ayudarle a explorar las Escrituras en sus propios términos.*
+*¿Quiere profundizar en lo que la Biblia enseña sobre Jesús y su Padre? [JW Study](https://nwtprogress.com) ofrece herramientas de estudio diseñadas para ayudarle a explorar las Escrituras en sus propios términos.*
 $es$
     )
   )

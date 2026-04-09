@@ -1,13 +1,13 @@
 import { ImageResponse } from "next/og";
 import { blogApi } from "../../../src/api/blog";
 
-export const alt = "NWT Progress Blog";
+export const alt = "JW Study Blog";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image({ params }) {
   const post = await blogApi.getBySlug(params.slug).catch(() => null);
-  const title = post?.title ?? "NWT Progress Blog";
+  const title = post?.title ?? "JW Study Blog";
   const coverUrl = post?.cover_url ?? null;
   const fontSize = title.length > 70 ? 40 : title.length > 50 ? 48 : 56;
 
@@ -67,7 +67,7 @@ export default async function Image({ params }) {
                 letterSpacing: "0.1em",
               }}
             >
-              NWT Progress · Blog
+              JW Study · Blog
             </div>
             <div
               style={{
@@ -113,7 +113,7 @@ export default async function Image({ params }) {
             }}
           />
           <span style={{ color: "#C084FC", fontSize: "26px", fontWeight: "700" }}>
-            NWT Progress
+            JW Study
           </span>
         </div>
 

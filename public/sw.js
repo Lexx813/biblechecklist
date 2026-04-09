@@ -122,7 +122,7 @@ self.addEventListener("push", (e) => {
         self.registration.setAppBadge(badgeCount).catch(() => {});
       }
 
-      return self.registration.showNotification(data.title ?? "NWT Progress", {
+      return self.registration.showNotification(data.title ?? "JW Study", {
         body: data.body ?? "",
         icon: "/icon-192.png",
         badge: "/badge-96.png",

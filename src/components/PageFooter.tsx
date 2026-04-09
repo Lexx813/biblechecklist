@@ -10,7 +10,7 @@ function legalLink(e: React.MouseEvent<HTMLAnchorElement>, path: string) {
 export default function PageFooter() {
   return (
     <footer className="page-footer">
-      <span>© {new Date().getFullYear()} NWT Progress · Lexx Solutionz</span>
+      <span>© {new Date().getFullYear()} JW Study · Lexx Solutionz</span>
       <span className="page-footer-sep">·</span>
       <a href="/terms"   className="page-footer-link" onClick={e => legalLink(e, "/terms")}>Terms of Service</a>
       <span className="page-footer-sep">·</span>

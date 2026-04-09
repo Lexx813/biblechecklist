@@ -22,7 +22,7 @@ const supabase = createClient(
 );
 
 const RESEND_KEY = Deno.env.get("RESEND_API_KEY")!;
-const FROM = "NWT Progress <notifications@nwtprogress.com>";
+const FROM = "JW Study <notifications@nwtprogress.com>";
 const SITE = "https://nwtprogress.com";
 
 // ── Email helpers ──────────────────────────────────────────────────────────────
@@ -37,7 +37,7 @@ function baseHtml(content: string) {
         ${content}
         <tr><td style="padding:20px 40px;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
           <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.25)">
-            NWT Progress · <a href="${SITE}/settings" style="color:rgba(139,92,246,0.6)">Manage email preferences</a>
+            JW Study · <a href="${SITE}/settings" style="color:rgba(139,92,246,0.6)">Manage email preferences</a>
           </p>
         </td></tr>
       </table>
@@ -54,7 +54,7 @@ function ctaButton(text: string, href: string) {
 function welcomeHtml(name: string) {
   return baseHtml(`
     <tr><td style="background:linear-gradient(135deg,#2e0b6e 0%,#5b21b6 55%,#7c3aed 100%);padding:36px 40px;text-align:center">
-      <h1 style="margin:0 0 8px;font-size:26px;font-weight:800;color:#fff">Welcome to NWT Progress! 👋</h1>
+      <h1 style="margin:0 0 8px;font-size:26px;font-weight:800;color:#fff">Welcome to JW Study! 👋</h1>
       <p style="margin:0;font-size:15px;color:rgba(255,255,255,0.7)">Your Bible study journey starts here, ${name}.</p>
     </td></tr>
     <tr><td style="padding:32px 40px">
@@ -218,7 +218,7 @@ function day60Html(name: string) {
     </td></tr>
     <tr><td style="padding:32px 40px">
       <p style="margin:0 0 16px;font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6">
-        Premium members on NWT Progress have been building a daily reading habit with structured plans, keeping study notes that compound over months, and connecting with their congregation through study groups.
+        Premium members on JW Study have been building a daily reading habit with structured plans, keeping study notes that compound over months, and connecting with their congregation through study groups.
       </p>
       <p style="margin:0 0 24px;font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6">
         Premium is $3/mo — less than a coffee. Your 7-day free trial is still available.
@@ -299,7 +299,7 @@ Deno.serve(async (req) => {
     {
       step: "welcome",
       daysAgo: 1,
-      subject: "Welcome to NWT Progress 👋",
+      subject: "Welcome to JW Study 👋",
       buildHtml: welcomeHtml,
     },
     {

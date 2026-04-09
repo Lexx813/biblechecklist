@@ -5,7 +5,7 @@ export default function NotFoundPage({ navigate, user = null, darkMode, setDarkM
   // Ensure the URL stays as-is so the user can see what they typed wrong
   useEffect(() => {
     document.title = "404 — Page Not Found";
-    return () => { document.title = "NWT Progress"; };
+    return () => { document.title = "JW Study"; };
   }, []);
 
   return (

@@ -158,7 +158,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
       <nav className={`page-nav${navHidden ? " page-nav--hidden" : ""}`} ref={menuRef}>
         <button className="page-nav-brand" onClick={() => go("home")}>
           <span className="page-nav-brand-icon">{Icon.Book}</span>
-          <span className="page-nav-brand-name">NWT Progress</span>
+          <span className="page-nav-brand-name">JW Study</span>
         </button>
 
         {/* Desktop links */}

@@ -1,4 +1,4 @@
-# NWT Progress — Facebook-Style SPA Redesign
+# JW Study — Facebook-Style SPA Redesign
 **Date:** 2026-04-03  
 **Approach:** C — Full Redesign  
 **Scope:** All pages except Bible Tracker (ChecklistPage)
@@ -25,7 +25,7 @@
 **Keep/add:**
 | Slot | Content |
 |------|---------|
-| Left | Logo icon (28px, purple gradient) + "NWT Progress" wordmark |
+| Left | Logo icon (28px, purple gradient) + "JW Study" wordmark |
 | Center | Search bar (rounded pill, max-width 360px) — opens command palette on click |
 | Right | Theme toggle · Messages icon (unread badge) · Notifications bell (unread badge) · User avatar (opens profile dropdown) |
 

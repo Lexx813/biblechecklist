@@ -17,7 +17,7 @@ BEGIN
 
   -- ── 1. Ensure FAQ & Help category exists ────────────────────────────────────
   INSERT INTO forum_categories (icon, name, description, sort_order)
-  SELECT '❓', 'FAQ & Help', 'Guides and tutorials for every feature in NWT Progress.', 0
+  SELECT '❓', 'FAQ & Help', 'Guides and tutorials for every feature in JW Study.', 0
   WHERE NOT EXISTS (
     SELECT 1 FROM forum_categories WHERE name = 'FAQ & Help'
   );
@@ -34,7 +34,7 @@ BEGIN
       v_system_id, v_cat_id,
       '📖 How to track your reading progress',
       '<h2>Tracking Your Reading Progress</h2>
-<p>The <strong>Book Checklist</strong> is the heart of NWT Progress. Here is how to use it effectively.</p>
+<p>The <strong>Book Checklist</strong> is the heart of JW Study. Here is how to use it effectively.</p>
 
 <h3>Opening a book</h3>
 <p>From the home screen, tap any book card. It expands to show a grid of chapter buttons — one for each chapter in that book.</p>
@@ -160,7 +160,7 @@ BEGIN
       v_system_id, v_cat_id,
       '💬 How to use the Community Forum',
       '<h2>The Community Forum</h2>
-<p>The forum is where NWT Progress users discuss scripture, share insights, ask questions, and encourage each other. Here is everything you need to know.</p>
+<p>The forum is where JW Study users discuss scripture, share insights, ask questions, and encourage each other. Here is everything you need to know.</p>
 
 <h3>Browsing categories</h3>
 <p>The forum home shows category cards — for example, <em>Bible Discussion</em>, <em>Reading Tips</em>, <em>Prayer Requests</em>, and this <em>FAQ & Help</em> category. Tap a card to see all threads in that category.</p>
@@ -214,7 +214,7 @@ BEGIN
       v_system_id, v_cat_id,
       '✉️ How to use Direct Messages',
       '<h2>Direct Messages — Private Conversations</h2>
-<p>Direct Messages (DMs) let you have private, end-to-end encrypted conversations with other NWT Progress users.</p>
+<p>Direct Messages (DMs) let you have private, end-to-end encrypted conversations with other JW Study users.</p>
 
 <h3>Starting a conversation</h3>
 <ol>
@@ -259,7 +259,7 @@ BEGIN
       v_system_id, v_cat_id,
       '🌐 How to use Community Notes',
       '<h2>Community Notes — Learn from Other Readers</h2>
-<p>Community Notes is the public feed of study notes shared by NWT Progress users. It is a great place to discover fresh insights on passages you are studying.</p>
+<p>Community Notes is the public feed of study notes shared by JW Study users. It is a great place to discover fresh insights on passages you are studying.</p>
 
 <h3>Browsing community notes</h3>
 <ol>
@@ -473,7 +473,7 @@ BEGIN
       v_system_id, v_cat_id,
       '⚙️ Settings, Dark Mode & Language',
       '<h2>Settings, Dark Mode & Language</h2>
-<p>Customise NWT Progress to suit your preferences.</p>
+<p>Customise JW Study to suit your preferences.</p>
 
 <h3>Dark Mode</h3>
 <p>Tap the 🌙 moon icon in the top navigation bar to toggle between light and dark mode. Your preference is saved automatically.</p>

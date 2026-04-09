@@ -37,14 +37,14 @@ export async function generateMetadata({ params }) {
   const book = getBook(slug);
   if (!book) return {};
 
-  const description = `${book.summary.slice(0, 130)} Track your ${book.name} reading with NWT Progress.`;
+  const description = `${book.summary.slice(0, 130)} Track your ${book.name} reading with JW Study.`;
 
   return {
-    title: `Book of ${book.name} — NWT Study Guide | NWT Progress`,
+    title: `Book of ${book.name} — NWT Study Guide | JW Study`,
     description,
     alternates: { canonical: `${BASE}/books/${slug}` },
     openGraph: {
-      title: `Book of ${book.name} — NWT Study Guide | NWT Progress`,
+      title: `Book of ${book.name} — NWT Study Guide | JW Study`,
       description,
       type: "article",
       url: `${BASE}/books/${slug}`,
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: "summary_large_image",
-      title: `Book of ${book.name} | NWT Progress`,
+      title: `Book of ${book.name} | JW Study`,
       description,
     },
   };
@@ -90,12 +90,12 @@ export default async function BookPage({ params }) {
     author: {
       "@type": "Organization",
       "@id": "https://nwtprogress.com/#organization",
-      name: "NWT Progress",
+      name: "JW Study",
     },
     publisher: {
       "@type": "Organization",
       "@id": `${BASE}/#organization`,
-      name: "NWT Progress",
+      name: "JW Study",
       logo: {
         "@type": "ImageObject",
         url: "https://nwtprogress.com/icon-512.png",
@@ -125,7 +125,7 @@ export default async function BookPage({ params }) {
       name: q,
       acceptedAnswer: {
         "@type": "Answer",
-        text: `Discover the answer in the book of ${book.name}. Read ${book.name} in the New World Translation and track your study with NWT Progress.`,
+        text: `Discover the answer in the book of ${book.name}. Read ${book.name} in the New World Translation and track your study with JW Study.`,
       },
     })),
   };
@@ -179,9 +179,9 @@ export default async function BookPage({ params }) {
           ))}
         </ol>
 
-        <h2>How to Study {book.name} with NWT Progress</h2>
+        <h2>How to Study {book.name} with JW Study</h2>
         <p>
-          NWT Progress is a free Bible reading tracker built for Jehovah&apos;s Witnesses. Track
+          JW Study is a free Bible reading tracker built for Jehovah&apos;s Witnesses. Track
           your progress through all {book.chapters} chapters of {book.name} in the New World
           Translation, mark completed chapters, take personal study notes, and build a consistent
           daily Bible reading habit. Use it alongside JW Library and the publications available at{" "}
@@ -215,7 +215,7 @@ export default async function BookPage({ params }) {
 
         <h2>Related Bible Study Topics</h2>
         <p>
-          Deepen your study of the Bible with these related topics from NWT Progress:
+          Deepen your study of the Bible with these related topics from JW Study:
         </p>
         <ul>
           {STUDY_TOPICS.map((t) => (
@@ -252,7 +252,7 @@ export default async function BookPage({ params }) {
             <a href={`${BASE}/plans`}>All Reading Plans</a>
           </li>
           <li>
-            <a href={`${BASE}/blog`}>NWT Progress Blog</a>
+            <a href={`${BASE}/blog`}>JW Study Blog</a>
           </li>
         </ul>
       </div>

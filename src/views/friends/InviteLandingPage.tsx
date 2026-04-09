@@ -51,7 +51,7 @@ export default function InviteLandingPage({ token, navigate }: Props) {
           {inviter.display_name ?? "Someone"} invited you!
         </div>
         <div className="invite-card-sub">
-          Join NWT Progress to track your Bible reading and connect with friends.
+          Join JW Study to track your Bible reading and connect with friends.
         </div>
         <button className="invite-card-cta" onClick={() => navigate("signup")}>
           Create Free Account

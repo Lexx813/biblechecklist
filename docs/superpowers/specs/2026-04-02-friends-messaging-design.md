@@ -121,7 +121,7 @@ https://nwtprogress.com/invite/[token]
 - Token is permanent and reusable
 
 ### Recipient — New User
-1. Visits invite URL → landing page showing inviter's avatar + name: "Alexi invited you to NWT Progress"
+1. Visits invite URL → landing page showing inviter's avatar + name: "Alexi invited you to JW Study"
 2. Signs up normally
 3. On account creation, a `friend_request` row is automatically inserted from inviter → new user
 4. New user lands in app with a friend request notification waiting

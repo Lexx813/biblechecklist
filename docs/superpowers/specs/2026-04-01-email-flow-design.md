@@ -27,7 +27,7 @@ Three gaps to close:
 **Trigger:** `checkout.session.completed` event (already fires this email)
 
 ### Current state
-Lists 5 premium features with descriptions, shows billing amount ($3/mo), single CTA "Open NWT Progress →".
+Lists 5 premium features with descriptions, shows billing amount ($3/mo), single CTA "Open JW Study →".
 
 ### New design
 
@@ -126,7 +126,7 @@ Apply this filter to the day 60 cohort only (not retroactively to other cohorts 
 
 - **Header:** "Two months — here's what you're missing 📅" (softer than "you're missing out")
 - **Body:** 2 short paragraphs:
-  - "Premium members on NWT Progress have been building a daily reading habit with structured plans, keeping study notes that compound over months, and connecting with their congregation through study groups."
+  - "Premium members on JW Study have been building a daily reading habit with structured plans, keeping study notes that compound over months, and connecting with their congregation through study groups."
   - "You've been on free for two months. Premium is $3/mo — less than a coffee. Your 7-day free trial is still available."
 - **CTA:** `Start Free Trial →` → `${SITE}?upgrade=1`
 - **No feature list** — they've seen it. Keep the email short.

@@ -123,7 +123,7 @@
     "alreadyHave": "Already have an account?",
     "footerTerms": "Terms",
     "footerPrivacy": "Privacy",
-    "footerCopy": "© {{year}} NWT Progress · Lexx Solutionz"
+    "footerCopy": "© {{year}} JW Study · Lexx Solutionz"
   },
   "auth": {
     "title": "Bible Reading Checklist",
@@ -218,7 +218,7 @@
     "message": "You're offline — some features may be unavailable."
   },
   "install": {
-    "title": "Add NWT Progress to your home screen",
+    "title": "Add JW Study to your home screen",
     "subtitle": "Read and track offline, anytime.",
     "install": "Install",
     "dismiss": "Dismiss"
@@ -570,7 +570,7 @@
     "forumSub": "The most active and liked threads in the community.",
     "forumViewAll": "Visit the forum →",
     "forumEmpty": "No threads yet — start the first conversation.",
-    "footer": "NWT Progress · Built with purpose",
+    "footer": "JW Study · Built with purpose",
     "notifBannerTitle": "Stay in the loop",
     "notifBannerSub": "Get an email when a new blog post is published.",
     "notifEnable": "Notify me",
@@ -1081,11 +1081,11 @@
     "Revelation is a prophetic vision of Christ's ultimate victory over evil, the judgment of the nations, and the creation of a new heaven and new earth where God dwells with His people forever."
   ],
   "about": {
-    "heroBadge": "📖 About NWT Progress",
+    "heroBadge": "📖 About JW Study",
     "heroTitle": "A Home for Bible Readers",
     "heroSub": "Track your reading, connect with fellow students, and grow in your love for God's Word.",
     "purposeTitle": "Why This App Exists",
-    "purposeBody1": "NWT Progress was built with one simple goal: give Bible students a persistent, cross-device tracker for their Bible reading. Whether you're on your phone at the Kingdom Hall, on your laptop at home, or on a tablet during family worship — your progress is always with you.",
+    "purposeBody1": "JW Study was built with one simple goal: give Bible students a persistent, cross-device tracker for their Bible reading. Whether you're on your phone at the Kingdom Hall, on your laptop at home, or on a tablet during family worship — your progress is always with you.",
     "purposeBody2": "Beyond tracking, we wanted to create a space where people studying with Jehovah's Witnesses — and active Witnesses themselves — can encourage one another, share thoughts, and grow together as a community of Bible students.",
     "audienceTitle": "Who Is This For?",
     "card1Title": "Bible Students",
@@ -1095,7 +1095,7 @@
     "card3Title": "Families & Groups",
     "card3Body": "Families doing family worship, or study groups wanting to encourage each other's reading progress and share insights.",
     "jwTitle": "Works Alongside JW Library",
-    "jwBody": "NWT Progress is designed as a companion to the JW Library app. Do your reading in JW Library — where you can access a free digital copy of the New World Translation — then come here to log your chapters, take notes, and share your journey with the community.",
+    "jwBody": "JW Study is designed as a companion to the JW Library app. Do your reading in JW Library — where you can access a free digital copy of the New World Translation — then come here to log your chapters, take notes, and share your journey with the community.",
     "featuresTitle": "What You Can Do Here",
     "feat1": "<strong>Track every chapter</strong> — mark chapters read across all 66 books of the Bible, with your progress saved to the cloud so it follows you everywhere.",
     "feat2": "<strong>Save personal notes</strong> — write private notes tied to any book and chapter as you study.",
@@ -1105,11 +1105,11 @@
     "feat6": "<strong>Share your progress</strong> — generate a shareable image of your reading progress to encourage others.",
     "creatorLabel": "Created by",
     "creatorName": "Lexx",
-    "creatorBio": "Lexx is a Bible student and Jehovah's Witness who built NWT Progress out of a personal need — a simple, reliable way to track Bible reading across any device, without losing progress. What started as a personal tool grew into a full community platform for others walking the same spiritual journey.",
+    "creatorBio": "Lexx is a Bible student and Jehovah's Witness who built JW Study out of a personal need — a simple, reliable way to track Bible reading across any device, without losing progress. What started as a personal tool grew into a full community platform for others walking the same spiritual journey.",
     "ctaTitle": "Ready to Start?",
     "ctaSub": "Create a free account and begin tracking your Bible reading today.",
     "ctaBtn": "Get Started — It's Free",
-    "footer": "NWT Progress is an independent community project and is not affiliated with or endorsed by Jehovah's Witnesses or the Watch Tower Society."
+    "footer": "JW Study is an independent community project and is not affiliated with or endorsed by Jehovah's Witnesses or the Watch Tower Society."
   },
   "history": {
     "title": "Reading History",

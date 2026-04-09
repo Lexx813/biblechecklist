@@ -48,11 +48,11 @@ const FEATURE_ICON = {
 };
 
 const FAQS = [
-  { q: "Is NWT Progress affiliated with the Watch Tower Society or jw.org?", a: "No. NWT Progress is an independent tool built by a publisher to help fellow Witnesses track Bible reading and study. We are not endorsed by, sponsored by, or connected to the Watch Tower Bible and Tract Society. All Bible text and references link out to the official jw.org and JW Library." },
-  { q: "Is it really free?", a: "Yes. NWT Progress is 100% free — no trial, no card, no hidden tiers. Everything on the site is free to use." },
+  { q: "Is JW Study affiliated with the Watch Tower Society or jw.org?", a: "No. JW Study is an independent tool built by a publisher to help fellow Witnesses track Bible reading and study. We are not endorsed by, sponsored by, or connected to the Watch Tower Bible and Tract Society. All Bible text and references link out to the official jw.org and JW Library." },
+  { q: "Is it really free?", a: "Yes. JW Study is 100% free — no trial, no card, no hidden tiers. Everything on the site is free to use." },
   { q: "Do I need to create an account to try it?", a: "No. You can use the full Bible reading tracker without signing up — just visit Try the tracker, check off chapters, and your progress is saved on your device. Create a free account when you're ready to sync across devices and unlock streaks, notes, and reading plans." },
   { q: "Is my data private?", a: "Yes. Your reading progress, notes, and study data are private to you by default. We never share or sell your data. You can delete your account and all data at any time." },
-  { q: "Does it work on my phone?", a: "Yes. NWT Progress is a Progressive Web App — install it on iPhone, Android, or desktop with one tap. It works like a native app, no App Store needed." },
+  { q: "Does it work on my phone?", a: "Yes. JW Study is a Progressive Web App — install it on iPhone, Android, or desktop with one tap. It works like a native app, no App Store needed." },
 ];
 
 export default async function LandingPageStatic() {
@@ -225,7 +225,7 @@ export default async function LandingPageStatic() {
       </section>
 
       <footer className="landing-footer">
-        © {new Date().getFullYear()} NWT Progress · Lexx Solutionz
+        © {new Date().getFullYear()} JW Study · Lexx Solutionz
         {" · "}
         <a href="/blog" className="landing-footer-link">Blog</a>
         {" · "}

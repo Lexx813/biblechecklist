@@ -69,12 +69,12 @@ Deno.serve(async (req) => {
   const action = TYPE_LABEL[notif.type] || "sent you a notification";
   const pageUrl = `https://nwtprogress.com/${notif.link_hash ?? ""}`;
 
-  const subject = `${actorName} ${action} — NWT Progress`;
+  const subject = `${actorName} ${action} — JW Study`;
   const html = `
 <!DOCTYPE html>
 <html>
 <body style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#1a1a1a">
-  <h2 style="margin-bottom:4px">NWT Progress</h2>
+  <h2 style="margin-bottom:4px">JW Study</h2>
   <hr style="margin-bottom:24px">
   <p>Hi ${recipientName},</p>
   <p><strong>${actorName}</strong> ${action}.</p>
@@ -85,7 +85,7 @@ Deno.serve(async (req) => {
     : ""}
   <p>
     <a href="${pageUrl}" style="display:inline-block;background:#6366f1;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none">
-      View it on NWT Progress →
+      View it on JW Study →
     </a>
   </p>
   <hr style="margin-top:32px">
@@ -103,7 +103,7 @@ Deno.serve(async (req) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "NWT Progress <notifications@nwtprogress.com>",
+      from: "JW Study <notifications@nwtprogress.com>",
       to: authUser.email,
       subject,
       html,

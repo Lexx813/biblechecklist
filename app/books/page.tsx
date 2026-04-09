@@ -14,19 +14,19 @@ function bookToSlug(name) {
 }
 
 export const metadata = {
-  title: "All 66 Books of the Bible — NWT Study Guides | NWT Progress",
+  title: "All 66 Books of the Bible — NWT Study Guides | JW Study",
   description:
     "Explore study guides for all 66 books of the New World Translation — from Genesis to Revelation. Key themes, key verses, and reading plans for every book.",
   alternates: { canonical: `${BASE}/books` },
   openGraph: {
-    title: "All 66 Bible Books — NWT Study Guides | NWT Progress",
+    title: "All 66 Bible Books — NWT Study Guides | JW Study",
     description:
-      "Study guides for every book of the New World Translation. Track your reading progress with NWT Progress.",
+      "Study guides for every book of the New World Translation. Track your reading progress with JW Study.",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "All 66 Bible Books — NWT Study Guides | NWT Progress",
+    title: "All 66 Bible Books — NWT Study Guides | JW Study",
     description: "Study guides for every book of the New World Translation.",
   },
 };
@@ -67,7 +67,7 @@ export default function BooksPage() {
         <h1>All 66 Books of the Bible — NWT Study Guides</h1>
         <p>
           Explore study guides for every book in the New World Translation. Track your reading
-          progress through all 66 books with NWT Progress — the free Bible reading tracker for
+          progress through all 66 books with JW Study — the free Bible reading tracker for
           Jehovah&apos;s Witnesses.
         </p>
 
@@ -93,9 +93,9 @@ export default function BooksPage() {
           ))}
         </ul>
 
-        <h2>About NWT Progress</h2>
+        <h2>About JW Study</h2>
         <p>
-          NWT Progress is a free Bible reading tracker built specifically for Jehovah&apos;s
+          JW Study is a free Bible reading tracker built specifically for Jehovah&apos;s
           Witnesses. Track your reading through every chapter of the New World Translation, follow
           structured reading plans, take study notes, and connect with fellow publishers in your
           congregation.

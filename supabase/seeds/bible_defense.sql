@@ -1,5 +1,5 @@
 -- ============================================================
--- NWT Progress — Bible Defense Content Seed
+-- JW Study — Bible Defense Content Seed
 -- Author: Lexx Solutionz (alexx813@gmail.com)
 -- Seeds: 18 blog drafts, 18 forum threads, 18 study notes
 -- ============================================================

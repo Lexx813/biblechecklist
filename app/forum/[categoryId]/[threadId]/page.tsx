@@ -16,10 +16,10 @@ export async function generateMetadata({ params }) {
 
     const desc =
       stripHtml(thread.content).slice(0, 160) ||
-      `Read "${thread.title}" in the NWT Progress community forum`;
+      `Read "${thread.title}" in the JW Study community forum`;
 
     return {
-      title: `${thread.title} | NWT Progress Forum`,
+      title: `${thread.title} | JW Study Forum`,
       description: desc,
       alternates: { canonical: `https://nwtprogress.com/forum/${categoryId}/${threadId}` },
       openGraph: {
@@ -86,7 +86,7 @@ export default async function ForumThreadPage({ params }) {
         publisher: {
           "@type": "Organization",
           "@id": "https://nwtprogress.com/#organization",
-          name: "NWT Progress",
+          name: "JW Study",
         },
       }
     : null;

@@ -57,7 +57,7 @@ BEGIN
     VALUES (
       v_conv_id,
       v_owner_id,
-      'Hey, welcome to NWT Progress! 👋 I''m Alexi, the person who built this app. '
+      'Hey, welcome to JW Study! 👋 I''m Alexi, the person who built this app. '
       'Feel free to message me anytime — whether you have a question, run into a bug, '
       'or just want to share how your Bible reading is going. Happy studying! 📖'
     );

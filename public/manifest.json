@@ -1,6 +1,6 @@
 {
-  "name": "NWT Progress",
-  "short_name": "NWT Progress",
+  "name": "JW Study",
+  "short_name": "JW Study",
   "description": "Track your New World Translation Bible reading progress.",
   "start_url": "/",
   "display": "standalone",

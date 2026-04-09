@@ -97,9 +97,9 @@ Deno.serve(async (req) => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                from: "NWT Progress <notifications@nwtprogress.com>",
+                from: "JW Study <notifications@nwtprogress.com>",
                 to: authUser.email,
-                subject: "Welcome to Premium — NWT Progress 🎉",
+                subject: "Welcome to Premium — JW Study 🎉",
                 html: `<!DOCTYPE html>
 <html>
 <body style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:#0a0514;margin:0;padding:0">
@@ -111,7 +111,7 @@ Deno.serve(async (req) => {
         <tr><td style="background:linear-gradient(135deg,#2e0b6e 0%,#5b21b6 55%,#7c3aed 100%);padding:36px 40px;text-align:center">
           <p style="margin:0 0 12px;font-size:32px">🎉</p>
           <h1 style="margin:0 0 8px;font-size:26px;font-weight:800;color:#fff;letter-spacing:-0.02em">You're Premium!</h1>
-          <p style="margin:0;font-size:15px;color:rgba(255,255,255,0.7)">Welcome to the full NWT Progress experience, ${name}.</p>
+          <p style="margin:0;font-size:15px;color:rgba(255,255,255,0.7)">Welcome to the full JW Study experience, ${name}.</p>
         </td></tr>
 
         <!-- Body -->
@@ -157,7 +157,7 @@ Deno.serve(async (req) => {
         <!-- Footer -->
         <tr><td style="padding:20px 40px;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
           <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.25)">
-            NWT Progress · <a href="https://www.nwtprogress.com/settings" style="color:rgba(139,92,246,0.6)">Manage subscription</a>
+            JW Study · <a href="https://www.nwtprogress.com/settings" style="color:rgba(139,92,246,0.6)">Manage subscription</a>
           </p>
         </td></tr>
 
@@ -222,7 +222,7 @@ Deno.serve(async (req) => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                from: "NWT Progress <notifications@nwtprogress.com>",
+                from: "JW Study <notifications@nwtprogress.com>",
                 to: authUser.email,
                 subject: "Your Premium subscription has been cancelled",
                 html: `<!DOCTYPE html>
@@ -280,7 +280,7 @@ Deno.serve(async (req) => {
         <!-- Footer -->
         <tr><td style="padding:20px 40px;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
           <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.25)">
-            NWT Progress · <a href="https://www.nwtprogress.com" style="color:rgba(139,92,246,0.5)">nwtprogress.com</a>
+            JW Study · <a href="https://www.nwtprogress.com" style="color:rgba(139,92,246,0.5)">nwtprogress.com</a>
           </p>
         </td></tr>
 
@@ -326,7 +326,7 @@ Deno.serve(async (req) => {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  from: "NWT Progress <notifications@nwtprogress.com>",
+                  from: "JW Study <notifications@nwtprogress.com>",
                   to: authUser.email,
                   subject: "You're almost there! Complete your Premium signup",
                   html: `<!DOCTYPE html>
@@ -352,7 +352,7 @@ Deno.serve(async (req) => {
           </div>
         </td></tr>
         <tr><td style="padding:20px 40px;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
-          <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.25)">NWT Progress · <a href="https://nwtprogress.com/settings" style="color:rgba(139,92,246,0.6)">Manage preferences</a></p>
+          <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.25)">JW Study · <a href="https://nwtprogress.com/settings" style="color:rgba(139,92,246,0.6)">Manage preferences</a></p>
         </td></tr>
       </table>
     </td></tr>

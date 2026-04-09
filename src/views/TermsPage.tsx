@@ -2,7 +2,7 @@ import { useMeta } from "../hooks/useMeta";
 import "../styles/about.css";
 
 export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout, onUpgrade }) {
-  useMeta({ title: "Terms of Service | NWT Progress", description: "Review the NWT Progress terms of service governing use of the Bible reading tracker and community features." });
+  useMeta({ title: "Terms of Service | JW Study", description: "Review the JW Study terms of service governing use of the Bible reading tracker and community features." });
   return (
     <div className="about-wrap">
 
@@ -27,14 +27,14 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <section className="about-section">
           <h2 className="about-section-title">1. Acceptance of Terms</h2>
           <p className="about-section-body">
-            By accessing or using NWT Progress ("the App") at nwtprogress.com, you agree to be bound by these Terms of Service. If you do not agree, please do not use the App.
+            By accessing or using JW Study ("the App") at nwtprogress.com, you agree to be bound by these Terms of Service. If you do not agree, please do not use the App.
           </p>
         </section>
 
         <section className="about-section">
           <h2 className="about-section-title">2. Description of Service</h2>
           <p className="about-section-body">
-            NWT Progress is a Bible reading tracker and community platform designed for readers of the New World Translation. The App provides tools for tracking reading progress, participating in forums, writing blog posts, taking quizzes, and connecting with other users.
+            JW Study is a Bible reading tracker and community platform designed for readers of the New World Translation. The App provides tools for tracking reading progress, participating in forums, writing blog posts, taking quizzes, and connecting with other users.
           </p>
           <p className="about-section-body">
             We reserve the right to modify, suspend, or discontinue any part of the service at any time.
@@ -57,7 +57,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <section className="about-section">
           <h2 className="about-section-title">4. User Content</h2>
           <p className="about-section-body">
-            You retain ownership of content you create (blog posts, forum threads, replies, comments, notes, and profile information). By posting content, you grant NWT Progress a non-exclusive, royalty-free license to display that content within the App.
+            You retain ownership of content you create (blog posts, forum threads, replies, comments, notes, and profile information). By posting content, you grant JW Study a non-exclusive, royalty-free license to display that content within the App.
           </p>
           <p className="about-section-body">
             You agree not to post content that is:
@@ -95,7 +95,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
             🛡️ 6. Child Safety Policy
           </h2>
           <p className="about-section-body">
-            The safety of children is a non-negotiable priority at NWT Progress. We have a zero-tolerance policy for any content or behavior that endangers, exploits, or sexualizes minors.
+            The safety of children is a non-negotiable priority at JW Study. We have a zero-tolerance policy for any content or behavior that endangers, exploits, or sexualizes minors.
           </p>
           <p className="about-section-body"><strong>The following are strictly prohibited and will result in immediate permanent ban:</strong></p>
           <ul className="about-features" style={{ marginTop: 8 }}>
@@ -124,7 +124,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <section className="about-section">
           <h2 className="about-section-title">7. Community Standards</h2>
           <p className="about-section-body">
-            NWT Progress is a spiritually-focused community platform. We ask that all users engage respectfully and in a manner consistent with the values of the community. Debates intended to discourage faith or disrespect other users' beliefs are not permitted.
+            JW Study is a spiritually-focused community platform. We ask that all users engage respectfully and in a manner consistent with the values of the community. Debates intended to discourage faith or disrespect other users' beliefs are not permitted.
           </p>
           <p className="about-section-body">
             This is a community built on mutual respect and shared faith. Please keep all discussions uplifting, constructive, and free of hostility.
@@ -150,7 +150,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <section className="about-section">
           <h2 className="about-section-title">9. Intellectual Property</h2>
           <p className="about-section-body">
-            The NWT Progress name, logo, design, and original code are the intellectual property of Lexx Solutionz. Scripture quotations are from the New World Translation of the Holy Scriptures and are used for personal and community study purposes.
+            The JW Study name, logo, design, and original code are the intellectual property of Lexx Solutionz. Scripture quotations are from the New World Translation of the Holy Scriptures and are used for personal and community study purposes.
           </p>
         </section>
 
@@ -164,7 +164,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <section className="about-section">
           <h2 className="about-section-title">11. Limitation of Liability</h2>
           <p className="about-section-body">
-            To the fullest extent permitted by law, NWT Progress and Lexx Solutionz shall not be liable for any indirect, incidental, or consequential damages arising from your use of the App.
+            To the fullest extent permitted by law, JW Study and Lexx Solutionz shall not be liable for any indirect, incidental, or consequential damages arising from your use of the App.
           </p>
         </section>
 

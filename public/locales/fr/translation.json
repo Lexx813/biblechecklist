@@ -9,7 +9,7 @@
     "skip": "Ignorer",
     "next": "Suivant →",
     "getStarted": "Commencer",
-    "step1Title": "Bienvenue sur NWT Progress ! 👋",
+    "step1Title": "Bienvenue sur JW Study ! 👋",
     "step1Body": "Suivez votre lecture biblique dans les 66 livres. Cochez les chapitres au fur et à mesure et regardez votre progression augmenter.",
     "step2Title": "Rejoignez la Communauté",
     "step2Body": "Partagez des réflexions sur le blog, discutez des Écritures sur le forum et suivez d'autres personnes dans leur parcours de lecture.",
@@ -114,7 +114,7 @@
     "alreadyHave": "Vous avez déjà un compte ?",
     "footerTerms": "Conditions",
     "footerPrivacy": "Confidentialité",
-    "footerCopy": "© {{year}} NWT Progress · Lexx Solutionz"
+    "footerCopy": "© {{year}} JW Study · Lexx Solutionz"
   },
   "auth": {
     "title": "Liste de Lecture Biblique",
@@ -210,7 +210,7 @@
     "message": "Vous êtes hors ligne — certaines fonctionnalités peuvent être indisponibles."
   },
   "install": {
-    "title": "Ajouter NWT Progress à votre écran d'accueil",
+    "title": "Ajouter JW Study à votre écran d'accueil",
     "subtitle": "Lisez et suivez hors ligne, à tout moment.",
     "install": "Installer",
     "dismiss": "Ignorer"
@@ -559,7 +559,7 @@
     "forumSub": "Les fils les plus actifs et les plus appréciés de la communauté.",
     "forumViewAll": "Visiter le forum →",
     "forumEmpty": "Pas encore de fils — démarrez la première conversation.",
-    "footer": "NWT Progress · Construit avec intention",
+    "footer": "JW Study · Construit avec intention",
     "notifBannerTitle": "Restez informé",
     "notifBannerSub": "Recevez un e-mail quand un nouvel article de blog est publié.",
     "notifEnable": "Me notifier",
@@ -1073,11 +1073,11 @@
     "La Révélation est une vision prophétique de la victoire ultime de Christ sur le mal, le jugement des nations et la création d'un nouveau ciel et d'une nouvelle terre où Dieu demeure avec son peuple pour toujours."
   ],
   "about": {
-    "heroBadge": "📖 À propos de NWT Progress",
+    "heroBadge": "📖 À propos de JW Study",
     "heroTitle": "Un foyer pour les lecteurs de la Bible",
     "heroSub": "Suivez votre lecture, connectez-vous avec des compagnons d'études et grandissez dans votre amour pour la Parole de Dieu.",
     "purposeTitle": "Pourquoi Cette Application Existe",
-    "purposeBody1": "NWT Progress a été créé avec un objectif simple : donner aux étudiants de la Bible un outil de suivi persistant et multi-appareils pour leur lecture biblique. Que vous soyez sur votre téléphone à la Salle du Royaume, sur votre ordinateur portable à la maison ou sur une tablette pendant l'étude en famille — votre progression est toujours avec vous.",
+    "purposeBody1": "JW Study a été créé avec un objectif simple : donner aux étudiants de la Bible un outil de suivi persistant et multi-appareils pour leur lecture biblique. Que vous soyez sur votre téléphone à la Salle du Royaume, sur votre ordinateur portable à la maison ou sur une tablette pendant l'étude en famille — votre progression est toujours avec vous.",
     "purposeBody2": "Au-delà du suivi, nous voulions créer un espace où les personnes qui étudient avec les Témoins de Jéhovah — et les Témoins actifs eux-mêmes — peuvent s'encourager mutuellement, partager des réflexions et grandir ensemble comme une communauté d'étudiants de la Bible.",
     "audienceTitle": "À Qui S'adresse Cette Application ?",
     "card1Title": "Étudiants de la Bible",
@@ -1087,7 +1087,7 @@
     "card3Title": "Familles et Groupes",
     "card3Body": "Des familles pratiquant l'étude en famille, ou des groupes d'étude souhaitant s'encourager mutuellement dans leur progression de lecture et partager des perspectives.",
     "jwTitle": "Fonctionne aux côtés de JW Library",
-    "jwBody": "NWT Progress est conçu comme un compagnon de l'application JW Library. Faites votre lecture dans JW Library — où vous pouvez accéder à une copie numérique gratuite de la Traduction du Monde Nouveau — puis venez ici pour enregistrer vos chapitres, prendre des notes et partager votre parcours avec la communauté.",
+    "jwBody": "JW Study est conçu comme un compagnon de l'application JW Library. Faites votre lecture dans JW Library — où vous pouvez accéder à une copie numérique gratuite de la Traduction du Monde Nouveau — puis venez ici pour enregistrer vos chapitres, prendre des notes et partager votre parcours avec la communauté.",
     "featuresTitle": "Ce Que Vous Pouvez Faire Ici",
     "feat1": "<strong>Suivre chaque chapitre</strong> — marquer les chapitres lus dans les 66 livres de la Bible, avec votre progression sauvegardée dans le cloud pour vous suivre partout.",
     "feat2": "<strong>Enregistrer des notes personnelles</strong> — écrire des notes privées liées à tout livre et chapitre pendant votre étude.",
@@ -1097,11 +1097,11 @@
     "feat6": "<strong>Partager votre progression</strong> — générer une image partageable de votre progression de lecture pour encourager les autres.",
     "creatorLabel": "Créé par",
     "creatorName": "Lexx",
-    "creatorBio": "Lexx est un étudiant de la Bible et Témoin de Jéhovah qui a créé NWT Progress par nécessité personnelle — un moyen simple et fiable de suivre la lecture biblique sur n'importe quel appareil, sans perdre sa progression. Ce qui a commencé comme un outil personnel est devenu une plateforme communautaire complète pour d'autres personnes parcourant le même chemin spirituel.",
+    "creatorBio": "Lexx est un étudiant de la Bible et Témoin de Jéhovah qui a créé JW Study par nécessité personnelle — un moyen simple et fiable de suivre la lecture biblique sur n'importe quel appareil, sans perdre sa progression. Ce qui a commencé comme un outil personnel est devenu une plateforme communautaire complète pour d'autres personnes parcourant le même chemin spirituel.",
     "ctaTitle": "Prêt à Commencer ?",
     "ctaSub": "Créez un compte gratuit et commencez à suivre votre lecture biblique aujourd'hui.",
     "ctaBtn": "Commencer — C'est Gratuit",
-    "footer": "NWT Progress est un projet communautaire indépendant et n'est ni affilié ni approuvé par les Témoins de Jéhovah ou la Watch Tower Society."
+    "footer": "JW Study est un projet communautaire indépendant et n'est ni affilié ni approuvé par les Témoins de Jéhovah ou la Watch Tower Society."
   },
   "history": {
     "title": "Historique de Lecture",

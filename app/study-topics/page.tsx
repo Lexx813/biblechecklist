@@ -9,22 +9,22 @@ const SEO_HIDE = {
 };
 
 export const metadata = {
-  title: "Bible Study Topics | NWT Progress",
+  title: "Bible Study Topics | JW Study",
   description:
     "Explore key Bible topics from the New World Translation perspective — including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
   alternates: { canonical: "https://nwtprogress.com/study-topics" },
   openGraph: {
-    title: "Bible Study Topics | NWT Progress",
+    title: "Bible Study Topics | JW Study",
     description:
       "Explore key Bible topics from the New World Translation perspective — including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
-    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
+    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bible Study Topics | NWT Progress",
+    title: "Bible Study Topics | JW Study",
     description:
       "Explore key Bible topics from the New World Translation perspective — including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
-    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
+    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
   },
 };
 

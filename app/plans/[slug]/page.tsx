@@ -25,21 +25,21 @@ export async function generateMetadata({ params }) {
   const plan = getTemplate(slug);
   if (!plan) return {};
 
-  const description = `${plan.description} ${plan.totalDays} days, ${plan.totalChapters} chapters. Free Bible reading plan on NWT Progress.`;
+  const description = `${plan.description} ${plan.totalDays} days, ${plan.totalChapters} chapters. Free Bible reading plan on JW Study.`;
 
   return {
-    title: `${plan.name} — Bible Reading Plan | NWT Progress`,
+    title: `${plan.name} — Bible Reading Plan | JW Study`,
     description,
     alternates: { canonical: `${BASE}/plans/${slug}` },
     openGraph: {
-      title: `${plan.name} | NWT Progress`,
+      title: `${plan.name} | JW Study`,
       description,
       type: "article",
       images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${plan.name} | NWT Progress`,
+      title: `${plan.name} | JW Study`,
       description,
     },
   };
@@ -73,7 +73,7 @@ export default async function PlanPage({ params }) {
     provider: {
       "@type": "Organization",
       "@id": `${BASE}/#organization`,
-      name: "NWT Progress",
+      name: "JW Study",
     },
     hasCourseInstance: {
       "@type": "CourseInstance",
@@ -82,7 +82,7 @@ export default async function PlanPage({ params }) {
       instructor: {
         "@type": "Organization",
         "@id": "https://nwtprogress.com/#organization",
-        name: "NWT Progress",
+        name: "JW Study",
       },
     },
     inLanguage: "en",
@@ -128,7 +128,7 @@ export default async function PlanPage({ params }) {
           The {plan.name} plan divides {plan.totalChapters} chapters of the New World Translation
           evenly across {plan.totalDays} days — averaging about {chaptersPerDay}{" "}
           chapter{chaptersPerDay > 1 ? "s" : ""} per day. Each day you read the assigned portion
-          and mark it complete in NWT Progress. The app tracks your streak, shows your overall
+          and mark it complete in JW Study. The app tracks your streak, shows your overall
           progress, and helps you keep a consistent personal Bible reading routine.
         </p>
 
@@ -156,12 +156,12 @@ export default async function PlanPage({ params }) {
             study.
           </li>
           <li>
-            Review each book&apos;s study guide on NWT Progress before starting that section of
+            Review each book&apos;s study guide on JW Study before starting that section of
             the plan.
           </li>
         </ul>
 
-        <h2>Other Reading Plans on NWT Progress</h2>
+        <h2>Other Reading Plans on JW Study</h2>
         <ul>
           {relatedPlans.map((p) => (
             <li key={p.key}>
@@ -183,7 +183,7 @@ export default async function PlanPage({ params }) {
           ))}
         </ul>
 
-        <h2>Start This Plan Free on NWT Progress</h2>
+        <h2>Start This Plan Free on JW Study</h2>
         <p>
           Sign up for free at nwtprogress.com to start the {plan.name} plan, track your daily
           progress chapter by chapter, and build a lasting personal Bible reading habit.
@@ -192,7 +192,7 @@ export default async function PlanPage({ params }) {
           <li><a href={`${BASE}/plans`}>All Reading Plans</a></li>
           <li><a href={`${BASE}/books`}>All 66 Bible Books</a></li>
           <li><a href={`${BASE}/study-topics`}>All Study Topics</a></li>
-          <li><a href={`${BASE}/blog`}>NWT Progress Blog</a></li>
+          <li><a href={`${BASE}/blog`}>JW Study Blog</a></li>
         </ul>
       </div>
       <ClientShell />

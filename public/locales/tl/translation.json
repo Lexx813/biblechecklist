@@ -9,7 +9,7 @@
     "skip": "Laktawan",
     "next": "Susunod →",
     "getStarted": "Magsimula",
-    "step1Title": "Maligayang pagdating sa NWT Progress! 👋",
+    "step1Title": "Maligayang pagdating sa JW Study! 👋",
     "step1Body": "Subaybayan ang iyong pagbabasa ng Bibliya sa lahat ng 66 aklat. Lagyan ng tsek ang mga kabanata habang binabasa at panoorin ang iyong pag-unlad.",
     "step2Title": "Sumali sa Komunidad",
     "step2Body": "Magbahagi ng mga pagninilay sa blog, talakayin ang mga kasulatan sa forum, at sundan ang iba sa kanilang paglalakbay sa pagbabasa.",
@@ -114,7 +114,7 @@
     "alreadyHave": "Mayroon ka nang account?",
     "footerTerms": "Mga Tuntunin",
     "footerPrivacy": "Pagkapribado",
-    "footerCopy": "© {{year}} NWT Progress · Lexx Solutionz"
+    "footerCopy": "© {{year}} JW Study · Lexx Solutionz"
   },
   "auth": {
     "title": "Listahan ng Pagbabasa ng Bibliya",
@@ -210,7 +210,7 @@
     "message": "Offline ka — maaaring hindi available ang ilang feature."
   },
   "install": {
-    "title": "Idagdag ang NWT Progress sa iyong home screen",
+    "title": "Idagdag ang JW Study sa iyong home screen",
     "subtitle": "Magbasa at subaybayan nang offline, anumang oras.",
     "install": "I-install",
     "dismiss": "Isara"
@@ -559,7 +559,7 @@
     "forumSub": "Ang pinakaaktibo at pinakasikat na mga thread sa komunidad.",
     "forumViewAll": "Bisitahin ang forum →",
     "forumEmpty": "Wala pang mga thread — simulan ang unang pag-uusap.",
-    "footer": "NWT Progress · Itinayo nang may layunin",
+    "footer": "JW Study · Itinayo nang may layunin",
     "notifBannerTitle": "Manatiling updated",
     "notifBannerSub": "Makatanggap ng email kapag may na-publish na bagong post sa blog.",
     "notifEnable": "Abisuhan ako",
@@ -1073,11 +1073,11 @@
     "Ang Pahayag ay isang propetikong pangitain ng pinakahuling tagumpay ni Kristo laban sa kasamaan, paghatol ng mga bansa, at paglikha ng bagong langit at bagong lupa kung saan ang Diyos ay naninirahan kasama ang Kanyang bayan magpakailanman."
   ],
   "about": {
-    "heroBadge": "📖 Tungkol sa NWT Progress",
+    "heroBadge": "📖 Tungkol sa JW Study",
     "heroTitle": "Isang Tahanan para sa mga Mambabasa ng Bibliya",
     "heroSub": "Subaybayan ang iyong pagbabasa, kumonekta sa mga kapwa estudyante, at lumago sa iyong pagmamahal sa Salita ng Diyos.",
     "purposeTitle": "Bakit Umiiral ang App na Ito",
-    "purposeBody1": "Ang NWT Progress ay itinayo na may isang simpleng layunin: bigyan ang mga estudyante ng Bibliya ng isang patuloy, multi-device tracker para sa kanilang pagbabasa ng Bibliya. Kahit nasa iyong telepono sa Bulwagan ng Kaharian, sa iyong laptop sa bahay, o sa tablet sa panahon ng pampamilyang pagsamba — ang iyong pag-unlad ay laging kasama mo.",
+    "purposeBody1": "Ang JW Study ay itinayo na may isang simpleng layunin: bigyan ang mga estudyante ng Bibliya ng isang patuloy, multi-device tracker para sa kanilang pagbabasa ng Bibliya. Kahit nasa iyong telepono sa Bulwagan ng Kaharian, sa iyong laptop sa bahay, o sa tablet sa panahon ng pampamilyang pagsamba — ang iyong pag-unlad ay laging kasama mo.",
     "purposeBody2": "Higit sa pagsubaybay, nais naming lumikha ng isang espasyo kung saan ang mga taong nag-aaral kasama ang Mga Saksi ni Jehova — at ang mga aktibong Saksi mismo — ay maaaring magpalakas sa isa't isa, magbahagi ng mga kaisipan, at lumago nang sama-sama bilang isang komunidad ng mga estudyante ng Bibliya.",
     "audienceTitle": "Para Kanino Ito?",
     "card1Title": "Mga Estudyante ng Bibliya",
@@ -1087,7 +1087,7 @@
     "card3Title": "Mga Pamilya at Grupo",
     "card3Body": "Mga pamilyang gumagawa ng pampamilyang pagsamba, o mga grupo ng pag-aaral na gustong hikayatin ang bawat isa sa pag-unlad sa pagbabasa at magbahagi ng mga kaalaman.",
     "jwTitle": "Gumagana Kasabay ng JW Library",
-    "jwBody": "Ang NWT Progress ay dinisenyo bilang kasamahan ng JW Library app. Gawin ang iyong pagbabasa sa JW Library — kung saan maaari kang ma-access ng libreng digital na kopya ng Bagong Sanlibutang Salin — pagkatapos ay pumunta dito para itala ang iyong mga kabanata, kumuha ng mga tala, at ibahagi ang iyong paglalakbay sa komunidad.",
+    "jwBody": "Ang JW Study ay dinisenyo bilang kasamahan ng JW Library app. Gawin ang iyong pagbabasa sa JW Library — kung saan maaari kang ma-access ng libreng digital na kopya ng Bagong Sanlibutang Salin — pagkatapos ay pumunta dito para itala ang iyong mga kabanata, kumuha ng mga tala, at ibahagi ang iyong paglalakbay sa komunidad.",
     "featuresTitle": "Ano ang Maaari Mong Gawin Dito",
     "feat1": "<strong>Subaybayan ang bawat kabanata</strong> — markahan ang mga nabasa na kabanata sa lahat ng 66 aklat ng Bibliya, na may iyong pag-unlad na naka-save sa cloud para sumunod sa iyo kahit saan.",
     "feat2": "<strong>I-save ang mga personal na tala</strong> — sumulat ng mga pribadong tala na nakatali sa anumang aklat at kabanata habang nag-aaral.",
@@ -1097,11 +1097,11 @@
     "feat6": "<strong>Ibahagi ang iyong pag-unlad</strong> — lumikha ng isang mailalabas na larawan ng iyong pag-unlad sa pagbabasa para hikayatin ang iba.",
     "creatorLabel": "Nilikha ni",
     "creatorName": "Lexx",
-    "creatorBio": "Si Lexx ay isang estudyante ng Bibliya at Saksi ni Jehova na itinayo ang NWT Progress mula sa personal na pangangailangan — isang simpleng, mapagkakatiwalaang paraan para subaybayan ang pagbabasa ng Bibliya sa anumang device, nang hindi nawawala ang pag-unlad. Ang nagsimula bilang isang personal na tool ay naging isang buong platform ng komunidad para sa iba na naglalakad sa parehong espirituwal na paglalakbay.",
+    "creatorBio": "Si Lexx ay isang estudyante ng Bibliya at Saksi ni Jehova na itinayo ang JW Study mula sa personal na pangangailangan — isang simpleng, mapagkakatiwalaang paraan para subaybayan ang pagbabasa ng Bibliya sa anumang device, nang hindi nawawala ang pag-unlad. Ang nagsimula bilang isang personal na tool ay naging isang buong platform ng komunidad para sa iba na naglalakad sa parehong espirituwal na paglalakbay.",
     "ctaTitle": "Handa nang Magsimula?",
     "ctaSub": "Lumikha ng libreng account at simulan ang pagsubaybay ng iyong pagbabasa ng Bibliya ngayon.",
     "ctaBtn": "Magsimula — Libre Ito",
-    "footer": "Ang NWT Progress ay isang independiyenteng proyekto ng komunidad at hindi kaanib o sinusuportahan ng Mga Saksi ni Jehova o ng Watch Tower Society."
+    "footer": "Ang JW Study ay isang independiyenteng proyekto ng komunidad at hindi kaanib o sinusuportahan ng Mga Saksi ni Jehova o ng Watch Tower Society."
   },
   "history": {
     "title": "Kasaysayan ng Pagbabasa",

@@ -17,18 +17,18 @@ export async function generateMetadata({ params }) {
   const description = firstParagraph.slice(0, 160) || topic.subtitle;
 
   return {
-    title: `${topic.title} | NWT Progress Bible Study`,
+    title: `${topic.title} | JW Study Bible Study`,
     description,
     alternates: { canonical: `https://nwtprogress.com/study-topics/${topic.slug}` },
     openGraph: {
-      title: `${topic.title} | NWT Progress`,
+      title: `${topic.title} | JW Study`,
       description,
       type: "article",
       images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${topic.title} | NWT Progress`,
+      title: `${topic.title} | JW Study`,
       description,
     },
   };
@@ -56,12 +56,12 @@ export default async function StudyTopicPage({ params }) {
     author: {
       "@type": "Organization",
       "@id": "https://nwtprogress.com/#organization",
-      name: "NWT Progress",
+      name: "JW Study",
     },
     publisher: {
       "@type": "Organization",
       "@id": "https://nwtprogress.com/#organization",
-      name: "NWT Progress",
+      name: "JW Study",
       logo: {
         "@type": "ImageObject",
         url: "https://nwtprogress.com/icon-512.png",
@@ -104,9 +104,9 @@ export default async function StudyTopicPage({ params }) {
           </section>
         ))}
 
-        <h2>Keep Studying with NWT Progress</h2>
+        <h2>Keep Studying with JW Study</h2>
         <p>
-          NWT Progress is a free Bible reading tracker for Jehovah&apos;s Witnesses. Read {topic.title} in the
+          JW Study is a free Bible reading tracker for Jehovah&apos;s Witnesses. Read {topic.title} in the
           New World Translation, take personal study notes, and build a consistent reading habit.
           For deeper research, use the Insight on the Scriptures volumes and publications available
           at wol.jw.org alongside JW Library.
@@ -123,12 +123,12 @@ export default async function StudyTopicPage({ params }) {
           ))}
         </ul>
 
-        <h2>Explore NWT Progress</h2>
+        <h2>Explore JW Study</h2>
         <ul>
           <li><a href="https://nwtprogress.com/books">All 66 Bible Books</a></li>
           <li><a href="https://nwtprogress.com/plans">All Reading Plans</a></li>
           <li><a href="https://nwtprogress.com/study-topics">All Study Topics</a></li>
-          <li><a href="https://nwtprogress.com/blog">NWT Progress Blog</a></li>
+          <li><a href="https://nwtprogress.com/blog">JW Study Blog</a></li>
         </ul>
       </div>
       <ClientShell />

@@ -54,15 +54,15 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>NWT Progress Blog</title>
+    <title>JW Study Blog</title>
     <link>${BASE}/blog</link>
-    <description>Bible study tips, reading insights, and community updates from NWT Progress.</description>
+    <description>Bible study tips, reading insights, and community updates from JW Study.</description>
     <language>en</language>
     <lastBuildDate>${new Date(lastBuild).toUTCString()}</lastBuildDate>
     <atom:link href="${BASE}/blog/feed.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>${BASE}/icon-512.png</url>
-      <title>NWT Progress</title>
+      <title>JW Study</title>
       <link>${BASE}</link>
     </image>${items}
   </channel>

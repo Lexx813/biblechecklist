@@ -50,7 +50,7 @@ export default function ReferralPanel({ userId }: Props) {
 
   function shareWhatsApp() {
     window.open(
-      `https://wa.me/?text=${encodeURIComponent(`Track your Bible reading progress with me on NWT Progress! ${shareUrl}`)}`,
+      `https://wa.me/?text=${encodeURIComponent(`Track your Bible reading progress with me on JW Study! ${shareUrl}`)}`,
       "_blank"
     );
   }
@@ -78,7 +78,7 @@ export default function ReferralPanel({ userId }: Props) {
         </button>
         <button className="ref-share-btn ref-share-btn--x" onClick={() => {
           window.open(
-            `https://twitter.com/intent/tweet?text=${encodeURIComponent(`I'm tracking my Bible reading on NWT Progress — join me! ${shareUrl}`)}`,
+            `https://twitter.com/intent/tweet?text=${encodeURIComponent(`I'm tracking my Bible reading on JW Study — join me! ${shareUrl}`)}`,
             "_blank"
           );
         }}>

@@ -36,7 +36,7 @@ Deno.serve(async (req) => {
 <!DOCTYPE html>
 <html>
 <body style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#1a1a1a">
-  <h2 style="margin-bottom:4px">NWT Progress</h2>
+  <h2 style="margin-bottom:4px">JW Study</h2>
   <hr style="margin-bottom:24px">
   <h3>New User Signed Up</h3>
   <table style="width:100%;border-collapse:collapse;margin-top:16px">
@@ -59,7 +59,7 @@ Deno.serve(async (req) => {
     </a>
   </p>
   <hr style="margin-top:32px">
-  <p style="font-size:12px;color:#888">Automated alert from NWT Progress</p>
+  <p style="font-size:12px;color:#888">Automated alert from JW Study</p>
 </body>
 </html>`;
 
@@ -70,7 +70,7 @@ Deno.serve(async (req) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "NWT Progress <notifications@nwtprogress.com>",
+      from: "JW Study <notifications@nwtprogress.com>",
       to: ADMIN_EMAIL,
       subject: `New user signed up: ${displayName} (${email})`,
       html,

@@ -802,8 +802,8 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
 
   useEffect(() => {
     const name = profile?.display_name || profile?.email?.split("@")[0];
-    if (name) document.title = `${name} — NWT Progress`;
-    return () => { document.title = "NWT Progress"; };
+    if (name) document.title = `${name} — JW Study`;
+    return () => { document.title = "JW Study"; };
   }, [profile?.display_name, profile?.email]);
 
   const isViewedUserBlocked = !isOwner && blockedSet.has(profileId);

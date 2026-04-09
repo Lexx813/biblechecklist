@@ -22,18 +22,18 @@ export async function generateMetadata({ params }) {
     if (!category) return {};
     const name = category.name;
     return {
-      title: `${name} | NWT Progress Forum`,
+      title: `${name} | JW Study Forum`,
       description:
         category.description ||
-        `Browse discussions in ${name} on NWT Progress`,
+        `Browse discussions in ${name} on JW Study`,
       alternates: {
         canonical: `https://nwtprogress.com/forum/${categoryId}`,
       },
       openGraph: {
-        title: `${name} | NWT Progress Forum`,
+        title: `${name} | JW Study Forum`,
         description:
           category.description ||
-          `Browse discussions in ${name} on NWT Progress`,
+          `Browse discussions in ${name} on JW Study`,
         url: `https://nwtprogress.com/forum/${categoryId}`,
       },
     };

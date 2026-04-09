@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const SITE = "NWT Progress";
+const SITE = "JW Study";
 const DEFAULT_DESC = "Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community.";
 const DEFAULT_IMG = "https://nwtprogress.com/og-image.png";
 

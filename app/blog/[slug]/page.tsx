@@ -32,7 +32,7 @@ export async function generateMetadata({ params }) {
     const desc =
       post.excerpt ||
       stripHtml(post.content).slice(0, 160) ||
-      `Read "${post.title}" on NWT Progress`;
+      `Read "${post.title}" on JW Study`;
 
     // hreflang: point each post to its own language + the paired translation
     const languages: Record<string, string> = {
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }) {
     }
 
     const metadata: Record<string, unknown> = {
-      title: `${post.title} | NWT Progress`,
+      title: `${post.title} | JW Study`,
       description: desc,
       alternates: {
         canonical: `${BASE}/blog/${slug}`,
@@ -123,7 +123,7 @@ export default async function BlogPostPage({ params }) {
         inLanguage: lang,
         author: post.profiles?.display_name
           ? { "@type": "Person", name: post.profiles.display_name }
-          : { "@type": "Organization", "@id": `${BASE}/#organization`, name: "NWT Progress" },
+          : { "@type": "Organization", "@id": `${BASE}/#organization`, name: "JW Study" },
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": `${BASE}/blog/${post.slug}`,
@@ -131,7 +131,7 @@ export default async function BlogPostPage({ params }) {
         publisher: {
           "@type": "Organization",
           "@id": `${BASE}/#organization`,
-          name: "NWT Progress",
+          name: "JW Study",
           logo: {
             "@type": "ImageObject",
             url: `${BASE}/icon-512.png`,
@@ -176,7 +176,7 @@ export default async function BlogPostPage({ params }) {
           {/* Internal links to other posts — helps Google crawl and distribute PageRank */}
           {relatedPosts.length > 0 && (
             <nav aria-label="More articles">
-              <h2>More from the NWT Progress Blog</h2>
+              <h2>More from the JW Study Blog</h2>
               <ul>
                 {relatedPosts.map((p) => (
                   <li key={p.slug}>
@@ -189,7 +189,7 @@ export default async function BlogPostPage({ params }) {
           )}
 
           <nav aria-label="Related resources">
-            <h2>Explore Bible Books on NWT Progress</h2>
+            <h2>Explore Bible Books on JW Study</h2>
             <ul>
               <li><a href="/books">All 66 Books of the Bible — NWT Study Guides</a></li>
               <li><a href="/books/genesis">Genesis</a></li>

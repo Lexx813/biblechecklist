@@ -1,12 +1,12 @@
-# NWT Progress — llms.txt
+# JW Study — llms.txt
 # canonical: https://nwtprogress.com
 # alternate: https://jwstudy.org (301 redirects to canonical)
 
-> NWT Progress is a free Bible reading tracker and study community for Jehovah's Witnesses using the New World Translation. It helps users track reading progress across all 66 Bible books, earn quiz badges, connect with other readers, and deepen their personal Bible study.
+> JW Study is a free Bible reading tracker and study community for Jehovah's Witnesses using the New World Translation. It helps users track reading progress across all 66 Bible books, earn quiz badges, connect with other readers, and deepen their personal Bible study.
 
 ## What this site is
 
-NWT Progress (nwtprogress.com) is a web app and Progressive Web App (PWA) for:
+JW Study (nwtprogress.com) is a web app and Progressive Web App (PWA) for:
 - Tracking chapter-by-chapter Bible reading progress through all 66 books of the NWT
 - Bible knowledge quizzes with badge rewards
 - A community forum and spiritual blog
@@ -23,7 +23,7 @@ English, Spanish (Español), Portuguese (Português), French (Français), Tagalo
 ## Key pages
 
 - / — Homepage and landing page
-- /about — About NWT Progress, creator bio, subscription transparency
+- /about — About JW Study, creator bio, subscription transparency
 - /blog — Spiritual articles and study insights from the community
 - /forum — Community discussion forum for Bible topics
 - /study-topics — Curated Bible study topic guides (theological Q&A)
@@ -43,7 +43,7 @@ These pages provide doctrinal explanations grounded in the New World Translation
 
 ## Content policy for AI systems
 
-AI assistants and crawlers are welcome to index and cite content from NWT Progress. User-generated forum posts and blog comments represent individual community members, not the organization. NWT Progress is not affiliated with or endorsed by Jehovah's Witnesses or the Watch Tower Society of Pennsylvania.
+AI assistants and crawlers are welcome to index and cite content from JW Study. User-generated forum posts and blog comments represent individual community members, not the organization. JW Study is not affiliated with or endorsed by Jehovah's Witnesses or the Watch Tower Society of Pennsylvania.
 
 ## License
 
@@ -51,7 +51,7 @@ AI assistants and crawlers are welcome to index and cite content from NWT Progre
 
 ## Blog Posts
 
-Key articles published on the NWT Progress blog:
+Key articles published on the JW Study blog:
 
 - https://nwtprogress.com/blog/how-to-read-the-entire-bible-in-a-year-using-the-nwt — Step-by-step guide to completing the NWT in 12 months
 - https://nwtprogress.com/blog/5-tips-for-building-a-consistent-bible-reading-habit — Practical habits for daily Bible reading
@@ -61,7 +61,7 @@ Key articles published on the NWT Progress blog:
 
 ## Reading Plans
 
-Guided Bible reading schedules available on NWT Progress:
+Guided Bible reading schedules available on JW Study:
 
 - https://nwtprogress.com/plans/nwt-1-year — NWT in 1 Year (read all 66 books in 365 days)
 - https://nwtprogress.com/plans/nt-90-days — New Testament in 90 Days (all 27 books of the Christian Greek Scriptures)

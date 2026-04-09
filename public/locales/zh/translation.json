@@ -28,7 +28,7 @@
     "skip": "跳过",
     "next": "下一步 →",
     "getStarted": "开始",
-    "step1Title": "欢迎来到 NWT Progress！👋",
+    "step1Title": "欢迎来到 JW Study！👋",
     "step1Body": "追踪您在全部 66 卷书中的阅读进度，逐章勾选，见证自己的成长。",
     "step2Title": "加入社区",
     "step2Body": "在博客分享感悟，在论坛讨论经文，关注其他正在阅读的弟兄姐妹。",
@@ -45,7 +45,7 @@
     "message": "您已离线 — 部分功能暂时不可用。"
   },
   "install": {
-    "title": "将 NWT Progress 添加到主屏幕",
+    "title": "将 JW Study 添加到主屏幕",
     "subtitle": "随时随地离线阅读和追踪。",
     "install": "安装",
     "dismiss": "忽略"
@@ -140,7 +140,7 @@
     "alreadyHave": "已有账号？",
     "footerTerms": "条款",
     "footerPrivacy": "隐私",
-    "footerCopy": "© {{year}} NWT Progress · Lexx Solutionz"
+    "footerCopy": "© {{year}} JW Study · Lexx Solutionz"
   },
   "auth": {
     "title": "圣经阅读清单",
@@ -234,7 +234,7 @@
     "forumSub": "社区中最活跃、最受欢迎的主题。",
     "forumViewAll": "访问论坛 →",
     "forumEmpty": "还没有主题 — 发起第一个对话。",
-    "footer": "NWT Progress · 有目的地构建",
+    "footer": "JW Study · 有目的地构建",
     "notifBannerTitle": "保持关注",
     "notifBannerSub": "有新博客文章发布时，发送电子邮件通知您。",
     "notifEnable": "订阅通知",
@@ -1308,11 +1308,11 @@
     }
   },
   "about": {
-    "heroBadge": "📖 关于 NWT Progress",
+    "heroBadge": "📖 关于 JW Study",
     "heroTitle": "圣经读者的家园",
     "heroSub": "追踪阅读进度，与圣经学生连接，在上帝话语中成长。",
     "purposeTitle": "为什么创建这个应用",
-    "purposeBody1": "NWT Progress 的诞生只有一个简单的目标：为圣经学生提供一个可跨设备追踪阅读进度的工具。无论您在王国聚会所用手机、在家用笔记本，还是在家庭崇拜时用平板 — 您的进度永远随身携带。",
+    "purposeBody1": "JW Study 的诞生只有一个简单的目标：为圣经学生提供一个可跨设备追踪阅读进度的工具。无论您在王国聚会所用手机、在家用笔记本，还是在家庭崇拜时用平板 — 您的进度永远随身携带。",
     "purposeBody2": "除了追踪，我们希望为正在接受耶和华见证人教导的人以及活跃的见证人，创建一个相互鼓励、分享思考、共同成长的空间。",
     "audienceTitle": "适合哪些人？",
     "card1Title": "圣经学生",
@@ -1322,7 +1322,7 @@
     "card3Title": "家庭与小组",
     "card3Body": "进行家庭崇拜的家庭，或希望相互鼓励并分享读经洞见的学习小组。",
     "jwTitle": "与 JW Library 配合使用",
-    "jwBody": "NWT Progress 专为配合 JW Library 应用设计。在 JW Library 中阅读（可免费获取新世界译本数字版），然后来这里记录章节、写笔记，与社区分享您的旅程。",
+    "jwBody": "JW Study 专为配合 JW Library 应用设计。在 JW Library 中阅读（可免费获取新世界译本数字版），然后来这里记录章节、写笔记，与社区分享您的旅程。",
     "featuresTitle": "您可以在这里做什么",
     "feat1": "<strong>追踪每一章</strong> — 标记全部 66 卷书中已读的章节，进度保存到云端，随处可用。",
     "feat2": "<strong>保存个人笔记</strong> — 为学习过程中的任何书卷和章节写私密笔记。",
@@ -1332,7 +1332,7 @@
     "feat6": "<strong>分享您的进度</strong> — 生成可分享的阅读进度图片，鼓励他人。",
     "creatorLabel": "创建者",
     "creatorName": "Lexx",
-    "creatorBio": "Lexx 是一位圣经学生和耶和华见证人，出于个人需要创建了 NWT Progress — 一种简单可靠的跨设备阅读追踪工具。最初是个人工具，后来成为许多走同一属灵旅程的人的社区平台。",
+    "creatorBio": "Lexx 是一位圣经学生和耶和华见证人，出于个人需要创建了 JW Study — 一种简单可靠的跨设备阅读追踪工具。最初是个人工具，后来成为许多走同一属灵旅程的人的社区平台。",
     "subTitle": "为什么需要订阅？",
     "subBody1": "这个应用程序由一个人构建和维护，他热爱耶和华，希望帮助信众研读上帝的话语。维持运营需要真实的每月费用：",
     "subCost1": "托管和基础设施 (Vercel)",
@@ -1347,7 +1347,7 @@
     "ctaTitle": "准备好开始了吗？",
     "ctaSub": "免费创建账户，今天就开始追踪您的阅读进度。",
     "ctaBtn": "免费开始",
-    "footer": "NWT Progress 是一个独立的社区项目，与耶和华见证人或守望台圣经书社没有任何隶属或认可关系。"
+    "footer": "JW Study 是一个独立的社区项目，与耶和华见证人或守望台圣经书社没有任何隶属或认可关系。"
   },
   "upm": {
     "badge": "✦ 高级版",

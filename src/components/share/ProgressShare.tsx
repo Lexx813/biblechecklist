@@ -65,7 +65,7 @@ function draw(canvas: HTMLCanvasElement, stats: Stats, t: TFunction) {
   ctx.font = "600 14px system-ui, -apple-system, sans-serif";
   ctx.fillStyle = "rgba(255,255,255,0.4)";
   ctx.textAlign = "left";
-  ctx.fillText("📖  NWT Progress", 40, 52);
+  ctx.fillText("📖  JW Study", 40, 52);
 
   // Name / headline
   const headline = stats.name
@@ -209,7 +209,7 @@ export default function ProgressShare({ stats, onClose }: Props) {
       if (!blob) return download();
       const file = new File([blob], "bible-progress.png", { type: "image/png" });
       if (navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], title: "My Bible Reading Progress", text: `I've read ${stats.pct}% of the Bible on NWT Progress! Track yours at nwtprogress.com` });
+        await navigator.share({ files: [file], title: "My Bible Reading Progress", text: `I've read ${stats.pct}% of the Bible on JW Study! Track yours at nwtprogress.com` });
       } else {
         download();
       }

@@ -2,7 +2,7 @@ import { useMeta } from "../hooks/useMeta";
 import "../styles/about.css";
 
 export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout, onUpgrade }) {
-  useMeta({ title: "Privacy Policy | NWT Progress", description: "Read the NWT Progress privacy policy — how we collect, use, and protect your personal information." });
+  useMeta({ title: "Privacy Policy | JW Study", description: "Read the JW Study privacy policy — how we collect, use, and protect your personal information." });
   return (
     <div className="about-wrap">
 
@@ -27,7 +27,7 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
         <section className="about-section">
           <h2 className="about-section-title">1. Overview</h2>
           <p className="about-section-body">
-            NWT Progress ("we", "us", "our") is committed to protecting your privacy. This Privacy Policy explains what information we collect, how we use it, and your rights regarding that information when you use our App at nwtprogress.com.
+            JW Study ("we", "us", "our") is committed to protecting your privacy. This Privacy Policy explains what information we collect, how we use it, and your rights regarding that information when you use our App at nwtprogress.com.
           </p>
         </section>
 
@@ -120,7 +120,7 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
             When making such reports, we provide all relevant data including account information, IP addresses, timestamps, and content. This data sharing is required by law and is not subject to the privacy protections described elsewhere in this policy.
           </p>
           <p className="about-section-body">
-            <strong>Parental guidance:</strong> We encourage parents and guardians to review their child's use of this App. If you have concerns about content or interactions your child has encountered on NWT Progress, please report it using the in-app report function or contact us directly.
+            <strong>Parental guidance:</strong> We encourage parents and guardians to review their child's use of this App. If you have concerns about content or interactions your child has encountered on JW Study, please report it using the in-app report function or contact us directly.
           </p>
         </section>
 

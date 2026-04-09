@@ -166,9 +166,9 @@ export default function LandingPage({ onGetStarted, i18n }) {
       {/* ── Nav ─────────────────────────────────────────────────── */}
       <header className="lp-nav">
         <div className="lp-nav-inner">
-          <a href="/" className="lp-logo" aria-label="NWT Progress home">
+          <a href="/" className="lp-logo" aria-label="JW Study home">
             <span className="lp-logo-icon"><BookIcon /></span>
-            <span className="lp-logo-text">NWT Progress</span>
+            <span className="lp-logo-text">JW Study</span>
           </a>
 
           <nav className="lp-nav-links" aria-label="Main navigation">
@@ -258,7 +258,7 @@ export default function LandingPage({ onGetStarted, i18n }) {
             <div className="lp-phone">
               <div className="lp-phone-bar">
                 <span className="lp-phone-dot" /><span className="lp-phone-dot" /><span className="lp-phone-dot" />
-                <span className="lp-phone-title">NWT Progress</span>
+                <span className="lp-phone-title">JW Study</span>
               </div>
               <div className="lp-phone-screen">
                 {/* App bar with tabs */}
@@ -498,7 +498,7 @@ export default function LandingPage({ onGetStarted, i18n }) {
           <div className="lp-install-header">
             <span className="lp-badge">Free App</span>
             <h2 className="lp-install-title" id="lp-install-title">Install on any device</h2>
-            <p className="lp-install-sub">NWT Progress works like a native app — no App Store needed. Add it to any device in seconds.</p>
+            <p className="lp-install-sub">JW Study works like a native app — no App Store needed. Add it to any device in seconds.</p>
           </div>
 
           <div className="lp-install-cards">
@@ -560,12 +560,12 @@ export default function LandingPage({ onGetStarted, i18n }) {
           <div className="lp-faq-list">
             {[
               {
-                q: "Is NWT Progress affiliated with the Watch Tower Society or jw.org?",
-                a: "No. NWT Progress is an independent tool built by a publisher to help fellow Witnesses track Bible reading and study. We are not endorsed by, sponsored by, or connected to the Watch Tower Bible and Tract Society. All Bible text and references link out to the official jw.org and JW Library.",
+                q: "Is JW Study affiliated with the Watch Tower Society or jw.org?",
+                a: "No. JW Study is an independent tool built by a publisher to help fellow Witnesses track Bible reading and study. We are not endorsed by, sponsored by, or connected to the Watch Tower Bible and Tract Society. All Bible text and references link out to the official jw.org and JW Library.",
               },
               {
                 q: "Is it really free?",
-                a: "Yes. NWT Progress is 100% free — no trial, no card, no hidden tiers. Everything on the site is free to use.",
+                a: "Yes. JW Study is 100% free — no trial, no card, no hidden tiers. Everything on the site is free to use.",
               },
               {
                 q: "Do I need to create an account to try it?",
@@ -577,11 +577,11 @@ export default function LandingPage({ onGetStarted, i18n }) {
               },
               {
                 q: "Does it work offline / on my phone?",
-                a: "Yes. NWT Progress is a Progressive Web App — install it on iPhone, Android, or desktop with one tap. It works like a native app, no App Store needed, and stays in sync across all your devices.",
+                a: "Yes. JW Study is a Progressive Web App — install it on iPhone, Android, or desktop with one tap. It works like a native app, no App Store needed, and stays in sync across all your devices.",
               },
               {
                 q: "What if I'm not a Jehovah's Witness?",
-                a: "You're welcome here too. NWT Progress is built around the New World Translation, but anyone studying the Bible is free to use it.",
+                a: "You're welcome here too. JW Study is built around the New World Translation, but anyone studying the Bible is free to use it.",
               },
             ].map((item) => (
               <details key={item.q} className="lp-faq-item">
@@ -616,7 +616,7 @@ export default function LandingPage({ onGetStarted, i18n }) {
         <div className="lp-footer-inner">
           <div className="lp-footer-brand">
             <span className="lp-footer-logo"><BookIcon /></span>
-            <span>NWT Progress</span>
+            <span>JW Study</span>
           </div>
           <nav className="lp-footer-links" aria-label="Footer links">
             <a href="/blog" className="lp-footer-link">{t("landing.nav.blog")}</a>

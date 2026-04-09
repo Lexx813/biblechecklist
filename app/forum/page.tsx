@@ -5,23 +5,23 @@ import ClientShell from "../_components/ClientShell";
 export const revalidate = 300;
 
 export const metadata = {
-  title: "Community Forum | NWT Progress",
+  title: "Community Forum | JW Study",
   description:
-    "Join Bible discussions, ask questions, and share insights with the NWT Progress community.",
+    "Join Bible discussions, ask questions, and share insights with the JW Study community.",
   alternates: { canonical: "https://nwtprogress.com/forum" },
   openGraph: {
     url: "https://nwtprogress.com/forum",
-    title: "Community Forum | NWT Progress",
+    title: "Community Forum | JW Study",
     description:
-      "Join Bible discussions, ask questions, and share insights with the NWT Progress community.",
-    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
+      "Join Bible discussions, ask questions, and share insights with the JW Study community.",
+    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Community Forum | NWT Progress",
+    title: "Community Forum | JW Study",
     description:
-      "Join Bible discussions, ask questions, and share insights with the NWT Progress community.",
-    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
+      "Join Bible discussions, ask questions, and share insights with the JW Study community.",
+    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
   },
 };
 
@@ -29,8 +29,8 @@ const schemaForum = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "@id": "https://nwtprogress.com/forum",
-  name: "Community Forum | NWT Progress",
-  description: "Join Bible discussions, ask questions, and share insights with the NWT Progress community.",
+  name: "Community Forum | JW Study",
+  description: "Join Bible discussions, ask questions, and share insights with the JW Study community.",
   url: "https://nwtprogress.com/forum",
   publisher: { "@type": "Organization", "@id": "https://nwtprogress.com/#organization" },
   inLanguage: ["en", "es", "pt", "fr", "tl", "zh"],
@@ -63,7 +63,7 @@ export default async function ForumIndexPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
       {(categories?.length > 0 || topThreads?.length > 0) && (
         <div id="ssr-fallback" suppressHydrationWarning>
-          <h1>NWT Progress Community Forum</h1>
+          <h1>JW Study Community Forum</h1>
           <p>Join Bible discussions, ask questions, and share insights with Jehovah&apos;s Witnesses worldwide.</p>
           {categories?.length > 0 && (
             <ul>

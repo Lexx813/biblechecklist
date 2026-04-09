@@ -532,7 +532,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
   const { data: posts = [], isLoading } = usePublishedPosts(userLang);
   const { data: blockedSet = new Set<string>() } = useBlocks(user?.id);
 
-  useMeta(!slug ? { title: "Blog", description: "Reflections, studies, and insights from the NWT Progress community." } : {});
+  useMeta(!slug ? { title: "Blog", description: "Reflections, studies, and insights from the JW Study community." } : {});
 
   if (slug) {
     return <PostView

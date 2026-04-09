@@ -10,21 +10,21 @@ const SEO_HIDE = {
 };
 
 export const metadata = {
-  title: "Bible Reading Plans for Jehovah's Witnesses | NWT Progress",
+  title: "Bible Reading Plans for Jehovah's Witnesses | JW Study",
   description:
-    "Free Bible reading plans using the New World Translation — NWT in 1 Year, New Testament in 90 Days, Gospels in 30 Days, and more. Track daily progress with NWT Progress.",
+    "Free Bible reading plans using the New World Translation — NWT in 1 Year, New Testament in 90 Days, Gospels in 30 Days, and more. Track daily progress with JW Study.",
   alternates: { canonical: `${BASE}/plans` },
   openGraph: {
-    title: "NWT Bible Reading Plans | NWT Progress",
+    title: "NWT Bible Reading Plans | JW Study",
     description:
-      "Free Bible reading plans for Jehovah's Witnesses — track your daily progress with NWT Progress.",
-    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
+      "Free Bible reading plans for Jehovah's Witnesses — track your daily progress with JW Study.",
+    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "NWT Bible Reading Plans | NWT Progress",
+    title: "NWT Bible Reading Plans | JW Study",
     description: "Free Bible reading plans for Jehovah's Witnesses.",
-    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "NWT Progress — Bible Reading Tracker" }],
+    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
   },
 };
 
@@ -32,7 +32,7 @@ export default function PlansPage() {
   const schemaItemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Bible Reading Plans — NWT Progress",
+    name: "Bible Reading Plans — JW Study",
     description:
       "Free Bible reading plans for Jehovah's Witnesses using the New World Translation",
     url: `${BASE}/plans`,
@@ -64,7 +64,7 @@ export default function PlansPage() {
         <p>
           Choose from {PLAN_TEMPLATES.length} structured Bible reading plans designed for NWT
           readers. Track your daily progress, build a reading streak, and stay consistent with your
-          personal study using NWT Progress.
+          personal study using JW Study.
         </p>
 
         <h2>Available Reading Plans</h2>
@@ -83,13 +83,13 @@ export default function PlansPage() {
         <p>
           A structured reading plan helps Jehovah&apos;s Witnesses stay consistent with personal
           Bible reading — a key part of spiritual routine alongside meetings, field service, and
-          family worship. NWT Progress tracks your daily readings, sends reminders, shows your
+          family worship. JW Study tracks your daily readings, sends reminders, shows your
           streak, and lets you rejoin a plan if you fall behind with catch-up mode.
         </p>
 
-        <h2>About NWT Progress</h2>
+        <h2>About JW Study</h2>
         <p>
-          NWT Progress is a free Bible reading tracker built for Jehovah&apos;s Witnesses worldwide.
+          JW Study is a free Bible reading tracker built for Jehovah&apos;s Witnesses worldwide.
           Available in English, Spanish, Portuguese, French, Tagalog, and Chinese. Sign up free at
           nwtprogress.com.
         </p>

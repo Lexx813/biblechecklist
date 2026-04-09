@@ -94,7 +94,7 @@ Deno.serve(async (req) => {
 <!DOCTYPE html>
 <html>
 <body style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#1a1a1a">
-  <h2 style="margin-bottom:4px">NWT Progress — Weekly Digest</h2>
+  <h2 style="margin-bottom:4px">JW Study — Weekly Digest</h2>
   <hr style="margin-bottom:24px">
   <p>Hi ${name},</p>
   <p>You have <strong>${count}</strong> unread notification${count !== 1 ? "s" : ""} this week:</p>
@@ -102,7 +102,7 @@ Deno.serve(async (req) => {
   ${count > 8 ? `<p style="color:#888">…and ${count - 8} more.</p>` : ""}
   <p>
     <a href="https://nwtprogress.com/" style="display:inline-block;background:#6366f1;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none">
-      Open NWT Progress →
+      Open JW Study →
     </a>
   </p>
   <hr style="margin-top:32px">
@@ -120,9 +120,9 @@ Deno.serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "NWT Progress <notifications@nwtprogress.com>",
+        from: "JW Study <notifications@nwtprogress.com>",
         to: authUser.email,
-        subject: `Your weekly digest — ${count} notification${count !== 1 ? "s" : ""} on NWT Progress`,
+        subject: `Your weekly digest — ${count} notification${count !== 1 ? "s" : ""} on JW Study`,
         html,
       }),
     });

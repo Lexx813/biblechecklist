@@ -454,7 +454,7 @@ export default function TopBar({
       {/* Left: logo */}
       <button className="topbar-logo" onClick={() => navigate("home")} aria-label="Go to home">
         <span className="topbar-logo-icon"><LogoIcon /></span>
-        <span className="topbar-wordmark">NWT Progress</span>
+        <span className="topbar-wordmark">JW Study</span>
       </button>
 
       {/* Center: search */}

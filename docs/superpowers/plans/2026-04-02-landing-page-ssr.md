@@ -272,7 +272,7 @@ export default function LandingPageStatic() {
       </section>
 
       <footer className="landing-footer">
-        © {new Date().getFullYear()} NWT Progress · Lexx Solutionz
+        © {new Date().getFullYear()} JW Study · Lexx Solutionz
         {" · "}
         <a href="/terms" className="landing-footer-link">Terms of Service</a>
         {" · "}
