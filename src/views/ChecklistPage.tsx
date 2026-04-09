@@ -503,7 +503,8 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
 // ── Quick Note Modal ───────────────────────────────────────────────────────────
 
 function QuickNoteModal({ userId, bookIndex, onClose, isPremium }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.split("-")[0] ?? "en";
   const createNote = useCreateNote(userId);
   const book = BOOKS[bookIndex];
   const totalChapters = book?.chapters ?? 1;
@@ -516,7 +517,7 @@ function QuickNoteModal({ userId, bookIndex, onClose, isPremium }) {
     e.preventDefault();
     if (!content.trim()) return;
     createNote.mutate(
-      { book_index: bookIndex, chapter, verse: verse.trim() || null, content: content.trim() },
+      { book_index: bookIndex, chapter, verse: verse.trim() || null, content: content.trim(), lang },
       { onSuccess: onClose }
     );
   }

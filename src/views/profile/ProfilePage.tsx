@@ -152,13 +152,14 @@ function DisplayName({ profile, userId, editable }) {
 
 // ── Add / Edit note form ──────────────────────────────────
 function NoteForm({ userId, initial = null, onDone }: { userId: any; initial?: any; onDone: any }) {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.split("-")[0] ?? "en";
   const [bookIndex, setBookIndex] = useState(initial?.book_index ?? 0);
   const [chapter, setChapter] = useState(initial?.chapter ?? 1);
   const [verse, setVerse] = useState(initial?.verse ?? "");
   const [content, setContent] = useState(initial?.content ?? "");
   const [showNoteEmoji, setShowNoteEmoji] = useState(false);
   const noteRef = useRef(null);
-  const { t } = useTranslation();
 
   const createNote = useCreateNote(userId);
   const updateNote = useUpdateNote(userId);
@@ -186,7 +187,7 @@ function NoteForm({ userId, initial = null, onDone }: { userId: any; initial?: a
   function handleSubmit(e) {
     e.preventDefault();
     if (!content.trim()) return;
-    const payload = { book_index: bookIndex, chapter, verse: verse.trim() || null, content: content.trim() };
+    const payload = { book_index: bookIndex, chapter, verse: verse.trim() || null, content: content.trim(), lang };
     if (initial) {
       updateNote.mutate({ noteId: initial.id, updates: payload }, { onSuccess: onDone });
     } else {

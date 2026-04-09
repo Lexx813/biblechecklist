@@ -8,7 +8,8 @@ import "../../styles/ai-tools.css";
 // ── Shared streaming result display ───────────────────────────────────────────
 
 function SkillResult({ text, loading, error, onClear, skillLabel }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.split("-")[0] ?? "en";
   const ref = useRef(null);
   const [saveState, setSaveState] = useState("idle"); // idle | choosing | saving | saved | error
   const [isPublic, setIsPublic] = useState(false);
@@ -32,7 +33,7 @@ function SkillResult({ text, loading, error, onClear, skillLabel }) {
       const title = skillLabel
         ? `${skillLabel} — ${new Date().toLocaleDateString()}`
         : `AI Response — ${new Date().toLocaleDateString()}`;
-      await createNote.mutateAsync({ title, content: text, tags: ["ai-generated"], is_public: isPublic });
+      await createNote.mutateAsync({ title, content: text, tags: ["ai-generated"], is_public: isPublic, lang });
       setSaveState("saved");
       setTimeout(() => setSaveState("idle"), 2500);
     } catch {
