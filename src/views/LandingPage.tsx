@@ -48,18 +48,24 @@ function useCommunityStats() {
   return stats;
 }
 
-function useFeaturedPosts() {
+function useFeaturedPosts(lang: string) {
   const [posts, setPosts] = useState<any[]>([]);
   useEffect(() => {
     supabase
       .from("blog_posts")
-      .select("id, title, slug, excerpt, cover_url")
+      .select("id, title, slug, excerpt, cover_url, lang, translations")
       .eq("published", true)
-      .eq("lang", "en")
       .order("created_at", { ascending: false })
-      .limit(3)
-      .then(({ data }) => { if (data) setPosts(data); });
-  }, []);
+      .limit(50)
+      .then(({ data }) => {
+        if (!data) return;
+        const filtered = data.filter((p: any) => p.lang === lang || (p.translations && p.translations[lang]));
+        setPosts(filtered.slice(0, 3).map((p: any) => {
+          const tr = p.translations?.[lang];
+          return { ...p, title: tr?.title || p.title, excerpt: tr?.excerpt || p.excerpt };
+        }));
+      });
+  }, [lang]);
   return posts;
 }
 
@@ -134,7 +140,7 @@ export default function LandingPage({ onGetStarted, i18n }) {
     return () => document.removeEventListener("mousedown", handler);
   }, [langOpen]);
   const stats = useCommunityStats();
-  const featuredPosts = useFeaturedPosts();
+  const featuredPosts = useFeaturedPosts(currentLangCode);
 
   const features = [
     t("landing.feat1"), t("landing.feat2"), t("landing.feat3"),
