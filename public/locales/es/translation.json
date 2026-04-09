@@ -74,71 +74,47 @@
     "about": "Acerca de"
   },
   "landing": {
-    "badge": "✦ Traducción del Nuevo Mundo · 66 Libros",
-    "titleLine1": "Acércate Más a Jehová",
-    "titleAccent": "Un Capítulo a la Vez",
-    "subtitle": "Registro de lectura bíblica, notas de estudio, preparación de reuniones y herramientas de estudio con IA — creado para los Testigos de Jehová.",
-    "feature66Books": "66 Libros",
-    "featureChapters": "Seguir Capítulos",
-    "featureNotes": "Notas Personales",
-    "featureForum": "Foro Comunitario",
-    "featureBlog": "Blog Inspirador",
-    "cta": "Comienza Tu Recorrido",
-    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
-    "signIn": "Iniciar sesión",
-    "featureReadingPlans": "Planes de Lectura",
-    "featureAiTools": "Herramientas de IA",
-    "featureMeetingPrep": "Preparación de Reunión",
-    "howItWorks": "Cómo funciona",
-    "howStep1Title": "Regístrate gratis",
-    "howStep1Desc": "Correo o Google, 30 segundos",
-    "howStep2Title": "Marca los capítulos",
-    "howStep2Desc": "Los 66 libros, capítulo por capítulo",
-    "howStep3Title": "Crea el hábito",
-    "howStep3Desc": "Rachas, planes, insignias de cuestionario",
-    "joinPublishers": "Únete a {{count}}+ publicadores en todo el mundo",
-    "chaptersRead": "{{count}} capítulos leídos",
-    "pricingTitle": "Precios simples y transparentes",
-    "pricingSub": "Empieza gratis. Mejora cuando estés listo para ir más profundo.",
-    "planFreeName": "Gratis",
-    "planFreePeriod": "/ para siempre",
-    "planFreeDesc": "Todo lo que necesitas para empezar a rastrear tu lectura bíblica.",
-    "planFreeCtaLabel": "Empezar Gratis",
-    "planPremiumPopular": "Más Popular",
-    "planPremiumName": "Premium",
-    "planPremiumPeriod": "/ mes",
-    "planPremiumDesc": "Profundiza con planes estructurados, notas, mensajes e IA.",
-    "planPremiumCtaLabel": "Prueba Gratis 7 Días",
-    "planPremiumNote": "Cancela cuando quieras · Sin compromiso",
-    "freeFeatureReadingTrackerLabel": "Rastreador de Lectura",
-    "freeFeatureReadingTrackerDesc": "Sigue los 66 libros capítulo por capítulo",
-    "freeFeatureQuizLabel": "Cuestionario Bíblico",
-    "freeFeatureQuizDesc": "Más de 1.000 preguntas en 12 temas",
-    "freeFeatureForumLabel": "Foro Comunitario",
-    "freeFeatureForumDesc": "Discute y aprende juntos",
-    "freeFeatureBlogLabel": "Blog",
-    "freeFeatureBlogDesc": "Lee y escribe artículos de estudio",
-    "freeFeatureStreaksLabel": "Rachas y Mapa de Calor",
-    "freeFeatureStreaksDesc": "Crea un hábito diario de lectura",
-    "premiumFeaturePlansLabel": "Planes de Lectura",
-    "premiumFeaturePlansDesc": "Planes de estudio estructurados de varias semanas",
-    "premiumFeatureNotesLabel": "Notas de Estudio",
-    "premiumFeatureNotesDesc": "Notas de texto enriquecido vinculadas a pasajes",
-    "premiumFeatureMeetingPrepLabel": "Preparación de Reunión",
-    "premiumFeatureMeetingPrepDesc": "Listas de verificación CLAM + Atalaya",
-    "premiumFeatureAiLabel": "Asistente de Estudio IA",
-    "premiumFeatureAiDesc": "Pregunta cualquier cosa sobre cualquier versículo",
-    "premiumFeatureDmLabel": "Mensajes Directos",
-    "premiumFeatureDmDesc": "Conversaciones privadas con miembros",
-    "premiumFeatureGroupsLabel": "Grupos de Estudio",
-    "premiumFeatureGroupsDesc": "Chat grupal y seguimiento del progreso",
-    "promoTitle": "Los primeros 500 usuarios reciben Premium gratis — de por vida",
-    "promoSpotsLeft": "{{count}} lugares disponibles",
-    "ctaPromo": "Reclamar Tu Premium Gratis — De Por Vida",
-    "planPremiumPopularPromo": "🎁 Gratis para Pioneros",
-    "planPremiumPeriodPromo": "/ de por vida",
-    "planPremiumDescPromo": "Eres de los primeros 500 — recibe acceso Premium de por vida, completamente gratis.",
-    "planPremiumNotePromo": "Sin tarjeta · Gratis de por vida · {{count}} lugares disponibles"
+    "nav": {
+      "blog": "Blog",
+      "about": "Acerca de",
+      "signIn": "Iniciar sesión",
+      "getStarted": "Comenzar",
+      "changeLanguage": "Cambiar idioma",
+      "switchLight": "Cambiar a modo claro",
+      "switchDark": "Cambiar a modo oscuro"
+    },
+    "heroBadge": "Rastreador de lectura bíblica gratuito",
+    "heroTitle1": "Acércate más a Jehová",
+    "heroTitle2": "Un capítulo a la vez",
+    "heroSub": "Registra tu lectura de la Traducción del Nuevo Mundo, gana insignias en los cuestionarios, prepárate para las reuniones y conéctate con una comunidad mundial de Testigos de Jehová.",
+    "readBlog": "Leer el blog",
+    "publishersCount": "{{count}}+ publicadores en todo el mundo",
+    "chaptersRead": "· {{count}} capítulos leídos",
+    "feat1": "66 libros rastreados",
+    "feat2": "Planes de lectura",
+    "feat3": "Cuestionario bíblico",
+    "feat4": "Foro comunitario",
+    "feat5": "Notas de estudio",
+    "feat6": "Preparación de reuniones",
+    "blogTitle": "Del blog",
+    "blogSub": "Perspectivas de estudio bíblico para los Testigos de Jehová",
+    "readArticle": "Leer artículo →",
+    "viewAll": "Ver todos los artículos",
+    "howTitle": "Cómo funciona",
+    "step1Title": "Regístrate gratis",
+    "step1Desc": "Con correo o Google — 30 segundos, sin tarjeta de crédito",
+    "step2Title": "Marca los capítulos",
+    "step2Desc": "Marca los capítulos a medida que lees los 66 libros",
+    "step3Title": "Construye el hábito",
+    "step3Desc": "Rachas, insignias y una comunidad te mantienen motivado",
+    "testiTitle": "Lo que dicen los publicadores",
+    "ctaTitle": "Comienza tu jornada de lectura hoy",
+    "ctaSub": "Únete a miles de publicadores que registran su lectura bíblica.",
+    "createAccount": "Crea tu cuenta",
+    "alreadyHave": "¿Ya tienes una cuenta?",
+    "footerTerms": "Términos",
+    "footerPrivacy": "Privacidad",
+    "footerCopy": "© {{year}} NWT Progress · Lexx Solutionz"
   },
   "auth": {
     "title": "Lista de Lectura Bíblica",
@@ -220,7 +196,7 @@
     "following": "Siguiendo"
   },
   "feed": {
-    "navLink": "Feed",
+    "navLink": "Actividad",
     "title": "Actividad de Seguidos",
     "subtitle": "Publicaciones y logros recientes de las personas que sigues.",
     "empty": "Nada aquí todavía",
@@ -265,7 +241,7 @@
     "blogWriters": "Escritores del Blog",
     "usersSection": "Usuarios",
     "addUser": "+ Agregar Usuario",
-    "emailPlaceholder": "Correo electrónico",
+    "emailPlaceholder": "Correo",
     "passwordPlaceholder": "Contraseña temporal (mín. 8 caracteres)",
     "errorRequired": "El correo y la contraseña son obligatorios.",
     "errorPasswordShort": "La contraseña debe tener al menos 8 caracteres.",
@@ -283,7 +259,7 @@
     "categoryDescription": "Descripción",
     "categoryOrder": "Orden",
     "you": "Tú",
-    "roleAdmin": "Admin",
+    "roleAdmin": "Administrador",
     "roleMember": "Miembro",
     "revokeBlog": "Revocar acceso al blog",
     "grantBlog": "Dar acceso al blog",
@@ -316,7 +292,7 @@
     "recentSignups": "Nuevos (7d)",
     "mrr": "Ingresos Mensuales",
     "messageUser": "Mensaje",
-    "colName": "Nombre de Usuario"
+    "colName": "Nombre para mostrar"
   },
   "profile": {
     "title": "Mi Perfil",
@@ -1550,7 +1526,7 @@
     "joining": "Uniéndose…",
     "join": "Unirse",
     "private": "🔒 Privado",
-    "admin": "Admin",
+    "admin": "Administrador",
     "member": "Miembro",
     "members": "miembros",
     "notFound": "Grupo no encontrado.",
@@ -1585,7 +1561,7 @@
     "noData": "Sin datos aún.",
     "longestStreak": "Más larga:",
     "dayStreak": "días seguidos",
-    "kingAdmin": "👑 Admin",
+    "kingAdmin": "👑 Administrador",
     "joined": "Unido",
     "edited": "editado",
     "react": "Reaccionar",
@@ -2645,47 +2621,732 @@
     "wtComplete": "✓ Estudio de La Atalaya Completo",
     "watchtowerStudyArticle": "Artículo de Estudio de La Atalaya"
   },
-  "landing": {
-    "nav": {
-      "blog": "Blog",
-      "about": "Acerca de",
-      "signIn": "Iniciar sesión",
-      "getStarted": "Comenzar",
-      "changeLanguage": "Cambiar idioma",
-      "switchLight": "Cambiar a modo claro",
-      "switchDark": "Cambiar a modo oscuro"
+  "bookNotablePassages": {
+    "0": {
+      "0": {
+        "note": "La declaración inicial que establece a Jehová como Creador de los cielos y la tierra; fundamento de toda la enseñanza bíblica sobre la soberanía de Jehová."
+      },
+      "1": {
+        "note": "El pacto de Jehová con Abrahán: la base de la descendencia prometida que bendeciría a todas las naciones de la tierra."
+      },
+      "2": {
+        "note": "El testimonio de José de que Jehová puede convertir la adversidad en algo bueno, lo que ilustra su cuidado soberano por quienes confían en él."
+      }
     },
-    "heroBadge": "Rastreador de lectura bíblica gratuito",
-    "heroTitle1": "Acércate más a Jehová",
-    "heroTitle2": "Un capítulo a la vez",
-    "heroSub": "Registra tu lectura de la Traducción del Nuevo Mundo, gana insignias en los cuestionarios, prepárate para las reuniones y conéctate con una comunidad mundial de Testigos de Jehová.",
-    "readBlog": "Leer el blog",
-    "publishersCount": "{{count}}+ publicadores en todo el mundo",
-    "chaptersRead": "· {{count}} capítulos leídos",
-    "feat1": "66 libros rastreados",
-    "feat2": "Planes de lectura",
-    "feat3": "Cuestionario bíblico",
-    "feat4": "Foro comunitario",
-    "feat5": "Notas de estudio",
-    "feat6": "Preparación de reuniones",
-    "blogTitle": "Del blog",
-    "blogSub": "Perspectivas de estudio bíblico para los Testigos de Jehová",
-    "readArticle": "Leer artículo →",
-    "viewAll": "Ver todos los artículos",
-    "howTitle": "Cómo funciona",
-    "step1Title": "Regístrate gratis",
-    "step1Desc": "Con correo o Google — 30 segundos, sin tarjeta de crédito",
-    "step2Title": "Marca los capítulos",
-    "step2Desc": "Marca los capítulos a medida que lees los 66 libros",
-    "step3Title": "Construye el hábito",
-    "step3Desc": "Rachas, insignias y una comunidad te mantienen motivado",
-    "testiTitle": "Lo que dicen los publicadores",
-    "ctaTitle": "Comienza tu jornada de lectura hoy",
-    "ctaSub": "Únete a miles de publicadores que registran su lectura bíblica.",
-    "createAccount": "Crea tu cuenta",
-    "alreadyHave": "¿Ya tienes una cuenta?",
-    "footerTerms": "Términos",
-    "footerPrivacy": "Privacidad",
-    "footerCopy": "© {{year}} NWT Progress · Lexx Solutionz"
+    "1": {
+      "0": {
+        "note": "Jehová revela su nombre y su significado: 'Llegaré a Ser lo que yo Quiera Ser', lo que subraya la importancia de conocer y usar el nombre personal de Jehová."
+      },
+      "1": {
+        "note": "Jehová destaca que su nombre lo distingue de todos los demás dioses, un texto clave para restaurar el nombre divino a lo largo de las Escrituras."
+      },
+      "2": {
+        "note": "Los dos primeros mandamientos establecen que solo Jehová es Dios y merece devoción exclusiva: la base de la adoración pura."
+      }
+    },
+    "2": {
+      "0": {
+        "note": "El llamado de Jehová a la santidad —'Tienen que ser santos, porque yo, Jehová su Dios, soy santo'— fija la norma moral para todos los que llevan su nombre."
+      },
+      "1": {
+        "note": "La declaración de que 'la vida de la carne está en la sangre' establece la santidad de la sangre y sustenta el entendimiento bíblico sobre el uso de la sangre."
+      },
+      "2": {
+        "note": "El Día Anual de Expiación proveía limpieza nacional, prefigurando el sacrificio superior de Jesucristo como Sumo Sacerdote a favor de toda la humanidad."
+      }
+    },
+    "3": {
+      "0": {
+        "note": "La bendición aarónica —'Que Jehová te bendiga y te proteja'— revela el cuidado personal y el interés protector de Jehová por su pueblo."
+      },
+      "1": {
+        "note": "La descripción que Jehová hace de sí mismo como 'lento para la cólera y abundante en amor leal', aunque sin dejar impune al culpable, capta el equilibrio de su justicia y su misericordia."
+      },
+      "2": {
+        "note": "La declaración de Balán de que 'Dios no es un hombre que diga mentiras' afirma la absoluta fiabilidad de las promesas y profecías de Jehová."
+      }
+    },
+    "4": {
+      "0": {
+        "note": "El Shemá —'Jehová nuestro Dios es un solo Jehová'— es la piedra angular de la fe monoteísta de Israel y el resumen que Jesús hizo del mandamiento más grande."
+      },
+      "1": {
+        "note": "La promesa de Jehová de bendecir abundantemente a quienes obedezcan plenamente demuestra la conexión directa entre la fidelidad al pacto y el favor divino."
+      },
+      "2": {
+        "note": "El llamado de Jehová a 'escoger la vida' pone ante cada persona la responsabilidad personal de alinear su voluntad con las normas de Jehová."
+      }
+    },
+    "5": {
+      "0": {
+        "note": "El mandato de Jehová 'sé valiente y fuerte' le aseguraba a Josué que la presencia divina eliminaba el motivo del temor, una promesa igualmente válida para los siervos de Jehová hoy día."
+      },
+      "1": {
+        "note": "La declaración de Josué 'yo y los de mi casa serviremos a Jehová' representa la decisión personal que toda familia debe tomar a favor de la devoción exclusiva."
+      },
+      "2": {
+        "note": "La afirmación de que 'de todas las buenas promesas que Jehová había hecho, ninguna dejó de cumplirse' establece la fiabilidad perfecta de cada promesa divina."
+      }
+    },
+    "6": {
+      "0": {
+        "note": "Que Jehová levantara jueces para librar a Israel muestra su misericordia paciente incluso con quienes caen una y otra vez en la infidelidad."
+      },
+      "1": {
+        "note": "El resumen de que 'cada uno hacía lo que le parecía correcto' describe el caos moral que sigue al rechazo de la autoridad de Jehová."
+      },
+      "2": {
+        "note": "Jehová redujo el ejército de Gedeón a 300 hombres para demostrar que la victoria le pertenece a Jehová, no a los números ni a la fuerza humana."
+      }
+    },
+    "7": {
+      "0": {
+        "note": "La declaración de Rut 'tu pueblo será mi pueblo y tu Dios mi Dios' es una poderosa expresión de amor leal y devoción íntegra a Jehová."
+      },
+      "1": {
+        "note": "La bendición de Boaz de que Jehová recompensara a Rut por buscar refugio 'bajo sus alas' ilustra el cuidado protector de Jehová hacia quienes se acercan a él."
+      },
+      "2": {
+        "note": "La bendición que las mujeres pronunciaron sobre Noemí celebra a Jehová como el que nunca deja a su pueblo sin un redentor, apuntando a la redención definitiva por medio de Cristo."
+      }
+    },
+    "8": {
+      "0": {
+        "note": "La declaración de Jehová de que 'Jehová ve lo que hay en el corazón' establece que él evalúa a las personas por sus cualidades internas, no por las apariencias externas."
+      },
+      "1": {
+        "note": "La proclamación de David antes de vencer a Goliat —'la batalla le pertenece a Jehová'— afirma que la verdadera victoria siempre viene al apoyarse en el poder de Jehová."
+      },
+      "2": {
+        "note": "El canto de Ana, que afirma que 'no hay nadie como Jehová', celebra su santidad y poder incomparables, prefigurando el Magníficat de María."
+      }
+    },
+    "9": {
+      "0": {
+        "note": "El pacto de Jehová con David, que promete un reino eterno por medio de su descendencia, es una profecía mesiánica clave cumplida en Jesucristo."
+      },
+      "1": {
+        "note": "La declaración de David sobre Jehová como 'mi roca... mi fortaleza... mi refugio' expresa la profunda confianza personal en Jehová que caracterizó todo su reinado."
+      },
+      "2": {
+        "note": "La confesión inmediata de David —'he pecado contra Jehová'— ante el reproche de Natán ejemplifica el arrepentimiento genuino que Jehová acepta y perdona."
+      }
+    },
+    "10": {
+      "0": {
+        "note": "La petición de Salomón de un corazón obediente en lugar de riquezas personales muestra el tipo de sabiduría que Jehová valora y recompensa."
+      },
+      "1": {
+        "note": "La oración de Salomón en la dedicación del templo reconoce que ni siquiera los cielos pueden contener a Jehová, revelando su majestad trascendente."
+      },
+      "2": {
+        "note": "El firme testimonio de Elías en el monte Carmelo demostró que solo Jehová es el Dios verdadero, un punto decisivo frente al falso culto de Baal."
+      }
+    },
+    "11": {
+      "0": {
+        "note": "La declaración de que 'fue Jehová quien causó todo esto' después de la caída de Samaria enseña que la desobediencia continua acarrea consecuencias justas."
+      },
+      "1": {
+        "note": "El ejemplo de fe de Ezequías al extender la carta amenazadora de Senaquerib ante Jehová ilustra cómo llevarle los problemas directamente a Dios en oración."
+      },
+      "2": {
+        "note": "Los trágicos intercambios en Oseas ('¿será posible?') sirven de advertencia de que el privilegio de conocer a Jehová exige lealtad continua."
+      }
+    },
+    "12": {
+      "0": {
+        "note": "La genealogía al comienzo de Crónicas conecta al lector con el propósito de Jehová, desde Adán hasta la descendencia real de David, destacando su soberanía continua."
+      },
+      "1": {
+        "note": "La oración de Jabés por la bendición de Jehová —y la respuesta positiva de Dios— muestra que Jehová escucha las peticiones humildes de quienes confían en él."
+      },
+      "2": {
+        "note": "El traslado del arca en tiempos de David enseña lecciones importantes sobre hacer las cosas 'según las instrucciones de Jehová' y no a la manera humana."
+      }
+    },
+    "13": {
+      "0": {
+        "note": "La oración de Salomón en la dedicación del templo reconoce la necesidad humana de recurrir a Jehová en momentos de crisis individual y nacional."
+      },
+      "1": {
+        "note": "La famosa promesa —'si mi pueblo... se humilla'— resume cómo Jehová responde con compasión a los que se arrepienten y lo buscan de corazón."
+      },
+      "2": {
+        "note": "La reforma de Josías, que se apoyó en la Ley redescubierta, demuestra el poder transformador de la Palabra de Jehová cuando se aplica con sinceridad."
+      }
+    },
+    "14": {
+      "0": {
+        "note": "El decreto de Ciro que permite el regreso de los judíos cumple la profecía de Isaías e ilustra cómo Jehová dirige incluso los corazones de los gobernantes gentiles."
+      },
+      "1": {
+        "note": "La valentía de Esdras al proclamar el ayuno en el río Ahavá en lugar de pedir protección militar modela la plena confianza en el cuidado de Jehová."
+      },
+      "2": {
+        "note": "La lectura pública de la Ley a los judíos repatriados subraya la centralidad de la Palabra de Jehová para restaurar la adoración verdadera."
+      }
+    },
+    "15": {
+      "0": {
+        "note": "La oración de Nehemías, llena de sincera confesión y firme fe, modela cómo los siervos de Jehová se acercan a él en tiempos de apremio nacional."
+      },
+      "1": {
+        "note": "La determinación de Nehemías de reconstruir los muros de Jerusalén pese a la oposición ilustra cómo la obra de Jehová avanza mediante la valentía y la oración."
+      },
+      "2": {
+        "note": "La reforma espiritual de Nehemías —con la lectura pública de la Ley y la restauración del sábado— muestra que la fidelidad a Jehová exige acción concreta."
+      }
+    },
+    "16": {
+      "0": {
+        "note": "La valentía de Ester al presentarse ante el rey —'si he de perecer, pereceré'— modela la disposición a arriesgarse a favor del pueblo de Jehová."
+      },
+      "1": {
+        "note": "La declaración de Mardoqueo de que el alivio vendría 'de otro lugar' si Ester se quedaba callada revela su confianza en que el propósito de Jehová no puede ser frustrado."
+      },
+      "2": {
+        "note": "El nombre de Jehová no aparece explícitamente, pero toda la liberación muestra su mano invisible protegiendo a su pueblo del pacto."
+      }
+    },
+    "17": {
+      "0": {
+        "note": "La declaración de Job —'desnudo salí del vientre de mi madre y desnudo volveré allá; Jehová ha dado y Jehová ha quitado'— expresa una fe extraordinaria en medio de una pérdida devastadora."
+      },
+      "1": {
+        "note": "La declaración de Job 'sé que mi vengador vive' anticipa con fe la resurrección y la vindicación definitiva por medio de Jehová."
+      },
+      "2": {
+        "note": "Las preguntas de Jehová desde la tempestad humillan a Job al recordarle la infinita sabiduría y el poder del Creador en contraste con el limitado entendimiento humano."
+      }
+    },
+    "18": {
+      "0": {
+        "note": "La invitación del Salmo 23 a ver a Jehová como nuestro Pastor personal ofrece consuelo y seguridad en cada circunstancia de la vida."
+      },
+      "1": {
+        "note": "La profecía mesiánica del Salmo 22, que comienza con 'Dios mío, Dios mío, ¿por qué me has abandonado?', detalla con asombrosa precisión los sufrimientos de Cristo."
+      },
+      "2": {
+        "note": "El Salmo 83:18 identifica expresamente a Jehová por nombre como el 'Altísimo sobre toda la tierra', un texto clave sobre la identidad del verdadero Dios."
+      }
+    },
+    "19": {
+      "0": {
+        "note": "La instrucción 'confía en Jehová con todo tu corazón y no te apoyes en tu propio entendimiento' resume todo el enfoque bíblico de la sabiduría."
+      },
+      "1": {
+        "note": "La declaración 'el temor de Jehová es el principio del conocimiento' identifica el punto de partida correcto para adquirir la sabiduría verdadera."
+      },
+      "2": {
+        "note": "El retrato de la esposa capaz en Proverbios 31 celebra las cualidades espirituales y prácticas que Jehová honra en las siervas fieles."
+      }
+    },
+    "20": {
+      "0": {
+        "note": "La conclusión de Eclesiastés —'teme al Dios verdadero y guarda sus mandamientos, pues esto es todo para el hombre'— identifica el verdadero propósito de la existencia humana."
+      },
+      "1": {
+        "note": "El reconocimiento de Salomón de que 'a todo hay tiempo señalado' enseña a ver los acontecimientos de la vida desde la perspectiva soberana de Jehová."
+      },
+      "2": {
+        "note": "El consejo de 'acuérdate, pues, de tu Magnífico Creador en los días de tu juventud' urge a tomar decisiones espirituales tempranas antes de que llegue el declive físico."
+      }
+    },
+    "21": {
+      "0": {
+        "note": "La declaración —'pon como sello sobre tu corazón el amor'— describe la intensidad y la permanencia del amor verdadero, un don de Jehová."
+      },
+      "1": {
+        "note": "La celebración del amor dedicado del Cantar refleja la pureza y la devoción que Jehová valora en el matrimonio."
+      },
+      "2": {
+        "note": "La descripción del amor como 'tan fuerte como la muerte' presenta la devoción leal como una de las fuerzas más poderosas creadas por Jehová."
+      }
+    },
+    "22": {
+      "0": {
+        "note": "La profecía —'su nombre será llamado Consejero Maravilloso, Dios Poderoso, Padre Eterno, Príncipe de Paz'— anticipa los títulos mesiánicos cumplidos en Jesús."
+      },
+      "1": {
+        "note": "La profecía de Isaías 53 sobre el 'siervo sufriente' describe con notable detalle el sacrificio expiatorio de Jesús por los pecados de la humanidad."
+      },
+      "2": {
+        "note": "La visión de Isaías 11 de la paz futura bajo el gobierno mesiánico muestra las bendiciones del Reino que Jehová producirá en la tierra."
+      }
+    },
+    "23": {
+      "0": {
+        "note": "El lamento de Jeremías —'¿no hay bálsamo en Galaad?'— expresa el dolor de Jehová por el estado espiritual de su pueblo y su disposición a sanar."
+      },
+      "1": {
+        "note": "La promesa del nuevo pacto en Jeremías 31, escrito 'en su corazón', anticipa la relación íntima posible gracias al sacrificio de Jesús."
+      },
+      "2": {
+        "note": "La declaración 'conozco muy bien los pensamientos que tengo respecto a ustedes... para darles un futuro y una esperanza' revela el cariño paternal de Jehová incluso durante la disciplina."
+      }
+    },
+    "24": {
+      "0": {
+        "note": "La declaración 'los actos de bondad leal de Jehová... son nuevos cada mañana' da esperanza aun en el dolor más profundo."
+      },
+      "1": {
+        "note": "El reconocimiento de que Jerusalén 'pecó gravemente' muestra que el exilio fue el resultado justo del abandono del pacto con Jehová."
+      },
+      "2": {
+        "note": "La oración final —'haz que volvamos a ti, oh Jehová, y entonces volveremos de buena gana'— ilustra el deseo sincero de restauración de la relación con Jehová."
+      }
+    },
+    "25": {
+      "0": {
+        "note": "La visión del carro celestial de Ezequiel muestra la omnipresencia y la movilidad de Jehová —ni siquiera el exilio lo limita— para tranquilizar al pueblo desterrado."
+      },
+      "1": {
+        "note": "La promesa del 'corazón nuevo' y del 'espíritu nuevo' anticipa la transformación espiritual posible gracias al pacto y al sacrificio de Cristo."
+      },
+      "2": {
+        "note": "La profecía de la gran batalla de Gog de Magog muestra a Jehová defendiendo a su pueblo y vindicando su santo nombre."
+      }
+    },
+    "26": {
+      "0": {
+        "note": "La declaración de Daniel de que 'hay un Dios en los cielos que es el Revelador de secretos' afirma la sabiduría única de Jehová al dar a conocer el futuro."
+      },
+      "1": {
+        "note": "La profecía de Daniel 2 sobre los sucesivos imperios mundiales culminando con el Reino de Dios anticipa el propósito soberano de Jehová a lo largo de la historia."
+      },
+      "2": {
+        "note": "La visión de Daniel 7 del Hijo del hombre recibiendo el reino revela el papel futuro de Jesús como Rey mesiánico."
+      }
+    },
+    "27": {
+      "0": {
+        "note": "La imagen del matrimonio simbólico entre Oseas y Gomer dramatiza el amor fiel de Jehová hacia su pueblo infiel."
+      },
+      "1": {
+        "note": "La invitación 'vengan, volvamos a Jehová' ilustra que el arrepentimiento siempre es posible mientras haya aliento de vida."
+      },
+      "2": {
+        "note": "La declaración de Jehová —'deseo amor leal, no sacrificio'— muestra que las cualidades del corazón pesan más que las expresiones externas de adoración."
+      }
+    },
+    "28": {
+      "0": {
+        "note": "La profecía de Joel de que Jehová 'derramará' su espíritu tuvo un cumplimiento notable en Pentecostés y señala el sello espiritual de la verdadera adoración."
+      },
+      "1": {
+        "note": "La advertencia sobre 'el gran y temible día de Jehová' impulsa una respuesta urgente de arrepentimiento y alineación con la voluntad de Jehová."
+      },
+      "2": {
+        "note": "La promesa de bendiciones materiales y espirituales para los arrepentidos refuerza el modelo de que Jehová restaura a los que regresan a él con sinceridad."
+      }
+    },
+    "29": {
+      "0": {
+        "note": "La proclamación de Amós 'prepárate para encontrarte con tu Dios' es una advertencia solemne contra la adoración superficial y la injusticia social."
+      },
+      "1": {
+        "note": "El llamado 'dejen que el derecho fluya como las aguas' muestra la importancia que Jehová da a la justicia práctica, no solo a la corrección ritual."
+      },
+      "2": {
+        "note": "La visión de la plomada ilustra cómo Jehová mide a su pueblo contra sus normas perfectas, sin tolerar la hipocresía."
+      }
+    },
+    "30": {
+      "0": {
+        "note": "El breve mensaje de Abdías contra Edom muestra que Jehová trae justicia contra los que se gozan del sufrimiento de su pueblo."
+      },
+      "1": {
+        "note": "La declaración de que 'el día de Jehová está cerca contra todas las naciones' apunta a la rendición de cuentas universal delante del Creador."
+      },
+      "2": {
+        "note": "La promesa final 'el reino pertenecerá a Jehová' confirma que el propósito divino siempre triunfa, pese a la oposición humana."
+      }
+    },
+    "31": {
+      "0": {
+        "note": "El intento de Jonás de huir de la asignación de Jehová muestra lo inútil de resistirse al propósito divino, pero también la paciencia de Jehová con sus siervos imperfectos."
+      },
+      "1": {
+        "note": "El arrepentimiento sincero de Nínive demuestra que incluso una ciudad entregada al mal puede ser perdonada cuando responde al mensaje de Jehová."
+      },
+      "2": {
+        "note": "El cuidado final de Jehová por Nínive —'¿no debo yo sentir lástima?'— revela su profunda compasión por toda la humanidad."
+      }
+    },
+    "32": {
+      "0": {
+        "note": "La pregunta —'¿qué pide Jehová de ti, sino practicar la justicia, amar la bondad y ser modesto al andar con tu Dios?'— resume toda la adoración verdadera."
+      },
+      "1": {
+        "note": "La profecía sobre el gobernante que saldría de Belén se cumplió en el nacimiento de Jesucristo, el Mesías prometido."
+      },
+      "2": {
+        "note": "La visión de Miqueas de las naciones subiendo al monte de la casa de Jehová anticipa la unidad mundial en la adoración pura bajo el Reino."
+      }
+    },
+    "33": {
+      "0": {
+        "note": "La declaración —'Jehová es bueno, una fortaleza en el día de la angustia'— ofrece consuelo a quienes sufren opresión injusta."
+      },
+      "1": {
+        "note": "La profecía del juicio contra Nínive muestra la capacidad de Jehová para derribar incluso a las potencias más aparentemente invencibles."
+      },
+      "2": {
+        "note": "El mensaje ilustra que la misericordia divina tiene un límite cuando las naciones persisten en la maldad sin arrepentirse."
+      }
+    },
+    "34": {
+      "0": {
+        "note": "El 'libro de visiones' de Habacuc dramatiza el proceso de razonar con Jehová en momentos de aparente injusticia, hasta llegar a descansar en su sabiduría."
+      },
+      "1": {
+        "note": "La declaración de Habacuc 'el justo vivirá por fidelidad' es citada varias veces en las Escrituras Griegas como principio esencial de la justificación por fe."
+      },
+      "2": {
+        "note": "El himno final de Habacuc muestra cómo la fe permite regocijarse en Jehová aun cuando las circunstancias materiales sean adversas."
+      }
+    },
+    "35": {
+      "0": {
+        "note": "La advertencia —'el gran día de Jehová está cerca'— subraya la urgencia de buscar a Jehová con humildad antes de que venga el juicio."
+      },
+      "1": {
+        "note": "La promesa 'yo purificaré el habla de los pueblos' anticipa la lengua pura de la adoración verdadera unificada."
+      },
+      "2": {
+        "note": "La imagen de Jehová como un 'poderoso salvador' que se regocija con cantos sobre su pueblo revela la profundidad de su afecto."
+      }
+    },
+    "36": {
+      "0": {
+        "note": "La instrucción 'pongan su corazón en sus caminos' impulsa a los siervos de Jehová a examinar sus prioridades espirituales."
+      },
+      "1": {
+        "note": "La exhortación a reconstruir el templo muestra que la adoración verdadera exige acción decidida y no solo buenos deseos."
+      },
+      "2": {
+        "note": "La promesa de Jehová 'yo estoy con ustedes' fortalece a los que emprenden su obra con fe."
+      }
+    },
+    "37": {
+      "0": {
+        "note": "La visión de Zacarías del Mesías como 'rey justo y salvado... humilde, montado en un asno' se cumplió literalmente en la entrada triunfal de Jesús."
+      },
+      "1": {
+        "note": "La profecía de las 30 piezas de plata anticipa con asombrosa precisión la traición de Judas contra Jesús."
+      },
+      "2": {
+        "note": "La visión de la medida llena de maldad 'llevada lejos' ilustra cómo Jehová erradicará definitivamente la perversidad de la tierra."
+      }
+    },
+    "38": {
+      "0": {
+        "note": "El reproche —'ustedes me han robado en las contribuciones y los diezmos'— ilustra que Jehová ve cómo apoyamos la adoración verdadera con nuestros recursos."
+      },
+      "1": {
+        "note": "La promesa de que Jehová 'abrirá las compuertas del cielo' a los generosos muestra que Jehová responde con bondad a quienes le dan con fe."
+      },
+      "2": {
+        "note": "La declaración final anunciando a 'Elías el profeta' antes del día de Jehová anticipa la obra preparatoria cumplida por Juan el Bautista."
+      }
+    },
+    "39": {
+      "0": {
+        "note": "La declaración angelical de que Jesús 'salvará a su pueblo de sus pecados' revela la misión central del Mesías desde el mismo momento de su nacimiento."
+      },
+      "1": {
+        "note": "El Sermón del Monte (Mateo 5–7) contiene los principios morales más elevados jamás expresados, que aún guían a los siervos de Jehová hoy día."
+      },
+      "2": {
+        "note": "La Gran Comisión —'vayan y hagan discípulos de gente de todas las naciones'— define la obra de los cristianos verdaderos hasta el fin del sistema."
+      }
+    },
+    "40": {
+      "0": {
+        "note": "La declaración de apertura —'el principio de las buenas noticias acerca de Jesucristo'— enmarca todo el relato evangélico como un mensaje de gozo y esperanza."
+      },
+      "1": {
+        "note": "La urgencia del relato de Marcos, reflejada en la palabra 'inmediatamente', subraya el incansable servicio de Jesús a favor de otros."
+      },
+      "2": {
+        "note": "La confesión del centurión —'verdaderamente este hombre era Hijo de Dios'— reconoce la identidad de Jesús incluso en el momento de su muerte."
+      }
+    },
+    "41": {
+      "0": {
+        "note": "El Magníficat de María (Lucas 1:46–55) celebra la ejecución por parte de Jehová de su propósito en cumplimiento de las antiguas promesas."
+      },
+      "1": {
+        "note": "Las parábolas exclusivas de Lucas —el hijo pródigo y el buen samaritano— revelan la profundidad de la misericordia y el amor al prójimo que Jehová requiere."
+      },
+      "2": {
+        "note": "La promesa de Jesús en la cruz al malhechor de que 'estarás conmigo en el Paraíso' dirige la esperanza cristiana hacia la futura tierra paradisíaca."
+      }
+    },
+    "42": {
+      "0": {
+        "note": "La declaración 'en el principio era la Palabra' identifica a Jesús como el primer ser creado por Jehová, el Verbo activo en la creación."
+      },
+      "1": {
+        "note": "Juan 17:3 define la vida eterna como 'seguir adquiriendo conocimiento' tanto del único Dios verdadero como de Jesucristo."
+      },
+      "2": {
+        "note": "La declaración 'el Padre es mayor que yo' aclara la posición subordinada de Jesús respecto a Jehová, preservando el estricto monoteísmo."
+      }
+    },
+    "43": {
+      "0": {
+        "note": "El relato de Pentecostés en Hechos 2 describe el nacimiento de la congregación cristiana bajo la dirección del espíritu santo."
+      },
+      "1": {
+        "note": "La conversión de Pablo en Hechos 9 muestra el poder del mensaje del Reino para transformar incluso a los enemigos más acérrimos."
+      },
+      "2": {
+        "note": "La expansión de Hechos 1:8 —'serán testigos... hasta la parte más distante de la tierra'— define el alcance global de la obra de predicación cristiana."
+      }
+    },
+    "44": {
+      "0": {
+        "note": "La declaración 'todos han pecado y no alcanzan la gloria de Dios' establece la necesidad universal del rescate por medio de Jesucristo."
+      },
+      "1": {
+        "note": "La enseñanza de Romanos 6 sobre el bautismo como símbolo de muerte al pecado y vida nueva en Cristo explica su profunda significación espiritual."
+      },
+      "2": {
+        "note": "La exhortación de Romanos 12 a 'presentar sus cuerpos como sacrificio viviente' define el servicio sagrado cristiano como una dedicación total."
+      }
+    },
+    "45": {
+      "0": {
+        "note": "La enseñanza de 1 Corintios 13 sobre el amor —'el amor nunca falla'— identifica la cualidad cristiana más elevada."
+      },
+      "1": {
+        "note": "La instrucción sobre la Cena del Señor en 1 Corintios 11 establece el modelo correcto para la conmemoración anual de la muerte de Cristo."
+      },
+      "2": {
+        "note": "El capítulo sobre la resurrección (1 Corintios 15) explica cómo 'en Cristo todos serán vivificados', fundamento de la esperanza cristiana."
+      }
+    },
+    "46": {
+      "0": {
+        "note": "La declaración 'si alguien está en unión con Cristo, es una nueva creación' describe la transformación espiritual que Jehová produce en los creyentes."
+      },
+      "1": {
+        "note": "La regla del 'dador alegre' enseña el principio de que Jehová valora el espíritu detrás de nuestras contribuciones más que la cantidad."
+      },
+      "2": {
+        "note": "La 'espina en la carne' de Pablo ilustra que el poder de Jehová se perfecciona en nuestra debilidad."
+      }
+    },
+    "47": {
+      "0": {
+        "note": "La declaración 'el justo vivirá por fe' articula la verdad central de la justificación por la fe en el sacrificio de Cristo."
+      },
+      "1": {
+        "note": "La enumeración del fruto del espíritu en Gálatas 5:22–23 define las cualidades cristianas que Jehová produce en los creyentes."
+      },
+      "2": {
+        "note": "La advertencia contra 'las obras de la carne' ofrece una lista práctica de las conductas incompatibles con la devoción a Jehová."
+      }
+    },
+    "48": {
+      "0": {
+        "note": "La declaración 'fueron sellados con el prometido espíritu santo' revela el papel del espíritu en garantizar la herencia cristiana."
+      },
+      "1": {
+        "note": "La instrucción sobre 'la armadura completa que proviene de Dios' describe la protección espiritual necesaria para mantenerse firme ante Satanás."
+      },
+      "2": {
+        "note": "La exhortación al amor conyugal —'amen continuamente a sus esposas'— refleja el modelo del amor sacrificial de Cristo por la congregación."
+      }
+    },
+    "49": {
+      "0": {
+        "note": "La exhortación 'alégrense siempre en el Señor' modela la actitud del cristiano aun en medio de pruebas."
+      },
+      "1": {
+        "note": "La declaración 'para todas las cosas tengo la fuerza en virtud de aquel que me da poder' expresa la confianza que Pablo depositaba en Jehová a través de Cristo."
+      },
+      "2": {
+        "note": "El ejemplo de Cristo —'se rebajó a sí mismo y se hizo obediente hasta la muerte'— modela la humildad que Jehová enaltece."
+      }
+    },
+    "50": {
+      "0": {
+        "note": "La declaración 'él es la imagen del Dios invisible, el primogénito de toda la creación' identifica a Jesús como la primera creación directa de Jehová."
+      },
+      "1": {
+        "note": "La instrucción de 'despojarse de la personalidad vieja' y 'vestirse de la personalidad nueva' describe el cambio moral que Jehová espera de los cristianos."
+      },
+      "2": {
+        "note": "La advertencia contra 'la filosofía y el vano engaño' subraya la necesidad de someter todo pensamiento humano a la Palabra de Jehová."
+      }
+    },
+    "51": {
+      "0": {
+        "note": "La declaración 'el mismo Señor descenderá del cielo con una llamada de mando' describe la presencia futura del Señor Jesucristo."
+      },
+      "1": {
+        "note": "La instrucción de 'no entristecerse como los demás' sobre los difuntos se basa en la segura esperanza cristiana en la resurrección."
+      },
+      "2": {
+        "note": "La exhortación 'oren sin cesar' modela el estilo de vida de comunicación continua con Jehová."
+      }
+    },
+    "52": {
+      "0": {
+        "note": "La descripción del 'hombre del desafuero' en 2 Tesalonicenses 2 alerta sobre una apostasía futura de la verdadera adoración."
+      },
+      "1": {
+        "note": "La afirmación de que Jehová traerá retribución a los opresores del pueblo cristiano asegura que la justicia divina prevalecerá."
+      },
+      "2": {
+        "note": "La instrucción 'si alguien no quiere trabajar, tampoco coma' destaca la responsabilidad cristiana hacia el trabajo honesto."
+      }
+    },
+    "53": {
+      "0": {
+        "note": "La instrucción sobre las cualidades de superintendentes y siervos ministeriales define las normas organizativas de Jehová para la congregación."
+      },
+      "1": {
+        "note": "La declaración '[Jehová] quiere que toda clase de personas se salven' revela la imparcialidad divina al ofrecer la verdad a todos."
+      },
+      "2": {
+        "note": "La advertencia contra el amor al dinero como 'raíz de toda clase de cosas perjudiciales' identifica una de las trampas espirituales más peligrosas."
+      }
+    },
+    "54": {
+      "0": {
+        "note": "La exhortación 'toda la Escritura está inspirada de Dios y es útil' afirma la inspiración completa y la utilidad práctica de la Biblia."
+      },
+      "1": {
+        "note": "La instrucción 'predica la palabra, insiste en ello en tiempo favorable y en tiempo difícil' modela la urgencia de la obra de predicación."
+      },
+      "2": {
+        "note": "Las palabras finales de Pablo —'he peleado la excelente pelea'— enseñan a mirar atrás con satisfacción al servicio fiel a Jehová."
+      }
+    },
+    "55": {
+      "0": {
+        "note": "La instrucción sobre las cualidades de los ancianos en Tito 1 complementa la guía de 1 Timoteo para la superintendencia del rebaño."
+      },
+      "1": {
+        "note": "La descripción del evangelio como 'la bondad inmerecida de Dios... que trae la salvación' resalta el origen gracioso del rescate."
+      },
+      "2": {
+        "note": "El llamado a 'rechazar la impiedad y los deseos mundanos' define las bases éticas de la vida cristiana."
+      }
+    },
+    "56": {
+      "0": {
+        "note": "La petición personal de Pablo a favor de Onésimo modela cómo el amor cristiano disuelve las barreras sociales más rígidas."
+      },
+      "1": {
+        "note": "El recordatorio a Filemón de su deuda con Pablo ilustra los principios del amor fraternal entre cristianos."
+      },
+      "2": {
+        "note": "El encargo 'recíbelo como si me recibieras a mí' muestra la solidaridad que debe caracterizar a los siervos de Jehová."
+      }
+    },
+    "57": {
+      "0": {
+        "note": "La declaración 'Dios nos ha hablado por medio de un Hijo' afirma la posición superior de Jesús sobre los profetas anteriores."
+      },
+      "1": {
+        "note": "La definición de la fe como 'la expectativa segura de cosas que se esperan' ilustra la cualidad que Jehová recompensa."
+      },
+      "2": {
+        "note": "El 'capítulo de la fe' (Hebreos 11) enumera ejemplos de siervos fieles cuya confianza en Jehová los sostuvo pese a pruebas severas."
+      }
+    },
+    "58": {
+      "0": {
+        "note": "La instrucción 'sean hacedores de la palabra, no solo oidores' identifica la prueba real de la verdadera fe."
+      },
+      "1": {
+        "note": "La descripción de la lengua como 'un fuego' advierte sobre el enorme potencial destructivo de las palabras incontroladas."
+      },
+      "2": {
+        "note": "La exhortación a 'someterse a Dios; pero oponerse al Diablo' da la fórmula para la victoria espiritual contra las tentaciones."
+      }
+    },
+    "59": {
+      "0": {
+        "note": "La descripción de los cristianos como 'piedras vivas' que se edifican en una 'casa espiritual' ilustra la estructura del sacerdocio real."
+      },
+      "1": {
+        "note": "La instrucción 'echen sobre él toda su inquietud, porque él tiene cuidado de ustedes' asegura el interés personal de Jehová en cada siervo."
+      },
+      "2": {
+        "note": "El llamado a 'mantenerse despiertos... porque su adversario... el Diablo anda alrededor como un león rugiente' recuerda la realidad de la guerra espiritual."
+      }
+    },
+    "60": {
+      "0": {
+        "note": "La descripción de los falsos maestros en 2 Pedro 2 alerta sobre los peligros internos que amenazan a la congregación cristiana."
+      },
+      "1": {
+        "note": "La promesa de 'nuevos cielos y una nueva tierra, en los que habitará la justicia' es clave para la esperanza cristiana de renovación."
+      },
+      "2": {
+        "note": "La declaración de que Jehová no desea 'que nadie sea destruido, sino que todos lleguen al arrepentimiento' revela su paciencia compasiva."
+      }
+    },
+    "61": {
+      "0": {
+        "note": "La definición 'Dios es amor' ofrece una visión incomparable del carácter esencial del Creador."
+      },
+      "1": {
+        "note": "La prueba del amor fraternal —'no podemos amar a Dios a quien no hemos visto'— enseña que el amor teórico sin acción es una ilusión."
+      },
+      "2": {
+        "note": "La advertencia contra 'negar' que Jesucristo vino en carne identifica la prueba doctrinal básica para reconocer al cristianismo verdadero."
+      }
+    },
+    "62": {
+      "0": {
+        "note": "La breve carta de 2 Juan advierte contra recibir en casa a quienes enseñan otra doctrina distinta de la de Cristo."
+      },
+      "1": {
+        "note": "El llamado a 'andar según sus mandamientos' resume toda obediencia cristiana en la expresión de amor a los hermanos."
+      },
+      "2": {
+        "note": "La exhortación a permanecer en 'la enseñanza de Cristo' muestra que la verdad doctrinal es esencial para la aprobación de Jehová."
+      }
+    },
+    "63": {
+      "0": {
+        "note": "El reproche dirigido a Diótrefes advierte contra la ambición personal que divide a la congregación."
+      },
+      "1": {
+        "note": "El elogio a Gayo por apoyar a los viajeros que sirven a Jehová modela la hospitalidad cristiana práctica."
+      },
+      "2": {
+        "note": "La observación 'imiten lo que es bueno, no lo que es malo' da una regla sencilla para elegir a quién seguir en la congregación."
+      }
+    },
+    "64": {
+      "0": {
+        "note": "La advertencia contra 'ciertos hombres' que se han 'colado' en la congregación alerta sobre los peligros internos."
+      },
+      "1": {
+        "note": "La referencia a Miguel disputándose con el Diablo por el cuerpo de Moisés añade perspectiva sobre la actividad espiritual en trasfondo."
+      },
+      "2": {
+        "note": "El llamado a 'contender vigorosamente por la fe' anima a los cristianos a defender activamente la verdad revelada por Jehová."
+      }
+    },
+    "65": {
+      "0": {
+        "note": "La escena del trono en Apocalipsis 4 revela la majestad de Jehová rodeado por criaturas celestiales que lo adoran sin cesar."
+      },
+      "1": {
+        "note": "La profecía del 'nuevo cielo y la nueva tierra' en Apocalipsis 21 anticipa la eliminación del dolor, del luto, del clamor y del dolor."
+      },
+      "2": {
+        "note": "La promesa final 'sí, vengo pronto' dirige la esperanza cristiana hacia el cumplimiento inminente del propósito de Jehová."
+      }
+    }
   }
 }

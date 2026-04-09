@@ -74,71 +74,47 @@
     "about": "À propos"
   },
   "landing": {
-    "badge": "✦ Traduction du Monde Nouveau · 66 Livres",
-    "titleLine1": "Rapproche-toi de Jéhovah",
-    "titleAccent": "Un Chapitre à la Fois",
-    "subtitle": "Suivi de lecture biblique, notes d'étude, préparation des réunions et outils IA — conçu pour les Témoins de Jéhovah.",
-    "feature66Books": "66 Livres",
-    "featureChapters": "Suivre les Chapitres",
-    "featureNotes": "Notes Personnelles",
-    "featureForum": "Forum Communautaire",
-    "featureBlog": "Blog Inspirant",
-    "cta": "Commencez Votre Parcours",
-    "alreadyHaveAccount": "Vous avez déjà un compte ?",
-    "signIn": "Se connecter",
-    "featureReadingPlans": "Plans de Lecture",
-    "featureAiTools": "Outils IA",
-    "featureMeetingPrep": "Préparation des Réunions",
-    "howItWorks": "Comment ça marche",
-    "howStep1Title": "Inscrivez-vous gratuitement",
-    "howStep1Desc": "E-mail ou Google, 30 secondes",
-    "howStep2Title": "Cochez les chapitres",
-    "howStep2Desc": "Les 66 livres, chapitre par chapitre",
-    "howStep3Title": "Créez l'habitude",
-    "howStep3Desc": "Séries, plans, badges de quiz",
-    "joinPublishers": "Rejoignez {{count}}+ proclamateurs dans le monde",
-    "chaptersRead": "{{count}} chapitres lus",
-    "pricingTitle": "Tarifs simples et transparents",
-    "pricingSub": "Commencez gratuitement. Passez à la version supérieure quand vous êtes prêt à aller plus loin.",
-    "planFreeName": "Gratuit",
-    "planFreePeriod": "/ pour toujours",
-    "planFreeDesc": "Tout ce dont vous avez besoin pour commencer à suivre votre lecture biblique.",
-    "planFreeCtaLabel": "Commencer Gratuitement",
-    "planPremiumPopular": "Le Plus Populaire",
-    "planPremiumName": "Premium",
-    "planPremiumPeriod": "/ mois",
-    "planPremiumDesc": "Approfondissez avec des plans structurés, des notes, des messages et l'IA.",
-    "planPremiumCtaLabel": "Essai Gratuit de 7 Jours",
-    "planPremiumNote": "Annulez à tout moment · Sans engagement",
-    "freeFeatureReadingTrackerLabel": "Suivi de Lecture",
-    "freeFeatureReadingTrackerDesc": "Suivez les 66 livres chapitre par chapitre",
-    "freeFeatureQuizLabel": "Quiz Biblique",
-    "freeFeatureQuizDesc": "Plus de 1 000 questions sur 12 thèmes",
-    "freeFeatureForumLabel": "Forum Communautaire",
-    "freeFeatureForumDesc": "Discutez et apprenez ensemble",
-    "freeFeatureBlogLabel": "Blog",
-    "freeFeatureBlogDesc": "Lisez et rédigez des articles d'étude",
-    "freeFeatureStreaksLabel": "Séries et Carte de Chaleur",
-    "freeFeatureStreaksDesc": "Créez une habitude de lecture quotidienne",
-    "premiumFeaturePlansLabel": "Plans de Lecture",
-    "premiumFeaturePlansDesc": "Plans d'étude structurés sur plusieurs semaines",
-    "premiumFeatureNotesLabel": "Notes d'Étude",
-    "premiumFeatureNotesDesc": "Notes en texte enrichi liées aux passages",
-    "premiumFeatureMeetingPrepLabel": "Préparation des Réunions",
-    "premiumFeatureMeetingPrepDesc": "Listes de contrôle CLAM + Tour de garde",
-    "premiumFeatureAiLabel": "Assistant d'Étude IA",
-    "premiumFeatureAiDesc": "Posez des questions sur n'importe quel verset",
-    "premiumFeatureDmLabel": "Messages Privés",
-    "premiumFeatureDmDesc": "Conversations privées avec les membres",
-    "premiumFeatureGroupsLabel": "Groupes d'Étude",
-    "premiumFeatureGroupsDesc": "Chat de groupe et suivi des progrès",
-    "promoTitle": "Les 500 premiers utilisateurs reçoivent Premium gratuitement — à vie",
-    "promoSpotsLeft": "{{count}} places restantes",
-    "ctaPromo": "Réclamer Mon Premium Gratuit — À Vie",
-    "planPremiumPopularPromo": "🎁 Gratuit pour les Pionniers",
-    "planPremiumPeriodPromo": "/ à vie",
-    "planPremiumDescPromo": "Vous faites partie des 500 premiers — accédez à Premium à vie, gratuitement.",
-    "planPremiumNotePromo": "Sans carte bancaire · Gratuit à vie · {{count}} places restantes"
+    "nav": {
+      "blog": "Blog",
+      "about": "À propos",
+      "signIn": "Se connecter",
+      "getStarted": "Commencer",
+      "changeLanguage": "Changer de langue",
+      "switchLight": "Passer en mode clair",
+      "switchDark": "Passer en mode sombre"
+    },
+    "heroBadge": "Suivi de lecture biblique gratuit",
+    "heroTitle1": "Rapprochez-vous de Jéhovah",
+    "heroTitle2": "Un Chapitre à la Fois",
+    "heroSub": "Suivez votre lecture de la Traduction du monde nouveau, gagnez des badges aux quiz, préparez-vous pour les réunions et connectez-vous avec une communauté mondiale de Témoins de Jéhovah.",
+    "readBlog": "Lire le Blog",
+    "publishersCount": "{{count}}+ proclamateurs dans le monde",
+    "chaptersRead": "· {{count}} chapitres lus",
+    "feat1": "66 livres suivis",
+    "feat2": "Plans de lecture",
+    "feat3": "Quiz biblique",
+    "feat4": "Forum communautaire",
+    "feat5": "Notes d'étude",
+    "feat6": "Préparation des réunions",
+    "blogTitle": "Du Blog",
+    "blogSub": "Perspectives d'étude biblique pour les Témoins de Jéhovah",
+    "readArticle": "Lire l'article →",
+    "viewAll": "Voir tous les articles",
+    "howTitle": "Comment ça marche",
+    "step1Title": "Inscrivez-vous gratuitement",
+    "step1Desc": "E-mail ou Google — 30 secondes, sans carte de crédit",
+    "step2Title": "Cochez les chapitres",
+    "step2Desc": "Marquez les chapitres au fil de votre lecture des 66 livres",
+    "step3Title": "Créez l'habitude",
+    "step3Desc": "Séries, badges et une communauté vous gardent motivé",
+    "testiTitle": "Ce que disent les proclamateurs",
+    "ctaTitle": "Commencez votre parcours de lecture aujourd'hui",
+    "ctaSub": "Rejoignez des milliers de proclamateurs qui suivent leur lecture biblique.",
+    "createAccount": "Créez votre compte",
+    "alreadyHave": "Vous avez déjà un compte ?",
+    "footerTerms": "Conditions",
+    "footerPrivacy": "Confidentialité",
+    "footerCopy": "© {{year}} NWT Progress · Lexx Solutionz"
   },
   "auth": {
     "title": "Liste de Lecture Biblique",
@@ -260,7 +236,7 @@
   "admin": {
     "title": "Tableau de bord Admin",
     "totalUsers": "Total des utilisateurs",
-    "admins": "Admins",
+    "admins": "Administrateurs",
     "members": "Membres",
     "blogWriters": "Rédacteurs du blog",
     "usersSection": "Utilisateurs",
@@ -283,7 +259,7 @@
     "categoryDescription": "Description",
     "categoryOrder": "Ordre",
     "you": "Vous",
-    "roleAdmin": "Admin",
+    "roleAdmin": "Administrateur",
     "roleMember": "Membre",
     "revokeBlog": "Révoquer l'accès au blog",
     "grantBlog": "Accorder l'accès au blog",
@@ -316,7 +292,7 @@
     "recentSignups": "Nouveaux (7j)",
     "mrr": "Revenu Mensuel",
     "messageUser": "Message",
-    "colName": "Nom d'Affichage"
+    "colName": "Nom affiché"
   },
   "profile": {
     "title": "Mon Profil",
@@ -1554,7 +1530,7 @@
     "member": "Membre",
     "members": "membres",
     "notFound": "Groupe introuvable.",
-    "chat": "💬 Chat",
+    "chat": "💬 Discussion",
     "leaderboard": "🏆 Classement",
     "membersTab": "👥 Membres",
     "announcements": "📣 Annonces",
@@ -1574,7 +1550,7 @@
     "lastRead": "Dernière lecture",
     "you": "vous",
     "created": "Créé",
-    "code": "Code:",
+    "code": "Code :",
     "leave": "Quitter",
     "leaveConfirm": "Quitter ce groupe? Vous pouvez le rejoindre à nouveau s'il est public.",
     "deleteConfirm": "Supprimer ce groupe? Tous les messages et membres seront supprimés définitivement.",
@@ -1600,7 +1576,7 @@
   },
   "messages": {
     "title": "Messages",
-    "chat": "Chat",
+    "chat": "Discussion",
     "openFullView": "Ouvrir la vue complète",
     "close": "Fermer",
     "noConversations": "Aucune conversation pour l'instant.\nCommencez-en une depuis le profil d'un utilisateur.",
@@ -2645,47 +2621,732 @@
     "wtComplete": "✓ Étude de la Tour de Garde Terminée",
     "watchtowerStudyArticle": "Article d'Étude de la Tour de Garde"
   },
-  "landing": {
-    "nav": {
-      "blog": "Blog",
-      "about": "À propos",
-      "signIn": "Se connecter",
-      "getStarted": "Commencer",
-      "changeLanguage": "Changer de langue",
-      "switchLight": "Passer en mode clair",
-      "switchDark": "Passer en mode sombre"
+  "bookNotablePassages": {
+    "0": {
+      "0": {
+        "note": "La déclaration d'ouverture qui présente Jéhovah comme le Créateur des cieux et de la terre ; fondement de tout enseignement biblique sur la souveraineté de Jéhovah."
+      },
+      "1": {
+        "note": "L'alliance de Jéhovah avec Abraham — le fondement de la descendance promise qui bénirait toutes les nations de la terre."
+      },
+      "2": {
+        "note": "Le témoignage de Joseph selon lequel Jéhovah peut transformer l'adversité en bien, ce qui illustre ses soins souverains envers ceux qui lui font confiance."
+      }
     },
-    "heroBadge": "Suivi de lecture biblique gratuit",
-    "heroTitle1": "Rapprochez-vous de Jéhovah",
-    "heroTitle2": "Un Chapitre à la Fois",
-    "heroSub": "Suivez votre lecture de la Traduction du monde nouveau, gagnez des badges aux quiz, préparez-vous pour les réunions et connectez-vous avec une communauté mondiale de Témoins de Jéhovah.",
-    "readBlog": "Lire le Blog",
-    "publishersCount": "{{count}}+ proclamateurs dans le monde",
-    "chaptersRead": "· {{count}} chapitres lus",
-    "feat1": "66 livres suivis",
-    "feat2": "Plans de lecture",
-    "feat3": "Quiz biblique",
-    "feat4": "Forum communautaire",
-    "feat5": "Notes d'étude",
-    "feat6": "Préparation des réunions",
-    "blogTitle": "Du Blog",
-    "blogSub": "Perspectives d'étude biblique pour les Témoins de Jéhovah",
-    "readArticle": "Lire l'article →",
-    "viewAll": "Voir tous les articles",
-    "howTitle": "Comment ça marche",
-    "step1Title": "Inscrivez-vous gratuitement",
-    "step1Desc": "E-mail ou Google — 30 secondes, sans carte de crédit",
-    "step2Title": "Cochez les chapitres",
-    "step2Desc": "Marquez les chapitres au fil de votre lecture des 66 livres",
-    "step3Title": "Créez l'habitude",
-    "step3Desc": "Séries, badges et une communauté vous gardent motivé",
-    "testiTitle": "Ce que disent les proclamateurs",
-    "ctaTitle": "Commencez votre parcours de lecture aujourd'hui",
-    "ctaSub": "Rejoignez des milliers de proclamateurs qui suivent leur lecture biblique.",
-    "createAccount": "Créez votre compte",
-    "alreadyHave": "Vous avez déjà un compte ?",
-    "footerTerms": "Conditions",
-    "footerPrivacy": "Confidentialité",
-    "footerCopy": "© {{year}} NWT Progress · Lexx Solutionz"
+    "1": {
+      "0": {
+        "note": "Jéhovah révèle son nom et sa signification : « Je deviendrai ce que je choisirai de devenir », ce qui souligne l'importance de connaître et d'utiliser le nom personnel de Jéhovah."
+      },
+      "1": {
+        "note": "Jéhovah précise que son nom le distingue de tous les autres dieux — un texte clé pour le rétablissement du nom divin dans toute l'Écriture."
+      },
+      "2": {
+        "note": "Les deux premiers commandements établissent que Jéhovah seul est Dieu et doit recevoir une dévotion exclusive : le fondement du vrai culte."
+      }
+    },
+    "2": {
+      "0": {
+        "note": "L'appel de Jéhovah à la sainteté — « Vous devez être saints, car moi, Jéhovah votre Dieu, je suis saint » — fixe la norme morale pour tous ceux qui portent son nom."
+      },
+      "1": {
+        "note": "La déclaration selon laquelle « la vie de la chair est dans le sang » établit le caractère sacré du sang et soutient la position biblique sur l'usage du sang."
+      },
+      "2": {
+        "note": "Le jour annuel des Propitiations assurait la purification de la nation, préfigurant le sacrifice supérieur de Jésus Christ comme Grand Prêtre en faveur de toute l'humanité."
+      }
+    },
+    "3": {
+      "0": {
+        "note": "La bénédiction aaronique — « Que Jéhovah te bénisse et te protège » — révèle les soins personnels et l'intérêt protecteur de Jéhovah envers son peuple."
+      },
+      "1": {
+        "note": "La manière dont Jéhovah se décrit — « lent à la colère et abondant en amour fidèle », tout en ne laissant pas impuni le coupable — exprime l'équilibre de sa justice et de sa miséricorde."
+      },
+      "2": {
+        "note": "La déclaration de Balaam — « Dieu n'est pas un homme qui mente » — affirme la fiabilité absolue des promesses et des prophéties de Jéhovah."
+      }
+    },
+    "4": {
+      "0": {
+        "note": "Le Shema — « Jéhovah notre Dieu est un seul Jéhovah » — est la pierre angulaire de la foi monothéiste d'Israël et le résumé que Jésus lui-même a donné du plus grand commandement."
+      },
+      "1": {
+        "note": "La promesse de Jéhovah de bénir abondamment ceux qui obéissent pleinement montre le lien direct entre la fidélité à l'alliance et la faveur divine."
+      },
+      "2": {
+        "note": "L'appel de Jéhovah à « choisir la vie » place devant chaque personne la responsabilité d'aligner sa volonté sur les normes de Jéhovah."
+      }
+    },
+    "5": {
+      "0": {
+        "note": "L'ordre de Jéhovah « sois courageux et fort » assurait à Josué que la présence divine faisait disparaître tout motif de crainte — une promesse tout aussi valable pour les serviteurs de Jéhovah aujourd'hui."
+      },
+      "1": {
+        "note": "La déclaration de Josué « quant à moi et à ma famille, nous servirons Jéhovah » représente le choix personnel que chaque famille doit faire pour la dévotion exclusive."
+      },
+      "2": {
+        "note": "L'affirmation que « pas une parole n'a failli de toutes les bonnes choses que Jéhovah avait dites » établit la fiabilité parfaite de chaque promesse divine."
+      }
+    },
+    "6": {
+      "0": {
+        "note": "Le fait que Jéhovah ait suscité des juges pour délivrer Israël révèle sa miséricorde patiente, même envers ceux qui retombent à maintes reprises dans l'infidélité."
+      },
+      "1": {
+        "note": "Le résumé selon lequel « chacun faisait ce qui lui semblait juste » décrit le chaos moral qui suit le rejet de l'autorité de Jéhovah."
+      },
+      "2": {
+        "note": "Le fait que Jéhovah ait réduit l'armée de Gédéon à 300 hommes a démontré que la victoire appartient à Jéhovah, et non à la force ou au nombre humain."
+      }
+    },
+    "7": {
+      "0": {
+        "note": "La déclaration de Ruth « ton peuple sera mon peuple et ton Dieu mon Dieu » exprime avec force l'amour fidèle et la dévotion sans partage envers Jéhovah."
+      },
+      "1": {
+        "note": "La bénédiction de Boaz, souhaitant que Jéhovah récompense Ruth pour avoir cherché refuge « sous ses ailes », illustre la protection de Jéhovah envers ceux qui s'approchent de lui."
+      },
+      "2": {
+        "note": "La bénédiction des femmes sur Naomi célèbre Jéhovah comme celui qui ne laisse jamais son peuple sans racheteur, annonçant la rédemption ultime par le Christ."
+      }
+    },
+    "8": {
+      "0": {
+        "note": "La déclaration « Jéhovah voit ce qu'est le cœur » établit qu'il évalue les personnes d'après leurs qualités intérieures, et non les apparences."
+      },
+      "1": {
+        "note": "La proclamation de David, avant de vaincre Goliath — « la bataille appartient à Jéhovah » — affirme que la vraie victoire vient toujours de la dépendance envers Jéhovah."
+      },
+      "2": {
+        "note": "Le cantique d'Anne affirmant qu'« il n'y a personne comme Jéhovah » célèbre sa sainteté et sa puissance incomparables, annonçant le Magnificat de Marie."
+      }
+    },
+    "9": {
+      "0": {
+        "note": "L'alliance de Jéhovah avec David promettant un royaume éternel par l'intermédiaire de sa descendance est une prophétie messianique clé accomplie en Jésus Christ."
+      },
+      "1": {
+        "note": "La déclaration de David selon laquelle Jéhovah est « mon rocher… ma forteresse… mon refuge » exprime la confiance personnelle profonde qui a caractérisé tout son règne."
+      },
+      "2": {
+        "note": "La confession immédiate de David — « j'ai péché contre Jéhovah » — après la réprimande de Nathan illustre la vraie repentance que Jéhovah accepte et pardonne."
+      }
+    },
+    "10": {
+      "0": {
+        "note": "La demande de Salomon d'un cœur obéissant plutôt que de richesses personnelles montre le genre de sagesse que Jéhovah estime et récompense."
+      },
+      "1": {
+        "note": "La prière de dédicace de Salomon reconnaît que même les cieux ne peuvent contenir Jéhovah, révélant sa majesté transcendante."
+      },
+      "2": {
+        "note": "Le témoignage courageux d'Élie au mont Carmel a démontré que Jéhovah seul est le vrai Dieu — un tournant décisif face au faux culte de Baal."
+      }
+    },
+    "11": {
+      "0": {
+        "note": "La déclaration selon laquelle « c'est Jéhovah qui avait causé tout cela » après la chute de Samarie enseigne que la désobéissance continue entraîne des conséquences justes."
+      },
+      "1": {
+        "note": "L'exemple de foi d'Ézéchias, qui a étalé la lettre menaçante de Sennachérib devant Jéhovah, illustre la manière de porter directement ses difficultés à Dieu dans la prière."
+      },
+      "2": {
+        "note": "Les tragiques retournements du royaume du Nord avertissent que le privilège de connaître Jéhovah exige une loyauté constante."
+      }
+    },
+    "12": {
+      "0": {
+        "note": "Les généalogies du début des Chroniques relient le lecteur au dessein de Jéhovah, depuis Adam jusqu'à la lignée royale de David, soulignant sa souveraineté continue."
+      },
+      "1": {
+        "note": "La prière de Yabets pour recevoir la bénédiction de Jéhovah — et la réponse positive de Dieu — montre que Jéhovah écoute les demandes humbles de ceux qui comptent sur lui."
+      },
+      "2": {
+        "note": "Le transport de l'arche à l'époque de David enseigne des leçons importantes sur la manière d'agir « selon les instructions de Jéhovah » et non d'une manière humaine."
+      }
+    },
+    "13": {
+      "0": {
+        "note": "La prière de dédicace de Salomon reconnaît le besoin humain de se tourner vers Jéhovah dans les moments de crise personnelle ou nationale."
+      },
+      "1": {
+        "note": "La célèbre promesse — « si mon peuple… s'humilie » — résume comment Jéhovah répond avec compassion à ceux qui se repentent et le cherchent de tout leur cœur."
+      },
+      "2": {
+        "note": "La réforme de Yoshiya, fondée sur la redécouverte de la Loi, démontre la puissance transformatrice de la Parole de Jéhovah quand elle est appliquée avec sincérité."
+      }
+    },
+    "14": {
+      "0": {
+        "note": "Le décret de Cyrus autorisant le retour des Juifs accomplit la prophétie d'Isaïe et illustre comment Jéhovah dirige même le cœur des dirigeants païens."
+      },
+      "1": {
+        "note": "Le courage d'Ezra, qui a proclamé un jeûne près du fleuve Ahava plutôt que de demander une escorte militaire, modèle une confiance totale dans les soins de Jéhovah."
+      },
+      "2": {
+        "note": "La lecture publique de la Loi aux Juifs revenus d'exil souligne le rôle central de la Parole de Jéhovah dans la restauration du vrai culte."
+      }
+    },
+    "15": {
+      "0": {
+        "note": "La prière de Nehémia, pleine de confession sincère et de foi ferme, illustre la manière dont les serviteurs de Jéhovah l'approchent en temps de crise nationale."
+      },
+      "1": {
+        "note": "La détermination de Nehémia à reconstruire les murs de Jérusalem malgré l'opposition montre comment l'œuvre de Jéhovah progresse par le courage et la prière."
+      },
+      "2": {
+        "note": "La réforme spirituelle de Nehémia — lecture publique de la Loi, rétablissement du sabbat — montre que la fidélité à Jéhovah exige des mesures concrètes."
+      }
+    },
+    "16": {
+      "0": {
+        "note": "Le courage d'Esther se présentant devant le roi — « si je dois périr, je périrai » — illustre la disposition à prendre des risques en faveur du peuple de Jéhovah."
+      },
+      "1": {
+        "note": "La déclaration de Mordekaï selon laquelle le salut viendrait « d'un autre lieu » si Esther se taisait révèle sa confiance que le dessein de Jéhovah ne peut être contrecarré."
+      },
+      "2": {
+        "note": "Le nom de Jéhovah n'apparaît pas explicitement, mais toute la délivrance montre sa main invisible protégeant son peuple de l'alliance."
+      }
+    },
+    "17": {
+      "0": {
+        "note": "La déclaration de Job — « nu je suis sorti du sein de ma mère et nu j'y retournerai ; Jéhovah a donné et Jéhovah a ôté » — exprime une foi extraordinaire au milieu d'une perte dévastatrice."
+      },
+      "1": {
+        "note": "La déclaration de Job « je sais que mon vengeur est vivant » anticipe avec foi la résurrection et la justification ultime par Jéhovah."
+      },
+      "2": {
+        "note": "Les questions que Jéhovah pose depuis la tempête humilient Job en lui rappelant la sagesse et la puissance infinies du Créateur, en contraste avec l'entendement humain limité."
+      }
+    },
+    "18": {
+      "0": {
+        "note": "L'invitation du Psaume 23 à voir en Jéhovah notre Berger personnel offre réconfort et sécurité dans toutes les circonstances de la vie."
+      },
+      "1": {
+        "note": "La prophétie messianique du Psaume 22, qui commence par « mon Dieu, mon Dieu, pourquoi m'as-tu abandonné ? », décrit avec une précision saisissante les souffrances du Christ."
+      },
+      "2": {
+        "note": "Le Psaume 83:18 identifie expressément Jéhovah par son nom comme le « Très-Haut sur toute la terre », un texte clé sur l'identité du vrai Dieu."
+      }
+    },
+    "19": {
+      "0": {
+        "note": "L'instruction « confie-toi en Jéhovah de tout ton cœur et ne t'appuie pas sur ton propre entendement » résume toute l'approche biblique de la sagesse."
+      },
+      "1": {
+        "note": "La déclaration « la crainte de Jéhovah est le commencement de la connaissance » identifie le bon point de départ pour acquérir la vraie sagesse."
+      },
+      "2": {
+        "note": "Le portrait de l'épouse capable de Proverbes 31 célèbre les qualités spirituelles et pratiques que Jéhovah honore chez les servantes fidèles."
+      }
+    },
+    "20": {
+      "0": {
+        "note": "La conclusion de l'Ecclésiaste — « crains le vrai Dieu et garde ses commandements, car c'est là tout le devoir de l'homme » — identifie le véritable but de l'existence humaine."
+      },
+      "1": {
+        "note": "La reconnaissance par Salomon qu'« il y a un temps pour tout » enseigne à considérer les événements de la vie sous la perspective souveraine de Jéhovah."
+      },
+      "2": {
+        "note": "Le conseil « souviens-toi de ton Grand Créateur durant les jours de ta jeunesse » incite à prendre tôt des décisions spirituelles avant le déclin physique."
+      }
+    },
+    "21": {
+      "0": {
+        "note": "La déclaration « place l'amour comme un sceau sur ton cœur » décrit l'intensité et la permanence du véritable amour, un don de Jéhovah."
+      },
+      "1": {
+        "note": "La célébration de l'amour dévoué dans le Cantique reflète la pureté et la fidélité que Jéhovah valorise dans le mariage."
+      },
+      "2": {
+        "note": "La description de l'amour comme « aussi fort que la mort » présente la fidélité loyale comme l'une des forces les plus puissantes créées par Jéhovah."
+      }
+    },
+    "22": {
+      "0": {
+        "note": "La prophétie — « son nom sera appelé Merveilleux Conseiller, Dieu puissant, Père éternel, Prince de paix » — annonce les titres messianiques accomplis en Jésus."
+      },
+      "1": {
+        "note": "La prophétie d'Isaïe 53 sur le « serviteur souffrant » décrit avec un détail frappant le sacrifice expiatoire de Jésus pour les péchés de l'humanité."
+      },
+      "2": {
+        "note": "La vision d'Isaïe 11 de la paix future sous le règne messianique montre les bénédictions que Jéhovah produira sur la terre grâce au Royaume."
+      }
+    },
+    "23": {
+      "0": {
+        "note": "La lamentation de Jérémie — « n'y a-t-il pas de baume en Galaad ? » — exprime la douleur de Jéhovah face à l'état spirituel de son peuple et sa volonté de guérir."
+      },
+      "1": {
+        "note": "La promesse de la nouvelle alliance en Jérémie 31, écrite « dans leur cœur », annonce la relation intime rendue possible par le sacrifice de Jésus."
+      },
+      "2": {
+        "note": "La déclaration « je connais très bien les pensées que j'ai à votre sujet… pour vous donner un avenir et une espérance » révèle la tendresse paternelle de Jéhovah même pendant la discipline."
+      }
+    },
+    "24": {
+      "0": {
+        "note": "La déclaration « les actes d'amour fidèle de Jéhovah… sont nouveaux chaque matin » offre de l'espoir même dans la douleur la plus profonde."
+      },
+      "1": {
+        "note": "L'aveu selon lequel Jérusalem « a gravement péché » montre que l'exil était la juste conséquence de l'abandon de l'alliance avec Jéhovah."
+      },
+      "2": {
+        "note": "La prière finale — « ramène-nous à toi, ô Jéhovah, et nous reviendrons volontiers » — illustre le désir sincère de rétablir la relation avec Jéhovah."
+      }
+    },
+    "25": {
+      "0": {
+        "note": "La vision du char céleste d'Ézéchiel montre l'omniprésence et la mobilité de Jéhovah — pas même l'exil ne le limite — pour rassurer le peuple déporté."
+      },
+      "1": {
+        "note": "La promesse du « cœur nouveau » et de « l'esprit nouveau » annonce la transformation spirituelle rendue possible par l'alliance et le sacrifice du Christ."
+      },
+      "2": {
+        "note": "La prophétie de la grande bataille de Gog de Magog montre Jéhovah défendant son peuple et justifiant son saint nom."
+      }
+    },
+    "26": {
+      "0": {
+        "note": "La déclaration de Daniel selon laquelle « il y a un Dieu dans les cieux, Révélateur des secrets » affirme la sagesse unique de Jéhovah, capable de révéler l'avenir."
+      },
+      "1": {
+        "note": "La prophétie de Daniel 2 sur les puissances mondiales successives, qui culmine dans le Royaume de Dieu, annonce le dessein souverain de Jéhovah à travers l'histoire."
+      },
+      "2": {
+        "note": "La vision de Daniel 7 du Fils de l'homme recevant le royaume révèle le rôle futur de Jésus comme Roi messianique."
+      }
+    },
+    "27": {
+      "0": {
+        "note": "L'image du mariage symbolique entre Osée et Gomer dramatise l'amour fidèle de Jéhovah envers son peuple infidèle."
+      },
+      "1": {
+        "note": "L'invitation « venez, retournons à Jéhovah » illustre que le repentir reste possible tant qu'il y a souffle de vie."
+      },
+      "2": {
+        "note": "La déclaration de Jéhovah — « je veux l'amour fidèle, et non les sacrifices » — montre que les qualités du cœur pèsent plus que les expressions extérieures du culte."
+      }
+    },
+    "28": {
+      "0": {
+        "note": "La prophétie de Joël selon laquelle Jéhovah « répandra » son esprit a trouvé un accomplissement remarquable à la Pentecôte et marque le signe spirituel du vrai culte."
+      },
+      "1": {
+        "note": "L'avertissement concernant « le grand et redoutable jour de Jéhovah » pousse à une réaction urgente : repentance et alignement sur la volonté de Jéhovah."
+      },
+      "2": {
+        "note": "La promesse de bénédictions matérielles et spirituelles pour les repentants illustre que Jéhovah restaure ceux qui reviennent à lui sincèrement."
+      }
+    },
+    "29": {
+      "0": {
+        "note": "La proclamation d'Amos « prépare-toi à rencontrer ton Dieu » est un avertissement solennel contre le culte superficiel et l'injustice sociale."
+      },
+      "1": {
+        "note": "L'appel « que le droit coule comme les eaux » montre l'importance que Jéhovah accorde à la justice pratique, et non à la seule exactitude rituelle."
+      },
+      "2": {
+        "note": "La vision du fil à plomb illustre comment Jéhovah mesure son peuple à ses normes parfaites, sans tolérer l'hypocrisie."
+      }
+    },
+    "30": {
+      "0": {
+        "note": "Le bref message d'Abdias contre Édom montre que Jéhovah rend la justice contre ceux qui se réjouissent de la souffrance de son peuple."
+      },
+      "1": {
+        "note": "La déclaration selon laquelle « le jour de Jéhovah est proche contre toutes les nations » rappelle la reddition de comptes universelle devant le Créateur."
+      },
+      "2": {
+        "note": "La promesse finale « la royauté appartiendra à Jéhovah » confirme que le dessein divin triomphe toujours, malgré l'opposition humaine."
+      }
+    },
+    "31": {
+      "0": {
+        "note": "La fuite de Yona devant la mission de Jéhovah montre l'inutilité de résister au dessein divin, tout en révélant la patience de Jéhovah envers ses serviteurs imparfaits."
+      },
+      "1": {
+        "note": "Le repentir sincère de Ninive démontre que même une ville entièrement livrée au mal peut être pardonnée si elle répond au message de Jéhovah."
+      },
+      "2": {
+        "note": "Le souci final de Jéhovah pour Ninive — « ne devrais-je pas avoir pitié ? » — révèle sa profonde compassion pour toute l'humanité."
+      }
+    },
+    "32": {
+      "0": {
+        "note": "La question — « que te demande Jéhovah, sinon de pratiquer la justice, d'aimer la bonté et de marcher avec modestie aux côtés de ton Dieu ? » — résume tout le vrai culte."
+      },
+      "1": {
+        "note": "La prophétie concernant le chef qui sortirait de Bethléem s'est accomplie dans la naissance de Jésus Christ, le Messie promis."
+      },
+      "2": {
+        "note": "La vision de Mika des nations affluant vers la montagne de la maison de Jéhovah annonce l'unité mondiale dans le culte pur sous le Royaume."
+      }
+    },
+    "33": {
+      "0": {
+        "note": "La déclaration — « Jéhovah est bon, une forteresse au jour de la détresse » — offre du réconfort à ceux qui souffrent d'une oppression injuste."
+      },
+      "1": {
+        "note": "La prophétie de jugement contre Ninive montre la capacité de Jéhovah à renverser même les puissances apparemment invincibles."
+      },
+      "2": {
+        "note": "Le message illustre que la miséricorde divine a des limites lorsque les nations persistent dans le mal sans se repentir."
+      }
+    },
+    "34": {
+      "0": {
+        "note": "Le « livre de visions » d'Habacuc dramatise le processus consistant à raisonner avec Jéhovah devant une injustice apparente, jusqu'à trouver le repos dans sa sagesse."
+      },
+      "1": {
+        "note": "La déclaration d'Habacuc « le juste vivra par la fidélité » est citée plusieurs fois dans les Écritures grecques comme principe fondamental de la justification par la foi."
+      },
+      "2": {
+        "note": "Le cantique final d'Habacuc montre comment la foi permet de se réjouir en Jéhovah même quand les circonstances matérielles sont défavorables."
+      }
+    },
+    "35": {
+      "0": {
+        "note": "L'avertissement — « le grand jour de Jéhovah est proche » — souligne l'urgence de rechercher Jéhovah avec humilité avant que le jugement n'arrive."
+      },
+      "1": {
+        "note": "La promesse « je purifierai la parole des peuples » annonce la langue pure du vrai culte unifié."
+      },
+      "2": {
+        "note": "L'image de Jéhovah comme un « puissant sauveur » qui se réjouit avec des chants au sujet de son peuple révèle la profondeur de son affection."
+      }
+    },
+    "36": {
+      "0": {
+        "note": "L'instruction « tournez votre cœur vers vos voies » pousse les serviteurs de Jéhovah à examiner leurs priorités spirituelles."
+      },
+      "1": {
+        "note": "L'exhortation à reconstruire le temple montre que le vrai culte exige une action déterminée et non de simples bonnes intentions."
+      },
+      "2": {
+        "note": "La promesse de Jéhovah « je suis avec vous » fortifie ceux qui entreprennent son œuvre avec foi."
+      }
+    },
+    "37": {
+      "0": {
+        "note": "La vision de Zacharie du Messie comme « roi juste et sauvé… humble, monté sur un âne » s'est littéralement accomplie lors de l'entrée triomphale de Jésus."
+      },
+      "1": {
+        "note": "La prophétie des 30 pièces d'argent annonce avec une précision frappante la trahison de Judas contre Jésus."
+      },
+      "2": {
+        "note": "La vision de la mesure remplie de méchanceté « emportée au loin » illustre comment Jéhovah éliminera définitivement le mal de la terre."
+      }
+    },
+    "38": {
+      "0": {
+        "note": "Le reproche — « vous m'avez volé dans les contributions et les dîmes » — illustre que Jéhovah voit comment nous soutenons le vrai culte avec nos ressources."
+      },
+      "1": {
+        "note": "La promesse que Jéhovah « ouvrira les écluses des cieux » pour les généreux montre qu'il répond avec bonté à ceux qui donnent avec foi."
+      },
+      "2": {
+        "note": "La déclaration finale annonçant « Élie le prophète » avant le jour de Jéhovah annonce l'œuvre préparatoire accomplie par Jean le Baptiste."
+      }
+    },
+    "39": {
+      "0": {
+        "note": "La déclaration angélique selon laquelle Jésus « sauvera son peuple de ses péchés » révèle la mission centrale du Messie dès le moment de sa naissance."
+      },
+      "1": {
+        "note": "Le Sermon sur la montagne (Matthieu 5 à 7) contient les principes moraux les plus élevés jamais énoncés, qui guident encore les serviteurs de Jéhovah aujourd'hui."
+      },
+      "2": {
+        "note": "L'ordre final — « allez et faites des disciples parmi des gens de toutes les nations » — définit l'œuvre des vrais chrétiens jusqu'à la fin du système de choses."
+      }
+    },
+    "40": {
+      "0": {
+        "note": "La phrase d'ouverture — « le commencement de la bonne nouvelle concernant Jésus Christ » — présente tout l'Évangile comme un message de joie et d'espérance."
+      },
+      "1": {
+        "note": "L'urgence du récit de Marc, reflétée par le mot « immédiatement », souligne le service infatigable de Jésus en faveur des autres."
+      },
+      "2": {
+        "note": "La confession de l'officier — « vraiment, cet homme était le Fils de Dieu » — reconnaît l'identité de Jésus, même au moment de sa mort."
+      }
+    },
+    "41": {
+      "0": {
+        "note": "Le Magnificat de Marie (Luc 1:46-55) célèbre la réalisation par Jéhovah de son dessein, en accomplissement d'antiques promesses."
+      },
+      "1": {
+        "note": "Les paraboles propres à Luc — le fils prodigue et le bon Samaritain — révèlent la profondeur de la miséricorde et de l'amour du prochain exigés par Jéhovah."
+      },
+      "2": {
+        "note": "La promesse de Jésus au malfaiteur sur le poteau — « tu seras avec moi dans le Paradis » — oriente l'espérance chrétienne vers la terre paradisiaque future."
+      }
+    },
+    "42": {
+      "0": {
+        "note": "La déclaration « au commencement était la Parole » identifie Jésus comme le premier être créé par Jéhovah, la Parole active dans la création."
+      },
+      "1": {
+        "note": "Jean 17:3 définit la vie éternelle comme « le fait d'acquérir de la connaissance » à la fois du seul vrai Dieu et de Jésus Christ."
+      },
+      "2": {
+        "note": "La déclaration « le Père est plus grand que moi » clarifie la position subordonnée de Jésus envers Jéhovah, préservant le strict monothéisme."
+      }
+    },
+    "43": {
+      "0": {
+        "note": "Le récit de la Pentecôte en Actes 2 décrit la naissance de la congrégation chrétienne sous la direction de l'esprit saint."
+      },
+      "1": {
+        "note": "La conversion de Paul en Actes 9 montre le pouvoir du message du Royaume de transformer même les opposants les plus acharnés."
+      },
+      "2": {
+        "note": "L'expansion énoncée en Actes 1:8 — « vous serez mes témoins… jusque dans la région la plus éloignée de la terre » — définit la portée mondiale de la prédication chrétienne."
+      }
+    },
+    "44": {
+      "0": {
+        "note": "La déclaration « tous ont péché et n'atteignent pas la gloire de Dieu » établit le besoin universel de la rançon par Jésus Christ."
+      },
+      "1": {
+        "note": "L'enseignement de Romains 6 sur le baptême comme symbole de mort au péché et de vie nouvelle en Christ en explique la signification spirituelle profonde."
+      },
+      "2": {
+        "note": "L'exhortation de Romains 12 à « offrir vos corps en sacrifice vivant » définit le service sacré chrétien comme une consécration totale."
+      }
+    },
+    "45": {
+      "0": {
+        "note": "L'enseignement de 1 Corinthiens 13 sur l'amour — « l'amour ne disparaît jamais » — identifie la qualité chrétienne la plus élevée."
+      },
+      "1": {
+        "note": "Les instructions sur le Repas du Seigneur en 1 Corinthiens 11 établissent le modèle correct pour la commémoration annuelle de la mort du Christ."
+      },
+      "2": {
+        "note": "Le chapitre sur la résurrection (1 Corinthiens 15) explique comment « en Christ tous seront rendus à la vie », fondement de l'espérance chrétienne."
+      }
+    },
+    "46": {
+      "0": {
+        "note": "La déclaration « si quelqu'un est en union avec Christ, il est une création nouvelle » décrit la transformation spirituelle que Jéhovah produit chez les croyants."
+      },
+      "1": {
+        "note": "Le principe du « donateur joyeux » enseigne que Jéhovah valorise l'esprit derrière nos offrandes plus que le montant lui-même."
+      },
+      "2": {
+        "note": "L'« épine dans la chair » de Paul illustre que la puissance de Jéhovah se rend parfaite dans notre faiblesse."
+      }
+    },
+    "47": {
+      "0": {
+        "note": "La déclaration « le juste vivra par la foi » énonce la vérité centrale de la justification par la foi dans le sacrifice du Christ."
+      },
+      "1": {
+        "note": "L'énumération du fruit de l'esprit en Galates 5:22-23 définit les qualités chrétiennes que Jéhovah produit chez les croyants."
+      },
+      "2": {
+        "note": "L'avertissement contre « les œuvres de la chair » fournit une liste pratique des comportements incompatibles avec la dévotion envers Jéhovah."
+      }
+    },
+    "48": {
+      "0": {
+        "note": "La déclaration « vous avez été scellés avec l'esprit saint promis » révèle le rôle de l'esprit comme garantie de l'héritage chrétien."
+      },
+      "1": {
+        "note": "L'instruction concernant « l'armure complète venant de Dieu » décrit la protection spirituelle nécessaire pour tenir ferme face à Satan."
+      },
+      "2": {
+        "note": "L'exhortation à l'amour conjugal — « aimez continuellement vos femmes » — reflète le modèle de l'amour sacrificiel du Christ pour la congrégation."
+      }
+    },
+    "49": {
+      "0": {
+        "note": "L'exhortation « réjouissez-vous toujours dans le Seigneur » illustre l'attitude chrétienne même au milieu des épreuves."
+      },
+      "1": {
+        "note": "La déclaration « pour toutes choses, j'ai la force grâce à celui qui me donne de la puissance » exprime la confiance de Paul en Jéhovah par l'entremise du Christ."
+      },
+      "2": {
+        "note": "L'exemple du Christ — « il s'est humilié lui-même et s'est rendu obéissant jusqu'à la mort » — illustre l'humilité que Jéhovah élève."
+      }
+    },
+    "50": {
+      "0": {
+        "note": "La déclaration « il est l'image du Dieu invisible, le premier-né de toute la création » identifie Jésus comme la première création directe de Jéhovah."
+      },
+      "1": {
+        "note": "L'instruction de « se défaire de la vieille personnalité » et de « revêtir la nouvelle personnalité » décrit le changement moral attendu des chrétiens."
+      },
+      "2": {
+        "note": "L'avertissement contre « la philosophie et les vaines tromperies » souligne la nécessité de soumettre toute pensée humaine à la Parole de Jéhovah."
+      }
+    },
+    "51": {
+      "0": {
+        "note": "La déclaration « le Seigneur lui-même descendra du ciel avec un cri d'ordre » décrit la présence future du Seigneur Jésus Christ."
+      },
+      "1": {
+        "note": "L'instruction de « ne pas vous affliger comme les autres » au sujet des défunts repose sur la sûre espérance chrétienne en la résurrection."
+      },
+      "2": {
+        "note": "L'exhortation « priez constamment » illustre le style de vie caractérisé par une communication continue avec Jéhovah."
+      }
+    },
+    "52": {
+      "0": {
+        "note": "La description de « l'homme qui méprise la loi » en 2 Thessaloniciens 2 avertit d'une apostasie future à l'égard du vrai culte."
+      },
+      "1": {
+        "note": "L'affirmation que Jéhovah rendra la pareille aux oppresseurs des chrétiens assure que la justice divine triomphera."
+      },
+      "2": {
+        "note": "L'instruction « si quelqu'un ne veut pas travailler, qu'il ne mange pas non plus » souligne la responsabilité chrétienne au travail honnête."
+      }
+    },
+    "53": {
+      "0": {
+        "note": "Les instructions concernant les qualités des surveillants et des assistants ministériels définissent les normes organisationnelles de Jéhovah pour la congrégation."
+      },
+      "1": {
+        "note": "La déclaration selon laquelle [Jéhovah] « veut que toutes sortes de gens soient sauvés » révèle l'impartialité divine en offrant la vérité à tous."
+      },
+      "2": {
+        "note": "L'avertissement contre l'amour de l'argent comme « racine de toutes sortes de choses nuisibles » identifie l'un des pièges spirituels les plus dangereux."
+      }
+    },
+    "54": {
+      "0": {
+        "note": "L'exhortation « toute l'Écriture est inspirée de Dieu et utile » affirme l'inspiration complète et l'utilité pratique de la Bible."
+      },
+      "1": {
+        "note": "L'instruction « prêche la parole, tiens-toi-y d'une manière pressante en période favorable et en période difficile » illustre l'urgence de l'œuvre de prédication."
+      },
+      "2": {
+        "note": "Les derniers mots de Paul — « j'ai combattu le beau combat » — enseignent à regarder en arrière avec satisfaction sur un service fidèle à Jéhovah."
+      }
+    },
+    "55": {
+      "0": {
+        "note": "Les instructions sur les qualités des anciens en Tite 1 complètent celles de 1 Timothée pour la surveillance du troupeau."
+      },
+      "1": {
+        "note": "La description de l'Évangile comme « la faveur imméritée de Dieu… qui apporte le salut » met en avant l'origine gracieuse de la rançon."
+      },
+      "2": {
+        "note": "L'appel à « rejeter l'impiété et les désirs du monde » définit les bases morales de la vie chrétienne."
+      }
+    },
+    "56": {
+      "0": {
+        "note": "L'appel personnel de Paul en faveur d'Onésime illustre comment l'amour chrétien dissout les barrières sociales les plus rigides."
+      },
+      "1": {
+        "note": "Le rappel à Philémon de sa dette envers Paul illustre les principes de l'amour fraternel entre chrétiens."
+      },
+      "2": {
+        "note": "L'instruction « reçois-le comme si c'était moi » montre la solidarité qui doit caractériser les serviteurs de Jéhovah."
+      }
+    },
+    "57": {
+      "0": {
+        "note": "La déclaration « Dieu nous a parlé par l'intermédiaire d'un Fils » affirme la position supérieure de Jésus sur les prophètes d'autrefois."
+      },
+      "1": {
+        "note": "La définition de la foi comme « l'attente assurée de choses espérées » illustre la qualité que Jéhovah récompense."
+      },
+      "2": {
+        "note": "Le « chapitre de la foi » (Hébreux 11) énumère des exemples de serviteurs fidèles dont la confiance en Jéhovah les a soutenus malgré de rudes épreuves."
+      }
+    },
+    "58": {
+      "0": {
+        "note": "L'instruction « devenez des réalisateurs de la parole, et non seulement des auditeurs » identifie la vraie preuve de la foi authentique."
+      },
+      "1": {
+        "note": "La description de la langue comme « un feu » avertit de l'immense pouvoir destructeur des paroles incontrôlées."
+      },
+      "2": {
+        "note": "L'exhortation à « vous soumettre à Dieu, mais à vous opposer au Diable » donne la formule de la victoire spirituelle face aux tentations."
+      }
+    },
+    "59": {
+      "0": {
+        "note": "La description des chrétiens comme « des pierres vivantes » édifiées en « une maison spirituelle » illustre la structure du sacerdoce royal."
+      },
+      "1": {
+        "note": "L'instruction « jetez sur lui toutes vos inquiétudes, car il prend soin de vous » assure de l'intérêt personnel de Jéhovah envers chaque serviteur."
+      },
+      "2": {
+        "note": "L'appel à « rester éveillés… parce que votre adversaire, le Diable, rôde comme un lion rugissant » rappelle la réalité du combat spirituel."
+      }
+    },
+    "60": {
+      "0": {
+        "note": "La description des faux enseignants en 2 Pierre 2 met en garde contre les dangers internes qui menacent la congrégation chrétienne."
+      },
+      "1": {
+        "note": "La promesse de « nouveaux cieux et d'une nouvelle terre, où habitera la justice » est centrale pour l'espérance chrétienne du renouveau."
+      },
+      "2": {
+        "note": "La déclaration selon laquelle Jéhovah ne veut « pas que qui que ce soit soit détruit, mais que tous parviennent à la repentance » révèle sa patience compatissante."
+      }
+    },
+    "61": {
+      "0": {
+        "note": "La définition « Dieu est amour » donne une vision incomparable du caractère essentiel du Créateur."
+      },
+      "1": {
+        "note": "Le test de l'amour fraternel — « nous ne pouvons pas aimer le Dieu que nous n'avons pas vu » — enseigne que l'amour théorique sans action n'est qu'une illusion."
+      },
+      "2": {
+        "note": "L'avertissement contre le fait de « nier » que Jésus Christ est venu dans la chair identifie l'épreuve doctrinale de base pour reconnaître le vrai christianisme."
+      }
+    },
+    "62": {
+      "0": {
+        "note": "La brève lettre de 2 Jean met en garde contre le fait d'accueillir chez soi ceux qui enseignent une doctrine différente de celle du Christ."
+      },
+      "1": {
+        "note": "L'appel à « marcher selon ses commandements » résume toute l'obéissance chrétienne dans l'expression de l'amour envers les frères."
+      },
+      "2": {
+        "note": "L'exhortation à demeurer dans « l'enseignement du Christ » montre que la vérité doctrinale est indispensable pour obtenir l'approbation de Jéhovah."
+      }
+    },
+    "63": {
+      "0": {
+        "note": "Le reproche adressé à Diotréphès met en garde contre l'ambition personnelle qui divise la congrégation."
+      },
+      "1": {
+        "note": "Les éloges adressés à Gaïus pour son soutien aux voyageurs au service de Jéhovah illustrent l'hospitalité chrétienne concrète."
+      },
+      "2": {
+        "note": "L'observation « imite ce qui est bon, non ce qui est mauvais » fournit une règle simple pour choisir qui suivre dans la congrégation."
+      }
+    },
+    "64": {
+      "0": {
+        "note": "L'avertissement contre « certains hommes » qui se sont « glissés » dans la congrégation met en garde contre les dangers internes."
+      },
+      "1": {
+        "note": "La référence à Michel disputant au Diable le corps de Moïse ajoute une perspective sur l'activité spirituelle en arrière-plan."
+      },
+      "2": {
+        "note": "L'appel à « lutter vigoureusement pour la foi » encourage les chrétiens à défendre activement la vérité révélée par Jéhovah."
+      }
+    },
+    "65": {
+      "0": {
+        "note": "La scène du trône en Révélation 4 révèle la majesté de Jéhovah entouré de créatures célestes qui l'adorent sans cesse."
+      },
+      "1": {
+        "note": "La prophétie des « nouveaux cieux et d'une nouvelle terre » en Révélation 21 annonce l'élimination de la douleur, du deuil, des cris et des souffrances."
+      },
+      "2": {
+        "note": "La promesse finale « oui, je viens vite » oriente l'espérance chrétienne vers l'accomplissement imminent du dessein de Jéhovah."
+      }
+    }
   }
 }

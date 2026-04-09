@@ -74,71 +74,47 @@
     "about": "Sobre"
   },
   "landing": {
-    "badge": "✦ Tradução do Novo Mundo · 66 Livros",
-    "titleLine1": "Aproxime-se de Jeová",
-    "titleAccent": "Um Capítulo de Cada Vez",
-    "subtitle": "Rastreador de leitura bíblica, notas de estudo, preparação de reuniões e ferramentas de IA — criado para as Testemunhas de Jeová.",
-    "feature66Books": "66 Livros",
-    "featureChapters": "Rastrear Capítulos",
-    "featureNotes": "Anotações Pessoais",
-    "featureForum": "Fórum Comunitário",
-    "featureBlog": "Blog Inspirador",
-    "cta": "Comece Sua Jornada",
-    "alreadyHaveAccount": "Já tem uma conta?",
-    "signIn": "Entrar",
-    "featureReadingPlans": "Planos de Leitura",
-    "featureAiTools": "Ferramentas de IA",
-    "featureMeetingPrep": "Preparação da Reunião",
-    "howItWorks": "Como funciona",
-    "howStep1Title": "Cadastre-se grátis",
-    "howStep1Desc": "E-mail ou Google, 30 segundos",
-    "howStep2Title": "Marque os capítulos",
-    "howStep2Desc": "Todos os 66 livros, capítulo por capítulo",
-    "howStep3Title": "Crie o hábito",
-    "howStep3Desc": "Sequências, planos, insígnias de quiz",
-    "joinPublishers": "Junte-se a {{count}}+ publicadores no mundo todo",
-    "chaptersRead": "{{count}} capítulos lidos",
-    "pricingTitle": "Preços simples e transparentes",
-    "pricingSub": "Comece grátis. Faça upgrade quando estiver pronto para ir mais fundo.",
-    "planFreeName": "Grátis",
-    "planFreePeriod": "/ para sempre",
-    "planFreeDesc": "Tudo o que você precisa para começar a acompanhar sua leitura bíblica.",
-    "planFreeCtaLabel": "Começar Grátis",
-    "planPremiumPopular": "Mais Popular",
-    "planPremiumName": "Premium",
-    "planPremiumPeriod": "/ mês",
-    "planPremiumDesc": "Aprofunde-se com planos estruturados, notas, mensagens e IA.",
-    "planPremiumCtaLabel": "Teste Grátis por 7 Dias",
-    "planPremiumNote": "Cancele a qualquer momento · Sem compromisso",
-    "freeFeatureReadingTrackerLabel": "Rastreador de Leitura",
-    "freeFeatureReadingTrackerDesc": "Acompanhe todos os 66 livros capítulo por capítulo",
-    "freeFeatureQuizLabel": "Quiz Bíblico",
-    "freeFeatureQuizDesc": "Mais de 1.000 perguntas em 12 temas",
-    "freeFeatureForumLabel": "Fórum da Comunidade",
-    "freeFeatureForumDesc": "Discuta e aprenda juntos",
-    "freeFeatureBlogLabel": "Blog",
-    "freeFeatureBlogDesc": "Leia e escreva artigos de estudo",
-    "freeFeatureStreaksLabel": "Sequências e Mapa de Calor",
-    "freeFeatureStreaksDesc": "Crie um hábito diário de leitura",
-    "premiumFeaturePlansLabel": "Planos de Leitura",
-    "premiumFeaturePlansDesc": "Planos de estudo estruturados de várias semanas",
-    "premiumFeatureNotesLabel": "Notas de Estudo",
-    "premiumFeatureNotesDesc": "Notas de texto rico vinculadas a passagens",
-    "premiumFeatureMeetingPrepLabel": "Preparação da Reunião",
-    "premiumFeatureMeetingPrepDesc": "Listas de verificação CLAM + Sentinela",
-    "premiumFeatureAiLabel": "Assistente de Estudo IA",
-    "premiumFeatureAiDesc": "Pergunte qualquer coisa sobre qualquer versículo",
-    "premiumFeatureDmLabel": "Mensagens Diretas",
-    "premiumFeatureDmDesc": "Conversas privadas com membros",
-    "premiumFeatureGroupsLabel": "Grupos de Estudo",
-    "premiumFeatureGroupsDesc": "Chat em grupo e acompanhamento de progresso",
-    "promoTitle": "Os primeiros 500 usuários recebem Premium grátis — para sempre",
-    "promoSpotsLeft": "{{count}} vagas restantes",
-    "ctaPromo": "Garantir Meu Premium Grátis — Para Sempre",
-    "planPremiumPopularPromo": "🎁 Grátis para Pioneiros",
-    "planPremiumPeriodPromo": "/ para sempre",
-    "planPremiumDescPromo": "Você está entre os primeiros 500 — garanta seu Premium vitalício, completamente grátis.",
-    "planPremiumNotePromo": "Sem cartão · Grátis para sempre · {{count}} vagas"
+    "nav": {
+      "blog": "Blog",
+      "about": "Sobre",
+      "signIn": "Entrar",
+      "getStarted": "Começar",
+      "changeLanguage": "Mudar idioma",
+      "switchLight": "Mudar para modo claro",
+      "switchDark": "Mudar para modo escuro"
+    },
+    "heroBadge": "Rastreador de leitura bíblica gratuito",
+    "heroTitle1": "Aproxime-se de Jeová",
+    "heroTitle2": "Um Capítulo de Cada Vez",
+    "heroSub": "Acompanhe sua leitura da Tradução do Novo Mundo, ganhe emblemas nos questionários, prepare-se para as reuniões e conecte-se com uma comunidade mundial de Testemunhas de Jeová.",
+    "readBlog": "Ler o Blog",
+    "publishersCount": "{{count}}+ publicadores em todo o mundo",
+    "chaptersRead": "· {{count}} capítulos lidos",
+    "feat1": "66 livros rastreados",
+    "feat2": "Planos de leitura",
+    "feat3": "Quiz bíblico",
+    "feat4": "Fórum comunitário",
+    "feat5": "Notas de estudo",
+    "feat6": "Preparação de reuniões",
+    "blogTitle": "Do Blog",
+    "blogSub": "Perspectivas de estudo bíblico para Testemunhas de Jeová",
+    "readArticle": "Ler artigo →",
+    "viewAll": "Ver todos os artigos",
+    "howTitle": "Como funciona",
+    "step1Title": "Cadastre-se gratuitamente",
+    "step1Desc": "E-mail ou Google — 30 segundos, sem cartão de crédito",
+    "step2Title": "Marque os capítulos",
+    "step2Desc": "Marque os capítulos conforme lê os 66 livros",
+    "step3Title": "Crie o hábito",
+    "step3Desc": "Sequências, emblemas e uma comunidade te mantêm motivado",
+    "testiTitle": "O que os publicadores dizem",
+    "ctaTitle": "Comece sua jornada de leitura hoje",
+    "ctaSub": "Junte-se a milhares de publicadores que acompanham sua leitura bíblica.",
+    "createAccount": "Crie sua conta",
+    "alreadyHave": "Já tem uma conta?",
+    "footerTerms": "Termos",
+    "footerPrivacy": "Privacidade",
+    "footerCopy": "© {{year}} NWT Progress · Lexx Solutionz"
   },
   "auth": {
     "title": "Lista de Leitura Bíblica",
@@ -260,7 +236,7 @@
   "admin": {
     "title": "Painel de Administração",
     "totalUsers": "Total de Usuários",
-    "admins": "Admins",
+    "admins": "Administradores",
     "members": "Membros",
     "blogWriters": "Escritores do Blog",
     "usersSection": "Usuários",
@@ -283,7 +259,7 @@
     "categoryDescription": "Descrição",
     "categoryOrder": "Ordem",
     "you": "Você",
-    "roleAdmin": "Admin",
+    "roleAdmin": "Administrador",
     "roleMember": "Membro",
     "revokeBlog": "Revogar acesso ao blog",
     "grantBlog": "Conceder acesso ao blog",
@@ -316,7 +292,7 @@
     "recentSignups": "Novos (7d)",
     "mrr": "Receita Mensal",
     "messageUser": "Mensagem",
-    "colName": "Nome de Exibição"
+    "colName": "Nome de exibição"
   },
   "profile": {
     "title": "Meu Perfil",
@@ -1144,7 +1120,7 @@
     "monthTotal_one": "{{count}} capítulo",
     "monthTotal_other": "{{count}} capítulos",
     "chBadge_one": "1 cap",
-    "chBadge_other": "{{count}} caps"
+    "chBadge_other": "{{count}} cap"
   },
   "verses": [
     {
@@ -1550,7 +1526,7 @@
     "joining": "Entrando…",
     "join": "Entrar",
     "private": "🔒 Privado",
-    "admin": "Admin",
+    "admin": "Administrador",
     "member": "Membro",
     "members": "membros",
     "notFound": "Grupo não encontrado.",
@@ -1585,7 +1561,7 @@
     "noData": "Sem dados ainda.",
     "longestStreak": "Mais longa:",
     "dayStreak": "dias seguidos",
-    "kingAdmin": "👑 Admin",
+    "kingAdmin": "👑 Administrador",
     "joined": "Entrou",
     "edited": "editado",
     "react": "Reagir",
@@ -1616,7 +1592,7 @@
     "endToEndEncrypted": "🔒 Criptografia de ponta a ponta",
     "notYetEncrypted": "⚠️ Ainda não criptografado",
     "online": "On-line",
-    "onlineDot": "● online",
+    "onlineDot": "● on-line",
     "typing": "digitando…",
     "muteSounds": "Silenciar sons",
     "enableSounds": "Ativar sons",
@@ -2645,47 +2621,732 @@
     "wtComplete": "✓ Estudo da Sentinela Concluído",
     "watchtowerStudyArticle": "Artigo de Estudo da Sentinela"
   },
-  "landing": {
-    "nav": {
-      "blog": "Blog",
-      "about": "Sobre",
-      "signIn": "Entrar",
-      "getStarted": "Começar",
-      "changeLanguage": "Mudar idioma",
-      "switchLight": "Mudar para modo claro",
-      "switchDark": "Mudar para modo escuro"
+  "bookNotablePassages": {
+    "0": {
+      "0": {
+        "note": "A declaração inicial que estabelece Jeová como o Criador dos céus e da terra, fundamento de toda a teologia das Testemunhas de Jeová sobre a soberania divina."
+      },
+      "1": {
+        "note": "O pacto de Jeová com Abraão — a base do descendente prometido que abençoaria todas as nações da terra."
+      },
+      "2": {
+        "note": "O testemunho de José de que Jeová pode transformar a adversidade em bem, ilustrando seu cuidado soberano para com os que confiam nele."
+      }
     },
-    "heroBadge": "Rastreador de leitura bíblica gratuito",
-    "heroTitle1": "Aproxime-se de Jeová",
-    "heroTitle2": "Um Capítulo de Cada Vez",
-    "heroSub": "Acompanhe sua leitura da Tradução do Novo Mundo, ganhe emblemas nos questionários, prepare-se para as reuniões e conecte-se com uma comunidade mundial de Testemunhas de Jeová.",
-    "readBlog": "Ler o Blog",
-    "publishersCount": "{{count}}+ publicadores em todo o mundo",
-    "chaptersRead": "· {{count}} capítulos lidos",
-    "feat1": "66 livros rastreados",
-    "feat2": "Planos de leitura",
-    "feat3": "Quiz bíblico",
-    "feat4": "Fórum comunitário",
-    "feat5": "Notas de estudo",
-    "feat6": "Preparação de reuniões",
-    "blogTitle": "Do Blog",
-    "blogSub": "Perspectivas de estudo bíblico para Testemunhas de Jeová",
-    "readArticle": "Ler artigo →",
-    "viewAll": "Ver todos os artigos",
-    "howTitle": "Como funciona",
-    "step1Title": "Cadastre-se gratuitamente",
-    "step1Desc": "E-mail ou Google — 30 segundos, sem cartão de crédito",
-    "step2Title": "Marque os capítulos",
-    "step2Desc": "Marque os capítulos conforme lê os 66 livros",
-    "step3Title": "Crie o hábito",
-    "step3Desc": "Sequências, emblemas e uma comunidade te mantêm motivado",
-    "testiTitle": "O que os publicadores dizem",
-    "ctaTitle": "Comece sua jornada de leitura hoje",
-    "ctaSub": "Junte-se a milhares de publicadores que acompanham sua leitura bíblica.",
-    "createAccount": "Crie sua conta",
-    "alreadyHave": "Já tem uma conta?",
-    "footerTerms": "Termos",
-    "footerPrivacy": "Privacidade",
-    "footerCopy": "© {{year}} NWT Progress · Lexx Solutionz"
+    "1": {
+      "0": {
+        "note": "Jeová revela seu nome e o significado 'Eu Me Tornarei o Que Eu Quiser Me Tornar', ressaltando a importância de conhecer e usar o nome pessoal de Jeová."
+      },
+      "1": {
+        "note": "Jeová enfatiza que seu nome o distingue de todos os outros deuses, texto-chave da TNM para restaurar o nome divino em toda a Escritura."
+      },
+      "2": {
+        "note": "Os dois primeiros mandamentos estabelecem que só Jeová é Deus e deve receber devoção exclusiva — a base da adoração pura."
+      }
+    },
+    "2": {
+      "0": {
+        "note": "O chamado de Jeová à santidade — 'Vocês devem ser santos, porque eu, Jeová, seu Deus, sou santo' — define o padrão moral para todos os que levam o seu nome."
+      },
+      "1": {
+        "note": "A declaração de que 'a vida da carne está no sangue' estabelece a santidade do sangue e sustenta o entendimento das Testemunhas de Jeová sobre a questão do sangue."
+      },
+      "2": {
+        "note": "O Dia Anual da Expiação fornecia purificação nacional, prefigurando o sacrifício superior de Jesus Cristo como Sumo Sacerdote em favor de toda a humanidade."
+      }
+    },
+    "3": {
+      "0": {
+        "note": "A bênção sacerdotal — 'Que Jeová o abençoe e o proteja' — revela o cuidado pessoal e o interesse protetor de Jeová por seu povo."
+      },
+      "1": {
+        "note": "A descrição que Jeová faz de si mesmo como 'vagaroso em irar-se e abundante em amor leal', mas sem deixar de responsabilizar o culpado, capta o equilíbrio entre sua justiça e misericórdia."
+      },
+      "2": {
+        "note": "A declaração de Balaão de que 'Deus não é um homem para dizer mentiras' afirma a absoluta confiabilidade das promessas e profecias de Jeová."
+      }
+    },
+    "4": {
+      "0": {
+        "note": "O Shemá — 'Jeová, o nosso Deus, é um só Jeová' — é o alicerce da fé monoteísta de Israel e o resumo que Jesus fez do maior mandamento."
+      },
+      "1": {
+        "note": "A promessa de Jeová de abundantes bênçãos mediante plena obediência demonstra a conexão direta entre fidelidade ao pacto e favor divino."
+      },
+      "2": {
+        "note": "O chamado de Jeová a 'escolher a vida' coloca diante de cada pessoa a responsabilidade pessoal de alinhar sua vontade aos padrões de Jeová."
+      }
+    },
+    "5": {
+      "0": {
+        "note": "A ordem de Jeová 'seja corajoso e forte' garante a Josué que a presença divina remove toda base para o medo — promessa igualmente relevante aos servos de Jeová hoje."
+      },
+      "1": {
+        "note": "A declaração de Josué 'quanto a mim e à minha família, serviremos a Jeová' representa a escolha pessoal que toda família deve fazer por devoção exclusiva."
+      },
+      "2": {
+        "note": "A afirmação de que 'nem uma só palavra de todas as boas coisas que Jeová havia falado falhou' estabelece a perfeita confiabilidade de cada promessa divina."
+      }
+    },
+    "6": {
+      "0": {
+        "note": "Jeová levantando juízes para libertar Israel mostra sua paciente misericórdia mesmo com os que repetidamente entravam em ciclos de infidelidade."
+      },
+      "1": {
+        "note": "O resumo de que 'cada um fazia o que era correto aos seus próprios olhos' descreve o caos moral que se segue à rejeição da autoridade de Jeová."
+      },
+      "2": {
+        "note": "Jeová reduzir o exército de Gideão a 300 homens demonstrou que a vitória pertence a Jeová, não ao número ou à força humana."
+      }
+    },
+    "7": {
+      "0": {
+        "note": "A declaração de Rute 'o seu povo será o meu povo, e o seu Deus será o meu Deus' é poderosa expressão de amor leal e devoção de todo o coração a Jeová."
+      },
+      "1": {
+        "note": "A bênção de Boaz de que Jeová recompensaria Rute por buscar refúgio 'debaixo das suas asas' ilustra o cuidado protetor de Jeová pelos que se achegam a ele."
+      },
+      "2": {
+        "note": "A bênção das mulheres sobre Noemi celebra Jeová como aquele que nunca deixa seu povo sem resgatador, apontando para a redenção final por meio de Cristo."
+      }
+    },
+    "8": {
+      "0": {
+        "note": "A declaração 'Jeová vê o coração' estabelece que ele avalia as pessoas com base nas qualidades internas, não nas aparências externas."
+      },
+      "1": {
+        "note": "A proclamação de Davi 'a batalha pertence a Jeová', antes de derrotar Golias, afirma que a verdadeira vitória sempre vem por confiar no poder de Jeová."
+      },
+      "2": {
+        "note": "O cântico de Ana afirmando que 'não há ninguém como Jeová' celebra sua santidade e poder incomparáveis, prefigurando o Magnificat de Maria."
+      }
+    },
+    "9": {
+      "0": {
+        "note": "O pacto de Jeová com Davi, prometendo um reino eterno por meio de seu descendente, é profecia messiânica-chave cumprida em Jesus Cristo."
+      },
+      "1": {
+        "note": "A declaração de Davi de Jeová como 'minha rocha... minha fortaleza... meu refúgio' expressa a profunda confiança pessoal em Jeová que caracterizou todo o seu reinado."
+      },
+      "2": {
+        "note": "A confissão imediata de Davi 'Pequei contra Jeová' diante da repreensão de Natã é modelo do arrependimento genuíno que Jeová aceita e perdoa."
+      }
+    },
+    "10": {
+      "0": {
+        "note": "A oração de Salomão reconhecendo que não há 'Deus como o Senhor nos céus em cima ou na terra em baixo' celebra a lealdade incomparável de Jeová ao seu pacto."
+      },
+      "1": {
+        "note": "O desafio de Elias 'até quando mancarão sobre dois pensamentos?' chama Israel a encerrar o compromisso fatal de misturar a adoração de Baal com a de Jeová."
+      },
+      "2": {
+        "note": "O pedido de Salomão por um 'coração obediente' para julgar o povo de Jeová com sabedoria demonstra a humildade que Jeová honra nos que lideram seu povo."
+      }
+    },
+    "11": {
+      "0": {
+        "note": "A explicação de que Israel caiu por 'temer a outros deuses' e seguir as práticas das nações vizinhas dá a razão teológica para o exílio assírio."
+      },
+      "1": {
+        "note": "A resposta urgente de Josias ao ouvir a Lei de Jeová — 'a ira de Jeová deve ser grande' — é modelo do coração responsivo de quem leva a sério a palavra de Jeová."
+      },
+      "2": {
+        "note": "O anjo de Jeová destruindo 185.000 soldados assírios em uma só noite reivindica a oração de Ezequias e demonstra o poder de Jeová para salvar contra qualquer adversidade."
+      }
+    },
+    "12": {
+      "0": {
+        "note": "O cântico de Davi convocando toda a terra a 'declarar sua salvação de dia em dia' e proclamar sua glória entre as nações antecipa a obra global de pregação."
+      },
+      "1": {
+        "note": "A oração de Davi reconhecendo que 'tudo o que há nos céus e na terra pertence a Jeová' reflete a atitude adequada de completa dependência dele."
+      },
+      "2": {
+        "note": "A exortação de Davi a Salomão para servir a Jeová 'de coração íntegro e de alma alegre' capta o padrão de Jeová para a devoção de todo o coração."
+      }
+    },
+    "13": {
+      "0": {
+        "note": "A promessa condicional de Jeová de 'perdoar o pecado e sarar a terra' se seu povo se humilhar e orar permanece modelo para a restauração após falhas espirituais."
+      },
+      "1": {
+        "note": "A garantia de Jeová 'a batalha não é de vocês, mas de Deus' ao exército inferior de Jeosafá ensina que a confiança plena em Jeová é sempre a estratégia correta."
+      },
+      "2": {
+        "note": "O decreto de Ciro permitindo o retorno dos exilados para reconstruir a casa de Jeová mostra a capacidade de Jeová de mover o coração de governantes mundiais para cumprir seu propósito."
+      }
+    },
+    "14": {
+      "0": {
+        "note": "A preparação de Esdras para 'consultar a Lei de Jeová, praticá-la e ensiná-la' define o modelo dos hábitos de estudo pessoal da Bíblia que Jeová valoriza em todos os seus servos."
+      },
+      "1": {
+        "note": "O cântico alegre 'Jeová é bom, seu amor leal para com Israel dura para sempre' ao lançar o fundamento do templo mostra que o amor leal de Jeová motiva o louvor sincero."
+      },
+      "2": {
+        "note": "Jeová mover o coração de Ciro para emitir seu decreto, cumprindo a profecia de Jeremias, demonstra que nenhum governante humano pode impedir o cumprimento do propósito de Jeová."
+      }
+    },
+    "15": {
+      "0": {
+        "note": "A declaração 'a alegria de Jeová é a sua fortaleza' durante a leitura pública da Lei liga o verdadeiro alimento espiritual à força interior necessária para enfrentar os desafios diários."
+      },
+      "1": {
+        "note": "A oração-confissão de Neemias, apelando ao amor leal de Jeová e reconhecendo seu próprio papel no pecado do povo, é modelo do tipo de intercessão que move Jeová a agir."
+      },
+      "2": {
+        "note": "O chamado de Neemias a 'lutar pelos seus irmãos, filhos, filhas, esposas e lares' mostra que proteger o povo de Jeová exige coragem tanto espiritual como prática."
+      }
+    },
+    "16": {
+      "0": {
+        "note": "O desafio de Mordecai 'quem sabe se não foi para um tempo como este que você chegou à posição real?' chama Ester a confiar no tempo providencial de Jeová mesmo correndo risco pessoal."
+      },
+      "1": {
+        "note": "O decreto que reverteu o plano assassino de Hamã demonstra que Jeová pode reverter circunstâncias ameaçadoras a favor dos que permanecem fiéis a ele."
+      },
+      "2": {
+        "note": "Embora o nome de Jeová não apareça no texto, sua mão orientadora é visível, lembrando às Testemunhas de Jeová que sua proteção opera mesmo quando não se vê."
+      }
+    },
+    "17": {
+      "0": {
+        "note": "A resposta de Jó 'Jeová deu, e Jeová tirou. Que o nome de Jeová continue a ser louvado' é o exemplo supremo de integridade sob a mais extrema perda pessoal."
+      },
+      "1": {
+        "note": "A declaração confiante de Jó 'meu Redentor vive' expressa a esperança da ressurreição que sustenta o povo de Jeová nas provações mais severas."
+      },
+      "2": {
+        "note": "A pergunta retórica de Jeová 'Onde estava você quando lancei os fundamentos da terra?' estabelece a vasta diferença entre a sabedoria de Jeová e o entendimento humano."
+      }
+    },
+    "18": {
+      "0": {
+        "note": "A abertura 'Jeová é o meu Pastor' capta a relação íntima e pessoal de confiança e dependência em Jeová que permeia todo o livro dos Salmos."
+      },
+      "1": {
+        "note": "A declaração de que 'Deus é para nós refúgio e força, ajuda que se acha prontamente em tempos de aflição' afirma Jeová como fonte confiável de estabilidade em qualquer crise."
+      },
+      "2": {
+        "note": "A afirmação 'para que as pessoas saibam que você, cujo nome é Jeová, você sozinho é o Altíssimo sobre toda a terra' capta a missão central das Testemunhas de Jeová de vindicar o nome de Jeová."
+      }
+    },
+    "19": {
+      "0": {
+        "note": "A declaração fundamental 'o temor de Jeová é o princípio da sabedoria' estabelece que a verdadeira sabedoria é inseparável de um relacionamento correto com Jeová."
+      },
+      "1": {
+        "note": "O conselho 'confie em Jeová de todo o coração e não se apoie no seu próprio entendimento' chama à submissão do juízo pessoal à direção de Jeová."
+      },
+      "2": {
+        "note": "A afirmação 'a mulher que teme a Jeová é a que será louvada' identifica a reverência a Jeová como a qualidade definidora da verdadeira excelência."
+      }
+    },
+    "20": {
+      "0": {
+        "note": "O refrão 'a maior futilidade — tudo é futilidade' estabelece o pano de fundo da investigação de Salomão, mostrando que a vida sem a perspectiva de Jeová não tem sentido duradouro."
+      },
+      "1": {
+        "note": "O ensino de que Jeová designou tempo para cada propósito debaixo do céu encoraja a confiança em seu tempo, em vez da ansiosa autoconfiança."
+      },
+      "2": {
+        "note": "A conclusão final — 'tema o verdadeiro Deus e guarde os seus mandamentos, pois esta é a obrigação completa do homem' — identifica a completa devoção a Jeová como o verdadeiro propósito da humanidade."
+      }
+    },
+    "21": {
+      "0": {
+        "note": "A declaração 'a sua intenção para comigo é amor' capta a segurança e a alegria que vêm de um relacionamento construído sobre o amor leal genuíno e protetor."
+      },
+      "1": {
+        "note": "A descrição do amor como 'forte como a morte' e 'suas chamas são chamas de fogo, a chama de Jah' celebra o amor dado por Jeová como o mais poderoso dos vínculos humanos."
+      },
+      "2": {
+        "note": "O louvor da sulamita ao nome do seu amado como 'óleo perfumado derramado' ilustra como a reputação e o caráter de uma pessoa atraem outros a ela."
+      }
+    },
+    "22": {
+      "0": {
+        "note": "Os títulos messiânicos 'Maravilhoso Conselheiro, Deus Poderoso, Pai Eterno, Príncipe da Paz' revelam as extraordinárias qualidades que Jeová daria a seu Rei designado."
+      },
+      "1": {
+        "note": "A promessa de que os 'que esperam em Jeová' renovarão as forças como águias oferece conforto duradouro aos seus servos durante dificuldades prolongadas."
+      },
+      "2": {
+        "note": "A profecia do Servo Sofredor 'foi traspassado pela nossa transgressão' é uma das predições messiânicas mais precisas, cumprida no sacrifício expiatório de Jesus Cristo."
+      }
+    },
+    "23": {
+      "0": {
+        "note": "A declaração de que 'o coração é mais traiçoeiro do que qualquer outra coisa' ressalta a necessidade da orientação de Jeová em vez da dependência de inclinações humanas imperfeitas."
+      },
+      "1": {
+        "note": "A promessa de Jeová 'eu bem sei os pensamentos que penso a respeito de vocês — pensamentos de paz, e não de calamidade' assegura ao povo exilado que seus propósitos para eles são sempre bons."
+      },
+      "2": {
+        "note": "A promessa de Jeová de um novo pacto 'escrito no coração', em vez de tábuas de pedra, aponta para o arranjo superior mediado por Jesus Cristo."
+      }
+    },
+    "24": {
+      "0": {
+        "note": "A afirmação de que o amor leal de Jeová 'nunca termina' e 'suas misericórdias jamais acabam; são renovadas cada manhã' é a âncora da esperança em meio ao mais profundo lamento do livro."
+      },
+      "1": {
+        "note": "O chamado a 'examinar e investigar os nossos caminhos, e retornar a Jeová' é modelo do autoexame que Jeová deseja como primeiro passo para a recuperação espiritual."
+      },
+      "2": {
+        "note": "O conselho de 'esperar em silêncio pela salvação de Jeová' ensina que a paciente perseverança na fé é a resposta adequada ao tempo de Jeová."
+      }
+    },
+    "25": {
+      "0": {
+        "note": "A declaração de Jeová 'tenho eu algum prazer na morte do iníquo?' afirma seu desejo de que todas as pessoas se arrependam e vivam, motivação-chave para a obra evangelizadora das Testemunhas de Jeová."
+      },
+      "1": {
+        "note": "A promessa de que Jeová substituirá o 'coração de pedra' por um 'coração de carne' descreve a transformação que seu espírito produz nos que retornam a ele."
+      },
+      "2": {
+        "note": "A visão do vale dos ossos secos prefigura poderosamente a ressurreição dos mortos, quando Jeová restaurará a vida a milhões sob seu Reino."
+      }
+    },
+    "26": {
+      "0": {
+        "note": "A profecia de que 'o Deus do céu estabelecerá um reino que jamais será destruído' é fundamental ao entendimento das Testemunhas de Jeová de que o Reino de Jeová é o único governo duradouro."
+      },
+      "1": {
+        "note": "A declaração de Sadraque, Mesaque e Abednego 'mesmo que ele não' nos livre exemplifica integridade absoluta perante Jeová, independentemente das consequências — a fé do 'mesmo que não'."
+      },
+      "2": {
+        "note": "A proclamação de Dario de que o Deus de Daniel 'é o Deus vivo e permanece para sempre' mostra como a integridade fiel pode mover até mesmo governantes pagãos a reconhecer a soberania de Jeová."
+      }
+    },
+    "27": {
+      "0": {
+        "note": "A promessa de Jeová de 'tomar-te por esposa em justiça e em direito, em amor leal e em misericórdia' revela a profundidade do relacionamento pactual que Jeová deseja com seu povo."
+      },
+      "1": {
+        "note": "A declaração de Jeová 'quero amor leal, e não sacrifício' identifica a disposição interior do coração como o que Jeová valoriza acima da observância ritual."
+      },
+      "2": {
+        "note": "A promessa de Jeová 'curarei a infidelidade deles; eu os amarei por livre vontade' demonstra que seu amor leal busca e restaura até mesmo os que se desviaram."
+      }
+    },
+    "28": {
+      "0": {
+        "note": "O chamado a 'rasgar o coração e não as vestes' enfatiza que Jeová deseja arrependimento genuíno interior, em vez de desempenho religioso externo."
+      },
+      "1": {
+        "note": "A promessa de Jeová de 'derramar seu espírito sobre toda sorte de carne' foi cumprida em Pentecostes de 33 EC e marca o início da congregação ungida dos últimos dias."
+      },
+      "2": {
+        "note": "A declaração de que 'todo aquele que invocar o nome de Jeová será salvo' aponta para o alcance universal da salvação disponível a todos os que buscam Jeová."
+      }
+    },
+    "29": {
+      "0": {
+        "note": "O princípio de Jeová de revelar 'seus assuntos confidenciais' aos seus servos, os profetas, antes de agir, mostra seu respeito pelo povo do pacto e sua transparência para com eles."
+      },
+      "1": {
+        "note": "O chamado 'corra o juízo como águas e a justiça como um ribeiro continuamente fluente' afirma que os padrões de Jeová para a justiça social refletem seu próprio caráter justo."
+      },
+      "2": {
+        "note": "A promessa de levantar 'a tenda caída de Davi' é citada em Atos 15:16 como cumprida por meio da congregação cristã restaurada sob o Reino de Cristo."
+      }
+    },
+    "30": {
+      "0": {
+        "note": "A declaração 'como você fez, assim se fará a você' enuncia o princípio da retribuição justa — que Jeová garante que o mal feito a seu povo será recompensado na mesma medida."
+      },
+      "1": {
+        "note": "O orgulho de Edom em sua fortaleza nas montanhas contrasta com o poder de Jeová para derrubá-los, ilustrando que o orgulho autossuficiente sempre precede a queda."
+      },
+      "2": {
+        "note": "A promessa final de que 'o reino virá a ser de Jeová' antecipa a suprema vindicação de sua soberania quando todos os poderes inimigos forem removidos."
+      }
+    },
+    "31": {
+      "0": {
+        "note": "Jeová preparar um grande peixe para engolir Jonas demonstra sua capacidade de usar qualquer meio necessário para redirecionar aqueles que ele designou para seu serviço."
+      },
+      "1": {
+        "note": "A descrição de Jonas de Jeová como 'Deus clemente e misericordioso, vagaroso em irar-se e abundante em amor leal' afirma as qualidades centrais que definem o trato de Jeová com todas as pessoas."
+      },
+      "2": {
+        "note": "A decisão de Jeová de não trazer calamidade sobre a Nínive arrependida mostra sua prontidão para estender misericórdia a qualquer nação que genuinamente se volte para ele."
+      }
+    },
+    "32": {
+      "0": {
+        "note": "A profecia de que o governante messiânico viria de Belém, 'cujas origens são dos tempos antigos', foi cumprida precisamente por Jesus Cristo e confirma a palavra confiável de Jeová."
+      },
+      "1": {
+        "note": "O requisito-resumo de Jeová de 'agir com justiça, amar a bondade e andar humildemente com o seu Deus' reduz toda a adoração verdadeira aos seus três elementos essenciais."
+      },
+      "2": {
+        "note": "A promessa paradisíaca de que 'cada um se assentará debaixo da sua videira e debaixo da sua figueira, sem haver quem os assuste' é um dos quadros mais claros do propósito terrestre de Jeová."
+      }
+    },
+    "33": {
+      "0": {
+        "note": "A declaração de que Jeová é 'vagaroso em irar-se, mas grande em poder' e 'de modo algum deixará impune o culpado' equilibra sua paciência com a certeza de sua justiça."
+      },
+      "1": {
+        "note": "Jeová ser 'uma fortaleza no dia da aflição' e conhecer 'os que nele se refugiam' dá garantia pessoal de que ele cuida e protege os fiéis."
+      },
+      "2": {
+        "note": "Jeová descrito como 'Deus zeloso e vingador' sobre seus adversários afirma que ele, por fim, defenderá seu nome e vindicará seu povo."
+      }
+    },
+    "34": {
+      "0": {
+        "note": "A declaração 'o justo viverá pela sua fidelidade' tornou-se texto fundamental para Paulo ao explicar que a justiça perante Jeová vem pela fé, não por obras da Lei."
+      },
+      "1": {
+        "note": "O compromisso de se alegrar em Jeová mesmo quando as colheitas falham e os rebanhos perecem é modelo do regozijo e louvor incondicionais que os servos de Jeová devem manter independentemente das circunstâncias."
+      },
+      "2": {
+        "note": "A promessa de que 'a terra se encherá do conhecimento da glória de Jeová' aponta para a expansão global da adoração verdadeira como propósito final de Jeová para a terra."
+      }
+    },
+    "35": {
+      "0": {
+        "note": "A descrição do grande dia de Jeová como 'próximo' e 'muito perto' cria o sentido urgente de vigilância que as Testemunhas de Jeová mantêm ao observar os acontecimentos mundiais."
+      },
+      "1": {
+        "note": "O quadro de Jeová regozijando-se sobre seu povo 'com gritos de júbilo' e exultando sobre eles 'com cânticos' revela o profundo deleite emocional de Jeová em seu povo restaurado."
+      },
+      "2": {
+        "note": "A promessa de Jeová de 'dar a todos os povos uma língua pura' para que invoquem juntos o seu nome prefigura a unidade global de adoração que as Testemunhas de Jeová já experimentam."
+      }
+    },
+    "36": {
+      "0": {
+        "note": "O desafio de Jeová a 'considerar atentamente os seus caminhos' após as colheitas falharem conecta prioridades espirituais com resultados práticos — padrão relevante para as Testemunhas de Jeová hoje."
+      },
+      "1": {
+        "note": "A promessa de que 'a glória desta casa posterior será maior do que a da anterior' encorajou começos modestos, mostrando como Jeová pode abençoar esforços humildes em seu serviço."
+      },
+      "2": {
+        "note": "A tripla exortação a 'ser forte' dirigida ao governador, ao sumo sacerdote e a todo o povo mostra que o encorajamento de Jeová está disponível a cada pessoa que faz sua obra."
+      }
+    },
+    "37": {
+      "0": {
+        "note": "O princípio de Jeová 'não por força militar nem por poder, mas pelo meu espírito' garante que a obra da adoração verdadeira tem êxito pelo espírito de Jeová, não pela força humana."
+      },
+      "1": {
+        "note": "A profecia de um rei vindo 'humilde e montado num jumento' foi cumprida precisamente por Jesus em sua entrada em Jerusalém, confirmando a confiabilidade profética."
+      },
+      "2": {
+        "note": "A profecia 'olharão para aquele a quem traspassaram' foi citada em João 19:37 e Apocalipse 1:7 como cumprida em Jesus Cristo, confirmando o insight messiânico de Zacarias."
+      }
+    },
+    "38": {
+      "0": {
+        "note": "A promessa de Jeová de enviar um mensageiro para 'preparar o caminho diante dele' foi cumprida no ministério preparatório de João Batista, demonstrando a precisão do cumprimento profético."
+      },
+      "1": {
+        "note": "O convite de Jeová a 'prová-lo' trazendo o dízimo completo e ver se ele 'derramará uma bênção até que não haja mais espaço' revela sua generosidade para com os que o põem em primeiro lugar."
+      },
+      "2": {
+        "note": "O 'livro de recordação' escrito para os que temeram a Jeová e meditaram em seu nome garante a cada servo fiel que Jeová toma cuidadosa nota pessoal de sua devoção."
+      }
+    },
+    "39": {
+      "0": {
+        "note": "A proclamação de Jesus 'arrependei-vos, porque o Reino dos céus se aproximou' lança o tema central de todo o seu ministério — as boas novas do Reino de Jeová."
+      },
+      "1": {
+        "note": "A declaração de Jesus de que veio não para destruir a Lei, mas para cumpri-la, mostra como seu ensino completou perfeitamente o propósito de Jeová para o pacto mosaico."
+      },
+      "2": {
+        "note": "A Grande Comissão de 'fazer discípulos de pessoas de todas as nações' oferece o mandato contínuo da obra mundial de pregação e ensino das Testemunhas de Jeová."
+      }
+    },
+    "40": {
+      "0": {
+        "note": "A declaração inicial 'o princípio das boas novas a respeito de Jesus Cristo, o Filho de Deus' estabelece imediatamente a identidade de Jesus como distinta — e subordinada — a Jeová."
+      },
+      "1": {
+        "note": "A confissão de Pedro 'Tu és o Cristo' em Cesareia de Filipe marca o momento decisivo em que os discípulos compreenderam a verdadeira identidade de Jesus como Messias designado por Jeová."
+      },
+      "2": {
+        "note": "A declaração de Jesus de que 'o Filho do Homem veio... para dar a sua alma em resgate em troca de muitos' expressa sucintamente o propósito redentor no cerne do seu ministério."
+      }
+    },
+    "41": {
+      "0": {
+        "note": "O propósito de Lucas de escrever um 'relato exato' a Teófilo reflete seu compromisso com a confiabilidade histórica, fortalecendo a confiança de que os relatos dos Evangelhos são dignos de crédito."
+      },
+      "1": {
+        "note": "A declaração de Jesus de que foi ungido para 'declarar boas novas aos pobres' e 'proclamar liberdade aos cativos' define seu ministério como um ministério de resgate compassivo — espelhando o próprio coração de Jeová."
+      },
+      "2": {
+        "note": "A declaração de missão de Jesus 'buscar e salvar o perdido' motiva as Testemunhas de Jeová a perseverar em compartilhar as boas novas com todo tipo de pessoas."
+      }
+    },
+    "42": {
+      "0": {
+        "note": "A tradução da TNM 'a Palavra era um deus' distingue Jesus como um poderoso ser divino, preservando ao mesmo tempo a identidade única de Jeová como o único Deus verdadeiro — ponto-chave na discussão sobre a Trindade."
+      },
+      "1": {
+        "note": "O envio do Filho de Jeová para que 'todo aquele que nele exercer fé não seja destruído, mas tenha vida eterna' resume o amor e o plano redentor no coração das boas novas."
+      },
+      "2": {
+        "note": "A declaração de Jesus 'Eu sou o caminho, a verdade e a vida; ninguém vem ao Pai senão por mim' estabelece seu papel único como mediador de acesso a Jeová."
+      }
+    },
+    "43": {
+      "0": {
+        "note": "A comissão de Jesus de serem testemunhas 'até à parte mais distante da terra' define o escopo da obra de pregação que Jeová pretendia para a congregação primitiva e continua hoje."
+      },
+      "1": {
+        "note": "A dedicação dos primeiros cristãos ao 'ensino, partilha de informação, refeições e orações' descreve o padrão de vida congregacional que Jeová valoriza."
+      },
+      "2": {
+        "note": "Os bereanos 'examinando cuidadosamente as Escrituras todos os dias' para verificar o que ouviam estabelecem o padrão ideal de estudo pessoal da Bíblia e verificação doutrinal."
+      }
+    },
+    "44": {
+      "0": {
+        "note": "A declaração de Paulo de que as boas novas 'são poder de Deus para salvação' e revelam uma justiça 'pela fé' estabelece o tema fundamental de toda a carta."
+      },
+      "1": {
+        "note": "O ensino de que 'todos pecaram', mas são 'declarados justos... como dádiva gratuita pela sua imerecida bondade, por meio da libertação pelo resgate pago por Cristo Jesus', resume a necessidade e a provisão da salvação."
+      },
+      "2": {
+        "note": "A garantia de que 'Jeová faz todas as suas obras cooperarem juntas para o bem dos que amam a Deus' oferece profundo consolo aos que enfrentam provações com fé."
+      }
+    },
+    "45": {
+      "0": {
+        "note": "A observação de Paulo de que 'a palavra do madeiro de tortura é loucura para os que perecem, mas para nós, que estamos sendo salvos, é poder de Deus' destaca o contraste entre a sabedoria mundana e a sabedoria de Jeová."
+      },
+      "1": {
+        "note": "A conclusão de que 'o maior destes é o amor' estabelece o amor como a qualidade suprema que Jeová quer ver na vida de cada membro da congregação."
+      },
+      "2": {
+        "note": "O resumo de Paulo do núcleo das boas novas — que Cristo morreu, foi sepultado e ressuscitou — mostra a ressurreição como pilar indispensável da fé cristã."
+      }
+    },
+    "46": {
+      "0": {
+        "note": "A perspectiva de Paulo de que 'a tribulação momentânea e leve produz para nós uma glória eterna de peso cada vez maior' reformula o sofrimento como algo proposital e temporário."
+      },
+      "1": {
+        "note": "A declaração de que 'se alguém está em união com Cristo, é uma nova criação' descreve a transformação que o espírito de Jeová produz nos que aceitam as boas novas."
+      },
+      "2": {
+        "note": "A garantia de Jeová 'o meu poder se aperfeiçoa na fraqueza' ensina que as aparentes limitações humanas são o contexto ideal para que a força de Jeová se manifeste."
+      }
+    },
+    "47": {
+      "0": {
+        "note": "A declaração de Paulo 'já não sou eu que vivo, mas Cristo vive em mim' descreve a entrega completa ao exemplo de Cristo que caracteriza o genuíno discipulado."
+      },
+      "1": {
+        "note": "O princípio 'não há judeu nem grego, escravo nem livre, homem nem mulher — todos vocês são um em união com Cristo Jesus' reflete a unidade e a igualdade que Jeová valoriza em sua congregação."
+      },
+      "2": {
+        "note": "A exortação de Paulo para 'permanecer firmes na liberdade' que Cristo adquiriu e 'não se deixar prender de novo num jugo de escravidão' chama os cristãos a rejeitar qualquer adição ao resgate como base para aprovação."
+      }
+    },
+    "48": {
+      "0": {
+        "note": "O ensino de que a salvação vem 'por meio da fé' como 'dádiva gratuita de Deus — não por obras' remove todo orgulho humano e estabelece a imerecida bondade de Jeová como única base para a esperança."
+      },
+      "1": {
+        "note": "Os sete 'uns' — um corpo, um espírito, uma esperança, um Senhor, uma fé, um batismo, um Deus e Pai — definem a unidade doutrinal e organizacional que Jeová espera em sua congregação."
+      },
+      "2": {
+        "note": "O conselho de Paulo para 'vestir a armadura completa de Deus' a fim de resistir às 'forças espirituais más' fornece o quadro para compreender a guerra espiritual que o povo de Jeová enfrenta."
+      }
+    },
+    "49": {
+      "0": {
+        "note": "A declaração de Paulo 'para mim, o viver é Cristo, e o morrer é ganho' revela sua completa identificação com o propósito de Cristo e sua confiante esperança na ressurreição."
+      },
+      "1": {
+        "note": "A promessa de que 'a paz de Deus, que excede todo o entendimento, guardará os seus corações e as suas faculdades mentais' garante que a paz genuína vem da própria presença de Jeová."
+      },
+      "2": {
+        "note": "A afirmação de Paulo 'tenho força para todas as coisas por meio daquele que me dá poder' é testemunho pessoal de depender da força de Jeová, não da própria."
+      }
+    },
+    "50": {
+      "0": {
+        "note": "A descrição de Jesus como 'o primogênito de toda a criação', por meio do qual 'todas as outras coisas foram criadas', estabelece sua preeminência como primeira criação única de Jeová e agente da criação."
+      },
+      "1": {
+        "note": "A declaração de Paulo de que 'a plenitude da qualidade divina habita nele corporalmente' e de que os crentes 'estão plenamente cheios' por meio de Cristo afirma a suficiência de Jesus para todas as necessidades espirituais."
+      },
+      "2": {
+        "note": "O princípio de fazer 'tudo em nome do Senhor Jesus, agradecendo a Deus, o Pai, por meio dele' estabelece Cristo como o canal pelo qual toda adoração chega a Jeová."
+      }
+    },
+    "51": {
+      "0": {
+        "note": "A descrição por Paulo da ressurreição na presença de Cristo — 'os que estão mortos em união com Cristo ressuscitarão primeiro' — oferece a esperança concreta que conforta o povo de Jeová que perdeu entes queridos."
+      },
+      "1": {
+        "note": "A tripla ordem 'alegrai-vos sempre, orai constantemente, em tudo dai graças' descreve a atitude espiritual sustentada que Jeová quer que seu povo mantenha."
+      },
+      "2": {
+        "note": "O lembrete de Paulo de que 'o dia de Jeová vem exatamente como ladrão de noite' ressalta a urgência de permanecer espiritualmente desperto e preparado a todo momento."
+      }
+    },
+    "52": {
+      "0": {
+        "note": "A promessa de 'alívio' aos crentes perseguidos 'na revelação do Senhor Jesus desde o céu' assegura que o tempo designado por Jeová para intervir trará justiça e vindicação."
+      },
+      "1": {
+        "note": "A garantia 'Jeová é fiel, e ele os fortalecerá e os guardará do iníquo' é promessa direta de proteção divina aos que confiam em Jeová."
+      },
+      "2": {
+        "note": "O aviso de Paulo sobre 'a apostasia' e 'o homem do desafio à lei' vir primeiro fornece quadro-chave para o entendimento das Testemunhas de Jeová sobre a grande apostasia surgida na cristandade."
+      }
+    },
+    "53": {
+      "0": {
+        "note": "A declaração 'há um só Deus, e um só mediador entre Deus e homens, um homem, Cristo Jesus' estabelece os papéis distintos de Jeová e Jesus, refutando a doutrina da Trindade."
+      },
+      "1": {
+        "note": "O encorajamento de Paulo a Timóteo para 'tornar-se exemplo aos fiéis no falar, na conduta, no amor, na fé, na castidade' define o padrão para os jovens servos de Jeová."
+      },
+      "2": {
+        "note": "O princípio de que 'a devoção piedosa junto com o contentamento é meio de grande ganho' identifica a riqueza espiritual perante Jeová como verdadeira medida de uma vida bem-sucedida."
+      }
+    },
+    "54": {
+      "0": {
+        "note": "O lembrete de que 'Deus não nos deu um espírito de covardia, mas de poder, de amor e de bom juízo' tranquiliza os servos de Jeová de que a ousadia em seu serviço vem dele."
+      },
+      "1": {
+        "note": "A exortação de Paulo para 'fugir dos desejos da juventude, e sim buscar a justiça, a fé, o amor, a paz' delineia as escolhas espirituais ativas que todo jovem cristão deve fazer."
+      },
+      "2": {
+        "note": "A declaração de que 'toda a Escritura é inspirada por Deus' e 'proveitosa para ensinar, para repreender, para endireitar as coisas' estabelece a Bíblia como guia completo e suficiente de Jeová."
+      }
+    },
+    "55": {
+      "0": {
+        "note": "O ensino de que a imerecida bondade de Jeová 'nos treina a rejeitar a impiedade e os desejos mundanos' mostra que entender a sua graça é em si um poderoso motivador para a conduta reta."
+      },
+      "1": {
+        "note": "A afirmação de que Jeová 'nos salvou por meio do banho que nos trouxe à vida e pela renovação pelo espírito santo' destaca que a transformação e a nova vida vêm inteiramente da iniciativa de Jeová."
+      },
+      "2": {
+        "note": "O propósito de Cristo de 'purificar para si um povo que seja sua propriedade especial, zeloso de boas obras' descreve a identidade e a missão que Jeová pretende para cada cristão dedicado."
+      }
+    },
+    "56": {
+      "0": {
+        "note": "A sugestão de Paulo de que Onésimo pode ter sido separado 'para que você o tenha de volta para sempre, não mais como escravo, mas como algo melhor do que escravo, como irmão querido' mostra como Jeová pode redimir circunstâncias difíceis para um bem maior."
+      },
+      "1": {
+        "note": "A escolha de Paulo de 'apelar com base no amor em vez de ordenar' reflete a própria abordagem de Jeová de atrair as pessoas com bondade amorosa, em vez de exigir obediência."
+      },
+      "2": {
+        "note": "A oração de Paulo para que 'a participação de Filêmon na fé torne outros plenamente cientes de todas as coisas boas que há em nós por causa de Cristo' destaca o valor de testemunho da generosidade fraternal prática."
+      }
+    },
+    "57": {
+      "0": {
+        "note": "A descrição da palavra de Jeová como 'viva e exerce poder' e 'penetra até dividir alma e espírito' capta a qualidade ativa e transformadora das Escrituras."
+      },
+      "1": {
+        "note": "A definição da fé como 'a certeza das coisas esperadas, a demonstração evidente de realidades que não se veem' fundamenta a esperança das Testemunhas de Jeová numa confiança firme baseada em evidências."
+      },
+      "2": {
+        "note": "A imagem de correr 'a carreira proposta' enquanto 'olhamos atentamente para Jesus' combina a nuvem coletiva de testemunhas fiéis com Jesus como supremo exemplo motivador."
+      }
+    },
+    "58": {
+      "0": {
+        "note": "A ordem de 'tornar-se praticante da palavra, e não somente ouvinte' desafia os que apenas acumulam conhecimento sem traduzi-lo em conduta ativa e agradável a Jeová."
+      },
+      "1": {
+        "note": "O princípio 'a fé, por si só, sem obras, é morta' esclarece que a fé genuína em Jeová naturalmente produz ação visível — as duas são inseparáveis."
+      },
+      "2": {
+        "note": "A garantia de que 'a súplica sincera do justo tem muita força' encoraja o povo de Jeová a levar cada peso a ele em oração fervorosa e específica."
+      }
+    },
+    "59": {
+      "0": {
+        "note": "O louvor de Pedro a Jeová por dar 'uma esperança viva mediante a ressurreição de Jesus Cristo' estabelece a ressurreição como base da esperança confiante que sustenta o povo de Jeová."
+      },
+      "1": {
+        "note": "A descrição dos cristãos como 'sacerdócio real, nação santa, povo de propriedade especial' chama cada Testemunha de Jeová a ver-se como pessoalmente escolhida por Jeová para seu propósito."
+      },
+      "2": {
+        "note": "O convite a 'lançar sobre ele toda a sua ansiedade, porque ele se importa com vocês' garante ao povo de Jeová o cuidado pessoal e atento dele por seus fardos individuais."
+      }
+    },
+    "60": {
+      "0": {
+        "note": "A garantia de Pedro de que 'o poder divino de Jeová nos deu tudo o que é necessário para a vida e a devoção piedosa' estabelece que Jeová equipou plenamente seu povo para todo desafio espiritual."
+      },
+      "1": {
+        "note": "A declaração de que Jeová 'não deseja que ninguém seja destruído, mas que todos cheguem ao arrependimento' revela o coração evangelizador por trás de sua paciência antes do Armagedom."
+      },
+      "2": {
+        "note": "A exortação final de 'continuar crescendo na imerecida bondade e no conhecimento do nosso Senhor' estabelece que o crescimento espiritual é processo contínuo para toda a vida, não um destino."
+      }
+    },
+    "61": {
+      "0": {
+        "note": "A promessa de que 'se confessarmos os nossos pecados, ele é fiel e justo para nos perdoar os pecados' garante ao povo de Jeová que o arrependimento sincero sempre encontra um Pai disposto a perdoar."
+      },
+      "1": {
+        "note": "A profunda declaração de João 'Deus é amor' revela que o amor não é apenas uma qualidade que Jeová possui, mas a própria essência do seu ser, a fonte de tudo o que ele faz."
+      },
+      "2": {
+        "note": "O propósito declarado de João — 'para que saibam que têm vida' — reflete o desejo de Jeová de que seus servos tenham certeza confiante sobre sua posição e esperança, em vez de viverem em dúvida."
+      }
+    },
+    "62": {
+      "0": {
+        "note": "A identificação por João do amor como 'andar segundo os seus mandamentos' liga o amor genuíno à obediência prática, não ao mero sentimento — o amor sem obediência é incompleto perante Jeová."
+      },
+      "1": {
+        "note": "O aviso de que 'todo aquele que vai adiante e não permanece no ensino do Cristo não tem a Deus' estabelece a fidelidade doutrinal como pré-requisito para a comunhão com Jeová."
+      },
+      "2": {
+        "note": "A instrução de não 'recebê-lo em casa nem lhe dar uma saudação' quando alguém traz ensino falso reflete a seriedade com que Jeová considera a proteção da congregação."
+      }
+    },
+    "63": {
+      "0": {
+        "note": "A declaração de João 'não tenho alegria maior do que esta, ouvir que os meus filhos continuam andando na verdade' capta a profunda satisfação que Jeová e seus servos sentem quando outros vivem pelos seus padrões."
+      },
+      "1": {
+        "note": "O princípio 'o que pratica o bem origina-se de Deus; o que pratica o mal não viu a Deus' identifica caráter e conduta como a evidência mais clara de um relacionamento genuíno com Jeová."
+      },
+      "2": {
+        "note": "A descrição dos missionários viajantes como saindo 'por causa do nome dele' lembra a cada Testemunha de Jeová que a obra de pregação visa, em última análise, vindicar e glorificar o nome de Jeová."
+      }
+    },
+    "64": {
+      "0": {
+        "note": "O chamado urgente de Judas a 'travar uma luta árdua pela fé que de uma vez por todas foi entregue aos santos' estabelece a defesa da pura doutrina como responsabilidade pessoal de cada cristão."
+      },
+      "1": {
+        "note": "O conselho de edificar a fé, orar em espírito santo e 'manter-se no amor de Deus' fornece a rotina de manutenção espiritual necessária para resistir à apostasia e permanecer próximo a Jeová."
+      },
+      "2": {
+        "note": "A doxologia final louvando a Jeová como 'aquele que é capaz de guardá-los de tropeçar' garante que a suprema proteção espiritual repousa nas mãos de Jeová, não apenas no esforço humano."
+      }
+    },
+    "65": {
+      "0": {
+        "note": "A autodeclaração de Jeová como 'o Alfa e o Ômega... o Todo-Poderoso' no versículo de abertura de Apocalipse enquadra todo o livro como o relato do Deus Supremo conduzindo a história à sua conclusão designada."
+      },
+      "1": {
+        "note": "A proclamação celestial do Cordeiro como digno de receber 'poder, riqueza, sabedoria, força, honra, glória e bênção' celebra o papel central de Cristo no propósito de Jeová."
+      },
+      "2": {
+        "note": "A promessa de que Jeová 'enxugará toda lágrima dos seus olhos, e a morte não mais existirá' é a expressão culminante do propósito do Reino de Jeová — a completa remoção de todo sofrimento."
+      }
+    }
   }
 }

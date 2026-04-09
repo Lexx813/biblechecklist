@@ -74,71 +74,47 @@
     "about": "Tungkol Sa"
   },
   "landing": {
-    "badge": "✦ Bagong Sanlibutang Salin · 66 Aklat",
-    "titleLine1": "Lumapit Kay Jehova",
-    "titleAccent": "Isang Kabanata sa Isang Pagkakataon",
-    "subtitle": "Tagasubaybay ng pagbabasa ng Bibliya, mga tala sa pag-aaral, paghahanda ng pulong, at mga tool sa pag-aaral na may AI — para sa mga Saksi ni Jehova.",
-    "feature66Books": "66 Aklat",
-    "featureChapters": "Subaybayan ang Mga Kabanata",
-    "featureNotes": "Personal na Mga Tala",
-    "featureForum": "Forum ng Komunidad",
-    "featureBlog": "Nakapagpapasiglang Blog",
-    "cta": "Simulan ang Iyong Paglalakbay",
-    "alreadyHaveAccount": "Mayroon ka nang account?",
-    "signIn": "Mag-sign in",
-    "featureReadingPlans": "Mga Plano sa Pagbabasa",
-    "featureAiTools": "Mga AI na Kagamitan",
-    "featureMeetingPrep": "Paghahanda sa Pulong",
-    "howItWorks": "Paano ito gumagana",
-    "howStep1Title": "Mag-sign up nang libre",
-    "howStep1Desc": "Email o Google, 30 segundo",
-    "howStep2Title": "Markahan ang mga kabanata",
-    "howStep2Desc": "Lahat ng 66 aklat, kabanata sa kabanata",
-    "howStep3Title": "Bumuo ng gawi",
-    "howStep3Desc": "Mga streak, plano, mga badge sa pagsubok",
-    "joinPublishers": "Sumali sa {{count}}+ mga publisher sa buong mundo",
-    "chaptersRead": "{{count}} mga kabanatang nabasa",
-    "pricingTitle": "Simple at transparent na presyo",
-    "pricingSub": "Magsimula nang libre. Mag-upgrade kapag handa ka nang pumunta ng mas malalim.",
-    "planFreeName": "Libre",
-    "planFreePeriod": "/ magpakailanman",
-    "planFreeDesc": "Lahat ng kailangan mo para simulan ang pagsubaybay sa iyong pagbabasa ng Bibliya.",
-    "planFreeCtaLabel": "Magsimula nang Libre",
-    "planPremiumPopular": "Pinakasikat",
-    "planPremiumName": "Premium",
-    "planPremiumPeriod": "/ buwan",
-    "planPremiumDesc": "Pumunta ng mas malalim gamit ang mga structured na plano, tala, mensahe, at AI.",
-    "planPremiumCtaLabel": "Subukan nang Libre sa Loob ng 7 Araw",
-    "planPremiumNote": "Kanselahin anumang oras · Walang pangako",
-    "freeFeatureReadingTrackerLabel": "Tracker ng Pagbabasa",
-    "freeFeatureReadingTrackerDesc": "Subaybayan ang lahat ng 66 aklat kabanata sa kabanata",
-    "freeFeatureQuizLabel": "Pagsubok sa Bibliya",
-    "freeFeatureQuizDesc": "Mahigit 1,000 tanong sa 12 tema",
-    "freeFeatureForumLabel": "Forum ng Komunidad",
-    "freeFeatureForumDesc": "Talakayin at matuto nang magkasama",
-    "freeFeatureBlogLabel": "Blog",
-    "freeFeatureBlogDesc": "Magbasa at sumulat ng mga artikulong pang-aral",
-    "freeFeatureStreaksLabel": "Mga Streak at Heatmap",
-    "freeFeatureStreaksDesc": "Bumuo ng pang-araw-araw na gawi sa pagbabasa",
-    "premiumFeaturePlansLabel": "Mga Plano sa Pagbabasa",
-    "premiumFeaturePlansDesc": "Mga structured na plano sa pag-aaral ng maraming linggo",
-    "premiumFeatureNotesLabel": "Mga Tala sa Pag-aaral",
-    "premiumFeatureNotesDesc": "Mga rich-text na tala na nakakonekta sa mga sipi",
-    "premiumFeatureMeetingPrepLabel": "Paghahanda sa Pulong",
-    "premiumFeatureMeetingPrepDesc": "Mga listahan ng CLAM + Bantayan",
-    "premiumFeatureAiLabel": "AI na Katulong sa Pag-aaral",
-    "premiumFeatureAiDesc": "Magtanong ng anumang bagay tungkol sa anumang talata",
-    "premiumFeatureDmLabel": "Mga Direktang Mensahe",
-    "premiumFeatureDmDesc": "Mga pribadong pag-uusap sa mga miyembro",
-    "premiumFeatureGroupsLabel": "Mga Grupo sa Pag-aaral",
-    "premiumFeatureGroupsDesc": "Group chat at pagsubaybay sa pag-unlad",
-    "promoTitle": "Ang unang 500 gumagamit ay makakakuha ng Premium nang libre — habambuhay",
-    "promoSpotsLeft": "{{count}} puwesto na natitira",
-    "ctaPromo": "I-claim ang Libreng Premium — Habambuhay",
-    "planPremiumPopularPromo": "🎁 Libre para mga Unang Gumagamit",
-    "planPremiumPeriodPromo": "/ habambuhay",
-    "planPremiumDescPromo": "Ikaw ay isa sa unang 500 — i-claim ang iyong habambuhay na Premium nang libre.",
-    "planPremiumNotePromo": "Walang credit card · Libre habambuhay · {{count}} puwesto"
+    "nav": {
+      "blog": "Blog",
+      "about": "Tungkol",
+      "signIn": "Mag-sign in",
+      "getStarted": "Magsimula",
+      "changeLanguage": "Baguhin ang wika",
+      "switchLight": "Lumipat sa light mode",
+      "switchDark": "Lumipat sa dark mode"
+    },
+    "heroBadge": "Libreng Bible reading tracker",
+    "heroTitle1": "Lumalapit kay Jehova",
+    "heroTitle2": "Isang Kabanata sa Isang Pagkakataon",
+    "heroSub": "Subaybayan ang iyong pagbabasa ng Bagong Sanlibutang Salin, makakuha ng mga badge sa pagsusulit, maghanda para sa mga pulong, at makipag-ugnayan sa pandaigdigang komunidad ng mga Saksi ni Jehova.",
+    "readBlog": "Basahin ang Blog",
+    "publishersCount": "{{count}}+ mga publisher sa buong mundo",
+    "chaptersRead": "· {{count}} kabanata na nabasa",
+    "feat1": "66 aklat na sinusubaybayan",
+    "feat2": "Mga plano sa pagbabasa",
+    "feat3": "Bible quiz",
+    "feat4": "Komunidad na forum",
+    "feat5": "Mga tala sa pag-aaral",
+    "feat6": "Paghahanda ng pulong",
+    "blogTitle": "Mula sa Blog",
+    "blogSub": "Mga pananaw sa pag-aaral ng Bibliya para sa mga Saksi ni Jehova",
+    "readArticle": "Basahin ang artikulo →",
+    "viewAll": "Tingnan ang lahat ng artikulo",
+    "howTitle": "Paano ito gumagana",
+    "step1Title": "Mag-sign up nang libre",
+    "step1Desc": "Email o Google — 30 segundo, walang credit card",
+    "step2Title": "Lagyan ng tsek ang mga kabanata",
+    "step2Desc": "Markahan ang mga kabanata habang nagbabasa sa lahat ng 66 aklat",
+    "step3Title": "Bumuo ng gawi",
+    "step3Desc": "Mga streak, badge, at komunidad ang mag-uudyok sa iyo",
+    "testiTitle": "Ano ang sinasabi ng mga publisher",
+    "ctaTitle": "Simulan ang iyong paglalakbay sa pagbabasa ngayon",
+    "ctaSub": "Sumali sa libu-libong mga publisher na sumusubaybay ng kanilang pagbabasa ng Bibliya.",
+    "createAccount": "Gumawa ng Account",
+    "alreadyHave": "Mayroon ka nang account?",
+    "footerTerms": "Mga Tuntunin",
+    "footerPrivacy": "Pagkapribado",
+    "footerCopy": "© {{year}} NWT Progress · Lexx Solutionz"
   },
   "auth": {
     "title": "Listahan ng Pagbabasa ng Bibliya",
@@ -156,7 +132,7 @@
     "errorPasswordShort": "Ang password ay dapat may hindi bababa sa 8 karakter.",
     "errorPasswordMismatch": "Hindi tugma ang mga password.",
     "errorDisplayNameRequired": "Mangyaring maglagay ng display name.",
-    "displayNameLabel": "Display Name",
+    "displayNameLabel": "Pangalan na Ipapakita",
     "displayNamePlaceholder": "Paano ka makikita ng iba",
     "displayNameHint": "Ito ang pangalang ipinapakita sa ibang mga gumagamit — mananatiling pribado ang iyong email.",
     "submitLogin": "Mag-login",
@@ -316,7 +292,7 @@
     "recentSignups": "Bago (7d)",
     "mrr": "Buwanang Kita",
     "messageUser": "Mensahe",
-    "colName": "Display Name"
+    "colName": "Pangalan"
   },
   "profile": {
     "title": "Aking Profile",
@@ -384,7 +360,7 @@
     "avatarHint": "JPG, PNG o WebP · Max 5 MB",
     "changeAvatar": "Baguhin ang Larawan",
     "uploading": "Ina-upload…",
-    "displayName": "Display Name",
+    "displayName": "Pangalan na Ipapakita",
     "email": "Email Address",
     "dangerZone": "Mapanganib na Zone",
     "deleteDesc": "Permanenteng burahin ang iyong account at lahat ng kaugnay na data. Hindi ito maaaring ibalik.",
@@ -506,7 +482,7 @@
     "solution": "Solusyon",
     "markSolution": "Markahan bilang Solusyon",
     "unmarkSolution": "Alisin ang Marka ng Solusyon",
-    "trending": "Trending",
+    "trending": "Uso",
     "replyPlaceholder": "Sumulat ng tugon…",
     "postReply": "Mag-post ng Tugon",
     "replyEmptyError": "Hindi maaaring walang laman ang tugon.",
@@ -1515,7 +1491,7 @@
     "oldTestament": "Lumang Tipan (39 aklat)",
     "newTestament": "Bagong Tipan (27 aklat)",
     "dayCount": "Ilang araw?",
-    "custom": "Custom",
+    "custom": "Pasadya",
     "enterDays": "Ilagay ang bilang ng araw",
     "createAndStart": "Gumawa at Simulan",
     "customNameRequired": "Mangyaring maglagay ng pangalan para sa plano.",
@@ -2645,47 +2621,732 @@
     "wtComplete": "✓ Pag-aaral ng Bantayan Kumpleto",
     "watchtowerStudyArticle": "Artikulo sa Pag-aaral ng Bantayan"
   },
-  "landing": {
-    "nav": {
-      "blog": "Blog",
-      "about": "Tungkol",
-      "signIn": "Mag-sign in",
-      "getStarted": "Magsimula",
-      "changeLanguage": "Baguhin ang wika",
-      "switchLight": "Lumipat sa light mode",
-      "switchDark": "Lumipat sa dark mode"
+  "bookNotablePassages": {
+    "0": {
+      "0": {
+        "note": "Ang pambungad na pahayag na nagtatatag kay Jehova bilang Maylalang ng langit at lupa, pundasyon ng lahat ng turo ng mga Saksi ni Jehova tungkol sa soberanya ni Jehova."
+      },
+      "1": {
+        "note": "Ang tipan ni Jehova kay Abraham — ang pundasyon ng ipinangakong binhi na magpapala sa lahat ng bansa sa lupa."
+      },
+      "2": {
+        "note": "Ang patotoo ni Jose na kaya ni Jehova na gawing mabuti ang masama, na naglalarawan ng kaniyang soberanong pangangalaga sa mga nagtitiwala sa kaniya."
+      }
     },
-    "heroBadge": "Libreng Bible reading tracker",
-    "heroTitle1": "Lumalapit kay Jehova",
-    "heroTitle2": "Isang Kabanata sa Isang Pagkakataon",
-    "heroSub": "Subaybayan ang iyong pagbabasa ng Bagong Sanlibutang Salin, makakuha ng mga badge sa pagsusulit, maghanda para sa mga pulong, at makipag-ugnayan sa pandaigdigang komunidad ng mga Saksi ni Jehova.",
-    "readBlog": "Basahin ang Blog",
-    "publishersCount": "{{count}}+ mga publisher sa buong mundo",
-    "chaptersRead": "· {{count}} kabanata na nabasa",
-    "feat1": "66 aklat na sinusubaybayan",
-    "feat2": "Mga plano sa pagbabasa",
-    "feat3": "Bible quiz",
-    "feat4": "Komunidad na forum",
-    "feat5": "Mga tala sa pag-aaral",
-    "feat6": "Paghahanda ng pulong",
-    "blogTitle": "Mula sa Blog",
-    "blogSub": "Mga pananaw sa pag-aaral ng Bibliya para sa mga Saksi ni Jehova",
-    "readArticle": "Basahin ang artikulo →",
-    "viewAll": "Tingnan ang lahat ng artikulo",
-    "howTitle": "Paano ito gumagana",
-    "step1Title": "Mag-sign up nang libre",
-    "step1Desc": "Email o Google — 30 segundo, walang credit card",
-    "step2Title": "Lagyan ng tsek ang mga kabanata",
-    "step2Desc": "Markahan ang mga kabanata habang nagbabasa sa lahat ng 66 aklat",
-    "step3Title": "Bumuo ng gawi",
-    "step3Desc": "Mga streak, badge, at komunidad ang mag-uudyok sa iyo",
-    "testiTitle": "Ano ang sinasabi ng mga publisher",
-    "ctaTitle": "Simulan ang iyong paglalakbay sa pagbabasa ngayon",
-    "ctaSub": "Sumali sa libu-libong mga publisher na sumusubaybay ng kanilang pagbabasa ng Bibliya.",
-    "createAccount": "Gumawa ng Account",
-    "alreadyHave": "Mayroon ka nang account?",
-    "footerTerms": "Mga Tuntunin",
-    "footerPrivacy": "Pagkapribado",
-    "footerCopy": "© {{year}} NWT Progress · Lexx Solutionz"
+    "1": {
+      "0": {
+        "note": "Inihayag ni Jehova ang kaniyang pangalan at ang kahulugan nito, 'Ako ay Magiging Anuman ang Kagustuhan Kong Maging,' na nagdidiin sa kahalagahan ng pagkilala at paggamit sa personal na pangalan ni Jehova."
+      },
+      "1": {
+        "note": "Idiniin ni Jehova na ang kaniyang pangalan ang nagpapakilala sa kaniya mula sa lahat ng iba pang diyos, susing talata ng NWT para sa pagpapanumbalik ng banal na pangalan sa buong Kasulatan."
+      },
+      "2": {
+        "note": "Itinatatag ng unang dalawang utos na si Jehova lamang ang Diyos at dapat tumanggap ng eksklusibong debosyon — ang pundasyon ng dalisay na pagsamba."
+      }
+    },
+    "2": {
+      "0": {
+        "note": "Ang panawagan ni Jehova sa kabanalan — 'Kayo ay dapat maging banal, dahil ako, si Jehova na inyong Diyos, ay banal' — ang nagtatakda ng pamantayang moral para sa lahat ng nagdadala ng kaniyang pangalan."
+      },
+      "1": {
+        "note": "Ang pahayag na 'ang buhay ng laman ay nasa dugo' ang nagtatatag sa kabanalan ng dugo at nagiging batayan ng pagkaunawa ng mga Saksi ni Jehova sa isyu ng dugo."
+      },
+      "2": {
+        "note": "Ang taunang Araw ng Pagbabayad-Sala ay naglaan ng pambansang paglilinis, paunang-tanda ng higit na dakilang hain ni Jesu-Kristo bilang Mataas na Saserdote para sa buong sangkatauhan."
+      }
+    },
+    "3": {
+      "0": {
+        "note": "Ang pagpapalang Aaronico — 'Pagpalain ka ni Jehova at ingatan ka' — ay naghahayag ng personal na pangangalaga at proteksiyon ni Jehova sa kaniyang bayan."
+      },
+      "1": {
+        "note": "Ang paglalarawan ni Jehova sa kaniyang sarili bilang 'mabagal sa pagkagalit at sagana sa maibiging-kabaitan' habang hindi pinaliligtas ang maysala ang kumukuha ng balanse ng kaniyang katarungan at awa."
+      },
+      "2": {
+        "note": "Ang pahayag ni Balaam na 'ang Diyos ay hindi tao na magsisinungaling' ay nagpapatunay sa ganap na pagkamapagkakatiwalaan ng mga pangako at hula ni Jehova."
+      }
+    },
+    "4": {
+      "0": {
+        "note": "Ang Shema — 'Si Jehova na ating Diyos ay iisang Jehova' — ay ang saligan ng monoteistikong pananampalataya ng Israel at ang buod ni Jesus sa pinakadakilang utos."
+      },
+      "1": {
+        "note": "Ang pangako ni Jehova ng saganang pagpapala sa lubos na pagsunod ay nagpapakita ng tuwirang koneksiyon ng katapatan sa tipan at pagsang-ayon ng Diyos."
+      },
+      "2": {
+        "note": "Ang panawagan ni Jehova na 'piliin ang buhay' ay naglalagay sa harap ng bawat tao ng personal na responsibilidad na iayon ang kalooban sa mga pamantayan ni Jehova."
+      }
+    },
+    "5": {
+      "0": {
+        "note": "Ang utos ni Jehova na 'magpakalakas at magpakatapang' ay tiniyak kay Josue na ang presensiya ng Diyos ay nag-aalis ng batayan para sa takot — pangakong may parehong kaugnayan sa mga lingkod ni Jehova ngayon."
+      },
+      "1": {
+        "note": "Ang pahayag ni Josue na 'kung tungkol sa akin at sa aking sambahayan, kami ay maglilingkod kay Jehova' ay kumakatawan sa personal na pagpili na dapat gawin ng bawat pamilya para sa eksklusibong debosyon."
+      },
+      "2": {
+        "note": "Ang pagpapatibay na 'wala ni isang salita na nabigo sa lahat ng mabuting mga bagay na sinalita ni Jehova' ay nagtatatag ng perpektong pagkamapagkakatiwalaan ng bawat banal na pangako."
+      }
+    },
+    "6": {
+      "0": {
+        "note": "Ang pagbabangon ni Jehova ng mga hukom upang magligtas sa Israel ay nagpapakita ng kaniyang matiising awa kahit sa mga paulit-ulit na umiikot sa kawalang-katapatan."
+      },
+      "1": {
+        "note": "Ang buod na 'ang bawat isa ay gumagawa ng tama sa kaniyang sariling mata' ay naglalarawan ng moral na kaguluhan na kasunod ng pagtanggi sa awtoridad ni Jehova."
+      },
+      "2": {
+        "note": "Binawasan ni Jehova ang hukbo ni Gideon sa 300 lalaki upang ipakita na ang tagumpay ay pagmamay-ari ni Jehova, hindi ng bilang o lakas ng tao."
+      }
+    },
+    "7": {
+      "0": {
+        "note": "Ang pahayag ni Ruth na 'ang inyong bayan ay magiging bayan ko at ang inyong Diyos ay magiging Diyos ko' ay malakas na ekspresyon ng maibiging-kabaitan at buong-pusong debosyon kay Jehova."
+      },
+      "1": {
+        "note": "Ang pagpapala ni Boaz na gagantimpalaan ni Jehova si Ruth dahil sa paghanap ng kanlungan 'sa ilalim ng kaniyang mga pakpak' ay naglalarawan ng mapagsanggalang na pangangalaga ni Jehova sa mga lumalapit sa kaniya."
+      },
+      "2": {
+        "note": "Ang pagpapala ng mga babae kay Noemi ay nagdiriwang kay Jehova bilang Diyos na hindi iniiwan ang kaniyang bayan nang walang manunubos, na tumuturo sa tiyak na pagtubos sa pamamagitan ni Kristo."
+      }
+    },
+    "8": {
+      "0": {
+        "note": "Ang pahayag na 'nakikita ni Jehova ang puso' ay nagtatatag na sinusuri niya ang mga tao batay sa panloob na mga katangian, hindi sa panlabas na anyo."
+      },
+      "1": {
+        "note": "Ang proklamasyon ni David na 'ang labanan ay kay Jehova' bago talunin si Goliat ay nagpapatibay na ang tunay na tagumpay ay laging sa pamamagitan ng pag-asa sa kapangyarihan ni Jehova."
+      },
+      "2": {
+        "note": "Ang awit ni Ana na nagpapatibay na 'walang gaya ni Jehova' ay nagdiriwang ng kaniyang walang katulad na kabanalan at kapangyarihan, paunang-tanda ng Magnificat ni Maria."
+      }
+    },
+    "9": {
+      "0": {
+        "note": "Ang tipan ni Jehova kay David na nangangako ng walang hanggang kaharian sa pamamagitan ng kaniyang supling ay susing hula ukol sa Mesiyas na natupad kay Jesu-Kristo."
+      },
+      "1": {
+        "note": "Ang pahayag ni David kay Jehova bilang 'aking bato... aking tanggulan... aking kanlungan' ay nagpapahayag ng malalim na personal na tiwala kay Jehova na nagpakilala sa kaniyang buong paghahari."
+      },
+      "2": {
+        "note": "Ang kagyat na pagtatapat ni David na 'nagkasala ako kay Jehova' sa pagsaway ni Natan ay huwaran ng tunay na pagsisisi na tinatanggap at pinapatawad ni Jehova."
+      }
+    },
+    "10": {
+      "0": {
+        "note": "Ang panalangin ni Solomon na kumikilala na walang 'Diyos na tulad mo sa langit sa itaas o sa lupa sa ibaba' ay nagdiriwang sa walang katulad na katapatan ni Jehova sa kaniyang tipan."
+      },
+      "1": {
+        "note": "Ang hamon ni Elias na 'hanggang kailan kayo iingkong sa dalawang panig?' ay tumatawag sa Israel na tapusin ang nakamamatay na pakikibagay ng paghahalo ng pagsamba kay Baal sa pagsamba kay Jehova."
+      },
+      "2": {
+        "note": "Ang kahilingan ni Solomon ng 'masunuring puso' upang humatol sa bayan ni Jehova nang may karunungan ay nagpapakita ng pagpapakumbaba na pinararangalan ni Jehova sa mga namumuno sa kaniyang bayan."
+      }
+    },
+    "11": {
+      "0": {
+        "note": "Ang paliwanag na bumagsak ang Israel dahil sila 'natakot sa ibang mga diyos' at sumunod sa mga gawi ng mga bansang nakapalibot ang nagbibigay ng teolohikong dahilan para sa pagkakatapon sa Asiria."
+      },
+      "1": {
+        "note": "Ang kagyat na pagtugon ni Josias sa pagkarinig sa kautusan ni Jehova — 'ang galit ni Jehova ay tiyak na matindi' — ay huwaran ng pusong tumutugon ng seryoso sa salita ni Jehova."
+      },
+      "2": {
+        "note": "Ang anghel ni Jehova na pumuksa sa 185,000 sundalong Asiryano sa isang gabi ay nagpawalang-sala sa panalangin ni Ezekias at nagpakita ng kapangyarihan ni Jehova na magligtas laban sa anumang pagsubok."
+      }
+    },
+    "12": {
+      "0": {
+        "note": "Ang awit ni David na tumatawag sa buong lupa na 'ipahayag ang pagliligtas ni Jehova sa araw-araw' at ibunyag ang kaniyang kaluwalhatian sa mga bansa ay paunang-tanda ng pandaigdigang gawaing pangangaral."
+      },
+      "1": {
+        "note": "Ang panalangin ni David na kumikilala na 'ang lahat sa langit at sa lupa ay kay Jehova' ay sumasalamin sa tamang saloobin ng lubos na pagsalalay sa kaniya."
+      },
+      "2": {
+        "note": "Ang atas ni David kay Solomon na maglingkod kay Jehova 'nang may sakdal na puso at maligayang kaluluwa' ay kumukuha sa pamantayan ni Jehova para sa buong-pusong debosyon."
+      }
+    },
+    "13": {
+      "0": {
+        "note": "Ang may-kondisyong pangako ni Jehova na 'patatawarin ang kanilang kasalanan at pagagalingin ang kanilang lupain' kung magpapakumbaba at mananalangin ang kaniyang bayan ay nananatiling huwaran ng pagpapanumbalik pagkatapos ng espirituwal na pagbagsak."
+      },
+      "1": {
+        "note": "Ang katiyakan ni Jehova na 'ang labanan ay hindi sa inyo, kundi sa Diyos' sa mas maliit na hukbo ni Jehosapat ay nagtuturo na ang lubos na pagtitiwala kay Jehova ay laging tamang estratehiya."
+      },
+      "2": {
+        "note": "Ang atas ni Ciro na pinahihintulutan ang mga tapon na bumalik upang muling itayo ang bahay ni Jehova ay nagpapakita ng kakayahan ni Jehova na igalaw ang puso ng mga pinuno ng mundo upang tuparin ang kaniyang layunin."
+      }
+    },
+    "14": {
+      "0": {
+        "note": "Ang paghahanda ni Ezra na 'sumangguni sa Kautusan ni Jehova, isagawa ito, at ituro ito' ay naglalagay ng huwaran ng personal na pag-aaral sa Bibliya na pinahahalagahan ni Jehova sa lahat ng kaniyang mga lingkod."
+      },
+      "1": {
+        "note": "Ang masayang pag-awit na 'si Jehova ay mabuti, ang kaniyang maibiging-kabaitan sa Israel ay nagpapatuloy magpakailanman' sa paglalagay ng pundasyon ng Templo ay nagpapakita na ang maibiging-kabaitan ni Jehova ay pumupukaw ng taos-pusong papuri."
+      },
+      "2": {
+        "note": "Ang pagpukaw ni Jehova sa puso ni Ciro upang maglabas ng atas na tumutupad sa hula ni Jeremias ay nagpapakita na walang pinunong pantao ang makapipigil kay Jehova sa pagtupad ng kaniyang layunin."
+      }
+    },
+    "15": {
+      "0": {
+        "note": "Ang pahayag na 'ang kagalakan ni Jehova ay ang inyong kalakasan' sa panahon ng pampublikong pagbabasa ng Kautusan ay nag-uugnay sa tunay na espirituwal na pagkain sa panloob na lakas na kailangan sa pang-araw-araw na pagsubok."
+      },
+      "1": {
+        "note": "Ang panalangin-pagtatapat ni Nehemias na umaapela sa maibiging-kabaitan ni Jehova at sa sarili niyang bahagi sa kasalanan ng bayan ay huwaran ng panalanging pamamagitan na nag-uudyok kay Jehova na kumilos."
+      },
+      "2": {
+        "note": "Ang panawagan ni Nehemias na 'ipaglaban ang inyong mga kapatid, mga anak na lalaki, mga anak na babae, mga asawa, at mga tahanan' ay nagpapakita na ang pangangalaga sa bayan ni Jehova ay nangangailangan ng espirituwal at praktikal na tapang."
+      }
+    },
+    "16": {
+      "0": {
+        "note": "Ang hamon ni Mardoqueo na 'sino ang nakakaalam kung hindi para sa ganitong panahon ka nakarating sa maharlikang katayuan' ay tumatawag kay Ester na magtiwala sa probidensyal na pagtitiyempo ni Jehova kahit sa panganib ng sarili."
+      },
+      "1": {
+        "note": "Ang atas na pumawi sa mapang-abusong balak ni Haman ay nagpapakita na kaya ni Jehova na pabaligtarin ang nakaambang kalagayan para sa mga mananatiling tapat sa kaniya."
+      },
+      "2": {
+        "note": "Kahit hindi lumitaw ang pangalan ni Jehova sa teksto, makikita ang kaniyang gabay na kamay, na nagpapaalala sa mga Saksi ni Jehova na ang kaniyang proteksiyon ay kumikilos kahit hindi nakikita."
+      }
+    },
+    "17": {
+      "0": {
+        "note": "Ang tugon ni Job na 'si Jehova ang nagbigay, at si Jehova ang kumuha. Purihin ang pangalan ni Jehova' ay ang pinakadakilang halimbawa ng katapatan sa ilalim ng pinakamatinding personal na pagkawala."
+      },
+      "1": {
+        "note": "Ang buong tiwalang pahayag ni Job na 'buháy ang aking Manunubos' ay nagpapahayag ng pag-asa sa pagkabuhay-muli na nagpapalakas sa bayan ni Jehova sa pinakamasasakit na pagsubok."
+      },
+      "2": {
+        "note": "Ang tanong ni Jehova na 'nasaan ka nang ilagay ko ang mga pundasyon ng lupa?' ay nagtatatag ng malaking pagkakaiba sa pagitan ng karunungan ni Jehova at pang-unawa ng tao."
+      }
+    },
+    "18": {
+      "0": {
+        "note": "Ang pambungad na 'si Jehova ang aking Pastol' ay kumukuha sa matalik at personal na relasyon ng tiwala at pag-asa kay Jehova na umaagos sa buong Awit."
+      },
+      "1": {
+        "note": "Ang pahayag na 'ang Diyos ay ating kanlungan at lakas, tulong na madaling masumpungan sa panahon ng kabagabagan' ay nagpapatibay kay Jehova bilang maaasahang pinagmumulan ng katatagan sa anumang krisis."
+      },
+      "2": {
+        "note": "Ang pahayag na 'upang malaman ng mga tao na ikaw, na ang pangalan ay Jehova, ikaw lamang ang Kataas-taasan sa buong lupa' ay kumukuha sa sentrong misyon ng mga Saksi ni Jehova na bigyang-kabanalan ang pangalan ni Jehova."
+      }
+    },
+    "19": {
+      "0": {
+        "note": "Ang pundasyong pahayag na 'ang takot kay Jehova ang pasimula ng karunungan' ay nagtatatag na ang tunay na karunungan ay hindi mapaghihiwalay sa tamang relasyon kay Jehova."
+      },
+      "1": {
+        "note": "Ang payo na 'magtiwala kay Jehova nang buo mong puso at huwag umasa sa iyong sariling pang-unawa' ay tumatawag sa pagsuko ng personal na kahatulan sa patnubay ni Jehova."
+      },
+      "2": {
+        "note": "Ang pahayag na 'ang babaing may takot kay Jehova ang siyang pupurihin' ay kinikilala ang paggalang kay Jehova bilang tumutukoy na katangian ng tunay na kahusayan."
+      }
+    },
+    "20": {
+      "0": {
+        "note": "Ang paulit-ulit na pahayag na 'ang pinakamalaking kawalang-kabuluhan — lahat ay walang kabuluhan' ay naglalagay ng likuran para sa pagsisiyasat ni Solomon, na nagpapakita na ang buhay na walang pananaw ni Jehova ay walang pangmatagalang kahulugan."
+      },
+      "1": {
+        "note": "Ang turo na si Jehova ang nagtakda ng panahon para sa bawat layunin sa ilalim ng langit ay humihikayat ng pagtitiwala sa kaniyang pagtitiyempo sa halip na balisang pagsalalay sa sarili."
+      },
+      "2": {
+        "note": "Ang huling konklusyon — 'katakutan ang tunay na Diyos at sundin ang kaniyang mga utos, sapagkat ito ang buong obligasyon ng tao' — ay kinikilala ang lubos na debosyon kay Jehova bilang tunay na layunin ng sangkatauhan."
+      }
+    },
+    "21": {
+      "0": {
+        "note": "Ang pahayag na 'ang kaniyang hangarin sa akin ay pag-ibig' ay kumukuha sa seguridad at kagalakan na nagmumula sa relasyong itinatayo sa tunay at mapagsanggalang na maibiging-kabaitan."
+      },
+      "1": {
+        "note": "Ang paglalarawan sa pag-ibig bilang 'sintibay ng kamatayan' at 'ang mga alab nito ay alab ng apoy, ang liyab ni Jah' ay nagdiriwang sa pag-ibig na ibinigay ni Jehova bilang pinakamakapangyarihang bigkis ng tao."
+      },
+      "2": {
+        "note": "Ang papuri ng Sulamita sa pangalan ng kaniyang minamahal bilang 'mabangong langis na ibinuhos' ay naglalarawan kung paano ang reputasyon at pagkatao ng isang tao ay humihila sa iba tungo sa kaniya."
+      }
+    },
+    "22": {
+      "0": {
+        "note": "Ang mga titulong Mesiyaniko 'Kamangha-manghang Tagapayo, Makapangyarihang Diyos, Walang-hanggang Ama, Prinsipe ng Kapayapaan' ay naghahayag ng mga pambihirang katangian na ibibigay ni Jehova sa kaniyang hirang na Hari."
+      },
+      "1": {
+        "note": "Ang pangako na ang mga 'naghihintay kay Jehova' ay magbabagong-lakas na parang agila ay naglalaan ng pangmatagalang aliw sa mga lingkod niya sa matatagal na kahirapan."
+      },
+      "2": {
+        "note": "Ang hula tungkol sa Naghihirap na Lingkod na 'pinalagpasan siya dahil sa ating pagsalansang' ay isa sa pinakatiyak na Mesiyanikong hula, natupad sa nagbabayad-salang hain ni Jesu-Kristo."
+      }
+    },
+    "23": {
+      "0": {
+        "note": "Ang pahayag na 'ang puso ay higit na mapanlinlang sa anumang bagay' ay nagdidiin sa pangangailangan ng patnubay ni Jehova sa halip na pag-asa sa di-sakdal na hilig ng tao."
+      },
+      "1": {
+        "note": "Ang pangako ni Jehova na 'batid kong mabuti ang mga kaisipang iniisip ko tungkol sa inyo — mga kaisipan ng kapayapaan, hindi ng kapahamakan' ay tinitiyak sa kaniyang mga tapon na ang kaniyang mga layunin para sa kanila ay palaging mabuti."
+      },
+      "2": {
+        "note": "Ang pangako ni Jehova ng bagong tipan na 'nasulat sa puso' sa halip na sa mga tapyas na bato ay tumuturo sa mas mataas na kaayusan na isinakatuparan sa pamamagitan ni Jesu-Kristo."
+      }
+    },
+    "24": {
+      "0": {
+        "note": "Ang pagpapatibay na ang maibiging-kabaitan ni Jehova ay 'hindi nagwawakas' at 'ang kaniyang mga kaawaan ay hindi natatapos; nababago sa tuwing umaga' ang nangangalaga ng pag-asa sa pinakamalalim na hapis ng aklat."
+      },
+      "1": {
+        "note": "Ang panawagan na 'suriin at siyasatin ang ating mga lakad, at bumalik kay Jehova' ay huwaran ng pagsusuring-sarili na nais ni Jehova bilang unang hakbang tungo sa espirituwal na pagbangon."
+      },
+      "2": {
+        "note": "Ang payo na 'tahimik na maghintay sa pagliligtas ni Jehova' ay nagtuturo na ang matiising pagtitiis sa pananampalataya ang angkop na tugon sa paghihintay sa pagtitiyempo ni Jehova."
+      }
+    },
+    "25": {
+      "0": {
+        "note": "Ang pahayag ni Jehova na 'ako ba ay nalulugod sa pagkamatay ng balakyot?' ay nagpapatibay sa kaniyang pagnanais na magsisi at mabuhay ang lahat ng tao, isang susing udyok sa pangangaral ng mga Saksi ni Jehova."
+      },
+      "1": {
+        "note": "Ang pangako na papalitan ni Jehova ang 'pusong bato' ng 'pusong laman' ay naglalarawan sa pagbabago na ginagawa ng kaniyang espiritu sa mga bumabalik sa kaniya."
+      },
+      "2": {
+        "note": "Ang pangitain ng libis ng tuyong mga buto ay malakas na paunang-tanda ng pagkabuhay-muli ng mga patay, kung kailan ibabalik ni Jehova ang buhay sa milyon-milyong tao sa ilalim ng kaniyang Kaharian."
+      }
+    },
+    "26": {
+      "0": {
+        "note": "Ang hula na 'ang Diyos ng langit ay magtatatag ng isang kaharian na hindi kailanman masisira' ay saligan ng pagkaunawa ng mga Saksi ni Jehova sa Kaharian ni Jehova bilang tanging pangmatagalang pamahalaan."
+      },
+      "1": {
+        "note": "Ang pahayag nina Sadrac, Mesac, at Abednego na 'kahit hindi niya' kami iligtas ay halimbawa ng ganap na katapatan kay Jehova anuman ang bunga — ang pananampalatayang 'kahit hindi'."
+      },
+      "2": {
+        "note": "Ang proklamasyon ni Dario na ang Diyos ni Daniel ay 'ang buháy na Diyos at mananatili magpakailanman' ay nagpapakita kung paano ang tapat na katapatan ay maaaring umudyok kahit sa mga paganong pinuno na kilalanin ang soberanya ni Jehova."
+      }
+    },
+    "27": {
+      "0": {
+        "note": "Ang pangako ni Jehova na 'papakasalan kita sa katuwiran at katarungan, sa maibiging-kabaitan at awa' ay naghahayag ng lalim ng relasyong tipan na nais ni Jehova sa kaniyang bayan."
+      },
+      "1": {
+        "note": "Ang pahayag ni Jehova na 'nais ko ang maibiging-kabaitan, hindi ang hain' ay kinikilala ang panloob na saloobin ng puso bilang pinahahalagahan ni Jehova higit pa sa pagsunod sa ritwal."
+      },
+      "2": {
+        "note": "Ang pangako ni Jehova na 'pagagalingin ko ang kanilang kawalang-katapatan; iibigin ko sila ng kusa' ay nagpapakita na ang kaniyang maibiging-kabaitan ay humahabol at nagpapanumbalik kahit sa mga lumihis."
+      }
+    },
+    "28": {
+      "0": {
+        "note": "Ang panawagan na 'punitin ang inyong puso at hindi ang inyong kasuutan' ay nagdidiin na nais ni Jehova ang tunay na panloob na pagsisisi sa halip na panlabas na relihiyosong pagtatanghal."
+      },
+      "1": {
+        "note": "Ang pangako ni Jehova na 'ibubuhos ang kaniyang espiritu sa lahat ng uri ng laman' ay natupad sa Pentecostes 33 CE at tumatakda sa pasimula ng kongregasyong pinahiran sa mga huling araw."
+      },
+      "2": {
+        "note": "Ang pahayag na 'ang bawat isa na tumatawag sa pangalan ni Jehova ay maliligtas' ay tumuturo sa pandaigdigang saklaw ng kaligtasang magagamit ng lahat ng humahanap kay Jehova."
+      }
+    },
+    "29": {
+      "0": {
+        "note": "Ang prinsipyo ni Jehova na ibinubunyag ang 'kaniyang lihim na usapin' sa kaniyang mga lingkod na mga propeta bago kumilos ay nagpapakita ng kaniyang paggalang sa bayan ng tipan at ng kaniyang transparency sa kanila."
+      },
+      "1": {
+        "note": "Ang panawagan na 'hayaang umagos ang katarungan na parang tubig at ang katuwiran na parang patuloy na umaagos na batis' ay nagpapatibay na ang mga pamantayan ni Jehova sa katarungang panlipunan ay sumasalamin sa kaniyang sariling matuwid na katangian."
+      },
+      "2": {
+        "note": "Ang pangakong ibangon ang 'nabuwal na tabernakulo ni David' ay sinipi sa Gawa 15:16 bilang natutupad sa pamamagitan ng pinanumbalik na kongregasyong Kristiyano sa ilalim ng Kaharian ni Kristo."
+      }
+    },
+    "30": {
+      "0": {
+        "note": "Ang pahayag na 'kung ano ang ginawa mo, gayon din ang gagawin sa iyo' ay nagsasabi ng prinsipyo ng makatarungang paghihiganti — na tinitiyak ni Jehova na ang kasamaang ginawa sa kaniyang bayan ay babayaran sa gayunding paraan."
+      },
+      "1": {
+        "note": "Ang pagmamalaki ng Edom sa tanggulan ng mga bundok ay kaibahan ng kapangyarihan ni Jehova na ibagsak sila, na naglalarawan na ang mapagmataas na pagtitiwala sa sarili ay laging naunang sumusunod sa pagbagsak."
+      },
+      "2": {
+        "note": "Ang pangwakas na pangako na 'ang kaharian ay mapapasakay Jehova' ay paunang-tanda ng pangwakas na pagpapawalang-sala sa kaniyang soberanya kapag ang lahat ng kapangyarihan ng kaaway ay naalis na."
+      }
+    },
+    "31": {
+      "0": {
+        "note": "Ang paghahanda ni Jehova ng malaking isda upang lamunin si Jonas ay nagpapakita ng kaniyang kakayahang gumamit ng anumang paraan upang patnubayan ang mga itinalaga niya sa kaniyang paglilingkod."
+      },
+      "1": {
+        "note": "Ang paglalarawan ni Jonas kay Jehova bilang 'mapagbiyaya at maawaing Diyos, mabagal sa pagkagalit at sagana sa maibiging-kabaitan' ay nagpapatibay sa mga pangunahing katangian na tumutukoy sa pakikitungo ni Jehova sa lahat ng tao."
+      },
+      "2": {
+        "note": "Ang pasiya ni Jehova na huwag magdulot ng kapahamakan sa nagsisising Nineve ay nagpapakita ng kaniyang kahandaang maging maawain sa anumang bansang tunay na bumabaling sa kaniya."
+      }
+    },
+    "32": {
+      "0": {
+        "note": "Ang hula na ang Mesiyanikong tagapamahala ay magmumula sa Betlehem 'na ang pinagmulan ay mula sa sinaunang panahon' ay eksaktong natupad ni Jesu-Kristo at nagpapatibay sa maaasahang salita ni Jehova."
+      },
+      "1": {
+        "note": "Ang pangkalahatang kinakailangan ni Jehova na 'gawin ang tama, mahalin ang kabutihan, at lumakad nang may pagpapakumbaba sa inyong Diyos' ay nagbubuod sa lahat ng tunay na pagsamba sa tatlong mahahalagang elemento."
+      },
+      "2": {
+        "note": "Ang pangakong paraiso na 'ang bawat isa ay uupo sa ilalim ng kaniyang puno ng ubas at sa ilalim ng kaniyang puno ng igos, walang makapagpapasindak sa kanila' ay isa sa pinakamalinaw na larawan ng layunin ni Jehova para sa lupa."
+      }
+    },
+    "33": {
+      "0": {
+        "note": "Ang pahayag na si Jehova ay 'mabagal sa pagkagalit ngunit dakila sa kapangyarihan' at 'sa anumang paraan ay hindi magpapawalang-sala sa maysala' ay nagbabalanse sa kaniyang pagtitiis sa katiyakan ng kaniyang katarungan."
+      },
+      "1": {
+        "note": "Si Jehova bilang 'tanggulan sa araw ng kabagabagan' at nakakakilala sa 'mga humahanap ng kanlungan sa kaniya' ay nagbibigay ng personal na katiyakan na inaalagaan at pinangangalagaan niya ang mga tapat."
+      },
+      "2": {
+        "note": "Si Jehova na inilarawang 'Diyos na mapanibughuin at naghihiganti' sa kaniyang mga kaaway ay nagpapatibay na sa bandang huli ay ipagtatanggol niya ang kaniyang pangalan at bibigyang-kabanalan ang kaniyang bayan."
+      }
+    },
+    "34": {
+      "0": {
+        "note": "Ang pahayag na 'ang matuwid ay mabubuhay sa kaniyang katapatan' ay naging saligang talata ni Pablo sa pagpapaliwanag na ang katuwiran sa harap ni Jehova ay nagmumula sa pananampalataya, hindi sa mga gawa ng Kautusan."
+      },
+      "1": {
+        "note": "Ang pangakong magsaya kay Jehova kahit mabigo ang mga ani at mamatay ang mga kawan ay huwaran ng walang-kundisyong kagalakan at papuring dapat panatilihin ng mga lingkod ni Jehova anuman ang kalagayan."
+      },
+      "2": {
+        "note": "Ang pangako na 'ang lupa ay mapupuno ng kaalaman sa kaluwalhatian ni Jehova' ay tumuturo sa pandaigdigang paglawak ng tunay na pagsamba bilang pangwakas na layunin ni Jehova para sa lupa."
+      }
+    },
+    "35": {
+      "0": {
+        "note": "Ang paglalarawan sa dakilang araw ni Jehova bilang 'malapit' at 'napakalapit' ay lumilikha ng madaliang damdamin ng pagbabantay na pinananatili ng mga Saksi ni Jehova sa pagmamasid ng mga pangyayari sa mundo."
+      },
+      "1": {
+        "note": "Ang larawan ni Jehova na nagagalak sa kaniyang bayan 'nang may hiyawan ng kagalakan' at nagbubunyi sa kanila 'nang may masasayang awit' ay naghahayag ng malalim na damdaming kasiyahan ni Jehova sa kaniyang pinanumbalik na bayan."
+      },
+      "2": {
+        "note": "Ang pangako ni Jehova na 'magbibigay ng dalisay na wika sa lahat ng bayan' upang sama-sama silang tumawag sa kaniyang pangalan ay paunang-tanda ng pandaigdigang pagkakaisa sa pagsamba na nararanasan na ng mga Saksi ni Jehova."
+      }
+    },
+    "36": {
+      "0": {
+        "note": "Ang hamon ni Jehova na 'mabuting isaalang-alang ang inyong mga lakad' matapos mabigo ang mga ani ay nag-uugnay ng espirituwal na priyoridad sa mga praktikal na resulta — huwaran na may kaugnayan sa mga Saksi ni Jehova ngayon."
+      },
+      "1": {
+        "note": "Ang pangakong 'ang kaluwalhatian ng hulihing bahay na ito ay magiging higit kaysa sa nauna' ay nagpasigla sa mahinhing simula, na tumutukoy sa kung paano pinagpapala ni Jehova ang mahinhing pagsisikap sa kaniyang paglilingkod."
+      },
+      "2": {
+        "note": "Ang triple na paalaalang 'magpakalakas' na nakatuon sa gobernador, sa mataas na saserdote, at sa lahat ng tao ay nagpapakita na ang pampatibay-loob ni Jehova ay magagamit ng bawat indibidwal na gumagawa ng kaniyang gawain."
+      }
+    },
+    "37": {
+      "0": {
+        "note": "Ang prinsipyo ni Jehova na 'hindi sa pamamagitan ng lakas-militar, hindi sa pamamagitan ng kapangyarihan, kundi sa pamamagitan ng aking espiritu' ay tinitiyak na ang gawain ng tunay na pagsamba ay nagtatagumpay sa pamamagitan ng espiritu ni Jehova, hindi ng lakas ng tao."
+      },
+      "1": {
+        "note": "Ang hula ng isang haring darating nang 'mapagpakumbaba at nakasakay sa asno' ay eksaktong natupad ni Jesus sa kaniyang pagpasok sa Jerusalem, na nagpapatibay sa pagiging maaasahan ng hula."
+      },
+      "2": {
+        "note": "Ang hulang 'titingin sila sa kaniya na kanilang inulos' ay sinipi sa Juan 19:37 at Apocalipsis 1:7 bilang natutupad kay Jesu-Kristo, na nagpapatibay sa Mesiyanikong kaalaman ni Zacarias."
+      }
+    },
+    "38": {
+      "0": {
+        "note": "Ang pangako ni Jehova na magpapadala ng mensaherong 'maglilinis ng daan sa harap niya' ay natupad sa paghahandang ministeryo ni Juan Bautista, na nagpapakita ng katumpakan ng katuparan ng hula."
+      },
+      "1": {
+        "note": "Ang paanyaya ni Jehova na 'subukin niyo ako' sa pamamagitan ng pagdadala ng buong ikapu at makita kung 'ibubuhos niya ang pagpapala hanggang sa wala nang lugar' ay naghahayag ng kaniyang kagandahang-loob sa mga nagpapauna sa kaniya."
+      },
+      "2": {
+        "note": "Ang 'aklat ng alaala' na isinulat para sa mga natatakot kay Jehova at nagninilay sa kaniyang pangalan ay nagpapatibay sa bawat tapat na lingkod na maingat at personal na nauunawaan ni Jehova ang kanilang debosyon."
+      }
+    },
+    "39": {
+      "0": {
+        "note": "Ang proklamasyon ni Jesus na 'magsisi kayo, sapagkat ang Kaharian ng langit ay malapit na' ay nagsimula sa sentrong tema ng buong kaniyang ministeryo — ang mabuting balita tungkol sa Kaharian ni Jehova."
+      },
+      "1": {
+        "note": "Ang pahayag ni Jesus na dumating siya hindi upang sirain ang Kautusan kundi upang tuparin ito ay nagpapakita kung paano lubos na kinumpleto ng kaniyang turo ang layunin ni Jehova para sa tipang Mosaiko."
+      },
+      "2": {
+        "note": "Ang Dakilang Utos na 'gumawa ng mga alagad sa mga tao ng lahat ng mga bansa' ay nagbibigay ng patuloy na utos para sa pandaigdigang gawaing pangangaral at pagtuturo ng mga Saksi ni Jehova."
+      }
+    },
+    "40": {
+      "0": {
+        "note": "Ang pambungad na pahayag na 'ang pasimula ng mabuting balita tungkol kay Jesu-Kristo, ang Anak ng Diyos' ay agad nagtatatag ng pagkakakilanlan ni Jesus bilang naiiba sa — at nakapailalim kay — Jehova."
+      },
+      "1": {
+        "note": "Ang pagtatapat ni Pedro na 'Ikaw ang Kristo' sa Cesarea Filipos ay tumatanda sa mahalagang sandali nang maintindihan ng mga alagad ang tunay na pagkakakilanlan ni Jesus bilang hirang ni Jehova na Mesiyas."
+      },
+      "2": {
+        "note": "Ang pahayag ni Jesus na 'ang Anak ng tao ay dumating... upang ibigay ang kaniyang kaluluwa bilang pantubos kapalit ng marami' ay maikli ngunit malinaw na nagpapahayag ng layuning pantubos sa puso ng kaniyang ministeryo."
+      }
+    },
+    "41": {
+      "0": {
+        "note": "Ang layunin ni Lucas na magsulat ng 'tumpak na ulat' para kay Teofilo ay sumasalamin sa kaniyang pangako sa kasaysayang maaasahan, na nagpapalakas sa tiwala na ang mga talaan ng Ebanghelyo ay mapagkakatiwalaan."
+      },
+      "1": {
+        "note": "Ang pahayag ni Jesus na siya ay pinahiran upang 'ipahayag ang mabuting balita sa mga dukha' at 'ipahayag ang kalayaan sa mga bihag' ay tumutukoy sa kaniyang ministeryo bilang ministeryo ng mahabaging pagliligtas — sumasalamin sa sariling puso ni Jehova."
+      },
+      "2": {
+        "note": "Ang pahayag ng misyon ni Jesus 'upang hanapin at iligtas ang nawala' ay nag-uudyok sa mga Saksi ni Jehova na magpursigi sa pakikibahagi ng mabuting balita sa lahat ng uri ng tao."
+      }
+    },
+    "42": {
+      "0": {
+        "note": "Ang pagsasalin ng NWT na 'ang Salita ay isang diyos' ay tumutukoy kay Jesus bilang makapangyarihang banal na nilalang habang pinananatili ang natatanging pagkakakilanlan ni Jehova bilang tanging tunay na Diyos — mahalagang punto sa talakayan tungkol sa Trinidad."
+      },
+      "1": {
+        "note": "Ang pagpapadala ni Jehova ng kaniyang Anak upang 'ang bawat isang nananampalataya sa kaniya ay hindi mapuksa kundi magkaroon ng buhay na walang hanggan' ay nagbubuod sa pag-ibig at tagaligtas na plano sa puso ng mabuting balita."
+      },
+      "2": {
+        "note": "Ang pahayag ni Jesus na 'Ako ang daan, ang katotohanan, at ang buhay; walang taong makalalapit sa Ama kundi sa pamamagitan ko' ay nagtatatag ng kaniyang natatanging papel bilang tagapamagitan ng daan patungo kay Jehova."
+      }
+    },
+    "43": {
+      "0": {
+        "note": "Ang utos ni Jesus na maging mga saksi 'hanggang sa pinakamalayong bahagi ng lupa' ay tumutukoy sa saklaw ng gawaing pangangaral na inatas ni Jehova sa unang kongregasyon at nagpapatuloy ngayon."
+      },
+      "1": {
+        "note": "Ang pagtataas ng unang mga Kristiyano sa 'pagtuturo, pagbabahagi ng impormasyon, pagkain, at panalangin' ay naglalarawan ng huwaran ng buhay-kongregasyon na pinahahalagahan ni Jehova."
+      },
+      "2": {
+        "note": "Ang mga Bereano na 'maingat na sinusuri ang Kasulatan araw-araw' upang patunayan ang kanilang naririnig ay nagtakda ng pinakamataas na pamantayan para sa personal na pag-aaral sa Bibliya at pagpapatunay ng doktrina."
+      }
+    },
+    "44": {
+      "0": {
+        "note": "Ang pahayag ni Pablo na ang mabuting balita 'ay kapangyarihan ng Diyos para sa kaligtasan' at naghahayag ng katuwirang 'sa pamamagitan ng pananampalataya' ay nagtatatag ng saligang tema ng buong liham."
+      },
+      "1": {
+        "note": "Ang turo na 'lahat ay nagkasala' ngunit 'ipinahayag na matuwid... bilang libreng kaloob sa pamamagitan ng kaniyang di-sana-nararapat na kabaitan sa pamamagitan ng pagpapalaya sa pamamagitan ng pantubos na ibinayad ni Kristo Jesus' ay nagbubuod sa pangangailangan at paglalaan ng kaligtasan."
+      },
+      "2": {
+        "note": "Ang katiyakan na 'ginagawa ni Jehova na magtulungan ang lahat ng kaniyang mga gawa para sa ikabubuti ng mga umiibig sa Diyos' ay nagbibigay ng malalim na kaaliwan sa mga nagdaranas ng pagsubok nang may pananampalataya."
+      }
+    },
+    "45": {
+      "0": {
+        "note": "Ang obserbasyon ni Pablo na 'ang salita ng pahirapang tulos ay kahangalan sa mga napapahamak, ngunit sa atin na inililigtas ay kapangyarihan ng Diyos' ay nagtatampok sa kaibahan ng makamundong karunungan at karunungan ni Jehova."
+      },
+      "1": {
+        "note": "Ang konklusyon na 'ang pinakamalaki sa mga ito ay pag-ibig' ay nagtatatag sa pag-ibig bilang pinakamataas na katangian na nais makita ni Jehova sa bawat kasapi ng kongregasyon."
+      },
+      "2": {
+        "note": "Ang buod ni Pablo ng pangunahing mabuting balita — na si Kristo ay namatay, inilibing, at binuhay-muli — ay nagpapakita ng pagkabuhay-muli bilang di-maiiwasang haligi ng Kristiyanong pananampalataya."
+      }
+    },
+    "46": {
+      "0": {
+        "note": "Ang pananaw ni Pablo na ang panandalian at 'bahagyang kapighatian ay naghahanda para sa atin ng higit at walang-hanggang bigat ng kaluwalhatian' ay muling tumitingin sa paghihirap bilang may layunin at pansamantala."
+      },
+      "1": {
+        "note": "Ang pahayag na 'kung ang sinuman ay kaisa ni Kristo, siya ay bagong nilalang' ay naglalarawan sa pagbabagong ginagawa ng espiritu ni Jehova sa mga tumatanggap ng mabuting balita."
+      },
+      "2": {
+        "note": "Ang katiyakan ni Jehova na 'ang aking kapangyarihan ay nagiging sakdal sa kahinaan' ay nagtuturo na ang lumilitaw na mga limitasyon ng tao ay siyang angkop na sitwasyon para ipakita ang lakas ni Jehova."
+      }
+    },
+    "47": {
+      "0": {
+        "note": "Ang pahayag ni Pablo na 'hindi na ako ang nabubuhay, kundi si Kristo ang nabubuhay sa akin' ay naglalarawan ng lubos na pagsuko sa halimbawa ni Kristo na nagpapakilala sa tunay na pagiging alagad."
+      },
+      "1": {
+        "note": "Ang prinsipyo na 'walang Judio o Griego, alipin o malaya, lalaki o babae — kayong lahat ay isa kay Kristo Jesus' ay sumasalamin sa pagkakaisa at pagkakapantay-pantay na pinahahalagahan ni Jehova sa kaniyang kongregasyon."
+      },
+      "2": {
+        "note": "Ang atas ni Pablo na 'manatiling matatag sa kalayaan' na binili ni Kristo at 'huwag muling ipailalim sa pamatok ng pagkaalipin' ay tumatawag sa mga Kristiyano na tanggihan ang anumang pagdaragdag sa pantubos bilang batayan ng pagsang-ayon."
+      }
+    },
+    "48": {
+      "0": {
+        "note": "Ang turo na ang kaligtasan ay dumarating 'sa pamamagitan ng pananampalataya' bilang 'libreng kaloob ng Diyos — hindi sa pamamagitan ng mga gawa' ay inaalis ang lahat ng pagmamataas ng tao at nagtatatag ng di-sana-nararapat na kabaitan ni Jehova bilang nag-iisang batayan ng pag-asa."
+      },
+      "1": {
+        "note": "Ang pitong 'isa' — isang katawan, isang espiritu, isang pag-asa, isang Panginoon, isang pananampalataya, isang bautismo, isang Diyos at Ama — ay tumutukoy sa pagkakaisa sa doktrina at organisasyon na inaasahan ni Jehova sa kaniyang kongregasyon."
+      },
+      "2": {
+        "note": "Ang payo ni Pablo na 'isuot ang kumpletong kagayakan ng Diyos' upang tumindig laban sa 'masasamang puwersang espiritu' ay nagbibigay ng saligan para unawain ang espirituwal na digmaang hinaharap ng bayan ni Jehova."
+      }
+    },
+    "49": {
+      "0": {
+        "note": "Ang pahayag ni Pablo na 'para sa akin, ang mabuhay ay si Kristo at ang mamatay ay pakinabang' ay naghahayag ng kaniyang lubos na pagkakakilanlan sa layunin ni Kristo at tiwalang pag-asa sa pagkabuhay-muli."
+      },
+      "1": {
+        "note": "Ang pangako na 'ang kapayapaan ng Diyos na sumasakdal sa lahat ng pag-iisip ay magbabantay sa inyong puso at sa inyong kakayahan sa pag-iisip' ay tinitiyak na ang tunay na kapayapaan ay nagmumula sa sariling presensiya ni Jehova."
+      },
+      "2": {
+        "note": "Ang pagpapatibay ni Pablo na 'lahat ng mga bagay ay aking magagawa sa pamamagitan niya na nagpapalakas sa akin' ay personal na patotoo ng pag-asa sa lakas ni Jehova sa halip na sa sarili."
+      }
+    },
+    "50": {
+      "0": {
+        "note": "Ang paglalarawan kay Jesus bilang 'panganay sa buong sangnilikha' na sa pamamagitan niya 'nilikha ang lahat ng iba pang bagay' ay nagtatatag ng kaniyang pagiging pinakadakila bilang natatanging unang nilikha ni Jehova at kasangkapan sa paglikha."
+      },
+      "1": {
+        "note": "Ang pahayag ni Pablo na 'ang kabuuan ng banal na katangian ay tumatahan sa kaniya sa katawan' at ang mga mananampalataya ay 'lubos na napupuno' sa pamamagitan ni Kristo ay nagpapatibay sa kasapatan ni Jesus para sa lahat ng espirituwal na pangangailangan."
+      },
+      "2": {
+        "note": "Ang prinsipyo ng paggawa ng 'lahat ng bagay sa pangalan ng Panginoong Jesus, na nagpapasalamat sa Diyos na Ama sa pamamagitan niya' ay nagtatatag kay Kristo bilang daluyan na siyang pagdaraanan ng lahat ng pagsamba tungo kay Jehova."
+      }
+    },
+    "51": {
+      "0": {
+        "note": "Ang paglalarawan ni Pablo ng pagkabuhay-muli sa presensiya ni Kristo — 'ang mga patay na kay Kristo ay bubuhayin muli' — ay nagbibigay ng tiyak na pag-asa na umaaliw sa bayan ni Jehova na nawalan ng mga mahal sa buhay."
+      },
+      "1": {
+        "note": "Ang triple na utos na 'magsaya kayo lagi, manalangin nang patuloy, at magpasalamat sa lahat' ay naglalarawan sa tuloy-tuloy na espirituwal na saloobin na nais ni Jehova na panatilihin ng kaniyang bayan."
+      },
+      "2": {
+        "note": "Ang paalala ni Pablo na 'ang araw ni Jehova ay darating tulad ng isang magnanakaw sa gabi' ay nagdidiin sa kagyat na pangangailangang manatiling espirituwal na gising at handa sa lahat ng oras."
+      }
+    },
+    "52": {
+      "0": {
+        "note": "Ang pangako ng 'ginhawa' sa mga inuusig na mananampalataya 'sa pagsisiwalat ng Panginoong Jesus mula sa langit' ay tinitiyak na ang itinakdang panahon ni Jehova para sa pakikialam ay magdadala ng katarungan at pagpapawalang-sala."
+      },
+      "1": {
+        "note": "Ang katiyakan na 'si Jehova ay tapat, at gagawin niya kayong matatag at iingatan mula sa balakyot' ay tuwirang pangako ng banal na proteksiyon sa mga umaasa kay Jehova."
+      },
+      "2": {
+        "note": "Ang babala ni Pablo tungkol sa 'apostasiya' at 'tao ng paglabag sa batas' na maunang darating ay nagbibigay ng susing saligan para sa pagkaunawa ng mga Saksi ni Jehova sa dakilang apostasiyang bumangon sa Sangkakristiyanuhan."
+      }
+    },
+    "53": {
+      "0": {
+        "note": "Ang pahayag na 'may isang Diyos, at isang tagapamagitan sa pagitan ng Diyos at ng mga tao, ang taong si Kristo Jesus' ay nagtatatag ng magkaibang papel nina Jehova at Jesus, na sumasalungat sa doktrina ng Trinidad."
+      },
+      "1": {
+        "note": "Ang pampatibay-loob ni Pablo kay Timoteo na 'maging halimbawa sa mga tapat sa pananalita, sa pamumuhay, sa pag-ibig, sa pananampalataya, sa kalinisang-puri' ay nagtatakda ng pamantayan para sa kabataang mga lingkod ni Jehova."
+      },
+      "2": {
+        "note": "Ang prinsipyo na 'ang maka-Diyos na debosyon kasama ng pagkakontento ay daan ng malaking pakinabang' ay kumikilala sa espirituwal na kayamanan sa harap ni Jehova bilang tunay na sukatan ng matagumpay na buhay."
+      }
+    },
+    "54": {
+      "0": {
+        "note": "Ang paalala na 'hindi tayo binigyan ng Diyos ng espiritu ng kaduwagan, kundi ng kapangyarihan at ng pag-ibig at ng mahusay na pag-iisip' ay tinitiyak sa mga lingkod ni Jehova na ang lakas ng loob sa kaniyang paglilingkod ay nagmumula sa kaniya."
+      },
+      "1": {
+        "note": "Ang atas ni Pablo na 'tumakas sa mga hangaring pangkabataan, at hanapin ang katuwiran, pananampalataya, pag-ibig, kapayapaan' ay nagbabalangkas ng aktibong espirituwal na pagpipilian na dapat gawin ng bawat kabataang Kristiyano."
+      },
+      "2": {
+        "note": "Ang pahayag na 'lahat ng Kasulatan ay kinasihan ng Diyos' at 'mapakikinabangan sa pagtuturo, sa pagsaway, sa pagtutuwid ng mga bagay' ay nagtatatag sa Bibliya bilang kumpleto at sapat na patnubay ni Jehova."
+      }
+    },
+    "55": {
+      "0": {
+        "note": "Ang turo na ang di-sana-nararapat na kabaitan ni Jehova 'ay nagsasanay sa atin na tanggihan ang kawalang-kabanalan at makamundong mga hangarin' ay nagpapakita na ang pag-unawa sa kaniyang biyaya ay isa ring makapangyarihang udyok para sa matuwid na pamumuhay."
+      },
+      "1": {
+        "note": "Ang pagpapatibay na 'iniligtas tayo ni Jehova sa pamamagitan ng paliguan na nagdala sa atin sa buhay at sa pamamagitan ng pagbabagong-anyo ng banal na espiritu' ay nagtatampok na ang pagbabago at bagong buhay ay nagmumula sa inisyatiba ni Jehova."
+      },
+      "2": {
+        "note": "Ang layunin ni Kristo na 'linisin para sa kaniyang sarili ang isang bayan na kaniyang natatanging ari-arian, masigasig sa mabubuting gawa' ay naglalarawan sa pagkakakilanlan at misyon na nais ni Jehova para sa bawat inialay na Kristiyano."
+      }
+    },
+    "56": {
+      "0": {
+        "note": "Ang mungkahi ni Pablo na maaaring nahiwalay si Onesimo 'upang matanggap mong muli siya magpakailanman, hindi na bilang alipin, kundi bilang higit pa sa alipin, bilang minamahal na kapatid' ay nagpapakita kung paano maaaring tubusin ni Jehova ang mahihirap na sitwasyon para sa mas dakilang kabutihan."
+      },
+      "1": {
+        "note": "Ang pagpili ni Pablo na 'mamanhik batay sa pag-ibig sa halip na mag-utos' ay sumasalamin sa sariling diwa ni Jehova sa paghimok sa mga tao sa pamamagitan ng maibiging-kabaitan sa halip na mag-utos ng pagsunod."
+      },
+      "2": {
+        "note": "Ang panalangin ni Pablo na ang pakikibahagi ni Filemon sa pananampalataya 'ay makatulong na lubos na makilala ng iba ang bawat mabuting bagay na nasa atin alang-alang kay Kristo' ay nagtatampok sa halaga ng patotoo ng praktikal na mapagmahal na pagiging bukas-palad."
+      }
+    },
+    "57": {
+      "0": {
+        "note": "Ang paglalarawan sa salita ni Jehova bilang 'buháy at nagpapasikat ng kapangyarihan' at 'tumatagos hanggang sa paghahati ng kaluluwa at espiritu' ay kumukuha sa aktibo at buhay-binabagong kalidad ng mga Kasulatan."
+      },
+      "1": {
+        "note": "Ang kahulugan ng pananampalataya bilang 'ang tiyak na inaasahan ng mga bagay na inaasahan, ang maliwanag na pagpapakita ng mga katotohanang hindi nakikita' ay nag-uugat sa pag-asa ng mga Saksi ni Jehova sa tiwalang pagtitiwalang nakabatay sa katibayan."
+      },
+      "2": {
+        "note": "Ang larawan ng pagtakbo sa 'takbuhing iniharap sa atin' habang 'tinititigan si Jesus' ay pinagsasama ang sama-samang ulap ng tapat na mga saksi kay Jesus bilang pinakadakilang nag-uudyok na halimbawa."
+      }
+    },
+    "58": {
+      "0": {
+        "note": "Ang atas na 'maging tagatupad ng salita at hindi lamang tagapakinig' ay humahamon sa mga nag-iipon lamang ng kaalaman nang hindi isinasalin ito sa aktibo at kaaya-ayang kilos kay Jehova."
+      },
+      "1": {
+        "note": "Ang prinsipyo na 'ang pananampalataya na nag-iisa, kung walang mga gawa, ay patay' ay nagpapaliwanag na ang tunay na pananampalataya kay Jehova ay likas na nagbubunga ng kitang-kita na aksyon — ang dalawa ay hindi mapaghihiwalay."
+      },
+      "2": {
+        "note": "Ang katiyakan na 'ang taimtim na pamanhik ng matuwid ay may malaking puwersa' ay humihikayat sa bayan ni Jehova na dalhin ang bawat pasanin sa kaniya sa masigasig at tiyak na panalangin."
+      }
+    },
+    "59": {
+      "0": {
+        "note": "Ang papuri ni Pedro kay Jehova sa pagbibigay ng 'buháy na pag-asa sa pamamagitan ng pagkabuhay-muli ni Jesu-Kristo' ay nagtatatag sa pagkabuhay-muli bilang saligan ng tiwalang pag-asa na nagpapalakas sa bayan ni Jehova."
+      },
+      "1": {
+        "note": "Ang paglalarawan sa mga Kristiyano bilang 'maharlikang pagkasaserdote, banal na bansa, bayang natatanging ari-arian' ay tumatawag sa bawat Saksi ni Jehova na tingnan ang kaniyang sarili bilang personal na pinili ni Jehova para sa kaniyang layunin."
+      },
+      "2": {
+        "note": "Ang paanyaya na 'ilagak sa kaniya ang lahat ng inyong kabalisahan, sapagkat siya ay nagmamalasakit sa inyo' ay tinitiyak sa bayan ni Jehova ang kaniyang personal at matamang pag-aalala sa kanilang mga indibidwal na pasanin."
+      }
+    },
+    "60": {
+      "0": {
+        "note": "Ang katiyakan ni Pedro na ang 'banal na kapangyarihan ni Jehova ay nagbigay sa atin ng lahat ng bagay na kailangan para sa buhay at maka-Diyos na debosyon' ay nagtatatag na lubos na inihanda ni Jehova ang kaniyang bayan para sa bawat espirituwal na hamon."
+      },
+      "1": {
+        "note": "Ang pahayag na si Jehova 'ay hindi nagnanais na sinuman ay mapuksa kundi ang lahat ay umabot sa pagsisisi' ay naghahayag ng mapang-ebanghelyong puso sa likod ng kaniyang pagtitiis bago ang Armagedon."
+      },
+      "2": {
+        "note": "Ang pangwakas na paalala na 'patuloy na lumaki sa di-sana-nararapat na kabaitan at kaalaman ng ating Panginoon' ay nagtatatag na ang espirituwal na paglaki ay patuloy na proseso habambuhay, hindi isang destinasyon."
+      }
+    },
+    "61": {
+      "0": {
+        "note": "Ang pangako na 'kung ipagtatapat natin ang ating mga kasalanan, siya ay tapat at matuwid upang patawarin tayo' ay tinitiyak sa bayan ni Jehova na ang tunay na pagsisisi ay laging nakakakita ng isang Amang handang magpatawad."
+      },
+      "1": {
+        "note": "Ang malalim na pahayag ni Juan na 'ang Diyos ay pag-ibig' ay naghahayag na ang pag-ibig ay hindi lamang katangian na taglay ni Jehova kundi ang pinakadiwa ng kaniyang pagkatao, ang pinagmumulan ng lahat ng kaniyang ginagawa."
+      },
+      "2": {
+        "note": "Ang ipinahayag na layunin ni Juan — 'upang malaman ninyong mayroon kayong buhay' — ay sumasalamin sa pagnanais ni Jehova na ang kaniyang mga lingkod ay magkaroon ng tiwalang katiyakan tungkol sa kanilang katayuan at pag-asa sa halip na mabuhay sa pagdududa."
+      }
+    },
+    "62": {
+      "0": {
+        "note": "Ang pagkakakilala ni Juan sa pag-ibig bilang 'paglakad ayon sa kaniyang mga utos' ay nag-uugnay sa tunay na pag-ibig sa praktikal na pagsunod sa halip na pawang damdamin — ang pag-ibig na walang pagsunod ay hindi kumpleto sa harap ni Jehova."
+      },
+      "1": {
+        "note": "Ang babala na 'ang bawat isa na nagpapatuloy at hindi nananatili sa turo ni Kristo ay walang Diyos' ay nagtatatag sa katapatan sa doktrina bilang kinakailangan para sa pakikiisa kay Jehova."
+      },
+      "2": {
+        "note": "Ang tagubiling huwag 'tanggapin siya sa inyong mga bahay o batiin siya' kapag may nagdadala ng maling turo ay sumasalamin sa seryosong pagtingin ni Jehova sa pagprotekta sa kongregasyon."
+      }
+    },
+    "63": {
+      "0": {
+        "note": "Ang pahayag ni Juan na 'walang higit pang kagalakan ang mayroon ako kaysa marinig na ang aking mga anak ay patuloy na lumalakad sa katotohanan' ay kumukuha sa malalim na kasiyahang nadarama nina Jehova at ng kaniyang mga lingkod kapag ang iba ay namumuhay ayon sa kaniyang mga pamantayan."
+      },
+      "1": {
+        "note": "Ang prinsipyong 'ang gumagawa ng mabuti ay mula sa Diyos; ang gumagawa ng masama ay hindi nakakita sa Diyos' ay kumikilala sa pagkatao at pag-uugali bilang pinakamalinaw na katibayan ng tunay na relasyon kay Jehova."
+      },
+      "2": {
+        "note": "Ang paglalarawan sa mga naglalakbay na misyonero bilang mga umalis 'alang-alang sa kaniyang pangalan' ay nagpapaalala sa bawat Saksi ni Jehova na ang gawaing pangangaral ay higit sa lahat tungkol sa pagbibigay-kabanalan at pagluluwalhati sa pangalan ni Jehova."
+      }
+    },
+    "64": {
+      "0": {
+        "note": "Ang madaliang panawagan ni Judas na 'ipaglaban ang pananampalatayang ibinigay minsan para sa lahat sa mga banal' ay nagtatatag sa pagtatanggol ng dalisay na doktrina bilang personal na pananagutan ng bawat Kristiyano."
+      },
+      "1": {
+        "note": "Ang payo na itayo ang pananampalataya, manalangin sa banal na espiritu, at 'panatilihin ang inyong sarili sa pag-ibig ng Diyos' ay nagbibigay ng espirituwal na rutina na kailangan upang labanan ang apostasiya at manatiling malapit kay Jehova."
+      },
+      "2": {
+        "note": "Ang pangwakas na papuri kay Jehova bilang 'ang makakapag-ingat sa inyo mula sa pagkatisod' ay nagpapatibay na ang pinakamataas na espirituwal na proteksiyon ay nasa kamay ni Jehova, hindi lamang sa pagsisikap ng tao."
+      }
+    },
+    "65": {
+      "0": {
+        "note": "Ang sariling pahayag ni Jehova bilang 'ang Alpha at ang Omega... ang Makapangyarihan-sa-lahat' sa pambungad na talata ng Apocalipsis ay nagbabalangkas ng buong aklat bilang ulat ng Kataas-taasang Diyos na nagdadala ng kasaysayan sa kaniyang itinakdang konklusyon."
+      },
+      "1": {
+        "note": "Ang makalangit na proklamasyon sa Kordero bilang karapat-dapat na tumanggap ng 'kapangyarihan at kayamanan at karunungan at lakas at karangalan at kaluwalhatian at pagpapala' ay nagdiriwang sa sentral na papel ni Kristo sa layunin ni Jehova."
+      },
+      "2": {
+        "note": "Ang pangako na 'papahirin ni Jehova ang bawat luha sa kanilang mga mata, at hindi na magkakaroon ng kamatayan' ay siyang rurok ng pahayag ng layunin ng Kaharian ni Jehova — ang lubos na pag-aalis ng lahat ng paghihirap."
+      }
+    }
   }
 }

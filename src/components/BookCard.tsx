@@ -170,12 +170,19 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                 <div className="book-info-notable">
                   <span className="book-info-meta-label">{t("book.infoNotablePassages", "Notable Passages")}</span>
                   <ul className="book-info-notable-list">
-                    {info.notablePassages.map((p, i) => (
-                      <li key={i} className="book-info-notable-item">
-                        <span className="book-info-notable-ref">{p.ref}</span>
-                        <span className="book-info-notable-note">{p.note}</span>
-                      </li>
-                    ))}
+                    {info.notablePassages.map((p, i) => {
+                      // Localized ref: replace English book-name prefix with bookNames.N
+                      const m = p.ref.match(/^(.+?)\s+([0-9:\-–,\s]+)$/);
+                      const localizedRef = m ? `${bookName} ${m[2]}` : p.ref;
+                      const note = t(`bookNotablePassages.${bookIndex}.${i}.note`, p.note);
+                      const ref = t(`bookNotablePassages.${bookIndex}.${i}.ref`, localizedRef);
+                      return (
+                        <li key={i} className="book-info-notable-item">
+                          <span className="book-info-notable-ref">{ref}</span>
+                          <span className="book-info-notable-note">{note}</span>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               )}
