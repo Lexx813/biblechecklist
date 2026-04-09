@@ -34,12 +34,16 @@ interface Props {
   rightPanel?: React.ReactNode;
 }
 
+const BETA_LANGS = ["ja", "ko"];
+
 export default function AppLayout({ navigate, user, currentPage, children, rightPanel }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: profile } = useFullProfile(user?.id);
   const { data: unreadMessages = 0 } = useUnreadMessageCount();
   const { incoming } = useFriendRequests(user?.id);
   const pendingRequests = incoming.data?.length ?? 0;
+  const lang = i18n.language?.split("-")[0] ?? "en";
+  const showBetaBanner = BETA_LANGS.includes(lang) && !localStorage.getItem("nwt-beta-lang-dismissed");
 
   const displayName = profile?.display_name || user?.email?.split("@")[0] || "My Profile";
   const initials = displayName[0].toUpperCase();
@@ -111,6 +115,16 @@ export default function AppLayout({ navigate, user, currentPage, children, right
       </aside>
 
       <div key={currentPage} className="al-content">
+        {showBetaBanner && (
+          <div className="al-beta-banner">
+            <p>{t("betaLang.notice")}</p>
+            <p style={{ fontSize: "0.85rem", opacity: 0.85 }}>{t("betaLang.reason")}</p>
+            <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem", flexWrap: "wrap" }}>
+              <a href="mailto:support@nwtprogress.com?subject=Translation%20Suggestion" className="al-beta-link">{t("betaLang.suggest")}</a>
+              <button className="al-beta-dismiss" onClick={() => { localStorage.setItem("nwt-beta-lang-dismissed", "1"); window.location.reload(); }}>{t("betaLang.dismiss")}</button>
+            </div>
+          </div>
+        )}
         {children}
       </div>
 

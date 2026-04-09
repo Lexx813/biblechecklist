@@ -4,10 +4,10 @@ import { supabase } from "../lib/supabase";
 import { forumApi } from "../api/forum";
 import { notificationsApi } from "../api/notifications";
 
-export function useTopThreads(limit = 4) {
+export function useTopThreads(limit = 4, lang?: string) {
   return useQuery({
-    queryKey: ["forum", "top", limit],
-    queryFn: () => forumApi.listTopThreads(limit),
+    queryKey: ["forum", "top", limit, lang],
+    queryFn: () => forumApi.listTopThreads(limit, lang),
     staleTime: 3 * 60 * 1000,
   });
 }

@@ -10,7 +10,7 @@ import { useSubscription } from "../hooks/useSubscription";
 import { useUnreadMessageCount } from "../hooks/useMessages";
 import { useFeatureFlags } from "../hooks/useFeatureFlags";
 
-const FLAGS = { en: "🇺🇸", es: "🇪🇸", pt: "🇧🇷", tl: "🇵🇭", fr: "🇫🇷", zh: "🇨🇳" };
+const FLAGS = { en: "🇺🇸", es: "🇪🇸", pt: "🇧🇷", tl: "🇵🇭", fr: "🇫🇷", zh: "🇨🇳", ja: "🇯🇵", ko: "🇰🇷" };
 
 // ── SVG icon set ──────────────────────────────────────────────────────────────
 const Icon = {

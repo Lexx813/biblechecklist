@@ -21,6 +21,8 @@ export const metadata = {
       fr: "https://nwtprogress.com",
       tl: "https://nwtprogress.com",
       zh: "https://nwtprogress.com",
+      ja: "https://nwtprogress.com",
+      ko: "https://nwtprogress.com",
       "x-default": "https://nwtprogress.com",
     },
   },
@@ -54,7 +56,7 @@ const schemaWebApp = {
   operatingSystem: "Web",
   browserRequirements: "Requires JavaScript. Requires a modern browser.",
   availability: "https://schema.org/OnlineOnly",
-  inLanguage: ["en", "es", "pt", "fr", "tl", "zh"],
+  inLanguage: ["en", "es", "pt", "fr", "tl", "zh", "ja", "ko"],
   screenshot: "https://nwtprogress.com/og-image.jpg",
   featureList: [
     "Bible reading progress tracker for all 66 books of the New World Translation",
@@ -65,7 +67,7 @@ const schemaWebApp = {
     "Personal study notes tied to any passage or chapter",
     "Community forum, blog, and study groups",
     "Offline support via PWA",
-    "6-language support",
+    "8-language support",
   ],
   offers: [
     { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free", description: "Every feature included: Bible reading tracker, reading plans, study notes, meeting prep, direct messaging, study groups, community forum, blog, and quizzes — free forever", availability: "https://schema.org/OnlineOnly" },
@@ -87,7 +89,7 @@ const schemaOrg = {
   description: "A spiritual growth companion for Jehovah's Witnesses — Bible reading tracker, meeting prep, study tools, and worldwide community.",
   email: "support@nwtprogress.com",
   sameAs: ["https://jwstudy.org"],
-  contactPoint: { "@type": "ContactPoint", email: "support@nwtprogress.com", contactType: "customer support", availableLanguage: ["English", "Spanish", "Portuguese", "French", "Tagalog", "Chinese"] },
+  contactPoint: { "@type": "ContactPoint", email: "support@nwtprogress.com", contactType: "customer support", availableLanguage: ["English", "Spanish", "Portuguese", "French", "Tagalog", "Chinese", "Japanese"] },
 };
 
 const schemaWebSite = {

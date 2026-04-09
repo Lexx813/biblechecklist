@@ -12,6 +12,8 @@ export const LANGUAGES = [
   { code: "tl", label: "Tagalog" },
   { code: "fr", label: "Français" },
   { code: "zh", label: "中文" },
+  { code: "ja", label: "日本語" },
+  { code: "ko", label: "한국어" },
 ];
 
 i18n

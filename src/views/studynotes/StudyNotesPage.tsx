@@ -761,9 +761,10 @@ const SEED_PUBLIC_NOTES = [
 const SORT_OPTIONS = ["updated", "created", "title"];
 
 export default function StudyNotesPage({ user, navigate, initialTab = "mine", ...sharedNav }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.split("-")[0] ?? "en";
   const { data: notes = [], isLoading } = useStudyNotes();
-  const { data: publicNotes = [], isLoading: loadingPublic } = usePublicNotes();
+  const { data: publicNotes = [], isLoading: loadingPublic } = usePublicNotes(lang);
   const { data: folders = [] } = useNoteFolders();
   const toggleLike = useToggleNoteLike();
   const createNote = useCreateStudyNote(user?.id);
@@ -853,6 +854,7 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
       tags: form.tags ?? [],
       book_index: form.book_index,
       chapter: form.chapter,
+      lang,
       verse: form.verse?.trim() || null,
       is_public: form.is_public,
       folder_id: form.folder_id ?? null,

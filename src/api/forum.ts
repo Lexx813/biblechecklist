@@ -119,13 +119,15 @@ export const forumApi = {
     if (error) throw new Error(error.message);
   },
 
-  listTopThreads: async (limit = 4) => {
-    const { data, error } = await supabase
+  listTopThreads: async (limit = 4, lang?: string) => {
+    let q = supabase
       .from("forum_threads")
       .select(`*, ${PROFILE_FIELDS}, forum_replies(count)`)
       .order("like_count", { ascending: false })
       .order("updated_at", { ascending: false })
       .limit(limit);
+    if (lang) q = q.eq("lang", lang);
+    const { data, error } = await q;
     if (error) throw new Error(error.message);
     return data ?? [];
   },

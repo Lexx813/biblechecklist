@@ -174,8 +174,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { data: enPosts = [], isLoading: enPostsLoading } = usePublishedPosts(lang === "en" ? null : "en");
   const posts = langPosts.length > 0 ? langPosts : enPosts;
   const postsLoading = langPostsLoading || (langPosts.length === 0 && enPostsLoading);
-  const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4);
-  const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes();
+  const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4, lang);
+  const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes(lang);
   const toggleNoteLike = useToggleNoteLike();
   const previewNotes = publicNotes.slice(0, 4);
   const { data: profile } = useFullProfile(user?.id);
@@ -503,7 +503,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             )}
           </div>
 
-          {/* Community Notes */}
+          {/* Community Notes — only show if there are notes in user's language */}
+          {(lang === "en" || previewNotes.length > 0) && (
           <div>
             <div className="hfeed-head">
               <span className="hfeed-title">{t("home.notesTitle")}</span>
@@ -554,8 +555,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               </div>
             )}
           </div>
+          )}
 
-          {/* Forum */}
+          {/* Forum — only show if there are threads in user's language */}
+          {(lang === "en" || topThreads.length > 0) && (
           <div>
             <div className="hfeed-head">
               <span className="hfeed-title">{t("home.forumTitle")}</span>
@@ -591,6 +594,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               </div>
             )}
           </div>
+          )}
 
           </>}
 

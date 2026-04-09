@@ -1847,6 +1847,7 @@ export type Database = {
           folder_id: string | null
           id: string
           is_public: boolean | null
+          lang: string
           like_count: number
           tags: string[] | null
           title: string | null
@@ -1862,6 +1863,7 @@ export type Database = {
           folder_id?: string | null
           id?: string
           is_public?: boolean | null
+          lang?: string
           like_count?: number
           tags?: string[] | null
           title?: string | null
@@ -1877,6 +1879,7 @@ export type Database = {
           folder_id?: string | null
           id?: string
           is_public?: boolean | null
+          lang?: string
           like_count?: number
           tags?: string[] | null
           title?: string | null

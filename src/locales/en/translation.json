@@ -1,4 +1,10 @@
 {
+  "betaLang": {
+    "notice": "This translation is in beta. Some scripture quotes may not match the official New World Translation wording.",
+    "reason": "The verse texts could not be automatically verified because wol.jw.org's database is encrypted. If you notice a translation error, please let us know.",
+    "suggest": "Suggest a correction",
+    "dismiss": "Dismiss"
+  },
   "celebrate": {
     "title": "Book Complete! 🎉",
     "chapters": "{{count}} chapters read",

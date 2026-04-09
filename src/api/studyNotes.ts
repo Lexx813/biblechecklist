@@ -13,14 +13,16 @@ export const studyNotesApi = {
     return data ?? [];
   },
 
-  getPublicNotes: async () => {
+  getPublicNotes: async (lang?: string) => {
     const { data: { user } } = await supabase.auth.getUser();
-    const { data, error } = await supabase
+    let q = supabase
       .from("study_notes")
       .select("id, title, content, tags, book_index, chapter, verse, updated_at, user_id, like_count")
       .eq("is_public", true)
       .order("updated_at", { ascending: false })
       .limit(60);
+    if (lang) q = q.eq("lang", lang);
+    const { data, error } = await q;
     if (error) throw new Error(error.message);
     if (!data?.length) return [];
     const userIds = [...new Set(data.map(n => n.user_id))];
