@@ -21,7 +21,7 @@ export const studyNotesApi = {
       .eq("is_public", true)
       .order("updated_at", { ascending: false })
       .limit(60);
-    if (lang && lang !== "en") q = q.eq("lang", lang);
+    if (lang) q = q.eq("lang", lang);
     const { data, error } = await q;
     if (error) throw new Error(error.message);
     if (!data?.length) return [];
