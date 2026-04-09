@@ -896,7 +896,6 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
           <div>
             <h1 className="sn-title">{t("studyNotes.title")}</h1>
             <p className="sn-subtitle">{t("studyNotes.subtitle")}</p>
-            <span className="sn-premium-label">✦ Premium</span>
           </div>
           <button className="sn-new-btn" onClick={() => setShowTemplatePicker(true)}>{t("studyNotes.newNote")}</button>
         </div>

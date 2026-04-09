@@ -96,14 +96,9 @@ export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
                 }}
                 aria-label={`${bookName}${!isPremium ? " (Premium)" : ""}`}
               >
-                {!isPremium && (
-                  <span className="stp-card-lock" aria-hidden="true">✦</span>
-                )}
                 <h2 className="stp-card-title">{bookName}</h2>
                 <p className="stp-card-subtitle">{theme}</p>
-                <span className="stp-card-arrow">
-                  {isPremium ? t("studyTopics.readMore", "Read more") + " →" : "✦ Premium"}
-                </span>
+                <span className="stp-card-arrow">{t("studyTopics.readMore", "Read more") + " →"}</span>
               </button>
             );
           })}

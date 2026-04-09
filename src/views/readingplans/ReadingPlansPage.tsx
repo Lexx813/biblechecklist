@@ -277,7 +277,6 @@ function TemplateCard({ template, enrolled, onEnroll, enrolling, activeChallenge
   const { t } = useTranslation();
   return (
     <div className={`rp-template-card${template.isPremiumHighlight ? " rp-template-card--premium" : ""}`}>
-      {template.isPremiumHighlight && <span className="rp-premium-tag">✦ Premium</span>}
       {activeChallengeKeys.has(template.key) && (
         <span className="rp-challenge-badge">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
