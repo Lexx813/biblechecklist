@@ -170,7 +170,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const lang = i18n?.language?.split("-")[0] ?? "en";
 
   // Data
-  const { data: posts = [], isLoading: postsLoading } = usePublishedPosts();
+  const { data: posts = [], isLoading: postsLoading } = usePublishedPosts(lang);
   const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4);
   const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes();
   const toggleNoteLike = useToggleNoteLike();
@@ -470,12 +470,15 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <EmptyState icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>} title="No posts yet" sub="Be the first to share something." btnLabel="Write a post →" onBtn={() => navigate("blogDash")} />
             ) : (
               <div className="hblog-grid">
-                {blogPreview.map((post) => (
+                {blogPreview.map((post) => {
+                  const tr = (post as any).translations?.[lang];
+                  const title = tr?.title || post.title;
+                  return (
                   <article key={post.id} className="hblog-card" onClick={() => navigate("blog", { slug: post.slug })}>
                     <div className="hblog-cover">
                       <img
                         src={post.cover_url || getFallbackImage(post.id)}
-                        alt={post.title}
+                        alt={title}
                         loading="lazy"
                         onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
                       />
@@ -488,11 +491,12 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                     </div>
                     <div className="hblog-body">
                       <div className="hblog-tag">{(post as any).category || t("home.blogLabel")}</div>
-                      <div className="hblog-title">{post.title}</div>
+                      <div className="hblog-title">{title}</div>
                       <div className="hblog-meta">{authorName(post as any)} · {formatDate(post.created_at)}</div>
                     </div>
                   </article>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
