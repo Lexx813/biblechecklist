@@ -300,18 +300,6 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
       </div>
 
       <div className="blog-post-body">
-        {hasEsTranslation && (
-          <div className="blog-lang-toggle">
-            <button
-              className={`blog-lang-toggle-btn${!showEs ? " active" : ""}`}
-              onClick={() => setShowEs(false)}
-            >🇺🇸 English</button>
-            <button
-              className={`blog-lang-toggle-btn${showEs ? " active" : ""}`}
-              onClick={() => setShowEs(true)}
-            >🇪🇸 Español</button>
-          </div>
-        )}
         {displayExcerpt && <p className="blog-post-excerpt">{displayExcerpt}</p>}
         <div className="blog-post-content">
           {sanitizedContent && <div className="rich-content" dangerouslySetInnerHTML={{ __html: sanitizedContent }} />}
