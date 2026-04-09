@@ -250,8 +250,9 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
   const blogPreview = useMemo(() => {
     if (posts.length === 0) return [];
-    // Strictly posts in the user's language — do not mix languages
-    const pool = posts.filter((p: any) => p.lang === lang || (p.translations && p.translations[lang]));
+    // Posts in user's language; fall back to all (EN) if none exist
+    const inLang = posts.filter((p: any) => p.lang === lang || (p.translations && p.translations[lang]));
+    const pool = inLang.length > 0 ? inLang : posts;
     if (pool.length === 0) return [];
     const newest = pool[0];
     const byLikes = [...pool]

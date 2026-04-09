@@ -32,7 +32,8 @@ export const blogApi = {
     if (error) throw new Error(error.message);
     const rows = data ?? [];
     if (!lang) return rows;
-    return rows.filter((p: any) => p.lang === lang || (p.translations && p.translations[lang]));
+    const inLang = rows.filter((p: any) => p.lang === lang || (p.translations && p.translations[lang]));
+    return inLang.length > 0 ? inLang : rows;
   },
 
   getBySlug: async (slug: string) => {
