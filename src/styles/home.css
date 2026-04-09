@@ -200,14 +200,15 @@
 }
 .hcard:hover { border-color: rgba(138, 75, 255, 0.22); }
 
-/* Today's focus wrapper */
+/* Today's focus wrapper — inner tf-card provides its own gradient/border */
 .hcard--focus {
-  background: linear-gradient(135deg, rgba(30, 10, 60, 0.8) 0%, rgba(18, 10, 36, 0.8) 100%);
-  border-color: rgba(124, 58, 237, 0.28);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
   padding: 0;
   overflow: visible;
 }
-.hcard--focus:hover { border-color: rgba(124, 58, 237, 0.45); }
+.hcard--focus:hover { border-color: transparent; }
 
 /* Streak chip */
 .hstreak-chip {
