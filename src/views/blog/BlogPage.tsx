@@ -541,8 +541,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
   const { t } = useTranslation();
   const userLang = i18n?.language?.split("-")[0] ?? "en";
   const [visibleCount, setVisibleCount] = useState(9);
-  const [langFilter, setLangFilter] = useState(userLang);
-  const { data: posts = [], isLoading } = usePublishedPosts(langFilter);
+  const { data: posts = [], isLoading } = usePublishedPosts(userLang);
   const { data: blockedSet = new Set<string>() } = useBlocks(user?.id);
 
   useMeta(!slug ? { title: "Blog", description: "Reflections, studies, and insights from the NWT Progress community." } : {});
@@ -581,22 +580,6 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
       </nav>
 
       <h1 className="page-section-title">{t("blog.title")}</h1>
-
-      {/* Language filter pills */}
-      <div className="blog-lang-filter">
-        <button
-          className={`blog-lang-pill${langFilter === userLang ? " blog-lang-pill--active" : ""}`}
-          onClick={() => { setLangFilter(userLang); setVisibleCount(9); }}
-        >
-          {t("forum.myLanguage")}
-        </button>
-        <button
-          className={`blog-lang-pill${langFilter === null ? " blog-lang-pill--active" : ""}`}
-          onClick={() => { setLangFilter(null); setVisibleCount(9); }}
-        >
-          {t("forum.allLanguages")}
-        </button>
-      </div>
 
       {/* Posts */}
       <div className="blog-content">
