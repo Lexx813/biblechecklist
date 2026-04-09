@@ -119,7 +119,7 @@ const CheckIcon = () => (
   </svg>
 );
 
-const FLAGS: Record<string, string> = { en: "🇺🇸", es: "🇪🇸", pt: "🇧🇷", tl: "🇵🇭", fr: "🇫🇷", zh: "🇨🇳" };
+const FLAGS: Record<string, string> = { en: "🇺🇸", es: "🇪🇸", pt: "🇧🇷", tl: "🇵🇭", fr: "🇫🇷", zh: "🇨🇳", ja: "🇯🇵", ko: "🇰🇷" };
 
 /* ── Main Component ──────────────────────────────────────────────── */
 export default function LandingPage({ onGetStarted, i18n }) {
