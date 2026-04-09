@@ -882,7 +882,17 @@
     "language": "语言",
     "proFeature": "🔒 高级功能",
     "aiTools": "AI 工具",
-    "studyTopics": "学习主题"
+    "studyTopics": "学习主题",
+    "home": "首页",
+    "bibleTracker": "圣经追踪",
+    "forum": "论坛",
+    "blog": "博客",
+    "leaderboard": "排行榜",
+    "friends": "朋友",
+    "groups": "小组",
+    "shortcuts": "快捷方式",
+    "bibleQuiz": "圣经问答",
+    "meetingPrep": "聚会准备"
   },
   "studyTopics": {
     "title": "学习主题",

@@ -1644,7 +1644,17 @@
     "studyNotes": "Mga Tala ng Pag-aaral",
     "language": "Wika",
     "proFeature": "🔒 Tampok na Pro",
-    "studyTopics": "Mga Paksa ng Pag-aaral"
+    "studyTopics": "Mga Paksa ng Pag-aaral",
+    "home": "Tahanan",
+    "bibleTracker": "Bible Tracker",
+    "forum": "Pórum",
+    "blog": "Blog",
+    "leaderboard": "Leaderboard",
+    "friends": "Mga Kaibigan",
+    "groups": "Mga Grupo",
+    "shortcuts": "Mga Shortcut",
+    "bibleQuiz": "Bible Quiz",
+    "meetingPrep": "Paghahanda sa Pulong"
   },
   "studyTopics": {
     "title": "Mga Paksa ng Pag-aaral",

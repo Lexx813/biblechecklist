@@ -1644,7 +1644,17 @@
     "studyNotes": "Notes d'Étude",
     "language": "Langue",
     "proFeature": "🔒 Fonctionnalité Pro",
-    "studyTopics": "Sujets d'Étude"
+    "studyTopics": "Sujets d'Étude",
+    "home": "Accueil",
+    "bibleTracker": "Suivi Biblique",
+    "forum": "Forum",
+    "blog": "Blog",
+    "leaderboard": "Classement",
+    "friends": "Amis",
+    "groups": "Groupes",
+    "shortcuts": "Raccourcis",
+    "bibleQuiz": "Quiz Biblique",
+    "meetingPrep": "Préparation de Réunion"
   },
   "studyTopics": {
     "title": "Sujets d'Étude",

@@ -1644,7 +1644,17 @@
     "studyNotes": "Notas de Estudo",
     "language": "Idioma",
     "proFeature": "🔒 Recurso Pro",
-    "studyTopics": "Tópicos de Estudo"
+    "studyTopics": "Tópicos de Estudo",
+    "home": "Início",
+    "bibleTracker": "Rastreador Bíblico",
+    "forum": "Fórum",
+    "blog": "Blog",
+    "leaderboard": "Classificação",
+    "friends": "Amigos",
+    "groups": "Grupos",
+    "shortcuts": "Atalhos",
+    "bibleQuiz": "Quiz Bíblico",
+    "meetingPrep": "Preparação de Reunião"
   },
   "studyTopics": {
     "title": "Tópicos de Estudo",

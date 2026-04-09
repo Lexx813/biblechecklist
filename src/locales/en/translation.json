@@ -1670,7 +1670,17 @@
     "studyNotes": "Study Notes",
     "language": "Language",
     "proFeature": "🔒 Pro feature",
-    "studyTopics": "Study Topics"
+    "studyTopics": "Study Topics",
+    "home": "Home",
+    "bibleTracker": "Bible Tracker",
+    "forum": "Forum",
+    "blog": "Blog",
+    "leaderboard": "Leaderboard",
+    "friends": "Friends",
+    "groups": "Groups",
+    "shortcuts": "Shortcuts",
+    "bibleQuiz": "Bible Quiz",
+    "meetingPrep": "Meeting Prep"
   },
   "studyTopics": {
     "title": "Study Topics",
