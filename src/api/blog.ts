@@ -32,10 +32,7 @@ export const blogApi = {
     if (error) throw new Error(error.message);
     const rows = data ?? [];
     if (!lang) return rows;
-    const inLang = rows.filter((p: any) => p.lang === lang || (p.translations && p.translations[lang]));
-    if (inLang.length === 0) return rows; // fallback: show all (mostly EN) when no localized posts
-    const rest = rows.filter((p: any) => !inLang.includes(p));
-    return [...inLang, ...rest];
+    return rows.filter((p: any) => p.lang === lang || (p.translations && p.translations[lang]));
   },
 
   getBySlug: async (slug: string) => {

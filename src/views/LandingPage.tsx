@@ -60,9 +60,7 @@ function useFeaturedPosts(lang: string) {
       .then(({ data }) => {
         if (!data) return;
         const inLang = data.filter((p: any) => p.lang === lang || (p.translations && p.translations[lang]));
-        const rest = data.filter((p: any) => !inLang.includes(p));
-        const ordered = [...inLang, ...rest];
-        setPosts(ordered.slice(0, 3).map((p: any) => {
+        setPosts(inLang.slice(0, 3).map((p: any) => {
           const tr = p.translations?.[lang];
           return { ...p, title: tr?.title || p.title, excerpt: tr?.excerpt || p.excerpt };
         }));
