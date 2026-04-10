@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useReportWebVitals } from "next/web-vitals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ErrorBoundary } from "../src/components/ErrorBoundary";
@@ -137,21 +137,7 @@ export default function Providers({ children }) {
         <WebVitals />
         {children}
         <Analytics />
-        {process.env.NODE_ENV !== "production" && (
-          <DevTools />
-        )}
       </QueryClientProvider>
     </ErrorBoundary>
   );
-}
-
-// Lazy-load devtools so they never appear in the production bundle
-function DevTools() {
-  const [Tools, setTools] = useState(null);
-  useEffect(() => {
-    import("@tanstack/react-query-devtools").then(({ ReactQueryDevtools }) => {
-      setTools(() => ReactQueryDevtools);
-    });
-  }, []);
-  return Tools ? <Tools initialIsOpen={false} /> : null;
 }
