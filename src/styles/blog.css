@@ -25,6 +25,16 @@
 .blog-nav-left  { display: flex; gap: 8px; align-items: center; }
 .blog-nav-right { display: flex; gap: 8px; align-items: center; }
 
+/* Blog title — Cormorant Garamond, centered */
+.blog-wrap .page-section-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
 .blog-write-btn {
   background: var(--teal);
   color: #fff;

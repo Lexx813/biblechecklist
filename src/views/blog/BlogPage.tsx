@@ -1,6 +1,7 @@
 import { useState, useMemo, memo, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
+import TopBar from "../../components/TopBar";
 import ReportModal from "../../components/ReportModal";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
 import ShareButtons from "../../components/ShareButtons";
@@ -281,6 +282,17 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
 
   return (
     <div className="blog-post-view">
+      {!user && (
+        <TopBar
+          navigate={(page) => { if (page === "home") onBack(); else onBack(); }}
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          user={null}
+          currentPage="blog"
+          onSearchClick={() => {}}
+          onLogout={null}
+        />
+      )}
       <div className="blog-post-hero">
         <img
           src={post.cover_url || getFallbackImage(post.id)}
@@ -564,21 +576,27 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
 
   return (
     <div className="blog-wrap">
-      {/* Nav */}
-      <nav className="blog-nav">
-        <div className="blog-nav-left">
-          {!user && (
-            <button className="back-btn" onClick={onBack}>
-              ← Home
-            </button>
-          )}
-        </div>
-        <div className="blog-nav-right">
-          {(profile?.can_blog || profile?.is_admin) && (
-            <button className="blog-write-btn" onClick={onWriteClick}>{t("blog.myPosts")}</button>
-          )}
-        </div>
-      </nav>
+      {/* Show full TopBar for unauthenticated visitors so they can sign in / toggle dark mode */}
+      {!user ? (
+        <TopBar
+          navigate={(page) => { if (page === "home") onBack(); else onBack(); }}
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+          user={null}
+          currentPage="blog"
+          onSearchClick={() => {}}
+          onLogout={null}
+        />
+      ) : (
+        <nav className="blog-nav">
+          <div className="blog-nav-left" />
+          <div className="blog-nav-right">
+            {(profile?.can_blog || profile?.is_admin) && (
+              <button className="blog-write-btn" onClick={onWriteClick}>{t("blog.myPosts")}</button>
+            )}
+          </div>
+        </nav>
+      )}
 
       <h1 className="page-section-title">{t("blog.title")}</h1>
 
