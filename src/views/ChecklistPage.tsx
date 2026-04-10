@@ -367,7 +367,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
 
         <div className="book-list">
           {!initialized ? (
-            Array.from({ length: 10 }, (_, i) => (
+            Array.from({ length: filteredBooks.length || 66 }, (_, i) => (
               <div key={i} className="book-card-skeleton">
                 <div className="sk-num skeleton" />
                 <div className="sk-body">

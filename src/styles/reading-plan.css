@@ -30,10 +30,11 @@
   display: flex; gap: 24px; flex-wrap: wrap;
 }
 
-.reading-plan-stat { display: flex; flex-direction: column; gap: 3px; }
+.reading-plan-stat { display: flex; flex-direction: column; gap: 3px; min-width: 64px; }
 
 .reading-plan-stat-value {
   font-size: 22px; font-weight: 800; color: var(--teal);
+  font-variant-numeric: tabular-nums;
 }
 
 .reading-plan-stat-label {

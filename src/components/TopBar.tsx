@@ -125,18 +125,19 @@ export default function TopBar({
 
         {/* Right: actions */}
         <div className="topbar-actions">
-          {/* Admin link — mobile only */}
-          {profile?.is_admin && (
-            <button
-              className="topbar-btn topbar-btn--admin-mobile"
-              onClick={() => navigate("admin")}
-              aria-label="Admin panel"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              </svg>
-            </button>
-          )}
+          {/* Admin link — mobile only. Always rendered to prevent CLS; invisible for non-admins. */}
+          <button
+            className="topbar-btn topbar-btn--admin-mobile"
+            onClick={() => navigate("admin")}
+            aria-label="Admin panel"
+            aria-hidden={!profile?.is_admin || undefined}
+            tabIndex={profile?.is_admin ? 0 : -1}
+            style={!profile?.is_admin ? { visibility: "hidden", pointerEvents: "none" } : undefined}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </button>
 
           {/* Language picker */}
           <div className="topbar-lang" ref={langRef}>
