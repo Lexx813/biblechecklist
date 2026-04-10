@@ -197,10 +197,13 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
       return;
     }
     if (HOME_PANELS.has(page)) {
-      // Blog gets real URLs for shareability + SEO
-      const url = page === "blog"
-        ? (params.slug ? `/blog/${params.slug}` : "/blog")
-        : "/";
+      // Give key pages real URLs so reload preserves state
+      let url = "/";
+      if (page === "blog") url = params.slug ? `/blog/${params.slug}` : "/blog";
+      else if (page === "quiz") url = "/quiz";
+      else if (page === "quizLevel") url = `/quiz/${params.level}`;
+      else if (page === "advancedQuiz") url = "/advanced-quiz";
+      else if (page === "advancedQuizLevel") url = `/advanced-quiz/${params.level}`;
       history.pushState(null, "", url);
       const panelKey = page === "quizLevel" ? "quiz" : page === "advancedQuizLevel" ? "advancedQuiz" : page;
       setNav({ page: "home" });
