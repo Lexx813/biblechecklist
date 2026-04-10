@@ -27,6 +27,21 @@ const LEVELS = [
   { level: 12, themeKey: "quiz.theme12", badge: "👑", badgeNameKey: "quiz.badgeName12" },
 ];
 
+export const ADVANCED_LEVELS = [
+  { level: 25, themeKey: "quiz.theme25", badge: "⚖️", badgeNameKey: "quiz.badgeName25" },
+  { level: 26, themeKey: "quiz.theme26", badge: "📜", badgeNameKey: "quiz.badgeName26" },
+  { level: 27, themeKey: "quiz.theme27", badge: "🏛️", badgeNameKey: "quiz.badgeName27" },
+  { level: 28, themeKey: "quiz.theme28", badge: "🌾", badgeNameKey: "quiz.badgeName28" },
+  { level: 29, themeKey: "quiz.theme29", badge: "✨", badgeNameKey: "quiz.badgeName29" },
+  { level: 30, themeKey: "quiz.theme30", badge: "🔭", badgeNameKey: "quiz.badgeName30" },
+  { level: 31, themeKey: "quiz.theme31", badge: "🏰", badgeNameKey: "quiz.badgeName31" },
+  { level: 32, themeKey: "quiz.theme32", badge: "⛪", badgeNameKey: "quiz.badgeName32" },
+  { level: 33, themeKey: "quiz.theme33", badge: "🗺️", badgeNameKey: "quiz.badgeName33" },
+  { level: 34, themeKey: "quiz.theme34", badge: "👩", badgeNameKey: "quiz.badgeName34" },
+  { level: 35, themeKey: "quiz.theme35", badge: "📐", badgeNameKey: "quiz.badgeName35" },
+  { level: 36, themeKey: "quiz.theme36", badge: "🔗", badgeNameKey: "quiz.badgeName36" },
+];
+
 // ── QuizLevelCard ──────────────────────────────────────────────────────────────
 
 function QuizLevelCard({ levelData, progress, onClick }) {
@@ -185,6 +200,12 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
             ))}
           </div>
         )}
+
+        <div style={{ textAlign: "center", marginTop: 16 }}>
+          <button className="quiz-btn quiz-btn--secondary" onClick={() => navigate("advancedQuiz")}>
+            {t("quiz.goToAdvanced")}
+          </button>
+        </div>
       </div>
       {showQuizPrompt && (
         <UpgradePrompt
@@ -266,11 +287,11 @@ function getMultiplier(timeLeft) {
 
 // ── QuizLevel (Active Quiz) ────────────────────────────────────────────────────
 
-export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade, timedMode = false }) {
+export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade, timedMode = false, levelsArray = LEVELS }) {
   const { t } = useTranslation();
   const { data: profile } = useFullProfile(user?.id);
   const { isPremium } = useSubscription(user?.id);
-  const levelData = LEVELS.find((l) => l.level === level) ?? LEVELS[0];
+  const levelData = levelsArray.find((l) => l.level === level) ?? levelsArray[0];
   const theme = t(levelData.themeKey);
   const badgeName = t(levelData.badgeNameKey);
 

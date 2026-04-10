@@ -2,6 +2,8 @@ import { useMemo, useState, useEffect, lazy, Suspense } from "react";
 
 const QuizPageInline      = lazy(() => import("./quiz/QuizPage"));
 const QuizLevelInline     = lazy(() => import("./quiz/QuizPage").then(m => ({ default: m.QuizLevel })));
+const AdvancedQuizInline  = lazy(() => import("./quiz/AdvancedQuizPage"));
+const AdvancedQuizLevelInline = lazy(() => import("./quiz/AdvancedQuizPage").then(m => ({ default: m.AdvancedQuizLevel })));
 const LeaderboardInline   = lazy(() => import("./LeaderboardPage"));
 const FamilyQuizInline    = lazy(() => import("./familyquiz/FamilyQuizPage"));
 const ReadingPlansInline  = lazy(() => import("./readingplans/ReadingPlansPage"));
@@ -109,7 +111,7 @@ const NAV_ITEMS_2 = [
   },
 ];
 
-const INLINE_PANELS = new Set(["main", "quiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile"]);
+const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile"]);
 
 const NAV_SHORTCUTS = [
   {
@@ -191,6 +193,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   // Inline panels (quiz, leaderboard, familyQuiz, etc.)
   const [activePanel, setActivePanel] = useState(null);
   const [quizLevelState, setQuizLevelState] = useState(null); // null = hub, {level, timedMode}
+  const [advQuizLevelState, setAdvQuizLevelState] = useState(null);
   const [panelParams, setPanelParams] = useState<Record<string, any>>({});
 
   // Consume panel requests from the global navigate (e.g. clicking sidebar on another page)
@@ -200,6 +203,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
     if (panel === "home") {
       setActivePanel(null);
       setQuizLevelState(null);
+      setAdvQuizLevelState(null);
       setPanelParams({});
       onPanelConsumed?.();
       return;
@@ -213,6 +217,11 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       } else {
         setQuizLevelState(null);
       }
+      if (panel === "advancedQuiz" && params.level != null) {
+        setAdvQuizLevelState({ level: params.level, timedMode: !!params.timedMode });
+      } else {
+        setAdvQuizLevelState(null);
+      }
       onPanelConsumed?.();
     }
   }, [panelRequest]);
@@ -220,16 +229,18 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   function panelNavigate(page, params: Record<string, any> = {}) {
     if (page === "quiz") { setQuizLevelState(null); setActivePanel("quiz"); setPanelParams({}); }
     else if (page === "quizLevel") { setQuizLevelState({ level: params.level, timedMode: !!params.timedMode }); }
+    else if (page === "advancedQuiz") { setAdvQuizLevelState(null); setActivePanel("advancedQuiz"); setPanelParams({}); }
+    else if (page === "advancedQuizLevel") { setAdvQuizLevelState({ level: params.level, timedMode: !!params.timedMode }); }
     else if (page === "blog") {
       setActivePanel("blog"); setQuizLevelState(null); setPanelParams(params);
       history.pushState(null, "", params.slug ? `/blog/${params.slug}` : "/blog");
     }
     else if (INLINE_PANELS.has(page)) { setActivePanel(page); setQuizLevelState(null); setPanelParams(params); }
     else if (page === "home") {
-      setActivePanel(null); setQuizLevelState(null); setPanelParams({});
+      setActivePanel(null); setQuizLevelState(null); setAdvQuizLevelState(null); setPanelParams({});
       if (window.location.pathname.startsWith("/blog")) history.pushState(null, "", "/");
     }
-    else { setActivePanel(null); setQuizLevelState(null); setPanelParams({}); navigate(page, params); }
+    else { setActivePanel(null); setQuizLevelState(null); setAdvQuizLevelState(null); setPanelParams({}); navigate(page, params); }
   }
 
   // Onboarding / modals
@@ -377,6 +388,16 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {activePanel === "quiz" && quizLevelState && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
               <QuizLevelInline level={quizLevelState.level} timedMode={quizLevelState.timedMode} user={user} onBack={() => setQuizLevelState(null)} onComplete={() => setQuizLevelState(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+          {activePanel === "advancedQuiz" && !advQuizLevelState && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <AdvancedQuizInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+            </Suspense>
+          )}
+          {activePanel === "advancedQuiz" && advQuizLevelState && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <AdvancedQuizLevelInline level={advQuizLevelState.level} timedMode={advQuizLevelState.timedMode} user={user} onBack={() => setAdvQuizLevelState(null)} onComplete={() => setAdvQuizLevelState(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
             </Suspense>
           )}
           {activePanel === "leaderboard" && (

@@ -33,6 +33,8 @@ const BlogDashboard     = lazy(() => import("./views/blog/BlogDashboard"));
 const ForumPage         = lazy(() => import("./views/forum/ForumPage"));
 const QuizPage          = lazy(() => import("./views/quiz/QuizPage"));
 const QuizLevel         = lazy(() => import("./views/quiz/QuizPage").then(m => ({ default: m.QuizLevel })));
+const AdvancedQuizPage  = lazy(() => import("./views/quiz/AdvancedQuizPage"));
+const AdvancedQuizLevel = lazy(() => import("./views/quiz/AdvancedQuizPage").then(m => ({ default: m.AdvancedQuizLevel })));
 const SettingsPage      = lazy(() => import("./views/profile/SettingsPage"));
 const SearchPage        = lazy(() => import("./views/search/SearchPage"));
 const BookmarksPage     = lazy(() => import("./views/bookmarks/BookmarksPage"));
@@ -183,7 +185,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   }, []);
 
   // Pages rendered as inline panels inside the home page
-  const HOME_PANELS = new Set(["quiz", "quizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile"]);
+  const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile"]);
 
   const [homePanelRequest, setHomePanelRequest] = useState<{ panel: string; params: Record<string, any> } | null>(null);
 
@@ -200,7 +202,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
         ? (params.slug ? `/blog/${params.slug}` : "/blog")
         : "/";
       history.pushState(null, "", url);
-      const panelKey = page === "quizLevel" ? "quiz" : page;
+      const panelKey = page === "quizLevel" ? "quiz" : page === "advancedQuizLevel" ? "advancedQuiz" : page;
       setNav({ page: "home" });
       setHomePanelRequest({ panel: panelKey, params });
       return;
@@ -267,6 +269,8 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   );
   else if (nav.page === "quiz")      pageContent = <Page><AL page="quiz"><QuizPage user={user} {...sharedNav} /></AL></Page>;
   else if (nav.page === "quizLevel") pageContent = <Page><AL page="quiz"><QuizLevel level={nav.level} user={user} onBack={() => navigate("quiz")} onComplete={() => navigate("quiz")} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "advancedQuiz")      pageContent = <Page><AL page="advancedQuiz"><AdvancedQuizPage user={user} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "advancedQuizLevel") pageContent = <Page><AL page="advancedQuiz"><AdvancedQuizLevel level={nav.level} user={user} onBack={() => navigate("advancedQuiz")} onComplete={() => navigate("advancedQuiz")} {...sharedNav} timedMode={nav.timedMode} /></AL></Page>;
   else if (nav.page === "search")    pageContent = <Page><SearchPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "bookmarks") pageContent = <Page><BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "history")   pageContent = <Page><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Page>;

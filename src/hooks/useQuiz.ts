@@ -37,18 +37,20 @@ export function useSubmitQuiz(userId: string | undefined) {
           queryKey: ["quiz", "progress", userId],
           queryFn: () => quizApi.getUserProgress(userId),
           staleTime: 0,
-        }).then((progress: Array<{ badge_earned: boolean }>) => {
-          const allLevelsDone = (progress ?? []).filter(p => p.badge_earned).length === 12;
-          if (allLevelsDone) badgesApi.awardBadge(userId, "quiz_all_levels");
+        }).then((progress: Array<{ badge_earned: boolean; level: number }>) => {
+          const basicDone = (progress ?? []).filter(p => p.badge_earned && p.level >= 1 && p.level <= 12).length === 12;
+          if (basicDone) badgesApi.awardBadge(userId, "quiz_all_levels");
+          const advancedDone = (progress ?? []).filter(p => p.badge_earned && p.level >= 25 && p.level <= 36).length === 12;
+          if (advancedDone) badgesApi.awardBadge(userId, "quiz_advanced_all_levels");
         }).catch(() => {});
       }
     },
   });
 }
 
-export function useInitQuizProgress(userId: string | undefined) {
+export function useInitQuizProgress(userId: string | undefined, startLevel = 1) {
   return useMutation({
-    mutationFn: () => quizApi.initProgress(userId!),
+    mutationFn: () => quizApi.initProgress(userId!, startLevel),
   });
 }
 

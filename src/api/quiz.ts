@@ -55,12 +55,12 @@ export const quizApi = {
     return data;
   },
 
-  initProgress: async (userId: string) => {
-    // Ensure level 1 is unlocked for new users
+  initProgress: async (userId: string, startLevel = 1) => {
+    // Ensure the starting level is unlocked for new users
     const { error } = await supabase
       .from("user_quiz_progress")
       .upsert(
-        { user_id: userId, level: 1, unlocked: true },
+        { user_id: userId, level: startLevel, unlocked: true },
         { onConflict: "user_id,level", ignoreDuplicates: true }
       );
     if (error) throw new Error(error.message);

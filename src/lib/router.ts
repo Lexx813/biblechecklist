@@ -22,6 +22,8 @@ export type NavState =
   | { page: "aiTools" }
   | { page: "studyTopics" }
   | { page: "studyTopicDetail"; slug: string }
+  | { page: "advancedQuiz" }
+  | { page: "advancedQuizLevel"; level: number; timedMode?: boolean }
   | { page: "familyQuiz"; challengeId?: string }
   | { page: "leaderboard" }
   | { page: "about" }
@@ -50,6 +52,8 @@ export function parsePath(): NavState {
     return { page: "forum", categoryId: parts[0] || null, threadId: parts[1] || null };
   }
   if (h === "quiz") return { page: "quiz" };
+  if (h === "advanced-quiz") return { page: "advancedQuiz" };
+  if (h.startsWith("advanced-quiz/")) return { page: "advancedQuizLevel", level: parseInt(h.slice(14)) };
   if (h.startsWith("quiz/")) return { page: "quizLevel", level: parseInt(h.slice(5)) };
   if (h.startsWith("user/")) return { page: "publicProfile", userId: h.slice(5) };
   if (h === "search") return { page: "search" };
@@ -92,8 +96,10 @@ export function buildPath(page: string, params: Record<string, unknown> = {}): s
     case "forum":         return params.categoryId
       ? (params.threadId ? `/forum/${params.categoryId}/${params.threadId}` : `/forum/${params.categoryId}`)
       : "/forum";
-    case "quiz":          return "/quiz";
-    case "quizLevel":     return "/quiz/" + params.level;
+    case "quiz":               return "/quiz";
+    case "quizLevel":          return "/quiz/" + params.level;
+    case "advancedQuiz":       return "/advanced-quiz";
+    case "advancedQuizLevel":  return "/advanced-quiz/" + params.level;
     case "publicProfile": return "/user/" + params.userId;
     case "search":        return "/search";
     case "bookmarks":     return "/bookmarks";
