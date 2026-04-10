@@ -208,3 +208,27 @@
 }
 
 .tf-continue-arrow { color: var(--text-muted); font-size: 16px; flex-shrink: 0; }
+
+/* ── Skeleton loader — reserves space while data loads ── */
+.tf-skeleton {
+  background: linear-gradient(135deg, rgba(109, 40, 217, 0.18), rgba(91, 33, 182, 0.1));
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.tf-skeleton-bar {
+  border-radius: 6px;
+  background: rgba(138, 75, 255, 0.12);
+  animation: tf-pulse 1.5s ease-in-out infinite;
+}
+.tf-skeleton-bar--title  { width: 60%; height: 16px; }
+.tf-skeleton-bar--sub    { width: 40%; height: 12px; }
+.tf-skeleton-bar--progress { width: 100%; height: 6px; border-radius: 3px; }
+.tf-skeleton-bar--btn    { width: 45%; height: 34px; border-radius: 8px; }
+@keyframes tf-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}

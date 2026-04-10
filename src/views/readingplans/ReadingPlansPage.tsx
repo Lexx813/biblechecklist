@@ -143,10 +143,10 @@ function CustomPlanModal({ onClose, onCreated }) {
 
   return createPortal(
     <div className="rp-modal-overlay" onClick={onClose}>
-      <div className="rp-modal" onClick={e => e.stopPropagation()}>
+      <div className="rp-modal" role="dialog" aria-modal="true" aria-label="Create reading plan" onClick={e => e.stopPropagation()}>
         <div className="rp-modal-header">
           <h2 className="rp-modal-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:6}}><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>{t("readingPlans.customPlanTitle")}</h2>
-          <button className="rp-modal-close" onClick={onClose}>✕</button>
+          <button className="rp-modal-close" onClick={onClose} aria-label="Close">✕</button>
         </div>
 
         <form className="rp-modal-body" onSubmit={handleSubmit}>
@@ -244,6 +244,7 @@ function CustomPlanModal({ onClose, onCreated }) {
               value={customDays}
               onChange={e => setCustomDays(e.target.value)}
               placeholder={t("readingPlans.enterDays")}
+              aria-label="Number of days"
             />
           )}
 
@@ -446,7 +447,7 @@ function ReadingSummaryWidget({ todayReadings }) {
 
   return (
     <div className="ait-inline" style={{ marginTop: "1rem" }}>
-      <div className="ait-inline-header" onClick={() => setOpen(o => !o)}>
+      <div className="ait-inline-header" onClick={() => setOpen(o => !o)} role="button" tabIndex={0} aria-expanded={open}>
         <span className="ait-inline-title">✨ Reading Summary & Reflection</span>
         <span className={`ait-inline-chevron${open ? " ait-inline-chevron--open" : ""}`}>▼</span>
       </div>
@@ -577,7 +578,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate, 
               ⏸ {t("readingPlans.pause")}
             </button>
           )}
-          <button className="rp-analytics-toggle-btn" onClick={() => setShowAnalytics(v => !v)}>
+          <button className="rp-analytics-toggle-btn" onClick={() => setShowAnalytics(v => !v)} aria-expanded={showAnalytics}>
             {t("readingPlans.analytics")}
           </button>
         </div>

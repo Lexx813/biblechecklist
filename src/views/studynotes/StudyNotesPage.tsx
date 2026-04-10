@@ -100,7 +100,7 @@ function TagInput({ tags, onChange }) {
         {tags.map(tag => (
           <span key={tag} className="sn-tag-pill">
             #{tag}
-            <button type="button" className="sn-tag-remove" onClick={() => remove(tag)}>×</button>
+            <button type="button" className="sn-tag-remove" onClick={() => remove(tag)} aria-label="Remove tag">×</button>
           </span>
         ))}
       </div>
@@ -112,6 +112,7 @@ function TagInput({ tags, onChange }) {
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => { if (e.key === "Enter" || e.key === ",") { e.preventDefault(); add(); } }}
           maxLength={30}
+          aria-label="Add tag"
         />
         <button type="button" className="sn-tag-add-btn" onClick={add}>{t("studyNotes.add")}</button>
       </div>
@@ -135,7 +136,7 @@ function EnhanceNoteWidget({ noteContent, passage }) {
 
   return (
     <div className="ait-inline">
-      <div className="ait-inline-header" onClick={() => setOpen(o => !o)}>
+      <div className="ait-inline-header" onClick={() => setOpen(o => !o)} role="button" tabIndex={0} aria-expanded={open}>
         <span className="ait-inline-title">✨ Enhance Note with AI</span>
         <span className={`ait-inline-chevron${open ? " ait-inline-chevron--open" : ""}`}>▼</span>
       </div>
@@ -261,6 +262,7 @@ function NoteEditor({ note, initialContent = "", folders, onSave, onCancel, savi
               value={form.verse ?? ""}
               onChange={e => set("verse", e.target.value)}
               maxLength={10}
+              aria-label="Verse reference"
             />
           )}
         </div>
@@ -486,6 +488,7 @@ function FolderSidebar({ folders, activeFolder, onSelect, onCreate, onRename, on
             placeholder={t("studyNotes.folderName")}
             autoFocus
             maxLength={40}
+            aria-label="Folder name"
           />
           <button type="submit" className="sn-folder-save-btn" aria-label="Save">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -514,6 +517,7 @@ function FolderSidebar({ folders, activeFolder, onSelect, onCreate, onRename, on
                 onChange={e => setRenameVal(e.target.value)}
                 autoFocus
                 maxLength={40}
+                aria-label="Rename folder"
               />
               <button type="submit" className="sn-folder-save-btn" aria-label="Save">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
@@ -557,7 +561,7 @@ function PromptModal({ label, onConfirm, onCancel }) {
   }
   return createPortal(
     <div className="confirm-overlay" onClick={onCancel}>
-      <div className="confirm-modal" onClick={e => e.stopPropagation()}>
+      <div className="confirm-modal" role="dialog" aria-modal="true" aria-label="Enter value" onClick={e => e.stopPropagation()}>
         <form className="confirm-body" onSubmit={handleSubmit}>
           <div className="confirm-title">{label}</div>
           <input
@@ -566,6 +570,7 @@ function PromptModal({ label, onConfirm, onCancel }) {
             value={val}
             onChange={e => setVal(e.target.value)}
             placeholder={label}
+            aria-label="Enter value"
           />
         </form>
         <div className="confirm-actions">
@@ -921,6 +926,7 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
           placeholder={t("studyNotes.search")}
           value={search}
           onChange={e => setSearch(e.target.value)}
+          aria-label="Search notes"
         />
         {tab === "mine" && (
           <CustomSelect

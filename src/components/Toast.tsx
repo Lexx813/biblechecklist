@@ -29,7 +29,7 @@ export default function Toast() {
   if (!toasts.length) return null;
 
   return (
-    <div className="toast-stack">
+    <div className="toast-stack" aria-live="polite" role="status">
       {toasts.map(t => (
         <div key={t.id} className={`toast toast--${t.type || "success"}`}>
           <span className="toast-icon">{(ICONS as any)[t.type ?? "success"] ?? ICONS.success}</span>

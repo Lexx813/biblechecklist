@@ -79,6 +79,7 @@ function NotesEditor({ value, placeholder, onSave }) {
         placeholder={placeholder}
         value={local}
         onChange={handleChange}
+        aria-label="Meeting notes"
       />
     </div>
   );

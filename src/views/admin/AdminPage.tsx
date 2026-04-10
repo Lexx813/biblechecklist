@@ -243,6 +243,7 @@ function UsersTab({ currentUser, navigate }) {
             value={newEmail}
             onChange={e => setNewEmail(e.target.value)}
             disabled={createUser.isPending}
+            aria-label="Email address"
           />
           <input
             id="admin-new-password"
@@ -252,6 +253,7 @@ function UsersTab({ currentUser, navigate }) {
             placeholder={t("admin.passwordPlaceholder")}
             value={newPassword}
             onChange={e => setNewPassword(e.target.value)}
+            aria-label="Password"
             disabled={createUser.isPending}
           />
           {addError && <div className="admin-form-error">{addError}</div>}
@@ -751,11 +753,11 @@ function ForumCategoriesTab() {
         <form className="admin-cat-form" onSubmit={handleSave}>
           <h3 className="admin-cat-form-title">{editId ? t("admin.editCategory") : t("admin.createCategory")}</h3>
           <div className="admin-cat-form-row">
-            <input className="admin-input" placeholder="Icon (emoji)" value={form.icon} onChange={e => setForm(p => ({ ...p, icon: e.target.value }))} style={{ width: 80 }} />
-            <input className="admin-input" placeholder={t("admin.categoryName")} value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} style={{ flex: 1 }} required />
+            <input className="admin-input" placeholder="Icon (emoji)" value={form.icon} onChange={e => setForm(p => ({ ...p, icon: e.target.value }))} style={{ width: 80 }} aria-label="Category icon" />
+            <input className="admin-input" placeholder={t("admin.categoryName")} value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} style={{ flex: 1 }} required aria-label="Category name" />
             <input className="admin-input" placeholder={t("admin.categoryOrder")} aria-label={t("admin.categoryOrder")} type="number" inputMode="numeric" value={form.sort_order} onChange={e => setForm(p => ({ ...p, sort_order: e.target.value }))} style={{ width: 80 }} />
           </div>
-          <input className="admin-input" placeholder={t("admin.categoryDescription")} value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} />
+          <input className="admin-input" placeholder={t("admin.categoryDescription")} value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} aria-label="Category description" />
           {error && <div className="admin-error">{error}</div>}
           <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
             <button className="admin-save-btn" type="submit" disabled={saving}>{saving ? t("common.saving") : editId ? t("common.save") : t("admin.createCategory")}</button>
@@ -1150,6 +1152,7 @@ function AnnouncementsTab({ currentUser }) {
           placeholder={t("adminAnnouncements.messagePlaceholder")}
           value={message}
           onChange={e => setMessage(e.target.value)}
+          aria-label="Announcement message"
         />
         <div className="admin-type-row">
           {["info", "warning", "success"].map(tp => (

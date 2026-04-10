@@ -70,7 +70,7 @@ interface Props {
 }
 
 export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade, lang = "en" }: Props) {
-  const { data: plans = [] } = useMyPlans();
+  const { data: plans = [], isLoading: plansLoading } = useMyPlans();
   const activePlan = plans.find(p => !p.is_paused && !p.completed_at) ?? null;
   const activePlanTotalDays = activePlan ? getTemplateOrCustom(activePlan).totalDays : undefined;
 
@@ -123,6 +123,17 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
   const wolUrl = todayReadings.length > 0
     ? wolChapterUrl(todayReadings[0].bookIndex, todayReadings[0].chapter, lang)
     : null;
+
+  if (plansLoading) {
+    return (
+      <div className="tf-skeleton" aria-busy="true">
+        <div className="tf-skeleton-bar tf-skeleton-bar--title" />
+        <div className="tf-skeleton-bar tf-skeleton-bar--sub" />
+        <div className="tf-skeleton-bar tf-skeleton-bar--progress" />
+        <div className="tf-skeleton-bar tf-skeleton-bar--btn" />
+      </div>
+    );
+  }
 
   if (!activePlan || !template) {
     return (
@@ -216,7 +227,7 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
 
         {showFreezeConfirm && (
           <div className="freeze-confirm-overlay" onClick={() => setShowFreezeConfirm(false)}>
-            <div className="freeze-confirm-dialog" onClick={(e) => e.stopPropagation()}>
+            <div className="freeze-confirm-dialog" role="dialog" aria-modal="true" aria-label="Confirm streak freeze" onClick={(e) => e.stopPropagation()}>
               <p style={{ margin: "0 0 8px", fontWeight: 600 }}>Use a freeze token?</p>
               <p style={{ margin: "0 0 0", color: "var(--text-secondary)", fontSize: "0.85rem" }}>
                 {freezeStatus?.tokens ?? 0} token{(freezeStatus?.tokens ?? 0) !== 1 ? "s" : ""} remaining after this.

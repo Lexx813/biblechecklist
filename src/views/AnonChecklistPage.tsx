@@ -116,6 +116,7 @@ export default function AnonChecklistPage({ onSignUp, onBack }: Props) {
               placeholder={t("app.searchPlaceholder", "Search books…")}
               value={search}
               onChange={e => setSearch(e.target.value)}
+              aria-label="Search books"
             />
           </div>
         </div>

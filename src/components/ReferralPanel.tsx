@@ -66,7 +66,7 @@ export default function ReferralPanel({ userId }: Props) {
       </div>
 
       <div className="ref-link-box">
-        <input className="ref-link-input" value={shareUrl} readOnly onClick={copyLink} />
+        <input className="ref-link-input" value={shareUrl} readOnly onClick={copyLink} aria-label="Referral link" />
         <button className="ref-copy-btn" onClick={copyLink}>
           {copied ? "Copied!" : "Copy"}
         </button>

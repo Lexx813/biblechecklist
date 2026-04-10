@@ -589,6 +589,7 @@ export default function RichTextEditor({
                 type="url"
                 placeholder="https://example.com"
                 value={linkModal.value}
+                aria-label="URL"
                 onChange={e => setLinkModal(m => ({ ...m, value: e.target.value }))}
                 onKeyDown={e => { if (e.key === "Escape") setLinkModal({ open: false, value: "" }); }}
                 autoComplete="off"

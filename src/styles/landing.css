@@ -61,7 +61,7 @@
   --lp-cta-text:     #FFFFFF;
   --lp-banner-bg:    linear-gradient(135deg, #3B0764 0%, #5B21B6 60%, #7C3AED 100%);
   --lp-footer-bg:    #07060F;
-  --lp-footer-text:  rgba(255,255,255,0.5);
+  --lp-footer-text:  rgba(255,255,255,0.6);
   --lp-footer-link:  rgba(255,255,255,0.8);
 }
 

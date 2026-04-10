@@ -32,6 +32,6 @@
   opacity: 0.4;
 }
 
-[data-theme="light"] .page-footer { color: rgba(0,0,0,0.35); }
-[data-theme="light"] .page-footer-link { color: rgba(0,0,0,0.35); }
+[data-theme="light"] .page-footer { color: rgba(0,0,0,0.55); }
+[data-theme="light"] .page-footer-link { color: rgba(0,0,0,0.55); }
 [data-theme="light"] .page-footer-link:hover { color: rgba(0,0,0,0.6); }

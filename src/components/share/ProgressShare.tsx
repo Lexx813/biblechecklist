@@ -218,10 +218,10 @@ export default function ProgressShare({ stats, onClose }: Props) {
 
   return createPortal(
     <div className="share-overlay" onClick={onClose}>
-      <div className="share-modal" onClick={e => e.stopPropagation()}>
+      <div className="share-modal" role="dialog" aria-modal="true" aria-label="Share progress" onClick={e => e.stopPropagation()}>
         <div className="share-modal-header">
           <span className="share-modal-title">{t("share.title")}</span>
-          <button className="share-modal-close" onClick={onClose}>✕</button>
+          <button className="share-modal-close" onClick={onClose} aria-label="Close">✕</button>
         </div>
         <div className="share-canvas-wrap">
           <canvas ref={canvasRef} className="share-canvas" />

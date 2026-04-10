@@ -118,6 +118,7 @@ export default function AICompanion({ passage = "", reference = "", className = 
           onChange={(e) => setQuestion(e.target.value)}
           onKeyDown={handleKeyDown}
           maxLength={300}
+          aria-label="Ask a question"
           rows={1}
           disabled={loading}
         />

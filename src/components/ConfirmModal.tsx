@@ -14,7 +14,7 @@ export default function ConfirmModal({ message, onConfirm, onCancel, confirmLabe
   const { t } = useTranslation();
   return createPortal(
     <div className="confirm-overlay" onClick={onCancel}>
-      <div className="confirm-modal" onClick={e => e.stopPropagation()}>
+      <div className="confirm-modal" role="dialog" aria-modal="true" aria-label="Confirm action" onClick={e => e.stopPropagation()}>
         <div className="confirm-body">
           <div className="confirm-title">{t("confirm.title")}</div>
           <div className="confirm-message">{message}</div>

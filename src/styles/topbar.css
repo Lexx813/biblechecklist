@@ -91,6 +91,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  min-height: 44px; /* prevent reflow when badges/icons load async */
 }
 .topbar-btn {
   position: relative;

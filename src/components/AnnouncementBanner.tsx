@@ -138,7 +138,7 @@ export default function AnnouncementBanner() {
   if (!visibleInfo.length && !visiblePersistent.length) return null;
 
   return createPortal(
-    <div className="ann-stack">
+    <div className="ann-stack" aria-live="polite">
       {visiblePersistent.map(a => (
         <PersistentToast key={a.id} announcement={a} onDone={() => dismissPersistent(a.id)} />
       ))}

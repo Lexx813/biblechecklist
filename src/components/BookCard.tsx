@@ -68,7 +68,7 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
 
   return (
     <div className={`book-card${allDone ? " fully-done" : ""}${open ? " book-card--open" : ""}`}>
-      <div className="book-row" onClick={() => setOpen(o => !o)}>
+      <div className="book-row" onClick={() => setOpen(o => !o)} role="button" tabIndex={0} aria-expanded={open}>
         <div className="book-num">
           {allDone ? (
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
@@ -106,6 +106,7 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
               <button
                 className="book-info-toggle"
                 onClick={() => setShowInfo(s => !s)}
+                aria-expanded={showInfo}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ transition: "transform 0.2s", transform: showInfo ? "rotate(90deg)" : "rotate(0deg)" }}><polyline points="9 18 15 12 9 6"/></svg>
                 {t("book.infoToggle")}

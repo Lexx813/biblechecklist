@@ -695,7 +695,7 @@ function ForumPostAssistant({ topic, draft }) {
 
   return (
     <div className="ait-inline" style={{ marginTop: "0.5rem" }}>
-      <div className="ait-inline-header" onClick={() => setOpen(o => !o)}>
+      <div className="ait-inline-header" onClick={() => setOpen(o => !o)} role="button" tabIndex={0} aria-expanded={open}>
         <span className="ait-inline-title">✨ AI Post Assistant</span>
         <span className={`ait-inline-chevron${open ? " ait-inline-chevron--open" : ""}`}>▼</span>
       </div>
@@ -849,6 +849,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
           placeholder={t("forum.searchPlaceholder")}
           value={search}
           onChange={e => setSearch(e.target.value)}
+          aria-label="Search forum"
         />
       </div>
 
@@ -892,6 +893,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
             value={title}
             onChange={e => setTitle(e.target.value)}
             disabled={createThread.isPending}
+            aria-label="Thread title"
           />
           <Suspense fallback={<div style={{ height: 120 }} />}>
             <RichTextEditor

@@ -28,7 +28,7 @@
   --auth-input-bg:            rgba(255,255,255,0.9);
   --auth-input-border:        rgba(124,58,237,0.18);
   --auth-input-text:          #1A0F3C;
-  --auth-input-placeholder:   rgba(75,59,140,0.4);
+  --auth-input-placeholder:   rgba(75,59,140,0.6);
   --auth-input-focus-border:  #7C3AED;
   --auth-input-focus-shadow:  rgba(124,58,237,0.15);
   --auth-forgot:              #7C3AED;
@@ -66,12 +66,12 @@
                               inset 0 1px 0 rgba(255,255,255,0.07);
   --auth-title:               #EDE9FD;
   --auth-sub:                 rgba(237,233,253,0.6);
-  --auth-muted:               rgba(237,233,253,0.45);
+  --auth-muted:               rgba(237,233,253,0.65);
   --auth-logo-ring:           rgba(167,139,250,0.12);
   --auth-logo-border:         rgba(167,139,250,0.28);
   --auth-logo-icon:           #A78BFA;
   --auth-tabs-bg:             rgba(255,255,255,0.07);
-  --auth-tab-text:            rgba(237,233,253,0.4);
+  --auth-tab-text:            rgba(237,233,253,0.6);
   --auth-tab-active-bg:       rgba(167,139,250,0.22);
   --auth-tab-active-text:     #EDE9FD;
   --auth-tab-active-shadow:   0 2px 10px rgba(0,0,0,0.2);
@@ -79,7 +79,7 @@
   --auth-input-bg:            rgba(255,255,255,0.07);
   --auth-input-border:        rgba(167,139,250,0.2);
   --auth-input-text:          #EDE9FD;
-  --auth-input-placeholder:   rgba(237,233,253,0.32);
+  --auth-input-placeholder:   rgba(237,233,253,0.55);
   --auth-input-focus-border:  #A78BFA;
   --auth-input-focus-shadow:  rgba(167,139,250,0.18);
   --auth-forgot:              #A78BFA;
@@ -91,18 +91,18 @@
   --auth-submit-to:           #A78BFA;
   --auth-submit-shadow:       rgba(124,58,237,0.45);
   --auth-divider-color:       rgba(167,139,250,0.14);
-  --auth-divider-text:        rgba(237,233,253,0.35);
+  --auth-divider-text:        rgba(237,233,253,0.6);
   --auth-google-bg:           rgba(255,255,255,0.07);
   --auth-google-border:       rgba(255,255,255,0.12);
   --auth-google-text:         #EDE9FD;
   --auth-google-hover-bg:     rgba(255,255,255,0.12);
   --auth-google-hover-border: rgba(167,139,250,0.35);
-  --auth-switch-text:         rgba(237,233,253,0.45);
+  --auth-switch-text:         rgba(237,233,253,0.65);
   --auth-switch-link:         #A78BFA;
   --auth-topbar-bg:           rgba(255,255,255,0.06);
   --auth-topbar-border:       rgba(167,139,250,0.18);
   --auth-topbar-icon:         #A78BFA;
-  --auth-hint:                rgba(237,233,253,0.4);
+  --auth-hint:                rgba(237,233,253,0.6);
   --auth-check-accent:        #A78BFA;
   --auth-policy-link:         #A78BFA;
 }

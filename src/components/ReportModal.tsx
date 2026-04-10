@@ -13,7 +13,7 @@ export default function ReportModal({ onSubmit, onClose, isPending }: Props) {
   const { t } = useTranslation();
   return createPortal(
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-box" onClick={e => e.stopPropagation()} style={{ maxWidth: 420 }}>
+      <div className="modal-box" role="dialog" aria-modal="true" aria-label="Report content" onClick={e => e.stopPropagation()} style={{ maxWidth: 420 }}>
         <h3 className="modal-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:6}}><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>{t("report.title")}</h3>
         <p className="modal-sub">{t("report.sub")}</p>
         <textarea

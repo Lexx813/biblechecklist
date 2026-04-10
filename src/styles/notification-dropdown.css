@@ -111,7 +111,7 @@
 .notif-text strong { color: #f0eaff; }
 .notif-time {
   font-size: 10px;
-  color: rgba(240, 234, 255, 0.35);
+  color: rgba(240, 234, 255, 0.6);
   margin-top: 3px;
 }
 .notif-dot {
@@ -127,7 +127,7 @@
 .notif-empty {
   padding: 32px 16px;
   text-align: center;
-  color: rgba(240, 234, 255, 0.35);
+  color: rgba(240, 234, 255, 0.6);
   font-size: 13px;
 }
 

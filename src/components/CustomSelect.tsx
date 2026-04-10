@@ -76,6 +76,7 @@ export default function CustomSelect({ value, onChange, options, placeholder = "
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 autoFocus
+                aria-label="Search options"
               />
             </div>
           )}

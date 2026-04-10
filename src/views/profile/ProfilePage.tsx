@@ -127,9 +127,10 @@ function DisplayName({ profile, userId, editable }) {
           onKeyDown={e => { if (e.key === "Enter") save(); if (e.key === "Escape") setEditing(false); }}
           autoFocus
           maxLength={40}
+          aria-label="Display name"
         />
         <button className="pf-name-save" onClick={save}>{t("common.save")}</button>
-        <button className="pf-name-cancel" onClick={() => setEditing(false)}>✕</button>
+        <button className="pf-name-cancel" onClick={() => setEditing(false)} aria-label="Close">✕</button>
       </div>
     );
   }
@@ -145,7 +146,7 @@ function DisplayName({ profile, userId, editable }) {
   return (
     <div className="pf-name-row">
       <h2 className="pf-name">{profile?.display_name || profile?.email?.split("@")[0]}</h2>
-      <button className="pf-edit-icon" onClick={startEdit} title={t("common.edit")}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></button>
+      <button className="pf-edit-icon" onClick={startEdit} title={t("common.edit")} aria-label="Edit profile"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></button>
     </div>
   );
 }
@@ -484,7 +485,7 @@ function FollowListModal({ targetId, mode, currentUserId, onClose, navigate, t, 
 
   return createPortal(
     <div className="pf-follow-modal-backdrop" onClick={onClose}>
-      <div className="pf-follow-modal" onClick={e => e.stopPropagation()}>
+      <div className="pf-follow-modal" role="dialog" aria-modal="true" aria-label="Followers and following" onClick={e => e.stopPropagation()}>
         <div className="pf-follow-modal-header">
           <span>{mode === "followers" ? t("follow.followers") : t("follow.following")}</span>
           <button className="pf-follow-modal-close" onClick={onClose} aria-label="✕ Close">✕</button>
@@ -1079,7 +1080,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
           <div className="pf-section">
             <div className="pf-section-header">
               <h2>{t("profile.myNotes")} <InfoTip text={t("profile.notesTip")} /></h2>
-              <button className="pf-add-note-btn" onClick={() => setShowAddForm(v => !v)}>
+              <button className="pf-add-note-btn" onClick={() => setShowAddForm(v => !v)} aria-expanded={showAddForm}>
                 {showAddForm ? t("common.cancel") : t("profile.addNote")}
               </button>
             </div>
@@ -1107,6 +1108,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
                 placeholder={t("profile.searchNotes")}
                 value={search}
                 onChange={e => setSearch(e.target.value)}
+                aria-label="Search notes"
               />
             </div>
 

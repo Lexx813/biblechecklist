@@ -59,7 +59,7 @@ function CreateGroupModal({ onClose, onCreated }: { onClose: () => void; onCreat
 
   return createPortal(
     <div className="grp-modal-overlay" onClick={onClose}>
-      <div className="grp-modal" onClick={e => e.stopPropagation()}>
+      <div className="grp-modal" role="dialog" aria-modal="true" aria-label="Create group" onClick={e => e.stopPropagation()}>
         <div className="grp-modal-header">
           <h2 className="grp-modal-title">Create Group</h2>
           <button className="grp-modal-close" onClick={onClose} aria-label="Close">
@@ -236,7 +236,7 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
         {tab === "explore" && (
           <div className="grp-search-bar">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input className="grp-search-input" type="search" placeholder="Search groups…" value={search} onChange={e => setSearch(e.target.value)} />
+            <input className="grp-search-input" type="search" placeholder="Search groups…" value={search} onChange={e => setSearch(e.target.value)} aria-label="Search groups" />
           </div>
         )}
 

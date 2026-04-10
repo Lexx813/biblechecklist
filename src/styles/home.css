@@ -109,7 +109,7 @@
 .hls-section-label {
   font-size: 12px;
   font-weight: 700;
-  color: rgba(240, 234, 255, 0.4);
+  color: rgba(240, 234, 255, 0.6);
   padding: 6px 12px 2px;
   text-transform: none;
 }
@@ -207,7 +207,7 @@
   box-shadow: none;
   padding: 0;
   overflow: visible;
-  min-height: 180px; /* reserve space while async data loads — prevents CLS */
+  /* CLS handled by tf-skeleton inside TodaysFocusCard */
 }
 .hcard--focus:hover { border-color: transparent; }
 
@@ -231,8 +231,8 @@
 .hstreak-body { flex: 1; min-width: 0; }
 .hstreak-main { font-size: 17px; font-weight: 700; color: var(--text-primary, #f0eaff); }
 .hstreak-main span { color: #f59e0b; }
-.hstreak-sub { font-size: 13px; color: rgba(240, 234, 255, 0.5); margin-top: 1px; }
-.hstreak-best { font-size: 13px; color: rgba(240, 234, 255, 0.35); font-style: italic; flex-shrink: 0; }
+.hstreak-sub { font-size: 13px; color: rgba(240, 234, 255, 0.65); margin-top: 1px; }
+.hstreak-best { font-size: 13px; color: rgba(240, 234, 255, 0.6); font-style: italic; flex-shrink: 0; }
 
 /* Feed section header */
 .hfeed-head {
@@ -331,7 +331,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.hblog-meta { font-size: 12px; color: rgba(240, 234, 255, 0.35); }
+.hblog-meta { font-size: 12px; color: rgba(240, 234, 255, 0.6); }
 
 /* ── Notes rows in card ── */
 .hnote-row {
@@ -369,7 +369,7 @@
   line-height: 1.4;
   margin-bottom: 3px;
 }
-.hnote-meta { font-size: 12px; color: rgba(240, 234, 255, 0.35); }
+.hnote-meta { font-size: 12px; color: rgba(240, 234, 255, 0.6); }
 .hnote-passage {
   display: inline-flex;
   align-items: center;
@@ -387,7 +387,7 @@
   border: none;
   cursor: pointer;
   font-size: 14px;
-  color: rgba(240, 234, 255, 0.4);
+  color: rgba(240, 234, 255, 0.6);
   padding: 4px 6px;
   border-radius: var(--radius-xs);
   font-family: inherit;
@@ -434,10 +434,10 @@
   text-overflow: ellipsis;
   margin-bottom: 2px;
 }
-.hforum-meta { font-size: 12px; color: rgba(240, 234, 255, 0.35); }
+.hforum-meta { font-size: 12px; color: rgba(240, 234, 255, 0.6); }
 .hforum-count {
   font-size: 12px;
-  color: rgba(240, 234, 255, 0.35);
+  color: rgba(240, 234, 255, 0.6);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -555,11 +555,11 @@
   border: 2px solid var(--bg, #0a0514);
 }
 .hfriend-name { font-size: 14px; font-weight: 500; color: var(--text-primary, #f0eaff); flex: 1; }
-.hfriend-when { font-size: 12px; color: rgba(240, 234, 255, 0.35); }
+.hfriend-when { font-size: 12px; color: rgba(240, 234, 255, 0.6); }
 .hfriend-empty {
   padding: 12px 16px 16px;
   font-size: 13px;
-  color: rgba(240, 234, 255, 0.4);
+  color: rgba(240, 234, 255, 0.6);
 }
 
 /* Upsell widget */
@@ -648,7 +648,7 @@
 .home-notif-dismiss {
   background: none;
   border: none;
-  color: rgba(240, 234, 255, 0.4);
+  color: rgba(240, 234, 255, 0.6);
   cursor: pointer;
   font-size: 16px;
   padding: 4px;

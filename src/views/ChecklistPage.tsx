@@ -307,6 +307,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
               inputMode="search"
               placeholder={t("app.searchPlaceholder")}
               value={search}
+              aria-label="Search books"
               onChange={e => setSearch(e.target.value)}
             />
           </div>

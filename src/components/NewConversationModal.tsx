@@ -44,7 +44,7 @@ export function NewConversationModal({ userId, isPremium, onClose, navigate, onU
 
   return createPortal(
     <div className="new-conv-backdrop" onClick={onClose}>
-      <div className="new-conv-modal" onClick={e => e.stopPropagation()}>
+      <div className="new-conv-modal" role="dialog" aria-modal="true" aria-label="New conversation" onClick={e => e.stopPropagation()}>
         <div className="new-conv-header">
           <span className="new-conv-title">New Message</span>
           <button className="new-conv-close" onClick={onClose} aria-label="Close">
@@ -59,6 +59,7 @@ export function NewConversationModal({ userId, isPremium, onClose, navigate, onU
             value={search}
             onChange={e => setSearch(e.target.value)}
             autoFocus
+            aria-label="Search friends"
           />
         </div>
         <div className="new-conv-list">

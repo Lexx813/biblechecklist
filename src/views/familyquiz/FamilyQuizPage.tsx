@@ -227,7 +227,7 @@ function CreateForm({ user, onClose, onCreated }) {
 
   return (
     <div className="fq-create-overlay" onClick={onClose}>
-      <div className="fq-create-panel" onClick={e => e.stopPropagation()}>
+      <div className="fq-create-panel" role="dialog" aria-modal="true" aria-label="New quiz challenge" onClick={e => e.stopPropagation()}>
         <button className="fq-create-close" onClick={onClose} aria-label="✕ Close">✕</button>
         <h2 className="fq-create-title">New Challenge</h2>
 
@@ -467,7 +467,7 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
     return (
       <div className="fq-quiz">
         <div className="fq-quiz-header">
-          <button className="fq-back-link" onClick={onBack}>✕</button>
+          <button className="fq-back-link" onClick={onBack} aria-label="Close">✕</button>
           <div className="fq-quiz-progress-wrap">
             <div className="fq-quiz-progress-bar">
               <div className="fq-quiz-progress-fill" style={{ width: `${progress}%` }} />

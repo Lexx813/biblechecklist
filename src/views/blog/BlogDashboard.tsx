@@ -133,6 +133,7 @@ function PostEditor({ userId, post, onDone }) {
             className="textarea-emoji-btn"
             onClick={() => setShowExcerptEmoji(v => !v)}
             title="Emoji"
+            aria-expanded={showExcerptEmoji}
           >😊</button>
           {showExcerptEmoji && (
             <EmojiPickerPopup onSelect={insertExcerptEmoji} onClose={() => setShowExcerptEmoji(false)} align="right" />
