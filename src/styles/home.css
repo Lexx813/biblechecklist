@@ -686,12 +686,25 @@
 [data-theme="light"] .hforum-title,
 [data-theme="light"] .hfriend-name,
 [data-theme="light"] .hstreak-main { color: #1e1035; }
+/* Meta / muted text: rgba(30,16,53,0.5) ≈ 3.2:1 on #F5F5F7 — fails AA.
+   Bump to 0.68 → ≈ 5.7:1 ✓ */
 [data-theme="light"] .hblog-meta,
 [data-theme="light"] .hnote-meta,
 [data-theme="light"] .hforum-meta,
 [data-theme="light"] .hfriend-when,
 [data-theme="light"] .hstreak-sub,
-[data-theme="light"] .hstreak-best { color: rgba(30, 16, 53, 0.5); }
+[data-theme="light"] .hstreak-best { color: rgba(30, 16, 53, 0.68); }
+
+/* #c084fc purple is ≈ 2.5:1 on white — fails AA. Use dark purple instead. */
+[data-theme="light"] .hfeed-link { color: #6d28d9; }
+[data-theme="light"] .hblog-tag { color: #6d28d9; }
+[data-theme="light"] .hnote-passage { color: #6d28d9; background: rgba(109, 40, 217, 0.1); }
+
+/* Like buttons use rgba(240,234,255,0.6) which is near-invisible on white */
+[data-theme="light"] .hnote-like-btn { color: rgba(30, 16, 53, 0.68); }
+[data-theme="light"] .hnote-like-btn:hover { color: #6d28d9; background: rgba(109, 40, 217, 0.08); }
+[data-theme="light"] .hnote-like-btn--liked { color: #7c3aed; }
+
 [data-theme="light"] .hnote-row:hover,
 [data-theme="light"] .hforum-row:hover,
 [data-theme="light"] .hfriend-row:hover { background: rgba(124, 58, 237, 0.05); }
