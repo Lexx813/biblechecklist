@@ -59,13 +59,12 @@ const FAQ_ITEMS = [
 
 // All valid SPA client-side route first-segments
 const KNOWN_SPA_ROUTES = new Set([
-  "admin", "aiTools", "blogDash", "bookmarks", "checklist", "community",
-  "familyQuiz", "feed", "friendRequests", "friends", "groupDetail", "groups",
-  "history", "home", "invite", "leaderboard", "login", "main", "meetingPrep",
-  "messages", "notifications", "premium", "privacy", "profile", "publicProfile",
-  "quiz", "quizLevel", "readingPlans", "readingTracker", "referral", "search",
-  "settings", "signup", "studyNotes", "studyTopicDetail", "studyTopics",
-  "terms", "try", "upgrade", "whosOnline",
+  "admin", "advanced-quiz", "ai-tools", "blog-dash", "bookmarks", "checklist",
+  "community", "family-quiz", "feed", "friends", "groups", "history", "home",
+  "invite", "leaderboard", "login", "main", "meeting-prep", "messages",
+  "notifications", "premium", "privacy", "profile", "quiz", "reading-plans",
+  "referral", "search", "settings", "signup", "study-notes", "study-topics",
+  "terms", "try", "upgrade", "user",
 ]);
 
 export default async function Page({ params }) {
