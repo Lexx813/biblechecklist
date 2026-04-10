@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Supabase auth uses the Web Locks API; React Strict Mode's intentional
+  // double-mount in dev leaves orphaned locks and floods the console.
+  reactStrictMode: false,
+
   // Pre-existing ESLint warnings exist in the codebase; don't block builds
   eslint: { ignoreDuringBuilds: true },
 
