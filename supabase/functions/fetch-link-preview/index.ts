@@ -120,7 +120,7 @@ Deno.serve(async (req: Request) => {
     return json({ error: "message_id and url are required" }, 400, cors);
   }
 
-  // Basic URL sanity check — must be http/https
+  // URL sanity check — must be http/https and not target internal/private networks
   let parsedUrl: URL;
   try {
     parsedUrl = new URL(url);
@@ -129,6 +129,13 @@ Deno.serve(async (req: Request) => {
     }
   } catch {
     return json({ error: "Invalid URL" }, 400, cors);
+  }
+
+  // Block SSRF — reject private/internal hostnames and IP ranges
+  const host = parsedUrl.hostname.toLowerCase();
+  const BLOCKED_HOSTS = /^(localhost|127\.\d+\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+|192\.168\.\d+\.\d+|0\.0\.0\.0|169\.254\.\d+\.\d+|\[::1?\]|metadata\.google\.internal)$/;
+  if (BLOCKED_HOSTS.test(host) || host.endsWith(".internal") || host.endsWith(".local")) {
+    return json({ error: "URL not allowed" }, 400, cors);
   }
 
   // --- Service-role client for DB writes ---

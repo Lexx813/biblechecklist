@@ -355,7 +355,7 @@ function MSGSearchPanel({ convId, onClose }) {
         <button className="msg-overlay-back" onClick={onClose} aria-label="Back">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
-        <input className="msg-overlay-search-input" placeholder="Search messages…" value={query} onChange={handleChange} autoFocus />
+        <input className="msg-overlay-search-input" placeholder="Search messages…" value={query} onChange={handleChange} autoFocus aria-label="Search messages" />
       </div>
       <div className="msg-overlay-body">
         {isFetching ? (
@@ -448,7 +448,7 @@ function MSGImageWarningModal({ file, onConfirm, onCancel }) {
   const previewUrl = file ? URL.createObjectURL(file) : null;
   return (
     <div className="msg-modal-overlay" onClick={onCancel}>
-      <div className="msg-warn-modal" onClick={e => e.stopPropagation()}>
+      <div className="msg-warn-modal" role="dialog" aria-modal="true" aria-label="Image upload warning" onClick={e => e.stopPropagation()}>
         <div className="msg-warn-icon">⚠️</div>
         <h3 className="msg-warn-title">Before you share</h3>
         <p className="msg-warn-body">
@@ -484,7 +484,7 @@ function MSGVersePicker({ onSend, onClose }) {
   }
   return (
     <div className="msg-modal-overlay" onClick={onClose}>
-      <div className="msg-picker-modal" onClick={e => e.stopPropagation()}>
+      <div className="msg-picker-modal" role="dialog" aria-modal="true" aria-label="Share Bible verse" onClick={e => e.stopPropagation()}>
         <div className="msg-picker-header">
           <span>📖 Share Bible Verse</span>
           <button className="msg-picker-close" onClick={onClose} aria-label="Close">
@@ -492,13 +492,13 @@ function MSGVersePicker({ onSend, onClose }) {
           </button>
         </div>
         <div className="msg-picker-body">
-          <select className="msg-picker-select" value={bookIdx} onChange={e => { setBookIdx(+e.target.value); setChapter(1); }}>
+          <select className="msg-picker-select" value={bookIdx} onChange={e => { setBookIdx(+e.target.value); setChapter(1); }} aria-label="Select book">
             {BOOKS.map((b, i) => <option key={i} value={i}>{b.name}</option>)}
           </select>
-          <select className="msg-picker-select" value={chapter} onChange={e => setChapter(+e.target.value)}>
+          <select className="msg-picker-select" value={chapter} onChange={e => setChapter(+e.target.value)} aria-label="Select chapter">
             {Array.from({ length: chapterCount }, (_, i) => i + 1).map(c => <option key={c} value={c}>Chapter {c}</option>)}
           </select>
-          <input className="msg-picker-input" placeholder="Add a note (optional)…" value={note} onChange={e => setNote(e.target.value)} maxLength={200} />
+          <input className="msg-picker-input" placeholder="Add a note (optional)…" value={note} onChange={e => setNote(e.target.value)} maxLength={200} aria-label="Add a note" />
           <button className="msg-picker-send" onClick={handleSend}>Share</button>
         </div>
       </div>
@@ -512,7 +512,7 @@ function MSGPlanPicker({ onSend, onClose }) {
   const { data: plans = [] } = useMyPlans();
   return (
     <div className="msg-modal-overlay" onClick={onClose}>
-      <div className="msg-picker-modal" onClick={e => e.stopPropagation()}>
+      <div className="msg-picker-modal" role="dialog" aria-modal="true" aria-label="Share reading plan" onClick={e => e.stopPropagation()}>
         <div className="msg-picker-header">
           <span>📅 Share Reading Plan</span>
           <button className="msg-picker-close" onClick={onClose} aria-label="Close">
@@ -587,6 +587,7 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
               onChange={e => setEditText(e.target.value)}
               onKeyDown={handleEditKeyDown}
               rows={1}
+              aria-label="Edit message"
             />
           ) : msg.message_type === "image" ? (
             <MSGImageCard content={msg.content} metadata={msg.metadata} />
@@ -622,7 +623,7 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
       {showActions && !editing && (
         <div className={`msg-bubble-actions${isMine ? " msg-bubble-actions--mine" : ""}`}>
           <div style={{ position: "relative" }}>
-            <button className="msg-action-btn" title={t("messages.react")} onClick={() => setShowReactionPicker(s => !s)}>
+            <button className="msg-action-btn" title={t("messages.react")} onClick={() => setShowReactionPicker(s => !s)} aria-expanded={showReactionPicker}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
           </button>
             {showReactionPicker && (
@@ -722,7 +723,7 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
   const markRead = useMarkRead(conv.conversation_id, user.id);
   const { data: reactions = [] } = useReactions(conv.conversation_id);
   const toggleReaction = useToggleReaction(conv.conversation_id);
-  const { sharedKey, otherHasKey } = useSharedKey(keyPair, conv.other_user_id);
+  const { sharedKey, otherHasKey } = useSharedKey(keyPair, conv.other_user_id, user.id);
   const { uploading, uploadAndSend } = useUploadImage(conv.conversation_id);
   const toggleStar = useToggleStar(conv.conversation_id);
   const { data: convSettings } = useConvSettings(conv.conversation_id);
@@ -1189,6 +1190,7 @@ function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSoundEnabled
             maxLength={MAX_MSG_LENGTH}
             rows={1}
             autoFocus
+            aria-label="Type a message"
           />
           <button
             className="msg-send-btn"
@@ -1356,6 +1358,7 @@ export default function MessagesPage({ user, navigate, darkMode, setDarkMode, i1
               placeholder="Search conversations…"
               value={search}
               onChange={e => setSearch(e.target.value)}
+              aria-label="Search conversations"
             />
           </div>
 

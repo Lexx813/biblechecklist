@@ -6,6 +6,8 @@
  * without worrying about whether gtag is loaded yet.
  */
 
+import { detectPII } from "./pii";
+
 declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
@@ -59,7 +61,9 @@ export function trackShare(contentType: string, itemId: string): void {
 }
 
 export function trackSearch(searchTerm: string): void {
-  gtag("event", "search", { search_term: searchTerm });
+  // Redact searches containing PII to avoid sending personal data to GA
+  const term = detectPII(searchTerm) ? "[redacted]" : searchTerm;
+  gtag("event", "search", { search_term: term });
 }
 
 export function trackContentView(contentType: string, contentId: string): void {

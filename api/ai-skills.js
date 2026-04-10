@@ -325,7 +325,8 @@ export default async function handler(req) {
 
   if (!phase1.ok) {
     const detail = await phase1.text().catch(() => "");
-    return new Response(`AI service error: ${detail}`, { status: 502 });
+    console.error("[ai-skills] Claude API error (phase1):", phase1.status, detail.slice(0, 200));
+    return new Response("AI service temporarily unavailable", { status: 502 });
   }
 
   const p1 = await phase1.json();
@@ -367,7 +368,8 @@ export default async function handler(req) {
 
   if (!phase2.ok) {
     const detail = await phase2.text().catch(() => "");
-    return new Response(`AI service error: ${detail}`, { status: 502 });
+    console.error("[ai-skills] Claude API error (phase2):", phase2.status, detail.slice(0, 200));
+    return new Response("AI service temporarily unavailable", { status: 502 });
   }
 
   return new Response(phase2.body, { headers: SSE_HEADERS });

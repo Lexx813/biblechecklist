@@ -79,18 +79,21 @@ export async function getOrCreateKeyPair(userId: string): Promise<StoredKeyPair>
  * Derive a shared AES-256-GCM key from ECDH + HKDF.
  * Alice(privateKey) + Bob(publicKey) === Bob(privateKey) + Alice(publicKey)
  */
-export async function deriveSharedKey(myPrivateKey: CryptoKey, theirPublicKey: CryptoKey): Promise<CryptoKey> {
+export async function deriveSharedKey(myPrivateKey: CryptoKey, theirPublicKey: CryptoKey, myUserId: string, theirUserId: string): Promise<CryptoKey> {
   const sharedBits = await crypto.subtle.deriveBits(
     { name: "ECDH", public: theirPublicKey },
     myPrivateKey,
     256
   );
   const hkdfKey = await crypto.subtle.importKey("raw", sharedBits, "HKDF", false, ["deriveKey"]);
+  // Deterministic, unique salt from sorted user IDs — prevents identical keys across pairs
+  const sortedIds = [myUserId, theirUserId].sort().join(":");
+  const salt = new TextEncoder().encode(sortedIds.padEnd(32, "\0").slice(0, 32));
   return crypto.subtle.deriveKey(
     {
       name: "HKDF",
       hash: "SHA-256",
-      salt: new Uint8Array(32),
+      salt,
       info: new TextEncoder().encode("nwt-messages-v1"),
     },
     hkdfKey,

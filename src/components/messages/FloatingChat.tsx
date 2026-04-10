@@ -258,7 +258,7 @@ function FCImageWarningModal({ file, onConfirm, onCancel }) {
   const previewUrl = file ? URL.createObjectURL(file) : null;
   return (
     <div className="fc-modal-overlay fc-img-warn-overlay" onClick={onCancel}>
-      <div className="fc-modal fc-img-warn-modal" onClick={e => e.stopPropagation()}>
+      <div className="fc-modal fc-img-warn-modal" role="dialog" aria-modal="true" aria-label="Image upload warning" onClick={e => e.stopPropagation()}>
         <div className="fc-img-warn-icon">⚠️</div>
         <h3 className="fc-img-warn-title">Before you share</h3>
         <p className="fc-img-warn-body">
@@ -291,7 +291,7 @@ function VersePicker({ onSend, onClose }) {
   const book = BOOKS[bookIdx];
   return (
     <div className="fc-modal-overlay" onClick={onClose}>
-      <div className="fc-modal" onClick={e => e.stopPropagation()}>
+      <div className="fc-modal" role="dialog" aria-modal="true" aria-label="Share a Bible verse" onClick={e => e.stopPropagation()}>
         <div className="fc-modal-header">
           <span>📖 Share a Bible Verse</span>
           <button className="fc-modal-close" onClick={onClose} aria-label="Close">
@@ -316,7 +316,7 @@ function VersePicker({ onSend, onClose }) {
             </div>
           </div>
           <label className="fc-modal-label">Note (optional)</label>
-          <input className="fc-modal-input" placeholder="Add a note…" value={note} onChange={e => setNote(e.target.value)} maxLength={200} />
+          <input className="fc-modal-input" placeholder="Add a note…" value={note} onChange={e => setNote(e.target.value)} maxLength={200} aria-label="Add a note" />
         </div>
         <div className="fc-modal-footer">
           <button className="fc-modal-btn fc-modal-btn--primary" onClick={() => {
@@ -345,7 +345,7 @@ function PlanPicker({ onSend, onClose }) {
   const { data: plans = [] } = useMyPlans();
   return (
     <div className="fc-modal-overlay" onClick={onClose}>
-      <div className="fc-modal" onClick={e => e.stopPropagation()}>
+      <div className="fc-modal" role="dialog" aria-modal="true" aria-label="Share a reading plan" onClick={e => e.stopPropagation()}>
         <div className="fc-modal-header">
           <span>📅 Share a Reading Plan</span>
           <button className="fc-modal-close" onClick={onClose} aria-label="Close">
@@ -398,7 +398,7 @@ function ConvSettingsPanel({ convId, onClose, accentColor, onAccentChange }) {
     <div className="fc-settings-panel">
       <div className="fc-settings-header">
         <span>⚙ Chat Settings</span>
-        <button className="fc-modal-close" onClick={onClose}>✕</button>
+        <button className="fc-modal-close" onClick={onClose} aria-label="Close">✕</button>
       </div>
       <div className="fc-settings-body">
         <div className="fc-settings-section">
@@ -509,7 +509,7 @@ function SearchPanel({ convId, onClose }) {
         <button className="fc-back-btn" onClick={onClose} aria-label="Back">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
-        <input className="fc-search-input" placeholder="Search messages…" value={query} onChange={handleChange} autoFocus />
+        <input className="fc-search-input" placeholder="Search messages…" value={query} onChange={handleChange} autoFocus aria-label="Search messages" />
       </div>
       <div className="fc-overlay-body">
         {isFetching ? <p className="fc-empty">Searching…</p> : debouncedQuery.length < 2 ? (
@@ -709,6 +709,8 @@ function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPreviews, o
             className="fc-dots-btn"
             onClick={() => setShowMenu(s => !s)}
             title="Options"
+            aria-label="Options"
+            aria-expanded={showMenu}
           >⋮</button>
 
           {showMenu && !editing && (
@@ -814,7 +816,7 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
   const toggleStar = useToggleStar(conv.conversation_id);
   const { data: linkPreviews = [] } = useLinkPreviews(conv.conversation_id);
   const { uploading, uploadAndSend } = useUploadImage(conv.conversation_id);
-  const { sharedKey } = useSharedKey(keyPair, conv.other_user_id);
+  const { sharedKey } = useSharedKey(keyPair, conv.other_user_id, user.id);
 
   const [input, setInput] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
@@ -1166,6 +1168,7 @@ function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentChange }
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             maxLength={MAX_MSG_LENGTH}
+            aria-label="Type a message"
             autoFocus
           />
           {uploading ? (

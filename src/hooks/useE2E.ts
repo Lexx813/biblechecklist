@@ -22,12 +22,12 @@ export function useE2EKeys(_userId: string | undefined): { keyPair: null; ready:
  * Derive the shared AES key for a conversation between the current user and another user.
  * Returns null until both parties have published their public keys.
  */
-export function useSharedKey(keyPair: KeyPair | null, otherUserId: string | undefined) {
+export function useSharedKey(keyPair: KeyPair | null, otherUserId: string | undefined, myUserId?: string) {
   const [sharedKey, setSharedKey] = useState<CryptoKey | null>(null);
   const [otherHasKey, setOtherHasKey] = useState<boolean | null>(null); // null=loading, true/false
 
   useEffect(() => {
-    if (!keyPair || !otherUserId) return;
+    if (!keyPair || !otherUserId || !myUserId) return;
     let cancelled = false;
     async function derive() {
       try {
@@ -47,7 +47,7 @@ export function useSharedKey(keyPair: KeyPair | null, otherUserId: string | unde
 
         setOtherHasKey(true);
         const theirPublicKey = await importPublicKey(data.public_key_jwk as JsonWebKey);
-        const key = await deriveSharedKey(keyPair.privateKey, theirPublicKey);
+        const key = await deriveSharedKey(keyPair.privateKey, theirPublicKey, myUserId!, otherUserId!);
         if (!cancelled) setSharedKey(key);
       } catch (err) {
         console.error("[E2E] Shared key derivation failed:", err);
@@ -56,7 +56,7 @@ export function useSharedKey(keyPair: KeyPair | null, otherUserId: string | unde
     }
     derive();
     return () => { cancelled = true; };
-  }, [keyPair, otherUserId]);
+  }, [keyPair, otherUserId, myUserId]);
 
   return { sharedKey, otherHasKey };
 }

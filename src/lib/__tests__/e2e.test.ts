@@ -73,7 +73,7 @@ describe("encryptMessage / decryptMessage", () => {
     const alice = await generateKeyPair();
     const bob   = await generateKeyPair();
     // Alice derives with her private key + Bob's public key
-    return deriveSharedKey(alice.privateKey, bob.publicKey);
+    return deriveSharedKey(alice.privateKey, bob.publicKey, "alice-id", "bob-id");
   }
 
   it("roundtrips a simple message", async () => {
@@ -141,8 +141,8 @@ describe("deriveSharedKey", () => {
     const alice = await generateKeyPair();
     const bob   = await generateKeyPair();
 
-    const aliceShared = await deriveSharedKey(alice.privateKey, bob.publicKey);
-    const bobShared   = await deriveSharedKey(bob.privateKey, alice.publicKey);
+    const aliceShared = await deriveSharedKey(alice.privateKey, bob.publicKey, "alice-id", "bob-id");
+    const bobShared   = await deriveSharedKey(bob.privateKey, alice.publicKey, "bob-id", "alice-id");
 
     // Encrypt with Alice's derived key, decrypt with Bob's — they must match
     const ct = await encryptMessage("symmetry test", aliceShared);

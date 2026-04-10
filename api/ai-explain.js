@@ -90,7 +90,8 @@ export default async function handler(req) {
 
   if (!claudeRes.ok) {
     const detail = await claudeRes.text().catch(() => "");
-    return new Response(`AI service error: ${detail}`, { status: 502 });
+    console.error("[ai-explain] Claude API error:", claudeRes.status, detail.slice(0, 200));
+    return new Response("AI service temporarily unavailable", { status: 502 });
   }
 
   // Pipe Anthropic SSE straight back to the client

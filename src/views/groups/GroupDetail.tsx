@@ -12,6 +12,7 @@ import { groupsApi, GroupPost, GroupMember, GroupEvent, GroupFile } from "../../
 import ConfirmModal from "../../components/ConfirmModal";
 import RichTextEditor from "../../components/RichTextEditor";
 import { toast } from "../../lib/toast";
+import { sanitizeRich } from "../../lib/sanitize";
 import "../../styles/groups.css";
 
 // ── Time helpers ──────────────────────────────────────────────────────────────
@@ -90,7 +91,7 @@ function PostCard({ post, userId, isAdmin, groupId }: { post: GroupPost; userId:
           </button>
         )}
       </div>
-      <div className="grp-post-content editor-render" dangerouslySetInnerHTML={{ __html: post.content }} />
+      <div className="grp-post-content editor-render" dangerouslySetInnerHTML={{ __html: sanitizeRich(post.content ?? "") }} />
       {post.media_urls?.length > 0 && (
         <div className="grp-post-media">
           {post.media_urls.map((url, i) => (
@@ -150,6 +151,7 @@ function PostCard({ post, userId, isAdmin, groupId }: { post: GroupPost; userId:
               value={commentText}
               onChange={e => setCommentText(e.target.value)}
               maxLength={1000}
+              aria-label="Write a comment"
             />
             <button type="submit" className="grp-comment-send" disabled={!commentText.trim() || addComment.isPending} aria-label="Send">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -283,7 +285,7 @@ function CreateEventModal({ groupId, onClose }: { groupId: string; onClose: () =
 
   return createPortal(
     <div className="grp-modal-overlay" onClick={onClose}>
-      <div className="grp-modal" onClick={e => e.stopPropagation()}>
+      <div className="grp-modal" role="dialog" aria-modal="true" aria-label="Create event" onClick={e => e.stopPropagation()}>
         <div className="grp-modal-header">
           <h2 className="grp-modal-title">Create Event</h2>
           <button className="grp-modal-close" onClick={onClose} aria-label="Close">

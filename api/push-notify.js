@@ -62,6 +62,16 @@ export default async function handler(req, res) {
     return res.status(405).end("Method Not Allowed");
   }
 
+  // Validate webhook secret — fail closed if not configured
+  const secret = (process.env.PUSH_WEBHOOK_SECRET ?? "").trim();
+  if (!secret) {
+    console.error("[push-notify] PUSH_WEBHOOK_SECRET is not configured");
+    return res.status(503).end("Server misconfigured");
+  }
+  if (req.headers["x-webhook-secret"] !== secret) {
+    return res.status(401).end("Unauthorized");
+  }
+
   const body = req.body ?? {};
   const { type, record, table } = body;
 

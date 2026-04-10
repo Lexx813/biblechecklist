@@ -237,6 +237,13 @@ const SYSTEM_TYPES = new Set(["meeting_prep_reminder"]);
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
 
+  // Validate webhook secret — fail closed if not configured
+  const secret = Deno.env.get("WEBHOOK_SECRET");
+  if (!secret) return new Response("Server misconfigured", { status: 503 });
+  if (req.headers.get("x-webhook-secret") !== secret) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
   const payload = await req.json();
   const notif = payload.record;
 

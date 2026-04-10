@@ -22,13 +22,14 @@ export const adminApi = {
 
   cancelSubscription: async (userId: string) => {
     const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.access_token) throw new Error("Not authenticated");
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/admin-cancel-subscription`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${session!.access_token}`,
+          Authorization: `Bearer ${session.access_token}`,
         },
         body: JSON.stringify({ userId }),
       }
@@ -41,11 +42,12 @@ export const adminApi = {
 
   deleteUser: async (userId: string) => {
     const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.access_token) throw new Error("Not authenticated");
     const res = await fetch("/api/admin-delete-user", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${session!.access_token}`,
+        Authorization: `Bearer ${session.access_token}`,
       },
       body: JSON.stringify({ userId }),
     });
