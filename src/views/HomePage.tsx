@@ -185,7 +185,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { data: unreadMessages = 0 } = useUnreadMessageCount();
   const { incoming } = useFriendRequests(user?.id);
   const pendingRequests = incoming.data?.length ?? 0;
-  const { data: friends = [] } = useFriends(user?.id);
+  const { data: friends = [], isLoading: friendsLoading } = useFriends(user?.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
   const { onlineNow: whoOnline, recentlyActive: whoRecent, totalOnline, isLoading: whoLoading, isError: whoError } = useOnlineMembers(50);
   const whoMembers = [...whoOnline, ...whoRecent];
@@ -638,7 +638,19 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <span className="hwidget-title">Friends</span>
               <button className="hwidget-link" onClick={() => navigate("friends")}>See all</button>
             </div>
-            {friends.length === 0 ? (
+            {friendsLoading ? (
+              <div className="hwho-skeleton">
+                {[0,1,2].map(i => (
+                  <div key={i} className="hwho-skeleton-row">
+                    <div className="skeleton" style={{ width: 34, height: 34, borderRadius: "50%", flexShrink: 0 }} />
+                    <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 5 }}>
+                      <div className="skeleton" style={{ height: 12, width: "55%", borderRadius: 6 }}>&nbsp;</div>
+                    </div>
+                    <div className="skeleton" style={{ width: 52, height: 10, borderRadius: 6 }} />
+                  </div>
+                ))}
+              </div>
+            ) : friends.length === 0 ? (
               <div className="hfriend-empty">Add friends to see their activity here.</div>
             ) : (
               <>

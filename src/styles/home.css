@@ -556,7 +556,7 @@
   border: 2px solid var(--bg, #0a0514);
 }
 .hfriend-name { font-size: 14px; font-weight: 500; color: var(--text-primary, #f0eaff); flex: 1; }
-.hfriend-when { font-size: 12px; color: rgba(240, 234, 255, 0.6); }
+.hfriend-when { font-size: 12px; color: rgba(240, 234, 255, 0.6); min-width: 72px; text-align: right; flex-shrink: 0; }
 .hfriend-empty {
   padding: 12px 16px 16px;
   font-size: 13px;

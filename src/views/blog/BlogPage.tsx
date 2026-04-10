@@ -103,7 +103,20 @@ function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate 
         {comments.length > 0 && <span className="blog-comments-count">{comments.length}</span>}
       </h3>
 
-      {isLoading ? null : comments.length === 0 ? (
+      {isLoading ? (
+        <div aria-busy="true">
+          {[0, 1, 2].map(i => (
+            <div key={i} className="blog-comment" style={{ opacity: 0.5 }}>
+              <div className="skeleton" style={{ width: 36, height: 36, borderRadius: "50%", flexShrink: 0 }} />
+              <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
+                <div className="skeleton" style={{ height: 11, width: "28%", borderRadius: 6 }} />
+                <div className="skeleton" style={{ height: 13, width: "85%", borderRadius: 6 }} />
+                <div className="skeleton" style={{ height: 13, width: "60%", borderRadius: 6 }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : comments.length === 0 ? (
         <p className="blog-comments-empty">{t("blog.commentsNone")}</p>
       ) : (
         <div className="blog-comments-list">

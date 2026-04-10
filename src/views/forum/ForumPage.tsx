@@ -1002,7 +1002,7 @@ function ThreadList({ category, user, onSelectThread, onBack, navigate, darkMode
 // ── Category List ─────────────────────────────────────────────────────────────
 function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMode, i18n, user, onLogout, onSelectThread, onUpgrade }) {
   const { data: categories = [], isLoading } = useCategories();
-  const { data: trending = [] } = useTopThreads(5);
+  const { data: trending = [], isLoading: trendingLoading } = useTopThreads(5);
   const { data: blockedSet = new Set<string>() } = useBlocks(user?.id);
   const { t } = useTranslation();
 
@@ -1016,14 +1016,21 @@ function CategoryList({ onSelectCategory, onBack, navigate, darkMode, setDarkMod
     <div className="forum-categories">
       <h1 className="page-section-title">{t("forum.title")}</h1>
 
-      {/* Trending threads */}
-      {visibleTrending.length > 0 && (
+      {/* Trending threads — always reserve space while loading to prevent CLS */}
+      {(trendingLoading || visibleTrending.length > 0) && (
         <div className="forum-trending">
           <div className="forum-trending-header">
             <span className="forum-trending-label">🔥 {t("forum.trending")}</span>
           </div>
           <div className="forum-trending-list">
-            {visibleTrending.map(thread => (
+            {trendingLoading ? (
+              [0, 1, 2, 3, 4].map(i => (
+                <div key={i} className="forum-trending-row" style={{ pointerEvents: "none" }}>
+                  <div className="skeleton" style={{ flex: 1, height: 13, borderRadius: 4 }} />
+                  <div className="skeleton" style={{ width: 44, height: 12, borderRadius: 4, flexShrink: 0 }} />
+                </div>
+              ))
+            ) : visibleTrending.map(thread => (
               <button
                 key={thread.id}
                 className="forum-trending-row"
