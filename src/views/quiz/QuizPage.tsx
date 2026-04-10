@@ -170,16 +170,12 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
         <div className="quiz-timed-toggle-row">
           <span className="quiz-timed-toggle-label">
             Timed Mode
-            <span className="gold-badge">✦ Premium</span>
           </span>
           <label className="quiz-timed-toggle">
             <input
               type="checkbox"
               checked={timedMode}
-              onChange={(e) => {
-                if (!isPremium) { onUpgrade?.(); return; }
-                setTimedMode(e.target.checked);
-              }}
+              onChange={(e) => setTimedMode(e.target.checked)}
             />
             <span className="quiz-timed-toggle-track" />
             <span className="quiz-timed-toggle-thumb" />
@@ -230,23 +226,14 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
 
 // ── ExplanationPanel ───────────────────────────────────────────────────────────
 
-function ExplanationPanel({ question, isPremium, onUpgrade }) {
+function ExplanationPanel({ question }) {
   if (!question?.explanation) return null;
 
   return (
-    <div className={`quiz-explanation${isPremium ? "" : " quiz-explanation--locked"}`}>
+    <div className="quiz-explanation">
       <div className="quiz-explanation-inner">
         <div className="quiz-explanation-ref">💡 Explanation</div>
         <p className="quiz-explanation-text">{question.explanation}</p>
-        {!isPremium && (
-          <button className="quiz-explanation-gate" onClick={onUpgrade}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <rect x="3" y="11" width="18" height="11" rx="2"/>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-            </svg>
-            ✦ See explanations — Go Premium
-          </button>
-        )}
       </div>
     </div>
   );
@@ -568,8 +555,6 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
               {!timedMode && (
                 <ExplanationPanel
                   question={currentQuestion}
-                  isPremium={isPremium}
-                  onUpgrade={onUpgrade}
                 />
               )}
               <div className="quiz-next-wrap">

@@ -130,14 +130,12 @@ export default function AdvancedQuizPage({ user, navigate, darkMode, setDarkMode
       <div className="quiz-timed-toggle-row">
         <span className="quiz-timed-toggle-label">
           Timed Mode
-          <span className="gold-badge">✦ Premium</span>
         </span>
         <label className="quiz-timed-toggle">
           <input
             type="checkbox"
             checked={timedMode}
             onChange={(e) => {
-              if (!isPremium) { onUpgrade?.(); return; }
               setTimedMode(e.target.checked);
             }}
           />
