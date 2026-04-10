@@ -218,6 +218,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  min-height: 196px; /* match tf-card rendered height to prevent CLS on swap */
 }
 .tf-skeleton-bar {
   border-radius: 6px;

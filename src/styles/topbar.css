@@ -11,6 +11,7 @@
   align-items: center;
   padding: 0 16px;
   gap: 12px;
+  contain: layout style; /* prevent internal badge/button loads from causing CLS */
 }
 
 /* Left: logo area — aligns with sidebar width */
@@ -92,6 +93,8 @@
   align-items: center;
   gap: 4px;
   min-height: 44px; /* prevent reflow when badges/icons load async */
+  min-width: 232px; /* 5 icon slots × (44+4) – stabilize auto column for CLS */
+  justify-content: flex-end;
 }
 .topbar-btn {
   position: relative;
@@ -261,6 +264,7 @@
   .topbar-search { justify-content: flex-start; }
   .topbar-search-btn { max-width: 200px; }
   .topbar-search-shortcut { display: none; }
+  .topbar-actions { min-width: 184px; } /* fewer visible slots at tablet */
 }
 @media (max-width: 640px) {
   .topbar-wordmark { display: none; }
