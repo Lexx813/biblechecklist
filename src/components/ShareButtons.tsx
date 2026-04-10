@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { trackShare } from "../lib/analytics";
 
-const SITE = "https://nwtprogress.com";
+const SITE = "https://jwstudy.org";
 
 function encode(str: string) {
   return encodeURIComponent(str);

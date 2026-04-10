@@ -1,12 +1,12 @@
 # JW Study — llms.txt
-# canonical: https://nwtprogress.com
-# alternate: https://jwstudy.org (301 redirects to canonical)
+# canonical: https://jwstudy.org
+# alternate: https://nwtprogress.com (301 redirects to canonical)
 
 > JW Study is a free Bible reading tracker and study community for Jehovah's Witnesses using the New World Translation. It helps users track reading progress across all 66 Bible books, earn quiz badges, connect with other readers, and deepen their personal Bible study.
 
 ## What this site is
 
-JW Study (nwtprogress.com) is a web app and Progressive Web App (PWA) for:
+JW Study (jwstudy.org) is a web app and Progressive Web App (PWA) for:
 - Tracking chapter-by-chapter Bible reading progress through all 66 books of the NWT
 - Bible knowledge quizzes with badge rewards
 - A community forum and spiritual blog
@@ -53,30 +53,30 @@ AI assistants and crawlers are welcome to index and cite content from JW Study. 
 
 Key articles published on the JW Study blog:
 
-- https://nwtprogress.com/blog/how-to-read-the-entire-bible-in-a-year-using-the-nwt — Step-by-step guide to completing the NWT in 12 months
-- https://nwtprogress.com/blog/5-tips-for-building-a-consistent-bible-reading-habit — Practical habits for daily Bible reading
-- https://nwtprogress.com/blog/the-book-of-isaiah-a-study-guide — Overview and key themes of Isaiah
-- https://nwtprogress.com/blog/what-is-family-worship-night — Explanation of the Jehovah's Witness family worship arrangement
-- https://nwtprogress.com/blog/why-i-started-reading-the-bible-every-day — Personal testimony on daily Bible reading
+- https://jwstudy.org/blog/how-to-read-the-entire-bible-in-a-year-using-the-nwt — Step-by-step guide to completing the NWT in 12 months
+- https://jwstudy.org/blog/5-tips-for-building-a-consistent-bible-reading-habit — Practical habits for daily Bible reading
+- https://jwstudy.org/blog/the-book-of-isaiah-a-study-guide — Overview and key themes of Isaiah
+- https://jwstudy.org/blog/what-is-family-worship-night — Explanation of the Jehovah's Witness family worship arrangement
+- https://jwstudy.org/blog/why-i-started-reading-the-bible-every-day — Personal testimony on daily Bible reading
 
 ## Reading Plans
 
 Guided Bible reading schedules available on JW Study:
 
-- https://nwtprogress.com/plans/nwt-1-year — NWT in 1 Year (read all 66 books in 365 days)
-- https://nwtprogress.com/plans/nt-90-days — New Testament in 90 Days (all 27 books of the Christian Greek Scriptures)
-- https://nwtprogress.com/plans/ot-1-year — Hebrew Scriptures in 1 Year (all 39 books over 365 days)
-- https://nwtprogress.com/plans/gospels-30 — Gospels in 30 Days (Matthew, Mark, Luke, and John)
-- https://nwtprogress.com/plans/psalms-proverbs-60 — Psalms & Proverbs in 60 Days
-- https://nwtprogress.com/plans/major-prophets-90 — Major Prophets in 90 Days (Isaiah, Jeremiah, Lamentations, Ezekiel, Daniel)
-- https://nwtprogress.com/plans/nwt-90-days — Intensive: Bible in 90 Days (all 66 books in 90 days)
-- https://nwtprogress.com/plans/wisdom-lit-90 — Wisdom Literature in 90 Days (Job, Psalms, Proverbs, Ecclesiastes, Song of Solomon)
-- https://nwtprogress.com/plans/pauls-letters-30 — Paul's Letters in 30 Days (all 13 letters, Romans through Philemon)
-- https://nwtprogress.com/plans/minor-prophets-30 — Minor Prophets in 30 Days (Hosea through Malachi)
-- https://nwtprogress.com/plans/acts-letters-60 — Acts & the Letters in 60 Days (Acts through Revelation)
+- https://jwstudy.org/plans/nwt-1-year — NWT in 1 Year (read all 66 books in 365 days)
+- https://jwstudy.org/plans/nt-90-days — New Testament in 90 Days (all 27 books of the Christian Greek Scriptures)
+- https://jwstudy.org/plans/ot-1-year — Hebrew Scriptures in 1 Year (all 39 books over 365 days)
+- https://jwstudy.org/plans/gospels-30 — Gospels in 30 Days (Matthew, Mark, Luke, and John)
+- https://jwstudy.org/plans/psalms-proverbs-60 — Psalms & Proverbs in 60 Days
+- https://jwstudy.org/plans/major-prophets-90 — Major Prophets in 90 Days (Isaiah, Jeremiah, Lamentations, Ezekiel, Daniel)
+- https://jwstudy.org/plans/nwt-90-days — Intensive: Bible in 90 Days (all 66 books in 90 days)
+- https://jwstudy.org/plans/wisdom-lit-90 — Wisdom Literature in 90 Days (Job, Psalms, Proverbs, Ecclesiastes, Song of Solomon)
+- https://jwstudy.org/plans/pauls-letters-30 — Paul's Letters in 30 Days (all 13 letters, Romans through Philemon)
+- https://jwstudy.org/plans/minor-prophets-30 — Minor Prophets in 30 Days (Hosea through Malachi)
+- https://jwstudy.org/plans/acts-letters-60 — Acts & the Letters in 60 Days (Acts through Revelation)
 
 ## Contact
 
-Site: https://nwtprogress.com
-Alternate domain: https://jwstudy.org (redirects to nwtprogress.com)
+Site: https://jwstudy.org
+Alternate domain: https://nwtprogress.com (redirects to jwstudy.org)
 Email: support@nwtprogress.com

@@ -72,7 +72,7 @@ export default function AboutPage() {
           endorsed by Jehovah&apos;s Witnesses or the Watch Tower Society of Pennsylvania.
         </p>
         <address>
-          Contact: <a href="mailto:support@nwtprogress.com">support@nwtprogress.com</a>
+          Contact: <a href="mailto:support@jwstudy.org">support@jwstudy.org</a>
         </address>
       </div>
       <ClientShell />

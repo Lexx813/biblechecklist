@@ -185,7 +185,7 @@ export default async function PlanPage({ params }) {
 
         <h2>Start This Plan Free on JW Study</h2>
         <p>
-          Sign up for free at nwtprogress.com to start the {plan.name} plan, track your daily
+          Sign up for free at jwstudy.org to start the {plan.name} plan, track your daily
           progress chapter by chapter, and build a lasting personal Bible reading habit.
         </p>
         <ul>

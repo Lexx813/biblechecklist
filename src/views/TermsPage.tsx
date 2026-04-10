@@ -27,7 +27,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <section className="about-section">
           <h2 className="about-section-title">1. Acceptance of Terms</h2>
           <p className="about-section-body">
-            By accessing or using JW Study ("the App") at nwtprogress.com, you agree to be bound by these Terms of Service. If you do not agree, please do not use the App.
+            By accessing or using JW Study ("the App") at jwstudy.org, you agree to be bound by these Terms of Service. If you do not agree, please do not use the App.
           </p>
         </section>
 
@@ -178,7 +178,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <section className="about-section">
           <h2 className="about-section-title">13. Contact</h2>
           <p className="about-section-body">
-            If you have questions about these Terms, you can reach us through the App's community forum or via the contact information listed on nwtprogress.com.
+            If you have questions about these Terms, you can reach us through the App's community forum or via the contact information listed on jwstudy.org.
           </p>
         </section>
 

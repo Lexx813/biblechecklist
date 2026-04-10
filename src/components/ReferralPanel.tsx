@@ -39,7 +39,7 @@ export default function ReferralPanel({ userId }: Props) {
     load();
   }, [userId]);
 
-  const shareUrl = code ? `https://nwtprogress.com?ref=${code}` : "";
+  const shareUrl = code ? `https://jwstudy.org?ref=${code}` : "";
 
   function copyLink() {
     navigator.clipboard.writeText(shareUrl).then(() => {

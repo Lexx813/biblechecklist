@@ -40,4 +40,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://nwtprogress.com/sitemap.xml
+Sitemap: https://jwstudy.org/sitemap.xml

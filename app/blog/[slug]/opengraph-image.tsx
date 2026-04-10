@@ -145,7 +145,7 @@ export default async function Image({ params }) {
 
         {/* Footer */}
         <div style={{ color: "#7C5FBF", fontSize: "20px", fontWeight: "600" }}>
-          nwtprogress.com
+          jwstudy.org
         </div>
       </div>
     ),

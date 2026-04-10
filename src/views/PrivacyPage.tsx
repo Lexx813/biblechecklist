@@ -27,7 +27,7 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
         <section className="about-section">
           <h2 className="about-section-title">1. Overview</h2>
           <p className="about-section-body">
-            JW Study ("we", "us", "our") is committed to protecting your privacy. This Privacy Policy explains what information we collect, how we use it, and your rights regarding that information when you use our App at nwtprogress.com.
+            JW Study ("we", "us", "our") is committed to protecting your privacy. This Privacy Policy explains what information we collect, how we use it, and your rights regarding that information when you use our App at jwstudy.org.
           </p>
         </section>
 
@@ -87,7 +87,7 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
             <li className="about-feature"><span className="about-feature-icon">📤</span><div>Request a copy of your data</div></li>
           </ul>
           <p className="about-section-body" style={{ marginTop: 16 }}>
-            To exercise any of these rights, contact us through the App's forum or via nwtprogress.com.
+            To exercise any of these rights, contact us through the App's forum or via jwstudy.org.
           </p>
         </section>
 
@@ -141,7 +141,7 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
         <section className="about-section">
           <h2 className="about-section-title">11. Contact</h2>
           <p className="about-section-body">
-            If you have any questions or concerns about this Privacy Policy, please reach out via the community forum or through nwtprogress.com.
+            If you have any questions or concerns about this Privacy Policy, please reach out via the community forum or through jwstudy.org.
           </p>
         </section>
 

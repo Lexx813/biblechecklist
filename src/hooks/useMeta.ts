@@ -2,14 +2,14 @@ import { useEffect } from "react";
 
 const SITE = "JW Study";
 const DEFAULT_DESC = "Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community.";
-const DEFAULT_IMG = "https://nwtprogress.com/og-image.png";
+const DEFAULT_IMG = "https://jwstudy.org/og-image.png";
 
 function setMetaContent(selector: string, value: string | undefined): void {
   const el = document.querySelector(selector);
   if (el && value) el.setAttribute("content", value);
 }
 
-const BASE_URL = "https://nwtprogress.com";
+const BASE_URL = "https://jwstudy.org";
 
 function setCanonical(url: string): void {
   let el = document.querySelector('link[rel="canonical"]');

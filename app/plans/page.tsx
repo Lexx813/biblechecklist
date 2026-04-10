@@ -91,7 +91,7 @@ export default function PlansPage() {
         <p>
           JW Study is a free Bible reading tracker built for Jehovah&apos;s Witnesses worldwide.
           Available in English, Spanish, Portuguese, French, Tagalog, and Chinese. Sign up free at
-          nwtprogress.com.
+          jwstudy.org.
         </p>
       </div>
       <ClientShell />
