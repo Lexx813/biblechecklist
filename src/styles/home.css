@@ -258,7 +258,7 @@
 .hfeed-link {
   font-size: 14px;
   font-weight: 600;
-  color: #a855f7;
+  color: #c084fc;
   background: none;
   border: none;
   cursor: pointer;
@@ -315,7 +315,7 @@
 .hblog-tag {
   font-size: 11px;
   font-weight: 600;
-  color: #a855f7;
+  color: #c084fc;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 4px;
@@ -375,7 +375,7 @@
   align-items: center;
   gap: 4px;
   background: rgba(124, 58, 237, 0.15);
-  color: #a855f7;
+  color: #c084fc;
   font-size: 11px;
   font-weight: 600;
   padding: 2px 7px;
@@ -421,7 +421,7 @@
   justify-content: center;
   font-size: 13px;
   font-weight: 700;
-  color: #a855f7;
+  color: #c084fc;
   flex-shrink: 0;
 }
 .hforum-body { flex: 1; min-width: 0; }
@@ -510,7 +510,7 @@
 .hwidget-link {
   font-size: 13px;
   font-weight: 600;
-  color: #a855f7;
+  color: #c084fc;
   background: none;
   border: none;
   cursor: pointer;

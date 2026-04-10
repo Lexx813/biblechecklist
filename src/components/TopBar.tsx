@@ -105,7 +105,7 @@ export default function TopBar({
     <>
       <header className="topbar" role="banner">
         {/* Left: logo */}
-        <button className="topbar-logo" onClick={() => navigate("home")} aria-label="Go to home">
+        <button className="topbar-logo" onClick={() => navigate("home")} aria-label="JW Study — Go to home">
           <span className="topbar-logo-icon"><LogoIcon /></span>
           <span className="topbar-wordmark">JW Study</span>
         </button>

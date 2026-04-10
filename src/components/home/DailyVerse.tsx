@@ -39,6 +39,7 @@ export default function DailyVerse() {
                 key={dotIdx}
                 className={`daily-verse-dot${dotIdx === idx ? " active" : ""}`}
                 onClick={() => setIdx(dotIdx)}
+                aria-label={`Verse ${dotIdx + 1}`}
               />
             );
           })}
