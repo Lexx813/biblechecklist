@@ -19,7 +19,7 @@ export function jwLibraryChapterUrl(bookIndex: number, chapter: number) {
 
 // ── Language map ──────────────────────────────────────────────────────────────
 
-type WolLang = "en" | "es" | "pt" | "fr" | "tl" | "zh";
+type WolLang = "en" | "es" | "pt" | "fr" | "tl" | "zh" | "ja" | "ko";
 
 const WOL_LANG: Record<WolLang, { locale: string; r: string; lp: string; wtlocale: string }> = {
   en: { locale: "en",       r: "r1",  lp: "lp-e",   wtlocale: "E"   },
@@ -28,6 +28,8 @@ const WOL_LANG: Record<WolLang, { locale: string; r: string; lp: string; wtlocal
   fr: { locale: "fr",       r: "r30", lp: "lp-f",   wtlocale: "F"   },
   tl: { locale: "tl",       r: "r9",  lp: "lp-tl",  wtlocale: "TGL" },
   zh: { locale: "cmn-Hans", r: "r23", lp: "lp-chs", wtlocale: "CHS" },
+  ja: { locale: "ja",       r: "r7",  lp: "lp-j",   wtlocale: "J"   },
+  ko: { locale: "ko",       r: "r8",  lp: "lp-ko",  wtlocale: "KO"  },
 };
 
 function wolBase(lang: string) {

@@ -207,6 +207,7 @@
   box-shadow: none;
   padding: 0;
   overflow: visible;
+  min-height: 180px; /* reserve space while async data loads — prevents CLS */
 }
 .hcard--focus:hover { border-color: transparent; }
 

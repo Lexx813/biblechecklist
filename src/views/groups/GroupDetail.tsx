@@ -227,7 +227,7 @@ function ComposeBox({ groupId, isAdmin }: { groupId: string; isAdmin: boolean })
           {mediaUrls.map(url => (
             <div key={url} className="grp-compose-media-item">
               <img src={url} alt="" />
-              <button type="button" className="grp-compose-media-remove" onClick={() => removeImage(url)} aria-label="Remove image">×</button>
+              <button type="button" className="grp-compose-media-remove" onClick={() => removeImage(url)} aria-label="× Remove image">×</button>
             </div>
           ))}
         </div>

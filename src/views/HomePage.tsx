@@ -566,9 +566,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                       <button
                         className={`hnote-like-btn${note.user_has_liked ? " hnote-like-btn--liked" : ""}`}
                         onClick={e => { e.stopPropagation(); toggleNoteLike.mutate(note.id); }}
-                        aria-label={note.user_has_liked ? "Unlike" : "Like"}
+                        title={note.user_has_liked ? "Unlike" : "Like"}
                       >
-                        {note.user_has_liked ? "♥" : "♡"}{note.like_count > 0 ? ` ${note.like_count}` : ""}
+                        <span aria-hidden="true">{note.user_has_liked ? "♥" : "♡"}{note.like_count > 0 ? ` ${note.like_count}` : ""}</span>
+                        <span className="sr-only">{note.user_has_liked ? "Unlike" : "Like"}{note.like_count > 0 ? `, ${note.like_count} likes` : ""}</span>
                       </button>
                     </div>
                   );
@@ -740,7 +741,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <span>Check out reading plans to keep the momentum going.</span>
           </div>
           <button className="home-notif-enable" onClick={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); navigate("readingPlans"); }}>View Plans</button>
-          <button className="home-notif-dismiss" onClick={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); }} aria-label="Dismiss">✕</button>
+          <button className="home-notif-dismiss" onClick={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); }} aria-label="✕ Dismiss">✕</button>
         </div>
       )}
 
@@ -752,7 +753,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <span>{t("home.notifBannerSub")}</span>
           </div>
           <button className="home-notif-enable" onClick={handleEnableNotif} disabled={updateProfile.isPending}>{t("home.notifEnable")}</button>
-          <button className="home-notif-dismiss" onClick={handleDismissNotif} aria-label="Dismiss">✕</button>
+          <button className="home-notif-dismiss" onClick={handleDismissNotif} aria-label="✕ Dismiss">✕</button>
         </div>
       )}
 

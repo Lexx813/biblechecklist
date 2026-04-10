@@ -487,7 +487,7 @@ function FollowListModal({ targetId, mode, currentUserId, onClose, navigate, t, 
       <div className="pf-follow-modal" onClick={e => e.stopPropagation()}>
         <div className="pf-follow-modal-header">
           <span>{mode === "followers" ? t("follow.followers") : t("follow.following")}</span>
-          <button className="pf-follow-modal-close" onClick={onClose} aria-label="Close">✕</button>
+          <button className="pf-follow-modal-close" onClick={onClose} aria-label="✕ Close">✕</button>
         </div>
         <div className="pf-follow-modal-list">
           {list.length === 0 && (

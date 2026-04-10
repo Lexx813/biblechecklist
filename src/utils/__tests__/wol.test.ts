@@ -49,6 +49,16 @@ describe("jwOrgBibleUrl", () => {
     expect(url).toContain("wtlocale=S");
   });
 
+  it("uses Japanese wtlocale for lang=ja", () => {
+    const url = jwOrgBibleUrl(0, 1, "ja");
+    expect(url).toContain("wtlocale=J");
+  });
+
+  it("uses Korean wtlocale for lang=ko", () => {
+    const url = jwOrgBibleUrl(0, 1, "ko");
+    expect(url).toContain("wtlocale=KO");
+  });
+
   it("falls back to English for unknown lang", () => {
     const url = jwOrgBibleUrl(0, 1, "xx");
     expect(url).toContain("wtlocale=E");
@@ -67,6 +77,18 @@ describe("wolChapterUrl", () => {
   it("builds Revelation 22 URL in Spanish", () => {
     expect(wolChapterUrl(65, 22, "es")).toBe(
       "https://wol.jw.org/es/wol/b/r4/lp-s/nwtsty/66/22"
+    );
+  });
+
+  it("builds Genesis 1 URL in Japanese", () => {
+    expect(wolChapterUrl(0, 1, "ja")).toBe(
+      "https://wol.jw.org/ja/wol/b/r7/lp-j/nwtsty/1/1"
+    );
+  });
+
+  it("builds Genesis 1 URL in Korean", () => {
+    expect(wolChapterUrl(0, 1, "ko")).toBe(
+      "https://wol.jw.org/ko/wol/b/r8/lp-ko/nwtsty/1/1"
     );
   });
 });

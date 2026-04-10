@@ -228,7 +228,7 @@ function CreateForm({ user, onClose, onCreated }) {
   return (
     <div className="fq-create-overlay" onClick={onClose}>
       <div className="fq-create-panel" onClick={e => e.stopPropagation()}>
-        <button className="fq-create-close" onClick={onClose} aria-label="Close">✕</button>
+        <button className="fq-create-close" onClick={onClose} aria-label="✕ Close">✕</button>
         <h2 className="fq-create-title">New Challenge</h2>
 
         <label className="fq-label">Challenge name</label>
