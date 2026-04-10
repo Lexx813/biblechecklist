@@ -27,14 +27,14 @@ export async function generateMetadata({ params }) {
         category.description ||
         `Browse discussions in ${name} on JW Study`,
       alternates: {
-        canonical: `https://nwtprogress.com/forum/${categoryId}`,
+        canonical: `https://jwstudy.org/forum/${categoryId}`,
       },
       openGraph: {
         title: `${name} | JW Study Forum`,
         description:
           category.description ||
           `Browse discussions in ${name} on JW Study`,
-        url: `https://nwtprogress.com/forum/${categoryId}`,
+        url: `https://jwstudy.org/forum/${categoryId}`,
       },
     };
   } catch {
@@ -67,9 +67,9 @@ export default async function ForumCategoryPage({ params }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://nwtprogress.com" },
-      { "@type": "ListItem", position: 2, name: "Forum", item: "https://nwtprogress.com/forum" },
-      { "@type": "ListItem", position: 3, name: categoryName, item: `https://nwtprogress.com/forum/${categoryId}` },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://jwstudy.org" },
+      { "@type": "ListItem", position: 2, name: "Forum", item: "https://jwstudy.org/forum" },
+      { "@type": "ListItem", position: 3, name: categoryName, item: `https://jwstudy.org/forum/${categoryId}` },
     ],
   } : null;
 

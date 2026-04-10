@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
     return {
       title: `${thread.title} | JW Study Forum`,
       description: desc,
-      alternates: { canonical: `https://nwtprogress.com/forum/${categoryId}/${threadId}` },
+      alternates: { canonical: `https://jwstudy.org/forum/${categoryId}/${threadId}` },
       openGraph: {
         title: thread.title,
         description: desc,
@@ -68,7 +68,7 @@ export default async function ForumThreadPage({ params }) {
       .catch(() => {}),
   ]);
 
-  const threadUrl = `https://nwtprogress.com/forum/${categoryId}/${threadId}`;
+  const threadUrl = `https://jwstudy.org/forum/${categoryId}/${threadId}`;
 
   const schemaPosting = thread
     ? {
@@ -85,7 +85,7 @@ export default async function ForumThreadPage({ params }) {
           : undefined,
         publisher: {
           "@type": "Organization",
-          "@id": "https://nwtprogress.com/#organization",
+          "@id": "https://jwstudy.org/#organization",
           name: "JW Study",
         },
       }
@@ -95,8 +95,8 @@ export default async function ForumThreadPage({ params }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://nwtprogress.com" },
-      { "@type": "ListItem", position: 2, name: "Forum", item: "https://nwtprogress.com/forum" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://jwstudy.org" },
+      { "@type": "ListItem", position: 2, name: "Forum", item: "https://jwstudy.org/forum" },
       ...(thread ? [{ "@type": "ListItem", position: 3, name: thread.title, item: threadUrl }] : []),
     ],
   };

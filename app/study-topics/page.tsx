@@ -12,19 +12,19 @@ export const metadata = {
   title: "Bible Study Topics | JW Study",
   description:
     "Explore key Bible topics from the New World Translation perspective — including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
-  alternates: { canonical: "https://nwtprogress.com/study-topics" },
+  alternates: { canonical: "https://jwstudy.org/study-topics" },
   openGraph: {
     title: "Bible Study Topics | JW Study",
     description:
       "Explore key Bible topics from the New World Translation perspective — including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
-    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
+    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Bible Study Topics | JW Study",
     description:
       "Explore key Bible topics from the New World Translation perspective — including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
-    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
+    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
   },
 };
 
@@ -32,8 +32,8 @@ const schemaBreadcrumb = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://nwtprogress.com" },
-    { "@type": "ListItem", position: 2, name: "Study Topics", item: "https://nwtprogress.com/study-topics" },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://jwstudy.org" },
+    { "@type": "ListItem", position: 2, name: "Study Topics", item: "https://jwstudy.org/study-topics" },
   ],
 };
 

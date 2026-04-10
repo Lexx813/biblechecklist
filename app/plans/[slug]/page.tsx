@@ -10,7 +10,7 @@ function bookToSlug(name: string) {
 
 export const revalidate = false;
 
-const BASE = "https://nwtprogress.com";
+const BASE = "https://jwstudy.org";
 const SEO_HIDE = {
   position: "absolute" as const, width: 1, height: 1,
   overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap",
@@ -81,7 +81,7 @@ export default async function PlanPage({ params }) {
       courseWorkload: `P${plan.totalDays}D`,
       instructor: {
         "@type": "Organization",
-        "@id": "https://nwtprogress.com/#organization",
+        "@id": "https://jwstudy.org/#organization",
         name: "JW Study",
       },
     },

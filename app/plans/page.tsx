@@ -3,7 +3,7 @@ import { PLAN_TEMPLATES } from "../../src/data/readingPlanTemplates";
 
 export const revalidate = false;
 
-const BASE = "https://nwtprogress.com";
+const BASE = "https://jwstudy.org";
 const SEO_HIDE = {
   position: "absolute" as const, width: 1, height: 1,
   overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap",
@@ -18,13 +18,13 @@ export const metadata = {
     title: "NWT Bible Reading Plans | JW Study",
     description:
       "Free Bible reading plans for Jehovah's Witnesses — track your daily progress with JW Study.",
-    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
+    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "NWT Bible Reading Plans | JW Study",
     description: "Free Bible reading plans for Jehovah's Witnesses.",
-    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
+    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
   },
 };
 

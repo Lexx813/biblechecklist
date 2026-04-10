@@ -2,7 +2,7 @@ import { createClient } from "@supabase/supabase-js";
 
 export const revalidate = 3600;
 
-const BASE = "https://nwtprogress.com";
+const BASE = "https://jwstudy.org";
 
 function escapeXml(str) {
   return str

@@ -4,19 +4,19 @@ export const metadata = {
   title: "About JW Study | Bible Reading Tracker for Jehovah's Witnesses",
   description:
     "JW Study is an independent Bible reading tracker built for Jehovah's Witnesses and Bible students. Track all 66 books of the New World Translation. Built by a Bible student for the community.",
-  alternates: { canonical: "https://nwtprogress.com/about" },
+  alternates: { canonical: "https://jwstudy.org/about" },
   openGraph: {
     title: "About JW Study | Bible Reading Tracker",
     description:
       "JW Study is an independent Bible reading tracker built for Jehovah's Witnesses and Bible students. Track all 66 books of the New World Translation.",
-    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
+    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "About JW Study | Bible Reading Tracker",
     description:
       "JW Study is an independent Bible reading tracker built for Jehovah's Witnesses and Bible students. Track all 66 books of the New World Translation.",
-    images: [{ url: "https://nwtprogress.com/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
+    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
   },
 };
 
@@ -24,8 +24,8 @@ const schemaBreadcrumb = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: "https://nwtprogress.com" },
-    { "@type": "ListItem", position: 2, name: "About", item: "https://nwtprogress.com/about" },
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://jwstudy.org" },
+    { "@type": "ListItem", position: 2, name: "About", item: "https://jwstudy.org/about" },
   ],
 };
 

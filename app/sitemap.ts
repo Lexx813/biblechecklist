@@ -9,7 +9,7 @@ function bookToSlug(name) {
 
 export const revalidate = 3600; // regenerate hourly
 
-const BASE = "https://nwtprogress.com";
+const BASE = "https://jwstudy.org";
 
 export default async function sitemap() {
   const supabase = createClient(

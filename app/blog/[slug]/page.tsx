@@ -4,7 +4,7 @@ import ClientShell from "../../_components/ClientShell";
 
 export const revalidate = 60;
 
-const BASE = "https://nwtprogress.com";
+const BASE = "https://jwstudy.org";
 
 // Pre-render all published blog posts at build time; new posts fall back to ISR
 export async function generateStaticParams() {

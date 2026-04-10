@@ -3,7 +3,7 @@ import { BOOKS, OT_COUNT } from "../../src/data/books";
 
 export const revalidate = false;
 
-const BASE = "https://nwtprogress.com";
+const BASE = "https://jwstudy.org";
 const SEO_HIDE = {
   position: "absolute" as const, width: 1, height: 1,
   overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap",

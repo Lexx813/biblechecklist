@@ -7,7 +7,7 @@ import { STUDY_TOPICS } from "../../../src/data/studyTopics";
 
 export const revalidate = false;
 
-const BASE = "https://nwtprogress.com";
+const BASE = "https://jwstudy.org";
 const SEO_HIDE = {
   position: "absolute" as const, width: 1, height: 1,
   overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap",
@@ -86,10 +86,10 @@ export default async function BookPage({ params }) {
     url: `${BASE}/books/${slug}`,
     datePublished: "2025-11-01",
     dateModified: "2026-04-01",
-    image: "https://nwtprogress.com/og-image.jpg",
+    image: "https://jwstudy.org/og-image.jpg",
     author: {
       "@type": "Organization",
-      "@id": "https://nwtprogress.com/#organization",
+      "@id": "https://jwstudy.org/#organization",
       name: "JW Study",
     },
     publisher: {
@@ -98,7 +98,7 @@ export default async function BookPage({ params }) {
       name: "JW Study",
       logo: {
         "@type": "ImageObject",
-        url: "https://nwtprogress.com/icon-512.png",
+        url: "https://jwstudy.org/icon-512.png",
         width: 512,
         height: 512,
       },

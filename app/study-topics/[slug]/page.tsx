@@ -19,7 +19,7 @@ export async function generateMetadata({ params }) {
   return {
     title: `${topic.title} | JW Study Bible Study`,
     description,
-    alternates: { canonical: `https://nwtprogress.com/study-topics/${topic.slug}` },
+    alternates: { canonical: `https://jwstudy.org/study-topics/${topic.slug}` },
     openGraph: {
       title: `${topic.title} | JW Study`,
       description,
@@ -45,26 +45,26 @@ export default async function StudyTopicPage({ params }) {
   const schemaArticle = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "@id": `https://nwtprogress.com/study-topics/${topic.slug}#article`,
+    "@id": `https://jwstudy.org/study-topics/${topic.slug}#article`,
     headline: topic.title,
     description: topic.subtitle,
     articleBody: allParagraphs.join(" "),
-    url: `https://nwtprogress.com/study-topics/${topic.slug}`,
+    url: `https://jwstudy.org/study-topics/${topic.slug}`,
     datePublished: "2025-11-01",
     dateModified: "2026-01-01",
-    image: "https://nwtprogress.com/og-image.jpg",
+    image: "https://jwstudy.org/og-image.jpg",
     author: {
       "@type": "Organization",
-      "@id": "https://nwtprogress.com/#organization",
+      "@id": "https://jwstudy.org/#organization",
       name: "JW Study",
     },
     publisher: {
       "@type": "Organization",
-      "@id": "https://nwtprogress.com/#organization",
+      "@id": "https://jwstudy.org/#organization",
       name: "JW Study",
       logo: {
         "@type": "ImageObject",
-        url: "https://nwtprogress.com/icon-512.png",
+        url: "https://jwstudy.org/icon-512.png",
         width: 512,
         height: 512,
       },
@@ -76,9 +76,9 @@ export default async function StudyTopicPage({ params }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://nwtprogress.com" },
-      { "@type": "ListItem", position: 2, name: "Study Topics", item: "https://nwtprogress.com/study-topics" },
-      { "@type": "ListItem", position: 3, name: topic.title, item: `https://nwtprogress.com/study-topics/${topic.slug}` },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://jwstudy.org" },
+      { "@type": "ListItem", position: 2, name: "Study Topics", item: "https://jwstudy.org/study-topics" },
+      { "@type": "ListItem", position: 3, name: topic.title, item: `https://jwstudy.org/study-topics/${topic.slug}` },
     ],
   };
 
@@ -116,7 +116,7 @@ export default async function StudyTopicPage({ params }) {
         <ul>
           {otherTopics.map((t) => (
             <li key={t.slug}>
-              <a href={`https://nwtprogress.com/study-topics/${t.slug}`}>
+              <a href={`https://jwstudy.org/study-topics/${t.slug}`}>
                 {t.title} — {t.subtitle}
               </a>
             </li>
@@ -125,10 +125,10 @@ export default async function StudyTopicPage({ params }) {
 
         <h2>Explore JW Study</h2>
         <ul>
-          <li><a href="https://nwtprogress.com/books">All 66 Bible Books</a></li>
-          <li><a href="https://nwtprogress.com/plans">All Reading Plans</a></li>
-          <li><a href="https://nwtprogress.com/study-topics">All Study Topics</a></li>
-          <li><a href="https://nwtprogress.com/blog">JW Study Blog</a></li>
+          <li><a href="https://jwstudy.org/books">All 66 Bible Books</a></li>
+          <li><a href="https://jwstudy.org/plans">All Reading Plans</a></li>
+          <li><a href="https://jwstudy.org/study-topics">All Study Topics</a></li>
+          <li><a href="https://jwstudy.org/blog">JW Study Blog</a></li>
         </ul>
       </div>
       <ClientShell />
