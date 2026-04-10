@@ -218,17 +218,19 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  min-height: 196px; /* match tf-card rendered height to prevent CLS on swap */
+  /* Height = tf-card (~230px) + 10px gap + tf-continue (~52px) */
+  min-height: 292px;
 }
 .tf-skeleton-bar {
   border-radius: 6px;
   background: rgba(138, 75, 255, 0.12);
   animation: tf-pulse 1.5s ease-in-out infinite;
 }
-.tf-skeleton-bar--title  { width: 60%; height: 16px; }
-.tf-skeleton-bar--sub    { width: 40%; height: 12px; }
+.tf-skeleton-bar--title    { width: 60%; height: 16px; }
+.tf-skeleton-bar--sub      { width: 40%; height: 12px; }
 .tf-skeleton-bar--progress { width: 100%; height: 6px; border-radius: 3px; }
-.tf-skeleton-bar--btn    { width: 45%; height: 34px; border-radius: 8px; }
+.tf-skeleton-bar--btn      { width: 45%; height: 34px; border-radius: 8px; }
+.tf-skeleton-bar--continue { width: 100%; height: 52px; border-radius: var(--radius-sm); margin-top: 10px; }
 @keyframes tf-pulse {
   0%, 100% { opacity: 1; }
   50%      { opacity: 0.4; }

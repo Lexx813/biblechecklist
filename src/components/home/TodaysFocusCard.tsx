@@ -30,20 +30,6 @@ function effectiveDay(plan: { start_date: string; paused_days?: number; is_pause
   return Math.max(1, raw - pausedDays);
 }
 
-function useLastReadChapter(userId: string | undefined) {
-  const { data: timestamps = {} } = useChapterTimestamps(userId);
-  return useMemo(() => {
-    let best = null;
-    for (const [bi, chapters] of Object.entries(timestamps)) {
-      for (const [ch, ts] of Object.entries(chapters)) {
-        if (!best || ts > best.ts) {
-          best = { bookIndex: parseInt(bi, 10), chapter: parseInt(ch, 10), ts };
-        }
-      }
-    }
-    return best;
-  }, [timestamps]);
-}
 
 function readingsLabel(readings: Array<{ bookIndex: number; chapter: number }> | null | undefined) {
   if (!readings || readings.length === 0) return "—";
@@ -78,7 +64,18 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
   const markDay = useMarkDay(activePlan?.id ?? null, userId, activePlanTotalDays);
   const unmarkDay = useUnmarkDay(activePlan?.id ?? null);
   const { data: streak = { current_streak: 0 } } = useReadingStreak(userId);
-  const lastRead = useLastReadChapter(userId);
+  const { data: timestamps = {}, isLoading: timestampsLoading } = useChapterTimestamps(userId);
+  const lastRead = useMemo(() => {
+    let best = null;
+    for (const [bi, chapters] of Object.entries(timestamps)) {
+      for (const [ch, ts] of Object.entries(chapters as Record<string, string>)) {
+        if (!best || ts > best.ts) {
+          best = { bookIndex: parseInt(bi, 10), chapter: parseInt(ch, 10), ts };
+        }
+      }
+    }
+    return best;
+  }, [timestamps]);
 
   const { data: freezeStatus } = useFreezeStatus(userId);
   const applyFreeze = useApplyFreeze(userId);
@@ -124,13 +121,14 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
     ? wolChapterUrl(todayReadings[0].bookIndex, todayReadings[0].chapter, lang)
     : null;
 
-  if (plansLoading) {
+  if (plansLoading || timestampsLoading) {
     return (
       <div className="tf-skeleton" aria-busy="true">
         <div className="tf-skeleton-bar tf-skeleton-bar--title" />
         <div className="tf-skeleton-bar tf-skeleton-bar--sub" />
         <div className="tf-skeleton-bar tf-skeleton-bar--progress" />
         <div className="tf-skeleton-bar tf-skeleton-bar--btn" />
+        <div className="tf-skeleton-bar tf-skeleton-bar--continue" />
       </div>
     );
   }

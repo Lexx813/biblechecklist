@@ -207,7 +207,7 @@
   box-shadow: none;
   padding: 0;
   overflow: visible;
-  min-height: 198px; /* reserve space while skeleton → real content swap (CLS) */
+  min-height: 292px; /* reserve space for card + continue row (prevents CLS on data load) */
 }
 .hcard--focus:hover { border-color: transparent; }
 
