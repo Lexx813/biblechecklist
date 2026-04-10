@@ -115,7 +115,7 @@ export default function TopBar({
           <button
             className="topbar-search-btn"
             onClick={handleSearchClick}
-            aria-label="Search or open command palette"
+            aria-label="Search… (⌘K)"
           >
             <SearchIcon />
             Search…
