@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import TopBar from "../../components/TopBar";
 import { useCreateVideo } from "../../hooks/useVideos";
-import { validateVideoFile, parseEmbedUrl } from "../../utils/videoEmbed";
+import { validateVideoFile, parseEmbedUrl, formatScriptureTag } from "../../utils/videoEmbed";
 import { videosApi } from "../../api/videos";
 import { toast } from "../../lib/toast";
 import "../../styles/videos.css";
@@ -37,6 +37,8 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
   const [fileError, setFileError] = useState("");
   const [compressProgress, setCompressProgress] = useState<{ ratio: number; originalMB: number; compressedMB: number } | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [scriptureBook, setScriptureBook] = useState("");
+  const [scriptureChapter, setScriptureChapter] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const createVideo = useCreateVideo(user?.id);
 
@@ -73,8 +75,13 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
       setUploading(true);
       if (tab === "link") {
         if (!embedUrl) { toast("Enter a valid YouTube, TikTok, or Rumble link."); return; }
-        await createVideo.mutateAsync({ title: title.trim(), description: description.trim() || undefined, embed_url: embedUrl });
-        toast("Video submitted for review!");
+        await createVideo.mutateAsync({
+          title: title.trim(),
+          description: description.trim() || undefined,
+          embed_url: embedUrl,
+          scripture_tag: formatScriptureTag(scriptureBook, scriptureChapter),
+        });
+        toast("Video posted!");
         onBack();
         return;
       }
@@ -93,8 +100,13 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
         }
       }
       const storage_path = await videosApi.uploadFile(user.id, compressed);
-      await createVideo.mutateAsync({ title: title.trim(), description: description.trim() || undefined, storage_path });
-      toast("Video submitted for review!");
+      await createVideo.mutateAsync({
+        title: title.trim(),
+        description: description.trim() || undefined,
+        storage_path,
+        scripture_tag: formatScriptureTag(scriptureBook, scriptureChapter),
+      });
+      toast("Video posted!");
       onBack();
     } catch (err: any) {
       toast(err.message ?? "Failed to submit. Please try again.");
@@ -108,7 +120,7 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
   const submitLabel = isCompressing
     ? `Compressing… ${Math.round((compressProgress?.ratio ?? 0) * 100)}%`
     : uploading ? "Uploading…"
-    : "Submit for review";
+    : "Post";
   const canSubmit = !isCompressing && !uploading && !!title.trim() && (tab === "link" ? !!embedUrl : !!file);
 
   return (
@@ -134,6 +146,28 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
               <label className="video-composer-label">Description (optional)</label>
               <textarea className="video-composer-textarea" value={description} onChange={e => setDescription(e.target.value)} placeholder="A brief description…" maxLength={1000} />
             </div>
+            <div className="video-composer-field">
+              <label className="video-composer-label">Scripture Tag (optional)</label>
+              <div className="video-scripture-row">
+                <input
+                  className="video-composer-input"
+                  value={scriptureBook}
+                  onChange={e => setScriptureBook(e.target.value)}
+                  placeholder="Book  e.g. John"
+                  maxLength={30}
+                />
+                <input
+                  className="video-composer-input"
+                  value={scriptureChapter}
+                  onChange={e => setScriptureChapter(e.target.value)}
+                  placeholder="Ch.  e.g. 3"
+                  maxLength={5}
+                  type="text"
+                  inputMode="numeric"
+                />
+              </div>
+              <div className="video-scripture-hint">Shows as a badge on the reel. Leave blank if not applicable.</div>
+            </div>
 
             {tab === "link" ? (
               <div className="video-composer-field">
@@ -148,7 +182,7 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
                   <div className="video-dropzone" onClick={() => fileInputRef.current?.click()} onDrop={handleFileDrop} onDragOver={e => e.preventDefault()}>
                     <div className="video-dropzone-text">
                       <strong>Drop video here</strong> or click to browse<br />
-                      <span style={{ fontSize: "0.68rem", opacity: 0.6 }}>MP4, MOV, WebM · max 500 MB</span>
+                      <span style={{ fontSize: "0.68rem", opacity: 0.6 }}>MP4, MOV, WebM · max 50 MB</span>
                     </div>
                     <input ref={fileInputRef} type="file" accept="video/mp4,video/quicktime,video/webm" style={{ display: "none" }} onChange={e => { const f = e.target.files?.[0]; if (f) selectFile(f); }} />
                   </div>
@@ -172,9 +206,6 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
             )}
 
             <button className="video-composer-submit" onClick={handleSubmit} disabled={!canSubmit}>{submitLabel}</button>
-            <p style={{ fontSize: "0.68rem", color: "rgba(240,234,255,0.35)", textAlign: "center", marginTop: 8 }}>
-              All videos are reviewed by an admin before appearing in the feed.
-            </p>
           </div>
         </div>
       </div>
