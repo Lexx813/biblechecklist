@@ -9,6 +9,7 @@ export interface VideoInput {
   storage_path?: string;
   duration_sec?: number;
   thumbnail_url?: string;
+  scripture_tag?: string | null;
 }
 
 export interface VideoComment {
@@ -24,7 +25,7 @@ export const videosApi = {
   listPublished: async () => {
     const { data, error } = await supabase
       .from("videos")
-      .select("id, slug, title, description, creator_id, embed_url, storage_path, thumbnail_url, duration_sec, likes_count, created_at, profiles!creator_id(display_name, avatar_url)")
+      .select("id, slug, title, description, creator_id, embed_url, storage_path, thumbnail_url, duration_sec, likes_count, created_at, scripture_tag, profiles!creator_id(display_name, avatar_url)")
       .eq("published", true)
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
