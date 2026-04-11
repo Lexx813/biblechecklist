@@ -298,10 +298,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #e2b0ff;
   text-align: center;
-  padding: 20px;
+  padding: 32px;
+  line-height: 1.65;
+  text-shadow: 0 0 28px rgba(200, 130, 255, 0.35);
 }
 
 /* ── Skeleton ──────────────────────────────────────────────── */
@@ -384,9 +387,12 @@
 
 .reel-drawer-empty {
   text-align: center;
-  padding: 24px 0;
-  font-size: 0.82rem;
-  color: var(--text-secondary);
+  padding: 28px 12px;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: #e2b0ff;
+  line-height: 1.6;
+  text-shadow: 0 0 18px rgba(200, 130, 255, 0.25);
 }
 
 /* ── Scripture badge on detail page ───────────────────────── */
