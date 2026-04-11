@@ -1251,6 +1251,7 @@ export type Database = {
           avatar_url: string | null
           bio: string | null
           can_blog: boolean
+          is_approved_creator: boolean
           created_at: string
           daily_chapter_goal: number
           display_name: string | null
@@ -1281,6 +1282,7 @@ export type Database = {
           avatar_url?: string | null
           bio?: string | null
           can_blog?: boolean
+          is_approved_creator?: boolean
           created_at?: string
           daily_chapter_goal?: number
           display_name?: string | null
@@ -1311,6 +1313,7 @@ export type Database = {
           avatar_url?: string | null
           bio?: string | null
           can_blog?: boolean
+          is_approved_creator?: boolean
           created_at?: string
           daily_chapter_goal?: number
           display_name?: string | null
@@ -2163,6 +2166,117 @@ export type Database = {
           id?: number
           verse_ref?: string
           verse_text?: string
+        }
+        Relationships: []
+      }
+      creator_requests: {
+        Row: {
+          id: string
+          user_id: string
+          display_name: string
+          topic_description: string
+          sample_url: string | null
+          status: string
+          reviewed_by: string | null
+          reviewed_at: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          display_name: string
+          topic_description: string
+          sample_url?: string | null
+          status?: string
+          reviewed_by?: string | null
+          reviewed_at?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          display_name?: string
+          topic_description?: string
+          sample_url?: string | null
+          status?: string
+          reviewed_by?: string | null
+          reviewed_at?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      videos: {
+        Row: {
+          id: string
+          slug: string
+          title: string
+          description: string | null
+          creator_id: string
+          embed_url: string | null
+          storage_path: string | null
+          duration_sec: number | null
+          thumbnail_url: string | null
+          published: boolean
+          likes_count: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          slug: string
+          title: string
+          description?: string | null
+          creator_id: string
+          embed_url?: string | null
+          storage_path?: string | null
+          duration_sec?: number | null
+          thumbnail_url?: string | null
+          published?: boolean
+          likes_count?: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          slug?: string
+          title?: string
+          description?: string | null
+          creator_id?: string
+          embed_url?: string | null
+          storage_path?: string | null
+          duration_sec?: number | null
+          thumbnail_url?: string | null
+          published?: boolean
+          likes_count?: number
+          created_at?: string
+        }
+        Relationships: []
+      }
+      video_likes: {
+        Row: { user_id: string; video_id: string; created_at: string }
+        Insert: { user_id: string; video_id: string; created_at?: string }
+        Update: { user_id?: string; video_id?: string; created_at?: string }
+        Relationships: []
+      }
+      video_comments: {
+        Row: {
+          id: string
+          video_id: string
+          author_id: string
+          content: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          video_id: string
+          author_id: string
+          content: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          video_id?: string
+          author_id?: string
+          content?: string
+          created_at?: string
         }
         Relationships: []
       }
