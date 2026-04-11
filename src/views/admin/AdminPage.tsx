@@ -30,6 +30,7 @@ import { useCategories } from "../../hooks/useForum";
 import { useQueryClient } from "@tanstack/react-query";
 import "../../styles/admin.css";
 import { formatDate } from "../../utils/formatters";
+import { useAdminCreatorRequests, useAdminSetCreatorApproval } from "../../hooks/useVideos";
 
 function initials(email) {
   return email ? email[0].toUpperCase() : "?";
@@ -1271,6 +1272,70 @@ function AuditLogTab() {
 }
 
 // ── Main AdminPage ─────────────────────────────────────────────────────────────
+function CreatorsTab() {
+  const { data: requests = [], isLoading } = useAdminCreatorRequests();
+  const setApproval = useAdminSetCreatorApproval();
+
+  async function handle(userId: string, approved: boolean) {
+    try {
+      await setApproval.mutateAsync({ userId, approved });
+    } catch (err: any) {
+      alert(err.message ?? "Failed.");
+    }
+  }
+
+  if (isLoading) return <div className="admin-section" style={{ padding: 20, color: "var(--text-secondary)", fontSize: "0.82rem" }}>Loading…</div>;
+
+  const pending = (requests as any[]).filter(r => r.status === "pending");
+  const reviewed = (requests as any[]).filter(r => r.status !== "pending");
+
+  return (
+    <div style={{ padding: "16px 20px" }}>
+      <h3 style={{ fontSize: "0.9rem", fontWeight: 700, marginBottom: 12, color: "var(--text-primary)" }}>
+        Creator Requests
+        {pending.length > 0 && (
+          <span style={{ background: "rgba(251,191,36,0.15)", color: "#fbbf24", fontSize: "0.7rem", padding: "2px 8px", borderRadius: 20, marginLeft: 8 }}>
+            {pending.length} pending
+          </span>
+        )}
+      </h3>
+      {pending.length === 0 && reviewed.length === 0 && (
+        <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)" }}>No requests yet.</p>
+      )}
+      {pending.map((req: any) => (
+        <div key={req.id} style={{ padding: 12, background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 10, marginBottom: 8 }}>
+          <div style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--text-primary)" }}>{req.profiles?.display_name ?? req.display_name}</div>
+          <div style={{ fontSize: "0.68rem", color: "var(--text-secondary)", marginBottom: 4 }}>{req.profiles?.email} · Member since {formatDate(req.profiles?.created_at)}</div>
+          <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)", fontStyle: "italic", marginBottom: 8 }}>"{req.topic_description}"</div>
+          {req.sample_url && (
+            <div style={{ fontSize: "0.68rem", marginBottom: 8 }}>
+              <a href={req.sample_url} target="_blank" rel="noopener noreferrer" style={{ color: "#a78bfa" }}>View sample →</a>
+            </div>
+          )}
+          <div style={{ display: "flex", gap: 8 }}>
+            <button onClick={() => handle(req.user_id, true)} style={{ padding: "4px 12px", borderRadius: 6, border: "1px solid rgba(16,185,129,0.3)", background: "rgba(16,185,129,0.1)", color: "#34d399", fontSize: "0.72rem", fontWeight: 700, cursor: "pointer" }}>✓ Approve</button>
+            <button onClick={() => handle(req.user_id, false)} style={{ padding: "4px 12px", borderRadius: 6, border: "1px solid rgba(239,68,68,0.2)", background: "rgba(239,68,68,0.08)", color: "#f87171", fontSize: "0.72rem", fontWeight: 700, cursor: "pointer" }}>✕ Deny</button>
+          </div>
+        </div>
+      ))}
+      {reviewed.length > 0 && (
+        <>
+          <h4 style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", marginTop: 16, marginBottom: 8 }}>Reviewed</h4>
+          {reviewed.map((req: any) => (
+            <div key={req.id} style={{ padding: "10px 12px", background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 8, marginBottom: 6, display: "flex", alignItems: "center", gap: 10, opacity: 0.7 }}>
+              <span style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-primary)" }}>{req.profiles?.display_name ?? req.display_name}</span>
+              <span style={{ fontSize: "0.65rem", fontWeight: 700, padding: "2px 8px", borderRadius: 20, background: req.status === "approved" ? "rgba(16,185,129,0.12)" : "rgba(239,68,68,0.1)", color: req.status === "approved" ? "#34d399" : "#f87171" }}>{req.status}</span>
+              {req.status === "approved" && (
+                <button onClick={() => handle(req.user_id, false)} style={{ marginLeft: "auto", padding: "2px 8px", borderRadius: 4, border: "1px solid var(--border)", background: "none", color: "var(--text-secondary)", fontSize: "0.65rem", cursor: "pointer" }}>Revoke</button>
+              )}
+            </div>
+          ))}
+        </>
+      )}
+    </div>
+  );
+}
+
 export default function AdminPage({ currentUser, currentProfile, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const isCurrentUserAdmin = currentProfile?.is_admin;
   const { data: users = [], isLoading: usersLoading } = useUsers();
@@ -1404,6 +1469,12 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
               Audit Log
             </button>
           )}
+          {isCurrentUserAdmin && (
+            <button className={`admin-tab${tab === "creators" ? " admin-tab--active" : ""}`} onClick={() => setTab("creators")}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+              Creators
+            </button>
+          )}
         </div>
 
         {/* Tab content */}
@@ -1417,6 +1488,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
         {tab === "forumCats"     && isCurrentUserAdmin && <div className="admin-section"><ForumCategoriesTab /></div>}
         {tab === "announcements" && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><AnnouncementsTab currentUser={currentUser} /></div>}
         {tab === "auditLog"      && isCurrentUserAdmin && <div className="admin-section"><AuditLogTab /></div>}
+        {tab === "creators"      && isCurrentUserAdmin && <CreatorsTab />}
       </div>
     </div>
   );
