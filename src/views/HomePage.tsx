@@ -540,9 +540,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               const vids = recentVideos as any[];
               const cur = vids[reelIndex];
               if (!cur) return null;
+              const isPortrait = cur.embed_url?.includes("tiktok.com") ?? false;
               return (
                 <div
-                  className="home-reel-embed"
+                  className={`home-reel-embed${isPortrait ? " portrait" : ""}`}
                   onTouchStart={e => { reelTouchY.current = e.touches[0].clientY; }}
                   onTouchEnd={e => {
                     const delta = reelTouchY.current - e.changedTouches[0].clientY;

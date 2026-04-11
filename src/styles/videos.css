@@ -639,6 +639,14 @@
   border-radius: 10px;
 }
 
+/* TikTok and other portrait (9:16) content */
+.home-reel-embed.portrait {
+  aspect-ratio: 9 / 16;
+  width: auto;
+  max-height: 520px;
+  margin: 0 auto;
+}
+
 /* iframe fills the container exactly */
 .home-reel-iframe {
   display: block;
