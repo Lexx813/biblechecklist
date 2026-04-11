@@ -63,7 +63,6 @@ export const blogApi = {
   },
 
   create: async (userId: string, post: BlogPostInput) => {
-    assertNoPII(post.title, post.excerpt, post.content);
     const { data, error } = await supabase
       .from("blog_posts")
       .insert({ author_id: userId, slug: generateSlug(post.title), ...post })
@@ -74,7 +73,6 @@ export const blogApi = {
   },
 
   update: async (postId: string, updates: BlogPostUpdates) => {
-    assertNoPII(updates.title, updates.excerpt, updates.content);
     const { data, error } = await supabase
       .from("blog_posts")
       .update({ ...updates, updated_at: new Date().toISOString() })

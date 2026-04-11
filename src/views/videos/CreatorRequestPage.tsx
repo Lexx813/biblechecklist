@@ -1,5 +1,4 @@
 import { useState } from "react";
-import TopBar from "../../components/TopBar";
 import { useMyCreatorRequest, useSubmitCreatorRequest } from "../../hooks/useVideos";
 import { useFullProfile } from "../../hooks/useAdmin";
 import { toast } from "../../lib/toast";
@@ -50,7 +49,6 @@ export default function CreatorRequestPage({ user, onBack, navigate, ...sharedNa
 
   return (
     <div className="videos-wrap">
-      <TopBar navigate={navigate} currentPage="videos" {...(sharedNav as any)} />
       <div className="creator-request-wrap">
         <button onClick={onBack} style={{ background: "none", border: "none", color: "var(--text-secondary)", cursor: "pointer", fontSize: "0.82rem", marginBottom: 16 }}>← Back</button>
         <div className="creator-request-card">

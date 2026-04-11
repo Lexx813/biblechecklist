@@ -196,7 +196,6 @@
   border-radius: var(--radius);
   overflow: hidden;
   transition: border-color var(--dur-base), box-shadow var(--dur-base);
-  box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.18);
 }
 .hcard:hover { border-color: rgba(138, 75, 255, 0.22); }
 
@@ -284,7 +283,6 @@
   transition: border-color var(--dur-base), transform var(--dur-base), box-shadow var(--dur-base);
   display: flex;
   flex-direction: column;
-  box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.18);
 }
 .hblog-card:hover { border-color: rgba(138, 75, 255, 0.28); transform: translateY(-2px); }
 .hblog-cover {
@@ -494,7 +492,6 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.18);
   min-height: 120px; /* reserve space while async content loads (CLS) */
 }
 .hwidget-header {
@@ -621,7 +618,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  box-shadow: none;
   max-width: 500px;
   width: calc(100vw - 48px);
   backdrop-filter: blur(16px);

@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect, lazy, Suspense } from "react";
+import { useMemo, useState, useEffect, useRef, lazy, Suspense } from "react";
 
 const QuizPageInline      = lazy(() => import("./quiz/QuizPage"));
 const QuizLevelInline     = lazy(() => import("./quiz/QuizPage").then(m => ({ default: m.QuizLevel })));
@@ -18,6 +18,7 @@ const MessagesInline      = lazy(() => import("./messages/MessagesPage"));
 const ChecklistInline     = lazy(() => import("./ChecklistPage"));
 import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
+import { usePublishedVideos, useUserLikedVideoIds, useToggleVideoLike } from "../hooks/useVideos";
 import { useTopThreads } from "../hooks/useForum";
 import { usePublicNotes, useToggleNoteLike } from "../hooks/useStudyNotes";
 import { formatDate, authorName, formatNum } from "../utils/formatters";
@@ -176,6 +177,12 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { data: enPosts = [], isLoading: enPostsLoading } = usePublishedPosts(lang === "en" ? null : "en");
   const posts = langPosts.length > 0 ? langPosts : enPosts;
   const postsLoading = langPostsLoading || (langPosts.length === 0 && enPostsLoading);
+  const { data: recentVideos = [], isLoading: videosLoading } = usePublishedVideos();
+  const { data: likedVideoIds = [] } = useUserLikedVideoIds(user?.id);
+  const toggleVideoLike = useToggleVideoLike(user?.id);
+  const [reelIndex, setReelIndex] = useState(0);
+  const reelBusy = useRef(false);
+  const reelTouchY = useRef(0);
   const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4, lang);
   const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes(lang);
   const toggleNoteLike = useToggleNoteLike();
@@ -523,6 +530,95 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               </div>
             )}
           </div>
+
+          {/* Videos — TikTok-style reel embed */}
+          {(videosLoading || (recentVideos as any[]).length > 0) && (
+          <div>
+            <div className="hfeed-head">
+              <button className="hfeed-title hfeed-title--link" onClick={() => navigate("videos")}>Videos</button>
+              <button className="hfeed-link" onClick={() => navigate("videos")}>View all →</button>
+            </div>
+            {videosLoading ? <BlogSkeleton /> : (
+              <div
+                className="home-reel-embed"
+                onWheel={e => {
+                  if (reelBusy.current) return;
+                  reelBusy.current = true;
+                  const vids = recentVideos as any[];
+                  if (e.deltaY > 0) setReelIndex(i => Math.min(i + 1, vids.length - 1));
+                  else setReelIndex(i => Math.max(i - 1, 0));
+                  setTimeout(() => { reelBusy.current = false; }, 320);
+                }}
+                onTouchStart={e => { reelTouchY.current = e.touches[0].clientY; }}
+                onTouchEnd={e => {
+                  const delta = reelTouchY.current - e.changedTouches[0].clientY;
+                  if (Math.abs(delta) < 40) return;
+                  const vids = recentVideos as any[];
+                  if (delta > 0) setReelIndex(i => Math.min(i + 1, vids.length - 1));
+                  else setReelIndex(i => Math.max(i - 1, 0));
+                }}
+              >
+                <div className="home-reel-track" style={{ transform: `translateY(-${reelIndex * 100}%)` }}>
+                  {(recentVideos as any[]).map((video, idx) => {
+                    const liked = (likedVideoIds as string[]).includes(video.id);
+                    const creator = video.profiles?.display_name ?? "Creator";
+                    return (
+                      <div key={video.id} className="home-reel-item">
+                        {video.embed_url ? (
+                          <>
+                            <iframe
+                              className="home-reel-iframe"
+                              src={idx === reelIndex ? video.embed_url : "about:blank"}
+                              title={video.title}
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            />
+                            <div className="home-reel-cover" />
+                          </>
+                        ) : (
+                          <div className="home-reel-placeholder">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                          </div>
+                        )}
+                        <div className="home-reel-gradient" />
+                        {/* Right rail */}
+                        <div className="home-reel-rail">
+                          <button
+                            className={`home-reel-rail-btn${liked ? " liked" : ""}`}
+                            onClick={e => { e.stopPropagation(); toggleVideoLike.mutate(video.id); }}
+                            aria-label={liked ? "Unlike" : "Like"}
+                          >
+                            <svg viewBox="0 0 24 24" fill={liked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" width="20" height="20">
+                              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                            <span>{video.likes_count}</span>
+                          </button>
+                          <button
+                            className="home-reel-rail-btn"
+                            onClick={() => navigate("videoDetail", { slug: video.slug })}
+                            aria-label="Open video"
+                          >
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                          </button>
+                        </div>
+                        {/* Bottom overlay */}
+                        <div className="home-reel-overlay" onClick={() => navigate("videoDetail", { slug: video.slug })}>
+                          <div className="home-reel-title">{video.title}</div>
+                          <div className="home-reel-creator">{creator}</div>
+                        </div>
+                        {/* Dot indicator */}
+                        <div className="home-reel-dots">
+                          {(recentVideos as any[]).map((_, di) => (
+                            <div key={di} className={`home-reel-dot${di === reelIndex ? " active" : ""}`} />
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+          )}
 
           {/* Community Notes — only show if there are notes in user's language */}
           {(lang === "en" || previewNotes.length > 0) && (

@@ -5,7 +5,6 @@ import {
   useCancelFriendRequest,
   OutgoingRequest,
 } from "../../hooks/useFriends";
-import AppLayout from "../../components/AppLayout";
 import "../../styles/friends.css";
 
 function timeAgo(iso: string | null | undefined): string {
@@ -83,8 +82,7 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
   const outgoingList = outgoing.data ?? [];
 
   return (
-    <div className="freq-page">
-      <AppLayout navigate={navigate} user={user} currentPage="friendRequests">
+    <>
       {/* Hero header */}
       <div className="freq-hero">
         <div className="freq-hero-inner">
@@ -196,7 +194,6 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
         </div>
 
       </div>
-      </AppLayout>
-    </div>
+    </>
   );
 }

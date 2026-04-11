@@ -19,25 +19,13 @@ function stripHtml(html = ""): string {
 // Email:  user@domain.tld
 const EMAIL_RE = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/;
 
-// Phone: handles +1 (555) 555-5555 · 555.555.5555 · 5555555555 · +44 7700 900000 etc.
-const PHONE_RE =
-  /(\+?\d{1,3}[\s.\-]?)?\(?\d{3}\)?[\s.\-]?\d{3}[\s.\-]?\d{4}/;
-
 // Street address: "123 Main St", "456 Oak Avenue", "789 Elm Blvd" etc.
 const ADDRESS_RE =
   /\b\d{1,5}\s+[a-z0-9 ]{2,30}\s+(st\.?|street|ave\.?|avenue|blvd\.?|boulevard|rd\.?|road|dr\.?|drive|ln\.?|lane|ct\.?|court|pl\.?|place|way|circle|cir\.?|terrace|ter\.?)\b/i;
 
-// Social media URLs — facebook, instagram, twitter/x, tiktok, snapchat,
-// youtube, linkedin, threads, telegram, whatsapp, discord invite links
-const SOCIAL_URL_RE =
-  /\b(facebook\.com|fb\.com|instagram\.com|twitter\.com|x\.com|tiktok\.com|snapchat\.com|youtube\.com|youtu\.be|linkedin\.com|threads\.net|t\.me|telegram\.me|wa\.me|whatsapp\.com|discord\.gg|discord\.com\/invite)\b/i;
-
 // Standalone social handles: @username (min 2 chars, not part of an email)
 // Negative lookbehind ensures it isn't the @ in an email address
 const SOCIAL_HANDLE_RE = /(?<![a-zA-Z0-9._%+\-])@[a-zA-Z0-9_.]{2,}/;
-
-// Insecure links: http:// (only https:// is allowed)
-const INSECURE_URL_RE = /\bhttp:\/\//i;
 
 /**
  * Returns a description of the first PII type found, or null if clean.
@@ -46,11 +34,8 @@ const INSECURE_URL_RE = /\bhttp:\/\//i;
 export function detectPII(text = ""): string | null {
   const plain = stripHtml(text);
   if (EMAIL_RE.test(plain)) return "email address";
-  if (PHONE_RE.test(plain)) return "phone number";
   if (ADDRESS_RE.test(plain)) return "physical address";
-  if (SOCIAL_URL_RE.test(plain)) return "social media link";
   if (SOCIAL_HANDLE_RE.test(plain)) return "social media handle";
-  if (INSECURE_URL_RE.test(plain)) return "insecure link (http://)";
   return null;
 }
 

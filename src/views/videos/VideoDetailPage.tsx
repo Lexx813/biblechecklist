@@ -78,9 +78,10 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
 
   if (isLoading) {
     return (
-      <div className="videos-wrap">
-        <div className="video-player-wrap">
-          <div className="skeleton" style={{ width: "100%", aspectRatio: "16/9", borderRadius: 12 }} />
+      <div className="video-detail-page">
+        <div className="video-detail-hero">
+          <button className="video-detail-back" onClick={onBack}>← All videos</button>
+          <div className="skeleton" style={{ width: "100%", maxWidth: 860, aspectRatio: "16/9" }} />
         </div>
       </div>
     );
@@ -88,23 +89,25 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
 
   if (!video) {
     return (
-      <div className="videos-wrap">
+      <div className="video-detail-page">
         <div className="video-player-wrap">
           <div style={{ padding: "60px 0", textAlign: "center", color: "var(--text-secondary)" }}>Video not found.</div>
-          <button onClick={onBack} style={{ marginTop: 12, background: "none", border: "none", color: "#a78bfa", cursor: "pointer" }}>← Back to videos</button>
+          <button onClick={onBack} style={{ marginTop: 12, background: "none", border: "none", color: "#a78bfa", cursor: "pointer" }}>← All videos</button>
         </div>
       </div>
     );
   }
 
   const creatorName = (video.profiles as any)?.display_name ?? "Unknown";
+  const isTikTok = video.embed_url?.includes("tiktok.com") ?? false;
+  const frameClass = `video-player-frame${isTikTok ? " portrait" : ""}`;
 
   return (
-    <div className="videos-wrap">
-      <div className="video-player-wrap">
-        <button onClick={onBack} style={{ background: "none", border: "none", color: "var(--text-secondary)", cursor: "pointer", fontSize: "0.82rem", marginBottom: 12 }}>← All videos</button>
-
-        <div className="video-player-frame">
+    <div className="video-detail-page">
+      {/* ── Dark hero band with player ── */}
+      <div className="video-detail-hero">
+        <button className="video-detail-back" onClick={onBack}>← All videos</button>
+        <div className={frameClass}>
           {video.embed_url ? (
             <iframe src={video.embed_url} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title={video.title} />
           ) : (video as any).playback_url ? (
@@ -113,7 +116,10 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
             </video>
           ) : null}
         </div>
+      </div>
 
+      {/* ── Content body ── */}
+      <div className="video-player-wrap">
         {(video as any).scripture_tag && (
           <div className="detail-scripture-badge">
             <BookIcon />

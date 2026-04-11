@@ -30,7 +30,8 @@ import { useCategories } from "../../hooks/useForum";
 import { useQueryClient } from "@tanstack/react-query";
 import "../../styles/admin.css";
 import { formatDate } from "../../utils/formatters";
-import { useAdminCreatorRequests, useAdminSetCreatorApproval } from "../../hooks/useVideos";
+import { useAdminCreatorRequests, useAdminSetCreatorApproval, useAdminSetVideoPublished } from "../../hooks/useVideos";
+import { supabase } from "../../lib/supabase";
 
 function initials(email) {
   return email ? email[0].toUpperCase() : "?";
@@ -1271,6 +1272,131 @@ function AuditLogTab() {
   );
 }
 
+// ── Videos Tab ────────────────────────────────────────────────────────────────
+function VideoReviewCard({ v, onToggle }: { v: any; onToggle: (id: string, current: boolean) => void }) {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 10, marginBottom: 10, overflow: "hidden" }}>
+      {/* Header row */}
+      <div style={{ padding: "10px 12px", display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-primary)" }}>{v.title}</div>
+          <div style={{ fontSize: "0.68rem", color: "var(--text-secondary)", marginTop: 2 }}>
+            {v.profiles?.display_name ?? "Unknown"} · {formatDate(v.created_at)}
+            {v.embed_url && (
+              <> · <a href={v.embed_url} target="_blank" rel="noopener noreferrer" style={{ color: "#a78bfa" }}>open link ↗</a></>
+            )}
+          </div>
+        </div>
+        <button
+          onClick={() => setExpanded(e => !e)}
+          style={{ padding: "4px 10px", borderRadius: 6, border: "1px solid var(--border)", background: "none", color: "var(--text-secondary)", fontSize: "0.7rem", cursor: "pointer", whiteSpace: "nowrap" }}
+        >
+          {expanded ? "Hide preview" : "Preview"}
+        </button>
+        <button
+          onClick={() => onToggle(v.id, v.published)}
+          style={{ padding: "5px 14px", borderRadius: 6, border: "1px solid rgba(16,185,129,0.3)", background: "rgba(16,185,129,0.1)", color: "#34d399", fontSize: "0.72rem", fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap" }}
+        >
+          ✓ Publish
+        </button>
+      </div>
+      {/* Preview panel */}
+      {expanded && (
+        <div style={{ borderTop: "1px solid var(--border)" }}>
+          {v.embed_url ? (
+            <div style={{ position: "relative", paddingBottom: "56.25%", background: "#000" }}>
+              <iframe
+                src={v.embed_url}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title={v.title}
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+              />
+            </div>
+          ) : v.playback_url ? (
+            <video controls preload="metadata" style={{ width: "100%", display: "block", background: "#000" }}>
+              <source src={v.playback_url} type="video/mp4" />
+            </video>
+          ) : (
+            <div style={{ padding: 16, fontSize: "0.78rem", color: "var(--text-secondary)" }}>No preview available.</div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function VideosTab() {
+  const setPublished = useAdminSetVideoPublished();
+  const [videos, setVideos] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase
+      .from("videos")
+      .select("id, title, published, embed_url, storage_path, created_at, profiles!creator_id(display_name)")
+      .order("created_at", { ascending: false })
+      .then(async ({ data }) => {
+        // Generate signed URLs for storage videos
+        const enriched = await Promise.all((data ?? []).map(async v => {
+          if (v.storage_path) {
+            const { data: signed } = await supabase.storage.from("videos").createSignedUrl(v.storage_path, 3600);
+            return { ...v, playback_url: signed?.signedUrl ?? null };
+          }
+          return v;
+        }));
+        setVideos(enriched);
+        setLoading(false);
+      });
+  }, []);
+
+  async function toggle(videoId: string, current: boolean) {
+    try {
+      await setPublished.mutateAsync({ videoId, published: !current });
+      setVideos(vs => vs.map(v => v.id === videoId ? { ...v, published: !current } : v));
+    } catch (err: any) {
+      alert(err.message ?? "Failed.");
+    }
+  }
+
+  if (loading) return <div style={{ padding: 20, color: "var(--text-secondary)", fontSize: "0.82rem" }}>Loading…</div>;
+
+  const pending = videos.filter(v => !v.published);
+  const published = videos.filter(v => v.published);
+
+  return (
+    <div style={{ padding: "16px 20px" }}>
+      <h3 style={{ fontSize: "0.9rem", fontWeight: 700, marginBottom: 12, color: "var(--text-primary)" }}>
+        Video Review Queue
+        {pending.length > 0 && (
+          <span style={{ background: "rgba(251,191,36,0.15)", color: "#fbbf24", fontSize: "0.7rem", padding: "2px 8px", borderRadius: 20, marginLeft: 8 }}>
+            {pending.length} pending
+          </span>
+        )}
+      </h3>
+      {pending.length === 0 && <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginBottom: 16 }}>No videos awaiting review.</p>}
+      {pending.map((v: any) => (
+        <VideoReviewCard key={v.id} v={v} onToggle={toggle} />
+      ))}
+      {published.length > 0 && (
+        <>
+          <h4 style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", marginTop: 16, marginBottom: 8 }}>Published</h4>
+          {published.map((v: any) => (
+            <div key={v.id} style={{ padding: "10px 12px", background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 8, marginBottom: 6, display: "flex", alignItems: "center", gap: 10, opacity: 0.75 }}>
+              <span style={{ flex: 1, fontSize: "0.8rem", fontWeight: 600, color: "var(--text-primary)" }}>{v.title}</span>
+              <span style={{ fontSize: "0.65rem", color: "var(--text-secondary)" }}>{v.profiles?.display_name ?? "Unknown"}</span>
+              {v.embed_url && <a href={v.embed_url} target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.65rem", color: "#a78bfa" }}>open ↗</a>}
+              <button onClick={() => toggle(v.id, true)} style={{ padding: "2px 8px", borderRadius: 4, border: "1px solid var(--border)", background: "none", color: "var(--text-secondary)", fontSize: "0.65rem", cursor: "pointer" }}>Unpublish</button>
+            </div>
+          ))}
+        </>
+      )}
+    </div>
+  );
+}
+
 // ── Main AdminPage ─────────────────────────────────────────────────────────────
 function CreatorsTab() {
   const { data: requests = [], isLoading } = useAdminCreatorRequests();
@@ -1475,6 +1601,12 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
               Creators
             </button>
           )}
+          {isCurrentUserAdmin && (
+            <button className={`admin-tab${tab === "videos" ? " admin-tab--active" : ""}`} onClick={() => setTab("videos")}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3l-4 4-4-4"/></svg>
+              Videos
+            </button>
+          )}
         </div>
 
         {/* Tab content */}
@@ -1489,6 +1621,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
         {tab === "announcements" && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><AnnouncementsTab currentUser={currentUser} /></div>}
         {tab === "auditLog"      && isCurrentUserAdmin && <div className="admin-section"><AuditLogTab /></div>}
         {tab === "creators"      && isCurrentUserAdmin && <CreatorsTab />}
+        {tab === "videos"        && isCurrentUserAdmin && <div className="admin-section"><VideosTab /></div>}
       </div>
     </div>
   );

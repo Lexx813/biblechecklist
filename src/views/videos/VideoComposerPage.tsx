@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import TopBar from "../../components/TopBar";
 import { useCreateVideo } from "../../hooks/useVideos";
 import { validateVideoFile, parseEmbedUrl, formatScriptureTag } from "../../utils/videoEmbed";
 import { videosApi } from "../../api/videos";
@@ -125,7 +124,6 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
 
   return (
     <div className="videos-wrap">
-      <TopBar navigate={navigate} currentPage="videos" {...(sharedNav as any)} />
       <div className="video-composer-wrap">
         <div className="video-composer">
           <div className="video-composer-header">

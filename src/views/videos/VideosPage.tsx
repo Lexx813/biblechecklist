@@ -97,17 +97,16 @@ function ReelItem({ video, liked, onLike, onExpand, onComment, onShare }: ReelIt
     <div className="reel-item">
       {/* ── Video layer ── */}
       {video.embed_url ? (
-        <iframe
-          className="reel-iframe"
-          src={video.embed_url}
-          title={video.title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        />
-      ) : isUpload ? (
-        /* Uploaded videos show placeholder in feed — tap expand to watch with signed URL */
-        <div className="reel-bg-placeholder">
-          <PlayIcon />
-        </div>
+        <>
+          <iframe
+            className="reel-iframe"
+            src={video.embed_url}
+            title={video.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          />
+          {/* Cover intercepts wheel/touch so events bubble to .reel-feed */}
+          <div className="reel-iframe-cover" />
+        </>
       ) : (
         <div className="reel-bg-placeholder">
           <PlayIcon />
@@ -289,10 +288,39 @@ export default function VideosPage({ user, onSelectVideo, onPostClick }: Props) 
   const { data: videos = [], isLoading } = usePublishedVideos();
   const { data: likedIds = [] } = useUserLikedVideoIds(user?.id);
   const toggleLike = useToggleVideoLike(user?.id);
-  // All signed-in users can post — no creator approval required
   const canPost = !!user;
 
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [commentVideoId, setCommentVideoId] = useState<string | null>(null);
+  const busy = useRef(false); // prevent rapid-fire on wheel
+
+  const allVideos = videos as unknown as Video[];
+
+  function goTo(idx: number) {
+    if (idx < 0 || idx >= allVideos.length) return;
+    setCurrentIndex(idx);
+  }
+
+  // Wheel: one tick = one reel. Block repeats until settled.
+  function handleWheel(e: React.WheelEvent) {
+    if (busy.current) return;
+    busy.current = true;
+    if (e.deltaY > 0) goTo(currentIndex + 1);
+    else goTo(currentIndex - 1);
+    setTimeout(() => { busy.current = false; }, 320);
+  }
+
+  // Touch swipe
+  const touchY = useRef(0);
+  function handleTouchStart(e: React.TouchEvent) {
+    touchY.current = e.touches[0].clientY;
+  }
+  function handleTouchEnd(e: React.TouchEvent) {
+    const delta = touchY.current - e.changedTouches[0].clientY;
+    if (Math.abs(delta) < 40) return;
+    if (delta > 0) goTo(currentIndex + 1);
+    else goTo(currentIndex - 1);
+  }
 
   function handleLike(videoId: string) {
     if (!user) { toast("Sign in to like videos."); return; }
@@ -309,29 +337,40 @@ export default function VideosPage({ user, onSelectVideo, onPostClick }: Props) 
 
   return (
     <>
-      <div className="reel-feed">
-        {isLoading && [0, 1, 2].map(i => <div key={i} className="reel-skeleton" />)}
-        {!isLoading && (videos as unknown as Video[]).length === 0 && (
+      <div
+        className="reel-feed"
+        onWheel={handleWheel}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+        {isLoading ? (
+          <div className="reel-track">
+            {[0, 1, 2].map(i => <div key={i} className="reel-skeleton" />)}
+          </div>
+        ) : allVideos.length === 0 ? (
           <div className="reel-empty">
-            {canPost
-              ? "Every heart has something worth sharing.\nYours could be exactly what someone needs today."
-              : "Something beautiful is on its way.\nCheck back soon — great things take a little time."}
+            {canPost ? "Be the first to post a video!" : "No videos yet. Check back soon."}
+          </div>
+        ) : (
+          <div
+            className="reel-track"
+            style={{ transform: `translateY(-${currentIndex * 100}%)` }}
+          >
+            {allVideos.map(video => (
+              <ReelItem
+                key={video.id}
+                video={video}
+                liked={(likedIds as string[]).includes(video.id)}
+                onLike={() => handleLike(video.id)}
+                onExpand={() => onSelectVideo(video.slug)}
+                onComment={() => setCommentVideoId(video.id)}
+                onShare={() => handleShare(video.slug)}
+              />
+            ))}
           </div>
         )}
-        {!isLoading && (videos as unknown as Video[]).map(video => (
-          <ReelItem
-            key={video.id}
-            video={video}
-            liked={(likedIds as string[]).includes(video.id)}
-            onLike={() => handleLike(video.id)}
-            onExpand={() => onSelectVideo(video.slug)}
-            onComment={() => setCommentVideoId(video.id)}
-            onShare={() => handleShare(video.slug)}
-          />
-        ))}
       </div>
 
-      {/* FAB visible to all signed-in users — no approval gate */}
       {canPost && (
         <button className="reel-fab" onClick={onPostClick} aria-label="Post a video">
           + Post

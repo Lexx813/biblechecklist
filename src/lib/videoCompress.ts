@@ -1,4 +1,5 @@
 // src/lib/videoCompress.ts
+"use client";
 // Lazy-loaded — only imported when the user opens the Upload File tab.
 // ffmpeg.wasm runs entirely in the browser; no server round-trip needed.
 
@@ -69,7 +70,7 @@ export async function compressVideo(
   ]);
 
   const data = await ffmpeg.readFile(outputName);
-  const blob = new Blob([data], { type: "video/mp4" });
+  const blob = new Blob([data as unknown as BlobPart], { type: "video/mp4" });
   onProgress?.({ ratio: 1, originalMB, compressedMB: blob.size / (1024 * 1024) });
 
   return new File([blob], outputName, { type: "video/mp4" });
