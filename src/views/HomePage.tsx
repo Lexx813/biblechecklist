@@ -560,6 +560,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                       title={cur.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
+                      scrolling="no"
                     />
                   ) : (
                     <div className="home-reel-placeholder">

@@ -640,15 +640,11 @@
   overflow: hidden;
 }
 
-/* TikTok and other portrait (9:16) content.
-   max-height caps the container so it doesn't exceed TikTok's actual
-   rendered content height, removing empty whitespace at the bottom.
-   overflow:hidden clips TikTok's description/audio chrome. */
+/* TikTok portrait: use TikTok's recommended 340×700 proportion.
+   No overflow clipping — show the full embed content. */
 .home-reel-embed.portrait {
-  aspect-ratio: 9 / 16;
-  max-height: 480px;
-  width: auto;
-  margin: 0 auto;
+  aspect-ratio: 340 / 700;
+  overflow: visible;
 }
 
 /* iframe fills the container exactly */
