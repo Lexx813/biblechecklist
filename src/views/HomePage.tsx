@@ -18,7 +18,7 @@ const MessagesInline      = lazy(() => import("./messages/MessagesPage"));
 const ChecklistInline     = lazy(() => import("./ChecklistPage"));
 import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
-import { usePublishedVideos, useUserLikedVideoIds, useToggleVideoLike } from "../hooks/useVideos";
+import { usePublishedVideos } from "../hooks/useVideos";
 import { useTopThreads } from "../hooks/useForum";
 import { usePublicNotes, useToggleNoteLike } from "../hooks/useStudyNotes";
 import { formatDate, authorName, formatNum } from "../utils/formatters";
@@ -179,8 +179,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const posts = langPosts.length > 0 ? langPosts : enPosts;
   const postsLoading = langPostsLoading || (langPosts.length === 0 && enPostsLoading);
   const { data: recentVideos = [], isLoading: videosLoading } = usePublishedVideos();
-  const { data: likedVideoIds = [] } = useUserLikedVideoIds(user?.id);
-  const toggleVideoLike = useToggleVideoLike(user?.id);
   const [reelIndex, setReelIndex] = useState(0);
   const reelBusy = useRef(false);
   const reelTouchY = useRef(0);
@@ -540,74 +538,46 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <button className="hfeed-link" onClick={() => navigate("videos")}>View all →</button>
             </div>
             {videosLoading ? <BlogSkeleton /> : (
-              <div className="home-reel-embed">
-                {/* 16:9 clipping window with sliding track */}
-                <div
-                  className="home-reel-window"
-                  onTouchStart={e => { reelTouchY.current = e.touches[0].clientY; }}
-                  onTouchEnd={e => {
-                    const delta = reelTouchY.current - e.changedTouches[0].clientY;
-                    if (Math.abs(delta) < 40) return;
-                    const vids = recentVideos as any[];
-                    if (delta > 0) setReelIndex(i => Math.min(i + 1, vids.length - 1));
-                    else setReelIndex(i => Math.max(i - 1, 0));
-                  }}
-                >
-                  <div className="home-reel-track" style={{ transform: `translateY(-${reelIndex * 100}%)` }}>
-                    {(recentVideos as any[]).map((video, idx) => (
-                      <div key={video.id} className="home-reel-item">
-                        {video.embed_url ? (
-                          <iframe
-                            className="home-reel-iframe"
-                            src={idx === reelIndex ? video.embed_url : "about:blank"}
-                            title={video.title}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                          />
-                        ) : (
-                          <div className="home-reel-placeholder">
-                            <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                  {/* Up/down arrows inside the window */}
-                  {reelIndex > 0 && (
-                    <button className="home-reel-arrow home-reel-arrow--up" onClick={() => setReelIndex(i => i - 1)} aria-label="Previous video">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="20" height="20"><polyline points="18 15 12 9 6 15"/></svg>
-                    </button>
-                  )}
-                  {reelIndex < (recentVideos as any[]).length - 1 && (
-                    <button className="home-reel-arrow home-reel-arrow--down" onClick={() => setReelIndex(i => i + 1)} aria-label="Next video">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="20" height="20"><polyline points="6 9 12 15 18 9"/></svg>
-                    </button>
-                  )}
-                </div>
-                {/* Info bar below the player — always visible, not clipped */}
-                {(() => {
-                  const video = (recentVideos as any[])[reelIndex];
-                  if (!video) return null;
-                  const liked = (likedVideoIds as string[]).includes(video.id);
-                  return (
-                    <div className="home-reel-infobar">
-                      <div className="home-reel-infobar-text" onClick={() => navigate("videoDetail", { slug: video.slug })}>
-                        <span className="home-reel-title">{video.title}</span>
-                        <span className="home-reel-creator">{video.profiles?.display_name ?? "Creator"}</span>
-                      </div>
-                      <button
-                        className={`home-reel-like-btn${liked ? " liked" : ""}`}
-                        onClick={() => toggleVideoLike.mutate(video.id)}
-                        aria-label={liked ? "Unlike" : "Like"}
-                      >
-                        <svg viewBox="0 0 24 24" fill={liked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" width="16" height="16">
-                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                        </svg>
-                        {video.likes_count}
-                      </button>
+              <div
+                className="home-reel-embed"
+                onTouchStart={e => { reelTouchY.current = e.touches[0].clientY; }}
+                onTouchEnd={e => {
+                  const delta = reelTouchY.current - e.changedTouches[0].clientY;
+                  if (Math.abs(delta) < 40) return;
+                  const n = (recentVideos as any[]).length;
+                  if (delta > 0) setReelIndex(i => Math.min(i + 1, n - 1));
+                  else setReelIndex(i => Math.max(i - 1, 0));
+                }}
+              >
+                <div className="home-reel-track" style={{ transform: `translateY(-${reelIndex * 100}%)` }}>
+                  {(recentVideos as any[]).map((video, idx) => (
+                    <div key={video.id} className="home-reel-item">
+                      {video.embed_url ? (
+                        <iframe
+                          className="home-reel-iframe"
+                          src={idx === reelIndex ? video.embed_url : "about:blank"}
+                          title={video.title}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      ) : (
+                        <div className="home-reel-placeholder">
+                          <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        </div>
+                      )}
                     </div>
-                  );
-                })()}
+                  ))}
+                </div>
+                {reelIndex > 0 && (
+                  <button className="home-reel-arrow home-reel-arrow--up" onClick={() => setReelIndex(i => i - 1)} aria-label="Previous video">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="18" height="18"><polyline points="18 15 12 9 6 15"/></svg>
+                  </button>
+                )}
+                {reelIndex < (recentVideos as any[]).length - 1 && (
+                  <button className="home-reel-arrow home-reel-arrow--down" onClick={() => setReelIndex(i => i + 1)} aria-label="Next video">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="18" height="18"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                )}
               </div>
             )}
           </div>
