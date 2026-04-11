@@ -15,6 +15,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
     "@sentry/react": "^10.46.0",
     "@supabase/ssr": "^0.10.0",
     "@supabase/supabase-js": "^2.100.1",
@@ -49,8 +51,8 @@
     "not dead"
   ],
   "devDependencies": {
-    "@tanstack/react-query-devtools": "^5.94.5",
     "@eslint/js": "^9.39.4",
+    "@tanstack/react-query-devtools": "^5.94.5",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.4",
