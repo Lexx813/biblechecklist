@@ -1,0 +1,140 @@
+import { useState } from "react";
+import TopBar from "../../components/TopBar";
+import { useVideoBySlug, useVideoComments, useCreateVideoComment, useDeleteVideoComment, useUserLikedVideoIds, useToggleVideoLike } from "../../hooks/useVideos";
+import { useFullProfile } from "../../hooks/useAdmin";
+import { formatDate } from "../../utils/formatters";
+import { toast } from "../../lib/toast";
+import "../../styles/videos.css";
+
+const HeartIcon = ({ filled }: { filled: boolean }) => (
+  <svg viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+  </svg>
+);
+
+interface Props {
+  user: { id: string } | null;
+  slug: string;
+  onBack: () => void;
+  navigate: (page: string, params?: Record<string, unknown>) => void;
+  darkMode?: boolean;
+  setDarkMode?: (v: boolean) => void;
+  i18n?: any;
+  onLogout?: (() => void) | null;
+  onUpgrade?: () => void;
+  currentPage?: string;
+  onSearchClick?: () => void;
+}
+
+export default function VideoDetailPage({ user, slug, onBack, navigate, ...sharedNav }: Props) {
+  const { data: video, isLoading } = useVideoBySlug(slug);
+  const { data: comments = [] } = useVideoComments(video?.id);
+  const { data: likedIds = [] } = useUserLikedVideoIds(user?.id);
+  const { data: profile } = useFullProfile(user?.id);
+  const toggleLike = useToggleVideoLike(user?.id);
+  const createComment = useCreateVideoComment(video?.id);
+  const deleteComment = useDeleteVideoComment(video?.id);
+  const [commentText, setCommentText] = useState("");
+  const liked = video ? (likedIds as string[]).includes(video.id) : false;
+
+  async function handleLike() {
+    if (!user) { toast("Sign in to like videos."); return; }
+    if (!video) return;
+    await toggleLike.mutateAsync(video.id);
+  }
+
+  async function handleComment(e: React.FormEvent) {
+    e.preventDefault();
+    if (!user || !commentText.trim() || !video) return;
+    try {
+      await createComment.mutateAsync({ userId: user.id, content: commentText.trim() });
+      setCommentText("");
+    } catch (err: any) {
+      toast(err.message ?? "Failed to post comment.");
+    }
+  }
+
+  if (isLoading) {
+    return (
+      <div className="videos-wrap">
+        {user && <TopBar navigate={navigate} currentPage="videos" {...(sharedNav as any)} />}
+        <div className="video-player-wrap">
+          <div className="skeleton" style={{ width: "100%", aspectRatio: "16/9", borderRadius: 12 }} />
+        </div>
+      </div>
+    );
+  }
+
+  if (!video) {
+    return (
+      <div className="videos-wrap">
+        {user && <TopBar navigate={navigate} currentPage="videos" {...(sharedNav as any)} />}
+        <div className="video-player-wrap">
+          <div className="videos-empty">Video not found.</div>
+          <button onClick={onBack} style={{ marginTop: 12, background: "none", border: "none", color: "#a78bfa", cursor: "pointer" }}>← Back to videos</button>
+        </div>
+      </div>
+    );
+  }
+
+  const creatorName = (video.profiles as any)?.display_name ?? "Unknown";
+
+  return (
+    <div className="videos-wrap">
+      {user && <TopBar navigate={navigate} currentPage="videos" {...(sharedNav as any)} />}
+      <div className="video-player-wrap">
+        <button onClick={onBack} style={{ background: "none", border: "none", color: "var(--text-secondary)", cursor: "pointer", fontSize: "0.82rem", marginBottom: 12 }}>← All videos</button>
+
+        <div className="video-player-frame">
+          {video.embed_url ? (
+            <iframe src={video.embed_url} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title={video.title} />
+          ) : (video as any).playback_url ? (
+            <video controls preload="metadata">
+              <source src={(video as any).playback_url} type="video/mp4" />
+            </video>
+          ) : null}
+        </div>
+
+        <h1 className="video-player-title">{video.title}</h1>
+        <div className="video-player-meta">{creatorName} · {formatDate(video.created_at, "long" as any)}</div>
+        {video.description && <div className="video-player-desc">{video.description}</div>}
+
+        <div className="video-player-actions">
+          <button className={`video-like-btn${liked ? " liked" : ""}`} onClick={handleLike} aria-label={liked ? "Unlike" : "Like"}>
+            <HeartIcon filled={liked} />
+            {video.likes_count} {video.likes_count === 1 ? "like" : "likes"}
+          </button>
+        </div>
+
+        <div className="video-comments">
+          <div className="video-comments-title">{(comments as any[]).length} {(comments as any[]).length === 1 ? "comment" : "comments"}</div>
+          {(comments as any[]).map(c => (
+            <div key={c.id} className="video-comment">
+              <div className="video-comment-avatar">
+                {c.profiles?.avatar_url ? <img src={c.profiles.avatar_url} alt={c.profiles?.display_name ?? "?"} /> : (c.profiles?.display_name?.[0] ?? "?").toUpperCase()}
+              </div>
+              <div className="video-comment-body">
+                <div className="video-comment-author">{c.profiles?.display_name ?? "Anonymous"}</div>
+                <div className="video-comment-text">{c.content}</div>
+                <div className="video-comment-date">{formatDate(c.created_at)}</div>
+              </div>
+              {(user?.id === c.author_id || (profile as any)?.is_admin) && (
+                <button onClick={() => deleteComment.mutate(c.id)} style={{ background: "none", border: "none", color: "var(--text-secondary)", cursor: "pointer", fontSize: "0.7rem", alignSelf: "flex-start", marginTop: 2 }} aria-label="Delete comment">✕</button>
+              )}
+            </div>
+          ))}
+          {user ? (
+            <form className="video-comment-form" onSubmit={handleComment}>
+              <input className="video-comment-input" value={commentText} onChange={e => setCommentText(e.target.value)} placeholder="Add a comment…" maxLength={1000} />
+              <button type="submit" className="video-comment-submit" disabled={!commentText.trim() || createComment.isPending}>Post</button>
+            </form>
+          ) : (
+            <div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", marginTop: 8 }}>
+              <button onClick={() => navigate("home")} style={{ background: "none", border: "none", color: "#a78bfa", cursor: "pointer", fontSize: "inherit" }}>Sign in</button> to comment.
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
