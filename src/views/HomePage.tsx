@@ -180,7 +180,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const postsLoading = langPostsLoading || (langPosts.length === 0 && enPostsLoading);
   const { data: recentVideos = [], isLoading: videosLoading } = usePublishedVideos();
   const [reelIndex, setReelIndex] = useState(0);
-  const reelBusy = useRef(false);
   const reelTouchY = useRef(0);
   const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4, lang);
   const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes(lang);
@@ -537,49 +536,48 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <button className="hfeed-title hfeed-title--link" onClick={() => navigate("videos")}>Videos</button>
               <button className="hfeed-link" onClick={() => navigate("videos")}>View all →</button>
             </div>
-            {videosLoading ? <BlogSkeleton /> : (
-              <div
-                className="home-reel-embed"
-                onTouchStart={e => { reelTouchY.current = e.touches[0].clientY; }}
-                onTouchEnd={e => {
-                  const delta = reelTouchY.current - e.changedTouches[0].clientY;
-                  if (Math.abs(delta) < 40) return;
-                  const n = (recentVideos as any[]).length;
-                  if (delta > 0) setReelIndex(i => Math.min(i + 1, n - 1));
-                  else setReelIndex(i => Math.max(i - 1, 0));
-                }}
-              >
-                <div className="home-reel-track" style={{ transform: `translateY(-${reelIndex * 100}%)` }}>
-                  {(recentVideos as any[]).map((video, idx) => (
-                    <div key={video.id} className="home-reel-item">
-                      {video.embed_url ? (
-                        <iframe
-                          className="home-reel-iframe"
-                          src={idx === reelIndex ? video.embed_url : "about:blank"}
-                          title={video.title}
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        />
-                      ) : (
-                        <div className="home-reel-placeholder">
-                          <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                        </div>
-                      )}
+            {videosLoading ? <BlogSkeleton /> : (() => {
+              const vids = recentVideos as any[];
+              const cur = vids[reelIndex];
+              if (!cur) return null;
+              return (
+                <div
+                  className="home-reel-embed"
+                  onTouchStart={e => { reelTouchY.current = e.touches[0].clientY; }}
+                  onTouchEnd={e => {
+                    const delta = reelTouchY.current - e.changedTouches[0].clientY;
+                    if (Math.abs(delta) < 40) return;
+                    if (delta > 0) setReelIndex(i => Math.min(i + 1, vids.length - 1));
+                    else setReelIndex(i => Math.max(i - 1, 0));
+                  }}
+                >
+                  {cur.embed_url ? (
+                    <iframe
+                      key={cur.id}
+                      className="home-reel-iframe"
+                      src={cur.embed_url}
+                      title={cur.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <div className="home-reel-placeholder">
+                      <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                     </div>
-                  ))}
+                  )}
+                  {reelIndex > 0 && (
+                    <button className="home-reel-arrow home-reel-arrow--up" onClick={() => setReelIndex(i => i - 1)} aria-label="Previous video">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="18" height="18"><polyline points="18 15 12 9 6 15"/></svg>
+                    </button>
+                  )}
+                  {reelIndex < vids.length - 1 && (
+                    <button className="home-reel-arrow home-reel-arrow--down" onClick={() => setReelIndex(i => i + 1)} aria-label="Next video">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="18" height="18"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                  )}
                 </div>
-                {reelIndex > 0 && (
-                  <button className="home-reel-arrow home-reel-arrow--up" onClick={() => setReelIndex(i => i - 1)} aria-label="Previous video">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="18" height="18"><polyline points="18 15 12 9 6 15"/></svg>
-                  </button>
-                )}
-                {reelIndex < (recentVideos as any[]).length - 1 && (
-                  <button className="home-reel-arrow home-reel-arrow--down" onClick={() => setReelIndex(i => i + 1)} aria-label="Next video">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="18" height="18"><polyline points="6 9 12 15 18 9"/></svg>
-                  </button>
-                )}
-              </div>
-            )}
+              );
+            })()}
           </div>
           )}
 
