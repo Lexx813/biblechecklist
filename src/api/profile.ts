@@ -7,6 +7,7 @@ export interface Profile {
   is_admin: boolean | null;
   is_moderator: boolean | null;
   can_blog: boolean | null;
+  is_approved_creator: boolean | null;
   display_name: string | null;
   avatar_url: string | null;
   created_at: string | null;
@@ -33,7 +34,7 @@ export const profileApi = {
   get: async (userId: string): Promise<Profile | null> => {
     const { data, error } = await supabase
       .from("profiles")
-      .select("id, email, is_admin, is_moderator, can_blog, display_name, avatar_url, created_at, reading_goal_date, bio, subscription_status, email_notifications_blog, email_notifications_digest, email_notifications_streak, terms_accepted_at, show_online, referred_by")
+      .select("id, email, is_admin, is_moderator, can_blog, is_approved_creator, display_name, avatar_url, created_at, reading_goal_date, bio, subscription_status, email_notifications_blog, email_notifications_digest, email_notifications_streak, terms_accepted_at, show_online, referred_by")
       .eq("id", userId)
       .maybeSingle();
     if (error) throw new Error(error.message);

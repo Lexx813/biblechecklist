@@ -59,6 +59,10 @@ const MeetingPrepPage   = lazy(() => import("./views/meetingprep/MeetingPrepPage
 const FriendRequestsPage = lazy(() => import("./views/friends/FriendRequestsPage"));
 const InviteLandingPage  = lazy(() => import("./views/friends/InviteLandingPage"));
 const CommunityPage      = lazy(() => import("./views/community/CommunityPage"));
+const VideosPage         = lazy(() => import("./views/videos/VideosPage"));
+const VideoDetailPage    = lazy(() => import("./views/videos/VideoDetailPage"));
+const VideoComposerPage  = lazy(() => import("./views/videos/VideoComposerPage"));
+const CreatorRequestPage = lazy(() => import("./views/videos/CreatorRequestPage"));
 
 // ── Lazy-page wrapper with error boundary ─────────────────────────────────────
 
@@ -185,7 +189,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   }, []);
 
   // Pages rendered as inline panels inside the home page
-  const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile"]);
+  const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "videos"]);
 
   const [homePanelRequest, setHomePanelRequest] = useState<{ panel: string; params: Record<string, any> } | null>(null);
 
@@ -308,6 +312,49 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     pageContent = <Page><AL page="friends"><FriendRequestsPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
   else if (nav.page === "community")
     pageContent = <Page><AL page="community"><CommunityPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "videos")
+    pageContent = (
+      <Page>
+        <AL page="videos">
+          <VideosPage
+            user={user}
+            profile={profile}
+            onSelectVideo={(slug: string) => navigate("videoDetail", { slug })}
+            onBack={() => navigate("home")}
+            onPostClick={() => navigate("videosDash")}
+            {...sharedNav}
+          />
+        </AL>
+      </Page>
+    );
+  else if (nav.page === "videoDetail")
+    pageContent = (
+      <Page>
+        <AL page="videos">
+          <VideoDetailPage
+            user={user}
+            slug={(nav as { page: "videoDetail"; slug: string }).slug}
+            onBack={() => navigate("videos")}
+            {...sharedNav}
+          />
+        </AL>
+      </Page>
+    );
+  else if (nav.page === "videosDash") {
+    if (!profileLoading && profile && !profile.is_approved_creator && !profile.is_admin) navigate("videos");
+    else if (!profileLoading)
+      pageContent = (
+        <Page>
+          <VideoComposerPage user={user} onBack={() => navigate("videos")} {...sharedNav} />
+        </Page>
+      );
+  }
+  else if (nav.page === "creatorRequest")
+    pageContent = (
+      <Page>
+        <CreatorRequestPage user={user} onBack={() => navigate("videos")} {...sharedNav} />
+      </Page>
+    );
   // aiTools is admin-only — redirect non-admins home
   else if (nav.page === "aiTools") {
     if (!profileLoading) navigate("home");

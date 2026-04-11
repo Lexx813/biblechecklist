@@ -10,6 +10,7 @@ const TermsPage         = lazy(() => import("./views/TermsPage"));
 const PrivacyPage       = lazy(() => import("./views/PrivacyPage"));
 const AboutPage         = lazy(() => import("./views/AboutPage"));
 const BlogPage          = lazy(() => import("./views/blog/BlogPage"));
+const VideosPage        = lazy(() => import("./views/videos/VideosPage"));
 const AnonChecklistPage = lazy(() => import("./views/AnonChecklistPage"));
 const AuthedApp         = lazy(() => import("./AuthedApp"));
 
@@ -128,6 +129,42 @@ export default function App() {
             onBack={goLanding}
             onWriteClick={() => setShowApp(true)}
             navigate={blogNav}
+            darkMode={darkMode}
+            setDarkMode={setDarkMode}
+            i18n={i18n}
+            onLogout={null}
+            onUpgrade={() => setShowApp(true)}
+          />
+        </Suspense>
+      </main>
+    );
+  }
+
+  // Pre-auth: videos feed is fully public — watching requires no account
+  const isVideosPath = preAuthPath === "videos" || preAuthPath.startsWith("videos/");
+  if (isVideosPath) {
+    const videoSlug = preAuthPath.startsWith("videos/") ? preAuthPath.slice(7) || null : null;
+    const goLanding = () => { history.pushState(null, "", "/"); setPreAuthPath(""); };
+    const goVideoList = () => { history.pushState(null, "", "/videos"); setPreAuthPath("videos"); };
+    const goVideoDetail = (slug: string) => {
+      history.pushState(null, "", `/videos/${slug}`);
+      setPreAuthPath(`videos/${slug}`);
+    };
+    const videoNav = (page: string, params: Record<string, unknown>) => {
+      if (page === "videos") return params?.slug ? goVideoDetail(params.slug as string) : goVideoList();
+      setShowApp(true);
+    };
+    return (
+      <main id="main-content">
+        <Suspense fallback={<LoadingSpinner className="spinner-wrap--fullscreen" />}>
+          <VideosPage
+            user={null}
+            profile={null}
+            slug={videoSlug}
+            onSelectVideo={goVideoDetail}
+            onBack={goLanding}
+            onPostClick={() => setShowApp(true)}
+            navigate={videoNav}
             darkMode={darkMode}
             setDarkMode={setDarkMode}
             i18n={i18n}
