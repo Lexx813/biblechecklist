@@ -48,6 +48,7 @@ const ReadingPlansPage  = lazy(() => import("./views/readingplans/ReadingPlansPa
 const StudyNotesPage    = lazy(() => import("./views/studynotes/StudyNotesPage"));
 const MessagesPage      = lazy(() => import("./views/messages/MessagesPage"));
 const FloatingChat      = lazy(() => import("./components/messages/FloatingChat"));
+const AIStudyBubble     = lazy(() => import("./components/AIStudyBubble"));
 const GroupsPage        = lazy(() => import("./views/groups/GroupsPage"));
 const GroupDetail       = lazy(() => import("./views/groups/GroupDetail"));
 const NotFoundPage      = lazy(() => import("./views/NotFoundPage"));
@@ -189,7 +190,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   }, []);
 
   // Pages rendered as inline panels inside the home page
-  const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "videos"]);
+  const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile"]);
 
   const [homePanelRequest, setHomePanelRequest] = useState<{ panel: string; params: Record<string, any> } | null>(null);
 
@@ -201,13 +202,8 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
       return;
     }
     if (HOME_PANELS.has(page)) {
-      // Give key pages real URLs so reload preserves state
-      let url = "/";
-      if (page === "blog") url = params.slug ? `/blog/${params.slug}` : "/blog";
-      else if (page === "quiz") url = "/quiz";
-      else if (page === "quizLevel") url = `/quiz/${params.level}`;
-      else if (page === "advancedQuiz") url = "/advanced-quiz";
-      else if (page === "advancedQuizLevel") url = `/advanced-quiz/${params.level}`;
+      // Always push the real URL so reload preserves state
+      const url = buildPath(page, params);
       history.pushState(null, "", url);
       const panelKey = page === "quizLevel" ? "quiz" : page === "advancedQuizLevel" ? "advancedQuiz" : page;
       setNav({ page: "home" });
@@ -393,6 +389,11 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
             initialConvName={(nav as any).otherDisplayName ?? null}
             initialConvAvatar={(nav as any).otherAvatarUrl ?? null}
           />
+        </Suspense>
+      )}
+      {nav.page !== "messages" && ["en", "es"].includes((i18n.language ?? "en").slice(0, 2)) && (
+        <Suspense fallback={null}>
+          <AIStudyBubble />
         </Suspense>
       )}
       {showCmdPalette && (

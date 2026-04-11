@@ -1,6 +1,5 @@
 import { useFullProfile } from "../../hooks/useAdmin";
 import { usePublishedVideos } from "../../hooks/useVideos";
-import TopBar from "../../components/TopBar";
 import "../../styles/videos.css";
 
 function formatDur(sec: number | null): string {
@@ -44,8 +43,7 @@ export default function VideosPage({ user, onSelectVideo, onBack, onPostClick, n
 
   return (
     <div className="videos-wrap">
-      {user && <TopBar navigate={navigate} currentPage="videos" {...(sharedNav as any)} />}
-      <nav className="videos-nav">
+<nav className="videos-nav">
         <button onClick={onBack} style={{ background: "none", border: "none", color: "var(--text-secondary)", cursor: "pointer", fontSize: "0.82rem" }} aria-label="Back">← Back</button>
         <span className="videos-nav-title">Videos</span>
         {canPost

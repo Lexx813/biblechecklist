@@ -155,13 +155,18 @@
 
 /* ── Composer ───────────────────────────────────────────── */
 .video-composer-wrap {
-  min-height: 100vh; display: flex; align-items: flex-start;
+  display: flex; align-items: flex-start;
   justify-content: center; padding: 40px 16px 80px; background: var(--bg);
 }
 .video-composer {
   background: var(--bg-elevated, #1a1332);
   border: 1.5px solid rgba(124,58,237,0.25); border-radius: 16px;
   width: 100%; max-width: 480px; overflow: hidden;
+}
+[data-theme="light"] .video-composer {
+  background: #fff;
+  border-color: rgba(124,58,237,0.18);
+  box-shadow: 0 4px 24px rgba(124,58,237,0.08);
 }
 .video-composer-header {
   display: flex; align-items: center; gap: 8px;
