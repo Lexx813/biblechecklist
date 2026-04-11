@@ -644,16 +644,16 @@
    Container height = video section only.
    Negative margin-top on the iframe hides the TikTok profile header. */
 .home-reel-embed.portrait {
-  aspect-ratio: unset;
+  aspect-ratio: 340 / 700;
   width: 100%;
-  height: 270px;
-  overflow: hidden;
+  overflow: visible;
+  border-radius: 12px;
 }
 
 .home-reel-embed.portrait .home-reel-iframe {
   width: 100%;
-  height: 720px;
-  margin-top: -115px;
+  height: 100%;
+  border-radius: 12px;
 }
 
 /* iframe fills the container exactly */
