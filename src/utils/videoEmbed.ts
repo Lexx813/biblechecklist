@@ -1,5 +1,5 @@
 const ALLOWED_VIDEO_TYPES = ["video/mp4", "video/quicktime", "video/webm"];
-const MAX_VIDEO_BYTES = 500 * 1024 * 1024;
+const MAX_VIDEO_BYTES = 50 * 1024 * 1024;
 
 /** Returns the iframe embed src for supported platforms, or null. */
 export function parseEmbedUrl(rawUrl: string): string | null {
@@ -33,9 +33,21 @@ export function validateVideoFile(file: File): string | null {
     return "Only MP4, MOV, WebM files are supported.";
   }
   if (file.size > MAX_VIDEO_BYTES) {
-    return "File too large. Maximum size is 500 MB.";
+    return "File too large. Maximum size is 50 MB.";
   }
   return null;
+}
+
+/**
+ * Formats a Bible book + chapter into a scripture tag string.
+ * Returns null if no book is provided (chapter alone is meaningless).
+ * Examples: ("John", "3") → "John 3"  |  ("John", "") → "John"  |  ("", "3") → null
+ */
+export function formatScriptureTag(book: string, chapter: string): string | null {
+  const b = book.trim();
+  const c = chapter.trim();
+  if (!b) return null;
+  return c ? `${b} ${c}` : b;
 }
 
 /** URL-safe kebab-case slug with a short timestamp suffix to prevent collisions. */

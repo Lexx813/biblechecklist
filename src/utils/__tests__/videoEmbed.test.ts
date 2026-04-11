@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { parseEmbedUrl, validateVideoFile, generateVideoSlug } from "../videoEmbed.js";
+import { parseEmbedUrl, validateVideoFile, generateVideoSlug, formatScriptureTag } from "../videoEmbed.js";
 
 describe("parseEmbedUrl", () => {
   it("parses youtube.com/watch URL", () => {
@@ -27,7 +27,7 @@ describe("parseEmbedUrl", () => {
 });
 
 describe("validateVideoFile", () => {
-  it("accepts MP4 under 500 MB", () => {
+  it("accepts MP4 under 50 MB", () => {
     const f = new File(["x"], "test.mp4", { type: "video/mp4" });
     expect(validateVideoFile(f)).toBeNull();
   });
@@ -35,10 +35,10 @@ describe("validateVideoFile", () => {
     const f = new File(["x"], "test.avi", { type: "video/avi" });
     expect(validateVideoFile(f)).toMatch(/MP4, MOV, WebM/);
   });
-  it("rejects file over 500 MB", () => {
+  it("rejects file over 50 MB", () => {
     const f = new File(["x"], "big.mp4", { type: "video/mp4" });
-    Object.defineProperty(f, "size", { value: 600 * 1024 * 1024 });
-    expect(validateVideoFile(f)).toMatch(/500 MB/);
+    Object.defineProperty(f, "size", { value: 60 * 1024 * 1024 });
+    expect(validateVideoFile(f)).toMatch(/50 MB/);
   });
 });
 
@@ -50,5 +50,26 @@ describe("generateVideoSlug", () => {
   it("strips special characters", () => {
     const slug = generateVideoSlug("Hello, World!");
     expect(slug).toMatch(/^hello-world-[a-z0-9]+$/);
+  });
+});
+
+describe("formatScriptureTag", () => {
+  it("returns null when both inputs are empty", () => {
+    expect(formatScriptureTag("", "")).toBeNull();
+  });
+  it("returns null when only chapter is provided (no book)", () => {
+    expect(formatScriptureTag("", "3")).toBeNull();
+  });
+  it("returns book name alone when chapter is empty", () => {
+    expect(formatScriptureTag("John", "")).toBe("John");
+  });
+  it("combines book and chapter with a space", () => {
+    expect(formatScriptureTag("John", "3")).toBe("John 3");
+  });
+  it("trims whitespace from both inputs", () => {
+    expect(formatScriptureTag("  John  ", "  3  ")).toBe("John 3");
+  });
+  it("handles multi-word book names", () => {
+    expect(formatScriptureTag("1 John", "4")).toBe("1 John 4");
   });
 });
