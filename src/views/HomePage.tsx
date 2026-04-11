@@ -34,6 +34,7 @@ import EmptyState from "../components/EmptyState";
 import OnboardingModal, { useOnboarding } from "../components/OnboardingModal";
 import { isDismissed, dismissPrompt } from "../components/UpgradePrompt";
 import "../styles/home.css";
+import "../styles/videos.css";
 
 const FALLBACK_IMAGES = [
   "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800&q=80",
@@ -615,6 +616,25 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                     );
                   })}
                 </div>
+                {/* Nav arrows */}
+                {reelIndex > 0 && (
+                  <button
+                    className="home-reel-arrow home-reel-arrow--up"
+                    onClick={() => setReelIndex(i => i - 1)}
+                    aria-label="Previous video"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="20" height="20"><polyline points="18 15 12 9 6 15"/></svg>
+                  </button>
+                )}
+                {reelIndex < (recentVideos as any[]).length - 1 && (
+                  <button
+                    className="home-reel-arrow home-reel-arrow--down"
+                    onClick={() => setReelIndex(i => i + 1)}
+                    aria-label="Next video"
+                  >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="20" height="20"><polyline points="6 9 12 15 18 9"/></svg>
+                  </button>
+                )}
               </div>
             )}
           </div>

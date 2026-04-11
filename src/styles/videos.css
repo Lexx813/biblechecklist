@@ -773,3 +773,26 @@
   background: #fff;
   height: 22px;
 }
+
+/* Nav arrows */
+.home-reel-arrow {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  background: rgba(0,0,0,0.45);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s;
+  backdrop-filter: blur(4px);
+}
+.home-reel-arrow:hover { background: rgba(0,0,0,0.7); }
+.home-reel-arrow--up  { top: 8px; }
+.home-reel-arrow--down { bottom: 8px; }
