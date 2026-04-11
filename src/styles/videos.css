@@ -637,14 +637,21 @@
   aspect-ratio: 16 / 9;
   background: #000;
   border-radius: 10px;
+  overflow: hidden;
 }
 
-/* TikTok and other portrait (9:16) content */
+/* TikTok and other portrait (9:16) content.
+   overflow:hidden clips TikTok's description/audio chrome below the video. */
 .home-reel-embed.portrait {
   aspect-ratio: 9 / 16;
   width: auto;
-  max-height: 520px;
   margin: 0 auto;
+}
+
+/* Make the portrait iframe taller than the container so TikTok's video
+   fills the frame — the description chrome is clipped by overflow:hidden */
+.home-reel-embed.portrait .home-reel-iframe {
+  height: 130%;
 }
 
 /* iframe fills the container exactly */
