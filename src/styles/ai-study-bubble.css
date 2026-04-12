@@ -479,15 +479,15 @@
 }
 
 /* ── Mobile ──────────────────────────────────────────────────────────────── */
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .asb-root {
-    bottom: 72px;
-    right: 76px;
+    bottom: 80px; /* match messenger FAB bottom */
+    right: 84px;  /* 24px edge + 52px messenger FAB + 8px gap — same as desktop */
   }
 
   .asb-panel {
     width: calc(100vw - 20px);
-    right: calc(-76px + 10px);
+    right: calc(-84px + 10px); /* panel right edge lands 10px from viewport right */
     max-height: 72vh;
     border-radius: 18px;
   }
