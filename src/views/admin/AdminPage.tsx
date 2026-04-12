@@ -1273,7 +1273,7 @@ function AuditLogTab() {
 }
 
 // ── Videos Tab ────────────────────────────────────────────────────────────────
-function VideoReviewCard({ v, onToggle, onDelete }: { v: any; onToggle: (id: string, current: boolean) => void; onDelete: (id: string, storagePath?: string | null) => void }) {
+function VideoReviewCard({ v, onToggle, onDelete }: { v: any; onToggle: (id: string, current: boolean) => void; onDelete: (id: string, title: string, storagePath?: string | null) => void }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -1302,7 +1302,7 @@ function VideoReviewCard({ v, onToggle, onDelete }: { v: any; onToggle: (id: str
           ✓ Publish
         </button>
         <button
-          onClick={() => { if (window.confirm(`Delete "${v.title}"?`)) onDelete(v.id, v.storage_path); }}
+          onClick={() => onDelete(v.id, v.title, v.storage_path)}
           style={{ padding: "5px 10px", borderRadius: 6, border: "1px solid rgba(239,68,68,0.3)", background: "rgba(239,68,68,0.1)", color: "#f87171", fontSize: "0.72rem", fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap" }}
         >
           Delete
@@ -1339,6 +1339,7 @@ function VideosTab() {
   const deleteVideo = useAdminDeleteVideo();
   const [videos, setVideos] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [confirmDelete, setConfirmDelete] = useState<{ id: string; title: string; storagePath?: string | null } | null>(null);
 
   useEffect(() => {
     supabase
@@ -1374,6 +1375,8 @@ function VideosTab() {
       setVideos(vs => vs.filter(v => v.id !== videoId));
     } catch (err: any) {
       alert(err.message ?? "Failed to delete.");
+    } finally {
+      setConfirmDelete(null);
     }
   }
 
@@ -1394,8 +1397,15 @@ function VideosTab() {
       </h3>
       {pending.length === 0 && <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)", marginBottom: 16 }}>No videos awaiting review.</p>}
       {pending.map((v: any) => (
-        <VideoReviewCard key={v.id} v={v} onToggle={toggle} onDelete={handleDelete} />
+        <VideoReviewCard key={v.id} v={v} onToggle={toggle} onDelete={(id, title, sp) => setConfirmDelete({ id, title, storagePath: sp })} />
       ))}
+      {confirmDelete && (
+        <ConfirmModal
+          message={`Delete "${confirmDelete.title}"? This cannot be undone.`}
+          onConfirm={() => handleDelete(confirmDelete.id, confirmDelete.storagePath)}
+          onCancel={() => setConfirmDelete(null)}
+        />
+      )}
       {published.length > 0 && (
         <>
           <h4 style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-secondary)", marginTop: 16, marginBottom: 8 }}>Published</h4>
@@ -1405,7 +1415,7 @@ function VideosTab() {
               <span style={{ fontSize: "0.65rem", color: "var(--text-secondary)" }}>{v.profiles?.display_name ?? "Unknown"}</span>
               {v.embed_url && <a href={v.embed_url} target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.65rem", color: "#a78bfa" }}>open ↗</a>}
               <button onClick={() => toggle(v.id, true)} style={{ padding: "2px 8px", borderRadius: 4, border: "1px solid var(--border)", background: "none", color: "var(--text-secondary)", fontSize: "0.65rem", cursor: "pointer" }}>Unpublish</button>
-              <button onClick={() => { if (window.confirm(`Delete "${v.title}"?`)) handleDelete(v.id, v.storage_path); }} style={{ padding: "2px 8px", borderRadius: 4, border: "1px solid rgba(239,68,68,0.3)", background: "none", color: "#f87171", fontSize: "0.65rem", cursor: "pointer" }}>Delete</button>
+              <button onClick={() => setConfirmDelete({ id: v.id, title: v.title, storagePath: v.storage_path })} style={{ padding: "2px 8px", borderRadius: 4, border: "1px solid rgba(239,68,68,0.3)", background: "none", color: "#f87171", fontSize: "0.65rem", cursor: "pointer" }}>Delete</button>
             </div>
           ))}
         </>
