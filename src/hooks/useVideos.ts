@@ -131,6 +131,15 @@ export function useAdminSetCreatorApproval() {
   });
 }
 
+export function useAdminDeleteVideo() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ videoId, storagePath }: { videoId: string; storagePath?: string | null }) =>
+      videosApi.adminDeleteVideo(videoId, storagePath),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["videos", "published"] }),
+  });
+}
+
 export function useAdminSetVideoPublished() {
   const qc = useQueryClient();
   return useMutation({

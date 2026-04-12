@@ -156,4 +156,13 @@ export const videosApi = {
     const { error } = await supabase.from("videos").update({ published }).eq("id", videoId);
     if (error) throw new Error(error.message);
   },
+
+  adminDeleteVideo: async (videoId: string, storagePath?: string | null) => {
+    if (storagePath) {
+      // Best-effort — ignore storage errors (file may already be gone)
+      await supabase.storage.from("videos").remove([storagePath]);
+    }
+    const { error } = await supabase.from("videos").delete().eq("id", videoId);
+    if (error) throw new Error(error.message);
+  },
 };
