@@ -97,7 +97,7 @@ Deno.serve(async (req) => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                from: "JW Study <notifications@nwtprogress.com>",
+                from: "JW Study <notifications@jwstudy.org>",
                 to: authUser.email,
                 subject: "Welcome to Premium — JW Study 🎉",
                 html: `<!DOCTYPE html>
@@ -123,7 +123,7 @@ Deno.serve(async (req) => {
               <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(192,132,252,0.8)">Start here</p>
               <p style="margin:0 0 8px;font-size:16px;font-weight:700;color:#fff">Set up your first reading plan</p>
               <p style="margin:0 0 16px;font-size:13px;color:rgba(255,255,255,0.6);line-height:1.5">It gives you a daily assignment so you always know what to read next.</p>
-              <a href="https://www.nwtprogress.com?page=readingPlans" style="display:inline-block;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;text-decoration:none;font-size:14px;font-weight:700;padding:11px 24px;border-radius:8px">
+              <a href="https://www.jwstudy.org?page=readingPlans" style="display:inline-block;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;text-decoration:none;font-size:14px;font-weight:700;padding:11px 24px;border-radius:8px">
                 Start My Reading Plan →
               </a>
             </td></tr>
@@ -157,7 +157,7 @@ Deno.serve(async (req) => {
         <!-- Footer -->
         <tr><td style="padding:20px 40px;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
           <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.25)">
-            JW Study · <a href="https://www.nwtprogress.com/settings" style="color:rgba(139,92,246,0.6)">Manage subscription</a>
+            JW Study · <a href="https://www.jwstudy.org/settings" style="color:rgba(139,92,246,0.6)">Manage subscription</a>
           </p>
         </td></tr>
 
@@ -222,7 +222,7 @@ Deno.serve(async (req) => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                from: "JW Study <notifications@nwtprogress.com>",
+                from: "JW Study <notifications@jwstudy.org>",
                 to: authUser.email,
                 subject: "Your Premium subscription has been cancelled",
                 html: `<!DOCTYPE html>
@@ -271,7 +271,7 @@ Deno.serve(async (req) => {
           </table>
 
           <div style="text-align:center">
-            <a href="https://www.nwtprogress.com/settings" style="display:inline-block;background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.4);color:#c084fc;text-decoration:none;font-size:14px;font-weight:700;padding:12px 30px;border-radius:999px">
+            <a href="https://www.jwstudy.org/settings" style="display:inline-block;background:rgba(124,58,237,0.2);border:1px solid rgba(124,58,237,0.4);color:#c084fc;text-decoration:none;font-size:14px;font-weight:700;padding:12px 30px;border-radius:999px">
               Resubscribe →
             </a>
           </div>
@@ -280,7 +280,7 @@ Deno.serve(async (req) => {
         <!-- Footer -->
         <tr><td style="padding:20px 40px;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
           <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.25)">
-            JW Study · <a href="https://www.nwtprogress.com" style="color:rgba(139,92,246,0.5)">nwtprogress.com</a>
+            JW Study · <a href="https://www.jwstudy.org" style="color:rgba(139,92,246,0.5)">jwstudy.org</a>
           </p>
         </td></tr>
 
@@ -326,7 +326,7 @@ Deno.serve(async (req) => {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  from: "JW Study <notifications@nwtprogress.com>",
+                  from: "JW Study <notifications@jwstudy.org>",
                   to: authUser.email,
                   subject: "You're almost there! Complete your Premium signup",
                   html: `<!DOCTYPE html>
@@ -348,11 +348,11 @@ Deno.serve(async (req) => {
             Premium gives you reading plans, study notes, direct messages, study groups, and the AI study companion — all for just <strong style="color:#c084fc">$3/month</strong> after the trial.
           </p>
           <div style="text-align:center;margin-bottom:12px">
-            <a href="https://nwtprogress.com/settings" style="display:inline-block;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;text-decoration:none;font-size:15px;font-weight:800;padding:14px 36px;border-radius:999px">Try Premium Free →</a>
+            <a href="https://jwstudy.org/settings" style="display:inline-block;background:linear-gradient(135deg,#7c3aed,#5b21b6);color:#fff;text-decoration:none;font-size:15px;font-weight:800;padding:14px 36px;border-radius:999px">Try Premium Free →</a>
           </div>
         </td></tr>
         <tr><td style="padding:20px 40px;border-top:1px solid rgba(255,255,255,0.06);text-align:center">
-          <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.25)">JW Study · <a href="https://nwtprogress.com/settings" style="color:rgba(139,92,246,0.6)">Manage preferences</a></p>
+          <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.25)">JW Study · <a href="https://jwstudy.org/settings" style="color:rgba(139,92,246,0.6)">Manage preferences</a></p>
         </td></tr>
       </table>
     </td></tr>

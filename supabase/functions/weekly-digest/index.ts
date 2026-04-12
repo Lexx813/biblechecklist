@@ -81,7 +81,7 @@ Deno.serve(async (req) => {
     const itemsHtml = preview.map((n) => {
       const actor = (n.actor as { display_name?: string } | null)?.display_name ?? "Someone";
       const action = TYPE_LABEL[n.type] ?? "sent a notification";
-      const url = `https://nwtprogress.com/${n.link_hash ?? ""}`;
+      const url = `https://jwstudy.org/${n.link_hash ?? ""}`;
       return `
         <li style="margin-bottom:12px">
           <strong>${actor}</strong> ${action}
@@ -101,14 +101,14 @@ Deno.serve(async (req) => {
   <ul style="padding-left:20px">${itemsHtml}</ul>
   ${count > 8 ? `<p style="color:#888">…and ${count - 8} more.</p>` : ""}
   <p>
-    <a href="https://nwtprogress.com/" style="display:inline-block;background:#6366f1;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none">
+    <a href="https://jwstudy.org/" style="display:inline-block;background:#6366f1;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none">
       Open JW Study →
     </a>
   </p>
   <hr style="margin-top:32px">
   <p style="font-size:12px;color:#888">
     Sent every Monday for the previous week's activity.<br>
-    <a href="https://nwtprogress.com/profile" style="color:#888">Manage preferences</a>
+    <a href="https://jwstudy.org/profile" style="color:#888">Manage preferences</a>
   </p>
 </body>
 </html>`;
@@ -120,7 +120,7 @@ Deno.serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "JW Study <notifications@nwtprogress.com>",
+        from: "JW Study <notifications@jwstudy.org>",
         to: authUser.email,
         subject: `Your weekly digest — ${count} notification${count !== 1 ? "s" : ""} on JW Study`,
         html,

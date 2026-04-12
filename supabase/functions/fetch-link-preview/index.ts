@@ -13,8 +13,8 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const ALLOWED_ORIGINS = [
-  "https://nwtprogress.com",
-  "https://www.nwtprogress.com",
+  "https://jwstudy.org",
+  "https://www.jwstudy.org",
   "http://localhost:5173",
   "http://127.0.0.1:5173",
 ];
@@ -179,7 +179,7 @@ Deno.serve(async (req: Request) => {
       headers: {
         // Pretend to be a browser so sites don't block the request
         "User-Agent":
-          "Mozilla/5.0 (compatible; NWTProgressBot/1.0; +https://nwtprogress.com)",
+          "Mozilla/5.0 (compatible; NWTProgressBot/1.0; +https://jwstudy.org)",
         Accept: "text/html,application/xhtml+xml",
       },
       redirect: "follow",

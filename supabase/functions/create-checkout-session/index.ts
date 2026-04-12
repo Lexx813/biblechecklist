@@ -23,8 +23,8 @@ const supabaseAdmin = createClient(
 const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!);
 
 const ALLOWED_ORIGINS = [
-  "https://nwtprogress.com",
-  "https://www.nwtprogress.com",
+  "https://jwstudy.org",
+  "https://www.jwstudy.org",
   "http://localhost:5173",
   "http://127.0.0.1:5173",
 ];
@@ -46,7 +46,7 @@ function json(body: unknown, status: number, cors: Record<string, string>) {
   });
 }
 
-const SITE_URL = Deno.env.get("SITE_URL") ?? "https://nwtprogress.com";
+const SITE_URL = Deno.env.get("SITE_URL") ?? "https://jwstudy.org";
 
 Deno.serve(async (req) => {
   const cors = corsHeaders(req);

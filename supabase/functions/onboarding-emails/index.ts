@@ -22,8 +22,8 @@ const supabase = createClient(
 );
 
 const RESEND_KEY = Deno.env.get("RESEND_API_KEY")!;
-const FROM = "JW Study <notifications@nwtprogress.com>";
-const SITE = "https://nwtprogress.com";
+const FROM = "JW Study <notifications@jwstudy.org>";
+const SITE = "https://jwstudy.org";
 
 // ── Email helpers ──────────────────────────────────────────────────────────────
 

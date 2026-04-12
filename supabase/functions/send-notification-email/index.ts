@@ -68,7 +68,7 @@ Deno.serve(async (req) => {
   const actorName = actor?.display_name || "Someone";
   const recipientName = profile?.display_name || authUser.email;
   const action = TYPE_LABEL[notif.type] || "sent you a notification";
-  const pageUrl = `https://nwtprogress.com/${notif.link_hash ?? ""}`;
+  const pageUrl = `https://jwstudy.org/${notif.link_hash ?? ""}`;
 
   const subject = `${actorName} ${action} — JW Study`;
   const html = `
@@ -92,7 +92,7 @@ Deno.serve(async (req) => {
   <hr style="margin-top:32px">
   <p style="font-size:12px;color:#888">
     You're receiving this because you have email notifications enabled.<br>
-    <a href="https://nwtprogress.com/profile" style="color:#888">Manage preferences</a>
+    <a href="https://jwstudy.org/profile" style="color:#888">Manage preferences</a>
   </p>
 </body>
 </html>`;
@@ -104,7 +104,7 @@ Deno.serve(async (req) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "JW Study <notifications@nwtprogress.com>",
+      from: "JW Study <notifications@jwstudy.org>",
       to: authUser.email,
       subject,
       html,

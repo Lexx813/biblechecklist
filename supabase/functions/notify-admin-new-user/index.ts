@@ -55,7 +55,7 @@ Deno.serve(async (req) => {
     </tr>
   </table>
   <p style="margin-top:24px">
-    <a href="https://nwtprogress.com" style="display:inline-block;background:#6366f1;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none">
+    <a href="https://jwstudy.org" style="display:inline-block;background:#6366f1;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none">
       View Site →
     </a>
   </p>
@@ -71,7 +71,7 @@ Deno.serve(async (req) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "JW Study <notifications@nwtprogress.com>",
+      from: "JW Study <notifications@jwstudy.org>",
       to: ADMIN_EMAIL,
       subject: `New user signed up: ${displayName} (${email})`,
       html,
