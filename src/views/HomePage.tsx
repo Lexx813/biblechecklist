@@ -739,6 +739,20 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             )}
           </div>
 
+          {/* Invite Friends */}
+          <div className="hwidget hwidget--invite">
+            <div className="hwidget-invite-body">
+              <span className="hwidget-invite-icon">🎁</span>
+              <div>
+                <div className="hwidget-invite-title">Invite a Friend</div>
+                <div className="hwidget-invite-sub">Share JW Study and study together</div>
+              </div>
+            </div>
+            <button className="hwidget-invite-btn" onClick={() => navigate("profile")}>
+              Get my link
+            </button>
+          </div>
+
           {/* Who's Online */}
           <div className="hwidget">
             <div className="hwidget-header">

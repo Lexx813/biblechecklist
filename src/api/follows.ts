@@ -166,4 +166,68 @@ export const followsApi = {
 
     return items;
   },
+
+  // Suggest users to follow based on shared reading plans or active reading recently.
+  // Excludes: the user themselves, people already followed, and anyone with no display_name.
+  getSuggestedUsers: async (userId: string, limit = 6): Promise<FollowProfile[]> => {
+    // Get current following IDs to exclude
+    const { data: following } = await supabase
+      .from("user_follows")
+      .select("following_id")
+      .eq("follower_id", userId);
+    const followingIds = new Set((following ?? []).map(f => f.following_id));
+    followingIds.add(userId);
+
+    // Find users on the same reading plan templates
+    const { data: myPlans } = await supabase
+      .from("user_reading_plans")
+      .select("template_key")
+      .eq("user_id", userId)
+      .not("template_key", "eq", "custom");
+
+    const myTemplates = (myPlans ?? []).map(p => p.template_key).filter(Boolean);
+
+    let candidates: FollowProfile[] = [];
+
+    if (myTemplates.length > 0) {
+      const { data: planMates } = await supabase
+        .from("user_reading_plans")
+        .select("user_id, profiles!inner(id, display_name, avatar_url)")
+        .in("template_key", myTemplates)
+        .neq("user_id", userId)
+        .limit(30);
+
+      for (const row of planMates ?? []) {
+        if (followingIds.has(row.user_id)) continue;
+        const p = Array.isArray(row.profiles) ? row.profiles[0] : row.profiles;
+        if (p?.display_name) {
+          candidates.push({ id: row.user_id, display_name: p.display_name, avatar_url: p.avatar_url ?? null });
+          followingIds.add(row.user_id); // dedupe
+        }
+      }
+    }
+
+    // Pad with active readers from last 7 days if we don't have enough
+    if (candidates.length < limit) {
+      const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+      const { data: activeReaders } = await supabase
+        .from("reading_activity")
+        .select("user_id, profiles!inner(id, display_name, avatar_url)")
+        .gte("activity_date", since)
+        .neq("user_id", userId)
+        .limit(50);
+
+      for (const row of activeReaders ?? []) {
+        if (followingIds.has(row.user_id)) continue;
+        const p = Array.isArray(row.profiles) ? row.profiles[0] : row.profiles;
+        if (p?.display_name) {
+          candidates.push({ id: row.user_id, display_name: p.display_name, avatar_url: p.avatar_url ?? null });
+          followingIds.add(row.user_id);
+        }
+        if (candidates.length >= limit) break;
+      }
+    }
+
+    return candidates.slice(0, limit);
+  },
 };

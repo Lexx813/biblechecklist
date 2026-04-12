@@ -84,6 +84,40 @@
   to { transform: rotate(360deg); }
 }
 
+/* People You May Know */
+.feed-suggestions {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+.feed-suggestions-title {
+  font-size: 13px; font-weight: 700; color: var(--text-secondary);
+  text-transform: uppercase; letter-spacing: 0.04em;
+  margin: 0 0 10px;
+}
+.feed-suggestions-list { display: flex; flex-direction: column; gap: 8px; }
+.feed-suggestion-row {
+  display: flex; align-items: center; gap: 10px;
+}
+.feed-suggestion-avatar-btn, .feed-suggestion-name {
+  background: none; border: none; padding: 0; cursor: pointer; text-align: left;
+}
+.feed-suggestion-name {
+  flex: 1; font-size: 14px; font-weight: 600; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.feed-suggestion-name:hover { color: var(--teal); }
+.feed-suggestion-follow-btn {
+  font-size: 12px; font-weight: 700; padding: 5px 12px;
+  border-radius: 20px; border: 1.5px solid var(--teal);
+  background: transparent; color: var(--teal); cursor: pointer;
+  flex-shrink: 0; transition: background 0.15s, color 0.15s;
+}
+.feed-suggestion-follow-btn:hover { background: var(--teal); color: white; }
+.feed-suggestion-follow-btn:disabled { opacity: 0.5; }
+
 /* Feed list */
 .feed-list {
   display: flex;

@@ -185,9 +185,10 @@ function draw(canvas: HTMLCanvasElement, stats: Stats, t: TFunction) {
 interface Props {
   stats: Stats;
   onClose: () => void;
+  userId?: string;
 }
 
-export default function ProgressShare({ stats, onClose }: Props) {
+export default function ProgressShare({ stats, onClose, userId }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { t } = useTranslation();
 
@@ -200,6 +201,17 @@ export default function ProgressShare({ stats, onClose }: Props) {
     a.href = canvasRef.current!.toDataURL("image/png");
     a.download = "bible-progress.png";
     a.click();
+  };
+
+  const copyLink = async () => {
+    if (!userId) return;
+    const url = `https://jwstudy.org/share/${userId}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      // Brief visual feedback via button text swap — no toast needed
+      const btn = document.getElementById("ps-copy-btn");
+      if (btn) { btn.textContent = "✓ Copied!"; setTimeout(() => { btn.textContent = "🔗 Copy link"; }, 2000); }
+    } catch { /* clipboard blocked — skip */ }
   };
 
   const webShare = async () => {
@@ -232,6 +244,11 @@ export default function ProgressShare({ stats, onClose }: Props) {
               ↗ {t("share.shareBtn")}
             </button>
           ) : null}
+          {userId && (
+            <button id="ps-copy-btn" className="share-download-btn" onClick={copyLink}>
+              🔗 Copy link
+            </button>
+          )}
           <button className="share-download-btn" onClick={download} style={{ background: "rgba(255,255,255,0.08)" }}>
             ⬇ {t("share.download")}
           </button>

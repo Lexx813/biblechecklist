@@ -560,6 +560,28 @@
   color: rgba(240, 234, 255, 0.6);
 }
 
+/* Invite widget */
+.hwidget--invite {
+  min-height: unset;
+  padding: 14px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: linear-gradient(135deg, rgba(92, 61, 153, 0.15), rgba(74, 45, 128, 0.08));
+  border-color: rgba(124, 58, 237, 0.2);
+}
+.hwidget-invite-body { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.hwidget-invite-icon { font-size: 24px; flex-shrink: 0; }
+.hwidget-invite-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.hwidget-invite-sub { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
+.hwidget-invite-btn {
+  flex-shrink: 0;
+  font-size: 12px; font-weight: 700; padding: 7px 14px;
+  border-radius: 20px; border: none;
+  background: var(--teal); color: white; cursor: pointer;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+.hwidget-invite-btn:hover { opacity: 0.85; }
+
 /* Upsell widget */
 .hwidget-upsell {
   background: linear-gradient(135deg, rgba(30, 10, 60, 0.9), rgba(15, 6, 32, 0.9));

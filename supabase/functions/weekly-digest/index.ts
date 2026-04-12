@@ -78,6 +78,36 @@ Deno.serve(async (req) => {
     const count = userNotifs.length;
     const preview = userNotifs.slice(0, 8);
 
+    // Fetch reading plan progress for this user
+    const { data: plans } = await supabase
+      .from("user_reading_plans")
+      .select("id, template_key, start_date, is_paused, custom_config, reading_plan_completions(count)")
+      .eq("user_id", userId)
+      .eq("is_paused", false)
+      .limit(3);
+
+    const planProgressHtml = (plans ?? []).map((plan) => {
+      const completions = (plan.reading_plan_completions as unknown as Array<{ count: number }>)?.[0]?.count ?? 0;
+      const config = plan.custom_config as { name?: string; totalDays?: number } | null;
+      const planName = config?.name ?? plan.template_key?.replace(/-/g, " ") ?? "Reading Plan";
+      const totalDays = config?.totalDays ?? 365;
+      const pct = Math.min(100, Math.round((completions / totalDays) * 100));
+      const bar = "█".repeat(Math.round(pct / 10)) + "░".repeat(10 - Math.round(pct / 10));
+      return `
+        <tr>
+          <td style="padding:8px 0;border-bottom:1px solid #f0f0f0">
+            <div style="font-size:14px;font-weight:600;text-transform:capitalize">${planName}</div>
+            <div style="font-size:13px;color:#888;margin-top:2px;font-family:monospace">${bar} ${pct}%</div>
+            <div style="font-size:12px;color:#aaa;margin-top:1px">Day ${completions} of ${totalDays}</div>
+          </td>
+        </tr>`;
+    }).join("");
+
+    const plansSection = planProgressHtml ? `
+      <h3 style="margin:24px 0 12px;font-size:16px">📖 Reading Plan Progress</h3>
+      <table style="width:100%;border-collapse:collapse">${planProgressHtml}</table>
+    ` : "";
+
     const itemsHtml = preview.map((n) => {
       const actor = (n.actor as { display_name?: string } | null)?.display_name ?? "Someone";
       const action = TYPE_LABEL[n.type] ?? "sent a notification";
@@ -97,7 +127,8 @@ Deno.serve(async (req) => {
   <h2 style="margin-bottom:4px">JW Study — Weekly Digest</h2>
   <hr style="margin-bottom:24px">
   <p>Hi ${name},</p>
-  <p>You have <strong>${count}</strong> unread notification${count !== 1 ? "s" : ""} this week:</p>
+  ${plansSection}
+  <h3 style="margin:24px 0 12px;font-size:16px">🔔 Notifications (${count} unread)</h3>
   <ul style="padding-left:20px">${itemsHtml}</ul>
   ${count > 8 ? `<p style="color:#888">…and ${count - 8} more.</p>` : ""}
   <p>

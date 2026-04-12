@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import AppLayout from "../../components/AppLayout";
-import { useActivityFeed } from "../../hooks/useFollows";
+import { useActivityFeed, useSuggestedUsers, useToggleFollowDynamic } from "../../hooks/useFollows";
 import "../../styles/social.css";
 
 const LEVEL_EMOJIS = [null, "📖","📚","🌱","👨‍👩‍👦","🏺","⚔️","🎵","📯","🕊️","🌍","🔮","👑"];
@@ -45,6 +46,47 @@ function ActivityFeedSkeleton() {
   );
 }
 
+function PeopleYouMayKnow({ userId, navigate }) {
+  const { data: suggested = [], isLoading } = useSuggestedUsers(userId);
+  const toggleFollow = useToggleFollowDynamic(userId);
+
+  if (isLoading || suggested.length === 0) return null;
+
+  return (
+    <div className="feed-suggestions">
+      <h3 className="feed-suggestions-title">People You May Know</h3>
+      <div className="feed-suggestions-list">
+        {suggested.map(person => (
+          <div key={person.id} className="feed-suggestion-row">
+            <button
+              className="feed-suggestion-avatar-btn"
+              onClick={() => navigate("publicProfile", { userId: person.id })}
+            >
+              {person.avatar_url
+                ? <img className="feed-avatar" src={person.avatar_url} alt={person.display_name ?? ""} width={36} height={36} loading="lazy" />
+                : <div className="feed-avatar feed-avatar--fallback">{(person.display_name ?? "?")[0].toUpperCase()}</div>
+              }
+            </button>
+            <button
+              className="feed-suggestion-name"
+              onClick={() => navigate("publicProfile", { userId: person.id })}
+            >
+              {person.display_name}
+            </button>
+            <button
+              className="feed-suggestion-follow-btn"
+              onClick={() => toggleFollow.mutate(person.id)}
+              disabled={toggleFollow.isPending}
+            >
+              Follow
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function ActivityFeed({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
   const { t } = useTranslation();
   const { data: items = [], isLoading } = useActivityFeed(user.id);
@@ -57,6 +99,8 @@ export default function ActivityFeed({ user, onBack, navigate, darkMode, setDark
           <h1 className="feed-title">{t("feed.title")}</h1>
           <p className="feed-sub">{t("feed.subtitle")}</p>
         </div>
+
+        <PeopleYouMayKnow userId={user.id} navigate={navigate} />
 
         {isLoading ? (
           <ActivityFeedSkeleton />

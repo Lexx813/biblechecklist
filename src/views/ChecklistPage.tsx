@@ -421,6 +421,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
           <ProgressShare
             stats={{ pct, doneCh, totalCh, doneBooks, otDone, ntDone, name: profile?.display_name, streak: streak.current_streak, longestStreak: streak.longest_streak }}
             onClose={() => setShowShare(false)}
+            userId={user?.id}
           />
         )}
 
