@@ -14,6 +14,12 @@ function formatReadDate(iso) {
   return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
 }
 
+interface BookReader {
+  user_id: string;
+  display_name: string | null;
+  avatar_url: string | null;
+}
+
 interface BookCardProps {
   book: { name: string; chapters: number; abbr: string };
   bookIndex: number;
@@ -28,9 +34,10 @@ interface BookCardProps {
   onDeleteNote?: (id: string) => void;
   userId?: string;
   onUpgrade?: () => void;
+  readers?: BookReader[];
 }
 
-const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, versesState, onToggleChapter, onToggleBook, onOpenChapterModal, notes = [], onAddNote, onDeleteNote, userId, onUpgrade }: BookCardProps) {
+const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, versesState, onToggleChapter, onToggleBook, onOpenChapterModal, notes = [], onAddNote, onDeleteNote, userId, onUpgrade, readers = [] }: BookCardProps) {
   const [open, setOpen] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   // Rect captured at pointerdown — before Chrome focus-scrolls the element
@@ -84,6 +91,19 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
             <div className="mini-bar-fill" style={{ width: pct + "%" }} />
           </div>
         </div>
+        {readers.length > 0 && (
+          <div className="book-readers" title={readers.map(r => r.display_name ?? "Someone").join(", ") + " reading this week"}>
+            {readers.slice(0, 3).map(r => (
+              <span key={r.user_id} className="book-reader-avatar">
+                {r.avatar_url
+                  ? <img src={r.avatar_url} alt={r.display_name ?? ""} width={18} height={18} loading="lazy" />
+                  : (r.display_name ?? "?")[0].toUpperCase()
+                }
+              </span>
+            ))}
+            {readers.length > 3 && <span className="book-reader-more">+{readers.length - 3}</span>}
+          </div>
+        )}
         <div
           className={`check-circle${allDone ? " checked" : partial ? " partial" : ""}`}
           onClick={e => { e.stopPropagation(); onToggleBook(bookIndex); }}

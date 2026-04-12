@@ -120,15 +120,34 @@ export const forumApi = {
   },
 
   listTopThreads: async (limit = 4, lang?: string) => {
+    // Prefer threads active in last 24h; fall back to all-time top if none
+    const since24h = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
     let q = supabase
       .from("forum_threads")
       .select(`*, ${PROFILE_FIELDS}, forum_replies(count)`)
-      .order("like_count", { ascending: false })
+      .gte("updated_at", since24h)
+      .eq("locked", false)
       .order("updated_at", { ascending: false })
       .limit(limit);
     if (lang) q = q.eq("lang", lang);
     const { data, error } = await q;
     if (error) throw new Error(error.message);
+
+    // If fewer than limit threads were active today, pad with all-time top
+    if ((data ?? []).length < limit) {
+      const activeIds = new Set((data ?? []).map(t => t.id));
+      let q2 = supabase
+        .from("forum_threads")
+        .select(`*, ${PROFILE_FIELDS}, forum_replies(count)`)
+        .eq("locked", false)
+        .order("like_count", { ascending: false })
+        .order("updated_at", { ascending: false })
+        .limit(limit);
+      if (lang) q2 = q2.eq("lang", lang);
+      const { data: allTime } = await q2;
+      const extras = (allTime ?? []).filter(t => !activeIds.has(t.id));
+      return [...(data ?? []), ...extras].slice(0, limit);
+    }
     return data ?? [];
   },
 

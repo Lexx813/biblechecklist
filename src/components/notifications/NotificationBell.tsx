@@ -107,6 +107,16 @@ export default function NotificationBell({ userId, navigate }: Props) {
       return;
     }
 
+    if (n.type === "badge_earned") {
+      navigate("quiz");
+      return;
+    }
+
+    if (n.type === "streak_reminder") {
+      navigate("checklist");
+      return;
+    }
+
     if (!h) return;
     navigate(h);
   }
@@ -116,6 +126,8 @@ export default function NotificationBell({ userId, navigate }: Props) {
     if (n.type === "comment") return t("notifications.typeComment");
     if (n.type === "message") return "sent you a message";
     if (n.type === "friend_request") return "wants to be your friend";
+    if (n.type === "badge_earned") return "earned a badge";
+    if (n.type === "streak_reminder") return "— don't break your streak today!";
     return t("notifications.typeMention");
   }
 

@@ -11,7 +11,7 @@ import ReadingPlanWidget from "../components/reading/ReadingPlanWidget";
 import ProgressShare from "../components/share/ProgressShare";
 import BookCelebration from "../components/BookCelebration";
 import UpgradePrompt, { isDismissed, dismissPrompt } from "../components/UpgradePrompt";
-import { useProgress, useSaveProgress, useChapterTimestamps, useReadingStreak } from "../hooks/useProgress";
+import { useProgress, useSaveProgress, useChapterTimestamps, useReadingStreak, useBookReaders } from "../hooks/useProgress";
 import { useSubscription } from "../hooks/useSubscription";
 import { progressApi } from "../api/progress";
 import { useNotes, useCreateNote, useDeleteNote } from "../hooks/useNotes";
@@ -26,6 +26,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   const deleteNote = useDeleteNote(user.id);
   const [noteToDelete, setNoteToDelete] = useState<string | null>(null);
   const { data: chapterTimestamps = {} } = useChapterTimestamps(user.id);
+  const { data: bookReaders = {} } = useBookReaders(user.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 } } = useReadingStreak(user.id);
   const saveProgress = useSaveProgress(user.id);
   const { isPremium } = useSubscription(user.id);
@@ -405,6 +406,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
                   onDeleteNote={(id) => setNoteToDelete(id)}
                   userId={user?.id}
                   onUpgrade={onUpgrade}
+                  readers={bookReaders[book.index] ?? []}
                 />
               </React.Fragment>
             );

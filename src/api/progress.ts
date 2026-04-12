@@ -72,4 +72,30 @@ export const progressApi = {
     }
     return map;
   },
+
+  // Returns other users who have read chapters in each book within the last 7 days.
+  // Result: Record<bookIndex, Array<{user_id, display_name, avatar_url}>>
+  getRecentBookReaders: async (excludeUserId: string): Promise<Record<number, Array<{ user_id: string; display_name: string | null; avatar_url: string | null }>>> => {
+    const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    const { data, error } = await supabase
+      .from("chapter_reads")
+      .select("book_index, user_id, profiles!inner(display_name, avatar_url)")
+      .neq("user_id", excludeUserId)
+      .gte("read_at", since)
+      .limit(500);
+    if (error) return {};
+    // Group by book_index, deduplicate by user_id
+    const result: Record<number, Array<{ user_id: string; display_name: string | null; avatar_url: string | null }>> = {};
+    const seen = new Map<string, Set<string>>(); // bookIndex → Set<userId>
+    for (const row of data ?? []) {
+      const bi = row.book_index;
+      const profile = Array.isArray(row.profiles) ? row.profiles[0] : row.profiles;
+      if (!result[bi]) { result[bi] = []; seen.set(String(bi), new Set()); }
+      if (!seen.get(String(bi))!.has(row.user_id)) {
+        seen.get(String(bi))!.add(row.user_id);
+        result[bi].push({ user_id: row.user_id, display_name: profile?.display_name ?? null, avatar_url: profile?.avatar_url ?? null });
+      }
+    }
+    return result;
+  },
 };

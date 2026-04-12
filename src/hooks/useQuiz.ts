@@ -2,6 +2,14 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { quizApi } from "../api/quiz";
 import { badgesApi } from "../api/badges";
+import { notificationsApi } from "../api/notifications";
+
+const LEVEL_BADGES: Record<number, string> = {
+  1: "📖", 2: "📚", 3: "🌱", 4: "👨‍👩‍👦", 5: "🏺", 6: "⚔️",
+  7: "🎵", 8: "📯", 9: "🕊️", 10: "🌍", 11: "🔮", 12: "👑",
+  25: "⚖️", 26: "📜", 27: "🏛️", 28: "🌾", 29: "✨", 30: "🔭",
+  31: "🏰", 32: "⛪", 33: "🗺️", 34: "👩", 35: "📐", 36: "🔗",
+};
 
 export function useQuizProgress(userId: string | undefined) {
   return useQuery({
@@ -29,10 +37,19 @@ export function useSubmitQuiz(userId: string | undefined) {
   return useMutation({
     mutationFn: ({ level, score }: { level: number; score: number }) =>
       quizApi.submitResult(userId!, level, score),
-    onSuccess: () => {
+    onSuccess: (data: { badge_earned?: boolean; next_unlocked?: boolean } | null, { level }) => {
       queryClient.invalidateQueries({ queryKey: ["quiz", "progress", userId] });
       if (userId) {
-        // Fetch fresh progress to check if all 12 levels have badge_earned
+        // Fire badge earned notification immediately
+        if (data?.badge_earned) {
+          const emoji = LEVEL_BADGES[level] ?? "🏅";
+          notificationsApi.create(userId, userId, "badge_earned", {
+            preview: `${emoji} Level ${level} badge earned! Perfect score!`,
+            linkHash: "quiz",
+          }).catch(() => {});
+        }
+
+        // Check milestone badges after progress refreshes
         queryClient.fetchQuery({
           queryKey: ["quiz", "progress", userId],
           queryFn: () => quizApi.getUserProgress(userId),
