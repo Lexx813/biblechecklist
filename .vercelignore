@@ -1,0 +1,15 @@
+# Never needed at build time
+docs/
+memory/
+supabase/
+scripts/
+analyze/
+
+# Dev/test artifacts
+coverage/
+.nyc_output/
+vitest.config.ts
+eslint.config.js
+
+# Local env (never deploy secrets)
+.env*.local
