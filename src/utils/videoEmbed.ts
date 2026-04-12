@@ -1,6 +1,9 @@
 const ALLOWED_VIDEO_TYPES = ["video/mp4", "video/quicktime", "video/webm"];
 const MAX_VIDEO_BYTES = 50 * 1024 * 1024;
 
+// YouTube video IDs: 11 chars of [A-Za-z0-9_-]
+const YT_ID_RE = /^[a-zA-Z0-9_-]{1,20}$/;
+
 /** Returns the iframe embed src for supported platforms, or null. */
 export function parseEmbedUrl(rawUrl: string): string | null {
   if (!rawUrl) return null;
@@ -10,11 +13,11 @@ export function parseEmbedUrl(rawUrl: string): string | null {
 
   if (host === "youtube.com" && url.pathname === "/watch") {
     const v = url.searchParams.get("v");
-    return v ? `https://www.youtube.com/embed/${v}` : null;
+    return v && YT_ID_RE.test(v) ? `https://www.youtube.com/embed/${v}` : null;
   }
   if (host === "youtu.be") {
-    const id = url.pathname.slice(1);
-    return id ? `https://www.youtube.com/embed/${id}` : null;
+    const id = url.pathname.slice(1).split("?")[0];
+    return id && YT_ID_RE.test(id) ? `https://www.youtube.com/embed/${id}` : null;
   }
   if (host === "rumble.com") {
     const match = url.pathname.match(/^\/(v[a-z0-9]+)/i);

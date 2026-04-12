@@ -52,6 +52,7 @@ export const videosApi = {
   },
 
   create: async (userId: string, input: VideoInput) => {
+    assertNoPII(input.title, input.description ?? "");
     const slug = generateVideoSlug(input.title);
     const { data, error } = await supabase
       .from("videos")

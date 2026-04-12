@@ -431,7 +431,10 @@ export default function RichTextEditor({
         setLinkModal({ open: false, value: "" });
         return;
       }
-      const href = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+      // mailto: links are valid — don't prepend https://
+      const href = /^mailto:/i.test(trimmed)
+        ? trimmed
+        : /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
       editor.chain().focus().setLink({ href }).run();
     }
     setLinkModal({ open: false, value: "" });
@@ -586,8 +589,8 @@ export default function RichTextEditor({
                 id="link-modal-url"
                 name="url"
                 className="link-modal-input"
-                type="url"
-                placeholder="https://example.com"
+                type="text"
+                placeholder="https://example.com or mailto:you@email.com"
                 value={linkModal.value}
                 aria-label="URL"
                 onChange={e => setLinkModal(m => ({ ...m, value: e.target.value }))}
