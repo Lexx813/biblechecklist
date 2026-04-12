@@ -3,27 +3,101 @@ import { createPortal } from "react-dom";
 import { useAIChat } from "../hooks/useAIChat";
 import "../styles/ai-study-bubble.css";
 
-/** Render a subset of markdown: **bold**, [text](url), and line breaks. */
+/** Render markdown: headings, bold, italic, bullet lists, numbered lists, links, bare URLs. */
 function renderMarkdown(text: string): React.ReactNode[] {
-  // Split on bold (**…**) and links ([text](url)) tokens
-  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\(https?:\/\/[^)]+\))/g);
-  return parts.map((part, i) => {
-    const bold = part.match(/^\*\*([^*]+)\*\*$/);
-    if (bold) return <strong key={i}>{bold[1]}</strong>;
+  const lines = text.split("\n");
+  const nodes: React.ReactNode[] = [];
+  let key = 0;
 
-    const link = part.match(/^\[([^\]]+)\]\((https?:\/\/[^)]+)\)$/);
-    if (link) {
+  for (let li = 0; li < lines.length; li++) {
+    const line = lines[li];
+
+    // Headings: ## or ###
+    const h3 = line.match(/^###\s+(.+)$/);
+    const h2 = line.match(/^##\s+(.+)$/);
+    const h1 = line.match(/^#\s+(.+)$/);
+    if (h3) { nodes.push(<strong key={key++} style={{ display: "block", marginTop: 10, marginBottom: 2, fontSize: "0.92em" }}>{inlineMarkdown(h3[1], key++)}</strong>); continue; }
+    if (h2) { nodes.push(<strong key={key++} style={{ display: "block", marginTop: 12, marginBottom: 3 }}>{inlineMarkdown(h2[1], key++)}</strong>); continue; }
+    if (h1) { nodes.push(<strong key={key++} style={{ display: "block", marginTop: 12, marginBottom: 4, fontSize: "1.05em" }}>{inlineMarkdown(h1[1], key++)}</strong>); continue; }
+
+    // Bullet list item: - or *
+    const bullet = line.match(/^[-*]\s+(.+)$/);
+    if (bullet) {
+      nodes.push(
+        <div key={key++} style={{ display: "flex", gap: 6, marginTop: 3 }}>
+          <span style={{ flexShrink: 0, color: "var(--teal)" }}>•</span>
+          <span>{inlineMarkdown(bullet[1], key++)}</span>
+        </div>
+      );
+      continue;
+    }
+
+    // Numbered list: 1. 2. etc.
+    const numbered = line.match(/^(\d+)\.\s+(.+)$/);
+    if (numbered) {
+      nodes.push(
+        <div key={key++} style={{ display: "flex", gap: 6, marginTop: 3 }}>
+          <span style={{ flexShrink: 0, color: "var(--teal)", minWidth: 16 }}>{numbered[1]}.</span>
+          <span>{inlineMarkdown(numbered[2], key++)}</span>
+        </div>
+      );
+      continue;
+    }
+
+    // Horizontal rule
+    if (line.match(/^---+$/)) {
+      nodes.push(<hr key={key++} style={{ border: "none", borderTop: "1px solid var(--border)", margin: "8px 0" }} />);
+      continue;
+    }
+
+    // Empty line → small gap
+    if (line.trim() === "") {
+      nodes.push(<div key={key++} style={{ height: 6 }} />);
+      continue;
+    }
+
+    // Regular paragraph line
+    nodes.push(<span key={key++} style={{ display: "block" }}>{inlineMarkdown(line, key++)}</span>);
+  }
+
+  return nodes;
+}
+
+/** Render inline tokens: **bold**, *italic*, [text](url), bare https:// URLs */
+function inlineMarkdown(text: string, baseKey: number): React.ReactNode[] {
+  // Token: bold, italic, markdown link, or bare URL
+  const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\(https?:\/\/[^\s)]+\)|https?:\/\/[^\s)>\]]+)/g);
+  return parts.map((part, i) => {
+    const k = `${baseKey}-${i}`;
+
+    const bold = part.match(/^\*\*([^*]+)\*\*$/);
+    if (bold) return <strong key={k}>{bold[1]}</strong>;
+
+    const italic = part.match(/^\*([^*]+)\*$/);
+    if (italic) return <em key={k}>{italic[1]}</em>;
+
+    const mdLink = part.match(/^\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)$/);
+    if (mdLink) {
       return (
-        <a key={i} href={link[2]} target="_blank" rel="noopener noreferrer" className="asb-verse-link">
-          {link[1]}
+        <a key={k} href={mdLink[2]} target="_blank" rel="noopener noreferrer" className="asb-verse-link">
+          {mdLink[1]}
         </a>
       );
     }
 
-    // Plain text — preserve line breaks
-    return part.split("\n").map((line, j, arr) => (
-      j < arr.length - 1 ? [line, <br key={`${i}-${j}`} />] : line
-    ));
+    const bareUrl = part.match(/^https?:\/\/[^\s)>\]]+$/);
+    if (bareUrl) {
+      // Shorten display: strip https:// and truncate if long
+      const display = part.replace(/^https?:\/\//, "").replace(/\/$/, "");
+      const short = display.length > 45 ? display.slice(0, 42) + "…" : display;
+      return (
+        <a key={k} href={part} target="_blank" rel="noopener noreferrer" className="asb-verse-link">
+          {short}
+        </a>
+      );
+    }
+
+    return part;
   });
 }
 
