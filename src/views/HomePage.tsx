@@ -531,7 +531,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
           {/* Videos — TikTok-style reel embed */}
           {(videosLoading || (recentVideos as any[]).length > 0) && (
-          <div>
+          <div className="home-video-section">
             <div className="hfeed-head">
               <button className="hfeed-title hfeed-title--link" onClick={() => navigate("videos")}>Videos</button>
               <button className="hfeed-link" onClick={() => navigate("videos")}>View all →</button>

@@ -631,6 +631,10 @@
   Renders ONE video at a time (swapped via React state, no sliding track).
   No overflow issues, no scrollbars. Arrows sit on top of the iframe.
 */
+.home-video-section {
+  margin-bottom: -8px; /* reduce gap below video section */
+}
+
 .home-reel-embed {
   position: relative;
   width: 100%;
@@ -646,6 +650,7 @@
 .home-reel-embed.portrait {
   aspect-ratio: 340 / 700;
   width: 100%;
+  max-height: 495px;
   overflow: visible;
   border-radius: 12px;
 }
