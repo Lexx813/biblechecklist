@@ -189,4 +189,30 @@ export const videosApi = {
     const { error } = await supabase.from("videos").delete().eq("id", videoId);
     if (error) throw new Error(error.message);
   },
+
+  getSpotlight: async () => {
+    const { data, error } = await supabase
+      .from("videos")
+      .select("id, slug, title, description, creator_id, embed_url, storage_path, thumbnail_url, duration_sec, likes_count, is_spotlight, created_at, profiles!creator_id(display_name, avatar_url)")
+      .eq("is_spotlight", true)
+      .eq("published", true)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    return data ?? null;
+  },
+
+  adminSetSpotlight: async (videoId: string) => {
+    // Clear any existing spotlight first
+    const { error: clearError } = await supabase
+      .from("videos")
+      .update({ is_spotlight: false })
+      .eq("is_spotlight", true);
+    if (clearError) throw new Error(clearError.message);
+    // Set the new spotlight
+    const { error } = await supabase
+      .from("videos")
+      .update({ is_spotlight: true })
+      .eq("id", videoId);
+    if (error) throw new Error(error.message);
+  },
 };
