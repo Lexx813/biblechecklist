@@ -32,6 +32,9 @@ out/
 # Downloaded system packages
 *.deb
 
+# Local docs/plans
+docs/
+
 # Supabase temp files
 supabase/.temp/
 
