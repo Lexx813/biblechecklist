@@ -34,6 +34,13 @@
   gap: 10px;
 }
 
+/* On mobile, clear the bottom tab bar (≈72px) */
+@media (max-width: 1100px) {
+  .fc-root {
+    bottom: 84px;
+  }
+}
+
 /* ── FAB button ──────────────────────────────────────────────────────────── */
 
 .fc-fab {
@@ -169,7 +176,13 @@
   border: none;
   cursor: pointer;
   font-size: 13px;
-  padding: 3px 5px;
+  /* min 44×44 touch target */
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--radius-xs);
   flex-shrink: 0;
   transition: opacity var(--dur-fast), background var(--dur-fast);

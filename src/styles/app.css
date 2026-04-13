@@ -1,5 +1,15 @@
 /* Font: Plus Jakarta Sans Variable — self-hosted in /public/fonts/, preloaded in index.html */
 
+/* On touch devices, translateY hover "lifts" get stuck after tap. Disable them
+   globally; :active handles tactile feedback instead. */
+@media (hover: none) {
+  .hblog-card:hover,
+  .lb-row:hover,
+  .pf-streak-card:hover,
+  .pf-add-note-btn:hover,
+  .note-form-submit:hover { transform: none; }
+}
+
 /* Screen-reader only — hidden visually but accessible to assistive tech */
 .sr-only {
   position: absolute;

@@ -158,7 +158,7 @@ export default function CommunityPage({ navigate }) {
             ))}
           </div>
         ) : membersError ? (
-          <p className="cm-empty">Unable to load members. Please try again.</p>
+          <p className="cm-empty"><span className="cm-empty-icon">⚠️</span>Unable to load members. Please try again.</p>
         ) : (
           <>
             {onlineNow.length > 0 && (
@@ -194,7 +194,11 @@ export default function CommunityPage({ navigate }) {
               </div>
             )}
             {onlineNow.length === 0 && recentlyActive.length === 0 && (
-              <p className="cm-empty">No members have been active recently.</p>
+              <p className="cm-empty">
+                <span className="cm-empty-icon">🌿</span>
+                No members active recently.
+                <span>Check back later or invite a friend to join!</span>
+              </p>
             )}
           </>
         )}

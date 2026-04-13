@@ -22,9 +22,16 @@ main:has(.msg-layout) {
   flex-direction: column;
 }
 
+/* On mobile, subtract the bottom tab bar height too */
+@media (max-width: 1100px) {
+  main:has(.msg-layout) {
+    height: calc(100dvh - 52px - 72px);
+  }
+}
+
 /* Make al-content fill full height when it contains the chat layout */
 .al-wrap:has(.msg-layout) {
-  height: calc(100dvh - 60px);
+  height: calc(100dvh - 52px);
   min-height: 0;
   align-items: stretch;
 }
@@ -130,10 +137,11 @@ main:has(.msg-layout) {
 
 .msg-search {
   width: 100%;
-  padding: 7px 12px;
+  padding: 10px 14px;
+  min-height: 42px;
   border: 1.5px solid var(--border);
   border-radius: var(--radius-lg);
-  font-size: 13px;
+  font-size: 14px;
   font-family: inherit;
   background: var(--teal-soft);
   color: var(--text-primary);
@@ -280,7 +288,13 @@ main:has(.msg-layout) {
   border: none;
   cursor: pointer;
   font-size: 14px;
-  padding: 4px 6px;
+  /* 44×44 touch target */
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--radius-xs);
   flex-shrink: 0;
   transition: opacity var(--dur-fast), background var(--dur-fast);

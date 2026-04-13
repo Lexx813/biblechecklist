@@ -111,7 +111,18 @@
   color: var(--color-text-muted);
   font-size: 0.875rem;
   text-align: center;
-  padding: 32px 0;
+  padding: 40px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.6;
+}
+
+.cm-empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 4px;
+  opacity: 0.6;
 }
 
 .cm-skeleton {
