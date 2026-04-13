@@ -41,122 +41,15 @@
   text-align: center;
 }
 
-/* Profile row */
-.al-profile {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  padding: 10px 12px;
-  background: none;
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  font-family: inherit;
-  margin-bottom: 6px;
-  transition: background var(--dur-fast) var(--ease-out);
-  text-align: left;
-}
-.al-profile:hover { background: var(--hover-bg); }
-
-.al-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #4f2d85, #7c3aed);
-  border: 2px solid rgba(138, 75, 255, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  overflow: hidden;
-  font-size: 15px;
-  font-weight: 700;
-  color: #fff;
-}
-.al-avatar img { width: 100%; height: 100%; object-fit: cover; }
-
-.al-name {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-primary, #f0eaff);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Nav item */
-.al-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  padding: 11px 12px;
-  min-height: 44px;
-  background: none;
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--text-primary, #f0eaff);
-  text-align: left;
-  transition: background var(--dur-fast) var(--ease-out);
-}
+/* Sidebar shared rules live in app.css (:is(.hls-*, .al-*)).
+   Only app-layout-specific overrides below. */
+/* al-item is slightly more spacious than hls-item */
+.al-item { padding: 11px 12px; }
+/* AppLayout uses CSS-var hover (theme-aware) instead of hardcoded purple */
 .al-item:hover { background: var(--hover-bg); }
-.al-item:focus-visible { outline: 2px solid #7c3aed; outline-offset: -2px; }
-.al-item--active { background: var(--active-bg); color: #c084fc; }
+.al-item--active { background: var(--active-bg); }
 .al-item--active:hover { background: var(--active-hover-bg); }
-
-.al-item--locked { opacity: 0.45; }
 .al-item--locked .al-icon { filter: grayscale(0.6); }
-.al-lock {
-  margin-left: auto;
-  font-size: 9px;
-  color: #c084fc;
-  opacity: 0.7;
-}
-
-.al-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: #fff;
-}
-
-.al-badge {
-  margin-left: auto;
-  min-width: 20px;
-  height: 20px;
-  padding: 0 5px;
-  background: #e03c3c;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.al-divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.08);
-  margin: 6px 12px;
-}
-
-.al-section-label {
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(240, 234, 255, 0.4);
-  padding: 6px 12px 2px;
-}
 
 /* Content column */
 .al-content {
@@ -170,15 +63,8 @@
 }
 
 /* ── Light theme ── */
+/* Shared light-theme sidebar rules are in app.css. Only layout-specific ones here. */
 [data-theme="light"] .al-sidebar { border-color: var(--border); }
-[data-theme="light"] .al-profile:hover,
-[data-theme="light"] .al-item:hover { background: var(--hover-bg); }
-[data-theme="light"] .al-item--active { background: rgba(124, 58, 237, 0.10); color: #7c3aed; }
-[data-theme="light"] .al-item--active:hover { background: rgba(124, 58, 237, 0.15); }
-[data-theme="light"] .al-name,
-[data-theme="light"] .al-item { color: #1C1C1E; }
-[data-theme="light"] .al-divider { background: var(--border); }
-[data-theme="light"] .al-section-label { color: #6C6C70; } /* ≥4.5:1 */
 
 /* ── Right panel column (visible ≥ 1300px) ── */
 .al-wrap--with-rp {

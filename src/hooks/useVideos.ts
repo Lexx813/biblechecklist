@@ -1,5 +1,23 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { videosApi, VideoInput } from "../api/videos";
+import { supabase } from "../lib/supabase";
+
+/** Fetch a 1-hour signed playback URL for a storage video, only when active. */
+export function useSignedVideoUrl(storagePath: string | null | undefined, enabled = true) {
+  return useQuery({
+    queryKey: ["videos", "signed-url", storagePath],
+    queryFn: async () => {
+      const { data, error } = await supabase.storage
+        .from("videos")
+        .createSignedUrl(storagePath!, 3600);
+      if (error) throw error;
+      return data.signedUrl;
+    },
+    enabled: !!storagePath && enabled,
+    staleTime: 50 * 60 * 1000, // 50 min — refresh before the 1-hour URL expires
+    gcTime: 60 * 60 * 1000,
+  });
+}
 
 export function usePublishedVideos() {
   return useQuery({
@@ -140,11 +158,3 @@ export function useAdminDeleteVideo() {
   });
 }
 
-export function useAdminSetVideoPublished() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: ({ videoId, published }: { videoId: string; published: boolean }) =>
-      videosApi.adminSetPublished(videoId, published),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["videos", "published"] }),
-  });
-}

@@ -3,6 +3,7 @@ import { adminApi } from "../api/admin";
 import { profileApi } from "../api/profile";
 import { blogApi } from "../api/blog";
 import { forumApi } from "../api/forum";
+import { quizApi } from "../api/quiz";
 
 export function useProfile(userId: string | null | undefined) {
   return useQuery({
@@ -197,5 +198,39 @@ export function useAdminAuditLog({ limit = 100, offset = 0 }: { limit?: number; 
     queryKey: ["admin", "auditLog", limit, offset],
     queryFn: () => adminApi.listAuditLog({ limit, offset }),
     staleTime: 30 * 1000,
+  });
+}
+
+export function useAllQuizQuestions() {
+  return useQuery({
+    queryKey: ["admin", "quizQuestions"],
+    queryFn: () => quizApi.getAllQuestions(),
+    staleTime: 60 * 1000,
+  });
+}
+
+export function useCreateQuizQuestion() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ level, question, options, correctIndex }: { level: number; question: string; options: string[]; correctIndex: number }) =>
+      quizApi.createQuestion(level, question, options, correctIndex),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "quizQuestions"] }),
+  });
+}
+
+export function useUpdateQuizQuestion() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, level, question, options, correctIndex }: { id: string; level: number; question: string; options: string[]; correctIndex: number }) =>
+      quizApi.updateQuestion(id, level, question, options, correctIndex),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "quizQuestions"] }),
+  });
+}
+
+export function useDeleteQuizQuestion() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => quizApi.deleteQuestion(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "quizQuestions"] }),
   });
 }

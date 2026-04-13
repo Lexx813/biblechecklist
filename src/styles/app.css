@@ -355,6 +355,157 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   }
 }
 
+/* ─────────────────────────────────────────────────────────────────────────
+   SHARED SIDEBAR SYSTEM
+   Both the Home sidebar (.hls-*) and AppLayout sidebar (.al-*) are the same
+   component. Shared rules live here; per-file rules handle only differences.
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* Profile row */
+:is(.hls-profile, .al-profile) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: inherit;
+  margin-bottom: 6px;
+  transition: background var(--dur-fast);
+}
+:is(.hls-profile, .al-profile):hover { background: rgba(124, 58, 237, 0.1); }
+
+/* Avatar */
+:is(.hls-avatar, .al-avatar) {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f2d85, #7c3aed);
+  border: 2px solid rgba(138, 75, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+}
+:is(.hls-avatar, .al-avatar) img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Name */
+:is(.hls-name, .al-name) {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary, #f0eaff);
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Divider */
+:is(.hls-divider, .al-divider) {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 6px 12px;
+}
+
+/* Section label */
+:is(.hls-section-label, .al-section-label) {
+  font-size: 12px;
+  font-weight: 700;
+  color: #9981c7; /* ~4.6:1 on dark sidebar bg — passes WCAG AA */
+  padding: 6px 12px 2px;
+}
+
+/* Nav item */
+:is(.hls-item, .al-item) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px; /* WCAG 2.5.5 minimum touch target */
+  background: none;
+  border: none;
+  border-left: 3px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary, #f0eaff);
+  text-align: left;
+  transition: background var(--dur-fast), border-color var(--dur-fast);
+  position: relative;
+}
+:is(.hls-item, .al-item):hover { background: rgba(124, 58, 237, 0.1); }
+:is(.hls-item, .al-item):focus-visible { outline: 2px solid #7c3aed; outline-offset: -2px; }
+:is(.hls-item--active, .al-item--active) {
+  background: rgba(124, 58, 237, 0.18);
+  color: #c084fc;
+  border-left-color: #7c3aed;
+  padding-left: 9px; /* compensate 3px border so text stays aligned */
+}
+:is(.hls-item--active, .al-item--active):hover { background: rgba(124, 58, 237, 0.22); }
+:is(.hls-item--locked, .al-item--locked) { opacity: 0.45; }
+
+/* Lock icon */
+:is(.hls-lock, .al-lock) {
+  margin-left: auto;
+  font-size: 9px;
+  color: #c084fc;
+  opacity: 0.7;
+}
+
+/* Icon blob */
+:is(.hls-icon, .al-icon) {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+/* Badge */
+:is(.hls-badge, .al-badge) {
+  margin-left: auto;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  background: #e03c3c;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Light theme overrides */
+[data-theme="light"] :is(.hls-profile, .al-profile):hover,
+[data-theme="light"] :is(.hls-item, .al-item):hover { background: var(--hover-bg); }
+[data-theme="light"] :is(.hls-item--active, .al-item--active) {
+  background: rgba(124, 58, 237, 0.10);
+  color: #7c3aed;
+  border-left-color: #7c3aed;
+}
+[data-theme="light"] :is(.hls-item--active, .al-item--active):hover { background: rgba(124, 58, 237, 0.15); }
+[data-theme="light"] :is(.hls-name, .al-name),
+[data-theme="light"] :is(.hls-item, .al-item) { color: #1C1C1E; }
+[data-theme="light"] :is(.hls-divider, .al-divider) { background: var(--border); }
+[data-theme="light"] :is(.hls-section-label, .al-section-label) { color: #6C6C70; } /* ≥4.5:1 on white */
+
+/* ── End shared sidebar system ─────────────────────────────────────────── */
+
 /* ── Global tooltip ─────────────────────────────────────────────────────── */
 [data-tip] { position: relative; }
 [data-tip]::after {

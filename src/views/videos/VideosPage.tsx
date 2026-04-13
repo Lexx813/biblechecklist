@@ -1,15 +1,43 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { usePublishedVideos } from "../../hooks/useVideos";
 import {
   useToggleVideoLike,
   useUserLikedVideoIds,
   useVideoComments,
   useCreateVideoComment,
+  useSignedVideoUrl,
 } from "../../hooks/useVideos";
 import { toast } from "../../lib/toast";
 import "../../styles/videos.css";
 
 // ── Helpers ────────────────────────────────────────────────────
+
+/**
+ * Add autoplay + mute params to a YouTube/TikTok embed URL.
+ * Browsers block autoplay unless the video is muted.
+ * When NOT active we remove the iframe entirely (by returning null src)
+ * so the video stops — you can't programmatically pause an iframe.
+ */
+function buildEmbedSrc(url: string, active: boolean): string | null {
+  if (!active) return null; // caller renders nothing when null
+  try {
+    const u = new URL(url);
+    // YouTube
+    if (u.hostname.includes("youtube.com") || u.hostname.includes("youtu.be")) {
+      u.searchParams.set("autoplay", "1");
+      u.searchParams.set("mute", "1");
+      u.searchParams.set("playsinline", "1");
+      return u.toString();
+    }
+    // TikTok
+    if (u.hostname.includes("tiktok.com")) {
+      return url; // TikTok handles autoplay internally
+    }
+    return url;
+  } catch {
+    return url;
+  }
+}
 
 function formatDur(sec: number | null): string {
   if (!sec) return "";
@@ -51,6 +79,13 @@ const PlayIcon = () => (
   </svg>
 );
 
+// ── Preloader: warms the signed-URL cache for adjacent storage videos ──────
+
+function VideoPreloader({ storagePath }: { storagePath: string }) {
+  useSignedVideoUrl(storagePath, true);
+  return null;
+}
+
 // ── Types ──────────────────────────────────────────────────────
 
 interface Video {
@@ -74,18 +109,43 @@ interface Video {
 interface ReelItemProps {
   video: Video;
   liked: boolean;
+  isActive: boolean;
   onLike: () => void;
   onExpand: () => void;
   onComment: () => void;
   onShare: () => void;
 }
 
-function ReelItem({ video, liked, onLike, onExpand, onComment, onShare }: ReelItemProps) {
+function ReelItem({ video, liked, isActive, onLike, onExpand, onComment, onShare }: ReelItemProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [progress, setProgress] = useState(0);
   const isUpload = !video.embed_url && !!video.storage_path;
   const creatorName = video.profiles?.display_name ?? "Creator";
   const initials = (creatorName[0] ?? "?").toUpperCase();
+
+  // Fetch signed URL for storage videos — start fetching 1 video early so it's
+  // ready when the user scrolls to it (prefetch adjacent item too).
+  const { data: signedUrl } = useSignedVideoUrl(video.storage_path, isUpload);
+
+  // Play when active & URL is ready; pause + reset when scrolled past.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (isActive) {
+      // Kick off loading (needed when preload="none") then play
+      if (v.readyState === 0) v.load();
+      v.play().catch(() => {/* autoplay blocked — user can tap to play */});
+    } else {
+      v.pause();
+      v.currentTime = 0;
+    }
+  }, [isActive, signedUrl]);
+
+  // Also trigger play via onCanPlay in case the effect fires before the video
+  // element is ready to play (e.g. first load or src change).
+  function handleCanPlay() {
+    if (isActive) videoRef.current?.play().catch(() => {});
+  }
 
   function handleTimeUpdate() {
     const v = videoRef.current;
@@ -93,20 +153,63 @@ function ReelItem({ video, liked, onLike, onExpand, onComment, onShare }: ReelIt
     setProgress(v.currentTime / v.duration);
   }
 
+  const embedSrc = video.embed_url ? buildEmbedSrc(video.embed_url, isActive) : null;
+  const isYouTube = !!(video.embed_url && (video.embed_url.includes("youtube.com") || video.embed_url.includes("youtu.be")));
+  const isTikTok = !!(video.embed_url?.includes("tiktok.com"));
+  const orientClass = isTikTok ? "reel-item--portrait" : "reel-item--landscape";
+
   return (
-    <div className="reel-item">
+    <div className={`reel-item ${orientClass}`}>
       {/* ── Video layer ── */}
       {video.embed_url ? (
-        <>
-          <iframe
-            className="reel-iframe"
-            src={video.embed_url}
-            title={video.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          />
-          {/* Cover intercepts wheel/touch so events bubble to .reel-feed */}
-          <div className="reel-iframe-cover" />
-        </>
+        embedSrc ? (
+          <>
+            {/* Key forces remount (and thus replay) each time this becomes active */}
+            {isYouTube ? (
+              <div className="reel-youtube-wrap">
+                <iframe
+                  key={embedSrc}
+                  className="reel-youtube-iframe"
+                  src={embedSrc}
+                  title={video.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+            ) : (
+              <iframe
+                key={embedSrc}
+                className="reel-iframe"
+                src={embedSrc}
+                title={video.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            )}
+            {/* Transparent cover so wheel/touch events bubble to .reel-feed */}
+            <div className="reel-iframe-cover" />
+          </>
+        ) : (
+          /* Not active — show thumbnail placeholder to stop playback */
+          <div className="reel-bg-placeholder">
+            {video.thumbnail_url
+              ? <img src={video.thumbnail_url} alt={video.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              : <PlayIcon />}
+          </div>
+        )
+      ) : signedUrl ? (
+        <video
+          ref={videoRef}
+          className="reel-video"
+          src={signedUrl}
+          poster={video.thumbnail_url ?? undefined}
+          preload="none"
+          loop
+          playsInline
+          muted
+          onCanPlay={handleCanPlay}
+          onTimeUpdate={handleTimeUpdate}
+        />
       ) : (
         <div className="reel-bg-placeholder">
           <PlayIcon />
@@ -211,17 +314,17 @@ function CommentDrawer({ videoId, user, onClose }: CommentDrawerProps) {
         <div className="reel-drawer-handle" />
         <div className="reel-drawer-header">
           <span className="reel-drawer-title">
-            {(comments as any[]).length} {(comments as any[]).length === 1 ? "comment" : "comments"}
+            {comments.length} {comments.length === 1 ? "comment" : "comments"}
           </span>
           <button className="reel-drawer-close" onClick={onClose} aria-label="Close comments">✕</button>
         </div>
         <div className="reel-drawer-comments">
-          {(comments as any[]).length === 0 && (
+          {comments.length === 0 && (
             <div className="reel-drawer-empty">
               No comments yet — your words of encouragement are always welcome here.
             </div>
           )}
-          {(comments as any[]).map(c => (
+          {comments.map(c => (
             <div key={c.id} className="video-comment">
               <div className="video-comment-avatar">
                 {c.profiles?.avatar_url
@@ -344,31 +447,32 @@ export default function VideosPage({ user, onSelectVideo, onPostClick }: Props) 
         onTouchEnd={handleTouchEnd}
       >
         {isLoading ? (
-          <div className="reel-track">
-            {[0, 1, 2].map(i => <div key={i} className="reel-skeleton" />)}
-          </div>
+          <div className="reel-item reel-item--portrait reel-skeleton" />
         ) : allVideos.length === 0 ? (
           <div className="reel-empty">
             {canPost ? "Be the first to post a video!" : "No videos yet. Check back soon."}
           </div>
-        ) : (
-          <div
-            className="reel-track"
-            style={{ transform: `translateY(-${currentIndex * 100}%)` }}
-          >
-            {allVideos.map(video => (
+        ) : (() => {
+          const video = allVideos[currentIndex];
+          const prev = allVideos[currentIndex - 1];
+          const next = allVideos[currentIndex + 1];
+          return (
+            <>
               <ReelItem
                 key={video.id}
                 video={video}
                 liked={(likedIds as string[]).includes(video.id)}
+                isActive={true}
                 onLike={() => handleLike(video.id)}
                 onExpand={() => onSelectVideo(video.slug)}
                 onComment={() => setCommentVideoId(video.id)}
                 onShare={() => handleShare(video.slug)}
               />
-            ))}
-          </div>
-        )}
+              {prev?.storage_path && <VideoPreloader storagePath={prev.storage_path} />}
+              {next?.storage_path && <VideoPreloader storagePath={next.storage_path} />}
+            </>
+          );
+        })()}
       </div>
 
       {canPost && (

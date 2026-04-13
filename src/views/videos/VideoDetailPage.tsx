@@ -3,6 +3,7 @@ import { useVideoBySlug, useVideoComments, useCreateVideoComment, useDeleteVideo
 import { useFullProfile } from "../../hooks/useAdmin";
 import { formatDate } from "../../utils/formatters";
 import { toast } from "../../lib/toast";
+import type { VideoComment } from "../../api/videos";
 import "../../styles/videos.css";
 
 const HeartIcon = ({ filled }: { filled: boolean }) => (
@@ -33,7 +34,7 @@ interface Props {
   navigate: (page: string, params?: Record<string, unknown>) => void;
   darkMode?: boolean;
   setDarkMode?: (v: boolean) => void;
-  i18n?: any;
+  i18n?: { language?: string };
   onLogout?: (() => void) | null;
   onUpgrade?: () => void;
   currentPage?: string;
@@ -98,7 +99,7 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
     );
   }
 
-  const creatorName = (video.profiles as any)?.display_name ?? "Unknown";
+  const creatorName = video.profiles?.display_name ?? "Unknown";
   const isTikTok = video.embed_url?.includes("tiktok.com") ?? false;
   const frameClass = `video-player-frame${isTikTok ? " portrait" : ""}`;
 
@@ -110,9 +111,9 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
         <div className={frameClass}>
           {video.embed_url ? (
             <iframe src={video.embed_url} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" title={video.title} />
-          ) : (video as any).playback_url ? (
-            <video controls preload="metadata">
-              <source src={(video as any).playback_url} type="video/mp4" />
+          ) : video.playback_url ? (
+            <video controls preload="metadata" poster={video.thumbnail_url ?? undefined}>
+              <source src={video.playback_url} type="video/mp4" />
             </video>
           ) : null}
         </div>
@@ -120,15 +121,15 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
 
       {/* ── Content body ── */}
       <div className="video-player-wrap">
-        {(video as any).scripture_tag && (
+        {video.scripture_tag && (
           <div className="detail-scripture-badge">
             <BookIcon />
-            {(video as any).scripture_tag}
+            {video.scripture_tag}
           </div>
         )}
 
         <h1 className="video-player-title">{video.title}</h1>
-        <div className="video-player-meta">{creatorName} · {formatDate(video.created_at, "long" as any)}</div>
+        <div className="video-player-meta">{creatorName} · {formatDate(video.created_at, "long")}</div>
         {video.description && <div className="video-player-desc">{video.description}</div>}
 
         <div className="video-player-actions">
@@ -143,8 +144,8 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
         </div>
 
         <div className="video-comments">
-          <div className="video-comments-title">{(comments as any[]).length} {(comments as any[]).length === 1 ? "comment" : "comments"}</div>
-          {(comments as any[]).map(c => (
+          <div className="video-comments-title">{comments.length} {comments.length === 1 ? "comment" : "comments"}</div>
+          {(comments as VideoComment[]).map(c => (
             <div key={c.id} className="video-comment">
               <div className="video-comment-avatar">
                 {c.profiles?.avatar_url ? <img src={c.profiles.avatar_url} alt={c.profiles?.display_name ?? "?"} /> : (c.profiles?.display_name?.[0] ?? "?").toUpperCase()}
@@ -154,7 +155,7 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
                 <div className="video-comment-text">{c.content}</div>
                 <div className="video-comment-date">{formatDate(c.created_at)}</div>
               </div>
-              {(user?.id === c.author_id || (profile as any)?.is_admin) && (
+              {(user?.id === c.author_id || profile?.is_admin) && (
                 <button onClick={() => deleteComment.mutate(c.id)} style={{ background: "none", border: "none", color: "var(--text-secondary)", cursor: "pointer", fontSize: "0.7rem", alignSelf: "flex-start", marginTop: 2 }} aria-label="Delete comment">✕</button>
               )}
             </div>

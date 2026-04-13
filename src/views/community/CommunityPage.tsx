@@ -1,8 +1,14 @@
+import { useState } from "react";
 import { useMeta } from "../../hooks/useMeta";
 import { useOnlineMembers, ONLINE_THRESHOLD_MS, OnlineMember } from "../../hooks/useOnlineMembers";
 import { useTopThreads } from "../../hooks/useForum";
 import { usePublishedPosts } from "../../hooks/useBlog";
 import "../../styles/community.css";
+
+interface TopThread { id: string; category_id: string | null; title: string; reply_count?: number | null }
+interface RecentPost { id: string; slug: string; title: string; like_count?: number | null }
+
+const PAGE_SIZE = 10;
 
 function timeAgo(lastActiveAt: string | null): string {
   if (!lastActiveAt) return "";
@@ -50,6 +56,10 @@ export default function CommunityPage({ navigate }) {
   const recentPosts = posts.slice(0, 4);
   const totalShown = onlineNow.length + recentlyActive.length;
 
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const visibleRecent = recentlyActive.slice(0, visibleCount);
+  const hasMore = visibleCount < recentlyActive.length;
+
   return (
     <div className="cm-wrap">
       <header className="cm-header">
@@ -79,7 +89,7 @@ export default function CommunityPage({ navigate }) {
           <p className="cm-card-empty">No discussions yet. <button className="cm-inline-link" onClick={() => navigate("forum")}>Start one →</button></p>
         ) : (
           <div className="cm-thread-list">
-            {(threads as any[]).map(t => (
+            {(threads as unknown as TopThread[]).map(t => (
               <div
                 key={t.id}
                 className="cm-thread-row"
@@ -114,7 +124,7 @@ export default function CommunityPage({ navigate }) {
           <p className="cm-card-empty">No posts yet.</p>
         ) : (
           <div className="cm-thread-list">
-            {(recentPosts as any[]).map(p => (
+            {(recentPosts as unknown as RecentPost[]).map(p => (
               <div
                 key={p.id}
                 className="cm-thread-row"
@@ -160,7 +170,27 @@ export default function CommunityPage({ navigate }) {
             {recentlyActive.length > 0 && (
               <div>
                 {onlineNow.length > 0 && <div className="cm-section-label">Recently Active</div>}
-                {recentlyActive.map(m => <MemberRow key={m.id} member={m} navigate={navigate} />)}
+                {visibleRecent.map(m => <MemberRow key={m.id} member={m} navigate={navigate} />)}
+                {(hasMore || visibleCount > PAGE_SIZE) && (
+                  <div className="cm-pagination">
+                    {hasMore && (
+                      <button
+                        className="cm-load-more"
+                        onClick={() => setVisibleCount(c => c + PAGE_SIZE)}
+                      >
+                        Show more ({recentlyActive.length - visibleCount} remaining)
+                      </button>
+                    )}
+                    {visibleCount > PAGE_SIZE && (
+                      <button
+                        className="cm-load-more cm-load-more--secondary"
+                        onClick={() => setVisibleCount(PAGE_SIZE)}
+                      >
+                        Show less
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
             )}
             {onlineNow.length === 0 && recentlyActive.length === 0 && (

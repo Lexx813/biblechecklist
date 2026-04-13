@@ -2,6 +2,17 @@ import { supabase } from "../lib/supabase";
 import { generateVideoSlug } from "../utils/videoEmbed";
 import { assertNoPII } from "../lib/pii";
 
+export interface CreatorRequest {
+  id: string;
+  user_id: string;
+  display_name: string;
+  topic_description: string;
+  sample_url: string | null;
+  status: string;
+  created_at: string;
+  profiles?: { display_name: string | null; email: string | null; created_at: string } | null;
+}
+
 export interface VideoInput {
   title: string;
   description?: string;
@@ -10,6 +21,24 @@ export interface VideoInput {
   duration_sec?: number;
   thumbnail_url?: string;
   scripture_tag?: string | null;
+}
+
+export interface VideoDetail {
+  id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  creator_id: string;
+  embed_url: string | null;
+  storage_path: string | null;
+  thumbnail_url: string | null;
+  duration_sec: number | null;
+  likes_count: number;
+  created_at: string;
+  scripture_tag: string | null;
+  published: boolean;
+  playback_url: string | null;
+  profiles: { display_name: string | null; avatar_url: string | null } | null;
 }
 
 export interface VideoComment {
@@ -32,7 +61,7 @@ export const videosApi = {
     return data ?? [];
   },
 
-  getBySlug: async (slug: string) => {
+  getBySlug: async (slug: string): Promise<VideoDetail | null> => {
     const { data, error } = await supabase
       .from("videos")
       .select("*, profiles!creator_id(display_name, avatar_url)")
@@ -46,9 +75,9 @@ export const videosApi = {
       const { data: signed } = await supabase.storage
         .from("videos")
         .createSignedUrl(data.storage_path, 3600);
-      return { ...data, playback_url: signed?.signedUrl ?? null };
+      return { ...data, playback_url: signed?.signedUrl ?? null } as VideoDetail;
     }
-    return { ...data, playback_url: null };
+    return { ...data, playback_url: null } as VideoDetail;
   },
 
   create: async (userId: string, input: VideoInput) => {
@@ -56,7 +85,7 @@ export const videosApi = {
     const slug = generateVideoSlug(input.title);
     const { data, error } = await supabase
       .from("videos")
-      .insert({ creator_id: userId, slug, ...input })
+      .insert({ creator_id: userId, slug, published: true, ...input })
       .select()
       .single();
     if (error) throw new Error(error.message);
@@ -128,32 +157,27 @@ export const videosApi = {
     return data;
   },
 
-  getMyCreatorRequest: async (userId: string) => {
+  getMyCreatorRequest: async (userId: string): Promise<CreatorRequest | null> => {
     const { data, error } = await supabase
       .from("creator_requests")
       .select("*")
       .eq("user_id", userId)
       .maybeSingle();
     if (error) throw new Error(error.message);
-    return data;
+    return data as CreatorRequest | null;
   },
 
-  adminListCreatorRequests: async () => {
+  adminListCreatorRequests: async (): Promise<CreatorRequest[]> => {
     const { data, error } = await supabase
       .from("creator_requests")
       .select("*, profiles!user_id(display_name, email, created_at)")
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
-    return data ?? [];
+    return (data ?? []) as CreatorRequest[];
   },
 
   adminSetCreatorApproval: async (userId: string, approved: boolean) => {
     const { error } = await supabase.rpc("admin_approve_creator", { p_user_id: userId, p_approved: approved });
-    if (error) throw new Error(error.message);
-  },
-
-  adminSetPublished: async (videoId: string, published: boolean) => {
-    const { error } = await supabase.from("videos").update({ published }).eq("id", videoId);
     if (error) throw new Error(error.message);
   },
 

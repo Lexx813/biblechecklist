@@ -50,7 +50,7 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
       setEmbedUrl(embed);
     } else {
       setEmbedUrl(null);
-      if (url.length > 10) setLinkError("Only YouTube, TikTok, and Rumble links are supported.");
+      if (url.length > 10) setLinkError("Only YouTube, TikTok (full URL), and Rumble links are supported. For TikTok, open the video in a browser and copy the full URL (e.g. tiktok.com/@user/video/…).");
     }
   }
 
@@ -92,7 +92,7 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
         compressed = await compressVideo(file, setCompressProgress);
       } catch (compressErr: any) {
         if (compressErr.message?.includes("SharedArrayBuffer")) {
-          toast("Compression not available — uploading original. Use Chrome for best results.", "warn" as any);
+          toast("Compression not available — uploading original. Use Chrome for best results.", "warning");
           compressed = file;
         } else {
           throw compressErr;

@@ -23,9 +23,12 @@ export function parseEmbedUrl(rawUrl: string): string | null {
     const match = url.pathname.match(/^\/(v[a-z0-9]+)/i);
     return match ? `https://rumble.com/embed/${match[1]}` : null;
   }
-  if (host === "tiktok.com") {
+  if (host === "tiktok.com" || host === "vm.tiktok.com") {
+    // Full URL: tiktok.com/@user/video/1234567890
     const match = url.pathname.match(/\/video\/(\d+)/);
-    return match ? `https://www.tiktok.com/embed/v2/${match[1]}` : null;
+    if (match) return `https://www.tiktok.com/embed/v2/${match[1]}`;
+    // Short/mobile URL (vm.tiktok.com/ZMxxx or tiktok.com/t/ZMxxx) — can't embed redirect
+    return null;
   }
   return null;
 }
