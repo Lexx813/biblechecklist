@@ -1,5 +1,8 @@
 /* ── Floating Chat ────────────────────────────────────────────────────────── */
 
+/* Hide the AI study bubble while the chat panel is open — it overlaps */
+.fc-panel-open .asb-root { display: none !important; }
+
 /* ── Backdrop ─────────────────────────────────────────────────────────────── */
 
 .fc-backdrop {
@@ -229,6 +232,41 @@
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
+}
+
+.fc-conv-item--unread .fc-conv-preview {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ── Compose footer button ───────────────────────────────────────────────── */
+.fc-compose-footer {
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.fc-compose-btn {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1.5px dashed rgba(var(--teal-rgb, 0,180,160), 0.4);
+  background: none;
+  color: var(--teal);
+  font-size: 12.5px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background var(--dur-fast), border-color var(--dur-fast);
+}
+
+.fc-compose-btn:hover {
+  background: var(--teal-soft);
+  border-color: var(--teal);
 }
 
 .fc-unread-dot {

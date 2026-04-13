@@ -103,9 +103,17 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
 
   useEffect(() => {
     const el = document.documentElement;
-    if (open) el.style.overflow = "hidden";
-    else el.style.overflow = "";
-    return () => { el.style.overflow = ""; };
+    if (open) {
+      el.style.overflow = "hidden";
+      document.body.classList.add("fc-panel-open");
+    } else {
+      el.style.overflow = "";
+      document.body.classList.remove("fc-panel-open");
+    }
+    return () => {
+      el.style.overflow = "";
+      document.body.classList.remove("fc-panel-open");
+    };
   }, [open]);
 
   function confirmDelete() {
@@ -170,6 +178,7 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
                   onSelect={(conv) => { setActiveConv(conv as unknown as Record<string, unknown>); window.dispatchEvent(new Event("fc:open")); }}
                   onDelete={setConvToDelete}
                   onlineUsers={onlineUsers}
+                  onCompose={openFullMessages}
                 />
               )
             )}
