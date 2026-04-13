@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ConfirmModal from "../../../components/ConfirmModal";
-import { useAdminCreatorRequests, useAdminSetCreatorApproval, useAdminDeleteVideo } from "../../../hooks/useVideos";
+import { useAdminCreatorRequests, useAdminSetCreatorApproval, useAdminDeleteVideo, useAdminSetSpotlight } from "../../../hooks/useVideos";
 import type { CreatorRequest } from "../../../api/videos";
 import { supabase } from "../../../lib/supabase";
 import { formatDate } from "../../../utils/formatters";
@@ -10,13 +10,18 @@ interface VideoRow {
   title: string;
   embed_url: string | null;
   storage_path: string | null;
+  is_spotlight: boolean;
   created_at: string;
   playback_url?: string | null;
   profiles: { display_name: string | null } | null;
 }
 
 // ── Video Card ────────────────────────────────────────────────────────────────
-function VideoCard({ v, onDelete }: { v: VideoRow; onDelete: (id: string, title: string, storagePath?: string | null) => void }) {
+function VideoCard({ v, onDelete, onSetSpotlight }: {
+  v: VideoRow;
+  onDelete: (id: string, title: string, storagePath?: string | null) => void;
+  onSetSpotlight: (id: string) => void;
+}) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -37,6 +42,18 @@ function VideoCard({ v, onDelete }: { v: VideoRow; onDelete: (id: string, title:
         >
           {expanded ? "Hide" : "Preview"}
         </button>
+        {v.is_spotlight ? (
+          <span style={{ padding: "4px 10px", borderRadius: 6, background: "rgba(251,191,36,0.15)", color: "#fbbf24", fontSize: "0.7rem", fontWeight: 700, whiteSpace: "nowrap" }}>
+            ★ Spotlight
+          </span>
+        ) : (
+          <button
+            onClick={() => onSetSpotlight(v.id)}
+            style={{ padding: "4px 10px", borderRadius: 6, border: "1px solid rgba(251,191,36,0.3)", background: "none", color: "#fbbf24", fontSize: "0.7rem", cursor: "pointer", whiteSpace: "nowrap" }}
+          >
+            ★ Set Spotlight
+          </button>
+        )}
         <button
           onClick={() => onDelete(v.id, v.title, v.storage_path)}
           style={{ padding: "5px 10px", borderRadius: 6, border: "1px solid rgba(239,68,68,0.3)", background: "rgba(239,68,68,0.1)", color: "#f87171", fontSize: "0.72rem", fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap" }}
@@ -72,6 +89,7 @@ function VideoCard({ v, onDelete }: { v: VideoRow; onDelete: (id: string, title:
 // ── Videos Tab ────────────────────────────────────────────────────────────────
 export function VideosTab() {
   const deleteVideo = useAdminDeleteVideo();
+  const setSpotlight = useAdminSetSpotlight();
   const [videos, setVideos] = useState<VideoRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [confirmDelete, setConfirmDelete] = useState<{ id: string; title: string; storagePath?: string | null } | null>(null);
@@ -79,7 +97,7 @@ export function VideosTab() {
   useEffect(() => {
     supabase
       .from("videos")
-      .select("id, title, embed_url, storage_path, created_at, profiles!creator_id(display_name)")
+      .select("id, title, embed_url, storage_path, is_spotlight, created_at, profiles!creator_id(display_name)")
       .order("created_at", { ascending: false })
       .then(async ({ data }) => {
         const enriched = await Promise.all((data ?? []).map(async (v: typeof data[0]) => {
@@ -105,6 +123,15 @@ export function VideosTab() {
     }
   }
 
+  async function handleSetSpotlight(videoId: string) {
+    try {
+      await setSpotlight.mutateAsync(videoId);
+      setVideos(vs => vs.map(v => ({ ...v, is_spotlight: v.id === videoId })));
+    } catch (err: unknown) {
+      alert((err as Error).message ?? "Failed to set spotlight.");
+    }
+  }
+
   if (loading) return <div style={{ padding: 20, color: "var(--text-secondary)", fontSize: "0.82rem" }}>Loading…</div>;
 
   return (
@@ -117,7 +144,12 @@ export function VideosTab() {
       </h3>
       {videos.length === 0 && <p style={{ fontSize: "0.82rem", color: "var(--text-secondary)" }}>No videos yet.</p>}
       {videos.map(v => (
-        <VideoCard key={v.id} v={v} onDelete={(id, title, sp) => setConfirmDelete({ id, title, storagePath: sp })} />
+        <VideoCard
+          key={v.id}
+          v={v}
+          onDelete={(id, title, sp) => setConfirmDelete({ id, title, storagePath: sp })}
+          onSetSpotlight={handleSetSpotlight}
+        />
       ))}
       {confirmDelete && (
         <ConfirmModal
