@@ -932,7 +932,7 @@
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.65);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   font-family: inherit;
@@ -1089,7 +1089,7 @@
 /* ── Light mode overrides ── */
 [data-theme="light"] .lp-mock-appbar { background: #F5F5F7; border-bottom-color: #D1D1D6; }
 [data-theme="light"] .lp-mock-appbar-title { color: #1C1C1E; }
-[data-theme="light"] .lp-mock-tab { color: rgba(0,0,0,0.35); }
+[data-theme="light"] .lp-mock-tab { color: rgba(0,0,0,0.6); }
 [data-theme="light"] .lp-mock-tab--active { color: #7C3AED; border-bottom-color: #7C3AED; }
 [data-theme="light"] .lp-mock-book-grid { background: #C8C0DC; border-color: #C8C0DC; }
 [data-theme="light"] .lp-mock-testament { background: #C8C0DC; color: #1C1C1E; }
@@ -1097,11 +1097,11 @@
 [data-theme="light"] .lp-mock-tile--done { background: #D4C8EC; }
 [data-theme="light"] .lp-mock-tile--expanded { background: #F0EBFA; }
 [data-theme="light"] .lp-mock-tile-name { color: #1C1C1E; }
-[data-theme="light"] .lp-mock-tile-count { color: #6B5CA0; }
+[data-theme="light"] .lp-mock-tile-count { color: #3D2D6B; }
 [data-theme="light"] .lp-mock-tile-check { background: #7C3AED; }
 [data-theme="light"] .lp-mock-tile-strip { background: rgba(0,0,0,0.07); }
 [data-theme="light"] .lp-mock-tile-strip-fill { background: #7C3AED; }
-[data-theme="light"] .lp-mock-ch { background: #EAE4F4; border-color: #C8B8E0; color: #7C5DC0; }
+[data-theme="light"] .lp-mock-ch { background: #EAE4F4; border-color: #C8B8E0; color: #5B3A97; }
 [data-theme="light"] .lp-mock-ch--done { background: #7C3AED; border-color: #7C3AED; color: #fff; }
 [data-theme="light"] .lp-mock-ch--partial { border-color: #7C3AED; color: #7C3AED; background: rgba(124,58,237,0.08); }
 
@@ -1124,7 +1124,7 @@
   color: var(--lp-muted);
 }
 
-.lp-phone-tab--active { color: #9F7AEA; }
+.lp-phone-tab--active { color: var(--lp-primary); }
 .lp-phone-tab--active svg { stroke: #9F7AEA; }
 
 /* Floating callout badge */

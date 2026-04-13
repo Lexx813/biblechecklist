@@ -217,6 +217,7 @@ export default function LandingPage({ onGetStarted, i18n }) {
         </div>
       </header>
 
+      <main>
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section className="lp-hero">
         <div className="lp-hero-inner">
@@ -612,6 +613,8 @@ export default function LandingPage({ onGetStarted, i18n }) {
       </section>
 
       {/* ── Footer ───────────────────────────────────────────────── */}
+      </main>
+
       <footer className="lp-footer">
         <div className="lp-footer-inner">
           <div className="lp-footer-brand">
