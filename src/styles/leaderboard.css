@@ -6,7 +6,7 @@
 }
 
 .lb-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-cormorant), Georgia, serif;
   font-style: italic;
   font-weight: 300;
   font-size: clamp(28px, 5vw, 44px);

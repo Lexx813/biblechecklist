@@ -17,7 +17,7 @@
 .mp-header-left { flex: 1; min-width: 0; }
 .mp-title {
   margin: 0 0 .2rem;
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-cormorant), Georgia, serif;
   font-style: italic;
   font-size: 1.75rem;
   font-weight: 300;

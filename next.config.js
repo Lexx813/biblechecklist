@@ -16,6 +16,11 @@ const nextConfig = {
   // Gzip/Brotli compression (already on by default; explicit for clarity)
   compress: true,
 
+  // Tree-shake common heavy packages to reduce polyfill surface
+  experimental: {
+    optimizePackageImports: ["@supabase/supabase-js", "lucide-react", "date-fns"],
+  },
+
   // Keep static exports working for Vercel
   trailingSlash: false,
 
