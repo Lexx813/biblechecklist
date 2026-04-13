@@ -19,7 +19,7 @@ const ChecklistInline     = lazy(() => import("./ChecklistPage"));
 import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import type { BlogPost } from "../api/blog";
-import { usePublishedVideos, useSignedVideoUrl } from "../hooks/useVideos";
+import { usePublishedVideos, useSignedVideoUrl, useSpotlightVideo } from "../hooks/useVideos";
 import { useTopThreads } from "../hooks/useForum";
 import { usePublicNotes, useToggleNoteLike } from "../hooks/useStudyNotes";
 import { formatDate, authorName, formatNum } from "../utils/formatters";
@@ -72,6 +72,44 @@ function HomeReelVideo({ storagePath, thumbnailUrl }: { storagePath: string; thu
       playsInline
       style={{ background: "#000" }}
     />
+  );
+}
+
+/** Renders the spotlight hero player — iframe for embed_url, <video> for storage. */
+function SpotlightPlayer({ video }: { video: { embed_url: string | null; storage_path: string | null; thumbnail_url: string | null; title: string } }) {
+  const { data: signedUrl } = useSignedVideoUrl(video.storage_path, !!video.storage_path && !video.embed_url);
+  if (video.embed_url) {
+    return (
+      <div style={{ position: "relative", paddingBottom: "56.25%", background: "#000", borderRadius: "0 0 10px 10px" }}>
+        <iframe
+          src={video.embed_url}
+          title={video.title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none", borderRadius: "0 0 10px 10px" }}
+        />
+      </div>
+    );
+  }
+  if (signedUrl) {
+    return (
+      <video
+        src={signedUrl}
+        poster={video.thumbnail_url ?? undefined}
+        controls
+        playsInline
+        preload="none"
+        style={{ width: "100%", display: "block", background: "#000", borderRadius: "0 0 10px 10px" }}
+      />
+    );
+  }
+  if (video.thumbnail_url) {
+    return <img src={video.thumbnail_url} alt={video.title} style={{ width: "100%", aspectRatio: "16/9", objectFit: "cover", display: "block", borderRadius: "0 0 10px 10px" }} />;
+  }
+  return (
+    <div style={{ aspectRatio: "16/9", background: "#111", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "0 0 10px 10px" }}>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(255,255,255,0.2)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    </div>
   );
 }
 
@@ -205,6 +243,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const posts = langPosts.length > 0 ? langPosts : enPosts;
   const postsLoading = langPostsLoading || (langPosts.length === 0 && enPostsLoading);
   const { data: recentVideos = [], isLoading: videosLoading } = usePublishedVideos();
+  const { data: spotlightVideo } = useSpotlightVideo();
+  const reelVideos = spotlightVideo
+    ? recentVideos.filter((v: { id: string }) => v.id !== spotlightVideo.id)
+    : recentVideos;
   const [reelIndex, setReelIndex] = useState(0);
   const reelTouchY = useRef(0);
   const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4, lang);
@@ -555,15 +597,49 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             )}
           </div>
 
+          {/* Spotlight video hero */}
+          {spotlightVideo && (
+            <div style={{ marginBottom: 20 }}>
+              <div className="hfeed-head">
+                <span className="hfeed-title">
+                  <span style={{ color: "#fbbf24", marginRight: 5 }}>★</span>
+                  Spotlight
+                </span>
+                <button className="hfeed-link" onClick={() => navigate("videos")}>View all →</button>
+              </div>
+              <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
+                <div style={{ padding: "10px 14px", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", gap: 8 }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div
+                      style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-primary)", cursor: "pointer", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+                      onClick={() => navigate("videos")}
+                    >
+                      {spotlightVideo.title}
+                    </div>
+                    {spotlightVideo.profiles?.display_name && (
+                      <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", marginTop: 2 }}>
+                        {spotlightVideo.profiles.display_name}
+                      </div>
+                    )}
+                  </div>
+                  <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "#fbbf24", background: "rgba(251,191,36,0.12)", padding: "2px 8px", borderRadius: 10, whiteSpace: "nowrap" }}>
+                    ★ SPOTLIGHT
+                  </span>
+                </div>
+                <SpotlightPlayer video={spotlightVideo} />
+              </div>
+            </div>
+          )}
+
           {/* Videos — TikTok-style reel embed */}
-          {(videosLoading || recentVideos.length > 0) && (
+          {(videosLoading || reelVideos.length > 0) && (
           <div className="home-video-section">
             <div className="hfeed-head">
               <button className="hfeed-title hfeed-title--link" onClick={() => navigate("videos")}>Videos</button>
               <button className="hfeed-link" onClick={() => navigate("videos")}>View all →</button>
             </div>
             {videosLoading ? <BlogSkeleton /> : (() => {
-              const vids = recentVideos;
+              const vids = reelVideos;
               const cur = vids[reelIndex];
               if (!cur) return null;
               const isPortrait = cur.embed_url?.includes("tiktok.com") ?? false;

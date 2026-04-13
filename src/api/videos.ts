@@ -41,6 +41,22 @@ export interface VideoDetail {
   profiles: { display_name: string | null; avatar_url: string | null } | null;
 }
 
+export interface SpotlightVideo {
+  id: string;
+  slug: string;
+  title: string;
+  description: string | null;
+  creator_id: string;
+  embed_url: string | null;
+  storage_path: string | null;
+  thumbnail_url: string | null;
+  duration_sec: number | null;
+  likes_count: number;
+  is_spotlight: boolean;
+  created_at: string;
+  profiles: { display_name: string | null; avatar_url: string | null } | null;
+}
+
 export interface VideoComment {
   id: string;
   video_id: string;
@@ -190,7 +206,7 @@ export const videosApi = {
     if (error) throw new Error(error.message);
   },
 
-  getSpotlight: async () => {
+  getSpotlight: async (): Promise<SpotlightVideo | null> => {
     const { data, error } = await supabase
       .from("videos")
       .select("id, slug, title, description, creator_id, embed_url, storage_path, thumbnail_url, duration_sec, likes_count, is_spotlight, created_at, profiles!creator_id(display_name, avatar_url)")
@@ -198,7 +214,7 @@ export const videosApi = {
       .eq("published", true)
       .maybeSingle();
     if (error) throw new Error(error.message);
-    return data ?? null;
+    return (data as unknown as SpotlightVideo) ?? null;
   },
 
   adminSetSpotlight: async (videoId: string) => {
