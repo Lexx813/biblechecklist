@@ -158,3 +158,22 @@ export function useAdminDeleteVideo() {
   });
 }
 
+export function useSpotlightVideo() {
+  return useQuery({
+    queryKey: ["videos", "spotlight"],
+    queryFn: videosApi.getSpotlight,
+    staleTime: 2 * 60 * 1000,
+  });
+}
+
+export function useAdminSetSpotlight() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (videoId: string) => videosApi.adminSetSpotlight(videoId),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["videos", "spotlight"] });
+      qc.invalidateQueries({ queryKey: ["videos", "published"] });
+    },
+  });
+}
+
