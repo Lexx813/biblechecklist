@@ -243,7 +243,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const posts = langPosts.length > 0 ? langPosts : enPosts;
   const postsLoading = langPostsLoading || (langPosts.length === 0 && enPostsLoading);
   const { data: recentVideos = [], isLoading: videosLoading } = usePublishedVideos();
-  const { data: spotlightVideo } = useSpotlightVideo();
+  const { data: spotlightVideo, isLoading: spotlightLoading } = useSpotlightVideo();
   const reelVideos = spotlightVideo
     ? recentVideos.filter((v: { id: string }) => v.id !== spotlightVideo.id)
     : recentVideos;
@@ -597,37 +597,49 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             )}
           </div>
 
-          {/* Spotlight video hero */}
-          {spotlightVideo && (
+          {/* Spotlight video hero — skeleton reserves space to prevent CLS */}
+          {(spotlightLoading || spotlightVideo) && (
             <div style={{ marginBottom: 20 }}>
               <div className="hfeed-head">
                 <span className="hfeed-title">
-                  <span style={{ color: "#fbbf24", marginRight: 5 }}>★</span>
+                  <span className="hspot-star" style={{ marginRight: 5 }}>★</span>
                   Spotlight
                 </span>
                 <button className="hfeed-link" onClick={() => navigate("videos")}>View all →</button>
               </div>
-              <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
-                <div style={{ padding: "10px 14px", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", gap: 8 }}>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div
-                      style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-primary)", cursor: "pointer", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
-                      onClick={() => navigate("videos")}
-                    >
-                      {spotlightVideo.title}
+              {spotlightLoading ? (
+                <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
+                  <div style={{ padding: "10px 14px", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", gap: 8 }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ height: 16, width: "60%", borderRadius: 6, background: "var(--skeleton-bg, rgba(124,58,237,0.08))", marginBottom: 6 }} />
+                      <div style={{ height: 11, width: "35%", borderRadius: 6, background: "var(--skeleton-bg, rgba(124,58,237,0.08))" }} />
                     </div>
-                    {spotlightVideo.profiles?.display_name && (
-                      <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", marginTop: 2 }}>
-                        {spotlightVideo.profiles.display_name}
-                      </div>
-                    )}
                   </div>
-                  <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "#fbbf24", background: "rgba(251,191,36,0.12)", padding: "2px 8px", borderRadius: 10, whiteSpace: "nowrap" }}>
-                    ★ SPOTLIGHT
-                  </span>
+                  <div style={{ aspectRatio: "16/9", background: "var(--skeleton-bg, rgba(124,58,237,0.08))" }} />
                 </div>
-                <SpotlightPlayer video={spotlightVideo} />
-              </div>
+              ) : spotlightVideo ? (
+                <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
+                  <div style={{ padding: "10px 14px", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", gap: 8 }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div
+                        style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-primary)", cursor: "pointer", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+                        onClick={() => navigate("videos")}
+                      >
+                        {spotlightVideo.title}
+                      </div>
+                      {spotlightVideo.profiles?.display_name && (
+                        <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", marginTop: 2 }}>
+                          {spotlightVideo.profiles.display_name}
+                        </div>
+                      )}
+                    </div>
+                    <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "#713f12", background: "#fbbf24", padding: "2px 8px", borderRadius: 10, whiteSpace: "nowrap" }}>
+                      ★ SPOTLIGHT
+                    </span>
+                  </div>
+                  <SpotlightPlayer video={spotlightVideo} />
+                </div>
+              ) : null}
             </div>
           )}
 

@@ -609,8 +609,13 @@
 
 /* #c084fc purple is ≈ 2.5:1 on white — fails AA. Use dark purple instead. */
 [data-theme="light"] .hfeed-link { color: #6d28d9; }
+[data-theme="light"] .hwidget-link { color: #6d28d9; }
 [data-theme="light"] .hblog-tag { color: #6d28d9; }
 [data-theme="light"] .hnote-passage { color: #6d28d9; background: rgba(109, 40, 217, 0.1); }
+
+/* Spotlight section star icon: amber on dark bg is fine; on light bg needs #92400e (~5.6:1) */
+.hspot-star { color: #fbbf24; }
+[data-theme="light"] .hspot-star { color: #92400e; }
 
 /* Like buttons use rgba(240,234,255,0.6) which is near-invisible on white */
 [data-theme="light"] .hnote-like-btn { color: rgba(30, 16, 53, 0.68); }

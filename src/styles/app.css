@@ -2186,7 +2186,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   .mobile-tabbar { display: flex; }
 }
 [data-theme="light"] .mobile-tabbar { background: rgba(255,255,255,0.96); border-top-color: rgba(124,58,237,0.12); }
-[data-theme="light"] .mobile-tabbar-item { color: rgba(30, 16, 53, 0.55); } /* ≥4.5:1 */
+[data-theme="light"] .mobile-tabbar-item { color: rgba(30, 16, 53, 0.65); } /* ≥4.5:1 */
 [data-theme="light"] .mobile-tabbar-item--active { color: #7c3aed; }
 
 /* ── Anonymous tracker (logged-out /try) ────────────────────────── */
