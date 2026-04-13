@@ -2218,6 +2218,7 @@ export type Database = {
           thumbnail_url: string | null
           published: boolean
           likes_count: number
+          is_spotlight: boolean
           created_at: string
         }
         Insert: {
@@ -2232,6 +2233,7 @@ export type Database = {
           thumbnail_url?: string | null
           published?: boolean
           likes_count?: number
+          is_spotlight?: boolean
           created_at?: string
         }
         Update: {
@@ -2246,6 +2248,7 @@ export type Database = {
           thumbnail_url?: string | null
           published?: boolean
           likes_count?: number
+          is_spotlight?: boolean
           created_at?: string
         }
         Relationships: []
