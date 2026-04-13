@@ -84,12 +84,15 @@
   background: none; border: none;
   color: var(--text-muted);
   cursor: pointer; padding: 8px 12px 8px 4px;
+  min-width: 44px; min-height: 44px;
   opacity: 0; transition: opacity var(--dur-fast), color var(--dur-fast);
-  display: flex; align-items: center;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-xs);
 }
 .notif-delete-btn svg { width: 18px; height: 18px; }
 .notif-item:hover .notif-delete-btn { opacity: 1; }
 .notif-delete-btn:hover { color: #e53e3e; }
+.notif-delete-btn:focus-visible { outline: 2px solid var(--teal); outline-offset: 1px; opacity: 1; }
 
 .notif-actor-avatar {
   width: 32px; height: 32px; border-radius: 50%;
