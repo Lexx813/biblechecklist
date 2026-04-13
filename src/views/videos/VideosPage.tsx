@@ -132,8 +132,6 @@ function ReelItem({ video, liked, isActive, onLike, onExpand, onComment, onShare
     const v = videoRef.current;
     if (!v) return;
     if (isActive) {
-      // Kick off loading (needed when preload="none") then play
-      if (v.readyState === 0) v.load();
       v.play().catch(() => {/* autoplay blocked — user can tap to play */});
     } else {
       v.pause();
@@ -141,8 +139,8 @@ function ReelItem({ video, liked, isActive, onLike, onExpand, onComment, onShare
     }
   }, [isActive, signedUrl]);
 
-  // Also trigger play via onCanPlay in case the effect fires before the video
-  // element is ready to play (e.g. first load or src change).
+  // onCanPlay fires when browser has buffered enough to start — most reliable
+  // autoplay trigger, especially on slower connections.
   function handleCanPlay() {
     if (isActive) videoRef.current?.play().catch(() => {});
   }
@@ -203,7 +201,8 @@ function ReelItem({ video, liked, isActive, onLike, onExpand, onComment, onShare
           className="reel-video"
           src={signedUrl}
           poster={video.thumbnail_url ?? undefined}
-          preload="none"
+          preload="auto"
+          autoPlay
           loop
           playsInline
           muted
