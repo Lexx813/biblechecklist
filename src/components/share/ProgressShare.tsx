@@ -1,7 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import "../../styles/progress-share.css";
+
+const VideoPreview = lazy(() => import("./VideoPreview"));
 
 function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
   ctx.beginPath();
@@ -191,10 +193,11 @@ interface Props {
 export default function ProgressShare({ stats, onClose, userId }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { t } = useTranslation();
+  const [tab, setTab] = useState<"card" | "video">("card");
 
   useEffect(() => {
-    if (canvasRef.current) draw(canvasRef.current, stats, t);
-  }, [stats, t]);
+    if (tab === "card" && canvasRef.current) draw(canvasRef.current, stats, t);
+  }, [stats, t, tab]);
 
   const download = () => {
     const a = document.createElement("a");
@@ -235,25 +238,55 @@ export default function ProgressShare({ stats, onClose, userId }: Props) {
           <span className="share-modal-title">{t("share.title")}</span>
           <button className="share-modal-close" onClick={onClose} aria-label="Close">✕</button>
         </div>
-        <div className="share-canvas-wrap">
-          <canvas ref={canvasRef} className="share-canvas" />
-        </div>
-        <div className="share-modal-actions">
-          {"share" in navigator ? (
-            <button className="share-download-btn" onClick={webShare}>
-              ↗ {t("share.shareBtn")}
-            </button>
-          ) : null}
-          {userId && (
-            <button id="ps-copy-btn" className="share-download-btn" onClick={copyLink}>
-              🔗 Copy link
-            </button>
-          )}
-          <button className="share-download-btn" onClick={download} style={{ background: "rgba(255,255,255,0.08)" }}>
-            ⬇ {t("share.download")}
+
+        {/* Tab switcher */}
+        <div className="share-tabs">
+          <button
+            className={`share-tab${tab === "card" ? " share-tab--active" : ""}`}
+            onClick={() => setTab("card")}
+          >
+            🖼 Progress Card
           </button>
-          <p className="share-hint">{t("share.hint")}</p>
+          <button
+            className={`share-tab${tab === "video" ? " share-tab--active" : ""}`}
+            onClick={() => setTab("video")}
+          >
+            🎬 Animated Video
+          </button>
         </div>
+
+        {tab === "card" ? (
+          <>
+            <div className="share-canvas-wrap">
+              <canvas ref={canvasRef} className="share-canvas" />
+            </div>
+            <div className="share-modal-actions">
+              {"share" in navigator ? (
+                <button className="share-download-btn" onClick={webShare}>
+                  ↗ {t("share.shareBtn")}
+                </button>
+              ) : null}
+              {userId && (
+                <button id="ps-copy-btn" className="share-download-btn" onClick={copyLink}>
+                  🔗 Copy link
+                </button>
+              )}
+              <button className="share-download-btn" onClick={download} style={{ background: "rgba(255,255,255,0.08)" }}>
+                ⬇ {t("share.download")}
+              </button>
+              <p className="share-hint">{t("share.hint")}</p>
+            </div>
+          </>
+        ) : (
+          <Suspense fallback={
+            <div className="vp-loading">
+              <div className="vp-spinner" />
+              <span>Loading video player…</span>
+            </div>
+          }>
+            <VideoPreview userId={userId} />
+          </Suspense>
+        )}
       </div>
     </div>,
     document.body

@@ -72,11 +72,37 @@ const CONFIGS = {
       "Post inspiring videos to the JW Study community reel. Paste a YouTube or TikTok link, or upload your own MP4/MOV/WebM file (up to 50 MB). Videos are auto-compressed and appear instantly in the community reel.",
     durationSec: 40,
   },
+  quiz: {
+    compositionId: "QuizPromo",
+    outFile: "quiz-promo.mp4",
+    thumbnailFile: "quiz-promo-thumb.jpg",
+    thumbnailFrame: 540,   // badge earned screen — most visually striking
+    slug: "bible-knowledge-quiz-promo",
+    storageName: "quiz-promo.mp4",
+    thumbnailName: "quiz-promo-thumb.jpg",
+    title: "Bible Knowledge Quiz — Test Your Scripture Knowledge",
+    description:
+      "Challenge yourself with 12 themed Bible knowledge levels. Answer questions drawn from the NWT and Watch Tower publications, earn badges as you pass each level, and track your best scores. Free for all JW Study members.",
+    durationSec: 40,
+  },
+  tracker: {
+    compositionId: "BibleTrackerPromo",
+    outFile: "bible-tracker-promo.mp4",
+    thumbnailFile: "bible-tracker-promo-thumb.jpg",
+    thumbnailFrame: 800,   // stats card — progress + streak visible
+    slug: "nwt-bible-reading-tracker-promo",
+    storageName: "bible-tracker-promo.mp4",
+    thumbnailName: "bible-tracker-promo-thumb.jpg",
+    title: "NWT Bible Reading Tracker — Track Every Chapter",
+    description:
+      "Track your progress through all 66 books and 1,189 chapters of the New World Translation. Mark chapters as you read, build daily reading streaks, and share a beautiful progress card with friends and family.",
+    durationSec: 40,
+  },
 };
 
 const cfg = CONFIGS[mode];
 if (!cfg) {
-  console.error(`Unknown mode "${mode}". Use: ai | uploader`);
+  console.error(`Unknown mode "${mode}". Use: ai | uploader | quiz | tracker`);
   process.exit(1);
 }
 
