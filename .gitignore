@@ -26,6 +26,12 @@ tsconfig.tsbuildinfo
 memory/
 skills-lock.json
 
+# Remotion render output
+out/
+
+# Downloaded system packages
+*.deb
+
 # Supabase temp files
 supabase/.temp/
 
