@@ -254,8 +254,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     </Page>
   );
   else if (nav.page === "blogDash") {
-    if (!profileLoading && profile && !profile.can_blog && !profile.is_admin) navigate("blog");
-    else if (!profile || profile.can_blog || profile.is_admin) pageContent = <Page><BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+    pageContent = <Page><BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   }
   else if (nav.page === "forum") pageContent = (
     <Page>

@@ -591,7 +591,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
         <nav className="blog-nav">
           <div className="blog-nav-left" />
           <div className="blog-nav-right">
-            {(profile?.can_blog || profile?.is_admin) && (
+            {user && (
               <button className="blog-write-btn" onClick={onWriteClick}>{t("blog.myPosts")}</button>
             )}
           </div>
