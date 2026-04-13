@@ -64,7 +64,7 @@ const KNOWN_SPA_ROUTES = new Set([
   "invite", "leaderboard", "login", "main", "meeting-prep", "messages",
   "notifications", "premium", "privacy", "profile", "quiz", "reading-plans",
   "referral", "search", "settings", "signup", "study-notes", "study-topics",
-  "terms", "try", "upgrade", "user",
+  "terms", "try", "upgrade", "user", "videos",
 ]);
 
 export default async function Page({ params }) {
