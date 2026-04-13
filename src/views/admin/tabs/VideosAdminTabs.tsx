@@ -26,40 +26,40 @@ function VideoCard({ v, onDelete, onSetSpotlight }: {
 
   return (
     <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 10, marginBottom: 10, overflow: "hidden" }}>
-      <div style={{ padding: "10px 12px", display: "flex", alignItems: "center", gap: 10 }}>
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-primary)" }}>{v.title}</div>
-          <div style={{ fontSize: "0.68rem", color: "var(--text-secondary)", marginTop: 2 }}>
-            {v.profiles?.display_name ?? "Unknown"} · {formatDate(v.created_at)}
-            {v.embed_url && (
-              <> · <a href={v.embed_url} target="_blank" rel="noopener noreferrer" style={{ color: "#a78bfa" }}>open ↗</a></>
-            )}
-          </div>
+      <div style={{ padding: "10px 12px" }}>
+        <div style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--text-primary)", marginBottom: 2 }}>{v.title}</div>
+        <div style={{ fontSize: "0.68rem", color: "var(--text-secondary)", marginBottom: 8 }}>
+          {v.profiles?.display_name ?? "Unknown"} · {formatDate(v.created_at)}
+          {v.embed_url && (
+            <> · <a href={v.embed_url} target="_blank" rel="noopener noreferrer" style={{ color: "#a78bfa" }}>open ↗</a></>
+          )}
         </div>
-        <button
-          onClick={() => setExpanded(e => !e)}
-          style={{ padding: "4px 10px", borderRadius: 6, border: "1px solid var(--border)", background: "none", color: "var(--text-secondary)", fontSize: "0.7rem", cursor: "pointer", whiteSpace: "nowrap" }}
-        >
-          {expanded ? "Hide" : "Preview"}
-        </button>
-        {v.is_spotlight ? (
-          <span style={{ padding: "4px 10px", borderRadius: 6, background: "rgba(251,191,36,0.15)", color: "#fbbf24", fontSize: "0.7rem", fontWeight: 700, whiteSpace: "nowrap" }}>
-            ★ Spotlight
-          </span>
-        ) : (
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
           <button
-            onClick={() => onSetSpotlight(v.id)}
-            style={{ padding: "4px 10px", borderRadius: 6, border: "1px solid rgba(251,191,36,0.3)", background: "none", color: "#fbbf24", fontSize: "0.7rem", cursor: "pointer", whiteSpace: "nowrap" }}
+            onClick={() => setExpanded(e => !e)}
+            style={{ padding: "4px 10px", borderRadius: 6, border: "1px solid var(--border)", background: "none", color: "var(--text-secondary)", fontSize: "0.7rem", cursor: "pointer", whiteSpace: "nowrap" }}
           >
-            ★ Set Spotlight
+            {expanded ? "Hide" : "Preview"}
           </button>
-        )}
-        <button
-          onClick={() => onDelete(v.id, v.title, v.storage_path)}
-          style={{ padding: "5px 10px", borderRadius: 6, border: "1px solid rgba(239,68,68,0.3)", background: "rgba(239,68,68,0.1)", color: "#f87171", fontSize: "0.72rem", fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap" }}
-        >
-          Delete
-        </button>
+          {v.is_spotlight ? (
+            <span style={{ padding: "4px 10px", borderRadius: 6, background: "rgba(251,191,36,0.15)", color: "#fbbf24", fontSize: "0.7rem", fontWeight: 700, whiteSpace: "nowrap" }}>
+              ★ Spotlight
+            </span>
+          ) : (
+            <button
+              onClick={() => onSetSpotlight(v.id)}
+              style={{ padding: "4px 10px", borderRadius: 6, border: "1px solid rgba(251,191,36,0.3)", background: "none", color: "#fbbf24", fontSize: "0.7rem", cursor: "pointer", whiteSpace: "nowrap" }}
+            >
+              ★ Set Spotlight
+            </button>
+          )}
+          <button
+            onClick={() => onDelete(v.id, v.title, v.storage_path)}
+            style={{ padding: "4px 10px", borderRadius: 6, border: "1px solid rgba(239,68,68,0.3)", background: "rgba(239,68,68,0.1)", color: "#f87171", fontSize: "0.72rem", fontWeight: 700, cursor: "pointer", whiteSpace: "nowrap" }}
+          >
+            Delete
+          </button>
+        </div>
       </div>
       {expanded && (
         <div style={{ borderTop: "1px solid var(--border)" }}>
