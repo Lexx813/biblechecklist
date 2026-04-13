@@ -78,7 +78,8 @@ export const followsApi = {
       .from("user_follows")
       .select("follower_id, profiles!follower_id(id, display_name, avatar_url)")
       .eq("following_id", userId)
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .limit(500);
     if (error) throw new Error(error.message);
     return (data ?? []).map(r => r.profiles).filter(Boolean);
   },
@@ -88,7 +89,8 @@ export const followsApi = {
       .from("user_follows")
       .select("following_id, profiles!following_id(id, display_name, avatar_url)")
       .eq("follower_id", userId)
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .limit(500);
     if (error) throw new Error(error.message);
     return (data ?? []).map(r => r.profiles).filter(Boolean);
   },

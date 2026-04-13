@@ -5,8 +5,11 @@ export function buildBlockedSet(
 ): Set<string> {
   const set = new Set<string>();
   for (const row of rows) {
-    const other = row.blocker_id === myId ? row.blocked_id : row.blocker_id;
-    set.add(other);
+    if (row.blocker_id === myId) {
+      set.add(row.blocked_id);
+    } else if (row.blocked_id === myId) {
+      set.add(row.blocker_id);
+    }
   }
   return set;
 }

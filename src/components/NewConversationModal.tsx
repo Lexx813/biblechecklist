@@ -15,8 +15,7 @@ export function NewConversationModal({ userId, isPremium, onClose, navigate, onU
   const [search, setSearch] = useState("");
   const { data: rawFriends } = useFriends(userId);
   const friends: FriendProfile[] = (rawFriends as FriendProfile[] | undefined) ?? [];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getOrCreate = useGetOrCreateDM() as any;
+  const getOrCreate = useGetOrCreateDM();
 
   const filtered = friends.filter((f: FriendProfile) =>
     !search || f.display_name?.toLowerCase().includes(search.toLowerCase())

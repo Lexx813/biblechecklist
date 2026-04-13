@@ -1,5 +1,47 @@
 import { supabase } from "../lib/supabase";
 
+export interface AdminBlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  published: boolean;
+  created_at: string;
+  author_id: string;
+  profiles: { display_name: string | null } | null;
+}
+
+export interface AdminForumThread {
+  id: string;
+  title: string;
+  created_at: string;
+  author_id: string;
+  pinned: boolean;
+  locked: boolean;
+  category_id: string | null;
+  forum_replies: { count: number }[];
+  profiles: { display_name: string | null } | null;
+}
+
+export interface AdminComment {
+  id: string;
+  content: string;
+  created_at: string;
+  post_id: string;
+  author_id: string;
+  profiles: { display_name: string | null } | null;
+  blog_posts: { title: string; slug: string } | null;
+}
+
+export interface AdminAuditEntry {
+  id: string;
+  action: string;
+  target_id: string | null;
+  target_email: string | null;
+  metadata: Record<string, unknown> | null;
+  created_at: string;
+  actor: { display_name: string | null; email: string | null } | null;
+}
+
 export const adminApi = {
   getProfile: async (userId: string) => {
     const { data, error } = await supabase
@@ -15,7 +57,8 @@ export const adminApi = {
     const { data, error } = await supabase
       .from("profiles")
       .select("id, email, display_name, is_admin, is_moderator, can_blog, is_banned, created_at, subscription_status, stripe_subscription_id")
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .limit(1000);
     if (error) throw new Error(error.message);
     return data ?? [];
   },
@@ -81,14 +124,14 @@ export const adminApi = {
     if (error) throw new Error(error.message);
   },
 
-  listAllComments: async () => {
+  listAllComments: async (): Promise<AdminComment[]> => {
     const { data, error } = await supabase
       .from("blog_comments")
       .select("id, content, created_at, post_id, author_id, profiles!author_id(display_name), blog_posts!post_id(title, slug)")
       .order("created_at", { ascending: false })
       .limit(500);
     if (error) throw new Error(error.message);
-    return data ?? [];
+    return (data ?? []) as unknown as AdminComment[];
   },
 
   getQuizStats: async () => {
@@ -99,23 +142,23 @@ export const adminApi = {
     return data ?? [];
   },
 
-  listAllBlogPosts: async () => {
+  listAllBlogPosts: async (): Promise<AdminBlogPost[]> => {
     const { data, error } = await supabase
       .from("blog_posts")
       .select("id, title, slug, published, created_at, author_id, profiles!author_id(display_name)")
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
-    return data ?? [];
+    return (data ?? []) as unknown as AdminBlogPost[];
   },
 
-  listAllForumThreads: async () => {
+  listAllForumThreads: async (): Promise<AdminForumThread[]> => {
     const { data, error } = await supabase
       .from("forum_threads")
       .select("id, title, created_at, author_id, pinned, locked, category_id, forum_replies(count), profiles!author_id(display_name)")
       .order("created_at", { ascending: false })
       .limit(200);
     if (error) throw new Error(error.message);
-    return data ?? [];
+    return (data ?? []) as unknown as AdminForumThread[];
   },
 
   createUser: async (email: string, password: string) => {
@@ -124,13 +167,13 @@ export const adminApi = {
     return data;
   },
 
-  listAuditLog: async ({ limit = 100, offset = 0 }: { limit?: number; offset?: number } = {}) => {
+  listAuditLog: async ({ limit = 100, offset = 0 }: { limit?: number; offset?: number } = {}): Promise<AdminAuditEntry[]> => {
     const { data, error } = await supabase
       .from("admin_audit_log")
       .select("id, action, target_id, target_email, metadata, created_at, actor:actor_id(display_name, email)")
       .order("created_at", { ascending: false })
       .range(offset, offset + limit - 1);
     if (error) throw new Error(error.message);
-    return data ?? [];
+    return (data ?? []) as unknown as AdminAuditEntry[];
   },
 };

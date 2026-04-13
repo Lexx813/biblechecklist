@@ -2,6 +2,7 @@ import { useState, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOKS } from "../../data/books";
 import { useSearch, useSemanticSearch } from "../../hooks/useSearch";
+import type { SearchPost, SearchThread, SearchUser, SearchVerse } from "../../api/search";
 import AppLayout from "../../components/AppLayout";
 import "../../styles/search.css";
 
@@ -49,10 +50,10 @@ export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMo
       );
   }, [debouncedQuery, t]);
 
-  const posts: any[] = (results as any)?.posts ?? [];
-  const threads: any[] = (results as any)?.threads ?? [];
-  const users: any[] = (results as any)?.users ?? [];
-  const semanticVerses: any[] = (semantic as any)?.verses ?? [];
+  const posts: SearchPost[] = results?.posts ?? [];
+  const threads: SearchThread[] = results?.threads ?? [];
+  const users: SearchUser[] = results?.users ?? [];
+  const semanticVerses: SearchVerse[] = semantic?.verses ?? [];
   const hasResults = bookResults.length > 0 || posts.length > 0 || threads.length > 0 || semanticVerses.length > 0 || users.length > 0;
   const isTyping = debouncedQuery.trim().length >= 2;
 

@@ -10,7 +10,7 @@ interface Props {
   navigate: (page: string, params?: Record<string, unknown>) => void;
   darkMode?: boolean;
   setDarkMode?: (v: boolean) => void;
-  i18n?: any;
+  i18n?: { language?: string };
   onLogout?: (() => void) | null;
   onUpgrade?: () => void;
   currentPage?: string;
@@ -27,11 +27,11 @@ export default function CreatorRequestPage({ user, onBack, navigate, ...sharedNa
   const { data: profile } = useFullProfile(user?.id);
   const { data: existingRequest, isLoading } = useMyCreatorRequest(user?.id);
   const submitRequest = useSubmitCreatorRequest(user?.id);
-  const [displayName, setDisplayName] = useState((profile as any)?.display_name ?? "");
+  const [displayName, setDisplayName] = useState(profile?.display_name ?? "");
   const [topicDesc, setTopicDesc] = useState("");
   const [sampleUrl, setSampleUrl] = useState("");
 
-  if (!isLoading && (profile as any)?.is_approved_creator) {
+  if (!isLoading && profile?.is_approved_creator) {
     navigate("videos");
     return null;
   }
@@ -55,8 +55,8 @@ export default function CreatorRequestPage({ user, onBack, navigate, ...sharedNa
           <div className="creator-request-title">Apply to Upload Videos</div>
           <div className="creator-request-sub">Approved creators can post YouTube/TikTok/Rumble embeds and MP4 uploads. All videos are reviewed before appearing in the feed.</div>
           {existingRequest ? (
-            <div className={`creator-request-status ${(existingRequest as any).status}`}>
-              {STATUS_LABELS[(existingRequest as any).status] ?? (existingRequest as any).status}
+            <div className={`creator-request-status ${existingRequest.status}`}>
+              {STATUS_LABELS[existingRequest.status] ?? existingRequest.status}
             </div>
           ) : (
             <form onSubmit={handleSubmit}>

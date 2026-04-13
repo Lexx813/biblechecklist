@@ -385,9 +385,9 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
           <FloatingChat
             user={user}
             navigate={navigate}
-            initialConvId={(nav as any).conversationId ?? null}
-            initialConvName={(nav as any).otherDisplayName ?? null}
-            initialConvAvatar={(nav as any).otherAvatarUrl ?? null}
+            initialConvId={null}
+            initialConvName={null}
+            initialConvAvatar={null}
           />
         </Suspense>
       )}
@@ -475,7 +475,7 @@ export default function AuthedApp({ onShowLanding, i18n }) {
     return (
       <ErrorBoundary>
         <Suspense fallback={<LoadingSpinner />}>
-          <InviteLandingPage token={(publicNav as any).token} navigate={(page) => { history.pushState(null, "", "/" + page); }} />
+          <InviteLandingPage token={publicNav.token} navigate={(page) => { history.pushState(null, "", "/" + page); }} />
         </Suspense>
       </ErrorBoundary>
     );

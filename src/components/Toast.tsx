@@ -32,7 +32,7 @@ export default function Toast() {
     <div className="toast-stack" aria-live="polite" role="status">
       {toasts.map(t => (
         <div key={t.id} className={`toast toast--${t.type || "success"}`}>
-          <span className="toast-icon">{(ICONS as any)[t.type ?? "success"] ?? ICONS.success}</span>
+          <span className="toast-icon">{ICONS[(t.type ?? "success") as keyof typeof ICONS] ?? ICONS.success}</span>
           <span className="toast-msg">{t.message}</span>
         </div>
       ))}

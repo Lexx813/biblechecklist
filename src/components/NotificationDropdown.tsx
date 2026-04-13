@@ -76,7 +76,7 @@ export default function NotificationDropdown({ userId, onClose, navigate }: Prop
     if (n.link_hash) navigate(n.link_hash);
   }
 
-  const unreadCount = (notifications as any[]).filter((n) => !n.read).length;
+  const unreadCount = notifications.filter((n) => !n.read).length;
 
   return (
     <>
@@ -108,7 +108,7 @@ export default function NotificationDropdown({ userId, onClose, navigate }: Prop
           {notifications.length === 0 ? (
             <div className="notif-empty">No notifications yet</div>
           ) : (
-            (notifications as any[]).map((n) => (
+            notifications.map((n) => (
               <div
                 key={n.id}
                 className={`notif-item${!n.read ? " unread" : ""}`}

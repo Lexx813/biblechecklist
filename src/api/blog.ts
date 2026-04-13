@@ -1,6 +1,23 @@
 import { supabase } from "../lib/supabase";
 import { assertNoPII } from "../lib/pii";
 
+export interface BlogPostTranslation { title?: string; excerpt?: string }
+
+export interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  cover_url: string | null;
+  published: boolean;
+  created_at: string;
+  author_id: string;
+  like_count: number;
+  lang: string | null;
+  translations: Record<string, BlogPostTranslation> | null;
+  profiles: { display_name: string | null; avatar_url: string | null } | null;
+}
+
 interface BlogPostInput {
   title: string;
   excerpt?: string;
@@ -22,7 +39,7 @@ const generateSlug = (title: string): string =>
     .replace(/\s+/g, "-") + "-" + Date.now().toString(36);
 
 export const blogApi = {
-  listPublished: async (lang: string | null = null) => {
+  listPublished: async (lang: string | null = null): Promise<BlogPost[]> => {
     let q = supabase
       .from("blog_posts")
       .select("id, title, slug, excerpt, cover_url, published, created_at, author_id, like_count, translations, lang, profiles!author_id(display_name, avatar_url)")
@@ -30,9 +47,9 @@ export const blogApi = {
       .order("created_at", { ascending: false });
     const { data, error } = await q;
     if (error) throw new Error(error.message);
-    const rows = data ?? [];
+    const rows = (data ?? []) as unknown as BlogPost[];
     if (!lang) return rows;
-    const inLang = rows.filter((p: any) => p.lang === lang || (p.translations && p.translations[lang]));
+    const inLang = rows.filter(p => p.lang === lang || (p.translations && p.translations[lang]));
     return inLang.length > 0 ? inLang : rows;
   },
 
