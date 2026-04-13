@@ -87,7 +87,7 @@
   opacity: 0; transition: opacity var(--dur-fast), color var(--dur-fast);
   display: flex; align-items: center;
 }
-.notif-delete-btn svg { width: 13px; height: 13px; }
+.notif-delete-btn svg { width: 18px; height: 18px; }
 .notif-item:hover .notif-delete-btn { opacity: 1; }
 .notif-delete-btn:hover { color: #e53e3e; }
 

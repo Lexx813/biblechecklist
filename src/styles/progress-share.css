@@ -45,6 +45,7 @@
   transition: color var(--dur-fast), background var(--dur-fast);
 }
 .share-modal-close:hover { color: var(--text-primary); background: var(--teal-light); }
+.share-modal-close:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
 
 .share-canvas-wrap {
   overflow-y: auto;

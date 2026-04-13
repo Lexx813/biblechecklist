@@ -57,11 +57,11 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   background: #22c55e;
   border-radius: 50%;
-  border: 1.5px solid #0d0a1a;
+  border: 2px solid #0d0a1a;
 }
 .rp-friend-name {
   font-size: 12px;
