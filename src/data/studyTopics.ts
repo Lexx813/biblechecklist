@@ -114,6 +114,158 @@ export const STUDY_TOPICS = [
   },
 
   {
+    id: "holy-spirit-not-a-person",
+    slug: "holy-spirit-not-a-person",
+    icon: "💨",
+    title: "Holy Spirit Is Not a Person — Key Verses",
+    subtitle: "Scriptural proof that the holy spirit is God's active force, not a person",
+    sections: [
+      {
+        heading: "The Holy Spirit Is Poured Out and Filled",
+        paragraphs: [
+          "A person cannot be poured out, divided into portions, or used to fill people — but the holy spirit can. At Pentecost, 'they were all filled with holy spirit.' (Acts 2:4) God promised through Joel: 'I will pour out some of my spirit on every sort of flesh.' (Acts 2:17) You pour out a force or a substance, not a person.",
+          "Jesus told his disciples they would 'be baptized in holy spirit.' (Acts 1:5) People are immersed in water, not in a person. These expressions — filled with, poured out, baptized in — consistently describe the holy spirit as a force, not an individual.",
+        ],
+        scriptures: [
+          { ref: "Acts 2:4", text: "They were all filled with holy spirit and started to speak in different languages." },
+          { ref: "Acts 2:17", text: "I will pour out some of my spirit on every sort of flesh." },
+          { ref: "Acts 1:5", text: "You will be baptized in holy spirit not many days after this." },
+          { ref: "Acts 10:38", text: "God anointed him with holy spirit and power." },
+          { ref: "Luke 11:13", text: "The Father in heaven will give holy spirit to those asking him!" },
+        ],
+      },
+      {
+        heading: "No Name, No Seat, No Identity",
+        paragraphs: [
+          "Jehovah has a name. Jesus has a name. If the holy spirit were a co-equal person of a triune God, it would also have a personal name — yet none is given anywhere in Scripture. In Revelation's vision of the throne, the Father is on the throne and the Lamb (Jesus) is beside him — there is no third person represented. (Revelation 7:10)",
+          "At Jesus' baptism, the holy spirit appeared as a dove — not as a person. (Matthew 3:16) When Stephen was about to die, 'he gazed into heaven and caught sight of God's glory and of Jesus standing at God's right hand.' (Acts 7:55) He saw two persons — the Father and the Son. No third person was visible.",
+        ],
+        scriptures: [
+          { ref: "Matthew 3:16", text: "After being baptized, Jesus immediately came up from the water; and the heavens were opened up, and he saw God's spirit descending like a dove." },
+          { ref: "Acts 7:55-56", text: "He gazed into heaven and caught sight of God's glory and of Jesus standing at God's right hand." },
+          { ref: "Revelation 7:10", text: "Salvation we owe to our God, who is seated on the throne, and to the Lamb." },
+          { ref: "1 Timothy 2:5", text: "There is one God, and one mediator between God and men, a man, Christ Jesus." },
+        ],
+      },
+      {
+        heading: "A Force That Can Be Apportioned",
+        paragraphs: [
+          "Numbers 11:25 describes how Jehovah 'took away some of the spirit that was on him [Moses] and put it on each of the 70 elders.' A person cannot be split into 70 portions. Elisha asked for 'two parts' of Elijah's spirit. (2 Kings 2:9) The holy spirit operates in measures and degrees — language that applies to energy or force, not personality.",
+          "Paul wrote that spiritual gifts are 'the work of one and the same spirit, distributing to each person individually just as it wills.' (1 Corinthians 12:11) The spirit distributes according to God's will. It is the instrument of God's purpose, not an independent mind making separate decisions.",
+        ],
+        scriptures: [
+          { ref: "Numbers 11:25", text: "Jehovah took away some of the spirit that was on him and put it on each of the 70 elders." },
+          { ref: "2 Kings 2:9", text: "Please, may two parts of your spirit come to me." },
+          { ref: "1 Corinthians 12:11", text: "All of these are the work of one and the same spirit, distributing to each person individually just as it wills." },
+          { ref: "Nehemiah 9:20", text: "You gave your good spirit to instruct them." },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: "trinity-is-false",
+    slug: "trinity-is-false",
+    icon: "📖",
+    title: "The Trinity Is Not Biblical — Key Verses",
+    subtitle: "Scripture consistently distinguishes the Father from the Son — the Trinity doctrine has no Bible basis",
+    sections: [
+      {
+        heading: "Jesus and the Father Are Separate Persons",
+        paragraphs: [
+          "Jesus consistently spoke of himself as subordinate to his Father. He said plainly: 'The Father is greater than I am.' (John 14:28) If they were co-equal, this statement would be false. Jesus also said: 'I am going to my Father and your Father and to my God and your God.' (John 20:17) Jesus called the Father 'my God' — proving the Father held a higher position.",
+          "At Gethsemane, Jesus prayed: 'Father, if you want to, remove this cup from me. Nevertheless, let, not my will, but yours take place.' (Luke 22:42) Two separate wills — the Father's and the Son's — cannot exist within one being. This prayer only makes sense if they are distinct persons.",
+        ],
+        scriptures: [
+          { ref: "John 14:28", text: "The Father is greater than I am." },
+          { ref: "John 20:17", text: "I am ascending to my Father and your Father and to my God and your God." },
+          { ref: "Luke 22:42", text: "Father, if you want to, remove this cup from me. Nevertheless, let, not my will, but yours take place." },
+          { ref: "Mark 13:32", text: "Concerning that day or the hour nobody knows, neither the angels in heaven nor the Son, but only the Father." },
+          { ref: "John 17:3", text: "This means everlasting life, their coming to know you, the only true God, and the one whom you sent, Jesus Christ." },
+        ],
+      },
+      {
+        heading: "One God — the Father",
+        paragraphs: [
+          "The Bible never uses the word 'Trinity.' The Shema of Israel declares: 'Listen, O Israel: Jehovah our God is one Jehovah.' (Deuteronomy 6:4) Paul reaffirmed: 'There is actually to us one God, the Father, from whom all things are, and we for him; and there is one Lord, Jesus Christ, through whom all things are.' (1 Corinthians 8:6) God and Lord are named separately — the Father is God; Jesus is Lord.",
+          "Jesus himself identified the Father as the 'only true God.' (John 17:3) The word 'only' excludes any other person from that title — including Jesus himself. If Jesus were part of a triune God, calling the Father the 'only true God' would exclude himself from deity.",
+        ],
+        scriptures: [
+          { ref: "Deuteronomy 6:4", text: "Listen, O Israel: Jehovah our God is one Jehovah." },
+          { ref: "1 Corinthians 8:6", text: "There is actually to us one God, the Father… and there is one Lord, Jesus Christ." },
+          { ref: "John 17:3", text: "Their coming to know you, the only true God, and the one whom you sent, Jesus Christ." },
+          { ref: "1 Timothy 2:5", text: "There is one God, and one mediator between God and men, a man, Christ Jesus." },
+          { ref: "Malachi 2:10", text: "Do we not all have one father? Is it not one God who created us?" },
+        ],
+      },
+      {
+        heading: "Jesus Was Created — Not Co-Eternal",
+        paragraphs: [
+          "The Bible calls Jesus 'the firstborn of all creation' (Colossians 1:15) and 'the beginning of the creation by God.' (Revelation 3:14) These titles indicate Jesus had a beginning. He was the first being Jehovah created, and then 'by means of him all other things were created.' (Colossians 1:16) Jesus is supreme among creation — but still part of it.",
+          "Proverbs 8:22-30 personifies wisdom as saying: 'Jehovah produced me as the beginning of his way, the earliest of his achievements of long ago.' This passage, understood as foreshadowing Christ, shows that the Son was brought forth before anything else existed — not that he always existed alongside the Father.",
+        ],
+        scriptures: [
+          { ref: "Colossians 1:15", text: "He is the image of the invisible God, the firstborn of all creation." },
+          { ref: "Revelation 3:14", text: "The Amen, the faithful and true witness, the beginning of the creation by God." },
+          { ref: "Proverbs 8:22", text: "Jehovah produced me as the beginning of his way, the earliest of his achievements of long ago." },
+          { ref: "Proverbs 8:30", text: "I was beside him as a master worker, and I was the one he was especially fond of day after day." },
+          { ref: "Micah 5:2", text: "His origin is from ancient times, from the days of long ago." },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: "angel-of-the-lord-michael",
+    slug: "angel-of-the-lord-michael",
+    icon: "⚔️",
+    title: "The Angel of the Lord Is Michael — Key Verses",
+    subtitle: "Scriptural evidence connecting the angel of Jehovah, Michael the archangel, and Jesus Christ",
+    sections: [
+      {
+        heading: "Michael — The Chief Prince Who Defends God's People",
+        paragraphs: [
+          "Michael is identified as 'one of the foremost princes' who came to help Daniel's angelic messenger. (Daniel 10:13) He is later called 'the great prince who is standing in behalf of your people.' (Daniel 12:1) His role is that of a warrior-prince who champions Jehovah's cause and defends God's chosen ones — a role that perfectly matches the prehuman Jesus.",
+          "Jude 9 identifies Michael as 'the archangel' — the chief angel. Since Scripture names only one archangel, and since the resurrected Jesus 'descends from heaven with a commanding call, with an archangel's voice' (1 Thessalonians 4:16), the connection is clear: Jesus holds the archangel position — he is Michael.",
+        ],
+        scriptures: [
+          { ref: "Daniel 10:13", text: "But Michael, one of the foremost princes, came to help me." },
+          { ref: "Daniel 12:1", text: "During that time Michael will stand up, the great prince who is standing in behalf of your people." },
+          { ref: "Jude 9", text: "When Michael the archangel had a dispute with the Devil and was arguing about Moses' body." },
+          { ref: "1 Thessalonians 4:16", text: "The Lord himself will descend from heaven with a commanding call, with an archangel's voice." },
+        ],
+      },
+      {
+        heading: "Michael Leads Heaven's Army — So Does Jesus",
+        paragraphs: [
+          "Revelation 12:7-9 describes the decisive heavenly war: 'Michael and his angels battled with the dragon, and the dragon and its angels battled.' The dragon — Satan — was hurled down to earth. Elsewhere in Revelation, it is Jesus Christ who is the conquering King riding a white horse, leading the armies of heaven. (Revelation 19:11-16) The commander of heaven's armies in both passages is the same person.",
+          "Jesus told his disciples: 'I saw Satan already fallen like lightning from heaven.' (Luke 10:18) This is consistent with Michael casting Satan out. Before coming to earth, Jesus existed as a mighty spirit being — 'the firstborn of all creation.' (Colossians 1:15) His prehuman name in heaven was Michael; his earthly name, given at birth, is Jesus.",
+        ],
+        scriptures: [
+          { ref: "Revelation 12:7-9", text: "Michael and his angels battled with the dragon… the great dragon was hurled down, the original serpent." },
+          { ref: "Revelation 19:14-16", text: "The armies in heaven were following him on white horses… he has a name written, King of kings and Lord of lords." },
+          { ref: "Luke 10:18", text: "I saw Satan already fallen like lightning from heaven." },
+          { ref: "Colossians 1:15-16", text: "He is the image of the invisible God, the firstborn of all creation." },
+        ],
+      },
+      {
+        heading: "The Angel of Jehovah — A Prehuman Christ",
+        paragraphs: [
+          "Throughout the Hebrew Scriptures, 'the angel of Jehovah' appears as God's chief representative — not merely one of many angels, but a singular figure who speaks with divine authority. He appeared to Moses in the burning bush (Exodus 3:2), guided Israel through the wilderness (Exodus 23:20-21), and blocked Balaam's path to protect God's people. (Numbers 22:22-35)",
+          "God said of this angel: 'My name is in him.' (Exodus 23:21) This angel carried Jehovah's authority in a unique way. Paul identified the spiritual rock that accompanied Israel as Christ. (1 Corinthians 10:4) The angel of Jehovah who led and protected Israel was the prehuman Jesus — Michael — serving as Jehovah's primary agent long before his birth in Bethlehem.",
+        ],
+        scriptures: [
+          { ref: "Exodus 3:2", text: "Then Jehovah's angel appeared to him in a flame of fire in the midst of a thornbush." },
+          { ref: "Exodus 23:20-21", text: "I am sending an angel ahead of you… pay attention to him… for my name is in him." },
+          { ref: "Numbers 22:22", text: "Jehovah's angel stationed himself in the road to resist him." },
+          { ref: "1 Corinthians 10:4", text: "They drank from the spiritual rock that followed them, and that rock meant the Christ." },
+          { ref: "Joshua 5:14", text: "I have come as prince of Jehovah's army." },
+        ],
+      },
+    ],
+  },
+
+  {
     id: "what-is-the-soul",
     slug: "what-is-the-soul",
     icon: "🌿",

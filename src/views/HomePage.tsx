@@ -334,11 +334,13 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
   const blogPreview = useMemo(() => {
     if (posts.length === 0) return [];
-    const newest = posts[0];
-    const byLikes = [...posts]
-      .filter(p => p.id !== newest.id)
-      .sort((a, b) => (b.like_count ?? 0) - (a.like_count ?? 0));
-    return [newest, ...byLikes].slice(0, 3);
+    // 2 newest posts + 1 most-liked (that isn't already shown)
+    const newest2 = posts.slice(0, 2);
+    const newest2Ids = new Set(newest2.map(p => p.id));
+    const mostLiked = [...posts]
+      .filter(p => !newest2Ids.has(p.id))
+      .sort((a, b) => (b.like_count ?? 0) - (a.like_count ?? 0))[0];
+    return mostLiked ? [...newest2, mostLiked] : newest2;
   }, [posts]);
 
   // Friends panel data
