@@ -10,6 +10,7 @@ export const config = { runtime: "edge" };
 
 const SUPABASE_URL  = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
+const AI_GATEWAY_KEY = process.env.AI_GATEWAY_API_KEY ?? "";
 const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY ?? "";
 const APP_ORIGIN    = (process.env.NEXT_PUBLIC_APP_URL ?? "https://nwtprogress.com").replace(/\/$/, "");
 
@@ -213,7 +214,8 @@ export default async function handler(req) {
   }
 
   // ── Guard ─────────────────────────────────────────────────────────────────
-  if (!ANTHROPIC_KEY) {
+  const useGateway = !!AI_GATEWAY_KEY;
+  if (!useGateway && !ANTHROPIC_KEY) {
     return new Response(
       JSON.stringify({ error: "AI service not configured." }),
       { status: 503, headers: { "Content-Type": "application/json" } }
@@ -240,16 +242,24 @@ export default async function handler(req) {
     return new Response("Last message must be from user", { status: 400 });
   }
 
-  // ── Call Claude with streaming ────────────────────────────────────────────
-  const claudeRes = await fetch("https://api.anthropic.com/v1/messages", {
+  // ── Call Claude with streaming (via AI Gateway when available) ─────────────
+  const apiURL = useGateway
+    ? "https://ai-gateway.vercel.sh/v1/messages"
+    : "https://api.anthropic.com/v1/messages";
+  const apiKey = useGateway ? AI_GATEWAY_KEY : ANTHROPIC_KEY;
+  const modelId = useGateway
+    ? "anthropic/claude-haiku-4-5-20251001"
+    : "claude-haiku-4-5-20251001";
+
+  const claudeRes = await fetch(apiURL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": ANTHROPIC_KEY,
+      "x-api-key": apiKey,
       "anthropic-version": "2023-06-01",
     },
     body: JSON.stringify({
-      model: "claude-haiku-4-5-20251001",
+      model: modelId,
       max_tokens: 800,
       stream: true,
       system: SYSTEM_PROMPT,
