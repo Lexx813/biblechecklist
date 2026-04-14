@@ -171,7 +171,7 @@ export default function ProfileHeader({
         </div>
 
         {/* Action buttons */}
-        <div className="mt-3 flex items-center gap-2 sm:mt-0">
+        <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-0">
           {isOwner ? (
             <Button
               variant="secondary"

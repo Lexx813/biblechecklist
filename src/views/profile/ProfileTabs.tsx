@@ -21,11 +21,11 @@ const VISITOR_TABS = [
 export default function ProfileTabs({ activeTab, onTabChange, isOwner }: Props) {
   const tabs = isOwner ? OWNER_TABS : VISITOR_TABS;
   return (
-    <div className="flex gap-0 border-b border-[var(--border)] bg-[var(--card-bg)]">
+    <div className="profile-tabs flex gap-0 overflow-x-auto border-b border-[var(--border)] bg-[var(--card-bg)]">
       {tabs.map(tab => (
         <button
           key={tab.key}
-          className={`relative flex-1 cursor-pointer border-none bg-transparent px-4 py-3 text-center text-[13px] font-bold transition-colors sm:flex-none sm:px-6 ${
+          className={`relative shrink-0 flex-1 cursor-pointer border-none bg-transparent px-3 py-3 text-center text-[13px] font-bold whitespace-nowrap transition-colors sm:px-6 ${
             activeTab === tab.key
               ? "text-[var(--accent)]"
               : "text-[var(--text-muted)] hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)]"
