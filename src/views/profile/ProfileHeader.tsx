@@ -56,7 +56,7 @@ function AvatarOverlap({
       loading="lazy"
     />
   ) : (
-    <span className="flex size-28 sm:size-36 items-center justify-center rounded-full bg-[var(--accent)] text-4xl font-extrabold text-white shadow-lg border-4 border-[var(--card-bg)]">
+    <span className="flex size-28 sm:size-36 items-center justify-center rounded-full bg-gradient-to-br from-[#7c3aed] to-[#a855f7] text-5xl font-extrabold text-white shadow-lg border-4 border-[var(--card-bg)]">
       {initial}
     </span>
   );
@@ -148,18 +148,18 @@ export default function ProfileHeader({
           <p className="mt-0.5 text-sm text-[var(--text-muted)]">
             <button
               type="button"
-              className="hover:underline"
+              className="cursor-pointer border-none bg-transparent p-0 font-[inherit] text-[inherit] hover:text-[var(--text-primary)] hover:underline"
               onClick={() => navigate("followers", { userId })}
             >
-              {counts?.followers ?? 0} {t("profile.followers", "followers")}
+              <span className="font-bold text-[var(--text-primary)]">{counts?.followers ?? 0}</span> {t("profile.followers", "followers")}
             </button>
             {" \u00B7 "}
             <button
               type="button"
-              className="hover:underline"
+              className="cursor-pointer border-none bg-transparent p-0 font-[inherit] text-[inherit] hover:text-[var(--text-primary)] hover:underline"
               onClick={() => navigate("following", { userId })}
             >
-              {counts?.following ?? 0} {t("profile.following", "following")}
+              <span className="font-bold text-[var(--text-primary)]">{counts?.following ?? 0}</span> {t("profile.following", "following")}
             </button>
           </p>
 
