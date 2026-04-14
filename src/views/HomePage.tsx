@@ -592,28 +592,32 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             </button>
           )}
 
-          {/* Create post bar — Facebook-style */}
-          <div className={`${cardCls} flex items-center gap-3 p-3`}>
-            {profile?.avatar_url ? (
-              <img src={profile.avatar_url} alt="" className="size-10 shrink-0 rounded-full object-cover" />
-            ) : (
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#7c3aed] to-[#a855f7] text-sm font-bold text-white">{initials}</div>
-            )}
-            <button
-              type="button"
-              className="flex-1 cursor-pointer rounded-full border border-[var(--border)] bg-[var(--bg)] px-4 py-2.5 text-left text-sm text-[var(--text-muted)] transition-colors hover:bg-[var(--hover-bg)]"
-              onClick={() => setShowPostModal(true)}
-            >
-              {t("posts.placeholder")}
-            </button>
-            <button
-              type="button"
-              className="flex size-9 cursor-pointer items-center justify-center rounded-full border-none bg-transparent text-green-400 transition-colors hover:bg-green-500/10"
-              onClick={() => setShowPostModal(true)}
-              title="Photo"
-            >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            </button>
+          {/* Create post bar */}
+          <div className="rounded-[var(--radius)] border border-[var(--border)] bg-[var(--card-bg)] p-4">
+            <div className="flex items-center gap-3">
+              {profile?.avatar_url ? (
+                <img src={profile.avatar_url} alt="" className="size-10 shrink-0 rounded-full object-cover" />
+              ) : (
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#7c3aed] to-[#a855f7] text-sm font-bold text-white">{initials}</div>
+              )}
+              <button
+                type="button"
+                className="flex-1 cursor-pointer rounded-full border-none bg-white/[0.08] px-4 py-2.5 text-left text-sm text-[var(--text-muted)] transition-colors hover:bg-white/[0.14] [html[data-theme=light]_&]:bg-gray-100 [html[data-theme=light]_&]:hover:bg-gray-200"
+                onClick={() => setShowPostModal(true)}
+              >
+                {t("posts.placeholder")}
+              </button>
+            </div>
+            <div className="mt-3 flex items-center border-t border-[var(--border)] pt-3">
+              <button
+                type="button"
+                className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg border-none bg-transparent py-1.5 text-sm font-semibold text-[var(--text-muted)] transition-colors hover:bg-white/[0.06] [html[data-theme=light]_&]:hover:bg-gray-100"
+                onClick={() => setShowPostModal(true)}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                Photo
+              </button>
+            </div>
           </div>
 
           {/* Posts Feed — merge friend posts + public feed, dedup & sort */}
