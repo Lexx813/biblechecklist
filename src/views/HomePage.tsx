@@ -26,7 +26,7 @@ import { formatDate, authorName, formatNum } from "../utils/formatters";
 import { BOOKS } from "../data/books";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
-import { useFriendPosts } from "../hooks/usePosts";
+import { useFriendPosts, usePublicFeed } from "../hooks/usePosts";
 import { useNotes } from "../hooks/useNotes";
 import { useUnreadMessageCount } from "../hooks/useMessages";
 import { useFriends, useFriendRequests } from "../hooks/useFriends";
@@ -273,6 +273,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { data: friends = [], isLoading: friendsLoading } = useFriends(user?.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
   const { data: friendPosts = [], isLoading: friendPostsLoading } = useFriendPosts(user?.id);
+  const { data: publicFeed = [] } = usePublicFeed();
   const { data: myNotes = [] } = useNotes(user?.id);
   const { onlineNow: whoOnline, recentlyActive: whoRecent, totalOnline, isLoading: whoLoading, isError: whoError } = useOnlineMembers(50);
   const whoMembers = [...whoOnline, ...whoRecent];
@@ -588,42 +589,58 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             </button>
           )}
 
-          {/* Friend Posts */}
-          {friendPosts.length > 0 && (
-            <div>
-              <div className={feedHeadCls}>
-                <span className={feedTitleCls}>Friend Posts</span>
-                <button className={feedLinkCls} onClick={() => navigate("feed")}>See all &rarr;</button>
-              </div>
-              <div className="flex flex-col gap-2">
-                {friendPosts.slice(0, 5).map((post: any) => {
-                  const author = post.profiles;
-                  const name = author?.display_name || "Someone";
-                  const initial = name[0].toUpperCase();
-                  return (
-                    <div
-                      key={post.id}
-                      className={`${cardCls} flex cursor-pointer gap-3 p-3.5`}
-                      onClick={() => navigate("publicProfile", { userId: post.user_id })}
-                    >
-                      {author?.avatar_url ? (
-                        <img src={author.avatar_url} alt="" className="size-9 shrink-0 rounded-full object-cover" loading="lazy" />
-                      ) : (
-                        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-sm font-bold text-white">{initial}</div>
-                      )}
-                      <div className="flex min-w-0 flex-1 flex-col">
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm font-bold text-[var(--text-primary)]">{name}</span>
-                          <span className="text-xs text-[var(--text-muted)]">{timeAgo(post.created_at)}</span>
+          {/* Posts Feed — merge friend posts + public feed, dedup & sort */}
+          {(() => {
+            const seen = new Set<string>();
+            const merged = [...friendPosts, ...publicFeed]
+              .filter((p: any) => { if (seen.has(p.id)) return false; seen.add(p.id); return true; })
+              .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+              .slice(0, 10);
+            if (merged.length === 0) return null;
+            return (
+              <div>
+                <div className={feedHeadCls}>
+                  <span className={feedTitleCls}>Posts</span>
+                </div>
+                <div className="flex flex-col gap-2">
+                  {merged.map((post: any) => {
+                    const author = post.profiles;
+                    const name = author?.display_name || "Someone";
+                    const initial = name[0].toUpperCase();
+                    return (
+                      <div
+                        key={post.id}
+                        className={`${cardCls} flex cursor-pointer gap-3 p-3.5`}
+                        onClick={() => navigate("publicProfile", { userId: post.user_id })}
+                      >
+                        {author?.avatar_url ? (
+                          <img src={author.avatar_url} alt="" className="size-9 shrink-0 rounded-full object-cover" loading="lazy" />
+                        ) : (
+                          <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-sm font-bold text-white">{initial}</div>
+                        )}
+                        <div className="flex min-w-0 flex-1 flex-col">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-bold text-[var(--text-primary)]">{name}</span>
+                            <span className="text-xs text-[var(--text-muted)]">{timeAgo(post.created_at)}</span>
+                            {post.visibility === "friends" && (
+                              <span className="inline-flex items-center gap-0.5 rounded-full bg-green-500/10 px-1.5 py-px text-[10px] font-semibold text-green-400">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                Friends
+                              </span>
+                            )}
+                          </div>
+                          <div className="mt-0.5 line-clamp-3 text-sm leading-relaxed text-[var(--text-secondary)]" dangerouslySetInnerHTML={{ __html: post.content }} />
+                          {post.image_url && (
+                            <img src={post.image_url} alt="" className="mt-2 max-h-40 w-full rounded-lg border border-[var(--border)] object-cover" loading="lazy" />
+                          )}
                         </div>
-                        <p className="mt-0.5 line-clamp-3 text-sm leading-relaxed text-[var(--text-secondary)]">{post.content}</p>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* Blog */}
           <div>
@@ -936,20 +953,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 <div className="h-2" />
               </>
             )}
-          </div>
-
-          {/* Invite Friends */}
-          <div className="flex min-h-0 items-center justify-between gap-3 overflow-hidden rounded-[var(--radius)] border border-brand-600/20 bg-gradient-to-br from-[rgba(92,61,153,0.15)] to-[rgba(74,45,128,0.08)] px-4 py-3.5">
-            <div className="flex min-w-0 items-center gap-2.5">
-              <span className="shrink-0 text-2xl">{"\uD83C\uDF81"}</span>
-              <div>
-                <div className="text-sm font-bold text-[var(--text-primary)]">Invite a Friend</div>
-                <div className="mt-px text-xs text-[var(--text-secondary)]">Share JW Study and study together</div>
-              </div>
-            </div>
-            <button className="shrink-0 cursor-pointer whitespace-nowrap rounded-[20px] border-none bg-[var(--teal)] px-3.5 py-[7px] text-xs font-bold text-white transition-opacity duration-150 hover:opacity-85" onClick={() => navigate("profile")}>
-              Get my link
-            </button>
           </div>
 
           {/* Who's Online */}

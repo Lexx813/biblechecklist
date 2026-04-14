@@ -62,11 +62,11 @@ function AvatarOverlap({
   );
 
   if (!isOwner) {
-    return <div className="-mt-16 sm:-mt-20 shrink-0">{avatarContent}</div>;
+    return <div className="shrink-0">{avatarContent}</div>;
   }
 
   return (
-    <div className="-mt-16 sm:-mt-20 shrink-0">
+    <div className="shrink-0">
       <button
         type="button"
         className="group relative cursor-pointer rounded-full"
@@ -134,9 +134,13 @@ export default function ProfileHeader({
   /* ── Render ── */
 
   return (
-    <div className="overflow-visible rounded-b-[var(--radius)] border border-t-0 border-[var(--border)] bg-[var(--card-bg)] px-5 pb-5 sm:px-8">
+    <div className="relative -mt-20 overflow-visible rounded-b-[var(--radius)] px-5 pb-5 pt-20 sm:-mt-24 sm:px-8 sm:pt-24">
+      {/* Gradient fade from cover into card bg */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-transparent to-[var(--card-bg)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-24 bottom-0 bg-[var(--card-bg)]" />
+
       {/* Avatar row */}
-      <div className="flex items-end gap-4 sm:gap-6">
+      <div className="relative z-[1] flex items-end gap-4 sm:gap-6">
         <AvatarOverlap profile={profile} userId={userId} isOwner={isOwner} />
 
         {/* Name + counts beside avatar */}
@@ -171,13 +175,13 @@ export default function ProfileHeader({
 
       {/* Bio */}
       {profile?.bio && (
-        <p className="mt-3 max-w-[560px] text-sm leading-relaxed text-[var(--text-secondary)]">
+        <p className="relative z-1 mt-3 max-w-[560px] text-sm leading-relaxed text-[var(--text-secondary)]">
           {profile.bio}
         </p>
       )}
 
       {/* Action buttons — full width row below avatar */}
-      <div className="mt-4 flex flex-wrap items-center gap-2">
+      <div className="relative z-1 mt-4 flex flex-wrap items-center gap-2">
         {isOwner ? (
           <Button
             variant="secondary"

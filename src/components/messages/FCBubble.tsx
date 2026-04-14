@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { sanitizeContent } from "../../lib/e2e";
-import { Avatar, FCReactionPicker, FCVerseCard, FCImageCard, FCPlanCard, FCPrayerCard, FCLinkPreviewCard } from "./ChatWidgets";
+import { Avatar, FCReactionPicker, FCVerseCard, FCImageCard, FCPlanCard, FCLinkPreviewCard } from "./ChatWidgets";
 import { groupReactions, formatTime, renderFormattedContent } from "./chatHelpers";
 
 interface Message {
@@ -91,7 +91,6 @@ export function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPrev
   const grouped = groupReactions(reactions, msg.id);
   const accentStyle = (accentColor ? { "--conv-accent": accentColor } : {}) as React.CSSProperties;
 
-  const isPrayer = msg.message_type === "prayer_request";
   const isVerse = msg.message_type === "verse";
   const isImage = msg.message_type === "image";
   const isPlan = msg.message_type === "reading_plan";
@@ -134,7 +133,7 @@ export function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPrev
                 <svg width="14" height="14" viewBox="0 0 24 24" fill={isStarred ? "goldenrod" : "none"} stroke={isStarred ? "goldenrod" : "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 {isStarred ? "Unstar" : "Star"}
               </button>
-              {isMine && !isPrayer && !isVerse && !isImage && !isPlan && (
+              {isMine && !isVerse && !isImage && !isPlan && (
                 <button className="fc-action-menu-item" onClick={() => { setEditing(true); setEditText(msg.content ?? ""); closeMenu(); }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                   Edit
@@ -152,9 +151,7 @@ export function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPrev
             </div>
           )}
 
-          {isPrayer ? (
-            <FCPrayerCard content={msg.content} isMine={isMine} />
-          ) : isVerse ? (
+          {isVerse ? (
             <FCVerseCard metadata={msg.metadata as Record<string, unknown> | null} isMine={isMine} />
           ) : isImage ? (
             <FCImageCard content={msg.content} metadata={msg.metadata as Record<string, unknown> | null} />
@@ -187,7 +184,7 @@ export function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPrev
           )}
         </div>
 
-        {preview && !isImage && !isVerse && !isPlan && !isPrayer && (
+        {preview && !isImage && !isVerse && !isPlan && (
           <FCLinkPreviewCard preview={preview} />
         )}
 

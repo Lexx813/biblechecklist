@@ -71,7 +71,6 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
       return until ? Date.now() >= Number(until) : true;
     } catch { return true; }
   });
-  const [isPrayerMode, setIsPrayerMode] = useState(false);
   const [pendingImageFile, setPendingImageFile] = useState<File | null>(null);
   const [sendError, setSendError] = useState<string | null>(null);
   const [failedPayload, setFailedPayload] = useState<Record<string, unknown> | null>(null);
@@ -107,7 +106,7 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
         messages.map(async (msg) => {
           const cacheKey = `${msg.id}:${msg.content}`;
           if (cache.has(cacheKey)) return { ...msg, content: cache.get(cacheKey) as string };
-          const decrypted = (msg.message_type === "text" || msg.message_type === "prayer_request") && sharedKey
+          const decrypted = msg.message_type === "text" && sharedKey
             ? await decryptMessage(msg.content ?? "", sharedKey)
             : msg.content?.startsWith("enc:") ? "[🔒 Encrypted message]" : msg.content;
           cache.set(cacheKey, decrypted ?? "");
@@ -176,12 +175,11 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
       recipientId: conv.other_user_id,
       content: toSend,
       replyToId: replyTo?.id ?? null,
-      messageType: isPrayerMode ? "prayer_request" : "text",
+      messageType: "text",
     };
     doSend(payload);
     setInput("");
     setReplyTo(null);
-    setIsPrayerMode(false);
     broadcastTyping(false);
     if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
     setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: "smooth" }), 50);
@@ -348,15 +346,6 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
             </div>
           ) : (
             <>
-              <button
-                type="button"
-                className={`fc-toolbar-btn${isPrayerMode ? " fc-toolbar-btn--active" : ""}`}
-                data-tip="Prayer Request"
-                aria-label="Prayer request"
-                onClick={() => setIsPrayerMode(v => !v)}
-              >
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-              </button>
               <button type="button" className="fc-toolbar-btn" data-tip="Share Bible Verse" aria-label="Share Bible verse" onClick={() => setShowVersePicker(true)}>
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
               </button>
@@ -396,8 +385,8 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
           </button>
           <input
             ref={inputRef}
-            className={`fc-input${isPrayerMode ? " fc-input--prayer" : ""}`}
-            placeholder={isPrayerMode ? "Share your prayer request…" : "Message…"}
+            className="fc-input"
+            placeholder="Message…"
             value={input}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
@@ -414,9 +403,6 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
           )}
         </form>
 
-        {isPrayerMode && (
-          <div className="fc-prayer-hint">🙏 Prayer request mode — your message will be highlighted for the recipient</div>
-        )}
       </div>
 
       {showVersePicker && <VersePicker onSend={sendVerse} onClose={() => setShowVersePicker(false)} />}
@@ -457,7 +443,6 @@ export function ConvList({ conversations, currentUserId, onSelect, onDelete, onl
           const preview = isSpecial
             ? conv.last_message_type === "verse" ? "📖 Bible verse"
             : conv.last_message_type === "image" ? "🖼 Image"
-            : conv.last_message_type === "prayer_request" ? "🙏 Prayer request"
             : conv.last_message_type === "reading_plan" ? "📅 Reading plan"
             : conv.last_message_content
             : conv.last_message_content?.startsWith("enc:")

@@ -2,15 +2,28 @@ import { supabase } from "../lib/supabase";
 import { assertNoPII } from "../lib/pii";
 
 export const postsApi = {
-  create: async (userId: string, content: string, visibility: "public" | "friends" = "public") => {
+  create: async (userId: string, content: string, visibility: "public" | "friends" = "public", imageUrl?: string) => {
     assertNoPII(content);
+    const row: Record<string, unknown> = { user_id: userId, content: content.trim(), visibility };
+    if (imageUrl) row.image_url = imageUrl;
     const { data, error } = await supabase
       .from("user_posts")
-      .insert({ user_id: userId, content: content.trim(), visibility })
+      .insert(row)
       .select()
       .single();
     if (error) throw new Error(error.message);
     return data;
+  },
+
+  uploadImage: async (userId: string, file: File): Promise<string> => {
+    const ext = file.name.split(".").pop() || "jpg";
+    const path = `${userId}/${Date.now()}.${ext}`;
+    const { error } = await supabase.storage
+      .from("post-images")
+      .upload(path, file, { contentType: file.type });
+    if (error) throw new Error(error.message);
+    const { data } = supabase.storage.from("post-images").getPublicUrl(path);
+    return data.publicUrl;
   },
 
   list: async (userId: string, limit = 30, publicOnly = false) => {
@@ -29,6 +42,17 @@ export const postsApi = {
   delete: async (postId: string) => {
     const { error } = await supabase.from("user_posts").delete().eq("id", postId);
     if (error) throw new Error(error.message);
+  },
+
+  listPublicFeed: async (limit = 20) => {
+    const { data, error } = await supabase
+      .from("user_posts")
+      .select("*, profiles:user_id(id, display_name, avatar_url)")
+      .eq("visibility", "public")
+      .order("created_at", { ascending: false })
+      .limit(limit);
+    if (error) throw new Error(error.message);
+    return data ?? [];
   },
 
   listFriendPosts: async (userId: string, limit = 10) => {

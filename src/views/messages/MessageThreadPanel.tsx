@@ -249,14 +249,6 @@ function MSGVerseCard({ metadata, isMine }: { metadata: any; isMine: boolean }) 
   );
 }
 
-function MSGPrayerCard({ content, isMine }: { content: string | null; isMine: boolean }) {
-  return (
-    <div className={`msg-prayer-card${isMine ? " msg-prayer-card--mine" : ""}`}>
-      <div className="msg-prayer-card-tag">🙏 Prayer Request</div>
-      <p className="msg-prayer-card-text">{content}</p>
-    </div>
-  );
-}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function MSGPlanCard({ metadata, isMine }: { metadata: any; isMine: boolean }) {
@@ -321,8 +313,6 @@ function MSGStarredPanel({ convId, userId, onClose }: { convId: string; userId: 
                 <span>📖 {(msg.metadata as Record<string, unknown>)?.ref as string}</span>
               ) : msg.message_type === "image" ? (
                 <span>🖼 Image</span>
-              ) : msg.message_type === "prayer_request" ? (
-                <span>🙏 {msg.content?.slice(0, 80)}</span>
               ) : (
                 <span>{msg.content?.slice(0, 80)}</span>
               )}
@@ -622,8 +612,6 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
             <MSGImageCard content={msg.content} metadata={msg.metadata} />
           ) : msg.message_type === "verse" ? (
             <MSGVerseCard metadata={msg.metadata} isMine={isMine} />
-          ) : msg.message_type === "prayer_request" ? (
-            <MSGPrayerCard content={msg.content} isMine={isMine} />
           ) : msg.message_type === "reading_plan" ? (
             <MSGPlanCard metadata={msg.metadata} isMine={isMine} />
           ) : (
@@ -724,7 +712,6 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
   const [isOtherTyping, setIsOtherTyping] = useState(false);
   const [isOtherOnline, setIsOtherOnline] = useState(false);
   const [otherLastSeen, setOtherLastSeen] = useState<string | null>(null);
-  const [isPrayerMode, setIsPrayerMode] = useState(false);
   const [showVersePicker, setShowVersePicker] = useState(false);
   const [showPlanPicker, setShowPlanPicker] = useState(false);
   const [pendingImageFile, setPendingImageFile] = useState<File | null>(null);
@@ -909,11 +896,10 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
       senderId: user.id,
       content: toSend,
       replyToId: replyTo?.id ?? null,
-      messageType: isPrayerMode ? "prayer_request" : "text",
+      messageType: "text",
     };
     doSend(payload);
     setInput("");
-    setIsPrayerMode(false);
     setReplyTo(null);
     broadcastTyping(false);
     if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
@@ -1109,12 +1095,6 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
             </div>
           ) : (
             <>
-              <button
-                type="button"
-                className={`msg-toolbar-btn${isPrayerMode ? " msg-toolbar-btn--active" : ""}`}
-                data-tip="Prayer Request"
-                onClick={() => setIsPrayerMode(v => !v)}
-              >🙏</button>
               <button type="button" className="msg-toolbar-btn" data-tip="Share Bible Verse" aria-label="Share Bible Verse" onClick={() => setShowVersePicker(true)}>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
               </button>
@@ -1131,7 +1111,6 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
           <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/gif,image/webp" style={{ display: "none" }} onChange={handleFileChange} />
         </div>
 
-        {isPrayerMode && <div className="msg-prayer-hint">🙏 Prayer request mode — your message will be highlighted</div>}
 
         <div className="msg-composer-row">
           <div className="msg-emoji-wrap" ref={emojiRef}>
@@ -1148,8 +1127,8 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
           </div>
           <textarea
             ref={inputRef}
-            className={`msg-input${isPrayerMode ? " msg-input--prayer" : ""}`}
-            placeholder={isPrayerMode ? "Share your prayer request…" : isEncrypted ? "🔒 Message (encrypted)…" : "Message…"}
+            className="msg-input"
+            placeholder={isEncrypted ? "🔒 Message (encrypted)…" : "Message…"}
             value={input}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}

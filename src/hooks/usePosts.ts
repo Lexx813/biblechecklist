@@ -13,12 +13,20 @@ export function useUserPosts(userId: string | undefined, publicOnly = false) {
 export function useCreatePost(userId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ content, visibility = "public" }: { content: string; visibility?: "public" | "friends" }) =>
-      postsApi.create(userId!, content, visibility),
+    mutationFn: ({ content, visibility = "public", imageUrl }: { content: string; visibility?: "public" | "friends"; imageUrl?: string }) =>
+      postsApi.create(userId!, content, visibility, imageUrl),
     onSuccess: (newPost) => {
       queryClient.setQueryData(["userPosts", userId], (prev: unknown[] = []) => [newPost, ...prev]);
       queryClient.invalidateQueries({ queryKey: ["activityFeed"] });
     },
+  });
+}
+
+export function usePublicFeed() {
+  return useQuery({
+    queryKey: ["publicFeed"],
+    queryFn: () => postsApi.listPublicFeed(20),
+    staleTime: 2 * 60_000,
   });
 }
 
