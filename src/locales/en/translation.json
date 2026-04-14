@@ -191,11 +191,11 @@
     "infoKeyVerses": "Key verses"
   },
   "posts": {
-    "sectionTitle": "Updates",
+    "sectionTitle": "Posts",
     "placeholder": "Share a thought with your followers…",
     "share": "Share",
-    "emptyOwner": "You haven't shared any updates yet.",
-    "emptyOther": "No updates yet."
+    "emptyOwner": "You haven't shared any posts yet.",
+    "emptyOther": "No posts yet."
   },
   "follow": {
     "follow": "Follow",

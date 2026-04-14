@@ -588,11 +588,11 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             </button>
           )}
 
-          {/* Friend Updates */}
+          {/* Friend Posts */}
           {friendPosts.length > 0 && (
             <div>
               <div className={feedHeadCls}>
-                <span className={feedTitleCls}>Friend Updates</span>
+                <span className={feedTitleCls}>Friend Posts</span>
                 <button className={feedLinkCls} onClick={() => navigate("feed")}>See all &rarr;</button>
               </div>
               <div className="flex flex-col gap-2">
