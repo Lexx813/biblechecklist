@@ -20,10 +20,11 @@ function InfoTip({ text }: { text: string }) {
 
 export default function PostsTab({ profileId, isOwner }: Props) {
   const { t } = useTranslation();
-  const { data: posts = [], isLoading } = useUserPosts(profileId);
+  const { data: posts = [], isLoading } = useUserPosts(profileId, !isOwner);
   const createPost = useCreatePost(profileId);
   const deletePost = useDeletePost(profileId);
   const [draft, setDraft] = useState("");
+  const [visibility, setVisibility] = useState<"public" | "friends">("public");
   const [showPostEmoji, setShowPostEmoji] = useState(false);
   const postRef = useRef<HTMLTextAreaElement>(null);
 
@@ -44,7 +45,7 @@ export default function PostsTab({ profileId, isOwner }: Props) {
     e.preventDefault();
     const trimmed = draft.trim();
     if (!trimmed || trimmed.length > MAX_POST) return;
-    createPost.mutate(trimmed, { onSuccess: () => setDraft("") });
+    createPost.mutate({ content: trimmed, visibility }, { onSuccess: () => { setDraft(""); setVisibility("public"); } });
   }
 
   function formatPostDate(iso: string) {
@@ -75,9 +76,28 @@ export default function PostsTab({ profileId, isOwner }: Props) {
             {showPostEmoji && <EmojiPickerPopup onSelect={insertPostEmoji} onClose={() => setShowPostEmoji(false)} align="right" />}
           </div>
           <div className="post-composer-footer">
-            <span className={`post-composer-count${draft.length > MAX_POST - 50 ? " post-composer-count--warn" : ""}`}>
-              {draft.length}/{MAX_POST}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className={`post-composer-count${draft.length > MAX_POST - 50 ? " post-composer-count--warn" : ""}`}>
+                {draft.length}/{MAX_POST}
+              </span>
+              <button
+                type="button"
+                className={`flex cursor-pointer items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-semibold transition-colors ${
+                  visibility === "public"
+                    ? "border-[var(--accent)]/30 bg-[var(--accent)]/10 text-[var(--accent)]"
+                    : "border-green-500/30 bg-green-500/10 text-green-400"
+                }`}
+                onClick={() => setVisibility(v => v === "public" ? "friends" : "public")}
+                title={visibility === "public" ? "Visible to everyone" : "Visible to friends only"}
+              >
+                {visibility === "public" ? (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                ) : (
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                )}
+                {visibility === "public" ? "Public" : "Friends"}
+              </button>
+            </div>
             <button
               className="post-composer-btn"
               type="submit"
@@ -107,7 +127,15 @@ export default function PostsTab({ profileId, isOwner }: Props) {
             <div key={post.id} className="post-card">
               <p className="post-card-content">{post.content}</p>
               <div className="post-card-footer">
-                <span className="post-card-date">{formatPostDate(post.created_at)}</span>
+                <span className="flex items-center gap-1.5">
+                  <span className="post-card-date">{formatPostDate(post.created_at)}</span>
+                  {post.visibility === "friends" && (
+                    <span className="inline-flex items-center gap-0.5 rounded-full bg-green-500/10 px-1.5 py-px text-[10px] font-semibold text-green-400" title="Friends only">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                      Friends
+                    </span>
+                  )}
+                </span>
                 {isOwner && (
                   <button
                     className="post-card-delete"

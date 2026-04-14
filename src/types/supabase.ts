@@ -2042,18 +2042,21 @@ export type Database = {
           created_at: string
           id: string
           user_id: string
+          visibility: string
         }
         Insert: {
           content: string
           created_at?: string
           id?: string
           user_id: string
+          visibility?: string
         }
         Update: {
           content?: string
           created_at?: string
           id?: string
           user_id?: string
+          visibility?: string
         }
         Relationships: [
           {

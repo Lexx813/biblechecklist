@@ -1,10 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { postsApi } from "../api/posts";
 
-export function useUserPosts(userId: string | undefined) {
+export function useUserPosts(userId: string | undefined, publicOnly = false) {
   return useQuery({
-    queryKey: ["userPosts", userId],
-    queryFn: () => postsApi.list(userId!),
+    queryKey: ["userPosts", userId, publicOnly],
+    queryFn: () => postsApi.list(userId!, 30, publicOnly),
     enabled: !!userId,
     staleTime: 5 * 60_000,
   });
@@ -13,7 +13,8 @@ export function useUserPosts(userId: string | undefined) {
 export function useCreatePost(userId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (content: string) => postsApi.create(userId!, content),
+    mutationFn: ({ content, visibility = "public" }: { content: string; visibility?: "public" | "friends" }) =>
+      postsApi.create(userId!, content, visibility),
     onSuccess: (newPost) => {
       queryClient.setQueryData(["userPosts", userId], (prev: unknown[] = []) => [newPost, ...prev]);
       queryClient.invalidateQueries({ queryKey: ["activityFeed"] });

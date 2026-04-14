@@ -2,24 +2,26 @@ import { supabase } from "../lib/supabase";
 import { assertNoPII } from "../lib/pii";
 
 export const postsApi = {
-  create: async (userId: string, content: string) => {
+  create: async (userId: string, content: string, visibility: "public" | "friends" = "public") => {
     assertNoPII(content);
     const { data, error } = await supabase
       .from("user_posts")
-      .insert({ user_id: userId, content: content.trim() })
+      .insert({ user_id: userId, content: content.trim(), visibility })
       .select()
       .single();
     if (error) throw new Error(error.message);
     return data;
   },
 
-  list: async (userId: string, limit = 30) => {
-    const { data, error } = await supabase
+  list: async (userId: string, limit = 30, publicOnly = false) => {
+    let query = supabase
       .from("user_posts")
       .select("*")
       .eq("user_id", userId)
       .order("created_at", { ascending: false })
       .limit(limit);
+    if (publicOnly) query = query.eq("visibility", "public");
+    const { data, error } = await query;
     if (error) throw new Error(error.message);
     return data ?? [];
   },
