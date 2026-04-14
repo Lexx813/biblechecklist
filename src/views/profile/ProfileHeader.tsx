@@ -148,7 +148,7 @@ export default function ProfileHeader({
           <p className="mt-0.5 text-sm text-[var(--text-muted)]">
             <button
               type="button"
-              className="cursor-pointer border-none bg-transparent p-0 font-[inherit] text-[inherit] hover:text-[var(--text-primary)] hover:underline"
+              className="cursor-pointer appearance-none border-0 bg-transparent p-0 font-[inherit] text-sm text-[var(--text-muted)] outline-none hover:text-[var(--text-primary)] hover:underline"
               onClick={() => navigate("followers", { userId })}
             >
               <span className="font-bold text-[var(--text-primary)]">{counts?.followers ?? 0}</span> {t("profile.followers", "followers")}
@@ -156,7 +156,7 @@ export default function ProfileHeader({
             {" \u00B7 "}
             <button
               type="button"
-              className="cursor-pointer border-none bg-transparent p-0 font-[inherit] text-[inherit] hover:text-[var(--text-primary)] hover:underline"
+              className="cursor-pointer appearance-none border-0 bg-transparent p-0 font-[inherit] text-sm text-[var(--text-muted)] outline-none hover:text-[var(--text-primary)] hover:underline"
               onClick={() => navigate("following", { userId })}
             >
               <span className="font-bold text-[var(--text-primary)]">{counts?.following ?? 0}</span> {t("profile.following", "following")}
@@ -165,7 +165,7 @@ export default function ProfileHeader({
 
           {profile?.created_at && (
             <p className="mt-0.5 text-xs text-[var(--text-muted)]">
-              {t("profile.memberSince", "Member since")} {formatDate(profile.created_at, "long")}
+              {t("profile.memberSince", { date: formatDate(profile.created_at, "long"), defaultValue: "Member since {{date}}" })}
             </p>
           )}
         </div>

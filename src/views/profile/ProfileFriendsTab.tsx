@@ -17,9 +17,10 @@ interface Props {
   navigate: (page: string, params?: Record<string, unknown>) => void;
   isPremium: boolean;
   onUpgrade?: () => void;
+  isOwner?: boolean;
 }
 
-export default function ProfileFriendsTab({ user, navigate, isPremium, onUpgrade }: Props) {
+export default function ProfileFriendsTab({ user, navigate, isPremium, onUpgrade, isOwner = true }: Props) {
   const { data: friendsData, isLoading } = useFriends(user.id);
   const friends: FriendProfile[] = (friendsData as FriendProfile[] | undefined) ?? [];
   const { data: token } = useInviteToken(user.id);
@@ -51,31 +52,35 @@ export default function ProfileFriendsTab({ user, navigate, isPremium, onUpgrade
 
   return (
     <div className="pf-section">
-      <button
-        className="pf-freq-btn"
-        onClick={() => navigate("friendRequests")}
-      >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-          <circle cx="9" cy="7" r="4"/>
-          <line x1="19" y1="8" x2="19" y2="14"/>
-          <line x1="22" y1="11" x2="16" y2="11"/>
-        </svg>
-        Friend Requests
-        {pendingCount > 0 && <span className="pf-freq-badge">{pendingCount}</span>}
-      </button>
+      {isOwner && (
+        <>
+          <button
+            className="pf-freq-btn"
+            onClick={() => navigate("friendRequests")}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <line x1="19" y1="8" x2="19" y2="14"/>
+              <line x1="22" y1="11" x2="16" y2="11"/>
+            </svg>
+            Friend Requests
+            {pendingCount > 0 && <span className="pf-freq-badge">{pendingCount}</span>}
+          </button>
 
-      <button
-        className={`pf-invite-btn${copied ? " pf-invite-btn--copied" : ""}`}
-        onClick={copyInviteLink}
-        disabled={!token}
-      >
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-        </svg>
-        {copied ? "Copied!" : "Copy Invite Link"}
-      </button>
+          <button
+            className={`pf-invite-btn${copied ? " pf-invite-btn--copied" : ""}`}
+            onClick={copyInviteLink}
+            disabled={!token}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+            {copied ? "Copied!" : "Copy Invite Link"}
+          </button>
+        </>
+      )}
 
       {isLoading && (
         <div className="pf-empty" style={{ padding: "24px 0" }}>Loading…</div>
@@ -109,14 +114,16 @@ export default function ProfileFriendsTab({ user, navigate, isPremium, onUpgrade
                   {lastActive && <div className="friend-last-active">Active {lastActive}</div>}
                 </div>
                 <div className="friend-actions">
-                  <button
-                    className="friend-action-btn"
-                    onClick={() => handleMessage(friend)}
-                    aria-label="Message"
-                    title="Message"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                  </button>
+                  {isOwner && (
+                    <button
+                      className="friend-action-btn"
+                      onClick={() => handleMessage(friend)}
+                      aria-label="Message"
+                      title="Message"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </button>
+                  )}
                   <button
                     className="friend-action-btn"
                     onClick={() => navigate("publicProfile", { userId: friend.id })}

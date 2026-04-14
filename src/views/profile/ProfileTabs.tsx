@@ -15,6 +15,7 @@ const OWNER_TABS = [
 const VISITOR_TABS = [
   { key: "posts", label: "Posts" },
   { key: "about", label: "About" },
+  { key: "friends", label: "Friends" },
   { key: "achievements", label: "Achievements" },
 ];
 
