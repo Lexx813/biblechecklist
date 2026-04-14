@@ -26,7 +26,8 @@ import { formatDate, authorName, formatNum } from "../utils/formatters";
 import { BOOKS } from "../data/books";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
-import { useFriendPosts, usePublicFeed } from "../hooks/usePosts";
+import { useFriendPosts, usePublicFeed, useCreatePost } from "../hooks/usePosts";
+import CreatePostModal from "../components/CreatePostModal";
 import { useNotes } from "../hooks/useNotes";
 import { useUnreadMessageCount } from "../hooks/useMessages";
 import { useFriends, useFriendRequests } from "../hooks/useFriends";
@@ -274,6 +275,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
   const { data: friendPosts = [], isLoading: friendPostsLoading } = useFriendPosts(user?.id);
   const { data: publicFeed = [] } = usePublicFeed();
+  const createPost = useCreatePost(user?.id);
+  const [showPostModal, setShowPostModal] = useState(false);
   const { data: myNotes = [] } = useNotes(user?.id);
   const { onlineNow: whoOnline, recentlyActive: whoRecent, totalOnline, isLoading: whoLoading, isError: whoError } = useOnlineMembers(50);
   const whoMembers = [...whoOnline, ...whoRecent];
@@ -589,6 +592,30 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             </button>
           )}
 
+          {/* Create post bar — Facebook-style */}
+          <div className={`${cardCls} flex items-center gap-3 p-3`}>
+            {profile?.avatar_url ? (
+              <img src={profile.avatar_url} alt="" className="size-10 shrink-0 rounded-full object-cover" />
+            ) : (
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#7c3aed] to-[#a855f7] text-sm font-bold text-white">{initials}</div>
+            )}
+            <button
+              type="button"
+              className="flex-1 cursor-pointer rounded-full border border-[var(--border)] bg-[var(--bg)] px-4 py-2.5 text-left text-sm text-[var(--text-muted)] transition-colors hover:bg-[var(--hover-bg)]"
+              onClick={() => setShowPostModal(true)}
+            >
+              {t("posts.placeholder")}
+            </button>
+            <button
+              type="button"
+              className="flex size-9 cursor-pointer items-center justify-center rounded-full border-none bg-transparent text-green-400 transition-colors hover:bg-green-500/10"
+              onClick={() => setShowPostModal(true)}
+              title="Photo"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </button>
+          </div>
+
           {/* Posts Feed — merge friend posts + public feed, dedup & sort */}
           {(() => {
             const seen = new Set<string>();
@@ -598,49 +625,80 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               .slice(0, 10);
             if (merged.length === 0) return null;
             return (
-              <div>
-                <div className={feedHeadCls}>
-                  <span className={feedTitleCls}>Posts</span>
-                </div>
-                <div className="flex flex-col gap-2">
-                  {merged.map((post: any) => {
-                    const author = post.profiles;
-                    const name = author?.display_name || "Someone";
-                    const initial = name[0].toUpperCase();
-                    return (
+              <div className="flex flex-col gap-3">
+                {merged.map((post: any) => {
+                  const author = post.profiles;
+                  const name = author?.display_name || "Someone";
+                  const initial = name[0].toUpperCase();
+                  return (
+                    <div key={post.id} className={`${cardCls} overflow-hidden`}>
+                      {/* Post header — avatar + name + time */}
                       <div
-                        key={post.id}
-                        className={`${cardCls} flex cursor-pointer gap-3 p-3.5`}
+                        className="flex cursor-pointer items-center gap-3 px-4 pt-3.5 pb-2"
                         onClick={() => navigate("publicProfile", { userId: post.user_id })}
                       >
                         {author?.avatar_url ? (
-                          <img src={author.avatar_url} alt="" className="size-9 shrink-0 rounded-full object-cover" loading="lazy" />
+                          <img src={author.avatar_url} alt="" className="size-10 shrink-0 rounded-full object-cover" loading="lazy" />
                         ) : (
-                          <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-sm font-bold text-white">{initial}</div>
+                          <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-sm font-bold text-white">{initial}</div>
                         )}
                         <div className="flex min-w-0 flex-1 flex-col">
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm font-bold text-[var(--text-primary)]">{name}</span>
-                            <span className="text-xs text-[var(--text-muted)]">{timeAgo(post.created_at)}</span>
-                            {post.visibility === "friends" && (
-                              <span className="inline-flex items-center gap-0.5 rounded-full bg-green-500/10 px-1.5 py-px text-[10px] font-semibold text-green-400">
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                                Friends
+                          <span className="text-sm font-bold text-[var(--text-primary)]">{name}</span>
+                          <span className="flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
+                            {timeAgo(post.created_at)}
+                            {post.visibility === "friends" ? (
+                              <span className="inline-flex items-center gap-0.5" title="Friends only">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-0.5" title="Public">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                               </span>
                             )}
-                          </div>
-                          <div className="mt-0.5 line-clamp-3 text-sm leading-relaxed text-[var(--text-secondary)]" dangerouslySetInnerHTML={{ __html: post.content }} />
-                          {post.image_url && (
-                            <img src={post.image_url} alt="" className="mt-2 max-h-40 w-full rounded-lg border border-[var(--border)] object-cover" loading="lazy" />
-                          )}
+                          </span>
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
+
+                      {/* Post content */}
+                      <div
+                        className="px-4 pb-3 text-sm leading-relaxed text-[var(--text-secondary)] [&_a]:text-[var(--accent)] [&_a]:underline [&_strong]:font-bold [&_strong]:text-[var(--text-primary)]"
+                        dangerouslySetInnerHTML={{ __html: post.content }}
+                      />
+
+                      {/* Post image — full width, no crop */}
+                      {post.image_url && (
+                        <div className="border-t border-[var(--border)] bg-black/20">
+                          <img
+                            src={post.image_url}
+                            alt=""
+                            className="w-full object-contain"
+                            style={{ maxHeight: 500 }}
+                            loading="lazy"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             );
           })()}
+
+          {/* Create post modal */}
+          {showPostModal && user && (
+            <CreatePostModal
+              onClose={() => setShowPostModal(false)}
+              onSubmit={(content, visibility, imageUrl) => {
+                createPost.mutate({ content, visibility, imageUrl }, {
+                  onSuccess: () => setShowPostModal(false),
+                });
+              }}
+              isPending={createPost.isPending}
+              userId={user.id}
+              avatarUrl={profile?.avatar_url}
+              displayName={displayName}
+            />
+          )}
 
           {/* Blog */}
           <div>

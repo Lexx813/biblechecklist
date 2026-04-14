@@ -18,6 +18,8 @@ export function useCreatePost(userId: string | undefined) {
     onSuccess: (newPost) => {
       queryClient.setQueryData(["userPosts", userId], (prev: unknown[] = []) => [newPost, ...prev]);
       queryClient.invalidateQueries({ queryKey: ["activityFeed"] });
+      queryClient.invalidateQueries({ queryKey: ["publicFeed"] });
+      queryClient.invalidateQueries({ queryKey: ["friendPosts"] });
     },
   });
 }
