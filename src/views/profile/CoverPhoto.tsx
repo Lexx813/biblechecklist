@@ -44,7 +44,7 @@ export default function CoverPhoto({
   }
 
   return (
-    <div className="relative h-[200px] w-full overflow-hidden sm:h-[260px]">
+    <div className="relative h-[200px] w-full overflow-hidden rounded-t-[var(--radius)] sm:h-[260px]">
       {/* Background: gradient or image */}
       {displayUrl ? (
         <img

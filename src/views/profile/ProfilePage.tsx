@@ -73,14 +73,12 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
     <div className="min-h-screen bg-[var(--bg)]">
       <div className="mx-auto max-w-[720px]">
         {/* Cover photo */}
-        <div className="overflow-hidden rounded-t-[var(--radius)]">
-          <CoverPhoto
-            coverUrl={profile?.cover_url ?? null}
-            userId={profileId}
-            isOwner={isOwner}
-            onSettingsClick={() => navigate("settings")}
-          />
-        </div>
+        <CoverPhoto
+          coverUrl={profile?.cover_url ?? null}
+          userId={profileId}
+          isOwner={isOwner}
+          onSettingsClick={() => navigate("settings")}
+        />
 
         {/* Profile header (avatar overlapping cover) */}
         <ProfileHeader
