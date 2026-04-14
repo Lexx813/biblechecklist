@@ -4,6 +4,8 @@ import { useLogin, useRegister, useResetPassword } from "../../hooks/useAuth";
 import { authApi } from "../../api/auth";
 import { friendsApi } from "../../api/friends";
 import { trackSignup, trackLogin } from "../../lib/analytics";
+import Button from "../../components/ui/Button";
+import Input, { Field } from "../../components/ui/Input";
 import "../../styles/auth.css";
 
 /* ── SVG icons ───────────────────────────────────────────────── */
@@ -138,6 +140,8 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
     }
   }
 
+  const errorMsg = fieldError || serverError;
+
   if (resetSent) {
     return (
       <div className="auth-wrap">
@@ -147,13 +151,13 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
             <h1 className="auth-title">{t("auth.resetSentTitle")}</h1>
             <p className="auth-subtitle">{t("auth.resetSentSubtitle", { email })}</p>
           </div>
-          <div style={{ padding: "24px", textAlign: "center" }}>
-            <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>
+          <div className="px-6 pb-6 text-center">
+            <p className="text-[13px] leading-relaxed text-[var(--text-secondary)]">
               {t("auth.resetSentBody")}
             </p>
-            <button className="auth-switch-btn" style={{ marginTop: 16, fontSize: 13 }} onClick={() => switchMode("login")}>
+            <Button variant="text" size="sm" className="mt-4" onClick={() => switchMode("login")}>
               {t("auth.backToLogin")}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -169,17 +173,13 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
             <h1 className="auth-title">{t("auth.checkEmailTitle")}</h1>
             <p className="auth-subtitle">{t("auth.checkEmailSubtitle", { email: confirmedEmail })}</p>
           </div>
-          <div style={{ padding: "24px", textAlign: "center" }}>
-            <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6 }}>
+          <div className="px-6 pb-6 text-center">
+            <p className="text-[13px] leading-relaxed text-[var(--text-secondary)]">
               {t("auth.checkEmailBody")}
             </p>
-            <button
-              className="auth-switch-btn"
-              style={{ marginTop: 16, fontSize: 13 }}
-              onClick={onConfirmDismiss}
-            >
+            <Button variant="text" size="sm" className="mt-4" onClick={onConfirmDismiss}>
               {t("auth.backToLogin")}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -190,7 +190,7 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
     return (
       <div className="auth-wrap">
         {onBack && (
-          <button className="back-btn" onClick={onBack}>{t("auth.back")}</button>
+          <Button variant="ghost" size="sm" className="back-btn" onClick={onBack}>{t("auth.back")}</Button>
         )}
         <div className="auth-card">
           <div className="auth-header">
@@ -199,24 +199,23 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
             <p className="auth-subtitle">{t("auth.forgotSubtitle")}</p>
           </div>
           <form className="auth-form" onSubmit={handleSubmit} noValidate>
-            <div className="auth-field">
-              <label className="auth-label" htmlFor="reset-email">{t("auth.emailLabel")}</label>
-              <input id="reset-email" className="auth-input" type="email" placeholder={t("auth.emailPlaceholder")}
+            <Field label={t("auth.emailLabel")} htmlFor="reset-email">
+              <Input id="reset-email" type="email" placeholder={t("auth.emailPlaceholder")}
                 value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" disabled={busy} autoFocus />
-            </div>
+            </Field>
 
-            {(fieldError || serverError) && (
-              <div className="auth-error">{fieldError || serverError}</div>
+            {errorMsg && (
+              <div className="auth-error">{errorMsg}</div>
             )}
 
-            <button className="auth-submit" type="submit" disabled={busy}>
-              {busy ? t("auth.submitLoading") : t("auth.resetSendBtn")}
-            </button>
+            <Button variant="primary" size="lg" className="w-full" type="submit" disabled={busy} loading={busy}>
+              {t("auth.resetSendBtn")}
+            </Button>
           </form>
           <p className="auth-switch">
-            <button type="button" className="auth-switch-btn" onClick={() => switchMode("login")}>
+            <Button variant="text" size="sm" onClick={() => switchMode("login")}>
               {t("auth.backToLogin")}
-            </button>
+            </Button>
           </p>
         </div>
       </div>
@@ -227,7 +226,7 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
     <div className="auth-wrap">
       <div className="auth-topbar">
         {onBack && (
-          <button className="back-btn" onClick={onBack}>{t("auth.back")}</button>
+          <Button variant="ghost" size="sm" className="back-btn" onClick={onBack}>{t("auth.back")}</Button>
         )}
         <button className="auth-theme-toggle" onClick={toggleDark} aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}>
           {darkMode ? <SunIcon /> : <MoonIcon />}
@@ -248,45 +247,41 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
         </div>
 
         <form className="auth-form" onSubmit={handleSubmit} noValidate>
-          <div className="auth-field">
-            <label className="auth-label" htmlFor="email">{t("auth.emailLabel")}</label>
-            <input id="email" className="auth-input" type="email" placeholder={t("auth.emailPlaceholder")}
+          <Field label={t("auth.emailLabel")} htmlFor="email">
+            <Input id="email" type="email" placeholder={t("auth.emailPlaceholder")}
               value={email} onChange={e => setEmail(e.target.value)}
               autoComplete={mode === "login" ? "username" : "email"} disabled={busy} />
-          </div>
+          </Field>
 
           {mode === "signup" && (
-            <div className="auth-field">
-              <label className="auth-label" htmlFor="displayName">{t("auth.displayNameLabel")}</label>
-              <input id="displayName" className="auth-input" type="text"
+            <Field label={t("auth.displayNameLabel")} htmlFor="displayName" hint={t("auth.displayNameHint")}>
+              <Input id="displayName" type="text"
                 placeholder={t("auth.displayNamePlaceholder")}
                 value={displayName} onChange={e => setDisplayName(e.target.value)}
                 autoComplete="nickname" disabled={busy} maxLength={32} />
-              <span className="auth-field-hint">{t("auth.displayNameHint")}</span>
-            </div>
+            </Field>
           )}
 
-          <div className="auth-field">
-            <div className="auth-label-row">
-              <label className="auth-label" htmlFor="password">{t("auth.passwordLabel")}</label>
+          <div className="flex flex-col gap-1.5">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-bold uppercase tracking-[0.05em] text-[var(--text-muted)]" htmlFor="password">{t("auth.passwordLabel")}</label>
               {mode === "login" && (
-                <button type="button" className="auth-forgot-btn" onClick={() => switchMode("forgot")}>
+                <Button variant="text" size="xs" type="button" onClick={() => switchMode("forgot")}>
                   {t("auth.forgotLink")}
-                </button>
+                </Button>
               )}
             </div>
-            <input id="password" className="auth-input" type="password"
+            <Input id="password" type="password"
               placeholder={mode === "signup" ? t("auth.passwordPlaceholderSignup") : t("auth.passwordPlaceholderLogin")}
               value={password} onChange={e => setPassword(e.target.value)}
               autoComplete={mode === "signup" ? "new-password" : "current-password"} disabled={busy} />
           </div>
 
           {mode === "signup" && (
-            <div className="auth-field">
-              <label className="auth-label" htmlFor="confirm">{t("auth.confirmLabel")}</label>
-              <input id="confirm" className="auth-input" type="password" placeholder={t("auth.confirmPlaceholder")}
+            <Field label={t("auth.confirmLabel")} htmlFor="confirm">
+              <Input id="confirm" type="password" placeholder={t("auth.confirmPlaceholder")}
                 value={confirm} onChange={e => setConfirm(e.target.value)} autoComplete="new-password" disabled={busy} />
-            </div>
+            </Field>
           )}
 
           {mode === "signup" && (
@@ -323,13 +318,20 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
             </div>
           )}
 
-          {(fieldError || serverError) && (
-            <div className="auth-error">{fieldError || serverError}</div>
+          {errorMsg && (
+            <div className="auth-error">{errorMsg}</div>
           )}
 
-          <button className="auth-submit" type="submit" disabled={busy || (mode === "signup" && (!agreeAge || !agreeTerms))}>
-            {busy && !googleBusy ? t("auth.submitLoading") : mode === "login" ? t("auth.submitLogin") : t("auth.submitSignup")}
-          </button>
+          <Button
+            variant="primary"
+            size="lg"
+            className="w-full"
+            type="submit"
+            disabled={busy || (mode === "signup" && (!agreeAge || !agreeTerms))}
+            loading={busy && !googleBusy && !facebookBusy}
+          >
+            {mode === "login" ? t("auth.submitLogin") : t("auth.submitSignup")}
+          </Button>
         </form>
 
         <div className="auth-divider"><span>or</span></div>
@@ -364,9 +366,9 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
 
         <p className="auth-switch">
           {mode === "login" ? t("auth.switchPromptLogin") : t("auth.switchPromptSignup")}{" "}
-          <button type="button" className="auth-switch-btn" onClick={() => switchMode(mode === "login" ? "signup" : "login")}>
+          <Button variant="text" size="sm" onClick={() => switchMode(mode === "login" ? "signup" : "login")}>
             {mode === "login" ? t("auth.switchSignupLink") : t("auth.switchLoginLink")}
-          </button>
+          </Button>
         </p>
       </div>
     </div>

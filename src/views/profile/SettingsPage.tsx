@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
+import Button from "../../components/ui/Button";
+import Input from "../../components/ui/Input";
 import { useMeta } from "../../hooks/useMeta";
 import { useFullProfile, useUpdateProfile, useUploadAvatar } from "../../hooks/useAdmin";
 import { usePushNotifications } from "../../hooks/usePushNotifications";
@@ -165,9 +167,9 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
                 style={{ display: "none" }}
                 onChange={e => { if (e.target.files[0]) uploadAvatar.mutate(e.target.files[0], { onError: () => toast.error("Failed to upload avatar.") }); }}
               />
-              <button className="st-btn st-btn--secondary" onClick={() => fileRef.current?.click()} disabled={uploadAvatar.isPending}>
+              <Button variant="secondary" size="sm" onClick={() => fileRef.current?.click()} disabled={uploadAvatar.isPending}>
                 {uploadAvatar.isPending ? t("settings.uploading") : t("settings.changeAvatar")}
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -176,23 +178,22 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
             <label className="st-label" htmlFor="st-display-name">{t("settings.displayName")}</label>
             {editingName ? (
               <div className="st-field-edit-row">
-                <input
+                <Input
                   id="st-display-name"
                   name="display_name"
-                  className="st-input"
                   value={nameVal}
                   onChange={e => setNameVal(e.target.value)}
                   onKeyDown={e => { if (e.key === "Enter") saveName(); if (e.key === "Escape") setEditingName(false); }}
                   autoFocus
                   maxLength={40}
                 />
-                <button className="st-btn st-btn--primary" onClick={saveName} disabled={!nameVal.trim() || update.isPending}>{update.isPending && <span className="btn-spin" />}{t("common.save")}</button>
-                <button className="st-btn st-btn--ghost" onClick={() => setEditingName(false)}>{t("common.cancel")}</button>
+                <Button variant="primary" size="sm" onClick={saveName} disabled={!nameVal.trim() || update.isPending} loading={update.isPending}>{t("common.save")}</Button>
+                <Button variant="ghost" size="sm" onClick={() => setEditingName(false)}>{t("common.cancel")}</Button>
               </div>
             ) : (
               <div className="st-field-read-row">
                 <span className="st-field-value">{displayName}</span>
-                <button className="st-btn st-btn--ghost" onClick={startEditName}>{t("common.edit")}</button>
+                <Button variant="ghost" size="sm" onClick={startEditName}>{t("common.edit")}</Button>
               </div>
             )}
           </div>
@@ -225,22 +226,24 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
               </div>
             </div>
             {googleIdentity ? (
-              <button
-                className="st-btn st-btn--ghost"
+              <Button
+                variant="ghost"
+                size="sm"
                 onClick={() => unlinkGoogle.mutate(googleIdentity)}
                 disabled={unlinkGoogle.isPending || !hasPasswordLogin}
                 title={!hasPasswordLogin ? t("settings.setPasswordFirst") : undefined}
               >
                 {unlinkGoogle.isPending ? t("settings.disconnecting") : t("settings.disconnect")}
-              </button>
+              </Button>
             ) : (
-              <button
-                className="st-btn st-btn--secondary"
+              <Button
+                variant="secondary"
+                size="sm"
                 onClick={() => linkGoogle.mutate()}
                 disabled={linkGoogle.isPending}
               >
                 {linkGoogle.isPending ? t("settings.redirecting") : t("settings.connect")}
-              </button>
+              </Button>
             )}
           </div>
           {googleIdentity && !hasPasswordLogin && (
@@ -330,11 +333,10 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
           <form onSubmit={handleChangePassword} noValidate>
             <div className="st-field">
               <label className="st-label" htmlFor="st-pw-new">{t("settings.newPassword")}</label>
-              <input
+              <Input
                 id="st-pw-new"
                 name="new_password"
                 type="password"
-                className="st-input"
                 value={pwNew}
                 onChange={e => setPwNew(e.target.value)}
                 autoComplete="new-password"
@@ -342,11 +344,10 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
             </div>
             <div className="st-field">
               <label className="st-label" htmlFor="st-pw-confirm">{t("settings.confirmPassword")}</label>
-              <input
+              <Input
                 id="st-pw-confirm"
                 name="confirm_password"
                 type="password"
-                className="st-input"
                 value={pwConfirm}
                 onChange={e => setPwConfirm(e.target.value)}
                 autoComplete="new-password"
@@ -354,13 +355,14 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
             </div>
             {pwError && <p className="st-error">{pwError}</p>}
             {pwSuccess && <p className="st-success">{t("settings.pwSuccess")}</p>}
-            <button
+            <Button
               type="submit"
-              className="st-btn st-btn--primary"
-              disabled={updatePassword.isPending}
+              variant="primary"
+              size="md"
+              loading={updatePassword.isPending}
             >
-              {updatePassword.isPending && <span className="btn-spin" />}{updatePassword.isPending ? t("common.saving") : t("settings.updatePassword")}
-            </button>
+              {updatePassword.isPending ? t("common.saving") : t("settings.updatePassword")}
+            </Button>
           </form>
         </section>
 
@@ -375,13 +377,14 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
                 <div className="st-toggle-info">
                   <span className="st-toggle-label">{u.display_name || "Unknown user"}</span>
                 </div>
-                <button
-                  className="st-btn st-btn--ghost"
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => unblockUser.mutate(u.id)}
                   disabled={unblockUser.isPending}
                 >
                   Unblock
-                </button>
+                </Button>
               </div>
             ))
           )}
@@ -391,9 +394,9 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
         <section className="st-section st-section--danger">
           <h2 className="st-section-title st-section-title--danger">{t("settings.dangerZone")}</h2>
           <p className="st-danger-desc">{t("settings.deleteDesc")}</p>
-          <button className="st-btn st-btn--danger" onClick={() => setShowDeleteConfirm(true)}>
+          <Button variant="danger" size="md" onClick={() => setShowDeleteConfirm(true)}>
             {t("settings.deleteAccount")}
-          </button>
+          </Button>
         </section>
 
       </div>

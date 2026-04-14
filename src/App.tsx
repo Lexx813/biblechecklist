@@ -12,6 +12,8 @@ const AboutPage         = lazy(() => import("./views/AboutPage"));
 const BlogPage          = lazy(() => import("./views/blog/BlogPage"));
 const VideosPage        = lazy(() => import("./views/videos/VideosPage"));
 const AnonChecklistPage = lazy(() => import("./views/AnonChecklistPage"));
+// DEV ONLY: uncomment to preview UI components at /ui-preview
+// const UIPreview         = lazy(() => import("./views/UIPreview"));
 const AuthedApp         = lazy(() => import("./AuthedApp"));
 
 function getInitialDarkMode() {
@@ -71,6 +73,9 @@ export default function App() {
     window.addEventListener("popstate", handler);
     return () => window.removeEventListener("popstate", handler);
   }, []);
+
+  // DEV ONLY: uncomment to preview UI components at /ui-preview
+  // if (preAuthPath === "ui-preview") return <main id="main-content"><Suspense fallback={null}><UIPreview /></Suspense></main>;
 
   // If authenticated shell is active, it handles all routing internally
   if (showApp) {

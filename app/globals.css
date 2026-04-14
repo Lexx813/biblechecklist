@@ -23,6 +23,12 @@
   --color-brand-800: #5B21B6;
   --color-brand-900: #4C1D95;
   --color-brand-950: #3B0764;
+
+  /* Semantic color aliases */
+  --color-danger: #dc2626;
+  --color-success: #16a34a;
+  --color-warning: #b45309;
+  --color-gold: #f59e0b;
 }
 
 /* ── Theme-aware CSS vars (switch with data-theme) ─────────────── */
