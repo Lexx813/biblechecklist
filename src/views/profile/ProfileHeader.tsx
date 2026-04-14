@@ -134,17 +134,16 @@ export default function ProfileHeader({
   /* ── Render ── */
 
   return (
-    <div className="rounded-b-[var(--radius)] border border-t-0 border-[var(--border)] bg-[var(--card-bg)] px-5 pb-5 sm:px-8">
-      {/* Top row: avatar + info + actions */}
-      <div className="flex flex-col items-start sm:flex-row sm:items-end sm:gap-6">
+    <div className="overflow-visible rounded-b-[var(--radius)] border border-t-0 border-[var(--border)] bg-[var(--card-bg)] px-5 pb-5 sm:px-8">
+      {/* Avatar row */}
+      <div className="flex items-end gap-4 sm:gap-6">
         <AvatarOverlap profile={profile} userId={userId} isOwner={isOwner} />
 
-        {/* Info section */}
-        <div className="mt-3 flex-1 sm:mt-0">
-          <h1 className="text-2xl font-extrabold text-[var(--text-primary)]">
+        {/* Name + counts beside avatar */}
+        <div className="min-w-0 flex-1 pb-1">
+          <h1 className="truncate text-xl font-extrabold text-[var(--text-primary)] sm:text-2xl">
             {profile?.display_name || profile?.email?.split("@")[0] || t("profile.anonymous", "Anonymous")}
           </h1>
-
           <p className="mt-0.5 text-sm text-[var(--text-muted)]">
             <button
               type="button"
@@ -162,71 +161,70 @@ export default function ProfileHeader({
               <span className="font-bold text-[var(--text-primary)]">{counts?.following ?? 0}</span> {t("profile.following", "following")}
             </button>
           </p>
-
           {profile?.created_at && (
             <p className="mt-0.5 text-xs text-[var(--text-muted)]">
               {t("profile.memberSince", { date: formatDate(profile.created_at, "long"), defaultValue: "Member since {{date}}" })}
             </p>
           )}
         </div>
-
-        {/* Action buttons */}
-        <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-0">
-          {isOwner ? (
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={onEditProfile}
-              iconLeft={
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                </svg>
-              }
-            >
-              {t("profile.editProfile", "Edit Profile")}
-            </Button>
-          ) : (
-            <>
-              <Button
-                variant={isFollowing ? "ghost" : "primary"}
-                size="sm"
-                onClick={() => toggleFollow.mutate()}
-                loading={toggleFollow.isPending}
-              >
-                {isFollowing
-                  ? t("profile.unfollow", "Unfollow")
-                  : t("profile.follow", "Follow")}
-              </Button>
-
-              <FriendRequestButton
-                currentUserId={currentUserId}
-                targetId={userId}
-              />
-
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={handleMessage}
-                loading={getOrCreate.isPending}
-                iconLeft={
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                  </svg>
-                }
-              >
-                {t("profile.message", "Message")}
-              </Button>
-            </>
-          )}
-        </div>
       </div>
 
       {/* Bio */}
       {profile?.bio && (
-        <p className="mt-4 max-w-[560px] text-sm leading-relaxed text-[var(--text-secondary)]">
+        <p className="mt-3 max-w-[560px] text-sm leading-relaxed text-[var(--text-secondary)]">
           {profile.bio}
         </p>
       )}
+
+      {/* Action buttons — full width row below avatar */}
+      <div className="mt-4 flex flex-wrap items-center gap-2">
+        {isOwner ? (
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={onEditProfile}
+            iconLeft={
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+              </svg>
+            }
+          >
+            {t("profile.editProfile", "Edit Profile")}
+          </Button>
+        ) : (
+          <>
+            <Button
+              variant={isFollowing ? "ghost" : "primary"}
+              size="sm"
+              onClick={() => toggleFollow.mutate()}
+              loading={toggleFollow.isPending}
+            >
+              {isFollowing
+                ? t("profile.unfollow", "Unfollow")
+                : t("profile.follow", "Follow")}
+            </Button>
+
+            <FriendRequestButton
+              currentUserId={currentUserId}
+              targetId={userId}
+            />
+
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={handleMessage}
+              loading={getOrCreate.isPending}
+              iconLeft={
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+              }
+            >
+              {t("profile.message", "Message")}
+            </Button>
+          </>
+        )}
+      </div>
     </div>
   );
 }
