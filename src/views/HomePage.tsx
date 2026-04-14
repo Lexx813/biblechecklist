@@ -26,6 +26,7 @@ import { formatDate, authorName, formatNum } from "../utils/formatters";
 import { BOOKS } from "../data/books";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
+import { useFriendPosts } from "../hooks/usePosts";
 import { useUnreadMessageCount } from "../hooks/useMessages";
 import { useFriends, useFriendRequests } from "../hooks/useFriends";
 import { useOnlineMembers, ONLINE_THRESHOLD_MS as WHO_THRESHOLD_MS } from "../hooks/useOnlineMembers";
@@ -229,6 +230,18 @@ function ForumSkeleton() {
   );
 }
 
+function timeAgo(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime();
+  const m = Math.floor(diff / 60000);
+  if (m < 1) return "just now";
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h ago`;
+  const d = Math.floor(h / 24);
+  if (d < 30) return `${d}d ago`;
+  return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+}
+
 // ── Main component ───────────────────────────────────────────────────────────
 export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, isPremium: _isPremium, onUpgrade, panelRequest, onPanelConsumed }) {
   const isPremium = true; // all features open while building community
@@ -258,6 +271,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const pendingRequests = incoming.data?.length ?? 0;
   const { data: friends = [], isLoading: friendsLoading } = useFriends(user?.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
+  const { data: friendPosts = [], isLoading: friendPostsLoading } = useFriendPosts(user?.id);
   const { onlineNow: whoOnline, recentlyActive: whoRecent, totalOnline, isLoading: whoLoading, isError: whoError } = useOnlineMembers(50);
   const whoMembers = [...whoOnline, ...whoRecent];
 
@@ -447,6 +461,15 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               </button>
             </>
           )}
+
+          {/* Compact footer links */}
+          <div className="hsidebar-footer">
+            <a href="/privacy" className="hsidebar-footer-link">Privacy</a>
+            <span className="hsidebar-footer-sep">&middot;</span>
+            <a href="/terms" className="hsidebar-footer-link">Terms</a>
+            <span className="hsidebar-footer-sep">&middot;</span>
+            <span className="hsidebar-footer-copy">&copy; {new Date().getFullYear()} JW Study</span>
+          </div>
         </aside>
 
         {/* ═══════════════════════════════════════
@@ -561,6 +584,43 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 <span className="hstreak-best">{t("home.streakBest")}: {streak.longest_streak}</span>
               )}
             </button>
+          )}
+
+          {/* Friend Updates */}
+          {friendPosts.length > 0 && (
+            <div>
+              <div className={feedHeadCls}>
+                <span className={feedTitleCls}>Friend Updates</span>
+                <button className={feedLinkCls} onClick={() => navigate("feed")}>See all &rarr;</button>
+              </div>
+              <div className="flex flex-col gap-2">
+                {friendPosts.slice(0, 5).map((post: any) => {
+                  const author = post.profiles;
+                  const name = author?.display_name || "Someone";
+                  const initial = name[0].toUpperCase();
+                  return (
+                    <div
+                      key={post.id}
+                      className={`${cardCls} flex cursor-pointer gap-3 p-3.5`}
+                      onClick={() => navigate("publicProfile", { userId: post.user_id })}
+                    >
+                      {author?.avatar_url ? (
+                        <img src={author.avatar_url} alt="" className="size-9 shrink-0 rounded-full object-cover" loading="lazy" />
+                      ) : (
+                        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-sm font-bold text-white">{initial}</div>
+                      )}
+                      <div className="flex min-w-0 flex-1 flex-col">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-bold text-[var(--text-primary)]">{name}</span>
+                          <span className="text-xs text-[var(--text-muted)]">{timeAgo(post.created_at)}</span>
+                        </div>
+                        <p className="mt-0.5 line-clamp-3 text-sm leading-relaxed text-[var(--text-secondary)]">{post.content}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           )}
 
           {/* Blog */}

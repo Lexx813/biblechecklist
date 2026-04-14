@@ -21,6 +21,15 @@ export function useCreatePost(userId: string | undefined) {
   });
 }
 
+export function useFriendPosts(userId: string | undefined) {
+  return useQuery({
+    queryKey: ["friendPosts", userId],
+    queryFn: () => postsApi.listFriendPosts(userId!),
+    enabled: !!userId,
+    staleTime: 2 * 60_000,
+  });
+}
+
 export function useDeletePost(userId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
