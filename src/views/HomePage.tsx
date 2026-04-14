@@ -26,8 +26,9 @@ import { formatDate, authorName, formatNum } from "../utils/formatters";
 import { BOOKS } from "../data/books";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
-import { useFriendPosts, usePublicFeed, useCreatePost } from "../hooks/usePosts";
+import { useFriendPosts, usePublicFeed, useCreatePost, useDeletePost } from "../hooks/usePosts";
 import CreatePostModal from "../components/CreatePostModal";
+import ConfirmModal from "../components/ConfirmModal";
 import { useNotes } from "../hooks/useNotes";
 import { useUnreadMessageCount } from "../hooks/useMessages";
 import { useFriends, useFriendRequests } from "../hooks/useFriends";
@@ -276,7 +277,9 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { data: friendPosts = [], isLoading: friendPostsLoading } = useFriendPosts(user?.id);
   const { data: publicFeed = [] } = usePublicFeed();
   const createPost = useCreatePost(user?.id);
+  const deletePost = useDeletePost(user?.id);
   const [showPostModal, setShowPostModal] = useState(false);
+  const [deletePostId, setDeletePostId] = useState<string | null>(null);
   const { data: myNotes = [] } = useNotes(user?.id);
   const { onlineNow: whoOnline, recentlyActive: whoRecent, totalOnline, isLoading: whoLoading, isError: whoError } = useOnlineMembers(50);
   const whoMembers = [...whoOnline, ...whoRecent];
@@ -643,32 +646,43 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                   const name = author?.display_name || "Someone";
                   const initial = name[0].toUpperCase();
                   return (
-                    <div key={post.id} className={`${cardCls} overflow-hidden`}>
-                      {/* Post header — avatar + name + time */}
-                      <div
-                        className="flex cursor-pointer items-center gap-3 px-4 pt-3.5 pb-2"
-                        onClick={() => navigate("publicProfile", { userId: post.user_id })}
-                      >
-                        {author?.avatar_url ? (
-                          <img src={author.avatar_url} alt="" className="size-10 shrink-0 rounded-full object-cover" loading="lazy" />
-                        ) : (
-                          <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-sm font-bold text-white">{initial}</div>
-                        )}
-                        <div className="flex min-w-0 flex-1 flex-col">
-                          <span className="text-sm font-bold text-[var(--text-primary)]">{name}</span>
-                          <span className="flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
-                            {timeAgo(post.created_at)}
-                            {post.visibility === "friends" ? (
-                              <span className="inline-flex items-center gap-0.5" title="Friends only">
-                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                              </span>
-                            ) : (
-                              <span className="inline-flex items-center gap-0.5" title="Public">
-                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                              </span>
-                            )}
-                          </span>
+                    <div key={post.id} className={`${cardCls} group/post overflow-hidden`}>
+                      {/* Post header — avatar + name + time + delete */}
+                      <div className="flex items-center gap-3 px-4 pt-3.5 pb-2">
+                        <div
+                          className="flex min-w-0 flex-1 cursor-pointer items-center gap-3"
+                          onClick={() => navigate("publicProfile", { userId: post.user_id })}
+                        >
+                          {author?.avatar_url ? (
+                            <img src={author.avatar_url} alt="" className="size-10 shrink-0 rounded-full object-cover" loading="lazy" />
+                          ) : (
+                            <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-sm font-bold text-white">{initial}</div>
+                          )}
+                          <div className="flex min-w-0 flex-1 flex-col">
+                            <span className="text-sm font-bold text-[var(--text-primary)]">{name}</span>
+                            <span className="flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
+                              {timeAgo(post.created_at)}
+                              {post.visibility === "friends" ? (
+                                <span className="inline-flex items-center gap-0.5" title="Friends only">
+                                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center gap-0.5" title="Public">
+                                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                </span>
+                              )}
+                            </span>
+                          </div>
                         </div>
+                        {post.user_id === user?.id && (
+                          <button
+                            className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full border-none bg-transparent text-[var(--text-muted)] opacity-0 transition-all hover:bg-red-500/10 hover:text-red-400 group-hover/post:opacity-100"
+                            onClick={() => setDeletePostId(post.id)}
+                            title={t("common.delete")}
+                          >
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                          </button>
+                        )}
                       </div>
 
                       {/* Post content */}
@@ -709,6 +723,19 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               userId={user.id}
               avatarUrl={profile?.avatar_url}
               displayName={displayName}
+            />
+          )}
+
+          {/* Delete post confirmation */}
+          {deletePostId && (
+            <ConfirmModal
+              message={t("posts.deleteConfirm", { defaultValue: "Are you sure you want to delete this post? This action cannot be undone." })}
+              onCancel={() => setDeletePostId(null)}
+              onConfirm={() => {
+                deletePost.mutate(deletePostId, { onSuccess: () => setDeletePostId(null) });
+              }}
+              confirmLabel={t("common.delete")}
+              danger
             />
           )}
 

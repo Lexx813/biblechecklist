@@ -49,6 +49,8 @@ export function useDeletePost(userId: string | undefined) {
       queryClient.setQueryData(["userPosts", userId], (prev: Array<{ id: string }> = []) =>
         prev.filter(p => p.id !== postId)
       );
+      queryClient.invalidateQueries({ queryKey: ["publicFeed"] });
+      queryClient.invalidateQueries({ queryKey: ["friendPosts"] });
     },
   });
 }

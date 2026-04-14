@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useUserPosts, useCreatePost, useDeletePost } from "../../../hooks/usePosts";
 import CreatePostModal from "../../../components/CreatePostModal";
+import ConfirmModal from "../../../components/ConfirmModal";
 import Button from "../../../components/ui/Button";
 
 interface Props {
@@ -17,6 +18,7 @@ export default function PostsTab({ profileId, isOwner }: Props) {
   const createPost = useCreatePost(profileId);
   const deletePost = useDeletePost(profileId);
   const [showModal, setShowModal] = useState(false);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   function handleCreate(content: string, visibility: "public" | "friends", imageUrl?: string) {
     createPost.mutate({ content, visibility, imageUrl }, { onSuccess: () => setShowModal(false) });
@@ -100,7 +102,7 @@ export default function PostsTab({ profileId, isOwner }: Props) {
                 {isOwner && (
                   <button
                     className="cursor-pointer rounded-md border-none bg-transparent p-1.5 text-[var(--text-muted)] opacity-0 transition-all hover:bg-red-500/10 hover:text-red-400 group-hover:opacity-100"
-                    onClick={() => deletePost.mutate(post.id)}
+                    onClick={() => setDeleteId(post.id)}
                     disabled={deletePost.isPending}
                     title={t("common.delete")}
                   >
@@ -120,6 +122,19 @@ export default function PostsTab({ profileId, isOwner }: Props) {
           onSubmit={handleCreate}
           isPending={createPost.isPending}
           userId={profileId}
+        />
+      )}
+
+      {/* Delete confirmation */}
+      {deleteId && (
+        <ConfirmModal
+          message={t("posts.deleteConfirm", { defaultValue: "Are you sure you want to delete this post? This action cannot be undone." })}
+          onCancel={() => setDeleteId(null)}
+          onConfirm={() => {
+            deletePost.mutate(deleteId, { onSuccess: () => setDeleteId(null) });
+          }}
+          confirmLabel={t("common.delete")}
+          danger
         />
       )}
     </div>
