@@ -1,6 +1,7 @@
 {
   "installCommand": "npm ci",
   "buildCommand": "npm run build",
+  "ignoreCommand": "git diff --quiet HEAD^ HEAD -- src/ app/ public/ package.json package-lock.json next.config.js vercel.json",
   "git": {
     "deploymentEnabled": {
       "main": true
