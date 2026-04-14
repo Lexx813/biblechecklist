@@ -67,6 +67,18 @@ export function useUploadAvatar(userId: string | null | undefined) {
   });
 }
 
+export function useUploadCover(userId: string | null | undefined) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (file: File) => profileApi.uploadCover(userId!, file),
+    onSuccess: (coverUrl: string) => {
+      queryClient.setQueryData(["fullProfile", userId], (prev: Record<string, unknown> | undefined) =>
+        prev ? { ...prev, cover_url: coverUrl } : prev
+      );
+    },
+  });
+}
+
 export function useSetModerator() {
   const queryClient = useQueryClient();
   return useMutation({

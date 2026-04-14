@@ -10,6 +10,7 @@ export interface Profile {
   is_approved_creator: boolean | null;
   display_name: string | null;
   avatar_url: string | null;
+  cover_url: string | null;
   created_at: string | null;
   reading_goal_date: string | null;
   bio: string | null;
@@ -34,7 +35,7 @@ export const profileApi = {
   get: async (userId: string): Promise<Profile | null> => {
     const { data, error } = await supabase
       .from("profiles")
-      .select("id, email, is_admin, is_moderator, can_blog, is_approved_creator, display_name, avatar_url, created_at, reading_goal_date, bio, subscription_status, email_notifications_blog, email_notifications_digest, email_notifications_streak, terms_accepted_at, show_online, referred_by")
+      .select("id, email, is_admin, is_moderator, can_blog, is_approved_creator, display_name, avatar_url, cover_url, created_at, reading_goal_date, bio, subscription_status, email_notifications_blog, email_notifications_digest, email_notifications_streak, terms_accepted_at, show_online, referred_by")
       .eq("id", userId)
       .maybeSingle();
     if (error) throw new Error(error.message);
@@ -92,5 +93,27 @@ export const profileApi = {
 
     await profileApi.update(userId, { avatar_url: avatarUrl });
     return avatarUrl;
+  },
+
+  uploadCover: async (userId: string, file: File): Promise<string> => {
+    const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+    const MAX_SIZE = 8 * 1024 * 1024; // 8 MB
+    if (!ALLOWED_TYPES.includes(file.type)) throw new Error("Only JPEG, PNG, or WebP images are allowed.");
+    if (file.size > MAX_SIZE) throw new Error("Image must be under 8 MB.");
+    const ext = file.name.split(".").pop()!.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const path = `${userId}/cover.${ext}`;
+
+    const { error } = await supabase.storage
+      .from("avatars")
+      .upload(path, file, { upsert: true });
+    if (error) throw new Error(error.message);
+
+    const { data: { publicUrl } } = supabase.storage
+      .from("avatars")
+      .getPublicUrl(path);
+
+    const coverUrl = `${publicUrl}?t=${Date.now()}`;
+    await profileApi.update(userId, { cover_url: coverUrl });
+    return coverUrl;
   },
 };

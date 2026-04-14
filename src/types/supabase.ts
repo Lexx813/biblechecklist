@@ -1251,6 +1251,7 @@ export type Database = {
           avatar_url: string | null
           bio: string | null
           can_blog: boolean
+          cover_url: string | null
           is_approved_creator: boolean
           created_at: string
           daily_chapter_goal: number
@@ -1282,6 +1283,7 @@ export type Database = {
           avatar_url?: string | null
           bio?: string | null
           can_blog?: boolean
+          cover_url?: string | null
           is_approved_creator?: boolean
           created_at?: string
           daily_chapter_goal?: number
@@ -1313,6 +1315,7 @@ export type Database = {
           avatar_url?: string | null
           bio?: string | null
           can_blog?: boolean
+          cover_url?: string | null
           is_approved_creator?: boolean
           created_at?: string
           daily_chapter_goal?: number
