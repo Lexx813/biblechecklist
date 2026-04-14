@@ -92,7 +92,6 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
         compressed = await compressVideo(file, setCompressProgress);
       } catch (compressErr: any) {
         if (compressErr.message?.includes("SharedArrayBuffer")) {
-          toast("Compression not available — uploading original. Use Chrome for best results.", "warning");
           compressed = file;
         } else {
           throw compressErr;

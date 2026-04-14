@@ -24,9 +24,7 @@ export async function compressVideo(
   onProgress?: (p: CompressProgress) => void
 ): Promise<File> {
   if (typeof SharedArrayBuffer === "undefined") {
-    throw new Error(
-      "Your browser doesn't support in-browser compression. Please use Chrome or Firefox, or compress the video before uploading."
-    );
+    return file; // Skip compression silently — upload the original
   }
 
   const originalMB = file.size / (1024 * 1024);
