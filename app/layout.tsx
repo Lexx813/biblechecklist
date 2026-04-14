@@ -1,6 +1,7 @@
 import Script from "next/script";
 import { Cormorant_Garamond } from "next/font/google";
 import Providers from "./providers";
+import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],

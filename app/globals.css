@@ -1,0 +1,227 @@
+/* Tailwind CSS v4 — theme + utilities only (no preflight, to avoid breaking existing styles) */
+/* No layer() wrappers — unlayered CSS so utilities aren't overridden by existing unlayered app.css */
+@import "tailwindcss/theme";
+@import "tailwindcss/utilities";
+
+/* ── Dark mode variant: data-theme="dark" ──────────────────────── */
+@custom-variant dark (&:is([data-theme="dark"] *));
+
+/* ── Brand theme tokens (static, usable as Tailwind classes) ───── */
+@theme {
+  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+
+  /* Purple brand palette */
+  --color-brand-50: #FAF5FF;
+  --color-brand-100: #F4F2FF;
+  --color-brand-200: #EDE8FA;
+  --color-brand-300: #D8CCF5;
+  --color-brand-400: #C4B5FD;
+  --color-brand-500: #A78BFA;
+  --color-brand-600: #7C3AED;
+  --color-brand-700: #6A3DAA;
+  --color-brand-800: #5B21B6;
+  --color-brand-900: #4C1D95;
+  --color-brand-950: #3B0764;
+}
+
+/* ── Theme-aware CSS vars (switch with data-theme) ─────────────── */
+:root,
+[data-theme="light"] {
+  --lp-bg: #F4F2FF;
+  --lp-bg-alt: #FFFFFF;
+  --lp-text: #0F0D1A;
+  --lp-muted: #4B4869;
+  --lp-border: #E0DCF5;
+  --lp-card-bg: #FFFFFF;
+  --lp-card-border: #E0DCF5;
+  --lp-card-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --lp-primary: #6A3DAA;
+  --lp-primary-hover: #5530A0;
+  --lp-primary-text: #FFFFFF;
+  --lp-accent: #C084FC;
+  --lp-pill-bg: #EDE8FA;
+  --lp-pill-text: #5B21B6;
+  --lp-pill-border: #D8CCF5;
+  --lp-nav-bg: rgba(244, 242, 255, 0.88);
+  --lp-nav-border: rgba(224, 220, 245, 0.8);
+  --lp-badge-bg: #EDE8FA;
+  --lp-badge-text: #5B21B6;
+  --lp-step-num-bg: #6A3DAA;
+  --lp-step-num-text: #FFFFFF;
+  --lp-cta-bg: linear-gradient(135deg, #5B21B6 0%, #7C3AED 100%);
+  --lp-banner-bg: linear-gradient(135deg, #4C1D95 0%, #6D28D9 60%, #7C3AED 100%);
+  --lp-footer-bg: #0F0D1A;
+  --lp-footer-text: rgba(255, 255, 255, 0.7);
+  --lp-footer-link: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="dark"] {
+  --lp-bg: #0B091A;
+  --lp-bg-alt: #110F22;
+  --lp-text: #EDE9FD;
+  --lp-muted: rgba(237, 233, 253, 0.55);
+  --lp-border: rgba(167, 139, 250, 0.12);
+  --lp-card-bg: rgba(255, 255, 255, 0.04);
+  --lp-card-border: rgba(167, 139, 250, 0.15);
+  --lp-card-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
+  --lp-primary: #A78BFA;
+  --lp-primary-hover: #BBA4FB;
+  --lp-primary-text: #0F0D1A;
+  --lp-accent: #C084FC;
+  --lp-pill-bg: rgba(167, 139, 250, 0.1);
+  --lp-pill-text: #C4B5FD;
+  --lp-pill-border: rgba(167, 139, 250, 0.2);
+  --lp-nav-bg: rgba(11, 9, 26, 0.88);
+  --lp-nav-border: rgba(167, 139, 250, 0.12);
+  --lp-badge-bg: rgba(167, 139, 250, 0.12);
+  --lp-badge-text: #C4B5FD;
+  --lp-step-num-bg: rgba(167, 139, 250, 0.15);
+  --lp-step-num-text: #C4B5FD;
+  --lp-cta-bg: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+  --lp-banner-bg: linear-gradient(135deg, #3B0764 0%, #5B21B6 60%, #7C3AED 100%);
+  --lp-footer-bg: #07060F;
+  --lp-footer-text: rgba(255, 255, 255, 0.6);
+  --lp-footer-link: rgba(255, 255, 255, 0.8);
+}
+
+/* ── Phone mockup (pixel-precise, kept as CSS) ─────────────────── */
+.lp-phone {
+  width: 280px;
+  border-radius: 36px;
+  background: var(--lp-card-bg);
+  border: 2px solid var(--lp-card-border);
+  box-shadow: 0 24px 64px rgba(74, 45, 133, 0.18), 0 4px 16px rgba(74, 45, 133, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.lp-phone-bar {
+  display: flex; align-items: center; gap: 6px;
+  padding: 12px 16px 8px;
+  border-bottom: 1px solid var(--lp-border);
+  background: var(--lp-card-bg);
+}
+.lp-phone-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lp-border); }
+.lp-phone-dot:first-child { background: #fc5f57; }
+.lp-phone-dot:nth-child(2) { background: #febc2e; }
+.lp-phone-dot:nth-child(3) { background: #28c840; }
+.lp-phone-title {
+  font-size: 11px; font-weight: 600; color: var(--lp-muted);
+  margin-left: auto; margin-right: auto; letter-spacing: 0.02em;
+}
+.lp-phone-screen {
+  flex: 1; overflow: hidden; padding: 0;
+  display: flex; flex-direction: column; max-height: 420px;
+}
+.lp-mock-appbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 10px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: #1C1C1E; flex-shrink: 0;
+}
+.lp-mock-appbar-title { font-size: 10px; font-weight: 700; color: #fff; letter-spacing: 0.01em; }
+.lp-mock-tabs { display: flex; gap: 0; }
+.lp-mock-tab {
+  padding: 4px 8px 5px; font-size: 8px; font-weight: 700;
+  background: none; border: none; border-bottom: 2px solid transparent;
+  color: rgba(255,255,255,0.65); letter-spacing: 0.06em;
+  text-transform: uppercase; font-family: inherit; cursor: default;
+}
+.lp-mock-tab--active { color: #9F7AEA; border-bottom-color: #9F7AEA; }
+.lp-mock-book-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  background: #1C1C1E; border: 2px solid #1C1C1E;
+  flex: 1; overflow: hidden; align-content: start;
+}
+.lp-mock-testament {
+  grid-column: 1 / -1; padding: 7px 8px 3px;
+  font-size: 7px; font-weight: 800; letter-spacing: 0.08em;
+  text-transform: uppercase; background: #1C1C1E; color: #fff;
+}
+.lp-mock-tile {
+  background: #3A3360; position: relative; overflow: hidden;
+  min-height: 54px; padding: 6px 7px 10px;
+  display: flex; flex-direction: column; justify-content: center; gap: 2px;
+}
+.lp-mock-tile--done { background: #5A4D80; }
+.lp-mock-tile--expanded {
+  grid-column: 1 / -1; background: #231e38;
+  padding: 8px 10px 10px; min-height: auto; justify-content: flex-start;
+}
+.lp-mock-tile-name { font-size: 9px; font-weight: 700; color: #fff; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lp-mock-tile-count { font-size: 7px; font-weight: 500; color: #AFA0D0; }
+.lp-mock-tile-check {
+  position: absolute; top: 5px; right: 5px;
+  width: 13px; height: 13px; border-radius: 50%;
+  background: #9F7AEA; color: #fff; font-size: 7px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+.lp-mock-tile-strip {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: rgba(255,255,255,0.10);
+}
+.lp-mock-tile-strip-fill { height: 100%; background: #9F7AEA; }
+.lp-mock-tile-row { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; }
+.lp-mock-tile--expanded .lp-mock-tile-name { font-size: 11px; }
+.lp-mock-tile--expanded .lp-mock-tile-count { font-size: 9px; margin-top: 1px; }
+.lp-mock-ch-grid { display: flex; flex-wrap: wrap; gap: 2px; }
+.lp-mock-ch {
+  width: 16px; height: 16px; border-radius: 2px;
+  border: 1px solid #4A4370; background: #3A3360;
+  font-size: 6px; font-weight: 600; color: #c4b8e8;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.lp-mock-ch--done { background: #9F7AEA; border-color: #9F7AEA; color: #fff; }
+.lp-mock-ch--partial { border: 1px dashed #9F7AEA; color: #9F7AEA; background: rgba(159,122,234,0.12); }
+/* Light mode phone overrides */
+[data-theme="light"] .lp-mock-appbar { background: #F5F5F7; border-bottom-color: #D1D1D6; }
+[data-theme="light"] .lp-mock-appbar-title { color: #1C1C1E; }
+[data-theme="light"] .lp-mock-tab { color: rgba(0,0,0,0.6); }
+[data-theme="light"] .lp-mock-tab--active { color: #7C3AED; border-bottom-color: #7C3AED; }
+[data-theme="light"] .lp-mock-book-grid { background: #C8C0DC; border-color: #C8C0DC; }
+[data-theme="light"] .lp-mock-testament { background: #C8C0DC; color: #1C1C1E; }
+[data-theme="light"] .lp-mock-tile { background: #EAE4F4; }
+[data-theme="light"] .lp-mock-tile--done { background: #D4C8EC; }
+[data-theme="light"] .lp-mock-tile--expanded { background: #F0EBFA; }
+[data-theme="light"] .lp-mock-tile-name { color: #1C1C1E; }
+[data-theme="light"] .lp-mock-tile-count { color: #3D2D6B; }
+[data-theme="light"] .lp-mock-tile-check { background: #7C3AED; }
+[data-theme="light"] .lp-mock-tile-strip { background: rgba(0,0,0,0.07); }
+[data-theme="light"] .lp-mock-tile-strip-fill { background: #7C3AED; }
+[data-theme="light"] .lp-mock-ch { background: #EAE4F4; border-color: #C8B8E0; color: #5B3A97; }
+[data-theme="light"] .lp-mock-ch--done { background: #7C3AED; border-color: #7C3AED; color: #fff; }
+[data-theme="light"] .lp-mock-ch--partial { border-color: #7C3AED; color: #7C3AED; background: rgba(124,58,237,0.08); }
+/* Phone tab bar & callout */
+.lp-phone-tabbar {
+  display: flex; border-top: 1px solid var(--lp-card-border);
+  background: var(--lp-card-bg); padding: 6px 0 10px;
+}
+.lp-phone-tab {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  gap: 2px; font-size: 9px; font-weight: 500; color: var(--lp-muted);
+}
+.lp-phone-tab--active { color: var(--lp-primary); }
+.lp-phone-tab--active svg { stroke: #9F7AEA; }
+.lp-phone-callout {
+  position: absolute; bottom: 80px; right: -20px;
+  background: var(--lp-card-bg); border: 1px solid var(--lp-card-border);
+  border-radius: 20px; padding: 6px 12px 6px 8px;
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; color: var(--lp-text);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12); white-space: nowrap;
+}
+.lp-callout-dot { width: 10px; height: 10px; border-radius: 50%; }
+.lp-callout-dot--done { background: #9F7AEA; }
+
+/* ── FAQ details marker override ───────────────────────────────── */
+.lp-faq-q::-webkit-details-marker { display: none; }
+
+/* ── Reduced Motion ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0ms !important; transform: none !important; }
+}
+
+/* ── Phone mockup responsive ───────────────────────────────────── */
+@media (max-width: 768px) {
+  .lp-phone-callout { right: calc(50% - 160px); bottom: -20px; }
+}

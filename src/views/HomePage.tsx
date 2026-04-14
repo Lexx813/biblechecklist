@@ -122,10 +122,10 @@ function getFallbackImage(id) {
 const STREAK_MILESTONES = [7, 14, 30, 60, 90, 180, 365];
 
 const BANNER_ROTATIONS = [
-  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>, title: "Reading Plans",    sub: "Daily assignments. Streaks. Finish the Bible in 1 year.",     cta: "Explore Plans →" },
-  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>, title: "Study Notes",      sub: "Rich-text notes for any chapter. Export to Markdown or PDF.", cta: "Try Notes →" },
-  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3L13.5 8.5L19 10L13.5 11.5L12 17L10.5 11.5L5 10L10.5 8.5Z"/></svg>, title: "AI Study Assistant", sub: "Ask anything about any verse. Grounded in Scripture.",        cta: "Try AI Tools →" },
-  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>, title: "Meeting Prep",     sub: "CLAM + Watchtower checklists. Never miss an assignment.",     cta: "Open Meeting Prep →" },
+  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>, title: "Reading Plans",    sub: "Daily assignments. Streaks. Finish the Bible in 1 year.",     cta: "Explore Plans \u2192" },
+  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>, title: "Study Notes",      sub: "Rich-text notes for any chapter. Export to Markdown or PDF.", cta: "Try Notes \u2192" },
+  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3L13.5 8.5L19 10L13.5 11.5L12 17L10.5 11.5L5 10L10.5 8.5Z"/></svg>, title: "AI Study Assistant", sub: "Ask anything about any verse. Grounded in Scripture.",        cta: "Try AI Tools \u2192" },
+  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>, title: "Meeting Prep",     sub: "CLAM + Watchtower checklists. Never miss an assignment.",     cta: "Open Meeting Prep \u2192" },
 ];
 
 const ONLINE_THRESHOLD_MS = 10 * 60 * 1000;
@@ -198,14 +198,12 @@ const NAV_SHORTCUTS = [
   },
 ];
 
-// ── Mobile tab bar ──────────────────────────────────────────────────────────
-
-// ── Blog skeleton ────────────────────────────────────────────────────────────
+// ── Skeletons ────────────────────────────────────────────────────────────
 function BlogSkeleton() {
   return (
-    <div className="hblog-skeleton">
+    <div className="grid grid-cols-3 gap-2.5 max-[720px]:grid-cols-2 max-[480px]:grid-cols-1">
       {[0, 1, 2].map(i => (
-        <div key={i} className="hblog-skeleton-card">
+        <div key={i} className="overflow-hidden rounded-[var(--radius)] border border-[var(--border)] bg-white/[0.03]">
           <div className="skeleton" style={{ height: 108 }} />
           <div style={{ padding: 12, display: "flex", flexDirection: "column", gap: 8 }}>
             <div className="skeleton" style={{ height: 11, width: "50%", borderRadius: 6 }}>&nbsp;</div>
@@ -220,9 +218,9 @@ function BlogSkeleton() {
 
 function ForumSkeleton() {
   return (
-    <div className="hforum-skeleton">
+    <div className="flex flex-col">
       {[0, 1, 2, 3].map(i => (
-        <div key={i} className="hforum-skeleton-row">
+        <div key={i} className="flex flex-col gap-2 border-b border-brand-600/[0.08] px-4 py-3.5">
           <div className="skeleton" style={{ height: 14, width: "70%", borderRadius: 6 }}>&nbsp;</div>
           <div className="skeleton" style={{ height: 11, width: "40%", borderRadius: 6 }}>&nbsp;</div>
         </div>
@@ -284,7 +282,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
     if (INLINE_PANELS.has(panel)) {
       setActivePanel(panel);
       setPanelParams(params);
-      // If navigating directly to a quiz level from outside, activate it immediately
       if (panel === "quiz" && params.level != null) {
         setQuizLevelState({ level: params.level, timedMode: !!params.timedMode });
       } else {
@@ -359,13 +356,21 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const initials = (profile?.display_name || user?.email || "U")[0].toUpperCase();
   const displayName = profile?.display_name || user?.email?.split("@")[0] || "My Profile";
 
+  // Shared Tailwind classes
+  const cardCls = "rounded-[var(--radius)] border border-[var(--border)] bg-white/[0.06] overflow-hidden transition-all duration-150 hover:border-brand-600/35 hover:bg-white/[0.09] hover:shadow-[var(--shadow-xs)] [html[data-theme=light]_&]:bg-white [html[data-theme=light]_&]:border-[var(--border)]";
+  const feedHeadCls = "flex items-center justify-between mb-2.5";
+  const feedTitleCls = "text-[19px] font-bold text-[var(--text-primary)]";
+  const feedLinkCls = "text-sm font-semibold text-[var(--accent)] cursor-pointer border-none bg-transparent px-2.5 py-1 rounded-[var(--radius-sm)] transition-colors duration-100 hover:bg-brand-600/[0.12] font-[inherit]";
+  const widgetCls = "rounded-[var(--radius)] border border-[var(--border)] bg-white/[0.03] overflow-hidden min-h-[120px] [html[data-theme=light]_&]:bg-white";
+  const metaCls = "text-xs text-[rgba(240,234,255,0.6)] [html[data-theme=light]_&]:text-[rgba(30,16,53,0.68)]";
+
   return (
     <div className="home-wrap">
 
       <main id="main-content" className={`home-layout${activePanel === "messages" ? " home-layout--messages" : (activePanel === "main" || activePanel === "profile" || activePanel === "admin") ? " home-layout--tracker" : ""}`}>
 
         {/* ═══════════════════════════════════════
-            LEFT SIDEBAR
+            LEFT SIDEBAR — kept as CSS (shared with AppLayout)
         ═══════════════════════════════════════ */}
         <aside className="home-left-sidebar">
           {/* Profile row */}
@@ -545,7 +550,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {/* Streak chip */}
           {!streakLoading && streak.current_streak > 0 && (
             <button className="hstreak-chip" onClick={() => navigate("profile")}>
-              <span className="hstreak-fire">🔥</span>
+              <span className="hstreak-fire">{"\uD83D\uDD25"}</span>
               <span className="hstreak-body">
                 <span className="hstreak-main"><span>{streak.current_streak}</span>-{t("home.streakDay")} {t("home.streakLabel")}</span>
                 <span className="hstreak-sub">Keep it going — you're on a roll!</span>
@@ -558,37 +563,38 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
           {/* Blog */}
           <div>
-            <div className="hfeed-head">
-              <button className="hfeed-title hfeed-title--link" onClick={() => navigate("blog")}>{t("home.blogTitle")}</button>
-              <button className="hfeed-link" onClick={() => navigate("blog")}>{t("home.blogViewAll")}</button>
+            <div className={feedHeadCls}>
+              <button className={`${feedTitleCls} cursor-pointer border-none bg-transparent p-0 text-left font-[inherit] hover:underline`} onClick={() => navigate("blog")}>{t("home.blogTitle")}</button>
+              <button className={feedLinkCls} onClick={() => navigate("blog")}>{t("home.blogViewAll")}</button>
             </div>
             {postsLoading ? <BlogSkeleton /> : blogPreview.length === 0 ? (
-              <EmptyState icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>} title="No posts yet" sub="Be the first to share something." btnLabel="Write a post →" onBtn={() => navigate("blogDash")} />
+              <EmptyState icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>} title="No posts yet" sub="Be the first to share something." btnLabel="Write a post \u2192" onBtn={() => navigate("blogDash")} />
             ) : (
-              <div className="hblog-grid">
+              <div className="grid grid-cols-3 gap-2.5 max-[720px]:grid-cols-2 max-[480px]:grid-cols-1">
                 {blogPreview.map((post) => {
                   const tr = (post as BlogPost).translations?.[lang];
                   const title = tr?.title || post.title;
                   return (
-                  <article key={post.id} className="hblog-card" onClick={() => navigate("blog", { slug: post.slug })}>
-                    <div className="hblog-cover">
+                  <article key={post.id} className="group flex cursor-pointer flex-col overflow-hidden rounded-[var(--radius)] border border-[var(--border)] bg-white/[0.03] transition-all duration-150 hover:-translate-y-0.5 hover:border-brand-600/[0.28] active:scale-[0.98] [html[data-theme=light]_&]:bg-white" onClick={() => navigate("blog", { slug: post.slug })}>
+                    <div className="relative h-[108px] shrink-0 overflow-hidden">
                       <img
                         src={post.cover_url || getFallbackImage(post.id)}
                         alt={title}
+                        className="block h-full w-full object-cover"
                         loading="lazy"
                         onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
                       />
                       {post.like_count > 0 && (
-                        <span className="hblog-likes">
+                        <span className="absolute bottom-1.5 right-2 flex items-center gap-[3px] rounded-[var(--radius-sm)] bg-black/60 px-[7px] py-0.5 text-[11px] font-semibold text-white">
                           <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 22V11l5-9a1 1 0 0 1 1.8.5L13 7h7a2 2 0 0 1 2 2.4l-2 10A2 2 0 0 1 18 21H7zM2 11h3v11H2z"/></svg>
                           {formatNum(post.like_count)}
                         </span>
                       )}
                     </div>
-                    <div className="hblog-body">
-                      <div className="hblog-tag">{t("home.blogLabel")}</div>
-                      <div className="hblog-title">{title}</div>
-                      <div className="hblog-meta">{authorName(post)} · {formatDate(post.created_at)}</div>
+                    <div className="flex-1 p-3">
+                      <div className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-[var(--accent)] [html[data-theme=light]_&]:text-brand-800">{t("home.blogLabel")}</div>
+                      <div className="mb-1.5 line-clamp-2 text-sm font-semibold leading-snug text-[var(--text-primary)]">{title}</div>
+                      <div className={metaCls}>{authorName(post)} · {formatDate(post.created_at)}</div>
                     </div>
                   </article>
                   );
@@ -600,12 +606,12 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {/* Spotlight video hero — skeleton reserves space to prevent CLS */}
           {(spotlightLoading || spotlightVideo) && (
             <div style={{ marginBottom: 20 }}>
-              <div className="hfeed-head">
-                <span className="hfeed-title">
-                  <span className="hspot-star" style={{ marginRight: 5 }}>★</span>
+              <div className={feedHeadCls}>
+                <span className={feedTitleCls}>
+                  <span className="text-amber-400 [html[data-theme=light]_&]:text-amber-800" style={{ marginRight: 5 }}>{"\u2605"}</span>
                   Spotlight
                 </span>
-                <button className="hfeed-link" onClick={() => navigate("videos")}>View all →</button>
+                <button className={feedLinkCls} onClick={() => navigate("videos")}>View all &rarr;</button>
               </div>
               {spotlightLoading ? (
                 <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
@@ -633,8 +639,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                         </div>
                       )}
                     </div>
-                    <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "#713f12", background: "#fbbf24", padding: "2px 8px", borderRadius: 10, whiteSpace: "nowrap" }}>
-                      ★ SPOTLIGHT
+                    <span className="shrink-0 whitespace-nowrap rounded-[10px] bg-amber-400 px-2 py-0.5 text-[0.65rem] font-bold text-amber-900">
+                      {"\u2605"} SPOTLIGHT
                     </span>
                   </div>
                   <SpotlightPlayer video={spotlightVideo} />
@@ -646,9 +652,9 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {/* Videos — TikTok-style reel embed */}
           {(videosLoading || reelVideos.length > 0) && (
           <div className="home-video-section">
-            <div className="hfeed-head">
-              <button className="hfeed-title hfeed-title--link" onClick={() => navigate("videos")}>Videos</button>
-              <button className="hfeed-link" onClick={() => navigate("videos")}>View all →</button>
+            <div className={feedHeadCls}>
+              <button className={`${feedTitleCls} cursor-pointer border-none bg-transparent p-0 text-left font-[inherit] hover:underline`} onClick={() => navigate("videos")}>Videos</button>
+              <button className={feedLinkCls} onClick={() => navigate("videos")}>View all &rarr;</button>
             </div>
             {videosLoading ? <BlogSkeleton /> : (() => {
               const vids = reelVideos;
@@ -695,7 +701,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                       >
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
                       </button>
-                      <span className="home-reel-nav-count">{reelIndex + 1} / {vids.length}</span>
+                      <span className="text-xs font-semibold text-white/70">{reelIndex + 1}/{vids.length}</span>
                       <button
                         className="home-reel-nav-btn"
                         onClick={() => setReelIndex(i => Math.min(i + 1, vids.length - 1))}
@@ -715,9 +721,9 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {/* Community Notes — only show if there are notes in user's language */}
           {(lang === "en" || previewNotes.length > 0) && (
           <div>
-            <div className="hfeed-head">
-              <span className="hfeed-title">{t("home.notesTitle")}</span>
-              <button className="hfeed-link" onClick={() => navigate("studyNotes", { tab: "public" })}>{t("home.notesViewAll")}</button>
+            <div className={feedHeadCls}>
+              <span className={feedTitleCls}>{t("home.notesTitle")}</span>
+              <button className={feedLinkCls} onClick={() => navigate("studyNotes", { tab: "public" })}>{t("home.notesViewAll")}</button>
             </div>
             {notesLoading ? <ForumSkeleton /> : previewNotes.length === 0 ? (
               <EmptyState
@@ -726,37 +732,37 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 btnLabel={t("home.notesWriteBtn")} onBtn={() => navigate("studyNotes", { tab: "public" })}
               />
             ) : (
-              <div className="hcard">
+              <div className={cardCls}>
                 {previewNotes.map(note => {
                   const passage = note.book_index != null
                     ? `${BOOKS[note.book_index]?.name ?? ""} ${note.chapter ?? ""}`.trim()
                     : null;
                   return (
-                    <div key={note.id} className="hnote-row" onClick={() => navigate("studyNotes", { tab: "public" })}>
+                    <div key={note.id} className="flex cursor-pointer items-start gap-3 border-b border-white/[0.06] px-4 py-3.5 transition-colors duration-100 last:border-b-0 hover:bg-brand-600/[0.06] [html[data-theme=light]_&]:border-b-[var(--border)] [html[data-theme=light]_&]:hover:bg-brand-600/[0.05]" onClick={() => navigate("studyNotes", { tab: "public" })}>
                       <button
-                        className="hnote-avatar"
+                        className="flex size-9 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#2e1a5c] to-brand-800 text-[13px] font-bold text-white"
                         onClick={e => { e.stopPropagation(); navigate("publicProfile", { userId: note.user_id }); }}
                         title={note.author?.display_name ?? "Anonymous"}
                       >
                         {note.author?.avatar_url
-                          ? <img src={note.author.avatar_url} alt={note.author.display_name} />
+                          ? <img src={note.author.avatar_url} alt={note.author.display_name} className="h-full w-full object-cover" />
                           : (note.author?.display_name ?? "A")[0].toUpperCase()}
                       </button>
-                      <div className="hnote-body">
-                        <div className="hnote-title">{note.title || "Untitled"}</div>
-                        <div className="hnote-meta">
+                      <div className="min-w-0 flex-1">
+                        <div className="mb-[3px] text-sm font-semibold leading-snug text-[var(--text-primary)]">{note.title || "Untitled"}</div>
+                        <div className={metaCls}>
                           {note.author?.display_name ?? "Anonymous"}
                           {passage && <> · <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:2}}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>{passage}</>}
                           {" · "}{formatDate(note.updated_at)}
                         </div>
-                        {passage && <span className="hnote-passage">📖 {passage}</span>}
+                        {passage && <span className="mt-1 inline-flex items-center gap-1 rounded bg-brand-600/15 px-[7px] py-0.5 text-[11px] font-semibold text-[var(--accent)] [html[data-theme=light]_&]:bg-brand-800/10 [html[data-theme=light]_&]:text-brand-800">{"\uD83D\uDCD6"} {passage}</span>}
                       </div>
                       <button
-                        className={`hnote-like-btn${note.user_has_liked ? " hnote-like-btn--liked" : ""}`}
+                        className={`shrink-0 self-center rounded-[var(--radius-xs)] border-none bg-transparent px-1.5 py-1 text-sm transition-colors duration-100 ${note.user_has_liked ? "text-fuchsia-400" : "text-[rgba(240,234,255,0.6)] [html[data-theme=light]_&]:text-[rgba(30,16,53,0.68)]"} cursor-pointer font-[inherit] hover:bg-brand-600/[0.12] hover:text-[var(--accent)]`}
                         onClick={e => { e.stopPropagation(); toggleNoteLike.mutate(note.id); }}
                         title={note.user_has_liked ? "Unlike" : "Like"}
                       >
-                        <span aria-hidden="true">{note.user_has_liked ? "♥" : "♡"}{note.like_count > 0 ? ` ${note.like_count}` : ""}</span>
+                        <span aria-hidden="true">{note.user_has_liked ? "\u2665" : "\u2661"}{note.like_count > 0 ? ` ${note.like_count}` : ""}</span>
                         <span className="sr-only">{note.user_has_liked ? "Unlike" : "Like"}{note.like_count > 0 ? `, ${note.like_count} likes` : ""}</span>
                       </button>
                     </div>
@@ -770,32 +776,32 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {/* Forum — only show if there are threads in user's language */}
           {(lang === "en" || topThreads.length > 0) && (
           <div>
-            <div className="hfeed-head">
-              <span className="hfeed-title">{t("home.forumTitle")}</span>
-              <button className="hfeed-link" onClick={() => navigate("forum")}>{t("home.forumViewAll")}</button>
+            <div className={feedHeadCls}>
+              <span className={feedTitleCls}>{t("home.forumTitle")}</span>
+              <button className={feedLinkCls} onClick={() => navigate("forum")}>{t("home.forumViewAll")}</button>
             </div>
             {threadsLoading ? <ForumSkeleton /> : topThreads.length === 0 ? (
               <EmptyState
                 icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>}
                 title="No discussions yet" sub="Start the first conversation."
-                btnLabel="Start a thread →" onBtn={() => navigate("forum")}
+                btnLabel="Start a thread \u2192" onBtn={() => navigate("forum")}
               />
             ) : (
-              <div className="hcard">
+              <div className={cardCls}>
                 {topThreads.map(thread => (
                   <div
                     key={thread.id}
-                    className="hforum-row"
+                    className="flex cursor-pointer items-center gap-3 border-b border-white/[0.06] px-4 py-3.5 transition-colors duration-100 last:border-b-0 hover:bg-brand-600/[0.06] [html[data-theme=light]_&]:border-b-[var(--border)] [html[data-theme=light]_&]:hover:bg-brand-600/[0.05]"
                     onClick={() => navigate("forum", { categoryId: thread.category_id, threadId: thread.id })}
                   >
-                    <div className="hforum-avatar">
+                    <div className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[var(--border)] bg-white/[0.06] text-[13px] font-bold text-[var(--accent)]">
                       {(authorName(thread) || "?")[0].toUpperCase()}
                     </div>
-                    <div className="hforum-body">
-                      <div className="hforum-title">{thread.title}</div>
-                      <div className="hforum-meta">{authorName(thread)} · {formatDate(thread.updated_at)}</div>
+                    <div className="min-w-0 flex-1">
+                      <div className="mb-0.5 truncate text-sm font-semibold text-[var(--text-primary)]">{thread.title}</div>
+                      <div className={metaCls}>{authorName(thread)} · {formatDate(thread.updated_at)}</div>
                     </div>
-                    <span className="hforum-count">
+                    <span className="flex shrink-0 items-center gap-1 text-xs text-[rgba(240,234,255,0.6)] [html[data-theme=light]_&]:text-[rgba(30,16,53,0.68)]">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                       {formatNum(thread.forum_replies?.[0]?.count ?? 0)}
                     </span>
@@ -816,30 +822,30 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
         <aside className="home-right-sidebar">
 
           {/* Daily Verse */}
-          <div className="hwidget">
+          <div className={widgetCls}>
             <DailyVerse />
           </div>
 
           {/* Friends online */}
-          <div className="hwidget">
-            <div className="hwidget-header">
-              <span className="hwidget-title">Friends</span>
-              <button className="hwidget-link" onClick={() => navigate("friends")}>See all</button>
+          <div className={widgetCls}>
+            <div className="flex items-center justify-between px-4 pb-2.5 pt-3.5">
+              <span className="text-base font-bold text-[var(--text-primary)]">Friends</span>
+              <button className={feedLinkCls} onClick={() => navigate("friends")}>See all</button>
             </div>
             {friendsLoading ? (
-              <div className="hwho-skeleton">
+              <div className="flex flex-col gap-2.5 py-1 pb-2">
                 {[0,1,2].map(i => (
-                  <div key={i} className="hwho-skeleton-row">
-                    <div className="skeleton" style={{ width: 34, height: 34, borderRadius: "50%", flexShrink: 0 }} />
-                    <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 5 }}>
-                      <div className="skeleton" style={{ height: 12, width: "55%", borderRadius: 6 }}>&nbsp;</div>
+                  <div key={i} className="flex items-center gap-2.5 px-4">
+                    <div className="skeleton size-[34px] shrink-0 rounded-full" />
+                    <div className="flex flex-1 flex-col gap-[5px]">
+                      <div className="skeleton h-3 w-[55%] rounded-md">&nbsp;</div>
                     </div>
-                    <div className="skeleton" style={{ width: 52, height: 10, borderRadius: 6 }} />
+                    <div className="skeleton h-2.5 w-[52px] rounded-md" />
                   </div>
                 ))}
               </div>
             ) : friends.length === 0 ? (
-              <div className="hfriend-empty">Add friends to see their activity here.</div>
+              <div className="px-4 pb-4 pt-3 text-[13px] text-[rgba(240,234,255,0.6)] [html[data-theme=light]_&]:text-[rgba(30,16,53,0.68)]">Add friends to see their activity here.</div>
             ) : (
               <>
                 {shownFriends.map(f => {
@@ -851,61 +857,61 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                     : diff < 86400000 ? `${Math.floor(diff/3600000)}h ago`
                     : `${Math.floor(diff/86400000)}d ago`;
                   return (
-                    <div key={f.id} className="hfriend-row" onClick={() => navigate("publicProfile", { userId: f.id })}>
-                      <span className="hfriend-av-wrap">
-                        <span className="hfriend-av">
-                          {f.avatar_url ? <img src={f.avatar_url} alt={f.display_name} /> : (f.display_name || "?")[0].toUpperCase()}
+                    <div key={f.id} className="flex cursor-pointer items-center gap-2.5 px-4 py-2 transition-colors duration-100 hover:bg-brand-600/[0.06]" onClick={() => navigate("publicProfile", { userId: f.id })}>
+                      <span className="relative shrink-0">
+                        <span className="flex size-[34px] items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#2e1a5c] to-brand-800 text-[13px] font-bold text-white">
+                          {f.avatar_url ? <img src={f.avatar_url} alt={f.display_name} className="h-full w-full object-cover" /> : (f.display_name || "?")[0].toUpperCase()}
                         </span>
-                        {isOnline && <span className="hfriend-dot" aria-label="Online" />}
+                        {isOnline && <span className="absolute bottom-0 right-0 size-2.5 rounded-full border-2 border-[var(--bg)] bg-green-500" aria-label="Online" />}
                       </span>
-                      <span className="hfriend-name">{f.display_name || "Unknown"}</span>
-                      <span className="hfriend-when">{when}</span>
+                      <span className="flex-1 text-sm font-medium text-[var(--text-primary)]">{f.display_name || "Unknown"}</span>
+                      <span className={`min-w-[72px] text-right ${metaCls}`}>{when}</span>
                     </div>
                   );
                 })}
-                <div style={{ height: 8 }} />
+                <div className="h-2" />
               </>
             )}
           </div>
 
           {/* Invite Friends */}
-          <div className="hwidget hwidget--invite">
-            <div className="hwidget-invite-body">
-              <span className="hwidget-invite-icon">🎁</span>
+          <div className="flex min-h-0 items-center justify-between gap-3 overflow-hidden rounded-[var(--radius)] border border-brand-600/20 bg-gradient-to-br from-[rgba(92,61,153,0.15)] to-[rgba(74,45,128,0.08)] px-4 py-3.5">
+            <div className="flex min-w-0 items-center gap-2.5">
+              <span className="shrink-0 text-2xl">{"\uD83C\uDF81"}</span>
               <div>
-                <div className="hwidget-invite-title">Invite a Friend</div>
-                <div className="hwidget-invite-sub">Share JW Study and study together</div>
+                <div className="text-sm font-bold text-[var(--text-primary)]">Invite a Friend</div>
+                <div className="mt-px text-xs text-[var(--text-secondary)]">Share JW Study and study together</div>
               </div>
             </div>
-            <button className="hwidget-invite-btn" onClick={() => navigate("profile")}>
+            <button className="shrink-0 cursor-pointer whitespace-nowrap rounded-[20px] border-none bg-[var(--teal)] px-3.5 py-[7px] text-xs font-bold text-white transition-opacity duration-150 hover:opacity-85" onClick={() => navigate("profile")}>
               Get my link
             </button>
           </div>
 
           {/* Who's Online */}
-          <div className="hwidget">
-            <div className="hwidget-header">
-              <span className="hwidget-title">Who's Online</span>
-              <button className="hwidget-link" onClick={() => navigate("community")}>
-                {totalOnline > 0 ? `See all (${totalOnline}) →` : "See all →"}
+          <div className={widgetCls}>
+            <div className="flex items-center justify-between px-4 pb-2.5 pt-3.5">
+              <span className="text-base font-bold text-[var(--text-primary)]">Who's Online</span>
+              <button className={feedLinkCls} onClick={() => navigate("community")}>
+                {totalOnline > 0 ? `See all (${totalOnline}) \u2192` : "See all \u2192"}
               </button>
             </div>
             {whoLoading ? (
-              <div className="hwho-skeleton">
+              <div className="flex flex-col gap-2.5 py-1 pb-2">
                 {[0, 1, 2].map(i => (
-                  <div key={i} className="hwho-skeleton-row">
-                    <div className="skeleton" style={{ width: 32, height: 32, borderRadius: "50%", flexShrink: 0 }} />
-                    <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 5 }}>
-                      <div className="skeleton" style={{ height: 12, width: "55%", borderRadius: 6 }}>&nbsp;</div>
-                      <div className="skeleton" style={{ height: 10, width: "35%", borderRadius: 6 }}>&nbsp;</div>
+                  <div key={i} className="flex items-center gap-2.5 px-4">
+                    <div className="skeleton size-8 shrink-0 rounded-full" />
+                    <div className="flex flex-1 flex-col gap-[5px]">
+                      <div className="skeleton h-3 w-[55%] rounded-md">&nbsp;</div>
+                      <div className="skeleton h-2.5 w-[35%] rounded-md">&nbsp;</div>
                     </div>
                   </div>
                 ))}
               </div>
             ) : whoError ? (
-              <div className="hfriend-empty">Unable to load members.</div>
+              <div className="px-4 pb-4 pt-3 text-[13px] text-[rgba(240,234,255,0.6)]">Unable to load members.</div>
             ) : whoMembers.length === 0 ? (
-              <div className="hfriend-empty">No one has been active recently.</div>
+              <div className="px-4 pb-4 pt-3 text-[13px] text-[rgba(240,234,255,0.6)]">No one has been active recently.</div>
             ) : (
               <>
                 {whoMembers.slice(0, 6).map(m => {
@@ -920,23 +926,23 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                   return (
                     <div
                       key={m.id}
-                      className="hfriend-row"
+                      className="flex cursor-pointer items-center gap-2.5 px-4 py-2 transition-colors duration-100 hover:bg-brand-600/[0.06]"
                       onClick={() => navigate("publicProfile", { userId: m.id })}
                     >
-                      <span className="hfriend-av-wrap">
-                        <span className="hfriend-av">
+                      <span className="relative shrink-0">
+                        <span className="flex size-8 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#2e1a5c] to-brand-800 text-[13px] font-bold text-white">
                           {m.avatar_url
-                            ? <img src={m.avatar_url} alt={m.display_name ?? ""} loading="lazy" />
+                            ? <img src={m.avatar_url} alt={m.display_name ?? ""} loading="lazy" className="h-full w-full object-cover" />
                             : (m.display_name || "?")[0].toUpperCase()}
                         </span>
-                        {isOnline && <span className="hfriend-dot" aria-label="Online" />}
+                        {isOnline && <span className="absolute bottom-0 right-0 size-2.5 rounded-full border-2 border-[var(--bg)] bg-green-500" aria-label="Online" />}
                       </span>
-                      <span className="hfriend-name">{m.display_name || "Anonymous"}</span>
-                      <span className="hfriend-when">{when}</span>
+                      <span className="flex-1 text-sm font-medium text-[var(--text-primary)]">{m.display_name || "Anonymous"}</span>
+                      <span className={`min-w-[72px] text-right ${metaCls}`}>{when}</span>
                     </div>
                   );
                 })}
-                <div style={{ height: 8 }} />
+                <div className="h-2" />
               </>
             )}
           </div>
@@ -955,7 +961,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <span>Check out reading plans to keep the momentum going.</span>
           </div>
           <button className="home-notif-enable" onClick={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); navigate("readingPlans"); }}>View Plans</button>
-          <button className="home-notif-dismiss" onClick={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); }} aria-label="✕ Dismiss">✕</button>
+          <button className="home-notif-dismiss" onClick={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); }} aria-label="\u2715 Dismiss">{"\u2715"}</button>
         </div>
       )}
 
@@ -967,7 +973,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <span>{t("home.notifBannerSub")}</span>
           </div>
           <button className="home-notif-enable" onClick={handleEnableNotif} disabled={updateProfile.isPending}>{t("home.notifEnable")}</button>
-          <button className="home-notif-dismiss" onClick={handleDismissNotif} aria-label="✕ Dismiss">✕</button>
+          <button className="home-notif-dismiss" onClick={handleDismissNotif} aria-label="\u2715 Dismiss">{"\u2715"}</button>
         </div>
       )}
 
