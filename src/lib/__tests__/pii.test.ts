@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { detectPII, assertNoPII } from "../pii";
+import { detectPII, assertNoPII, upgradeInsecureLinks } from "../pii";
 
 describe("detectPII", () => {
   it("returns null for clean text", () => {
@@ -83,8 +83,8 @@ describe("detectPII", () => {
   });
 
   describe("insecure links", () => {
-    it("detects http:// links", () => {
-      expect(detectPII("visit http://example.com")).toBe("insecure link (http://)");
+    it("no longer flags http:// links (auto-upgraded instead)", () => {
+      expect(detectPII("visit http://example.com")).toBeNull();
     });
     it("allows https:// links", () => {
       expect(detectPII("visit https://example.com")).toBeNull();
@@ -114,8 +114,8 @@ describe("assertNoPII", () => {
     expect(() => assertNoPII("contact user@example.com")).toThrow(/email address/);
   });
 
-  it("throws with a special message for http:// links", () => {
-    expect(() => assertNoPII("see http://example.com")).toThrow(/Only secure links/);
+  it("does not throw for http:// links (auto-upgraded by upgradeInsecureLinks)", () => {
+    expect(() => assertNoPII("see http://example.com")).not.toThrow();
   });
 
   it("checks all fields, not just the first", () => {
@@ -124,5 +124,20 @@ describe("assertNoPII", () => {
 
   it("accepts undefined/empty fields without throwing", () => {
     expect(() => assertNoPII("", "good text")).not.toThrow();
+  });
+});
+
+describe("upgradeInsecureLinks", () => {
+  it("upgrades http:// to https://", () => {
+    expect(upgradeInsecureLinks("visit http://example.com")).toBe("visit https://example.com");
+  });
+  it("leaves https:// untouched", () => {
+    expect(upgradeInsecureLinks("visit https://example.com")).toBe("visit https://example.com");
+  });
+  it("upgrades multiple http links", () => {
+    expect(upgradeInsecureLinks("http://a.com and http://b.com")).toBe("https://a.com and https://b.com");
+  });
+  it("handles HTML href attributes", () => {
+    expect(upgradeInsecureLinks('<a href="http://jwstudy.org">link</a>')).toBe('<a href="https://jwstudy.org">link</a>');
   });
 });

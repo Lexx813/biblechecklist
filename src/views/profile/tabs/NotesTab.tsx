@@ -7,6 +7,7 @@ import RichTextEditor from "../../../components/RichTextEditor";
 import Button from "../../../components/ui/Button";
 import { BOOKS } from "../../../data/books";
 import { useNotes, useCreateNote, useUpdateNote, useDeleteNote } from "../../../hooks/useNotes";
+import { sanitizeRich } from "../../../lib/sanitize";
 import { formatDate } from "../../../utils/formatters";
 
 const OT_COUNT = 39;
@@ -170,7 +171,7 @@ function NoteCard({ note, userId }: { note: any; userId: string }) {
       {/* Content */}
       <div
         className="mt-2.5 text-sm leading-relaxed text-[var(--text-secondary)] [&_a]:text-[var(--accent)] [&_a]:underline [&_blockquote]:border-l-2 [&_blockquote]:border-[var(--accent)]/40 [&_blockquote]:pl-3 [&_blockquote]:italic [&_blockquote]:text-[var(--text-muted)] [&_strong]:font-bold [&_strong]:text-[var(--text-primary)]"
-        dangerouslySetInnerHTML={{ __html: note.content }}
+        dangerouslySetInnerHTML={{ __html: sanitizeRich(note.content) }}
       />
 
       {/* Date */}
@@ -250,7 +251,7 @@ export default function NotesTab({ userId }: Props) {
             onChange={(v: string | number) => setFilterBook(String(v))}
             options={[
               { value: "all", label: t("profile.allBooks") },
-              ...booksWithNotes.map((i: number) => ({ value: i, label: t(`bookNames.${i}`, BOOKS[i]?.name) })),
+              ...BOOKS.map((b, i) => ({ value: i, label: t(`bookNames.${i}`, b.name) })),
             ]}
           />
         </div>

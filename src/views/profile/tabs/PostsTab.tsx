@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useUserPosts, useCreatePost, useDeletePost } from "../../../hooks/usePosts";
+import { useUserPosts, useCreatePost, useUpdatePost, useDeletePost } from "../../../hooks/usePosts";
+import { sanitizeRich } from "../../../lib/sanitize";
 import CreatePostModal from "../../../components/CreatePostModal";
 import ConfirmModal from "../../../components/ConfirmModal";
 import Button from "../../../components/ui/Button";
@@ -16,12 +17,21 @@ export default function PostsTab({ profileId, isOwner }: Props) {
   const { t } = useTranslation();
   const { data: posts = [], isLoading } = useUserPosts(profileId, !isOwner);
   const createPost = useCreatePost(profileId);
+  const updatePost = useUpdatePost(profileId);
   const deletePost = useDeletePost(profileId);
   const [showModal, setShowModal] = useState(false);
+  const [editingPost, setEditingPost] = useState<any>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
-  function handleCreate(content: string, visibility: "public" | "friends", imageUrl?: string) {
-    createPost.mutate({ content, visibility, imageUrl }, { onSuccess: () => setShowModal(false) });
+  function handleSubmit(content: string, visibility: "public" | "friends", imageUrl?: string) {
+    if (editingPost) {
+      updatePost.mutate(
+        { postId: editingPost.id, content, visibility, imageUrl: imageUrl ?? editingPost.image_url ?? null },
+        { onSuccess: () => { setEditingPost(null); setShowModal(false); } }
+      );
+    } else {
+      createPost.mutate({ content, visibility, imageUrl }, { onSuccess: () => setShowModal(false) });
+    }
   }
 
   function formatPostDate(iso: string) {
@@ -77,8 +87,8 @@ export default function PostsTab({ profileId, isOwner }: Props) {
             <div key={post.id} className="group rounded-[var(--radius)] border border-[var(--border)] p-4 transition-colors hover:border-[var(--border)]">
               {/* Content — render HTML from rich editor, or plain text */}
               <div
-                className="text-sm leading-relaxed text-[var(--text-secondary)] [&_a]:text-[var(--accent)] [&_a]:underline [&_blockquote]:border-l-2 [&_blockquote]:border-[var(--accent)]/40 [&_blockquote]:pl-3 [&_blockquote]:italic [&_blockquote]:text-[var(--text-muted)] [&_strong]:font-bold [&_strong]:text-[var(--text-primary)]"
-                dangerouslySetInnerHTML={{ __html: post.content }}
+                className="rich-content"
+                dangerouslySetInnerHTML={{ __html: sanitizeRich(post.content) }}
               />
               {post.image_url && (
                 <img
@@ -100,14 +110,23 @@ export default function PostsTab({ profileId, isOwner }: Props) {
                   )}
                 </span>
                 {isOwner && (
-                  <button
-                    className="cursor-pointer rounded-md border-none bg-transparent p-1.5 text-[var(--text-muted)] opacity-0 transition-all hover:bg-red-500/10 hover:text-red-400 group-hover:opacity-100"
-                    onClick={() => setDeleteId(post.id)}
-                    disabled={deletePost.isPending}
-                    title={t("common.delete")}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                  </button>
+                  <span className="flex items-center gap-1">
+                    <button
+                      className="cursor-pointer rounded-md border-none bg-transparent p-1.5 text-[var(--text-muted)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)]"
+                      onClick={() => { setEditingPost(post); setShowModal(true); }}
+                      title={t("common.edit")}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+                    </button>
+                    <button
+                      className="cursor-pointer rounded-md border-none bg-transparent p-1.5 text-[var(--text-muted)] transition-colors hover:bg-red-500/10 hover:text-red-400"
+                      onClick={() => setDeleteId(post.id)}
+                      disabled={deletePost.isPending}
+                      title={t("common.delete")}
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                    </button>
+                  </span>
                 )}
               </div>
             </div>
@@ -118,10 +137,11 @@ export default function PostsTab({ profileId, isOwner }: Props) {
       {/* Create post modal */}
       {showModal && (
         <CreatePostModal
-          onClose={() => setShowModal(false)}
-          onSubmit={handleCreate}
-          isPending={createPost.isPending}
+          onClose={() => { setShowModal(false); setEditingPost(null); }}
+          onSubmit={handleSubmit}
+          isPending={createPost.isPending || updatePost.isPending}
           userId={profileId}
+          editPost={editingPost}
         />
       )}
 

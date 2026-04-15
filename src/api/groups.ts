@@ -135,9 +135,13 @@ export const groupsApi = {
   },
 
   uploadCoverPhoto: async (file: File): Promise<string> => {
+    const ALLOWED_TYPES: Record<string, string> = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif" };
+    const MAX_SIZE = 5 * 1024 * 1024; // 5 MB
+    if (!ALLOWED_TYPES[file.type]) throw new Error("Only JPEG, PNG, WebP, or GIF images are allowed.");
+    if (file.size > MAX_SIZE) throw new Error("Image must be under 5 MB.");
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
-    const ext = file.name.split(".").pop() ?? "jpg";
+    const ext = ALLOWED_TYPES[file.type];
     const path = `${user.id}/${Date.now()}.${ext}`;
     const { error } = await supabase.storage.from("group-covers").upload(path, file, { upsert: true });
     if (error) throw new Error(error.message);
@@ -401,9 +405,13 @@ export const groupsApi = {
   },
 
   uploadPostImage: async (groupId: string, file: File): Promise<string> => {
+    const ALLOWED_TYPES: Record<string, string> = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif" };
+    const MAX_SIZE = 5 * 1024 * 1024; // 5 MB
+    if (!ALLOWED_TYPES[file.type]) throw new Error("Only JPEG, PNG, WebP, or GIF images are allowed.");
+    if (file.size > MAX_SIZE) throw new Error("Image must be under 5 MB.");
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
-    const ext = file.name.split(".").pop() || "jpg";
+    const ext = ALLOWED_TYPES[file.type];
     const path = `groups/${groupId}/posts/${crypto.randomUUID()}.${ext}`;
     const { error } = await supabase.storage.from("group-files").upload(path, file, { contentType: file.type });
     if (error) throw new Error(error.message);
@@ -412,11 +420,23 @@ export const groupsApi = {
   },
 
   uploadFile: async (groupId: string, file: File): Promise<GroupFile> => {
+    const ALLOWED_TYPES = new Set([
+      "image/jpeg", "image/png", "image/webp", "image/gif",
+      "video/mp4", "video/quicktime", "video/webm",
+      "application/pdf",
+      "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "text/plain", "audio/mpeg",
+    ]);
+    const MAX_SIZE = 25 * 1024 * 1024; // 25 MB
+    if (!ALLOWED_TYPES.has(file.type)) throw new Error("This file type is not allowed.");
+    if (file.size > MAX_SIZE) throw new Error("File must be under 25 MB.");
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
-    const ext = file.name.split(".").pop();
+    const ext = file.name.split(".").pop()?.toLowerCase().replace(/[^a-z0-9]/g, "") ?? "bin";
     const path = `groups/${groupId}/${crypto.randomUUID()}.${ext}`;
-    const { error: ue } = await supabase.storage.from("group-files").upload(path, file);
+    const { error: ue } = await supabase.storage.from("group-files").upload(path, file, { contentType: file.type });
     if (ue) throw new Error(ue.message);
     const { data, error } = await supabase
       .from("group_files")

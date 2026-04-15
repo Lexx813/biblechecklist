@@ -24,6 +24,21 @@ export function useCreatePost(userId: string | undefined) {
   });
 }
 
+export function useUpdatePost(userId: string | undefined) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ postId, content, visibility, imageUrl }: { postId: string; content: string; visibility: "public" | "friends"; imageUrl?: string | null }) =>
+      postsApi.update(postId, content, visibility, imageUrl),
+    onSuccess: (updated) => {
+      queryClient.setQueryData(["userPosts", userId], (prev: any[] = []) =>
+        prev.map(p => p.id === updated.id ? updated : p)
+      );
+      queryClient.invalidateQueries({ queryKey: ["publicFeed"] });
+      queryClient.invalidateQueries({ queryKey: ["friendPosts"] });
+    },
+  });
+}
+
 export function usePublicFeed() {
   return useQuery({
     queryKey: ["publicFeed"],

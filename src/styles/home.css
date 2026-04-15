@@ -69,7 +69,7 @@ html:has(.home-wrap) .page-footer { display: none; }
    MAIN FEED
    ───────────────────────────────────────────────────────── */
 .home-feed {
-  padding: 16px 12px;
+  padding: 0 12px 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -111,12 +111,26 @@ html:has(.home-wrap) .page-footer { display: none; }
 
 /* Today's focus wrapper — inner tf-card provides its own gradient/border */
 .hcard--focus {
-  background: transparent;
+  background: var(--bg, #0a0514);
   border-color: transparent;
   box-shadow: none;
-  padding: 0;
+  padding: 0 0 12px;
   overflow: visible;
   min-height: 292px; /* reserve space for card + continue row (prevents CLS on data load) */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+/* Soft fade at bottom edge so scrolling content disappears cleanly */
+.hcard--focus::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -16px;
+  height: 16px;
+  background: linear-gradient(to bottom, var(--bg, #0a0514), transparent);
+  pointer-events: none;
 }
 .hcard--focus:hover { border-color: transparent; }
 
@@ -630,7 +644,8 @@ html:has(.home-wrap) .page-footer { display: none; }
 [data-theme="light"] .hcard,
 [data-theme="light"] .hwidget,
 [data-theme="light"] .hblog-card { background: #fff; border-color: var(--border); }
-[data-theme="light"] .hcard--focus { background: transparent; border-color: transparent; box-shadow: none; }
+[data-theme="light"] .hcard--focus { background: #f4f0fa; border-color: transparent; box-shadow: none; }
+[data-theme="light"] .hcard--focus::after { background: linear-gradient(to bottom, #f4f0fa, transparent); }
 [data-theme="light"] .hfeed-title,
 [data-theme="light"] .hwidget-title,
 [data-theme="light"] .hblog-title,
@@ -689,7 +704,7 @@ html:has(.home-wrap) .page-footer { display: none; }
   .home-wrap { height: auto; overflow: visible; padding-bottom: 70px; }
   .home-layout { grid-template-columns: 1fr; height: auto; }
   .home-right-sidebar { display: none; }
-  .home-feed { padding: 12px 8px; overflow-y: visible; }
+  .home-feed { padding: 0 8px 12px; overflow-y: visible; }
   .home-feed > .page-footer { display: none; }
   .hblog-grid { grid-template-columns: 1fr 1fr; }
 }

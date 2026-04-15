@@ -14,7 +14,7 @@ interface Props {
   profile: any;
   userId: string;
   isOwner: boolean;
-  readingProgress: Record<number, Record<number, boolean>>;
+  readingProgress: Record<string, unknown>;
   streak: { current_streak: number; longest_streak: number; total_days: number };
   forumStats: { threads: number; replies: number };
 }

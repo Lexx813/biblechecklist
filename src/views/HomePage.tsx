@@ -26,7 +26,7 @@ import { formatDate, authorName, formatNum } from "../utils/formatters";
 import { BOOKS } from "../data/books";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
-import { useFriendPosts, usePublicFeed, useCreatePost, useDeletePost } from "../hooks/usePosts";
+import { useFriendPosts, usePublicFeed, useCreatePost, useUpdatePost, useDeletePost } from "../hooks/usePosts";
 import CreatePostModal from "../components/CreatePostModal";
 import ConfirmModal from "../components/ConfirmModal";
 import { useNotes } from "../hooks/useNotes";
@@ -38,6 +38,7 @@ import TodaysFocusCard from "../components/home/TodaysFocusCard";
 import EmptyState from "../components/EmptyState";
 import OnboardingModal, { useOnboarding } from "../components/OnboardingModal";
 import { isDismissed, dismissPrompt } from "../components/UpgradePrompt";
+import { sanitizeRich } from "../lib/sanitize";
 import "../styles/home.css";
 import "../styles/videos.css";
 
@@ -277,8 +278,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { data: friendPosts = [], isLoading: friendPostsLoading } = useFriendPosts(user?.id);
   const { data: publicFeed = [] } = usePublicFeed();
   const createPost = useCreatePost(user?.id);
+  const updatePost = useUpdatePost(user?.id);
   const deletePost = useDeletePost(user?.id);
   const [showPostModal, setShowPostModal] = useState(false);
+  const [editingPost, setEditingPost] = useState<any>(null);
   const [deletePostId, setDeletePostId] = useState<string | null>(null);
   const { data: myNotes = [] } = useNotes(user?.id);
   const { onlineNow: whoOnline, recentlyActive: whoRecent, totalOnline, isLoading: whoLoading, isError: whoError } = useOnlineMembers(50);
@@ -675,20 +678,29 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                           </div>
                         </div>
                         {post.user_id === user?.id && (
-                          <button
-                            className="flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-full border-none bg-transparent text-[var(--text-muted)] opacity-0 transition-all hover:bg-red-500/10 hover:text-red-400 group-hover/post:opacity-100"
-                            onClick={() => setDeletePostId(post.id)}
-                            title={t("common.delete")}
-                          >
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-                          </button>
+                          <span className="flex shrink-0 items-center gap-0.5">
+                            <button
+                              className="flex size-8 cursor-pointer items-center justify-center rounded-full border-none bg-transparent text-[var(--text-muted)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)]"
+                              onClick={() => { setEditingPost(post); setShowPostModal(true); }}
+                              title={t("common.edit")}
+                            >
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+                            </button>
+                            <button
+                              className="flex size-8 cursor-pointer items-center justify-center rounded-full border-none bg-transparent text-[var(--text-muted)] transition-colors hover:bg-red-500/10 hover:text-red-400"
+                              onClick={() => setDeletePostId(post.id)}
+                              title={t("common.delete")}
+                            >
+                              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            </button>
+                          </span>
                         )}
                       </div>
 
                       {/* Post content */}
                       <div
-                        className="px-4 pb-3 text-sm leading-relaxed text-[var(--text-secondary)] [&_a]:text-[var(--accent)] [&_a]:underline [&_strong]:font-bold [&_strong]:text-[var(--text-primary)]"
-                        dangerouslySetInnerHTML={{ __html: post.content }}
+                        className="rich-content px-4 pb-3"
+                        dangerouslySetInnerHTML={{ __html: sanitizeRich(post.content) }}
                       />
 
                       {/* Post image — full width, no crop */}
@@ -713,16 +725,24 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {/* Create post modal */}
           {showPostModal && user && (
             <CreatePostModal
-              onClose={() => setShowPostModal(false)}
+              onClose={() => { setShowPostModal(false); setEditingPost(null); }}
               onSubmit={(content, visibility, imageUrl) => {
-                createPost.mutate({ content, visibility, imageUrl }, {
-                  onSuccess: () => setShowPostModal(false),
-                });
+                if (editingPost) {
+                  updatePost.mutate(
+                    { postId: editingPost.id, content, visibility, imageUrl: imageUrl ?? editingPost.image_url ?? null },
+                    { onSuccess: () => { setShowPostModal(false); setEditingPost(null); } }
+                  );
+                } else {
+                  createPost.mutate({ content, visibility, imageUrl }, {
+                    onSuccess: () => setShowPostModal(false),
+                  });
+                }
               }}
-              isPending={createPost.isPending}
+              isPending={createPost.isPending || updatePost.isPending}
               userId={user.id}
               avatarUrl={profile?.avatar_url}
               displayName={displayName}
+              editPost={editingPost}
             />
           )}
 

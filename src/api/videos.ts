@@ -2,6 +2,21 @@ import { supabase } from "../lib/supabase";
 import { generateVideoSlug } from "../utils/videoEmbed";
 import { assertNoPII } from "../lib/pii";
 
+/** Only allow embeds from trusted video platforms */
+const ALLOWED_EMBED_HOSTS = ["youtube.com", "www.youtube.com", "youtu.be", "www.tiktok.com", "tiktok.com", "rumble.com", "www.rumble.com"];
+function validateEmbedUrl(url: string | undefined | null): void {
+  if (!url) return;
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== "https:") throw new Error("Embed URL must use HTTPS.");
+    if (!ALLOWED_EMBED_HOSTS.some(h => parsed.hostname === h || parsed.hostname.endsWith("." + h)))
+      throw new Error("Only YouTube, TikTok, and Rumble embed URLs are allowed.");
+  } catch (e) {
+    if (e instanceof Error && e.message.includes("Embed")) throw e;
+    throw new Error("Invalid embed URL.");
+  }
+}
+
 export interface CreatorRequest {
   id: string;
   user_id: string;
@@ -98,6 +113,7 @@ export const videosApi = {
 
   create: async (userId: string, input: VideoInput) => {
     assertNoPII(input.title, input.description ?? "");
+    validateEmbedUrl(input.embed_url);
     const slug = generateVideoSlug(input.title);
     const { data, error } = await supabase
       .from("videos")
@@ -110,7 +126,11 @@ export const videosApi = {
 
   /** Upload a compressed video file, returns storage_path. */
   uploadFile: async (userId: string, file: File): Promise<string> => {
-    const ext = file.name.split(".").pop()?.toLowerCase().replace(/[^a-z0-9]/g, "") ?? "mp4";
+    const ALLOWED_TYPES: Record<string, string> = { "video/mp4": "mp4", "video/quicktime": "mov", "video/webm": "webm" };
+    const MAX_SIZE = 100 * 1024 * 1024; // 100 MB
+    if (!ALLOWED_TYPES[file.type]) throw new Error("Only MP4, MOV, or WebM videos are allowed.");
+    if (file.size > MAX_SIZE) throw new Error("Video must be under 100 MB.");
+    const ext = ALLOWED_TYPES[file.type];
     const path = `${userId}/${Date.now()}.${ext}`;
     const { error } = await supabase.storage
       .from("videos")

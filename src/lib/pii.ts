@@ -48,9 +48,14 @@ export function detectPII(text = ""): string | null {
   if (PHONE_RE.test(plain)) return "phone number";
   if (ADDRESS_RE.test(plain)) return "physical address";
   if (SOCIAL_URL_RE.test(plain)) return "social media link";
-  if (HTTP_RE.test(plain)) return "insecure link (http://)";
+  // http:// links are auto-upgraded to https:// by upgradeInsecureLinks() — no longer rejected
   if (SOCIAL_HANDLE_RE.test(plain)) return "social media handle";
   return null;
+}
+
+/** Upgrade http:// links to https:// in user content (plain text or HTML). */
+export function upgradeInsecureLinks(text: string): string {
+  return text.replace(/http:\/\//gi, "https://");
 }
 
 /**
@@ -63,9 +68,7 @@ export function assertNoPII(...fields: string[]): void {
     const found = detectPII(text);
     if (found) {
       throw new Error(
-        found === "insecure link (http://)"
-          ? "Only secure links (https://) are allowed. Please update your link and try again."
-          : `Your post appears to contain a ${found}. To keep the community safe, personal contact information and social media links are not allowed.`
+        `Your post appears to contain a ${found}. To keep the community safe, personal contact information and social media links are not allowed.`
       );
     }
   }

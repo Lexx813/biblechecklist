@@ -12,13 +12,16 @@ interface CreatePostModalProps {
   userId: string;
   avatarUrl?: string | null;
   displayName?: string;
+  /** Pass an existing post to enter edit mode */
+  editPost?: { id: string; content: string; visibility: "public" | "friends"; image_url?: string | null } | null;
 }
 
-export default function CreatePostModal({ onClose, onSubmit, isPending, userId, avatarUrl, displayName }: CreatePostModalProps) {
+export default function CreatePostModal({ onClose, onSubmit, isPending, userId, avatarUrl, displayName, editPost }: CreatePostModalProps) {
   const { t } = useTranslation();
-  const [content, setContent] = useState("");
-  const [visibility, setVisibility] = useState<"public" | "friends">("public");
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const isEdit = !!editPost;
+  const [content, setContent] = useState(editPost?.content ?? "");
+  const [visibility, setVisibility] = useState<"public" | "friends">(editPost?.visibility ?? "public");
+  const [imagePreview, setImagePreview] = useState<string | null>(editPost?.image_url ?? null);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -69,7 +72,7 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-3.5">
-          <h3 className="text-lg font-bold text-[var(--text-primary)]">Create post</h3>
+          <h3 className="text-lg font-bold text-[var(--text-primary)]">{isEdit ? "Edit post" : "Create post"}</h3>
           <button
             className="flex size-8 cursor-pointer items-center justify-center rounded-full border-none bg-[var(--hover-bg)] text-[var(--text-muted)] transition-colors hover:bg-[var(--border)] hover:text-[var(--text-primary)]"
             onClick={onClose}
@@ -159,7 +162,7 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
             disabled={isEmpty || isPending || uploading}
             className="w-full"
           >
-            Post
+            {isEdit ? "Save" : "Post"}
           </Button>
         </div>
       </div>

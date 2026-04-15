@@ -126,7 +126,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
           )}
 
           {activeTab === "achievements" && !isViewedUserBlocked && (
-            <AchievementsTab userId={profileId} quizProgress={quizProgress} earnedBadges={earnedBadges} />
+            <AchievementsTab userId={profileId} quizProgress={quizProgress} earnedBadges={earnedBadges} streak={streak} readingProgress={readingProgress} />
           )}
 
           {activeTab === "notes" && isOwner && (
