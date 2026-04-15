@@ -5,7 +5,7 @@ import CustomSelect from "../../../components/CustomSelect";
 import ConfirmModal from "../../../components/ConfirmModal";
 import {
   useUsers, useDeleteUser, useSetAdmin, useSetModerator, useSetBlog,
-  useCreateUser, useBanUser, useCancelSubscription,
+  useCreateUser, useBanUser,
 } from "../../../hooks/useAdmin";
 import { formatDate } from "../../../utils/formatters";
 
@@ -19,9 +19,8 @@ export function AdminSkeleton() {
   );
 }
 
-export const MONTHLY_PRICE = 4.99;
 const USERS_PAGE_SIZE = 20;
-const USER_FILTERS = ["all", "admins", "mods", "banned", "premium"];
+const USER_FILTERS = ["all", "admins", "mods", "banned"];
 
 function initials(email: string | null | undefined) {
   return email ? email[0].toUpperCase() : "?";
@@ -48,7 +47,7 @@ function exportUsersCSV(users: Array<Record<string, unknown>>) {
   URL.revokeObjectURL(url);
 }
 
-function UserActionsDropdown({ user, currentUser, navigate, setAdmin, setModerator, setBlog, banUser, cancelSub, deleteUser, onToggleError, setConfirmDelete, setConfirmBan, setConfirmCancelSub, t }) {
+function UserActionsDropdown({ user, currentUser, navigate, setAdmin, setModerator, setBlog, banUser, deleteUser, onToggleError, setConfirmDelete, setConfirmBan, t }) {
   const [open, setOpen] = useState(false);
   const [menuPos, setMenuPos] = useState({ top: 0, right: 0 });
   const ref = useRef(null);
@@ -111,15 +110,6 @@ function UserActionsDropdown({ user, currentUser, navigate, setAdmin, setModerat
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
             {user.can_blog ? t("admin.writer") : t("admin.allowBlog")}
           </button>
-          {(user.subscription_status === "active" || user.subscription_status === "trialing") && (
-            <div className="admin-dropdown-sep" />
-          )}
-          {(user.subscription_status === "active" || user.subscription_status === "trialing") && (
-            <button className="admin-dropdown-item admin-dropdown-item--danger" onClick={() => action(() => setConfirmCancelSub(user))} disabled={cancelSub.isPending}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-              {t("admin.cancelSub")}
-            </button>
-          )}
           <div className="admin-dropdown-sep" />
           <button className={`admin-dropdown-item${user.is_banned ? " admin-dropdown-item--active" : " admin-dropdown-item--danger"}`} onClick={() => action(() => setConfirmBan(user))} disabled={banUser.isPending}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
@@ -146,7 +136,6 @@ export function UsersTab({ currentUser, navigate }) {
   const setBlog = useSetBlog();
   const banUser = useBanUser();
   const createUser = useCreateUser();
-  const cancelSub = useCancelSubscription();
   const { t } = useTranslation();
 
   const [showAddForm, setShowAddForm] = useState(false);
@@ -156,7 +145,6 @@ export function UsersTab({ currentUser, navigate }) {
   const [addSuccess, setAddSuccess] = useState("");
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [confirmBan, setConfirmBan] = useState(null);
-  const [confirmCancelSub, setConfirmCancelSub] = useState(null);
   const [toggleError, setToggleError] = useState("");
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
@@ -180,7 +168,6 @@ export function UsersTab({ currentUser, navigate }) {
     if (roleFilter === "admins")  return u.is_admin;
     if (roleFilter === "mods")    return u.is_moderator;
     if (roleFilter === "banned")  return u.is_banned;
-    if (roleFilter === "premium") return u.subscription_status === "active" || u.subscription_status === "trialing";
     return true;
   });
 
@@ -284,7 +271,6 @@ export function UsersTab({ currentUser, navigate }) {
                 <th className="admin-col-name">{t("admin.colName")}</th>
                 <th className="admin-col-joined">{t("admin.colJoined")}</th>
                 <th className="admin-col-role">{t("admin.colRole")}</th>
-                <th className="admin-col-sub">{t("admin.subscribers")}</th>
                 <th style={{ width: 52 }}></th>
               </tr>
             </thead>
@@ -304,9 +290,6 @@ export function UsersTab({ currentUser, navigate }) {
                           {user.is_admin && <span className="admin-role-badge admin-role-badge--admin">{t("admin.roleAdmin")}</span>}
                           {user.is_moderator && !user.is_admin && <span className="admin-mod-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>{t("admin.filterMods")}</span>}
                           {user.is_banned && <span className="admin-banned-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>{t("admin.banned")}</span>}
-                          {user.subscription_status && user.subscription_status !== "inactive" && (
-                            <span className={`admin-sub-badge admin-sub-badge--${user.subscription_status}`}>{user.subscription_status}</span>
-                          )}
                         </div>
                       </div>
                     </div>
@@ -318,15 +301,6 @@ export function UsersTab({ currentUser, navigate }) {
                       {user.is_admin ? t("admin.roleAdmin") : t("admin.roleMember")}
                     </span>
                   </td>
-                  <td className="admin-col-sub">
-                    {user.subscription_status && user.subscription_status !== "inactive" ? (
-                      <span className={`admin-sub-badge admin-sub-badge--${user.subscription_status}`}>
-                        {user.subscription_status}
-                      </span>
-                    ) : (
-                      <span style={{ color: "var(--text-muted)", fontSize: 13 }}>—</span>
-                    )}
-                  </td>
                   <td style={{ textAlign: "right", paddingRight: 8 }}>
                     {user.id !== currentUser.id && (
                       <UserActionsDropdown
@@ -337,12 +311,10 @@ export function UsersTab({ currentUser, navigate }) {
                         setModerator={setModerator}
                         setBlog={setBlog}
                         banUser={banUser}
-                        cancelSub={cancelSub}
                         deleteUser={deleteUser}
                         onToggleError={onToggleError}
                         setConfirmDelete={setConfirmDelete}
                         setConfirmBan={setConfirmBan}
-                        setConfirmCancelSub={setConfirmCancelSub}
                         t={t}
                       />
                     )}
@@ -380,13 +352,6 @@ export function UsersTab({ currentUser, navigate }) {
         />
       )}
 
-      {confirmCancelSub && (
-        <ConfirmModal
-          message={`${t("admin.cancelSub")} for ${confirmCancelSub.email}? This will immediately end their Premium access.`}
-          onConfirm={() => { cancelSub.mutate(confirmCancelSub.id); setConfirmCancelSub(null); }}
-          onCancel={() => setConfirmCancelSub(null)}
-        />
-      )}
     </div>
   );
 }

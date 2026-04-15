@@ -3,14 +3,14 @@ import { useTranslation } from "react-i18next";
 import { useUsers } from "../../hooks/useAdmin";
 import { useReports } from "../../hooks/useReports";
 import "../../styles/admin.css";
-import { AdminSkeleton, UsersTab, MONTHLY_PRICE } from "./tabs/UsersTab";
+import { AdminSkeleton, UsersTab } from "./tabs/UsersTab";
 import { ReportsTab, BlogTab, ForumTab, ForumCategoriesTab, BlogCommentsTab } from "./tabs/ModerationTabs";
 import { QuizTab, QuizStatsTab } from "./tabs/QuizTabs";
 import { AnnouncementsTab } from "./tabs/AnnouncementsTab";
 import { AuditLogTab } from "./tabs/AuditLogTab";
 import { VideosTab, CreatorsTab } from "./tabs/VideosAdminTabs";
 
-export default function AdminPage({ currentUser, currentProfile, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function AdminPage({ currentUser, currentProfile, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const isCurrentUserAdmin = currentProfile?.is_admin;
   const { data: users = [], isLoading: usersLoading } = useUsers();
   const { data: reports = [], isLoading: reportsLoading } = useReports();
@@ -28,12 +28,10 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
 
   const adminCount   = users.filter(u => u.is_admin).length;
   const blogCount    = users.filter(u => u.can_blog).length;
-  const subCount     = users.filter(u => u.subscription_status === "active" || u.subscription_status === "trialing").length;
   const bannedCount  = users.filter(u => u.is_banned).length;
   const pendingCount = reports.filter(r => r.status === "pending").length;
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
   const recentSignups = users.filter(u => new Date(u.created_at) > sevenDaysAgo).length;
-  const mrr = (subCount * MONTHLY_PRICE).toFixed(2);
 
   return (
     <div className="admin-wrap">
@@ -59,20 +57,12 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
               <div className="admin-stat-label">{t("admin.blogWriters")}</div>
             </div>
             <div className="admin-stat-card">
-              <div className="admin-stat-value">{subCount}</div>
-              <div className="admin-stat-label">{t("admin.subscribers")}</div>
-            </div>
-            <div className="admin-stat-card">
               <div className="admin-stat-value">{bannedCount}</div>
               <div className="admin-stat-label">{t("admin.banned")}</div>
             </div>
             <div className="admin-stat-card">
               <div className="admin-stat-value">+{recentSignups}</div>
               <div className="admin-stat-label">{t("admin.recentSignups")}</div>
-            </div>
-            <div className="admin-stat-card">
-              <div className="admin-stat-value">${mrr}</div>
-              <div className="admin-stat-label">{t("admin.mrr")}</div>
             </div>
           </div>
         )}

@@ -206,7 +206,7 @@ function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate 
 }
 
 // ── Single post view ─────────────────────────────────────────────────────────
-function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade, ...rest }) {
+function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, ...rest }) {
   const { data: post, isLoading } = usePostBySlug(slug);
   const { data: allPosts = [] } = usePublishedPosts(null);
   const { data: likedIds = [] } = useUserBlogLikes(user?.id);
@@ -550,7 +550,7 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user, lang }
 });
 
 // ── Main Blog Page ────────────────────────────────────────────────────────────
-export default function BlogPage({ user, profile, onBack, onWriteClick, slug, onSelectPost, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function BlogPage({ user, profile, onBack, onWriteClick, slug, onSelectPost, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const userLang = i18n?.language?.split("-")[0] ?? "en";
   const [visibleCount, setVisibleCount] = useState(9);
@@ -567,7 +567,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
       user={user}
       profile={profile}
       navigate={navigate}
-      darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} onUpgrade={onUpgrade}
+      darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout}
     />;
   }
 

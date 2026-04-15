@@ -6,7 +6,6 @@ import NoteTemplatePicker from "../../components/NoteTemplatePicker";
 import CustomSelect from "../../components/CustomSelect";
 const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
 import { useAISkill } from "../../hooks/useAISkill";
-import { useSubscription } from "../../hooks/useSubscription";
 import { BOOKS } from "../../data/books";
 import "../../styles/ai-tools.css";
 import {
@@ -778,8 +777,6 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
   const createFolder = useCreateNoteFolder();
   const renameFolder = useRenameNoteFolder();
   const deleteFolder = useDeleteNoteFolder();
-  const { isPremium } = useSubscription(user?.id);
-
   const [tab, setTab] = useState(initialTab); // "mine" | "public"
   const [showTemplatePicker, setShowTemplatePicker] = useState(false);
   const [templateContent, setTemplateContent] = useState("");
@@ -889,7 +886,7 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
           onSave={handleSave}
           onCancel={() => { setEditing(null); setTemplateContent(""); }}
           saving={createNote.isPending || updateNote.isPending}
-          isAdmin={isPremium}
+          isAdmin={true}
         />
       </div>
     );
@@ -1072,7 +1069,6 @@ export default function StudyNotesPage({ user, navigate, initialTab = "mine", ..
           userId={user?.id}
           onSelect={handleTemplateSelect}
           onDismiss={() => setShowTemplatePicker(false)}
-          onUpgrade={sharedNav.onUpgrade}
         />
       )}
     </div>

@@ -468,15 +468,6 @@
 [data-theme="light"] .page-nav-mobile-logout { color: #b91c1c; border-top-color: rgba(239, 68, 68, 0.15); }
 [data-theme="light"] .page-nav-mobile-logout:hover { background: rgba(239, 68, 68, 0.06) !important; }
 
-/* Locked items in mobile menu */
-.page-nav-mobile-link--locked {
-  opacity: 0.5;
-  cursor: default;
-  pointer-events: none;
-  font-size: 13px;
-}
-.page-nav-mobile-section-label--locked { opacity: 0.5; }
-
 /* Unread badge in mobile menu */
 .page-nav-mobile-badge {
   display: inline-flex; align-items: center; justify-content: center;
@@ -485,14 +476,6 @@
   font-size: 10px; font-weight: 800; border-radius: 9px;
   margin-left: 6px;
 }
-
-/* ── Pro locked buttons ─────────────────────────────────── */
-.page-nav-icon-btn--locked {
-  opacity: 0.5;
-  cursor: not-allowed !important;
-}
-
-/* pro button uses global [data-tip] tooltip (shows above by default) */
 
 /* ── Dropdown group labels & dividers ───────────────────── */
 .page-nav-more-group-label {
@@ -514,24 +497,6 @@
 }
 [data-theme="light"] .page-nav-more-divider {
   background: rgba(124, 58, 237, 0.15);
-}
-
-.page-nav-more-item--locked {
-  opacity: 0.45;
-  cursor: pointer;
-  justify-content: space-between;
-}
-.page-nav-more-item--locked:hover {
-  opacity: 0.7;
-}
-
-.page-nav-more-lock {
-  display: inline-flex;
-  align-items: center;
-  margin-left: auto;
-  padding-left: 8px;
-  opacity: 0.8;
-  flex-shrink: 0;
 }
 
 .page-nav-icon-btn--active {

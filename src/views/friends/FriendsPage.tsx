@@ -16,8 +16,6 @@ function timeAgo(iso: string | null | undefined): string | null {
 interface Props {
   user: { id: string };
   navigate: (page: string, params?: Record<string, unknown>) => void;
-  isPremium: boolean;
-  onUpgrade?: () => void;
   darkMode?: boolean;
   setDarkMode?: any;
   i18n?: any;
@@ -25,7 +23,7 @@ interface Props {
   currentPage?: string;
 }
 
-export default function FriendsPage({ user, navigate, isPremium, onUpgrade, darkMode, setDarkMode, i18n, onLogout, currentPage }: Props) {
+export default function FriendsPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, currentPage }: Props) {
   const { data: friendsData, isLoading } = useFriends(user.id);
   const friends: FriendProfile[] = (friendsData as FriendProfile[] | undefined) ?? [];
   const { data: token } = useInviteToken(user.id);
@@ -43,7 +41,6 @@ export default function FriendsPage({ user, navigate, isPremium, onUpgrade, dark
   }
 
   function handleMessage(friend: FriendProfile) {
-    if (!isPremium && !friend.sponsored_by) { onUpgrade?.(); return; }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (getOrCreate as any).mutate(friend.id, {
       onSuccess: (conversationId: string) => navigate("messages", {

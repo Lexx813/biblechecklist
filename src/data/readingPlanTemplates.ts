@@ -133,7 +133,7 @@ export const PLAN_TEMPLATES = [
     bookIndices: ALL,
     totalChapters: chaptersFor(ALL),
     category: "full-bible",
-    isPremiumHighlight: true,
+
   },
   {
     key: "wisdom-lit-90",
@@ -145,7 +145,7 @@ export const PLAN_TEMPLATES = [
     bookIndices: WISDOM,
     totalChapters: chaptersFor(WISDOM),
     category: "thematic",
-    isPremiumHighlight: true,
+
   },
   {
     key: "pauls-letters-30",
@@ -157,7 +157,7 @@ export const PLAN_TEMPLATES = [
     bookIndices: PAULS_LETTERS,
     totalChapters: chaptersFor(PAULS_LETTERS),
     category: "nt",
-    isPremiumHighlight: true,
+
   },
   {
     key: "minor-prophets-30",
@@ -169,7 +169,7 @@ export const PLAN_TEMPLATES = [
     bookIndices: MINOR_PROPHETS,
     totalChapters: chaptersFor(MINOR_PROPHETS),
     category: "ot",
-    isPremiumHighlight: true,
+
   },
   {
     key: "acts-letters-60",
@@ -181,7 +181,7 @@ export const PLAN_TEMPLATES = [
     bookIndices: ACTS_AND_LETTERS,
     totalChapters: chaptersFor(ACTS_AND_LETTERS),
     category: "nt",
-    isPremiumHighlight: true,
+
   },
 ];
 

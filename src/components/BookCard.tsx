@@ -2,7 +2,7 @@ import { memo, useState, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOK_INFO } from "../data/bookInfo";
 import { wolChapterUrl, wolRefUrl, jwLibraryChapterUrl, jwOrgBibleUrl } from "../utils/wol";
-import { useSubscription } from "../hooks/useSubscription";
+
 
 // jwlibrary:/// deep links only work on mobile (iOS/Android). On desktop the
 // JW Library app registers the protocol but doesn't handle the finder action,
@@ -33,17 +33,15 @@ interface BookCardProps {
   onAddNote?: (bookIndex: number) => void;
   onDeleteNote?: (id: string) => void;
   userId?: string;
-  onUpgrade?: () => void;
   readers?: BookReader[];
 }
 
-const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, versesState, onToggleChapter, onToggleBook, onOpenChapterModal, notes = [], onAddNote, onDeleteNote, userId, onUpgrade, readers = [] }: BookCardProps) {
+const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, versesState, onToggleChapter, onToggleBook, onOpenChapterModal, notes = [], onAddNote, onDeleteNote, userId, readers = [] }: BookCardProps) {
   const [open, setOpen] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   // Rect captured at pointerdown — before Chrome focus-scrolls the element
   const pillRectRef = useRef<DOMRect | null>(null);
   const { t, i18n } = useTranslation();
-  const { isPremium } = useSubscription(userId);
   const lang = i18n.language?.split("-")[0] ?? "en";
   const total = book.chapters;
   const bookChapters = chaptersState[bookIndex];
@@ -164,7 +162,7 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
 
           {/* Book info panel */}
           {showInfo && info && (
-            <div className={`book-info-panel${!isPremium ? " book-info-panel--locked" : ""}`}>
+            <div className="book-info-panel">
               <p className="book-info-summary">{summary}</p>
               <div className="book-info-meta-row">
                 {info.author && (
@@ -233,17 +231,6 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                 </div>
               )}
 
-              {!isPremium && (
-                <div className="book-info-gate">
-                  <span className="book-info-gate-label">✦ Premium Feature</span>
-                  <button
-                    className="book-info-gate-cta"
-                    onClick={(e) => { e.stopPropagation(); onUpgrade?.(); }}
-                  >
-                    Unlock with Premium
-                  </button>
-                </div>
-              )}
             </div>
           )}
 

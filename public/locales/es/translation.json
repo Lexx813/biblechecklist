@@ -270,23 +270,19 @@
     "deleteConfirm": "¿Eliminar a {{email}}? Esta acción no se puede deshacer.",
     "inviteSent": "Invitación enviada a {{email}}. Debe confirmar su correo antes de iniciar sesión.",
     "selfDeleteError": "No puedes eliminar tu propia cuenta.",
-    "subscribers": "Suscriptores",
     "banned": "Bloqueado",
     "makeMod": "Hacer Mod",
     "removeMod": "Quitar Mod",
     "ban": "Bloquear",
     "unban": "Desbloquear",
-    "cancelSub": "Cancelar Sub",
     "moderation": "Moderación",
     "searchUsers": "Buscar usuarios…",
     "filterAll": "Todos",
     "filterAdmins": "Admins",
     "filterMods": "Mods",
     "filterBanned": "Bloqueados",
-    "filterPremium": "Premium",
     "exportCSV": "Exportar CSV",
     "recentSignups": "Nuevos (7d)",
-    "mrr": "Ingresos Mensuales",
     "messageUser": "Mensaje",
     "colName": "Nombre para mostrar"
   },
@@ -385,7 +381,6 @@
     "trialActive": "Prueba gratuita activa",
     "subscriptionActive": "Activa — $3 / mes",
     "subscriptionDesc": "Tienes acceso a Planes de Lectura, Notas de Estudio, Mensajes, Grupos de Estudio y el Compañero IA.",
-    "cancelSubscription": "Cancelar suscripción",
     "upgradePrompt": "Actualizar a Premium — $3/mes"
   },
   "blog": {
@@ -1661,7 +1656,6 @@
     "community": "Comunidad",
     "more": "Más",
     "tools": "Herramientas",
-    "premium": "✦ Premium",
     "messages": "Mensajes",
     "studyGroups": "Grupos de Estudio",
     "readingPlans": "Planes de Lectura",
@@ -2594,22 +2588,6 @@
       "¿Cómo sustenta la visión culminante de Apocalipsis — la Nueva Jerusalén, la eliminación de la muerte y Jehová morando con los seres humanos (capítulos 21–22) — la esperanza de los Testigos de Jehová por el paraíso?"
     ]
   ],
-  "welcomePremium": {
-    "badge": "Bienvenido a Premium",
-    "title": "¡Todo listo!",
-    "subtitle": "Todas las funciones premium ya están desbloqueadas. Esto es lo que puedes explorar:",
-    "cta": "Empezar a explorar",
-    "featureAiLabel": "Compañero de Estudio IA",
-    "featureAiDesc": "Disponible en el versículo diario, cuestionario, planes de lectura y notas",
-    "featurePlansLabel": "Planes de Lectura",
-    "featurePlansDesc": "Inicia un recorrido estructurado por cualquier libro",
-    "featureNotesLabel": "Notas de Estudio",
-    "featureNotesDesc": "Toma notas de texto enriquecido vinculadas a cualquier pasaje",
-    "featureDmLabel": "Mensajes Directos",
-    "featureDmDesc": "Envía mensajes privados a otros miembros",
-    "featureGroupsLabel": "Grupos de Estudio",
-    "featureGroupsDesc": "Aprende juntos con chat grupal y seguimiento del progreso"
-  },
   "aiTools": {
     "pageTitle": "Herramientas de Estudio Bíblico con IA",
     "pageSubtitle": "Impulsado por Claude — fundamentado en las enseñanzas de la Torre del Vigía y la Traducción del Nuevo Mundo.",
@@ -2621,7 +2599,6 @@
   },
   "meetingPrep": {
     "pageTitle": "Preparación de Reunión",
-    "premiumLabel": "✦ Premium",
     "streakLabel": "racha de {{count}} semanas",
     "streakSuffixNew": "¡Sigue así!",
     "streakSuffixKeep": "¡No la rompas!",

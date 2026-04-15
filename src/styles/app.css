@@ -461,16 +461,6 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   padding-left: 9px; /* compensate 3px border so text stays aligned */
 }
 :is(.hls-item--active, .al-item--active):hover { background: rgba(124, 58, 237, 0.22); }
-:is(.hls-item--locked, .al-item--locked) { opacity: 0.45; }
-
-/* Lock icon */
-:is(.hls-lock, .al-lock) {
-  margin-left: auto;
-  font-size: 9px;
-  color: #c084fc;
-  opacity: 0.7;
-}
-
 /* Icon blob */
 :is(.hls-icon, .al-icon) {
   width: 36px;
@@ -1295,16 +1285,6 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   font-size: 13px; line-height: 1.5; color: var(--text-secondary);
 }
 
-/* Book info panel — premium gate */
-.book-info-panel--locked .book-info-summary,
-.book-info-panel--locked .book-info-meta-row,
-.book-info-panel--locked .book-info-verses,
-.book-info-panel--locked .book-info-questions,
-.book-info-panel--locked .book-info-notable {
-  filter: blur(4px);
-  user-select: none;
-  pointer-events: none;
-}
 
 .book-info-gate {
   display: flex;

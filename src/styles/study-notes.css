@@ -67,23 +67,6 @@
   margin: 0;
 }
 
-.sn-premium-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #92400e;
-  background: rgba(245, 158, 11, 0.18);
-  border: 1px solid rgba(245, 158, 11, 0.5);
-  border-radius: 999px;
-  padding: 3px 10px;
-  align-self: flex-start;
-  margin-bottom: 20px;
-}
-
 .sn-new-btn {
   background: #7c3aed;
   color: #fff;
@@ -1129,10 +1112,4 @@
   .sn-passage-row { flex-direction: column; }
   .sn-tag-row { flex-wrap: wrap; }
   .sn-save-btn, .sn-cancel-btn { font-size: 12px; padding: 7px 14px; }
-}
-
-[data-theme="dark"] .sn-premium-label {
-  color: #fde68a;
-  background: rgba(245, 158, 11, 0.15);
-  border-color: rgba(245, 158, 11, 0.3);
 }

@@ -34,27 +34,6 @@ export function trackLogin(method = "email"): void {
   gtag("event", "login", { method });
 }
 
-export function trackBeginCheckout(): void {
-  gtag("event", "begin_checkout", {
-    currency: "USD",
-    value: 3.0,
-    items: [{ item_name: "Premium Plan", price: 3.0 }],
-  });
-}
-
-export function trackPurchase(transactionId: string): void {
-  gtag("event", "purchase", {
-    transaction_id: transactionId,
-    currency: "USD",
-    value: 3.0,
-    items: [{ item_name: "Premium Plan", price: 3.0 }],
-  });
-}
-
-export function trackTrialStart(): void {
-  gtag("event", "trial_start", { plan: "premium" });
-}
-
 // ── Engagement events ────────────────────────────────────────────────────────
 export function trackShare(contentType: string, itemId: string): void {
   gtag("event", "share", { content_type: contentType, item_id: itemId });

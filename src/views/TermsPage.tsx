@@ -1,7 +1,7 @@
 import { useMeta } from "../hooks/useMeta";
 import "../styles/about.css";
 
-export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout, onUpgrade }) {
+export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout }) {
   useMeta({ title: "Terms of Service | JW Study", description: "Review the JW Study terms of service governing use of the Bible reading tracker and community features." });
   return (
     <div className="about-wrap">

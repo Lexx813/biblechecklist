@@ -221,7 +221,7 @@ function PostEditor({ userId, post, onDone }) {
 }
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────
-export default function BlogDashboard({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function BlogDashboard({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { data: posts = [], isLoading } = useMyPosts(user.id);
   const deletePost = useDeletePost(user.id);
   const [editing, setEditing] = useState(() => {

@@ -1,7 +1,7 @@
 import { useMeta } from "../hooks/useMeta";
 import "../styles/about.css";
 
-export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout, onUpgrade }) {
+export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout }) {
   useMeta({ title: "Privacy Policy | JW Study", description: "Read the JW Study privacy policy — how we collect, use, and protect your personal information." });
   return (
     <div className="about-wrap">

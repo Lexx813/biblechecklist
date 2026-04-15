@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { STUDY_TOPICS } from "../../data/studyTopics";
 import { BOOKS } from "../../data/books";
 import { BOOK_INFO } from "../../data/bookInfo";
-import { useSubscription } from "../../hooks/useSubscription";
 import AppLayout from "../../components/AppLayout";
 import "../../styles/study-topics.css";
 
@@ -26,7 +25,6 @@ function StudyTopicsSkeleton() {
 
 export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
   const { t } = useTranslation();
-  const { isPremium } = useSubscription(user?.id);
   const [tab, setTab] = useState("topics"); // "topics" | "books"
 
   return (
@@ -89,12 +87,11 @@ export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
             return (
               <button
                 key={bookIndex}
-                className={`stp-card${!isPremium ? " stp-card--locked" : ""}`}
+                className="stp-card"
                 onClick={() => {
-                  if (!isPremium) { sharedNav.onUpgrade?.(); return; }
                   navigate("readingTracker");
                 }}
-                aria-label={`${bookName}${!isPremium ? " (Premium)" : ""}`}
+                aria-label={bookName}
               >
                 <h2 className="stp-card-title">{bookName}</h2>
                 <p className="stp-card-subtitle">{theme}</p>

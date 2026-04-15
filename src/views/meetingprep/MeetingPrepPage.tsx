@@ -10,7 +10,6 @@ import {
   getMondayOfWeek,
   formatWeekLabel,
 } from "../../hooks/useMeetingPrep";
-import { useSubscription } from "../../hooks/useSubscription";
 import "../../styles/meeting-prep.css";
 
 
@@ -86,7 +85,7 @@ function NotesEditor({ value, placeholder, onSave }) {
 }
 
 // ── CLAM tab ──────────────────────────────────────────────────────────────────
-function ClamTab({ week, prep, onTogglePart, onNoteChange, isPremium, onUpgrade }) {
+function ClamTab({ week, prep, onTogglePart, onNoteChange }) {
   const { t } = useTranslation();
   if (!week) {
     return (
@@ -180,28 +179,18 @@ function ClamTab({ week, prep, onTogglePart, onNoteChange, isPremium, onUpgrade 
         );
       })}
 
-      {/* Notes (premium) */}
-      {isPremium ? (
-        <NotesEditor
-          value={prep?.clam_notes}
-          placeholder="Add your notes for this week's CLAM meeting…"
-          onSave={(v) => onNoteChange("clam_notes", v)}
-        />
-      ) : (
-        <div className="mp-notes-wrap">
-          <button className="mp-item mp-item--locked" onClick={onUpgrade} style={{ width: "100%", justifyContent: "center" }}>
-            <span className="mp-item-text" style={{ textAlign: "center", color: "var(--text-muted)" }}>
-              {t("meetingPrep.notesLockedMsg")}
-            </span>
-          </button>
-        </div>
-      )}
+      {/* Notes */}
+      <NotesEditor
+        value={prep?.clam_notes}
+        placeholder="Add your notes for this week's CLAM meeting…"
+        onSave={(v) => onNoteChange("clam_notes", v)}
+      />
     </>
   );
 }
 
 // ── Watchtower tab ────────────────────────────────────────────────────────────
-function WatchtowerTab({ week, prep, onTogglePara, onNoteChange, isPremium, onUpgrade }) {
+function WatchtowerTab({ week, prep, onTogglePara, onNoteChange }) {
   const { t } = useTranslation();
   if (!week) {
     return (
@@ -268,43 +257,20 @@ function WatchtowerTab({ week, prep, onTogglePara, onNoteChange, isPremium, onUp
         ))}
       </div>
 
-      {/* Notes (premium) */}
-      {isPremium ? (
-        <NotesEditor
-          value={prep?.wt_notes}
-          placeholder="Add your notes for this week's Watchtower study…"
-          onSave={(v) => onNoteChange("wt_notes", v)}
-        />
-      ) : (
-        <div className="mp-notes-wrap">
-          <button className="mp-item" onClick={onUpgrade} style={{ width: "100%", justifyContent: "center" }}>
-            <span className="mp-item-text" style={{ textAlign: "center", color: "var(--text-muted)" }}>
-              {t("meetingPrep.notesLockedMsg")}
-            </span>
-          </button>
-        </div>
-      )}
+      {/* Notes */}
+      <NotesEditor
+        value={prep?.wt_notes}
+        placeholder="Add your notes for this week's Watchtower study…"
+        onSave={(v) => onNoteChange("wt_notes", v)}
+      />
     </>
   );
 }
 
 // ── History tab ───────────────────────────────────────────────────────────────
-function HistoryTab({ userId, isPremium, onUpgrade }) {
+function HistoryTab({ userId }) {
   const { t } = useTranslation();
   const { data: history = [], isLoading } = usePrepHistory(userId);
-
-  if (!isPremium) {
-    return (
-      <div className="mp-empty">
-        <div className="mp-empty-icon">📅</div>
-        <p className="mp-empty-msg">{t("meetingPrep.historyTitle")}</p>
-        <p className="mp-empty-sub">{t("meetingPrep.historyUpgradeMsg")}</p>
-        <button className="mp-complete-btn" style={{ marginTop: "1rem", width: "auto", padding: ".6rem 1.5rem" }} onClick={onUpgrade}>
-          {t("meetingPrep.historyUpgradeBtn")}
-        </button>
-      </div>
-    );
-  }
 
   if (isLoading) return (
     <div className="mp-history">
@@ -374,7 +340,7 @@ function MeetingPrepSkeleton() {
 // ── Main page ─────────────────────────────────────────────────────────────────
 const TABS = ["midweek", "weekend", "history"];
 
-export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const currentWeek = getMondayOfWeek();
   // If Wed (3) or later, midweek meeting already happened — default to next week
   const defaultWeek = new Date().getDay() >= 3
@@ -383,7 +349,6 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
   const [selectedWeek, setSelectedWeek] = useState(defaultWeek);
   const [activeTab, setActiveTab] = useState("midweek");
 
-  const { isPremium } = useSubscription(user.id);
   const { data: streak = 0 } = usePrepStreak(user.id);
   const { data: recentWeeks = [] } = useRecentMeetingWeeks();
   const { data: week, isLoading: weekLoading } = useMeetingWeek(selectedWeek);
@@ -395,13 +360,11 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
     const seen = new Set();
     const result = [currentWeek];
     seen.add(currentWeek);
-    if (isPremium) {
-      recentWeeks.forEach((w) => {
-        if (!seen.has(w.week_start)) { seen.add(w.week_start); result.push(w.week_start); }
-      });
-    }
+    recentWeeks.forEach((w) => {
+      if (!seen.has(w.week_start)) { seen.add(w.week_start); result.push(w.week_start); }
+    });
     return result.sort((a, b) => b.localeCompare(a));
-  }, [currentWeek, recentWeeks, isPremium]);
+  }, [currentWeek, recentWeeks]);
 
   // Toggle a CLAM part
   const handleTogglePart = useCallback((partNum) => {
@@ -520,8 +483,6 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
               prep={prep}
               onTogglePart={handleTogglePart}
               onNoteChange={handleNoteChange}
-              isPremium={isPremium}
-              onUpgrade={onUpgrade}
             />
             {week && (
               <button
@@ -539,8 +500,6 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
               prep={prep}
               onTogglePara={handleTogglePara}
               onNoteChange={handleNoteChange}
-              isPremium={isPremium}
-              onUpgrade={onUpgrade}
             />
             {week && (
               <button
@@ -552,7 +511,7 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
             )}
           </>
         ) : (
-          <HistoryTab userId={user.id} isPremium={isPremium} onUpgrade={onUpgrade} />
+          <HistoryTab userId={user.id} />
         )}
 
       </div>

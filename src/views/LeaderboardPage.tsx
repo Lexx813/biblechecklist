@@ -25,9 +25,7 @@ import "../styles/leaderboard.css";
 
 const MEDALS = ["🥇", "🥈", "🥉"];
 
-function isPremiumUser(row) {
-  return row.subscription_status === "active" || row.subscription_status === "trialing";
-}
+
 
 function Avatar({ row }) {
   if (row.avatar_url) {
@@ -37,9 +35,7 @@ function Avatar({ row }) {
   return <div className="lb-avatar lb-avatar--fallback">{initials}</div>;
 }
 
-function PremiumBadge() {
-  return <span className="lb-premium-badge" title="Premium member"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg></span>;
-}
+
 
 function ReadingBoard({ data, userId, onProfile }) {
   const { t } = useTranslation();
@@ -56,7 +52,6 @@ function ReadingBoard({ data, userId, onProfile }) {
           <div className="lb-info">
             <span className="lb-name">
               {row.display_name || t("leaderboard.anonymous")}
-              {isPremiumUser(row) && <PremiumBadge />}
             </span>
             <span className="lb-sub">{row.pct}% {t("leaderboard.complete")}</span>
           </div>
@@ -82,7 +77,6 @@ function QuizBoard({ data, userId, onProfile }) {
           <div className="lb-info">
             <span className="lb-name">
               {row.display_name || t("leaderboard.anonymous")}
-              {isPremiumUser(row) && <PremiumBadge />}
             </span>
             <span className="lb-sub">{t("leaderboard.levelsComplete", { count: Number(row.levels_completed) })}</span>
           </div>
@@ -123,7 +117,7 @@ function TimedLeaderboardList({ level, currentUserId }) {
   );
 }
 
-export default function LeaderboardPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function LeaderboardPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const [tab, setTab] = useState("reading");
   const [timedLevel, setTimedLevel] = useState(1);

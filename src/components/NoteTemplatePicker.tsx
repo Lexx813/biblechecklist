@@ -3,13 +3,11 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { NOTE_TEMPLATES } from "../data/noteTemplates";
-import { useSubscription } from "../hooks/useSubscription";
 import "../styles/note-templates.css";
 
 interface NoteTemplate {
   key: string;
   name: string;
-  isPremium?: boolean;
   content: string;
   previewLines: string[];
 }
@@ -18,19 +16,13 @@ interface Props {
   userId?: string;
   onSelect: (content: string) => void;
   onDismiss: () => void;
-  onUpgrade?: () => void;
 }
 
-export default function NoteTemplatePicker({ userId, onSelect, onDismiss, onUpgrade }: Props) {
+export default function NoteTemplatePicker({ userId, onSelect, onDismiss }: Props) {
   const { t } = useTranslation();
-  const { isPremium } = useSubscription(userId);
   const [selectedKey, setSelectedKey] = useState("blank");
 
   function handleCardClick(template: NoteTemplate) {
-    if (template.isPremium && !isPremium) {
-      onUpgrade?.();
-      return;
-    }
     setSelectedKey(template.key);
   }
 
@@ -56,30 +48,19 @@ export default function NoteTemplatePicker({ userId, onSelect, onDismiss, onUpgr
 
         <div className="ntp-grid">
           {NOTE_TEMPLATES.map((template) => {
-            const locked = template.isPremium && !isPremium;
             return (
               <button
                 key={template.key}
                 className={[
                   "ntp-card",
                   selectedKey === template.key ? "ntp-card--selected" : "",
-                  locked ? "ntp-card--locked" : "",
                 ].join(" ")}
                 onClick={() => handleCardClick(template)}
                 aria-pressed={selectedKey === template.key}
-                aria-label={`${template.name}${locked ? " (Premium)" : ""}`}
+                aria-label={template.name}
               >
-                {template.isPremium && (
-                  <span className="ntp-premium-badge" aria-hidden="true">✦</span>
-                )}
                 <span className="ntp-card-name">
                   {template.name}
-                  {locked && (
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <rect x="3" y="11" width="18" height="11" rx="2"/>
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                    </svg>
-                  )}
                 </span>
                 <ul className="ntp-card-preview" aria-hidden="true">
                   {template.previewLines.map((line, i) => (

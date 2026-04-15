@@ -25,7 +25,6 @@ interface Props {
   setDarkMode?: any;
   i18n?: any;
   onLogout?: () => void;
-  onUpgrade?: () => void;
   currentPage?: string;
 }
 
@@ -73,7 +72,7 @@ function OutgoingRow({
   );
 }
 
-export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade, currentPage }: Props) {
+export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, currentPage }: Props) {
   const { incoming, outgoing } = useFriendRequests(user.id);
   const accept = useAcceptFriendRequest(user.id);
   const decline = useDeclineFriendRequest(user.id);

@@ -759,27 +759,3 @@
 }
 .forum-msg-btn:disabled { opacity: 0.5; cursor: default; }
 
-/* ── Premium badge on locked message buttons ─────────────── */
-.msg-btn-pro-badge {
-  font-size: 0.65em;
-  color: #a78bfa;
-  margin-left: 4px;
-  vertical-align: middle;
-}
-
-.blog-author-msg-btn--locked,
-.forum-msg-btn--locked,
-.pf-msg-btn--locked,
-.pf-follow-modal-msg--locked {
-  opacity: 0.7;
-  border-style: dashed;
-}
-.blog-author-msg-btn--locked:hover,
-.forum-msg-btn--locked:hover,
-.pf-msg-btn--locked:hover,
-.pf-follow-modal-msg--locked:hover {
-  border-color: #a78bfa;
-  color: #a78bfa;
-  background: rgba(167,139,250,0.06);
-  border-style: dashed;
-}

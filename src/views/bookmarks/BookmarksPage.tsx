@@ -3,7 +3,7 @@ import AppLayout from "../../components/AppLayout";
 import { useBookmarks, useToggleBookmark } from "../../hooks/useBookmarks";
 import "../../styles/bookmarks.css";
 
-export default function BookmarksPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function BookmarksPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const { data: bookmarksRaw = { threads: [], posts: [] }, isLoading } = useBookmarks(user?.id);
   const bookmarks = bookmarksRaw as { threads: any[]; posts: any[] };

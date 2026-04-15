@@ -14,7 +14,7 @@ import "../../styles/profile.css";
 import AppLayout from "../../components/AppLayout";
 import "../../styles/settings.css";
 
-export default function SettingsPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function SettingsPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { data: profile, isLoading } = useFullProfile(user.id);
   const update = useUpdateProfile(user.id);
   const uploadAvatar = useUploadAvatar(user.id);

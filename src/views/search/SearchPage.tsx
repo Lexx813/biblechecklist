@@ -19,7 +19,7 @@ function SearchSkeleton() {
   );
 }
 
-export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function SearchPage({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");

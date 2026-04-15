@@ -12,13 +12,12 @@ import ProgressShare from "../components/share/ProgressShare";
 import BookCelebration from "../components/BookCelebration";
 import UpgradePrompt, { isDismissed, dismissPrompt } from "../components/UpgradePrompt";
 import { useProgress, useSaveProgress, useChapterTimestamps, useReadingStreak, useBookReaders } from "../hooks/useProgress";
-import { useSubscription } from "../hooks/useSubscription";
 import { progressApi } from "../api/progress";
 import { useNotes, useCreateNote, useDeleteNote } from "../hooks/useNotes";
 import { readingApi } from "../api/reading";
 import { toast } from "../lib/toast";
 
-export default function ChecklistPage({ user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function ChecklistPage({ user, profile, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { data: remoteProgress, isLoading: progressLoading } = useProgress(user.id);
@@ -29,7 +28,6 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   const { data: bookReaders = {} } = useBookReaders(user.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 } } = useReadingStreak(user.id);
   const saveProgress = useSaveProgress(user.id);
-  const { isPremium } = useSubscription(user.id);
 
   // Debounced reading log — batches chapter toggles into one API call per second
   const pendingDelta = useRef(0);
@@ -405,7 +403,6 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
                   onAddNote={(bookIndex) => setNoteModal({ bookIndex })}
                   onDeleteNote={(id) => setNoteToDelete(id)}
                   userId={user?.id}
-                  onUpgrade={onUpgrade}
                   readers={bookReaders[book.index] ?? []}
                 />
               </React.Fragment>
@@ -443,7 +440,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
             totalDoneBooks={doneBooks}
             onClose={() => {
               setCelebrateBook(null);
-              if (!isPremium && !isDismissed("book-complete")) setShowBookPrompt(true);
+              if (!isDismissed("book-complete")) setShowBookPrompt(true);
             }}
           />
         )}
@@ -470,7 +467,6 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
             userId={user.id}
             bookIndex={noteModal.bookIndex}
             onClose={() => setNoteModal(null)}
-            isPremium={isPremium}
           />
         )}
 
@@ -506,7 +502,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
 
 // ── Quick Note Modal ───────────────────────────────────────────────────────────
 
-function QuickNoteModal({ userId, bookIndex, onClose, isPremium }) {
+function QuickNoteModal({ userId, bookIndex, onClose }) {
   const { t, i18n } = useTranslation();
   const lang = i18n.language?.split("-")[0] ?? "en";
   const createNote = useCreateNote(userId);

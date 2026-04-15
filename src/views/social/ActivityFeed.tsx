@@ -87,7 +87,7 @@ function PeopleYouMayKnow({ userId, navigate }) {
   );
 }
 
-export default function ActivityFeed({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function ActivityFeed({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const { data: items = [], isLoading } = useActivityFeed(user.id);
 

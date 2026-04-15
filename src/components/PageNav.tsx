@@ -6,7 +6,6 @@ import NotificationBell from "./notifications/NotificationBell";
 import { LANGUAGES } from "../i18n";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { useFullProfile } from "../hooks/useAdmin";
-import { useSubscription } from "../hooks/useSubscription";
 import { useUnreadMessageCount } from "../hooks/useMessages";
 import { useFeatureFlags } from "../hooks/useFeatureFlags";
 
@@ -54,15 +53,13 @@ interface Props {
   user?: NavUser;
   onLogout?: () => void;
   currentPage: string;
-  onUpgrade?: () => void;
 }
 
-export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage, onUpgrade }: Props) {
+export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage }: Props) {
   const { t } = useTranslation();
   const { data: profile } = useFullProfile(user?.id);
   const isAdmin = profile?.is_admin;
   const canModerate = isAdmin || profile?.is_moderator;
-  const { isPremium } = useSubscription(user?.id);
   const { data: unreadMessages = 0 } = useUnreadMessageCount();
   const { aiEnabled } = useFeatureFlags();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -200,18 +197,10 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 <button className={`page-nav-more-item${currentPage === "bookmarks" ? " page-nav-more-item--active" : ""}`} onClick={() => go("bookmarks")}>{Icon.Bookmark} {t("bookmarks.title")}</button>
                 <button className={`page-nav-more-item${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-more-item--active" : ""}`} onClick={() => go("studyTopics")}>{Icon.Book} {t("nav.studyTopics", "Study Topics")}</button>
                 <div className="page-nav-more-divider" />
-                {isPremium
-                  ? <button className={`page-nav-more-item${currentPage === "meetingPrep" ? " page-nav-more-item--active" : ""}`} onClick={() => go("meetingPrep")}>{Icon.Calendar} {t("nav.meetingPrep", "Meeting Prep")}</button>
-                  : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setStudyOpen(false); onUpgrade?.(); }}>{Icon.Calendar} {t("nav.meetingPrep", "Meeting Prep")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
-                {isPremium
-                  ? <button className={`page-nav-more-item${currentPage === "readingPlans" ? " page-nav-more-item--active" : ""}`} onClick={() => go("readingPlans")}>{Icon.Calendar} {t("nav.readingPlans")}</button>
-                  : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setStudyOpen(false); onUpgrade?.(); }}>{Icon.Calendar} {t("nav.readingPlans")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
-                {isPremium
-                  ? <button className={`page-nav-more-item${currentPage === "studyNotes" ? " page-nav-more-item--active" : ""}`} onClick={() => go("studyNotes")}>{Icon.Notes} {t("nav.studyNotes")}</button>
-                  : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setStudyOpen(false); onUpgrade?.(); }}>{Icon.Notes} {t("nav.studyNotes")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
-                {isPremium || isAdmin
-                  ? <button className={`page-nav-more-item${currentPage === "aiTools" ? " page-nav-more-item--active" : ""}`} onClick={() => go("aiTools")}>{Icon.Sparkle} {t("nav.aiTools", "AI Tools")}</button>
-                  : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setStudyOpen(false); onUpgrade?.(); }}>{Icon.Sparkle} {t("nav.aiTools", "AI Tools")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
+                <button className={`page-nav-more-item${currentPage === "meetingPrep" ? " page-nav-more-item--active" : ""}`} onClick={() => go("meetingPrep")}>{Icon.Calendar} {t("nav.meetingPrep", "Meeting Prep")}</button>
+                <button className={`page-nav-more-item${currentPage === "readingPlans" ? " page-nav-more-item--active" : ""}`} onClick={() => go("readingPlans")}>{Icon.Calendar} {t("nav.readingPlans")}</button>
+                <button className={`page-nav-more-item${currentPage === "studyNotes" ? " page-nav-more-item--active" : ""}`} onClick={() => go("studyNotes")}>{Icon.Notes} {t("nav.studyNotes")}</button>
+                <button className={`page-nav-more-item${currentPage === "aiTools" ? " page-nav-more-item--active" : ""}`} onClick={() => go("aiTools")}>{Icon.Sparkle} {t("nav.aiTools", "AI Tools")}</button>
               </div>
             )}
           </div>
@@ -230,9 +219,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 <button className={`page-nav-more-item${currentPage === "blog" ? " page-nav-more-item--active" : ""}`} onClick={() => go("blog")}>{Icon.Feed} {t("app.blog")}</button>
                 <button className={`page-nav-more-item${currentPage === "forum" ? " page-nav-more-item--active" : ""}`} onClick={() => go("forum")}>{Icon.Users} {t("app.forum")}</button>
                 <div className="page-nav-more-divider" />
-                {isPremium
-                  ? <button className={`page-nav-more-item${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-more-item--active" : ""}`} onClick={() => go("groups")}>{Icon.Users} {t("nav.studyGroups")}</button>
-                  : <button className="page-nav-more-item page-nav-more-item--locked" onClick={() => { setCommunityOpen(false); onUpgrade?.(); }}>{Icon.Users} {t("nav.studyGroups")} <span className="page-nav-more-lock">{Icon.Lock}</span></button>}
+                <button className={`page-nav-more-item${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-more-item--active" : ""}`} onClick={() => go("groups")}>{Icon.Users} {t("nav.studyGroups")}</button>
               </div>
             )}
           </div>
@@ -256,13 +243,9 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
 
         <div className="page-nav-actions">
           {user && (
-            isPremium
-              ? <button className={`page-nav-icon-btn page-nav-msg-btn${currentPage === "messages" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("messages")} data-tip={t("nav.messages")} aria-label={t("nav.messages")} style={{ position: "relative" }}>
+              <button className={`page-nav-icon-btn page-nav-msg-btn${currentPage === "messages" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("messages")} data-tip={t("nav.messages")} aria-label={t("nav.messages")} style={{ position: "relative" }}>
                   {Icon.Message}
                   {unreadMessages > 0 && <span className="page-nav-msg-badge">{unreadMessages}</span>}
-                </button>
-              : <button className="page-nav-icon-btn page-nav-icon-btn--locked page-nav-pro-btn page-nav-msg-btn" data-tip={t("nav.proFeature")} aria-label={t("nav.messages")} style={{ position: "relative" }} onClick={onUpgrade}>
-                  {Icon.Message}
                 </button>
           )}
           {user && (
@@ -380,21 +363,10 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 <button className={`page-nav-mobile-link${currentPage === "feed" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("feed")}><span className="page-nav-mobile-icon">{Icon.Feed}</span> {t("feed.navLink")}</button>
                 <button className={`page-nav-mobile-link${currentPage === "bookmarks" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("bookmarks")}><span className="page-nav-mobile-icon">{Icon.Bookmark}</span> {t("bookmarks.title")}</button>
                 <button className={`page-nav-mobile-link${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyTopics")}><span className="page-nav-mobile-icon">{Icon.Book}</span> {t("nav.studyTopics", "Study Topics")}</button>
-                {isPremium ? (
-                  <>
-                    <button className={`page-nav-mobile-link${currentPage === "meetingPrep" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("meetingPrep")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.meetingPrep", "Meeting Prep")}</button>
-                    <button className={`page-nav-mobile-link${currentPage === "readingPlans" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("readingPlans")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.readingPlans")}</button>
-                    <button className={`page-nav-mobile-link${currentPage === "studyNotes" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyNotes")}><span className="page-nav-mobile-icon">{Icon.Notes}</span> {t("nav.studyNotes")}</button>
-                    <button className={`page-nav-mobile-link${currentPage === "aiTools" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("aiTools")}><span className="page-nav-mobile-icon">{Icon.Sparkle}</span> {t("nav.aiTools", "AI Tools")}</button>
-                  </>
-                ) : (
-                  <>
-                    <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.meetingPrep", "Meeting Prep")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
-                    <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.readingPlans")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
-                    <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Notes}</span> {t("nav.studyNotes")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
-                    <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Sparkle}</span> {t("nav.aiTools", "AI Tools")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>
-                  </>
-                )}
+                <button className={`page-nav-mobile-link${currentPage === "meetingPrep" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("meetingPrep")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.meetingPrep", "Meeting Prep")}</button>
+                <button className={`page-nav-mobile-link${currentPage === "readingPlans" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("readingPlans")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.readingPlans")}</button>
+                <button className={`page-nav-mobile-link${currentPage === "studyNotes" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyNotes")}><span className="page-nav-mobile-icon">{Icon.Notes}</span> {t("nav.studyNotes")}</button>
+                <button className={`page-nav-mobile-link${currentPage === "aiTools" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("aiTools")}><span className="page-nav-mobile-icon">{Icon.Sparkle}</span> {t("nav.aiTools", "AI Tools")}</button>
               </div>
             )}
 
@@ -407,9 +379,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               <div className="page-nav-mobile-section-items">
                 <button className={`page-nav-mobile-link${currentPage === "blog" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("blog")}><span className="page-nav-mobile-icon">{Icon.Feed}</span> {t("app.blog")}</button>
                 <button className={`page-nav-mobile-link${currentPage === "forum" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("forum")}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("app.forum")}</button>
-                {isPremium
-                  ? <button className={`page-nav-mobile-link${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("groups")}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("nav.studyGroups")}</button>
-                  : <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("nav.studyGroups")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>}
+                <button className={`page-nav-mobile-link${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("groups")}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("nav.studyGroups")}</button>
               </div>
             )}
 
@@ -431,11 +401,9 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
 
             {/* Messages */}
             <div className="page-nav-mobile-divider" />
-            {isPremium
-              ? <button className={`page-nav-mobile-link${currentPage === "messages" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("messages")}>
+            <button className={`page-nav-mobile-link${currentPage === "messages" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("messages")}>
                   <span className="page-nav-mobile-icon">{Icon.Message}</span> {t("nav.messages")} {unreadMessages > 0 && <span className="page-nav-mobile-badge">{unreadMessages}</span>}
                 </button>
-              : <button className="page-nav-mobile-link page-nav-mobile-link--locked" onClick={() => { setMenuOpen(false); onUpgrade?.(); }}><span className="page-nav-mobile-icon">{Icon.Message}</span> {t("nav.messages")} <span className="page-nav-mobile-lock">{Icon.Lock}</span></button>}
 
 
             <div className="page-nav-mobile-divider" />

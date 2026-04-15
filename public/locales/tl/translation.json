@@ -270,23 +270,19 @@
     "deleteConfirm": "Burahin ang {{email}}? Hindi ito maaaring bawiin.",
     "inviteSent": "Naipadala ang imbitasyon sa {{email}}. Kailangan nilang kumpirmahin ang kanilang email bago mag-login.",
     "selfDeleteError": "Hindi mo mabubura ang iyong sariling account.",
-    "subscribers": "Mga Subscriber",
     "banned": "Ipinagbawal",
     "makeMod": "Gawing Mod",
     "removeMod": "Alisin ang Mod",
     "ban": "I-ban",
     "unban": "I-unban",
-    "cancelSub": "Kanselahin ang Sub",
     "moderation": "Moderasyon",
     "searchUsers": "Maghanap ng mga gumagamit…",
     "filterAll": "Lahat",
     "filterAdmins": "Mga Admin",
     "filterMods": "Mga Mod",
     "filterBanned": "Mga Na-ban",
-    "filterPremium": "Premium",
     "exportCSV": "I-export ang CSV",
     "recentSignups": "Bago (7d)",
-    "mrr": "Buwanang Kita",
     "messageUser": "Mensahe",
     "colName": "Pangalan"
   },
@@ -385,7 +381,6 @@
     "trialActive": "Aktibo ang libreng pagsubok",
     "subscriptionActive": "Aktibo — $3 / buwan",
     "subscriptionDesc": "Mayroon kang access sa Mga Plano sa Pagbabasa, Mga Tala sa Pag-aaral, Mga Mensahe, Mga Grupo sa Pag-aaral, at ang AI Companion.",
-    "cancelSubscription": "Kanselahin ang subscription",
     "upgradePrompt": "Mag-upgrade sa Premium — $3/buwan"
   },
   "blog": {
@@ -1633,7 +1628,6 @@
     "community": "Komunidad",
     "more": "Higit Pa",
     "tools": "Mga Tool",
-    "premium": "✦ Premium",
     "messages": "Mga Mensahe",
     "studyGroups": "Mga Grupo ng Pag-aaral",
     "readingPlans": "Mga Plano sa Pagbabasa",
@@ -2565,22 +2559,6 @@
       "Paano pinapanatili ng panghuling pangitain ng Pahayag — ang bagong Jerusalem, ang pag-aalis ng kamatayan, at ang paninirahan ni Jehova kasama ang mga tao (mga kabanata 21–22) — ang pag-asa ng mga Saksi ni Jehova para sa paraiso?"
     ]
   ],
-  "welcomePremium": {
-    "badge": "Maligayang pagdating sa Premium",
-    "title": "Handa na!",
-    "subtitle": "Lahat ng premium na feature ay naka-unlock na. Narito ang maaari mong tuklasin:",
-    "cta": "Simulang tuklasin",
-    "featureAiLabel": "AI na Kasamahan sa Pag-aaral",
-    "featureAiDesc": "Available sa araw-araw na talata, pagsubok, mga plano sa pagbabasa, at mga tala",
-    "featurePlansLabel": "Mga Plano sa Pagbabasa",
-    "featurePlansDesc": "Magsimula ng structured na paglalakbay sa alinmang aklat",
-    "featureNotesLabel": "Mga Tala sa Pag-aaral",
-    "featureNotesDesc": "Gumawa ng rich-text na mga tala na nakakonekta sa anumang sipi",
-    "featureDmLabel": "Mga Direktang Mensahe",
-    "featureDmDesc": "Mag-mensahe nang pribado sa ibang mga miyembro",
-    "featureGroupsLabel": "Mga Grupo sa Pag-aaral",
-    "featureGroupsDesc": "Matuto nang magkasama gamit ang group chat at pagsubaybay sa pag-unlad"
-  },
   "aiTools": {
     "pageTitle": "Mga AI na Kagamitan para sa Pag-aaral ng Bibliya",
     "pageSubtitle": "Pinapagana ng Claude — nakabase sa mga turo ng Watch Tower at ang Bagong Sanlibutang Salin.",
@@ -2592,7 +2570,6 @@
   },
   "meetingPrep": {
     "pageTitle": "Paghahanda sa Pulong",
-    "premiumLabel": "✦ Premium",
     "streakLabel": "{{count}}-linggong streak",
     "streakSuffixNew": "Ituloy mo!",
     "streakSuffixKeep": "Huwag sirain!",

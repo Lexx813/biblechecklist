@@ -222,8 +222,7 @@ function timeAgo(iso: string): string {
 }
 
 // ── Main component ───────────────────────────────────────────────────────────
-export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, isPremium: _isPremium, onUpgrade, panelRequest, onPanelConsumed }) {
-  const isPremium = true; // all features open while building community
+export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, panelRequest, onPanelConsumed }) {
   const { t } = useTranslation();
   const lang = i18n?.language?.split("-")[0] ?? "en";
 
@@ -465,82 +464,82 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {/* ── Inline panels ── */}
           {activePanel === "main" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <ChecklistInline user={user} profile={null} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <ChecklistInline user={user} profile={null} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "quiz" && !quizLevelState && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <QuizPageInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <QuizPageInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "quiz" && quizLevelState && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <QuizLevelInline level={quizLevelState.level} timedMode={quizLevelState.timedMode} user={user} onBack={() => setQuizLevelState(null)} onComplete={() => setQuizLevelState(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <QuizLevelInline level={quizLevelState.level} timedMode={quizLevelState.timedMode} user={user} onBack={() => setQuizLevelState(null)} onComplete={() => setQuizLevelState(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "advancedQuiz" && !advQuizLevelState && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <AdvancedQuizInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <AdvancedQuizInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "advancedQuiz" && advQuizLevelState && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <AdvancedQuizLevelInline level={advQuizLevelState.level} timedMode={advQuizLevelState.timedMode} user={user} onBack={() => setAdvQuizLevelState(null)} onComplete={() => setAdvQuizLevelState(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <AdvancedQuizLevelInline level={advQuizLevelState.level} timedMode={advQuizLevelState.timedMode} user={user} onBack={() => setAdvQuizLevelState(null)} onComplete={() => setAdvQuizLevelState(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "leaderboard" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <LeaderboardInline user={user} onBack={() => setActivePanel(null)} navigate={navigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <LeaderboardInline user={user} onBack={() => setActivePanel(null)} navigate={navigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "familyQuiz" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <FamilyQuizInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <FamilyQuizInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "readingPlans" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <ReadingPlansInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade, isPremium }} />
+              <ReadingPlansInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "studyNotes" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <StudyNotesInline user={user} navigate={panelNavigate} initialTab={panelParams.tab ?? "mine"} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <StudyNotesInline user={user} navigate={panelNavigate} initialTab={panelParams.tab ?? "mine"} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "forum" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <ForumInline user={user} profile={profile} categoryId={panelParams.categoryId ?? null} threadId={panelParams.threadId ?? null} onNavigate={(categoryId, threadId) => setPanelParams({ categoryId, threadId })} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <ForumInline user={user} profile={profile} categoryId={panelParams.categoryId ?? null} threadId={panelParams.threadId ?? null} onNavigate={(categoryId, threadId) => setPanelParams({ categoryId, threadId })} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "blog" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <BlogInline user={user} profile={profile} slug={panelParams.slug ?? null} onSelectPost={(slug) => { setPanelParams({ slug }); history.pushState(null, "", `/blog/${slug}`); }} onBack={() => { setPanelParams({}); history.pushState(null, "", "/blog"); }} onWriteClick={() => navigate("blogDash")} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <BlogInline user={user} profile={profile} slug={panelParams.slug ?? null} onSelectPost={(slug) => { setPanelParams({ slug }); history.pushState(null, "", `/blog/${slug}`); }} onBack={() => { setPanelParams({}); history.pushState(null, "", "/blog"); }} onWriteClick={() => navigate("blogDash")} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "meetingPrep" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <MeetingPrepInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <MeetingPrepInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "friends" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <FriendsInline user={user} navigate={panelNavigate} isPremium={isPremium} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <FriendsInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "admin" && (profile?.is_admin || profile?.is_moderator) && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <AdminInline currentUser={user} currentProfile={profile} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <AdminInline currentUser={user} currentProfile={profile} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "profile" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <ProfileInline user={user} viewedUserId={user?.id} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <ProfileInline user={user} viewedUserId={user?.id} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "messages" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <MessagesInline user={user} navigate={panelNavigate} isPremium={isPremium} initialConv={panelParams.conversationId ? { conversation_id: panelParams.conversationId, other_display_name: panelParams.otherDisplayName ?? null, other_avatar_url: panelParams.otherAvatarUrl ?? null } : null} {...{ darkMode, setDarkMode, i18n, onLogout: () => {}, onUpgrade }} />
+              <MessagesInline user={user} navigate={panelNavigate} initialConv={panelParams.conversationId ? { conversation_id: panelParams.conversationId, other_display_name: panelParams.otherDisplayName ?? null, other_avatar_url: panelParams.otherAvatarUrl ?? null } : null} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {/* ── Home feed (hidden when a panel is active) ── */}
@@ -551,8 +550,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <TodaysFocusCard
               userId={user?.id}
               navigate={navigate}
-              isPremium={isPremium}
-              onUpgrade={onUpgrade}
               lang={lang}
             />
           </div>

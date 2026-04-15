@@ -6,7 +6,6 @@ export const NOTE_TEMPLATES = [
     name: "Blank",
     description: "Start with an empty note",
     previewLines: [],
-    isPremium: false,
     content: "",
   },
   {
@@ -14,7 +13,6 @@ export const NOTE_TEMPLATES = [
     name: "Verse-by-Verse",
     description: "Structured reflection per verse",
     previewLines: ["## [Book Chapter:Verse]", "**Verse:**", "**Reflection:**"],
-    isPremium: false,
     content: `## [Book Chapter:Verse]
 
 **Verse:**
@@ -34,7 +32,6 @@ export const NOTE_TEMPLATES = [
     name: "Inductive Study",
     description: "Observe · Interpret · Apply",
     previewLines: ["📖 Observe", "🔍 Interpret", "✏️ Apply"],
-    isPremium: true,
     content: `# [Title]
 
 ## 📖 Observe
@@ -55,7 +52,6 @@ export const NOTE_TEMPLATES = [
     name: "SOAP",
     description: "Scripture · Observation · Application · Prayer",
     previewLines: ["Scripture", "Observation", "Application", "Prayer"],
-    isPremium: true,
     content: `# [Title]
 
 ## Scripture

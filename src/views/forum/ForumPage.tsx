@@ -5,7 +5,7 @@ import "../../styles/share-buttons.css";
 import { ForumThreadDetail } from "./ForumThreadDetail";
 import { ForumThreadList, ForumCategoryList } from "./ForumThreadList";
 
-export default function ForumPage({ user, profile, onBack, categoryId, threadId, onNavigate, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function ForumPage({ user, profile, onBack, categoryId, threadId, onNavigate, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { data: categories = [], isLoading: catsLoading } = useCategories();
   const activeCategory = categoryId ? categories.find(c => c.id === categoryId) ?? null : null;
 
@@ -20,7 +20,6 @@ export default function ForumPage({ user, profile, onBack, categoryId, threadId,
         categoryId={categoryId}
         categoryName={activeCategory?.name ?? ""}
         onBack={() => onNavigate(categoryId, null)}
-        onUpgrade={onUpgrade}
         navigate={navigate}
       />
     );
@@ -48,7 +47,6 @@ export default function ForumPage({ user, profile, onBack, categoryId, threadId,
         user={user}
         onSelectThread={(id) => onNavigate(categoryId, id)}
         onBack={() => onNavigate(null, null)}
-        onUpgrade={onUpgrade}
         {...navProps}
       />
     );
@@ -59,7 +57,6 @@ export default function ForumPage({ user, profile, onBack, categoryId, threadId,
       onSelectCategory={(cat) => onNavigate(cat.id, null)}
       onSelectThread={(catId, tid) => onNavigate(catId, tid)}
       onBack={onBack}
-      onUpgrade={onUpgrade}
       {...navProps}
     />
   );

@@ -63,26 +63,6 @@ export const adminApi = {
     return data ?? [];
   },
 
-  cancelSubscription: async (userId: string) => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session?.access_token) throw new Error("Not authenticated");
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/admin-cancel-subscription`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session.access_token}`,
-        },
-        body: JSON.stringify({ userId }),
-      }
-    );
-    const text = await res.text();
-    const json = text ? JSON.parse(text) : {};
-    if (!res.ok) throw new Error(json.error ?? "Failed to cancel subscription");
-    return json;
-  },
-
   deleteUser: async (userId: string) => {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session?.access_token) throw new Error("Not authenticated");

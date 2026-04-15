@@ -5,13 +5,11 @@ import { useGetOrCreateDM } from "../hooks/useMessages";
 
 interface Props {
   userId: string;
-  isPremium: boolean;
   onClose: () => void;
   navigate: (page: string, params?: Record<string, unknown>) => void;
-  onUpgrade: () => void;
 }
 
-export function NewConversationModal({ userId, isPremium, onClose, navigate, onUpgrade }: Props) {
+export function NewConversationModal({ userId, onClose, navigate }: Props) {
   const [search, setSearch] = useState("");
   const { data: rawFriends } = useFriends(userId);
   const friends: FriendProfile[] = (rawFriends as FriendProfile[] | undefined) ?? [];
@@ -22,7 +20,6 @@ export function NewConversationModal({ userId, isPremium, onClose, navigate, onU
   );
 
   function handleSelect(friend: FriendProfile) {
-    if (!isPremium && !friend.sponsored_by) { onUpgrade(); return; }
     getOrCreate.mutate(friend.id, {
       onSuccess: (conversationId: string) => {
         onClose();

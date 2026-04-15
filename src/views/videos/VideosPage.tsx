@@ -379,7 +379,6 @@ interface Props {
   setDarkMode?: (v: boolean) => void;
   i18n?: any;
   onLogout?: (() => void) | null;
-  onUpgrade?: () => void;
   currentPage?: string;
   onSearchClick?: () => void;
 }

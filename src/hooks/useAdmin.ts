@@ -111,13 +111,6 @@ export function useCreateUser() {
   });
 }
 
-export function useCancelSubscription() {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (userId: string) => adminApi.cancelSubscription(userId),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "users"] }),
-  });
-}
 
 export function useAllComments() {
   return useQuery({

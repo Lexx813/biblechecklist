@@ -49,7 +49,6 @@
 .al-item:hover { background: var(--hover-bg); }
 .al-item--active { background: var(--active-bg); }
 .al-item--active:hover { background: var(--active-hover-bg); }
-.al-item--locked .al-icon { filter: grayscale(0.6); }
 
 /* Content column */
 .al-content {

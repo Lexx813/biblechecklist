@@ -8,7 +8,6 @@ import {
   useCategories, useThreads, useTopThreads, useCreateThread,
 } from "../../hooks/useForum";
 import { useBlocks } from "../../hooks/useBlocks";
-import { useSubscription } from "../../hooks/useSubscription";
 import { useMeta } from "../../hooks/useMeta";
 import {
   displayName, timeAgo, Avatar, BadgeChip, ModBadge,
@@ -72,7 +71,7 @@ function ForumPostAssistant({ topic, draft }: { topic: string; draft: string }) 
 const THREADS_PER_PAGE = 20;
 const SORT_OPTIONS = ["latest", "liked", "replied", "unanswered", "solved"];
 
-export function ForumThreadList({ category, user, onSelectThread, onBack, navigate, i18n, onUpgrade }: {
+export function ForumThreadList({ category, user, onSelectThread, onBack, navigate, i18n }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   category: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -83,11 +82,8 @@ export function ForumThreadList({ category, user, onSelectThread, onBack, naviga
   navigate: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   i18n: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onUpgrade: any;
 }) {
   const { t } = useTranslation();
-  const { isPremium } = useSubscription(user?.id);
   const userLang = i18n?.language?.split("-")[0] ?? "en";
   const [limit, setLimit] = useState(THREADS_PER_PAGE);
   const [langFilter, setLangFilter] = useState(userLang);
@@ -238,7 +234,7 @@ export function ForumThreadList({ category, user, onSelectThread, onBack, naviga
               disabled={createThread.isPending}
             />
           </Suspense>
-          {isPremium && <ForumPostAssistant topic={title} draft={content} />}
+          <ForumPostAssistant topic={title} draft={content} />
           {formError && <div className="forum-form-error">{formError}</div>}
           <div className="forum-form-actions">
             <button className="forum-submit-btn" type="submit" disabled={createThread.isPending}>
@@ -331,7 +327,7 @@ export function ForumThreadList({ category, user, onSelectThread, onBack, naviga
 
 // ── Category List ─────────────────────────────────────────────────────────────
 
-export function ForumCategoryList({ onSelectCategory, onBack, navigate, i18n, user, onSelectThread, onUpgrade }: {
+export function ForumCategoryList({ onSelectCategory, onBack, navigate, i18n, user, onSelectThread }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSelectCategory: (cat: any) => void;
   onBack: () => void;
@@ -342,8 +338,6 @@ export function ForumCategoryList({ onSelectCategory, onBack, navigate, i18n, us
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user: any;
   onSelectThread: (catId: string, threadId: string) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onUpgrade?: any;
 }) {
   const { data: categories = [], isLoading } = useCategories();
   const { data: trending = [], isLoading: trendingLoading } = useTopThreads(5);

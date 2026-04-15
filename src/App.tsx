@@ -90,7 +90,7 @@ export default function App() {
 
   // Pre-auth: legal pages accessible without login
   const legalNav = (p) => { history.pushState(null, "", "/" + p); setPreAuthPath(p); };
-  const legalProps = { navigate: legalNav, darkMode, setDarkMode, i18n, user: null, onLogout: null, onUpgrade: null };
+  const legalProps = { navigate: legalNav, darkMode, setDarkMode, i18n, user: null, onLogout: null };
   if (preAuthPath === "terms")   return <main id="main-content"><Suspense fallback={null}><TermsPage {...legalProps} /></Suspense></main>;
   if (preAuthPath === "privacy") return <main id="main-content"><Suspense fallback={null}><PrivacyPage {...legalProps} /></Suspense></main>;
   if (preAuthPath === "about")   return <main id="main-content"><Suspense fallback={null}><AboutPage {...legalProps} /></Suspense></main>;
@@ -138,7 +138,6 @@ export default function App() {
             setDarkMode={setDarkMode}
             i18n={i18n}
             onLogout={null}
-            onUpgrade={() => setShowApp(true)}
           />
         </Suspense>
       </main>
@@ -174,7 +173,6 @@ export default function App() {
             setDarkMode={setDarkMode}
             i18n={i18n}
             onLogout={null}
-            onUpgrade={() => setShowApp(true)}
           />
         </Suspense>
       </main>

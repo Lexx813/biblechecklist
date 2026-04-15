@@ -54,7 +54,6 @@ interface Props {
   user?: { id?: string; email?: string } | null;
   onLogout?: () => void;
   currentPage: string;
-  onUpgrade?: () => void;
   onSearchClick?: () => void;
 }
 

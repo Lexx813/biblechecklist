@@ -6,7 +6,7 @@ import "../styles/about.css";
 // Set this to the creator's actual photo URL to show a real avatar
 const CREATOR_AVATAR_URL = null;
 
-export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout, onUpgrade }) {
+export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout }) {
   const { t } = useTranslation();
   useMeta({ title: "About", description: "Learn about JW Study — a Bible reading tracker built for Jehovah's Witnesses and Bible students." });
   return (

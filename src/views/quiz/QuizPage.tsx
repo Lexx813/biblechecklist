@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import { useFullProfile } from "../../hooks/useAdmin";
-import { useSubscription } from "../../hooks/useSubscription";
 import {
   useQuizProgress,
   useQuizQuestions,
@@ -135,13 +134,12 @@ function QuizHubSkeleton() {
 
 // ── QuizPage (Hub) ─────────────────────────────────────────────────────────────
 
-export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const { data: progress = [], isLoading } = useQuizProgress(user.id);
   const initProgress = useInitQuizProgress(user.id);
   const [showQuizPrompt, setShowQuizPrompt] = useState(false);
   const [timedMode, setTimedMode] = useState(false);
-  const { isPremium } = useSubscription(user.id);
 
   // Ensure level 1 is unlocked on first visit
   useEffect(() => {
@@ -152,10 +150,10 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
   const badgeCount = progress.filter(p => p.badge_earned).length;
 
   useEffect(() => {
-    if (isPremium || isLoading) return;
+    if (isLoading) return;
     if (badgeCount !== 3) return;
     if (!isDismissed("quiz-3-badges")) setShowQuizPrompt(true);
-  }, [badgeCount, isPremium, isLoading]);
+  }, [badgeCount, isLoading]);
 
   const progressMap = Object.fromEntries(progress.map((p) => [p.level, p]));
 
@@ -274,10 +272,9 @@ function getMultiplier(timeLeft) {
 
 // ── QuizLevel (Active Quiz) ────────────────────────────────────────────────────
 
-export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade, timedMode = false, levelsArray = LEVELS }) {
+export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode, setDarkMode, i18n, onLogout, timedMode = false, levelsArray = LEVELS }) {
   const { t } = useTranslation();
   const { data: profile } = useFullProfile(user?.id);
-  const { isPremium } = useSubscription(user?.id);
   const levelData = levelsArray.find((l) => l.level === level) ?? levelsArray[0];
   const theme = t(levelData.themeKey);
   const badgeName = t(levelData.badgeNameKey);

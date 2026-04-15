@@ -15,12 +15,10 @@ function timeAgo(iso: string | null | undefined): string | null {
 interface Props {
   user: { id: string };
   navigate: (page: string, params?: Record<string, unknown>) => void;
-  isPremium: boolean;
-  onUpgrade?: () => void;
   isOwner?: boolean;
 }
 
-export default function ProfileFriendsTab({ user, navigate, isPremium, onUpgrade, isOwner = true }: Props) {
+export default function ProfileFriendsTab({ user, navigate, isOwner = true }: Props) {
   const { data: friendsData, isLoading } = useFriends(user.id);
   const friends: FriendProfile[] = (friendsData as FriendProfile[] | undefined) ?? [];
   const { data: token } = useInviteToken(user.id);
@@ -40,7 +38,6 @@ export default function ProfileFriendsTab({ user, navigate, isPremium, onUpgrade
   }
 
   function handleMessage(friend: FriendProfile) {
-    if (!isPremium && !friend.sponsored_by) { onUpgrade?.(); return; }
     getOrCreate.mutate(friend.id, {
       onSuccess: (conversationId: string) => navigate("messages", {
         conversationId,

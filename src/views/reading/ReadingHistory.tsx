@@ -37,7 +37,7 @@ function dotLevel(chapters) {
   return "low";
 }
 
-export default function ReadingHistory({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function ReadingHistory({ user, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const { data: history = [], isLoading } = useReadingHistory(user?.id);
 

@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
 import { useAISkill } from "../../hooks/useAISkill";
 import "../../styles/ai-tools.css";
-import { useSubscription } from "../../hooks/useSubscription";
 import { useUserGroupChallenges } from "../../hooks/useGroupChallenge";
 import { BOOKS } from "../../data/books";
 import {
@@ -277,7 +276,7 @@ function CustomPlanModal({ onClose, onCreated }) {
 function TemplateCard({ template, enrolled, onEnroll, enrolling, activeChallengeKeys = new Set() }) {
   const { t } = useTranslation();
   return (
-    <div className={`rp-template-card${template.isPremiumHighlight ? " rp-template-card--premium" : ""}`}>
+    <div className="rp-template-card">
       {activeChallengeKeys.has(template.key) && (
         <span className="rp-challenge-badge">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -485,7 +484,7 @@ function ReadingSummaryWidget({ todayReadings }) {
 
 // ── Plan detail view ──────────────────────────────────────────────────────────
 
-function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate, userId }) {
+function PlanDetail({ plan: initialPlan, allPlans, onBack, navigate, userId }) {
   const { t } = useTranslation();
   // Always read the freshest plan object from allPlans
   const plan = allPlans.find(p => p.id === initialPlan.id) ?? initialPlan;
@@ -657,7 +656,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate, 
             >
               {doneSet.has(currentDay) ? t("readingPlans.markUnread") : t("readingPlans.markRead")}
             </button>
-            {isPremium && navigate && (
+            {navigate && (
               <button
                 className="rp-note-shortcut-btn"
                 onClick={() => navigate("studyNotes", {
@@ -683,7 +682,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, isPremium, navigate, 
 
 
       {/* AI Reading Summary (premium) */}
-      {isPremium && !plan.is_paused && todayReadings.length > 0 && (
+      {!plan.is_paused && todayReadings.length > 0 && (
         <div style={{ padding: "0 1rem" }}>
           <ReadingSummaryWidget todayReadings={todayReadings} />
         </div>
@@ -766,7 +765,6 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
   const [showCustomModal, setShowCustomModal] = useState(false);
   const { data: myPlans = [], isLoading } = useMyPlans();
   const enrollPlan = useEnrollPlan();
-  const { isPremium } = useSubscription(user?.id);
   const { data: groupChallenges = [] } = useUserGroupChallenges(user?.id);
 
   const enrolledKeys = new Set(myPlans.map(p => p.template_key));
@@ -790,7 +788,6 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
           plan={detailPlan}
           allPlans={myPlans}
           onBack={() => setDetailPlan(null)}
-          isPremium={isPremium}
           navigate={navigate}
           userId={user?.id}
         />

@@ -28,27 +28,6 @@
   font-size: .8rem;
   color: var(--text-muted, #7c6f9a);
 }
-.mp-premium-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 10px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #92400e;
-  background: rgba(245, 158, 11, 0.15);
-  border: 1px solid rgba(245,158,11,0.35);
-  border-radius: 999px;
-  padding: 3px 10px;
-  margin-bottom: 20px;
-  margin-top: 6px;
-}
-[data-theme=dark] .mp-premium-label {
-  color: #fde68a;
-  background: rgba(245, 158, 11, 0.15);
-  border-color: rgba(245,158,11,0.25);
-}
 [data-theme=dark] .mp-title { color: #ede9fe; }
 [data-theme=dark] .mp-subtitle { color: #a78bfa; }
 
@@ -321,7 +300,7 @@
 [data-theme=dark] .mp-wt-card { background: rgba(167,139,250,.05); border-color: rgba(167,139,250,.12); }
 [data-theme=dark] .mp-wt-title { color: #ede9fe; }
 
-/* Notes (premium) */
+/* Notes */
 .mp-notes-wrap { padding: .75rem 1.25rem 0; }
 .mp-notes-label {
   display: flex;

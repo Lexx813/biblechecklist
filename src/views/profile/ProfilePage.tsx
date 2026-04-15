@@ -5,7 +5,6 @@ import { useFullProfile } from "../../hooks/useAdmin";
 import { useProgress, useReadingStreak } from "../../hooks/useProgress";
 import { useQuizProgress } from "../../hooks/useQuiz";
 import { useUserForumStats } from "../../hooks/useForum";
-import { useSubscription } from "../../hooks/useSubscription";
 import { useBadges } from "../../hooks/useBadges";
 import "../../styles/profile.css";
 import "../../styles/social.css";
@@ -22,9 +21,8 @@ import AchievementsTab from "./tabs/AchievementsTab";
 import NotesTab from "./tabs/NotesTab";
 
 // ── Main ProfilePage ──────────────────────────────────────
-export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade, defaultTab = "posts" }) {
+export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, defaultTab = "posts" }) {
   const profileId = viewedUserId ?? user.id;
-  const { isPremium } = useSubscription(user.id);
   const { data: blockedSet = new Set<string>() } = useBlocks(user.id);
   const { data: myBlocks = [] } = useMyBlocks(user.id);
   const { data: profile, isLoading: profileLoading } = useFullProfile(profileId);
@@ -87,8 +85,6 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
           currentUserId={user.id}
           isOwner={isOwner}
           navigate={navigate}
-          isPremium={isPremium}
-          onUpgrade={onUpgrade}
           onEditProfile={() => navigate("settings")}
         />
 
@@ -122,7 +118,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
           )}
 
           {activeTab === "friends" && !isViewedUserBlocked && (
-            <ProfileFriendsTab user={{ ...user, id: profileId }} navigate={navigate} isPremium={isPremium} onUpgrade={onUpgrade} isOwner={isOwner} />
+            <ProfileFriendsTab user={{ ...user, id: profileId }} navigate={navigate} isOwner={isOwner} />
           )}
 
           {activeTab === "achievements" && !isViewedUserBlocked && (

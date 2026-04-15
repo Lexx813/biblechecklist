@@ -26,14 +26,12 @@ interface MessagesPageProps {
   onLogout?: () => void;
   onBack?: (() => void) | null;
   initialConv?: Conversation | null;
-  isPremium?: boolean;
-  onUpgrade?: () => void;
 }
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 
 export default function MessagesPage({
-  user, navigate, onBack = null, initialConv = null, isPremium = true, onUpgrade,
+  user, navigate, onBack = null, initialConv = null,
 }: MessagesPageProps) {
   const { t } = useTranslation();
   const { data: conversations = [], isLoading } = useConversations();
@@ -155,10 +153,8 @@ export default function MessagesPage({
       {showCompose && (
         <NewConversationModal
           userId={user.id}
-          isPremium={isPremium}
           onClose={() => setShowCompose(false)}
           navigate={navigate}
-          onUpgrade={onUpgrade}
         />
       )}
     </>

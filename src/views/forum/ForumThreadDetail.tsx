@@ -19,7 +19,6 @@ import {
 import { toast } from "../../lib/toast";
 import { useSubmitReport } from "../../hooks/useReports";
 import { useBlocks, useBlockUser, useUnblockUser } from "../../hooks/useBlocks";
-import { useSubscription } from "../../hooks/useSubscription";
 import { useGetOrCreateDM } from "../../hooks/useMessages";
 import { useMeta } from "../../hooks/useMeta";
 import {
@@ -29,7 +28,7 @@ import {
 
 const REPLIES_PER_PAGE = 20;
 
-export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId, categoryName, navigate, onUpgrade }: {
+export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId, categoryName, navigate }: {
   threadId: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   user: any;
@@ -40,8 +39,6 @@ export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId,
   categoryName: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   navigate: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onUpgrade: any;
 }) {
   const { data: thread, isLoading: threadLoading } = useThread(threadId);
   const { data: allReplies = [], isLoading: repliesLoading } = useReplies(threadId);
@@ -65,7 +62,6 @@ export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId,
   const { data: blockedSet = new Set<string>() } = useBlocks(user?.id);
   const blockUser = useBlockUser();
   const unblockUser = useUnblockUser();
-  const { isPremium } = useSubscription(user?.id);
   const getOrCreateDM = useGetOrCreateDM();
   const { t } = useTranslation();
 
@@ -304,17 +300,14 @@ export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId,
                 {thread.author_id !== user.id && (
                   <>
                     <button
-                      className={`forum-msg-btn${!isPremium ? " forum-msg-btn--locked" : ""}`}
+                      className="forum-msg-btn"
                       disabled={getOrCreateDM.isPending}
-                      onClick={isPremium
-                        ? () => getOrCreateDM.mutate(thread.author_id, {
+                      onClick={() => getOrCreateDM.mutate(thread.author_id, {
                             onSuccess: (cid) => navigate("messages", { conversationId: cid, otherDisplayName: displayName(thread.profiles), otherAvatarUrl: thread.profiles?.avatar_url ?? null }),
-                          })
-                        : onUpgrade
-                      }
+                          })}
                     >
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                      {t("common.message", "Message")}{!isPremium && <span className="msg-btn-pro-badge">✦</span>}
+                      {t("common.message", "Message")}
                     </button>
                     <button
                       className="forum-report-btn"
@@ -465,17 +458,14 @@ export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId,
                       {reply.author_id !== user.id && (
                         <>
                           <button
-                            className={`forum-msg-btn${!isPremium ? " forum-msg-btn--locked" : ""}`}
+                            className="forum-msg-btn"
                             disabled={getOrCreateDM.isPending}
-                            onClick={isPremium
-                              ? () => getOrCreateDM.mutate(reply.author_id, {
+                            onClick={() => getOrCreateDM.mutate(reply.author_id, {
                                   onSuccess: (cid) => navigate("messages", { conversationId: cid, otherDisplayName: displayName(reply.profiles), otherAvatarUrl: reply.profiles?.avatar_url ?? null }),
-                                })
-                              : onUpgrade
-                            }
+                                })}
                           >
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                            {t("common.message", "Message")}{!isPremium && <span className="msg-btn-pro-badge">✦</span>}
+                            {t("common.message", "Message")}
                           </button>
                           <button
                             className="forum-report-btn"

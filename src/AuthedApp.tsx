@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useFullProfile } from "./hooks/useAdmin";
 import { useFeatureFlags } from "./hooks/useFeatureFlags";
-import { useSubscription } from "./hooks/useSubscription";
 import { supabase } from "./lib/supabase";
 import { parsePath, buildPath } from "./lib/router";
 import { toast } from "./lib/toast";
@@ -91,9 +90,6 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   const queryClient = useQueryClient();
   const { data: profile, isLoading: profileLoading } = useFullProfile(user.id);
 
-  const { isPremium: _isPremium } = useSubscription(user.id);
-  const isPremium = true; // all features open while building community
-
   // Apply referral code if present (runs once after profile loads)
   useEffect(() => {
     if (!profile || profile.referred_by) return;
@@ -119,9 +115,6 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     return true; // Default to dark — focused reading experience
   });
   const [showCmdPalette, setShowCmdPalette] = useState(false);
-
-  function openUpgrade() {}
-
 
   useEffect(() => {
     document.documentElement.dataset.theme = darkMode ? "dark" : "light";
@@ -215,23 +208,21 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     setNav({ page, ...params });
   };
 
-  // Handle email deep-link params: ?page=X navigates into the app; ?upgrade=1 opens the upgrade modal
+  // Handle email deep-link params: ?page=X navigates into the app
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const page = params.get("page");
-    const upgrade = params.get("upgrade");
-    if (!page && !upgrade) return;
+    if (!page) return;
     history.replaceState(null, "", window.location.pathname);
-    if (page && VALID_PAGES.includes(page)) navigate(page);
-    if (upgrade === "1") openUpgrade();
+    if (VALID_PAGES.includes(page)) navigate(page);
   }, []); // runs once on mount
 
-  const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page, onUpgrade: openUpgrade, onSearchClick: () => setShowCmdPalette(true) };
+  const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page, onSearchClick: () => setShowCmdPalette(true) };
 
   const AL = ({ page, children }) => <AppLayout navigate={navigate} user={user} currentPage={page}>{children}</AppLayout>;
 
   let pageContent = null;
-  if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} isPremium={isPremium} onUpgrade={openUpgrade} panelRequest={homePanelRequest} onPanelConsumed={() => setHomePanelRequest(null)} /></Page>;
+  if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} panelRequest={homePanelRequest} onPanelConsumed={() => setHomePanelRequest(null)} /></Page>;
   else if (nav.page === "main") pageContent = <Page><AL page="main"><ChecklistPage user={user} profile={profile} {...sharedNav} /></AL></Page>;
   else if (nav.page === "admin") {
     if (!profileLoading && !profile?.is_admin && !profile?.is_moderator) navigate("home");
@@ -462,7 +453,7 @@ export default function AuthedApp({ onShowLanding, i18n }) {
             onWriteClick={null}
             navigate={publicNavigate}
             darkMode={false} setDarkMode={() => {}}
-            i18n={i18n} onLogout={null} onUpgrade={() => {}}
+            i18n={i18n} onLogout={null}
           />
           <PageFooter />
         </Suspense>

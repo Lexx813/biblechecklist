@@ -646,10 +646,6 @@ html.nav-hidden .pf-header { top: 0; }
   opacity: 0.55;
 }
 
-.pf-quiz-badge--locked .pf-quiz-badge-emoji {
-  opacity: 0.2;
-  filter: grayscale(1);
-}
 
 .pf-quiz-badge--earned:hover .pf-quiz-badge-emoji {
   transform: scale(1.1);

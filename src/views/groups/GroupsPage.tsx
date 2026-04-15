@@ -191,7 +191,7 @@ function GroupCard({ group, onClick, onJoin, joining }: {
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 
-export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const [tab, setTab] = useState<"mine" | "explore">("mine");
   const [showCreate, setShowCreate] = useState(false);
   const [search, setSearch] = useState("");

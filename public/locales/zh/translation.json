@@ -679,7 +679,6 @@
     "trialActive": "免费试用中",
     "subscriptionActive": "已激活 — $3 / 月",
     "subscriptionDesc": "您可以使用阅读计划、学习笔记、私信、学习小组和AI助手。",
-    "cancelSubscription": "取消订阅",
     "upgradePrompt": "升级到高级版 — $3/月"
   },
   "blog": {
@@ -874,7 +873,6 @@
     "community": "社区",
     "more": "更多",
     "tools": "工具",
-    "premium": "✦ 高级版",
     "messages": "消息",
     "studyGroups": "学习小组",
     "readingPlans": "阅读计划",
@@ -1422,23 +1420,19 @@
     "deleteConfirm": "删除 {{email}}？此操作无法撤销。",
     "inviteSent": "已向 {{email}} 发送邀请，他们需要确认邮件后才能登录。",
     "selfDeleteError": "您不能删除自己的账户。",
-    "subscribers": "订阅者",
     "banned": "已封禁",
     "makeMod": "设为版主",
     "removeMod": "取消版主",
     "ban": "封禁",
     "unban": "解封",
-    "cancelSub": "取消订阅",
     "moderation": "版主管理",
     "searchUsers": "搜索用户…",
     "filterAll": "全部",
     "filterAdmins": "管理员",
     "filterMods": "版主",
     "filterBanned": "已封禁",
-    "filterPremium": "高级版",
     "exportCSV": "导出 CSV",
     "recentSignups": "新用户（7天）",
-    "mrr": "月经常性收入",
     "messageUser": "发消息",
     "colName": "显示名称"
   },
@@ -2581,22 +2575,6 @@
       "启示录的高潮异象——新耶路撒冷、死亡被除去以及耶和华与人类同住（第21至22章）——如何维系耶和华见证人对乐园的盼望？"
     ]
   ],
-  "welcomePremium": {
-    "badge": "欢迎使用高级版",
-    "title": "一切就绪！",
-    "subtitle": "所有高级功能现已解锁。以下是您可以探索的内容：",
-    "cta": "开始探索",
-    "featureAiLabel": "AI学习助手",
-    "featureAiDesc": "可在每日经文、测验、阅读计划和笔记中使用",
-    "featurePlansLabel": "阅读计划",
-    "featurePlansDesc": "开始系统学习任何一卷书",
-    "featureNotesLabel": "学习笔记",
-    "featureNotesDesc": "记录与任何经文关联的富文本笔记",
-    "featureDmLabel": "私信",
-    "featureDmDesc": "私下与其他成员交流",
-    "featureGroupsLabel": "学习小组",
-    "featureGroupsDesc": "通过群聊和进度跟踪共同学习"
-  },
   "aiTools": {
     "pageTitle": "AI圣经学习工具",
     "pageSubtitle": "由Claude驱动 — 基于守望台的教导和新世界译本。",
@@ -2608,7 +2586,6 @@
   },
   "meetingPrep": {
     "pageTitle": "聚会准备",
-    "premiumLabel": "✦ 高级版",
     "streakLabel": "连续{{count}}周",
     "streakSuffixNew": "继续保持！",
     "streakSuffixKeep": "不要中断！",

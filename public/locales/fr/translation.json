@@ -270,23 +270,19 @@
     "deleteConfirm": "Supprimer {{email}} ? Cette action est irréversible.",
     "inviteSent": "Invitation envoyée à {{email}}. Il doit confirmer son e-mail avant de se connecter.",
     "selfDeleteError": "Vous ne pouvez pas supprimer votre propre compte.",
-    "subscribers": "Abonnés",
     "banned": "Banni",
     "makeMod": "Modérateur",
     "removeMod": "Retirer Mod",
     "ban": "Bannir",
     "unban": "Débannir",
-    "cancelSub": "Annuler Abo.",
     "moderation": "Modération",
     "searchUsers": "Rechercher des utilisateurs…",
     "filterAll": "Tous",
     "filterAdmins": "Admins",
     "filterMods": "Mods",
     "filterBanned": "Bannis",
-    "filterPremium": "Premium",
     "exportCSV": "Exporter CSV",
     "recentSignups": "Nouveaux (7j)",
-    "mrr": "Revenu Mensuel",
     "messageUser": "Message",
     "colName": "Nom affiché"
   },
@@ -385,7 +381,6 @@
     "trialActive": "Essai gratuit actif",
     "subscriptionActive": "Actif — 3 $ / mois",
     "subscriptionDesc": "Vous avez accès aux Plans de Lecture, Notes d'Étude, Messages, Groupes d'Étude et au Compagnon IA.",
-    "cancelSubscription": "Annuler l'abonnement",
     "upgradePrompt": "Passer à Premium — 3 $/mois"
   },
   "blog": {
@@ -1633,7 +1628,6 @@
     "community": "Communauté",
     "more": "Plus",
     "tools": "Outils",
-    "premium": "✦ Premium",
     "messages": "Messages",
     "studyGroups": "Groupes d'Étude",
     "readingPlans": "Plans de Lecture",
@@ -2565,22 +2559,6 @@
       "Comment la vision culminante de la Révélation — la nouvelle Jérusalem, la suppression de la mort et Jéhovah demeurant avec les humains (chapitres 21–22) — soutient-elle l'espérance des Témoins de Jéhovah pour le paradis ?"
     ]
   ],
-  "welcomePremium": {
-    "badge": "Bienvenue dans Premium",
-    "title": "Tout est prêt !",
-    "subtitle": "Toutes les fonctionnalités premium sont maintenant débloquées. Voici ce que vous pouvez explorer :",
-    "cta": "Commencer à explorer",
-    "featureAiLabel": "Compagnon d'Étude IA",
-    "featureAiDesc": "Disponible sur le verset quotidien, le quiz, les plans de lecture et les notes",
-    "featurePlansLabel": "Plans de Lecture",
-    "featurePlansDesc": "Commencez un parcours structuré à travers n'importe quel livre",
-    "featureNotesLabel": "Notes d'Étude",
-    "featureNotesDesc": "Prenez des notes en texte enrichi liées à n'importe quel passage",
-    "featureDmLabel": "Messages Privés",
-    "featureDmDesc": "Envoyez des messages privés aux autres membres",
-    "featureGroupsLabel": "Groupes d'Étude",
-    "featureGroupsDesc": "Apprenez ensemble avec le chat de groupe et le suivi des progrès"
-  },
   "aiTools": {
     "pageTitle": "Outils d'Étude Biblique IA",
     "pageSubtitle": "Propulsé par Claude — ancré dans les enseignements de la Tour de Garde et la Traduction du monde nouveau.",
@@ -2592,7 +2570,6 @@
   },
   "meetingPrep": {
     "pageTitle": "Préparation des Réunions",
-    "premiumLabel": "✦ Premium",
     "streakLabel": "série de {{count}} semaines",
     "streakSuffixNew": "Continuez comme ça !",
     "streakSuffixKeep": "Ne la brisez pas !",

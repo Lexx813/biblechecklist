@@ -1,4 +1,3 @@
-import { useSubscription } from "../hooks/useSubscription";
 import { useReadingStreak } from "../hooks/useProgress";
 import "../styles/right-panel.css";
 
@@ -26,11 +25,9 @@ interface Props {
   page: string;
   user: { id?: string; email?: string } | null | undefined;
   navigate: (page: string) => void;
-  onUpgrade?: () => void;
 }
 
-export default function RightPanel({ page, user, navigate, onUpgrade }: Props) {
-  const { isPremium } = useSubscription(user?.id);
+export default function RightPanel({ page, user, navigate }: Props) {
   const { data: streakData } = useReadingStreak(user?.id);
   const verse = getDailyVerse();
   const streak = streakData?.current_streak ?? 0;
@@ -59,14 +56,6 @@ export default function RightPanel({ page, user, navigate, onUpgrade }: Props) {
         </div>
       )}
 
-      {/* Upgrade banner (free users only) */}
-      {!isPremium && (
-        <div className="rp-widget rp-upgrade">
-          <div className="rp-upgrade-title">✨ Go Premium</div>
-          <div className="rp-upgrade-desc">Unlock reading plans, study notes, messages and more.</div>
-          <button className="rp-upgrade-btn" onClick={onUpgrade}>Upgrade — $3/mo</button>
-        </div>
-      )}
     </>
   );
 }

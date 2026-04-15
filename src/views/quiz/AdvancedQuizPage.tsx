@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSubscription } from "../../hooks/useSubscription";
 import {
   useQuizProgress,
   useInitQuizProgress,
@@ -101,12 +100,11 @@ function QuizHubSkeleton() {
 
 // ── AdvancedQuizPage (Hub) ────────────────────────────────────────────────────
 
-export default function AdvancedQuizPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function AdvancedQuizPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const { data: progress = [], isLoading } = useQuizProgress(user.id);
   const initAdvanced = useInitQuizProgress(user.id, 25);
   const [timedMode, setTimedMode] = useState(false);
-  const { isPremium } = useSubscription(user.id);
 
   // Ensure level 25 is unlocked on first visit
   useEffect(() => {

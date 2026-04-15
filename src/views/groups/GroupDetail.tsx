@@ -495,7 +495,7 @@ function FilesTab({ groupId, userId, isAdmin }: { groupId: string; userId: strin
 
 type Tab = "feed" | "members" | "events" | "files";
 
-export default function GroupDetail({ groupId, user, navigate, darkMode, setDarkMode, i18n, onLogout, onUpgrade }) {
+export default function GroupDetail({ groupId, user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const [tab, setTab] = useState<Tab>("feed");
   const [showCreateEvent, setShowCreateEvent] = useState(false);
   const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);

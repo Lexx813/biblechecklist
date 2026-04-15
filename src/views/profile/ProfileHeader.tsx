@@ -16,8 +16,6 @@ interface Props {
   currentUserId: string;
   isOwner: boolean;
   navigate: (page: string, params?: any) => void;
-  isPremium: boolean;
-  onUpgrade: () => void;
   onEditProfile?: () => void;
 }
 
@@ -101,8 +99,6 @@ export default function ProfileHeader({
   currentUserId,
   isOwner,
   navigate,
-  isPremium,
-  onUpgrade,
   onEditProfile,
 }: Props) {
   const { t } = useTranslation();
@@ -114,12 +110,9 @@ export default function ProfileHeader({
   /* ── Message handler (visitor) ── */
 
   async function handleMessage() {
-    if (!isPremium) {
-      const canMessage = await friendsApi.canMessageUser(userId, isPremium);
-      if (!canMessage) {
-        onUpgrade?.();
-        return;
-      }
+    const canMessage = await friendsApi.canMessageUser(userId);
+    if (!canMessage) {
+      return;
     }
     getOrCreate.mutate(userId, {
       onSuccess: (conversationId: string) =>

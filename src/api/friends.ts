@@ -269,17 +269,7 @@ export const friendsApi = {
     return !!data?.sponsored_by;
   },
 
-  canMessageUser: async (otherUserId: string, userIsPremium: boolean) => {
-    if (userIsPremium) return true;
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return false;
-    const [a, b] = [user.id, otherUserId].sort();
-    const { data } = await supabase
-      .from("friendships")
-      .select("sponsored_by")
-      .eq("user_a_id", a)
-      .eq("user_b_id", b)
-      .single();
-    return !!data?.sponsored_by;
+  canMessageUser: async (_otherUserId: string) => {
+    return true;
   },
 };
