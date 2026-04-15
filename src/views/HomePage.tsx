@@ -55,31 +55,6 @@ const FALLBACK_IMAGES = [
   "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?auto=format&fit=crop&w=800&q=80",
 ];
 
-/** Plays a storage-backed video in the home reel widget using a signed URL. */
-function HomeReelVideo({ storagePath, thumbnailUrl }: { storagePath: string; thumbnailUrl?: string | null }) {
-  const { data: signedUrl } = useSignedVideoUrl(storagePath, true);
-  if (!signedUrl) {
-    return thumbnailUrl ? (
-      <img src={thumbnailUrl} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 10 }} />
-    ) : (
-      <div className="home-reel-placeholder">
-        <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-      </div>
-    );
-  }
-  return (
-    <video
-      className="home-reel-iframe"
-      src={signedUrl}
-      poster={thumbnailUrl ?? undefined}
-      preload="none"
-      controls
-      playsInline
-      style={{ background: "#000" }}
-    />
-  );
-}
-
 /** Renders the spotlight hero player — iframe for embed_url, <video> for storage. */
 function SpotlightPlayer({ video }: { video: { embed_url: string | null; storage_path: string | null; thumbnail_url: string | null; title: string } }) {
   const { data: signedUrl } = useSignedVideoUrl(video.storage_path, !!video.storage_path && !video.embed_url);
@@ -262,8 +237,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const reelVideos = spotlightVideo
     ? recentVideos.filter((v: { id: string }) => v.id !== spotlightVideo.id)
     : recentVideos;
-  const [reelIndex, setReelIndex] = useState(0);
-  const reelTouchY = useRef(0);
   const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4, lang);
   const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes(lang);
   const toggleNoteLike = useToggleNoteLike();
@@ -847,73 +820,14 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             </div>
           )}
 
-          {/* Videos — TikTok-style reel embed */}
-          {(videosLoading || reelVideos.length > 0) && (
-          <div className="home-video-section">
-            <div className={feedHeadCls}>
-              <button className={`${feedTitleCls} cursor-pointer border-none bg-transparent p-0 text-left font-[inherit] hover:underline`} onClick={() => navigate("videos")}>Videos</button>
-              <button className={feedLinkCls} onClick={() => navigate("videos")}>View all &rarr;</button>
+          {/* Videos — link to full list */}
+          {!videosLoading && reelVideos.length > 0 && (
+            <div>
+              <div className={feedHeadCls}>
+                <span className={feedTitleCls}>Videos</span>
+                <button className={feedLinkCls} onClick={() => navigate("videos")}>View all &rarr;</button>
+              </div>
             </div>
-            {videosLoading ? <BlogSkeleton /> : (() => {
-              const vids = reelVideos;
-              const cur = vids[reelIndex];
-              if (!cur) return null;
-              const isPortrait = cur.embed_url?.includes("tiktok.com") ?? false;
-              return (
-                <div
-                  className="home-reel-wrapper"
-                  onTouchStart={e => { reelTouchY.current = e.touches[0].clientY; }}
-                  onTouchEnd={e => {
-                    const delta = reelTouchY.current - e.changedTouches[0].clientY;
-                    if (Math.abs(delta) < 40) return;
-                    if (delta > 0) setReelIndex(i => Math.min(i + 1, vids.length - 1));
-                    else setReelIndex(i => Math.max(i - 1, 0));
-                  }}
-                >
-                  <div className={`home-reel-embed${isPortrait ? " portrait" : ""}`}>
-                    {cur.embed_url ? (
-                      <iframe
-                        key={cur.id}
-                        className="home-reel-iframe"
-                        src={cur.embed_url}
-                        title={cur.title}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        scrolling="no"
-                      />
-                    ) : cur.storage_path ? (
-                      <HomeReelVideo key={cur.id} storagePath={cur.storage_path} thumbnailUrl={cur.thumbnail_url} />
-                    ) : (
-                      <div className="home-reel-placeholder">
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                      </div>
-                    )}
-                  </div>
-                  {vids.length > 1 && (
-                    <div className="home-reel-nav">
-                      <button
-                        className="home-reel-nav-btn"
-                        onClick={() => setReelIndex(i => Math.max(i - 1, 0))}
-                        disabled={reelIndex === 0}
-                        aria-label="Previous video"
-                      >
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>
-                      </button>
-                      <span className="text-xs font-semibold text-white/70">{reelIndex + 1}/{vids.length}</span>
-                      <button
-                        className="home-reel-nav-btn"
-                        onClick={() => setReelIndex(i => Math.min(i + 1, vids.length - 1))}
-                        disabled={reelIndex === vids.length - 1}
-                        aria-label="Next video"
-                      >
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              );
-            })()}
-          </div>
           )}
 
           {/* Community Notes — only show if there are notes in user's language */}
