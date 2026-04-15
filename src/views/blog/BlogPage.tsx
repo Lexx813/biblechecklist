@@ -1,4 +1,5 @@
 import { useState, useMemo, memo, useEffect, useCallback } from "react";
+import { marked } from "marked";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
 import TopBar from "../../components/TopBar";
@@ -59,7 +60,7 @@ const RichContent = memo(function RichContent({ text }: { text: string }) {
   const html = useMemo(() => {
     const h = /<[a-z][\s\S]*>/i.test(text)
       ? text
-      : text.split(/\n\n+/).map(p => `<p>${p}</p>`).join("");
+      : marked.parse(text) as string;
     return sanitizeRich(h);
   }, [text]);
   return <div className="rich-content" dangerouslySetInnerHTML={{ __html: html }} />;
@@ -247,7 +248,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
     if (!displayContent) return "";
     const html = /<[a-z][\s\S]*>/i.test(displayContent)
       ? displayContent
-      : displayContent.split(/\n\n+/).map(p => `<p>${p}</p>`).join("");
+      : marked.parse(displayContent) as string;
     return sanitizeRich(html);
   }, [displayContent]);
 

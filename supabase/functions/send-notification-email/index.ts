@@ -41,6 +41,11 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify({ skipped: "missing record" }), { status: 200 });
   }
 
+  // Message notifications are handled by the send-message-email function
+  if (notif.type === "message") {
+    return new Response(JSON.stringify({ skipped: "message type handled elsewhere" }), { status: 200 });
+  }
+
   // Check recipient email preferences
   const { data: profile } = await supabase
     .from("profiles")

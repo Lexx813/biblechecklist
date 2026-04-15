@@ -665,6 +665,28 @@ main:has(.msg-layout) {
 
 .msg-bubble--mine .msg-bubble-text { color: #fff; }
 
+/* Hyperlinks inside bubbles */
+.fc-msg-link {
+  color: #c026d3;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-all;
+}
+.fc-msg-link:hover { color: #a21caf; }
+
+/* On "mine" (purple) bubbles — use light pink for contrast */
+.msg-bubble--mine .fc-msg-link {
+  color: #fda4ff;
+}
+.msg-bubble--mine .fc-msg-link:hover {
+  color: #fff;
+}
+
+[data-theme="dark"] .fc-msg-link { color: #e879f9; }
+[data-theme="dark"] .fc-msg-link:hover { color: #f0abfc; }
+[data-theme="dark"] .msg-bubble--mine .fc-msg-link { color: #fda4ff; }
+[data-theme="dark"] .msg-bubble--mine .fc-msg-link:hover { color: #fff; }
+
 .msg-bubble-footer {
   display: flex;
   align-items: center;

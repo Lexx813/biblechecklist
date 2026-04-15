@@ -303,14 +303,14 @@ function PostEditor({ userId, post, onDone }) {
           className={`blog-editor-tab${activeTab === "content" ? " blog-editor-tab--active" : ""}`}
           onClick={() => setActiveTab("content")}
         >
-          {t("blogDash.tabContent") ?? "Content"}
+          Content
         </button>
         <button
           type="button"
           className={`blog-editor-tab${activeTab === "translations" ? " blog-editor-tab--active" : ""}`}
           onClick={() => setActiveTab("translations")}
         >
-          {t("blogDash.tabTranslations") ?? "Translations"}
+          Translations
           {Object.keys(form.translations ?? {}).length > 0 && (
             <span className="blog-editor-tab-badge">{Object.keys(form.translations).length}</span>
           )}

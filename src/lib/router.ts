@@ -37,6 +37,7 @@ export type NavState =
   | { page: "videoDetail"; slug: string }
   | { page: "videosDash" }
   | { page: "creatorRequest" }
+  | { page: "trivia" }
   | { page: "notFound" };
 
 export function parsePath(): NavState {
@@ -89,6 +90,7 @@ export function parsePath(): NavState {
   if (h.startsWith("videos/")) return { page: "videoDetail", slug: decodeURIComponent(h.slice(7)) };
   if (h === "videos-dash") return { page: "videosDash" };
   if (h === "creator-request") return { page: "creatorRequest" };
+  if (h === "trivia") return { page: "trivia" };
   return { page: "notFound" };
 }
 
@@ -131,6 +133,7 @@ export function buildPath(page: string, params: Record<string, unknown> = {}): s
     case "videoDetail":    return `/videos/${encodeURIComponent(params.slug as string)}`;
     case "videosDash":     return "/videos-dash";
     case "creatorRequest": return "/creator-request";
+    case "trivia":         return "/trivia";
     case "main":          return "/checklist";
     default:              return "/";
   }
