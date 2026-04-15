@@ -155,7 +155,7 @@
   padding: 8px 10px 10px; min-height: auto; justify-content: flex-start;
 }
 .lp-mock-tile-name { font-size: 9px; font-weight: 700; color: #fff; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.lp-mock-tile-count { font-size: 7px; font-weight: 500; color: #AFA0D0; }
+.lp-mock-tile-count { font-size: 7px; font-weight: 500; color: #D0C4F0; }
 .lp-mock-tile-check {
   position: absolute; top: 5px; right: 5px;
   width: 13px; height: 13px; border-radius: 50%;
@@ -173,12 +173,12 @@
 .lp-mock-ch-grid { display: flex; flex-wrap: wrap; gap: 2px; }
 .lp-mock-ch {
   width: 16px; height: 16px; border-radius: 2px;
-  border: 1px solid #4A4370; background: #3A3360;
-  font-size: 6px; font-weight: 600; color: #c4b8e8;
+  border: 1px solid #5A5090; background: #3A3360;
+  font-size: 6px; font-weight: 600; color: #e0d6f8;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 .lp-mock-ch--done { background: #9F7AEA; border-color: #9F7AEA; color: #fff; }
-.lp-mock-ch--partial { border: 1px dashed #9F7AEA; color: #9F7AEA; background: rgba(159,122,234,0.12); }
+.lp-mock-ch--partial { border: 1px dashed #B89CF5; color: #C9B2FF; background: rgba(159,122,234,0.18); }
 /* Light mode phone overrides */
 [data-theme="light"] .lp-mock-appbar { background: #F5F5F7; border-bottom-color: #D1D1D6; }
 [data-theme="light"] .lp-mock-appbar-title { color: #1C1C1E; }
@@ -194,9 +194,9 @@
 [data-theme="light"] .lp-mock-tile-check { background: #7C3AED; }
 [data-theme="light"] .lp-mock-tile-strip { background: rgba(0,0,0,0.07); }
 [data-theme="light"] .lp-mock-tile-strip-fill { background: #7C3AED; }
-[data-theme="light"] .lp-mock-ch { background: #EAE4F4; border-color: #C8B8E0; color: #5B3A97; }
+[data-theme="light"] .lp-mock-ch { background: #EAE4F4; border-color: #C8B8E0; color: #4A2D82; }
 [data-theme="light"] .lp-mock-ch--done { background: #7C3AED; border-color: #7C3AED; color: #fff; }
-[data-theme="light"] .lp-mock-ch--partial { border-color: #7C3AED; color: #7C3AED; background: rgba(124,58,237,0.08); }
+[data-theme="light"] .lp-mock-ch--partial { border-color: #6D28D9; color: #5B21B6; background: rgba(124,58,237,0.1); }
 /* Phone tab bar & callout */
 .lp-phone-tabbar {
   display: flex; border-top: 1px solid var(--lp-card-border);

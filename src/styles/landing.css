@@ -1005,7 +1005,7 @@
 .lp-mock-tile-count {
   font-size: 7px;
   font-weight: 500;
-  color: #AFA0D0;
+  color: #D0C4F0;
 }
 
 /* Checkmark badge for fully-done tiles */
@@ -1063,11 +1063,11 @@
   width: 16px;
   height: 16px;
   border-radius: 2px;
-  border: 1px solid #4A4370;
+  border: 1px solid #5A5090;
   background: #3A3360;
   font-size: 6px;
   font-weight: 600;
-  color: #c4b8e8;
+  color: #e0d6f8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1081,9 +1081,9 @@
 }
 
 .lp-mock-ch--partial {
-  border: 1px dashed #9F7AEA;
-  color: #9F7AEA;
-  background: rgba(159,122,234,0.12);
+  border: 1px dashed #B89CF5;
+  color: #C9B2FF;
+  background: rgba(159,122,234,0.18);
 }
 
 /* ── Light mode overrides ── */
@@ -1101,9 +1101,9 @@
 [data-theme="light"] .lp-mock-tile-check { background: #7C3AED; }
 [data-theme="light"] .lp-mock-tile-strip { background: rgba(0,0,0,0.07); }
 [data-theme="light"] .lp-mock-tile-strip-fill { background: #7C3AED; }
-[data-theme="light"] .lp-mock-ch { background: #EAE4F4; border-color: #C8B8E0; color: #5B3A97; }
+[data-theme="light"] .lp-mock-ch { background: #EAE4F4; border-color: #C8B8E0; color: #4A2D82; }
 [data-theme="light"] .lp-mock-ch--done { background: #7C3AED; border-color: #7C3AED; color: #fff; }
-[data-theme="light"] .lp-mock-ch--partial { border-color: #7C3AED; color: #7C3AED; background: rgba(124,58,237,0.08); }
+[data-theme="light"] .lp-mock-ch--partial { border-color: #6D28D9; color: #5B21B6; background: rgba(124,58,237,0.1); }
 
 /* Tab bar */
 .lp-phone-tabbar {

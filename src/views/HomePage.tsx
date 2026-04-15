@@ -21,7 +21,7 @@ import { usePublishedPosts } from "../hooks/useBlog";
 import type { BlogPost } from "../api/blog";
 import { usePublishedVideos, useSignedVideoUrl, useSpotlightVideo } from "../hooks/useVideos";
 import { useTopThreads } from "../hooks/useForum";
-import { usePublicNotes, useToggleNoteLike } from "../hooks/useStudyNotes";
+import { usePublicNotes } from "../hooks/useStudyNotes";
 import { formatDate, authorName, formatNum } from "../utils/formatters";
 import { BOOKS } from "../data/books";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
@@ -238,7 +238,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
     : recentVideos;
   const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4, lang);
   const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes(lang);
-  const toggleNoteLike = useToggleNoteLike();
   const previewNotes = publicNotes.slice(0, 4);
   const { data: profile } = useFullProfile(user?.id);
   const updateProfile = useUpdateProfile(user?.id);
@@ -315,6 +314,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const [notifDismissed, setNotifDismissed] = useState(() => !!localStorage.getItem("nwt-notif-dismissed"));
   const [showStreakPrompt, setShowStreakPrompt] = useState(false);
   const [streakMilestone, setStreakMilestone] = useState(null);
+  const [notesExpanded, setNotesExpanded] = useState(false);
+  const [forumExpanded, setForumExpanded] = useState(false);
 
   const showNotifBanner = user && profile && !profile.email_notifications_blog && !notifDismissed;
 
@@ -360,7 +361,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const feedHeadCls = "flex items-center justify-between mb-2.5";
   const feedTitleCls = "text-[19px] font-bold text-[var(--text-primary)]";
   const feedLinkCls = "text-sm font-semibold text-[var(--accent)] cursor-pointer border-none bg-transparent px-2.5 py-1 rounded-[var(--radius-sm)] transition-colors duration-100 hover:bg-brand-600/[0.12] font-[inherit]";
-  const widgetCls = "rounded-[var(--radius)] border border-[var(--border)] bg-white/[0.03] overflow-hidden min-h-[120px] [html[data-theme=light]_&]:bg-white";
+  const widgetCls = "rounded-[var(--radius)] border border-[var(--border)] bg-white/[0.03] [html[data-theme=light]_&]:bg-white";
   const metaCls = "text-xs text-[rgba(240,234,255,0.6)] [html[data-theme=light]_&]:text-[rgba(30,16,53,0.68)]";
 
   return (
@@ -567,6 +568,48 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             </button>
           )}
 
+          {/* Blog */}
+          <div>
+            <div className={feedHeadCls}>
+              <button className={`${feedTitleCls} cursor-pointer border-none bg-transparent p-0 text-left font-[inherit] hover:underline`} onClick={() => navigate("blog")}>{t("home.blogTitle")}</button>
+              <button className={feedLinkCls} onClick={() => navigate("blog")}>{t("home.blogViewAll")}</button>
+            </div>
+            {postsLoading ? <BlogSkeleton /> : blogPreview.length === 0 ? (
+              <EmptyState icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>} title="No posts yet" sub="Be the first to share something." btnLabel="Write a post \u2192" onBtn={() => navigate("blogDash")} />
+            ) : (
+              <div className="grid grid-cols-3 gap-2.5 max-[720px]:grid-cols-2 max-[480px]:grid-cols-1">
+                {blogPreview.map((post) => {
+                  const tr = (post as BlogPost).translations?.[lang];
+                  const title = tr?.title || post.title;
+                  return (
+                  <article key={post.id} className="group flex cursor-pointer flex-col overflow-hidden rounded-[var(--radius)] border border-[var(--border)] bg-white/[0.03] transition-all duration-150 hover:-translate-y-0.5 hover:border-brand-600/[0.28] active:scale-[0.98] [html[data-theme=light]_&]:bg-white" onClick={() => navigate("blog", { slug: post.slug })}>
+                    <div className="relative h-[108px] shrink-0 overflow-hidden">
+                      <img
+                        src={post.cover_url || getFallbackImage(post.id)}
+                        alt={title}
+                        className="block h-full w-full object-cover"
+                        loading="lazy"
+                        onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
+                      />
+                      {post.like_count > 0 && (
+                        <span className="absolute bottom-1.5 right-2 flex items-center gap-[3px] rounded-[var(--radius-sm)] bg-black/60 px-[7px] py-0.5 text-[11px] font-semibold text-white">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 22V11l5-9a1 1 0 0 1 1.8.5L13 7h7a2 2 0 0 1 2 2.4l-2 10A2 2 0 0 1 18 21H7zM2 11h3v11H2z"/></svg>
+                          {formatNum(post.like_count)}
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex-1 p-3">
+                      <div className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-[var(--accent)] [html[data-theme=light]_&]:text-brand-800">{t("home.blogLabel")}</div>
+                      <div className="mb-1.5 line-clamp-2 text-sm font-semibold leading-snug text-[var(--text-primary)]">{title}</div>
+                      <div className={metaCls}>{authorName(post)} · {formatDate(post.created_at)}</div>
+                    </div>
+                  </article>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
           {/* Create post bar */}
           <div className="rounded-[var(--radius)] border border-[var(--border)] bg-[var(--card-bg)] p-4">
             <div className="flex items-center gap-3">
@@ -738,48 +781,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             />
           )}
 
-          {/* Blog */}
-          <div>
-            <div className={feedHeadCls}>
-              <button className={`${feedTitleCls} cursor-pointer border-none bg-transparent p-0 text-left font-[inherit] hover:underline`} onClick={() => navigate("blog")}>{t("home.blogTitle")}</button>
-              <button className={feedLinkCls} onClick={() => navigate("blog")}>{t("home.blogViewAll")}</button>
-            </div>
-            {postsLoading ? <BlogSkeleton /> : blogPreview.length === 0 ? (
-              <EmptyState icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>} title="No posts yet" sub="Be the first to share something." btnLabel="Write a post \u2192" onBtn={() => navigate("blogDash")} />
-            ) : (
-              <div className="grid grid-cols-3 gap-2.5 max-[720px]:grid-cols-2 max-[480px]:grid-cols-1">
-                {blogPreview.map((post) => {
-                  const tr = (post as BlogPost).translations?.[lang];
-                  const title = tr?.title || post.title;
-                  return (
-                  <article key={post.id} className="group flex cursor-pointer flex-col overflow-hidden rounded-[var(--radius)] border border-[var(--border)] bg-white/[0.03] transition-all duration-150 hover:-translate-y-0.5 hover:border-brand-600/[0.28] active:scale-[0.98] [html[data-theme=light]_&]:bg-white" onClick={() => navigate("blog", { slug: post.slug })}>
-                    <div className="relative h-[108px] shrink-0 overflow-hidden">
-                      <img
-                        src={post.cover_url || getFallbackImage(post.id)}
-                        alt={title}
-                        className="block h-full w-full object-cover"
-                        loading="lazy"
-                        onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
-                      />
-                      {post.like_count > 0 && (
-                        <span className="absolute bottom-1.5 right-2 flex items-center gap-[3px] rounded-[var(--radius-sm)] bg-black/60 px-[7px] py-0.5 text-[11px] font-semibold text-white">
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 22V11l5-9a1 1 0 0 1 1.8.5L13 7h7a2 2 0 0 1 2 2.4l-2 10A2 2 0 0 1 18 21H7zM2 11h3v11H2z"/></svg>
-                          {formatNum(post.like_count)}
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex-1 p-3">
-                      <div className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-[var(--accent)] [html[data-theme=light]_&]:text-brand-800">{t("home.blogLabel")}</div>
-                      <div className="mb-1.5 line-clamp-2 text-sm font-semibold leading-snug text-[var(--text-primary)]">{title}</div>
-                      <div className={metaCls}>{authorName(post)} · {formatDate(post.created_at)}</div>
-                    </div>
-                  </article>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
           {/* Spotlight video hero — skeleton reserves space to prevent CLS */}
           {(spotlightLoading || spotlightVideo) && (
             <div style={{ marginBottom: 20 }}>
@@ -834,100 +835,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 <button className={feedLinkCls} onClick={() => navigate("videos")}>View all &rarr;</button>
               </div>
             </div>
-          )}
-
-          {/* Community Notes — only show if there are notes in user's language */}
-          {(lang === "en" || previewNotes.length > 0) && (
-          <div>
-            <div className={feedHeadCls}>
-              <span className={feedTitleCls}>{t("home.notesTitle")}</span>
-              <button className={feedLinkCls} onClick={() => navigate("studyNotes", { tab: "public" })}>{t("home.notesViewAll")}</button>
-            </div>
-            {notesLoading ? <ForumSkeleton /> : previewNotes.length === 0 ? (
-              <EmptyState
-                icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>}
-                title={t("home.notesEmpty")} sub={t("home.notesEmptySub")}
-                btnLabel={t("home.notesWriteBtn")} onBtn={() => navigate("studyNotes", { tab: "public" })}
-              />
-            ) : (
-              <div className={cardCls}>
-                {previewNotes.map(note => {
-                  const passage = note.book_index != null
-                    ? `${BOOKS[note.book_index]?.name ?? ""} ${note.chapter ?? ""}`.trim()
-                    : null;
-                  return (
-                    <div key={note.id} className="flex cursor-pointer items-start gap-3 border-b border-white/[0.06] px-4 py-3.5 transition-colors duration-100 last:border-b-0 hover:bg-brand-600/[0.06] [html[data-theme=light]_&]:border-b-[var(--border)] [html[data-theme=light]_&]:hover:bg-brand-600/[0.05]" onClick={() => navigate("studyNotes", { tab: "public" })}>
-                      <button
-                        className="flex size-9 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#2e1a5c] to-brand-800 text-[13px] font-bold text-white"
-                        onClick={e => { e.stopPropagation(); navigate("publicProfile", { userId: note.user_id }); }}
-                        title={note.author?.display_name ?? "Anonymous"}
-                      >
-                        {note.author?.avatar_url
-                          ? <img src={note.author.avatar_url} alt={note.author.display_name} className="h-full w-full object-cover" />
-                          : (note.author?.display_name ?? "A")[0].toUpperCase()}
-                      </button>
-                      <div className="min-w-0 flex-1">
-                        <div className="mb-[3px] text-sm font-semibold leading-snug text-[var(--text-primary)]">{note.title || "Untitled"}</div>
-                        <div className={metaCls}>
-                          {note.author?.display_name ?? "Anonymous"}
-                          {passage && <> · <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:2}}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>{passage}</>}
-                          {" · "}{formatDate(note.updated_at)}
-                        </div>
-                        {passage && <span className="mt-1 inline-flex items-center gap-1 rounded bg-brand-600/15 px-[7px] py-0.5 text-[11px] font-semibold text-[var(--accent)] [html[data-theme=light]_&]:bg-brand-800/10 [html[data-theme=light]_&]:text-brand-800">{"\uD83D\uDCD6"} {passage}</span>}
-                      </div>
-                      <button
-                        className={`shrink-0 self-center rounded-[var(--radius-xs)] border-none bg-transparent px-1.5 py-1 text-sm transition-colors duration-100 ${note.user_has_liked ? "text-fuchsia-400" : "text-[rgba(240,234,255,0.6)] [html[data-theme=light]_&]:text-[rgba(30,16,53,0.68)]"} cursor-pointer font-[inherit] hover:bg-brand-600/[0.12] hover:text-[var(--accent)]`}
-                        onClick={e => { e.stopPropagation(); toggleNoteLike.mutate(note.id); }}
-                        title={note.user_has_liked ? "Unlike" : "Like"}
-                      >
-                        <span aria-hidden="true">{note.user_has_liked ? "\u2665" : "\u2661"}{note.like_count > 0 ? ` ${note.like_count}` : ""}</span>
-                        <span className="sr-only">{note.user_has_liked ? "Unlike" : "Like"}{note.like_count > 0 ? `, ${note.like_count} likes` : ""}</span>
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-          )}
-
-          {/* Forum — only show if there are threads in user's language */}
-          {(lang === "en" || topThreads.length > 0) && (
-          <div>
-            <div className={feedHeadCls}>
-              <span className={feedTitleCls}>{t("home.forumTitle")}</span>
-              <button className={feedLinkCls} onClick={() => navigate("forum")}>{t("home.forumViewAll")}</button>
-            </div>
-            {threadsLoading ? <ForumSkeleton /> : topThreads.length === 0 ? (
-              <EmptyState
-                icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>}
-                title="No discussions yet" sub="Start the first conversation."
-                btnLabel="Start a thread \u2192" onBtn={() => navigate("forum")}
-              />
-            ) : (
-              <div className={cardCls}>
-                {topThreads.map(thread => (
-                  <div
-                    key={thread.id}
-                    className="flex cursor-pointer items-center gap-3 border-b border-white/[0.06] px-4 py-3.5 transition-colors duration-100 last:border-b-0 hover:bg-brand-600/[0.06] [html[data-theme=light]_&]:border-b-[var(--border)] [html[data-theme=light]_&]:hover:bg-brand-600/[0.05]"
-                    onClick={() => navigate("forum", { categoryId: thread.category_id, threadId: thread.id })}
-                  >
-                    <div className="flex size-9 shrink-0 items-center justify-center rounded-full border border-[var(--border)] bg-white/[0.06] text-[13px] font-bold text-[var(--accent)]">
-                      {(authorName(thread) || "?")[0].toUpperCase()}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="mb-0.5 truncate text-sm font-semibold text-[var(--text-primary)]">{thread.title}</div>
-                      <div className={metaCls}>{authorName(thread)} · {formatDate(thread.updated_at)}</div>
-                    </div>
-                    <span className="flex shrink-0 items-center gap-1 text-xs text-[rgba(240,234,255,0.6)] [html[data-theme=light]_&]:text-[rgba(30,16,53,0.68)]">
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                      {formatNum(thread.forum_replies?.[0]?.count ?? 0)}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
           )}
 
           </>}
@@ -1051,6 +958,109 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             )}
           </div>
 
+          {/* Community Notes */}
+          {(lang === "en" || previewNotes.length > 0) && (
+          <div className={widgetCls}>
+            <div className="flex items-center justify-between px-4 pb-2.5 pt-3.5">
+              <span className="text-base font-bold text-[var(--text-primary)]">{t("home.notesTitle")}</span>
+              <button className={feedLinkCls} onClick={() => navigate("studyNotes", { tab: "public" })}>{t("home.notesViewAll")}</button>
+            </div>
+            {notesLoading ? <ForumSkeleton /> : previewNotes.length === 0 ? (
+              <EmptyState
+                icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>}
+                title={t("home.notesEmpty")} sub={t("home.notesEmptySub")}
+                btnLabel={t("home.notesWriteBtn")} onBtn={() => navigate("studyNotes", { tab: "public" })}
+              />
+            ) : (
+              <>
+                {(notesExpanded ? previewNotes : previewNotes.slice(0, 1)).map(note => {
+                  const passage = note.book_index != null
+                    ? `${BOOKS[note.book_index]?.name ?? ""} ${note.chapter ?? ""}`.trim()
+                    : null;
+                  return (
+                    <div key={note.id} className="flex cursor-pointer items-start gap-2.5 px-4 py-2.5 transition-colors duration-100 hover:bg-brand-600/[0.06]" onClick={() => navigate("studyNotes", { tab: "public" })}>
+                      <button
+                        className="flex size-8 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#2e1a5c] to-brand-800 text-[12px] font-bold text-white"
+                        onClick={e => { e.stopPropagation(); navigate("publicProfile", { userId: note.user_id }); }}
+                        title={note.author?.display_name ?? "Anonymous"}
+                      >
+                        {note.author?.avatar_url
+                          ? <img src={note.author.avatar_url} alt={note.author.display_name} className="h-full w-full object-cover" />
+                          : (note.author?.display_name ?? "A")[0].toUpperCase()}
+                      </button>
+                      <div className="min-w-0 flex-1">
+                        <div className="text-[12px] font-semibold leading-snug text-[var(--text-primary)]">{note.title || "Untitled"}</div>
+                        <div className={metaCls}>
+                          {note.author?.display_name ?? "Anonymous"}
+                          {passage && <> · {passage}</>}
+                          {" · "}{formatDate(note.updated_at)}
+                        </div>
+                      </div>
+                      <span
+                        className={`shrink-0 self-center text-[13px] ${note.user_has_liked ? "text-fuchsia-400" : "text-[rgba(240,234,255,0.5)] [html[data-theme=light]_&]:text-[rgba(30,16,53,0.4)]"}`}
+                      >
+                        {note.user_has_liked ? "\u2665" : "\u2661"}{note.like_count > 0 ? ` ${note.like_count}` : ""}
+                      </span>
+                    </div>
+                  );
+                })}
+                <button
+                  className="flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-b-[var(--radius)] border-none bg-brand-600/10 py-2.5 text-xs font-semibold text-[var(--accent)] transition-colors duration-100 hover:bg-brand-600/20 [html[data-theme=light]_&]:bg-brand-600/[0.07] [html[data-theme=light]_&]:hover:bg-brand-600/[0.12]"
+                  onClick={() => previewNotes.length > 1 && !notesExpanded ? setNotesExpanded(true) : navigate("studyNotes", { tab: "public" })}
+                >
+                  {notesExpanded ? "View all notes" : previewNotes.length > 1 ? `Show ${previewNotes.length - 1} more` : "View all notes"}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: notesExpanded ? "rotate(180deg)" : "none", transition: "transform 200ms" }}><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+              </>
+            )}
+          </div>
+          )}
+
+          {/* Forum Highlights */}
+          {(lang === "en" || topThreads.length > 0) && (
+          <div className={widgetCls}>
+            <div className="flex items-center justify-between px-4 pb-2.5 pt-3.5">
+              <span className="text-base font-bold text-[var(--text-primary)]">{t("home.forumTitle")}</span>
+              <button className={feedLinkCls} onClick={() => navigate("forum")}>{t("home.forumViewAll")}</button>
+            </div>
+            {threadsLoading ? <ForumSkeleton /> : topThreads.length === 0 ? (
+              <EmptyState
+                icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>}
+                title="No discussions yet" sub="Start the first conversation."
+                btnLabel="Start a thread \u2192" onBtn={() => navigate("forum")}
+              />
+            ) : (
+              <>
+                {(forumExpanded ? topThreads : topThreads.slice(0, 1)).map(thread => (
+                  <div
+                    key={thread.id}
+                    className="flex cursor-pointer items-center gap-2.5 px-4 py-2.5 transition-colors duration-100 hover:bg-brand-600/[0.06]"
+                    onClick={() => navigate("forum", { categoryId: thread.category_id, threadId: thread.id })}
+                  >
+                    <div className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[var(--border)] bg-white/[0.06] text-[12px] font-bold text-[var(--accent)]">
+                      {(authorName(thread) || "?")[0].toUpperCase()}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-[12px] font-semibold leading-snug text-[var(--text-primary)]">{thread.title}</div>
+                      <div className={metaCls}>{authorName(thread)} · {formatDate(thread.updated_at)}</div>
+                    </div>
+                    <span className="flex shrink-0 items-center gap-1 text-[11px] text-[rgba(240,234,255,0.5)] [html[data-theme=light]_&]:text-[rgba(30,16,53,0.5)]">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                      {formatNum(thread.forum_replies?.[0]?.count ?? 0)}
+                    </span>
+                  </div>
+                ))}
+                <button
+                  className="flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-b-[var(--radius)] border-none bg-brand-600/10 py-2.5 text-xs font-semibold text-[var(--accent)] transition-colors duration-100 hover:bg-brand-600/20 [html[data-theme=light]_&]:bg-brand-600/[0.07] [html[data-theme=light]_&]:hover:bg-brand-600/[0.12]"
+                  onClick={() => topThreads.length > 1 && !forumExpanded ? setForumExpanded(true) : navigate("forum")}
+                >
+                  {forumExpanded ? "View all threads" : topThreads.length > 1 ? `Show ${topThreads.length - 1} more` : "View all threads"}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: forumExpanded ? "rotate(180deg)" : "none", transition: "transform 200ms" }}><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+              </>
+            )}
+          </div>
+          )}
 
         </aside>
 
