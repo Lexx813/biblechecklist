@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useRef } from "react";
 import { useReportWebVitals } from "next/web-vitals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -131,23 +130,6 @@ function SideEffects() {
   return null;
 }
 
-function DevtoolsPortal() {
-  const [el, setEl] = useState<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const div = document.createElement("div");
-    div.style.cssText = "position:fixed;bottom:0;right:0;z-index:99999;pointer-events:auto;";
-    document.body.appendChild(div);
-    setEl(div);
-    return () => { document.body.removeChild(div); };
-  }, []);
-
-  if (!el) return null;
-  return createPortal(
-    <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />,
-    el
-  );
-}
 
 export default function Providers({ children }) {
   return (
@@ -157,7 +139,9 @@ export default function Providers({ children }) {
         <WebVitals />
         {children}
         <Analytics />
-        {process.env.NODE_ENV === "development" && <DevtoolsPortal />}
+        {process.env.NODE_ENV === "development" && (
+          <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
+        )}
       </QueryClientProvider>
     </ErrorBoundary>
   );

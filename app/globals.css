@@ -3,6 +3,13 @@
 @import "tailwindcss/theme";
 @import "tailwindcss/utilities";
 
+/* React Query DevTools — ensure it's always on top and interactive */
+tsqd-parent-container,
+tsqd-parent-container * {
+  pointer-events: auto !important;
+  z-index: 99999 !important;
+}
+
 /* ── Dark mode variant: data-theme="dark" ──────────────────────── */
 @custom-variant dark (&:is([data-theme="dark"] *));
 
