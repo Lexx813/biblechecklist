@@ -1200,9 +1200,10 @@ type View = "home" | "lobby" | "game" | "end";
 interface TriviaPageProps {
   user: User | null;
   navigate: (page: string, params?: Record<string, unknown>) => void;
+  prefillCode?: string;
 }
 
-export default function TriviaPage({ user, navigate }: TriviaPageProps) {
+export default function TriviaPage({ user, navigate, prefillCode }: TriviaPageProps) {
   const [view, setView] = useState<View>("home");
   const [myPlayer, setMyPlayer] = useState<TriviaPlayer | null>(null);
   const [roomId, setRoomId] = useState<string | null>(null);
@@ -1280,7 +1281,7 @@ export default function TriviaPage({ user, navigate }: TriviaPageProps) {
     }
   }, []);
 
-  if (view === "home") return <HomeView user={user} onRoomJoined={handleRoomJoined} />;
+  if (view === "home") return <HomeView user={user} onRoomJoined={handleRoomJoined} prefillCode={prefillCode} />;
 
   if (loading || !room || !myPlayer) {
     return (

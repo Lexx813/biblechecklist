@@ -73,6 +73,11 @@ export default function NotificationDropdown({ userId, onClose, navigate }: Prop
       return;
     }
 
+    if (n.type === "trivia_invite") {
+      navigate("trivia", { prefillCode: n.data?.room_code ?? "" });
+      return;
+    }
+
     if (n.link_hash) navigate(n.link_hash);
   }
 
