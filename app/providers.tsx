@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReportWebVitals } from "next/web-vitals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -131,6 +131,21 @@ function SideEffects() {
 }
 
 
+// Press Ctrl+Shift+D to toggle. Mounts/unmounts the entire component so no
+// internal dismiss button needed — just press the shortcut again to close.
+function DevtoolsToggle() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.ctrlKey && e.shiftKey && e.key === "D") setVisible((v) => !v);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+  if (!visible) return null;
+  return <ReactQueryDevtools initialIsOpen={true} buttonPosition="bottom-right" />;
+}
+
 export default function Providers({ children }) {
   return (
     <ErrorBoundary>
@@ -139,9 +154,7 @@ export default function Providers({ children }) {
         <WebVitals />
         {children}
         <Analytics />
-        {process.env.NODE_ENV === "development" && (
-          <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
-        )}
+        {process.env.NODE_ENV === "development" && <DevtoolsToggle />}
       </QueryClientProvider>
     </ErrorBoundary>
   );
