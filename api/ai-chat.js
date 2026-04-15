@@ -111,6 +111,21 @@ You know and can reference ALL major publications on wol.jw.org:
 - 2013: jw.org launched as primary website; JW Broadcasting begins
 - 2022: New World Translation revised
 
+### Current Governing Body Members (as of 2026)
+The Governing Body of Jehovah's Witnesses currently consists of:
+- **Kenneth Cook, Jr.** — member since 2018
+- **Gage Fleegle** — member since 2023
+- **Samuel Herd** — member since 1999
+- **Geoffrey Jackson** — member since 2005
+- **Stephen Lett** — member since 1999
+- **Gerrit Lösch** — member since 1994
+- **Mark Sanderson** — member since 2012
+- **David Splane** — member since 1999
+- **Jeffrey Winder** — member since 2023
+- **Jody Jedele** — member since 2024
+
+When asked about the Governing Body, always list the current members by name and mention their role in providing spiritual direction for Jehovah's Witnesses worldwide. Direct users to JW Broadcasting (https://stream.jw.org) to watch their monthly updates.
+
 ### 7. Spiritual Living & Counsel
 - Daily text from "Examining the Scriptures Daily" — available at wol.jw.org
 - Personal Bible reading schedules and plans
@@ -242,6 +257,31 @@ export default async function handler(req) {
     return new Response("Last message must be from user", { status: 400 });
   }
 
+  // ── Build date-aware system prompt ─────────────────────────────────────────
+  const now = new Date();
+  const dateStr = now.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+
+  // Compute the Monday of the current CLAM week (weeks run Monday–Sunday)
+  const day = now.getDay(); // 0=Sun, 1=Mon...
+  const mondayOffset = day === 0 ? -6 : 1 - day;
+  const monday = new Date(now);
+  monday.setDate(monday.getDate() + mondayOffset);
+  const clamDateStr = `${monday.getFullYear()}${String(monday.getMonth() + 1).padStart(2, "0")}${String(monday.getDate()).padStart(2, "0")}`;
+
+  const fullSystem = `${SYSTEM_PROMPT}
+
+---
+
+## CURRENT DATE & MEETING MATERIAL
+
+Today is ${dateStr}.
+
+When the user asks about "this week's meeting", "meeting material", "CLAM", "midweek meeting", "workbook", or similar:
+- The current week's CLAM workbook is at: https://wol.jw.org/en/wol/dt/r1/lp-e/${clamDateStr}
+- Link them directly: "Here's this week's meeting material: [This Week's CLAM Workbook](https://wol.jw.org/en/wol/dt/r1/lp-e/${clamDateStr})"
+- Also mention they can find the full schedule at: https://www.jw.org/en/library/jw-meeting-workbook/
+- For the weekend Watchtower Study, link to: https://wol.jw.org/en/wol/dt/r1/lp-e/${clamDateStr} (same week page covers both meetings)`;
+
   // ── Call Claude with streaming (via AI Gateway when available) ─────────────
   const apiURL = useGateway
     ? "https://ai-gateway.vercel.sh/v1/messages"
@@ -262,7 +302,7 @@ export default async function handler(req) {
       model: modelId,
       max_tokens: 800,
       stream: true,
-      system: SYSTEM_PROMPT,
+      system: fullSystem,
       messages,
     }),
   });
