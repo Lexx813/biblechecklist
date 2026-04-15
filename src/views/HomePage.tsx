@@ -165,8 +165,8 @@ const NAV_SHORTCUTS = [
     icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>,
   },
   {
-    key: "leaderboard", labelKey: "nav.leaderboard", bg: "#f59e0b",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 17v4m4-8v8m4-12v12M2 20h20"/></svg>,
+    key: "trivia", labelKey: "nav.triviaBattle", bg: "#7c3aed",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><polyline points="16 16 20 20"/><polyline points="7 7 4 4"/><polyline points="9.5 6.5 3 21 21 3 6.5 9.5"/></svg>,
   },
   {
     key: "familyQuiz", labelKey: "nav.familyChallenge", bg: "#1d7ea6",
