@@ -12,7 +12,8 @@ export function useConversations() {
   return useQuery({
     queryKey: ["conversations"],
     queryFn: messagesApi.getConversations,
-    staleTime: 30_000,
+    staleTime: 15_000,
+    refetchInterval: 15_000,
   });
 }
 

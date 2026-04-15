@@ -39,7 +39,8 @@ export function useNotifications(userId: string | null | undefined) {
     queryKey: ["notifications", userId],
     queryFn: notificationsApi.list,
     enabled: !!userId,
-    staleTime: 5 * 60 * 1000,
+    staleTime: 30_000,
+    refetchInterval: 30_000,
     refetchOnWindowFocus: true,
   });
 }
