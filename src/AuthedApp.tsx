@@ -56,6 +56,7 @@ const StudyTopicsPage   = lazy(() => import("./views/studytopics/StudyTopicsPage
 const StudyTopicDetail  = lazy(() => import("./views/studytopics/StudyTopicDetail"));
 const FamilyQuizPage    = lazy(() => import("./views/familyquiz/FamilyQuizPage"));
 const MeetingPrepPage   = lazy(() => import("./views/meetingprep/MeetingPrepPage"));
+const TriviaPage        = lazy(() => import("./views/trivia/TriviaPage"));
 const FriendRequestsPage = lazy(() => import("./views/friends/FriendRequestsPage"));
 const InviteLandingPage  = lazy(() => import("./views/friends/InviteLandingPage"));
 const CommunityPage      = lazy(() => import("./views/community/CommunityPage"));
@@ -291,6 +292,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (nav.page === "groups")       pageContent = <Page><AL page="groups"><GroupsPage {...sharedNav} /></AL></Page>;
   else if (nav.page === "groupDetail")  pageContent = <Page><AL page="groups"><GroupDetail {...sharedNav} groupId={nav.groupId} /></AL></Page>;
   else if (nav.page === "meetingPrep") pageContent = <Page><AL page="meetingPrep"><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "trivia") pageContent = <Page noFooter><TriviaPage user={user} navigate={navigate} prefillCode={(nav as any).prefillCode as string | undefined} /></Page>;
   else if (nav.page === "friends")
     pageContent = <Page><AL page="friends"><ProfilePage user={user} viewedUserId={user.id} onBack={() => navigate("home")} defaultTab="friends" {...sharedNav} /></AL></Page>;
   else if (nav.page === "friendRequests")
