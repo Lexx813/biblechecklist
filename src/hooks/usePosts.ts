@@ -56,6 +56,65 @@ export function useFriendPosts(userId: string | undefined) {
   });
 }
 
+// ── Comments ──────────────────────────────────────────────────────────────
+export function usePostComments(postId: string | null) {
+  return useQuery({
+    queryKey: ["postComments", postId],
+    queryFn: () => postsApi.listComments(postId!),
+    enabled: !!postId,
+    staleTime: 60_000,
+  });
+}
+
+export function useAddComment(postId: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (content: string) => postsApi.addComment(postId, content),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["postComments", postId] });
+      queryClient.invalidateQueries({ queryKey: ["publicFeed"] });
+      queryClient.invalidateQueries({ queryKey: ["friendPosts"] });
+      queryClient.invalidateQueries({ queryKey: ["userPosts"] });
+    },
+  });
+}
+
+export function useDeleteComment(postId: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (commentId: string) => postsApi.deleteComment(commentId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["postComments", postId] });
+      queryClient.invalidateQueries({ queryKey: ["publicFeed"] });
+      queryClient.invalidateQueries({ queryKey: ["friendPosts"] });
+      queryClient.invalidateQueries({ queryKey: ["userPosts"] });
+    },
+  });
+}
+
+// ── Reactions ────────────────────────────────────────────────────────────
+export function usePostReactions(postId: string | null) {
+  return useQuery({
+    queryKey: ["postReactions", postId],
+    queryFn: () => postsApi.getReactions(postId!),
+    enabled: !!postId,
+    staleTime: 60_000,
+  });
+}
+
+export function useToggleReaction(postId: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (emoji: string) => postsApi.toggleReaction(postId, emoji),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["postReactions", postId] });
+      queryClient.invalidateQueries({ queryKey: ["publicFeed"] });
+      queryClient.invalidateQueries({ queryKey: ["friendPosts"] });
+      queryClient.invalidateQueries({ queryKey: ["userPosts"] });
+    },
+  });
+}
+
 export function useDeletePost(userId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({

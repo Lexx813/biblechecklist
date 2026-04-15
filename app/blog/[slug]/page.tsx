@@ -169,7 +169,7 @@ export default async function BlogPostPage({ params }) {
             <h1>{post.title}</h1>
             {post.excerpt && <p>{post.excerpt}</p>}
             {post.content && (
-              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+              <p>{stripHtml(post.content)}</p>
             )}
           </article>
 

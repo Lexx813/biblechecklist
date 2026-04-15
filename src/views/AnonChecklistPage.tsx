@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { BOOKS, OT_COUNT } from "../data/books";
 import BookCard from "../components/BookCard";
 import { loadAnonProgress, saveAnonProgress, countAnonChapters, type AnonProgress } from "../lib/anonProgress";
+import "../styles/app.css";
 
 interface Props {
   onSignUp: () => void;

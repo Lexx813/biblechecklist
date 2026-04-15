@@ -28,6 +28,7 @@ import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
 import { useFriendPosts, usePublicFeed, useCreatePost, useUpdatePost, useDeletePost } from "../hooks/usePosts";
 import CreatePostModal from "../components/CreatePostModal";
+import PostInteractions from "../components/PostInteractions";
 import ConfirmModal from "../components/ConfirmModal";
 import { useNotes } from "../hooks/useNotes";
 import { useUnreadMessageCount } from "../hooks/useMessages";
@@ -607,8 +608,9 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {/* Posts Feed — merge friend posts + public feed, dedup & sort */}
           {(() => {
             const seen = new Set<string>();
+            const fiveDaysAgo = Date.now() - 5 * 24 * 60 * 60 * 1000;
             const merged = [...friendPosts, ...publicFeed]
-              .filter((p: any) => { if (seen.has(p.id)) return false; seen.add(p.id); return true; })
+              .filter((p: any) => { if (seen.has(p.id)) return false; seen.add(p.id); return new Date(p.created_at).getTime() >= fiveDaysAgo; })
               .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
               .slice(0, 10);
             if (merged.length === 0) return null;
@@ -685,6 +687,15 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                           />
                         </div>
                       )}
+
+                      {/* Reactions + Comments */}
+                      <PostInteractions
+                        postId={post.id}
+                        userId={user?.id}
+                        commentCount={post.comment_count ?? 0}
+                        reactionCounts={post.reaction_counts ?? {}}
+                        navigate={navigate}
+                      />
                     </div>
                   );
                 })}

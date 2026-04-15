@@ -75,6 +75,73 @@ export const postsApi = {
     return data ?? [];
   },
 
+  // ── Comments ──────────────────────────────────────────────────────────────
+  listComments: async (postId: string) => {
+    const { data, error } = await supabase
+      .from("user_post_comments")
+      .select("id, post_id, author_id, content, created_at")
+      .eq("post_id", postId)
+      .order("created_at", { ascending: true });
+    if (error) throw new Error(error.message);
+    if (!data?.length) return [];
+    const authorIds = [...new Set(data.map(c => c.author_id))];
+    const { data: profiles } = await supabase
+      .from("profiles")
+      .select("id, display_name, avatar_url")
+      .in("id", authorIds);
+    const pm = Object.fromEntries((profiles ?? []).map(p => [p.id, p]));
+    return data.map(c => ({ ...c, author: pm[c.author_id] ?? null }));
+  },
+
+  addComment: async (postId: string, content: string) => {
+    assertNoPII(content);
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+    const { data, error } = await supabase
+      .from("user_post_comments")
+      .insert({ post_id: postId, author_id: user.id, content: content.trim() })
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  deleteComment: async (commentId: string) => {
+    const { error } = await supabase.from("user_post_comments").delete().eq("id", commentId);
+    if (error) throw new Error(error.message);
+  },
+
+  // ── Reactions ────────────────────────────────────────────────────────────
+  getReactions: async (postId: string) => {
+    const { data, error } = await supabase
+      .from("user_post_reactions")
+      .select("id, post_id, user_id, emoji")
+      .eq("post_id", postId);
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
+
+  toggleReaction: async (postId: string, emoji: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+    const { data: existing } = await supabase
+      .from("user_post_reactions")
+      .select("id")
+      .eq("post_id", postId)
+      .eq("user_id", user.id)
+      .eq("emoji", emoji)
+      .maybeSingle();
+    if (existing) {
+      const { error } = await supabase.from("user_post_reactions").delete().eq("id", existing.id);
+      if (error) throw new Error(error.message);
+      return { added: false };
+    } else {
+      const { error } = await supabase.from("user_post_reactions").insert({ post_id: postId, user_id: user.id, emoji });
+      if (error) throw new Error(error.message);
+      return { added: true };
+    }
+  },
+
   listFriendPosts: async (userId: string, limit = 10) => {
     const { data: friendships, error: fErr } = await supabase
       .from("friendships")

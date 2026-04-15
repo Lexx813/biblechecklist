@@ -103,7 +103,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
         {/* Tab content */}
         <div className="flex flex-col gap-4 pb-12 pt-4">
           {activeTab === "posts" && !isViewedUserBlocked && (
-            <PostsTab profileId={profileId} isOwner={isOwner} />
+            <PostsTab profileId={profileId} isOwner={isOwner} userId={user?.id} navigate={navigate} />
           )}
 
           {activeTab === "about" && !isViewedUserBlocked && (

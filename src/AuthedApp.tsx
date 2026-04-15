@@ -15,6 +15,7 @@ import AppLayout from "./components/AppLayout";
 import CommandPalette from "./components/CommandPalette";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import ConsentGate from "./components/ConsentGate";
+import "./styles/app.css";
 
 const AuthPage          = lazy(() => import("./views/auth/AuthPage"));
 const ResetPasswordPage = lazy(() => import("./views/auth/ResetPasswordPage"));
@@ -223,7 +224,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
 
   let pageContent = null;
   if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} panelRequest={homePanelRequest} onPanelConsumed={() => setHomePanelRequest(null)} /></Page>;
-  else if (nav.page === "main") pageContent = <Page><AL page="main"><ChecklistPage user={user} profile={profile} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "main") pageContent = <Page><AL page="main"><ChecklistPage user={user} profile={profile} {...sharedNav} openBook={nav.openBook} openChapter={nav.openChapter} /></AL></Page>;
   else if (nav.page === "admin") {
     if (!profileLoading && !profile?.is_admin && !profile?.is_moderator) navigate("home");
     else if (profile?.is_admin || profile?.is_moderator) pageContent = <Page><AL page="admin"><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></AL></Page>;

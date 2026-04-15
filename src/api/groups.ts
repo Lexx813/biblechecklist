@@ -1,4 +1,5 @@
 import { supabase } from "../lib/supabase";
+import { assertNoPII } from "../lib/pii";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -150,6 +151,7 @@ export const groupsApi = {
   },
 
   createGroup: async ({ name, description, privacy, cover_url }: { name: string; description?: string; privacy: "public" | "private"; cover_url?: string }): Promise<Group> => {
+    assertNoPII(name, description ?? "");
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const slug = toSlug(name);
@@ -260,6 +262,7 @@ export const groupsApi = {
   },
 
   createPost: async (groupId: string, content: string, isAnnouncement = false, mediaUrls: string[] = []): Promise<GroupPost> => {
+    assertNoPII(content);
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { data, error } = await supabase
@@ -314,6 +317,7 @@ export const groupsApi = {
   },
 
   addComment: async (postId: string, content: string): Promise<PostComment> => {
+    assertNoPII(content);
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { data, error } = await supabase
@@ -356,6 +360,7 @@ export const groupsApi = {
   },
 
   createEvent: async (groupId: string, event: { title: string; description?: string; location?: string; starts_at: string; ends_at?: string }): Promise<GroupEvent> => {
+    assertNoPII(event.title, event.description ?? "", event.location ?? "");
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { data, error } = await supabase
@@ -434,7 +439,16 @@ export const groupsApi = {
     if (file.size > MAX_SIZE) throw new Error("File must be under 25 MB.");
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
-    const ext = file.name.split(".").pop()?.toLowerCase().replace(/[^a-z0-9]/g, "") ?? "bin";
+    const MIME_EXT: Record<string, string> = {
+      "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif",
+      "video/mp4": "mp4", "video/quicktime": "mov", "video/webm": "webm",
+      "application/pdf": "pdf",
+      "application/msword": "doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
+      "application/vnd.ms-excel": "xls", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "xlsx",
+      "application/vnd.ms-powerpoint": "ppt", "application/vnd.openxmlformats-officedocument.presentationml.presentation": "pptx",
+      "text/plain": "txt", "audio/mpeg": "mp3",
+    };
+    const ext = MIME_EXT[file.type] ?? "bin";
     const path = `groups/${groupId}/${crypto.randomUUID()}.${ext}`;
     const { error: ue } = await supabase.storage.from("group-files").upload(path, file, { contentType: file.type });
     if (ue) throw new Error(ue.message);
@@ -510,6 +524,7 @@ export const groupsApi = {
   },
 
   sendMessage: async (groupId: string, content: string, replyToId?: string) => {
+    assertNoPII(content);
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { data, error } = await supabase
@@ -522,6 +537,7 @@ export const groupsApi = {
   },
 
   editMessage: async (messageId: string, content: string) => {
+    assertNoPII(content);
     const { error } = await supabase
       .from("study_group_messages")
       .update({ content: content.trim(), edited_at: new Date().toISOString() })
@@ -580,6 +596,7 @@ export const groupsApi = {
   },
 
   createAnnouncement: async (groupId: string, content: string) => {
+    assertNoPII(content);
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { data, error } = await supabase

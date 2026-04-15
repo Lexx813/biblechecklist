@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { supabase } from "../lib/supabase";
 import { LANGUAGES } from "../i18n";
 
 const FALLBACK_IMAGES = [
@@ -26,15 +25,19 @@ function getFallbackImage(id: string) {
   return FALLBACK_IMAGES[hashId(id) % FALLBACK_IMAGES.length];
 }
 
+/* ── Lazy Supabase — keeps the SDK out of the critical render path ── */
+const supabasePromise = () => import("../lib/supabase").then(m => m.supabase);
+
 /* ── Hooks ───────────────────────────────────────────────────────── */
 function useCommunityStats() {
   const [stats, setStats] = useState({ users: 500, chaptersRead: 0 });
   useEffect(() => {
     async function load() {
       try {
+        const sb = await supabasePromise();
         const [{ count }, { data: chapters }] = await Promise.all([
-          supabase.from("profiles").select("id", { count: "exact", head: true }),
-          supabase.rpc("get_global_chapter_count").maybeSingle(),
+          sb.from("profiles").select("id", { count: "exact", head: true }),
+          sb.rpc("get_global_chapter_count").maybeSingle(),
         ]);
         setStats({
           users: Math.max(count ?? 500, 500),
@@ -50,13 +53,15 @@ function useCommunityStats() {
 function useFeaturedPosts(lang: string) {
   const [posts, setPosts] = useState<any[]>([]);
   useEffect(() => {
-    supabase
-      .from("blog_posts")
-      .select("id, title, slug, excerpt, cover_url, lang, translations")
-      .eq("published", true)
-      .order("created_at", { ascending: false })
-      .limit(50)
-      .then(({ data }) => {
+    async function load() {
+      try {
+        const sb = await supabasePromise();
+        const { data } = await sb
+          .from("blog_posts")
+          .select("id, title, slug, excerpt, cover_url, lang, translations")
+          .eq("published", true)
+          .order("created_at", { ascending: false })
+          .limit(50);
         if (!data) return;
         const inLang = data.filter((p: any) => p.lang === lang || (p.translations && p.translations[lang]));
         const pool = inLang.length > 0 ? inLang : data;
@@ -64,7 +69,9 @@ function useFeaturedPosts(lang: string) {
           const tr = p.translations?.[lang];
           return { ...p, title: tr?.title || p.title, excerpt: tr?.excerpt || p.excerpt };
         }));
-      });
+      } catch {}
+    }
+    load();
   }, [lang]);
   return posts;
 }

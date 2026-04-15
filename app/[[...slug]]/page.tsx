@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import ClientShell from "../_components/ClientShell";
+import LandingPage from "../_components/landing/LandingPage";
 import { BOOKS } from "../../src/data/books";
 import { PLAN_TEMPLATES } from "../../src/data/readingPlanTemplates";
 import { STUDY_TOPICS } from "../../src/data/studyTopics";
@@ -56,6 +57,9 @@ const FAQ_ITEMS = [
       "Yes — JW Study is designed as a companion to JW Library, not a replacement. Do your reading in JW Library, then log your chapters here to track progress, build streaks, and share your journey with the community.",
   },
 ];
+
+// Revalidate the root landing page every 5 minutes (ISR) so blog posts and user count stay fresh
+export const revalidate = 300;
 
 // All valid SPA client-side route first-segments
 const KNOWN_SPA_ROUTES = new Set([
@@ -139,6 +143,13 @@ export default async function Page({ params }) {
             <li><a href={`${BASE}/blog`}>JW Study Blog</a></li>
             <li><a href={`${BASE}/forum`}>Community Forum</a></li>
           </ul>
+        </div>
+        {/* Server-rendered landing page for unauthenticated visitors (instant FCP/LCP).
+            The inline script in layout.tsx sets [data-authed] when a session exists —
+            the CSS rule `[data-authed] #ssr-landing { display:none }` hides this
+            immediately so authed users never see a flash of the landing page. */}
+        <div id="ssr-landing">
+          <LandingPage />
         </div>
         <ClientShell />
       </>

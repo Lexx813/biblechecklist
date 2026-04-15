@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import LandingPage from "./views/LandingPage";
-import "./styles/app.css";
 
 const TermsPage         = lazy(() => import("./views/TermsPage"));
 const PrivacyPage       = lazy(() => import("./views/PrivacyPage"));
@@ -61,10 +60,11 @@ export default function App() {
     if (hasStoredSession()) setShowApp(true);
   }, []);
 
-  // Remove SSR fallback content once the SPA has mounted — crawlers see it,
+  // Remove SSR content once the SPA has mounted — crawlers see it,
   // users don't because this runs before the first paint of the SPA.
   useLayoutEffect(() => {
     document.getElementById("ssr-fallback")?.remove();
+    document.getElementById("ssr-landing")?.remove();
   }, []);
 
   // Track popstate so legal pages work before login (browser back/forward)

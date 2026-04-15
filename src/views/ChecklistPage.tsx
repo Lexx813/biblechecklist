@@ -17,7 +17,7 @@ import { useNotes, useCreateNote, useDeleteNote } from "../hooks/useNotes";
 import { readingApi } from "../api/reading";
 import { toast } from "../lib/toast";
 
-export default function ChecklistPage({ user, profile, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+export default function ChecklistPage({ user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, openBook, openChapter }: { user: any; profile: any; navigate: any; darkMode: any; setDarkMode: any; i18n: any; onLogout: any; openBook?: number; openChapter?: number }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { data: remoteProgress, isLoading: progressLoading } = useProgress(user.id);
@@ -59,6 +59,28 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   const [celebrateBook, setCelebrateBook] = useState(null); // { name, icon, chapters }
   const [noteModal, setNoteModal] = useState(null); // { bookIndex } | null
   const [showBookPrompt, setShowBookPrompt] = useState(false);
+  const [deepLinkHandled, setDeepLinkHandled] = useState(false);
+
+  // Deep-link: scroll to book card and open chapter modal
+  useEffect(() => {
+    if (deepLinkHandled || !initialized || openBook == null || openChapter == null) return;
+    setDeepLinkHandled(true);
+    // Wait a frame so BookCard has rendered in expanded state
+    requestAnimationFrame(() => {
+      const card = document.querySelector(`[data-book-index="${openBook}"]`) as HTMLElement;
+      if (!card) return;
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      // Find the chapter pill and open the modal
+      setTimeout(() => {
+        const pills = card.querySelectorAll(".ch-pill");
+        const pill = pills[openChapter - 1] as HTMLElement;
+        if (pill) {
+          const rect = pill.getBoundingClientRect();
+          setVerseModal({ bookIndex: openBook, chapter: openChapter, pillEl: pill, pillRect: rect });
+        }
+      }, 400);
+    });
+  }, [initialized, openBook, openChapter, deepLinkHandled]);
 
   // Populate state once remote progress has loaded
   useEffect(() => {
@@ -404,6 +426,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
                   onDeleteNote={(id) => setNoteToDelete(id)}
                   userId={user?.id}
                   readers={bookReaders[book.index] ?? []}
+                  initialOpen={openBook === book.index}
                 />
               </React.Fragment>
             );

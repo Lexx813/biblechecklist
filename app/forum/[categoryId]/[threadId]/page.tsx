@@ -113,7 +113,7 @@ export default async function ForumThreadPage({ params }) {
             <h1>{thread.title}</h1>
             {thread.profiles?.display_name && <p>Posted by {thread.profiles.display_name}</p>}
             {thread.content && (
-              <div dangerouslySetInnerHTML={{ __html: thread.content }} />
+              <p>{stripHtml(thread.content)}</p>
             )}
           </article>
         </div>

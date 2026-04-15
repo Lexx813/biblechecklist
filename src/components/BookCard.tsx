@@ -34,10 +34,11 @@ interface BookCardProps {
   onDeleteNote?: (id: string) => void;
   userId?: string;
   readers?: BookReader[];
+  initialOpen?: boolean;
 }
 
-const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, versesState, onToggleChapter, onToggleBook, onOpenChapterModal, notes = [], onAddNote, onDeleteNote, userId, readers = [] }: BookCardProps) {
-  const [open, setOpen] = useState(false);
+const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, versesState, onToggleChapter, onToggleBook, onOpenChapterModal, notes = [], onAddNote, onDeleteNote, userId, readers = [], initialOpen = false }: BookCardProps) {
+  const [open, setOpen] = useState(initialOpen);
   const [showInfo, setShowInfo] = useState(false);
   // Rect captured at pointerdown — before Chrome focus-scrolls the element
   const pillRectRef = useRef<DOMRect | null>(null);
@@ -72,7 +73,7 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
   }, [notes]);
 
   return (
-    <div className={`book-card${allDone ? " fully-done" : ""}${open ? " book-card--open" : ""}`}>
+    <div className={`book-card${allDone ? " fully-done" : ""}${open ? " book-card--open" : ""}`} data-book-index={bookIndex}>
       <div className="book-row" onClick={() => setOpen(o => !o)} role="button" tabIndex={0} aria-expanded={open}>
         <div className="book-num">
           {allDone ? (

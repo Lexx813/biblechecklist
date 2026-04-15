@@ -1,4 +1,5 @@
 import { supabase } from "../lib/supabase";
+import { assertNoPII } from "../lib/pii";
 
 export const studyNotesApi = {
   getMyNotes: async () => {
@@ -42,6 +43,8 @@ export const studyNotesApi = {
   },
 
   createNote: async (note: Record<string, unknown>) => {
+    if (note.title) assertNoPII(String(note.title));
+    if (note.content) assertNoPII(String(note.content));
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
     const { data, error } = await supabase
@@ -54,6 +57,8 @@ export const studyNotesApi = {
   },
 
   updateNote: async (noteId: string, updates: Record<string, unknown>) => {
+    if (updates.title) assertNoPII(String(updates.title));
+    if (updates.content) assertNoPII(String(updates.content));
     const { data, error } = await supabase
       .from("study_notes")
       .update(updates)

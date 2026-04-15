@@ -4,16 +4,19 @@ import { useUserPosts, useCreatePost, useUpdatePost, useDeletePost } from "../..
 import { sanitizeRich } from "../../../lib/sanitize";
 import CreatePostModal from "../../../components/CreatePostModal";
 import ConfirmModal from "../../../components/ConfirmModal";
+import PostInteractions from "../../../components/PostInteractions";
 import Button from "../../../components/ui/Button";
 
 interface Props {
   profileId: string;
   isOwner: boolean;
+  userId?: string;
+  navigate?: (page: string, params?: Record<string, unknown>) => void;
 }
 
 /* ── PostsTab ───────────────────────────────────────────── */
 
-export default function PostsTab({ profileId, isOwner }: Props) {
+export default function PostsTab({ profileId, isOwner, userId, navigate }: Props) {
   const { t } = useTranslation();
   const { data: posts = [], isLoading } = useUserPosts(profileId, !isOwner);
   const createPost = useCreatePost(profileId);
@@ -128,6 +131,16 @@ export default function PostsTab({ profileId, isOwner }: Props) {
                     </button>
                   </span>
                 )}
+              </div>
+              {/* Reactions + Comments */}
+              <div className="mt-3 -mx-4 -mb-4">
+                <PostInteractions
+                  postId={post.id}
+                  userId={userId}
+                  commentCount={post.comment_count ?? 0}
+                  reactionCounts={post.reaction_counts ?? {}}
+                  navigate={navigate ?? (() => {})}
+                />
               </div>
             </div>
           ))}

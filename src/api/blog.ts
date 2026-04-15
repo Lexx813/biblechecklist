@@ -80,9 +80,20 @@ export const blogApi = {
   },
 
   create: async (userId: string, post: BlogPostInput) => {
+    assertNoPII(post.title, post.excerpt ?? "", post.content ?? "");
     const { data, error } = await supabase
       .from("blog_posts")
-      .insert({ author_id: userId, slug: generateSlug(post.title), ...post })
+      .insert({
+        author_id: userId,
+        slug: generateSlug(post.title),
+        title: post.title,
+        excerpt: post.excerpt ?? null,
+        content: post.content ?? null,
+        cover_url: (post as Record<string, unknown>).cover_url ?? null,
+        published: (post as Record<string, unknown>).published ?? false,
+        lang: (post as Record<string, unknown>).lang ?? "en",
+        translations: (post as Record<string, unknown>).translations ?? null,
+      })
       .select()
       .single();
     if (error) throw new Error(error.message);
@@ -90,9 +101,21 @@ export const blogApi = {
   },
 
   update: async (postId: string, updates: BlogPostUpdates) => {
+    if (updates.title) assertNoPII(updates.title);
+    if (updates.excerpt) assertNoPII(updates.excerpt);
+    if (updates.content) assertNoPII(updates.content);
     const { data, error } = await supabase
       .from("blog_posts")
-      .update({ ...updates, updated_at: new Date().toISOString() })
+      .update({
+        ...(updates.title !== undefined && { title: updates.title }),
+        ...(updates.excerpt !== undefined && { excerpt: updates.excerpt }),
+        ...(updates.content !== undefined && { content: updates.content }),
+        ...((updates as Record<string, unknown>).cover_url !== undefined && { cover_url: (updates as Record<string, unknown>).cover_url }),
+        ...((updates as Record<string, unknown>).published !== undefined && { published: (updates as Record<string, unknown>).published }),
+        ...((updates as Record<string, unknown>).lang !== undefined && { lang: (updates as Record<string, unknown>).lang }),
+        ...((updates as Record<string, unknown>).translations !== undefined && { translations: (updates as Record<string, unknown>).translations }),
+        updated_at: new Date().toISOString(),
+      })
       .eq("id", postId)
       .select()
       .single();
@@ -144,11 +167,11 @@ export const blogApi = {
   },
 
   uploadCover: async (userId: string, file: File) => {
-    const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+    const ALLOWED_TYPES: Record<string, string> = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif" };
     const MAX_SIZE = 5 * 1024 * 1024; // 5 MB
-    if (!ALLOWED_TYPES.includes(file.type)) throw new Error("Only JPEG, PNG, WebP, or GIF images are allowed.");
+    if (!ALLOWED_TYPES[file.type]) throw new Error("Only JPEG, PNG, WebP, or GIF images are allowed.");
     if (file.size > MAX_SIZE) throw new Error("Image must be under 5 MB.");
-    const ext = file.name.split(".").pop()!.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const ext = ALLOWED_TYPES[file.type];
     const path = `${userId}/${Date.now()}.${ext}`;
     const { error: upErr } = await supabase.storage
       .from("blog-covers")

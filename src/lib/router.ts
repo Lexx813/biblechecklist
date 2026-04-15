@@ -1,6 +1,6 @@
 export type NavState =
   | { page: "home" }
-  | { page: "main" }
+  | { page: "main"; openBook?: number; openChapter?: number }
   | { page: "admin" }
   | { page: "profile" }
   | { page: "settings" }
