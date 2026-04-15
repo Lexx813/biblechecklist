@@ -29,7 +29,6 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
   const adminCount   = users.filter(u => u.is_admin).length;
   const blogCount    = users.filter(u => u.can_blog).length;
   const subCount     = users.filter(u => u.subscription_status === "active" || u.subscription_status === "trialing").length;
-  const giftedCount  = users.filter(u => u.subscription_status === "gifted").length;
   const bannedCount  = users.filter(u => u.is_banned).length;
   const pendingCount = reports.filter(r => r.status === "pending").length;
   const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
@@ -62,10 +61,6 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
             <div className="admin-stat-card">
               <div className="admin-stat-value">{subCount}</div>
               <div className="admin-stat-label">{t("admin.subscribers")}</div>
-            </div>
-            <div className="admin-stat-card">
-              <div className="admin-stat-value">{giftedCount}</div>
-              <div className="admin-stat-label">{t("admin.gifted")}</div>
             </div>
             <div className="admin-stat-card">
               <div className="admin-stat-value">{bannedCount}</div>

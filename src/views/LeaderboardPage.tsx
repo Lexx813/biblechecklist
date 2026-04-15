@@ -26,7 +26,7 @@ import "../styles/leaderboard.css";
 const MEDALS = ["🥇", "🥈", "🥉"];
 
 function isPremiumUser(row) {
-  return row.subscription_status === "active" || row.subscription_status === "trialing" || row.subscription_status === "gifted";
+  return row.subscription_status === "active" || row.subscription_status === "trialing";
 }
 
 function Avatar({ row }) {

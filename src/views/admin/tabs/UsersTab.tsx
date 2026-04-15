@@ -5,7 +5,7 @@ import CustomSelect from "../../../components/CustomSelect";
 import ConfirmModal from "../../../components/ConfirmModal";
 import {
   useUsers, useDeleteUser, useSetAdmin, useSetModerator, useSetBlog,
-  useCreateUser, useBanUser, useCancelSubscription, useGiftPremium,
+  useCreateUser, useBanUser, useCancelSubscription,
 } from "../../../hooks/useAdmin";
 import { formatDate } from "../../../utils/formatters";
 
@@ -21,7 +21,7 @@ export function AdminSkeleton() {
 
 export const MONTHLY_PRICE = 4.99;
 const USERS_PAGE_SIZE = 20;
-const USER_FILTERS = ["all", "admins", "mods", "banned", "premium", "gifted"];
+const USER_FILTERS = ["all", "admins", "mods", "banned", "premium"];
 
 function initials(email: string | null | undefined) {
   return email ? email[0].toUpperCase() : "?";
@@ -48,7 +48,7 @@ function exportUsersCSV(users: Array<Record<string, unknown>>) {
   URL.revokeObjectURL(url);
 }
 
-function UserActionsDropdown({ user, currentUser, navigate, setAdmin, setModerator, setBlog, banUser, cancelSub, giftPremium, deleteUser, onToggleError, setConfirmDelete, setConfirmBan, setConfirmCancelSub, t }) {
+function UserActionsDropdown({ user, currentUser, navigate, setAdmin, setModerator, setBlog, banUser, cancelSub, deleteUser, onToggleError, setConfirmDelete, setConfirmBan, setConfirmCancelSub, t }) {
   const [open, setOpen] = useState(false);
   const [menuPos, setMenuPos] = useState({ top: 0, right: 0 });
   const ref = useRef(null);
@@ -111,11 +111,9 @@ function UserActionsDropdown({ user, currentUser, navigate, setAdmin, setModerat
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
             {user.can_blog ? t("admin.writer") : t("admin.allowBlog")}
           </button>
-          <div className="admin-dropdown-sep" />
-          <button className={`admin-dropdown-item${user.subscription_status === "gifted" ? " admin-dropdown-item--active" : ""}`} onClick={() => action(() => giftPremium.mutate({ userId: user.id, value: user.subscription_status !== "gifted" }, { onError: onToggleError }))} disabled={giftPremium.isPending}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-            {user.subscription_status === "gifted" ? t("admin.revokeGift") : t("admin.giftPremium")}
-          </button>
+          {(user.subscription_status === "active" || user.subscription_status === "trialing") && (
+            <div className="admin-dropdown-sep" />
+          )}
           {(user.subscription_status === "active" || user.subscription_status === "trialing") && (
             <button className="admin-dropdown-item admin-dropdown-item--danger" onClick={() => action(() => setConfirmCancelSub(user))} disabled={cancelSub.isPending}>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
@@ -149,7 +147,6 @@ export function UsersTab({ currentUser, navigate }) {
   const banUser = useBanUser();
   const createUser = useCreateUser();
   const cancelSub = useCancelSubscription();
-  const giftPremium = useGiftPremium();
   const { t } = useTranslation();
 
   const [showAddForm, setShowAddForm] = useState(false);
@@ -184,7 +181,6 @@ export function UsersTab({ currentUser, navigate }) {
     if (roleFilter === "mods")    return u.is_moderator;
     if (roleFilter === "banned")  return u.is_banned;
     if (roleFilter === "premium") return u.subscription_status === "active" || u.subscription_status === "trialing";
-    if (roleFilter === "gifted")  return u.subscription_status === "gifted";
     return true;
   });
 
@@ -342,7 +338,6 @@ export function UsersTab({ currentUser, navigate }) {
                         setBlog={setBlog}
                         banUser={banUser}
                         cancelSub={cancelSub}
-                        giftPremium={giftPremium}
                         deleteUser={deleteUser}
                         onToggleError={onToggleError}
                         setConfirmDelete={setConfirmDelete}

@@ -227,7 +227,7 @@ export const friendsApi = {
 
     const inviterIsPremium =
       inviterProfile?.is_admin ||
-      ["active","trialing","gifted"].includes(inviterProfile?.subscription_status ?? "");
+      ["active","trialing"].includes(inviterProfile?.subscription_status ?? "");
 
     const { data: myProfile } = await supabase
       .from("profiles")
@@ -237,7 +237,7 @@ export const friendsApi = {
 
     const myIsPremium =
       myProfile?.is_admin ||
-      ["active","trialing","gifted"].includes(myProfile?.subscription_status ?? "");
+      ["active","trialing"].includes(myProfile?.subscription_status ?? "");
 
     const { error: reqErr } = await supabase
       .from("friend_requests")

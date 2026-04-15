@@ -119,14 +119,6 @@ export function useCancelSubscription() {
   });
 }
 
-export function useGiftPremium() {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: ({ userId, value }: { userId: string; value: boolean }) => adminApi.giftPremium(userId, value),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "users"] }),
-  });
-}
-
 export function useAllComments() {
   return useQuery({
     queryKey: ["admin", "comments"],

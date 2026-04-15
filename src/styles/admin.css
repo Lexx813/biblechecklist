@@ -464,11 +464,6 @@ html.nav-hidden .admin-header { top: 0; }
   color: var(--text-muted);
   border: 1px solid var(--border);
 }
-.admin-sub-badge--gifted {
-  background: rgba(234, 179, 8, 0.12);
-  color: #d97706;
-  border: 1px solid rgba(234, 179, 8, 0.3);
-}
 .admin-sub-badge--none {
   color: var(--text-muted);
   font-size: 13px;

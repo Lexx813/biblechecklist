@@ -114,11 +114,6 @@ export const adminApi = {
     if (error) throw new Error(error.message);
   },
 
-  giftPremium: async (userId: string, value: boolean) => {
-    const { error } = await supabase.rpc("admin_gift_premium", { target_user_id: userId, new_value: value });
-    if (error) throw new Error(error.message);
-  },
-
   banUser: async (userId: string, value: boolean) => {
     const { error } = await supabase.rpc("admin_ban_user", { target_user_id: userId, new_value: value });
     if (error) throw new Error(error.message);
