@@ -63,7 +63,7 @@ export const revalidate = 300;
 
 // All valid SPA client-side route first-segments
 const KNOWN_SPA_ROUTES = new Set([
-  "admin", "advanced-quiz", "ai-tools", "blog-dash", "bookmarks", "checklist",
+  "admin", "advanced-quiz", "blog-dash", "bookmarks", "checklist",
   "community", "family-quiz", "feed", "friends", "groups", "history", "home",
   "invite", "leaderboard", "login", "main", "meeting-prep", "messages",
   "notifications", "premium", "privacy", "profile", "quiz", "reading-plans",

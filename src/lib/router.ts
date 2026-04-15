@@ -19,7 +19,6 @@ export type NavState =
   | { page: "groupDetail"; groupId: string }
   | { page: "readingPlans" }
   | { page: "studyNotes"; tab?: string }
-  | { page: "aiTools" }
   | { page: "studyTopics" }
   | { page: "studyTopicDetail"; slug: string }
   | { page: "advancedQuiz" }
@@ -74,7 +73,6 @@ export function parsePath(): NavState {
   if (h === "reading-plans") return { page: "readingPlans" };
   if (h === "study-notes")            return { page: "studyNotes" };
   if (h === "study-notes/community")  return { page: "studyNotes", tab: "public" };
-  if (h === "ai-tools")      return { page: "aiTools" };
   if (h === "study-topics")  return { page: "studyTopics" };
   if (h.startsWith("study-topics/")) return { page: "studyTopicDetail", slug: decodeURIComponent(h.slice(13)) };
   if (h === "family-quiz")   return { page: "familyQuiz" };
@@ -118,7 +116,6 @@ export function buildPath(page: string, params: Record<string, unknown> = {}): s
     case "groupDetail":  return "/groups/" + params.groupId;
     case "readingPlans": return "/reading-plans";
     case "studyNotes":   return params.tab === "public" ? "/study-notes/community" : "/study-notes";
-    case "aiTools":           return "/ai-tools";
     case "studyTopics":       return "/study-topics";
     case "studyTopicDetail":  return "/study-topics/" + encodeURIComponent(params.slug as string);
     case "familyQuiz":        return params.challengeId ? `/family-quiz/${params.challengeId}` : "/family-quiz";

@@ -71,7 +71,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
   const [langOpen, setLangOpen] = useState(false);
   // Mobile accordion sections — auto-open whichever section the current page is in
   const [mobileQuizOpen, setMobileQuizOpen] = useState(() => ["quiz","familyQuiz","leaderboard"].includes(currentPage));
-  const [mobileStudyOpen, setMobileStudyOpen] = useState(() => ["feed","bookmarks","studyTopics","studyTopicDetail","readingPlans","studyNotes","aiTools","meetingPrep"].includes(currentPage));
+  const [mobileStudyOpen, setMobileStudyOpen] = useState(() => ["feed","bookmarks","studyTopics","studyTopicDetail","readingPlans","studyNotes","meetingPrep"].includes(currentPage));
   const [mobileCommunityOpen, setMobileCommunityOpen] = useState(() => ["blog","forum","groups","groupDetail"].includes(currentPage));
   const [mobileMoreOpen, setMobileMoreOpen] = useState(() => ["about","admin"].includes(currentPage));
   const [navHidden, setNavHidden] = useState(false);
@@ -88,7 +88,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
     : "en";
 
   const quizPages = new Set(["quiz", "familyQuiz", "leaderboard"]);
-  const studyPages = new Set(["feed", "bookmarks", "readingPlans", "studyNotes", "aiTools", "studyTopics", "studyTopicDetail", "meetingPrep"]);
+  const studyPages = new Set(["feed", "bookmarks", "readingPlans", "studyNotes", "studyTopics", "studyTopicDetail", "meetingPrep"]);
   const communityPages = new Set(["blog", "forum", "groups", "groupDetail"]);
   const morePages = new Set(["about", "admin"]);
 
@@ -200,7 +200,6 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 <button className={`page-nav-more-item${currentPage === "meetingPrep" ? " page-nav-more-item--active" : ""}`} onClick={() => go("meetingPrep")}>{Icon.Calendar} {t("nav.meetingPrep", "Meeting Prep")}</button>
                 <button className={`page-nav-more-item${currentPage === "readingPlans" ? " page-nav-more-item--active" : ""}`} onClick={() => go("readingPlans")}>{Icon.Calendar} {t("nav.readingPlans")}</button>
                 <button className={`page-nav-more-item${currentPage === "studyNotes" ? " page-nav-more-item--active" : ""}`} onClick={() => go("studyNotes")}>{Icon.Notes} {t("nav.studyNotes")}</button>
-                <button className={`page-nav-more-item${currentPage === "aiTools" ? " page-nav-more-item--active" : ""}`} onClick={() => go("aiTools")}>{Icon.Sparkle} {t("nav.aiTools", "AI Tools")}</button>
               </div>
             )}
           </div>
@@ -366,7 +365,6 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 <button className={`page-nav-mobile-link${currentPage === "meetingPrep" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("meetingPrep")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.meetingPrep", "Meeting Prep")}</button>
                 <button className={`page-nav-mobile-link${currentPage === "readingPlans" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("readingPlans")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.readingPlans")}</button>
                 <button className={`page-nav-mobile-link${currentPage === "studyNotes" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyNotes")}><span className="page-nav-mobile-icon">{Icon.Notes}</span> {t("nav.studyNotes")}</button>
-                <button className={`page-nav-mobile-link${currentPage === "aiTools" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("aiTools")}><span className="page-nav-mobile-icon">{Icon.Sparkle}</span> {t("nav.aiTools", "AI Tools")}</button>
               </div>
             )}
 

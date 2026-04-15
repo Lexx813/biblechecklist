@@ -92,7 +92,7 @@ export const blogApi = {
         cover_url: (post as Record<string, unknown>).cover_url ?? null,
         published: (post as Record<string, unknown>).published ?? false,
         lang: (post as Record<string, unknown>).lang ?? "en",
-        translations: (post as Record<string, unknown>).translations ?? null,
+        translations: (post as Record<string, unknown>).translations ?? {},
       })
       .select()
       .single();

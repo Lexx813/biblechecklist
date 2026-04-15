@@ -8,7 +8,6 @@ import {
   useInitQuizProgress,
 } from "../../hooks/useQuiz";
 import { useSaveTimedScore, useUserBestTimedScore } from "../../hooks/useQuizTimed";
-import UpgradePrompt, { isDismissed, dismissPrompt } from "../../components/UpgradePrompt";
 import "../../styles/quiz.css";
 
 const LEVELS = [
@@ -138,7 +137,6 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
   const { t } = useTranslation();
   const { data: progress = [], isLoading } = useQuizProgress(user.id);
   const initProgress = useInitQuizProgress(user.id);
-  const [showQuizPrompt, setShowQuizPrompt] = useState(false);
   const [timedMode, setTimedMode] = useState(false);
 
   // Ensure level 1 is unlocked on first visit
@@ -148,12 +146,6 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
   }, []);
 
   const badgeCount = progress.filter(p => p.badge_earned).length;
-
-  useEffect(() => {
-    if (isLoading) return;
-    if (badgeCount !== 3) return;
-    if (!isDismissed("quiz-3-badges")) setShowQuizPrompt(true);
-  }, [badgeCount, isLoading]);
 
   const progressMap = Object.fromEntries(progress.map((p) => [p.level, p]));
 
@@ -201,23 +193,6 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
           </button>
         </div>
       </div>
-      {showQuizPrompt && (
-        <UpgradePrompt
-          icon="🧠"
-          title="Go deeper with AI"
-          message="Ask the AI study assistant anything about the verses you just answered. Understand the context, not just the answer."
-          ctaLabel="Try AI Study Tools"
-          onCta={() => {
-            dismissPrompt("quiz-3-badges");
-            setShowQuizPrompt(false);
-            navigate("aiTools");
-          }}
-          onDismiss={() => {
-            dismissPrompt("quiz-3-badges");
-            setShowQuizPrompt(false);
-          }}
-        />
-      )}
     </>
   );
 }

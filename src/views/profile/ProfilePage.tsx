@@ -47,18 +47,16 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
 
   if (profileLoading) {
     return (
-      <div className="min-h-screen bg-[var(--bg)]">
-        <div className="mx-auto max-w-[720px]">
-          {/* Cover skeleton */}
-          <div className="h-[200px] animate-pulse rounded-t-[var(--radius)] bg-[var(--card-bg)] sm:h-[260px]" />
-          {/* Header skeleton */}
-          <div className="rounded-b-[var(--radius)] border border-t-0 border-[var(--border)] bg-[var(--card-bg)] p-6">
-            <div className="-mt-16 flex items-end gap-4">
-              <div className="size-28 rounded-full border-4 border-[var(--card-bg)] bg-[var(--border)]" />
-              <div className="flex flex-col gap-2">
-                <div className="skeleton" style={{ height: 20, width: 160, borderRadius: 6 }} />
-                <div className="skeleton" style={{ height: 13, width: 100, borderRadius: 6 }} />
-              </div>
+      <div className="mx-auto max-w-[720px]">
+        {/* Cover skeleton */}
+        <div className="h-[200px] animate-pulse rounded-t-[var(--radius)] bg-[var(--card-bg)] sm:h-[260px]" />
+        {/* Header skeleton */}
+        <div className="rounded-b-[var(--radius)] border border-t-0 border-[var(--border)] bg-[var(--card-bg)] p-6">
+          <div className="-mt-16 flex items-end gap-4">
+            <div className="size-28 rounded-full border-4 border-[var(--card-bg)] bg-[var(--border)]" />
+            <div className="flex flex-col gap-2">
+              <div className="skeleton" style={{ height: 20, width: 160, borderRadius: 6 }} />
+              <div className="skeleton" style={{ height: 13, width: 100, borderRadius: 6 }} />
             </div>
           </div>
         </div>
@@ -67,8 +65,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
-      <div className="mx-auto max-w-[720px]">
+    <div className="mx-auto max-w-[720px] pb-4">
         {/* Cover photo */}
         <CoverPhoto
           coverUrl={profile?.cover_url ?? null}
@@ -129,7 +126,6 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
             <ReferralPanel userId={profileId} />
           )}
         </div>
-      </div>
     </div>
   );
 }

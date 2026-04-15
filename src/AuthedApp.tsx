@@ -52,7 +52,6 @@ const AIStudyBubble     = lazy(() => import("./components/AIStudyBubble"));
 const GroupsPage        = lazy(() => import("./views/groups/GroupsPage"));
 const GroupDetail       = lazy(() => import("./views/groups/GroupDetail"));
 const NotFoundPage      = lazy(() => import("./views/NotFoundPage"));
-const AIToolsPage       = lazy(() => import("./views/aitools/AIToolsPage"));
 const StudyTopicsPage   = lazy(() => import("./views/studytopics/StudyTopicsPage"));
 const StudyTopicDetail  = lazy(() => import("./views/studytopics/StudyTopicDetail"));
 const FamilyQuizPage    = lazy(() => import("./views/familyquiz/FamilyQuizPage"));
@@ -271,7 +270,6 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (nav.page === "feed")      pageContent = <Page><ActivityFeed user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "readingPlans") pageContent = <Page><AL page="readingPlans"><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
   else if (nav.page === "studyNotes")   pageContent = <Page><AL page="studyNotes"><StudyNotesPage user={user} navigate={navigate} initialTab={nav.tab ?? "mine"} {...sharedNav} /></AL></Page>;
-  else if (nav.page === "aiTools" && profile?.is_admin) pageContent = <Page><AL page="aiTools"><AIToolsPage user={user} {...sharedNav} /></AL></Page>;
   else if (nav.page === "studyTopics")      pageContent = <Page><StudyTopicsPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "studyTopicDetail") pageContent = <Page><StudyTopicDetail user={user} navigate={navigate} slug={nav.slug} {...sharedNav} /></Page>;
   else if (nav.page === "familyQuiz") pageContent = (
@@ -342,10 +340,6 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
         <CreatorRequestPage user={user} onBack={() => navigate("videos")} {...sharedNav} />
       </Page>
     );
-  // aiTools is admin-only — redirect non-admins home
-  else if (nav.page === "aiTools") {
-    if (!profileLoading) navigate("home");
-  }
   // Truly unknown URL → 404
   else if (nav.page === "notFound") {
     pageContent = (
