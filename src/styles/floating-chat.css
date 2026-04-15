@@ -1750,3 +1750,44 @@
 
 .fc-search-result-text { font-size: 13px; color: var(--text-primary); }
 .fc-search-result-time { font-size: 10px; color: var(--text-muted); }
+
+/* ── Scrollbar styling ─────────────────────────────────────────────────── */
+
+.fc-messages,
+.fc-list,
+.fc-overlay-body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(138, 75, 255, 0.2) transparent;
+}
+.fc-messages::-webkit-scrollbar,
+.fc-list::-webkit-scrollbar,
+.fc-overlay-body::-webkit-scrollbar { width: 4px; }
+.fc-messages::-webkit-scrollbar-track,
+.fc-list::-webkit-scrollbar-track,
+.fc-overlay-body::-webkit-scrollbar-track { background: transparent; }
+.fc-messages::-webkit-scrollbar-thumb,
+.fc-list::-webkit-scrollbar-thumb,
+.fc-overlay-body::-webkit-scrollbar-thumb {
+  background: rgba(138, 75, 255, 0.2);
+  border-radius: 99px;
+}
+.fc-messages::-webkit-scrollbar-thumb:hover,
+.fc-list::-webkit-scrollbar-thumb:hover,
+.fc-overlay-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(138, 75, 255, 0.35);
+}
+[data-theme="light"] .fc-messages,
+[data-theme="light"] .fc-list,
+[data-theme="light"] .fc-overlay-body {
+  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+}
+[data-theme="light"] .fc-messages::-webkit-scrollbar-thumb,
+[data-theme="light"] .fc-list::-webkit-scrollbar-thumb,
+[data-theme="light"] .fc-overlay-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+}
+[data-theme="light"] .fc-messages::-webkit-scrollbar-thumb:hover,
+[data-theme="light"] .fc-list::-webkit-scrollbar-thumb:hover,
+[data-theme="light"] .fc-overlay-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.22);
+}

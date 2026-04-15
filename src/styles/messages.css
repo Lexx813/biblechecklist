@@ -1800,3 +1800,44 @@ main:has(.msg-layout) {
   .msg-rich-toolbar { gap: 0; }
   .msg-toolbar-btn { padding: 3px 4px; }
 }
+
+/* ── Scrollbar styling ─────────────────────────────────────────────────── */
+
+.msg-conv-list,
+.msg-thread-body,
+.msg-overlay-body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(138, 75, 255, 0.2) transparent;
+}
+.msg-conv-list::-webkit-scrollbar,
+.msg-thread-body::-webkit-scrollbar,
+.msg-overlay-body::-webkit-scrollbar { width: 4px; }
+.msg-conv-list::-webkit-scrollbar-track,
+.msg-thread-body::-webkit-scrollbar-track,
+.msg-overlay-body::-webkit-scrollbar-track { background: transparent; }
+.msg-conv-list::-webkit-scrollbar-thumb,
+.msg-thread-body::-webkit-scrollbar-thumb,
+.msg-overlay-body::-webkit-scrollbar-thumb {
+  background: rgba(138, 75, 255, 0.2);
+  border-radius: 99px;
+}
+.msg-conv-list::-webkit-scrollbar-thumb:hover,
+.msg-thread-body::-webkit-scrollbar-thumb:hover,
+.msg-overlay-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(138, 75, 255, 0.35);
+}
+[data-theme="light"] .msg-conv-list,
+[data-theme="light"] .msg-thread-body,
+[data-theme="light"] .msg-overlay-body {
+  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+}
+[data-theme="light"] .msg-conv-list::-webkit-scrollbar-thumb,
+[data-theme="light"] .msg-thread-body::-webkit-scrollbar-thumb,
+[data-theme="light"] .msg-overlay-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+}
+[data-theme="light"] .msg-conv-list::-webkit-scrollbar-thumb:hover,
+[data-theme="light"] .msg-thread-body::-webkit-scrollbar-thumb:hover,
+[data-theme="light"] .msg-overlay-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.22);
+}
