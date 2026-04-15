@@ -3,7 +3,11 @@
 import { useEffect, useRef } from "react";
 import { useReportWebVitals } from "next/web-vitals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import dynamic from "next/dynamic";
+
+const ReactQueryDevtools = process.env.NODE_ENV === "development"
+  ? dynamic(() => import("@tanstack/react-query-devtools").then(m => ({ default: m.ReactQueryDevtools })), { ssr: false })
+  : () => null;
 import { ErrorBoundary } from "../src/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react";
 import { toast } from "../src/lib/toast";
@@ -138,7 +142,7 @@ export default function Providers({ children }) {
         <WebVitals />
         {children}
         <Analytics />
-        {process.env.NODE_ENV === "development" && <ReactQueryDevtools initialIsOpen={false} />}
+        <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
       </QueryClientProvider>
     </ErrorBoundary>
   );
