@@ -18,8 +18,20 @@ const nextConfig = {
 
   // Tree-shake common heavy packages to reduce polyfill surface
   experimental: {
-    optimizePackageImports: ["@supabase/supabase-js", "lucide-react", "date-fns"],
+    optimizePackageImports: [
+      "@supabase/supabase-js",
+      "lucide-react",
+      "date-fns",
+      "@tanstack/react-query",
+      "react-i18next",
+      "i18next",
+      "remotion",
+      "@remotion/player",
+    ],
   },
+
+  // Don't try to webpack-bundle Node-only or WASM packages — load them at runtime
+  serverExternalPackages: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
 
   // Keep static exports working for Vercel
   trailingSlash: false,

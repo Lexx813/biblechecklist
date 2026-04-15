@@ -17,10 +17,7 @@
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.15",
     "@ffmpeg/util": "^0.12.2",
-    "@remotion/bundler": "^4.0.448",
-    "@remotion/media": "^4.0.448",
     "@remotion/player": "^4.0.448",
-    "@remotion/renderer": "^4.0.448",
     "@sentry/react": "^10.46.0",
     "@supabase/ssr": "^0.10.0",
     "@supabase/supabase-js": "^2.100.1",
