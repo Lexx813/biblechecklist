@@ -265,6 +265,78 @@ function MSGPlanCard({ metadata, isMine }: { metadata: any; isMine: boolean }) {
   );
 }
 
+// ── Trivia invite card ────────────────────────────────────────────────────────
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function TriviaInviteCard({ metadata, navigate }: { metadata: any; navigate: (page: string, params?: Record<string, unknown>) => void }) {
+  const [expired, setExpired] = useState<boolean>(false);
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    if (!metadata?.room_id) { setChecked(true); return; }
+    (async () => {
+      try {
+        const { data } = await supabase
+          .from("trivia_rooms")
+          .select("status")
+          .eq("id", metadata.room_id)
+          .single();
+        if (data && data.status !== "lobby") setExpired(true);
+      } catch {
+        // ignore
+      } finally {
+        setChecked(true);
+      }
+    })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [metadata?.room_id]);
+
+  if (!metadata) return null;
+
+  const { host_name, room_code, question_count, time_limit_seconds, has_timer, points_to_win } = metadata;
+
+  const settingsParts: string[] = [
+    `${question_count ?? 10} questions`,
+    has_timer ? `${time_limit_seconds ?? 30}s timer` : "No timer",
+    points_to_win > 0 ? `${points_to_win} pts to win` : "",
+  ].filter(Boolean);
+
+  return (
+    <div style={{ background: "var(--card-bg)", border: "1.5px solid var(--border)", borderRadius: 14, padding: "14px 16px", minWidth: 240, maxWidth: 280 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M14.5 17.5L3 6V3h3l11.5 11.5" /><path d="M13 19l6-6" /><path d="M2 2l20 20" />
+        </svg>
+        <span style={{ fontFamily: "Russo One, sans-serif", fontSize: 13, color: "var(--text)", letterSpacing: "0.04em" }}>
+          BIBLE TRIVIA BATTLE
+        </span>
+      </div>
+      <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 10px" }}>
+        Invited by <strong style={{ color: "var(--text)" }}>{host_name}</strong>
+      </p>
+      <div style={{ marginBottom: 10 }}>
+        <div style={{ fontSize: 9, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>Room Code</div>
+        <div style={{ background: "var(--bg)", border: "1px solid var(--border)", borderRadius: 8, padding: "6px 12px", fontFamily: "monospace", fontSize: 18, fontWeight: 700, color: "var(--teal)", letterSpacing: "0.18em" }}>
+          {room_code}
+        </div>
+      </div>
+      <p style={{ fontSize: 11, color: "var(--text-muted)", margin: "0 0 12px" }}>{settingsParts.join(" · ")}</p>
+      {!checked ? (
+        <div style={{ height: 36 }} />
+      ) : expired ? (
+        <div style={{ fontSize: 12, color: "var(--text-muted)", textAlign: "center", padding: "8px 0" }}>Expired</div>
+      ) : (
+        <button
+          onClick={() => navigate("trivia", { prefillCode: room_code })}
+          style={{ width: "100%", padding: "9px 0", borderRadius: 10, border: "none", background: "var(--teal)", color: "#fff", fontFamily: "Russo One, sans-serif", fontSize: 14, fontWeight: 700, cursor: "pointer", letterSpacing: "0.04em" }}
+        >
+          Join Battle
+        </button>
+      )}
+    </div>
+  );
+}
+
 // ── Theme + disappear constants ───────────────────────────────────────────────
 
 const MSG_THEME_COLORS = [
@@ -541,7 +613,7 @@ function MSGPlanPicker({ onSend, onClose }: { onSend: (p: Record<string, unknown
 
 const EMPTY_REACTIONS: never[] = [];
 
-const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, onStar, showSeen, reactions, userId, onToggleReaction, allMessages }: {
+const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, onStar, showSeen, reactions, userId, onToggleReaction, allMessages, navigate }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   msg: any;
   isMine: boolean;
@@ -557,6 +629,7 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
   onToggleReaction: (messageId: string, emoji: string) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   allMessages: any[];
+  navigate: (page: string, params?: Record<string, unknown>) => void;
 }) {
   const { t } = useTranslation();
   const [showActions, setShowActions] = useState(false);
@@ -614,6 +687,8 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
             <MSGVerseCard metadata={msg.metadata} isMine={isMine} />
           ) : msg.message_type === "reading_plan" ? (
             <MSGPlanCard metadata={msg.metadata} isMine={isMine} />
+          ) : msg.message_type === "trivia_invite" ? (
+            <TriviaInviteCard metadata={msg.metadata} navigate={navigate} />
           ) : (
             <p className="msg-bubble-text">{msg.content}</p>
           )}
@@ -1057,6 +1132,7 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
                 onToggleReaction={(messageId, emoji) => toggleReaction.mutate({ messageId, userId: user.id, emoji }, { onError: () => toast.error("Failed to update reaction.") })}
                 onStar={id => toggleStar.mutate(id, { onError: () => toast.error("Failed to update star.") })}
                 allMessages={decryptedMessages}
+                navigate={navigate}
               />
             )
           )
