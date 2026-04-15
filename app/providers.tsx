@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useReportWebVitals } from "next/web-vitals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ErrorBoundary } from "../src/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react";
 import { toast } from "../src/lib/toast";
@@ -137,6 +138,7 @@ export default function Providers({ children }) {
         <WebVitals />
         {children}
         <Analytics />
+        {process.env.NODE_ENV === "development" && <ReactQueryDevtools initialIsOpen={false} />}
       </QueryClientProvider>
     </ErrorBoundary>
   );
