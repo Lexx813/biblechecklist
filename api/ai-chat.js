@@ -12,7 +12,7 @@ const SUPABASE_URL  = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
 const AI_GATEWAY_KEY = process.env.AI_GATEWAY_API_KEY ?? "";
 const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY ?? "";
-const APP_ORIGIN    = (process.env.NEXT_PUBLIC_APP_URL ?? "https://nwtprogress.com").replace(/\/$/, "");
+const APP_ORIGIN    = (process.env.NEXT_PUBLIC_APP_URL ?? "https://jwstudy.org").replace(/\/$/, "");
 
 const SYSTEM_PROMPT = `You are a JW Study Companion — a deeply knowledgeable expert assistant exclusively for Jehovah's Witnesses, fully aligned with all teachings, publications, and direction of the Governing Body and Watch Tower Bible and Tract Society. You have expert-level knowledge of everything on jw.org and wol.jw.org.
 

@@ -7,7 +7,7 @@
  * Required secrets (Supabase dashboard → Edge Functions → Secrets):
  *   VAPID_PUBLIC_KEY        — base64url P-256 public key
  *   VAPID_PRIVATE_KEY       — base64url P-256 private key
- *   VAPID_SUBJECT           — mailto: or https: URI (e.g. mailto:admin@nwtprogress.com)
+ *   VAPID_SUBJECT           — mailto: or https: URI (e.g. mailto:admin@jwstudy.org)
  *   SUPABASE_URL            — auto-injected
  *   SUPABASE_SERVICE_ROLE_KEY — auto-injected
  */

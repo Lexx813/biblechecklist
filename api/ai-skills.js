@@ -22,7 +22,7 @@ export const config = { runtime: "edge" };
 const SUPABASE_URL  = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
 const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY ?? "";
-const APP_ORIGIN    = (process.env.NEXT_PUBLIC_APP_URL ?? "https://nwtprogress.com").replace(/\/$/, "");
+const APP_ORIGIN    = (process.env.NEXT_PUBLIC_APP_URL ?? "https://jwstudy.org").replace(/\/$/, "");
 
 // Shared base injected before every skill prompt so the combined system text
 // reliably exceeds the 1024-token minimum required for prompt caching.
@@ -203,7 +203,7 @@ async function fetchJwPage(url) {
     }
     const res = await fetch(url, {
       headers: {
-        "User-Agent": "Mozilla/5.0 (compatible; NWT-Progress-AI/1.0)",
+        "User-Agent": "Mozilla/5.0 (compatible; JWStudy-AI/1.0; +https://jwstudy.org)",
         "Accept": "text/html,application/xhtml+xml",
         "Accept-Language": "en-US,en;q=0.9",
       },

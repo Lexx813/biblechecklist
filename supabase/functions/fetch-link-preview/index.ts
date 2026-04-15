@@ -179,7 +179,7 @@ Deno.serve(async (req: Request) => {
       headers: {
         // Pretend to be a browser so sites don't block the request
         "User-Agent":
-          "Mozilla/5.0 (compatible; NWTProgressBot/1.0; +https://jwstudy.org)",
+          "Mozilla/5.0 (compatible; JWStudyBot/1.0; +https://jwstudy.org)",
         Accept: "text/html,application/xhtml+xml",
       },
       redirect: "follow",

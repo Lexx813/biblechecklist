@@ -5,7 +5,7 @@
  * Required env vars (set in Vercel dashboard):
  *   VAPID_PUBLIC_KEY        — VAPID public key
  *   VAPID_PRIVATE_KEY       — VAPID private key
- *   VAPID_MAILTO            — e.g. mailto:admin@nwtprogress.com
+ *   VAPID_MAILTO            — e.g. mailto:admin@jwstudy.org
  *   SUPABASE_SERVICE_ROLE_KEY — service role key (bypasses RLS)
  *   NEXT_PUBLIC_SUPABASE_URL — Supabase project URL
  */
@@ -17,7 +17,7 @@ function cleanEnv(val) { return (val ?? "").trim().replace(/^["']|["']$/g, ""); 
 
 const VAPID_PUBLIC   = cleanEnv(process.env.VAPID_PUBLIC_KEY);
 const VAPID_PRIVATE  = cleanEnv(process.env.VAPID_PRIVATE_KEY);
-const VAPID_MAILTO   = cleanEnv(process.env.VAPID_MAILTO) || "mailto:admin@nwtprogress.com";
+const VAPID_MAILTO   = cleanEnv(process.env.VAPID_MAILTO) || "mailto:admin@jwstudy.org";
 const SUPABASE_URL   = cleanEnv(process.env.NEXT_PUBLIC_SUPABASE_URL);
 const SERVICE_KEY    = cleanEnv(process.env.SUPABASE_SERVICE_ROLE_KEY);
 if (VAPID_PUBLIC && VAPID_PRIVATE) {

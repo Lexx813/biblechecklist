@@ -140,7 +140,7 @@ export default function AppLayout({ navigate, user, currentPage, children, right
             <p>{t("betaLang.notice")}</p>
             <p style={{ fontSize: "0.85rem", opacity: 0.85 }}>{t("betaLang.reason")}</p>
             <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem", flexWrap: "wrap" }}>
-              <a href="mailto:support@nwtprogress.com?subject=Translation%20Suggestion" className="al-beta-link">{t("betaLang.suggest")}</a>
+              <a href="mailto:support@jwstudy.org?subject=Translation%20Suggestion" className="al-beta-link">{t("betaLang.suggest")}</a>
               <button className="al-beta-dismiss" onClick={() => { localStorage.setItem("nwt-beta-lang-dismissed", "1"); window.location.reload(); }}>{t("betaLang.dismiss")}</button>
             </div>
           </div>

@@ -97,9 +97,9 @@ const schemaOrg = {
     height: 512,
   },
   description: "A spiritual growth companion for Jehovah's Witnesses — Bible reading tracker, meeting prep, study tools, and worldwide community.",
-  email: "support@nwtprogress.com",
+  email: "support@jwstudy.org",
   sameAs: ["https://jwstudy.org"],
-  contactPoint: { "@type": "ContactPoint", email: "support@nwtprogress.com", contactType: "customer support", availableLanguage: ["English", "Spanish", "Portuguese", "French", "Tagalog", "Chinese", "Japanese"] },
+  contactPoint: { "@type": "ContactPoint", email: "support@jwstudy.org", contactType: "customer support", availableLanguage: ["English", "Spanish", "Portuguese", "French", "Tagalog", "Chinese", "Japanese"] },
 };
 
 const schemaWebSite = {
