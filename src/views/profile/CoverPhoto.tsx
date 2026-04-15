@@ -44,7 +44,7 @@ export default function CoverPhoto({
   }
 
   return (
-    <div className="relative h-[200px] w-full overflow-hidden rounded-t-[var(--radius)] sm:h-[260px]">
+    <div className="relative h-[200px] w-full overflow-hidden sm:h-[240px]">
       {/* Background: gradient or image */}
       {displayUrl ? (
         <img
@@ -53,7 +53,19 @@ export default function CoverPhoto({
           className="absolute inset-0 h-full w-full object-cover"
         />
       ) : (
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1a0635] via-[#3b1080] to-[#6d28d9]" />
+        <>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#1a0635] via-[#3b1080] to-[#6d28d9]" />
+          {/* Subtle geometric pattern so blank cover looks intentional */}
+          <svg className="absolute inset-0 h-full w-full opacity-[0.07]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="cover-dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="1.5" fill="white" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#cover-dots)" />
+          </svg>
+          <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/10 via-transparent to-violet-400/15" />
+        </>
       )}
 
       {/* Gradient overlay for text readability */}

@@ -81,9 +81,25 @@ export default function PostsTab({ profileId, isOwner, userId, navigate }: Props
           ))}
         </div>
       ) : posts.length === 0 ? (
-        <p className="mt-4 text-center text-sm text-[var(--text-muted)]">
-          {isOwner ? t("posts.emptyOwner") : t("posts.emptyOther")}
-        </p>
+        <div className="mt-6 flex flex-col items-center gap-3 py-8 text-center">
+          <div className="flex size-14 items-center justify-center rounded-full bg-[var(--hover-bg)]">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--text-muted)]" aria-hidden="true">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <p className="text-sm font-medium text-[var(--text-secondary)]">
+            {isOwner ? t("posts.emptyOwner") : t("posts.emptyOther")}
+          </p>
+          {isOwner && (
+            <button
+              type="button"
+              className="mt-1 cursor-pointer rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-bold text-white transition-opacity hover:opacity-85"
+              onClick={() => setShowModal(true)}
+            >
+              Write your first post
+            </button>
+          )}
+        </div>
       ) : (
         <div className="mt-4 flex flex-col gap-3">
           {posts.map((post: any) => (

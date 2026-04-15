@@ -12,6 +12,12 @@ import {
 } from "../../hooks/useMessages";
 import { THEME_COLORS, DISAPPEAR_OPTIONS, PUSH_DISMISS_KEY, formatTime, initial } from "./chatHelpers";
 
+/** Only allow http/https URLs — blocks javascript: and data: URIs */
+function safeUrl(url: string | null | undefined): string {
+  if (!url || !/^https?:\/\//i.test(url)) return "#";
+  return url;
+}
+
 // ── Avatar ────────────────────────────────────────────────────────────────────
 
 export function Avatar({ name, avatarUrl, size = 32, online = false }: {
@@ -438,7 +444,7 @@ export function FCImageCard({ content, metadata }: { content: string | null; met
         alt={(metadata?.filename as string) || "Image"}
         className={`fc-image-thumb${loaded ? " fc-image-thumb--loaded" : ""}`}
         onLoad={() => setLoaded(true)}
-        onClick={() => url && window.open(url, "_blank")}
+        onClick={() => url && window.open(safeUrl(url), "_blank")}
       />
     </div>
   );
@@ -462,15 +468,18 @@ export function FCPlanCard({ metadata, isMine }: { metadata: Record<string, unkn
 
 export function FCLinkPreviewCard({ preview }: { preview: { url: string; og_title?: string; og_description?: string; og_image?: string } | null }) {
   if (!preview || (!preview.og_title && !preview.og_description)) return null;
+  const href = safeUrl(preview.url);
+  let hostname = "";
+  try { hostname = new URL(preview.url).hostname; } catch { /* invalid url */ }
   return (
-    <a href={preview.url} target="_blank" rel="noopener noreferrer" className="fc-link-preview">
+    <a href={href} target="_blank" rel="noopener noreferrer" className="fc-link-preview">
       {preview.og_image && (
         <img src={preview.og_image} alt="" className="fc-link-preview-img" onError={e => (e.currentTarget.style.display = "none")} />
       )}
       <div className="fc-link-preview-body">
         {preview.og_title && <div className="fc-link-preview-title">{preview.og_title}</div>}
         {preview.og_description && <div className="fc-link-preview-desc">{preview.og_description.slice(0, 120)}</div>}
-        <div className="fc-link-preview-domain">{new URL(preview.url).hostname}</div>
+        {hostname && <div className="fc-link-preview-domain">{hostname}</div>}
       </div>
     </a>
   );

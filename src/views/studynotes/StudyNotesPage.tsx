@@ -56,20 +56,27 @@ function exportAsMarkdown(note) {
   URL.revokeObjectURL(url);
 }
 
+function escapeHtml(str: string): string {
+  return str.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
+}
+
 function exportAsPrint(note) {
   const passage = passageLabel(note);
+  const safeTitle = escapeHtml(note.title || "Note");
+  const safeContent = sanitizeRich(note.content || "");
+  const safeTags = (note.tags ?? []).map((t: string) => `<span>#${escapeHtml(t)}</span>`).join("");
   const win = window.open("", "_blank");
-  win.document.write(`<!DOCTYPE html><html><head><title>${note.title || "Note"}</title>
+  win.document.write(`<!DOCTYPE html><html><head><title>${safeTitle}</title>
   <style>body{font-family:Georgia,serif;max-width:700px;margin:40px auto;color:#111}
   h1{font-size:1.6em;margin-bottom:4px}
   .meta{color:#666;font-size:.9em;margin-bottom:16px}
   .tags span{background:#eee;padding:2px 8px;border-radius:12px;font-size:.8em;margin-right:4px}
   .content{line-height:1.7;margin-top:16px}
   @media print{body{margin:20px}}</style></head><body>
-  ${note.title ? `<h1>${note.title}</h1>` : ""}
-  <div class="meta">${[passage, formatDate(note.updated_at)].filter(Boolean).join(" · ")}</div>
-  ${note.tags?.length ? `<div class="tags">${note.tags.map(t => `<span>#${t}</span>`).join("")}</div>` : ""}
-  <div class="content">${note.content || ""}</div>
+  ${note.title ? `<h1>${safeTitle}</h1>` : ""}
+  <div class="meta">${[passage, formatDate(note.updated_at)].filter(Boolean).map(escapeHtml).join(" · ")}</div>
+  ${note.tags?.length ? `<div class="tags">${safeTags}</div>` : ""}
+  <div class="content">${safeContent}</div>
   </body></html>`);
   win.document.close();
   win.focus();

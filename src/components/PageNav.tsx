@@ -32,6 +32,7 @@ const Icon = {
   Home:         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>,
   Quiz:         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>,
   FamilyQuiz:   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><line x1="12" y1="17" x2="23" y2="17"/><polyline points="19 14 23 17 19 20"/></svg>,
+  Swords:       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><polyline points="16 16 20 20"/><polyline points="7 7 4 4"/><polyline points="9.5 6.5 3 21 21 3 6.5 9.5"/></svg>,
 };
 
 interface NavUser {
@@ -70,7 +71,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
   const [moreOpen, setMoreOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   // Mobile accordion sections — auto-open whichever section the current page is in
-  const [mobileQuizOpen, setMobileQuizOpen] = useState(() => ["quiz","familyQuiz","leaderboard"].includes(currentPage));
+  const [mobileQuizOpen, setMobileQuizOpen] = useState(() => ["quiz","familyQuiz","leaderboard","trivia"].includes(currentPage));
   const [mobileStudyOpen, setMobileStudyOpen] = useState(() => ["feed","bookmarks","studyTopics","studyTopicDetail","readingPlans","studyNotes","meetingPrep"].includes(currentPage));
   const [mobileCommunityOpen, setMobileCommunityOpen] = useState(() => ["blog","forum","groups","groupDetail"].includes(currentPage));
   const [mobileMoreOpen, setMobileMoreOpen] = useState(() => ["about","admin"].includes(currentPage));
@@ -87,7 +88,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
     ? (LANGUAGES.find(l => i18n.language?.split("-")[0]?.startsWith(l.code))?.code ?? "en")
     : "en";
 
-  const quizPages = new Set(["quiz", "familyQuiz", "leaderboard"]);
+  const quizPages = new Set(["quiz", "familyQuiz", "leaderboard", "trivia"]);
   const studyPages = new Set(["feed", "bookmarks", "readingPlans", "studyNotes", "studyTopics", "studyTopicDetail", "meetingPrep"]);
   const communityPages = new Set(["blog", "forum", "groups", "groupDetail"]);
   const morePages = new Set(["about", "admin"]);
@@ -177,6 +178,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 <div className="page-nav-more-group-label">{t("quiz.nav", "Quiz")}</div>
                 <button className={`page-nav-more-item${currentPage === "quiz" ? " page-nav-more-item--active" : ""}`} onClick={() => go("quiz")}>{Icon.Quiz} {t("quiz.nav")}</button>
                 <button className={`page-nav-more-item${currentPage === "familyQuiz" ? " page-nav-more-item--active" : ""}`} onClick={() => go("familyQuiz")}>{Icon.FamilyQuiz} Family Challenge</button>
+                <button className={`page-nav-more-item${currentPage === "trivia" ? " page-nav-more-item--active" : ""}`} onClick={() => go("trivia")}>{Icon.Swords} Trivia Battle</button>
                 <button className={`page-nav-more-item${currentPage === "leaderboard" ? " page-nav-more-item--active" : ""}`} onClick={() => go("leaderboard")}>{Icon.Trophy} {t("leaderboard.title", "Leaderboard")}</button>
               </div>
             )}
@@ -348,6 +350,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               <div className="page-nav-mobile-section-items">
                 <button className={`page-nav-mobile-link${currentPage === "quiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("quiz")}><span className="page-nav-mobile-icon">{Icon.Quiz}</span> {t("quiz.nav")}</button>
                 <button className={`page-nav-mobile-link${currentPage === "familyQuiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("familyQuiz")}><span className="page-nav-mobile-icon">{Icon.FamilyQuiz}</span> Family Challenge</button>
+                <button className={`page-nav-mobile-link${currentPage === "trivia" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("trivia")}><span className="page-nav-mobile-icon">{Icon.Swords}</span> Trivia Battle</button>
                 <button className={`page-nav-mobile-link${currentPage === "leaderboard" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("leaderboard")}><span className="page-nav-mobile-icon">{Icon.Trophy}</span> {t("leaderboard.title", "Leaderboard")}</button>
               </div>
             )}

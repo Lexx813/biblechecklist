@@ -127,10 +127,10 @@ export default function ProfileHeader({
   /* ── Render ── */
 
   return (
-    <div className="relative -mt-20 overflow-visible rounded-b-[var(--radius)] px-5 pb-5 pt-20 sm:-mt-24 sm:px-8 sm:pt-24">
-      {/* Gradient fade from cover into card bg */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-transparent to-[var(--card-bg)]" />
-      <div className="pointer-events-none absolute inset-x-0 top-24 bottom-0 bg-[var(--card-bg)]" />
+    <div className="relative -mt-20 overflow-visible px-4 pb-5 pt-20 sm:-mt-24 sm:px-6 sm:pt-24 lg:px-8">
+      {/* Gradient fade from cover into page bg */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-transparent to-[var(--bg)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-24 bottom-0 bg-[var(--bg)]" />
 
       {/* Avatar row */}
       <div className="relative z-[1] flex items-end gap-4 sm:gap-6">

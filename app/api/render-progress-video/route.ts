@@ -43,8 +43,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await req.json().catch(() => ({}));
-    const userId = body.userId ?? user.id;
+    // Always use the authenticated user's ID — never allow caller to specify another user's ID
+    const userId = user.id;
 
     console.log(`[render-progress-video] Fetching data for userId=${userId}`);
 

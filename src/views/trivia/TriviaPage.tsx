@@ -113,6 +113,7 @@ function OptionButton({
     <button
       onClick={onClick}
       disabled={disabled}
+      className="trivia-opt-btn"
       style={{
         display: "flex",
         alignItems: "center",
@@ -246,7 +247,7 @@ function PlayerChip({ player, active }: { player: TriviaPlayer; active?: boolean
       padding: "8px 10px",
       borderRadius: 10,
       border: `1px solid ${active ? hex : "var(--border)"}`,
-      background: active ? `${hex}14` : "var(--card-bg)",
+      background: active ? `${hex}1a` : "var(--card-bg)",
       transition: "all 0.2s",
     }}>
       {player.avatar_url ? (
@@ -279,12 +280,12 @@ function TeamPanel({ team, players, isActive, score }: {
       padding: "16px 12px",
       borderRadius: 14,
       border: `2px solid ${isActive ? hex : "var(--border)"}`,
-      background: isActive ? `${hex}08` : "var(--card-bg)",
+      background: isActive ? `${hex}12` : "var(--card-bg)",
       display: "flex",
       flexDirection: "column",
       gap: 8,
       transition: "all 0.3s",
-      boxShadow: isActive ? `0 0 24px ${hex}22` : "none",
+      boxShadow: isActive ? `0 0 32px ${hex}30, 0 2px 8px ${hex}18` : "0 1px 4px rgba(0,0,0,0.05)",
     }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
         <div>
@@ -434,12 +435,9 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
   } as const;
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px", fontFamily: "Chakra Petch, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "var(--trivia-bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px", fontFamily: "Chakra Petch, sans-serif" }}>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: 28 }}>
-        <div style={{ display: "inline-block", padding: "3px 12px", borderRadius: 20, border: "1px solid var(--teal)", color: "var(--teal)", fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 10 }}>
-          Dev Preview
-        </div>
         <h1 style={{ fontFamily: "Russo One, sans-serif", fontSize: "clamp(36px, 8vw, 56px)", fontWeight: 900, lineHeight: 1.05, color: "var(--text-primary)" }}>
           Bible Trivia
         </h1>
@@ -779,7 +777,7 @@ function LobbyView({ room, players, myPlayer, onStart, onRefresh, onExit }: {
   }
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px", fontFamily: "Chakra Petch, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "var(--trivia-bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px", fontFamily: "Chakra Petch, sans-serif" }}>
       <div style={{ width: "100%", maxWidth: 520 }}>
         {/* Exit */}
         <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12 }}>
@@ -971,9 +969,9 @@ function GameView({
     room.last_answer_index === currentQuestion.correct_index;
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg)", fontFamily: "Chakra Petch, sans-serif", display: "flex", flexDirection: "column" }}>
+    <div style={{ minHeight: "100vh", background: "var(--trivia-bg)", fontFamily: "Chakra Petch, sans-serif", display: "flex", flexDirection: "column" }}>
       {/* Top bar */}
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 16px", background: "var(--card-bg)", borderBottom: "1px solid var(--border)", gap: 12 }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 16px", background: "var(--card-bg)", borderBottom: "1px solid var(--border)", gap: 12, position: "sticky", top: 0, zIndex: 10 }}>
         <button
           onClick={onExit}
           style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 8, border: "1px solid var(--border)", background: "var(--bg)", color: "var(--text-muted)", fontSize: 12, fontWeight: 600, cursor: "pointer" }}
@@ -991,7 +989,7 @@ function GameView({
       </div>
 
       {/* Score */}
-      <div style={{ padding: "12px 16px", background: "var(--card-bg)", borderBottom: "1px solid var(--border)" }}>
+      <div className="trivia-score-bar" style={{ padding: "12px 16px", background: "var(--card-bg)", borderBottom: "1px solid var(--border)" }}>
         <ScoreBar
           teamAScore={room.team_a_score}
           teamBScore={room.team_b_score}
@@ -1016,11 +1014,12 @@ function GameView({
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {/* Turn banner */}
           <div style={{
-            textAlign: "center", padding: "8px 16px", borderRadius: 10,
-            border: `1px solid ${teamHex(room.current_team)}55`,
-            background: `${teamHex(room.current_team)}0e`,
+            textAlign: "center", padding: "9px 16px", borderRadius: 10,
+            border: `1.5px solid ${teamHex(room.current_team)}88`,
+            background: `${teamHex(room.current_team)}18`,
             color: teamHex(room.current_team),
             fontSize: 13, fontWeight: 700, fontFamily: "Russo One, sans-serif",
+            boxShadow: `0 0 18px ${teamHex(room.current_team)}22`,
           }}>
             <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: "50%", background: teamHex(room.current_team), marginRight: 8, animation: "pulse 1.2s ease-in-out infinite" }} />
             {isMyTurn ? "Your turn — answer now!" : `${teamName(room.current_team)}'s turn`}
@@ -1028,7 +1027,7 @@ function GameView({
 
           {/* Question card */}
           {currentQuestion ? (
-            <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 16, padding: "20px 20px 14px", boxShadow: "var(--shadow)" }}>
+            <div className="trivia-q-card" style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 16, padding: "20px 20px 14px", boxShadow: "var(--shadow)" }}>
               <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 16 }}>
                 <div style={{ flex: 1 }}>
                   {currentQuestion.book_reference && (
@@ -1126,7 +1125,7 @@ function EndView({ room, players, myPlayer, onPlayAgain }: {
   const iWon = !tie && myPlayer.team === winnerTeam;
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px", fontFamily: "Chakra Petch, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "var(--trivia-bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px", fontFamily: "Chakra Petch, sans-serif" }}>
       {!tie && <Confetti />}
 
       <div style={{ textAlign: "center", maxWidth: 420, width: "100%", position: "relative" }}>
@@ -1269,12 +1268,46 @@ export default function TriviaPage({ user, navigate, prefillCode }: TriviaPagePr
       style.id = "trivia-styles";
       style.textContent = `
         @keyframes fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes trivia-pulse-glow { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
         @media (min-width: 768px) {
           .trivia-game-grid { grid-template-columns: 200px 1fr 200px !important; }
         }
         .trivia-custom-time::-webkit-inner-spin-button,
         .trivia-custom-time::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         .trivia-custom-time { -moz-appearance: textfield; }
+
+        /* ── Background theme ── */
+        :root { --trivia-bg: var(--bg); }
+        [data-theme="light"] { --trivia-bg: linear-gradient(155deg, #f3eeff 0%, #fdf4ff 38%, #fff0f7 65%, #ede9fe 100%); }
+        [data-theme="dark"]  { --trivia-bg: var(--bg); }
+
+        /* ── Option button hover ── */
+        .trivia-opt-btn { transition: transform 0.15s ease, box-shadow 0.15s ease !important; }
+        .trivia-opt-btn:not([disabled]):hover { transform: translateX(4px) !important; }
+
+        /* ── Turn banner glow ── */
+        .trivia-turn-active {
+          animation: trivia-pulse-glow 2s ease-in-out infinite;
+        }
+
+        /* ── Score bar gradient ── */
+        .trivia-score-bar {
+          background: linear-gradient(to right, rgba(124,58,237,0.05) 0%, transparent 40%, transparent 60%, rgba(217,119,6,0.05) 100%) !important;
+        }
+
+        /* ── Question card accent ── */
+        .trivia-q-card {
+          border-top: 3px solid var(--teal) !important;
+          border-radius: 16px !important;
+        }
+        [data-theme="light"] .trivia-q-card {
+          box-shadow: 0 4px 24px rgba(124,58,237,0.10), 0 1px 4px rgba(0,0,0,0.06) !important;
+        }
+
+        /* ── Team panel glow ── */
+        .trivia-team-active {
+          box-shadow: 0 0 32px var(--trivia-team-color, rgba(124,58,237,0.18)) !important;
+        }
       `;
       document.head.appendChild(style);
       return () => { style.remove(); };
@@ -1285,7 +1318,7 @@ export default function TriviaPage({ user, navigate, prefillCode }: TriviaPagePr
 
   if (loading || !room || !myPlayer) {
     return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--bg)" }}>
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--trivia-bg)" }}>
         <div style={{ color: "var(--teal)", fontFamily: "Russo One, sans-serif", fontSize: 18 }}>Loading…</div>
       </div>
     );

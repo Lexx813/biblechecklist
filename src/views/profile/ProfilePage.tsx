@@ -47,12 +47,10 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
 
   if (profileLoading) {
     return (
-      <div className="mx-auto max-w-[720px]">
-        {/* Cover skeleton */}
-        <div className="h-[200px] animate-pulse rounded-t-[var(--radius)] bg-[var(--card-bg)] sm:h-[260px]" />
-        {/* Header skeleton */}
-        <div className="rounded-b-[var(--radius)] border border-t-0 border-[var(--border)] bg-[var(--card-bg)] p-6">
-          <div className="-mt-16 flex items-end gap-4">
+      <div className="pb-4">
+        <div className="h-[200px] animate-pulse bg-[var(--card-bg)] sm:h-[240px]" />
+        <div className="px-4 sm:px-6 lg:px-8">
+          <div className="-mt-16 flex items-end gap-4 bg-[var(--card-bg)] p-6">
             <div className="size-28 rounded-full border-4 border-[var(--card-bg)] bg-[var(--border)]" />
             <div className="flex flex-col gap-2">
               <div className="skeleton" style={{ height: 20, width: 160, borderRadius: 6 }} />
@@ -65,67 +63,67 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
   }
 
   return (
-    <div className="mx-auto max-w-[720px] pb-4">
-        {/* Cover photo */}
-        <CoverPhoto
-          coverUrl={profile?.cover_url ?? null}
-          userId={profileId}
-          isOwner={isOwner}
-          onSettingsClick={() => navigate("settings")}
-        />
+    <div className="pb-4">
+      {/* Cover photo — full bleed */}
+      <CoverPhoto
+        coverUrl={profile?.cover_url ?? null}
+        userId={profileId}
+        isOwner={isOwner}
+        onSettingsClick={() => navigate("settings")}
+      />
 
-        {/* Profile header (avatar overlapping cover) */}
-        <ProfileHeader
-          profile={profile}
-          userId={profileId}
-          currentUserId={user.id}
-          isOwner={isOwner}
-          navigate={navigate}
-          onEditProfile={() => navigate("settings")}
-        />
+      {/* Profile header (avatar overlapping cover) */}
+      <ProfileHeader
+        profile={profile}
+        userId={profileId}
+        currentUserId={user.id}
+        isOwner={isOwner}
+        navigate={navigate}
+        onEditProfile={() => navigate("settings")}
+      />
 
-        {/* Blocked banner */}
-        {isViewedUserBlocked && (
-          <div className="pf-blocked-banner">
-            {myBlocks.some(b => b.id === profileId)
-              ? "You've blocked this user."
-              : "This user has blocked you."}
-          </div>
+      {/* Blocked banner */}
+      {isViewedUserBlocked && (
+        <div className="pf-blocked-banner">
+          {myBlocks.some(b => b.id === profileId)
+            ? "You've blocked this user."
+            : "This user has blocked you."}
+        </div>
+      )}
+
+      {/* Tab bar */}
+      <ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} isOwner={isOwner} />
+
+      {/* Tab content */}
+      <div className="flex flex-col gap-4 px-4 pb-12 pt-4 sm:px-6 lg:px-8">
+        {activeTab === "posts" && !isViewedUserBlocked && (
+          <PostsTab profileId={profileId} isOwner={isOwner} userId={user?.id} navigate={navigate} />
         )}
 
-        {/* Tab bar */}
-        <ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} isOwner={isOwner} />
+        {activeTab === "about" && !isViewedUserBlocked && (
+          <AboutTab
+            profile={profile}
+            userId={profileId}
+            isOwner={isOwner}
+            readingProgress={readingProgress}
+            streak={streak}
+            forumStats={forumStats}
+          />
+        )}
 
-        {/* Tab content */}
-        <div className="flex flex-col gap-4 pb-12 pt-4">
-          {activeTab === "posts" && !isViewedUserBlocked && (
-            <PostsTab profileId={profileId} isOwner={isOwner} userId={user?.id} navigate={navigate} />
-          )}
+        {activeTab === "friends" && !isViewedUserBlocked && (
+          <ProfileFriendsTab user={{ ...user, id: profileId }} navigate={navigate} isOwner={isOwner} />
+        )}
 
-          {activeTab === "about" && !isViewedUserBlocked && (
-            <AboutTab
-              profile={profile}
-              userId={profileId}
-              isOwner={isOwner}
-              readingProgress={readingProgress}
-              streak={streak}
-              forumStats={forumStats}
-            />
-          )}
+        {activeTab === "achievements" && !isViewedUserBlocked && (
+          <AchievementsTab userId={profileId} quizProgress={quizProgress} earnedBadges={earnedBadges} streak={streak} readingProgress={readingProgress} />
+        )}
 
-          {activeTab === "friends" && !isViewedUserBlocked && (
-            <ProfileFriendsTab user={{ ...user, id: profileId }} navigate={navigate} isOwner={isOwner} />
-          )}
-
-          {activeTab === "achievements" && !isViewedUserBlocked && (
-            <AchievementsTab userId={profileId} quizProgress={quizProgress} earnedBadges={earnedBadges} streak={streak} readingProgress={readingProgress} />
-          )}
-
-          {/* Referral program — owner only, shown on posts tab */}
-          {activeTab === "posts" && isOwner && !isViewedUserBlocked && (
-            <ReferralPanel userId={profileId} />
-          )}
-        </div>
+        {/* Referral program — owner only, shown on posts tab */}
+        {activeTab === "posts" && isOwner && !isViewedUserBlocked && (
+          <ReferralPanel userId={profileId} />
+        )}
+      </div>
     </div>
   );
 }
