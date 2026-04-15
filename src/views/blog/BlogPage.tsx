@@ -554,6 +554,7 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
   const { t } = useTranslation();
   const userLang = i18n?.language?.split("-")[0] ?? "en";
   const [visibleCount, setVisibleCount] = useState(9);
+  const [search, setSearch] = useState("");
   const { data: posts = [], isLoading } = usePublishedPosts(userLang);
   const { data: blockedSet = new Set<string>() } = useBlocks(user?.id);
 
@@ -571,8 +572,17 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
     />;
   }
 
-  const visiblePosts = posts.filter(p => !blockedSet.has(p.author_id)).slice(0, visibleCount);
-  const hasMore = visibleCount < posts.filter(p => !blockedSet.has(p.author_id)).length;
+  const q = search.trim().toLowerCase();
+  const filtered = posts.filter(p => {
+    if (blockedSet.has(p.author_id)) return false;
+    if (!q) return true;
+    const title = (p.title || "").toLowerCase();
+    const excerpt = (p.excerpt || "").toLowerCase();
+    const author = (p.profiles?.display_name || "").toLowerCase();
+    return title.includes(q) || excerpt.includes(q) || author.includes(q);
+  });
+  const visiblePosts = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
 
   return (
     <div className="blog-wrap">
@@ -600,6 +610,23 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
 
       <h1 className="page-section-title">{t("blog.title")}</h1>
 
+      <div className="blog-search-bar">
+        <svg className="blog-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input
+          className="blog-search-input"
+          type="search"
+          placeholder={t("blog.searchPlaceholder", "Search blogs...")}
+          value={search}
+          onChange={e => { setSearch(e.target.value); setVisibleCount(9); }}
+          aria-label={t("blog.searchPlaceholder", "Search blogs...")}
+        />
+        {search && (
+          <button className="blog-search-clear" onClick={() => setSearch("")} aria-label="Clear search">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        )}
+      </div>
+
       {/* Posts */}
       <div className="blog-content">
         {isLoading ? (
@@ -620,11 +647,11 @@ export default function BlogPage({ user, profile, onBack, onWriteClick, slug, on
               </article>
             ))}
           </div>
-        ) : posts.length === 0 ? (
+        ) : filtered.length === 0 ? (
           <div className="blog-empty">
             <div className="blog-empty-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
-            <h3>{t("blog.noPosts")}</h3>
-            <p>{t("blog.noPostsSub")}</p>
+            <h3>{q ? t("blog.noResults", "No results found") : t("blog.noPosts")}</h3>
+            <p>{q ? t("blog.noResultsSub", "Try a different search term") : t("blog.noPostsSub")}</p>
           </div>
         ) : (
           <>
