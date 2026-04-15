@@ -1,7 +1,7 @@
 import { supabase } from "../lib/supabase";
 import { assertNoPII } from "../lib/pii";
 
-export interface BlogPostTranslation { title?: string; excerpt?: string }
+export interface BlogPostTranslation { title?: string; excerpt?: string; content?: string }
 
 export interface BlogPost {
   id: string;
@@ -72,7 +72,7 @@ export const blogApi = {
   listMine: async (userId: string) => {
     const { data, error } = await supabase
       .from("blog_posts")
-      .select("id, title, slug, excerpt, content, cover_url, published, created_at, updated_at")
+      .select("id, title, slug, excerpt, content, cover_url, published, created_at, updated_at, translations, lang")
       .eq("author_id", userId)
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
