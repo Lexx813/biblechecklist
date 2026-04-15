@@ -9,7 +9,6 @@ const OWNER_TABS = [
   { key: "about", label: "About" },
   { key: "friends", label: "Friends" },
   { key: "achievements", label: "Achievements" },
-  { key: "notes", label: "Notes" },
 ];
 
 const VISITOR_TABS = [

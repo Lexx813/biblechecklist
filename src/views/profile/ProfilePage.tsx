@@ -18,7 +18,6 @@ import ProfileTabs from "./ProfileTabs";
 import PostsTab from "./tabs/PostsTab";
 import AboutTab from "./tabs/AboutTab";
 import AchievementsTab from "./tabs/AchievementsTab";
-import NotesTab from "./tabs/NotesTab";
 
 // ── Main ProfilePage ──────────────────────────────────────
 export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, defaultTab = "posts" }) {
@@ -123,10 +122,6 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
 
           {activeTab === "achievements" && !isViewedUserBlocked && (
             <AchievementsTab userId={profileId} quizProgress={quizProgress} earnedBadges={earnedBadges} streak={streak} readingProgress={readingProgress} />
-          )}
-
-          {activeTab === "notes" && isOwner && (
-            <NotesTab userId={profileId} />
           )}
 
           {/* Referral program — owner only, shown on posts tab */}

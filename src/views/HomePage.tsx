@@ -30,7 +30,6 @@ import { useFriendPosts, usePublicFeed, useCreatePost, useUpdatePost, useDeleteP
 import CreatePostModal from "../components/CreatePostModal";
 import PostInteractions from "../components/PostInteractions";
 import ConfirmModal from "../components/ConfirmModal";
-import { useNotes } from "../hooks/useNotes";
 import { useUnreadMessageCount } from "../hooks/useMessages";
 import { useFriends, useFriendRequests } from "../hooks/useFriends";
 import { useOnlineMembers, ONLINE_THRESHOLD_MS as WHO_THRESHOLD_MS } from "../hooks/useOnlineMembers";
@@ -256,7 +255,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const [showPostModal, setShowPostModal] = useState(false);
   const [editingPost, setEditingPost] = useState<any>(null);
   const [deletePostId, setDeletePostId] = useState<string | null>(null);
-  const { data: myNotes = [] } = useNotes(user?.id);
   const { onlineNow: whoOnline, recentlyActive: whoRecent, totalOnline, isLoading: whoLoading, isError: whoError } = useOnlineMembers(50);
   const whoMembers = [...whoOnline, ...whoRecent];
 
@@ -1053,43 +1051,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             )}
           </div>
 
-          {/* My Notes */}
-          {myNotes.length > 0 && (
-            <div className={widgetCls}>
-              <div className="flex items-center justify-between px-4 pb-2.5 pt-3.5">
-                <span className="text-base font-bold text-[var(--text-primary)]">My Notes</span>
-                <button className={feedLinkCls} onClick={() => navigate("profile", { defaultTab: "notes" })}>See all &rarr;</button>
-              </div>
-              <div className="flex flex-col gap-1.5 px-3 pb-3">
-                {myNotes.slice(0, 4).map((note: any) => {
-                  const bookName = BOOKS[note.book_index]?.name ?? "";
-                  const isOT = note.book_index < 39;
-                  const plain = note.content.replace(/<[^>]*>/g, "");
-                  return (
-                    <div
-                      key={note.id}
-                      className="cursor-pointer rounded-lg border border-[var(--border)] px-3 py-2.5 transition-colors hover:bg-[var(--hover-bg)]"
-                      onClick={() => navigate("profile", { defaultTab: "notes" })}
-                    >
-                      <div className="flex items-center gap-1.5">
-                        <span className={`rounded-full px-2 py-px text-[10px] font-bold ${
-                          isOT ? "bg-amber-500/15 text-amber-400" : "bg-blue-500/15 text-blue-400"
-                        }`}>
-                          {bookName}
-                        </span>
-                        <span className="text-[11px] text-[var(--text-muted)]">
-                          {note.chapter}{note.verse ? `:${note.verse}` : ""}
-                        </span>
-                      </div>
-                      <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-[var(--text-secondary)]">
-                        {plain}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
 
         </aside>
 
