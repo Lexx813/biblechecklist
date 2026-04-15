@@ -2,6 +2,9 @@ import { useState, useRef, useCallback, useEffect, lazy, Suspense } from "react"
 import EmojiPickerPopup, { insertEmojiAtCursor } from "../../components/EmojiPickerPopup";
 import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/ConfirmModal";
+import { supabase } from "../../lib/supabase";
+import { LANGUAGES } from "../../i18n";
+import { parseTranslationStream } from "../../lib/translateStream";
 const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
 import { useMyPosts, useCreatePost, useUpdatePost, useDeletePost } from "../../hooks/useBlog";
 import { blogApi } from "../../api/blog";
@@ -9,14 +12,208 @@ import AppLayout from "../../components/AppLayout";
 import "../../styles/blog.css";
 import { formatDate } from "../../utils/formatters";
 
-const EMPTY_FORM = { title: "", excerpt: "", content: "", cover_url: "", published: false };
+type Translation = { title: string; excerpt: string; content: string };
+const EMPTY_FORM = { title: "", excerpt: "", content: "", cover_url: "", published: false, translations: {} as Record<string, Translation> };
+
+// ── Translations tab ──────────────────────────────────────────────────────────
+function TranslationsTab({ translations, onChange, primaryLang, postTitle, postExcerpt, postContent, disabled }: {
+  translations: Record<string, Translation>;
+  onChange: (t: Record<string, Translation>) => void;
+  primaryLang: string;
+  postTitle: string;
+  postExcerpt: string;
+  postContent: string;
+  disabled: boolean;
+}) {
+  const availableLangs = LANGUAGES.filter(l => l.code !== primaryLang);
+  const [activeLang, setActiveLang] = useState<string | null>(null);
+  const [generating, setGenerating] = useState(false);
+  const [genError, setGenError] = useState("");
+  const abortRef = useRef<AbortController | null>(null);
+
+  const current: Translation = activeLang
+    ? (translations[activeLang] ?? { title: "", excerpt: "", content: "" })
+    : { title: "", excerpt: "", content: "" };
+
+  function setField(field: keyof Translation, value: string) {
+    if (!activeLang) return;
+    onChange({ ...translations, [activeLang]: { ...current, [field]: value } });
+  }
+
+  function removeTranslation() {
+    if (!activeLang) return;
+    const next = { ...translations };
+    delete next[activeLang];
+    onChange(next);
+    setActiveLang(null);
+  }
+
+  async function generate() {
+    if (!activeLang) return;
+    abortRef.current?.abort();
+    const ctrl = new AbortController();
+    abortRef.current = ctrl;
+    setGenerating(true);
+    setGenError("");
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) throw new Error("Sign in required.");
+
+      const res = await fetch("/api/translate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({
+          title: postTitle,
+          excerpt: postExcerpt,
+          content: postContent,
+          targetLang: activeLang,
+        }),
+        signal: ctrl.signal,
+      });
+
+      if (!res.ok) throw new Error(await res.text().catch(() => "Translation failed."));
+
+      const reader  = res.body!.getReader();
+      const decoder = new TextDecoder();
+      let   buffer  = "";
+      let   accumulated = "";
+
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() ?? "";
+
+        for (const line of lines) {
+          if (!line.startsWith("data: ")) continue;
+          const raw = line.slice(6).trim();
+          if (raw === "[DONE]") break;
+          try {
+            const evt = JSON.parse(raw) as { type: string; delta?: { type: string; text: string } };
+            if (evt.type === "content_block_delta" && evt.delta?.type === "text_delta") {
+              accumulated += evt.delta.text;
+              const parsed = parseTranslationStream(accumulated);
+              onChange({ ...translations, [activeLang]: parsed });
+            }
+          } catch { /* skip malformed SSE chunks */ }
+        }
+      }
+    } catch (err) {
+      if ((err as Error).name !== "AbortError") {
+        setGenError((err as Error).message || "Translation failed. Please try again.");
+      }
+    } finally {
+      setGenerating(false);
+    }
+  }
+
+  return (
+    <div className="translations-tab">
+      <div className="translations-lang-pills">
+        {availableLangs.map(l => (
+          <button
+            key={l.code}
+            type="button"
+            className={[
+              "translations-pill",
+              activeLang === l.code ? "translations-pill--active" : "",
+              translations[l.code] ? "translations-pill--done" : "",
+            ].filter(Boolean).join(" ")}
+            onClick={() => setActiveLang(l.code)}
+          >
+            {l.label}
+            {translations[l.code] && <span className="translations-pill-dot" aria-hidden="true" />}
+          </button>
+        ))}
+      </div>
+
+      {!activeLang && (
+        <p className="translations-empty">Select a language above to add or edit a translation.</p>
+      )}
+
+      {activeLang && (
+        <div className="translations-editor">
+          <div className="translations-generate-row">
+            <button
+              type="button"
+              className="translations-generate-btn"
+              onClick={generate}
+              disabled={generating || disabled || !postTitle.trim()}
+            >
+              {generating ? "Generating…" : "Generate with AI"}
+            </button>
+            {generating && <span className="translations-generating-hint">Translating — fields will fill in as it streams…</span>}
+          </div>
+          {genError && <div className="blog-editor-error">{genError}</div>}
+
+          <label className="blog-editor-label">Title</label>
+          <input
+            className="blog-editor-input"
+            value={current.title}
+            onChange={e => setField("title", e.target.value)}
+            disabled={disabled}
+            maxLength={150}
+          />
+
+          <label className="blog-editor-label">Excerpt</label>
+          <textarea
+            className="blog-editor-textarea blog-editor-textarea--sm"
+            value={current.excerpt}
+            onChange={e => setField("excerpt", e.target.value)}
+            disabled={disabled}
+            maxLength={300}
+          />
+
+          <label className="blog-editor-label">Content</label>
+          <Suspense fallback={<div style={{ height: 200 }} />}>
+            <RichTextEditor
+              key={activeLang}
+              content={current.content}
+              onChange={html => setField("content", html)}
+              disabled={disabled}
+            />
+          </Suspense>
+
+          {translations[activeLang] && (
+            <button
+              type="button"
+              className="translations-remove-btn"
+              onClick={removeTranslation}
+              disabled={disabled}
+            >
+              Remove {LANGUAGES.find(l => l.code === activeLang)?.label} translation
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
 
 // ── Post editor ───────────────────────────────────────────────────────────────
 function PostEditor({ userId, post, onDone }) {
+  const { t, i18n } = useTranslation();
+  const userLang = i18n?.language?.split("-")[0] ?? "en";
+
   const initialForm = post
-    ? { title: post.title, excerpt: post.excerpt, content: post.content, cover_url: post.cover_url ?? "", published: post.published }
+    ? {
+        title: post.title,
+        excerpt: post.excerpt ?? "",
+        content: post.content ?? "",
+        cover_url: post.cover_url ?? "",
+        published: post.published,
+        translations: (post.translations as Record<string, Translation>) ?? {},
+      }
     : EMPTY_FORM;
+
   const [form, setForm] = useState(initialForm);
+  const [activeTab, setActiveTab] = useState<"content" | "translations">("content");
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
@@ -49,7 +246,6 @@ function PostEditor({ userId, post, onDone }) {
       el.setSelectionRange(pos, pos);
     });
   }, [form.excerpt]);
-  const { t, i18n } = useTranslation();
   const createPost = useCreatePost(userId);
   const updatePost = useUpdatePost(userId);
 
@@ -80,7 +276,6 @@ function PostEditor({ userId, post, onDone }) {
     const contentEmpty = !form.content || form.content === "<p></p>";
     if (contentEmpty) return setError(t("blogDash.errorContentRequired"));
 
-    const userLang = i18n?.language?.split("-")[0] ?? "en";
     const payload = { ...form, published: publish, lang: post?.lang ?? userLang };
     if (post) {
       updatePost.mutate({ postId: post.id, updates: payload }, {
@@ -102,120 +297,172 @@ function PostEditor({ userId, post, onDone }) {
         <h2>{post ? t("blogDash.editPostTitle") : t("blogDash.newPostTitle")}</h2>
       </div>
 
-      <div className="blog-editor-form">
-        <label htmlFor="blog-title" className="blog-editor-label">{t("blogDash.titleLabel")}</label>
-        <input
-          id="blog-title"
-          name="title"
-          className="blog-editor-input"
-          placeholder={t("blogDash.titlePlaceholder")}
-          value={form.title}
-          onChange={e => set("title", e.target.value)}
-          disabled={isPending}
-          maxLength={150}
-        />
+      <div className="blog-editor-tabs-bar">
+        <button
+          type="button"
+          className={`blog-editor-tab${activeTab === "content" ? " blog-editor-tab--active" : ""}`}
+          onClick={() => setActiveTab("content")}
+        >
+          {t("blogDash.tabContent") ?? "Content"}
+        </button>
+        <button
+          type="button"
+          className={`blog-editor-tab${activeTab === "translations" ? " blog-editor-tab--active" : ""}`}
+          onClick={() => setActiveTab("translations")}
+        >
+          {t("blogDash.tabTranslations") ?? "Translations"}
+          {Object.keys(form.translations ?? {}).length > 0 && (
+            <span className="blog-editor-tab-badge">{Object.keys(form.translations).length}</span>
+          )}
+        </button>
+      </div>
 
-        <label htmlFor="blog-excerpt" className="blog-editor-label">{t("blogDash.excerptLabel")} <span className="blog-editor-hint">{t("blogDash.excerptHint")}</span></label>
-        <div style={{ position: "relative" }}>
-          <textarea
-            ref={excerptRef}
-            id="blog-excerpt"
-            name="excerpt"
-            className="blog-editor-textarea blog-editor-textarea--sm"
-            placeholder={t("blogDash.excerptPlaceholder")}
-            value={form.excerpt}
-            onChange={e => set("excerpt", e.target.value)}
+      {activeTab === "content" && (
+        <div className="blog-editor-form">
+          <label htmlFor="blog-title" className="blog-editor-label">{t("blogDash.titleLabel")}</label>
+          <input
+            id="blog-title"
+            name="title"
+            className="blog-editor-input"
+            placeholder={t("blogDash.titlePlaceholder")}
+            value={form.title}
+            onChange={e => set("title", e.target.value)}
             disabled={isPending}
-            maxLength={300}
+            maxLength={150}
           />
-          <button
-            type="button"
-            className="textarea-emoji-btn"
-            onClick={() => setShowExcerptEmoji(v => !v)}
-            title="Emoji"
-            aria-expanded={showExcerptEmoji}
-          >😊</button>
-          {showExcerptEmoji && (
-            <EmojiPickerPopup onSelect={insertExcerptEmoji} onClose={() => setShowExcerptEmoji(false)} align="right" />
-          )}
-        </div>
 
-        <label htmlFor="blog-cover-url" className="blog-editor-label">{t("blogDash.coverLabel")} <span className="blog-editor-hint">{t("blogDash.coverHint")}</span></label>
-        <div className="blog-cover-upload-row">
-          {form.cover_url && (
-            <img src={form.cover_url} className="blog-cover-preview" alt="cover preview" />
-          )}
-          <div className="blog-cover-controls">
-            <input
-              ref={fileInputRef}
-              id="blog-cover-upload"
-              name="cover"
-              type="file"
-              accept="image/jpeg,image/png,image/webp,image/gif"
-              style={{ display: "none" }}
-              onChange={handleCoverUpload}
+          <label htmlFor="blog-excerpt" className="blog-editor-label">{t("blogDash.excerptLabel")} <span className="blog-editor-hint">{t("blogDash.excerptHint")}</span></label>
+          <div style={{ position: "relative" }}>
+            <textarea
+              ref={excerptRef}
+              id="blog-excerpt"
+              name="excerpt"
+              className="blog-editor-textarea blog-editor-textarea--sm"
+              placeholder={t("blogDash.excerptPlaceholder")}
+              value={form.excerpt}
+              onChange={e => set("excerpt", e.target.value)}
+              disabled={isPending}
+              maxLength={300}
             />
             <button
               type="button"
-              className="blog-cover-upload-btn"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={isPending || uploading}
-            >
-              {uploading ? t("blogDash.coverUploading") : t("blogDash.coverUploadBtn")}
-            </button>
-            <span className="blog-editor-hint">{t("blogDash.coverOrUrl")}</span>
-            <input
-              id="blog-cover-url"
-              name="cover_url"
-              className="blog-editor-input"
-              placeholder={t("blogDash.coverPlaceholder")}
-              value={form.cover_url}
-              onChange={e => {
-                const val = e.target.value.trim();
-                if (!val) { set("cover_url", ""); return; }
-                try {
-                  const url = new URL(val);
-                  if (url.protocol === "https:") set("cover_url", val);
-                } catch {
-                  // not a valid URL yet — allow partial typing only if it could become https://
-                  if (val.startsWith("https://")) set("cover_url", val);
-                }
-              }}
-              disabled={isPending || uploading}
+              className="textarea-emoji-btn"
+              onClick={() => setShowExcerptEmoji(v => !v)}
+              title="Emoji"
+              aria-expanded={showExcerptEmoji}
+            >😊</button>
+            {showExcerptEmoji && (
+              <EmojiPickerPopup onSelect={insertExcerptEmoji} onClose={() => setShowExcerptEmoji(false)} align="right" />
+            )}
+          </div>
+
+          <label htmlFor="blog-cover-url" className="blog-editor-label">{t("blogDash.coverLabel")} <span className="blog-editor-hint">{t("blogDash.coverHint")}</span></label>
+          <div className="blog-cover-upload-row">
+            {form.cover_url && (
+              <img src={form.cover_url} className="blog-cover-preview" alt="cover preview" />
+            )}
+            <div className="blog-cover-controls">
+              <input
+                ref={fileInputRef}
+                id="blog-cover-upload"
+                name="cover"
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif"
+                style={{ display: "none" }}
+                onChange={handleCoverUpload}
+              />
+              <button
+                type="button"
+                className="blog-cover-upload-btn"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={isPending || uploading}
+              >
+                {uploading ? t("blogDash.coverUploading") : t("blogDash.coverUploadBtn")}
+              </button>
+              <span className="blog-editor-hint">{t("blogDash.coverOrUrl")}</span>
+              <input
+                id="blog-cover-url"
+                name="cover_url"
+                className="blog-editor-input"
+                placeholder={t("blogDash.coverPlaceholder")}
+                value={form.cover_url}
+                onChange={e => {
+                  const val = e.target.value.trim();
+                  if (!val) { set("cover_url", ""); return; }
+                  try {
+                    const url = new URL(val);
+                    if (url.protocol === "https:") set("cover_url", val);
+                  } catch {
+                    // not a valid URL yet — allow partial typing only if it could become https://
+                    if (val.startsWith("https://")) set("cover_url", val);
+                  }
+                }}
+                disabled={isPending || uploading}
+              />
+              {uploadError && <div className="blog-editor-error" style={{ marginTop: 4 }}>{uploadError}</div>}
+            </div>
+          </div>
+
+          <label className="blog-editor-label">{t("blogDash.contentLabel")}</label>
+          <Suspense fallback={<div style={{ height: 200 }} />}>
+            <RichTextEditor
+              content={form.content}
+              onChange={html => set("content", html)}
+              placeholder={t("blogDash.contentPlaceholder")}
+              disabled={isPending}
             />
-            {uploadError && <div className="blog-editor-error" style={{ marginTop: 4 }}>{uploadError}</div>}
+          </Suspense>
+
+          {error && <div className="blog-editor-error">{error}</div>}
+
+          <div className="blog-editor-actions">
+            <button
+              className="blog-editor-btn blog-editor-btn--draft"
+              onClick={() => handleSave(false)}
+              disabled={isPending}
+            >
+              {isPending ? t("common.saving") : t("blogDash.saveDraft")}
+            </button>
+            <button
+              className="blog-editor-btn blog-editor-btn--publish"
+              onClick={() => handleSave(true)}
+              disabled={isPending}
+            >
+              {isPending ? t("common.saving") : post?.published ? t("blogDash.saveKeepPublished") : t("blogDash.savePublish")}
+            </button>
           </div>
         </div>
+      )}
 
-        <label className="blog-editor-label">{t("blogDash.contentLabel")}</label>
-        <Suspense fallback={<div style={{ height: 200 }} />}>
-          <RichTextEditor
-            content={form.content}
-            onChange={html => set("content", html)}
-            placeholder={t("blogDash.contentPlaceholder")}
+      {activeTab === "translations" && (
+        <div className="blog-editor-form">
+          <TranslationsTab
+            translations={form.translations ?? {}}
+            onChange={tl => set("translations", tl)}
+            primaryLang={post?.lang ?? userLang}
+            postTitle={form.title}
+            postExcerpt={form.excerpt}
+            postContent={form.content}
             disabled={isPending}
           />
-        </Suspense>
-
-        {error && <div className="blog-editor-error">{error}</div>}
-
-        <div className="blog-editor-actions">
-          <button
-            className="blog-editor-btn blog-editor-btn--draft"
-            onClick={() => handleSave(false)}
-            disabled={isPending}
-          >
-            {isPending ? t("common.saving") : t("blogDash.saveDraft")}
-          </button>
-          <button
-            className="blog-editor-btn blog-editor-btn--publish"
-            onClick={() => handleSave(true)}
-            disabled={isPending}
-          >
-            {isPending ? t("common.saving") : post?.published ? t("blogDash.saveKeepPublished") : t("blogDash.savePublish")}
-          </button>
+          <div className="blog-editor-actions">
+            <button
+              className="blog-editor-btn blog-editor-btn--draft"
+              onClick={() => handleSave(false)}
+              disabled={isPending}
+            >
+              {isPending ? t("common.saving") : t("blogDash.saveDraft")}
+            </button>
+            <button
+              className="blog-editor-btn blog-editor-btn--publish"
+              onClick={() => handleSave(true)}
+              disabled={isPending}
+            >
+              {isPending ? t("common.saving") : post?.published ? t("blogDash.saveKeepPublished") : t("blogDash.savePublish")}
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
