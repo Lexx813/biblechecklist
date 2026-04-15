@@ -1,13 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReportWebVitals } from "next/web-vitals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import dynamic from "next/dynamic";
-
-const ReactQueryDevtools = process.env.NODE_ENV === "development"
-  ? dynamic(() => import("@tanstack/react-query-devtools").then(m => ({ default: m.ReactQueryDevtools })), { ssr: false })
-  : () => null;
 import { ErrorBoundary } from "../src/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react";
 import { toast } from "../src/lib/toast";
@@ -134,6 +129,29 @@ function SideEffects() {
   return null;
 }
 
+function DevtoolsPortal() {
+  const [mounted, setMounted] = useState(false);
+  const elRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const el = document.createElement("div");
+    el.style.cssText = "position:fixed;bottom:0;right:0;z-index:99999;pointer-events:auto;";
+    document.body.appendChild(el);
+    elRef.current = el;
+    setMounted(true);
+    return () => { document.body.removeChild(el); };
+  }, []);
+
+  if (!mounted || !elRef.current) return null;
+
+  const { createPortal } = require("react-dom");
+  const { ReactQueryDevtools } = require("@tanstack/react-query-devtools");
+  return createPortal(
+    <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />,
+    elRef.current
+  );
+}
+
 export default function Providers({ children }) {
   return (
     <ErrorBoundary>
@@ -142,7 +160,7 @@ export default function Providers({ children }) {
         <WebVitals />
         {children}
         <Analytics />
-        <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-right" />
+        {process.env.NODE_ENV === "development" && <DevtoolsPortal />}
       </QueryClientProvider>
     </ErrorBoundary>
   );
