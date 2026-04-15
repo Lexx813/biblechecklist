@@ -50,12 +50,10 @@ function readingsLabel(readings: Array<{ bookIndex: number; chapter: number }> |
 interface Props {
   userId?: string;
   navigate: (page: string) => void;
-  isPremium?: boolean;
-  onUpgrade?: () => void;
   lang?: string;
 }
 
-export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade, lang = "en" }: Props) {
+export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props) {
   const { data: plans = [], isLoading: plansLoading } = useMyPlans();
   const activePlan = plans.find(p => !p.is_paused && !p.completed_at) ?? null;
   const activePlanTotalDays = activePlan ? getTemplateOrCustom(activePlan).totalDays : undefined;
@@ -106,14 +104,20 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
   }, [activePlan, completions]);
 
   const todayDone = doneSet.has(currentDay);
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const [dismissed, setDismissed] = useState(() => localStorage.getItem("tf-dismissed") === todayStr);
 
   function handleMarkDone() {
     if (todayDone) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (unmarkDay.mutate as any)(currentDay);
+      localStorage.removeItem("tf-dismissed");
+      setDismissed(false);
     } else {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (markDay.mutate as any)(currentDay);
+      localStorage.setItem("tf-dismissed", todayStr);
+      setDismissed(true);
     }
   }
 
@@ -144,11 +148,38 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
           </div>
           <button
             className="tf-no-plan-cta"
-            onClick={() => isPremium ? navigate("readingPlans") : onUpgrade?.()}
+            onClick={() => navigate("readingPlans")}
           >
-            {isPremium ? "Browse Plans" : "Unlock Plans"}
+            Browse Plans
           </button>
         </div>
+        {lastRead && (
+          <button className="tf-continue" onClick={() => navigate("main")}>
+            <span className="tf-continue-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </span>
+            <div className="tf-continue-body">
+              <div className="tf-continue-title">Continue — {BOOKS[lastRead.bookIndex]?.name} {lastRead.chapter}</div>
+              <div className="tf-continue-sub">Last read {formatDate(lastRead.ts)}</div>
+            </div>
+            <span className="tf-continue-arrow">›</span>
+          </button>
+        )}
+      </div>
+    );
+  }
+
+  if (dismissed && todayDone) {
+    return (
+      <div>
+        <button
+          className="tf-dismissed-bar"
+          onClick={() => { setDismissed(false); localStorage.removeItem("tf-dismissed"); }}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Today&apos;s reading done — {readingsLabel(todayReadings)}</span>
+          <span className="tf-dismissed-expand">Show</span>
+        </button>
         {lastRead && (
           <button className="tf-continue" onClick={() => navigate("main")}>
             <span className="tf-continue-icon">
@@ -191,37 +222,23 @@ export default function TodaysFocusCard({ userId, navigate, isPremium, onUpgrade
         </div>
 
         {/* Streak freeze */}
-        {isPremium ? (
-          <div className="tf-freeze-row">
-            <span className="tf-freeze-token-count">
-              ❄️ {freezeStatus?.tokens ?? 2} {(freezeStatus?.tokens ?? 2) === 1 ? "freeze" : "freezes"} left
-            </span>
-            {canFreeze && (
-              <button
-                className="tf-freeze-btn"
-                onClick={() => setShowFreezeConfirm(true)}
-                disabled={applyFreeze.isPending}
-              >
-                Freeze streak
-              </button>
-            )}
-            {(freezeStatus?.tokens ?? 0) === 0 && (
-              <span style={{ opacity: 0.5, fontSize: "0.78rem" }}>No freezes left this month</span>
-            )}
-          </div>
-        ) : (
-          <button
-            className="tf-freeze-locked"
-            onClick={() => onUpgrade?.()}
-            aria-label="Streak Freeze — Premium feature"
-          >
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <rect x="3" y="11" width="18" height="11" rx="2"/>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-            </svg>
-            ✦ Streak Freeze (Premium)
-          </button>
-        )}
+        <div className="tf-freeze-row">
+          <span className="tf-freeze-token-count">
+            ❄️ {freezeStatus?.tokens ?? 2} {(freezeStatus?.tokens ?? 2) === 1 ? "freeze" : "freezes"} left
+          </span>
+          {canFreeze && (
+            <button
+              className="tf-freeze-btn"
+              onClick={() => setShowFreezeConfirm(true)}
+              disabled={applyFreeze.isPending}
+            >
+              Freeze streak
+            </button>
+          )}
+          {(freezeStatus?.tokens ?? 0) === 0 && (
+            <span style={{ opacity: 0.5, fontSize: "0.78rem" }}>No freezes left this month</span>
+          )}
+        </div>
 
         {showFreezeConfirm && (
           <div className="freeze-confirm-overlay" onClick={() => setShowFreezeConfirm(false)}>

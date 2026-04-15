@@ -163,6 +163,42 @@
 }
 .tf-no-plan-cta:hover { background: #6d28d9; }
 
+/* ── Dismissed bar (today done) ─────────────────────────────────────────── */
+
+.tf-dismissed-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #22c55e;
+  transition: background var(--dur-fast);
+  text-align: left;
+}
+.tf-dismissed-bar:hover { background: rgba(34, 197, 94, 0.14); }
+.tf-dismissed-expand {
+  margin-left: auto;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity var(--dur-fast);
+}
+.tf-dismissed-bar:hover .tf-dismissed-expand { opacity: 1; }
+
+[data-theme="light"] .tf-dismissed-bar {
+  background: rgba(34, 197, 94, 0.06);
+  border-color: rgba(34, 197, 94, 0.18);
+  color: #16a34a;
+}
+[data-theme="light"] .tf-dismissed-bar:hover { background: rgba(34, 197, 94, 0.12); }
+
 /* ── Continue Reading row ────────────────────────────────────────────────── */
 
 .tf-continue {
