@@ -79,7 +79,7 @@ export const postsApi = {
   listComments: async (postId: string) => {
     const { data, error } = await supabase
       .from("user_post_comments")
-      .select("id, post_id, author_id, content, created_at")
+      .select("id, post_id, author_id, content, created_at, parent_id, like_count")
       .eq("post_id", postId)
       .order("created_at", { ascending: true });
     if (error) throw new Error(error.message);
@@ -93,13 +93,15 @@ export const postsApi = {
     return data.map(c => ({ ...c, author: pm[c.author_id] ?? null }));
   },
 
-  addComment: async (postId: string, content: string) => {
+  addComment: async (postId: string, content: string, parentId?: string) => {
     assertNoPII(content);
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");
+    const row: Record<string, unknown> = { post_id: postId, author_id: user.id, content: content.trim() };
+    if (parentId) row.parent_id = parentId;
     const { data, error } = await supabase
       .from("user_post_comments")
-      .insert({ post_id: postId, author_id: user.id, content: content.trim() })
+      .insert(row)
       .select()
       .single();
     if (error) throw new Error(error.message);
@@ -109,6 +111,45 @@ export const postsApi = {
   deleteComment: async (commentId: string) => {
     const { error } = await supabase.from("user_post_comments").delete().eq("id", commentId);
     if (error) throw new Error(error.message);
+  },
+
+  getMyCommentLikes: async (postId: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return [] as string[];
+    // Get all comment IDs for this post that the user has liked
+    const { data: comments } = await supabase
+      .from("user_post_comments")
+      .select("id")
+      .eq("post_id", postId);
+    if (!comments?.length) return [] as string[];
+    const commentIds = comments.map(c => c.id);
+    const { data, error } = await supabase
+      .from("user_post_comment_likes")
+      .select("comment_id")
+      .eq("user_id", user.id)
+      .in("comment_id", commentIds);
+    if (error) return [] as string[];
+    return (data ?? []).map(r => r.comment_id as string);
+  },
+
+  toggleCommentLike: async (commentId: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+    const { data: existing } = await supabase
+      .from("user_post_comment_likes")
+      .select("id")
+      .eq("comment_id", commentId)
+      .eq("user_id", user.id)
+      .maybeSingle();
+    if (existing) {
+      const { error } = await supabase.from("user_post_comment_likes").delete().eq("id", existing.id);
+      if (error) throw new Error(error.message);
+      return { liked: false };
+    } else {
+      const { error } = await supabase.from("user_post_comment_likes").insert({ comment_id: commentId, user_id: user.id });
+      if (error) throw new Error(error.message);
+      return { liked: true };
+    }
   },
 
   // ── Reactions ────────────────────────────────────────────────────────────

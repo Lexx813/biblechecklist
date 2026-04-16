@@ -69,12 +69,33 @@ export function usePostComments(postId: string | null) {
 export function useAddComment(postId: string) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (content: string) => postsApi.addComment(postId, content),
+    mutationFn: ({ content, parentId }: { content: string; parentId?: string }) =>
+      postsApi.addComment(postId, content, parentId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["postComments", postId] });
       queryClient.invalidateQueries({ queryKey: ["publicFeed"] });
       queryClient.invalidateQueries({ queryKey: ["friendPosts"] });
       queryClient.invalidateQueries({ queryKey: ["userPosts"] });
+    },
+  });
+}
+
+export function useMyCommentLikes(postId: string | null) {
+  return useQuery({
+    queryKey: ["myCommentLikes", postId],
+    queryFn: () => postsApi.getMyCommentLikes(postId!),
+    enabled: !!postId,
+    staleTime: 60_000,
+  });
+}
+
+export function useToggleCommentLike(postId: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (commentId: string) => postsApi.toggleCommentLike(commentId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["postComments", postId] });
+      queryClient.invalidateQueries({ queryKey: ["myCommentLikes", postId] });
     },
   });
 }

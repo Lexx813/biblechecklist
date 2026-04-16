@@ -5,8 +5,77 @@ import {
   useDeleteComment,
   usePostReactions,
   useToggleReaction,
+  useMyCommentLikes,
+  useToggleCommentLike,
 } from "../hooks/usePosts";
 import { assertNoPII } from "../lib/pii";
+
+// ── Comment row (used for both top-level comments and replies) ─────────────
+function CommentRow({ c, userId, liked, navigate, onLike, onReply, onDelete, deletePending, isReply }: {
+  c: { id: string; author_id: string; content: string; created_at: string; like_count: number; author: { id: string; display_name: string | null; avatar_url: string | null } | null };
+  userId?: string;
+  liked: boolean;
+  navigate: (page: string, params?: Record<string, unknown>) => void;
+  onLike: () => void;
+  onReply: () => void;
+  onDelete: () => void;
+  deletePending: boolean;
+  isReply?: boolean;
+}) {
+  const cName = c.author?.display_name || "Someone";
+  const avatarSize = isReply ? "size-6" : "size-7";
+  return (
+    <div className="group/comment flex gap-2">
+      <div className={`mt-0.5 shrink-0 cursor-pointer ${avatarSize}`} onClick={() => navigate("publicProfile", { userId: c.author_id })}>
+        {c.author?.avatar_url
+          ? <img src={c.author.avatar_url} alt="" className={`${avatarSize} rounded-full object-cover`} loading="lazy" />
+          : <div className={`flex ${avatarSize} items-center justify-center rounded-full bg-[var(--accent)] text-[10px] font-bold text-white`}>{cName[0].toUpperCase()}</div>}
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="inline-block rounded-2xl bg-[var(--hover-bg)] px-3 py-1.5">
+          <span className="cursor-pointer text-xs font-bold text-[var(--text-primary)] hover:underline" onClick={() => navigate("publicProfile", { userId: c.author_id })}>
+            {cName}
+          </span>
+          <p className="m-0 text-[13px] leading-snug text-[var(--text-primary)]">{c.content}</p>
+        </div>
+        {/* Actions row */}
+        <div className="mt-0.5 flex items-center gap-3 pl-1">
+          <span className="text-[11px] text-[var(--text-muted)]">{timeAgo(c.created_at)}</span>
+          {/* Like */}
+          <button
+            className={`flex cursor-pointer items-center gap-1 border-none bg-transparent p-0 text-[11px] font-semibold transition-colors duration-150 ${liked ? "text-red-400" : "text-[var(--text-muted)] hover:text-red-400"}`}
+            onClick={() => { if (userId) onLike(); }}
+            aria-label="Like comment"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill={liked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+            {c.like_count > 0 && <span>{c.like_count}</span>}
+          </button>
+          {/* Reply — only on top-level */}
+          {!isReply && (
+            <button
+              className="cursor-pointer border-none bg-transparent p-0 text-[11px] font-semibold text-[var(--text-muted)] transition-colors duration-150 hover:text-[var(--text-primary)]"
+              onClick={onReply}
+            >
+              Reply
+            </button>
+          )}
+          {/* Delete */}
+          {c.author_id === userId && (
+            <button
+              className="cursor-pointer border-none bg-transparent p-0 text-[11px] font-semibold text-[var(--text-muted)] opacity-0 transition-opacity duration-150 hover:text-red-400 group-hover/comment:opacity-100"
+              onClick={onDelete}
+              disabled={deletePending}
+            >
+              Delete
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // ── Quick-react emoji palette ───────────────────────────────────────────────
 const EMOJI_PALETTE = ["❤️", "😂", "😮", "😢", "🙏", "👏"];
@@ -36,7 +105,10 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [commentError, setCommentError] = useState("");
+  const [replyingTo, setReplyingTo] = useState<{ id: string; name: string } | null>(null);
+  const [replyText, setReplyText] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const replyRef = useRef<HTMLInputElement>(null);
   const pickerRef = useRef<HTMLDivElement>(null);
 
   const { data: comments = [], isLoading: commentsLoading } = usePostComments(showComments ? postId : null);
@@ -44,6 +116,10 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
   const deleteComment = useDeleteComment(postId);
   const { data: reactions = [] } = usePostReactions(postId);
   const toggleReaction = useToggleReaction(postId);
+  const { data: likedCommentIds = [] } = useMyCommentLikes(showComments ? postId : null);
+  const toggleCommentLike = useToggleCommentLike(postId);
+
+  const likedSet = new Set(likedCommentIds);
 
   // Which emojis has the current user reacted with?
   const myReactions = new Set(reactions.filter(r => r.user_id === userId).map(r => r.emoji));
@@ -64,19 +140,33 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
     const text = commentText.trim();
     if (!text || !userId) return;
     setCommentError("");
-    try {
-      assertNoPII(text);
-    } catch (err: unknown) {
+    try { assertNoPII(text); } catch (err: unknown) {
       setCommentError(err instanceof Error ? err.message : "Invalid content");
       return;
     }
-    addComment.mutate(text, {
-      onSuccess: () => {
-        setCommentText("");
-        setCommentError("");
-      },
+    addComment.mutate({ content: text }, {
+      onSuccess: () => { setCommentText(""); setCommentError(""); },
       onError: (err) => setCommentError(err.message),
     });
+  }
+
+  function handleSubmitReply() {
+    const text = replyText.trim();
+    if (!text || !userId || !replyingTo) return;
+    setCommentError("");
+    try { assertNoPII(text); } catch (err: unknown) {
+      setCommentError(err instanceof Error ? err.message : "Invalid content");
+      return;
+    }
+    addComment.mutate({ content: text, parentId: replyingTo.id }, {
+      onSuccess: () => { setReplyText(""); setReplyingTo(null); setCommentError(""); },
+      onError: (err) => setCommentError(err.message),
+    });
+  }
+
+  function startReply(commentId: string, name: string) {
+    setReplyingTo({ id: commentId, name });
+    setTimeout(() => replyRef.current?.focus(), 80);
   }
 
   // Build display reactions from reactionCounts (fast, from denormalized column)
@@ -171,7 +261,6 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
       {/* ── Comments section ── */}
       {showComments && (
         <div className="border-t border-[var(--border)] px-4 pb-3 pt-2">
-          {/* Comments list */}
           {commentsLoading ? (
             <div className="flex items-center justify-center py-4">
               <div className="size-5 animate-spin rounded-full border-2 border-[var(--border)] border-t-[var(--accent)]" />
@@ -179,61 +268,86 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
           ) : comments.length === 0 ? (
             <p className="py-3 text-center text-xs text-[var(--text-muted)]">No comments yet. Be the first!</p>
           ) : (
-            <div className="flex max-h-72 flex-col gap-2.5 overflow-y-auto py-1" style={{ scrollbarWidth: "thin" }}>
-              {comments.map((c: { id: string; author_id: string; content: string; created_at: string; author: { id: string; display_name: string | null; avatar_url: string | null } | null }) => {
-                const cName = c.author?.display_name || "Someone";
-                const cInitial = cName[0].toUpperCase();
-                return (
-                  <div key={c.id} className="group/comment flex gap-2.5">
-                    {/* Avatar */}
-                    <div
-                      className="mt-0.5 shrink-0 cursor-pointer"
-                      onClick={() => navigate("publicProfile", { userId: c.author_id })}
-                    >
-                      {c.author?.avatar_url ? (
-                        <img src={c.author.avatar_url} alt="" className="size-7 rounded-full object-cover" loading="lazy" />
-                      ) : (
-                        <div className="flex size-7 items-center justify-center rounded-full bg-[var(--accent)] text-[10px] font-bold text-white">{cInitial}</div>
+            <div className="flex max-h-80 flex-col gap-3 overflow-y-auto py-1" style={{ scrollbarWidth: "thin" }}>
+              {comments
+                .filter((c: any) => !c.parent_id)
+                .map((c: any) => {
+                  const replies = comments.filter((r: any) => r.parent_id === c.id);
+                  return (
+                    <div key={c.id}>
+                      <CommentRow
+                        c={c} userId={userId} liked={likedSet.has(c.id)}
+                        navigate={navigate}
+                        onLike={() => toggleCommentLike.mutate(c.id)}
+                        onReply={() => startReply(c.id, c.author?.display_name || "Someone")}
+                        onDelete={() => deleteComment.mutate(c.id)}
+                        deletePending={deleteComment.isPending}
+                      />
+                      {/* Replies */}
+                      {replies.length > 0 && (
+                        <div className="ml-9 mt-2 flex flex-col gap-2 border-l-2 border-[var(--border)] pl-3">
+                          {replies.map((r: any) => (
+                            <CommentRow
+                              key={r.id} c={r} userId={userId} liked={likedSet.has(r.id)}
+                              navigate={navigate}
+                              onLike={() => toggleCommentLike.mutate(r.id)}
+                              onReply={() => startReply(c.id, c.author?.display_name || "Someone")}
+                              onDelete={() => deleteComment.mutate(r.id)}
+                              deletePending={deleteComment.isPending}
+                              isReply
+                            />
+                          ))}
+                        </div>
                       )}
                     </div>
-                    {/* Bubble */}
-                    <div className="min-w-0 flex-1">
-                      <div className="inline-block rounded-2xl bg-[var(--hover-bg)] px-3 py-1.5">
-                        <span
-                          className="cursor-pointer text-xs font-bold text-[var(--text-primary)] hover:underline"
-                          onClick={() => navigate("publicProfile", { userId: c.author_id })}
-                        >
-                          {cName}
-                        </span>
-                        <p className="m-0 text-[13px] leading-snug text-[var(--text-primary)]">{c.content}</p>
-                      </div>
-                      <div className="mt-0.5 flex items-center gap-3 pl-3">
-                        <span className="text-[11px] text-[var(--text-muted)]">{timeAgo(c.created_at)}</span>
-                        {c.author_id === userId && (
-                          <button
-                            className="cursor-pointer border-none bg-transparent p-0 text-[11px] font-semibold text-[var(--text-muted)] opacity-0 transition-opacity duration-150 hover:text-red-400 group-hover/comment:opacity-100"
-                            onClick={() => deleteComment.mutate(c.id)}
-                            disabled={deleteComment.isPending}
-                          >
-                            Delete
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           )}
 
-          {/* Comment input */}
+          {/* Reply input */}
+          {replyingTo && userId && (
+            <div className="mt-2">
+              <div className="mb-1 flex items-center gap-1.5">
+                <span className="text-[11px] text-[var(--text-muted)]">↩ Replying to <strong className="text-[var(--text-primary)]">{replyingTo.name}</strong></span>
+                <button
+                  className="ml-1 cursor-pointer border-none bg-transparent p-0 text-[11px] text-[var(--text-muted)] hover:text-red-400"
+                  onClick={() => { setReplyingTo(null); setReplyText(""); }}
+                >✕ Cancel</button>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  ref={replyRef}
+                  type="text"
+                  className="min-h-[36px] flex-1 rounded-full border border-[var(--accent)] bg-[var(--hover-bg)] px-3.5 py-1.5 text-[13px] text-[var(--text-primary)] outline-none placeholder:text-[var(--text-muted)]"
+                  placeholder={`Reply to ${replyingTo.name}…`}
+                  maxLength={2000}
+                  value={replyText}
+                  onChange={e => setReplyText(e.target.value)}
+                  onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSubmitReply(); } }}
+                />
+                <button
+                  className="flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full border-none bg-[var(--accent)] text-white transition-opacity duration-150 hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                  onClick={handleSubmitReply}
+                  disabled={!replyText.trim() || addComment.isPending}
+                  aria-label="Send reply"
+                >
+                  {addComment.isPending
+                    ? <div className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                    : <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Main comment input */}
           {userId ? (
             <div className="mt-2 flex items-center gap-2">
               <input
                 ref={inputRef}
                 type="text"
                 className="min-h-[36px] flex-1 rounded-full border border-[var(--border)] bg-[var(--hover-bg)] px-3.5 py-1.5 text-[13px] text-[var(--text-primary)] outline-none transition-colors duration-150 placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
-                placeholder="Write a comment..."
+                placeholder="Write a comment…"
                 maxLength={2000}
                 value={commentText}
                 onChange={e => setCommentText(e.target.value)}
@@ -245,11 +359,9 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
                 disabled={!commentText.trim() || addComment.isPending}
                 aria-label="Send comment"
               >
-                {addComment.isPending ? (
-                  <div className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                ) : (
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-                )}
+                {addComment.isPending
+                  ? <div className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                  : <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>}
               </button>
             </div>
           ) : (
