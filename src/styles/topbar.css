@@ -283,4 +283,6 @@
 @media (max-width: 640px) {
   .topbar-wordmark { display: none; }
   .topbar-search-btn { max-width: 160px; }
+  /* Nav shortcut buttons hidden on mobile — use CommandPalette instead */
+  .topbar-btn--nav { display: none; }
 }

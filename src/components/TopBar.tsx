@@ -151,7 +151,7 @@ export default function TopBar({
           {/* Post a Video — approved creators and admins only */}
           {(profile?.is_approved_creator || profile?.is_admin) && (
             <button
-              className="topbar-btn"
+              className="topbar-btn topbar-btn--nav"
               onClick={() => navigate("videosDash")}
               aria-label="Post a video"
               data-tip="Post a Video"
@@ -165,7 +165,7 @@ export default function TopBar({
 
           {/* Feed */}
           <button
-            className={`topbar-btn${currentPage === "feed" ? " topbar-btn--active" : ""}`}
+            className={`topbar-btn topbar-btn--nav${currentPage === "feed" ? " topbar-btn--active" : ""}`}
             onClick={() => navigate("feed")}
             aria-label="Feed"
             data-tip="Feed"
@@ -175,7 +175,7 @@ export default function TopBar({
 
           {/* Bookmarks */}
           <button
-            className={`topbar-btn${currentPage === "bookmarks" ? " topbar-btn--active" : ""}`}
+            className={`topbar-btn topbar-btn--nav${currentPage === "bookmarks" ? " topbar-btn--active" : ""}`}
             onClick={() => navigate("bookmarks")}
             aria-label="Bookmarks"
             data-tip="Bookmarks"
@@ -185,7 +185,7 @@ export default function TopBar({
 
           {/* Study Topics */}
           <button
-            className={`topbar-btn${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " topbar-btn--active" : ""}`}
+            className={`topbar-btn topbar-btn--nav${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " topbar-btn--active" : ""}`}
             onClick={() => navigate("studyTopics")}
             aria-label="Study Topics"
             data-tip="Study Topics"
