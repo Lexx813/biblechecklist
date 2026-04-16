@@ -16,6 +16,9 @@ const AdminInline         = lazy(() => import("./admin/AdminPage"));
 const ProfileInline       = lazy(() => import("./profile/ProfilePage"));
 const MessagesInline      = lazy(() => import("./messages/MessagesPage"));
 const ChecklistInline     = lazy(() => import("./ChecklistPage"));
+const StudyTopicsInline   = lazy(() => import("./studytopics/StudyTopicsInline"));
+const ActivityFeedInline  = lazy(() => import("./social/ActivityFeedInline"));
+const BookmarksInline     = lazy(() => import("./bookmarks/BookmarksInline"));
 import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import type { BlogPost } from "../api/blog";
@@ -155,9 +158,17 @@ const NAV_ITEMS_2 = [
     key: "studyTopics", labelKey: "nav.studyTopics", bg: "#2e9e6b",
     icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>,
   },
+  {
+    key: "feed", labelKey: "nav.feed", bg: "#0ea5e9",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>,
+  },
+  {
+    key: "bookmarks", labelKey: "nav.bookmarks", bg: "#f59e0b",
+    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>,
+  },
 ];
 
-const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile"]);
+const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile", "studyTopics", "feed", "bookmarks"]);
 
 const NAV_SHORTCUTS = [
   {
@@ -540,6 +551,21 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {activePanel === "messages" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
               <MessagesInline user={user} navigate={panelNavigate} initialConv={panelParams.conversationId ? { conversation_id: panelParams.conversationId, other_display_name: panelParams.otherDisplayName ?? null, other_avatar_url: panelParams.otherAvatarUrl ?? null } : null} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
+            </Suspense>
+          )}
+          {activePanel === "studyTopics" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <StudyTopicsInline navigate={panelNavigate} />
+            </Suspense>
+          )}
+          {activePanel === "feed" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <ActivityFeedInline user={user} navigate={panelNavigate} />
+            </Suspense>
+          )}
+          {activePanel === "bookmarks" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <BookmarksInline user={user} navigate={panelNavigate} />
             </Suspense>
           )}
           {/* ── Home feed (hidden when a panel is active) ── */}
