@@ -73,6 +73,9 @@ function PeopleYouMayKnow({ userId, navigate }) {
             >
               {person.display_name}
             </button>
+            <span style={{ fontSize: 11, color: "var(--text-muted)", marginRight: "auto" }}>
+              Suggested for you
+            </span>
             <button
               className="feed-suggestion-follow-btn"
               onClick={() => toggleFollow.mutate(person.id)}

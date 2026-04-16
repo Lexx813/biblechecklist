@@ -899,7 +899,17 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 ))}
               </div>
             ) : friends.length === 0 ? (
-              <div className="px-4 pb-4 pt-3 text-[13px] text-[rgba(240,234,255,0.6)] [html[data-theme=light]_&]:text-[rgba(30,16,53,0.68)]">Add friends to see their activity here.</div>
+              <div style={{ padding: "12px 16px", display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}>
+                <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>
+                  Connect with fellow Bible students to see their activity here.
+                </p>
+                <button
+                  style={{ fontSize: 12, fontWeight: 700, color: "#a78bfa", background: "none", border: "none", padding: 0, cursor: "pointer", fontFamily: "inherit" }}
+                  onClick={() => navigate("friends")}
+                >
+                  Find friends →
+                </button>
+              </div>
             ) : (
               <>
                 {shownFriends.map(f => {
@@ -949,9 +959,14 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 ))}
               </div>
             ) : whoError ? (
-              <div className="px-4 pb-4 pt-3 text-[13px] text-[rgba(240,234,255,0.6)]">Unable to load members.</div>
+              <p style={{ fontSize: 12, color: "var(--text-muted)", padding: "8px 16px", textAlign: "center", margin: 0 }}>
+                Could not load members
+              </p>
             ) : whoMembers.length === 0 ? (
-              <div className="px-4 pb-4 pt-3 text-[13px] text-[rgba(240,234,255,0.6)]">No one has been active recently.</div>
+              <div style={{ padding: "8px 16px 12px", textAlign: "center" }}>
+                <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 4px" }}>No one active right now</p>
+                <p style={{ fontSize: 11, color: "var(--text-muted)", margin: 0, opacity: 0.7 }}>Share your reading progress to show up here</p>
+              </div>
             ) : (
               <>
                 {whoMembers.slice(0, 6).map(m => {

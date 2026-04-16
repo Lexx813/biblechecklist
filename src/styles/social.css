@@ -75,7 +75,7 @@
   width: 28px;
   height: 28px;
   border: 3px solid var(--border);
-  border-top-color: var(--teal);
+  border-top-color: #7c3aed;
   border-radius: 50%;
   animation: feed-spin 0.7s linear infinite;
 }
@@ -111,11 +111,11 @@
 .feed-suggestion-name:hover { color: var(--teal); }
 .feed-suggestion-follow-btn {
   font-size: 12px; font-weight: 700; padding: 5px 12px;
-  border-radius: 20px; border: 1.5px solid var(--teal);
-  background: transparent; color: var(--teal); cursor: pointer;
+  border-radius: 20px; border: 1.5px solid #7c3aed;
+  background: transparent; color: #7c3aed; cursor: pointer;
   flex-shrink: 0; transition: background 0.15s, color 0.15s;
 }
-.feed-suggestion-follow-btn:hover { background: var(--teal); color: white; }
+.feed-suggestion-follow-btn:hover { background: #7c3aed; color: white; }
 .feed-suggestion-follow-btn:disabled { opacity: 0.5; }
 
 /* Feed list */
@@ -144,7 +144,7 @@
 .feed-item--thread:hover {
   border-color: var(--teal);
   background: var(--teal-soft);
-  transform: translateX(3px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-sm);
 }
 
@@ -167,7 +167,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+  background: linear-gradient(135deg, #4f2d85, #7c3aed);
   color: #fff;
   font-size: 15px;
   font-weight: 800;
@@ -489,9 +489,9 @@
   color: var(--text-primary);
   line-height: 1.6;
   margin: 6px 0 0;
-  padding: 10px 12px;
-  background: var(--teal-soft);
-  border-radius: var(--radius-sm);
+  background: transparent;
+  border-left: 3px solid rgba(124, 58, 237, 0.4);
+  padding-left: 12px;
   white-space: pre-wrap;
   word-break: break-word;
 }

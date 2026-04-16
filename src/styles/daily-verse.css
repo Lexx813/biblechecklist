@@ -134,3 +134,58 @@
 .daily-verse-ai-panel {
   margin-top: 10px;
 }
+
+/* ── Light theme overrides ──────────────────────────────────────────────── */
+[data-theme="light"] .daily-verse {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(167, 139, 250, 0.12) 100%);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+[data-theme="light"] .daily-verse::before {
+  color: rgba(124, 58, 237, 0.12);
+}
+
+[data-theme="light"] .daily-verse-text {
+  color: #1e1035;
+}
+
+[data-theme="light"] .daily-verse-ref {
+  color: #7c3aed;
+}
+
+[data-theme="light"] .daily-verse-label {
+  color: #7c3aed;
+}
+
+[data-theme="light"] .daily-verse-nav {
+  border-top-color: rgba(124, 58, 237, 0.15);
+}
+
+[data-theme="light"] .daily-verse-dot::after {
+  background: rgba(124, 58, 237, 0.25);
+}
+
+[data-theme="light"] .daily-verse-dot.active::after {
+  background: #7c3aed;
+}
+
+[data-theme="light"] .daily-verse-arrow {
+  background: rgba(124, 58, 237, 0.08);
+  border-color: rgba(124, 58, 237, 0.2);
+  color: #7c3aed;
+}
+
+[data-theme="light"] .daily-verse-arrow:hover {
+  background: rgba(124, 58, 237, 0.15);
+}
+
+[data-theme="light"] .daily-verse-ai-btn {
+  background: rgba(124, 58, 237, 0.08);
+  border-color: rgba(124, 58, 237, 0.2);
+  color: #7c3aed;
+}
+
+[data-theme="light"] .daily-verse-ai-btn:hover {
+  background: rgba(124, 58, 237, 0.15);
+  border-color: rgba(124, 58, 237, 0.35);
+}

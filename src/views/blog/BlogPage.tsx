@@ -121,7 +121,10 @@ function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate 
           ))}
         </div>
       ) : comments.length === 0 ? (
-        <p className="blog-comments-empty">{t("blog.commentsNone")}</p>
+        <div className="blog-comments-empty">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{margin:"0 auto 8px",display:"block",opacity:0.4}}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Be the first to share a reflection
+        </div>
       ) : (
         <div className="blog-comments-list">
           {comments.filter(c => !blockedSet.has(c.author_id)).map(c => (

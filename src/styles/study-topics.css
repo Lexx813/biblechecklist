@@ -11,18 +11,15 @@
 .stp-header {
   max-width: 860px;
   margin: 0 auto;
-  padding: 28px 20px 20px;
+  padding: 28px 32px;
   position: relative;
   margin-bottom: 24px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(91, 33, 182, 0.08) 100%);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  border-radius: var(--radius-lg, 12px);
 }
 
-.stp-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 20px; right: 20px;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(106,61,170,0.4), rgba(106,61,170,0.1), transparent);
-}
+/* .stp-header::after separator removed — hero band has its own border */
 
 .stp-nav-back {
   align-self: flex-start;
@@ -83,6 +80,7 @@
   cursor: pointer;
   transition: border-color var(--dur-base) var(--ease-out),
               box-shadow var(--dur-base) var(--ease-out),
+              background var(--dur-base) var(--ease-out),
               transform var(--dur-base) var(--ease-spring);
   text-align: left;
   display: flex;
@@ -90,12 +88,14 @@
   gap: 8px;
   font-family: inherit;
   position: relative;
+  min-height: 130px;
 }
 
 .stp-card:hover {
   border-color: var(--teal);
   box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  background: rgba(124, 58, 237, 0.06);
+  transform: translateY(-3px);
 }
 
 .stp-card-icon {
@@ -121,7 +121,7 @@
 .stp-card-arrow {
   margin-top: auto;
   font-size: 13px;
-  color: var(--accent);
+  color: var(--teal, #7c3aed);
   font-weight: 600;
   padding-top: 6px;
 }
@@ -356,9 +356,9 @@ a.std-scripture-ref:hover {
 }
 
 .stp-tab--active {
-  background: var(--accent);
+  background: var(--teal, #7c3aed);
   color: #fff;
-  border-color: var(--accent);
+  border-color: var(--teal, #7c3aed);
 }
 
 .stp-card-lock {

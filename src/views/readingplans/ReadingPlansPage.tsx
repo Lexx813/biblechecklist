@@ -692,7 +692,11 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, navigate, userId }) {
       <div className="rp-day-list">
         <h3 className="rp-day-list-title">{t("readingPlans.readingSchedule")}</h3>
         {isLoading ? (
-          <p className="rp-empty">{t("common.loading")}</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {[0, 1, 2, 3].map(i => (
+              <div key={i} className="skeleton" style={{ height: 44, borderRadius: 8 }} />
+            ))}
+          </div>
         ) : (
           <>
             {visibleDays.map(({ day, readings }) => {
@@ -822,7 +826,11 @@ export default function ReadingPlansPage({ user, navigate, ...sharedNav }) {
       {tab === "mine" && (
         <div className="rp-content">
           {isLoading ? (
-            <p className="rp-empty">{t("common.loading")}</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {[0, 1, 2].map(i => (
+                <div key={i} className="skeleton" style={{ height: 88, borderRadius: 10 }} />
+              ))}
+            </div>
           ) : myPlans.length === 0 ? (
             <div className="rp-empty-state">
               <span className="rp-empty-icon">📅</span>

@@ -3,7 +3,7 @@
 .tf-card {
   background: linear-gradient(135deg, rgba(109, 40, 217, 0.18), rgba(91, 33, 182, 0.1));
   border: 1px solid rgba(124, 58, 237, 0.3);
-  border-radius: 14px;
+  border-radius: var(--radius-lg, 12px);
   padding: 18px;
   cursor: default;
 }
@@ -138,7 +138,7 @@
 .tf-no-plan {
   background: rgba(124, 58, 237, 0.08);
   border: 1px solid rgba(124, 58, 237, 0.2);
-  border-radius: 14px;
+  border-radius: var(--radius-lg, 12px);
   padding: 18px;
   display: flex;
   align-items: center;
@@ -254,7 +254,7 @@
 .tf-skeleton {
   background: linear-gradient(135deg, rgba(109, 40, 217, 0.18), rgba(91, 33, 182, 0.1));
   border: 1px solid rgba(124, 58, 237, 0.3);
-  border-radius: 14px;
+  border-radius: var(--radius-lg, 12px);
   padding: 18px;
   display: flex;
   flex-direction: column;

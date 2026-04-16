@@ -62,6 +62,9 @@ function PeopleYouMayKnow({ userId, navigate }) {
             <button className="feed-suggestion-name" onClick={() => navigate("publicProfile", { userId: person.id })}>
               {person.display_name}
             </button>
+            <span style={{ fontSize: 11, color: "var(--text-muted)", marginRight: "auto" }}>
+              Suggested for you
+            </span>
             <button className="feed-suggestion-follow-btn" onClick={() => toggleFollow.mutate(person.id)} disabled={toggleFollow.isPending}>
               Follow
             </button>

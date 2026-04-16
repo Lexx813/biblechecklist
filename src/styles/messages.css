@@ -224,11 +224,11 @@ main:has(.msg-layout) {
   background: var(--teal-soft);
 }
 
-.msg-conv-item--active { border-left: 3px solid var(--teal); }
+.msg-conv-item--active { border-left: 3px solid #7c3aed; }
 
 .msg-conv-item--unread .msg-conv-name {
   font-weight: 800;
-  color: var(--teal);
+  color: #a78bfa;
 }
 
 .msg-conv-info { flex: 1; min-width: 0; }
@@ -272,7 +272,7 @@ main:has(.msg-layout) {
 }
 
 .msg-unread-dot {
-  background: var(--teal);
+  background: var(--badge-red, #e03c3c);
   color: #fff;
   font-size: 10px;
   font-weight: 800;
@@ -1081,7 +1081,7 @@ main:has(.msg-layout) {
   border-radius: 22px;
   font-size: 13px;
   font-family: inherit;
-  background: var(--teal-soft);
+  background: var(--bg-elevated, rgba(255,255,255,0.04));
   color: var(--text-primary);
   outline: none;
   transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
