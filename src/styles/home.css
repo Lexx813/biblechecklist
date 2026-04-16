@@ -66,7 +66,7 @@ html:has(.home-wrap) .page-footer { display: none; }
    MAIN FEED
    ───────────────────────────────────────────────────────── */
 .home-feed {
-  padding: 0 clamp(12px, 4vw, 250px) 16px;
+  padding: 0 40px 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -702,6 +702,11 @@ html:has(.home-wrap) .page-footer { display: none; }
 /* ─────────────────────────────────────────────────────────
    RESPONSIVE
    ───────────────────────────────────────────────────────── */
+
+/* Full screen / wide desktop: generous center padding */
+@media (min-width: 1440px) {
+  .home-feed { padding-left: 250px; padding-right: 250px; }
+}
 
 /* Tablet: hide left sidebar */
 @media (max-width: 1100px) {
