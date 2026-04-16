@@ -183,19 +183,14 @@ export default function TopBar({
             <BookmarkIcon />
           </button>
 
-          {/* Messages */}
+          {/* Study Topics */}
           <button
-            className={`topbar-btn${currentPage === "messages" ? " topbar-btn--active" : ""}`}
-            onClick={() => navigate("messages")}
-            aria-label={`Messages${unreadMessages > 0 ? ` (${unreadMessages} unread)` : ""}`}
-            data-tip="Messages"
+            className={`topbar-btn${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " topbar-btn--active" : ""}`}
+            onClick={() => navigate("studyTopics")}
+            aria-label="Study Topics"
+            data-tip="Study Topics"
           >
-            <MessageIcon />
-            {unreadMessages > 0 && (
-              <span className="topbar-btn-badge" aria-hidden="true">
-                {unreadMessages > 99 ? "99+" : unreadMessages}
-              </span>
-            )}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           </button>
 
           {/* Notifications bell */}
