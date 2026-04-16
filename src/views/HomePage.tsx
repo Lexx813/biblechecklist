@@ -377,7 +377,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           <button className="hls-profile" onClick={() => { setActivePanel("profile"); setQuizLevelState(null); }}>
             <span className="hls-avatar">
               {profile?.avatar_url
-                ? <img src={profile.avatar_url} alt={displayName} />
+                ? <img src={profile.avatar_url} alt={displayName} width={40} height={40} />
                 : <span className="hls-avatar-initials">{initials}</span>}
             </span>
             <span className="hls-name">{displayName}</span>
@@ -588,6 +588,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                         src={post.cover_url || getFallbackImage(post.id)}
                         alt={title}
                         className="block h-full w-full object-cover"
+                        width={280}
+                        height={108}
                         loading="lazy"
                         onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
                       />
@@ -614,7 +616,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           <div className="rounded-[var(--radius)] border border-[var(--border)] bg-[var(--card-bg)] p-4">
             <div className="flex items-center gap-3">
               {profile?.avatar_url ? (
-                <img src={profile.avatar_url} alt="" className="size-10 shrink-0 rounded-full object-cover" />
+                <img src={profile.avatar_url} alt="" className="size-10 shrink-0 rounded-full object-cover" width={40} height={40} />
               ) : (
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#7c3aed] to-[#a855f7] text-sm font-bold text-white">{initials}</div>
               )}
@@ -670,7 +672,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                           onClick={() => navigate("publicProfile", { userId: post.user_id })}
                         >
                           {author?.avatar_url ? (
-                            <img src={author.avatar_url} alt="" className="size-10 shrink-0 rounded-full object-cover" loading="lazy" />
+                            <img src={author.avatar_url} alt="" className="size-10 shrink-0 rounded-full object-cover" width={40} height={40} loading="lazy" />
                           ) : (
                             <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-sm font-bold text-white">{initial}</div>
                           )}
@@ -716,14 +718,15 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                         dangerouslySetInnerHTML={{ __html: sanitizeRich(post.content) }}
                       />
 
-                      {/* Post image — full width, no crop */}
+                      {/* Post image — aspect-ratio container reserves space before image loads */}
                       {post.image_url && (
-                        <div className="border-t border-[var(--border)] bg-black/20">
+                        <div className="border-t border-[var(--border)] bg-black/20" style={{ aspectRatio: "16/9", overflow: "hidden" }}>
                           <img
                             src={post.image_url}
                             alt=""
-                            className="w-full object-contain"
-                            style={{ maxHeight: 500 }}
+                            className="w-full h-full object-contain"
+                            width={800}
+                            height={450}
                             loading="lazy"
                           />
                         </div>
@@ -885,7 +888,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                     <div key={f.id} className="flex cursor-pointer items-center gap-2.5 px-4 py-2 transition-colors duration-100 hover:bg-brand-600/[0.06]" onClick={() => navigate("publicProfile", { userId: f.id })}>
                       <span className="relative shrink-0">
                         <span className="flex size-[34px] items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#2e1a5c] to-brand-800 text-[13px] font-bold text-white">
-                          {f.avatar_url ? <img src={f.avatar_url} alt={f.display_name} className="h-full w-full object-cover" /> : (f.display_name || "?")[0].toUpperCase()}
+                          {f.avatar_url ? <img src={f.avatar_url} alt={f.display_name} className="h-full w-full object-cover" width={34} height={34} loading="lazy" /> : (f.display_name || "?")[0].toUpperCase()}
                         </span>
                         {isOnline && <span className="absolute bottom-0 right-0 size-2.5 rounded-full border-2 border-[var(--bg)] bg-green-500" aria-label="Online" />}
                       </span>
@@ -943,7 +946,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                       <span className="relative shrink-0">
                         <span className="flex size-8 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#2e1a5c] to-brand-800 text-[13px] font-bold text-white">
                           {m.avatar_url
-                            ? <img src={m.avatar_url} alt={m.display_name ?? ""} loading="lazy" className="h-full w-full object-cover" />
+                            ? <img src={m.avatar_url} alt={m.display_name ?? ""} loading="lazy" className="h-full w-full object-cover" width={32} height={32} />
                             : (m.display_name || "?")[0].toUpperCase()}
                         </span>
                         {isOnline && <span className="absolute bottom-0 right-0 size-2.5 rounded-full border-2 border-[var(--bg)] bg-green-500" aria-label="Online" />}
@@ -985,7 +988,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                         title={note.author?.display_name ?? "Anonymous"}
                       >
                         {note.author?.avatar_url
-                          ? <img src={note.author.avatar_url} alt={note.author.display_name} className="h-full w-full object-cover" />
+                          ? <img src={note.author.avatar_url} alt={note.author.display_name} className="h-full w-full object-cover" width={32} height={32} loading="lazy" />
                           : (note.author?.display_name ?? "A")[0].toUpperCase()}
                       </button>
                       <div className="min-w-0 flex-1">

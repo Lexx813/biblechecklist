@@ -34,6 +34,16 @@ const BellIcon = () => (
     <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
   </svg>
 );
+const FeedIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/>
+  </svg>
+);
+const BookmarkIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+  </svg>
+);
 const SearchIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -144,7 +154,7 @@ export default function TopBar({
               className="topbar-btn"
               onClick={() => navigate("videosDash")}
               aria-label="Post a video"
-              title="Post a Video"
+              data-tip="Post a Video"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <polygon points="23 7 16 12 23 17 23 7"/>
@@ -153,50 +163,32 @@ export default function TopBar({
             </button>
           )}
 
-          {/* Language picker */}
-          <div className="topbar-lang" ref={langRef}>
-            <button
-              className="topbar-btn"
-              onClick={() => setLangOpen(o => !o)}
-              aria-label="Change language"
-              aria-expanded={langOpen}
-            >
-              <span aria-hidden="true">{FLAGS[currentLang]}</span>
-            </button>
-            {langOpen && (
-              <div className="topbar-lang-menu" role="menu">
-                {LANGUAGES.map(l => (
-                  <button
-                    key={l.code}
-                    className={`topbar-lang-item${l.code === currentLang ? " topbar-lang-item--active" : ""}`}
-                    role="menuitem"
-                    onClick={() => { i18n.changeLanguage(l.code); setLangOpen(false); }}
-                  >
-                    <span>{FLAGS[l.code]}</span>
-                    <span>{l.label}</span>
-                    {l.code === currentLang && <span className="topbar-lang-check">✓</span>}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+          {/* Feed */}
+          <button
+            className={`topbar-btn${currentPage === "feed" ? " topbar-btn--active" : ""}`}
+            onClick={() => navigate("feed")}
+            aria-label="Feed"
+            data-tip="Feed"
+          >
+            <FeedIcon />
+          </button>
 
-          {/* Theme toggle */}
-          {setDarkMode && (
-            <button
-              className="topbar-btn"
-              onClick={() => setDarkMode(!darkMode)}
-              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {darkMode ? <SunIcon /> : <MoonIcon />}
-            </button>
-          )}
+          {/* Bookmarks */}
+          <button
+            className={`topbar-btn${currentPage === "bookmarks" ? " topbar-btn--active" : ""}`}
+            onClick={() => navigate("bookmarks")}
+            aria-label="Bookmarks"
+            data-tip="Bookmarks"
+          >
+            <BookmarkIcon />
+          </button>
 
           {/* Messages */}
           <button
-            className="topbar-btn"
+            className={`topbar-btn${currentPage === "messages" ? " topbar-btn--active" : ""}`}
             onClick={() => navigate("messages")}
             aria-label={`Messages${unreadMessages > 0 ? ` (${unreadMessages} unread)` : ""}`}
+            data-tip="Messages"
           >
             <MessageIcon />
             {unreadMessages > 0 && (
@@ -221,6 +213,47 @@ export default function TopBar({
             )}
           </button>
 
+          {/* Theme toggle */}
+          {setDarkMode && (
+            <button
+              className="topbar-btn"
+              onClick={() => setDarkMode(!darkMode)}
+              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+              data-tip={darkMode ? "Light mode" : "Dark mode"}
+            >
+              {darkMode ? <SunIcon /> : <MoonIcon />}
+            </button>
+          )}
+
+          {/* Language picker */}
+          <div className="topbar-lang" ref={langRef}>
+            <button
+              className="topbar-btn"
+              onClick={() => setLangOpen(o => !o)}
+              aria-label="Change language"
+              aria-expanded={langOpen}
+              data-tip="Language"
+            >
+              <span aria-hidden="true">{FLAGS[currentLang]}</span>
+            </button>
+            {langOpen && (
+              <div className="topbar-lang-menu" role="menu">
+                {LANGUAGES.map(l => (
+                  <button
+                    key={l.code}
+                    className={`topbar-lang-item${l.code === currentLang ? " topbar-lang-item--active" : ""}`}
+                    role="menuitem"
+                    onClick={() => { i18n.changeLanguage(l.code); setLangOpen(false); }}
+                  >
+                    <span>{FLAGS[l.code]}</span>
+                    <span>{l.label}</span>
+                    {l.code === currentLang && <span className="topbar-lang-check">✓</span>}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           {/* User avatar + dropdown */}
           <div className="topbar-avatar-wrap" ref={avatarRef}>
             <button
@@ -231,7 +264,7 @@ export default function TopBar({
               style={{ background: "linear-gradient(135deg, #4f2d85, #7c3aed)", border: "2px solid rgba(138,75,255,0.3)" }}
             >
               {profile?.avatar_url
-                ? <img src={profile.avatar_url} alt={displayName} />
+                ? <img src={profile.avatar_url} alt={displayName} width={32} height={32} />
                 : initials}
             </button>
             {avatarOpen && (

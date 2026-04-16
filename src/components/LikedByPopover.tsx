@@ -14,7 +14,7 @@ export default function LikedByPopover({ count, fetchLikers, className }: Props)
   const [likers, setLikers] = useState<LikerProfile[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [pos, setPos] = useState({ top: 0, left: 0 });
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLSpanElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
 
   async function toggle() {
@@ -60,16 +60,19 @@ export default function LikedByPopover({ count, fetchLikers, className }: Props)
 
   return (
     <>
-      <button
+      <span
         ref={triggerRef}
-        className={`cursor-pointer border-none bg-transparent p-0 font-semibold leading-none hover:underline ${className ?? ""}`}
+        role="button"
+        tabIndex={0}
+        className={`cursor-pointer font-semibold leading-none hover:underline ${className ?? ""}`}
         style={{ color: "inherit", fontSize: "inherit" }}
         onClick={toggle}
+        onKeyDown={e => (e.key === "Enter" || e.key === " ") && toggle()}
         aria-label="See who liked this"
         aria-expanded={open}
       >
         {count}
-      </button>
+      </span>
 
       {open && createPortal(
         <div
@@ -112,7 +115,7 @@ export default function LikedByPopover({ count, fetchLikers, className }: Props)
               {shown.map(u => (
                 <div key={u.id} className="flex items-center gap-2">
                   {u.avatar_url
-                    ? <img src={u.avatar_url} alt="" className="size-6 shrink-0 rounded-full object-cover" loading="lazy" />
+                    ? <img src={u.avatar_url} alt="" className="size-6 shrink-0 rounded-full object-cover" width={24} height={24} loading="lazy" />
                     : <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-[10px] font-bold text-white">
                         {(u.display_name ?? "?")[0].toUpperCase()}
                       </div>

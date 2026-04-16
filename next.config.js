@@ -54,8 +54,15 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "plus.unsplash.com",
+      },
     ],
   },
+
+  // Turbopack (dev) needs no extra config — webpack function below is build-only
+  turbopack: {},
 
   webpack(config, { isServer }) {
     // Suppress "Critical dependency" warnings from i18next-http-backend
