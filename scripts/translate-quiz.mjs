@@ -1,60 +1,46 @@
 /**
- * Batch-translates missing quiz question translations using Claude Haiku.
- * Run: node scripts/translate-quiz.mjs
- *
- * Translates to: pt, fr, tl, zh
- * Source: English question text (falls back to ES if available)
+ * Batch-translates missing quiz question translations using the claude CLI
+ * (Claude Max — no API key needed).
+ * Run: source .env.local && node scripts/translate-quiz.mjs
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import { spawnSync } from "child_process";
 import { createClient } from "@supabase/supabase-js";
 
-// Trim whitespace/newlines from env vars; replace custom auth domain with direct Supabase URL
 const rawUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").trim();
 const SUPABASE_URL = rawUrl.replace(/^https?:\/\/auth\.[^/]+/, "https://yudyhigvqaodnoqwwtns.supabase.co");
 const SUPABASE_KEY = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim().replace(/\\n/g, "");
-const ANTHROPIC_KEY = (process.env.ANTHROPIC_API_KEY ?? "").trim().replace(/\\n/g, "");
 
-if (!SUPABASE_URL || !SUPABASE_KEY || !ANTHROPIC_KEY) {
-  console.error("Missing env vars. Load your .env first:\n  source .env.local && node scripts/translate-quiz.mjs");
+if (!SUPABASE_URL || !SUPABASE_KEY) {
+  console.error("Missing env vars. Run: source .env.local && node scripts/translate-quiz.mjs");
   process.exit(1);
 }
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-const anthropic = new Anthropic({ apiKey: ANTHROPIC_KEY });
 
 const LANG_NAMES = { pt: "Portuguese (Brazil)", fr: "French", tl: "Tagalog (Filipino)", zh: "Simplified Chinese" };
-const BATCH_SIZE = 8; // questions per API call
+const BATCH_SIZE = 8;
 
-// ── 1. Fetch all questions missing at least one of pt/fr/tl/zh ───────────────
 async function fetchMissingQuestions() {
-  const { data, error } = await supabase.rpc("get_untranslated_questions");
-  if (error) {
-    // Fall back to direct query if RPC doesn't exist
-    const { data: rows, error: err2 } = await supabase
-      .from("quiz_questions")
-      .select(`id, level, question, options, correct_index, explanation,
-               quiz_question_translations(lang, question, options, explanation)`)
-      .order("level", { ascending: true });
-    if (err2) throw err2;
-    return rows;
-  }
+  const { data, error } = await supabase
+    .from("quiz_questions")
+    .select(`id, level, question, options, correct_index, explanation,
+             quiz_question_translations(lang, question, options, explanation)`)
+    .order("level", { ascending: true });
+  if (error) throw error;
   return data;
 }
 
-// ── 2. Determine missing langs per question ───────────────────────────────────
 function getMissingLangs(row) {
   const existing = new Set((row.quiz_question_translations || []).map((t) => t.lang));
   return ["pt", "fr", "tl", "zh"].filter((l) => !existing.has(l));
 }
 
-// ── 3. Translate a batch of questions to all required langs ───────────────────
-async function translateBatch(questions) {
-  // Build a compact JSON payload for Claude
+function translateBatch(questions) {
   const payload = questions.map((q) => ({
     id: q.id,
     en: q.question,
-    options: q.options, // array of 4 strings
+    options: q.options,
     ...(q.explanation ? { explanation: q.explanation } : {}),
     langs: getMissingLangs(q),
   }));
@@ -81,27 +67,50 @@ Return a JSON array in this exact shape:
   {
     "id": "<same uuid>",
     "translations": {
-      "pt": { "question": "...", "options": ["...", "...", "...", "..."], "explanation": "..." },
-      "fr": { "question": "...", "options": ["...", "...", "...", "..."], "explanation": "..." }
-      // only include langs that were in this item's "langs" array
+      "pt": { "question": "...", "options": ["...", "...", "...", "..."] },
+      "fr": { "question": "...", "options": ["...", "...", "...", "..."] }
     }
   }
-]`;
+]
+Only include langs listed in each item's "langs" array. No explanation field if the input had none.`;
 
-  const response = await anthropic.messages.create({
-    model: "claude-haiku-4-5-20251001",
-    max_tokens: 16000,
-    messages: [{ role: "user", content: prompt }],
+  // Use claude CLI via stdin (Claude Max — no API key needed)
+  const proc = spawnSync("claude", ["--print", "--output-format", "text"], {
+    input: prompt,
+    encoding: "utf8",
+    maxBuffer: 10 * 1024 * 1024,
+    timeout: 120000,
   });
-
-  const text = response.content[0].text.trim();
-
-  // Strip markdown code fences if present
-  const json = text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```\s*$/i, "");
-  return JSON.parse(json);
+  if (proc.error) throw proc.error;
+  if (proc.status !== 0) throw new Error(proc.stderr || `claude exited with code ${proc.status}`);
+  // Debug: print raw response for first batch
+  if (process.env.DEBUG_TRANSLATE) {
+    console.log("RAW RESPONSE:", JSON.stringify(proc.stdout.slice(0, 500)));
+  }
+  return parseResult(proc.stdout);
 }
 
-// ── 4. Insert translated rows to DB ──────────────────────────────────────────
+function parseResult(result) {
+  const text = result.trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```\s*$/i, "");
+  // First try clean parse
+  try { return JSON.parse(text); } catch {}
+  // Extract the outermost [...] array and try again
+  const start = text.indexOf("[");
+  const end = text.lastIndexOf("]");
+  if (start !== -1 && end > start) {
+    try { return JSON.parse(text.slice(start, end + 1)); } catch {}
+  }
+  // Last resort: parse each object individually
+  const items = [];
+  const objRegex = /\{[^{}]*"id"\s*:\s*"([^"]+)"[^{}]*"translations"\s*:\s*(\{[\s\S]*?\})\s*\}/g;
+  let m;
+  while ((m = objRegex.exec(text)) !== null) {
+    try { items.push({ id: m[1], translations: JSON.parse(m[2]) }); } catch {}
+  }
+  if (items.length > 0) return items;
+  throw new Error("Could not parse JSON from response");
+}
+
 async function insertTranslations(results) {
   const rows = [];
   for (const item of results) {
@@ -119,58 +128,43 @@ async function insertTranslations(results) {
       });
     }
   }
-
   if (rows.length === 0) return 0;
-
   const { error } = await supabase
     .from("quiz_question_translations")
     .upsert(rows, { onConflict: "question_id,lang" });
-
   if (error) throw error;
   return rows.length;
 }
 
-// ── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
   console.log("Fetching questions...");
   const allQuestions = await fetchMissingQuestions();
-
-  // Only keep questions that actually need work
   const todo = allQuestions.filter((q) => getMissingLangs(q).length > 0);
   console.log(`${todo.length} questions need translations (out of ${allQuestions.length} total)`);
 
   let totalInserted = 0;
-  let batchNum = 0;
   const totalBatches = Math.ceil(todo.length / BATCH_SIZE);
 
   for (let i = 0; i < todo.length; i += BATCH_SIZE) {
-    batchNum++;
+    const batchNum = Math.floor(i / BATCH_SIZE) + 1;
     const batch = todo.slice(i, i + BATCH_SIZE);
     const levels = [...new Set(batch.map((q) => q.level))];
     console.log(`\nBatch ${batchNum}/${totalBatches} — levels ${levels.join(",")} (${batch.length} questions)`);
 
     let attempt = 0;
-    while (attempt < 5) {
+    while (attempt < 3) {
       try {
-        const results = await translateBatch(batch);
+        const results = translateBatch(batch);
         const inserted = await insertTranslations(results);
         totalInserted += inserted;
         console.log(`  ✓ Inserted ${inserted} rows`);
         break;
       } catch (err) {
         attempt++;
-        const isRateLimit = err.message?.includes("429") || err.message?.includes("rate_limit");
-        const waitMs = isRateLimit ? 65000 : 3000 * attempt;
         console.error(`  ✗ Attempt ${attempt} failed: ${err.message?.slice(0, 120)}`);
-        if (attempt >= 5) { console.error("  Giving up on this batch."); break; }
-        console.log(`  ⏳ Waiting ${Math.round(waitMs / 1000)}s before retry...`);
-        await new Promise((r) => setTimeout(r, waitMs));
+        if (attempt >= 3) { console.error("  Giving up on this batch."); break; }
+        await new Promise((r) => setTimeout(r, 2000 * attempt));
       }
-    }
-
-    // Throttle between batches to stay under 10k output tokens/min
-    if (i + BATCH_SIZE < todo.length) {
-      await new Promise((r) => setTimeout(r, 65000));
     }
   }
 

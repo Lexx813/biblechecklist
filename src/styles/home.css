@@ -647,6 +647,7 @@ html:has(.home-wrap) .page-footer { display: none; }
 [data-theme="light"] .hcard,
 [data-theme="light"] .hwidget,
 [data-theme="light"] .hblog-card { background: #fff; border-color: var(--border); }
+[data-theme="light"] .hcard:hover { background: #faf8ff; border-color: rgba(124, 58, 237, 0.25); box-shadow: var(--shadow-xs); }
 [data-theme="light"] .hcard--focus { background: #f4f0fa; border-color: transparent; box-shadow: none; }
 [data-theme="light"] .hcard--focus::after { background: linear-gradient(to bottom, #f4f0fa, transparent); }
 [data-theme="light"] .hfeed-title,

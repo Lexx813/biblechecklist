@@ -304,7 +304,7 @@
 .link-modal {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius-2xl);
   padding: 20px 22px 18px;
   width: min(340px, 92vw);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);

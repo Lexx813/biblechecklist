@@ -545,7 +545,7 @@ html.nav-hidden .admin-header { top: 0; }
 }
 
 .admin-dropdown-menu {
-  z-index: 9000;
+  z-index: var(--z-top);
   background: var(--card-bg);
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
@@ -667,7 +667,7 @@ html.nav-hidden .admin-header { top: 0; }
 .admin-question-option--correct { color: #16a34a; font-weight: 700; }
 .admin-question-actions { display: flex; gap: 8px; }
 .admin-question-form {
-  background: var(--card-bg); border: 1.5px solid #7c3aed; border-radius: 14px;
+  background: var(--card-bg); border: 1.5px solid #7c3aed; border-radius: var(--radius-2xl);
   padding: 20px; display: flex; flex-direction: column; gap: 12px;
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.08);
 }

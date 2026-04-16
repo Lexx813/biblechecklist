@@ -86,6 +86,8 @@
   --radius:     6px;
   --radius-md:  6px;
   --radius-lg:  8px;
+  --radius-xl:  12px;
+  --radius-2xl: 16px;
   --radius-pill: 999px;
 
   /* ── Gold accent ── */
@@ -1549,6 +1551,41 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 /* EMPTY */
 .empty-msg { text-align: center; padding: 3rem 1rem; color: var(--text-muted); font-size: 14px; grid-column: 1 / -1; background: var(--bg); }
 
+/* Generic EmptyState component */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 40px 20px;
+  text-align: center;
+}
+.empty-state-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-xl);
+  background: rgba(124, 58, 237, 0.08);
+  color: var(--teal);
+  margin-bottom: 4px;
+}
+[data-theme="light"] .empty-state-icon { background: rgba(124, 58, 237, 0.08); }
+.empty-state-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+.empty-state-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+  max-width: 280px;
+}
+
 /* CONFIRM MODAL */
 .confirm-overlay {
   position: fixed; inset: 0;
@@ -2146,6 +2183,19 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   min-height: 48px; /* 44px minimum touch target */
   color: rgba(240, 234, 255, 0.5);
   transition: color var(--dur-fast);
+  position: relative;
+}
+/* Active pill indicator — top edge bar */
+.mobile-tabbar-item--active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: #c084fc;
 }
 .mobile-tabbar-item--active { color: #c084fc; }
 .mobile-tabbar-item:hover  { color: rgba(240, 234, 255, 0.85); }
@@ -2170,6 +2220,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 [data-theme="light"] .mobile-tabbar { background: rgba(255,255,255,0.96); border-top-color: rgba(124,58,237,0.12); }
 [data-theme="light"] .mobile-tabbar-item { color: rgba(30, 16, 53, 0.65); } /* ≥4.5:1 */
 [data-theme="light"] .mobile-tabbar-item--active { color: #7c3aed; }
+[data-theme="light"] .mobile-tabbar-item--active::before { background: #7c3aed; }
 
 /* ── Anonymous tracker (logged-out /try) ────────────────────────── */
 .anon-tracker {
