@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from "react";
+import { createPortal } from "react-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useSession, useLogout } from "./hooks/useAuth";
@@ -362,33 +363,37 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
 
   return (
     <>
-      <TopBar {...sharedNav} />
-      <div key={nav.page} className="page-fade-in">
-        {pageContent}
+      {/* inert hides all background content from keyboard/AT when palette is open */}
+      <div inert={showCmdPalette}>
+        <TopBar {...sharedNav} />
+        <div key={nav.page} className="page-fade-in">
+          {pageContent}
+        </div>
+        {nav.page !== "messages" && <MobileTabBar navigate={navigate} currentPage={nav.page} userId={user?.id} />}
+        {nav.page !== "messages" && (
+          <Suspense fallback={null}>
+            <FloatingChat
+              user={user}
+              navigate={navigate}
+              initialConvId={null}
+              initialConvName={null}
+              initialConvAvatar={null}
+            />
+          </Suspense>
+        )}
+        {nav.page !== "messages" && ["en", "es"].includes((i18n.language ?? "en").slice(0, 2)) && (
+          <Suspense fallback={null}>
+            <AIStudyBubble />
+          </Suspense>
+        )}
       </div>
-      {nav.page !== "messages" && <MobileTabBar navigate={navigate} currentPage={nav.page} userId={user?.id} />}
-      {nav.page !== "messages" && (
-        <Suspense fallback={null}>
-          <FloatingChat
-            user={user}
-            navigate={navigate}
-            initialConvId={null}
-            initialConvName={null}
-            initialConvAvatar={null}
-          />
-        </Suspense>
-      )}
-      {nav.page !== "messages" && ["en", "es"].includes((i18n.language ?? "en").slice(0, 2)) && (
-        <Suspense fallback={null}>
-          <AIStudyBubble />
-        </Suspense>
-      )}
-      {showCmdPalette && (
+      {showCmdPalette && createPortal(
         <CommandPalette
           navigate={navigate}
           onClose={() => setShowCmdPalette(false)}
           isAdmin={!!profile?.is_admin || !!profile?.is_moderator}
-        />
+        />,
+        document.body
       )}
     </>
   );
