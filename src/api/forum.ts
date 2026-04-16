@@ -169,6 +169,14 @@ export const forumApi = {
     return data;
   },
 
+  getLikers: async (targetId: string, targetType: "thread" | "reply") => {
+    const { data } = await supabase.from("forum_likes").select("user_id").eq("target_id", targetId).eq("target_type", targetType);
+    if (!data?.length) return [];
+    const ids = data.map(r => r.user_id);
+    const { data: profiles } = await supabase.from("profiles").select("id, display_name, avatar_url").in("id", ids);
+    return profiles ?? [];
+  },
+
   // Mark/unmark a reply as the accepted solution for a thread
   markSolution: async (replyId: string, threadId: string, value: boolean) => {
     const { error } = await supabase.rpc("mark_reply_as_solution", {

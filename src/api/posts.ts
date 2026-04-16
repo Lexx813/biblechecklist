@@ -162,6 +162,22 @@ export const postsApi = {
     return data ?? [];
   },
 
+  getCommentLikers: async (commentId: string) => {
+    const { data } = await supabase.from("user_post_comment_likes").select("user_id").eq("comment_id", commentId);
+    if (!data?.length) return [];
+    const ids = data.map(r => r.user_id);
+    const { data: profiles } = await supabase.from("profiles").select("id, display_name, avatar_url").in("id", ids);
+    return profiles ?? [];
+  },
+
+  getReactionLikers: async (postId: string, emoji: string) => {
+    const { data } = await supabase.from("user_post_reactions").select("user_id").eq("post_id", postId).eq("emoji", emoji);
+    if (!data?.length) return [];
+    const ids = data.map(r => r.user_id);
+    const { data: profiles } = await supabase.from("profiles").select("id, display_name, avatar_url").in("id", ids);
+    return profiles ?? [];
+  },
+
   toggleReaction: async (postId: string, emoji: string) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error("Not authenticated");

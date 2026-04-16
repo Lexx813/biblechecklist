@@ -1,0 +1,133 @@
+import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
+
+export type LikerProfile = { id: string; display_name: string | null; avatar_url: string | null };
+
+interface Props {
+  count: number;
+  fetchLikers: () => Promise<LikerProfile[]>;
+  className?: string;
+}
+
+export default function LikedByPopover({ count, fetchLikers, className }: Props) {
+  const [open, setOpen] = useState(false);
+  const [likers, setLikers] = useState<LikerProfile[] | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [pos, setPos] = useState({ top: 0, left: 0 });
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  async function toggle() {
+    if (count === 0) return;
+    if (!open) {
+      const rect = triggerRef.current?.getBoundingClientRect();
+      if (rect) {
+        setPos({ top: rect.top - 8, left: rect.left + rect.width / 2 });
+      }
+      setOpen(true);
+      if (!likers) {
+        setLoading(true);
+        try {
+          const data = await fetchLikers();
+          setLikers(data);
+        } finally {
+          setLoading(false);
+        }
+      }
+    } else {
+      setOpen(false);
+    }
+  }
+
+  useEffect(() => {
+    if (!open) return;
+    const onMouse = (e: MouseEvent) => {
+      if (
+        popoverRef.current && !popoverRef.current.contains(e.target as Node) &&
+        triggerRef.current && !triggerRef.current.contains(e.target as Node)
+      ) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    document.addEventListener("mousedown", onMouse);
+    document.addEventListener("keydown", onKey);
+    return () => { document.removeEventListener("mousedown", onMouse); document.removeEventListener("keydown", onKey); };
+  }, [open]);
+
+  if (count === 0) return <span className={className}>{count}</span>;
+
+  const shown = (likers ?? []).slice(0, 6);
+  const extra = (likers?.length ?? 0) - 6;
+
+  return (
+    <>
+      <button
+        ref={triggerRef}
+        className={`cursor-pointer border-none bg-transparent p-0 font-semibold leading-none hover:underline ${className ?? ""}`}
+        style={{ color: "inherit", fontSize: "inherit" }}
+        onClick={toggle}
+        aria-label="See who liked this"
+        aria-expanded={open}
+      >
+        {count}
+      </button>
+
+      {open && createPortal(
+        <div
+          ref={popoverRef}
+          style={{
+            position: "fixed",
+            top: pos.top,
+            left: pos.left,
+            transform: "translate(-50%, -100%)",
+            zIndex: 9999,
+          }}
+          className="min-w-[160px] max-w-[220px] rounded-xl border border-[var(--border)] bg-[var(--card-bg)] px-3 py-2.5 shadow-2xl"
+        >
+          {/* Down-pointing arrow */}
+          <span
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              bottom: -5,
+              left: "50%",
+              transform: "translateX(-50%) rotate(45deg)",
+              width: 10,
+              height: 10,
+              background: "var(--card-bg)",
+              borderRight: "1px solid var(--border)",
+              borderBottom: "1px solid var(--border)",
+            }}
+          />
+
+          <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-wide text-[var(--text-muted)]">Liked by</p>
+
+          {loading ? (
+            <div className="flex items-center justify-center py-2">
+              <div className="size-4 animate-spin rounded-full border-2 border-[var(--border)] border-t-[var(--accent)]" />
+            </div>
+          ) : shown.length === 0 ? (
+            <p className="text-[12px] text-[var(--text-muted)]">No likes yet</p>
+          ) : (
+            <div className="flex flex-col gap-1.5">
+              {shown.map(u => (
+                <div key={u.id} className="flex items-center gap-2">
+                  {u.avatar_url
+                    ? <img src={u.avatar_url} alt="" className="size-6 shrink-0 rounded-full object-cover" loading="lazy" />
+                    : <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-[10px] font-bold text-white">
+                        {(u.display_name ?? "?")[0].toUpperCase()}
+                      </div>
+                  }
+                  <span className="truncate text-[12px] text-[var(--text-primary)]">{u.display_name ?? "Someone"}</span>
+                </div>
+              ))}
+              {extra > 0 && (
+                <p className="mt-0.5 text-[11px] text-[var(--text-muted)]">+{extra} more</p>
+              )}
+            </div>
+          )}
+        </div>,
+        document.body
+      )}
+    </>
+  );
+}

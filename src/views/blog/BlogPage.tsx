@@ -11,6 +11,8 @@ import "../../styles/social.css";
 import "../../styles/forum.css";
 import MentionAutocomplete from "../../components/mentions/MentionAutocomplete";
 import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment, useDeletePost, useUserBlogLikes, useToggleBlogLike } from "../../hooks/useBlog";
+import LikedByPopover from "../../components/LikedByPopover";
+import { blogApi } from "../../api/blog";
 import { toast } from "../../lib/toast";
 import { useSubmitReport } from "../../hooks/useReports";
 import { useBlocks, useBlockUser, useUnblockUser } from "../../hooks/useBlocks";
@@ -383,7 +385,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
               onClick={() => toggleLike.mutate(post.id, { onError: () => toast(t("blog.likeError")) })}
               disabled={toggleLike.isPending}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg> <span className="blog-like-count">{post.like_count ?? 0}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>{" "}<LikedByPopover count={post.like_count ?? 0} fetchLikers={() => blogApi.getPostLikers(post.id)} className="blog-like-count" />
             </button>
             <BookmarkButton userId={user.id} postId={post.id} />
             {(isAdmin || post.author_id === user.id) && (

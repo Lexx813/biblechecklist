@@ -7,6 +7,7 @@ import ReportModal from "../../components/ReportModal";
 import BookmarkButton from "../../components/bookmarks/BookmarkButton";
 import ShareButtons from "../../components/ShareButtons";
 import { forumApi } from "../../api/forum";
+import LikedByPopover from "../../components/LikedByPopover";
 import {
   useThread, useReplies,
   useCreateReply, useUpdateThread, useUpdateReply, useDeleteThread, useDeleteReply,
@@ -289,7 +290,7 @@ export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId,
                   onClick={() => toggleThreadLike.mutate(threadId, { onError: () => toast(t("forum.likeError")) })}
                   disabled={toggleThreadLike.isPending}
                 >
-                  <IconThumbsUp /> <span className="forum-like-count">{thread.like_count ?? 0}</span>
+                  <IconThumbsUp />{" "}<LikedByPopover count={thread.like_count ?? 0} fetchLikers={() => forumApi.getLikers(threadId, "thread")} className="forum-like-count" />
                 </button>
                 <ReactionsBar
                   contentType="thread"
@@ -416,7 +417,7 @@ export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId,
                         onClick={() => toggleReplyLike.mutate(reply.id, { onError: () => toast(t("forum.likeError")) })}
                         disabled={toggleReplyLike.isPending}
                       >
-                        <IconThumbsUp /> <span className="forum-like-count">{reply.like_count ?? 0}</span>
+                        <IconThumbsUp />{" "}<LikedByPopover count={reply.like_count ?? 0} fetchLikers={() => forumApi.getLikers(reply.id, "reply")} className="forum-like-count" />
                       </button>
                       <ReactionsBar
                         contentType="reply"

@@ -166,6 +166,14 @@ export const blogApi = {
     return data;
   },
 
+  getPostLikers: async (postId: string) => {
+    const { data } = await supabase.from("blog_post_likes").select("user_id").eq("post_id", postId);
+    if (!data?.length) return [];
+    const ids = data.map(r => r.user_id);
+    const { data: profiles } = await supabase.from("profiles").select("id, display_name, avatar_url").in("id", ids);
+    return profiles ?? [];
+  },
+
   uploadCover: async (userId: string, file: File) => {
     const ALLOWED_TYPES: Record<string, string> = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif" };
     const MAX_SIZE = 5 * 1024 * 1024; // 5 MB
