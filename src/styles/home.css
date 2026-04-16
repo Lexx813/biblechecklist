@@ -19,9 +19,7 @@ html:has(.home-wrap) .page-footer { display: none; }
 /* ── 3-column layout ── */
 .home-layout {
   display: grid;
-  grid-template-columns: 260px 1fr 300px;
-  max-width: 1440px;
-  margin: 0 auto;
+  grid-template-columns: 280px 1fr 320px;
   height: 100%;
 }
 
