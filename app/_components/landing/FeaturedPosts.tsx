@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const FALLBACK_IMAGES = [
   "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=640&q=75",
   "https://images.unsplash.com/photo-1455541504462-57ebb2a9cec1?auto=format&fit=crop&w=640&q=75",
@@ -37,15 +39,14 @@ export default function FeaturedPosts({ posts }: { posts: Post[] }) {
         <div className="grid gap-5 md:grid-cols-3 max-md:mx-auto max-md:max-w-[440px] max-md:grid-cols-1">
           {posts.map(post => (
             <a key={post.slug} href={`/blog/${post.slug}`} className="group flex cursor-pointer flex-col overflow-hidden rounded-[14px] border border-[var(--lp-card-border)] bg-[var(--lp-card-bg)] text-inherit no-underline shadow-[var(--lp-card-shadow)] transition-all duration-200 hover:-translate-y-[3px] hover:border-[var(--lp-primary)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.18)]">
-              <div className="aspect-video w-full shrink-0 overflow-hidden bg-[var(--lp-pill-bg)]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+              <div className="relative aspect-video w-full shrink-0 overflow-hidden bg-[var(--lp-pill-bg)]">
+                <Image
                   src={post.cover_url || getFallbackImage(post.id)}
                   alt={post.title}
-                  className="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   loading="lazy"
-                  width={640}
-                  height={360}
                 />
               </div>
               <div className="flex flex-1 flex-col gap-2 px-5 pb-5 pt-[18px]">

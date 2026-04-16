@@ -1,14 +1,36 @@
 // Study Topics — topical Bible study content based on NWT / JW teaching
-export const STUDY_TOPICS = [
+
+export interface StudyTopic {
+  id: string;
+  slug: string;
+  icon: string;
+  title: string;
+  subtitle: string;
+  summary: string;
+  publishedAt: string;
+  updatedAt: string;
+  disclaimer: string;
+  sections: {
+    heading: string;
+    paragraphs: string[];
+    scriptures?: { ref: string; text: string }[];
+  }[];
+}
+
+export const STUDY_TOPICS: StudyTopic[] = [
   {
     id: "is-jesus-god",
     slug: "is-jesus-god",
     icon: "👑",
     title: "Is Jesus God?",
     subtitle: "Understanding Jesus' identity as the Son of God — distinct from Jehovah",
+    summary: "The Bible consistently shows that Jesus is the Son of God — a distinct person from Jehovah his Father. Jesus himself said 'the Father is greater than I am,' and Paul identifies one God (the Father) and one Lord (Jesus Christ) as two separate persons. The Trinity doctrine is not found in Scripture and was formalized centuries after the apostles died.",
+    publishedAt: "2025-11-01",
+    updatedAt: "2025-11-01",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
     sections: [
       {
-        heading: "What the Bible Says",
+        heading: "What does the Bible say about Jesus and God?",
         paragraphs: [
           "Many people assume that Jesus is God Almighty, but the Bible consistently shows Jesus to be distinct from his Father. Jesus himself said: 'The Father is greater than I am.' (John 14:28) He also taught his disciples to pray to 'our Father in the heavens.' (Matthew 6:9) If Jesus were God, these statements would make no sense.",
           "The apostle Paul wrote: 'There is actually to us one God, the Father, from whom all things are, and we for him; and there is one Lord, Jesus Christ, through whom all things are.' (1 Corinthians 8:6) This verse clearly distinguishes Jehovah as God and Jesus as Lord — two separate persons.",
@@ -20,7 +42,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "Jesus Is the Son of God, Not God Himself",
+        heading: "Is Jesus the Son of God rather than God himself?",
         paragraphs: [
           "Scripture repeatedly calls Jesus the 'Son of God.' At his baptism, a voice from heaven declared: 'This is my Son, the beloved, whom I have approved.' (Matthew 3:17) A son is a separate individual from his father. Jesus had a beginning — he was 'the firstborn of all creation.' (Colossians 1:15)",
           "Jesus himself said: 'I am going to the Father, for the Father is greater than I am.' He also acknowledged there were things he did not know, saying that no one knows the day or the hour 'except the Father.' (Matthew 24:36) These limitations would be impossible if Jesus were Almighty God.",
@@ -32,7 +54,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "The Trinity Doctrine — Biblical or Traditional?",
+        heading: "Is the Trinity doctrine found in the Bible?",
         paragraphs: [
           "The word 'Trinity' does not appear anywhere in the Bible. The doctrine was formalized at the Council of Nicaea in 325 CE, long after the apostles died. The New Catholic Encyclopedia acknowledges that 'the doctrine of the Trinity is not taught in the Old Testament.' Early Christians clearly understood that Jehovah God and Jesus Christ were two distinct persons.",
           "Praying to Jehovah through Jesus Christ is the pattern shown throughout the New Testament. Jesus is our High Priest and mediator — roles that make sense only if he is distinct from God the Father. (1 Timothy 2:5; Hebrews 7:25)",
@@ -51,9 +73,13 @@ export const STUDY_TOPICS = [
     icon: "⚔️",
     title: "Jesus and Michael the Archangel",
     subtitle: "Scriptural evidence that Jesus Christ is Michael the archangel",
+    summary: "The Bible identifies Michael as the sole archangel and chief heavenly prince who defends God's people. Scripture connects Jesus to this role: the resurrected Jesus descends with an archangel's voice, and Revelation shows Michael leading the same heavenly armies that Jesus commands. Before his human birth, Jesus existed as a spirit creature in heaven under the name Michael.",
+    publishedAt: "2025-11-08",
+    updatedAt: "2025-11-08",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
     sections: [
       {
-        heading: "Who Is Michael?",
+        heading: "Who is Michael the archangel?",
         paragraphs: [
           "Michael is described in the Bible as 'the great prince who stands in behalf of your people.' (Daniel 12:1) The name Michael means 'Who Is Like God?' — a fitting name for one who champions Jehovah's sovereignty. Jude 9 calls him 'the archangel Michael,' and 1 Thessalonians 4:16 says that at the resurrection, 'the Lord himself will descend from heaven with a commanding call, with an archangel's voice.'",
           "Since only one archangel is mentioned in Scripture, and the resurrected Jesus descends with an archangel's voice, this strongly implies Jesus is that archangel.",
@@ -65,7 +91,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "Connecting Jesus to Michael",
+        heading: "What connects Jesus to Michael in Scripture?",
         paragraphs: [
           "In Revelation, it is Jesus who wages war against Satan: 'Michael and his angels battled with the dragon… the great dragon was hurled down, the original serpent, the one called Devil and Satan.' (Revelation 12:7-9) Jesus is described elsewhere in Revelation as the conquering rider on a white horse, the King of kings who defeats the nations. The leader of God's angelic armies in both passages is the same person — Jesus Christ, known in his heavenly role as Michael.",
           "Before his human birth, Jesus existed in heaven as a mighty spirit creature — the 'firstborn of all creation' (Colossians 1:15). His pre-human name was Michael. After his resurrection, Philippians 2:9 says God gave him 'the name that is above every other name' — Jesus Christ — exalted to the highest position.",
@@ -85,9 +111,13 @@ export const STUDY_TOPICS = [
     icon: "🕊️",
     title: "Holy Spirit — Person or Force?",
     subtitle: "The Bible shows the holy spirit is God's active force, not a third person",
+    summary: "The holy spirit is Jehovah's active force — the power he uses to accomplish his will. It is described as something poured out, filled into people, and apportioned, never as an independent person with a name. Scripture consistently portrays the holy spirit as a force or divine energy, not a third co-equal member of a divine Godhead.",
+    publishedAt: "2025-11-15",
+    updatedAt: "2025-11-15",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
     sections: [
       {
-        heading: "God's Active Force",
+        heading: "What is the holy spirit according to the Bible?",
         paragraphs: [
           "The holy spirit is Jehovah God's active force — the power he uses to accomplish his will. At creation, 'God's active force was moving about over the surface of the waters.' (Genesis 1:2) This force empowered prophets, guided apostles, and worked miracles. It is not described as a separate God-person with personality.",
           "When Jesus was baptized, 'the heavens were opened up and he saw God's spirit descending like a dove.' (Matthew 3:16) A dove is a symbol of gentleness and peace — the spirit here is portrayed as a force or influence, not as a third divine being standing beside the Father and Son.",
@@ -99,7 +129,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "Why the Holy Spirit Is Not a Person",
+        heading: "Why is the holy spirit not a person?",
         paragraphs: [
           "Persons have names; the holy spirit has none. Persons originate actions; the holy spirit is consistently described as something poured out, sent, or given — never as someone who independently initiates. Acts 2:17 says: 'I will pour out some of my spirit on every sort of flesh.' You pour a substance, not a person.",
           "The gifts of the holy spirit — wisdom, faith, healing, speaking in tongues — are distributed by God's power, not by a third divine individual making independent decisions. Paul writes that 'all of these are the work of one and the same spirit, distributing to each person as it wills' (1 Corinthians 12:11) — but this reflects the spirit's alignment with God's will, not separate personhood.",
@@ -119,9 +149,13 @@ export const STUDY_TOPICS = [
     icon: "💨",
     title: "Holy Spirit Is Not a Person — Key Verses",
     subtitle: "Scriptural proof that the holy spirit is God's active force, not a person",
+    summary: "Key Bible verses show that the holy spirit behaves as a force, not a person: it is poured out, filled into people, and divided into portions. It has no personal name and is never seen as a distinct person in heavenly visions. These consistent patterns of language throughout both Testaments point to the holy spirit as God's active power rather than a co-equal divine individual.",
+    publishedAt: "2025-11-22",
+    updatedAt: "2025-11-22",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
     sections: [
       {
-        heading: "The Holy Spirit Is Poured Out and Filled",
+        heading: "Does the Bible describe the holy spirit as being poured out?",
         paragraphs: [
           "A person cannot be poured out, divided into portions, or used to fill people — but the holy spirit can. At Pentecost, 'they were all filled with holy spirit.' (Acts 2:4) God promised through Joel: 'I will pour out some of my spirit on every sort of flesh.' (Acts 2:17) You pour out a force or a substance, not a person.",
           "Jesus told his disciples they would 'be baptized in holy spirit.' (Acts 1:5) People are immersed in water, not in a person. These expressions — filled with, poured out, baptized in — consistently describe the holy spirit as a force, not an individual.",
@@ -135,7 +169,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "No Name, No Seat, No Identity",
+        heading: "Does the holy spirit appear as a person in Scripture?",
         paragraphs: [
           "Jehovah has a name. Jesus has a name. If the holy spirit were a co-equal person of a triune God, it would also have a personal name — yet none is given anywhere in Scripture. In Revelation's vision of the throne, the Father is on the throne and the Lamb (Jesus) is beside him — there is no third person represented. (Revelation 7:10)",
           "At Jesus' baptism, the holy spirit appeared as a dove — not as a person. (Matthew 3:16) When Stephen was about to die, 'he gazed into heaven and caught sight of God's glory and of Jesus standing at God's right hand.' (Acts 7:55) He saw two persons — the Father and the Son. No third person was visible.",
@@ -148,7 +182,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "A Force That Can Be Apportioned",
+        heading: "Can the holy spirit be apportioned like a force?",
         paragraphs: [
           "Numbers 11:25 describes how Jehovah 'took away some of the spirit that was on him [Moses] and put it on each of the 70 elders.' A person cannot be split into 70 portions. Elisha asked for 'two parts' of Elijah's spirit. (2 Kings 2:9) The holy spirit operates in measures and degrees — language that applies to energy or force, not personality.",
           "Paul wrote that spiritual gifts are 'the work of one and the same spirit, distributing to each person individually just as it wills.' (1 Corinthians 12:11) The spirit distributes according to God's will. It is the instrument of God's purpose, not an independent mind making separate decisions.",
@@ -169,9 +203,13 @@ export const STUDY_TOPICS = [
     icon: "📖",
     title: "The Trinity Is Not Biblical — Key Verses",
     subtitle: "Scripture consistently distinguishes the Father from the Son — the Trinity doctrine has no Bible basis",
+    summary: "The word 'Trinity' never appears in the Bible, and Scripture consistently presents the Father as the one true God and Jesus as a subordinate Son. Jesus prayed to the Father, called him 'my God,' and acknowledged a will distinct from his own — things impossible if they were co-equal. The doctrine of the Trinity was formalized centuries after the apostles and contradicts clear Bible statements.",
+    publishedAt: "2025-11-29",
+    updatedAt: "2025-11-29",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
     sections: [
       {
-        heading: "Jesus and the Father Are Separate Persons",
+        heading: "Does the Bible show Jesus and the Father as separate persons?",
         paragraphs: [
           "Jesus consistently spoke of himself as subordinate to his Father. He said plainly: 'The Father is greater than I am.' (John 14:28) If they were co-equal, this statement would be false. Jesus also said: 'I am going to my Father and your Father and to my God and your God.' (John 20:17) Jesus called the Father 'my God' — proving the Father held a higher position.",
           "At Gethsemane, Jesus prayed: 'Father, if you want to, remove this cup from me. Nevertheless, let, not my will, but yours take place.' (Luke 22:42) Two separate wills — the Father's and the Son's — cannot exist within one being. This prayer only makes sense if they are distinct persons.",
@@ -185,7 +223,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "One God — the Father",
+        heading: "Who does the Bible identify as the one true God?",
         paragraphs: [
           "The Bible never uses the word 'Trinity.' The Shema of Israel declares: 'Listen, O Israel: Jehovah our God is one Jehovah.' (Deuteronomy 6:4) Paul reaffirmed: 'There is actually to us one God, the Father, from whom all things are, and we for him; and there is one Lord, Jesus Christ, through whom all things are.' (1 Corinthians 8:6) God and Lord are named separately — the Father is God; Jesus is Lord.",
           "Jesus himself identified the Father as the 'only true God.' (John 17:3) The word 'only' excludes any other person from that title — including Jesus himself. If Jesus were part of a triune God, calling the Father the 'only true God' would exclude himself from deity.",
@@ -199,7 +237,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "Jesus Was Created — Not Co-Eternal",
+        heading: "Does the Bible say Jesus was created, not co-eternal?",
         paragraphs: [
           "The Bible calls Jesus 'the firstborn of all creation' (Colossians 1:15) and 'the beginning of the creation by God.' (Revelation 3:14) These titles indicate Jesus had a beginning. He was the first being Jehovah created, and then 'by means of him all other things were created.' (Colossians 1:16) Jesus is supreme among creation — but still part of it.",
           "Proverbs 8:22-30 personifies wisdom as saying: 'Jehovah produced me as the beginning of his way, the earliest of his achievements of long ago.' This passage, understood as foreshadowing Christ, shows that the Son was brought forth before anything else existed — not that he always existed alongside the Father.",
@@ -221,9 +259,13 @@ export const STUDY_TOPICS = [
     icon: "⚔️",
     title: "The Angel of the Lord Is Michael — Key Verses",
     subtitle: "Scriptural evidence connecting the angel of Jehovah, Michael the archangel, and Jesus Christ",
+    summary: "Scripture identifies Michael as the chief heavenly prince and sole archangel, whose role mirrors the prehuman Jesus in every respect. The angel of Jehovah who led and protected Israel carried God's own name and authority — a description matching Christ, whom Paul identifies as the spiritual rock that accompanied Israel. Before coming to earth as Jesus, this mighty spirit creature served Jehovah as Michael.",
+    publishedAt: "2025-12-06",
+    updatedAt: "2025-12-06",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
     sections: [
       {
-        heading: "Michael — The Chief Prince Who Defends God's People",
+        heading: "What does the Bible say about Michael's role?",
         paragraphs: [
           "Michael is identified as 'one of the foremost princes' who came to help Daniel's angelic messenger. (Daniel 10:13) He is later called 'the great prince who is standing in behalf of your people.' (Daniel 12:1) His role is that of a warrior-prince who champions Jehovah's cause and defends God's chosen ones — a role that perfectly matches the prehuman Jesus.",
           "Jude 9 identifies Michael as 'the archangel' — the chief angel. Since Scripture names only one archangel, and since the resurrected Jesus 'descends from heaven with a commanding call, with an archangel's voice' (1 Thessalonians 4:16), the connection is clear: Jesus holds the archangel position — he is Michael.",
@@ -236,7 +278,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "Michael Leads Heaven's Army — So Does Jesus",
+        heading: "Does Michael lead heaven's armies the same way Jesus does?",
         paragraphs: [
           "Revelation 12:7-9 describes the decisive heavenly war: 'Michael and his angels battled with the dragon, and the dragon and its angels battled.' The dragon — Satan — was hurled down to earth. Elsewhere in Revelation, it is Jesus Christ who is the conquering King riding a white horse, leading the armies of heaven. (Revelation 19:11-16) The commander of heaven's armies in both passages is the same person.",
           "Jesus told his disciples: 'I saw Satan already fallen like lightning from heaven.' (Luke 10:18) This is consistent with Michael casting Satan out. Before coming to earth, Jesus existed as a mighty spirit being — 'the firstborn of all creation.' (Colossians 1:15) His prehuman name in heaven was Michael; his earthly name, given at birth, is Jesus.",
@@ -249,7 +291,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "The Angel of Jehovah — A Prehuman Christ",
+        heading: "Who was the angel of Jehovah in the Hebrew Scriptures?",
         paragraphs: [
           "Throughout the Hebrew Scriptures, 'the angel of Jehovah' appears as God's chief representative — not merely one of many angels, but a singular figure who speaks with divine authority. He appeared to Moses in the burning bush (Exodus 3:2), guided Israel through the wilderness (Exodus 23:20-21), and blocked Balaam's path to protect God's people. (Numbers 22:22-35)",
           "God said of this angel: 'My name is in him.' (Exodus 23:21) This angel carried Jehovah's authority in a unique way. Paul identified the spiritual rock that accompanied Israel as Christ. (1 Corinthians 10:4) The angel of Jehovah who led and protected Israel was the prehuman Jesus — Michael — serving as Jehovah's primary agent long before his birth in Bethlehem.",
@@ -271,9 +313,13 @@ export const STUDY_TOPICS = [
     icon: "🌿",
     title: "What Is the Soul?",
     subtitle: "The Bible defines the soul as a living being — not an immortal inner entity",
+    summary: "The Bible teaches that a soul is a living creature — not an immortal spirit inside the body. When God formed man and breathed life into him, man 'became a living soul'; he did not receive one. Animals are also called souls in Scripture. This means the soul is mortal and can die, making the resurrection the true hope for the dead.",
+    publishedAt: "2025-12-13",
+    updatedAt: "2025-12-13",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
     sections: [
       {
-        heading: "The Soul Is the Person",
+        heading: "What does 'soul' mean in the Bible?",
         paragraphs: [
           "Most religious traditions teach that humans have an immortal soul that leaves the body at death. But the Bible teaches something quite different: 'Jehovah God went on to form the man out of dust from the ground and to blow into his nostrils the breath of life, and the man came to be a living person.' (Genesis 2:7, NWT) The Hebrew word translated 'person' here is nephesh — traditionally rendered 'soul.' Man did not receive a soul; he became a soul.",
           "Animals are also called 'souls' in Scripture. Genesis 1:20 in Hebrew uses nephesh for sea creatures and birds. The soul is not some special spiritual part unique to humans — it refers to any living, breathing creature.",
@@ -285,7 +331,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "The Soul Can Die",
+        heading: "Is the soul immortal according to the Bible?",
         paragraphs: [
           "Ezekiel 18:4 clearly states: 'The soul who sins is the one who will die.' If the soul were immortal, this statement would be meaningless. Revelation 16:3 speaks of 'every living soul in the sea' dying. The idea of an immortal soul comes not from the Bible but from Greek philosophy, especially Plato's teachings about the immortality of the soul.",
           "Understanding that the soul is the person himself — not a separate entity — makes the hope of resurrection even more beautiful. God will re-create the whole person, restoring everything that defined who they were.",
@@ -305,9 +351,13 @@ export const STUDY_TOPICS = [
     icon: "🌙",
     title: "What Happens When We Die?",
     subtitle: "Death is a state of unconscious sleep — not heaven, hell, or purgatory",
+    summary: "The Bible consistently describes death as a dreamless sleep — a state of complete unconsciousness with no awareness, pain, or activity. Jesus used sleep as a metaphor for death, and Ecclesiastes confirms that the dead 'are not conscious of anything at all.' The hope Scripture offers is not an immortal soul going to heaven, but a bodily resurrection when the whole person is restored to life.",
+    publishedAt: "2025-12-20",
+    updatedAt: "2025-12-20",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
     sections: [
       {
-        heading: "Death Is Like Sleep",
+        heading: "What state are the dead in according to Scripture?",
         paragraphs: [
           "When Jesus learned that Lazarus had died, he said: 'Lazarus our friend has fallen asleep, but I am traveling there to wake him up.' (John 11:11) The disciples misunderstood, so Jesus clarified: 'Lazarus has died.' Sleep is a powerful and consistent metaphor for death throughout Scripture because in sleep there is no activity, no consciousness — and yet the sleeper can be awakened.",
           "King Solomon wrote: 'The living are conscious that they will die, but the dead are not conscious of anything at all.' (Ecclesiastes 9:5) There is no awareness, no suffering, no joy — death is a complete cessation of life until the resurrection.",
@@ -319,7 +369,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "The Hope of Resurrection",
+        heading: "What does the Bible say about the resurrection hope?",
         paragraphs: [
           "Because death is not final, the resurrection is the great hope of Scripture. Jesus said: 'Do not be amazed at this, for the hour is coming in which all those in the memorial tombs will hear his voice and come out.' (John 5:28-29) This is not the immortal soul escaping to heaven — it is the entire person being restored to life.",
           "The apostle Paul called Christ's resurrection the foundation of Christian hope: 'If the dead are not to be raised, let us eat and drink, for tomorrow we are to die.' (1 Corinthians 15:32) The resurrection of the dead — not the immortality of the soul — is the Bible's answer to death.",
@@ -339,9 +389,13 @@ export const STUDY_TOPICS = [
     icon: "👑",
     title: "God's Kingdom — What Is It?",
     subtitle: "A real government in heaven that will rule over a paradise earth",
+    summary: "God's Kingdom is a real heavenly government with Jesus Christ as King, not merely a spiritual condition in the heart. Daniel prophesied it would crush all human rulership and stand forever. Jesus taught his followers to pray for it to come, with its rule extending to earth — transforming it into the paradise God originally intended.",
+    publishedAt: "2025-12-27",
+    updatedAt: "2025-12-27",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
     sections: [
       {
-        heading: "A Heavenly Government",
+        heading: "What is God's Kingdom according to the Bible?",
         paragraphs: [
           "The Kingdom of God is not a condition in the heart — it is a real government. Daniel prophesied: 'The God of heaven will set up a kingdom that will never be brought to ruin… it will crush and put an end to all these kingdoms, and it alone will stand forever.' (Daniel 2:44) This kingdom has a king (Jesus Christ), subjects, laws, and territory — the earth itself.",
           "Jesus taught his disciples to pray: 'Let your Kingdom come. Let your will take place, as in heaven, also on earth.' (Matthew 6:10) This prayer implies that the Kingdom's rule will one day extend to earth, transforming it just as heaven already reflects God's perfect will.",
@@ -353,7 +407,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "What the Kingdom Will Accomplish",
+        heading: "What will God's Kingdom accomplish on earth?",
         paragraphs: [
           "Under God's Kingdom, the earth will be transformed into a paradise. Revelation 21:3-4 promises: 'God himself will be with them. And he will wipe out every tear from their eyes, and death will be no more, neither will mourning nor outcry nor pain be anymore. The former things have passed away.' Disease, death, war, poverty — all will be eliminated.",
           "Isaiah 65:21-22 paints a picture of life under the Kingdom: 'They will build houses and live in them, and they will plant vineyards and eat their fruit.' Peaceful coexistence between humans and animals is also promised: 'The wolf and the lamb will feed together.' (Isaiah 65:25)",
@@ -373,9 +427,13 @@ export const STUDY_TOPICS = [
     icon: "🌧️",
     title: "Why Does God Allow Suffering?",
     subtitle: "Understanding the issue of universal sovereignty and why Jehovah permits evil for now",
+    summary: "God allows suffering temporarily because Satan raised a challenge against Jehovah's right to rule and the loyalty of his worshippers — a challenge that requires time and human experience to fully resolve. God is not indifferent; he is patient, wanting all to repent. His purpose of a pain-free paradise earth has never changed, and he will soon bring an end to all suffering.",
+    publishedAt: "2026-01-03",
+    updatedAt: "2026-01-03",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
     sections: [
       {
-        heading: "A Challenge Was Raised",
+        heading: "Why did God allow Satan's challenge to stand?",
         paragraphs: [
           "The account of Job reveals a key reason God allows suffering. Satan challenged God by claiming that humans only serve him for selfish reasons: 'Does Job fear God for nothing? Have you not put up a protective hedge around him… everything that he has? But, for a change, stretch out your hand and strike everything he has, and he will surely curse you to your face.' (Job 1:9-11) Satan raised a question about the integrity of human worshippers — a question that had to be answered.",
           "When Satan said in Eden 'you will not surely die' (Genesis 3:4), he was calling God a liar and suggesting that humans could live independently of God. These challenges to God's right to rule and to the loyalty of his worshippers could not be settled instantly — they required time and human experience to resolve completely.",
@@ -387,7 +445,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "Why God Doesn't Intervene Immediately",
+        heading: "Why doesn't God intervene immediately to stop suffering?",
         paragraphs: [
           "God is allowing time for humans to demonstrate that they can remain loyal under test, and to let the results of independence from God be fully seen. Peter writes: 'Jehovah is not slow concerning his promise, as some people consider slowness, but he is patient with you because he does not desire anyone to be destroyed but desires all to attain to repentance.' (2 Peter 3:9)",
           "God's permission of suffering is temporary. His purpose for the earth — a paradise free of pain and death — has never changed. The suffering we see now is not proof of God's indifference but of the consequences of human independence from divine guidance. Soon, God will 'bring to ruin those ruining the earth.' (Revelation 11:18)",
@@ -407,9 +465,13 @@ export const STUDY_TOPICS = [
     icon: "💧",
     title: "The Sanctity of Blood",
     subtitle: "Why Jehovah commands us to abstain from blood — and what this means today",
+    summary: "God's law on blood — established with Noah and reaffirmed for Christians in Acts 15 — treats blood as sacred because it represents life, which belongs to God. Jehovah's Witnesses decline blood transfusions as an act of obedience to this command. Modern medicine offers bloodless surgical alternatives, and choosing to honor God's requirement is understood as an expression of faith and trust in his wisdom.",
+    publishedAt: "2026-01-10",
+    updatedAt: "2026-01-10",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
     sections: [
       {
-        heading: "Blood Represents Life",
+        heading: "Why does the Bible say blood is sacred?",
         paragraphs: [
           "God told Noah after the Flood: 'Only flesh with its life — its blood — you must not eat.' (Genesis 9:4) Blood is sacred because it represents life itself, and all life belongs to God. This was not just a dietary command — it was a statement about ownership. Life is God's gift; we do not have the right to misuse it.",
           "The Mosaic Law reinforced this principle: 'As for any man of the house of Israel or any foreigner who is residing among you who eats any sort of blood, I will certainly set my face against that person who is eating the blood.' (Leviticus 17:10) The prohibition on blood was among the requirements the Jerusalem council in Acts 15 upheld as binding for all Christians.",
@@ -421,7 +483,7 @@ export const STUDY_TOPICS = [
         ],
       },
       {
-        heading: "Blood in Christian Faith Today",
+        heading: "How does the Bible's teaching on blood apply to Christians today?",
         paragraphs: [
           "The apostolic council's decree in Acts 15:28-29 made clear that abstaining from blood applies to Christians under the new covenant. This is not a ceremonial Jewish law that was abolished — it was explicitly reaffirmed for Gentile believers. Jehovah's Witnesses therefore decline blood transfusions, understanding this to be a matter of obedience to God's command.",
           "Modern medical alternatives to transfusion — cell salvage, volume expanders, and bloodless surgical techniques — have advanced significantly, and many hospitals now offer these options. Choosing to honor God's requirement about blood is an act of faith and trust that God's standards are always in our best interest.",
@@ -436,6 +498,6 @@ export const STUDY_TOPICS = [
   },
 ];
 
-export function getTopicBySlug(slug) {
+export function getTopicBySlug(slug: string): StudyTopic | null {
   return STUDY_TOPICS.find(t => t.slug === slug) ?? null;
 }

@@ -17,44 +17,34 @@ function bookToSlug(name: string) {
 
 const FAQ_ITEMS = [
   {
-    question: "What is JW Study?",
+    question: "Is JW Study affiliated with the Watch Tower Society or jw.org?",
     answer:
-      "JW Study is a free Bible reading tracker built for Jehovah's Witnesses. It lets you track reading progress through all 66 books of the New World Translation, follow structured reading plans, take study notes, and connect with fellow publishers in a community forum.",
+      "No. JW Study is an independent tool built by a publisher to help fellow Witnesses track Bible reading and study. We are not endorsed by, sponsored by, or connected to the Watch Tower Bible and Tract Society. All Bible text and references link out to the official jw.org and JW Library.",
   },
   {
-    question: "Is JW Study free to use?",
+    question: "Is it really free?",
     answer:
-      "Yes — JW Study is completely free. Every feature is included: Bible reading tracking across all 66 books, reading plans, study notes, direct messaging, study groups, community forum, blog, and quizzes.",
+      "Yes. JW Study is 100% free — no trial, no card, no hidden tiers. Everything on the site is free to use.",
   },
   {
-    question: "What Bible translation does JW Study use?",
+    question: "Do I need to create an account to try it?",
     answer:
-      "JW Study is built around the New World Translation (NWT) — the Bible used by Jehovah's Witnesses worldwide. It supports all 66 books across the Hebrew Scriptures and the Christian Greek Scriptures.",
+      "No. You can use the full Bible reading tracker without signing up — just visit Try the tracker, check off chapters, and your progress is saved on your device. Create a free account when you're ready to sync across devices and unlock streaks, notes, and reading plans.",
   },
   {
-    question: "Can I track a Bible reading plan with JW Study?",
+    question: "Is my data private?",
     answer:
-      "Yes. JW Study offers structured reading plans including the NWT in 1 Year, New Testament in 90 Days, Gospels in 30 Days, and more. Each plan tracks daily progress, shows your streak, and supports catch-up mode if you fall behind.",
+      "Yes. Your reading progress, notes, and study data are private to you by default. We never share or sell your data. You can delete your account and all data at any time.",
   },
   {
-    question: "Does JW Study work on mobile?",
+    question: "Does it work offline / on my phone?",
     answer:
-      "Yes — JW Study is a Progressive Web App (PWA). You can install it on your phone from your browser for an app-like experience on iOS and Android. It also supports offline access.",
+      "Yes. JW Study is a Progressive Web App — install it on iPhone, Android, or desktop with one tap. It works like a native app, no App Store needed, and stays in sync across all your devices.",
   },
   {
-    question: "What languages does JW Study support?",
+    question: "What if I'm not a Jehovah's Witness?",
     answer:
-      "JW Study is available in English, Spanish, Portuguese, French, Tagalog, and Chinese.",
-  },
-  {
-    question: "Is JW Study affiliated with Jehovah's Witnesses or the Watch Tower Society?",
-    answer:
-      "No. JW Study is an independent community project built by a Jehovah's Witness for Bible students. It is not affiliated with or endorsed by Jehovah's Witnesses or the Watch Tower Society of Pennsylvania.",
-  },
-  {
-    question: "Can I use JW Study alongside JW Library?",
-    answer:
-      "Yes — JW Study is designed as a companion to JW Library, not a replacement. Do your reading in JW Library, then log your chapters here to track progress, build streaks, and share your journey with the community.",
+      "You're welcome here too. JW Study is built around the New World Translation, but anyone studying the Bible is free to use it.",
   },
 ];
 

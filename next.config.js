@@ -36,13 +36,6 @@ const nextConfig = {
   // Keep static exports working for Vercel
   trailingSlash: false,
 
-  // Redirect junk/invalid paths back to homepage
-  async redirects() {
-    return [
-      { source: "/$", destination: "/", permanent: true },
-    ];
-  },
-
   // Image optimization
   images: {
     // Prefer AVIF (smaller), fall back to WebP

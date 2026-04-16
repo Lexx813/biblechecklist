@@ -10,6 +10,10 @@ export default function CommunityStats({ serverUserCount }: { serverUserCount: n
   const [stats, setStats] = useState({ users: serverUserCount, chaptersRead: 0 });
 
   useEffect(() => {
+    const CACHE_KEY = "nwt-community-stats-ts";
+    const lastFetch = Number(localStorage.getItem(CACHE_KEY) ?? 0);
+    if (Date.now() - lastFetch < 5 * 60 * 1000) return; // fresh within 5 min
+
     import("../../../src/lib/supabase").then(({ supabase }) => {
       Promise.all([
         supabase.from("profiles").select("id", { count: "exact", head: true }),
@@ -19,6 +23,7 @@ export default function CommunityStats({ serverUserCount }: { serverUserCount: n
           users: Math.max(count ?? serverUserCount, 500),
           chaptersRead: (chapters as number) ?? 0,
         });
+        localStorage.setItem(CACHE_KEY, String(Date.now()));
       }).catch(() => {});
     });
   }, [serverUserCount]);

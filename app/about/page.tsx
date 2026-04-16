@@ -29,10 +29,27 @@ const schemaBreadcrumb = {
   ],
 };
 
+const schemaPerson = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://jwstudy.org/#creator",
+  name: "Alexi",
+  description:
+    "Bible student and Jehovah's Witness who built JW Study — a free Bible reading tracker and study community for Jehovah's Witnesses.",
+  url: "https://jwstudy.org/about",
+  email: "support@jwstudy.org",
+  knowsAbout: ["Bible reading", "New World Translation", "Jehovah's Witnesses"],
+  worksFor: {
+    "@type": "Organization",
+    "@id": "https://jwstudy.org/#organization",
+  },
+};
+
 export default function AboutPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaPerson) }} />
       {/* Server-rendered trust content for SEO — visually hidden, SPA renders the actual UI */}
       <div style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>
         <h1>A Home for Bible Readers</h1>

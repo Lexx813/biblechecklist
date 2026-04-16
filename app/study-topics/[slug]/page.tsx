@@ -24,6 +24,8 @@ export async function generateMetadata({ params }) {
       title: `${topic.title} | JW Study`,
       description,
       type: "article",
+      publishedTime: topic.publishedAt,
+      modifiedTime: topic.updatedAt,
       images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
     },
     twitter: {
@@ -50,8 +52,8 @@ export default async function StudyTopicPage({ params }) {
     description: topic.subtitle,
     articleBody: allParagraphs.join(" "),
     url: `https://jwstudy.org/study-topics/${topic.slug}`,
-    datePublished: "2025-11-01",
-    dateModified: "2026-01-01",
+    datePublished: topic.publishedAt,
+    dateModified: topic.updatedAt,
     image: "https://jwstudy.org/og-image.jpg",
     author: {
       "@type": "Organization",
@@ -82,14 +84,29 @@ export default async function StudyTopicPage({ params }) {
     ],
   };
 
+  const schemaFAQ = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": topic.sections.map(s => ({
+      "@type": "Question",
+      "name": s.heading,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": s.paragraphs.join(" ")
+      }
+    }))
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaArticle) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }} />
       {/* Server-rendered body for SEO — hidden visually, the SPA renders the actual UI */}
       <div style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>
         <h1>{topic.title}</h1>
         <p>{topic.subtitle}</p>
+        <p className="text-xs text-gray-500 mt-1">{topic.disclaimer}</p>
         {topic.sections.map((section, i) => (
           <section key={i}>
             <h2>{section.heading}</h2>

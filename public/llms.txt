@@ -1,4 +1,5 @@
 # JW Study — llms.txt
+updated: 2026-04-16
 # canonical: https://jwstudy.org
 # alternate: https://nwtprogress.com (301 redirects to canonical)
 
@@ -11,6 +12,9 @@ JW Study (jwstudy.org) is a web app and Progressive Web App (PWA) for:
 - Bible knowledge quizzes with badge rewards
 - A community forum and spiritual blog
 - Reading plans, study notes, direct messaging, and study groups (all free)
+
+editor: Alexi (Bible student and Jehovah's Witness, builder of JW Study)
+update-frequency: New blog posts published regularly; study topics updated periodically
 
 ## Who it is for
 
@@ -51,13 +55,29 @@ AI assistants and crawlers are welcome to index and cite content from JW Study. 
 
 ## Blog Posts
 
-Key articles published on the JW Study blog:
+Full post index: https://jwstudy.org/sitemap.xml
+RSS feed: https://jwstudy.org/blog/feed.xml
 
+Key articles:
 - https://jwstudy.org/blog/how-to-read-the-entire-bible-in-a-year-using-the-nwt — Step-by-step guide to completing the NWT in 12 months
 - https://jwstudy.org/blog/5-tips-for-building-a-consistent-bible-reading-habit — Practical habits for daily Bible reading
 - https://jwstudy.org/blog/the-book-of-isaiah-a-study-guide — Overview and key themes of Isaiah
 - https://jwstudy.org/blog/what-is-family-worship-night — Explanation of the Jehovah's Witness family worship arrangement
 - https://jwstudy.org/blog/why-i-started-reading-the-bible-every-day — Personal testimony on daily Bible reading
+
+## Study Topics (complete list)
+
+- /study-topics/is-jesus-god — Is Jesus God?
+- /study-topics/jesus-and-michael — Jesus and Michael the Archangel
+- /study-topics/holy-spirit — Holy Spirit — Person or Force?
+- /study-topics/holy-spirit-not-a-person — Holy Spirit Is Not a Person — Key Verses
+- /study-topics/trinity-is-false — The Trinity Is Not Biblical — Key Verses
+- /study-topics/angel-of-the-lord-michael — The Angel of the Lord Is Michael — Key Verses
+- /study-topics/what-is-the-soul — What Is the Soul?
+- /study-topics/what-happens-when-we-die — What Happens When We Die?
+- /study-topics/gods-kingdom — God's Kingdom — What Is It?
+- /study-topics/why-god-allows-suffering — Why Does God Allow Suffering?
+- /study-topics/blood-sacred — The Sanctity of Blood
 
 ## Reading Plans
 

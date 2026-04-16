@@ -5,6 +5,7 @@ Disallow: /profile
 Disallow: /bookmarks
 Disallow: /feed
 Disallow: /history
+Disallow: /share
 
 # Allow AI crawlers explicitly
 User-agent: GPTBot

@@ -116,25 +116,10 @@ export default async function BookPage({ params }) {
     ],
   };
 
-  // FAQ schema built from the book's study questions
-  const schemaFAQ = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: book.questions.map((q) => ({
-      "@type": "Question",
-      name: q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: `Discover the answer in the book of ${book.name}. Read ${book.name} in the New World Translation and track your study with JW Study.`,
-      },
-    })),
-  };
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaArticle) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }} />
       <div style={SEO_HIDE}>
         <h1>Book of {book.name} — New World Translation Study Guide</h1>
         <p>

@@ -89,6 +89,7 @@ export async function generateMetadata({ params }: { params: Promise<{ userId: s
       description,
     },
     alternates: { canonical: `${BASE}/share/${userId}` },
+    robots: { index: false, follow: false },
   };
 }
 

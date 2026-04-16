@@ -1,31 +1,20 @@
-"use client";
+import Link from "next/link";
 
 /**
- * Thin client island: clicking triggers the SPA auth flow by pushing
- * to /login which the ClientShell picks up.
+ * Server Component: renders a styled Link to /login with hover prefetch.
  */
 export function GetStartedButton({ label, className }: { label: string; className?: string }) {
   return (
-    <button
-      className={className}
-      onClick={() => {
-        window.location.href = "/login";
-      }}
-    >
+    <Link href="/login" className={className}>
       {label}
-    </button>
+    </Link>
   );
 }
 
 export function GetStartedLink({ label, className }: { label: string; className?: string }) {
   return (
-    <button
-      className={className}
-      onClick={() => {
-        window.location.href = "/login";
-      }}
-    >
+    <Link href="/login" className={className}>
       {label}
-    </button>
+    </Link>
   );
 }
