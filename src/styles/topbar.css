@@ -7,7 +7,7 @@
   background: var(--bg-elevated, #100c1e);
   border-bottom: 1px solid rgba(138, 75, 255, 0.12);
   display: grid;
-  grid-template-columns: 220px 1fr 244px;
+  grid-template-columns: 220px 1fr 200px;
   align-items: center;
   padding: 0 16px;
   gap: 12px;
@@ -93,7 +93,7 @@
   align-items: center;
   gap: 4px;
   min-height: 44px; /* prevent reflow when badges/icons load async */
-  min-width: 244px; /* 5 × 44px buttons + 4 × 4px gaps — stabilizes auto grid column */
+  min-width: 200px; /* 4 × 44px buttons + 3 × 4px gaps — stabilizes auto grid column */
   justify-content: flex-end;
 }
 .topbar-btn {
