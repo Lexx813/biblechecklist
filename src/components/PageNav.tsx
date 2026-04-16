@@ -221,6 +221,8 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 <button className={`page-nav-more-item${currentPage === "forum" ? " page-nav-more-item--active" : ""}`} onClick={() => go("forum")}>{Icon.Users} {t("app.forum")}</button>
                 <div className="page-nav-more-divider" />
                 <button className={`page-nav-more-item${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-more-item--active" : ""}`} onClick={() => go("groups")}>{Icon.Users} {t("nav.studyGroups")}</button>
+                <div className="page-nav-more-divider" />
+                <button className={`page-nav-more-item${currentPage === "messages" ? " page-nav-more-item--active" : ""}`} onClick={() => go("messages")} style={{ position: "relative" }}>{Icon.Message} {t("nav.messages")}{unreadMessages > 0 && <span className="page-nav-msg-badge" style={{ top: 8, right: 8 }}>{unreadMessages}</span>}</button>
               </div>
             )}
           </div>
@@ -244,10 +246,9 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
 
         <div className="page-nav-actions">
           {user && (
-              <button className={`page-nav-icon-btn page-nav-msg-btn${currentPage === "messages" ? " page-nav-icon-btn--active" : ""}`} onClick={() => go("messages")} data-tip={t("nav.messages")} aria-label={t("nav.messages")} style={{ position: "relative" }}>
-                  {Icon.Message}
-                  {unreadMessages > 0 && <span className="page-nav-msg-badge">{unreadMessages}</span>}
-                </button>
+            <button className={`page-nav-link${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-link--active" : ""}`} onClick={() => go("studyTopics")}>
+              {t("nav.studyTopics", "Study Topics")}
+            </button>
           )}
           {user && (
             <button
@@ -381,6 +382,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
                 <button className={`page-nav-mobile-link${currentPage === "blog" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("blog")}><span className="page-nav-mobile-icon">{Icon.Feed}</span> {t("app.blog")}</button>
                 <button className={`page-nav-mobile-link${currentPage === "forum" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("forum")}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("app.forum")}</button>
                 <button className={`page-nav-mobile-link${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("groups")}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("nav.studyGroups")}</button>
+                <button className={`page-nav-mobile-link${currentPage === "messages" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("messages")}><span className="page-nav-mobile-icon">{Icon.Message}</span> {t("nav.messages")} {unreadMessages > 0 && <span className="page-nav-mobile-badge">{unreadMessages}</span>}</button>
               </div>
             )}
 
@@ -400,11 +402,11 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               </div>
             )}
 
-            {/* Messages */}
+            {/* Study Topics — direct link */}
             <div className="page-nav-mobile-divider" />
-            <button className={`page-nav-mobile-link${currentPage === "messages" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("messages")}>
-                  <span className="page-nav-mobile-icon">{Icon.Message}</span> {t("nav.messages")} {unreadMessages > 0 && <span className="page-nav-mobile-badge">{unreadMessages}</span>}
-                </button>
+            <button className={`page-nav-mobile-link${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyTopics")}>
+              <span className="page-nav-mobile-icon">{Icon.Book}</span> {t("nav.studyTopics", "Study Topics")}
+            </button>
 
 
             <div className="page-nav-mobile-divider" />
