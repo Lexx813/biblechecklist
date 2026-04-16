@@ -665,7 +665,7 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => { setShowActions(false); setShowReactionPicker(false); }}
     >
-      {!isMine && <Avatar profile={msg.sender} size={28} />}
+      {!isMine && <Avatar profile={Array.isArray(msg.sender) ? msg.sender[0] : msg.sender} size={28} />}
       <div style={{ display: "flex", flexDirection: "column", alignItems: isMine ? "flex-end" : "flex-start", gap: 2 }}>
         {msg.reply_to_id && (
           <QuotedReply replyToId={msg.reply_to_id} messages={allMessages} />
