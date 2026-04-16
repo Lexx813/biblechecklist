@@ -11,7 +11,6 @@ import { useFeatureFlags } from "../hooks/useFeatureFlags";
 
 const FLAGS = { en: "🇺🇸", es: "🇪🇸", pt: "🇧🇷", tl: "🇵🇭", fr: "🇫🇷", zh: "🇨🇳", ja: "🇯🇵", ko: "🇰🇷" };
 
-// ── SVG icon set ──────────────────────────────────────────────────────────────
 const Icon = {
   Book:         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>,
   Feed:         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>,
@@ -63,20 +62,12 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
   const canModerate = isAdmin || profile?.is_moderator;
   const { data: unreadMessages = 0 } = useUnreadMessageCount();
   const { aiEnabled } = useFeatureFlags();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuOpenRef = useRef(false);
   const [quizOpen, setQuizOpen] = useState(false);
   const [studyOpen, setStudyOpen] = useState(false);
   const [communityOpen, setCommunityOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  // Mobile accordion sections — auto-open whichever section the current page is in
-  const [mobileQuizOpen, setMobileQuizOpen] = useState(() => ["quiz","familyQuiz","leaderboard","trivia"].includes(currentPage));
-  const [mobileStudyOpen, setMobileStudyOpen] = useState(() => ["feed","bookmarks","studyTopics","studyTopicDetail","readingPlans","studyNotes","meetingPrep"].includes(currentPage));
-  const [mobileCommunityOpen, setMobileCommunityOpen] = useState(() => ["blog","forum","groups","groupDetail"].includes(currentPage));
-  const [mobileMoreOpen, setMobileMoreOpen] = useState(() => ["about","admin"].includes(currentPage));
   const [navHidden, setNavHidden] = useState(false);
-  const menuRef = useRef(null);
   const quizRef = useRef(null);
   const studyRef = useRef(null);
   const communityRef = useRef(null);
@@ -99,46 +90,26 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
   const moreActive = morePages.has(currentPage);
 
   function go(page) {
-    setMenuOpen(false);
     setQuizOpen(false);
     setStudyOpen(false);
     setCommunityOpen(false);
     setMoreOpen(false);
+    setLangOpen(false);
     navigate(page);
   }
 
-  useEffect(() => { menuOpenRef.current = menuOpen; }, [menuOpen]);
-
-  useClickOutside(menuRef,      menuOpen,      () => setMenuOpen(false));
   useClickOutside(quizRef,      quizOpen,      () => setQuizOpen(false));
   useClickOutside(studyRef,     studyOpen,     () => setStudyOpen(false));
   useClickOutside(communityRef, communityOpen, () => setCommunityOpen(false));
   useClickOutside(moreRef,      moreOpen,      () => setMoreOpen(false));
   useClickOutside(langRef,      langOpen,      () => setLangOpen(false));
 
-  // Close mobile menu on resize to desktop
-  useEffect(() => {
-    function handler() { if (window.innerWidth > 1180) setMenuOpen(false); }
-    window.addEventListener("resize", handler);
-    return () => window.removeEventListener("resize", handler);
-  }, []);
-
-  // Reset mobile accordion sections when menu closes
-  useEffect(() => {
-    if (!menuOpen) {
-      setMobileQuizOpen(false);
-      setMobileStudyOpen(false);
-      setMobileCommunityOpen(false);
-      setMobileMoreOpen(false);
-    }
-  }, [menuOpen]);
-
   // Hide nav on scroll down, reveal on scroll up
   useEffect(() => {
     function onScroll() {
       const y = window.scrollY;
       if (y < 60) { setNavHidden(false); lastScrollY.current = y; return; }
-      if (y > lastScrollY.current + 6) { if (!menuOpenRef.current) { setNavHidden(true); } }
+      if (y > lastScrollY.current + 6) { setNavHidden(true); }
       else if (y < lastScrollY.current - 4) { setNavHidden(false); }
       lastScrollY.current = y;
     }
@@ -153,13 +124,12 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
 
   return (
     <>
-      <nav className={`page-nav${navHidden ? " page-nav--hidden" : ""}`} ref={menuRef}>
+      <nav className={`page-nav${navHidden ? " page-nav--hidden" : ""}`}>
         <button className="page-nav-brand" onClick={() => go("home")}>
           <span className="page-nav-brand-icon">{Icon.Book}</span>
           <span className="page-nav-brand-name">JW Study</span>
         </button>
 
-        {/* Desktop links */}
         <div className="page-nav-links">
           {currentPage !== "home" && <button className="page-nav-link" onClick={() => go("home")}>{t("app.home")}</button>}
           <button className={`page-nav-link${currentPage === "main" ? " page-nav-link--active" : ""}`} onClick={() => go("main")}>{t("home.navTracker")}</button>
@@ -265,29 +235,28 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
             <button
               className="page-nav-icon-btn"
               onClick={() => setDarkMode(d => !d)}
-              data-tip={darkMode ? t("app.lightMode") : t("app.darkMode")}
-              aria-label={darkMode ? t("app.lightMode") : t("app.darkMode")}
+              aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+              data-tip={darkMode ? "Light mode" : "Dark mode"}
             >
               {darkMode ? Icon.Sun : Icon.Moon}
             </button>
           )}
           {i18n && (
-            <div className="page-nav-lang-picker" ref={langRef}>
+            <div className="page-nav-more page-nav-lang" ref={langRef}>
               <button
-                className={`page-nav-icon-btn page-nav-lang-btn${langOpen ? " page-nav-icon-btn--active" : ""}`}
+                className={`page-nav-icon-btn page-nav-lang-btn${langOpen ? " page-nav-more-btn--open" : ""}`}
                 onClick={() => setLangOpen(o => !o)}
-                data-tip={t("nav.language")}
-                aria-label={t("nav.language")}
-                aria-expanded={langOpen}
+                aria-label="Change language"
+                data-tip="Language"
               >
-                <span aria-hidden="true">{FLAGS[currentLangCode]}</span>
+                <span style={{ fontSize: 18, lineHeight: 1 }}>{FLAGS[currentLangCode] ?? "🌐"}</span>
               </button>
               {langOpen && (
-                <div className="page-nav-lang-menu">
+                <div className="page-nav-more-menu page-nav-lang-menu">
                   {LANGUAGES.map(l => (
                     <button
                       key={l.code}
-                      className={`page-nav-lang-item${l.code === currentLangCode ? " page-nav-lang-item--active" : ""}`}
+                      className={`page-nav-more-item page-nav-lang-item${l.code === currentLangCode ? " page-nav-more-item--active" : ""}`}
                       onClick={() => { i18n.changeLanguage(l.code); setLangOpen(false); }}
                     >
                       <span>{FLAGS[l.code]}</span>
@@ -323,102 +292,7 @@ export default function PageNav({ navigate, darkMode, setDarkMode, i18n, user, o
               }
             </button>
           )}
-
-          {/* Hamburger — mobile only */}
-          <button
-            className={`page-nav-hamburger${menuOpen ? " is-open" : ""}`}
-            onClick={() => setMenuOpen(o => !o)}
-            aria-label="Toggle menu"
-            aria-expanded={menuOpen}
-          >
-            <span /><span /><span />
-          </button>
         </div>
-
-        {/* Mobile dropdown menu */}
-        {menuOpen && (
-          <div className="page-nav-mobile-menu">
-            {currentPage !== "home" && <button className="page-nav-mobile-link" onClick={() => go("home")}><span className="page-nav-mobile-icon">{Icon.Home}</span> {t("app.home")}</button>}
-            <button className={`page-nav-mobile-link${currentPage === "main" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("main")}><span className="page-nav-mobile-icon">{Icon.Book}</span> {t("home.navTracker")}</button>
-            <button className={`page-nav-mobile-link${currentPage === "blog" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("blog")}><span className="page-nav-mobile-icon">{Icon.Feed}</span> {t("app.blog")}</button>
-            <button className={`page-nav-mobile-link${currentPage === "feed" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("feed")}><span className="page-nav-mobile-icon">{Icon.Feed}</span> {t("feed.navLink")}</button>
-            <button className={`page-nav-mobile-link${currentPage === "bookmarks" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("bookmarks")}><span className="page-nav-mobile-icon">{Icon.Bookmark}</span> {t("bookmarks.title")}</button>
-
-            {/* Quiz accordion */}
-            <button className={`page-nav-mobile-section-toggle${quizActive ? " page-nav-mobile-section-toggle--active" : ""}`} onClick={() => setMobileQuizOpen(o => !o)} aria-expanded={mobileQuizOpen}>
-              <span>{t("quiz.nav", "Quiz")}</span>
-              <span className={`page-nav-mobile-chevron${mobileQuizOpen ? " page-nav-mobile-chevron--open" : ""}`}>{Icon.Chevron}</span>
-            </button>
-            {mobileQuizOpen && (
-              <div className="page-nav-mobile-section-items">
-                <button className={`page-nav-mobile-link${currentPage === "quiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("quiz")}><span className="page-nav-mobile-icon">{Icon.Quiz}</span> {t("quiz.nav")}</button>
-                <button className={`page-nav-mobile-link${currentPage === "familyQuiz" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("familyQuiz")}><span className="page-nav-mobile-icon">{Icon.FamilyQuiz}</span> Family Challenge</button>
-                <button className={`page-nav-mobile-link${currentPage === "trivia" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("trivia")}><span className="page-nav-mobile-icon">{Icon.Swords}</span> Trivia Battle</button>
-                <button className={`page-nav-mobile-link${currentPage === "leaderboard" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("leaderboard")}><span className="page-nav-mobile-icon">{Icon.Trophy}</span> {t("leaderboard.title", "Leaderboard")}</button>
-              </div>
-            )}
-
-            {/* Study accordion */}
-            <button className={`page-nav-mobile-section-toggle${studyActive ? " page-nav-mobile-section-toggle--active" : ""}`} onClick={() => setMobileStudyOpen(o => !o)} aria-expanded={mobileStudyOpen}>
-              <span>{t("nav.study", "Study")}</span>
-              <span className={`page-nav-mobile-chevron${mobileStudyOpen ? " page-nav-mobile-chevron--open" : ""}`}>{Icon.Chevron}</span>
-            </button>
-            {mobileStudyOpen && (
-              <div className="page-nav-mobile-section-items">
-                <button className={`page-nav-mobile-link${currentPage === "feed" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("feed")}><span className="page-nav-mobile-icon">{Icon.Feed}</span> {t("feed.navLink")}</button>
-                <button className={`page-nav-mobile-link${currentPage === "bookmarks" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("bookmarks")}><span className="page-nav-mobile-icon">{Icon.Bookmark}</span> {t("bookmarks.title")}</button>
-                <button className={`page-nav-mobile-link${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyTopics")}><span className="page-nav-mobile-icon">{Icon.Book}</span> {t("nav.studyTopics", "Study Topics")}</button>
-                <button className={`page-nav-mobile-link${currentPage === "meetingPrep" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("meetingPrep")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.meetingPrep", "Meeting Prep")}</button>
-                <button className={`page-nav-mobile-link${currentPage === "readingPlans" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("readingPlans")}><span className="page-nav-mobile-icon">{Icon.Calendar}</span> {t("nav.readingPlans")}</button>
-                <button className={`page-nav-mobile-link${currentPage === "studyNotes" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyNotes")}><span className="page-nav-mobile-icon">{Icon.Notes}</span> {t("nav.studyNotes")}</button>
-              </div>
-            )}
-
-            {/* Community accordion */}
-            <button className={`page-nav-mobile-section-toggle${communityActive ? " page-nav-mobile-section-toggle--active" : ""}`} onClick={() => setMobileCommunityOpen(o => !o)} aria-expanded={mobileCommunityOpen}>
-              <span>{t("nav.community")}</span>
-              <span className={`page-nav-mobile-chevron${mobileCommunityOpen ? " page-nav-mobile-chevron--open" : ""}`}>{Icon.Chevron}</span>
-            </button>
-            {mobileCommunityOpen && (
-              <div className="page-nav-mobile-section-items">
-                <button className={`page-nav-mobile-link${currentPage === "blog" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("blog")}><span className="page-nav-mobile-icon">{Icon.Feed}</span> {t("app.blog")}</button>
-                <button className={`page-nav-mobile-link${currentPage === "forum" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("forum")}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("app.forum")}</button>
-                <button className={`page-nav-mobile-link${currentPage === "groups" || currentPage === "groupDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("groups")}><span className="page-nav-mobile-icon">{Icon.Users}</span> {t("nav.studyGroups")}</button>
-                <button className={`page-nav-mobile-link${currentPage === "messages" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("messages")}><span className="page-nav-mobile-icon">{Icon.Message}</span> {t("nav.messages")} {unreadMessages > 0 && <span className="page-nav-mobile-badge">{unreadMessages}</span>}</button>
-              </div>
-            )}
-
-            {/* More accordion */}
-            <button className={`page-nav-mobile-section-toggle${moreActive ? " page-nav-mobile-section-toggle--active" : ""}`} onClick={() => setMobileMoreOpen(o => !o)} aria-expanded={mobileMoreOpen}>
-              <span>{t("nav.more")}</span>
-              <span className={`page-nav-mobile-chevron${mobileMoreOpen ? " page-nav-mobile-chevron--open" : ""}`}>{Icon.Chevron}</span>
-            </button>
-            {mobileMoreOpen && (
-              <div className="page-nav-mobile-section-items">
-                <button className={`page-nav-mobile-link${currentPage === "about" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("about")}><span className="page-nav-mobile-icon">{Icon.Info}</span> {t("app.about")}</button>
-                {canModerate && (
-                  <button className={`page-nav-mobile-link${currentPage === "admin" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("admin")}>
-                    <span className="page-nav-mobile-icon">{Icon.Shield}</span> {isAdmin ? t("app.admin") : "Moderation"}
-                  </button>
-                )}
-              </div>
-            )}
-
-            {/* Study Topics — direct link */}
-            <div className="page-nav-mobile-divider" />
-            <button className={`page-nav-mobile-link${currentPage === "studyTopics" || currentPage === "studyTopicDetail" ? " page-nav-mobile-link--active" : ""}`} onClick={() => go("studyTopics")}>
-              <span className="page-nav-mobile-icon">{Icon.Book}</span> {t("nav.studyTopics", "Study Topics")}
-            </button>
-
-
-            <div className="page-nav-mobile-divider" />
-            {user && onLogout && (
-              <button className="page-nav-mobile-link page-nav-mobile-logout" onClick={() => { setMenuOpen(false); onLogout(); }} style={{ marginTop: 4 }}>
-                {t("app.logOut")}
-              </button>
-            )}
-          </div>
-        )}
       </nav>
       <AnnouncementBanner />
     </>
