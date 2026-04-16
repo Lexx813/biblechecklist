@@ -480,9 +480,9 @@
 }
 
 /* ── Mobile ──────────────────────────────────────────────────────────────── */
-@media (max-width: 640px) {
+@media (max-width: 1100px) {
   .asb-root {
-    bottom: 80px; /* match messenger FAB bottom */
+    bottom: 84px; /* match messenger FAB bottom — fc-root also uses 84px on mobile */
     right: 84px;  /* 24px edge + 52px messenger FAB + 8px gap — same as desktop */
   }
 
