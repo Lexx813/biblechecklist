@@ -610,6 +610,23 @@
 
 .fc-input::placeholder { color: var(--text-muted); }
 
+/* Backward compat: input rendered outside pill until MiniThread JSX is updated in Task 4 */
+.fc-composer > .fc-input {
+  flex: 1;
+  background: #f3f0ff;
+  border: none;
+  border-radius: 22px;
+  padding: 8px 13px;
+  font-size: 13px;
+  color: var(--text-primary);
+  outline: none;
+  min-width: 0;
+}
+
+[data-theme="dark"] .fc-composer > .fc-input {
+  background: #2d1f4e;
+}
+
 /* Keep old toggle for backward compat until JSX is updated */
 .fc-emoji-toggle {
   background: none;
@@ -1411,7 +1428,7 @@
 
 /* ── Starred indicator ────────────────────────────────────────────────────── */
 
-.fc-bubble--starred { border-color: rgba(234,179,8,0.4); }
+.fc-bubble--starred { border: 1px solid rgba(234,179,8,0.4); }
 .fc-star-indicator { font-size: 9px; }
 
 /* ── Message formatting links ─────────────────────────────────────────────── */
