@@ -512,7 +512,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
         </div>
 
         <div style={{ padding: "0 16px 4px" }}>
-          <ReadingPlanWidget userId={user.id} dailyGoal={profile?.daily_chapter_goal ?? 3} chaptersRead={doneCh} totalChapters={totalCh} />
+          <ReadingPlanWidget userId={user.id} dailyGoal={profile?.daily_chapter_goal ?? 3} chaptersRead={doneCh} totalChapters={totalCh} compact />
         </div>
         <div style={{ padding: "4px 16px 12px", display: "flex", justifyContent: "flex-end", gap: 8 }}>
           <button className="quick-action-btn" onClick={() => setShowShare(true)}>

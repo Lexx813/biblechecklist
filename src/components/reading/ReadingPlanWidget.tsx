@@ -18,11 +18,12 @@ interface Props {
   userId?: string;
   dailyGoal?: number;
   readonly?: boolean;
+  compact?: boolean;
   chaptersRead?: number;
   totalChapters?: number;
 }
 
-export default function ReadingPlanWidget({ userId, dailyGoal = 3, readonly = false, chaptersRead = 0, totalChapters = 1189 }: Props) {
+export default function ReadingPlanWidget({ userId, dailyGoal = 3, readonly = false, compact = false, chaptersRead = 0, totalChapters = 1189 }: Props) {
   const { t } = useTranslation();
   const { data: heatmap = [] } = useReadingHeatmap(userId);
   const { data: streaks = { current_streak: 0, longest_streak: 0 } } = useReadingStreaks(userId);
@@ -48,28 +49,30 @@ export default function ReadingPlanWidget({ userId, dailyGoal = 3, readonly = fa
 
   return (
     <div className="reading-plan">
-      <div className="reading-plan-top">
-        <div className="reading-plan-stats">
-          <div className="reading-plan-stat">
-            <span className="reading-plan-stat-value"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{verticalAlign:"middle",marginRight:2}}><path d="M12 23c-4.97 0-8-3.03-8-7 0-2.44 1.34-4.81 2.5-6.35A1 1 0 0 1 8.18 10c.34 1.14 1.1 2.13 2.05 2.75C10.31 10 12 6 12 2a1 1 0 0 1 1.66-.75c2.24 1.92 5.84 5.63 5.84 10.75 0 5.68-3.55 11-7.5 11z"/></svg>{streaks.current_streak}</span>
-            <span className="reading-plan-stat-label">{t("readingPlan.currentStreak", { count: streaks.current_streak })}</span>
+      {!compact && (
+        <div className="reading-plan-top">
+          <div className="reading-plan-stats">
+            <div className="reading-plan-stat">
+              <span className="reading-plan-stat-value"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{verticalAlign:"middle",marginRight:2}}><path d="M12 23c-4.97 0-8-3.03-8-7 0-2.44 1.34-4.81 2.5-6.35A1 1 0 0 1 8.18 10c.34 1.14 1.1 2.13 2.05 2.75C10.31 10 12 6 12 2a1 1 0 0 1 1.66-.75c2.24 1.92 5.84 5.63 5.84 10.75 0 5.68-3.55 11-7.5 11z"/></svg>{streaks.current_streak}</span>
+              <span className="reading-plan-stat-label">{t("readingPlan.currentStreak", { count: streaks.current_streak })}</span>
+            </div>
+            <div className="reading-plan-stat">
+              <span className="reading-plan-stat-value"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{verticalAlign:"middle",marginRight:2}}><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg>{streaks.longest_streak}</span>
+              <span className="reading-plan-stat-label">{t("readingPlan.longestStreak", { count: streaks.longest_streak })}</span>
+            </div>
+            <div className="reading-plan-stat">
+              <span className="reading-plan-stat-value">{todayChapters}/{dailyGoal}</span>
+              <span className="reading-plan-stat-label">{t("readingPlan.todayGoal", { done: todayChapters, goal: dailyGoal })}</span>
+            </div>
           </div>
-          <div className="reading-plan-stat">
-            <span className="reading-plan-stat-value"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{verticalAlign:"middle",marginRight:2}}><path d="M12 2l2.4 7.2H22l-6 4.8 2.4 7.2L12 16.4 5.6 21.2 8 14 2 9.2h7.6z"/></svg>{streaks.longest_streak}</span>
-            <span className="reading-plan-stat-label">{t("readingPlan.longestStreak", { count: streaks.longest_streak })}</span>
-          </div>
-          <div className="reading-plan-stat">
-            <span className="reading-plan-stat-value">{todayChapters}/{dailyGoal}</span>
-            <span className="reading-plan-stat-label">{t("readingPlan.todayGoal", { done: todayChapters, goal: dailyGoal })}</span>
-          </div>
-        </div>
 
-        {daysToFinish && (
-          <div className="reading-plan-finish-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:4}}><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>{t("readingPlan.finishIn", { days: daysToFinish })}
-          </div>
-        )}
-      </div>
+          {daysToFinish && (
+            <div className="reading-plan-finish-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:4}}><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>{t("readingPlan.finishIn", { days: daysToFinish })}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Chapter dots */}
       <div className="reading-plan-dots-row">
