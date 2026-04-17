@@ -311,7 +311,7 @@ export function StarredPanel({ convId, userId, onClose }: {
   onClose: () => void;
 }) {
   const { data: starred = [], isLoading } = useStarredMessages(convId);
-  const toggleStar = useToggleStar(convId);
+  const toggleStar = useToggleStar(convId, userId);
   return (
     <div className="fc-overlay-panel">
       <div className="fc-overlay-header">
