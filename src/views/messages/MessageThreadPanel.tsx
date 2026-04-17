@@ -887,7 +887,8 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
         const lastNew = decryptedMessages[decryptedMessages.length - 1];
         if (lastNew?.sender_id !== user.id) playChime();
       }
-      requestAnimationFrame(() => {
+      let frameId: number;
+      frameId = requestAnimationFrame(() => {
         const el = bodyRef.current;
         if (!el) return;
         const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
@@ -900,6 +901,9 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
           setShowNewMsgChip(true);
         }
       });
+      return () => {
+        cancelAnimationFrame(frameId);
+      };
     }
     prevCountRef.current = count;
   }, [decryptedMessages.length]);
@@ -976,13 +980,6 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
       setNewMsgCount(0);
       setShowNewMsgChip(false);
     }
-  }
-
-  function handleThreadScroll() {
-    const el = bodyRef.current;
-    if (!el) return;
-    const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
-    if (distFromBottom <= 100) setShowNewMsgChip(false);
   }
 
   function scrollToBottom() {
