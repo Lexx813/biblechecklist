@@ -5,6 +5,7 @@ import {
   useReactions, useToggleReaction, useEditMessage, useUploadImage,
   useToggleStar, useStarredMessages, useSearchMessages, useConvSettings, useSaveConvSettings,
 } from "../../hooks/useMessages";
+import { useMarkMessageNotificationsRead } from "../../hooks/useNotifications";
 import { useSharedKey } from "../../hooks/useE2E";
 import { encryptMessage, decryptMessage, sanitizeContent, MAX_MSG_LENGTH } from "../../lib/e2e";
 import { supabase } from "../../lib/supabase";
@@ -656,6 +657,8 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
     if (editing && editRef.current) {
       editRef.current.focus();
       editRef.current.selectionStart = editRef.current.value.length;
+      editRef.current.style.height = "auto";
+      editRef.current.style.height = editRef.current.scrollHeight + "px";
     }
   }, [editing]);
 
@@ -676,9 +679,9 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
               ref={editRef}
               className="msg-edit-textarea"
               value={editText}
-              onChange={e => setEditText(e.target.value)}
+              onChange={e => { setEditText(e.target.value); e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px"; }}
               onKeyDown={handleEditKeyDown}
-              rows={1}
+              rows={2}
               aria-label="Edit message"
             />
           ) : msg.message_type === "image" ? (
@@ -768,6 +771,7 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
   const deleteMessage = useDeleteMessage(conv.conversation_id);
   const editMessage = useEditMessage(conv.conversation_id);
   const markRead = useMarkRead(conv.conversation_id, user.id);
+  const markNotifRead = useMarkMessageNotificationsRead(user.id);
   const { data: reactions = EMPTY_REACTIONS } = useReactions(conv.conversation_id);
   const toggleReaction = useToggleReaction(conv.conversation_id);
   const { sharedKey, otherHasKey } = useSharedKey(keyPair, conv.other_user_id, user.id);
@@ -815,7 +819,10 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
   const prevCountRef = useRef(0);
   const isAtBottomRef = useRef(true);
 
-  useEffect(() => { markRead.mutate(); }, [conv.conversation_id]);
+  useEffect(() => {
+    markRead.mutate();
+    markNotifRead.mutate(conv.conversation_id);
+  }, [conv.conversation_id]);
 
   useEffect(() => {
     if (!messages.length) { setDecryptedMessages([]); return; }
@@ -1003,7 +1010,7 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
 
   function confirmImageUpload() {
     if (!pendingImageFile) return;
-    uploadAndSend(pendingImageFile, user.id, replyTo?.id ?? null);
+    uploadAndSend(pendingImageFile, user.id, replyTo?.id ?? null, (msg) => setSendError(msg));
     setReplyTo(null);
     setPendingImageFile(null);
   }

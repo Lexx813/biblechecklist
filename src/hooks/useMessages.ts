@@ -346,7 +346,12 @@ export function useUploadImage(conversationId: string | null | undefined) {
   const [uploading, setUploading] = useState(false);
   const sendMessage = useSendMessage(conversationId);
 
-  const uploadAndSend = useCallback(async (file: File, senderId: string, replyToId: string | null = null) => {
+  const uploadAndSend = useCallback(async (
+    file: File,
+    senderId: string,
+    replyToId: string | null = null,
+    onError?: (msg: string) => void
+  ) => {
     setUploading(true);
     try {
       const url = await messagesApi.uploadImage(file);
@@ -358,7 +363,8 @@ export function useUploadImage(conversationId: string | null | undefined) {
         metadata: { url, filename: file.name, size: file.size },
       });
     } catch (err) {
-      console.error("[upload] failed:", err);
+      const msg = err instanceof Error ? err.message : "Failed to upload image.";
+      onError?.(msg);
     } finally {
       setUploading(false);
     }

@@ -11,6 +11,7 @@ import {
   useSearchMessages,
 } from "../../hooks/useMessages";
 import { THEME_COLORS, DISAPPEAR_OPTIONS, PUSH_DISMISS_KEY, formatTime, initial } from "./chatHelpers";
+import { sanitizeContent } from "../../lib/e2e";
 
 /** Only allow http/https URLs — blocks javascript:, data:, and other dangerous schemes */
 function safeUrl(url: string | null | undefined): string {
@@ -388,7 +389,7 @@ export function SearchPanel({ convId, onClose }: { convId: string; onClose: () =
         ) : (
           results.map(msg => (
             <div key={msg.id} className="fc-search-result">
-              <span className="fc-search-result-text">{msg.content?.slice(0, 120)}</span>
+              <span className="fc-search-result-text">{sanitizeContent(msg.content ?? "").slice(0, 120)}</span>
               <span className="fc-search-result-time">{formatTime(msg.created_at)}</span>
             </div>
           ))

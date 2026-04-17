@@ -5,6 +5,7 @@ import {
   useReactions, useToggleReaction, useEditMessage, useToggleStar,
   useLinkPreviews, useUploadImage,
 } from "../../hooks/useMessages";
+import { useMarkMessageNotificationsRead } from "../../hooks/useNotifications";
 import { useSharedKey } from "../../hooks/useE2E";
 import { encryptMessage, decryptMessage, sanitizeContent, MAX_MSG_LENGTH } from "../../lib/e2e";
 import { supabase } from "../../lib/supabase";
@@ -46,6 +47,7 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
   const deleteMessage = useDeleteMessage(conv.conversation_id);
   const editMessage = useEditMessage(conv.conversation_id);
   const markRead = useMarkRead(conv.conversation_id, user.id);
+  const markNotifRead = useMarkMessageNotificationsRead(user.id);
   const { data: reactions = [] } = useReactions(conv.conversation_id);
   const toggleReaction = useToggleReaction(conv.conversation_id);
   const toggleStar = useToggleStar(conv.conversation_id);
@@ -91,7 +93,10 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
     requestAnimationFrame(() => { el.focus(); el.setSelectionRange(start + em.length, start + em.length); });
   }, [input]);
 
-  useEffect(() => { markRead.mutate(); }, [conv.conversation_id]);
+  useEffect(() => {
+    markRead.mutate();
+    markNotifRead.mutate(conv.conversation_id);
+  }, [conv.conversation_id]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -206,7 +211,7 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
 
   function confirmImageUpload() {
     if (!pendingImageFile) return;
-    uploadAndSend(pendingImageFile, user.id, replyTo?.id ?? null);
+    uploadAndSend(pendingImageFile, user.id, replyTo?.id ?? null, (msg) => setSendError(msg));
     setReplyTo(null);
     setPendingImageFile(null);
   }
