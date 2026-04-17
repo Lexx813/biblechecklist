@@ -128,13 +128,13 @@ export async function decryptMessage(content: string, aesKey: CryptoKey): Promis
   if (!content?.startsWith("enc:")) return content ?? "";
   try {
     const parts = content.split(":");
-    if (parts.length < 3) return "[🔒 Malformed message]";
+    if (parts.length < 3) return "[Message could not be displayed — malformed data]";
     const iv = fromB64url(parts[1]);
-    const ct = fromB64url(parts.slice(2).join(":")); // handle colons in ciphertext
+    const ct = fromB64url(parts.slice(2).join(":"));
     const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: iv as any }, aesKey, ct as any);
     return new TextDecoder().decode(plain);
   } catch {
-    return "[🔒 Unable to decrypt]";
+    return "[Could not decrypt — your encryption keys may be out of sync. Try refreshing the page.]";
   }
 }
 

@@ -81,6 +81,7 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
   const fileRef = useRef<HTMLInputElement>(null);
   const presenceChannelRef = useRef<ReturnType<typeof supabase.channel> | null>(null);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const sendTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const insertEmoji = useCallback((em: string) => {
     const el = inputRef.current;
@@ -98,6 +99,12 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
     markNotifRead.mutate(conv.conversation_id);
     decryptCacheRef.current.clear();
   }, [conv.conversation_id]);
+
+  useEffect(() => {
+    return () => {
+      if (sendTimeoutRef.current) { clearTimeout(sendTimeoutRef.current); sendTimeoutRef.current = null; }
+    };
+  }, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -165,8 +172,16 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
   async function doSend(payload: Record<string, unknown>) {
     setSendError(null);
     setFailedPayload(null);
+    if (sendTimeoutRef.current) clearTimeout(sendTimeoutRef.current);
+    sendTimeoutRef.current = setTimeout(() => {
+      if (sendMessage.isPending) setSendError("Message failed to send. Check your connection.");
+    }, 15_000);
     sendMessage.mutate(payload as unknown as Parameters<typeof sendMessage.mutate>[0], {
+      onSuccess: () => {
+        if (sendTimeoutRef.current) { clearTimeout(sendTimeoutRef.current); sendTimeoutRef.current = null; }
+      },
       onError: () => {
+        if (sendTimeoutRef.current) { clearTimeout(sendTimeoutRef.current); sendTimeoutRef.current = null; }
         setSendError("Message failed to send.");
         setFailedPayload(payload);
       },
