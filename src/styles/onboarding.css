@@ -209,3 +209,108 @@
   min-width: 48px;
   text-align: center;
 }
+
+/* Plan picker (step 1) */
+.onboard-plans {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.onboard-plan {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: border-color var(--dur-fast), background var(--dur-fast);
+  width: 100%;
+}
+
+.onboard-plan:hover {
+  border-color: var(--teal);
+  background: var(--teal-soft);
+}
+
+.onboard-plan--popular {
+  border-color: rgba(124, 58, 237, 0.4);
+  background: rgba(124, 58, 237, 0.06);
+}
+
+.onboard-plan-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.onboard-plan-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.onboard-plan-badge {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(124, 58, 237, 0.2);
+  color: #a78bfa;
+  border-radius: 4px;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+/* Goal presets (step 2) */
+.onboard-goal-presets {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  width: 100%;
+}
+
+.onboard-preset {
+  flex: 1;
+  padding: 7px 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: none;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-align: center;
+  transition: border-color var(--dur-fast), background var(--dur-fast), color var(--dur-fast);
+}
+
+.onboard-preset:hover { border-color: var(--teal); color: var(--text-primary); }
+
+.onboard-preset--active {
+  border-color: rgba(124, 58, 237, 0.5);
+  background: rgba(124, 58, 237, 0.12);
+  color: #c4b5fd;
+}
+
+/* Done step (step 3) */
+.onboard-done-icon {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.onboard-skip-inline {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
