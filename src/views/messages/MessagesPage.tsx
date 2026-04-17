@@ -134,9 +134,18 @@ export default function MessagesPage({
             />
           ) : (
             <div className="msg-empty-state">
-              <span className="msg-empty-icon">💬</span>
-              <h3>{t("messages.noConversationSelected")}</h3>
-              <p>{t("messages.noConversationSelectedDesc")}</p>
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="msg-empty-icon-svg">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" strokeWidth="1.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <h3 className="msg-empty-heading">{t("messages.yourMessages")}</h3>
+              <p className="msg-empty-sub">{t("messages.noConversationSelectedDesc")}</p>
+              <button
+                className="msg-empty-new-btn"
+                onClick={() => setShowCompose(true)}
+                type="button"
+              >
+                + New Conversation
+              </button>
             </div>
           )}
         </main>

@@ -1631,6 +1631,8 @@
     "noConversationsShort": "No conversations yet.",
     "noConversationSelected": "No Conversation Selected",
     "noConversationSelectedDesc": "Select a conversation on the left to start messaging.",
+    "yourMessages": "Your Messages",
+    "newMessageChip": "↓ New message",
     "noMessagesYet": "No messages yet",
     "startConversation": "Start the conversation!",
     "sayHelloTo": "Say hello to",
