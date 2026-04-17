@@ -11,7 +11,7 @@ import { encryptMessage, decryptMessage, sanitizeContent, MAX_MSG_LENGTH } from 
 import { supabase } from "../../lib/supabase";
 import { Avatar, EmojiPicker, VersePicker, PlanPicker, ConvSettingsPanel, StarredPanel, SearchPanel, PushPrompt, FCImageWarningModal } from "./ChatWidgets";
 import { FCBubble } from "./FCBubble";
-import { groupByDay, timeAgo, PUSH_DISMISS_KEY } from "./chatHelpers";
+import { groupByDay, timeAgo, PUSH_DISMISS_KEY, computePosition } from "./chatHelpers";
 
 interface Conversation {
   conversation_id: string;
@@ -76,6 +76,8 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
   const [pendingImageFile, setPendingImageFile] = useState<File | null>(null);
   const [sendError, setSendError] = useState<string | null>(null);
   const [failedPayload, setFailedPayload] = useState<Record<string, unknown> | null>(null);
+  const [showNewMsgChip, setShowNewMsgChip] = useState(false);
+  const messagesRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -111,7 +113,15 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
   }, []);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    const el = messagesRef.current;
+    if (!el) { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); return; }
+    const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+    if (distFromBottom <= 100) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+      setShowNewMsgChip(false);
+    } else {
+      setShowNewMsgChip(true);
+    }
   }, [decryptedMessages.length]);
 
   useEffect(() => {
@@ -236,6 +246,13 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
     if (file) setPendingImageFile(file);
   }
 
+  function handleMessagesScroll() {
+    const el = messagesRef.current;
+    if (!el) return;
+    const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+    if (distFromBottom <= 100 && showNewMsgChip) setShowNewMsgChip(false);
+  }
+
   function confirmImageUpload() {
     if (!pendingImageFile) return;
     uploadAndSend(pendingImageFile, user.id, replyTo?.id ?? null, (msg) => setSendError(msg));
@@ -309,7 +326,7 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
         />
       )}
 
-      <div className="fc-messages" onPaste={handlePaste}>
+      <div className="fc-messages" ref={messagesRef} onPaste={handlePaste} onScroll={handleMessagesScroll}>
         {isLoading ? (
           <p className="fc-empty">{t("common.loading")}</p>
         ) : decryptedMessages.length === 0 ? (
@@ -329,6 +346,7 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
                 userId={user.id}
                 linkPreviews={linkPreviews}
                 accentColor={accentColor}
+                position={computePosition(decryptedMessages, origIdx)}
                 onDelete={(id) => deleteMessage.mutate(id)}
                 onReply={(msg) => { setReplyTo(msg as unknown as typeof replyTo); inputRef.current?.focus(); }}
                 onEdit={(id, content, onDone, onFail) =>
@@ -341,15 +359,23 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
             );
           })
         )}
-        {isOtherTyping && (
-          <div className="fc-bubble-wrap">
-            <div className="fc-typing-bubble">
-              <span className="fc-dot" /><span className="fc-dot" /><span className="fc-dot" />
-            </div>
+        <div className={`fc-bubble-wrap fc-typing-wrap${isOtherTyping ? "" : " fc-typing-wrap--hidden"}`}>
+          <div className="fc-typing-bubble">
+            <span className="fc-dot" /><span className="fc-dot" /><span className="fc-dot" />
           </div>
-        )}
+        </div>
         <div ref={bottomRef} />
       </div>
+
+      {showNewMsgChip && (
+        <button
+          className="fc-new-msg-chip"
+          onClick={() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); setShowNewMsgChip(false); }}
+          type="button"
+        >
+          ↓ New message
+        </button>
+      )}
 
       <div className="fc-composer-wrap">
         {showPushPrompt && <PushPrompt onDismiss={() => {
@@ -372,30 +398,6 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
           </div>
         )}
 
-        <div className="fc-rich-toolbar">
-          {uploading ? (
-            <div className="fc-upload-status">
-              <span className="fc-upload-status-spinner" />
-              <span className="fc-upload-status-text">Uploading image…</span>
-            </div>
-          ) : (
-            <>
-              <button type="button" className="fc-toolbar-btn" data-tip="Share Bible Verse" aria-label="Share Bible verse" onClick={() => setShowVersePicker(true)}>
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              </button>
-              <button type="button" className="fc-toolbar-btn fc-toolbar-btn--img" data-tip="Share Image" onClick={() => fileRef.current?.click()}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-                </svg>
-              </button>
-              <button type="button" className="fc-toolbar-btn" data-tip="Share Reading Plan" aria-label="Share reading plan" onClick={() => setShowPlanPicker(true)}>
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              </button>
-            </>
-          )}
-          <input ref={fileRef} type="file" accept="image/*" style={{ display: "none" }} onChange={handleFileChange} />
-        </div>
-
         {sendError && (
           <div className="fc-send-error">
             <span>{sendError}</span>
@@ -414,27 +416,78 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
         )}
 
         <form className="fc-composer" onSubmit={handleSend}>
-          <button type="button" className="fc-emoji-toggle" onClick={() => setShowEmoji(v => !v)} data-tip="Emoji" aria-label="Emoji">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-          </button>
-          <input
-            ref={inputRef}
-            className="fc-input"
-            placeholder="Message…"
-            value={input}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            maxLength={MAX_MSG_LENGTH}
-            aria-label="Type a message"
-            autoFocus
-          />
-          {uploading ? (
-            <span className="fc-upload-spinner" aria-label="Uploading" />
-          ) : (
-            <button className="fc-send-btn" type="submit" disabled={!input.trim() || sendMessage.isPending} aria-label="Send">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <div className="fc-composer-icons">
+            <button
+              type="button"
+              className="fc-composer-icon-btn"
+              onClick={() => fileRef.current?.click()}
+              aria-label="Share image"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+              </svg>
             </button>
-          )}
+            <button
+              type="button"
+              className="fc-composer-icon-btn"
+              onClick={() => setShowVersePicker(true)}
+              aria-label="Share Bible verse"
+            >
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </button>
+            <button
+              type="button"
+              className="fc-composer-icon-btn"
+              onClick={() => setShowPlanPicker(true)}
+              aria-label="Share reading plan"
+            >
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </button>
+          </div>
+          <input ref={fileRef} type="file" accept="image/*" style={{ display: "none" }} onChange={handleFileChange} />
+          <div className="fc-input-pill">
+            <input
+              ref={inputRef}
+              className="fc-input"
+              placeholder="Aa"
+              value={input}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              maxLength={MAX_MSG_LENGTH}
+              aria-label="Type a message"
+              autoFocus
+            />
+            <button
+              type="button"
+              className="fc-emoji-pill-btn"
+              onClick={() => setShowEmoji(v => !v)}
+              aria-label="Emoji"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+              </svg>
+            </button>
+          </div>
+          <button
+            className="fc-send-btn"
+            type="submit"
+            disabled={sendMessage.isPending || uploading}
+            aria-label={input.trim() ? "Send" : "Like"}
+          >
+            {uploading ? (
+              <span className="fc-upload-spinner" aria-label="Uploading" />
+            ) : input.trim() ? (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="white" stroke="none"/>
+              </svg>
+            ) : (
+              <span style={{ fontSize: "18px", lineHeight: 1 }}>👍</span>
+            )}
+          </button>
         </form>
 
       </div>
