@@ -2508,6 +2508,7 @@ export type Database = {
       is_group_member: { Args: { p_group_id: string }; Returns: boolean }
       is_moderator: { Args: never; Returns: boolean }
       mark_notifications_read: { Args: { p_ids: string[] }; Returns: undefined }
+      mark_conversation_notifications_read: { Args: { p_conversation_id: string }; Returns: undefined }
       mark_reply_as_solution: {
         Args: { p_reply_id: string; p_thread_id: string; p_value: boolean }
         Returns: undefined

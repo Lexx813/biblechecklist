@@ -55,6 +55,11 @@ export const notificationsApi = {
     if (error) throw new Error(error.message);
   },
 
+  markConversationRead: async (conversationId: string): Promise<void> => {
+    const { error } = await supabase.rpc("mark_conversation_notifications_read", { p_conversation_id: conversationId });
+    if (error) throw new Error(error.message);
+  },
+
   markAllRead: async (): Promise<void> => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;

@@ -60,6 +60,14 @@ export function useMarkNotificationsRead(userId: string | null | undefined) {
   });
 }
 
+export function useMarkConversationNotificationsRead(userId: string | null | undefined) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (conversationId: string) => notificationsApi.markConversationRead(conversationId),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["notifications", userId] }),
+  });
+}
+
 export function useDeleteNotification(userId: string | null | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
