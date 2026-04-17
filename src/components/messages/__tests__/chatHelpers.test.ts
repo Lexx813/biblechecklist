@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { computePosition } from "../chatHelpers.helpers";
+import { computePosition } from "../chatHelpers";
 
 const msg = (id: string, sender_id: string, created_at: string) => ({
   id, sender_id, created_at,
