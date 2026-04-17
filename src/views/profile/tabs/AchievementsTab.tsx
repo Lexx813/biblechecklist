@@ -17,6 +17,12 @@ const LEVEL_BADGES = [
   { level: 7,  emoji: "\u{1F3B5}" }, { level: 8,  emoji: "\u{1F4EF}" },
   { level: 9,  emoji: "\u{1F54A}\uFE0F" }, { level: 10, emoji: "\u{1F30D}" },
   { level: 11, emoji: "\u{1F52E}" }, { level: 12, emoji: "\u{1F451}" },
+  { level: 25, emoji: "\u2696\uFE0F" }, { level: 26, emoji: "\u{1F4DC}" },
+  { level: 27, emoji: "\u{1F3DB}\uFE0F" }, { level: 28, emoji: "\u{1F33E}" },
+  { level: 29, emoji: "\u2728" }, { level: 30, emoji: "\u{1F52D}" },
+  { level: 31, emoji: "\u{1F3F0}" }, { level: 32, emoji: "\u26EA" },
+  { level: 33, emoji: "\u{1F5FA}\uFE0F" }, { level: 34, emoji: "\u{1F469}" },
+  { level: 35, emoji: "\u{1F4D0}" }, { level: 36, emoji: "\u{1F517}" },
 ];
 
 /** Compute progress (0–1) for a given badge key */
@@ -37,7 +43,7 @@ function badgeProgress(
     case "streak_30":       return Math.min(1, streak.longest_streak / 30);
     case "streak_100":      return Math.min(1, streak.longest_streak / 100);
     case "streak_365":      return Math.min(1, streak.longest_streak / 365);
-    case "quiz_all_levels": return Math.min(1, levelsCompleted / 12);
+    case "quiz_all_levels": return Math.min(1, levelsCompleted / LEVEL_BADGES.length);
     case "first_note":      return Math.min(1, notesCount);
     case "first_group":     return 0; // can't easily measure
     case "plan_complete":   return Math.min(1, plansCompleted);
@@ -55,7 +61,7 @@ function progressLabel(key: string, progress: number, ctx: { streak: { longest_s
     case "streak_30":       return `${Math.min(ctx.streak.longest_streak, 30)} / 30 days`;
     case "streak_100":      return `${Math.min(ctx.streak.longest_streak, 100)} / 100 days`;
     case "streak_365":      return `${Math.min(ctx.streak.longest_streak, 365)} / 365 days`;
-    case "quiz_all_levels": return `${ctx.levelsCompleted} / 12 levels`;
+    case "quiz_all_levels": return `${ctx.levelsCompleted} / ${LEVEL_BADGES.length} levels`;
     case "first_note":      return ctx.notesCount > 0 ? "Completed!" : "Write your first note";
     case "first_group":     return "Join a group";
     case "plan_complete":   return ctx.plansCompleted > 0 ? "Completed!" : "Finish a reading plan";
@@ -147,7 +153,7 @@ export default function AchievementsTab({ userId, quizProgress, earnedBadges, st
           <div className="pf-section-header">
             <h2><span className="pf-section-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="8 17 8 21"/><polyline points="16 17 16 21"/><line x1="12" y1="17" x2="12" y2="21"/><path d="M6 21h12"/><path d="M8 17h8a4 4 0 0 0 4-4V5H4v8a4 4 0 0 0 4 4z"/><path d="M4 5H2"/><path d="M20 5h2"/></svg></span>{t("profile.quizProgress")}</h2>
             {highestUnlocked > 0 && (
-              <span className="pf-quiz-meta">{levelsCompleted} / 12 {t("profile.levelsComplete")}</span>
+              <span className="pf-quiz-meta">{levelsCompleted} / {LEVEL_BADGES[LEVEL_BADGES.length - 1].level} {t("profile.levelsComplete")}</span>
             )}
           </div>
           {highestUnlocked === 0 ? (
