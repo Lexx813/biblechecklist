@@ -3,7 +3,7 @@ import { useState, useEffect, useLayoutEffect, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { ErrorBoundary } from "./components/ErrorBoundary";
-import LandingPage from "./views/LandingPage";
+const LandingPage = lazy(() => import("./views/LandingPage"));
 
 const TermsPage         = lazy(() => import("./views/TermsPage"));
 const PrivacyPage       = lazy(() => import("./views/PrivacyPage"));
@@ -180,5 +180,9 @@ export default function App() {
   }
 
   // No session — show landing page with zero Supabase loaded
-  return <LandingPage onGetStarted={() => setShowApp(true)} i18n={i18n} />;
+  return (
+    <Suspense fallback={null}>
+      <LandingPage onGetStarted={() => setShowApp(true)} i18n={i18n} />
+    </Suspense>
+  );
 }

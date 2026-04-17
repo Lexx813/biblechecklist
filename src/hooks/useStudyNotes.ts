@@ -17,10 +17,11 @@ export function useStudyNotes() {
   });
 }
 
-export function usePublicNotes(lang?: string) {
+export function usePublicNotes(lang?: string | null) {
   return useQuery({
     queryKey: ["study-notes-public", lang],
-    queryFn: () => studyNotesApi.getPublicNotes(lang),
+    queryFn: () => studyNotesApi.getPublicNotes(lang ?? undefined),
+    enabled: lang != null,
     staleTime: 60_000,
   });
 }

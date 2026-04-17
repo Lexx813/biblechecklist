@@ -129,6 +129,8 @@ export default function RootLayout({ children }) {
         <link rel="manifest" href="/manifest.json" />
         <link rel="preconnect" href="https://yudyhigvqaodnoqwwtns.supabase.co" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://yudyhigvqaodnoqwwtns.supabase.co" />
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <meta name="theme-color" content="#1E0D3C" />
         <meta name="msapplication-TileColor" content="#1E0D3C" />
         <meta name="mobile-web-app-capable" content="yes" />

@@ -38,6 +38,7 @@ export function useOnlineMembers(limit = 50) {
       if (error) throw new Error(error.message);
       return (data ?? []) as OnlineMember[];
     },
+    enabled: limit > 0,
     staleTime: 60_000,
   });
 

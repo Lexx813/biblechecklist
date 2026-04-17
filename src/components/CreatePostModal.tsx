@@ -1,9 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, lazy, Suspense } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { postsApi } from "../api/posts";
-import RichTextEditor from "./RichTextEditor";
 import Button from "./ui/Button";
+
+const RichTextEditor = lazy(() => import("./RichTextEditor"));
 
 interface CreatePostModalProps {
   onClose: () => void;
@@ -112,12 +113,14 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
 
         {/* Editor */}
         <div className="px-5 py-3">
-          <RichTextEditor
-            content={content}
-            onChange={setContent}
-            placeholder={t("posts.placeholder")}
-            minimal
-          />
+          <Suspense fallback={<div style={{ height: 80 }} />}>
+            <RichTextEditor
+              content={content}
+              onChange={setContent}
+              placeholder={t("posts.placeholder")}
+              minimal
+            />
+          </Suspense>
         </div>
 
         {/* Image preview */}

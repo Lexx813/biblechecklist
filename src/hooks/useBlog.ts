@@ -6,6 +6,7 @@ export function usePublishedPosts(lang: string | null = null) {
   return useQuery({
     queryKey: ["blog", "published", lang],
     queryFn: () => blogApi.listPublished(lang),
+    enabled: lang !== null,
     staleTime: 2 * 60 * 1000,
   });
 }

@@ -255,9 +255,25 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { t } = useTranslation();
   const lang = i18n?.language?.split("-")[0] ?? "en";
 
-  // Data
-  const { data: langPosts = [], isLoading: langPostsLoading } = usePublishedPosts(lang);
-  const { data: enPosts = [], isLoading: enPostsLoading } = usePublishedPosts(lang === "en" ? null : "en");
+  // Defer non-critical fetches until after the first paint to keep INP clean
+  const [deferred, setDeferred] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setDeferred(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
+  // Critical — needed above the fold
+  const { data: profile } = useFullProfile(user?.id);
+  const updateProfile = useUpdateProfile(user?.id);
+  const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
+  const { data: friendPosts = [], isLoading: friendPostsLoading } = useFriendPosts(user?.id);
+  const { data: unreadMessages = 0 } = useUnreadMessageCount();
+  const { incoming } = useFriendRequests(user?.id);
+  const pendingRequests = incoming.data?.length ?? 0;
+
+  // Deferred — below the fold, load after paint
+  const { data: langPosts = [], isLoading: langPostsLoading } = usePublishedPosts(deferred ? lang : null);
+  const { data: enPosts = [], isLoading: enPostsLoading } = usePublishedPosts(deferred && lang !== "en" ? "en" : null);
   const posts = langPosts.length > 0 ? langPosts : enPosts;
   const postsLoading = langPostsLoading || (langPosts.length === 0 && enPostsLoading);
   const { data: recentVideos = [], isLoading: videosLoading } = usePublishedVideos();
@@ -265,17 +281,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const reelVideos = spotlightVideo
     ? recentVideos.filter((v: { id: string }) => v.id !== spotlightVideo.id)
     : recentVideos;
-  const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(4, lang);
-  const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes(lang);
+  const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(deferred ? 4 : 0, lang);
+  const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes(deferred ? lang : null);
   const previewNotes = publicNotes.slice(0, 4);
-  const { data: profile } = useFullProfile(user?.id);
-  const updateProfile = useUpdateProfile(user?.id);
-  const { data: unreadMessages = 0 } = useUnreadMessageCount();
-  const { incoming } = useFriendRequests(user?.id);
-  const pendingRequests = incoming.data?.length ?? 0;
-  const { data: friends = [], isLoading: friendsLoading } = useFriends(user?.id);
-  const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
-  const { data: friendPosts = [], isLoading: friendPostsLoading } = useFriendPosts(user?.id);
+  const { data: friends = [], isLoading: friendsLoading } = useFriends(deferred ? user?.id : null);
   const { data: publicFeed = [] } = usePublicFeed();
   const createPost = useCreatePost(user?.id);
   const updatePost = useUpdatePost(user?.id);
@@ -283,7 +292,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const [showPostModal, setShowPostModal] = useState(false);
   const [editingPost, setEditingPost] = useState<any>(null);
   const [deletePostId, setDeletePostId] = useState<string | null>(null);
-  const { onlineNow: whoOnline, recentlyActive: whoRecent, totalOnline, isLoading: whoLoading, isError: whoError } = useOnlineMembers(50);
+  const { onlineNow: whoOnline, recentlyActive: whoRecent, totalOnline, isLoading: whoLoading, isError: whoError } = useOnlineMembers(deferred ? 50 : 0);
   const whoMembers = [...whoOnline, ...whoRecent];
 
   // Inline panels (quiz, leaderboard, familyQuiz, etc.)

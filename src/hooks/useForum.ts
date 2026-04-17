@@ -8,6 +8,7 @@ export function useTopThreads(limit = 4, lang?: string) {
   return useQuery({
     queryKey: ["forum", "top", limit, lang],
     queryFn: () => forumApi.listTopThreads(limit, lang),
+    enabled: limit > 0,
     staleTime: 3 * 60 * 1000,
   });
 }

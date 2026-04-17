@@ -23,6 +23,7 @@ i18n
   .init({
     // English is bundled inline — no HTTP fetch needed for the majority of users.
     // Non-English languages still load on demand via HttpBackend.
+    initImmediate: false,
     fallbackLng: "en",
     supportedLngs: LANGUAGES.map(l => l.code),
     interpolation: { escapeValue: false },
