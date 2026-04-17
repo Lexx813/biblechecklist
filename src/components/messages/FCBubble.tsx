@@ -82,6 +82,7 @@ export function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPrev
   }, [showMenu]);
 
   function submitEdit() {
+    if (saving) return;
     const trimmed = editText.trim();
     if (!trimmed || trimmed === msg.content) { setEditing(false); return; }
     setSaving(true);
@@ -175,7 +176,10 @@ export function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPrev
                   onChange={e => { setEditText(e.target.value); e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px"; }}
                   onKeyDown={e => {
                     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submitEdit(); }
-                    if (e.key === "Escape") { setEditing(false); setEditText(msg.content ?? ""); }
+                    if (e.key === "Escape") {
+                      if (saving) return;
+                      setEditing(false); setEditText(msg.content ?? "");
+                    }
                   }}
                   rows={2}
                   disabled={saving}

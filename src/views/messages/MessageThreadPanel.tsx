@@ -643,6 +643,7 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
   const fullTime = formatTime(msg.created_at);
 
   function submitEdit() {
+    if (saving) return;
     const trimmed = editText.trim();
     if (!trimmed || trimmed === msg.content) { setEditing(false); return; }
     setSaving(true);
@@ -656,7 +657,10 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
 
   function handleEditKeyDown(e: React.KeyboardEvent) {
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submitEdit(); }
-    if (e.key === "Escape") { setEditing(false); setEditText(msg.content); }
+    if (e.key === "Escape") {
+      if (saving) return;
+      setEditing(false); setEditText(msg.content);
+    }
   }
 
   useEffect(() => {
@@ -1140,7 +1144,7 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
                 onDelete={id => deleteMessage.mutate(id, { onError: () => toast.error("Failed to delete message.") })}
                 onReply={msg => setReplyTo(msg)}
                 onEdit={(id, content, onDone, onFail) =>
-                  editMessage.mutate({ messageId: id, content }, { onSuccess: onDone, onError: onFail })
+                  editMessage.mutate({ messageId: id, content }, { onSuccess: onDone, onError: () => { onFail(); toast.error("Failed to edit message."); } })
                 }
                 showSeen={item.id === lastSeenId}
                 reactions={reactions}
