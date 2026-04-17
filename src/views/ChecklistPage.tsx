@@ -337,6 +337,66 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
           </div>
         </header>
 
+        {/* ── Progress Header ── */}
+        {(() => {
+          const otTotalCh = BOOKS.slice(0, OT_COUNT).reduce((s, b) => s + b.chapters, 0);
+          const ntTotalCh = BOOKS.slice(OT_COUNT).reduce((s, b) => s + b.chapters, 0);
+          const otReadCh = BOOKS.slice(0, OT_COUNT).reduce((s, _, i) => s + Object.values(chaptersState[i] || {}).filter(Boolean).length, 0);
+          const ntReadCh = BOOKS.slice(OT_COUNT).reduce((s, _, i) => s + Object.values(chaptersState[OT_COUNT + i] || {}).filter(Boolean).length, 0);
+          const otPct = otTotalCh ? Math.round(otReadCh / otTotalCh * 100) : 0;
+          const ntPct = ntTotalCh ? Math.round(ntReadCh / ntTotalCh * 100) : 0;
+          return (
+            <>
+              <div className="cl-progress-hero">
+                <div className="cl-progress-hero-top">
+                  <span className="cl-section-label">{t("checklist.bibleProgress")}</span>
+                  <span className="cl-overall-pct">{pct}%</span>
+                </div>
+                <div className="cl-prog-row">
+                  <span className="cl-prog-label">{t("checklist.oldTestament")}</span>
+                  <div className="cl-prog-track"><div className="cl-prog-fill" style={{ width: otPct + "%" }} /></div>
+                  <span className="cl-prog-pct">{otPct}%</span>
+                </div>
+                <div className="cl-prog-row">
+                  <span className="cl-prog-label">{t("checklist.newTestament")}</span>
+                  <div className="cl-prog-track"><div className="cl-prog-fill cl-prog-fill--nt" style={{ width: ntPct + "%" }} /></div>
+                  <span className="cl-prog-pct">{ntPct}%</span>
+                </div>
+              </div>
+
+              {activePlan && todayReading && (
+                <div className="cl-plan-widget">
+                  <div className="cl-plan-widget-top">
+                    <span className="cl-plan-name">{(activePlan as any).template_id ?? "Reading Plan"}</span>
+                    <button className="cl-plan-open" onClick={() => navigate("readingPlans")}>Open →</button>
+                  </div>
+                  <p className="cl-plan-today">Today: {BOOKS[todayReading.bookIndex]?.name} {todayReading.chapter}</p>
+                </div>
+              )}
+
+              <div className="cl-study-tools-section">
+                <span className="cl-section-label">{t("checklist.studyTools")}</span>
+                <div className="cl-study-tools">
+                  {([
+                    { key: "studyNotes",     label: "📝 " + t("nav.studyNotes",    "Notes") },
+                    { key: "studyTopics",    label: "📚 " + t("nav.studyTopics",   "Topics") },
+                    { key: "bookmarks",      label: "🔖 " + t("nav.bookmarks",     "Bookmarks") },
+                    { key: "readingHistory", label: "📊 " + t("nav.readingHistory","History") },
+                  ] as { key: string; label: string }[]).map(tool => (
+                    <button key={tool.key} className="cl-study-tool" onClick={() => navigate(tool.key)}>
+                      {tool.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="cl-books-divider">
+                <span>{t("checklist.66books")}</span>
+              </div>
+            </>
+          );
+        })()}
+
         <div className="toolbar">
           <div className="search-wrap">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ opacity: 0.4 }}>

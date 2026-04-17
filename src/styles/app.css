@@ -2514,3 +2514,164 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 
 [data-theme="light"] .bc-study-btn { color: #7c3aed; background: rgba(124,58,237,0.06); }
 [data-theme="light"] .bc-study-btn:hover { background: rgba(124,58,237,0.12); }
+
+/* ── Bible Tab Progress Header (2026-04-17 UI Refresh) ─────────────────── */
+
+.cl-progress-hero {
+  margin: 0 1rem .5rem;
+  padding: .9rem 1rem;
+  background: var(--surface-raised, rgba(255,255,255,0.05));
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: var(--radius, 12px);
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.cl-progress-hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cl-section-label {
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--text-muted, #7c6f9a);
+}
+.cl-overall-pct {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--brand, #7c3aed);
+}
+.cl-prog-row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.cl-prog-label {
+  font-size: .72rem;
+  color: var(--text-muted, #7c6f9a);
+  width: 8rem;
+  flex-shrink: 0;
+}
+.cl-prog-pct {
+  font-size: .68rem;
+  color: var(--text-muted, #7c6f9a);
+  width: 2.5rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+.cl-prog-track {
+  flex: 1;
+  height: 5px;
+  background: var(--border, rgba(255,255,255,0.1));
+  border-radius: 999px;
+  overflow: hidden;
+}
+.cl-prog-fill {
+  height: 100%;
+  background: var(--brand, #7c3aed);
+  border-radius: 999px;
+  transition: width .4s ease;
+}
+.cl-prog-fill--nt { background: #c4b5fd; }
+
+/* Active plan widget */
+.cl-plan-widget {
+  margin: 0 1rem .25rem;
+  padding: .7rem .9rem;
+  background: rgba(124,58,237,.07);
+  border: 1px solid rgba(124,58,237,.2);
+  border-radius: var(--radius, 12px);
+}
+.cl-plan-widget-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cl-plan-name {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--text-primary, #1E1035);
+}
+.cl-plan-open {
+  font-size: .72rem;
+  color: var(--brand, #7c3aed);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.cl-plan-today {
+  margin: .25rem 0 0;
+  font-size: .75rem;
+  color: var(--text-secondary, #4a4066);
+}
+
+/* Study tools strip */
+.cl-study-tools-section {
+  margin: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+}
+.cl-study-tools {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: .4rem;
+}
+@media (max-width: 360px) {
+  .cl-study-tools { grid-template-columns: repeat(2, 1fr); }
+}
+.cl-study-tool {
+  padding: .55rem .4rem;
+  background: var(--surface-raised, rgba(255,255,255,0.04));
+  border: 1px solid var(--border, rgba(255,255,255,0.07));
+  border-radius: 8px;
+  font-size: .72rem;
+  font-weight: 500;
+  color: var(--text-secondary, #4a4066);
+  cursor: pointer;
+  text-align: center;
+  transition: background .15s;
+}
+.cl-study-tool:hover { background: rgba(124,58,237,.08); }
+
+/* 66 Books divider */
+.cl-books-divider {
+  margin: .5rem 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  color: var(--text-muted, #7c6f9a);
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+.cl-books-divider::before,
+.cl-books-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border, rgba(255,255,255,0.08));
+}
+
+/* Book card bottom progress bar (mini-bar) */
+.mini-bar {
+  position: relative;
+  width: 60px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--border, rgba(255,255,255,0.1));
+  overflow: hidden;
+}
+.mini-bar-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  height: 100%;
+  background: #c4b5fd;
+  border-radius: 999px;
+  transition: width .3s ease;
+}
