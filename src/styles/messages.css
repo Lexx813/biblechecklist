@@ -290,6 +290,7 @@ main:has(.msg-layout) {
   border: none;
   cursor: pointer;
   font-size: 14px;
+  color: #ef4444;
   /* 44×44 touch target */
   min-width: 44px;
   min-height: 44px;
@@ -307,13 +308,21 @@ main:has(.msg-layout) {
 }
 
 .msg-conv-item:hover .msg-conv-delete-btn {
-  opacity: 0.6;
+  opacity: 0.7;
   pointer-events: auto;
 }
 
 .msg-conv-delete-btn:hover {
   opacity: 1 !important;
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.dark .msg-conv-delete-btn {
+  color: #f87171;
+}
+
+.dark .msg-conv-delete-btn:hover {
+  background: rgba(248, 113, 113, 0.2);
 }
 
 /* Always visible on touch devices */
