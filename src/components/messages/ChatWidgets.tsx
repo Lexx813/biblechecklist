@@ -12,10 +12,16 @@ import {
 } from "../../hooks/useMessages";
 import { THEME_COLORS, DISAPPEAR_OPTIONS, PUSH_DISMISS_KEY, formatTime, initial } from "./chatHelpers";
 
-/** Only allow http/https URLs — blocks javascript: and data: URIs */
+/** Only allow http/https URLs — blocks javascript:, data:, and other dangerous schemes */
 function safeUrl(url: string | null | undefined): string {
-  if (!url || !/^https?:\/\//i.test(url)) return "#";
-  return url;
+  if (!url) return "#";
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return "#";
+    return parsed.href;
+  } catch {
+    return "#";
+  }
 }
 
 // ── Avatar ────────────────────────────────────────────────────────────────────

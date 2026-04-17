@@ -104,7 +104,15 @@ export function renderFormattedContent(text: string | null | undefined): React.R
 
   return parts.map((part, i) => {
     if (part.type === "url") {
-      return <a key={i} href={part.value} target="_blank" rel="noopener noreferrer" className="fc-msg-link">{part.value}</a>;
+      try {
+        const parsed = new URL(part.value);
+        if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+          return <span key={i}>{part.value}</span>;
+        }
+        return <a key={i} href={parsed.href} target="_blank" rel="noopener noreferrer" className="fc-msg-link">{part.value}</a>;
+      } catch {
+        return <span key={i}>{part.value}</span>;
+      }
     }
     const segments: React.ReactNode[] = [];
     let src = part.value;
