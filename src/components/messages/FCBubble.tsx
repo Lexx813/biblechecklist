@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, memo } from "react";
 import { useTranslation } from "react-i18next";
 import { sanitizeContent } from "../../lib/e2e";
 import { Avatar, FCReactionPicker, FCVerseCard, FCImageCard, FCPlanCard, FCLinkPreviewCard } from "./ChatWidgets";
-import { groupReactions, formatTime, renderFormattedContent } from "./chatHelpers";
+import { groupReactions, formatTime, renderFormattedContent, type BubblePosition } from "./chatHelpers";
 
 interface Message {
   id: string;
@@ -45,9 +45,10 @@ interface FCBubbleProps {
   onStar: (id: string) => void;
   isLast: boolean;
   accentColor: string | null;
+  position?: BubblePosition;
 }
 
-export const FCBubble = memo(function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPreviews, onDelete, onReply, onEdit, onToggleReaction, onStar, isLast, accentColor }: FCBubbleProps) {
+export const FCBubble = memo(function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPreviews, onDelete, onReply, onEdit, onToggleReaction, onStar, isLast, accentColor, position }: FCBubbleProps) {
   const { t } = useTranslation();
   const [showMenu, setShowMenu] = useState(false);
   const [showReactPicker, setShowReactPicker] = useState(false);
@@ -105,8 +106,19 @@ export const FCBubble = memo(function FCBubble({ msg, isMine, allMessages, react
   const isPlan = msg.message_type === "reading_plan";
 
   return (
-    <div className={`fc-bubble-wrap${isMine ? " fc-bubble-wrap--mine" : ""}`} style={accentStyle}>
-      {!isMine && <Avatar name={msg.sender?.[0]?.display_name} avatarUrl={msg.sender?.[0]?.avatar_url} size={22} />}
+    <div
+      className={[
+        "fc-bubble-wrap",
+        isMine ? "fc-bubble-wrap--mine" : "",
+        position === "last" || position === "solo" ? "fc-bubble-wrap--group-end" : "fc-bubble-wrap--grouped",
+      ].filter(Boolean).join(" ")}
+      style={accentStyle}
+    >
+      {!isMine && (
+        (!position || position === "first" || position === "solo")
+          ? <Avatar name={msg.sender?.[0]?.display_name} avatarUrl={msg.sender?.[0]?.avatar_url} size={22} />
+          : <div className="fc-avatar-ghost" aria-hidden="true" />
+      )}
 
       <div style={{ display: "flex", flexDirection: "column", alignItems: isMine ? "flex-end" : "flex-start", gap: 2, minWidth: 0, maxWidth: "100%" }}>
         {replyOrig && (
@@ -167,7 +179,15 @@ export const FCBubble = memo(function FCBubble({ msg, isMine, allMessages, react
           ) : isPlan ? (
             <FCPlanCard metadata={msg.metadata as Record<string, unknown> | null} isMine={isMine} />
           ) : (
-            <div className={`fc-bubble${isMine ? " fc-bubble--mine" : ""}${isStarred ? " fc-bubble--starred" : ""}`} title={formatTime(msg.created_at)}>
+            <div
+              className={[
+                "fc-bubble",
+                isMine ? "fc-bubble--mine" : "",
+                position && position !== "solo" ? `fc-bubble--${position}` : "",
+                isStarred ? "fc-bubble--starred" : "",
+              ].filter(Boolean).join(" ")}
+              title={formatTime(msg.created_at)}
+            >
               {editing ? (
                 <textarea
                   ref={editRef}
