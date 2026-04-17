@@ -844,6 +844,8 @@
     "muteSounds": "静音",
     "noConversationSelected": "未选择对话",
     "noConversationSelectedDesc": "从左侧选择一个对话，或开始新对话。",
+    "yourMessages": "您的消息",
+    "newMessageChip": "↓ 新消息",
     "noConversationsShort": "暂无对话",
     "noData": "暂无数据",
     "noMessagesYet": "还没有消息",

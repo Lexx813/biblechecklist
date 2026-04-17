@@ -1585,6 +1585,8 @@
     "noConversationsShort": "Sem conversas ainda.",
     "noConversationSelected": "Nenhuma Conversa Selecionada",
     "noConversationSelectedDesc": "Selecione uma conversa à esquerda para começar a enviar mensagens.",
+    "yourMessages": "Suas Mensagens",
+    "newMessageChip": "↓ Nova mensagem",
     "noMessagesYet": "Ainda sem mensagens",
     "startConversation": "Inicie a conversa!",
     "sayHelloTo": "Diga olá para",

@@ -1585,6 +1585,8 @@
     "noConversationsShort": "Aucune conversation pour l'instant.",
     "noConversationSelected": "Aucune Conversation Sélectionnée",
     "noConversationSelectedDesc": "Sélectionnez une conversation à gauche pour commencer à discuter.",
+    "yourMessages": "Vos Messages",
+    "newMessageChip": "↓ Nouveau message",
     "noMessagesYet": "Pas encore de messages",
     "startConversation": "Commencez la conversation!",
     "sayHelloTo": "Dites bonjour à",

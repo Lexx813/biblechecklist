@@ -1194,7 +1194,11 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
             )
           )}
         </MessageErrorBoundary>
-        {isOtherTyping && <TypingDots />}
+        <div className={`msg-bubble-wrap msg-typing-wrap${isOtherTyping ? "" : " msg-typing-wrap--hidden"}`}>
+          <div className="msg-typing-bubble">
+            <span className="msg-dot" /><span className="msg-dot" /><span className="msg-dot" />
+          </div>
+        </div>
         <div ref={bottomRef} />
         {showScrollBtn && (
           <button className="msg-scroll-btn" onClick={scrollToBottom}>

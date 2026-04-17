@@ -1585,6 +1585,8 @@
     "noConversationsShort": "Wala pang mga pag-uusap.",
     "noConversationSelected": "Walang Napiling Pag-uusap",
     "noConversationSelectedDesc": "Pumili ng pag-uusap sa kaliwa para magsimulang mag-mensahe.",
+    "yourMessages": "Iyong Mga Mensahe",
+    "newMessageChip": "↓ Bagong mensahe",
     "noMessagesYet": "Wala pang mga mensahe",
     "startConversation": "Simulan ang pag-uusap!",
     "sayHelloTo": "Kumusta sa",

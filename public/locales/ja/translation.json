@@ -1593,6 +1593,8 @@
     "noConversationsShort": "まだ会話はありません。",
     "noConversationSelected": "会話が選択されていません",
     "noConversationSelectedDesc": "左の会話を選択してメッセージを始めてください。",
+    "yourMessages": "メッセージ",
+    "newMessageChip": "↓ 新しいメッセージ",
     "noMessagesYet": "メッセージはまだありません",
     "startConversation": "会話を始めましょう！",
     "sayHelloTo": "に挨拶する",

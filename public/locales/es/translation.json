@@ -1613,6 +1613,8 @@
     "noConversationsShort": "Aún no hay conversaciones.",
     "noConversationSelected": "Ninguna Conversación Seleccionada",
     "noConversationSelectedDesc": "Selecciona una conversación a la izquierda para empezar a chatear.",
+    "yourMessages": "Tus Mensajes",
+    "newMessageChip": "↓ Nuevo mensaje",
     "noMessagesYet": "Aún no hay mensajes",
     "startConversation": "¡Inicia la conversación!",
     "sayHelloTo": "Di hola a",

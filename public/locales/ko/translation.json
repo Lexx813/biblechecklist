@@ -1583,6 +1583,8 @@
     "noConversationsShort": "아직 대화가 없습니다.",
     "noConversationSelected": "대화가 선택되지 않았습니다",
     "noConversationSelectedDesc": "왼쪽에서 대화를 선택하여 메시지를 시작하세요.",
+    "yourMessages": "메시지",
+    "newMessageChip": "↓ 새 메시지",
     "noMessagesYet": "아직 메시지가 없습니다",
     "startConversation": "대화를 시작하세요!",
     "sayHelloTo": "인사하세요",
