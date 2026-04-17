@@ -96,6 +96,7 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
   useEffect(() => {
     markRead.mutate();
     markNotifRead.mutate(conv.conversation_id);
+    decryptCacheRef.current.clear();
   }, [conv.conversation_id]);
 
   useEffect(() => {
@@ -109,12 +110,16 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
     async function decrypt() {
       const results = await Promise.all(
         messages.map(async (msg) => {
-          const cacheKey = `${msg.id}:${msg.content}`;
+          const cacheKey = `${msg.id}:${msg.edited_at ?? ""}:${msg.content}`;
           if (cache.has(cacheKey)) return { ...msg, content: cache.get(cacheKey) as string };
           const decrypted = msg.message_type === "text" && sharedKey
             ? await decryptMessage(msg.content ?? "", sharedKey)
             : msg.content?.startsWith("enc:") ? "[🔒 Encrypted message]" : msg.content;
           cache.set(cacheKey, decrypted ?? "");
+          if (cache.size > 500) {
+            const firstKey = cache.keys().next().value;
+            if (firstKey !== undefined) cache.delete(firstKey);
+          }
           return { ...msg, content: decrypted ?? "" };
         })
       );
