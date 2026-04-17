@@ -35,9 +35,10 @@ interface BookCardProps {
   userId?: string;
   readers?: BookReader[];
   initialOpen?: boolean;
+  onNavigateToStudy?: (bookIndex: number) => void;
 }
 
-const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, versesState, onToggleChapter, onToggleBook, onOpenChapterModal, notes = [], onAddNote, onDeleteNote, userId, readers = [], initialOpen = false }: BookCardProps) {
+const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, versesState, onToggleChapter, onToggleBook, onOpenChapterModal, notes = [], onAddNote, onDeleteNote, userId, readers = [], initialOpen = false, onNavigateToStudy }: BookCardProps) {
   const [open, setOpen] = useState(initialOpen);
   const [showInfo, setShowInfo] = useState(false);
   // Rect captured at pointerdown — before Chrome focus-scrolls the element
@@ -157,6 +158,16 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                 onClick={() => onAddNote(bookIndex)}
               >
                 + {t("app.addNote")}
+              </button>
+            )}
+            {onNavigateToStudy && (
+              <button
+                className="bc-study-btn"
+                onClick={e => { e.stopPropagation(); onNavigateToStudy(bookIndex); }}
+                title="Study this book"
+                aria-label={`Study ${bookName}`}
+              >
+                Study →
               </button>
             )}
           </div>

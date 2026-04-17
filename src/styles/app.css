@@ -2489,3 +2489,28 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   border-color: rgba(124,58,237,0.25);
   color: #7c3aed;
 }
+
+/* ── BookCard Study button ───────────────────────────────────────────────── */
+
+.bc-study-btn {
+  padding: 3px 8px;
+  border: 1px solid rgba(124,58,237,0.25);
+  border-radius: var(--radius-sm);
+  background: rgba(124,58,237,0.08);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  color: #a78bfa;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
+}
+
+.bc-study-btn:hover {
+  background: rgba(124,58,237,0.16);
+  border-color: rgba(124,58,237,0.45);
+  color: #c4b5fd;
+}
+
+[data-theme="light"] .bc-study-btn { color: #7c3aed; background: rgba(124,58,237,0.06); }
+[data-theme="light"] .bc-study-btn:hover { background: rgba(124,58,237,0.12); }

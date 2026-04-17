@@ -510,6 +510,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
                   userId={user?.id}
                   readers={bookReaders[book.index] ?? []}
                   initialOpen={openBook === book.index}
+                  onNavigateToStudy={(idx) => navigate("bookDetail", { bookIndex: idx })}
                 />
               </React.Fragment>
             );
