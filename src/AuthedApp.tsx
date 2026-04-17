@@ -257,7 +257,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (nav.page === "main") pageContent = <Page><AL page="main"><ChecklistPage user={user} profile={profile} {...sharedNav} openBook={nav.openBook} openChapter={nav.openChapter} /></AL></Page>;
   else if (nav.page === "admin") {
     if (!profileLoading && !profile?.is_admin && !profile?.is_moderator) navigate("home");
-    else if (profile?.is_admin || profile?.is_moderator) pageContent = <Page><AL page="admin"><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></AL></Page>;
+    else if (profile?.is_admin || profile?.is_moderator) pageContent = <Page><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   }
   else if (nav.page === "profile")  pageContent = <Page><AL page="profile"><ProfilePage user={user} viewedUserId={user.id} onBack={() => navigate("home")} {...sharedNav} /></AL></Page>;
   else if (nav.page === "settings") pageContent = <Page><SettingsPage user={user} onBack={() => navigate("profile")} {...sharedNav} /></Page>;
