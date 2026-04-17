@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useReportWebVitals } from "next/web-vitals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { persistQueryClient } from "@tanstack/react-query-persist-client";
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import dynamic from "next/dynamic";
 
 const ReactQueryDevtools =
@@ -118,23 +120,16 @@ function SideEffects() {
       }
     }
 
-    // Defer loading query persistence — avoids adding ~40 KiB to the initial bundle.
-    // Cache is restored asynchronously after mount; users see fresh data immediately.
-    Promise.all([
-      import("@tanstack/react-query-persist-client"),
-      import("@tanstack/query-sync-storage-persister"),
-    ]).then(([{ persistQueryClient }, { createSyncStoragePersister }]) => {
-      const persister = createSyncStoragePersister({
-        storage: window.localStorage,
-        key: "nwt-query-cache-v2",
-      });
-      persistQueryClient({
-        queryClient,
-        persister,
-        maxAge: persistOptions.maxAge,
-        dehydrateOptions: persistOptions.dehydrateOptions,
-        hydrateOptions: persistOptions.hydrateOptions,
-      });
+    const persister = createSyncStoragePersister({
+      storage: window.localStorage,
+      key: "nwt-query-cache-v2",
+    });
+    persistQueryClient({
+      queryClient,
+      persister,
+      maxAge: persistOptions.maxAge,
+      dehydrateOptions: persistOptions.dehydrateOptions,
+      hydrateOptions: persistOptions.hydrateOptions,
     });
   }, []);
 
