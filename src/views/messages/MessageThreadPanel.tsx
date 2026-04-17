@@ -887,14 +887,19 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
         const lastNew = decryptedMessages[decryptedMessages.length - 1];
         if (lastNew?.sender_id !== user.id) playChime();
       }
-      if (isAtBottomRef.current) {
-        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-        setNewMsgCount(0);
-        setShowNewMsgChip(false);
-      } else {
-        setNewMsgCount(c => c + added);
-        setShowNewMsgChip(true);
-      }
+      requestAnimationFrame(() => {
+        const el = bodyRef.current;
+        if (!el) return;
+        const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+        if (distFromBottom <= 100) {
+          el.scrollTop = el.scrollHeight;
+          setNewMsgCount(0);
+          setShowNewMsgChip(false);
+        } else {
+          setNewMsgCount(c => c + added);
+          setShowNewMsgChip(true);
+        }
+      });
     }
     prevCountRef.current = count;
   }, [decryptedMessages.length]);
