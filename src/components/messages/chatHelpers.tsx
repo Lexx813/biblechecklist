@@ -1,6 +1,7 @@
 import React from "react";
 import { BOOKS } from "../../data/books";
 import { wolChapterUrl } from "../../utils/wol";
+export { type BubblePosition, computePosition } from "./chatHelpers.helpers";
 
 // ── Constants ────────────────────────────────────────────────────────────────
 
