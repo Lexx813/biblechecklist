@@ -15,6 +15,7 @@ import { toast } from "../../lib/toast";
 import { getTemplate } from "../../data/readingPlanTemplates";
 import { useMyPlans } from "../../hooks/useReadingPlans";
 import type { Conversation } from "./ConversationListPanel";
+import { REACTION_EMOJIS } from "../../components/messages/chatHelpers";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -112,7 +113,6 @@ function groupReactions(reactions: any[], messageId: string): Record<string, { c
   return grouped;
 }
 
-const REACTION_EMOJIS = ["👍","❤️","😂","😮","😢","🔥","🙏","👏"];
 const EMOJIS = ["😀","😂","😍","🥰","😊","😎","😢","😭","😅","🤣","❤️","🙏","👍","👋","🎉","🔥","✨","💯","🙌","💪","🤔","🫶","🥳","😇","🤩","✅","⚡","🌟","💡","😤","🫠","🫡","❤️‍🔥","🤝","👏","😆","🥹","😌","😴","🤯"];
 
 // ── Avatar ────────────────────────────────────────────────────────────────────

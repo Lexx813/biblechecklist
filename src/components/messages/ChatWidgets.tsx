@@ -10,7 +10,7 @@ import {
   useConvSettings, useSaveConvSettings,
   useSearchMessages,
 } from "../../hooks/useMessages";
-import { THEME_COLORS, DISAPPEAR_OPTIONS, PUSH_DISMISS_KEY, formatTime, initial } from "./chatHelpers";
+import { THEME_COLORS, DISAPPEAR_OPTIONS, PUSH_DISMISS_KEY, formatTime, initial, REACTION_EMOJIS } from "./chatHelpers";
 import { sanitizeContent } from "../../lib/e2e";
 
 /** Only allow http/https URLs — blocks javascript:, data:, and other dangerous schemes */
@@ -75,8 +75,6 @@ export function EmojiPicker({ onSelect, onClose }: { onSelect: (em: string) => v
 
 // ── Reaction picker ───────────────────────────────────────────────────────────
 
-const REACTION_EMOJIS_LOCAL = ["👍","❤️","😂","😮","😢","🔥","🙏","👏"];
-
 export function FCReactionPicker({ onPick, onClose, anchorEl }: {
   onPick: (em: string) => void;
   onClose: () => void;
@@ -102,7 +100,7 @@ export function FCReactionPicker({ onPick, onClose, anchorEl }: {
 
   return (
     <div className="fc-reaction-picker" ref={ref} style={style}>
-      {REACTION_EMOJIS_LOCAL.map(em => (
+      {REACTION_EMOJIS.map(em => (
         <button key={em} className="fc-reaction-picker-btn" onClick={() => { onPick(em); onClose(); }}>{em}</button>
       ))}
     </div>
