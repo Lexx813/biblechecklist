@@ -19,7 +19,9 @@ const ChecklistInline     = lazy(() => import("./ChecklistPage"));
 const StudyTopicsInline   = lazy(() => import("./studytopics/StudyTopicsInline"));
 const ActivityFeedInline  = lazy(() => import("./social/ActivityFeedInline"));
 const BookmarksInline     = lazy(() => import("./bookmarks/BookmarksInline"));
-const GroupsInline        = lazy(() => import("./groups/GroupsPage"));
+const BookDetailInline      = lazy(() => import("./studytopics/BookDetailPage"));
+const StudyTopicDetailInline = lazy(() => import("./studytopics/StudyTopicDetail"));
+const GroupsInline          = lazy(() => import("./groups/GroupsPage"));
 const GroupDetailInline   = lazy(() => import("./groups/GroupDetail"));
 const CommunityInline     = lazy(() => import("./community/CommunityPage"));
 const VideosInline        = lazy(() => import("./videos/VideosPage"));
@@ -174,7 +176,7 @@ const NAV_ITEMS_2 = [
   },
 ];
 
-const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "feed", "bookmarks", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests"]);
+const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "studyTopicDetail", "bookDetail", "feed", "bookmarks", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests"]);
 
 const NAV_SHORTCUTS = [
   {
@@ -577,6 +579,16 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {activePanel === "bookmarks" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
               <BookmarksInline user={user} navigate={panelNavigate} />
+            </Suspense>
+          )}
+          {activePanel === "bookDetail" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <BookDetailInline user={user} navigate={panelNavigate} bookIndex={panelParams.bookIndex} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
+            </Suspense>
+          )}
+          {activePanel === "studyTopicDetail" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <StudyTopicDetailInline user={user} navigate={panelNavigate} slug={panelParams.slug} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
             </Suspense>
           )}
           {activePanel === "groups" && (
