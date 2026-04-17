@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 import { useTranslation } from "react-i18next";
 import { sanitizeContent } from "../../lib/e2e";
 import { Avatar, FCReactionPicker, FCVerseCard, FCImageCard, FCPlanCard, FCLinkPreviewCard } from "./ChatWidgets";
@@ -47,7 +47,7 @@ interface FCBubbleProps {
   accentColor: string | null;
 }
 
-export function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPreviews, onDelete, onReply, onEdit, onToggleReaction, onStar, isLast, accentColor }: FCBubbleProps) {
+export const FCBubble = memo(function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPreviews, onDelete, onReply, onEdit, onToggleReaction, onStar, isLast, accentColor }: FCBubbleProps) {
   const { t } = useTranslation();
   const [showMenu, setShowMenu] = useState(false);
   const [showReactPicker, setShowReactPicker] = useState(false);
@@ -217,4 +217,4 @@ export function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPrev
       </div>
     </div>
   );
-}
+});

@@ -8,6 +8,7 @@ import { useE2EKeys } from "../../hooks/useE2E";
 import { supabase } from "../../lib/supabase";
 import { MiniThread, ConvList } from "./MiniThread";
 import "../../styles/floating-chat.css";
+import { MessageErrorBoundary } from "./MessageErrorBoundary";
 
 interface User {
   id: string;
@@ -159,29 +160,31 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
               </div>
             </div>
 
-            {activeConv ? (
-              <MiniThread
-                conv={activeConv as unknown as Parameters<typeof MiniThread>[0]["conv"]}
-                user={user}
-                keyPair={keyPair}
-                onBack={() => setActiveConv(null)}
-                accentColor={accentColor}
-                onAccentChange={setAccentColor}
-              />
-            ) : (
-              isLoading ? (
-                <p className="fc-empty" style={{ padding: "24px" }}>{t("common.loading")}</p>
-              ) : (
-                <ConvList
-                  conversations={conversations as Parameters<typeof ConvList>[0]["conversations"]}
-                  currentUserId={user.id}
-                  onSelect={(conv) => { setActiveConv(conv as unknown as Record<string, unknown>); window.dispatchEvent(new Event("fc:open")); }}
-                  onDelete={setConvToDelete}
-                  onlineUsers={onlineUsers}
-                  onCompose={openFullMessages}
+            <MessageErrorBoundary>
+              {activeConv ? (
+                <MiniThread
+                  conv={activeConv as unknown as Parameters<typeof MiniThread>[0]["conv"]}
+                  user={user}
+                  keyPair={keyPair}
+                  onBack={() => setActiveConv(null)}
+                  accentColor={accentColor}
+                  onAccentChange={setAccentColor}
                 />
-              )
-            )}
+              ) : (
+                isLoading ? (
+                  <p className="fc-empty" style={{ padding: "24px" }}>{t("common.loading")}</p>
+                ) : (
+                  <ConvList
+                    conversations={conversations as Parameters<typeof ConvList>[0]["conversations"]}
+                    currentUserId={user.id}
+                    onSelect={(conv) => { setActiveConv(conv as unknown as Record<string, unknown>); window.dispatchEvent(new Event("fc:open")); }}
+                    onDelete={setConvToDelete}
+                    onlineUsers={onlineUsers}
+                    onCompose={openFullMessages}
+                  />
+                )
+              )}
+            </MessageErrorBoundary>
           </div>
         )}
 

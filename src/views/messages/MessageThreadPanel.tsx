@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, memo } from "react";
+import { MessageErrorBoundary } from "../../components/messages/MessageErrorBoundary";
 import { useTranslation } from "react-i18next";
 import {
   useMessages, useSendMessage, useDeleteMessage, useMarkRead,
@@ -1123,40 +1124,42 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
       )}
 
       <div className="msg-thread-body" ref={bodyRef} onScroll={handleScroll}>
-        {isLoading ? (
-          <p className="msg-empty">{t("common.loading")}</p>
-        ) : decryptedMessages.length === 0 ? (
-          <div className="msg-empty-thread">
-            <span>👋</span>
-            <strong>{t("messages.startConversation")}</strong>
-            <p>{t("messages.sayHelloTo")} {conv.other_display_name || t("messages.user")}!</p>
-          </div>
-        ) : (
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (grouped as any[]).map((item: any) =>
-            item.type === "day" ? (
-              <div key={item.key} className="msg-day-divider"><span>{item.label}</span></div>
-            ) : (
-              <MessageBubble
-                key={item.id}
-                msg={item}
-                isMine={item.sender_id === user.id}
-                onDelete={id => deleteMessage.mutate(id, { onError: () => toast.error("Failed to delete message.") })}
-                onReply={msg => setReplyTo(msg)}
-                onEdit={(id, content, onDone, onFail) =>
-                  editMessage.mutate({ messageId: id, content }, { onSuccess: onDone, onError: () => { onFail(); toast.error("Failed to edit message."); } })
-                }
-                showSeen={item.id === lastSeenId}
-                reactions={reactions}
-                userId={user.id}
-                onToggleReaction={(messageId, emoji) => toggleReaction.mutate({ messageId, userId: user.id, emoji }, { onError: () => toast.error("Failed to update reaction.") })}
-                onStar={id => toggleStar.mutate(id, { onError: () => toast.error("Failed to update star.") })}
-                allMessages={decryptedMessages}
-                navigate={navigate}
-              />
+        <MessageErrorBoundary>
+          {isLoading ? (
+            <p className="msg-empty">{t("common.loading")}</p>
+          ) : decryptedMessages.length === 0 ? (
+            <div className="msg-empty-thread">
+              <span>👋</span>
+              <strong>{t("messages.startConversation")}</strong>
+              <p>{t("messages.sayHelloTo")} {conv.other_display_name || t("messages.user")}!</p>
+            </div>
+          ) : (
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (grouped as any[]).map((item: any) =>
+              item.type === "day" ? (
+                <div key={item.key} className="msg-day-divider"><span>{item.label}</span></div>
+              ) : (
+                <MessageBubble
+                  key={item.id}
+                  msg={item}
+                  isMine={item.sender_id === user.id}
+                  onDelete={id => deleteMessage.mutate(id, { onError: () => toast.error("Failed to delete message.") })}
+                  onReply={msg => setReplyTo(msg)}
+                  onEdit={(id, content, onDone, onFail) =>
+                    editMessage.mutate({ messageId: id, content }, { onSuccess: onDone, onError: () => { onFail(); toast.error("Failed to edit message."); } })
+                  }
+                  showSeen={item.id === lastSeenId}
+                  reactions={reactions}
+                  userId={user.id}
+                  onToggleReaction={(messageId, emoji) => toggleReaction.mutate({ messageId, userId: user.id, emoji }, { onError: () => toast.error("Failed to update reaction.") })}
+                  onStar={id => toggleStar.mutate(id, { onError: () => toast.error("Failed to update star.") })}
+                  allMessages={decryptedMessages}
+                  navigate={navigate}
+                />
+              )
             )
-          )
-        )}
+          )}
+        </MessageErrorBoundary>
         {isOtherTyping && <TypingDots />}
         <div ref={bottomRef} />
         {showScrollBtn && (
