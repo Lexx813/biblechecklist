@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { adminApi } from "../api/admin";
+import { adminApi, analyticsApi } from "../api/admin";
 import { profileApi } from "../api/profile";
 import { blogApi } from "../api/blog";
 import { forumApi } from "../api/forum";
@@ -229,5 +229,25 @@ export function useDeleteQuizQuestion() {
   return useMutation({
     mutationFn: (id: string) => quizApi.deleteQuestion(id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "quizQuestions"] }),
+  });
+}
+
+export function useAnalytics() {
+  return useQuery({
+    queryKey: ["admin", "analytics"],
+    queryFn: async () => {
+      const [kpis, signups, dau, features, retention, adoption, histogram, heatmap] = await Promise.all([
+        analyticsApi.getKpis(),
+        analyticsApi.getSignupsSeries(30),
+        analyticsApi.getDauSeries(30),
+        analyticsApi.getFeatureUsage(),
+        analyticsApi.getRetentionCohorts(),
+        analyticsApi.getReadingAdoption(),
+        analyticsApi.getCompletionHistogram(),
+        analyticsApi.getBookHeatmap(),
+      ]);
+      return { kpis, signups, dau, features, retention, adoption, histogram, heatmap };
+    },
+    staleTime: 5 * 60 * 1000,
   });
 }
