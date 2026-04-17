@@ -224,15 +224,6 @@ export const messagesApi = {
     }
   },
 
-  getUnreadCount: async (): Promise<number> => {
-    try {
-      const convs = await messagesApi.getConversations();
-      return convs.reduce((sum, c) => sum + (Number(c.unread_count) || 0), 0);
-    } catch {
-      return 0;
-    }
-  },
-
   // ── Star ──────────────────────────────────────────────────────────────────────
   toggleStar: async (messageId: string): Promise<boolean> => {
     const { data, error } = await supabase.rpc("toggle_message_star", { p_message_id: messageId });
