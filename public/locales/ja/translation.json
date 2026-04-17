@@ -565,7 +565,18 @@
     "notifBannerTitle": "最新情報を受け取る",
     "notifBannerSub": "新しいブログ記事が公開されたときにメールを受け取ります。",
     "notifEnable": "通知する",
-    "notifDismiss": "いいえ"
+    "notifDismiss": "いいえ",
+    "greeting": "おはようございます、{{name}}",
+    "greetingAfternoon": "こんにちは、{{name}}",
+    "greetingEvening": "こんばんは、{{name}}",
+    "yourStudy": "学習状況",
+    "thisWeek": "今週",
+    "friendActivity": "友達の活動",
+    "seeAll": "すべて見る →",
+    "quickActions": "クイックアクション",
+    "noFriendsYet": "友達を追加して進捗を確認しましょう →",
+    "continueReading": "続ける →",
+    "openPrep": "準備を開く →"
   },
   "stats": {
     "streak_one": "日連続",
@@ -1644,18 +1655,26 @@
     "proFeature": "🔒 プロ機能",
     "studyTopics": "学習トピック",
     "home": "ホーム",
-    "bibleTracker": "聖書トラッカー",
+    "bibleTracker": "聖書",
     "forum": "フォーラム",
     "blog": "ブログ",
-    "leaderboard": "リーダーボード",
-    "friends": "フレンド",
+    "leaderboard": "ランキング",
+    "friends": "友達",
     "groups": "グループ",
     "shortcuts": "ショートカット",
     "bibleQuiz": "聖書クイズ",
     "meetingPrep": "集会の準備",
     "familyChallenge": "家族チャレンジ",
     "triviaBattle": "聖書クイズ対戦",
-    "profile": "プロフィール"
+    "profile": "プロフィール",
+    "me": "自分",
+    "prep": "準備",
+    "quiz": "クイズ",
+    "study": "学習",
+    "videos": "動画",
+    "bookmarks": "ブックマーク",
+    "feed": "活動",
+    "readingHistory": "履歴"
   },
   "studyTopics": {
     "title": "学習トピック",
@@ -1747,5 +1766,19 @@
     "markAllParas": "すべての段落を完了にする",
     "wtComplete": "✓ ものみの塔研究完了",
     "watchtowerStudyArticle": "ものみの塔研究記事"
+  },
+  "community": {
+    "title": "コミュニティ",
+    "onlineNow": "{{count}}人がオンライン",
+    "recentActivity": "最近の活動",
+    "manage": "管理 →",
+    "newPosts": "新しい投稿 {{count}}件"
+  },
+  "checklist": {
+    "bibleProgress": "聖書の進捗",
+    "oldTestament": "旧約聖書",
+    "newTestament": "新約聖書",
+    "studyTools": "学習ツール",
+    "66books": "66冊"
   }
 }

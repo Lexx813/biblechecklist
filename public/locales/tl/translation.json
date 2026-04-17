@@ -557,7 +557,18 @@
     "notifDismiss": "Hindi, salamat",
     "streakDay": "araw",
     "streakLabel": "streak · Huwag sirain!",
-    "streakBest": "Pinakamahusay"
+    "streakBest": "Pinakamahusay",
+    "greeting": "Magandang umaga, {{name}}",
+    "greetingAfternoon": "Magandang hapon, {{name}}",
+    "greetingEvening": "Magandang gabi, {{name}}",
+    "yourStudy": "Iyong Pag-aaral",
+    "thisWeek": "Sa Linggong Ito",
+    "friendActivity": "Aktibidad ng mga Kaibigan",
+    "seeAll": "Tingnan lahat →",
+    "quickActions": "Mabilis na Aksyon",
+    "noFriendsYet": "Magdagdag ng mga kaibigan para makita ang kanilang progreso →",
+    "continueReading": "Magpatuloy →",
+    "openPrep": "Buksan ang Paghahanda →"
   },
   "stats": {
     "streak_one": "araw na streak",
@@ -1636,10 +1647,10 @@
     "proFeature": "🔒 Tampok na Pro",
     "studyTopics": "Mga Paksa ng Pag-aaral",
     "home": "Tahanan",
-    "bibleTracker": "Bible Tracker",
+    "bibleTracker": "Bibliya",
     "forum": "Pórum",
     "blog": "Blog",
-    "leaderboard": "Leaderboard",
+    "leaderboard": "Ranggo",
     "friends": "Mga Kaibigan",
     "groups": "Mga Grupo",
     "shortcuts": "Mga Shortcut",
@@ -1647,7 +1658,15 @@
     "meetingPrep": "Paghahanda sa Pulong",
     "familyChallenge": "Hamon ng Pamilya",
     "triviaBattle": "Labanan ng Trivia",
-    "profile": "Profile"
+    "profile": "Profile",
+    "me": "Ako",
+    "prep": "Prep",
+    "quiz": "Quiz",
+    "study": "Pag-aaral",
+    "videos": "Mga Video",
+    "bookmarks": "Mga Bookmark",
+    "feed": "Aktibidad",
+    "readingHistory": "Kasaysayan"
   },
   "studyTopics": {
     "title": "Mga Paksa ng Pag-aaral",
@@ -3334,5 +3353,19 @@
         "note": "Ang pangako na 'papahirin ni Jehova ang bawat luha sa kanilang mga mata, at hindi na magkakaroon ng kamatayan' ay siyang rurok ng pahayag ng layunin ng Kaharian ni Jehova — ang lubos na pag-aalis ng lahat ng paghihirap."
       }
     }
+  },
+  "community": {
+    "title": "Komunidad",
+    "onlineNow": "{{count}} online ngayon",
+    "recentActivity": "Kamakailang Aktibidad",
+    "manage": "Pamahalaan →",
+    "newPosts": "{{count}} bagong post"
+  },
+  "checklist": {
+    "bibleProgress": "Progreso sa Bibliya",
+    "oldTestament": "Lumang Tipan",
+    "newTestament": "Bagong Tipan",
+    "studyTools": "Mga Kasangkapan sa Pag-aaral",
+    "66books": "66 Aklat"
   }
 }

@@ -555,7 +555,18 @@
     "notifBannerTitle": "소식을 놓치지 마세요",
     "notifBannerSub": "새 블로그 게시물이 게시되면 이메일을 받으세요.",
     "notifEnable": "알림 받기",
-    "notifDismiss": "괜찮습니다"
+    "notifDismiss": "괜찮습니다",
+    "greeting": "좋은 아침이에요, {{name}}",
+    "greetingAfternoon": "안녕하세요, {{name}}",
+    "greetingEvening": "좋은 저녁이에요, {{name}}",
+    "yourStudy": "나의 공부",
+    "thisWeek": "이번 주",
+    "friendActivity": "친구 활동",
+    "seeAll": "전체 보기 →",
+    "quickActions": "빠른 실행",
+    "noFriendsYet": "친구를 추가하여 진도를 확인하세요 →",
+    "continueReading": "계속 →",
+    "openPrep": "준비 열기 →"
   },
   "stats": {
     "streak_one": "일 연속",
@@ -1633,7 +1644,20 @@
     "language": "언어",
     "proFeature": "🔒 프로 기능",
     "studyTopics": "연구 주제",
-    "triviaBattle": "성경 퀴즈 배틀"
+    "triviaBattle": "성경 퀴즈 배틀",
+    "home": "홈",
+    "bibleTracker": "성경",
+    "me": "나",
+    "prep": "준비",
+    "quiz": "퀴즈",
+    "study": "공부",
+    "videos": "동영상",
+    "friends": "친구",
+    "leaderboard": "순위표",
+    "bookmarks": "북마크",
+    "feed": "활동",
+    "familyChallenge": "가족 챌린지",
+    "readingHistory": "기록"
   },
   "studyTopics": {
     "title": "연구 주제",
@@ -1731,5 +1755,19 @@
     "reason": "wol.jw.org의 데이터베이스가 암호화되어 있어 성구를 자동으로 검증할 수 없었습니다. 번역 오류를 발견하시면 알려 주십시오.",
     "suggest": "수정 제안하기",
     "dismiss": "닫기"
+  },
+  "community": {
+    "title": "커뮤니티",
+    "onlineNow": "{{count}}명 온라인",
+    "recentActivity": "최근 활동",
+    "manage": "관리 →",
+    "newPosts": "새 게시물 {{count}}개"
+  },
+  "checklist": {
+    "bibleProgress": "성경 진도",
+    "oldTestament": "구약",
+    "newTestament": "신약",
+    "studyTools": "학습 도구",
+    "66books": "66권"
   }
 }

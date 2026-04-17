@@ -238,7 +238,18 @@
     "notifBannerTitle": "保持关注",
     "notifBannerSub": "有新博客文章发布时，发送电子邮件通知您。",
     "notifEnable": "订阅通知",
-    "notifDismiss": "不了，谢谢"
+    "notifDismiss": "不了，谢谢",
+    "greeting": "早上好，{{name}}",
+    "greetingAfternoon": "下午好，{{name}}",
+    "greetingEvening": "晚上好，{{name}}",
+    "yourStudy": "我的学习",
+    "thisWeek": "本周",
+    "friendActivity": "好友动态",
+    "seeAll": "查看全部 →",
+    "quickActions": "快捷操作",
+    "noFriendsYet": "添加好友以查看他们的进度 →",
+    "continueReading": "继续 →",
+    "openPrep": "打开准备 →"
   },
   "stats": {
     "streak_one": "天连续",
@@ -881,8 +892,8 @@
     "proFeature": "🔒 高级功能",
     "aiTools": "AI 工具",
     "studyTopics": "学习主题",
-    "home": "首页",
-    "bibleTracker": "圣经追踪",
+    "home": "主页",
+    "bibleTracker": "圣经",
     "forum": "论坛",
     "blog": "博客",
     "leaderboard": "排行榜",
@@ -893,7 +904,15 @@
     "meetingPrep": "聚会准备",
     "familyChallenge": "家庭挑战",
     "triviaBattle": "圣经问答对战",
-    "profile": "个人资料"
+    "profile": "个人资料",
+    "me": "我",
+    "prep": "准备",
+    "quiz": "测验",
+    "study": "学习",
+    "videos": "视频",
+    "bookmarks": "书签",
+    "feed": "动态",
+    "readingHistory": "历史"
   },
   "studyTopics": {
     "title": "学习主题",
@@ -3350,5 +3369,19 @@
         "note": "应许耶和华'要擦去他们一切的眼泪,不再有死亡',是耶和华王国旨意顶峰的表达——彻底除去一切苦难。"
       }
     }
+  },
+  "community": {
+    "title": "社区",
+    "onlineNow": "{{count}} 人在线",
+    "recentActivity": "最近动态",
+    "manage": "管理 →",
+    "newPosts": "{{count}} 篇新帖子"
+  },
+  "checklist": {
+    "bibleProgress": "圣经进度",
+    "oldTestament": "旧约",
+    "newTestament": "新约",
+    "studyTools": "学习工具",
+    "66books": "66卷"
   }
 }

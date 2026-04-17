@@ -557,7 +557,18 @@
     "notifDismiss": "No, gracias",
     "streakDay": "día",
     "streakLabel": "racha · ¡No la rompas!",
-    "streakBest": "Mejor"
+    "streakBest": "Mejor",
+    "greeting": "Buenos días, {{name}}",
+    "greetingAfternoon": "Buenas tardes, {{name}}",
+    "greetingEvening": "Buenas noches, {{name}}",
+    "yourStudy": "Tu Estudio",
+    "thisWeek": "Esta Semana",
+    "friendActivity": "Actividad de Amigos",
+    "seeAll": "Ver todo →",
+    "quickActions": "Acciones Rápidas",
+    "noFriendsYet": "Agrega amigos para ver su progreso →",
+    "continueReading": "Continuar →",
+    "openPrep": "Abrir Preparación →"
   },
   "stats": {
     "streak_one": "día seguido",
@@ -1664,7 +1675,7 @@
     "proFeature": "🔒 Función Pro",
     "studyTopics": "Temas de Estudio",
     "home": "Inicio",
-    "bibleTracker": "Seguimiento Bíblico",
+    "bibleTracker": "Biblia",
     "forum": "Foro",
     "blog": "Blog",
     "leaderboard": "Clasificación",
@@ -1676,7 +1687,15 @@
     "meetingPrep": "Preparación de Reunión",
     "familyChallenge": "Desafío Familiar",
     "triviaBattle": "Batalla de Trivia",
-    "profile": "Perfil"
+    "profile": "Perfil",
+    "me": "Yo",
+    "prep": "Prep",
+    "quiz": "Quiz",
+    "study": "Estudio",
+    "videos": "Videos",
+    "bookmarks": "Marcadores",
+    "feed": "Actividad",
+    "readingHistory": "Historial"
   },
   "studyTopics": {
     "title": "Temas de Estudio",
@@ -3363,5 +3382,19 @@
         "note": "La promesa final 'sí, vengo pronto' dirige la esperanza cristiana hacia el cumplimiento inminente del propósito de Jehová."
       }
     }
+  },
+  "community": {
+    "title": "Comunidad",
+    "onlineNow": "{{count}} en línea ahora",
+    "recentActivity": "Actividad Reciente",
+    "manage": "Administrar →",
+    "newPosts": "{{count}} publicaciones nuevas"
+  },
+  "checklist": {
+    "bibleProgress": "Progreso Bíblico",
+    "oldTestament": "Antiguo Testamento",
+    "newTestament": "Nuevo Testamento",
+    "studyTools": "Herramientas de Estudio",
+    "66books": "66 Libros"
   }
 }

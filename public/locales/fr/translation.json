@@ -557,7 +557,18 @@
     "notifDismiss": "Non merci",
     "streakDay": "jour",
     "streakLabel": "série · Ne la brisez pas !",
-    "streakBest": "Meilleur"
+    "streakBest": "Meilleur",
+    "greeting": "Bonjour, {{name}}",
+    "greetingAfternoon": "Bon après-midi, {{name}}",
+    "greetingEvening": "Bonsoir, {{name}}",
+    "yourStudy": "Votre Étude",
+    "thisWeek": "Cette Semaine",
+    "friendActivity": "Activité des Amis",
+    "seeAll": "Voir tout →",
+    "quickActions": "Actions Rapides",
+    "noFriendsYet": "Ajoutez des amis pour voir leur progression →",
+    "continueReading": "Continuer →",
+    "openPrep": "Ouvrir Préparation →"
   },
   "stats": {
     "streak_one": "jour de série",
@@ -1636,7 +1647,7 @@
     "proFeature": "🔒 Fonctionnalité Pro",
     "studyTopics": "Sujets d'Étude",
     "home": "Accueil",
-    "bibleTracker": "Suivi Biblique",
+    "bibleTracker": "Bible",
     "forum": "Forum",
     "blog": "Blog",
     "leaderboard": "Classement",
@@ -1645,9 +1656,17 @@
     "shortcuts": "Raccourcis",
     "bibleQuiz": "Quiz Biblique",
     "meetingPrep": "Préparation de Réunion",
-    "familyChallenge": "Défi en Famille",
+    "familyChallenge": "Défi Famille",
     "triviaBattle": "Bataille de Trivia",
-    "profile": "Profil"
+    "profile": "Profil",
+    "me": "Moi",
+    "prep": "Prép",
+    "quiz": "Quiz",
+    "study": "Étude",
+    "videos": "Vidéos",
+    "bookmarks": "Signets",
+    "feed": "Activité",
+    "readingHistory": "Historique"
   },
   "studyTopics": {
     "title": "Sujets d'Étude",
@@ -3334,5 +3353,19 @@
         "note": "La promesse finale « oui, je viens vite » oriente l'espérance chrétienne vers l'accomplissement imminent du dessein de Jéhovah."
       }
     }
+  },
+  "community": {
+    "title": "Communauté",
+    "onlineNow": "{{count}} en ligne maintenant",
+    "recentActivity": "Activité Récente",
+    "manage": "Gérer →",
+    "newPosts": "{{count}} nouvelles publications"
+  },
+  "checklist": {
+    "bibleProgress": "Progrès Biblique",
+    "oldTestament": "Ancien Testament",
+    "newTestament": "Nouveau Testament",
+    "studyTools": "Outils d'Étude",
+    "66books": "66 Livres"
   }
 }

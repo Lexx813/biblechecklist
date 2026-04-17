@@ -557,7 +557,18 @@
     "notifDismiss": "Não, obrigado",
     "streakDay": "dia",
     "streakLabel": "sequência · Não a quebre!",
-    "streakBest": "Melhor"
+    "streakBest": "Melhor",
+    "greeting": "Bom dia, {{name}}",
+    "greetingAfternoon": "Boa tarde, {{name}}",
+    "greetingEvening": "Boa noite, {{name}}",
+    "yourStudy": "Seu Estudo",
+    "thisWeek": "Esta Semana",
+    "friendActivity": "Atividade de Amigos",
+    "seeAll": "Ver tudo →",
+    "quickActions": "Ações Rápidas",
+    "noFriendsYet": "Adicione amigos para ver o progresso →",
+    "continueReading": "Continuar →",
+    "openPrep": "Abrir Preparação →"
   },
   "stats": {
     "streak_one": "dia de sequência",
@@ -1636,7 +1647,7 @@
     "proFeature": "🔒 Recurso Pro",
     "studyTopics": "Tópicos de Estudo",
     "home": "Início",
-    "bibleTracker": "Rastreador Bíblico",
+    "bibleTracker": "Bíblia",
     "forum": "Fórum",
     "blog": "Blog",
     "leaderboard": "Classificação",
@@ -1645,9 +1656,17 @@
     "shortcuts": "Atalhos",
     "bibleQuiz": "Quiz Bíblico",
     "meetingPrep": "Preparação de Reunião",
-    "familyChallenge": "Desafio em Família",
+    "familyChallenge": "Desafio Familiar",
     "triviaBattle": "Batalha de Trivia",
-    "profile": "Perfil"
+    "profile": "Perfil",
+    "me": "Eu",
+    "prep": "Prep",
+    "quiz": "Quiz",
+    "study": "Estudo",
+    "videos": "Vídeos",
+    "bookmarks": "Favoritos",
+    "feed": "Atividade",
+    "readingHistory": "Histórico"
   },
   "studyTopics": {
     "title": "Tópicos de Estudo",
@@ -3334,5 +3353,19 @@
         "note": "A promessa de que Jeová 'enxugará toda lágrima dos seus olhos, e a morte não mais existirá' é a expressão culminante do propósito do Reino de Jeová — a completa remoção de todo sofrimento."
       }
     }
+  },
+  "community": {
+    "title": "Comunidade",
+    "onlineNow": "{{count}} online agora",
+    "recentActivity": "Atividade Recente",
+    "manage": "Gerenciar →",
+    "newPosts": "{{count}} novas publicações"
+  },
+  "checklist": {
+    "bibleProgress": "Progresso Bíblico",
+    "oldTestament": "Antigo Testamento",
+    "newTestament": "Novo Testamento",
+    "studyTools": "Ferramentas de Estudo",
+    "66books": "66 Livros"
   }
 }

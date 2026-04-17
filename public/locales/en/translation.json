@@ -555,7 +555,18 @@
     "notifBannerTitle": "Stay in the loop",
     "notifBannerSub": "Get an email when a new blog post is published.",
     "notifEnable": "Notify me",
-    "notifDismiss": "No thanks"
+    "notifDismiss": "No thanks",
+    "greeting": "Good morning, {{name}}",
+    "greetingAfternoon": "Good afternoon, {{name}}",
+    "greetingEvening": "Good evening, {{name}}",
+    "yourStudy": "Your Study",
+    "thisWeek": "This Week",
+    "friendActivity": "Friend Activity",
+    "seeAll": "See all →",
+    "quickActions": "Quick Actions",
+    "noFriendsYet": "Add friends to see their progress →",
+    "continueReading": "Continue →",
+    "openPrep": "Open Prep →"
   },
   "stats": {
     "streak_one": "day streak",
@@ -1664,7 +1675,20 @@
     "bibleQuiz": "Bible Quiz",
     "advancedQuiz": "Advanced Quiz",
     "meetingPrep": "Meeting Prep",
-    "triviaBattle": "Trivia Battle"
+    "triviaBattle": "Trivia Battle",
+    "home": "Home",
+    "bibleTracker": "Bible",
+    "me": "Me",
+    "prep": "Prep",
+    "quiz": "Quiz",
+    "study": "Study",
+    "videos": "Videos",
+    "friends": "Friends",
+    "leaderboard": "Leaderboard",
+    "bookmarks": "Bookmarks",
+    "feed": "Activity",
+    "familyChallenge": "Family Challenge",
+    "readingHistory": "History"
   },
   "studyTopics": {
     "title": "Study Topics",
@@ -1756,5 +1780,19 @@
     "markAllParas": "Mark All Paragraphs Done",
     "wtComplete": "✓ WT Study Complete",
     "watchtowerStudyArticle": "Watchtower Study Article"
+  },
+  "community": {
+    "title": "Community",
+    "onlineNow": "{{count}} online now",
+    "recentActivity": "Recent Activity",
+    "manage": "Manage →",
+    "newPosts": "{{count}} new posts"
+  },
+  "checklist": {
+    "bibleProgress": "Bible Progress",
+    "oldTestament": "Old Testament",
+    "newTestament": "New Testament",
+    "studyTools": "Study Tools",
+    "66books": "66 Books"
   }
 }
