@@ -6,7 +6,7 @@ import { useSession, useLogout } from "./hooks/useAuth";
 import { useFullProfile } from "./hooks/useAdmin";
 import { useFeatureFlags } from "./hooks/useFeatureFlags";
 import { supabase } from "./lib/supabase";
-import { parsePath, buildPath } from "./lib/router";
+import { parsePath, buildPath, type NavState } from "./lib/router";
 import { toast } from "./lib/toast";
 import { getStoredReferralCode, clearStoredReferralCode, trackSignup } from "./lib/analytics";
 import LoadingSpinner from "./components/LoadingSpinner";
@@ -89,6 +89,15 @@ function Page({ children, noFooter = false }) {
 
 const VALID_PAGES = ["readingPlans", "studyNotes", "quiz", "forum", "blog", "main", "friends", "friendRequests"];
 
+// Module-level so useState initializers can reference it synchronously
+const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "publicProfile", "main", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "bookDetail", "studyTopicDetail", "history", "trivia", "search", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy"]);
+
+function toPanelKey(page: string) {
+  if (page === "quizLevel") return "quiz";
+  if (page === "advancedQuizLevel") return "advancedQuiz";
+  return page;
+}
+
 function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   const queryClient = useQueryClient();
   const { data: profile, isLoading: profileLoading } = useFullProfile(user.id);
@@ -110,7 +119,10 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     supabase.from("profiles").update({ last_active_at: new Date().toISOString() }).eq("id", user.id).then(() => {});
   }, [user.id]);
 
-  const [nav, setNav] = useState(parsePath);
+  const [nav, setNav] = useState<NavState>(() => {
+    const p = parsePath();
+    return (p.page !== "home" && HOME_PANELS.has(p.page)) ? { page: "home" } : p;
+  });
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem("nwt-theme");
     if (saved === "dark") return true;
@@ -185,21 +197,13 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     return () => window.removeEventListener("badge-earned", handleBadgeEarned);
   }, []);
 
-  // Pages rendered as inline panels inside the home page
-  const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "publicProfile", "main", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "bookDetail", "studyTopicDetail", "history", "trivia", "search", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy"]);
-
-  // On direct URL load (e.g. /groups), redirect HOME_PANELS pages into the panel system
-  useEffect(() => {
-    const initial = parsePath();
-    if (initial.page !== "home" && HOME_PANELS.has(initial.page)) {
-      const panelKey = initial.page === "quizLevel" ? "quiz" : initial.page === "advancedQuizLevel" ? "advancedQuiz" : initial.page;
-      setNav({ page: "home" });
-      setHomePanelRequest({ panel: panelKey, params: initial });
+  const [homePanelRequest, setHomePanelRequest] = useState<{ panel: string; params: Record<string, any> } | null>(() => {
+    const p = parsePath();
+    if (p.page !== "home" && HOME_PANELS.has(p.page)) {
+      return { panel: toPanelKey(p.page), params: p };
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const [homePanelRequest, setHomePanelRequest] = useState<{ panel: string; params: Record<string, any> } | null>(null);
+    return null;
+  });
 
   const navigate = (page, params: Record<string, any> = {}) => {
     if (page === "home") {
@@ -212,9 +216,8 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
       // Always push the real URL so reload preserves state
       const url = buildPath(page, params);
       history.pushState(null, "", url);
-      const panelKey = page === "quizLevel" ? "quiz" : page === "advancedQuizLevel" ? "advancedQuiz" : page;
       setNav({ page: "home" });
-      setHomePanelRequest({ panel: panelKey, params });
+      setHomePanelRequest({ panel: toPanelKey(page), params });
       return;
     }
     const path = buildPath(page, params);
