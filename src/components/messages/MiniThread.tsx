@@ -96,6 +96,8 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
 
   useEffect(() => {
     if (sendTimeoutRef.current) { clearTimeout(sendTimeoutRef.current); sendTimeoutRef.current = null; }
+    setSendError(null);
+    setFailedPayload(null);
     markRead.mutate(conv.conversation_id);
     markNotifRead.mutate(conv.conversation_id);
     decryptCacheRef.current.clear();
