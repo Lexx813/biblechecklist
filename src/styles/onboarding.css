@@ -104,18 +104,6 @@
 }
 .onboard-next:hover { background: var(--teal-dark); }
 
-.onboard-skip-inline {
-  background: none;
-  border: none;
-  font-size: 13px;
-  color: var(--text-muted);
-  cursor: pointer;
-  padding: 8px;
-  border-radius: var(--radius-xs);
-  transition: color var(--dur-fast);
-}
-.onboard-skip-inline:hover { color: var(--text-primary); }
-
 @media (max-width: 480px) {
   .onboard-modal { padding: 32px 22px 24px; }
   .onboard-title { font-size: 19px; }

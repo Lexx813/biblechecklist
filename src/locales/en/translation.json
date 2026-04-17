@@ -29,7 +29,16 @@
     "notifSub": "We'll remind you to read at the same time each day.",
     "notifEnable": "Enable Reminders",
     "notifLater": "Maybe later",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "planTitle": "Pick a reading plan",
+    "planSub": "You can always change or pause this later.",
+    "doneTitle": "You're all set!",
+    "doneSub": "Mark your first chapter to start your reading streak.",
+    "doneAction": "Mark Genesis 1 as read →",
+    "doneSkip": "Explore the app first",
+    "choiceConnect": "Connect with others",
+    "choiceConnectSub": "Community & forum",
+    "choiceNote": "You can change this anytime."
   },
   "a11y": {
     "skipToContent": "Skip to main content"
@@ -568,7 +577,16 @@
     "notifBannerTitle": "Stay in the loop",
     "notifBannerSub": "Get an email when a new blog post is published.",
     "notifEnable": "Notify me",
-    "notifDismiss": "No thanks"
+    "notifDismiss": "No thanks",
+    "quickContinue": "Continue Reading",
+    "quickQuiz": "Today's Quiz",
+    "quickMeeting": "Meeting Prep"
+  },
+  "tracker": {
+    "filterAll": "All",
+    "filterInProgress": "In Progress",
+    "filterNotStarted": "Not Started",
+    "filterDone": "Completed ✓"
   },
   "stats": {
     "streak_one": "day streak",
@@ -1690,7 +1708,14 @@
     "familyChallenge": "Family Challenge",
     "triviaBattle": "Trivia Battle",
     "profile": "Profile",
-    "videos": "Videos"
+    "videos": "Videos",
+    "core": "Core",
+    "explore": "Explore",
+    "practice": "Practice",
+    "study": "Study",
+    "quiz": "Quiz",
+    "me": "Me",
+    "blogVideos": "Blog & Videos"
   },
   "studyTopics": {
     "title": "Study Topics",
