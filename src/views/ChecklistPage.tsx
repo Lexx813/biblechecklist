@@ -16,6 +16,8 @@ import { progressApi } from "../api/progress";
 import { useNotes, useCreateNote, useDeleteNote } from "../hooks/useNotes";
 import { readingApi } from "../api/reading";
 import { toast } from "../lib/toast";
+import { useMyPlans } from "../hooks/useReadingPlans";
+import { getTemplateOrCustom, generateSchedule } from "../data/readingPlanTemplates";
 
 export default function ChecklistPage({ user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, openBook, openChapter }: { user: any; profile: any; navigate: any; darkMode: any; setDarkMode: any; i18n: any; onLogout: any; openBook?: number; openChapter?: number }) {
   const { t } = useTranslation();
@@ -60,6 +62,22 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   const [noteModal, setNoteModal] = useState(null); // { bookIndex } | null
   const [showBookPrompt, setShowBookPrompt] = useState(false);
   const [deepLinkHandled, setDeepLinkHandled] = useState(false);
+  const [progressFilter, setProgressFilter] = useState<"all" | "in-progress" | "not-started" | "done">("all");
+
+  // Active plan for Continue Reading CTA
+  const { data: plans = [] } = useMyPlans();
+  const activePlan = plans.find((p: any) => !p.is_paused && !p.completed_at) ?? null;
+  const todayReading = useMemo(() => {
+    if (!activePlan) return null;
+    const tpl = getTemplateOrCustom(activePlan);
+    if (!tpl) return null;
+    const sched = generateSchedule(tpl.bookIndices, tpl.totalDays);
+    const start = new Date((activePlan as any).start_date + "T00:00:00");
+    const rawDay = Math.floor((Date.now() - start.getTime()) / 86400000) + 1;
+    const pausedDays = (activePlan as any).paused_days ?? 0;
+    const day = Math.max(1, Math.min(rawDay - pausedDays, tpl.totalDays));
+    return sched[day - 1]?.readings?.[0] ?? null;
+  }, [activePlan]);
 
   // Deep-link: scroll to book card and open chapter modal
   useEffect(() => {
@@ -269,9 +287,13 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
       if (search && !translatedName.toLowerCase().includes(search.toLowerCase()) &&
           !b.name.toLowerCase().includes(search.toLowerCase()) &&
           !b.abbr.toLowerCase().includes(search.toLowerCase())) return false;
+      const done = chaptersState[b.index] ? Object.values(chaptersState[b.index]).filter(Boolean).length : 0;
+      if (progressFilter === "done"        && done !== b.chapters) return false;
+      if (progressFilter === "in-progress" && (done === 0 || done === b.chapters)) return false;
+      if (progressFilter === "not-started" && done > 0) return false;
       return true;
     });
-  }, [tab, search, t]);
+  }, [tab, search, t, progressFilter, chaptersState]);
 
   return (
     <>
@@ -334,6 +356,51 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
           </div>
         </div>
 
+        {/* Progress hero */}
+        <div className="tracker-hero">
+          <div className="tracker-donut-wrap">
+            <div
+              className="tracker-donut"
+              style={{ ["--fill" as string]: `${pct}%` }}
+              role="img"
+              aria-label={`${pct}% of the Bible read`}
+            >
+              <div className="tracker-donut-inner">{Math.round(parseFloat(String(pct)))}%</div>
+            </div>
+          </div>
+          <div className="tracker-hero-info">
+            <div className="tracker-hero-counts">
+              <strong>{doneCh}</strong> chapters read · <strong>{totalCh - doneCh}</strong> remaining
+            </div>
+            {todayReading ? (
+              <button
+                className="tracker-continue-btn"
+                onClick={() => navigate("main", { openBook: todayReading.bookIndex, openChapter: todayReading.chapter })}
+              >
+                <span>📖</span>
+                <span>
+                  <span className="tracker-continue-label">Continue reading</span>
+                  <span className="tracker-continue-title">
+                    {BOOKS[todayReading.bookIndex]?.name} {todayReading.chapter}
+                  </span>
+                </span>
+                <span style={{ marginLeft: "auto" }}>→</span>
+              </button>
+            ) : (
+              <button
+                className="tracker-continue-btn"
+                onClick={() => navigate("readingPlans")}
+              >
+                <span>📅</span>
+                <span>
+                  <span className="tracker-continue-label">No active plan</span>
+                  <span className="tracker-continue-title">Start a reading plan →</span>
+                </span>
+              </button>
+            )}
+          </div>
+        </div>
+
         <div className="tracker-stats">
           <div className={`tracker-stat-card${doneBooks === 66 ? " tracker-stat-card--complete" : ""}`}>
             <span className="tracker-stat-label">{t("app.statBooks")}</span>
@@ -366,6 +433,22 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
               <div className="tracker-stat-bar"><div className="tracker-stat-bar-fill" style={{ width: streak.longest_streak > 0 ? `${Math.min(streak.current_streak / streak.longest_streak * 100, 100).toFixed(1)}%` : "100%" }} /></div>
             </div>
           )}
+        </div>
+
+        {/* Progress filter chips */}
+        <div className="tracker-filter-chips">
+          {(["all", "in-progress", "not-started", "done"] as const).map(f => (
+            <button
+              key={f}
+              className={`tracker-chip${progressFilter === f ? " tracker-chip--active" : ""}`}
+              onClick={() => setProgressFilter(f)}
+            >
+              {f === "all"         ? t("tracker.filterAll",        "All") :
+               f === "in-progress" ? t("tracker.filterInProgress", "In Progress") :
+               f === "not-started" ? t("tracker.filterNotStarted", "Not Started") :
+                                     t("tracker.filterDone",       "Completed ✓")}
+            </button>
+          ))}
         </div>
 
         <div style={{ padding: "0 16px 4px" }}>
