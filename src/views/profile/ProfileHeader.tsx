@@ -145,7 +145,7 @@ export default function ProfileHeader({
             <button
               type="button"
               className="cursor-pointer appearance-none border-0 bg-transparent p-0 font-[inherit] text-sm text-[var(--text-muted)] outline-none hover:text-[var(--text-primary)] hover:underline"
-              onClick={() => navigate("followers", { userId })}
+              onClick={() => navigate("publicProfile", { userId })}
             >
               <span className="font-bold text-[var(--text-primary)]">{counts?.followers ?? 0}</span> {t("profile.followers", "followers")}
             </button>
@@ -153,7 +153,7 @@ export default function ProfileHeader({
             <button
               type="button"
               className="cursor-pointer appearance-none border-0 bg-transparent p-0 font-[inherit] text-sm text-[var(--text-muted)] outline-none hover:text-[var(--text-primary)] hover:underline"
-              onClick={() => navigate("following", { userId })}
+              onClick={() => navigate("publicProfile", { userId })}
             >
               <span className="font-bold text-[var(--text-primary)]">{counts?.following ?? 0}</span> {t("profile.following", "following")}
             </button>

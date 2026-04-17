@@ -113,7 +113,7 @@ export default function NotificationBell({ userId, navigate }: Props) {
     }
 
     if (n.type === "streak_reminder") {
-      navigate("checklist");
+      navigate("main");
       return;
     }
 
