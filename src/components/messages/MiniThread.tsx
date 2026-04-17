@@ -5,7 +5,7 @@ import {
   useReactions, useToggleReaction, useEditMessage, useToggleStar,
   useLinkPreviews, useUploadImage,
 } from "../../hooks/useMessages";
-import { useMarkMessageNotificationsRead } from "../../hooks/useNotifications";
+import { useMarkNotificationsRead as useMarkMessageNotificationsRead } from "../../hooks/useNotifications";
 import { useSharedKey } from "../../hooks/useE2E";
 import { encryptMessage, decryptMessage, sanitizeContent, MAX_MSG_LENGTH } from "../../lib/e2e";
 import { supabase } from "../../lib/supabase";
