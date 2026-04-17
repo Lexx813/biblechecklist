@@ -145,7 +145,15 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   }, []);
 
   useEffect(() => {
-    const handler = () => setNav(parsePath());
+    const handler = () => {
+      const p = parsePath();
+      if (p.page !== "home" && HOME_PANELS.has(p.page)) {
+        setNav({ page: "home" });
+        setHomePanelRequest({ panel: toPanelKey(p.page), params: p });
+      } else {
+        setNav(p);
+      }
+    };
     window.addEventListener("popstate", handler);
     return () => window.removeEventListener("popstate", handler);
   }, []);
@@ -169,7 +177,13 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
       if (e.data?.type === "push-navigate" && typeof e.data.url === "string") {
         const path = e.data.url;
         history.pushState(null, "", path);
-        setNav(parsePath());
+        const p = parsePath();
+        if (p.page !== "home" && HOME_PANELS.has(p.page)) {
+          setNav({ page: "home" });
+          setHomePanelRequest({ panel: toPanelKey(p.page), params: p });
+        } else {
+          setNav(p);
+        }
       }
     }
     navigator.serviceWorker?.addEventListener("message", handler);
