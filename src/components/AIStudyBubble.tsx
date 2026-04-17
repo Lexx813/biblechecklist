@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { useAIChat } from "../hooks/useAIChat";
+import { trackFeatureUse } from "../lib/analytics";
 import "../styles/ai-study-bubble.css";
 
 /** Render markdown: headings, bold, italic, bullet lists, numbered lists, links, bare URLs. */
@@ -138,6 +139,7 @@ export default function AIStudyBubble() {
     const q = input.trim();
     if (!q || loading) return;
     send(q);
+    trackFeatureUse("ai_bubble_message_sent");
     setInput("");
   }, [input, loading, send]);
 
@@ -151,6 +153,7 @@ export default function AIStudyBubble() {
   const handleSuggestion = (text: string) => {
     if (loading) return;
     send(text);
+    trackFeatureUse("ai_bubble_suggestion_click");
   };
 
   const handleClear = () => {
@@ -276,7 +279,7 @@ export default function AIStudyBubble() {
       {panel}
       <button
         className={`asb-fab${open ? " asb-fab--active" : ""}`}
-        onClick={() => setOpen(v => !v)}
+        onClick={() => setOpen(v => { if (!v) trackFeatureUse("ai_bubble_open"); return !v; })}
         aria-label={open ? "Close study companion" : "Open AI Study Companion"}
         title="AI Study Companion"
       >
