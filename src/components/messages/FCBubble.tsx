@@ -110,7 +110,7 @@ export const FCBubble = memo(function FCBubble({ msg, isMine, allMessages, react
       className={[
         "fc-bubble-wrap",
         isMine ? "fc-bubble-wrap--mine" : "",
-        position === "last" || position === "solo" ? "fc-bubble-wrap--group-end" : "fc-bubble-wrap--grouped",
+        !position || position === "last" || position === "solo" ? "fc-bubble-wrap--group-end" : "fc-bubble-wrap--grouped",
       ].filter(Boolean).join(" ")}
       style={accentStyle}
     >
