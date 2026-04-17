@@ -802,3 +802,208 @@ html.nav-hidden .admin-header { top: 0; }
   .admin-add-form { padding: 10px 12px; }
   .admin-action-btn { font-size: 10px; padding: 4px 8px; }
 }
+
+/* ── Analytics tab ──────────────────────────────────────────────────────── */
+
+.an-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.an-section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.an-section-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.an-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+  animation: an-pulse 2s ease-in-out infinite;
+}
+
+@keyframes an-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+  50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+}
+
+.an-kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.an-kpi-card {
+  background: linear-gradient(135deg, #1a0f35, #120b28);
+  border: 1px solid #2d1f4e;
+  border-radius: 14px;
+  padding: 18px 16px 14px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  cursor: default;
+}
+
+.an-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(124,58,237,0.25);
+}
+
+.an-kpi-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #7c3aed, #0d9488);
+}
+
+.an-kpi-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: #a78bfa;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.an-kpi-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.an-kpi-delta {
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.an-kpi-delta--up   { color: #34d399; }
+.an-kpi-delta--down { color: #f87171; }
+.an-kpi-delta-label { font-weight: 400; opacity: 0.7; }
+
+.an-chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 700px) {
+  .an-chart-grid { grid-template-columns: 1fr; }
+}
+
+.an-chart-card {
+  background: linear-gradient(135deg, #1a0f35, #120b28);
+  border: 1px solid #2d1f4e;
+  border-radius: 14px;
+  padding: 18px 16px 14px;
+}
+
+.an-chart-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #c4b5fd;
+  margin-bottom: 12px;
+}
+
+.an-adoption-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.an-adoption-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 60px;
+  align-items: center;
+  gap: 10px;
+}
+
+.an-adoption-label {
+  font-size: 12px;
+  color: #c4b5fd;
+  white-space: nowrap;
+}
+
+.an-adoption-bar-track {
+  height: 8px;
+  background: rgba(124,58,237,0.15);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.an-adoption-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7c3aed, #0d9488);
+  border-radius: 4px;
+  transition: width 600ms ease;
+}
+
+.an-adoption-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: #a78bfa;
+  text-align: right;
+}
+
+.an-heatmap {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.an-heatmap-cell {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.an-heatmap-cell:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 12px rgba(124,58,237,0.5);
+  z-index: 1;
+  position: relative;
+}
+
+.an-heatmap-abbr {
+  font-size: 8px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  pointer-events: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  padding: 0 1px;
+}
+
+.an-heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.an-heatmap-gradient {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #0a0315, #3b0764, #7c3aed, #a78bfa);
+}
