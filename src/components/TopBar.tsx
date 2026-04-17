@@ -148,20 +148,21 @@ export default function TopBar({
             </svg>
           </button>
 
-          {/* Post a Video — approved creators and admins only */}
-          {(profile?.is_approved_creator || profile?.is_admin) && (
-            <button
-              className="topbar-btn topbar-btn--nav"
-              onClick={() => navigate("videosDash")}
-              aria-label="Post a video"
-              data-tip="Post a Video"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <polygon points="23 7 16 12 23 17 23 7"/>
-                <rect x="1" y="5" width="15" height="14" rx="2"/>
-              </svg>
-            </button>
-          )}
+          {/* Post a Video — always rendered to prevent CLS; hidden for non-creators */}
+          <button
+            className="topbar-btn topbar-btn--nav"
+            onClick={() => navigate("videosDash")}
+            aria-label="Post a video"
+            data-tip="Post a Video"
+            aria-hidden={!(profile?.is_approved_creator || profile?.is_admin) || undefined}
+            tabIndex={profile?.is_approved_creator || profile?.is_admin ? 0 : -1}
+            style={!(profile?.is_approved_creator || profile?.is_admin) ? { visibility: "hidden", pointerEvents: "none" } : undefined}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <polygon points="23 7 16 12 23 17 23 7"/>
+              <rect x="1" y="5" width="15" height="14" rx="2"/>
+            </svg>
+          </button>
 
           {/* Feed */}
           <button
