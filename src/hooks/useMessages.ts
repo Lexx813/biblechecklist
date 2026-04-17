@@ -217,8 +217,10 @@ export function useDeleteMessage(conversationId: string | null | undefined) {
 export function useMarkRead(conversationId: string | null | undefined, userId: string | null | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (snapConvId: string = conversationId ?? "") =>
-      messagesApi.markRead(snapConvId, userId!),
+    mutationFn: (snapConvId: string) => {
+      if (!userId) return Promise.resolve();
+      return messagesApi.markRead(snapConvId, userId);
+    },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["conversations"] }),
   });
 }
