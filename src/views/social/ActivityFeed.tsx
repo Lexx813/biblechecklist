@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import AppLayout from "../../components/AppLayout";
 import { useActivityFeed, useSuggestedUsers, useToggleFollowDynamic } from "../../hooks/useFollows";
+import { sanitizeRich } from "../../lib/sanitize";
 import "../../styles/social.css";
 
 const LEVEL_EMOJIS = [null, "📖","📚","🌱","👨‍👩‍👦","🏺","⚔️","🎵","📯","🕊️","🌍","🔮","👑"];
@@ -147,7 +148,7 @@ export default function ActivityFeed({ user, onBack, navigate, darkMode, setDark
                     )}
                   </div>
                   {item.type === "post" && (
-                    <p className="feed-post-content">{item.content}</p>
+                    <p className="feed-post-content" dangerouslySetInnerHTML={{ __html: sanitizeRich(item.content ?? "") }} />
                   )}
                   <span className="feed-item-time">{timeAgo(item.ts, t)}</span>
                 </div>

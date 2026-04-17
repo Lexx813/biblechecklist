@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useActivityFeed, useSuggestedUsers, useToggleFollowDynamic } from "../../hooks/useFollows";
+import { sanitizeRich } from "../../lib/sanitize";
 import "../../styles/social.css";
 
 const LEVEL_EMOJIS = [null, "📖","📚","🌱","👨‍👩‍👦","🏺","⚔️","🎵","📯","🕊️","🌍","🔮","👑"];
@@ -130,7 +131,7 @@ export default function ActivityFeedInline({ user, navigate }) {
                     <span className="feed-item-action"> {t("feed.sharedUpdate")}</span>
                   )}
                 </div>
-                {item.type === "post" && <p className="feed-post-content">{item.content}</p>}
+                {item.type === "post" && <p className="feed-post-content" dangerouslySetInnerHTML={{ __html: sanitizeRich(item.content ?? "") }} />}
                 <span className="feed-item-time">{timeAgo(item.ts, t)}</span>
               </div>
             </div>
