@@ -168,7 +168,7 @@ const NAV_ITEMS_2 = [
   },
 ];
 
-const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile", "studyTopics", "feed", "bookmarks"]);
+const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "feed", "bookmarks"]);
 
 const NAV_SHORTCUTS = [
   {
@@ -546,6 +546,11 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {activePanel === "profile" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
               <ProfileInline user={user} viewedUserId={user?.id} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
+            </Suspense>
+          )}
+          {activePanel === "publicProfile" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <ProfileInline user={user} viewedUserId={panelParams.userId} isOwner={false} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "messages" && (
