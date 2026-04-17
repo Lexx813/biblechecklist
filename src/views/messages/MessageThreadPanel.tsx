@@ -16,7 +16,8 @@ import { toast } from "../../lib/toast";
 import { getTemplate } from "../../data/readingPlanTemplates";
 import { useMyPlans } from "../../hooks/useReadingPlans";
 import type { Conversation } from "./ConversationListPanel";
-import { REACTION_EMOJIS } from "../../components/messages/chatHelpers";
+import { REACTION_EMOJIS, computePosition } from "../../components/messages/chatHelpers";
+import type { BubblePosition } from "../../components/messages/chatHelpers";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -615,7 +616,7 @@ function MSGPlanPicker({ onSend, onClose }: { onSend: (p: Record<string, unknown
 
 const EMPTY_REACTIONS: never[] = [];
 
-const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, onStar, showSeen, reactions, userId, onToggleReaction, allMessages, navigate }: {
+const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onReply, onEdit, onStar, showSeen, reactions, userId, onToggleReaction, allMessages, navigate, position }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   msg: any;
   isMine: boolean;
@@ -632,6 +633,7 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   allMessages: any[];
   navigate: (page: string, params?: Record<string, unknown>) => void;
+  position?: BubblePosition;
 }) {
   const { t } = useTranslation();
   const [showActions, setShowActions] = useState(false);
@@ -675,16 +677,32 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
 
   return (
     <div
-      className={`msg-bubble-wrap${isMine ? " msg-bubble-wrap--mine" : ""}`}
+      className={[
+        "msg-bubble-wrap",
+        isMine ? "msg-bubble-wrap--mine" : "",
+        !position || position === "last" || position === "solo" ? "msg-bubble-wrap--group-end" : "msg-bubble-wrap--grouped",
+      ].filter(Boolean).join(" ")}
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => { setShowActions(false); setShowReactionPicker(false); }}
     >
-      {!isMine && <Avatar profile={Array.isArray(msg.sender) ? msg.sender[0] : msg.sender} size={28} />}
+      {!isMine && (
+        (!position || position === "first" || position === "solo")
+          ? <Avatar profile={Array.isArray(msg.sender) ? msg.sender[0] : msg.sender} size={28} />
+          : <div className="msg-avatar-ghost" aria-hidden="true" />
+      )}
       <div style={{ display: "flex", flexDirection: "column", alignItems: isMine ? "flex-end" : "flex-start", gap: 2 }}>
         {msg.reply_to_id && (
           <QuotedReply replyToId={msg.reply_to_id} messages={allMessages} />
         )}
-        <div className={`msg-bubble${isMine ? " msg-bubble--mine" : ""}${msg._new ? " msg-bubble--new" : ""}`} title={fullTime}>
+        <div
+          className={[
+            "msg-bubble",
+            isMine ? "msg-bubble--mine" : "",
+            position && position !== "solo" ? `msg-bubble--${position}` : "",
+            msg._new ? "msg-bubble--new" : "",
+          ].filter(Boolean).join(" ")}
+          title={fullTime}
+        >
           {editing ? (
             <textarea
               ref={editRef}
@@ -794,6 +812,7 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
   const [input, setInput] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
   const [showScrollBtn, setShowScrollBtn] = useState(false);
+  const [showNewMsgChip, setShowNewMsgChip] = useState(false);
   const [newMsgCount, setNewMsgCount] = useState(0);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [replyTo, setReplyTo] = useState<any>(null);
@@ -871,8 +890,10 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
       if (isAtBottomRef.current) {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
         setNewMsgCount(0);
+        setShowNewMsgChip(false);
       } else {
         setNewMsgCount(c => c + added);
+        setShowNewMsgChip(true);
       }
     }
     prevCountRef.current = count;
@@ -946,7 +967,17 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
     const atBottom = dist < 80;
     isAtBottomRef.current = atBottom;
     setShowScrollBtn(dist > 200);
-    if (atBottom) setNewMsgCount(0);
+    if (atBottom) {
+      setNewMsgCount(0);
+      setShowNewMsgChip(false);
+    }
+  }
+
+  function handleThreadScroll() {
+    const el = bodyRef.current;
+    if (!el) return;
+    const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+    if (distFromBottom <= 100) setShowNewMsgChip(false);
   }
 
   function scrollToBottom() {
@@ -1155,6 +1186,7 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
                   onStar={id => toggleStar.mutate(id, { onError: () => toast.error("Failed to update star.") })}
                   allMessages={decryptedMessages}
                   navigate={navigate}
+                  position={computePosition(decryptedMessages, decryptedMessages.findIndex(m => m.id === item.id))}
                 />
               )
             )
@@ -1172,6 +1204,19 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
         )}
       </div>
 
+      {showNewMsgChip && (
+        <button
+          type="button"
+          className="msg-new-msg-chip"
+          onClick={() => {
+            if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+            setShowNewMsgChip(false);
+          }}
+        >
+          ↓ New message
+        </button>
+      )}
+
       {sendError && (
         <div className="msg-send-error">
           <span>{sendError}</span>
@@ -1186,35 +1231,41 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
         <ReplyPreview message={replyTo} onCancel={() => setReplyTo(null)} />
         {nearLimit && <div className="msg-char-count">{input.length} / 2000</div>}
 
-        <div className="msg-rich-toolbar">
-          {uploading ? (
-            <div className="msg-upload-status">
-              <span className="msg-upload-spinner" />
-              <span className="msg-upload-status-text">Uploading image…</span>
-            </div>
-          ) : (
-            <>
-              <button type="button" className="msg-toolbar-btn" data-tip="Share Bible Verse" aria-label="Share Bible Verse" onClick={() => setShowVersePicker(true)}>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              </button>
-              <button type="button" className="msg-toolbar-btn msg-toolbar-btn--img" data-tip="Share Image" onClick={() => fileRef.current?.click()}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
-                </svg>
-              </button>
-              <button type="button" className="msg-toolbar-btn" data-tip="Share Reading Plan" aria-label="Share Reading Plan" onClick={() => setShowPlanPicker(true)}>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              </button>
-            </>
-          )}
-          <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/gif,image/webp" style={{ display: "none" }} onChange={handleFileChange} />
+        <div className="msg-composer-icons">
+          <button type="button" className="msg-composer-icon-btn" onClick={() => fileRef.current?.click()} aria-label="Share image">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </button>
+          <button type="button" className="msg-composer-icon-btn" onClick={() => setShowVersePicker(true)} aria-label="Share Bible verse">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+          </button>
+          <button type="button" className="msg-composer-icon-btn" onClick={() => setShowPlanPicker(true)} aria-label="Share reading plan">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </button>
         </div>
-
-
-        <div className="msg-composer-row">
+        <div className="msg-input-pill">
+          <textarea
+            ref={inputRef}
+            className="msg-input"
+            placeholder={isEncrypted ? "🔒 Message (encrypted)…" : "Aa"}
+            value={input}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            rows={1}
+            maxLength={MAX_MSG_LENGTH}
+            autoFocus
+            aria-label="Type a message"
+          />
           <div className="msg-emoji-wrap" ref={emojiRef}>
-            <button type="button" className="msg-emoji-btn" onClick={() => setShowEmoji(s => !s)} data-tip="Emoji" aria-label="Emoji picker">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            <button type="button" className="msg-emoji-pill-btn" onClick={() => setShowEmoji(s => !s)} aria-label="Emoji">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+              </svg>
             </button>
             {showEmoji && (
               <div className="msg-emoji-picker">
@@ -1224,27 +1275,19 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
               </div>
             )}
           </div>
-          <textarea
-            ref={inputRef}
-            className="msg-input"
-            placeholder={isEncrypted ? "🔒 Message (encrypted)…" : "Message…"}
-            value={input}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            maxLength={MAX_MSG_LENGTH}
-            rows={1}
-            autoFocus
-            aria-label="Type a message"
-          />
-          <button
-            className="msg-send-btn"
-            type="submit"
-            disabled={!input.trim() || sendMessage.isPending}
-            data-tip="Send"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-          </button>
         </div>
+        <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/gif,image/webp" style={{ display: "none" }} onChange={handleFileChange} />
+        <button className="msg-send-btn" type="submit" disabled={sendMessage.isPending || uploading} aria-label={input.trim() ? "Send" : "Like"}>
+          {uploading ? (
+            <span className="msg-upload-spinner" aria-label="Uploading" />
+          ) : input.trim() ? (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="white" stroke="none"/>
+            </svg>
+          ) : (
+            <span style={{ fontSize: "18px", lineHeight: 1 }}>👍</span>
+          )}
+        </button>
       </form>
 
       {showVersePicker && <MSGVersePicker onSend={sendVerse} onClose={() => setShowVersePicker(false)} />}
