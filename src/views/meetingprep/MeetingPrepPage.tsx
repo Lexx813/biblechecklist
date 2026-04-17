@@ -419,20 +419,51 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
     <div>
       <div className="mp-page">
 
-        {/* Header */}
-        <div className="mp-header">
-          <div className="mp-header-left">
-            <h1 className="mp-title">{t("meetingPrep.pageTitle")}</h1>
-            <p className="mp-subtitle">
-              {week?.clam_week_title || formatWeekLabel(selectedWeek)}
-            </p>
-            <span className="mp-premium-label">{t("meetingPrep.premiumLabel")}</span>
-          </div>
-          {streak > 0 && (
-            <div className="mp-streak">
-              🔥 {t("meetingPrep.streakLabel", { count: streak })}<span className="mp-streak-suffix"> · {streak >= 2 ? t("meetingPrep.streakSuffixKeep") : t("meetingPrep.streakSuffixNew")}</span>
+        {/* Header card */}
+        <div className="mp-header-card">
+          <div className="mp-header-card-row">
+            <div className="mp-header-card-left">
+              <h1 className="mp-title">{t("meetingPrep.pageTitle")}</h1>
+              <span className="mp-premium-badge">{t("meetingPrep.premiumLabel")}</span>
             </div>
-          )}
+            {streak > 0 && (
+              <div className="mp-streak-badge">
+                🔥 {t("meetingPrep.streakLabel", { count: streak })}
+              </div>
+            )}
+          </div>
+          <p className="mp-subtitle">
+            {week?.clam_week_title || formatWeekLabel(selectedWeek)}
+          </p>
+          {(() => {
+            const clamParts = week?.clam_parts ?? [];
+            const clamChecked = prep?.clam_checked ?? {};
+            const clamDoneCount = clamParts.filter((p: any) => clamChecked[p.num]).length;
+            const clamTotal = clamParts.length || 5;
+            const clamPct = Math.round((clamDoneCount / clamTotal) * 100);
+            const wtChecked = prep?.wt_checked ?? {};
+            const wtDoneCount = Object.values(wtChecked).filter(Boolean).length;
+            const wtTotal = week?.wt_paragraph_count ?? 20;
+            const wtPct = Math.round((wtDoneCount / wtTotal) * 100);
+            return (
+              <>
+                <div className="mp-prog-row">
+                  <span className="mp-prog-label">CLAM</span>
+                  <div className="mp-prog-track">
+                    <div className="mp-prog-fill" style={{ width: clamPct + "%" }} />
+                  </div>
+                  <span className="mp-prog-count">{clamDoneCount}/{clamTotal}</span>
+                </div>
+                <div className="mp-prog-row">
+                  <span className="mp-prog-label">Watchtower</span>
+                  <div className="mp-prog-track">
+                    <div className="mp-prog-fill mp-prog-fill--wt" style={{ width: wtPct + "%" }} />
+                  </div>
+                  <span className="mp-prog-count">{wtDoneCount}/{wtTotal} para</span>
+                </div>
+              </>
+            );
+          })()}
         </div>
 
         {/* Week selector */}
