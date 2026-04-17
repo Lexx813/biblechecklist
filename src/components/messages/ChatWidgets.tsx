@@ -446,7 +446,7 @@ export function FCImageCard({ content, metadata }: { content: string | null; met
   return (
     <div className="fc-image-card">
       <img
-        src={url ?? ""}
+        src={safeUrl(url)}
         alt={(metadata?.filename as string) || "Image"}
         className={`fc-image-thumb${loaded ? " fc-image-thumb--loaded" : ""}`}
         onLoad={() => setLoaded(true)}
@@ -476,7 +476,7 @@ export function FCLinkPreviewCard({ preview }: { preview: { url: string; og_titl
   if (!preview || (!preview.og_title && !preview.og_description)) return null;
   const href = safeUrl(preview.url);
   let hostname = "";
-  try { hostname = new URL(preview.url).hostname; } catch { /* invalid url */ }
+  try { hostname = href !== "#" ? new URL(href).hostname : ""; } catch { /* noop */ }
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className="fc-link-preview">
       {preview.og_image && (
