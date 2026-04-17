@@ -26,7 +26,17 @@ const GroupDetailInline   = lazy(() => import("./groups/GroupDetail"));
 const CommunityInline     = lazy(() => import("./community/CommunityPage"));
 const VideosInline        = lazy(() => import("./videos/VideosPage"));
 const VideoDetailInline   = lazy(() => import("./videos/VideoDetailPage"));
-const FriendRequestsInline = lazy(() => import("./friends/FriendRequestsPage"));
+const FriendRequestsInline  = lazy(() => import("./friends/FriendRequestsPage"));
+const HistoryInline         = lazy(() => import("./reading/ReadingHistory"));
+const TriviaInline          = lazy(() => import("./trivia/TriviaPage"));
+const SearchInline          = lazy(() => import("./search/SearchPage"));
+const SettingsInline        = lazy(() => import("./profile/SettingsPage"));
+const BlogDashInline        = lazy(() => import("./blog/BlogDashboard"));
+const VideosDashInline      = lazy(() => import("./videos/VideoComposerPage"));
+const CreatorRequestInline  = lazy(() => import("./videos/CreatorRequestPage"));
+const AboutInline           = lazy(() => import("./AboutPage"));
+const TermsInline           = lazy(() => import("./TermsPage"));
+const PrivacyInline         = lazy(() => import("./PrivacyPage"));
 import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import type { BlogPost } from "../api/blog";
@@ -176,7 +186,7 @@ const NAV_ITEMS_2 = [
   },
 ];
 
-const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "studyTopicDetail", "bookDetail", "feed", "bookmarks", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests"]);
+const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "studyTopicDetail", "bookDetail", "feed", "bookmarks", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "messages", "history", "trivia", "search", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy"]);
 
 const NAV_SHORTCUTS = [
   {
@@ -619,6 +629,56 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {activePanel === "friendRequests" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
               <FriendRequestsInline user={user} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} currentPage="friendRequests" />
+            </Suspense>
+          )}
+          {activePanel === "history" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <HistoryInline user={user} onBack={() => setActivePanel(null)} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
+            </Suspense>
+          )}
+          {activePanel === "trivia" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <TriviaInline user={user} navigate={panelNavigate} prefillCode={panelParams.prefillCode} />
+            </Suspense>
+          )}
+          {activePanel === "search" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <SearchInline user={user} onBack={() => setActivePanel(null)} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
+            </Suspense>
+          )}
+          {activePanel === "settings" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <SettingsInline user={user} onBack={() => setActivePanel(null)} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
+            </Suspense>
+          )}
+          {activePanel === "blogDash" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <BlogDashInline user={user} onBack={() => setActivePanel("blog")} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
+            </Suspense>
+          )}
+          {activePanel === "videosDash" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <VideosDashInline user={user} onBack={() => setActivePanel("videos")} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
+            </Suspense>
+          )}
+          {activePanel === "creatorRequest" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <CreatorRequestInline user={user} onBack={() => setActivePanel("videos")} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
+            </Suspense>
+          )}
+          {activePanel === "about" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <AboutInline user={user} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
+            </Suspense>
+          )}
+          {activePanel === "terms" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <TermsInline user={user} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
+            </Suspense>
+          )}
+          {activePanel === "privacy" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <PrivacyInline user={user} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
             </Suspense>
           )}
           {/* ── Home feed (hidden when a panel is active) ── */}
