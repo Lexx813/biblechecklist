@@ -11,11 +11,15 @@ import {
 // ── Utility ───────────────────────────────────────────────────────────────────
 
 export function getMondayOfWeek(d = new Date()): string {
-  const day = d.getDay(); // 0=Sun
+  const day = d.getDay(); // 0=Sun, local time
   const diff = day === 0 ? -6 : 1 - day;
   const monday = new Date(d);
   monday.setDate(d.getDate() + diff);
-  return monday.toISOString().slice(0, 10);
+  // Use local date parts — NOT toISOString() which returns UTC and can shift the date
+  const y = monday.getFullYear();
+  const m = String(monday.getMonth() + 1).padStart(2, "0");
+  const dd = String(monday.getDate()).padStart(2, "0");
+  return `${y}-${m}-${dd}`;
 }
 
 export function formatWeekLabel(weekStart: string): string {
