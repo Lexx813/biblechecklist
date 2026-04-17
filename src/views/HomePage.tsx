@@ -19,6 +19,12 @@ const ChecklistInline     = lazy(() => import("./ChecklistPage"));
 const StudyTopicsInline   = lazy(() => import("./studytopics/StudyTopicsInline"));
 const ActivityFeedInline  = lazy(() => import("./social/ActivityFeedInline"));
 const BookmarksInline     = lazy(() => import("./bookmarks/BookmarksInline"));
+const GroupsInline        = lazy(() => import("./groups/GroupsPage"));
+const GroupDetailInline   = lazy(() => import("./groups/GroupDetail"));
+const CommunityInline     = lazy(() => import("./community/CommunityPage"));
+const VideosInline        = lazy(() => import("./videos/VideosPage"));
+const VideoDetailInline   = lazy(() => import("./videos/VideoDetailPage"));
+const FriendRequestsInline = lazy(() => import("./friends/FriendRequestsPage"));
 import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import type { BlogPost } from "../api/blog";
@@ -168,7 +174,7 @@ const NAV_ITEMS_2 = [
   },
 ];
 
-const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "feed", "bookmarks"]);
+const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "feed", "bookmarks", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests"]);
 
 const NAV_SHORTCUTS = [
   {
@@ -571,6 +577,36 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {activePanel === "bookmarks" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
               <BookmarksInline user={user} navigate={panelNavigate} />
+            </Suspense>
+          )}
+          {activePanel === "groups" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <GroupsInline user={user} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
+            </Suspense>
+          )}
+          {activePanel === "groupDetail" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <GroupDetailInline groupId={panelParams.groupId} user={user} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
+            </Suspense>
+          )}
+          {activePanel === "community" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <CommunityInline navigate={panelNavigate} userId={user?.id} />
+            </Suspense>
+          )}
+          {activePanel === "videos" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <VideosInline user={user} onSelectVideo={(slug: string) => { setPanelParams({ slug }); setActivePanel("videoDetail"); }} onPostClick={() => navigate("videosDash")} onBack={() => setActivePanel(null)} navigate={panelNavigate} />
+            </Suspense>
+          )}
+          {activePanel === "videoDetail" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <VideoDetailInline user={user} navigate={panelNavigate} slug={panelParams.slug} onBack={() => setActivePanel("videos")} />
+            </Suspense>
+          )}
+          {activePanel === "friendRequests" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <FriendRequestsInline user={user} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} currentPage="friendRequests" />
             </Suspense>
           )}
           {/* ── Home feed (hidden when a panel is active) ── */}
