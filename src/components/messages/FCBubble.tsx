@@ -40,7 +40,7 @@ interface FCBubbleProps {
   linkPreviews: LinkPreview[];
   onDelete: (id: string) => void;
   onReply: (msg: Message) => void;
-  onEdit: (id: string, content: string) => void;
+  onEdit: (id: string, content: string, onDone: () => void, onFail: () => void) => void;
   onToggleReaction: (id: string, emoji: string) => void;
   onStar: (id: string) => void;
   isLast: boolean;
@@ -53,6 +53,7 @@ export function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPrev
   const [showReactPicker, setShowReactPicker] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editText, setEditText] = useState(msg.content ?? "");
+  const [saving, setSaving] = useState(false);
   const editRef = useRef<HTMLTextAreaElement>(null);
   const reactBtnRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -63,6 +64,8 @@ export function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPrev
     if (editing && editRef.current) {
       editRef.current.focus();
       editRef.current.selectionStart = editRef.current.value.length;
+      editRef.current.style.height = "auto";
+      editRef.current.style.height = editRef.current.scrollHeight + "px";
     }
   }, [editing]);
 
@@ -81,8 +84,13 @@ export function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPrev
   function submitEdit() {
     const trimmed = editText.trim();
     if (!trimmed || trimmed === msg.content) { setEditing(false); return; }
-    onEdit(msg.id, sanitizeContent(trimmed));
-    setEditing(false);
+    setSaving(true);
+    onEdit(
+      msg.id,
+      sanitizeContent(trimmed),
+      () => { setEditing(false); setSaving(false); },
+      () => { setSaving(false); }
+    );
   }
 
   function closeMenu() { setShowMenu(false); setShowReactPicker(false); }
@@ -164,12 +172,13 @@ export function FCBubble({ msg, isMine, allMessages, reactions, userId, linkPrev
                   ref={editRef}
                   className="fc-edit-textarea"
                   value={editText}
-                  onChange={e => setEditText(e.target.value)}
+                  onChange={e => { setEditText(e.target.value); e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px"; }}
                   onKeyDown={e => {
                     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submitEdit(); }
                     if (e.key === "Escape") { setEditing(false); setEditText(msg.content ?? ""); }
                   }}
-                  rows={1}
+                  rows={2}
+                  disabled={saving}
                 />
               ) : (
                 <span>{renderFormattedContent(msg.content)}</span>

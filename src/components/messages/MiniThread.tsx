@@ -309,7 +309,9 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
                 accentColor={accentColor}
                 onDelete={(id) => deleteMessage.mutate(id)}
                 onReply={(msg) => { setReplyTo(msg as unknown as typeof replyTo); inputRef.current?.focus(); }}
-                onEdit={(id, content) => editMessage.mutate({ messageId: id, content })}
+                onEdit={(id, content, onDone, onFail) =>
+                  editMessage.mutate({ messageId: id, content }, { onSuccess: onDone, onError: onFail })
+                }
                 onToggleReaction={(id, emoji) => toggleReaction.mutate({ messageId: id, emoji, userId: user.id })}
                 onStar={(id) => toggleStar.mutate(id)}
                 isLast={origIdx === myLastMsgIdx}

@@ -621,7 +621,7 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
   onDelete: (id: string) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onReply: (msg: any) => void;
-  onEdit: (id: string, content: string) => void;
+  onEdit: (id: string, content: string, onDone: () => void, onFail: () => void) => void;
   onStar: (id: string) => void;
   showSeen?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -638,14 +638,20 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
   const [showReactionPicker, setShowReactionPicker] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editText, setEditText] = useState(msg.content);
+  const [saving, setSaving] = useState(false);
   const editRef = useRef<HTMLTextAreaElement>(null);
   const fullTime = formatTime(msg.created_at);
 
   function submitEdit() {
     const trimmed = editText.trim();
     if (!trimmed || trimmed === msg.content) { setEditing(false); return; }
-    onEdit(msg.id, sanitizeContent(trimmed));
-    setEditing(false);
+    setSaving(true);
+    onEdit(
+      msg.id,
+      sanitizeContent(trimmed),
+      () => { setEditing(false); setSaving(false); },
+      () => { setSaving(false); }
+    );
   }
 
   function handleEditKeyDown(e: React.KeyboardEvent) {
@@ -683,6 +689,7 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
               onKeyDown={handleEditKeyDown}
               rows={2}
               aria-label="Edit message"
+              disabled={saving}
             />
           ) : msg.message_type === "image" ? (
             <MSGImageCard content={msg.content} metadata={msg.metadata} />
@@ -1132,7 +1139,9 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
                 isMine={item.sender_id === user.id}
                 onDelete={id => deleteMessage.mutate(id, { onError: () => toast.error("Failed to delete message.") })}
                 onReply={msg => setReplyTo(msg)}
-                onEdit={(id, content) => editMessage.mutate({ messageId: id, content }, { onError: () => toast.error("Failed to edit message.") })}
+                onEdit={(id, content, onDone, onFail) =>
+                  editMessage.mutate({ messageId: id, content }, { onSuccess: onDone, onError: onFail })
+                }
                 showSeen={item.id === lastSeenId}
                 reactions={reactions}
                 userId={user.id}
