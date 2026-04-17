@@ -36,7 +36,7 @@ Five summary numbers across the top of the tab, each in a card with a top-border
 | Daily Active | distinct users in `reading_activity` today | `±N% vs same day last week` |
 | 30-day Retention | % of users created 30–60 days ago with activity in last 30 days | `±N pts` |
 | Chapters Today | `SUM(reading_log.chapters_read)` WHERE date = today | static label "site-wide" |
-| Paid Users | `COUNT(profiles WHERE subscription_status = 'active')` | `+N this month` |
+| Avg Streak | `AVG(current_streak)` across users with any streak | static label "active readers" |
 
 ---
 
@@ -79,11 +79,18 @@ Query: for each cohort window, COUNT users in that window, then COUNT how many a
 
 Rendered as a shadcn/ui `BarChart` vertical with purple-to-dark gradient bars.
 
-### 2e — Subscription Tiers (Horizontal bar list)
+### 2e — Reading Plan Adoption (Horizontal bar list)
 
-`SELECT subscription_status, COUNT(*) FROM profiles GROUP BY subscription_status`
+Shows how users split across reading engagement levels:
 
-Buckets: `free`, `active` (paid), `trialing`, `canceled`. Rendered as a simple styled list with gradient fill bars (not a full chart component — custom CSS is cleaner here). Shows at a glance how many users are on paid plans.
+| Bucket | Definition |
+|---|---|
+| Has reading plan | COUNT users with any row in `user_reading_plans` |
+| Active this month | COUNT users in `reading_activity` in last 30 days |
+| Read today | COUNT users in `reading_activity` today |
+| Completed a plan | COUNT users in `reading_plan_completions` |
+
+Rendered as a simple styled list with gradient fill bars. Shows at a glance how deeply users are engaging with the core reading feature.
 
 ---
 
@@ -118,7 +125,7 @@ export const analyticsApi = {
   getDauSeries(days: number): Promise<{ date: string; count: number }[]>,
   getFeatureUsage(): Promise<{ feature: string; pct: number }[]>,
   getRetentionCohorts(): Promise<{ label: string; pct: number }[]>,
-  getSubscriptionTiers(): Promise<{ status: string; count: number }[]>,
+  getReadingAdoption(): Promise<{ bucket: string; count: number }[]>,
   getCompletionHistogram(): Promise<{ bucket: string; count: number }[]>,
   getBookHeatmap(): Promise<{ bookIndex: number; pct: number }[]>,
 }
@@ -161,7 +168,7 @@ All new CSS goes in `src/styles/admin.css` under an `/* ── Analytics tab ─
 - [ ] Signups and DAU area charts render with 30-day data and tooltips
 - [ ] Feature usage chart shows 7 features sorted by adoption
 - [ ] Retention cohort chart shows 5 cohort bars
-- [ ] Subscription tiers list shows free/active/trialing/canceled counts
+- [ ] Reading adoption list shows plan/active/today/completed counts
 - [ ] Completion histogram shows 6 buckets, 100% bar is green
 - [ ] Book heatmap shows all 66 books, hover shows book name + %
 - [ ] All data loads in parallel; skeleton shown while loading
