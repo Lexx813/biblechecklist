@@ -1777,7 +1777,7 @@
     "newPosts": "新しい投稿 {{count}}件"
   },
   "checklist": {
-    "bibleProgress": "聖書の進捗",
+    "bibleProgress": "聖書読書進捗",
     "oldTestament": "旧約聖書",
     "newTestament": "新約聖書",
     "studyTools": "学習ツール",

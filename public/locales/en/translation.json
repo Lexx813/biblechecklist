@@ -1791,7 +1791,7 @@
     "newPosts": "{{count}} new posts"
   },
   "checklist": {
-    "bibleProgress": "Bible Progress",
+    "bibleProgress": "Bible Reading Progress",
     "oldTestament": "Old Testament",
     "newTestament": "New Testament",
     "studyTools": "Study Tools",

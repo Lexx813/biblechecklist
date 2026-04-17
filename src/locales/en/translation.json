@@ -15,7 +15,7 @@
     "skip": "Skip",
     "welcomeTitle": "Welcome, {{name}}!",
     "welcomeSub": "What do you want to do first?",
-    "choiceNote": "You can do all of these — pick a starting point",
+    "choiceNote": "You can change this anytime.",
     "choiceTrack": "Track my reading",
     "choiceTrackSub": "Mark chapters across all 66 books",
     "choicePlan": "Start a reading plan",
@@ -37,8 +37,7 @@
     "doneAction": "Mark Genesis 1 as read →",
     "doneSkip": "Explore the app first",
     "choiceConnect": "Connect with others",
-    "choiceConnectSub": "Community & forum",
-    "choiceNote": "You can change this anytime."
+    "choiceConnectSub": "Community & forum"
   },
   "a11y": {
     "skipToContent": "Skip to main content"
@@ -1809,5 +1808,12 @@
     "markAllParas": "Mark All Paragraphs Done",
     "wtComplete": "✓ WT Study Complete",
     "watchtowerStudyArticle": "Watchtower Study Article"
+  },
+  "checklist": {
+    "bibleProgress": "Bible Reading Progress",
+    "oldTestament": "Old Testament",
+    "newTestament": "New Testament",
+    "studyTools": "Study Tools",
+    "66books": "66 Books"
   }
 }

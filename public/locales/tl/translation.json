@@ -3364,10 +3364,10 @@
     "newPosts": "{{count}} bagong post"
   },
   "checklist": {
-    "bibleProgress": "Progreso sa Bibliya",
+    "bibleProgress": "Progreso sa Pagbabasa ng Bibliya",
     "oldTestament": "Lumang Tipan",
     "newTestament": "Bagong Tipan",
-    "studyTools": "Mga Kasangkapan sa Pag-aaral",
+    "studyTools": "Mga Kagamitan sa Pag-aaral",
     "66books": "66 Aklat"
   }
 }

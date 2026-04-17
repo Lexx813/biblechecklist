@@ -3380,10 +3380,10 @@
     "newPosts": "{{count}} 篇新帖子"
   },
   "checklist": {
-    "bibleProgress": "圣经进度",
+    "bibleProgress": "圣经阅读进度",
     "oldTestament": "旧约",
     "newTestament": "新约",
     "studyTools": "学习工具",
-    "66books": "66卷"
+    "66books": "66册"
   }
 }

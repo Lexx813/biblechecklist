@@ -1766,9 +1766,9 @@
     "newPosts": "새 게시물 {{count}}개"
   },
   "checklist": {
-    "bibleProgress": "성경 진도",
-    "oldTestament": "구약",
-    "newTestament": "신약",
+    "bibleProgress": "성경 읽기 진행",
+    "oldTestament": "구약성경",
+    "newTestament": "신약성경",
     "studyTools": "학습 도구",
     "66books": "66권"
   }
