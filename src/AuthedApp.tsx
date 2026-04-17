@@ -188,6 +188,17 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   // Pages rendered as inline panels inside the home page
   const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "publicProfile", "main", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "bookDetail", "studyTopicDetail", "messages", "history", "trivia", "search", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy"]);
 
+  // On direct URL load (e.g. /groups), redirect HOME_PANELS pages into the panel system
+  useEffect(() => {
+    const initial = parsePath();
+    if (initial.page !== "home" && HOME_PANELS.has(initial.page)) {
+      const panelKey = initial.page === "quizLevel" ? "quiz" : initial.page === "advancedQuizLevel" ? "advancedQuiz" : initial.page;
+      setNav({ page: "home" });
+      setHomePanelRequest({ panel: panelKey, params: initial });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [homePanelRequest, setHomePanelRequest] = useState<{ panel: string; params: Record<string, any> } | null>(null);
 
   const navigate = (page, params: Record<string, any> = {}) => {
