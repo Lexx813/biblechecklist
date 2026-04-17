@@ -81,6 +81,7 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
   const fileRef = useRef<HTMLInputElement>(null);
   const presenceChannelRef = useRef<ReturnType<typeof supabase.channel> | null>(null);
   const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const typingBroadcastRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const sendTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const insertEmoji = useCallback((em: string) => {
@@ -167,9 +168,12 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInput(e.target.value);
-    broadcastTyping(true);
-    if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
-    typingTimeoutRef.current = setTimeout(() => broadcastTyping(false), 2000);
+    if (typingBroadcastRef.current) clearTimeout(typingBroadcastRef.current);
+    typingBroadcastRef.current = setTimeout(() => {
+      broadcastTyping(true);
+      if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
+      typingTimeoutRef.current = setTimeout(() => broadcastTyping(false), 2000);
+    }, 300);
   }
 
   async function doSend(payload: Record<string, unknown>) {
