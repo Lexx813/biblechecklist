@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { GetStartedButton, GetStartedLink } from "./GetStartedButton";
 import ThemeToggle from "./ThemeToggle";
@@ -123,10 +124,21 @@ const INSTALL_CARDS = [
   },
 ];
 
+/* ── Async loader sub-components (stream independently) ────────── */
+
+async function CommunityStatsLoader() {
+  const count = await getUserCount();
+  return <CommunityStats serverUserCount={count} />;
+}
+
+async function FeaturedPostsLoader() {
+  const posts = await getLatestPosts();
+  return <FeaturedPosts posts={posts} />;
+}
+
 /* ── Main server component ─────────────────────────────────────── */
 
-export default async function LandingPage() {
-  const [posts, userCount] = await Promise.all([getLatestPosts(), getUserCount()]);
+export default function LandingPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-[var(--lp-bg)] font-sans text-[var(--lp-text)] transition-colors duration-200">
@@ -185,7 +197,9 @@ export default async function LandingPage() {
             </a>
           </div>
 
-          <CommunityStats serverUserCount={userCount} />
+          <Suspense fallback={<p className="m-0 text-[13px] text-[var(--lp-muted)]">Loading stats…</p>}>
+            <CommunityStatsLoader />
+          </Suspense>
         </div>
       </section>
 
@@ -337,7 +351,9 @@ export default async function LandingPage() {
       </section>
 
       {/* ── Blog ─────────────────────────────────────────────────── */}
-      <FeaturedPosts posts={posts} />
+      <Suspense fallback={null}>
+        <FeaturedPostsLoader />
+      </Suspense>
 
       {/* ── How It Works ─────────────────────────────────────────── */}
       <section className="py-[72px] max-md:py-12">

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { getTopicBySlug, STUDY_TOPICS } from "../../data/studyTopics";
 import { wolRefUrl } from "../../utils/wol";
@@ -24,6 +25,8 @@ export default function StudyTopicDetail({ user, navigate, slug, ...sharedNav })
         }),
       }
     : topic;
+
+  useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, [slug]);
 
   if (!topic) {
     return (

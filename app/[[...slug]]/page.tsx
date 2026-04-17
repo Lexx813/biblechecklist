@@ -48,8 +48,8 @@ const FAQ_ITEMS = [
   },
 ];
 
-// Revalidate the root landing page every 5 minutes (ISR) so blog posts and user count stay fresh
-export const revalidate = 300;
+// Revalidate the root landing page every hour (ISR) — keeps cache warm, reduces TTFB spikes
+export const revalidate = 3600;
 
 // All valid SPA client-side route first-segments
 const KNOWN_SPA_ROUTES = new Set([

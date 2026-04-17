@@ -55,6 +55,7 @@ const GroupDetail       = lazy(() => import("./views/groups/GroupDetail"));
 const NotFoundPage      = lazy(() => import("./views/NotFoundPage"));
 const StudyTopicsPage   = lazy(() => import("./views/studytopics/StudyTopicsPage"));
 const StudyTopicDetail  = lazy(() => import("./views/studytopics/StudyTopicDetail"));
+const BookDetailPage    = lazy(() => import("./views/studytopics/BookDetailPage"));
 const FamilyQuizPage    = lazy(() => import("./views/familyquiz/FamilyQuizPage"));
 const MeetingPrepPage   = lazy(() => import("./views/meetingprep/MeetingPrepPage"));
 const TriviaPage        = lazy(() => import("./views/trivia/TriviaPage"));
@@ -274,6 +275,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (nav.page === "studyNotes")   pageContent = <Page><AL page="studyNotes"><StudyNotesPage user={user} navigate={navigate} initialTab={nav.tab ?? "mine"} {...sharedNav} /></AL></Page>;
   else if (nav.page === "studyTopics")      pageContent = <Page><StudyTopicsPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "studyTopicDetail") pageContent = <Page><StudyTopicDetail user={user} navigate={navigate} slug={nav.slug} {...sharedNav} /></Page>;
+  else if (nav.page === "bookDetail") pageContent = <Page><BookDetailPage user={user} navigate={navigate} bookIndex={nav.bookIndex} {...sharedNav} /></Page>;
   else if (nav.page === "familyQuiz") pageContent = (
     <Page>
       <AL page="familyQuiz">

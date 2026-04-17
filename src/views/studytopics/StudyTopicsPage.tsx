@@ -88,12 +88,12 @@ export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
               <button
                 key={bookIndex}
                 className="stp-card"
-                onClick={() => navigate("readingTracker", { bookIndex })}
+                onClick={() => navigate("bookDetail", { bookIndex })}
                 aria-label={bookName}
               >
                 <h2 className="stp-card-title">{bookName}</h2>
                 <p className="stp-card-subtitle">{theme}</p>
-                <span className="stp-card-arrow">{t("studyTopics.readMore", "Open in Tracker")} →</span>
+                <span className="stp-card-arrow">Explore →</span>
               </button>
             );
           })}

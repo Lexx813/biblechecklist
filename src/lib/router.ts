@@ -21,6 +21,7 @@ export type NavState =
   | { page: "studyNotes"; tab?: string }
   | { page: "studyTopics" }
   | { page: "studyTopicDetail"; slug: string }
+  | { page: "bookDetail"; bookIndex: number }
   | { page: "advancedQuiz" }
   | { page: "advancedQuizLevel"; level: number; timedMode?: boolean }
   | { page: "familyQuiz"; challengeId?: string }
@@ -76,6 +77,7 @@ export function parsePath(): NavState {
   if (h === "study-notes/community")  return { page: "studyNotes", tab: "public" };
   if (h === "study-topics")  return { page: "studyTopics" };
   if (h.startsWith("study-topics/")) return { page: "studyTopicDetail", slug: decodeURIComponent(h.slice(13)) };
+  if (h.startsWith("book/")) return { page: "bookDetail", bookIndex: parseInt(h.slice(5), 10) };
   if (h === "family-quiz")   return { page: "familyQuiz" };
   if (h.startsWith("family-quiz/")) return { page: "familyQuiz", challengeId: h.slice(12) };
   if (h === "leaderboard")   return { page: "leaderboard" };
@@ -120,6 +122,7 @@ export function buildPath(page: string, params: Record<string, unknown> = {}): s
     case "studyNotes":   return params.tab === "public" ? "/study-notes/community" : "/study-notes";
     case "studyTopics":       return "/study-topics";
     case "studyTopicDetail":  return "/study-topics/" + encodeURIComponent(params.slug as string);
+    case "bookDetail":        return "/book/" + params.bookIndex;
     case "familyQuiz":        return params.challengeId ? `/family-quiz/${params.challengeId}` : "/family-quiz";
     case "leaderboard":       return "/leaderboard";
     case "about":         return "/about";
