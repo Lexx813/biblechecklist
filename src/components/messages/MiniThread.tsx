@@ -113,15 +113,17 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
   }, []);
 
   useEffect(() => {
-    const el = messagesRef.current;
-    if (!el) { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); return; }
-    const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
-    if (distFromBottom <= 100) {
-      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-      setShowNewMsgChip(false);
-    } else {
-      setShowNewMsgChip(true);
-    }
+    requestAnimationFrame(() => {
+      const el = messagesRef.current;
+      if (!el) { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); return; }
+      const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+      if (distFromBottom <= 100) {
+        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+        setShowNewMsgChip(false);
+      } else {
+        setShowNewMsgChip(true);
+      }
+    });
   }, [decryptedMessages.length]);
 
   useEffect(() => {
@@ -250,7 +252,7 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
     const el = messagesRef.current;
     if (!el) return;
     const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
-    if (distFromBottom <= 100 && showNewMsgChip) setShowNewMsgChip(false);
+    if (distFromBottom <= 100) setShowNewMsgChip(false);
   }
 
   function confirmImageUpload() {
