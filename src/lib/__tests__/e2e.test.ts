@@ -108,17 +108,17 @@ describe("encryptMessage / decryptMessage", () => {
     expect(await decryptMessage(undefined as unknown as string, key)).toBe("");
   });
 
-  it("returns [🔒 Malformed message] for 'enc:' with too few parts", async () => {
+  it("returns malformed message error for 'enc:' with too few parts", async () => {
     const key = await makeSharedKey();
-    expect(await decryptMessage("enc:onlyone", key)).toBe("[🔒 Malformed message]");
+    expect(await decryptMessage("enc:onlyone", key)).toBe("[Message could not be displayed — malformed data]");
   });
 
-  it("returns [🔒 Unable to decrypt] for tampered ciphertext", async () => {
+  it("returns decrypt error for tampered ciphertext", async () => {
     const key = await makeSharedKey();
     const ct = await encryptMessage("secret", key);
     const tampered = ct.slice(0, -4) + "XXXX";
     const result = await decryptMessage(tampered, key);
-    expect(result).toBe("[🔒 Unable to decrypt]");
+    expect(result).toBe("[Could not decrypt — your encryption keys may be out of sync. Try refreshing the page.]");
   });
 
   it("roundtrips unicode and emoji", async () => {
