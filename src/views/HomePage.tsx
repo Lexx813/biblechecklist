@@ -594,6 +594,22 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             </button>
           )}
 
+          {/* Quick Actions */}
+          <div className="home-quick-actions">
+            <button className="hqa-btn hqa-btn--primary" onClick={() => panelNavigate("main")}>
+              <span className="hqa-icon">📖</span>
+              Continue Reading
+            </button>
+            <button className="hqa-btn" onClick={() => panelNavigate("quiz")}>
+              <span className="hqa-icon">🎯</span>
+              Today's Quiz
+            </button>
+            <button className="hqa-btn" onClick={() => panelNavigate("meetingPrep")}>
+              <span className="hqa-icon">✅</span>
+              Meeting Prep
+            </button>
+          </div>
+
           {/* Blog */}
           <div>
             <div className={feedHeadCls}>
