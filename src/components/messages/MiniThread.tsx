@@ -50,7 +50,7 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
   const markNotifRead = useMarkMessageNotificationsRead(user.id);
   const { data: reactions = [] } = useReactions(conv.conversation_id);
   const toggleReaction = useToggleReaction(conv.conversation_id);
-  const toggleStar = useToggleStar(conv.conversation_id);
+  const toggleStar = useToggleStar(conv.conversation_id, user.id);
   const { data: linkPreviews = [] } = useLinkPreviews(conv.conversation_id);
   const { uploading, uploadAndSend } = useUploadImage(conv.conversation_id);
   const { sharedKey } = useSharedKey(keyPair, conv.other_user_id ?? null, user.id);
@@ -94,7 +94,7 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
   }, [input]);
 
   useEffect(() => {
-    markRead.mutate();
+    markRead.mutate(conv.conversation_id);
     markNotifRead.mutate(conv.conversation_id);
     decryptCacheRef.current.clear();
   }, [conv.conversation_id]);

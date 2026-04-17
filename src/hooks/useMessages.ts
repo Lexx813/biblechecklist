@@ -88,7 +88,7 @@ export function useReactions(conversationId: string | null | undefined) {
     queryKey: ["reactions", conversationId],
     queryFn: () => messagesApi.getReactions(conversationId!),
     enabled: !!conversationId,
-    staleTime: 5_000,
+    staleTime: 2_000,
   });
 }
 
@@ -217,7 +217,8 @@ export function useDeleteMessage(conversationId: string | null | undefined) {
 export function useMarkRead(conversationId: string | null | undefined, userId: string | null | undefined) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: () => messagesApi.markRead(conversationId!, userId!),
+    mutationFn: (snapConvId: string = conversationId ?? "") =>
+      messagesApi.markRead(snapConvId, userId!),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["conversations"] }),
   });
 }
@@ -272,15 +273,27 @@ export function useUnreadMessageCount() {
 
 // ── Star / Starred messages ───────────────────────────────────────────────────
 
-export function useToggleStar(conversationId: string | null | undefined) {
+export function useToggleStar(conversationId: string | null | undefined, userId: string) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (messageId: string) => messagesApi.toggleStar(messageId),
-    onMutate: async (_messageId: string) => {
+    onMutate: async (messageId: string) => {
       await queryClient.cancelQueries({ queryKey: ["messages", conversationId] });
       const previous = queryClient.getQueryData(["messages", conversationId]);
-      // We don't know the user id here so just invalidate on settle
+      queryClient.setQueryData(["messages", conversationId], (old: Record<string, unknown>[] = []) =>
+        old.map(m => {
+          if (m.id !== messageId) return m;
+          const starred = Array.isArray(m.starred_by) ? m.starred_by as string[] : [];
+          const next = starred.includes(userId)
+            ? starred.filter(id => id !== userId)
+            : [...starred, userId];
+          return { ...m, starred_by: next };
+        })
+      );
       return { previous };
+    },
+    onError: (_err, _vars, ctx) => {
+      if (ctx?.previous) queryClient.setQueryData(["messages", conversationId], ctx.previous);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["messages", conversationId] });

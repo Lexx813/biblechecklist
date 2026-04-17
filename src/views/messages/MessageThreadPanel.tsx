@@ -362,7 +362,7 @@ const MSG_DISAPPEAR_OPTIONS = [
 
 function MSGStarredPanel({ convId, userId, onClose }: { convId: string; userId: string; onClose: () => void }) {
   const { data: starred = [], isLoading } = useStarredMessages(convId);
-  const toggleStar = useToggleStar(convId);
+  const toggleStar = useToggleStar(convId, userId);
   return (
     <div className="msg-overlay-panel">
       <div className="msg-overlay-header">
@@ -787,7 +787,7 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
   const toggleReaction = useToggleReaction(conv.conversation_id);
   const { sharedKey, otherHasKey } = useSharedKey(keyPair, conv.other_user_id, user.id);
   const { uploading, uploadAndSend } = useUploadImage(conv.conversation_id);
-  const toggleStar = useToggleStar(conv.conversation_id);
+  const toggleStar = useToggleStar(conv.conversation_id, user.id);
   const { data: convSettings } = useConvSettings(conv.conversation_id);
 
   const [input, setInput] = useState("");
@@ -831,7 +831,7 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
   const isAtBottomRef = useRef(true);
 
   useEffect(() => {
-    markRead.mutate();
+    markRead.mutate(conv.conversation_id);
     markNotifRead.mutate(conv.conversation_id);
   }, [conv.conversation_id]);
 
