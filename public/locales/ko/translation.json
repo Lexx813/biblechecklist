@@ -645,7 +645,8 @@
     "forumCats": "카테고리",
     "quiz": "퀴즈 편집기",
     "quizStats": "퀴즈 통계",
-    "announcements": "공지사항"
+    "announcements": "공지사항",
+    "analytics": "분석"
   },
   "adminReports": {
     "empty": "대기 중인 신고가 없습니다 🎉",

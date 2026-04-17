@@ -675,7 +675,8 @@
     "quiz": "Editor de Quiz",
     "quizStats": "Estadísticas del Quiz",
     "announcements": "Anuncios",
-    "forumCats": "Categorías del Foro"
+    "forumCats": "Categorías del Foro",
+    "analytics": "Analíticas"
   },
   "adminReports": {
     "empty": "Sin reportes pendientes 🎉",

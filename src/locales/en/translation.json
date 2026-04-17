@@ -692,7 +692,8 @@
     "forumCats": "Categories",
     "quiz": "Quiz Editor",
     "quizStats": "Quiz Stats",
-    "announcements": "Announcements"
+    "announcements": "Announcements",
+    "analytics": "Analytics"
   },
   "adminReports": {
     "empty": "No pending reports 🎉",

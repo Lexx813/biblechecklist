@@ -655,7 +655,8 @@
     "forumCats": "カテゴリ",
     "quiz": "クイズ編集",
     "quizStats": "クイズ統計",
-    "announcements": "お知らせ"
+    "announcements": "お知らせ",
+    "analytics": "分析"
   },
   "adminReports": {
     "empty": "未処理の報告はありません 🎉",

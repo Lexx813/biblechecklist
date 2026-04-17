@@ -9,6 +9,7 @@ import { QuizTab, QuizStatsTab } from "./tabs/QuizTabs";
 import { AnnouncementsTab } from "./tabs/AnnouncementsTab";
 import { AuditLogTab } from "./tabs/AuditLogTab";
 import { VideosTab, CreatorsTab } from "./tabs/VideosAdminTabs";
+import { AnalyticsTab } from "./tabs/AnalyticsTab";
 
 export default function AdminPage({ currentUser, currentProfile, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const isCurrentUserAdmin = currentProfile?.is_admin;
@@ -140,6 +141,12 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
               Videos
             </button>
           )}
+          {isCurrentUserAdmin && (
+            <button className={`admin-tab${tab === "analytics" ? " admin-tab--active" : ""}`} onClick={() => setTab("analytics")}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              {t("adminTabs.analytics")}
+            </button>
+          )}
         </div>
 
         {/* Tab content */}
@@ -155,6 +162,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
         {tab === "auditLog"      && isCurrentUserAdmin && <div className="admin-section"><AuditLogTab /></div>}
         {tab === "creators"      && isCurrentUserAdmin && <CreatorsTab />}
         {tab === "videos"        && isCurrentUserAdmin && <div className="admin-section"><VideosTab /></div>}
+        {tab === "analytics"     && isCurrentUserAdmin && <AnalyticsTab />}
       </div>
     </div>
   );

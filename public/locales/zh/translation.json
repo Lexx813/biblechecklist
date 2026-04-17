@@ -1467,7 +1467,8 @@
     "forumCats": "分类",
     "quiz": "问答编辑",
     "quizStats": "问答统计",
-    "announcements": "公告"
+    "announcements": "公告",
+    "analytics": "分析"
   },
   "adminReports": {
     "empty": "没有待处理的举报 🎉",

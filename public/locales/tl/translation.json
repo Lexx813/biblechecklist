@@ -647,7 +647,8 @@
     "quiz": "Editor ng Quiz",
     "quizStats": "Istatistika ng Quiz",
     "announcements": "Mga Anunsyo",
-    "forumCats": "Mga Kategorya ng Forum"
+    "forumCats": "Mga Kategorya ng Forum",
+    "analytics": "Analytics"
   },
   "adminReports": {
     "empty": "Walang nakabinbing ulat 🎉",
