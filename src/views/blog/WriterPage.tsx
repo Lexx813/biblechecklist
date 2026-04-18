@@ -180,16 +180,37 @@ export default function WriterPage({ user, navigate, editPost }: Props) {
       <div className="writer-body">
         {/* Left format bar */}
         <div className="writer-format-bar">
-          {(["¶", "H", "B", "I"] as const).map(icon => (
-            <button key={icon} className="writer-fmt-btn">{icon}</button>
+          {([
+            { icon: "¶", label: "Paragraph" },
+            { icon: "H", label: "Heading" },
+            { icon: "B", label: "Bold" },
+            { icon: "I", label: "Italic" },
+          ] as const).map(({ icon, label }) => (
+            <div key={icon} className="writer-fmt-wrap">
+              <button className="writer-fmt-btn" title={label}>{icon}</button>
+              <span className="writer-fmt-tip">{label}</span>
+            </div>
           ))}
           <div className="writer-fmt-sep" />
-          {(["📖", "❝", "•"] as const).map(icon => (
-            <button key={icon} className="writer-fmt-btn">{icon}</button>
+          {([
+            { icon: "📖", label: "Bible verse" },
+            { icon: "❝", label: "Block quote" },
+            { icon: "•", label: "Bullet list" },
+          ] as const).map(({ icon, label }) => (
+            <div key={icon} className="writer-fmt-wrap">
+              <button className="writer-fmt-btn" title={label}>{icon}</button>
+              <span className="writer-fmt-tip">{label}</span>
+            </div>
           ))}
           <div className="writer-fmt-sep" />
-          {(["🖼", "🔗"] as const).map(icon => (
-            <button key={icon} className="writer-fmt-btn">{icon}</button>
+          {([
+            { icon: "🖼", label: "Image" },
+            { icon: "🔗", label: "Link" },
+          ] as const).map(({ icon, label }) => (
+            <div key={icon} className="writer-fmt-wrap">
+              <button className="writer-fmt-btn" title={label}>{icon}</button>
+              <span className="writer-fmt-tip">{label}</span>
+            </div>
           ))}
         </div>
 
