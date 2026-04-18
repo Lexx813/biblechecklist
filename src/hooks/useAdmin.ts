@@ -4,6 +4,7 @@ import { profileApi } from "../api/profile";
 import { blogApi } from "../api/blog";
 import { forumApi } from "../api/forum";
 import { quizApi } from "../api/quiz";
+import { supabase } from "../lib/supabase";
 
 export function useProfile(userId: string | null | undefined) {
   return useQuery({
@@ -229,6 +230,64 @@ export function useDeleteQuizQuestion() {
   return useMutation({
     mutationFn: (id: string) => quizApi.deleteQuestion(id),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin", "quizQuestions"] }),
+  });
+}
+
+export function useAIUsage(days = 30) {
+  return useQuery({
+    queryKey: ["admin", "ai-usage", days],
+    queryFn: async () => {
+      const since = new Date(Date.now() - days * 86_400_000).toISOString();
+
+      const { data, error } = await supabase
+        .from("ai_usage_logs")
+        .select("created_at, input_tokens, output_tokens, tool_used, page, cost_usd, user_id")
+        .gte("created_at", since)
+        .order("created_at", { ascending: true });
+
+      if (error) throw error;
+      const rows = data ?? [];
+
+      // KPIs
+      const totalMessages = rows.length;
+      const totalCost     = rows.reduce((s, r) => s + Number(r.cost_usd), 0);
+      const totalTokens   = rows.reduce((s, r) => s + r.input_tokens + r.output_tokens, 0);
+      const uniqueUsers   = new Set(rows.map(r => r.user_id)).size;
+
+      // Messages per day
+      const byDay: Record<string, number> = {};
+      const costByDay: Record<string, number> = {};
+      for (const r of rows) {
+        const day = r.created_at.slice(0, 10);
+        byDay[day]    = (byDay[day]    ?? 0) + 1;
+        costByDay[day] = (costByDay[day] ?? 0) + Number(r.cost_usd);
+      }
+      const dailySeries = Object.entries(byDay)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([date, count]) => ({ date, count, cost: Number(costByDay[date].toFixed(4)) }));
+
+      // Tool usage breakdown
+      const toolCounts: Record<string, number> = { none: 0 };
+      for (const r of rows) {
+        const key = r.tool_used ?? "none";
+        toolCounts[key] = (toolCounts[key] ?? 0) + 1;
+      }
+      const toolBreakdown = Object.entries(toolCounts).map(([tool, count]) => ({ tool, count }));
+
+      // Top pages
+      const pageCounts: Record<string, number> = {};
+      for (const r of rows) {
+        const key = r.page ?? "unknown";
+        pageCounts[key] = (pageCounts[key] ?? 0) + 1;
+      }
+      const topPages = Object.entries(pageCounts)
+        .sort(([, a], [, b]) => b - a)
+        .slice(0, 8)
+        .map(([page, count]) => ({ page, count }));
+
+      return { totalMessages, totalCost, totalTokens, uniqueUsers, dailySeries, toolBreakdown, topPages };
+    },
+    staleTime: 2 * 60 * 1000,
   });
 }
 

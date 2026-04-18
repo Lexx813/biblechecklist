@@ -130,6 +130,7 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
 
         {/* Center: Article */}
         <article className="pr-article" ref={articleRef}>
+          <button className="pr-back-link" onClick={() => navigate("blog")}>← All Posts</button>
           {primaryTag && <span className="pr-tag-pill">{primaryTag}</span>}
           <h1 className="pr-title">{post.title}</h1>
 

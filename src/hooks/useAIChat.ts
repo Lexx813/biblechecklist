@@ -7,6 +7,13 @@ export interface ChatMessage {
   streaming?: boolean;
 }
 
+export interface ChatContext {
+  page?: string;
+  bookIndex?: number;
+  bookName?: string;
+  chapter?: number;
+}
+
 /**
  * Hook for multi-turn AI study companion chat via /api/ai-chat.
  *
@@ -28,7 +35,13 @@ function loadSaved(): ChatMessage[] {
   }
 }
 
-export function useAIChat() {
+export interface BlogDraft {
+  title: string;
+  content: string;
+  excerpt: string;
+}
+
+export function useAIChat(context?: ChatContext) {
   const [messages, setMessages] = useState<ChatMessage[]>(loadSaved);
   const [loading, setLoading]   = useState(false);
   const [error, setError]       = useState<string | null>(null);
@@ -93,7 +106,7 @@ export function useAIChat() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${session.access_token}`,
         },
-        body: JSON.stringify({ messages: apiMessages }),
+        body: JSON.stringify({ messages: apiMessages, context }),
         signal: ctrl.signal,
       });
 
@@ -123,7 +136,17 @@ export function useAIChat() {
             const evt = JSON.parse(raw) as {
               type: string;
               delta?: { type: string; text: string };
+              draft?: { title: string; content: string; excerpt: string };
             };
+            if (evt.type === "navigate" && (evt as { type: string; page?: string }).page) {
+              window.dispatchEvent(new CustomEvent("ai:navigate", { detail: { page: (evt as { type: string; page: string }).page } }));
+              continue;
+            }
+            if (evt.type === "blog_draft" && evt.draft) {
+              // Auto-open editor — no button click required
+              window.dispatchEvent(new CustomEvent("ai:blog-draft", { detail: evt.draft }));
+              continue;
+            }
             if (evt.type === "content_block_delta" && evt.delta?.type === "text_delta") {
               syncedSetMessages((prev) => {
                 const updated = [...prev];

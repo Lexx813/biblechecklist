@@ -86,14 +86,14 @@ export function CampaignAnalytics({ campaignId, onBack }: Props) {
       <div className="flex items-center gap-3">
         <button
           onClick={onBack}
-          className="p-2 rounded-lg hover:bg-white/8 text-gray-400 hover:text-white transition-colors"
+          className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/8 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </button>
         <div>
-          <h2 className="text-xl font-bold text-white">{campaign?.name ?? "Analytics"}</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">{campaign?.name ?? "Analytics"}</h2>
           {campaign && (
             <p className="text-xs text-gray-500 mt-0.5">{buildSegmentSummary(campaign.segment_config)}</p>
           )}
@@ -103,17 +103,17 @@ export function CampaignAnalytics({ campaignId, onBack }: Props) {
       {/* KPI cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {kpis.map(k => (
-          <div key={k.label} className="bg-white/4 border border-white/8 rounded-xl p-4">
-            <p className="text-2xl font-bold text-white">{k.value}</p>
+          <div key={k.label} className="bg-white dark:bg-white/4 border border-gray-200 dark:border-white/8 rounded-xl p-4">
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">{k.value}</p>
             <p className="text-xs text-gray-500 mt-1">{k.label}</p>
           </div>
         ))}
       </div>
 
       {/* Timeline chart */}
-      <div className="bg-white/4 border border-white/8 rounded-xl p-4">
+      <div className="bg-white dark:bg-white/4 border border-gray-200 dark:border-white/8 rounded-xl p-4">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm font-semibold text-white">Opens &amp; Clicks Over Time</h3>
+          <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Opens &amp; Clicks Over Time</h3>
           <div className="flex items-center gap-3 text-xs text-gray-500">
             <span className="flex items-center gap-1">
               <span className="w-2.5 h-2.5 rounded-sm bg-green-500 opacity-70 inline-block" /> Opens
@@ -127,13 +127,13 @@ export function CampaignAnalytics({ campaignId, onBack }: Props) {
       </div>
 
       {/* Per-user table */}
-      <div className="bg-white/4 border border-white/8 rounded-xl overflow-hidden">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-white/8">
-          <h3 className="text-sm font-semibold text-white">Recipients</h3>
+      <div className="bg-white dark:bg-white/4 border border-gray-200 dark:border-white/8 rounded-xl overflow-hidden">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-white/8">
+          <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Recipients</h3>
           <select
             value={statusFilter}
             onChange={e => setStatusFilter(e.target.value)}
-            className="bg-white/6 border border-white/10 rounded-lg px-2 py-1 text-xs text-white focus:outline-none"
+            className="bg-gray-100 dark:bg-white/6 border border-gray-200 dark:border-white/10 rounded-lg px-2 py-1 text-xs text-gray-700 dark:text-white focus:outline-none"
           >
             <option value="all">All statuses</option>
             {["sent", "delivered", "opened", "clicked", "bounced", "unsubscribed"].map(s => (
@@ -143,7 +143,7 @@ export function CampaignAnalytics({ campaignId, onBack }: Props) {
         </div>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-white/5">
+            <tr className="border-b border-gray-100 dark:border-white/5">
               <th className="text-left px-4 py-2.5 text-xs text-gray-500 font-medium">User</th>
               <th className="text-left px-4 py-2.5 text-xs text-gray-500 font-medium">Status</th>
               <th className="text-left px-4 py-2.5 text-xs text-gray-500 font-medium">Sent</th>
@@ -151,11 +151,11 @@ export function CampaignAnalytics({ campaignId, onBack }: Props) {
               <th className="text-left px-4 py-2.5 text-xs text-gray-500 font-medium">Clicked</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5">
+          <tbody className="divide-y divide-gray-100 dark:divide-white/5">
             {filteredSends.map(s => (
-              <tr key={s.id} className="hover:bg-white/3 transition-colors">
+              <tr key={s.id} className="hover:bg-gray-50 dark:hover:bg-white/3 transition-colors">
                 <td className="px-4 py-2.5">
-                  <p className="text-white text-xs font-medium">{s.profiles?.display_name ?? "—"}</p>
+                  <p className="text-gray-900 dark:text-white text-xs font-medium">{s.profiles?.display_name ?? "—"}</p>
                   <p className="text-gray-500 text-xs">{s.profiles?.email}</p>
                 </td>
                 <td className="px-4 py-2.5">
@@ -163,31 +163,31 @@ export function CampaignAnalytics({ campaignId, onBack }: Props) {
                     {s.status}
                   </span>
                 </td>
-                <td className="px-4 py-2.5 text-xs text-gray-400">
+                <td className="px-4 py-2.5 text-xs text-gray-500 dark:text-gray-400">
                   {s.sent_at ? new Date(s.sent_at).toLocaleDateString() : "—"}
                 </td>
-                <td className="px-4 py-2.5 text-xs text-gray-400">
+                <td className="px-4 py-2.5 text-xs text-gray-500 dark:text-gray-400">
                   {s.opened_at ? new Date(s.opened_at).toLocaleDateString() : "—"}
                 </td>
-                <td className="px-4 py-2.5 text-xs text-gray-400">
+                <td className="px-4 py-2.5 text-xs text-gray-500 dark:text-gray-400">
                   {s.clicked_at ? new Date(s.clicked_at).toLocaleDateString() : "—"}
                 </td>
               </tr>
             ))}
             {filteredSends.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-gray-600 text-sm">
+                <td colSpan={5} className="px-4 py-8 text-center text-gray-400 dark:text-gray-600 text-sm">
                   No recipients found
                 </td>
               </tr>
             )}
           </tbody>
         </table>
-        <div className="flex items-center justify-between px-4 py-3 border-t border-white/8">
+        <div className="flex items-center justify-between px-4 py-3 border-t border-gray-200 dark:border-white/8">
           <button
             disabled={sendsPage === 0}
             onClick={() => setSendsPage(p => p - 1)}
-            className="text-xs text-gray-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+            className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
           >
             ← Previous
           </button>
@@ -195,7 +195,7 @@ export function CampaignAnalytics({ campaignId, onBack }: Props) {
           <button
             disabled={sends.length < 50}
             onClick={() => setSendsPage(p => p + 1)}
-            className="text-xs text-gray-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+            className="text-xs text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Next →
           </button>

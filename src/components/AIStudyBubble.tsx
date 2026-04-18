@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
-import { useAIChat } from "../hooks/useAIChat";
+import { useAIChat, type ChatContext } from "../hooks/useAIChat";
 import { trackFeatureUse } from "../lib/analytics";
 import "../styles/ai-study-bubble.css";
 
@@ -102,17 +102,30 @@ function inlineMarkdown(text: string, baseKey: number): React.ReactNode[] {
   });
 }
 
-const SUGGESTED = [
+const SUGGESTED_DEFAULT = [
   "What does this passage teach about Jehovah?",
   "What does the original Hebrew or Greek mean?",
   "How can I explain this scripture to someone?",
   "What does the Reasoning book say about this?",
 ];
 
-export default function AIStudyBubble() {
+const SUGGESTED_BLOG = [
+  "Write a blog draft about what I'm studying",
+  "Give me an outline for a JW article on this topic",
+  "Suggest 5 blog title ideas with scriptures",
+  "Help me write an introduction paragraph",
+];
+
+function getSuggested(page?: string): string[] {
+  if (page === "blogNew" || page === "blogEdit") return SUGGESTED_BLOG;
+  return SUGGESTED_DEFAULT;
+}
+
+export default function AIStudyBubble({ context }: { context?: ChatContext }) {
   const [open, setOpen]       = useState(false);
   const [input, setInput]     = useState("");
-  const { messages, loading, error, send, clear } = useAIChat();
+  const { messages, loading, error, send, clear } = useAIChat(context);
+  const suggested = getSuggested(context?.page);
   const bottomRef  = useRef<HTMLDivElement>(null);
   const inputRef   = useRef<HTMLTextAreaElement>(null);
   const panelRef   = useRef<HTMLDivElement>(null);
@@ -201,7 +214,7 @@ export default function AIStudyBubble() {
               Ask any Bible question. Answers draw exclusively from Watch Tower publications, the NWT, and wol.jw.org.
             </p>
             <div className="asb-suggestions">
-              {SUGGESTED.map(s => (
+              {suggested.map(s => (
                 <button key={s} className="asb-suggestion" onClick={() => handleSuggestion(s)}>
                   {s}
                 </button>
@@ -211,6 +224,8 @@ export default function AIStudyBubble() {
         )}
 
         {messages.map((msg, i) => (
+          // Skip empty streaming assistant messages — isThinking block handles that state
+          (msg.role === "assistant" && msg.streaming && !msg.content) ? null :
           <div key={i} className={`asb-msg asb-msg--${msg.role}`}>
             {msg.role === "assistant" && (
               <span className="asb-msg-icon" aria-hidden="true">
@@ -228,6 +243,25 @@ export default function AIStudyBubble() {
           </div>
         ))}
 
+        {(() => {
+          const last = messages[messages.length - 1];
+          const isThinking = loading && last && last.role === "assistant" && !last.content && last.streaming;
+          return isThinking ? (
+            <div className="asb-msg asb-msg--assistant">
+              <span className="asb-msg-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2L9.1 9.1 2 12l7.1 2.9L12 22l2.9-7.1L22 12l-7.1-2.9z"/>
+                </svg>
+              </span>
+              <div className="asb-thinking">
+                <div className="asb-typing">
+                  <span className="asb-dot" /><span className="asb-dot" /><span className="asb-dot" />
+                </div>
+                <span className="asb-thinking-label">Thinking…</span>
+              </div>
+            </div>
+          ) : null;
+        })()}
         {loading && messages.length > 0 && messages[messages.length - 1].role === "user" && (
           <div className="asb-msg asb-msg--assistant">
             <span className="asb-msg-icon" aria-hidden="true">

@@ -41,6 +41,7 @@ export type NavState =
   | { page: "trivia" }
   | { page: "blogNew" }
   | { page: "blogEdit"; slug: string }
+  | { page: "myPosts" }
   | { page: "notFound" };
 
 export function parsePath(): NavState {
@@ -51,6 +52,7 @@ export function parsePath(): NavState {
   if (h === "profile") return { page: "profile" };
   if (h === "settings") return { page: "settings" };
   if (h === "blog-dash") return { page: "blogDash" };
+  if (h === "my-posts") return { page: "myPosts" };
   if (h === "blog") return { page: "blog", slug: null };
   if (h === "blog/new") return { page: "blogNew" };
   if (h.startsWith("blog/") && h.endsWith("/edit")) {
@@ -109,6 +111,7 @@ export function buildPath(page: string, params: Record<string, unknown> = {}): s
     case "profile":       return "/profile";
     case "settings":      return "/settings";
     case "blogDash":      return "/blog-dash";
+    case "myPosts":       return "/my-posts";
     case "blogNew":       return "/blog/new";
     case "blogEdit":      return `/blog/${encodeURIComponent(params.slug as string)}/edit`;
     case "blog":          return params.slug ? `/blog/${encodeURIComponent(params.slug as string)}` : "/blog";

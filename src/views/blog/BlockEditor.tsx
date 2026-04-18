@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect, KeyboardEvent } from "react";
 
-export type BlockType = "paragraph" | "h2" | "h3" | "pull-quote" | "bible-verse" | "bullet";
+export type BlockType = "paragraph" | "h2" | "h3" | "pull-quote" | "bible-verse" | "bullet" | "numbered" | "divider" | "image";
 
 export interface Block {
   id: string;
@@ -13,14 +13,16 @@ function uid() {
 }
 
 const SLASH_OPTIONS: Array<{ type: BlockType; icon: string; label: string; desc: string }> = [
-  { type: "bible-verse", icon: "📖", label: "Bible Verse",  desc: "Insert verse reference" },
-  { type: "pull-quote",  icon: "❝",  label: "Pull Quote",   desc: "Highlight a key thought" },
-  { type: "h2",          icon: "H2", label: "Heading",      desc: "Section heading" },
-  { type: "bullet",      icon: "•",  label: "Bullet List",  desc: "Bulleted item" },
+  { type: "bible-verse", icon: "📖", label: "Bible Verse",    desc: "Insert verse reference" },
+  { type: "pull-quote",  icon: "❝",  label: "Pull Quote",     desc: "Highlight a key thought" },
+  { type: "h2",          icon: "H2", label: "Heading",        desc: "Section heading" },
+  { type: "h3",          icon: "H3", label: "Subheading",     desc: "Smaller section heading" },
+  { type: "bullet",      icon: "•",  label: "Bullet List",    desc: "Bulleted item" },
+  { type: "numbered",    icon: "1.", label: "Numbered List",  desc: "Numbered item" },
+  { type: "divider",     icon: "─",  label: "Divider",        desc: "Horizontal separator" },
+  { type: "image",       icon: "🖼", label: "Image",          desc: "Upload or paste image URL" },
 ];
 
-// Sets initial content via ref on mount and never lets React overwrite the DOM —
-// prevents the cursor-reset / backwards-typing bug with contentEditable + React state.
 function CE({
   tag: Tag = "div",
   initialContent,
@@ -42,7 +44,6 @@ function CE({
 
   useEffect(() => {
     if (elRef.current) elRef.current.innerText = initialContent;
-    // intentionally empty deps — only run on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -63,11 +64,13 @@ function CE({
 interface Props {
   blocks: Block[];
   onChange: (blocks: Block[]) => void;
+  onImageUpload?: (file: File) => Promise<string>;
 }
 
-export default function BlockEditor({ blocks, onChange }: Props) {
+export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) {
   const [slashMenu, setSlashMenu] = useState<{ blockId: string } | null>(null);
   const [slashIdx, setSlashIdx] = useState(0);
+  const [uploading, setUploading] = useState<Record<string, boolean>>({});
   const refs = useRef<Record<string, HTMLElement | null>>({});
   const dragId = useRef<string | null>(null);
   const [dragOverId, setDragOverId] = useState<string | null>(null);
@@ -137,6 +140,17 @@ export default function BlockEditor({ blocks, onChange }: Props) {
     setDragOverId(null);
   }, [blocks, onChange]);
 
+  const handleImageFile = useCallback(async (blockId: string, file: File) => {
+    if (!onImageUpload) return;
+    setUploading(u => ({ ...u, [blockId]: true }));
+    try {
+      const url = await onImageUpload(file);
+      onChange(blocks.map(b => b.id === blockId ? { ...b, content: url } : b));
+    } finally {
+      setUploading(u => ({ ...u, [blockId]: false }));
+    }
+  }, [blocks, onChange, onImageUpload]);
+
   return (
     <div className="be-root">
       {blocks.map((block) => {
@@ -179,14 +193,61 @@ export default function BlockEditor({ blocks, onChange }: Props) {
                 <CE {...ceProps} className="be-verse-ref" placeholder="Book Chapter:Verse — e.g. John 3:16" />
               </div>
             )}
-            {(block.type === "paragraph" || block.type === "bullet") && (
+            {(block.type === "paragraph" || block.type === "bullet" || block.type === "numbered") && (
               <div className="be-row">
-                {block.type === "bullet" && <span className="be-bullet">•</span>}
+                {block.type === "bullet"   && <span className="be-bullet">•</span>}
+                {block.type === "numbered" && <span className="be-bullet be-numbered">{blocks.filter(b => b.type === "numbered").findIndex(b => b.id === block.id) + 1}.</span>}
                 <CE
                   {...ceProps}
                   className="be-para"
-                  placeholder={block.type === "bullet" ? "List item…" : "Write something… or type / for commands"}
+                  placeholder={block.type === "bullet" || block.type === "numbered" ? "List item…" : "Write something… or type / for commands"}
                 />
+              </div>
+            )}
+            {block.type === "divider" && (
+              <div className="be-divider-block">
+                <hr className="be-divider" />
+              </div>
+            )}
+            {block.type === "image" && (
+              <div className="be-image-block">
+                {block.content ? (
+                  <div className="be-image-wrap">
+                    <img src={block.content} alt="" className="be-image" />
+                    <button
+                      className="be-image-remove"
+                      onClick={() => onChange(blocks.map(b => b.id === block.id ? { ...b, content: "" } : b))}
+                      title="Remove image"
+                    >×</button>
+                  </div>
+                ) : uploading[block.id] ? (
+                  <div className="be-image-placeholder">Uploading…</div>
+                ) : (
+                  <div className="be-image-placeholder">
+                    <label className="be-image-upload-btn">
+                      ⬆ Upload image
+                      <input
+                        type="file"
+                        accept="image/*"
+                        style={{ display: "none" }}
+                        onChange={e => { const f = e.target.files?.[0]; if (f) handleImageFile(block.id, f); }}
+                      />
+                    </label>
+                    <span className="be-image-or">or</span>
+                    <input
+                      className="be-image-url"
+                      placeholder="Paste image URL…"
+                      onPaste={e => {
+                        const url = e.clipboardData.getData("text").trim();
+                        if (url.startsWith("http")) { e.preventDefault(); onChange(blocks.map(b => b.id === block.id ? { ...b, content: url } : b)); }
+                      }}
+                      onChange={e => {
+                        const url = e.target.value.trim();
+                        if (url.startsWith("http")) onChange(blocks.map(b => b.id === block.id ? { ...b, content: url } : b));
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             )}
 
@@ -220,11 +281,14 @@ export default function BlockEditor({ blocks, onChange }: Props) {
 
 export function blocksToMarkdown(blocks: Block[]): string {
   return blocks.map(b => {
-    if (b.type === "h2") return `## ${b.content}`;
-    if (b.type === "h3") return `### ${b.content}`;
+    if (b.type === "h2")         return `## ${b.content}`;
+    if (b.type === "h3")         return `### ${b.content}`;
     if (b.type === "pull-quote") return `> ${b.content}`;
     if (b.type === "bible-verse") return `[${b.content}]`;
-    if (b.type === "bullet") return `- ${b.content}`;
+    if (b.type === "bullet")     return `- ${b.content}`;
+    if (b.type === "numbered")   return `1. ${b.content}`;
+    if (b.type === "divider")    return `---`;
+    if (b.type === "image")      return `![](${b.content})`;
     return b.content;
   }).join("\n\n");
 }
@@ -233,11 +297,15 @@ export function markdownToBlocks(md: string): Block[] {
   if (!md.trim()) return [{ id: uid(), type: "paragraph", content: "" }];
   return md.split(/\n\n+/).map(line => {
     const id = uid();
-    if (line.startsWith("## ")) return { id, type: "h2" as BlockType, content: line.slice(3) };
-    if (line.startsWith("### ")) return { id, type: "h3" as BlockType, content: line.slice(4) };
-    if (line.startsWith("> ")) return { id, type: "pull-quote" as BlockType, content: line.slice(2) };
+    if (line.startsWith("## "))  return { id, type: "h2" as BlockType,        content: line.slice(3) };
+    if (line.startsWith("### ")) return { id, type: "h3" as BlockType,        content: line.slice(4) };
+    if (line.startsWith("> "))   return { id, type: "pull-quote" as BlockType, content: line.slice(2) };
     if (/^\[.+\]$/.test(line.trim())) return { id, type: "bible-verse" as BlockType, content: line.trim().slice(1, -1) };
-    if (line.startsWith("- ")) return { id, type: "bullet" as BlockType, content: line.slice(2) };
+    if (line.startsWith("- "))   return { id, type: "bullet" as BlockType,    content: line.slice(2) };
+    if (line.startsWith("1. "))  return { id, type: "numbered" as BlockType,  content: line.slice(3) };
+    if (line.trim() === "---")   return { id, type: "divider" as BlockType,   content: "" };
+    const imgMatch = line.match(/^!\[\]\((.+)\)$/);
+    if (imgMatch)                return { id, type: "image" as BlockType,     content: imgMatch[1] };
     return { id, type: "paragraph" as BlockType, content: line };
   });
 }

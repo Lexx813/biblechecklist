@@ -5,7 +5,6 @@ import ConfirmModal from "../../components/ConfirmModal";
 import NoteTemplatePicker from "../../components/NoteTemplatePicker";
 import CustomSelect from "../../components/CustomSelect";
 const RichTextEditor = lazy(() => import("../../components/RichTextEditor"));
-import { useAISkill } from "../../hooks/useAISkill";
 import { BOOKS } from "../../data/books";
 import "../../styles/ai-tools.css";
 import {
@@ -126,62 +125,6 @@ function TagInput({ tags, onChange }) {
   );
 }
 
-// ── AI Enhance Note widget ────────────────────────────────────────────────────
-
-function EnhanceNoteWidget({ noteContent, passage }) {
-  const { text, loading, error, run, reset } = useAISkill();
-  const [open, setOpen] = useState(false);
-  const ref = useRef(null);
-  useEffect(() => { if (ref.current && text) ref.current.scrollTop = ref.current.scrollHeight; }, [text]);
-
-  function handleEnhance() {
-    const note = noteContent?.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-    if (!note) return;
-    run("enhance_note", { note: note.slice(0, 1000), passage: passage || undefined });
-  }
-
-  return (
-    <div className="ait-inline">
-      <div className="ait-inline-header" onClick={() => setOpen(o => !o)} role="button" tabIndex={0} aria-expanded={open}>
-        <span className="ait-inline-title">✨ Enhance Note with AI</span>
-        <span className={`ait-inline-chevron${open ? " ait-inline-chevron--open" : ""}`}>▼</span>
-      </div>
-      {open && (
-        <div className="ait-inline-body">
-          <p style={{ fontSize: "0.85rem", color: "var(--text-muted,#888)", margin: "0 0 0.75rem" }}>
-            AI will enrich your note with scriptural context, original word meanings, and application questions.
-          </p>
-          <button
-            className="ait-submit-btn"
-            onClick={handleEnhance}
-            disabled={loading || !noteContent?.replace(/<[^>]+>/g, "").trim()}
-          >
-            {loading ? "Enhancing…" : "✦ Enhance My Note"}
-          </button>
-          {(loading || text || error) && (
-            <div className="ait-result" style={{ marginTop: "0.75rem" }}>
-              <div className="ait-result-header">
-                <span className="ait-result-label">AI Enhancement</span>
-                {!loading && (text || error) && <button className="ait-result-clear" onClick={reset}>Clear</button>}
-              </div>
-              <div className="ait-result-body" ref={ref}>
-                {loading && !text && (
-                  <div className="ait-loading">
-                    <span className="ait-dot" /><span className="ait-dot" /><span className="ait-dot" />
-                    <span className="ait-loading-label">Thinking…</span>
-                  </div>
-                )}
-                {error && <div className="ait-error">{error}</div>}
-                {text && <div className="ait-response-text">{text}{loading && <span className="ait-cursor" />}</div>}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
 // ── Note editor ───────────────────────────────────────────────────────────────
 
 function NoteEditor({ note, initialContent = "", folders, onSave, onCancel, saving, isAdmin }) {
@@ -287,14 +230,7 @@ function NoteEditor({ note, initialContent = "", folders, onSave, onCancel, savi
           </Suspense>
         </div>
 
-        {isAdmin && (
-          <EnhanceNoteWidget
-            noteContent={form.content}
-            passage={passageLabel(form) ?? undefined}
-          />
-        )}
-
-        <div className="sn-editor-footer">
+<div className="sn-editor-footer">
           <label className="sn-public-toggle">
             <input
               type="checkbox"

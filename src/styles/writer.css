@@ -38,8 +38,9 @@
 .writer-fmt-wrap { position: relative; display: flex; justify-content: center; }
 .writer-fmt-btn {
   width: 42px; height: 42px; border-radius: 10px; border: none;
-  background: transparent; cursor: pointer; font-size: 17px; font-weight: 700;
+  background: transparent; cursor: pointer; font-size: 15px; font-weight: 700;
   color: var(--text-muted); display: flex; align-items: center; justify-content: center;
+  line-height: 1;
 }
 .writer-fmt-btn:hover { background: var(--hover); color: var(--accent); }
 .writer-fmt-tip {
@@ -258,6 +259,36 @@
 }
 .be-row { display: flex; align-items: baseline; gap: 8px; }
 .be-bullet { flex-shrink: 0; color: var(--accent); font-size: 18px; }
+.be-numbered { font-size: 14px; font-weight: 600; min-width: 20px; }
+
+/* Divider block */
+.be-divider-block { padding: 12px 0; }
+.be-divider { border: none; border-top: 2px solid var(--border); margin: 0; }
+
+/* Image block */
+.be-image-block { padding: 4px 0; }
+.be-image-wrap { position: relative; display: inline-block; max-width: 100%; }
+.be-image { max-width: 100%; border-radius: 8px; display: block; }
+.be-image-remove {
+  position: absolute; top: 6px; right: 6px;
+  width: 24px; height: 24px; border-radius: 50%; border: none;
+  background: rgba(0,0,0,0.6); color: #fff; font-size: 16px; line-height: 1;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.be-image-placeholder {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 16px; border: 2px dashed var(--border); border-radius: 10px;
+  background: var(--hover); font-size: 13px; color: var(--text-muted);
+}
+.be-image-upload-btn {
+  padding: 6px 14px; border-radius: 8px; background: var(--accent);
+  color: #fff; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.be-image-or { opacity: 0.5; }
+.be-image-url {
+  flex: 1; min-width: 160px; padding: 6px 10px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 13px;
+}
 .be-slash-menu {
   position: absolute; top: 100%; left: 28px; background: var(--card-bg);
   border: 1px solid var(--border); border-radius: 12px; padding: 6px;

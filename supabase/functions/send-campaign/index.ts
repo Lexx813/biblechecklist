@@ -5,6 +5,13 @@ const supabase = createClient(
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
 );
 
+const supabaseAnon = (authHeader: string) =>
+  createClient(
+    Deno.env.get("SUPABASE_URL")!,
+    Deno.env.get("SUPABASE_ANON_KEY")!,
+    { global: { headers: { Authorization: authHeader } } },
+  );
+
 const RESEND_KEY = Deno.env.get("RESEND_API_KEY")!;
 const SITE       = "https://jwstudy.org";
 const FROM       = "JW Study <notifications@jwstudy.org>";
@@ -41,6 +48,26 @@ async function resolveSegment(
   config: Record<string, unknown>,
   campaignId: string,
 ): Promise<Array<{ id: string; email: string; name: string }>> {
+  // Individual recipients mode — skip all segment filters
+  const recipientIds = config.recipient_ids as string[] | undefined;
+  if (recipientIds?.length) {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("id, email, display_name")
+      .in("id", recipientIds)
+      .eq("email_marketing_unsubscribed", false)
+      .eq("is_banned", false);
+    if (error) throw error;
+    const { data: alreadySent } = await supabase
+      .from("campaign_sends")
+      .select("user_id")
+      .eq("campaign_id", campaignId);
+    const sentSet = new Set((alreadySent ?? []).map(r => r.user_id));
+    return (data ?? [])
+      .filter(u => !sentSet.has(u.id))
+      .map(u => ({ id: u.id, email: u.email, name: u.display_name ?? u.email.split("@")[0] }));
+  }
+
   let query = supabase
     .from("profiles")
     .select("id, email, display_name")
@@ -131,6 +158,20 @@ async function resolveSegment(
 
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
+
+  // Auth: require a valid admin session
+  const authHeader = req.headers.get("Authorization");
+  if (!authHeader) return new Response("Unauthorized", { status: 401 });
+
+  const { data: { user }, error: authErr } = await supabaseAnon(authHeader).auth.getUser();
+  if (authErr || !user) return new Response("Unauthorized", { status: 401 });
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("is_admin")
+    .eq("id", user.id)
+    .single();
+  if (!profile?.is_admin) return new Response("Forbidden", { status: 403 });
 
   const body = await req.json().catch(() => ({}));
   const { campaign_id } = body;

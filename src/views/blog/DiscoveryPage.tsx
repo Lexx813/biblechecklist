@@ -139,9 +139,14 @@ export default function DiscoveryPage({ navigate, user }: Props) {
               <div className="disc-sidebar-label">Share your thoughts</div>
               <button
                 className="btn btn-primary"
-                style={{ width: "100%", padding: "10px", fontSize: 14 }}
+                style={{ width: "100%", padding: "10px", fontSize: 14, marginBottom: 8 }}
                 onClick={() => navigate("blogNew")}
               >✍️ Write an article</button>
+              <button
+                className="btn btn-secondary"
+                style={{ width: "100%", padding: "9px", fontSize: 13 }}
+                onClick={() => navigate("myPosts")}
+              >📄 My Posts</button>
             </div>
           )}
           {(activeWriters as unknown as Writer[]).length > 0 && (

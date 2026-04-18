@@ -8,6 +8,20 @@ import { toast } from "../../lib/toast";
 import "../../styles/writer.css";
 
 const MAX_TAGS = 5;
+const DRAFT_KEY = "blog_writer_draft";
+
+function loadLocalDraft() {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    return raw ? JSON.parse(raw) as { title: string; subtitle: string; content: string; tags: string[] } : null;
+  } catch { return null; }
+}
+function saveLocalDraft(data: { title: string; subtitle: string; content: string; tags: string[] }) {
+  try { localStorage.setItem(DRAFT_KEY, JSON.stringify(data)); } catch { /* ignore */ }
+}
+function clearLocalDraft() {
+  try { localStorage.removeItem(DRAFT_KEY); } catch { /* ignore */ }
+}
 
 function computeReadTime(text: string): number {
   const words = text.trim().split(/\s+/).filter(Boolean).length;
@@ -35,16 +49,18 @@ interface Props {
 
 export default function WriterPage({ user, navigate, editPost, initialDraft, onDraftConsumed }: Props) {
   const { t } = useTranslation();
-  const [title, setTitle] = useState(editPost?.title ?? "");
-  const [subtitle, setSubtitle] = useState(editPost?.subtitle ?? "");
+  const isNew = !editPost;
+  const local = isNew ? loadLocalDraft() : null;
+  const [title, setTitle] = useState(editPost?.title ?? local?.title ?? "");
+  const [subtitle, setSubtitle] = useState(editPost?.subtitle ?? local?.subtitle ?? "");
   const [coverUrl, setCoverUrl] = useState<string | null>(editPost?.cover_url ?? null);
   const [coverUploading, setCoverUploading] = useState(false);
-  const [tags, setTags] = useState<string[]>(editPost?.tags ?? []);
+  const [tags, setTags] = useState<string[]>(editPost?.tags ?? local?.tags ?? []);
   const [tagInput, setTagInput] = useState("");
   const [showTagSugg, setShowTagSugg] = useState(false);
   const [mode, setMode] = useState<"block" | "md">("block");
-  const [blocks, setBlocks] = useState<Block[]>(() => markdownToBlocks(editPost?.content ?? ""));
-  const [markdown, setMarkdown] = useState(editPost?.content ?? "");
+  const [blocks, setBlocks] = useState<Block[]>(() => markdownToBlocks(editPost?.content ?? local?.content ?? ""));
+  const [markdown, setMarkdown] = useState(editPost?.content ?? local?.content ?? "");
   const [selectedSeries, setSelectedSeries] = useState<string>("");
   const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "unsaved">("saved");
   const [showPublishModal, setShowPublishModal] = useState(false);
@@ -52,15 +68,37 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
   const postIdRef = useRef<string | null>(editPost?.id ?? null);
   const postSlugRef = useRef<string | null>(editPost?.slug ?? null);
 
-  // Populate editor whenever a new AI draft arrives (handles already-mounted case)
+  // Internal copy so animation survives initialDraft prop going null
+  const [animatingDraft, setAnimatingDraft] = useState<{ title: string; content: string } | null>(null);
+
   useEffect(() => {
     if (!initialDraft) return;
     setTitle(initialDraft.title);
-    const newBlocks = markdownToBlocks(initialDraft.content);
-    setBlocks(newBlocks);
-    setMarkdown(initialDraft.content);
+    setMode("block");
+    setAnimatingDraft({ title: initialDraft.title, content: initialDraft.content });
     onDraftConsumed?.();
   }, [initialDraft]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!animatingDraft) return;
+    const content = animatingDraft.content;
+    const CHUNK = 12;
+    const DELAY = 16;
+    let i = 0;
+    const id = setInterval(() => {
+      i += CHUNK;
+      const partial = content.slice(0, i);
+      setBlocks(markdownToBlocks(partial));
+      setMarkdown(partial);
+      if (i >= content.length) {
+        setBlocks(markdownToBlocks(content));
+        setMarkdown(content);
+        clearInterval(id);
+        setAnimatingDraft(null);
+      }
+    }, DELAY);
+    return () => clearInterval(id);
+  }, [animatingDraft]);
 
   const createPost = useCreatePost(user.id);
   const updatePost = useUpdatePost(user.id);
@@ -69,6 +107,12 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
   const { data: tagSuggestions = [] } = useTagSuggestions();
 
   const currentMarkdown = mode === "block" ? blocksToMarkdown(blocks) : markdown;
+
+  // Auto-save draft to localStorage for new posts
+  useEffect(() => {
+    if (!isNew) return;
+    saveLocalDraft({ title, subtitle, content: currentMarkdown, tags });
+  }, [isNew, title, subtitle, currentMarkdown, tags]);
   const readTime = computeReadTime(title + " " + currentMarkdown);
   const wordCount = (title + " " + currentMarkdown).trim().split(/\s+/).filter(Boolean).length;
 
@@ -106,6 +150,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
         await blogApi.addToSeries(selectedSeries, postIdRef.current, 0);
       }
       setSaveStatus("saved");
+      if (isNew) clearLocalDraft();
       return true;
     } catch (err: unknown) {
       setSaveStatus("unsaved");
@@ -142,6 +187,15 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
       setCoverUploading(false);
     }
   };
+
+  const handleInlineImageUpload = useCallback(async (file: File): Promise<string> => {
+    try {
+      return await blogApi.uploadCover(user.id, file);
+    } catch (err: unknown) {
+      toast.error(err instanceof Error ? err.message : "Image upload failed");
+      throw err;
+    }
+  }, [user.id]);
 
   const addTag = (tag: string) => {
     const clean = tag.trim().toLowerCase();
@@ -212,8 +266,9 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
         {/* Left format bar */}
         <div className="writer-format-bar">
           {([
-            { icon: "¶", label: "Paragraph", action: () => insertBlock("paragraph") },
-            { icon: "H", label: "Heading",   action: () => insertBlock("h2") },
+            { icon: "¶",  label: "Paragraph",  action: () => insertBlock("paragraph") },
+            { icon: "H2", label: "Heading",    action: () => insertBlock("h2") },
+            { icon: "H3", label: "Subheading", action: () => insertBlock("h3") },
           ] as const).map(({ icon, label, action }) => (
             <div key={icon} className="writer-fmt-wrap">
               <button className="writer-fmt-btn" title={label} onClick={action}>{icon}</button>
@@ -222,9 +277,20 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
           ))}
           <div className="writer-fmt-sep" />
           {([
-            { icon: "📖", label: "Bible verse", action: () => insertBlock("bible-verse") },
-            { icon: "❝", label: "Block quote", action: () => insertBlock("pull-quote") },
-            { icon: "•", label: "Bullet list", action: () => insertBlock("bullet") },
+            { icon: "•",  label: "Bullet list",   action: () => insertBlock("bullet") },
+            { icon: "1.", label: "Numbered list",  action: () => insertBlock("numbered") },
+          ] as const).map(({ icon, label, action }) => (
+            <div key={icon} className="writer-fmt-wrap">
+              <button className="writer-fmt-btn" title={label} onClick={action}>{icon}</button>
+              <span className="writer-fmt-tip">{label}</span>
+            </div>
+          ))}
+          <div className="writer-fmt-sep" />
+          {([
+            { icon: "📖", label: "Bible verse",  action: () => insertBlock("bible-verse") },
+            { icon: "❝",  label: "Block quote",  action: () => insertBlock("pull-quote") },
+            { icon: "🖼", label: "Image",         action: () => insertBlock("image") },
+            { icon: "─",  label: "Divider",       action: () => insertBlock("divider") },
           ] as const).map(({ icon, label, action }) => (
             <div key={icon} className="writer-fmt-wrap">
               <button className="writer-fmt-btn" title={label} onClick={action}>{icon}</button>
@@ -288,7 +354,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
             </div>
 
             {mode === "block"
-              ? <BlockEditor blocks={blocks} onChange={setBlocks} />
+              ? <BlockEditor blocks={blocks} onChange={setBlocks} onImageUpload={handleInlineImageUpload} />
               : (
                 <textarea
                   className="writer-markdown"

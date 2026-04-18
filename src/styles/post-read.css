@@ -52,6 +52,14 @@
 /* ── Article (center column) ─────────────────────────────── */
 .pr-article { min-width: 0; }
 
+.pr-back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  background: none; border: none; cursor: pointer; padding: 0;
+  margin-bottom: 16px; text-decoration: none;
+}
+.pr-back-link:hover { color: var(--accent); }
+
 .pr-tag-pill {
   display: inline-block; background: var(--hover); color: var(--accent);
   font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
@@ -89,6 +97,7 @@
 }
 
 .pr-body { font-size: 18px; line-height: 1.9; color: var(--text); }
+.pr-body h1 { display: none; }
 .pr-body h2 {
   font-size: 24px; font-weight: 700; margin: 40px 0 14px;
   letter-spacing: -0.3px; scroll-margin-top: 80px;
@@ -176,7 +185,7 @@
 .pr-related-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 
 /* ── Comments (inside article column) ───────────────────── */
-.pr-comments-wrap { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); }
+.pr-comments-wrap { margin-top: 48px; padding-top: 32px; padding-bottom: 80px; border-top: 1px solid var(--border); }
 
 /* ── Verse tooltips ───────────────────────────────────────── */
 .pr-verse-ref {

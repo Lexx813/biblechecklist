@@ -26,18 +26,33 @@ const LEVELS = [
 ];
 
 export const ADVANCED_LEVELS = [
-  { level: 25, themeKey: "quiz.theme25", badge: "⚖️", badgeNameKey: "quiz.badgeName25" },
-  { level: 26, themeKey: "quiz.theme26", badge: "📜", badgeNameKey: "quiz.badgeName26" },
-  { level: 27, themeKey: "quiz.theme27", badge: "🏛️", badgeNameKey: "quiz.badgeName27" },
-  { level: 28, themeKey: "quiz.theme28", badge: "🌾", badgeNameKey: "quiz.badgeName28" },
-  { level: 29, themeKey: "quiz.theme29", badge: "✨", badgeNameKey: "quiz.badgeName29" },
-  { level: 30, themeKey: "quiz.theme30", badge: "🔭", badgeNameKey: "quiz.badgeName30" },
-  { level: 31, themeKey: "quiz.theme31", badge: "🏰", badgeNameKey: "quiz.badgeName31" },
-  { level: 32, themeKey: "quiz.theme32", badge: "⛪", badgeNameKey: "quiz.badgeName32" },
-  { level: 33, themeKey: "quiz.theme33", badge: "🗺️", badgeNameKey: "quiz.badgeName33" },
-  { level: 34, themeKey: "quiz.theme34", badge: "👩", badgeNameKey: "quiz.badgeName34" },
-  { level: 35, themeKey: "quiz.theme35", badge: "📐", badgeNameKey: "quiz.badgeName35" },
-  { level: 36, themeKey: "quiz.theme36", badge: "🔗", badgeNameKey: "quiz.badgeName36" },
+  { level: 13, themeKey: "quiz.theme25", badge: "⚖️", badgeNameKey: "quiz.badgeName25" },
+  { level: 14, themeKey: "quiz.theme26", badge: "📜", badgeNameKey: "quiz.badgeName26" },
+  { level: 15, themeKey: "quiz.theme27", badge: "🏛️", badgeNameKey: "quiz.badgeName27" },
+  { level: 16, themeKey: "quiz.theme28", badge: "🌾", badgeNameKey: "quiz.badgeName28" },
+  { level: 17, themeKey: "quiz.theme29", badge: "✨", badgeNameKey: "quiz.badgeName29" },
+  { level: 18, themeKey: "quiz.theme30", badge: "🔭", badgeNameKey: "quiz.badgeName30" },
+  { level: 19, themeKey: "quiz.theme31", badge: "🏰", badgeNameKey: "quiz.badgeName31" },
+  { level: 20, themeKey: "quiz.theme32", badge: "⛪", badgeNameKey: "quiz.badgeName32" },
+  { level: 21, themeKey: "quiz.theme33", badge: "🗺️", badgeNameKey: "quiz.badgeName33" },
+  { level: 22, themeKey: "quiz.theme34", badge: "👩", badgeNameKey: "quiz.badgeName34" },
+  { level: 23, themeKey: "quiz.theme35", badge: "📐", badgeNameKey: "quiz.badgeName35" },
+  { level: 24, themeKey: "quiz.theme36", badge: "🔗", badgeNameKey: "quiz.badgeName36" },
+];
+
+export const MASTER_LEVELS = [
+  { level: 25, themeKey: "quiz.theme13", badge: "🌿", badgeNameKey: "quiz.badgeName13" },
+  { level: 26, themeKey: "quiz.theme14", badge: "🏯", badgeNameKey: "quiz.badgeName14" },
+  { level: 27, themeKey: "quiz.theme15", badge: "🔢", badgeNameKey: "quiz.badgeName15" },
+  { level: 28, themeKey: "quiz.theme16", badge: "🕍", badgeNameKey: "quiz.badgeName16" },
+  { level: 29, themeKey: "quiz.theme17", badge: "📝", badgeNameKey: "quiz.badgeName17" },
+  { level: 30, themeKey: "quiz.theme18", badge: "🏺", badgeNameKey: "quiz.badgeName18" },
+  { level: 31, themeKey: "quiz.theme19", badge: "🦁", badgeNameKey: "quiz.badgeName19" },
+  { level: 32, themeKey: "quiz.theme20", badge: "🌌", badgeNameKey: "quiz.badgeName20" },
+  { level: 33, themeKey: "quiz.theme21", badge: "✉️", badgeNameKey: "quiz.badgeName21" },
+  { level: 34, themeKey: "quiz.theme22", badge: "🌳", badgeNameKey: "quiz.badgeName22" },
+  { level: 35, themeKey: "quiz.theme23", badge: "🕯️", badgeNameKey: "quiz.badgeName23" },
+  { level: 36, themeKey: "quiz.theme24", badge: "⭐", badgeNameKey: "quiz.badgeName24" },
 ];
 
 // ── QuizLevelCard ──────────────────────────────────────────────────────────────
@@ -187,9 +202,12 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
           </div>
         )}
 
-        <div style={{ textAlign: "center", marginTop: 16 }}>
+        <div style={{ textAlign: "center", marginTop: 16, display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
           <button className="quiz-btn quiz-btn--secondary" onClick={() => navigate("advancedQuiz")}>
             {t("quiz.goToAdvanced")}
+          </button>
+          <button className="quiz-btn quiz-btn--secondary" onClick={() => navigate("masterQuiz")}>
+            Master Levels →
           </button>
         </div>
       </div>

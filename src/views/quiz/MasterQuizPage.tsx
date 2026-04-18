@@ -4,10 +4,10 @@ import {
   useQuizProgress,
   useInitQuizProgress,
 } from "../../hooks/useQuiz";
-import { ADVANCED_LEVELS, QuizLevel } from "./QuizPage";
+import { MASTER_LEVELS, QuizLevel } from "./QuizPage";
 import "../../styles/quiz.css";
 
-// ── QuizLevelCard (reused layout from QuizPage) ──────────────────────────────
+// ── QuizLevelCard ────────────────────────────────────────────────────────────
 
 function QuizLevelCard({ levelData, progress, onClick }) {
   const { t } = useTranslation();
@@ -15,7 +15,7 @@ function QuizLevelCard({ levelData, progress, onClick }) {
   const theme = t(themeKey);
   const badgeName = t(badgeNameKey);
 
-  const isUnlocked = level === 13 || progress?.unlocked === true;
+  const isUnlocked = level === 25 || progress?.unlocked === true;
   const isCompleted = progress?.badge_earned === true;
   const bestScore = progress?.best_score ?? 0;
   const attempts = progress?.attempts ?? 0;
@@ -80,14 +80,14 @@ function QuizLevelCard({ levelData, progress, onClick }) {
   );
 }
 
-// ── Skeleton ──────────────────────────────────────────────────────────────────
+// ── Skeleton ─────────────────────────────────────────────────────────────────
 
 function QuizHubSkeleton() {
   return (
     <div className="quiz-hub">
       <div className="quiz-hub-header">
-        <div className="skeleton" style={{ height: 44, width: '60%', margin: '0 auto 12px' }} />
-        <div className="skeleton" style={{ height: 18, width: '40%', margin: '0 auto' }} />
+        <div className="skeleton" style={{ height: 44, width: "60%", margin: "0 auto 12px" }} />
+        <div className="skeleton" style={{ height: 18, width: "40%", margin: "0 auto" }} />
       </div>
       <div className="quiz-level-grid">
         {Array.from({ length: 12 }, (_, i) => (
@@ -98,44 +98,44 @@ function QuizHubSkeleton() {
   );
 }
 
-// ── AdvancedQuizPage (Hub) ────────────────────────────────────────────────────
+// ── MasterQuizPage (Hub) ──────────────────────────────────────────────────────
 
-export default function AdvancedQuizPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+export default function MasterQuizPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const { t } = useTranslation();
   const { data: progress = [], isLoading } = useQuizProgress(user.id);
-  const initAdvanced = useInitQuizProgress(user.id, 13);
+  const initMaster = useInitQuizProgress(user.id, 25);
   const [timedMode, setTimedMode] = useState(false);
 
-  // Ensure level 25 is unlocked on first visit
   useEffect(() => {
-    initAdvanced.mutate();
+    initMaster.mutate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const badgeCount = progress.filter(p => p.badge_earned && p.level >= 13 && p.level <= 24).length;
+  const badgeCount = progress.filter(p => p.badge_earned && p.level >= 25 && p.level <= 36).length;
   const progressMap = Object.fromEntries(progress.map((p) => [p.level, p]));
 
   return (
     <div className="quiz-hub">
       <div className="quiz-hub-header">
-        <h1 className="quiz-hub-title">{t("quiz.advancedHubTitle")}</h1>
-        <p className="quiz-hub-sub">{t("quiz.advancedHubSub")}</p>
+        <h1 className="quiz-hub-title">{t("quiz.masterHubTitle")}</h1>
+        <p className="quiz-hub-sub">{t("quiz.masterHubSub")}</p>
+        {badgeCount > 0 && (
+          <p className="quiz-hub-sub" style={{ marginTop: 4 }}>
+            {badgeCount}/12 badges earned
+          </p>
+        )}
         <button className="quiz-btn quiz-btn--secondary" style={{ marginTop: 8 }} onClick={() => navigate("quiz")}>
-          {t("quiz.backToBasic")}
+          ← Back to Basic Levels
         </button>
       </div>
 
       <div className="quiz-timed-toggle-row">
-        <span className="quiz-timed-toggle-label">
-          Timed Mode
-        </span>
+        <span className="quiz-timed-toggle-label">Timed Mode</span>
         <label className="quiz-timed-toggle">
           <input
             type="checkbox"
             checked={timedMode}
-            onChange={(e) => {
-              setTimedMode(e.target.checked);
-            }}
+            onChange={(e) => setTimedMode(e.target.checked)}
           />
           <span className="quiz-timed-toggle-track" />
           <span className="quiz-timed-toggle-thumb" />
@@ -146,27 +146,21 @@ export default function AdvancedQuizPage({ user, navigate, darkMode, setDarkMode
         <QuizHubSkeleton />
       ) : (
         <div className="quiz-level-grid">
-          {ADVANCED_LEVELS.map((levelData) => (
+          {MASTER_LEVELS.map((levelData) => (
             <QuizLevelCard
               key={levelData.level}
               levelData={levelData}
               progress={progressMap[levelData.level]}
-              onClick={() => navigate("advancedQuizLevel", { level: levelData.level, timedMode })}
+              onClick={() => navigate("masterQuizLevel", { level: levelData.level, timedMode })}
             />
           ))}
         </div>
       )}
-
-      <div style={{ textAlign: "center", marginTop: 24 }}>
-        <button className="quiz-btn quiz-btn--secondary" onClick={() => navigate("masterQuiz")}>
-          Master Levels →
-        </button>
-      </div>
     </div>
   );
 }
 
-// Wrapper that passes ADVANCED_LEVELS to the shared QuizLevel component
-export function AdvancedQuizLevel(props) {
-  return <QuizLevel {...props} levelsArray={ADVANCED_LEVELS} />;
+// Wrapper that passes MASTER_LEVELS to the shared QuizLevel component
+export function MasterQuizLevel(props) {
+  return <QuizLevel {...props} levelsArray={MASTER_LEVELS} />;
 }

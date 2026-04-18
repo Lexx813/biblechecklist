@@ -9,6 +9,7 @@ export interface SegmentConfig {
   min_chapters_read?: number;
   tags?: string[];
   exclude_tags?: string[];
+  recipient_ids?: string[];
 }
 
 export interface Campaign {
@@ -51,6 +52,9 @@ export interface UserTag {
 }
 
 export function buildSegmentSummary(config: SegmentConfig): string {
+  if (config.recipient_ids?.length) {
+    return `${config.recipient_ids.length} specific user${config.recipient_ids.length !== 1 ? "s" : ""}`;
+  }
   const parts: string[] = [];
   if (config.plan === "premium") parts.push("Premium users");
   else if (config.plan === "free") parts.push("Free users");
