@@ -1,4 +1,4 @@
-import { useState, useMemo, memo, useEffect, useCallback, lazy, Suspense } from "react";
+import { useState, useMemo, memo, useEffect, useCallback, lazy, Suspense, type ReactNode } from "react";
 const PostReadView = lazy(() => import("./PostReadView"));
 const DiscoveryPage = lazy(() => import("./DiscoveryPage"));
 import { marked } from "marked";
@@ -563,7 +563,7 @@ function PostReadViewLoader({ slug, user, navigate, onBack, renderFallback }: {
   user: { id: string } | null;
   navigate: (page: string, params?: Record<string, unknown>) => void;
   onBack: () => void;
-  renderFallback: () => JSX.Element;
+  renderFallback: () => ReactNode;
 }) {
   const { data: post, isLoading } = usePostBySlug(slug);
 
