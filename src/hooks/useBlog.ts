@@ -2,11 +2,11 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { blogApi, PostSeries } from "../api/blog";
 import { notificationsApi } from "../api/notifications";
 
-export function usePublishedPosts(lang: string | null = null) {
+export function usePublishedPosts(lang: string | null | undefined = null) {
   return useQuery({
-    queryKey: ["blog", "published", lang],
-    queryFn: () => blogApi.listPublished(lang),
-    enabled: lang !== null,
+    queryKey: ["blog", "published", lang ?? null],
+    queryFn: () => blogApi.listPublished(lang ?? null),
+    enabled: lang !== undefined,
     staleTime: 2 * 60 * 1000,
   });
 }

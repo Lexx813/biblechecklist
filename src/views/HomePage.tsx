@@ -291,8 +291,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const pendingRequests = incoming.data?.length ?? 0;
 
   // Deferred — below the fold, load after paint
-  const { data: langPosts = [], isLoading: langPostsLoading } = usePublishedPosts(deferred ? lang : null);
-  const { data: enPosts = [], isLoading: enPostsLoading } = usePublishedPosts(deferred && lang !== "en" ? "en" : null);
+  const { data: langPosts = [], isLoading: langPostsLoading } = usePublishedPosts(deferred ? lang : undefined);
+  const { data: enPosts = [], isLoading: enPostsLoading } = usePublishedPosts(deferred && lang !== "en" ? "en" : undefined);
   const posts = langPosts.length > 0 ? langPosts : enPosts;
   const postsLoading = langPostsLoading || (langPosts.length === 0 && enPostsLoading);
   const { data: recentVideos = [], isLoading: videosLoading } = usePublishedVideos();

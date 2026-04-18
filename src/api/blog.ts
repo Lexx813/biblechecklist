@@ -53,7 +53,7 @@ export const blogApi = {
   listPublished: async (lang: string | null = null): Promise<BlogPost[]> => {
     let q = supabase
       .from("blog_posts")
-      .select("id, title, slug, excerpt, cover_url, published, created_at, author_id, like_count, translations, lang, profiles!author_id(display_name, avatar_url)")
+      .select("id, title, slug, excerpt, cover_url, published, created_at, author_id, like_count, translations, lang, tags, read_time_minutes, profiles!author_id(display_name, avatar_url)")
       .eq("published", true)
       .order("created_at", { ascending: false });
     const { data, error } = await q;
