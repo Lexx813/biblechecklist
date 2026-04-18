@@ -3484,6 +3484,7 @@
     "callout_warning": "Warning",
     "callout_highlight": "Highlight",
     "videoUrlPlaceholder": "Paste YouTube or Vimeo URL…",
-    "removeVideo": "Remove video"
+    "removeVideo": "Remove video",
+    "deleteBlock": "Delete block"
   }
 }

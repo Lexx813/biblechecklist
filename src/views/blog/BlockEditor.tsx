@@ -201,6 +201,11 @@ export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) 
               onDragEnd={() => { dragId.current = null; setDragOverId(null); }}
             >
               <span className="be-handle-grip" title={t("blockEditor.dragToReorder")}>⠿</span>
+              <button
+                className="be-delete-btn"
+                title={t("blockEditor.deleteBlock")}
+                onMouseDown={e => { e.preventDefault(); removeBlock(block.id); }}
+              >×</button>
             </div>
 
             {block.type === "h2" && (

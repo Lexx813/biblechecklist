@@ -3497,6 +3497,7 @@
     "callout_warning": "Aviso",
     "callout_highlight": "Destacado",
     "videoUrlPlaceholder": "Pega URL de YouTube o Vimeo…",
-    "removeVideo": "Eliminar video"
+    "removeVideo": "Eliminar video",
+    "deleteBlock": "Eliminar bloque"
   }
 }
