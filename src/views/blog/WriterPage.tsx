@@ -28,9 +28,11 @@ interface Props {
   user: { id: string };
   navigate: (page: string, params?: Record<string, unknown>) => void;
   editPost?: EditPost | null;
+  initialDraft?: { title: string; content: string; excerpt: string } | null;
+  onDraftConsumed?: () => void;
 }
 
-export default function WriterPage({ user, navigate, editPost }: Props) {
+export default function WriterPage({ user, navigate, editPost, initialDraft, onDraftConsumed }: Props) {
   const { t } = useTranslation();
   const [title, setTitle] = useState(editPost?.title ?? "");
   const [subtitle, setSubtitle] = useState(editPost?.subtitle ?? "");
@@ -48,6 +50,16 @@ export default function WriterPage({ user, navigate, editPost }: Props) {
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const postIdRef = useRef<string | null>(editPost?.id ?? null);
   const postSlugRef = useRef<string | null>(editPost?.slug ?? null);
+
+  // Populate editor whenever a new AI draft arrives (handles already-mounted case)
+  useEffect(() => {
+    if (!initialDraft) return;
+    setTitle(initialDraft.title);
+    const newBlocks = markdownToBlocks(initialDraft.content);
+    setBlocks(newBlocks);
+    setMarkdown(initialDraft.content);
+    onDraftConsumed?.();
+  }, [initialDraft]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const createPost = useCreatePost(user.id);
   const updatePost = useUpdatePost(user.id);
@@ -158,6 +170,16 @@ export default function WriterPage({ user, navigate, editPost }: Props) {
     toast.success(t("blog.published", "Published!"));
   };
 
+  const insertBlock = useCallback((type: Block["type"]) => {
+    const id = Math.random().toString(36).slice(2);
+    setBlocks(prev => [...prev, { id, type, content: "" }]);
+    setTimeout(() => {
+      const el = document.querySelector<HTMLElement>(`[data-block-id="${id}"]`) ??
+        Array.from(document.querySelectorAll<HTMLElement>(".be-para, .be-h2, .be-h3, .be-verse-ref, .be-pullquote")).at(-1);
+      el?.focus();
+    }, 60);
+  }, []);
+
   return (
     <div className="writer-wrap">
       {/* Top bar */}
@@ -181,34 +203,22 @@ export default function WriterPage({ user, navigate, editPost }: Props) {
         {/* Left format bar */}
         <div className="writer-format-bar">
           {([
-            { icon: "¶", label: "Paragraph" },
-            { icon: "H", label: "Heading" },
-            { icon: "B", label: "Bold" },
-            { icon: "I", label: "Italic" },
-          ] as const).map(({ icon, label }) => (
+            { icon: "¶", label: "Paragraph", action: () => insertBlock("paragraph") },
+            { icon: "H", label: "Heading",   action: () => insertBlock("h2") },
+          ] as const).map(({ icon, label, action }) => (
             <div key={icon} className="writer-fmt-wrap">
-              <button className="writer-fmt-btn" title={label}>{icon}</button>
+              <button className="writer-fmt-btn" title={label} onClick={action}>{icon}</button>
               <span className="writer-fmt-tip">{label}</span>
             </div>
           ))}
           <div className="writer-fmt-sep" />
           {([
-            { icon: "📖", label: "Bible verse" },
-            { icon: "❝", label: "Block quote" },
-            { icon: "•", label: "Bullet list" },
-          ] as const).map(({ icon, label }) => (
+            { icon: "📖", label: "Bible verse", action: () => insertBlock("bible-verse") },
+            { icon: "❝", label: "Block quote", action: () => insertBlock("pull-quote") },
+            { icon: "•", label: "Bullet list", action: () => insertBlock("bullet") },
+          ] as const).map(({ icon, label, action }) => (
             <div key={icon} className="writer-fmt-wrap">
-              <button className="writer-fmt-btn" title={label}>{icon}</button>
-              <span className="writer-fmt-tip">{label}</span>
-            </div>
-          ))}
-          <div className="writer-fmt-sep" />
-          {([
-            { icon: "🖼", label: "Image" },
-            { icon: "🔗", label: "Link" },
-          ] as const).map(({ icon, label }) => (
-            <div key={icon} className="writer-fmt-wrap">
-              <button className="writer-fmt-btn" title={label}>{icon}</button>
+              <button className="writer-fmt-btn" title={label} onClick={action}>{icon}</button>
               <span className="writer-fmt-tip">{label}</span>
             </div>
           ))}
