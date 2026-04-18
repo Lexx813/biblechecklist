@@ -86,7 +86,7 @@ const schemaOrg = {
   description: "A spiritual growth companion for Jehovah's Witnesses — Bible reading tracker, meeting prep, study tools, and worldwide community.",
   email: "support@jwstudy.org",
   contactPoint: { "@type": "ContactPoint", email: "support@jwstudy.org", contactType: "customer service", availableLanguage: ["English", "Spanish", "Portuguese", "French", "Tagalog", "Chinese", "Japanese"] },
-  sameAs: ["https://nwtprogress.com"],
+  sameAs: [],
 };
 
 const schemaWebSite = {
