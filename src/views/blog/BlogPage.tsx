@@ -582,7 +582,21 @@ function PostReadViewLoader({ slug, user, navigate, onBack, renderFallback }: {
 
   if (!post) return renderFallback();
 
-  return <PostReadView post={post as any} user={user} navigate={navigate} />;
+  return (
+    <>
+      <PostReadView post={post as any} user={user} navigate={navigate} />
+      <div className="blog-post-body" style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px 48px" }}>
+        <PostComments
+          postId={post.id}
+          postAuthorId={post.author_id}
+          postSlug={post.slug}
+          user={user}
+          profile={null}
+          navigate={navigate}
+        />
+      </div>
+    </>
+  );
 }
 
 // ── Main Blog Page ────────────────────────────────────────────────────────────
