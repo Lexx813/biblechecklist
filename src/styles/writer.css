@@ -203,6 +203,7 @@
   border-left: 4px solid var(--accent); background: var(--hover);
   padding: 12px 16px; border-radius: 0 10px 10px 0; margin: 12px 0;
 }
+.be-verse-block .be-verse-ref { color: var(--text); }
 .be-verse-label {
   font-size: 10px; font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 4px;
