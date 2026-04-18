@@ -421,7 +421,6 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
           <div className="mp-header-card-row">
             <div className="mp-header-card-left">
               <h1 className="mp-title">{t("meetingPrep.pageTitle")}</h1>
-              <span className="mp-premium-badge">{t("meetingPrep.premiumLabel")}</span>
             </div>
             {streak > 0 && (
               <div className="mp-streak-badge">
