@@ -312,6 +312,102 @@
 }
 .be-add-btn:hover { color: var(--accent); border-color: var(--accent); }
 
+/* ── Video block ─────────────────────────────────────────── */
+.be-video-block { padding: 4px 0; }
+.be-video-wrap { position: relative; padding-top: 56.25%; border-radius: 10px; overflow: hidden; }
+.be-video-iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; border-radius: 10px; }
+.be-video-placeholder {
+  display: flex; align-items: center; gap: 10px;
+  padding: 16px; border: 2px dashed var(--border); border-radius: 10px;
+  background: var(--hover);
+}
+.be-video-icon { font-size: 20px; flex-shrink: 0; opacity: 0.5; }
+.be-video-url {
+  flex: 1; padding: 8px 12px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--bg);
+  color: var(--text); font-size: 13px;
+}
+
+/* ── Callout block ───────────────────────────────────────── */
+.be-callout {
+  border-left: 4px solid; border-radius: 0 10px 10px 0;
+  padding: 10px 14px 10px 14px; margin: 2px 0;
+}
+.be-callout--info      { border-color: #60a5fa; background: rgba(96,165,250,0.08); }
+.be-callout--tip       { border-color: #34d399; background: rgba(52,211,153,0.08); }
+.be-callout--warning   { border-color: #fbbf24; background: rgba(251,191,36,0.08); }
+.be-callout--highlight { border-color: var(--accent); background: rgba(139,92,246,0.08); }
+.be-callout-header { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.be-callout-pill {
+  font-size: 11px; padding: 2px 8px; border-radius: 20px;
+  border: 1px solid var(--border); background: var(--hover);
+  color: var(--text-muted); cursor: pointer; white-space: nowrap;
+}
+.be-callout-pill--active {
+  background: var(--accent); border-color: var(--accent);
+  color: #fff; font-weight: 600;
+}
+.be-callout-text { width: 100%; font-size: 14px; color: var(--text); outline: none; min-height: 24px; }
+
+/* ── New sidebar panels ──────────────────────────────────── */
+.writer-wordgoal { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.writer-wordgoal-input {
+  width: 72px; padding: 5px 8px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--hover);
+  color: var(--text); font-size: 13px; text-align: center;
+}
+.writer-wordgoal-of { font-size: 12px; color: var(--text-muted); }
+.writer-progress-bar {
+  height: 6px; border-radius: 3px; background: var(--border); overflow: hidden; margin-bottom: 4px;
+}
+.writer-progress-fill {
+  height: 100%; border-radius: 3px; background: var(--accent);
+  transition: width 0.3s ease; min-width: 2px;
+}
+.writer-progress-fill--done { background: #34d399; }
+
+.writer-excerpt-input {
+  width: 100%; padding: 8px 10px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--hover);
+  color: var(--text); font-size: 13px; resize: vertical; line-height: 1.5;
+}
+.writer-excerpt-input::placeholder { color: var(--text-muted); }
+
+.writer-slug-wrap { display: flex; align-items: center; }
+.writer-slug-prefix { font-size: 12px; color: var(--text-muted); white-space: nowrap; padding-right: 2px; }
+.writer-slug-input {
+  flex: 1; padding: 5px 8px; border-radius: 0 8px 8px 0;
+  border: 1px solid var(--border); border-left: none;
+  background: var(--hover); color: var(--text); font-size: 12px; font-family: monospace;
+}
+
+.writer-featured-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; padding: 10px 0; border-top: 1px solid var(--border);
+}
+.writer-featured-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.writer-toggle {
+  width: 36px; height: 20px; border-radius: 10px; border: none;
+  background: var(--border); cursor: pointer; position: relative;
+  flex-shrink: 0; transition: background 0.2s;
+}
+.writer-toggle--on { background: var(--accent); }
+.writer-toggle-knob {
+  position: absolute; top: 2px; left: 2px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: #fff; transition: transform 0.2s;
+}
+.writer-toggle--on .writer-toggle-knob { transform: translateX(16px); }
+
+.writer-toc { display: flex; flex-direction: column; gap: 2px; }
+.writer-toc-item {
+  text-align: left; background: none; border: none; cursor: pointer;
+  font-size: 12px; color: var(--text-muted); padding: 3px 6px;
+  border-radius: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.writer-toc-item:hover { background: var(--hover); color: var(--accent); }
+.writer-toc-item--sub { padding-left: 18px; font-size: 11px; }
+
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 900px) {
   .writer-sidebar { display: none; }

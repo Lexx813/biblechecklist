@@ -37,6 +37,8 @@ interface EditPost {
   tags?: string[];
   published: boolean;
   slug: string;
+  excerpt?: string | null;
+  is_featured?: boolean;
 }
 
 interface Props {
@@ -62,6 +64,12 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
   const [blocks, setBlocks] = useState<Block[]>(() => markdownToBlocks(editPost?.content ?? local?.content ?? ""));
   const [markdown, setMarkdown] = useState(editPost?.content ?? local?.content ?? "");
   const [selectedSeries, setSelectedSeries] = useState<string>("");
+  const [excerpt, setExcerpt] = useState(editPost?.excerpt ?? "");
+  const [customSlug, setCustomSlug] = useState(editPost?.slug ?? "");
+  const [isFeatured, setIsFeatured] = useState(editPost?.is_featured ?? false);
+  const [wordGoal, setWordGoal] = useState<number>(() => {
+    try { return parseInt(localStorage.getItem("nwt-writer-wordgoal") ?? "0") || 0; } catch { return 0; }
+  });
   const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "unsaved">("saved");
   const [showPublishModal, setShowPublishModal] = useState(false);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -126,16 +134,18 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
     if (!title.trim()) return false;
     setSaveStatus("saving");
     const plainText = currentMarkdown.replace(/[#>*\-\[\]]/g, "").replace(/\s+/g, " ").trim();
-    const excerpt = plainText.slice(0, 200) || title.trim();
+    const autoExcerpt = plainText.slice(0, 200) || title.trim();
     const payload = {
       title: title.trim(),
       subtitle: subtitle.trim() || null,
       content: currentMarkdown,
-      excerpt,
+      excerpt: excerpt.trim() || autoExcerpt,
       cover_url: coverUrl,
       tags,
       published: publish,
       read_time_minutes: readTime,
+      is_featured: isFeatured,
+      ...(postIdRef.current && customSlug.trim() ? { slug: customSlug.trim() } : {}),
     };
     try {
       if (postIdRef.current) {
@@ -157,7 +167,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
       toast.error(err instanceof Error ? err.message : "Save failed");
       return false;
     }
-  }, [title, subtitle, currentMarkdown, coverUrl, tags, readTime, selectedSeries, createPost, updatePost]);
+  }, [title, subtitle, currentMarkdown, coverUrl, tags, readTime, selectedSeries, createPost, updatePost, excerpt, customSlug, isFeatured]);
 
   // Auto-save debounce — only fires when title is non-empty
   useEffect(() => {
@@ -233,9 +243,13 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
     toast.success(t("blog.published", "Published!"));
   };
 
+  // Table of contents from headings
+  const toc = blocks.filter(b => b.type === "h2" || b.type === "h3").map(b => ({ id: b.id, type: b.type, content: b.content }));
+
   const insertBlock = useCallback((type: Block["type"]) => {
     const id = Math.random().toString(36).slice(2);
-    setBlocks(prev => [...prev, { id, type, content: "" }]);
+    const meta = type === "callout" ? "info" : undefined;
+    setBlocks(prev => [...prev, { id, type, content: "", meta }]);
     setTimeout(() => {
       const el = document.querySelector<HTMLElement>(`[data-block-id="${id}"]`) ??
         Array.from(document.querySelectorAll<HTMLElement>(".be-para, .be-h2, .be-h3, .be-verse-ref, .be-pullquote")).at(-1);
@@ -289,6 +303,8 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
           {([
             { icon: "📖", key: "fmtBibleVerse",  action: () => insertBlock("bible-verse") },
             { icon: "❝",  key: "fmtBlockQuote",  action: () => insertBlock("pull-quote") },
+            { icon: "💡", key: "fmtCallout",     action: () => insertBlock("callout") },
+            { icon: "▶",  key: "fmtVideo",       action: () => insertBlock("video") },
             { icon: "🖼", key: "fmtImage",        action: () => insertBlock("image") },
             { icon: "─",  key: "fmtDivider",      action: () => insertBlock("divider") },
           ] as const).map(({ icon, key, action }) => (
@@ -448,6 +464,99 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
               ))}
             </div>
           </div>
+
+          {/* Word goal */}
+          <div>
+            <div className="writer-sidebar-label">{t("writer.wordGoal")}</div>
+            <div className="writer-wordgoal">
+              <input
+                className="writer-wordgoal-input"
+                type="number"
+                min={0}
+                placeholder="0"
+                value={wordGoal || ""}
+                onChange={e => {
+                  const v = parseInt(e.target.value) || 0;
+                  setWordGoal(v);
+                  try { localStorage.setItem("nwt-writer-wordgoal", String(v)); } catch { /* ignore */ }
+                }}
+              />
+              <span className="writer-wordgoal-of">{t("writer.wordGoalOf", { count: wordCount })}</span>
+            </div>
+            {wordGoal > 0 && (
+              <div className="writer-progress-bar">
+                <div
+                  className={`writer-progress-fill${wordCount >= wordGoal ? " writer-progress-fill--done" : ""}`}
+                  style={{ width: `${Math.min(100, Math.round((wordCount / wordGoal) * 100))}%` }}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Excerpt */}
+          <div>
+            <div className="writer-sidebar-label">{t("writer.excerptLabel")}</div>
+            <textarea
+              className="writer-excerpt-input"
+              rows={3}
+              placeholder={t("writer.excerptPlaceholder")}
+              value={excerpt}
+              onChange={e => setExcerpt(e.target.value)}
+            />
+          </div>
+
+          {/* Slug (only for existing posts) */}
+          {postIdRef.current && (
+            <div>
+              <div className="writer-sidebar-label">{t("writer.slugLabel")}</div>
+              <div className="writer-slug-wrap">
+                <span className="writer-slug-prefix">/blog/</span>
+                <input
+                  className="writer-slug-input"
+                  value={customSlug}
+                  onChange={e => setCustomSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-"))}
+                  spellCheck={false}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Featured toggle */}
+          <div className="writer-featured-row">
+            <div>
+              <div className="writer-sidebar-label" style={{ marginBottom: 2 }}>{t("writer.featured")}</div>
+              <div className="writer-featured-sub">{t("writer.featuredSub")}</div>
+            </div>
+            <button
+              className={`writer-toggle${isFeatured ? " writer-toggle--on" : ""}`}
+              onClick={() => setIsFeatured(v => !v)}
+              aria-label={t("writer.featured")}
+            >
+              <span className="writer-toggle-knob" />
+            </button>
+          </div>
+
+          {/* Table of contents */}
+          {toc.length > 0 && (
+            <div>
+              <div className="writer-sidebar-label">{t("writer.toc")}</div>
+              <div className="writer-toc">
+                {toc.map(h => (
+                  <button
+                    key={h.id}
+                    className={`writer-toc-item${h.type === "h3" ? " writer-toc-item--sub" : ""}`}
+                    onClick={() => {
+                      const el = Array.from(document.querySelectorAll<HTMLElement>(".be-h2, .be-h3"))
+                        .find(node => node.innerText === h.content);
+                      el?.scrollIntoView({ behavior: "smooth", block: "center" });
+                    }}
+                  >
+                    {h.content || <em style={{ opacity: 0.4 }}>{t("writer.tocEmpty")}</em>}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

@@ -1827,7 +1827,18 @@
     "fmtBibleVerse": "Bible verse",
     "fmtBlockQuote": "Block quote",
     "fmtImage": "Image",
-    "fmtDivider": "Divider"
+    "fmtDivider": "Divider",
+    "wordGoal": "Word Goal",
+    "wordGoalOf": "/ {{count}} words",
+    "excerptLabel": "Excerpt",
+    "excerptPlaceholder": "Write a short summary shown on the blog listing…",
+    "slugLabel": "URL Slug",
+    "featured": "Featured Post",
+    "featuredSub": "Highlight this post on the homepage",
+    "toc": "Table of Contents",
+    "tocEmpty": "(untitled)",
+    "fmtCallout": "Callout",
+    "fmtVideo": "Video"
   },
   "blockEditor": {
     "bibleVerseLabel": "Bible Verse",
@@ -1859,6 +1870,17 @@
     "uploadImage": "⬆ Upload image",
     "or": "or",
     "pasteImageUrl": "Paste image URL…",
-    "addBlock": "+ Add block"
+    "addBlock": "+ Add block",
+    "calloutLabel": "Callout",
+    "calloutDesc": "Highlighted note box",
+    "videoLabel": "Video",
+    "videoDesc": "Embed YouTube or Vimeo",
+    "calloutPlaceholder": "Write your note here…",
+    "callout_info": "Info",
+    "callout_tip": "Tip",
+    "callout_warning": "Warning",
+    "callout_highlight": "Highlight",
+    "videoUrlPlaceholder": "Paste YouTube or Vimeo URL…",
+    "removeVideo": "Remove video"
   }
 }

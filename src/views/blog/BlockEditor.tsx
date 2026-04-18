@@ -1,27 +1,49 @@
 import { useState, useRef, useCallback, useEffect, KeyboardEvent } from "react";
 import { useTranslation } from "react-i18next";
 
-export type BlockType = "paragraph" | "h2" | "h3" | "pull-quote" | "bible-verse" | "bullet" | "numbered" | "divider" | "image";
+export type BlockType =
+  | "paragraph" | "h2" | "h3" | "pull-quote" | "bible-verse"
+  | "bullet" | "numbered" | "divider" | "image" | "video" | "callout";
+
+export type CalloutVariant = "info" | "tip" | "warning" | "highlight";
 
 export interface Block {
   id: string;
   type: BlockType;
   content: string;
+  meta?: string; // callout variant; future: text alignment, caption, etc.
 }
 
 function uid() {
   return Math.random().toString(36).slice(2);
 }
 
+function getVideoEmbed(url: string): string | null {
+  const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s?]+)/);
+  if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
+  const vimeo = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeo) return `https://player.vimeo.com/video/${vimeo[1]}`;
+  return null;
+}
+
+const CALLOUT_VARIANTS: Array<{ key: CalloutVariant; icon: string }> = [
+  { key: "info",      icon: "ℹ️" },
+  { key: "tip",       icon: "💡" },
+  { key: "warning",   icon: "⚠️" },
+  { key: "highlight", icon: "✨" },
+];
+
 const SLASH_TYPES: Array<{ type: BlockType; icon: string; labelKey: string; descKey: string }> = [
   { type: "bible-verse", icon: "📖", labelKey: "bibleVerseLabel",  descKey: "bibleVerseDesc" },
   { type: "pull-quote",  icon: "❝",  labelKey: "pullQuoteLabel",   descKey: "pullQuoteDesc" },
+  { type: "callout",     icon: "💡", labelKey: "calloutLabel",     descKey: "calloutDesc" },
   { type: "h2",          icon: "H2", labelKey: "headingLabel",     descKey: "headingDesc" },
   { type: "h3",          icon: "H3", labelKey: "subheadingLabel",  descKey: "subheadingDesc" },
   { type: "bullet",      icon: "•",  labelKey: "bulletLabel",      descKey: "bulletDesc" },
   { type: "numbered",    icon: "1.", labelKey: "numberedLabel",    descKey: "numberedDesc" },
-  { type: "divider",     icon: "─",  labelKey: "dividerLabel",     descKey: "dividerDesc" },
+  { type: "video",       icon: "▶",  labelKey: "videoLabel",       descKey: "videoDesc" },
   { type: "image",       icon: "🖼", labelKey: "imageLabel",       descKey: "imageDesc" },
+  { type: "divider",     icon: "─",  labelKey: "dividerLabel",     descKey: "dividerDesc" },
 ];
 
 function CE({
@@ -70,7 +92,12 @@ interface Props {
 
 export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) {
   const { t } = useTranslation();
-  const SLASH_OPTIONS = SLASH_TYPES.map(o => ({ ...o, label: t(`blockEditor.${o.labelKey}`), desc: t(`blockEditor.${o.descKey}`) }));
+  const SLASH_OPTIONS = SLASH_TYPES.map(o => ({
+    ...o,
+    label: t(`blockEditor.${o.labelKey}`),
+    desc:  t(`blockEditor.${o.descKey}`),
+  }));
+
   const [slashMenu, setSlashMenu] = useState<{ blockId: string } | null>(null);
   const [slashIdx, setSlashIdx] = useState(0);
   const [uploading, setUploading] = useState<Record<string, boolean>>({});
@@ -80,24 +107,25 @@ export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) 
 
   const updateBlock = useCallback((id: string, content: string) => {
     onChange(blocks.map(b => b.id === id ? { ...b, content } : b));
-    if (content === "/" && !slashMenu) {
-      setSlashMenu({ blockId: id });
-      setSlashIdx(0);
-    }
-    if (!content.startsWith("/") && slashMenu?.blockId === id) {
-      setSlashMenu(null);
-    }
+    if (content === "/" && !slashMenu) { setSlashMenu({ blockId: id }); setSlashIdx(0); }
+    if (!content.startsWith("/") && slashMenu?.blockId === id) setSlashMenu(null);
   }, [blocks, onChange, slashMenu]);
 
+  const updateBlockMeta = useCallback((id: string, meta: string) => {
+    onChange(blocks.map(b => b.id === id ? { ...b, meta } : b));
+  }, [blocks, onChange]);
+
   const convertBlock = useCallback((id: string, type: BlockType) => {
-    onChange(blocks.map(b => b.id === id ? { ...b, type, content: b.content === "/" ? "" : b.content } : b));
+    const meta = type === "callout" ? "info" : undefined;
+    onChange(blocks.map(b => b.id === id ? { ...b, type, meta, content: b.content === "/" ? "" : b.content } : b));
     setSlashMenu(null);
     setTimeout(() => refs.current[id]?.focus(), 0);
   }, [blocks, onChange]);
 
   const addBlockAfter = useCallback((id: string, type: BlockType = "paragraph") => {
     const idx = blocks.findIndex(b => b.id === id);
-    const newBlock: Block = { id: uid(), type, content: "" };
+    const meta = type === "callout" ? "info" : undefined;
+    const newBlock: Block = { id: uid(), type, content: "", meta };
     const next = [...blocks];
     next.splice(idx + 1, 0, newBlock);
     onChange(next);
@@ -119,21 +147,15 @@ export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) 
       if (e.key === "Enter")     { e.preventDefault(); convertBlock(block.id, SLASH_OPTIONS[slashIdx].type); return; }
       if (e.key === "Escape")    { setSlashMenu(null); return; }
     }
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      addBlockAfter(block.id);
-    }
-    if (e.key === "Backspace" && !block.content) {
-      e.preventDefault();
-      removeBlock(block.id);
-    }
-  }, [slashMenu, slashIdx, convertBlock, addBlockAfter, removeBlock]);
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); addBlockAfter(block.id); }
+    if (e.key === "Backspace" && !block.content) { e.preventDefault(); removeBlock(block.id); }
+  }, [slashMenu, slashIdx, convertBlock, addBlockAfter, removeBlock, SLASH_OPTIONS]);
 
   const handleDrop = useCallback((targetId: string) => {
     const fromId = dragId.current;
     if (!fromId || fromId === targetId) { setDragOverId(null); return; }
     const from = blocks.findIndex(b => b.id === fromId);
-    const to = blocks.findIndex(b => b.id === targetId);
+    const to   = blocks.findIndex(b => b.id === targetId);
     if (from < 0 || to < 0) { setDragOverId(null); return; }
     const next = [...blocks];
     const [moved] = next.splice(from, 1);
@@ -208,8 +230,66 @@ export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) 
               </div>
             )}
             {block.type === "divider" && (
-              <div className="be-divider-block">
-                <hr className="be-divider" />
+              <div className="be-divider-block"><hr className="be-divider" /></div>
+            )}
+            {block.type === "callout" && (
+              <div className={`be-callout be-callout--${block.meta ?? "info"}`}>
+                <div className="be-callout-header">
+                  {CALLOUT_VARIANTS.map(v => (
+                    <button
+                      key={v.key}
+                      className={`be-callout-pill${(block.meta ?? "info") === v.key ? " be-callout-pill--active" : ""}`}
+                      onMouseDown={e => { e.preventDefault(); updateBlockMeta(block.id, v.key); }}
+                    >
+                      {v.icon} {t(`blockEditor.callout_${v.key}`)}
+                    </button>
+                  ))}
+                </div>
+                <CE
+                  {...ceProps}
+                  className="be-callout-text"
+                  placeholder={t("blockEditor.calloutPlaceholder")}
+                />
+              </div>
+            )}
+            {block.type === "video" && (
+              <div className="be-video-block">
+                {block.content && getVideoEmbed(block.content) ? (
+                  <div className="be-video-wrap">
+                    <iframe
+                      src={getVideoEmbed(block.content)!}
+                      className="be-video-iframe"
+                      allowFullScreen
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      title="video"
+                    />
+                    <button
+                      className="be-image-remove"
+                      onClick={() => onChange(blocks.map(b => b.id === block.id ? { ...b, content: "" } : b))}
+                      title={t("blockEditor.removeVideo")}
+                    >×</button>
+                  </div>
+                ) : (
+                  <div className="be-video-placeholder">
+                    <span className="be-video-icon">▶</span>
+                    <input
+                      className="be-video-url"
+                      placeholder={t("blockEditor.videoUrlPlaceholder")}
+                      defaultValue={block.content}
+                      onBlur={e => {
+                        const url = e.target.value.trim();
+                        if (url) onChange(blocks.map(b => b.id === block.id ? { ...b, content: url } : b));
+                      }}
+                      onKeyDown={e => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          const url = (e.target as HTMLInputElement).value.trim();
+                          if (url) onChange(blocks.map(b => b.id === block.id ? { ...b, content: url } : b));
+                        }
+                      }}
+                    />
+                  </div>
+                )}
               </div>
             )}
             {block.type === "image" && (
@@ -292,23 +372,38 @@ export function blocksToMarkdown(blocks: Block[]): string {
     if (b.type === "numbered")   return `1. ${b.content}`;
     if (b.type === "divider")    return `---`;
     if (b.type === "image")      return `![](${b.content})`;
+    if (b.type === "video")      return `[video](${b.content})`;
+    if (b.type === "callout")    return `:::${b.meta ?? "info"}\n${b.content}\n:::`;
     return b.content;
   }).join("\n\n");
 }
 
 export function markdownToBlocks(md: string): Block[] {
   if (!md.trim()) return [{ id: uid(), type: "paragraph", content: "" }];
-  return md.split(/\n\n+/).map(line => {
+  // Pre-process: collapse callout fences into single tokens
+  const collapsed = md.replace(/:::(info|tip|warning|highlight)\n([\s\S]*?)\n:::/g, (_m, variant, text) =>
+    `\x00callout:${variant}:${text.replace(/\n/g, "\x01")}`
+  );
+  return collapsed.split(/\n\n+/).map(line => {
     const id = uid();
-    if (line.startsWith("## "))  return { id, type: "h2" as BlockType,        content: line.slice(3) };
-    if (line.startsWith("### ")) return { id, type: "h3" as BlockType,        content: line.slice(4) };
-    if (line.startsWith("> "))   return { id, type: "pull-quote" as BlockType, content: line.slice(2) };
+    if (line.startsWith("\x00callout:")) {
+      const rest = line.slice(9);
+      const colon = rest.indexOf(":");
+      const variant = rest.slice(0, colon);
+      const content = rest.slice(colon + 1).replace(/\x01/g, "\n");
+      return { id, type: "callout" as BlockType, content, meta: variant };
+    }
+    if (line.startsWith("## "))  return { id, type: "h2" as BlockType,         content: line.slice(3) };
+    if (line.startsWith("### ")) return { id, type: "h3" as BlockType,         content: line.slice(4) };
+    if (line.startsWith("> "))   return { id, type: "pull-quote" as BlockType,  content: line.slice(2) };
     if (/^\[.+\]$/.test(line.trim())) return { id, type: "bible-verse" as BlockType, content: line.trim().slice(1, -1) };
-    if (line.startsWith("- "))   return { id, type: "bullet" as BlockType,    content: line.slice(2) };
-    if (line.startsWith("1. "))  return { id, type: "numbered" as BlockType,  content: line.slice(3) };
-    if (line.trim() === "---")   return { id, type: "divider" as BlockType,   content: "" };
+    if (line.startsWith("- "))   return { id, type: "bullet" as BlockType,     content: line.slice(2) };
+    if (line.startsWith("1. "))  return { id, type: "numbered" as BlockType,   content: line.slice(3) };
+    if (line.trim() === "---")   return { id, type: "divider" as BlockType,    content: "" };
     const imgMatch = line.match(/^!\[\]\((.+)\)$/);
-    if (imgMatch)                return { id, type: "image" as BlockType,     content: imgMatch[1] };
+    if (imgMatch)                return { id, type: "image" as BlockType,      content: imgMatch[1] };
+    const vidMatch = line.match(/^\[video\]\((.+)\)$/);
+    if (vidMatch)                return { id, type: "video" as BlockType,      content: vidMatch[1] };
     return { id, type: "paragraph" as BlockType, content: line };
   });
 }

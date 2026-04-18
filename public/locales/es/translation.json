@@ -3443,7 +3443,18 @@
     "fmtBibleVerse": "Versículo bíblico",
     "fmtBlockQuote": "Cita en bloque",
     "fmtImage": "Imagen",
-    "fmtDivider": "Divisor"
+    "fmtDivider": "Divisor",
+    "wordGoal": "Meta de palabras",
+    "wordGoalOf": "/ {{count}} palabras",
+    "excerptLabel": "Extracto",
+    "excerptPlaceholder": "Escribe un breve resumen para el listado del blog…",
+    "slugLabel": "URL personalizada",
+    "featured": "Publicación destacada",
+    "featuredSub": "Resaltar esta publicación en la portada",
+    "toc": "Índice",
+    "tocEmpty": "(sin título)",
+    "fmtCallout": "Nota",
+    "fmtVideo": "Video"
   },
   "blockEditor": {
     "bibleVerseLabel": "Versículo bíblico",
@@ -3475,6 +3486,17 @@
     "uploadImage": "⬆ Subir imagen",
     "or": "o",
     "pasteImageUrl": "Pegar URL de imagen…",
-    "addBlock": "+ Añadir bloque"
+    "addBlock": "+ Añadir bloque",
+    "calloutLabel": "Nota destacada",
+    "calloutDesc": "Caja de nota con color",
+    "videoLabel": "Video",
+    "videoDesc": "Insertar YouTube o Vimeo",
+    "calloutPlaceholder": "Escribe tu nota aquí…",
+    "callout_info": "Info",
+    "callout_tip": "Consejo",
+    "callout_warning": "Aviso",
+    "callout_highlight": "Destacado",
+    "videoUrlPlaceholder": "Pega URL de YouTube o Vimeo…",
+    "removeVideo": "Eliminar video"
   }
 }
