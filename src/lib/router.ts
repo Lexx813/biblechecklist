@@ -39,6 +39,8 @@ export type NavState =
   | { page: "videosDash" }
   | { page: "creatorRequest" }
   | { page: "trivia" }
+  | { page: "blogNew" }
+  | { page: "blogEdit"; slug: string }
   | { page: "notFound" };
 
 export function parsePath(): NavState {
@@ -50,6 +52,10 @@ export function parsePath(): NavState {
   if (h === "settings") return { page: "settings" };
   if (h === "blog-dash") return { page: "blogDash" };
   if (h === "blog") return { page: "blog", slug: null };
+  if (h === "blog/new") return { page: "blogNew" };
+  if (h.startsWith("blog/") && h.endsWith("/edit")) {
+    return { page: "blogEdit", slug: decodeURIComponent(h.slice(5, -5)) };
+  }
   if (h.startsWith("blog/")) return { page: "blog", slug: decodeURIComponent(h.slice(5)) };
   if (h === "forum") return { page: "forum", categoryId: null, threadId: null };
   if (h.startsWith("forum/")) {
@@ -103,6 +109,8 @@ export function buildPath(page: string, params: Record<string, unknown> = {}): s
     case "profile":       return "/profile";
     case "settings":      return "/settings";
     case "blogDash":      return "/blog-dash";
+    case "blogNew":       return "/blog/new";
+    case "blogEdit":      return `/blog/${encodeURIComponent(params.slug as string)}/edit`;
     case "blog":          return params.slug ? `/blog/${encodeURIComponent(params.slug as string)}` : "/blog";
     case "forum":         return params.categoryId
       ? (params.threadId ? `/forum/${params.categoryId}/${params.threadId}` : `/forum/${params.categoryId}`)
