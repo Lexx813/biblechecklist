@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, KeyboardEvent } from "react";
+import { useState, useRef, useCallback, useEffect, KeyboardEvent } from "react";
 
 export type BlockType = "paragraph" | "h2" | "h3" | "pull-quote" | "bible-verse" | "bullet";
 
@@ -18,6 +18,47 @@ const SLASH_OPTIONS: Array<{ type: BlockType; icon: string; label: string; desc:
   { type: "h2",          icon: "H2", label: "Heading",      desc: "Section heading" },
   { type: "bullet",      icon: "•",  label: "Bullet List",  desc: "Bulleted item" },
 ];
+
+// Sets initial content via ref on mount and never lets React overwrite the DOM —
+// prevents the cursor-reset / backwards-typing bug with contentEditable + React state.
+function CE({
+  tag: Tag = "div",
+  initialContent,
+  onTextChange,
+  onKeyDown,
+  className,
+  placeholder,
+  refCb,
+}: {
+  tag?: string;
+  initialContent: string;
+  onTextChange: (text: string) => void;
+  onKeyDown: (e: React.KeyboardEvent) => void;
+  className?: string;
+  placeholder?: string;
+  refCb?: (el: HTMLElement | null) => void;
+}) {
+  const elRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (elRef.current) elRef.current.innerText = initialContent;
+    // intentionally empty deps — only run on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const TagEl = Tag as React.ElementType;
+  return (
+    <TagEl
+      ref={(el: HTMLElement | null) => { elRef.current = el; refCb?.(el); }}
+      className={className}
+      contentEditable
+      suppressContentEditableWarning
+      onInput={(e: React.FormEvent) => onTextChange((e.target as HTMLElement).innerText)}
+      onKeyDown={onKeyDown}
+      data-placeholder={placeholder}
+    />
+  );
+}
 
 interface Props {
   blocks: Block[];
@@ -82,97 +123,66 @@ export default function BlockEditor({ blocks, onChange }: Props) {
 
   return (
     <div className="be-root">
-      {blocks.map((block) => (
-        <div key={block.id} className="be-block">
-          <div className="be-handle">
-            <span className="be-handle-grip" title="Drag to reorder">⠿</span>
+      {blocks.map((block) => {
+        const ceProps = {
+          initialContent: block.content,
+          onTextChange: (text: string) => updateBlock(block.id, text),
+          onKeyDown: (e: React.KeyboardEvent) => handleKey(e as unknown as KeyboardEvent, block),
+          refCb: (el: HTMLElement | null) => { refs.current[block.id] = el; },
+        };
+
+        return (
+          <div key={block.id + "-" + block.type} className="be-block">
+            <div className="be-handle">
+              <span className="be-handle-grip" title="Drag to reorder">⠿</span>
+            </div>
+
+            {block.type === "h2" && (
+              <CE tag="h2" {...ceProps} className="be-h2" placeholder="Heading…" />
+            )}
+            {block.type === "h3" && (
+              <CE tag="h3" {...ceProps} className="be-h3" placeholder="Subheading…" />
+            )}
+            {block.type === "pull-quote" && (
+              <CE tag="blockquote" {...ceProps} className="be-pullquote" placeholder="A memorable thought…" />
+            )}
+            {block.type === "bible-verse" && (
+              <div className="be-verse-block">
+                <div className="be-verse-label">📖 Bible Reference</div>
+                <CE {...ceProps} className="be-verse-ref" placeholder="e.g. John 3:16" />
+              </div>
+            )}
+            {(block.type === "paragraph" || block.type === "bullet") && (
+              <div className="be-row">
+                {block.type === "bullet" && <span className="be-bullet">•</span>}
+                <CE
+                  {...ceProps}
+                  className="be-para"
+                  placeholder={block.type === "bullet" ? "List item…" : "Write something… or type / for commands"}
+                />
+              </div>
+            )}
+
+            {slashMenu?.blockId === block.id && (
+              <div className="be-slash-menu">
+                {SLASH_OPTIONS.map((opt, i) => (
+                  <div
+                    key={opt.type}
+                    className={`be-slash-item${i === slashIdx ? " be-slash-item--active" : ""}`}
+                    onMouseDown={e => { e.preventDefault(); convertBlock(block.id, opt.type); }}
+                  >
+                    <span className="be-slash-icon">{opt.icon}</span>
+                    <span>
+                      <span className="be-slash-label">{opt.label}</span>
+                      <span className="be-slash-desc">{opt.desc}</span>
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-
-          {block.type === "h2" && (
-            <h2
-              className="be-h2"
-              contentEditable
-              suppressContentEditableWarning
-              ref={el => { refs.current[block.id] = el; }}
-              onInput={e => updateBlock(block.id, (e.target as HTMLElement).innerText)}
-              onKeyDown={e => handleKey(e, block)}
-              data-placeholder="Heading…"
-            >{block.content}</h2>
-          )}
-
-          {block.type === "h3" && (
-            <h3
-              className="be-h3"
-              contentEditable
-              suppressContentEditableWarning
-              ref={el => { refs.current[block.id] = el; }}
-              onInput={e => updateBlock(block.id, (e.target as HTMLElement).innerText)}
-              onKeyDown={e => handleKey(e, block)}
-              data-placeholder="Subheading…"
-            >{block.content}</h3>
-          )}
-
-          {block.type === "pull-quote" && (
-            <blockquote
-              className="be-pullquote"
-              contentEditable
-              suppressContentEditableWarning
-              ref={el => { refs.current[block.id] = el; }}
-              onInput={e => updateBlock(block.id, (e.target as HTMLElement).innerText)}
-              onKeyDown={e => handleKey(e, block)}
-              data-placeholder="A memorable thought…"
-            >{block.content}</blockquote>
-          )}
-
-          {block.type === "bible-verse" && (
-            <div className="be-verse-block">
-              <div className="be-verse-label">📖 Bible Reference</div>
-              <div
-                className="be-verse-ref"
-                contentEditable
-                suppressContentEditableWarning
-                ref={el => { refs.current[block.id] = el; }}
-                onInput={e => updateBlock(block.id, (e.target as HTMLElement).innerText)}
-                onKeyDown={e => handleKey(e, block)}
-                data-placeholder="e.g. John 3:16"
-              >{block.content}</div>
-            </div>
-          )}
-
-          {(block.type === "paragraph" || block.type === "bullet") && (
-            <div className="be-row">
-              {block.type === "bullet" && <span className="be-bullet">•</span>}
-              <div
-                className="be-para"
-                contentEditable
-                suppressContentEditableWarning
-                ref={el => { refs.current[block.id] = el; }}
-                onInput={e => updateBlock(block.id, (e.target as HTMLElement).innerText)}
-                onKeyDown={e => handleKey(e, block)}
-                data-placeholder={block.type === "bullet" ? "List item…" : "Write something… or type / for commands"}
-              >{block.content}</div>
-            </div>
-          )}
-
-          {slashMenu?.blockId === block.id && (
-            <div className="be-slash-menu">
-              {SLASH_OPTIONS.map((opt, i) => (
-                <div
-                  key={opt.type}
-                  className={`be-slash-item${i === slashIdx ? " be-slash-item--active" : ""}`}
-                  onMouseDown={e => { e.preventDefault(); convertBlock(block.id, opt.type); }}
-                >
-                  <span className="be-slash-icon">{opt.icon}</span>
-                  <span>
-                    <span className="be-slash-label">{opt.label}</span>
-                    <span className="be-slash-desc">{opt.desc}</span>
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+        );
+      })}
       <button
         className="be-add-btn"
         onClick={() => addBlockAfter(blocks[blocks.length - 1].id)}

@@ -30,15 +30,15 @@
 
 /* ── Format bar (left) ───────────────────────────────────── */
 .writer-format-bar {
-  width: 52px; position: sticky; top: 52px; height: calc(100dvh - 52px);
+  width: 60px; position: sticky; top: 52px; height: calc(100dvh - 52px);
   background: var(--card-bg); border-right: 1px solid var(--border);
   display: flex; flex-direction: column; align-items: center;
   padding: 14px 0; gap: 2px; flex-shrink: 0;
 }
 .writer-fmt-wrap { position: relative; display: flex; justify-content: center; }
 .writer-fmt-btn {
-  width: 34px; height: 34px; border-radius: 8px; border: none;
-  background: transparent; cursor: pointer; font-size: 13px; font-weight: 700;
+  width: 42px; height: 42px; border-radius: 10px; border: none;
+  background: transparent; cursor: pointer; font-size: 17px; font-weight: 700;
   color: var(--text-muted); display: flex; align-items: center; justify-content: center;
 }
 .writer-fmt-btn:hover { background: var(--hover); color: var(--accent); }
