@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import BlockEditor, { Block, blocksToMarkdown, markdownToBlocks } from "./BlockEditor";
 import { blogApi } from "../../api/blog";
@@ -80,10 +81,13 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
   const doSave = useCallback(async (publish = false): Promise<boolean> => {
     if (!title.trim()) return false;
     setSaveStatus("saving");
+    const plainText = currentMarkdown.replace(/[#>*\-\[\]]/g, "").replace(/\s+/g, " ").trim();
+    const excerpt = plainText.slice(0, 200) || title.trim();
     const payload = {
       title: title.trim(),
       subtitle: subtitle.trim() || null,
       content: currentMarkdown,
+      excerpt,
       cover_url: coverUrl,
       tags,
       published: publish,
@@ -381,8 +385,8 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
         </div>
       </div>
 
-      {/* Publish modal */}
-      {showPublishModal && (
+      {/* Publish modal — portalled to body so position:fixed works regardless of transforms */}
+      {showPublishModal && createPortal(
         <div className="writer-modal-overlay" onClick={() => setShowPublishModal(false)}>
           <div className="writer-modal" onClick={e => e.stopPropagation()}>
             <div className="writer-modal-icon">🚀</div>
@@ -404,7 +408,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
             </div>
           </div>
         </div>
-      )}
+      , document.body)}
     </div>
   );
 }
