@@ -54,6 +54,14 @@ export default async function BlogListPage() {
       queryKey: ["blog", "published", null],
       queryFn: () => blogApi.listPublished(),
     }),
+    queryClient.prefetchQuery({
+      queryKey: ["blog", "featured"],
+      queryFn: () => blogApi.getFeaturedPost(),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: ["blog", "trending"],
+      queryFn: () => blogApi.getTrendingPosts(),
+    }),
   ]);
   const posts = results[0].status === "fulfilled" ? (results[0].value ?? []) : [];
 
