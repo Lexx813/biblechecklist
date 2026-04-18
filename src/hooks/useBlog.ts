@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { blogApi } from "../api/blog";
+import { blogApi, PostSeries } from "../api/blog";
 import { notificationsApi } from "../api/notifications";
 
 export function usePublishedPosts(lang: string | null = null) {
@@ -134,5 +134,70 @@ export function useToggleBlogLike(userId: string | undefined) {
           prev?.id === postId ? { ...prev, like_count: result.like_count } : prev
       );
     },
+  });
+}
+
+export function useFeaturedPost() {
+  return useQuery({
+    queryKey: ["blog", "featured"],
+    queryFn: () => blogApi.getFeaturedPost(),
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useTrendingPosts() {
+  return useQuery({
+    queryKey: ["blog", "trending"],
+    queryFn: () => blogApi.getTrendingPosts(),
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useActiveWriters() {
+  return useQuery({
+    queryKey: ["blog", "activeWriters"],
+    queryFn: () => blogApi.getActiveWriters(),
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useSearchPosts(query: string, tag: string | null) {
+  return useQuery({
+    queryKey: ["blog", "search", query, tag],
+    queryFn: () => blogApi.searchPosts(query, tag),
+    staleTime: 60 * 1000,
+  });
+}
+
+export function useRelatedPosts(postId: string | undefined, tags: string[]) {
+  return useQuery({
+    queryKey: ["blog", "related", postId],
+    queryFn: () => blogApi.getRelatedPosts(postId!, tags),
+    enabled: !!postId,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export function useSeriesList(authorId: string | undefined) {
+  return useQuery({
+    queryKey: ["blog", "series", authorId],
+    queryFn: () => blogApi.listSeries(authorId!),
+    enabled: !!authorId,
+  });
+}
+
+export function useCreateSeries(authorId: string | undefined) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (title: string) => blogApi.createSeries(authorId!, title),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["blog", "series", authorId] }),
+  });
+}
+
+export function useTagSuggestions() {
+  return useQuery({
+    queryKey: ["blog", "tagSuggestions"],
+    queryFn: () => blogApi.getTagSuggestions(),
+    staleTime: 10 * 60 * 1000,
   });
 }
