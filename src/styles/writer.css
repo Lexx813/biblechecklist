@@ -182,17 +182,44 @@
 
 /* ── Publish modal ───────────────────────────────────────── */
 .writer-modal-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200;
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
   display: flex; align-items: center; justify-content: center;
 }
 .writer-modal {
-  background: var(--card-bg); border-radius: 16px; padding: 28px;
-  width: 380px; max-width: 90vw;
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 20px; padding: 32px 28px; width: 420px; max-width: 90vw;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.4);
 }
-.writer-modal h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
-.writer-modal-row { margin-bottom: 10px; font-size: 14px; color: var(--text-muted); }
-.writer-modal-row strong { color: var(--text); }
-.writer-modal-actions { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; }
+.writer-modal-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent), #c084fc);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 18px;
+}
+.writer-modal h2 {
+  font-size: 22px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.3px;
+}
+.writer-modal-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+.writer-modal-card {
+  background: var(--hover); border-radius: 12px; padding: 14px 16px; margin-bottom: 18px;
+}
+.writer-modal-row { margin-bottom: 6px; font-size: 14px; color: var(--text-muted); }
+.writer-modal-row:last-child { margin-bottom: 0; }
+.writer-modal-row strong { color: var(--text); font-size: 15px; font-weight: 700; }
+.writer-modal-actions {
+  display: flex; gap: 10px; margin-top: 4px; justify-content: flex-end;
+}
+.writer-modal-actions .btn {
+  padding: 9px 20px; border-radius: 10px; font-size: 14px; font-weight: 600;
+  border: 1px solid var(--border); background: var(--card-bg); color: var(--text); cursor: pointer;
+}
+.writer-modal-actions .btn:hover { background: var(--hover); }
+.writer-modal-actions .btn-primary {
+  background: linear-gradient(135deg, var(--accent), #c084fc);
+  color: white; border-color: transparent;
+}
+.writer-modal-actions .btn-primary:hover { opacity: 0.9; }
 
 /* ── Block editor styles ─────────────────────────────────── */
 .be-root { outline: none; }

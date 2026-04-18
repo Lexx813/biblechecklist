@@ -54,10 +54,8 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
   // Populate editor whenever a new AI draft arrives (handles already-mounted case)
   useEffect(() => {
     if (!initialDraft) return;
-    console.log("[WriterPage] initialDraft received, title:", initialDraft.title, "content length:", initialDraft.content?.length, "content preview:", initialDraft.content?.slice(0, 100));
     setTitle(initialDraft.title);
     const newBlocks = markdownToBlocks(initialDraft.content);
-    console.log("[WriterPage] blocks created:", newBlocks.length, newBlocks.map(b => `${b.type}:"${b.content.slice(0,20)}"`));
     setBlocks(newBlocks);
     setMarkdown(initialDraft.content);
     onDraftConsumed?.();
@@ -382,18 +380,22 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
       {showPublishModal && (
         <div className="writer-modal-overlay" onClick={() => setShowPublishModal(false)}>
           <div className="writer-modal" onClick={e => e.stopPropagation()}>
+            <div className="writer-modal-icon">🚀</div>
             <h2>Ready to publish?</h2>
-            <div className="writer-modal-row"><strong>{title || "(No title)"}</strong></div>
-            <div className="writer-modal-row">Read time: {readTime} min · {wordCount} words</div>
-            {tags.length > 0 && <div className="writer-modal-row">Tags: {tags.join(", ")}</div>}
-            {selectedSeries && (
-              <div className="writer-modal-row">
-                Series: {seriesList.find(s => s.id === selectedSeries)?.title}
-              </div>
-            )}
+            <p className="writer-modal-subtitle">Your article will be visible to the community.</p>
+            <div className="writer-modal-card">
+              <div className="writer-modal-row"><strong>{title || "(No title)"}</strong></div>
+              <div className="writer-modal-row">{readTime} min read · {wordCount} words</div>
+              {tags.length > 0 && <div className="writer-modal-row">🏷 {tags.join(", ")}</div>}
+              {selectedSeries && (
+                <div className="writer-modal-row">
+                  📚 {seriesList.find(s => s.id === selectedSeries)?.title}
+                </div>
+              )}
+            </div>
             <div className="writer-modal-actions">
-              <button className="btn btn-sm" onClick={() => setShowPublishModal(false)}>Cancel</button>
-              <button className="btn btn-sm btn-primary" onClick={handlePublish}>Publish now</button>
+              <button className="btn" onClick={() => setShowPublishModal(false)}>Cancel</button>
+              <button className="btn btn-primary" onClick={handlePublish}>🚀 Publish now</button>
             </div>
           </div>
         </div>
