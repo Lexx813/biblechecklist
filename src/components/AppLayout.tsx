@@ -5,30 +5,30 @@ import { useFullProfile } from "../hooks/useAdmin";
 import "../styles/app-layout.css";
 
 const NAV_CORE: { key: string; labelKey: string; bg: string; subLabel?: string; icon: React.ReactNode }[] = [
-  { key: "home",        labelKey: "nav.home",        bg: "#5b21b6",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> },
-  { key: "main",        labelKey: "nav.bibleTracker", bg: "#7c3aed",
-    icon: <svg width="18" height="18" viewBox="0 1 24 20" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v11H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v11h10z"/><polyline points="8 11 11 14.5 17 7.5" stroke="#a78bfa" strokeWidth="2.5" fill="none"/></svg> },
-  { key: "studyTopics", labelKey: "nav.study",        bg: "#2e9e6b", subLabel: "Topics · Books · Notes · Plans",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> },
-  { key: "quiz",        labelKey: "nav.practice",     bg: "#374151", subLabel: "Quiz · Advanced · Meeting Prep",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> },
+  { key: "home", labelKey: "nav.home", bg: "#5b21b6",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-home" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#c4b5fd"/><stop offset="100%" stopColor="#5b21b6"/></linearGradient></defs><path d="M12 3L2 12h3v9h5v-5h4v5h5v-9h3L12 3z" fill="url(#g-home)"/></svg> },
+  { key: "main", labelKey: "nav.bibleTracker", bg: "#7c3aed",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-bible" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#a78bfa"/><stop offset="100%" stopColor="#0d9488"/></linearGradient></defs><path d="M3 5h7.5a1.5 1.5 0 0 1 1.5 1.5V20H3V5z" fill="url(#g-bible)"/><path d="M21 5h-7.5A1.5 1.5 0 0 0 12 6.5V20h9V5z" fill="url(#g-bible)" opacity=".8"/><polyline points="6.5 11.5 9.5 14.5 16 8" fill="none" stroke="#f5f3ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg> },
+  { key: "studyTopics", labelKey: "nav.study", bg: "#059669", subLabel: "Topics · Books · Notes · Plans",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-study" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#6ee7b7"/><stop offset="100%" stopColor="#065f46"/></linearGradient></defs><path d="M3 5h7.5a1.5 1.5 0 0 1 1.5 1.5V19a2.5 2.5 0 0 0-4.5-1.5H3V5z" fill="url(#g-study)"/><path d="M21 5h-7.5A1.5 1.5 0 0 0 12 6.5V19a2.5 2.5 0 0 1 4.5-1.5H21V5z" fill="url(#g-study)" opacity=".8"/></svg> },
+  { key: "quiz", labelKey: "nav.practice", bg: "#4338ca", subLabel: "Quiz · Advanced · Meeting Prep",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-practice" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#818cf8"/><stop offset="100%" stopColor="#3730a3"/></linearGradient></defs><path d="M14.5 2L5.5 14h7l-3 8L20.5 10h-7L14.5 2z" fill="url(#g-practice)"/></svg> },
 ];
 
 const NAV_COMMUNITY: { key: string; labelKey: string; bg: string; subLabel?: string; icon: React.ReactNode }[] = [
-  { key: "forum",    labelKey: "nav.forum",    bg: "#e05c2a",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> },
-  { key: "friends",  labelKey: "nav.friends",  bg: "#1d7ea6",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
-  { key: "messages", labelKey: "nav.messages", bg: "#7c3aed",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> },
+  { key: "forum", labelKey: "nav.forum", bg: "#ea580c",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-forum" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#fb923c"/><stop offset="100%" stopColor="#c2410c"/></linearGradient></defs><path d="M21 3H3a1 1 0 0 0-1 1v14l5-4h14a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1z" fill="url(#g-forum)"/><rect x="7" y="8" width="10" height="1.5" rx=".75" fill="rgba(255,255,255,.45)"/><rect x="7" y="11.5" width="6" height="1.5" rx=".75" fill="rgba(255,255,255,.45)"/></svg> },
+  { key: "friends", labelKey: "nav.friends", bg: "#1d4ed8",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-friends" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#60a5fa"/><stop offset="100%" stopColor="#1d4ed8"/></linearGradient></defs><circle cx="9" cy="7" r="4" fill="url(#g-friends)"/><path d="M2 21a7 7 0 0 1 14 0z" fill="url(#g-friends)"/><circle cx="17.5" cy="8" r="3" fill="url(#g-friends)" opacity=".65"/><path d="M14 21a5.5 5.5 0 0 1 9 0z" fill="url(#g-friends)" opacity=".65"/></svg> },
+  { key: "messages", labelKey: "nav.messages", bg: "#6d28d9",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-msgs" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#c084fc"/><stop offset="100%" stopColor="#6d28d9"/></linearGradient></defs><rect x="2" y="4" width="20" height="16" rx="3" fill="url(#g-msgs)"/><path d="M2 8l10 7 10-7" fill="none" stroke="rgba(255,255,255,.35)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
 ];
 
 const NAV_EXPLORE: { key: string; labelKey: string; bg: string; subLabel?: string; icon: React.ReactNode }[] = [
-  { key: "blog",        labelKey: "nav.blogVideos",  bg: "#c084fc",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> },
-  { key: "leaderboard", labelKey: "nav.leaderboard", bg: "#f59e0b",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 17v4m4-8v8m4-12v12M2 20h20"/></svg> },
+  { key: "blog", labelKey: "nav.blogVideos", bg: "#7c3aed",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-blog" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#f0abfc"/><stop offset="100%" stopColor="#7c3aed"/></linearGradient></defs><rect x="4" y="2" width="13" height="20" rx="2" fill="url(#g-blog)"/><rect x="7" y="7" width="7" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/><rect x="7" y="10.5" width="10" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/><rect x="7" y="14" width="5" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/></svg> },
+  { key: "leaderboard", labelKey: "nav.leaderboard", bg: "#d97706",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-lb" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stopColor="#f59e0b"/><stop offset="100%" stopColor="#fde68a"/></linearGradient></defs><rect x="3" y="13" width="5" height="9" rx="1.5" fill="url(#g-lb)" opacity=".75"/><rect x="9.5" y="8" width="5" height="14" rx="1.5" fill="url(#g-lb)"/><rect x="16" y="4" width="5" height="18" rx="1.5" fill="url(#g-lb)" opacity=".85"/></svg> },
 ];
 
 
@@ -90,7 +90,7 @@ export default function AppLayout({ navigate, user, currentPage, children, right
             onClick={() => navigate(item.key)}
             aria-current={activeKey === item.key ? "page" : undefined}
           >
-            <span className="al-icon" style={{ background: item.bg }}>{item.icon}</span>
+            <span className="al-icon" style={{ color: item.bg }}>{item.icon}</span>
             <span className="al-item-label">
               {t(item.labelKey, item.key)}
               {item.subLabel && <span className="al-sublabel">{item.subLabel}</span>}
@@ -107,7 +107,7 @@ export default function AppLayout({ navigate, user, currentPage, children, right
             onClick={() => navigate(item.key)}
             aria-current={activeKey === item.key ? "page" : undefined}
           >
-            <span className="al-icon" style={{ background: item.bg }}>{item.icon}</span>
+            <span className="al-icon">{item.icon}</span>
             <span className="al-item-label">{t(item.labelKey, item.key)}</span>
             {item.key === "friends"  && pendingRequests > 0 && <span className="al-badge">{pendingRequests > 99 ? "99+" : pendingRequests}</span>}
             {item.key === "messages" && unreadMessages  > 0 && <span className="al-badge">{unreadMessages  > 99 ? "99+" : unreadMessages}</span>}
@@ -123,7 +123,7 @@ export default function AppLayout({ navigate, user, currentPage, children, right
             onClick={() => navigate(item.key)}
             aria-current={activeKey === item.key ? "page" : undefined}
           >
-            <span className="al-icon" style={{ background: item.bg }}>{item.icon}</span>
+            <span className="al-icon">{item.icon}</span>
             <span className="al-item-label">{t(item.labelKey, item.key)}</span>
           </button>
         ))}

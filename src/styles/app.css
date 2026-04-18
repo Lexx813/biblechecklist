@@ -466,16 +466,14 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   padding-left: 9px; /* compensate 3px border so text stays aligned */
 }
 :is(.hls-item--active, .al-item--active):hover { background: rgba(124, 58, 237, 0.22); }
-/* Icon blob */
+/* Icon */
 :is(.hls-icon, .al-icon) {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  width: 26px;
+  height: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: #fff;
 }
 
 /* Badge */

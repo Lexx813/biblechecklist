@@ -135,54 +135,54 @@ const ONLINE_THRESHOLD_MS = 10 * 60 * 1000;
 const NAV_ITEMS = [
   {
     key: "home", labelKey: "nav.home", bg: "#5b21b6",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>,
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-home" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#c4b5fd"/><stop offset="100%" stopColor="#5b21b6"/></linearGradient></defs><path d="M12 3L2 12h3v9h5v-5h4v5h5v-9h3L12 3z" fill="url(#g-home)"/></svg>,
   },
   {
     key: "main", labelKey: "nav.bibleTracker", bg: "#7c3aed",
-    icon: <svg width="18" height="18" viewBox="0 1 24 20" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v11H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v11h10z"/><polyline points="8 11 11 14.5 17 7.5" stroke="#a78bfa" strokeWidth="2.5" fill="none"/></svg>,
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-bible" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#a78bfa"/><stop offset="100%" stopColor="#0d9488"/></linearGradient></defs><path d="M3 5h7.5a1.5 1.5 0 0 1 1.5 1.5V20H3V5z" fill="url(#g-bible)"/><path d="M21 5h-7.5A1.5 1.5 0 0 0 12 6.5V20h9V5z" fill="url(#g-bible)" opacity=".8"/><polyline points="6.5 11.5 9.5 14.5 16 8" fill="none" stroke="#f5f3ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
   },
   {
-    key: "readingPlans", labelKey: "nav.readingPlans", bg: "#0ea5e9", premium: true,
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
+    key: "readingPlans", labelKey: "nav.readingPlans", bg: "#0369a1", premium: true,
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-plans" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#38bdf8"/><stop offset="100%" stopColor="#0369a1"/></linearGradient></defs><rect x="3" y="4" width="18" height="18" rx="3" fill="url(#g-plans)"/><rect x="8" y="2" width="2" height="5" rx="1" fill="#e0f2fe"/><rect x="14" y="2" width="2" height="5" rx="1" fill="#e0f2fe"/><rect x="3" y="10" width="18" height="1.5" fill="rgba(255,255,255,.25)"/><rect x="6" y="14" width="3" height="3" rx=".5" fill="rgba(255,255,255,.55)"/><rect x="10.5" y="14" width="3" height="3" rx=".5" fill="rgba(255,255,255,.55)"/><rect x="15" y="14" width="3" height="3" rx=".5" fill="rgba(255,255,255,.55)"/></svg>,
   },
   {
-    key: "studyNotes", labelKey: "nav.studyNotes", bg: "#2e9e6b", premium: true,
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>,
+    key: "studyNotes", labelKey: "nav.studyNotes", bg: "#059669", premium: true,
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-notes" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#6ee7b7"/><stop offset="100%" stopColor="#047857"/></linearGradient></defs><rect x="4" y="3" width="13" height="18" rx="2" fill="url(#g-notes)"/><path d="M17 3l3 3h-2a1 1 0 0 1-1-1V3z" fill="rgba(255,255,255,.4)"/><rect x="7" y="8" width="7" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/><rect x="7" y="11.5" width="9" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/><rect x="7" y="15" width="5" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/></svg>,
   },
   {
-    key: "forum", labelKey: "nav.forum", bg: "#e05c2a",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
+    key: "forum", labelKey: "nav.forum", bg: "#ea580c",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-forum" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#fb923c"/><stop offset="100%" stopColor="#c2410c"/></linearGradient></defs><path d="M21 3H3a1 1 0 0 0-1 1v14l5-4h14a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1z" fill="url(#g-forum)"/><rect x="7" y="8" width="10" height="1.5" rx=".75" fill="rgba(255,255,255,.45)"/><rect x="7" y="11.5" width="6" height="1.5" rx=".75" fill="rgba(255,255,255,.45)"/></svg>,
   },
   {
-    key: "blog", labelKey: "nav.blog", bg: "#c084fc",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>,
+    key: "blog", labelKey: "nav.blog", bg: "#7c3aed",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-blog" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#f0abfc"/><stop offset="100%" stopColor="#7c3aed"/></linearGradient></defs><rect x="4" y="2" width="13" height="20" rx="2" fill="url(#g-blog)"/><rect x="7" y="7" width="7" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/><rect x="7" y="10.5" width="10" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/><rect x="7" y="14" width="5" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/></svg>,
   },
   {
-    key: "leaderboard", labelKey: "nav.leaderboard", bg: "#f59e0b",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 17v4m4-8v8m4-12v12M2 20h20"/></svg>,
+    key: "leaderboard", labelKey: "nav.leaderboard", bg: "#d97706",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-lb" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stopColor="#f59e0b"/><stop offset="100%" stopColor="#fde68a"/></linearGradient></defs><rect x="3" y="13" width="5" height="9" rx="1.5" fill="url(#g-lb)" opacity=".75"/><rect x="9.5" y="8" width="5" height="14" rx="1.5" fill="url(#g-lb)"/><rect x="16" y="4" width="5" height="18" rx="1.5" fill="url(#g-lb)" opacity=".85"/></svg>,
   },
 ];
 
 const NAV_ITEMS_2 = [
   {
-    key: "friends", labelKey: "nav.friends", bg: "#1d7ea6",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+    key: "friends", labelKey: "nav.friends", bg: "#1d4ed8",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-friends" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#60a5fa"/><stop offset="100%" stopColor="#1d4ed8"/></linearGradient></defs><circle cx="9" cy="7" r="4" fill="url(#g-friends)"/><path d="M2 21a7 7 0 0 1 14 0z" fill="url(#g-friends)"/><circle cx="17.5" cy="8" r="3" fill="url(#g-friends)" opacity=".65"/><path d="M14 21a5.5 5.5 0 0 1 9 0z" fill="url(#g-friends)" opacity=".65"/></svg>,
   },
   {
     key: "groups", labelKey: "nav.studyGroups", bg: "#059669",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>,
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-groups" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#34d399"/><stop offset="100%" stopColor="#065f46"/></linearGradient></defs><circle cx="8" cy="7" r="4" fill="url(#g-groups)"/><path d="M1 21a7 7 0 0 1 14 0z" fill="url(#g-groups)"/><rect x="17" y="8" width="6" height="2" rx="1" fill="url(#g-groups)"/><rect x="19" y="6" width="2" height="6" rx="1" fill="url(#g-groups)"/></svg>,
   },
   {
-    key: "studyTopics", labelKey: "nav.studyTopics", bg: "#2e9e6b",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>,
+    key: "studyTopics", labelKey: "nav.studyTopics", bg: "#059669",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-study" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#6ee7b7"/><stop offset="100%" stopColor="#065f46"/></linearGradient></defs><path d="M3 5h7.5a1.5 1.5 0 0 1 1.5 1.5V19a2.5 2.5 0 0 0-4.5-1.5H3V5z" fill="url(#g-study)"/><path d="M21 5h-7.5A1.5 1.5 0 0 0 12 6.5V19a2.5 2.5 0 0 1 4.5-1.5H21V5z" fill="url(#g-study)" opacity=".8"/></svg>,
   },
   {
-    key: "feed", labelKey: "nav.feed", bg: "#0ea5e9",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>,
+    key: "feed", labelKey: "nav.feed", bg: "#0369a1",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-feed" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stopColor="#0ea5e9"/><stop offset="100%" stopColor="#38bdf8"/></linearGradient></defs><circle cx="5" cy="19" r="3" fill="url(#g-feed)"/><path d="M4 11a9 9 0 0 1 9 9H9a5 5 0 0 0-5-5v-4z" fill="url(#g-feed)"/><path d="M4 4a16 16 0 0 1 16 16h-4A12 12 0 0 0 4 8V4z" fill="url(#g-feed)"/></svg>,
   },
   {
-    key: "bookmarks", labelKey: "nav.bookmarks", bg: "#f59e0b",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>,
+    key: "bookmarks", labelKey: "nav.bookmarks", bg: "#d97706",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-bm" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#fbbf24"/><stop offset="100%" stopColor="#b45309"/></linearGradient></defs><path d="M6 2h12a2 2 0 0 1 2 2v17l-7-4.5L6 21V4a2 2 0 0 1 2-2H6z" fill="url(#g-bm)"/></svg>,
   },
 ];
 
@@ -190,20 +190,20 @@ const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "leaderboard", "f
 
 const NAV_SHORTCUTS = [
   {
-    key: "quiz", labelKey: "nav.bibleQuiz", bg: "#374151",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>,
+    key: "quiz", labelKey: "nav.bibleQuiz", bg: "#4338ca",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-practice" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#818cf8"/><stop offset="100%" stopColor="#3730a3"/></linearGradient></defs><path d="M14.5 2L5.5 14h7l-3 8L20.5 10h-7L14.5 2z" fill="url(#g-practice)"/></svg>,
   },
   {
-    key: "trivia", labelKey: "nav.triviaBattle", bg: "#7c3aed",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><polyline points="16 16 20 20"/><polyline points="7 7 4 4"/><polyline points="9.5 6.5 3 21 21 3 6.5 9.5"/></svg>,
+    key: "trivia", labelKey: "nav.triviaBattle", bg: "#6d28d9",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-trivia" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#c084fc"/><stop offset="100%" stopColor="#5b21b6"/></linearGradient></defs><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" fill="url(#g-trivia)"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 3-3 3" fill="none" stroke="rgba(255,255,255,.7)" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="17" r="1.2" fill="rgba(255,255,255,.8)"/></svg>,
   },
   {
-    key: "familyQuiz", labelKey: "nav.familyChallenge", bg: "#1d7ea6",
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+    key: "familyQuiz", labelKey: "nav.familyChallenge", bg: "#0369a1",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-family" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#60a5fa"/><stop offset="100%" stopColor="#1d4ed8"/></linearGradient></defs><circle cx="9" cy="7" r="4" fill="url(#g-family)"/><path d="M2 21a7 7 0 0 1 14 0z" fill="url(#g-family)"/><circle cx="17.5" cy="8" r="3" fill="url(#g-family)" opacity=".65"/><path d="M14 21a5.5 5.5 0 0 1 9 0z" fill="url(#g-family)" opacity=".65"/></svg>,
   },
   {
-    key: "meetingPrep", labelKey: "nav.meetingPrep", bg: "#374151", premium: true,
-    icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>,
+    key: "meetingPrep", labelKey: "nav.meetingPrep", bg: "#0369a1", premium: true,
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-prep" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#38bdf8"/><stop offset="100%" stopColor="#0369a1"/></linearGradient></defs><rect x="3" y="3" width="18" height="18" rx="3" fill="url(#g-prep)"/><path d="M7 12l3 3 7-7" fill="none" stroke="rgba(255,255,255,.85)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
   },
 ];
 
@@ -428,7 +428,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               className={`hls-item${(activePanel === null && item.key === "home") || activePanel === item.key ? " hls-item--active" : ""}`}
               onClick={() => panelNavigate(item.key)}
             >
-              <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
+              <span className="hls-icon">{item.icon}</span>
               {t(item.labelKey)}
             </button>
           ))}
@@ -445,7 +445,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 else { setActivePanel(null); setQuizLevelState(null); navigate(item.key); }
               }}
             >
-              <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
+              <span className="hls-icon">{item.icon}</span>
               {t(item.labelKey)}
               {item.key === "friends"  && pendingRequests > 0 && <span className="hls-badge">{pendingRequests}</span>}
               {item.key === "messages" && unreadMessages  > 0 && <span className="hls-badge">{unreadMessages}</span>}
@@ -464,7 +464,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 else { setActivePanel(null); navigate(item.key); }
               }}
             >
-              <span className="hls-icon" style={{ background: item.bg }}>{item.icon}</span>
+              <span className="hls-icon">{item.icon}</span>
               {t(item.labelKey)}
             </button>
           ))}
@@ -476,8 +476,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 className={`hls-item${activePanel === "admin" ? " hls-item--active" : ""}`}
                 onClick={() => { setActivePanel("admin"); setQuizLevelState(null); }}
               >
-                <span className="hls-icon" style={{ background: "#dc2626" }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span className="hls-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-admin" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#f87171"/><stop offset="100%" stopColor="#b91c1c"/></linearGradient></defs><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" fill="url(#g-admin)"/><circle cx="12" cy="12" r="3" fill="rgba(255,255,255,.9)"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" fill="rgba(255,255,255,.35)"/></svg>
                 </span>
                 {profile?.is_admin ? "Admin" : "Moderation"}
               </button>
