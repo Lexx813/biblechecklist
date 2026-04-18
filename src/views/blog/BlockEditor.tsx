@@ -148,8 +148,8 @@ export default function BlockEditor({ blocks, onChange }: Props) {
             )}
             {block.type === "bible-verse" && (
               <div className="be-verse-block">
-                <div className="be-verse-label">📖 Bible Reference</div>
-                <CE {...ceProps} className="be-verse-ref" placeholder="e.g. John 3:16" />
+                <div className="be-verse-label">📖 Bible Reference — type any verse (e.g. Romans 8:21)</div>
+                <CE {...ceProps} className="be-verse-ref" placeholder="Book Chapter:Verse — e.g. John 3:16" />
               </div>
             )}
             {(block.type === "paragraph" || block.type === "bullet") && (
