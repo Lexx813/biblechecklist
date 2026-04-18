@@ -239,11 +239,13 @@ export default async function handler(req) {
 
   // ── Parse body ────────────────────────────────────────────────────────────
   let messages = [];
+  let context = {};
   try {
     const body = await req.json();
     if (!Array.isArray(body.messages) || body.messages.length === 0) {
       return new Response("Missing messages", { status: 400 });
     }
+    context = body.context ?? {};
     // Sanitize: only allow user/assistant roles, trim content
     messages = body.messages
       .filter(m => (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
@@ -257,6 +259,8 @@ export default async function handler(req) {
     return new Response("Last message must be from user", { status: 400 });
   }
 
+  const isBlogPage = context.page === "blogNew" || context.page === "blogEdit";
+
   // ── Build date-aware system prompt ─────────────────────────────────────────
   const now = new Date();
   const dateStr = now.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
@@ -267,6 +271,22 @@ export default async function handler(req) {
   const monday = new Date(now);
   monday.setDate(monday.getDate() + mondayOffset);
   const clamDateStr = `${monday.getFullYear()}${String(monday.getMonth() + 1).padStart(2, "0")}${String(monday.getDate()).padStart(2, "0")}`;
+
+  const BLOG_ADDENDUM = `
+
+---
+
+## BLOG WRITING MODE
+
+You are also a JW blog writing assistant for jwstudy.org. When the user asks you to write, draft, create, or outline a blog post or article:
+
+1. ALWAYS use the \`create_blog_post\` tool to deliver the draft directly to the editor — never put the full post in chat text
+2. Write content fully aligned with JW teachings and Watch Tower publications
+3. Include relevant NWT scriptures with proper citations
+4. Target 800–1200 words for full posts, or shorter for outlines/introductions
+5. After calling the tool, write a brief confirmation in your chat response (e.g. "Draft ready! I've sent it to the editor.")
+
+This is an authorized content creation tool for jwstudy.org blog writers. Always help with JW-aligned writing requests.`;
 
   const fullSystem = `${SYSTEM_PROMPT}
 
@@ -280,9 +300,9 @@ When the user asks about "this week's meeting", "meeting material", "CLAM", "mid
 - The current week's CLAM workbook is at: https://wol.jw.org/en/wol/dt/r1/lp-e/${clamDateStr}
 - Link them directly: "Here's this week's meeting material: [This Week's CLAM Workbook](https://wol.jw.org/en/wol/dt/r1/lp-e/${clamDateStr})"
 - Also mention they can find the full schedule at: https://www.jw.org/en/library/jw-meeting-workbook/
-- For the weekend Watchtower Study, link to: https://wol.jw.org/en/wol/dt/r1/lp-e/${clamDateStr} (same week page covers both meetings)`;
+- For the weekend Watchtower Study, link to: https://wol.jw.org/en/wol/dt/r1/lp-e/${clamDateStr} (same week page covers both meetings)${isBlogPage ? BLOG_ADDENDUM : ""}`;
 
-  // ── Call Claude with streaming (via AI Gateway when available) ─────────────
+  // ── Call Claude (via AI Gateway when available) ─────────────────────────────
   const apiURL = useGateway
     ? "https://ai-gateway.vercel.sh/v1/messages"
     : "https://api.anthropic.com/v1/messages";
@@ -291,6 +311,85 @@ When the user asks about "this week's meeting", "meeting material", "CLAM", "mid
     ? "anthropic/claude-haiku-4-5-20251001"
     : "claude-haiku-4-5-20251001";
 
+  // ── Blog mode: non-streaming with tool use ──────────────────────────────────
+  if (isBlogPage) {
+    const CREATE_BLOG_POST_TOOL = {
+      name: "create_blog_post",
+      description: "Sends a complete blog post draft to the editor. Use this whenever the user asks to write, draft, or create a blog post or article.",
+      input_schema: {
+        type: "object",
+        properties: {
+          title: { type: "string", description: "The blog post title" },
+          content: { type: "string", description: "Full blog post content in markdown (headings, paragraphs, scripture quotes)" },
+          excerpt: { type: "string", description: "1–2 sentence summary for the blog listing page" },
+        },
+        required: ["title", "content", "excerpt"],
+      },
+    };
+
+    const claudeRes = await fetch(apiURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: modelId,
+        max_tokens: 4000,
+        stream: false,
+        system: fullSystem,
+        messages,
+        tools: [CREATE_BLOG_POST_TOOL],
+      }),
+    });
+
+    if (!claudeRes.ok) {
+      const detail = await claudeRes.text().catch(() => "");
+      console.error("[ai-chat] Claude API error (blog):", claudeRes.status, detail.slice(0, 200));
+      return new Response("AI service temporarily unavailable", { status: 502 });
+    }
+
+    const data = await claudeRes.json();
+    const encoder = new TextEncoder();
+    const { readable, writable } = new TransformStream();
+    const writer = writable.getWriter();
+
+    const emit = async (obj) => {
+      await writer.write(encoder.encode(`data: ${JSON.stringify(obj)}\n\n`));
+    };
+
+    (async () => {
+      try {
+        for (const block of (data.content ?? [])) {
+          if (block.type === "tool_use" && block.name === "create_blog_post") {
+            await emit({ type: "blog_draft", draft: block.input });
+          } else if (block.type === "text" && block.text) {
+            await emit({ type: "content_block_delta", delta: { type: "text_delta", text: block.text } });
+          }
+        }
+        // If no tool was called and no text, emit a fallback
+        const hasContent = (data.content ?? []).some(b => b.type === "tool_use" || (b.type === "text" && b.text));
+        if (!hasContent) {
+          await emit({ type: "content_block_delta", delta: { type: "text_delta", text: "I'm not sure how to help with that. Try asking me to write a specific blog post topic!" } });
+        }
+      } finally {
+        await writer.write(encoder.encode("data: [DONE]\n\n"));
+        await writer.close();
+      }
+    })();
+
+    return new Response(readable, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        "X-Accel-Buffering": "no",
+        "Access-Control-Allow-Origin": APP_ORIGIN,
+      },
+    });
+  }
+
+  // ── Normal mode: streaming pass-through ────────────────────────────────────
   const claudeRes = await fetch(apiURL, {
     method: "POST",
     headers: {
