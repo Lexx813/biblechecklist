@@ -5,6 +5,7 @@ import { useRelatedPosts, useToggleBlogLike, useUserBlogLikes } from "../../hook
 import { blogApi } from "../../api/blog";
 import { formatDate, authorName as authorNameUtil } from "../../utils/formatters";
 import VerseTooltip from "../../components/blog/VerseTooltip";
+import BookmarkButton from "../../components/bookmarks/BookmarkButton";
 import "../../styles/post-read.css";
 
 function renderContent(raw: string): string {
@@ -91,6 +92,17 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
     return () => scroller.removeEventListener("scroll", onScroll);
   }, [headings]);
 
+  const [showShare, setShowShare] = useState(false);
+
+  const shareUrl = `${window.location.origin}/blog/${post.slug}`;
+  const shareText = encodeURIComponent(post.title);
+  const shareLinks = [
+    { label: "Copy link", icon: "🔗", action: () => { navigator.clipboard.writeText(shareUrl); setShowShare(false); } },
+    { label: "Share on X", icon: "𝕏", href: `https://x.com/intent/tweet?text=${shareText}&url=${encodeURIComponent(shareUrl)}` },
+    { label: "WhatsApp", icon: "💬", href: `https://wa.me/?text=${shareText}%20${encodeURIComponent(shareUrl)}` },
+    { label: "Facebook", icon: "📘", href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}` },
+  ];
+
   const displayName = post.profiles?.display_name ?? "Anonymous";
   const authorInitial = displayName[0].toUpperCase();
   const displayDate = formatDate(post.created_at, "long");
@@ -176,8 +188,23 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
             >
               {liked ? "❤️" : "🤍"} Like ({post.like_count})
             </button>
-            <button className="pr-action-btn">🔖 Bookmark</button>
-            <button className="pr-action-btn">📤 Share</button>
+            <BookmarkButton userId={user?.id} postId={post.id} className="pr-action-btn pr-bookmark-btn" />
+            <button className="pr-action-btn" onClick={() => setShowShare(s => !s)}>📤 Share</button>
+            {showShare && (
+              <div className="pr-share-sheet">
+                {shareLinks.map(({ label, icon, action, href }) =>
+                  href ? (
+                    <a key={label} className="pr-share-item" href={href} target="_blank" rel="noopener noreferrer" onClick={() => setShowShare(false)}>
+                      <span className="pr-share-icon">{icon}</span>{label}
+                    </a>
+                  ) : (
+                    <button key={label} className="pr-share-item" onClick={action}>
+                      <span className="pr-share-icon">{icon}</span>{label}
+                    </button>
+                  )
+                )}
+              </div>
+            )}
           </div>
 
           {relatedPosts.length > 0 && (

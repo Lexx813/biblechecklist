@@ -140,6 +140,32 @@
 .pr-action-btn:hover { background: var(--hover); }
 .pr-action-btn:last-child { margin-bottom: 0; }
 
+/* Override bookmark-btn defaults when used as an action row button */
+.pr-bookmark-btn {
+  display: flex; align-items: center; gap: 8px; padding: 7px 10px;
+  border-radius: 8px; font-size: 13px; font-weight: 500;
+  border: 1px solid var(--border) !important; background: var(--card-bg) !important;
+  cursor: pointer; color: var(--text) !important; width: 100%; margin-bottom: 6px;
+  transform: none !important;
+}
+.pr-bookmark-btn::before { content: "🔖"; font-size: 14px; }
+.pr-bookmark-btn:hover { background: var(--hover) !important; }
+.pr-bookmark-btn.bookmark-btn--active { color: var(--accent) !important; }
+
+.pr-share-sheet {
+  margin-top: 8px; border-radius: 10px;
+  border: 1px solid var(--border); overflow: hidden;
+}
+.pr-share-item, a.pr-share-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; font-size: 13px; font-weight: 500;
+  color: var(--text) !important; text-decoration: none !important;
+  background: none; border: none; width: 100%; cursor: pointer;
+  text-align: left; box-sizing: border-box;
+}
+.pr-share-item:hover, a.pr-share-item:hover { background: var(--hover); }
+.pr-share-icon { font-size: 15px; width: 20px; text-align: center; flex-shrink: 0; }
+
 .pr-related-link {
   display: block; font-size: 13px; font-weight: 500; color: var(--text);
   margin-bottom: 10px; text-decoration: none; cursor: pointer; line-height: 1.4;
