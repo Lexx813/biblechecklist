@@ -571,7 +571,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           )}
           {activePanel === "blog" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <BlogInline user={user} profile={profile} slug={panelParams.slug ?? null} onSelectPost={(slug) => { setPanelParams({ slug }); history.pushState(null, "", `/blog/${slug}`); }} onBack={() => { setPanelParams({}); history.pushState(null, "", "/blog"); }} onWriteClick={() => navigate("blogDash")} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
+              <BlogInline user={user} profile={profile} slug={panelParams.slug ?? null} onSelectPost={(slug) => { setPanelParams({ slug }); history.pushState(null, "", `/blog/${slug}`); }} onBack={() => { setPanelParams({}); history.pushState(null, "", "/blog"); }} onWriteClick={() => navigate("blogNew")} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
             </Suspense>
           )}
           {activePanel === "meetingPrep" && (
