@@ -1,5 +1,5 @@
 /* ── Discovery wrapper ────────────────────────────────────── */
-.disc-wrap { background: var(--bg); min-height: 100dvh; }
+.disc-wrap { background: var(--bg); min-height: 100dvh; container-type: inline-size; }
 
 /* ── Hero ─────────────────────────────────────────────────── */
 .disc-hero {
@@ -150,15 +150,15 @@
   cursor: pointer; flex-shrink: 0;
 }
 
-/* ── Responsive ──────────────────────────────────────────── */
-@media (max-width: 900px) {
+/* ── Responsive (container queries) ─────────────────────── */
+@container (max-width: 900px) {
   .disc-layout { grid-template-columns: 1fr; }
   .disc-sidebar { flex-direction: row; }
   .disc-sidebar-widget { flex: 1; }
   .disc-featured { grid-template-columns: 1fr; }
   .disc-featured-img { aspect-ratio: 16/7; height: 180px; }
 }
-@media (max-width: 600px) {
+@container (max-width: 600px) {
   .disc-grid { grid-template-columns: 1fr; }
   .disc-sidebar { flex-direction: column; }
   .disc-hero { padding: 40px 16px 32px; }

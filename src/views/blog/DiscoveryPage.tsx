@@ -9,6 +9,27 @@ import {
 import { formatDate } from "../../utils/formatters";
 import "../../styles/blog-discovery.css";
 
+const FALLBACK_IMAGES = [
+  "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1455541504462-57ebb2a9cec1?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=800&q=80",
+];
+
+function hashId(id: string) {
+  let h = 0;
+  for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return h;
+}
+
+function fallbackImage(id: string) {
+  return FALLBACK_IMAGES[hashId(id) % FALLBACK_IMAGES.length];
+}
+
 const TOPICS = [
   "All",
   "Faith & Trust",
@@ -118,10 +139,12 @@ export default function DiscoveryPage({ navigate, user }: Props) {
               className="disc-featured"
               onClick={() => navigate("blog", { slug: (featuredPost as unknown as Post).slug })}
             >
-              {(featuredPost as unknown as Post).cover_url
-                ? <img className="disc-featured-img" src={(featuredPost as unknown as Post).cover_url!} alt={(featuredPost as unknown as Post).title} />
-                : <div className="disc-featured-img" />
-              }
+              <img
+                className="disc-featured-img"
+                src={(featuredPost as unknown as Post).cover_url || fallbackImage((featuredPost as unknown as Post).id)}
+                alt={(featuredPost as unknown as Post).title}
+                onError={e => { e.currentTarget.src = fallbackImage((featuredPost as unknown as Post).id); }}
+              />
               <div className="disc-featured-body">
                 {(featuredPost as unknown as Post).tags?.[0] && (
                   <div className="disc-featured-tag">{(featuredPost as unknown as Post).tags[0]}</div>
@@ -161,10 +184,13 @@ export default function DiscoveryPage({ navigate, user }: Props) {
                   className="disc-card"
                   onClick={() => navigate("blog", { slug: post.slug })}
                 >
-                  {post.cover_url
-                    ? <img className="disc-card-img" src={post.cover_url} alt={post.title} />
-                    : <div className="disc-card-img" />
-                  }
+                  <img
+                    className="disc-card-img"
+                    src={post.cover_url || fallbackImage(post.id)}
+                    alt={post.title}
+                    loading="lazy"
+                    onError={e => { e.currentTarget.src = fallbackImage(post.id); }}
+                  />
                   <div className="disc-card-body">
                     {post.tags?.[0] && <div className="disc-card-tag">{post.tags[0]}</div>}
                     <div className="disc-card-title">{post.title}</div>
