@@ -400,9 +400,9 @@ export function markdownToBlocks(md: string): Block[] {
     if (line.startsWith("- "))   return { id, type: "bullet" as BlockType,     content: line.slice(2) };
     if (line.startsWith("1. "))  return { id, type: "numbered" as BlockType,   content: line.slice(3) };
     if (line.trim() === "---")   return { id, type: "divider" as BlockType,    content: "" };
-    const imgMatch = line.match(/^!\[\]\((.+)\)$/);
+    const imgMatch = line.match(/^!\[\]\((.*)\)$/);
     if (imgMatch)                return { id, type: "image" as BlockType,      content: imgMatch[1] };
-    const vidMatch = line.match(/^\[video\]\((.+)\)$/);
+    const vidMatch = line.match(/^\[video\]\((.*)\)$/);
     if (vidMatch)                return { id, type: "video" as BlockType,      content: vidMatch[1] };
     return { id, type: "paragraph" as BlockType, content: line };
   });
