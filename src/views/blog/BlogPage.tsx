@@ -415,8 +415,38 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
         {user
           ? <PostComments postId={post.id} postAuthorId={post.author_id} postSlug={post.slug} user={user} profile={profile} navigate={navigate} />
           : (
-            <div className="blog-guest-cta">
-              <p>Want to join the conversation? <a href="/" onClick={e => { e.preventDefault(); history.pushState(null, "", "/"); window.dispatchEvent(new PopStateEvent("popstate")); }}>Sign in</a> or <a href="/" onClick={e => { e.preventDefault(); history.pushState(null, "", "/"); window.dispatchEvent(new PopStateEvent("popstate")); }}>create a free account</a> to leave a comment.</p>
+            <div className="blog-comments">
+              <h3 className="blog-comments-title">Comments</h3>
+              <div className="blog-guest-lock">
+                <div className="blog-guest-lock-preview" aria-hidden="true">
+                  {[72, 55, 88].map((w, i) => (
+                    <div key={i} className="blog-comment" style={{ opacity: 0.35, pointerEvents: "none" }}>
+                      <div className="blog-comment-avatar" style={{ background: "var(--color-surface-raised)" }} />
+                      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
+                        <div className="skeleton" style={{ height: 10, width: "22%", borderRadius: 6 }} />
+                        <div className="skeleton" style={{ height: 12, width: `${w}%`, borderRadius: 6 }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="blog-guest-lock-overlay">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <p className="blog-guest-lock-text">Join the conversation</p>
+                  <p className="blog-guest-lock-sub">Share your reflections with the community</p>
+                  <button
+                    className="blog-guest-lock-btn"
+                    onClick={() => { history.pushState(null, "", "/"); window.dispatchEvent(new PopStateEvent("popstate")); }}
+                  >
+                    Create Free Account
+                  </button>
+                  <button
+                    className="blog-guest-lock-signin"
+                    onClick={() => { history.pushState(null, "", "/"); window.dispatchEvent(new PopStateEvent("popstate")); }}
+                  >
+                    Already have an account? Sign in
+                  </button>
+                </div>
+              </div>
             </div>
           )
         }

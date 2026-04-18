@@ -1,6 +1,28 @@
 /* ── Discovery wrapper ────────────────────────────────────── */
 .disc-wrap { background: var(--bg); min-height: 100dvh; container-type: inline-size; }
 
+/* ── Back bar (unauthenticated) ───────────────────────────── */
+.disc-back-bar {
+  padding: 10px 16px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.disc-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
+}
+.disc-back-btn:hover { color: var(--text-primary); background: var(--color-surface-raised); }
+
 /* ── Hero ─────────────────────────────────────────────────── */
 .disc-hero {
   background: linear-gradient(135deg, #1a1035 0%, #3b1f6b 55%, #7c3aed 100%);

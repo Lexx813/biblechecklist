@@ -105,6 +105,17 @@ export default function DiscoveryPage({ navigate, user }: Props) {
 
   return (
     <div className="disc-wrap">
+      {!user && (
+        <div className="disc-back-bar">
+          <button
+            className="disc-back-btn"
+            onClick={() => { history.pushState(null, "", "/"); window.dispatchEvent(new PopStateEvent("popstate")); }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Home
+          </button>
+        </div>
+      )}
       {/* Hero */}
       <div className="disc-hero">
         <h1 className="disc-hero-title">Explore JW Study Articles</h1>
