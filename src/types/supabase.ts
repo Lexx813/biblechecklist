@@ -181,6 +181,10 @@ export type Database = {
           translations: Json
           updated_at: string
           view_count: number | null
+          read_time_minutes: number
+          is_featured: boolean
+          subtitle: string | null
+          tags: string[]
         }
         Insert: {
           author_id: string
@@ -199,6 +203,10 @@ export type Database = {
           translations?: Json
           updated_at?: string
           view_count?: number | null
+          read_time_minutes?: number
+          is_featured?: boolean
+          subtitle?: string | null
+          tags?: string[]
         }
         Update: {
           author_id?: string
@@ -217,6 +225,10 @@ export type Database = {
           translations?: Json
           updated_at?: string
           view_count?: number | null
+          read_time_minutes?: number
+          is_featured?: boolean
+          subtitle?: string | null
+          tags?: string[]
         }
         Relationships: [
           {
