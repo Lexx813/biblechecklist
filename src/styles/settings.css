@@ -1,4 +1,4 @@
-.st-wrap { min-height: 100vh; background: var(--bg); }
+.st-wrap { min-height: 100dvh; background: var(--bg); }
 
 .st-header { background: var(--card-bg); border-bottom: 1px solid var(--border); }
 .st-header-inner { max-width: 640px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; gap: 12px; }

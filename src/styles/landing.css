@@ -67,7 +67,7 @@
 
 /* ── Base ───────────────────────────────────────────────────────── */
 .lp-wrap {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--lp-bg);
   color: var(--lp-text);
   font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;

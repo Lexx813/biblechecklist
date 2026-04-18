@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useFriends, FriendProfile } from "../hooks/useFriends";
+import "../styles/friends.css";
 import { useGetOrCreateDM } from "../hooks/useMessages";
 
 interface Props {

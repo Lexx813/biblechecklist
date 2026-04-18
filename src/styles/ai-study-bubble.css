@@ -482,14 +482,26 @@
 /* ── Mobile ──────────────────────────────────────────────────────────────── */
 @media (max-width: 1100px) {
   .asb-root {
-    bottom: 84px; /* match messenger FAB bottom — fc-root also uses 84px on mobile */
-    right: 84px;  /* 24px edge + 52px messenger FAB + 8px gap — same as desktop */
+    bottom: max(84px, calc(72px + env(safe-area-inset-bottom, 0px)));
+    right: 84px;  /* 24px edge + 52px messenger FAB + 8px gap */
   }
 
   .asb-panel {
     width: calc(100vw - 20px);
     right: calc(-84px + 10px); /* panel right edge lands 10px from viewport right */
-    max-height: 72vh;
+    max-height: 72dvh;
     border-radius: 18px;
+  }
+}
+
+/* On very narrow screens, stack AI bubble above chat FAB instead of beside it */
+@media (max-width: 400px) {
+  .asb-root {
+    right: 24px;
+    bottom: max(148px, calc(136px + env(safe-area-inset-bottom, 0px))); /* 84px chat + 52px FAB + 12px gap */
+  }
+
+  .asb-panel {
+    right: 0;
   }
 }

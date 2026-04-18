@@ -131,6 +131,25 @@ const BANNER_ROTATIONS = [
 
 const ONLINE_THRESHOLD_MS = 10 * 60 * 1000;
 
+const AVATAR_GRADIENTS = [
+  ["#7c3aed","#3b0764"], ["#1d4ed8","#1e3a8a"], ["#059669","#064e3b"],
+  ["#ea580c","#7c2d12"], ["#db2777","#831843"], ["#0891b2","#164e63"],
+  ["#7c3aed","#4c1d95"], ["#16a34a","#14532d"], ["#d97706","#78350f"],
+  ["#dc2626","#7f1d1d"], ["#0284c7","#0c4a6e"], ["#9333ea","#581c87"],
+];
+function avatarGradient(id: string): [string, string] {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = id.charCodeAt(i) + ((h << 5) - h);
+  return AVATAR_GRADIENTS[Math.abs(h) % AVATAR_GRADIENTS.length] as [string, string];
+}
+function fmtDiff(diff: number | null): string {
+  if (diff == null) return "";
+  if (diff < 60_000) return "Active now";
+  if (diff < 3_600_000) return `${Math.floor(diff / 60_000)}m ago`;
+  if (diff < 86_400_000) return `${Math.floor(diff / 3_600_000)}h ago`;
+  return `${Math.floor(diff / 86_400_000)}d ago`;
+}
+
 // ── Left sidebar nav items ──────────────────────────────────────────────────
 const NAV_ITEMS = [
   {
@@ -1018,71 +1037,68 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <DailyVerse />
           </div>
 
-          {/* Friends online */}
+          {/* Friends */}
           <div className={widgetCls}>
-            <div className="flex items-center justify-between px-4 pb-2.5 pt-3.5">
-              <span className="text-base font-bold text-[var(--text-primary)]">Friends</span>
+            <div className="flex items-center justify-between px-4 pb-2 pt-3.5">
+              <div className="flex items-center gap-2">
+                <span className="text-base font-bold text-[var(--text-primary)]">Friends</span>
+                {onlineFriends.length > 0 && (
+                  <span className="rounded-full bg-green-500/20 px-1.5 py-0.5 text-[10px] font-bold text-green-400">{onlineFriends.length} online</span>
+                )}
+              </div>
               <button className={feedLinkCls} onClick={() => navigate("friends")}>See all</button>
             </div>
             {friendsLoading ? (
-              <div className="flex flex-col gap-2.5 py-1 pb-2">
+              <div className="flex flex-col gap-2 py-1 pb-3">
                 {[0,1,2].map(i => (
-                  <div key={i} className="flex items-center gap-2.5 px-4">
-                    <div className="skeleton size-[34px] shrink-0 rounded-full" />
-                    <div className="flex flex-1 flex-col gap-[5px]">
-                      <div className="skeleton h-3 w-[55%] rounded-md">&nbsp;</div>
+                  <div key={i} className="flex items-center gap-3 px-4">
+                    <div className="skeleton size-9 shrink-0 rounded-full" />
+                    <div className="flex flex-1 flex-col gap-1.5">
+                      <div className="skeleton h-3 w-[50%] rounded" />
+                      <div className="skeleton h-2.5 w-[30%] rounded" />
                     </div>
-                    <div className="skeleton h-2.5 w-[52px] rounded-md" />
                   </div>
                 ))}
               </div>
             ) : friends.length === 0 ? (
-              <div style={{ padding: "12px 16px", display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}>
-                <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>
-                  Connect with fellow Bible students to see their activity here.
-                </p>
-                <button
-                  style={{ fontSize: 12, fontWeight: 700, color: "#a78bfa", background: "none", border: "none", padding: 0, cursor: "pointer", fontFamily: "inherit" }}
-                  onClick={() => navigate("friends")}
-                >
-                  Find friends →
-                </button>
+              <div className="px-4 pb-4 pt-1">
+                <p className="mb-2 text-[13px] text-[var(--text-muted)]">Connect with fellow Bible students to see their activity here.</p>
+                <button className="cursor-pointer border-none bg-none p-0 font-[inherit] text-xs font-bold text-[#a78bfa]" style={{ background: "none" }} onClick={() => navigate("friends")}>Find friends →</button>
               </div>
             ) : (
-              <>
+              <div className="pb-2">
                 {shownFriends.map(f => {
-                  const isOnline = f.last_active_at && now - new Date(f.last_active_at).getTime() < ONLINE_THRESHOLD_MS;
+                  const isOnline = !!f.last_active_at && now - new Date(f.last_active_at).getTime() < ONLINE_THRESHOLD_MS;
                   const diff = f.last_active_at ? now - new Date(f.last_active_at).getTime() : null;
-                  const when = isOnline ? "Active now"
-                    : diff == null ? ""
-                    : diff < 3600000 ? `${Math.floor(diff/60000)}m ago`
-                    : diff < 86400000 ? `${Math.floor(diff/3600000)}h ago`
-                    : `${Math.floor(diff/86400000)}d ago`;
+                  const when = fmtDiff(isOnline ? 0 : diff);
+                  const [g1, g2] = avatarGradient(f.id);
                   return (
-                    <div key={f.id} className="flex cursor-pointer items-center gap-2.5 px-4 py-2 transition-colors duration-100 hover:bg-brand-600/[0.06]" onClick={() => navigate("publicProfile", { userId: f.id })}>
+                    <div key={f.id} className="flex cursor-pointer items-center gap-3 px-4 py-2 transition-colors duration-100 hover:bg-brand-600/[0.07]" onClick={() => navigate("publicProfile", { userId: f.id })}>
                       <span className="relative shrink-0">
-                        <span className="flex size-[34px] items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#2e1a5c] to-brand-800 text-[13px] font-bold text-white">
-                          {f.avatar_url ? <img src={f.avatar_url} alt={f.display_name} className="h-full w-full object-cover" width={34} height={34} loading="lazy" /> : (f.display_name || "?")[0].toUpperCase()}
+                        <span className="flex size-9 items-center justify-center overflow-hidden rounded-full text-[13px] font-bold text-white" style={{ background: `linear-gradient(135deg, ${g1}, ${g2})` }}>
+                          {f.avatar_url ? <img src={f.avatar_url} alt={f.display_name ?? ""} className="h-full w-full object-cover" width={36} height={36} loading="lazy" /> : (f.display_name || "?")[0].toUpperCase()}
                         </span>
-                        {isOnline && <span className="absolute bottom-0 right-0 size-2.5 rounded-full border-2 border-[var(--bg)] bg-green-500" aria-label="Online" />}
+                        {isOnline && <span className="absolute -bottom-px -right-px size-3 rounded-full border-2 border-[var(--card-bg,var(--bg))] bg-green-400" />}
                       </span>
-                      <span className="flex-1 text-sm font-medium text-[var(--text-primary)]">{f.display_name || "Unknown"}</span>
-                      <span className={`min-w-[72px] text-right ${metaCls}`}>{when}</span>
+                      <div className="flex min-w-0 flex-1 flex-col">
+                        <span className="truncate text-sm font-semibold text-[var(--text-primary)]">{f.display_name || "Unknown"}</span>
+                        <span className={`text-xs ${isOnline ? "font-semibold text-green-400" : metaCls}`}>{when}</span>
+                      </div>
                     </div>
                   );
                 })}
-                <div className="h-2" />
-              </>
+              </div>
             )}
           </div>
 
           {/* Who's Online */}
           <div className={widgetCls}>
             <div className="flex items-center justify-between px-4 pb-2.5 pt-3.5">
-              <span className="text-base font-bold text-[var(--text-primary)]">Who's Online</span>
-              <button className={feedLinkCls} onClick={() => navigate("community")}>
-                {totalOnline > 0 ? `See all (${totalOnline}) \u2192` : "See all \u2192"}
-              </button>
+              <div className="flex items-center gap-2">
+                <span className="text-base font-bold text-[var(--text-primary)]">Who's Online</span>
+                {totalOnline > 0 && <span className="rounded-full bg-green-500/20 px-2 py-0.5 text-[11px] font-semibold text-green-400">{totalOnline} online</span>}
+              </div>
+              <button className={feedLinkCls} onClick={() => navigate("community")}>See all →</button>
             </div>
             {whoLoading ? (
               <div className="flex flex-col gap-2.5 py-1 pb-2">
@@ -1111,27 +1127,26 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                   const isOnline = m.last_active_at != null &&
                     now - new Date(m.last_active_at).getTime() < WHO_THRESHOLD_MS;
                   const diff = m.last_active_at ? now - new Date(m.last_active_at).getTime() : null;
-                  const when = isOnline ? "Active now"
-                    : diff == null ? ""
-                    : diff < 3_600_000 ? `${Math.floor(diff / 60_000)}m ago`
-                    : diff < 86_400_000 ? `${Math.floor(diff / 3_600_000)}h ago`
-                    : `${Math.floor(diff / 86_400_000)}d ago`;
+                  const when = fmtDiff(isOnline ? 0 : diff);
+                  const [g1, g2] = avatarGradient(m.id);
                   return (
                     <div
                       key={m.id}
-                      className="flex cursor-pointer items-center gap-2.5 px-4 py-2 transition-colors duration-100 hover:bg-brand-600/[0.06]"
+                      className="flex cursor-pointer items-center gap-3 px-4 py-2 transition-colors duration-100 hover:bg-brand-600/[0.07]"
                       onClick={() => navigate("publicProfile", { userId: m.id })}
                     >
                       <span className="relative shrink-0">
-                        <span className="flex size-8 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#2e1a5c] to-brand-800 text-[13px] font-bold text-white">
+                        <span className="flex size-9 items-center justify-center overflow-hidden rounded-full text-[13px] font-bold text-white" style={{ background: `linear-gradient(135deg, ${g1}, ${g2})` }}>
                           {m.avatar_url
-                            ? <img src={m.avatar_url} alt={m.display_name ?? ""} loading="lazy" className="h-full w-full object-cover" width={32} height={32} />
+                            ? <img src={m.avatar_url} alt={m.display_name ?? ""} loading="lazy" className="h-full w-full object-cover" width={36} height={36} />
                             : (m.display_name || "?")[0].toUpperCase()}
                         </span>
-                        {isOnline && <span className="absolute bottom-0 right-0 size-2.5 rounded-full border-2 border-[var(--bg)] bg-green-500" aria-label="Online" />}
+                        {isOnline && <span className="absolute -bottom-px -right-px size-3 rounded-full border-2 border-[var(--card-bg,var(--bg))] bg-green-400" />}
                       </span>
-                      <span className="flex-1 text-sm font-medium text-[var(--text-primary)]">{m.display_name || "Anonymous"}</span>
-                      <span className={`min-w-[72px] text-right ${metaCls}`}>{when}</span>
+                      <div className="flex min-w-0 flex-1 flex-col">
+                        <span className="truncate text-sm font-semibold text-[var(--text-primary)]">{m.display_name || "Anonymous"}</span>
+                        <span className={`text-xs ${isOnline ? "font-semibold text-green-400" : metaCls}`}>{when}</span>
+                      </div>
                     </div>
                   );
                 })}

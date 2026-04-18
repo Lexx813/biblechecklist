@@ -579,7 +579,8 @@
     "notifDismiss": "No thanks",
     "quickContinue": "Continue Reading",
     "quickQuiz": "Today's Quiz",
-    "quickMeeting": "Meeting Prep"
+    "quickMeeting": "Meeting Prep",
+    "seeAll": "See all"
   },
   "tracker": {
     "filterAll": "All",
@@ -1718,6 +1719,13 @@
     "quiz": "Quiz",
     "me": "Me",
     "blogVideos": "Blog & Videos"
+  },
+  "community": {
+    "title": "Community",
+    "recentActivity": "Recent Activity",
+    "onlineNow": "{{count}} online now",
+    "newPosts": "{{count}} new",
+    "manage": "Manage"
   },
   "studyTopics": {
     "title": "Study Topics",

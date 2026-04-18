@@ -384,3 +384,11 @@
 [data-theme="light"] .rich-content pre code { color: #6d28d9; }
 [data-theme="light"] .rich-content a { color: #7c3aed; }
 [data-theme="light"] .rich-content hr { border-top-color: rgba(0,0,0,0.1); }
+
+@media (max-width: 640px) {
+  .editor-btn {
+    min-width: 36px;
+    height: 36px;
+    padding: 6px;
+  }
+}

@@ -14,6 +14,12 @@ const cormorant = Cormorant_Garamond({
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export const metadata = {
   title: "Bible Reading Tracker for New World Translation | JW Study",
   description:

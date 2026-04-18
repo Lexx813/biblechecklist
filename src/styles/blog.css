@@ -3,7 +3,7 @@
 .blog-post-view,
 .blog-dash-wrap,
 .blog-editor {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg);
   font-family: inherit;
 }

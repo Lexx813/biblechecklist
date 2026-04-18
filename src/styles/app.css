@@ -349,7 +349,7 @@
 }
 
 html { overflow-y: scroll; scrollbar-gutter: stable; }
-body { font-family: 'Plus Jakarta Sans Variable', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+body { font-family: 'Plus Jakarta Sans Variable', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100dvh; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
 
 /* ── Touch & interaction ────────────────────────────────────────────────── */
 button, a, [role="button"], input, select, textarea { touch-action: manipulation; }
@@ -551,7 +551,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   transform: translateX(-50%) translateY(0);
 }
 
-.app-wrap { max-width: 680px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; width: 100%; }
+.app-wrap { max-width: 680px; margin: 0 auto; min-height: 100dvh; display: flex; flex-direction: column; width: 100%; }
 
 /* HEADER */
 .app-header {
@@ -2126,7 +2126,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 
 /* Full-screen spinner variant for auth/app loading */
 .spinner-wrap--fullscreen {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg, #0a0514);
 }
 .spinner-wrap--fullscreen .spinner {
@@ -2229,7 +2229,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 
 /* ── Anonymous tracker (logged-out /try) ────────────────────────── */
 .anon-tracker {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   background: var(--bg);

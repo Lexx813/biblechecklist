@@ -1,7 +1,7 @@
 /* ── Study Notes ──────────────────────────────────────────────────────────── */
 
 .sn-page {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg);
 }
 
@@ -366,8 +366,8 @@
   color: var(--text-muted);
   cursor: pointer;
   padding: 4px;
-  width: 24px;
-  height: 24px;
+  min-width: 32px;
+  min-height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -569,8 +569,8 @@
   color: var(--text-muted);
   cursor: pointer;
   padding: 6px;
-  width: 24px;
-  height: 24px;
+  min-width: 36px;
+  min-height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;

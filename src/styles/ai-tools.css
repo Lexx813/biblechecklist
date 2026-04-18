@@ -1,7 +1,7 @@
 /* ── AI Tools page ────────────────────────────────────────────────────────── */
 
 .ait-page {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg);
   color: var(--text);
   padding-bottom: 3rem;

@@ -1,4 +1,4 @@
-.lb-page { min-height: 100vh; background: var(--bg); }
+.lb-page { min-height: 100dvh; background: var(--bg); }
 
 .lb-header {
   max-width: 640px; margin: 0 auto;

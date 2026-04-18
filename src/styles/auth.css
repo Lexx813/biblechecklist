@@ -109,7 +109,7 @@
 
 /* ── Wrap & Background ──────────────────────────────────────── */
 .auth-wrap {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--auth-bg);
   display: flex;
   align-items: center;

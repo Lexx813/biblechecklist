@@ -2,7 +2,7 @@
 /* Note: prefix "stp-" (study topics page) avoids collision with settings.css "st-" */
 
 .stp-page {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg);
 }
 
@@ -129,7 +129,7 @@
 /* ── Detail View ─────────────────────────────────────────────────────────── */
 
 .std-page {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg);
 }
 

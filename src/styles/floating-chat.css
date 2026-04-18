@@ -34,10 +34,10 @@
   gap: 10px;
 }
 
-/* On mobile, clear the bottom tab bar (≈72px) */
+/* On mobile, clear the bottom tab bar (≈72px) + iOS home indicator */
 @media (max-width: 1100px) {
   .fc-root {
-    bottom: 84px;
+    bottom: max(84px, calc(72px + env(safe-area-inset-bottom, 0px)));
   }
 }
 
