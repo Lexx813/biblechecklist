@@ -1043,7 +1043,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <div className="flex items-center gap-2">
                 <span className="text-base font-bold text-[var(--text-primary)]">Friends</span>
                 {onlineFriends.length > 0 && (
-                  <span className="rounded-full bg-green-500/20 px-1.5 py-0.5 text-[10px] font-bold text-green-400">{onlineFriends.length} online</span>
+                  <span className="flex items-center gap-1 text-[11px] font-semibold text-green-400">
+                    <span className="inline-block size-1.5 rounded-full bg-green-400" />
+                    {onlineFriends.length}
+                  </span>
                 )}
               </div>
               <button className={feedLinkCls} onClick={() => navigate("friends")}>See all</button>
@@ -1096,7 +1099,12 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <div className="flex items-center justify-between px-4 pb-2.5 pt-3.5">
               <div className="flex items-center gap-2">
                 <span className="text-base font-bold text-[var(--text-primary)]">Who's Online</span>
-                {totalOnline > 0 && <span className="rounded-full bg-green-500/20 px-2 py-0.5 text-[11px] font-semibold text-green-400">{totalOnline} online</span>}
+                {totalOnline > 0 && (
+                  <span className="flex items-center gap-1 text-[11px] font-semibold text-green-400">
+                    <span className="inline-block size-1.5 rounded-full bg-green-400" />
+                    {totalOnline}
+                  </span>
+                )}
               </div>
               <button className={feedLinkCls} onClick={() => navigate("community")}>See all →</button>
             </div>
