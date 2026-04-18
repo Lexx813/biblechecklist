@@ -1,4 +1,6 @@
-import { useState, useMemo, memo, useEffect, useCallback } from "react";
+import { useState, useMemo, memo, useEffect, useCallback, lazy, Suspense } from "react";
+const PostReadView = lazy(() => import("./PostReadView"));
+const DiscoveryPage = lazy(() => import("./DiscoveryPage"));
 import { marked } from "marked";
 import { useTranslation } from "react-i18next";
 import { sanitizeRich } from "../../lib/sanitize";
@@ -555,127 +557,66 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user, lang }
   );
 });
 
+// ── PostReadViewLoader: fetches post then renders new reading experience ───────
+function PostReadViewLoader({ slug, user, navigate, onBack, renderFallback }: {
+  slug: string;
+  user: { id: string } | null;
+  navigate: (page: string, params?: Record<string, unknown>) => void;
+  onBack: () => void;
+  renderFallback: () => JSX.Element;
+}) {
+  const { data: post, isLoading } = usePostBySlug(slug);
+
+  if (isLoading) return (
+    <div style={{ minHeight: "100dvh", background: "var(--bg)", padding: "40px 24px" }}>
+      <div className="skeleton" style={{ width: "100%", maxWidth: 700, height: 320, borderRadius: 16, margin: "0 auto 24px" }} />
+      <div style={{ maxWidth: 700, margin: "0 auto", display: "flex", flexDirection: "column", gap: 12 }}>
+        <div className="skeleton" style={{ height: 32, width: "70%", borderRadius: 8 }} />
+        <div className="skeleton" style={{ height: 14, width: "40%", borderRadius: 6 }} />
+        <div className="skeleton" style={{ height: 14, width: "100%", borderRadius: 6 }} />
+        <div className="skeleton" style={{ height: 14, width: "95%", borderRadius: 6 }} />
+        <div className="skeleton" style={{ height: 14, width: "88%", borderRadius: 6 }} />
+      </div>
+    </div>
+  );
+
+  if (!post) return renderFallback();
+
+  return <PostReadView post={post as any} user={user} navigate={navigate} />;
+}
+
 // ── Main Blog Page ────────────────────────────────────────────────────────────
 export default function BlogPage({ user, profile, onBack, onWriteClick, slug, onSelectPost, navigate, darkMode, setDarkMode, i18n, onLogout }) {
-  const { t } = useTranslation();
-  const userLang = i18n?.language?.split("-")[0] ?? "en";
-  const [visibleCount, setVisibleCount] = useState(9);
-  const [search, setSearch] = useState("");
-  const { data: posts = [], isLoading } = usePublishedPosts(userLang);
-  const { data: blockedSet = new Set<string>() } = useBlocks(user?.id);
-
   useMeta(!slug ? { title: "Blog", description: "Reflections, studies, and insights from the JW Study community." } : {});
 
   if (slug) {
-    return <PostView
-      slug={slug}
-      onBack={() => onSelectPost ? onSelectPost(null) : onBack()}
-      onSelectPost={onSelectPost || onBack}
-      user={user}
-      profile={profile}
-      navigate={navigate}
-      darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout}
-    />;
+    return (
+      <Suspense fallback={<div style={{ minHeight: "100dvh", background: "var(--bg)" }} />}>
+        <PostReadViewLoader
+          slug={slug}
+          user={user}
+          navigate={navigate}
+          onBack={() => onSelectPost ? onSelectPost(null) : onBack()}
+          // Fallback to old PostView for edge cases (post not found, etc.)
+          renderFallback={() => (
+            <PostView
+              slug={slug}
+              onBack={() => onSelectPost ? onSelectPost(null) : onBack()}
+              onSelectPost={onSelectPost || onBack}
+              user={user}
+              profile={profile}
+              navigate={navigate}
+              darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout}
+            />
+          )}
+        />
+      </Suspense>
+    );
   }
 
-  const q = search.trim().toLowerCase();
-  const filtered = posts.filter(p => {
-    if (blockedSet.has(p.author_id)) return false;
-    if (!q) return true;
-    const title = (p.title || "").toLowerCase();
-    const excerpt = (p.excerpt || "").toLowerCase();
-    const author = (p.profiles?.display_name || "").toLowerCase();
-    return title.includes(q) || excerpt.includes(q) || author.includes(q);
-  });
-  const visiblePosts = filtered.slice(0, visibleCount);
-  const hasMore = visibleCount < filtered.length;
-
   return (
-    <div className="blog-wrap">
-      {/* Show full TopBar for unauthenticated visitors so they can sign in / toggle dark mode */}
-      {!user ? (
-        <TopBar
-          navigate={(page) => { if (page === "home") onBack(); else onBack(); }}
-          darkMode={darkMode}
-          setDarkMode={setDarkMode}
-          user={null}
-          currentPage="blog"
-          onSearchClick={() => {}}
-          onLogout={null}
-        />
-      ) : (
-        <nav className="blog-nav">
-          <div className="blog-nav-left" />
-          <div className="blog-nav-right">
-            {user && (
-              <button className="blog-write-btn" onClick={onWriteClick}>{t("blog.myPosts")}</button>
-            )}
-          </div>
-        </nav>
-      )}
-
-      <h1 className="page-section-title">{t("blog.title")}</h1>
-
-      <div className="blog-search-bar">
-        <svg className="blog-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input
-          className="blog-search-input"
-          type="search"
-          placeholder={t("blog.searchPlaceholder", "Search blogs...")}
-          value={search}
-          onChange={e => { setSearch(e.target.value); setVisibleCount(9); }}
-          aria-label={t("blog.searchPlaceholder", "Search blogs...")}
-        />
-        {search && (
-          <button className="blog-search-clear" onClick={() => setSearch("")} aria-label="Clear search">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        )}
-      </div>
-
-      {/* Posts */}
-      <div className="blog-content">
-        {isLoading ? (
-          <div className="blog-grid">
-            {[0,1,2,3,4,5].map(i => (
-              <article key={i} className="blog-card" style={{ pointerEvents: "none" }}>
-                <div className="blog-card-cover">
-                  <div className="skeleton" style={{ width: "100%", height: "100%" }} />
-                </div>
-                <div className="blog-card-body">
-                  <div className="skeleton" style={{ height: 13, width: "90%", borderRadius: 6 }} />
-                  <div className="skeleton" style={{ height: 18, width: "70%", borderRadius: 6, marginTop: 8 }} />
-                  <div className="blog-card-footer" style={{ marginTop: 12 }}>
-                    <div className="skeleton" style={{ width: 24, height: 24, borderRadius: "50%" }} />
-                    <div className="skeleton" style={{ height: 11, width: 100, borderRadius: 6 }} />
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        ) : filtered.length === 0 ? (
-          <div className="blog-empty">
-            <div className="blog-empty-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
-            <h3>{q ? t("blog.noResults", "No results found") : t("blog.noPosts")}</h3>
-            <p>{q ? t("blog.noResultsSub", "Try a different search term") : t("blog.noPostsSub")}</p>
-          </div>
-        ) : (
-          <>
-            <div className="blog-grid">
-              {visiblePosts.map(post => (
-                <PostCard key={post.id} post={post} onSelect={onSelectPost} navigate={navigate} user={user} lang={userLang} />
-              ))}
-            </div>
-            {hasMore && (
-              <div className="blog-load-more">
-                <button className="blog-load-more-btn" onClick={() => setVisibleCount(c => c + 9)}>
-                  {t("blog.loadMore")}
-                </button>
-              </div>
-            )}
-          </>
-        )}
-      </div>
-    </div>
+    <Suspense fallback={<div style={{ minHeight: "100dvh", background: "var(--bg)" }} />}>
+      <DiscoveryPage navigate={navigate} user={user} />
+    </Suspense>
   );
 }
