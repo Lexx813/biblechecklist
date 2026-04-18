@@ -250,15 +250,15 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
         <div className="writer-topbar-left">
           <span className="writer-logo">✍️ JW Study</span>
           <div className="writer-save-status">
-            {saveStatus === "saved" && <><div className="writer-save-dot" />Saved</>}
-            {saveStatus === "saving" && "Saving…"}
-            {saveStatus === "unsaved" && "Unsaved"}
+            {saveStatus === "saved" && <><div className="writer-save-dot" />{t("writer.saved")}</>}
+            {saveStatus === "saving" && t("writer.saving")}
+            {saveStatus === "unsaved" && t("writer.unsaved")}
           </div>
         </div>
         <div className="writer-topbar-right">
-          <button className="btn btn-sm" onClick={() => navigate("blog")}>Cancel</button>
-          <button className="btn btn-sm" onClick={() => doSave(false)}>Save Draft</button>
-          <button className="btn btn-sm btn-primary" onClick={() => setShowPublishModal(true)}>Publish →</button>
+          <button className="btn btn-sm" onClick={() => navigate("blog")}>{t("writer.cancel")}</button>
+          <button className="btn btn-sm" onClick={() => doSave(false)}>{t("writer.saveDraft")}</button>
+          <button className="btn btn-sm btn-primary" onClick={() => setShowPublishModal(true)}>{t("writer.publish")}</button>
         </div>
       </div>
 
@@ -266,35 +266,35 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
         {/* Left format bar */}
         <div className="writer-format-bar">
           {([
-            { icon: "¶",  label: "Paragraph",  action: () => insertBlock("paragraph") },
-            { icon: "H2", label: "Heading",    action: () => insertBlock("h2") },
-            { icon: "H3", label: "Subheading", action: () => insertBlock("h3") },
-          ] as const).map(({ icon, label, action }) => (
+            { icon: "¶",  key: "fmtParagraph",  action: () => insertBlock("paragraph") },
+            { icon: "H2", key: "fmtHeading",    action: () => insertBlock("h2") },
+            { icon: "H3", key: "fmtSubheading", action: () => insertBlock("h3") },
+          ] as const).map(({ icon, key, action }) => (
             <div key={icon} className="writer-fmt-wrap">
-              <button className="writer-fmt-btn" title={label} onClick={action}>{icon}</button>
-              <span className="writer-fmt-tip">{label}</span>
+              <button className="writer-fmt-btn" title={t(`writer.${key}`)} onClick={action}>{icon}</button>
+              <span className="writer-fmt-tip">{t(`writer.${key}`)}</span>
             </div>
           ))}
           <div className="writer-fmt-sep" />
           {([
-            { icon: "•",  label: "Bullet list",   action: () => insertBlock("bullet") },
-            { icon: "1.", label: "Numbered list",  action: () => insertBlock("numbered") },
-          ] as const).map(({ icon, label, action }) => (
+            { icon: "•",  key: "fmtBullet",   action: () => insertBlock("bullet") },
+            { icon: "1.", key: "fmtNumbered",  action: () => insertBlock("numbered") },
+          ] as const).map(({ icon, key, action }) => (
             <div key={icon} className="writer-fmt-wrap">
-              <button className="writer-fmt-btn" title={label} onClick={action}>{icon}</button>
-              <span className="writer-fmt-tip">{label}</span>
+              <button className="writer-fmt-btn" title={t(`writer.${key}`)} onClick={action}>{icon}</button>
+              <span className="writer-fmt-tip">{t(`writer.${key}`)}</span>
             </div>
           ))}
           <div className="writer-fmt-sep" />
           {([
-            { icon: "📖", label: "Bible verse",  action: () => insertBlock("bible-verse") },
-            { icon: "❝",  label: "Block quote",  action: () => insertBlock("pull-quote") },
-            { icon: "🖼", label: "Image",         action: () => insertBlock("image") },
-            { icon: "─",  label: "Divider",       action: () => insertBlock("divider") },
-          ] as const).map(({ icon, label, action }) => (
+            { icon: "📖", key: "fmtBibleVerse",  action: () => insertBlock("bible-verse") },
+            { icon: "❝",  key: "fmtBlockQuote",  action: () => insertBlock("pull-quote") },
+            { icon: "🖼", key: "fmtImage",        action: () => insertBlock("image") },
+            { icon: "─",  key: "fmtDivider",      action: () => insertBlock("divider") },
+          ] as const).map(({ icon, key, action }) => (
             <div key={icon} className="writer-fmt-wrap">
-              <button className="writer-fmt-btn" title={label} onClick={action}>{icon}</button>
-              <span className="writer-fmt-tip">{label}</span>
+              <button className="writer-fmt-btn" title={t(`writer.${key}`)} onClick={action}>{icon}</button>
+              <span className="writer-fmt-tip">{t(`writer.${key}`)}</span>
             </div>
           ))}
         </div>
@@ -307,17 +307,17 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
               {coverUrl
                 ? <img src={coverUrl} alt="cover" onClick={() => setCoverUrl(null)} title="Click to remove" />
                 : coverUploading
-                  ? <span className="writer-cover-hint">Uploading…</span>
+                  ? <span className="writer-cover-hint">{t("writer.uploadingCover")}</span>
                   : (
                     <div className="writer-cover-options">
                       <label className="writer-cover-opt">
-                        <span>⬆️ Upload image</span>
+                        <span>{t("writer.uploadImage")}</span>
                         <input type="file" accept="image/*" style={{ display: "none" }} onChange={handleCoverUpload} />
                       </label>
-                      <span className="writer-cover-or">or</span>
+                      <span className="writer-cover-or">{t("writer.or")}</span>
                       <input
                         className="writer-cover-url-input"
-                        placeholder="Paste image URL…"
+                        placeholder={t("writer.pasteImageUrl")}
                         onPaste={e => {
                           const url = e.clipboardData.getData("text").trim();
                           if (url.startsWith("http")) { e.preventDefault(); setCoverUrl(url); }
@@ -334,7 +334,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
 
             <textarea
               className="writer-title"
-              placeholder="Your title here…"
+              placeholder={t("writer.titlePlaceholder")}
               value={title}
               rows={1}
               onChange={e => setTitle(e.target.value)}
@@ -342,15 +342,15 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
 
             <textarea
               className="writer-subtitle"
-              placeholder="Add a subtitle (optional)…"
+              placeholder={t("writer.subtitlePlaceholder")}
               value={subtitle ?? ""}
               rows={1}
               onChange={e => setSubtitle(e.target.value)}
             />
 
             <div className="writer-mode-toggle">
-              <button className={`writer-mode-btn${mode === "block" ? " active" : ""}`} onClick={() => handleModeSwitch("block")}>✦ Block Editor</button>
-              <button className={`writer-mode-btn${mode === "md" ? " active" : ""}`} onClick={() => handleModeSwitch("md")}>⌨ Markdown</button>
+              <button className={`writer-mode-btn${mode === "block" ? " active" : ""}`} onClick={() => handleModeSwitch("block")}>{t("writer.blockEditorMode")}</button>
+              <button className={`writer-mode-btn${mode === "md" ? " active" : ""}`} onClick={() => handleModeSwitch("md")}>{t("writer.markdownMode")}</button>
             </div>
 
             {mode === "block"
@@ -360,7 +360,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
                   className="writer-markdown"
                   value={markdown}
                   onChange={e => setMarkdown(e.target.value)}
-                  placeholder={"Write in Markdown.\nUse [John 3:16] for verse references, > for pull quotes."}
+                  placeholder={t("writer.markdownPlaceholder")}
                 />
               )
             }
@@ -370,18 +370,18 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
         {/* Right sidebar */}
         <div className="writer-sidebar">
           <div>
-            <div className="writer-sidebar-label">Reading Time</div>
+            <div className="writer-sidebar-label">{t("writer.readingTime")}</div>
             <div className="writer-readtime">
               <div>
                 <div className="writer-readtime-num">{readTime}</div>
-                <div className="writer-readtime-label">min read</div>
+                <div className="writer-readtime-label">{t("writer.minRead")}</div>
               </div>
-              <div style={{ fontSize: 12, color: "var(--text-muted)", textAlign: "right" }}>~{wordCount} words</div>
+              <div style={{ fontSize: 12, color: "var(--text-muted)", textAlign: "right" }}>~{wordCount} {t("writer.words")}</div>
             </div>
           </div>
 
           <div>
-            <div className="writer-sidebar-label">Tags (up to {MAX_TAGS})</div>
+            <div className="writer-sidebar-label">{t("writer.tagsLabel", { max: MAX_TAGS })}</div>
             <div
               className="writer-tags-wrap"
               onClick={() => document.querySelector<HTMLInputElement>(".writer-tags-input")?.focus()}
@@ -399,7 +399,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
                   onChange={e => { setTagInput(e.target.value); setShowTagSugg(true); }}
                   onKeyDown={handleTagKey}
                   onBlur={() => setTimeout(() => setShowTagSugg(false), 150)}
-                  placeholder={tags.length ? "" : "Add tag…"}
+                  placeholder={tags.length ? "" : t("writer.addTag")}
                 />
               )}
             </div>
@@ -410,11 +410,11 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
                 ))}
               </div>
             )}
-            <div className="writer-tags-hint">Press Enter or comma to add</div>
+            <div className="writer-tags-hint">{t("writer.tagsHint")}</div>
           </div>
 
           <div>
-            <div className="writer-sidebar-label">Series</div>
+            <div className="writer-sidebar-label">{t("writer.series")}</div>
             <select
               className="writer-select"
               value={selectedSeries}
@@ -423,22 +423,22 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
                 else setSelectedSeries(e.target.value);
               }}
             >
-              <option value="">— No series —</option>
+              <option value="">{t("writer.noSeries")}</option>
               {seriesList.map(s => <option key={s.id} value={s.id}>{s.title}</option>)}
-              <option value="__new__">+ Create new series…</option>
+              <option value="__new__">{t("writer.createSeries")}</option>
             </select>
           </div>
 
           <div>
-            <div className="writer-sidebar-label">Pre-publish checklist</div>
+            <div className="writer-sidebar-label">{t("writer.checklist")}</div>
             <div className="writer-checklist">
-              {([
-                { done: hasCover,     label: "Cover image added" },
-                { done: hasTag,       label: "At least 1 tag" },
-                { done: has300Words,  label: "300+ words" },
-                { done: hasPullQuote, label: "Pull quote added" },
-                { done: hasVerseRef,  label: "Bible reference" },
-              ] as const).map(({ done, label }) => (
+              {[
+                { done: hasCover,     label: t("writer.checkCover") },
+                { done: hasTag,       label: t("writer.checkTag") },
+                { done: has300Words,  label: t("writer.check300") },
+                { done: hasPullQuote, label: t("writer.checkPullQuote") },
+                { done: hasVerseRef,  label: t("writer.checkVerse") },
+              ].map(({ done, label }) => (
                 <div key={label} className="writer-check-row">
                   <div className={`writer-check-icon${done ? " writer-check-icon--done" : " writer-check-icon--todo"}`}>
                     {done ? "✓" : ""}
@@ -456,11 +456,11 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
         <div className="writer-modal-overlay" onClick={() => setShowPublishModal(false)}>
           <div className="writer-modal" onClick={e => e.stopPropagation()}>
             <div className="writer-modal-icon">🚀</div>
-            <h2>Ready to publish?</h2>
-            <p className="writer-modal-subtitle">Your article will be visible to the community.</p>
+            <h2>{t("writer.publishTitle")}</h2>
+            <p className="writer-modal-subtitle">{t("writer.publishSubtitle")}</p>
             <div className="writer-modal-card">
-              <div className="writer-modal-row"><strong>{title || "(No title)"}</strong></div>
-              <div className="writer-modal-row">{readTime} min read · {wordCount} words</div>
+              <div className="writer-modal-row"><strong>{title || t("writer.noTitle")}</strong></div>
+              <div className="writer-modal-row">{readTime} {t("writer.minRead")} · {wordCount} {t("writer.words")}</div>
               {tags.length > 0 && <div className="writer-modal-row">🏷 {tags.join(", ")}</div>}
               {selectedSeries && (
                 <div className="writer-modal-row">
@@ -469,8 +469,8 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
               )}
             </div>
             <div className="writer-modal-actions">
-              <button className="btn" onClick={() => setShowPublishModal(false)}>Cancel</button>
-              <button className="btn btn-primary" onClick={handlePublish}>🚀 Publish now</button>
+              <button className="btn" onClick={() => setShowPublishModal(false)}>{t("writer.cancel")}</button>
+              <button className="btn btn-primary" onClick={handlePublish}>{t("writer.publishNow")}</button>
             </div>
           </div>
         </div>

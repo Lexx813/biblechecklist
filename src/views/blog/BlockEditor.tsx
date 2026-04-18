@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect, KeyboardEvent } from "react";
+import { useTranslation } from "react-i18next";
 
 export type BlockType = "paragraph" | "h2" | "h3" | "pull-quote" | "bible-verse" | "bullet" | "numbered" | "divider" | "image";
 
@@ -12,15 +13,15 @@ function uid() {
   return Math.random().toString(36).slice(2);
 }
 
-const SLASH_OPTIONS: Array<{ type: BlockType; icon: string; label: string; desc: string }> = [
-  { type: "bible-verse", icon: "📖", label: "Bible Verse",    desc: "Insert verse reference" },
-  { type: "pull-quote",  icon: "❝",  label: "Pull Quote",     desc: "Highlight a key thought" },
-  { type: "h2",          icon: "H2", label: "Heading",        desc: "Section heading" },
-  { type: "h3",          icon: "H3", label: "Subheading",     desc: "Smaller section heading" },
-  { type: "bullet",      icon: "•",  label: "Bullet List",    desc: "Bulleted item" },
-  { type: "numbered",    icon: "1.", label: "Numbered List",  desc: "Numbered item" },
-  { type: "divider",     icon: "─",  label: "Divider",        desc: "Horizontal separator" },
-  { type: "image",       icon: "🖼", label: "Image",          desc: "Upload or paste image URL" },
+const SLASH_TYPES: Array<{ type: BlockType; icon: string; labelKey: string; descKey: string }> = [
+  { type: "bible-verse", icon: "📖", labelKey: "bibleVerseLabel",  descKey: "bibleVerseDesc" },
+  { type: "pull-quote",  icon: "❝",  labelKey: "pullQuoteLabel",   descKey: "pullQuoteDesc" },
+  { type: "h2",          icon: "H2", labelKey: "headingLabel",     descKey: "headingDesc" },
+  { type: "h3",          icon: "H3", labelKey: "subheadingLabel",  descKey: "subheadingDesc" },
+  { type: "bullet",      icon: "•",  labelKey: "bulletLabel",      descKey: "bulletDesc" },
+  { type: "numbered",    icon: "1.", labelKey: "numberedLabel",    descKey: "numberedDesc" },
+  { type: "divider",     icon: "─",  labelKey: "dividerLabel",     descKey: "dividerDesc" },
+  { type: "image",       icon: "🖼", labelKey: "imageLabel",       descKey: "imageDesc" },
 ];
 
 function CE({
@@ -68,6 +69,8 @@ interface Props {
 }
 
 export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) {
+  const { t } = useTranslation();
+  const SLASH_OPTIONS = SLASH_TYPES.map(o => ({ ...o, label: t(`blockEditor.${o.labelKey}`), desc: t(`blockEditor.${o.descKey}`) }));
   const [slashMenu, setSlashMenu] = useState<{ blockId: string } | null>(null);
   const [slashIdx, setSlashIdx] = useState(0);
   const [uploading, setUploading] = useState<Record<string, boolean>>({});
@@ -175,22 +178,22 @@ export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) 
               onDragStart={() => { dragId.current = block.id; }}
               onDragEnd={() => { dragId.current = null; setDragOverId(null); }}
             >
-              <span className="be-handle-grip" title="Drag to reorder">⠿</span>
+              <span className="be-handle-grip" title={t("blockEditor.dragToReorder")}>⠿</span>
             </div>
 
             {block.type === "h2" && (
-              <CE tag="h2" {...ceProps} className="be-h2" placeholder="Heading…" />
+              <CE tag="h2" {...ceProps} className="be-h2" placeholder={t("blockEditor.headingPlaceholder")} />
             )}
             {block.type === "h3" && (
-              <CE tag="h3" {...ceProps} className="be-h3" placeholder="Subheading…" />
+              <CE tag="h3" {...ceProps} className="be-h3" placeholder={t("blockEditor.subheadingPlaceholder")} />
             )}
             {block.type === "pull-quote" && (
-              <CE tag="blockquote" {...ceProps} className="be-pullquote" placeholder="A memorable thought…" />
+              <CE tag="blockquote" {...ceProps} className="be-pullquote" placeholder={t("blockEditor.pullQuotePlaceholder")} />
             )}
             {block.type === "bible-verse" && (
               <div className="be-verse-block">
-                <div className="be-verse-label">📖 Bible Reference — type any verse (e.g. Romans 8:21)</div>
-                <CE {...ceProps} className="be-verse-ref" placeholder="Book Chapter:Verse — e.g. John 3:16" />
+                <div className="be-verse-label">{t("blockEditor.verseBlockLabel")}</div>
+                <CE {...ceProps} className="be-verse-ref" placeholder={t("blockEditor.versePlaceholder")} />
               </div>
             )}
             {(block.type === "paragraph" || block.type === "bullet" || block.type === "numbered") && (
@@ -200,7 +203,7 @@ export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) 
                 <CE
                   {...ceProps}
                   className="be-para"
-                  placeholder={block.type === "bullet" || block.type === "numbered" ? "List item…" : "Write something… or type / for commands"}
+                  placeholder={block.type === "bullet" || block.type === "numbered" ? t("blockEditor.listItemPlaceholder") : t("blockEditor.paragraphPlaceholder")}
                 />
               </div>
             )}
@@ -217,15 +220,15 @@ export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) 
                     <button
                       className="be-image-remove"
                       onClick={() => onChange(blocks.map(b => b.id === block.id ? { ...b, content: "" } : b))}
-                      title="Remove image"
+                      title={t("blockEditor.removeImage")}
                     >×</button>
                   </div>
                 ) : uploading[block.id] ? (
-                  <div className="be-image-placeholder">Uploading…</div>
+                  <div className="be-image-placeholder">{t("blockEditor.uploading")}</div>
                 ) : (
                   <div className="be-image-placeholder">
                     <label className="be-image-upload-btn">
-                      ⬆ Upload image
+                      {t("blockEditor.uploadImage")}
                       <input
                         type="file"
                         accept="image/*"
@@ -233,10 +236,10 @@ export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) 
                         onChange={e => { const f = e.target.files?.[0]; if (f) handleImageFile(block.id, f); }}
                       />
                     </label>
-                    <span className="be-image-or">or</span>
+                    <span className="be-image-or">{t("blockEditor.or")}</span>
                     <input
                       className="be-image-url"
-                      placeholder="Paste image URL…"
+                      placeholder={t("blockEditor.pasteImageUrl")}
                       onPaste={e => {
                         const url = e.clipboardData.getData("text").trim();
                         if (url.startsWith("http")) { e.preventDefault(); onChange(blocks.map(b => b.id === block.id ? { ...b, content: url } : b)); }
@@ -274,7 +277,7 @@ export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) 
       <button
         className="be-add-btn"
         onClick={() => addBlockAfter(blocks[blocks.length - 1].id)}
-      >+ Add block</button>
+      >{t("blockEditor.addBlock")}</button>
     </div>
   );
 }
