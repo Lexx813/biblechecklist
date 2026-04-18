@@ -54,8 +54,10 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
   // Populate editor whenever a new AI draft arrives (handles already-mounted case)
   useEffect(() => {
     if (!initialDraft) return;
+    console.log("[WriterPage] initialDraft received, title:", initialDraft.title, "content length:", initialDraft.content?.length, "content preview:", initialDraft.content?.slice(0, 100));
     setTitle(initialDraft.title);
     const newBlocks = markdownToBlocks(initialDraft.content);
+    console.log("[WriterPage] blocks created:", newBlocks.length, newBlocks.map(b => `${b.type}:"${b.content.slice(0,20)}"`));
     setBlocks(newBlocks);
     setMarkdown(initialDraft.content);
     onDraftConsumed?.();
@@ -228,15 +230,34 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
         <div className="writer-editor">
           <div className="writer-editor-inner">
             {/* Cover zone */}
-            <label className="writer-cover-zone">
-              {coverUrl && <img src={coverUrl} alt="cover" />}
-              {!coverUrl && (
-                <span className="writer-cover-hint">
-                  {coverUploading ? "Uploading…" : "🖼️ Click to add cover image"}
-                </span>
-              )}
-              <input type="file" accept="image/*" style={{ display: "none" }} onChange={handleCoverUpload} />
-            </label>
+            <div className="writer-cover-zone">
+              {coverUrl
+                ? <img src={coverUrl} alt="cover" onClick={() => setCoverUrl(null)} title="Click to remove" />
+                : coverUploading
+                  ? <span className="writer-cover-hint">Uploading…</span>
+                  : (
+                    <div className="writer-cover-options">
+                      <label className="writer-cover-opt">
+                        <span>⬆️ Upload image</span>
+                        <input type="file" accept="image/*" style={{ display: "none" }} onChange={handleCoverUpload} />
+                      </label>
+                      <span className="writer-cover-or">or</span>
+                      <input
+                        className="writer-cover-url-input"
+                        placeholder="Paste image URL…"
+                        onPaste={e => {
+                          const url = e.clipboardData.getData("text").trim();
+                          if (url.startsWith("http")) { e.preventDefault(); setCoverUrl(url); }
+                        }}
+                        onChange={e => {
+                          const url = e.target.value.trim();
+                          if (url.startsWith("http")) setCoverUrl(url);
+                        }}
+                      />
+                    </div>
+                  )
+              }
+            </div>
 
             <textarea
               className="writer-title"
