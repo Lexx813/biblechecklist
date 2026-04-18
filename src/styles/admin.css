@@ -839,8 +839,8 @@ html.nav-hidden .admin-header { top: 0; }
 
 .an-kpi-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
 }
 
 .an-kpi-card {
@@ -898,7 +898,7 @@ html.nav-hidden .admin-header { top: 0; }
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   .an-chart-grid { grid-template-columns: 1fr; }
 }
 
@@ -909,6 +909,8 @@ html.nav-hidden .admin-header { top: 0; }
   padding: 18px 16px 14px;
   width: 100%;
   box-sizing: border-box;
+  overflow: hidden;
+  min-width: 0;
 }
 
 .an-chart-title {
@@ -963,6 +965,10 @@ html.nav-hidden .admin-header { top: 0; }
   grid-template-columns: repeat(11, 1fr);
   gap: 4px;
   margin-bottom: 10px;
+  min-width: 0;
+}
+@media (max-width: 540px) {
+  .an-heatmap { grid-template-columns: repeat(6, 1fr); gap: 3px; }
 }
 
 .an-heatmap-cell {
