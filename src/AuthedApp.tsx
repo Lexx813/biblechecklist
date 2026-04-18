@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -14,6 +14,7 @@ import MobileTabBar from "./components/MobileTabBar";
 import TopBar from "./components/TopBar";
 import AppLayout from "./components/AppLayout";
 import CommandPalette from "./components/CommandPalette";
+import { BOOKS } from "./data/books";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import ConsentGate from "./components/ConsentGate";
 import "./styles/app.css";
@@ -91,7 +92,7 @@ function Page({ children, noFooter = false }) {
 const VALID_PAGES = ["readingPlans", "studyNotes", "quiz", "forum", "blog", "main", "friends", "friendRequests"];
 
 // Module-level so useState initializers can reference it synchronously
-const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "publicProfile", "main", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "bookDetail", "studyTopicDetail", "history", "trivia", "search", "settings", "blogDash", "blogNew", "blogEdit", "videosDash", "creatorRequest", "about", "terms", "privacy"]);
+const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "publicProfile", "main", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "bookDetail", "studyTopicDetail", "history", "trivia", "search", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy"]);
 
 function toPanelKey(page: string) {
   if (page === "quizLevel") return "quiz";
@@ -252,6 +253,22 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page, onSearchClick: () => setShowCmdPalette(true) };
 
   const AL = ({ page, children }) => <AppLayout navigate={navigate} user={user} currentPage={page}>{children}</AppLayout>;
+
+  const aiContext = useMemo(() => {
+    const ctx: { page: string; bookIndex?: number; bookName?: string; chapter?: number } = { page: nav.page };
+    if ("bookIndex" in nav && typeof nav.bookIndex === "number") {
+      ctx.bookIndex = nav.bookIndex;
+      ctx.bookName  = BOOKS[nav.bookIndex]?.name;
+    }
+    if ("openBook" in nav && typeof nav.openBook === "number") {
+      ctx.bookIndex = nav.openBook;
+      ctx.bookName  = BOOKS[nav.openBook]?.name;
+    }
+    if ("openChapter" in nav && typeof nav.openChapter === "number") {
+      ctx.chapter = nav.openChapter;
+    }
+    return ctx;
+  }, [nav]);
 
   let pageContent = null;
   if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} panelRequest={homePanelRequest} onPanelConsumed={() => setHomePanelRequest(null)} /></Page>;
@@ -420,7 +437,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
         )}
         {nav.page !== "messages" && ["en", "es"].includes((i18n.language ?? "en").slice(0, 2)) && (
           <Suspense fallback={null}>
-            <AIStudyBubble />
+            <AIStudyBubble context={aiContext} />
           </Suspense>
         )}
       </div>
