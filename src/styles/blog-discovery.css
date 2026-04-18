@@ -23,6 +23,13 @@
   color: white; font-size: 15px;
 }
 .disc-search-input::placeholder { color: rgba(255,255,255,0.4); }
+.disc-hero-write-btn {
+  margin-top: 18px; padding: 10px 28px; border-radius: 50px;
+  background: white; color: #7c3aed; font-size: 14px; font-weight: 700;
+  border: none; cursor: pointer; letter-spacing: 0.01em;
+  transition: opacity 0.15s;
+}
+.disc-hero-write-btn:hover { opacity: 0.88; }
 
 /* ── Topic pills ──────────────────────────────────────────── */
 .disc-pills-wrap {
