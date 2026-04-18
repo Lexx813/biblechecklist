@@ -320,7 +320,10 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     pageContent = <Page><BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   }
   else if (nav.page === "blogNew") {
-    pageContent = <Page><WriterPage user={user} navigate={navigate} initialDraft={pendingAIDraft} onDraftConsumed={() => setPendingAIDraft(null)} /></Page>;
+    const prefill = !pendingAIDraft && nav.prefillTitle
+      ? { title: nav.prefillTitle as string, content: "", excerpt: "" }
+      : null;
+    pageContent = <Page><WriterPage user={user} navigate={navigate} initialDraft={pendingAIDraft ?? prefill} onDraftConsumed={() => setPendingAIDraft(null)} /></Page>;
   }
   else if (nav.page === "blogEdit") {
     pageContent = <Page><BlogEditLoader slug={nav.slug} user={user} navigate={navigate} /></Page>;
