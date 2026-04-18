@@ -93,6 +93,12 @@ html:has(.home-wrap) .page-footer { display: none; }
   max-width: none;
 }
 
+/* Admin panel: remove horizontal padding so the panel is edge-to-edge */
+.home-layout--admin .home-feed {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 /* Card base */
 .hcard {
   background: rgba(255, 255, 255, 0.06); /* lifted from 0.03 — visible on dark bg */

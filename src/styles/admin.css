@@ -1015,3 +1015,29 @@ html.nav-hidden .admin-header { top: 0; }
   border-radius: 3px;
   background: linear-gradient(90deg, #0a0315, #3b0764, #7c3aed, #a78bfa);
 }
+
+/* ── Analytics: light mode overrides ────────────────────────────────────── */
+
+[data-theme="light"] .an-kpi-card {
+  background: #fff;
+  border-color: rgba(124, 58, 237, 0.15);
+  box-shadow: 0 1px 6px rgba(124, 58, 237, 0.06);
+}
+
+[data-theme="light"] .an-chart-card {
+  background: #fff;
+  border-color: rgba(124, 58, 237, 0.15);
+  box-shadow: 0 1px 6px rgba(124, 58, 237, 0.06);
+}
+
+[data-theme="light"] .an-kpi-value  { color: #6d28d9; }
+[data-theme="light"] .an-chart-title { color: #6d28d9; }
+[data-theme="light"] .an-adoption-label { color: #6d28d9; }
+[data-theme="light"] .an-adoption-count { color: #7c3aed; }
+[data-theme="light"] .an-adoption-bar-track { background: rgba(124, 58, 237, 0.1); }
+[data-theme="light"] .an-heatmap-abbr { color: rgba(0,0,0,0.55); }
+[data-theme="light"] .an-heatmap-gradient {
+  background: linear-gradient(90deg, #f5f3ff, #ddd6fe, #7c3aed, #4c1d95);
+}
+[data-theme="light"] .an-kpi-delta--up   { color: #15803d; }
+[data-theme="light"] .an-kpi-delta--down { color: #b91c1c; }

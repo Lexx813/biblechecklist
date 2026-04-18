@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useAnalytics } from "../../../hooks/useAdmin";
 import { BOOKS } from "../../../data/books";
 import {
@@ -7,6 +8,18 @@ import {
 
 const PURPLE = "#7c3aed";
 const TEAL   = "#0d9488";
+
+function useIsDark() {
+  const [isDark, setIsDark] = useState(true);
+  useEffect(() => {
+    const sync = () => setIsDark(document.documentElement.dataset.theme !== "light");
+    sync();
+    const obs = new MutationObserver(sync);
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => obs.disconnect();
+  }, []);
+  return isDark;
+}
 
 function AnalyticsSkeleton() {
   return (
@@ -73,13 +86,22 @@ const dateFormatter = (d: string) => {
   return `${date.getMonth() + 1}/${date.getDate()}`;
 };
 
-const tooltipStyle = {
-  contentStyle: { background: "#1a0f35", border: "1px solid #2d1f4e", borderRadius: 8, fontSize: 12 },
-  itemStyle: { color: "#e9d5ff" },
-};
-
 export function AnalyticsTab() {
   const { data, isLoading, isError } = useAnalytics();
+  const isDark = useIsDark();
+
+  const tooltipStyle = isDark
+    ? {
+        contentStyle: { background: "#1a0f35", border: "1px solid #2d1f4e", borderRadius: 8, fontSize: 12 },
+        itemStyle: { color: "#e9d5ff" },
+      }
+    : {
+        contentStyle: { background: "#fff", border: "1px solid #ddd6fe", borderRadius: 8, fontSize: 12 },
+        itemStyle: { color: "#4c1d95" },
+      };
+
+  const gridStroke = isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.07)";
+  const tickColor  = isDark ? "#6b7280" : "#9ca3af";
 
   if (isLoading) return <AnalyticsSkeleton />;
   if (isError || !data) return (
@@ -93,12 +115,21 @@ export function AnalyticsTab() {
   const histogramColor = (bucket: string) => bucket === "100%" ? "#16a34a" : PURPLE;
 
   const heatmapColor = (pct: number) => {
-    if (pct === 0)  return "#0a0315";
-    if (pct < 10)  return "#1e0a3c";
-    if (pct < 25)  return "#3b0764";
-    if (pct < 50)  return "#5b21b6";
-    if (pct < 75)  return "#7c3aed";
-    return "#a78bfa";
+    if (isDark) {
+      if (pct === 0)  return "#0a0315";
+      if (pct < 10)  return "#1e0a3c";
+      if (pct < 25)  return "#3b0764";
+      if (pct < 50)  return "#5b21b6";
+      if (pct < 75)  return "#7c3aed";
+      return "#a78bfa";
+    } else {
+      if (pct === 0)  return "#f5f3ff";
+      if (pct < 10)  return "#ede9fe";
+      if (pct < 25)  return "#ddd6fe";
+      if (pct < 50)  return "#a78bfa";
+      if (pct < 75)  return "#7c3aed";
+      return "#4c1d95";
+    }
   };
 
   return (
@@ -148,9 +179,9 @@ export function AnalyticsTab() {
                   <stop offset="95%" stopColor={PURPLE} stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-              <XAxis dataKey="date" tickFormatter={dateFormatter} tick={{ fill: "#6b7280", fontSize: 10 }} />
-              <YAxis tick={{ fill: "#6b7280", fontSize: 10 }} allowDecimals={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} />
+              <XAxis dataKey="date" tickFormatter={dateFormatter} tick={{ fill: tickColor, fontSize: 10 }} />
+              <YAxis tick={{ fill: tickColor, fontSize: 10 }} allowDecimals={false} />
               <Tooltip
                 {...tooltipStyle}
                 labelStyle={{ color: "#a78bfa" }}
@@ -170,9 +201,9 @@ export function AnalyticsTab() {
                   <stop offset="95%" stopColor={TEAL} stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-              <XAxis dataKey="date" tickFormatter={dateFormatter} tick={{ fill: "#6b7280", fontSize: 10 }} />
-              <YAxis tick={{ fill: "#6b7280", fontSize: 10 }} allowDecimals={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} />
+              <XAxis dataKey="date" tickFormatter={dateFormatter} tick={{ fill: tickColor, fontSize: 10 }} />
+              <YAxis tick={{ fill: tickColor, fontSize: 10 }} allowDecimals={false} />
               <Tooltip
                 {...tooltipStyle}
                 labelStyle={{ color: "#5eead4" }}
@@ -192,9 +223,9 @@ export function AnalyticsTab() {
             layout="vertical"
             margin={{ top: 4, right: 40, left: 60, bottom: 4 }}
           >
-            <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="rgba(255,255,255,0.06)" />
-            <XAxis type="number" domain={[0, 100]} tick={{ fill: "#6b7280", fontSize: 10 }} unit="%" />
-            <YAxis type="category" dataKey="feature" tick={{ fill: "#c4b5fd", fontSize: 12 }} width={56} />
+            <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke={gridStroke} />
+            <XAxis type="number" domain={[0, 100]} tick={{ fill: tickColor, fontSize: 10 }} unit="%" />
+            <YAxis type="category" dataKey="feature" tick={{ fill: isDark ? "#c4b5fd" : "#6d28d9", fontSize: 12 }} width={56} />
             <Tooltip
               {...tooltipStyle}
               formatter={(v: unknown) => [`${v}%`, "Users"]}
@@ -214,9 +245,9 @@ export function AnalyticsTab() {
                 <stop offset="100%" stopColor="#3b0764" stopOpacity={1} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-            <XAxis dataKey="label" tick={{ fill: "#6b7280", fontSize: 11 }} />
-            <YAxis domain={[0, 100]} tick={{ fill: "#6b7280", fontSize: 10 }} unit="%" />
+            <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} />
+            <XAxis dataKey="label" tick={{ fill: tickColor, fontSize: 11 }} />
+            <YAxis domain={[0, 100]} tick={{ fill: tickColor, fontSize: 10 }} unit="%" />
             <Tooltip
               {...tooltipStyle}
               formatter={(v: unknown) => [`${v}%`, "Retained"]}
@@ -250,9 +281,9 @@ export function AnalyticsTab() {
       <ChartCard title="Bible Completion Distribution">
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={histogram} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-            <XAxis dataKey="bucket" tick={{ fill: "#6b7280", fontSize: 11 }} />
-            <YAxis tick={{ fill: "#6b7280", fontSize: 10 }} allowDecimals={false} />
+            <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} />
+            <XAxis dataKey="bucket" tick={{ fill: tickColor, fontSize: 11 }} />
+            <YAxis tick={{ fill: tickColor, fontSize: 10 }} allowDecimals={false} />
             <Tooltip
               {...tooltipStyle}
               formatter={(v: unknown) => [`${v}`, "Users"]}

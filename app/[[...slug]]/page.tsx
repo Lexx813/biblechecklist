@@ -51,6 +51,13 @@ const FAQ_ITEMS = [
 // Revalidate the root landing page every hour (ISR) — keeps cache warm, reduces TTFB spikes
 export const revalidate = 3600;
 
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const isRoot = !slug || slug.length === 0;
+  if (isRoot) return {}; // layout.tsx metadata covers the root
+  return { robots: { index: false, follow: false } };
+}
+
 // All valid SPA client-side route first-segments
 const KNOWN_SPA_ROUTES = new Set([
   "admin", "advanced-quiz", "blog-dash", "bookmarks", "checklist",

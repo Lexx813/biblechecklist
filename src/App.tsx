@@ -55,9 +55,10 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(getInitialDarkMode);
 
   // useLayoutEffect runs synchronously before the browser paints — the landing page
-  // is never visually rendered when a session exists.
+  // is never visually rendered when a session exists or when the URL is /login or /signup.
   useLayoutEffect(() => {
-    if (hasStoredSession()) setShowApp(true);
+    const path = window.location.pathname.slice(1);
+    if (hasStoredSession() || path === "login" || path === "signup") setShowApp(true);
   }, []);
 
   // Remove SSR content once the SPA has mounted — crawlers see it,

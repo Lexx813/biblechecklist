@@ -73,7 +73,7 @@ export default function AboutPage() {
         </p>
         <h2>About the Creator</h2>
         <p>
-          Lexx is a Bible student and Jehovah&apos;s Witness who built JW Study out of a
+          Alexi is a Bible student and Jehovah&apos;s Witness who built JW Study out of a
           personal need — a simple, reliable way to track Bible reading across any device,
           without losing progress. What started as a personal tool grew into a full community
           platform for others walking the same spiritual journey.

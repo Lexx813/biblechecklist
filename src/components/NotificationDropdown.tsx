@@ -2,6 +2,19 @@ import { useEffect, useRef } from "react";
 import { useNotifications, useMarkNotificationsRead } from "../hooks/useNotifications";
 import "../styles/notification-dropdown.css";
 
+const TYPE_LABEL: Record<string, string> = {
+  reply: "replied to your thread",
+  comment: "commented on your post",
+  mention: "mentioned you",
+  like: "liked your post",
+  friend_request: "sent you a friend request",
+  meeting_prep_reminder: "Meeting prep reminder",
+};
+
+function typeLabel(type: string): string {
+  return TYPE_LABEL[type] ?? type;
+}
+
 function timeAgo(dateStr: string): string {
   const diff = Date.now() - new Date(dateStr).getTime();
   const mins = Math.floor(diff / 60000);
@@ -68,6 +81,20 @@ export default function NotificationDropdown({ userId, onClose, navigate }: Prop
       return;
     }
 
+    if (n.type === "like") {
+      if (n.thread_id) {
+        const categoryId = n.thread?.category_id ?? null;
+        if (categoryId) navigate("forum", { categoryId, threadId: n.thread_id });
+        else navigate("forum", { threadId: n.thread_id });
+      } else if (n.post_id) {
+        const slug = n.post?.slug ?? null;
+        navigate("blog", slug ? { slug } : {});
+      } else if (n.link_hash) {
+        navigate(n.link_hash);
+      }
+      return;
+    }
+
     if (n.type === "friend_request") {
       navigate("friendRequests");
       return;
@@ -131,7 +158,7 @@ export default function NotificationDropdown({ userId, onClose, navigate }: Prop
                 <div className="notif-body">
                   <div className="notif-text">
                     {n.actor?.display_name && <strong>{n.actor.display_name} </strong>}
-                    {n.preview ?? n.type}
+                    {n.preview ?? typeLabel(n.type)}
                   </div>
                   <div className="notif-time">{timeAgo(n.created_at)}</div>
                 </div>

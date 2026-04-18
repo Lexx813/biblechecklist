@@ -6,6 +6,28 @@ Disallow: /bookmarks
 Disallow: /feed
 Disallow: /history
 Disallow: /share
+Disallow: /home
+Disallow: /messages
+Disallow: /friends
+Disallow: /leaderboard
+Disallow: /quiz
+Disallow: /settings
+Disallow: /groups
+Disallow: /notifications
+Disallow: /community
+Disallow: /advanced-quiz
+Disallow: /family-quiz
+Disallow: /trivia
+Disallow: /reading-plans
+Disallow: /study-notes
+Disallow: /referral
+Disallow: /invite
+Disallow: /upgrade
+Disallow: /premium
+Disallow: /meeting-prep
+Disallow: /login
+Disallow: /signup
+Disallow: /search
 
 # Allow AI crawlers explicitly
 User-agent: GPTBot

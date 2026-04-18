@@ -11,10 +11,6 @@ export const revalidate = 3600; // regenerate hourly
 
 const BASE = "https://jwstudy.org";
 
-// Maximum thread pages to include per sitemap file (well under 50k limit).
-// If thread count grows past this, split into a sitemap index.
-const MAX_FORUM_THREADS = 500;
-
 export default async function sitemap() {
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -30,7 +26,6 @@ export default async function sitemap() {
     { url: `${BASE}/about`,        lastModified: new Date("2026-02-01") },
     { url: `${BASE}/privacy`,      lastModified: new Date("2026-03-31") },
     { url: `${BASE}/terms`,        lastModified: new Date("2026-03-31") },
-    { url: `${BASE}/promo`,        lastModified: new Date("2026-04-03") },
   ];
 
   const bookPages = BOOKS.map((b) => ({
@@ -115,19 +110,6 @@ export default async function sitemap() {
       });
     }
 
-    // Forum threads (capped to prevent runaway sitemap growth)
-    const { data: threads } = await supabase
-      .from("forum_threads")
-      .select("id, category_id, created_at, updated_at")
-      .order("created_at", { ascending: false })
-      .limit(MAX_FORUM_THREADS);
-
-    for (const t of threads ?? []) {
-      forumPages.push({
-        url: `${BASE}/forum/${t.category_id}/${t.id}`,
-        lastModified: new Date(t.updated_at ?? t.created_at),
-      });
-    }
   } catch {
     // Supabase unavailable — fall back to static /forum entry only
     forumPages = [{ url: `${BASE}/forum`, lastModified: new Date("2026-04-03") }];

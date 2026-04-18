@@ -15,12 +15,15 @@
   inset: 0;
   pointer-events: none;
   overflow: hidden;
+  z-index: 0;
 }
 
 .confetti-piece {
   position: absolute;
   top: -20px;
-  animation: confetti-fall linear forwards;
+  animation-name: confetti-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
   opacity: 0.9;
 }
 

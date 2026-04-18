@@ -143,7 +143,7 @@ export default async function BlogPostPage({ params }) {
           ? post.content.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length
           : undefined,
         url: `${BASE}/blog/${post.slug}`,
-        image: post.cover_url || `${BASE}/og-image.jpg`,
+        image: post.cover_url || `${BASE}/blog/${post.slug}/opengraph-image`,
       }
     : null;
 
@@ -167,6 +167,10 @@ export default async function BlogPostPage({ params }) {
         <div id="ssr-fallback" lang={lang} suppressHydrationWarning>
           <article>
             <h1>{post.title}</h1>
+            <p>
+              {post.profiles?.display_name && <>By {post.profiles.display_name} · </>}
+              <time dateTime={post.created_at}>{new Date(post.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</time>
+            </p>
             {post.excerpt && <p>{post.excerpt}</p>}
             {post.content && (
               <p>{stripHtml(post.content)}</p>

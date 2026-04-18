@@ -53,6 +53,7 @@ export const metadata = {
 const schemaWebApp = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
+  "@id": "https://jwstudy.org/#webapp",
   name: "JW Study",
   description:
     "A spiritual growth companion that teaches Jehovah's Witnesses how to study God's word — with reading tracking, meeting prep, quizzes, AI study tools, and a worldwide community.",
@@ -64,17 +65,7 @@ const schemaWebApp = {
   availability: "https://schema.org/OnlineOnly",
   inLanguage: ["en", "es", "pt", "fr", "tl", "zh", "ja", "ko"],
   screenshot: "https://jwstudy.org/og-image.jpg",
-  featureList: [
-    "Bible reading progress tracker for all 66 books of the New World Translation",
-    "Meeting prep checklists for CLAM and Watchtower study",
-    "AI study assistant for deep Bible study",
-    "Bible knowledge quizzes with badge rewards",
-    "Structured reading plans with streak tracking",
-    "Personal study notes tied to any passage or chapter",
-    "Community forum, blog, and study groups",
-    "Offline support via PWA",
-    "8-language support",
-  ],
+  featureList: "Bible reading progress tracker for all 66 books of the New World Translation, Meeting prep checklists for CLAM and Watchtower study, AI study assistant for deep Bible study, Bible knowledge quizzes with badge rewards, Structured reading plans with streak tracking, Personal study notes tied to any passage or chapter, Community forum, blog, and study groups, Offline support via PWA, 8-language support",
   offers: [
     { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free", description: "Every feature included: Bible reading tracker, reading plans, study notes, meeting prep, direct messaging, study groups, community forum, blog, and quizzes — free forever", availability: "https://schema.org/OnlineOnly" },
   ],
@@ -94,7 +85,8 @@ const schemaOrg = {
   },
   description: "A spiritual growth companion for Jehovah's Witnesses — Bible reading tracker, meeting prep, study tools, and worldwide community.",
   email: "support@jwstudy.org",
-  contactPoint: { "@type": "ContactPoint", email: "support@jwstudy.org", contactType: "customer support", availableLanguage: ["English", "Spanish", "Portuguese", "French", "Tagalog", "Chinese", "Japanese"] },
+  contactPoint: { "@type": "ContactPoint", email: "support@jwstudy.org", contactType: "customer service", availableLanguage: ["English", "Spanish", "Portuguese", "French", "Tagalog", "Chinese", "Japanese"] },
+  sameAs: ["https://nwtprogress.com"],
 };
 
 const schemaWebSite = {

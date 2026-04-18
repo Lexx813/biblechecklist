@@ -4,6 +4,7 @@ import { GetStartedButton, GetStartedLink } from "./GetStartedButton";
 import ThemeToggle from "./ThemeToggle";
 import CommunityStats from "./CommunityStats";
 import FeaturedPosts from "./FeaturedPosts";
+import MotionDiv from "./MotionDiv";
 
 /* ── Server-side data fetching ─────────────────────────────────── */
 
@@ -174,39 +175,49 @@ export default function LandingPage() {
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section className="px-6 pb-16 pt-20 text-center md:pb-16 md:pt-20">
         <div className="mx-auto flex max-w-[720px] flex-col items-center gap-6">
-          <div className="inline-flex items-center rounded-full bg-[var(--lp-badge-bg)] px-3.5 py-[5px] text-xs font-semibold uppercase tracking-wider text-[var(--lp-badge-text)]">
-            Free Bible reading tracker
-          </div>
+          <MotionDiv variant="fadeUp" delay={0}>
+            <div className="inline-flex items-center rounded-full bg-[var(--lp-badge-bg)] px-3.5 py-[5px] text-xs font-semibold uppercase tracking-wider text-[var(--lp-badge-text)]">
+              Free Bible reading tracker
+            </div>
+          </MotionDiv>
 
-          <h1 className="m-0 font-display text-[clamp(36px,6vw,60px)] font-semibold leading-[1.15] tracking-tight text-[var(--lp-text)]">
-            Grow Closer to Jehovah<br />
-            <span className="block text-[var(--lp-primary)]">One Chapter at a Time</span>
-          </h1>
+          <MotionDiv variant="fadeUp" delay={0.1}>
+            <h1 className="m-0 font-display text-[clamp(36px,6vw,60px)] font-semibold leading-[1.15] tracking-tight text-[var(--lp-text)]">
+              Grow Closer to Jehovah<br />
+              <span className="block text-[var(--lp-primary)]">One Chapter at a Time</span>
+            </h1>
+          </MotionDiv>
 
-          <p className="m-0 max-w-[560px] text-[clamp(15px,2vw,17px)] leading-relaxed text-[var(--lp-muted)]">
-            Track your New World Translation reading, earn quiz badges, prep for meetings, and connect with a worldwide community of Jehovah&apos;s Witnesses.
-          </p>
+          <MotionDiv variant="fadeUp" delay={0.2}>
+            <p className="m-0 max-w-[560px] text-[clamp(15px,2vw,17px)] leading-relaxed text-[var(--lp-muted)]">
+              Track your New World Translation reading, earn quiz badges, prep for meetings, and connect with a worldwide community of Jehovah&apos;s Witnesses.
+            </p>
+          </MotionDiv>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 max-[480px]:w-full max-[480px]:flex-col">
-            <GetStartedButton
-              label="Get Started"
-              className="inline-flex cursor-pointer items-center gap-2 rounded-[10px] border-none bg-[var(--lp-primary)] px-6 py-3.5 text-[15px] font-bold tracking-tight text-white transition-all duration-150 hover:-translate-y-px hover:bg-[var(--lp-primary-hover)] max-[480px]:w-full max-[480px]:justify-center"
-            />
-            <a href="/try" className="inline-flex items-center rounded-[10px] border border-[var(--lp-border)] bg-[var(--lp-card-bg)] px-6 py-3.5 text-[15px] font-semibold text-[var(--lp-text)] no-underline transition-all duration-150 hover:border-[var(--lp-primary)] hover:bg-[var(--lp-pill-bg)] max-[480px]:w-full max-[480px]:justify-center">
-              Try the tracker — no signup
-            </a>
-          </div>
+          <MotionDiv variant="fadeUp" delay={0.3}>
+            <div className="flex flex-wrap items-center justify-center gap-3 max-[480px]:w-full max-[480px]:flex-col">
+              <GetStartedButton
+                label="Get Started"
+                className="inline-flex cursor-pointer items-center gap-2 rounded-[10px] border-none bg-[var(--lp-primary)] px-6 py-3.5 text-[15px] font-bold tracking-tight text-white transition-all duration-150 hover:-translate-y-px hover:bg-[var(--lp-primary-hover)] max-[480px]:w-full max-[480px]:justify-center"
+              />
+              <a href="/try" className="inline-flex items-center rounded-[10px] border border-[var(--lp-border)] bg-[var(--lp-card-bg)] px-6 py-3.5 text-[15px] font-semibold text-[var(--lp-text)] no-underline transition-all duration-150 hover:border-[var(--lp-primary)] hover:bg-[var(--lp-pill-bg)] max-[480px]:w-full max-[480px]:justify-center">
+                Try the tracker — no signup
+              </a>
+            </div>
+          </MotionDiv>
 
-          <Suspense fallback={<p className="m-0 text-[13px] text-[var(--lp-muted)]">Loading stats…</p>}>
-            <CommunityStatsLoader />
-          </Suspense>
+          <MotionDiv variant="fadeUp" delay={0.4}>
+            <Suspense fallback={<p className="m-0 text-[13px] text-[var(--lp-muted)]">Loading stats…</p>}>
+              <CommunityStatsLoader />
+            </Suspense>
+          </MotionDiv>
         </div>
       </section>
 
       {/* ── App Preview (phone mockup) ──────────────────────────── */}
       <section className="bg-[var(--lp-bg)] px-6 pb-20 md:px-6 max-md:px-5 max-md:pb-16" aria-label="App preview">
         <div className="mx-auto grid max-w-[1080px] items-center gap-16 md:grid-cols-2 max-md:gap-10 max-md:text-center">
-          <div className="flex flex-col gap-4 max-md:items-center">
+          <MotionDiv variant="slideLeft" className="flex flex-col gap-4 max-md:items-center">
             <span className="inline-flex w-fit items-center rounded-full bg-[var(--lp-badge-bg)] px-3.5 py-[5px] text-xs font-semibold uppercase tracking-wider text-[var(--lp-badge-text)]">
               Bible Tracker
             </span>
@@ -216,8 +227,8 @@ export default function LandingPage() {
             <p className="m-0 max-w-[400px] text-[15px] leading-relaxed text-[var(--lp-muted)] max-md:max-w-full">
               Tap any chapter to mark it read — or select individual verses. Your progress is always saved and synced.
             </p>
-          </div>
-          <div className="relative flex items-start justify-center">
+          </MotionDiv>
+          <MotionDiv variant="slideRight" className="relative flex items-start justify-center">
             <div className="lp-phone">
               <div className="lp-phone-bar">
                 <span className="lp-phone-dot" /><span className="lp-phone-dot" /><span className="lp-phone-dot" />
@@ -308,14 +319,14 @@ export default function LandingPage() {
               <div className="lp-callout-dot lp-callout-dot--done" />
               <span>64% read</span>
             </div>
-          </div>
+          </MotionDiv>
         </div>
       </section>
 
       {/* ── JW Integration ───────────────────────────────────────── */}
       <section className="px-6 py-[72px] max-md:px-5 max-md:py-14" style={{ background: "var(--lp-banner-bg)" }} aria-labelledby="lp-integ-title">
         <div className="mx-auto flex max-w-[1080px] flex-col items-center gap-12">
-          <div className="flex max-w-[620px] flex-col items-center gap-3.5 text-center">
+          <MotionDiv variant="fadeUp" className="flex max-w-[620px] flex-col items-center gap-3.5 text-center">
             <div className="text-[11px] font-bold uppercase tracking-[0.1em] text-white/55">Built for Jehovah&apos;s Witnesses</div>
             <h2 id="lp-integ-title" className="m-0 font-display text-[clamp(28px,4vw,42px)] font-semibold leading-tight tracking-tight text-white">
               The perfect JW Library companion
@@ -323,16 +334,16 @@ export default function LandingPage() {
             <p className="m-0 text-[15px] leading-relaxed text-white/70">
               Every book, chapter, and verse in the app links directly to the official New World Translation — one tap opens it right where you are.
             </p>
-          </div>
+          </MotionDiv>
           <div className="grid w-full gap-5 md:grid-cols-3 max-md:mx-auto max-md:max-w-[440px] max-md:grid-cols-1">
-            {JW_CARDS.map(card => (
-              <div key={card.title} className="flex cursor-default flex-col gap-3 rounded-2xl border border-white/12 bg-white/[0.07] p-7 transition-all duration-200 hover:border-white/22 hover:bg-white/[0.11]">
+            {JW_CARDS.map((card, i) => (
+              <MotionDiv key={card.title} variant="fadeUp" delay={i * 0.1} className="flex cursor-default flex-col gap-3 rounded-2xl border border-white/12 bg-white/[0.07] p-7 transition-all duration-200 hover:border-white/22 hover:bg-white/[0.11]">
                 <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white/12 text-white">
                   {card.icon}
                 </div>
                 <h3 className="m-0 text-[15px] font-bold leading-snug text-white">{card.title}</h3>
                 <p className="m-0 text-[13px] leading-relaxed text-white/65">{card.desc}</p>
-              </div>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -341,11 +352,11 @@ export default function LandingPage() {
       {/* ── Feature Pills ────────────────────────────────────────── */}
       <section className="px-6 pb-16">
         <div className="mx-auto flex max-w-[800px] flex-wrap justify-center gap-2.5">
-          {FEATURES.map(f => (
-            <div key={f} className="inline-flex items-center gap-[7px] rounded-full border border-[var(--lp-pill-border)] bg-[var(--lp-pill-bg)] px-4 py-2 text-[13px] font-semibold text-[var(--lp-pill-text)]">
+          {FEATURES.map((f, i) => (
+            <MotionDiv key={f} variant="slideLeft" delay={i * 0.07} className="inline-flex items-center gap-[7px] rounded-full border border-[var(--lp-pill-border)] bg-[var(--lp-pill-bg)] px-4 py-2 text-[13px] font-semibold text-[var(--lp-pill-text)]">
               <span className="flex items-center text-[var(--lp-primary)]"><CheckIcon /></span>
               {f}
-            </div>
+            </MotionDiv>
           ))}
         </div>
       </section>
@@ -362,14 +373,14 @@ export default function LandingPage() {
             <h2 className="m-0 font-display text-[clamp(26px,4vw,38px)] font-semibold tracking-tight text-[var(--lp-text)]">How it works</h2>
           </div>
           <div className="relative grid gap-8 md:grid-cols-3 max-md:mx-auto max-md:max-w-[440px] max-md:grid-cols-1">
-            {STEPS.map(s => (
-              <div key={s.num} className="relative flex flex-col items-center gap-3 text-center">
+            {STEPS.map((s, i) => (
+              <MotionDiv key={s.num} variant="fadeUp" delay={i * 0.15} className="relative flex flex-col items-center gap-3 text-center">
                 <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[var(--lp-step-num-bg)] text-lg font-extrabold text-[var(--lp-step-num-text)]">
                   {s.num}
                 </div>
                 <h3 className="m-0 text-[17px] font-bold text-[var(--lp-text)]">{s.title}</h3>
                 <p className="m-0 text-sm leading-relaxed text-[var(--lp-muted)]">{s.desc}</p>
-              </div>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -382,11 +393,17 @@ export default function LandingPage() {
             <h2 className="m-0 font-display text-[clamp(26px,4vw,38px)] font-semibold tracking-tight text-[var(--lp-text)]">What publishers say</h2>
           </div>
           <div className="grid gap-5 md:grid-cols-3 max-md:mx-auto max-md:max-w-[440px] max-md:grid-cols-1">
-            {TESTIMONIALS.map(t => (
-              <blockquote key={t.author} className="m-0 rounded-[14px] border border-[var(--lp-card-border)] bg-[var(--lp-card-bg)] p-6 shadow-[var(--lp-card-shadow)]">
-                <p className="m-0 mb-4 text-[15px] italic leading-relaxed text-[var(--lp-text)]">&ldquo;{t.quote}&rdquo;</p>
-                <cite className="text-xs font-bold uppercase not-italic tracking-wider text-[var(--lp-primary)]">{t.author} · {t.location}</cite>
-              </blockquote>
+            {TESTIMONIALS.map((t, i) => (
+              <MotionDiv
+                key={t.author}
+                variant={i === 0 ? "slideLeft" : i === 2 ? "slideRight" : "fadeUp"}
+                delay={i * 0.1}
+              >
+                <blockquote className="m-0 rounded-[14px] border border-[var(--lp-card-border)] bg-[var(--lp-card-bg)] p-6 shadow-[var(--lp-card-shadow)]">
+                  <p className="m-0 mb-4 text-[15px] italic leading-relaxed text-[var(--lp-text)]">&ldquo;{t.quote}&rdquo;</p>
+                  <cite className="text-xs font-bold uppercase not-italic tracking-wider text-[var(--lp-primary)]">{t.author} · {t.location}</cite>
+                </blockquote>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -401,8 +418,8 @@ export default function LandingPage() {
             <p className="m-0 max-w-[520px] text-base leading-relaxed text-[var(--lp-muted)]">JW Study works like a native app — no App Store needed. Add it to any device in seconds.</p>
           </div>
           <div className="grid w-full gap-5 md:grid-cols-3 max-md:mx-auto max-md:max-w-[400px] max-md:grid-cols-1">
-            {INSTALL_CARDS.map(card => (
-              <div key={card.title} className="flex flex-col overflow-hidden rounded-2xl border border-[var(--lp-border)] bg-[var(--lp-card-bg)]">
+            {INSTALL_CARDS.map((card, i) => (
+              <MotionDiv key={card.title} variant="fadeUp" delay={i * 0.1} className="flex flex-col overflow-hidden rounded-2xl border border-[var(--lp-border)] bg-[var(--lp-card-bg)]">
                 <h3 className="m-0 mx-6 mt-5 flex items-center gap-[7px] text-[15px] font-bold text-[var(--lp-text)] [&_svg]:shrink-0 [&_svg]:text-[var(--lp-primary)]">
                   {card.icon}
                   {card.title}
@@ -415,7 +432,7 @@ export default function LandingPage() {
                     </li>
                   ))}
                 </ol>
-              </div>
+              </MotionDiv>
             ))}
           </div>
           <p className="m-0 text-center text-[13px] text-[var(--lp-muted)]">Works on all devices — no download, no App Store, always up to date.</p>
@@ -445,7 +462,7 @@ export default function LandingPage() {
 
       {/* ── Final CTA ────────────────────────────────────────────── */}
       <section className="px-6 py-20 text-center max-md:px-5 max-md:py-14" style={{ background: "var(--lp-banner-bg)" }}>
-        <div className="mx-auto flex max-w-[560px] flex-col items-center gap-4">
+        <MotionDiv variant="fadeUp" className="mx-auto flex max-w-[560px] flex-col items-center gap-4">
           <h2 className="m-0 font-display text-[clamp(28px,4vw,42px)] font-semibold tracking-tight text-white">Start your reading journey today</h2>
           <p className="m-0 text-[15px] text-white/70">Join thousands of publishers tracking their Bible reading.</p>
           <GetStartedButton
@@ -456,7 +473,7 @@ export default function LandingPage() {
             Already have an account?{" "}
             <GetStartedLink label="Sign in" className="cursor-pointer border-none bg-transparent p-0 text-[inherit] text-sm font-semibold text-white/90 underline hover:text-white" />
           </p>
-        </div>
+        </MotionDiv>
       </section>
       </main>
 

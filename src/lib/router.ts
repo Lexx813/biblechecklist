@@ -93,6 +93,7 @@ export function parsePath(): NavState {
   if (h === "videos-dash") return { page: "videosDash" };
   if (h === "creator-request") return { page: "creatorRequest" };
   if (h === "trivia") return { page: "trivia" };
+  if (h === "login" || h === "signup") return { page: "home" };
   return { page: "notFound" };
 }
 

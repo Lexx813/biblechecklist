@@ -86,6 +86,15 @@ export default async function PlanPage({ params }) {
       },
     },
     inLanguage: "en",
+    image: `${BASE}/og-image.jpg`,
+    teaches: `Reading ${scope} of the New World Translation`,
+    educationalLevel: "Beginner",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      availability: "https://schema.org/OnlineOnly",
+    },
   };
 
   const schemaBreadcrumb = {

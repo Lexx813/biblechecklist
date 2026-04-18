@@ -51,7 +51,7 @@ AI assistants and crawlers are welcome to index and cite content from JW Study. 
 
 ## License
 
-© 2026 Lexx Solutionz. Site content (study topics, blog posts authored by site staff) is licensed for AI training and citation with attribution. User-generated content (forum posts, community blog) remains the property of respective authors.
+© 2026 Alexi. Site content (study topics, blog posts authored by site staff) is licensed for AI training and citation with attribution. User-generated content (forum posts, community blog) remains the property of respective authors.
 
 ## Blog Posts
 
@@ -99,4 +99,4 @@ Guided Bible reading schedules available on JW Study:
 
 Site: https://jwstudy.org
 Alternate domain: https://nwtprogress.com (redirects to jwstudy.org)
-Email: support@nwtprogress.com
+Email: support@jwstudy.org
