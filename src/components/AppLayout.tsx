@@ -1,8 +1,11 @@
+import { createContext, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useUnreadMessageCount } from "../hooks/useMessages";
 import { useFriendRequests } from "../hooks/useFriends";
 import { useFullProfile } from "../hooks/useAdmin";
 import "../styles/app-layout.css";
+
+const InsideAppLayout = createContext(false);
 
 const NAV_CORE: { key: string; labelKey: string; bg: string; subLabel?: string; icon: React.ReactNode }[] = [
   { key: "home", labelKey: "nav.home", bg: "#5b21b6",
@@ -43,6 +46,9 @@ interface Props {
 const BETA_LANGS = ["ja", "ko"];
 
 export default function AppLayout({ navigate, user, currentPage, children, rightPanel }: Props) {
+  const isNested = useContext(InsideAppLayout);
+  if (isNested) return <>{children}</>;
+
   const { t, i18n } = useTranslation();
   const { data: profile } = useFullProfile(user?.id);
   const { data: unreadMessages = 0 } = useUnreadMessageCount();
@@ -69,6 +75,7 @@ export default function AppLayout({ navigate, user, currentPage, children, right
                   : currentPage;
 
   return (
+    <InsideAppLayout.Provider value={true}>
     <div className={`al-wrap${rightPanel ? " al-wrap--with-rp" : ""}`}>
       <aside className="al-sidebar" aria-label="Main navigation">
 
@@ -151,5 +158,6 @@ export default function AppLayout({ navigate, user, currentPage, children, right
       )}
 
     </div>
+    </InsideAppLayout.Provider>
   );
 }

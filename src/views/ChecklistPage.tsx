@@ -381,7 +381,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
                     { key: "studyNotes",     label: "📝 " + t("nav.studyNotes",    "Notes") },
                     { key: "studyTopics",    label: "📚 " + t("nav.studyTopics",   "Topics") },
                     { key: "bookmarks",      label: "🔖 " + t("nav.bookmarks",     "Bookmarks") },
-                    { key: "readingHistory", label: "📊 " + t("nav.readingHistory","History") },
+                    { key: "history",        label: "📊 " + t("nav.readingHistory","History") },
                   ] as { key: string; label: string }[]).map(tool => (
                     <button key={tool.key} className="cl-study-tool" onClick={() => navigate(tool.key)}>
                       {tool.label}
