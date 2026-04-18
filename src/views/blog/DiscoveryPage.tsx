@@ -118,12 +118,6 @@ export default function DiscoveryPage({ navigate, user }: Props) {
             onChange={e => { setSearchQuery(e.target.value); setPage(1); }}
           />
         </div>
-        {user && (
-          <button
-            className="disc-hero-write-btn"
-            onClick={() => navigate("blogNew")}
-          >✍️ Write an article</button>
-        )}
       </div>
 
       {/* Topic pills */}
@@ -136,6 +130,47 @@ export default function DiscoveryPage({ navigate, user }: Props) {
           >{topic}</button>
         ))}
       </div>
+
+      {/* Top strip: write + active writers */}
+      {(user || (activeWriters as unknown as Writer[]).length > 0) && (
+        <div className="disc-top-strip">
+          {user && (
+            <div className="disc-sidebar-widget disc-top-strip-write">
+              <div className="disc-sidebar-label">Share your thoughts</div>
+              <button
+                className="btn btn-primary"
+                style={{ width: "100%", padding: "10px", fontSize: 14 }}
+                onClick={() => navigate("blogNew")}
+              >✍️ Write an article</button>
+            </div>
+          )}
+          {(activeWriters as unknown as Writer[]).length > 0 && (
+            <div className="disc-sidebar-widget disc-top-strip-writers">
+              <div className="disc-sidebar-label">Active Writers</div>
+              {(activeWriters as unknown as Writer[]).map(writer => (
+                <div key={writer.id} className="disc-writer-row">
+                  <div className="disc-writer-avatar">
+                    {writer.avatar_url
+                      ? <img src={writer.avatar_url} alt="" />
+                      : authorInitial(writer.display_name)
+                    }
+                  </div>
+                  <div>
+                    <div className="disc-writer-name">{writer.display_name ?? "Anonymous"}</div>
+                    <div className="disc-writer-count">
+                      {writer.post_count} post{writer.post_count !== 1 ? "s" : ""} this month
+                    </div>
+                  </div>
+                  <button
+                    className="disc-writer-view"
+                    onClick={() => navigate("publicProfile", { userId: writer.id })}
+                  >View</button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="disc-layout">
         <div>
@@ -243,32 +278,6 @@ export default function DiscoveryPage({ navigate, user }: Props) {
                 >
                   <span className="disc-trending-num">{i + 1}</span>
                   <span className="disc-trending-title">{post.title}</span>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {(activeWriters as unknown as Writer[]).length > 0 && (
-            <div className="disc-sidebar-widget">
-              <div className="disc-sidebar-label">Active Writers</div>
-              {(activeWriters as unknown as Writer[]).map(writer => (
-                <div key={writer.id} className="disc-writer-row">
-                  <div className="disc-writer-avatar">
-                    {writer.avatar_url
-                      ? <img src={writer.avatar_url} alt="" />
-                      : authorInitial(writer.display_name)
-                    }
-                  </div>
-                  <div>
-                    <div className="disc-writer-name">{writer.display_name ?? "Anonymous"}</div>
-                    <div className="disc-writer-count">
-                      {writer.post_count} post{writer.post_count !== 1 ? "s" : ""} this month
-                    </div>
-                  </div>
-                  <button
-                    className="disc-writer-view"
-                    onClick={() => navigate("publicProfile", { userId: writer.id })}
-                  >View</button>
                 </div>
               ))}
             </div>
