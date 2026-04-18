@@ -12,9 +12,9 @@ import { getStoredReferralCode, clearStoredReferralCode, trackSignup } from "./l
 import LoadingSpinner from "./components/LoadingSpinner";
 import MobileTabBar from "./components/MobileTabBar";
 import TopBar from "./components/TopBar";
-import AppLayout from "./components/AppLayout";
 import CommandPalette from "./components/CommandPalette";
 import { BOOKS } from "./data/books";
+import { usePostBySlug } from "./hooks/useBlog";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import ConsentGate from "./components/ConsentGate";
 import "./styles/app.css";
@@ -32,12 +32,15 @@ const AdminPage         = lazy(() => import("./views/admin/AdminPage"));
 const ProfilePage       = lazy(() => import("./views/profile/ProfilePage"));
 const BlogPage          = lazy(() => import("./views/blog/BlogPage"));
 const BlogDashboard     = lazy(() => import("./views/blog/BlogDashboard"));
+const MyPostsPage       = lazy(() => import("./views/blog/MyPostsPage"));
 const WriterPage        = lazy(() => import("./views/blog/WriterPage"));
 const ForumPage         = lazy(() => import("./views/forum/ForumPage"));
 const QuizPage          = lazy(() => import("./views/quiz/QuizPage"));
 const QuizLevel         = lazy(() => import("./views/quiz/QuizPage").then(m => ({ default: m.QuizLevel })));
 const AdvancedQuizPage  = lazy(() => import("./views/quiz/AdvancedQuizPage"));
 const AdvancedQuizLevel = lazy(() => import("./views/quiz/AdvancedQuizPage").then(m => ({ default: m.AdvancedQuizLevel })));
+const MasterQuizPage    = lazy(() => import("./views/quiz/MasterQuizPage"));
+const MasterQuizLevel   = lazy(() => import("./views/quiz/MasterQuizPage").then(m => ({ default: m.MasterQuizLevel })));
 const SettingsPage      = lazy(() => import("./views/profile/SettingsPage"));
 const SearchPage        = lazy(() => import("./views/search/SearchPage"));
 const BookmarksPage     = lazy(() => import("./views/bookmarks/BookmarksPage"));
@@ -92,11 +95,12 @@ function Page({ children, noFooter = false }) {
 const VALID_PAGES = ["readingPlans", "studyNotes", "quiz", "forum", "blog", "main", "friends", "friendRequests"];
 
 // Module-level so useState initializers can reference it synchronously
-const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "publicProfile", "main", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "bookDetail", "studyTopicDetail", "history", "trivia", "search", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy"]);
+const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "masterQuiz", "masterQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "myPosts", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "publicProfile", "main", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "bookDetail", "studyTopicDetail", "history", "trivia", "search", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy"]);
 
 function toPanelKey(page: string) {
   if (page === "quizLevel") return "quiz";
   if (page === "advancedQuizLevel") return "advancedQuiz";
+  if (page === "masterQuizLevel") return "masterQuiz";
   return page;
 }
 
@@ -125,6 +129,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     const p = parsePath();
     return (p.page !== "home" && HOME_PANELS.has(p.page)) ? { page: "home" } : p;
   });
+  const [pendingAIDraft, setPendingAIDraft] = useState<{ title: string; content: string; excerpt: string } | null>(null);
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem("nwt-theme");
     if (saved === "dark") return true;
@@ -159,6 +164,27 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     window.addEventListener("popstate", handler);
     return () => window.removeEventListener("popstate", handler);
   }, []);
+
+  // Navigate to blog editor when AI creates a draft from any page
+  useEffect(() => {
+    function handler(e: Event) {
+      const draft = (e as CustomEvent<{ title: string; content: string; excerpt: string }>).detail;
+      setPendingAIDraft(draft);
+      navigate("blogNew");
+    }
+    window.addEventListener("ai:blog-draft", handler);
+    return () => window.removeEventListener("ai:blog-draft", handler);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // AI-driven navigation
+  useEffect(() => {
+    function handler(e: Event) {
+      const { page } = (e as CustomEvent<{ page: string }>).detail;
+      navigate(page);
+    }
+    window.addEventListener("ai:navigate", handler);
+    return () => window.removeEventListener("ai:navigate", handler);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ⌘K / Ctrl+K — open command palette
   useEffect(() => {
@@ -252,8 +278,6 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
 
   const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page, onSearchClick: () => setShowCmdPalette(true) };
 
-  const AL = ({ page, children }) => <AppLayout navigate={navigate} user={user} currentPage={page}>{children}</AppLayout>;
-
   const aiContext = useMemo(() => {
     const ctx: { page: string; bookIndex?: number; bookName?: string; chapter?: number } = { page: nav.page };
     if ("bookIndex" in nav && typeof nav.bookIndex === "number") {
@@ -272,114 +296,107 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
 
   let pageContent = null;
   if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} panelRequest={homePanelRequest} onPanelConsumed={() => setHomePanelRequest(null)} /></Page>;
-  else if (nav.page === "main") pageContent = <Page><AL page="main"><ChecklistPage user={user} profile={profile} {...sharedNav} openBook={nav.openBook} openChapter={nav.openChapter} /></AL></Page>;
+  else if (nav.page === "main") pageContent = <Page><ChecklistPage user={user} profile={profile} {...sharedNav} openBook={nav.openBook} openChapter={nav.openChapter} /></Page>;
   else if (nav.page === "admin") {
     if (!profileLoading && !profile?.is_admin && !profile?.is_moderator) navigate("home");
     else if (profile?.is_admin || profile?.is_moderator) pageContent = <Page><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   }
-  else if (nav.page === "profile")  pageContent = <Page><AL page="profile"><ProfilePage user={user} viewedUserId={user.id} onBack={() => navigate("home")} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "profile")  pageContent = <Page><ProfilePage user={user} viewedUserId={user.id} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "settings") pageContent = <Page><SettingsPage user={user} onBack={() => navigate("profile")} {...sharedNav} /></Page>;
-  else if (nav.page === "publicProfile") pageContent = <Page><AL page="profile"><ProfilePage user={user} viewedUserId={nav.userId} isOwner={false} onBack={() => navigate("home")} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "publicProfile") pageContent = <Page><ProfilePage user={user} viewedUserId={nav.userId} isOwner={false} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "blog") pageContent = (
     <Page>
-      <AL page="blog">
-        <BlogPage
-          user={user} profile={profile} slug={nav.slug ?? null}
-          onSelectPost={(slug) => navigate("blog", { slug })}
-          onBack={() => navigate("home")}
-          onWriteClick={() => navigate("blogNew")}
-          {...sharedNav}
-        />
-      </AL>
+      <BlogPage
+        user={user} profile={profile} slug={nav.slug ?? null}
+        onSelectPost={(slug) => navigate("blog", { slug })}
+        onBack={() => navigate("home")}
+        onWriteClick={() => navigate("blogNew")}
+        onMyPostsClick={() => navigate("myPosts")}
+        {...sharedNav}
+      />
     </Page>
   );
   else if (nav.page === "blogDash") {
     pageContent = <Page><BlogDashboard user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   }
   else if (nav.page === "blogNew") {
-    pageContent = <Page><WriterPage user={user} navigate={navigate} /></Page>;
+    pageContent = <Page><WriterPage user={user} navigate={navigate} initialDraft={pendingAIDraft} onDraftConsumed={() => setPendingAIDraft(null)} /></Page>;
   }
   else if (nav.page === "blogEdit") {
-    pageContent = <Page><WriterPage user={user} navigate={navigate} /></Page>;
+    pageContent = <Page><BlogEditLoader slug={nav.slug} user={user} navigate={navigate} /></Page>;
   }
   else if (nav.page === "forum") pageContent = (
     <Page>
-      <AL page="forum">
-        <ForumPage
-          user={user} profile={profile}
-          categoryId={nav.categoryId ?? null} threadId={nav.threadId ?? null}
-          onNavigate={(categoryId, threadId) => navigate("forum", { categoryId, threadId })}
-          onBack={() => navigate("home")}
-          {...sharedNav}
-        />
-      </AL>
+      <ForumPage
+        user={user} profile={profile}
+        categoryId={nav.categoryId ?? null} threadId={nav.threadId ?? null}
+        onNavigate={(categoryId, threadId) => navigate("forum", { categoryId, threadId })}
+        onBack={() => navigate("home")}
+        {...sharedNav}
+      />
     </Page>
   );
-  else if (nav.page === "quiz")      pageContent = <Page><AL page="quiz"><QuizPage user={user} {...sharedNav} /></AL></Page>;
-  else if (nav.page === "quizLevel") pageContent = <Page><AL page="quiz"><QuizLevel level={nav.level} user={user} onBack={() => navigate("quiz")} onComplete={() => navigate("quiz")} {...sharedNav} /></AL></Page>;
-  else if (nav.page === "advancedQuiz")      pageContent = <Page><AL page="advancedQuiz"><AdvancedQuizPage user={user} {...sharedNav} /></AL></Page>;
-  else if (nav.page === "advancedQuizLevel") pageContent = <Page><AL page="advancedQuiz"><AdvancedQuizLevel level={nav.level} user={user} onBack={() => navigate("advancedQuiz")} onComplete={() => navigate("advancedQuiz")} {...sharedNav} timedMode={nav.timedMode} /></AL></Page>;
+  else if (nav.page === "quiz")      pageContent = <Page><QuizPage user={user} {...sharedNav} /></Page>;
+  else if (nav.page === "quizLevel") pageContent = <Page><QuizLevel level={nav.level} user={user} onBack={() => navigate("quiz")} onComplete={() => navigate("quiz")} {...sharedNav} /></Page>;
+  else if (nav.page === "advancedQuiz")      pageContent = <Page><AdvancedQuizPage user={user} {...sharedNav} /></Page>;
+  else if (nav.page === "advancedQuizLevel") pageContent = <Page><AdvancedQuizLevel level={nav.level} user={user} onBack={() => navigate("advancedQuiz")} onComplete={() => navigate("advancedQuiz")} {...sharedNav} timedMode={nav.timedMode} /></Page>;
+  else if (nav.page === "masterQuiz")        pageContent = <Page><MasterQuizPage user={user} {...sharedNav} /></Page>;
+  else if (nav.page === "masterQuizLevel")   pageContent = <Page><MasterQuizLevel level={nav.level} user={user} onBack={() => navigate("masterQuiz")} onComplete={() => navigate("masterQuiz")} {...sharedNav} timedMode={nav.timedMode} /></Page>;
   else if (nav.page === "search")    pageContent = <Page><SearchPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "bookmarks") pageContent = <Page><BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
-  else if (nav.page === "history")   pageContent = <Page><AL page="history"><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "history")   pageContent = <Page><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Page>;
   else if (nav.page === "feed")      pageContent = <Page><ActivityFeed user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
-  else if (nav.page === "readingPlans") pageContent = <Page><AL page="readingPlans"><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
-  else if (nav.page === "studyNotes")   pageContent = <Page><AL page="studyNotes"><StudyNotesPage user={user} navigate={navigate} initialTab={nav.tab ?? "mine"} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "readingPlans") pageContent = <Page><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></Page>;
+  else if (nav.page === "studyNotes")   pageContent = <Page><StudyNotesPage user={user} navigate={navigate} initialTab={nav.tab ?? "mine"} {...sharedNav} /></Page>;
   else if (nav.page === "studyTopics")      pageContent = <Page><StudyTopicsPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "studyTopicDetail") pageContent = <Page><StudyTopicDetail user={user} navigate={navigate} slug={nav.slug} {...sharedNav} /></Page>;
   else if (nav.page === "bookDetail") pageContent = <Page><BookDetailPage user={user} navigate={navigate} bookIndex={nav.bookIndex} {...sharedNav} /></Page>;
   else if (nav.page === "familyQuiz") pageContent = (
     <Page>
-      <AL page="familyQuiz">
-        <FamilyQuizPage
-          user={user}
-          {...sharedNav}
-          {...(nav.challengeId ? { initialChallengeId: nav.challengeId } : {})}
-        />
-      </AL>
+      <FamilyQuizPage
+        user={user}
+        {...sharedNav}
+        {...(nav.challengeId ? { initialChallengeId: nav.challengeId } : {})}
+      />
     </Page>
   );
-  else if (nav.page === "leaderboard") pageContent = <Page><AL page="leaderboard"><LeaderboardPage user={user} onBack={() => navigate("home")} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "leaderboard") pageContent = <Page><LeaderboardPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "about")     pageContent = <Page><AboutPage {...sharedNav} /></Page>;
   else if (nav.page === "terms")     pageContent = <Page><TermsPage {...sharedNav} /></Page>;
   else if (nav.page === "privacy")   pageContent = <Page><PrivacyPage {...sharedNav} /></Page>;
   else if (nav.page === "messages")     pageContent = <Page noFooter><MessagesPage {...sharedNav} onBack={() => navigate("home")} initialConv={nav.conversationId ? { conversation_id: nav.conversationId, other_display_name: nav.otherDisplayName ?? null, other_avatar_url: nav.otherAvatarUrl ?? null } : null} /></Page>;
-  else if (nav.page === "groups")       pageContent = <Page><AL page="groups"><GroupsPage {...sharedNav} /></AL></Page>;
-  else if (nav.page === "groupDetail")  pageContent = <Page><AL page="groups"><GroupDetail {...sharedNav} groupId={nav.groupId} /></AL></Page>;
-  else if (nav.page === "meetingPrep") pageContent = <Page><AL page="meetingPrep"><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
+  else if (nav.page === "groups")       pageContent = <Page><GroupsPage {...sharedNav} /></Page>;
+  else if (nav.page === "groupDetail")  pageContent = <Page><GroupDetail {...sharedNav} groupId={nav.groupId} /></Page>;
+  else if (nav.page === "meetingPrep") pageContent = <Page><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "trivia") pageContent = <Page noFooter><TriviaPage user={user} navigate={navigate} prefillCode={(nav as any).prefillCode as string | undefined} /></Page>;
   else if (nav.page === "friends")
-    pageContent = <Page><AL page="friends"><ProfilePage user={user} viewedUserId={user.id} onBack={() => navigate("home")} defaultTab="friends" {...sharedNav} /></AL></Page>;
+    pageContent = <Page><ProfilePage user={user} viewedUserId={user.id} onBack={() => navigate("home")} defaultTab="friends" {...sharedNav} /></Page>;
   else if (nav.page === "friendRequests")
-    pageContent = <Page><AL page="friends"><FriendRequestsPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
+    pageContent = <Page><FriendRequestsPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "community")
-    pageContent = <Page><AL page="community"><CommunityPage user={user} navigate={navigate} {...sharedNav} /></AL></Page>;
+    pageContent = <Page><CommunityPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "videos")
     pageContent = (
       <Page>
-        <AL page="videos">
-          <VideosPage
-            user={user}
-            profile={profile}
-            onSelectVideo={(slug: string) => navigate("videoDetail", { slug })}
-            onBack={() => navigate("home")}
-            onPostClick={() => navigate("videosDash")}
-            {...sharedNav}
-          />
-        </AL>
+        <VideosPage
+          user={user}
+          profile={profile}
+          onSelectVideo={(slug: string) => navigate("videoDetail", { slug })}
+          onBack={() => navigate("home")}
+          onPostClick={() => navigate("videosDash")}
+          {...sharedNav}
+        />
       </Page>
     );
   else if (nav.page === "videoDetail")
     pageContent = (
       <Page>
-        <AL page="videos">
-          <VideoDetailPage
-            user={user}
-            slug={(nav as { page: "videoDetail"; slug: string }).slug}
-            onBack={() => navigate("videos")}
-            {...sharedNav}
-          />
-        </AL>
+        <VideoDetailPage
+          user={user}
+          slug={(nav as { page: "videoDetail"; slug: string }).slug}
+          onBack={() => navigate("videos")}
+          {...sharedNav}
+        />
       </Page>
     );
   else if (nav.page === "videosDash") {
@@ -450,6 +467,18 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
         document.body
       )}
     </>
+  );
+}
+
+// ── Blog edit loader — fetches post before mounting WriterPage ────────────────
+function BlogEditLoader({ slug, user, navigate }: { slug: string; user: { id: string }; navigate: (p: string, params?: Record<string, unknown>) => void }) {
+  const { data: post, isLoading } = usePostBySlug(slug);
+  if (isLoading) return <div style={{ padding: 40, textAlign: "center", color: "var(--text-muted)" }}>Loading…</div>;
+  if (!post) return <div style={{ padding: 40, textAlign: "center", color: "var(--text-muted)" }}>Post not found.</div>;
+  return (
+    <Suspense fallback={null}>
+      <WriterPage user={user} navigate={navigate} editPost={post as any} />
+    </Suspense>
   );
 }
 

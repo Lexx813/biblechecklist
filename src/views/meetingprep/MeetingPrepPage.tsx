@@ -342,11 +342,8 @@ const TABS = ["midweek", "weekend", "history"];
 
 export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const currentWeek = getMondayOfWeek();
-  // If Wed (3) or later, midweek meeting already happened — default to next week
-  const defaultWeek = new Date().getDay() >= 3
-    ? new Date(new Date(currentWeek + "T00:00:00").getTime() + 7 * 86400000).toISOString().slice(0, 10)
-    : currentWeek;
-  const [selectedWeek, setSelectedWeek] = useState(defaultWeek);
+  const defaultWeek = currentWeek;
+  const [selectedWeek, setSelectedWeek] = useState(currentWeek);
   const [activeTab, setActiveTab] = useState("midweek");
 
   const { data: streak = 0 } = usePrepStreak(user.id);
