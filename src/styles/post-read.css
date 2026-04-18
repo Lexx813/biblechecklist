@@ -155,6 +155,7 @@
 .pr-share-sheet {
   margin-top: 8px; border-radius: 10px;
   border: 1px solid var(--border); overflow: hidden;
+  background: var(--card-bg);
 }
 .pr-share-item, a.pr-share-item {
   display: flex; align-items: center; gap: 10px;
@@ -208,8 +209,13 @@
 @container (max-width: 580px) {
   .pr-layout { grid-template-columns: 1fr; padding: 20px 16px; gap: 20px; }
   .pr-sidebar { position: static; flex-direction: row; flex-wrap: wrap; }
-  .pr-widget { flex: 1; min-width: 140px; }
+  .pr-widget { flex: 1; min-width: 140px; position: relative; }
   .pr-title { font-size: 26px; }
   .pr-body { font-size: 16px; }
   .pr-back-top { bottom: 16px; right: 16px; }
+  .pr-share-sheet {
+    position: absolute; bottom: calc(100% + 4px); left: 0; right: 0;
+    margin-top: 0; z-index: 50;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+  }
 }
