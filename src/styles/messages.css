@@ -733,25 +733,34 @@ main:has(.msg-layout) {
 
 /* Hyperlinks inside bubbles */
 .fc-msg-link {
-  color: #c026d3;
+  color: #7c3aed;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  font-weight: 500;
   word-break: break-all;
 }
-.fc-msg-link:hover { color: #a21caf; }
+.fc-msg-link:hover { color: #5b21b6; text-decoration-thickness: 2px; }
 
-/* On "mine" (purple) bubbles — use light pink for contrast */
+/* Dark mode — theirs bubble: light purple bg, need bright link */
+[data-theme="dark"] .fc-msg-link { color: #c4b5fd; }
+[data-theme="dark"] .fc-msg-link:hover { color: #e9d5ff; }
+
+/* "Mine" (purple #7c3aed) bubbles — white with underline for max contrast */
 .msg-bubble--mine .fc-msg-link {
-  color: #fda4ff;
+  color: #fff;
+  text-decoration-color: rgba(255,255,255,0.6);
 }
 .msg-bubble--mine .fc-msg-link:hover {
-  color: #fff;
+  text-decoration-color: rgba(255,255,255,1);
 }
-
-[data-theme="dark"] .fc-msg-link { color: #e879f9; }
-[data-theme="dark"] .fc-msg-link:hover { color: #f0abfc; }
-[data-theme="dark"] .msg-bubble--mine .fc-msg-link { color: #fda4ff; }
-[data-theme="dark"] .msg-bubble--mine .fc-msg-link:hover { color: #fff; }
+[data-theme="dark"] .msg-bubble--mine .fc-msg-link {
+  color: #fff;
+  text-decoration-color: rgba(255,255,255,0.6);
+}
+[data-theme="dark"] .msg-bubble--mine .fc-msg-link:hover {
+  text-decoration-color: rgba(255,255,255,1);
+}
 
 .msg-bubble-footer {
   display: flex;
