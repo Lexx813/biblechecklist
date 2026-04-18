@@ -468,8 +468,8 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 :is(.hls-item--active, .al-item--active):hover { background: rgba(124, 58, 237, 0.22); }
 /* Icon */
 :is(.hls-icon, .al-icon) {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
