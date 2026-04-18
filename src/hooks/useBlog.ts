@@ -28,6 +28,14 @@ export function useMyPosts(userId: string | undefined) {
   });
 }
 
+export function useAllAdminPosts() {
+  return useQuery({
+    queryKey: ["blog", "all-admin"],
+    queryFn: () => blogApi.listAll(),
+    staleTime: 30 * 1000,
+  });
+}
+
 export function useCreatePost(userId: string | undefined) {
   const queryClient = useQueryClient();
   return useMutation({

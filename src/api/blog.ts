@@ -90,6 +90,15 @@ export const blogApi = {
     return data ?? [];
   },
 
+  listAll: async (): Promise<{ id: string; slug: string; published: boolean }[]> => {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("id, slug, published")
+      .order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return (data ?? []) as { id: string; slug: string; published: boolean }[];
+  },
+
   create: async (userId: string, post: BlogPostInput) => {
     assertNoPII(post.title, post.excerpt ?? "", post.content ?? "");
     const { data, error } = await supabase
