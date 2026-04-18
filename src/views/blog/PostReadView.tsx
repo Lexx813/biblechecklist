@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, type ReactNode } from "react";
 import { marked } from "marked";
 import { sanitizeRich } from "../../lib/sanitize";
 import { useRelatedPosts, useToggleBlogLike, useUserBlogLikes } from "../../hooks/useBlog";
@@ -51,9 +51,10 @@ interface Props {
   post: Post;
   user: { id: string } | null;
   navigate: (page: string, params?: Record<string, unknown>) => void;
+  children?: ReactNode;
 }
 
-export default function PostReadView({ post, user, navigate }: Props) {
+export default function PostReadView({ post, user, navigate, children }: Props) {
   const [scrollPct, setScrollPct] = useState(0);
   const [activeSection, setActiveSection] = useState("");
   const articleRef = useRef<HTMLDivElement>(null);
@@ -70,6 +71,7 @@ export default function PostReadView({ post, user, navigate }: Props) {
   }, [post.id]);
 
   useEffect(() => {
+    const scroller = document.querySelector<HTMLElement>(".home-feed, .al-content") ?? window;
     const onScroll = () => {
       const el = articleRef.current;
       if (!el) return;
@@ -84,9 +86,9 @@ export default function PostReadView({ post, user, navigate }: Props) {
         }
       }
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
+    scroller.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => scroller.removeEventListener("scroll", onScroll);
   }, [headings]);
 
   const displayName = post.profiles?.display_name ?? "Anonymous";
@@ -151,6 +153,8 @@ export default function PostReadView({ post, user, navigate }: Props) {
               {post.tags.map(tag => <span key={tag} className="pr-tag">{tag}</span>)}
             </div>
           )}
+
+          {children && <div className="pr-comments-wrap">{children}</div>}
         </article>
 
         {/* Right: Sidebar */}
@@ -198,7 +202,11 @@ export default function PostReadView({ post, user, navigate }: Props) {
 
       <button
         className={`pr-back-top${scrollPct > 10 ? " visible" : ""}`}
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        onClick={() => {
+          const feed = document.querySelector<HTMLElement>(".home-feed, .al-content");
+          if (feed) feed.scrollTo({ top: 0, behavior: "smooth" });
+          else window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
       >
         ↑ Top <span className="pr-back-top-pct">{scrollPct}%</span>
       </button>

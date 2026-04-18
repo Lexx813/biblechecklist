@@ -29,9 +29,8 @@
 }
 .pr-layout {
   display: grid;
-  grid-template-columns: minmax(140px, 180px) minmax(0, 1fr) minmax(160px, 200px);
-  max-width: 1200px; margin: 0 auto;
-  padding: 40px 24px; gap: 32px;
+  grid-template-columns: minmax(140px, 180px) minmax(0, 1fr) minmax(160px, 220px);
+  padding: 40px 32px; gap: 32px;
 }
 
 /* ── ToC (left column) ───────────────────────────────────── */
@@ -148,6 +147,9 @@
 }
 .pr-related-link:hover { color: var(--accent); }
 .pr-related-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+/* ── Comments (inside article column) ───────────────────── */
+.pr-comments-wrap { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); }
 
 /* ── Verse tooltips ───────────────────────────────────────── */
 .pr-verse-ref {
