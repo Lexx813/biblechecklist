@@ -29,8 +29,8 @@
 }
 .pr-layout {
   display: grid;
-  grid-template-columns: minmax(140px, 180px) minmax(0, 1fr) minmax(160px, 220px);
-  padding: 40px 32px; gap: 32px;
+  grid-template-columns: 160px minmax(0, 1fr) 200px;
+  padding: 32px 16px; gap: 24px;
 }
 
 /* ── ToC (left column) ───────────────────────────────────── */
@@ -59,7 +59,7 @@
 }
 
 .pr-title {
-  font-size: 34px; font-weight: 800; line-height: 1.2;
+  font-size: 38px; font-weight: 800; line-height: 1.15;
   letter-spacing: -0.5px; margin-bottom: 16px;
 }
 
@@ -88,9 +88,9 @@
   background: linear-gradient(135deg, #1a1035, #7c3aed);
 }
 
-.pr-body { font-size: 17px; line-height: 1.85; color: var(--text); }
+.pr-body { font-size: 18px; line-height: 1.9; color: var(--text); }
 .pr-body h2 {
-  font-size: 22px; font-weight: 700; margin: 36px 0 14px;
+  font-size: 24px; font-weight: 700; margin: 40px 0 14px;
   letter-spacing: -0.3px; scroll-margin-top: 80px;
 }
 .pr-body h3 { font-size: 18px; font-weight: 600; margin: 28px 0 10px; }
