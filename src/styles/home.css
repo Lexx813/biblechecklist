@@ -43,6 +43,17 @@ html:has(.home-wrap) .page-footer { display: none; }
   display: none;
 }
 
+/* Reading a blog post: hide right sidebar so article has full space */
+.home-layout--reading {
+  grid-template-columns: 280px 1fr;
+}
+.home-layout--reading .home-right-sidebar {
+  display: none;
+}
+.home-layout--reading .home-feed {
+  border-right: none;
+}
+
 /* ─────────────────────────────────────────────────────────
    LEFT SIDEBAR
    ───────────────────────────────────────────────────────── */

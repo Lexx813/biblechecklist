@@ -424,7 +424,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   return (
     <div className="home-wrap">
 
-      <main id="main-content" className={`home-layout${activePanel === "messages" ? " home-layout--messages" : (activePanel === "main" || activePanel === "profile" || activePanel === "admin") ? " home-layout--tracker" : ""}${activePanel === "admin" ? " home-layout--admin" : ""}`}>
+      <main id="main-content" className={`home-layout${activePanel === "messages" ? " home-layout--messages" : (activePanel === "main" || activePanel === "profile" || activePanel === "admin") ? " home-layout--tracker" : ""}${activePanel === "admin" ? " home-layout--admin" : ""}${activePanel === "blog" && panelParams.slug ? " home-layout--reading" : ""}`}>
 
         {/* ═══════════════════════════════════════
             LEFT SIDEBAR — kept as CSS (shared with AppLayout)
