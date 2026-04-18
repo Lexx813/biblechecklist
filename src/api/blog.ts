@@ -8,14 +8,25 @@ export interface BlogPost {
   title: string;
   slug: string;
   excerpt: string | null;
+  subtitle: string | null;
   cover_url: string | null;
   published: boolean;
   created_at: string;
   author_id: string;
   like_count: number;
+  view_count?: number;
   lang: string | null;
   translations: Record<string, BlogPostTranslation> | null;
   profiles: { display_name: string | null; avatar_url: string | null } | null;
+  tags: string[];
+  read_time_minutes: number;
+}
+
+export interface PostSeries {
+  id: string;
+  title: string;
+  author_id: string;
+  created_at: string;
 }
 
 interface BlogPostInput {
@@ -93,6 +104,9 @@ export const blogApi = {
         published: (post as Record<string, unknown>).published ?? false,
         lang: (post as Record<string, unknown>).lang ?? "en",
         translations: (post as Record<string, unknown>).translations ?? {},
+        tags: (post as Record<string, unknown>).tags ?? [],
+        subtitle: (post as Record<string, unknown>).subtitle ?? null,
+        read_time_minutes: (post as Record<string, unknown>).read_time_minutes ?? 0,
       })
       .select()
       .single();
@@ -114,6 +128,9 @@ export const blogApi = {
         ...((updates as Record<string, unknown>).published !== undefined && { published: (updates as Record<string, unknown>).published }),
         ...((updates as Record<string, unknown>).lang !== undefined && { lang: (updates as Record<string, unknown>).lang }),
         ...((updates as Record<string, unknown>).translations !== undefined && { translations: (updates as Record<string, unknown>).translations }),
+        ...((updates as Record<string, unknown>).tags !== undefined && { tags: (updates as Record<string, unknown>).tags }),
+        ...((updates as Record<string, unknown>).subtitle !== undefined && { subtitle: (updates as Record<string, unknown>).subtitle }),
+        ...((updates as Record<string, unknown>).read_time_minutes !== undefined && { read_time_minutes: (updates as Record<string, unknown>).read_time_minutes }),
         updated_at: new Date().toISOString(),
       })
       .eq("id", postId)
@@ -172,6 +189,120 @@ export const blogApi = {
     const ids = data.map(r => r.user_id);
     const { data: profiles } = await supabase.from("profiles").select("id, display_name, avatar_url").in("id", ids);
     return profiles ?? [];
+  },
+
+  getTagSuggestions: async (): Promise<string[]> => {
+    const { data, error } = await supabase.rpc("get_distinct_tags");
+    if (error) return [];
+    return (data as string[]) ?? [];
+  },
+
+  listSeries: async (authorId: string): Promise<PostSeries[]> => {
+    const { data, error } = await supabase
+      .from("post_series")
+      .select("id, title, author_id, created_at")
+      .eq("author_id", authorId)
+      .order("created_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return data ?? [];
+  },
+
+  createSeries: async (authorId: string, title: string): Promise<PostSeries> => {
+    const { data, error } = await supabase
+      .from("post_series")
+      .insert({ author_id: authorId, title })
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+    return data;
+  },
+
+  addToSeries: async (seriesId: string, postId: string, position: number): Promise<void> => {
+    const { error } = await supabase
+      .from("post_series_items")
+      .upsert({ series_id: seriesId, post_id: postId, position });
+    if (error) throw new Error(error.message);
+  },
+
+  getFeaturedPost: async (): Promise<BlogPost | null> => {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("id, title, slug, excerpt, subtitle, cover_url, published, created_at, author_id, like_count, translations, lang, tags, read_time_minutes, profiles!author_id(display_name, avatar_url)")
+      .eq("published", true)
+      .eq("is_featured", true)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (error) return null;
+    return data as unknown as BlogPost | null;
+  },
+
+  getTrendingPosts: async (): Promise<BlogPost[]> => {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("id, title, slug, excerpt, cover_url, created_at, author_id, like_count, view_count, tags, read_time_minutes, profiles!author_id(display_name, avatar_url)")
+      .eq("published", true)
+      .gte("created_at", new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
+      .order("like_count", { ascending: false })
+      .limit(5);
+    if (error) return [];
+    return (data ?? []) as unknown as BlogPost[];
+  },
+
+  getActiveWriters: async (): Promise<Array<{ id: string; display_name: string | null; avatar_url: string | null; post_count: number }>> => {
+    const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("author_id, profiles!author_id(id, display_name, avatar_url)")
+      .eq("published", true)
+      .gte("created_at", since);
+    if (error || !data) return [];
+    const counts: Record<string, { id: string; display_name: string | null; avatar_url: string | null; post_count: number }> = {};
+    for (const row of data as unknown as Array<{ author_id: string; profiles: { id: string; display_name: string | null; avatar_url: string | null } }>) {
+      const p = row.profiles;
+      if (!p?.id) continue;
+      if (!counts[p.id]) counts[p.id] = { id: p.id, display_name: p.display_name, avatar_url: p.avatar_url, post_count: 0 };
+      counts[p.id].post_count++;
+    }
+    return Object.values(counts).sort((a, b) => b.post_count - a.post_count).slice(0, 4);
+  },
+
+  searchPosts: async (query: string, tag: string | null = null): Promise<BlogPost[]> => {
+    let q = supabase
+      .from("blog_posts")
+      .select("id, title, slug, excerpt, cover_url, created_at, author_id, like_count, tags, read_time_minutes, profiles!author_id(display_name, avatar_url)")
+      .eq("published", true);
+    if (query) {
+      q = q.textSearch("search_vector", query, { type: "websearch" });
+    }
+    if (tag && tag !== "All") {
+      q = q.contains("tags", [tag]);
+    }
+    const { data, error } = await q.order("created_at", { ascending: false }).limit(20);
+    if (error) return [];
+    return (data ?? []) as unknown as BlogPost[];
+  },
+
+  getRelatedPosts: async (postId: string, tags: string[]): Promise<BlogPost[]> => {
+    const { data, error } = await supabase
+      .from("blog_posts")
+      .select("id, title, slug, cover_url, created_at, author_id, like_count, read_time_minutes, profiles!author_id(display_name, avatar_url)")
+      .eq("published", true)
+      .neq("id", postId)
+      .overlaps("tags", tags.length ? tags : ["__no_match__"])
+      .order("like_count", { ascending: false })
+      .limit(3);
+    if (error || !data?.length) {
+      const { data: fallback } = await supabase
+        .from("blog_posts")
+        .select("id, title, slug, cover_url, created_at, author_id, like_count, read_time_minutes, profiles!author_id(display_name, avatar_url)")
+        .eq("published", true)
+        .neq("id", postId)
+        .order("like_count", { ascending: false })
+        .limit(3);
+      return (fallback ?? []) as unknown as BlogPost[];
+    }
+    return data as unknown as BlogPost[];
   },
 
   uploadCover: async (userId: string, file: File) => {
