@@ -207,7 +207,7 @@
   .pr-toc { display: none; }
 }
 @container (max-width: 580px) {
-  .pr-layout { grid-template-columns: 1fr; padding: 20px 16px; gap: 20px; }
+  .pr-layout { grid-template-columns: 1fr; padding: 20px 16px 100px; gap: 20px; }
   .pr-sidebar { position: static; flex-direction: row; flex-wrap: wrap; }
   .pr-widget { flex: 1; min-width: 140px; position: relative; }
   .pr-title { font-size: 26px; }
@@ -218,4 +218,18 @@
     margin-top: 0; z-index: 50;
     box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
   }
+}
+
+/* ── Mobile fallback — viewport-based for reliability on small screens */
+@media (max-width: 700px) {
+  .pr-layout {
+    grid-template-columns: 1fr !important;
+    padding: 16px !important;
+    gap: 16px !important;
+  }
+  .pr-toc     { display: none !important; }
+  .pr-sidebar { display: none !important; }
+  .pr-title   { font-size: 24px; }
+  .pr-body    { font-size: 16px; }
+  .pr-back-top { bottom: 72px; right: 14px; }
 }
