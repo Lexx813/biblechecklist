@@ -226,6 +226,17 @@ export default function DiscoveryPage({ navigate, user }: Props) {
 
         {/* Right sidebar */}
         <aside className="disc-sidebar">
+          {user && (
+            <div className="disc-sidebar-widget">
+              <div className="disc-sidebar-label">Share your thoughts</div>
+              <button
+                className="btn btn-primary"
+                style={{ width: "100%", padding: "10px", fontSize: 14 }}
+                onClick={() => navigate("blogNew")}
+              >✍️ Write an article</button>
+            </div>
+          )}
+
           {(trendingPosts as unknown as Post[]).length > 0 && (
             <div className="disc-sidebar-widget">
               <div className="disc-sidebar-label">Trending This Week</div>
@@ -268,16 +279,6 @@ export default function DiscoveryPage({ navigate, user }: Props) {
             </div>
           )}
 
-          {user && (
-            <div className="disc-sidebar-widget">
-              <div className="disc-sidebar-label">Share your thoughts</div>
-              <button
-                className="btn btn-primary"
-                style={{ width: "100%", padding: "10px", fontSize: 14 }}
-                onClick={() => navigate("blogNew")}
-              >✍️ Write an article</button>
-            </div>
-          )}
         </aside>
       </div>
     </div>
