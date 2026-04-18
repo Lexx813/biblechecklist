@@ -77,8 +77,8 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
   const hasPullQuote = currentMarkdown.includes("\n> ") || currentMarkdown.startsWith("> ");
   const hasVerseRef = /\[[A-Z][a-zA-Z\s]+\d+:\d+\]/.test(currentMarkdown);
 
-  const doSave = useCallback(async (publish = false) => {
-    if (!title.trim()) return;
+  const doSave = useCallback(async (publish = false): Promise<boolean> => {
+    if (!title.trim()) return false;
     setSaveStatus("saving");
     const payload = {
       title: title.trim(),
@@ -102,9 +102,11 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
         await blogApi.addToSeries(selectedSeries, postIdRef.current, 0);
       }
       setSaveStatus("saved");
+      return true;
     } catch (err: unknown) {
       setSaveStatus("unsaved");
       toast.error(err instanceof Error ? err.message : "Save failed");
+      return false;
     }
   }, [title, subtitle, currentMarkdown, coverUrl, tags, readTime, selectedSeries, createPost, updatePost]);
 
@@ -164,7 +166,10 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
   const filteredSugg = tagSuggestions.filter((s: string) => s.includes(tagInput) && !tags.includes(s));
 
   const handlePublish = async () => {
-    await doSave(true);
+    // Cancel any pending auto-save so it can't overwrite published=true with published=false
+    if (saveTimer.current) { clearTimeout(saveTimer.current); saveTimer.current = null; }
+    const ok = await doSave(true);
+    if (!ok) return;
     setShowPublishModal(false);
     navigate("blog");
     toast.success(t("blog.published", "Published!"));
