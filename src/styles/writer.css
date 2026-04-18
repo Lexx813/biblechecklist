@@ -13,7 +13,17 @@
 .writer-save-status { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 5px; }
 .writer-save-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: writer-pulse 2s infinite; }
 @keyframes writer-pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-.writer-topbar-right { display: flex; gap: 8px; }
+.writer-topbar-right { display: flex; gap: 8px; align-items: center; }
+.writer-topbar-right .btn {
+  padding: 7px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  border: 1px solid var(--border); background: var(--card-bg); color: var(--text);
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.writer-topbar-right .btn:hover { background: var(--hover); }
+.writer-topbar-right .btn-primary {
+  background: var(--accent); color: white; border-color: var(--accent);
+}
+.writer-topbar-right .btn-primary:hover { opacity: 0.88; background: var(--accent); }
 
 /* ── Body layout ─────────────────────────────────────────── */
 .writer-body { display: flex; flex: 1; }
