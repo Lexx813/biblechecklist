@@ -69,6 +69,8 @@ export default function BlockEditor({ blocks, onChange }: Props) {
   const [slashMenu, setSlashMenu] = useState<{ blockId: string } | null>(null);
   const [slashIdx, setSlashIdx] = useState(0);
   const refs = useRef<Record<string, HTMLElement | null>>({});
+  const dragId = useRef<string | null>(null);
+  const [dragOverId, setDragOverId] = useState<string | null>(null);
 
   const updateBlock = useCallback((id: string, content: string) => {
     onChange(blocks.map(b => b.id === id ? { ...b, content } : b));
@@ -121,6 +123,20 @@ export default function BlockEditor({ blocks, onChange }: Props) {
     }
   }, [slashMenu, slashIdx, convertBlock, addBlockAfter, removeBlock]);
 
+  const handleDrop = useCallback((targetId: string) => {
+    const fromId = dragId.current;
+    if (!fromId || fromId === targetId) { setDragOverId(null); return; }
+    const from = blocks.findIndex(b => b.id === fromId);
+    const to = blocks.findIndex(b => b.id === targetId);
+    if (from < 0 || to < 0) { setDragOverId(null); return; }
+    const next = [...blocks];
+    const [moved] = next.splice(from, 1);
+    next.splice(to, 0, moved);
+    onChange(next);
+    dragId.current = null;
+    setDragOverId(null);
+  }, [blocks, onChange]);
+
   return (
     <div className="be-root">
       {blocks.map((block) => {
@@ -132,8 +148,19 @@ export default function BlockEditor({ blocks, onChange }: Props) {
         };
 
         return (
-          <div key={block.id + "-" + block.type} className="be-block">
-            <div className="be-handle">
+          <div
+            key={block.id + "-" + block.type}
+            className={`be-block${dragOverId === block.id ? " be-block--drag-over" : ""}`}
+            onDragOver={e => { e.preventDefault(); setDragOverId(block.id); }}
+            onDragLeave={() => setDragOverId(null)}
+            onDrop={() => handleDrop(block.id)}
+          >
+            <div
+              className="be-handle"
+              draggable
+              onDragStart={() => { dragId.current = block.id; }}
+              onDragEnd={() => { dragId.current = null; setDragOverId(null); }}
+            >
               <span className="be-handle-grip" title="Drag to reorder">⠿</span>
             </div>
 
