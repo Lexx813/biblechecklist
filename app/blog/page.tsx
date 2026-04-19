@@ -28,7 +28,7 @@ export const metadata = {
 const schemaBlog = {
   "@context": "https://schema.org",
   "@type": "Blog",
-  "@id": "https://jwstudy.org/blog",
+  "@id": "https://jwstudy.org/blog#blog",
   name: "JW Study Blog",
   description: "Spiritual insights, Bible study articles, and community reflections from the JW Study community.",
   url: "https://jwstudy.org/blog",
@@ -83,7 +83,6 @@ export default async function BlogListPage() {
           </ul>
         </div>
       )}
-      <script dangerouslySetInnerHTML={{ __html: `(function(){var e=document.getElementById('ssr-fallback');if(e)e.style.display='none';}())` }} />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ClientShell />
       </HydrationBoundary>
