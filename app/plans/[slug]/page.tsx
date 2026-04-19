@@ -63,10 +63,10 @@ export default async function PlanPage({ params }) {
   const chaptersPerDay = Math.max(1, Math.round(plan.totalChapters / plan.totalDays));
   const relatedPlans = PLAN_TEMPLATES.filter((p) => p.key !== plan.key).slice(0, 6);
 
-  const schemaCourse = {
+  const schemaLearningResource = {
     "@context": "https://schema.org",
-    "@type": "Course",
-    "@id": `${BASE}/plans/${slug}#course`,
+    "@type": "LearningResource",
+    "@id": `${BASE}/plans/${slug}#resource`,
     name: plan.name,
     description: plan.description,
     url: `${BASE}/plans/${slug}`,
@@ -75,20 +75,12 @@ export default async function PlanPage({ params }) {
       "@id": `${BASE}/#organization`,
       name: "JW Study",
     },
-    hasCourseInstance: {
-      "@type": "CourseInstance",
-      courseMode: "online",
-      courseWorkload: `P${plan.totalDays}D`,
-      instructor: {
-        "@type": "Organization",
-        "@id": "https://jwstudy.org/#organization",
-        name: "JW Study",
-      },
-    },
-    inLanguage: "en",
-    image: `${BASE}/og-image.jpg`,
-    teaches: `Reading ${scope} of the New World Translation`,
     educationalLevel: "Beginner",
+    teaches: `Reading ${scope} of the New World Translation`,
+    timeRequired: `P${plan.totalDays}D`,
+    inLanguage: "en",
+    isAccessibleForFree: true,
+    image: `${BASE}/og-image.jpg`,
     offers: {
       "@type": "Offer",
       price: "0",
@@ -109,7 +101,7 @@ export default async function PlanPage({ params }) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaCourse) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaLearningResource) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
       <div style={SEO_HIDE}>
         <h1>{plan.name} — Bible Reading Plan for Jehovah&apos;s Witnesses</h1>
