@@ -173,7 +173,7 @@ export default async function BlogPostPage({ params }) {
             </p>
             {post.excerpt && <p>{post.excerpt}</p>}
             {post.content && (
-              <p>{stripHtml(post.content)}</p>
+              <div dangerouslySetInnerHTML={{ __html: post.content }} />
             )}
           </article>
 
@@ -217,8 +217,6 @@ export default async function BlogPostPage({ params }) {
           </nav>
         </div>
       )}
-      {/* Runs synchronously during HTML parse — hides fallback before first paint so users never see it */}
-      <script dangerouslySetInnerHTML={{ __html: `(function(){var e=document.getElementById('ssr-fallback');if(e)e.style.display='none';}())` }} />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ClientShell />
       </HydrationBoundary>

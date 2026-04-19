@@ -14,7 +14,7 @@ export async function generateMetadata({ params }) {
   if (!topic) return {};
 
   const firstParagraph = topic.sections?.[0]?.paragraphs?.[0] ?? "";
-  const description = firstParagraph.slice(0, 160) || topic.subtitle;
+  const description = (topic.subtitle || firstParagraph).slice(0, 160);
 
   return {
     title: `${topic.title} | JW Study Bible Study`,
@@ -56,9 +56,9 @@ export default async function StudyTopicPage({ params }) {
     dateModified: topic.updatedAt,
     image: "https://jwstudy.org/og-image.jpg",
     author: {
-      "@type": "Organization",
-      "@id": "https://jwstudy.org/#organization",
-      name: "JW Study",
+      "@type": "Person",
+      "@id": "https://jwstudy.org/#creator",
+      name: "Alexi",
     },
     publisher: {
       "@type": "Organization",
@@ -106,6 +106,7 @@ export default async function StudyTopicPage({ params }) {
       <div style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>
         <h1>{topic.title}</h1>
         <p>{topic.subtitle}</p>
+        <p><small>Written by Alexi, a Jehovah&apos;s Witness and Bible student.</small></p>
         <p className="text-xs text-gray-500 mt-1">{topic.disclaimer}</p>
         {topic.sections.map((section, i) => (
           <section key={i}>

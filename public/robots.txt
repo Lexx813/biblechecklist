@@ -57,6 +57,12 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
+User-agent: Applebot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
 User-agent: Googlebot
 Allow: /
 

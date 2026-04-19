@@ -48,7 +48,7 @@ export default function FeaturedPosts({ posts }: { posts: Post[] }) {
                     className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
-                    {...(i === 0 ? { priority: true } : { loading: "lazy" })}
+                    {...(i === 0 ? { priority: true } : { loading: "lazy" as const })}
                   />
                 </div>
                 <div className="flex flex-1 flex-col gap-2 px-5 pb-5 pt-[18px]">

@@ -40,7 +40,7 @@ export default async function sitemap() {
 
   const studyTopicPages = STUDY_TOPICS.map((t) => ({
     url: `${BASE}/study-topics/${t.slug}`,
-    lastModified: new Date("2026-03-01"),
+    lastModified: new Date(t.updatedAt),
   }));
 
   // ── Blog posts (with hreflang for EN/ES pairs) ────────────────────────────
@@ -107,6 +107,17 @@ export default async function sitemap() {
       forumPages.push({
         url: `${BASE}/forum/${cat.id}`,
         lastModified: new Date(cat.updated_at ?? cat.created_at),
+      });
+    }
+
+    const { data: threads } = await supabase
+      .from("forum_threads")
+      .select("id, category_id, updated_at, created_at");
+
+    for (const thread of threads ?? []) {
+      forumPages.push({
+        url: `${BASE}/forum/${thread.category_id}/${thread.id}`,
+        lastModified: new Date(thread.updated_at ?? thread.created_at),
       });
     }
 

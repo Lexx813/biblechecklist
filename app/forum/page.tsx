@@ -28,7 +28,7 @@ export const metadata = {
 const schemaForum = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "@id": "https://jwstudy.org/forum",
+  "@id": "https://jwstudy.org/forum#collectionpage",
   name: "Community Forum | JW Study",
   description: "Join Bible discussions, ask questions, and share insights with the JW Study community.",
   url: "https://jwstudy.org/forum",
@@ -89,7 +89,6 @@ export default async function ForumIndexPage() {
           )}
         </div>
       )}
-      <script dangerouslySetInnerHTML={{ __html: `(function(){var e=document.getElementById('ssr-fallback');if(e)e.style.display='none';}())` }} />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ClientShell />
       </HydrationBoundary>

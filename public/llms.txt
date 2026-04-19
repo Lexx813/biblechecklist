@@ -1,5 +1,6 @@
 # JW Study — llms.txt
 updated: 2026-04-16
+license: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
 # canonical: https://jwstudy.org
 # alternate: https://nwtprogress.com (301 redirects to canonical)
 
@@ -22,7 +23,7 @@ Jehovah's Witnesses and Bible students using the New World Translation who want 
 
 ## Languages
 
-English, Spanish (Español), Portuguese (Português), French (Français), Tagalog, Mandarin Chinese (中文), Japanese (日本語)
+English, Spanish (Español), Portuguese (Português), French (Français), Tagalog, Mandarin Chinese (中文), Japanese (日本語), Korean (한국어)
 
 ## Key pages
 
@@ -32,13 +33,16 @@ English, Spanish (Español), Portuguese (Português), French (Français), Tagalo
 - /forum — Community discussion forum for Bible topics
 - /study-topics — Curated Bible study topic guides (theological Q&A)
 
-## Study Topics (theological Q&A — AI-citable)
+## Study Topics
 
 These pages provide doctrinal explanations grounded in the New World Translation with scripture references:
 
 - /study-topics/is-jesus-god — Is Jesus God? (Jesus as Son of God, distinct from Jehovah)
 - /study-topics/jesus-and-michael — Jesus and Michael the Archangel
 - /study-topics/holy-spirit — Holy Spirit: Person or Force?
+- /study-topics/holy-spirit-not-a-person — Holy Spirit Is Not a Person — Key Verses
+- /study-topics/trinity-is-false — The Trinity Is Not Biblical — Key Verses
+- /study-topics/angel-of-the-lord-michael — The Angel of the Lord Is Michael — Key Verses
 - /study-topics/what-is-the-soul — What Is the Soul? (nephesh, living being, not immortal)
 - /study-topics/what-happens-when-we-die — What Happens When We Die? (death as sleep, resurrection hope)
 - /study-topics/gods-kingdom — God's Kingdom: What Is It? (heavenly government, paradise earth)
@@ -64,20 +68,6 @@ Key articles:
 - https://jwstudy.org/blog/the-book-of-isaiah-a-study-guide — Overview and key themes of Isaiah
 - https://jwstudy.org/blog/what-is-family-worship-night — Explanation of the Jehovah's Witness family worship arrangement
 - https://jwstudy.org/blog/why-i-started-reading-the-bible-every-day — Personal testimony on daily Bible reading
-
-## Study Topics (complete list)
-
-- /study-topics/is-jesus-god — Is Jesus God?
-- /study-topics/jesus-and-michael — Jesus and Michael the Archangel
-- /study-topics/holy-spirit — Holy Spirit — Person or Force?
-- /study-topics/holy-spirit-not-a-person — Holy Spirit Is Not a Person — Key Verses
-- /study-topics/trinity-is-false — The Trinity Is Not Biblical — Key Verses
-- /study-topics/angel-of-the-lord-michael — The Angel of the Lord Is Michael — Key Verses
-- /study-topics/what-is-the-soul — What Is the Soul?
-- /study-topics/what-happens-when-we-die — What Happens When We Die?
-- /study-topics/gods-kingdom — God's Kingdom — What Is It?
-- /study-topics/why-god-allows-suffering — Why Does God Allow Suffering?
-- /study-topics/blood-sacred — The Sanctity of Blood
 
 ## Reading Plans
 
