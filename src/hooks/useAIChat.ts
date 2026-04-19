@@ -51,6 +51,11 @@ export function useAIChat(context?: ChatContext) {
   // without needing messages in its dependency array.
   const messagesRef = useRef<ChatMessage[]>(messages);
 
+  // Keep context in a ref so send() always uses the current page context
+  // without context needing to be a dep (which would recreate send on every nav).
+  const contextRef = useRef(context);
+  contextRef.current = context;
+
   // Persist to localStorage whenever messages change
   useEffect(() => {
     try {
@@ -106,7 +111,7 @@ export function useAIChat(context?: ChatContext) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${session.access_token}`,
         },
-        body: JSON.stringify({ messages: apiMessages, context }),
+        body: JSON.stringify({ messages: apiMessages, context: contextRef.current }),
         signal: ctrl.signal,
       });
 
