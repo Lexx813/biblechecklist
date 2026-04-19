@@ -18,7 +18,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <div className="about-hero-inner">
           <div className="about-hero-badge">Legal</div>
           <h1 className="about-hero-title">Terms of Service</h1>
-          <p className="about-hero-sub">Last updated: March 31, 2026</p>
+          <p className="about-hero-sub">Last updated: April 18, 2026</p>
         </div>
       </section>
 
@@ -34,7 +34,21 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <section className="about-section">
           <h2 className="about-section-title">2. Description of Service</h2>
           <p className="about-section-body">
-            JW Study is a Bible reading tracker and community platform designed for readers of the New World Translation. The App provides tools for tracking reading progress, participating in forums, writing blog posts, taking quizzes, and connecting with other users.
+            JW Study is a free Bible reading tracker and community platform designed for readers of the New World Translation. The App provides the following features at no charge to registered users:
+          </p>
+          <ul className="about-features" style={{ marginTop: 8 }}>
+            <li className="about-feature"><span className="about-feature-icon">📖</span><div><strong>Bible reading tracker</strong> — track your personal progress through all 66 books of the NWT</div></li>
+            <li className="about-feature"><span className="about-feature-icon">✍️</span><div><strong>Blog</strong> — read and write JW-focused articles, leave comments</div></li>
+            <li className="about-feature"><span className="about-feature-icon">💬</span><div><strong>Community forum</strong> — participate in discussions organized by category</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🤖</span><div><strong>AI Study Companion</strong> — an AI assistant drawing exclusively from JW publications and wol.jw.org</div></li>
+            <li className="about-feature"><span className="about-feature-icon">📅</span><div><strong>Meeting prep</strong> — tools to prepare for midweek and weekend congregation meetings</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🎥</span><div><strong>Videos</strong> — curated JW video content from approved creators</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🧠</span><div><strong>Quizzes</strong> — Bible knowledge quizzes based on NWT content</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔔</span><div><strong>Notifications &amp; Announcements</strong> — community updates and push notifications</div></li>
+            <li className="about-feature"><span className="about-feature-icon">👤</span><div><strong>User profiles</strong> — public profiles showing your reading milestones and contributions</div></li>
+          </ul>
+          <p className="about-section-body" style={{ marginTop: 16 }}>
+            <strong>JW Study is completely free of charge.</strong> There are no paid tiers, no premium subscriptions, and no features locked behind a paywall. All registered users have full access to all features.
           </p>
           <p className="about-section-body">
             We reserve the right to modify, suspend, or discontinue any part of the service at any time.
@@ -70,11 +84,28 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Infringing on another person's intellectual property</div></li>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Illegal under applicable law</div></li>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Profane or using language that is obscene, vulgar, or offensive</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Doctrine or teachings contrary to or critical of the Watch Tower Bible and Tract Society or Jehovah's Witnesses</div></li>
           </ul>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">5. Personal Information &amp; Link Policy</h2>
+          <h2 className="about-section-title">5. AI Study Companion</h2>
+          <p className="about-section-body">
+            The AI Study Companion is an AI-powered assistant available to all registered users. It draws exclusively from Watch Tower publications and jw.org/wol.jw.org content to answer Bible questions and assist with JW study.
+          </p>
+          <ul className="about-features" style={{ marginTop: 8 }}>
+            <li className="about-feature"><span className="about-feature-icon">✅</span><div>The AI is designed to provide study assistance aligned with JW teachings only</div></li>
+            <li className="about-feature"><span className="about-feature-icon">✅</span><div>Conversations with the AI are used only to generate responses — they are not shared publicly</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Do not use the AI to generate content that violates these Terms, including harmful, illegal, or apostate material</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Do not attempt to manipulate the AI into producing content outside its intended purpose</div></li>
+          </ul>
+          <p className="about-section-body" style={{ marginTop: 16 }}>
+            AI-generated content, including blog drafts, is provided as a starting point and should be reviewed before publishing. JW Study does not guarantee the accuracy of AI responses and encourages users to verify all content against official JW publications.
+          </p>
+        </section>
+
+        <section className="about-section">
+          <h2 className="about-section-title">6. Personal Information &amp; Link Policy</h2>
           <p className="about-section-body">
             To protect the privacy and safety of all users — especially minors — the following are strictly prohibited in all user-generated content, including forum posts, blog posts, comments, profile bios, and display names:
           </p>
@@ -92,7 +123,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
 
         <section className="about-section">
           <h2 className="about-section-title" style={{ color: "var(--text-primary)" }}>
-            🛡️ 6. Child Safety Policy
+            🛡️ 7. Child Safety Policy
           </h2>
           <p className="about-section-body">
             The safety of children is a non-negotiable priority at JW Study. We have a zero-tolerance policy for any content or behavior that endangers, exploits, or sexualizes minors.
@@ -122,7 +153,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">7. Community Standards</h2>
+          <h2 className="about-section-title">8. Community Standards</h2>
           <p className="about-section-body">
             JW Study is a spiritually-focused community platform. We ask that all users engage respectfully and in a manner consistent with the values of the community. Debates intended to discourage faith or disrespect other users' beliefs are not permitted.
           </p>
@@ -132,7 +163,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">8. Enforcement &amp; Account Bans</h2>
+          <h2 className="about-section-title">9. Enforcement &amp; Account Bans</h2>
           <p className="about-section-body">
             Violations of these Terms — including posting prohibited content, attempting to circumvent automated filters, or engaging in harmful behavior toward other users — may result in:
           </p>
@@ -148,35 +179,42 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">9. Intellectual Property</h2>
+          <h2 className="about-section-title">10. Intellectual Property</h2>
           <p className="about-section-body">
-            The JW Study name, logo, design, and original code are the intellectual property of Lexx Solutionz. Scripture quotations are from the New World Translation of the Holy Scriptures and are used for personal and community study purposes.
+            The JW Study name, logo, design, and original code are the intellectual property of Lexx Solutionz. Scripture quotations are from the New World Translation of the Holy Scriptures and are used for personal and community study purposes. All Watch Tower publications referenced within the App remain the intellectual property of the Watch Tower Bible and Tract Society of Pennsylvania.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">10. Disclaimer of Warranties</h2>
+          <h2 className="about-section-title">11. No Affiliation with Watch Tower</h2>
+          <p className="about-section-body">
+            JW Study is an independent study tool created by and for Jehovah's Witnesses. It is not affiliated with, endorsed by, or operated by the Watch Tower Bible and Tract Society of Pennsylvania, the Governing Body of Jehovah's Witnesses, or any official JW organization. All doctrinal content is intended to be consistent with official JW teachings, but users should rely on official jw.org materials for authoritative guidance.
+          </p>
+        </section>
+
+        <section className="about-section">
+          <h2 className="about-section-title">12. Disclaimer of Warranties</h2>
           <p className="about-section-body">
             The App is provided "as is" without warranties of any kind. We do not guarantee that the App will be error-free, uninterrupted, or that data will never be lost. Use the App at your own risk.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">11. Limitation of Liability</h2>
+          <h2 className="about-section-title">13. Limitation of Liability</h2>
           <p className="about-section-body">
             To the fullest extent permitted by law, JW Study and Lexx Solutionz shall not be liable for any indirect, incidental, or consequential damages arising from your use of the App.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">12. Changes to Terms</h2>
+          <h2 className="about-section-title">14. Changes to Terms</h2>
           <p className="about-section-body">
             We may update these Terms at any time. Continued use of the App after changes are posted constitutes acceptance of the updated Terms. We will update the "Last updated" date at the top of this page.
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">13. Contact</h2>
+          <h2 className="about-section-title">15. Contact</h2>
           <p className="about-section-body">
             If you have questions about these Terms, you can reach us through the App's community forum or via the contact information listed on jwstudy.org.
           </p>
