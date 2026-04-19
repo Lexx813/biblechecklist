@@ -475,7 +475,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
 
 // ── Blog edit loader — fetches post before mounting WriterPage ────────────────
 function BlogEditLoader({ slug, user, navigate }: { slug: string; user: { id: string }; navigate: (p: string, params?: Record<string, unknown>) => void }) {
-  const { data: post, isLoading } = usePostBySlugForEdit(slug);
+  const { data: post, isLoading } = usePostBySlugForEdit(slug, user.id);
   if (isLoading) return <div style={{ padding: 40, textAlign: "center", color: "var(--text-muted)" }}>Loading…</div>;
   if (!post) return <div style={{ padding: 40, textAlign: "center", color: "var(--text-muted)" }}>Post not found.</div>;
   return (

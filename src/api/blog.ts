@@ -75,11 +75,12 @@ export const blogApi = {
     return data;
   },
 
-  getBySlugForEdit: async (slug: string) => {
+  getBySlugForEdit: async (slug: string, userId: string) => {
     const { data, error } = await supabase
       .from("blog_posts")
       .select("id, title, subtitle, content, cover_url, tags, published, slug, excerpt, is_featured")
       .eq("slug", slug)
+      .eq("author_id", userId)
       .maybeSingle();
     if (error) throw new Error(error.message);
     return data;
