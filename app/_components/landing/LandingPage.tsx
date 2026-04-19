@@ -181,18 +181,14 @@ export default function LandingPage() {
             </div>
           </MotionDiv>
 
-          <MotionDiv variant="fadeUp" delay={0.1}>
-            <h1 className="m-0 font-display text-[clamp(36px,6vw,60px)] font-semibold leading-[1.15] tracking-tight text-[var(--lp-text)]">
-              Grow Closer to Jehovah<br />
-              <span className="block text-[var(--lp-primary)]">One Chapter at a Time</span>
-            </h1>
-          </MotionDiv>
+          <h1 className="m-0 font-display text-[clamp(36px,6vw,60px)] font-semibold leading-[1.15] tracking-tight text-[var(--lp-text)]">
+            Grow Closer to Jehovah<br />
+            <span className="block text-[var(--lp-primary)]">One Chapter at a Time</span>
+          </h1>
 
-          <MotionDiv variant="fadeUp" delay={0.2}>
-            <p className="m-0 max-w-[560px] text-[clamp(15px,2vw,17px)] leading-relaxed text-[var(--lp-muted)]">
-              Track your New World Translation reading, earn quiz badges, prep for meetings, and connect with a worldwide community of Jehovah&apos;s Witnesses.
-            </p>
-          </MotionDiv>
+          <p className="m-0 max-w-[560px] text-[clamp(15px,2vw,17px)] leading-relaxed text-[var(--lp-muted)]">
+            Track your New World Translation reading, earn quiz badges, prep for meetings, and connect with a worldwide community of Jehovah&apos;s Witnesses.
+          </p>
 
           <MotionDiv variant="fadeUp" delay={0.3}>
             <div className="flex flex-wrap items-center justify-center gap-3 max-[480px]:w-full max-[480px]:flex-col">
