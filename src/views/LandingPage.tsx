@@ -636,6 +636,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
             <a href="/about" className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">{t("landing.nav.about")}</a>
             <a href="/terms" className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">{t("landing.footerTerms")}</a>
             <a href="/privacy" className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">{t("landing.footerPrivacy")}</a>
+            <a href="https://www.jw.org" target="_blank" rel="noopener noreferrer" className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">JW.org</a>
           </nav>
           <p className="m-0 text-xs text-[var(--lp-footer-text)]">{t("landing.footerCopy", { year: new Date().getFullYear() })}</p>
         </div>
