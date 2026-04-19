@@ -383,32 +383,51 @@ export function blocksToMarkdown(blocks: Block[]): string {
   }).join("\n\n");
 }
 
+function stripInlineMarkdown(text: string): string {
+  return text
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1") // [text](url) → text
+    .replace(/\*\*(.+?)\*\*/gs, "$1")         // **bold**
+    .replace(/\*(.+?)\*/gs, "$1")             // *italic*
+    .replace(/__(.+?)__/gs, "$1")             // __bold__
+    .replace(/_([^_\n]+)_/g, "$1")            // _italic_
+    .replace(/`([^`]+)`/g, "$1");             // `code`
+}
+
 export function markdownToBlocks(md: string): Block[] {
   if (!md.trim()) return [{ id: uid(), type: "paragraph", content: "" }];
   // Pre-process: collapse callout fences into single tokens
   const collapsed = md.replace(/:::(info|tip|warning|highlight)\n([\s\S]*?)\n:::/g, (_m, variant, text) =>
     `\x00callout:${variant}:${text.replace(/\n/g, "\x01")}`
   );
-  return collapsed.split(/\n\n+/).map(line => {
+  // Ensure consecutive list items and headings separated by single newlines each become their own block
+  const normalized = collapsed
+    .replace(/\n(#{1,3} )/g, "\n\n$1")
+    .replace(/\n(- )/g, "\n\n$1")
+    .replace(/\n(\d+\. )/g, "\n\n$1");
+  return normalized.split(/\n\n+/).map(line => {
     const id = uid();
     if (line.startsWith("\x00callout:")) {
       const rest = line.slice(9);
       const colon = rest.indexOf(":");
       const variant = rest.slice(0, colon);
-      const content = rest.slice(colon + 1).replace(/\x01/g, "\n");
+      const content = stripInlineMarkdown(rest.slice(colon + 1).replace(/\x01/g, "\n"));
       return { id, type: "callout" as BlockType, content, meta: variant };
     }
-    if (line.startsWith("## "))  return { id, type: "h2" as BlockType,         content: line.slice(3) };
-    if (line.startsWith("### ")) return { id, type: "h3" as BlockType,         content: line.slice(4) };
-    if (line.startsWith("> "))   return { id, type: "pull-quote" as BlockType,  content: line.slice(2) };
+    if (line.startsWith("## "))  return { id, type: "h2" as BlockType,         content: stripInlineMarkdown(line.slice(3)) };
+    if (line.startsWith("### ")) return { id, type: "h3" as BlockType,         content: stripInlineMarkdown(line.slice(4)) };
+    if (line.startsWith("> ")) {
+      // Multiline blockquotes: strip `> ` from every continuation line
+      const content = line.split("\n").map(l => l.replace(/^> ?/, "")).join("\n");
+      return { id, type: "pull-quote" as BlockType, content: stripInlineMarkdown(content) };
+    }
     if (/^\[.+\]$/.test(line.trim())) return { id, type: "bible-verse" as BlockType, content: line.trim().slice(1, -1) };
-    if (line.startsWith("- "))   return { id, type: "bullet" as BlockType,     content: line.slice(2) };
-    if (line.startsWith("1. "))  return { id, type: "numbered" as BlockType,   content: line.slice(3) };
+    if (line.startsWith("- "))   return { id, type: "bullet" as BlockType,     content: stripInlineMarkdown(line.slice(2)) };
+    if (line.startsWith("1. "))  return { id, type: "numbered" as BlockType,   content: stripInlineMarkdown(line.slice(3)) };
     if (line.trim() === "---")   return { id, type: "divider" as BlockType,    content: "" };
     const imgMatch = line.match(/^!\[\]\((.*)\)$/);
     if (imgMatch)                return { id, type: "image" as BlockType,      content: imgMatch[1] };
     const vidMatch = line.match(/^\[video\]\((.*)\)$/);
     if (vidMatch)                return { id, type: "video" as BlockType,      content: vidMatch[1] };
-    return { id, type: "paragraph" as BlockType, content: line };
+    return { id, type: "paragraph" as BlockType, content: stripInlineMarkdown(line) };
   });
 }
