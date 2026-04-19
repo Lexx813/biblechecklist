@@ -80,7 +80,7 @@ function QuizBoard({ data, userId, onProfile }) {
             </span>
             <span className="lb-sub">{t("leaderboard.levelsComplete", { count: Number(row.levels_completed) })}</span>
           </div>
-          <span className="lb-stat">{Number(row.levels_completed)} / 12</span>
+          <span className="lb-stat">{Number(row.levels_completed)} / 36</span>
         </div>
       ))}
     </div>
