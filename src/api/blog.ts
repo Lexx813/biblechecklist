@@ -275,7 +275,9 @@ export const blogApi = {
       .from("blog_posts")
       .select("author_id, profiles!author_id(id, display_name, avatar_url)")
       .eq("published", true)
-      .gte("created_at", since);
+      .gte("created_at", since)
+      .order("created_at", { ascending: false })
+      .limit(100);
     if (error || !data) return [];
     const counts: Record<string, { id: string; display_name: string | null; avatar_url: string | null; post_count: number }> = {};
     for (const row of data as unknown as Array<{ author_id: string; profiles: { id: string; display_name: string | null; avatar_url: string | null } }>) {
