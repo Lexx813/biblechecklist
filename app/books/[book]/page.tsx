@@ -116,10 +116,32 @@ export default async function BookPage({ params }) {
     ],
   };
 
+  const schemaBook = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "@id": `${BASE}/books/${slug}#book`,
+    name: book.name,
+    alternateName: `Book of ${book.name}`,
+    url: `${BASE}/books/${slug}`,
+    inLanguage: "en",
+    position: book.index + 1,
+    isPartOf: {
+      "@type": "Book",
+      name: "New World Translation of the Holy Scriptures",
+      url: "https://www.jw.org/en/library/bible/study-bible/books/",
+    },
+    publisher: {
+      "@type": "Organization",
+      "@id": `${BASE}/#organization`,
+      name: "JW Study",
+    },
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaArticle) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBook) }} />
       <div style={SEO_HIDE}>
         <h1>Book of {book.name} — New World Translation Study Guide</h1>
         <p>
