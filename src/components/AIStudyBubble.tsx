@@ -211,7 +211,9 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
         {!hasMessages && !loading && (
           <div className="asb-welcome">
             <p className="asb-welcome-text">
-              Ask any Bible question. Answers draw exclusively from Watch Tower publications, the NWT, and wol.jw.org.
+              {(context?.page === "blogNew" || context?.page === "blogEdit")
+                ? "Tell me a topic and I'll write a full draft and load it into the editor. I can also brainstorm titles, outlines, or help with any section."
+                : "Ask any Bible question. Answers draw exclusively from Watch Tower publications, the NWT, and wol.jw.org."}
             </p>
             <div className="asb-suggestions">
               {suggested.map(s => (

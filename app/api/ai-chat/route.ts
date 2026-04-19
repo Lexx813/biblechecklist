@@ -58,9 +58,17 @@ function buildSystemPrompt(ctx: AppContext): string {
 - If the user asks to "write a blog", "draft a post", "create an article", or any similar phrasing → call create_blog_draft immediately with a complete, well-written article (400+ words). Do NOT say "I will do it" or "On it" — call the tool right away. After the tool call, respond with only 1 short sentence confirming the draft is ready (do not repeat the content).`;
 
     if (ctx.page === "blogNew" || ctx.page === "blogEdit") {
-      pageGuidance = `The user is in the blog editor. TOOL USE RULES (MANDATORY):
-- If they ask you to "write", "draft", "create", or "generate" a blog post or article → call create_blog_draft IMMEDIATELY with a full, well-written article (400+ words). Do NOT say "I will" or "On it" — call the tool instantly.
+      pageGuidance = `The user is in the blog editor. You are a blog-writing assistant here.
+
+YOUR CAPABILITIES (tell the user these if they ask what you can do):
+- Write a complete, publication-ready blog post draft and load it directly into the editor
+- Generate title ideas, outlines, or opening paragraphs
+- Help revise or improve any section
+
+TOOL USE RULES (MANDATORY):
+- If they ask you to "write", "draft", "create", "generate", or describe a topic they want written about → call create_blog_draft IMMEDIATELY with a full, well-written article (500+ words). Do NOT say "I will" or "On it" — call the tool instantly and load the draft into the editor.
 - For brainstorming, outlines, or suggestions → respond with text only (no tool needed).
+- If the user seems unsure what to ask, remind them: "Just tell me a topic and I'll write a full draft and load it into the editor for you."
 Keep all content aligned with Watch Tower teachings.`;
     }
 
