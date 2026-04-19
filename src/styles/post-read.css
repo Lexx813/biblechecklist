@@ -229,6 +229,46 @@
   }
 }
 
+/* ── JW Resources footer (end of article) ─────────────────── */
+.pr-jw-footer {
+  margin-top: 40px; border-top: 2px solid var(--accent);
+  padding-top: 24px;
+}
+.pr-jw-footer-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+}
+.pr-jw-footer-icon { font-size: 28px; flex-shrink: 0; }
+.pr-jw-footer-title {
+  font-size: 16px; font-weight: 700; color: var(--text);
+}
+.pr-jw-footer-sub {
+  font-size: 12px; color: var(--text-muted); margin-top: 2px;
+}
+.pr-jw-footer-links {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.pr-jw-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; border-radius: 10px; text-decoration: none;
+  background: var(--hover); border: 1px solid var(--border);
+  transition: border-color 0.15s, background 0.15s;
+}
+.pr-jw-link:hover { border-color: var(--accent); background: var(--card-bg); }
+.pr-jw-link--primary { border-color: var(--accent); }
+.pr-jw-link-icon { font-size: 20px; flex-shrink: 0; }
+.pr-jw-link strong { display: block; font-size: 14px; color: var(--text); }
+.pr-jw-link small { display: block; font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+
+/* ── JW Resources sidebar widget ──────────────────────────── */
+.pr-jw-widget { gap: 4px !important; }
+.pr-jw-widget-link {
+  display: flex; align-items: center; gap: 8px; padding: 8px 6px;
+  border-radius: 6px; text-decoration: none; font-size: 13px;
+  color: var(--text); transition: background 0.15s;
+}
+.pr-jw-widget-link:hover { background: var(--hover); }
+.pr-jw-widget-link span { color: var(--accent); font-weight: 500; }
+
 /* ── Mobile fallback — viewport-based for reliability on small screens */
 @media (max-width: 700px) {
   .pr-layout {

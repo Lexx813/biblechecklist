@@ -167,6 +167,40 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
             </div>
           )}
 
+          {/* JW Resources footer */}
+          <div className="pr-jw-footer">
+            <div className="pr-jw-footer-header">
+              <span className="pr-jw-footer-icon">📖</span>
+              <div>
+                <div className="pr-jw-footer-title">Continue Your Study</div>
+                <div className="pr-jw-footer-sub">Official resources from Jehovah's Witnesses</div>
+              </div>
+            </div>
+            <div className="pr-jw-footer-links">
+              <a className="pr-jw-link pr-jw-link--primary" href="https://www.jw.org" target="_blank" rel="noopener noreferrer">
+                <span className="pr-jw-link-icon">🌐</span>
+                <span>
+                  <strong>jw.org</strong>
+                  <small>Books, videos & magazines</small>
+                </span>
+              </a>
+              <a className="pr-jw-link" href="https://wol.jw.org" target="_blank" rel="noopener noreferrer">
+                <span className="pr-jw-link-icon">🔍</span>
+                <span>
+                  <strong>WOL Research Library</strong>
+                  <small>wol.jw.org — full publication archive</small>
+                </span>
+              </a>
+              <a className="pr-jw-link" href="https://www.jw.org/en/online-help/jw-library/" target="_blank" rel="noopener noreferrer">
+                <span className="pr-jw-link-icon">📱</span>
+                <span>
+                  <strong>JW Library App</strong>
+                  <small>Download for iOS &amp; Android</small>
+                </span>
+              </a>
+            </div>
+          </div>
+
           {children && <div className="pr-comments-wrap">{children}</div>}
         </article>
 
@@ -225,6 +259,19 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
               ))}
             </div>
           )}
+
+          <div className="pr-widget pr-jw-widget">
+            <div className="pr-widget-label">Official JW Resources</div>
+            <a className="pr-jw-widget-link" href="https://www.jw.org" target="_blank" rel="noopener noreferrer">
+              🌐 <span>jw.org</span>
+            </a>
+            <a className="pr-jw-widget-link" href="https://wol.jw.org" target="_blank" rel="noopener noreferrer">
+              🔍 <span>WOL Research Library</span>
+            </a>
+            <a className="pr-jw-widget-link" href="https://www.jw.org/en/online-help/jw-library/" target="_blank" rel="noopener noreferrer">
+              📱 <span>JW Library App</span>
+            </a>
+          </div>
         </aside>
       </div>
 
