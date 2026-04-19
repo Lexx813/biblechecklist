@@ -82,6 +82,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
   useEffect(() => {
     if (!initialDraft) return;
     setTitle(initialDraft.title);
+    if (initialDraft.excerpt) setExcerpt(initialDraft.excerpt);
     setMode("block");
     setAnimatingDraft({ title: initialDraft.title, content: initialDraft.content });
     onDraftConsumed?.();
