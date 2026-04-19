@@ -8,6 +8,7 @@
  */
 
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { createClient } from "@supabase/supabase-js";
 import ClientShell from "../../_components/ClientShell";
 
@@ -129,10 +130,11 @@ export default async function SharePage({ params }: { params: Promise<{ userId: 
           {/* Avatar */}
           <div style={{ marginBottom: 16 }}>
             {data.avatar_url ? (
-              <img
+              <Image
                 src={data.avatar_url}
                 alt={data.display_name}
-                width={72} height={72}
+                width={72}
+                height={72}
                 style={{ borderRadius: "50%", border: "3px solid #7c5cbf", objectFit: "cover" }}
               />
             ) : (
