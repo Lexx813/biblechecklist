@@ -14,6 +14,50 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_usage_logs: {
+        Row: {
+          id: string
+          created_at: string
+          user_id: string | null
+          model: string
+          input_tokens: number
+          output_tokens: number
+          tool_used: string | null
+          page: string | null
+          cost_usd: number
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          user_id?: string | null
+          model: string
+          input_tokens?: number
+          output_tokens?: number
+          tool_used?: string | null
+          page?: string | null
+          cost_usd?: number
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          user_id?: string | null
+          model?: string
+          input_tokens?: number
+          output_tokens?: number
+          tool_used?: string | null
+          page?: string | null
+          cost_usd?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_usage_logs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       admin_audit_log: {
         Row: {
           action: string
