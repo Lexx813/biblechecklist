@@ -129,8 +129,12 @@
   width: 260px; position: sticky; top: 52px; height: calc(100dvh - 52px);
   background: var(--card-bg); border-left: 1px solid var(--border);
   padding: 20px 16px; display: flex; flex-direction: column; gap: 20px;
-  overflow-y: auto; flex-shrink: 0;
+  overflow-y: auto; flex-shrink: 0; scrollbar-width: thin; scrollbar-color: var(--border) transparent;
 }
+.writer-sidebar::-webkit-scrollbar { width: 4px; }
+.writer-sidebar::-webkit-scrollbar-track { background: transparent; }
+.writer-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.writer-sidebar::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 .writer-sidebar-label {
   font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;

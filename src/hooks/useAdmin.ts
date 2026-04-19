@@ -287,7 +287,8 @@ export function useAIUsage(days = 30) {
 
       return { totalMessages, totalCost, totalTokens, uniqueUsers, dailySeries, toolBreakdown, topPages };
     },
-    staleTime: 2 * 60 * 1000,
+    staleTime: 60_000,
+    refetchInterval: 60_000,
   });
 }
 
