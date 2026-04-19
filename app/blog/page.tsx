@@ -70,7 +70,7 @@ export default async function BlogListPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBlog) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
       {posts?.length > 0 && (
-        <div id="ssr-fallback" suppressHydrationWarning>
+        <noscript>
           <h1>JW Study Blog</h1>
           <p>Spiritual insights, Bible study articles, and community reflections.</p>
           <ul>
@@ -81,9 +81,8 @@ export default async function BlogListPage() {
               </li>
             ))}
           </ul>
-        </div>
+        </noscript>
       )}
-      <script dangerouslySetInnerHTML={{ __html: `(function(){var e=document.getElementById('ssr-fallback');if(e)e.style.display='none';}())` }} />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ClientShell />
       </HydrationBoundary>
