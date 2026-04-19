@@ -86,6 +86,22 @@ self.addEventListener("fetch", (e) => {
     return;
   }
 
+  // Locale JSON files — stale-while-revalidate (instant from cache, refresh in background)
+  if (url.pathname.startsWith("/locales/")) {
+    e.respondWith(
+      caches.open(CACHE).then((cache) =>
+        cache.match(e.request).then((cached) => {
+          const fresh = fetch(e.request).then((res) => {
+            if (res.ok) cache.put(e.request, res.clone());
+            return res;
+          });
+          return cached || fresh;
+        })
+      )
+    );
+    return;
+  }
+
   // Everything else — network with cache fallback for offline
   e.respondWith(
     fetch(e.request)
