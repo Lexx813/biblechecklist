@@ -540,6 +540,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <a href="/terms" className="hsidebar-footer-link">Terms</a>
             <span className="hsidebar-footer-sep">&middot;</span>
             <span className="hsidebar-footer-copy">&copy; {new Date().getFullYear()} JW Study</span>
+            <span className="hsidebar-footer-sep">&middot;</span>
+            <a href="https://www.jw.org" className="hsidebar-footer-link" target="_blank" rel="noopener noreferrer">JW.org</a>
           </div>
         </aside>
 
