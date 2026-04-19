@@ -20,6 +20,14 @@ export function usePostBySlug(slug: string | undefined) {
   });
 }
 
+export function usePostBySlugForEdit(slug: string | undefined) {
+  return useQuery({
+    queryKey: ["blog", "post-edit", slug],
+    queryFn: () => blogApi.getBySlugForEdit(slug!),
+    enabled: !!slug,
+  });
+}
+
 export function useMyPosts(userId: string | undefined) {
   return useQuery({
     queryKey: ["blog", "mine", userId],
