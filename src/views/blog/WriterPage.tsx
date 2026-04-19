@@ -90,23 +90,53 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
 
   useEffect(() => {
     if (!animatingDraft) return;
-    const content = animatingDraft.content;
-    const CHUNK = 12;
-    const DELAY = 16;
-    let i = 0;
-    const id = setInterval(() => {
-      i += CHUNK;
-      const partial = content.slice(0, i);
-      setBlocks(markdownToBlocks(partial));
-      setMarkdown(partial);
-      if (i >= content.length) {
-        setBlocks(markdownToBlocks(content));
-        setMarkdown(content);
-        clearInterval(id);
+
+    // Parse structure once — no re-parsing per frame so block types stay stable
+    const finalBlocks = markdownToBlocks(animatingDraft.content);
+    setMarkdown(animatingDraft.content);
+
+    let cancelled = false;
+
+    (async () => {
+      setBlocks([]);
+      await new Promise(r => setTimeout(r, 40));
+
+      for (let bi = 0; bi < finalBlocks.length; bi++) {
+        if (cancelled) return;
+        const block = finalBlocks[bi];
+
+        // Append the block skeleton immediately so structure is visible
+        setBlocks(prev => [...prev, { ...block, content: "" }]);
+
+        if (!block.content.trim()) {
+          await new Promise(r => setTimeout(r, 50));
+          continue;
+        }
+
+        // Stream words into this block
+        const words = block.content.split(" ");
+        for (let wi = 1; wi <= words.length; wi++) {
+          if (cancelled) return;
+          const partial = words.slice(0, wi).join(" ");
+          setBlocks(prev => {
+            const updated = [...prev];
+            if (updated[bi]) updated[bi] = { ...block, content: partial };
+            return updated;
+          });
+          await new Promise(r => setTimeout(r, 14));
+        }
+
+        // Short breath between blocks
+        await new Promise(r => setTimeout(r, 90));
+      }
+
+      if (!cancelled) {
+        setBlocks(finalBlocks);
         setAnimatingDraft(null);
       }
-    }, DELAY);
-    return () => clearInterval(id);
+    })();
+
+    return () => { cancelled = true; };
   }, [animatingDraft]);
 
   const createPost = useCreatePost(user.id);
