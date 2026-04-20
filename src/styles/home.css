@@ -186,7 +186,7 @@ html:has(.home-wrap) .page-footer { display: none; }
 .hstreak-main { font-size: 17px; font-weight: 700; color: var(--text-primary, #f0eaff); }
 .hstreak-main span { color: #f59e0b; }
 .hstreak-sub { font-size: 13px; color: rgba(240, 234, 255, 0.65); margin-top: 1px; }
-.hstreak-best { font-size: 13px; color: rgba(240, 234, 255, 0.6); font-style: italic; flex-shrink: 0; }
+.hstreak-best { font-size: 13px; color: rgba(240, 234, 255, 0.75); font-style: italic; flex-shrink: 0; }
 
 /* Feed section header */
 .hfeed-head {
@@ -287,7 +287,7 @@ html:has(.home-wrap) .page-footer { display: none; }
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.hblog-meta { font-size: 12px; color: rgba(240, 234, 255, 0.6); }
+.hblog-meta { font-size: 12px; color: rgba(240, 234, 255, 0.75); }
 
 /* ── Notes rows in card ── */
 .hnote-row {
@@ -325,7 +325,7 @@ html:has(.home-wrap) .page-footer { display: none; }
   line-height: 1.4;
   margin-bottom: 3px;
 }
-.hnote-meta { font-size: 12px; color: rgba(240, 234, 255, 0.6); }
+.hnote-meta { font-size: 12px; color: rgba(240, 234, 255, 0.75); }
 .hnote-passage {
   display: inline-flex;
   align-items: center;
@@ -343,7 +343,7 @@ html:has(.home-wrap) .page-footer { display: none; }
   border: none;
   cursor: pointer;
   font-size: 14px;
-  color: rgba(240, 234, 255, 0.6);
+  color: rgba(240, 234, 255, 0.75);
   padding: 4px 6px;
   border-radius: var(--radius-xs);
   font-family: inherit;
@@ -390,10 +390,10 @@ html:has(.home-wrap) .page-footer { display: none; }
   text-overflow: ellipsis;
   margin-bottom: 2px;
 }
-.hforum-meta { font-size: 12px; color: rgba(240, 234, 255, 0.6); }
+.hforum-meta { font-size: 12px; color: rgba(240, 234, 255, 0.75); }
 .hforum-count {
   font-size: 12px;
-  color: rgba(240, 234, 255, 0.6);
+  color: rgba(240, 234, 255, 0.75);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -537,11 +537,11 @@ html:has(.home-wrap) .page-footer { display: none; }
   border: 2px solid var(--bg, #0a0514);
 }
 .hfriend-name { font-size: 14px; font-weight: 500; color: var(--text-primary, #f0eaff); flex: 1; }
-.hfriend-when { font-size: 12px; color: rgba(240, 234, 255, 0.6); min-width: 72px; text-align: right; flex-shrink: 0; }
+.hfriend-when { font-size: 12px; color: rgba(240, 234, 255, 0.75); min-width: 72px; text-align: right; flex-shrink: 0; }
 .hfriend-empty {
   padding: 12px 16px 16px;
   font-size: 13px;
-  color: rgba(240, 234, 255, 0.6);
+  color: rgba(240, 234, 255, 0.75);
 }
 
 /* Invite widget */
@@ -589,7 +589,7 @@ html:has(.home-wrap) .page-footer { display: none; }
 }
 .hwidget-upsell-sub {
   font-size: 13px;
-  color: rgba(240, 234, 255, 0.55);
+  color: rgba(240, 234, 255, 0.75);
   line-height: 1.5;
   margin-bottom: 14px;
 }
@@ -632,7 +632,7 @@ html:has(.home-wrap) .page-footer { display: none; }
 .home-notif-icon { font-size: 20px; flex-shrink: 0; }
 .home-notif-text { flex: 1; min-width: 0; }
 .home-notif-text strong { display: block; font-size: 14px; font-weight: 700; color: var(--text-primary, #f0eaff); }
-.home-notif-text span { font-size: 13px; color: rgba(240, 234, 255, 0.6); }
+.home-notif-text span { font-size: 13px; color: rgba(240, 234, 255, 0.75); }
 .home-notif-enable {
   background: #7c3aed;
   color: #fff;
@@ -652,7 +652,7 @@ html:has(.home-wrap) .page-footer { display: none; }
 .home-notif-dismiss {
   background: none;
   border: none;
-  color: rgba(240, 234, 255, 0.6);
+  color: rgba(240, 234, 255, 0.75);
   cursor: pointer;
   font-size: 16px;
   padding: 4px;
