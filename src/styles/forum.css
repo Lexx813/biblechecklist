@@ -833,6 +833,8 @@
 
 /* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 600px) {
+  /* Prevent iOS auto-zoom on input focus (requires font-size ≥ 16px) */
+  .forum-search-input { font-size: 16px; }
   .forum-post { padding: 0 12px; }
   .forum-post-aside { width: 44px; }
   .forum-rows, .forum-replies, .forum-reply-form { padding: 0 12px; }

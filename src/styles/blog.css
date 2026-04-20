@@ -896,7 +896,7 @@
 .blog-editor-textarea:focus { border-color: var(--teal); }
 
 .blog-editor-textarea--sm { height: 80px; }
-.blog-editor-textarea--lg { height: 320px; font-size: 15px; line-height: 1.7; }
+.blog-editor-textarea--lg { height: 320px; font-size: 16px; line-height: 1.7; }
 
 .blog-editor-error {
   background: #FFEBEE;

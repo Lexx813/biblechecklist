@@ -552,6 +552,9 @@
     max-height: 72dvh;
     border-radius: 18px;
   }
+
+  /* Prevent iOS auto-zoom on textarea focus (requires ≥ 16px) */
+  .asb-textarea { font-size: 16px; }
 }
 
 /* On very narrow screens, stack AI bubble above chat FAB instead of beside it */
