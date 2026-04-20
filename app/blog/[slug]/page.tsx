@@ -52,7 +52,7 @@ export async function generateMetadata({ params }) {
         languages,
       },
       // Emit content-language so crawlers index it in the right language index
-      other: { "content-language": lang },
+      other: { "content-language": (lang ?? "en").trim() },
       openGraph: {
         title: post.title,
         description: desc,
