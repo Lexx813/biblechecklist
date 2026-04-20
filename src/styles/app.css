@@ -551,7 +551,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   transform: translateX(-50%) translateY(0);
 }
 
-.app-wrap { max-width: 680px; margin: 0 auto; min-height: 100dvh; display: flex; flex-direction: column; width: 100%; }
+.app-wrap { min-height: 100dvh; display: flex; flex-direction: column; width: 100%; }
 
 /* HEADER */
 .app-header {
@@ -1815,7 +1815,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 
 /* ---- Responsive: tablet (≥ 640px) ---- */
 @media (min-width: 640px) {
-  .app-wrap { max-width: 860px; }
+  /* app-wrap: full-width */
   .app-header { padding: 22px 28px 0; }
   .tabs { margin: 0 -28px; }
   .toolbar { padding: 12px 22px; }
@@ -1827,7 +1827,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 
 /* ---- Responsive: desktop (≥ 960px) ---- */
 @media (min-width: 960px) {
-  .app-wrap { max-width: 1200px; }
+  /* app-wrap: full-width */
   .app-header { padding: 28px 36px 0; }
   .tabs { margin: 0 -36px; }
   .tab-btn { font-size: 13px; padding: 11px 12px; }
@@ -1842,7 +1842,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 
 /* ---- Responsive: wide desktop (≥ 1280px) ---- */
 @media (min-width: 1280px) {
-  .app-wrap { max-width: 1500px; }
+  /* app-wrap: full-width */
   .app-header { padding: 32px 48px 0; }
   .tabs { margin: 0 -48px; }
   .toolbar { padding: 16px 36px; }

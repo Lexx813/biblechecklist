@@ -27,8 +27,6 @@ html.nav-hidden .pf-header { top: 0; }
   transform: translateY(-1px);
 }
 .pf-header-inner {
-  max-width: 720px;
-  margin: 0 auto;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -61,8 +59,6 @@ html.nav-hidden .pf-header { top: 0; }
 
 /* ── CONTENT ── */
 .pf-content {
-  max-width: 720px;
-  margin: 0 auto;
   padding: 28px 16px 48px;
   display: flex;
   flex-direction: column;

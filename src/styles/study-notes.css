@@ -8,7 +8,6 @@
 /* ── Header ──────────────────────────────────────────────────────────────── */
 
 .sn-header {
-  max-width: 900px;
   margin: 0 auto;
   padding: 28px 20px 20px;
   display: flex;
@@ -90,7 +89,6 @@
 .sn-tabs {
   display: flex;
   gap: 0;
-  max-width: 900px;
   margin: 0 auto;
   border-bottom: 1px solid var(--border);
   padding: 0 20px;
@@ -130,7 +128,6 @@
 /* ── Controls ────────────────────────────────────────────────────────────── */
 
 .sn-controls {
-  max-width: 900px;
   margin: 0 auto;
   padding: 14px 20px 0;
   display: flex;
@@ -166,7 +163,6 @@
   display: flex;
   flex-wrap: nowrap;
   gap: 5px;
-  max-width: 900px;
   margin: 10px auto 0;
   padding: 0 20px 12px;
   overflow-x: auto;
@@ -214,7 +210,6 @@
   display: flex;
   gap: 20px;
   align-items: flex-start;
-  max-width: 900px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -229,7 +224,6 @@
 /* ── Content area ────────────────────────────────────────────────────────── */
 
 .sn-content {
-  max-width: 900px;
   margin: 0 auto;
   padding: 0 20px 60px;
 }

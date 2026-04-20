@@ -9,7 +9,6 @@
 /* ── Header ──────────────────────────────────────────────────────────────── */
 
 .stp-header {
-  max-width: 860px;
   margin: 0 auto;
   padding: 28px 32px;
   position: relative;
@@ -64,7 +63,6 @@
 /* ── Topic Grid ──────────────────────────────────────────────────────────── */
 
 .stp-grid {
-  max-width: 860px;
   margin: 0 auto;
   padding: 0 20px 60px;
   display: grid;
@@ -134,7 +132,6 @@
 }
 
 .std-header {
-  max-width: 760px;
   margin: 0 auto;
   padding: 28px 20px 20px;
   position: relative;
@@ -176,7 +173,6 @@
 /* ── Content ─────────────────────────────────────────────────────────────── */
 
 .std-body {
-  max-width: 760px;
   margin: 0 auto;
   padding: 0 20px 80px;
   display: flex;
@@ -253,7 +249,6 @@ a.std-scripture-ref:hover {
 /* ── Footer nav ──────────────────────────────────────────────────────────── */
 
 .std-nav-footer {
-  max-width: 760px;
   margin: 0 auto;
   padding: 0 20px 40px;
   display: flex;
@@ -336,7 +331,6 @@ a.std-scripture-ref:hover {
   display: flex;
   gap: 8px;
   margin-bottom: 20px;
-  max-width: 860px;
   margin-left: auto;
   margin-right: auto;
   padding: 0 20px;

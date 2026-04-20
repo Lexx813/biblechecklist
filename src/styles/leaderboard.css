@@ -1,7 +1,6 @@
 .lb-page { min-height: 100dvh; background: var(--bg); }
 
 .lb-header {
-  max-width: 640px; margin: 0 auto;
   padding: 24px 20px 0;
 }
 
@@ -18,7 +17,7 @@
 
 .lb-tabs {
   display: flex; gap: 8px;
-  max-width: 640px; margin: 20px auto 0; padding: 0 20px;
+  margin: 20px 0 0; padding: 0 20px;
 }
 .lb-tab {
   flex: 1; padding: 10px; border-radius: var(--radius);
@@ -31,7 +30,7 @@
   color: #fff;
 }
 
-.lb-content { max-width: 640px; margin: 16px auto; padding: 0 20px 40px; min-height: 480px; }
+.lb-content { margin: 16px 0; padding: 0 20px 40px; min-height: 480px; }
 .lb-empty { text-align: center; color: var(--text-muted); padding: 40px 0; }
 .lb-error { text-align: center; padding: 40px 16px; }
 .lb-error-msg { color: var(--text-muted); font-size: 14px; margin: 0 0 6px; }

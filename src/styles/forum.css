@@ -91,7 +91,6 @@
 
 /* ── Category grid ───────────────────────────────────────────── */
 .forum-cat-grid {
-  max-width: 860px;
   margin: 0 auto;
   padding: 32px 20px 60px;
   display: flex;
@@ -172,7 +171,6 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  max-width: 860px;
   margin: 14px auto 0;
   padding: 0 20px;
   font-size: 13px;
@@ -204,7 +202,6 @@
 
 /* ── Search bar ──────────────────────────────────────────────── */
 .forum-search-bar {
-  max-width: 860px;
   margin: 12px auto 0;
   padding: 0 20px;
 }
@@ -226,7 +223,6 @@
 .forum-sort-tabs {
   display: flex;
   gap: 6px;
-  max-width: 860px;
   margin: 10px auto 0;
   padding: 0 20px;
   flex-wrap: wrap;
@@ -324,7 +320,6 @@
 .forum-lang-filter {
   display: flex;
   gap: 8px;
-  max-width: 860px;
   margin: 12px auto 0;
   padding: 0 20px;
 }
@@ -353,7 +348,6 @@
 
 /* ── New thread form ─────────────────────────────────────────── */
 .forum-new-thread-form {
-  max-width: 860px;
   margin: 20px auto 0;
   padding: 20px 24px;
   background: var(--card-bg);
@@ -436,7 +430,6 @@
 
 /* ── Thread rows ─────────────────────────────────────────────── */
 .forum-rows {
-  max-width: 860px;
   margin: 16px auto 40px;
   padding: 0 20px;
   display: flex;
@@ -508,7 +501,6 @@
 .forum-post {
   display: flex;
   gap: 12px;
-  max-width: 860px;
   margin: 16px auto 0;
   padding: 0 20px;
 }
@@ -623,7 +615,6 @@
 
 /* ── Replies section ─────────────────────────────────────────── */
 .forum-replies {
-  max-width: 860px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -640,7 +631,6 @@
 
 /* ── Reply form ──────────────────────────────────────────────── */
 .forum-reply-form {
-  max-width: 860px;
   margin: 20px auto 48px;
   padding: 0 20px;
 }
@@ -698,7 +688,6 @@
 .forum-reply-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .forum-locked-msg {
-  max-width: 860px;
   margin: 20px auto 48px;
   padding: 0 20px;
   text-align: center;

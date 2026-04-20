@@ -1,7 +1,7 @@
 .search-page { min-height: 100dvh; background: var(--bg); }
 
 .search-hero {
-  max-width: 720px; margin: 0 auto; padding: 32px 24px 24px;
+  padding: 32px 24px 24px;
 }
 
 .search-back-btn { margin-bottom: 16px; display: inline-block; }
@@ -22,7 +22,7 @@
 }
 .search-input-wrap .search-input::placeholder { color: var(--text-muted); }
 
-.search-results { max-width: 720px; margin: 0 auto; padding: 0 24px 40px; }
+.search-results { padding: 0 24px 40px; }
 
 .search-hint {
   color: var(--text-muted); font-size: 14px;

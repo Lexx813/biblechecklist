@@ -1,8 +1,6 @@
 /* ── Friends pages ──────────────────────────────────────────────────────────── */
 
 .friends-page {
-  max-width: 680px;
-  margin: 0 auto;
   padding: 24px 16px 48px;
 }
 
@@ -166,8 +164,6 @@
 .freq-hero-inner {
   position: relative;
   z-index: 1;
-  max-width: 680px;
-  margin: 0 auto;
 }
 .freq-back-btn {
   display: inline-flex;
@@ -199,8 +195,6 @@
 }
 
 .freq-content {
-  max-width: 680px;
-  margin: 0 auto;
   padding: 24px 16px 48px;
   display: flex;
   flex-direction: column;

@@ -1,10 +1,10 @@
 .st-wrap { min-height: 100dvh; background: var(--bg); }
 
 .st-header { background: var(--card-bg); border-bottom: 1px solid var(--border); }
-.st-header-inner { max-width: 640px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; gap: 12px; }
+.st-header-inner { padding: 14px 20px; display: flex; align-items: center; gap: 12px; }
 .st-title { font-size: var(--text-lg); font-weight: 800; color: var(--text-primary); margin: 0; }
 
-.st-content { max-width: 640px; margin: 0 auto; padding: 20px 16px 60px; display: flex; flex-direction: column; gap: 16px; }
+.st-content { padding: 20px 16px 60px; display: flex; flex-direction: column; gap: 16px; }
 
 /* Section */
 .st-section {

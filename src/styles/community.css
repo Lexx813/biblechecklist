@@ -1,8 +1,6 @@
 /* ── Community Hub ────────────────────────────────────────────────────────── */
 
 .ch-wrap {
-  max-width: 720px;
-  margin: 0 auto;
   padding: 1.25rem 1rem 6rem;
   display: flex;
   flex-direction: column;
