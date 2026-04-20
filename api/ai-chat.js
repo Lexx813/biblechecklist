@@ -6,7 +6,7 @@
  * Response: text/event-stream (Anthropic SSE piped through)
  */
 
-export const config = { runtime: "edge" };
+export const config = { maxDuration: 60 };
 
 const SUPABASE_URL  = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
