@@ -2158,6 +2158,15 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   }
 }
 
+/* ── iOS input zoom prevention (global) ── */
+/* iOS Safari auto-zooms any input/select/textarea with font-size < 16px.
+   This global rule clamps all form controls to ≥ 16px on touch devices only. */
+@media (max-width: 768px) and (hover: none) {
+  input, textarea, select {
+    font-size: max(16px, 1em);
+  }
+}
+
 /* ── Mobile bottom tab bar (global — always loaded) ── */
 .mobile-tabbar {
   display: none;
