@@ -8,6 +8,19 @@
 
 export const config = { maxDuration: 60 };
 
+// Helper: read raw body stream (Vercel Functions don't always pre-parse)
+async function readBody(req) {
+  return new Promise((resolve, reject) => {
+    if (req.body !== undefined) { resolve(req.body); return; }
+    let data = "";
+    req.on("data", chunk => { data += chunk; });
+    req.on("end", () => {
+      try { resolve(JSON.parse(data)); } catch { reject(new Error("bad json")); }
+    });
+    req.on("error", reject);
+  });
+}
+
 const SUPABASE_URL  = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
 const AI_GATEWAY_KEY = process.env.AI_GATEWAY_API_KEY ?? "";
@@ -199,25 +212,26 @@ Genesis=1, Exodus=2, Leviticus=3, Numbers=4, Deuteronomy=5, Joshua=6, Judges=7, 
 - Always end with an encouraging thought or next-step suggestion
 - Suggest specific publications and give the direct link`;
 
-export default async function handler(req) {
+export default async function handler(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", APP_ORIGIN);
+
   if (req.method === "OPTIONS") {
-    return new Response(null, {
-      headers: {
-        "Access-Control-Allow-Origin": APP_ORIGIN,
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-      },
-    });
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.status(204).end();
+    return;
   }
 
   if (req.method !== "POST") {
-    return new Response("Method Not Allowed", { status: 405 });
+    res.status(405).send("Method Not Allowed");
+    return;
   }
 
   // ── Auth ──────────────────────────────────────────────────────────────────
-  const auth = req.headers.get("Authorization") ?? "";
+  const auth = (req.headers["authorization"] ?? "");
   if (!auth.startsWith("Bearer ")) {
-    return new Response("Unauthorized", { status: 401 });
+    res.status(401).send("Unauthorized");
+    return;
   }
   const token = auth.slice(7);
 
@@ -225,25 +239,25 @@ export default async function handler(req) {
     headers: { Authorization: `Bearer ${token}`, apikey: SUPABASE_ANON },
   });
   if (!userRes.ok) {
-    return new Response("Unauthorized", { status: 401 });
+    res.status(401).send("Unauthorized");
+    return;
   }
 
   // ── Guard ─────────────────────────────────────────────────────────────────
   const useGateway = !!AI_GATEWAY_KEY;
   if (!useGateway && !ANTHROPIC_KEY) {
-    return new Response(
-      JSON.stringify({ error: "AI service not configured." }),
-      { status: 503, headers: { "Content-Type": "application/json" } }
-    );
+    res.status(503).json({ error: "AI service not configured." });
+    return;
   }
 
   // ── Parse body ────────────────────────────────────────────────────────────
   let messages = [];
   let context = {};
   try {
-    const body = await req.json();
+    const body = await readBody(req);
     if (!Array.isArray(body.messages) || body.messages.length === 0) {
-      return new Response("Missing messages", { status: 400 });
+      res.status(400).send("Missing messages");
+      return;
     }
     context = body.context ?? {};
     // Sanitize: only allow user/assistant roles, trim content
@@ -252,11 +266,13 @@ export default async function handler(req) {
       .map(m => ({ role: m.role, content: String(m.content).slice(0, 2000) }))
       .slice(-20); // keep last 20 turns max
   } catch {
-    return new Response("Bad Request", { status: 400 });
+    res.status(400).send("Bad Request");
+    return;
   }
 
   if (messages.length === 0 || messages[messages.length - 1].role !== "user") {
-    return new Response("Last message must be from user", { status: 400 });
+    res.status(400).send("Last message must be from user");
+    return;
   }
 
   const isBlogPage = context.page === "blogNew" || context.page === "blogEdit";
@@ -311,6 +327,11 @@ When the user asks about "this week's meeting", "meeting material", "CLAM", "mid
     ? "anthropic/claude-haiku-4-5-20251001"
     : "claude-haiku-4-5-20251001";
 
+  // ── SSE headers (shared) ──────────────────────────────────────────────────
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("X-Accel-Buffering", "no");
+
   // ── Blog mode: non-streaming with tool use ──────────────────────────────────
   if (isBlogPage) {
     const CREATE_BLOG_POST_TOOL = {
@@ -347,46 +368,27 @@ When the user asks about "this week's meeting", "meeting material", "CLAM", "mid
     if (!claudeRes.ok) {
       const detail = await claudeRes.text().catch(() => "");
       console.error("[ai-chat] Claude API error (blog):", claudeRes.status, detail.slice(0, 200));
-      return new Response("AI service temporarily unavailable", { status: 502 });
+      res.status(502).end("AI service temporarily unavailable");
+      return;
     }
 
     const data = await claudeRes.json();
-    const encoder = new TextEncoder();
-    const { readable, writable } = new TransformStream();
-    const writer = writable.getWriter();
+    const emit = (obj) => res.write(`data: ${JSON.stringify(obj)}\n\n`);
 
-    const emit = async (obj) => {
-      await writer.write(encoder.encode(`data: ${JSON.stringify(obj)}\n\n`));
-    };
-
-    (async () => {
-      try {
-        for (const block of (data.content ?? [])) {
-          if (block.type === "tool_use" && block.name === "create_blog_post") {
-            await emit({ type: "blog_draft", draft: block.input });
-          } else if (block.type === "text" && block.text) {
-            await emit({ type: "content_block_delta", delta: { type: "text_delta", text: block.text } });
-          }
-        }
-        // If no tool was called and no text, emit a fallback
-        const hasContent = (data.content ?? []).some(b => b.type === "tool_use" || (b.type === "text" && b.text));
-        if (!hasContent) {
-          await emit({ type: "content_block_delta", delta: { type: "text_delta", text: "I'm not sure how to help with that. Try asking me to write a specific blog post topic!" } });
-        }
-      } finally {
-        await writer.write(encoder.encode("data: [DONE]\n\n"));
-        await writer.close();
+    for (const block of (data.content ?? [])) {
+      if (block.type === "tool_use" && block.name === "create_blog_post") {
+        emit({ type: "blog_draft", draft: block.input });
+      } else if (block.type === "text" && block.text) {
+        emit({ type: "content_block_delta", delta: { type: "text_delta", text: block.text } });
       }
-    })();
-
-    return new Response(readable, {
-      headers: {
-        "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
-        "X-Accel-Buffering": "no",
-        "Access-Control-Allow-Origin": APP_ORIGIN,
-      },
-    });
+    }
+    const hasContent = (data.content ?? []).some(b => b.type === "tool_use" || (b.type === "text" && b.text));
+    if (!hasContent) {
+      emit({ type: "content_block_delta", delta: { type: "text_delta", text: "I'm not sure how to help with that. Try asking me to write a specific blog post topic!" } });
+    }
+    res.write("data: [DONE]\n\n");
+    res.end();
+    return;
   }
 
   // ── Normal mode: streaming pass-through ────────────────────────────────────
@@ -409,15 +411,16 @@ When the user asks about "this week's meeting", "meeting material", "CLAM", "mid
   if (!claudeRes.ok) {
     const detail = await claudeRes.text().catch(() => "");
     console.error("[ai-chat] Claude API error:", claudeRes.status, detail.slice(0, 200));
-    return new Response("AI service temporarily unavailable", { status: 502 });
+    res.status(502).end("AI service temporarily unavailable");
+    return;
   }
 
-  return new Response(claudeRes.body, {
-    headers: {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      "X-Accel-Buffering": "no",
-      "Access-Control-Allow-Origin": APP_ORIGIN,
-    },
-  });
+  const reader = claudeRes.body.getReader();
+  const decoder = new TextDecoder();
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    res.write(decoder.decode(value, { stream: true }));
+  }
+  res.end();
 }
