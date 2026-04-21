@@ -159,7 +159,7 @@ export const CONTENT_PLAN: ContentPlanArticle[] = [
   {
     id: 13,
     title: "What is God's Kingdom and when did it begin?",
-    slug: "gods-kingdom-1914",
+    slug: "what-is-gods-kingdom-when-did-it-begin",
     priority: "Medium",
     searchIntent: "Central JW teaching, 1914 doctrine",
     keywords: ["gods kingdom 1914", "kingdom of god", "jw kingdom hope"],

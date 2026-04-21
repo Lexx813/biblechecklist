@@ -1,5 +1,5 @@
 import Script from "next/script";
-import { Cormorant_Garamond } from "next/font/google";
+import { Cormorant_Garamond, Fraunces, Inter } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Providers from "./providers";
 import "./globals.css";
@@ -8,8 +8,23 @@ const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "600"],
   style: ["normal", "italic"],
-  display: "optional",
+  display: "swap",
   variable: "--font-cormorant",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-fraunces",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-inter",
 });
 
 const GA_ID = "G-D57FZ5E47V";
@@ -98,19 +113,11 @@ const schemaWebSite = {
   url: "https://jwstudy.org/",
   publisher: { "@type": "Organization", "@id": "https://jwstudy.org/#organization" },
   inLanguage: ["en", "es", "pt", "fr", "tl", "zh"],
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: "https://jwstudy.org/search?q={search_term_string}",
-    },
-    "query-input": "required name=search_term_string",
-  },
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning className={cormorant.variable}>
+    <html lang="en" suppressHydrationWarning className={`${cormorant.variable} ${fraunces.variable} ${inter.variable}`}>
       <head>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="preload" href="/fonts/plus-jakarta-sans-variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />

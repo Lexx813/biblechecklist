@@ -1677,7 +1677,8 @@
     "videos": "動画",
     "bookmarks": "ブックマーク",
     "feed": "活動",
-    "readingHistory": "履歴"
+    "readingHistory": "履歴",
+    "settings": "設定"
   },
   "studyTopics": {
     "title": "学習トピック",
@@ -1883,5 +1884,44 @@
     "videoUrlPlaceholder": "Paste YouTube or Vimeo URL…",
     "removeVideo": "Remove video",
     "deleteBlock": "Delete block"
+  },
+  "cmdPalette": {
+    "dialogLabel": "コマンドパレット",
+    "placeholder": "友達、投稿、スレッド、ページを検索…",
+    "inputLabel": "検索",
+    "resultsLabel": "検索結果",
+    "friendsSection": "友達",
+    "peopleSection": "ユーザー",
+    "versesSection": "✨ 関連の聖句",
+    "booksSection": "📖 聖書の書",
+    "blogSection": "ブログ",
+    "forumSection": "フォーラム",
+    "pagesSection": "ページ",
+    "friendBadge": "友達",
+    "friendFallback": "友達",
+    "userFallback": "ユーザー",
+    "searching": "検索中…",
+    "noResults": "「{{query}}」の結果はありません",
+    "openHint": "↵ 開く",
+    "chHint": "{{count}} 章 · ↵",
+    "navigate": "移動",
+    "open": "開く",
+    "close": "閉じる"
+  },
+  "shareToFriend": {
+    "title": "友達と共有",
+    "searchPlaceholder": "友達を検索...",
+    "loading": "友達を読み込み中…",
+    "empty": "まず友達を追加してください",
+    "noMatch": "一致する友達がいません",
+    "sent": "送信済み ✓",
+    "sending": "送信中…",
+    "send": "送信",
+    "failed": "送信に失敗しました",
+    "friendFallback": "友達"
+  },
+  "verseModal": {
+    "shareMessage": "📖 {{book}} {{chapter}} を読んでいます — {{url}}",
+    "shareTitle": "{{book}} {{chapter}} を共有"
   }
 }

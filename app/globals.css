@@ -29,6 +29,46 @@
   --color-success: #16a34a;
   --color-warning: #b45309;
   --color-gold: #f59e0b;
+
+  /* JW "Learn to Study" course palette (Tailwind v4 exposes these as bg-jw-*, text-jw-*) */
+  --color-jw-purple-deep: #2d1b4e;
+  --color-jw-purple: #4a2c7a;
+  --color-jw-purple-light: #6b4aa3;
+  --color-jw-purple-soft: #f4f0fa;
+  --color-jw-gold: #c9a961;
+  --color-jw-bg: #fdfcff;
+
+  /* Course typography */
+  --font-fraunces: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-inter: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* ── JW course: editorial / paper feel (always light-mode interior) ── */
+.jw-course-surface {
+  background: var(--color-jw-bg);
+  color: #1a1020;
+}
+.jw-course-surface .jw-dropcap::first-letter {
+  font-family: var(--font-fraunces), Georgia, serif;
+  float: left;
+  font-size: 3.25em;
+  line-height: 0.9;
+  padding: 0.1em 0.1em 0 0;
+  color: var(--color-jw-purple-deep);
+  font-weight: 600;
+}
+.jw-focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--color-jw-purple);
+  border-radius: 9999px;
+}
+.jw-focus-ring-rect:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--color-jw-purple-light);
+}
+@media (prefers-reduced-motion: reduce) {
+  .jw-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .jw-course-surface * { animation: none !important; }
 }
 
 /* ── Theme-aware CSS vars (switch with data-theme) ─────────────── */

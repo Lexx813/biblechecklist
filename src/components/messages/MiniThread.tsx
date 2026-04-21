@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
   useMessages, useSendMessage, useDeleteMessage, useMarkRead,
@@ -77,6 +77,7 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
   const [sendError, setSendError] = useState<string | null>(null);
   const [failedPayload, setFailedPayload] = useState<Record<string, unknown> | null>(null);
   const [showNewMsgChip, setShowNewMsgChip] = useState(false);
+  const hasInitialScrolled = useRef(false);
   const messagesRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -112,7 +113,20 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
     };
   }, []);
 
+  // Fires synchronously after DOM commit, before paint — guarantees bottom is
+  // visible the very first time messages arrive (no flash of top-of-chat).
+  useLayoutEffect(() => {
+    if (decryptedMessages.length > 0 && !hasInitialScrolled.current) {
+      hasInitialScrolled.current = true;
+      const el = messagesRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
+      setShowNewMsgChip(false);
+    }
+  }, [decryptedMessages.length]);
+
+  // For subsequent messages: scroll only if already near the bottom.
   useEffect(() => {
+    if (!hasInitialScrolled.current) return;
     requestAnimationFrame(() => {
       const el = messagesRef.current;
       if (!el) { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); return; }

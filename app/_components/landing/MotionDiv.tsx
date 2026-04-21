@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "motion/react";
+import { useEffect, useState, type ComponentType, type CSSProperties, type ReactNode } from "react";
 
 type Variant = "fadeUp" | "slideLeft" | "slideRight" | "fadeIn";
 
@@ -15,10 +15,12 @@ interface Props {
   delay?: number;
   duration?: number;
   className?: string;
-  style?: React.CSSProperties;
-  children: React.ReactNode;
+  style?: CSSProperties;
+  children: ReactNode;
 }
 
+// Lazy-loads motion/react after first paint so it's off the critical JS path.
+// Renders a plain div until motion is ready — content is always visible on SSR/FCP.
 export default function MotionDiv({
   variant = "fadeUp",
   delay = 0,
@@ -27,8 +29,18 @@ export default function MotionDiv({
   style,
   children,
 }: Props) {
+  const [Div, setDiv] = useState<ComponentType<any> | null>(null);
+
+  useEffect(() => {
+    import("motion/react").then((m) => setDiv(() => m.motion.div));
+  }, []);
+
+  if (!Div) {
+    return <div className={className} style={style}>{children}</div>;
+  }
+
   return (
-    <motion.div
+    <Div
       className={className}
       style={style}
       initial="hidden"
@@ -38,6 +50,6 @@ export default function MotionDiv({
       transition={{ duration, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       {children}
-    </motion.div>
+    </Div>
   );
 }

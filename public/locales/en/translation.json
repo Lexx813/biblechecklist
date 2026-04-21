@@ -1690,7 +1690,8 @@
     "bookmarks": "Bookmarks",
     "feed": "Activity",
     "familyChallenge": "Family Challenge",
-    "readingHistory": "History"
+    "readingHistory": "History",
+    "settings": "Settings"
   },
   "studyTopics": {
     "title": "Study Topics",
@@ -1796,5 +1797,44 @@
     "newTestament": "New Testament",
     "studyTools": "Study Tools",
     "66books": "66 Books"
+  },
+  "cmdPalette": {
+    "dialogLabel": "Command palette",
+    "placeholder": "Search friends, posts, threads, or pages…",
+    "inputLabel": "Search",
+    "resultsLabel": "Search results",
+    "friendsSection": "Friends",
+    "peopleSection": "People",
+    "versesSection": "✨ Related verses",
+    "booksSection": "📖 Books",
+    "blogSection": "Blog",
+    "forumSection": "Forum",
+    "pagesSection": "Pages",
+    "friendBadge": "Friend",
+    "friendFallback": "Friend",
+    "userFallback": "User",
+    "searching": "Searching…",
+    "noResults": "No results for \"{{query}}\"",
+    "openHint": "↵ open",
+    "chHint": "{{count}} ch · ↵",
+    "navigate": "navigate",
+    "open": "open",
+    "close": "close"
+  },
+  "shareToFriend": {
+    "title": "Share with a friend",
+    "searchPlaceholder": "Search friends...",
+    "loading": "Loading friends…",
+    "empty": "Add some friends first",
+    "noMatch": "No friends match",
+    "sent": "Sent ✓",
+    "sending": "Sending…",
+    "send": "Send",
+    "failed": "Failed to send",
+    "friendFallback": "Friend"
+  },
+  "verseModal": {
+    "shareMessage": "📖 I'm reading {{book}} {{chapter}} — {{url}}",
+    "shareTitle": "Share {{book}} {{chapter}}"
   }
 }

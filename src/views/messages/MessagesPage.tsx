@@ -124,6 +124,7 @@ export default function MessagesPage({
         <main className={`msg-main${showList ? " msg-main--hidden-mobile" : ""}`}>
           {activeConv ? (
             <ThreadView
+              key={activeConv.conversation_id}
               conv={activeConv}
               user={user}
               keyPair={keyPair}

@@ -1745,7 +1745,8 @@
     "study": "Study",
     "quiz": "Quiz",
     "me": "Me",
-    "blogVideos": "Blog & Videos"
+    "blogVideos": "Blog & Videos",
+    "settings": "Settings"
   },
   "community": {
     "title": "Community",
@@ -1951,5 +1952,44 @@
     "videoUrlPlaceholder": "Paste YouTube or Vimeo URL…",
     "removeVideo": "Remove video",
     "deleteBlock": "Delete block"
+  },
+  "cmdPalette": {
+    "dialogLabel": "Command palette",
+    "placeholder": "Search friends, posts, threads, or pages…",
+    "inputLabel": "Search",
+    "resultsLabel": "Search results",
+    "friendsSection": "Friends",
+    "peopleSection": "People",
+    "versesSection": "✨ Related verses",
+    "booksSection": "📖 Books",
+    "blogSection": "Blog",
+    "forumSection": "Forum",
+    "pagesSection": "Pages",
+    "friendBadge": "Friend",
+    "friendFallback": "Friend",
+    "userFallback": "User",
+    "searching": "Searching…",
+    "noResults": "No results for \"{{query}}\"",
+    "openHint": "↵ open",
+    "chHint": "{{count}} ch · ↵",
+    "navigate": "navigate",
+    "open": "open",
+    "close": "close"
+  },
+  "shareToFriend": {
+    "title": "Share with a friend",
+    "searchPlaceholder": "Search friends...",
+    "loading": "Loading friends…",
+    "empty": "Add some friends first",
+    "noMatch": "No friends match",
+    "sent": "Sent ✓",
+    "sending": "Sending…",
+    "send": "Send",
+    "failed": "Failed to send",
+    "friendFallback": "Friend"
+  },
+  "verseModal": {
+    "shareMessage": "📖 I'm reading {{book}} {{chapter}} — {{url}}",
+    "shareTitle": "Share {{book}} {{chapter}}"
   }
 }

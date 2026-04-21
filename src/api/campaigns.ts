@@ -224,8 +224,11 @@ export const campaignApi = {
   },
 
   sendNow: async (campaignId: string): Promise<void> => {
+    const fnBase =
+      process.env.NEXT_PUBLIC_SUPABASE_FUNCTIONS_URL ??
+      process.env.NEXT_PUBLIC_SUPABASE_URL;
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/send-campaign`,
+      `${fnBase}/functions/v1/send-campaign`,
       {
         method: "POST",
         headers: {

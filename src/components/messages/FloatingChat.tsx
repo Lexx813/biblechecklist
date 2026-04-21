@@ -163,6 +163,7 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
             <MessageErrorBoundary>
               {activeConv ? (
                 <MiniThread
+                  key={(activeConv as Record<string, unknown>).conversation_id as string}
                   conv={activeConv as unknown as Parameters<typeof MiniThread>[0]["conv"]}
                   user={user}
                   keyPair={keyPair}

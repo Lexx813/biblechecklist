@@ -660,6 +660,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
             onToggleVerse={handleToggleVerse}
             onSelectAll={handleSelectAll}
             onClearAll={handleClearAll}
+            currentUserId={user?.id}
           />
         )}
       </div>

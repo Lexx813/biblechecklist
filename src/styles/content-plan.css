@@ -158,6 +158,39 @@
 .cp-expand-value { font-size: 13px; color: var(--text-primary); line-height: 1.5; }
 .cp-expand-value--muted { color: var(--text-muted); font-style: italic; }
 
+.cp-prompt-box {
+  position: relative;
+  background: var(--bg-secondary, rgba(0,0,0,0.15));
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 14px 12px;
+}
+.cp-prompt-text {
+  margin: 0;
+  font-family: inherit;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding-right: 64px;
+}
+.cp-prompt-copy {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-primary, #1e1035);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.cp-prompt-copy:hover { background: #6A3DAA; color: #fff; border-color: transparent; }
+
 @media (max-width: 768px) {
   .cp-wrap { padding: 12px; }
   .cp-table thead th:nth-child(4),

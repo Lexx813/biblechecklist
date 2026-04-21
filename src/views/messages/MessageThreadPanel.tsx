@@ -700,6 +700,7 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
             isMine ? "msg-bubble--mine" : "",
             position && position !== "solo" ? `msg-bubble--${position}` : "",
             msg._new ? "msg-bubble--new" : "",
+            msg._optimistic ? "msg-bubble--optimistic" : "",
           ].filter(Boolean).join(" ")}
           title={fullTime}
         >
@@ -728,11 +729,12 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
           <div className="msg-bubble-footer">
             <span className="msg-bubble-time">{timeAgo(msg.created_at, t)}</span>
             {msg.edited_at && <span className="msg-edited-label">{t("messages.edited")}</span>}
-            {isMine && (
+            {isMine && !msg._optimistic && (
               <span className="msg-status-ticks">
                 {showSeen ? t("messages.read") : t("messages.sent")}
               </span>
             )}
+            {msg._optimistic && <span className="msg-upload-spinner msg-sending-spinner" aria-label="Sending" />}
           </div>
         </div>
         <ReactionRow
@@ -818,7 +820,10 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
   const [replyTo, setReplyTo] = useState<any>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [decryptedMessages, setDecryptedMessages] = useState<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [pendingMsgs, setPendingMsgs] = useState<any[]>([]);
   const decryptCacheRef = useRef(new Map<string, string | null>());
+  const knownMsgIdsRef = useRef(new Set<string>());
   const [isOtherTyping, setIsOtherTyping] = useState(false);
   const [isOtherOnline, setIsOtherOnline] = useState(false);
   const [otherLastSeen, setOtherLastSeen] = useState<string | null>(null);
@@ -853,27 +858,36 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
   useEffect(() => {
     markRead.mutate(conv.conversation_id);
     markNotifRead.mutate(conv.conversation_id);
+    prevCountRef.current = 0;
+    setDecryptedMessages([]);
+    setPendingMsgs([]);
+    knownMsgIdsRef.current = new Set();
+    decryptCacheRef.current = new Map();
   }, [conv.conversation_id]);
 
   useEffect(() => {
     if (!messages.length) { setDecryptedMessages([]); return; }
     let cancelled = false;
     const cache = decryptCacheRef.current;
+    const knownIds = knownMsgIdsRef.current;
     async function decryptIncremental() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const results = await Promise.all(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (messages as any[]).map(async (msg: any) => {
           const cacheKey = `${msg.id}:${msg.content}`;
-          if (cache.has(cacheKey)) return { ...msg, content: cache.get(cacheKey) };
+          if (cache.has(cacheKey)) return { ...msg, content: cache.get(cacheKey), _new: knownIds.size > 0 && !knownIds.has(msg.id) };
           const decrypted = sharedKey
             ? await decryptMessage(msg.content, sharedKey)
             : msg.content?.startsWith("enc:") ? "[🔒 Encrypted message]" : msg.content;
           cache.set(cacheKey, decrypted as string);
-          return { ...msg, content: decrypted };
+          return { ...msg, content: decrypted, _new: knownIds.size > 0 && !knownIds.has(msg.id) };
         })
       );
-      if (!cancelled) setDecryptedMessages(results);
+      if (!cancelled) {
+        setDecryptedMessages(results);
+        results.forEach((m: any) => knownIds.add(m.id));
+      }
     }
     decryptIncremental();
     return () => { cancelled = true; };
@@ -883,22 +897,32 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
     const count = decryptedMessages.length;
     if (count > prevCountRef.current) {
       const added = count - prevCountRef.current;
-      if (prevCountRef.current > 0 && soundEnabled) {
-        const lastNew = decryptedMessages[decryptedMessages.length - 1];
+      const isInitialLoad = prevCountRef.current === 0;
+      const lastNew = decryptedMessages[decryptedMessages.length - 1];
+      if (!isInitialLoad && soundEnabled) {
         if (lastNew?.sender_id !== user.id) playChime();
+      }
+      if (!isInitialLoad && lastNew?.sender_id === user.id) {
+        setPendingMsgs([]);
       }
       let frameId: number;
       frameId = requestAnimationFrame(() => {
         const el = bodyRef.current;
         if (!el) return;
-        const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
-        if (distFromBottom <= 100) {
+        if (isInitialLoad) {
           el.scrollTop = el.scrollHeight;
           setNewMsgCount(0);
           setShowNewMsgChip(false);
         } else {
-          setNewMsgCount(c => c + added);
-          setShowNewMsgChip(true);
+          const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+          if (distFromBottom <= 100) {
+            el.scrollTop = el.scrollHeight;
+            setNewMsgCount(0);
+            setShowNewMsgChip(false);
+          } else {
+            setNewMsgCount(c => c + added);
+            setShowNewMsgChip(true);
+          }
         }
       });
       return () => {
@@ -1001,11 +1025,12 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function doSend(payload: any) {
+  function doSend(payload: any, tempId?: string) {
     setSendError(null);
     setFailedPayload(null);
     sendMessage.mutate(payload, {
       onError: () => {
+        if (tempId) setPendingMsgs(p => p.filter(m => m.id !== tempId));
         setSendError("Message failed to send.");
         setFailedPayload(payload);
       },
@@ -1019,13 +1044,23 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
     const sanitized = sanitizeContent(raw);
     if (!sanitized) return;
     const toSend = sharedKey ? await encryptMessage(sanitized, sharedKey) : sanitized;
+    const tempId = `opt-${Date.now()}`;
     const payload = {
       senderId: user.id,
       content: toSend,
       replyToId: replyTo?.id ?? null,
       messageType: "text",
     };
-    doSend(payload);
+    setPendingMsgs(p => [...p, {
+      id: tempId,
+      sender_id: user.id,
+      content: sanitized,
+      created_at: new Date().toISOString(),
+      message_type: "text",
+      reply_to_id: replyTo?.id ?? null,
+      _optimistic: true,
+    }]);
+    doSend(payload, tempId);
     setInput("");
     setReplyTo(null);
     broadcastTyping(false);
@@ -1091,7 +1126,9 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
     return myMsgs.filter(m => new Date(m.created_at) <= otherLastRead).at(-1)?.id ?? null;
   }, [decryptedMessages, user.id, otherLastRead]);
 
-  const grouped = useMemo(() => groupByDay(decryptedMessages, t), [decryptedMessages, t]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const allDecrypted = useMemo<any[]>(() => [...decryptedMessages, ...pendingMsgs], [decryptedMessages, pendingMsgs]);
+  const grouped = useMemo(() => groupByDay(allDecrypted, t), [allDecrypted, t]);
   const nearLimit = input.length > 1800;
   const isEncrypted = !!sharedKey;
 
@@ -1186,9 +1223,9 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
                   userId={user.id}
                   onToggleReaction={(messageId, emoji) => toggleReaction.mutate({ messageId, userId: user.id, emoji }, { onError: () => toast.error("Failed to update reaction.") })}
                   onStar={id => toggleStar.mutate(id, { onError: () => toast.error("Failed to update star.") })}
-                  allMessages={decryptedMessages}
+                  allMessages={allDecrypted}
                   navigate={navigate}
-                  position={computePosition(decryptedMessages, decryptedMessages.findIndex(m => m.id === item.id))}
+                  position={computePosition(allDecrypted, allDecrypted.findIndex(m => m.id === item.id))}
                 />
               )
             )

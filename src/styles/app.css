@@ -320,32 +320,32 @@
   color: #fff;
 }
 
-/* ── Dark mode: JW Library-style purple tiles on near-black background ── */
+/* ── Dark mode: card tiles ── */
 [data-theme="dark"] .book-list {
-  background: #1C1C1E; /* gap = near-black separator lines */
-  border-color: #1C1C1E;
+  background: transparent;
+  border-color: transparent;
 }
 [data-theme="light"] .book-list {
-  background: #C8C0DC; /* gap = muted purple separator */
-  border-color: #C8C0DC;
+  background: transparent;
+  border-color: transparent;
 }
-[data-theme="light"] .book-card              { background: #EAE4F4; } /* light purple tile */
+[data-theme="light"] .book-card              { background: #EAE4F4; border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
 [data-theme="light"] .book-card:hover        { background: #DDD5EF; }
 [data-theme="light"] .book-card:not(.book-card--open):active { background: #CFC6E8; }
-[data-theme="light"] .book-card.fully-done   { background: #D4C8EC; }
+[data-theme="light"] .book-card.fully-done   { background: linear-gradient(145deg, #D4C8EC, #C0B0E0); border-color: rgba(124,58,237,0.2); }
 [data-theme="light"] .book-card.book-card--open { background: #F0EBFA; }
-[data-theme="dark"] .book-card              { background: #3A3360; box-shadow: none; } /* medium dark purple tile — matches screenshot */
-[data-theme="dark"] .book-card:hover        { background: #4A4370; }
+[data-theme="dark"] .book-card              { background: #3A3360; border: 1px solid rgba(255,255,255,0.07); box-shadow: 0 2px 6px rgba(0,0,0,0.35); }
+[data-theme="dark"] .book-card:hover        { background: #4A4370; border-color: rgba(255,255,255,0.12); }
 [data-theme="dark"] .book-card:not(.book-card--open):active { background: #2C2550; }
-[data-theme="dark"] .book-card.fully-done   { background: #5A4D80; }
+[data-theme="dark"] .book-card.fully-done   { background: linear-gradient(145deg, #5B3FAA 0%, #3D2C7A 100%); border-color: rgba(139,92,246,0.35); box-shadow: 0 2px 8px rgba(100,60,200,0.25); }
 [data-theme="dark"] .book-card.book-card--open { background: #2E2848; }
 [data-theme="dark"] .book-card.book-card--open:hover { background: #2E2848; }
 [data-theme="dark"] .book-card.book-card--open .book-row:hover { background: rgba(255,255,255,0.05); }
 [data-theme="dark"] .book-card:not(.book-card--open) .mini-bar { background: rgba(255,255,255,0.12); }
 [data-theme="dark"] .book-card:not(.book-card--open) .book-ch-count { color: #D4C8EC; } /* 4.7:1 on both #3A3360 and #5A4D80 (fully-done) */
 [data-theme="dark"] .testament-divider {
-  background: #1C1C1E;
-  color: #FFFFFF;
+  background: transparent;
+  color: rgba(255,255,255,0.45);
 }
 
 html { overflow-y: scroll; scrollbar-gutter: stable; }
@@ -731,23 +731,23 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
    ══════════════════════════════════════════════════════════ */
 .book-list {
   flex: 1;
-  padding: 0 0 32px;
+  padding: 0 8px 32px;
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* mobile; overridden at breakpoints */
-  gap: 3px;
-  background: var(--border); /* gap color = separator lines */
-  border: 3px solid var(--border); /* outer frame matches gap thickness */
+  gap: 8px;
+  background: transparent;
+  border: none;
 }
 
 /* ── Tile ── */
 .book-card {
   background: var(--card-bg);
-  border-radius: 0;
+  border-radius: 10px;
   box-shadow: none;
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition: background var(--dur-fast) var(--ease-out);
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast), box-shadow var(--dur-fast);
 }
 .book-card:hover { background: #EEEEF3; transform: none; box-shadow: none; }
 .book-card:not(.book-card--open):active { background: #D8D0EE; }
@@ -792,8 +792,8 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 
 /* Book name — the main label */
 .book-card:not(.book-card--open) .book-name {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 700;
   line-height: 1.2;
   color: var(--text-primary);
   white-space: normal;
@@ -822,9 +822,9 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .book-card:not(.book-card--open) .mini-bar {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  width: 100%; height: 4px;
-  border-radius: 0;
-  background: rgba(0, 0, 0, 0.07);
+  width: 100%; height: 3px;
+  border-radius: 0 0 10px 10px;
+  background: rgba(0, 0, 0, 0.12);
   overflow: hidden;
 }
 .book-card:not(.book-card--open) .mini-bar-fill { border-radius: 0; }
@@ -845,7 +845,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 /* ── Expanded state: restore horizontal row ── */
 .book-card.book-card--open .book-row   { flex-direction: row; align-items: center; min-height: auto; }
 .book-card.book-card--open .book-title-wrap { flex: 1; min-width: 0; }
-.chapters-panel { border-radius: 0; }
+.chapters-panel { border-radius: 0 0 10px 10px; }
 
 /* ── Shared elements (expanded + any non-tile use) ── */
 .book-num {
@@ -1657,10 +1657,11 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   background: linear-gradient(90deg, var(--teal-light) 25%, var(--teal-mid) 50%, var(--teal-light) 75%);
   background-size: 800px 100%;
 }
-/* Skeleton tiles — match the flat grid layout */
+/* Skeleton tiles */
 .book-card-skeleton {
   background: var(--card-bg);
-  border-right: 1px solid var(--border);
+  border-radius: 10px;
+  border: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   border-radius: 0;
   padding: 8px 10px 12px;
@@ -1800,11 +1801,11 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .testament-divider {
   grid-column: 1 / -1;
   display: flex; align-items: center;
-  padding: 20px 4px 10px;
-  font-size: 16px; font-weight: 800;
-  letter-spacing: 0.05em; text-transform: uppercase;
-  color: var(--text-primary);
-  background: var(--bg);
+  padding: 20px 4px 8px;
+  font-size: 13px; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted);
+  background: transparent;
 }
 .testament-divider::before, .testament-divider::after { display: none; }
 

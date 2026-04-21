@@ -10,7 +10,6 @@ export type NavState =
   | { page: "quiz" }
   | { page: "quizLevel"; level: number }
   | { page: "publicProfile"; userId: string }
-  | { page: "search" }
   | { page: "bookmarks" }
   | { page: "history" }
   | { page: "feed" }
@@ -42,6 +41,7 @@ export type NavState =
   | { page: "blogNew" }
   | { page: "blogEdit"; slug: string }
   | { page: "myPosts" }
+  | { page: "learn" }
   | { page: "notFound" };
 
 export function parsePath(): NavState {
@@ -69,7 +69,6 @@ export function parsePath(): NavState {
   if (h.startsWith("advanced-quiz/")) return { page: "advancedQuizLevel", level: parseInt(h.slice(14)) };
   if (h.startsWith("quiz/")) return { page: "quizLevel", level: parseInt(h.slice(5)) };
   if (h.startsWith("user/")) return { page: "publicProfile", userId: h.slice(5) };
-  if (h === "search") return { page: "search" };
   if (h === "bookmarks") return { page: "bookmarks" };
   if (h === "history") return { page: "history" };
   if (h === "feed") return { page: "feed" };
@@ -101,6 +100,7 @@ export function parsePath(): NavState {
   if (h === "videos-dash") return { page: "videosDash" };
   if (h === "creator-request") return { page: "creatorRequest" };
   if (h === "trivia") return { page: "trivia" };
+  if (h === "learn") return { page: "learn" };
   if (h === "login" || h === "signup") return { page: "home" };
   return { page: "notFound" };
 }
@@ -123,7 +123,6 @@ export function buildPath(page: string, params: Record<string, unknown> = {}): s
     case "advancedQuiz":       return "/advanced-quiz";
     case "advancedQuizLevel":  return "/advanced-quiz/" + params.level;
     case "publicProfile": return "/user/" + params.userId;
-    case "search":        return "/search";
     case "bookmarks":     return "/bookmarks";
     case "history":       return "/history";
     case "feed":          return "/feed";
@@ -149,6 +148,7 @@ export function buildPath(page: string, params: Record<string, unknown> = {}): s
     case "videosDash":     return "/videos-dash";
     case "creatorRequest": return "/creator-request";
     case "trivia":         return "/trivia";
+    case "learn":          return "/learn";
     case "main":          return "/checklist";
     default:              return "/";
   }

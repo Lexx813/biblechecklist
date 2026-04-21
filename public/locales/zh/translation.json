@@ -914,7 +914,8 @@
     "videos": "视频",
     "bookmarks": "书签",
     "feed": "动态",
-    "readingHistory": "历史"
+    "readingHistory": "历史",
+    "settings": "设置"
   },
   "studyTopics": {
     "title": "学习主题",
@@ -3486,5 +3487,44 @@
     "videoUrlPlaceholder": "Paste YouTube or Vimeo URL…",
     "removeVideo": "Remove video",
     "deleteBlock": "Delete block"
+  },
+  "cmdPalette": {
+    "dialogLabel": "命令面板",
+    "placeholder": "搜索朋友、帖子、主题或页面…",
+    "inputLabel": "搜索",
+    "resultsLabel": "搜索结果",
+    "friendsSection": "朋友",
+    "peopleSection": "用户",
+    "versesSection": "✨ 相关经文",
+    "booksSection": "📖 书卷",
+    "blogSection": "博客",
+    "forumSection": "论坛",
+    "pagesSection": "页面",
+    "friendBadge": "朋友",
+    "friendFallback": "朋友",
+    "userFallback": "用户",
+    "searching": "搜索中…",
+    "noResults": "没有找到 \"{{query}}\" 的结果",
+    "openHint": "↵ 打开",
+    "chHint": "{{count}} 章 · ↵",
+    "navigate": "导航",
+    "open": "打开",
+    "close": "关闭"
+  },
+  "shareToFriend": {
+    "title": "分享给朋友",
+    "searchPlaceholder": "搜索朋友...",
+    "loading": "正在加载朋友…",
+    "empty": "请先添加一些朋友",
+    "noMatch": "没有匹配的朋友",
+    "sent": "已发送 ✓",
+    "sending": "发送中…",
+    "send": "发送",
+    "failed": "发送失败",
+    "friendFallback": "朋友"
+  },
+  "verseModal": {
+    "shareMessage": "📖 我正在阅读 {{book}} {{chapter}} — {{url}}",
+    "shareTitle": "分享 {{book}} {{chapter}}"
   }
 }

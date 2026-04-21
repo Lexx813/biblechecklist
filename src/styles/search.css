@@ -61,6 +61,13 @@
 
 .search-result-sub { font-size: 12px; color: var(--text-muted); }
 
+.search-result--user {
+  align-items: center;
+  gap: 8px;
+}
+.search-result--user:hover { background: transparent; border-color: transparent; }
+.search-result--user .search-result-main:hover { background: var(--card-bg); border-radius: var(--radius); }
+
 /* ── Back button ─────────────────────────────────────────── */
 .search-back-btn {
   background: none;

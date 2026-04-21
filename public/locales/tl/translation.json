@@ -1669,7 +1669,8 @@
     "videos": "Mga Video",
     "bookmarks": "Mga Bookmark",
     "feed": "Aktibidad",
-    "readingHistory": "Kasaysayan"
+    "readingHistory": "Kasaysayan",
+    "settings": "Mga Setting"
   },
   "studyTopics": {
     "title": "Mga Paksa ng Pag-aaral",
@@ -3470,5 +3471,44 @@
     "videoUrlPlaceholder": "Paste YouTube or Vimeo URL…",
     "removeVideo": "Remove video",
     "deleteBlock": "Delete block"
+  },
+  "cmdPalette": {
+    "dialogLabel": "Command palette",
+    "placeholder": "Maghanap ng mga kaibigan, post, thread, o page…",
+    "inputLabel": "Maghanap",
+    "resultsLabel": "Mga resulta ng paghahanap",
+    "friendsSection": "Mga Kaibigan",
+    "peopleSection": "Mga Tao",
+    "versesSection": "✨ Kaugnay na mga teksto",
+    "booksSection": "📖 Mga Aklat",
+    "blogSection": "Blog",
+    "forumSection": "Forum",
+    "pagesSection": "Mga Page",
+    "friendBadge": "Kaibigan",
+    "friendFallback": "Kaibigan",
+    "userFallback": "Gumagamit",
+    "searching": "Naghahanap…",
+    "noResults": "Walang resulta para sa \"{{query}}\"",
+    "openHint": "↵ buksan",
+    "chHint": "{{count}} kab · ↵",
+    "navigate": "mag-navigate",
+    "open": "buksan",
+    "close": "isara"
+  },
+  "shareToFriend": {
+    "title": "Ibahagi sa kaibigan",
+    "searchPlaceholder": "Maghanap ng mga kaibigan...",
+    "loading": "Naglo-load ng mga kaibigan…",
+    "empty": "Magdagdag muna ng mga kaibigan",
+    "noMatch": "Walang kaibigang tumutugma",
+    "sent": "Naipadala ✓",
+    "sending": "Ipinapadala…",
+    "send": "Ipadala",
+    "failed": "Bigo ang pagpapadala",
+    "friendFallback": "Kaibigan"
+  },
+  "verseModal": {
+    "shareMessage": "📖 Binabasa ko ang {{book}} {{chapter}} — {{url}}",
+    "shareTitle": "Ibahagi ang {{book}} {{chapter}}"
   }
 }

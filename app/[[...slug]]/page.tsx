@@ -62,7 +62,7 @@ export async function generateMetadata({ params }) {
 const KNOWN_SPA_ROUTES = new Set([
   "admin", "advanced-quiz", "blog-dash", "bookmarks", "checklist",
   "community", "family-quiz", "feed", "friends", "groups", "history", "home",
-  "invite", "leaderboard", "login", "main", "meeting-prep", "messages",
+  "invite", "leaderboard", "learn", "login", "main", "meeting-prep", "messages",
   "notifications", "premium", "privacy", "profile", "quiz", "reading-plans",
   "referral", "search", "settings", "signup", "study-notes", "study-topics",
   "terms", "trivia", "try", "upgrade", "user", "videos",

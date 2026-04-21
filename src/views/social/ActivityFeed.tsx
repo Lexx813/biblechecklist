@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import AppLayout from "../../components/AppLayout";
 import { useActivityFeed, useSuggestedUsers, useToggleFollowDynamic } from "../../hooks/useFollows";
+import { useBulkReactions } from "../../hooks/useReactions";
+import { ReactionBar } from "../../components/ReactionBar";
 import { sanitizeRich } from "../../lib/sanitize";
 import "../../styles/social.css";
 
@@ -95,6 +97,15 @@ export default function ActivityFeed({ user, onBack, navigate, darkMode, setDark
   const { t } = useTranslation();
   const { data: items = [], isLoading } = useActivityFeed(user.id);
 
+  const reactionTargets = useMemo(
+    () => items
+      .filter(it => it.type === "thread" || it.type === "post")
+      .map(it => ({ type: it.type, id: (it as { id: string }).id })),
+    [items],
+  );
+  const reactionBulkKey = reactionTargets.map(t => `${t.type}:${t.id}`).sort().join("|");
+  const { data: reactionMap } = useBulkReactions(reactionTargets);
+
   return (
     <AppLayout navigate={navigate} user={user} currentPage="activityFeed">
       <div className="feed-inner">
@@ -151,6 +162,15 @@ export default function ActivityFeed({ user, onBack, navigate, darkMode, setDark
                     <p className="feed-post-content" dangerouslySetInnerHTML={{ __html: sanitizeRich(item.content ?? "") }} />
                   )}
                   <span className="feed-item-time">{timeAgo(item.ts, t)}</span>
+                  {(item.type === "thread" || item.type === "post") && (
+                    <ReactionBar
+                      targetType={item.type}
+                      targetId={(item as { id: string }).id}
+                      summary={reactionMap?.[`${item.type}:${(item as { id: string }).id}`]}
+                      bulkKey={reactionBulkKey}
+                      disabled={!user?.id}
+                    />
+                  )}
                 </div>
               </div>
             ))}

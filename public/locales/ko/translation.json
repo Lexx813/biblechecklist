@@ -1660,7 +1660,8 @@
     "bookmarks": "북마크",
     "feed": "활동",
     "familyChallenge": "가족 챌린지",
-    "readingHistory": "기록"
+    "readingHistory": "기록",
+    "settings": "설정"
   },
   "studyTopics": {
     "title": "연구 주제",
@@ -1872,5 +1873,44 @@
     "videoUrlPlaceholder": "Paste YouTube or Vimeo URL…",
     "removeVideo": "Remove video",
     "deleteBlock": "Delete block"
+  },
+  "cmdPalette": {
+    "dialogLabel": "명령 팔레트",
+    "placeholder": "친구, 게시물, 스레드 또는 페이지 검색…",
+    "inputLabel": "검색",
+    "resultsLabel": "검색 결과",
+    "friendsSection": "친구",
+    "peopleSection": "사용자",
+    "versesSection": "✨ 관련 성구",
+    "booksSection": "📖 성경 책",
+    "blogSection": "블로그",
+    "forumSection": "포럼",
+    "pagesSection": "페이지",
+    "friendBadge": "친구",
+    "friendFallback": "친구",
+    "userFallback": "사용자",
+    "searching": "검색 중…",
+    "noResults": "\"{{query}}\"에 대한 결과가 없습니다",
+    "openHint": "↵ 열기",
+    "chHint": "{{count}} 장 · ↵",
+    "navigate": "탐색",
+    "open": "열기",
+    "close": "닫기"
+  },
+  "shareToFriend": {
+    "title": "친구와 공유",
+    "searchPlaceholder": "친구 검색...",
+    "loading": "친구 로드 중…",
+    "empty": "먼저 친구를 추가하세요",
+    "noMatch": "일치하는 친구가 없습니다",
+    "sent": "전송됨 ✓",
+    "sending": "전송 중…",
+    "send": "보내기",
+    "failed": "보내기 실패",
+    "friendFallback": "친구"
+  },
+  "verseModal": {
+    "shareMessage": "📖 {{book}} {{chapter}} 읽는 중 — {{url}}",
+    "shareTitle": "{{book}} {{chapter}} 공유"
   }
 }

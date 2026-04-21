@@ -798,6 +798,20 @@ main:has(.msg-layout) {
   letter-spacing: -1px;
 }
 
+/* Optimistic (pending) messages */
+.msg-bubble--optimistic {
+  opacity: 0.72;
+}
+
+.msg-sending-spinner {
+  width: 10px;
+  height: 10px;
+  border-width: 1.5px;
+  border-color: rgba(255,255,255,0.3);
+  border-top-color: rgba(255,255,255,0.85);
+  flex-shrink: 0;
+}
+
 /* ── Quoted reply ─────────────────────────────────────────────────────────── */
 
 .msg-quoted {

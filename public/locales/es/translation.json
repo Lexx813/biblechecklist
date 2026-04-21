@@ -1698,7 +1698,8 @@
     "videos": "Videos",
     "bookmarks": "Marcadores",
     "feed": "Actividad",
-    "readingHistory": "Historial"
+    "readingHistory": "Historial",
+    "settings": "Ajustes"
   },
   "studyTopics": {
     "title": "Temas de Estudio",
@@ -3499,5 +3500,44 @@
     "videoUrlPlaceholder": "Pega URL de YouTube o Vimeo…",
     "removeVideo": "Eliminar video",
     "deleteBlock": "Eliminar bloque"
+  },
+  "cmdPalette": {
+    "dialogLabel": "Paleta de comandos",
+    "placeholder": "Buscar amigos, publicaciones, temas o páginas…",
+    "inputLabel": "Buscar",
+    "resultsLabel": "Resultados de búsqueda",
+    "friendsSection": "Amigos",
+    "peopleSection": "Personas",
+    "versesSection": "✨ Versículos relacionados",
+    "booksSection": "📖 Libros",
+    "blogSection": "Blog",
+    "forumSection": "Foro",
+    "pagesSection": "Páginas",
+    "friendBadge": "Amigo",
+    "friendFallback": "Amigo",
+    "userFallback": "Usuario",
+    "searching": "Buscando…",
+    "noResults": "No hay resultados para \"{{query}}\"",
+    "openHint": "↵ abrir",
+    "chHint": "{{count}} cap · ↵",
+    "navigate": "navegar",
+    "open": "abrir",
+    "close": "cerrar"
+  },
+  "shareToFriend": {
+    "title": "Compartir con un amigo",
+    "searchPlaceholder": "Buscar amigos...",
+    "loading": "Cargando amigos…",
+    "empty": "Primero añade algunos amigos",
+    "noMatch": "Ningún amigo coincide",
+    "sent": "Enviado ✓",
+    "sending": "Enviando…",
+    "send": "Enviar",
+    "failed": "Error al enviar",
+    "friendFallback": "Amigo"
+  },
+  "verseModal": {
+    "shareMessage": "📖 Estoy leyendo {{book}} {{chapter}} — {{url}}",
+    "shareTitle": "Compartir {{book}} {{chapter}}"
   }
 }

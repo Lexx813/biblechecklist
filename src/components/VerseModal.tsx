@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { jwOrgBibleUrl } from "../utils/wol";
+import ShareToFriendModal from "./ShareToFriendModal";
 
 const isTouchDevice = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
 
@@ -19,6 +20,7 @@ interface VerseModalProps {
   onToggleVerse: (verse: number) => void;
   onSelectAll: () => void;
   onClearAll: () => void;
+  currentUserId?: string | null;
 }
 
 const MODAL_W = 308;
@@ -41,11 +43,20 @@ function computePos(rect: DOMRect) {
 export default function VerseModal({
   bookName, bookIndex, chapter, totalVerses, readVerses, isChapterDone,
   pillEl, initialRect, onClose, onMarkComplete, onToggleVerse, onSelectAll, onClearAll,
+  currentUserId,
 }: VerseModalProps) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const lang = i18n.language?.split("-")[0] ?? "en";
   const modalRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState(() => computePos(initialRect));
+  const [showShare, setShowShare] = useState(false);
+
+  const chapterShareLink = jwOrgBibleUrl(bookIndex, chapter, lang);
+  const shareMessage = t("verseModal.shareMessage", "📖 I'm reading {{book}} {{chapter}} — {{url}}", {
+    book: bookName,
+    chapter,
+    url: chapterShareLink,
+  });
 
   // Track pill position on scroll/resize
   useLayoutEffect(() => {
@@ -105,11 +116,26 @@ export default function VerseModal({
               <div className="vm-sub">{readCount} / {totalVerses} verses</div>
             </div>
           </div>
-          <button className="vm-close" onClick={onClose} aria-label="Close">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M18 6L6 18M6 6l12 12"/>
-            </svg>
-          </button>
+          <div style={{ display: "flex", gap: 4 }}>
+            {currentUserId && (
+              <button
+                className="vm-close"
+                onClick={() => setShowShare(true)}
+                aria-label={t("shareToFriend.title", "Share with a friend")}
+                title={t("shareToFriend.title", "Share with a friend")}
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                </svg>
+              </button>
+            )}
+            <button className="vm-close" onClick={onClose} aria-label="Close">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M18 6L6 18M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Progress bar */}
@@ -188,6 +214,15 @@ export default function VerseModal({
         </div>{/* end vm-card-inner */}
 
       </div>
+
+      {showShare && currentUserId && (
+        <ShareToFriendModal
+          currentUserId={currentUserId}
+          message={shareMessage}
+          title={t("verseModal.shareTitle", "Share {{book}} {{chapter}}", { book: bookName, chapter })}
+          onClose={() => setShowShare(false)}
+        />
+      )}
     </>,
     document.body
   );

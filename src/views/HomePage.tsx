@@ -1,4 +1,5 @@
 import { useMemo, useState, useEffect, useRef, lazy, Suspense } from "react";
+import { buildPath } from "../lib/router";
 
 const QuizPageInline      = lazy(() => import("./quiz/QuizPage"));
 const QuizLevelInline     = lazy(() => import("./quiz/QuizPage").then(m => ({ default: m.QuizLevel })));
@@ -14,6 +15,7 @@ const ForumInline         = lazy(() => import("./forum/ForumPage"));
 const BlogInline          = lazy(() => import("./blog/BlogPage"));
 const MyPostsInline       = lazy(() => import("./blog/MyPostsPage"));
 const MeetingPrepInline   = lazy(() => import("./meetingprep/MeetingPrepPage"));
+const LearnInline         = lazy(() => import("./learn/LearnPage"));
 const FriendsInline       = lazy(() => import("./friends/FriendsPage"));
 const AdminInline         = lazy(() => import("./admin/AdminPage"));
 const ProfileInline       = lazy(() => import("./profile/ProfilePage"));
@@ -32,7 +34,6 @@ const VideoDetailInline   = lazy(() => import("./videos/VideoDetailPage"));
 const FriendRequestsInline  = lazy(() => import("./friends/FriendRequestsPage"));
 const HistoryInline         = lazy(() => import("./reading/ReadingHistory"));
 const TriviaInline          = lazy(() => import("./trivia/TriviaPage"));
-const SearchInline          = lazy(() => import("./search/SearchPage"));
 const SettingsInline        = lazy(() => import("./profile/SettingsPage"));
 const BlogDashInline        = lazy(() => import("./blog/BlogDashboard"));
 const VideosDashInline      = lazy(() => import("./videos/VideoComposerPage"));
@@ -59,10 +60,17 @@ import { useFriends, useFriendRequests } from "../hooks/useFriends";
 import { useOnlineMembers, ONLINE_THRESHOLD_MS as WHO_THRESHOLD_MS } from "../hooks/useOnlineMembers";
 import DailyVerse from "../components/home/DailyVerse";
 import TodaysFocusCard from "../components/home/TodaysFocusCard";
+import HomeLeftSidebar from "../components/home/HomeLeftSidebar";
+import HomeNotifBanners from "../components/home/HomeNotifBanners";
+import FriendsWidget from "../components/home/FriendsWidget";
+import WhosOnlineWidget from "../components/home/WhosOnlineWidget";
+import CommunityNotesWidget from "../components/home/CommunityNotesWidget";
+import ForumHighlightsWidget from "../components/home/ForumHighlightsWidget";
 import EmptyState from "../components/EmptyState";
 import OnboardingModal, { useOnboarding } from "../components/OnboardingModal";
 import { isDismissed, dismissPrompt } from "../components/UpgradePrompt";
 import { sanitizeRich } from "../lib/sanitize";
+import { timeAgo } from "../lib/timeFormat";
 import "../styles/home.css";
 import "../styles/videos.css";
 
@@ -125,118 +133,8 @@ function getFallbackImage(id) {
 
 const STREAK_MILESTONES = [7, 14, 30, 60, 90, 180, 365];
 
-const BANNER_ROTATIONS = [
-  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>, title: "Reading Plans",    sub: "Daily assignments. Streaks. Finish the Bible in 1 year.",     cta: "Explore Plans \u2192" },
-  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>, title: "Study Notes",      sub: "Rich-text notes for any chapter. Export to Markdown or PDF.", cta: "Try Notes \u2192" },
-  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3L13.5 8.5L19 10L13.5 11.5L12 17L10.5 11.5L5 10L10.5 8.5Z"/></svg>, title: "AI Study Assistant", sub: "Ask anything about any verse. Grounded in Scripture.",        cta: "Try AI Tools \u2192" },
-  { icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>, title: "Meeting Prep",     sub: "CLAM + Watchtower checklists. Never miss an assignment.",     cta: "Open Meeting Prep \u2192" },
-];
+const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "masterQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "myPosts", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "studyTopicDetail", "bookDetail", "feed", "bookmarks", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "messages", "history", "trivia", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy", "learn"]);
 
-const ONLINE_THRESHOLD_MS = 10 * 60 * 1000;
-
-const AVATAR_GRADIENTS = [
-  ["#7c3aed","#3b0764"], ["#1d4ed8","#1e3a8a"], ["#059669","#064e3b"],
-  ["#ea580c","#7c2d12"], ["#db2777","#831843"], ["#0891b2","#164e63"],
-  ["#7c3aed","#4c1d95"], ["#16a34a","#14532d"], ["#d97706","#78350f"],
-  ["#dc2626","#7f1d1d"], ["#0284c7","#0c4a6e"], ["#9333ea","#581c87"],
-];
-function avatarGradient(id: string): [string, string] {
-  let h = 0;
-  for (let i = 0; i < id.length; i++) h = id.charCodeAt(i) + ((h << 5) - h);
-  return AVATAR_GRADIENTS[Math.abs(h) % AVATAR_GRADIENTS.length] as [string, string];
-}
-function fmtDiff(diff: number | null): string {
-  if (diff == null) return "";
-  if (diff < 60_000) return "Active now";
-  if (diff < 3_600_000) return `${Math.floor(diff / 60_000)}m ago`;
-  if (diff < 86_400_000) return `${Math.floor(diff / 3_600_000)}h ago`;
-  return `${Math.floor(diff / 86_400_000)}d ago`;
-}
-
-// ── Left sidebar nav items ──────────────────────────────────────────────────
-const NAV_CORE = [
-  {
-    key: "home", labelKey: "nav.home",
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-home" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#c4b5fd"/><stop offset="100%" stopColor="#5b21b6"/></linearGradient></defs><path d="M12 3L2 12h3v9h5v-5h4v5h5v-9h3L12 3z" fill="url(#g-home)"/></svg>,
-  },
-  {
-    key: "main", labelKey: "nav.bibleTracker",
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-bible" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#a78bfa"/><stop offset="100%" stopColor="#0d9488"/></linearGradient></defs><path d="M3 5h7.5a1.5 1.5 0 0 1 1.5 1.5V20H3V5z" fill="url(#g-bible)"/><path d="M21 5h-7.5A1.5 1.5 0 0 0 12 6.5V20h9V5z" fill="url(#g-bible)" opacity=".8"/><polyline points="6.5 11.5 9.5 14.5 16 8" fill="none" stroke="#f5f3ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  },
-  {
-    key: "readingPlans", labelKey: "nav.readingPlans", premium: true,
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-plans" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#38bdf8"/><stop offset="100%" stopColor="#0369a1"/></linearGradient></defs><rect x="3" y="4" width="18" height="18" rx="3" fill="url(#g-plans)"/><rect x="8" y="2" width="2" height="5" rx="1" fill="#e0f2fe"/><rect x="14" y="2" width="2" height="5" rx="1" fill="#e0f2fe"/><rect x="3" y="10" width="18" height="1.5" fill="rgba(255,255,255,.25)"/><rect x="6" y="14" width="3" height="3" rx=".5" fill="rgba(255,255,255,.55)"/><rect x="10.5" y="14" width="3" height="3" rx=".5" fill="rgba(255,255,255,.55)"/><rect x="15" y="14" width="3" height="3" rx=".5" fill="rgba(255,255,255,.55)"/></svg>,
-  },
-  {
-    key: "studyNotes", labelKey: "nav.studyNotes", premium: true,
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-notes" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#6ee7b7"/><stop offset="100%" stopColor="#047857"/></linearGradient></defs><rect x="4" y="3" width="13" height="18" rx="2" fill="url(#g-notes)"/><path d="M17 3l3 3h-2a1 1 0 0 1-1-1V3z" fill="rgba(255,255,255,.4)"/><rect x="7" y="8" width="7" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/><rect x="7" y="11.5" width="9" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/><rect x="7" y="15" width="5" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/></svg>,
-  },
-  {
-    key: "studyTopics", labelKey: "nav.studyTopics",
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-study" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#6ee7b7"/><stop offset="100%" stopColor="#065f46"/></linearGradient></defs><path d="M3 5h7.5a1.5 1.5 0 0 1 1.5 1.5V19a2.5 2.5 0 0 0-4.5-1.5H3V5z" fill="url(#g-study)"/><path d="M21 5h-7.5A1.5 1.5 0 0 0 12 6.5V19a2.5 2.5 0 0 1 4.5-1.5H21V5z" fill="url(#g-study)" opacity=".8"/></svg>,
-  },
-];
-
-const NAV_COMMUNITY = [
-  {
-    key: "forum", labelKey: "nav.forum",
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-forum" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#fb923c"/><stop offset="100%" stopColor="#c2410c"/></linearGradient></defs><path d="M21 3H3a1 1 0 0 0-1 1v14l5-4h14a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1z" fill="url(#g-forum)"/><rect x="7" y="8" width="10" height="1.5" rx=".75" fill="rgba(255,255,255,.45)"/><rect x="7" y="11.5" width="6" height="1.5" rx=".75" fill="rgba(255,255,255,.45)"/></svg>,
-  },
-  {
-    key: "friends", labelKey: "nav.friends",
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-friends" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#60a5fa"/><stop offset="100%" stopColor="#1d4ed8"/></linearGradient></defs><circle cx="9" cy="7" r="4" fill="url(#g-friends)"/><path d="M2 21a7 7 0 0 1 14 0z" fill="url(#g-friends)"/><circle cx="17.5" cy="8" r="3" fill="url(#g-friends)" opacity=".65"/><path d="M14 21a5.5 5.5 0 0 1 9 0z" fill="url(#g-friends)" opacity=".65"/></svg>,
-  },
-  {
-    key: "messages", labelKey: "nav.messages",
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-msgs" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#c084fc"/><stop offset="100%" stopColor="#6d28d9"/></linearGradient></defs><rect x="2" y="4" width="20" height="16" rx="3" fill="url(#g-msgs)"/><path d="M2 8l10 7 10-7" fill="none" stroke="rgba(255,255,255,.35)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  },
-  {
-    key: "groups", labelKey: "nav.studyGroups",
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-groups" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#34d399"/><stop offset="100%" stopColor="#065f46"/></linearGradient></defs><circle cx="8" cy="7" r="4" fill="url(#g-groups)"/><path d="M1 21a7 7 0 0 1 14 0z" fill="url(#g-groups)"/><rect x="17" y="8" width="6" height="2" rx="1" fill="url(#g-groups)"/><rect x="19" y="6" width="2" height="6" rx="1" fill="url(#g-groups)"/></svg>,
-  },
-  {
-    key: "feed", labelKey: "nav.feed",
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-feed" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stopColor="#0ea5e9"/><stop offset="100%" stopColor="#38bdf8"/></linearGradient></defs><circle cx="5" cy="19" r="3" fill="url(#g-feed)"/><path d="M4 11a9 9 0 0 1 9 9H9a5 5 0 0 0-5-5v-4z" fill="url(#g-feed)"/><path d="M4 4a16 16 0 0 1 16 16h-4A12 12 0 0 0 4 8V4z" fill="url(#g-feed)"/></svg>,
-  },
-  {
-    key: "bookmarks", labelKey: "nav.bookmarks",
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-bm" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#fbbf24"/><stop offset="100%" stopColor="#b45309"/></linearGradient></defs><path d="M6 2h12a2 2 0 0 1 2 2v17l-7-4.5L6 21V4a2 2 0 0 1 2-2H6z" fill="url(#g-bm)"/></svg>,
-  },
-];
-
-const NAV_EXPLORE = [
-  {
-    key: "blog", labelKey: "nav.blog",
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-blog" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#f0abfc"/><stop offset="100%" stopColor="#7c3aed"/></linearGradient></defs><rect x="4" y="2" width="13" height="20" rx="2" fill="url(#g-blog)"/><rect x="7" y="7" width="7" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/><rect x="7" y="10.5" width="10" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/><rect x="7" y="14" width="5" height="1.5" rx=".75" fill="rgba(255,255,255,.55)"/></svg>,
-  },
-  {
-    key: "leaderboard", labelKey: "nav.leaderboard",
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-lb" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stopColor="#f59e0b"/><stop offset="100%" stopColor="#fde68a"/></linearGradient></defs><rect x="3" y="13" width="5" height="9" rx="1.5" fill="url(#g-lb)" opacity=".75"/><rect x="9.5" y="8" width="5" height="14" rx="1.5" fill="url(#g-lb)"/><rect x="16" y="4" width="5" height="18" rx="1.5" fill="url(#g-lb)" opacity=".85"/></svg>,
-  },
-];
-
-const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "masterQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "myPosts", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "studyTopicDetail", "bookDetail", "feed", "bookmarks", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "messages", "history", "trivia", "search", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy"]);
-
-const NAV_SHORTCUTS = [
-  {
-    key: "quiz", labelKey: "nav.bibleQuiz", bg: "#4338ca",
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-practice" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#818cf8"/><stop offset="100%" stopColor="#3730a3"/></linearGradient></defs><path d="M14.5 2L5.5 14h7l-3 8L20.5 10h-7L14.5 2z" fill="url(#g-practice)"/></svg>,
-  },
-  {
-    key: "trivia", labelKey: "nav.triviaBattle", bg: "#6d28d9",
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-trivia" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#c084fc"/><stop offset="100%" stopColor="#5b21b6"/></linearGradient></defs><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" fill="url(#g-trivia)"/><path d="M9 9a3 3 0 0 1 6 0c0 2-3 3-3 3" fill="none" stroke="rgba(255,255,255,.7)" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="17" r="1.2" fill="rgba(255,255,255,.8)"/></svg>,
-  },
-  {
-    key: "familyQuiz", labelKey: "nav.familyChallenge", bg: "#0369a1",
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-family" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#60a5fa"/><stop offset="100%" stopColor="#1d4ed8"/></linearGradient></defs><circle cx="9" cy="7" r="4" fill="url(#g-family)"/><path d="M2 21a7 7 0 0 1 14 0z" fill="url(#g-family)"/><circle cx="17.5" cy="8" r="3" fill="url(#g-family)" opacity=".65"/><path d="M14 21a5.5 5.5 0 0 1 9 0z" fill="url(#g-family)" opacity=".65"/></svg>,
-  },
-  {
-    key: "meetingPrep", labelKey: "nav.meetingPrep", bg: "#0369a1", premium: true,
-    icon: <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-prep" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#38bdf8"/><stop offset="100%" stopColor="#0369a1"/></linearGradient></defs><rect x="3" y="3" width="18" height="18" rx="3" fill="url(#g-prep)"/><path d="M7 12l3 3 7-7" fill="none" stroke="rgba(255,255,255,.85)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  },
-];
-
-// ── Skeletons ────────────────────────────────────────────────────────────
 function BlogSkeleton() {
   return (
     <div className="grid grid-cols-3 gap-2.5 max-[720px]:grid-cols-2 max-[480px]:grid-cols-1">
@@ -252,31 +150,6 @@ function BlogSkeleton() {
       ))}
     </div>
   );
-}
-
-function ForumSkeleton() {
-  return (
-    <div className="flex flex-col">
-      {[0, 1, 2, 3].map(i => (
-        <div key={i} className="flex flex-col gap-2 border-b border-brand-600/[0.08] px-4 py-3.5">
-          <div className="skeleton" style={{ height: 14, width: "70%", borderRadius: 6 }}>&nbsp;</div>
-          <div className="skeleton" style={{ height: 11, width: "40%", borderRadius: 6 }}>&nbsp;</div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function timeAgo(iso: string): string {
-  const diff = Date.now() - new Date(iso).getTime();
-  const m = Math.floor(diff / 60000);
-  if (m < 1) return "just now";
-  if (m < 60) return `${m}m ago`;
-  const h = Math.floor(m / 60);
-  if (h < 24) return `${h}h ago`;
-  const d = Math.floor(h / 24);
-  if (d < 30) return `${d}d ago`;
-  return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
 }
 
 // ── Main component ───────────────────────────────────────────────────────────
@@ -377,7 +250,13 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       setActivePanel("blog"); setQuizLevelState(null); setPanelParams(params);
       history.pushState(null, "", params.slug ? `/blog/${params.slug}` : "/blog");
     }
-    else if (INLINE_PANELS.has(page)) { setActivePanel(page); setQuizLevelState(null); setPanelParams(params); }
+    else if (INLINE_PANELS.has(page)) {
+      setActivePanel(page); setQuizLevelState(null); setPanelParams(params);
+      const url = buildPath(page, params);
+      if (url && url !== "/" && window.location.pathname + window.location.search !== url) {
+        history.pushState(null, "", url);
+      }
+    }
     else if (page === "home") {
       setActivePanel(null); setQuizLevelState(null); setAdvQuizLevelState(null); setPanelParams({});
       if (window.location.pathname.startsWith("/blog")) history.pushState(null, "", "/");
@@ -419,7 +298,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
   // Friends panel data
   const now = Date.now();
-  const onlineFriends = friends.filter(f => f.last_active_at && now - new Date(f.last_active_at).getTime() < ONLINE_THRESHOLD_MS);
+  const onlineFriends = friends.filter(f => f.last_active_at && now - new Date(f.last_active_at).getTime() < WHO_THRESHOLD_MS);
   const recentFriends = friends
     .filter(f => !onlineFriends.includes(f))
     .sort((a, b) => {
@@ -445,105 +324,17 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 
       <main id="main-content" className={`home-layout${activePanel === "messages" ? " home-layout--messages" : (activePanel === "main" || activePanel === "profile" || activePanel === "admin") ? " home-layout--tracker" : ""}${activePanel === "admin" ? " home-layout--admin" : ""}${activePanel === "blog" && panelParams.slug ? " home-layout--reading" : ""}`}>
 
-        {/* ═══════════════════════════════════════
-            LEFT SIDEBAR
-        ═══════════════════════════════════════ */}
-        <aside className="home-left-sidebar">
-          {/* Profile row */}
-          <button className="hls-profile" onClick={() => { setActivePanel("profile"); setQuizLevelState(null); }}>
-            <span className="hls-avatar">
-              {profile?.avatar_url
-                ? <img src={profile.avatar_url} alt={displayName} width={40} height={40} />
-                : <span className="hls-avatar-initials">{initials}</span>}
-            </span>
-            <span className="hls-name">{displayName}</span>
-          </button>
-
-          {/* Core */}
-          <div className="hls-section-label">{t("nav.core", "Core")}</div>
-          {NAV_CORE.map(item => (
-            <button
-              key={item.key}
-              className={`hls-item${(activePanel === null && item.key === "home") || activePanel === item.key ? " hls-item--active" : ""}`}
-              onClick={() => panelNavigate(item.key)}
-            >
-              <span className="hls-icon">{item.icon}</span>
-              {t(item.labelKey)}
-            </button>
-          ))}
-
-          <div className="hls-divider" />
-
-          {/* Community */}
-          <div className="hls-section-label">{t("nav.community", "Community")}</div>
-          {NAV_COMMUNITY.map(item => (
-            <button
-              key={item.key}
-              className={`hls-item${activePanel === item.key ? " hls-item--active" : ""}`}
-              onClick={() => panelNavigate(item.key)}
-            >
-              <span className="hls-icon">{item.icon}</span>
-              {t(item.labelKey)}
-              {item.key === "friends"  && pendingRequests > 0 && <span className="hls-badge">{pendingRequests}</span>}
-              {item.key === "messages" && unreadMessages  > 0 && <span className="hls-badge">{unreadMessages}</span>}
-            </button>
-          ))}
-
-          <div className="hls-divider" />
-
-          {/* Explore */}
-          <div className="hls-section-label">{t("nav.explore", "Explore")}</div>
-          {NAV_EXPLORE.map(item => (
-            <button
-              key={item.key}
-              className={`hls-item${activePanel === item.key ? " hls-item--active" : ""}`}
-              onClick={() => panelNavigate(item.key)}
-            >
-              <span className="hls-icon">{item.icon}</span>
-              {t(item.labelKey)}
-            </button>
-          ))}
-
-          <div className="hls-divider" />
-          <div className="hls-section-label">{t("nav.shortcuts", "Shortcuts")}</div>
-
-          {NAV_SHORTCUTS.map(item => (
-            <button
-              key={item.key}
-              className={`hls-item${activePanel === item.key ? " hls-item--active" : ""}`}
-              onClick={() => panelNavigate(item.key)}
-            >
-              <span className="hls-icon">{item.icon}</span>
-              {t(item.labelKey)}
-            </button>
-          ))}
-
-          {(profile?.is_admin || profile?.is_moderator) && (
-            <>
-              <div className="hls-divider" />
-              <button
-                className={`hls-item${activePanel === "admin" ? " hls-item--active" : ""}`}
-                onClick={() => { setActivePanel("admin"); setQuizLevelState(null); }}
-              >
-                <span className="hls-icon">
-                  <svg width="25" height="25" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="g-admin" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#f87171"/><stop offset="100%" stopColor="#b91c1c"/></linearGradient></defs><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" fill="url(#g-admin)"/><circle cx="12" cy="12" r="3" fill="rgba(255,255,255,.9)"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" fill="rgba(255,255,255,.35)"/></svg>
-                </span>
-                {profile?.is_admin ? "Admin" : "Moderation"}
-              </button>
-            </>
-          )}
-
-          {/* Compact footer links */}
-          <div className="hsidebar-footer">
-            <a href="/privacy" className="hsidebar-footer-link">Privacy</a>
-            <span className="hsidebar-footer-sep">&middot;</span>
-            <a href="/terms" className="hsidebar-footer-link">Terms</a>
-            <span className="hsidebar-footer-sep">&middot;</span>
-            <span className="hsidebar-footer-copy">&copy; {new Date().getFullYear()} JW Study</span>
-            <span className="hsidebar-footer-sep">&middot;</span>
-            <a href="https://www.jw.org" className="hsidebar-footer-link" target="_blank" rel="noopener noreferrer">JW.org</a>
-          </div>
-        </aside>
+        <HomeLeftSidebar
+          profile={profile}
+          displayName={displayName}
+          initials={initials}
+          activePanel={activePanel}
+          pendingRequests={pendingRequests}
+          unreadMessages={unreadMessages}
+          panelNavigate={panelNavigate}
+          setActivePanel={setActivePanel}
+          setQuizLevelState={setQuizLevelState}
+        />
 
         {/* ═══════════════════════════════════════
             MAIN FEED / INLINE PANELS
@@ -624,6 +415,11 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {activePanel === "meetingPrep" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
               <MeetingPrepInline user={user} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
+            </Suspense>
+          )}
+          {activePanel === "learn" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <LearnInline onBack={() => { setActivePanel(null); if (window.location.pathname !== "/") history.pushState(null, "", "/"); }} />
             </Suspense>
           )}
           {activePanel === "friends" && (
@@ -716,11 +512,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <TriviaInline user={user} navigate={panelNavigate} prefillCode={panelParams.prefillCode} />
             </Suspense>
           )}
-          {activePanel === "search" && (
-            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <SearchInline user={user} onBack={() => setActivePanel(null)} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
-            </Suspense>
-          )}
           {activePanel === "settings" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
               <SettingsInline user={user} onBack={() => setActivePanel(null)} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
@@ -797,6 +588,12 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               Meeting Prep
             </button>
           </div>
+
+          {/* Learn to Study — 9-lesson interactive course */}
+          <LearnToStudyCard
+            firstName={(profile?.display_name || "").split(" ")[0]}
+            onOpen={() => panelNavigate("learn")}
+          />
 
           {/* Blog */}
           <div>
@@ -1084,269 +881,210 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             <DailyVerse />
           </div>
 
-          {/* Friends */}
-          <div className={widgetCls}>
-            <div className="flex items-center justify-between px-4 pb-2 pt-3.5">
-              <div className="flex items-center gap-2">
-                <span className="text-base font-bold text-[var(--text-primary)]">Friends</span>
-                {onlineFriends.length > 0 && (
-                  <span className="flex items-center gap-1 text-[11px] font-semibold text-green-400">
-                    <span className="inline-block size-1.5 rounded-full bg-green-400" />
-                    {onlineFriends.length}
-                  </span>
-                )}
-              </div>
-              <button className={feedLinkCls} onClick={() => navigate("friends")}>See all</button>
-            </div>
-            {friendsLoading ? (
-              <div className="flex flex-col gap-2 py-1 pb-3">
-                {[0,1,2].map(i => (
-                  <div key={i} className="flex items-center gap-3 px-4">
-                    <div className="skeleton size-9 shrink-0 rounded-full" />
-                    <div className="flex flex-1 flex-col gap-1.5">
-                      <div className="skeleton h-3 w-[50%] rounded" />
-                      <div className="skeleton h-2.5 w-[30%] rounded" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : friends.length === 0 ? (
-              <div className="px-4 pb-4 pt-1">
-                <p className="mb-2 text-[13px] text-[var(--text-muted)]">Connect with fellow Bible students to see their activity here.</p>
-                <button className="cursor-pointer border-none bg-none p-0 font-[inherit] text-xs font-bold text-[#a78bfa]" style={{ background: "none" }} onClick={() => navigate("friends")}>Find friends →</button>
-              </div>
-            ) : (
-              <div className="pb-2">
-                {shownFriends.map(f => {
-                  const isOnline = !!f.last_active_at && now - new Date(f.last_active_at).getTime() < ONLINE_THRESHOLD_MS;
-                  const diff = f.last_active_at ? now - new Date(f.last_active_at).getTime() : null;
-                  const when = fmtDiff(isOnline ? 0 : diff);
-                  const [g1, g2] = avatarGradient(f.id);
-                  return (
-                    <div key={f.id} className="flex cursor-pointer items-center gap-3 px-4 py-2 transition-colors duration-100 hover:bg-brand-600/[0.07]" onClick={() => navigate("publicProfile", { userId: f.id })}>
-                      <span className="relative shrink-0">
-                        <span className="flex size-9 items-center justify-center overflow-hidden rounded-full text-[13px] font-bold text-white" style={{ background: `linear-gradient(135deg, ${g1}, ${g2})` }}>
-                          {f.avatar_url ? <img src={f.avatar_url} alt={f.display_name ?? ""} className="h-full w-full object-cover" width={36} height={36} loading="lazy" /> : (f.display_name || "?")[0].toUpperCase()}
-                        </span>
-                        {isOnline && <span className="absolute -bottom-px -right-px size-3 rounded-full border-2 border-[var(--card-bg,var(--bg))] bg-green-400" />}
-                      </span>
-                      <div className="flex min-w-0 flex-1 flex-col">
-                        <span className="truncate text-sm font-semibold text-[var(--text-primary)]">{f.display_name || "Unknown"}</span>
-                        <span className={`text-xs ${isOnline ? "font-semibold text-green-400" : metaCls}`}>{when}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          <FriendsWidget
+            friends={friends}
+            shownFriends={shownFriends}
+            onlineCount={onlineFriends.length}
+            loading={friendsLoading}
+            now={now}
+            navigate={navigate}
+          />
 
-          {/* Who's Online */}
-          <div className={widgetCls}>
-            <div className="flex items-center justify-between px-4 pb-2.5 pt-3.5">
-              <div className="flex items-center gap-2">
-                <span className="text-base font-bold text-[var(--text-primary)]">Who's Online</span>
-                {totalOnline > 0 && (
-                  <span className="flex items-center gap-1 text-[11px] font-semibold text-green-400">
-                    <span className="inline-block size-1.5 rounded-full bg-green-400" />
-                    {totalOnline}
-                  </span>
-                )}
-              </div>
-              <button className={feedLinkCls} onClick={() => navigate("community")}>See all →</button>
-            </div>
-            {whoLoading ? (
-              <div className="flex flex-col gap-2.5 py-1 pb-2">
-                {[0, 1, 2].map(i => (
-                  <div key={i} className="flex items-center gap-2.5 px-4">
-                    <div className="skeleton size-8 shrink-0 rounded-full" />
-                    <div className="flex flex-1 flex-col gap-[5px]">
-                      <div className="skeleton h-3 w-[55%] rounded-md">&nbsp;</div>
-                      <div className="skeleton h-2.5 w-[35%] rounded-md">&nbsp;</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : whoError ? (
-              <p style={{ fontSize: 12, color: "var(--text-muted)", padding: "8px 16px", textAlign: "center", margin: 0 }}>
-                Could not load members
-              </p>
-            ) : whoMembers.length === 0 ? (
-              <div style={{ padding: "8px 16px 12px", textAlign: "center" }}>
-                <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 4px" }}>No one active right now</p>
-                <p style={{ fontSize: 11, color: "var(--text-muted)", margin: 0, opacity: 0.7 }}>Share your reading progress to show up here</p>
-              </div>
-            ) : (
-              <>
-                {whoMembers.slice(0, 6).map(m => {
-                  const isOnline = m.last_active_at != null &&
-                    now - new Date(m.last_active_at).getTime() < WHO_THRESHOLD_MS;
-                  const diff = m.last_active_at ? now - new Date(m.last_active_at).getTime() : null;
-                  const when = fmtDiff(isOnline ? 0 : diff);
-                  const [g1, g2] = avatarGradient(m.id);
-                  return (
-                    <div
-                      key={m.id}
-                      className="flex cursor-pointer items-center gap-3 px-4 py-2 transition-colors duration-100 hover:bg-brand-600/[0.07]"
-                      onClick={() => navigate("publicProfile", { userId: m.id })}
-                    >
-                      <span className="relative shrink-0">
-                        <span className="flex size-9 items-center justify-center overflow-hidden rounded-full text-[13px] font-bold text-white" style={{ background: `linear-gradient(135deg, ${g1}, ${g2})` }}>
-                          {m.avatar_url
-                            ? <img src={m.avatar_url} alt={m.display_name ?? ""} loading="lazy" className="h-full w-full object-cover" width={36} height={36} />
-                            : (m.display_name || "?")[0].toUpperCase()}
-                        </span>
-                        {isOnline && <span className="absolute -bottom-px -right-px size-3 rounded-full border-2 border-[var(--card-bg,var(--bg))] bg-green-400" />}
-                      </span>
-                      <div className="flex min-w-0 flex-1 flex-col">
-                        <span className="truncate text-sm font-semibold text-[var(--text-primary)]">{m.display_name || "Anonymous"}</span>
-                        <span className={`text-xs ${isOnline ? "font-semibold text-green-400" : metaCls}`}>{when}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-                <div className="h-2" />
-              </>
-            )}
-          </div>
+          <WhosOnlineWidget
+            members={whoMembers}
+            totalOnline={totalOnline}
+            loading={whoLoading}
+            error={whoError}
+            now={now}
+            navigate={navigate}
+          />
 
-          {/* Community Notes */}
           {(lang === "en" || previewNotes.length > 0) && (
-          <div className={widgetCls}>
-            <div className="flex items-center justify-between px-4 pb-2.5 pt-3.5">
-              <span className="text-base font-bold text-[var(--text-primary)]">{t("home.notesTitle")}</span>
-              <button className={feedLinkCls} onClick={() => navigate("studyNotes", { tab: "public" })}>{t("home.notesViewAll")}</button>
-            </div>
-            {notesLoading ? <ForumSkeleton /> : previewNotes.length === 0 ? (
-              <EmptyState
-                icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>}
-                title={t("home.notesEmpty")} sub={t("home.notesEmptySub")}
-                btnLabel={t("home.notesWriteBtn")} onBtn={() => navigate("studyNotes", { tab: "public" })}
-              />
-            ) : (
-              <>
-                {(notesExpanded ? previewNotes : previewNotes.slice(0, 1)).map(note => {
-                  const passage = note.book_index != null
-                    ? `${BOOKS[note.book_index]?.name ?? ""} ${note.chapter ?? ""}`.trim()
-                    : null;
-                  return (
-                    <div key={note.id} className="flex cursor-pointer items-start gap-2.5 px-4 py-2.5 transition-colors duration-100 hover:bg-brand-600/[0.06]" onClick={() => navigate("studyNotes", { tab: "public" })}>
-                      <button
-                        className="flex size-8 shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#2e1a5c] to-brand-800 text-[12px] font-bold text-white"
-                        onClick={e => { e.stopPropagation(); navigate("publicProfile", { userId: note.user_id }); }}
-                        title={note.author?.display_name ?? "Anonymous"}
-                      >
-                        {note.author?.avatar_url
-                          ? <img src={note.author.avatar_url} alt={note.author.display_name} className="h-full w-full object-cover" width={32} height={32} loading="lazy" />
-                          : (note.author?.display_name ?? "A")[0].toUpperCase()}
-                      </button>
-                      <div className="min-w-0 flex-1">
-                        <div className="text-[12px] font-semibold leading-snug text-[var(--text-primary)]">{note.title || "Untitled"}</div>
-                        <div className={metaCls}>
-                          {note.author?.display_name ?? "Anonymous"}
-                          {passage && <> · {passage}</>}
-                          {" · "}{formatDate(note.updated_at)}
-                        </div>
-                      </div>
-                      <span
-                        className={`shrink-0 self-center text-[13px] ${note.user_has_liked ? "text-fuchsia-400" : "text-[rgba(240,234,255,0.5)] [html[data-theme=light]_&]:text-[rgba(30,16,53,0.4)]"}`}
-                      >
-                        {note.user_has_liked ? "\u2665" : "\u2661"}{note.like_count > 0 ? ` ${note.like_count}` : ""}
-                      </span>
-                    </div>
-                  );
-                })}
-                <button
-                  className="flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-b-[var(--radius)] border-none bg-brand-600/10 py-2.5 text-xs font-semibold text-[var(--accent)] transition-colors duration-100 hover:bg-brand-600/20 [html[data-theme=light]_&]:bg-brand-600/[0.07] [html[data-theme=light]_&]:hover:bg-brand-600/[0.12]"
-                  onClick={() => previewNotes.length > 1 && !notesExpanded ? setNotesExpanded(true) : navigate("studyNotes", { tab: "public" })}
-                >
-                  {notesExpanded ? "View all notes" : previewNotes.length > 1 ? `Show ${previewNotes.length - 1} more` : "View all notes"}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: notesExpanded ? "rotate(180deg)" : "none", transition: "transform 200ms" }}><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-              </>
-            )}
-          </div>
+            <CommunityNotesWidget
+              notes={previewNotes}
+              loading={notesLoading}
+              expanded={notesExpanded}
+              setExpanded={setNotesExpanded}
+              navigate={navigate}
+            />
           )}
 
-          {/* Forum Highlights */}
           {(lang === "en" || topThreads.length > 0) && (
-          <div className={widgetCls}>
-            <div className="flex items-center justify-between px-4 pb-2.5 pt-3.5">
-              <span className="text-base font-bold text-[var(--text-primary)]">{t("home.forumTitle")}</span>
-              <button className={feedLinkCls} onClick={() => navigate("forum")}>{t("home.forumViewAll")}</button>
-            </div>
-            {threadsLoading ? <ForumSkeleton /> : topThreads.length === 0 ? (
-              <EmptyState
-                icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>}
-                title="No discussions yet" sub="Start the first conversation."
-                btnLabel="Start a thread \u2192" onBtn={() => navigate("forum")}
-              />
-            ) : (
-              <>
-                {(forumExpanded ? topThreads : topThreads.slice(0, 1)).map(thread => (
-                  <div
-                    key={thread.id}
-                    className="flex cursor-pointer items-center gap-2.5 px-4 py-2.5 transition-colors duration-100 hover:bg-brand-600/[0.06]"
-                    onClick={() => navigate("forum", { categoryId: thread.category_id, threadId: thread.id })}
-                  >
-                    <div className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[var(--border)] bg-white/[0.06] text-[12px] font-bold text-[var(--accent)]">
-                      {(authorName(thread) || "?")[0].toUpperCase()}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="text-[12px] font-semibold leading-snug text-[var(--text-primary)]">{thread.title}</div>
-                      <div className={metaCls}>{authorName(thread)} · {formatDate(thread.updated_at)}</div>
-                    </div>
-                    <span className="flex shrink-0 items-center gap-1 text-[11px] text-[rgba(240,234,255,0.5)] [html[data-theme=light]_&]:text-[rgba(30,16,53,0.5)]">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                      {formatNum(thread.forum_replies?.[0]?.count ?? 0)}
-                    </span>
-                  </div>
-                ))}
-                <button
-                  className="flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-b-[var(--radius)] border-none bg-brand-600/10 py-2.5 text-xs font-semibold text-[var(--accent)] transition-colors duration-100 hover:bg-brand-600/20 [html[data-theme=light]_&]:bg-brand-600/[0.07] [html[data-theme=light]_&]:hover:bg-brand-600/[0.12]"
-                  onClick={() => topThreads.length > 1 && !forumExpanded ? setForumExpanded(true) : navigate("forum")}
-                >
-                  {forumExpanded ? "View all threads" : topThreads.length > 1 ? `Show ${topThreads.length - 1} more` : "View all threads"}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ transform: forumExpanded ? "rotate(180deg)" : "none", transition: "transform 200ms" }}><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-              </>
-            )}
-          </div>
+            <ForumHighlightsWidget
+              threads={topThreads}
+              loading={threadsLoading}
+              expanded={forumExpanded}
+              setExpanded={setForumExpanded}
+              navigate={navigate}
+            />
           )}
 
         </aside>
 
       </main>
 
-      {/* ── Modals & overlays ── */}
-      {showStreakPrompt && (
-        <div className="home-notif-banner">
-          <span className="home-notif-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></span>
-          <div className="home-notif-text">
-            <strong>{streak.current_streak}-day streak!</strong>
-            <span>Check out reading plans to keep the momentum going.</span>
-          </div>
-          <button className="home-notif-enable" onClick={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); navigate("readingPlans"); }}>View Plans</button>
-          <button className="home-notif-dismiss" onClick={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); }} aria-label="\u2715 Dismiss">{"\u2715"}</button>
-        </div>
-      )}
-
-      {showNotifBanner && (
-        <div className="home-notif-banner">
-          <span className="home-notif-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>
-          <div className="home-notif-text">
-            <strong>{t("home.notifBannerTitle")}</strong>
-            <span>{t("home.notifBannerSub")}</span>
-          </div>
-          <button className="home-notif-enable" onClick={handleEnableNotif} disabled={updateProfile.isPending}>{t("home.notifEnable")}</button>
-          <button className="home-notif-dismiss" onClick={handleDismissNotif} aria-label="\u2715 Dismiss">{"\u2715"}</button>
-        </div>
-      )}
+      <HomeNotifBanners
+        showStreakPrompt={showStreakPrompt}
+        streakMilestone={streakMilestone}
+        streakCurrent={streak.current_streak}
+        showNotifBanner={!!showNotifBanner}
+        navigate={navigate}
+        onEnableNotif={handleEnableNotif}
+        onDismissNotif={handleDismissNotif}
+        onDismissStreak={() => { dismissPrompt(`streak-milestone-${streakMilestone}`); setShowStreakPrompt(false); }}
+        updateProfilePending={updateProfile.isPending}
+      />
 
       {showOnboarding && (
         <OnboardingModal onClose={closeOnboarding} navigate={navigate} user={user} />
       )}
 
+    </div>
+  );
+}
+
+const LEARN_TOTAL_LESSONS = 9;
+
+function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: () => void }) {
+  const [completedCount, setCompletedCount] = useState(0);
+
+  useEffect(() => {
+    let mounted = true;
+    import("./learn/progressStore").then(({ readLearnProgress, subscribeLearnProgress }) => {
+      if (!mounted) return;
+      const sync = () => mounted && setCompletedCount(readLearnProgress().completed.length);
+      sync();
+      const unsub = subscribeLearnProgress(sync);
+      return () => unsub();
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const pct = Math.min(1, completedCount / LEARN_TOTAL_LESSONS);
+  const pctLabel = Math.round(pct * 100);
+  const isFresh = completedCount === 0;
+  const isComplete = completedCount >= LEARN_TOTAL_LESSONS;
+  const isInProgress = !isFresh && !isComplete;
+
+  const eyebrow = isComplete
+    ? "Course complete"
+    : isInProgress
+      ? firstName
+        ? `Welcome back, ${firstName}`
+        : "Welcome back"
+      : "Interactive course · 9 lessons";
+
+  const headline = isComplete
+    ? "Revisit any lesson"
+    : isInProgress
+      ? "Pick up where you left off"
+      : "Learn to Study the Bible";
+
+  const subcopy = isComplete
+    ? "You've walked the full path. Return to any lesson to sharpen a skill — S.O.A.P., cross-referencing, meditation, highlighting."
+    : isInProgress
+      ? `${completedCount} of ${LEARN_TOTAL_LESSONS} lessons complete. Just a few minutes a day.`
+      : "Nine short lessons with hands-on exercises — S.O.A.P., cross-referencing, meditation, highlighting. Study like a Berean.";
+
+  const ctaLabel = isComplete ? "Review course" : isInProgress ? "Continue" : "Begin lesson 1";
+
+  return (
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={onOpen}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onOpen();
+        }
+      }}
+      className="group relative block w-full overflow-hidden rounded-2xl border border-[var(--color-jw-purple-soft)] bg-gradient-to-br from-[var(--color-jw-purple-deep)] via-[var(--color-jw-purple)] to-[var(--color-jw-purple-light)] p-5 text-left text-white no-underline shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-jw-gold)] focus-visible:ring-offset-2 cursor-pointer sm:p-6"
+      aria-label={`${headline}. ${completedCount} of ${LEARN_TOTAL_LESSONS} lessons complete.`}
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-40 mix-blend-soft-light"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 85% 15%, rgba(201,169,97,0.6) 0%, transparent 45%), radial-gradient(circle at 10% 90%, rgba(255,255,255,0.15) 0%, transparent 40%)",
+        }}
+      />
+      <div className="relative flex flex-col gap-4">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2">
+            {isComplete && (
+              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-jw-gold)] text-[var(--color-jw-purple-deep)]">
+                <svg viewBox="0 0 20 20" fill="currentColor" className="h-3 w-3" aria-hidden>
+                  <path
+                    fillRule="evenodd"
+                    d="M16.7 5.3a1 1 0 010 1.4l-7.9 7.9a1 1 0 01-1.4 0l-4-4a1 1 0 111.4-1.4l3.3 3.3 7.2-7.2a1 1 0 011.4 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            )}
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--color-jw-gold)]">
+              {eyebrow}
+            </p>
+          </div>
+          <h3 className="mt-1.5 text-xl font-semibold leading-tight text-white font-[var(--font-fraunces)] sm:text-2xl">
+            {headline}
+          </h3>
+          <p className="mt-1.5 max-w-lg text-sm leading-relaxed text-white/80">
+            {subcopy}
+          </p>
+
+          {/* Progress bar (hidden in fresh state; meta chips shown instead) */}
+          {!isFresh ? (
+            <div className="mt-4 max-w-md">
+              <div className="flex items-center justify-between text-[11px] font-medium text-white/70">
+                <span>
+                  {completedCount} of {LEARN_TOTAL_LESSONS} lessons
+                </span>
+                <span className="tabular-nums text-[var(--color-jw-gold)]">{pctLabel}%</span>
+              </div>
+              <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-white/15">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-[var(--color-jw-gold)] to-white transition-[width] duration-700 ease-out"
+                  style={{ width: `${pctLabel}%` }}
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="mt-3 flex items-center gap-4 text-xs text-white/70">
+              <span className="inline-flex items-center gap-1.5">
+                <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
+                  <path d="M10 2a1 1 0 011 1v1.07A7 7 0 0117 11h1a1 1 0 110 2h-1a7 7 0 01-6 6.93V21a1 1 0 11-2 0v-1.07A7 7 0 013 13H2a1 1 0 110-2h1A7 7 0 019 4.07V3a1 1 0 011-1z" />
+                </svg>
+                3 units · 9 lessons
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.3.7l2.5 2.5a1 1 0 001.4-1.4L11 9.6V6z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                ~25 min total
+              </span>
+            </div>
+          )}
+        </div>
+        <span className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-jw-purple-deep shadow-sm transition-transform duration-200 group-hover:translate-x-0.5 sm:w-auto sm:self-start">
+          {ctaLabel}
+          <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4" aria-hidden="true">
+            <path
+              fillRule="evenodd"
+              d="M7.3 5.3a1 1 0 011.4 0l4 4a1 1 0 010 1.4l-4 4a1 1 0 01-1.4-1.4L10.6 10 7.3 6.7a1 1 0 010-1.4z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
     </div>
   );
 }

@@ -42,10 +42,7 @@ const AdvancedQuizLevel = lazy(() => import("./views/quiz/AdvancedQuizPage").the
 const MasterQuizPage    = lazy(() => import("./views/quiz/MasterQuizPage"));
 const MasterQuizLevel   = lazy(() => import("./views/quiz/MasterQuizPage").then(m => ({ default: m.MasterQuizLevel })));
 const SettingsPage      = lazy(() => import("./views/profile/SettingsPage"));
-const SearchPage        = lazy(() => import("./views/search/SearchPage"));
-const BookmarksPage     = lazy(() => import("./views/bookmarks/BookmarksPage"));
 const ReadingHistory    = lazy(() => import("./views/reading/ReadingHistory"));
-const ActivityFeed      = lazy(() => import("./views/social/ActivityFeed"));
 const LeaderboardPage   = lazy(() => import("./views/LeaderboardPage"));
 const AboutPage         = lazy(() => import("./views/AboutPage"));
 const TermsPage         = lazy(() => import("./views/TermsPage"));
@@ -95,7 +92,7 @@ function Page({ children, noFooter = false }) {
 const VALID_PAGES = ["readingPlans", "studyNotes", "quiz", "forum", "blog", "main", "friends", "friendRequests"];
 
 // Module-level so useState initializers can reference it synchronously
-const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "masterQuiz", "masterQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "myPosts", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "publicProfile", "main", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "bookDetail", "studyTopicDetail", "history", "trivia", "search", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy"]);
+const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "masterQuiz", "masterQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "myPosts", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "publicProfile", "main", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "bookDetail", "studyTopicDetail", "history", "trivia", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy", "bookmarks", "learn", "feed"]);
 
 function toPanelKey(page: string) {
   if (page === "quizLevel") return "quiz";
@@ -345,10 +342,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (nav.page === "advancedQuizLevel") pageContent = <Page><AdvancedQuizLevel level={nav.level} user={user} onBack={() => navigate("advancedQuiz")} onComplete={() => navigate("advancedQuiz")} {...sharedNav} timedMode={nav.timedMode} /></Page>;
   else if (nav.page === "masterQuiz")        pageContent = <Page><MasterQuizPage user={user} {...sharedNav} /></Page>;
   else if (nav.page === "masterQuizLevel")   pageContent = <Page><MasterQuizLevel level={nav.level} user={user} onBack={() => navigate("masterQuiz")} onComplete={() => navigate("masterQuiz")} {...sharedNav} timedMode={nav.timedMode} /></Page>;
-  else if (nav.page === "search")    pageContent = <Page><SearchPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
-  else if (nav.page === "bookmarks") pageContent = <Page><BookmarksPage user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "history")   pageContent = <Page><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Page>;
-  else if (nav.page === "feed")      pageContent = <Page><ActivityFeed user={user} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   else if (nav.page === "readingPlans") pageContent = <Page><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "studyNotes")   pageContent = <Page><StudyNotesPage user={user} navigate={navigate} initialTab={nav.tab ?? "mine"} {...sharedNav} /></Page>;
   else if (nav.page === "studyTopics")      pageContent = <Page><StudyTopicsPage user={user} navigate={navigate} {...sharedNav} /></Page>;
@@ -466,6 +460,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
           navigate={navigate}
           onClose={() => setShowCmdPalette(false)}
           isAdmin={!!profile?.is_admin || !!profile?.is_moderator}
+          currentUserId={user?.id}
         />,
         document.body
       )}

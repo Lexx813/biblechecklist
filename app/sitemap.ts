@@ -17,9 +17,12 @@ export default async function sitemap() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
   );
 
+  // Filled in after blog posts are fetched so it reflects the latest publish date
+  let blogIndexLastModified = new Date("2026-04-03");
+
   const staticPages = [
     { url: `${BASE}`,              lastModified: new Date("2026-03-01") },
-    { url: `${BASE}/blog`,         lastModified: new Date("2026-04-03") },
+    { url: `${BASE}/blog`,         get lastModified() { return blogIndexLastModified; } },
     { url: `${BASE}/study-topics`, lastModified: new Date("2026-03-01") },
     { url: `${BASE}/books`,        lastModified: new Date("2026-03-01") },
     { url: `${BASE}/plans`,        lastModified: new Date("2026-03-01") },
@@ -56,6 +59,10 @@ export default async function sitemap() {
       const paired = (p.translations as { paired_slug?: string } | null)?.paired_slug;
       if (paired) pairedMap[p.slug] = paired;
     }
+
+    const newestPost = (posts ?? []).reduce<{ updated_at: string } | null>((acc, p) =>
+      !acc || p.updated_at > acc.updated_at ? p : acc, null);
+    if (newestPost) blogIndexLastModified = new Date(newestPost.updated_at);
 
     blogPages = (posts ?? []).map((p) => {
       const lang = p.lang ?? "en";

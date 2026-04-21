@@ -2,7 +2,7 @@ import { supabase } from "../lib/supabase";
 
 export interface SearchPost { id: string; slug: string; title: string; excerpt?: string | null }
 export interface SearchThread { id: string; category_id: string | null; title: string }
-export interface SearchUser { id: string; display_name: string | null; avatar_url: string | null }
+export interface SearchUser { id: string; display_name: string | null; avatar_url: string | null; is_friend?: boolean }
 export interface SearchVerse { id: string; book_name: string; book_theme: string; verse_ref: string; verse_text: string }
 
 interface SearchResult {
