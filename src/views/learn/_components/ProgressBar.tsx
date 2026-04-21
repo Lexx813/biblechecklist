@@ -16,13 +16,13 @@ export default function ProgressBar({ value, label, size = "md", tone = "gold" }
   return (
     <div className="w-full">
       {label && (
-        <div className="mb-1.5 flex items-center justify-between text-xs text-slate-600 dark:text-white/60">
+        <div className="mb-1.5 flex items-center justify-between text-xs text-slate-600 [html[data-theme=dark]_&]:text-white/60">
           <span>{label}</span>
-          <span className="tabular-nums font-medium text-slate-800 dark:text-white/80">{Math.round(pct)}%</span>
+          <span className="tabular-nums font-medium text-slate-800 [html[data-theme=dark]_&]:text-white/80">{Math.round(pct)}%</span>
         </div>
       )}
       <div
-        className={`w-full overflow-hidden rounded-full bg-slate-200 ring-1 ring-slate-300/50 dark:bg-white/10 dark:ring-white/5 ${height}`}
+        className={`w-full overflow-hidden rounded-full bg-slate-200 ring-1 ring-slate-300/50 [html[data-theme=dark]_&]:bg-white/10 [html[data-theme=dark]_&]:ring-white/5 ${height}`}
         role="progressbar"
         aria-valuenow={Math.round(pct)}
         aria-valuemin={0}

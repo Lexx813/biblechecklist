@@ -89,7 +89,7 @@ export default function LearnPage({ onBack }: LearnPageProps) {
       const idx = allLessons.findIndex((l) => l.id === lesson.id);
       const hasNext = idx + 1 < allLessons.length;
       return (
-        <div className="min-h-full bg-gradient-to-b from-[#f7f3ff] via-[#efe7ff] to-[#e7dcff] px-4 py-8 dark:from-[var(--color-jw-purple-deep)] dark:via-[#1e1237] dark:to-[#120a22] sm:px-6 sm:py-12">
+        <div className="min-h-full bg-gradient-to-b from-[#f7f3ff] via-[#efe7ff] to-[#e7dcff] px-4 py-8 [html[data-theme=dark]_&]:from-[var(--color-jw-purple-deep)] [html[data-theme=dark]_&]:via-[#1e1237] [html[data-theme=dark]_&]:to-[#120a22] sm:px-6 sm:py-12">
           <LessonView
             unit={unit}
             lesson={lesson}
@@ -106,10 +106,10 @@ export default function LearnPage({ onBack }: LearnPageProps) {
   }
 
   return (
-    <div className="relative bg-gradient-to-b from-[#f7f3ff] via-[#efe7ff] to-[#e7dcff] dark:from-[var(--color-jw-purple-deep)] dark:via-[#1e1237] dark:to-[#120a22]">
+    <div className="relative bg-gradient-to-b from-jw-purple-deep via-[#1e1237] to-[#120a22] [html[data-theme=light]_&]:from-[#f7f3ff] [html[data-theme=light]_&]:via-[#efe7ff] [html[data-theme=light]_&]:to-[#e7dcff]">
       {/* Ambient decoration — clipped by hero to avoid long-page bleed */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-[600px] opacity-40 dark:opacity-60"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[600px] opacity-40 [html[data-theme=dark]_&]:opacity-60"
         aria-hidden
         style={{
           backgroundImage:
@@ -118,13 +118,13 @@ export default function LearnPage({ onBack }: LearnPageProps) {
       />
 
       {/* Hero */}
-      <header className="relative px-4 pb-10 pt-10 text-[var(--color-jw-purple-deep)] dark:text-white sm:px-8 sm:pb-14 sm:pt-14">
+      <header className="relative px-4 pb-10 pt-10 text-[var(--color-jw-purple-deep)] [html[data-theme=dark]_&]:text-white sm:px-8 sm:pb-14 sm:pt-14">
         <div className="relative mx-auto max-w-4xl">
           {onBack && (
             <button
               type="button"
               onClick={onBack}
-              className="jw-focus-ring mb-6 inline-flex cursor-pointer items-center gap-1.5 rounded-full bg-white/80 px-3 py-1.5 text-xs font-medium text-[var(--color-jw-purple-deep)] ring-1 ring-slate-200 transition hover:bg-white dark:bg-white/[0.06] dark:text-white/75 dark:ring-white/15 dark:hover:bg-white/10 dark:hover:text-white"
+              className="jw-focus-ring mb-6 inline-flex cursor-pointer items-center gap-1.5 rounded-full bg-white/80 px-3 py-1.5 text-xs font-medium text-[var(--color-jw-purple-deep)] ring-1 ring-slate-200 transition hover:bg-white [html[data-theme=dark]_&]:bg-white/[0.06] [html[data-theme=dark]_&]:text-white/75 [html[data-theme=dark]_&]:ring-white/15 [html[data-theme=dark]_&]:hover:bg-white/10 [html[data-theme=dark]_&]:hover:text-white"
             >
               <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5" aria-hidden>
                 <path fillRule="evenodd" d="M12.7 14.7a1 1 0 01-1.4 0l-4-4a1 1 0 010-1.4l4-4a1 1 0 011.4 1.4L9.4 10l3.3 3.3a1 1 0 010 1.4z" clipRule="evenodd" />
@@ -139,17 +139,17 @@ export default function LearnPage({ onBack }: LearnPageProps) {
               {strings.courseKicker}
             </p>
           </div>
-          <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)] dark:text-white sm:text-5xl md:text-6xl">
+          <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)] [html[data-theme=dark]_&]:text-white sm:text-5xl md:text-6xl">
             {strings.courseTitle}
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-700 dark:text-white/75 sm:text-lg">
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-700 [html[data-theme=dark]_&]:text-white/75 sm:text-lg">
             {strings.courseIntro}
           </p>
 
           {/* Progress strip */}
-          <div className="mt-8 max-w-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-[#1a1033] dark:shadow-none sm:p-5">
+          <div className="mt-8 max-w-xl border border-slate-200 bg-white p-4 shadow-sm [html[data-theme=dark]_&]:border-white/10 [html[data-theme=dark]_&]:bg-[#1a1033] [html[data-theme=dark]_&]:shadow-none sm:p-5">
             <div className="flex items-center justify-between gap-3">
-              <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-500 dark:text-white/60">
+              <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-500 [html[data-theme=dark]_&]:text-white/60">
                 {strings.overallProgress}
               </p>
               <p className="text-xs font-semibold text-[var(--color-jw-gold)]">
@@ -179,7 +179,7 @@ export default function LearnPage({ onBack }: LearnPageProps) {
         </div>
 
         {/* Closing benediction */}
-        <div className="relative mt-12 overflow-hidden border border-slate-200 bg-white p-8 text-center shadow-sm dark:border-white/10 dark:bg-[#1a1033] dark:shadow-none sm:mt-16 sm:p-12">
+        <div className="relative mt-12 overflow-hidden border border-slate-200 bg-white p-8 text-center shadow-sm [html[data-theme=dark]_&]:border-white/10 [html[data-theme=dark]_&]:bg-[#1a1033] [html[data-theme=dark]_&]:shadow-none sm:mt-16 sm:p-12">
           <div
             className="pointer-events-none absolute -top-12 left-1/2 h-24 w-24 -translate-x-1/2 rounded-full bg-[var(--color-jw-gold)]/20 blur-2xl"
             aria-hidden
@@ -190,10 +190,10 @@ export default function LearnPage({ onBack }: LearnPageProps) {
                 <path d="M10 2l1.8 4.6L16.5 8l-4 3.3 1.3 4.7L10 13.6l-3.8 2.4 1.3-4.7L3.5 8l4.7-1.4L10 2z" />
               </svg>
             </div>
-            <p className="text-xl font-semibold italic leading-snug text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)] dark:text-white sm:text-2xl md:text-3xl">
+            <p className="text-xl font-semibold italic leading-snug text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)] [html[data-theme=dark]_&]:text-white sm:text-2xl md:text-3xl">
               &ldquo;{strings.closingBenediction}&rdquo;
             </p>
-            <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-slate-600 dark:text-white/65">
+            <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-slate-600 [html[data-theme=dark]_&]:text-white/65">
               Personal study is one of the greatest gifts a Bible student has.
               Don&apos;t let this course end here.
             </p>
