@@ -101,14 +101,14 @@ export default function LessonView({
   return (
     <article
       ref={topRef}
-      className="jw-course-surface mx-auto w-full max-w-3xl rounded-2xl px-5 py-8 sm:px-8 sm:py-10"
+      className="jw-course-surface mx-auto w-full max-w-3xl rounded-md px-5 py-8 sm:px-8 sm:py-10"
     >
       {/* Top bar: back + skip to exercise */}
       <div className="mb-5 flex items-center justify-between gap-2 text-sm">
         <button
           type="button"
           onClick={onBack}
-          className="jw-focus-ring inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-[var(--color-jw-purple-soft)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--color-jw-purple)] transition-colors hover:border-[var(--color-jw-purple-light)] hover:bg-[var(--color-jw-purple-soft)]/40"
+          className="jw-focus-ring inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-[var(--color-jw-purple-soft)] bg-white px-3 py-1.5 text-xs font-medium text-[#7c3aed] transition-colors hover:border-[#7c3aed]/30 hover:bg-[#7c3aed]/5"
         >
           <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
             <path
@@ -132,7 +132,7 @@ export default function LessonView({
 
       {/* Header */}
       <header className="mb-8 border-b border-[var(--color-jw-purple-soft)] pb-7">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--color-jw-gold)]">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7c3aed]">
           {strings.lessonLabel} {lesson.number} · {lesson.readingMinutes} {strings.minRead}
         </p>
         <h1 className="mt-3 text-[clamp(28px,4.5vw,42px)] font-semibold leading-tight text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)]">
@@ -181,7 +181,7 @@ export default function LessonView({
               <blockquote
                 key={i}
                 {...commonAttrs}
-                className={`my-2 rounded-r-lg border-l-4 border-[var(--color-jw-gold)] bg-[var(--color-jw-purple-soft)]/70 py-4 pl-5 pr-3 ${revealClass}`}
+                className={`my-2 border-l-4 border-[#7c3aed] bg-[var(--color-jw-purple-soft)]/70 py-4 pl-5 pr-3 ${revealClass}`}
               >
                 <p className="text-lg italic leading-relaxed text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)]">
                   &ldquo;{block.text}&rdquo;
@@ -224,7 +224,7 @@ export default function LessonView({
           <span className="h-px flex-1 bg-[var(--color-jw-purple-soft)]" />
           <p
             id="exercise-heading"
-            className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--color-jw-gold)]"
+            className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7c3aed]"
           >
             {strings.exerciseHeading}
           </p>
@@ -242,15 +242,15 @@ export default function LessonView({
       </section>
 
       {/* Bottom action bar */}
-      <div className="sticky bottom-3 mt-12 flex flex-col gap-3 rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white/95 p-3 shadow-lg backdrop-blur sm:flex-row sm:items-center sm:justify-between sm:p-4">
+      <div className="sticky bottom-3 mt-12 flex flex-col gap-3 rounded-md border border-[var(--color-jw-purple-soft)] bg-white/95 p-3 shadow-lg backdrop-blur sm:flex-row sm:items-center sm:justify-between sm:p-4">
         <button
           type="button"
           onClick={onMarkComplete}
           aria-pressed={isCompleted}
-          className={`jw-focus-ring inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border px-5 py-2 text-sm font-semibold transition-colors ${
+          className={`jw-focus-ring inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border px-5 py-2 text-sm font-semibold transition-colors ${
             isCompleted
               ? "border-emerald-300 bg-emerald-50 text-emerald-800 hover:bg-emerald-100"
-              : "border-[var(--color-jw-purple-light)] bg-white text-[var(--color-jw-purple)] hover:bg-[var(--color-jw-purple-soft)]/60"
+              : "border-[#7c3aed]/30 bg-white text-[#7c3aed] hover:bg-[#7c3aed]/5"
           }`}
         >
           {isCompleted ? (
@@ -271,7 +271,7 @@ export default function LessonView({
         <button
           type="button"
           onClick={onContinue}
-          className="jw-focus-ring inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-[var(--color-jw-purple)] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[var(--color-jw-purple-deep)]"
+          className="jw-focus-ring inline-flex cursor-pointer items-center justify-center gap-2 rounded-md bg-[#7c3aed] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#6d28d9]"
         >
           {hasNext ? strings.continue : strings.backToCourse}
           <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4" aria-hidden="true">
@@ -306,9 +306,9 @@ function SkipToExerciseButton({
       type="button"
       onClick={onClick}
       aria-label={`Skip to exercise. ${pctLabel}% read.`}
-      className={`jw-focus-ring group hidden cursor-pointer items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold shadow-sm transition-all sm:inline-flex ${
+      className={`jw-focus-ring group hidden cursor-pointer items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-semibold shadow-sm transition-all sm:inline-flex ${
         isReady
-          ? "border-jw-gold/40 bg-linear-to-r from-jw-gold/15 to-jw-purple-soft/60 text-jw-purple-deep hover:shadow-md"
+          ? "border-[#7c3aed]/30 bg-[#7c3aed]/5 text-[#7c3aed] hover:shadow-md"
           : "border-jw-purple-soft bg-white text-jw-purple hover:border-jw-purple-light hover:bg-jw-purple-soft/40"
       }`}
     >

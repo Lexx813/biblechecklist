@@ -1001,7 +1001,7 @@ function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: ()
           onOpen();
         }
       }}
-      className="group relative block w-full overflow-hidden rounded-2xl border border-[var(--color-jw-purple-soft)] bg-gradient-to-br from-[var(--color-jw-purple-deep)] via-[var(--color-jw-purple)] to-[var(--color-jw-purple-light)] p-5 text-left text-white no-underline shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-jw-gold)] focus-visible:ring-offset-2 cursor-pointer sm:p-6"
+      className="group relative block w-full overflow-hidden rounded-md border border-[var(--color-jw-purple-soft)] bg-[#7c3aed] p-5 text-left text-white no-underline shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-jw-gold)] focus-visible:ring-offset-2 cursor-pointer sm:p-6"
       aria-label={`${headline}. ${completedCount} of ${LEARN_TOTAL_LESSONS} lessons complete.`}
     >
       <div
@@ -1026,7 +1026,7 @@ function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: ()
                 </svg>
               </span>
             )}
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--color-jw-gold)]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white">
               {eyebrow}
             </p>
           </div>
@@ -1044,7 +1044,7 @@ function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: ()
                 <span>
                   {completedCount} of {LEARN_TOTAL_LESSONS} lessons
                 </span>
-                <span className="tabular-nums text-[var(--color-jw-gold)]">{pctLabel}%</span>
+                <span className="tabular-nums text-white">{pctLabel}%</span>
               </div>
               <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-white/15">
                 <div

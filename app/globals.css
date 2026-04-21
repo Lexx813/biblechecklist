@@ -71,6 +71,54 @@
   .jw-course-surface * { animation: none !important; }
 }
 
+/* ── JW Learn: theme-aware card surfaces (bulletproof; bypasses Tailwind arbitrary-bracket quirks) ── */
+.jw-learn-card {
+  background: #ffffff !important;
+  color: #1a1020;
+}
+html[data-theme="dark"] .jw-learn-card {
+  background: #201a33 !important;
+  color: #f3e8ff;
+}
+.jw-learn-card-muted {
+  color: #475569;
+}
+html[data-theme="dark"] .jw-learn-card-muted {
+  color: #e9d5ff;
+}
+.jw-learn-card-faint {
+  color: #64748b;
+}
+html[data-theme="dark"] .jw-learn-card-faint {
+  color: #d8b4fe;
+}
+.jw-learn-card-border {
+  border-color: #e2e8f0;
+}
+html[data-theme="dark"] .jw-learn-card-border {
+  border-color: rgba(233, 213, 255, 0.15);
+}
+.jw-learn-row-hover:hover {
+  background: #f8fafc;
+}
+html[data-theme="dark"] .jw-learn-row-hover:hover {
+  background: rgba(233, 213, 255, 0.06);
+}
+.jw-learn-divider {
+  border-color: #f1f5f9;
+}
+html[data-theme="dark"] .jw-learn-divider {
+  border-color: rgba(233, 213, 255, 0.1);
+}
+.jw-learn-badge {
+  background: #f1f5f9;
+  color: #334155;
+}
+html[data-theme="dark"] .jw-learn-badge {
+  background: rgba(233, 213, 255, 0.1);
+  color: #f3e8ff;
+}
+
 /* ── Theme-aware CSS vars (switch with data-theme) ─────────────── */
 :root,
 [data-theme="light"] {
