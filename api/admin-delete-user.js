@@ -65,19 +65,48 @@ export default async function handler(req) {
   if (!userId || typeof userId !== "string") return json({ error: "userId is required" }, 400);
   if (userId === callerId) return json({ error: "You cannot delete your own account" }, 400);
 
+  // ── Rate limit: max 10 deletes per admin per minute ────────────────────────
+  // A stolen admin token shouldn't be able to wipe the user base in one loop.
+  const serviceHeaders = {
+    Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
+    apikey: SUPABASE_SERVICE_KEY,
+  };
+  const oneMinAgo = new Date(Date.now() - 60_000).toISOString();
+  const rateRes = await fetch(
+    `${SUPABASE_URL}/rest/v1/admin_actions?admin_id=eq.${callerId}&action=eq.delete_user&created_at=gte.${oneMinAgo}&select=id`,
+    { headers: { ...serviceHeaders, Prefer: "count=exact" } },
+  );
+  if (rateRes.ok) {
+    const range = rateRes.headers.get("content-range") ?? "0-0/0";
+    const recent = parseInt(range.split("/")[1] ?? "0", 10);
+    if (recent >= 10) {
+      return json({ error: "Too many deletions. Slow down." }, 429);
+    }
+  }
+
   // ── Delete via Admin API (service role) ────────────────────────────────────
   const deleteRes = await fetch(`${SUPABASE_URL}/auth/v1/admin/users/${userId}`, {
     method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
-      apikey: SUPABASE_SERVICE_KEY,
-    },
+    headers: serviceHeaders,
   });
 
   if (!deleteRes.ok) {
     const err = await deleteRes.json().catch(() => ({}));
     return json({ error: err.message ?? "Failed to delete user" }, deleteRes.status);
   }
+
+  // ── Audit log (best-effort — never blocks the response) ────────────────────
+  fetch(`${SUPABASE_URL}/rest/v1/admin_actions`, {
+    method: "POST",
+    headers: { ...serviceHeaders, "Content-Type": "application/json", Prefer: "return=minimal" },
+    body: JSON.stringify({
+      admin_id: callerId,
+      action: "delete_user",
+      target_id: userId,
+      ip: req.headers.get("x-forwarded-for") ?? null,
+      user_agent: req.headers.get("user-agent") ?? null,
+    }),
+  }).catch(() => {});
 
   return json({ success: true });
 }

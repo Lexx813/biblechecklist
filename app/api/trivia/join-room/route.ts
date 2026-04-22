@@ -1,17 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { resolveAuthedUserId } from "../_auth";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!,
 );
 
+const SAFE_HTTPS_URL = /^https:\/\/[^\s<>"'`\\]+$/i;
+
 export async function POST(req: NextRequest) {
-  const { room_code, display_name, team, user_id, avatar_url } = await req.json();
+  const authedUserId = await resolveAuthedUserId(req);
+  const body = await req.json();
+  const { room_code, team, user_id: bodyUserId } = body;
+
+  const display_name = typeof body.display_name === "string"
+    ? body.display_name.trim().slice(0, 40)
+    : "";
+  const avatar_url = typeof body.avatar_url === "string" && SAFE_HTTPS_URL.test(body.avatar_url)
+    ? body.avatar_url.slice(0, 500)
+    : null;
 
   if (!room_code || !display_name || !team) {
     return NextResponse.json({ error: "room_code, display_name, and team required" }, { status: 400 });
   }
+  if (team !== "A" && team !== "B") {
+    return NextResponse.json({ error: "Invalid team" }, { status: 400 });
+  }
+  if (typeof room_code !== "string" || !/^[A-Z0-9]{4,10}$/i.test(room_code)) {
+    return NextResponse.json({ error: "Invalid room_code" }, { status: 400 });
+  }
+
+  if (bodyUserId && bodyUserId !== authedUserId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const user_id = authedUserId;
 
   const { data: room, error: roomErr } = await supabase
     .from("trivia_rooms")

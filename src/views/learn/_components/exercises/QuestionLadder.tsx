@@ -37,12 +37,12 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-5 sm:p-7 shadow-sm">
-      <div className="mb-6 rounded-xl bg-[var(--color-jw-purple-soft)] p-4">
-        <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-[var(--color-jw-purple-light)]">
+    <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-5 sm:p-7 shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
+      <div className="mb-6 rounded-xl bg-[var(--color-jw-purple-soft)] p-4 dark:bg-white/5">
+        <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-[var(--color-jw-purple-light)] dark:text-[#c4b5fd]">
           {payload.verseCitation}
         </p>
-        <p className="text-lg italic leading-relaxed text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)]">
+        <p className="text-lg italic leading-relaxed text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)] dark:text-white">
           {payload.verseText}
         </p>
       </div>
@@ -68,9 +68,9 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
                 <div className="flex-1">
                   <label
                     htmlFor={`rung-${rung.key}`}
-                    className="mb-1 block text-sm font-semibold text-slate-900"
+                    className="mb-1 block text-sm font-semibold text-slate-900 dark:text-white"
                   >
-                    <span className="text-[var(--color-jw-purple)]">{rungLabels[rung.key]}</span>{" "}
+                    <span className="text-[var(--color-jw-purple)] dark:text-[#c4b5fd]">{rungLabels[rung.key]}</span>{" "}
                     — {rung.prompt}
                   </label>
                   <textarea
@@ -81,7 +81,7 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
                     }
                     rows={2}
                     placeholder="Type your answer…"
-                    className="w-full resize-y rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-relaxed text-slate-900 placeholder:text-slate-400 focus:border-[var(--color-jw-purple-light)] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-jw-purple-light)]/30"
+                    className="w-full resize-y rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-relaxed text-slate-900 placeholder:text-slate-400 focus:border-[var(--color-jw-purple-light)] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-jw-purple-light)]/30 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40 dark:focus:bg-white/10"
                   />
                   <div className="mt-2 flex items-center justify-between">
                     <button
@@ -112,8 +112,8 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
                     </button>
                   </div>
                   {isRevealed && (
-                    <p className="mt-2 rounded-md border border-[var(--color-jw-gold)]/30 bg-[var(--color-jw-gold)]/10 px-3 py-2 text-sm text-slate-700">
-                      <span className="font-medium text-[var(--color-jw-purple-deep)]">Hint:</span>{" "}
+                    <p className="mt-2 rounded-md border border-amber-300/40 bg-amber-50 px-3 py-2 text-sm text-slate-700 dark:border-amber-400/30 dark:bg-amber-500/10 dark:text-amber-100/90">
+                      <span className="font-medium text-[var(--color-jw-purple-deep)] dark:text-amber-200">Hint:</span>{" "}
                       {rung.hint}
                     </p>
                   )}
@@ -125,7 +125,7 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
       </ol>
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-slate-500 dark:text-white/55">
           {filledCount} of {payload.rungs.length} rungs answered
         </p>
         <button
@@ -139,7 +139,7 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
       </div>
 
       {submitted && (
-        <p className="mt-4 rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+        <p className="mt-4 rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-900 dark:bg-emerald-500/15 dark:text-emerald-100">
           Good work. Take a breath. The questions you just asked are the questions a careful
           student keeps asking for the rest of their life.
         </p>

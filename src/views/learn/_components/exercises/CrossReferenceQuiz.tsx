@@ -62,22 +62,22 @@ export default function CrossReferenceQuiz({ lessonId, exerciseId, payload, onCo
         ? "Well done. You've got the instincts."
         : "A fair start. Revisit the lesson once more — the instincts will come.";
     return (
-      <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-6 sm:p-8 text-center shadow-sm">
-        <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-jw-purple-light)]">
+      <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-6 sm:p-8 text-center shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
+        <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-jw-purple-light)] dark:text-[#c4b5fd]">
           Result
         </p>
-        <p className="mt-2 text-4xl font-semibold text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)]">
+        <p className="mt-2 text-4xl font-semibold text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)] dark:text-white">
           {correctCount} / {total}
         </p>
-        <p className="mt-3 text-slate-700">{verdict}</p>
+        <p className="mt-3 text-slate-700 dark:text-white/75">{verdict}</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-5 sm:p-7 shadow-sm">
-      <div className="mb-5 flex items-center justify-between text-xs text-slate-500">
-        <span className="font-medium uppercase tracking-wider text-[var(--color-jw-purple-light)]">
+    <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-5 sm:p-7 shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
+      <div className="mb-5 flex items-center justify-between text-xs text-slate-500 dark:text-white/55">
+        <span className="font-medium uppercase tracking-wider text-[var(--color-jw-purple-light)] dark:text-[#c4b5fd]">
           Question {index + 1} / {total}
         </span>
         <span>
@@ -85,9 +85,9 @@ export default function CrossReferenceQuiz({ lessonId, exerciseId, payload, onCo
         </span>
       </div>
 
-      <p className="mb-5 text-xs text-slate-500">{payload.intro}</p>
+      <p className="mb-5 text-xs text-slate-500 dark:text-white/55">{payload.intro}</p>
 
-      <p className="mb-6 text-lg leading-relaxed text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)]">
+      <p className="mb-6 text-lg leading-relaxed text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)] dark:text-white">
         {q.scenario}
       </p>
 
@@ -95,15 +95,15 @@ export default function CrossReferenceQuiz({ lessonId, exerciseId, payload, onCo
         {q.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isRight = opt.id === q.correctOptionId;
-          let stateClass = "border-slate-200 hover:border-[var(--color-jw-purple-light)] hover:bg-[var(--color-jw-purple-soft)]/40";
+          let stateClass = "border-slate-200 hover:border-[var(--color-jw-purple-light)] hover:bg-[var(--color-jw-purple-soft)]/40 dark:border-white/10 dark:text-white/85 dark:hover:border-[#c4b5fd] dark:hover:bg-white/5";
           if (answered) {
             if (isSelected && isRight)
-              stateClass = "border-emerald-400 bg-emerald-50 text-emerald-900";
+              stateClass = "border-emerald-400 bg-emerald-50 text-emerald-900 dark:border-emerald-400/50 dark:bg-emerald-500/15 dark:text-emerald-100";
             else if (isSelected && !isRight)
-              stateClass = "border-rose-300 bg-rose-50 text-rose-900";
+              stateClass = "border-red-300 bg-red-50 text-red-900 dark:border-red-400/50 dark:bg-red-500/15 dark:text-red-100";
             else if (isRight)
-              stateClass = "border-emerald-300 bg-emerald-50/50 text-emerald-800";
-            else stateClass = "border-slate-200 opacity-60";
+              stateClass = "border-emerald-300 bg-emerald-50/50 text-emerald-800 dark:border-emerald-400/40 dark:bg-emerald-500/10 dark:text-emerald-100/90";
+            else stateClass = "border-slate-200 opacity-60 dark:border-white/10 dark:text-white/60";
           }
           return (
             <button
@@ -122,7 +122,9 @@ export default function CrossReferenceQuiz({ lessonId, exerciseId, payload, onCo
       {answered && (
         <div
           className={`mt-5 rounded-lg px-4 py-3 text-sm leading-relaxed ${
-            isCorrect ? "bg-emerald-50 text-emerald-900" : "bg-amber-50 text-amber-900"
+            isCorrect
+              ? "bg-emerald-50 text-emerald-900 dark:bg-emerald-500/15 dark:text-emerald-100"
+              : "bg-amber-50 text-amber-900 dark:bg-amber-500/15 dark:text-amber-100"
           }`}
         >
           <p className="font-semibold">

@@ -84,11 +84,11 @@ export default function HighlightExercise({ lessonId, exerciseId, payload, onCom
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-5 sm:p-7 shadow-sm">
-      <p className="text-sm text-[var(--color-jw-purple-light)] font-medium mb-2">
+    <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-5 sm:p-7 shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
+      <p className="text-sm text-[var(--color-jw-purple-light)] font-medium mb-2 dark:text-[#c4b5fd]">
         {payload.passageCitation}
       </p>
-      <p className="text-xs text-slate-500 italic mb-5">{payload.passageSource}</p>
+      <p className="text-xs text-slate-500 italic mb-5 dark:text-white/55">{payload.passageSource}</p>
 
       <div className="mb-5 flex flex-wrap gap-2">
         {CATEGORIES.map((cat) => {
@@ -102,25 +102,25 @@ export default function HighlightExercise({ lessonId, exerciseId, payload, onCom
               className={`jw-focus-ring group inline-flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${
                 isActive
                   ? `${c.bg} ${c.text} ring-2 ${c.ring} border-transparent`
-                  : "bg-white text-slate-700 border-slate-200 hover:border-slate-300"
+                  : "bg-white text-slate-700 border-slate-200 hover:border-slate-300 dark:bg-white/5 dark:text-white/80 dark:border-white/10 dark:hover:border-white/25"
               }`}
               aria-pressed={isActive}
             >
               <span className={`h-2.5 w-2.5 rounded-full ${c.dot}`} />
               {strings.categories[cat]}
-              <span className="text-xs text-slate-500">{tally[cat]}</span>
+              <span className="text-xs text-slate-500 dark:text-white/55">{tally[cat]}</span>
             </button>
           );
         })}
       </div>
 
-      <p className="mb-3 text-xs text-slate-500">
+      <p className="mb-3 text-xs text-slate-500 dark:text-white/55">
         {state.active
           ? `Tap a word or phrase to tag it as "${strings.categories[state.active]}". Tap again to remove.`
           : "Pick a highlighter above, then tap words in the passage."}
       </p>
 
-      <div className="rounded-xl bg-[var(--color-jw-purple-soft)] p-5 leading-9 text-lg text-slate-900 select-none font-[var(--font-fraunces)]">
+      <div className="rounded-xl bg-[var(--color-jw-purple-soft)] p-5 leading-9 text-lg text-slate-900 select-none font-[var(--font-fraunces)] dark:bg-white/5 dark:text-white">
         {payload.tokens.map((tok, i) => {
           const cat = state.tokens[i];
           const c = cat ? highlightCategoryColors[cat] : null;
@@ -151,7 +151,7 @@ export default function HighlightExercise({ lessonId, exerciseId, payload, onCom
         <button
           type="button"
           onClick={() => dispatch({ type: "clear" })}
-          className="jw-focus-ring group inline-flex cursor-pointer items-center gap-1.5 self-start rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-500 transition-colors hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600"
+          className="jw-focus-ring group inline-flex cursor-pointer items-center gap-1.5 self-start rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-500 transition-colors hover:border-red-300 hover:bg-red-50 hover:text-red-600 dark:border-white/10 dark:bg-white/5 dark:text-white/65 dark:hover:border-red-400/40 dark:hover:bg-red-500/10 dark:hover:text-red-300"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -178,8 +178,8 @@ export default function HighlightExercise({ lessonId, exerciseId, payload, onCom
         </button>
       </div>
 
-      <details className="mt-5 rounded-lg border border-slate-100 bg-slate-50 p-3 text-sm text-slate-600">
-        <summary className="cursor-pointer font-medium text-slate-700">Show a guide for this paragraph</summary>
+      <details className="mt-5 rounded-lg border border-slate-100 bg-slate-50 p-3 text-sm text-slate-600 dark:border-white/10 dark:bg-white/[0.04] dark:text-white/70">
+        <summary className="cursor-pointer font-medium text-slate-700 dark:text-white/85">Show a guide for this paragraph</summary>
         <ul className="mt-3 space-y-1.5">
           {payload.guide.map((g, i) => {
             const c = highlightCategoryColors[g.category];

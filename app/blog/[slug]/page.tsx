@@ -1,4 +1,5 @@
 import { QueryClient, dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import DOMPurify from "isomorphic-dompurify";
 import { blogApi } from "../../../src/api/blog";
 import ClientShell from "../../_components/ClientShell";
 
@@ -122,8 +123,8 @@ export default async function BlogPostPage({ params }) {
         dateModified: post.updated_at ?? post.created_at,
         inLanguage: lang,
         author: post.profiles?.display_name
-          ? { "@type": "Person", name: post.profiles.display_name }
-          : { "@type": "Organization", "@id": `${BASE}/#organization`, name: "JW Study" },
+          ? { "@type": "Person", name: post.profiles.display_name, url: `${BASE}/about` }
+          : { "@type": "Person", name: "Alexi", "@id": `${BASE}/#creator`, url: `${BASE}/about` },
         mainEntityOfPage: {
           "@type": "WebPage",
           "@id": `${BASE}/blog/${post.slug}`,
@@ -173,7 +174,7 @@ export default async function BlogPostPage({ params }) {
             </p>
             {post.excerpt && <p>{post.excerpt}</p>}
             {post.content && (
-              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+              <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content, { ADD_ATTR: ["target", "rel"] }) }} />
             )}
           </article>
 

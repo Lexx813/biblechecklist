@@ -17,7 +17,10 @@ export const metadata = {
   title: "All 66 Books of the Bible — NWT Study Guides | JW Study",
   description:
     "Explore study guides for all 66 books of the New World Translation — from Genesis to Revelation. Key themes, key verses, and reading plans for every book.",
-  alternates: { canonical: `${BASE}/books` },
+  alternates: {
+    canonical: `${BASE}/books`,
+    languages: { en: `${BASE}/books`, "x-default": `${BASE}/books` },
+  },
   openGraph: {
     title: "All 66 Bible Books — NWT Study Guides | JW Study",
     description:

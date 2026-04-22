@@ -1,4 +1,5 @@
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { maskEmail } from "../_shared/mask.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -20,7 +21,10 @@ const BATCH_SIZE = 50;
 // ── Unsubscribe token (HMAC-SHA256) ───────────────────────────────────────────
 
 async function makeUnsubToken(userId: string): Promise<string> {
-  const secret = Deno.env.get("UNSUB_SECRET") ?? Deno.env.get("SUPABASE_JWT_SECRET") ?? "fallback";
+  // NEVER fall back to a hardcoded string — a forgeable HMAC secret lets an
+  // attacker mass-unsubscribe every user. Fail the sign instead.
+  const secret = Deno.env.get("UNSUB_SECRET") ?? Deno.env.get("SUPABASE_JWT_SECRET");
+  if (!secret) throw new Error("UNSUB_SECRET or SUPABASE_JWT_SECRET must be configured");
   const key = await crypto.subtle.importKey(
     "raw",
     new TextEncoder().encode(secret),
@@ -226,7 +230,7 @@ Deno.serve(async (req) => {
         });
         sentCount++;
       } else {
-        console.error(`Failed for ${user.email}:`, await res.text());
+        console.error(`Failed for ${maskEmail(user.email)}:`, await res.text());
       }
     }));
   }

@@ -68,6 +68,99 @@ const KNOWN_SPA_ROUTES = new Set([
   "terms", "trivia", "try", "upgrade", "user", "videos",
 ]);
 
+// SSR teasers for SPA routes so AI crawlers (GPTBot, PerplexityBot, ClaudeBot —
+// which don't execute JS) see useful content instead of the skeleton spinner.
+const ROUTE_TEASERS: Record<string, { title: string; description: string }> = {
+  "learn": {
+    title: "Learn to Study the Bible",
+    description: "A free interactive course teaching Jehovah's Witnesses and Bible students how to study the Bible deeply — S.O.A.P., cross-referencing, meditation, and highlighting. Nine short lessons with hands-on exercises.",
+  },
+  "quiz": {
+    title: "Bible Quiz — New World Translation",
+    description: "Test your knowledge of the Hebrew and Christian Greek Scriptures. 12 progressive levels of Bible questions drawn from the New World Translation, with badge rewards.",
+  },
+  "advanced-quiz": {
+    title: "Advanced Bible Quiz",
+    description: "Deeper Bible knowledge quizzes for experienced students — scripture recall, prophecy, and chronology drawn from the New World Translation.",
+  },
+  "family-quiz": {
+    title: "Family Bible Quiz",
+    description: "Challenge your family to a Bible quiz. Share a code, take turns answering, and make family worship fun.",
+  },
+  "trivia": {
+    title: "Bible Trivia Battle",
+    description: "Real-time Bible trivia for two teams. Create a room, invite friends, and play head-to-head Bible questions from the New World Translation.",
+  },
+  "leaderboard": {
+    title: "JW Study Leaderboard",
+    description: "See the top Bible students by chapters read, badges earned, and community contributions.",
+  },
+  "reading-plans": {
+    title: "Bible Reading Plans",
+    description: "Structured reading plans — One Year Bible, Chronological, Gospel-Focused, and more — with progress tracking and streak rewards.",
+  },
+  "study-notes": {
+    title: "Personal Study Notes",
+    description: "Save private study notes tied to any Bible chapter or verse. Tag, search, and export your personal Bible study journal.",
+  },
+  "meeting-prep": {
+    title: "Meeting Prep — CLAM and Watchtower Study",
+    description: "Prepare for the Christian Life and Ministry meeting and Watchtower study with checklists, scripture references, and notes tied to the week's material.",
+  },
+  "community": {
+    title: "JW Study Community",
+    description: "An activity feed of what Bible students are reading, studying, and discussing — reactions, replies, and encouragement.",
+  },
+  "feed": {
+    title: "Study Activity Feed",
+    description: "Follow what fellow Bible students are reading and studying across JW Study.",
+  },
+  "videos": {
+    title: "JW Study Videos",
+    description: "Short study videos and reflections from the JW Study community.",
+  },
+  "friends": {
+    title: "Friends on JW Study",
+    description: "Connect with fellow Bible students, share progress, and send direct messages.",
+  },
+  "groups": {
+    title: "Study Groups",
+    description: "Join or create a study group to read the Bible and discuss scripture together.",
+  },
+  "messages": {
+    title: "Messages",
+    description: "Private direct messaging between JW Study members, with end-to-end encryption.",
+  },
+  "history": {
+    title: "Reading History",
+    description: "A timeline of every chapter you've read, with dates and reading plans.",
+  },
+  "bookmarks": {
+    title: "Bookmarks",
+    description: "Scriptures and study notes you've saved for later.",
+  },
+  "profile": {
+    title: "Your Profile",
+    description: "Your JW Study profile — reading stats, badges, and study activity.",
+  },
+  "settings": {
+    title: "Account Settings",
+    description: "Manage your JW Study account, language, and notification preferences.",
+  },
+  "premium": {
+    title: "JW Study — Free for Everyone",
+    description: "JW Study is 100% free. No paid tiers, no locked features, no ads.",
+  },
+  "search": {
+    title: "Search the Bible",
+    description: "Semantic search across scriptures, study topics, blog posts, and forum discussions.",
+  },
+  "notifications": {
+    title: "Notifications",
+    description: "Your JW Study notifications — replies, reactions, friend requests, and reminders.",
+  },
+};
+
 export default async function Page({ params }) {
   const { slug } = await params;
   const isRoot = !slug || slug.length === 0;
@@ -153,5 +246,26 @@ export default async function Page({ params }) {
     );
   }
 
-  return <ClientShell />;
+  // SSR teaser for AI crawlers on known SPA routes. Hidden from users via CSS
+  // (`[data-authed] #ssr-fallback` rule in layout.tsx) and visually when JS boots.
+  const teaser = ROUTE_TEASERS[slug[0]];
+  return (
+    <>
+      {teaser && (
+        <noscript>
+          <style>{`#ssr-fallback{display:block!important}`}</style>
+        </noscript>
+      )}
+      {teaser && (
+        <div id="ssr-fallback" style={SEO_HIDE}>
+          <h1>{teaser.title}</h1>
+          <p>{teaser.description}</p>
+          <p>
+            <a href={`${BASE}/`}>Open JW Study</a> — free Bible reading tracker and study community for Jehovah&apos;s Witnesses.
+          </p>
+        </div>
+      )}
+      <ClientShell />
+    </>
+  );
 }

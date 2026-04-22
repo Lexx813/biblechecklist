@@ -13,7 +13,10 @@ export const metadata = {
   title: "Bible Reading Plans for Jehovah's Witnesses | JW Study",
   description:
     "Free Bible reading plans using the New World Translation — NWT in 1 Year, New Testament in 90 Days, Gospels in 30 Days, and more. Track daily progress with JW Study.",
-  alternates: { canonical: `${BASE}/plans` },
+  alternates: {
+    canonical: `${BASE}/plans`,
+    languages: { en: `${BASE}/plans`, "x-default": `${BASE}/plans` },
+  },
   openGraph: {
     title: "NWT Bible Reading Plans | JW Study",
     description:

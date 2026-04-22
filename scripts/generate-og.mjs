@@ -101,7 +101,7 @@ const svg = `
 
   <!-- Domain badge bottom-right -->
   <rect x="870" y="72" width="254" height="48" rx="14" fill="url(#badgeBg)" opacity="0.9"/>
-  <text x="997" y="103" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">nwtprogress.com</text>
+  <text x="997" y="103" font-family="Georgia, serif" font-size="20" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">jwstudy.org</text>
 
   <!-- Book spine decorations right side -->
   <g opacity="0.18">
@@ -113,7 +113,7 @@ const svg = `
   </g>
 
   <!-- Bottom URL -->
-  <text x="80" y="590" font-family="Georgia, serif" font-size="16" fill="rgba(200,180,255,0.4)" letter-spacing="1">nwtprogress.com</text>
+  <text x="80" y="590" font-family="Georgia, serif" font-size="16" fill="rgba(200,180,255,0.4)" letter-spacing="1">jwstudy.org</text>
 </svg>
 `;
 

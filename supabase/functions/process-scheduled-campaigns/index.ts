@@ -24,7 +24,8 @@ Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
 
   const secret = Deno.env.get("CRON_SECRET");
-  if (secret && req.headers.get("authorization") !== `Bearer ${secret}`) {
+  if (!secret) return new Response("Misconfigured", { status: 503 });
+  if (req.headers.get("authorization") !== `Bearer ${secret}`) {
     return new Response("Unauthorized", { status: 401 });
   }
 

@@ -1,10 +1,11 @@
-import ClientShell from "../_components/ClientShell";
-
 export const metadata = {
   title: "About JW Study | Bible Reading Tracker for Jehovah's Witnesses",
   description:
     "JW Study is an independent Bible reading tracker built for Jehovah's Witnesses and Bible students. Track all 66 books of the New World Translation. Built by a Bible student for the community.",
-  alternates: { canonical: "https://jwstudy.org/about" },
+  alternates: {
+    canonical: "https://jwstudy.org/about",
+    languages: { en: "https://jwstudy.org/about", "x-default": "https://jwstudy.org/about" },
+  },
   openGraph: {
     title: "About JW Study | Bible Reading Tracker",
     description:
@@ -50,49 +51,69 @@ export default function AboutPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaPerson) }} />
-      {/* Server-rendered trust content for SEO — visually hidden, SPA renders the actual UI */}
-      <div style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>
-        <h1>A Home for Bible Readers</h1>
-        <h2>Why This App Exists</h2>
-        <p>
-          JW Study was built with one simple goal: give Bible students a persistent,
-          cross-device tracker for their Bible reading. Whether you&apos;re on your phone at the
-          Kingdom Hall, on your laptop at home, or on a tablet during family worship — your
-          progress is always with you.
-        </p>
-        <p>
-          Beyond tracking, we wanted to create a space where people studying with
-          Jehovah&apos;s Witnesses — and active Witnesses themselves — can encourage one another,
-          share thoughts, and grow together as a community of Bible students.
-        </p>
-        <h2>Works Alongside JW Library</h2>
-        <p>
-          JW Study is designed as a companion to the JW Library app, not a replacement.
-          Do your reading in JW Library — then come here to log your chapters, take notes,
-          and share your journey with the community.
-        </p>
-        <h2>About the Creator</h2>
-        <p>
-          Alexi is a Bible student and Jehovah&apos;s Witness who built JW Study out of a
-          personal need — a simple, reliable way to track Bible reading across any device,
-          without losing progress. What started as a personal tool grew into a full community
-          platform for others walking the same spiritual journey.
-        </p>
-        <h2>Free for Everyone</h2>
-        <p>
-          JW Study is completely free. There are no paid tiers, no locked features, and no
-          ads. Hosting (Vercel), database (Supabase), and ongoing development are covered out
-          of pocket by one Witness who wanted to build something useful for the community.
-        </p>
-        <p>
-          JW Study is an independent community project and is not affiliated with or
-          endorsed by Jehovah&apos;s Witnesses or the Watch Tower Society of Pennsylvania.
-        </p>
-        <address>
-          Contact: <a href="mailto:support@jwstudy.org">support@jwstudy.org</a>
-        </address>
-      </div>
-      <ClientShell />
+      <main className="mx-auto max-w-3xl px-4 py-12 text-[var(--lp-text)] sm:px-6 sm:py-16">
+        <nav className="mb-10 text-sm">
+          <a href="/" className="text-brand-600 hover:underline">← Home</a>
+        </nav>
+        <article className="prose prose-neutral dark:prose-invert max-w-none">
+          <h1 className="mb-2 text-4xl font-semibold tracking-tight sm:text-5xl">A Home for Bible Readers</h1>
+          <p className="text-lg text-[var(--lp-muted)]">
+            Built by one Witness for the community — independent, free, and here for the long haul.
+          </p>
+
+          <h2 className="mt-10">Why This App Exists</h2>
+          <p>
+            JW Study was built with one simple goal: give Bible students a persistent,
+            cross-device tracker for their Bible reading. Whether you&apos;re on your phone at the
+            Kingdom Hall, on your laptop at home, or on a tablet during family worship — your
+            progress is always with you.
+          </p>
+          <p>
+            Beyond tracking, we wanted to create a space where people studying with
+            Jehovah&apos;s Witnesses — and active Witnesses themselves — can encourage one another,
+            share thoughts, and grow together as a community of Bible students.
+          </p>
+
+          <h2>Works Alongside JW Library</h2>
+          <p>
+            JW Study is designed as a companion to the JW Library app, not a replacement.
+            Do your reading in JW Library — then come here to log your chapters, take notes,
+            and share your journey with the community.
+          </p>
+
+          <h2>About the Creator</h2>
+          <p>
+            Alexi is a Bible student and Jehovah&apos;s Witness who built JW Study out of a
+            personal need — a simple, reliable way to track Bible reading across any device,
+            without losing progress. What started as a personal tool grew into a full community
+            platform for others walking the same spiritual journey.
+          </p>
+
+          <h2>Free for Everyone</h2>
+          <p>
+            JW Study is completely free. There are no paid tiers, no locked features, and no
+            ads. Hosting (Vercel), database (Supabase), and ongoing development are covered out
+            of pocket by one Witness who wanted to build something useful for the community.
+          </p>
+          <p className="text-sm text-[var(--lp-muted)]">
+            JW Study is an independent community project and is not affiliated with or
+            endorsed by Jehovah&apos;s Witnesses or the Watch Tower Society of Pennsylvania.
+          </p>
+
+          <address className="mt-8 not-italic text-sm">
+            Contact: <a href="mailto:support@jwstudy.org" className="text-brand-600 hover:underline">support@jwstudy.org</a>
+          </address>
+
+          <div className="mt-10">
+            <a
+              href="/"
+              className="inline-flex items-center gap-2 rounded-md bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700"
+            >
+              Open JW Study →
+            </a>
+          </div>
+        </article>
+      </main>
     </>
   );
 }

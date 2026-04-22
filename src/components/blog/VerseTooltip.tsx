@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { verseCacheApi } from "../../api/verseCache";
+import { sanitizeRich } from "../../lib/sanitize";
 
 function injectVerseSpans(html: string): string {
   return html.replace(
@@ -40,7 +41,10 @@ interface Props { html: string }
 
 export default function VerseTooltip({ html }: Props) {
   const [activeRef, setActiveRef] = useState<string | null>(null);
-  const processedHtml = useMemo(() => injectVerseSpans(html), [html]);
+  // Re-sanitize AFTER we inject our own spans, not just trust the upstream caller's
+  // sanitization to still hold. Belt-and-suspenders against a caller forgetting to
+  // pre-sanitize and us then rendering arbitrary HTML through dangerouslySetInnerHTML.
+  const processedHtml = useMemo(() => sanitizeRich(injectVerseSpans(html)), [html]);
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const target = (e.target as HTMLElement).closest("[data-verse-ref]") as HTMLElement | null;

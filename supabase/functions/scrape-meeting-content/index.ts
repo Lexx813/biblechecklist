@@ -193,9 +193,35 @@ async function getWtData(wtDocId: string, anchorPid: number): Promise<WtData> {
 
 // ── Main handler ─────────────────────────────────────────────────────────────
 
+const IS_DEV = Deno.env.get("ENV") === "dev";
+const ALLOWED_ORIGINS = [
+  "https://jwstudy.org",
+  "https://www.jwstudy.org",
+  ...(IS_DEV ? ["http://localhost:5173", "http://127.0.0.1:5173"] : []),
+];
+
+function corsHeaders(req: Request): Record<string, string> {
+  const requested = req.headers.get("origin") ?? "";
+  const origin = ALLOWED_ORIGINS.includes(requested) ? requested : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Headers": "authorization, content-type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+  };
+}
+
 Deno.serve(async (req) => {
+  const cors = corsHeaders(req);
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, content-type" } });
+    return new Response(null, { headers: cors });
+  }
+
+  // Authenticated cron calls only — prevent attackers burning WOL bandwidth
+  // or exhausting edge-function invocations by hammering this endpoint.
+  const secret = Deno.env.get("CRON_SECRET");
+  if (!secret) return new Response("Misconfigured", { status: 503, headers: cors });
+  if (req.headers.get("authorization") !== `Bearer ${secret}`) {
+    return new Response("Unauthorized", { status: 401, headers: cors });
   }
 
   try {
@@ -292,13 +318,13 @@ Deno.serve(async (req) => {
       clam_parts: clam.parts.length,
       wt_article_title: wt.articleTitle,
       wt_paragraphs: wt.paragraphCount,
-    }), { headers: { "Content-Type": "application/json" } });
+    }), { headers: { ...cors, "Content-Type": "application/json" } });
 
   } catch (err) {
     console.error("scrape-meeting-content error:", err);
     return new Response(JSON.stringify({ ok: false, error: String(err) }), {
       status: 500,
-      headers: { "Content-Type": "application/json" },
+      headers: { ...cors, "Content-Type": "application/json" },
     });
   }
 });

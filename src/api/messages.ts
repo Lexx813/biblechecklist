@@ -269,8 +269,13 @@ export const messagesApi = {
     if (!ALLOWED_TYPES[file.type]) throw new Error("Only JPEG, PNG, GIF, and WebP images are allowed.");
     if (file.size > MAX_BYTES) throw new Error("Image must be smaller than 5 MB.");
 
+    // Prefix uploads with the user's ID so storage.objects RLS can gate
+    // write/update/delete to (storage.foldername(name))[1] = auth.uid()::text.
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error("Not authenticated");
+
     const ext = ALLOWED_TYPES[file.type];
-    const path = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    const path = `${user.id}/${Date.now()}-${crypto.randomUUID()}.${ext}`;
     const { error } = await supabase.storage.from("chat-images").upload(path, file, { contentType: file.type });
     if (error) throw new Error(error.message);
     const { data } = supabase.storage.from("chat-images").getPublicUrl(path);

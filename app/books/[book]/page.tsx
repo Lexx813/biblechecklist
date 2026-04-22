@@ -42,7 +42,10 @@ export async function generateMetadata({ params }) {
   return {
     title: `Book of ${book.name} — NWT Study Guide | JW Study`,
     description,
-    alternates: { canonical: `${BASE}/books/${slug}` },
+    alternates: {
+      canonical: `${BASE}/books/${slug}`,
+      languages: { en: `${BASE}/books/${slug}`, "x-default": `${BASE}/books/${slug}` },
+    },
     openGraph: {
       title: `Book of ${book.name} — NWT Study Guide | JW Study`,
       description,

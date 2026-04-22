@@ -837,11 +837,11 @@ function LobbyView({ room, players, myPlayer, onStart, onRefresh, onExit }: {
         {myPlayer.is_host ? (
           <>
             {!roomFull ? (
-              <div style={{ textAlign: "center", padding: "14px", borderRadius: 12, border: "1px solid var(--gold)", background: "var(--gold-dim)", color: "var(--gold)", fontSize: 13, fontWeight: 600, fontFamily: "Chakra Petch, sans-serif" }}>
+              <div style={{ textAlign: "center", padding: "14px", borderRadius: 12, border: "1px solid rgba(167, 139, 250, 0.4)", background: "rgba(124, 58, 237, 0.12)", color: "#c4b5fd", fontSize: 13, fontWeight: 600, fontFamily: "Chakra Petch, sans-serif" }}>
                 Waiting for {room.player_count - players.length} more player{room.player_count - players.length !== 1 ? "s" : ""} to join via code
                 <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 8 }}>
                   {[0, 1, 2].map((i) => (
-                    <div key={i} style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--gold)", animation: `pulse 1.2s ease-in-out ${i * 0.2}s infinite` }} />
+                    <div key={i} style={{ width: 7, height: 7, borderRadius: "50%", background: "#a78bfa", animation: `pulse 1.2s ease-in-out ${i * 0.2}s infinite` }} />
                   ))}
                 </div>
               </div>

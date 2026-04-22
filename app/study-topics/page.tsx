@@ -12,7 +12,10 @@ export const metadata = {
   title: "Bible Study Topics | JW Study",
   description:
     "Explore key Bible topics from the New World Translation perspective — including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
-  alternates: { canonical: "https://jwstudy.org/study-topics" },
+  alternates: {
+    canonical: "https://jwstudy.org/study-topics",
+    languages: { en: "https://jwstudy.org/study-topics", "x-default": "https://jwstudy.org/study-topics" },
+  },
   openGraph: {
     title: "Bible Study Topics | JW Study",
     description:
@@ -37,10 +40,24 @@ const schemaBreadcrumb = {
   ],
 };
 
+const schemaItemList = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": "https://jwstudy.org/study-topics#list",
+  name: "Bible Study Topics",
+  itemListElement: STUDY_TOPICS.map((t, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    url: `https://jwstudy.org/study-topics/${t.slug}`,
+    name: t.title,
+  })),
+};
+
 export default function StudyTopicsPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }} />
       <div style={SEO_HIDE}>
         <h1>Bible Study Topics for Jehovah's Witnesses</h1>
         <p>

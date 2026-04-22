@@ -11,7 +11,12 @@ async function verifyToken(token: string): Promise<string | null> {
   if (!idB64 || !sigB64) return null;
   try {
     const userId = atob(idB64.replace(/-/g, "+").replace(/_/g, "/"));
-    const secret = process.env.UNSUB_SECRET ?? process.env.SUPABASE_JWT_SECRET ?? "fallback";
+    // NEVER fall back to a hardcoded string — forged tokens would mass-unsubscribe.
+    const secret = process.env.UNSUB_SECRET ?? process.env.SUPABASE_JWT_SECRET;
+    if (!secret) {
+      console.error("unsubscribe: UNSUB_SECRET/SUPABASE_JWT_SECRET not configured");
+      return null;
+    }
     const key = await crypto.subtle.importKey(
       "raw",
       new TextEncoder().encode(secret),

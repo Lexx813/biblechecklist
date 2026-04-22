@@ -12,6 +12,7 @@
  */
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { escapeHtml } from "../_shared/escape-html.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -82,11 +83,11 @@ Deno.serve(async (req) => {
 <body style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#1a1a1a">
   <h2 style="margin-bottom:4px">JW Study</h2>
   <hr style="margin-bottom:24px">
-  <p>Hi ${recipientName},</p>
-  <p><strong>${actorName}</strong> ${action}.</p>
+  <p>Hi ${escapeHtml(recipientName)},</p>
+  <p><strong>${escapeHtml(actorName)}</strong> ${escapeHtml(action)}.</p>
   ${notif.body_preview
     ? `<blockquote style="border-left:3px solid #6366f1;margin:16px 0;padding:8px 16px;color:#555;font-style:italic">
-        ${notif.body_preview}
+        ${escapeHtml(notif.body_preview)}
        </blockquote>`
     : ""}
   <p>

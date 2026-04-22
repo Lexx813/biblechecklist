@@ -12,11 +12,11 @@
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
+const IS_DEV = Deno.env.get("ENV") === "dev";
 const ALLOWED_ORIGINS = [
   "https://jwstudy.org",
   "https://www.jwstudy.org",
-  "http://localhost:5173",
-  "http://127.0.0.1:5173",
+  ...(IS_DEV ? ["http://localhost:5173", "http://127.0.0.1:5173"] : []),
 ];
 
 const MAX_HTML_BYTES = 50 * 1024; // 50 KB
@@ -131,10 +131,40 @@ Deno.serve(async (req: Request) => {
     return json({ error: "Invalid URL" }, 400, cors);
   }
 
-  // Block SSRF — reject private/internal hostnames and IP ranges
-  const host = parsedUrl.hostname.toLowerCase();
-  const BLOCKED_HOSTS = /^(localhost|127\.\d+\.\d+\.\d+|10\.\d+\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+|192\.168\.\d+\.\d+|0\.0\.0\.0|169\.254\.\d+\.\d+|\[::1?\]|metadata\.google\.internal)$/;
-  if (BLOCKED_HOSTS.test(host) || host.endsWith(".internal") || host.endsWith(".local")) {
+  // Block SSRF — reject private/internal hostnames and IP ranges.
+  // Covers RFC1918, CGNAT, link-local IPv4, IPv6 ULA/link-local/loopback, IPv4-mapped IPv6.
+  function isBlockedHost(h: string): boolean {
+    const host = h.toLowerCase().replace(/^\[|\]$/g, "");
+    if (!host) return true;
+    if (host === "localhost" || host.endsWith(".localhost")) return true;
+    if (host.endsWith(".internal") || host.endsWith(".local")) return true;
+    if (host === "metadata.google.internal") return true;
+    // IPv4
+    const m4 = host.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
+    if (m4) {
+      const [a, b] = [parseInt(m4[1], 10), parseInt(m4[2], 10)];
+      if (a === 10) return true;                             // 10/8
+      if (a === 127) return true;                            // loopback
+      if (a === 0) return true;                              // 0/8
+      if (a === 169 && b === 254) return true;               // link-local
+      if (a === 172 && b >= 16 && b <= 31) return true;      // 172.16/12
+      if (a === 192 && b === 168) return true;               // 192.168/16
+      if (a === 100 && b >= 64 && b <= 127) return true;     // CGNAT 100.64/10
+      if (a === 224) return true;                            // multicast
+      return false;
+    }
+    // IPv6
+    if (host.includes(":")) {
+      if (host === "::" || host === "::1") return true;
+      if (host.startsWith("fc") || host.startsWith("fd")) return true;  // ULA
+      if (host.startsWith("fe8") || host.startsWith("fe9") ||
+          host.startsWith("fea") || host.startsWith("feb")) return true; // link-local
+      if (host.startsWith("::ffff:")) return isBlockedHost(host.slice(7)); // IPv4-mapped
+      return false;
+    }
+    return false;
+  }
+  if (isBlockedHost(parsedUrl.hostname)) {
     return json({ error: "URL not allowed" }, 400, cors);
   }
 
@@ -174,16 +204,41 @@ Deno.serve(async (req: Request) => {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 5000);
 
-    const response = await fetch(parsedUrl.toString(), {
-      signal: controller.signal,
-      headers: {
-        // Pretend to be a browser so sites don't block the request
-        "User-Agent":
-          "Mozilla/5.0 (compatible; JWStudyBot/1.0; +https://jwstudy.org)",
-        Accept: "text/html,application/xhtml+xml",
-      },
-      redirect: "follow",
-    });
+    // Manual redirect handling: each hop's Location is re-validated against the
+    // SSRF blocklist to defeat public→private redirect attacks (DNS rebinding,
+    // AWS metadata redirects, etc.).
+    const MAX_HOPS = 5;
+    let currentUrl = parsedUrl.toString();
+    let response: Response | null = null;
+
+    for (let hop = 0; hop <= MAX_HOPS; hop++) {
+      const r = await fetch(currentUrl, {
+        signal: controller.signal,
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (compatible; JWStudyBot/1.0; +https://jwstudy.org)",
+          Accept: "text/html,application/xhtml+xml",
+        },
+        redirect: "manual",
+      });
+
+      if (r.status >= 300 && r.status < 400 && r.headers.get("location")) {
+        if (hop === MAX_HOPS) throw new Error("Too many redirects");
+        const nextUrl = new URL(r.headers.get("location")!, currentUrl);
+        if (nextUrl.protocol !== "http:" && nextUrl.protocol !== "https:") {
+          throw new Error("Invalid redirect protocol");
+        }
+        if (isBlockedHost(nextUrl.hostname)) {
+          throw new Error("Redirect to blocked host");
+        }
+        currentUrl = nextUrl.toString();
+        continue;
+      }
+      response = r;
+      break;
+    }
+
+    if (!response) throw new Error("No response");
 
     clearTimeout(timer);
 

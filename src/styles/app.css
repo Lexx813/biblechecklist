@@ -90,7 +90,8 @@
   --radius-2xl: 16px;
   --radius-pill: 999px;
 
-  /* ── Gold accent ── */
+  /* ── Gold accent (reserved for achievement/badge contexts — quizzes, reading-plan milestones, streaks).
+     Per brand guide, do NOT use on primary CTAs, card borders, or generic UI chrome. ── */
   --gold: #f59e0b;
   --gold-dim: rgba(245, 158, 11, 0.15);
   --gold-text: #fde68a;
@@ -1306,7 +1307,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .book-info-gate-label {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--gold, #f59e0b);
+  color: #7c3aed;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -1315,8 +1316,8 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .book-info-gate-cta {
   padding: 8px 16px;
   border-radius: var(--radius-sm);
-  background: var(--gold, #f59e0b);
-  color: #000;
+  background: #7c3aed;
+  color: #fff;
   font-size: 0.82rem;
   font-weight: 600;
   border: none;

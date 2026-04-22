@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { resolveAuthedUserId } from "../_auth";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -103,12 +104,59 @@ async function sendTriviaInvites(
   }
 }
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const SAFE_HTTPS_URL = /^https:\/\/[^\s<>"'`\\]+$/i;
+
 export async function POST(req: NextRequest) {
-  const { display_name, team, user_id, avatar_url, question_count = 10, time_limit_seconds = 30, player_count = 2, has_timer = true, points_to_win = 0, invited_friend_ids = [] } = await req.json();
+  const authedUserId = await resolveAuthedUserId(req);
+  const body = await req.json();
+  const {
+    team,
+    user_id: bodyUserId,
+    question_count = 10,
+    time_limit_seconds = 30,
+    player_count = 2,
+    has_timer = true,
+    points_to_win = 0,
+    invited_friend_ids = [],
+  } = body;
+
+  // ── Input validation ───────────────────────────────────────────────────────
+  const display_name = typeof body.display_name === "string"
+    ? body.display_name.trim().slice(0, 40)
+    : "";
+  const avatar_url = typeof body.avatar_url === "string" && SAFE_HTTPS_URL.test(body.avatar_url)
+    ? body.avatar_url.slice(0, 500)
+    : null;
 
   if (!display_name || !team) {
     return NextResponse.json({ error: "display_name and team required" }, { status: 400 });
   }
+  if (team !== "A" && team !== "B") {
+    return NextResponse.json({ error: "Invalid team" }, { status: 400 });
+  }
+  if (!Number.isInteger(question_count) || question_count < 1 || question_count > 100) {
+    return NextResponse.json({ error: "Invalid question_count" }, { status: 400 });
+  }
+  if (!Number.isInteger(time_limit_seconds) || time_limit_seconds < 5 || time_limit_seconds > 300) {
+    return NextResponse.json({ error: "Invalid time_limit_seconds" }, { status: 400 });
+  }
+  if (!Number.isInteger(player_count) || player_count < 2 || player_count > 10) {
+    return NextResponse.json({ error: "Invalid player_count" }, { status: 400 });
+  }
+  if (!Number.isInteger(points_to_win) || points_to_win < 0 || points_to_win > 100) {
+    return NextResponse.json({ error: "Invalid points_to_win" }, { status: 400 });
+  }
+  if (!Array.isArray(invited_friend_ids) || invited_friend_ids.length > 20) {
+    return NextResponse.json({ error: "Invalid invited_friend_ids" }, { status: 400 });
+  }
+
+  // A user_id in the body is only honored if it matches the authenticated user.
+  // Guests (no auth token) get host_id=null.
+  if (bodyUserId && bodyUserId !== authedUserId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const user_id = authedUserId;
 
   // Generate a unique room code
   let room_code = randomCode();
@@ -166,19 +214,42 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: playerErr?.message ?? "Failed to add player" }, { status: 500 });
   }
 
-  // Send invites best-effort — never blocks room creation
+  // Send invites best-effort — never blocks room creation.
+  // Every invited id must (a) be a valid UUID and (b) be an actual accepted friend
+  // of the host. Otherwise an attacker could spam notifications/DMs to any user.
   if ((invited_friend_ids as string[]).length > 0 && user_id) {
-    sendTriviaInvites(
-      user_id,
-      display_name,
-      invited_friend_ids as string[],
-      room.id,
-      room_code,
-      question_count,
-      time_limit_seconds,
-      has_timer,
-      points_to_win,
-    ).catch((e) => console.error("[trivia-invite] unexpected error:", e));
+    const candidates = (invited_friend_ids as unknown[])
+      .filter((id): id is string => typeof id === "string" && UUID_RE.test(id));
+
+    if (candidates.length > 0) {
+      const { data: friendships } = await supabase
+        .from("friendships")
+        .select("user_id, friend_id")
+        .eq("status", "accepted")
+        .or(
+          `and(user_id.eq.${user_id},friend_id.in.(${candidates.join(",")})),` +
+          `and(friend_id.eq.${user_id},user_id.in.(${candidates.join(",")}))`,
+        );
+      const verified = new Set<string>();
+      for (const row of friendships ?? []) {
+        const other = row.user_id === user_id ? row.friend_id : row.user_id;
+        if (other) verified.add(other);
+      }
+      const safeFriends = candidates.filter((id) => verified.has(id));
+      if (safeFriends.length > 0) {
+        sendTriviaInvites(
+          user_id,
+          display_name,
+          safeFriends,
+          room.id,
+          room_code,
+          question_count,
+          time_limit_seconds,
+          has_timer,
+          points_to_win,
+        ).catch((e) => console.error("[trivia-invite] unexpected error:", e));
+      }
+    }
   }
 
   return NextResponse.json({ room, player });

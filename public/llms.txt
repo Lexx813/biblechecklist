@@ -2,7 +2,6 @@
 updated: 2026-04-16
 license: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
 # canonical: https://jwstudy.org
-# alternate: https://nwtprogress.com (301 redirects to canonical)
 
 > JW Study is a free Bible reading tracker and study community for Jehovah's Witnesses using the New World Translation. It helps users track reading progress across all 66 Bible books, earn quiz badges, connect with other readers, and deepen their personal Bible study.
 
@@ -88,5 +87,4 @@ Guided Bible reading schedules available on JW Study:
 ## Contact
 
 Site: https://jwstudy.org
-Alternate domain: https://nwtprogress.com (redirects to jwstudy.org)
 Email: support@jwstudy.org

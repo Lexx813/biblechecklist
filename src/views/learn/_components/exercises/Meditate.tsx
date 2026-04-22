@@ -55,25 +55,25 @@ export default function Meditate({ lessonId, exerciseId, payload, onComplete }: 
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-5 sm:p-7 shadow-sm">
+    <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-5 sm:p-7 shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
       {payload.introVerse && (
-        <div className="mb-6 rounded-xl bg-[var(--color-jw-purple-soft)] p-4">
-          <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-[var(--color-jw-purple-light)]">
+        <div className="mb-6 rounded-xl bg-[var(--color-jw-purple-soft)] p-4 dark:bg-white/5">
+          <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-[var(--color-jw-purple-light)] dark:text-[#c4b5fd]">
             {payload.introVerse.citation}
           </p>
-          <p className="text-lg italic leading-relaxed text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)]">
+          <p className="text-lg italic leading-relaxed text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)] dark:text-white">
             {payload.introVerse.text}
           </p>
         </div>
       )}
 
       {payload.timerSeconds ? (
-        <div className="mb-6 flex items-center justify-between rounded-xl border border-[var(--color-jw-gold)]/40 bg-[var(--color-jw-gold)]/10 p-4">
+        <div className="mb-6 flex items-center justify-between rounded-xl border border-amber-300/40 bg-amber-50 p-4 dark:border-amber-400/30 dark:bg-amber-500/10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-jw-purple-light)]">
+            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-jw-purple-light)] dark:text-[#c4b5fd]">
               Optional meditation pause
             </p>
-            <p className="mt-1 font-mono text-2xl font-semibold text-[var(--color-jw-purple-deep)]">
+            <p className="mt-1 font-mono text-2xl font-semibold text-[var(--color-jw-purple-deep)] dark:text-white">
               {fmt(remaining)}
             </p>
           </div>
@@ -91,7 +91,7 @@ export default function Meditate({ lessonId, exerciseId, payload, onComplete }: 
                 setTimerRunning(false);
                 setRemaining(payload.timerSeconds ?? 0);
               }}
-              className="rounded-full border border-slate-300 px-4 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-slate-100"
+              className="rounded-full border border-slate-300 px-4 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:border-white/15 dark:text-white/75 dark:hover:bg-white/10"
             >
               Reset
             </button>
@@ -104,9 +104,9 @@ export default function Meditate({ lessonId, exerciseId, payload, onComplete }: 
           <li key={i}>
             <label
               htmlFor={`prompt-${i}`}
-              className="mb-2 block text-sm font-medium text-slate-900 leading-relaxed"
+              className="mb-2 block text-sm font-medium text-slate-900 leading-relaxed dark:text-white"
             >
-              <span className="mr-2 text-[var(--color-jw-purple-light)]">{i + 1}.</span>
+              <span className="mr-2 text-[var(--color-jw-purple-light)] dark:text-[#c4b5fd]">{i + 1}.</span>
               {prompt}
             </label>
             <textarea
@@ -119,7 +119,7 @@ export default function Meditate({ lessonId, exerciseId, payload, onComplete }: 
               }}
               rows={3}
               placeholder="Take your time…"
-              className="w-full resize-y rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-relaxed text-slate-900 placeholder:text-slate-400 focus:border-[var(--color-jw-purple-light)] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-jw-purple-light)]/30"
+              className="w-full resize-y rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-relaxed text-slate-900 placeholder:text-slate-400 focus:border-[var(--color-jw-purple-light)] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-jw-purple-light)]/30 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40 dark:focus:bg-white/10"
             />
           </li>
         ))}
@@ -137,7 +137,7 @@ export default function Meditate({ lessonId, exerciseId, payload, onComplete }: 
       </div>
 
       {finished && (
-        <p className="mt-4 rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+        <p className="mt-4 rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-900 dark:bg-emerald-500/15 dark:text-emerald-100">
           There's no grade here. What you just did — slowing down, asking honest questions —
           is the practice. Keep it up.
         </p>

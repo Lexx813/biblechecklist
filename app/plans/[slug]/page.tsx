@@ -30,7 +30,10 @@ export async function generateMetadata({ params }) {
   return {
     title: `${plan.name} — Bible Reading Plan | JW Study`,
     description,
-    alternates: { canonical: `${BASE}/plans/${slug}` },
+    alternates: {
+      canonical: `${BASE}/plans/${slug}`,
+      languages: { en: `${BASE}/plans/${slug}`, "x-default": `${BASE}/plans/${slug}` },
+    },
     openGraph: {
       title: `${plan.name} | JW Study`,
       description,

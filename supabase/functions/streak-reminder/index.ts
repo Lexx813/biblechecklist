@@ -20,9 +20,11 @@ const supabase = createClient(
 );
 
 Deno.serve(async (req) => {
-  // Only allow POST from cron or authorized caller
+  // Only allow POST from cron or authorized caller. Fail CLOSED — if the env
+  // var is missing, reject rather than allowing unauthenticated invocations.
   const secret = Deno.env.get("CRON_SECRET");
-  if (secret && req.headers.get("x-cron-secret") !== secret) {
+  if (!secret) return new Response("Misconfigured", { status: 503 });
+  if (req.headers.get("x-cron-secret") !== secret) {
     return new Response("Unauthorized", { status: 401 });
   }
 

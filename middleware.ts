@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const REDIRECT_HOSTS = new Set(["www.jwstudy.org", "nwtprogress.com", "www.nwtprogress.com"]);
+const REDIRECT_HOSTS = new Set(["www.jwstudy.org"]);
 
 export function middleware(request: NextRequest) {
   const host = request.headers.get("host") ?? "";

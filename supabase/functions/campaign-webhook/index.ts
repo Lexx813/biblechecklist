@@ -8,7 +8,7 @@ const supabase = createClient(
 const WEBHOOK_SECRET = Deno.env.get("RESEND_WEBHOOK_SECRET") ?? "";
 
 async function verifySignature(req: Request, body: string): Promise<boolean> {
-  if (!WEBHOOK_SECRET) return true; // skip verification in dev
+  if (!WEBHOOK_SECRET) return false; // fail CLOSED — never accept unverified webhooks
   const sigHeader = req.headers.get("svix-signature") ?? req.headers.get("resend-signature") ?? "";
   if (!sigHeader) return false;
   try {

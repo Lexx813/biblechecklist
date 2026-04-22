@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { resolveAuthedUserId } from "../_auth";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -7,6 +8,7 @@ const supabase = createClient(
 );
 
 export async function POST(req: NextRequest) {
+  const authedUserId = await resolveAuthedUserId(req);
   const { room_id, player_id } = await req.json();
 
   if (!room_id || !player_id) {
@@ -15,13 +17,16 @@ export async function POST(req: NextRequest) {
 
   const { data: player } = await supabase
     .from("trivia_players")
-    .select("is_host")
+    .select("is_host, user_id")
     .eq("id", player_id)
     .eq("room_id", room_id)
     .single();
 
   if (!player?.is_host) {
     return NextResponse.json({ error: "Only the host can advance questions" }, { status: 403 });
+  }
+  if (player.user_id && player.user_id !== authedUserId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const { data: room } = await supabase

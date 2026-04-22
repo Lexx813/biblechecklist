@@ -113,6 +113,14 @@ const schemaWebSite = {
   url: "https://jwstudy.org/",
   publisher: { "@type": "Organization", "@id": "https://jwstudy.org/#organization" },
   inLanguage: ["en", "es", "pt", "fr", "tl", "zh"],
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://jwstudy.org/search?q={search_term_string}",
+    },
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export default function RootLayout({ children }) {

@@ -9,6 +9,8 @@
  *   WEBHOOK_SECRET      — same secret set in the DB webhook header
  */
 
+import { escapeHtml } from "../_shared/escape-html.ts";
+
 const ADMIN_EMAIL = "lexxsolutionz@gmail.com";
 
 Deno.serve(async (req) => {
@@ -43,15 +45,15 @@ Deno.serve(async (req) => {
   <table style="width:100%;border-collapse:collapse;margin-top:16px">
     <tr>
       <td style="padding:8px;font-weight:bold;width:140px">Name</td>
-      <td style="padding:8px">${displayName}</td>
+      <td style="padding:8px">${escapeHtml(displayName)}</td>
     </tr>
     <tr style="background:#f5f5f5">
       <td style="padding:8px;font-weight:bold">Email</td>
-      <td style="padding:8px">${email}</td>
+      <td style="padding:8px">${escapeHtml(email)}</td>
     </tr>
     <tr>
       <td style="padding:8px;font-weight:bold">Joined</td>
-      <td style="padding:8px">${joinedAt}</td>
+      <td style="padding:8px">${escapeHtml(joinedAt)}</td>
     </tr>
   </table>
   <p style="margin-top:24px">

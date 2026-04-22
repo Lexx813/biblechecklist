@@ -226,17 +226,38 @@ function supabaseHeaders() {
   };
 }
 
+// Clamp numeric tool inputs so a prompt-injected LLM can't spam unbounded writes.
+function clampInt(v: unknown, min: number, max: number): number | null {
+  const n = typeof v === "number" ? v : parseInt(String(v ?? ""), 10);
+  if (!Number.isFinite(n)) return null;
+  const i = Math.trunc(n);
+  if (i < min || i > max) return null;
+  return i;
+}
+
+function clampString(v: unknown, max: number): string {
+  return String(v ?? "").slice(0, max);
+}
+
 async function executeTool(name: string, input: Record<string, unknown>, userId: string): Promise<string> {
   if (name === "save_note") {
+    const bookIndex = clampInt(input.book_index, 0, 65);
+    const chapter = clampInt(input.chapter, 1, 150);
+    if (bookIndex === null) return "Error: book_index must be between 0 and 65.";
+    if (chapter === null) return "Error: chapter must be between 1 and 150.";
+    const content = clampString(input.content, 5000);
+    if (!content.trim()) return "Error: content is empty.";
+    const verse = input.verse ? clampString(input.verse, 20) : null;
+
     const res = await fetch(`${SUPABASE_URL}/rest/v1/notes`, {
       method: "POST",
       headers: supabaseHeaders(),
       body: JSON.stringify({
         user_id:    userId,
-        book_index: input.book_index,
-        chapter:    input.chapter,
-        verse:      input.verse ?? null,
-        content:    input.content,
+        book_index: bookIndex,
+        chapter,
+        verse,
+        content,
       }),
     });
     if (!res.ok) return `Error saving note: ${await res.text()}`;
@@ -244,8 +265,14 @@ async function executeTool(name: string, input: Record<string, unknown>, userId:
   }
 
   if (name === "get_my_notes") {
-    let url = `${SUPABASE_URL}/rest/v1/notes?user_id=eq.${userId}&book_index=eq.${input.book_index}&select=content,chapter,verse&order=created_at.desc&limit=15`;
-    if (input.chapter) url += `&chapter=eq.${input.chapter}`;
+    const bookIndex = clampInt(input.book_index, 0, 65);
+    if (bookIndex === null) return "Error: book_index must be between 0 and 65.";
+    const chapter = input.chapter !== undefined && input.chapter !== null
+      ? clampInt(input.chapter, 1, 150)
+      : null;
+
+    let url = `${SUPABASE_URL}/rest/v1/notes?user_id=eq.${userId}&book_index=eq.${bookIndex}&select=content,chapter,verse&order=created_at.desc&limit=15`;
+    if (chapter !== null) url += `&chapter=eq.${chapter}`;
     const res = await fetch(url, { headers: supabaseHeaders() });
     if (!res.ok) return `Error fetching notes: ${await res.text()}`;
     const notes = await res.json() as Array<{ chapter: number; verse: string | null; content: string }>;
@@ -254,12 +281,14 @@ async function executeTool(name: string, input: Record<string, unknown>, userId:
   }
 
   if (name === "navigate_to") {
-    return `NAVIGATE_TO:${input.page}`;
+    return `NAVIGATE_TO:${clampString(input.page, 100)}`;
   }
 
   if (name === "create_blog_draft") {
-    // Return the draft payload — the client populates the editor, WriterPage auto-saves to DB
-    return `DRAFT_CREATED:${JSON.stringify({ title: input.title, content: input.content, excerpt: input.excerpt })}`;
+    const title = clampString(input.title, 200);
+    const content = clampString(input.content, 50000);
+    const excerpt = clampString(input.excerpt, 500);
+    return `DRAFT_CREATED:${JSON.stringify({ title, content, excerpt })}`;
   }
 
   return `Unknown tool: ${name}`;
@@ -311,6 +340,45 @@ function logUsage(userId: string, usage: Usage, toolUsed: string | null, page: s
       cost_usd:      cost,
     }),
   }).catch(() => {}); // never block the response
+}
+
+// ── Quota enforcement ────────────────────────────────────────────────────────
+// Prevents a compromised account from burning through the Anthropic budget.
+const PER_MINUTE_REQUEST_CAP = 10;
+const DAILY_INPUT_TOKEN_CAP  = 500_000;
+
+async function checkQuota(userId: string): Promise<{ ok: boolean; reason?: string }> {
+  const now = Date.now();
+  const oneMinAgo = new Date(now - 60_000).toISOString();
+  const oneDayAgo = new Date(now - 24 * 60 * 60 * 1000).toISOString();
+
+  // Recent requests (rate limit)
+  const minRes = await fetch(
+    `${SUPABASE_URL}/rest/v1/ai_usage_logs?user_id=eq.${userId}&created_at=gte.${oneMinAgo}&select=id`,
+    { headers: { ...supabaseHeaders(), Prefer: "count=exact" } },
+  );
+  if (minRes.ok) {
+    const range = minRes.headers.get("content-range") ?? "0-0/0";
+    const count = parseInt(range.split("/")[1] ?? "0", 10);
+    if (count >= PER_MINUTE_REQUEST_CAP) {
+      return { ok: false, reason: "Too many requests. Please slow down and try again in a minute." };
+    }
+  }
+
+  // Daily input-token total (cost cap)
+  const dayRes = await fetch(
+    `${SUPABASE_URL}/rest/v1/ai_usage_logs?user_id=eq.${userId}&created_at=gte.${oneDayAgo}&select=input_tokens`,
+    { headers: supabaseHeaders() },
+  );
+  if (dayRes.ok) {
+    const rows = await dayRes.json() as Array<{ input_tokens: number }>;
+    const total = rows.reduce((s, r) => s + (r.input_tokens ?? 0), 0);
+    if (total >= DAILY_INPUT_TOKEN_CAP) {
+      return { ok: false, reason: "Daily AI quota reached. Try again tomorrow." };
+    }
+  }
+
+  return { ok: true };
 }
 
 // ── Text → SSE stream ──────────────────────────────────────────────────────────
@@ -386,6 +454,15 @@ export async function POST(req: Request) {
   });
   if (!userRes.ok) return new Response("Unauthorized", { status: 401 });
   const { id: userId } = await userRes.json() as { id: string };
+
+  // Quota gate — blocks rate-limit spam and daily token blow-outs before any LLM call.
+  const quota = await checkQuota(userId);
+  if (!quota.ok) {
+    return new Response(JSON.stringify({ error: quota.reason }), {
+      status: 429,
+      headers: { "Content-Type": "application/json", "Retry-After": "60" },
+    });
+  }
 
   if (!ANTHROPIC_KEY) {
     return new Response(JSON.stringify({ error: "AI service not configured." }), {

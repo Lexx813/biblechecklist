@@ -38,7 +38,7 @@ export type NavState =
   | { page: "videosDash" }
   | { page: "creatorRequest" }
   | { page: "trivia" }
-  | { page: "blogNew" }
+  | { page: "blogNew"; prefillTitle?: string }
   | { page: "blogEdit"; slug: string }
   | { page: "myPosts" }
   | { page: "learn" }

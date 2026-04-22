@@ -18,6 +18,8 @@
  */
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { escapeHtml } from "../_shared/escape-html.ts";
+import { maskEmail } from "../_shared/mask.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -122,16 +124,16 @@ Deno.serve(async (req) => {
         <!-- Body -->
         <tr>
           <td style="padding:36px 32px">
-            <p style="margin:0 0 8px;font-size:15px;color:#374151">Hi ${recipientName},</p>
+            <p style="margin:0 0 8px;font-size:15px;color:#374151">Hi ${escapeHtml(recipientName)},</p>
             <p style="margin:0 0 24px;font-size:16px;color:#111827;font-weight:500">
-              You have a new message from <strong>${senderName}</strong>.
+              You have a new message from <strong>${escapeHtml(senderName)}</strong>.
             </p>
 
             ${messagePreview ? `
             <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px">
               <tr>
                 <td style="background:#f9fafb;border-left:3px solid #4f46e5;border-radius:0 8px 8px 0;padding:14px 18px">
-                  <p style="margin:0;font-size:14px;color:#6b7280;font-style:italic">"${messagePreview}${notif.body_preview?.length > 120 ? "…" : ""}"</p>
+                  <p style="margin:0;font-size:14px;color:#6b7280;font-style:italic">"${escapeHtml(messagePreview)}${notif.body_preview?.length > 120 ? "…" : ""}"</p>
                 </td>
               </tr>
             </table>` : ""}
@@ -139,9 +141,9 @@ Deno.serve(async (req) => {
             <table cellpadding="0" cellspacing="0">
               <tr>
                 <td style="background:#4f46e5;border-radius:8px">
-                  <a href="${conversationUrl}"
+                  <a href="${escapeHtml(conversationUrl)}"
                      style="display:inline-block;padding:13px 28px;color:#ffffff;font-size:15px;font-weight:600;text-decoration:none;letter-spacing:0.1px">
-                    Reply to ${senderName} →
+                    Reply to ${escapeHtml(senderName)} →
                   </a>
                 </td>
               </tr>
@@ -185,7 +187,7 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify({ error: detail }), { status: 502 });
   }
 
-  console.log(`send-message-email: sent to ${authUser.email} for conversation ${notif.conversation_id}`);
+  console.log(`send-message-email: sent to ${maskEmail(authUser.email)} for conversation ${notif.conversation_id}`);
   return new Response(JSON.stringify({ ok: true }), {
     headers: { "Content-Type": "application/json" },
   });

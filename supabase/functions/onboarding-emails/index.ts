@@ -15,6 +15,7 @@
  */
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { maskEmail } from "../_shared/mask.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -276,7 +277,7 @@ async function sendEmail(to: string, subject: string, html: string) {
   });
   if (!res.ok) {
     const err = await res.text();
-    console.error(`Resend error for ${to}:`, err);
+    console.error(`Resend error for ${maskEmail(to)}:`, err);
   }
   return res.ok;
 }
@@ -287,7 +288,8 @@ Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
 
   const secret = Deno.env.get("CRON_SECRET");
-  if (secret && req.headers.get("authorization") !== `Bearer ${secret}`) {
+  if (!secret) return new Response("Misconfigured", { status: 503 });
+  if (req.headers.get("authorization") !== `Bearer ${secret}`) {
     return new Response("Unauthorized", { status: 401 });
   }
 

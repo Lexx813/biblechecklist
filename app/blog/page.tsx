@@ -65,10 +65,26 @@ export default async function BlogListPage() {
   ]);
   const posts = results[0].status === "fulfilled" ? (results[0].value ?? []) : [];
 
+  const schemaItemList = posts.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": "https://jwstudy.org/blog#list",
+    name: "JW Study Blog Posts",
+    itemListElement: posts.slice(0, 30).map((post, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `https://jwstudy.org/blog/${post.slug}`,
+      name: post.title,
+    })),
+  } : null;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBlog) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      {schemaItemList && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }} />
+      )}
       {posts?.length > 0 && (
         <noscript>
           <h1>JW Study Blog</h1>

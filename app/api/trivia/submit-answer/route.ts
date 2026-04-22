@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { resolveAuthedUserId } from "../_auth";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -7,6 +8,7 @@ const supabase = createClient(
 );
 
 export async function POST(req: NextRequest) {
+  const authedUserId = await resolveAuthedUserId(req);
   const { room_id, player_id, answer_index } = await req.json();
 
   if (!room_id || !player_id || answer_index === undefined) {
@@ -25,13 +27,25 @@ export async function POST(req: NextRequest) {
 
   const { data: player } = await supabase
     .from("trivia_players")
-    .select("team")
+    .select("team, user_id")
     .eq("id", player_id)
     .eq("room_id", room_id)
     .single();
 
   if (!player) {
     return NextResponse.json({ error: "Player not found in room" }, { status: 404 });
+  }
+
+  // Identity gate:
+  //  - Authed player: caller must be that user (user_id match).
+  //  - Guest player (user_id=null): caller must be unauthed. Prevents authed
+  //    users from hijacking guest player slots in public rooms.
+  if (player.user_id) {
+    if (player.user_id !== authedUserId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+  } else if (authedUserId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const questionIds: string[] = room.selected_question_ids ?? [];

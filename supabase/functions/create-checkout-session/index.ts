@@ -22,11 +22,13 @@ const supabaseAdmin = createClient(
 
 const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!);
 
+// localhost origins are only honored when ENV=dev is set. Production deploys
+// leave ENV unset and never accept cross-origin calls from dev machines.
+const IS_DEV = Deno.env.get("ENV") === "dev";
 const ALLOWED_ORIGINS = [
   "https://jwstudy.org",
   "https://www.jwstudy.org",
-  "http://localhost:5173",
-  "http://127.0.0.1:5173",
+  ...(IS_DEV ? ["http://localhost:5173", "http://127.0.0.1:5173"] : []),
 ];
 
 function corsHeaders(req: Request) {

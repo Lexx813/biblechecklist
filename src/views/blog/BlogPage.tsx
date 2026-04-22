@@ -627,7 +627,7 @@ function PostReadViewLoader({ slug, user, navigate, onBack, renderFallback }: {
 }
 
 // ── Main Blog Page ────────────────────────────────────────────────────────────
-export default function BlogPage({ user, profile, onBack, onWriteClick, slug, onSelectPost, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+export default function BlogPage({ user, profile, onBack, onWriteClick, onMyPostsClick = null, slug, onSelectPost, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   useMeta(!slug ? { title: "Blog", description: "Reflections, studies, and insights from the JW Study community." } : {});
 
   if (slug) {

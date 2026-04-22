@@ -12,6 +12,8 @@
  */
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { escapeHtml } from "../_shared/escape-html.ts";
+import { maskEmail } from "../_shared/mask.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -28,7 +30,8 @@ Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
 
   const secret = Deno.env.get("CRON_SECRET");
-  if (secret && req.headers.get("authorization") !== `Bearer ${secret}`) {
+  if (!secret) return new Response("Misconfigured", { status: 503 });
+  if (req.headers.get("authorization") !== `Bearer ${secret}`) {
     return new Response("Unauthorized", { status: 401 });
   }
 
@@ -111,12 +114,12 @@ Deno.serve(async (req) => {
     const itemsHtml = preview.map((n) => {
       const actor = (n.actor as { display_name?: string } | null)?.display_name ?? "Someone";
       const action = TYPE_LABEL[n.type] ?? "sent a notification";
-      const url = `https://jwstudy.org/${n.link_hash ?? ""}`;
+      const url = `https://jwstudy.org/${encodeURI(n.link_hash ?? "")}`;
       return `
         <li style="margin-bottom:12px">
-          <strong>${actor}</strong> ${action}
-          ${n.body_preview ? `<br><span style="color:#555;font-style:italic">"${n.body_preview}"</span>` : ""}
-          <br><a href="${url}" style="color:#6366f1;font-size:13px">View →</a>
+          <strong>${escapeHtml(actor)}</strong> ${escapeHtml(action)}
+          ${n.body_preview ? `<br><span style="color:#555;font-style:italic">"${escapeHtml(n.body_preview)}"</span>` : ""}
+          <br><a href="${escapeHtml(url)}" style="color:#6366f1;font-size:13px">View →</a>
         </li>`;
     }).join("\n");
 
@@ -161,7 +164,7 @@ Deno.serve(async (req) => {
     if (res.ok) {
       sent++;
     } else {
-      console.error(`Failed for ${authUser.email}:`, await res.text());
+      console.error(`Failed for ${maskEmail(authUser.email)}:`, await res.text());
     }
   }
 

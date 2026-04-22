@@ -39,8 +39,6 @@ const QuizPage          = lazy(() => import("./views/quiz/QuizPage"));
 const QuizLevel         = lazy(() => import("./views/quiz/QuizPage").then(m => ({ default: m.QuizLevel })));
 const AdvancedQuizPage  = lazy(() => import("./views/quiz/AdvancedQuizPage"));
 const AdvancedQuizLevel = lazy(() => import("./views/quiz/AdvancedQuizPage").then(m => ({ default: m.AdvancedQuizLevel })));
-const MasterQuizPage    = lazy(() => import("./views/quiz/MasterQuizPage"));
-const MasterQuizLevel   = lazy(() => import("./views/quiz/MasterQuizPage").then(m => ({ default: m.MasterQuizLevel })));
 const SettingsPage      = lazy(() => import("./views/profile/SettingsPage"));
 const ReadingHistory    = lazy(() => import("./views/reading/ReadingHistory"));
 const LeaderboardPage   = lazy(() => import("./views/LeaderboardPage"));
@@ -340,8 +338,6 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (nav.page === "quizLevel") pageContent = <Page><QuizLevel level={nav.level} user={user} onBack={() => navigate("quiz")} onComplete={() => navigate("quiz")} {...sharedNav} /></Page>;
   else if (nav.page === "advancedQuiz")      pageContent = <Page><AdvancedQuizPage user={user} {...sharedNav} /></Page>;
   else if (nav.page === "advancedQuizLevel") pageContent = <Page><AdvancedQuizLevel level={nav.level} user={user} onBack={() => navigate("advancedQuiz")} onComplete={() => navigate("advancedQuiz")} {...sharedNav} timedMode={nav.timedMode} /></Page>;
-  else if (nav.page === "masterQuiz")        pageContent = <Page><MasterQuizPage user={user} {...sharedNav} /></Page>;
-  else if (nav.page === "masterQuizLevel")   pageContent = <Page><MasterQuizLevel level={nav.level} user={user} onBack={() => navigate("masterQuiz")} onComplete={() => navigate("masterQuiz")} {...sharedNav} timedMode={nav.timedMode} /></Page>;
   else if (nav.page === "history")   pageContent = <Page><ReadingHistory user={user} onBack={() => navigate("main")} {...sharedNav} /></Page>;
   else if (nav.page === "readingPlans") pageContent = <Page><ReadingPlansPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "studyNotes")   pageContent = <Page><StudyNotesPage user={user} navigate={navigate} initialTab={nav.tab ?? "mine"} {...sharedNav} /></Page>;
