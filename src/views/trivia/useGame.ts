@@ -10,6 +10,12 @@ interface GameActions {
   clearResult: () => void;
 }
 
+async function authHeaders(): Promise<Record<string, string>> {
+  const { supabase } = await import("../../lib/supabase");
+  const { data: { session } } = await supabase.auth.getSession();
+  return session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {};
+}
+
 export function useGame(): GameActions {
   const [submitting, setSubmitting] = useState(false);
   const [lastResult, setLastResult] = useState<AnswerResult | null>(null);
@@ -17,7 +23,7 @@ export function useGame(): GameActions {
   async function startGame(roomId: string, playerId: string) {
     const res = await fetch("/api/trivia/start-game", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", ...await authHeaders() },
       body: JSON.stringify({ room_id: roomId, player_id: playerId }),
     });
     return res.ok;
@@ -28,7 +34,7 @@ export function useGame(): GameActions {
     try {
       const res = await fetch("/api/trivia/submit-answer", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...await authHeaders() },
         body: JSON.stringify({ room_id: roomId, player_id: playerId, answer_index: answerIndex }),
       });
       if (!res.ok) return null;
@@ -43,7 +49,7 @@ export function useGame(): GameActions {
   async function nextQuestion(roomId: string, playerId: string): Promise<{ game_over: boolean }> {
     const res = await fetch("/api/trivia/next-question", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", ...await authHeaders() },
       body: JSON.stringify({ room_id: roomId, player_id: playerId }),
     });
     if (!res.ok) return { game_over: false };

@@ -364,9 +364,12 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
 
   async function handleCreate() {
     setLoading(true); setError("");
+    const { supabase } = await import("../../lib/supabase");
+    const { data: { session } } = await supabase.auth.getSession();
+    const authHeader = session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {};
     const res = await fetch("/api/trivia/create-room", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", ...authHeader },
       body: JSON.stringify({
         display_name: displayName || "Player",
         team,
@@ -389,9 +392,12 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
   async function handleJoin() {
     if (!roomCode.trim()) { setError("Enter a room code"); return; }
     setLoading(true); setError("");
+    const { supabase } = await import("../../lib/supabase");
+    const { data: { session } } = await supabase.auth.getSession();
+    const authHeader = session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {};
     const res = await fetch("/api/trivia/join-room", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", ...authHeader },
       body: JSON.stringify({
         room_code: roomCode.trim().toUpperCase(),
         display_name: displayName || "Player",
@@ -926,9 +932,12 @@ function GameView({
   async function handleAnswer(idx: number) {
     if (localSelectedIndex !== null || submitting || !isMyTurn || room.pending_next) return;
     setLocalSelectedIndex(idx);
+    const { supabase } = await import("../../lib/supabase");
+    const { data: { session } } = await supabase.auth.getSession();
+    const authHeader = session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {};
     await fetch("/api/trivia/submit-answer", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", ...authHeader },
       body: JSON.stringify({ room_id: room.id, player_id: myPlayer.id, answer_index: idx }),
     });
     await onRefresh();
@@ -937,9 +946,12 @@ function GameView({
   async function handleTimeExpire() {
     if (room.pending_next || localSelectedIndex !== null || !isMyTurn) return;
     setLocalSelectedIndex(-2); // sentinel: "timed out"
+    const { supabase } = await import("../../lib/supabase");
+    const { data: { session } } = await supabase.auth.getSession();
+    const authHeader = session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {};
     await fetch("/api/trivia/submit-answer", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", ...authHeader },
       body: JSON.stringify({ room_id: room.id, player_id: myPlayer.id, answer_index: -1 }),
     });
     await onRefresh();
@@ -1243,9 +1255,12 @@ export default function TriviaPage({ user, navigate, prefillCode }: TriviaPagePr
   async function handleExit() {
     // Close the room for everyone before leaving
     if (roomId) {
+      const { supabase } = await import("../../lib/supabase");
+      const { data: { session } } = await supabase.auth.getSession();
+      const authH = session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {};
       await fetch("/api/trivia/close-room", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authH },
         body: JSON.stringify({ room_id: roomId }),
       });
     }
