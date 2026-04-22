@@ -678,7 +678,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {/* Posts Feed — merge friend posts + public feed, dedup & sort */}
           {(() => {
             const seen = new Set<string>();
-            const fiveDaysAgo = Date.now() - 5 * 24 * 60 * 60 * 1000;
+            const fiveDaysAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
             const merged = [...friendPosts, ...publicFeed]
               .filter((p: any) => { if (seen.has(p.id)) return false; seen.add(p.id); return new Date(p.created_at).getTime() >= fiveDaysAgo; })
               .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
