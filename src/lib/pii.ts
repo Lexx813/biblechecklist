@@ -1,11 +1,14 @@
 /**
- * PII detection — blocks emails, phone numbers, street addresses,
- * personal social media links/handles, and insecure (http://) links
- * from user-generated content.
+ * Content filtering for user-generated posts, comments, messages, etc.
  *
- * Applied in the API layer before every insert/update. Profanity is
- * enforced server-side only via the Supabase check_pii() trigger, which
- * avoids bundling large word lists into the client JavaScript.
+ * Two independent concerns:
+ *   1. `detectPII` — used by analytics to redact PII from search-term events
+ *      before they leave the client. Does NOT block user content.
+ *   2. `assertNoPII` / `detectBlockedRef` — blocks links to apostate sources
+ *      (jwfacts.com, ex-JW subreddits) that conflict with JW teachings.
+ *      Throws a user-friendly error in the API layer before insert/update.
+ *
+ * Profanity is enforced server-side via the Supabase check_pii() trigger.
  */
 
 // Strips HTML tags and common entities to get plain text for scanning
@@ -65,17 +68,40 @@ export function upgradeInsecureLinks(text: string): string {
   return text.replace(/http:\/\//gi, "https://");
 }
 
+// Blocked external references — content that conflicts with JW teachings.
+// This is a JW-aligned community, so apostate sources are not permitted.
+const BLOCKED_REFS: Array<{ re: RegExp; label: string }> = [
+  // jwfacts.com (the entire domain, any path, any subdomain)
+  { re: /(?:^|[^a-z0-9.-])(?:[a-z0-9-]+\.)?jwfacts\.com\b/i, label: "jwfacts.com" },
+  // Reddit exjw-style subreddits: r/exjw, r/exjwdiscussions, r/asktheexjw, r/exjwcringe, etc.
+  // Matches any subreddit whose name contains "exjw" on any reddit.com subdomain
+  // (www, old, np, m, new). Also catches bare "r/exjw..." when it follows a
+  // non-alphanumeric char (space, start of string, etc.) — avoids false matches
+  // like "Dr/exjwtest" inside unrelated words.
+  { re: /(?:^|[^a-z0-9])r\/[a-z0-9_]*exjw[a-z0-9_]*/i, label: "ex-JW Reddit community" },
+];
+
+/** Returns the label of the first blocked reference found, or null. */
+export function detectBlockedRef(text = ""): string | null {
+  const plain = stripHtml(text);
+  for (const { re, label } of BLOCKED_REFS) {
+    if (re.test(plain)) return label;
+  }
+  return null;
+}
+
 /**
- * Throws a user-friendly Error if any PII is detected.
- * Call this before every API insert/update.
- * Profanity is caught server-side by the Supabase trigger.
+ * Throws if a blocked external reference is detected.
+ * Kept under the legacy name `assertNoPII` so existing call sites
+ * (posts, comments, DMs, forum, groups, blog, profile, study notes) don't change.
+ * PII (email/phone/social handle/etc.) is no longer blocked.
  */
 export function assertNoPII(...fields: string[]): void {
   for (const text of fields) {
-    const found = detectPII(text);
+    const found = detectBlockedRef(text);
     if (found) {
       throw new Error(
-        `Your post appears to contain a ${found}. To keep the community safe, personal contact information and social media links are not allowed.`
+        `Links to ${found} are not allowed. Please reference jw.org or the Watchtower Library instead.`
       );
     }
   }

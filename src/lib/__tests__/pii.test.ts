@@ -117,25 +117,39 @@ describe("detectPII", () => {
   });
 });
 
-describe("assertNoPII", () => {
-  it("does not throw for clean fields", () => {
+describe("assertNoPII (blocked refs only — PII no longer blocked)", () => {
+  it("does not throw for plain content or PII-like strings", () => {
     expect(() => assertNoPII("Hello world", "Great post", "")).not.toThrow();
+    expect(() => assertNoPII("contact user@example.com")).not.toThrow();
+    expect(() => assertNoPII("call me 555-555-5555")).not.toThrow();
+    expect(() => assertNoPII("follow me @johndoe")).not.toThrow();
+    expect(() => assertNoPII("https://facebook.com/me")).not.toThrow();
+    expect(() => assertNoPII("https://suno.com/@lexxsolutionz")).not.toThrow();
   });
 
-  it("throws with a friendly message for email", () => {
-    expect(() => assertNoPII("contact user@example.com")).toThrow(/email address/);
+  it("blocks jwfacts.com links", () => {
+    expect(() => assertNoPII("read https://jwfacts.com/jw/blood.php")).toThrow(/jwfacts\.com/);
+    expect(() => assertNoPII("source: jwfacts.com")).toThrow(/jwfacts\.com/);
+    expect(() => assertNoPII("www.jwfacts.com has an article")).toThrow(/jwfacts\.com/);
   });
 
-  it("does not throw for http:// links (auto-upgraded by upgradeInsecureLinks)", () => {
-    expect(() => assertNoPII("see http://example.com")).not.toThrow();
+  it("does not false-positive on similar-looking domains", () => {
+    expect(() => assertNoPII("see jw.org/facts")).not.toThrow();
+    expect(() => assertNoPII("something.jwfacts")).not.toThrow(); // no .com TLD
   });
 
-  it("checks all fields, not just the first", () => {
-    expect(() => assertNoPII("clean text", "also clean", "bad@email.com")).toThrow(/email address/);
+  it("blocks ex-JW Reddit subreddits", () => {
+    expect(() => assertNoPII("https://reddit.com/r/exjw")).toThrow(/Reddit/);
+    expect(() => assertNoPII("https://www.reddit.com/r/exjw/comments/abc/post")).toThrow(/Reddit/);
+    expect(() => assertNoPII("old.reddit.com/r/exjwdiscussions")).toThrow(/Reddit/);
+    expect(() => assertNoPII("np.reddit.com/r/asktheexjw")).toThrow(/Reddit/);
+    expect(() => assertNoPII("check r/exjwcringe")).toThrow(/Reddit/);
   });
 
-  it("accepts undefined/empty fields without throwing", () => {
-    expect(() => assertNoPII("", "good text")).not.toThrow();
+  it("allows non-exjw reddit links", () => {
+    expect(() => assertNoPII("https://reddit.com/r/JehovahsWitnesses")).not.toThrow();
+    expect(() => assertNoPII("reddit.com/r/bible")).not.toThrow();
+    expect(() => assertNoPII("r/programming")).not.toThrow();
   });
 });
 
