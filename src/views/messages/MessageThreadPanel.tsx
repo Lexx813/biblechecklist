@@ -894,42 +894,51 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
   }, [messages, sharedKey]);
 
   useEffect(() => {
+    const prev = prevCountRef.current;
     const count = decryptedMessages.length;
-    if (count > prevCountRef.current) {
-      const added = count - prevCountRef.current;
-      const isInitialLoad = prevCountRef.current === 0;
-      const lastNew = decryptedMessages[decryptedMessages.length - 1];
-      if (!isInitialLoad && soundEnabled) {
-        if (lastNew?.sender_id !== user.id) playChime();
-      }
-      if (!isInitialLoad && lastNew?.sender_id === user.id) {
-        setPendingMsgs([]);
-      }
-      let frameId: number;
-      frameId = requestAnimationFrame(() => {
-        const el = bodyRef.current;
-        if (!el) return;
-        if (isInitialLoad) {
+    // Always advance prev count so follow-up effects see it, even when we
+    // early-return with a cleanup function below.
+    prevCountRef.current = count;
+    if (count <= prev) return;
+
+    const added = count - prev;
+    const isInitialLoad = prev === 0;
+    const lastNew = decryptedMessages[decryptedMessages.length - 1];
+    const fromOther = !!lastNew && lastNew.sender_id !== user.id;
+    if (!isInitialLoad && soundEnabled && fromOther) {
+      playChime();
+    }
+    if (!isInitialLoad && lastNew?.sender_id === user.id) {
+      setPendingMsgs([]);
+    }
+    // A new message from the other side while this conversation is already
+    // open means the notification badge / push should be cleared immediately.
+    if (!isInitialLoad && fromOther) {
+      markRead.mutate(conv.conversation_id);
+      markNotifRead.mutate(conv.conversation_id);
+    }
+    const frameId = requestAnimationFrame(() => {
+      const el = bodyRef.current;
+      if (!el) return;
+      if (isInitialLoad) {
+        el.scrollTop = el.scrollHeight;
+        setNewMsgCount(0);
+        setShowNewMsgChip(false);
+      } else {
+        const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+        if (distFromBottom <= 100) {
           el.scrollTop = el.scrollHeight;
           setNewMsgCount(0);
           setShowNewMsgChip(false);
         } else {
-          const distFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
-          if (distFromBottom <= 100) {
-            el.scrollTop = el.scrollHeight;
-            setNewMsgCount(0);
-            setShowNewMsgChip(false);
-          } else {
-            setNewMsgCount(c => c + added);
-            setShowNewMsgChip(true);
-          }
+          setNewMsgCount(c => c + added);
+          setShowNewMsgChip(true);
         }
-      });
-      return () => {
-        cancelAnimationFrame(frameId);
-      };
-    }
-    prevCountRef.current = count;
+      }
+    });
+    return () => {
+      cancelAnimationFrame(frameId);
+    };
   }, [decryptedMessages.length]);
 
   useEffect(() => {

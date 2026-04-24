@@ -16,28 +16,58 @@ export default function LikedByPopover({ count, fetchLikers, className }: Props)
   const [pos, setPos] = useState({ top: 0, left: 0 });
   const triggerRef = useRef<HTMLSpanElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<number | null>(null);
 
-  async function toggle() {
-    if (count === 0) return;
-    if (!open) {
-      const rect = triggerRef.current?.getBoundingClientRect();
-      if (rect) {
-        setPos({ top: rect.top - 8, left: rect.left + rect.width / 2 });
+  async function openPopover() {
+    if (count === 0 || open) return;
+    const rect = triggerRef.current?.getBoundingClientRect();
+    if (rect) setPos({ top: rect.top - 8, left: rect.left + rect.width / 2 });
+    setOpen(true);
+    if (!likers) {
+      setLoading(true);
+      try {
+        const data = await fetchLikers();
+        setLikers(data);
+      } finally {
+        setLoading(false);
       }
-      setOpen(true);
-      if (!likers) {
-        setLoading(true);
-        try {
-          const data = await fetchLikers();
-          setLikers(data);
-        } finally {
-          setLoading(false);
-        }
-      }
-    } else {
-      setOpen(false);
     }
   }
+
+  function toggle() {
+    if (open) setOpen(false);
+    else openPopover();
+  }
+
+  function cancelClose() {
+    if (closeTimer.current !== null) {
+      window.clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  }
+
+  function scheduleClose() {
+    cancelClose();
+    closeTimer.current = window.setTimeout(() => {
+      setOpen(false);
+      closeTimer.current = null;
+    }, 150);
+  }
+
+  // Hover-to-open, mouse only. Touch/pen devices still use the existing
+  // tap-to-toggle path — avoids phantom hover on mobile.
+  function onPointerEnterTrigger(e: React.PointerEvent) {
+    if (e.pointerType !== "mouse") return;
+    cancelClose();
+    openPopover();
+  }
+
+  function onPointerLeaveTrigger(e: React.PointerEvent) {
+    if (e.pointerType !== "mouse") return;
+    scheduleClose();
+  }
+
+  useEffect(() => () => cancelClose(), []);
 
   useEffect(() => {
     if (!open) return;
@@ -68,6 +98,10 @@ export default function LikedByPopover({ count, fetchLikers, className }: Props)
         style={{ color: "inherit", fontSize: "inherit" }}
         onClick={toggle}
         onKeyDown={e => (e.key === "Enter" || e.key === " ") && toggle()}
+        onPointerEnter={onPointerEnterTrigger}
+        onPointerLeave={onPointerLeaveTrigger}
+        onFocus={openPopover}
+        onBlur={scheduleClose}
         aria-label="See who liked this"
         aria-expanded={open}
       >
@@ -77,6 +111,8 @@ export default function LikedByPopover({ count, fetchLikers, className }: Props)
       {open && createPortal(
         <div
           ref={popoverRef}
+          onPointerEnter={cancelClose}
+          onPointerLeave={scheduleClose}
           style={{
             position: "fixed",
             top: pos.top,
