@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { BOOKS, OT_COUNT } from "../data/books";
@@ -79,26 +79,32 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
     return sched[day - 1]?.readings?.[0] ?? null;
   }, [activePlan]);
 
-  // Deep-link: scroll to book card and open chapter modal
+  // Scroll to a book card and open its chapter modal
+  const scrollToChapter = useCallback((bookIdx: number, chapter: number) => {
+    const card = document.querySelector(`[data-book-index="${bookIdx}"]`) as HTMLElement;
+    if (!card) return;
+    // If card is collapsed, click the book-row to expand it first
+    if (!card.classList.contains("book-card--open")) {
+      const row = card.querySelector(".book-row") as HTMLElement;
+      row?.click();
+    }
+    card.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => {
+      const pills = card.querySelectorAll(".ch-pill");
+      const pill = pills[chapter - 1] as HTMLElement;
+      if (pill) {
+        const rect = pill.getBoundingClientRect();
+        setVerseModal({ bookIndex: bookIdx, chapter, pillEl: pill, pillRect: rect });
+      }
+    }, 350);
+  }, []);
+
+  // Deep-link: scroll to book card and open chapter modal (on first mount with props)
   useEffect(() => {
     if (deepLinkHandled || !initialized || openBook == null || openChapter == null) return;
     setDeepLinkHandled(true);
-    // Wait a frame so BookCard has rendered in expanded state
-    requestAnimationFrame(() => {
-      const card = document.querySelector(`[data-book-index="${openBook}"]`) as HTMLElement;
-      if (!card) return;
-      card.scrollIntoView({ behavior: "smooth", block: "center" });
-      // Find the chapter pill and open the modal
-      setTimeout(() => {
-        const pills = card.querySelectorAll(".ch-pill");
-        const pill = pills[openChapter - 1] as HTMLElement;
-        if (pill) {
-          const rect = pill.getBoundingClientRect();
-          setVerseModal({ bookIndex: openBook, chapter: openChapter, pillEl: pill, pillRect: rect });
-        }
-      }, 400);
-    });
-  }, [initialized, openBook, openChapter, deepLinkHandled]);
+    requestAnimationFrame(() => scrollToChapter(openBook, openChapter));
+  }, [initialized, openBook, openChapter, deepLinkHandled, scrollToChapter]);
 
   // Populate state once remote progress has loaded
   useEffect(() => {
@@ -435,7 +441,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
             {todayReading ? (
               <button
                 className="tracker-continue-btn"
-                onClick={() => navigate("main", { openBook: todayReading.bookIndex, openChapter: todayReading.chapter })}
+                onClick={() => scrollToChapter(todayReading.bookIndex, todayReading.chapter)}
               >
                 <span>📖</span>
                 <span>
