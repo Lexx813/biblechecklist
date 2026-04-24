@@ -80,6 +80,14 @@ describe("detectPII", () => {
       // min 2 chars after @
       expect(detectPII("price is $5")).toBeNull();
     });
+    it("does not flag @username inside a URL path", () => {
+      expect(detectPII("check out https://suno.com/@lexxsolutionz")).toBeNull();
+      expect(detectPII("my youtube https://youtube.com/@creator")).toBeNull();
+      expect(detectPII("<p>link: https://example.com/@user</p>")).toBeNull();
+    });
+    it("still flags standalone handles when URL is stripped", () => {
+      expect(detectPII("check out @lexxsolutionz https://suno.com")).toBe("social media handle");
+    });
   });
 
   describe("insecure links", () => {

@@ -38,6 +38,10 @@ const HTTP_RE = /\bhttp:\/\//i;
 // Negative lookbehind ensures it isn't the @ in an email address
 const SOCIAL_HANDLE_RE = /(?<![a-zA-Z0-9._%+\-])@[a-zA-Z0-9_.]{2,}/;
 
+// Any http(s) URL — used to strip URLs from text before scanning for standalone handles
+// so that legitimate URLs containing @ in the path (e.g. https://suno.com/@user) pass.
+const URL_RE = /https?:\/\/\S+/gi;
+
 /**
  * Returns a description of the first PII type found, or null if clean.
  * Accepts plain text or HTML.
@@ -49,7 +53,9 @@ export function detectPII(text = ""): string | null {
   if (ADDRESS_RE.test(plain)) return "physical address";
   if (SOCIAL_URL_RE.test(plain)) return "social media link";
   // http:// links are auto-upgraded to https:// by upgradeInsecureLinks() — no longer rejected
-  if (SOCIAL_HANDLE_RE.test(plain)) return "social media handle";
+  // Strip URLs before the handle check so @username *inside a URL path* is not flagged.
+  const plainWithoutUrls = plain.replace(URL_RE, " ");
+  if (SOCIAL_HANDLE_RE.test(plainWithoutUrls)) return "social media handle";
   return null;
 }
 
