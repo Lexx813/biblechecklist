@@ -34,9 +34,10 @@ const SOCIAL_URL_RE =
 // Insecure (http://) links — https is fine
 const HTTP_RE = /\bhttp:\/\//i;
 
-// Standalone social handles: @username (min 2 chars, not part of an email)
-// Negative lookbehind ensures it isn't the @ in an email address
-const SOCIAL_HANDLE_RE = /(?<![a-zA-Z0-9._%+\-])@[a-zA-Z0-9_.]{2,}/;
+// Standalone social handles: @username (min 2 chars, not part of an email or URL path)
+// Negative lookbehind ensures it isn't the @ in an email address OR preceded by `/`
+// (which means it's inside a URL path like suno.com/@user — with or without https://).
+const SOCIAL_HANDLE_RE = /(?<![a-zA-Z0-9._%+\-\/])@[a-zA-Z0-9_.]{2,}/;
 
 // Any http(s) URL — used to strip URLs from text before scanning for standalone handles
 // so that legitimate URLs containing @ in the path (e.g. https://suno.com/@user) pass.

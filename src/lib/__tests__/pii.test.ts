@@ -85,6 +85,10 @@ describe("detectPII", () => {
       expect(detectPII("my youtube https://youtube.com/@creator")).toBeNull();
       expect(detectPII("<p>link: https://example.com/@user</p>")).toBeNull();
     });
+    it("does not flag @username inside a URL path without https scheme", () => {
+      expect(detectPII("suno.com/@lexxsolutionz")).toBeNull();
+      expect(detectPII("check suno.com/@user")).toBeNull();
+    });
     it("still flags standalone handles when URL is stripped", () => {
       expect(detectPII("check out @lexxsolutionz https://suno.com")).toBe("social media handle");
     });
