@@ -6,6 +6,8 @@
  * Response: text/event-stream
  */
 
+import { DOCTRINAL_FAQ, type DoctrinalFaqEntry } from "../../../src/data/doctrinalFaq";
+
 const SUPABASE_URL     = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON    = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
 const SUPABASE_SERVICE = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim();
@@ -99,6 +101,15 @@ All scriptural research must use ONLY the following sources. No exceptions.
 
 ## Prohibited Sources
 Do NOT cite, recommend, or draw from: Blue Letter Bible, non-JW commentaries, other denominations, or Wikipedia for doctrinal claims.
+
+## Doctrinal Q&A (lookup_doctrinal_faq) — MANDATORY FIRST CALL
+For ANY question about Jehovah's Witnesses' beliefs, practices, or doctrines (blood, holidays, Trinity, paradise, hellfire, soul, 1914, the Governing Body, neutrality, Memorial, disfellowshipping, the cross, images, Mary, the 144,000, the great crowd, Armageddon, etc.), you MUST call \`lookup_doctrinal_faq\` first. The tool returns the canonical answer + a wol.jw.org or jw.org source URL.
+
+How to use the result:
+1. **Surface, don't innovate.** Restate the published answer in your own warm, pastoral tone — but never add doctrine, never speculate beyond what the publications teach, never disagree with the answer the tool returned.
+2. **Link the source.** Always include the \`URL\` field as a markdown link at the end of your response so the user can read the publication directly. Use the URL exactly as returned.
+3. **Defer authority.** You are a study aid, not a teacher of the faith. The Governing Body and the publications at wol.jw.org are the channel for spiritual instruction. If the user pushes back on a doctrine, gently point them to the source URL and to wol.jw.org for further study — don't argue.
+4. **Tool returns no match?** Say "I'd point you to wol.jw.org for the authoritative answer on that" + quote any relevant scripture from your knowledge of the NWT (linked via the wol URL pattern). Do NOT improvise doctrine the publications don't already teach.
 
 ## Meeting Prep Awareness (get_this_week_meeting)
 The user can prep for the two weekly Jehovah's Witness meetings (CLAM + Watchtower study) inside the app, and you have access to the scraped agenda.
@@ -244,6 +255,21 @@ const TOOLS = [
     },
   },
   {
+    name: "lookup_doctrinal_faq",
+    description:
+      "Look up the official Jehovah's Witnesses position on a common doctrinal question. Use BEFORE answering ANY question about JW beliefs (blood, holidays, Trinity, paradise, hellfire, soul, 1914, the Governing Body, neutrality, the Memorial, etc.). Returns the canonical answer + a wol.jw.org or jw.org source URL to link in the reply. If no match, the AI may quote scripture and link to wol.jw.org but should NOT improvise doctrine.",
+    input_schema: {
+      type: "object",
+      properties: {
+        query: {
+          type: "string",
+          description: "The topic, question, or keywords (e.g. 'blood transfusion', 'why no birthdays', 'is hell real', 'who are the 144000', 'jesus michael', 'governing body'). Use natural-language phrasing.",
+        },
+      },
+      required: ["query"],
+    },
+  },
+  {
     name: "get_this_week_meeting",
     description:
       "Fetch the scraped Christian Life and Ministry meeting (CLAM) + Watchtower study agenda for a given week. Use whenever the user asks about meeting prep, this week's meeting, the CLAM agenda, the Watchtower study, or wants help thinking through any part of the upcoming meeting. Defaults to the current week if no date is given.",
@@ -338,6 +364,38 @@ async function executeTool(
     const content = clampString(input.content, 50000);
     const excerpt = clampString(input.excerpt, 500);
     return `DRAFT_CREATED:${JSON.stringify({ title, content, excerpt })}`;
+  }
+
+  if (name === "lookup_doctrinal_faq") {
+    const query = clampString(input.query, 200).trim().toLowerCase();
+    if (!query) return "Error: query is required.";
+
+    // Score each FAQ entry by topic-tag and question-text overlap with the query.
+    const queryTokens = query.split(/\s+/).filter((t) => t.length >= 3);
+    function score(entry: DoctrinalFaqEntry): number {
+      let s = 0;
+      for (const topic of entry.topics) {
+        if (query.includes(topic)) s += 5;
+        for (const tok of queryTokens) if (topic.includes(tok)) s += 1;
+      }
+      const qtext = entry.question.toLowerCase();
+      for (const tok of queryTokens) if (qtext.includes(tok)) s += 2;
+      return s;
+    }
+
+    const ranked = DOCTRINAL_FAQ
+      .map((e) => ({ e, s: score(e) }))
+      .filter((r) => r.s > 0)
+      .sort((a, b) => b.s - a.s)
+      .slice(0, 3);
+
+    if (!ranked.length) {
+      return "No matching FAQ entry. Direct the user to wol.jw.org for authoritative answers, and quote any cited scripture from your knowledge of the NWT (linked via the wol URL pattern). Do not improvise doctrine.";
+    }
+
+    return ranked
+      .map(({ e }) => `Q: ${e.question}\nA: ${e.answer}\nSource: ${e.source}\nURL: ${e.url}`)
+      .join("\n\n---\n\n");
   }
 
   if (name === "get_this_week_meeting") {
