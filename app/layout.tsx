@@ -2,6 +2,12 @@ import Script from "next/script";
 import { Fraunces, Inter } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Providers from "./providers";
+import {
+  buildMetadata,
+  OrganizationSchema,
+  WebSiteSchema,
+  WebApplicationSchema,
+} from "@/seo";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -28,91 +34,15 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: "Bible Reading Tracker for New World Translation | JW Study",
-  description:
-    "Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community. Free Bible tracker app.",
+  ...buildMetadata({
+    route: "/",
+    title: "Bible Reading Tracker for New World Translation | JW Study",
+    description:
+      "Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community. Free Bible tracker app.",
+  }),
   keywords:
     "NWT, New World Translation, Bible reading tracker, Bible tracker, Bible quiz, Jehovah's Witnesses, Bible progress app, Bible reading app",
   authors: [{ name: "JW Study" }],
-  robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
-  metadataBase: new URL("https://jwstudy.org"),
-  alternates: {
-    canonical: "https://jwstudy.org",
-  },
-  openGraph: {
-    type: "website",
-    url: "https://jwstudy.org/",
-    title: "Bible Reading Tracker for New World Translation | JW Study",
-    description:
-      "Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community. Free Bible tracker app.",
-    siteName: "JW Study",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Bible Reading Tracker for New World Translation | JW Study",
-    description:
-      "Track your New World Translation Bible reading progress across all 66 books, earn quiz badges, and connect with a community. Free Bible tracker app.",
-    images: [{ url: "/og-image.jpg", alt: "JW Study — Bible Reading Tracker" }],
-  },
-};
-
-const schemaWebApp = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "@id": "https://jwstudy.org/#webapp",
-  name: "JW Study",
-  description:
-    "A spiritual growth companion that teaches Jehovah's Witnesses how to study God's word — with reading tracking, meeting prep, quizzes, AI study tools, and a worldwide community.",
-  url: "https://jwstudy.org",
-  image: "https://jwstudy.org/og-image.jpg",
-  applicationCategory: "EducationApplication",
-  operatingSystem: "Web",
-  browserRequirements: "Requires JavaScript. Requires a modern browser.",
-  availability: "https://schema.org/OnlineOnly",
-  inLanguage: ["en", "es", "pt", "fr", "tl", "zh", "ja", "ko"],
-  screenshot: "https://jwstudy.org/og-image.jpg",
-  featureList: "Bible reading progress tracker for all 66 books of the New World Translation, Meeting prep checklists for CLAM and Watchtower study, AI study assistant for deep Bible study, Bible knowledge quizzes with badge rewards, Structured reading plans with streak tracking, Personal study notes tied to any passage or chapter, Community forum, blog, and study groups, Offline support via PWA, 8-language support",
-  offers: [
-    { "@type": "Offer", price: "0", priceCurrency: "USD", name: "Free", description: "Every feature included: Bible reading tracker, reading plans, study notes, meeting prep, direct messaging, study groups, community forum, blog, and quizzes — free forever", availability: "https://schema.org/OnlineOnly" },
-  ],
-};
-
-const schemaOrg = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "@id": "https://jwstudy.org/#organization",
-  name: "JW Study",
-  url: "https://jwstudy.org",
-  logo: {
-    "@type": "ImageObject",
-    "@id": "https://jwstudy.org/#logo",
-    url: "https://jwstudy.org/icon-512.png",
-    width: 512,
-    height: 512,
-    caption: "JW Study",
-  },
-  description: "A spiritual growth companion for Jehovah's Witnesses — Bible reading tracker, meeting prep, study tools, and worldwide community.",
-  email: "support@jwstudy.org",
-  contactPoint: { "@type": "ContactPoint", email: "support@jwstudy.org", contactType: "customer service", availableLanguage: ["English", "Spanish", "Portuguese", "French", "Tagalog", "Chinese", "Japanese"] },
-};
-
-const schemaWebSite = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "@id": "https://jwstudy.org/#website",
-  name: "JW Study",
-  url: "https://jwstudy.org/",
-  publisher: { "@type": "Organization", "@id": "https://jwstudy.org/#organization" },
-  inLanguage: ["en", "es", "pt", "fr", "tl", "zh"],
-  potentialAction: {
-    "@type": "SearchAction",
-    target: {
-      "@type": "EntryPoint",
-      urlTemplate: "https://jwstudy.org/search?q={search_term_string}",
-    },
-    "query-input": "required name=search_term_string",
-  },
 };
 
 export default function RootLayout({ children }) {
@@ -150,9 +80,9 @@ export default function RootLayout({ children }) {
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="JW Study" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaWebApp) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaWebSite) }} />
+        <WebApplicationSchema />
+        <OrganizationSchema />
+        <WebSiteSchema />
       </head>
       <body>
         <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
