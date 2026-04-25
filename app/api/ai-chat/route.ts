@@ -100,6 +100,14 @@ All scriptural research must use ONLY the following sources. No exceptions.
 ## Prohibited Sources
 Do NOT cite, recommend, or draw from: Blue Letter Bible, non-JW commentaries, other denominations, or Wikipedia for doctrinal claims.
 
+## Scripture Grounding (MANDATORY)
+The user's app has the entire New World Translation indexed. Use it instead of quoting from memory.
+
+- **Before quoting any specific verse**, call \`lookup_verse(book, chapter, verse)\`. The tool returns the exact NWT wording. Quoting from memory risks paraphrasing or mixing translations — never acceptable.
+- **Before answering doctrinal or topical questions**, call \`search_scripture(query)\` to surface the most relevant verses. Then quote 1–3 of them via \`lookup_verse\` and build your answer around what scripture actually says.
+- For chains like "what does the Bible say about X" — \`search_scripture\` first, then \`lookup_verse\` on the top results, then explain.
+- Skip scripture tools only for casual chat ("hi", "how are you", "thanks"). Any time scripture is referenced or implied, use them.
+
 ## Research Instructions
 1. For word/person studies → Use **Insight (it)** first
 2. For defending beliefs → Use **Reasoning (rs)** first
@@ -214,6 +222,34 @@ const TOOLS = [
       required: ["title", "content", "excerpt"],
     },
   },
+  {
+    name: "lookup_verse",
+    description:
+      "Look up the exact New World Translation text of a Bible verse. ALWAYS call this before quoting any specific verse — never quote scripture from memory. Use for any reference like 'John 3:16' or 'Psalm 83:18'.",
+    input_schema: {
+      type: "object",
+      properties: {
+        book:       { type: "string",  description: "Book name as it appears in NWT (e.g. 'Genesis', '1 Corinthians', 'Revelation')" },
+        chapter:    { type: "integer", description: "Chapter number" },
+        verse:      { type: "integer", description: "Starting verse number" },
+        end_verse:  { type: "integer", description: "Ending verse for a range (optional, e.g. for 'John 3:16-18')" },
+      },
+      required: ["book", "chapter", "verse"],
+    },
+  },
+  {
+    name: "search_scripture",
+    description:
+      "Semantically search the New World Translation for verses related to a topic, theme, or question. Returns up to 5 verses ranked by relevance. Use BEFORE answering doctrinal or topical questions to ground the answer in actual scripture rather than memory. Examples of good queries: 'God's name is Jehovah', 'paradise on earth', 'why does God allow suffering', 'condition of the dead'.",
+    input_schema: {
+      type: "object",
+      properties: {
+        query: { type: "string", description: "Topic, theme, or question to search for. Use full natural-language phrasing — the search uses semantic embeddings, not keyword match." },
+        limit: { type: "integer", description: "Number of verses to return (1-10, default 5)" },
+      },
+      required: ["query"],
+    },
+  },
 ];
 
 // ── Supabase helpers ───────────────────────────────────────────────────────────
@@ -239,7 +275,12 @@ function clampString(v: unknown, max: number): string {
   return String(v ?? "").slice(0, max);
 }
 
-async function executeTool(name: string, input: Record<string, unknown>, userId: string): Promise<string> {
+async function executeTool(
+  name: string,
+  input: Record<string, unknown>,
+  userId: string,
+  userToken: string,
+): Promise<string> {
   if (name === "save_note") {
     const bookIndex = clampInt(input.book_index, 0, 65);
     const chapter = clampInt(input.chapter, 1, 150);
@@ -289,6 +330,55 @@ async function executeTool(name: string, input: Record<string, unknown>, userId:
     const content = clampString(input.content, 50000);
     const excerpt = clampString(input.excerpt, 500);
     return `DRAFT_CREATED:${JSON.stringify({ title, content, excerpt })}`;
+  }
+
+  if (name === "lookup_verse") {
+    const book = clampString(input.book, 50).trim();
+    const chapter = clampInt(input.chapter, 1, 150);
+    const verse = clampInt(input.verse, 1, 200);
+    if (!book) return "Error: book is required.";
+    if (chapter === null) return "Error: chapter must be 1-150.";
+    if (verse === null) return "Error: verse must be 1-200.";
+    const endVerse = input.end_verse !== undefined && input.end_verse !== null
+      ? clampInt(input.end_verse, verse, 200)
+      : null;
+
+    // Build verse_ref candidates. The DB stores e.g. "John 3:16". Cover the
+    // exact verse + (if range) every verse in between.
+    const refs: string[] = [];
+    const last = endVerse ?? verse;
+    for (let v = verse; v <= last && refs.length < 25; v++) refs.push(`${book} ${chapter}:${v}`);
+
+    const inList = refs.map((r) => `"${r}"`).join(",");
+    const url = `${SUPABASE_URL}/rest/v1/verse_embeddings?verse_ref=in.(${encodeURIComponent(inList)})&select=verse_ref,verse_text&order=id.asc`;
+    const res = await fetch(url, { headers: supabaseHeaders() });
+    if (!res.ok) return `Error looking up verse: ${await res.text()}`;
+    const rows = (await res.json()) as Array<{ verse_ref: string; verse_text: string }>;
+    if (!rows.length) return `No verse found for ${book} ${chapter}:${verse}${endVerse ? `-${endVerse}` : ""}. Check the book name spelling (NWT format, e.g. "1 Corinthians", not "1Cor").`;
+    return rows.map((r) => `${r.verse_ref} — ${r.verse_text}`).join("\n");
+  }
+
+  if (name === "search_scripture") {
+    const query = clampString(input.query, 500).trim();
+    if (!query) return "Error: query is required.";
+    const limit = clampInt(input.limit, 1, 10) ?? 5;
+
+    const fnUrl = `${SUPABASE_URL}/functions/v1/semantic-search`;
+    const res = await fetch(fnUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userToken}`,
+      },
+      body: JSON.stringify({ query }),
+    });
+    if (!res.ok) return `Error searching scripture: ${await res.text()}`;
+    const data = await res.json() as { verses?: Array<{ verse_ref: string; verse_text: string; book_theme?: string }> };
+    const verses = (data.verses ?? []).slice(0, limit);
+    if (!verses.length) return "No relevant verses found. Try rephrasing the query.";
+    return verses
+      .map((v) => `${v.verse_ref} — ${v.verse_text}${v.book_theme ? ` (theme: ${v.book_theme})` : ""}`)
+      .join("\n");
   }
 
   return `Unknown tool: ${name}`;
@@ -540,6 +630,7 @@ export async function POST(req: Request) {
           block.name as string,
           block.input as Record<string, unknown>,
           userId,
+          token,
         );
         toolResults.push({
           type: "tool_result",
