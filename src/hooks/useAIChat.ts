@@ -73,14 +73,20 @@ export function useAIChat(context?: ChatContext, options: UseAIChatOptions = {})
   const conversationIdRef = useRef(conversationId);
   conversationIdRef.current = conversationId;
 
-  // Reset history when switching conversations (e.g. user clicks a different
-  // chat in the sidebar). Skipped in localStorage mode.
+  // Reset history when switching from one EXISTING conversation to another
+  // (sidebar click). Do NOT reset on the null → id transition — that's the
+  // "fresh chat just got persisted" case and we'd erase messages mid-stream.
+  const previousIdRef = useRef(conversationId);
   useEffect(() => {
-    if (!useLocalStorage) {
-      const next = initialMessages ?? [];
-      messagesRef.current = next;
-      setMessages(next);
-    }
+    const prev = previousIdRef.current;
+    previousIdRef.current = conversationId;
+    if (useLocalStorage) return;
+    // First mount, or fresh-chat→saved transition: keep current messages
+    if (prev === undefined || prev === null) return;
+    // Real switch (existing convo → different existing convo, or → fresh)
+    const next = initialMessages ?? [];
+    messagesRef.current = next;
+    setMessages(next);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId]);
 
@@ -105,7 +111,7 @@ export function useAIChat(context?: ChatContext, options: UseAIChatOptions = {})
     []
   );
 
-  const send = useCallback(async (userText: string) => {
+  const send = useCallback(async (userText: string, conversationIdOverride?: string) => {
     const trimmed = userText.trim();
     if (!trimmed) return;
 
@@ -143,7 +149,9 @@ export function useAIChat(context?: ChatContext, options: UseAIChatOptions = {})
         body: JSON.stringify({
           messages: apiMessages,
           context: contextRef.current,
-          ...(conversationIdRef.current ? { conversation_id: conversationIdRef.current } : {}),
+          ...((conversationIdOverride ?? conversationIdRef.current)
+            ? { conversation_id: conversationIdOverride ?? conversationIdRef.current }
+            : {}),
         }),
         signal: ctrl.signal,
       });

@@ -512,6 +512,20 @@ export default function AuthedApp({ onShowLanding, i18n }) {
   }, [queryClient]);
 
   if (authLoading) return <LoadingSpinner className="spinner-wrap--fullscreen" />;
+
+  // Stale-session recovery: if the session in localStorage didn't validate
+  // (Supabase couldn't refresh / tokens expired), don't dump the user on the
+  // sign-in screen for unauthed visits to "/" — bounce them to the landing.
+  // Explicit "/login" or "/signup" paths still get the AuthPage.
+  if (!session) {
+    const path = typeof window !== "undefined" ? window.location.pathname.slice(1) : "";
+    if (path === "" && onShowLanding) {
+      // Run on next tick — onShowLanding flips parent state
+      setTimeout(() => onShowLanding(), 0);
+      return <LoadingSpinner className="spinner-wrap--fullscreen" />;
+    }
+  }
+
   if (maintenanceMode) return <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh",flexDirection:"column",gap:"1rem"}}><h1>🔧 Maintenance</h1><p>We'll be back shortly.</p></div>;
 
   // Allow unauthenticated read-only access to blog posts

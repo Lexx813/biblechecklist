@@ -7,6 +7,7 @@
  */
 
 import { DOCTRINAL_FAQ, type DoctrinalFaqEntry } from "../../../src/data/doctrinalFaq";
+import { BOOKS } from "../../../src/data/books";
 
 const SUPABASE_URL     = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON    = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
@@ -101,6 +102,11 @@ All scriptural research must use ONLY the following sources. No exceptions.
 
 ## Prohibited Sources
 Do NOT cite, recommend, or draw from: Blue Letter Bible, non-JW commentaries, other denominations, or Wikipedia for doctrinal claims.
+
+## Personalization (get_my_profile)
+At the start of a fresh conversation (no prior turns from the user) and whenever the user asks about their progress, what to study, or how they're doing, call \`get_my_profile\`. The result tells you the user's reading streak, books in progress, last few saved notes, and today's date.
+
+Use it to make the conversation feel personal — reference the book they're currently reading by name, acknowledge their streak naturally (without making it a celebration), and tie suggestions to where they actually are. Do NOT call it on every turn; once per conversation is enough.
 
 ## Doctrinal Q&A (lookup_doctrinal_faq) — MANDATORY FIRST CALL
 For ANY question about Jehovah's Witnesses' beliefs, practices, or doctrines (blood, holidays, Trinity, paradise, hellfire, soul, 1914, the Governing Body, neutrality, Memorial, disfellowshipping, the cross, images, Mary, the 144,000, the great crowd, Armageddon, etc.), you MUST call \`lookup_doctrinal_faq\` first. The tool returns the canonical answer + a wol.jw.org or jw.org source URL.
@@ -255,6 +261,12 @@ const TOOLS = [
     },
   },
   {
+    name: "get_my_profile",
+    description:
+      "Get the current user's study profile: reading streak, books completed/in-progress, last few saved notes, today's date. Use AT THE START of a new conversation when the user opens the chat with no context, OR when the user asks about their progress, what they should study, or how they're doing. Use the result to make conversation feel personal — reference the book they're currently reading, congratulate the streak, suggest where to pick up.",
+    input_schema: { type: "object", properties: {}, required: [] },
+  },
+  {
     name: "lookup_doctrinal_faq",
     description:
       "Look up the official Jehovah's Witnesses position on a common doctrinal question. Use BEFORE answering ANY question about JW beliefs (blood, holidays, Trinity, paradise, hellfire, soul, 1914, the Governing Body, neutrality, the Memorial, etc.). Returns the canonical answer + a wol.jw.org or jw.org source URL to link in the reply. If no match, the AI may quote scripture and link to wol.jw.org but should NOT improvise doctrine.",
@@ -267,6 +279,19 @@ const TOOLS = [
         },
       },
       required: ["query"],
+    },
+  },
+  {
+    name: "mark_chapter_read",
+    description:
+      "Mark a Bible chapter as read in the user's reading tracker. Use when the user says 'I just read X', 'mark X as done', 'I finished X', or 'tick off X'. Always confirm the book and chapter before calling.",
+    input_schema: {
+      type: "object",
+      properties: {
+        book_index: { type: "integer", description: "Bible book index (0=Genesis, 65=Revelation)" },
+        chapter:    { type: "integer", description: "Chapter number" },
+      },
+      required: ["book_index", "chapter"],
     },
   },
   {
@@ -364,6 +389,80 @@ async function executeTool(
     const content = clampString(input.content, 50000);
     const excerpt = clampString(input.excerpt, 500);
     return `DRAFT_CREATED:${JSON.stringify({ title, content, excerpt })}`;
+  }
+
+  if (name === "get_my_profile") {
+    type ProgressMap = Record<string, number[]>;
+
+    // Reading progress (single row per user, JSON blob of bookIndex → completed chapters[])
+    const progRes = await fetch(
+      `${SUPABASE_URL}/rest/v1/reading_progress?user_id=eq.${userId}&select=progress,updated_at`,
+      { headers: supabaseHeaders() },
+    );
+    const progRow = progRes.ok ? ((await progRes.json()) as Array<{ progress: ProgressMap; updated_at: string }>)[0] : null;
+    const prog: ProgressMap = (progRow?.progress as ProgressMap) ?? {};
+
+    let booksCompleted = 0;
+    let booksInProgress = 0;
+    let totalChaptersRead = 0;
+    let mostRecentBook: { name: string; chapters: number; readChapters: number } | null = null;
+
+    BOOKS.forEach((b, i) => {
+      const done = (prog[String(i)] ?? []).length;
+      totalChaptersRead += done;
+      if (done >= b.chapters) booksCompleted++;
+      else if (done > 0) {
+        booksInProgress++;
+        if (!mostRecentBook || done > mostRecentBook.readChapters) {
+          mostRecentBook = { name: b.name, chapters: b.chapters, readChapters: done };
+        }
+      }
+    });
+
+    // Streak via existing RPC
+    const streakRes = await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_reading_streaks`, {
+      method: "POST",
+      headers: supabaseHeaders(),
+      body: JSON.stringify({ p_user_id: userId }),
+    });
+    const streak = streakRes.ok
+      ? ((await streakRes.json()) as { current_streak?: number; longest_streak?: number; total_days?: number })
+      : { current_streak: 0, longest_streak: 0, total_days: 0 };
+
+    // Last 3 saved notes
+    const notesRes = await fetch(
+      `${SUPABASE_URL}/rest/v1/notes?user_id=eq.${userId}&select=content,book_index,chapter,verse,created_at&order=created_at.desc&limit=3`,
+      { headers: supabaseHeaders() },
+    );
+    const notes = notesRes.ok
+      ? ((await notesRes.json()) as Array<{ content: string; book_index: number; chapter: number; verse: string | null; created_at: string }>)
+      : [];
+
+    const today = new Date().toISOString().slice(0, 10);
+    const lines: string[] = [];
+    lines.push(`Today: ${today}`);
+    lines.push(`Reading streak: ${streak.current_streak ?? 0} day${(streak.current_streak ?? 0) === 1 ? "" : "s"} (longest: ${streak.longest_streak ?? 0})`);
+    lines.push(`Books completed: ${booksCompleted} / 66`);
+    lines.push(`Books in progress: ${booksInProgress}`);
+    lines.push(`Total chapters read: ${totalChaptersRead} / 1189`);
+    if (mostRecentBook) {
+      const recent = mostRecentBook as { name: string; chapters: number; readChapters: number };
+      const pct = Math.round((recent.readChapters / recent.chapters) * 100);
+      lines.push(`Currently reading: ${recent.name} (${recent.readChapters}/${recent.chapters}, ${pct}%)`);
+    }
+    if (notes.length) {
+      lines.push("");
+      lines.push("Recent notes:");
+      for (const n of notes) {
+        const book = BOOKS[n.book_index]?.name ?? `Book ${n.book_index}`;
+        const ref = `${book} ${n.chapter}${n.verse ? `:${n.verse}` : ""}`;
+        const snippet = n.content.length > 80 ? n.content.slice(0, 80) + "…" : n.content;
+        lines.push(`- ${ref} — "${snippet}"`);
+      }
+    } else {
+      lines.push("No saved notes yet.");
+    }
+    return lines.join("\n");
   }
 
   if (name === "lookup_doctrinal_faq") {
@@ -507,6 +606,23 @@ async function executeTool(
     return verses
       .map((v) => `${v.verse_ref} — ${v.verse_text}${v.book_theme ? ` (theme: ${v.book_theme})` : ""}`)
       .join("\n");
+  }
+
+  if (name === "mark_chapter_read") {
+    const bookIndex = clampInt(input.book_index, 0, 65);
+    const chapter   = clampInt(input.chapter, 1, 150);
+    if (bookIndex === null) return "Error: book_index must be between 0 and 65.";
+    if (chapter === null)   return "Error: chapter must be between 1 and 150.";
+
+    // Upsert into chapter_reads using service role (same table as progress.ts)
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/chapter_reads`, {
+      method: "POST",
+      headers: { ...supabaseHeaders(), Prefer: "resolution=merge-duplicates,return=minimal" },
+      body: JSON.stringify({ user_id: userId, book_index: bookIndex, chapter }),
+    });
+    if (!res.ok) return `Error marking chapter read: ${await res.text()}`;
+    const bookName = BOOKS[bookIndex]?.name ?? `Book ${bookIndex}`;
+    return `Marked ${bookName} ${chapter} as read. Well done!`;
   }
 
   return `Unknown tool: ${name}`;

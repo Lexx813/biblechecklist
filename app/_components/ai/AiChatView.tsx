@@ -103,7 +103,10 @@ export default function AiChatView({ conversationId, userId, onConversationCreat
       }
     }
 
-    send(trimmed);
+    // Pass activeId explicitly — the parent state setter from
+    // onConversationCreated hasn't propagated to the hook's ref yet on this
+    // render cycle, so the ref-based fallback would still be null.
+    send(trimmed, activeId ?? undefined);
   }, [conversationId, loading, send, onConversationCreated]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -144,11 +147,17 @@ export default function AiChatView({ conversationId, userId, onConversationCreat
                     </div>
                   ) : (
                     <div className="max-w-full text-sm text-slate-800 dark:text-slate-100">
-                      <div className="prose prose-slate dark:prose-invert prose-sm max-w-none prose-a:text-violet-700 dark:prose-a:text-violet-300">
-                        {renderMessage(m.content)}
-                      </div>
-                      {m.streaming && (
-                        <span className="ml-1 inline-block h-3 w-1.5 animate-pulse bg-violet-400 align-middle" aria-hidden />
+                      {m.streaming && !m.content ? (
+                        <ThinkingIndicator />
+                      ) : (
+                        <>
+                          <div className="prose prose-slate dark:prose-invert prose-sm max-w-none prose-a:text-violet-700 dark:prose-a:text-violet-300">
+                            {renderMessage(m.content)}
+                          </div>
+                          {m.streaming && (
+                            <span className="ml-1 inline-block h-3 w-1.5 animate-pulse bg-violet-400 align-middle" aria-hidden />
+                          )}
+                        </>
                       )}
                     </div>
                   )}
@@ -167,74 +176,134 @@ export default function AiChatView({ conversationId, userId, onConversationCreat
         </div>
       )}
 
-      {/* Input */}
-      <div className="border-t border-slate-200 bg-white px-3 py-3 dark:border-white/10 dark:bg-[#160f2e]">
-        <div className="mx-auto flex max-w-3xl items-end gap-2">
-          <textarea
-            ref={inputRef}
-            value={input}
-            onChange={handleInput}
-            onKeyDown={handleKeyDown}
-            placeholder="Ask anything about the Bible, JW publications, or this week's meeting…"
-            rows={1}
-            className="flex-1 resize-none rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200 dark:border-white/10 dark:bg-[#0d0820] dark:text-slate-50 dark:placeholder:text-slate-500 dark:focus:ring-violet-900/40"
-          />
-          <button
-            type="button"
-            onClick={() => handleSend(input)}
-            disabled={!input.trim() || loading}
-            className="inline-flex size-10 items-center justify-center rounded-md bg-violet-600 text-white transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-40"
-            aria-label="Send"
+      {/* Input — integrated command bar */}
+      <div className="border-t border-slate-200 bg-gradient-to-b from-white to-slate-50/50 px-4 py-4 sm:px-6 sm:py-5 dark:border-white/10 dark:from-[#160f2e] dark:to-[#0d0820]">
+        <div className="mx-auto max-w-3xl">
+          <div
+            className="group relative flex items-end gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-2 shadow-sm transition focus-within:border-violet-400 focus-within:shadow-[0_0_0_3px_rgb(124_58_237_/_0.12)] hover:border-slate-300 dark:border-white/10 dark:bg-[#0d0820] dark:focus-within:border-violet-500/60 dark:focus-within:shadow-[0_0_0_3px_rgb(196_181_253_/_0.15)] dark:hover:border-white/20"
           >
-            {loading ? (
-              <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <circle cx="12" cy="12" r="9" strokeOpacity="0.25" />
-                <path d="M12 3a9 9 0 0 1 9 9" />
-              </svg>
-            ) : (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <line x1="12" y1="19" x2="12" y2="5" />
-                <polyline points="5 12 12 5 19 12" />
-              </svg>
-            )}
-          </button>
-        </div>
-        <div className="mx-auto mt-2 max-w-3xl px-1 text-[11px] text-slate-500 dark:text-slate-500">
-          Aligned with Watch Tower teaching. Sources link to wol.jw.org.
-          <span className="ml-1 hidden sm:inline">User ID: {userId.slice(0, 8)}…</span>
+            <textarea
+              ref={inputRef}
+              value={input}
+              onChange={handleInput}
+              onKeyDown={handleKeyDown}
+              placeholder="Ask anything about the Bible, JW publications, or this week's meeting…"
+              rows={1}
+              disabled={loading}
+              className="flex-1 resize-none bg-transparent px-2 py-2 text-base leading-6 text-slate-900 placeholder:text-slate-400 focus:outline-none disabled:opacity-50 dark:text-slate-50 dark:placeholder:text-slate-500"
+              aria-label="Ask the AI Study Companion"
+            />
+            <button
+              type="button"
+              onClick={() => handleSend(input)}
+              disabled={!input.trim() || loading}
+              className="mb-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-xl bg-violet-600 text-white shadow-sm transition hover:bg-violet-700 hover:shadow-md active:scale-95 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none disabled:hover:bg-slate-300 dark:disabled:bg-white/10"
+              aria-label={loading ? "AI is thinking" : "Send message"}
+            >
+              {loading ? (
+                <svg className="animate-spin" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <circle cx="12" cy="12" r="9" strokeOpacity="0.25" />
+                  <path d="M12 3a9 9 0 0 1 9 9" />
+                </svg>
+              ) : (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+              )}
+            </button>
+          </div>
+          <p className="mt-2 px-1 text-center text-[11px] text-slate-400 dark:text-slate-500">
+            Sources link to wol.jw.org. The companion may make mistakes — verify with the publications.
+          </p>
         </div>
       </div>
     </div>
   );
 }
 
-function Welcome({ onPick }: { onPick: (q: string) => void }) {
+function ThinkingIndicator() {
+  // Cycle through "thinking" labels every ~1.6s so the user sees activity even
+  // when the underlying tool call (semantic search, FAQ lookup, profile read)
+  // takes a few seconds.
+  const labels = [
+    "Thinking",
+    "Looking that up",
+    "Reading the publications",
+    "Considering the scriptures",
+  ];
+  const [labelIdx, setLabelIdx] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setLabelIdx((i) => (i + 1) % labels.length), 1600);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className="mx-auto flex h-full max-w-3xl flex-col items-center justify-center px-4 py-12 text-center sm:px-6">
-      <div className="inline-flex size-12 items-center justify-center rounded-md bg-violet-600 text-white">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-          <path d="M12 2L9.1 9.1 2 12l7.1 2.9L12 22l2.9-7.1L22 12l-7.1-2.9z" />
-        </svg>
+    <div
+      role="status"
+      aria-live="polite"
+      aria-label="AI is thinking"
+      className="flex items-center gap-3 py-1.5 text-sm text-slate-500 dark:text-slate-400"
+    >
+      <span className="inline-flex items-end gap-[3px]" aria-hidden>
+        <span className="aithink-dot" />
+        <span className="aithink-dot aithink-dot--2" />
+        <span className="aithink-dot aithink-dot--3" />
+      </span>
+      <span className="font-medium">
+        {labels[labelIdx]}
+        <span aria-hidden>…</span>
+      </span>
+    </div>
+  );
+}
+
+function Welcome({ onPick }: { onPick: (q: string) => void }) {
+  // Time-of-day greeting. Quiet, no exclamation marks.
+  const hour = new Date().getHours();
+  const greeting =
+    hour < 5  ? "Late evening" :
+    hour < 12 ? "Good morning" :
+    hour < 18 ? "Good afternoon" :
+                "Good evening";
+
+  return (
+    <div className="mx-auto flex h-full max-w-2xl flex-col justify-end px-4 pb-10 pt-16 sm:px-6 sm:pb-12 sm:pt-24">
+      <div>
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-700 dark:text-violet-300">
+          {greeting}
+        </p>
+        <h2 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-slate-900 sm:text-4xl dark:text-slate-50">
+          What are you studying?
+        </h2>
+        <p className="mt-4 max-w-md text-base text-slate-600 dark:text-slate-300">
+          Ask anything from the New World Translation or the publications at wol.jw.org.
+        </p>
       </div>
-      <h2 className="mt-5 text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
-        What would you like to study today?
-      </h2>
-      <p className="mt-2 max-w-md text-sm text-slate-600 dark:text-slate-300">
-        Ask any Bible question. Answers draw from JW publications and the NWT, with links back to wol.jw.org.
-      </p>
-      <ul className="mt-8 grid w-full max-w-2xl gap-2 sm:grid-cols-2">
-        {SUGGESTIONS.map((q) => (
-          <li key={q}>
-            <button
-              type="button"
-              onClick={() => onPick(q)}
-              className="block w-full rounded-md border border-slate-200 px-4 py-3 text-left text-sm text-slate-700 transition hover:border-violet-400 hover:bg-violet-50 hover:text-violet-700 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/5 dark:hover:text-violet-300"
-            >
-              {q}
-            </button>
-          </li>
-        ))}
-      </ul>
+
+      <div className="mt-12">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
+          Try asking
+        </p>
+        <ul className="mt-3 space-y-2.5">
+          {SUGGESTIONS.map((q) => (
+            <li key={q}>
+              <button
+                type="button"
+                onClick={() => onPick(q)}
+                className="group inline-flex items-baseline gap-2 text-left text-base text-slate-700 transition hover:text-violet-700 dark:text-slate-200 dark:hover:text-violet-300"
+              >
+                <span aria-hidden className="font-mono text-[10px] tabular-nums text-slate-300 dark:text-slate-600 group-hover:text-violet-400">
+                  ›
+                </span>
+                <span className="border-b border-transparent group-hover:border-violet-400">
+                  &ldquo;{q}&rdquo;
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

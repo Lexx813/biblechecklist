@@ -6,6 +6,41 @@
 /* ── Dark mode variant: data-theme="dark" ──────────────────────── */
 @custom-variant dark (&:is([data-theme="dark"] *));
 
+/* Tell the browser to render native UI (scrollbars, form controls) in dark
+   when the app theme is dark. Preflight is off, so we set this ourselves. */
+[data-theme="dark"] { color-scheme: dark; }
+[data-theme="light"] { color-scheme: light; }
+
+/* ── Scoped reset for /ai page (Tailwind preflight is disabled globally) ─
+   Without preflight, <ul> shows bullets and <button> inherits user-agent
+   white background. We can't enable preflight without breaking 60 legacy
+   .css files, so reset only inside .ai-app. :where() keeps the parent
+   selector at zero specificity so any Tailwind utility (bg-*, list-*,
+   border-*) on the same element still wins. */
+:where(.ai-app) ul,
+:where(.ai-app) ol {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+:where(.ai-app) button {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+:where(.ai-app) textarea,
+:where(.ai-app) input {
+  font: inherit;
+}
+:where(.ai-app) *,
+:where(.ai-app) *::before,
+:where(.ai-app) *::after {
+  box-sizing: border-box;
+}
+
 /* ── Brand theme tokens (static, usable as Tailwind classes) ───── */
 @theme {
   --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif;
@@ -674,3 +709,21 @@ html[data-theme="dark"] .jw-learn-badge {
   .lp2-hero-ctas { flex-direction: column; width: 100%; }
   .lp2-cta-primary, .lp2-cta-secondary { justify-content: center; width: 100%; }
 }
+
+
+/* ── AI Study Companion thinking indicator ────────────────────────────── */
+.aithink-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgb(124 58 237 / 0.6);
+  animation: aithink-bounce 1.2s ease-in-out infinite;
+}
+.aithink-dot--2 { animation-delay: 0.15s; }
+.aithink-dot--3 { animation-delay: 0.3s; }
+@keyframes aithink-bounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  30%           { transform: translateY(-4px); opacity: 1; }
+}
+[data-theme=dark] .aithink-dot { background: rgb(196 181 253 / 0.7); }

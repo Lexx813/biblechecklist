@@ -134,6 +134,31 @@
   justify-content: center;
   line-height: 1;
 }
+
+/* AI Study Companion link — distinct violet treatment */
+.topbar-btn--ai {
+  color: #a78bfa;
+  text-decoration: none;
+}
+.topbar-btn--ai:hover {
+  background: rgba(124, 58, 237, 0.18);
+  color: #c4b5fd;
+}
+[data-theme="light"] .topbar-btn--ai { color: #6d28d9; }
+[data-theme="light"] .topbar-btn--ai:hover { background: rgba(124, 58, 237, 0.1); color: #5b21b6; }
+.topbar-btn-ai-badge {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  padding: 1px 4px;
+  background: #7c3aed;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  line-height: 1.2;
+}
 .topbar-avatar {
   width: 44px;
   height: 44px;
@@ -191,6 +216,20 @@
 .topbar-avatar-item:hover { background: var(--surface-hover, rgba(138,75,255,0.08)); }
 .topbar-avatar-item--danger { color: #ef4444; }
 .topbar-avatar-item--danger:hover { background: rgba(239, 68, 68, 0.08); }
+.topbar-avatar-item--ai { color: #a78bfa; text-decoration: none; }
+.topbar-avatar-item--ai:hover { background: rgba(124, 58, 237, 0.12); }
+[data-theme="light"] .topbar-avatar-item--ai { color: #6d28d9; }
+.topbar-avatar-item-badge {
+  margin-left: auto;
+  padding: 2px 6px;
+  background: #7c3aed;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  line-height: 1.2;
+}
 .topbar-avatar-divider {
   height: 1px;
   background: var(--border);

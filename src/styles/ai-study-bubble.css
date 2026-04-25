@@ -452,42 +452,48 @@
   line-height: 1.5;
 }
 
-/* ── Input row ───────────────────────────────────────────────────────────── */
+/* ── Input row — integrated command bar ─────────────────────────────────── */
 .asb-input-row {
+  /* Outer wrapper acts as the "card" — textarea + button live inside with no gap */
   display: flex;
   align-items: flex-end;
-  gap: 8px;
-  padding: 10px 12px 13px;
-  border-top: 1px solid var(--border, #d1d1d6);
-  background: var(--bg, #f5f5f7);
-  flex-shrink: 0;
+  gap: 6px;
+  margin: 10px 12px 13px;
+  padding: 6px 6px 6px 10px;
+  border: 1px solid var(--border, #d1d1d6);
+  border-radius: 16px;
+  background: var(--card-bg, #ffffff);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.asb-input-row:focus-within {
+  border-color: var(--teal, #7c3aed);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+
+.asb-input-row:hover:not(:focus-within) {
+  border-color: var(--border-strong, #c0c0c5);
 }
 
 .asb-textarea {
   flex: 1;
-  background: var(--card-bg, #ffffff);
-  border: 1px solid var(--border, #d1d1d6);
-  border-radius: 12px;
+  background: transparent;
+  border: none;
   color: var(--text-primary, #1c1c1e);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.5;
-  padding: 9px 12px;
+  padding: 7px 4px;
   resize: none;
   outline: none;
-  transition: border-color 0.18s, box-shadow 0.18s;
-  min-height: 44px;
+  min-height: 28px;
   max-height: 110px;
   overflow-y: auto;
   font-family: inherit;
 }
 
 .asb-textarea::placeholder {
-  color: var(--text-muted, #6c6c70);
-}
-
-.asb-textarea:focus {
-  border-color: var(--teal, #7c3aed);
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+  color: var(--text-muted, #8e8e93);
 }
 
 .asb-textarea:disabled {
@@ -496,10 +502,10 @@
 }
 
 .asb-send-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: var(--teal);
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--teal, #7c3aed);
   border: none;
   cursor: pointer;
   color: #fff;
@@ -507,24 +513,44 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: opacity 0.15s, transform 0.15s, box-shadow 0.15s;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+  margin-bottom: 1px;
+  transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
 }
 
-.asb-send-btn svg { width: 15px; height: 15px; }
+.asb-send-btn svg { width: 14px; height: 14px; }
 
 .asb-send-btn:disabled {
-  opacity: 0.3;
+  background: var(--border, #d1d1d6);
   cursor: not-allowed;
-  box-shadow: none;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .asb-send-btn:not(:disabled):hover {
-  transform: scale(1.08) translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  background: #6d28d9;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.35);
 }
 
 .asb-send-btn:not(:disabled):active { transform: scale(0.95); }
+
+/* Dark mode */
+[data-theme="dark"] .asb-input-row {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+[data-theme="dark"] .asb-input-row:hover:not(:focus-within) {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+[data-theme="dark"] .asb-input-row:focus-within {
+  border-color: rgba(196, 181, 253, 0.5);
+  box-shadow: 0 0 0 3px rgba(196, 181, 253, 0.12);
+}
+[data-theme="dark"] .asb-textarea { color: #ede9fe; }
+[data-theme="dark"] .asb-textarea::placeholder { color: rgba(255, 255, 255, 0.35); }
+[data-theme="dark"] .asb-send-btn:disabled {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.3);
+}
 
 /* ── Dark mode overrides ─────────────────────────────────────────────────── */
 

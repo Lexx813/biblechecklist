@@ -60,6 +60,7 @@ import { useUnreadMessageCount } from "../hooks/useMessages";
 import { useFriends, useFriendRequests } from "../hooks/useFriends";
 import { useOnlineMembers, ONLINE_THRESHOLD_MS as WHO_THRESHOLD_MS } from "../hooks/useOnlineMembers";
 import DailyVerse from "../components/home/DailyVerse";
+import DailyBriefCard from "../components/home/DailyBriefCard";
 import TodaysFocusCard from "../components/home/TodaysFocusCard";
 import HomeLeftSidebar from "../components/home/HomeLeftSidebar";
 import HomeNotifBanners from "../components/home/HomeNotifBanners";
@@ -555,6 +556,18 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           )}
           {/* ── Home feed (hidden when a panel is active) ── */}
           {activePanel === null && <>
+
+          {/* Daily AI Brief */}
+          <DailyBriefCard
+            onOpenAI={(convId) => {
+              if (convId) {
+                window.location.href = `/ai/${convId}`;
+              } else {
+                window.location.href = "/ai";
+              }
+            }}
+            onMeetingPrep={() => navigate("meetingPrep")}
+          />
 
           {/* Today's Focus */}
           <div className="hcard hcard--focus">

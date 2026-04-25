@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "../../../src/lib/supabase";
 import PublicNav from "../PublicNav";
@@ -13,9 +13,25 @@ import AiLanding from "./AiLanding";
 type AuthState = "loading" | "anon" | "authed";
 
 export default function AiAppClient() {
-  const router = useRouter();
+  // Read initial conversation id from the URL, but track it as state from
+  // here on. This lets us update the URL via history.replaceState without
+  // triggering a Next.js route change (which would remount this whole tree
+  // and abort any in-flight chat stream — the bug we're avoiding).
   const params = useParams<{ id?: string }>();
-  const conversationId = params?.id ?? null;
+  const initialId = params?.id ?? null;
+  const [conversationId, setConversationId] = useState<string | null>(initialId);
+
+  // Sync state if the URL id changes from elsewhere (browser back/forward,
+  // direct navigation). Doesn't fire on history.replaceState calls we make.
+  useEffect(() => {
+    setConversationId(params?.id ?? null);
+  }, [params?.id]);
+
+  const navigateTo = (path: string) => {
+    if (typeof window !== "undefined" && window.location.pathname !== path) {
+      window.history.replaceState(null, "", path);
+    }
+  };
 
   const [auth, setAuth] = useState<AuthState>("loading");
   const [userId, setUserId] = useState<string | null>(null);
@@ -68,14 +84,18 @@ export default function AiAppClient() {
   }, [auth, conversationId]);
 
   // ── Handlers ────────────────────────────────────────────────────────────
+  // All conversation switches use replaceState (no Next.js route change), so
+  // any in-flight chat stream survives the URL update.
   const handleNewChat = () => {
     setDrawerOpen(false);
-    router.push("/ai");
+    setConversationId(null);
+    navigateTo("/ai");
   };
 
   const handleSelectConversation = (id: string) => {
     setDrawerOpen(false);
-    router.push(`/ai/${id}`);
+    setConversationId(id);
+    navigateTo(`/ai/${id}`);
   };
 
   const handleConversationCreated = (id: string, title: string) => {
@@ -84,7 +104,8 @@ export default function AiAppClient() {
       { id, title, created_at: new Date().toISOString(), updated_at: new Date().toISOString() },
       ...prev.filter((c) => c.id !== id),
     ]);
-    router.push(`/ai/${id}`);
+    setConversationId(id);
+    navigateTo(`/ai/${id}`);
   };
 
   const handleDeleteConversation = async (id: string) => {
@@ -96,7 +117,10 @@ export default function AiAppClient() {
         headers: { Authorization: `Bearer ${session.access_token}` },
       });
       setConversations((prev) => prev.filter((c) => c.id !== id));
-      if (conversationId === id) router.push("/ai");
+      if (conversationId === id) {
+        setConversationId(null);
+        navigateTo("/ai");
+      }
     } catch { /* silent */ }
   };
 
@@ -144,7 +168,7 @@ export default function AiAppClient() {
 
   // ── Authed: chat shell ─────────────────────────────────────────────────
   return (
-    <div className="flex h-[100dvh] flex-col bg-white dark:bg-[#0d0820]">
+    <div className="ai-app flex h-[100dvh] flex-col bg-white dark:bg-[#0d0820]">
       {/* Top bar — slimmer than PublicNav, with drawer toggle on mobile */}
       <header className="flex items-center justify-between border-b border-slate-200 bg-white px-3 py-2.5 dark:border-white/10 dark:bg-[#160f2e]">
         <div className="flex items-center gap-2">
@@ -192,7 +216,6 @@ export default function AiAppClient() {
         {/* Main chat area */}
         <main className="flex flex-1 flex-col overflow-hidden">
           <AiChatView
-            key={conversationId ?? "new"}
             conversationId={conversationId}
             userId={userId!}
             onConversationCreated={handleConversationCreated}

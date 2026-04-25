@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 export interface Conversation {
   id: string;
@@ -36,6 +37,7 @@ export default function AiSidebar({
 }: Props) {
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [renameDraft, setRenameDraft] = useState("");
+  const [pendingDelete, setPendingDelete] = useState<Conversation | null>(null);
 
   const startRename = (c: Conversation) => {
     setRenamingId(c.id);
@@ -112,9 +114,7 @@ export default function AiSidebar({
                   </button>
                   <button
                     type="button"
-                    onClick={() => {
-                      if (confirm(`Delete "${c.title}"?`)) onDelete(c.id);
-                    }}
+                    onClick={() => setPendingDelete(c)}
                     className="inline-flex size-6 items-center justify-center rounded text-slate-500 hover:bg-white hover:text-red-600 dark:hover:bg-white/10"
                     aria-label="Delete"
                     title="Delete"
@@ -159,6 +159,106 @@ export default function AiSidebar({
         </div>
         <div className="flex-1 overflow-y-auto p-2">{list}</div>
       </aside>
+
+      <DeleteConfirmDialog
+        conversation={pendingDelete}
+        onCancel={() => setPendingDelete(null)}
+        onConfirm={(id) => {
+          setPendingDelete(null);
+          onDelete(id);
+        }}
+      />
     </>
+  );
+}
+
+// ── Delete confirmation modal ───────────────────────────────────────────
+function DeleteConfirmDialog({
+  conversation,
+  onCancel,
+  onConfirm,
+}: {
+  conversation: Conversation | null;
+  onCancel: () => void;
+  onConfirm: (id: string) => void;
+}) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  // Esc to dismiss
+  useEffect(() => {
+    if (!conversation) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onCancel();
+      if (e.key === "Enter") onConfirm(conversation.id);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [conversation, onCancel, onConfirm]);
+
+  if (!mounted || !conversation) return null;
+
+  return createPortal(
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="delete-conv-title"
+      className="ai-app fixed inset-0 z-100 flex items-center justify-center px-4"
+    >
+      {/* Backdrop */}
+      <button
+        type="button"
+        aria-label="Cancel"
+        onClick={onCancel}
+        className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm dark:bg-black/60"
+      />
+
+      {/* Card */}
+      <div className="relative w-full max-w-sm overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-[#160f2e]">
+        <div className="px-5 pt-5 pb-3">
+          <div className="flex items-start gap-3">
+            <span
+              aria-hidden
+              className="mt-0.5 inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-red-50 text-red-600 dark:bg-red-500/15 dark:text-red-300"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+              </svg>
+            </span>
+            <div className="min-w-0 flex-1">
+              <h2 id="delete-conv-title" className="text-base font-semibold text-slate-900 dark:text-slate-50">
+                Delete this conversation?
+              </h2>
+              <p className="mt-1 truncate text-sm text-slate-600 dark:text-slate-300">
+                &ldquo;{conversation.title}&rdquo;
+              </p>
+              <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+                This can&rsquo;t be undone. The messages will be permanently removed.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-end gap-2 border-t border-slate-100 bg-slate-50 px-5 py-3 dark:border-white/5 dark:bg-white/2">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="inline-flex h-9 items-center justify-center rounded-md px-3 text-sm font-medium text-slate-700 transition hover:bg-slate-200/70 dark:text-slate-200 dark:hover:bg-white/10"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={() => onConfirm(conversation.id)}
+            autoFocus
+            className="inline-flex h-9 items-center justify-center rounded-md bg-red-600 px-3 text-sm font-semibold text-white shadow-sm transition hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#160f2e]"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>,
+    document.body,
   );
 }
