@@ -41,8 +41,22 @@ export interface BlogDraft {
   excerpt: string;
 }
 
-export function useAIChat(context?: ChatContext) {
-  const [messages, setMessages] = useState<ChatMessage[]>(loadSaved);
+export interface UseAIChatOptions {
+  /** Persist this turn server-side under the given conversation. /ai page uses this. */
+  conversationId?: string;
+  /** Initial message history (e.g. loaded from DB on /ai/[id]). Bypasses localStorage. */
+  initialMessages?: ChatMessage[];
+}
+
+export function useAIChat(context?: ChatContext, options: UseAIChatOptions = {}) {
+  const { conversationId, initialMessages } = options;
+
+  // Bubble (no conversationId) restores from localStorage. Page-mode skips it
+  // — each conversation_id is the source of truth, no cross-talk.
+  const useLocalStorage = !conversationId;
+  const [messages, setMessages] = useState<ChatMessage[]>(
+    () => initialMessages ?? (useLocalStorage ? loadSaved() : []),
+  );
   const [loading, setLoading]   = useState(false);
   const [error, setError]       = useState<string | null>(null);
   const abortRef                = useRef<AbortController | null>(null);
@@ -56,14 +70,29 @@ export function useAIChat(context?: ChatContext) {
   const contextRef = useRef(context);
   contextRef.current = context;
 
-  // Persist to localStorage whenever messages change
+  const conversationIdRef = useRef(conversationId);
+  conversationIdRef.current = conversationId;
+
+  // Reset history when switching conversations (e.g. user clicks a different
+  // chat in the sidebar). Skipped in localStorage mode.
   useEffect(() => {
+    if (!useLocalStorage) {
+      const next = initialMessages ?? [];
+      messagesRef.current = next;
+      setMessages(next);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversationId]);
+
+  // Persist to localStorage whenever messages change (bubble mode only)
+  useEffect(() => {
+    if (!useLocalStorage) return;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
     } catch {
       // storage full or unavailable — silently ignore
     }
-  }, [messages]);
+  }, [messages, useLocalStorage]);
 
   const syncedSetMessages = useCallback(
     (updater: (prev: ChatMessage[]) => ChatMessage[]) => {
@@ -111,7 +140,11 @@ export function useAIChat(context?: ChatContext) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${session.access_token}`,
         },
-        body: JSON.stringify({ messages: apiMessages, context: contextRef.current }),
+        body: JSON.stringify({
+          messages: apiMessages,
+          context: contextRef.current,
+          ...(conversationIdRef.current ? { conversation_id: conversationIdRef.current } : {}),
+        }),
         signal: ctrl.signal,
       });
 
@@ -202,8 +235,10 @@ export function useAIChat(context?: ChatContext) {
     setMessages([]);
     setError(null);
     setLoading(false);
-    try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
-  }, []);
+    if (useLocalStorage) {
+      try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
+    }
+  }, [useLocalStorage]);
 
   return { messages, loading, error, send, clear };
 }

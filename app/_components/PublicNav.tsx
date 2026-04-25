@@ -24,6 +24,13 @@ export default function PublicNav() {
           <Link href="/plans" className="hidden md:inline-flex rounded-md px-3 py-1.5 text-slate-700 transition hover:bg-violet-50 hover:text-violet-700 dark:text-slate-200 dark:hover:bg-white/5 dark:hover:text-violet-300">Plans</Link>
           <Link href="/forum" className="hidden md:inline-flex rounded-md px-3 py-1.5 text-slate-700 transition hover:bg-violet-50 hover:text-violet-700 dark:text-slate-200 dark:hover:bg-white/5 dark:hover:text-violet-300">Forum</Link>
           <Link
+            href="/ai"
+            className="inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-violet-700 transition hover:bg-violet-50 dark:text-violet-300 dark:hover:bg-white/5"
+          >
+            AI
+            <span aria-hidden className="rounded-full bg-violet-600 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">New</span>
+          </Link>
+          <Link
             href="/"
             className="ml-2 inline-flex items-center gap-1 rounded-md bg-violet-600 px-3.5 py-1.5 font-semibold text-white shadow-sm transition hover:bg-violet-700"
           >

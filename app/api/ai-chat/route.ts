@@ -666,6 +666,28 @@ function extractText(content: ContentBlock[]): string {
     .join("");
 }
 
+// ── Persist a turn to ai_messages (fire-and-forget) ───────────────────────────
+// Only writes when the /ai page sends a conversation_id. Bubble omits it →
+// no-op. Errors are swallowed so they never block the user-visible response.
+function persistTurn(
+  conversationId: string,
+  userId: string,
+  userText: string,
+  assistantText: string,
+): void {
+  const rows = [
+    { conversation_id: conversationId, user_id: userId, role: "user",      content: [{ type: "text", text: userText }] },
+    { conversation_id: conversationId, user_id: userId, role: "assistant", content: [{ type: "text", text: assistantText }] },
+  ];
+  fetch(`${SUPABASE_URL}/rest/v1/ai_messages`, {
+    method: "POST",
+    headers: { ...supabaseHeaders(), Prefer: "return=minimal" },
+    body: JSON.stringify(rows),
+  }).catch((err) => {
+    console.error("[ai-chat] persistTurn failed:", err);
+  });
+}
+
 // ── Route handler ──────────────────────────────────────────────────────────────
 export async function POST(req: Request) {
   // Auth
@@ -698,6 +720,7 @@ export async function POST(req: Request) {
   // Parse body
   let messages: ChatMessage[] = [];
   let context: AppContext = {};
+  let conversationId: string | null = null;
   try {
     const body = await req.json();
     if (!Array.isArray(body.messages) || body.messages.length === 0) {
@@ -713,6 +736,11 @@ export async function POST(req: Request) {
       .map((m) => ({ role: m.role as "user" | "assistant", content: m.content.slice(0, 2000) }))
       .slice(-20);
     if (body.context && typeof body.context === "object") context = body.context as AppContext;
+    // Optional: persist this turn to ai_messages under the given conversation.
+    // Only the /ai full-chat page sends this; the floating bubble omits it.
+    if (typeof body.conversation_id === "string" && /^[0-9a-f-]{36}$/.test(body.conversation_id)) {
+      conversationId = body.conversation_id;
+    }
   } catch {
     return new Response("Bad Request", { status: 400 });
   }
@@ -752,6 +780,10 @@ export async function POST(req: Request) {
     if (data.stop_reason !== "tool_use") {
       logUsage(userId, data.usage, lastToolUsed, context.page);
       const text = extractText(data.content);
+      if (conversationId) {
+        const userText = messages[messages.length - 1].content as string;
+        persistTurn(conversationId, userId, userText, text);
+      }
       return new Response(await textToStream(text, pendingDraft, null), { headers: sseHeaders });
     }
 
@@ -801,5 +833,9 @@ export async function POST(req: Request) {
   const finalData = await finalRes.json() as { content: ContentBlock[]; usage: Usage };
   logUsage(userId, finalData.usage, lastToolUsed, context.page);
   const finalText = extractText(finalData.content);
+  if (conversationId) {
+    const userText = messages[messages.length - 1].content as string;
+    persistTurn(conversationId, userId, userText, finalText);
+  }
   return new Response(await textToStream(finalText, pendingDraft, pendingNav), { headers: sseHeaders });
 }
