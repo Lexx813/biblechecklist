@@ -61,3 +61,7 @@ design/
 
 # Stray perl sweep temp files
 *.css.tmp
+
+# Audit JSON artifacts (regenerable; only commit markdown summaries)
+audits/lighthouse/*.json
+!audits/lighthouse/.gitkeep

@@ -12,7 +12,12 @@
     "format:check": "prettier --check \"src/**/*.{js,jsx,css}\"",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "audit:llms": "node scripts/audit-llms.mjs",
+    "audit:og": "node scripts/audit-og.mjs",
+    "audit:schema": "node scripts/audit-schema.mjs",
+    "audit:lighthouse": "node --env-file=.env.local scripts/audit-lighthouse.mjs",
+    "audit": "npm run audit:llms; npm run audit:og && npm run audit:schema && npm run audit:lighthouse"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.15",
@@ -71,6 +76,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^17.4.0",
     "jsdom": "^29.0.1",
+    "node-html-parser": "^7.1.0",
     "prettier": "^3.8.1",
     "sharp": "^0.34.5",
     "typescript": "5.9.3",
