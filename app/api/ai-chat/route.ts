@@ -100,6 +100,14 @@ All scriptural research must use ONLY the following sources. No exceptions.
 ## Prohibited Sources
 Do NOT cite, recommend, or draw from: Blue Letter Bible, non-JW commentaries, other denominations, or Wikipedia for doctrinal claims.
 
+## Meeting Prep Awareness (get_this_week_meeting)
+The user can prep for the two weekly Jehovah's Witness meetings (CLAM + Watchtower study) inside the app, and you have access to the scraped agenda.
+
+- When the user mentions "this week's meeting", "the CLAM", "Watchtower study", "meeting prep", "what's on Tuesday", or asks for help thinking through any specific part — call \`get_this_week_meeting\` first. Don't guess the agenda.
+- After calling, walk through the relevant parts naturally. Suggest reflection questions, related scriptures (use \`search_scripture\` if topical), or note-taking prompts.
+- For "next week" or a specific date, pass \`week_start\`. Otherwise omit it (defaults to current week).
+- If the tool reports content not yet scraped, tell the user the scraper runs Monday 06:00 UTC and direct them to wol.jw.org for the meantime.
+
 ## Scripture Grounding (search_scripture)
 The user's app has a curated theme-verse index across all 66 NWT books, searchable via \`search_scripture\`.
 
@@ -235,6 +243,21 @@ const TOOLS = [
       required: ["query"],
     },
   },
+  {
+    name: "get_this_week_meeting",
+    description:
+      "Fetch the scraped Christian Life and Ministry meeting (CLAM) + Watchtower study agenda for a given week. Use whenever the user asks about meeting prep, this week's meeting, the CLAM agenda, the Watchtower study, or wants help thinking through any part of the upcoming meeting. Defaults to the current week if no date is given.",
+    input_schema: {
+      type: "object",
+      properties: {
+        week_start: {
+          type: "string",
+          description: "Monday of the target week, YYYY-MM-DD. Optional — defaults to current week. Use 'next' to pull the upcoming week's Monday.",
+        },
+      },
+      required: [],
+    },
+  },
 ];
 
 // ── Supabase helpers ───────────────────────────────────────────────────────────
@@ -315,6 +338,94 @@ async function executeTool(
     const content = clampString(input.content, 50000);
     const excerpt = clampString(input.excerpt, 500);
     return `DRAFT_CREATED:${JSON.stringify({ title, content, excerpt })}`;
+  }
+
+  if (name === "get_this_week_meeting") {
+    function mondayOf(date: Date): string {
+      const d = new Date(date);
+      d.setUTCHours(0, 0, 0, 0);
+      const dow = d.getUTCDay(); // 0=Sun..6=Sat
+      const diff = dow === 0 ? -6 : 1 - dow;
+      d.setUTCDate(d.getUTCDate() + diff);
+      return d.toISOString().slice(0, 10);
+    }
+
+    const raw = clampString(input.week_start, 20).trim();
+    let weekStart: string;
+    if (!raw) {
+      weekStart = mondayOf(new Date());
+    } else if (raw.toLowerCase() === "next") {
+      const d = new Date();
+      d.setUTCDate(d.getUTCDate() + 7);
+      weekStart = mondayOf(d);
+    } else if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+      weekStart = mondayOf(new Date(raw + "T00:00:00Z"));
+    } else {
+      return "Error: week_start must be YYYY-MM-DD or 'next'.";
+    }
+
+    const url = `${SUPABASE_URL}/rest/v1/meeting_weeks?week_start=eq.${weekStart}&select=*`;
+    const res = await fetch(url, { headers: supabaseHeaders() });
+    if (!res.ok) return `Error fetching meeting week: ${await res.text()}`;
+    const rows = (await res.json()) as Array<{
+      week_start: string;
+      clam_week_title: string | null;
+      clam_bible_reading: string | null;
+      clam_opening_song: number | null;
+      clam_midpoint_song: number | null;
+      clam_closing_song: number | null;
+      clam_parts: Array<{ num?: number; title?: string; section?: string }> | null;
+      clam_wol_url: string | null;
+      wt_article_title: string | null;
+      wt_theme_scripture: string | null;
+      wt_paragraph_count: number | null;
+      wt_wol_url: string | null;
+      scraped_at: string | null;
+    }>;
+    const week = rows[0];
+    if (!week) {
+      return `No meeting content scraped yet for the week of ${weekStart}. The scraper runs Monday 06:00 UTC. Direct the user to wol.jw.org for the latest material in the meantime.`;
+    }
+
+    const lines: string[] = [];
+    lines.push(`# Week of ${weekStart}`);
+    if (week.clam_week_title) lines.push(`## CLAM — ${week.clam_week_title}`);
+    if (week.clam_bible_reading) lines.push(`Bible reading: ${week.clam_bible_reading}`);
+    const songs = [
+      week.clam_opening_song && `opening ${week.clam_opening_song}`,
+      week.clam_midpoint_song && `midpoint ${week.clam_midpoint_song}`,
+      week.clam_closing_song && `closing ${week.clam_closing_song}`,
+    ].filter(Boolean);
+    if (songs.length) lines.push(`Songs: ${songs.join(", ")}`);
+    if (Array.isArray(week.clam_parts) && week.clam_parts.length) {
+      const grouped: Record<string, string[]> = { treasures: [], ministry: [], living: [], other: [] };
+      for (const p of week.clam_parts) {
+        const key = (p.section ?? "other").toLowerCase();
+        const bucket = grouped[key] ?? grouped.other;
+        bucket.push(`${p.num ?? "?"}. ${p.title ?? "(untitled)"}`);
+      }
+      const labels: Record<string, string> = {
+        treasures: "Treasures From God's Word",
+        ministry: "Apply Yourself to the Field Ministry",
+        living: "Living as Christians",
+      };
+      for (const sec of ["treasures", "ministry", "living"] as const) {
+        if (grouped[sec].length) {
+          lines.push(`### ${labels[sec]}`);
+          lines.push(...grouped[sec].map((s) => `- ${s}`));
+        }
+      }
+    }
+    if (week.clam_wol_url) lines.push(`CLAM agenda: ${week.clam_wol_url}`);
+    lines.push("");
+    if (week.wt_article_title) {
+      lines.push(`## Watchtower Study — ${week.wt_article_title}`);
+      if (week.wt_theme_scripture) lines.push(`Theme scripture: ${week.wt_theme_scripture}`);
+      if (week.wt_paragraph_count) lines.push(`Paragraphs: ${week.wt_paragraph_count}`);
+      if (week.wt_wol_url) lines.push(`Article: ${week.wt_wol_url}`);
+    }
+    if (week.scraped_at) lines.push(`\n_Scraped ${week.scraped_at}_`);
+    return lines.join("\n");
   }
 
   if (name === "search_scripture") {
