@@ -11,7 +11,7 @@ const SUPABASE_ANON    = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim(
 const SUPABASE_SERVICE = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim();
 const ANTHROPIC_KEY    = process.env.ANTHROPIC_API_KEY ?? "";
 
-const MODEL = "claude-sonnet-4-6";
+const MODEL = "claude-haiku-4-5-20251001";
 const MAX_TOKENS = 4096;
 const TOOL_LOOP_LIMIT = 3;
 
@@ -482,8 +482,9 @@ async function callClaude(
 interface Usage { input_tokens: number; output_tokens: number }
 
 // Sonnet 4.6 pricing (per token, USD)
-const COST_PER_INPUT  = 3   / 1_000_000;
-const COST_PER_OUTPUT = 15  / 1_000_000;
+// Haiku 4.5 pricing (per token, USD)
+const COST_PER_INPUT  = 1   / 1_000_000;
+const COST_PER_OUTPUT = 5   / 1_000_000;
 
 function logUsage(userId: string, usage: Usage, toolUsed: string | null, page: string | undefined): void {
   const cost = usage.input_tokens * COST_PER_INPUT + usage.output_tokens * COST_PER_OUTPUT;
@@ -504,8 +505,9 @@ function logUsage(userId: string, usage: Usage, toolUsed: string | null, page: s
 
 // ── Quota enforcement ────────────────────────────────────────────────────────
 // Prevents a compromised account from burning through the Anthropic budget.
-const PER_MINUTE_REQUEST_CAP = 10;
-const DAILY_INPUT_TOKEN_CAP  = 500_000;
+const PER_MINUTE_REQUEST_CAP  = 6;
+const DAILY_INPUT_TOKEN_CAP   = 100_000;
+const DAILY_OUTPUT_TOKEN_CAP  = 30_000;
 
 async function checkQuota(userId: string): Promise<{ ok: boolean; reason?: string }> {
   const now = Date.now();
@@ -525,15 +527,19 @@ async function checkQuota(userId: string): Promise<{ ok: boolean; reason?: strin
     }
   }
 
-  // Daily input-token total (cost cap)
+  // Daily input + output token totals (cost cap — output is the dominant cost)
   const dayRes = await fetch(
-    `${SUPABASE_URL}/rest/v1/ai_usage_logs?user_id=eq.${userId}&created_at=gte.${oneDayAgo}&select=input_tokens`,
+    `${SUPABASE_URL}/rest/v1/ai_usage_logs?user_id=eq.${userId}&created_at=gte.${oneDayAgo}&select=input_tokens,output_tokens`,
     { headers: supabaseHeaders() },
   );
   if (dayRes.ok) {
-    const rows = await dayRes.json() as Array<{ input_tokens: number }>;
-    const total = rows.reduce((s, r) => s + (r.input_tokens ?? 0), 0);
-    if (total >= DAILY_INPUT_TOKEN_CAP) {
+    const rows = await dayRes.json() as Array<{ input_tokens: number; output_tokens: number }>;
+    let inTotal = 0, outTotal = 0;
+    for (const r of rows) {
+      inTotal  += r.input_tokens  ?? 0;
+      outTotal += r.output_tokens ?? 0;
+    }
+    if (inTotal >= DAILY_INPUT_TOKEN_CAP || outTotal >= DAILY_OUTPUT_TOKEN_CAP) {
       return { ok: false, reason: "Daily AI quota reached. Try again tomorrow." };
     }
   }
