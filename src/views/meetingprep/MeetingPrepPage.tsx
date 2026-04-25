@@ -10,6 +10,7 @@ import {
   getMondayOfWeek,
   formatWeekLabel,
 } from "../../hooks/useMeetingPrep";
+import { timeAgo } from "../../lib/timeFormat";
 import "../../styles/meeting-prep.css";
 
 
@@ -430,6 +431,14 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
           </div>
           <p className="mp-subtitle">
             {week?.clam_week_title || formatWeekLabel(selectedWeek)}
+            {week?.scraped_at && (
+              <span
+                className="mp-updated-pill"
+                title={`Last scraped from wol.jw.org: ${new Date(week.scraped_at).toLocaleString()}`}
+              >
+                Updated {timeAgo(week.scraped_at)}
+              </span>
+            )}
           </p>
           {(() => {
             const clamParts = week?.clam_parts ?? [];

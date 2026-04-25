@@ -23,11 +23,33 @@
 }
 .mp-subtitle {
   margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
   font-size: .8rem;
   color: var(--text-muted, #7c6f9a);
 }
+.mp-updated-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 8px;
+  border-radius: 9999px;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+  color: #5b21b6;
+  background: #ede9fe;
+  border: 1px solid #ddd6fe;
+  cursor: help;
+}
 [data-theme=dark] .mp-title { color: #ede9fe; }
 [data-theme=dark] .mp-subtitle { color: #a78bfa; }
+[data-theme=dark] .mp-updated-pill {
+  color: #c4b5fd;
+  background: rgba(124, 58, 237, 0.18);
+  border-color: rgba(196, 181, 253, 0.25);
+}
 
 /* Streak badge */
 .mp-streak {
