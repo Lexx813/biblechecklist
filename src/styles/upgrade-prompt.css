@@ -25,7 +25,7 @@
   position: absolute;
   inset: 0 0 auto 0;
   height: 3px;
-  background: linear-gradient(90deg, #7c3aed, #c084fc);
+  background: var(--teal);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 @keyframes up-slide-up {
@@ -39,16 +39,16 @@
 .up-icon {
   width: 52px; height: 52px;
   border-radius: var(--radius-2xl);
-  background: linear-gradient(135deg, #7c3aed22, #c084fc22);
+  background: var(--accent-light);
   border: 1px solid rgba(124, 58, 237, 0.2);
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto 16px;
-  color: #7c3aed;
+  color: var(--teal);
 }
 [data-theme="dark"] .up-icon {
-  background: linear-gradient(135deg, #7c3aed33, #c084fc22);
+  background: rgba(124,58,237,0.18);
   border-color: rgba(192, 132, 252, 0.25);
-  color: #c084fc;
+  color: var(--accent);
 }
 .up-title {
   font-size: 17px; font-weight: 700; margin: 0 0 8px;
@@ -60,12 +60,12 @@
 }
 .up-actions { display: flex; flex-direction: column; gap: 10px; }
 .up-cta {
-  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  background: var(--teal);
   color: #fff; border: none;
   padding: 13px 20px; border-radius: var(--radius-sm);
   font-size: 14px; font-weight: 600; cursor: pointer;
   transition: opacity 0.15s, transform 0.15s;
-  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
 }
 .up-cta:hover { opacity: 0.9; transform: translateY(-1px); }
 .up-cta:active { transform: translateY(0); }

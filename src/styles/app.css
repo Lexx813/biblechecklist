@@ -101,7 +101,7 @@
 
   /* ── Animation ── */
   --ease-out:    cubic-bezier(0, 0, 0.2, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --dur-fast:  120ms;
   --dur-base:  150ms;
@@ -399,7 +399,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4f2d85, #7c3aed);
+  background: var(--teal);
   border: 2px solid rgba(138, 75, 255, 0.3);
   display: flex;
   align-items: center;
@@ -462,8 +462,8 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 :is(.hls-item, .al-item):focus-visible { outline: 2px solid #7c3aed; outline-offset: -2px; }
 :is(.hls-item--active, .al-item--active) {
   background: rgba(124, 58, 237, 0.18);
-  color: #c084fc;
-  border-left-color: #7c3aed;
+  color: var(--accent);
+  border-left-color: var(--teal);
   padding-left: 9px; /* compensate 3px border so text stays aligned */
 }
 :is(.hls-item--active, .al-item--active):hover { background: rgba(124, 58, 237, 0.22); }
@@ -499,8 +499,8 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 [data-theme="light"] :is(.hls-item, .al-item):hover { background: var(--hover-bg); }
 [data-theme="light"] :is(.hls-item--active, .al-item--active) {
   background: rgba(124, 58, 237, 0.10);
-  color: #7c3aed;
-  border-left-color: #7c3aed;
+  color: var(--teal);
+  border-left-color: var(--teal);
 }
 [data-theme="light"] :is(.hls-item--active, .al-item--active):hover { background: rgba(124, 58, 237, 0.15); }
 [data-theme="light"] :is(.hls-name, .al-name),
@@ -945,7 +945,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
     100% { transform: scale(1); }
   }
   .ch-pill.done {
-    animation: check-pop var(--dur-base) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation: check-pop var(--dur-base) var(--ease-spring) both;
   }
 }
 
@@ -1307,7 +1307,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .book-info-gate-label {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #7c3aed;
+  color: var(--teal);
   display: flex;
   align-items: center;
   gap: 5px;
@@ -1316,7 +1316,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .book-info-gate-cta {
   padding: 8px 16px;
   border-radius: var(--radius-sm);
-  background: #7c3aed;
+  background: var(--teal);
   color: #fff;
   font-size: 0.82rem;
   font-weight: 600;
@@ -2001,7 +2001,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   box-shadow: 0 8px 32px rgba(0,0,0,0.22);
 }
 
-.ann-toast--in  { animation: ann-slide-in var(--dur-slow) cubic-bezier(0.34,1.4,0.64,1) forwards; }
+.ann-toast--in  { animation: ann-slide-in var(--dur-slow) var(--ease-spring) forwards; }
 .ann-toast--out { animation: ann-slide-out 0.28s ease-in forwards; }
 
 @keyframes ann-slide-in {
@@ -2211,9 +2211,9 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   width: 24px;
   height: 3px;
   border-radius: 0 0 3px 3px;
-  background: #c084fc;
+  background: var(--accent);
 }
-.mobile-tabbar-item--active { color: #c084fc; }
+.mobile-tabbar-item--active { color: var(--accent); }
 .mobile-tabbar-item:hover  { color: rgba(240, 234, 255, 0.85); }
 .mobile-tabbar-icon { position: relative; display: flex; align-items: center; justify-content: center; }
 .mobile-tabbar-label { font-size: 11px; font-weight: 500; }
@@ -2235,8 +2235,8 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 }
 [data-theme="light"] .mobile-tabbar { background: rgba(255,255,255,0.96); border-top-color: rgba(124,58,237,0.12); }
 [data-theme="light"] .mobile-tabbar-item { color: rgba(30, 16, 53, 0.65); } /* ≥4.5:1 */
-[data-theme="light"] .mobile-tabbar-item--active { color: #7c3aed; }
-[data-theme="light"] .mobile-tabbar-item--active::before { background: #7c3aed; }
+[data-theme="light"] .mobile-tabbar-item--active { color: var(--teal); }
+[data-theme="light"] .mobile-tabbar-item--active::before { background: var(--teal); }
 
 /* ── Anonymous tracker (logged-out /try) ────────────────────────── */
 .anon-tracker {
@@ -2285,7 +2285,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .anon-topbar-title strong { font-size: 15px; font-weight: 700; }
 .anon-topbar-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 .anon-topbar-cta {
-  background: #7c3aed;
+  background: var(--teal);
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -2295,7 +2295,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   cursor: pointer;
   transition: background 160ms ease, transform 160ms ease;
 }
-.anon-topbar-cta:hover { background: #6d28d9; transform: translateY(-1px); }
+.anon-topbar-cta:hover { background: var(--teal-dark); transform: translateY(-1px); }
 
 /* Sticky save-progress banner */
 .anon-save-banner {
@@ -2336,7 +2336,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .anon-save-banner-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .anon-save-banner-cta {
   background: #fff;
-  color: #6d28d9;
+  color: var(--teal-dark);
   border: none;
   border-radius: 10px;
   padding: 10px 16px;
@@ -2496,7 +2496,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 [data-theme="light"] .tracker-chip--active {
   background: rgba(124,58,237,0.08);
   border-color: rgba(124,58,237,0.25);
-  color: #7c3aed;
+  color: var(--teal);
 }
 
 /* ── BookCard Study button ───────────────────────────────────────────────── */
@@ -2521,7 +2521,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   color: #c4b5fd;
 }
 
-[data-theme="light"] .bc-study-btn { color: #7c3aed; background: rgba(124,58,237,0.06); }
+[data-theme="light"] .bc-study-btn { color: var(--teal); background: rgba(124,58,237,0.06); }
 [data-theme="light"] .bc-study-btn:hover { background: rgba(124,58,237,0.12); }
 
 /* ── Bible Tab Progress Header (2026-04-17 UI Refresh) ─────────────────── */

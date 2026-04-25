@@ -14,22 +14,22 @@
   --lp-card-bg:      #FFFFFF;
   --lp-card-border:  #E0DCF5;
   --lp-card-shadow:  0 4px 24px rgba(0,0,0,0.18);
-  --lp-primary:      #6A3DAA;
-  --lp-primary-hover:#5530A0;
+  --lp-primary:      #7C3AED;
+  --lp-primary-hover:#6D28D9;
   --lp-primary-text: #FFFFFF;
   --lp-accent:       #C084FC;
-  --lp-pill-bg:      #EDE8FA;
+  --lp-pill-bg:      #F5F3FF;
   --lp-pill-text:    #5B21B6;
   --lp-pill-border:  #D8CCF5;
   --lp-nav-bg:       rgba(244,242,255,0.88);
   --lp-nav-border:   rgba(224,220,245,0.8);
-  --lp-badge-bg:     #EDE8FA;
+  --lp-badge-bg:     #F5F3FF;
   --lp-badge-text:   #5B21B6;
-  --lp-step-num-bg:  #6A3DAA;
+  --lp-step-num-bg:  #7C3AED;
   --lp-step-num-text:#FFFFFF;
-  --lp-cta-bg:       linear-gradient(135deg, #5B21B6 0%, #7C3AED 100%);
+  --lp-cta-bg:       #7C3AED;
   --lp-cta-text:     #FFFFFF;
-  --lp-banner-bg:    linear-gradient(135deg, #4C1D95 0%, #6D28D9 60%, #7C3AED 100%);
+  --lp-banner-bg:    #5B21B6;
   --lp-footer-bg:    #0F0D1A;
   --lp-footer-text:  rgba(255,255,255,0.7);
   --lp-footer-link:  rgba(255,255,255,0.9);
@@ -57,9 +57,9 @@
   --lp-badge-text:   #C4B5FD;
   --lp-step-num-bg:  rgba(167,139,250,0.15);
   --lp-step-num-text:#C4B5FD;
-  --lp-cta-bg:       linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+  --lp-cta-bg:       #7C3AED;
   --lp-cta-text:     #FFFFFF;
-  --lp-banner-bg:    linear-gradient(135deg, #3B0764 0%, #5B21B6 60%, #7C3AED 100%);
+  --lp-banner-bg:    #4C1D95;
   --lp-footer-bg:    #07060F;
   --lp-footer-text:  rgba(255,255,255,0.6);
   --lp-footer-link:  rgba(255,255,255,0.8);
@@ -274,11 +274,11 @@
 }
 
 .lp-heading {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(36px, 6vw, 60px);
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(40px, 6.5vw, 64px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
   color: var(--lp-text);
   margin: 0;
 }
@@ -408,10 +408,10 @@
 }
 
 .lp-section-title {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(26px, 4vw, 38px);
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
   color: var(--lp-text);
   margin: 0 0 10px;
 }
@@ -624,20 +624,18 @@
 }
 
 .lp-testi-quote {
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: 16px;
+  line-height: 1.65;
   color: var(--lp-text);
-  margin: 0 0 16px;
-  font-style: italic;
+  margin: 0 0 14px;
+  font-weight: 500;
 }
 
 .lp-testi-cite {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--lp-primary);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--lp-muted);
   font-style: normal;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
 }
 
 /* ── FAQ ────────────────────────────────────────────────────────── */
@@ -712,7 +710,7 @@
 }
 
 .lp-cta-banner-title {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: clamp(28px, 4vw, 42px);
   font-weight: 600;
   color: #FFFFFF;
@@ -829,7 +827,7 @@
 }
 
 .lp-preview-title {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: clamp(28px, 4vw, 42px);
   font-weight: 600;
   line-height: 1.2;
@@ -1090,7 +1088,7 @@
 [data-theme="light"] .lp-mock-appbar { background: #F5F5F7; border-bottom-color: #D1D1D6; }
 [data-theme="light"] .lp-mock-appbar-title { color: #1C1C1E; }
 [data-theme="light"] .lp-mock-tab { color: rgba(0,0,0,0.6); }
-[data-theme="light"] .lp-mock-tab--active { color: #7C3AED; border-bottom-color: #7C3AED; }
+[data-theme="light"] .lp-mock-tab--active { color: var(--teal); border-bottom-color: var(--teal); }
 [data-theme="light"] .lp-mock-book-grid { background: #C8C0DC; border-color: #C8C0DC; }
 [data-theme="light"] .lp-mock-testament { background: #C8C0DC; color: #1C1C1E; }
 [data-theme="light"] .lp-mock-tile { background: #EAE4F4; }
@@ -1098,12 +1096,12 @@
 [data-theme="light"] .lp-mock-tile--expanded { background: #F0EBFA; }
 [data-theme="light"] .lp-mock-tile-name { color: #1C1C1E; }
 [data-theme="light"] .lp-mock-tile-count { color: #3D2D6B; }
-[data-theme="light"] .lp-mock-tile-check { background: #7C3AED; }
+[data-theme="light"] .lp-mock-tile-check { background: var(--teal); }
 [data-theme="light"] .lp-mock-tile-strip { background: rgba(0,0,0,0.07); }
-[data-theme="light"] .lp-mock-tile-strip-fill { background: #7C3AED; }
+[data-theme="light"] .lp-mock-tile-strip-fill { background: var(--teal); }
 [data-theme="light"] .lp-mock-ch { background: #EAE4F4; border-color: #C8B8E0; color: #4A2D82; }
-[data-theme="light"] .lp-mock-ch--done { background: #7C3AED; border-color: #7C3AED; color: #fff; }
-[data-theme="light"] .lp-mock-ch--partial { border-color: #6D28D9; color: #5B21B6; background: rgba(124,58,237,0.1); }
+[data-theme="light"] .lp-mock-ch--done { background: var(--teal); border-color: var(--teal); color: #fff; }
+[data-theme="light"] .lp-mock-ch--partial { border-color: var(--teal-dark); color: var(--teal-darker); background: rgba(124,58,237,0.1); }
 
 /* Tab bar */
 .lp-phone-tabbar {
@@ -1186,7 +1184,7 @@
 }
 
 .lp-integ-title {
-  font-family: var(--font-cormorant), Georgia, serif;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
   font-size: clamp(28px, 4vw, 42px);
   font-weight: 600;
   line-height: 1.2;

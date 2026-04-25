@@ -123,7 +123,7 @@
   letter-spacing: 0.04em;
 }
 .st-sub-badge--active {
-  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  background: var(--teal);
   color: #fff;
 }
 

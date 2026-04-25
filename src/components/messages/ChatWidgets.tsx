@@ -408,7 +408,7 @@ export function PushPrompt({ onDismiss }: { onDismiss: () => void }) {
       <span className="fc-push-prompt-icon">🔔</span>
       <span className="fc-push-prompt-text">
         {permission === "denied"
-          ? "Notifications blocked — enable in browser settings"
+          ? "Notifications blocked. Enable in browser settings."
           : "Get notified of new messages"}
       </span>
       {permission !== "denied" && (

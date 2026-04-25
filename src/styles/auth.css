@@ -160,8 +160,6 @@
 .auth-theme-toggle {
   background: var(--auth-topbar-bg);
   border: 1px solid var(--auth-topbar-border);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   color: var(--auth-topbar-icon);
   width: 40px;
   height: 40px;
@@ -190,10 +188,8 @@
   max-width: 420px;
   background: var(--auth-card-bg);
   border: 1px solid var(--auth-card-border);
-  border-radius: 24px;
+  border-radius: var(--radius-lg);
   box-shadow: var(--auth-card-shadow);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
   overflow: hidden;
   position: relative;
   z-index: 1;
@@ -225,9 +221,9 @@
 }
 
 .auth-title {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-style: italic;
-  font-weight: 300;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   font-size: 26px;
   color: var(--auth-title);
   letter-spacing: -0.02em;
@@ -593,7 +589,7 @@
 }
 
 .cg-header {
-  background: linear-gradient(135deg, #5B21B6 0%, #7C3AED 60%, #9333EA 100%);
+  background: var(--teal);
   padding: 32px 32px 28px;
   display: flex;
   flex-direction: column;
@@ -643,7 +639,7 @@
 .cg-policy-link svg { width: 15px; height: 15px; flex-shrink: 0; opacity: 0.75; }
 
 .cg-policy-link:hover {
-  border-color: #7C3AED; color: #7C3AED;
+  border-color: var(--teal); color: var(--teal);
   background: rgba(124,58,237,0.05);
 }
 
@@ -668,7 +664,7 @@
 }
 
 .cg-check-row--checked {
-  border-color: #7C3AED;
+  border-color: var(--teal);
   background: rgba(124,58,237,0.06);
 }
 
@@ -683,7 +679,7 @@
 }
 
 .cg-check-row--checked .cg-check-box {
-  background: #7C3AED; border-color: #7C3AED;
+  background: var(--teal); border-color: var(--teal);
 }
 
 .cg-check-box svg { width: 12px; height: 12px; color: #fff; }
@@ -713,7 +709,7 @@
   margin: 20px 28px 0;
   width: calc(100% - 56px);
   padding: 13px 20px;
-  background: linear-gradient(135deg, #6D28D9, #7C3AED);
+  background: var(--teal-dark);
   color: #fff; border: none;
   border-radius: var(--radius);
   font-size: 0.95rem; font-weight: 700;

@@ -28,14 +28,10 @@
 .rp-nav-back:hover { background: var(--teal-soft); color: var(--text-primary); }
 
 .rp-title {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(28px, 5vw, 44px);
-  background: linear-gradient(135deg, var(--text-primary) 30%, #7c3aed 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-weight: 800;
+  font-size: clamp(28px, 5vw, 40px);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
   margin: 0 0 4px;
 }
 
@@ -75,7 +71,7 @@
 .rp-tab--active { color: var(--accent); border-bottom-color: var(--teal); }
 
 .rp-tab-count {
-  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  background: var(--teal);
   color: #fff;
   border-radius: 999px;
   font-size: 10px;
@@ -130,7 +126,7 @@
 }
 
 .rp-primary-btn {
-  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  background: var(--teal);
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
@@ -220,7 +216,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  background: var(--teal);
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
@@ -301,7 +297,7 @@
 
 .rp-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--teal), var(--teal-dark));
+  background: var(--teal);
   border-radius: 999px;
   transition: width 0.4s ease;
   min-width: 4px;
@@ -445,7 +441,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  background: var(--teal);
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
@@ -569,7 +565,7 @@
 .rp-header-row .rp-title { margin: 0; }
 
 .rp-custom-plan-btn {
-  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  background: var(--teal);
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
@@ -607,7 +603,7 @@
 }
 .rp-category-btn:hover { border-color: var(--teal); color: var(--teal); }
 .rp-category-btn--active {
-  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  background: var(--teal);
   border-color: var(--teal);
   color: #fff;
 }
@@ -622,7 +618,7 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  background: linear-gradient(135deg, var(--gold), #d97706);
+  background: var(--teal);
   color: #fff;
   border-radius: 999px;
   padding: 2px 7px;
@@ -637,8 +633,8 @@
   gap: 4px;
   font-size: 11px;
   font-weight: 700;
-  background: rgba(245,158,11,0.12);
-  color: var(--gold);
+  background: var(--teal-soft, #f2f2f7);
+  color: var(--text-muted);
   border-radius: 999px;
   padding: 2px 8px;
   margin-left: 6px;
@@ -677,16 +673,16 @@
 
 .rp-pause-btn {
   background: none;
-  border: 1px solid var(--gold);
-  color: var(--gold);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
   border-radius: var(--radius-sm);
   padding: 6px 14px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: background var(--dur-fast);
+  transition: background var(--dur-fast), border-color var(--dur-fast);
 }
-.rp-pause-btn:hover { background: rgba(245,158,11,0.1); }
+.rp-pause-btn:hover { background: var(--teal-soft); border-color: var(--text-muted); }
 
 .rp-pause-btn--resume {
   border-color: var(--teal);
@@ -1053,7 +1049,7 @@
 }
 .rp-day-option-btn:hover { border-color: var(--teal); color: var(--teal); }
 .rp-day-option-btn--active {
-  background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+  background: var(--teal);
   border-color: var(--teal);
   color: #fff;
 }

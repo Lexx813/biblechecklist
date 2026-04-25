@@ -15,13 +15,12 @@
 }
 
 .grp-page-title {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(26px, 5vw, 38px);
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 5vw, 40px);
   color: var(--text-primary);
   margin: 0 0 4px;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .grp-page-subtitle {

@@ -109,7 +109,7 @@ export default function NoteTemplatePicker({ onSelect, onDismiss }: Props) {
             className="cursor-pointer border-none bg-transparent py-1 text-[13px] underline underline-offset-2 transition-colors hover:opacity-80"
             style={{ color: "var(--text-muted)" }}
           >
-            {t("noteTemplates.skip", "Skip — start blank")}
+            {t("noteTemplates.skip", "Skip: start blank")}
           </button>
         </div>
       </div>

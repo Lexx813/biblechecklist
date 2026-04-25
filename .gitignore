@@ -55,3 +55,9 @@ supabase/.temp/
 .env*.local
 .worktrees/
 *.zip
+
+# skillui auto-generated design system output
+design/
+
+# Stray perl sweep temp files
+*.css.tmp

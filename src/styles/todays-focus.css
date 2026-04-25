@@ -71,7 +71,7 @@
 }
 
 .tf-progress-bar-fill {
-  background: #7c3aed;
+  background: var(--teal);
   height: 4px;
   border-radius: 4px;
   transition: width 0.4s ease;
@@ -89,7 +89,7 @@
 
 .tf-mark-done {
   flex: 1;
-  background: #7c3aed;
+  background: var(--teal);
   color: #fff;
   border: none;
   padding: 10px;
@@ -104,7 +104,7 @@
   gap: 6px;
 }
 
-.tf-mark-done:hover { background: #6d28d9; }
+.tf-mark-done:hover { background: var(--teal-dark); }
 .tf-mark-done:active { transform: scale(0.98); }
 
 .tf-mark-done--done {
@@ -155,13 +155,13 @@
 .tf-no-plan-sub { font-size: 12px; color: var(--text-muted); }
 
 .tf-no-plan-cta {
-  background: #7c3aed; color: #fff; border: none;
+  background: var(--teal); color: #fff; border: none;
   padding: 8px 14px; border-radius: 7px;
   font-size: 12px; font-weight: 600; cursor: pointer;
   white-space: nowrap;
   transition: background var(--dur-fast);
 }
-.tf-no-plan-cta:hover { background: #6d28d9; }
+.tf-no-plan-cta:hover { background: var(--teal-dark); }
 
 /* ── Dismissed bar (today done) ─────────────────────────────────────────── */
 

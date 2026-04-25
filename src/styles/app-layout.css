@@ -28,15 +28,15 @@
 
 /* Shared page section title (replaces hero sections) */
 .page-section-title {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  letter-spacing: -0.02em;
   color: var(--text-primary);
   padding: 24px 20px 8px;
   margin: 0;
-  line-height: 1.15;
-  text-align: center;
+  line-height: 1.1;
+  text-align: left;
 }
 
 /* Sidebar shared rules live in app.css (:is(.hls-*, .al-*)).
@@ -115,40 +115,40 @@
 .al-beta-banner {
   margin: 0.75rem 1rem;
   padding: 0.75rem 1rem;
-  border-radius: 10px;
-  background: #fef3c7;
-  border: 1px solid #f59e0b;
-  color: #92400e;
+  border-radius: var(--radius);
+  background: var(--accent-light);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
   font-size: 0.9rem;
   line-height: 1.5;
 }
 [data-theme="dark"] .al-beta-banner {
-  background: #422006;
-  border-color: #b45309;
-  color: #fde68a;
+  background: rgba(124,58,237,0.10);
+  border-color: rgba(167,139,250,0.20);
+  color: var(--text-secondary);
 }
 .al-beta-banner p { margin: 0 0 0.25rem; }
 .al-beta-link {
   display: inline-block;
   padding: 0.3rem 0.75rem;
-  border-radius: 6px;
-  background: #f59e0b;
+  border-radius: var(--radius);
+  background: var(--teal);
   color: #fff;
   font-size: 0.8rem;
   font-weight: 600;
   text-decoration: none;
 }
-[data-theme="dark"] .al-beta-link { background: #b45309; }
+.al-beta-link:hover { background: var(--teal-dark); }
 .al-beta-dismiss {
   padding: 0.3rem 0.75rem;
-  border-radius: 6px;
+  border-radius: var(--radius);
   background: transparent;
-  border: 1px solid #d97706;
-  color: #92400e;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
   font-size: 0.8rem;
   cursor: pointer;
 }
-[data-theme="dark"] .al-beta-dismiss { border-color: #b45309; color: #fde68a; }
+.al-beta-dismiss:hover { background: var(--hover-bg, rgba(0,0,0,0.05)); }
 
 /* Item label wrapper — allows sublabel below main text */
 .al-item-label {

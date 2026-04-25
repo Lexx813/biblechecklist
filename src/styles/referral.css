@@ -146,7 +146,7 @@
   padding: 3px 10px;
   border-radius: 999px;
   background: rgba(124, 58, 237, 0.1);
-  color: #7c3aed;
+  color: var(--teal);
 }
 
 .ref-item-status--converted {

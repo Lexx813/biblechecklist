@@ -44,11 +44,9 @@
 
 .stp-title {
   font-size: 26px;
-  font-weight: 900;
-  background: linear-gradient(135deg, var(--text-primary) 30%, #7c3aed 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
   margin: 0 0 6px;
   line-height: 1.2;
 }
@@ -154,11 +152,9 @@
 
 .std-title {
   font-size: 28px;
-  font-weight: 900;
-  background: linear-gradient(135deg, var(--text-primary) 30%, #7c3aed 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
   margin: 0 0 6px;
   line-height: 1.2;
 }
@@ -213,8 +209,8 @@
 
 .std-scripture {
   background: var(--teal-soft);
-  border-left: 3px solid var(--teal);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
   padding: 10px 14px;
   transition: background var(--dur-fast) var(--ease-out);
 }
@@ -403,7 +399,7 @@ a.std-scripture-ref:hover {
   margin-left: auto;
   font-size: 12px;
   font-weight: 600;
-  color: #7c3aed;
+  color: var(--teal);
   text-decoration: none;
   padding: 3px 10px;
   border: 1px solid rgba(124,58,237,0.25);
@@ -439,11 +435,11 @@ a.std-scripture-ref:hover {
 a.bkd-verse-chip:hover {
   background: rgba(124,58,237,0.16);
   border-color: rgba(124,58,237,0.4);
-  color: #c084fc;
+  color: var(--accent);
 }
 
-[data-theme="light"] .bkd-verse-chip { color: #6d28d9; background: rgba(124,58,237,0.06); }
-[data-theme="light"] a.bkd-verse-chip:hover { color: #5b21b6; background: rgba(124,58,237,0.12); }
+[data-theme="light"] .bkd-verse-chip { color: var(--teal-dark); background: rgba(124,58,237,0.06); }
+[data-theme="light"] a.bkd-verse-chip:hover { color: var(--teal-darker); background: rgba(124,58,237,0.12); }
 
 .bkd-highlights {
   margin: 0;
@@ -463,8 +459,7 @@ a.bkd-verse-chip:hover {
   padding: 10px 14px;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-left: 3px solid rgba(124,58,237,0.4);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  border-radius: var(--radius-sm);
 }
 
 .bkd-why {
@@ -516,7 +511,7 @@ a.bkd-verse-chip:hover {
   margin-top: 2px;
 }
 
-[data-theme="light"] .bkd-question::before { color: #6d28d9; }
+[data-theme="light"] .bkd-question::before { color: var(--teal-dark); }
 
 .stp-card-lock {
   position: absolute;

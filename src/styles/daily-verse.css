@@ -44,7 +44,7 @@
 .daily-verse-ref {
   font-size: 12px;
   font-weight: 700;
-  color: #C084FC;
+  color: var(--accent);
   letter-spacing: 0.02em;
 }
 
@@ -86,7 +86,7 @@
   transition: background var(--dur-base), transform var(--dur-base);
 }
 .daily-verse-dot.active::after {
-  background: #C084FC;
+  background: var(--accent);
   transform: scale(1.4);
 }
 
@@ -118,7 +118,7 @@
   background: rgba(138, 75, 255, 0.12);
   border: 1px solid rgba(138, 75, 255, 0.25);
   border-radius: var(--radius-sm);
-  color: #c084fc;
+  color: var(--accent);
   font-size: 12px;
   font-weight: 600;
   padding: 8px 14px;
@@ -150,11 +150,11 @@
 }
 
 [data-theme="light"] .daily-verse-ref {
-  color: #7c3aed;
+  color: var(--teal);
 }
 
 [data-theme="light"] .daily-verse-label {
-  color: #7c3aed;
+  color: var(--teal);
 }
 
 [data-theme="light"] .daily-verse-nav {
@@ -166,13 +166,13 @@
 }
 
 [data-theme="light"] .daily-verse-dot.active::after {
-  background: #7c3aed;
+  background: var(--teal);
 }
 
 [data-theme="light"] .daily-verse-arrow {
   background: rgba(124, 58, 237, 0.08);
   border-color: rgba(124, 58, 237, 0.2);
-  color: #7c3aed;
+  color: var(--teal);
 }
 
 [data-theme="light"] .daily-verse-arrow:hover {
@@ -182,7 +182,7 @@
 [data-theme="light"] .daily-verse-ai-btn {
   background: rgba(124, 58, 237, 0.08);
   border-color: rgba(124, 58, 237, 0.2);
-  color: #7c3aed;
+  color: var(--teal);
 }
 
 [data-theme="light"] .daily-verse-ai-btn:hover {

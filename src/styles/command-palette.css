@@ -210,9 +210,9 @@
 }
 [data-theme="light"] .cmd-item-avatar {
   background: rgba(124,58,237,0.12);
-  color: #5b21b6;
+  color: var(--teal-darker);
 }
 [data-theme="light"] .cmd-item-badge {
   background: rgba(124,58,237,0.12);
-  color: #5b21b6;
+  color: var(--teal-darker);
 }

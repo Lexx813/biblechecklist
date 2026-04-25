@@ -8,10 +8,8 @@
 .bm-title {
   font-size: 28px;
   font-weight: 800;
-  background: linear-gradient(135deg, var(--text-primary) 30%, #7c3aed 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
   margin: 0;
 }
 

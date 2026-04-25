@@ -126,13 +126,12 @@
 
 /* Blockquote */
 .editor-content .ProseMirror blockquote {
-  border-left: 3px solid var(--teal, #7c3aed);
+  border: 1px solid var(--border);
   margin: 0.8em 0;
   padding: 0.6em 1em;
   background: var(--teal-soft, rgba(124, 58, 237, 0.07));
-  border-radius: 0 6px 6px 0;
+  border-radius: var(--radius-sm);
   color: var(--text-secondary, #4a4a6a);
-  font-style: italic;
 }
 .editor-content .ProseMirror blockquote p { margin: 0; }
 
@@ -205,13 +204,12 @@
 .rich-content ul, .rich-content ol { padding-left: 1.5em; margin: 0.5em 0; }
 .rich-content li { margin: 0.2em 0; }
 .rich-content blockquote {
-  border-left: 3px solid #7c3aed;
+  border: 1px solid rgba(124, 58, 237, 0.2);
   margin: 0.8em 0;
   padding: 0.5em 1em;
-  background: rgba(124, 58, 237, 0.1);
-  border-radius: 0 6px 6px 0;
-  color: rgba(255, 255, 255, 0.72);
-  font-style: italic;
+  background: rgba(124, 58, 237, 0.08);
+  border-radius: var(--radius-sm);
+  color: rgba(255, 255, 255, 0.78);
 }
 .rich-content code {
   background: rgba(255, 255, 255, 0.1);
@@ -375,14 +373,14 @@
 [data-theme="light"] .rich-content code {
   background: rgba(124, 58, 237, 0.08);
   border-color: rgba(124, 58, 237, 0.2);
-  color: #6d28d9;
+  color: var(--teal-dark);
 }
 [data-theme="light"] .rich-content pre {
   background: rgba(124, 58, 237, 0.06);
   border-color: rgba(124, 58, 237, 0.15);
 }
-[data-theme="light"] .rich-content pre code { color: #6d28d9; }
-[data-theme="light"] .rich-content a { color: #7c3aed; }
+[data-theme="light"] .rich-content pre code { color: var(--teal-dark); }
+[data-theme="light"] .rich-content a { color: var(--teal); }
 [data-theme="light"] .rich-content hr { border-top-color: rgba(0,0,0,0.1); }
 
 @media (max-width: 640px) {

@@ -30,7 +30,7 @@
 }
 
 .cs-btn.is-open {
-  border-color: #7c3aed;
+  border-color: var(--teal);
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
 }
 
@@ -86,7 +86,7 @@
   transition: border-color var(--dur-fast);
 }
 
-.cs-search:focus { border-color: #7c3aed; }
+.cs-search:focus { border-color: var(--teal); }
 
 .cs-list {
   max-height: 220px;

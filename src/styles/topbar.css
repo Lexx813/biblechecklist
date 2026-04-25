@@ -34,7 +34,7 @@
   width: 28px;
   height: 28px;
   border-radius: var(--radius-xs);
-  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+  background: var(--teal);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,7 +112,7 @@
 }
 .topbar-btn:hover { background: rgba(124, 58, 237, 0.12); }
 .topbar-btn--active { color: #a78bfa; background: rgba(124, 58, 237, 0.12); }
-[data-theme="light"] .topbar-btn--active { color: #7c3aed; background: rgba(124, 58, 237, 0.08); }
+[data-theme="light"] .topbar-btn--active { color: var(--teal); background: rgba(124, 58, 237, 0.08); }
 .topbar-btn:focus-visible {
   outline: 2px solid #7c3aed;
   outline-offset: 2px;
@@ -138,7 +138,7 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4f2d85, #7c3aed);
+  background: var(--teal);
   border: 2px solid rgba(138, 75, 255, 0.3);
   display: flex;
   align-items: center;

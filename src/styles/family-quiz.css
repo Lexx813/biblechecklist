@@ -998,9 +998,8 @@
   flex-shrink: 0;
 }
 .fq-lb-row:nth-child(1) .fq-lb-rank {
-  background: linear-gradient(135deg, #fbbf24, #d97706);
+  background: var(--gold);
   color: #fff;
-  box-shadow: 0 2px 8px rgba(251,191,36,.35);
 }
 .fq-lb-row:nth-child(2) .fq-lb-rank {
   background: linear-gradient(135deg, #94a3b8, #64748b);

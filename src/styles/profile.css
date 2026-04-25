@@ -75,7 +75,7 @@ html.nav-hidden .pf-header { top: 0; }
 }
 .pf-card-banner {
   height: 110px;
-  background: linear-gradient(135deg, #1a0635 0%, #3b1080 45%, #6d28d9 100%);
+  background: var(--teal-darker);
   position: relative;
   overflow: hidden;
 }
@@ -158,7 +158,7 @@ html.nav-hidden .pf-header { top: 0; }
   font-size: 13px;
   font-weight: 600;
   font-family: inherit;
-  color: #7c3aed;
+  color: var(--teal);
   cursor: pointer;
   position: relative;
   transition: background var(--dur-fast);
@@ -259,10 +259,10 @@ html.nav-hidden .pf-header { top: 0; }
   margin-top: 14px;
 }
 .pf-name {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-style: italic;
-  font-weight: 300;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-weight: 800;
   font-size: 26px;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
 }
 .pf-edit-icon {
@@ -907,18 +907,11 @@ html.nav-hidden .pf-header { top: 0; }
 .note-card {
   padding: 16px 20px;
   border-bottom: 1px solid var(--border);
-  border-left: 4px solid transparent;
-  transition: background var(--dur-fast) var(--ease-out), border-left-color var(--dur-fast) var(--ease-out);
+  transition: background var(--dur-fast) var(--ease-out);
 }
 .note-card:last-child { border-bottom: none; }
 .note-card:hover { background: var(--teal-soft); }
-.note-card:hover.note-card--ot { border-left-color: var(--teal); }
-.note-card:hover.note-card--nt { border-left-color: var(--accent); }
-.note-card--ot { border-left-color: rgba(124, 58, 237, 0.35); }
-.note-card--nt { border-left-color: rgba(192, 132, 252, 0.35); }
-.note-card--ot:hover { border-left-color: var(--teal); }
-.note-card--nt:hover { border-left-color: var(--accent); }
-.note-card--editing { background: var(--teal-soft); border-left-color: var(--teal-dark); padding: 16px 20px; }
+.note-card--editing { background: var(--teal-soft); padding: 16px 20px; }
 
 .note-card-header {
   display: flex;

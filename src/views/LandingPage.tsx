@@ -464,36 +464,35 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
 
       {/* ── How It Works ─────────────────────────────────────────── */}
       <section className="py-[72px] max-md:py-12">
-        <div className="mx-auto max-w-[1080px] px-6">
-          <div className="mb-10 text-center">
-            <h2 className="m-0 font-display text-[clamp(26px,4vw,38px)] font-semibold tracking-tight text-[var(--lp-text)]">{t("landing.howTitle")}</h2>
+        <div className="mx-auto max-w-[760px] px-6">
+          <div className="mb-12">
+            <h2 className="m-0 text-[clamp(28px,4vw,40px)] font-extrabold tracking-tight text-[var(--lp-text)]" style={{ letterSpacing: "-0.03em" }}>{t("landing.howTitle")}</h2>
           </div>
-          <div className="relative grid gap-8 md:grid-cols-3 max-md:mx-auto max-md:max-w-[440px] max-md:grid-cols-1">
+          <ol className="m-0 flex list-none flex-col gap-10 p-0">
             {steps.map(s => (
-              <div key={s.num} className="relative flex flex-col items-center gap-3 text-center">
-                <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[var(--lp-step-num-bg)] text-lg font-extrabold text-[var(--lp-step-num-text)]">
-                  {s.num}
-                </div>
-                <h3 className="m-0 text-[17px] font-bold text-[var(--lp-text)]">{s.title}</h3>
-                <p className="m-0 text-sm leading-relaxed text-[var(--lp-muted)]">{s.desc}</p>
-              </div>
+              <li key={s.num} className="grid grid-cols-[auto_1fr] items-baseline gap-x-6 gap-y-1">
+                <span className="text-[clamp(36px,5vw,48px)] font-extrabold leading-none text-[var(--lp-primary)] tabular-nums" style={{ letterSpacing: "-0.04em" }}>{String(s.num).padStart(2, "0")}</span>
+                <h3 className="m-0 text-[clamp(18px,2.4vw,22px)] font-bold leading-tight text-[var(--lp-text)]">{s.title}</h3>
+                <span aria-hidden className="block h-px w-full self-center bg-[var(--lp-border)]"></span>
+                <p className="m-0 text-[15px] leading-relaxed text-[var(--lp-muted)]">{s.desc}</p>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
       {/* ── Testimonials ─────────────────────────────────────────── */}
       <section className="border-y border-[var(--lp-border)] bg-[var(--lp-bg-alt)] py-[72px] max-md:py-12">
         <div className="mx-auto max-w-[1080px] px-6">
-          <div className="mb-10 text-center">
-            <h2 className="m-0 font-display text-[clamp(26px,4vw,38px)] font-semibold tracking-tight text-[var(--lp-text)]">{t("landing.testiTitle")}</h2>
+          <div className="mb-12">
+            <h2 className="m-0 text-[clamp(28px,4vw,40px)] font-extrabold tracking-tight text-[var(--lp-text)]" style={{ letterSpacing: "-0.03em" }}>{t("landing.testiTitle")}</h2>
           </div>
-          <div className="grid gap-5 md:grid-cols-3 max-md:mx-auto max-md:max-w-[440px] max-md:grid-cols-1">
+          <div className="grid gap-x-10 gap-y-12 md:grid-cols-2 max-md:mx-auto max-md:max-w-[560px]">
             {testimonials.map(t => (
-              <blockquote key={t.author} className="m-0 rounded-[14px] border border-[var(--lp-card-border)] bg-[var(--lp-card-bg)] p-6 shadow-[var(--lp-card-shadow)]">
-                <p className="m-0 mb-4 text-[15px] italic leading-relaxed text-[var(--lp-text)]">"{t.quote}"</p>
-                <cite className="text-xs font-bold uppercase not-italic tracking-wider text-[var(--lp-primary)]">{t.author} · {t.location}</cite>
-              </blockquote>
+              <figure key={t.author} className="m-0 flex flex-col gap-5 border-l border-[var(--lp-border)] pl-6">
+                <blockquote className="m-0 text-[clamp(17px,1.8vw,20px)] font-medium leading-[1.5] text-[var(--lp-text)]" style={{ letterSpacing: "-0.01em" }}>{t.quote}</blockquote>
+                <figcaption className="text-sm font-semibold not-italic text-[var(--lp-muted)]">{t.author}, {t.location}</figcaption>
+              </figure>
             ))}
           </div>
         </div>

@@ -25,9 +25,9 @@
 }
 
 .quiz-hub-title {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-style: italic;
-  font-weight: 300;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   font-size: clamp(32px, 6vw, 52px);
   color: var(--text-primary);
   margin-bottom: 8px;
@@ -504,9 +504,9 @@
 }
 
 .quiz-results-title {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-style: italic;
-  font-weight: 300;
+  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   font-size: clamp(28px, 5vw, 40px);
   color: var(--text-primary);
   letter-spacing: -0.02em;
@@ -716,7 +716,7 @@
 }
 
 [data-theme="light"] .quiz-level-card--completed:hover {
-  border-color: #5b21b6;
+  border-color: var(--teal-darker);
   box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.35), 0 8px 28px rgba(74, 45, 133, 0.25);
   transform: translateY(-4px);
   background: #EDE0FF;
