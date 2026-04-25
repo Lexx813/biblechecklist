@@ -18,7 +18,7 @@
  */
 
 // Switched off Edge so the shared @upstash/ratelimit helper (Node) can run.
-export const config = { runtime: "nodejs20.x" };
+export const config = { runtime: "nodejs" };
 
 import { rateLimit, rateLimitResponse } from "../src/lib/ratelimit";
 
