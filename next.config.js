@@ -1,3 +1,9 @@
+import withBundleAnalyzer from "@next/bundle-analyzer";
+
+const bundleAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Supabase auth uses the Web Locks API; React Strict Mode's intentional
@@ -72,28 +78,12 @@ const nextConfig = {
   // Turbopack (dev) needs no extra config — webpack function below is build-only
   turbopack: {},
 
-  webpack(config, { isServer }) {
+  webpack(config) {
     // Suppress "Critical dependency" warnings from i18next-http-backend
     config.module = config.module || {};
     config.module.exprContextCritical = false;
-
-    // Bundle analyser: ANALYZE=true npm run build
-    if (process.env.ANALYZE === "true") {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-      config.plugins.push(
-        new BundleAnalyzerPlugin({
-          analyzerMode: "static",
-          reportFilename: isServer
-            ? "../analyze/server.html"
-            : "../analyze/client.html",
-          openAnalyzer: false,
-        })
-      );
-    }
-
     return config;
   },
 };
 
-export default nextConfig;
+export default bundleAnalyzer(nextConfig);
