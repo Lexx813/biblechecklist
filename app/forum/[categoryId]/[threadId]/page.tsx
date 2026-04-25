@@ -1,6 +1,7 @@
-import { QueryClient, dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import Link from "next/link";
 import { forumApi } from "../../../../src/api/forum";
-import ClientShell from "../../../_components/ClientShell";
+import PublicNav from "../../../_components/PublicNav";
+import PublicFooter from "../../../_components/PublicFooter";
 
 export const revalidate = 30;
 
@@ -44,28 +45,10 @@ export async function generateMetadata({ params }) {
 
 export default async function ForumThreadPage({ params }) {
   const { categoryId, threadId } = await params;
-  const queryClient = new QueryClient();
 
-  const [thread] = await Promise.all([
+  const [thread, replies] = await Promise.all([
     forumApi.getThread(threadId).catch(() => null),
-    queryClient
-      .prefetchQuery({
-        queryKey: ["forum", "thread", threadId],
-        queryFn: () => forumApi.getThread(threadId),
-      })
-      .catch(() => {}),
-    queryClient
-      .prefetchQuery({
-        queryKey: ["forum", "replies", threadId],
-        queryFn: () => forumApi.listReplies(threadId),
-      })
-      .catch(() => {}),
-    queryClient
-      .prefetchQuery({
-        queryKey: ["forum", "categories"],
-        queryFn: () => forumApi.listCategories(),
-      })
-      .catch(() => {}),
+    forumApi.listReplies(threadId).catch(() => [] as Awaited<ReturnType<typeof forumApi.listReplies>>),
   ]);
 
   const threadUrl = `https://jwstudy.org/forum/${categoryId}/${threadId}`;
@@ -107,20 +90,51 @@ export default async function ForumThreadPage({ params }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaPosting) }} />
       )}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
-      {thread && (
-        <div id="ssr-fallback" suppressHydrationWarning>
-          <article>
-            <h1>{thread.title}</h1>
-            {thread.profiles?.display_name && <p>Posted by {thread.profiles.display_name}</p>}
-            {thread.content && (
-              <p>{stripHtml(thread.content)}</p>
+      <PublicNav />
+      <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
+        <nav className="mb-4 text-sm text-slate-500">
+          <Link href="/forum" className="hover:underline">← Forum</Link>
+        </nav>
+        {thread ? (
+          <>
+            <article className="prose prose-slate dark:prose-invert max-w-none">
+              <h1>{thread.title}</h1>
+              {thread.profiles?.display_name && (
+                <p className="not-prose text-sm text-slate-500">Posted by {thread.profiles.display_name}</p>
+              )}
+              {thread.content && (
+                <div dangerouslySetInnerHTML={{ __html: thread.content }} />
+              )}
+            </article>
+            {replies.length > 0 && (
+              <section className="mt-10">
+                <h2 className="text-lg font-semibold">Replies</h2>
+                <ul className="mt-4 space-y-4">
+                  {replies.map((r) => (
+                    <li key={r.id} className="rounded-md border border-slate-200 p-4 dark:border-white/10">
+                      {r.profiles?.display_name && (
+                        <div className="mb-2 text-xs text-slate-500">{r.profiles.display_name}</div>
+                      )}
+                      {r.content && (
+                        <div className="prose prose-slate dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: r.content }} />
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </section>
             )}
-          </article>
-        </div>
-      )}
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <ClientShell />
-      </HydrationBoundary>
+            <p className="mt-10 text-sm text-slate-500">
+              <Link href="/" className="font-semibold text-violet-700 hover:underline dark:text-violet-300">
+                Open the app →
+              </Link>{" "}
+              to reply.
+            </p>
+          </>
+        ) : (
+          <p className="text-slate-500">Thread not found.</p>
+        )}
+      </main>
+      <PublicFooter />
     </>
   );
 }

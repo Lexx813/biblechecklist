@@ -1,12 +1,9 @@
-import ClientShell from "../_components/ClientShell";
+import Link from "next/link";
+import PublicNav from "../_components/PublicNav";
+import PublicFooter from "../_components/PublicFooter";
 import { STUDY_TOPICS } from "../../src/data/studyTopics";
 
 export const revalidate = false; // static
-
-const SEO_HIDE = {
-  position: "absolute" as const, width: 1, height: 1,
-  overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap",
-};
 
 export const metadata = {
   title: "Bible Study Topics | JW Study",
@@ -58,22 +55,29 @@ export default function StudyTopicsPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }} />
-      <div style={SEO_HIDE}>
-        <h1>Bible Study Topics for Jehovah's Witnesses</h1>
-        <p>
-          Explore key Bible topics from the New World Translation perspective. Each topic includes
-          in-depth scriptural analysis covering doctrine, prophecy, and practical Christian living.
+      <PublicNav />
+      <main className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Bible Study Topics</h1>
+        <p className="mt-3 max-w-2xl text-slate-600 dark:text-slate-300">
+          Explore key Bible topics from the New World Translation perspective — covering doctrine,
+          prophecy, and practical Christian living.
         </p>
-        <ul>
+
+        <ul className="mt-8 grid gap-3 sm:grid-cols-2">
           {STUDY_TOPICS.map((topic) => (
             <li key={topic.slug}>
-              <a href={`/study-topics/${topic.slug}`}>{topic.title}</a>
-              <span> — {topic.subtitle}</span>
+              <Link
+                href={`/study-topics/${topic.slug}`}
+                className="block rounded-md border border-slate-200 p-4 hover:border-violet-400 hover:bg-violet-50 dark:border-white/10 dark:hover:bg-white/5"
+              >
+                <div className="font-semibold">{topic.title}</div>
+                <div className="mt-1 text-sm text-slate-600 dark:text-slate-300">{topic.subtitle}</div>
+              </Link>
             </li>
           ))}
         </ul>
-      </div>
-      <ClientShell />
+      </main>
+      <PublicFooter />
     </>
   );
 }

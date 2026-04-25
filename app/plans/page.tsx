@@ -1,13 +1,11 @@
-import ClientShell from "../_components/ClientShell";
+import Link from "next/link";
+import PublicNav from "../_components/PublicNav";
+import PublicFooter from "../_components/PublicFooter";
 import { PLAN_TEMPLATES } from "../../src/data/readingPlanTemplates";
 
 export const revalidate = false;
 
 const BASE = "https://jwstudy.org";
-const SEO_HIDE = {
-  position: "absolute" as const, width: 1, height: 1,
-  overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap",
-};
 
 export const metadata = {
   title: "Bible Reading Plans for Jehovah's Witnesses | JW Study",
@@ -62,42 +60,44 @@ export default function PlansPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
-      <div style={SEO_HIDE}>
-        <h1>Bible Reading Plans for Jehovah&apos;s Witnesses — New World Translation</h1>
-        <p>
-          Choose from {PLAN_TEMPLATES.length} structured Bible reading plans designed for NWT
-          readers. Track your daily progress, build a reading streak, and stay consistent with your
-          personal study using JW Study.
+      <PublicNav />
+      <main className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Bible Reading Plans</h1>
+        <p className="mt-3 max-w-2xl text-slate-600 dark:text-slate-300">
+          Choose from {PLAN_TEMPLATES.length} structured Bible reading plans for NWT readers. Track your
+          daily progress, build a reading streak, and stay consistent with your personal study.
         </p>
 
-        <h2>Available Reading Plans</h2>
-        <ul>
+        <section className="mt-8 grid gap-3 sm:grid-cols-2">
           {PLAN_TEMPLATES.map((p) => (
-            <li key={p.key}>
-              <a href={`/plans/${p.key}`}>
-                <strong>{p.name}</strong> — {p.totalDays} days, {p.totalChapters} chapters ({p.difficulty})
-              </a>
-              <p>{p.description}</p>
-            </li>
+            <Link
+              key={p.key}
+              href={`/plans/${p.key}`}
+              className="block rounded-md border border-slate-200 p-4 hover:border-violet-400 hover:bg-violet-50 dark:border-white/10 dark:hover:bg-white/5"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="font-semibold">{p.name}</div>
+                <div className="shrink-0 rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600 dark:bg-white/10 dark:text-slate-300">{p.difficulty}</div>
+              </div>
+              <div className="mt-1 text-xs text-slate-500">{p.totalDays} days · {p.totalChapters} chapters</div>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{p.description}</p>
+            </Link>
           ))}
-        </ul>
+        </section>
 
-        <h2>Why Read the Bible with a Plan?</h2>
-        <p>
-          A structured reading plan helps Jehovah&apos;s Witnesses stay consistent with personal
-          Bible reading — a key part of spiritual routine alongside meetings, field service, and
-          family worship. JW Study tracks your daily readings, sends reminders, shows your
-          streak, and lets you rejoin a plan if you fall behind with catch-up mode.
-        </p>
-
-        <h2>About JW Study</h2>
-        <p>
-          JW Study is a free Bible reading tracker built for Jehovah&apos;s Witnesses worldwide.
-          Available in English, Spanish, Portuguese, French, Tagalog, and Chinese. Sign up free at
-          jwstudy.org.
-        </p>
-      </div>
-      <ClientShell />
+        <section className="mt-12 rounded-md border border-slate-200 bg-slate-50 p-5 text-sm text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+          <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">Why read with a plan?</h2>
+          <p className="mt-2">
+            A structured plan helps you stay consistent — alongside meetings, field service, and family
+            worship. JW Study tracks daily readings, sends reminders, shows your streak, and lets you
+            rejoin if you fall behind.
+          </p>
+          <Link href="/" className="mt-3 inline-block font-semibold text-violet-700 hover:underline dark:text-violet-300">
+            Open the tracker →
+          </Link>
+        </section>
+      </main>
+      <PublicFooter />
     </>
   );
 }

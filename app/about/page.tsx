@@ -1,3 +1,6 @@
+import PublicNav from "../_components/PublicNav";
+import PublicFooter from "../_components/PublicFooter";
+
 export const metadata = {
   title: "About JW Study | Bible Reading Tracker for Jehovah's Witnesses",
   description:
@@ -51,6 +54,7 @@ export default function AboutPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaPerson) }} />
+      <PublicNav />
       <main className="mx-auto max-w-3xl px-4 py-12 text-[var(--lp-text)] sm:px-6 sm:py-16">
         <nav className="mb-10 text-sm">
           <a href="/" className="text-brand-600 hover:underline">← Home</a>
@@ -114,6 +118,7 @@ export default function AboutPage() {
           </div>
         </article>
       </main>
+      <PublicFooter />
     </>
   );
 }

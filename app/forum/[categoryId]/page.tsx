@@ -1,6 +1,7 @@
-import { QueryClient, dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import Link from "next/link";
 import { forumApi } from "../../../src/api/forum";
-import ClientShell from "../../_components/ClientShell";
+import PublicNav from "../../_components/PublicNav";
+import PublicFooter from "../../_components/PublicFooter";
 
 export const revalidate = 60;
 
@@ -44,28 +45,23 @@ export async function generateMetadata({ params }) {
 
 export default async function ForumCategoryPage({ params }) {
   const { categoryId } = await params;
-  const queryClient = new QueryClient();
 
   let category = null;
   let threads: { id: string; title: string; forum_replies?: { count: number }[] }[] = [];
   try {
     const results = await Promise.allSettled([
       forumApi.listCategories(),
-      forumApi.listThreads(categoryId, 20, null),
+      forumApi.listThreads(categoryId, 30, null),
     ]);
     const categories = results[0].status === "fulfilled" ? results[0].value : [];
     category = categories.find((c) => c.id === categoryId) ?? null;
     threads = results[1].status === "fulfilled" ? results[1].value : [];
-
-    // Seed the query cache with already-fetched data
-    queryClient.setQueryData(["forum", "categories"], categories);
-    queryClient.setQueryData(["forum", "threads", categoryId, 20, null], threads);
   } catch {}
 
-  const categoryName = category?.name ?? null;
+  const categoryName = category?.name ?? "Category";
   const categoryDescription = category?.description ?? null;
 
-  const schemaBreadcrumb = categoryName ? {
+  const schemaBreadcrumb = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
@@ -73,39 +69,45 @@ export default async function ForumCategoryPage({ params }) {
       { "@type": "ListItem", position: 2, name: "Forum", item: "https://jwstudy.org/forum" },
       { "@type": "ListItem", position: 3, name: categoryName, item: `https://jwstudy.org/forum/${categoryId}` },
     ],
-  } : null;
+  };
 
   return (
     <>
-      {schemaBreadcrumb && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
-      )}
-      {(categoryName || threads.length > 0) && (
-        <div id="ssr-fallback" suppressHydrationWarning>
-          {categoryName && <h1>{categoryName}</h1>}
-          {categoryDescription && <p>{categoryDescription}</p>}
-          {threads.length > 0 && (
-            <section>
-              <h2>Discussions</h2>
-              <ul>
-                {threads.map((thread) => {
-                  const replyCount = thread.forum_replies?.[0]?.count ?? 0;
-                  return (
-                    <li key={thread.id}>
-                      <a href={`/forum/${categoryId}/${thread.id}`}>{thread.title}</a>
-                      {replyCount > 0 && <span> ({replyCount} {replyCount === 1 ? "reply" : "replies"})</span>}
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
-          )}
-        </div>
-      )}
-      <script dangerouslySetInnerHTML={{ __html: `(function(){var e=document.getElementById('ssr-fallback');if(e)e.style.display='none';}())` }} />
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <ClientShell />
-      </HydrationBoundary>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <PublicNav />
+      <main className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
+        <nav className="mb-4 text-sm text-slate-500">
+          <Link href="/forum" className="hover:underline">← Forum</Link>
+        </nav>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{categoryName}</h1>
+        {categoryDescription && (
+          <p className="mt-3 max-w-2xl text-slate-600 dark:text-slate-300">{categoryDescription}</p>
+        )}
+
+        {threads.length > 0 ? (
+          <ul className="mt-8 divide-y divide-slate-200 rounded-md border border-slate-200 dark:divide-white/10 dark:border-white/10">
+            {threads.map((thread) => {
+              const replyCount = thread.forum_replies?.[0]?.count ?? 0;
+              return (
+                <li key={thread.id}>
+                  <Link
+                    href={`/forum/${categoryId}/${thread.id}`}
+                    className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-violet-50 dark:hover:bg-white/5"
+                  >
+                    <span className="font-medium">{thread.title}</span>
+                    {replyCount > 0 && (
+                      <span className="text-xs text-slate-500">{replyCount} {replyCount === 1 ? "reply" : "replies"}</span>
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <p className="mt-8 text-slate-500">No discussions yet.</p>
+        )}
+      </main>
+      <PublicFooter />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import ClientShell from "../../_components/ClientShell";
+import PublicNav from "../../_components/PublicNav";
+import PublicFooter from "../../_components/PublicFooter";
 import { BOOKS, OT_COUNT } from "../../../src/data/books";
 import { BOOK_INFO } from "../../../src/data/bookInfo";
 import { PLAN_TEMPLATES } from "../../../src/data/readingPlanTemplates";
@@ -8,10 +9,6 @@ import { STUDY_TOPICS } from "../../../src/data/studyTopics";
 export const revalidate = false;
 
 const BASE = "https://jwstudy.org";
-const SEO_HIDE = {
-  position: "absolute" as const, width: 1, height: 1,
-  overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap",
-};
 
 function bookToSlug(name) {
   return name.toLowerCase().replace(/\s+/g, "-");
@@ -145,7 +142,8 @@ export default async function BookPage({ params }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaArticle) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBook) }} />
-      <div style={SEO_HIDE}>
+      <PublicNav />
+      <main className="prose prose-slate dark:prose-invert mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
         <h1>Book of {book.name} — New World Translation Study Guide</h1>
         <p>
           <strong>Testament:</strong> {testament} · <strong>Chapters:</strong> {book.chapters} ·{" "}
@@ -265,8 +263,8 @@ export default async function BookPage({ params }) {
             <a href={`${BASE}/blog`}>JW Study Blog</a>
           </li>
         </ul>
-      </div>
-      <ClientShell />
+      </main>
+      <PublicFooter />
     </>
   );
 }

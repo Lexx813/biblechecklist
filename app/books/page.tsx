@@ -1,15 +1,13 @@
-import ClientShell from "../_components/ClientShell";
+import Link from "next/link";
+import PublicNav from "../_components/PublicNav";
+import PublicFooter from "../_components/PublicFooter";
 import { BOOKS, OT_COUNT } from "../../src/data/books";
 
 export const revalidate = false;
 
 const BASE = "https://jwstudy.org";
-const SEO_HIDE = {
-  position: "absolute" as const, width: 1, height: 1,
-  overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap",
-};
 
-function bookToSlug(name) {
+function bookToSlug(name: string) {
   return name.toLowerCase().replace(/\s+/g, "-");
 }
 
@@ -66,45 +64,60 @@ export default function BooksPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
-      <div style={SEO_HIDE}>
-        <h1>All 66 Books of the Bible — NWT Study Guides</h1>
-        <p>
-          Explore study guides for every book in the New World Translation. Track your reading
-          progress through all 66 books with JW Study — the free Bible reading tracker for
-          Jehovah&apos;s Witnesses.
+      <PublicNav />
+      <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">All 66 Books of the Bible</h1>
+        <p className="mt-3 max-w-2xl text-slate-600 dark:text-slate-300">
+          Explore study guides for every book in the New World Translation. Track your reading progress
+          through all 66 books with JW Study — the free Bible reading tracker for Jehovah&apos;s Witnesses.
         </p>
 
-        <h2>Hebrew Scriptures (Old Testament) — 39 Books</h2>
-        <ul>
-          {hebrewBooks.map((b) => (
-            <li key={b.name}>
-              <a href={`/books/${bookToSlug(b.name)}`}>
-                {b.name} ({b.chapters} chapters)
-              </a>
-            </li>
-          ))}
-        </ul>
+        <section className="mt-10">
+          <h2 className="text-xl font-semibold">Hebrew Scriptures · 39 Books</h2>
+          <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
+            {hebrewBooks.map((b) => (
+              <li key={b.name}>
+                <Link
+                  href={`/books/${bookToSlug(b.name)}`}
+                  className="block rounded-md border border-slate-200 px-3 py-2 hover:border-violet-400 hover:bg-violet-50 dark:border-white/10 dark:hover:bg-white/5"
+                >
+                  <div className="font-medium">{b.name}</div>
+                  <div className="text-xs text-slate-500">{b.chapters} chapters</div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-        <h2>Christian Greek Scriptures (New Testament) — 27 Books</h2>
-        <ul>
-          {greekBooks.map((b) => (
-            <li key={b.name}>
-              <a href={`/books/${bookToSlug(b.name)}`}>
-                {b.name} ({b.chapters} chapters)
-              </a>
-            </li>
-          ))}
-        </ul>
+        <section className="mt-10">
+          <h2 className="text-xl font-semibold">Christian Greek Scriptures · 27 Books</h2>
+          <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
+            {greekBooks.map((b) => (
+              <li key={b.name}>
+                <Link
+                  href={`/books/${bookToSlug(b.name)}`}
+                  className="block rounded-md border border-slate-200 px-3 py-2 hover:border-violet-400 hover:bg-violet-50 dark:border-white/10 dark:hover:bg-white/5"
+                >
+                  <div className="font-medium">{b.name}</div>
+                  <div className="text-xs text-slate-500">{b.chapters} chapters</div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-        <h2>About JW Study</h2>
-        <p>
-          JW Study is a free Bible reading tracker built specifically for Jehovah&apos;s
-          Witnesses. Track your reading through every chapter of the New World Translation, follow
-          structured reading plans, take study notes, and connect with fellow publishers in your
-          congregation.
-        </p>
-      </div>
-      <ClientShell />
+        <section className="mt-12 rounded-md border border-slate-200 bg-slate-50 p-5 text-sm text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+          <p>
+            JW Study is a free Bible reading tracker built specifically for Jehovah&apos;s Witnesses.
+            Track your reading through every chapter of the New World Translation, follow structured
+            reading plans, take study notes, and connect with fellow publishers.
+          </p>
+          <Link href="/" className="mt-3 inline-block font-semibold text-violet-700 hover:underline dark:text-violet-300">
+            Open the tracker →
+          </Link>
+        </section>
+      </main>
+      <PublicFooter />
     </>
   );
 }

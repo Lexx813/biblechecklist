@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import ClientShell from "../../_components/ClientShell";
+import PublicNav from "../../_components/PublicNav";
+import PublicFooter from "../../_components/PublicFooter";
 import { PLAN_TEMPLATES, getTemplate } from "../../../src/data/readingPlanTemplates";
 import { BOOKS, OT_COUNT } from "../../../src/data/books";
 import { STUDY_TOPICS } from "../../../src/data/studyTopics";
@@ -11,10 +12,6 @@ function bookToSlug(name: string) {
 export const revalidate = false;
 
 const BASE = "https://jwstudy.org";
-const SEO_HIDE = {
-  position: "absolute" as const, width: 1, height: 1,
-  overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap",
-};
 
 export async function generateStaticParams() {
   return PLAN_TEMPLATES.map((p) => ({ slug: p.key }));
@@ -106,7 +103,8 @@ export default async function PlanPage({ params }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaLearningResource) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
-      <div style={SEO_HIDE}>
+      <PublicNav />
+      <main className="prose prose-slate dark:prose-invert mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
         <h1>{plan.name} — Bible Reading Plan for Jehovah&apos;s Witnesses</h1>
         <p>{plan.description}</p>
         <p>
@@ -198,8 +196,8 @@ export default async function PlanPage({ params }) {
           <li><a href={`${BASE}/study-topics`}>All Study Topics</a></li>
           <li><a href={`${BASE}/blog`}>JW Study Blog</a></li>
         </ul>
-      </div>
-      <ClientShell />
+      </main>
+      <PublicFooter />
     </>
   );
 }
