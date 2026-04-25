@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { blogApi } from "../../src/api/blog";
 import PublicNav from "../_components/PublicNav";
 import PublicFooter from "../_components/PublicFooter";
@@ -119,12 +120,13 @@ export default async function BlogListPage() {
             href={`/blog/${(featuredPost as { slug: string }).slug}`}
             className="mt-10 grid overflow-hidden rounded-lg border border-slate-200 transition hover:border-violet-400 sm:grid-cols-2 dark:border-white/10"
           >
-            <img
+            <Image
               src={(featuredPost as { cover_url?: string }).cover_url || fallbackImage((featuredPost as { id: string }).id)}
               alt={(featuredPost as { title: string }).title}
               width={1200}
               height={675}
-              fetchPriority="high"
+              priority
+              sizes="(min-width: 640px) 50vw, 100vw"
               style={{ aspectRatio: "16 / 9", width: "100%", height: "auto", objectFit: "cover" }}
             />
             <div className="p-6">
@@ -158,12 +160,13 @@ export default async function BlogListPage() {
                   href={`/blog/${post.slug}`}
                   className="group block overflow-hidden rounded-lg border border-slate-200 transition hover:border-violet-400 dark:border-white/10"
                 >
-                  <img
+                  <Image
                     src={(post as { cover_url?: string }).cover_url || fallbackImage((post as { id: string }).id)}
                     alt={post.title}
                     width={1200}
                     height={675}
                     loading="lazy"
+                    sizes="(min-width: 640px) 50vw, 100vw"
                     style={{ aspectRatio: "16 / 9", width: "100%", height: "auto", objectFit: "cover" }}
                   />
                   <div className="p-4">
