@@ -2,7 +2,16 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { useAIChat, type ChatContext } from "../hooks/useAIChat";
 import { trackFeatureUse } from "../lib/analytics";
+import { supabase } from "../lib/supabase";
 import "../styles/ai-study-bubble.css";
+
+interface AIUsage {
+  percent_used: number;
+  input_used: number;
+  input_cap: number;
+  output_used: number;
+  output_cap: number;
+}
 
 /** Render markdown: headings, bold, italic, bullet lists, numbered lists, links, bare URLs. */
 function renderMarkdown(text: string): React.ReactNode[] {
@@ -177,6 +186,26 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
 
   const hasMessages = messages.length > 0;
 
+  // ── Daily AI quota indicator ──────────────────────────────────────────────
+  const [usage, setUsage] = useState<AIUsage | null>(null);
+  useEffect(() => {
+    let cancelled = false;
+    async function fetchUsage() {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) return;
+        const res = await fetch("/api/ai-usage", {
+          headers: { Authorization: `Bearer ${session.access_token}` },
+        });
+        if (!res.ok) return;
+        const data = (await res.json()) as AIUsage;
+        if (!cancelled) setUsage(data);
+      } catch { /* swallow — pill is purely informational */ }
+    }
+    if (open) fetchUsage();
+    return () => { cancelled = true; };
+  }, [open, messages.length]); // refetch on open + after each completed turn
+
   const panel = open && (
     <div className="asb-panel" ref={panelRef} role="dialog" aria-label="AI Study Companion">
       {/* Header */}
@@ -193,6 +222,15 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
           </div>
         </div>
         <div className="asb-header-actions">
+          {usage && (
+            <span
+              className={`asb-usage-pill${usage.percent_used >= 80 ? " asb-usage-pill--high" : ""}`}
+              title={`Daily AI quota: ${usage.input_used.toLocaleString()} / ${usage.input_cap.toLocaleString()} input tokens, ${usage.output_used.toLocaleString()} / ${usage.output_cap.toLocaleString()} output tokens. Resets every 24h.`}
+              aria-label={`${usage.percent_used} percent of daily AI quota used`}
+            >
+              {usage.percent_used}% used
+            </span>
+          )}
           {hasMessages && (
             <button className="asb-clear-btn" onClick={handleClear} title="Clear conversation">
               Clear
