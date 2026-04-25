@@ -107,45 +107,61 @@ export default async function BlogListPage() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }} />
       )}
       <PublicNav />
-      <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
-        <header>
-          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">JW Study Blog</h1>
-          <p className="mt-3 max-w-2xl text-slate-600 dark:text-slate-300">
-            Written by the community, for the community.
-          </p>
-        </header>
 
+      {/* Hero band */}
+      <header className="border-b border-slate-200 bg-violet-50/50 dark:border-white/10 dark:bg-violet-950/20">
+        <div className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+          <div className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-700 dark:text-violet-300">
+            Community blog
+          </div>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl dark:text-slate-50">
+            Bible study, written by the community
+          </h1>
+          <p className="mt-4 max-w-2xl text-base text-slate-600 sm:text-lg dark:text-slate-300">
+            Spiritual reflections, scripture insights, and study notes from publishers worldwide.
+            Aligned with the New World Translation and the publications at wol.jw.org.
+          </p>
+        </div>
+      </header>
+
+      <main className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         {featuredPost && (
           <Link
             href={`/blog/${(featuredPost as { slug: string }).slug}`}
-            className="mt-10 grid overflow-hidden rounded-lg border border-slate-200 transition hover:border-violet-400 sm:grid-cols-2 dark:border-white/10"
+            className="group grid overflow-hidden rounded-md border border-slate-200 transition hover:border-violet-400 hover:shadow-[0_8px_32px_-12px_rgba(124,58,237,0.25)] sm:grid-cols-5 dark:border-white/10"
           >
-            <Image
-              src={(featuredPost as { cover_url?: string }).cover_url || fallbackImage((featuredPost as { id: string }).id)}
-              alt={(featuredPost as { title: string }).title}
-              width={1200}
-              height={675}
-              priority
-              sizes="(min-width: 640px) 50vw, 100vw"
-              style={{ aspectRatio: "16 / 9", width: "100%", height: "auto", objectFit: "cover" }}
-            />
-            <div className="p-6">
-              {(featuredPost as { tags?: string[] }).tags?.[0] && (
-                <div className="text-xs font-semibold uppercase tracking-wider text-violet-600 dark:text-violet-300">
-                  {(featuredPost as { tags: string[] }).tags[0]}
-                </div>
-              )}
-              <h2 className="mt-2 text-xl font-semibold sm:text-2xl">
+            <div className="sm:col-span-3">
+              <Image
+                src={(featuredPost as { cover_url?: string }).cover_url || fallbackImage((featuredPost as { id: string }).id)}
+                alt={(featuredPost as { title: string }).title}
+                width={1200}
+                height={675}
+                priority
+                sizes="(min-width: 640px) 60vw, 100vw"
+                style={{ aspectRatio: "16 / 9", width: "100%", height: "auto", objectFit: "cover" }}
+              />
+            </div>
+            <div className="flex flex-col justify-center gap-4 p-6 sm:col-span-2 sm:p-8">
+              <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em]">
+                <span className="text-violet-700 dark:text-violet-300">Featured</span>
+                {(featuredPost as { tags?: string[] }).tags?.[0] && (
+                  <>
+                    <span className="text-slate-300 dark:text-white/20">·</span>
+                    <span className="text-slate-500 dark:text-slate-400">{(featuredPost as { tags: string[] }).tags[0]}</span>
+                  </>
+                )}
+              </div>
+              <h2 className="text-2xl font-bold leading-tight tracking-tight text-slate-900 group-hover:text-violet-700 sm:text-3xl dark:text-slate-50 dark:group-hover:text-violet-300">
                 {(featuredPost as { title: string }).title}
               </h2>
               {(featuredPost as { excerpt?: string }).excerpt && (
-                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+                <p className="line-clamp-3 text-sm text-slate-600 dark:text-slate-300">
                   {(featuredPost as { excerpt: string }).excerpt}
                 </p>
               )}
-              <div className="mt-4 flex items-center gap-2 text-xs text-slate-500">
+              <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                 <span>{(featuredPost as { profiles?: { display_name?: string } }).profiles?.display_name ?? "Anonymous"}</span>
-                <span>·</span>
+                <span aria-hidden>·</span>
                 <span>{formatDate((featuredPost as { created_at?: string }).created_at)}</span>
               </div>
             </div>
@@ -153,35 +169,37 @@ export default async function BlogListPage() {
         )}
 
         {gridPosts.length > 0 && (
-          <ul className="mt-10 grid gap-6 sm:grid-cols-2">
+          <ul className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {gridPosts.map((post) => (
               <li key={post.id}>
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="group block overflow-hidden rounded-lg border border-slate-200 transition hover:border-violet-400 dark:border-white/10"
-                >
-                  <Image
-                    src={(post as { cover_url?: string }).cover_url || fallbackImage((post as { id: string }).id)}
-                    alt={post.title}
-                    width={1200}
-                    height={675}
-                    loading="lazy"
-                    sizes="(min-width: 640px) 50vw, 100vw"
-                    style={{ aspectRatio: "16 / 9", width: "100%", height: "auto", objectFit: "cover" }}
-                  />
-                  <div className="p-4">
+                <Link href={`/blog/${post.slug}`} className="group block">
+                  <div className="overflow-hidden rounded-md border border-slate-200 dark:border-white/10">
+                    <Image
+                      src={(post as { cover_url?: string }).cover_url || fallbackImage((post as { id: string }).id)}
+                      alt={post.title}
+                      width={1200}
+                      height={675}
+                      loading="lazy"
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      style={{ aspectRatio: "16 / 9", width: "100%", height: "auto", objectFit: "cover" }}
+                      className="transition group-hover:scale-[1.03]"
+                    />
+                  </div>
+                  <div className="mt-4">
                     {(post as { tags?: string[] }).tags?.[0] && (
-                      <div className="text-xs font-semibold uppercase tracking-wider text-violet-600 dark:text-violet-300">
+                      <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-violet-700 dark:text-violet-300">
                         {(post as { tags: string[] }).tags[0]}
                       </div>
                     )}
-                    <h3 className="mt-2 line-clamp-2 font-semibold">{post.title}</h3>
+                    <h3 className="mt-1.5 line-clamp-2 text-lg font-semibold leading-snug tracking-tight text-slate-900 group-hover:text-violet-700 dark:text-slate-50 dark:group-hover:text-violet-300">
+                      {post.title}
+                    </h3>
                     {post.excerpt && (
-                      <p className="mt-1 line-clamp-2 text-sm text-slate-600 dark:text-slate-300">{post.excerpt}</p>
+                      <p className="mt-2 line-clamp-2 text-sm text-slate-600 dark:text-slate-300">{post.excerpt}</p>
                     )}
-                    <div className="mt-3 flex items-center gap-2 text-xs text-slate-500">
+                    <div className="mt-3 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                       <span>{(post as { profiles?: { display_name?: string } }).profiles?.display_name ?? "Anonymous"}</span>
-                      <span>·</span>
+                      <span aria-hidden>·</span>
                       <span>{formatDate((post as { created_at?: string }).created_at)}</span>
                     </div>
                   </div>
@@ -196,13 +214,16 @@ export default async function BlogListPage() {
         )}
 
         {remainingCount > 0 && (
-          <div className="mt-10 flex justify-center">
+          <div className="mt-16 flex justify-center">
             <Link
               href="/blog/all"
               prefetch={false}
-              className="rounded-md border border-slate-200 px-5 py-2 text-sm font-semibold text-slate-700 hover:border-violet-400 hover:text-violet-700 dark:border-white/10 dark:text-slate-200 dark:hover:text-violet-300"
+              className="inline-flex items-center gap-1.5 rounded-md border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-violet-400 hover:bg-violet-50 hover:text-violet-700 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/5 dark:hover:text-violet-300"
             >
-              View all {dedupedPosts.length} posts →
+              View all {dedupedPosts.length} posts
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
             </Link>
           </div>
         )}

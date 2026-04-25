@@ -61,40 +61,70 @@ export default function PlansPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
       <PublicNav />
-      <main className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Bible Reading Plans</h1>
-        <p className="mt-3 max-w-2xl text-slate-600 dark:text-slate-300">
-          Choose from {PLAN_TEMPLATES.length} structured Bible reading plans for NWT readers. Track your
-          daily progress, build a reading streak, and stay consistent with your personal study.
-        </p>
 
-        <section className="mt-8 grid gap-3 sm:grid-cols-2">
-          {PLAN_TEMPLATES.map((p) => (
-            <Link
-              key={p.key}
-              href={`/plans/${p.key}`}
-              className="block rounded-md border border-slate-200 p-4 hover:border-violet-400 hover:bg-violet-50 dark:border-white/10 dark:hover:bg-white/5"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div className="font-semibold">{p.name}</div>
-                <div className="shrink-0 rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600 dark:bg-white/10 dark:text-slate-300">{p.difficulty}</div>
-              </div>
-              <div className="mt-1 text-xs text-slate-500">{p.totalDays} days · {p.totalChapters} chapters</div>
-              <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{p.description}</p>
-            </Link>
-          ))}
-        </section>
-
-        <section className="mt-12 rounded-md border border-slate-200 bg-slate-50 p-5 text-sm text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
-          <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100">Why read with a plan?</h2>
-          <p className="mt-2">
-            A structured plan helps you stay consistent — alongside meetings, field service, and family
-            worship. JW Study tracks daily readings, sends reminders, shows your streak, and lets you
-            rejoin if you fall behind.
+      <header className="border-b border-slate-200 bg-violet-50/50 dark:border-white/10 dark:bg-violet-950/20">
+        <div className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+          <div className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-700 dark:text-violet-300">
+            {PLAN_TEMPLATES.length} reading plans
+          </div>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl dark:text-slate-50">
+            A plan for every pace
+          </h1>
+          <p className="mt-4 max-w-2xl text-base text-slate-600 sm:text-lg dark:text-slate-300">
+            Structured Bible reading plans for the New World Translation. Daily readings, streak tracking,
+            catch-up mode if you fall behind.
           </p>
-          <Link href="/" className="mt-3 inline-block font-semibold text-violet-700 hover:underline dark:text-violet-300">
-            Open the tracker →
-          </Link>
+        </div>
+      </header>
+
+      <main className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+        <ul className="grid gap-x-5 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+          {PLAN_TEMPLATES.map((p) => (
+            <li key={p.key}>
+              <Link
+                href={`/plans/${p.key}`}
+                className="group flex h-full flex-col rounded-md border border-slate-200 p-5 transition hover:border-violet-400 hover:shadow-[0_8px_32px_-12px_rgba(124,58,237,0.25)] dark:border-white/10"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <h2 className="text-lg font-semibold leading-tight tracking-tight text-slate-900 group-hover:text-violet-700 dark:text-slate-50 dark:group-hover:text-violet-300">
+                    {p.name}
+                  </h2>
+                  <span className="shrink-0 rounded-full border border-slate-200 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-600 dark:border-white/10 dark:text-slate-400">
+                    {p.difficulty}
+                  </span>
+                </div>
+                <p className="mt-3 flex-1 text-sm text-slate-600 dark:text-slate-300">{p.description}</p>
+                <div className="mt-5 flex items-center gap-3 border-t border-slate-100 pt-4 text-xs tabular-nums text-slate-500 dark:border-white/10 dark:text-slate-400">
+                  <span><span className="font-semibold text-slate-900 dark:text-slate-100">{p.totalDays}</span> days</span>
+                  <span aria-hidden className="text-slate-300 dark:text-white/20">·</span>
+                  <span><span className="font-semibold text-slate-900 dark:text-slate-100">{p.totalChapters}</span> chapters</span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <section className="mt-20 rounded-md border border-violet-200/70 bg-violet-50/50 p-6 sm:p-8 dark:border-violet-500/20 dark:bg-violet-950/20">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+            <div className="max-w-xl">
+              <div className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-700 dark:text-violet-300">
+                Why read with a plan
+              </div>
+              <p className="mt-2 text-base text-slate-700 dark:text-slate-300">
+                A structured plan helps you stay consistent alongside meetings, field service, and family worship.
+                Reminders, streaks, and catch-up mode are all built in.
+              </p>
+            </div>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 self-start rounded-md bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-violet-700 sm:self-auto"
+            >
+              Start a plan
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
         </section>
       </main>
       <PublicFooter />

@@ -56,22 +56,42 @@ export default function StudyTopicsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }} />
       <PublicNav />
-      <main className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14">
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Bible Study Topics</h1>
-        <p className="mt-3 max-w-2xl text-slate-600 dark:text-slate-300">
-          Explore key Bible topics from the New World Translation perspective — covering doctrine,
-          prophecy, and practical Christian living.
-        </p>
 
-        <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-          {STUDY_TOPICS.map((topic) => (
+      <header className="border-b border-slate-200 bg-violet-50/50 dark:border-white/10 dark:bg-violet-950/20">
+        <div className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+          <div className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-700 dark:text-violet-300">
+            {STUDY_TOPICS.length} topics
+          </div>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl dark:text-slate-50">
+            Bible study topics
+          </h1>
+          <p className="mt-4 max-w-2xl text-base text-slate-600 sm:text-lg dark:text-slate-300">
+            Doctrinal explanations grounded in the New World Translation, with scripture references throughout.
+          </p>
+        </div>
+      </header>
+
+      <main className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+        <ul className="grid gap-x-5 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+          {STUDY_TOPICS.map((topic, i) => (
             <li key={topic.slug}>
               <Link
                 href={`/study-topics/${topic.slug}`}
-                className="block rounded-md border border-slate-200 p-4 hover:border-violet-400 hover:bg-violet-50 dark:border-white/10 dark:hover:bg-white/5"
+                className="group flex h-full flex-col rounded-md border border-slate-200 p-5 transition hover:border-violet-400 hover:shadow-[0_8px_32px_-12px_rgba(124,58,237,0.25)] dark:border-white/10"
               >
-                <div className="font-semibold">{topic.title}</div>
-                <div className="mt-1 text-sm text-slate-600 dark:text-slate-300">{topic.subtitle}</div>
+                <div className="font-mono text-[10px] tabular-nums text-slate-400 dark:text-slate-500">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <h2 className="mt-2 text-lg font-semibold leading-tight tracking-tight text-slate-900 group-hover:text-violet-700 dark:text-slate-50 dark:group-hover:text-violet-300">
+                  {topic.title}
+                </h2>
+                <p className="mt-2 flex-1 text-sm text-slate-600 dark:text-slate-300">{topic.subtitle}</p>
+                <div className="mt-4 flex items-center gap-1 text-xs font-semibold text-violet-700 opacity-0 transition group-hover:opacity-100 dark:text-violet-300">
+                  Read
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <path d="M5 12h14M13 5l7 7-7 7" />
+                  </svg>
+                </div>
               </Link>
             </li>
           ))}
