@@ -200,6 +200,9 @@ export default function DiscoveryPage({ navigate, user }: Props) {
                 className="disc-featured-img"
                 src={(featuredPost as unknown as Post).cover_url || fallbackImage((featuredPost as unknown as Post).id)}
                 alt={(featuredPost as unknown as Post).title}
+                width={1200}
+                height={525}
+                fetchPriority="high"
                 onError={e => { e.currentTarget.src = fallbackImage((featuredPost as unknown as Post).id); }}
               />
               <div className="disc-featured-body">
@@ -245,6 +248,8 @@ export default function DiscoveryPage({ navigate, user }: Props) {
                     className="disc-card-img"
                     src={post.cover_url || fallbackImage(post.id)}
                     alt={post.title}
+                    width={1200}
+                    height={675}
                     loading="lazy"
                     onError={e => { e.currentTarget.src = fallbackImage(post.id); }}
                   />
