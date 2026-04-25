@@ -76,10 +76,14 @@ export default async function BlogListPage() {
   const posts = postsResult.status === "fulfilled" ? (postsResult.value ?? []) : [];
   const featuredPost = featuredResult.status === "fulfilled" ? featuredResult.value : null;
 
-  // De-dupe: don't render the featured post twice in the grid
-  const gridPosts = featuredPost
+  // De-dupe: don't render the featured post twice in the grid.
+  // Cap initial render to keep DOM + image weight reasonable for LCP.
+  const INITIAL_POST_LIMIT = 12;
+  const dedupedPosts = featuredPost
     ? posts.filter((p) => p.id !== (featuredPost as { id: string }).id)
     : posts;
+  const gridPosts = dedupedPosts.slice(0, INITIAL_POST_LIMIT);
+  const remainingCount = Math.max(0, dedupedPosts.length - INITIAL_POST_LIMIT);
 
   const schemaItemList = posts.length > 0 ? {
     "@context": "https://schema.org",
@@ -186,6 +190,18 @@ export default async function BlogListPage() {
 
         {posts.length === 0 && (
           <p className="mt-10 text-slate-500">No articles published yet.</p>
+        )}
+
+        {remainingCount > 0 && (
+          <div className="mt-10 flex justify-center">
+            <Link
+              href="/blog/all"
+              prefetch={false}
+              className="rounded-md border border-slate-200 px-5 py-2 text-sm font-semibold text-slate-700 hover:border-violet-400 hover:text-violet-700 dark:border-white/10 dark:text-slate-200 dark:hover:text-violet-300"
+            >
+              View all {dedupedPosts.length} posts →
+            </Link>
+          </div>
         )}
       </main>
       <PublicFooter />
