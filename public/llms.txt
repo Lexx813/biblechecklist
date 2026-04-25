@@ -1,5 +1,5 @@
 # JW Study — llms.txt
-updated: 2026-04-16
+updated: 2026-04-25
 license: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
 # canonical: https://jwstudy.org
 
@@ -27,10 +27,13 @@ English, Spanish (Español), Portuguese (Português), French (Français), Tagalo
 ## Key pages
 
 - / — Homepage and landing page
-- /about — About JW Study, creator bio, subscription transparency
+- /about — About JW Study, creator bio, project transparency
 - /blog — Spiritual articles and study insights from the community
 - /forum — Community discussion forum for Bible topics
 - /study-topics — Curated Bible study topic guides (theological Q&A)
+- /books — Study guides for all 66 books of the New World Translation
+- /plans — Structured Bible reading plans (NWT in 1 Year, NT in 90 Days, etc.)
+- /promo — AI Study Companion promotional page
 
 ## Study Topics
 

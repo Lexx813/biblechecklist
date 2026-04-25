@@ -1,5 +1,39 @@
 import PublicNav from "../_components/PublicNav";
 import PublicFooter from "../_components/PublicFooter";
+import { FAQBlock } from "@/seo";
+
+const FAQ_ITEMS = [
+  {
+    question: "Is JW Study affiliated with Jehovah's Witnesses or jw.org?",
+    answer:
+      "No. JW Study is an independent community project built by one Bible student. It is not endorsed by, sponsored by, or connected to the Watch Tower Bible and Tract Society. All scriptural references link to the official jw.org and JW Library.",
+  },
+  {
+    question: "Is JW Study really free?",
+    answer:
+      "Yes. There are no paid tiers, no trials, no locked features, and no ads. Hosting and ongoing development are covered out of pocket. Optional donations are welcome but never required.",
+  },
+  {
+    question: "Do I need an account to use JW Study?",
+    answer:
+      "No account is needed to read the blog, browse study topics, or use the basic Bible reading tracker. A free account is needed to sync progress across devices and unlock streaks, notes, and reading plans.",
+  },
+  {
+    question: "Which Bible translation does JW Study use?",
+    answer:
+      "The New World Translation of the Holy Scriptures, the same translation used at meetings and in the field ministry by Jehovah's Witnesses worldwide.",
+  },
+  {
+    question: "What languages does JW Study support?",
+    answer:
+      "English, Spanish, Portuguese, French, Tagalog, and Mandarin Chinese. Additional languages (Japanese, Korean) are planned.",
+  },
+  {
+    question: "Is my reading data private?",
+    answer:
+      "Yes. Reading progress, notes, and study data are private to your account. We never share or sell user data. You can delete your account and all associated data at any time.",
+  },
+];
 
 export const metadata = {
   title: "About JW Study | Bible Reading Tracker for Jehovah's Witnesses",
@@ -117,6 +151,8 @@ export default function AboutPage() {
             </a>
           </div>
         </article>
+
+        <FAQBlock items={FAQ_ITEMS} className="mt-16 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:mb-6 [&_dt]:font-semibold [&_dt]:mt-5 [&_dd]:mt-1 [&_dd]:text-slate-700 dark:[&_dd]:text-slate-300" />
       </main>
       <PublicFooter />
     </>
