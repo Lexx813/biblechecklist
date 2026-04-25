@@ -7,33 +7,34 @@ const base =
 
 const variants = {
   primary:
-    "bg-gradient-to-br from-[var(--teal-dark)] to-[var(--teal)] text-white border-none rounded-lg hover:opacity-90 hover:-translate-y-px hover:shadow-[var(--shadow)] active:translate-y-0 active:shadow-[var(--shadow-xs)]",
+    "bg-[var(--teal)] text-white border-none rounded-md hover:bg-[var(--teal-dark)] active:bg-[var(--teal-darker)]",
   secondary:
     "bg-transparent text-[var(--text-primary)] border border-[var(--border)] rounded-md hover:border-[var(--teal)] hover:text-[var(--teal)] hover:bg-[var(--active-bg)] active:bg-[var(--active-hover-bg)]",
   ghost:
     "bg-transparent text-[var(--text-muted)] border border-transparent rounded-md hover:border-[var(--border)] hover:text-[var(--teal)] hover:bg-[var(--active-bg)] active:bg-[var(--active-hover-bg)]",
   danger:
-    "bg-[#dc2626] text-white border-none rounded-lg hover:bg-[#b91c1c] hover:-translate-y-px hover:shadow-[var(--shadow)] active:translate-y-0 active:shadow-[var(--shadow-xs)]",
+    "bg-[#dc2626] text-white border-none rounded-md hover:bg-[#b91c1c] active:bg-[#991b1b]",
   "danger-outline":
     "bg-transparent text-[#dc2626] border border-[#dc2626]/30 rounded-md hover:bg-[#dc2626]/10 hover:border-[#dc2626]/60 active:bg-[#dc2626]/15",
   text:
-    "bg-transparent text-[var(--accent)] border-none rounded-md hover:bg-[var(--active-bg)] active:bg-[var(--active-hover-bg)] px-2.5! py-1!",
+    "bg-transparent text-[var(--teal)] border-none rounded-md hover:bg-[var(--active-bg)] active:bg-[var(--active-hover-bg)] px-2.5! py-1!",
   icon:
     "bg-transparent text-[var(--text-muted)] border border-[var(--border)] rounded-md hover:border-[var(--teal)] hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)] active:bg-[var(--active-bg)]",
 } as const;
 
+/* Sizes hit the WCAG 44×44 touch target at md and lg (default md). */
 const sizes = {
-  xs: "h-7 px-2.5 text-xs rounded-[var(--radius-sm)]",
-  sm: "h-8 px-3 text-[13px]",
-  md: "h-10 px-4 text-sm",
+  xs: "h-8 px-2.5 text-xs rounded-[var(--radius-sm)]",
+  sm: "h-9 px-3 text-[13px]",
+  md: "h-11 px-4 text-sm",
   lg: "h-12 px-5 text-[15px]",
 } as const;
 
 const iconSizes = {
-  xs: "size-7",
-  sm: "size-8",
-  md: "size-9",
-  lg: "size-11",
+  xs: "size-8",
+  sm: "size-9",
+  md: "size-11",
+  lg: "size-12",
 } as const;
 
 /* ── Props ─────────────────────────────────────────────────────── */

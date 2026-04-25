@@ -352,7 +352,7 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
   const { data: prep } = usePrepForWeek(user.id, selectedWeek);
   const updatePrep = useUpdatePrep(user.id, selectedWeek);
 
-  // Build week list: current + past available weeks (premium only for history)
+  // Build week list: current + past available weeks
   const availableWeeks = useMemo(() => {
     const seen = new Set();
     const result = [currentWeek];

@@ -122,7 +122,7 @@ export const PLAN_TEMPLATES = [
     category: "thematic",
   },
 
-  // ── New premium templates ───────────────────────────────────────────────────
+  // ── Additional templates ───────────────────────────────────────────────────
   {
     key: "nwt-90-days",
     name: "Intensive: Bible in 90 Days",

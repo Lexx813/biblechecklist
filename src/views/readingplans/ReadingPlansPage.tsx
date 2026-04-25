@@ -681,7 +681,7 @@ function PlanDetail({ plan: initialPlan, allPlans, onBack, navigate, userId }) {
       )}
 
 
-      {/* AI Reading Summary (premium) */}
+      {/* AI Reading Summary */}
       {!plan.is_paused && todayReadings.length > 0 && (
         <div style={{ padding: "0 1rem" }}>
           <ReadingSummaryWidget todayReadings={todayReadings} />

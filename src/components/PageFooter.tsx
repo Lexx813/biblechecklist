@@ -16,6 +16,8 @@ export default function PageFooter() {
       <span className="page-footer-sep">·</span>
       <a href="/privacy" className="page-footer-link" onClick={e => legalLink(e, "/privacy")}>Privacy Policy</a>
       <span className="page-footer-sep">·</span>
+      <a href="/support" className="page-footer-link" onClick={e => legalLink(e, "/support")}>Support</a>
+      <span className="page-footer-sep">·</span>
       <a href="https://www.jw.org" className="page-footer-link" target="_blank" rel="noopener noreferrer">JW.org</a>
     </footer>
   );

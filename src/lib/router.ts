@@ -28,6 +28,7 @@ export type NavState =
   | { page: "about" }
   | { page: "terms" }
   | { page: "privacy" }
+  | { page: "support" }
   | { page: "friends" }
   | { page: "friendRequests" }
   | { page: "invite"; token: string }
@@ -91,6 +92,7 @@ export function parsePath(): NavState {
   if (h === "about") return { page: "about" };
   if (h === "terms") return { page: "terms" };
   if (h === "privacy") return { page: "privacy" };
+  if (h === "support") return { page: "support" };
   if (h === "friends") return { page: "friends" };
   if (h === "friends/requests") return { page: "friendRequests" };
   if (h.startsWith("invite/")) return { page: "invite", token: h.slice(7) };
@@ -139,6 +141,7 @@ export function buildPath(page: string, params: Record<string, unknown> = {}): s
     case "about":         return "/about";
     case "terms":         return "/terms";
     case "privacy":       return "/privacy";
+    case "support":       return "/support";
     case "friends":        return "/friends";
     case "friendRequests": return "/friends/requests";
     case "invite":         return `/invite/${(params.token as string) ?? ""}`;

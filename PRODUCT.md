@@ -4,7 +4,7 @@ register: product
 
 # JW Study (jwstudy.org)
 
-Bible study companion app for Jehovah's Witnesses. Solo-built, freemium ($3/mo premium). Targeting the 9M+ JW community worldwide.
+Bible study companion app for Jehovah's Witnesses. Solo-built. **Free for everyone**, with an optional donation path for users who want to support the work. Targeting the 9M+ JW community worldwide.
 
 ## Users
 
@@ -35,6 +35,10 @@ What this is **not** allowed to look like:
 - **An academic tool.** No serif body, no library/research vibe, no neutral grayscale.
 - **Duolingo / streak-bait energy.** Streaks exist but are quiet. No mascot, no exclamation-heavy copy, no flame emojis as primary visual.
 - **Trinitarian / cross-denominational visuals.** No "Old/New Testament" labels, no trinitarian phrasing, no doctrines from outside JW publications.
+
+## Donation model
+
+The app does not gate features. Every user gets the full product. A small "Support" / "Donate" affordance sits in the footer, settings, and sidebar — never as an interrupting modal, never in primary nav. Donation prompts may appear *after* a meaningful milestone (book completed, plan finished, 30-day streak) and only once, dismissible, never blocking. Tone for donate copy: gratitude and shared purpose, not scarcity or guilt. Never frame donation as "unlocking" anything.
 
 ## Strategic Principles
 

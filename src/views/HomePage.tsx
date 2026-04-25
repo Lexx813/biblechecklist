@@ -41,6 +41,7 @@ const CreatorRequestInline  = lazy(() => import("./videos/CreatorRequestPage"));
 const AboutInline           = lazy(() => import("./AboutPage"));
 const TermsInline           = lazy(() => import("./TermsPage"));
 const PrivacyInline         = lazy(() => import("./PrivacyPage"));
+const SupportInline         = lazy(() => import("./SupportPage"));
 import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import type { BlogPost } from "../api/blog";
@@ -133,7 +134,7 @@ function getFallbackImage(id) {
 
 const STREAK_MILESTONES = [7, 14, 30, 60, 90, 180, 365];
 
-const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "masterQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "myPosts", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "studyTopicDetail", "bookDetail", "feed", "bookmarks", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "messages", "history", "trivia", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy", "learn"]);
+const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "masterQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "myPosts", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "studyTopicDetail", "bookDetail", "feed", "bookmarks", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "messages", "history", "trivia", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy", "learn", "support"]);
 
 function BlogSkeleton() {
   return (
@@ -545,6 +546,11 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {activePanel === "privacy" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
               <PrivacyInline user={user} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
+            </Suspense>
+          )}
+          {activePanel === "support" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <SupportInline navigate={panelNavigate} />
             </Suspense>
           )}
           {/* ── Home feed (hidden when a panel is active) ── */}
