@@ -60,8 +60,14 @@ let _checked = false;
 function getRedis(): Redis | null {
   if (_checked) return _redis;
   _checked = true;
-  const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+  // Accept either the canonical Upstash names or the legacy KV_REST_API_*
+  // names that the Vercel Marketplace integration provisions by default.
+  const url =
+    process.env.UPSTASH_REDIS_REST_URL?.trim() ||
+    process.env.KV_REST_API_URL?.trim();
+  const token =
+    process.env.UPSTASH_REDIS_REST_TOKEN?.trim() ||
+    process.env.KV_REST_API_TOKEN?.trim();
   if (!url || !token) {
     if (process.env.NODE_ENV === "production") {
       // eslint-disable-next-line no-console

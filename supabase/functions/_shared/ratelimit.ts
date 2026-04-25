@@ -34,8 +34,14 @@ let _checked = false;
 function getRedis(): Redis | null {
   if (_checked) return _redis;
   _checked = true;
-  const url = Deno.env.get("UPSTASH_REDIS_REST_URL")?.trim();
-  const token = Deno.env.get("UPSTASH_REDIS_REST_TOKEN")?.trim();
+  // Accept either the canonical Upstash names or the legacy KV_REST_API_*
+  // names provisioned by the Vercel Marketplace integration.
+  const url =
+    Deno.env.get("UPSTASH_REDIS_REST_URL")?.trim() ||
+    Deno.env.get("KV_REST_API_URL")?.trim();
+  const token =
+    Deno.env.get("UPSTASH_REDIS_REST_TOKEN")?.trim() ||
+    Deno.env.get("KV_REST_API_TOKEN")?.trim();
   if (!url || !token) {
     console.warn("[ratelimit] Upstash env vars missing — limits disabled");
     return null;
