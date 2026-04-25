@@ -12,6 +12,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { rateLimit, rateLimitResponse } from "../../../src/lib/ratelimit";
 
 const SUPABASE_URL = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").trim();
 const SUPABASE_ANON_KEY = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
@@ -45,6 +46,10 @@ export async function POST(req: NextRequest) {
 
     // Always use the authenticated user's ID — never allow caller to specify another user's ID
     const userId = user.id;
+
+    // Heavy CPU work — strict per-user cap to avoid runaway invocations.
+    const rl = await rateLimit("renderVideo", userId);
+    if (!rl.ok) return rateLimitResponse(rl);
 
     console.log(`[render-progress-video] Fetching data for userId=${userId}`);
 

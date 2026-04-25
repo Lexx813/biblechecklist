@@ -17,7 +17,10 @@
  *   talk_prep       { talkType, theme, scriptures?, audience? }
  */
 
-export const config = { runtime: "edge" };
+// Switched off Edge so the shared @upstash/ratelimit helper (Node) can run.
+export const config = { runtime: "nodejs20.x" };
+
+import { rateLimit, rateLimitResponse } from "../src/lib/ratelimit";
 
 const SUPABASE_URL  = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
@@ -274,6 +277,11 @@ export default async function handler(req) {
     headers: { Authorization: auth, apikey: SUPABASE_ANON },
   });
   if (!userRes.ok) return new Response("Unauthorized", { status: 401 });
+  const { id: userId } = await userRes.json();
+
+  // Rate limit before any LLM call.
+  const rl = await rateLimit("aiSkills", userId);
+  if (!rl.ok) return rateLimitResponse(rl);
 
   if (!ANTHROPIC_KEY) {
     return new Response(

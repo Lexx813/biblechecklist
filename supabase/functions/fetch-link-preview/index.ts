@@ -11,6 +11,7 @@
  */
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { rateLimit, rateLimitResponse } from "../_shared/ratelimit.ts";
 
 const IS_DEV = Deno.env.get("ENV") === "dev";
 const ALLOWED_ORIGINS = [
@@ -106,6 +107,10 @@ Deno.serve(async (req: Request) => {
   if (authError || !user) {
     return json({ error: "Unauthorized" }, 401, cors);
   }
+
+  // Rate limit — guards bandwidth + outbound proxy abuse.
+  const rl = await rateLimit("linkPreview", user.id);
+  if (!rl.ok) return rateLimitResponse(rl, cors);
 
   // --- Parse body ---
   let body: { message_id?: string; url?: string };

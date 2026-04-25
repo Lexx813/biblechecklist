@@ -10,7 +10,11 @@
  *   ---CONTENT---
  */
 
-export const runtime = "edge";
+// Switched off the Edge runtime so we can share the Node `@upstash/ratelimit`
+// helper at src/lib/ratelimit.ts. Streaming still works on Node functions.
+export const runtime = "nodejs";
+
+import { rateLimit, rateLimitResponse } from "../../../src/lib/ratelimit";
 
 const SUPABASE_URL  = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
@@ -41,6 +45,11 @@ export async function POST(req: Request) {
   if (!userRes.ok) {
     return new Response("Unauthorized", { status: 401 });
   }
+  const { id: userId } = (await userRes.json()) as { id: string };
+
+  // ── Rate limit ────────────────────────────────────────────────────────────────
+  const rl = await rateLimit("translate", userId);
+  if (!rl.ok) return rateLimitResponse(rl);
 
   // ── Guard ─────────────────────────────────────────────────────────────────────
   if (!ANTHROPIC_KEY) {

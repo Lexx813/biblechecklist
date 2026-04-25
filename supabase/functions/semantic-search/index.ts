@@ -12,6 +12,7 @@
  */
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { rateLimit, rateLimitResponse } from "../_shared/ratelimit.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -49,6 +50,10 @@ Deno.serve(async (req) => {
   if (authError || !user) {
     return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
   }
+
+  // Rate limit before paying for an OpenAI embedding.
+  const rl = await rateLimit("semanticSearch", user.id);
+  if (!rl.ok) return rateLimitResponse(rl);
 
   let query: string;
   try {
