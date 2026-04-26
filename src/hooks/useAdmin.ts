@@ -285,7 +285,47 @@ export function useAIUsage(days = 30) {
         .slice(0, 8)
         .map(([page, count]) => ({ page, count }));
 
-      return { totalMessages, totalCost, totalTokens, uniqueUsers, dailySeries, toolBreakdown, topPages };
+      // Top users by cost — surfaces who's burning tokens fastest
+      const userTotals = new Map<string, { messages: number; tokens: number; cost: number }>();
+      for (const r of rows) {
+        const cur = userTotals.get(r.user_id) ?? { messages: 0, tokens: 0, cost: 0 };
+        cur.messages += 1;
+        cur.tokens   += r.input_tokens + r.output_tokens;
+        cur.cost     += Number(r.cost_usd);
+        userTotals.set(r.user_id, cur);
+      }
+      const topUserIds = [...userTotals.entries()]
+        .sort(([, a], [, b]) => b.cost - a.cost)
+        .slice(0, 10)
+        .map(([id]) => id);
+
+      // Batch-fetch profiles for the top 10
+      type ProfileRow = { id: string; display_name: string | null; email: string | null };
+      let profiles: ProfileRow[] = [];
+      if (topUserIds.length) {
+        const { data: profData } = await supabase
+          .from("profiles")
+          .select("id, display_name, email")
+          .in("id", topUserIds);
+        profiles = (profData as ProfileRow[]) ?? [];
+      }
+      const profileMap = new Map(profiles.map((p) => [p.id, p]));
+      const topUsers = topUserIds.map((id) => {
+        const t = userTotals.get(id)!;
+        const p = profileMap.get(id);
+        // Fall back to email local-part, then a short id, so admins can always identify a user
+        const fallbackName = p?.email?.split("@")[0] || `user…${id.slice(0, 8)}`;
+        return {
+          user_id: id,
+          name: p?.display_name || fallbackName,
+          email: p?.email ?? null,
+          messages: t.messages,
+          tokens: t.tokens,
+          cost: Number(t.cost.toFixed(4)),
+        };
+      });
+
+      return { totalMessages, totalCost, totalTokens, uniqueUsers, dailySeries, toolBreakdown, topPages, topUsers };
     },
     staleTime: 60_000,
     refetchInterval: 60_000,

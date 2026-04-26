@@ -154,6 +154,17 @@ export default function VerseModal({
             </svg>
             {isChapterDone ? "Chapter Complete · Undo" : "Mark Chapter Complete"}
           </button>
+          <a
+            className="vm-ai-btn"
+            href={`/ai?ask=${encodeURIComponent(`Walk me through ${bookName} ${chapter} (book_index: ${bookIndex}, chapter: ${chapter}). Cover the key themes, who's speaking, which verses stand out for personal study, and check if I've already saved any notes on this chapter (use get_my_notes) — if so, weave them in.`)}`}
+            aria-label={`Ask AI about ${bookName} ${chapter}`}
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
+              <path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14z"/>
+            </svg>
+            Ask AI about this chapter
+          </a>
         </div>
 
         {/* Divider */}

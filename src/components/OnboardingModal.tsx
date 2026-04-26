@@ -64,7 +64,7 @@ interface Props {
 
 export default function OnboardingModal({ onClose, navigate, user }: Props) {
   const { t } = useTranslation();
-  const [step, setStep] = useState(0); // 0=intent, 1=plan, 2=goal, 3=done
+  const [step, setStep] = useState(0); // 0=intent, 1=plan, 2=goal, 3=ai, 4=done
   const [goalInput, setGoalInput] = useState(3);
   const updateProfile = useUpdateProfile(user?.id);
   const enrollPlan = useEnrollPlan();
@@ -90,6 +90,12 @@ export default function OnboardingModal({ onClose, navigate, user }: Props) {
     const g = Math.min(30, Math.max(1, goalInput || 1));
     updateProfile.mutate({ daily_chapter_goal: g });
     setStep(3);
+  }
+
+  function openAIWithSample(prompt: string) {
+    localStorage.setItem("nwt-onboarded", "1");
+    onClose();
+    window.location.href = `/ai?ask=${encodeURIComponent(prompt)}`;
   }
 
   return createPortal(
@@ -174,8 +180,52 @@ export default function OnboardingModal({ onClose, navigate, user }: Props) {
           </>
         )}
 
-        {/* Step 3: Done */}
+        {/* Step 3: Meet the AI Companion */}
         {step === 3 && (
+          <>
+            <div className="onboard-ai-icon" aria-hidden>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
+                <path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14z"/>
+              </svg>
+            </div>
+            <h2 className="onboard-title" id="onboard-title">
+              Meet your AI Study Companion
+            </h2>
+            <p className="onboard-body">
+              Grounded in the NWT and JW publications. Ask anything — about a verse, this week's meeting, or your own progress — and it responds in seconds.
+            </p>
+            <div className="onboard-ai-samples">
+              <button
+                className="onboard-ai-sample"
+                onClick={() => openAIWithSample("What does the Bible say about why God allows suffering?")}
+              >
+                <span aria-hidden>›</span>
+                &ldquo;What does the Bible say about why God allows suffering?&rdquo;
+              </button>
+              <button
+                className="onboard-ai-sample"
+                onClick={() => openAIWithSample("Walk me through this week's CLAM meeting")}
+              >
+                <span aria-hidden>›</span>
+                &ldquo;Walk me through this week&rsquo;s CLAM meeting&rdquo;
+              </button>
+              <button
+                className="onboard-ai-sample"
+                onClick={() => openAIWithSample("Why don't Jehovah's Witnesses celebrate birthdays?")}
+              >
+                <span aria-hidden>›</span>
+                &ldquo;Why don&rsquo;t Jehovah&rsquo;s Witnesses celebrate birthdays?&rdquo;
+              </button>
+            </div>
+            <button className="onboard-skip-inline" onClick={() => setStep(4)}>
+              Skip for now
+            </button>
+          </>
+        )}
+
+        {/* Step 4: Done */}
+        {step === 4 && (
           <>
             <div className="onboard-done-icon">🎉</div>
             <h2 className="onboard-title" id="onboard-title">
@@ -194,7 +244,7 @@ export default function OnboardingModal({ onClose, navigate, user }: Props) {
         )}
 
         <div className="onboard-dots">
-          {[0, 1, 2, 3].map(i => (
+          {[0, 1, 2, 3, 4].map(i => (
             <span key={i} className={`onboard-dot${i === step ? " onboard-dot--active" : ""}`} />
           ))}
         </div>

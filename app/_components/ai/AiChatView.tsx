@@ -9,6 +9,12 @@ interface Props {
   conversationId: string | null;
   userId: string;
   onConversationCreated: (id: string, title: string) => void;
+  /** Optional starter prompt pre-filled into the input box (from ?ask= URL param).
+   *  The user must tap Send. We never auto-send because that's a URL-CSRF surface
+   *  for prompt injection — any external link could trigger AI actions. */
+  autoSendPrompt?: string | null;
+  /** Called once the prompt has been pre-filled so the parent clears the URL */
+  onAutoSendConsumed?: () => void;
 }
 
 const SUGGESTIONS = [
@@ -18,7 +24,7 @@ const SUGGESTIONS = [
   "Find scriptures about paradise on earth",
 ];
 
-export default function AiChatView({ conversationId, userId, onConversationCreated }: Props) {
+export default function AiChatView({ conversationId, userId, onConversationCreated, autoSendPrompt, onAutoSendConsumed }: Props) {
   const [initialMessages, setInitialMessages] = useState<ChatMessage[] | null>(null);
   const [loadingHistory, setLoadingHistory] = useState(false);
   const [input, setInput] = useState("");
@@ -109,6 +115,37 @@ export default function AiChatView({ conversationId, userId, onConversationCreat
     send(trimmed, activeId ?? undefined);
   }, [conversationId, loading, send, onConversationCreated]);
 
+  // ── Pre-fill input from ?ask= URL param (NEVER auto-send) ───────────────
+  // Auto-sending from a URL is a CSRF surface: any external link could trigger
+  // AI actions on the user's behalf. We pre-fill the input + show a badge so
+  // the user reviews + taps Send themselves.
+  const [prefilledFromUrl, setPrefilledFromUrl] = useState(false);
+  const prefilledRef = useRef(false);
+  useEffect(() => {
+    if (prefilledRef.current) return;
+    if (!autoSendPrompt) return;
+    if (loadingHistory) return;
+    if (initialMessages === null && conversationId) return;
+    prefilledRef.current = true;
+    setInput(autoSendPrompt);
+    setPrefilledFromUrl(true);
+    // Auto-resize the textarea to fit the prefilled content
+    requestAnimationFrame(() => {
+      const ta = inputRef.current;
+      if (ta) {
+        ta.style.height = "auto";
+        ta.style.height = `${Math.min(ta.scrollHeight, 200)}px`;
+        ta.focus();
+      }
+    });
+    onAutoSendConsumed?.();
+  }, [autoSendPrompt, loadingHistory, initialMessages, conversationId, onAutoSendConsumed]);
+
+  // Clear the "from link" badge once the user starts editing
+  useEffect(() => {
+    if (prefilledFromUrl && !input) setPrefilledFromUrl(false);
+  }, [input, prefilledFromUrl]);
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -179,6 +216,15 @@ export default function AiChatView({ conversationId, userId, onConversationCreat
       {/* Input — integrated command bar */}
       <div className="border-t border-slate-200 bg-gradient-to-b from-white to-slate-50/50 px-4 py-4 sm:px-6 sm:py-5 dark:border-white/10 dark:from-[#160f2e] dark:to-[#0d0820]">
         <div className="mx-auto max-w-3xl">
+          {prefilledFromUrl && (
+            <div className="mb-2 flex items-center gap-2 rounded-md border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs text-amber-900 dark:border-amber-700/30 dark:bg-amber-900/20 dark:text-amber-200" role="status">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <span>This message was pre-filled from a link. Review it before sending.</span>
+            </div>
+          )}
           <div
             className="group relative flex items-end gap-2 rounded-2xl border border-slate-200 bg-white px-3 py-2 shadow-sm transition focus-within:border-violet-400 focus-within:shadow-[0_0_0_3px_rgb(124_58_237_/_0.12)] hover:border-slate-300 dark:border-white/10 dark:bg-[#0d0820] dark:focus-within:border-violet-500/60 dark:focus-within:shadow-[0_0_0_3px_rgb(196_181_253_/_0.15)] dark:hover:border-white/20"
           >

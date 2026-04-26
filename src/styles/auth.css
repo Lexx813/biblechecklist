@@ -121,7 +121,7 @@
   overflow: hidden;
 }
 
-/* Atmospheric orb glows */
+/* Atmospheric orb glows — slow drift for depth */
 .auth-wrap::before {
   content: '';
   position: fixed;
@@ -132,6 +132,8 @@
   background: var(--auth-orb-1);
   pointer-events: none;
   z-index: 0;
+  animation: auth-orb-drift-1 18s ease-in-out infinite alternate;
+  will-change: transform, opacity;
 }
 
 .auth-wrap::after {
@@ -144,6 +146,20 @@
   background: var(--auth-orb-2);
   pointer-events: none;
   z-index: 0;
+  animation: auth-orb-drift-2 22s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes auth-orb-drift-1 {
+  0%   { transform: translate(0, 0) scale(1);    opacity: 0.95; }
+  100% { transform: translate(-3%, 4%) scale(1.08); opacity: 1; }
+}
+@keyframes auth-orb-drift-2 {
+  0%   { transform: translate(0, 0) scale(1);    opacity: 0.85; }
+  100% { transform: translate(4%, -3%) scale(1.10); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .auth-wrap::before, .auth-wrap::after { animation: none; }
 }
 
 /* ── Topbar ─────────────────────────────────────────────────── */
@@ -187,12 +203,23 @@
   width: 100%;
   max-width: 420px;
   background: var(--auth-card-bg);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
   border: 1px solid var(--auth-card-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--auth-card-shadow);
   overflow: hidden;
   position: relative;
   z-index: 1;
+}
+.auth-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #a78bfa 30%, #7c3aed 50%, #a78bfa 70%, transparent);
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 /* ── Header ─────────────────────────────────────────────────── */
@@ -218,6 +245,17 @@
   color: var(--auth-logo-icon);
   margin-bottom: 4px;
   flex-shrink: 0;
+  position: relative;
+  box-shadow: 0 0 0 6px rgba(167, 139, 250, 0.06), 0 8px 24px rgba(124, 58, 237, 0.18);
+}
+.auth-logo::after {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(167,139,250,0.20) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .auth-title {
@@ -271,7 +309,8 @@
 .auth-tab.active {
   background: var(--auth-tab-active-bg);
   color: var(--auth-tab-active-text);
-  box-shadow: var(--auth-tab-active-shadow);
+  box-shadow: var(--auth-tab-active-shadow), inset 0 1px 0 rgba(255,255,255,0.18);
+  position: relative;
 }
 
 /* ── Form ───────────────────────────────────────────────────── */
@@ -347,7 +386,7 @@
 .auth-input:focus-visible {
   outline: none;
   border-color: var(--auth-input-focus-border);
-  box-shadow: 0 0 0 3px var(--auth-input-focus-shadow);
+  box-shadow: 0 0 0 3px var(--auth-input-focus-shadow), 0 4px 14px rgba(124,58,237,0.10);
 }
 
 .auth-input:disabled {
@@ -371,6 +410,7 @@
 .auth-submit {
   padding: 13px;
   min-height: 48px;
+  position: relative;
   background: linear-gradient(135deg, var(--auth-submit-from) 0%, var(--auth-submit-to) 100%);
   color: #fff;
   border: none;
@@ -379,21 +419,30 @@
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 18px var(--auth-submit-shadow);
-  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 18px var(--auth-submit-shadow), inset 0 1px 0 rgba(255,255,255,0.20);
+  transition: filter 0.2s, transform 0.15s, box-shadow 0.2s;
   letter-spacing: 0.01em;
   margin-top: 2px;
+  overflow: hidden;
+}
+.auth-submit::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.22), transparent 45%);
+  pointer-events: none;
+  border-radius: inherit;
 }
 
 .auth-submit:hover:not(:disabled) {
-  opacity: 0.92;
+  filter: brightness(1.07);
   transform: translateY(-1px);
-  box-shadow: 0 8px 28px var(--auth-submit-shadow);
+  box-shadow: 0 10px 30px var(--auth-submit-shadow), inset 0 1px 0 rgba(255,255,255,0.26);
 }
 
 .auth-submit:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow: 0 4px 18px var(--auth-submit-shadow);
+  box-shadow: 0 4px 18px var(--auth-submit-shadow), inset 0 1px 0 rgba(255,255,255,0.18);
 }
 
 .auth-submit:disabled {

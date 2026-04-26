@@ -105,6 +105,12 @@ export default function NotificationDropdown({ userId, onClose, navigate }: Prop
       return;
     }
 
+    if (n.type === "daily_brief") {
+      // /ai is its own Next.js route, not a HOME_PANEL — full nav, not SPA
+      window.location.href = "/ai";
+      return;
+    }
+
     if (n.link_hash) navigate(n.link_hash);
   }
 

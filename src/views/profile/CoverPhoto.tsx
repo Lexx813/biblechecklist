@@ -54,9 +54,18 @@ export default function CoverPhoto({
         />
       ) : (
         <>
-          <div className="absolute inset-0 bg-gradient-to-br from-[#1a0635] via-[#3b1080] to-[#6d28d9]" />
+          <div className="absolute inset-0 bg-linear-to-br from-[#1a0635] via-[#3b1080] to-[#6d28d9]" />
+          {/* Soft radial glows give depth without an image */}
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(60% 80% at 18% 30%, rgba(167,139,250,0.45), transparent 60%), radial-gradient(50% 70% at 82% 70%, rgba(192,132,252,0.32), transparent 65%)",
+            }}
+          />
           {/* Subtle geometric pattern so blank cover looks intentional */}
-          <svg className="absolute inset-0 h-full w-full opacity-[0.07]" xmlns="http://www.w3.org/2000/svg">
+          <svg className="absolute inset-0 h-full w-full opacity-[0.06]" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <pattern id="cover-dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
                 <circle cx="2" cy="2" r="1.5" fill="white" />
@@ -64,12 +73,12 @@ export default function CoverPhoto({
             </defs>
             <rect width="100%" height="100%" fill="url(#cover-dots)" />
           </svg>
-          <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/10 via-transparent to-violet-400/15" />
+          <div className="absolute inset-0 bg-linear-to-tr from-purple-500/10 via-transparent to-violet-400/15" />
         </>
       )}
 
       {/* Gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-black/10" />
 
       {/* Owner controls */}
       {isOwner && (

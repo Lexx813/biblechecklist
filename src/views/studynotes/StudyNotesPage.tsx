@@ -127,6 +127,65 @@ function TagInput({ tags, onChange }) {
 
 // ── Note editor ───────────────────────────────────────────────────────────────
 
+// ── AI helper bar inside the note editor ─────────────────────────────────────
+// Builds context-aware prompts and opens /ai?ask= to deepen the note via chat.
+// Disabled when the note is empty (the AI needs something to improve).
+function NoteAIHelper({ form }: { form: { title?: string; content?: string; book_index?: number | null; chapter?: number | null; verse?: string | null } }) {
+  const passage = (() => {
+    if (form.book_index == null) return "";
+    const name = BOOKS[form.book_index]?.name ?? "";
+    const ch = form.chapter ? ` ${form.chapter}` : "";
+    const v = form.verse ? `:${form.verse}` : "";
+    return `${name}${ch}${v}`.trim();
+  })();
+  const plain = stripHtml(form.content ?? "").trim();
+  const hasContent = plain.length > 10;
+
+  function ask(prompt: string) {
+    window.location.href = `/ai?ask=${encodeURIComponent(prompt)}`;
+  }
+
+  const refLine = passage ? `Passage: ${passage}\n` : "";
+  const titleLine = form.title?.trim() ? `Note title: ${form.title.trim()}\n` : "";
+  const noteBlock = plain ? `Current note draft:\n"""\n${plain.slice(0, 2000)}\n"""\n\n` : "";
+
+  return (
+    <div className="sn-ai-helper" role="toolbar" aria-label="AI assistance for this note">
+      <span className="sn-ai-helper-label" aria-hidden>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
+          <path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14z"/>
+        </svg>
+        AI
+      </span>
+      <button
+        type="button"
+        className="sn-ai-chip"
+        disabled={!passage && !hasContent}
+        onClick={() => ask(`${refLine}${noteBlock}Suggest 3-5 scriptures (with NWT references) that connect to this note's theme. Briefly explain why each one fits.`)}
+      >
+        + Add scriptures
+      </button>
+      <button
+        type="button"
+        className="sn-ai-chip"
+        disabled={!hasContent}
+        onClick={() => ask(`${refLine}${titleLine}${noteBlock}Improve the writing: tighten the prose, fix any awkward phrasing, keep my voice and the JW perspective intact, do NOT add new claims or doctrine I didn't write. Return only the revised note.`)}
+      >
+        ✨ Improve
+      </button>
+      <button
+        type="button"
+        className="sn-ai-chip"
+        disabled={!hasContent}
+        onClick={() => ask(`${refLine}${noteBlock}Summarize this note in 1-2 sentences I could use as the opening line.`)}
+      >
+        ≡ Summarize
+      </button>
+    </div>
+  );
+}
+
 function NoteEditor({ note, initialContent = "", folders, onSave, onCancel, saving, isAdmin }) {
   const { t } = useTranslation();
   const [form, setForm] = useState(note ?? { ...EMPTY_NOTE, content: initialContent });
@@ -220,6 +279,7 @@ function NoteEditor({ note, initialContent = "", folders, onSave, onCancel, savi
         <TagInput tags={form.tags ?? []} onChange={val => set("tags", val)} />
 
         <label className="sn-label">{t("studyNotes.fieldContent")}</label>
+        <NoteAIHelper form={form} />
         <div className="sn-editor-rich">
           <Suspense fallback={<div style={{ height: 160 }} />}>
             <RichTextEditor

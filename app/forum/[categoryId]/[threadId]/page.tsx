@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DOMPurify from "isomorphic-dompurify";
 import { forumApi } from "../../../../src/api/forum";
 import PublicNav from "../../../_components/PublicNav";
 import PublicFooter from "../../../_components/PublicFooter";
@@ -84,12 +85,17 @@ export default async function ForumThreadPage({ params }) {
     ],
   };
 
+  // Safely embed JSON-LD inside a <script> tag. JSON.stringify does NOT
+  // escape `<`, so a user title containing `</script>...` could close the
+  // tag and inject HTML. Escape `<` to its unicode form to prevent this.
+  const safeJson = (obj: unknown) => JSON.stringify(obj).replace(/</g, "\\u003c");
+
   return (
     <>
       {schemaPosting && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaPosting) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(schemaPosting) }} />
       )}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(schemaBreadcrumb) }} />
       <PublicNav />
       <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
         <nav className="mb-4 text-sm text-slate-500">
@@ -103,7 +109,7 @@ export default async function ForumThreadPage({ params }) {
                 <p className="not-prose text-sm text-slate-500">Posted by {thread.profiles.display_name}</p>
               )}
               {thread.content && (
-                <div dangerouslySetInnerHTML={{ __html: thread.content }} />
+                <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(thread.content, { ADD_ATTR: ["target", "rel"] }) }} />
               )}
             </article>
             {replies.length > 0 && (
@@ -116,7 +122,7 @@ export default async function ForumThreadPage({ params }) {
                         <div className="mb-2 text-xs text-slate-500">{r.profiles.display_name}</div>
                       )}
                       {r.content && (
-                        <div className="prose prose-slate dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: r.content }} />
+                        <div className="prose prose-slate dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(r.content, { ADD_ATTR: ["target", "rel"] }) }} />
                       )}
                     </li>
                   ))}

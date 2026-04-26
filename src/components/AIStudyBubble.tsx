@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
+import AiConfirmActionModal from "./AiConfirmActionModal";
 import { useAIChat, type ChatContext } from "../hooks/useAIChat";
 import { trackFeatureUse } from "../lib/analytics";
 import { supabase } from "../lib/supabase";
@@ -350,6 +351,7 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
 
   return createPortal(
     <div className="asb-root">
+      <AiConfirmActionModal />
       {panel}
       <button
         className={`asb-fab${open ? " asb-fab--active" : ""}`}

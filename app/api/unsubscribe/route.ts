@@ -11,10 +11,12 @@ async function verifyToken(token: string): Promise<string | null> {
   if (!idB64 || !sigB64) return null;
   try {
     const userId = atob(idB64.replace(/-/g, "+").replace(/_/g, "/"));
-    // NEVER fall back to a hardcoded string — forged tokens would mass-unsubscribe.
-    const secret = process.env.UNSUB_SECRET ?? process.env.SUPABASE_JWT_SECRET;
+    // Require a dedicated secret. We do NOT fall back to SUPABASE_JWT_SECRET —
+    // if that leaked, any session token could be replayed to forge unsubscribe
+    // tokens. UNSUB_SECRET is single-purpose and must be rotated independently.
+    const secret = process.env.UNSUB_SECRET;
     if (!secret) {
-      console.error("unsubscribe: UNSUB_SECRET/SUPABASE_JWT_SECRET not configured");
+      console.error("unsubscribe: UNSUB_SECRET not configured");
       return null;
     }
     const key = await crypto.subtle.importKey(
@@ -61,8 +63,9 @@ export async function GET(req: NextRequest) {
     .update({ email_marketing_unsubscribed: true })
     .eq("id", userId);
 
-  if (error) console.error("unsubscribe: db update failed", { userId, error: error.message });
-  else console.log("unsubscribe: user unsubscribed", { userId });
+  // Don't log userId — that's PII. Status alone is enough for ops.
+  if (error) console.error("unsubscribe: db update failed", { error: error.message });
+  else console.log("unsubscribe: success");
 
   return new NextResponse(
     `<!DOCTYPE html><html><body style="font-family:sans-serif;text-align:center;padding:60px;background:#0a0514;color:#fff">

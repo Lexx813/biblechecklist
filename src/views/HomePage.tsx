@@ -581,29 +581,41 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {/* Streak chip */}
           {!streakLoading && streak.current_streak > 0 && (
             <button className="hstreak-chip" onClick={() => navigate("profile")}>
-              <span className="hstreak-fire">{"\uD83D\uDD25"}</span>
-              <span className="hstreak-body">
-                <span className="hstreak-main"><span>{streak.current_streak}</span>-{t("home.streakDay")} {t("home.streakLabel")}</span>
-                <span className="hstreak-sub">Keep it going — you're on a roll!</span>
+              <span className="text-[26px] shrink-0 filter-[drop-shadow(0_2px_8px_rgba(251,146,60,0.35))]">{"\uD83D\uDD25"}</span>
+              <span className="flex-1 min-w-0">
+                <span className="block text-[17px] font-bold tracking-[-0.01em] text-(--text-primary)">
+                  <span className="bg-linear-to-b from-[#fed7aa] to-[#f59e0b] bg-clip-text font-extrabold tabular-nums text-transparent">{streak.current_streak}</span>
+                  -{t("home.streakDay")} {t("home.streakLabel")}
+                </span>
+                <span className="mt-0.5 block text-[13px] text-[rgba(240,234,255,0.65)]">Keep it going — you're on a roll!</span>
               </span>
               {streak.longest_streak > streak.current_streak && (
-                <span className="hstreak-best">{t("home.streakBest")}: {streak.longest_streak}</span>
+                <span className="shrink-0 text-[13px] italic text-[rgba(240,234,255,0.75)]">{t("home.streakBest")}: {streak.longest_streak}</span>
               )}
             </button>
           )}
 
           {/* Quick Actions */}
-          <div className="home-quick-actions">
-            <button className="hqa-btn hqa-btn--primary" onClick={() => panelNavigate("main")}>
-              <span className="hqa-icon">📖</span>
+          <div className="grid grid-cols-3 gap-2.5 pb-1">
+            <button
+              className="flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-[rgba(124,58,237,0.3)] bg-[rgba(124,58,237,0.12)] px-2 py-3 pb-2.5 text-center text-xs font-semibold leading-snug text-[#c4b5fd] transition-all hover:-translate-y-0.5 hover:border-[rgba(124,58,237,0.5)] hover:bg-[rgba(124,58,237,0.2)] hover:text-[#e9d5ff]"
+              onClick={() => panelNavigate("main")}
+            >
+              <span className="text-[22px] leading-none">📖</span>
               Continue Reading
             </button>
-            <button className="hqa-btn" onClick={() => panelNavigate("quiz")}>
-              <span className="hqa-icon">🎯</span>
+            <button
+              className="flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-(--border) bg-(--card-bg) px-2 py-3 pb-2.5 text-center text-xs font-semibold leading-snug text-(--text-secondary) transition-all hover:-translate-y-0.5 hover:border-[#7c3aed] hover:bg-[rgba(124,58,237,0.06)] hover:text-(--text-primary)"
+              onClick={() => panelNavigate("quiz")}
+            >
+              <span className="text-[22px] leading-none">🎯</span>
               Today's Quiz
             </button>
-            <button className="hqa-btn" onClick={() => panelNavigate("meetingPrep")}>
-              <span className="hqa-icon">✅</span>
+            <button
+              className="flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-(--border) bg-(--card-bg) px-2 py-3 pb-2.5 text-center text-xs font-semibold leading-snug text-(--text-secondary) transition-all hover:-translate-y-0.5 hover:border-[#7c3aed] hover:bg-[rgba(124,58,237,0.06)] hover:text-(--text-primary)"
+              onClick={() => panelNavigate("meetingPrep")}
+            >
+              <span className="text-[22px] leading-none">✅</span>
               Meeting Prep
             </button>
           </div>

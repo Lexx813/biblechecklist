@@ -212,7 +212,7 @@ export const analyticsApi = {
       supabase.from("reading_activity").select("user_id").eq("activity_date", lastWeekSameDay),
       supabase.from("profiles").select("id").gte("created_at", sixtyDaysAgo + "T00:00:00").lt("created_at", thirtyDaysAgo + "T00:00:00"),
       supabase.from("reading_activity").select("user_id").gte("activity_date", thirtyDaysAgo),
-      supabase.from("chapter_reads").select("id", { count: "exact", head: true }).gte("created_at", todayStr + "T00:00:00"),
+      supabase.from("chapter_reads").select("*", { count: "exact", head: true }).gte("read_at", todayStr + "T00:00:00"),
       supabase.from("reading_activity").select("user_id, activity_date").gte("activity_date", ninetyDaysAgo),
     ]);
 
@@ -312,7 +312,7 @@ export const analyticsApi = {
       supabase.from("study_notes").select("user_id").gte("created_at", thirtyDaysAgo + "T00:00:00"),
       supabase.from("study_group_members").select("user_id"),
       supabase.from("video_likes").select("user_id").gte("created_at", thirtyDaysAgo + "T00:00:00"),
-      supabase.from("video_comments").select("user_id").gte("created_at", thirtyDaysAgo + "T00:00:00"),
+      supabase.from("video_comments").select("author_id").gte("created_at", thirtyDaysAgo + "T00:00:00"),
     ]);
 
     const total = totalUsers ?? 1;
@@ -328,7 +328,7 @@ export const analyticsApi = {
     ]).size;
     const videoUsers = new Set([
       ...(videoLikes.data ?? []).map(r => r.user_id),
-      ...(videoComments.data ?? []).map(r => r.user_id),
+      ...(videoComments.data ?? []).map(r => r.author_id),
     ]).size;
 
     const features = [

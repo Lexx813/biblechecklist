@@ -193,6 +193,17 @@ export function useAIChat(context?: ChatContext, options: UseAIChatOptions = {})
               window.dispatchEvent(new CustomEvent("ai:blog-draft", { detail: evt.draft }));
               continue;
             }
+            if (evt.type === "confirm_action") {
+              // Server emitted this INSTEAD of executing a destructive tool.
+              // The client renders a hard confirmation modal — only the user's
+              // click actually performs the action. Even a fully jailbroken
+              // AI cannot bypass this since the server never ran the tool.
+              const confirm = (evt as { type: string; confirm?: { action: string; note_id: string; ref: string; preview: string } }).confirm;
+              if (confirm) {
+                window.dispatchEvent(new CustomEvent("ai:confirm-action", { detail: confirm }));
+              }
+              continue;
+            }
             if (evt.type === "content_block_delta" && evt.delta?.type === "text_delta") {
               syncedSetMessages((prev) => {
                 const updated = [...prev];

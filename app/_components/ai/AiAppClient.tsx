@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "../../../src/lib/supabase";
 import PublicNav from "../PublicNav";
@@ -9,8 +9,36 @@ import PublicFooter from "../PublicFooter";
 import AiSidebar, { type Conversation } from "./AiSidebar";
 import AiChatView from "./AiChatView";
 import AiLanding from "./AiLanding";
+import AiConfirmActionModal from "../../../src/components/AiConfirmActionModal";
 
 type AuthState = "loading" | "anon" | "authed";
+
+// Defense-in-depth sanitizer for ?ask= URL params. The auto-send was already
+// removed (the prompt is pre-filled into the input box, not sent), but a
+// malicious link could still trick a user into reading + sending a prompt
+// crafted to jailbreak the AI. Strip obvious prompt-injection patterns and
+// zero-width / control characters that hide instructions from human review.
+function sanitizeAskParam(raw: string): string {
+  // Remove zero-width chars, BOM, RTL/LTR overrides, etc.
+  let s = raw.replace(/[​-‏‪-‮⁠-⁩﻿]/g, "");
+  // Strip obvious jailbreak instructions (keep it short — false-positive risk
+  // means we err on letting normal questions through. The system prompt + UI
+  // review are the primary defenses; this is just a tripwire.)
+  const patterns: RegExp[] = [
+    /ignore (all |any |previous |prior )?(instructions|prompts?|rules?|guidelines?|directives?)/gi,
+    /disregard (all |any |previous |prior )?(instructions|prompts?|rules?|guidelines?|directives?)/gi,
+    /forget (all |any |previous |prior )?(instructions|prompts?|rules?|guidelines?|directives?)/gi,
+    /override (your |the |all |any )?(system |default )?(prompt|instructions|rules)/gi,
+    /reveal (your |the )?(system |default )?(prompt|instructions|rules)/gi,
+    /print (your |the )?(system |default )?(prompt|instructions|rules)/gi,
+    /repeat (the (text|content) )?(above|before this|prior to this)/gi,
+    /(act|behave|roleplay|pretend) as (DAN|an unrestricted|no restrictions|jailbroken)/gi,
+    /\bDAN\s*mode/gi,
+    /developer\s*mode/gi,
+  ];
+  for (const re of patterns) s = s.replace(re, "[blocked]");
+  return s.trim();
+}
 
 export default function AiAppClient() {
   // Read initial conversation id from the URL, but track it as state from
@@ -18,8 +46,19 @@ export default function AiAppClient() {
   // triggering a Next.js route change (which would remount this whole tree
   // and abort any in-flight chat stream — the bug we're avoiding).
   const params = useParams<{ id?: string }>();
+  const searchParams = useSearchParams();
   const initialId = params?.id ?? null;
   const [conversationId, setConversationId] = useState<string | null>(initialId);
+
+  // ?ask=<prompt> pre-fills the chat input on mount. The user reviews and
+  // taps Send themselves — we NEVER auto-send because that would be a CSRF
+  // surface for prompt injection. Even so, strip obvious jailbreak phrases
+  // and zero-width / control characters as defense-in-depth.
+  const [autoSendPrompt, setAutoSendPrompt] = useState<string | null>(() => {
+    const raw = searchParams?.get("ask")?.trim();
+    if (!raw) return null;
+    return sanitizeAskParam(raw).slice(0, 1000);
+  });
 
   // Sync state if the URL id changes from elsewhere (browser back/forward,
   // direct navigation). Doesn't fire on history.replaceState calls we make.
@@ -213,12 +252,27 @@ export default function AiAppClient() {
           onRename={handleRenameConversation}
         />
 
+        {/* Hard confirmation modal for destructive AI actions (delete_note, …) */}
+        <AiConfirmActionModal />
+
         {/* Main chat area */}
         <main className="flex flex-1 flex-col overflow-hidden">
           <AiChatView
             conversationId={conversationId}
             userId={userId!}
             onConversationCreated={handleConversationCreated}
+            autoSendPrompt={autoSendPrompt}
+            onAutoSendConsumed={() => {
+              setAutoSendPrompt(null);
+              // Strip ?ask= from URL once consumed so a refresh doesn't re-send
+              if (typeof window !== "undefined") {
+                const url = new URL(window.location.href);
+                if (url.searchParams.has("ask")) {
+                  url.searchParams.delete("ask");
+                  window.history.replaceState(null, "", url.pathname + url.search);
+                }
+              }
+            }}
           />
         </main>
       </div>

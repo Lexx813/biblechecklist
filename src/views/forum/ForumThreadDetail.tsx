@@ -538,6 +538,23 @@ export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId,
               </Suspense>
               {replyError && <div className="forum-reply-error">{replyError}</div>}
               <div className="forum-reply-actions">
+                <button
+                  type="button"
+                  className="forum-reply-ai-btn"
+                  onClick={() => {
+                    const threadCtx = `Forum thread: "${thread.title}"\n\nOriginal post:\n"""\n${(thread.content ?? "").replace(/<[^>]*>/g, "").slice(0, 1500)}\n"""\n\n`;
+                    const draftCtx = replyText && replyText !== "<p></p>"
+                      ? `My current draft reply:\n"""\n${replyText.replace(/<[^>]*>/g, "").slice(0, 1000)}\n"""\n\nHelp me sharpen this reply — keep my voice and JW perspective, ground any claims in NWT scriptures, and keep it warm and pastoral.`
+                      : `Help me draft a thoughtful, warm reply from a JW perspective. Ground any claims in NWT scriptures.`;
+                    window.location.href = `/ai?ask=${encodeURIComponent(threadCtx + draftCtx)}`;
+                  }}
+                  title="Get AI help drafting a reply"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
+                  </svg>
+                  AI assist
+                </button>
                 <button className="forum-reply-btn" type="submit" disabled={createReply.isPending || !replyText || replyText === "<p></p>"}>
                   {createReply.isPending && <span className="btn-spin" />}{createReply.isPending ? t("forum.posting") : t("forum.postReply")}
                 </button>

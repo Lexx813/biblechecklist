@@ -158,12 +158,16 @@ export default async function BlogPostPage({ params }) {
     ],
   };
 
+  // Safely embed JSON-LD — JSON.stringify doesn't escape `<`, so user titles
+  // containing `</script>` could break out. Escape `<` to its unicode form.
+  const safeJson = (obj: unknown) => JSON.stringify(obj).replace(/</g, "\\u003c");
+
   return (
     <>
       {schemaArticle && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaArticle) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(schemaArticle) }} />
       )}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(schemaBreadcrumb) }} />
       {post && (
         <div id="ssr-fallback" lang={lang} suppressHydrationWarning>
           <article>

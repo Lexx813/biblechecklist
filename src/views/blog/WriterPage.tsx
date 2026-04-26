@@ -280,6 +280,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
           </div>
         </div>
         <div className="writer-topbar-right">
+          <WriterAIMenu title={title} subtitle={subtitle} markdown={currentMarkdown} />
           <button className="btn btn-sm" onClick={() => navigate("blog")}>{t("writer.cancel")}</button>
           <button className="btn btn-sm" onClick={() => doSave(false)}>{t("writer.saveDraft")}</button>
           <button className="btn btn-sm btn-primary" onClick={() => setShowPublishModal(true)}>{t("writer.publish")}</button>
@@ -594,6 +595,101 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
           </div>
         </div>
       , document.body)}
+    </div>
+  );
+}
+
+// ── AI helper menu in the writer topbar ────────────────────────────────────
+function WriterAIMenu({ title, subtitle, markdown }: { title: string; subtitle: string; markdown: string }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function onClick(e: MouseEvent) {
+      if (!ref.current?.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) { if (e.key === "Escape") setOpen(false); }
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const titleLine = title.trim() ? `Title: "${title.trim()}"\n` : "";
+  const subLine = subtitle?.trim() ? `Subtitle: "${subtitle.trim()}"\n` : "";
+  const mdSnippet = markdown.trim() ? `\nDraft:\n"""\n${markdown.slice(0, 4000)}\n"""\n\n` : "";
+  const hasContent = markdown.trim().length > 50;
+
+  function ask(prompt: string) {
+    setOpen(false);
+    window.location.href = `/ai?ask=${encodeURIComponent(prompt)}`;
+  }
+
+  return (
+    <div className="writer-ai-menu-wrap" ref={ref}>
+      <button
+        type="button"
+        className="btn btn-sm writer-ai-menu-btn"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        title="AI assistance"
+      >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
+        </svg>
+        AI
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      {open && (
+        <div className="writer-ai-menu" role="menu">
+          <button
+            role="menuitem"
+            className="writer-ai-menu-item"
+            disabled={!hasContent}
+            onClick={() => ask(`${titleLine}${subLine}${mdSnippet}Suggest 3 stronger title options for this blog post. Match the JW Study tone (warm, faithful, scripture-anchored).`)}
+          >
+            ✍️ Suggest titles
+          </button>
+          <button
+            role="menuitem"
+            className="writer-ai-menu-item"
+            disabled={!hasContent}
+            onClick={() => ask(`${titleLine}${mdSnippet}Improve this draft: tighten the prose, fix awkward phrasing, keep my voice and JW perspective intact, do NOT add doctrine or claims I didn't write. Return only the revised draft in markdown.`)}
+          >
+            ✨ Improve writing
+          </button>
+          <button
+            role="menuitem"
+            className="writer-ai-menu-item"
+            disabled={!hasContent}
+            onClick={() => ask(`${titleLine}${mdSnippet}Suggest 3-5 NWT scriptures (with markdown links to wol.jw.org) that could strengthen this post. Briefly note where each one fits.`)}
+          >
+            📖 Add scriptures
+          </button>
+          <button
+            role="menuitem"
+            className="writer-ai-menu-item"
+            disabled={!hasContent}
+            onClick={() => ask(`${titleLine}${mdSnippet}Write a 1-2 sentence excerpt (max 200 chars) that would draw readers in on jwstudy.org. Match the JW Study tone.`)}
+          >
+            ≡ Generate excerpt
+          </button>
+          <div className="writer-ai-menu-divider" />
+          <button
+            role="menuitem"
+            className="writer-ai-menu-item"
+            onClick={() => ask(`I'm writing a blog post for jwstudy.org${title.trim() ? ` titled "${title.trim()}"` : ""}. ${hasContent ? `Here's what I have so far:\n"""\n${markdown.slice(0, 3000)}\n"""\n\nWhat should I add or improve?` : "Help me draft an outline."}`)}
+          >
+            💬 Open in AI chat
+          </button>
+        </div>
+      )}
     </div>
   );
 }

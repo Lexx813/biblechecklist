@@ -1,11 +1,26 @@
 /* ── Today's Focus card ───────────────────────────────────────────────────── */
 
 .tf-card {
-  background: linear-gradient(135deg, rgba(109, 40, 217, 0.18), rgba(91, 33, 182, 0.1));
-  border: 1px solid rgba(124, 58, 237, 0.3);
+  position: relative;
+  background:
+    radial-gradient(120% 80% at 0% 0%, rgba(167,139,250,0.18), transparent 55%),
+    radial-gradient(80% 60% at 100% 100%, rgba(109,40,217,0.12), transparent 60%),
+    linear-gradient(135deg, rgba(109, 40, 217, 0.20), rgba(45, 31, 78, 0.55));
+  border: 1px solid rgba(124, 58, 237, 0.32);
   border-radius: var(--radius-lg, 12px);
   padding: 18px;
   cursor: default;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(76, 29, 149, 0.18), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.tf-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #a78bfa 35%, #7c3aed 65%, transparent);
+  opacity: 0.65;
 }
 
 .tf-header {
@@ -50,12 +65,18 @@
 
 .tf-streak-value {
   font-size: 20px;
-  font-weight: 700;
-  color: #fb923c;
+  font-weight: 800;
+  background: linear-gradient(180deg, #fed7aa, #fb923c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #fb923c; /* fallback */
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   justify-content: flex-end;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
 }
 
 .tf-progress {
@@ -63,18 +84,33 @@
 }
 
 .tf-progress-bar-track {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-  height: 4px;
+  background: rgba(124, 58, 237, 0.12);
+  border-radius: 999px;
+  height: 6px;
   overflow: hidden;
   margin-bottom: 5px;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.18);
 }
 
 .tf-progress-bar-fill {
-  background: var(--teal);
-  height: 4px;
-  border-radius: 4px;
-  transition: width 0.4s ease;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.22), transparent 45%),
+    linear-gradient(90deg, #4c1d95, #7c3aed 60%, #a78bfa);
+  height: 6px;
+  border-radius: 999px;
+  transition: width 700ms cubic-bezier(.2,.7,.2,1);
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.45);
+  position: relative;
+}
+
+.tf-progress-bar-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2.4s linear infinite;
 }
 
 .tf-progress-meta {
@@ -89,79 +125,131 @@
 
 .tf-mark-done {
   flex: 1;
-  background: var(--teal);
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
   color: #fff;
   border: none;
-  padding: 10px;
-  border-radius: var(--radius-sm);
+  padding: 11px;
+  border-radius: 10px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   cursor: pointer;
-  transition: background var(--dur-fast), transform 0.1s;
+  transition: transform 160ms cubic-bezier(.2,.7,.2,1), box-shadow 160ms ease, filter 160ms ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.45), inset 0 1px 0 rgba(255,255,255,0.18);
+  position: relative;
+  overflow: hidden;
 }
 
-.tf-mark-done:hover { background: var(--teal-dark); }
+.tf-mark-done::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.18), transparent 45%);
+  pointer-events: none;
+}
+
+.tf-mark-done:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 22px rgba(124, 58, 237, 0.55), inset 0 1px 0 rgba(255,255,255,0.22);
+  filter: brightness(1.06);
+}
 .tf-mark-done:active { transform: scale(0.98); }
 
 .tf-mark-done--done {
-  background: rgba(52, 211, 153, 0.2);
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.22), rgba(16, 185, 129, 0.16));
   color: #34d399;
-  border: 1px solid rgba(52, 211, 153, 0.3);
+  border: 1px solid rgba(52, 211, 153, 0.35);
   cursor: default;
+  box-shadow: 0 0 0 1px rgba(52,211,153,0.12), 0 4px 14px rgba(16,185,129,0.18);
 }
 
-.tf-mark-done--done:hover { background: rgba(52, 211, 153, 0.2); }
+.tf-mark-done--done:hover {
+  transform: none;
+  filter: none;
+  box-shadow: 0 0 0 1px rgba(52,211,153,0.12), 0 4px 14px rgba(16,185,129,0.18);
+}
 
 .tf-wol-btn {
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.18);
   color: var(--text-primary);
-  padding: 10px 12px;
-  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  border-radius: 10px;
   font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  transition: background var(--dur-fast);
+  transition: all 160ms ease;
   text-decoration: none;
   display: flex;
   align-items: center;
+  gap: 4px;
 }
 
-.tf-wol-btn:hover { background: rgba(255, 255, 255, 0.1); }
+.tf-wol-btn:hover {
+  background: rgba(167, 139, 250, 0.10);
+  border-color: rgba(167, 139, 250, 0.4);
+  color: #c4b5fd;
+}
 
 /* ── No-plan CTA ─────────────────────────────────────────────────────────── */
 
 .tf-no-plan {
-  background: rgba(124, 58, 237, 0.08);
-  border: 1px solid rgba(124, 58, 237, 0.2);
+  position: relative;
+  background:
+    radial-gradient(120% 80% at 0% 0%, rgba(167,139,250,0.14), transparent 55%),
+    linear-gradient(135deg, rgba(124, 58, 237, 0.10), rgba(45,31,78,0.4));
+  border: 1px solid rgba(124, 58, 237, 0.25);
   border-radius: var(--radius-lg, 12px);
   padding: 18px;
   display: flex;
   align-items: center;
   gap: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(76, 29, 149, 0.12);
+}
+
+.tf-no-plan::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, #a78bfa 50%, transparent);
+  opacity: 0.6;
 }
 
 .tf-no-plan-icon {
   font-size: 28px;
   flex-shrink: 0;
+  filter: drop-shadow(0 2px 8px rgba(167,139,250,0.4));
 }
 
 .tf-no-plan-text { flex: 1; }
-.tf-no-plan-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
-.tf-no-plan-sub { font-size: 12px; color: var(--text-muted); }
+.tf-no-plan-title { font-size: 14px; font-weight: 700; margin-bottom: 3px; letter-spacing: -0.01em; }
+.tf-no-plan-sub { font-size: 12px; color: var(--text-muted); line-height: 1.45; }
 
 .tf-no-plan-cta {
-  background: var(--teal); color: #fff; border: none;
-  padding: 8px 14px; border-radius: 7px;
-  font-size: 12px; font-weight: 600; cursor: pointer;
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: #fff;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
   white-space: nowrap;
-  transition: background var(--dur-fast);
+  transition: transform 160ms cubic-bezier(.2,.7,.2,1), box-shadow 160ms ease, filter 160ms ease;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4), inset 0 1px 0 rgba(255,255,255,0.18);
 }
-.tf-no-plan-cta:hover { background: var(--teal-dark); }
+.tf-no-plan-cta:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  box-shadow: 0 8px 22px rgba(124, 58, 237, 0.5), inset 0 1px 0 rgba(255,255,255,0.22);
+}
 
 /* ── Dismissed bar (today done) ─────────────────────────────────────────── */
 

@@ -429,3 +429,69 @@
   .writer-format-bar { display: none; }
   .writer-editor { padding: 20px 16px 80px; }
 }
+
+/* ── AI helper menu in writer topbar ───────────────────────────────────── */
+.writer-ai-menu-wrap { position: relative; display: inline-block; }
+.writer-ai-menu-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(124,58,237,0.08);
+  border: 1px solid rgba(124,58,237,0.25);
+  color: #a78bfa;
+  font-weight: 700;
+}
+.writer-ai-menu-btn:hover {
+  background: rgba(124,58,237,0.18);
+  border-color: rgba(124,58,237,0.45);
+  color: #c4b5fd;
+}
+[data-theme="light"] .writer-ai-menu-btn {
+  background: rgba(124,58,237,0.06);
+  border-color: rgba(124,58,237,0.2);
+  color: #6d28d9;
+}
+[data-theme="light"] .writer-ai-menu-btn:hover {
+  background: rgba(124,58,237,0.12);
+  border-color: rgba(124,58,237,0.35);
+  color: #5b21b6;
+}
+.writer-ai-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 220px;
+  padding: 6px;
+  background: var(--surface, #1a1532);
+  border: 1px solid var(--border, rgba(167,139,250,0.18));
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 50;
+  display: flex; flex-direction: column; gap: 2px;
+}
+[data-theme="light"] .writer-ai-menu {
+  background: #fff;
+  border-color: rgba(124,58,237,0.18);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+}
+.writer-ai-menu-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--text-primary, #e9e4ff);
+  font-family: inherit; font-size: 13px; font-weight: 500;
+  cursor: pointer; text-align: left;
+  transition: background 0.12s, color 0.12s;
+}
+.writer-ai-menu-item:hover:not(:disabled) {
+  background: rgba(124,58,237,0.12);
+  color: #c4b5fd;
+}
+.writer-ai-menu-item:disabled { opacity: 0.4; cursor: not-allowed; }
+[data-theme="light"] .writer-ai-menu-item { color: #1f1535; }
+[data-theme="light"] .writer-ai-menu-item:hover:not(:disabled) { background: rgba(124,58,237,0.08); color: #5b21b6; }
+.writer-ai-menu-divider {
+  height: 1px;
+  margin: 4px 0;
+  background: var(--border, rgba(167,139,250,0.18));
+}

@@ -990,3 +990,27 @@
   margin-left: auto;
 }
 .forum-report-btn:hover { opacity: 1; color: #c62828; }
+
+/* AI assist button in reply form */
+.forum-reply-ai-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid rgba(124,58,237,0.3);
+  border-radius: 8px;
+  color: #a78bfa;
+  font-family: inherit; font-size: 12px; font-weight: 600;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+}
+.forum-reply-ai-btn:hover {
+  background: rgba(124,58,237,0.12);
+  border-color: rgba(124,58,237,0.5);
+  color: #c4b5fd;
+}
+[data-theme="light"] .forum-reply-ai-btn { color: #6d28d9; border-color: rgba(124,58,237,0.2); }
+[data-theme="light"] .forum-reply-ai-btn:hover {
+  background: rgba(124,58,237,0.08);
+  border-color: rgba(124,58,237,0.4);
+  color: #5b21b6;
+}

@@ -27,14 +27,17 @@ export default function ProfileTabs({ activeTab, onTabChange, isOwner }: Props) 
           key={tab.key}
           className={`relative shrink-0 flex-1 cursor-pointer border-none bg-transparent px-3 py-3 text-center text-[13px] font-bold whitespace-nowrap transition-colors sm:px-6 ${
             activeTab === tab.key
-              ? "text-[var(--accent)]"
+              ? "text-[#a78bfa]"
               : "text-[var(--text-muted)] hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)]"
           }`}
           onClick={() => onTabChange(tab.key)}
         >
           {tab.label}
           {activeTab === tab.key && (
-            <span className="absolute bottom-0 left-0 right-0 h-[3px] rounded-t bg-[var(--accent)]" />
+            <span
+              className="absolute bottom-0 left-0 right-0 h-0.5 rounded-t-full bg-linear-to-r from-[#7c3aed] via-[#a78bfa] to-[#7c3aed]"
+              style={{ boxShadow: "0 0 12px rgba(167,139,250,0.55)" }}
+            />
           )}
         </button>
       ))}

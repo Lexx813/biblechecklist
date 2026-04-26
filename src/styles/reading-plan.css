@@ -14,11 +14,17 @@
 }
 
 .reading-plan-dot {
-  width: 11px; height: 11px; border-radius: 50%;
-  background: var(--border); transition: background var(--dur-base), transform var(--dur-base);
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--border);
+  outline: 1px solid rgba(124,58,237,0.15);
+  outline-offset: -1px;
+  transition: background var(--dur-base), transform 200ms cubic-bezier(.2,.7,.2,1), box-shadow 200ms ease;
 }
 .reading-plan-dot--done {
-  background: var(--teal); transform: scale(1.15);
+  background: radial-gradient(circle at 30% 30%, #c4b5fd, #7c3aed 65%);
+  transform: scale(1.18);
+  box-shadow: 0 0 8px rgba(124,58,237,0.55), 0 0 0 1px rgba(167,139,250,0.45);
+  outline-color: rgba(167,139,250,0.5);
 }
 
 .reading-plan-goal-met {
@@ -42,13 +48,33 @@
 }
 
 .reading-plan-progress-bar {
-  height: 6px; background: var(--border); border-radius: 3px; overflow: hidden;
+  height: 8px;
+  background: rgba(124,58,237,0.10);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.18);
 }
 
 .reading-plan-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--teal), var(--accent));
-  border-radius: 3px; transition: width 0.4s ease;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.20), transparent 45%),
+    linear-gradient(90deg, #4c1d95, #7c3aed 60%, #a78bfa);
+  border-radius: 999px;
+  transition: width 700ms cubic-bezier(.2,.7,.2,1);
+  box-shadow: 0 0 10px rgba(124,58,237,0.45);
+  position: relative;
+}
+
+.reading-plan-progress-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2.4s linear infinite;
 }
 
 .reading-plan-goal-row {
@@ -117,9 +143,12 @@
 .heatmap-col { display: flex; flex-direction: column; gap: 2px; overflow: visible; }
 
 .heatmap-cell {
-  width: 10px; height: 10px; border-radius: 2px;
+  width: 10px; height: 10px; border-radius: 2.5px;
   background: var(--border); flex-shrink: 0;
   position: relative;
+  outline: 1px solid rgba(255,255,255,0.04);
+  outline-offset: -1px;
+  transition: transform 160ms cubic-bezier(.2,.7,.2,1), box-shadow 160ms ease, outline-color 160ms ease;
 }
 
 @media (max-width: 600px) {
@@ -127,21 +156,28 @@
   .heatmap-grid { gap: 3px; }
   .heatmap-col { gap: 3px; }
 }
-.heatmap-cell:hover { opacity: 1 !important; filter: brightness(1.3); }
+.heatmap-cell:hover {
+  transform: scale(1.45);
+  outline-color: rgba(167,139,250,0.65);
+  box-shadow: 0 6px 18px rgba(124,58,237,0.45);
+  z-index: 2;
+}
 
 .heatmap-tooltip-portal {
   position: fixed;
   transform: translate(-50%, -100%);
   white-space: nowrap;
-  background: rgba(15, 5, 35, 0.97);
-  color: #e0d6ff;
+  background: rgba(15, 5, 35, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ede9fe;
   font-size: 11px;
   font-weight: 600;
   line-height: 1.5;
-  padding: 6px 10px;
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  padding: 7px 11px;
+  border-radius: 8px;
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,58,237,0.1);
   pointer-events: none;
   z-index: var(--z-top);
   text-align: center;
@@ -152,7 +188,7 @@
   top: 100%; left: 50%;
   transform: translateX(-50%);
   border: 5px solid transparent;
-  border-top-color: rgba(15, 5, 35, 0.97);
+  border-top-color: rgba(15, 5, 35, 0.92);
 }
 .heatmap-tooltip-portal--below {
   transform: translate(-50%, 0);
@@ -161,19 +197,26 @@
   top: auto;
   bottom: 100%;
   border-top-color: transparent;
-  border-bottom-color: rgba(15, 5, 35, 0.97);
+  border-bottom-color: rgba(15, 5, 35, 0.92);
 }
 
-.heatmap-cell[data-level="-1"] { background: transparent; }
-.heatmap-cell[data-level="0"]  { background: var(--border); opacity: 0.7; }
-.heatmap-cell[data-level="1"]  { background: var(--teal); opacity: 0.35; }
-.heatmap-cell[data-level="2"]  { background: var(--teal); opacity: 0.65; }
-.heatmap-cell[data-level="3"]  { background: var(--accent); }
+.heatmap-cell[data-level="-1"] { background: transparent; outline-color: transparent; }
+.heatmap-cell[data-level="0"]  { background: rgba(124,58,237,0.10); }
+.heatmap-cell[data-level="1"]  { background: #4c1d95; }
+.heatmap-cell[data-level="2"]  { background: #7c3aed; box-shadow: 0 0 6px rgba(124,58,237,0.35); }
+.heatmap-cell[data-level="3"]  {
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  box-shadow: 0 0 8px rgba(167,139,250,0.5), inset 0 1px 0 rgba(255,255,255,0.18);
+}
 
-[data-theme="light"] .heatmap-cell[data-level="0"]  { background: #e2e8f0; opacity: 1; }
-[data-theme="light"] .heatmap-cell[data-level="1"]  { background: #c4b5fd; opacity: 1; }
-[data-theme="light"] .heatmap-cell[data-level="2"]  { background: #8b5cf6; opacity: 1; }
-[data-theme="light"] .heatmap-cell[data-level="3"]  { background: var(--accent); opacity: 1; }
+[data-theme="light"] .heatmap-cell { outline-color: rgba(0,0,0,0.04); }
+[data-theme="light"] .heatmap-cell[data-level="0"]  { background: #ede9fe; }
+[data-theme="light"] .heatmap-cell[data-level="1"]  { background: #c4b5fd; }
+[data-theme="light"] .heatmap-cell[data-level="2"]  { background: #8b5cf6; }
+[data-theme="light"] .heatmap-cell[data-level="3"]  {
+  background: linear-gradient(135deg, #7c3aed, #4c1d95);
+  box-shadow: 0 0 6px rgba(124,58,237,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
+}
 
 .heatmap-legend {
   display: flex; align-items: center; gap: 3px;

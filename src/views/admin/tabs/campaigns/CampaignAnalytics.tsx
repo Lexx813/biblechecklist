@@ -3,6 +3,10 @@ import {
   useCampaign, useCampaignStats, useCampaignTimeline, useCampaignSends,
 } from "../../../../hooks/useCampaigns";
 import { buildSegmentSummary } from "../../../../api/campaigns";
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
+} from "recharts";
+import { useChartTheme, BarGradient } from "../../../../components/charts";
 
 function pct(num: number, den: number) {
   if (!den) return "—";
@@ -18,39 +22,41 @@ const STATUS_COLORS: Record<string, string> = {
   unsubscribed: "bg-red-900/50 text-red-300",
 };
 
-function SvgBarChart({ data }: { data: Array<{ date: string; opens: number; clicks: number }> }) {
+function TimelineChart({ data }: { data: Array<{ date: string; opens: number; clicks: number }> }) {
+  const t = useChartTheme();
   if (!data.length) {
-    return <p className="text-center text-gray-600 py-8 text-sm">No event data yet</p>;
+    return <p className="text-center text-gray-500 py-10 text-sm">No event data yet</p>;
   }
-
-  const maxVal = Math.max(...data.flatMap(d => [d.opens, d.clicks]), 1);
-  const W = 480, H = 120, PAD = 8;
-  const slotW = (W - PAD * 2) / data.length;
-  const barW  = Math.max(4, slotW / 2.5);
-
-  function y(v: number) {
-    return H - PAD - (v / maxVal) * (H - PAD * 2);
-  }
-
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full" aria-label="Opens and clicks timeline">
-      {data.map((d, i) => {
-        const x = PAD + i * slotW;
-        return (
-          <g key={d.date}>
-            <rect x={x} y={y(d.opens)} width={barW} height={H - PAD - y(d.opens)} fill="#22c55e" fillOpacity={0.7} rx={2}>
-              <title>{d.date}: {d.opens} opens</title>
-            </rect>
-            <rect x={x + barW + 2} y={y(d.clicks)} width={barW} height={H - PAD - y(d.clicks)} fill="#a855f7" fillOpacity={0.7} rx={2}>
-              <title>{d.date}: {d.clicks} clicks</title>
-            </rect>
-            <text x={x + barW / 2} y={H - 1} fontSize={8} fill="#6b7280" textAnchor="middle">
-              {d.date.slice(5)}
-            </text>
-          </g>
-        );
-      })}
-    </svg>
+    <ResponsiveContainer width="100%" height={180}>
+      <BarChart data={data} margin={{ top: 8, right: 8, left: -20, bottom: 0 }} barCategoryGap="22%">
+        <defs>
+          <BarGradient id="opensGrad" color="#16a34a" highlight="#86efac" />
+          <BarGradient id="clicksGrad" color="#7c3aed" highlight="#a78bfa" />
+        </defs>
+        <CartesianGrid strokeDasharray="3 3" stroke={t.grid} vertical={false} />
+        <XAxis
+          dataKey="date"
+          tickFormatter={d => String(d).slice(5)}
+          tick={{ fill: t.tick, fontSize: 10 }}
+          tickLine={false}
+          axisLine={false}
+        />
+        <YAxis tick={{ fill: t.tick, fontSize: 10 }} tickLine={false} axisLine={false} allowDecimals={false} width={28} />
+        <Tooltip
+          cursor={t.tooltip.cursor}
+          contentStyle={t.tooltip.contentStyle}
+          itemStyle={t.tooltip.itemStyle}
+        />
+        <Legend
+          iconType="circle"
+          wrapperStyle={{ fontSize: 11, paddingTop: 4 }}
+          formatter={(v: string) => <span style={{ color: t.tick }}>{v}</span>}
+        />
+        <Bar dataKey="opens" name="Opens" fill="url(#opensGrad)" radius={[4, 4, 0, 0]} isAnimationActive animationDuration={800} />
+        <Bar dataKey="clicks" name="Clicks" fill="url(#clicksGrad)" radius={[4, 4, 0, 0]} isAnimationActive animationDuration={800} />
+      </BarChart>
+    </ResponsiveContainer>
   );
 }
 
@@ -102,28 +108,35 @@ export function CampaignAnalytics({ campaignId, onBack }: Props) {
 
       {/* KPI cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        {kpis.map(k => (
-          <div key={k.label} className="bg-white dark:bg-white/4 border border-gray-200 dark:border-white/8 rounded-xl p-4">
-            <p className="text-2xl font-bold text-gray-900 dark:text-white">{k.value}</p>
-            <p className="text-xs text-gray-500 mt-1">{k.label}</p>
-          </div>
-        ))}
+        {kpis.map((k, i) => {
+          const accent = ["#7c3aed", "#16a34a", "#a855f7", "#f87171"][i] ?? "#7c3aed";
+          return (
+            <div
+              key={k.label}
+              className="relative overflow-hidden rounded-xl border border-gray-200 dark:border-white/8 bg-white dark:bg-linear-to-br dark:from-[#1a0f35] dark:to-[#120b28] p-4 transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(124,58,237,0.18)]"
+            >
+              <span
+                className="absolute top-0 left-0 right-0 h-0.5"
+                style={{ background: `linear-gradient(90deg, ${accent}, ${accent}66)` }}
+              />
+              <p
+                className="text-2xl font-bold tabular-nums tracking-tight bg-clip-text text-transparent"
+                style={{ backgroundImage: `linear-gradient(180deg, color-mix(in srgb, ${accent} 30%, #fff) 0%, ${accent} 100%)` }}
+              >
+                {k.value}
+              </p>
+              <p className="text-[11px] uppercase tracking-wider text-gray-500 dark:text-white/50 mt-1 font-semibold">{k.label}</p>
+            </div>
+          );
+        })}
       </div>
 
       {/* Timeline chart */}
-      <div className="bg-white dark:bg-white/4 border border-gray-200 dark:border-white/8 rounded-xl p-4">
+      <div className="rounded-xl border border-gray-200 dark:border-[#2d1f4e] bg-white dark:bg-linear-to-br dark:from-[#1a0f35] dark:to-[#120b28] p-4">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Opens &amp; Clicks Over Time</h3>
-          <div className="flex items-center gap-3 text-xs text-gray-500">
-            <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded-sm bg-green-500 opacity-70 inline-block" /> Opens
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="w-2.5 h-2.5 rounded-sm bg-purple-500 opacity-70 inline-block" /> Clicks
-            </span>
-          </div>
+          <h3 className="text-sm font-semibold text-gray-900 dark:text-violet-200">Opens &amp; Clicks Over Time</h3>
         </div>
-        <SvgBarChart data={timeline} />
+        <TimelineChart data={timeline} />
       </div>
 
       {/* Per-user table */}
