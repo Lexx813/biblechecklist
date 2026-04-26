@@ -113,7 +113,7 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
     };
   }, []);
 
-  // Fires synchronously after DOM commit, before paint — guarantees bottom is
+  // Fires synchronously after DOM commit, before paint, guarantees bottom is
   // visible the very first time messages arrive (no flash of top-of-chat).
   useLayoutEffect(() => {
     if (decryptedMessages.length > 0 && !hasInitialScrolled.current) {

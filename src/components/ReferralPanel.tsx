@@ -78,7 +78,7 @@ export default function ReferralPanel({ userId }: Props) {
         </button>
         <button className="ref-share-btn ref-share-btn--x" onClick={() => {
           window.open(
-            `https://twitter.com/intent/tweet?text=${encodeURIComponent(`I'm tracking my Bible reading on JW Study — join me! ${shareUrl}`)}`,
+            `https://twitter.com/intent/tweet?text=${encodeURIComponent(`I'm tracking my Bible reading on JW Study, join me! ${shareUrl}`)}`,
             "_blank"
           );
         }}>

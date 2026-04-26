@@ -406,7 +406,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
           </div>
         )}
 
-        {/* Bottom share prompt — shown after reading */}
+        {/* Bottom share prompt, shown after reading */}
         <div className="blog-share-prompt">
           <p className="blog-share-prompt-text">Found this helpful? Share it.</p>
           <ShareButtons path={`/blog/${post.slug}`} title={displayTitle} type="blog" />

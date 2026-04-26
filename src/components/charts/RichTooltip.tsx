@@ -68,7 +68,7 @@ export default function RichTooltip({
       </div>
       {delta !== null && (
         <div style={{ marginTop: 4, fontSize: 11, color: deltaColor, fontWeight: 600, fontVariantNumeric: "tabular-nums" }}>
-          {deltaPositive ? "▲" : deltaNegative ? "▼" : "—"}{" "}
+          {deltaPositive ? "▲" : deltaNegative ? "▼" : "-"}{" "}
           {delta > 0 ? "+" : ""}{Math.round(delta).toLocaleString()}
           {pctDelta !== null && <span style={{ opacity: 0.7, marginLeft: 4 }}>({pctDelta > 0 ? "+" : ""}{pctDelta}%)</span>}
           <span style={{ color: t.tick, fontWeight: 400, marginLeft: 4 }}>vs prev</span>

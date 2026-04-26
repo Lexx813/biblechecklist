@@ -1,6 +1,6 @@
 /**
- * /promo — AI Study Companion promotional video
- * Public page — no auth required.
+ * /promo, AI Study Companion promotional video
+ * Public page, no auth required.
  * Renders the AIPromoVideo Remotion composition client-side via @remotion/player.
  */
 
@@ -8,13 +8,13 @@ import type { Metadata } from "next";
 import PromoPlayer from "./PromoPlayer";
 
 export const metadata: Metadata = {
-  title: "AI Study Companion — JW Study",
+  title: "AI Study Companion, JW Study",
   description:
-    "See how the JW Study AI Study Companion answers Bible questions from Watch Tower publications, the NWT, and wol.jw.org — exclusively for Jehovah's Witnesses.",
+    "See how the JW Study AI Study Companion answers Bible questions from Watch Tower publications, the NWT, and wol.jw.org, exclusively for Jehovah's Witnesses.",
   alternates: { canonical: "https://jwstudy.org/promo" },
   robots: { index: false, follow: true },
   openGraph: {
-    title: "AI Study Companion — JW Study",
+    title: "AI Study Companion, JW Study",
     description: "Bible questions answered from JW sources only. 20+ Watch Tower publications indexed.",
     url: "https://jwstudy.org/promo",
     siteName: "JW Study",

@@ -12,7 +12,7 @@
 import type { ReactNode } from "react";
 import { parseScriptureRef, wolRefUrl } from "../../../src/utils/wol";
 
-// Permissive candidate matcher — case the parser will then validate.
+// Permissive candidate matcher, case the parser will then validate.
 // Catches: "John 3:16", "1 Corinthians 13:4-7", "Gen 1:1", "Jude 9", "1 Tim 2:5".
 // Limited to ~25-char book name to avoid greedy false positives in long sentences.
 const SCRIPTURE_CANDIDATE_RE =
@@ -142,7 +142,7 @@ function renderInline(text: string): ReactNode[] {
   while (rest) {
     const m = re.exec(rest);
     if (!m) {
-      // No more markdown tokens — pass remainder through scripture detection
+      // No more markdown tokens, pass remainder through scripture detection
       out.push(...renderWithScriptureChips(rest, key));
       key += 1000; // bump to avoid collisions; React only requires uniqueness within siblings
       break;
@@ -167,7 +167,7 @@ function renderWithScriptureChips(text: string, baseKey: number): ReactNode[] {
   const out: ReactNode[] = [];
   let key = baseKey;
   let lastIndex = 0;
-  // Reset regex state — global flag means stateful between calls otherwise
+  // Reset regex state, global flag means stateful between calls otherwise
   SCRIPTURE_CANDIDATE_RE.lastIndex = 0;
   let m: RegExpExecArray | null;
   while ((m = SCRIPTURE_CANDIDATE_RE.exec(text)) !== null) {

@@ -8,7 +8,7 @@ export const revalidate = false; // static
 export const metadata = {
   title: "Bible Study Topics | JW Study",
   description:
-    "Explore key Bible topics from the New World Translation perspective — including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
+    "Explore key Bible topics from the New World Translation perspective, including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
   alternates: {
     canonical: "https://jwstudy.org/study-topics",
     languages: { en: "https://jwstudy.org/study-topics", "x-default": "https://jwstudy.org/study-topics" },
@@ -16,15 +16,15 @@ export const metadata = {
   openGraph: {
     title: "Bible Study Topics | JW Study",
     description:
-      "Explore key Bible topics from the New World Translation perspective — including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
-    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
+      "Explore key Bible topics from the New World Translation perspective, including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
+    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study, Bible Reading Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Bible Study Topics | JW Study",
     description:
-      "Explore key Bible topics from the New World Translation perspective — including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
-    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
+      "Explore key Bible topics from the New World Translation perspective, including the nature of God, Jesus, the soul, death, God's Kingdom, and more.",
+    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study, Bible Reading Tracker" }],
   },
 };
 

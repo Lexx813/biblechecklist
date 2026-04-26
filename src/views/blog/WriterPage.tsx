@@ -91,7 +91,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
   useEffect(() => {
     if (!animatingDraft) return;
 
-    // Parse structure once — no re-parsing per frame so block types stay stable
+    // Parse structure once, no re-parsing per frame so block types stay stable
     const finalBlocks = markdownToBlocks(animatingDraft.content);
     setMarkdown(animatingDraft.content);
 
@@ -179,7 +179,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
     }
   }, [title, subtitle, currentMarkdown, coverUrl, tags, readTime, selectedSeries, createPost, updatePost, excerpt, customSlug, isFeatured]);
 
-  // Auto-save debounce — only fires when title is non-empty
+  // Auto-save debounce, only fires when title is non-empty
   useEffect(() => {
     if (!title.trim()) return;
     setSaveStatus("unsaved");
@@ -571,7 +571,7 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
         </div>
       </div>
 
-      {/* Publish modal — portalled to body so position:fixed works regardless of transforms */}
+      {/* Publish modal, portalled to body so position:fixed works regardless of transforms */}
       {showPublishModal && createPortal(
         <div className="writer-modal-overlay" onClick={() => setShowPublishModal(false)}>
           <div className="writer-modal" onClick={e => e.stopPropagation()}>

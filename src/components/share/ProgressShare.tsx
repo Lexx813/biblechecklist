@@ -211,10 +211,10 @@ export default function ProgressShare({ stats, onClose, userId }: Props) {
     const url = `https://jwstudy.org/share/${userId}`;
     try {
       await navigator.clipboard.writeText(url);
-      // Brief visual feedback via button text swap — no toast needed
+      // Brief visual feedback via button text swap, no toast needed
       const btn = document.getElementById("ps-copy-btn");
       if (btn) { btn.textContent = "✓ Copied!"; setTimeout(() => { btn.textContent = "🔗 Copy link"; }, 2000); }
-    } catch { /* clipboard blocked — skip */ }
+    } catch { /* clipboard blocked, skip */ }
   };
 
   const webShare = async () => {

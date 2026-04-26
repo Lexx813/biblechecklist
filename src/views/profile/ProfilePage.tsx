@@ -37,7 +37,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
 
   useEffect(() => {
     const name = profile?.display_name || profile?.email?.split("@")[0];
-    if (name) document.title = `${name} — JW Study`;
+    if (name) document.title = `${name}, JW Study`;
     return () => { document.title = "JW Study"; };
   }, [profile?.display_name, profile?.email]);
 
@@ -64,7 +64,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
 
   return (
     <div className="pb-4">
-      {/* Cover photo — full bleed */}
+      {/* Cover photo, full bleed */}
       <CoverPhoto
         coverUrl={profile?.cover_url ?? null}
         userId={profileId}
@@ -119,7 +119,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
           <AchievementsTab userId={profileId} quizProgress={quizProgress} earnedBadges={earnedBadges} streak={streak} readingProgress={readingProgress} />
         )}
 
-        {/* Referral program — owner only, shown on posts tab */}
+        {/* Referral program, owner only, shown on posts tab */}
         {activeTab === "posts" && isOwner && !isViewedUserBlocked && (
           <ReferralPanel userId={profileId} />
         )}

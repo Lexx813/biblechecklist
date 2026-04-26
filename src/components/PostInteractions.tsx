@@ -54,7 +54,7 @@ function CommentRow({ c, userId, liked, navigate, onLike, onReply, onDelete, del
             </svg>
             {c.like_count > 0 && <LikedByPopover count={c.like_count} fetchLikers={() => postsApi.getCommentLikers(c.id)} />}
           </button>
-          {/* Reply — only on top-level */}
+          {/* Reply, only on top-level */}
           {!isReply && (
             <button
               className="cursor-pointer border-none bg-transparent p-0 text-[11px] font-semibold text-[var(--text-muted)] transition-colors duration-150 hover:text-[var(--text-primary)]"

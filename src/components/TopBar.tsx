@@ -114,7 +114,7 @@ export default function TopBar({
     <>
       <header className="topbar" role="banner">
         {/* Left: logo */}
-        <button className="topbar-logo" onClick={() => navigate("home")} aria-label="JW Study — Go to home">
+        <button className="topbar-logo" onClick={() => navigate("home")} aria-label="JW Study, Go to home">
           <span className="topbar-logo-icon"><LogoIcon /></span>
           <span className="topbar-wordmark">JW Study</span>
         </button>
@@ -134,7 +134,7 @@ export default function TopBar({
 
         {/* Right: actions */}
         <div className="topbar-actions">
-          {/* Admin link — mobile only. Always rendered to prevent CLS; invisible for non-admins. */}
+          {/* Admin link, mobile only. Always rendered to prevent CLS; invisible for non-admins. */}
           <button
             className="topbar-btn topbar-btn--admin-mobile"
             onClick={() => navigate("admin")}
@@ -148,7 +148,7 @@ export default function TopBar({
             </svg>
           </button>
 
-          {/* Post a Video — always rendered to prevent CLS; hidden for non-creators */}
+          {/* Post a Video, always rendered to prevent CLS; hidden for non-creators */}
           <button
             className="topbar-btn topbar-btn--nav"
             onClick={() => navigate("videosDash")}
@@ -164,7 +164,7 @@ export default function TopBar({
             </svg>
           </button>
 
-          {/* AI Study Companion — separate Next.js route, not a HOME_PANEL */}
+          {/* AI Study Companion, separate Next.js route, not a HOME_PANEL */}
           <a
             href="/ai"
             className="topbar-btn topbar-btn--nav topbar-btn--ai"

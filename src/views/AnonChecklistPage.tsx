@@ -92,7 +92,7 @@ export default function AnonChecklistPage({ onSignUp, onBack }: Props) {
         </button>
         <div className="anon-topbar-title">
           <strong>Bible Tracker</strong>
-          <span className="anon-topbar-sub">Try it free — no signup</span>
+          <span className="anon-topbar-sub">Try it free, no signup</span>
         </div>
         <button className="anon-topbar-cta" onClick={onSignUp}>Sign up free</button>
       </div>

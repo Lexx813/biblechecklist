@@ -205,7 +205,7 @@ export function UserTagsManager({ currentUserId }: Props) {
                   className="accent-purple-500 w-3.5 h-3.5 cursor-pointer shrink-0"
                 />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{u.display_name ?? "—"}</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{u.display_name ?? "-"}</p>
                   <p className="text-xs text-gray-500 truncate">{u.email}</p>
                 </div>
                 {(userTags[u.id] ?? []).length > 0 && (

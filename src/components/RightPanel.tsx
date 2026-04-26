@@ -1,7 +1,7 @@
 import { useReadingStreak } from "../hooks/useProgress";
 import "../styles/right-panel.css";
 
-// Daily verse — static rotation by day-of-year
+// Daily verse, static rotation by day-of-year
 const DAILY_VERSES = [
   { text: "Happy are those conscious of their spiritual need.", ref: "Matthew 5:3" },
   { text: "Trust in Jehovah with all your heart.", ref: "Proverbs 3:5" },
@@ -41,7 +41,7 @@ export default function RightPanel({ page, user, navigate }: Props) {
           Daily Verse
         </div>
         <div className="rp-verse">"{verse.text}"</div>
-        <div className="rp-verse-ref">— {verse.ref}</div>
+        <div className="rp-verse-ref">- {verse.ref}</div>
       </div>
 
       {/* Streak */}

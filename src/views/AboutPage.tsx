@@ -8,7 +8,7 @@ const CREATOR_AVATAR_URL = null;
 
 export default function AboutPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout }) {
   const { t } = useTranslation();
-  useMeta({ title: "About", description: "Learn about JW Study — a Bible reading tracker built for Jehovah's Witnesses and Bible students." });
+  useMeta({ title: "About", description: "Learn about JW Study, a Bible reading tracker built for Jehovah's Witnesses and Bible students." });
   return (
     <div className="about-wrap">
 

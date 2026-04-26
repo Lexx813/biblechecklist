@@ -106,7 +106,7 @@ export default function NotificationDropdown({ userId, onClose, navigate }: Prop
     }
 
     if (n.type === "daily_brief") {
-      // /ai is its own Next.js route, not a HOME_PANEL — full nav, not SPA
+      // /ai is its own Next.js route, not a HOME_PANEL, full nav, not SPA
       window.location.href = "/ai";
       return;
     }
@@ -118,7 +118,7 @@ export default function NotificationDropdown({ userId, onClose, navigate }: Prop
 
   return (
     <>
-      {/* Backdrop — click outside to close */}
+      {/* Backdrop, click outside to close */}
       <div className="notif-overlay" onClick={onClose} aria-hidden="true" />
 
       <div

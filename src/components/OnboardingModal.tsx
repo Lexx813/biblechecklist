@@ -193,7 +193,7 @@ export default function OnboardingModal({ onClose, navigate, user }: Props) {
               Meet your AI Study Companion
             </h2>
             <p className="onboard-body">
-              Grounded in the NWT and JW publications. Ask anything — about a verse, this week's meeting, or your own progress — and it responds in seconds.
+              Grounded in the NWT and JW publications. Ask anything, about a verse, this week's meeting, or your own progress, and it responds in seconds.
             </p>
             <div className="onboard-ai-samples">
               <button

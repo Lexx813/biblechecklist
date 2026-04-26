@@ -186,7 +186,7 @@ export function ConversationListPanel({
           <div className="msg-push-banner-text">
             <strong>{t("messages.stayNotified")}</strong>
             <span>{permission === "denied"
-              ? t("messages.notifBlocked", "Notifications blocked — enable them in your browser settings")
+              ? t("messages.notifBlocked", "Notifications blocked, enable them in your browser settings")
               : t("messages.stayNotifiedDesc")
             }</span>
           </div>

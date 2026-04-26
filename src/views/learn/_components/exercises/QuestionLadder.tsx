@@ -71,7 +71,7 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
                     className="mb-1 block text-sm font-semibold text-slate-900 dark:text-white"
                   >
                     <span className="text-[var(--color-jw-purple)] dark:text-[#c4b5fd]">{rungLabels[rung.key]}</span>{" "}
-                    — {rung.prompt}
+                   , {rung.prompt}
                   </label>
                   <textarea
                     id={`rung-${rung.key}`}

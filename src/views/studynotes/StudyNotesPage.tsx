@@ -595,8 +595,8 @@ function PromptModal({ label, onConfirm, onCancel }) {
 const SEED_PUBLIC_NOTES = [
   {
     id: "seed-1",
-    title: "The sermon on the mount — beatitudes",
-    content: "<p>Matthew 5 opens with qualities that seem upside-down to the world: the meek, the mourning, the merciful. Studying the Greek behind \"meek\" (praus) was eye-opening — it describes a horse that's powerful but trained. Meekness isn't weakness, it's strength under control.</p>",
+    title: "The sermon on the mount, beatitudes",
+    content: "<p>Matthew 5 opens with qualities that seem upside-down to the world: the meek, the mourning, the merciful. Studying the Greek behind \"meek\" (praus) was eye-opening, it describes a horse that's powerful but trained. Meekness isn't weakness, it's strength under control.</p>",
     tags: ["sermon-on-the-mount", "beatitudes", "character"],
     book_index: 39, // Matthew
     chapter: 5,
@@ -610,7 +610,7 @@ const SEED_PUBLIC_NOTES = [
   {
     id: "seed-2",
     title: "Isaiah's prophecy of restoration",
-    content: "<p>Isaiah 40:28-31 never gets old. The image of \"mounting up with wings like eagles\" is so vivid. What I appreciate is the context: it comes right after God asks \"do you not know? Have you not heard?\" — a gentle correction that exhaustion doesn't mean abandonment.</p>",
+    content: "<p>Isaiah 40:28-31 never gets old. The image of \"mounting up with wings like eagles\" is so vivid. What I appreciate is the context: it comes right after God asks \"do you not know? Have you not heard?\", a gentle correction that exhaustion doesn't mean abandonment.</p>",
     tags: ["prophecy", "comfort", "strength"],
     book_index: 22, // Isaiah
     chapter: 40,
@@ -623,8 +623,8 @@ const SEED_PUBLIC_NOTES = [
   },
   {
     id: "seed-3",
-    title: "Psalm 23 — more than a funeral verse",
-    content: "<p>We quote Psalm 23 at funerals, but it's really about present-tense provision. \"He causes me to lie down in green pastures\" — sheep only lie down when they feel safe. It's a picture of rest that has to be given, not achieved. Still sitting with that.</p>",
+    title: "Psalm 23, more than a funeral verse",
+    content: "<p>We quote Psalm 23 at funerals, but it's really about present-tense provision. \"He causes me to lie down in green pastures\", sheep only lie down when they feel safe. It's a picture of rest that has to be given, not achieved. Still sitting with that.</p>",
     tags: ["psalms", "trust", "comfort"],
     book_index: 18, // Psalms
     chapter: 23,
@@ -638,7 +638,7 @@ const SEED_PUBLIC_NOTES = [
   {
     id: "seed-4",
     title: "The patience of Job",
-    content: "<p>What struck me re-reading Job is how he never actually cursed God — he questioned, he grieved, but he held on. Job 1:21 sums it up: \"Jehovah himself has given, and Jehovah himself has taken away. Let the name of Jehovah continue to be praised.\" A reminder that faith isn't the absence of pain.</p>",
+    content: "<p>What struck me re-reading Job is how he never actually cursed God, he questioned, he grieved, but he held on. Job 1:21 sums it up: \"Jehovah himself has given, and Jehovah himself has taken away. Let the name of Jehovah continue to be praised.\" A reminder that faith isn't the absence of pain.</p>",
     tags: ["faith", "suffering", "hope"],
     book_index: 17, // Job
     chapter: 1,
@@ -651,8 +651,8 @@ const SEED_PUBLIC_NOTES = [
   },
   {
     id: "seed-5",
-    title: "Romans 8 — no condemnation",
-    content: "<p>Romans 8:1 is one of the most freeing verses in all of scripture: \"There is now no condemnation for those in union with Christ Jesus.\" Paul spends the rest of the chapter unpacking why — the spirit, adoption, intercession, and the unbreakable love of God. I keep coming back to verse 38: nothing can separate us.</p>",
+    title: "Romans 8, no condemnation",
+    content: "<p>Romans 8:1 is one of the most freeing verses in all of scripture: \"There is now no condemnation for those in union with Christ Jesus.\" Paul spends the rest of the chapter unpacking why, the spirit, adoption, intercession, and the unbreakable love of God. I keep coming back to verse 38: nothing can separate us.</p>",
     tags: ["romans", "grace", "assurance"],
     book_index: 44, // Romans
     chapter: 8,
@@ -666,7 +666,7 @@ const SEED_PUBLIC_NOTES = [
   {
     id: "seed-6",
     title: "Proverbs on words",
-    content: "<p>Proverbs has so much to say about speech. \"The tongue of the wise makes knowledge appealing, but the mouth of the stupid blurts out foolishness\" (15:2). I've been making a mental note before responding when I'm frustrated — does this build up or tear down?</p>",
+    content: "<p>Proverbs has so much to say about speech. \"The tongue of the wise makes knowledge appealing, but the mouth of the stupid blurts out foolishness\" (15:2). I've been making a mental note before responding when I'm frustrated, does this build up or tear down?</p>",
     tags: ["wisdom", "speech", "proverbs"],
     book_index: 19, // Proverbs
     chapter: 15,
@@ -679,8 +679,8 @@ const SEED_PUBLIC_NOTES = [
   },
   {
     id: "seed-7",
-    title: "Genesis 1 — \"it was good\"",
-    content: "<p>Reading the creation account slowly, I noticed God evaluates each day with \"it was good\" — but day 2 (the expanse) gets no such evaluation. Scholars think it's because the separation of waters isn't finished until day 3. The point: God doesn't call something good until it's complete. That hit differently.</p>",
+    title: "Genesis 1, \"it was good\"",
+    content: "<p>Reading the creation account slowly, I noticed God evaluates each day with \"it was good\", but day 2 (the expanse) gets no such evaluation. Scholars think it's because the separation of waters isn't finished until day 3. The point: God doesn't call something good until it's complete. That hit differently.</p>",
     tags: ["genesis", "creation", "observation"],
     book_index: 0, // Genesis
     chapter: 1,
@@ -693,8 +693,8 @@ const SEED_PUBLIC_NOTES = [
   },
   {
     id: "seed-8",
-    title: "John 11 — the shortest verse",
-    content: "<p>\"Jesus wept\" (John 11:35) is famous for being the shortest verse, but the context makes it profound. Jesus already knew he was about to raise Lazarus. He wept anyway. Not from despair but from compassion — he entered into the grief of those he loved. That's the kind of God worth serving.</p>",
+    title: "John 11, the shortest verse",
+    content: "<p>\"Jesus wept\" (John 11:35) is famous for being the shortest verse, but the context makes it profound. Jesus already knew he was about to raise Lazarus. He wept anyway. Not from despair but from compassion, he entered into the grief of those he loved. That's the kind of God worth serving.</p>",
     tags: ["john", "compassion", "resurrection"],
     book_index: 42, // John
     chapter: 11,
@@ -707,8 +707,8 @@ const SEED_PUBLIC_NOTES = [
   },
   {
     id: "seed-9",
-    title: "Daniel in Babylon — uncompromised",
-    content: "<p>Daniel 1 sets the tone for the whole book: four young men in a foreign empire, offered the king's food, and they quietly ask for an alternative. No dramatic protest — just a clear, respectful boundary. Their faithfulness in small things preceded their faithfulness in large ones.</p>",
+    title: "Daniel in Babylon, uncompromised",
+    content: "<p>Daniel 1 sets the tone for the whole book: four young men in a foreign empire, offered the king's food, and they quietly ask for an alternative. No dramatic protest, just a clear, respectful boundary. Their faithfulness in small things preceded their faithfulness in large ones.</p>",
     tags: ["daniel", "integrity", "faithfulness"],
     book_index: 26, // Daniel
     chapter: 1,
@@ -721,8 +721,8 @@ const SEED_PUBLIC_NOTES = [
   },
   {
     id: "seed-10",
-    title: "Ecclesiastes — vanity and meaning",
-    content: "<p>Ecclesiastes gets a bad rap for being depressing, but I think the Preacher is doing something important: he's exhausting every worldly avenue — pleasure, work, wisdom — to show they all fall short. The conclusion in 12:13 isn't nihilism, it's clarity: fear God and keep his commandments. Everything else is vapor.</p>",
+    title: "Ecclesiastes, vanity and meaning",
+    content: "<p>Ecclesiastes gets a bad rap for being depressing, but I think the Preacher is doing something important: he's exhausting every worldly avenue, pleasure, work, wisdom, to show they all fall short. The conclusion in 12:13 isn't nihilism, it's clarity: fear God and keep his commandments. Everything else is vapor.</p>",
     tags: ["ecclesiastes", "meaning", "wisdom"],
     book_index: 20, // Ecclesiastes
     chapter: 12,
@@ -735,8 +735,8 @@ const SEED_PUBLIC_NOTES = [
   },
   {
     id: "seed-11",
-    title: "Luke 15 — three parables, one point",
-    content: "<p>The lost sheep, the lost coin, the prodigal son — they're all the same story at different scales. What I noticed: in each case the one who lost something goes looking. The sheep can't find itself. The coin can't find itself. And the son comes home to a father who was already watching. The initiative is always with the one who loves.</p>",
+    title: "Luke 15, three parables, one point",
+    content: "<p>The lost sheep, the lost coin, the prodigal son, they're all the same story at different scales. What I noticed: in each case the one who lost something goes looking. The sheep can't find itself. The coin can't find itself. And the son comes home to a father who was already watching. The initiative is always with the one who loves.</p>",
     tags: ["luke", "parables", "grace"],
     book_index: 41, // Luke
     chapter: 15,
@@ -749,8 +749,8 @@ const SEED_PUBLIC_NOTES = [
   },
   {
     id: "seed-12",
-    title: "Revelation — letters to the congregations",
-    content: "<p>The seven letters in Revelation 2–3 each follow a pattern: commendation, correction, counsel. I found it striking that even the faithful congregation in Smyrna gets no criticism — just encouragement to endure. A good model for how to give feedback.</p>",
+    title: "Revelation, letters to the congregations",
+    content: "<p>The seven letters in Revelation 2–3 each follow a pattern: commendation, correction, counsel. I found it striking that even the faithful congregation in Smyrna gets no criticism, just encouragement to endure. A good model for how to give feedback.</p>",
     tags: ["revelation", "congregation", "endurance"],
     book_index: 65, // Revelation
     chapter: 2,

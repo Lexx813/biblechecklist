@@ -2,15 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import "../styles/custom-select.css";
 
 /**
- * CustomSelect — styled dropdown replacing native <select>.
+ * CustomSelect, styled dropdown replacing native <select>.
  *
  * Props:
- *   value       — current value (any scalar)
- *   onChange    — (value) => void
- *   options     — [{ value, label }]
- *   placeholder — string shown when no value is selected (optional)
- *   searchable  — show a search input for long lists (default false)
- *   className   — extra class on the wrapper (optional)
+ *   value      , current value (any scalar)
+ *   onChange   , (value) => void
+ *   options    , [{ value, label }]
+ *   placeholder, string shown when no value is selected (optional)
+ *   searchable , show a search input for long lists (default false)
+ *   className  , extra class on the wrapper (optional)
  */
 
 interface Option {

@@ -21,7 +21,7 @@ type AuthState = "loading" | "anon" | "authed";
 function sanitizeAskParam(raw: string): string {
   // Remove zero-width chars, BOM, RTL/LTR overrides, etc.
   let s = raw.replace(/[​-‏‪-‮⁠-⁩﻿]/g, "");
-  // Strip obvious jailbreak instructions (keep it short — false-positive risk
+  // Strip obvious jailbreak instructions (keep it short, false-positive risk
   // means we err on letting normal questions through. The system prompt + UI
   // review are the primary defenses; this is just a tripwire.)
   const patterns: RegExp[] = [
@@ -44,14 +44,14 @@ export default function AiAppClient() {
   // Read initial conversation id from the URL, but track it as state from
   // here on. This lets us update the URL via history.replaceState without
   // triggering a Next.js route change (which would remount this whole tree
-  // and abort any in-flight chat stream — the bug we're avoiding).
+  // and abort any in-flight chat stream, the bug we're avoiding).
   const params = useParams<{ id?: string }>();
   const searchParams = useSearchParams();
   const initialId = params?.id ?? null;
   const [conversationId, setConversationId] = useState<string | null>(initialId);
 
   // ?ask=<prompt> pre-fills the chat input on mount. The user reviews and
-  // taps Send themselves — we NEVER auto-send because that would be a CSRF
+  // taps Send themselves, we NEVER auto-send because that would be a CSRF
   // surface for prompt injection. Even so, strip obvious jailbreak phrases
   // and zero-width / control characters as defense-in-depth.
   const [autoSendPrompt, setAutoSendPrompt] = useState<string | null>(() => {
@@ -115,7 +115,7 @@ export default function AiAppClient() {
       if (!res.ok) return;
       const data = (await res.json()) as { conversations: Conversation[] };
       setConversations(data.conversations);
-    } catch { /* silent — list refresh shouldn't break the chat */ }
+    } catch { /* silent, list refresh shouldn't break the chat */ }
   };
 
   useEffect(() => {
@@ -208,7 +208,7 @@ export default function AiAppClient() {
   // ── Authed: chat shell ─────────────────────────────────────────────────
   return (
     <div className="ai-app flex h-[100dvh] flex-col bg-white dark:bg-[#0d0820]">
-      {/* Top bar — slimmer than PublicNav, with drawer toggle on mobile */}
+      {/* Top bar, slimmer than PublicNav, with drawer toggle on mobile */}
       <header className="flex items-center justify-between border-b border-slate-200 bg-white px-3 py-2.5 dark:border-white/10 dark:bg-[#160f2e]">
         <div className="flex items-center gap-2">
           <button
@@ -239,7 +239,7 @@ export default function AiAppClient() {
         </button>
       </header>
 
-      {/* Body — sidebar + chat */}
+      {/* Body, sidebar + chat */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar (always visible ≥lg, drawer on mobile) */}
         <AiSidebar

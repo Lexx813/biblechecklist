@@ -294,7 +294,7 @@ export function UsersTab({ currentUser, navigate }) {
                       </div>
                     </div>
                   </td>
-                  <td className="admin-col-name admin-date">{user.display_name || "—"}</td>
+                  <td className="admin-col-name admin-date">{user.display_name || "-"}</td>
                   <td className="admin-col-joined admin-date">{formatDate(user.created_at)}</td>
                   <td className="admin-col-role">
                     <span className={`admin-role-badge ${user.is_admin ? "admin-role-badge--admin" : "admin-role-badge--member"}`}>

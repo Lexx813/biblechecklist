@@ -1,6 +1,18 @@
 .notif-wrap { position: relative; }
 
-.notif-bell-btn { position: relative; }
+/* 44x44 hit area per WCAG 2.5.5; visual icon stays 20x20. */
+.notif-bell-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
 .notif-bell-btn > svg { width: 20px; height: 20px; }
 
 /* On small screens the dropdown's containing block becomes .page-nav

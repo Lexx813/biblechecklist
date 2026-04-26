@@ -1169,8 +1169,7 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
 
   async function handleSend(e: React.FormEvent) {
     e.preventDefault();
-    const raw = input.trim();
-    if (!raw) return;
+    const raw = input.trim() || "👍";
     const sanitized = sanitizeContent(raw);
     if (!sanitized) return;
     const toSend = sharedKey ? await encryptMessage(sanitized, sharedKey) : sanitized;

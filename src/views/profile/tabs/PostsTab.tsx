@@ -104,7 +104,7 @@ export default function PostsTab({ profileId, isOwner, userId, navigate }: Props
         <div className="mt-4 flex flex-col gap-3">
           {posts.map((post: any) => (
             <div key={post.id} className="group rounded-[var(--radius)] border border-[var(--border)] p-4 transition-colors hover:border-[var(--border)]">
-              {/* Content — render HTML from rich editor, or plain text */}
+              {/* Content, render HTML from rich editor, or plain text */}
               <div
                 className="rich-content"
                 dangerouslySetInnerHTML={{ __html: sanitizeRich(post.content) }}

@@ -416,7 +416,7 @@ export function CampaignEditor({ campaignId, currentUserId, onBack, onSent }: Pr
                             )}
                           </div>
                           <div className="min-w-0">
-                            <p className="text-xs font-medium text-gray-900 dark:text-white truncate">{u.display_name ?? "—"}</p>
+                            <p className="text-xs font-medium text-gray-900 dark:text-white truncate">{u.display_name ?? "-"}</p>
                             <p className="text-[11px] text-gray-500 truncate">{u.email}</p>
                           </div>
                         </button>

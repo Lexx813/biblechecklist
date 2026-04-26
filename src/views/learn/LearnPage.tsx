@@ -107,7 +107,7 @@ export default function LearnPage({ onBack }: LearnPageProps) {
 
   return (
     <div className="relative bg-gradient-to-b from-[#f7f3ff] via-[#efe7ff] to-[#e7dcff] dark:from-jw-purple-deep dark:via-[#1e1237] dark:to-[#120a22]">
-      {/* Ambient decoration — clipped by hero to avoid long-page bleed */}
+      {/* Ambient decoration, clipped by hero to avoid long-page bleed */}
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-[600px] opacity-40 dark:opacity-60"
         aria-hidden

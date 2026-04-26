@@ -7,7 +7,7 @@ import { toast } from "../lib/toast";
 // The server emits a `confirm_action` SSE event INSTEAD of executing the
 // destructive tool. This modal listens for that event, shows the user
 // what will happen, and only performs the action on a real click.
-// Bypasses the AI entirely — the model has no way to confirm itself.
+// Bypasses the AI entirely, the model has no way to confirm itself.
 
 interface ConfirmDetail {
   action: "delete_note";

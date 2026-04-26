@@ -17,7 +17,7 @@ const TYPE_STYLES: Record<string, { bg: string; border: string; icon: React.Reac
 interface Announcement { id: string; message: string; type: string; }
 interface ToastProps { announcement: Announcement; onDone: () => void; }
 
-// ── Info toast — auto-dismisses after 10 s or any page interaction ──
+// ── Info toast, auto-dismisses after 10 s or any page interaction ──
 function InfoToast({ announcement, onDone }: ToastProps) {
   const [visible, setVisible] = useState(true);
   const s = TYPE_STYLES.info;
@@ -61,7 +61,7 @@ function InfoToast({ announcement, onDone }: ToastProps) {
   );
 }
 
-// ── Persistent toast — only dismisses via X button ──────────────────
+// ── Persistent toast, only dismisses via X button ──────────────────
 function PersistentToast({ announcement, onDone }: ToastProps) {
   const [visible, setVisible] = useState(true);
   const s = TYPE_STYLES[announcement.type] ?? TYPE_STYLES.warning;

@@ -409,7 +409,7 @@ function PlanAnalytics({ plan, template, completions }) {
           <span className="rp-analytics-label">{behind > 0 ? t("readingPlans.daysBehind") : t("readingPlans.daysAhead")}</span>
         </div>
         <div className="rp-analytics-stat">
-          <span className="rp-analytics-val rp-analytics-val--sm">{finish ?? "—"}</span>
+          <span className="rp-analytics-val rp-analytics-val--sm">{finish ?? "-"}</span>
           <span className="rp-analytics-label">{t("readingPlans.projectedFinish")}</span>
         </div>
       </div>
@@ -453,7 +453,7 @@ function ReadingSummaryWidget({ todayReadings }) {
       {open && (
         <div className="ait-inline-body">
           <p style={{ fontSize: "0.85rem", color: "var(--text-muted,#888)", margin: "0 0 0.75rem" }}>
-            Get a warm debrief of today's reading — key events, characters, lessons, and spiritual application.
+            Get a warm debrief of today's reading, key events, characters, lessons, and spiritual application.
           </p>
           <button className="ait-submit-btn" type="button" onClick={handleSummarize} disabled={loading}>
             {loading ? "Summarizing…" : "✦ Summarize Today's Reading"}

@@ -7,9 +7,9 @@ import "../styles/emoji-picker.css";
  * Position it with a wrapping element that has `position: relative`.
  *
  * Props:
- *   onSelect(emoji: string) — called when user picks an emoji
- *   onClose()               — called when user clicks outside
- *   align                   — "left" | "right" (default "left")
+ *   onSelect(emoji: string), called when user picks an emoji
+ *   onClose()              , called when user clicks outside
+ *   align                  , "left" | "right" (default "left")
  */
 
 interface Props {

@@ -31,7 +31,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   const { data: streak = { current_streak: 0, longest_streak: 0 } } = useReadingStreak(user.id);
   const saveProgress = useSaveProgress(user.id);
 
-  // Debounced reading log — batches chapter toggles into one API call per second
+  // Debounced reading log, batches chapter toggles into one API call per second
   const pendingDelta = useRef(0);
   const logTimer = useRef(null);
   const scheduleLog = (delta) => {
@@ -49,7 +49,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   };
 
   const [chaptersState, setChaptersState] = useState({});
-  // versesState: { [bookIndex]: { [chapter]: number[] } } — 1-based read verse numbers
+  // versesState: { [bookIndex]: { [chapter]: number[] } }, 1-based read verse numbers
   const [versesState, setVersesState] = useState<Record<number, Record<number, number[]>>>({});
   // Verse modal context
   const [verseModal, setVerseModal] = useState<{ bookIndex: number; chapter: number; pillEl: HTMLElement; pillRect: DOMRect } | null>(null);
@@ -176,7 +176,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
 
   // ── Verse modal handlers ────────────────────────────────────────────────────
   const handleOpenChapterModal = (bi: number, ch: number, pillEl: HTMLElement, pillRect: DOMRect) => {
-    // pillRect captured at pointerdown in BookCard — before Chrome focus-scrolls the button
+    // pillRect captured at pointerdown in BookCard, before Chrome focus-scrolls the button
     setVerseModal({ bookIndex: bi, chapter: ch, pillEl, pillRect });
   };
 
@@ -744,7 +744,7 @@ function QuickNoteModal({ userId, bookIndex, onClose }) {
                 className="qn-input"
                 value={verse}
                 onChange={e => setVerse(e.target.value)}
-                placeholder="—"
+                placeholder="-"
               />
             </div>
           </div>

@@ -129,7 +129,7 @@ const units: Unit[] = [
           {
             kind: "p",
             text:
-              "When Paul preached in Beroea, the people there did something the apostle singled out for praise. They received the word eagerly — but they didn't stop there. They checked.",
+              "When Paul preached in Beroea, the people there did something the apostle singled out for praise. They received the word eagerly, but they didn't stop there. They checked.",
           },
           {
             kind: "blockquote",
@@ -140,7 +140,7 @@ const units: Unit[] = [
           {
             kind: "p",
             text:
-              "That's the pattern for personal study. Eager reception and careful examination, every day. It's not enough to agree with what you hear at the meetings. The Bereans — and Paul himself, who wrote more of the Christian Greek Scriptures than anyone — wanted us digging in ourselves.",
+              "That's the pattern for personal study. Eager reception and careful examination, every day. It's not enough to agree with what you hear at the meetings. The Bereans, and Paul himself, who wrote more of the Christian Greek Scriptures than anyone, wanted us digging in ourselves.",
           },
           { kind: "h3", text: "Three marks of study that shapes a life" },
           {
@@ -148,7 +148,7 @@ const units: Unit[] = [
             items: [
               "Regular. Rhythm beats intensity. Fifteen minutes daily outlasts a three-hour binge on Saturday.",
               "Active. Pencil in hand. Question in mind. If you can't recall what you read an hour later, you weren't really studying.",
-              "Prayerful. Jehovah gives wisdom generously to those who ask (Jas. 1:5). Holy spirit isn't automatic — ask.",
+              "Prayerful. Jehovah gives wisdom generously to those who ask (Jas. 1:5). Holy spirit isn't automatic, ask.",
             ],
           },
           {
@@ -183,19 +183,19 @@ const units: Unit[] = [
           {
             kind: "p",
             text:
-              "We're spoiled. Bible students before us pieced their study time together from paperback Bibles, mimeographed outlines, and trips to the Kingdom Hall library. Today, two apps do most of that work — and knowing which to reach for saves real time.",
+              "We're spoiled. Bible students before us pieced their study time together from paperback Bibles, mimeographed outlines, and trips to the Kingdom Hall library. Today, two apps do most of that work, and knowing which to reach for saves real time.",
           },
           { kind: "h3", text: "JW Library: the faithful field companion" },
           {
             kind: "p",
             text:
-              "JW Library is the New World Translation, the meeting media, the songbook, and the daily text in your pocket. It's portable, it works offline, and it's tuned for reading and meetings — not deep research.",
+              "JW Library is the New World Translation, the meeting media, the songbook, and the daily text in your pocket. It's portable, it works offline, and it's tuned for reading and meetings, not deep research.",
           },
           { kind: "h3", text: "Watchtower ONLINE LIBRARY (WOL): the research desk" },
           {
             kind: "p",
             text:
-              "WOL is the full shelf. Every publication, indexed and cross-linked. It's where you go when a question opens up and you need to follow the thread — past Watchtower articles, Insight entries, Reasoning chapters, Yearbooks.",
+              "WOL is the full shelf. Every publication, indexed and cross-linked. It's where you go when a question opens up and you need to follow the thread, past Watchtower articles, Insight entries, Reasoning chapters, Yearbooks.",
           },
           {
             kind: "blockquote",
@@ -293,13 +293,13 @@ const units: Unit[] = [
           {
             kind: "p",
             text:
-              "The encyclopedia. Two volumes covering people, places, objects, concepts — alphabetically, with cross-references. When a name, a word, or a custom in the Scriptures stops you, Insight is the first stop.",
+              "The encyclopedia. Two volumes covering people, places, objects, concepts, alphabetically, with cross-references. When a name, a word, or a custom in the Scriptures stops you, Insight is the first stop.",
           },
           { kind: "h3", text: "Reasoning From the Scriptures" },
           {
             kind: "p",
             text:
-              "The field service companion. Organized by topic — \"Blood,\" \"Cross,\" \"God,\" \"Suffering\" — with direct answers and sample conversation lines. Built for objections and discussions.",
+              "The field service companion. Organized by topic, \"Blood,\" \"Cross,\" \"God,\" \"Suffering\", with direct answers and sample conversation lines. Built for objections and discussions.",
           },
           { kind: "h3", text: "The Watchtower (Public + Study Edition)" },
           {
@@ -311,7 +311,7 @@ const units: Unit[] = [
           {
             kind: "p",
             text:
-              "Biblical principles applied to everyday life — family, work, health, anxiety, teens. The voice is warm and practical. Excellent for householders not yet ready for deep doctrinal discussion.",
+              "Biblical principles applied to everyday life, family, work, health, anxiety, teens. The voice is warm and practical. Excellent for householders not yet ready for deep doctrinal discussion.",
           },
           { kind: "h3", text: "Pure Worship of Jehovah" },
           {
@@ -340,7 +340,7 @@ const units: Unit[] = [
                 ],
                 correctOptionId: "b",
                 explanation:
-                  "Reasoning has a full chapter on \"Suffering\" with scriptures, logical reasoning, and sample conversational responses — built exactly for this question.",
+                  "Reasoning has a full chapter on \"Suffering\" with scriptures, logical reasoning, and sample conversational responses, built exactly for this question.",
               },
               {
                 id: "q2",
@@ -354,7 +354,7 @@ const units: Unit[] = [
                 ],
                 correctOptionId: "a",
                 explanation:
-                  "Insight is the encyclopedia — its \"Jehovah\" entry covers etymology, pronunciation history, and every scriptural occurrence with depth.",
+                  "Insight is the encyclopedia, its \"Jehovah\" entry covers etymology, pronunciation history, and every scriptural occurrence with depth.",
               },
               {
                 id: "q3",
@@ -422,27 +422,27 @@ const units: Unit[] = [
           {
             kind: "p",
             text:
-              "S.O.A.P. is an acronym — Scripture, Observation, Application, Prayer — and it's one of the simplest, most durable frameworks for turning Bible reading into Bible study. It works for a single verse or a whole chapter.",
+              "S.O.A.P. is an acronym, Scripture, Observation, Application, Prayer, and it's one of the simplest, most durable frameworks for turning Bible reading into Bible study. It works for a single verse or a whole chapter.",
           },
-          { kind: "h3", text: "S — Scripture" },
+          { kind: "h3", text: "S, Scripture" },
           {
             kind: "p",
             text:
               "Write the verse out. By hand if you can. Copying forces you to slow down and notice things a speed-reader misses: the conjunctions, the imperatives, the conditions.",
           },
-          { kind: "h3", text: "O — Observation" },
+          { kind: "h3", text: "O, Observation" },
           {
             kind: "p",
             text:
-              "What does the passage actually say? Who is speaking? To whom? When? What words repeat? This is not yet about you — it's about what's there on the page.",
+              "What does the passage actually say? Who is speaking? To whom? When? What words repeat? This is not yet about you, it's about what's there on the page.",
           },
-          { kind: "h3", text: "A — Application" },
+          { kind: "h3", text: "A, Application" },
           {
             kind: "p",
             text:
               "Now turn toward yourself. What does this verse ask of me today? Where am I living against it? What would obedience look like this week?",
           },
-          { kind: "h3", text: "P — Prayer" },
+          { kind: "h3", text: "P, Prayer" },
           {
             kind: "p",
             text:
@@ -458,7 +458,7 @@ const units: Unit[] = [
             verseText:
               "Trust in Jehovah with all your heart, and do not rely on your own understanding. In all your ways take notice of him, and he will make your paths straight.",
             prompts: {
-              S: "Copy Proverbs 3:5-6 out in your own handwriting — or type it slowly below.",
+              S: "Copy Proverbs 3:5-6 out in your own handwriting, or type it slowly below.",
               O: "What does this passage command? What does it promise? What's the condition?",
               A: "Where in your life are you currently 'relying on your own understanding'? What would trusting Jehovah look like there this week?",
               P: "Turn your answer into a short prayer. Start with 'Jehovah,' and keep it honest.",
@@ -482,11 +482,11 @@ const units: Unit[] = [
           {
             kind: "list",
             items: [
-              "Who — who's speaking, and who are they speaking to?",
-              "What — what is actually happening in the verse? What word gets repeated or emphasized?",
-              "When / Where — what's the historical or geographical context?",
-              "Why — why would Jehovah want this recorded? Why does it matter?",
-              "How — how does it apply to me, today, in my actual circumstances?",
+              "Who, who's speaking, and who are they speaking to?",
+              "What, what is actually happening in the verse? What word gets repeated or emphasized?",
+              "When / Where, what's the historical or geographical context?",
+              "Why, why would Jehovah want this recorded? Why does it matter?",
+              "How, how does it apply to me, today, in my actual circumstances?",
             ],
           },
           {
@@ -512,7 +512,7 @@ const units: Unit[] = [
               {
                 key: "what",
                 prompt: "What is the command, and what word gets emphasized?",
-                hint: "'Throw' — it's decisive, not passive. 'All' is the emphatic word.",
+                hint: "'Throw', it's decisive, not passive. 'All' is the emphatic word.",
               },
               {
                 key: "when_where",
@@ -522,7 +522,7 @@ const units: Unit[] = [
               {
                 key: "why",
                 prompt: "Why would Jehovah want this recorded?",
-                hint: "Because anxiety isolates, and this verse is the corrective — we have a Father who cares.",
+                hint: "Because anxiety isolates, and this verse is the corrective, we have a Father who cares.",
               },
               {
                 key: "how",
@@ -545,16 +545,16 @@ const units: Unit[] = [
           {
             kind: "p",
             text:
-              "Highlighting without a system is just decoration. Here's a simple five-color setup that's survived decades of Bible students — and works just as well in JW Library as it does in a paper Bible.",
+              "Highlighting without a system is just decoration. Here's a simple five-color setup that's survived decades of Bible students, and works just as well in JW Library as it does in a paper Bible.",
           },
           {
             kind: "list",
             items: [
-              "Green — a promise from Jehovah.",
-              "Blue — a command or instruction.",
-              "Red — a warning or consequence.",
-              "Gold — a quality of Jehovah or Jesus.",
-              "Purple — a cross-reference worth following.",
+              "Green, a promise from Jehovah.",
+              "Blue, a command or instruction.",
+              "Red, a warning or consequence.",
+              "Gold, a quality of Jehovah or Jesus.",
+              "Purple, a cross-reference worth following.",
             ],
           },
           {
@@ -602,11 +602,11 @@ const units: Unit[] = [
               "2:1.",
             ],
             guide: [
-              { category: "quality", hint: "\"loving Father\" — a quality of Jehovah" },
-              { category: "promise", hint: "\"promises to sustain us\" — a promise" },
-              { category: "command", hint: "\"commands us to pray without ceasing\" — a command" },
-              { category: "warning", hint: "\"drifting leads to shipwreck of faith\" — a warning" },
-              { category: "reference", hint: "\"Compare Hebrews 2:1\" — a cross-reference" },
+              { category: "quality", hint: "\"loving Father\", a quality of Jehovah" },
+              { category: "promise", hint: "\"promises to sustain us\", a promise" },
+              { category: "command", hint: "\"commands us to pray without ceasing\", a command" },
+              { category: "warning", hint: "\"drifting leads to shipwreck of faith\", a warning" },
+              { category: "reference", hint: "\"Compare Hebrews 2:1\", a cross-reference" },
             ],
           },
         },
@@ -617,7 +617,7 @@ const units: Unit[] = [
     id: "unit-3",
     number: 3,
     title: "Going Deeper",
-    oneLine: "From technique into formation — study as a life habit.",
+    oneLine: "From technique into formation, study as a life habit.",
     lessons: [
       {
         id: "lesson-7",
@@ -631,15 +631,15 @@ const units: Unit[] = [
           {
             kind: "p",
             text:
-              "Jehovah wrote his Word in a way that talks to itself. A verse in Genesis connects to one in Revelation. A phrase in Psalms lights up a story in Kings. Cross-referencing is the skill of following those connections — and the NWT Reference Edition is designed for it.",
+              "Jehovah wrote his Word in a way that talks to itself. A verse in Genesis connects to one in Revelation. A phrase in Psalms lights up a story in Kings. Cross-referencing is the skill of following those connections, and the NWT Reference Edition is designed for it.",
           },
           { kind: "h3", text: "Three places to find cross-references" },
           {
             kind: "list",
             items: [
-              "Marginal references in the NWT Reference Bible — right-column, for every significant verse.",
-              "WOL's cited-by feature — shows every publication that cites the verse you're on.",
-              "Insight on the Scriptures — topic entries link to all major passages on the topic.",
+              "Marginal references in the NWT Reference Bible, right-column, for every significant verse.",
+              "WOL's cited-by feature, shows every publication that cites the verse you're on.",
+              "Insight on the Scriptures, topic entries link to all major passages on the topic.",
             ],
           },
           {
@@ -661,31 +661,31 @@ const units: Unit[] = [
                 key: "who",
                 prompt:
                   "Who is speaking here? Find a cross-reference to another prayer of Jesus and note the verse.",
-                hint: "Matthew 26:39 is one of the most intense — compare his posture toward the Father.",
+                hint: "Matthew 26:39 is one of the most intense, compare his posture toward the Father.",
               },
               {
                 key: "what",
                 prompt:
                   "What does 'coming to know' imply? Find a verse that describes knowing God as ongoing, not a one-time event.",
-                hint: "2 Peter 3:18 — 'keep on growing in the undeserved kindness and knowledge of our Lord.'",
+                hint: "2 Peter 3:18, 'keep on growing in the undeserved kindness and knowledge of our Lord.'",
               },
               {
                 key: "when_where",
                 prompt:
                   "The verse distinguishes 'the only true God' from Jesus. Find another verse that makes the same distinction.",
-                hint: "1 Corinthians 8:6 — 'there is actually to us one God, the Father... and there is one Lord, Jesus Christ.'",
+                hint: "1 Corinthians 8:6, 'there is actually to us one God, the Father... and there is one Lord, Jesus Christ.'",
               },
               {
                 key: "why",
                 prompt:
                   "Why does Jesus frame 'everlasting life' as a relationship rather than a reward? Find a verse that shows Jehovah's heart toward us.",
-                hint: "James 4:8 — 'draw close to God, and he will draw close to you.'",
+                hint: "James 4:8, 'draw close to God, and he will draw close to you.'",
               },
               {
                 key: "how",
                 prompt:
                   "What one thing will you do this week to 'keep on coming to know' Jehovah?",
-                hint: "Be concrete — a specific time, a specific chapter, a specific prayer.",
+                hint: "Be concrete, a specific time, a specific chapter, a specific prayer.",
               },
             ],
           },
@@ -695,7 +695,7 @@ const units: Unit[] = [
         id: "lesson-8",
         unitId: "unit-3",
         number: 8,
-        title: "Meditation — Letting the Word Sink In",
+        title: "Meditation, Letting the Word Sink In",
         oneLine:
           "Reading is the meal. Meditation is the digestion. Most of the nutrition happens here.",
         readingMinutes: 4,
@@ -709,7 +709,7 @@ const units: Unit[] = [
           {
             kind: "p",
             text:
-              "The Hebrew word translated 'reads in an undertone' carries the image of a cow chewing cud — slow, repeated, patient. Meditation is that slow chewing. You won't get the nutrients from a verse you swallow whole.",
+              "The Hebrew word translated 'reads in an undertone' carries the image of a cow chewing cud, slow, repeated, patient. Meditation is that slow chewing. You won't get the nutrients from a verse you swallow whole.",
           },
           { kind: "h3", text: "How meditation differs from reading" },
           {
@@ -765,7 +765,7 @@ const units: Unit[] = [
             kind: "list",
             items: [
               "Daily (15 min): Bible reading + daily text. Same time, same place.",
-              "Mid-week (45 min): Meeting prep — read the Watchtower study article, highlight, mark up.",
+              "Mid-week (45 min): Meeting prep, read the Watchtower study article, highlight, mark up.",
               "Weekend (60 min): One S.O.A.P. study on a chapter of your choice.",
               "Monthly: Pick one Insight entry to read all the way through.",
             ],
@@ -773,7 +773,7 @@ const units: Unit[] = [
           {
             kind: "p",
             text:
-              "This isn't a prescription. It's a frame. Shrink it or expand it to fit your life — but write down what you commit to, and then keep showing up.",
+              "This isn't a prescription. It's a frame. Shrink it or expand it to fit your life, but write down what you commit to, and then keep showing up.",
           },
           {
             kind: "p",
@@ -787,11 +787,11 @@ const units: Unit[] = [
           payload: {
             kind: "meditate",
             prompts: [
-              "What time of day will you study? (Be specific — e.g. '7:00 AM, before breakfast.')",
-              "Which days of the week? (Start smaller than you think — three days you actually do beats seven you don't.)",
+              "What time of day will you study? (Be specific, e.g. '7:00 AM, before breakfast.')",
+              "Which days of the week? (Start smaller than you think, three days you actually do beats seven you don't.)",
               "Where will you study? (Same spot every time, if possible.)",
-              "Which Bible book will you start with? (If unsure — Mark is short. James is practical. Psalms is rich.)",
-              "Write one sentence of commitment to Jehovah. You're not promising perfection — you're promising to show up.",
+              "Which Bible book will you start with? (If unsure, Mark is short. James is practical. Psalms is rich.)",
+              "Write one sentence of commitment to Jehovah. You're not promising perfection, you're promising to show up.",
             ],
           },
         },
@@ -828,7 +828,7 @@ const strings: Record<Locale, CourseStrings> = {
     courseTitle: "Learn to Study",
     courseKicker: "A nine-lesson course for Bible students",
     courseIntro:
-      "You will not just read about studying. You will do it — with real verses, real publications, real exercises — the way the Bereans did.",
+      "You will not just read about studying. You will do it, with real verses, real publications, real exercises, the way the Bereans did.",
     unitLabel: "Unit",
     lessonLabel: "Lesson",
     minRead: "min read",
@@ -853,7 +853,7 @@ const strings: Record<Locale, CourseStrings> = {
     courseTitle: "Aprende a estudiar",
     courseKicker: "Un curso de nueve lecciones para estudiantes de la Biblia",
     courseIntro:
-      "No solo leerás sobre el estudio. Lo harás — con versículos reales, publicaciones reales y ejercicios reales — como lo hicieron los bereanos.",
+      "No solo leerás sobre el estudio. Lo harás, con versículos reales, publicaciones reales y ejercicios reales, como lo hicieron los bereanos.",
     unitLabel: "Unidad",
     lessonLabel: "Lección",
     minRead: "min de lectura",

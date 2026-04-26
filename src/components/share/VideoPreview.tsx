@@ -1,9 +1,9 @@
 "use client";
 
 /**
- * VideoPreview — renders the Remotion ProgressVideo animation in the browser.
+ * VideoPreview, renders the Remotion ProgressVideo animation in the browser.
  * Fetches props from /api/render-progress-video, then plays them via @remotion/player.
- * No server rendering required — @remotion/player runs entirely in the browser.
+ * No server rendering required, @remotion/player runs entirely in the browser.
  */
 
 import React, { useEffect, useState } from "react";

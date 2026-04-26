@@ -888,11 +888,7 @@ html.nav-hidden .admin-header { top: 0; }
 .an-kpi-value {
   font-size: 28px;
   font-weight: 800;
-  background: linear-gradient(180deg, #ede9fe 0%, #a78bfa 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: #a78bfa; /* fallback */
+  color: var(--violet-300);
   line-height: 1.1;
   margin-bottom: 4px;
   font-variant-numeric: tabular-nums;
@@ -1172,11 +1168,7 @@ html.nav-hidden .admin-header { top: 0; }
     #fff;
 }
 [data-theme="light"] .an-kpi-value {
-  background: linear-gradient(180deg, #4c1d95 0%, #7c3aed 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: var(--teal-dark);
+  color: var(--violet-700);
 }
 [data-theme="light"] .an-chart-summary-value { color: #1f2937; }
 [data-theme="light"] .an-chart-card:hover {

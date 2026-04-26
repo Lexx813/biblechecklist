@@ -4,16 +4,16 @@ const base =
   "inline-flex items-center gap-1.5 rounded-full font-semibold whitespace-nowrap select-none";
 
 const variants = {
-  /** Neutral chip — counts, tags, generic labels */
+  /** Neutral chip, counts, tags, generic labels */
   default:
     "bg-[var(--teal-soft)] text-[var(--text-secondary)] border border-[var(--border)]",
-  /** Brand accent — active filters, "new" markers */
+  /** Brand accent, active filters, "new" markers */
   accent:
     "bg-[var(--accent-light)] text-[var(--teal-darker)] border border-[var(--accent)]/35",
-  /** Solid violet — primary chip */
+  /** Solid violet, primary chip */
   primary:
     "bg-[var(--teal)] text-white border-none",
-  /** Achievement / streak / milestone — gold reserved per brand rule */
+  /** Achievement / streak / milestone, gold reserved per brand rule */
   gold:
     "bg-[var(--gold)]/15 text-[var(--gold)] border border-[var(--gold)]/35",
   /** Success / done / completed */
@@ -25,7 +25,7 @@ const variants = {
   /** Danger / blocked */
   danger:
     "bg-[#ef4444]/10 text-[#b91c1c] border border-[#ef4444]/30",
-  /** Muted — beta, debug, low-key */
+  /** Muted, beta, debug, low-key */
   muted:
     "bg-transparent text-[var(--text-muted)] border border-[var(--border)]",
 } as const;

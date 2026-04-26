@@ -8,7 +8,7 @@ export default function UIPreview() {
   return (
     <div className="mx-auto max-w-[860px] px-6 py-12" style={{ fontFamily: "var(--font-sans, inherit)" }}>
       <h1 className="mb-1 text-2xl font-bold text-[var(--text-primary)]">UI Component Preview</h1>
-      <p className="mb-10 text-sm text-[var(--text-muted)]">Tailwind-based reusable components — matching existing design tokens.</p>
+      <p className="mb-10 text-sm text-[var(--text-muted)]">Tailwind-based reusable components, matching existing design tokens.</p>
 
       {/* ── Buttons ─────────────────────────────────────────── */}
       <section className="mb-12">
@@ -83,7 +83,7 @@ export default function UIPreview() {
 
           <Card variant="interactive" className="p-5">
             <h3 className="mb-1 text-sm font-bold text-[var(--text-primary)]">Interactive Card</h3>
-            <p className="text-sm text-[var(--text-muted)]">Clickable feed item — subtle hover bg, active scale-down. Click me!</p>
+            <p className="text-sm text-[var(--text-muted)]">Clickable feed item, subtle hover bg, active scale-down. Click me!</p>
           </Card>
 
           <Card variant="section" className="p-5">
@@ -160,7 +160,7 @@ export default function UIPreview() {
             <span className="text-base font-bold text-[var(--text-primary)]">Community Notes</span>
             <Button variant="text" size="sm">View all</Button>
           </div>
-          {["Genesis 1 — In the Beginning", "Psalm 23 — The Lord Is My Shepherd", "Romans 8 — No Condemnation"].map((title, i) => (
+          {["Genesis 1, In the Beginning", "Psalm 23, The Lord Is My Shepherd", "Romans 8, No Condemnation"].map((title, i) => (
             <div key={i} className="flex cursor-pointer items-center gap-3 border-t border-[var(--border)] px-4 py-3 transition-colors duration-100 hover:bg-[var(--hover-bg)] [html[data-theme=dark]_&]:border-white/[0.06]">
               <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#2e1a5c] to-brand-800 text-[13px] font-bold text-white">
                 {["M", "D", "A"][i]}

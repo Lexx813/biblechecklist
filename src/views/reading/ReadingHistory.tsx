@@ -89,7 +89,7 @@ export default function ReadingHistory({ user, onBack, navigate, darkMode, setDa
             </div>
             <div className="history-summary-chip">
               <span className="history-summary-value">
-                {history.length > 0 ? (totalChapters / totalDays).toFixed(1) : "—"}
+                {history.length > 0 ? (totalChapters / totalDays).toFixed(1) : "-"}
               </span>
               <span className="history-summary-label">{t("history.avgPerDay")}</span>
             </div>

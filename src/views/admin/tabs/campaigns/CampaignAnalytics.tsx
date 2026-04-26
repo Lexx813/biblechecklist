@@ -9,7 +9,7 @@ import {
 import { useChartTheme, BarGradient } from "../../../../components/charts";
 
 function pct(num: number, den: number) {
-  if (!den) return "—";
+  if (!den) return "-";
   return `${Math.round((num / den) * 100)}%`;
 }
 
@@ -168,7 +168,7 @@ export function CampaignAnalytics({ campaignId, onBack }: Props) {
             {filteredSends.map(s => (
               <tr key={s.id} className="hover:bg-gray-50 dark:hover:bg-white/3 transition-colors">
                 <td className="px-4 py-2.5">
-                  <p className="text-gray-900 dark:text-white text-xs font-medium">{s.profiles?.display_name ?? "—"}</p>
+                  <p className="text-gray-900 dark:text-white text-xs font-medium">{s.profiles?.display_name ?? "-"}</p>
                   <p className="text-gray-500 text-xs">{s.profiles?.email}</p>
                 </td>
                 <td className="px-4 py-2.5">
@@ -177,13 +177,13 @@ export function CampaignAnalytics({ campaignId, onBack }: Props) {
                   </span>
                 </td>
                 <td className="px-4 py-2.5 text-xs text-gray-500 dark:text-gray-400">
-                  {s.sent_at ? new Date(s.sent_at).toLocaleDateString() : "—"}
+                  {s.sent_at ? new Date(s.sent_at).toLocaleDateString() : "-"}
                 </td>
                 <td className="px-4 py-2.5 text-xs text-gray-500 dark:text-gray-400">
-                  {s.opened_at ? new Date(s.opened_at).toLocaleDateString() : "—"}
+                  {s.opened_at ? new Date(s.opened_at).toLocaleDateString() : "-"}
                 </td>
                 <td className="px-4 py-2.5 text-xs text-gray-500 dark:text-gray-400">
-                  {s.clicked_at ? new Date(s.clicked_at).toLocaleDateString() : "—"}
+                  {s.clicked_at ? new Date(s.clicked_at).toLocaleDateString() : "-"}
                 </td>
               </tr>
             ))}

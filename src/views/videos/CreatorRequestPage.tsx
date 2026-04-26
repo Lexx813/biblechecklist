@@ -17,8 +17,8 @@ interface Props {
 }
 
 const STATUS_LABELS: Record<string, string> = {
-  pending:  "Pending review — usually 24–48 hrs",
-  approved: "Approved — you can now post videos!",
+  pending:  "Pending review, usually 24–48 hrs",
+  approved: "Approved, you can now post videos!",
   denied:   "Request denied. Contact support for more information.",
 };
 

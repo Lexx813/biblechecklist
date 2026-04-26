@@ -1412,7 +1412,6 @@
   font-size: 0.95rem;
   line-height: 1.65;
   margin-bottom: 0.6rem;
-  border-left: 2px solid var(--border);
   padding-left: 12px;
   font-style: italic;
   color: var(--text-primary);

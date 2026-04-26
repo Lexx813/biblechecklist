@@ -20,7 +20,7 @@ interface Props {
 }
 
 // Lazy-loads motion/react after first paint so it's off the critical JS path.
-// Renders a plain div until motion is ready — content is always visible on SSR/FCP.
+// Renders a plain div until motion is ready, content is always visible on SSR/FCP.
 export default function MotionDiv({
   variant = "fadeUp",
   delay = 0,

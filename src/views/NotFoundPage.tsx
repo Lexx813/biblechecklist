@@ -4,7 +4,7 @@ import "../styles/not-found.css";
 export default function NotFoundPage({ navigate, user = null, darkMode, setDarkMode, i18n, onLogout }: { navigate: (page: string) => void; user?: unknown; darkMode?: boolean; setDarkMode?: (v: boolean) => void; i18n?: unknown; onLogout?: () => void }) {
   // Ensure the URL stays as-is so the user can see what they typed wrong
   useEffect(() => {
-    document.title = "404 — Page Not Found";
+    document.title = "404, Page Not Found";
     return () => { document.title = "JW Study"; };
   }, []);
 
@@ -26,7 +26,7 @@ export default function NotFoundPage({ navigate, user = null, darkMode, setDarkM
             Go back
           </button>
         </div>
-        <p className="nf-verse">"Your word is a lamp for my feet, a light on my path." — Psalm 119:105</p>
+        <p className="nf-verse">"Your word is a lamp for my feet, a light on my path.", Psalm 119:105</p>
       </div>
     </div>
   );

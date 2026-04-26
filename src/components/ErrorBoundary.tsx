@@ -96,7 +96,7 @@ interface ErrorBoundaryState {
   error: Error | null;
 }
 
-// ── Error Boundary (class component — required by React) ───────
+// ── Error Boundary (class component, required by React) ───────
 export class ErrorBoundary extends React.Component<React.PropsWithChildren, ErrorBoundaryState> {
   constructor(props: React.PropsWithChildren) {
     super(props);
@@ -109,7 +109,7 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Erro
 
   componentDidCatch(error: Error, info: React.ErrorInfo) {
     console.error("[ErrorBoundary]", error, info.componentStack);
-    // Lazy-load Sentry only when an error actually occurs — keeps it off the critical path
+    // Lazy-load Sentry only when an error actually occurs, keeps it off the critical path
     import("@sentry/react")
       .then(({ captureException }) =>
         captureException(error, { extra: { componentStack: info.componentStack } })
@@ -151,7 +151,7 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Erro
           });
           return null;
         }
-        // Exceeded retries — show a targeted message
+        // Exceeded retries, show a targeted message
         return (
           <ErrorPage
             error={{ message: "The app was updated. Please reload to get the latest version." }}

@@ -431,7 +431,7 @@ export default function RichTextEditor({
         setLinkModal({ open: false, value: "" });
         return;
       }
-      // mailto: links are valid — don't prepend https://
+      // mailto: links are valid, don't prepend https://
       const href = /^mailto:/i.test(trimmed)
         ? trimmed
         : /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;

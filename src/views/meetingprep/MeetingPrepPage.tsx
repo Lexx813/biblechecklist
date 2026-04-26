@@ -23,7 +23,7 @@ function SongChip({ num, label = "" }: { num: any; label?: string }) {
       <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM21 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
       </svg>
-      {t("meetingPrep.song", { num })}{label ? ` — ${label}` : ""}
+      {t("meetingPrep.song", { num })}{label ? `, ${label}` : ""}
     </span>
   );
 }
@@ -251,7 +251,7 @@ function WatchtowerTab({ week, prep, onTogglePara, onNoteChange }) {
             key={n}
             className={`mp-para-btn${checkedMap[n] ? " mp-para-btn--done" : ""}`}
             onClick={() => onTogglePara(n)}
-            aria-label={`Paragraph ${n}${checkedMap[n] ? " — done" : ""}`}
+            aria-label={`Paragraph ${n}${checkedMap[n] ? ", done" : ""}`}
           >
             {n}
           </button>

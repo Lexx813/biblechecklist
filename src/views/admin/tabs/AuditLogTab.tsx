@@ -41,9 +41,9 @@ export function AuditLogTab() {
                 <td className="admin-audit-time">
                   {new Date(entry.created_at).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" })}
                 </td>
-                <td>{entry.actor?.display_name || entry.actor?.email || "—"}</td>
+                <td>{entry.actor?.display_name || entry.actor?.email || "-"}</td>
                 <td><span className="admin-audit-action">{def.icon} {def.label}</span></td>
-                <td className="admin-audit-target">{entry.target_email || entry.target_id || "—"}</td>
+                <td className="admin-audit-target">{entry.target_email || entry.target_id || "-"}</td>
               </tr>
             );
           })}

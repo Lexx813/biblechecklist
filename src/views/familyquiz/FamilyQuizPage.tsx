@@ -6,18 +6,18 @@ import "../../styles/family-quiz.css";
 // ── LEVELS ────────────────────────────────────────────────────────────────────
 
 const LEVEL_LABELS = {
-  1:  "Level 1 — Bible Basics",
-  2:  "Level 2 — Creation & Early History",
-  3:  "Level 3 — Patriarchs & Promises",
-  4:  "Level 4 — Family & Nation",
-  5:  "Level 5 — Exodus & Law",
-  6:  "Level 6 — Judges & Kings",
-  7:  "Level 7 — Psalms & Proverbs",
-  8:  "Level 8 — Prophets",
-  9:  "Level 9 — Gospels",
-  10: "Level 10 — Acts & Letters",
-  11: "Level 11 — Revelation",
-  12: "Level 12 — The Final Test",
+  1:  "Level 1, Bible Basics",
+  2:  "Level 2, Creation & Early History",
+  3:  "Level 3, Patriarchs & Promises",
+  4:  "Level 4, Family & Nation",
+  5:  "Level 5, Exodus & Law",
+  6:  "Level 6, Judges & Kings",
+  7:  "Level 7, Psalms & Proverbs",
+  8:  "Level 8, Prophets",
+  9:  "Level 9, Gospels",
+  10: "Level 10, Acts & Letters",
+  11: "Level 11, Revelation",
+  12: "Level 12, The Final Test",
 };
 
 const ALL_LEVELS = Object.keys(LEVEL_LABELS).map(Number);
@@ -370,7 +370,7 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
     const newAnswers = [...answers, selected];
 
     if (qIndex + 1 >= challenge.questions.length) {
-      // Last question — submit
+      // Last question, submit
       const score = newAnswers.filter((a, i) => a === challenge.questions[i]?.correct_index).length;
       submit.mutate({ answers: newAnswers, score, total: challenge.questions.length });
     } else {

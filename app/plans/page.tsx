@@ -10,7 +10,7 @@ const BASE = "https://jwstudy.org";
 export const metadata = {
   title: "Bible Reading Plans for Jehovah's Witnesses | JW Study",
   description:
-    "Free Bible reading plans using the New World Translation — NWT in 1 Year, New Testament in 90 Days, Gospels in 30 Days, and more. Track daily progress with JW Study.",
+    "Free Bible reading plans using the New World Translation, NWT in 1 Year, New Testament in 90 Days, Gospels in 30 Days, and more. Track daily progress with JW Study.",
   alternates: {
     canonical: `${BASE}/plans`,
     languages: { en: `${BASE}/plans`, "x-default": `${BASE}/plans` },
@@ -18,14 +18,14 @@ export const metadata = {
   openGraph: {
     title: "NWT Bible Reading Plans | JW Study",
     description:
-      "Free Bible reading plans for Jehovah's Witnesses — track your daily progress with JW Study.",
-    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
+      "Free Bible reading plans for Jehovah's Witnesses, track your daily progress with JW Study.",
+    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study, Bible Reading Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "NWT Bible Reading Plans | JW Study",
     description: "Free Bible reading plans for Jehovah's Witnesses.",
-    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
+    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study, Bible Reading Tracker" }],
   },
 };
 
@@ -33,7 +33,7 @@ export default function PlansPage() {
   const schemaItemList = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Bible Reading Plans — JW Study",
+    name: "Bible Reading Plans, JW Study",
     description:
       "Free Bible reading plans for Jehovah's Witnesses using the New World Translation",
     url: `${BASE}/plans`,

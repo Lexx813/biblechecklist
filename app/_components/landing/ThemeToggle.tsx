@@ -20,7 +20,7 @@ const SunIcon = () => (
 const btnClass = "flex size-9 cursor-pointer items-center justify-center rounded-lg border border-[var(--lp-border)] bg-[var(--lp-card-bg)] text-[var(--lp-muted)] transition-all duration-150 hover:border-[var(--lp-primary)] hover:bg-[var(--lp-pill-bg)] hover:text-[var(--lp-text)]";
 
 export default function ThemeToggle() {
-  // Start with null to avoid hydration mismatch — the inline script in layout.tsx
+  // Start with null to avoid hydration mismatch, the inline script in layout.tsx
   // sets data-theme before paint, but the server doesn't know the user's preference.
   const [dark, setDark] = useState<boolean | null>(null);
 

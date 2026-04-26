@@ -41,7 +41,7 @@ interface BookCardProps {
 const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, versesState, onToggleChapter, onToggleBook, onOpenChapterModal, notes = [], onAddNote, onDeleteNote, userId, readers = [], initialOpen = false, onNavigateToStudy }: BookCardProps) {
   const [open, setOpen] = useState(initialOpen);
   const [showInfo, setShowInfo] = useState(false);
-  // Rect captured at pointerdown — before Chrome focus-scrolls the element
+  // Rect captured at pointerdown, before Chrome focus-scrolls the element
   const pillRectRef = useRef<DOMRect | null>(null);
   const { t, i18n } = useTranslation();
   const lang = i18n.language?.split("-")[0] ?? "en";

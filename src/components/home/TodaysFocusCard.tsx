@@ -32,7 +32,7 @@ function effectiveDay(plan: { start_date: string; paused_days?: number; is_pause
 
 
 function readingsLabel(readings: Array<{ bookIndex: number; chapter: number }> | null | undefined) {
-  if (!readings || readings.length === 0) return "—";
+  if (!readings || readings.length === 0) return "-";
   const byBook: Record<number, number[]> = {};
   for (const { bookIndex, chapter } of readings) {
     if (!byBook[bookIndex]) byBook[bookIndex] = [];
@@ -159,7 +159,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
             </span>
             <div className="tf-continue-body">
-              <div className="tf-continue-title">Continue — {BOOKS[lastRead.bookIndex]?.name} {lastRead.chapter}</div>
+              <div className="tf-continue-title">Continue, {BOOKS[lastRead.bookIndex]?.name} {lastRead.chapter}</div>
               <div className="tf-continue-sub">Last read {formatDate(lastRead.ts)}</div>
             </div>
             <span className="tf-continue-arrow">›</span>
@@ -177,7 +177,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
           onClick={() => { setDismissed(false); localStorage.removeItem("tf-dismissed"); }}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>Today&apos;s reading done — {readingsLabel(todayReadings)}</span>
+          <span>Today&apos;s reading done, {readingsLabel(todayReadings)}</span>
           <span className="tf-dismissed-expand">Show</span>
         </button>
         {lastRead && (
@@ -186,7 +186,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
             </span>
             <div className="tf-continue-body">
-              <div className="tf-continue-title">Continue — {BOOKS[lastRead.bookIndex]?.name} {lastRead.chapter}</div>
+              <div className="tf-continue-title">Continue, {BOOKS[lastRead.bookIndex]?.name} {lastRead.chapter}</div>
               <div className="tf-continue-sub">Last read {formatDate(lastRead.ts)}</div>
             </div>
             <span className="tf-continue-arrow">›</span>
@@ -302,7 +302,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           </span>
           <div className="tf-continue-body">
-            <div className="tf-continue-title">Continue — {BOOKS[lastRead.bookIndex]?.name} {lastRead.chapter}</div>
+            <div className="tf-continue-title">Continue, {BOOKS[lastRead.bookIndex]?.name} {lastRead.chapter}</div>
             <div className="tf-continue-sub">Last read {formatDate(lastRead.ts)}</div>
           </div>
           <span className="tf-continue-arrow">›</span>

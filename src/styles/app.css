@@ -53,15 +53,34 @@
 }
 
 :root {
-  /* ── Brand colours ── */
-  --teal: #7C3AED;           /* Purple — accent only */
-  --teal-dark: #6D28D9;
-  --teal-darker: #5B21B6;
-  --teal-light: #E5E5EA;     /* Gray-light (neutral, not purple) */
-  --teal-mid: #C7C7CC;       /* Gray-mid */
-  --teal-soft: #F2F2F7;      /* Gray-soft page bg tint */
-  --accent: #C084FC;
-  --accent-light: #F5F3FF;
+  /* ── Brand violet scale (canonical) ──────────────────────────────────────
+     PRODUCT.md defines violet-600 (#7C3AED) as the single brand purple. The
+     full Tailwind violet scale is exposed here as derived steps so the rest
+     of the codebase can reference tokens instead of hex literals. Anything
+     outside this scale is drift and should be migrated. ── */
+  --violet-50:  #f5f3ff;
+  --violet-100: #ede9fe;
+  --violet-200: #ddd6fe;
+  --violet-300: #c4b5fd;
+  --violet-400: #a78bfa;
+  --violet-500: #8b5cf6;
+  --violet-600: #7c3aed;     /* canonical brand */
+  --violet-700: #6d28d9;
+  --violet-800: #5b21b6;
+  --violet-900: #4c1d95;
+  --violet-950: #2e1065;
+
+  /* ── Legacy alias tokens (mis-named historically as `--teal*` / `--accent`).
+     Kept as aliases so 100+ consuming files don't have to be touched at once.
+     Future cleanup: rename in JSX/CSS to --accent* / --violet-*. ── */
+  --teal:       var(--violet-600);
+  --teal-dark:  var(--violet-700);
+  --teal-darker:var(--violet-800);
+  --teal-light: #E5E5EA;     /* Gray-light (neutral, NOT purple — name is misleading) */
+  --teal-mid:   #C7C7CC;     /* Gray-mid */
+  --teal-soft:  #F2F2F7;     /* Gray-soft page bg tint */
+  --accent:     var(--violet-600);
+  --accent-light: var(--violet-50);
 
   /* ── Text ── */
   --text-primary: #1C1C1E;   /* Charcoal — JW Library dark text */
@@ -277,16 +296,29 @@
   --text-secondary: #EBEBF5;
   --text-muted:     #98989D;
 
-  /* Brand — purple accent, purple-tinted neutrals */
-  --teal:       #9F7AEA;    /* Primary purple accent */
-  --teal-dark:  #7C3AED;
-  --teal-darker:#5B21B6;
-  --teal-light: #3A3260;    /* Used as subtle highlight/hover bg */
-  --teal-mid:   #4a3d7a;    /* Mid purple — chapter pill borders etc */
-  --teal-soft:  #231e38;    /* Expanded panel background */
+  /* Brand violet scale — same canonical hexes in both themes; downstream
+     surfaces choose which step is appropriate for the current background. */
+  --violet-50:  #f5f3ff;
+  --violet-100: #ede9fe;
+  --violet-200: #ddd6fe;
+  --violet-300: #c4b5fd;
+  --violet-400: #a78bfa;
+  --violet-500: #8b5cf6;
+  --violet-600: #7c3aed;
+  --violet-700: #6d28d9;
+  --violet-800: #5b21b6;
+  --violet-900: #4c1d95;
+  --violet-950: #2e1065;
 
-  /* Accent */
-  --accent:       #C084FC;
+  /* Legacy aliases — adjusted for dark-theme contrast */
+  --teal:       var(--violet-400);   /* lighter step reads better on dark bg */
+  --teal-dark:  var(--violet-600);
+  --teal-darker:var(--violet-800);
+  --teal-light: #3A3260;    /* hover/highlight bg (intentionally muted purple) */
+  --teal-mid:   #4a3d7a;    /* chapter pill borders */
+  --teal-soft:  #231e38;    /* expanded panel bg */
+
+  --accent:       var(--violet-400);
   --accent-light: #3A3A3C;
 
   /* Hover/active — gray hover, purple active */
@@ -1973,7 +2005,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   .book-list { padding: 0; }
   .book-card:not(.book-card--open) .book-row { min-height: 68px; padding: 6px 8px 10px; }
   .book-card:not(.book-card--open) .book-name { font-size: 11px; margin-bottom: 3px; }
-  .check-circle { width: 26px; height: 26px; touch-action: manipulation; }
+  .check-circle { width: 32px; height: 32px; touch-action: manipulation; }
 
   /* Chapter panel — grid auto-fill so pills always fit */
   .chapters-panel { padding: 10px 12px 14px; }

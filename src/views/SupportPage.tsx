@@ -20,7 +20,7 @@ export default function SupportPage({ navigate }: Props) {
           Support JW Study
         </h1>
         <p className="m-0 mt-3 max-w-[60ch] text-[16px] leading-relaxed text-[var(--text-secondary)]">
-          JW Study is free and always will be. If the app has helped your study, your daily reading, or your family — a one-time gift helps keep it running and growing.
+          JW Study is free and always will be. If the app has helped your study, your daily reading, or your family, a one-time gift helps keep it running and growing.
         </p>
       </header>
 
@@ -44,12 +44,12 @@ export default function SupportPage({ navigate }: Props) {
       <section className="rounded-md border border-[var(--border)] bg-[var(--teal-soft,#F5F3FF)] p-6 sm:p-8">
         <h2 className="m-0 text-lg font-bold tracking-tight text-[var(--text-primary)]">A note before you give</h2>
         <p className="m-0 mt-3 text-[15px] leading-relaxed text-[var(--text-secondary)]">
-          For deeper Bible study, the Watch Tower Online Library and JW Library are the canonical sources — please support those first through your local congregation. JW Study is a personal companion tool, not a publisher. Donations here go to one solo developer; they are not tax-deductible and are not affiliated with any branch of Jehovah's Witnesses.
+          For deeper Bible study, the Watch Tower Online Library and JW Library are the canonical sources, please support those first through your local congregation. JW Study is a personal companion tool, not a publisher. Donations here go to one solo developer; they are not tax-deductible and are not affiliated with any branch of Jehovah's Witnesses.
         </p>
       </section>
 
       <p className="mt-12 text-center text-sm text-[var(--text-muted)]">
-        Thank you for using the app, whether or not you give. — Alexi
+        Thank you for using the app, whether or not you give., Alexi
       </p>
     </div>
   );

@@ -41,7 +41,7 @@ export default function AiLanding() {
           <div>
             <p className="text-sm font-semibold text-violet-700 dark:text-violet-300">Companion</p>
             <p className="mt-1 text-base leading-relaxed text-slate-800 dark:text-slate-200">
-              The Bible records only two birthday celebrations — both held by enemies of Jehovah, both ending with
+              The Bible records only two birthday celebrations, both held by enemies of Jehovah, both ending with
               someone being murdered (<span className="text-violet-700 dark:text-violet-300">Genesis 40:20-22</span>;{" "}
               <span className="text-violet-700 dark:text-violet-300">Matthew 14:6-10</span>). They originated in pagan
               worship and were not practiced by the early Christians. We prefer to honor loved ones throughout the
@@ -69,7 +69,7 @@ export default function AiLanding() {
         </p>
         <div className="mt-6 space-y-6 text-base leading-relaxed text-slate-700 dark:text-slate-300">
           <p>
-            Ask doctrinal questions and get answers grounded in the publications — never improvised, always
+            Ask doctrinal questions and get answers grounded in the publications, never improvised, always
             linked back to wol.jw.org so you can read the source yourself.
           </p>
           <p>
@@ -77,7 +77,7 @@ export default function AiLanding() {
             reads the agenda from wol.jw.org and helps you think through each part.
           </p>
           <p>
-            Save study notes by just asking — &ldquo;save a note on John 3:16&rdquo; lands in your study notes,
+            Save study notes by just asking, &ldquo;save a note on John 3:16&rdquo; lands in your study notes,
             tagged by book and chapter, ready for the next time you study that passage.
           </p>
           <p>

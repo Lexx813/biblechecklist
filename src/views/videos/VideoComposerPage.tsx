@@ -84,7 +84,7 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
         return;
       }
       if (!file) { toast("Please select a video file."); return; }
-      // Lazy-load compression — not in the initial bundle
+      // Lazy-load compression, not in the initial bundle
       const { compressVideo } = await import("../../lib/videoCompress");
       let compressed: File;
       try {

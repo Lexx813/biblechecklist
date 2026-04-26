@@ -172,7 +172,7 @@ export function BlogTab({ navigate }: { navigate: (page: string) => void }) {
                 <td style={{ maxWidth: 260, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                   {post.title}
                 </td>
-                <td>{post.profiles?.display_name || "—"}</td>
+                <td>{post.profiles?.display_name || "-"}</td>
                 <td>
                   <span className={`admin-sub-badge admin-sub-badge--${post.published ? "active" : "none"}`}>
                     {post.published ? t("adminBlog.published") : t("adminBlog.draft")}
@@ -252,7 +252,7 @@ export function ForumTab({ navigate }: { navigate: (page: string) => void }) {
                   {thread.locked && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-label={t("adminForum.locked")} style={{display:"inline",marginRight:4,flexShrink:0}} aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>}
                   {thread.title}
                 </td>
-                <td>{thread.profiles?.display_name || "—"}</td>
+                <td>{thread.profiles?.display_name || "-"}</td>
                 <td>{thread.forum_replies?.[0]?.count ?? 0}</td>
                 <td className="admin-date">{formatDate(thread.created_at)}</td>
                 <td>
@@ -437,7 +437,7 @@ export function BlogCommentsTab() {
               <div className="admin-report-meta">
                 <span className="admin-report-type admin-report-type--comment">{t("adminComments.comment")}</span>
                 <span style={{ fontSize: 12, color: "var(--text-secondary)" }}>
-                  {c.profiles?.display_name || "Unknown"} {t("adminComments.on")} <em>{c.blog_posts?.title || "—"}</em>
+                  {c.profiles?.display_name || "Unknown"} {t("adminComments.on")} <em>{c.blog_posts?.title || "-"}</em>
                 </span>
                 <span style={{ fontSize: 11, color: "var(--text-muted)", marginLeft: "auto" }}>{formatDate(c.created_at)}</span>
               </div>

@@ -37,15 +37,15 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
             JW Study is a free Bible reading tracker and community platform designed for readers of the New World Translation. The App provides the following features at no charge to registered users:
           </p>
           <ul className="about-features" style={{ marginTop: 8 }}>
-            <li className="about-feature"><span className="about-feature-icon">📖</span><div><strong>Bible reading tracker</strong> — track your personal progress through all 66 books of the NWT</div></li>
-            <li className="about-feature"><span className="about-feature-icon">✍️</span><div><strong>Blog</strong> — read and write JW-focused articles, leave comments</div></li>
-            <li className="about-feature"><span className="about-feature-icon">💬</span><div><strong>Community forum</strong> — participate in discussions organized by category</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🤖</span><div><strong>AI Study Companion</strong> — an AI assistant drawing exclusively from JW publications and wol.jw.org</div></li>
-            <li className="about-feature"><span className="about-feature-icon">📅</span><div><strong>Meeting prep</strong> — tools to prepare for midweek and weekend congregation meetings</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🎥</span><div><strong>Videos</strong> — curated JW video content from approved creators</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🧠</span><div><strong>Quizzes</strong> — Bible knowledge quizzes based on NWT content</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔔</span><div><strong>Notifications &amp; Announcements</strong> — community updates and push notifications</div></li>
-            <li className="about-feature"><span className="about-feature-icon">👤</span><div><strong>User profiles</strong> — public profiles showing your reading milestones and contributions</div></li>
+            <li className="about-feature"><span className="about-feature-icon">📖</span><div><strong>Bible reading tracker</strong>, track your personal progress through all 66 books of the NWT</div></li>
+            <li className="about-feature"><span className="about-feature-icon">✍️</span><div><strong>Blog</strong>, read and write JW-focused articles, leave comments</div></li>
+            <li className="about-feature"><span className="about-feature-icon">💬</span><div><strong>Community forum</strong>, participate in discussions organized by category</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🤖</span><div><strong>AI Study Companion</strong>, an AI assistant drawing exclusively from JW publications and wol.jw.org</div></li>
+            <li className="about-feature"><span className="about-feature-icon">📅</span><div><strong>Meeting prep</strong>, tools to prepare for midweek and weekend congregation meetings</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🎥</span><div><strong>Videos</strong>, curated JW video content from approved creators</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🧠</span><div><strong>Quizzes</strong>, Bible knowledge quizzes based on NWT content</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔔</span><div><strong>Notifications &amp; Announcements</strong>, community updates and push notifications</div></li>
+            <li className="about-feature"><span className="about-feature-icon">👤</span><div><strong>User profiles</strong>, public profiles showing your reading milestones and contributions</div></li>
           </ul>
           <p className="about-section-body" style={{ marginTop: 16 }}>
             <strong>JW Study is completely free of charge.</strong> There are no paid tiers, no premium subscriptions, and no features locked behind a paywall. All registered users have full access to all features.
@@ -95,7 +95,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
           </p>
           <ul className="about-features" style={{ marginTop: 8 }}>
             <li className="about-feature"><span className="about-feature-icon">✅</span><div>The AI is designed to provide study assistance aligned with JW teachings only</div></li>
-            <li className="about-feature"><span className="about-feature-icon">✅</span><div>Conversations with the AI are used only to generate responses — they are not shared publicly</div></li>
+            <li className="about-feature"><span className="about-feature-icon">✅</span><div>Conversations with the AI are used only to generate responses, they are not shared publicly</div></li>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Do not use the AI to generate content that violates these Terms, including harmful, illegal, or apostate material</div></li>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Do not attempt to manipulate the AI into producing content outside its intended purpose</div></li>
           </ul>
@@ -107,14 +107,14 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <section className="about-section">
           <h2 className="about-section-title">6. Personal Information &amp; Link Policy</h2>
           <p className="about-section-body">
-            To protect the privacy and safety of all users — especially minors — the following are strictly prohibited in all user-generated content, including forum posts, blog posts, comments, profile bios, and display names:
+            To protect the privacy and safety of all users, especially minors, the following are strictly prohibited in all user-generated content, including forum posts, blog posts, comments, profile bios, and display names:
           </p>
           <ul className="about-features" style={{ marginTop: 8 }}>
-            <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Email addresses</strong> — do not share your own or anyone else's email</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Phone numbers</strong> — including mobile, landline, or WhatsApp numbers</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Physical addresses</strong> — street addresses, home addresses, or meeting locations</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Social media links or handles</strong> — links to or @username handles for Facebook, Instagram, Twitter/X, TikTok, Snapchat, YouTube, LinkedIn, Telegram, WhatsApp, Discord, or similar platforms</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Insecure links (http://)</strong> — only secure links beginning with https:// are permitted</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Email addresses</strong>, do not share your own or anyone else's email</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Phone numbers</strong>, including mobile, landline, or WhatsApp numbers</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Physical addresses</strong>, street addresses, home addresses, or meeting locations</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Social media links or handles</strong>, links to or @username handles for Facebook, Instagram, Twitter/X, TikTok, Snapchat, YouTube, LinkedIn, Telegram, WhatsApp, Discord, or similar platforms</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div><strong>Insecure links (http://)</strong>, only secure links beginning with https:// are permitted</div></li>
           </ul>
           <p className="about-section-body" style={{ marginTop: 16 }}>
             These restrictions exist to keep this a safe, private environment and to prevent the App from being used to exchange contact information or redirect users to external platforms. Our systems automatically scan all content before submission and will block any post containing prohibited information.
@@ -130,8 +130,8 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
           </p>
           <p className="about-section-body"><strong>The following are strictly prohibited and will result in immediate permanent ban:</strong></p>
           <ul className="about-features" style={{ marginTop: 8 }}>
-            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Child Sexual Abuse Material (CSAM) of any kind — images, text, video, or links</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Grooming behavior — attempting to build inappropriate relationships with minors to gain their trust for exploitation</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Child Sexual Abuse Material (CSAM) of any kind, images, text, video, or links</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Grooming behavior, attempting to build inappropriate relationships with minors to gain their trust for exploitation</div></li>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Soliciting personal information from minors, including age, location, school, or contact details</div></li>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Any sexual content directed at or involving minors</div></li>
             <li className="about-feature"><span className="about-feature-icon">🚫</span><div>Attempting to move a conversation with a minor to another platform for the purpose of exploitation</div></li>
@@ -140,7 +140,7 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
             <strong>We will report violations to authorities.</strong> Any content or behavior that we identify as involving the sexual exploitation of children will be reported immediately to:
           </p>
           <ul className="about-features" style={{ marginTop: 8 }}>
-            <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>The National Center for Missing &amp; Exploited Children (NCMEC)</strong> via the CyberTipline at CyberTipLine.org — as required by U.S. federal law (18 U.S.C. § 2258A)</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>The National Center for Missing &amp; Exploited Children (NCMEC)</strong> via the CyberTipline at CyberTipLine.org, as required by U.S. federal law (18 U.S.C. § 2258A)</div></li>
             <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>Local law enforcement</strong> and relevant national authorities in the user's jurisdiction</div></li>
             <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>The Internet Watch Foundation (IWF)</strong> for international cases involving child sexual abuse imagery</div></li>
           </ul>
@@ -165,13 +165,13 @@ export default function TermsPage({ navigate, darkMode, setDarkMode, i18n, user,
         <section className="about-section">
           <h2 className="about-section-title">9. Enforcement &amp; Account Bans</h2>
           <p className="about-section-body">
-            Violations of these Terms — including posting prohibited content, attempting to circumvent automated filters, or engaging in harmful behavior toward other users — may result in:
+            Violations of these Terms, including posting prohibited content, attempting to circumvent automated filters, or engaging in harmful behavior toward other users, may result in:
           </p>
           <ul className="about-features" style={{ marginTop: 8 }}>
-            <li className="about-feature"><span className="about-feature-icon">⚠️</span><div><strong>Content removal</strong> — violating posts, comments, or profile content will be removed without notice</div></li>
-            <li className="about-feature"><span className="about-feature-icon">⚠️</span><div><strong>Temporary suspension</strong> — your account may be suspended pending review</div></li>
-            <li className="about-feature"><span className="about-feature-icon">⚠️</span><div><strong>Permanent ban</strong> — serious or repeated violations will result in a permanent ban with no right to appeal</div></li>
-            <li className="about-feature"><span className="about-feature-icon">⚠️</span><div><strong>Report to authorities</strong> — violations involving child safety or illegal content will be reported to law enforcement and relevant agencies without prior notice</div></li>
+            <li className="about-feature"><span className="about-feature-icon">⚠️</span><div><strong>Content removal</strong>, violating posts, comments, or profile content will be removed without notice</div></li>
+            <li className="about-feature"><span className="about-feature-icon">⚠️</span><div><strong>Temporary suspension</strong>, your account may be suspended pending review</div></li>
+            <li className="about-feature"><span className="about-feature-icon">⚠️</span><div><strong>Permanent ban</strong>, serious or repeated violations will result in a permanent ban with no right to appeal</div></li>
+            <li className="about-feature"><span className="about-feature-icon">⚠️</span><div><strong>Report to authorities</strong>, violations involving child safety or illegal content will be reported to law enforcement and relevant agencies without prior notice</div></li>
           </ul>
           <p className="about-section-body" style={{ marginTop: 16 }}>
             We reserve the right to take enforcement action at our sole discretion. We are not obligated to issue warnings before taking action.

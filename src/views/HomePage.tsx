@@ -89,7 +89,7 @@ const FALLBACK_IMAGES = [
   "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?auto=format&fit=crop&w=400&q=70",
 ];
 
-/** Renders the spotlight hero player — iframe for embed_url, <video> for storage. */
+/** Renders the spotlight hero player, iframe for embed_url, <video> for storage. */
 function SpotlightPlayer({ video }: { video: { embed_url: string | null; storage_path: string | null; thumbnail_url: string | null; title: string } }) {
   const { data: signedUrl } = useSignedVideoUrl(video.storage_path, !!video.storage_path && !video.embed_url);
   if (video.embed_url) {
@@ -166,7 +166,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
     return () => cancelAnimationFrame(id);
   }, []);
 
-  // Critical — needed above the fold
+  // Critical, needed above the fold
   const { data: profile } = useFullProfile(user?.id);
   const updateProfile = useUpdateProfile(user?.id);
   const { data: streak = { current_streak: 0, longest_streak: 0 }, isLoading: streakLoading } = useReadingStreak(user?.id);
@@ -175,7 +175,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { incoming } = useFriendRequests(user?.id);
   const pendingRequests = incoming.data?.length ?? 0;
 
-  // Deferred — below the fold, load after paint
+  // Deferred, below the fold, load after paint
   const { data: langPosts = [], isLoading: langPostsLoading } = usePublishedPosts(deferred ? lang : undefined);
   const { data: enPosts = [], isLoading: enPostsLoading } = usePublishedPosts(deferred && lang !== "en" ? "en" : undefined);
   const posts = langPosts.length > 0 ? langPosts : enPosts;
@@ -584,10 +584,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <span className="text-[26px] shrink-0 filter-[drop-shadow(0_2px_8px_rgba(251,146,60,0.35))]">{"\uD83D\uDD25"}</span>
               <span className="flex-1 min-w-0">
                 <span className="block text-[17px] font-bold tracking-[-0.01em] text-(--text-primary)">
-                  <span className="bg-linear-to-b from-[#fed7aa] to-[#f59e0b] bg-clip-text font-extrabold tabular-nums text-transparent">{streak.current_streak}</span>
+                  <span className="font-extrabold tabular-nums text-[#f59e0b]">{streak.current_streak}</span>
                   -{t("home.streakDay")} {t("home.streakLabel")}
                 </span>
-                <span className="mt-0.5 block text-[13px] text-[rgba(240,234,255,0.65)]">Keep it going — you're on a roll!</span>
+                <span className="mt-0.5 block text-[13px] text-[rgba(240,234,255,0.65)]">Keep it going, you're on a roll!</span>
               </span>
               {streak.longest_streak > streak.current_streak && (
                 <span className="shrink-0 text-[13px] italic text-[rgba(240,234,255,0.75)]">{t("home.streakBest")}: {streak.longest_streak}</span>
@@ -620,7 +620,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             </button>
           </div>
 
-          {/* Learn to Study — 9-lesson interactive course */}
+          {/* Learn to Study, 9-lesson interactive course */}
           <LearnToStudyCard
             firstName={(profile?.display_name || "").split(" ")[0]}
             onOpen={() => panelNavigate("learn")}
@@ -706,7 +706,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             </div>
           </div>
 
-          {/* Posts Feed — merge friend posts + public feed, dedup & sort */}
+          {/* Posts Feed, merge friend posts + public feed, dedup & sort */}
           {(() => {
             const seen = new Set<string>();
             const fiveDaysAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
@@ -723,7 +723,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                   const initial = name[0].toUpperCase();
                   return (
                     <div key={post.id} className={`${cardCls} group/post overflow-hidden`}>
-                      {/* Post header — avatar + name + time + delete */}
+                      {/* Post header, avatar + name + time + delete */}
                       <div className="flex items-center gap-3 px-4 pt-3.5 pb-2">
                         <div
                           className="flex min-w-0 flex-1 cursor-pointer items-center gap-3"
@@ -776,7 +776,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                         dangerouslySetInnerHTML={{ __html: sanitizeRich(post.content) }}
                       />
 
-                      {/* Post image — aspect-ratio container reserves space before image loads */}
+                      {/* Post image, aspect-ratio container reserves space before image loads */}
                       {post.image_url && (
                         <div className="border-t border-[var(--border)] bg-black/20" style={{ aspectRatio: "16/9", overflow: "hidden" }}>
                           <img
@@ -842,7 +842,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             />
           )}
 
-          {/* Spotlight video hero — skeleton reserves space to prevent CLS */}
+          {/* Spotlight video hero, skeleton reserves space to prevent CLS */}
           {(spotlightLoading || spotlightVideo) && (
             <div style={{ marginBottom: 20 }}>
               <div className={feedHeadCls}>
@@ -888,7 +888,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             </div>
           )}
 
-          {/* Videos — link to full list */}
+          {/* Videos, link to full list */}
           {!videosLoading && reelVideos.length > 0 && (
             <div>
               <div className={feedHeadCls}>
@@ -1014,10 +1014,10 @@ function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: ()
       : "Learn to Study the Bible";
 
   const subcopy = isComplete
-    ? "You've walked the full path. Return to any lesson to sharpen a skill — S.O.A.P., cross-referencing, meditation, highlighting."
+    ? "You've walked the full path. Return to any lesson to sharpen a skill, S.O.A.P., cross-referencing, meditation, highlighting."
     : isInProgress
       ? `${completedCount} of ${LEARN_TOTAL_LESSONS} lessons complete. Just a few minutes a day.`
-      : "Nine short lessons with hands-on exercises — S.O.A.P., cross-referencing, meditation, highlighting. Study like a Berean.";
+      : "Nine short lessons with hands-on exercises, S.O.A.P., cross-referencing, meditation, highlighting. Study like a Berean.";
 
   const ctaLabel = isComplete ? "Review course" : isInProgress ? "Continue" : "Begin lesson 1";
 

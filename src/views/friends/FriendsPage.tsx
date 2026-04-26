@@ -51,7 +51,7 @@ export default function FriendsPage({ user, navigate, darkMode, setDarkMode, i18
     });
   }
 
-  // Suppress unused variable warning — removeFriend is available for future use
+  // Suppress unused variable warning, removeFriend is available for future use
   void removeFriend;
 
   return (

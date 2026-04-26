@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, it, expect } from "vitest";
 
-// Test the new TAB_ACTIVE_MAP logic inline — serves as a spec document
+// Test the new TAB_ACTIVE_MAP logic inline, serves as a spec document
 const TAB_ACTIVE_MAP: Record<string, string> = {
   messages:         "community",
   friends:          "community",

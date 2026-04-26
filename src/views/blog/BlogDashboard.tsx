@@ -148,7 +148,7 @@ function TranslationsTab({ translations, onChange, primaryLang, postTitle, postE
             >
               {generating ? "Generating…" : "Generate with AI"}
             </button>
-            {generating && <span className="translations-generating-hint">Translating — fields will fill in as it streams…</span>}
+            {generating && <span className="translations-generating-hint">Translating, fields will fill in as it streams…</span>}
           </div>
           {genError && <div className="blog-editor-error">{genError}</div>}
 
@@ -393,7 +393,7 @@ function PostEditor({ userId, post, onDone }) {
                     const url = new URL(val);
                     if (url.protocol === "https:") set("cover_url", val);
                   } catch {
-                    // not a valid URL yet — allow partial typing only if it could become https://
+                    // not a valid URL yet, allow partial typing only if it could become https://
                     if (val.startsWith("https://")) set("cover_url", val);
                   }
                 }}

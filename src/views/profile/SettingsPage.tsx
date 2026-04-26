@@ -266,7 +266,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
                     {permission === "denied"
                       ? t("profile.notifPushDenied")
                       : subscribed
-                        ? t("profile.notifPushEnabled", "Enabled — you'll receive message notifications")
+                        ? t("profile.notifPushEnabled", "Enabled, you'll receive message notifications")
                         : t("profile.notifPushDesc")}
                   </span>
                 </div>
@@ -368,7 +368,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
 
         {/* ── Blocked Users ───────────────────────────────── */}
         <section className="st-section">
-          <h2 className="st-section-title">Privacy — Blocked Users</h2>
+          <h2 className="st-section-title">Privacy, Blocked Users</h2>
           {blockedUsers.length === 0 ? (
             <p className="st-danger-desc">You haven't blocked anyone.</p>
           ) : (

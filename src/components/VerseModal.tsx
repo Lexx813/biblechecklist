@@ -13,7 +13,7 @@ interface VerseModalProps {
   totalVerses: number;
   readVerses: number[];
   isChapterDone: boolean;
-  pillEl: HTMLElement;          // live element — re-queried on scroll
+  pillEl: HTMLElement;          // live element, re-queried on scroll
   initialRect: DOMRect;         // rect captured at pointerdown, before any browser scroll
   onClose: () => void;
   onMarkComplete: () => void;
@@ -76,7 +76,7 @@ export default function VerseModal({
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  // Focus trap — preventScroll so Android doesn't scroll on focus
+  // Focus trap, preventScroll so Android doesn't scroll on focus
   useEffect(() => {
     modalRef.current?.querySelector<HTMLElement>("button")?.focus({ preventScroll: true });
   }, []);
@@ -87,7 +87,7 @@ export default function VerseModal({
 
   return createPortal(
     <>
-      {/* Backdrop — rendered directly in body, no transformed ancestor */}
+      {/* Backdrop, rendered directly in body, no transformed ancestor */}
       <div className="vm-backdrop" onClick={onClose} aria-hidden="true" />
 
       {/* Modal card */}
@@ -156,7 +156,7 @@ export default function VerseModal({
           </button>
           <a
             className="vm-ai-btn"
-            href={`/ai?ask=${encodeURIComponent(`Walk me through ${bookName} ${chapter} (book_index: ${bookIndex}, chapter: ${chapter}). Cover the key themes, who's speaking, which verses stand out for personal study, and check if I've already saved any notes on this chapter (use get_my_notes) — if so, weave them in.`)}`}
+            href={`/ai?ask=${encodeURIComponent(`Walk me through ${bookName} ${chapter} (book_index: ${bookIndex}, chapter: ${chapter}). Cover the key themes, who's speaking, which verses stand out for personal study, and check if I've already saved any notes on this chapter (use get_my_notes), if so, weave them in.`)}`}
             aria-label={`Ask AI about ${bookName} ${chapter}`}
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

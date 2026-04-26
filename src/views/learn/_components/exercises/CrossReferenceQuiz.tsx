@@ -60,7 +60,7 @@ export default function CrossReferenceQuiz({ lessonId, exerciseId, payload, onCo
         ? "A clean sweep. You know your library."
         : correctCount >= Math.ceil(total * 0.6)
         ? "Well done. You've got the instincts."
-        : "A fair start. Revisit the lesson once more — the instincts will come.";
+        : "A fair start. Revisit the lesson once more, the instincts will come.";
     return (
       <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-6 sm:p-8 text-center shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
         <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-jw-purple-light)] dark:text-[#c4b5fd]">

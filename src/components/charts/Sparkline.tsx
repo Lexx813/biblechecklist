@@ -8,7 +8,7 @@ interface Props {
 }
 
 /**
- * Minimal inline trend line — no axes, no labels, no grid.
+ * Minimal inline trend line, no axes, no labels, no grid.
  * Designed for use inside KPI cards.
  */
 export default function Sparkline({

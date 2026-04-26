@@ -25,8 +25,8 @@ export default function DailyVerse() {
         const ref = t(`verses.${idx}.ref`);
         const url = wolRefUrl(ref, lang);
         return url
-          ? <a className="daily-verse-ref" href={url} target="_blank" rel="noopener noreferrer">— {ref} ↗</a>
-          : <span className="daily-verse-ref">— {ref}</span>;
+          ? <a className="daily-verse-ref" href={url} target="_blank" rel="noopener noreferrer">- {ref} ↗</a>
+          : <span className="daily-verse-ref">- {ref}</span>;
       })()}
       <div className="daily-verse-nav">
         <button className="daily-verse-arrow" onClick={prev} data-tip={t("dailyVerse.prev")}>‹</button>

@@ -544,7 +544,7 @@ export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId,
                   onClick={() => {
                     const threadCtx = `Forum thread: "${thread.title}"\n\nOriginal post:\n"""\n${(thread.content ?? "").replace(/<[^>]*>/g, "").slice(0, 1500)}\n"""\n\n`;
                     const draftCtx = replyText && replyText !== "<p></p>"
-                      ? `My current draft reply:\n"""\n${replyText.replace(/<[^>]*>/g, "").slice(0, 1000)}\n"""\n\nHelp me sharpen this reply — keep my voice and JW perspective, ground any claims in NWT scriptures, and keep it warm and pastoral.`
+                      ? `My current draft reply:\n"""\n${replyText.replace(/<[^>]*>/g, "").slice(0, 1000)}\n"""\n\nHelp me sharpen this reply, keep my voice and JW perspective, ground any claims in NWT scriptures, and keep it warm and pastoral.`
                       : `Help me draft a thoughtful, warm reply from a JW perspective. Ground any claims in NWT scriptures.`;
                     window.location.href = `/ai?ask=${encodeURIComponent(threadCtx + draftCtx)}`;
                   }}

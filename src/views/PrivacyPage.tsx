@@ -2,7 +2,7 @@ import { useMeta } from "../hooks/useMeta";
 import "../styles/about.css";
 
 export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout }) {
-  useMeta({ title: "Privacy Policy | JW Study", description: "Read the JW Study privacy policy — how we collect, use, and protect your personal information." });
+  useMeta({ title: "Privacy Policy | JW Study", description: "Read the JW Study privacy policy, how we collect, use, and protect your personal information." });
   return (
     <div className="about-wrap">
 
@@ -40,7 +40,7 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
           <p className="about-section-body"><strong>Reading progress:</strong> We store which Bible chapters you have marked as read so your progress syncs across devices.</p>
           <p className="about-section-body"><strong>User content:</strong> Blog posts, forum threads, replies, comments, notes, and profile information you create are stored and associated with your account.</p>
           <p className="about-section-body"><strong>AI Study Companion conversations:</strong> Messages you send to the AI Study Companion are transmitted to our AI provider (Anthropic) to generate a response and are not stored permanently on our servers. We log aggregate usage counts (number of AI requests per user) for abuse prevention and service improvement. The content of AI conversations is not stored or shared publicly.</p>
-          <p className="about-section-body"><strong>Content scanning:</strong> Submitted content may be scanned for profanity and for links to apostate or ex-JW sources that conflict with Jehovah's Witness teachings (such links are blocked and not stored). You are responsible for any personal information (email, phone number, social links, etc.) you choose to share in your posts, messages, or profile — do not share information you would not want other members of the community to see.</p>
+          <p className="about-section-body"><strong>Content scanning:</strong> Submitted content may be scanned for profanity and for links to apostate or ex-JW sources that conflict with Jehovah's Witness teachings (such links are blocked and not stored). You are responsible for any personal information (email, phone number, social links, etc.) you choose to share in your posts, messages, or profile, do not share information you would not want other members of the community to see.</p>
           <p className="about-section-body"><strong>Push notification tokens:</strong> If you enable push notifications, we store a device notification token to deliver alerts to your device. You can revoke this at any time through your browser or device settings.</p>
           <p className="about-section-body"><strong>Usage data:</strong> We use Google Analytics (GA4) and Vercel Analytics to collect anonymized data about how the App is used (pages visited, session duration, device type, general location by country). No personally identifiable information is sent to these analytics services.</p>
           <p className="about-section-body"><strong>Error monitoring:</strong> We use Sentry to capture application errors and performance issues. Error reports may include browser type, OS, and a stack trace of the error, but do not include the content of your posts or messages.</p>
@@ -69,13 +69,13 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
           <h2 className="about-section-title">4. Third-Party Services</h2>
           <p className="about-section-body">We use the following third-party services to operate the App. Each has its own privacy policy governing their data handling:</p>
           <ul className="about-features" style={{ marginTop: 8 }}>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Supabase</strong> — database, authentication, and file storage (supabase.com/privacy)</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Vercel</strong> — hosting, deployment, and edge functions (vercel.com/legal/privacy-policy)</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Anthropic</strong> — AI language model powering the AI Study Companion (anthropic.com/privacy)</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Resend</strong> — transactional email delivery (resend.com/privacy)</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Google Analytics (GA4)</strong> — anonymized usage analytics; no PII is shared (policies.google.com/privacy)</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Vercel Analytics</strong> — anonymized, cookie-free usage analytics</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Sentry</strong> — application error and performance monitoring (sentry.io/privacy)</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Supabase</strong>, database, authentication, and file storage (supabase.com/privacy)</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Vercel</strong>, hosting, deployment, and edge functions (vercel.com/legal/privacy-policy)</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Anthropic</strong>, AI language model powering the AI Study Companion (anthropic.com/privacy)</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Resend</strong>, transactional email delivery (resend.com/privacy)</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Google Analytics (GA4)</strong>, anonymized usage analytics; no PII is shared (policies.google.com/privacy)</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Vercel Analytics</strong>, anonymized, cookie-free usage analytics</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Sentry</strong>, application error and performance monitoring (sentry.io/privacy)</div></li>
           </ul>
         </section>
 
@@ -95,7 +95,7 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
         <section className="about-section">
           <h2 className="about-section-title">6. Data Retention</h2>
           <p className="about-section-body">
-            Your data is retained for as long as your account is active. If you delete your account, your personal information and content will be removed from our systems within a reasonable timeframe, except where retention is required by law — including data we are legally required to preserve in connection with reports made to law enforcement or child safety authorities.
+            Your data is retained for as long as your account is active. If you delete your account, your personal information and content will be removed from our systems within a reasonable timeframe, except where retention is required by law, including data we are legally required to preserve in connection with reports made to law enforcement or child safety authorities.
           </p>
         </section>
 
@@ -117,7 +117,7 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
         <section className="about-section">
           <h2 className="about-section-title">8. Cookies &amp; Local Storage</h2>
           <p className="about-section-body">
-            The App uses browser localStorage to store your theme preference, reading progress cache, and AI chat history for a better experience. Vercel Analytics collects anonymized, cookie-free usage data. Google Analytics uses cookies to measure usage — you can opt out via browser settings or the Google Analytics opt-out browser add-on.
+            The App uses browser localStorage to store your theme preference, reading progress cache, and AI chat history for a better experience. Vercel Analytics collects anonymized, cookie-free usage data. Google Analytics uses cookies to measure usage, you can opt out via browser settings or the Google Analytics opt-out browser add-on.
           </p>
         </section>
 
@@ -132,10 +132,10 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
             <strong>Our commitment to child safety:</strong> We take the safety of children on our platform with the utmost seriousness. We actively monitor for and prohibit any content or behavior that could harm, exploit, or sexualize minors. This includes Child Sexual Abuse Material (CSAM), grooming, or any attempt to solicit personal information from minors.
           </p>
           <p className="about-section-body">
-            <strong>Mandatory reporting:</strong> We are legally required — and morally committed — to report any apparent child sexual exploitation material or grooming activity discovered on our platform to the appropriate authorities, including:
+            <strong>Mandatory reporting:</strong> We are legally required, and morally committed, to report any apparent child sexual exploitation material or grooming activity discovered on our platform to the appropriate authorities, including:
           </p>
           <ul className="about-features" style={{ marginTop: 8 }}>
-            <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>NCMEC CyberTipline</strong> (CyberTipLine.org) — as required by U.S. federal law (18 U.S.C. § 2258A)</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>NCMEC CyberTipline</strong> (CyberTipLine.org), as required by U.S. federal law (18 U.S.C. § 2258A)</div></li>
             <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>Local law enforcement</strong> in the jurisdiction where the violation occurred</div></li>
             <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>The Internet Watch Foundation (IWF)</strong> for international cases</div></li>
           </ul>

@@ -64,7 +64,7 @@ export function QuizStatsTab() {
                   {s.passRate}%
                 </span>
               </td>
-              <td>{s.avgScore > 0 ? `${s.avgScore}%` : "—"}</td>
+              <td>{s.avgScore > 0 ? `${s.avgScore}%` : "-"}</td>
               <td>{s.attempts}</td>
             </tr>
           ))}

@@ -69,7 +69,7 @@ const FEATURES = [
 ];
 
 const STEPS = [
-  { num: "1", title: "Sign up free", desc: "Email or Google — 30 seconds, no credit card" },
+  { num: "1", title: "Sign up free", desc: "Email or Google, 30 seconds, no credit card" },
   { num: "2", title: "Check off chapters", desc: "Mark chapters as you read across all 66 books" },
   { num: "3", title: "Build the habit", desc: "Streaks, badges, and a community keep you going" },
 ];
@@ -82,10 +82,10 @@ const TESTIMONIALS = [
 
 const FAQS = [
   { q: "Is JW Study affiliated with the Watch Tower Society or jw.org?", a: "No. JW Study is an independent tool built by a publisher to help fellow Witnesses track Bible reading and study. We are not endorsed by, sponsored by, or connected to the Watch Tower Bible and Tract Society. All Bible text and references link out to the official jw.org and JW Library." },
-  { q: "Is it really free?", a: "Yes. JW Study is 100% free — no trial, no card, no hidden tiers. Everything on the site is free to use." },
-  { q: "Do I need to create an account to try it?", a: "No. You can use the full Bible reading tracker without signing up — just visit Try the tracker, check off chapters, and your progress is saved on your device. Create a free account when you're ready to sync across devices and unlock streaks, notes, and reading plans." },
+  { q: "Is it really free?", a: "Yes. JW Study is 100% free, no trial, no card, no hidden tiers. Everything on the site is free to use." },
+  { q: "Do I need to create an account to try it?", a: "No. You can use the full Bible reading tracker without signing up, just visit Try the tracker, check off chapters, and your progress is saved on your device. Create a free account when you're ready to sync across devices and unlock streaks, notes, and reading plans." },
   { q: "Is my data private?", a: "Yes. Your reading progress, notes, and study data are private to you by default. We never share or sell your data. You can delete your account and all data at any time." },
-  { q: "Does it work offline / on my phone?", a: "Yes. JW Study is a Progressive Web App — install it on iPhone, Android, or desktop with one tap. It works like a native app, no App Store needed, and stays in sync across all your devices." },
+  { q: "Does it work offline / on my phone?", a: "Yes. JW Study is a Progressive Web App, install it on iPhone, Android, or desktop with one tap. It works like a native app, no App Store needed, and stays in sync across all your devices." },
   { q: "What if I'm not a Jehovah's Witness?", a: "You're welcome here too. JW Study is built around the New World Translation, but anyone studying the Bible is free to use it." },
 ];
 
@@ -93,12 +93,12 @@ const JW_CARDS = [
   {
     icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>,
     title: "JW Library on mobile",
-    desc: "Tap any chapter or verse pill and it opens directly in the JW Library app — no copy-pasting, no searching.",
+    desc: "Tap any chapter or verse pill and it opens directly in the JW Library app, no copy-pasting, no searching.",
   },
   {
     icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
     title: "JW.org on desktop",
-    desc: "On desktop, chapter and verse links open the official NWT on JW.org — always the authorised New World Translation text.",
+    desc: "On desktop, chapter and verse links open the official NWT on JW.org, always the authorised New World Translation text.",
   },
   {
     icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
@@ -197,7 +197,7 @@ export default function LandingPage() {
                 className="inline-flex cursor-pointer items-center gap-2 rounded-[10px] border-none bg-[var(--lp-primary)] px-6 py-3.5 text-[15px] font-bold tracking-tight text-white transition-all duration-150 hover:-translate-y-px hover:bg-[var(--lp-primary-hover)] max-[480px]:w-full max-[480px]:justify-center"
               />
               <a href="/try" className="inline-flex items-center rounded-[10px] border border-[var(--lp-border)] bg-[var(--lp-card-bg)] px-6 py-3.5 text-[15px] font-semibold text-[var(--lp-text)] no-underline transition-all duration-150 hover:border-[var(--lp-primary)] hover:bg-[var(--lp-pill-bg)] max-[480px]:w-full max-[480px]:justify-center">
-                Try the tracker — no signup
+                Try the tracker, no signup
               </a>
             </div>
           </MotionDiv>
@@ -221,7 +221,7 @@ export default function LandingPage() {
               See every chapter at a glance
             </h2>
             <p className="m-0 max-w-[400px] text-[15px] leading-relaxed text-[var(--lp-muted)] max-md:max-w-full">
-              Tap any chapter to mark it read — or select individual verses. Your progress is always saved and synced.
+              Tap any chapter to mark it read, or select individual verses. Your progress is always saved and synced.
             </p>
           </MotionDiv>
           <MotionDiv variant="slideRight" className="relative flex items-start justify-center">
@@ -328,7 +328,7 @@ export default function LandingPage() {
               The perfect JW Library companion
             </h2>
             <p className="m-0 text-[15px] leading-relaxed text-white/70">
-              Every book, chapter, and verse in the app links directly to the official New World Translation — one tap opens it right where you are.
+              Every book, chapter, and verse in the app links directly to the official New World Translation, one tap opens it right where you are.
             </p>
           </MotionDiv>
           <div className="grid w-full gap-5 md:grid-cols-3 max-md:mx-auto max-md:max-w-[440px] max-md:grid-cols-1">
@@ -411,7 +411,7 @@ export default function LandingPage() {
           <div className="flex flex-col items-center gap-3 text-center">
             <span className="inline-flex items-center rounded-full bg-[var(--lp-badge-bg)] px-3.5 py-[5px] text-xs font-semibold uppercase tracking-wider text-[var(--lp-badge-text)]">Free App</span>
             <h2 className="m-0 text-[clamp(24px,4vw,34px)] font-extrabold leading-tight text-[var(--lp-text)]" id="lp-install-title">Install on any device</h2>
-            <p className="m-0 max-w-[520px] text-base leading-relaxed text-[var(--lp-muted)]">JW Study works like a native app — no App Store needed. Add it to any device in seconds.</p>
+            <p className="m-0 max-w-[520px] text-base leading-relaxed text-[var(--lp-muted)]">JW Study works like a native app, no App Store needed. Add it to any device in seconds.</p>
           </div>
           <div className="grid w-full gap-5 md:grid-cols-3 max-md:mx-auto max-md:max-w-[400px] max-md:grid-cols-1">
             {INSTALL_CARDS.map((card, i) => (
@@ -431,7 +431,7 @@ export default function LandingPage() {
               </MotionDiv>
             ))}
           </div>
-          <p className="m-0 text-center text-[13px] text-[var(--lp-muted)]">Works on all devices — no download, no App Store, always up to date.</p>
+          <p className="m-0 text-center text-[13px] text-[var(--lp-muted)]">Works on all devices, no download, no App Store, always up to date.</p>
         </div>
       </section>
 

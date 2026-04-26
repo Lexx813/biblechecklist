@@ -138,7 +138,7 @@ export default function Meditate({ lessonId, exerciseId, payload, onComplete }: 
 
       {finished && (
         <p className="mt-4 rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-900 dark:bg-emerald-500/15 dark:text-emerald-100">
-          There's no grade here. What you just did — slowing down, asking honest questions —
+          There's no grade here. What you just did, slowing down, asking honest questions -
           is the practice. Keep it up.
         </p>
       )}

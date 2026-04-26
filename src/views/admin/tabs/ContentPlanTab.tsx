@@ -19,12 +19,12 @@ TikTok hook idea: "${article.tiktokHook}"
 
 Audience: Jehovah's Witnesses and sincere Bible students
 Tone: Warm, spiritually encouraging, grounded in scripture and JW publications
-Format: SEO-optimised blog post — H2 subheadings, short paragraphs
+Format: SEO-optimised blog post, H2 subheadings, short paragraphs
 Use NWT terminology throughout (Jehovah, Hebrew/Christian Greek Scriptures, pure worship, God's Kingdom, etc.)
 Do not reference outside commentaries or other denominations.
 
-CTA / closing section — IMPORTANT:
-Always close the article by pointing the reader to jw.org as the primary source for deeper study. Do NOT use phrases like "Start Your Free Study Journey," "Free Bible Study," or any wording that positions this blog (jwstudy.org) as the source of spiritual study. That framing belongs exclusively to jw.org and its official resources. Our blog is a companion — jw.org is the authoritative source.
+CTA / closing section, IMPORTANT:
+Always close the article by pointing the reader to jw.org as the primary source for deeper study. Do NOT use phrases like "Start Your Free Study Journey," "Free Bible Study," or any wording that positions this blog (jwstudy.org) as the source of spiritual study. That framing belongs exclusively to jw.org and its official resources. Our blog is a companion, jw.org is the authoritative source.
 
 Close with a short paragraph that:
 1. Recommends jw.org as the primary place for deeper Bible teaching on this topic

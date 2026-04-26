@@ -440,7 +440,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
                     <div className="quiz-review-answers">
                       {!wasCorrect && (
                         <div className="quiz-review-your-answer">
-                          {t("quiz.yourAnswer")} <span className="quiz-review-wrong-text">{opts[ans?.selectedIndex] ?? "—"}</span>
+                          {t("quiz.yourAnswer")} <span className="quiz-review-wrong-text">{opts[ans?.selectedIndex] ?? "-"}</span>
                         </div>
                       )}
                       <div className="quiz-review-correct-answer">

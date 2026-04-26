@@ -444,7 +444,17 @@
   box-shadow: var(--shadow-sm);
 }
 .forum-row:hover { transform: translateX(4px); box-shadow: var(--shadow-md); border-color: var(--teal); }
-.forum-row--pinned { border-left: 3px solid var(--teal); }
+/* Pinned thread: subtle violet-tinted bg + slightly heavier border instead of
+   a side-stripe (per design rules; side-stripes >1px are banned). The
+   leading 📌 icon in JSX already conveys the state visually. */
+.forum-row--pinned {
+  background: var(--violet-50);
+  border-color: var(--violet-200);
+}
+[data-theme="dark"] .forum-row--pinned {
+  background: rgba(124, 58, 237, 0.08);
+  border-color: rgba(124, 58, 237, 0.30);
+}
 
 .forum-row-left { flex-shrink: 0; }
 
@@ -499,9 +509,14 @@
   padding: 0 20px;
 }
 
+/* OP body: tinted background only (no side-stripe per design rules). The
+   "OP" badge in the post header already marks authorship. */
 .forum-post--op .forum-post-body {
-  border-left: 3px solid var(--teal);
   background: var(--teal-soft);
+  border-color: var(--violet-300);
+}
+[data-theme="dark"] .forum-post--op .forum-post-body {
+  border-color: rgba(124, 58, 237, 0.4);
 }
 
 .forum-post-aside {
@@ -738,7 +753,16 @@
 .forum-badge--solved { background: #D1FAE5;           color: #065F46; }
 [data-theme="dark"] .forum-badge--solved { background: rgba(16,185,129,0.15); color: #6EE7B7; }
 
-.forum-post--solution { border-left: 3px solid #10B981; }
+/* Solution post: green-tinted bg + green border (no side-stripe). The
+   "Solution" badge in the post header carries the same signal. */
+.forum-post--solution {
+  background: rgba(16, 185, 129, 0.06);
+  border-color: rgba(16, 185, 129, 0.40);
+}
+[data-theme="dark"] .forum-post--solution {
+  background: rgba(16, 185, 129, 0.10);
+  border-color: rgba(16, 185, 129, 0.45);
+}
 
 .forum-solution-badge {
   display: inline-flex; align-items: center; gap: 3px;

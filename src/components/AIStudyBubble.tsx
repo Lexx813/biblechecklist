@@ -201,7 +201,7 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
         if (!res.ok) return;
         const data = (await res.json()) as AIUsage;
         if (!cancelled) setUsage(data);
-      } catch { /* swallow — pill is purely informational */ }
+      } catch { /* swallow, pill is purely informational */ }
     }
     if (open) fetchUsage();
     return () => { cancelled = true; };
@@ -265,7 +265,7 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
         )}
 
         {messages.map((msg, i) => (
-          // Skip empty streaming assistant messages — isThinking block handles that state
+          // Skip empty streaming assistant messages, isThinking block handles that state
           (msg.role === "assistant" && msg.streaming && !msg.content) ? null :
           <div key={i} className={`asb-msg asb-msg--${msg.role}`}>
             {msg.role === "assistant" && (

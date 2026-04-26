@@ -1,5 +1,5 @@
 /**
- * Bible Trivia Battle Room — Dev preview
+ * Bible Trivia Battle Room, Dev preview
  * Single unified room: all players see same state.
  * Teams: A = var(--teal) purple, B = amber #d97706
  * Uses app CSS variables for light/dark mode compatibility.
@@ -482,7 +482,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
               </div>
             </div>
 
-            {/* Room code — join only */}
+            {/* Room code, join only */}
             {mode === "join" && (
               <div>
                 <label style={{ display: "block", fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 8 }}>Room Code</label>
@@ -502,7 +502,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
               </div>
             )}
 
-            {/* Team size — create only */}
+            {/* Team size, create only */}
             {mode === "create" && (
               <div>
                 <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10 }}>Team Size</div>
@@ -531,7 +531,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
               </div>
             )}
 
-            {/* Timer options — create only */}
+            {/* Timer options, create only */}
             {mode === "create" && (
               <div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
@@ -599,7 +599,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
               </div>
             )}
 
-            {/* Points to Win — create only */}
+            {/* Points to Win, create only */}
             {mode === "create" && (
               <div>
                 <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10 }}>Points to Win</div>
@@ -650,7 +650,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
               </div>
             )}
 
-            {/* Online Friends Picker — create only */}
+            {/* Online Friends Picker, create only */}
             {mode === "create" && (
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
@@ -770,7 +770,7 @@ function LobbyView({ room, players, myPlayer, onStart, onRefresh, onExit }: {
   const teamB = players.filter((p) => p.team === "B");
   const roomFull = players.length >= room.player_count;
 
-  // Everyone polls — host needs to see players joining, non-host needs to see game start
+  // Everyone polls, host needs to see players joining, non-host needs to see game start
   useEffect(() => {
     const id = setInterval(onRefresh, 3000);
     return () => clearInterval(id);
@@ -907,7 +907,7 @@ function GameView({
   const questionIds: string[] = room.selected_question_ids ?? [];
   const totalQ = questionIds.length;
 
-  // Poll every 3s for everyone — detects pending_next, score changes, question advances
+  // Poll every 3s for everyone, detects pending_next, score changes, question advances
   useEffect(() => {
     const id = setInterval(onRefresh, 3000);
     return () => clearInterval(id);
@@ -1034,7 +1034,7 @@ function GameView({
             boxShadow: `0 0 18px ${teamHex(room.current_team)}22`,
           }}>
             <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: "50%", background: teamHex(room.current_team), marginRight: 8, animation: "pulse 1.2s ease-in-out infinite" }} />
-            {isMyTurn ? "Your turn — answer now!" : `${teamName(room.current_team)}'s turn`}
+            {isMyTurn ? "Your turn, answer now!" : `${teamName(room.current_team)}'s turn`}
           </div>
 
           {/* Question card */}
@@ -1096,7 +1096,7 @@ function GameView({
             </div>
           )}
 
-          {/* Next Question — host only */}
+          {/* Next Question, host only */}
           {canAdvance && (
             <button
               onClick={handleNext}

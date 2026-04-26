@@ -41,7 +41,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
     <div className="admin-wrap">
 
       <div className="admin-content">
-        {/* Stats — admin only */}
+        {/* Stats, admin only */}
         {isCurrentUserAdmin && (
           <div className="admin-stats">
             <div className="admin-stat-card">

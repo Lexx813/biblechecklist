@@ -6,7 +6,7 @@ import PublicFooter from "../../_components/PublicFooter";
 export const revalidate = 300;
 
 export const metadata = {
-  title: "All Articles — JW Study Blog",
+  title: "All Articles, JW Study Blog",
   description: "Every article published on the JW Study community blog.",
   alternates: { canonical: "https://jwstudy.org/blog/all" },
 };

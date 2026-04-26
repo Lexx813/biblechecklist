@@ -15,14 +15,14 @@ export const metadata = {
     title: "Community Forum | JW Study",
     description:
       "Join Bible discussions, ask questions, and share insights with the JW Study community.",
-    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
+    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study, Bible Reading Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Community Forum | JW Study",
     description:
       "Join Bible discussions, ask questions, and share insights with the JW Study community.",
-    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study — Bible Reading Tracker" }],
+    images: [{ url: "https://jwstudy.org/og-image.jpg", width: 1200, height: 630, alt: "JW Study, Bible Reading Tracker" }],
   },
 };
 

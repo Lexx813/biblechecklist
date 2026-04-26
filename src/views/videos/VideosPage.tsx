@@ -16,7 +16,7 @@ import "../../styles/videos.css";
  * Add autoplay + mute params to a YouTube/TikTok embed URL.
  * Browsers block autoplay unless the video is muted.
  * When NOT active we remove the iframe entirely (by returning null src)
- * so the video stops — you can't programmatically pause an iframe.
+ * so the video stops, you can't programmatically pause an iframe.
  */
 function buildEmbedSrc(url: string, active: boolean): string | null {
   if (!active) return null; // caller renders nothing when null
@@ -123,7 +123,7 @@ function ReelItem({ video, liked, isActive, onLike, onExpand, onComment, onShare
   const creatorName = video.profiles?.display_name ?? "Creator";
   const initials = (creatorName[0] ?? "?").toUpperCase();
 
-  // Fetch signed URL for storage videos — start fetching 1 video early so it's
+  // Fetch signed URL for storage videos, start fetching 1 video early so it's
   // ready when the user scrolls to it (prefetch adjacent item too).
   const { data: signedUrl } = useSignedVideoUrl(video.storage_path, isUpload);
 
@@ -132,14 +132,14 @@ function ReelItem({ video, liked, isActive, onLike, onExpand, onComment, onShare
     const v = videoRef.current;
     if (!v) return;
     if (isActive) {
-      v.play().catch(() => {/* autoplay blocked — user can tap to play */});
+      v.play().catch(() => {/* autoplay blocked, user can tap to play */});
     } else {
       v.pause();
       v.currentTime = 0;
     }
   }, [isActive, signedUrl]);
 
-  // onCanPlay fires when browser has buffered enough to start — most reliable
+  // onCanPlay fires when browser has buffered enough to start, most reliable
   // autoplay trigger, especially on slower connections.
   function handleCanPlay() {
     if (isActive) videoRef.current?.play().catch(() => {});
@@ -188,7 +188,7 @@ function ReelItem({ video, liked, isActive, onLike, onExpand, onComment, onShare
             <div className="reel-iframe-cover" />
           </>
         ) : (
-          /* Not active — show thumbnail placeholder to stop playback */
+          /* Not active, show thumbnail placeholder to stop playback */
           <div className="reel-bg-placeholder">
             {video.thumbnail_url
               ? <img src={video.thumbnail_url} alt={video.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -273,7 +273,7 @@ function ReelItem({ video, liked, isActive, onLike, onExpand, onComment, onShare
         )}
       </div>
 
-      {/* ── Progress bar (uploaded videos only — when playing in future) ── */}
+      {/* ── Progress bar (uploaded videos only, when playing in future) ── */}
       {isUpload && (
         <div className="reel-progress">
           <div className="reel-progress-fill" style={{ width: `${progress * 100}%` }} />
@@ -320,7 +320,7 @@ function CommentDrawer({ videoId, user, onClose }: CommentDrawerProps) {
         <div className="reel-drawer-comments">
           {comments.length === 0 && (
             <div className="reel-drawer-empty">
-              No comments yet — your words of encouragement are always welcome here.
+              No comments yet, your words of encouragement are always welcome here.
             </div>
           )}
           {comments.map(c => (

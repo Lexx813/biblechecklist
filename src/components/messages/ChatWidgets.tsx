@@ -13,7 +13,7 @@ import {
 import { THEME_COLORS, DISAPPEAR_OPTIONS, PUSH_DISMISS_KEY, formatTime, initial, REACTION_EMOJIS } from "./chatHelpers";
 import { sanitizeContent } from "../../lib/e2e";
 
-/** Only allow http/https URLs — blocks javascript:, data:, and other dangerous schemes */
+/** Only allow http/https URLs, blocks javascript:, data:, and other dangerous schemes */
 function safeUrl(url: string | null | undefined): string {
   if (!url) return "#";
   try {

@@ -66,11 +66,7 @@
 .tf-streak-value {
   font-size: 20px;
   font-weight: 800;
-  background: linear-gradient(180deg, #fed7aa, #fb923c);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: #fb923c; /* fallback */
+  color: #fb923c;
   display: flex;
   align-items: center;
   gap: 4px;

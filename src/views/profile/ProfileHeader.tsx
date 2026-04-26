@@ -173,7 +173,7 @@ export default function ProfileHeader({
         </p>
       )}
 
-      {/* Action buttons — full width row below avatar */}
+      {/* Action buttons, full width row below avatar */}
       <div className="relative z-1 mt-4 flex flex-wrap items-center gap-2">
         {isOwner ? (
           <Button

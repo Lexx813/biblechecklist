@@ -20,7 +20,7 @@ export default function ChartCard({ title, latest, children }: Props) {
             {latest!.label && <span className="an-chart-summary-label">{latest!.label}</span>}
             {deltaPct !== null && (
               <span className={`an-chart-summary-delta an-chart-summary-delta--${dir}`}>
-                {dir === "up" ? "▲" : dir === "down" ? "▼" : "—"} {deltaPct > 0 ? "+" : ""}{deltaPct}%
+                {dir === "up" ? "▲" : dir === "down" ? "▼" : "-"} {deltaPct > 0 ? "+" : ""}{deltaPct}%
               </span>
             )}
           </div>

@@ -167,7 +167,7 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
             </div>
           )}
 
-          {/* JW Resources footer — always defer to jw.org for deeper knowledge */}
+          {/* JW Resources footer, always defer to jw.org for deeper knowledge */}
           <div className="pr-jw-footer">
             <div className="pr-jw-footer-header">
               <span className="pr-jw-footer-icon">📖</span>
@@ -181,20 +181,20 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
                 <span className="pr-jw-link-icon">✉️</span>
                 <span>
                   <strong>Request a Free Bible Study</strong>
-                  <small>hub.jw.org — one of Jehovah's Witnesses will be glad to contact you</small>
+                  <small>hub.jw.org, one of Jehovah's Witnesses will be glad to contact you</small>
                 </span>
               </a>
               <a className="pr-jw-link pr-jw-link--primary" href="https://hub.jw.org/meetings/en?q=%7B%22meetingType%22:%22meetings%22,%22location%22:%22%22%7D" target="_blank" rel="noopener noreferrer">
                 <span className="pr-jw-link-icon">🏛️</span>
                 <span>
                   <strong>Find a Meeting Near You</strong>
-                  <small>hub.jw.org — attend a Kingdom Hall meeting in your area</small>
+                  <small>hub.jw.org, attend a Kingdom Hall meeting in your area</small>
                 </span>
               </a>
               <a className="pr-jw-link" href="https://www.jw.org" target="_blank" rel="noopener noreferrer">
                 <span className="pr-jw-link-icon">🌐</span>
                 <span>
-                  <strong>jw.org — Official Website</strong>
+                  <strong>jw.org, Official Website</strong>
                   <small>Books, videos, magazines & Bible study articles</small>
                 </span>
               </a>
@@ -202,14 +202,14 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
                 <span className="pr-jw-link-icon">🔍</span>
                 <span>
                   <strong>Watchtower ONLINE Library</strong>
-                  <small>wol.jw.org — full publication archive</small>
+                  <small>wol.jw.org, full publication archive</small>
                 </span>
               </a>
               <a className="pr-jw-link" href="https://www.jw.org/en/online-help/jw-library/" target="_blank" rel="noopener noreferrer">
                 <span className="pr-jw-link-icon">📱</span>
                 <span>
                   <strong>JW Library App</strong>
-                  <small>Bibles, publications & meeting materials — iOS &amp; Android</small>
+                  <small>Bibles, publications & meeting materials, iOS &amp; Android</small>
                 </span>
               </a>
             </div>

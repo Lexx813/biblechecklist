@@ -188,7 +188,7 @@ export default function LessonView({
                 </p>
                 {block.cite && (
                   <cite className="mt-2 block text-sm not-italic font-medium text-[var(--color-jw-purple-light)]">
-                    — {block.cite}
+                   , {block.cite}
                   </cite>
                 )}
               </blockquote>
@@ -351,7 +351,7 @@ function SkipToExerciseButton({
           </svg>
         )}
       </span>
-      <span>{isReady ? "Ready — go to exercise" : "Skip to exercise"}</span>
+      <span>{isReady ? "Ready, go to exercise" : "Skip to exercise"}</span>
       <span className="tabular-nums text-[10px] font-medium opacity-60">
         {pctLabel}%
       </span>

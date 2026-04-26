@@ -11,7 +11,7 @@ interface Props {
   onConversationCreated: (id: string, title: string) => void;
   /** Optional starter prompt pre-filled into the input box (from ?ask= URL param).
    *  The user must tap Send. We never auto-send because that's a URL-CSRF surface
-   *  for prompt injection — any external link could trigger AI actions. */
+   *  for prompt injection, any external link could trigger AI actions. */
   autoSendPrompt?: string | null;
   /** Called once the prompt has been pre-filled so the parent clears the URL */
   onAutoSendConsumed?: () => void;
@@ -109,7 +109,7 @@ export default function AiChatView({ conversationId, userId, onConversationCreat
       }
     }
 
-    // Pass activeId explicitly — the parent state setter from
+    // Pass activeId explicitly, the parent state setter from
     // onConversationCreated hasn't propagated to the hook's ref yet on this
     // render cycle, so the ref-based fallback would still be null.
     send(trimmed, activeId ?? undefined);
@@ -221,7 +221,7 @@ export default function AiChatView({ conversationId, userId, onConversationCreat
         </div>
       )}
 
-      {/* Input — integrated command bar
+      {/* Input, integrated command bar
           pb uses safe-area-inset-bottom + a bit of breathing room so iOS home
           indicator and any dev toolbar don't overlap the disclaimer. */}
       <div
@@ -272,7 +272,7 @@ export default function AiChatView({ conversationId, userId, onConversationCreat
             </button>
           </div>
           <p className="mt-2 px-2 text-center text-[11px] leading-snug text-balance text-slate-400 dark:text-slate-500">
-            Sources link to wol.jw.org. The companion may make mistakes — verify with the publications.
+            Sources link to wol.jw.org. The companion may make mistakes, verify with the publications.
           </p>
         </div>
       </div>
@@ -419,7 +419,7 @@ function pickFollowUps(text: string): string[] {
     out.push("Tell me more");
   }
 
-  // Always offer the save action — the AI has a save_note tool
+  // Always offer the save action, the AI has a save_note tool
   out.push("Save this as a note");
 
   // Cap at 3 to avoid overwhelming the user

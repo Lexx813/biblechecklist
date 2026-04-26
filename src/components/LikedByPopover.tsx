@@ -55,7 +55,7 @@ export default function LikedByPopover({ count, fetchLikers, className }: Props)
   }
 
   // Hover-to-open, mouse only. Touch/pen devices still use the existing
-  // tap-to-toggle path — avoids phantom hover on mobile.
+  // tap-to-toggle path, avoids phantom hover on mobile.
   function onPointerEnterTrigger(e: React.PointerEvent) {
     if (e.pointerType !== "mouse") return;
     cancelClose();
