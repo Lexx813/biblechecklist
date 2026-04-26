@@ -169,11 +169,16 @@ export function wolChapterUrl(bookIndex: number, chapter: number, lang: string =
 
 /**
  * Returns a WOL URL for a specific verse (with #v= anchor).
+ *
+ * The hash uses colon separators (`#v=43:3:16`) — that's the format WOL's own
+ * in-page navigation uses, and what its client-side router scrolls on. The
+ * underscore variant we used previously (`#v=43_3_16`) is silently ignored,
+ * so the page loaded the chapter but never jumped to the verse.
  */
 export function wolVerseUrl(bookIndex: number, chapter: number, verse: number | null, lang: string = "en") {
   const bookNum = bookIndex + 1;
   const base = `${wolBase(lang)}/${bookNum}/${chapter}`;
-  return verse ? `${base}#v=${bookNum}_${chapter}_${verse}` : base;
+  return verse ? `${base}#v=${bookNum}:${chapter}:${verse}` : base;
 }
 
 /**

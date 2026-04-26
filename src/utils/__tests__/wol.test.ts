@@ -96,10 +96,10 @@ describe("wolChapterUrl", () => {
 // ── wolVerseUrl ───────────────────────────────────────────────────────────────
 
 describe("wolVerseUrl", () => {
-  it("includes verse anchor when verse is provided", () => {
+  it("includes verse anchor when verse is provided (colon-separated, matches WOL's own format)", () => {
     const url = wolVerseUrl(42, 3, 16); // John 3:16
     expect(url).toBe(
-      "https://wol.jw.org/en/wol/b/r1/lp-e/nwtsty/43/3#v=43_3_16"
+      "https://wol.jw.org/en/wol/b/r1/lp-e/nwtsty/43/3#v=43:3:16"
     );
   });
 
@@ -164,7 +164,7 @@ describe("wolRefUrl", () => {
   it("returns a WOL URL for a valid reference", () => {
     const url = wolRefUrl("John 14:28");
     expect(url).toContain("nwtsty/43/14");
-    expect(url).toContain("#v=43_14_28");
+    expect(url).toContain("#v=43:14:28");
   });
 
   it("returns null for an invalid reference", () => {
