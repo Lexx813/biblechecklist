@@ -286,35 +286,13 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
 
         {(() => {
           const last = messages[messages.length - 1];
-          const isThinking = loading && last && last.role === "assistant" && !last.content && last.streaming;
-          return isThinking ? (
-            <div className="asb-msg asb-msg--assistant">
-              <span className="asb-msg-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2L9.1 9.1 2 12l7.1 2.9L12 22l2.9-7.1L22 12l-7.1-2.9z"/>
-                </svg>
-              </span>
-              <div className="asb-thinking">
-                <div className="asb-typing">
-                  <span className="asb-dot" /><span className="asb-dot" /><span className="asb-dot" />
-                </div>
-                <span className="asb-thinking-label">Thinking…</span>
-              </div>
-            </div>
-          ) : null;
+          const isAwaitingFirstToken =
+            loading && last && (
+              (last.role === "assistant" && last.streaming && !last.content) ||
+              last.role === "user"
+            );
+          return isAwaitingFirstToken ? <BubbleThinkingIndicator /> : null;
         })()}
-        {loading && messages.length > 0 && messages[messages.length - 1].role === "user" && (
-          <div className="asb-msg asb-msg--assistant">
-            <span className="asb-msg-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2L9.1 9.1 2 12l7.1 2.9L12 22l2.9-7.1L22 12l-7.1-2.9z"/>
-              </svg>
-            </span>
-            <div className="asb-typing">
-              <span className="asb-dot" /><span className="asb-dot" /><span className="asb-dot" />
-            </div>
-          </div>
-        )}
 
         {error && <div className="asb-error">{error}</div>}
 
@@ -372,5 +350,46 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
       </button>
     </div>,
     document.body
+  );
+}
+
+const THINKING_LABELS = [
+  "Thinking",
+  "Looking that up",
+  "Reading the publications",
+  "Considering the scriptures",
+];
+
+function BubbleThinkingIndicator() {
+  const [labelIdx, setLabelIdx] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setLabelIdx((i) => (i + 1) % THINKING_LABELS.length), 1600);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div className="asb-msg asb-msg--assistant">
+      <span className="asb-msg-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2L9.1 9.1 2 12l7.1 2.9L12 22l2.9-7.1L22 12l-7.1-2.9z"/>
+        </svg>
+      </span>
+      <div
+        role="status"
+        aria-live="polite"
+        aria-label="AI is thinking"
+        className="asb-aithink"
+      >
+        <span className="asb-aithink-dots" aria-hidden>
+          <span className="aithink-dot" />
+          <span className="aithink-dot aithink-dot--2" />
+          <span className="aithink-dot aithink-dot--3" />
+        </span>
+        <span className="asb-aithink-label">
+          {THINKING_LABELS[labelIdx]}
+          <span aria-hidden>…</span>
+        </span>
+      </div>
+    </div>
   );
 }
