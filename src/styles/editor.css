@@ -398,3 +398,32 @@
     padding: 6px;
   }
 }
+
+/* ── Rich content: density tuning for narrow columns ───────────────────────
+   Home feed posts render `.rich-content` inside a 1fr middle column that
+   shrinks to ~360-460px between 720-1100px viewports. Default 14px text +
+   1.75 line-height feels too dense and bullet wraps look cramped.
+   Tighten font, line-height, bullet indent, and heading sizes. */
+@media (max-width: 1100px) {
+  .rich-content {
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
+  .rich-content h1 { font-size: 1.3em; }
+  .rich-content h2 { font-size: 1.15em; }
+  .rich-content h3 { font-size: 1.02em; }
+  .rich-content ul, .rich-content ol { padding-left: 1.25em; margin: 0.45em 0; }
+  .rich-content li { margin: 0.15em 0; }
+  .rich-content blockquote { padding: 0.45em 0.85em; margin: 0.65em 0; }
+  .rich-content p { margin: 0 0 0.65em; }
+}
+
+@media (max-width: 480px) {
+  .rich-content {
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  .rich-content h1 { font-size: 1.2em; }
+  .rich-content h2 { font-size: 1.08em; }
+  .rich-content ul, .rich-content ol { padding-left: 1.1em; }
+}
