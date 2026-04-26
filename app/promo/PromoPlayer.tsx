@@ -16,6 +16,7 @@ export default function PromoPlayer() {
       }}
     >
       <Player
+        acknowledgeRemotionLicense
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         component={AIPromoVideo as any}
         inputProps={{}}

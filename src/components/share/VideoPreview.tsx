@@ -82,6 +82,7 @@ export default function VideoPreview({ userId }: VideoPreviewProps) {
   return (
     <div className="vp-wrap">
       <Player
+        acknowledgeRemotionLicense
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         component={ProgressVideo as any}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

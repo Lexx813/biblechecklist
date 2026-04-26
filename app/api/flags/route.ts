@@ -1,6 +1,9 @@
 import { get } from "@vercel/edge-config";
 
-export const runtime = "edge";
+// Vercel's Fluid Compute (Node.js, default since 2025) replaces edge runtime
+// with the same regions/price but full Node compatibility. Removed
+// `runtime = "edge"` so this route can be statically generated where useful
+// and avoid the "edge runtime disables static generation" build warning.
 
 export async function GET() {
   let flags = { aiEnabled: true };
