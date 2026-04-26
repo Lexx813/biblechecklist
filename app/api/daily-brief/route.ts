@@ -179,7 +179,12 @@ async function generateBrief(context: string): Promise<string> {
     }),
   });
 
-  if (!res.ok) throw new Error(`Anthropic error: ${res.status}`);
+  if (!res.ok) {
+    // Capture body for diagnostics (rate limit headers, error type, message).
+    // Limit to 500 chars so a verbose error doesn't bloat the function log.
+    const body = await res.text().catch(() => "");
+    throw new Error(`Anthropic ${res.status}: ${body.slice(0, 500)}`);
+  }
   const data = (await res.json()) as {
     content: Array<{ type: string; text?: string }>;
   };
@@ -216,6 +221,12 @@ export async function GET(req: Request) {
     return Response.json({ brief: cached.brief_text });
   }
 
+  // Skip Anthropic call entirely if no key — return null silently so
+  // DailyBriefCard hides itself without logging an "error" to observability.
+  if (!ANTHROPIC_KEY) {
+    return Response.json({ brief: null });
+  }
+
   // Generate fresh brief
   try {
     const context = await gatherContext(userId);
@@ -235,8 +246,11 @@ export async function GET(req: Request) {
 
     return Response.json({ brief });
   } catch (err) {
-    console.error("[daily-brief] generation error:", err);
-    // Graceful fallback — don't break the homepage
+    // Use warn — this is an expected fallback path (rate limit, transient
+    // 5xx, etc.) and shouldn't show up as a hard error in Vercel observability.
+    // The thrown message now includes status + body, so the warn line is
+    // diagnostically rich without polluting the error rate.
+    console.warn("[daily-brief] fallback to null:", err instanceof Error ? err.message : err);
     return Response.json({ brief: null });
   }
 }
