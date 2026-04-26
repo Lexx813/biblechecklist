@@ -209,8 +209,17 @@
 .rich-content h1 { font-size: 1.5em; }
 .rich-content h2 { font-size: 1.25em; }
 .rich-content h3 { font-size: 1.05em; }
-.rich-content ul, .rich-content ol { padding-left: 1.5em; margin: 0.5em 0; }
-.rich-content li { margin: 0.2em 0; }
+.rich-content ul, .rich-content ol {
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+  list-style-position: outside;
+}
+.rich-content li {
+  margin: 0.25em 0;
+  padding-left: 0.25em;
+}
+.rich-content ul li::marker { color: var(--violet-500, #8b5cf6); }
+.rich-content ol li::marker { color: var(--violet-500, #8b5cf6); font-weight: 700; }
 .rich-content blockquote {
   border: 1px solid rgba(124, 58, 237, 0.2);
   margin: 0.8em 0;
@@ -400,30 +409,27 @@
 }
 
 /* ── Rich content: density tuning for narrow columns ───────────────────────
-   Home feed posts render `.rich-content` inside a 1fr middle column that
-   shrinks to ~360-460px between 720-1100px viewports. Default 14px text +
-   1.75 line-height feels too dense and bullet wraps look cramped.
-   Tighten font, line-height, bullet indent, and heading sizes. */
+   Keep base 14px font everywhere — shrinking below that hurts readability.
+   Only tighten line-height + heading scale + tighten bullet indent on
+   narrowest viewports. List indent stays generous (1.5em base) so bullet
+   markers always have visual room and never collide with the card edge. */
 @media (max-width: 1100px) {
   .rich-content {
-    font-size: 13.5px;
-    line-height: 1.6;
+    line-height: 1.65;
   }
   .rich-content h1 { font-size: 1.3em; }
   .rich-content h2 { font-size: 1.15em; }
   .rich-content h3 { font-size: 1.02em; }
-  .rich-content ul, .rich-content ol { padding-left: 1.25em; margin: 0.45em 0; }
-  .rich-content li { margin: 0.15em 0; }
-  .rich-content blockquote { padding: 0.45em 0.85em; margin: 0.65em 0; }
-  .rich-content p { margin: 0 0 0.65em; }
+  .rich-content blockquote { padding: 0.5em 0.9em; margin: 0.7em 0; }
+  .rich-content p { margin: 0 0 0.7em; }
 }
 
 @media (max-width: 480px) {
   .rich-content {
-    font-size: 13px;
     line-height: 1.55;
   }
   .rich-content h1 { font-size: 1.2em; }
   .rich-content h2 { font-size: 1.08em; }
-  .rich-content ul, .rich-content ol { padding-left: 1.1em; }
+  .rich-content ul, .rich-content ol { padding-left: 1.4em; }
+  .rich-content li { padding-left: 0.2em; }
 }

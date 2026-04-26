@@ -770,9 +770,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                         )}
                       </div>
 
-                      {/* Post content */}
+                      {/* Post content. px-5 (20px) gives bullet markers + first
+                          line of text breathing room from the card edge. */}
                       <div
-                        className="rich-content px-4 pb-3"
+                        className="rich-content px-5 pb-3"
                         dangerouslySetInnerHTML={{ __html: sanitizeRich(post.content) }}
                       />
 

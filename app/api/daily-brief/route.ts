@@ -9,7 +9,7 @@ import { generateSchedule, getTemplateOrCustom } from "../../../src/data/reading
 
 const SUPABASE_URL     = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").trim();
 const SUPABASE_SERVICE = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim();
-const ANTHROPIC_KEY    = process.env.ANTHROPIC_API_KEY ?? "";
+const ANTHROPIC_KEY    = (process.env.ANTHROPIC_API_KEY ?? "").trim();
 const MODEL            = "claude-haiku-4-5-20251001";
 
 function sbHeaders() {
