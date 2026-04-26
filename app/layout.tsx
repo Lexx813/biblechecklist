@@ -27,6 +27,10 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  // resizes-content tells the browser to actually resize the layout viewport
+  // when the on-screen keyboard appears, so chat input bars + buttons stay
+  // above the keyboard instead of being covered. Critical for messaging UX.
+  interactiveWidget: "resizes-content" as const,
 };
 
 export const metadata = {

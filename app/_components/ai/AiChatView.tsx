@@ -176,30 +176,38 @@ export default function AiChatView({ conversationId, userId, onConversationCreat
         ) : (
           <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
             <ul className="space-y-6">
-              {messages.map((m, i) => (
-                <li key={i} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
-                  {m.role === "user" ? (
-                    <div className="max-w-[85%] rounded-2xl rounded-br-sm bg-violet-600 px-4 py-2.5 text-sm text-white">
-                      {m.content}
-                    </div>
-                  ) : (
-                    <div className="max-w-full text-sm text-slate-800 dark:text-slate-100">
-                      {m.streaming && !m.content ? (
-                        <ThinkingIndicator />
-                      ) : (
-                        <>
-                          <div className="prose prose-slate dark:prose-invert prose-sm max-w-none prose-a:text-violet-700 dark:prose-a:text-violet-300">
-                            {renderMessage(m.content)}
-                          </div>
-                          {m.streaming && (
-                            <span className="ml-1 inline-block h-3 w-1.5 animate-pulse bg-violet-400 align-middle" aria-hidden />
-                          )}
-                        </>
-                      )}
-                    </div>
-                  )}
-                </li>
-              ))}
+              {messages.map((m, i) => {
+                const isLast = i === messages.length - 1;
+                const showFollowups =
+                  isLast && m.role === "assistant" && !m.streaming && !!m.content && !loading;
+                return (
+                  <li key={i} className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
+                    {m.role === "user" ? (
+                      <div className="max-w-[85%] rounded-2xl rounded-br-sm bg-violet-600 px-4 py-2.5 text-sm text-white">
+                        {m.content}
+                      </div>
+                    ) : (
+                      <div className="max-w-full text-sm text-slate-800 dark:text-slate-100">
+                        {m.streaming && !m.content ? (
+                          <ThinkingIndicator />
+                        ) : (
+                          <>
+                            <div className="prose prose-slate dark:prose-invert prose-sm max-w-none prose-a:text-violet-700 dark:prose-a:text-violet-300">
+                              {renderMessage(m.content)}
+                            </div>
+                            {m.streaming && (
+                              <span className="ml-1 inline-block h-3 w-1.5 animate-pulse bg-violet-400 align-middle" aria-hidden />
+                            )}
+                            {showFollowups && (
+                              <FollowUpChips lastMessage={m.content} onPick={handleSend} />
+                            )}
+                          </>
+                        )}
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
             <div ref={bottomRef} />
           </div>
@@ -357,4 +365,63 @@ function Welcome({ onPick }: { onPick: (q: string) => void }) {
       </div>
     </div>
   );
+}
+
+// ── Follow-up suggestion chips ────────────────────────────────────────────────
+// Shown below the LAST assistant message once streaming finishes. v1 ships
+// hardcoded but contextual chips (heuristic on the last reply); v2 will hit
+// a small LLM call to generate context-specific follow-ups.
+function FollowUpChips({ lastMessage, onPick }: { lastMessage: string; onPick: (q: string) => void }) {
+  const suggestions = pickFollowUps(lastMessage);
+  if (!suggestions.length) return null;
+  return (
+    <div className="mt-3 flex flex-wrap gap-2">
+      {suggestions.map((s) => (
+        <button
+          key={s}
+          type="button"
+          onClick={() => onPick(s)}
+          className="inline-flex items-center gap-1.5 rounded-full border border-violet-300/40 bg-violet-50 px-3 py-1.5 text-xs font-semibold text-violet-700 transition hover:border-violet-500 hover:bg-violet-100 active:scale-95 dark:border-violet-500/30 dark:bg-violet-500/15 dark:text-violet-200 dark:hover:border-violet-400 dark:hover:bg-violet-500/25"
+        >
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+          {s}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/** Heuristic follow-ups based on what the last assistant message contains. */
+function pickFollowUps(text: string): string[] {
+  const lower = text.toLowerCase();
+  const out: string[] = [];
+
+  // If the reply mentions a scripture, offer to dig deeper into it
+  const hasScripture = /\b(john|matthew|psalm|romans|isaiah|genesis|revelation|acts|corinthians|hebrews|peter|timothy|mark|luke)\s+\d+/i.test(text);
+  if (hasScripture) {
+    out.push("Show me related scriptures");
+  }
+
+  // If reply discusses a doctrine/topic, encourage cross-referencing
+  if (/\b(doctrine|teach|believe|view|understand|interpretation)/.test(lower)) {
+    out.push("What does the Watchtower say about this?");
+  }
+
+  // If reply mentions practical application
+  if (/\b(apply|practical|life|daily|today|today's)/.test(lower)) {
+    out.push("How can I apply this in daily life?");
+  }
+
+  // If response is short, offer to expand
+  if (text.length < 400) {
+    out.push("Tell me more");
+  }
+
+  // Always offer the save action — the AI has a save_note tool
+  out.push("Save this as a note");
+
+  // Cap at 3 to avoid overwhelming the user
+  return out.slice(0, 3);
 }
