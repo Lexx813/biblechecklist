@@ -363,6 +363,8 @@ html.nav-hidden .pf-header { top: 0; }
   line-height: 1.6;
   margin: 0;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .pf-about-empty {
   padding: 16px 20px 20px;

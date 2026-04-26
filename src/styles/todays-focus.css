@@ -364,3 +364,29 @@
   0%, 100% { opacity: 1; }
   50%      { opacity: 0.4; }
 }
+
+/* ── Mobile ──────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .tf-card { padding: 14px; }
+  .tf-header { margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+  .tf-title { font-size: 18px; }
+  .tf-subtitle { font-size: 11px; }
+  .tf-streak-value { font-size: 18px; }
+  .tf-actions { flex-wrap: wrap; gap: 6px; }
+  .tf-mark-done { padding: 11px; font-size: 13px; min-height: 44px; }
+  .tf-wol-btn { padding: 11px 12px; min-height: 44px; }
+  .tf-no-plan { flex-wrap: wrap; padding: 14px; gap: 10px; }
+  .tf-no-plan-text { flex: 1 1 100%; }
+  .tf-no-plan-cta { width: 100%; padding: 10px; min-height: 44px; }
+  .tf-continue { padding: 10px 12px; }
+  .tf-continue-title { font-size: 13px; }
+  .tf-continue-sub { font-size: 11px; }
+  .tf-freeze-row { flex-wrap: wrap; gap: 6px; }
+  .tf-freeze-btn { font-size: 11px; padding: 4px 10px; }
+}
+
+@media (max-width: 360px) {
+  .tf-card { padding: 12px; }
+  .tf-title { font-size: 16px; }
+  .tf-mark-done { font-size: 12px; }
+}

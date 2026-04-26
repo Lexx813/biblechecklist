@@ -345,6 +345,7 @@
 
 .sn-card-title {
   flex: 1;
+  min-width: 0;
   font-size: 14px;
   font-weight: 700;
   color: var(--text-primary);
@@ -352,6 +353,8 @@
   line-height: 1.4;
   letter-spacing: -0.01em;
   padding-right: 52px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .sn-card-delete {

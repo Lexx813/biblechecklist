@@ -998,3 +998,22 @@
 .grp-compose .editor-wrap { border: none; }
 .grp-post-content.editor-render { margin: 0; }
 .grp-post-content.editor-render img { max-width: 100%; border-radius: 8px; margin: 8px 0; }
+
+/* ── Mobile (720px) ──────────────────────────────────────── */
+@media (max-width: 720px) {
+  .grp-page { padding: 12px; }
+  .grp-card-cover { height: 120px; }
+  .grp-card-body { padding: 12px; }
+  .grp-card-title { font-size: 15px; }
+  .grp-card-desc { font-size: 12px; line-height: 1.45; }
+  .grp-btn { padding: 9px 14px; font-size: 13px; min-height: 44px; }
+  .grp-btn--sm { min-height: 36px; padding: 7px 12px; }
+  .grp-detail-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .grp-detail-meta { flex-wrap: wrap; gap: 6px; }
+  .grp-back-btn { min-height: 44px; min-width: 44px; }
+}
+
+@media (max-width: 360px) {
+  .grp-card-cover { height: 100px; }
+  .grp-card-title { font-size: 14px; }
+}

@@ -954,3 +954,29 @@
   background: transparent;
   color: var(--teal);
 }
+
+/* ── Mobile ──────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .feed-inner { padding: 16px 12px 48px; }
+  .feed-header { margin-bottom: 18px; }
+  .feed-title { font-size: 22px; }
+  .feed-sub { font-size: 13px; }
+
+  .feed-item { padding: 12px; gap: 10px; }
+  .feed-item-text { font-size: 13px; }
+  .feed-avatar { width: 36px; height: 36px; }
+
+  .post-card { padding: 12px 14px; }
+  .post-card-content { font-size: 14px; line-height: 1.55; }
+
+  .feed-suggestions { padding: 12px 14px; }
+
+  .stf-row { gap: 8px; }
+  .stf-send-btn { padding: 6px 12px; font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+  .feed-title { font-size: 20px; }
+  .feed-empty { padding: 28px 12px; }
+  .feed-empty-icon { font-size: 36px; }
+}

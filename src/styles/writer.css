@@ -495,3 +495,18 @@
   margin: 4px 0;
   background: var(--border, rgba(167,139,250,0.18));
 }
+
+/* ── Mobile (720px) ──────────────────────────────────────── */
+@media (max-width: 720px) {
+  .be-block { padding: 8px 10px; }
+  .be-h2 { font-size: 22px; }
+  .be-h3 { font-size: 18px; }
+  .be-handle { display: none; }
+  .be-handle-grip { display: none; }
+  .be-add-btn,
+  .be-delete-btn { min-width: 36px; min-height: 36px; }
+  .be-callout { padding: 12px; }
+  .be-callout-text { font-size: 13px; }
+  .be-callout-header { flex-wrap: wrap; gap: 6px; }
+  .be-bullet { padding-left: 18px; }
+}

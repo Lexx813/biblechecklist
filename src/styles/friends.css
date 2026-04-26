@@ -647,3 +647,18 @@
   .freq-card { padding: 12px; }
   .new-conv-modal { border-radius: var(--radius); }
 }
+
+/* ── Mobile (720px) ──────────────────────────────────────── */
+@media (max-width: 720px) {
+  .freq-content { padding: 12px; }
+  .freq-hero { padding: 16px 14px; }
+  .freq-hero-inner { gap: 8px; }
+  .freq-card { padding: 12px; gap: 10px; }
+  .freq-card-info { min-width: 0; }
+  .freq-card-name { font-size: 14px; overflow-wrap: anywhere; }
+  .freq-card-actions { flex-wrap: wrap; gap: 6px; }
+  .freq-accept-btn,
+  .freq-decline-btn,
+  .freq-cancel-btn { padding: 8px 12px; font-size: 12px; min-height: 40px; }
+  .freq-back-btn { min-height: 44px; min-width: 44px; }
+}

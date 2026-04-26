@@ -1960,7 +1960,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
     padding-bottom: 2px;
   }
   .header-logout-btn { font-size: 10px; padding: 4px 9px; touch-action: manipulation; }
-  .header-avatar-btn { width: 27px; height: 27px; }
+  .header-avatar-btn { width: 36px; height: 36px; }
   .tab-btn { font-size: 10px; padding: 12px 4px; letter-spacing: 0.02em; touch-action: manipulation; min-height: 44px; }
 
   /* Toolbar + stats */
@@ -2003,7 +2003,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   .header-text h1 { font-size: 13px; }
   .header-text p { display: none; }
   .header-logout-btn { font-size: 9px; padding: 3px 7px; }
-  .header-avatar-btn { width: 25px; height: 25px; }
+  .header-avatar-btn { width: 36px; height: 36px; }
   .tab-btn { font-size: 9px; padding: 11px 2px; min-height: 44px; }
   .book-card:not(.book-card--open) .book-name { font-size: 10px; }
   .ch-grid { grid-template-columns: repeat(auto-fill, minmax(32px, 1fr)); gap: 3px; }

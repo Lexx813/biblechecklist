@@ -267,3 +267,25 @@
   font-weight: 600;
   margin-top: 4px;
 }
+
+/* ── Mobile ──────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .gc-page { padding: 12px; }
+  .gc-header { padding: 14px; }
+  .gc-title { font-size: 18px; }
+  .gc-subtitle { font-size: 12px; }
+  .gc-stats { flex-wrap: wrap; gap: 8px; }
+  .gc-stat { flex: 1 1 calc(50% - 4px); padding: 10px; }
+  .gc-stat-value { font-size: 22px; }
+  .gc-stat-label { font-size: 10px; }
+  .gc-actions { flex-direction: column; gap: 8px; }
+  .gc-actions button { width: 100%; min-height: 44px; }
+  .gc-leaderboard-row { padding: 10px 12px; gap: 10px; }
+  .gc-rank { font-size: 14px; min-width: 24px; }
+  .gc-name { font-size: 13px; }
+}
+
+@media (max-width: 360px) {
+  .gc-stats > * { flex: 1 1 100%; }
+  .gc-stat-value { font-size: 20px; }
+}

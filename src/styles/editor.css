@@ -189,7 +189,15 @@
   font-size: 14px;
   line-height: 1.75;
   font-family: inherit;
+  /* Mobile-safety: prevent long URLs / unbroken strings from overflowing
+     a narrow column. `anywhere` is more aggressive than `break-word` and
+     handles raw URLs, code, etc. without forcing breaks in normal prose. */
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
+.rich-content a { word-break: break-word; }
+.rich-content img { max-width: 100%; height: auto; }
+.rich-content pre { max-width: 100%; }
 .rich-content p { margin: 0 0 0.75em; }
 .rich-content p:last-child { margin-bottom: 0; }
 .rich-content h1, .rich-content h2, .rich-content h3 {

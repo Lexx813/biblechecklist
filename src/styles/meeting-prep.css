@@ -560,3 +560,15 @@
   text-decoration: line-through;
   color: var(--text-muted, #7c6f9a);
 }
+
+/* ── Mobile (720px) ──────────────────────────────────────── */
+@media (max-width: 720px) {
+  .mp-header-card { flex-direction: column; align-items: flex-start; padding: 14px; gap: 12px; }
+  .mp-header-card-row { flex-wrap: wrap; gap: 10px; }
+  .mp-history { gap: 8px; flex-wrap: wrap; }
+  .mp-history-grid { overflow-x: auto; }
+  .mp-history-cell { min-width: 32px; min-height: 32px; }
+  .mp-complete-btn { padding: 11px; min-height: 44px; font-size: 13px; }
+  .mp-empty { padding: 24px 14px; }
+  .mp-empty-icon { font-size: 36px; }
+}
