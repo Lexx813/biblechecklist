@@ -36,8 +36,17 @@ const nextConfig = {
     ],
   },
 
-  // Don't try to webpack-bundle Node-only or WASM packages — load them at runtime
-  serverExternalPackages: ["@ffmpeg/ffmpeg", "@ffmpeg/util"],
+  // Don't try to webpack-bundle Node-only or WASM packages — load them at runtime.
+  // jsdom + isomorphic-dompurify are externalized because jsdom@29 transitively
+  // pulls html-encoding-sniffer@6 which `require()`s ESM-only @exodus/bytes —
+  // bundling it triggers ERR_REQUIRE_ESM at runtime on Vercel. Letting Node
+  // resolve them natively avoids the broken require chain.
+  serverExternalPackages: [
+    "@ffmpeg/ffmpeg",
+    "@ffmpeg/util",
+    "isomorphic-dompurify",
+    "jsdom",
+  ],
 
   // Keep static exports working for Vercel
   trailingSlash: false,
