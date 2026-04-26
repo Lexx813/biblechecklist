@@ -213,8 +213,13 @@ export default function AiChatView({ conversationId, userId, onConversationCreat
         </div>
       )}
 
-      {/* Input — integrated command bar */}
-      <div className="border-t border-slate-200 bg-gradient-to-b from-white to-slate-50/50 px-4 py-4 sm:px-6 sm:py-5 dark:border-white/10 dark:from-[#160f2e] dark:to-[#0d0820]">
+      {/* Input — integrated command bar
+          pb uses safe-area-inset-bottom + a bit of breathing room so iOS home
+          indicator and any dev toolbar don't overlap the disclaimer. */}
+      <div
+        className="border-t border-slate-200 bg-linear-to-b from-white to-slate-50/50 px-3 pt-3 sm:px-6 sm:pt-5 dark:border-white/10 dark:from-[#160f2e] dark:to-[#0d0820]"
+        style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom, 0px))" }}
+      >
         <div className="mx-auto max-w-3xl">
           {prefilledFromUrl && (
             <div className="mb-2 flex items-center gap-2 rounded-md border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs text-amber-900 dark:border-amber-700/30 dark:bg-amber-900/20 dark:text-amber-200" role="status">
@@ -233,10 +238,10 @@ export default function AiChatView({ conversationId, userId, onConversationCreat
               value={input}
               onChange={handleInput}
               onKeyDown={handleKeyDown}
-              placeholder="Ask anything about the Bible, JW publications, or this week's meeting…"
+              placeholder="Ask the AI Study Companion…"
               rows={1}
               disabled={loading}
-              className="flex-1 resize-none bg-transparent px-2 py-2 text-base leading-6 text-slate-900 placeholder:text-slate-400 focus:outline-none disabled:opacity-50 dark:text-slate-50 dark:placeholder:text-slate-500"
+              className="flex-1 min-w-0 resize-none bg-transparent px-2 py-2 text-base leading-6 text-slate-900 placeholder:text-slate-400 focus:outline-none disabled:opacity-50 dark:text-slate-50 dark:placeholder:text-slate-500"
               aria-label="Ask the AI Study Companion"
             />
             <button
@@ -258,7 +263,7 @@ export default function AiChatView({ conversationId, userId, onConversationCreat
               )}
             </button>
           </div>
-          <p className="mt-2 px-1 text-center text-[11px] text-slate-400 dark:text-slate-500">
+          <p className="mt-2 px-2 text-center text-[11px] leading-snug text-balance text-slate-400 dark:text-slate-500">
             Sources link to wol.jw.org. The companion may make mistakes — verify with the publications.
           </p>
         </div>
