@@ -4,6 +4,7 @@ import { useLogin, useRegister, useResetPassword } from "../../hooks/useAuth";
 import { authApi } from "../../api/auth";
 import { friendsApi } from "../../api/friends";
 import { trackSignup, trackLogin } from "../../lib/analytics";
+import { isDisposableEmail } from "../../lib/disposableEmails";
 import Button from "../../components/ui/Button";
 import Input, { Field } from "../../components/ui/Input";
 import "../../styles/auth.css";
@@ -81,7 +82,13 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
   const resetPassword = useResetPassword();
 
   const busy = login.isPending || register.isPending || resetPassword.isPending || googleBusy || facebookBusy;
-  const serverError = login.error?.message || register.error?.message || resetPassword.error?.message;
+  const rawServerError = login.error?.message || register.error?.message || resetPassword.error?.message;
+  // Supabase Auth surfaces "Database error saving new user" whenever any
+  // BEFORE INSERT trigger raises (incl. our disposable-email block). Map
+  // that to something a real user can act on.
+  const serverError = rawServerError?.toLowerCase().includes("database error saving new user")
+    ? "We couldn't create that account. If you used a disposable / temporary email, try a permanent one (Gmail, Outlook, iCloud, etc.)."
+    : rawServerError;
 
   async function handleGoogleSignIn() {
     setGoogleBusy(true);
@@ -130,6 +137,9 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
 
     if (mode === "signup") {
       if (!displayName.trim()) return setFieldError(t("auth.errorDisplayNameRequired"));
+      if (isDisposableEmail(email)) {
+        return setFieldError("Please use a permanent email address — disposable inboxes aren't supported.");
+      }
       if (password.length < 8) return setFieldError(t("auth.errorPasswordShort"));
       if (password !== confirm) return setFieldError(t("auth.errorPasswordMismatch"));
       if (!agreeAge) return setFieldError("Please confirm your age or parental consent.");
