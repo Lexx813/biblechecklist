@@ -1,5 +1,176 @@
 import { useState, useRef, useCallback, useEffect, KeyboardEvent } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
+
+// Pastel highlight palette — same set used by RichTextEditor's bubble menu so
+// the look is consistent across surfaces.
+const HIGHLIGHT_COLORS = ["#fef08a", "#bbf7d0", "#bae6fd", "#fbcfe8", "#fed7aa", "#ddd6fe"];
+
+/**
+ * Floating bubble that appears when text is selected anywhere inside the
+ * BlockEditor's container. Provides bold / italic / underline / strikethrough /
+ * highlight (with palette). Operates via document.execCommand against the
+ * native browser selection — works across each block's contentEditable.
+ *
+ * Hoisted to module scope so React doesn't remount on parent re-renders
+ * (which would tear down the selectionchange listener mid-selection).
+ */
+function SelectionBubble({ containerRef }: { containerRef: React.RefObject<HTMLDivElement | null> }) {
+  const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
+  const [showHighlightPalette, setShowHighlightPalette] = useState(false);
+  const bubbleRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    function update() {
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0 || sel.isCollapsed) {
+        setPos(null);
+        setShowHighlightPalette(false);
+        return;
+      }
+      const range = sel.getRangeAt(0);
+      const container = containerRef.current;
+      if (!container || !container.contains(range.commonAncestorContainer)) {
+        setPos(null);
+        return;
+      }
+      const rect = range.getBoundingClientRect();
+      if (rect.width === 0 && rect.height === 0) { setPos(null); return; }
+      setPos({ top: rect.top - 48, left: rect.left + rect.width / 2 });
+    }
+    document.addEventListener("selectionchange", update);
+    window.addEventListener("scroll", update, true);
+    window.addEventListener("resize", update);
+    return () => {
+      document.removeEventListener("selectionchange", update);
+      window.removeEventListener("scroll", update, true);
+      window.removeEventListener("resize", update);
+    };
+  }, [containerRef]);
+
+  function exec(cmd: string, value?: string) {
+    // Force inline style instead of legacy <font> tag so highlights serialize
+    // cleanly through the markdown round-trip.
+    try { document.execCommand("styleWithCSS", false, "true"); } catch { /* noop */ }
+    try { document.execCommand(cmd, false, value); } catch { /* noop */ }
+  }
+
+  if (!pos) return null;
+
+  const Btn = ({ children, onClick, title }: { children: React.ReactNode; onClick: (e: React.MouseEvent) => void; title?: string }) => (
+    <button
+      type="button"
+      onMouseDown={onClick}
+      title={title}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minWidth: 28,
+        height: 28,
+        padding: "0 6px",
+        background: "transparent",
+        color: "#fff",
+        border: "none",
+        borderRadius: 4,
+        fontSize: 13,
+        fontWeight: 600,
+        cursor: "pointer",
+      }}
+    >
+      {children}
+    </button>
+  );
+  const Sep = () => <span style={{ width: 1, height: 18, background: "rgba(255,255,255,0.12)", margin: "0 2px" }} />;
+  const cmd = (fn: () => void) => (e: React.MouseEvent) => { e.preventDefault(); fn(); };
+
+  return createPortal(
+    <div
+      ref={bubbleRef}
+      onMouseDown={(e) => e.preventDefault()}
+      style={{
+        position: "fixed",
+        top: pos.top,
+        left: pos.left,
+        transform: "translateX(-50%)",
+        zIndex: 9999,
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 2,
+        padding: "4px 6px",
+        background: "#1e1b2e",
+        color: "#fff",
+        borderRadius: 8,
+        boxShadow: "0 8px 28px rgba(0,0,0,0.32), 0 1px 0 rgba(255,255,255,0.06) inset",
+        border: "1px solid rgba(255,255,255,0.08)",
+        fontFamily: "var(--font-sans, system-ui)",
+        fontSize: 13,
+        lineHeight: 1,
+      }}
+    >
+      <Btn onClick={cmd(() => exec("bold"))} title="Bold (Cmd+B)"><strong>B</strong></Btn>
+      <Btn onClick={cmd(() => exec("italic"))} title="Italic (Cmd+I)"><em>I</em></Btn>
+      <Btn onClick={cmd(() => exec("underline"))} title="Underline"><span style={{ textDecoration: "underline" }}>U</span></Btn>
+      <Btn onClick={cmd(() => exec("strikeThrough"))} title="Strikethrough"><span style={{ textDecoration: "line-through" }}>S</span></Btn>
+      <Sep />
+      <div style={{ position: "relative" }}>
+        <Btn
+          onClick={cmd(() => setShowHighlightPalette(v => !v))}
+          title="Highlight"
+        >
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 3 }}>
+            <span style={{ fontSize: 11, fontWeight: 700 }}>H</span>
+            <span style={{ width: 9, height: 9, borderRadius: 2, background: "#fef08a", display: "inline-block" }} />
+          </span>
+        </Btn>
+        {showHighlightPalette && (
+          <div
+            style={{
+              position: "absolute",
+              top: "calc(100% + 6px)",
+              left: "50%",
+              transform: "translateX(-50%)",
+              background: "#1e1b2e",
+              borderRadius: 8,
+              boxShadow: "0 8px 28px rgba(0,0,0,0.32)",
+              border: "1px solid rgba(255,255,255,0.08)",
+              padding: 6,
+              display: "grid",
+              gridTemplateColumns: "repeat(6, 22px)",
+              gap: 4,
+            }}
+          >
+            {HIGHLIGHT_COLORS.map(c => (
+              <button
+                key={c}
+                type="button"
+                onMouseDown={(e) => { e.preventDefault(); exec("hiliteColor", c); setShowHighlightPalette(false); }}
+                title={c}
+                style={{
+                  width: 22, height: 22, borderRadius: 4, background: c,
+                  border: "1px solid rgba(255,255,255,0.15)", cursor: "pointer", padding: 0,
+                }}
+              />
+            ))}
+            <button
+              type="button"
+              onMouseDown={(e) => { e.preventDefault(); exec("hiliteColor", "transparent"); setShowHighlightPalette(false); }}
+              style={{
+                gridColumn: "1 / -1", marginTop: 2, padding: "4px 0",
+                background: "transparent", color: "#cbd5e1",
+                border: "1px solid rgba(255,255,255,0.12)", borderRadius: 4,
+                fontSize: 11, cursor: "pointer",
+              }}
+            >
+              Clear highlight
+            </button>
+          </div>
+        )}
+      </div>
+    </div>,
+    document.body,
+  );
+}
 
 export type BlockType =
   | "paragraph" | "h2" | "h3" | "pull-quote" | "bible-verse"
@@ -66,7 +237,10 @@ function CE({
   const elRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    if (elRef.current) elRef.current.innerText = initialContent;
+    // Use innerHTML so inline formatting (highlights, bold/italic spans)
+    // round-trips through the contentEditable. Source content comes from
+    // markdown which we already DOMPurify-sanitize on the published side.
+    if (elRef.current) elRef.current.innerHTML = initialContent;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -77,7 +251,7 @@ function CE({
       className={className}
       contentEditable
       suppressContentEditableWarning
-      onInput={(e: React.FormEvent) => onTextChange((e.target as HTMLElement).innerText)}
+      onInput={(e: React.FormEvent) => onTextChange((e.target as HTMLElement).innerHTML)}
       onKeyDown={onKeyDown}
       data-placeholder={placeholder}
     />
@@ -102,6 +276,7 @@ export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) 
   const [slashIdx, setSlashIdx] = useState(0);
   const [uploading, setUploading] = useState<Record<string, boolean>>({});
   const refs = useRef<Record<string, HTMLElement | null>>({});
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const dragId = useRef<string | null>(null);
   const [dragOverId, setDragOverId] = useState<string | null>(null);
 
@@ -177,7 +352,8 @@ export default function BlockEditor({ blocks, onChange, onImageUpload }: Props) 
   }, [blocks, onChange, onImageUpload]);
 
   return (
-    <div className="be-root">
+    <div ref={containerRef} className="be-root">
+      <SelectionBubble containerRef={containerRef} />
       {blocks.map((block) => {
         const ceProps = {
           initialContent: block.content,

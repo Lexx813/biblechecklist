@@ -552,19 +552,24 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
             <div>
               <div className="writer-sidebar-label">{t("writer.toc")}</div>
               <div className="writer-toc">
-                {toc.map(h => (
-                  <button
-                    key={h.id}
-                    className={`writer-toc-item${h.type === "h3" ? " writer-toc-item--sub" : ""}`}
-                    onClick={() => {
-                      const el = Array.from(document.querySelectorAll<HTMLElement>(".be-h2, .be-h3"))
-                        .find(node => node.innerText === h.content);
-                      el?.scrollIntoView({ behavior: "smooth", block: "center" });
-                    }}
-                  >
-                    {h.content || <em style={{ opacity: 0.4 }}>{t("writer.tocEmpty")}</em>}
-                  </button>
-                ))}
+                {toc.map(h => {
+                  // Strip inline HTML (highlights, bold/italic spans) from
+                  // heading content so the TOC reads as plain text.
+                  const plainText = h.content.replace(/<[^>]+>/g, "").trim();
+                  return (
+                    <button
+                      key={h.id}
+                      className={`writer-toc-item${h.type === "h3" ? " writer-toc-item--sub" : ""}`}
+                      onClick={() => {
+                        const el = Array.from(document.querySelectorAll<HTMLElement>(".be-h2, .be-h3"))
+                          .find(node => node.innerText === plainText);
+                        el?.scrollIntoView({ behavior: "smooth", block: "center" });
+                      }}
+                    >
+                      {plainText || <em style={{ opacity: 0.4 }}>{t("writer.tocEmpty")}</em>}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
