@@ -183,7 +183,10 @@ async function generateBrief(context: string): Promise<string> {
     // Capture body for diagnostics (rate limit headers, error type, message).
     // Limit to 500 chars so a verbose error doesn't bloat the function log.
     const body = await res.text().catch(() => "");
-    throw new Error(`Anthropic ${res.status}: ${body.slice(0, 500)}`);
+    const fp = ANTHROPIC_KEY
+      ? `len=${ANTHROPIC_KEY.length} ${ANTHROPIC_KEY.slice(0, 12)}…${ANTHROPIC_KEY.slice(-4)}`
+      : "EMPTY";
+    throw new Error(`Anthropic ${res.status} [key:${fp}]: ${body.slice(0, 500)}`);
   }
   const data = (await res.json()) as {
     content: Array<{ type: string; text?: string }>;
