@@ -48,8 +48,11 @@ const FAQ_ITEMS = [
   },
 ];
 
-// Revalidate the root landing page every hour (ISR) — keeps cache warm, reduces TTFB spikes
-export const revalidate = 3600;
+// 24-hour ISR. The homepage rarely changes content, but Vercel deploys
+// invalidate the ISR cache regardless of revalidate value. With multi-deploy
+// days, a 1h revalidate was redundant (cache rebuilt on every deploy anyway).
+// 24h means every CDN-cache hit between deploys serves at ~50ms TTFB.
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;

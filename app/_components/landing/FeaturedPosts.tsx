@@ -1,22 +1,13 @@
 import Image from "next/image";
 import MotionDiv from "./MotionDiv";
 
-const FALLBACK_IMAGES = [
-  "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=640&q=75",
-  "https://images.unsplash.com/photo-1455541504462-57ebb2a9cec1?auto=format&fit=crop&w=640&q=75",
-  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=640&q=75",
-  "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=640&q=75",
-  "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?auto=format&fit=crop&w=640&q=75",
-];
+// Brand-violet local SVG fallback. Replaces 5 cross-origin Unsplash URLs
+// that cost each fallback a DNS+TLS+download to a third-party origin
+// (Speed Insights LCP regression). The SVG is ~700 bytes from our edge.
+const FALLBACK_IMAGE = "/blog-fallback.svg";
 
-function hashId(id: string) {
-  let h = 0;
-  for (const c of (id ?? "")) h = (h * 31 + c.charCodeAt(0)) >>> 0;
-  return h;
-}
-
-function getFallbackImage(id: string) {
-  return FALLBACK_IMAGES[hashId(id) % FALLBACK_IMAGES.length];
+function getFallbackImage(_id: string) {
+  return FALLBACK_IMAGE;
 }
 
 interface Post {
