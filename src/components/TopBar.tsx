@@ -178,6 +178,20 @@ export default function TopBar({
             <span className="topbar-btn-ai-badge" aria-hidden="true">NEW</span>
           </a>
 
+          {/* Songs, separate Next.js SSR route, not a HOME_PANEL */}
+          <a
+            href="/songs"
+            className="topbar-btn topbar-btn--nav"
+            aria-label="Songs"
+            data-tip="Songs"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M9 18V5l12-2v13"/>
+              <circle cx="6" cy="18" r="3"/>
+              <circle cx="18" cy="16" r="3"/>
+            </svg>
+          </a>
+
           {/* Feed */}
           <button
             className={`topbar-btn topbar-btn--nav${currentPage === "feed" ? " topbar-btn--active" : ""}`}
@@ -280,6 +294,14 @@ export default function TopBar({
                   </svg>
                   AI Companion
                   <span className="topbar-avatar-item-badge" aria-hidden="true">NEW</span>
+                </a>
+                <a className="topbar-avatar-item" role="menuitem" href="/songs" onClick={() => setAvatarOpen(false)}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M9 18V5l12-2v13"/>
+                    <circle cx="6" cy="18" r="3"/>
+                    <circle cx="18" cy="16" r="3"/>
+                  </svg>
+                  Songs
                 </a>
                 <div className="topbar-avatar-divider" />
                 <button className="topbar-avatar-item" role="menuitem" onClick={() => { setAvatarOpen(false); navigate("profile"); }}>
