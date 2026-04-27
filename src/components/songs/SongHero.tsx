@@ -6,8 +6,6 @@ import { localizedTitle, type Song } from "../../api/songs";
 type Props = {
   song: Song;
   signedUrl: string | null;
-  downloadUrl: string | null;
-  downloadFilename: string;
   lang: "en" | "es";
 };
 
@@ -16,7 +14,7 @@ const COPY = {
   es: { song: "Canción" },
 };
 
-export default function SongHero({ song, signedUrl, downloadUrl, downloadFilename, lang }: Props) {
+export default function SongHero({ song, signedUrl, lang }: Props) {
   const title = localizedTitle(song, lang);
   const cover = song.cover_image_url ?? "/og-image.jpg";
   const t = COPY[lang];
@@ -63,8 +61,7 @@ export default function SongHero({ song, signedUrl, downloadUrl, downloadFilenam
             <div className="mt-3">
               <DownloadButton
                 songId={song.id}
-                downloadUrl={downloadUrl}
-                filename={downloadFilename}
+                slug={song.slug}
                 lang={lang}
               />
             </div>

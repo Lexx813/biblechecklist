@@ -17,7 +17,6 @@ type Props = {
   song: Song;
   others: Song[];
   signedUrl: string | null;
-  downloadUrl: string | null;
   lang: "en" | "es";
 };
 
@@ -36,7 +35,7 @@ const COPY = {
   },
 };
 
-export default function SongDetailPage({ song, others, signedUrl, downloadUrl, lang }: Props) {
+export default function SongDetailPage({ song, others, signedUrl, lang }: Props) {
   const t = COPY[lang];
   const title = localizedTitle(song, lang);
   const description = localizedDescription(song, lang);
@@ -46,16 +45,11 @@ export default function SongDetailPage({ song, others, signedUrl, downloadUrl, l
   const songUrl = `https://jwstudy.org${lang === "es" ? "/es" : ""}/songs/${song.slug}`;
   const learnMoreUrl = song.jw_org_links?.[0]?.url ?? "https://www.jw.org/";
 
-  const safeTitle = title.replace(/[^a-zA-Z0-9 ]/g, "").trim().replace(/\s+/g, "-");
-  const downloadFilename = `${safeTitle || song.slug}.mp3`;
-
   return (
     <article>
       <SongHero
         song={song}
         signedUrl={signedUrl}
-        downloadUrl={downloadUrl}
-        downloadFilename={downloadFilename}
         lang={lang}
       />
 

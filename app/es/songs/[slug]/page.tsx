@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { songsApi, localizedTitle, localizedDescription, localizedScriptureText } from "../../../../src/api/songs";
-import { getSignedAudioUrl, getSignedDownloadUrl } from "../../../../src/lib/songs/signedAudio";
+import { getSignedAudioUrl } from "../../../../src/lib/songs/signedAudio";
 import SongDetailPage from "../../../../src/components/songs/SongDetailPage";
 import PublicNav from "../../../_components/PublicNav";
 import PublicFooter from "../../../_components/PublicFooter";
@@ -70,13 +70,10 @@ export default async function SongDetailEs({ params }: { params: Promise<{ slug:
   if (!song) notFound();
 
   const title = localizedTitle(song, "es");
-  const safeTitle = title.replace(/[^a-zA-Z0-9 ]/g, "").trim().replace(/\s+/g, "-");
-  const downloadFilename = `${safeTitle || song.slug}.mp3`;
 
-  const [others, signedUrl, downloadUrl] = await Promise.all([
+  const [others, signedUrl] = await Promise.all([
     songsApi.listOthers(song.id, "es", 3).catch(() => []),
     getSignedAudioUrl(song.audio_url, 3600),
-    getSignedDownloadUrl(song.audio_url, downloadFilename, 3600),
   ]);
 
   const description = localizedDescription(song, "es");
@@ -130,7 +127,7 @@ export default async function SongDetailEs({ params }: { params: Promise<{ slug:
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(schemaMusic) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(schemaBreadcrumb) }} />
       <PublicNav />
-      <SongDetailPage song={song} others={others} signedUrl={signedUrl} downloadUrl={downloadUrl} lang="es" />
+      <SongDetailPage song={song} others={others} signedUrl={signedUrl} lang="es" />
       <PublicFooter />
     </>
   );
