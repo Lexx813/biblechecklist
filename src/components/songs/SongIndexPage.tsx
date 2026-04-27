@@ -1,5 +1,5 @@
 import SongCard from "./SongCard";
-import SongGrid from "./SongGrid";
+import SongsBrowser from "./SongsBrowser";
 import type { Song } from "../../api/songs";
 
 type Props = {
@@ -51,9 +51,10 @@ export default function SongIndexPage({ songs, featured, lang }: Props) {
             <SongCard song={featured} lang={lang} featured />
           </div>
         )}
-        <SongGrid songs={gridSongs} lang={lang} />
-        {songs.length === 0 && (
+        {songs.length === 0 ? (
           <p className="text-slate-500 dark:text-slate-400">{noContent}</p>
+        ) : (
+          <SongsBrowser songs={gridSongs} lang={lang} />
         )}
       </main>
     </>
