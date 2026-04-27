@@ -13,6 +13,7 @@ import { AnalyticsTab } from "./tabs/AnalyticsTab";
 import { AIUsageTab } from "./tabs/AIUsageTab";
 import { CampaignsTab } from "./tabs/CampaignsTab";
 import { ContentPlanTab } from "./tabs/ContentPlanTab";
+import { SongsTab } from "./tabs/SongsTab";
 
 export default function AdminPage({ currentUser, currentProfile, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const isCurrentUserAdmin = currentProfile?.is_admin;
@@ -168,6 +169,12 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
               Content Plan
             </button>
           )}
+          {isCurrentUserAdmin && (
+            <button className={`admin-tab${tab === "songs" ? " admin-tab--active" : ""}`} onClick={() => setTab("songs")}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              Songs
+            </button>
+          )}
         </div>
 
         {/* Tab content */}
@@ -187,6 +194,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
         {tab === "aiUsage"       && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><AIUsageTab /></div>}
         {tab === "campaigns"     && isCurrentUserAdmin && <CampaignsTab currentUserId={currentUser.id} />}
         {tab === "contentPlan"   && isCurrentUserAdmin && <ContentPlanTab navigate={navigate} />}
+        {tab === "songs"         && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><SongsTab /></div>}
       </div>
     </div>
   );

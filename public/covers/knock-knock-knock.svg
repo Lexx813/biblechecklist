@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080" role="img" aria-label="Knock Knock Knock, Matthew 24:14">
+  <rect width="1080" height="1080" fill="#7C3AED"/>
+
+  <!-- Faint baseline grid for typographic feel -->
+  <g stroke="#FAF5FF" stroke-opacity="0.06" stroke-width="1">
+    <line x1="0" y1="270" x2="1080" y2="270"/>
+    <line x1="0" y1="540" x2="1080" y2="540"/>
+    <line x1="0" y1="810" x2="1080" y2="810"/>
+    <line x1="540" y1="0" x2="540" y2="1080"/>
+  </g>
+
+  <!-- Top brand mark -->
+  <g font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="22" letter-spacing="0.32em" fill="#FAF5FF" fill-opacity="0.7">
+    <text x="60" y="100">JW STUDY</text>
+    <text x="1020" y="100" text-anchor="end">001</text>
+  </g>
+
+  <!-- Title block: KNOCK x3, the middle one solid + offset -->
+  <g font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="800" letter-spacing="-0.05em">
+    <text x="60"   y="430" font-size="220" fill="#FAF5FF" fill-opacity="0.32">KNOCK</text>
+    <text x="120"  y="640" font-size="260" fill="#FAF5FF">KNOCK</text>
+    <text x="60"   y="850" font-size="220" fill="#FAF5FF" fill-opacity="0.32">KNOCK</text>
+  </g>
+
+  <!-- Bottom meta row -->
+  <g font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="600" font-size="22" letter-spacing="0.28em" fill="#FAF5FF">
+    <text x="60" y="1010" fill-opacity="0.85">MATTHEW 24:14</text>
+    <text x="1020" y="1010" text-anchor="end" fill-opacity="0.55">FIELD MINISTRY</text>
+  </g>
+
+  <!-- Hairlines -->
+  <line x1="60" y1="970" x2="1020" y2="970" stroke="#FAF5FF" stroke-opacity="0.18" stroke-width="1"/>
+  <line x1="60" y1="130" x2="1020" y2="130" stroke="#FAF5FF" stroke-opacity="0.18" stroke-width="1"/>
+</svg>
