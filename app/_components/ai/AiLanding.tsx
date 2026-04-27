@@ -69,20 +69,35 @@ export default function AiLanding() {
         </p>
         <div className="mt-6 space-y-6 text-base leading-relaxed text-slate-700 dark:text-slate-300">
           <p>
-            Ask doctrinal questions and get answers grounded in the publications, never improvised, always
-            linked back to wol.jw.org so you can read the source yourself.
+            <strong className="text-slate-900 dark:text-slate-100">Studies the Bible with you and surfaces cross-references.</strong>{" "}
+            Working through a passage? The companion offers related verses across the New World Translation,
+            quotes from <em>Insight on the Scriptures</em> for word studies, and traces a thought through the
+            books where Jehovah develops it.
           </p>
           <p>
-            Walk through this week&apos;s Christian Life and Ministry meeting or Watchtower study. The companion
-            reads the agenda from wol.jw.org and helps you think through each part.
+            <strong className="text-slate-900 dark:text-slate-100">Helps you prepare for the meetings.</strong>{" "}
+            Watchtower study, the midweek Christian Life and Ministry meeting, the weekly Bible reading.
+            The companion reads this week&apos;s agenda from wol.jw.org and walks you through each part with
+            reflection questions and supporting scriptures.
           </p>
           <p>
-            Save study notes by just asking, &ldquo;save a note on John 3:16&rdquo; lands in your study notes,
-            tagged by book and chapter, ready for the next time you study that passage.
+            <strong className="text-slate-900 dark:text-slate-100">Helps you prep for the ministry and return visits.</strong>{" "}
+            Tell it the topic the householder cares about (suffering, the dead, the Kingdom, who Jesus is)
+            and the companion suggests a scripture, a way to start the conversation, and the right tract or
+            article on jw.org to leave behind.
           </p>
           <p>
-            Find scripture by topic or theme. Ask &ldquo;what does the Bible say about endurance under trial&rdquo;
-            and the companion surfaces the most relevant verses from the NWT.
+            <strong className="text-slate-900 dark:text-slate-100">Walks you through rebuttals and apologetics</strong>{" "}
+            for the questions you couldn&apos;t answer at the door — Trinity, John 1:1, the 144,000, 1914,
+            hellfire, the accuracy of the NWT, blood, holidays. The companion frames the answer in your voice:
+            a one-line summary plus the one or two scriptures that ground it, drawn from{" "}
+            <em>Reasoning From the Scriptures</em>.
+          </p>
+          <p>
+            <strong className="text-slate-900 dark:text-slate-100">Pulls references from the publications fast.</strong>{" "}
+            &ldquo;Where does the Watchtower talk about humility?&rdquo; or &ldquo;What does Insight say about
+            <em>chesed</em>?&rdquo; The companion finds the article, links you to wol.jw.org, and points you
+            to the right place to dig in.
           </p>
         </div>
       </section>
