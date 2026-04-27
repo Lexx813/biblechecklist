@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { useEditor, EditorContent } from "@tiptap/react";
 import EmojiPickerPopup from "./EmojiPickerPopup";
 import StarterKit from "@tiptap/starter-kit";
@@ -445,6 +446,197 @@ export default function RichTextEditor({
   const activeTextColor = editor.getAttributes("textStyle").color || null;
   const activeHighlight = editor.getAttributes("highlight").color || null;
 
+  // Mini button + separator helpers used by the floating bubble below
+  function BubbleBtn({ active, onClick, title, children }: { active?: boolean; onClick: (e: React.MouseEvent) => void; title?: string; children: React.ReactNode }) {
+    return (
+      <button
+        type="button"
+        onMouseDown={onClick}
+        title={title}
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          minWidth: 28,
+          height: 28,
+          padding: "0 6px",
+          background: active ? "#7C3AED" : "transparent",
+          color: "#fff",
+          border: "none",
+          borderRadius: 4,
+          fontSize: 13,
+          fontWeight: 600,
+          cursor: "pointer",
+        }}
+      >
+        {children}
+      </button>
+    );
+  }
+  function BubbleSep() {
+    return <span style={{ width: 1, height: 18, background: "rgba(255,255,255,0.12)", margin: "0 2px" }} />;
+  }
+
+  // Inline floating bubble — appears above the selection with quick-access
+  // formatting buttons and a highlight color picker. The full toolbar above
+  // stays for tasks the bubble doesn't cover (headings, lists, alignment, etc).
+  function SelectionBubble() {
+    const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
+    const [showHighlightPalette, setShowHighlightPalette] = useState(false);
+    const bubbleRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+      function update() {
+        if (!editor) return;
+        const { empty } = editor.state.selection;
+        if (empty || !editor.isFocused) {
+          setPos(null);
+          setShowHighlightPalette(false);
+          return;
+        }
+        const sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) { setPos(null); return; }
+        const rect = sel.getRangeAt(0).getBoundingClientRect();
+        if (rect.width === 0 && rect.height === 0) { setPos(null); return; }
+        // Anchor above the selection, centered horizontally. Fixed positioning
+        // so we don't have to do scroll math.
+        setPos({ top: rect.top - 48, left: rect.left + rect.width / 2 });
+      }
+      editor.on("selectionUpdate", update);
+      editor.on("blur", () => {
+        // Don't hide if blur was caused by clicking inside the bubble itself
+        setTimeout(() => {
+          if (!bubbleRef.current?.contains(document.activeElement)) {
+            setPos(null);
+            setShowHighlightPalette(false);
+          }
+        }, 0);
+      });
+      window.addEventListener("scroll", update, true);
+      window.addEventListener("resize", update);
+      return () => {
+        editor.off("selectionUpdate", update);
+        window.removeEventListener("scroll", update, true);
+        window.removeEventListener("resize", update);
+      };
+    }, []);
+
+    if (!pos) return null;
+
+    const cmd = (fn: () => void) => (e: React.MouseEvent) => {
+      e.preventDefault();
+      fn();
+    };
+
+    return createPortal(
+      <div
+        ref={bubbleRef}
+        onMouseDown={(e) => e.preventDefault()}
+        style={{
+          position: "fixed",
+          top: pos.top,
+          left: pos.left,
+          transform: "translateX(-50%)",
+          zIndex: 9999,
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 2,
+          padding: "4px 6px",
+          background: "#1e1b2e",
+          color: "#fff",
+          borderRadius: 8,
+          boxShadow: "0 8px 28px rgba(0,0,0,0.32), 0 1px 0 rgba(255,255,255,0.06) inset",
+          border: "1px solid rgba(255,255,255,0.08)",
+          fontFamily: "var(--font-sans, system-ui)",
+          fontSize: 13,
+          lineHeight: 1,
+        }}
+      >
+        <BubbleBtn active={editor.isActive("bold")}      onClick={cmd(() => editor.chain().focus().toggleBold().run())}      title="Bold (Cmd+B)"><strong>B</strong></BubbleBtn>
+        <BubbleBtn active={editor.isActive("italic")}    onClick={cmd(() => editor.chain().focus().toggleItalic().run())}    title="Italic (Cmd+I)"><em>I</em></BubbleBtn>
+        <BubbleBtn active={editor.isActive("underline")} onClick={cmd(() => editor.chain().focus().toggleUnderline().run())} title="Underline"><span style={{ textDecoration: "underline" }}>U</span></BubbleBtn>
+        <BubbleBtn active={editor.isActive("strike")}    onClick={cmd(() => editor.chain().focus().toggleStrike().run())}    title="Strikethrough"><span style={{ textDecoration: "line-through" }}>S</span></BubbleBtn>
+        <BubbleSep />
+        <BubbleBtn active={editor.isActive("link")} onClick={cmd(openLinkModal)} title="Link">🔗</BubbleBtn>
+        <BubbleSep />
+        <div style={{ position: "relative" }}>
+          <BubbleBtn
+            active={!!activeHighlight}
+            onClick={cmd(() => setShowHighlightPalette(v => !v))}
+            title="Highlight"
+          >
+            <span style={{ display: "inline-flex", alignItems: "center", gap: 3 }}>
+              <span style={{ fontSize: 11, fontWeight: 700 }}>H</span>
+              <span style={{ width: 9, height: 9, borderRadius: 2, background: activeHighlight || "#fef08a", display: "inline-block" }} />
+            </span>
+          </BubbleBtn>
+          {showHighlightPalette && (
+            <div
+              style={{
+                position: "absolute",
+                top: "calc(100% + 6px)",
+                left: "50%",
+                transform: "translateX(-50%)",
+                background: "#1e1b2e",
+                borderRadius: 8,
+                boxShadow: "0 8px 28px rgba(0,0,0,0.32)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                padding: 6,
+                display: "grid",
+                gridTemplateColumns: "repeat(6, 22px)",
+                gap: 4,
+              }}
+            >
+              {HIGHLIGHT_COLORS.map(c => (
+                <button
+                  key={c}
+                  type="button"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    editor.chain().focus().setHighlight({ color: c }).run();
+                    setShowHighlightPalette(false);
+                  }}
+                  title={c}
+                  style={{
+                    width: 22,
+                    height: 22,
+                    borderRadius: 4,
+                    background: c,
+                    border: activeHighlight === c ? "2px solid #fff" : "1px solid rgba(255,255,255,0.15)",
+                    cursor: "pointer",
+                    padding: 0,
+                  }}
+                />
+              ))}
+              <button
+                type="button"
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  editor.chain().focus().unsetHighlight().run();
+                  setShowHighlightPalette(false);
+                }}
+                style={{
+                  gridColumn: "1 / -1",
+                  marginTop: 2,
+                  padding: "4px 0",
+                  background: "transparent",
+                  color: "#cbd5e1",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  borderRadius: 4,
+                  fontSize: 11,
+                  cursor: "pointer",
+                }}
+              >
+                Clear highlight
+              </button>
+            </div>
+          )}
+        </div>
+      </div>,
+      document.body,
+    );
+  }
+
   return (
     <div
       className="mention-wrap"
@@ -569,6 +761,7 @@ export default function RichTextEditor({
           editor={editor}
           className={`editor-content${compact ? " editor-content--compact" : ""}`}
         />
+        <SelectionBubble />
       </div>
 
       {allowMentions && mentionItems.length > 0 && (
