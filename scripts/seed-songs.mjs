@@ -120,6 +120,29 @@ const SONGS = [
     ],
   },
   {
+    slug: "palm-branches",
+    title: "Palm Branches",
+    title_es: null,
+    file: "Palm Branches",
+    duration_seconds: 240,
+    primary_scripture_ref: "Revelation 7:9",
+    primary_scripture_text:
+      "After this I saw, and look! a great crowd, which no man was able to number, out of all nations and tribes and peoples and tongues, standing before the throne and before the Lamb, dressed in white robes; and there were palm branches in their hands.",
+    primary_scripture_text_es: null,
+    theme: "pure-worship",
+    description:
+      "A genre-fusion anthem of pure worship, drawing on John's vision in Revelation 7:9-10 of the great crowd from every nation, tribe, and tongue, palm branches in hand, lifting up Jehovah's name. The chorus declares \"every nation, every tongue, Jehovah reigns,\" tying the global vision of Revelation to Isaiah 43:10's promise that Jehovah's witnesses come from everywhere.",
+    description_es: null,
+    cover_image_url: null,
+    jw_org_links: [
+      { url: "https://www.jw.org/en/library/bible/nwt/books/revelation/7/", anchor: "Read Revelation 7, New World Translation" },
+      { url: "https://www.jw.org/en/library/books/pure-worship/", anchor: "Pure Worship of Jehovah Restored at Last" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/isaiah/43/", anchor: "Read Isaiah 43, New World Translation" },
+      { url: "https://www.jw.org/en/jehovahs-witnesses/", anchor: "Who are Jehovah's Witnesses?" },
+      { url: "https://hub.jw.org/request-visit", anchor: "Request a visit from Jehovah's Witnesses" },
+    ],
+  },
+  {
     slug: "comforter",
     title: "Comforter",
     title_es: null,
