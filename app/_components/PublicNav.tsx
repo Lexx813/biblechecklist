@@ -18,6 +18,7 @@ export default function PublicNav() {
         </Link>
 
         <div className="flex items-center gap-0.5 text-sm font-medium">
+          <Link href="/songs" className="hidden sm:inline-flex rounded-md px-3 py-1.5 text-slate-700 transition hover:bg-violet-50 hover:text-violet-700 dark:text-slate-200 dark:hover:bg-white/5 dark:hover:text-violet-300">Songs</Link>
           <Link href="/blog" className="hidden sm:inline-flex rounded-md px-3 py-1.5 text-slate-700 transition hover:bg-violet-50 hover:text-violet-700 dark:text-slate-200 dark:hover:bg-white/5 dark:hover:text-violet-300">Blog</Link>
           <Link href="/study-topics" className="hidden sm:inline-flex rounded-md px-3 py-1.5 text-slate-700 transition hover:bg-violet-50 hover:text-violet-700 dark:text-slate-200 dark:hover:bg-white/5 dark:hover:text-violet-300">Topics</Link>
           <Link href="/books" className="hidden md:inline-flex rounded-md px-3 py-1.5 text-slate-700 transition hover:bg-violet-50 hover:text-violet-700 dark:text-slate-200 dark:hover:bg-white/5 dark:hover:text-violet-300">Books</Link>

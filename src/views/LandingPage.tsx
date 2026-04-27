@@ -178,6 +178,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
           </a>
 
           <nav className="mr-auto hidden gap-1 md:flex" aria-label="Main navigation">
+            <a href="/songs" className="rounded-lg px-3 py-1.5 text-sm font-medium text-[var(--lp-muted)] transition-colors duration-150 hover:bg-[var(--lp-pill-bg)] hover:text-[var(--lp-text)]">Songs</a>
             <a href="/blog" className="rounded-lg px-3 py-1.5 text-sm font-medium text-[var(--lp-muted)] transition-colors duration-150 hover:bg-[var(--lp-pill-bg)] hover:text-[var(--lp-text)]">{t("landing.nav.blog")}</a>
             <a href="/about" className="rounded-lg px-3 py-1.5 text-sm font-medium text-[var(--lp-muted)] transition-colors duration-150 hover:bg-[var(--lp-pill-bg)] hover:text-[var(--lp-text)]">{t("landing.nav.about")}</a>
           </nav>
@@ -631,6 +632,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
             <span>JW Study</span>
           </div>
           <nav className="mr-auto flex gap-1 max-md:mr-0" aria-label="Footer links">
+            <a href="/songs" className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">Songs</a>
             <a href="/blog" className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">{t("landing.nav.blog")}</a>
             <a href="/about" className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">{t("landing.nav.about")}</a>
             <a href="/terms" className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">{t("landing.footerTerms")}</a>
