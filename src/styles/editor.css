@@ -486,3 +486,176 @@
   margin: 0 auto;
   padding: 4rem 1.25rem 6rem;
 }
+
+/* ── Editor floating popovers (selection bubble + slash popup) ────────────
+   Brand-themed surface shared by RichTextEditor (Tiptap) and BlockEditor
+   (contentEditable). Adapts to [data-theme="dark"] via existing tokens. */
+
+.editor-pop {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 6px;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 28px rgba(20, 10, 40, 0.18);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1;
+}
+[data-theme="dark"] .editor-pop {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+}
+
+.editor-pop__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  background: transparent;
+  color: var(--text-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+.editor-pop__btn:hover {
+  background: var(--violet-50);
+  color: var(--violet-700);
+}
+[data-theme="dark"] .editor-pop__btn:hover {
+  background: rgba(124, 58, 237, 0.18);
+  color: var(--violet-300);
+}
+.editor-pop__btn--active,
+.editor-pop__btn--active:hover {
+  background: var(--violet-600);
+  color: #fff;
+}
+
+.editor-pop__sep {
+  width: 1px;
+  height: 18px;
+  background: var(--border);
+  margin: 0 2px;
+}
+
+.editor-pop__chip-swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.editor-pop__chip-swatch span:last-child {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.editor-pop__palette {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 28px rgba(20, 10, 40, 0.18);
+  padding: 6px;
+  display: grid;
+  grid-template-columns: repeat(6, 24px);
+  gap: 4px;
+  z-index: 1;
+}
+[data-theme="dark"] .editor-pop__palette {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+}
+
+.editor-pop__color {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 120ms ease, border-color 120ms ease;
+}
+.editor-pop__color:hover {
+  border-color: var(--violet-600);
+  transform: scale(1.08);
+}
+.editor-pop__color--current {
+  border-width: 2px;
+  border-color: var(--violet-700);
+}
+
+.editor-pop__clear {
+  grid-column: 1 / -1;
+  margin-top: 2px;
+  padding: 4px 0;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
+}
+.editor-pop__clear:hover {
+  background: var(--violet-50);
+  color: var(--violet-700);
+  border-color: var(--violet-200);
+}
+[data-theme="dark"] .editor-pop__clear:hover {
+  background: rgba(124, 58, 237, 0.18);
+  color: var(--violet-300);
+  border-color: rgba(124, 58, 237, 0.45);
+}
+
+/* Slash command popup — vertical list */
+.editor-pop--list {
+  display: block;
+  min-width: 240px;
+  padding: 4px;
+  align-items: stretch;
+  gap: 0;
+}
+.editor-pop__list-eyebrow {
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.editor-pop__list-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  background: transparent;
+  color: var(--text-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+.editor-pop__list-btn--active,
+.editor-pop__list-btn:hover {
+  background: var(--violet-50);
+  color: var(--violet-700);
+}
+[data-theme="dark"] .editor-pop__list-btn--active,
+[data-theme="dark"] .editor-pop__list-btn:hover {
+  background: rgba(124, 58, 237, 0.18);
+  color: var(--violet-300);
+}

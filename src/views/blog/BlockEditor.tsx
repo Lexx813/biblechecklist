@@ -57,36 +57,12 @@ function SelectionBubble({ containerRef }: { containerRef: React.RefObject<HTMLD
 
   if (!pos) return null;
 
-  const Btn = ({ children, onClick, title }: { children: React.ReactNode; onClick: (e: React.MouseEvent) => void; title?: string }) => (
-    <button
-      type="button"
-      onMouseDown={onClick}
-      title={title}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        minWidth: 28,
-        height: 28,
-        padding: "0 6px",
-        background: "transparent",
-        color: "#fff",
-        border: "none",
-        borderRadius: 4,
-        fontSize: 13,
-        fontWeight: 600,
-        cursor: "pointer",
-      }}
-    >
-      {children}
-    </button>
-  );
-  const Sep = () => <span style={{ width: 1, height: 18, background: "rgba(255,255,255,0.12)", margin: "0 2px" }} />;
   const cmd = (fn: () => void) => (e: React.MouseEvent) => { e.preventDefault(); fn(); };
 
   return createPortal(
     <div
       ref={bubbleRef}
+      className="editor-pop"
       onMouseDown={(e) => e.preventDefault()}
       style={{
         position: "fixed",
@@ -94,73 +70,41 @@ function SelectionBubble({ containerRef }: { containerRef: React.RefObject<HTMLD
         left: pos.left,
         transform: "translateX(-50%)",
         zIndex: 9999,
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 2,
-        padding: "4px 6px",
-        background: "#1e1b2e",
-        color: "#fff",
-        borderRadius: 8,
-        boxShadow: "0 8px 28px rgba(0,0,0,0.32), 0 1px 0 rgba(255,255,255,0.06) inset",
-        border: "1px solid rgba(255,255,255,0.08)",
-        fontFamily: "var(--font-sans, system-ui)",
-        fontSize: 13,
-        lineHeight: 1,
       }}
     >
-      <Btn onClick={cmd(() => exec("bold"))} title="Bold (Cmd+B)"><strong>B</strong></Btn>
-      <Btn onClick={cmd(() => exec("italic"))} title="Italic (Cmd+I)"><em>I</em></Btn>
-      <Btn onClick={cmd(() => exec("underline"))} title="Underline"><span style={{ textDecoration: "underline" }}>U</span></Btn>
-      <Btn onClick={cmd(() => exec("strikeThrough"))} title="Strikethrough"><span style={{ textDecoration: "line-through" }}>S</span></Btn>
-      <Sep />
+      <button type="button" className="editor-pop__btn" onMouseDown={cmd(() => exec("bold"))} title="Bold (Cmd+B)"><strong>B</strong></button>
+      <button type="button" className="editor-pop__btn" onMouseDown={cmd(() => exec("italic"))} title="Italic (Cmd+I)"><em>I</em></button>
+      <button type="button" className="editor-pop__btn" onMouseDown={cmd(() => exec("underline"))} title="Underline"><span style={{ textDecoration: "underline" }}>U</span></button>
+      <button type="button" className="editor-pop__btn" onMouseDown={cmd(() => exec("strikeThrough"))} title="Strikethrough"><span style={{ textDecoration: "line-through" }}>S</span></button>
+      <span className="editor-pop__sep" />
       <div style={{ position: "relative" }}>
-        <Btn
-          onClick={cmd(() => setShowHighlightPalette(v => !v))}
+        <button
+          type="button"
+          className={"editor-pop__btn" + (showHighlightPalette ? " editor-pop__btn--active" : "")}
+          onMouseDown={cmd(() => setShowHighlightPalette(v => !v))}
           title="Highlight"
         >
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 3 }}>
-            <span style={{ fontSize: 11, fontWeight: 700 }}>H</span>
-            <span style={{ width: 9, height: 9, borderRadius: 2, background: "#fef08a", display: "inline-block" }} />
+          <span className="editor-pop__chip-swatch">
+            <span>H</span>
+            <span style={{ background: "#fef08a" }} />
           </span>
-        </Btn>
+        </button>
         {showHighlightPalette && (
-          <div
-            style={{
-              position: "absolute",
-              top: "calc(100% + 6px)",
-              left: "50%",
-              transform: "translateX(-50%)",
-              background: "#1e1b2e",
-              borderRadius: 8,
-              boxShadow: "0 8px 28px rgba(0,0,0,0.32)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              padding: 6,
-              display: "grid",
-              gridTemplateColumns: "repeat(6, 22px)",
-              gap: 4,
-            }}
-          >
+          <div className="editor-pop__palette">
             {HIGHLIGHT_COLORS.map(c => (
               <button
                 key={c}
                 type="button"
+                className="editor-pop__color"
                 onMouseDown={(e) => { e.preventDefault(); exec("hiliteColor", c); setShowHighlightPalette(false); }}
                 title={c}
-                style={{
-                  width: 22, height: 22, borderRadius: 4, background: c,
-                  border: "1px solid rgba(255,255,255,0.15)", cursor: "pointer", padding: 0,
-                }}
+                style={{ background: c }}
               />
             ))}
             <button
               type="button"
+              className="editor-pop__clear"
               onMouseDown={(e) => { e.preventDefault(); exec("hiliteColor", "transparent"); setShowHighlightPalette(false); }}
-              style={{
-                gridColumn: "1 / -1", marginTop: 2, padding: "4px 0",
-                background: "transparent", color: "#cbd5e1",
-                border: "1px solid rgba(255,255,255,0.12)", borderRadius: 4,
-                fontSize: 11, cursor: "pointer",
-              }}
             >
               Clear highlight
             </button>

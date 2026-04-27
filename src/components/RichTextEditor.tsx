@@ -299,21 +299,7 @@ function BubbleBtn({ active, onClick, title, children }: { active?: boolean; onC
       type="button"
       onMouseDown={onClick}
       title={title}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        minWidth: 28,
-        height: 28,
-        padding: "0 6px",
-        background: active ? "#7C3AED" : "transparent",
-        color: "#fff",
-        border: "none",
-        borderRadius: 4,
-        fontSize: 13,
-        fontWeight: 600,
-        cursor: "pointer",
-      }}
+      className={"editor-pop__btn" + (active ? " editor-pop__btn--active" : "")}
     >
       {children}
     </button>
@@ -321,7 +307,7 @@ function BubbleBtn({ active, onClick, title, children }: { active?: boolean; onC
 }
 
 function BubbleSep() {
-  return <span style={{ width: 1, height: 18, background: "rgba(255,255,255,0.12)", margin: "0 2px" }} />;
+  return <span className="editor-pop__sep" />;
 }
 
 function SelectionBubble({ editor, onLinkClick }: { editor: any; onLinkClick: () => void }) {
@@ -376,6 +362,7 @@ function SelectionBubble({ editor, onLinkClick }: { editor: any; onLinkClick: ()
   return createPortal(
     <div
       ref={bubbleRef}
+      className="editor-pop"
       onMouseDown={(e) => e.preventDefault()}
       style={{
         position: "fixed",
@@ -383,18 +370,6 @@ function SelectionBubble({ editor, onLinkClick }: { editor: any; onLinkClick: ()
         left: pos.left,
         transform: "translateX(-50%)",
         zIndex: 9999,
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 2,
-        padding: "4px 6px",
-        background: "#1e1b2e",
-        color: "#fff",
-        borderRadius: 8,
-        boxShadow: "0 8px 28px rgba(0,0,0,0.32), 0 1px 0 rgba(255,255,255,0.06) inset",
-        border: "1px solid rgba(255,255,255,0.08)",
-        fontFamily: "var(--font-sans, system-ui)",
-        fontSize: 13,
-        lineHeight: 1,
       }}
     >
       <BubbleBtn active={editor.isActive("bold")}      onClick={cmd(() => editor.chain().focus().toggleBold().run())}      title="Bold (Cmd+B)"><strong>B</strong></BubbleBtn>
@@ -410,66 +385,34 @@ function SelectionBubble({ editor, onLinkClick }: { editor: any; onLinkClick: ()
           onClick={cmd(() => setShowHighlightPalette(v => !v))}
           title="Highlight"
         >
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 3 }}>
-            <span style={{ fontSize: 11, fontWeight: 700 }}>H</span>
-            <span style={{ width: 9, height: 9, borderRadius: 2, background: activeHighlight || "#fef08a", display: "inline-block" }} />
+          <span className="editor-pop__chip-swatch">
+            <span>H</span>
+            <span style={{ background: activeHighlight || "#fef08a" }} />
           </span>
         </BubbleBtn>
         {showHighlightPalette && (
-          <div
-            style={{
-              position: "absolute",
-              top: "calc(100% + 6px)",
-              left: "50%",
-              transform: "translateX(-50%)",
-              background: "#1e1b2e",
-              borderRadius: 8,
-              boxShadow: "0 8px 28px rgba(0,0,0,0.32)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              padding: 6,
-              display: "grid",
-              gridTemplateColumns: "repeat(6, 22px)",
-              gap: 4,
-            }}
-          >
+          <div className="editor-pop__palette">
             {HIGHLIGHT_COLORS.map(c => (
               <button
                 key={c}
                 type="button"
+                className={"editor-pop__color" + (activeHighlight === c ? " editor-pop__color--current" : "")}
                 onMouseDown={(e) => {
                   e.preventDefault();
                   editor.chain().focus().setHighlight({ color: c }).run();
                   setShowHighlightPalette(false);
                 }}
                 title={c}
-                style={{
-                  width: 22,
-                  height: 22,
-                  borderRadius: 4,
-                  background: c,
-                  border: activeHighlight === c ? "2px solid #fff" : "1px solid rgba(255,255,255,0.15)",
-                  cursor: "pointer",
-                  padding: 0,
-                }}
+                style={{ background: c }}
               />
             ))}
             <button
               type="button"
+              className="editor-pop__clear"
               onMouseDown={(e) => {
                 e.preventDefault();
                 editor.chain().focus().unsetHighlight().run();
                 setShowHighlightPalette(false);
-              }}
-              style={{
-                gridColumn: "1 / -1",
-                marginTop: 2,
-                padding: "4px 0",
-                background: "transparent",
-                color: "#cbd5e1",
-                border: "1px solid rgba(255,255,255,0.12)",
-                borderRadius: 4,
-                fontSize: 11,
-                cursor: "pointer",
               }}
             >
               Clear highlight
@@ -497,45 +440,25 @@ function SlashPopup({
   if (!open || !coords || items.length === 0) return null;
   return createPortal(
     <div
+      className="editor-pop editor-pop--list"
       onMouseDown={(e) => e.preventDefault()}
       style={{
         position: "fixed",
         top: coords.top,
         left: coords.left,
         zIndex: 9999,
-        minWidth: 240,
-        padding: 4,
-        background: "#1e1b2e",
-        border: "1px solid rgba(255,255,255,0.08)",
-        borderRadius: 8,
-        boxShadow: "0 16px 36px rgba(0,0,0,0.32)",
-        fontFamily: "var(--font-sans, system-ui)",
       }}
     >
-      <div style={{ padding: "6px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)" }}>
-        Insert
-      </div>
+      <div className="editor-pop__list-eyebrow">Insert</div>
       {items.map((it, idx) => {
         const active = idx === activeIdx;
         return (
           <button
             key={it.id}
             type="button"
+            className={"editor-pop__list-btn" + (active ? " editor-pop__list-btn--active" : "")}
             onMouseDown={(e) => { e.preventDefault(); onSelect(it); }}
             onMouseEnter={() => setActiveIdx(idx)}
-            style={{
-              display: "block",
-              width: "100%",
-              textAlign: "left",
-              padding: "8px 10px",
-              background: active ? "#7C3AED" : "transparent",
-              color: "#fff",
-              border: "none",
-              borderRadius: 4,
-              fontSize: 13,
-              fontWeight: 500,
-              cursor: "pointer",
-            }}
           >
             {it.label}
           </button>
