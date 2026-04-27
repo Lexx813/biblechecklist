@@ -57,6 +57,11 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
     // Cache optimised images for 1 year on the CDN
     minimumCacheTTL: 31536000,
+    // Allow SVG inputs — used for song cover art in /public/covers/.
+    // Sources are 100% under our control (committed to the repo); the
+    // CSP below blocks any embedded scripts at render time.
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     // Standard responsive breakpoints
     deviceSizes: [640, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
