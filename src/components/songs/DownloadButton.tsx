@@ -72,11 +72,13 @@ export default function DownloadButton({ songId, slug, lang }: Props) {
   }
 
   if (state.kind === "needs_auth") {
+    const songPath = lang === "es" ? `/es/songs/${slug}` : `/songs/${slug}`;
+    const signInHref = `/?next=${encodeURIComponent(songPath)}`;
     return (
       <div className="inline-flex items-center gap-3 rounded-md border border-violet-200 bg-violet-50 px-4 py-2 text-sm dark:border-white/10 dark:bg-violet-950/30">
         <span className="font-semibold text-slate-700 dark:text-slate-200">{t.needsAuth}</span>
         <a
-          href="/"
+          href={signInHref}
           className="inline-flex items-center gap-1 font-bold text-violet-700 underline decoration-violet-300 underline-offset-4 transition hover:text-violet-900 dark:text-violet-300 dark:hover:text-violet-100"
         >
           {t.signIn}

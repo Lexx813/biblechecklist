@@ -39,6 +39,21 @@ const SunIcon = () => (
   </svg>
 );
 
+// Read and clear the post-auth redirect path stashed by App.tsx on landing.
+// Returns null if nothing valid is stored.
+function consumePostAuthRedirect(): string | null {
+  try {
+    const next = sessionStorage.getItem("post_auth_redirect");
+    if (!next) return null;
+    sessionStorage.removeItem("post_auth_redirect");
+    if (!next.startsWith("/") || next.startsWith("//")) return null;
+    if (/^\/[a-z]+:/i.test(next)) return null;
+    return next;
+  } catch {
+    return null;
+  }
+}
+
 export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEmail = null, onConfirmDismiss = null }) {
   const [mode, setMode] = useState("login"); // "login" | "signup" | "forgot"
   const [darkMode, setDarkMode] = useState(() => document.documentElement.dataset.theme === "dark");
@@ -128,13 +143,25 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
               sessionStorage.removeItem("invite_token");
               await friendsApi.processInviteSignup(inviteToken);
             }
+            // Honor a stashed ?next= path (set by App.tsx on landing). Only
+            // applies when registration produced an immediate session;
+            // email-confirmation flows fall through to the default screen.
+            const next = consumePostAuthRedirect();
+            if (next) {
+              window.location.href = next;
+              return;
+            }
           }
           onRegisterSuccess?.(email);
         },
       });
     } else {
       login.mutate({ email, password }, {
-        onSuccess: () => trackLogin("email"),
+        onSuccess: () => {
+          trackLogin("email");
+          const next = consumePostAuthRedirect();
+          if (next) window.location.href = next;
+        },
         onError: () => setPassword(""),
       });
     }

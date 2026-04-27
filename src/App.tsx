@@ -68,6 +68,18 @@ export default function App() {
     document.getElementById("ssr-landing")?.remove();
   }, []);
 
+  // Stash ?next= so it survives any internal SPA navigation between
+  // landing → auth. Validated in AuthPage on success. Only relative
+  // same-origin paths are accepted.
+  useLayoutEffect(() => {
+    try {
+      const next = new URLSearchParams(window.location.search).get("next");
+      if (next && next.startsWith("/") && !next.startsWith("//") && !/^\/[a-z]+:/i.test(next)) {
+        sessionStorage.setItem("post_auth_redirect", next);
+      }
+    } catch { /* ignore */ }
+  }, []);
+
   // Track popstate so legal pages work before login (browser back/forward)
   useEffect(() => {
     const handler = () => setPreAuthPath(window.location.pathname.slice(1));
