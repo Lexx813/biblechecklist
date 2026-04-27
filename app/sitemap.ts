@@ -19,10 +19,14 @@ export default async function sitemap() {
 
   // Filled in after blog posts are fetched so it reflects the latest publish date
   let blogIndexLastModified = new Date("2026-04-03");
+  // Filled in after songs are fetched
+  let songsIndexLastModified = new Date("2026-04-26");
+  let songsIndexEsLastModified: Date | null = null;
 
   const staticPages = [
     { url: `${BASE}`,              lastModified: new Date("2026-03-01") },
     { url: `${BASE}/blog`,         get lastModified() { return blogIndexLastModified; } },
+    { url: `${BASE}/songs`,        get lastModified() { return songsIndexLastModified; } },
     { url: `${BASE}/study-topics`, lastModified: new Date("2026-03-01") },
     { url: `${BASE}/books`,        lastModified: new Date("2026-03-01") },
     { url: `${BASE}/plans`,        lastModified: new Date("2026-03-01") },
@@ -133,12 +137,85 @@ export default async function sitemap() {
     forumPages = [{ url: `${BASE}/forum`, lastModified: new Date("2026-04-03") }];
   }
 
+  // ── Songs (with hreflang for EN/ES pairs) ────────────────────────────────
+  let songPages: Record<string, unknown>[] = [];
+  let esSongsIndexEntry: Record<string, unknown> | null = null;
+  try {
+    const { data: songs } = await supabase
+      .from("songs")
+      .select("slug, updated_at, title_es, lyrics_es")
+      .eq("published", true);
+
+    const rows = songs ?? [];
+
+    if (rows.length > 0) {
+      const newestSong = rows.reduce<{ updated_at: string } | null>(
+        (acc, s) => (!acc || s.updated_at > acc.updated_at ? s : acc),
+        null,
+      );
+      if (newestSong) songsIndexLastModified = new Date(newestSong.updated_at);
+
+      // EN: every published song
+      for (const s of rows) {
+        const hasEs = !!(s.title_es && s.lyrics_es);
+        const entry: Record<string, unknown> = {
+          url: `${BASE}/songs/${s.slug}`,
+          lastModified: new Date(s.updated_at),
+        };
+        if (hasEs) {
+          entry.alternates = {
+            languages: {
+              en: `${BASE}/songs/${s.slug}`,
+              es: `${BASE}/es/songs/${s.slug}`,
+              "x-default": `${BASE}/songs/${s.slug}`,
+            },
+          };
+        }
+        songPages.push(entry);
+      }
+
+      // ES: only songs that have a Spanish translation
+      const esSongs = rows.filter((s) => s.title_es && s.lyrics_es);
+      if (esSongs.length > 0) {
+        const newestEs = esSongs.reduce<{ updated_at: string } | null>(
+          (acc, s) => (!acc || s.updated_at > acc.updated_at ? s : acc),
+          null,
+        );
+        if (newestEs) songsIndexEsLastModified = new Date(newestEs.updated_at);
+
+        // /es/songs index, only when at least one Spanish song exists
+        esSongsIndexEntry = {
+          url: `${BASE}/es/songs`,
+          lastModified: songsIndexEsLastModified,
+        };
+
+        for (const s of esSongs) {
+          songPages.push({
+            url: `${BASE}/es/songs/${s.slug}`,
+            lastModified: new Date(s.updated_at),
+            alternates: {
+              languages: {
+                en: `${BASE}/songs/${s.slug}`,
+                es: `${BASE}/es/songs/${s.slug}`,
+                "x-default": `${BASE}/songs/${s.slug}`,
+              },
+            },
+          });
+        }
+      }
+    }
+  } catch {
+    // Supabase unavailable at build time, omit song pages gracefully
+  }
+
   return [
     ...staticPages,
+    ...(esSongsIndexEntry ? [esSongsIndexEntry] : []),
     ...studyTopicPages,
     ...bookPages,
     ...planPages,
     ...blogPages,
     ...forumPages,
+    ...songPages,
   ];
 }
