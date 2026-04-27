@@ -120,6 +120,29 @@ const SONGS = [
     ],
   },
   {
+    slug: "lift-your-eyes",
+    title: "Lift Your Eyes",
+    title_es: null,
+    file: "Lift Up Eyes",
+    duration_seconds: 360,
+    primary_scripture_ref: "Isaiah 40:31",
+    primary_scripture_text:
+      "But those who hope in Jehovah will regain power. They will soar on wings like eagles. They will run and not grow weary; they will walk and not tire.",
+    primary_scripture_text_es: null,
+    theme: "hope",
+    description:
+      "A progressive-house anthem of strength when weary. Opens with Isaiah 40:26 (\"Lift up your eyes to heaven and see who has created these things\"), builds through verses 28-30 about the One who never grows tired, and lands on Isaiah 40:31's promise that those who hope in Jehovah will soar on wings like eagles. Closes with Psalm 19:1 — the heavens declaring Jehovah's glory.",
+    description_es: null,
+    cover_image_url: null,
+    jw_org_links: [
+      { url: "https://www.jw.org/en/library/bible/nwt/books/isaiah/40/", anchor: "Read Isaiah 40, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/psalms/19/", anchor: "Read Psalm 19, New World Translation" },
+      { url: "https://www.jw.org/en/jehovahs-witnesses/", anchor: "Who are Jehovah's Witnesses?" },
+      { url: "https://www.jw.org/en/jehovahs-witnesses/faq/", anchor: "Frequently asked questions about Jehovah's Witnesses" },
+      { url: "https://hub.jw.org/request-visit", anchor: "Request a visit from Jehovah's Witnesses" },
+    ],
+  },
+  {
     slug: "palm-branches",
     title: "Palm Branches",
     title_es: null,
