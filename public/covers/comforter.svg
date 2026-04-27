@@ -17,7 +17,7 @@
 
   <!-- Title -->
   <g font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="800" letter-spacing="-0.05em">
-    <text x="60" y="560" font-size="180" fill="#FAF5FF">COMFORTER</text>
+    <text x="60" y="560" font-size="180" textLength="960" lengthAdjust="spacingAndGlyphs" fill="#FAF5FF">COMFORTER</text>
   </g>
 
   <!-- Subtitle: the song's defining line -->

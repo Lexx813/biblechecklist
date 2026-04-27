@@ -18,7 +18,7 @@
   <!-- Title block: IMA stacked over WITNESS, both solid -->
   <g font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="800" letter-spacing="-0.04em">
     <text x="60" y="510" font-size="380" fill="#FAF5FF">IMA</text>
-    <text x="60" y="780" font-size="240" fill="#FAF5FF" fill-opacity="0.85">WITNESS</text>
+    <text x="60" y="780" font-size="240" textLength="960" lengthAdjust="spacingAndGlyphs" fill="#FAF5FF" fill-opacity="0.85">WITNESS</text>
   </g>
 
   <!-- Bottom meta row -->
