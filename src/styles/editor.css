@@ -433,3 +433,56 @@
   .rich-content ul, .rich-content ol { padding-left: 1.4em; }
   .rich-content li { padding-left: 0.2em; }
 }
+
+/* ── Scripture chip (Tiptap inline atom) ───────────────────────────────── */
+/* Renders inside the editor surface AND on published blog pages where
+   .rich-content wraps the rendered HTML. Chip looks like a small pill that
+   deep-links to wol.jw.org. */
+.scripture-chip,
+.rich-content .scripture-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.25em;
+  padding: 0.05em 0.55em;
+  margin: 0 0.15em;
+  background: var(--violet-50, #f5f3ff);
+  color: var(--violet-700, #6d28d9);
+  border: 1px solid var(--violet-200, #ddd6fe);
+  border-radius: 999px;
+  font-size: 0.92em;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: baseline;
+  transition: background 150ms, border-color 150ms, color 150ms;
+}
+.scripture-chip:hover,
+.rich-content .scripture-chip:hover {
+  background: var(--violet-100, #ede9fe);
+  border-color: var(--violet-400, #a78bfa);
+  color: var(--violet-900, #4c1d95);
+}
+[data-theme="dark"] .scripture-chip,
+[data-theme="dark"] .rich-content .scripture-chip {
+  background: rgba(139, 92, 246, 0.16);
+  color: var(--violet-300, #c4b5fd);
+  border-color: rgba(139, 92, 246, 0.32);
+}
+[data-theme="dark"] .scripture-chip:hover,
+[data-theme="dark"] .rich-content .scripture-chip:hover {
+  background: rgba(139, 92, 246, 0.28);
+  color: #fff;
+}
+
+/* ── Focus mode (distraction-free authoring) ───────────────────────────── */
+/* Hides the toolbar so only the editor content is visible. The "Exit focus"
+   button is rendered separately, position: fixed via inline styles. */
+.editor-wrap--focus .editor-toolbar {
+  display: none;
+}
+.editor-wrap--focus .editor-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 1.25rem 6rem;
+}

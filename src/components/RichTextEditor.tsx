@@ -8,6 +8,7 @@ import Placeholder from "@tiptap/extension-placeholder";
 import { TextStyle, Color } from "@tiptap/extension-text-style";
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
+import ScriptureChip from "../lib/tiptap/scriptureChip";
 import { useTranslation } from "react-i18next";
 import { profileApi } from "../api/profile";
 import "../styles/editor.css";
@@ -306,6 +307,23 @@ export default function RichTextEditor({
   const allowMentionsRef = useRef(allowMentions);
   useEffect(() => { allowMentionsRef.current = allowMentions; }, [allowMentions]);
 
+  // Slash command state — opens at cursor when an empty paragraph starts with /
+  const [slashOpen, setSlashOpen] = useState(false);
+  const [slashFilter, setSlashFilter] = useState("");
+  const [slashActiveIdx, setSlashActiveIdx] = useState(0);
+  const [slashCoords, setSlashCoords] = useState<{ top: number; left: number } | null>(null);
+
+  // Distraction-free focus mode — hides the toolbar
+  const [focusMode, setFocusMode] = useState(false);
+  useEffect(() => {
+    if (!focusMode) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setFocusMode(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [focusMode]);
+
   const extensions = useMemo(() => [
     StarterKit.configure({
       link: {
@@ -318,6 +336,7 @@ export default function RichTextEditor({
     Color,
     Highlight.configure({ multicolor: true }),
     TextAlign.configure({ types: ["heading", "paragraph"] }),
+    ScriptureChip,
   ], [placeholder]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const editor = useEditor({
@@ -328,8 +347,34 @@ export default function RichTextEditor({
     onUpdate: ({ editor: ed }) => {
       onChange?.(ed.getHTML());
 
-      if (!allowMentionsRef.current) return;
+      // Slash command detection: cursor inside a paragraph whose text starts
+      // with /<letters>. Doesn't fire on lists, headings, code blocks, or
+      // mid-paragraph slashes.
       const { from } = ed.state.selection;
+      const $pos = ed.state.doc.resolve(from);
+      const parent = $pos.parent;
+      if (parent.type.name === "paragraph") {
+        const text = parent.textContent;
+        const m = text.match(/^\/([a-z]*)$/i);
+        if (m) {
+          const slashStartPos = from - m[0].length;
+          try {
+            const c = ed.view.coordsAtPos(slashStartPos);
+            setSlashCoords({ top: c.bottom + 4, left: c.left });
+          } catch {
+            setSlashCoords(null);
+          }
+          setSlashFilter(m[1]);
+          setSlashActiveIdx(0);
+          setSlashOpen(true);
+          // Suppress @-mention while slash is active
+          setMentionItems([]);
+          return;
+        }
+      }
+      if (slashOpen) setSlashOpen(false);
+
+      if (!allowMentionsRef.current) return;
       const textBefore = ed.state.doc.textBetween(Math.max(0, from - 60), from, " ");
       const match = textBefore.match(/@([\w.]*)$/);
       clearTimeout(mentionTimerRef.current);
@@ -445,6 +490,110 @@ export default function RichTextEditor({
 
   const activeTextColor = editor.getAttributes("textStyle").color || null;
   const activeHighlight = editor.getAttributes("highlight").color || null;
+
+  // ── Slash command items + runner ───────────────────────────────────────
+  type SlashItem = {
+    id: string;
+    label: string;
+    keywords: string;
+    run: () => void;
+  };
+  const SLASH_ITEMS: SlashItem[] = [
+    { id: "h1",        label: "Heading 1",       keywords: "h1 heading title",         run: () => editor.chain().focus().toggleHeading({ level: 1 }).run() },
+    { id: "h2",        label: "Heading 2",       keywords: "h2 heading subtitle",      run: () => editor.chain().focus().toggleHeading({ level: 2 }).run() },
+    { id: "h3",        label: "Heading 3",       keywords: "h3 heading section",       run: () => editor.chain().focus().toggleHeading({ level: 3 }).run() },
+    { id: "bullet",    label: "Bulleted list",   keywords: "ul bullet list unordered", run: () => editor.chain().focus().toggleBulletList().run() },
+    { id: "numbered",  label: "Numbered list",   keywords: "ol numbered list ordered", run: () => editor.chain().focus().toggleOrderedList().run() },
+    { id: "quote",     label: "Quote",           keywords: "blockquote quote",         run: () => editor.chain().focus().toggleBlockquote().run() },
+    { id: "code",      label: "Code block",      keywords: "code pre",                 run: () => editor.chain().focus().toggleCodeBlock().run() },
+    { id: "divider",   label: "Divider",         keywords: "hr divider rule line",     run: () => editor.chain().focus().setHorizontalRule().run() },
+    {
+      id: "scripture",
+      label: "Scripture (e.g. Matthew 24:14)",
+      keywords: "scripture bible verse jw nwt",
+      run: () => {
+        const ref = window.prompt("Scripture reference (e.g. Matthew 24:14):");
+        if (ref && ref.trim()) editor.chain().focus().insertScriptureChip(ref.trim()).run();
+      },
+    },
+  ];
+
+  function filteredSlashItems(): SlashItem[] {
+    const q = slashFilter.toLowerCase().trim();
+    if (!q) return SLASH_ITEMS;
+    return SLASH_ITEMS.filter((it) =>
+      it.label.toLowerCase().includes(q) || it.keywords.toLowerCase().includes(q),
+    );
+  }
+
+  function runSlashItem(item: SlashItem) {
+    // Strip the /trigger text from the document, then run the command
+    const { from } = editor.state.selection;
+    const $pos = editor.state.doc.resolve(from);
+    const text = $pos.parent.textContent;
+    const m = text.match(/^\/([a-z]*)$/i);
+    if (m) {
+      const start = from - m[0].length;
+      editor.chain().focus().deleteRange({ from: start, to: from }).run();
+    }
+    setSlashOpen(false);
+    setSlashFilter("");
+    item.run();
+  }
+
+  function SlashPopup() {
+    const items = filteredSlashItems();
+    if (!slashOpen || !slashCoords || items.length === 0) return null;
+    return createPortal(
+      <div
+        onMouseDown={(e) => e.preventDefault()}
+        style={{
+          position: "fixed",
+          top: slashCoords.top,
+          left: slashCoords.left,
+          zIndex: 9999,
+          minWidth: 240,
+          padding: 4,
+          background: "#1e1b2e",
+          border: "1px solid rgba(255,255,255,0.08)",
+          borderRadius: 8,
+          boxShadow: "0 16px 36px rgba(0,0,0,0.32)",
+          fontFamily: "var(--font-sans, system-ui)",
+        }}
+      >
+        <div style={{ padding: "6px 10px", fontSize: 11, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)" }}>
+          Insert
+        </div>
+        {items.map((it, idx) => {
+          const active = idx === slashActiveIdx;
+          return (
+            <button
+              key={it.id}
+              type="button"
+              onMouseDown={(e) => { e.preventDefault(); runSlashItem(it); }}
+              onMouseEnter={() => setSlashActiveIdx(idx)}
+              style={{
+                display: "block",
+                width: "100%",
+                textAlign: "left",
+                padding: "8px 10px",
+                background: active ? "#7C3AED" : "transparent",
+                color: "#fff",
+                border: "none",
+                borderRadius: 4,
+                fontSize: 13,
+                fontWeight: 500,
+                cursor: "pointer",
+              }}
+            >
+              {it.label}
+            </button>
+          );
+        })}
+      </div>,
+      document.body,
+    );
+  }
 
   // Mini button + separator helpers used by the floating bubble below
   function BubbleBtn({ active, onClick, title, children }: { active?: boolean; onClick: (e: React.MouseEvent) => void; title?: string; children: React.ReactNode }) {
@@ -641,16 +790,33 @@ export default function RichTextEditor({
     <div
       className="mention-wrap"
       style={{ position: "relative" }}
-      onKeyDown={allowMentions && mentionItems.length > 0 ? (e) => {
-        if (e.key === "ArrowDown") { e.preventDefault(); setMentionActiveIdx(i => Math.min(i + 1, mentionItems.length - 1)); }
-        else if (e.key === "ArrowUp") { e.preventDefault(); setMentionActiveIdx(i => Math.max(i - 1, 0)); }
-        else if (e.key === "Enter" || e.key === "Tab") {
-          const item = mentionItems[mentionActiveIdx];
-          if (item) { e.preventDefault(); insertMention(item); }
-        } else if (e.key === "Escape") { setMentionItems([]); }
-      } : undefined}
+      onKeyDown={(e) => {
+        // Slash menu navigation takes precedence
+        if (slashOpen) {
+          const items = filteredSlashItems();
+          if (e.key === "ArrowDown") { e.preventDefault(); setSlashActiveIdx(i => Math.min(i + 1, items.length - 1)); return; }
+          if (e.key === "ArrowUp")   { e.preventDefault(); setSlashActiveIdx(i => Math.max(i - 1, 0)); return; }
+          if (e.key === "Enter" || e.key === "Tab") {
+            const it = items[slashActiveIdx];
+            if (it) { e.preventDefault(); runSlashItem(it); return; }
+          }
+          if (e.key === "Escape") { e.preventDefault(); setSlashOpen(false); return; }
+        }
+        // @-mention nav
+        if (allowMentions && mentionItems.length > 0) {
+          if (e.key === "ArrowDown") { e.preventDefault(); setMentionActiveIdx(i => Math.min(i + 1, mentionItems.length - 1)); }
+          else if (e.key === "ArrowUp") { e.preventDefault(); setMentionActiveIdx(i => Math.max(i - 1, 0)); }
+          else if (e.key === "Enter" || e.key === "Tab") {
+            const item = mentionItems[mentionActiveIdx];
+            if (item) { e.preventDefault(); insertMention(item); }
+          } else if (e.key === "Escape") { setMentionItems([]); }
+        }
+      }}
     >
-      <div className={`editor-wrap${disabled ? " editor-wrap--disabled" : ""}`}>
+      <div
+        className={`editor-wrap${disabled ? " editor-wrap--disabled" : ""}${focusMode ? " editor-wrap--focus" : ""}`}
+        data-focus-mode={focusMode ? "true" : undefined}
+      >
         {!disabled && (
           <div className="editor-toolbar">
             {/* ── Inline formatting ── */}
@@ -735,6 +901,17 @@ export default function RichTextEditor({
               <Btn active={false} onClick={() => editor.chain().focus().setHorizontalRule().run()} title={t("editor.hr")}><HrIcon /></Btn>
             )}
 
+            {/* ── Focus mode toggle ── */}
+            <Btn
+              active={focusMode}
+              onClick={() => setFocusMode((v) => !v)}
+              title="Focus mode (hide chrome)"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M9 4H5a1 1 0 0 0-1 1v4M15 4h4a1 1 0 0 1 1 1v4M9 20H5a1 1 0 0 1-1-1v-4M15 20h4a1 1 0 0 0 1-1v-4" />
+              </svg>
+            </Btn>
+
             <div className="editor-sep" />
 
             {/* ── Emoji ── */}
@@ -762,6 +939,31 @@ export default function RichTextEditor({
           className={`editor-content${compact ? " editor-content--compact" : ""}`}
         />
         <SelectionBubble />
+        <SlashPopup />
+        {focusMode && (
+          <button
+            type="button"
+            onClick={() => setFocusMode(false)}
+            title="Exit focus mode (Esc)"
+            style={{
+              position: "fixed",
+              top: 16,
+              right: 16,
+              zIndex: 9998,
+              padding: "6px 12px",
+              background: "#1e1b2e",
+              color: "#fff",
+              border: "1px solid rgba(255,255,255,0.12)",
+              borderRadius: 6,
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: "pointer",
+              boxShadow: "0 8px 24px rgba(0,0,0,0.28)",
+            }}
+          >
+            Exit focus · Esc
+          </button>
+        )}
       </div>
 
       {allowMentions && mentionItems.length > 0 && (
