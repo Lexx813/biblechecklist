@@ -3,7 +3,9 @@ import SongIndexPage from "../../src/components/songs/SongIndexPage";
 import PublicNav from "../_components/PublicNav";
 import PublicFooter from "../_components/PublicFooter";
 
-export const revalidate = 120;
+// Index page reflects new song additions; 5 min hits the cache hard while
+// staying responsive to publishes via the seed script.
+export const revalidate = 300;
 
 const BASE = "https://jwstudy.org";
 

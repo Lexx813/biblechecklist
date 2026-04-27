@@ -3,7 +3,7 @@ import SongIndexPage from "../../../src/components/songs/SongIndexPage";
 import PublicNav from "../../_components/PublicNav";
 import PublicFooter from "../../_components/PublicFooter";
 
-export const revalidate = 120;
+export const revalidate = 300;
 
 const BASE = "https://jwstudy.org";
 

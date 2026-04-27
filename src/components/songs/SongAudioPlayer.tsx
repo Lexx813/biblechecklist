@@ -110,10 +110,13 @@ export default function SongAudioPlayer({ signedUrl, durationSeconds, title, son
 
   return (
     <div className="rounded-md border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-white/4">
+      {/* preload="none" — we already have durationSeconds from the DB, so the
+          ~10 KB metadata fetch on every pageview is wasted. Defers all audio
+          network work until the user clicks Play. */}
       <audio
         ref={audioRef}
         src={signedUrl}
-        preload="metadata"
+        preload="none"
         controlsList="nodownload noplaybackrate"
         onContextMenu={(e) => e.preventDefault()}
         aria-label={title}

@@ -5,7 +5,7 @@ import SongDetailPage from "../../../../src/components/songs/SongDetailPage";
 import PublicNav from "../../../_components/PublicNav";
 import PublicFooter from "../../../_components/PublicFooter";
 
-export const revalidate = 60;
+export const revalidate = 600;
 
 const BASE = "https://jwstudy.org";
 

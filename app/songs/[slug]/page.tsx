@@ -5,7 +5,9 @@ import SongDetailPage from "../../../src/components/songs/SongDetailPage";
 import PublicNav from "../../_components/PublicNav";
 import PublicFooter from "../../_components/PublicFooter";
 
-export const revalidate = 60;
+// Songs change rarely, edge cache hit rate matters more than freshness.
+// 10 minutes lines up with how often we publish or update a song.
+export const revalidate = 600;
 
 const BASE = "https://jwstudy.org";
 
