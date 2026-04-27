@@ -21,6 +21,7 @@ import { Redis } from "@upstash/redis";
 
 type LimiterKind =
   | "aiChat"
+  | "aiChatIp"
   | "aiSkills"
   | "translate"
   | "trivia"
@@ -40,6 +41,12 @@ interface LimiterConfig {
 export const RATE_LIMITS: Record<LimiterKind, LimiterConfig> = {
   // AI Companion — Anthropic call per turn, expensive. Tight cap.
   aiChat:         { max: 30, window: "1 h",  label: "AI chat" },
+  // Per-IP cap on AI chat — defends against multi-account farming. Generous
+  // enough that a household / NAT'd office sharing one IP isn't blocked, tight
+  // enough that one machine spinning up throwaway accounts can't burn quota
+  // unbounded. Layered ON TOP of the per-user cap and the per-user daily
+  // token budget in checkQuota().
+  aiChatIp:       { max: 60, window: "1 h",  label: "AI chat" },
   // AI skills (sermons / outlines / etc.) — also Anthropic-backed.
   aiSkills:       { max: 30, window: "1 h",  label: "AI tools" },
   // Translation — tighter, single-shot calls but cumulative cost.

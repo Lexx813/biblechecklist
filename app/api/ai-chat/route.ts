@@ -8,6 +8,7 @@
 
 import { DOCTRINAL_FAQ, type DoctrinalFaqEntry } from "../../../src/data/doctrinalFaq";
 import { BOOKS } from "../../../src/data/books";
+import { rateLimit, rateLimitResponse } from "../../../src/lib/ratelimit";
 
 const SUPABASE_URL     = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON    = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
@@ -1207,6 +1208,18 @@ function persistTurn(
 
 // ── Route handler ──────────────────────────────────────────────────────────────
 export async function POST(req: Request) {
+  // Per-IP rate limit — defends against multi-account farming. Runs before
+  // auth so a script signing up throwaway accounts on one machine can't
+  // burn through quota even if every userId is fresh.
+  const ip =
+    (req.headers.get("x-forwarded-for") ?? "").split(",")[0]?.trim() ||
+    req.headers.get("x-real-ip") ||
+    "unknown";
+  if (ip !== "unknown") {
+    const ipLimit = await rateLimit("aiChatIp", `ip:${ip}`);
+    if (!ipLimit.ok) return rateLimitResponse(ipLimit);
+  }
+
   // Auth
   const auth = req.headers.get("Authorization") ?? "";
   if (!auth.startsWith("Bearer ")) return new Response("Unauthorized", { status: 401 });
