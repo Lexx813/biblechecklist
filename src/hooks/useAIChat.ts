@@ -173,8 +173,16 @@ export function useAIChat(context?: ChatContext, options: UseAIChatOptions = {})
       });
 
       if (!res.ok) {
-        const msg = await res.text().catch(() => "Unknown error");
-        throw new Error(msg);
+        // Don't surface raw upstream/Anthropic body text into the UI — bodies
+        // can include request IDs, model names, and stack hints. Map by status.
+        const safe =
+          res.status === 401 ? "Please sign in again to use the AI assistant."
+          : res.status === 429 ? "You've reached the AI usage limit for now. Try again later."
+          : res.status === 503 ? "AI service is temporarily unavailable."
+          : "AI request failed. Please try again.";
+        // Read body for server-side debugging only.
+        await res.text().catch(() => "");
+        throw new Error(safe);
       }
 
       const reader  = res.body!.getReader();

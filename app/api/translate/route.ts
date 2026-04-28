@@ -15,6 +15,7 @@
 export const runtime = "nodejs";
 
 import { rateLimit, rateLimitResponse } from "../../../src/lib/ratelimit";
+import { withApiHandler } from "../../../src/lib/apiError";
 
 const SUPABASE_URL  = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
@@ -31,7 +32,7 @@ const LANG_LABELS: Record<string, string> = {
   ko: "Korean",
 };
 
-export async function POST(req: Request) {
+export const POST = withApiHandler(async (req: Request) => {
   // ── Auth ─────────────────────────────────────────────────────────────────────
   const auth = req.headers.get("Authorization") ?? "";
   if (!auth.startsWith("Bearer ")) {
@@ -128,4 +129,4 @@ export async function POST(req: Request) {
       "X-Accel-Buffering": "no",
     },
   });
-}
+}, { route: "translate.POST", publicMessage: "Translation failed. Please try again." });

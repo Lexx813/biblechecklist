@@ -9,6 +9,7 @@
 import { DOCTRINAL_FAQ, type DoctrinalFaqEntry } from "../../../src/data/doctrinalFaq";
 import { BOOKS } from "../../../src/data/books";
 import { rateLimit, rateLimitResponse } from "../../../src/lib/ratelimit";
+import { apiError } from "../../../src/lib/apiError";
 
 const SUPABASE_URL     = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON    = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
@@ -1411,7 +1412,8 @@ function persistTurn(
 }
 
 // ── Route handler ──────────────────────────────────────────────────────────────
-export async function POST(req: Request) {
+async function handlePOST(req: Request): Promise<Response> {
+  try {
   // Auth first — admin status decides whether the IP cap and daily quota apply.
   const auth = req.headers.get("Authorization") ?? "";
   if (!auth.startsWith("Bearer ")) return new Response("Unauthorized", { status: 401 });
@@ -1613,4 +1615,9 @@ export async function POST(req: Request) {
     persistTurn(conversationId, userId, userText, finalText);
   }
   return new Response(await textToStream(finalText, pendingDraft, pendingNav, pendingConfirm, pendingSongPrefill), { headers: sseHeaders });
+  } catch (err) {
+    return apiError(err, "AI chat failed. Please try again.", 500, { route: "ai-chat.POST" });
+  }
 }
+
+export const POST = handlePOST;

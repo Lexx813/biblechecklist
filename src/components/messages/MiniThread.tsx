@@ -9,6 +9,7 @@ import { useMarkConversationNotificationsRead as useMarkMessageNotificationsRead
 import { useSharedKey } from "../../hooks/useE2E";
 import { encryptMessage, decryptMessage, sanitizeContent, MAX_MSG_LENGTH } from "../../lib/e2e";
 import { supabase } from "../../lib/supabase";
+import { subscribeWithMonitor } from "../../lib/realtime";
 import { Avatar, EmojiPicker, VersePicker, PlanPicker, ConvSettingsPanel, StarredPanel, SearchPanel, PushPrompt, FCImageWarningModal } from "./ChatWidgets";
 import { FCBubble } from "./FCBubble";
 import { groupByDay, timeAgo, PUSH_DISMISS_KEY, computePosition } from "./chatHelpers";
@@ -182,10 +183,12 @@ export function MiniThread({ conv, user, keyPair, onBack, accentColor, onAccentC
         setIsOtherTyping(!!(other?.typing));
       })
       .on("presence", { event: "join" }, ({ key }: { key: string }) => { if (key === conv.other_user_id) setIsOtherOnline(true); })
-      .on("presence", { event: "leave" }, ({ key }: { key: string }) => { if (key === conv.other_user_id) { setIsOtherOnline(false); setIsOtherTyping(false); } })
-      .subscribe(async (status: string) => {
-        if (status === "SUBSCRIBED") await channel.track({ user_id: user.id, typing: false });
-      });
+      .on("presence", { event: "leave" }, ({ key }: { key: string }) => { if (key === conv.other_user_id) { setIsOtherOnline(false); setIsOtherTyping(false); } });
+    subscribeWithMonitor(channel, `mini-thread-presence:${conv.conversation_id}`, (status) => {
+      if (status === "SUBSCRIBED") {
+        channel.track({ user_id: user.id, typing: false }).catch(() => {});
+      }
+    });
     presenceChannelRef.current = channel;
     return () => { supabase.removeChannel(channel); presenceChannelRef.current = null; };
   }, [conv.conversation_id, user.id, conv.other_user_id]);

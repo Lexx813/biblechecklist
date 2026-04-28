@@ -74,7 +74,8 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (playerErr || !player) {
-    return NextResponse.json({ error: playerErr?.message ?? "Failed to join room" }, { status: 500 });
+    console.error("[trivia.join-room] player insert failed", { message: playerErr?.message });
+    return NextResponse.json({ error: "Failed to join room" }, { status: 500 });
   }
 
   return NextResponse.json({ room, player });

@@ -929,31 +929,50 @@ function GameView({
     if (room.status === "finished") onGameEnd();
   }, [room.status]);
 
-  async function handleAnswer(idx: number) {
-    if (localSelectedIndex !== null || submitting || !isMyTurn || room.pending_next) return;
-    setLocalSelectedIndex(idx);
+  async function submitAnswer(idx: number, label: "answer" | "timeout"): Promise<void> {
     const { supabase } = await import("../../lib/supabase");
     const { data: { session } } = await supabase.auth.getSession();
     const authHeader = session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {};
-    await fetch("/api/trivia/submit-answer", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...authHeader },
-      body: JSON.stringify({ room_id: room.id, player_id: myPlayer.id, answer_index: idx }),
-    });
+    // Two retries on transient network/5xx — live multiplayer can't tolerate
+    // a silent drop. If all attempts fail, roll back the selection so the
+    // player can retry instead of being stuck mid-game.
+    let lastErr: unknown = null;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        const res = await fetch("/api/trivia/submit-answer", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...authHeader },
+          body: JSON.stringify({ room_id: room.id, player_id: myPlayer.id, answer_index: idx }),
+        });
+        if (res.ok) return;
+        // 4xx: don't retry — bad request. 5xx: retry.
+        if (res.status < 500) {
+          lastErr = new Error(`submit-${label}: HTTP ${res.status}`);
+          break;
+        }
+        lastErr = new Error(`submit-${label}: HTTP ${res.status}`);
+      } catch (err) {
+        lastErr = err;
+      }
+      await new Promise((r) => setTimeout(r, 250 * (attempt + 1)));
+    }
+    console.error("[trivia] submit-answer failed", lastErr);
+    setLocalSelectedIndex(null);
+    const { toast } = await import("../../lib/toast");
+    toast("Couldn't send your answer. Try again.", "error");
+  }
+
+  async function handleAnswer(idx: number) {
+    if (localSelectedIndex !== null || submitting || !isMyTurn || room.pending_next) return;
+    setLocalSelectedIndex(idx);
+    await submitAnswer(idx, "answer");
     await onRefresh();
   }
 
   async function handleTimeExpire() {
     if (room.pending_next || localSelectedIndex !== null || !isMyTurn) return;
     setLocalSelectedIndex(-2); // sentinel: "timed out"
-    const { supabase } = await import("../../lib/supabase");
-    const { data: { session } } = await supabase.auth.getSession();
-    const authHeader = session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {};
-    await fetch("/api/trivia/submit-answer", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...authHeader },
-      body: JSON.stringify({ room_id: room.id, player_id: myPlayer.id, answer_index: -1 }),
-    });
+    await submitAnswer(-1, "timeout");
     await onRefresh();
   }
 

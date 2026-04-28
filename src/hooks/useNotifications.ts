@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../lib/supabase";
+import { subscribeWithMonitor } from "../lib/realtime";
 import { notificationsApi } from "../api/notifications";
 
 export function useNotifications(userId: string | null | undefined) {
@@ -18,8 +19,13 @@ export function useNotifications(userId: string | null | undefined) {
         filter: `user_id=eq.${userId}`,
       }, () => {
         queryClient.invalidateQueries({ queryKey: ["notifications", userId] });
-      })
-      .subscribe();
+      });
+    subscribeWithMonitor(channel, `notifs:${userId}`, (status) => {
+      // On reconnect after dropout, refetch in case we missed inserts.
+      if (status === "SUBSCRIBED") {
+        queryClient.invalidateQueries({ queryKey: ["notifications", userId] });
+      }
+    });
     return () => { supabase.removeChannel(channel); };
   }, [userId, queryClient]);
 

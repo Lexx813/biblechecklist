@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../lib/supabase";
+import { subscribeWithMonitor } from "../lib/realtime";
 import { forumApi } from "../api/forum";
 import { notificationsApi } from "../api/notifications";
 
@@ -33,8 +34,10 @@ export function useThreads(categoryId: string | undefined, limit = 20, lang: str
       .channel(`threads:${categoryId}`)
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "forum_threads", filter: `category_id=eq.${categoryId}` }, invalidate)
       .on("postgres_changes", { event: "UPDATE", schema: "public", table: "forum_threads", filter: `category_id=eq.${categoryId}` }, invalidate)
-      .on("postgres_changes", { event: "DELETE", schema: "public", table: "forum_threads", filter: `category_id=eq.${categoryId}` }, invalidate)
-      .subscribe();
+      .on("postgres_changes", { event: "DELETE", schema: "public", table: "forum_threads", filter: `category_id=eq.${categoryId}` }, invalidate);
+    subscribeWithMonitor(channel, `threads:${categoryId}`, (status) => {
+      if (status === "SUBSCRIBED") invalidate();
+    });
     return () => { supabase.removeChannel(channel); };
   }, [categoryId, queryClient]);
 
@@ -67,8 +70,10 @@ export function useReplies(threadId: string | undefined) {
       .channel(`replies:${threadId}`)
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "forum_replies", filter: `thread_id=eq.${threadId}` }, invalidate)
       .on("postgres_changes", { event: "UPDATE", schema: "public", table: "forum_replies", filter: `thread_id=eq.${threadId}` }, invalidate)
-      .on("postgres_changes", { event: "DELETE", schema: "public", table: "forum_replies", filter: `thread_id=eq.${threadId}` }, invalidate)
-      .subscribe();
+      .on("postgres_changes", { event: "DELETE", schema: "public", table: "forum_replies", filter: `thread_id=eq.${threadId}` }, invalidate);
+    subscribeWithMonitor(channel, `replies:${threadId}`, (status) => {
+      if (status === "SUBSCRIBED") invalidate();
+    });
     return () => { supabase.removeChannel(channel); };
   }, [threadId, queryClient]);
 

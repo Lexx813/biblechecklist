@@ -30,28 +30,11 @@ import "../../styles/reading-plans.css";
 import "../../styles/group-challenge.css";
 import { formatDate } from "../../utils/formatters";
 import { toast } from "../../lib/toast";
+import { daysSince, effectiveDay, projectedFinish as projectedFinishLib } from "../../lib/readingPlanMath";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
-
-function daysSince(dateStr) {
-  const start = new Date(dateStr + "T00:00:00");
-  const now = new Date();
-  now.setHours(0, 0, 0, 0);
-  return Math.floor((now.getTime() - start.getTime()) / 86400000) + 1;
-}
-
-function effectiveDay(plan) {
-  const raw = daysSince(plan.start_date);
-  let pausedDays = plan.paused_days ?? 0;
-  if (plan.is_paused && plan.paused_at) {
-    const pausedDate = new Date(plan.paused_at);
-    pausedDate.setHours(0, 0, 0, 0);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    pausedDays += Math.max(0, Math.floor((today.getTime() - pausedDate.getTime()) / 86400000));
-  }
-  return Math.max(1, raw - pausedDays);
-}
+// Pure math lives in ../../lib/readingPlanMath.ts; this thin wrapper preserves
+// the existing call signature inside the page.
 
 function projectedFinish(plan, completedCount, totalDays) {
   if (completedCount === 0) return null;

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { supabase } from "../../lib/supabase";
+import { subscribeWithMonitor } from "../../lib/realtime";
 import type { TriviaRoom, TriviaPlayer, ActiveQuestion } from "../../lib/trivia/types";
 
 export interface RoomState {
@@ -130,8 +131,18 @@ export function useRoom(roomId: string | null): RoomState {
               .order("joined_at");
             setState((s) => ({ ...s, players: (players ?? []) as TriviaPlayer[] }));
           }
-        )
-        .subscribe();
+        );
+      // Live multiplayer is the most fragile place for a silent dropout —
+      // a frozen room state means a half-dead game with no signal.
+      subscribeWithMonitor(channel, `trivia-room:${roomId}`, (status) => {
+        if (status !== "SUBSCRIBED") {
+          setState((s) => ({ ...s, error: "Reconnecting…" }));
+        } else {
+          setState((s) => (s.error === "Reconnecting…" ? { ...s, error: null } : s));
+          // Re-pull state on reconnect.
+          refresh();
+        }
+      });
     }
 
     init();

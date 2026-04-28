@@ -5,6 +5,7 @@ import { NewConversationModal } from "../../components/NewConversationModal";
 import { useConversations, useDeleteConversation } from "../../hooks/useMessages";
 import { useE2EKeys } from "../../hooks/useE2E";
 import { supabase } from "../../lib/supabase";
+import { subscribeWithMonitor } from "../../lib/realtime";
 import "../../styles/messages.css";
 import { ConversationListPanel, type Conversation } from "./ConversationListPanel";
 import { ThreadView } from "./MessageThreadPanel";
@@ -59,10 +60,13 @@ export default function MessagesPage({
       .on("presence", { event: "sync" }, () => {
         const state = channel.presenceState();
         setOnlineUsers(new Set(Object.keys(state).filter(k => k !== user.id)));
-      })
-      .subscribe(async (status: string) => {
-        if (status === "SUBSCRIBED") await channel.track({ user_id: user.id });
       });
+    subscribeWithMonitor(channel, "global-presence", (status) => {
+      if (status === "SUBSCRIBED") {
+        // Fire-and-forget; track() doesn't need to block on the callback.
+        channel.track({ user_id: user.id }).catch(() => {});
+      }
+    });
     return () => { supabase.removeChannel(channel); };
   }, [user.id]);
 

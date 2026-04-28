@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { supabase } from "../lib/supabase";
+import { subscribeWithMonitor } from "../lib/realtime";
 import { groupsApi } from "../api/groups";
 
 // ── Groups ────────────────────────────────────────────────────────────────────
@@ -61,8 +62,12 @@ export function useGroupMembers(groupId: string | undefined) {
       .on("postgres_changes", { event: "*", schema: "public", table: "group_members", filter: `group_id=eq.${groupId}` }, () => {
         qc.invalidateQueries({ queryKey: ["group-members", groupId] });
         qc.invalidateQueries({ queryKey: ["group", groupId] });
-      })
-      .subscribe();
+      });
+    subscribeWithMonitor(ch, `group-members:${groupId}`, (status) => {
+      if (status === "SUBSCRIBED") {
+        qc.invalidateQueries({ queryKey: ["group-members", groupId] });
+      }
+    });
     return () => { supabase.removeChannel(ch); };
   }, [groupId, qc]);
 
@@ -144,8 +149,12 @@ export function useGroupPosts(groupId: string | undefined) {
       .channel(`group-posts:${groupId}`)
       .on("postgres_changes", { event: "*", schema: "public", table: "group_posts", filter: `group_id=eq.${groupId}` }, () => {
         qc.invalidateQueries({ queryKey: ["group-posts", groupId] });
-      })
-      .subscribe();
+      });
+    subscribeWithMonitor(ch, `group-posts:${groupId}`, (status) => {
+      if (status === "SUBSCRIBED") {
+        qc.invalidateQueries({ queryKey: ["group-posts", groupId] });
+      }
+    });
     return () => { supabase.removeChannel(ch); };
   }, [groupId, qc]);
 
@@ -193,8 +202,12 @@ export function usePostComments(postId: string | undefined) {
       .channel(`post-comments:${postId}`)
       .on("postgres_changes", { event: "*", schema: "public", table: "group_post_comments", filter: `post_id=eq.${postId}` }, () => {
         qc.invalidateQueries({ queryKey: ["post-comments", postId] });
-      })
-      .subscribe();
+      });
+    subscribeWithMonitor(ch, `post-comments:${postId}`, (status) => {
+      if (status === "SUBSCRIBED") {
+        qc.invalidateQueries({ queryKey: ["post-comments", postId] });
+      }
+    });
     return () => { supabase.removeChannel(ch); };
   }, [postId, qc]);
 
@@ -243,8 +256,12 @@ export function useGroupEvents(groupId: string | undefined) {
       })
       .on("postgres_changes", { event: "*", schema: "public", table: "group_event_rsvps" }, () => {
         qc.invalidateQueries({ queryKey: ["group-events", groupId] });
-      })
-      .subscribe();
+      });
+    subscribeWithMonitor(ch, `group-events:${groupId}`, (status) => {
+      if (status === "SUBSCRIBED") {
+        qc.invalidateQueries({ queryKey: ["group-events", groupId] });
+      }
+    });
     return () => { supabase.removeChannel(ch); };
   }, [groupId, qc]);
 

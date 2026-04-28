@@ -193,7 +193,8 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (roomErr || !room) {
-    return NextResponse.json({ error: roomErr?.message ?? "Failed to create room" }, { status: 500 });
+    console.error("[trivia.create-room] room insert failed", { message: roomErr?.message });
+    return NextResponse.json({ error: "Failed to create room" }, { status: 500 });
   }
 
   const { data: player, error: playerErr } = await supabase
@@ -211,7 +212,8 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (playerErr || !player) {
-    return NextResponse.json({ error: playerErr?.message ?? "Failed to add player" }, { status: 500 });
+    console.error("[trivia.create-room] player insert failed", { message: playerErr?.message });
+    return NextResponse.json({ error: "Failed to add player" }, { status: 500 });
   }
 
   // Send invites best-effort — never blocks room creation.

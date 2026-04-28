@@ -4,6 +4,7 @@ import LandingPage from "../_components/landing/LandingPage";
 import { BOOKS } from "../../src/data/books";
 import { PLAN_TEMPLATES } from "../../src/data/readingPlanTemplates";
 import { STUDY_TOPICS } from "../../src/data/studyTopics";
+import { KNOWN_SPA_ROUTES } from "../../src/lib/spaRoutes";
 
 const BASE = "https://jwstudy.org";
 const SEO_HIDE = {
@@ -60,16 +61,6 @@ export async function generateMetadata({ params }) {
   if (isRoot) return {}; // layout.tsx metadata covers the root
   return { robots: { index: false, follow: false } };
 }
-
-// All valid SPA client-side route first-segments
-const KNOWN_SPA_ROUTES = new Set([
-  "admin", "advanced-quiz", "blog-dash", "bookmarks", "checklist",
-  "community", "family-quiz", "feed", "friends", "groups", "history", "home",
-  "invite", "leaderboard", "learn", "login", "main", "meeting-prep", "messages",
-  "notifications", "premium", "privacy", "profile", "quiz", "reading-plans",
-  "referral", "search", "settings", "signup", "study-notes", "study-topics",
-  "terms", "trivia", "try", "upgrade", "user", "videos",
-]);
 
 // SSR teasers for SPA routes so AI crawlers (GPTBot, PerplexityBot, ClaudeBot —
 // which don't execute JS) see useful content instead of the skeleton spinner.

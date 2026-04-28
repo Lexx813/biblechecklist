@@ -9,6 +9,8 @@
  * service role) so RLS applies and we can't accidentally leak rows.
  */
 
+import { apiError, withApiHandler } from "../../../src/lib/apiError";
+
 const SUPABASE_URL  = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
 
@@ -37,7 +39,7 @@ async function getUserId(token: string): Promise<string | null> {
   return id;
 }
 
-export async function GET(req: Request) {
+export const GET = withApiHandler(async (req: Request) => {
   const auth = req.headers.get("Authorization") ?? "";
   if (!auth.startsWith("Bearer ")) return new Response("Unauthorized", { status: 401 });
   const token = auth.slice(7);
@@ -47,12 +49,15 @@ export async function GET(req: Request) {
 
   const url = `${SUPABASE_URL}/rest/v1/ai_conversations?select=id,title,created_at,updated_at,context&order=updated_at.desc&limit=100`;
   const res = await fetch(url, { headers: userHeaders(token) });
-  if (!res.ok) return new Response(`Error: ${await res.text()}`, { status: 500 });
+  if (!res.ok) {
+    return apiError(new Error(`PostgREST ${res.status}: ${await res.text()}`),
+      "Failed to load conversations", 500, { route: "ai-conversations.GET" });
+  }
   const conversations = (await res.json()) as Conversation[];
   return Response.json({ conversations });
-}
+}, { route: "ai-conversations.GET" });
 
-export async function POST(req: Request) {
+export const POST = withApiHandler(async (req: Request) => {
   const auth = req.headers.get("Authorization") ?? "";
   if (!auth.startsWith("Bearer ")) return new Response("Unauthorized", { status: 401 });
   const token = auth.slice(7);
@@ -71,7 +76,10 @@ export async function POST(req: Request) {
     headers: { ...userHeaders(token), Prefer: "return=representation" },
     body: JSON.stringify({ user_id: userId, title, context }),
   });
-  if (!res.ok) return new Response(`Error: ${await res.text()}`, { status: 500 });
+  if (!res.ok) {
+    return apiError(new Error(`PostgREST ${res.status}: ${await res.text()}`),
+      "Failed to create conversation", 500, { route: "ai-conversations.POST" });
+  }
   const rows = (await res.json()) as Conversation[];
   return Response.json({ conversation: rows[0] }, { status: 201 });
-}
+}, { route: "ai-conversations.POST" });

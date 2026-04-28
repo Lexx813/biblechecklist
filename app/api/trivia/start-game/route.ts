@@ -71,7 +71,8 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (error || !updated) {
-    return NextResponse.json({ error: error?.message ?? "Failed to start game" }, { status: 500 });
+    console.error("[trivia.start-game] update failed", { message: error?.message });
+    return NextResponse.json({ error: "Failed to start game" }, { status: 500 });
   }
 
   return NextResponse.json({ room: updated });

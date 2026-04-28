@@ -6,6 +6,7 @@ import {
 } from "../../hooks/useMessages";
 import { useE2EKeys } from "../../hooks/useE2E";
 import { supabase } from "../../lib/supabase";
+import { subscribeWithMonitor } from "../../lib/realtime";
 import { MiniThread, ConvList } from "./MiniThread";
 import "../../styles/floating-chat.css";
 import { MessageErrorBoundary } from "./MessageErrorBoundary";
@@ -58,10 +59,12 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
       .on("presence", { event: "sync" }, () => {
         const state = channel.presenceState();
         setOnlineUsers(new Set(Object.keys(state).filter(k => k !== user.id)));
-      })
-      .subscribe(async (status: string) => {
-        if (status === "SUBSCRIBED") await channel.track({ user_id: user.id });
       });
+    subscribeWithMonitor(channel, "fc-global-presence", (status) => {
+      if (status === "SUBSCRIBED") {
+        channel.track({ user_id: user.id }).catch(() => {});
+      }
+    });
     return () => { supabase.removeChannel(channel); };
   }, [user.id]);
 

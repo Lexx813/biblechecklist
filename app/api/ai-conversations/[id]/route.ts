@@ -7,6 +7,8 @@
  * RLS enforces ownership.
  */
 
+import { apiError, withApiHandler } from "../../../../src/lib/apiError";
+
 const SUPABASE_URL  = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
 
@@ -28,10 +30,10 @@ async function getUserId(token: string): Promise<string | null> {
   return id;
 }
 
-export async function GET(
+export const GET = withApiHandler(async (
   req: Request,
   { params }: { params: Promise<{ id: string }> },
-) {
+) => {
   const auth = req.headers.get("Authorization") ?? "";
   if (!auth.startsWith("Bearer ")) return new Response("Unauthorized", { status: 401 });
   const token = auth.slice(7);
@@ -52,20 +54,26 @@ export async function GET(
     ),
   ]);
 
-  if (!convRes.ok) return new Response(`Error: ${await convRes.text()}`, { status: 500 });
-  if (!msgsRes.ok) return new Response(`Error: ${await msgsRes.text()}`, { status: 500 });
+  if (!convRes.ok) {
+    return apiError(new Error(`PostgREST ${convRes.status}: ${await convRes.text()}`),
+      "Failed to load conversation", 500, { route: "ai-conversations.[id].GET" });
+  }
+  if (!msgsRes.ok) {
+    return apiError(new Error(`PostgREST ${msgsRes.status}: ${await msgsRes.text()}`),
+      "Failed to load messages", 500, { route: "ai-conversations.[id].GET" });
+  }
 
   const convs = await convRes.json() as Array<{ id: string; title: string; created_at: string; updated_at: string; context: unknown }>;
   if (!convs.length) return new Response("Not found", { status: 404 });
   const messages = await msgsRes.json();
 
   return Response.json({ conversation: convs[0], messages });
-}
+}, { route: "ai-conversations.[id].GET" });
 
-export async function PATCH(
+export const PATCH = withApiHandler(async (
   req: Request,
   { params }: { params: Promise<{ id: string }> },
-) {
+) => {
   const auth = req.headers.get("Authorization") ?? "";
   if (!auth.startsWith("Bearer ")) return new Response("Unauthorized", { status: 401 });
   const token = auth.slice(7);
@@ -88,16 +96,19 @@ export async function PATCH(
       body: JSON.stringify({ title, updated_at: new Date().toISOString() }),
     },
   );
-  if (!res.ok) return new Response(`Error: ${await res.text()}`, { status: 500 });
+  if (!res.ok) {
+    return apiError(new Error(`PostgREST ${res.status}: ${await res.text()}`),
+      "Failed to update conversation", 500, { route: "ai-conversations.[id].PATCH" });
+  }
   const rows = await res.json() as Array<{ id: string }>;
   if (!rows.length) return new Response("Not found", { status: 404 });
   return Response.json({ conversation: rows[0] });
-}
+}, { route: "ai-conversations.[id].PATCH" });
 
-export async function DELETE(
+export const DELETE = withApiHandler(async (
   req: Request,
   { params }: { params: Promise<{ id: string }> },
-) {
+) => {
   const auth = req.headers.get("Authorization") ?? "";
   if (!auth.startsWith("Bearer ")) return new Response("Unauthorized", { status: 401 });
   const token = auth.slice(7);
@@ -111,6 +122,9 @@ export async function DELETE(
     `${SUPABASE_URL}/rest/v1/ai_conversations?id=eq.${id}`,
     { method: "DELETE", headers: userHeaders(token) },
   );
-  if (!res.ok) return new Response(`Error: ${await res.text()}`, { status: 500 });
+  if (!res.ok) {
+    return apiError(new Error(`PostgREST ${res.status}: ${await res.text()}`),
+      "Failed to delete conversation", 500, { route: "ai-conversations.[id].DELETE" });
+  }
   return new Response(null, { status: 204 });
-}
+}, { route: "ai-conversations.[id].DELETE" });

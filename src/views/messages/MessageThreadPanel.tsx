@@ -11,6 +11,7 @@ import { useMarkConversationNotificationsRead as useMarkMessageNotificationsRead
 import { useSharedKey } from "../../hooks/useE2E";
 import { encryptMessage, decryptMessage, sanitizeContent, MAX_MSG_LENGTH } from "../../lib/e2e";
 import { supabase } from "../../lib/supabase";
+import { subscribeWithMonitor } from "../../lib/realtime";
 import { BOOKS } from "../../data/books";
 import { wolChapterUrl } from "../../utils/wol";
 import { toast } from "../../lib/toast";
@@ -1093,12 +1094,12 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
           setIsOtherTyping(false);
           setOtherLastSeen(new Date().toISOString());
         }
-      })
-      .subscribe(async (status: string) => {
-        if (status === "SUBSCRIBED") {
-          await channel.track({ user_id: user.id, typing: false });
-        }
       });
+    subscribeWithMonitor(channel, `thread-presence:${conv.conversation_id}`, (status) => {
+      if (status === "SUBSCRIBED") {
+        channel.track({ user_id: user.id, typing: false }).catch(() => {});
+      }
+    });
 
     presenceChannelRef.current = channel;
     return () => {

@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { supabase } from "../lib/supabase";
+import { subscribeWithMonitor } from "../lib/realtime";
 import { messagesApi } from "../api/messages";
 import type { Database } from "../types/supabase";
 
@@ -55,8 +56,13 @@ export function useMessages(conversationId: string | null | undefined) {
             old.map(m => m.id === payload.new.id ? { ...m, ...payload.new } : m)
           );
         }
-      )
-      .subscribe();
+      );
+    subscribeWithMonitor(channel, `messages:${conversationId}`, (status) => {
+      if (status === "SUBSCRIBED") {
+        // After reconnect, refetch in case we missed inserts during dropout.
+        queryClient.invalidateQueries({ queryKey: ["messages", conversationId] });
+      }
+    });
     return () => { supabase.removeChannel(channel); };
   }, [conversationId, queryClient]);
 
@@ -79,8 +85,8 @@ export function useReactions(conversationId: string | null | undefined) {
       .channel(`reactions:${conversationId}`)
       .on("postgres_changes", { event: "*", schema: "public", table: "message_reactions" }, () => {
         queryClient.invalidateQueries({ queryKey: ["reactions", conversationId] });
-      })
-      .subscribe();
+      });
+    subscribeWithMonitor(channel, `reactions:${conversationId}`);
     return () => { supabase.removeChannel(channel); };
   }, [conversationId, queryClient]);
 
@@ -248,8 +254,8 @@ export function useUnreadMessageCount() {
       .channel("unread-badge-realtime")
       .on("postgres_changes", { event: "INSERT", schema: "public", table: "messages" }, () => {
         queryClient.invalidateQueries({ queryKey: ["conversations"] });
-      })
-      .subscribe();
+      });
+    subscribeWithMonitor(channel, "unread-badge-realtime");
     return () => { supabase.removeChannel(channel); };
   }, [queryClient]);
 

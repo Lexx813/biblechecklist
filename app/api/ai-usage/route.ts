@@ -10,6 +10,8 @@
  * Caps mirror the constants in /api/ai-chat/route.ts — keep in sync.
  */
 
+import { withApiHandler } from "../../../src/lib/apiError";
+
 const SUPABASE_URL  = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
 const SUPABASE_SERVICE = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim();
@@ -26,7 +28,7 @@ function supabaseHeaders() {
   };
 }
 
-export async function GET(req: Request) {
+export const GET = withApiHandler(async (req: Request) => {
   const auth = req.headers.get("Authorization") ?? "";
   if (!auth.startsWith("Bearer ")) return new Response("Unauthorized", { status: 401 });
   const token = auth.slice(7);
@@ -89,4 +91,4 @@ export async function GET(req: Request) {
       },
     },
   );
-}
+}, { route: "ai-usage.GET" });
