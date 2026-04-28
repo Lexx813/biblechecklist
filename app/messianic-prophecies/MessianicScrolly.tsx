@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   MESSIANIC_PROPHECIES,
   PROPHECY_CATEGORIES,
@@ -363,14 +364,12 @@ function ProphecyEntry({ pair, index }: { pair: MessianicProphecyPair; index: nu
         <p className="text-[11px] font-bold tracking-[0.28em] tabular-nums text-[var(--text-muted)]">
           № {String(index).padStart(2, "0")}
         </p>
-        <a
-          href={wolUrlFor(pair.prophecy)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-2 inline-block text-3xl font-extrabold leading-tight tracking-[-0.02em] text-[var(--text-primary)] underline decoration-[var(--border)] decoration-2 underline-offset-[6px] transition hover:decoration-violet-600 sm:text-4xl"
-        >
-          {pair.prophecy.ref}
-        </a>
+        <div className="mt-2">
+          <ScriptureLink
+            refData={pair.prophecy}
+            className="inline-block text-3xl font-extrabold leading-tight tracking-[-0.02em] text-[var(--text-primary)] underline decoration-[var(--border)] decoration-2 underline-offset-[6px] transition hover:decoration-violet-600 sm:text-4xl"
+          />
+        </div>
         <p className="mt-3 text-[10px] font-bold uppercase tracking-[0.28em] text-[var(--text-muted)]">
           Hebrew Scriptures
         </p>
@@ -403,13 +402,129 @@ function ProphecyEntry({ pair, index }: { pair: MessianicProphecyPair; index: nu
 
 function RefLink({ refData }: { refData: ScriptureRef }) {
   return (
-    <a
-      href={wolUrlFor(refData)}
-      target="_blank"
-      rel="noopener noreferrer"
+    <ScriptureLink
+      refData={refData}
       className="text-base font-bold underline decoration-[var(--border)] decoration-2 underline-offset-[5px] transition hover:decoration-violet-600 sm:text-lg"
+    />
+  );
+}
+
+/**
+ * Scripture reference link with a hover/focus tooltip showing the NWT verse
+ * text when available. The tooltip is portal-rendered to document.body so
+ * it escapes ancestor stacking contexts (transform / opacity wrappers were
+ * eating its z-index and causing the page to leak through). Solid bg
+ * guaranteed by literal Tailwind colors.
+ */
+function ScriptureLink({ refData, className }: { refData: ScriptureRef; className?: string }) {
+  const linkRef = useRef<HTMLAnchorElement>(null);
+  const [open, setOpen] = useState(false);
+  const hasText = Boolean(refData.text);
+  const tipId = `tip-${refData.bookSlug}-${refData.chapter}-${refData.ref.replace(/\W+/g, "-")}`;
+
+  return (
+    <>
+      <a
+        ref={linkRef}
+        href={wolUrlFor(refData)}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-describedby={hasText ? tipId : undefined}
+        onMouseEnter={() => hasText && setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        onFocus={() => hasText && setOpen(true)}
+        onBlur={() => setOpen(false)}
+        className={className}
+      >
+        {refData.ref}
+      </a>
+      {hasText && open && <ScriptureTooltip id={tipId} refData={refData} anchor={linkRef} />}
+    </>
+  );
+}
+
+function ScriptureTooltip({
+  id,
+  refData,
+  anchor,
+}: {
+  id: string;
+  refData: ScriptureRef;
+  anchor: React.RefObject<HTMLElement | null>;
+}) {
+  const [pos, setPos] = useState<{ left: number; top: number; placement: "above" | "below" } | null>(null);
+  const tipRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    function place() {
+      const el = anchor.current;
+      const tip = tipRef.current;
+      if (!el || !tip) return;
+      const r = el.getBoundingClientRect();
+      const tipRect = tip.getBoundingClientRect();
+      const PAD = 12;
+      const arrowGap = 12;
+      const desiredW = tipRect.width || 320;
+      // Center horizontally on the link
+      let left = r.left + r.width / 2 - desiredW / 2;
+      // Clamp to viewport
+      left = Math.max(PAD, Math.min(left, window.innerWidth - desiredW - PAD));
+      // Prefer above; if no room, go below
+      const spaceAbove = r.top;
+      const tipH = tipRect.height || 140;
+      const placement: "above" | "below" = spaceAbove > tipH + arrowGap + PAD ? "above" : "below";
+      const top = placement === "above"
+        ? r.top - tipH - arrowGap + window.scrollY
+        : r.bottom + arrowGap + window.scrollY;
+      setPos({ left: left + window.scrollX, top, placement });
+    }
+    place();
+    window.addEventListener("scroll", place, { passive: true });
+    window.addEventListener("resize", place);
+    return () => {
+      window.removeEventListener("scroll", place);
+      window.removeEventListener("resize", place);
+    };
+  }, [anchor]);
+
+  if (typeof document === "undefined") return null;
+
+  const arrowStyle: React.CSSProperties = pos?.placement === "above"
+    ? { bottom: "-5px", left: "50%", transform: "translateX(-50%) rotate(45deg)" }
+    : { top: "-5px",   left: "50%", transform: "translateX(-50%) rotate(45deg)" };
+
+  return createPortal(
+    <div
+      ref={tipRef}
+      id={id}
+      role="tooltip"
+      style={{
+        position: "absolute",
+        left: pos?.left ?? -9999,
+        top: pos?.top ?? -9999,
+        width: "min(20rem, 88vw)",
+        opacity: pos ? 1 : 0,
+        transition: "opacity 150ms ease-out",
+        pointerEvents: "none",
+        zIndex: 1000,
+      }}
+      className="rounded-md border border-slate-200 bg-white px-4 py-3 text-left text-slate-900 shadow-[0_18px_48px_-12px_rgba(0,0,0,0.45),0_4px_12px_-4px_rgba(0,0,0,0.18)] dark:border-slate-700 dark:bg-slate-900 dark:text-slate-50"
     >
-      {refData.ref}
-    </a>
+      <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-violet-700 dark:text-violet-300">
+        {refData.ref} · NWT
+      </div>
+      <div className="mt-2 text-sm leading-[1.55]">
+        &ldquo;{refData.text}&rdquo;
+      </div>
+      <div className="mt-2 text-[10px] font-bold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">
+        wol.jw.org
+      </div>
+      <div
+        aria-hidden="true"
+        style={arrowStyle}
+        className="absolute size-2.5 border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900"
+      />
+    </div>,
+    document.body,
   );
 }
