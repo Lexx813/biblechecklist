@@ -13,11 +13,17 @@ import { getSignedDownloadUrl } from "../../../../../src/lib/songs/signedAudio";
  * helper runs.
  */
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  { auth: { persistSession: false, autoRefreshToken: false } },
-);
+// Lazy — never call createClient at module load. Next.js's "Collecting page
+// data" step evaluates each route's module without preview env vars, which
+// makes the non-null assertions blow up the entire build. Defer to the handler.
+function getSupabaseAdmin() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) throw new Error("Supabase env not configured");
+  return createClient(url, key, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+}
 
 function safeFilename(title: string, slug: string): string {
   const cleaned = title.replace(/[^a-zA-Z0-9 ]/g, "").trim().replace(/\s+/g, "-");
@@ -34,6 +40,8 @@ export async function GET(
   }
 
   const { slug } = await params;
+
+  const supabaseAdmin = getSupabaseAdmin();
 
   const { data: song, error: songErr } = await supabaseAdmin
     .from("songs")
