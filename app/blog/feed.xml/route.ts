@@ -18,21 +18,24 @@ function stripHtml(html = "") {
 }
 
 export async function GET() {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-  );
-
-  let posts = [];
-  try {
-    const { data } = await supabase
-      .from("blog_posts")
-      .select("title, slug, excerpt, content, cover_url, created_at, updated_at, profiles!author_id(display_name)")
-      .eq("published", true)
-      .order("created_at", { ascending: false })
-      .limit(50);
-    posts = data ?? [];
-  } catch {}
+  // Vercel preview prerenders this route without project env vars; fall back
+  // to an empty post list rather than crashing the build.
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let posts: any[] = [];
+  if (url && key) {
+    try {
+      const supabase = createClient(url, key);
+      const { data } = await supabase
+        .from("blog_posts")
+        .select("title, slug, excerpt, content, cover_url, created_at, updated_at, profiles!author_id(display_name)")
+        .eq("published", true)
+        .order("created_at", { ascending: false })
+        .limit(50);
+      posts = data ?? [];
+    } catch {}
+  }
 
   const lastBuild = posts[0]?.updated_at ?? new Date().toISOString();
 
