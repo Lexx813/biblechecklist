@@ -49,6 +49,7 @@ import { useTopThreads } from "../hooks/useForum";
 import { usePublicNotes } from "../hooks/useStudyNotes";
 import { formatDate, authorName, formatNum } from "../utils/formatters";
 import { BOOKS } from "../data/books";
+import { MESSIANIC_PROPHECIES } from "../data/messianicProphecies";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
 import { useFriendPosts, usePublicFeed, useCreatePost, useUpdatePost, useDeletePost } from "../hooks/usePosts";
@@ -906,6 +907,27 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           <div className={widgetCls}>
             <DailyVerse />
           </div>
+
+          {/* Featured study — Messianic Prophecies */}
+          <a
+            href="/messianic-prophecies"
+            className={`${widgetCls} group block p-4 no-underline transition-colors hover:border-violet-500`}
+          >
+            <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[var(--text-muted)]">
+              Featured study
+            </p>
+            <p className="mt-2 text-base font-extrabold leading-[1.1] tracking-[-0.02em] text-[var(--text-primary)]">
+              Twelve prophets.
+              <br />
+              One Messiah.
+            </p>
+            <p className="mt-2 text-xs leading-relaxed text-[var(--text-muted)]">
+              {MESSIANIC_PROPHECIES.length} Hebrew Scripture prophecies, paired with where each was fulfilled.
+            </p>
+            <p className="mt-3 text-xs font-bold text-violet-600 transition-transform group-hover:translate-x-0.5 dark:text-violet-300">
+              Open the study →
+            </p>
+          </a>
 
           <FriendsWidget
             friends={friends}

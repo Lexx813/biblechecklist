@@ -5,6 +5,7 @@ import ThemeToggle from "./ThemeToggle";
 import CommunityStats from "./CommunityStats";
 import FeaturedPosts from "./FeaturedPosts";
 import MotionDiv from "./MotionDiv";
+import { MESSIANIC_PROPHECIES } from "../../../src/data/messianicProphecies";
 
 /* ── Server-side data fetching ─────────────────────────────────── */
 
@@ -361,6 +362,47 @@ export default function LandingPage() {
       <Suspense fallback={null}>
         <FeaturedPostsLoader />
       </Suspense>
+
+      {/* ── Featured study: messianic prophecies ─────────────────── */}
+      <section
+        className="px-6 py-[72px] max-md:px-5 max-md:py-14"
+        style={{ background: "var(--lp-banner-bg)" }}
+        aria-labelledby="lp-mp-title"
+      >
+        <div className="mx-auto grid max-w-[1080px] items-end gap-x-12 gap-y-8 md:grid-cols-12">
+          <MotionDiv variant="fadeUp" className="md:col-span-7">
+            <p className="text-[11px] font-bold uppercase tracking-[0.32em] text-white/65">
+              Featured study
+            </p>
+            <h2
+              id="lp-mp-title"
+              className="m-0 mt-3 font-display text-[clamp(30px,5vw,56px)] font-semibold leading-[0.98] tracking-[-0.025em] text-white"
+            >
+              Twelve prophets.
+              <br />
+              One Messiah.
+            </h2>
+          </MotionDiv>
+          <MotionDiv variant="fadeUp" delay={0.1} className="md:col-span-5">
+            <p className="m-0 text-base leading-relaxed text-white/85 md:text-lg">
+              From Moses to Malachi, the Hebrew Scripture writers wrote about a coming Messiah for fifteen centuries.
+              Jesus fulfilled every one of {MESSIANIC_PROPHECIES.length} specific prophecies. Walk through them, paired with the verse where each was fulfilled.
+            </p>
+            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
+              <a
+                href="/messianic-prophecies"
+                className="inline-flex items-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-bold tracking-wide text-[var(--lp-primary)] transition hover:opacity-90"
+              >
+                Open the study
+                <span aria-hidden="true">→</span>
+              </a>
+              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-white/55 tabular-nums">
+                {MESSIANIC_PROPHECIES.length} pairs · 12 prophets
+              </span>
+            </div>
+          </MotionDiv>
+        </div>
+      </section>
 
       {/* ── How It Works ─────────────────────────────────────────── */}
       <section className="py-[72px] max-md:py-12">
