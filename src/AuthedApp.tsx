@@ -18,6 +18,10 @@ import { usePostBySlugForEdit } from "./hooks/useBlog";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import ConsentGate from "./components/ConsentGate";
 import "./styles/app.css";
+// Load editor styles globally — every authed page can render rich content
+// (posts, group posts, blog comments) via .rich-content / .editor-render and
+// must have these styles available, not just routes that mount the editor.
+import "./styles/editor.css";
 
 const AuthPage          = lazy(() => import("./views/auth/AuthPage"));
 const ResetPasswordPage = lazy(() => import("./views/auth/ResetPasswordPage"));

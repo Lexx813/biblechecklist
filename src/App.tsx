@@ -192,10 +192,18 @@ export default function App() {
     );
   }
 
+  // Push /login before flipping showApp so AuthedApp's stale-session guard
+  // (which bounces unauthed visits at "/" back to the landing) doesn't fire
+  // for users who just clicked Sign In.
+  const handleGetStarted = () => {
+    try { history.pushState(null, "", "/login"); } catch { /* ignore */ }
+    setShowApp(true);
+  };
+
   // No session — show landing page with zero Supabase loaded
   return (
     <Suspense fallback={null}>
-      <LandingPage onGetStarted={() => setShowApp(true)} i18n={i18n} />
+      <LandingPage onGetStarted={handleGetStarted} i18n={i18n} />
     </Suspense>
   );
 }
