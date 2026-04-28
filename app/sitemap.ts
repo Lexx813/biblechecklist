@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { STUDY_TOPICS } from "../src/data/studyTopics";
 import { BOOKS } from "../src/data/books";
 import { PLAN_TEMPLATES } from "../src/data/readingPlanTemplates";
@@ -11,11 +11,22 @@ export const revalidate = 3600; // regenerate hourly
 
 const BASE = "https://jwstudy.org";
 
+// Build sitemap with whatever Supabase data is reachable. If env vars are
+// missing (Vercel preview without the project secrets) we emit a static-only
+// sitemap rather than crashing the entire prerender pipeline.
+function trySupabase(): SupabaseClient | null {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return null;
+  try {
+    return createClient(url, key);
+  } catch {
+    return null;
+  }
+}
+
 export default async function sitemap() {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  );
+  const supabase = trySupabase();
 
   // Filled in after blog posts are fetched so it reflects the latest publish date
   let blogIndexLastModified = new Date("2026-04-03");
@@ -56,7 +67,7 @@ export default async function sitemap() {
 
   // ── Blog posts (with hreflang for EN/ES pairs) ────────────────────────────
   let blogPages: Record<string, unknown>[] = [];
-  try {
+  if (supabase) try {
     const { data: posts } = await supabase
       .from("blog_posts")
       .select("slug, updated_at, lang, translations")
@@ -97,8 +108,13 @@ export default async function sitemap() {
   }
 
   // ── Forum: index page, category pages, and thread pages ──────────────────
-  let forumPages: Record<string, unknown>[] = [];
-  try {
+  // Fallback /forum entry covers both "supabase missing" and "supabase failed".
+  let forumPages: Record<string, unknown>[] = [
+    { url: `${BASE}/forum`, lastModified: new Date("2026-04-03") },
+  ];
+  if (supabase) try {
+    // Replace the fallback with accurate, DB-derived data.
+    forumPages = [];
     // Get the most recently created thread so /forum lastmod is accurate
     const { data: latestThread } = await supabase
       .from("forum_threads")
@@ -144,7 +160,7 @@ export default async function sitemap() {
   // ── Songs (with hreflang for EN/ES pairs) ────────────────────────────────
   let songPages: Record<string, unknown>[] = [];
   let esSongsIndexEntry: Record<string, unknown> | null = null;
-  try {
+  if (supabase) try {
     const { data: songs } = await supabase
       .from("songs")
       .select("slug, updated_at, title_es, lyrics_es")
