@@ -12,11 +12,16 @@ import { createClient } from "@supabase/supabase-js";
  *  - Validate `share_platform` against an enum
  */
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  { auth: { persistSession: false, autoRefreshToken: false } },
-);
+// Lazy — see app/api/trivia/_auth.ts for the rationale (Vercel preview build
+// "Collecting page data" pass evaluates modules without runtime env vars).
+function getServiceClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) throw new Error("Supabase env not configured");
+  return createClient(url, key, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+}
 
 const VALID_EVENTS = new Set(["play", "complete", "share", "jw_org_click", "download"]);
 
@@ -29,6 +34,7 @@ type Body = {
 };
 
 export async function POST(req: NextRequest) {
+  const supabase = getServiceClient();
   let body: Body;
   try {
     body = (await req.json()) as Body;

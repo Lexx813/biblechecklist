@@ -1,10 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-);
+// Lazy — see app/api/trivia/_auth.ts for the rationale.
+function getServiceClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) throw new Error("Supabase env not configured");
+  return createClient(url, key);
+}
 
 async function verifyToken(token: string): Promise<string | null> {
   const [idB64, sigB64] = token.split(".");
@@ -58,6 +61,7 @@ export async function GET(req: NextRequest) {
     );
   }
 
+  const supabase = getServiceClient();
   const { error } = await supabase
     .from("profiles")
     .update({ email_marketing_unsubscribed: true })

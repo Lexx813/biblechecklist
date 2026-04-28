@@ -1,15 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-import { resolveAuthedUserId } from "../_auth";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-);
+import { resolveAuthedUserId, getServiceClient } from "../_auth";
 
 const SAFE_HTTPS_URL = /^https:\/\/[^\s<>"'`\\]+$/i;
 
 export async function POST(req: NextRequest) {
+  const supabase = getServiceClient();
   const authedUserId = await resolveAuthedUserId(req);
   const body = await req.json();
   const { room_code, team, user_id: bodyUserId } = body;

@@ -1,11 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
-import { resolveAuthedUserId } from "../_auth";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-);
+import { resolveAuthedUserId, getServiceClient } from "../_auth";
 
 function randomCode(len = 6) {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -26,6 +20,7 @@ async function sendTriviaInvites(
   pointsToWin: number,
 ) {
   if (!friendIds.length || !hostUserId) return;
+  const supabase = getServiceClient();
 
   const inviteData = {
     room_id: roomId,
@@ -108,6 +103,7 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 const SAFE_HTTPS_URL = /^https:\/\/[^\s<>"'`\\]+$/i;
 
 export async function POST(req: NextRequest) {
+  const supabase = getServiceClient();
   const authedUserId = await resolveAuthedUserId(req);
   const body = await req.json();
   const {
