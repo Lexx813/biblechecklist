@@ -98,6 +98,9 @@ export default function AboutPage() {
           <p className="text-lg text-[var(--lp-muted)]">
             Built by one Witness for the community — independent, free, and here for the long haul.
           </p>
+          <p className="mt-2 text-xs uppercase tracking-[0.18em] text-[var(--lp-muted)]">
+            Last updated <time dateTime="2026-04-28">April 28, 2026</time>
+          </p>
 
           <h2 className="mt-10">Why This App Exists</h2>
           <p>

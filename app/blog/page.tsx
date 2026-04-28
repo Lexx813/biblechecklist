@@ -47,21 +47,13 @@ const schemaBreadcrumb = {
   ],
 };
 
-const FALLBACK_IMAGES = [
-  "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1455541504462-57ebb2a9cec1?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=800&q=80",
-];
+// Self-hosted brand-violet fallback. Using a single SVG instead of 8 third-party
+// Unsplash photos: kills cross-origin DNS+TLS+download cost, removes generic
+// stock-photo E-E-A-T penalty, and the SVG is ~700 bytes from our edge.
+const FALLBACK_IMAGE = "/blog-fallback.svg";
 
-function fallbackImage(id: string) {
-  let h = 0;
-  for (const c of id) h = (h * 31 + c.charCodeAt(0)) >>> 0;
-  return FALLBACK_IMAGES[h % FALLBACK_IMAGES.length];
+function fallbackImage(_id: string) {
+  return FALLBACK_IMAGE;
 }
 
 function formatDate(s: string | undefined) {

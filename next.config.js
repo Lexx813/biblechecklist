@@ -10,11 +10,11 @@ const nextConfig = {
   // double-mount in dev leaves orphaned locks and floods the console.
   reactStrictMode: false,
 
-  // Pre-existing ESLint warnings exist in the codebase; don't block builds
-  eslint: { ignoreDuringBuilds: true },
-
-  // Skip TS type-checking during build (136 files carry @ts-nocheck; typecheck runs separately)
-  typescript: { ignoreBuildErrors: true },
+  // ESLint and TS checks gate the build. The @ts-nocheck cleanup is complete
+  // and the typecheck currently passes — keep these on so a regression breaks
+  // the build instead of silently shipping.
+  eslint: { ignoreDuringBuilds: false },
+  typescript: { ignoreBuildErrors: false },
 
   // Security: remove X-Powered-By: Next.js response header
   poweredByHeader: false,

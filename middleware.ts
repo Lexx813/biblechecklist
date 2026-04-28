@@ -13,6 +13,16 @@ export function middleware(request: NextRequest) {
     url.port = "";
     return NextResponse.redirect(url.toString(), { status: 301 });
   }
+
+  // Normalize uppercase paths to lowercase. /BLOG → /blog (308). The matcher
+  // already excludes _next, api, and static files, so this only affects
+  // user-facing routes. Casing in the query string is left alone.
+  const url = new URL(request.url);
+  if (url.pathname !== url.pathname.toLowerCase()) {
+    url.pathname = url.pathname.toLowerCase();
+    return NextResponse.redirect(url.toString(), { status: 308 });
+  }
+
   return NextResponse.next();
 }
 

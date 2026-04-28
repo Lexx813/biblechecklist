@@ -89,10 +89,15 @@ export default async function StudyTopicPage({ params }) {
     ],
   };
 
-  const schemaFAQ = {
+  // Only treat real questions (headings ending in "?") as FAQ entries.
+  // Wrapping non-question section headings as Q&A risks Google's "deceptive
+  // FAQ markup" manual action, so the schema is omitted entirely when no
+  // section in the topic is phrased as a question.
+  const faqSections = topic.sections.filter(s => s.heading.trim().endsWith("?"));
+  const schemaFAQ = faqSections.length > 0 ? {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": topic.sections.map(s => ({
+    "mainEntity": faqSections.map(s => ({
       "@type": "Question",
       "name": s.heading,
       "acceptedAnswer": {
@@ -100,13 +105,15 @@ export default async function StudyTopicPage({ params }) {
         "text": s.paragraphs.join(" ")
       }
     }))
-  };
+  } : null;
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaArticle) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }} />
+      {schemaFAQ && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }} />
+      )}
       <main className="mx-auto max-w-3xl px-4 py-12 text-[var(--lp-text)] sm:px-6 sm:py-16">
         <nav className="mb-8 text-sm">
           <a href="/" className="text-brand-600 hover:underline">← Home</a>
@@ -117,7 +124,23 @@ export default async function StudyTopicPage({ params }) {
           <h1 id={`topic-${topic.slug}`} className="mb-2 text-4xl font-semibold tracking-tight sm:text-5xl">{topic.title}</h1>
           <p className="text-lg text-[var(--lp-muted)]">{topic.subtitle}</p>
           <p className="mt-2 text-sm text-[var(--lp-muted)]">
-            <small>Written by Alexi, a Jehovah&apos;s Witness and Bible student.</small>
+            <small>
+              Written by{" "}
+              <a href="/about" className="font-medium text-brand-600 hover:underline">Alexi</a>
+              , a Jehovah&apos;s Witness and Bible student. Published{" "}
+              <time dateTime={topic.publishedAt}>
+                {new Date(topic.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+              </time>
+              {topic.updatedAt && topic.updatedAt !== topic.publishedAt && (
+                <>
+                  {" · Updated "}
+                  <time dateTime={topic.updatedAt}>
+                    {new Date(topic.updatedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                  </time>
+                </>
+              )}
+              .
+            </small>
           </p>
           {topic.disclaimer && (
             <p className="mt-3 text-xs text-[var(--lp-muted)]">{topic.disclaimer}</p>

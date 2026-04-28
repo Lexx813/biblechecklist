@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { unstable_cache } from "next/cache";
 import { createClient } from "@supabase/supabase-js";
 import { GetStartedButton, GetStartedLink } from "./GetStartedButton";
 import ThemeToggle from "./ThemeToggle";
@@ -16,31 +17,42 @@ function getSupabase() {
   );
 }
 
-async function getLatestPosts() {
-  try {
-    const { data } = await getSupabase()
-      .from("blog_posts")
-      .select("id, title, slug, excerpt, cover_url")
-      .eq("published", true)
-      .eq("lang", "en")
-      .order("created_at", { ascending: false })
-      .limit(3);
-    return data ?? [];
-  } catch {
-    return [];
-  }
-}
+// Cached at the data layer — Next 15 defaults fetch to no-store, which would
+// opt the homepage into per-request dynamic rendering. unstable_cache puts
+// these reads in the data cache so the parent route stays static (ISR).
+const getLatestPosts = unstable_cache(
+  async () => {
+    try {
+      const { data } = await getSupabase()
+        .from("blog_posts")
+        .select("id, title, slug, excerpt, cover_url")
+        .eq("published", true)
+        .eq("lang", "en")
+        .order("created_at", { ascending: false })
+        .limit(3);
+      return data ?? [];
+    } catch {
+      return [];
+    }
+  },
+  ["landing-latest-posts"],
+  { revalidate: 3600, tags: ["blog_posts"] },
+);
 
-async function getUserCount() {
-  try {
-    const { count } = await getSupabase()
-      .from("profiles")
-      .select("id", { count: "exact", head: true });
-    return Math.max(count ?? 500, 500);
-  } catch {
-    return 500;
-  }
-}
+const getUserCount = unstable_cache(
+  async () => {
+    try {
+      const { count } = await getSupabase()
+        .from("profiles")
+        .select("id", { count: "exact", head: true });
+      return Math.max(count ?? 500, 500);
+    } catch {
+      return 500;
+    }
+  },
+  ["landing-user-count"],
+  { revalidate: 3600, tags: ["profiles"] },
+);
 
 /* ── SVG Icons (server-safe) ───────────────────────────────────── */
 

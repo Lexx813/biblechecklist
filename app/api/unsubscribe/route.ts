@@ -63,9 +63,8 @@ export async function GET(req: NextRequest) {
     .update({ email_marketing_unsubscribed: true })
     .eq("id", userId);
 
-  // Don't log userId — that's PII. Status alone is enough for ops.
+  // Don't log userId — that's PII. Errors only.
   if (error) console.error("unsubscribe: db update failed", { error: error.message });
-  else console.log("unsubscribe: success");
 
   return new NextResponse(
     `<!DOCTYPE html><html><body style="font-family:sans-serif;text-align:center;padding:60px;background:#0a0514;color:#fff">

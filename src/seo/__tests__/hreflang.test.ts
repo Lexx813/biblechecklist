@@ -18,6 +18,6 @@ describe('getHreflangMap', () => {
   it('preserves trailing path segments', () => {
     const map = getHreflangMap('/study-topics/jehovahs-name');
     expect(map.en).toBe('https://jwstudy.org/study-topics/jehovahs-name');
-    expect(map.fr).toBe('https://jwstudy.org/study-topics/jehovahs-name?lang=fr');
+    expect(map.es).toBe('https://jwstudy.org/study-topics/jehovahs-name?lang=es');
   });
 });

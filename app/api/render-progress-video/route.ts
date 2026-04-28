@@ -51,8 +51,6 @@ export async function POST(req: NextRequest) {
     const rl = await rateLimit("renderVideo", userId);
     if (!rl.ok) return rateLimitResponse(rl);
 
-    console.log(`[render-progress-video] Fetching data for userId=${userId}`);
-
     // Fetch user data in parallel
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
     const [profileRes, chapterRes, streakRes, badgeRes] = await Promise.all([
@@ -85,8 +83,6 @@ export async function POST(req: NextRequest) {
       topBadgeEmoji: LEVEL_EMOJIS[topBadgeLevel] ?? "",
       pct,
     };
-
-    console.log(`[render-progress-video] OK userId=${userId} pct=${pct}% elapsed=${Date.now() - start}ms`);
 
     return NextResponse.json({ props }, { status: 200 });
 

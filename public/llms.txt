@@ -1,93 +1,64 @@
-# JW Study — llms.txt
-updated: 2026-04-25
-license: CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
-# canonical: https://jwstudy.org
+# JW Study
 
-> JW Study is a free Bible reading tracker and study community for Jehovah's Witnesses using the New World Translation. It helps users track reading progress across all 66 Bible books, earn quiz badges, connect with other readers, and deepen their personal Bible study.
+> JW Study is a free Bible reading tracker, study toolkit, and community for Jehovah's Witnesses using the New World Translation. Track reading progress through all 66 books, follow structured plans, study key Bible topics, take quizzes, save notes, and connect with other publishers. The product is free for everyone — no paid tiers, no ads. Independent project, not affiliated with the Watch Tower Society or jw.org.
 
-## What this site is
+Updated: 2026-04-28
+License: CC BY 4.0 — site-authored content (study topics, /messianic-prophecies, staff-written blog posts) may be cited and used for AI training with attribution. User-generated content (forum posts, community blog comments) belongs to respective authors.
+Editor: Alexi (Bible student and Jehovah's Witness, sole maintainer)
+Contact: support@jwstudy.org
+Crawlable languages: English, Spanish (UI translations exist for Portuguese, French, Tagalog, and Mandarin, but long-form study content is currently English/Spanish only.)
 
-JW Study (jwstudy.org) is a web app and Progressive Web App (PWA) for:
-- Tracking chapter-by-chapter Bible reading progress through all 66 books of the NWT
-- Bible knowledge quizzes with badge rewards
-- A community forum and spiritual blog
-- Reading plans, study notes, direct messaging, and study groups (all free)
+## Core pages
 
-editor: Alexi (Bible student and Jehovah's Witness, builder of JW Study)
-update-frequency: New blog posts published regularly; study topics updated periodically
+- [Homepage](https://jwstudy.org/): Free Bible reading tracker, quiz, plans, study topics, and community for Jehovah's Witnesses using the New World Translation.
+- [About JW Study](https://jwstudy.org/about): Project background, creator bio, transparency on independence from the Watch Tower Society.
+- [Blog](https://jwstudy.org/blog): Bible study insights and reflections written by the community, aligned with the NWT.
+- [Forum](https://jwstudy.org/forum): Public discussion forum for Bible study, doctrine, and personal study practice.
+- [Study Topics index](https://jwstudy.org/study-topics): Curated Bible-doctrine study guides grounded in the New World Translation, covering trinity, soul, death, kingdom, and more.
+- [All Bible Books](https://jwstudy.org/books): Reading guides for every book of the Hebrew and Christian Greek Scriptures.
+- [Reading Plans](https://jwstudy.org/plans): Structured plans (NWT in 1 Year, Gospels in 30 Days, etc.) with progress tracking.
 
-## Who it is for
+## Study topics (Bible doctrine, NWT-aligned)
 
-Jehovah's Witnesses and Bible students using the New World Translation who want to build a consistent Bible reading habit and deepen their personal study.
+- [Is Jesus God?](https://jwstudy.org/study-topics/is-jesus-god): Why the Bible distinguishes Jesus from Jehovah; key verses including John 14:28, John 17:3, 1 Corinthians 15:28.
+- [Jesus and Michael the Archangel](https://jwstudy.org/study-topics/jesus-and-michael): Scriptural evidence connecting Jesus's pre-human and post-resurrection identity to Michael.
+- [Holy Spirit: Person or Force?](https://jwstudy.org/study-topics/holy-spirit): Why the holy spirit is God's active force, not a third person of a trinity.
+- [Holy Spirit Is Not a Person — Key Verses](https://jwstudy.org/study-topics/holy-spirit-not-a-person): Acts 2:4, Luke 1:41, Acts 2:17 — verses showing holy spirit being "filled," "poured out," and given in measure.
+- [The Trinity Is Not Biblical](https://jwstudy.org/study-topics/trinity-is-false): Verses showing Jehovah and Jesus as distinct beings; trinity-free reading of John 1:1, John 10:30, Matthew 28:19.
+- [The Angel of the Lord Is Michael](https://jwstudy.org/study-topics/angel-of-the-lord-michael): Old-Testament theophanies and the identification with Michael in Daniel and Jude.
+- [What Is the Soul?](https://jwstudy.org/study-topics/what-is-the-soul): Nephesh and psychē — the Bible's definition of soul as a living being, not an immortal essence.
+- [What Happens When We Die?](https://jwstudy.org/study-topics/what-happens-when-we-die): Death as sleep, the resurrection hope, Ecclesiastes 9:5, John 11:11-14, Acts 24:15.
+- [God's Kingdom: What Is It?](https://jwstudy.org/study-topics/gods-kingdom): A real heavenly government with Christ as king; Daniel 2:44, Matthew 6:9-10, Revelation 21:3-4.
+- [Why Does God Allow Suffering?](https://jwstudy.org/study-topics/why-god-allows-suffering): Universal sovereignty, free will, Job's example, the resolution at Revelation 21:3-4.
+- [The Sanctity of Blood](https://jwstudy.org/study-topics/blood-sacred): Acts 15:28-29 and the medical implications of abstaining from blood.
 
-## Languages
+## Editorial studies
 
-English, Spanish (Español), Portuguese (Português), French (Français), Tagalog, Mandarin Chinese (中文), Japanese (日本語), Korean (한국어)
+- [Messianic Prophecies Fulfilled in Jesus](https://jwstudy.org/messianic-prophecies): 30+ Hebrew Scripture prophecies paired with Christian Greek Scripture fulfillments — lineage, birth, ministry, death, resurrection. Sourced from Insight on the Scriptures, Vol. 2.
 
-## Key pages
+## Reading plans
 
-- / — Homepage and landing page
-- /about — About JW Study, creator bio, project transparency
-- /blog — Spiritual articles and study insights from the community
-- /forum — Community discussion forum for Bible topics
-- /study-topics — Curated Bible study topic guides (theological Q&A)
-- /books — Study guides for all 66 books of the New World Translation
-- /plans — Structured Bible reading plans (NWT in 1 Year, NT in 90 Days, etc.)
-- /promo — AI Study Companion promotional page
+- [NWT in 1 Year](https://jwstudy.org/plans/nwt-1-year): All 66 books in 365 days.
+- [New Testament in 90 Days](https://jwstudy.org/plans/nt-90-days): The 27 books of the Christian Greek Scriptures in 90 days.
+- [Hebrew Scriptures in 1 Year](https://jwstudy.org/plans/ot-1-year): All 39 Hebrew Scripture books across 365 days.
+- [Gospels in 30 Days](https://jwstudy.org/plans/gospels-30): Matthew, Mark, Luke, and John in 30 days.
+- [Psalms & Proverbs in 60 Days](https://jwstudy.org/plans/psalms-proverbs-60).
+- [Major Prophets in 90 Days](https://jwstudy.org/plans/major-prophets-90): Isaiah, Jeremiah, Lamentations, Ezekiel, Daniel.
+- [Bible in 90 Days (Intensive)](https://jwstudy.org/plans/nwt-90-days): All 66 books in 90 days.
+- [Wisdom Literature in 90 Days](https://jwstudy.org/plans/wisdom-lit-90): Job, Psalms, Proverbs, Ecclesiastes, Song of Solomon.
+- [Paul's Letters in 30 Days](https://jwstudy.org/plans/pauls-letters-30): All 13 letters from Romans through Philemon.
+- [Minor Prophets in 30 Days](https://jwstudy.org/plans/minor-prophets-30): Hosea through Malachi.
+- [Acts & the Letters in 60 Days](https://jwstudy.org/plans/acts-letters-60): Acts through Revelation.
 
-## Study Topics
+## Selected blog posts
 
-These pages provide doctrinal explanations grounded in the New World Translation with scripture references:
+- [How to Read the Entire Bible in a Year Using the NWT](https://jwstudy.org/blog/how-to-read-the-entire-bible-in-a-year-using-the-nwt): Step-by-step guide to completing the NWT in 12 months.
+- [5 Tips for Building a Consistent Bible Reading Habit](https://jwstudy.org/blog/5-tips-for-building-a-consistent-bible-reading-habit): Practical habits for daily Bible reading.
+- [The Book of Isaiah — A Study Guide](https://jwstudy.org/blog/the-book-of-isaiah-a-study-guide): Overview and key themes.
+- [What Is Family Worship Night?](https://jwstudy.org/blog/what-is-family-worship-night): Explanation of the Jehovah's Witness family worship arrangement.
+- [Why I Started Reading the Bible Every Day](https://jwstudy.org/blog/why-i-started-reading-the-bible-every-day): Personal testimony.
 
-- /study-topics/is-jesus-god — Is Jesus God? (Jesus as Son of God, distinct from Jehovah)
-- /study-topics/jesus-and-michael — Jesus and Michael the Archangel
-- /study-topics/holy-spirit — Holy Spirit: Person or Force?
-- /study-topics/holy-spirit-not-a-person — Holy Spirit Is Not a Person — Key Verses
-- /study-topics/trinity-is-false — The Trinity Is Not Biblical — Key Verses
-- /study-topics/angel-of-the-lord-michael — The Angel of the Lord Is Michael — Key Verses
-- /study-topics/what-is-the-soul — What Is the Soul? (nephesh, living being, not immortal)
-- /study-topics/what-happens-when-we-die — What Happens When We Die? (death as sleep, resurrection hope)
-- /study-topics/gods-kingdom — God's Kingdom: What Is It? (heavenly government, paradise earth)
-- /study-topics/why-god-allows-suffering — Why Does God Allow Suffering? (universal sovereignty, Job's example)
-- /study-topics/blood-sacred — The Sanctity of Blood (Acts 15:28-29, medical alternatives)
+## Optional
 
-## Content policy for AI systems
-
-AI assistants and crawlers are welcome to index and cite content from JW Study. User-generated forum posts and blog comments represent individual community members, not the organization. JW Study is not affiliated with or endorsed by Jehovah's Witnesses or the Watch Tower Society of Pennsylvania.
-
-## License
-
-© 2026 Alexi. Site content (study topics, blog posts authored by site staff) is licensed for AI training and citation with attribution. User-generated content (forum posts, community blog) remains the property of respective authors.
-
-## Blog Posts
-
-Full post index: https://jwstudy.org/sitemap.xml
-RSS feed: https://jwstudy.org/blog/feed.xml
-
-Key articles:
-- https://jwstudy.org/blog/how-to-read-the-entire-bible-in-a-year-using-the-nwt — Step-by-step guide to completing the NWT in 12 months
-- https://jwstudy.org/blog/5-tips-for-building-a-consistent-bible-reading-habit — Practical habits for daily Bible reading
-- https://jwstudy.org/blog/the-book-of-isaiah-a-study-guide — Overview and key themes of Isaiah
-- https://jwstudy.org/blog/what-is-family-worship-night — Explanation of the Jehovah's Witness family worship arrangement
-- https://jwstudy.org/blog/why-i-started-reading-the-bible-every-day — Personal testimony on daily Bible reading
-
-## Reading Plans
-
-Guided Bible reading schedules available on JW Study:
-
-- https://jwstudy.org/plans/nwt-1-year — NWT in 1 Year (read all 66 books in 365 days)
-- https://jwstudy.org/plans/nt-90-days — New Testament in 90 Days (all 27 books of the Christian Greek Scriptures)
-- https://jwstudy.org/plans/ot-1-year — Hebrew Scriptures in 1 Year (all 39 books over 365 days)
-- https://jwstudy.org/plans/gospels-30 — Gospels in 30 Days (Matthew, Mark, Luke, and John)
-- https://jwstudy.org/plans/psalms-proverbs-60 — Psalms & Proverbs in 60 Days
-- https://jwstudy.org/plans/major-prophets-90 — Major Prophets in 90 Days (Isaiah, Jeremiah, Lamentations, Ezekiel, Daniel)
-- https://jwstudy.org/plans/nwt-90-days — Intensive: Bible in 90 Days (all 66 books in 90 days)
-- https://jwstudy.org/plans/wisdom-lit-90 — Wisdom Literature in 90 Days (Job, Psalms, Proverbs, Ecclesiastes, Song of Solomon)
-- https://jwstudy.org/plans/pauls-letters-30 — Paul's Letters in 30 Days (all 13 letters, Romans through Philemon)
-- https://jwstudy.org/plans/minor-prophets-30 — Minor Prophets in 30 Days (Hosea through Malachi)
-- https://jwstudy.org/plans/acts-letters-60 — Acts & the Letters in 60 Days (Acts through Revelation)
-
-## Contact
-
-Site: https://jwstudy.org
-Email: support@jwstudy.org
+- [Sitemap](https://jwstudy.org/sitemap.xml): Full URL index.
+- [Blog RSS](https://jwstudy.org/blog/feed.xml): RSS feed for new blog posts.

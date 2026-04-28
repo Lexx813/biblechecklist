@@ -189,14 +189,10 @@ export default async function Page({ params }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }}
         />
-        <div style={SEO_HIDE}>
-          <h1>JW Study — Free Bible Reading Tracker for Jehovah&apos;s Witnesses</h1>
-          <p>
-            Track your reading through all 66 books of the New World Translation, follow
-            structured reading plans, study key Bible topics, and connect with fellow publishers.
-            Use JW Study alongside JW Library and the research tools at wol.jw.org.
-          </p>
-
+        {/* Crawler-only sitemap-as-content. The visible H1 lives in LandingPage;
+            this section is link-density for AI crawlers (no duplicated H1 to avoid
+            cloaking-style flags from Google). */}
+        <div style={SEO_HIDE} aria-hidden="true">
           <h2>Explore All 66 Bible Books</h2>
           <ul>
             {BOOKS.map((b) => (
@@ -233,6 +229,7 @@ export default async function Page({ params }) {
             <li><a href={`${BASE}/books`}>All Bible Books</a></li>
             <li><a href={`${BASE}/plans`}>All Reading Plans</a></li>
             <li><a href={`${BASE}/study-topics`}>All Study Topics</a></li>
+            <li><a href={`${BASE}/messianic-prophecies`}>Messianic Prophecies Fulfilled in Jesus</a></li>
             <li><a href={`${BASE}/blog`}>JW Study Blog</a></li>
             <li><a href={`${BASE}/forum`}>Community Forum</a></li>
           </ul>

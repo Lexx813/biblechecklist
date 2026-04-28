@@ -23,16 +23,20 @@ export default async function sitemap() {
   let songsIndexLastModified = new Date("2026-04-26");
   let songsIndexEsLastModified: Date | null = null;
 
+  // Bump these when the page's authored content actually changes. Don't auto-set
+  // to "now" — that would tell crawlers every page is fresh on every regen and
+  // they'd deprioritize the crawl budget when nothing real had changed.
   const staticPages = [
-    { url: `${BASE}`,              lastModified: new Date("2026-03-01") },
-    { url: `${BASE}/blog`,         get lastModified() { return blogIndexLastModified; } },
-    { url: `${BASE}/songs`,        get lastModified() { return songsIndexLastModified; } },
-    { url: `${BASE}/study-topics`, lastModified: new Date("2026-03-01") },
-    { url: `${BASE}/books`,        lastModified: new Date("2026-03-01") },
-    { url: `${BASE}/plans`,        lastModified: new Date("2026-03-01") },
-    { url: `${BASE}/about`,        lastModified: new Date("2026-02-01") },
-    { url: `${BASE}/privacy`,      lastModified: new Date("2026-03-31") },
-    { url: `${BASE}/terms`,        lastModified: new Date("2026-03-31") },
+    { url: `${BASE}`,                      lastModified: new Date("2026-04-28") },
+    { url: `${BASE}/blog`,                 get lastModified() { return blogIndexLastModified; } },
+    { url: `${BASE}/songs`,                get lastModified() { return songsIndexLastModified; } },
+    { url: `${BASE}/study-topics`,         lastModified: new Date("2026-04-28") },
+    { url: `${BASE}/messianic-prophecies`, lastModified: new Date("2026-04-28") },
+    { url: `${BASE}/books`,                lastModified: new Date("2026-04-28") },
+    { url: `${BASE}/plans`,                lastModified: new Date("2026-04-28") },
+    { url: `${BASE}/about`,                lastModified: new Date("2026-04-28") },
+    { url: `${BASE}/privacy`,              lastModified: new Date("2026-03-31") },
+    { url: `${BASE}/terms`,                lastModified: new Date("2026-03-31") },
   ];
 
   const bookPages = BOOKS.map((b) => ({

@@ -81,6 +81,26 @@ export default function BooksPage() {
         </div>
       </header>
 
+      <section className="border-b border-slate-200 px-4 py-10 sm:px-6 sm:py-12 lg:px-8 dark:border-white/10">
+        <div className="mx-auto max-w-3xl space-y-4 text-base leading-relaxed text-slate-700 dark:text-slate-300">
+          <p>
+            The Bible is one library of 66 books, written by about 40 men over roughly 1,600 years,
+            with one consistent message: Jehovah&rsquo;s purpose for the earth and his Kingdom government.
+            The first 39 books — the Hebrew Scriptures — were written mostly in Hebrew, with portions in
+            Aramaic, between about 1513 BCE and 443 BCE. The remaining 27 books — the Christian Greek
+            Scriptures — were written in Koine Greek between about 41 CE and 98 CE.
+          </p>
+          <p>
+            Each study guide here is designed for use alongside the New World Translation and the research
+            tools at <a href="https://wol.jw.org" rel="noopener" target="_blank" className="underline decoration-violet-600 decoration-2 underline-offset-2 hover:text-violet-700 dark:hover:text-violet-300">wol.jw.org</a>. You&rsquo;ll find a short overview of the book, its writer and approximate
+            date, key themes, notable verses, and which JW Study reading plans cover it. Use it to prepare
+            for personal study, family worship, or to find a verse you remember but can&rsquo;t place. The deeper
+            authority for any question of doctrine remains the publications of Jehovah&rsquo;s organization;
+            this is a study companion, not a commentary.
+          </p>
+        </div>
+      </section>
+
       <main className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <BookSection
           eyebrow="Hebrew Scriptures"

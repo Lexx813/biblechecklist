@@ -52,10 +52,77 @@ export default function MessianicPropheciesPage() {
     ],
   };
 
+  const schemaItemList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${URL}#prophecy-list`,
+    name: `${COUNT} Messianic Prophecies Fulfilled in Jesus`,
+    description: DESCRIPTION,
+    numberOfItems: COUNT,
+    itemListElement: MESSIANIC_PROPHECIES.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "CreativeWork",
+        "@id": `${URL}#${p.id}`,
+        name: p.summary,
+        about: {
+          "@type": "Thing",
+          name: p.prophecy.ref,
+        },
+        citation: [p.prophecy.ref, ...p.fulfillments.map((f) => f.ref)].join("; "),
+      },
+    })),
+  };
+
+  // FAQ block answers the most-searched questions about Messianic prophecy.
+  // Designed as AI-citation bait for AI Overviews + ChatGPT search.
+  const schemaFAQ = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${URL}#faq`,
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "How many Messianic prophecies did Jesus fulfill?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Jesus of Nazareth fulfilled at least ${COUNT} specific Hebrew Scripture prophecies about the Messiah, written by 12 different prophets across roughly 1,500 years — covering his lineage, birth, ministry, rejection, death, burial, and resurrection.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Which prophets foretold the coming of the Messiah?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Twelve prophets contributed Messianic prophecies, including Moses (Genesis, Deuteronomy), David (Psalms), Isaiah, Jeremiah, Ezekiel, Daniel, Hosea, Micah, Zechariah, Malachi, and others. Their writings span from about 1500 BCE (Moses) to about 443 BCE (Malachi).",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What does the New World Translation say about Messianic prophecy?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "The New World Translation publishes the same Hebrew and Christian Greek Scriptures used to identify Messianic prophecy. The standard JW reference treatment is the \"Jesus Christ\" article in Insight on the Scriptures, Volume 2, and the \"Jesus Christ\" section in Reasoning From the Scriptures — both available at wol.jw.org.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Where was the Messiah prophesied to be born?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Micah 5:2 foretold that the Messiah would be born in Bethlehem of Judah. Matthew 2:1-6 records the fulfillment when Jesus was born in Bethlehem during the days of Herod.",
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaArticle) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }} />
 
       <main className="font-[var(--font-display,inherit)] text-[var(--text-primary)]">
         <TopNav />
@@ -100,6 +167,9 @@ function Hero({ count }: { count: number }) {
             Pt. I
           </p>
           <p className="mt-1 text-xs text-[var(--text-muted)]">A study from JW Study</p>
+          <p className="mt-3 text-[11px] uppercase tracking-[0.28em] text-[var(--text-muted)]">
+            Updated <time dateTime="2026-04-28">Apr 28, 2026</time>
+          </p>
         </div>
         <div className="lg:col-span-9 lg:col-start-3">
           <h1 className="text-[clamp(2.25rem,7vw,5.5rem)] font-extrabold leading-[0.96] tracking-[-0.035em] text-[var(--text-primary)]">

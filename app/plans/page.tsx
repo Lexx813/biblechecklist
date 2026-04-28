@@ -77,6 +77,28 @@ export default function PlansPage() {
         </div>
       </header>
 
+      <section className="border-b border-slate-200 px-4 py-10 sm:px-6 sm:py-12 lg:px-8 dark:border-white/10">
+        <div className="mx-auto max-w-3xl space-y-4 text-base leading-relaxed text-slate-700 dark:text-slate-300">
+          <p>
+            The Bible contains roughly 1,189 chapters across the Hebrew and Christian Greek
+            Scriptures — too much to read on a whim and easy to fall behind on without a plan.
+            Structured reading is what most publishers use to actually finish the Bible: a set
+            number of chapters per day, with a known end date, and a way to catch up after a missed
+            day instead of starting over.
+          </p>
+          <p>
+            Each plan below tells you exactly how many chapters per day, the total length, and which
+            books it covers. The shorter plans (30, 60, 90 days) are good for focused study of a
+            section — Gospels, Paul&rsquo;s letters, the prophets — while the year-long plans walk you
+            through the entire Bible at a sustainable pace. Pick one based on how much time you have
+            for reading each day, then mark each chapter on JW Study as you finish it. If a day gets
+            missed, the catch-up mode rebalances the remaining schedule so you don&rsquo;t lose the streak.
+            The text remains the New World Translation throughout, with each verse linking out to
+            wol.jw.org for deeper research.
+          </p>
+        </div>
+      </section>
+
       <main className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <ul className="grid gap-x-5 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
           {PLAN_TEMPLATES.map((p) => (
