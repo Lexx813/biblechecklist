@@ -20,37 +20,41 @@ export default function SongHero({ song, signedUrl, lang }: Props) {
   const t = COPY[lang];
 
   return (
-    <header className="border-b border-slate-200 bg-violet-50/40 dark:border-white/10 dark:bg-violet-950/20">
-      <div className="grid gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-5 lg:gap-12 lg:px-8 lg:py-16">
-        <div className="lg:col-span-2">
-          <div className="overflow-hidden rounded-md border border-slate-200 bg-white dark:border-white/10 dark:bg-white/5">
-            <Image
-              src={cover}
-              alt={title}
-              width={800}
-              height={800}
-              priority
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              style={{ aspectRatio: "1 / 1" }}
-              className="h-full w-full object-cover"
-            />
-          </div>
+    <header className="relative overflow-hidden border-b border-slate-200/70 dark:border-white/8">
+      {/* Soft scripture-toned background */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-linear-to-b from-violet-50/50 to-transparent dark:from-violet-950/30 dark:to-transparent"
+      />
+
+      <div className="relative grid gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[minmax(280px,360px)_1fr] lg:items-center lg:gap-14 lg:px-8 lg:py-16">
+        {/* Cover */}
+        <div className="overflow-hidden rounded-xl shadow-[0_18px_48px_-20px_rgba(76,29,149,0.35)]">
+          <Image
+            src={cover}
+            alt={title}
+            width={720}
+            height={720}
+            priority
+            sizes="(min-width: 1024px) 360px, 100vw"
+            style={{ aspectRatio: "1 / 1" }}
+            className="size-full object-cover"
+          />
         </div>
 
-        <div className="flex flex-col justify-center gap-5 lg:col-span-3">
-          <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-violet-700 dark:text-violet-300">
-            <span>{t.song}</span>
-            <span aria-hidden className="text-slate-300 dark:text-white/20">·</span>
-            <span className="text-slate-500 dark:text-slate-400">{song.theme.replace(/-/g, " ")}</span>
+        {/* Title block + player */}
+        <div className="flex flex-col gap-5">
+          <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-violet-700 dark:text-violet-300">
+            {t.song} · {song.theme.replace(/-/g, " ")}
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl dark:text-slate-50">
+          <h1 className="text-balance text-4xl font-extrabold leading-[1.05] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.25rem] dark:text-slate-50">
             {title}
           </h1>
-          <div className="text-base font-medium text-violet-700 dark:text-violet-300">
+          <div className="font-serif text-xl italic text-violet-800/90 sm:text-2xl dark:text-violet-200/90">
             {song.primary_scripture_ref}
           </div>
 
-          <div className="mt-2">
+          <div className="mt-3">
             <SongAudioPlayer
               signedUrl={signedUrl}
               durationSeconds={song.duration_seconds}

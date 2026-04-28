@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { useMeta } from "../../hooks/useMeta";
 import { useFullProfile } from "../../hooks/useAdmin";
 import { useProgress, useReadingStreak } from "../../hooks/useProgress";
-import { useQuizProgress } from "../../hooks/useQuiz";
 import { useUserForumStats } from "../../hooks/useForum";
-import { useBadges } from "../../hooks/useBadges";
 import "../../styles/profile.css";
 import "../../styles/social.css";
 import "../../styles/gamification.css";
@@ -20,20 +17,23 @@ import AboutTab from "./tabs/AboutTab";
 import AchievementsTab from "./tabs/AchievementsTab";
 
 // ── Main ProfilePage ──────────────────────────────────────
-export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack, navigate, darkMode, setDarkMode, i18n, onLogout, defaultTab = "posts" }) {
+interface ProfilePageProps {
+  user: { id: string; email?: string };
+  viewedUserId?: string;
+  isOwner?: boolean;
+  navigate: (page: string, params?: Record<string, unknown>) => void;
+  defaultTab?: string;
+}
+
+export default function ProfilePage({ user, viewedUserId, isOwner = true, navigate, defaultTab = "posts" }: ProfilePageProps) {
   const profileId = viewedUserId ?? user.id;
   const { data: blockedSet = new Set<string>() } = useBlocks(user.id);
   const { data: myBlocks = [] } = useMyBlocks(user.id);
   const { data: profile, isLoading: profileLoading } = useFullProfile(profileId);
   const { data: readingProgress = {} } = useProgress(profileId);
-  const { data: quizProgress = [] } = useQuizProgress(profileId);
   const { data: streak = { current_streak: 0, longest_streak: 0, total_days: 0 } } = useReadingStreak(profileId);
   const { data: forumStats = { threads: 0, replies: 0 } } = useUserForumStats(profileId);
-  const { t } = useTranslation();
   useMeta({ title: profile?.display_name ? `${profile.display_name}'s Profile` : "Profile" });
-
-  // Milestone badges
-  const { data: earnedBadges = [] } = useBadges(user?.id);
 
   useEffect(() => {
     const name = profile?.display_name || profile?.email?.split("@")[0];
@@ -116,7 +116,7 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, onBack
         )}
 
         {activeTab === "achievements" && !isViewedUserBlocked && (
-          <AchievementsTab userId={profileId} quizProgress={quizProgress} earnedBadges={earnedBadges} streak={streak} readingProgress={readingProgress} />
+          <AchievementsTab userId={profileId} streak={streak} readingProgress={readingProgress} />
         )}
 
         {/* Referral program, owner only, shown on posts tab */}

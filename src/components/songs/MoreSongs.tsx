@@ -16,10 +16,10 @@ export default function MoreSongs({ songs, lang }: Props) {
   const t = COPY[lang];
   return (
     <section>
-      <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl dark:text-slate-50">
+      <h2 className="text-[10px] font-bold uppercase tracking-[0.22em] text-violet-700 dark:text-violet-300">
         {t.title}
       </h2>
-      <ul className="mt-6 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="mt-5 grid gap-3 sm:grid-cols-2">
         {songs.map((song) => (
           <li key={song.id}>
             <SongCard song={song} lang={lang} />

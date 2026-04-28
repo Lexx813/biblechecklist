@@ -96,7 +96,7 @@ export function parsePath(): NavState {
   if (h === "friends") return { page: "friends" };
   if (h === "friends/requests") return { page: "friendRequests" };
   if (h.startsWith("invite/")) return { page: "invite", token: h.slice(7) };
-  if (h === "community") return { page: "community" };
+  if (h === "community") return { page: "feed" };
   if (h === "videos") return { page: "videos" };
   if (h.startsWith("videos/")) return { page: "videoDetail", slug: decodeURIComponent(h.slice(7)) };
   if (h === "videos-dash") return { page: "videosDash" };
@@ -145,7 +145,7 @@ export function buildPath(page: string, params: Record<string, unknown> = {}): s
     case "friends":        return "/friends";
     case "friendRequests": return "/friends/requests";
     case "invite":         return `/invite/${(params.token as string) ?? ""}`;
-    case "community":      return "/community";
+    case "community":      return "/feed";
     case "videos":         return "/videos";
     case "videoDetail":    return `/videos/${encodeURIComponent(params.slug as string)}`;
     case "videosDash":     return "/videos-dash";

@@ -175,7 +175,6 @@ export default function TopBar({
               <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
               <path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14z"/>
             </svg>
-            <span className="topbar-btn-ai-badge" aria-hidden="true">NEW</span>
           </a>
 
           {/* Songs, separate Next.js SSR route, not a HOME_PANEL */}
@@ -236,7 +235,7 @@ export default function TopBar({
               aria-expanded={langOpen}
               data-tip="Language"
             >
-              <span style={{ fontSize: 16 }}>{FLAGS[currentLang] ?? "🌐"}</span>
+              <span className="topbar-lang-flag">{FLAGS[currentLang] ?? "🌐"}</span>
             </button>
             {langOpen && (
               <div className="topbar-lang-menu" role="menu">
@@ -275,11 +274,10 @@ export default function TopBar({
           {/* User avatar + dropdown */}
           <div className="topbar-avatar-wrap" ref={avatarRef}>
             <button
-              className="topbar-avatar"
+              className={`topbar-avatar${profile?.avatar_url ? " topbar-avatar--has-image" : ""}`}
               onClick={() => setAvatarOpen(o => !o)}
               aria-label={`Account menu for ${displayName}`}
               aria-expanded={avatarOpen}
-              style={{ background: "linear-gradient(135deg, #4f2d85, #7c3aed)", border: "2px solid rgba(138,75,255,0.3)" }}
             >
               {profile?.avatar_url
                 ? <img src={profile.avatar_url} alt={displayName} width={32} height={32} />
@@ -287,23 +285,6 @@ export default function TopBar({
             </button>
             {avatarOpen && (
               <div className="topbar-avatar-menu" role="menu">
-                <a className="topbar-avatar-item topbar-avatar-item--ai" role="menuitem" href="/ai" onClick={() => setAvatarOpen(false)}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
-                    <path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14z"/>
-                  </svg>
-                  AI Companion
-                  <span className="topbar-avatar-item-badge" aria-hidden="true">NEW</span>
-                </a>
-                <a className="topbar-avatar-item" role="menuitem" href="/songs" onClick={() => setAvatarOpen(false)}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M9 18V5l12-2v13"/>
-                    <circle cx="6" cy="18" r="3"/>
-                    <circle cx="18" cy="16" r="3"/>
-                  </svg>
-                  Songs
-                </a>
-                <div className="topbar-avatar-divider" />
                 <button className="topbar-avatar-item" role="menuitem" onClick={() => { setAvatarOpen(false); navigate("profile"); }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                   Profile

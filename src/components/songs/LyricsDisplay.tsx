@@ -33,7 +33,7 @@ const SECTION_LABEL: Record<"en" | "es", Record<string, string>> = {
 export default function LyricsDisplay({ lyrics, lang }: Props) {
   if (!lyrics?.sections?.length) return null;
   return (
-    <div className="space-y-10">
+    <div className="space-y-12 font-serif">
       {lyrics.sections.map((section, i) => (
         <Section key={i} section={section} lang={lang} />
       ))}
@@ -48,20 +48,23 @@ function Section({ section, lang }: { section: SongSection; lang: "en" | "es" })
     section.type === "toast" ||
     section.type === "breakdown" ||
     section.type === "outro";
+  const isChorus = section.type === "chorus" || section.type === "final-chorus";
 
   return (
     <section>
-      <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-violet-700 dark:text-violet-300">
+      <h3 className="font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-violet-700 dark:text-violet-300">
         {heading}
       </h3>
       {section.note && (
-        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{section.note}</p>
+        <p className="mt-1 font-sans text-xs italic text-slate-500 dark:text-slate-400">{section.note}</p>
       )}
       <div
         className={
           isSpoken
-            ? "mt-3 space-y-1 border-l border-violet-200 pl-4 text-base text-slate-600 dark:border-white/10 dark:text-slate-300"
-            : "mt-3 space-y-1 text-base leading-relaxed text-slate-900 dark:text-slate-100"
+            ? "mt-3 space-y-1.5 border-l-2 border-violet-300/50 pl-5 text-[17px]/[1.7] italic text-slate-600 dark:border-violet-400/30 dark:text-slate-400"
+            : isChorus
+              ? "mt-3 space-y-1.5 text-[18px]/[1.75] font-medium text-slate-900 dark:text-slate-50"
+              : "mt-3 space-y-1.5 text-[17px]/[1.75] text-slate-800 dark:text-slate-200"
         }
       >
         {section.lines.map((line, j) =>

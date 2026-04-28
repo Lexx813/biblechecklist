@@ -166,6 +166,52 @@ const SONGS = [
     ],
   },
   {
+    slug: "in-the-name-david-vs-goliath",
+    title: "In The Name (David vs Goliath)",
+    title_es: null,
+    file: "In The Name",
+    duration_seconds: 186,
+    primary_scripture_ref: "1 Samuel 17:45",
+    primary_scripture_text:
+      "David replied to the Philistine: \"You are coming against me with sword and spear and javelin, but I am coming against you in the name of Jehovah of armies, the God of the battle line of Israel, whom you have taunted.\"",
+    primary_scripture_text_es: null,
+    theme: "courage",
+    description:
+      "A trap-style retelling of 1 Samuel 17 — the shepherd boy David facing the Philistine giant Goliath in the Valley of Elah. The chorus pulls straight from David's own answer: \"I come in the name of Jehovah of armies\" (1 Samuel 17:45). Verses walk through the scene faithfully — the eight sons of Jesse, the giant's nine-foot frame and copper armor, the lion and the bear, the five smooth stones from the wadi, the sling — and land on David's confession that the battle belongs to Jehovah, not the sword (verse 47). Closes by drawing the line for today: whatever giant stands in front of you, the same God of David is working for you.",
+    description_es: null,
+    cover_image_url: "/covers/in-the-name-david-vs-goliath.svg",
+    jw_org_links: [
+      { url: "https://www.jw.org/en/library/bible/nwt/books/1-samuel/17/", anchor: "Read 1 Samuel 17, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/psalms/144/", anchor: "Read Psalm 144, New World Translation" },
+      { url: "https://www.jw.org/en/library/books/draw-close/", anchor: "Draw Close to Jehovah" },
+      { url: "https://www.jw.org/en/library/books/bible-teach/", anchor: "What Does the Bible Really Teach? (JW.org book)" },
+      { url: "https://hub.jw.org/request-visit", anchor: "Request a visit from Jehovah's Witnesses" },
+    ],
+  },
+  {
+    slug: "wash-me-clean",
+    title: "Wash Me Clean",
+    title_es: null,
+    file: "Wash Me Clean",
+    duration_seconds: 240,
+    primary_scripture_ref: "Psalm 51:1",
+    primary_scripture_text:
+      "Show me favor, O God, according to your loyal love. According to your great mercy, blot out my transgressions.",
+    primary_scripture_text_es: null,
+    theme: "mercy",
+    description:
+      "A contemporary gospel ballad built on Psalm 51 — David's prayer of repentance after the Bath-sheba episode. The song moves through David's confession (\"I am well-aware of my sin\"), the appeal to Jehovah's loyal love and great mercy, and the bridge's plea from verse 10: \"Create in me a clean heart, O God.\" Closes on the promise of 1 John 1:9 — that Jehovah is faithful and righteous to forgive when we confess.",
+    description_es: null,
+    cover_image_url: "/covers/wash-me-clean.svg",
+    jw_org_links: [
+      { url: "https://www.jw.org/en/library/bible/nwt/books/psalms/51/", anchor: "Read Psalm 51, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/1-john/1/", anchor: "Read 1 John 1, New World Translation" },
+      { url: "https://www.jw.org/en/library/books/draw-close/", anchor: "Draw Close to Jehovah" },
+      { url: "https://www.jw.org/en/library/books/bible-teach/", anchor: "What Does the Bible Really Teach? (JW.org book)" },
+      { url: "https://hub.jw.org/request-visit", anchor: "Request a visit from Jehovah's Witnesses" },
+    ],
+  },
+  {
     slug: "comforter",
     title: "Comforter",
     title_es: null,

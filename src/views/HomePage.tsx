@@ -28,7 +28,6 @@ const BookDetailInline      = lazy(() => import("./studytopics/BookDetailPage"))
 const StudyTopicDetailInline = lazy(() => import("./studytopics/StudyTopicDetail"));
 const GroupsInline          = lazy(() => import("./groups/GroupsPage"));
 const GroupDetailInline   = lazy(() => import("./groups/GroupDetail"));
-const CommunityInline     = lazy(() => import("./community/CommunityPage"));
 const VideosInline        = lazy(() => import("./videos/VideosPage"));
 const VideoDetailInline   = lazy(() => import("./videos/VideoDetailPage"));
 const FriendRequestsInline  = lazy(() => import("./friends/FriendRequestsPage"));
@@ -135,7 +134,7 @@ function getFallbackImage(id) {
 
 const STREAK_MILESTONES = [7, 14, 30, 60, 90, 180, 365];
 
-const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "masterQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "myPosts", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "studyTopicDetail", "bookDetail", "feed", "bookmarks", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "messages", "history", "trivia", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy", "learn", "support"]);
+const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "masterQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "myPosts", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "studyTopicDetail", "bookDetail", "feed", "bookmarks", "groups", "groupDetail", "videos", "videoDetail", "friendRequests", "messages", "history", "trivia", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy", "learn", "support"]);
 
 function BlogSkeleton() {
   return (
@@ -436,12 +435,12 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           )}
           {activePanel === "profile" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <ProfileInline user={user} viewedUserId={user?.id} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
+              <ProfileInline user={user} viewedUserId={user?.id} navigate={panelNavigate} />
             </Suspense>
           )}
           {activePanel === "publicProfile" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <ProfileInline user={user} viewedUserId={panelParams.userId} isOwner={false} onBack={() => setActivePanel(null)} navigate={panelNavigate} {...{ darkMode, setDarkMode, i18n, onLogout: () => {} }} />
+              <ProfileInline user={user} viewedUserId={panelParams.userId} isOwner={false} navigate={panelNavigate} />
             </Suspense>
           )}
           {activePanel === "messages" && (
@@ -476,17 +475,12 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           )}
           {activePanel === "groups" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <GroupsInline user={user} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
+              <GroupsInline navigate={panelNavigate} />
             </Suspense>
           )}
           {activePanel === "groupDetail" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <GroupDetailInline groupId={panelParams.groupId} user={user} navigate={panelNavigate} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} onLogout={onLogout} />
-            </Suspense>
-          )}
-          {activePanel === "community" && (
-            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <CommunityInline navigate={panelNavigate} userId={user?.id} />
+              <GroupDetailInline groupId={panelParams.groupId} user={user} navigate={panelNavigate} />
             </Suspense>
           )}
           {activePanel === "videos" && (

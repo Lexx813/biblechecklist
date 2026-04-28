@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080" role="img" aria-label="Wash Me Clean, Psalm 51:1">
+  <rect width="1080" height="1080" fill="#7C3AED"/>
+
+  <!-- Faint baseline grid -->
+  <g stroke="#FAF5FF" stroke-opacity="0.06" stroke-width="1">
+    <line x1="0" y1="270" x2="1080" y2="270"/>
+    <line x1="0" y1="540" x2="1080" y2="540"/>
+    <line x1="0" y1="810" x2="1080" y2="810"/>
+    <line x1="540" y1="0" x2="540" y2="1080"/>
+  </g>
+
+  <!-- Top brand mark -->
+  <g font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="22" letter-spacing="0.32em" fill="#FAF5FF" fill-opacity="0.7">
+    <text x="60" y="100">JW STUDY</text>
+    <text x="1020" y="100" text-anchor="end">006</text>
+  </g>
+
+  <!-- Title block: WASH ME stacked over CLEAN -->
+  <g font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="800" letter-spacing="-0.04em">
+    <text x="60" y="510" font-size="240" textLength="900" lengthAdjust="spacingAndGlyphs" fill="#FAF5FF" fill-opacity="0.85">WASH ME</text>
+    <text x="60" y="780" font-size="380" fill="#FAF5FF">CLEAN</text>
+  </g>
+
+  <!-- Subhead -->
+  <g font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="500" font-size="34" fill="#FAF5FF" fill-opacity="0.75">
+    <text x="60" y="850">Mercy is your name</text>
+  </g>
+
+  <!-- Bottom meta row -->
+  <g font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="600" font-size="22" letter-spacing="0.28em" fill="#FAF5FF">
+    <text x="60" y="1010" fill-opacity="0.85">PSALM 51:1</text>
+    <text x="1020" y="1010" text-anchor="end" fill-opacity="0.55">MERCY</text>
+  </g>
+
+  <!-- Hairlines -->
+  <line x1="60" y1="970" x2="1020" y2="970" stroke="#FAF5FF" stroke-opacity="0.18" stroke-width="1"/>
+  <line x1="60" y1="130" x2="1020" y2="130" stroke="#FAF5FF" stroke-opacity="0.18" stroke-width="1"/>
+</svg>

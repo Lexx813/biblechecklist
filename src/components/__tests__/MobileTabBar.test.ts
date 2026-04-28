@@ -3,15 +3,15 @@ import { describe, it, expect } from "vitest";
 
 // Test the new TAB_ACTIVE_MAP logic inline, serves as a spec document
 const TAB_ACTIVE_MAP: Record<string, string> = {
-  messages:         "community",
-  friends:          "community",
+  messages:         "feed",
+  friends:          "feed",
   friendRequests:   "profile",
-  groups:           "community",
-  leaderboard:      "community",
-  feed:             "community",
-  forum:            "community",
-  forumThread:      "community",
-  trivia:           "community",
+  groups:           "feed",
+  leaderboard:      "feed",
+  forum:            "feed",
+  forumThread:      "feed",
+  trivia:           "feed",
+  community:        "feed",
   studyTopics:      "main",
   studyTopicDetail: "main",
   bookDetail:       "main",
@@ -27,14 +27,14 @@ const TAB_ACTIVE_MAP: Record<string, string> = {
   publicProfile:    "profile",
 };
 
-describe("TAB_ACTIVE_MAP (new 5-tab layout)", () => {
-  it("routes messages to community tab", () => {
-    expect(TAB_ACTIVE_MAP["messages"]).toBe("community");
+describe("TAB_ACTIVE_MAP (5-tab layout, feed is the social hub)", () => {
+  it("routes messages to feed tab", () => {
+    expect(TAB_ACTIVE_MAP["messages"]).toBe("feed");
   });
-  it("routes friends to community tab", () => {
-    expect(TAB_ACTIVE_MAP["friends"]).toBe("community");
+  it("routes friends to feed tab", () => {
+    expect(TAB_ACTIVE_MAP["friends"]).toBe("feed");
   });
-  it("routes friendRequests to profile tab (not community)", () => {
+  it("routes friendRequests to profile tab (not feed)", () => {
     expect(TAB_ACTIVE_MAP["friendRequests"]).toBe("profile");
   });
   it("routes meetingPrep to meetingPrep tab", () => {
@@ -45,10 +45,13 @@ describe("TAB_ACTIVE_MAP (new 5-tab layout)", () => {
     expect(TAB_ACTIVE_MAP["studyNotes"]).toBe("main");
     expect(TAB_ACTIVE_MAP["readingPlans"]).toBe("main");
   });
-  it("routes forum, leaderboard, groups to community tab", () => {
-    expect(TAB_ACTIVE_MAP["forum"]).toBe("community");
-    expect(TAB_ACTIVE_MAP["leaderboard"]).toBe("community");
-    expect(TAB_ACTIVE_MAP["groups"]).toBe("community");
+  it("routes forum, leaderboard, groups to feed tab", () => {
+    expect(TAB_ACTIVE_MAP["forum"]).toBe("feed");
+    expect(TAB_ACTIVE_MAP["leaderboard"]).toBe("feed");
+    expect(TAB_ACTIVE_MAP["groups"]).toBe("feed");
+  });
+  it("routes legacy /community URLs to feed tab", () => {
+    expect(TAB_ACTIVE_MAP["community"]).toBe("feed");
   });
   it("routes studyTopics and bookmarks to main (Bible) tab", () => {
     expect(TAB_ACTIVE_MAP["studyTopics"]).toBe("main");

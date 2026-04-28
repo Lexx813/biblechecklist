@@ -221,7 +221,7 @@ export default function AboutTab({ profile, userId, isOwner, readingProgress, st
   }, [readingProgress]);
 
   return (
-    <div className="rounded-[var(--radius)] border border-[var(--border)] bg-[var(--card-bg)] p-5">
+    <div className="flex flex-col gap-4">
       {/* About Me */}
       {(isOwner || profile?.bio) && (
         <AboutMe profile={profile} userId={userId} isOwner={isOwner} />

@@ -1,5 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSongStats } from "../../../hooks/useAdmin";
+import { useUpdateSong, useDeleteSong } from "../../../hooks/useAdminSongs";
+import type { SongFormPrefill } from "../../../hooks/useAIChat";
+import { SongEditModal, type EditableSong } from "../SongEditModal";
+import { AddSongDialog } from "../AddSongDialog";
 import {
   AreaChart,
   Area,
@@ -43,8 +47,64 @@ function Skeleton() {
 
 export function SongsTab() {
   const [days, setDays] = useState(30);
+  const [editing, setEditing] = useState<EditableSong | null>(null);
+  const [showAdd, setShowAdd] = useState(false);
+  const [prefill, setPrefill] = useState<SongFormPrefill | null>(null);
   const { data, isLoading, isError } = useSongStats(days);
+
+  // Listen for AI prefill events. The admin asks the AI Companion to add a
+  // song; the AI calls prefill_song_form, the server emits an SSE event,
+  // useAIChat re-broadcasts it as a window CustomEvent, and we open the
+  // dialog with the values already filled in.
+  useEffect(() => {
+    function onPrefill(e: Event) {
+      const detail = (e as CustomEvent<SongFormPrefill>).detail;
+      if (!detail) return;
+      setPrefill(detail);
+      setShowAdd(true);
+    }
+    window.addEventListener("ai:song-form-prefill", onPrefill);
+    return () => window.removeEventListener("ai:song-form-prefill", onPrefill);
+  }, []);
+  const updateSong = useUpdateSong();
+  const deleteSong = useDeleteSong();
   const t = useChartTheme();
+
+  function openEdit(row: { id: string; slug: string; title: string; title_es: string | null; theme: string; scripture_ref: string; primary_scripture_text: string; primary_scripture_text_es: string | null; description: string; description_es: string | null; cover_image_url: string | null; duration_seconds: number; jw_org_links: { url: string; anchor: string }[]; published: boolean }) {
+    setEditing({
+      id: row.id,
+      slug: row.slug,
+      title: row.title,
+      title_es: row.title_es,
+      description: row.description,
+      description_es: row.description_es,
+      primary_scripture_ref: row.scripture_ref,
+      primary_scripture_text: row.primary_scripture_text,
+      primary_scripture_text_es: row.primary_scripture_text_es,
+      theme: row.theme,
+      cover_image_url: row.cover_image_url,
+      duration_seconds: row.duration_seconds,
+      jw_org_links: row.jw_org_links,
+      published: row.published,
+    });
+  }
+
+  async function togglePublish(id: string, current: boolean) {
+    try {
+      await updateSong.mutateAsync({ id, patch: { published: !current } });
+    } catch (e) {
+      alert(`Failed to toggle: ${(e as Error).message}`);
+    }
+  }
+
+  async function confirmDelete(row: { id: string; title: string }) {
+    if (!confirm(`Delete "${row.title}"? This removes the song row, all its plays, and the audio file. Cannot be undone.`)) return;
+    try {
+      await deleteSong.mutateAsync(row.id);
+    } catch (e) {
+      alert(`Delete failed: ${(e as Error).message}`);
+    }
+  }
 
   if (isLoading) return <Skeleton />;
   if (isError || !data) {
@@ -74,7 +134,7 @@ export function SongsTab() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-      {/* Range selector */}
+      {/* Top row: range + add */}
       <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
         <span style={{ fontSize: 13, color: "var(--text-muted)" }}>Range:</span>
         {[7, 30, 90, 365].map((d) => (
@@ -96,6 +156,22 @@ export function SongsTab() {
             {d === 365 ? "1y" : `${d}d`}
           </button>
         ))}
+        <div style={{ flex: 1 }} />
+        <button
+          onClick={() => setShowAdd(true)}
+          style={{
+            padding: "7px 14px",
+            borderRadius: 8,
+            fontSize: 13,
+            cursor: "pointer",
+            fontWeight: 600,
+            background: VIOLET,
+            color: "#fff",
+            border: "none",
+          }}
+        >
+          + Add song
+        </button>
       </div>
 
       {/* KPIs */}
@@ -211,6 +287,7 @@ export function SongsTab() {
                 <th style={thNum(t.tick)}>jw.org clicks</th>
                 <th style={thNum(t.tick)}>All-time plays</th>
                 <th style={thNum(t.tick)}>All-time downloads</th>
+                <th style={{ ...th(t.tick), textAlign: "right" }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -252,11 +329,31 @@ export function SongsTab() {
                   <td style={tdNum()}>{row.window_jw_org_clicks.toLocaleString()}</td>
                   <td style={tdNum("var(--text-muted)")}>{row.all_time_plays.toLocaleString()}</td>
                   <td style={tdNum("var(--text-muted)")}>{row.all_time_downloads.toLocaleString()}</td>
+                  <td style={{ ...tdNum(), display: "flex", gap: 6, justifyContent: "flex-end", flexWrap: "wrap" }}>
+                    <button
+                      onClick={() => togglePublish(row.id, row.published)}
+                      disabled={updateSong.isPending}
+                      style={actionBtn(row.published ? "#94a3b8" : VIOLET)}
+                      title={row.published ? "Unpublish (move to draft)" : "Publish"}
+                    >
+                      {row.published ? "Unpublish" : "Publish"}
+                    </button>
+                    <button onClick={() => openEdit(row)} style={actionBtn("var(--text-muted)")}>
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => confirmDelete(row)}
+                      disabled={deleteSong.isPending}
+                      style={actionBtn("#ef4444")}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
               {perSongRows.length === 0 && (
                 <tr>
-                  <td colSpan={9} style={{ padding: 32, textAlign: "center", color: t.tick }}>
+                  <td colSpan={10} style={{ padding: 32, textAlign: "center", color: t.tick }}>
                     No songs published yet.
                   </td>
                 </tr>
@@ -265,6 +362,15 @@ export function SongsTab() {
           </table>
         </div>
       </ChartCard>
+
+      {/* Modals */}
+      {editing && <SongEditModal song={editing} onClose={() => setEditing(null)} />}
+      {showAdd && (
+        <AddSongDialog
+          onClose={() => { setShowAdd(false); setPrefill(null); }}
+          initialValues={prefill}
+        />
+      )}
 
       {/* Source breakdown */}
       {sourceBreakdown.length > 0 && (
@@ -347,4 +453,16 @@ const tdNum = (color?: string): React.CSSProperties => ({
   textAlign: "right",
   fontVariantNumeric: "tabular-nums",
   color: color ?? undefined,
+});
+
+const actionBtn = (color: string): React.CSSProperties => ({
+  padding: "4px 10px",
+  borderRadius: 6,
+  fontSize: 11,
+  fontWeight: 600,
+  cursor: "pointer",
+  background: "transparent",
+  color,
+  border: `1px solid ${color === "var(--text-muted)" ? "var(--border)" : color}`,
+  transition: "all 150ms ease",
 });

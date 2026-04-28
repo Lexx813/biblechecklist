@@ -110,36 +110,22 @@ export default function SongsBrowser({ songs, lang }: Props) {
 
   return (
     <div>
-      {/* Search + count row */}
-      <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-3">
-        <label className="relative flex-1 min-w-[260px]">
-          <span className="sr-only">{t.searchPlaceholder}</span>
-          <SearchIcon />
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => onQueryChange(e.target.value)}
-            placeholder={t.searchPlaceholder}
-            className="w-full rounded-md border border-slate-200 bg-white py-2.5 pl-9 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/20 dark:border-white/10 dark:bg-white/5 dark:text-slate-100 dark:placeholder:text-slate-500"
-          />
-        </label>
-        <div className="text-sm font-medium text-slate-500 tabular-nums dark:text-slate-400">
-          {t.songsCount(filtered.length)}
-        </div>
-        {hasActiveFilters && (
-          <button
-            type="button"
-            onClick={clearFilters}
-            className="text-sm font-semibold text-violet-700 underline decoration-violet-300 underline-offset-4 transition hover:text-violet-900 hover:decoration-violet-700 dark:text-violet-300 dark:hover:text-violet-100"
-          >
-            {t.clear}
-          </button>
-        )}
-      </div>
+      {/* Search */}
+      <label className="relative block">
+        <span className="sr-only">{t.searchPlaceholder}</span>
+        <SearchIcon />
+        <input
+          type="search"
+          value={query}
+          onChange={(e) => onQueryChange(e.target.value)}
+          placeholder={t.searchPlaceholder}
+          className="w-full rounded-lg border border-slate-200 bg-white py-2.5 pl-9 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/15 dark:border-white/10 dark:bg-white/5 dark:text-slate-100 dark:placeholder:text-slate-500"
+        />
+      </label>
 
-      {/* Theme chips — only render when there are at least 2 themes in the data */}
+      {/* Theme chips */}
       {themes.length >= 2 && (
-        <div className="mb-8 flex flex-wrap gap-2">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
           <ThemeChip active={theme === null} onClick={() => selectTheme(null)}>
             {t.all}
           </ThemeChip>
@@ -150,6 +136,22 @@ export default function SongsBrowser({ songs, lang }: Props) {
           ))}
         </div>
       )}
+
+      {/* Count + clear row */}
+      <div className="mt-4 mb-5 flex items-center justify-between text-sm">
+        <span className="font-medium text-slate-500 tabular-nums dark:text-slate-400">
+          {t.songsCount(filtered.length)}
+        </span>
+        {hasActiveFilters && (
+          <button
+            type="button"
+            onClick={clearFilters}
+            className="font-semibold text-violet-700 transition hover:text-violet-900 dark:text-violet-300 dark:hover:text-violet-100"
+          >
+            {t.clear}
+          </button>
+        )}
+      </div>
 
       {/* Grid */}
       {pageSongs.length > 0 ? (
@@ -208,10 +210,10 @@ function ThemeChip({
       type="button"
       onClick={onClick}
       className={
-        "inline-flex items-center rounded-full px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider transition " +
+        "inline-flex items-center rounded-full px-3 py-1.5 text-[13px] font-medium capitalize transition " +
         (active
-          ? "bg-violet-600 text-white shadow-sm"
-          : "border border-slate-200 bg-white text-slate-700 hover:border-violet-300 hover:bg-violet-50 hover:text-violet-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-violet-400/40 dark:hover:bg-white/10 dark:hover:text-violet-300")
+          ? "bg-violet-600 text-white"
+          : "border border-slate-200 bg-white text-slate-700 hover:border-violet-300 hover:text-violet-700 dark:border-white/10 dark:bg-transparent dark:text-slate-300 dark:hover:border-violet-400/40 dark:hover:text-violet-300")
       }
     >
       {children}

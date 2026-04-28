@@ -19,8 +19,8 @@ const TAB_ITEMS = [
     icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>,
   },
   {
-    key: "community",
-    labelKey: "nav.community",
+    key: "feed",
+    labelKey: "nav.feed",
     icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
   },
   {
@@ -32,15 +32,15 @@ const TAB_ITEMS = [
 
 // Pages that should highlight a given tab
 const TAB_ACTIVE_MAP: Record<string, string> = {
-  messages:         "community",
-  friends:          "community",
+  messages:         "feed",
+  friends:          "feed",
   friendRequests:   "profile",
-  groups:           "community",
-  leaderboard:      "community",
-  feed:             "community",
-  forum:            "community",
-  forumThread:      "community",
-  trivia:           "community",
+  groups:           "feed",
+  leaderboard:      "feed",
+  forum:            "feed",
+  forumThread:      "feed",
+  trivia:           "feed",
+  community:        "feed",
   studyTopics:      "main",
   studyTopicDetail: "main",
   bookDetail:       "main",
@@ -75,7 +75,7 @@ export default function MobileTabBar({ navigate, currentPage, userId }: Props) {
       {TAB_ITEMS.map(item => {
         // Messages badge on Community tab; friend requests badge on Me tab
         const badge =
-          item.key === "community" ? (unreadMessages > 0 ? unreadMessages : null) :
+          item.key === "feed" ? (unreadMessages > 0 ? unreadMessages : null) :
           item.key === "profile"   ? (pendingRequests > 0 ? pendingRequests : null) :
           null;
         const isActive = activeKey === item.key;

@@ -4,22 +4,15 @@ interface Props {
   isOwner: boolean;
 }
 
-const OWNER_TABS = [
+const TABS = [
   { key: "posts", label: "Posts" },
   { key: "about", label: "About" },
   { key: "friends", label: "Friends" },
   { key: "achievements", label: "Achievements" },
 ];
 
-const VISITOR_TABS = [
-  { key: "posts", label: "Posts" },
-  { key: "about", label: "About" },
-  { key: "friends", label: "Friends" },
-  { key: "achievements", label: "Achievements" },
-];
-
-export default function ProfileTabs({ activeTab, onTabChange, isOwner }: Props) {
-  const tabs = isOwner ? OWNER_TABS : VISITOR_TABS;
+export default function ProfileTabs({ activeTab, onTabChange }: Props) {
+  const tabs = TABS;
   return (
     <div className="profile-tabs flex gap-0 overflow-x-auto border-b border-[var(--border)] bg-[var(--card-bg)]">
       {tabs.map(tab => (
@@ -33,12 +26,7 @@ export default function ProfileTabs({ activeTab, onTabChange, isOwner }: Props) 
           onClick={() => onTabChange(tab.key)}
         >
           {tab.label}
-          {activeTab === tab.key && (
-            <span
-              className="absolute bottom-0 left-0 right-0 h-0.5 rounded-t-full bg-linear-to-r from-[#7c3aed] via-[#a78bfa] to-[#7c3aed]"
-              style={{ boxShadow: "0 0 12px rgba(167,139,250,0.55)" }}
-            />
-          )}
+          {activeTab === tab.key && <span className="pf-tab-indicator" />}
         </button>
       ))}
     </div>

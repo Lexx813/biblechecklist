@@ -68,11 +68,11 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
       onClick={onClose}
     >
       <div
-        className="flex w-full max-w-[560px] flex-col rounded-xl border border-[var(--border)] bg-[var(--card-bg)] shadow-2xl"
+        className="flex max-h-[calc(100dvh-2rem)] w-full max-w-[560px] flex-col overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--card-bg)] shadow-2xl"
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-3.5">
+        <div className="flex shrink-0 items-center justify-between border-b border-[var(--border)] px-5 py-3.5">
           <h3 className="text-lg font-bold text-[var(--text-primary)]">{isEdit ? "Edit post" : "Create post"}</h3>
           <button
             className="flex size-8 cursor-pointer items-center justify-center rounded-full border-none bg-[var(--hover-bg)] text-[var(--text-muted)] transition-colors hover:bg-[var(--border)] hover:text-[var(--text-primary)]"
@@ -82,6 +82,8 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
           </button>
         </div>
 
+        {/* Scrollable body */}
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
         {/* Author row */}
         <div className="flex items-center gap-3 px-5 pt-4">
           {avatarUrl ? (
@@ -139,9 +141,10 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
 
         {/* Hidden file input */}
         <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp,image/gif" className="hidden" onChange={handleImageSelect} />
+        </div>
 
         {/* Add to your post bar */}
-        <div className="mx-5 mb-3 flex items-center justify-between rounded-lg border border-[var(--border)] px-4 py-2.5">
+        <div className="mx-5 mb-3 mt-3 flex shrink-0 items-center justify-between rounded-lg border border-[var(--border)] px-4 py-2.5">
           <span className="text-sm font-semibold text-[var(--text-primary)]">Add to your post</span>
           <div className="flex items-center gap-1">
             <button
@@ -156,7 +159,7 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
         </div>
 
         {/* Submit */}
-        <div className="px-5 pb-4">
+        <div className="shrink-0 px-5 pb-4">
           <Button
             variant="primary"
             size="md"

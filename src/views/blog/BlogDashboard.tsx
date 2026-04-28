@@ -218,6 +218,7 @@ function PostEditor({ userId, post, onDone }) {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
   const [showExcerptEmoji, setShowExcerptEmoji] = useState(false);
+  const [discardOpen, setDiscardOpen] = useState(false);
   const fileInputRef = useRef(null);
   const excerptRef = useRef(null);
   const isDirty = JSON.stringify(form) !== JSON.stringify(initialForm);
@@ -230,7 +231,7 @@ function PostEditor({ userId, post, onDone }) {
   }, [isDirty]);
 
   function handleBack() {
-    if (isDirty && !window.confirm("You have unsaved changes. Leave anyway?")) return;
+    if (isDirty) { setDiscardOpen(true); return; }
     onDone();
   }
 
@@ -462,6 +463,14 @@ function PostEditor({ userId, post, onDone }) {
             </button>
           </div>
         </div>
+      )}
+      {discardOpen && (
+        <ConfirmModal
+          message="You have unsaved changes. Leave anyway?"
+          confirmLabel="Discard"
+          onConfirm={() => { setDiscardOpen(false); onDone(); }}
+          onCancel={() => setDiscardOpen(false)}
+        />
       )}
     </div>
   );

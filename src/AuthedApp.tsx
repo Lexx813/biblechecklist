@@ -61,7 +61,6 @@ const MeetingPrepPage   = lazy(() => import("./views/meetingprep/MeetingPrepPage
 const TriviaPage        = lazy(() => import("./views/trivia/TriviaPage"));
 const FriendRequestsPage = lazy(() => import("./views/friends/FriendRequestsPage"));
 const InviteLandingPage  = lazy(() => import("./views/friends/InviteLandingPage"));
-const CommunityPage      = lazy(() => import("./views/community/CommunityPage"));
 const VideosPage         = lazy(() => import("./views/videos/VideosPage"));
 const VideoDetailPage    = lazy(() => import("./views/videos/VideoDetailPage"));
 const VideoComposerPage  = lazy(() => import("./views/videos/VideoComposerPage"));
@@ -90,7 +89,7 @@ function Page({ children, noFooter = false }) {
 const VALID_PAGES = ["readingPlans", "studyNotes", "quiz", "forum", "blog", "main", "friends", "friendRequests"];
 
 // Module-level so useState initializers can reference it synchronously
-const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "masterQuiz", "masterQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "myPosts", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "publicProfile", "main", "groups", "groupDetail", "community", "videos", "videoDetail", "friendRequests", "bookDetail", "studyTopicDetail", "history", "trivia", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy", "bookmarks", "learn", "feed", "support"]);
+const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "masterQuiz", "masterQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "myPosts", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "publicProfile", "main", "groups", "groupDetail", "videos", "videoDetail", "friendRequests", "bookDetail", "studyTopicDetail", "history", "trivia", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy", "bookmarks", "learn", "feed", "support"]);
 
 function toPanelKey(page: string) {
   if (page === "quizLevel") return "quiz";
@@ -273,8 +272,24 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
 
   const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page, onSearchClick: () => setShowCmdPalette(true) };
 
+  // Sub-page (e.g. active admin tab) communicated up from page-level components
+  // via window CustomEvent. Lets the AI know which admin tab the user is on
+  // without plumbing tab state through props.
+  const [subPage, setSubPage] = useState<string | null>(null);
+  useEffect(() => {
+    function onSubPage(e: Event) {
+      const detail = (e as CustomEvent<{ subPage: string | null }>).detail;
+      setSubPage(detail?.subPage ?? null);
+    }
+    window.addEventListener("ai:set-subpage", onSubPage);
+    return () => window.removeEventListener("ai:set-subpage", onSubPage);
+  }, []);
+  // Reset subPage when leaving the page that set it.
+  useEffect(() => { setSubPage(null); }, [nav.page]);
+
   const aiContext = useMemo(() => {
-    const ctx: { page: string; bookIndex?: number; bookName?: string; chapter?: number } = { page: nav.page };
+    const ctx: { page: string; subPage?: string; bookIndex?: number; bookName?: string; chapter?: number } = { page: nav.page };
+    if (subPage) ctx.subPage = subPage;
     if ("bookIndex" in nav && typeof nav.bookIndex === "number") {
       ctx.bookIndex = nav.bookIndex;
       ctx.bookName  = BOOKS[nav.bookIndex]?.name;
@@ -287,7 +302,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
       ctx.chapter = nav.openChapter;
     }
     return ctx;
-  }, [nav]);
+  }, [nav, subPage]);
 
   let pageContent = null;
   if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} panelRequest={homePanelRequest} onPanelConsumed={() => setHomePanelRequest(null)} /></Page>;
@@ -296,9 +311,9 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     if (!profileLoading && !profile?.is_admin && !profile?.is_moderator) navigate("home");
     else if (profile?.is_admin || profile?.is_moderator) pageContent = <Page><AdminPage currentUser={user} currentProfile={profile} onBack={() => navigate("home")} {...sharedNav} /></Page>;
   }
-  else if (nav.page === "profile")  pageContent = <Page><ProfilePage user={user} viewedUserId={user.id} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  else if (nav.page === "profile")  pageContent = <Page><ProfilePage user={user} viewedUserId={user.id} navigate={navigate} /></Page>;
   else if (nav.page === "settings") pageContent = <Page><SettingsPage user={user} onBack={() => navigate("profile")} {...sharedNav} /></Page>;
-  else if (nav.page === "publicProfile") pageContent = <Page><ProfilePage user={user} viewedUserId={nav.userId} isOwner={false} onBack={() => navigate("home")} {...sharedNav} /></Page>;
+  else if (nav.page === "publicProfile") pageContent = <Page><ProfilePage user={user} viewedUserId={nav.userId} isOwner={false} navigate={navigate} /></Page>;
   else if (nav.page === "blog") pageContent = (
     <Page>
       <BlogPage
@@ -363,11 +378,9 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   else if (nav.page === "meetingPrep") pageContent = <Page><MeetingPrepPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "trivia") pageContent = <Page noFooter><TriviaPage user={user} navigate={navigate} prefillCode={(nav as any).prefillCode as string | undefined} /></Page>;
   else if (nav.page === "friends")
-    pageContent = <Page><ProfilePage user={user} viewedUserId={user.id} onBack={() => navigate("home")} defaultTab="friends" {...sharedNav} /></Page>;
+    pageContent = <Page><ProfilePage user={user} viewedUserId={user.id} defaultTab="friends" navigate={navigate} /></Page>;
   else if (nav.page === "friendRequests")
     pageContent = <Page><FriendRequestsPage user={user} navigate={navigate} {...sharedNav} /></Page>;
-  else if (nav.page === "community")
-    pageContent = <Page><CommunityPage user={user} navigate={navigate} {...sharedNav} /></Page>;
   else if (nav.page === "videos")
     pageContent = (
       <Page>

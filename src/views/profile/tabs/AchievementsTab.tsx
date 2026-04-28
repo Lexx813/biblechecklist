@@ -4,6 +4,8 @@ import { BADGES } from "../../../data/badges";
 import { BOOKS } from "../../../data/books";
 import { useNotes } from "../../../hooks/useNotes";
 import { useMyPlans } from "../../../hooks/useReadingPlans";
+import { useQuizProgress } from "../../../hooks/useQuiz";
+import { useBadges } from "../../../hooks/useBadges";
 
 const OT_COUNT = 39;
 const TOTAL_CHAPTERS = BOOKS.reduce((s, b) => s + b.chapters, 0);
@@ -95,16 +97,16 @@ function badgeTier(key: string): "common" | "rare" | "epic" | "legendary" {
 
 interface Props {
   userId: string;
-  quizProgress: Array<{ level: number; badge_earned: boolean; unlocked: boolean }>;
-  earnedBadges: Array<{ badge_key: string; earned_at: string }>;
   streak: { current_streak: number; longest_streak: number; total_days?: number };
   readingProgress: Record<string, unknown>;
 }
 
-export default function AchievementsTab({ userId, quizProgress, earnedBadges, streak, readingProgress }: Props) {
+export default function AchievementsTab({ userId, streak, readingProgress }: Props) {
   const { t } = useTranslation();
   const { data: notes = [] } = useNotes(userId);
   const { data: plans = [] } = useMyPlans();
+  const { data: quizProgress = [] } = useQuizProgress(userId);
+  const { data: earnedBadges = [] } = useBadges(userId);
 
   // Quiz stats
   const quizProgressMap = useMemo(

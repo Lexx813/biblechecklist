@@ -4,13 +4,6 @@ import { useMyGroups, usePublicGroups, useCreateGroup, useJoinGroup } from "../.
 import { Group, groupsApi } from "../../api/groups";
 import "../../styles/groups.css";
 
-function timeAgo(iso: string) {
-  const d = Math.floor((Date.now() - new Date(iso).getTime()) / 86_400_000);
-  if (d === 0) return "today";
-  if (d === 1) return "yesterday";
-  return `${d}d ago`;
-}
-
 // ── Create group modal ────────────────────────────────────────────────────────
 
 function CreateGroupModal({ onClose, onCreated }: { onClose: () => void; onCreated: (g: Group) => void }) {
@@ -84,7 +77,7 @@ function CreateGroupModal({ onClose, onCreated }: { onClose: () => void; onCreat
                 ref={fileInputRef}
                 type="file"
                 accept="image/*"
-                style={{ display: "none" }}
+                className="hidden"
                 onChange={handleCoverChange}
               />
             </div>
@@ -147,7 +140,8 @@ function GroupCard({ group, onClick, onJoin, joining }: {
   const isPending = group.myStatus === "pending";
 
   return (
-    <div className="grp-card" onClick={onClick} role="button" tabIndex={0} onKeyDown={e => e.key === "Enter" && onClick()} aria-label={`Open ${group.name}`}>
+    <article className="grp-card">
+      <button type="button" className="grp-card-link" onClick={onClick} aria-label={`Open ${group.name}`} />
       <div className="grp-card-cover">
         {group.cover_url
           ? <img src={group.cover_url} alt={group.name} loading="lazy" />
@@ -177,7 +171,7 @@ function GroupCard({ group, onClick, onJoin, joining }: {
           {!isMine && onJoin && (
             <button
               className="grp-btn grp-btn--sm grp-btn--primary"
-              onClick={e => { e.stopPropagation(); onJoin(); }}
+              onClick={onJoin}
               disabled={joining}
             >
               {group.privacy === "private" ? "Request" : "Join"}
@@ -185,16 +179,37 @@ function GroupCard({ group, onClick, onJoin, joining }: {
           )}
         </div>
       </div>
+    </article>
+  );
+}
+
+// ── Skeleton ──────────────────────────────────────────────────────────────────
+
+function GroupCardSkeleton() {
+  return (
+    <div className="grp-card-skeleton">
+      <div className="skeleton grp-card-skeleton-cover" />
+      <div className="grp-card-skeleton-body">
+        <div className="skeleton" style={{ height: 14, width: "60%" }} />
+        <div className="skeleton" style={{ height: 11, width: "40%" }} />
+      </div>
     </div>
   );
 }
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 
-export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout }) {
+interface GroupsPageProps {
+  navigate: (page: string, params?: Record<string, unknown>) => void;
+}
+
+type Sort = "members" | "newest";
+
+export default function GroupsPage({ navigate }: GroupsPageProps) {
   const [tab, setTab] = useState<"mine" | "explore">("mine");
   const [showCreate, setShowCreate] = useState(false);
   const [search, setSearch] = useState("");
+  const [sort, setSort] = useState<Sort>("members");
   const { data: myGroups = [], isLoading: loadingMine } = useMyGroups();
   const { data: publicGroups = [], isLoading: loadingPublic } = usePublicGroups();
   const joinGroup = useJoinGroup();
@@ -204,20 +219,23 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
   const filteredPublic = useMemo(() => {
     const q = search.trim().toLowerCase();
     const notMine = (publicGroups as Group[]).filter(g => !myGroupIds.has(g.id));
-    if (!q) return notMine;
-    return notMine.filter(g =>
-      g.name.toLowerCase().includes(q) ||
-      (g.description ?? "").toLowerCase().includes(q)
+    const matched = q
+      ? notMine.filter(g =>
+          g.name.toLowerCase().includes(q) ||
+          (g.description ?? "").toLowerCase().includes(q)
+        )
+      : notMine;
+    return [...matched].sort((a, b) =>
+      sort === "members"
+        ? b.member_count - a.member_count
+        : new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     );
-  }, [publicGroups, myGroupIds, search]);
+  }, [publicGroups, myGroupIds, search, sort]);
 
   return (
     <div className="grp-page">
         <div className="grp-page-header">
-          <div>
-            <h1 className="grp-page-title">Groups</h1>
-            <p className="grp-page-subtitle">Study, share, and grow together</p>
-          </div>
+          <h1 className="grp-page-title">Groups</h1>
           <button className="grp-btn grp-btn--primary" onClick={() => setShowCreate(true)}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             New group
@@ -234,29 +252,27 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
         </div>
 
         {tab === "explore" && (
-          <div className="grp-search-bar">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input className="grp-search-input" type="search" placeholder="Search groups…" value={search} onChange={e => setSearch(e.target.value)} aria-label="Search groups" />
+          <div className="grp-toolbar">
+            <div className="grp-search-bar">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input className="grp-search-input" type="search" placeholder="Search groups…" value={search} onChange={e => setSearch(e.target.value)} aria-label="Search groups" />
+            </div>
+            <select className="grp-sort" value={sort} onChange={e => setSort(e.target.value as Sort)} aria-label="Sort groups">
+              <option value="members">Most members</option>
+              <option value="newest">Newest</option>
+            </select>
           </div>
         )}
 
         <div className="grp-grid">
           {tab === "mine" && (
             loadingMine ? (
-              Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="grp-card-skeleton">
-                  <div className="skeleton" style={{ height: 140, borderRadius: "10px 10px 0 0" }} />
-                  <div style={{ padding: "12px 14px", display: "flex", flexDirection: "column", gap: 8 }}>
-                    <div className="skeleton" style={{ height: 14, width: "60%" }} />
-                    <div className="skeleton" style={{ height: 11, width: "40%" }} />
-                  </div>
-                </div>
-              ))
+              Array.from({ length: 4 }).map((_, i) => <GroupCardSkeleton key={i} />)
             ) : (myGroups as Group[]).length === 0 ? (
               <div className="grp-empty-state">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                <h3>No groups yet</h3>
-                <p>Create a group or explore public ones to get started.</p>
+                <h3>You haven&apos;t joined any groups</h3>
+                <p>Browse public groups, or create your own above.</p>
                 <button className="grp-btn grp-btn--primary" onClick={() => setTab("explore")}>Explore groups</button>
               </div>
             ) : (
@@ -268,20 +284,12 @@ export default function GroupsPage({ user, navigate, darkMode, setDarkMode, i18n
 
           {tab === "explore" && (
             loadingPublic ? (
-              <>{Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="grp-card-skeleton">
-                  <div className="skeleton" style={{ height: 140, borderRadius: "10px 10px 0 0" }} />
-                  <div style={{ padding: "12px 14px", display: "flex", flexDirection: "column", gap: 8 }}>
-                    <div className="skeleton" style={{ height: 14, width: "60%" }} />
-                    <div className="skeleton" style={{ height: 11, width: "40%" }} />
-                  </div>
-                </div>
-              ))}</>
+              Array.from({ length: 4 }).map((_, i) => <GroupCardSkeleton key={i} />)
             ) : filteredPublic.length === 0 ? (
               <div className="grp-empty-state">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                <h3>{search ? "No results" : "No public groups yet"}</h3>
-                <p>{search ? "Try a different search term." : "Be the first to create one!"}</p>
+                <h3>{search ? "No matches" : "No public groups yet"}</h3>
+                <p>{search ? "Try a different search term." : "Start the first one."}</p>
                 {!search && <button className="grp-btn grp-btn--primary" onClick={() => setShowCreate(true)}>Create group</button>}
               </div>
             ) : (

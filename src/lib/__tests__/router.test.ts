@@ -35,8 +35,8 @@ describe("buildPath", () => {
     expect(buildPath("publicProfile", { userId: "uuid-123" })).toBe("/user/uuid-123");
   });
 
-  it("builds /community", () => {
-    expect(buildPath("community")).toBe("/community");
+  it("redirects legacy /community to /feed", () => {
+    expect(buildPath("community")).toBe("/feed");
   });
 
   it("builds / for unknown page", () => {
@@ -98,9 +98,9 @@ describe("parsePath", () => {
     expect(parsePath()).toEqual({ page: "blog", slug: "my-post" });
   });
 
-  it("parses /community", () => {
+  it("parses legacy /community as feed", () => {
     setLocation("/community");
-    expect(parsePath()).toEqual({ page: "community" });
+    expect(parsePath()).toEqual({ page: "feed" });
   });
 
   it("parses unknown path as notFound", () => {

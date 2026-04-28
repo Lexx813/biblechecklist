@@ -9,9 +9,25 @@ export interface ChatMessage {
 
 export interface ChatContext {
   page?: string;
+  /** Sub-route within a page, e.g. the active admin tab. */
+  subPage?: string;
   bookIndex?: number;
   bookName?: string;
   chapter?: number;
+}
+
+export interface SongFormPrefill {
+  slug: string;
+  title: string;
+  title_es?: string | null;
+  theme: string;
+  primary_scripture_ref: string;
+  primary_scripture_text: string;
+  description: string;
+  duration_seconds?: number;
+  jw_org_links?: Array<{ url: string; anchor: string }>;
+  lyrics_md: string;
+  publish?: boolean;
 }
 
 /**
@@ -191,6 +207,14 @@ export function useAIChat(context?: ChatContext, options: UseAIChatOptions = {})
             if (evt.type === "blog_draft" && evt.draft) {
               // Auto-open editor — no button click required
               window.dispatchEvent(new CustomEvent("ai:blog-draft", { detail: evt.draft }));
+              continue;
+            }
+            if (evt.type === "song_form_prefill") {
+              // Server validated this came from prefill_song_form (admin-only).
+              const prefill = (evt as { type: string; prefill?: SongFormPrefill }).prefill;
+              if (prefill) {
+                window.dispatchEvent(new CustomEvent("ai:song-form-prefill", { detail: prefill }));
+              }
               continue;
             }
             if (evt.type === "confirm_action") {

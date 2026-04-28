@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useUsers } from "../../hooks/useAdmin";
 import { useReports } from "../../hooks/useReports";
@@ -22,6 +22,15 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
   const { t } = useTranslation();
 
   const [tab, setTab] = useState(() => isCurrentUserAdmin ? "users" : "reports");
+
+  // Broadcast the current admin tab so the AI Companion can scope its
+  // behavior to the active sub-page (e.g. "songs" → enables prefill_song_form).
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent("ai:set-subpage", { detail: { subPage: tab } }));
+    return () => {
+      window.dispatchEvent(new CustomEvent("ai:set-subpage", { detail: { subPage: null } }));
+    };
+  }, [tab]);
 
   if ((isCurrentUserAdmin && usersLoading) || reportsLoading) {
     return (

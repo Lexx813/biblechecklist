@@ -7,15 +7,25 @@ import { useGetOrCreateDM } from "../../hooks/useMessages";
 import { friendsApi } from "../../api/friends";
 import Button from "../../components/ui/Button";
 import { formatDate } from "../../utils/formatters";
+import FollowersModal from "./FollowersModal";
 
 /* ── Types ──────────────────────────────────────────────────── */
 
+interface ProfileShape {
+  id?: string;
+  display_name?: string | null;
+  email?: string | null;
+  avatar_url?: string | null;
+  bio?: string | null;
+  created_at?: string | null;
+}
+
 interface Props {
-  profile: any;
+  profile: ProfileShape | null | undefined;
   userId: string;
   currentUserId: string;
   isOwner: boolean;
-  navigate: (page: string, params?: any) => void;
+  navigate: (page: string, params?: Record<string, unknown>) => void;
   onEditProfile?: () => void;
 }
 
@@ -106,6 +116,7 @@ export default function ProfileHeader({
   const { data: isFollowing } = useIsFollowing(currentUserId, userId);
   const toggleFollow = useToggleFollow(currentUserId, userId);
   const getOrCreate = useGetOrCreateDM();
+  const [followersOpen, setFollowersOpen] = useState<"followers" | "following" | null>(null);
 
   /* ── Message handler (visitor) ── */
 
@@ -133,7 +144,7 @@ export default function ProfileHeader({
       <div className="pointer-events-none absolute inset-x-0 top-24 bottom-0 bg-[var(--bg)]" />
 
       {/* Avatar row */}
-      <div className="relative z-[1] flex items-end gap-4 sm:gap-6">
+      <div className="relative z-1 flex items-end gap-4 sm:gap-6">
         <AvatarOverlap profile={profile} userId={userId} isOwner={isOwner} />
 
         {/* Name + counts beside avatar */}
@@ -145,7 +156,7 @@ export default function ProfileHeader({
             <button
               type="button"
               className="cursor-pointer appearance-none border-0 bg-transparent p-0 font-[inherit] text-sm text-[var(--text-muted)] outline-none hover:text-[var(--text-primary)] hover:underline"
-              onClick={() => navigate("publicProfile", { userId })}
+              onClick={() => setFollowersOpen("followers")}
             >
               <span className="font-bold text-[var(--text-primary)]">{counts?.followers ?? 0}</span> {t("profile.followers", "followers")}
             </button>
@@ -153,7 +164,7 @@ export default function ProfileHeader({
             <button
               type="button"
               className="cursor-pointer appearance-none border-0 bg-transparent p-0 font-[inherit] text-sm text-[var(--text-muted)] outline-none hover:text-[var(--text-primary)] hover:underline"
-              onClick={() => navigate("publicProfile", { userId })}
+              onClick={() => setFollowersOpen("following")}
             >
               <span className="font-bold text-[var(--text-primary)]">{counts?.following ?? 0}</span> {t("profile.following", "following")}
             </button>
@@ -222,6 +233,15 @@ export default function ProfileHeader({
           </>
         )}
       </div>
+
+      {followersOpen && (
+        <FollowersModal
+          userId={userId}
+          initialMode={followersOpen}
+          onClose={() => setFollowersOpen(null)}
+          navigate={navigate}
+        />
+      )}
     </div>
   );
 }

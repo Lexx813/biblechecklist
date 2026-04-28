@@ -23,17 +23,25 @@ type Props = {
 const COPY = {
   en: {
     why: "About this song",
-    learnMore: "Read more about this teaching at jw.org",
+    learnMore: "Read more on jw.org",
     lyrics: "Lyrics",
     backToSongs: "All songs",
   },
   es: {
     why: "Sobre esta canción",
-    learnMore: "Lee más sobre esta enseñanza en jw.org",
+    learnMore: "Leer más en jw.org",
     lyrics: "Letra",
     backToSongs: "Todas las canciones",
   },
 };
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="text-[10px] font-bold uppercase tracking-[0.22em] text-violet-700 dark:text-violet-300">
+      {children}
+    </h2>
+  );
+}
 
 export default function SongDetailPage({ song, others, signedUrl, lang }: Props) {
   const t = COPY[lang];
@@ -47,44 +55,35 @@ export default function SongDetailPage({ song, others, signedUrl, lang }: Props)
 
   return (
     <article>
-      <SongHero
-        song={song}
-        signedUrl={signedUrl}
-        lang={lang}
-      />
+      <SongHero song={song} signedUrl={signedUrl} lang={lang} />
 
-      <div className="mx-auto max-w-3xl space-y-12 px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-        <ScriptureCard
-          reference={song.primary_scripture_ref}
-          text={scriptureText}
-          lang={lang}
-        />
+      <div className="mx-auto max-w-3xl space-y-14 px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+        {/* Scripture anchor */}
+        <ScriptureCard reference={song.primary_scripture_ref} text={scriptureText} lang={lang} />
 
+        {/* About this song — quieter */}
         <section>
-          <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl dark:text-slate-50">
-            {t.why}
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-slate-700 dark:text-slate-300">
+          <SectionLabel>{t.why}</SectionLabel>
+          <p className="mt-3 text-[17px] leading-relaxed text-slate-700 dark:text-slate-300">
             {description}
           </p>
           <a
             href={learnMoreUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-violet-700 underline decoration-violet-300 underline-offset-4 transition hover:text-violet-900 hover:decoration-violet-700 dark:text-violet-300 dark:hover:text-violet-100"
+            className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-violet-700 underline decoration-violet-300/70 underline-offset-4 transition hover:text-violet-900 hover:decoration-violet-700 dark:text-violet-300 dark:hover:text-violet-100"
           >
             {t.learnMore}
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <path d="M7 17L17 7M9 7h8v8" />
             </svg>
           </a>
         </section>
 
+        {/* Lyrics */}
         <section>
-          <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl dark:text-slate-50">
-            {t.lyrics}
-          </h2>
-          <div className="mt-6">
+          <SectionLabel>{t.lyrics}</SectionLabel>
+          <div className="mt-5">
             <LyricsDisplay lyrics={lyrics} lang={lang} />
           </div>
         </section>
@@ -104,7 +103,7 @@ export default function SongDetailPage({ song, others, signedUrl, lang }: Props)
         <div className="pt-2">
           <Link
             href={songsHome}
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-600 transition hover:text-violet-700 dark:text-slate-400 dark:hover:text-violet-300"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 transition hover:text-violet-700 dark:text-slate-400 dark:hover:text-violet-300"
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <path d="M19 12H5M12 5l-7 7 7 7" />

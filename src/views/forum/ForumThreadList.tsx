@@ -9,6 +9,7 @@ import {
 } from "../../hooks/useForum";
 import { useBlocks } from "../../hooks/useBlocks";
 import { useMeta } from "../../hooks/useMeta";
+import ConfirmModal from "../../components/ConfirmModal";
 import {
   displayName, timeAgo, Avatar, BadgeChip, ModBadge,
   IconPin, IconLock, IconEye, IconThumbsUp, IconQuote,
@@ -101,6 +102,7 @@ export function ForumThreadList({ category, user, onSelectThread, onBack, naviga
   const [title, setTitle]   = useState(() => { try { return JSON.parse(localStorage.getItem(draftKey) || "{}").title || ""; } catch { return ""; } });
   const [content, setContent] = useState(() => { try { return JSON.parse(localStorage.getItem(draftKey) || "{}").content || ""; } catch { return ""; } });
   const [formError, setFormError] = useState("");
+  const [discardOpen, setDiscardOpen] = useState(false);
 
   const isDirty = title.trim().length > 0 || (content && content !== "<p></p>");
 
@@ -167,12 +169,25 @@ export function ForumThreadList({ category, user, onSelectThread, onBack, naviga
           <h2 className="forum-list-title">{category.name}</h2>
         </div>
         <button className="forum-new-btn" onClick={() => {
-          if (showForm && isDirty && !window.confirm("You have unsaved changes. Leave anyway?")) return;
+          if (showForm && isDirty) { setDiscardOpen(true); return; }
           if (showForm) { setTitle(""); setContent(""); }
           setShowForm(v => !v);
         }}>
           {showForm ? t("common.cancel") : t("forum.newThread")}
         </button>
+        {discardOpen && (
+          <ConfirmModal
+            message="You have unsaved changes in this thread. Discard them and close?"
+            confirmLabel="Discard"
+            onConfirm={() => {
+              setDiscardOpen(false);
+              setTitle("");
+              setContent("");
+              setShowForm(false);
+            }}
+            onCancel={() => setDiscardOpen(false)}
+          />
+        )}
       </div>
 
       <div className="forum-search-bar">

@@ -37,3 +37,9 @@ export function sanitizeRich(html: string): string {
 export function sanitize(html: string): string {
   return DOMPurify.sanitize(html || "");
 }
+
+/** Strip all tags, return plain text. Safe for non-browser contexts. */
+export function stripHtml(html: string): string {
+  if (!html) return "";
+  return html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+}
