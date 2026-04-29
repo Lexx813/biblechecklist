@@ -172,7 +172,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
       {/* ── Nav ─────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 h-[61px] border-b border-[var(--lp-nav-border)] bg-[var(--lp-nav-bg)] backdrop-blur-xl" style={{ contain: "layout" }}>
         <div className="mx-auto flex h-[60px] max-w-[1080px] items-center gap-8 px-6">
-          <a href="/" className="flex shrink-0 items-center gap-2.5 text-[15px] font-bold tracking-tight text-[var(--lp-text)] no-underline" aria-label="JW Study home">
+          <a href="/" className="flex shrink-0 items-center gap-2.5 text-[15px] font-bold tracking-tight text-[var(--lp-text)] no-underline" aria-label={t("landing.jwsHomeAria")}>
             <span className="flex items-center text-[var(--lp-primary)]"><BookIcon /></span>
             <span>JW Study</span>
           </a>

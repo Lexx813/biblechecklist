@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 
 export type LikerProfile = { id: string; display_name: string | null; avatar_url: string | null };
 
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function LikedByPopover({ count, fetchLikers, className }: Props) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [likers, setLikers] = useState<LikerProfile[] | null>(null);
   const [loading, setLoading] = useState(false);
@@ -102,7 +104,7 @@ export default function LikedByPopover({ count, fetchLikers, className }: Props)
         onPointerLeave={onPointerLeaveTrigger}
         onFocus={openPopover}
         onBlur={scheduleClose}
-        aria-label="See who liked this"
+        aria-label={t("liked.seeWhoLiked")}
         aria-expanded={open}
       >
         {count}
@@ -138,14 +140,14 @@ export default function LikedByPopover({ count, fetchLikers, className }: Props)
             }}
           />
 
-          <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-wide text-[var(--text-muted)]">Liked by</p>
+          <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-wide text-[var(--text-muted)]">{t("liked.likedBy")}</p>
 
           {loading ? (
             <div className="flex items-center justify-center py-2">
               <div className="size-4 animate-spin rounded-full border-2 border-[var(--border)] border-t-[var(--accent)]" />
             </div>
           ) : shown.length === 0 ? (
-            <p className="text-[12px] text-[var(--text-muted)]">No likes yet</p>
+            <p className="text-[12px] text-[var(--text-muted)]">{t("liked.noLikesYet")}</p>
           ) : (
             <div className="flex flex-col gap-1.5">
               {shown.map(u => (
@@ -156,11 +158,11 @@ export default function LikedByPopover({ count, fetchLikers, className }: Props)
                         {(u.display_name ?? "?")[0].toUpperCase()}
                       </div>
                   }
-                  <span className="truncate text-[12px] text-[var(--text-primary)]">{u.display_name ?? "Someone"}</span>
+                  <span className="truncate text-[12px] text-[var(--text-primary)]">{u.display_name ?? t("liked.someone")}</span>
                 </div>
               ))}
               {extra > 0 && (
-                <p className="mt-0.5 text-[11px] text-[var(--text-muted)]">+{extra} more</p>
+                <p className="mt-0.5 text-[11px] text-[var(--text-muted)]">{t("liked.plusMore", { count: extra })}</p>
               )}
             </div>
           )}

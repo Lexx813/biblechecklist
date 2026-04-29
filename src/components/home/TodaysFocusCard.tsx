@@ -1,4 +1,5 @@
 import { useMemo, useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import {
   useMyPlans,
   usePlanCompletions,
@@ -54,6 +55,7 @@ interface Props {
 }
 
 export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props) {
+  const { t } = useTranslation();
   const { data: plans = [], isLoading: plansLoading } = useMyPlans();
   const activePlan = plans.find(p => !p.is_paused && !p.completed_at) ?? null;
   const activePlanTotalDays = activePlan ? getTemplateOrCustom(activePlan).totalDays : undefined;
@@ -143,14 +145,14 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
         <div className="tf-no-plan">
           <div className="tf-no-plan-icon">📅</div>
           <div className="tf-no-plan-text">
-            <div className="tf-no-plan-title">Start a reading plan</div>
-            <div className="tf-no-plan-sub">Daily assignments, streak tracking, finish the NWT in 1 year.</div>
+            <div className="tf-no-plan-title">{t("home.startReadingPlan")}</div>
+            <div className="tf-no-plan-sub">{t("home.dailyAssignmentsHook")}</div>
           </div>
           <button
             className="tf-no-plan-cta"
             onClick={() => navigate("readingPlans")}
           >
-            Browse Plans
+            {t("home.browsePlans")}
           </button>
         </div>
         {lastRead && (
@@ -159,8 +161,8 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
             </span>
             <div className="tf-continue-body">
-              <div className="tf-continue-title">Continue, {BOOKS[lastRead.bookIndex]?.name} {lastRead.chapter}</div>
-              <div className="tf-continue-sub">Last read {formatDate(lastRead.ts)}</div>
+              <div className="tf-continue-title">{t("home.continueAt", { name: BOOKS[lastRead.bookIndex]?.name, chapter: lastRead.chapter })}</div>
+              <div className="tf-continue-sub">{t("home.lastReadDate", { date: formatDate(lastRead.ts) })}</div>
             </div>
             <span className="tf-continue-arrow">›</span>
           </button>
@@ -177,8 +179,8 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
           onClick={() => { setDismissed(false); localStorage.removeItem("tf-dismissed"); }}
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-          <span>Today&apos;s reading done, {readingsLabel(todayReadings)}</span>
-          <span className="tf-dismissed-expand">Show</span>
+          <span>{t("home.todaysReadingDone", { label: readingsLabel(todayReadings) })}</span>
+          <span className="tf-dismissed-expand">{t("common.show")}</span>
         </button>
         {lastRead && (
           <button className="tf-continue" onClick={() => navigate("main")}>
@@ -186,8 +188,8 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
             </span>
             <div className="tf-continue-body">
-              <div className="tf-continue-title">Continue, {BOOKS[lastRead.bookIndex]?.name} {lastRead.chapter}</div>
-              <div className="tf-continue-sub">Last read {formatDate(lastRead.ts)}</div>
+              <div className="tf-continue-title">{t("home.continueAt", { name: BOOKS[lastRead.bookIndex]?.name, chapter: lastRead.chapter })}</div>
+              <div className="tf-continue-sub">{t("home.lastReadDate", { date: formatDate(lastRead.ts) })}</div>
             </div>
             <span className="tf-continue-arrow">›</span>
           </button>
@@ -201,13 +203,13 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
       <div className="tf-card">
         <div className="tf-header">
           <div>
-            <div className="tf-label">Today's Reading</div>
+            <div className="tf-label">{t("home.todaysReadingLabel")}</div>
             <h3 className="tf-title">{readingsLabel(todayReadings)}</h3>
-            <div className="tf-subtitle">{template.name} · Day {currentDay} of {template.totalDays}</div>
+            <div className="tf-subtitle">{t("home.dayOfTotal", { name: template.name, day: currentDay, total: template.totalDays })}</div>
           </div>
           {streak.current_streak > 0 && (
             <div className="tf-streak">
-              <div className="tf-streak-label">Streak</div>
+              <div className="tf-streak-label">{t("home.streak")}</div>
               <div className="tf-streak-value">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="#fb923c" aria-hidden="true"><path d="M12 23c-4.97 0-8-3.03-8-7 0-2.44 1.34-4.81 2.5-6.35A1 1 0 0 1 8.18 10c.34 1.14 1.1 2.13 2.05 2.75C10.31 10 12 6 12 2a1 1 0 0 1 1.66-.75c2.24 1.92 5.84 5.63 5.84 10.75 0 5.68-3.55 11-7.5 11z"/></svg>
                 <span
@@ -224,7 +226,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
         {/* Streak freeze */}
         <div className="tf-freeze-row">
           <span className="tf-freeze-token-count">
-            ❄️ {freezeStatus?.tokens ?? 2} {(freezeStatus?.tokens ?? 2) === 1 ? "freeze" : "freezes"} left
+            {t("home.freezesLeft", { count: freezeStatus?.tokens ?? 2 })}
           </span>
           {canFreeze && (
             <button
@@ -232,23 +234,23 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
               onClick={() => setShowFreezeConfirm(true)}
               disabled={applyFreeze.isPending}
             >
-              Freeze streak
+              {t("home.freezeStreak")}
             </button>
           )}
           {(freezeStatus?.tokens ?? 0) === 0 && (
-            <span style={{ opacity: 0.5, fontSize: "0.78rem" }}>No freezes left this month</span>
+            <span style={{ opacity: 0.5, fontSize: "0.78rem" }}>{t("home.noFreezesLeft")}</span>
           )}
         </div>
 
         {showFreezeConfirm && (
           <div className="freeze-confirm-overlay" onClick={() => setShowFreezeConfirm(false)}>
-            <div className="freeze-confirm-dialog" role="dialog" aria-modal="true" aria-label="Confirm streak freeze" onClick={(e) => e.stopPropagation()}>
-              <p style={{ margin: "0 0 8px", fontWeight: 600 }}>Use a freeze token?</p>
+            <div className="freeze-confirm-dialog" role="dialog" aria-modal="true" aria-label={t("home.confirmFreeze")} onClick={(e) => e.stopPropagation()}>
+              <p style={{ margin: "0 0 8px", fontWeight: 600 }}>{t("home.useFreezeToken")}</p>
               <p style={{ margin: "0 0 0", color: "var(--text-secondary)", fontSize: "0.85rem" }}>
-                {freezeStatus?.tokens ?? 0} token{(freezeStatus?.tokens ?? 0) !== 1 ? "s" : ""} remaining after this.
+                {t("home.tokensRemaining", { count: freezeStatus?.tokens ?? 0 })}
               </p>
               <div className="freeze-confirm-actions">
-                <button className="tf-freeze-btn" onClick={() => setShowFreezeConfirm(false)}>Cancel</button>
+                <button className="tf-freeze-btn" onClick={() => setShowFreezeConfirm(false)}>{t("common.cancel")}</button>
                 <button
                   className="tf-freeze-btn"
                   style={{ background: "var(--accent)", color: "#fff", borderColor: "var(--accent)" }}
@@ -269,7 +271,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
           <div className="tf-progress-bar-track">
             <div className="tf-progress-bar-fill" style={{ width: `${pct}%` }} />
           </div>
-          <div className="tf-progress-meta">{pct}% complete · {template.totalDays - doneSet.size} days remaining</div>
+          <div className="tf-progress-meta">{t("home.percentComplete", { pct, remaining: template.totalDays - doneSet.size })}</div>
         </div>
 
         <div className="tf-actions">
@@ -279,8 +281,8 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
             disabled={markDay.isPending || unmarkDay.isPending}
           >
             {todayDone
-              ? <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Done for today</>
-              : "✓ Mark Done"
+              ? <><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> {t("home.doneForToday")}</>
+              : t("home.markDone")
             }
           </button>
           {wolUrl && (
@@ -290,7 +292,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
               rel="noopener noreferrer"
               className="tf-wol-btn"
             >
-              Open in WOL →
+              {t("home.openInWol")}
             </a>
           )}
         </div>

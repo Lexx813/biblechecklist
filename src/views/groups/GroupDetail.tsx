@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   useGroup, useGroupPosts, useGroupEvents,
   useLeaveGroup, useDeleteGroup,
@@ -24,6 +25,7 @@ interface GroupDetailProps {
 }
 
 export default function GroupDetail({ groupId, user, navigate }: GroupDetailProps) {
+  const { t } = useTranslation();
   const [tab, setTab] = useState<Tab>("feed");
   const [showCreateEvent, setShowCreateEvent] = useState(false);
   const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
@@ -43,14 +45,14 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
   function handleLeave() {
     leaveGroup.mutate(groupId, {
       onSuccess: () => navigate("groups"),
-      onError: () => toast.error("Failed to leave group."),
+      onError: () => toast.error(t("groups.failedToLeave")),
     });
   }
 
   function handleDelete() {
     deleteGroup.mutate(groupId, {
       onSuccess: () => navigate("groups"),
-      onError: () => toast.error("Failed to delete group."),
+      onError: () => toast.error(t("groups.failedToDelete")),
     });
   }
 
@@ -68,8 +70,8 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
   if (groupError || !group) {
     return (
       <div className="grp-detail-page">
-        <p className="grp-error">Group not found or you don&apos;t have access.</p>
-        <button className="grp-btn grp-btn--ghost" onClick={() => navigate("groups")}>← Back to groups</button>
+        <p className="grp-error">{t("groups.notFoundOrNoAccess")}</p>
+        <button className="grp-btn grp-btn--ghost" onClick={() => navigate("groups")}>{t("groups.backToGroups")}</button>
       </div>
     );
   }
@@ -80,14 +82,14 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
       <div className="grp-detail-page grp-pending-page">
         <div className="grp-hero grp-hero--sm">
           {group.cover_url ? <img src={group.cover_url} alt={group.name} className="grp-hero-img" loading="lazy" /> : <div className="grp-hero-placeholder"><span>{(group.name||"?")[0].toUpperCase()}</span></div>}
-          <button className="grp-back-btn grp-back-btn--overlay" onClick={() => navigate("groups")}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg> Groups</button>
+          <button className="grp-back-btn grp-back-btn--overlay" onClick={() => navigate("groups")}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg> {t("groups.backToGroupsTitle")}</button>
         </div>
         <div className="grp-detail-info"><div className="grp-detail-info-main"><div><h1 className="grp-detail-title">{group.name}</h1></div></div></div>
         <div className="grp-pending-banner">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <h3>Request pending</h3>
-          <p>An admin needs to approve your request before you can see the group.</p>
-          <button className="grp-btn grp-btn--ghost" onClick={handleLeave}>Cancel request</button>
+          <h3>{t("groups.requestPending")}</h3>
+          <p>{t("groups.adminApprovalNeeded")}</p>
+          <button className="grp-btn grp-btn--ghost" onClick={handleLeave}>{t("groups.cancelRequest")}</button>
         </div>
       </div>
     );
@@ -99,12 +101,12 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
       <div className="grp-detail-page grp-pending-page">
         <div className="grp-hero grp-hero--sm">
           {group.cover_url ? <img src={group.cover_url} alt={group.name} className="grp-hero-img" loading="lazy" /> : <div className="grp-hero-placeholder"><span>{(group.name||"?")[0].toUpperCase()}</span></div>}
-          <button className="grp-back-btn grp-back-btn--overlay" onClick={() => navigate("groups")}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg> Groups</button>
+          <button className="grp-back-btn grp-back-btn--overlay" onClick={() => navigate("groups")}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg> {t("groups.backToGroupsTitle")}</button>
         </div>
         <div className="grp-detail-info"><div className="grp-detail-info-main"><div><h1 className="grp-detail-title">{group.name}</h1></div></div></div>
         <div className="grp-pending-banner">
           <p>{group.description}</p>
-          <p className="grp-pending-banner-sub">{group.member_count} members</p>
+          <p className="grp-pending-banner-sub">{t("groups.memberCount", { count: group.member_count })}</p>
         </div>
       </div>
     );
@@ -120,7 +122,7 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
             : <div className="grp-hero-placeholder"><span>{(group.name || "?")[0].toUpperCase()}</span></div>}
           <button className="grp-back-btn grp-back-btn--overlay" onClick={() => navigate("groups")}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-            Groups
+            {t("groups.backToGroupsTitle")}
           </button>
         </div>
 
@@ -130,20 +132,20 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
             <div>
               <div className="grp-detail-title-row">
                 <h1 className="grp-detail-title">{group.name}</h1>
-                {group.privacy === "private" && <span className="grp-badge grp-badge--private">Private</span>}
+                {group.privacy === "private" && <span className="grp-badge grp-badge--private">{t("groups.privateBadge")}</span>}
               </div>
               {group.description && <p className="grp-detail-desc">{group.description}</p>}
               <p className="grp-detail-meta">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                {group.member_count} {group.member_count === 1 ? "member" : "members"}
+                {t("groups.memberCount", { count: group.member_count })}
               </p>
             </div>
             <div className="grp-detail-header-actions">
               {!isOwner && (
-                <button className="grp-btn grp-btn--ghost grp-btn--sm" onClick={() => setShowLeaveConfirm(true)}>Leave</button>
+                <button className="grp-btn grp-btn--ghost grp-btn--sm" onClick={() => setShowLeaveConfirm(true)}>{t("groups.leave")}</button>
               )}
               {isOwner && (
-                <button className="grp-btn grp-btn--danger grp-btn--sm" onClick={() => setShowDeleteConfirm(true)}>Delete group</button>
+                <button className="grp-btn grp-btn--danger grp-btn--sm" onClick={() => setShowDeleteConfirm(true)}>{t("groups.deleteGroup")}</button>
               )}
             </div>
           </div>
@@ -151,9 +153,9 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
 
         {/* Tabs */}
         <div className="grp-tabs grp-tabs--detail">
-          {(["feed", "members", "events", "files"] as Tab[]).map(t => (
-            <button key={t} className={`grp-tab${tab === t ? " grp-tab--active" : ""}`} onClick={() => setTab(t)}>
-              {t.charAt(0).toUpperCase() + t.slice(1)}
+          {(["feed", "members", "events", "files"] as Tab[]).map(tname => (
+            <button key={tname} className={`grp-tab${tab === tname ? " grp-tab--active" : ""}`} onClick={() => setTab(tname)}>
+              {tname === "feed" ? t("groups.tabFeed") : tname === "members" ? t("groups.tabMembers") : tname === "events" ? t("groups.tabEvents") : t("groups.tabFiles")}
             </button>
           ))}
         </div>
@@ -168,7 +170,7 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
               </div>
             ) : (posts as GroupPost[]).length === 0 ? (
               <div className="grp-empty-state grp-empty-state--sm">
-                <p>No posts yet. Start the conversation.</p>
+                <p>{t("groups.noPostsYet")}</p>
               </div>
             ) : (
               (posts as GroupPost[]).map(p => (
@@ -190,15 +192,15 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
               <div className="grp-events-header">
                 <button className="grp-btn grp-btn--primary grp-btn--sm" onClick={() => setShowCreateEvent(true)}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                  Create event
+                  {t("groups.createEventBtn")}
                 </button>
               </div>
             )}
             {eventsLoading ? (
-              <p className="grp-tab-loading">Loading events…</p>
+              <p className="grp-tab-loading">{t("groups.loadingEvents")}</p>
             ) : (events as GroupEvent[]).length === 0 ? (
               <div className="grp-empty-state grp-empty-state--sm">
-                <p>{isAdmin ? "No events yet. Create one above." : "No events scheduled yet."}</p>
+                <p>{isAdmin ? t("groups.noEventsAdmin") : t("groups.noEventsScheduled")}</p>
               </div>
             ) : (
               (events as GroupEvent[]).map(e => (
@@ -214,9 +216,9 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
       {showCreateEvent && <CreateEventModal groupId={groupId} onClose={() => setShowCreateEvent(false)} />}
       {showLeaveConfirm && (
         <ConfirmModal
-          title="Leave group"
-          message={`Leave ${group.name}? You'll need to rejoin to see it again.`}
-          confirmLabel="Leave"
+          title={t("groups.leaveGroup")}
+          message={t("groups.leaveGroupConfirm", { name: group.name })}
+          confirmLabel={t("groups.leave")}
           onConfirm={handleLeave}
           onCancel={() => setShowLeaveConfirm(false)}
           danger
@@ -224,9 +226,9 @@ export default function GroupDetail({ groupId, user, navigate }: GroupDetailProp
       )}
       {showDeleteConfirm && (
         <ConfirmModal
-          title="Delete group"
-          message={`Permanently delete "${group.name}" and all its content? This cannot be undone.`}
-          confirmLabel="Delete"
+          title={t("groups.deleteGroup")}
+          message={t("groups.deleteGroupConfirm", { name: group.name })}
+          confirmLabel={t("common.delete")}
           onConfirm={handleDelete}
           onCancel={() => setShowDeleteConfirm(false)}
           danger

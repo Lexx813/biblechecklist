@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { useFollowers, useFollowing } from "../../hooks/useFollows";
 
 type Mode = "followers" | "following";
@@ -18,6 +19,7 @@ interface Props {
 }
 
 function PersonRow({ person, onClick }: { person: Person; onClick: () => void }) {
+  const { t } = useTranslation();
   const initial = (person.display_name || "?")[0].toUpperCase();
   return (
     <button
@@ -30,12 +32,13 @@ function PersonRow({ person, onClick }: { person: Person; onClick: () => void })
       ) : (
         <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#7c3aed] to-[#a855f7] text-sm font-bold text-white">{initial}</span>
       )}
-      <span className="truncate text-sm font-semibold text-[var(--text-primary)]">{person.display_name || "Anonymous"}</span>
+      <span className="truncate text-sm font-semibold text-[var(--text-primary)]">{person.display_name || t("follow.anonymous")}</span>
     </button>
   );
 }
 
 export default function FollowersModal({ userId, initialMode, onClose, navigate }: Props) {
+  const { t } = useTranslation();
   const [mode, setMode] = useState<Mode>(initialMode);
   const [query, setQuery] = useState("");
   const followers = useFollowers(mode === "followers" ? userId : undefined);
@@ -68,20 +71,20 @@ export default function FollowersModal({ userId, initialMode, onClose, navigate 
               onClick={() => setMode("followers")}
               className={`rounded-md px-3 py-1 text-sm font-semibold transition-colors ${mode === "followers" ? "bg-[var(--card-bg)] text-[var(--text-primary)] shadow-sm" : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"}`}
             >
-              Followers
+              {t("follow.followers")}
             </button>
             <button
               type="button"
               onClick={() => setMode("following")}
               className={`rounded-md px-3 py-1 text-sm font-semibold transition-colors ${mode === "following" ? "bg-[var(--card-bg)] text-[var(--text-primary)] shadow-sm" : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"}`}
             >
-              Following
+              {t("follow.following")}
             </button>
           </div>
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close"
+            aria-label={t("common.close")}
             className="flex size-8 cursor-pointer items-center justify-center rounded-full border-0 bg-[var(--hover-bg)] text-[var(--text-muted)] transition-colors hover:bg-[var(--border)] hover:text-[var(--text-primary)]"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -95,21 +98,21 @@ export default function FollowersModal({ userId, initialMode, onClose, navigate 
         <div className="shrink-0 px-4 pt-3 pb-2">
           <input
             type="search"
-            placeholder="Search…"
+            placeholder={t("common.search")}
             value={query}
             onChange={e => setQuery(e.target.value)}
             className="w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text-primary)] outline-none transition-colors focus:border-[var(--accent)]"
-            aria-label={`Search ${mode}`}
+            aria-label={t("follow.searchMode", { mode: mode === "followers" ? t("follow.followers") : t("follow.following") })}
           />
         </div>
 
         {/* List */}
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto pb-2">
           {active.isLoading ? (
-            <p className="px-4 py-8 text-center text-sm text-[var(--text-muted)]">Loading…</p>
+            <p className="px-4 py-8 text-center text-sm text-[var(--text-muted)]">{t("follow.loading")}</p>
           ) : filtered.length === 0 ? (
             <p className="px-4 py-8 text-center text-sm text-[var(--text-muted)]">
-              {query ? "No matches" : mode === "followers" ? "No followers yet" : "Not following anyone yet"}
+              {query ? t("follow.noMatches") : mode === "followers" ? t("follow.noFollowersYet") : t("follow.notFollowingAnyoneYet")}
             </p>
           ) : (
             filtered.map(person => (

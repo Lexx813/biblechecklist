@@ -202,10 +202,10 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
 
       {convToDelete && (
         <ConfirmModal
-          message="Delete this conversation? This cannot be undone."
+          message={t("messages.deleteConversationConfirm")}
           onConfirm={confirmDelete}
           onCancel={() => setConvToDelete(null)}
-          confirmLabel="Delete"
+          confirmLabel={t("common.delete")}
           danger
         />
       )}

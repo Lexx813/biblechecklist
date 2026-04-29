@@ -94,7 +94,7 @@ function TimedLeaderboardList({ level, currentUserId }) {
   if (isLoading) return <SkeletonList />;
   if (!entries.length) return (
     <p style={{ textAlign: "center", color: "var(--text-secondary)", padding: "32px 0" }}>
-      {t("leaderboard.noScores", "No scores yet for this level.")}
+      {t("leaderboard.noScoresThisLevel")}
     </p>
   );
 

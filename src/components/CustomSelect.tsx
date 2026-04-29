@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import "../styles/custom-select.css";
 
 /**
@@ -27,7 +28,9 @@ interface Props {
   className?: string;
 }
 
-export default function CustomSelect({ value, onChange, options, placeholder = "Select…", searchable = false, className = "" }: Props) {
+export default function CustomSelect({ value, onChange, options, placeholder, searchable = false, className = "" }: Props) {
+  const { t } = useTranslation();
+  const ph = placeholder ?? t("common.select", "Select…");
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const ref = useRef<HTMLDivElement>(null);
@@ -61,7 +64,7 @@ export default function CustomSelect({ value, onChange, options, placeholder = "
         onClick={() => setOpen(o => !o)}
       >
         <span className={`cs-btn-label${selected ? "" : " cs-placeholder"}`}>
-          {selected ? selected.label : placeholder}
+          {selected ? selected.label : ph}
         </span>
         <span className="cs-arrow">▾</span>
       </button>
@@ -72,11 +75,11 @@ export default function CustomSelect({ value, onChange, options, placeholder = "
             <div className="cs-search-wrap">
               <input
                 className="cs-search"
-                placeholder="Search…"
+                placeholder={t("common.search")}
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 autoFocus
-                aria-label="Search options"
+                aria-label={t("common.searchOptions")}
               />
             </div>
           )}
@@ -91,7 +94,7 @@ export default function CustomSelect({ value, onChange, options, placeholder = "
                 {o.label}
               </button>
             ))}
-            {filtered.length === 0 && <p className="cs-no-results">No results</p>}
+            {filtered.length === 0 && <p className="cs-no-results">{t("common.noResults")}</p>}
           </div>
         </div>
       )}

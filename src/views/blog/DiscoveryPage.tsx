@@ -1,4 +1,5 @@
 import { useState, useDeferredValue } from "react";
+import { useTranslation } from "react-i18next";
 import {
   usePublishedPosts,
   useFeaturedPost,
@@ -77,6 +78,7 @@ interface Props {
 }
 
 export default function DiscoveryPage({ navigate, user }: Props) {
+  const { t } = useTranslation();
   const [activeTopic, setActiveTopic] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
@@ -180,7 +182,7 @@ export default function DiscoveryPage({ navigate, user }: Props) {
                   <button
                     className="disc-writer-view"
                     onClick={() => navigate("publicProfile", { userId: writer.id })}
-                  >View</button>
+                  >{t("blog.viewBtn")}</button>
                 </div>
               ))}
             </div>
@@ -233,9 +235,9 @@ export default function DiscoveryPage({ navigate, user }: Props) {
 
           {/* Post grid */}
           {isLoading ? (
-            <div className="disc-empty">Loading…</div>
+            <div className="disc-empty">{t("blog.loading")}</div>
           ) : visiblePosts.length === 0 ? (
-            <div className="disc-empty">No articles found.</div>
+            <div className="disc-empty">{t("blog.noArticlesFound")}</div>
           ) : (
             <div className="disc-grid">
               {visiblePosts.map(post => (

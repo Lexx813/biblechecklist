@@ -176,15 +176,15 @@ export default function AnonChecklistPage({ onSignUp, onBack }: Props) {
 
       {/* Sticky save-progress banner */}
       {showSaveBanner && (
-        <div className="anon-save-banner" role="region" aria-label="Save your progress">
+        <div className="anon-save-banner" role="region" aria-label={t("onboarding.saveBannerRegion")}>
           <div className="anon-save-banner-inner">
             <div className="anon-save-banner-text">
-              <strong>You've read {totalChecked} chapter{totalChecked === 1 ? "" : "s"} 🎉</strong>
-              <span>Create a free account to save your progress across all your devices.</span>
+              <strong>{t("onboarding.youveReadChapters", { count: totalChecked })}</strong>
+              <span>{t("onboarding.saveProgressDesc")}</span>
             </div>
             <div className="anon-save-banner-actions">
-              <button className="anon-save-banner-cta" onClick={onSignUp}>Save my progress</button>
-              <button className="anon-save-banner-dismiss" onClick={() => setBannerDismissed(true)} aria-label="Dismiss">
+              <button className="anon-save-banner-cta" onClick={onSignUp}>{t("onboarding.saveMyProgress")}</button>
+              <button className="anon-save-banner-dismiss" onClick={() => setBannerDismissed(true)} aria-label={t("common.dismiss")}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                 </svg>

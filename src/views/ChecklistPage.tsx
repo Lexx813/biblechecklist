@@ -373,10 +373,10 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
               {activePlan && todayReading && (
                 <div className="cl-plan-widget">
                   <div className="cl-plan-widget-top">
-                    <span className="cl-plan-name">{(activePlan as any).template_id ?? "Reading Plan"}</span>
-                    <button className="cl-plan-open" onClick={() => navigate("readingPlans")}>Open →</button>
+                    <span className="cl-plan-name">{(activePlan as any).template_id ?? t("checklist.defaultPlanName")}</span>
+                    <button className="cl-plan-open" onClick={() => navigate("readingPlans")}>{t("checklist.openArrow")}</button>
                   </div>
-                  <p className="cl-plan-today">Today: {BOOKS[todayReading.bookIndex]?.name} {todayReading.chapter}</p>
+                  <p className="cl-plan-today">{t("checklist.todayPrefix")}{BOOKS[todayReading.bookIndex]?.name} {todayReading.chapter}</p>
                 </div>
               )}
 
@@ -416,7 +416,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
               inputMode="search"
               placeholder={t("app.searchPlaceholder")}
               value={search}
-              aria-label="Search books"
+              aria-label={t("checklist.searchBooks")}
               onChange={e => setSearch(e.target.value)}
             />
           </div>
@@ -445,7 +445,7 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
               >
                 <span>📖</span>
                 <span>
-                  <span className="tracker-continue-label">Continue reading</span>
+                  <span className="tracker-continue-label">{t("checklist.continueReading")}</span>
                   <span className="tracker-continue-title">
                     {BOOKS[todayReading.bookIndex]?.name} {todayReading.chapter}
                   </span>
@@ -459,8 +459,8 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
               >
                 <span>📅</span>
                 <span>
-                  <span className="tracker-continue-label">No active plan</span>
-                  <span className="tracker-continue-title">Start a reading plan →</span>
+                  <span className="tracker-continue-label">{t("checklist.noActivePlan")}</span>
+                  <span className="tracker-continue-title">{t("checklist.startReadingPlanArrow")}</span>
                 </span>
               </button>
             )}

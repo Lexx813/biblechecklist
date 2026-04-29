@@ -78,7 +78,7 @@ export default function TopBar({
   const [langOpen, setLangOpen] = useState(false);
   const avatarRef = useRef<HTMLDivElement>(null);
   const langRef = useRef<HTMLDivElement>(null);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const currentLang = LANGUAGES.find(l => i18n.language?.split("-")[0]?.startsWith(l.code))?.code ?? "en";
 
   useEffect(() => {
@@ -114,7 +114,7 @@ export default function TopBar({
     <>
       <header className="topbar" role="banner">
         {/* Left: logo */}
-        <button className="topbar-logo" onClick={() => navigate("home")} aria-label="JW Study, Go to home">
+        <button className="topbar-logo" onClick={() => navigate("home")} aria-label={t("topbar.goToHome")}>
           <span className="topbar-logo-icon"><LogoIcon /></span>
           <span className="topbar-wordmark">JW Study</span>
         </button>
@@ -124,10 +124,10 @@ export default function TopBar({
           <button
             className="topbar-search-btn"
             onClick={handleSearchClick}
-            aria-label="Search… (⌘K)"
+            aria-label={t("topbar.searchShortcutAria")}
           >
             <SearchIcon />
-            Search…
+            {t("topbar.searchPlaceholder")}
             <span className="topbar-search-shortcut">⌘K</span>
           </button>
         </div>
@@ -138,7 +138,7 @@ export default function TopBar({
           <button
             className="topbar-btn topbar-btn--admin-mobile"
             onClick={() => navigate("admin")}
-            aria-label="Admin panel"
+            aria-label={t("topbar.adminPanel")}
             aria-hidden={!profile?.is_admin || undefined}
             tabIndex={profile?.is_admin ? 0 : -1}
             style={!profile?.is_admin ? { visibility: "hidden", pointerEvents: "none" } : undefined}
@@ -152,8 +152,8 @@ export default function TopBar({
           <button
             className="topbar-btn topbar-btn--nav"
             onClick={() => navigate("videosDash")}
-            aria-label="Post a video"
-            data-tip="Post a Video"
+            aria-label={t("topbar.postAVideo")}
+            data-tip={t("topbar.postAVideoTip")}
             aria-hidden={!(profile?.is_approved_creator || profile?.is_admin) || undefined}
             tabIndex={profile?.is_approved_creator || profile?.is_admin ? 0 : -1}
             style={!(profile?.is_approved_creator || profile?.is_admin) ? { visibility: "hidden", pointerEvents: "none" } : undefined}
@@ -168,8 +168,8 @@ export default function TopBar({
           <a
             href="/ai"
             className="topbar-btn topbar-btn--nav topbar-btn--ai"
-            aria-label="AI Study Companion"
-            data-tip="AI Study Companion"
+            aria-label={t("topbar.aiCompanion")}
+            data-tip={t("topbar.aiCompanion")}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
@@ -181,8 +181,8 @@ export default function TopBar({
           <a
             href="/songs"
             className="topbar-btn topbar-btn--nav"
-            aria-label="Songs"
-            data-tip="Songs"
+            aria-label={t("topbar.songs")}
+            data-tip={t("topbar.songs")}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M9 18V5l12-2v13"/>
@@ -195,8 +195,8 @@ export default function TopBar({
           <button
             className={`topbar-btn topbar-btn--nav${currentPage === "feed" ? " topbar-btn--active" : ""}`}
             onClick={() => navigate("feed")}
-            aria-label="Feed"
-            data-tip="Feed"
+            aria-label={t("topbar.feed")}
+            data-tip={t("topbar.feed")}
           >
             <FeedIcon />
           </button>
@@ -205,8 +205,8 @@ export default function TopBar({
           <button
             className={`topbar-btn topbar-btn--nav${currentPage === "bookmarks" ? " topbar-btn--active" : ""}`}
             onClick={() => navigate("bookmarks")}
-            aria-label="Bookmarks"
-            data-tip="Bookmarks"
+            aria-label={t("topbar.bookmarks")}
+            data-tip={t("topbar.bookmarks")}
           >
             <BookmarkIcon />
           </button>
@@ -215,8 +215,8 @@ export default function TopBar({
           <button
             className={`topbar-btn${currentPage === "messages" ? " topbar-btn--active" : ""}`}
             onClick={() => navigate("messages")}
-            aria-label={`Messages${unreadMessages > 0 ? ` (${unreadMessages} unread)` : ""}`}
-            data-tip="Messages"
+            aria-label={unreadMessages > 0 ? t("topbar.messagesUnread", { count: unreadMessages }) : t("topbar.messages")}
+            data-tip={t("topbar.messages")}
           >
             <MessageIcon />
             {unreadMessages > 0 && (
@@ -231,9 +231,9 @@ export default function TopBar({
             <button
               className="topbar-btn"
               onClick={() => setLangOpen(o => !o)}
-              aria-label="Change language"
+              aria-label={t("topbar.changeLanguage")}
               aria-expanded={langOpen}
-              data-tip="Language"
+              data-tip={t("topbar.language")}
             >
               <span className="topbar-lang-flag">{FLAGS[currentLang] ?? "🌐"}</span>
             </button>
@@ -259,9 +259,9 @@ export default function TopBar({
           <button
             className="topbar-btn"
             onClick={() => setShowNotifs(v => !v)}
-            aria-label={`Notifications${unreadNotifs > 0 ? ` (${unreadNotifs} unread)` : ""}`}
+            aria-label={unreadNotifs > 0 ? t("topbar.notificationsUnread", { count: unreadNotifs }) : t("topbar.notifications")}
             aria-expanded={showNotifs}
-            data-tip="Notifications"
+            data-tip={t("topbar.notifications")}
           >
             <BellIcon />
             {unreadNotifs > 0 && (
@@ -276,7 +276,7 @@ export default function TopBar({
             <button
               className={`topbar-avatar${profile?.avatar_url ? " topbar-avatar--has-image" : ""}`}
               onClick={() => setAvatarOpen(o => !o)}
-              aria-label={`Account menu for ${displayName}`}
+              aria-label={t("topbar.accountMenu", { name: displayName })}
               aria-expanded={avatarOpen}
             >
               {profile?.avatar_url
@@ -287,11 +287,11 @@ export default function TopBar({
               <div className="topbar-avatar-menu" role="menu">
                 <button className="topbar-avatar-item" role="menuitem" onClick={() => { setAvatarOpen(false); navigate("profile"); }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  Profile
+                  {t("topbar.profile")}
                 </button>
                 <button className="topbar-avatar-item" role="menuitem" onClick={() => { setAvatarOpen(false); navigate("settings"); }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                  Settings
+                  {t("topbar.settings")}
                 </button>
                 <div className="topbar-avatar-divider" />
                 {setDarkMode && (
@@ -300,13 +300,13 @@ export default function TopBar({
                       ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
                       : <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                     }
-                    {darkMode ? "Light mode" : "Dark mode"}
+                    {darkMode ? t("topbar.lightMode") : t("topbar.darkMode")}
                   </button>
                 )}
                 <div className="topbar-avatar-divider" />
                 <button className="topbar-avatar-item topbar-avatar-item--danger" role="menuitem" onClick={() => { setAvatarOpen(false); onLogout?.(); }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-                  Log out
+                  {t("topbar.logout")}
                 </button>
               </div>
             )}

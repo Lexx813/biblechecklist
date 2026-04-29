@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { verseCacheApi } from "../../api/verseCache";
 import { sanitizeRich } from "../../lib/sanitize";
 
@@ -11,6 +12,7 @@ function injectVerseSpans(html: string): string {
 }
 
 function TooltipPopup({ verseRef, onClose }: { verseRef: string; onClose: () => void }) {
+  const { t } = useTranslation();
   const { data: verse, isLoading } = useQuery({
     queryKey: ["verse", verseRef],
     queryFn: () => verseCacheApi.getVerse(verseRef),
@@ -21,9 +23,9 @@ function TooltipPopup({ verseRef, onClose }: { verseRef: string; onClose: () => 
   return (
     <div className="pr-verse-tooltip" role="tooltip">
       <div className="pr-verse-tooltip-ref">{verseRef} · NWT</div>
-      {isLoading && <div className="pr-verse-tooltip-text">Loading…</div>}
+      {isLoading && <div className="pr-verse-tooltip-text">{t("common.loading")}</div>}
       {!isLoading && verse && <div className="pr-verse-tooltip-text">{verse.text}</div>}
-      {!isLoading && !verse && <div className="pr-verse-tooltip-text">Open in JW Library to read this verse.</div>}
+      {!isLoading && !verse && <div className="pr-verse-tooltip-text">{t("blog.openInJwLibraryHint")}</div>}
       <a
         className="pr-verse-tooltip-link"
         href={jwUrl}
@@ -31,7 +33,7 @@ function TooltipPopup({ verseRef, onClose }: { verseRef: string; onClose: () => 
         rel="noopener noreferrer"
         onClick={onClose}
       >
-        Open in JW Library →
+        {t("blog.openInJwLibrary")}
       </a>
     </div>
   );

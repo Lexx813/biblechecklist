@@ -50,50 +50,50 @@ export default function ReferralPanel({ userId }: Props) {
 
   function shareWhatsApp() {
     window.open(
-      `https://wa.me/?text=${encodeURIComponent(`Track your Bible reading progress with me on JW Study! ${shareUrl}`)}`,
+      `https://wa.me/?text=${encodeURIComponent(t("referral.shareWhatsAppText", { url: shareUrl }))}`,
       "_blank"
     );
   }
 
-  if (loading) return <div className="ref-loading">Loading...</div>;
+  if (loading) return <div className="ref-loading">{t("referral.loading")}</div>;
 
   return (
     <div className="ref-panel">
       <div className="ref-header">
         <span className="ref-icon">🎁</span>
-        <h3 className="ref-title">Invite Friends</h3>
-        <p className="ref-desc">Share your link and study together. When they sign up, they'll be linked to your profile.</p>
+        <h3 className="ref-title">{t("referral.inviteFriends")}</h3>
+        <p className="ref-desc">{t("referral.shareDesc")}</p>
       </div>
 
       <div className="ref-link-box">
-        <input className="ref-link-input" value={shareUrl} readOnly onClick={copyLink} aria-label="Referral link" />
+        <input className="ref-link-input" value={shareUrl} readOnly onClick={copyLink} aria-label={t("referral.referralLinkAria")} />
         <button className="ref-copy-btn" onClick={copyLink}>
-          {copied ? "Copied!" : "Copy"}
+          {copied ? t("referral.copied") : t("referral.copy")}
         </button>
       </div>
 
       <div className="ref-share-row">
         <button className="ref-share-btn ref-share-btn--wa" onClick={shareWhatsApp}>
-          WhatsApp
+          {t("referral.whatsapp")}
         </button>
         <button className="ref-share-btn ref-share-btn--x" onClick={() => {
           window.open(
-            `https://twitter.com/intent/tweet?text=${encodeURIComponent(`I'm tracking my Bible reading on JW Study, join me! ${shareUrl}`)}`,
+            `https://twitter.com/intent/tweet?text=${encodeURIComponent(t("referral.tweetText", { url: shareUrl }))}`,
             "_blank"
           );
         }}>
-          Share on X
+          {t("referral.shareOnX")}
         </button>
       </div>
 
       {referrals.length > 0 && (
         <div className="ref-list">
-          <h4 className="ref-list-title">Your Referrals ({referrals.length})</h4>
+          <h4 className="ref-list-title">{t("referral.yourReferrals", { count: referrals.length })}</h4>
           {referrals.map(r => (
             <div key={r.id} className="ref-item">
-              <span className="ref-item-name">{r.profiles?.display_name || "User"}</span>
+              <span className="ref-item-name">{r.profiles?.display_name || t("referral.user")}</span>
               <span className={`ref-item-status ref-item-status--${r.status}`}>
-                {r.status === "converted" ? "Subscribed" : r.status === "rewarded" ? "Rewarded" : "Signed up"}
+                {r.status === "converted" ? t("referral.subscribed") : r.status === "rewarded" ? t("referral.rewarded") : t("referral.signedUp")}
               </span>
             </div>
           ))}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { useMyPosts, useDeletePost } from "../../hooks/useBlog";
 import { formatDate } from "../../utils/formatters";
 import "../../styles/my-posts.css";
@@ -24,6 +25,7 @@ interface Props {
 }
 
 export default function MyPostsPage({ user, navigate }: Props) {
+  const { t } = useTranslation();
   const { data: posts = [], isLoading } = useMyPosts(user.id);
   const deletePost = useDeletePost(user.id);
   const [confirmId, setConfirmId] = useState<string | null>(null);
@@ -57,13 +59,13 @@ export default function MyPostsPage({ user, navigate }: Props) {
     <div className="mpp-wrap">
       <div className="mpp-header">
         <div className="mpp-header-top">
-          <h1 className="mpp-title">My Posts</h1>
-          <button className="mpp-new-btn" onClick={() => navigate("blogNew")}>+ New Post</button>
+          <h1 className="mpp-title">{t("blog.myPosts")}</h1>
+          <button className="mpp-new-btn" onClick={() => navigate("blogNew")}>{t("blog.newPost")}</button>
         </div>
         <div className="mpp-stats">
-          <span className="mpp-stat">{posts.length} total</span>
-          <span className="mpp-stat mpp-stat--pub">{published} published</span>
-          <span className="mpp-stat mpp-stat--draft">{drafts} drafts</span>
+          <span className="mpp-stat">{t("blog.totalCount", { count: posts.length })}</span>
+          <span className="mpp-stat mpp-stat--pub">{t("blog.publishedCount", { count: published })}</span>
+          <span className="mpp-stat mpp-stat--draft">{t("blog.draftsCount", { count: drafts })}</span>
         </div>
         <div className="mpp-filters">
           {(["all", "published", "drafts"] as const).map(f => (
@@ -72,24 +74,24 @@ export default function MyPostsPage({ user, navigate }: Props) {
               className={`mpp-filter${filter === f ? " active" : ""}`}
               onClick={() => handleFilterChange(f)}
             >
-              {f.charAt(0).toUpperCase() + f.slice(1)}
+              {f === "all" ? t("blog.filterAll") : f === "published" ? t("blog.filterPublished") : t("blog.filterDrafts")}
             </button>
           ))}
         </div>
       </div>
 
       {isLoading ? (
-        <div className="mpp-empty">Loading…</div>
+        <div className="mpp-empty">{t("blog.loading")}</div>
       ) : filtered.length === 0 ? (
         <div className="mpp-empty">
           {filter === "all"
-            ? "You haven't written any posts yet."
+            ? t("blog.noneYet")
             : filter === "drafts"
-            ? "No drafts saved."
-            : "No published posts."}
+            ? t("blog.noDraftsSaved")
+            : t("blog.noPublished")}
           {filter !== "published" && (
             <button className="mpp-new-btn mpp-new-btn--inline" onClick={() => navigate("blogNew")}>
-              Write your first post →
+              {t("blog.writeFirst")}
             </button>
           )}
         </div>
@@ -109,7 +111,7 @@ export default function MyPostsPage({ user, navigate }: Props) {
                 <div className="mpp-card-body">
                   <div className="mpp-card-top">
                     <span className={`mpp-badge ${post.published ? "mpp-badge--pub" : "mpp-badge--draft"}`}>
-                      {post.published ? "Published" : "Draft"}
+                      {post.published ? t("blog.published") : t("blog.draft")}
                     </span>
                     <span className="mpp-card-date">{formatDate(post.created_at, "short")}</span>
                   </div>
@@ -121,20 +123,20 @@ export default function MyPostsPage({ user, navigate }: Props) {
                         className="mpp-action mpp-action--view"
                         onClick={() => navigate("blog", { slug: post.slug })}
                       >
-                        View
+                        {t("blog.viewBtnLabel")}
                       </button>
                     )}
                     <button
                       className="mpp-action mpp-action--edit"
                       onClick={() => navigate("blogEdit", { slug: post.slug })}
                     >
-                      Edit
+                      {t("blog.editBtn")}
                     </button>
                     <button
                       className="mpp-action mpp-action--delete"
                       onClick={() => setConfirmId(post.id)}
                     >
-                      Delete
+                      {t("blog.deleteBtn")}
                     </button>
                   </div>
                 </div>
@@ -149,15 +151,15 @@ export default function MyPostsPage({ user, navigate }: Props) {
                 disabled={page === 1}
                 onClick={() => setPage(p => p - 1)}
               >
-                ← Prev
+                {t("blog.prevPage")}
               </button>
-              <span className="mpp-page-info">Page {page} of {totalPages}</span>
+              <span className="mpp-page-info">{t("blog.pageOf", { page, total: totalPages })}</span>
               <button
                 className="mpp-page-btn"
                 disabled={page === totalPages}
                 onClick={() => setPage(p => p + 1)}
               >
-                Next →
+                {t("blog.nextPage")}
               </button>
             </div>
           )}
@@ -167,10 +169,10 @@ export default function MyPostsPage({ user, navigate }: Props) {
       {confirmId && createPortal(
         <div className="mpp-overlay" onClick={() => setConfirmId(null)}>
           <div className="mpp-confirm" onClick={e => e.stopPropagation()}>
-            <p>Delete this post? This cannot be undone.</p>
+            <p>{t("blog.deletePostConfirm")}</p>
             <div className="mpp-confirm-actions">
-              <button className="mpp-action mpp-action--edit" onClick={() => setConfirmId(null)}>Cancel</button>
-              <button className="mpp-action mpp-action--delete" onClick={() => handleDelete(confirmId)}>Delete</button>
+              <button className="mpp-action mpp-action--edit" onClick={() => setConfirmId(null)}>{t("common.cancel")}</button>
+              <button className="mpp-action mpp-action--delete" onClick={() => handleDelete(confirmId)}>{t("common.delete")}</button>
             </div>
           </div>
         </div>,

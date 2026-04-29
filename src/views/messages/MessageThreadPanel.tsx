@@ -365,6 +365,7 @@ const MSG_DISAPPEAR_OPTIONS = [
 // ── Starred panel ─────────────────────────────────────────────────────────────
 
 function MSGStarredPanel({ convId, userId, onClose }: { convId: string; userId: string; onClose: () => void }) {
+  const { t } = useTranslation();
   const { data: starred = [], isLoading } = useStarredMessages(convId);
   const toggleStar = useToggleStar(convId, userId);
   return (
@@ -375,28 +376,28 @@ function MSGStarredPanel({ convId, userId, onClose }: { convId: string; userId: 
         </button>
         <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true" style={{ color: "goldenrod" }}><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          Starred Messages
+          {t("messages.starred")}
         </span>
       </div>
       <div className="msg-overlay-body">
         {isLoading ? (
-          <p className="msg-empty">Loading…</p>
+          <p className="msg-empty">{t("messages.loading")}</p>
         ) : starred.length === 0 ? (
-          <p className="msg-empty">No starred messages yet.</p>
+          <p className="msg-empty">{t("messages.noStarredYet")}</p>
         ) : starred.map(msg => (
           <div key={msg.id} className="msg-starred-item">
             <div className="msg-starred-content">
               {msg.message_type === "verse" && msg.metadata ? (
                 <span>📖 {(msg.metadata as Record<string, unknown>)?.ref as string}</span>
               ) : msg.message_type === "image" ? (
-                <span>🖼 Image</span>
+                <span>{t("messages.imageBubble")}</span>
               ) : (
                 <span>{msg.content?.slice(0, 80)}</span>
               )}
             </div>
             <div className="msg-starred-meta">
               <span>{formatTime(msg.created_at)}</span>
-              <button className="msg-starred-remove" onClick={() => toggleStar.mutate(msg.id, { onError: () => toast.error("Failed to update star.") })} aria-label="Remove star">
+              <button className="msg-starred-remove" onClick={() => toggleStar.mutate(msg.id, { onError: () => toast.error(t("messages.failedUpdateStar")) })} aria-label={t("messages.removeStar")}>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </button>
             </div>
@@ -410,6 +411,7 @@ function MSGStarredPanel({ convId, userId, onClose }: { convId: string; userId: 
 // ── Search panel ──────────────────────────────────────────────────────────────
 
 function MSGSearchPanel({ convId, onClose }: { convId: string; onClose: () => void }) {
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -425,18 +427,18 @@ function MSGSearchPanel({ convId, onClose }: { convId: string; onClose: () => vo
   return (
     <div className="msg-overlay-panel">
       <div className="msg-overlay-header">
-        <button className="msg-overlay-back" onClick={onClose} aria-label="Back">
+        <button className="msg-overlay-back" onClick={onClose} aria-label={t("messages.back")}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
-        <input className="msg-overlay-search-input" placeholder="Search messages…" value={query} onChange={handleChange} autoFocus aria-label="Search messages" />
+        <input className="msg-overlay-search-input" placeholder={t("messages.searchMessages")} value={query} onChange={handleChange} autoFocus aria-label={t("messages.searchMessagesAria")} />
       </div>
       <div className="msg-overlay-body">
         {isFetching ? (
-          <p className="msg-empty">Searching…</p>
+          <p className="msg-empty">{t("messages.searching")}</p>
         ) : debouncedQuery.length < 2 ? (
-          <p className="msg-empty">Type to search.</p>
+          <p className="msg-empty">{t("messages.typeToSearch")}</p>
         ) : results.length === 0 ? (
-          <p className="msg-empty">No results for "{debouncedQuery}".</p>
+          <p className="msg-empty">{t("messages.noResultsFor", { query: debouncedQuery })}</p>
         ) : results.map(msg => (
           <div key={msg.id} className="msg-search-result">
             <span className="msg-search-result-text">{msg.content?.slice(0, 120)}</span>

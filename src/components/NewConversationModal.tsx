@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { useFriends, FriendProfile } from "../hooks/useFriends";
 import "../styles/friends.css";
 import { useGetOrCreateDM } from "../hooks/useMessages";
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export function NewConversationModal({ userId, onClose, navigate }: Props) {
+  const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const { data: rawFriends } = useFriends(userId);
   const friends: FriendProfile[] = (rawFriends as FriendProfile[] | undefined) ?? [];
@@ -41,10 +43,10 @@ export function NewConversationModal({ userId, onClose, navigate }: Props) {
 
   return createPortal(
     <div className="new-conv-backdrop" onClick={onClose}>
-      <div className="new-conv-modal" role="dialog" aria-modal="true" aria-label="New conversation" onClick={e => e.stopPropagation()}>
+      <div className="new-conv-modal" role="dialog" aria-modal="true" aria-label={t("messages.newConversation")} onClick={e => e.stopPropagation()}>
         <div className="new-conv-header">
-          <span className="new-conv-title">New Message</span>
-          <button className="new-conv-close" onClick={onClose} aria-label="Close">
+          <span className="new-conv-title">{t("messages.newMessage")}</span>
+          <button className="new-conv-close" onClick={onClose} aria-label={t("messages.close")}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
@@ -52,17 +54,17 @@ export function NewConversationModal({ userId, onClose, navigate }: Props) {
           <input
             className="new-conv-search-input"
             type="search"
-            placeholder="Search friends…"
+            placeholder={t("messages.searchFriends")}
             value={search}
             onChange={e => setSearch(e.target.value)}
             autoFocus
-            aria-label="Search friends"
+            aria-label={t("messages.searchFriendsAria")}
           />
         </div>
         <div className="new-conv-list">
           {filtered.length === 0 && (
             <div style={{ padding: "24px", textAlign: "center", color: "var(--text-muted, #888)", fontSize: 13 }}>
-              {friends.length === 0 ? "Add friends to start a conversation" : "No friends match your search"}
+              {friends.length === 0 ? t("messages.addFriendsToStart") : t("messages.noFriendsMatch")}
             </div>
           )}
           {filtered.map((friend: FriendProfile) => (
@@ -75,10 +77,10 @@ export function NewConversationModal({ userId, onClose, navigate }: Props) {
               onKeyDown={e => e.key === "Enter" && handleSelect(friend)}
             >
               {friend.avatar_url
-                ? <img className="new-conv-avatar" src={friend.avatar_url} alt={friend.display_name ?? "User"} />
+                ? <img className="new-conv-avatar" src={friend.avatar_url} alt={friend.display_name ?? t("messages.user")} />
                 : <div className="new-conv-avatar-placeholder">{(friend.display_name ?? "?")[0].toUpperCase()}</div>
               }
-              <span className="new-conv-name">{friend.display_name ?? "Unknown"}</span>
+              <span className="new-conv-name">{friend.display_name ?? t("messages.unknown")}</span>
             </div>
           ))}
         </div>

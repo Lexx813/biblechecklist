@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import {
   usePostComments,
   useAddComment,
@@ -103,6 +104,7 @@ interface Props {
 }
 
 export default function PostInteractions({ postId, userId, commentCount, reactionCounts, navigate }: Props) {
+  const { t } = useTranslation();
   const [showComments, setShowComments] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [commentText, setCommentText] = useState("");
@@ -268,7 +270,7 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
               <div className="size-5 animate-spin rounded-full border-2 border-[var(--border)] border-t-[var(--accent)]" />
             </div>
           ) : comments.length === 0 ? (
-            <p className="py-3 text-center text-xs text-[var(--text-muted)]">No comments yet. Be the first!</p>
+            <p className="py-3 text-center text-xs text-[var(--text-muted)]">{t("posts.noCommentsYet")}</p>
           ) : (
             <div className="flex max-h-80 flex-col gap-3 overflow-y-auto py-1" style={{ scrollbarWidth: "thin" }}>
               {comments
@@ -281,7 +283,7 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
                         c={c} userId={userId} liked={likedSet.has(c.id)}
                         navigate={navigate}
                         onLike={() => toggleCommentLike.mutate(c.id)}
-                        onReply={() => startReply(c.id, c.author?.display_name || "Someone")}
+                        onReply={() => startReply(c.id, c.author?.display_name || t("liked.someone"))}
                         onDelete={() => deleteComment.mutate(c.id)}
                         deletePending={deleteComment.isPending}
                       />
@@ -293,7 +295,7 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
                               key={r.id} c={r} userId={userId} liked={likedSet.has(r.id)}
                               navigate={navigate}
                               onLike={() => toggleCommentLike.mutate(r.id)}
-                              onReply={() => startReply(c.id, c.author?.display_name || "Someone")}
+                              onReply={() => startReply(c.id, c.author?.display_name || t("liked.someone"))}
                               onDelete={() => deleteComment.mutate(r.id)}
                               deletePending={deleteComment.isPending}
                               isReply

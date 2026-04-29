@@ -628,7 +628,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <button className={feedLinkCls} onClick={() => navigate("blog")}>{t("home.blogViewAll")}</button>
             </div>
             {postsLoading ? <BlogSkeleton /> : blogPreview.length === 0 ? (
-              <EmptyState icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>} title="No posts yet" sub="Be the first to share something." btnLabel="Write a post \u2192" onBtn={() => navigate("blogDash")} />
+              <EmptyState icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>} title={t("home.noPostsYet")} sub={t("home.beTheFirstToShare")} btnLabel={t("home.writeAPost")} onBtn={() => navigate("blogDash")} />
             ) : (
               <div className="grid grid-cols-3 gap-2.5 max-[720px]:grid-cols-2 max-[480px]:grid-cols-1">
                 {blogPreview.map((post) => {
@@ -844,9 +844,9 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               <div className={feedHeadCls}>
                 <span className={feedTitleCls}>
                   <span className="text-amber-400 [html[data-theme=light]_&]:text-amber-800" style={{ marginRight: 5 }}>{"\u2605"}</span>
-                  Spotlight
+                  {t("home.spotlight")}
                 </span>
-                <button className={feedLinkCls} onClick={() => navigate("videos")}>View all &rarr;</button>
+                <button className={feedLinkCls} onClick={() => navigate("videos")}>{t("home.viewAllArrow")}</button>
               </div>
               {spotlightLoading ? (
                 <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
@@ -888,8 +888,8 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {!videosLoading && reelVideos.length > 0 && (
             <div>
               <div className={feedHeadCls}>
-                <span className={feedTitleCls}>Videos</span>
-                <button className={feedLinkCls} onClick={() => navigate("videos")}>View all &rarr;</button>
+                <span className={feedTitleCls}>{t("nav.videos")}</span>
+                <button className={feedLinkCls} onClick={() => navigate("videos")}>{t("home.viewAllArrow")}</button>
               </div>
             </div>
           )}
