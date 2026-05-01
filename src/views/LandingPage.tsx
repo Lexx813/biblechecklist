@@ -76,6 +76,39 @@ function useFeaturedPosts(lang: string) {
   return posts;
 }
 
+function useFeaturedSongs(lang: string) {
+  const [songs, setSongs] = useState<any[]>([]);
+  useEffect(() => {
+    async function load() {
+      try {
+        const sb = await supabasePromise();
+        const { data } = await sb
+          .from("songs")
+          .select("id, slug, title, title_es, theme, primary_scripture_ref, description, description_es, cover_image_url, lyrics_es")
+          .eq("published", true)
+          .order("created_at", { ascending: false })
+          .limit(12);
+        if (!data) return;
+        const isEs = lang === "es";
+        const pool = isEs
+          ? data.filter((s: any) => s.title_es && s.lyrics_es?.sections)
+          : data;
+        setSongs(pool.slice(0, 3).map((s: any) => ({
+          id: s.id,
+          slug: s.slug,
+          title: isEs && s.title_es ? s.title_es : s.title,
+          description: isEs && s.description_es ? s.description_es : s.description,
+          theme: s.theme,
+          scripture: s.primary_scripture_ref,
+          cover: s.cover_image_url,
+        })));
+      } catch {}
+    }
+    load();
+  }, [lang]);
+  return songs;
+}
+
 function useDarkMode() {
   const [dark, setDark] = useState(() =>
     typeof document !== "undefined"
@@ -148,6 +181,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
   }, [langOpen]);
   const stats = useCommunityStats();
   const featuredPosts = useFeaturedPosts(currentLangCode);
+  const featuredSongs = useFeaturedSongs(currentLangCode);
 
   const features = [
     t("landing.feat1"), t("landing.feat2"), t("landing.feat3"),
@@ -178,7 +212,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
           </a>
 
           <nav className="mr-auto hidden gap-1 md:flex" aria-label="Main navigation">
-            <a href="/songs" className="rounded-lg px-3 py-1.5 text-sm font-medium text-[var(--lp-muted)] transition-colors duration-150 hover:bg-[var(--lp-pill-bg)] hover:text-[var(--lp-text)]">Songs</a>
+            <a href={currentLangCode === "es" ? "/es/songs" : "/songs"} className="rounded-lg px-3 py-1.5 text-sm font-medium text-[var(--lp-muted)] transition-colors duration-150 hover:bg-[var(--lp-pill-bg)] hover:text-[var(--lp-text)]">{t("landing.songsNav")}</a>
             <a href="/blog" className="rounded-lg px-3 py-1.5 text-sm font-medium text-[var(--lp-muted)] transition-colors duration-150 hover:bg-[var(--lp-pill-bg)] hover:text-[var(--lp-text)]">{t("landing.nav.blog")}</a>
             <a href="/about" className="rounded-lg px-3 py-1.5 text-sm font-medium text-[var(--lp-muted)] transition-colors duration-150 hover:bg-[var(--lp-pill-bg)] hover:text-[var(--lp-text)]">{t("landing.nav.about")}</a>
           </nav>
@@ -463,6 +497,62 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
         </section>
       )}
 
+      {/* ── Music ────────────────────────────────────────────────── */}
+      {featuredSongs.length > 0 && (
+        <section className="py-16 max-md:py-12" aria-labelledby="lp-songs-title">
+          <div className="mx-auto max-w-[1080px] px-6">
+            <div className="mb-10 text-center">
+              <h2 id="lp-songs-title" className="m-0 mb-2.5 font-display text-[clamp(26px,4vw,38px)] font-semibold tracking-tight text-[var(--lp-text)]">{t("landing.songsTitle")}</h2>
+              <p className="m-0 text-[15px] text-[var(--lp-muted)]">{t("landing.songsSub")}</p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-3 max-md:mx-auto max-md:max-w-[440px] max-md:grid-cols-1">
+              {featuredSongs.map(song => {
+                const songHref = currentLangCode === "es" ? `/es/songs/${song.slug}` : `/songs/${song.slug}`;
+                return (
+                  <a key={song.id} href={songHref} className="group flex cursor-pointer flex-col overflow-hidden rounded-[14px] border border-[var(--lp-card-border)] bg-[var(--lp-card-bg)] text-inherit no-underline shadow-[var(--lp-card-shadow)] transition-all duration-200 hover:-translate-y-[3px] hover:border-[var(--lp-primary)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.18)]">
+                    <div className="relative aspect-video w-full shrink-0 overflow-hidden bg-gradient-to-br from-[var(--lp-primary)] to-[#a855f7]">
+                      {song.cover ? (
+                        <img
+                          src={song.cover}
+                          alt={song.title}
+                          className="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                          loading="lazy"
+                          width={640}
+                          height={360}
+                          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center text-white/90">
+                          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M9 18V5l12-2v13"/>
+                            <circle cx="6" cy="18" r="3"/>
+                            <circle cx="18" cy="16" r="3"/>
+                          </svg>
+                        </div>
+                      )}
+                      <div className="absolute right-3 top-3 rounded-full bg-black/45 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
+                        {song.theme}
+                      </div>
+                    </div>
+                    <div className="flex flex-1 flex-col gap-2 px-5 pb-5 pt-[18px]">
+                      <h3 className="m-0 line-clamp-2 text-[15px] font-bold leading-[1.45] text-[var(--lp-text)]">{song.title}</h3>
+                      <p className="m-0 text-[12px] font-semibold uppercase tracking-wide text-[var(--lp-muted)]">{song.scripture}</p>
+                      {song.description && <p className="m-0 line-clamp-3 flex-1 text-[13px] leading-relaxed text-[var(--lp-muted)]">{song.description}</p>}
+                      <span className="mt-1 text-[13px] font-semibold text-[var(--lp-primary)]">{t("landing.listenSong")}</span>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+            <div className="mt-9 text-center">
+              <a href={currentLangCode === "es" ? "/es/songs" : "/songs"} className="inline-flex items-center gap-1.5 rounded-[10px] border border-[var(--lp-primary)] px-6 py-[11px] text-sm font-semibold text-[var(--lp-primary)] no-underline transition-all duration-150 hover:bg-[var(--lp-primary)] hover:text-white">
+                {t("landing.viewAllSongs")}
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ── How It Works ─────────────────────────────────────────── */}
       <section className="py-[72px] max-md:py-12">
         <div className="mx-auto max-w-[760px] px-6">
@@ -632,7 +722,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
             <span>JW Study</span>
           </div>
           <nav className="mr-auto flex gap-1 max-md:mr-0" aria-label="Footer links">
-            <a href="/songs" className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">Songs</a>
+            <a href={currentLangCode === "es" ? "/es/songs" : "/songs"} className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">{t("landing.songsNav")}</a>
             <a href="/blog" className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">{t("landing.nav.blog")}</a>
             <a href="/about" className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">{t("landing.nav.about")}</a>
             <a href="/terms" className="rounded-md px-2.5 py-1 text-[13px] text-[var(--lp-footer-link)] no-underline transition-colors duration-150 hover:bg-white/[0.08] hover:text-white">{t("landing.footerTerms")}</a>

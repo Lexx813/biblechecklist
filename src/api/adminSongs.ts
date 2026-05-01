@@ -86,6 +86,12 @@ export const adminSongsApi = {
     return post<{ audio_url: string }>(`/api/admin/songs/${id}/audio`, fd, false);
   },
 
+  uploadCover: async (id: string, file: File) => {
+    const fd = new FormData();
+    fd.append("file", file);
+    return post<{ cover_image_url: string }>(`/api/admin/songs/${id}/cover`, fd, false);
+  },
+
   create: async (meta: SongCreateMeta, lyricsMd: string, audio: File, lyricsEsMd?: string) => {
     const fd = new FormData();
     fd.append("meta", JSON.stringify(meta));

@@ -30,6 +30,14 @@ export function useUploadSongAudio() {
   });
 }
 
+export function useUploadSongCover() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, file }: { id: string; file: File }) => adminSongsApi.uploadCover(id, file),
+    onSuccess: () => invalidate(qc),
+  });
+}
+
 export function useCreateSong() {
   const qc = useQueryClient();
   return useMutation({

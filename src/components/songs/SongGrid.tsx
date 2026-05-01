@@ -9,9 +9,9 @@ type Props = {
 export default function SongGrid({ songs, lang }: Props) {
   if (!songs.length) return null;
   return (
-    <ul className="grid gap-3 md:grid-cols-2">
+    <ul className="m-0 grid list-none gap-3 p-0 md:grid-cols-2">
       {songs.map((song) => (
-        <li key={song.id}>
+        <li key={song.id} className="m-0 p-0">
           <SongCard song={song} lang={lang} />
         </li>
       ))}

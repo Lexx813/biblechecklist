@@ -135,7 +135,12 @@
     "footerTerms": "Términos",
     "footerPrivacy": "Privacidad",
     "footerCopy": "© {{year}} JW Study · Lexx Solutionz",
-    "jwsHomeAria": "Inicio de JW Study"
+    "jwsHomeAria": "Inicio de JW Study",
+    "songsTitle": "Música para estudiar",
+    "songsSub": "Canciones originales basadas en la Biblia, arraigadas en la Traducción del Nuevo Mundo. Gratis para escuchar y compartir.",
+    "listenSong": "Escuchar →",
+    "viewAllSongs": "Ver todas las canciones",
+    "songsNav": "Canciones"
   },
   "auth": {
     "title": "Lista de Lectura Bíblica",

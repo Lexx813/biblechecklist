@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { useUpdateSong, useUploadSongAudio } from "../../hooks/useAdminSongs";
+import { useUpdateSong, useUploadSongAudio, useUploadSongCover } from "../../hooks/useAdminSongs";
 import type { JwOrgLink } from "../../api/songs";
 
 export interface EditableSong {
@@ -28,9 +28,11 @@ interface Props {
 export function SongEditModal({ song, onClose }: Props) {
   const update = useUpdateSong();
   const upload = useUploadSongAudio();
+  const uploadCover = useUploadSongCover();
 
   const [form, setForm] = useState<EditableSong>(song);
   const [audioFile, setAudioFile] = useState<File | null>(null);
+  const [coverFile, setCoverFile] = useState<File | null>(null);
   const [linksText, setLinksText] = useState(() => JSON.stringify(song.jw_org_links, null, 2));
   const [linksError, setLinksError] = useState<string | null>(null);
   const [savedAt, setSavedAt] = useState<number | null>(null);
@@ -63,6 +65,13 @@ export function SongEditModal({ song, onClose }: Props) {
         await upload.mutateAsync({ id: form.id, file: audioFile });
         setAudioFile(null);
       }
+      let coverUrl = form.cover_image_url;
+      if (coverFile) {
+        const { cover_image_url } = await uploadCover.mutateAsync({ id: form.id, file: coverFile });
+        coverUrl = cover_image_url;
+        setForm((f) => ({ ...f, cover_image_url }));
+        setCoverFile(null);
+      }
       await update.mutateAsync({
         id: form.id,
         patch: {
@@ -74,7 +83,7 @@ export function SongEditModal({ song, onClose }: Props) {
           primary_scripture_text: form.primary_scripture_text,
           primary_scripture_text_es: form.primary_scripture_text_es,
           theme: form.theme,
-          cover_image_url: form.cover_image_url,
+          cover_image_url: coverUrl,
           duration_seconds: form.duration_seconds,
           jw_org_links: parsedLinks,
           published: form.published,
@@ -87,8 +96,8 @@ export function SongEditModal({ song, onClose }: Props) {
     }
   }
 
-  const busy = update.isPending || upload.isPending;
-  const error = update.error?.message || upload.error?.message || linksError;
+  const busy = update.isPending || upload.isPending || uploadCover.isPending;
+  const error = update.error?.message || upload.error?.message || uploadCover.error?.message || linksError;
 
   return createPortal(
     <div className="fixed inset-0 z-[500] flex items-start justify-center overflow-y-auto bg-black/60 p-4 backdrop-blur-sm" onClick={onClose}>
@@ -142,6 +151,27 @@ export function SongEditModal({ song, onClose }: Props) {
               placeholder="/covers/wash-me-clean.svg"
               onChange={(e) => field("cover_image_url", e.target.value || null)}
             />
+            {form.cover_image_url && (
+              <img
+                src={form.cover_image_url}
+                alt="Cover preview"
+                className="mt-2 size-24 rounded-md border border-[var(--border)] object-cover"
+              />
+            )}
+          </Row>
+
+          <Row label="Upload cover (PNG/JPEG/WEBP/SVG, ≤5MB)">
+            <input
+              type="file"
+              accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml"
+              onChange={(e) => setCoverFile(e.target.files?.[0] ?? null)}
+              className="text-sm text-[var(--text-primary)]"
+            />
+            {coverFile && (
+              <p className="mt-1 text-xs text-[var(--text-muted)]">
+                {coverFile.name} · {(coverFile.size / 1024 / 1024).toFixed(2)} MB · uploads on save
+              </p>
+            )}
           </Row>
 
           <Row label="Duration (seconds)">

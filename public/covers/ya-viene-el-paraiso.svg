@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080" role="img" aria-label="Ya Viene El Paraíso, Revelación 21:3-4">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="55%" stop-color="#5B21B6"/>
+      <stop offset="100%" stop-color="#1E1240"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="62%" r="42%">
+      <stop offset="0%" stop-color="#FCD34D" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="#F59E0B" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1080" height="1080" fill="url(#sky)"/>
+  <rect width="1080" height="1080" fill="url(#sun)"/>
+
+  <!-- Distant gold horizon glow -->
+  <ellipse cx="540" cy="720" rx="620" ry="60" fill="#FCD34D" fill-opacity="0.18"/>
+  <ellipse cx="540" cy="730" rx="380" ry="22" fill="#FCD34D" fill-opacity="0.32"/>
+
+  <!-- Faint baseline grid -->
+  <g stroke="#FAF5FF" stroke-opacity="0.06" stroke-width="1">
+    <line x1="0" y1="270" x2="1080" y2="270"/>
+    <line x1="0" y1="810" x2="1080" y2="810"/>
+    <line x1="540" y1="0" x2="540" y2="1080"/>
+  </g>
+
+  <!-- Top brand mark -->
+  <g font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" font-size="22" letter-spacing="0.32em" fill="#FAF5FF" fill-opacity="0.7">
+    <text x="60" y="100">JW STUDY</text>
+    <text x="1020" y="100" text-anchor="end">ES · 007</text>
+  </g>
+
+  <!-- Eyebrow scripture -->
+  <g font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="700" letter-spacing="0.24em">
+    <text x="60" y="430" font-size="28" fill="#FCD34D" fill-opacity="0.92">REVELACIÓN 21:3-4</text>
+  </g>
+
+  <!-- Title — three line lockup -->
+  <g font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="800" letter-spacing="-0.045em">
+    <text x="60" y="560" font-size="148" fill="#FAF5FF">YA VIENE</text>
+    <text x="60" y="708" font-size="148" fill="#FAF5FF">EL</text>
+    <text x="60" y="856" font-size="220" fill="#FAF5FF">PARAÍSO</text>
+  </g>
+
+  <!-- Subtitle — defining line of the song -->
+  <g font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="500" letter-spacing="-0.005em">
+    <text x="60" y="918" font-size="40" fill="#FAF5FF" fill-opacity="0.85">No más lágrimas. No más muerte.</text>
+  </g>
+
+  <!-- Bottom meta row -->
+  <g font-family="'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif" font-weight="600" font-size="22" letter-spacing="0.28em" fill="#FAF5FF">
+    <text x="60" y="1010" fill-opacity="0.85">LA PROMESA DE JEHOVÁ</text>
+    <text x="1020" y="1010" text-anchor="end" fill-opacity="0.55">ESPERANZA</text>
+  </g>
+
+  <!-- Hairlines -->
+  <line x1="60" y1="970" x2="1020" y2="970" stroke="#FAF5FF" stroke-opacity="0.18" stroke-width="1"/>
+  <line x1="60" y1="130" x2="1020" y2="130" stroke="#FAF5FF" stroke-opacity="0.18" stroke-width="1"/>
+</svg>
