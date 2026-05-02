@@ -1269,9 +1269,9 @@ function logUsage(userId: string, usage: Usage, toolUsed: string | null, page: s
 
 // ── Quota enforcement ────────────────────────────────────────────────────────
 // Prevents a compromised account from burning through the Anthropic budget.
-const PER_MINUTE_REQUEST_CAP  = 6;
-const DAILY_INPUT_TOKEN_CAP   = 100_000;
-const DAILY_OUTPUT_TOKEN_CAP  = 30_000;
+const PER_MINUTE_REQUEST_CAP  = 15;
+const DAILY_INPUT_TOKEN_CAP   = 300_000;
+const DAILY_OUTPUT_TOKEN_CAP  = 100_000;
 
 async function checkQuota(userId: string): Promise<{ ok: boolean; reason?: string }> {
   const now = Date.now();
