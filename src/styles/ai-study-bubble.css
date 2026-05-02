@@ -592,7 +592,9 @@
 }
 
 /* On very narrow screens, stack AI bubble above chat FAB instead of beside it */
-@media (max-width: 400px) {
+/* Stack AI bubble above chat FAB on all phone-class viewports — beside-each-other
+   layout looks cramped on iPhone Pro Max (430px) and overlaps the bottom nav. */
+@media (max-width: 700px) {
   .asb-root {
     right: 24px;
     bottom: max(148px, calc(136px + env(safe-area-inset-bottom, 0px))); /* 84px chat + 52px FAB + 12px gap */

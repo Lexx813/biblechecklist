@@ -44,7 +44,7 @@
        (position:sticky, width:100vw, top:0). Place panel below the 52px nav. */
     left: 8px;
     right: 8px;
-    top: 52px;
+    top: var(--topbar-h, 52px);
     width: auto;
     max-height: 70vh;
   }

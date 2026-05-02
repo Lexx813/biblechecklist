@@ -30,7 +30,7 @@
 
 /* ── Format bar (left) ───────────────────────────────────── */
 .writer-format-bar {
-  width: 60px; position: sticky; top: 52px; height: calc(100dvh - 52px);
+  width: 60px; position: sticky; top: var(--topbar-h, 52px); height: calc(100dvh - var(--topbar-h, 52px));
   background: var(--card-bg); border-right: 1px solid var(--border);
   display: flex; flex-direction: column; align-items: center;
   padding: 14px 0; gap: 2px; flex-shrink: 0;
@@ -126,7 +126,7 @@
 
 /* ── Right sidebar ───────────────────────────────────────── */
 .writer-sidebar {
-  width: 260px; position: sticky; top: 52px; height: calc(100dvh - 52px);
+  width: 260px; position: sticky; top: var(--topbar-h, 52px); height: calc(100dvh - var(--topbar-h, 52px));
   background: var(--card-bg); border-left: 1px solid var(--border);
   padding: 20px 16px; display: flex; flex-direction: column; gap: 20px;
   overflow-y: auto; flex-shrink: 0; scrollbar-width: thin; scrollbar-color: var(--border) transparent;

@@ -3,13 +3,17 @@
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  height: 52px;
+  /* Total height = 52px content + iOS Dynamic Island/notch inset.
+     padding-top pushes the row contents below the safe area so they
+     remain reachable on iPhone Pro Max etc. Box-sizing is border-box
+     globally so the padding is included in the height. */
+  height: var(--topbar-h, 52px);
+  padding: env(safe-area-inset-top, 0) 16px 0;
   background: var(--bg-elevated, #100c1e);
   border-bottom: 1px solid rgba(138, 75, 255, 0.12);
   display: grid;
   grid-template-columns: 220px 1fr 244px;
   align-items: center;
-  padding: 0 16px;
   gap: 12px;
   contain: layout style; /* prevent internal badge/button loads from causing CLS */
 }
@@ -306,7 +310,7 @@
 @media (max-width: 1100px) {
   .topbar {
     grid-template-columns: 1fr auto auto;
-    padding: 0 12px;
+    padding: env(safe-area-inset-top, 0) 12px 0;
   }
   .topbar-search { justify-content: flex-start; }
   .topbar-search-btn { max-width: 200px; }

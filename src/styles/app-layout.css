@@ -7,15 +7,15 @@
 .al-wrap {
   display: grid;
   grid-template-columns: 260px 1fr;
-  min-height: calc(100dvh - 52px);
+  min-height: calc(100dvh - var(--topbar-h, 52px));
   align-items: start;
 }
 
 /* ── Left sidebar ── */
 .al-sidebar {
   position: sticky;
-  top: 52px;
-  height: calc(100dvh - 52px);
+  top: var(--topbar-h, 52px);
+  height: calc(100dvh - var(--topbar-h, 52px));
   overflow-y: auto;
   padding: 12px 8px 80px;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
@@ -51,7 +51,7 @@
 /* Content column */
 .al-content {
   min-width: 0;
-  min-height: calc(100dvh - 52px);
+  min-height: calc(100dvh - var(--topbar-h, 52px));
 }
 
 /* Bible Tracker: let app-wrap fill the full content column instead of centering at 680px */
@@ -71,8 +71,8 @@
 
 .al-right {
   position: sticky;
-  top: 52px;
-  height: calc(100dvh - 52px);
+  top: var(--topbar-h, 52px);
+  height: calc(100dvh - var(--topbar-h, 52px));
   overflow-y: auto;
   padding: 16px 12px 80px;
   border-left: 1px solid rgba(255, 255, 255, 0.08);

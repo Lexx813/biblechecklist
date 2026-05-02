@@ -7,7 +7,7 @@
 
 .fc-backdrop {
   position: fixed;
-  top: 52px;
+  top: var(--topbar-h, 52px);
   right: 0;
   bottom: 0;
   left: 0;

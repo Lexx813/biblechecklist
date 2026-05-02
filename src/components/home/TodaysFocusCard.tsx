@@ -58,7 +58,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
   const { t } = useTranslation();
   const { data: plans = [], isLoading: plansLoading } = useMyPlans();
   const activePlan = plans.find(p => !p.is_paused && !p.completed_at) ?? null;
-  const activePlanTotalDays = activePlan ? getTemplateOrCustom(activePlan).totalDays : undefined;
+  const activePlanTotalDays = activePlan ? getTemplateOrCustom(activePlan)?.totalDays : undefined;
 
   const { data: completions = [] } = usePlanCompletions(activePlan?.id ?? null);
   const markDay = useMarkDay(activePlan?.id ?? null, userId, activePlanTotalDays);
@@ -97,6 +97,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
   const { template, currentDay, doneSet, todayReadings, pct } = useMemo(() => {
     if (!activePlan) return { template: null, currentDay: 1, doneSet: new Set(), todayReadings: [], pct: 0 };
     const tpl = getTemplateOrCustom(activePlan);
+    if (!tpl) return { template: null, currentDay: 1, doneSet: new Set(), todayReadings: [], pct: 0 };
     const sched = generateSchedule(tpl.bookIndices, tpl.totalDays);
     const day = Math.min(effectiveDay(activePlan), tpl.totalDays);
     const done = new Set(completions.map(c => c.day_number));

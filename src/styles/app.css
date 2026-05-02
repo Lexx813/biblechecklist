@@ -53,6 +53,12 @@
 }
 
 :root {
+  /* ── Layout (safe-area-aware) ──────────────────────────────────────────── */
+  /* TopBar height = 52px content + iOS notch/Dynamic Island inset.
+     All `100dvh - 52px` calcs across the codebase use this var so the
+     layout adapts to the iPhone safe area automatically. */
+  --topbar-h: calc(52px + env(safe-area-inset-top, 0px));
+
   /* ── Brand violet scale (canonical) ──────────────────────────────────────
      PRODUCT.md defines violet-600 (#7C3AED) as the single brand purple. The
      full Tailwind violet scale is exposed here as derived steps so the rest

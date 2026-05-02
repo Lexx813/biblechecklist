@@ -328,7 +328,7 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
   );
 
   return createPortal(
-    <div className="asb-root">
+    <div className="asb-root" style={{ position: "fixed", zIndex: 1000 }}>
       <AiConfirmActionModal />
       {panel}
       <button

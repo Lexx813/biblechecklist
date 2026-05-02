@@ -200,11 +200,14 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const whoMembers = [...whoOnline, ...whoRecent];
 
   // Inline panels (quiz, leaderboard, familyQuiz, etc.)
-  const [activePanel, setActivePanel] = useState(null);
+  // Initialize from panelRequest so the first paint matches the URL — prevents
+  // the home-layout grid from shifting columns after mount (CLS).
+  const initialPanel = panelRequest?.panel && panelRequest.panel !== "home" ? panelRequest.panel : null;
+  const [activePanel, setActivePanel] = useState<string | null>(initialPanel);
   const [quizLevelState, setQuizLevelState] = useState(null); // null = hub, {level, timedMode}
   const [advQuizLevelState, setAdvQuizLevelState] = useState(null);
   const [masterQuizLevelState, setMasterQuizLevelState] = useState(null);
-  const [panelParams, setPanelParams] = useState<Record<string, any>>({});
+  const [panelParams, setPanelParams] = useState<Record<string, any>>(panelRequest?.params ?? {});
 
   // Consume panel requests from the global navigate (e.g. clicking sidebar on another page)
   useEffect(() => {
@@ -709,7 +712,14 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               .filter((p: any) => { if (seen.has(p.id)) return false; seen.add(p.id); return new Date(p.created_at).getTime() >= fiveDaysAgo; })
               .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
               .slice(0, 10);
-            if (merged.length === 0) return null;
+            // While loading, reserve vertical space so the section appearing later
+            // doesn't shift content below (CLS).
+            if (merged.length === 0) {
+              if (friendPostsLoading) {
+                return <div aria-hidden style={{ minHeight: 360 }} />;
+              }
+              return null;
+            }
             return (
               <div className="flex flex-col gap-3">
                 {merged.map((post: any) => {

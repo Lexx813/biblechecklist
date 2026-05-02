@@ -16,7 +16,7 @@ main:has(.msg-layout) ~ .page-footer { display: none; }
 
 /* Full-page route: main has no set height, so give it the viewport minus topbar */
 main:has(.msg-layout) {
-  height: calc(100dvh - 52px);
+  height: calc(100dvh - var(--topbar-h, 52px));
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -25,13 +25,13 @@ main:has(.msg-layout) {
 /* On mobile, subtract the bottom tab bar height too */
 @media (max-width: 1100px) {
   main:has(.msg-layout) {
-    height: calc(100dvh - 52px - 72px);
+    height: calc(100dvh - var(--topbar-h, 52px) - 72px);
   }
 }
 
 /* Make al-content fill full height when it contains the chat layout */
 .al-wrap:has(.msg-layout) {
-  height: calc(100dvh - 52px);
+  height: calc(100dvh - var(--topbar-h, 52px));
   min-height: 0;
   align-items: stretch;
 }
