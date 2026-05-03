@@ -22,10 +22,19 @@ main:has(.msg-layout) {
   flex-direction: column;
 }
 
-/* On mobile, subtract the bottom tab bar height too */
+/* On mobile, messages takes the full viewport — hide the app topbar so the
+   chat list / thread own the safe-area-inset-top, and the X / back button
+   in the messages header sits below the iPhone Dynamic Island. The mobile
+   tab bar and AI bubble are already hidden on this route in AuthedApp. */
 @media (max-width: 1100px) {
+  body:has(.msg-layout) .topbar { display: none; }
   main:has(.msg-layout) {
-    height: calc(100dvh - var(--topbar-h, 52px) - 72px);
+    height: 100dvh;
+  }
+  /* Push the messages sidebar header / thread header below the iOS notch */
+  .msg-sidebar-header,
+  .msg-thread-header {
+    padding-top: max(12px, env(safe-area-inset-top, 0px));
   }
 }
 
@@ -1986,10 +1995,10 @@ main:has(.msg-layout) {
 }
 
 @media (max-width: 480px) {
-  .msg-sidebar-header { padding: 12px 14px; }
+  .msg-sidebar-header { padding: max(12px, env(safe-area-inset-top, 0px)) 14px 12px; }
   .msg-thread-name { font-size: 13px; }
   .msg-thread-status { font-size: 11px; }
-  .msg-thread-header { padding: 10px 12px; gap: 8px; }
+  .msg-thread-header { padding: max(10px, env(safe-area-inset-top, 0px)) 12px 10px; gap: 8px; }
   .msg-bubble-wrap { max-width: 92%; }
   .msg-bubble { font-size: 13px; padding: 7px 10px; }
   .msg-input { font-size: 16px; } /* prevent iOS zoom */
@@ -2004,7 +2013,7 @@ main:has(.msg-layout) {
 }
 
 @media (max-width: 360px) {
-  .msg-thread-header { padding: 8px 10px; }
+  .msg-thread-header { padding: max(8px, env(safe-area-inset-top, 0px)) 10px 8px; }
   .msg-composer-row { padding: 6px 10px 0; }
   .msg-bubble-wrap { max-width: 96%; }
   .msg-rich-toolbar { gap: 0; }
