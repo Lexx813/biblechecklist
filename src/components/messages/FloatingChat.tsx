@@ -149,7 +149,7 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
       <div className="fc-root" ref={panelRef}>
         {open && (
           <div className="fc-panel" style={panelAccentStyle}>
-            <div className="fc-panel-header" style={accentColor && activeConv ? { background: `linear-gradient(135deg, ${accentColor}, #1e1035)` } : {}}>
+            <div className="fc-panel-header" style={{ paddingTop: "max(12px, env(safe-area-inset-top, 0px))", ...(accentColor && activeConv ? { background: `linear-gradient(135deg, ${accentColor}, #1e1035)` } : {}) }}>
               <span className="fc-panel-title">
                 {activeConv ? ((activeConv.other_display_name as string) || t("messages.chat")) : t("messages.title")}
               </span>
