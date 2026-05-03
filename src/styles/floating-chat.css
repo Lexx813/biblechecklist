@@ -1117,6 +1117,12 @@
     animation: fc-slide-up 0.22s var(--ease-spring);
   }
 
+  /* Push the header (with title + close X + fullview button) below the
+     iPhone Dynamic Island / notch so the X is reachable. */
+  .fc-panel-header {
+    padding-top: max(12px, env(safe-area-inset-top, 0px));
+  }
+
   @keyframes fc-slide-up {
     from { opacity: 0; transform: translateY(100%); }
     to   { opacity: 1; transform: translateY(0); }
