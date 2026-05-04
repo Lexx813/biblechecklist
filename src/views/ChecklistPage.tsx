@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { BOOKS, OT_COUNT } from "../data/books";
@@ -708,7 +709,7 @@ function QuickNoteModal({ userId, bookIndex, onClose }) {
 
   const bookName = t(`bookNames.${bookIndex}`, book?.name ?? "");
 
-  return (
+  return createPortal(
     <div className="qn-backdrop" onClick={handleBackdrop}>
       <div className="qn-modal" role="dialog" aria-modal="true" aria-label={t("app.quickNoteTitle")}>
         <div className="qn-header">
@@ -773,6 +774,7 @@ function QuickNoteModal({ userId, bookIndex, onClose }) {
         </form>
 
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

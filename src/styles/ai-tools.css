@@ -69,13 +69,13 @@
 }
 
 .ait-tab:hover {
-  border-color: var(--purple, #7c3aed);
-  color: var(--purple, #7c3aed);
+  border-color: var(--purple, var(--violet-600));
+  color: var(--purple, var(--violet-600));
 }
 
 .ait-tab--active {
-  background: var(--purple, #7c3aed);
-  border-color: var(--purple, #7c3aed);
+  background: var(--purple, var(--violet-600));
+  border-color: var(--purple, var(--violet-600));
   color: #fff;
 }
 
@@ -148,7 +148,7 @@
 .ait-input:focus,
 .ait-textarea:focus {
   outline: none;
-  border-color: var(--purple, #7c3aed);
+  border-color: var(--purple, var(--violet-600));
 }
 
 .ait-input:disabled,
@@ -183,8 +183,8 @@
 }
 
 .ait-example-chip:hover:not(:disabled) {
-  border-color: var(--purple, #7c3aed);
-  color: var(--purple, #7c3aed);
+  border-color: var(--purple, var(--violet-600));
+  color: var(--purple, var(--violet-600));
 }
 
 .ait-example-chip:disabled {
@@ -216,13 +216,13 @@
 }
 .ait-segment-btn:last-child { border-right: none; }
 .ait-segment-btn:hover:not(:disabled) { background: var(--teal-soft, rgba(20,184,166,.08)); color: var(--text-primary); }
-.ait-segment-btn--active { background: var(--purple, #7c3aed); color: #fff !important; font-weight: 700; }
+.ait-segment-btn--active { background: var(--purple, var(--violet-600)); color: #fff !important; font-weight: 700; }
 .ait-segment-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .ait-submit-btn {
   margin-top: 0.5rem;
   padding: 0.7rem 1.25rem;
-  background: var(--purple, #7c3aed);
+  background: var(--purple, var(--violet-600));
   color: #fff;
   border: none;
   border-radius: var(--radius-sm);
@@ -234,7 +234,7 @@
 }
 
 .ait-submit-btn:hover:not(:disabled) {
-  background: var(--purple-dark, #6d28d9);
+  background: var(--purple-dark, var(--violet-700));
 }
 
 .ait-submit-btn:disabled {
@@ -267,7 +267,7 @@
 .ait-result-label {
   font-size: 0.78rem;
   font-weight: 600;
-  color: var(--purple, #7c3aed);
+  color: var(--purple, var(--violet-600));
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -281,9 +281,9 @@
 .ait-result-save {
   font-size: 0.78rem;
   font-weight: 600;
-  color: var(--purple, #7c3aed);
+  color: var(--purple, var(--violet-600));
   background: none;
-  border: 1px solid var(--purple, #7c3aed);
+  border: 1px solid var(--purple, var(--violet-600));
   border-radius: var(--radius-lg);
   cursor: pointer;
   padding: 0.2rem 0.65rem;
@@ -291,7 +291,7 @@
 }
 
 .ait-result-save:hover:not(:disabled) {
-  background: var(--purple, #7c3aed);
+  background: var(--purple, var(--violet-600));
   color: #fff;
 }
 
@@ -316,7 +316,7 @@
 }
 
 .ait-vis-btn--active {
-  background: var(--purple, #7c3aed);
+  background: var(--purple, var(--violet-600));
   color: #fff;
 }
 
@@ -365,7 +365,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--purple, #7c3aed);
+  background: var(--purple, var(--violet-600));
   animation: ait-bounce 1.2s infinite;
 }
 
@@ -397,7 +397,7 @@
   display: inline-block;
   width: 2px;
   height: 1em;
-  background: var(--purple, #7c3aed);
+  background: var(--purple, var(--violet-600));
   margin-left: 2px;
   vertical-align: text-bottom;
   animation: ait-blink 0.8s step-end infinite;
@@ -437,7 +437,7 @@
   gap: 0.4rem;
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--purple, #7c3aed);
+  color: var(--purple, var(--violet-600));
 }
 
 .ait-inline-chevron {

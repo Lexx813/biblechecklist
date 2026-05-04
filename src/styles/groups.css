@@ -310,7 +310,7 @@
 }
 
 .grp-btn--primary { background: var(--accent); color: #fff; }
-.grp-btn--primary:hover:not(:disabled) { background: var(--accent-dark, #6d28d9); }
+.grp-btn--primary:hover:not(:disabled) { background: var(--accent-dark, var(--violet-700)); }
 .grp-btn--ghost {
   background: var(--card-bg);
   color: var(--text-secondary);

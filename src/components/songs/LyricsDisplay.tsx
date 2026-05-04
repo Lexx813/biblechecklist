@@ -61,7 +61,7 @@ function Section({ section, lang }: { section: SongSection; lang: "en" | "es" })
       <div
         className={
           isSpoken
-            ? "mt-3 space-y-1.5 border-l-2 border-violet-300/50 pl-5 text-[17px]/[1.7] italic text-slate-600 dark:border-violet-400/30 dark:text-slate-400"
+            ? "mt-3 space-y-1.5 rounded-md bg-violet-50 px-4 py-2 text-[17px]/[1.7] italic text-slate-700 dark:bg-violet-950/30 dark:text-slate-300"
             : isChorus
               ? "mt-3 space-y-1.5 text-[18px]/[1.75] font-medium text-slate-900 dark:text-slate-50"
               : "mt-3 space-y-1.5 text-[17px]/[1.75] text-slate-800 dark:text-slate-200"

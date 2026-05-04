@@ -5,14 +5,20 @@ import ProgressBar from "./_components/ProgressBar";
 import type { ExerciseResult, Unit } from "./content";
 import { findLesson, getStrings, getUnits, totalLessonCount } from "./content";
 import { readLearnProgress, writeLearnProgress } from "./progressStore";
+import {
+  useMyLearnProgress,
+  useUpsertLearnLesson,
+  useDeleteLearnLesson,
+} from "../../hooks/useLearn";
 
 type ViewMode = { kind: "overview" } | { kind: "lesson"; lessonId: string };
 
 interface LearnPageProps {
   onBack?: () => void;
+  userId?: string | null;
 }
 
-export default function LearnPage({ onBack }: LearnPageProps) {
+export default function LearnPage({ onBack, userId }: LearnPageProps) {
   const units: Unit[] = useMemo(() => getUnits("en"), []);
   const strings = getStrings("en");
   const total = totalLessonCount();
@@ -20,11 +26,39 @@ export default function LearnPage({ onBack }: LearnPageProps) {
   const [view, setView] = useState<ViewMode>({ kind: "overview" });
   const [expandedUnit, setExpandedUnit] = useState<string | null>(units[0]?.id ?? null);
 
-  // [SUPABASE HOOK] hydrate from study_course_progress (where user_id = auth.uid()) on mount
   const [completedLessons, setCompletedLessons] = useState<Set<string>>(
     () => new Set(readLearnProgress().completed),
   );
   const [exerciseResults, setExerciseResults] = useState<Record<string, ExerciseResult>>({});
+
+  const { data: serverRows } = useMyLearnProgress(userId);
+  const upsertLesson = useUpsertLearnLesson(userId);
+  const deleteLesson = useDeleteLearnLesson(userId);
+
+  // Lesson-id → unit-id lookup so we can persist the unit alongside the lesson.
+  const lessonToUnit = useMemo(() => {
+    const m = new Map<string, string>();
+    for (const u of units) for (const l of u.lessons) m.set(l.id, u.id);
+    return m;
+  }, [units]);
+
+  // Hydrate from server when authed; backfill any localStorage-only rows so
+  // pre-launch progress isn't lost the first time someone opens the page.
+  useEffect(() => {
+    if (!userId || !serverRows) return;
+    const serverIds = new Set(serverRows.map((r) => r.lesson_id));
+    const localIds = new Set(readLearnProgress().completed);
+    const merged = new Set<string>([...serverIds, ...localIds]);
+    setCompletedLessons(merged);
+    for (const lessonId of localIds) {
+      if (!serverIds.has(lessonId)) {
+        const unitId = lessonToUnit.get(lessonId) ?? "";
+        if (unitId) upsertLesson.mutate({ lessonId, unitId });
+      }
+    }
+    // run once per server-rows change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId, serverRows]);
 
   useEffect(() => {
     writeLearnProgress({ completed: Array.from(completedLessons) });
@@ -41,27 +75,53 @@ export default function LearnPage({ onBack }: LearnPageProps) {
     setView({ kind: "overview" });
   }, []);
 
-  const markLessonComplete = useCallback((lessonId: string) => {
-    setCompletedLessons((prev) => {
-      const next = new Set(prev);
-      if (next.has(lessonId)) next.delete(lessonId);
-      else next.add(lessonId);
-      return next;
-    });
-    // [SUPABASE HOOK] upsert study_course_progress: { user_id, lesson_id, completed_at: now() }
-  }, []);
+  const markLessonComplete = useCallback(
+    (lessonId: string) => {
+      setCompletedLessons((prev) => {
+        const next = new Set(prev);
+        const willComplete = !next.has(lessonId);
+        if (willComplete) next.add(lessonId);
+        else next.delete(lessonId);
+        if (userId) {
+          if (willComplete) {
+            upsertLesson.mutate({
+              lessonId,
+              unitId: lessonToUnit.get(lessonId) ?? "",
+            });
+          } else {
+            deleteLesson.mutate(lessonId);
+          }
+        }
+        return next;
+      });
+    },
+    [userId, upsertLesson, deleteLesson, lessonToUnit],
+  );
 
-  const handleExerciseComplete = useCallback((result: ExerciseResult) => {
-    setExerciseResults((prev) => ({ ...prev, [`${result.lessonId}:${result.exerciseId}`]: result }));
-    // Completing the exercise also marks the lesson complete.
-    setCompletedLessons((prev) => {
-      if (prev.has(result.lessonId)) return prev;
-      const next = new Set(prev);
-      next.add(result.lessonId);
-      return next;
-    });
-    // [SUPABASE HOOK] insert study_course_progress: { user_id, lesson_id, exercise_id, score, response_data, completed_at: now() }
-  }, []);
+  const handleExerciseComplete = useCallback(
+    (result: ExerciseResult) => {
+      setExerciseResults((prev) => ({
+        ...prev,
+        [`${result.lessonId}:${result.exerciseId}`]: result,
+      }));
+      setCompletedLessons((prev) => {
+        if (prev.has(result.lessonId)) return prev;
+        const next = new Set(prev);
+        next.add(result.lessonId);
+        return next;
+      });
+      if (userId) {
+        upsertLesson.mutate({
+          lessonId: result.lessonId,
+          unitId: lessonToUnit.get(result.lessonId) ?? "",
+          exerciseId: result.exerciseId,
+          score: result.score ?? null,
+          responseData: result.responseData ?? null,
+        });
+      }
+    },
+    [userId, upsertLesson, lessonToUnit],
+  );
 
   const goToNextLesson = useCallback(
     (currentLessonId: string) => {

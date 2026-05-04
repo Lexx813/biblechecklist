@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOKS, OT_COUNT } from "../data/books";
 import BookCard from "../components/BookCard";
+import BookCelebration from "../components/BookCelebration";
 import { loadAnonProgress, saveAnonProgress, countAnonChapters, type AnonProgress } from "../lib/anonProgress";
 import "../styles/app.css";
 
@@ -23,6 +24,7 @@ export default function AnonChecklistPage({ onSignUp, onBack }: Props) {
   const [tab, setTab] = useState<"all" | "ot" | "nt">("all");
   const [search, setSearch] = useState("");
   const [bannerDismissed, setBannerDismissed] = useState(false);
+  const [celebrateBook, setCelebrateBook] = useState<{ name: string; chapters: number } | null>(null);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -37,7 +39,16 @@ export default function AnonChecklistPage({ onSignUp, onBack }: Props) {
   const handleToggleChapter = (bi: number, ch: number) => {
     setChaptersState(prev => {
       const wasRead = !!prev[bi]?.[ch];
-      return { ...prev, [bi]: { ...(prev[bi] || {}), [ch]: !wasRead } };
+      const next = { ...prev, [bi]: { ...(prev[bi] || {}), [ch]: !wasRead } };
+      // If toggling ON pushed this book to 100%, fire celebration (anon parity with authed flow)
+      if (!wasRead) {
+        const total = BOOKS[bi].chapters;
+        const doneCount = Object.values(next[bi]).filter(Boolean).length;
+        if (doneCount === total) {
+          setTimeout(() => setCelebrateBook({ name: BOOKS[bi].name, chapters: total }), 300);
+        }
+      }
+      return next;
     });
   };
 
@@ -192,6 +203,16 @@ export default function AnonChecklistPage({ onSignUp, onBack }: Props) {
             </div>
           </div>
         </div>
+      )}
+
+      {celebrateBook && (
+        <BookCelebration
+          bookName={celebrateBook.name}
+          bookIcon={null}
+          chaptersCount={celebrateBook.chapters}
+          totalDoneBooks={doneBooks}
+          onClose={() => setCelebrateBook(null)}
+        />
       )}
     </div>
   );

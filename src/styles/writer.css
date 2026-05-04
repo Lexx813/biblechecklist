@@ -424,10 +424,17 @@
 .writer-toc-item--sub { padding-left: 18px; font-size: 11px; }
 
 /* ── Responsive ──────────────────────────────────────────── */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
+  /* Hide the 260px sidebar + 60px format bar on tablets and phones —
+     they were eating 320px of horizontal space on iPhone Pro Max. */
   .writer-sidebar { display: none; }
   .writer-format-bar { display: none; }
   .writer-editor { padding: 20px 16px 80px; }
+}
+@media (max-width: 480px) {
+  /* On the smallest phones, also constrain the cover-URL input so it
+     doesn't overflow the modal. */
+  .writer-cover-url-input { width: 100%; max-width: none; }
 }
 
 /* ── AI helper menu in writer topbar ───────────────────────────────────── */
@@ -436,23 +443,23 @@
   display: inline-flex; align-items: center; gap: 4px;
   background: rgba(124,58,237,0.08);
   border: 1px solid rgba(124,58,237,0.25);
-  color: #a78bfa;
+  color: var(--violet-400);
   font-weight: 700;
 }
 .writer-ai-menu-btn:hover {
   background: rgba(124,58,237,0.18);
   border-color: rgba(124,58,237,0.45);
-  color: #c4b5fd;
+  color: var(--violet-300);
 }
 [data-theme="light"] .writer-ai-menu-btn {
   background: rgba(124,58,237,0.06);
   border-color: rgba(124,58,237,0.2);
-  color: #6d28d9;
+  color: var(--violet-700);
 }
 [data-theme="light"] .writer-ai-menu-btn:hover {
   background: rgba(124,58,237,0.12);
   border-color: rgba(124,58,237,0.35);
-  color: #5b21b6;
+  color: var(--violet-800);
 }
 .writer-ai-menu {
   position: absolute;
@@ -485,11 +492,11 @@
 }
 .writer-ai-menu-item:hover:not(:disabled) {
   background: rgba(124,58,237,0.12);
-  color: #c4b5fd;
+  color: var(--violet-300);
 }
 .writer-ai-menu-item:disabled { opacity: 0.4; cursor: not-allowed; }
 [data-theme="light"] .writer-ai-menu-item { color: #1f1535; }
-[data-theme="light"] .writer-ai-menu-item:hover:not(:disabled) { background: rgba(124,58,237,0.08); color: #5b21b6; }
+[data-theme="light"] .writer-ai-menu-item:hover:not(:disabled) { background: rgba(124,58,237,0.08); color: var(--violet-800); }
 .writer-ai-menu-divider {
   height: 1px;
   margin: 4px 0;

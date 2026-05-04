@@ -117,7 +117,7 @@
 .stp-card-arrow {
   margin-top: auto;
   font-size: 13px;
-  color: var(--teal, #7c3aed);
+  color: var(--teal, var(--violet-600));
   font-weight: 600;
   padding-top: 6px;
 }
@@ -346,9 +346,9 @@ a.std-scripture-ref:hover {
 }
 
 .stp-tab--active {
-  background: var(--teal, #7c3aed);
+  background: var(--teal, var(--violet-600));
   color: #fff;
-  border-color: var(--teal, #7c3aed);
+  border-color: var(--teal, var(--violet-600));
 }
 
 /* ── Book Detail Page ────────────────────────────────────────────────────── */
@@ -427,7 +427,7 @@ a.std-scripture-ref:hover {
   border-radius: var(--radius-pill);
   font-size: 13px;
   font-weight: 600;
-  color: #a78bfa;
+  color: var(--violet-400);
   text-decoration: none;
   transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
 }
@@ -502,7 +502,7 @@ a.bkd-verse-chip:hover {
   border-radius: 50%;
   background: rgba(124,58,237,0.12);
   border: 1px solid rgba(124,58,237,0.2);
-  color: #a78bfa;
+  color: var(--violet-400);
   font-size: 11px;
   font-weight: 800;
   display: flex;

@@ -137,6 +137,67 @@ export function useAdminQuizStats() {
   });
 }
 
+export function useFeatureLeaders(feature: string | null, limit = 50) {
+  return useQuery({
+    queryKey: ["admin", "featureLeaders", feature, limit],
+    queryFn: () => analyticsApi.getFeatureLeaders(feature!, limit),
+    enabled: !!feature,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+export interface Ga4Row {
+  dimensions: string[];
+  metrics: number[];
+}
+
+export interface Ga4Result {
+  configured: boolean;
+  rows: Ga4Row[];
+  error?: string;
+  setupSteps?: string[];
+}
+
+async function fetchGa4(report: "topPages" | "topEvents"): Promise<Ga4Result> {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session?.access_token) {
+    return { configured: false, rows: [], error: "Not authenticated" };
+  }
+  const res = await fetch(`/api/admin/ga4?report=${report}`, {
+    headers: { Authorization: `Bearer ${session.access_token}` },
+  });
+  const json = await res.json() as {
+    rows?: Ga4Row[];
+    error?: string;
+    setup?: { steps: string[] };
+  };
+  if (res.status === 503) {
+    return { configured: false, rows: [], error: json.error, setupSteps: json.setup?.steps };
+  }
+  if (!res.ok) {
+    return { configured: true, rows: [], error: json.error ?? `HTTP ${res.status}` };
+  }
+  return { configured: true, rows: json.rows ?? [] };
+}
+
+export function useGa4TopPages() {
+  return useQuery({
+    queryKey: ["admin", "ga4", "topPages"],
+    queryFn: () => fetchGa4("topPages"),
+    staleTime: 10 * 60 * 1000,
+    retry: false,
+  });
+}
+
+export function useGa4TopEvents() {
+  return useQuery({
+    queryKey: ["admin", "ga4", "topEvents"],
+    queryFn: () => fetchGa4("topEvents"),
+    staleTime: 10 * 60 * 1000,
+    retry: false,
+  });
+}
+
 export function useAllBlogPosts() {
   return useQuery({
     queryKey: ["admin", "blog"],

@@ -47,7 +47,7 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--teal), #5b21b6);
+  background: linear-gradient(135deg, var(--teal), var(--violet-800));
   border: none;
   cursor: pointer;
   font-size: 22px;
@@ -85,7 +85,8 @@
 /* ── Panel ───────────────────────────────────────────────────────────────── */
 
 .fc-panel {
-  width: 355px;
+  /* min() so the panel never exceeds the viewport on 360px Androids */
+  width: min(355px, calc(100vw - 24px));
   height: 500px;
   background: var(--bg);
   border: none;
@@ -110,7 +111,7 @@
   justify-content: space-between;
   padding: 12px 14px;
   border-bottom: 1px solid var(--border);
-  background: var(--conv-accent, #7c3aed);
+  background: var(--conv-accent, var(--violet-600));
   flex-shrink: 0;
 }
 
@@ -136,7 +137,8 @@
   color: #fff;
   cursor: pointer;
   padding: 8px;
-  min-width: 28px; min-height: 28px;
+  /* Apple HIG minimum 44×44 touch target — was 28×28 (too small to tap reliably) */
+  min-width: 44px; min-height: 44px;
   display: flex; align-items: center; justify-content: center;
   border-radius: var(--radius-xs);
   transition: background var(--dur-fast);
@@ -318,7 +320,7 @@
 }
 
 .fc-avatar--fallback {
-  background: linear-gradient(135deg, var(--teal), #7c3aed);
+  background: linear-gradient(135deg, var(--teal), var(--violet-600));
   color: #fff;
   font-weight: 800;
   display: flex;
@@ -368,7 +370,8 @@
   cursor: pointer;
   color: var(--text-muted);
   padding: 7px;
-  min-width: 30px; min-height: 30px;
+  /* Apple HIG 44×44 — was 30×30 */
+  min-width: 44px; min-height: 44px;
   display: flex; align-items: center; justify-content: center;
   border-radius: var(--radius-xs);
   transition: color var(--dur-fast), background var(--dur-fast);
@@ -924,7 +927,7 @@
 
 .fc-action-menu-item:hover {
   background: rgba(124, 58, 237, 0.08);
-  color: #a78bfa;
+  color: var(--violet-400);
 }
 
 .fc-action-menu-item span { font-size: 14px; }
@@ -1137,6 +1140,20 @@
   .fc-backdrop { display: none; }
 
   .fc-fullview-btn { display: none; }
+
+  /* Force 16px on inputs to prevent iOS auto-zoom on focus.
+     Was 13px which triggers Safari's pinch-zoom-on-focus behavior. */
+  .fc-input,
+  .fc-composer > .fc-input {
+    font-size: 16px;
+  }
+
+  /* Push composer above the iPhone home indicator so the input + send
+     button aren't hidden by the swipe-up gesture area. */
+  .fc-composer-wrap,
+  .fc-composer {
+    padding-bottom: max(0px, env(safe-area-inset-bottom, 0px));
+  }
 }
 
 @media (max-width: 479px) {
@@ -1158,7 +1175,7 @@
 
 .fc-thread-header-actions {
   display: flex;
-  gap: 2px;
+  gap: 6px;
   flex-shrink: 0;
   margin-left: auto;
 }
@@ -1168,7 +1185,8 @@
   border: none;
   cursor: pointer;
   padding: 8px;
-  min-width: 28px; min-height: 28px;
+  /* Apple HIG 44×44 — was 28×28 */
+  min-width: 44px; min-height: 44px;
   display: flex; align-items: center; justify-content: center;
   border-radius: var(--radius-xs);
   color: var(--text-muted);
@@ -1214,8 +1232,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 28px;
-  min-height: 28px;
+  /* Apple HIG 44×44 — toolbar buttons were 28×28 */
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .fc-toolbar-btn:hover { color: var(--text-primary); background: var(--teal-soft); }
@@ -1225,13 +1244,13 @@
 /* ── Prayer mode ──────────────────────────────────────────────────────────── */
 
 .fc-input--prayer {
-  border-color: #8b5cf6;
+  border-color: var(--violet-500);
   background: rgba(139,92,246,0.08);
 }
 
 .fc-prayer-hint {
   font-size: 10px;
-  color: #8b5cf6;
+  color: var(--violet-500);
   padding: 2px 12px 4px;
   background: var(--bg);
 }
@@ -1255,7 +1274,7 @@
 .fc-prayer-card-tag {
   font-size: 10px;
   font-weight: 700;
-  color: #8b5cf6;
+  color: var(--violet-500);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 5px;

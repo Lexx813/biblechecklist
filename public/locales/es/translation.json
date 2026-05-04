@@ -1879,7 +1879,8 @@
     "imageWarningProhibition": "Compartir contenido explícito, ofensivo o inapropiado está estrictamente prohibido",
     "imageWarningSuspension": "y puede resultar en la suspensión de la cuenta.",
     "imageWarningAgree": "Al continuar, confirmas que esta imagen es sana y apropiada.",
-    "sendImage": "Enviar imagen"
+    "sendImage": "Enviar imagen",
+    "searchConversations": "Buscar conversaciones…"
   },
   "aiCompanion": {
     "title": "Compañero de Estudio IA",
@@ -3629,8 +3630,8 @@
     "studyTools": "Herramientas de Estudio",
     "66books": "66 Libros",
     "continueReading": "Continuar leyendo",
-    "noActivePlan": "Sin plan activo",
-    "startReadingPlanArrow": "Iniciar un plan de lectura →",
+    "noActivePlan": "Aún no tienes plan de lectura",
+    "startReadingPlanArrow": "Empieza un recorrido de 1 año →",
     "openArrow": "Abrir →",
     "todayPrefix": "Hoy: ",
     "defaultPlanName": "Plan de lectura",

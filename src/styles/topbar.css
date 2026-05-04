@@ -38,7 +38,7 @@
   width: 28px;
   height: 28px;
   border-radius: var(--radius-xs);
-  background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
+  background: linear-gradient(135deg, var(--violet-600) 0%, var(--violet-400) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,10 +115,10 @@
   transition: background var(--dur-fast) var(--ease-out);
 }
 .topbar-btn:hover { background: rgba(124, 58, 237, 0.12); }
-.topbar-btn--active { color: #a78bfa; background: rgba(124, 58, 237, 0.12); }
+.topbar-btn--active { color: var(--violet-400); background: rgba(124, 58, 237, 0.12); }
 [data-theme="light"] .topbar-btn--active { color: var(--teal); background: rgba(124, 58, 237, 0.08); }
 .topbar-btn:focus-visible {
-  outline: 2px solid #7c3aed;
+  outline: 2px solid var(--violet-600);
   outline-offset: 2px;
 }
 .topbar-btn-badge {
@@ -143,22 +143,22 @@
 
 /* AI Study Companion link — distinct violet treatment */
 .topbar-btn--ai {
-  color: #a78bfa;
+  color: var(--violet-400);
   text-decoration: none;
 }
 .topbar-btn--ai:hover {
   background: rgba(124, 58, 237, 0.18);
-  color: #c4b5fd;
+  color: var(--violet-300);
 }
-[data-theme="light"] .topbar-btn--ai { color: #6d28d9; }
-[data-theme="light"] .topbar-btn--ai:hover { background: rgba(124, 58, 237, 0.1); color: #5b21b6; }
+[data-theme="light"] .topbar-btn--ai { color: var(--violet-700); }
+[data-theme="light"] .topbar-btn--ai:hover { background: rgba(124, 58, 237, 0.1); color: var(--violet-800); }
 
 /* Avatar */
 .topbar-avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4f2d85, #7c3aed);
+  background: linear-gradient(135deg, #4f2d85, var(--violet-600));
   border: 2px solid rgba(138, 75, 255, 0.3);
   display: flex;
   align-items: center;

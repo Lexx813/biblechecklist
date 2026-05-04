@@ -338,7 +338,7 @@
   border: none;
   padding: 2px 4px;
   border-radius: 4px;
-  color: var(--teal, #7c3aed);
+  color: var(--teal, var(--violet-600));
   font-size: inherit;
   cursor: pointer;
   text-decoration: underline;

@@ -2,17 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { LANGUAGES } from "../i18n";
 
-const FALLBACK_IMAGES = [
-  "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=640&q=75",
-  "https://images.unsplash.com/photo-1455541504462-57ebb2a9cec1?auto=format&fit=crop&w=640&q=75",
-  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=640&q=75",
-  "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=640&q=75",
-  "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?auto=format&fit=crop&w=640&q=75",
-  "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=640&q=75",
-  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=640&q=75",
-  "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=640&q=75",
-  "https://images.unsplash.com/photo-1519817914152-22d216bb9170?auto=format&fit=crop&w=640&q=75",
-  "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?auto=format&fit=crop&w=640&q=75",
+/* Branded violet placeholders — replaced stock Unsplash photography that
+   read as cheap/generic. Each post gets a stable color from its id. */
+const VIOLET_PLACEHOLDERS = [
+  "linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%)",
+  "linear-gradient(135deg, #a78bfa 0%, #6d28d9 100%)",
+  "linear-gradient(135deg, #6d28d9 0%, #4c1d95 100%)",
+  "linear-gradient(135deg, #8b5cf6 0%, #5b21b6 100%)",
+  "linear-gradient(135deg, #c4b5fd 0%, #7c3aed 100%)",
 ];
 
 function hashId(id: string) {
@@ -21,8 +18,8 @@ function hashId(id: string) {
   return h;
 }
 
-function getFallbackImage(id: string) {
-  return FALLBACK_IMAGES[hashId(id) % FALLBACK_IMAGES.length];
+function getFallbackGradient(id: string) {
+  return VIOLET_PLACEHOLDERS[hashId(id) % VIOLET_PLACEHOLDERS.length];
 }
 
 /* ── Lazy Supabase, keeps the SDK out of the critical render path ── */
@@ -469,16 +466,18 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
             <div className="grid gap-5 md:grid-cols-3 max-md:mx-auto max-md:max-w-[440px] max-md:grid-cols-1">
               {featuredPosts.map(post => (
                 <a key={post.slug} href={`/blog/${post.slug}`} className="group flex cursor-pointer flex-col overflow-hidden rounded-[14px] border border-[var(--lp-card-border)] bg-[var(--lp-card-bg)] text-inherit no-underline shadow-[var(--lp-card-shadow)] transition-all duration-200 hover:-translate-y-[3px] hover:border-[var(--lp-primary)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.18)]">
-                  <div className="aspect-video w-full shrink-0 overflow-hidden bg-[var(--lp-pill-bg)]">
-                    <img
-                      src={post.cover_url || getFallbackImage(post.id)}
-                      alt={post.title}
-                      className="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                      loading="lazy"
-                      width={640}
-                      height={360}
-                      onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
-                    />
+                  <div className="aspect-video w-full shrink-0 overflow-hidden" style={{ background: getFallbackGradient(post.id) }}>
+                    {post.cover_url && (
+                      <img
+                        src={post.cover_url}
+                        alt={post.title}
+                        className="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                        loading="lazy"
+                        width={640}
+                        height={360}
+                        onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                      />
+                    )}
                   </div>
                   <div className="flex flex-1 flex-col gap-2 px-5 pb-5 pt-[18px]">
                     <h3 className="m-0 line-clamp-2 text-[15px] font-bold leading-[1.45] text-[var(--lp-text)]">{post.title}</h3>
@@ -510,7 +509,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
                 const songHref = currentLangCode === "es" ? `/es/songs/${song.slug}` : `/songs/${song.slug}`;
                 return (
                   <a key={song.id} href={songHref} className="group flex cursor-pointer flex-col overflow-hidden rounded-[14px] border border-[var(--lp-card-border)] bg-[var(--lp-card-bg)] text-inherit no-underline shadow-[var(--lp-card-shadow)] transition-all duration-200 hover:-translate-y-[3px] hover:border-[var(--lp-primary)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.18)]">
-                    <div className="relative aspect-video w-full shrink-0 overflow-hidden bg-gradient-to-br from-[var(--lp-primary)] to-[#a855f7]">
+                    <div className="relative aspect-video w-full shrink-0 overflow-hidden bg-[var(--violet-600,#7c3aed)]">
                       {song.cover ? (
                         <img
                           src={song.cover}

@@ -94,7 +94,7 @@
 .nf-btn:active { transform: translateY(0); }
 
 .nf-btn--primary {
-  background: linear-gradient(135deg, var(--teal), #7c3aed);
+  background: linear-gradient(135deg, var(--teal), var(--violet-600));
   color: #fff;
   box-shadow: 0 4px 14px rgba(106, 61, 170, 0.3);
 }
@@ -106,7 +106,7 @@
 }
 
 [data-theme="dark"] .nf-btn--ghost {
-  color: #c4b5fd;
+  color: var(--violet-300);
   border-color: var(--border);
 }
 

@@ -119,12 +119,12 @@
 
 .cs-item:hover {
   background: rgba(124, 58, 237, 0.08);
-  color: #a78bfa;
+  color: var(--violet-400);
 }
 
 .cs-item.is-selected {
   background: rgba(124, 58, 237, 0.12);
-  color: #a78bfa;
+  color: var(--violet-400);
   font-weight: 700;
 }
 

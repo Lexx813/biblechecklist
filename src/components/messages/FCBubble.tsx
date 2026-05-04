@@ -14,7 +14,10 @@ interface Message {
   sender_id: string;
   starred_by?: string[];
   metadata?: unknown;
-  sender?: Array<{ display_name: string | null; avatar_url: string | null }> | null;
+  sender?:
+    | Array<{ display_name: string | null; avatar_url: string | null }>
+    | { display_name: string | null; avatar_url: string | null }
+    | null;
 }
 
 interface Reaction {
@@ -116,7 +119,10 @@ export const FCBubble = memo(function FCBubble({ msg, isMine, allMessages, react
     >
       {!isMine && (
         (!position || position === "first" || position === "solo")
-          ? <Avatar name={msg.sender?.[0]?.display_name} avatarUrl={msg.sender?.[0]?.avatar_url} size={22} />
+          ? (() => {
+              const senderProfile = Array.isArray(msg.sender) ? msg.sender[0] : msg.sender;
+              return <Avatar name={senderProfile?.display_name} avatarUrl={senderProfile?.avatar_url} size={22} />;
+            })()
           : <div className="fc-avatar-ghost" aria-hidden="true" />
       )}
 
@@ -125,7 +131,7 @@ export const FCBubble = memo(function FCBubble({ msg, isMine, allMessages, react
           <div className="fc-quoted">
             <div className="fc-quoted-bar" />
             <div className="fc-quoted-body">
-              <span className="fc-quoted-name">{replyOrig.sender?.[0]?.display_name || t("messages.user")}</span>
+              <span className="fc-quoted-name">{(Array.isArray(replyOrig.sender) ? replyOrig.sender[0]?.display_name : replyOrig.sender?.display_name) || t("messages.user")}</span>
               <span className="fc-quoted-text">{(replyOrig.content?.startsWith("enc:") ? t("messages.encryptedShort") : replyOrig.content || "").slice(0, 50)}</span>
             </div>
           </div>

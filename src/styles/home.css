@@ -105,24 +105,33 @@ html:has(.home-wrap) .page-footer { display: none; }
   overflow: hidden;
   transition: border-color 220ms ease, background 220ms ease, box-shadow 220ms ease, transform 220ms cubic-bezier(.2,.7,.2,1);
 }
-.hcard:hover {
-  border-color: rgba(167, 139, 250, 0.4);
-  background:
-    radial-gradient(120% 60% at 0% 0%, rgba(167,139,250,0.10), transparent 55%),
-    rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 28px rgba(76, 29, 149, 0.18);
-  transform: translateY(-1px);
+/* Resting elevation so cards have presence before hover (progressive depth) */
+.hcard {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+@media (hover: hover) {
+  .hcard:hover {
+    border-color: rgba(167, 139, 250, 0.4);
+    background:
+      radial-gradient(120% 60% at 0% 0%, rgba(167,139,250,0.10), transparent 55%),
+      rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 28px rgba(76, 29, 149, 0.18);
+    transform: translateY(-1px);
+  }
 }
 [data-theme="light"] .hcard {
   background:
     radial-gradient(120% 60% at 0% 0%, rgba(124,58,237,0.04), transparent 55%),
     #fff;
 }
-[data-theme="light"] .hcard:hover {
-  background:
-    radial-gradient(120% 60% at 0% 0%, rgba(124,58,237,0.07), transparent 55%),
-    #fff;
-  box-shadow: 0 6px 22px rgba(76, 29, 149, 0.10);
+@media (hover: hover) {
+  [data-theme="light"] .hcard:hover {
+    background:
+      radial-gradient(120% 60% at 0% 0%, rgba(124,58,237,0.07), transparent 55%),
+      #fff;
+    box-shadow: 0 6px 22px rgba(76, 29, 149, 0.10);
+  }
 }
 
 /* ── Today's-focus card wrapper ──────────────────────────── */
@@ -251,7 +260,7 @@ html:has(.home-wrap) .page-footer { display: none; }
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 1.5px;
-  background: linear-gradient(90deg, transparent, #a78bfa 50%, transparent);
+  background: linear-gradient(90deg, transparent, var(--violet-400) 50%, transparent);
   opacity: 0.65;
   border-radius: var(--radius) var(--radius) 0 0;
   pointer-events: none;
@@ -265,12 +274,12 @@ html:has(.home-wrap) .page-footer { display: none; }
 }
 
 .daily-brief-icon {
-  color: #a78bfa;
+  color: var(--violet-400);
   flex-shrink: 0;
   line-height: 0;
   filter: drop-shadow(0 2px 6px rgba(167,139,250,0.5));
 }
-[data-theme="light"] .daily-brief-icon { color: #7c3aed; }
+[data-theme="light"] .daily-brief-icon { color: var(--violet-600); }
 
 .daily-brief-text {
   font-size: 14px;
@@ -299,7 +308,7 @@ html:has(.home-wrap) .page-footer { display: none; }
 }
 .daily-brief-dismiss:hover {
   background: rgba(124,58,237,0.15);
-  color: #a78bfa;
+  color: var(--violet-400);
 }
 
 .daily-brief-actions {
@@ -316,7 +325,7 @@ html:has(.home-wrap) .page-footer { display: none; }
   border-radius: 999px;
   border: 1px solid rgba(167,139,250,0.28);
   background: rgba(124,58,237,0.10);
-  color: #c4b5fd;
+  color: var(--violet-300);
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -325,31 +334,36 @@ html:has(.home-wrap) .page-footer { display: none; }
 .daily-brief-action:hover {
   background: rgba(124,58,237,0.22);
   border-color: rgba(167,139,250,0.55);
-  color: #ede9fe;
+  color: var(--violet-100);
   transform: translateY(-1px);
   box-shadow: 0 4px 14px rgba(124,58,237,0.25);
 }
 .daily-brief-action--primary {
-  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  /* Solid brand purple, no gradient (DESIGN.md: no gradient on primary CTAs) */
+  background: var(--violet-600);
   border-color: transparent;
   color: #fff;
-  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.45), inset 0 1px 0 rgba(255,255,255,0.18);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+  transition: background 160ms ease, transform 160ms cubic-bezier(.2,.7,.2,1), box-shadow 160ms ease;
 }
-.daily-brief-action--primary:hover {
-  filter: brightness(1.06);
-  box-shadow: 0 8px 22px rgba(124, 58, 237, 0.55), inset 0 1px 0 rgba(255,255,255,0.22);
-  border-color: transparent;
-  color: #fff;
+@media (hover: hover) {
+  .daily-brief-action--primary:hover {
+    background: var(--violet-700);
+    box-shadow: 0 8px 22px rgba(124, 58, 237, 0.45);
+    border-color: transparent;
+    color: #fff;
+    transform: translateY(-1px);
+  }
 }
 [data-theme="light"] .daily-brief-action {
-  color: #5b21b6;
+  color: var(--violet-800);
   border-color: rgba(124,58,237,0.2);
   background: rgba(124,58,237,0.06);
 }
 [data-theme="light"] .daily-brief-action:hover {
   background: rgba(124,58,237,0.12);
   border-color: rgba(124,58,237,0.3);
-  color: #4c1d95;
+  color: var(--violet-900);
 }
 
 .daily-brief-card--loading {

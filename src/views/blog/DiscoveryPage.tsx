@@ -10,15 +10,15 @@ import {
 import { formatDate } from "../../utils/formatters";
 import "../../styles/blog-discovery.css";
 
-const FALLBACK_IMAGES = [
-  "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1455541504462-57ebb2a9cec1?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=800&q=80",
+/* Branded violet SVG placeholders — replaced stock Unsplash photography that
+   read as cheap/generic. Each post gets a stable gradient from its id, encoded
+   as a data URI so existing <img src=...> consumers don't change. */
+const VIOLET_GRADIENTS: ReadonlyArray<readonly [string, string]> = [
+  ["#7c3aed", "#5b21b6"],
+  ["#a78bfa", "#6d28d9"],
+  ["#6d28d9", "#4c1d95"],
+  ["#8b5cf6", "#5b21b6"],
+  ["#c4b5fd", "#7c3aed"],
 ];
 
 function hashId(id: string) {
@@ -27,8 +27,10 @@ function hashId(id: string) {
   return h;
 }
 
-function fallbackImage(id: string) {
-  return FALLBACK_IMAGES[hashId(id) % FALLBACK_IMAGES.length];
+function fallbackImage(id: string): string {
+  const [from, to] = VIOLET_GRADIENTS[hashId(id) % VIOLET_GRADIENTS.length];
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='${from}'/><stop offset='1' stop-color='${to}'/></linearGradient></defs><rect width='800' height='450' fill='url(%23g)'/></svg>`;
+  return `data:image/svg+xml;utf8,${svg.replace(/#/g, "%23")}`;
 }
 
 const TOPICS = [

@@ -222,7 +222,7 @@
   font-size: 11px;
   font-weight: 700;
   background: rgba(124,58,237,0.18);
-  color: #a78bfa;
+  color: var(--violet-400);
   border: 1px solid rgba(124,58,237,0.25);
 }
 .freq-count-badge--empty {
@@ -364,7 +364,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 4px;
-  color: #a78bfa;
+  color: var(--violet-400);
 }
 .freq-empty-title {
   font-size: 14px;

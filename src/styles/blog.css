@@ -176,12 +176,12 @@
 }
 .blog-lang-pill:hover {
   border-color: var(--teal);
-  color: #a78bfa;
+  color: var(--violet-400);
 }
 .blog-lang-pill--active {
   background: rgba(124,58,237,0.15);
   border-color: var(--teal);
-  color: #a78bfa;
+  color: var(--violet-400);
   font-weight: 700;
 }
 

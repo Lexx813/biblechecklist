@@ -178,7 +178,7 @@
   width: 28px; height: 28px;
   border-radius: 50%;
   background: rgba(124,58,237,0.15);
-  color: #c4b5fd;
+  color: var(--violet-300);
   display: inline-flex; align-items: center; justify-content: center;
   font-size: 12px; font-weight: 700;
   overflow: hidden;
@@ -194,7 +194,7 @@
   padding: 2px 8px;
   border-radius: 999px;
   background: rgba(124,58,237,0.2);
-  color: #c4b5fd;
+  color: var(--violet-300);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.02em;

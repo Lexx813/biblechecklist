@@ -10,6 +10,7 @@ import { AnnouncementsTab } from "./tabs/AnnouncementsTab";
 import { AuditLogTab } from "./tabs/AuditLogTab";
 import { VideosTab, CreatorsTab } from "./tabs/VideosAdminTabs";
 import { AnalyticsTab } from "./tabs/AnalyticsTab";
+import { LearnTab } from "./tabs/LearnTab";
 import { AIUsageTab } from "./tabs/AIUsageTab";
 import { CampaignsTab } from "./tabs/CampaignsTab";
 import { ContentPlanTab } from "./tabs/ContentPlanTab";
@@ -161,6 +162,12 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
             </button>
           )}
           {isCurrentUserAdmin && (
+            <button className={`admin-tab${tab === "learn" ? " admin-tab--active" : ""}`} onClick={() => setTab("learn")}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              Learn
+            </button>
+          )}
+          {isCurrentUserAdmin && (
             <button className={`admin-tab${tab === "aiUsage" ? " admin-tab--active" : ""}`} onClick={() => setTab("aiUsage")}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 2L9.1 9.1 2 12l7.1 2.9L12 22l2.9-7.1L22 12l-7.1-2.9z"/></svg>
               AI Usage
@@ -200,6 +207,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
         {tab === "creators"      && isCurrentUserAdmin && <CreatorsTab />}
         {tab === "videos"        && isCurrentUserAdmin && <div className="admin-section"><VideosTab /></div>}
         {tab === "analytics"     && isCurrentUserAdmin && <AnalyticsTab />}
+        {tab === "learn"         && isCurrentUserAdmin && <div className="admin-section"><LearnTab /></div>}
         {tab === "aiUsage"       && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><AIUsageTab /></div>}
         {tab === "campaigns"     && isCurrentUserAdmin && <CampaignsTab currentUserId={currentUser.id} />}
         {tab === "contentPlan"   && isCurrentUserAdmin && <ContentPlanTab navigate={navigate} />}

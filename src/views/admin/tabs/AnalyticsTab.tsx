@@ -1,4 +1,5 @@
-import { useAnalytics } from "../../../hooks/useAdmin";
+import { useState } from "react";
+import { useAnalytics, useFeatureLeaders, useGa4TopPages, useGa4TopEvents } from "../../../hooks/useAdmin";
 import { BOOKS } from "../../../data/books";
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -54,9 +55,210 @@ function summarizeSeries(series: Array<{ count?: number; cost?: number }>, key: 
   return { value: last, deltaPct: pctDelta(last, priorAvg) };
 }
 
+function relTime(s: string | null | undefined): string {
+  if (!s) return "—";
+  const then = new Date(s).getTime();
+  const diff = Date.now() - then;
+  if (diff < 0) return "just now";
+  const mins = Math.floor(diff / 60_000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  if (days < 30) return `${days}d ago`;
+  const months = Math.floor(days / 30);
+  return `${months}mo ago`;
+}
+
+function Ga4Section() {
+  const { data: pages, isLoading: pagesLoading } = useGa4TopPages();
+  const { data: events, isLoading: eventsLoading } = useGa4TopEvents();
+
+  // Both queries hit the same route — if one is unconfigured, the other is too.
+  const unconfigured = pages && !pages.configured;
+
+  if (unconfigured) {
+    return (
+      <div style={{
+        background: "rgba(124, 58, 237, 0.05)",
+        border: "1px solid rgba(124, 58, 237, 0.18)",
+        borderRadius: 12,
+        padding: 20,
+        marginTop: 16,
+      }}>
+        <h3 style={{ margin: "0 0 8px", fontSize: 14, fontWeight: 600 }}>
+          GA4 Top Pages — not configured
+        </h3>
+        <p style={{ margin: "0 0 8px", color: "var(--text-muted)", fontSize: 13, lineHeight: 1.6 }}>
+          To surface page views and event counts here, set these env vars on Vercel and redeploy:
+        </p>
+        <ul style={{ margin: "0 0 0 18px", padding: 0, fontSize: 13, lineHeight: 1.8 }}>
+          <li><code>GA4_PROPERTY_ID</code> — numeric GA4 property ID</li>
+          <li><code>GA4_SERVICE_ACCOUNT_JSON</code> — full service-account JSON key</li>
+        </ul>
+        {pages?.setupSteps && (
+          <ol style={{ marginTop: 12, marginLeft: 18, padding: 0, color: "var(--text-muted)", fontSize: 12, lineHeight: 1.7 }}>
+            {pages.setupSteps.map((s, i) => <li key={i}>{s}</li>)}
+          </ol>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <SectionHeader title="GA4 — Last 30 Days" />
+      <ChartCard title="Top pages (page views)">
+        {pagesLoading ? (
+          <div className="skeleton" style={{ height: 220, borderRadius: 8 }} />
+        ) : pages?.error ? (
+          <p style={{ padding: 16, color: "var(--danger, #ef4444)", fontSize: 13 }}>{pages.error}</p>
+        ) : !pages?.rows.length ? (
+          <p style={{ padding: 16, color: "var(--text-muted)", fontSize: 13 }}>No page-view data in the last 30 days.</p>
+        ) : (
+          <div className="admin-table-wrap" style={{ marginTop: -8 }}>
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Path</th>
+                  <th>Title</th>
+                  <th>Views</th>
+                  <th>Active users</th>
+                  <th>Avg session</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pages.rows.map((r, i) => (
+                  <tr key={`${r.dimensions[0]}-${i}`}>
+                    <td><strong>{i + 1}</strong></td>
+                    <td style={{ fontFamily: "ui-monospace, monospace", fontSize: 12 }}>{r.dimensions[0]}</td>
+                    <td style={{ color: "var(--text-muted)", fontSize: 12, maxWidth: 280, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{r.dimensions[1] || "—"}</td>
+                    <td><strong>{r.metrics[0].toLocaleString()}</strong></td>
+                    <td>{r.metrics[1].toLocaleString()}</td>
+                    <td style={{ color: "var(--text-muted)", fontSize: 12 }}>{Math.round(r.metrics[2])}s</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </ChartCard>
+
+      <ChartCard title="Top events">
+        {eventsLoading ? (
+          <div className="skeleton" style={{ height: 220, borderRadius: 8 }} />
+        ) : events?.error ? (
+          <p style={{ padding: 16, color: "var(--danger, #ef4444)", fontSize: 13 }}>{events.error}</p>
+        ) : !events?.rows.length ? (
+          <p style={{ padding: 16, color: "var(--text-muted)", fontSize: 13 }}>No event data in the last 30 days.</p>
+        ) : (
+          <div className="admin-table-wrap" style={{ marginTop: -8 }}>
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Event</th>
+                  <th>Count</th>
+                  <th>Users</th>
+                </tr>
+              </thead>
+              <tbody>
+                {events.rows.map((r, i) => (
+                  <tr key={`${r.dimensions[0]}-${i}`}>
+                    <td><strong>{i + 1}</strong></td>
+                    <td style={{ fontFamily: "ui-monospace, monospace", fontSize: 12 }}>{r.dimensions[0]}</td>
+                    <td><strong>{r.metrics[0].toLocaleString()}</strong></td>
+                    <td>{r.metrics[1].toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </ChartCard>
+    </>
+  );
+}
+
+function FeatureLeadersPanel({ feature, onClose }: { feature: string; onClose: () => void }) {
+  const { data, isLoading } = useFeatureLeaders(feature, 50);
+
+  return (
+    <div style={{
+      marginTop: 12,
+      borderRadius: 12,
+      background: "var(--bg-elev-1, rgba(124,58,237,0.04))",
+      border: "1px solid rgba(124,58,237,0.15)",
+      overflow: "hidden",
+    }}>
+      <div style={{
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "12px 16px", borderBottom: "1px solid rgba(124,58,237,0.12)",
+      }}>
+        <h3 style={{ margin: 0, fontSize: 14, fontWeight: 600 }}>
+          Top users — {feature} (last 30 days)
+        </h3>
+        <button
+          onClick={onClose}
+          style={{
+            background: "transparent", border: "none", cursor: "pointer",
+            color: "var(--text-muted)", fontSize: 18, lineHeight: 1, padding: 4,
+          }}
+          aria-label="Close"
+        >×</button>
+      </div>
+      {isLoading ? (
+        <div className="skeleton" style={{ height: 200, margin: 12, borderRadius: 8 }} />
+      ) : !data || data.length === 0 ? (
+        <p style={{ padding: 24, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>
+          No activity in the last 30 days for {feature}.
+        </p>
+      ) : (
+        <div className="admin-table-wrap">
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>User</th>
+                <th>Email</th>
+                <th>Activity</th>
+                <th>Last seen</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((u, i) => (
+                <tr key={u.user_id}>
+                  <td><strong>{i + 1}</strong></td>
+                  <td>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      {u.avatar_url ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={u.avatar_url} alt="" width={24} height={24} style={{ borderRadius: "50%" }} />
+                      ) : (
+                        <div style={{ width: 24, height: 24, borderRadius: "50%", background: "rgba(124,58,237,0.2)" }} />
+                      )}
+                      <span>{u.display_name ?? "—"}</span>
+                    </div>
+                  </td>
+                  <td style={{ color: "var(--text-muted)", fontSize: 12 }}>{u.email ?? "—"}</td>
+                  <td><strong>{u.count}</strong></td>
+                  <td style={{ color: "var(--text-muted)", fontSize: 12 }}>{relTime(u.last_activity)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function AnalyticsTab() {
   const { data, isLoading, isError } = useAnalytics();
   const t = useChartTheme();
+  const [drillFeature, setDrillFeature] = useState<string | null>(null);
 
   if (isLoading) return <AnalyticsSkeleton />;
   if (isError || !data) return (
@@ -195,12 +397,16 @@ export function AnalyticsTab() {
       </div>
 
       {/* Feature Usage */}
-      <ChartCard title="Feature Adoption (% of all users, last 30 days)">
+      <ChartCard title="Feature Adoption (% of all users, last 30 days) — click a bar for top users">
         <ResponsiveContainer width="100%" height={220}>
           <BarChart
             data={features}
             layout="vertical"
             margin={{ top: 4, right: 40, left: 60, bottom: 4 }}
+            onClick={(e) => {
+              const label = (e as { activeLabel?: string | number } | null)?.activeLabel;
+              if (typeof label === "string") setDrillFeature(label);
+            }}
           >
             <defs>
               <linearGradient id="featGrad" x1="0" y1="0" x2="1" y2="0">
@@ -217,9 +423,12 @@ export function AnalyticsTab() {
               itemStyle={t.tooltip.itemStyle}
               formatter={(v: unknown) => [`${v}%`, "Users"]}
             />
-            <Bar dataKey="pct" fill="url(#featGrad)" radius={[0, 6, 6, 0]} isAnimationActive animationDuration={900} />
+            <Bar dataKey="pct" fill="url(#featGrad)" radius={[0, 6, 6, 0]} isAnimationActive animationDuration={900} cursor="pointer" />
           </BarChart>
         </ResponsiveContainer>
+        {drillFeature && (
+          <FeatureLeadersPanel feature={drillFeature} onClose={() => setDrillFeature(null)} />
+        )}
       </ChartCard>
 
       {/* Retention Cohorts */}
@@ -313,6 +522,8 @@ export function AnalyticsTab() {
           <span>100%</span>
         </div>
       </ChartCard>
+
+      <Ga4Section />
 
     </div>
   );

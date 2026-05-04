@@ -7,7 +7,7 @@ const baseStyle: React.CSSProperties = {
 
 const fullscreenStyle: React.CSSProperties = {
   ...baseStyle,
-  minHeight: "100vh",
+  minHeight: "100dvh",
   background: "var(--bg, #0a0514)",
 };
 

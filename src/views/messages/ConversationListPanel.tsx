@@ -173,10 +173,10 @@ export function ConversationListPanel({
         <input
           className="msg-search"
           type="search"
-          placeholder="Search conversations…"
+          placeholder={t("messages.searchConversations", "Search conversations…")}
           value={search}
           onChange={e => setSearch(e.target.value)}
-          aria-label="Search conversations"
+          aria-label={t("messages.searchConversations", "Search conversations")}
         />
       </div>
 

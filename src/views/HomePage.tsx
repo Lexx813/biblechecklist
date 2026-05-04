@@ -76,17 +76,14 @@ import { timeAgo } from "../lib/timeFormat";
 import "../styles/home.css";
 import "../styles/videos.css";
 
-const FALLBACK_IMAGES = [
-  "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1455541504462-57ebb2a9cec1?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1490730141103-6cac27aaab94?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1476820865390-c52aeebb9891?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1519817914152-22d216bb9170?auto=format&fit=crop&w=400&q=70",
-  "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?auto=format&fit=crop&w=400&q=70",
+/* Branded violet SVG placeholders — replaced stock Unsplash photography that
+   read as cheap/generic. Each post gets a stable gradient from its id. */
+const VIOLET_GRADIENTS: ReadonlyArray<readonly [string, string]> = [
+  ["#7c3aed", "#5b21b6"],
+  ["#a78bfa", "#6d28d9"],
+  ["#6d28d9", "#4c1d95"],
+  ["#8b5cf6", "#5b21b6"],
+  ["#c4b5fd", "#7c3aed"],
 ];
 
 /** Renders the spotlight hero player, iframe for embed_url, <video> for storage. */
@@ -130,7 +127,9 @@ function SpotlightPlayer({ video }: { video: { embed_url: string | null; storage
 function getFallbackImage(id) {
   let h = 0;
   for (const c of (id ?? "")) h = (h * 31 + c.charCodeAt(0)) >>> 0;
-  return FALLBACK_IMAGES[h % FALLBACK_IMAGES.length];
+  const [from, to] = VIOLET_GRADIENTS[h % VIOLET_GRADIENTS.length];
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='${from}'/><stop offset='1' stop-color='${to}'/></linearGradient></defs><rect width='800' height='450' fill='url(%23g)'/></svg>`;
+  return `data:image/svg+xml;utf8,${svg.replace(/#/g, "%23")}`;
 }
 
 const STREAK_MILESTONES = [7, 14, 30, 60, 90, 180, 365];
@@ -424,7 +423,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           )}
           {activePanel === "learn" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
-              <LearnInline onBack={() => { setActivePanel(null); if (window.location.pathname !== "/") history.pushState(null, "", "/"); }} />
+              <LearnInline userId={user?.id ?? null} onBack={() => { setActivePanel(null); if (window.location.pathname !== "/") history.pushState(null, "", "/"); }} />
             </Suspense>
           )}
           {activePanel === "friends" && (

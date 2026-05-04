@@ -41,9 +41,9 @@
 }
 
 .share-btn--copy:hover {
-  background: var(--primary, #7c3aed);
+  background: var(--primary, var(--violet-600));
   color: #fff;
-  border-color: var(--primary, #7c3aed);
+  border-color: var(--primary, var(--violet-600));
 }
 
 [data-theme="dark"] .share-btn,

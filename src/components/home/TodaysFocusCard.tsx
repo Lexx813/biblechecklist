@@ -1,4 +1,5 @@
 import { useMemo, useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import {
   useMyPlans,
@@ -243,7 +244,7 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
           )}
         </div>
 
-        {showFreezeConfirm && (
+        {showFreezeConfirm && createPortal(
           <div className="freeze-confirm-overlay" onClick={() => setShowFreezeConfirm(false)}>
             <div className="freeze-confirm-dialog" role="dialog" aria-modal="true" aria-label={t("home.confirmFreeze")} onClick={(e) => e.stopPropagation()}>
               <p style={{ margin: "0 0 8px", fontWeight: 600 }}>{t("home.useFreezeToken")}</p>
@@ -265,7 +266,8 @@ export default function TodaysFocusCard({ userId, navigate, lang = "en" }: Props
                 </button>
               </div>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
 
         <div className="tf-progress">

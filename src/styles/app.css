@@ -47,7 +47,7 @@
 /* ── Global focus-visible: keyboard users get a clear ring, mouse users don't ── */
 :focus { outline: none; }
 :focus-visible {
-  outline: 2px solid #7c3aed;
+  outline: 2px solid var(--violet-600);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -60,7 +60,7 @@
   --topbar-h: calc(52px + env(safe-area-inset-top, 0px));
 
   /* ── Brand violet scale (canonical) ──────────────────────────────────────
-     PRODUCT.md defines violet-600 (#7C3AED) as the single brand purple. The
+     PRODUCT.md defines violet-600 (var(--violet-600)) as the single brand purple. The
      full Tailwind violet scale is exposed here as derived steps so the rest
      of the codebase can reference tokens instead of hex literals. Anything
      outside this scale is drift and should be migrated. ── */
@@ -346,17 +346,21 @@
   border-color: var(--teal);
   color: #fff;
 }
-[data-theme="dark"] .ch-pill.done:hover {
-  background: var(--teal-dark);
+@media (hover: hover) {
+  [data-theme="dark"] .ch-pill.done:hover {
+    background: var(--teal-dark);
+  }
 }
 [data-theme="dark"] .ch-pill:not(.done) {
   background: #3A3360;
   border-color: #4A4370;
   color: #c4b8e8;
 }
-[data-theme="dark"] .ch-pill:not(.done):hover {
-  background: #4A4370;
-  color: #fff;
+@media (hover: hover) {
+  [data-theme="dark"] .ch-pill:not(.done):hover {
+    background: #4A4370;
+    color: #fff;
+  }
 }
 
 /* ── Dark mode: card tiles ── */
@@ -497,7 +501,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   position: relative;
 }
 :is(.hls-item, .al-item):hover { background: rgba(124, 58, 237, 0.1); }
-:is(.hls-item, .al-item):focus-visible { outline: 2px solid #7c3aed; outline-offset: -2px; }
+:is(.hls-item, .al-item):focus-visible { outline: 2px solid var(--violet-600); outline-offset: -2px; }
 :is(.hls-item--active, .al-item--active) {
   background: rgba(124, 58, 237, 0.18);
   color: var(--accent);
@@ -558,7 +562,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   transform: translateX(-50%) translateY(4px);
   background: #1e1035;
   border: 1px solid rgba(138, 75, 255, 0.25);
-  color: #ede9fe;
+  color: var(--violet-100);
   font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
@@ -594,7 +598,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 
 /* HEADER */
 .app-header {
-  background: linear-gradient(135deg, #1E0D3C 0%, #341C5C 30%, #6A3DAA 70%, #7c3aed 100%);
+  background: linear-gradient(135deg, #1E0D3C 0%, #341C5C 30%, #6A3DAA 70%, var(--violet-600) 100%);
   background-size: 250% 250%;
   padding: 20px 20px 0;
   position: sticky;
@@ -887,7 +891,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   display: flex;
   position: absolute; top: 9px; right: 9px;
   width: 18px; height: 18px; min-width: 18px;
-  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  background: linear-gradient(135deg, var(--violet-400), var(--violet-600));
   color: #fff;
   border-radius: 50%; padding: 0;
   font-size: 0;
@@ -906,7 +910,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .book-num {
   min-width: 32px; height: 32px; border-radius: var(--radius-sm);
   background: rgba(124, 58, 237, 0.10);
-  color: #7c3aed;
+  color: var(--violet-600);
   font-size: 12px; font-weight: 800;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; letter-spacing: -0.02em;
@@ -914,7 +918,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   transition: background var(--dur-base), color var(--dur-base), box-shadow var(--dur-base);
 }
 .book-card.fully-done .book-num {
-  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  background: linear-gradient(135deg, var(--violet-400), var(--violet-600));
   color: #fff;
   border-color: transparent;
   box-shadow: 0 3px 10px rgba(124, 58, 237, 0.4), inset 0 1px 0 rgba(255,255,255,0.22);
@@ -935,7 +939,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   height: 100%;
   background:
     linear-gradient(180deg, rgba(255,255,255,0.22), transparent 45%),
-    linear-gradient(90deg, #4c1d95, #7c3aed 60%, #a78bfa);
+    linear-gradient(90deg, var(--violet-900), var(--violet-600) 60%, var(--violet-400));
   border-radius: 999px;
   transition: width var(--dur-slow);
   box-shadow: 0 0 8px rgba(124, 58, 237, 0.45);
@@ -1005,24 +1009,31 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
               transform 220ms cubic-bezier(.2,.7,.2,1),
               box-shadow 220ms var(--ease-out);
 }
-.ch-pill:hover {
-  border-color: #a78bfa;
-  color: #7c3aed;
-  transform: scale(1.18) translateY(-2px);
-  box-shadow: 0 8px 22px rgba(124, 58, 237, 0.32), 0 0 0 1px rgba(167, 139, 250, 0.35);
-  z-index: 100;
+@media (hover: hover) {
+  .ch-pill:hover {
+    border-color: var(--violet-400);
+    color: var(--violet-600);
+    transform: scale(1.18) translateY(-2px);
+    box-shadow: 0 8px 22px rgba(124, 58, 237, 0.32), 0 0 0 1px rgba(167, 139, 250, 0.35);
+    z-index: 100;
+  }
 }
+/* Tap feedback on touch */
+.ch-pill:active { transform: scale(0.95); }
 .ch-pill.done {
-  background: linear-gradient(135deg, #7c3aed, #6d28d9);
-  border-color: #7c3aed;
+  /* Solid brand purple, no gradient (DESIGN.md) */
+  background: var(--violet-600);
+  border-color: var(--violet-600);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.40), inset 0 1px 0 rgba(255,255,255,0.20);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.32);
 }
-.ch-pill.done:hover {
-  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-  border-color: #a78bfa;
-  transform: scale(1.10);
-  box-shadow: 0 8px 22px rgba(124, 58, 237, 0.55), inset 0 1px 0 rgba(255,255,255,0.24);
+@media (hover: hover) {
+  .ch-pill.done:hover {
+    background: var(--violet-700);
+    border-color: var(--violet-400);
+    transform: scale(1.10);
+    box-shadow: 0 8px 22px rgba(124, 58, 237, 0.45);
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1094,11 +1105,11 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   border: 1.5px solid var(--border); background: var(--card-bg); flex-shrink: 0;
 }
 .ch-legend-dot--partial {
-  background: rgba(124, 58, 237, 0.18); border-color: #7c3aed; border-style: dashed;
+  background: rgba(124, 58, 237, 0.18); border-color: var(--violet-600); border-style: dashed;
 }
 .ch-legend-dot--done {
-  background: linear-gradient(135deg, #7c3aed, #6d28d9);
-  border-color: #7c3aed;
+  background: linear-gradient(135deg, var(--violet-600), var(--violet-700));
+  border-color: var(--violet-600);
   box-shadow: 0 0 6px rgba(124, 58, 237, 0.55);
 }
 
@@ -1235,7 +1246,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   background: rgba(124,58,237,0.10);
   border: 1px solid rgba(124,58,237,0.25);
   border-radius: var(--radius-sm);
-  color: #a78bfa;
+  color: var(--violet-400);
   font-family: inherit; font-size: 11px; font-weight: 700;
   text-decoration: none;
   cursor: pointer;
@@ -1245,17 +1256,17 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .vm-ai-btn:hover {
   background: rgba(124,58,237,0.18);
   border-color: rgba(124,58,237,0.45);
-  color: #c4b5fd;
+  color: var(--violet-300);
 }
 [data-theme="light"] .vm-ai-btn {
   background: rgba(124,58,237,0.06);
   border-color: rgba(124,58,237,0.18);
-  color: #6d28d9;
+  color: var(--violet-700);
 }
 [data-theme="light"] .vm-ai-btn:hover {
   background: rgba(124,58,237,0.12);
   border-color: rgba(124,58,237,0.3);
-  color: #5b21b6;
+  color: var(--violet-800);
 }
 
 /* Divider */
@@ -1864,7 +1875,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   left: 50%;
   transform: translateX(-50%);
   background: var(--teal-darker);
-  color: #ede9fe;
+  color: var(--violet-100);
   font-size: 11px;
   font-weight: 500;
   line-height: 1.45;
@@ -2433,7 +2444,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   pointer-events: auto;
   max-width: 720px;
   margin: 0 auto;
-  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+  background: linear-gradient(135deg, var(--violet-600) 0%, #a855f7 100%);
   border-radius: 16px;
   box-shadow: 0 18px 44px -12px rgba(124, 58, 237, 0.55), 0 0 0 1px rgba(255,255,255,0.08);
   display: flex;
@@ -2469,7 +2480,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   transition: transform 160ms ease, background 160ms ease;
   white-space: nowrap;
 }
-.anon-save-banner-cta:hover { background: #f5f3ff; transform: translateY(-1px); }
+.anon-save-banner-cta:hover { background: var(--violet-50); transform: translateY(-1px); }
 .anon-save-banner-dismiss {
   display: inline-flex;
   align-items: center;
@@ -2512,7 +2523,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   width: 76px;
   height: 76px;
   border-radius: 50%;
-  background: conic-gradient(var(--teal, #7c3aed) 0% var(--fill, 0%), rgba(255,255,255,0.08) var(--fill, 0%) 100%);
+  background: conic-gradient(var(--teal, var(--violet-600)) 0% var(--fill, 0%), rgba(255,255,255,0.08) var(--fill, 0%) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2556,7 +2567,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   font-family: inherit;
   font-size: 12px;
   font-weight: 600;
-  color: #c4b5fd;
+  color: var(--violet-300);
   cursor: pointer;
   text-align: left;
   transition: background var(--dur-fast), border-color var(--dur-fast);
@@ -2613,7 +2624,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .tracker-chip--active {
   background: rgba(124,58,237,0.15);
   border-color: rgba(124,58,237,0.4);
-  color: #c4b5fd;
+  color: var(--violet-300);
 }
 
 [data-theme="light"] .tracker-chip--active {
@@ -2632,7 +2643,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   font-family: inherit;
   font-size: 11px;
   font-weight: 600;
-  color: #a78bfa;
+  color: var(--violet-400);
   cursor: pointer;
   white-space: nowrap;
   transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
@@ -2641,7 +2652,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .bc-study-btn:hover {
   background: rgba(124,58,237,0.16);
   border-color: rgba(124,58,237,0.45);
-  color: #c4b5fd;
+  color: var(--violet-300);
 }
 
 [data-theme="light"] .bc-study-btn { color: var(--teal); background: rgba(124,58,237,0.06); }
@@ -2674,7 +2685,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 .cl-overall-pct {
   font-size: 1.5rem;
   font-weight: 800;
-  color: var(--brand, #7c3aed);
+  color: var(--brand, var(--violet-600));
 }
 .cl-prog-row {
   display: flex;
@@ -2703,11 +2714,11 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 }
 .cl-prog-fill {
   height: 100%;
-  background: var(--brand, #7c3aed);
+  background: var(--brand, var(--violet-600));
   border-radius: 999px;
   transition: width .4s ease;
 }
-.cl-prog-fill--nt { background: #c4b5fd; }
+.cl-prog-fill--nt { background: var(--violet-300); }
 
 /* Active plan widget */
 .cl-plan-widget {
@@ -2729,7 +2740,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
 }
 .cl-plan-open {
   font-size: .72rem;
-  color: var(--brand, #7c3aed);
+  color: var(--brand, var(--violet-600));
   background: none;
   border: none;
   cursor: pointer;
@@ -2803,7 +2814,7 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   position: absolute;
   inset: 0 auto 0 0;
   height: 100%;
-  background: #c4b5fd;
+  background: var(--violet-300);
   border-radius: 999px;
   transition: width .3s ease;
 }

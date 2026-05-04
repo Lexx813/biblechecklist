@@ -1947,7 +1947,8 @@
     "imageWarningProhibition": "Sharing explicit, offensive, or inappropriate content is strictly prohibited",
     "imageWarningSuspension": "and may result in account suspension.",
     "imageWarningAgree": "By continuing, you confirm this image is wholesome and appropriate.",
-    "sendImage": "Send Image"
+    "sendImage": "Send Image",
+    "searchConversations": "Search conversations…"
   },
   "aiCompanion": {
     "title": "AI Study Companion",
@@ -2106,8 +2107,8 @@
     "studyTools": "Study Tools",
     "66books": "66 Books",
     "continueReading": "Continue reading",
-    "noActivePlan": "No active plan",
-    "startReadingPlanArrow": "Start a reading plan →",
+    "noActivePlan": "No reading plan yet",
+    "startReadingPlanArrow": "Start a 1-year journey →",
     "openArrow": "Open →",
     "todayPrefix": "Today: ",
     "defaultPlanName": "Reading Plan",

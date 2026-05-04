@@ -302,6 +302,7 @@ export const analyticsApi = {
       groups,
       videoLikes,
       videoComments,
+      learn,
     ] = await Promise.all([
       supabase.from("profiles").select("*", { count: "exact", head: true }),
       supabase.from("reading_activity").select("user_id").gte("activity_date", thirtyDaysAgo),
@@ -313,6 +314,7 @@ export const analyticsApi = {
       supabase.from("study_group_members").select("user_id"),
       supabase.from("video_likes").select("user_id").gte("created_at", thirtyDaysAgo + "T00:00:00"),
       supabase.from("video_comments").select("author_id").gte("created_at", thirtyDaysAgo + "T00:00:00"),
+      supabase.from("learn_lesson_progress").select("user_id").gte("completed_at", thirtyDaysAgo + "T00:00:00"),
     ]);
 
     const total = totalUsers ?? 1;
@@ -339,6 +341,9 @@ export const analyticsApi = {
       { feature: "Notes",    count: uniqUserIds(notes.data ?? []) },
       { feature: "Groups",   count: uniqUserIds(groups.data ?? []) },
       { feature: "Videos",   count: videoUsers },
+      // learn_lesson_progress may not exist yet on dev/preview environments —
+      // .error is non-fatal, the count just stays 0 until the migration runs.
+      { feature: "Learn",    count: learn.error ? 0 : uniqUserIds(learn.data ?? []) },
     ];
 
     void uniqAuthorIds; // suppress unused warning
@@ -346,6 +351,121 @@ export const analyticsApi = {
     return features
       .map(f => ({ feature: f.feature, pct: Math.round((f.count / total) * 100) }))
       .sort((a, b) => b.pct - a.pct);
+  },
+
+  // ── Per-feature drill-down: top N users by activity count in last 30 days ──
+  async getFeatureLeaders(feature: string, limit = 50): Promise<Array<{
+    user_id: string;
+    display_name: string | null;
+    email: string | null;
+    avatar_url: string | null;
+    count: number;
+    last_activity: string | null;
+  }>> {
+    const thirtyDaysAgo = toDateStr(new Date(Date.now() - 30 * 86400000));
+
+    type Row = { user_id: string; created_at?: string | null };
+    let rows: Row[] = [];
+
+    const fetchBy = async (
+      table: string,
+      userCol: string,
+      dateCol: string,
+      gteValue: string,
+    ): Promise<Row[]> => {
+      const { data, error } = await supabase
+        .from(table)
+        .select(`${userCol}, ${dateCol}`)
+        .gte(dateCol, gteValue);
+      if (error || !data) return [];
+      return (data as unknown as Array<Record<string, unknown>>)
+        .map(r => ({
+          user_id: String(r[userCol] ?? ""),
+          created_at: (r[dateCol] as string | null) ?? null,
+        }))
+        .filter(r => r.user_id);
+    };
+
+    switch (feature) {
+      case "Reading":
+        rows = await fetchBy("reading_activity", "user_id", "activity_date", thirtyDaysAgo);
+        break;
+      case "Forum": {
+        const [threads, replies] = await Promise.all([
+          fetchBy("forum_threads", "author_id", "created_at", thirtyDaysAgo + "T00:00:00"),
+          fetchBy("forum_replies", "author_id", "created_at", thirtyDaysAgo + "T00:00:00"),
+        ]);
+        rows = [...threads, ...replies];
+        break;
+      }
+      case "Messages":
+        rows = await fetchBy("messages", "sender_id", "created_at", thirtyDaysAgo + "T00:00:00");
+        break;
+      case "Quiz":
+        rows = await fetchBy("challenge_attempts", "user_id", "created_at", thirtyDaysAgo + "T00:00:00");
+        break;
+      case "Notes":
+        rows = await fetchBy("study_notes", "user_id", "created_at", thirtyDaysAgo + "T00:00:00");
+        break;
+      case "Groups": {
+        const { data } = await supabase
+          .from("study_group_members")
+          .select("user_id, joined_at");
+        rows = (data ?? []).map(r => ({
+          user_id: String((r as { user_id?: unknown }).user_id ?? ""),
+          created_at: (r as { joined_at?: string | null }).joined_at ?? null,
+        })).filter(r => r.user_id);
+        break;
+      }
+      case "Videos": {
+        const [likes, comments] = await Promise.all([
+          fetchBy("video_likes", "user_id", "created_at", thirtyDaysAgo + "T00:00:00"),
+          fetchBy("video_comments", "author_id", "created_at", thirtyDaysAgo + "T00:00:00"),
+        ]);
+        rows = [...likes, ...comments];
+        break;
+      }
+      case "Learn":
+        rows = await fetchBy("learn_lesson_progress", "user_id", "completed_at", thirtyDaysAgo + "T00:00:00");
+        break;
+      default:
+        return [];
+    }
+
+    // Aggregate per user
+    const agg = new Map<string, { count: number; last: string | null }>();
+    for (const r of rows) {
+      const cur = agg.get(r.user_id) ?? { count: 0, last: null };
+      cur.count += 1;
+      if (r.created_at && (!cur.last || r.created_at > cur.last)) cur.last = r.created_at;
+      agg.set(r.user_id, cur);
+    }
+
+    const ranked = Array.from(agg.entries())
+      .map(([user_id, v]) => ({ user_id, count: v.count, last_activity: v.last }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, limit);
+
+    if (ranked.length === 0) return [];
+
+    const ids = ranked.map(r => r.user_id);
+    const { data: profs } = await supabase
+      .from("profiles")
+      .select("id, display_name, email, avatar_url")
+      .in("id", ids);
+    const profMap = new Map((profs ?? []).map(p => [p.id as string, p]));
+
+    return ranked.map(r => {
+      const p = profMap.get(r.user_id);
+      return {
+        user_id: r.user_id,
+        display_name: (p?.display_name as string | null) ?? null,
+        email: (p?.email as string | null) ?? null,
+        avatar_url: (p?.avatar_url as string | null) ?? null,
+        count: r.count,
+        last_activity: r.last_activity,
+      };
+    });
   },
 
   async getRetentionCohorts(): Promise<{ label: string; pct: number }[]> {

@@ -543,7 +543,7 @@ export default function AuthedApp({ onShowLanding, i18n }) {
     }
   }
 
-  if (maintenanceMode) return <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh",flexDirection:"column",gap:"1rem"}}><h1>🔧 Maintenance</h1><p>We'll be back shortly.</p></div>;
+  if (maintenanceMode) return <div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100dvh",flexDirection:"column",gap:"1rem"}}><h1>🔧 Maintenance</h1><p>We'll be back shortly.</p></div>;
 
   // Allow unauthenticated read-only access to blog posts
   const publicNav = parsePath();
