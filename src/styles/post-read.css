@@ -113,6 +113,26 @@
 .pr-body ul, .pr-body ol { margin: 0 0 20px 24px; }
 .pr-body li { margin-bottom: 6px; }
 
+/* Inline links — hard violet, always underlined so they read as links
+   even when nested inside parens or scripture-style chips. */
+.pr-body a,
+.pr-body a:link,
+.pr-body a:visited {
+  color: var(--violet-600);
+  text-decoration: underline;
+  text-decoration-color: var(--violet-600);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+.pr-body a:hover,
+.pr-body a:focus-visible {
+  color: var(--violet-700);
+  text-decoration-color: var(--violet-700);
+  background: rgba(124, 58, 237, 0.08);
+  border-radius: 3px;
+}
+
 .pr-tags-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 32px 0; }
 .pr-tag {
   background: var(--hover); color: var(--accent);

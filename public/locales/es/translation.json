@@ -1928,7 +1928,12 @@
     "bookmarks": "Marcadores",
     "feed": "Actividad",
     "readingHistory": "Historial",
-    "settings": "Ajustes"
+    "settings": "Ajustes",
+    "viewProfile": "Ver perfil",
+    "requests": "Solicitudes",
+    "messianicProphecies": "Profecías Mesiánicas",
+    "learn": "Aprender",
+    "more": "Más"
   },
   "studyTopics": {
     "title": "Temas de Estudio",

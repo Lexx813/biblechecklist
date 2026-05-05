@@ -20,6 +20,9 @@
     "audit": "npm run audit:llms; npm run audit:og && npm run audit:schema && npm run audit:lighthouse"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@ffmpeg/ffmpeg": "^0.12.15",
     "@ffmpeg/util": "^0.12.2",
     "@opentelemetry/api": "^1.9.1",

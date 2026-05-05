@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { useUsers } from "../../hooks/useAdmin";
 import { useReports } from "../../hooks/useReports";
@@ -15,6 +15,85 @@ import { AIUsageTab } from "./tabs/AIUsageTab";
 import { CampaignsTab } from "./tabs/CampaignsTab";
 import { ContentPlanTab } from "./tabs/ContentPlanTab";
 import { SongsTab } from "./tabs/SongsTab";
+import {
+  DndContext,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  closestCenter,
+  type DragEndEvent,
+} from "@dnd-kit/core";
+import { SortableContext, useSortable, arrayMove, rectSortingStrategy } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+
+const TAB_ORDER_KEY = "nwt:admin-tab-order";
+
+interface TabDef {
+  id: string;
+  label: string;
+  icon: ReactNode;
+  adminOnly: boolean;
+}
+
+function loadOrder(): string[] {
+  try {
+    const raw = localStorage.getItem(TAB_ORDER_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter(x => typeof x === "string") : [];
+  } catch { return []; }
+}
+
+function saveOrder(order: string[]) {
+  try { localStorage.setItem(TAB_ORDER_KEY, JSON.stringify(order)); } catch {}
+}
+
+/** Apply stored order, append new tab ids at the end so a fresh tab isn't lost. */
+function applyStoredOrder(tabs: TabDef[], stored: string[]): TabDef[] {
+  if (stored.length === 0) return tabs;
+  const byId = new Map(tabs.map(t => [t.id, t]));
+  const seen = new Set<string>();
+  const ordered: TabDef[] = [];
+  for (const id of stored) {
+    const t = byId.get(id);
+    if (t && !seen.has(id)) { ordered.push(t); seen.add(id); }
+  }
+  for (const t of tabs) {
+    if (!seen.has(t.id)) ordered.push(t);
+  }
+  return ordered;
+}
+
+function SortableTab({
+  tab, active, badge, onSelect,
+}: {
+  tab: TabDef;
+  active: boolean;
+  badge?: number;
+  onSelect: () => void;
+}) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: tab.id });
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+    cursor: isDragging ? "grabbing" : "grab",
+  };
+  return (
+    <button
+      ref={setNodeRef}
+      style={style}
+      className={`admin-tab${active ? " admin-tab--active" : ""}`}
+      onClick={onSelect}
+      {...attributes}
+      {...listeners}
+    >
+      {tab.icon}
+      {tab.label}
+      {badge !== undefined && badge > 0 && <span className="admin-tab-badge">{badge}</span>}
+    </button>
+  );
+}
 
 export default function AdminPage({ currentUser, currentProfile, onBack, navigate, darkMode, setDarkMode, i18n, onLogout }) {
   const isCurrentUserAdmin = currentProfile?.is_admin;
@@ -32,6 +111,73 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
       window.dispatchEvent(new CustomEvent("ai:set-subpage", { detail: { subPage: null } }));
     };
   }, [tab]);
+
+  // ── Tab definitions ─────────────────────────────────────────────────────
+  const allTabs: TabDef[] = useMemo(() => [
+    { id: "users", adminOnly: true, label: t("adminTabs.users"),
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> },
+    { id: "reports", adminOnly: false, label: t("adminTabs.reports"),
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg> },
+    { id: "blog", adminOnly: true, label: t("adminTabs.blog"),
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> },
+    { id: "comments", adminOnly: true, label: t("adminTabs.comments"),
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> },
+    { id: "forum", adminOnly: true, label: t("adminTabs.forum"),
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="15" y2="10"/></svg> },
+    { id: "quiz", adminOnly: true, label: t("adminTabs.quiz"),
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> },
+    { id: "quizStats", adminOnly: true, label: t("adminTabs.quizStats"),
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> },
+    { id: "forumCats", adminOnly: true, label: t("adminTabs.forumCats"),
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> },
+    { id: "announcements", adminOnly: true, label: t("adminTabs.announcements"),
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> },
+    { id: "auditLog", adminOnly: true, label: "Audit Log",
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> },
+    { id: "creators", adminOnly: true, label: "Creators",
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg> },
+    { id: "videos", adminOnly: true, label: "Videos",
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3l-4 4-4-4"/></svg> },
+    { id: "analytics", adminOnly: true, label: t("adminTabs.analytics"),
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> },
+    { id: "learn", adminOnly: true, label: "Learn",
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> },
+    { id: "aiUsage", adminOnly: true, label: "AI Usage",
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 2L9.1 9.1 2 12l7.1 2.9L12 22l2.9-7.1L22 12l-7.1-2.9z"/></svg> },
+    { id: "campaigns", adminOnly: true, label: "Campaigns",
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> },
+    { id: "contentPlan", adminOnly: true, label: "Content Plan",
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> },
+    { id: "songs", adminOnly: true, label: "Songs",
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> },
+  ], [t]);
+
+  // Filter to visible tabs based on permissions, then apply user's saved order.
+  const [orderedTabs, setOrderedTabs] = useState<TabDef[]>(() => {
+    const visible = allTabs.filter(tb => isCurrentUserAdmin || !tb.adminOnly);
+    return applyStoredOrder(visible, loadOrder());
+  });
+
+  // Re-sync if labels (i18n) or admin status change but preserve user's order.
+  useEffect(() => {
+    const visible = allTabs.filter(tb => isCurrentUserAdmin || !tb.adminOnly);
+    setOrderedTabs(prev => applyStoredOrder(visible, prev.map(t => t.id)));
+  }, [allTabs, isCurrentUserAdmin]);
+
+  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }));
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    setOrderedTabs(items => {
+      const oldIndex = items.findIndex(i => i.id === active.id);
+      const newIndex = items.findIndex(i => i.id === over.id);
+      if (oldIndex === -1 || newIndex === -1) return items;
+      const next = arrayMove(items, oldIndex, newIndex);
+      saveOrder(next.map(i => i.id));
+      return next;
+    });
+  }
 
   if ((isCurrentUserAdmin && usersLoading) || reportsLoading) {
     return (
@@ -82,116 +228,22 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
           </div>
         )}
 
-        {/* Tabs */}
-        <div className="admin-tabs">
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "users" ? " admin-tab--active" : ""}`} onClick={() => setTab("users")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-              {t("adminTabs.users")}
-            </button>
-          )}
-          <button className={`admin-tab${tab === "reports" ? " admin-tab--active" : ""}`} onClick={() => setTab("reports")}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
-            {t("adminTabs.reports")}
-            {pendingCount > 0 && <span className="admin-tab-badge">{pendingCount}</span>}
-          </button>
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "blog" ? " admin-tab--active" : ""}`} onClick={() => setTab("blog")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-              {t("adminTabs.blog")}
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "comments" ? " admin-tab--active" : ""}`} onClick={() => setTab("comments")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              {t("adminTabs.comments")}
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "forum" ? " admin-tab--active" : ""}`} onClick={() => setTab("forum")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="9" y1="10" x2="15" y2="10"/></svg>
-              {t("adminTabs.forum")}
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "quiz" ? " admin-tab--active" : ""}`} onClick={() => setTab("quiz")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-              {t("adminTabs.quiz")}
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "quizStats" ? " admin-tab--active" : ""}`} onClick={() => setTab("quizStats")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-              {t("adminTabs.quizStats")}
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "forumCats" ? " admin-tab--active" : ""}`} onClick={() => setTab("forumCats")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-              {t("adminTabs.forumCats")}
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "announcements" ? " admin-tab--active" : ""}`} onClick={() => setTab("announcements")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-              {t("adminTabs.announcements")}
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "auditLog" ? " admin-tab--active" : ""}`} onClick={() => setTab("auditLog")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              Audit Log
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "creators" ? " admin-tab--active" : ""}`} onClick={() => setTab("creators")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-              Creators
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "videos" ? " admin-tab--active" : ""}`} onClick={() => setTab("videos")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3l-4 4-4-4"/></svg>
-              Videos
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "analytics" ? " admin-tab--active" : ""}`} onClick={() => setTab("analytics")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-              {t("adminTabs.analytics")}
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "learn" ? " admin-tab--active" : ""}`} onClick={() => setTab("learn")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              Learn
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "aiUsage" ? " admin-tab--active" : ""}`} onClick={() => setTab("aiUsage")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 2L9.1 9.1 2 12l7.1 2.9L12 22l2.9-7.1L22 12l-7.1-2.9z"/></svg>
-              AI Usage
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "campaigns" ? " admin-tab--active" : ""}`} onClick={() => setTab("campaigns")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              Campaigns
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "contentPlan" ? " admin-tab--active" : ""}`} onClick={() => setTab("contentPlan")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-              Content Plan
-            </button>
-          )}
-          {isCurrentUserAdmin && (
-            <button className={`admin-tab${tab === "songs" ? " admin-tab--active" : ""}`} onClick={() => setTab("songs")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-              Songs
-            </button>
-          )}
-        </div>
+        {/* Tabs (drag to reorder; order persists in localStorage) */}
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={orderedTabs.map(t => t.id)} strategy={rectSortingStrategy}>
+            <div className="admin-tabs">
+              {orderedTabs.map(tb => (
+                <SortableTab
+                  key={tb.id}
+                  tab={tb}
+                  active={tab === tb.id}
+                  badge={tb.id === "reports" ? pendingCount : undefined}
+                  onSelect={() => setTab(tb.id)}
+                />
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
 
         {/* Tab content */}
         {tab === "users"         && isCurrentUserAdmin && <UsersTab currentUser={currentUser} navigate={navigate} />}

@@ -2000,7 +2000,11 @@
     "blogVideos": "Blog & Videos",
     "settings": "Settings",
     "prep": "Prep",
-    "readingHistory": "History"
+    "readingHistory": "History",
+    "viewProfile": "View profile",
+    "requests": "Requests",
+    "messianicProphecies": "Messianic Prophecies",
+    "learn": "Learn"
   },
   "community": {
     "title": "Community",
