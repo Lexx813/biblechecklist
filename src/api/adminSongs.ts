@@ -27,6 +27,7 @@ export interface SongPatch {
   duration_seconds?: number;
   jw_org_links?: JwOrgLink[];
   published?: boolean;
+  song_number?: number | null;
 }
 
 export interface SongCreateMeta {

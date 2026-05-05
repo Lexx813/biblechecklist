@@ -25,6 +25,7 @@ const EDITABLE_FIELDS = [
   "lyrics",
   "lyrics_es",
   "published",
+  "song_number",
 ] as const;
 
 type EditableField = (typeof EDITABLE_FIELDS)[number];

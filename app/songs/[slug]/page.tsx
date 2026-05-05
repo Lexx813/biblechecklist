@@ -1,5 +1,17 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { songsApi, localizedTitle, localizedDescription, localizedScriptureText } from "../../../src/api/songs";
+
+/**
+ * Returns the Kingdom song number if the slug is an alias like "song-113"
+ * or just "113"; otherwise null. Used to redirect aliases to canonical
+ * slugs so search-discovery URLs (TikTok / Google) resolve cleanly.
+ */
+function aliasSongNumber(slug: string): number | null {
+  const m = slug.match(/^(?:song-)?(\d{1,3})$/);
+  if (!m) return null;
+  const n = Number(m[1]);
+  return n > 0 && n < 1000 ? n : null;
+}
 import { getSignedAudioUrl } from "../../../src/lib/songs/signedAudio";
 import SongDetailPage from "../../../src/components/songs/SongDetailPage";
 import PublicNav from "../../_components/PublicNav";
@@ -35,8 +47,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
     if (hasEs) languages.es = `${BASE}/es/songs/${song.slug}`;
 
+    const titleWithNumber = song.song_number != null
+      ? `Kingdom Song ${song.song_number} — ${title}`
+      : title;
     return {
-      title: `${title} | JW Study Music`,
+      title: `${titleWithNumber} | JW Study Music`,
       description: desc,
       alternates: { canonical: `${BASE}/songs/${song.slug}`, languages },
       other: { "content-language": "en" },
@@ -68,6 +83,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function SongDetailEn({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+
+  // /songs/song-113 or /songs/113 → permanent redirect to canonical slug.
+  const aliasN = aliasSongNumber(slug);
+  if (aliasN !== null) {
+    const canonical = await songsApi.getSlugByNumber(aliasN).catch(() => null);
+    if (canonical) permanentRedirect(`/songs/${canonical}`);
+    notFound();
+  }
+
   const song = await songsApi.getBySlug(slug, "en").catch(() => null);
   if (!song) notFound();
 

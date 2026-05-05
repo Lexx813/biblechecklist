@@ -1,5 +1,12 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { songsApi, localizedTitle, localizedDescription, localizedScriptureText } from "../../../../src/api/songs";
+
+function aliasSongNumber(slug: string): number | null {
+  const m = slug.match(/^(?:song-|cancion-)?(\d{1,3})$/);
+  if (!m) return null;
+  const n = Number(m[1]);
+  return n > 0 && n < 1000 ? n : null;
+}
 import { getSignedAudioUrl } from "../../../../src/lib/songs/signedAudio";
 import SongDetailPage from "../../../../src/components/songs/SongDetailPage";
 import PublicNav from "../../../_components/PublicNav";
@@ -26,8 +33,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const title = localizedTitle(song, "es");
     const desc = localizedDescription(song, "es").slice(0, 160);
 
+    const titleWithNumber = song.song_number != null
+      ? `Cántico ${song.song_number} — ${title}`
+      : title;
     return {
-      title: `${title} | JW Study Música`,
+      title: `${titleWithNumber} | JW Study Música`,
       description: desc,
       alternates: {
         canonical: `${BASE}/es/songs/${song.slug}`,
@@ -66,6 +76,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function SongDetailEs({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+
+  const aliasN = aliasSongNumber(slug);
+  if (aliasN !== null) {
+    const canonical = await songsApi.getSlugByNumber(aliasN).catch(() => null);
+    if (canonical) permanentRedirect(`/es/songs/${canonical}`);
+    notFound();
+  }
+
   const song = await songsApi.getBySlug(slug, "es").catch(() => null);
   if (!song) notFound();
 

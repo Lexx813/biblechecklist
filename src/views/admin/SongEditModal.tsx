@@ -18,6 +18,7 @@ export interface EditableSong {
   duration_seconds: number;
   jw_org_links: JwOrgLink[];
   published: boolean;
+  song_number: number | null;
 }
 
 interface Props {
@@ -87,6 +88,7 @@ export function SongEditModal({ song, onClose }: Props) {
           duration_seconds: form.duration_seconds,
           jw_org_links: parsedLinks,
           published: form.published,
+          song_number: form.song_number,
         },
       });
       setSavedAt(Date.now());
@@ -141,6 +143,21 @@ export function SongEditModal({ song, onClose }: Props) {
               className={inputClass}
               value={form.theme}
               onChange={(e) => field("theme", e.target.value)}
+            />
+          </Row>
+
+          <Row label="Kingdom song number (optional)">
+            <input
+              type="number"
+              min={1}
+              max={999}
+              className={inputClass}
+              value={form.song_number ?? ""}
+              placeholder="e.g. 113 — leave blank for original songs"
+              onChange={(e) => {
+                const v = e.target.value.trim();
+                field("song_number", v === "" ? null : Number(v));
+              }}
             />
           </Row>
 

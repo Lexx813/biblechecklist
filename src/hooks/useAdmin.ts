@@ -422,7 +422,7 @@ export function useSongStats(days = 30) {
       const [songsResult, eventsResult] = await Promise.all([
         supabase
           .from("songs")
-          .select("id, slug, title, title_es, theme, primary_scripture_ref, primary_scripture_text, primary_scripture_text_es, description, description_es, cover_image_url, duration_seconds, jw_org_links, play_count, download_count, published, created_at")
+          .select("id, slug, title, title_es, theme, primary_scripture_ref, primary_scripture_text, primary_scripture_text_es, description, description_es, cover_image_url, duration_seconds, jw_org_links, play_count, download_count, published, created_at, song_number")
           .order("created_at", { ascending: true }),
         supabase
           .from("song_plays")
@@ -478,6 +478,7 @@ export function useSongStats(days = 30) {
           duration_seconds: s.duration_seconds ?? 0,
           jw_org_links: s.jw_org_links ?? [],
           published: s.published,
+          song_number: s.song_number ?? null,
           all_time_plays: s.play_count,
           all_time_downloads: s.download_count,
           window_plays: a.plays,

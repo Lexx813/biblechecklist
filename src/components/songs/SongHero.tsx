@@ -10,8 +10,8 @@ type Props = {
 };
 
 const COPY = {
-  en: { song: "Song" },
-  es: { song: "Canción" },
+  en: { song: "Song", kingdomSong: "Kingdom song" },
+  es: { song: "Canción", kingdomSong: "Cántico" },
 };
 
 export default function SongHero({ song, signedUrl, lang }: Props) {
@@ -45,7 +45,8 @@ export default function SongHero({ song, signedUrl, lang }: Props) {
         {/* Title block + player */}
         <div className="flex flex-col gap-5">
           <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-violet-700 dark:text-violet-300">
-            {t.song} · {song.theme.replace(/-/g, " ")}
+            {song.song_number != null ? `${t.kingdomSong} ${song.song_number} · ` : `${t.song} · `}
+            {song.theme.replace(/-/g, " ")}
           </div>
           <h1 className="text-balance text-4xl font-extrabold leading-[1.05] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.25rem] dark:text-slate-50">
             {title}

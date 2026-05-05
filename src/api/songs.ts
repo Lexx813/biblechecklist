@@ -58,13 +58,15 @@ export interface Song {
   updated_at: string;
   play_count: number;
   download_count: number;
+  /** Kingdom song number (1–N) when applicable; NULL for original songs. */
+  song_number: number | null;
 }
 
 const SELECT_COLS =
   "id, slug, title, title_es, audio_url, duration_seconds, " +
   "primary_scripture_ref, primary_scripture_text, primary_scripture_text_es, " +
   "theme, lyrics, lyrics_es, description, description_es, jw_org_links, " +
-  "cover_image_url, published, created_at, updated_at, play_count, download_count";
+  "cover_image_url, published, created_at, updated_at, play_count, download_count, song_number";
 
 export const songsApi = {
   /**
@@ -122,6 +124,22 @@ export const songsApi = {
   getFeatured: async (lang: "en" | "es" = "en"): Promise<Song | null> => {
     const all = await songsApi.listPublished(lang);
     return all[0] ?? null;
+  },
+
+  /**
+   * Resolve Kingdom song number → canonical slug. Used by the URL alias
+   * /songs/song-<N> and /songs/<N> to redirect to /songs/<slug>.
+   * Returns null if no published song matches.
+   */
+  getSlugByNumber: async (n: number): Promise<string | null> => {
+    const { data, error } = await supabase
+      .from("songs")
+      .select("slug")
+      .eq("song_number", n)
+      .eq("published", true)
+      .maybeSingle();
+    if (error || !data) return null;
+    return (data as { slug: string }).slug;
   },
 };
 

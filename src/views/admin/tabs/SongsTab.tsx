@@ -70,7 +70,7 @@ export function SongsTab() {
   const deleteSong = useDeleteSong();
   const t = useChartTheme();
 
-  function openEdit(row: { id: string; slug: string; title: string; title_es: string | null; theme: string; scripture_ref: string; primary_scripture_text: string; primary_scripture_text_es: string | null; description: string; description_es: string | null; cover_image_url: string | null; duration_seconds: number; jw_org_links: { url: string; anchor: string }[]; published: boolean }) {
+  function openEdit(row: { id: string; slug: string; title: string; title_es: string | null; theme: string; scripture_ref: string; primary_scripture_text: string; primary_scripture_text_es: string | null; description: string; description_es: string | null; cover_image_url: string | null; duration_seconds: number; jw_org_links: { url: string; anchor: string }[]; published: boolean; song_number: number | null }) {
     setEditing({
       id: row.id,
       slug: row.slug,
@@ -86,6 +86,7 @@ export function SongsTab() {
       duration_seconds: row.duration_seconds,
       jw_org_links: row.jw_org_links,
       published: row.published,
+      song_number: row.song_number,
     });
   }
 
