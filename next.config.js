@@ -71,6 +71,12 @@ const nextConfig = {
         hostname: "yudyhigvqaodnoqwwtns.supabase.co",
       },
       {
+        // Custom domain that fronts the same Supabase project (used by
+        // older blog cover URLs that were uploaded against auth.jwstudy.org).
+        protocol: "https",
+        hostname: "auth.jwstudy.org",
+      },
+      {
         protocol: "https",
         hostname: "images.unsplash.com",
       },

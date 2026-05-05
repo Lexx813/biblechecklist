@@ -64,12 +64,18 @@ export interface UseAIChatOptions {
   initialMessages?: ChatMessage[];
 }
 
-export function useAIChat(context?: ChatContext, options: UseAIChatOptions = {}) {
-  const { conversationId, initialMessages } = options;
+export function useAIChat(context?: ChatContext, options?: UseAIChatOptions) {
+  const conversationId = options?.conversationId;
+  const initialMessages = options?.initialMessages;
 
-  // Bubble (no conversationId) restores from localStorage. Page-mode skips it
-  // — each conversation_id is the source of truth, no cross-talk.
-  const useLocalStorage = !conversationId;
+  // Bubble mode = no options object passed; restores history from
+  // localStorage. Page mode (/ai) = options object passed, even if
+  // conversationId is transiently undefined (e.g. during "New chat").
+  // Distinguishing by argument presence — not by truthiness of
+  // conversationId — keeps "New chat" from leaking the page's empty state
+  // into the bubble's localStorage and lets the reset effect below fire on
+  // the saved → fresh transition.
+  const useLocalStorage = options === undefined;
   const [messages, setMessages] = useState<ChatMessage[]>(
     () => initialMessages ?? (useLocalStorage ? loadSaved() : []),
   );
@@ -90,21 +96,38 @@ export function useAIChat(context?: ChatContext, options: UseAIChatOptions = {})
   conversationIdRef.current = conversationId;
 
   // Reset history when switching from one EXISTING conversation to another
-  // (sidebar click). Do NOT reset on the null → id transition — that's the
-  // "fresh chat just got persisted" case and we'd erase messages mid-stream.
+  // (sidebar click) or back to fresh "New chat". Do NOT reset on the null → id
+  // transition — that's the "fresh chat just got persisted" case and we'd
+  // erase the optimistic first message mid-stream.
+  //
+  // We clear to [] (not initialMessages, which is stale at the moment of
+  // switch — the parent's async load() hasn't resolved yet). The sync effect
+  // below fills the new history in as soon as initialMessages updates.
   const previousIdRef = useRef(conversationId);
   useEffect(() => {
     const prev = previousIdRef.current;
     previousIdRef.current = conversationId;
     if (useLocalStorage) return;
-    // First mount, or fresh-chat→saved transition: keep current messages
     if (prev === undefined || prev === null) return;
-    // Real switch (existing convo → different existing convo, or → fresh)
-    const next = initialMessages ?? [];
-    messagesRef.current = next;
-    setMessages(next);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [conversationId]);
+    messagesRef.current = [];
+    setMessages([]);
+  }, [conversationId, useLocalStorage]);
+
+  // Sync loaded history into messages when initialMessages updates (async
+  // load in /ai/[id], or after a conversation switch). Skip if:
+  //   • bubble mode (messages source is localStorage),
+  //   • a stream is in flight (would clobber the optimistic assistant bubble),
+  //   • local state is already richer than what just loaded — fresh-chat
+  //     optimistic msgs may not be persisted yet, or the load returned []
+  //     for a conv that was just created in this session.
+  useEffect(() => {
+    if (useLocalStorage) return;
+    if (!initialMessages) return;
+    if (loading) return;
+    if (messagesRef.current.length >= initialMessages.length) return;
+    messagesRef.current = initialMessages;
+    setMessages(initialMessages);
+  }, [initialMessages, loading, useLocalStorage]);
 
   // Persist to localStorage whenever messages change (bubble mode only)
   useEffect(() => {
