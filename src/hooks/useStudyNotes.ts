@@ -52,8 +52,13 @@ export function useCreateStudyNote(userId: string | undefined) {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (note: Record<string, unknown>) => studyNotesApi.createNote(note),
-    onSuccess: () => {
+    onSuccess: (_data, vars) => {
       qc.invalidateQueries({ queryKey: ["study-notes"] });
+      // Refresh public tab when a public note was just created — otherwise
+      // the cached list stays stale until staleTime expires.
+      if ((vars as { is_public?: boolean })?.is_public) {
+        qc.invalidateQueries({ queryKey: ["study-notes-public"] });
+      }
       if (userId) badgesApi.awardBadge(userId, "first_note");
     },
   });
@@ -64,7 +69,13 @@ export function useUpdateStudyNote() {
   return useMutation({
     mutationFn: ({ noteId, updates }: { noteId: string; updates: Record<string, unknown> }) =>
       studyNotesApi.updateNote(noteId, updates),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["study-notes"] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["study-notes"] });
+      // Any update may flip is_public on or off, or change content/tags
+      // visible in the public list. Cheaper to always invalidate than to
+      // track which previously-public notes existed.
+      qc.invalidateQueries({ queryKey: ["study-notes-public"] });
+    },
   });
 }
 
@@ -72,7 +83,10 @@ export function useDeleteStudyNote() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: (noteId: string) => studyNotesApi.deleteNote(noteId),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ["study-notes"] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["study-notes"] });
+      qc.invalidateQueries({ queryKey: ["study-notes-public"] });
+    },
   });
 }
 
