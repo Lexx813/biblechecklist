@@ -19,22 +19,25 @@ export function jwLibraryChapterUrl(bookIndex: number, chapter: number) {
 
 // ── Language map ──────────────────────────────────────────────────────────────
 
-type WolLang = "en" | "es" | "pt" | "fr" | "tl" | "zh" | "ja" | "ko";
+type WolLang = "en" | "es" | "pt" | "fr" | "tl" | "zh" | "ja" | "ko" | "yo";
 
-const WOL_LANG: Record<WolLang, { locale: string; r: string; lp: string; wtlocale: string }> = {
-  en: { locale: "en",       r: "r1",  lp: "lp-e",   wtlocale: "E"   },
-  es: { locale: "es",       r: "r4",  lp: "lp-s",   wtlocale: "S"   },
-  pt: { locale: "pt",       r: "r5",  lp: "lp-t",   wtlocale: "T"   },
-  fr: { locale: "fr",       r: "r30", lp: "lp-f",   wtlocale: "F"   },
-  tl: { locale: "tl",       r: "r9",  lp: "lp-tl",  wtlocale: "TGL" },
-  zh: { locale: "cmn-Hans", r: "r23", lp: "lp-chs", wtlocale: "CHS" },
-  ja: { locale: "ja",       r: "r7",  lp: "lp-j",   wtlocale: "J"   },
-  ko: { locale: "ko",       r: "r8",  lp: "lp-ko",  wtlocale: "KO"  },
+// `pub` is the Bible publication symbol on WOL. Most languages use `nwtsty`
+// (NWT Study Edition); a few only have the older `nwt` (e.g. Yoruba).
+const WOL_LANG: Record<WolLang, { locale: string; r: string; lp: string; wtlocale: string; pub: string }> = {
+  en: { locale: "en",       r: "r1",  lp: "lp-e",   wtlocale: "E",   pub: "nwtsty" },
+  es: { locale: "es",       r: "r4",  lp: "lp-s",   wtlocale: "S",   pub: "nwtsty" },
+  pt: { locale: "pt",       r: "r5",  lp: "lp-t",   wtlocale: "T",   pub: "nwtsty" },
+  fr: { locale: "fr",       r: "r30", lp: "lp-f",   wtlocale: "F",   pub: "nwtsty" },
+  tl: { locale: "tl",       r: "r9",  lp: "lp-tl",  wtlocale: "TGL", pub: "nwtsty" },
+  zh: { locale: "cmn-Hans", r: "r23", lp: "lp-chs", wtlocale: "CHS", pub: "nwtsty" },
+  ja: { locale: "ja",       r: "r7",  lp: "lp-j",   wtlocale: "J",   pub: "nwtsty" },
+  ko: { locale: "ko",       r: "r8",  lp: "lp-ko",  wtlocale: "KO",  pub: "nwtsty" },
+  yo: { locale: "yo",       r: "r36", lp: "lp-yr",  wtlocale: "YR",  pub: "nwt"    },
 };
 
 function wolBase(lang: string) {
-  const { locale, r, lp } = WOL_LANG[lang as WolLang] ?? WOL_LANG.en;
-  return `https://wol.jw.org/${locale}/wol/b/${r}/${lp}/nwtsty`;
+  const { locale, r, lp, pub } = WOL_LANG[lang as WolLang] ?? WOL_LANG.en;
+  return `https://wol.jw.org/${locale}/wol/b/${r}/${lp}/${pub}`;
 }
 
 /**

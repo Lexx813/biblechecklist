@@ -13,10 +13,10 @@ const schema = {
   operatingSystem: 'Web',
   browserRequirements: 'Requires JavaScript. Requires a modern browser.',
   availability: 'https://schema.org/OnlineOnly',
-  inLanguage: ['en', 'es', 'pt', 'fr', 'tl', 'zh', 'ja', 'ko'],
+  inLanguage: ['en', 'es', 'pt', 'fr', 'tl', 'zh', 'ja', 'ko', 'yo'],
   screenshot: `${SITE_ORIGIN}/og-image.jpg`,
   featureList:
-    'Bible reading progress tracker for all 66 books of the New World Translation, Meeting prep checklists for CLAM and Watchtower study, AI study assistant for deep Bible study, Bible knowledge quizzes with badge rewards, Structured reading plans with streak tracking, Personal study notes tied to any passage or chapter, Community forum, blog, and study groups, Offline support via PWA, 8-language support',
+    'Bible reading progress tracker for all 66 books of the New World Translation, Meeting prep checklists for CLAM and Watchtower study, AI study assistant for deep Bible study, Bible knowledge quizzes with badge rewards, Structured reading plans with streak tracking, Personal study notes tied to any passage or chapter, Community forum, blog, and study groups, Offline support via PWA, 9-language support',
   offers: [
     {
       '@type': 'Offer',

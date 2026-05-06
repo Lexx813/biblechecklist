@@ -15,6 +15,7 @@ const LANGUAGES = [
   { code: "fr", label: "Français" },
   { code: "tl", label: "Filipino" },
   { code: "zh", label: "中文" },
+  { code: "yo", label: "Yorùbá" },
 ];
 
 const CRON_PRESETS = [

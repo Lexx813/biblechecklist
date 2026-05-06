@@ -7,7 +7,7 @@ const schema = {
   name: 'JW Study',
   url: `${SITE_ORIGIN}/`,
   publisher: { '@type': 'Organization', '@id': `${SITE_ORIGIN}/#organization` },
-  inLanguage: ['en', 'es', 'pt', 'fr', 'tl', 'zh'],
+  inLanguage: ['en', 'es', 'pt', 'fr', 'tl', 'zh', 'ja', 'ko', 'yo'],
   potentialAction: {
     '@type': 'SearchAction',
     target: {
