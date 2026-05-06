@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAnalytics, useFeatureLeaders, useGa4TopPages, useGa4TopEvents } from "../../../hooks/useAdmin";
+import { useAnalytics, useFeatureLeaders } from "../../../hooks/useAdmin";
 import { BOOKS } from "../../../data/books";
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -69,117 +69,6 @@ function relTime(s: string | null | undefined): string {
   if (days < 30) return `${days}d ago`;
   const months = Math.floor(days / 30);
   return `${months}mo ago`;
-}
-
-function Ga4Section() {
-  const { data: pages, isLoading: pagesLoading } = useGa4TopPages();
-  const { data: events, isLoading: eventsLoading } = useGa4TopEvents();
-
-  // Both queries hit the same route — if one is unconfigured, the other is too.
-  const unconfigured = pages && !pages.configured;
-
-  if (unconfigured) {
-    return (
-      <div style={{
-        background: "rgba(124, 58, 237, 0.05)",
-        border: "1px solid rgba(124, 58, 237, 0.18)",
-        borderRadius: 12,
-        padding: 20,
-        marginTop: 16,
-      }}>
-        <h3 style={{ margin: "0 0 8px", fontSize: 14, fontWeight: 600 }}>
-          GA4 Top Pages — not configured
-        </h3>
-        <p style={{ margin: "0 0 8px", color: "var(--text-muted)", fontSize: 13, lineHeight: 1.6 }}>
-          To surface page views and event counts here, set these env vars on Vercel and redeploy:
-        </p>
-        <ul style={{ margin: "0 0 0 18px", padding: 0, fontSize: 13, lineHeight: 1.8 }}>
-          <li><code>GA4_PROPERTY_ID</code> — numeric GA4 property ID</li>
-          <li><code>GA4_SERVICE_ACCOUNT_JSON</code> — full service-account JSON key</li>
-        </ul>
-        {pages?.setupSteps && (
-          <ol style={{ marginTop: 12, marginLeft: 18, padding: 0, color: "var(--text-muted)", fontSize: 12, lineHeight: 1.7 }}>
-            {pages.setupSteps.map((s, i) => <li key={i}>{s}</li>)}
-          </ol>
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <>
-      <SectionHeader title="GA4 — Last 30 Days" />
-      <ChartCard title="Top pages (page views)">
-        {pagesLoading ? (
-          <div className="skeleton" style={{ height: 220, borderRadius: 8 }} />
-        ) : pages?.error ? (
-          <p style={{ padding: 16, color: "var(--danger, #ef4444)", fontSize: 13 }}>{pages.error}</p>
-        ) : !pages?.rows.length ? (
-          <p style={{ padding: 16, color: "var(--text-muted)", fontSize: 13 }}>No page-view data in the last 30 days.</p>
-        ) : (
-          <div className="admin-table-wrap" style={{ marginTop: -8 }}>
-            <table className="admin-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Path</th>
-                  <th>Title</th>
-                  <th>Views</th>
-                  <th>Active users</th>
-                  <th>Avg session</th>
-                </tr>
-              </thead>
-              <tbody>
-                {pages.rows.map((r, i) => (
-                  <tr key={`${r.dimensions[0]}-${i}`}>
-                    <td><strong>{i + 1}</strong></td>
-                    <td style={{ fontFamily: "ui-monospace, monospace", fontSize: 12 }}>{r.dimensions[0]}</td>
-                    <td style={{ color: "var(--text-muted)", fontSize: 12, maxWidth: 280, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{r.dimensions[1] || "—"}</td>
-                    <td><strong>{r.metrics[0].toLocaleString()}</strong></td>
-                    <td>{r.metrics[1].toLocaleString()}</td>
-                    <td style={{ color: "var(--text-muted)", fontSize: 12 }}>{Math.round(r.metrics[2])}s</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </ChartCard>
-
-      <ChartCard title="Top events">
-        {eventsLoading ? (
-          <div className="skeleton" style={{ height: 220, borderRadius: 8 }} />
-        ) : events?.error ? (
-          <p style={{ padding: 16, color: "var(--danger, #ef4444)", fontSize: 13 }}>{events.error}</p>
-        ) : !events?.rows.length ? (
-          <p style={{ padding: 16, color: "var(--text-muted)", fontSize: 13 }}>No event data in the last 30 days.</p>
-        ) : (
-          <div className="admin-table-wrap" style={{ marginTop: -8 }}>
-            <table className="admin-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Event</th>
-                  <th>Count</th>
-                  <th>Users</th>
-                </tr>
-              </thead>
-              <tbody>
-                {events.rows.map((r, i) => (
-                  <tr key={`${r.dimensions[0]}-${i}`}>
-                    <td><strong>{i + 1}</strong></td>
-                    <td style={{ fontFamily: "ui-monospace, monospace", fontSize: 12 }}>{r.dimensions[0]}</td>
-                    <td><strong>{r.metrics[0].toLocaleString()}</strong></td>
-                    <td>{r.metrics[1].toLocaleString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </ChartCard>
-    </>
-  );
 }
 
 function FeatureLeadersPanel({ feature, onClose }: { feature: string; onClose: () => void }) {
@@ -522,8 +411,6 @@ export function AnalyticsTab() {
           <span>100%</span>
         </div>
       </ChartCard>
-
-      <Ga4Section />
 
     </div>
   );
