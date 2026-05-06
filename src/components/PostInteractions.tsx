@@ -25,7 +25,8 @@ function CommentRow({ c, userId, liked, navigate, onLike, onReply, onDelete, del
   deletePending: boolean;
   isReply?: boolean;
 }) {
-  const cName = c.author?.display_name || "Someone";
+  const { t } = useTranslation();
+  const cName = c.author?.display_name || t("liked.someone");
   const avatarSize = isReply ? "size-6" : "size-7";
   return (
     <div className="group/comment flex gap-2">
@@ -48,7 +49,7 @@ function CommentRow({ c, userId, liked, navigate, onLike, onReply, onDelete, del
           <button
             className={`flex cursor-pointer items-center gap-1 border-none bg-transparent p-0 text-[11px] font-semibold transition-colors duration-150 ${liked ? "text-red-400" : "text-[var(--text-muted)] hover:text-red-400"}`}
             onClick={() => { if (userId) onLike(); }}
-            aria-label="Like comment"
+            aria-label={t("posts.interactions.likeComment")}
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill={liked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -61,7 +62,7 @@ function CommentRow({ c, userId, liked, navigate, onLike, onReply, onDelete, del
               className="cursor-pointer border-none bg-transparent p-0 text-[11px] font-semibold text-[var(--text-muted)] transition-colors duration-150 hover:text-[var(--text-primary)]"
               onClick={onReply}
             >
-              Reply
+              {t("posts.interactions.reply")}
             </button>
           )}
           {/* Delete */}
@@ -71,7 +72,7 @@ function CommentRow({ c, userId, liked, navigate, onLike, onReply, onDelete, del
               onClick={onDelete}
               disabled={deletePending}
             >
-              Delete
+              {t("common.delete")}
             </button>
           )}
         </div>
@@ -145,7 +146,7 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
     if (!text || !userId) return;
     setCommentError("");
     try { assertNoPII(text); } catch (err: unknown) {
-      setCommentError(err instanceof Error ? err.message : "Invalid content");
+      setCommentError(err instanceof Error ? err.message : t("posts.interactions.invalidContent"));
       return;
     }
     addComment.mutate({ content: text }, {
@@ -159,7 +160,7 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
     if (!text || !userId || !replyingTo) return;
     setCommentError("");
     try { assertNoPII(text); } catch (err: unknown) {
-      setCommentError(err instanceof Error ? err.message : "Invalid content");
+      setCommentError(err instanceof Error ? err.message : t("posts.interactions.invalidContent"));
       return;
     }
     addComment.mutate({ content: text, parentId: replyingTo.id }, {
@@ -201,10 +202,10 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
               if (!userId) return;
               setShowEmojiPicker(!showEmojiPicker);
             }}
-            aria-label="React to post"
+            aria-label={t("posts.interactions.reactToPost")}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-            React
+            {t("posts.interactions.react")}
           </button>
 
           {/* Emoji picker popover */}
@@ -218,7 +219,7 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
                     toggleReaction.mutate(emoji);
                     setShowEmojiPicker(false);
                   }}
-                  aria-label={`React with ${emoji}`}
+                  aria-label={t("posts.interactions.reactWith", { emoji })}
                 >
                   {emoji}
                 </button>
@@ -234,10 +235,10 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
             setShowComments(!showComments);
             if (!showComments) setTimeout(() => inputRef.current?.focus(), 100);
           }}
-          aria-label="Comment on post"
+          aria-label={t("posts.interactions.commentOnPost")}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Comment{commentCount > 0 ? ` (${commentCount})` : ""}
+          {t("posts.interactions.comment")}{commentCount > 0 ? ` (${commentCount})` : ""}
         </button>
       </div>
 
@@ -253,7 +254,7 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
                   : "border-[var(--border)] bg-transparent text-[var(--text-muted)] hover:border-brand-600/30 hover:bg-brand-600/10"
               }`}
               onClick={() => { if (userId) toggleReaction.mutate(emoji); }}
-              aria-label={`${emoji} ${count}`}
+              aria-label={t("posts.interactions.emojiCount", { emoji, count })}
             >
               <span>{emoji}</span>
               <LikedByPopover count={count} fetchLikers={() => postsApi.getReactionLikers(postId, emoji)} />
@@ -313,18 +314,18 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
           {replyingTo && userId && (
             <div className="mt-2">
               <div className="mb-1 flex items-center gap-1.5">
-                <span className="text-[11px] text-[var(--text-muted)]">↩ Replying to <strong className="text-[var(--text-primary)]">{replyingTo.name}</strong></span>
+                <span className="text-[11px] text-[var(--text-muted)]">{t("posts.interactions.replyingToPrefix")} <strong className="text-[var(--text-primary)]">{replyingTo.name}</strong></span>
                 <button
                   className="ml-1 cursor-pointer border-none bg-transparent p-0 text-[11px] text-[var(--text-muted)] hover:text-red-400"
                   onClick={() => { setReplyingTo(null); setReplyText(""); }}
-                >✕ Cancel</button>
+                >{t("posts.interactions.cancelReply")}</button>
               </div>
               <div className="flex items-center gap-2">
                 <input
                   ref={replyRef}
                   type="text"
-                  className="min-h-[36px] flex-1 rounded-full border border-[var(--accent)] bg-[var(--hover-bg)] px-3.5 py-1.5 text-[13px] text-[var(--text-primary)] outline-none placeholder:text-[var(--text-muted)]"
-                  placeholder={`Reply to ${replyingTo.name}…`}
+                  className="min-h-[36px] flex-1 rounded-full border border-[var(--accent)] bg-[var(--hover-bg)] px-3.5 py-1.5 text-base sm:text-[13px] text-[var(--text-primary)] outline-none placeholder:text-[var(--text-muted)]"
+                  placeholder={t("posts.interactions.replyToPlaceholder", { name: replyingTo.name })}
                   maxLength={2000}
                   value={replyText}
                   onChange={e => setReplyText(e.target.value)}
@@ -334,7 +335,7 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
                   className="flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full border-none bg-[var(--accent)] text-white transition-opacity duration-150 hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
                   onClick={handleSubmitReply}
                   disabled={!replyText.trim() || addComment.isPending}
-                  aria-label="Send reply"
+                  aria-label={t("posts.interactions.sendReply")}
                 >
                   {addComment.isPending
                     ? <div className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
@@ -350,8 +351,8 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
               <input
                 ref={inputRef}
                 type="text"
-                className="min-h-[36px] flex-1 rounded-full border border-[var(--border)] bg-[var(--hover-bg)] px-3.5 py-1.5 text-[13px] text-[var(--text-primary)] outline-none transition-colors duration-150 placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
-                placeholder="Write a comment…"
+                className="min-h-[36px] flex-1 rounded-full border border-[var(--border)] bg-[var(--hover-bg)] px-3.5 py-1.5 text-base sm:text-[13px] text-[var(--text-primary)] outline-none transition-colors duration-150 placeholder:text-[var(--text-muted)] focus:border-[var(--accent)]"
+                placeholder={t("posts.interactions.writeCommentPlaceholder")}
                 maxLength={2000}
                 value={commentText}
                 onChange={e => setCommentText(e.target.value)}
@@ -361,7 +362,7 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
                 className="flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full border-none bg-[var(--accent)] text-white transition-opacity duration-150 hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
                 onClick={handleSubmitComment}
                 disabled={!commentText.trim() || addComment.isPending}
-                aria-label="Send comment"
+                aria-label={t("posts.interactions.sendComment")}
               >
                 {addComment.isPending
                   ? <div className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
@@ -369,7 +370,7 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
               </button>
             </div>
           ) : (
-            <p className="mt-2 text-center text-xs text-[var(--text-muted)]">Sign in to comment</p>
+            <p className="mt-2 text-center text-xs text-[var(--text-muted)]">{t("posts.interactions.signInToComment")}</p>
           )}
           {commentError && <p className="mt-1 text-xs text-red-400">{commentError}</p>}
         </div>

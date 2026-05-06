@@ -86,8 +86,10 @@ function UserActionsDropdown({ user, currentUser, navigate, setAdmin, setModerat
 
   return (
     <div className="admin-dropdown" ref={ref}>
-      <button ref={triggerRef} className="admin-dropdown-trigger" onClick={handleOpen} title={t("admin.colActions")}>
-        ⋯
+      <button ref={triggerRef} className="admin-dropdown-trigger" onClick={handleOpen} title={t("admin.colActions")} aria-label={t("admin.moreActions", "More actions")}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/>
+        </svg>
       </button>
       {open && createPortal(
         <div ref={menuRef} className="admin-dropdown-menu" style={{ position: "fixed", top: menuPos.top, right: menuPos.right, left: "auto" }}>

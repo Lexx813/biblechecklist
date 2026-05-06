@@ -157,7 +157,7 @@ export const FCBubble = memo(function FCBubble({ msg, isMine, allMessages, react
                 Reply
               </button>
               <button className="fc-action-menu-item" onClick={() => { onStar(msg.id); closeMenu(); }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill={isStarred ? "goldenrod" : "none"} stroke={isStarred ? "goldenrod" : "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill={isStarred ? "#f59e0b" : "none"} stroke={isStarred ? "#f59e0b" : "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 {isStarred ? "Unstar" : "Star"}
               </button>
               {isMine && !isVerse && !isImage && !isPlan && (
@@ -214,7 +214,7 @@ export const FCBubble = memo(function FCBubble({ msg, isMine, allMessages, react
                 <span>{renderFormattedContent(msg.content)}</span>
               )}
               <div className="fc-bubble-footer">
-                {isStarred && <span className="fc-star-indicator"><svg width="10" height="10" viewBox="0 0 24 24" fill="goldenrod" stroke="goldenrod" strokeWidth="2" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>}
+                {isStarred && <span className="fc-star-indicator"><svg width="10" height="10" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" strokeWidth="2" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>}
                 <span className="fc-bubble-time">{formatTime(msg.created_at)}</span>
                 {msg.edited_at && <span className="fc-edited-label">{t("messages.edited")}</span>}
                 {isMine && <span className="fc-status-ticks">{isLast ? t("messages.read") : t("messages.sent")}</span>}

@@ -164,7 +164,7 @@ function ScoreBar({ teamAScore, teamBScore, questionCount, currentIndex }: {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-        <span style={{ fontFamily: "Russo One, sans-serif", fontSize: 22, color: "var(--teal)", fontWeight: 900 }}>
+        <span style={{ fontSize: 22, color: "var(--teal)", fontWeight: 900, fontVariantNumeric: "tabular-nums", letterSpacing: "-0.01em" }}>
           {teamAScore}
         </span>
         <span style={{ fontSize: 10, color: "var(--teal)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em" }}>
@@ -185,7 +185,7 @@ function ScoreBar({ teamAScore, teamBScore, questionCount, currentIndex }: {
         <span style={{ fontSize: 10, color: "#d97706", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em" }}>
           Omega
         </span>
-        <span style={{ fontFamily: "Russo One, sans-serif", fontSize: 22, color: "#d97706", fontWeight: 900 }}>
+        <span style={{ fontSize: 22, color: "#d97706", fontWeight: 900, fontVariantNumeric: "tabular-nums", letterSpacing: "-0.01em" }}>
           {teamBScore}
         </span>
       </div>
@@ -228,7 +228,7 @@ function TimerRing({ seconds, total, onExpire }: { seconds: number; total: numbe
           style={{ transition: "stroke-dasharray 1s linear, stroke 0.3s" }}
         />
       </svg>
-      <span style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Russo One, sans-serif", fontSize: 15, fontWeight: 900, color }}>
+      <span style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15, fontWeight: 900, color, fontVariantNumeric: "tabular-nums" }}>
         {remaining}
       </span>
     </div>
@@ -289,7 +289,7 @@ function TeamPanel({ team, players, isActive, score }: {
     }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
         <div>
-          <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em", color: hex, fontFamily: "Russo One, sans-serif" }}>
+          <div style={{ fontSize: 10, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", color: hex }}>
             {teamName(team)}
           </div>
           {isActive && (
@@ -298,7 +298,7 @@ function TeamPanel({ team, players, isActive, score }: {
             </div>
           )}
         </div>
-        <span style={{ fontFamily: "Russo One, sans-serif", fontSize: 28, fontWeight: 900, color: hex }}>
+        <span style={{ fontSize: 28, fontWeight: 900, color: hex, fontVariantNumeric: "tabular-nums", letterSpacing: "-0.01em" }}>
           {score}
         </span>
       </div>
@@ -419,9 +419,9 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
     borderRadius: 10,
     padding: "13px 0",
     width: "100%",
-    fontFamily: "Russo One, sans-serif",
     fontSize: 16,
-    fontWeight: 900,
+    fontWeight: 800,
+    letterSpacing: "0.02em",
     cursor: "pointer",
     transition: "opacity 0.15s",
   } as const;
@@ -433,9 +433,9 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
     borderRadius: 10,
     padding: "13px 0",
     width: "100%",
-    fontFamily: "Russo One, sans-serif",
     fontSize: 16,
-    fontWeight: 900,
+    fontWeight: 800,
+    letterSpacing: "0.02em",
     cursor: "pointer",
     transition: "opacity 0.15s",
   } as const;
@@ -444,7 +444,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
     <div style={{ minHeight: "100vh", background: "var(--trivia-bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px", fontFamily: "Chakra Petch, sans-serif" }}>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: 28 }}>
-        <h1 style={{ fontFamily: "Russo One, sans-serif", fontSize: "clamp(36px, 8vw, 56px)", fontWeight: 900, lineHeight: 1.05, color: "var(--text-primary)" }}>
+        <h1 style={{ fontSize: "clamp(36px, 8vw, 56px)", fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.02em", color: "var(--text-primary)" }}>
           Bible Trivia
         </h1>
         <p style={{ color: "var(--text-muted)", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.2em", marginTop: 6 }}>
@@ -495,7 +495,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
                   style={{
                     width: "100%", padding: "12px 16px", borderRadius: 10,
                     border: "2px solid #d97706", background: "var(--bg)",
-                    color: "var(--text-primary)", fontSize: 24, fontFamily: "Russo One, sans-serif",
+                    color: "var(--text-primary)", fontSize: 24, fontWeight: 800,
                     textAlign: "center", letterSpacing: "0.3em", textTransform: "uppercase", outline: "none",
                   }}
                 />
@@ -517,9 +517,9 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
                         border: `2px solid ${teamSize === n ? "var(--teal)" : "var(--border)"}`,
                         background: teamSize === n ? "var(--active-bg)" : "var(--bg)",
                         color: teamSize === n ? "var(--teal)" : "var(--text-muted)",
-                        fontFamily: "Russo One, sans-serif",
                         fontSize: 12,
-                        fontWeight: 900,
+                        fontWeight: 800,
+                        letterSpacing: "0.05em",
                         cursor: "pointer",
                         transition: "all 0.15s",
                       }}
@@ -725,9 +725,10 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
                         border: `2px solid ${selected ? hex : "var(--border)"}`,
                         background: selected ? `${hex}14` : "var(--bg)",
                         color: selected ? hex : "var(--text-muted)",
-                        fontFamily: "Russo One, sans-serif",
                         fontSize: 14,
-                        fontWeight: 900,
+                        fontWeight: 800,
+                        letterSpacing: "0.05em",
+                        textTransform: "uppercase",
                         cursor: "pointer",
                         transition: "all 0.15s",
                       }}
@@ -798,7 +799,7 @@ function LobbyView({ room, players, myPlayer, onStart, onRefresh, onExit }: {
         {/* Room code */}
         <div style={{ textAlign: "center", marginBottom: 24 }}>
           <p style={{ color: "var(--text-muted)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 8 }}>Room Code</p>
-          <div style={{ display: "inline-block", padding: "10px 28px", borderRadius: 14, border: "2px solid var(--teal)", background: "var(--active-bg)", fontFamily: "Russo One, sans-serif", fontSize: 32, fontWeight: 900, letterSpacing: "0.2em", color: "var(--teal)" }}>
+          <div style={{ display: "inline-block", padding: "10px 28px", borderRadius: 14, border: "2px solid var(--teal)", background: "var(--active-bg)", fontSize: 32, fontWeight: 900, letterSpacing: "0.2em", color: "var(--teal)", fontVariantNumeric: "tabular-nums" }}>
             {room.room_code}
           </div>
           <p style={{ color: "var(--text-muted)", fontSize: 11, marginTop: 6 }}>Share this code to invite players</p>
@@ -813,7 +814,7 @@ function LobbyView({ room, players, myPlayer, onStart, onRefresh, onExit }: {
               <div key={t} style={{ padding: "14px", borderRadius: 14, border: `1px solid ${hex}44`, background: `${hex}08` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                   <div style={{ width: 10, height: 10, borderRadius: "50%", background: hex, boxShadow: `0 0 6px ${hex}` }} />
-                  <span style={{ fontFamily: "Russo One, sans-serif", fontSize: 12, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em", color: hex }}>
+                  <span style={{ fontSize: 12, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", color: hex }}>
                     {teamName(t)}
                   </span>
                   <span style={{ marginLeft: "auto", color: "var(--text-muted)", fontSize: 12 }}>{members.length}</span>
@@ -858,7 +859,7 @@ function LobbyView({ room, players, myPlayer, onStart, onRefresh, onExit }: {
                 style={{
                   width: "100%", padding: "14px 0", borderRadius: 12, border: "none",
                   background: "var(--teal)", color: "#fff",
-                  fontFamily: "Russo One, sans-serif", fontSize: 18, fontWeight: 900,
+                  fontSize: 18, fontWeight: 800, letterSpacing: "0.02em",
                   cursor: starting ? "not-allowed" : "pointer",
                   opacity: starting ? 0.6 : 1,
                   boxShadow: "0 0 20px rgba(124,58,237,0.3)",
@@ -1010,11 +1011,11 @@ function GameView({
           ✕ Exit
         </button>
         <div style={{ textAlign: "center" }}>
-          <div style={{ fontFamily: "Russo One, sans-serif", fontSize: 15, fontWeight: 900, color: "var(--text-primary)" }}>
+          <div style={{ fontSize: 15, fontWeight: 900, color: "var(--text-primary)", letterSpacing: "-0.01em" }}>
             BIBLE TRIVIA BATTLE
           </div>
         </div>
-        <div style={{ padding: "4px 10px", borderRadius: 8, border: "1px solid var(--border)", fontSize: 12, color: "var(--text-muted)", fontFamily: "Russo One, sans-serif", letterSpacing: "0.1em" }}>
+        <div style={{ padding: "4px 10px", borderRadius: 8, border: "1px solid var(--border)", fontSize: 12, color: "var(--text-muted)", fontWeight: 800, letterSpacing: "0.1em", fontVariantNumeric: "tabular-nums" }}>
           {room.room_code}
         </div>
       </div>
@@ -1049,7 +1050,7 @@ function GameView({
             border: `1.5px solid ${teamHex(room.current_team)}88`,
             background: `${teamHex(room.current_team)}18`,
             color: teamHex(room.current_team),
-            fontSize: 13, fontWeight: 700, fontFamily: "Russo One, sans-serif",
+            fontSize: 13, fontWeight: 800, letterSpacing: "0.02em",
             boxShadow: `0 0 18px ${teamHex(room.current_team)}22`,
           }}>
             <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: "50%", background: teamHex(room.current_team), marginRight: 8, animation: "pulse 1.2s ease-in-out infinite" }} />
@@ -1099,7 +1100,7 @@ function GameView({
               {room.pending_next && (
                 <div style={{
                   marginTop: 12, padding: "10px 16px", borderRadius: 10, textAlign: "center",
-                  fontFamily: "Russo One, sans-serif", fontSize: 16, fontWeight: 900,
+                  fontSize: 16, fontWeight: 900, letterSpacing: "0.01em",
                   background: answerWasCorrect ? "rgba(16,185,129,0.12)" : "rgba(239,68,68,0.10)",
                   border: `1px solid ${answerWasCorrect ? "#10b981" : "#ef4444"}66`,
                   color: answerWasCorrect ? "#065f46" : "#991b1b",
@@ -1119,7 +1120,7 @@ function GameView({
           {canAdvance && (
             <button
               onClick={handleNext}
-              style={{ width: "100%", padding: "13px 0", borderRadius: 12, border: "none", background: "var(--teal)", color: "#fff", fontFamily: "Russo One, sans-serif", fontSize: 16, fontWeight: 900, cursor: "pointer", boxShadow: "var(--shadow)" }}
+              style={{ width: "100%", padding: "13px 0", borderRadius: 12, border: "none", background: "var(--teal)", color: "#fff", fontSize: 16, fontWeight: 800, letterSpacing: "0.02em", cursor: "pointer", boxShadow: "var(--shadow)" }}
             >
               Next Question →
             </button>
@@ -1163,9 +1164,9 @@ function EndView({ room, players, myPlayer, onPlayAgain }: {
         <div style={{ fontSize: 72, marginBottom: 12 }}>{tie ? "🤝" : "🏆"}</div>
 
         <h2 style={{
-          fontFamily: "Russo One, sans-serif",
           fontSize: "clamp(28px, 7vw, 42px)",
           fontWeight: 900,
+          letterSpacing: "-0.02em",
           marginBottom: 8,
           color: tie ? "var(--text-primary)" : teamHex(winnerTeam),
         }}>
@@ -1192,10 +1193,10 @@ function EndView({ room, players, myPlayer, onPlayAgain }: {
                 display: "flex", flexDirection: "column", alignItems: "center", gap: 4,
               }}>
                 {winner && <div style={{ fontSize: 18 }}>👑</div>}
-                <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.15em", color: hex, fontFamily: "Russo One, sans-serif" }}>
+                <div style={{ fontSize: 10, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", color: hex }}>
                   {teamName(t)}
                 </div>
-                <div style={{ fontFamily: "Russo One, sans-serif", fontSize: 44, fontWeight: 900, color: hex }}>
+                <div style={{ fontSize: 44, fontWeight: 900, color: hex, fontVariantNumeric: "tabular-nums", letterSpacing: "-0.02em" }}>
                   {score}
                 </div>
                 <div style={{ fontSize: 11, color: "var(--text-muted)" }}>points</div>
@@ -1214,7 +1215,7 @@ function EndView({ room, players, myPlayer, onPlayAgain }: {
 
         <button
           onClick={onPlayAgain}
-          style={{ width: "100%", padding: "14px 0", borderRadius: 12, border: "none", background: "var(--teal)", color: "#fff", fontFamily: "Russo One, sans-serif", fontSize: 18, fontWeight: 900, cursor: "pointer" }}
+          style={{ width: "100%", padding: "14px 0", borderRadius: 12, border: "none", background: "var(--teal)", color: "#fff", fontSize: 18, fontWeight: 800, letterSpacing: "0.02em", cursor: "pointer" }}
         >
           Play Again
         </button>
@@ -1288,15 +1289,8 @@ export default function TriviaPage({ user, navigate, prefillCode }: TriviaPagePr
     setView("home");
   }
 
-  // Inject fonts + styles
+  // Inject scoped trivia styles (typography defaults to Plus Jakarta Sans inherited from app)
   useEffect(() => {
-    if (!document.getElementById("trivia-fonts")) {
-      const link = document.createElement("link");
-      link.id = "trivia-fonts";
-      link.rel = "stylesheet";
-      link.href = "https://fonts.googleapis.com/css2?family=Russo+One&family=Chakra+Petch:wght@400;600;700&display=swap";
-      document.head.appendChild(link);
-    }
     if (!document.getElementById("trivia-styles")) {
       const style = document.createElement("style");
       style.id = "trivia-styles";
@@ -1353,7 +1347,7 @@ export default function TriviaPage({ user, navigate, prefillCode }: TriviaPagePr
   if (loading || !room || !myPlayer) {
     return (
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--trivia-bg)" }}>
-        <div style={{ color: "var(--teal)", fontFamily: "Russo One, sans-serif", fontSize: 18 }}>Loading…</div>
+        <div style={{ color: "var(--teal)", fontSize: 18, fontWeight: 800, letterSpacing: "0.02em" }}>Loading…</div>
       </div>
     );
   }

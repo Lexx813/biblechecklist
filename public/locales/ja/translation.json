@@ -29,10 +29,41 @@
     "notifSub": "毎日同じ時間に読書のリマインダーを送ります。",
     "notifEnable": "リマインダーを有効にする",
     "notifLater": "後で",
-    "getStarted": "始めましょう"
+    "getStarted": "始めましょう",
+    "choiceConnect": "他の人とつながる",
+    "choiceConnectSub": "コミュニティとフォーラム",
+    "doneAction": "創世記1章を読了にする →",
+    "doneSkip": "まずアプリを見てみる",
+    "doneSub": "最初の章にチェックを入れて、読書の連続記録を始めましょう。",
+    "doneTitle": "準備完了です！",
+    "maybeLater": "後で",
+    "next": "次へ →",
+    "planSub": "後でいつでも変更や一時停止ができます。",
+    "planTitle": "通読プランを選ぶ",
+    "saveBannerRegion": "進捗を保存する",
+    "saveMyProgress": "進捗を保存",
+    "saveProgressDesc": "無料アカウントを作成して、すべてのデバイスで進捗を保存しましょう。",
+    "seePremium": "Premiumを見る →",
+    "step1Body": "聖書全66巻にわたる読書を記録しましょう。読み終えた章にチェックを入れて、進捗が伸びていく様子を見てみましょう。",
+    "step1Title": "JW Studyへようこそ！👋",
+    "step2Body": "ブログで考えたことを共有し、フォーラムで聖句について話し合い、他の人の読書の歩みをフォローしましょう。",
+    "step2Title": "コミュニティに参加",
+    "step3Body": "12種類の聖書のテーマでクイズに挑戦し、各レベルをクリアしてバッジを獲得しましょう。",
+    "step3Title": "知識を試そう",
+    "step4Body": "毎日の章の目標を設定し、連続記録を追跡し、ヒートマップを使って継続しましょう。",
+    "step4Title": "読書の習慣を作ろう",
+    "step5Body": "AIスタディコンパニオン、通読プラン、研究ノート、メッセージ、グループ — 学びを深めるために必要なすべてが、月額わずか$3。",
+    "step5Title": "すべての機能を使いこなす",
+    "youveReadChapters_one": "{{count}}章読みました 🎉",
+    "youveReadChapters_other": "{{count}}章読みました 🎉"
   },
   "a11y": {
-    "skipToContent": "メインコンテンツへスキップ"
+    "skipToContent": "メインコンテンツへスキップ",
+    "cancel": "キャンセル",
+    "close": "閉じる",
+    "dismiss": "閉じる",
+    "loading": "読み込み中",
+    "send": "送信"
   },
   "common": {
     "back": "← 戻る",
@@ -48,7 +79,23 @@
     "clear": "クリア",
     "saved": "✓ 保存しました",
     "failed": "失敗",
-    "thinking": "考え中…"
+    "thinking": "考え中…",
+    "cannotBeUndone": "この操作は取り消せません。",
+    "creating": "作成中…",
+    "dismiss": "閉じる",
+    "image": "画像",
+    "noResults": "結果がありません",
+    "preview": "プレビュー",
+    "previewAlt": "プレビュー",
+    "search": "検索…",
+    "searchOptions": "検索オプション",
+    "searchOptionsAria": "検索オプション",
+    "searching": "検索中…",
+    "select": "選択…",
+    "show": "表示",
+    "uploading": "アップロード中…",
+    "view": "表示",
+    "working": "処理中…"
   },
   "app": {
     "title": "聖書通読チェックリスト",
@@ -123,7 +170,13 @@
     "alreadyHave": "既にアカウントをお持ちですか？",
     "footerTerms": "利用規約",
     "footerPrivacy": "プライバシー",
-    "footerCopy": "© {{year}} JW Study · Lexx Solutionz"
+    "footerCopy": "© {{year}} JW Study · Lexx Solutionz",
+    "jwsHomeAria": "JW Studyホーム",
+    "listenSong": "聴く →",
+    "songsNav": "歌",
+    "songsSub": "新世界訳に基づいた、聖書を題材としたオリジナル曲。無料で聴けて、無料で共有できます。",
+    "songsTitle": "学びを彩る音楽",
+    "viewAllSongs": "すべての歌を見る"
   },
   "auth": {
     "title": "聖書通読チェックリスト",
@@ -195,13 +248,54 @@
     "placeholder": "フォロワーに一言…",
     "share": "投稿",
     "emptyOwner": "まだ近況を投稿していません。",
-    "emptyOther": "まだ近況はありません。"
+    "emptyOther": "まだ近況はありません。",
+    "noCommentsYet": "まだコメントはありません。最初に投稿しましょう！",
+    "interactions": {
+      "cancelReply": "✕ キャンセル",
+      "comment": "コメント",
+      "commentOnPost": "投稿にコメント",
+      "emojiCount": "{{emoji}} {{count}}",
+      "invalidContent": "無効な内容",
+      "likeComment": "コメントにいいね",
+      "react": "リアクション",
+      "reactToPost": "投稿にリアクション",
+      "reactWith": "{{emoji}}でリアクション",
+      "reply": "返信",
+      "replyToPlaceholder": "{{name}}に返信…",
+      "replyingToPrefix": "↩ 返信先：",
+      "sendComment": "コメントを送信",
+      "sendReply": "返信を送信",
+      "signInToComment": "コメントするにはサインインしてください",
+      "writeCommentPlaceholder": "コメントを書く…"
+    }
   },
   "follow": {
     "follow": "フォロー",
     "unfollow": "フォロー解除",
     "followers": "フォロワー",
-    "following": "フォロー中"
+    "following": "フォロー中",
+    "activeAgo": "{{ago}}にアクティブ",
+    "anonymous": "匿名",
+    "copied": "コピーしました！",
+    "copyInviteLink": "招待リンクをコピー",
+    "daysAgo": "{{count}}日前",
+    "friendRequests": "友達リクエスト",
+    "loading": "読み込み中…",
+    "message": "メッセージ",
+    "noFollowersYet": "まだフォロワーがいません",
+    "noFriendsYet": "まだ友達がいません",
+    "noMatches": "一致するものがありません",
+    "notFollowingAnyoneYet": "まだ誰もフォローしていません",
+    "pageTitle": "友達",
+    "searchMode": "{{mode}}を検索",
+    "shareInviteLink": "招待リンクを共有して、他の人とつながりましょう",
+    "today": "今日",
+    "unknown": "不明",
+    "user": "ユーザー",
+    "viewFriendRequests": "友達リクエストを表示",
+    "viewProfile": "プロフィールを表示",
+    "weeksAgo": "{{count}}週間前",
+    "yesterday": "昨日"
   },
   "feed": {
     "navLink": "フィード",
@@ -292,7 +386,15 @@
     "exportCSV": "CSVエクスポート",
     "recentSignups": "新規（7日）",
     "messageUser": "メッセージ",
-    "colName": "表示名"
+    "colName": "表示名",
+    "addNewSong": "新しい歌を追加",
+    "createFirstBroadcast": "最初の配信を作成して、ユーザーへの発信を始めましょう。",
+    "createSong": "歌を作成",
+    "deleteVideoConfirm": "「{{title}}」を削除しますか？この操作は取り消せません。",
+    "editSong": "歌を編集",
+    "noCampaignsYet": "まだキャンペーンはありません",
+    "noUsersFound": "ユーザーが見つかりません",
+    "opensClicksOverTime": "開封数とクリック数の推移"
   },
   "profile": {
     "title": "マイプロフィール",
@@ -415,7 +517,40 @@
     "commentPosting": "投稿中…",
     "commentEmptyError": "コメントを入力してください。",
     "likeError": "いいねを更新できませんでした。もう一度お試しください。",
-    "deletePost": "投稿"
+    "deletePost": "投稿",
+    "deleteBtn": "削除",
+    "deletePostConfirm": "この投稿を削除しますか？この操作は取り消せません。",
+    "draft": "下書き",
+    "draftsCount": "{{count}}件の下書き",
+    "editBtn": "編集",
+    "editorBold": "太字 (Cmd+B)",
+    "editorHighlight": "ハイライト",
+    "editorItalic": "斜体 (Cmd+I)",
+    "editorStrikethrough": "取り消し線",
+    "editorUnderline": "下線",
+    "filterAll": "すべて",
+    "filterDrafts": "下書き",
+    "filterPublished": "公開済み",
+    "loading": "読み込み中…",
+    "newPost": "+ 新しい投稿",
+    "nextPage": "次へ →",
+    "noArticlesFound": "記事が見つかりません。",
+    "noDraftsSaved": "保存された下書きはありません。",
+    "noPublished": "公開済みの投稿はありません。",
+    "noResults": "結果が見つかりません",
+    "noResultsSub": "別の検索語をお試しください",
+    "noneYet": "まだ投稿を書いていません。",
+    "openInJwLibrary": "JW Libraryで開く →",
+    "openInJwLibraryHint": "この聖句を読むためにJW Libraryで開きます。",
+    "pageOf": "{{total}}ページ中{{page}}ページ目",
+    "prevPage": "← 前へ",
+    "published": "公開済み",
+    "publishedCount": "{{count}}件公開済み",
+    "searchPlaceholder": "ブログを検索…",
+    "totalCount": "合計{{count}}件",
+    "viewBtn": "表示",
+    "viewBtnLabel": "表示",
+    "writeFirst": "最初の投稿を書く →"
   },
   "blogDash": {
     "myPostsTitle": "マイ投稿",
@@ -576,7 +711,36 @@
     "quickActions": "クイックアクション",
     "noFriendsYet": "友達を追加して進捗を確認しましょう →",
     "continueReading": "続ける →",
-    "openPrep": "準備を開く →"
+    "openPrep": "準備を開く →",
+    "beTheFirstToShare": "最初に何かを共有しましょう。",
+    "browsePlans": "プランを見る",
+    "confirmFreeze": "連続記録の凍結を確認",
+    "continueAt": "続きから、{{name}} {{chapter}}",
+    "dailyAssignmentsHook": "毎日の課題、連続記録の追跡、1年で新世界訳を読み終えましょう。",
+    "dayOfTotal": "{{name}} · {{total}}日中{{day}}日目",
+    "doneForToday": "今日の分は完了",
+    "freezeStreak": "連続記録を凍結",
+    "freezesLeft_one": "❄️ あと{{count}}回凍結できます",
+    "freezesLeft_other": "❄️ あと{{count}}回凍結できます",
+    "lastReadDate": "最後に読んだ日：{{date}}",
+    "markDone": "✓ 完了にする",
+    "noFreezesLeft": "今月の凍結回数は残っていません",
+    "noPostsYet": "まだ投稿はありません",
+    "openInWol": "WOLで開く →",
+    "percentComplete": "{{pct}}%完了 · 残り{{remaining}}日",
+    "quickContinue": "読書を続ける",
+    "quickMeeting": "集会の予習",
+    "quickQuiz": "今日のクイズ",
+    "spotlight": "スポットライト",
+    "startReadingPlan": "通読プランを始める",
+    "streak": "連続記録",
+    "todaysReadingDone": "今日の読書は完了しました、{{label}}",
+    "todaysReadingLabel": "今日の読書",
+    "tokensRemaining_one": "この後、残り{{count}}枚のトークンです。",
+    "tokensRemaining_other": "この後、残り{{count}}枚のトークンです。",
+    "useFreezeToken": "凍結トークンを使いますか？",
+    "viewAllArrow": "すべて表示 →",
+    "writeAPost": "投稿を書く →"
   },
   "stats": {
     "streak_one": "日連続",
@@ -635,7 +799,62 @@
     "badgeName9": "福音書マスター",
     "badgeName10": "会衆の建設者",
     "badgeName11": "預言の見者",
-    "badgeName12": "聖書エキスパート"
+    "badgeName12": "聖書エキスパート",
+    "advancedHubSub": "本格的に聖書を学ぶ人のための12の上級レベル",
+    "advancedHubTitle": "上級聖書クイズ",
+    "backToAdvanced": "← 上級レベルに戻る",
+    "backToBasic": "← 基本レベルに戻る",
+    "badgeName13": "小預言者",
+    "badgeName14": "王の年代記者",
+    "badgeName15": "年代学者",
+    "badgeName16": "神殿建設者",
+    "badgeName17": "ヘブライ語学者",
+    "badgeName18": "ギリシャ語学者",
+    "badgeName19": "ダニエルの解釈者",
+    "badgeName20": "啓示の解読者",
+    "badgeName21": "神学の達人",
+    "badgeName22": "系図の守り手",
+    "badgeName23": "レビ記の専門家",
+    "badgeName24": "預言の成就者",
+    "badgeName25": "律法学者",
+    "badgeName26": "契約の守り手",
+    "badgeName27": "神殿の建築家",
+    "badgeName28": "例えの達人",
+    "badgeName29": "奇跡の証人",
+    "badgeName30": "預言の追跡者",
+    "badgeName31": "王朝の歴史家",
+    "badgeName32": "会衆の開拓者",
+    "badgeName33": "聖書地図学者",
+    "badgeName34": "忠実な女性たち",
+    "badgeName35": "教理学者",
+    "badgeName36": "テーマの織り手",
+    "goToAdvanced": "上級レベルへ →",
+    "masterHubSub": "上級の聖書研究者のための12のエキスパートレベル",
+    "masterHubTitle": "マスター聖書クイズ",
+    "theme13": "小預言者たち",
+    "theme14": "王たちと歴代誌の徹底研究",
+    "theme15": "聖書の数字と年代",
+    "theme16": "幕屋と神殿の建築",
+    "theme17": "ヘブライ語とヘブライ語聖書の詳細",
+    "theme18": "ギリシャ語聖書の用語と用法",
+    "theme19": "ダニエルの預言を深く学ぶ",
+    "theme20": "啓示の比喩と象徴",
+    "theme21": "パウロの深い神学",
+    "theme22": "系図と家系",
+    "theme23": "祭司、レビ人、犠牲の制度",
+    "theme24": "メシアに関する預言とその成就",
+    "theme25": "モーセの律法と崇拝",
+    "theme26": "聖書の契約",
+    "theme27": "神殿と幕屋の詳細",
+    "theme28": "例えと例え話",
+    "theme29": "聖書の奇跡",
+    "theme30": "メシアに関する預言",
+    "theme31": "王たちと歴史的出来事",
+    "theme32": "初期の会衆",
+    "theme33": "聖書地理",
+    "theme34": "聖書の女性たち",
+    "theme35": "重要な教理",
+    "theme36": "聖書のテーマとつながり"
   },
   "report": {
     "title": "コンテンツを報告",
@@ -743,10 +962,49 @@
     "blockquote": "引用",
     "code": "インラインコード",
     "codeBlock": "コードブロック",
-    "link": "リンクを追加",
+    "link": {
+      "apply": "適用",
+      "cancel": "キャンセル",
+      "insert": "リンクを挿入",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://example.com または mailto:you@email.com"
+    },
     "unlink": "リンクを削除",
     "hr": "区切り線",
-    "linkPrompt": "URLを入力"
+    "linkPrompt": "URLを入力",
+    "alignCenter": "中央揃え",
+    "alignLeft": "左揃え",
+    "alignRight": "右揃え",
+    "bubble": {
+      "bold": "太字 (Cmd+B)",
+      "italic": "斜体 (Cmd+I)"
+    },
+    "clearHighlight": "ハイライトを解除",
+    "color": {
+      "clear": "クリア",
+      "custom": "カスタム…"
+    },
+    "emoji": "絵文字",
+    "exitFocus": "フォーカスを終了 · Esc",
+    "exitFocusModeTitle": "フォーカスモードを終了 (Esc)",
+    "focusMode": "フォーカスモード（UIを非表示）",
+    "heading": "見出し {{level}}",
+    "highlight": "ハイライト",
+    "scripturePrompt": "聖句の参照（例：マタイ 24:14）：",
+    "slash": {
+      "bulletList": "箇条書きリスト",
+      "codeBlock": "コードブロック",
+      "divider": "区切り線",
+      "h1": "見出し1",
+      "h2": "見出し2",
+      "h3": "見出し3",
+      "insert": "挿入",
+      "numberedList": "番号付きリスト",
+      "quote": "引用",
+      "scripture": "聖句（例：マタイ 24:14）"
+    },
+    "textColor": "文字色",
+    "underline": "下線"
   },
   "bookNames": [
     "創世記",
@@ -918,7 +1176,8 @@
     "levelsComplete_other": "{{count}}レベル完了",
     "empty": "まだ結果はありません。通読を始めてここに表示されましょう！",
     "noScores": "このレベルにはまだスコアがありません。",
-    "pts": "点"
+    "pts": "点",
+    "noScoresThisLevel": "このレベルのスコアはまだありません。"
   },
   "search": {
     "placeholder": "書名、投稿、スレッドを検索…",
@@ -1078,7 +1337,7 @@
     "ペテロは離散し迫害されている信者に、キリストの復活を通じた生きた希望を思い起こさせ、異邦人の中での聖なる行いを求めます。",
     "ペテロは真理を歪める偽教師たちに警告し、キリストの知識における霊的成長を促し、主が約束通りに戻ることを信者に保証します。",
     "ヨハネは初期のグノーシス主義に対抗してイエスの肉体的な現実を確認し、従順、互いへの愛、イエスが主であるとの告白によって真の信仰を試すために書きます。",
-    "新約聖書で最も短い書は、受肉を否定する偽教師にもてなしを提供しないよう地域の会衆に警告し、引き続き愛と従順を勧めます。",
+    "クリスチャン・ギリシャ語聖書で最も短い書は、イエス・キリストが肉体において来られたことを否定する偽教師にもてなしを提供しないよう地域の会衆に警告し、引き続き愛と従順を勧めます。",
     "ヨハネは巡回宣教者を歓迎するガイオを称賛し、彼らを拒否する横暴なディオトレフェスを叱責し、デメテリオを忠実さの模範として支持します。",
     "ユダはひそかに会衆に入り込んだ偽教師たちに対して信仰を守るよう信者に緊急に呼びかけ、不敬虔な者への裁きと忠実な者への憐れみを約束します。",
     "啓示は悪に対するキリストの最終的な勝利、諸国民の裁き、そして神がその民と永遠に住む新しい天と新しい地の創造についての預言的な幻です。"
@@ -1583,7 +1842,97 @@
     "typeCongregation": "会衆",
     "typeGeneral": "一般",
     "groupType": "グループタイプ",
-    "clickToCopy": "クリックしてコピー"
+    "clickToCopy": "クリックしてコピー",
+    "addCoverPhoto": "カバー写真を追加",
+    "adminApprovalNeeded": "グループを表示するには、管理者があなたのリクエストを承認する必要があります。",
+    "announcement": "お知らせ",
+    "backToGroups": "← グループに戻る",
+    "backToGroupsTitle": "グループ",
+    "browseOrCreate": "公開グループを閲覧するか、上から自分のグループを作成してください。",
+    "cancelRequest": "リクエストをキャンセル",
+    "closeAria": "閉じる",
+    "comment": "コメント",
+    "commentsLoading": "読み込み中…",
+    "coverPhoto": "カバー写真",
+    "coverPreview": "カバープレビュー",
+    "createEvent": "イベントを作成",
+    "createEventBtn": "イベントを作成",
+    "deleteComment": "コメントを削除",
+    "deleteFile": "ファイルを削除",
+    "deleteGroup": "グループを削除",
+    "deleteGroupConfirm": "「{{name}}」とそのすべての内容を完全に削除しますか？この操作は取り消せません。",
+    "deletePost": "投稿を削除",
+    "descriptionLabel": "説明",
+    "exploreGroups": "グループを探す",
+    "failedToAddComment": "コメントの追加に失敗しました。",
+    "failedToApprove": "承認に失敗しました。",
+    "failedToCreate": "グループの作成に失敗しました。",
+    "failedToDelete": "グループの削除に失敗しました。",
+    "failedToDeleteComment": "コメントの削除に失敗しました。",
+    "failedToDeleteFile": "ファイルの削除に失敗しました。",
+    "failedToDeletePost": "投稿の削除に失敗しました。",
+    "failedToDeny": "拒否に失敗しました。",
+    "failedToLeave": "グループからの退出に失敗しました。",
+    "failedToRemoveMember": "メンバーの削除に失敗しました。",
+    "failedToUpdateRole": "役割の更新に失敗しました。",
+    "failedToUpload": "ファイルのアップロードに失敗しました。",
+    "failedToUploadCover": "カバー写真のアップロードに失敗しました。",
+    "failedUpdateLike": "いいねの更新に失敗しました。",
+    "fileTooLarge": "ファイルは50 MB以下である必要があります。",
+    "leaveGroup": "グループを退出",
+    "leaveGroupConfirm": "{{name}}を退出しますか？再び表示するには、再参加が必要です。",
+    "like": "いいね",
+    "loadingEvents": "イベントを読み込み中…",
+    "loadingFiles": "ファイルを読み込み中…",
+    "loadingMembers": "メンバーを読み込み中…",
+    "makeAdmin": "管理者にする",
+    "memberCount_one": "{{count}}人のメンバー",
+    "memberCount_other": "{{count}}人のメンバー",
+    "membersHeading": "メンバー",
+    "newGroup": "新しいグループ",
+    "noEventsAdmin": "まだイベントはありません。上から作成してください。",
+    "noEventsScheduled": "予定されているイベントはまだありません。",
+    "noFilesYet": "まだファイルはありません。1つアップロードしてグループと共有しましょう。",
+    "noMatches": "一致するものがありません",
+    "noPostsYet": "まだ投稿はありません。会話を始めましょう。",
+    "noPublicGroupsYet": "公開グループはまだありません",
+    "notFoundOrNoAccess": "グループが見つからないか、アクセス権がありません。",
+    "notJoinedAnyGroups": "まだどのグループにも参加していません",
+    "openX": "{{name}}を開く",
+    "optional": "（任意）",
+    "owner": "オーナー",
+    "pageTitle": "グループ",
+    "pending": "保留中",
+    "privacyLabel": "プライバシー",
+    "privateBadge": "非公開",
+    "privateHint": "メンバーは参加に管理者の承認が必要です。",
+    "public": "公開",
+    "publicHint": "誰でもこのグループを見つけて参加できます。",
+    "remove": "削除",
+    "removeAdmin": "管理者を解除",
+    "removePhoto": "写真を削除",
+    "request": "リクエスト",
+    "requestPending": "リクエスト保留中",
+    "searchGroupsAria": "グループを検索",
+    "searchGroupsPlaceholder": "グループを検索…",
+    "send": "送信",
+    "sharedFiles": "共有ファイル",
+    "sortAria": "グループを並べ替え",
+    "sortMostMembers": "メンバー数順",
+    "sortNewest": "新着順",
+    "startFirstOne": "最初のものを始めましょう。",
+    "tabEvents": "イベント",
+    "tabExplore": "探す",
+    "tabFeed": "フィード",
+    "tabFiles": "ファイル",
+    "tabMembers": "メンバー",
+    "tabMine": "マイグループ",
+    "tryDifferentSearch": "別の検索語をお試しください。",
+    "unknown": "不明",
+    "unlike": "いいねを取り消す",
+    "uploadFile": "ファイルをアップロード",
+    "writeAComment": "コメントを書く…",
+    "writeACommentAria": "コメントを書く"
   },
   "messages": {
     "title": "メッセージ",
@@ -1631,7 +1980,80 @@
     "read": "✓✓",
     "sent": "✓",
     "loading": "読み込み中…",
-    "notifBlocked": "通知がブロックされています — ブラウザ設定で有効にしてください"
+    "notifBlocked": "通知がブロックされています — ブラウザ設定で有効にしてください",
+    "addFriendsToStart": "友達を追加して会話を始めましょう",
+    "back": "戻る",
+    "beforeYouShare": "共有する前に",
+    "failedUpdateStar": "スターの更新に失敗しました。",
+    "imageBubble": "🖼 画像",
+    "imageGuidelines": "この画像が聖書研究のコミュニティにふさわしいものであることをご確認ください。",
+    "imageUploadWarning": "画像アップロードに関する警告",
+    "imageWarningAgree": "続行することで、この画像が健全でふさわしいものであることに同意したものとみなされます。",
+    "imageWarningProhibition": "露骨な、攻撃的な、またはふさわしくない内容の共有は固く禁じられています",
+    "imageWarningSuspension": "アカウントの停止につながる可能性があります。",
+    "newConversation": "新しい会話",
+    "newMessage": "新しいメッセージ",
+    "noFriendsMatch": "検索に一致する友達がいません",
+    "noResultsFor": "「{{query}}」の結果はありません。",
+    "noStarredYet": "スター付きメッセージはまだありません。",
+    "removeStar": "スターを外す",
+    "searchConversations": "会話を検索…",
+    "searchFriends": "友達を検索…",
+    "searchFriendsAria": "友達を検索",
+    "searchMessages": "メッセージを検索…",
+    "searchMessagesAria": "メッセージを検索",
+    "searching": "検索中…",
+    "sendImage": "画像を送信",
+    "starred": "スター付きメッセージ",
+    "typeToSearch": "入力して検索してください。",
+    "chatWidgets": {
+      "addNote": "ノートを追加",
+      "addNotePlaceholder": "ノートを追加…",
+      "book": "書",
+      "chapter": "章",
+      "chatSettings": "⚙ チャット設定",
+      "disappearingMessages": "⏱ 消えるメッセージ",
+      "getNotified": "新しいメッセージの通知を受け取る",
+      "noActivePlans": "有効な通読プランはありません。",
+      "noteOptional": "ノート（任意）",
+      "notificationsBlocked": "通知がブロックされています。ブラウザの設定で有効にしてください。",
+      "readOnWol": "WOLで読む ↗",
+      "readingPlanInvitation": "通読プランへの招待",
+      "sharePlanAria": "通読プランを共有",
+      "sharePlanTitle": "📅 通読プランを共有",
+      "shareVerseAria": "聖句を共有",
+      "shareVerseBtn": "聖句を共有",
+      "shareVerseTitle": "📖 聖句を共有",
+      "themeColor": "🎨 テーマカラー",
+      "verse": "節",
+      "verseNumber": "節番号"
+    },
+    "miniThread": {
+      "back": "戻る",
+      "cancelReply": "返信をキャンセル",
+      "deleteConversation": "会話を削除",
+      "emoji": "絵文字",
+      "inputPlaceholder": "Aa",
+      "like": "いいね",
+      "newMessageChip": "↓ 新しいメッセージ",
+      "previewImage": "🖼 画像",
+      "previewPlan": "📅 通読プラン",
+      "previewVerse": "📖 聖句",
+      "retry": "再試行",
+      "searchAria": "メッセージを検索",
+      "searchTip": "検索",
+      "send": "送信",
+      "sendFailed": "メッセージを送信できませんでした。",
+      "sendFailedConnection": "メッセージを送信できませんでした。接続を確認してください。",
+      "settingsAria": "チャット設定",
+      "settingsTip": "設定",
+      "shareImage": "画像を共有",
+      "sharePlan": "通読プランを共有",
+      "shareVerse": "聖句を共有",
+      "starredAria": "スター付きメッセージ",
+      "starredTip": "スター付き",
+      "typeMessage": "メッセージを入力"
+    }
   },
   "aiCompanion": {
     "title": "AI学習コンパニオン",
@@ -1678,7 +2100,16 @@
     "bookmarks": "ブックマーク",
     "feed": "活動",
     "readingHistory": "履歴",
-    "settings": "設定"
+    "settings": "設定",
+    "advancedQuiz": "上級クイズ",
+    "blogVideos": "ブログと動画",
+    "core": "基本",
+    "explore": "探す",
+    "learn": "学ぶ",
+    "messianicProphecies": "メシアに関する預言",
+    "practice": "練習",
+    "requests": "リクエスト",
+    "viewProfile": "プロフィールを表示"
   },
   "studyTopics": {
     "title": "学習トピック",
@@ -1780,10 +2211,17 @@
   },
   "checklist": {
     "bibleProgress": "聖書読書進捗",
-    "oldTestament": "旧約聖書",
-    "newTestament": "新約聖書",
+    "oldTestament": "ヘブライ語聖書",
+    "newTestament": "クリスチャン・ギリシャ語聖書",
     "studyTools": "学習ツール",
-    "66books": "66冊"
+    "66books": "66冊",
+    "continueReading": "読書を続ける",
+    "defaultPlanName": "通読プラン",
+    "noActivePlan": "通読プランがまだありません",
+    "openArrow": "開く →",
+    "searchBooks": "書を検索",
+    "startReadingPlanArrow": "1年通読の旅を始める →",
+    "todayPrefix": "今日："
   },
   "writer": {
     "saved": "Saved",
@@ -1922,6 +2360,952 @@
   },
   "verseModal": {
     "shareMessage": "📖 {{book}} {{chapter}} を読んでいます — {{url}}",
-    "shareTitle": "{{book}} {{chapter}} を共有"
+    "shareTitle": "{{book}} {{chapter}} を共有",
+    "chapterShort": "{{chapter}}章",
+    "dialogLabel": "{{book}} {{chapter}}章",
+    "versesProgress": "{{read}} / {{total}} 節"
+  },
+  "familyQuiz": {
+    "loadingChallenge": "チャレンジを読み込み中…",
+    "loadingResults": "結果を読み込み中…"
+  },
+  "liked": {
+    "likedBy": "いいねした人",
+    "noLikesYet": "まだいいねはありません",
+    "plusMore": "他{{count}}件",
+    "seeWhoLiked": "いいねした人を見る",
+    "someone": "誰か"
+  },
+  "referral": {
+    "copied": "コピーしました！",
+    "copy": "コピー",
+    "inviteFriends": "友達を招待",
+    "loading": "読み込み中…",
+    "referralLinkAria": "紹介リンク",
+    "rewarded": "報酬獲得",
+    "shareDesc": "リンクを共有して一緒に学びましょう。登録すると、相手はあなたのプロフィールにリンクされます。",
+    "shareOnX": "Xで共有",
+    "shareWhatsAppText": "JW Studyで一緒に聖書通読の進捗を記録しましょう！{{url}}",
+    "signedUp": "登録済み",
+    "subscribed": "購読済み",
+    "tweetText": "JW Studyで聖書通読を記録しています、一緒にやりましょう！{{url}}",
+    "user": "ユーザー",
+    "whatsapp": "WhatsApp",
+    "yourReferrals": "あなたの紹介（{{count}}件）"
+  },
+  "topbar": {
+    "accountMenu": "{{name}}のアカウントメニュー",
+    "adminPanel": "管理パネル",
+    "aiCompanion": "AIスタディコンパニオン",
+    "bookmarks": "ブックマーク",
+    "changeLanguage": "言語を変更",
+    "darkMode": "ダークモード",
+    "feed": "フィード",
+    "goToHome": "JW Study、ホームへ移動",
+    "language": "言語",
+    "lightMode": "ライトモード",
+    "logout": "ログアウト",
+    "messages": "メッセージ",
+    "messagesUnread": "メッセージ（未読{{count}}件）",
+    "notifications": "通知",
+    "notificationsUnread": "通知（未読{{count}}件）",
+    "postAVideo": "動画を投稿",
+    "postAVideoTip": "動画を投稿",
+    "profile": "プロフィール",
+    "searchPlaceholder": "検索…",
+    "searchShortcutAria": "検索…（⌘K）",
+    "settings": "設定",
+    "songs": "歌"
+  },
+  "tracker": {
+    "filterAll": "すべて",
+    "filterDone": "完了 ✓",
+    "filterInProgress": "進行中",
+    "filterNotStarted": "未着手"
+  },
+  "aiBubble": {
+    "aiThinkingAriaLabel": "AIが考えています",
+    "clear": "クリア",
+    "clearTitle": "会話をクリア",
+    "closeAriaLabel": "学習コンパニオンを閉じる",
+    "dialogLabel": "AI学習コンパニオン",
+    "fabTitle": "AI学習コンパニオン",
+    "inputAriaLabel": "聖書に関する質問をする",
+    "openAriaLabel": "AI学習コンパニオンを開く",
+    "placeholder": "聖書に関する質問をどうぞ…",
+    "quotaAriaLabel": "1日のAI割り当ての{{percent}}パーセントを使用しました",
+    "quotaPill": "{{percent}}% 使用済み",
+    "quotaTitle": "1日のAI割り当て: 入力トークン {{inputUsed}} / {{inputCap}}、出力トークン {{outputUsed}} / {{outputCap}}。24時間ごとにリセットされます。",
+    "subtitle": "JW資料のみ · wol.jw.org",
+    "suggestedBlog": {
+      "q1": "今学んでいる内容について、ブログの下書きを書いてください",
+      "q2": "このテーマでJW記事のアウトラインを作ってください",
+      "q3": "聖句付きでブログのタイトル案を5つ提案してください",
+      "q4": "導入の段落を書くのを手伝ってください"
+    },
+    "suggestedDefault": {
+      "q1": "この箇所はエホバについて何を教えていますか？",
+      "q2": "原語のヘブライ語やギリシャ語ではどういう意味ですか？",
+      "q3": "この聖句を人にどのように説明できますか？",
+      "q4": "「論じる」の本にはこれについて何と書かれていますか？"
+    },
+    "thinking1": "考え中",
+    "thinking2": "調べています",
+    "thinking3": "出版物を読んでいます",
+    "thinking4": "聖句を検討しています",
+    "title": "学習コンパニオン",
+    "welcomeBlog": "テーマを教えてください。完全な下書きを作成し、エディターに読み込みます。タイトルやアウトラインの案出し、各セクションの執筆もお手伝いできます。",
+    "welcomeDefault": "聖書に関する質問をどうぞ。回答はものみの塔の出版物、新世界訳、wol.jw.orgのみに基づきます。"
+  },
+  "aiConfirm": {
+    "actionFailed": "操作に失敗しました。",
+    "deleteNote": {
+      "action": "削除",
+      "title": "このノートを削除しますか？",
+      "warn": "この操作は取り消せません。"
+    },
+    "noteDeleted": "ノートを削除しました。"
+  },
+  "errorPage": {
+    "appUpdated": "アプリが更新されました。最新バージョンを取得するため、ページを再読み込みしてください。",
+    "fallback": "予期しないエラーが発生しました。もう一度お試しください。",
+    "reload": "↺ ページを再読み込み",
+    "title": "問題が発生しました",
+    "tryAgain": "↩ もう一度試す"
+  },
+  "learn": {
+    "exercises": {
+      "meditate": {
+        "begin": "開始",
+        "finishButton": "じっくり考えました",
+        "finishedMessage": "ここに評価はありません。あなたが今行ったこと、つまり立ち止まって誠実な質問をすることが、まさに実践です。続けてください。",
+        "pause": "一時停止",
+        "placeholder": "ゆっくり時間をかけてください…",
+        "reset": "リセット",
+        "restart": "再開",
+        "saved": "保存しました",
+        "timerLabel": "任意の黙想タイマー"
+      },
+      "questionLadder": {
+        "completeButton": "はしごを登り切りました",
+        "completedMessage": "よくできました。一息つきましょう。今あなたが尋ねた質問は、注意深い学生が生涯を通じて問い続ける質問です。",
+        "hideHint": "ヒントを隠す",
+        "hintLabel": "ヒント：",
+        "needHint": "ヒントが必要ですか？",
+        "placeholder": "答えを入力してください…",
+        "rungs": {
+          "how": "どう適用できるか",
+          "what": "何が",
+          "whenWhere": "いつ／どこで",
+          "who": "誰が",
+          "why": "なぜ"
+        },
+        "rungsAnswered": "{{total}}段中{{filled}}段に回答しました",
+        "saved": "保存しました"
+      },
+      "soapNote": {
+        "headings": {
+          "application": "適用",
+          "observation": "観察",
+          "prayer": "祈り",
+          "scripture": "聖句"
+        },
+        "placeholder": "…",
+        "saveButton": "このS.O.A.P.ノートを保存",
+        "saved": "保存しました",
+        "savedMessage": "ローカルに保存しました。サインインしている状態で永続化機能を有効にすると、このノートはあなたの学習ジャーナルに保存されます。",
+        "sectionsFilled": "4セクション中{{filled}}セクションに記入しました"
+      },
+      "crossRef": {
+        "nextQuestion": "次の質問",
+        "notQuite": "惜しいです。",
+        "questionCounter": "質問 {{index}} / {{total}}",
+        "resultLabel": "結果",
+        "right": "正解です。",
+        "scoreLabel": "得点: {{correct}} / {{answered}}",
+        "seeResult": "結果を見る",
+        "verdictClean": "完璧です。あなたは自分のライブラリーをよく知っています。",
+        "verdictFair": "良いスタートです。もう一度レッスンを見直せば、感覚がつかめます。",
+        "verdictWellDone": "よくできました。感覚が身についています。"
+      },
+      "highlight": {
+        "clearAll": "すべてクリア",
+        "iveMarked": "段落にマークを付けました",
+        "pickHighlighter": "上のハイライターを選んで、文中の語をタップしてください。",
+        "showGuide": "この段落のガイドを表示",
+        "tagAtLeast": "5つ以上タグ付けしてください(現在 {{count}})",
+        "tapToTag": "語句をタップして「{{category}}」としてタグ付けします。もう一度タップで解除できます。"
+      }
+    },
+    "course": {
+      "backHome": "ホームに戻る",
+      "backToCourse": "コースに戻る",
+      "breadcrumbLabel": "パンくずリスト",
+      "categories": {
+        "command": "命令",
+        "promise": "約束",
+        "quality": "エホバの特質",
+        "reference": "相互参照",
+        "warning": "警告"
+      },
+      "closingBenediction": "すべての栄光をエホバに。",
+      "closingBlurb": "個人研究は、聖書研究生にとって最大の贈り物の一つです。このコースの終わりで終わらせないでください。",
+      "closingCta": "最初の研究セッションを始めましょう",
+      "complete": "完了する",
+      "completed": "完了済み",
+      "continue": "続ける",
+      "exerciseHeading": "演習",
+      "intro": "研究について読むだけではありません。実際の聖句、実際の出版物、実際の演習を使って、ベレアの人々のように行います。",
+      "kicker": "聖書研究生のための9レッスンのコース",
+      "lessonLabel": "レッスン",
+      "markComplete": "レッスンを完了としてマーク",
+      "minRead": "分で読めます",
+      "minShort": "分",
+      "overallProgress": "全体の進捗",
+      "skipToExercise": "演習にスキップ",
+      "skipToExerciseAria": "演習にスキップ。{{pct}}% 読了。",
+      "skipToExerciseReady": "準備完了、演習へ進む",
+      "title": "研究の仕方を学ぶ",
+      "unitLabel": "ユニット"
+    },
+    "units": {
+      "unit1": {
+        "lesson1": {
+          "body": {
+            "bq1": "さて,この人たちはテサロニケの人たちより素直で,熱意をもって言葉を受け入れ,そうしたことが本当にその通りなのかを確かめるために,聖書を毎日注意深く調べた。",
+            "h3_1": "人生を形づくる研究の3つの特徴",
+            "list1": {
+              "item1": "規則的に。リズムは強度に勝ります。1日15分の積み重ねは、土曜日の3時間まとめ読みより長続きします。",
+              "item2": "能動的に。鉛筆を手に。問いを心に。1時間後に読んだ内容を思い出せないなら、それは本当の研究とは言えません。",
+              "item3": "祈りをもって。エホバは求める者に惜しみなく知恵を与えてくださいます(ヤコ 1:5)。聖霊は自動的には与えられません。求めましょう。"
+            },
+            "p1": "パウロがベレアで宣べ伝えた時、その地の人々は使徒が特に称賛したことをしました。彼らは熱心にみ言葉を受け入れましたが、そこで止まりませんでした。確かめたのです。",
+            "p2": "それが個人研究の手本です。熱心な受け入れと注意深い吟味を、毎日。集会で聞くことに同意するだけでは十分ではありません。ベレアの人々も、ギリシャ語聖書を誰よりも多く書いたパウロ自身も、私たち自身が深く掘り下げることを望んでいました。",
+            "p3": "このコースはその3つの特徴を中心に組み立てられています。実際の聖句を使った短い演習をします。読むだけではありません。それがベレアの手本の縮図です。"
+          },
+          "ex": {
+            "prompt1": "この1週間で、聖書や出版物から何を読みましたか?",
+            "prompt2": "その箇所のどこにエホバの特質を垣間見ましたか?",
+            "prompt3": "その箇所はあなたに何を変える、始める、やめるよう求めていますか?",
+            "prompt4": "上記の答えをエホバとの会話に変える、一文の祈りを書いてください。",
+            "title": "黙想: 今週、あなたを動かしたものは?"
+          },
+          "oneLine": "ベレアの人々はただ聞いたのではありません。調べたのです。私たちもそうしましょう。",
+          "title": "なぜ個人研究が大切なのか"
+        },
+        "lesson2": {
+          "body": {
+            "bq1": "目安: 読書と集会には JW Library。調査と質問への回答には WOL。",
+            "h3_1": "JW Library: 信頼できる現場の伴侶",
+            "h3_2": "Watchtower ONLINE LIBRARY (WOL): 調査用の机",
+            "p1": "私たちは恵まれています。これまでの聖書研究生は、ペーパーバックの聖書、謄写版の概要、王国会館のライブラリーへ足を運ぶことから研究の時間をつなぎ合わせていました。今日では、2つのアプリがその大半をこなしてくれます。どちらに手を伸ばすかを知ることは、実際の時間を節約してくれます。",
+            "p2": "JW Library は、新世界訳、集会の媒体、歌集、日々のことばがポケットに入っているようなものです。携帯でき、オフラインでも動き、読書と集会向けに調整されていて、深い調査向きではありません。",
+            "p3": "WOL は本棚すべてです。あらゆる出版物が索引付けされ、相互リンクされています。質問が広がり、流れを追う必要がある時に行く場所です。過去のものみの塔の記事、洞察の項目、聖書から論じるの章、年鑑などです。"
+          },
+          "ex": {
+            "intro": "それぞれの場面は実生活で起こります。どのリソースが最適でしょうか?",
+            "q1": {
+              "explanation": "JW Library はオフラインでの片手読書のために作られています。日々のことばはホーム画面にあり、聖書もタップ一つで開けます。",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "バスに乗っていて、日々のことばと今日の聖書の章をすばやく確認したい。"
+            },
+            "q2": {
+              "explanation": "WOL は調査用ライブラリーです。「ヒゼキヤ」を引用符で囲んで検索すると、すべての出版物にわたるランク付けされた一覧が得られます。",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "過去20年間にヒゼキヤ王の改革について論じたものみの塔の記事をすべて見つけたい。"
+            },
+            "q3": {
+              "explanation": "JW Library の新世界訳スタディー版は、聖句のすぐそばに研究ノートと相互参照を表示します。WOL にもありますが、単一の聖句を見るには JW Library の聖書ビューの方が速いです。",
+              "optA": "JW Library(スタディー版)",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "話の準備をしていて、取り組んでいる聖句のそばにレファレンス・バイブルの相互参照を表示させたい。"
+            },
+            "q4": {
+              "explanation": "JW Library はダウンロードした集会の媒体をオフラインでも利用可能にしてくれます。WOL は接続が必要です。",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "Wi-Fi のない家族の家で、オフラインの時に先週の集会の動画を見直したい。"
+            },
+            "q5": {
+              "explanation": "洞察は両方で利用できますが、サブ項目間を行き来する長い百科事典形式の項目には、WOL の相互リンク体験の方が速いです。",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "「信仰」に関する『聖書に対する洞察』の項目を、すべてのサブセクションと相互リンクとともに通読したい。"
+            },
+            "title": "相互参照: 適切なツールを選ぶ"
+          },
+          "oneLine": "2つの素晴らしいツール。それぞれ別の役割。どちらに手を伸ばすかを知ることが、戦いの半分です。",
+          "title": "JW Library と Watchtower ONLINE LIBRARY"
+        },
+        "lesson3": {
+          "body": {
+            "h3_1": "聖書に対する洞察",
+            "h3_2": "聖書から論じる",
+            "h3_3": "ものみの塔(一般向け+研究版)",
+            "h3_4": "目ざめよ!",
+            "h3_5": "エホバへの純粋な崇拝",
+            "p1": "新しい聖書研究生は、出版物がどれもだいたい同じことを言っていると思い込むことがあります。そうではありません。それぞれが異なる役割のために書かれています。最もよく手に取る5つを紹介します。",
+            "p2": "百科事典です。人物、場所、物、概念をアルファベット順に網羅した2巻で、相互参照付きです。聖書中の名前、語、習慣で立ち止まったとき、洞察が最初の一歩です。",
+            "p3": "野外奉仕の伴侶です。「血」「十字架」「神」「苦しみ」など主題別に整理され、直接的な答えと会話の例文があります。反論や話し合いのために作られています。",
+            "p4": "現在の霊的食物です。研究版は集会の資料、一般向け版はより広い読者向けに書かれています。現在の理解についての質問なら、最新のものみの塔がほぼ常に確認すべき場所です。",
+            "p5": "聖書の原則を日常生活、家族、仕事、健康、不安、ティーンエイジャーに当てはめます。声は温かく実践的です。まだ深い教理の話し合いに進む準備ができていない家の人に最適です。",
+            "p6": "預言の書のシリーズの1つで(『エレミヤ』『イザヤの預言』『啓示の書 ― その壮大な climax は近い!』とともに)、エゼキエルを節ごとに歩んでいきます。預言の書を研究する時に手に取ってください。"
+          },
+          "ex": {
+            "intro": "友人や家の人があなたにこのような質問をします。出発点として最適な出版物はどれでしょうか?",
+            "q1": {
+              "explanation": "『聖書から論じる』には「苦しみ」の章が丸ごとあり、聖句、論理的推論、会話形式の応答例があります。まさにこの質問のために作られています。",
+              "optA": "聖書に対する洞察",
+              "optB": "聖書から論じる",
+              "optC": "目ざめよ!",
+              "optD": "エホバへの純粋な崇拝",
+              "scenario": "「愛のある神がなぜ世界の苦しみを許しているのですか?」"
+            },
+            "q2": {
+              "explanation": "洞察は百科事典です。「エホバ」の項目は語源、発音の歴史、すべての聖書中の出現を深く扱っています。",
+              "optA": "聖書に対する洞察",
+              "optB": "聖書から論じる",
+              "optC": "目ざめよ!",
+              "optD": "ものみの塔",
+              "scenario": "「神聖な名エホバは古代ヘブライ語でどんな意味があり、どう発音されたのですか?」"
+            },
+            "q3": {
+              "explanation": "『目ざめよ!』は不安などの実生活の主題を専門とし、聖書の原則を温かく示します。最近のものみの塔の研究記事も非常に役立つでしょう。",
+              "optA": "聖書に対する洞察",
+              "optB": "聖書から論じる",
+              "optC": "目ざめよ!",
+              "optD": "エホバへの純粋な崇拝",
+              "scenario": "「夜になると不安で眠れません。聖書は何をすべきと言っていますか?」"
+            },
+            "q4": {
+              "explanation": "まず洞察の「大群衆」の項目で完全な聖書的説明を読みます。啓示の書に関する預言の注解はさらに深く、『聖書から論じる』はより短い会話形式を提供します。",
+              "optA": "目ざめよ!",
+              "optB": "聖書から論じる",
+              "optC": "エホバへの純粋な崇拝/預言の注解",
+              "optD": "聖書に対する洞察",
+              "scenario": "「啓示 7章の『大群衆』とは何で、144,000人とは別のグループだとどうしてわかるのですか?」"
+            },
+            "q5": {
+              "explanation": "私たちの理解が時とともに調整された質問については、最新のものみの塔の記事が現在の霊的食物を伝えています。常に最新を確認しましょう。",
+              "optA": "聖書に対する洞察",
+              "optB": "ものみの塔(最新の記事)",
+              "optC": "聖書から論じる",
+              "optD": "目ざめよ!",
+              "scenario": "「医療用の血液分画について、現在の聖書的指針を理解したい。」"
+            },
+            "title": "相互参照: この質問にはどの出版物が合うか?"
+          },
+          "oneLine": "忠実で思慮深い奴隷は本棚いっぱいの資料を備えてくれました。それぞれが1つの役割を見事に果たします。",
+          "title": "洞察、聖書から論じる、出版物"
+        },
+        "oneLine": "深く研究する方法を学ぶ前に、手元にあるものとそれがそこにある理由を知る必要があります。",
+        "title": "あなたの研究ツールキット"
+      },
+      "unit2": {
+        "lesson4": {
+          "body": {
+            "h3_1": "S — 聖句 (Scripture)",
+            "h3_2": "O — 観察 (Observation)",
+            "h3_3": "A — 適用 (Application)",
+            "h3_4": "P — 祈り (Prayer)",
+            "p1": "S.O.A.P. は頭字語で、聖句 (Scripture)、観察 (Observation)、適用 (Application)、祈り (Prayer) のことです。聖書の読書を聖書研究に変えるための、最もシンプルで持続力のある枠組みの一つです。1つの聖句にも、章全体にも使えます。",
+            "p2": "聖句を書き出します。できれば手書きで。書き写すと、速読では見逃すもの、つまり接続詞、命令、条件などに気づくため、ゆっくりと進むようになります。",
+            "p3": "その箇所は実際に何と言っていますか?誰が話していますか?誰に対して?いつ?どんな語が繰り返されていますか?これはまだあなたについてではなく、ページにあるものについてです。",
+            "p4": "今度は自分自身に向き合います。この聖句は今日、私に何を求めていますか?私はどこでそれに反して生きていますか?今週、従順はどのような形をとるでしょうか?",
+            "p5": "その聖句をエホバに祈り返します。それが神について明らかにすることに感謝します。適用に必要な具体的な助けを求めます。"
+          },
+          "ex": {
+            "promptA": "今、あなたの人生のどこで「自分の理解に頼って」いますか?今週そこでエホバを信頼することはどのような形になりますか?",
+            "promptO": "この箇所は何を命じていますか?何を約束していますか?条件は何ですか?",
+            "promptP": "あなたの答えを短い祈りに変えてください。「エホバ、」で始め、率直に書いてください。",
+            "promptS": "箴言 3:5,6 を自分の手書きで写すか、下にゆっくり入力してください。",
+            "title": "箴言 3:5,6 で S.O.A.P. を実践",
+            "verseText": "心のすべてをもってエホバに依り頼め。自分の理解に頼ってはならない。あなたのすべての道で神を認めよ。そうすれば,神はあなたの道筋をまっすぐにしてくださる。"
+          },
+          "oneLine": "4つの文字。深い個人研究セッションのための最も信頼できる足場の一つです。",
+          "title": "S.O.A.P. メソッド"
+        },
+        "lesson5": {
+          "body": {
+            "list1": {
+              "item1": "誰が — 誰が話しているのか、誰に話しているのか?",
+              "item2": "何が — 聖句で実際に何が起きているのか?どの語が繰り返されたり強調されたりしているのか?",
+              "item3": "いつ/どこで — 歴史的・地理的背景はどうか?",
+              "item4": "なぜ — エホバはなぜこれを記録に残したかったのか?なぜ重要なのか?",
+              "item5": "どのように — 今日、私の実際の状況にどう当てはまるのか?"
+            },
+            "p1": "聖句はざっと読むと平坦に見えるかもしれません。同じ聖句を適切な質問に当てはめると、開かれていきます。ほぼ常に新しい何かを見つけてくれる5つの質問を紹介します。",
+            "p2": "どんな聖句でも5つの質問にすべて通せば、ほとんどの人が章全体を読むよりも多くの考察をしたことになります。"
+          },
+          "ex": {
+            "how": {
+              "hint": "今日エホバに祈りで「投げる」具体的な不安を1つ挙げてください。",
+              "prompt": "これは今週あなたにどう当てはまりますか?"
+            },
+            "title": "ペテロ第一 5:7 に5つの質問を当てはめる",
+            "verseText": "あなたの心配事を全て神に委ねなさい。神があなたのことを気にかけてくださっているからです。",
+            "what": {
+              "hint": "「投げる」 — 受動的ではなく決断的です。「すべて」が強調されている語です。",
+              "prompt": "命令は何で、どの語が強調されていますか?"
+            },
+            "whenWhere": {
+              "hint": "西暦62〜64年ごろ、ローマからの敵意が高まる中の兄弟姉妹に向けて書かれました。",
+              "prompt": "歴史的背景は何ですか?"
+            },
+            "who": {
+              "hint": "ペテロは仲間の長老として、小アジア全域に散らされていたクリスチャンに書いています。",
+              "prompt": "誰が話していて、誰に書き送っていますか?"
+            },
+            "why": {
+              "hint": "不安は人を孤立させますが、この聖句はその修正です。気にかけてくださる父がおられます。",
+              "prompt": "エホバはなぜこれを記録に残したかったのでしょうか?"
+            }
+          },
+          "oneLine": "良い質問は、閉ざされた聖句を開く鍵です。",
+          "title": "聖句を開く質問の仕方"
+        },
+        "lesson6": {
+          "body": {
+            "list1": {
+              "item1": "緑 — エホバからの約束。",
+              "item2": "青 — 命令や指示。",
+              "item3": "赤 — 警告や結果。",
+              "item4": "金 — エホバまたはイエスの特質。",
+              "item5": "紫 — たどる価値のある相互参照。"
+            },
+            "p1": "システムなしのハイライトは単なる装飾です。何十年もの聖書研究生に使われてきた、シンプルな5色の設定をご紹介します。JW Library でも紙の聖書でも同じくうまく機能します。",
+            "p2": "次に『ものみの塔』の段落と向き合うときは、ゆっくりとマークを付けてみてください。覚えている1つの印付けされた段落は、覚えていない斜め読みの10章よりも価値があります。"
+          },
+          "ex": {
+            "guide": {
+              "command": "「絶えず祈るよう私たちに命じておられる」 — 命令",
+              "promise": "「私たちを支えると約束しておられる」 — 約束",
+              "quality": "「愛のある父」 — エホバの特質",
+              "reference": "「ヘブライ 2:1 と比較してください」 — 相互参照",
+              "warning": "「漂流は信仰の難破につながる」 — 警告"
+            },
+            "passageSource": "練習用のサンプル段落",
+            "title": "ものみの塔風の段落にマークを付ける",
+            "token": {
+              "t1": "エホバ",
+              "t10": "支え",
+              "t11": "てくださる。",
+              "t12": "神は",
+              "t13": "命じ",
+              "t14": "私たちに",
+              "t15": "を",
+              "t16": "祈る",
+              "t17": "絶えず",
+              "t18": "ように",
+              "t19": "また",
+              "t2": "は",
+              "t20": "警告",
+              "t21": "ことを",
+              "t22": "漂流が",
+              "t23": "つながる",
+              "t24": "へ",
+              "t25": "難破",
+              "t26": "の",
+              "t27": "信仰。",
+              "t28": "比較",
+              "t29": "ヘブライ 2:1。",
+              "t3": "",
+              "t4": "愛のある",
+              "t5": "父であり",
+              "t6": "",
+              "t7": "約束",
+              "t8": "を",
+              "t9": "支える"
+            }
+          },
+          "oneLine": "ページ上の印は記憶の助けです。良いシステムは段落を地図に変えます。",
+          "title": "効果的なハイライトとノート取り"
+        },
+        "oneLine": "これでツールはそろいました。次は実際の使い方です。",
+        "title": "研究の技術"
+      },
+      "unit3": {
+        "lesson7": {
+          "body": {
+            "h3_1": "相互参照を見つける3つの場所",
+            "list1": {
+              "item1": "新世界訳レファレンス・バイブルの欄外参照(右の段)、すべての主要な聖句にあります。",
+              "item2": "WOL の被引用機能 — 開いている聖句を引用しているすべての出版物を表示します。",
+              "item3": "聖書に対する洞察 — 主題の項目がそのテーマに関する主要な聖句すべてにリンクしています。"
+            },
+            "p1": "エホバは、ご自身のみ言葉を、それ自体が対話するように書かれました。創世記の聖句は啓示の書の聖句とつながります。詩編の語句が列王記の物語を照らし出します。相互参照とは、それらのつながりをたどる技術であり、新世界訳レファレンス版はそのために設計されています。",
+            "p2": "鎖を作りましょう。1つの聖句から始めます。1つの参照をたどります。そこからまた1つたどります。3、4回ほど飛んだ後には、最初の聖句だけでは見えなかったパターンが見えてきます。"
+          },
+          "ex": {
+            "how": {
+              "hint": "具体的に — 特定の時間、特定の章、特定の祈りを。",
+              "prompt": "今週、エホバを「知るようになり続ける」ために何を1つ行いますか?"
+            },
+            "title": "ヨハネ 17:3 から鎖を作る",
+            "verseText": "永遠の命を得るとは,唯一まことの神であるあなたと,あなたが遣わしたイエス・キリストについての知識を取り入れることです。",
+            "what": {
+              "hint": "ペテロ第二 3:18 — 「私たちの主の過分のご親切と知識において成長し続け」る。",
+              "prompt": "「知るようになる」とはどういう意味ですか?神を知ることが一度きりの出来事ではなく継続的なものとして描かれている聖句を見つけてください。"
+            },
+            "whenWhere": {
+              "hint": "コリント第一 8:6 — 「私たちにとっては、父である一人の神…がおられ、また一人の主、イエス・キリストがおられる」。",
+              "prompt": "この聖句は「唯一まことの神」とイエスを区別しています。同じ区別をしている別の聖句を見つけてください。"
+            },
+            "who": {
+              "hint": "マタイ 26:39 は最も切迫した祈りの一つです。父に対するイエスの姿勢を比較してください。",
+              "prompt": "ここで誰が話していますか?イエスの別の祈りへの相互参照を見つけ、その聖句を書き留めてください。"
+            },
+            "why": {
+              "hint": "ヤコブ 4:8 — 「神に近づきなさい。そうすれば、神はあなたに近づいてくださる」。",
+              "prompt": "イエスはなぜ「永遠の命」を報酬ではなく関係として表現したのでしょうか?私たちに対するエホバの心を示す聖句を見つけてください。"
+            }
+          },
+          "oneLine": "聖書はそれ自体が最良の注解です。聖句を鎖でつなぐことを学ぶのは、ベレアの人のように考えることを学ぶことです。",
+          "title": "ベレアの人のように相互参照する"
+        },
+        "lesson8": {
+          "body": {
+            "bq1": "その人はエホバの律法を喜びとし,昼も夜もその律法を低い声で読む。",
+            "h3_1": "黙想は読書とどう違うか",
+            "h3_2": "シンプルな3分間のリズム",
+            "list1": {
+              "item1": "1つの聖句を選びます。たった1つです。次に急がないでください。",
+              "item2": "ゆっくり3回読みます。各読書の後に間を置いてください。",
+              "item3": "そこにとどまってください。質問が浮かぶに任せます。感情が湧き上がるに任せます。エホバに語っていただきましょう。"
+            },
+            "p1": "「低い声で読む」と訳されているヘブライ語の語は、牛が反芻する様子のイメージを持っています — ゆっくりと、繰り返し、忍耐強く。黙想とはそのゆっくり噛むことです。丸呑みした聖句から栄養を得ることはできません。",
+            "p2": "読書は「何と言っているか?」と尋ねます。黙想は「それは何を意味し、私にどう作用するか?」と尋ねます。一方は心を満たし、もう一方は人格を形づくります。"
+          },
+          "ex": {
+            "introVerse": {
+              "text": "エホバは私の羊飼い。私には何の不足もない。"
+            },
+            "prompt1": "聖句を3回ゆっくり読んでください。2回目を1回目より遅く読んでみてください。",
+            "prompt2": "「羊飼い」という語はあなたにどんな像を呼び起こしますか?エホバがあなたとどう関わってくださるかについて何を語っていますか?",
+            "prompt3": "今あなたの人生のどこで何かが不足するのではと恐れていますか?その思いをこの聖句とともに保ってください。",
+            "prompt4": "今見たことについて、エホバへ一文を書いてください。",
+            "title": "誘導付き3分間の黙想"
+          },
+          "oneLine": "読書は食事です。黙想は消化です。栄養のほとんどはここで起こります。",
+          "title": "黙想 — み言葉を心にしみ込ませる"
+        },
+        "lesson9": {
+          "body": {
+            "h3_1": "1週間のサンプル",
+            "list1": {
+              "item1": "毎日(15分): 聖書通読+日々のことば。同じ時間、同じ場所で。",
+              "item2": "週の途中(45分): 集会の準備、ものみの塔研究記事を読み、ハイライトし、印を付ける。",
+              "item3": "週末(60分): 自分で選んだ章で S.O.A.P. を1回。",
+              "item4": "毎月: 洞察の項目を1つ選び、最後まで通読する。"
+            },
+            "p1": "ツールと技術は扱いました。今度は最も難しい部分です — それを続けることです。聖書研究生を作るのは英雄的行為ではなく、習慣です。",
+            "p2": "これは処方箋ではありません。枠組みです。あなたの生活に合わせて縮めたり広げたりしてかまいません。ただし、自分が約束することを書き留めて、そして現れ続けてください。",
+            "p3": "すべての栄光をエホバに。神は私たちにみ言葉、霊、組織を与えてくださいました。あとはただ現れることだけです。"
+          },
+          "ex": {
+            "prompt1": "1日のいつ研究しますか?(具体的に。例:「朝7時、朝食前。」)",
+            "prompt2": "週のどの曜日?(思っているより小さく始めましょう — 実際にやる3日は、やらない7日に勝ります。)",
+            "prompt3": "どこで研究しますか?(可能なら、毎回同じ場所で。)",
+            "prompt4": "どの聖書の書から始めますか?(迷ったら、マルコは短いです。ヤコブは実践的です。詩編は豊かです。)",
+            "prompt5": "エホバへの一文の決意を書いてください。完璧を約束するのではなく、現れ続けることを約束するのです。",
+            "title": "あなたの決意"
+          },
+          "oneLine": "最高の研究法は、1年後もまだ続けている方法です。",
+          "title": "研究の習慣を作る"
+        },
+        "oneLine": "技術から人格形成へ — 生活の習慣としての研究。",
+        "title": "さらに深く"
+      }
+    }
+  },
+  "mobileMore": {
+    "admin": "管理者",
+    "dialogLabel": "その他のナビゲーション",
+    "moderation": "モデレーション",
+    "privacy": "プライバシー",
+    "terms": "利用規約"
+  },
+  "notFound": {
+    "body": "入力されたアドレスは存在しません。移動または削除されたか、入力ミスの可能性があります。",
+    "bodyShort": "お探しのページは存在しないか、移動されました。",
+    "docTitle": "404、ページが見つかりません",
+    "goBack": "戻る",
+    "goHome": "ホームへ",
+    "goHomeArrow": "← ホームへ戻る",
+    "title": "ページが見つかりません",
+    "verse": "「あなたの言葉はわたしの足のともしび、わたしの道の光です。」、詩編 119:105"
+  },
+  "privacy": {
+    "backHome": "← ホーム",
+    "badge": "法的事項",
+    "lastUpdated": "最終更新日：2026年4月18日",
+    "meta": {
+      "description": "JW Studyのプライバシーポリシーをご覧ください。個人情報の収集、利用、保護方法について説明しています。",
+      "title": "プライバシーポリシー | JW Study"
+    },
+    "section1": {
+      "body1": "JW Study（「当方」「当社」「私たち」）は、お客様のプライバシー保護に努めています。本プライバシーポリシーは、jwstudy.orgで提供するアプリをご利用いただく際に、当方が収集する情報、その使用方法、およびお客様の権利について説明します。",
+      "body2": "JW Studyは無料サービスです。当方はお客様のデータを販売したり、情報から収益を得たり、いかなる種類の広告目的にも使用したりしません。",
+      "heading": "1. 概要"
+    },
+    "section10": {
+      "body": "法律、裁判所命令により求められる場合、または被害の防止、人の安全の保護、緊急事態への対応のために開示が必要であると誠実に判断する場合、当方はお客様の情報を法執行機関、政府機関、その他の権限ある当事者に開示することがあります。",
+      "heading": "10. 法執行機関からの要請"
+    },
+    "section11": {
+      "body": "当方は本プライバシーポリシーを随時更新することがあります。その際は本ページ上部の「最終更新日」を更新します。変更後も継続してアプリをご利用いただく場合、更新されたポリシーに同意したものとみなされます。",
+      "heading": "11. 本ポリシーの変更"
+    },
+    "section12": {
+      "body": "本プライバシーポリシーに関するご質問やご懸念がございましたら、コミュニティフォーラムまたはjwstudy.orgを通じてお問い合わせください。",
+      "heading": "12. お問い合わせ"
+    },
+    "section2": {
+      "heading": "2. 収集する情報",
+      "item1Body": "登録時に、メールアドレスおよび任意で提供される表示名やプロフィール写真を収集します。",
+      "item1Label": "アカウント情報：",
+      "item2Body": "デバイス間で進捗を同期するため、お客様が読み終えた聖書の章を保存します。",
+      "item2Label": "通読の進捗：",
+      "item3Body": "お客様が作成したブログ投稿、フォーラムスレッド、返信、コメント、ノート、プロフィール情報は保存され、アカウントに関連付けられます。",
+      "item3Label": "ユーザーコンテンツ：",
+      "item4Body": "AI学習コンパニオンに送信されたメッセージは、応答生成のために当方のAIプロバイダー（Anthropic）に送信されますが、サーバーに永続的に保存されることはありません。不正利用防止とサービス改善のため、ユーザーごとの集計使用回数（AIリクエスト数）を記録します。AIとの会話の内容は保存されたり公開共有されたりしません。",
+      "item4Label": "AI学習コンパニオンとの会話：",
+      "item5Body": "投稿された内容は、冒涜的表現や、エホバの証人の教えと矛盾する背教者・元エホバの証人の情報源へのリンクがないかスキャンされる場合があります（そのようなリンクはブロックされ、保存されません）。投稿、メッセージ、プロフィールで共有することを選んだ個人情報（メール、電話番号、ソーシャルリンクなど）はお客様の責任となりますので、コミュニティの他のメンバーに見られたくない情報は共有しないでください。",
+      "item5Label": "コンテンツのスキャン：",
+      "item6Body": "プッシュ通知を有効にすると、デバイスへのアラート配信のため、デバイス通知トークンを保存します。ブラウザまたはデバイスの設定からいつでも取り消すことができます。",
+      "item6Label": "プッシュ通知トークン：",
+      "item7Body": "Google Analytics（GA4）およびVercel Analyticsを使用して、アプリの利用方法に関する匿名化されたデータ（閲覧ページ、セッション時間、デバイスタイプ、国レベルの大まかな位置情報）を収集します。これらの分析サービスに個人を特定できる情報は送信されません。",
+      "item7Label": "利用データ：",
+      "item8Body": "Sentryを使用してアプリケーションのエラーやパフォーマンスの問題を取得します。エラーレポートにはブラウザの種類、OS、エラーのスタックトレースが含まれることがありますが、投稿やメッセージの内容は含まれません。",
+      "item8Label": "エラー監視：",
+      "item9Body": "IPアドレスやブラウザの種類などの標準的なサーバーログは、ホスティングプロバイダー（Vercel）およびデータベースプロバイダー（Supabase）によって収集される場合があります。",
+      "item9Label": "技術データ："
+    },
+    "section3": {
+      "footer1": "当方はお客様のデータを",
+      "footer2": "販売しません。お客様のデータを広告に",
+      "footer3": "使用しません。お客様のデータを第4条に記載されている場合を除き、いかなる第三者とも",
+      "footer4": "共有しません。",
+      "footerNot": "決して",
+      "heading": "3. 情報の使用方法",
+      "item1": "アプリとアカウントの提供および維持のため",
+      "item2": "デバイス間で通読の進捗を同期するため",
+      "item3": "取引メール（メール確認、パスワードリセット）の送信のため",
+      "item4": "オプトインしたプッシュ通知の配信のため",
+      "item5": "公開プロフィールやコンテンツを他のユーザーに表示するため",
+      "item6": "メッセージをAIプロバイダーに渡してAI学習コンパニオンを動作させるため",
+      "item7": "匿名化された分析とエラー監視を用いてアプリを改善するため",
+      "item8": "不正利用を防止し、コミュニティ基準を執行するため",
+      "item9": "違反を調査し、法律で求められる場合に法執行機関に協力するため"
+    },
+    "section4": {
+      "heading": "4. 第三者サービス",
+      "intro": "当方はアプリの運営に以下の第三者サービスを使用しています。各社にはデータ取扱いに関する独自のプライバシーポリシーがあります：",
+      "item1Body": "、データベース、認証、ファイルストレージ（supabase.com/privacy）",
+      "item1Label": "Supabase",
+      "item2Body": "、ホスティング、デプロイ、エッジ関数（vercel.com/legal/privacy-policy）",
+      "item2Label": "Vercel",
+      "item3Body": "、AI学習コンパニオンを動かすAI言語モデル（anthropic.com/privacy）",
+      "item3Label": "Anthropic",
+      "item4Body": "、取引メールの配信（resend.com/privacy）",
+      "item4Label": "Resend",
+      "item5Body": "、匿名化された利用分析。個人情報は共有されません（policies.google.com/privacy）",
+      "item5Label": "Google Analytics（GA4）",
+      "item6Body": "、匿名化されクッキーを使わない利用分析",
+      "item6Label": "Vercel Analytics",
+      "item7Body": "、アプリケーションのエラーとパフォーマンス監視（sentry.io/privacy）",
+      "item7Label": "Sentry"
+    },
+    "section5": {
+      "body1": "AI学習コンパニオンは、応答を生成するためにお客様のメッセージをAnthropicのAPIに送信します。Anthropicのデータ取扱いは同社のプライバシーポリシーに従います。当方はAIとの会話の内容をサーバーに永続的に保存することはありません。不正利用防止のため、ユーザーごとの利用回数のみを保存します。",
+      "body2": "AI生成のブログ下書きを公開することを選んだ場合、それは他のコンテンツと同じ規約の対象となるユーザーコンテンツとなります。",
+      "body3Rest": "AI学習コンパニオンは、他のクラウドベースのサービスと同様に扱ってください。",
+      "body3Strong": "AIとの会話で機密性の高い個人情報を共有しないでください。",
+      "heading": "5. AIデータの取り扱い"
+    },
+    "section6": {
+      "body": "お客様のデータはアカウントが有効である限り保持されます。アカウントを削除した場合、個人情報およびコンテンツは妥当な期間内にシステムから削除されます。ただし、法執行機関や児童保護機関への報告に関連して当方が法的に保存を義務付けられているデータを含め、法律上の保存義務がある場合を除きます。",
+      "heading": "6. データの保持"
+    },
+    "section7": {
+      "footer": "これらの権利を行使するには、アプリのフォーラムまたはjwstudy.org経由でご連絡ください。",
+      "heading": "7. お客様の権利",
+      "intro": "お住まいの地域によっては、以下の権利を有する場合があります：",
+      "item1": "当方が保持するお客様の個人データへのアクセス",
+      "item2": "プロフィール設定で不正確なデータを訂正すること",
+      "item3": "アカウントとデータの削除を要求すること",
+      "item4": "データのコピーを要求すること",
+      "item5": "ブラウザまたはデバイスの設定からいつでもプッシュ通知をオプトアウトすること"
+    },
+    "section8": {
+      "body": "アプリはブラウザのlocalStorageを使用して、テーマ設定、通読進捗のキャッシュ、AIチャット履歴を保存し、より良い体験を提供しています。Vercel Analyticsは匿名化されたクッキーレスの利用データを収集します。Google Analyticsは利用状況を測定するためにクッキーを使用し、ブラウザ設定またはGoogle Analyticsオプトアウトブラウザアドオンを通じてオプトアウトできます。",
+      "heading": "8. クッキーとローカルストレージ"
+    },
+    "section9": {
+      "ageBody": "本アプリは13歳以上のユーザーを対象としています。13歳から17歳までのユーザーは、保護者の許可が必要です。当方は13歳未満の児童から個人情報を故意に収集することはありません。13歳未満の児童がアカウントを作成したと思われる場合は、直ちに当方にご連絡ください。削除いたします。",
+      "ageLabel": "年齢要件：",
+      "commitmentBody": "当方はプラットフォーム上の児童の安全を最大限に重視しています。未成年者を傷つけたり、搾取したり、性的対象にしたりする可能性のあるあらゆるコンテンツや行為を積極的に監視し、禁止しています。これには児童性的虐待コンテンツ（CSAM）、グルーミング、未成年者から個人情報を引き出そうとする試みが含まれます。",
+      "commitmentLabel": "児童の安全への取り組み：",
+      "dataNote": "そのような報告を行う際、アカウント情報、IPアドレス、タイムスタンプ、コンテンツを含むすべての関連データを提供します。このデータ共有は法律で義務付けられており、本ポリシーの他の箇所に記載されているプライバシー保護の対象とはなりません。",
+      "heading": "🛡️ 9. 児童のプライバシーと児童の安全",
+      "item1Body": "（CyberTipLine.org）、米国連邦法（18 U.S.C. § 2258A）により義務付けられています",
+      "item1Label": "NCMEC CyberTipline",
+      "item2Body": "、違反が発生した管轄区域内",
+      "item2Label": "地元の法執行機関",
+      "item3Body": "、国際的な事案について",
+      "item3Label": "Internet Watch Foundation（IWF）",
+      "parentalBody": "保護者の方には、お子様の本アプリの利用状況を確認することをお勧めします。お子様がJW Studyで遭遇したコンテンツやインタラクションについて懸念がある場合は、アプリ内の通報機能を使用するか、直接当方にご連絡ください。",
+      "parentalLabel": "保護者の方への案内：",
+      "reportingBody": "当方は法的に義務付けられており、また道徳的にも、プラットフォーム上で発見された児童の性的搾取に関する明白な内容やグルーミング行為を、以下を含む適切な当局に報告することを約束しています：",
+      "reportingLabel": "義務的な報告："
+    },
+    "title": "プライバシーポリシー"
+  },
+  "reactions": {
+    "addReaction": "リアクションを追加",
+    "reactWith": "{{emoji}}でリアクション"
+  },
+  "support": {
+    "back": "戻る",
+    "comingSoon": "近日公開",
+    "giveCta": "寄付する →",
+    "noteBody": "より深い聖書研究には、ものみの塔オンライン・ライブラリーとJW Libraryが正式な情報源です。まずは地元の会衆を通じてそちらをサポートしてください。JW Studyは個人的な学習の補助ツールであり、出版者ではありません。ここでの寄付は一人の個人開発者に届くもので、税控除の対象ではなく、エホバの証人のいかなる支部とも提携していません。",
+    "noteHeading": "寄付の前にお伝えしたいこと",
+    "subtitle": "JW Studyは無料で、これからもずっと無料です。アプリがあなたの研究、毎日の通読、ご家族のお役に立っているなら、一回限りの寄付で運営と成長を支えていただけます。",
+    "thankYou": "寄付してもしなくても、アプリをご利用いただきありがとうございます。 — Alexi",
+    "tierCoffee": {
+      "desc": "ささやかな感謝を込めて。",
+      "label": "コーヒー"
+    },
+    "tierCustom": {
+      "desc": "お気持ちで結構です。",
+      "label": "任意の金額"
+    },
+    "tierHosting": {
+      "desc": "インフラ費用の一部に。",
+      "label": "月額ホスティング"
+    },
+    "tierTranslation": {
+      "desc": "新しい言語の1章分のレビュー費用に。",
+      "label": "翻訳支援"
+    },
+    "title": "JW Studyを支援する",
+    "whereGoesHeading": "寄付の使途",
+    "whereGoesItem1": "ホスティング、データベース、メールインフラ",
+    "whereGoesItem2": "新しい言語への翻訳作業",
+    "whereGoesItem3": "コミュニティから求められる新機能の開発時間",
+    "whereGoesItem4": "アプリを広告なし、トラッカーなし、すべての人に無料で提供し続けること"
+  },
+  "terms": {
+    "backHome": "← ホーム",
+    "badge": "法的事項",
+    "lastUpdated": "最終更新日：2026年4月18日",
+    "meta": {
+      "description": "聖書通読トラッカーとコミュニティ機能の利用に関するJW Studyの利用規約をご確認ください。",
+      "title": "利用規約 | JW Study"
+    },
+    "section1": {
+      "body": "jwstudy.orgでJW Study（「本アプリ」）にアクセスまたは使用することにより、お客様は本利用規約に拘束されることに同意したものとみなされます。同意されない場合は、本アプリをご利用にならないでください。",
+      "heading": "1. 規約への同意"
+    },
+    "section10": {
+      "body": "JW Studyの名称、ロゴ、デザイン、およびオリジナルコードはLexx Solutionzの知的財産です。聖句の引用は新世界訳聖書からのもので、個人およびコミュニティでの研究目的で使用されています。本アプリ内で参照されるすべてのものみの塔出版物は、ものみの塔聖書冊子協会（ペンシルベニア）の知的財産です。",
+      "heading": "10. 知的財産権"
+    },
+    "section11": {
+      "body": "JW Studyはエホバの証人によって、エホバの証人のために作成された独立した研究ツールです。ものみの塔聖書冊子協会（ペンシルベニア）、エホバの証人の統治体、その他の公式JW組織と提携、推奨、運営されているものではありません。すべての教理上の内容は公式のJWの教えと一致することを意図していますが、ユーザーは権威ある指針については公式のjw.org資料に依拠してください。",
+      "heading": "11. ものみの塔との非提携"
+    },
+    "section12": {
+      "body": "本アプリは「現状有姿」で提供され、いかなる種類の保証もありません。当方は本アプリにエラーがないこと、中断がないこと、データが失われないことを保証しません。本アプリの使用はお客様自身の責任で行ってください。",
+      "heading": "12. 保証の否認"
+    },
+    "section13": {
+      "body": "法律で許される最大限の範囲において、JW StudyおよびLexx Solutionzは、本アプリの使用から生じる間接的、付随的、または結果的な損害について責任を負いません。",
+      "heading": "13. 責任の制限"
+    },
+    "section14": {
+      "body": "当方は本規約をいつでも更新することがあります。変更後も継続して本アプリをご利用いただく場合、更新された規約に同意したものとみなされます。本ページ上部の「最終更新日」を更新します。",
+      "heading": "14. 規約の変更"
+    },
+    "section15": {
+      "body": "本規約に関するご質問は、アプリのコミュニティフォーラムまたはjwstudy.orgに記載されている連絡先からお問い合わせください。",
+      "heading": "15. お問い合わせ"
+    },
+    "section2": {
+      "body1": "JW Studyは、新世界訳の読者向けに設計された無料の聖書通読トラッカーおよびコミュニティプラットフォームです。本アプリは、登録ユーザーに以下の機能を無料で提供します：",
+      "body2": {
+        "bold": "JW Studyは完全に無料です。",
+        "text": " 有料ティアも、プレミアム購読も、ペイウォールの背後にロックされた機能もありません。すべての登録ユーザーは、すべての機能に完全にアクセスできます。"
+      },
+      "body3": "当方はサービスのいかなる部分も、いつでも変更、中断、終了する権利を留保します。",
+      "heading": "2. サービスの説明",
+      "list": {
+        "ai": {
+          "bold": "AI学習コンパニオン",
+          "text": "、JW出版物とwol.jw.orgのみに基づくAIアシスタント"
+        },
+        "blog": {
+          "bold": "ブログ",
+          "text": "、JW関連の記事を読み書きし、コメントを残せます"
+        },
+        "forum": {
+          "bold": "コミュニティフォーラム",
+          "text": "、カテゴリー別に整理された議論に参加"
+        },
+        "meeting": {
+          "bold": "集会の準備",
+          "text": "、平日と週末の会衆の集会の準備ツール"
+        },
+        "notifications": {
+          "bold": "通知とお知らせ",
+          "text": "、コミュニティ更新とプッシュ通知"
+        },
+        "profiles": {
+          "bold": "ユーザープロフィール",
+          "text": "、通読のマイルストーンや貢献を表示する公開プロフィール"
+        },
+        "quizzes": {
+          "bold": "クイズ",
+          "text": "、新世界訳の内容に基づく聖書知識クイズ"
+        },
+        "tracker": {
+          "bold": "聖書通読トラッカー",
+          "text": "、新世界訳の全66書の個人の進捗を記録"
+        },
+        "videos": {
+          "bold": "動画",
+          "text": "、承認されたクリエイターによる厳選されたJW動画コンテンツ"
+        }
+      }
+    },
+    "section3": {
+      "body1": "ほとんどの機能を利用するにはアカウントを作成する必要があります。お客様はアカウント認証情報の機密性を維持し、アカウントで発生するすべての活動について責任を負います。登録時には正確な情報を提供する必要があります。",
+      "body2": {
+        "bold": "年齢要件：",
+        "text": " 本アプリを使用するには13歳以上である必要があります。13歳から17歳までのユーザーは、保護者または法定後見人の許可が必要です。アカウントを作成することにより、この要件を満たしていること、また18歳未満の場合は保護者または法定後見人が本規約を確認し、お客様に代わって同意したことを確認したものとみなされます。"
+      },
+      "body3": "アカウントが13歳未満のユーザーに属していると判明した場合、予告なくそのアカウントを終了し、関連データを削除します。",
+      "heading": "3. ユーザーアカウントと年齢要件"
+    },
+    "section4": {
+      "body1": "お客様は作成したコンテンツ（ブログ投稿、フォーラムスレッド、返信、コメント、ノート、プロフィール情報）の所有権を保持します。コンテンツを投稿することにより、お客様はJW Studyに対し、そのコンテンツをアプリ内で表示するための非独占的、ロイヤリティフリーのライセンスを付与します。",
+      "body2": "以下のコンテンツを投稿しないことに同意するものとします：",
+      "heading": "4. ユーザーコンテンツ",
+      "list": {
+        "item1": "個人または集団に対する憎悪、虐待、嫌がらせ、または脅迫的なコンテンツ",
+        "item2": "あらゆる形態の性的に露骨またはポルノ的なコンテンツ",
+        "item3": "未成年者を傷つけたり、搾取したり、性的対象にしたりするあらゆる形態のコンテンツ",
+        "item4": "スパム、誤情報、または意図的に誤解を招くコンテンツ",
+        "item5": "他者の知的財産権を侵害するコンテンツ",
+        "item6": "適用法に違反するコンテンツ",
+        "item7": "卑猥、下品、または不快な言葉を含む冒涜的なコンテンツ",
+        "item8": "ものみの塔聖書冊子協会またはエホバの証人に反する、または批判的な教義や教え"
+      }
+    },
+    "section5": {
+      "body1": "AI学習コンパニオンは、すべての登録ユーザーが利用できるAI搭載のアシスタントです。ものみの塔出版物およびjw.org/wol.jw.orgのコンテンツのみに基づき、聖書に関する質問に回答し、JW研究を支援します。",
+      "body2": "ブログ下書きを含むAI生成コンテンツは出発点として提供されており、公開前に確認する必要があります。JW StudyはAIの応答の正確性を保証するものではなく、ユーザーがすべての内容を公式のJW出版物と照合することを推奨します。",
+      "heading": "5. AI学習コンパニオン",
+      "list": {
+        "item1": "AIはJWの教えに沿った研究支援のみを提供するように設計されています",
+        "item2": "AIとの会話は応答生成のみに使用され、公開共有されることはありません",
+        "item3": "本規約に違反するコンテンツ（有害、違法、または背教的な内容を含む）の生成にAIを使用しないでください",
+        "item4": "AIを意図された目的を超えるコンテンツの生成に操作しようとしないでください"
+      }
+    },
+    "section6": {
+      "body1": "すべてのユーザー、特に未成年者のプライバシーと安全を守るため、フォーラム投稿、ブログ投稿、コメント、プロフィール紹介、表示名を含むすべてのユーザー生成コンテンツにおいて、以下を厳しく禁止します：",
+      "body2": "これらの制限は、安全でプライベートな環境を維持し、本アプリが連絡先情報の交換や外部プラットフォームへの誘導に使用されることを防ぐために存在します。当方のシステムは投稿前にすべてのコンテンツを自動的にスキャンし、禁止情報を含む投稿をブロックします。",
+      "heading": "6. 個人情報とリンクのポリシー",
+      "list": {
+        "address": {
+          "bold": "実住所",
+          "text": "、番地、自宅住所、集会場所"
+        },
+        "email": {
+          "bold": "メールアドレス",
+          "text": "、ご自身または他人のメールを共有しないでください"
+        },
+        "insecure": {
+          "bold": "安全でないリンク（http://）",
+          "text": "、https://で始まる安全なリンクのみが許可されます"
+        },
+        "phone": {
+          "bold": "電話番号",
+          "text": "、携帯電話、固定電話、WhatsAppの番号を含む"
+        },
+        "social": {
+          "bold": "ソーシャルメディアのリンクまたはハンドル",
+          "text": "、Facebook、Instagram、Twitter/X、TikTok、Snapchat、YouTube、LinkedIn、Telegram、WhatsApp、Discordなどのプラットフォームへのリンクや@usernameハンドル"
+        }
+      }
+    },
+    "section7": {
+      "body1": "児童の安全はJW Studyにおいて譲歩できない最優先事項です。未成年者を危険にさらしたり、搾取したり、性的対象にしたりするコンテンツや行為に対しては、ゼロトレランスの方針を取ります。",
+      "body2": "以下は厳しく禁止され、即座の永久バンの対象となります：",
+      "body3": {
+        "bold": "違反を当局に報告します。",
+        "text": " 児童の性的搾取に関わると識別されたコンテンツや行為は、直ちに以下に報告されます："
+      },
+      "body4": "報告された違反に関連するすべてのアカウントデータ、IPアドレス、タイムスタンプ、コンテンツを保存し、法執行機関の調査に全面的に協力します。",
+      "body5": {
+        "bold": "本プラットフォーム上で児童を危険にさらす可能性のある行為を目撃した場合は、直ちに報告してください",
+        "text": "。投稿やプロフィールに表示される報告機能を使用するか、直接当方にご連絡ください。児童に直ちに危険が及んでいると思われる場合は、まず地元の緊急サービス（米国では911）にご連絡ください。"
+      },
+      "heading": "🛡️ 7. 児童の安全に関するポリシー",
+      "list1": {
+        "item1": "あらゆる形態の児童性的虐待コンテンツ（CSAM）、画像、テキスト、動画、リンク",
+        "item2": "グルーミング行為、搾取のために信頼を得ようと未成年者と不適切な関係を築こうとすること",
+        "item3": "年齢、所在地、学校、連絡先など、未成年者から個人情報を引き出そうとすること",
+        "item4": "未成年者に向けた、または未成年者が関わるあらゆる性的コンテンツ",
+        "item5": "搾取の目的で未成年者との会話を別のプラットフォームに移そうとすること"
+      },
+      "list2": {
+        "item1": {
+          "bold": "全米行方不明・搾取児童センター（NCMEC）",
+          "text": " のCyberTipLine.orgのCyberTipline経由。米国連邦法（18 U.S.C. § 2258A）により義務付けられています"
+        },
+        "item2": {
+          "bold": "地元の法執行機関",
+          "text": " およびユーザーの管轄区域における関連する国家当局"
+        },
+        "item3": {
+          "bold": "Internet Watch Foundation（IWF）",
+          "text": " 、児童性的虐待画像に関わる国際的な事案"
+        }
+      }
+    },
+    "section8": {
+      "body1": "JW Studyは、霊的に焦点を当てたコミュニティプラットフォームです。すべてのユーザーが、コミュニティの価値観に沿って敬意を持って関わることをお願いします。信仰を妨げたり、他のユーザーの信条を尊重しないことを意図した議論は許可されません。",
+      "body2": "これは相互の敬意と共有された信仰の上に築かれたコミュニティです。すべての議論を励みとなる、建設的で、敵意のないものに保ってください。",
+      "heading": "8. コミュニティ基準"
+    },
+    "section9": {
+      "body1": "禁止コンテンツの投稿、自動フィルターの回避、他のユーザーへの有害な行為などの本規約違反は、以下の結果につながる場合があります：",
+      "body2": "当方は単独の裁量で執行措置を取る権利を留保します。措置を取る前に警告を発する義務はありません。",
+      "heading": "9. 執行とアカウントのバン",
+      "list": {
+        "ban": {
+          "bold": "永久バン",
+          "text": "、深刻なまたは繰り返される違反は、不服申立て権のない永久バンの対象となります"
+        },
+        "removal": {
+          "bold": "コンテンツの削除",
+          "text": "、違反する投稿、コメント、プロフィール内容は予告なく削除されます"
+        },
+        "report": {
+          "bold": "当局への報告",
+          "text": "、児童の安全や違法コンテンツに関わる違反は、事前の通知なく法執行機関および関連機関に報告されます"
+        },
+        "suspension": {
+          "bold": "一時的な停止",
+          "text": "、レビュー保留中、アカウントが停止される場合があります"
+        }
+      }
+    },
+    "title": "利用規約"
   }
 }

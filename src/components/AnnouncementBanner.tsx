@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { useActiveAnnouncements } from "../hooks/useAnnouncements";
 
 const INFO_DURATION = 10000;
@@ -19,6 +20,7 @@ interface ToastProps { announcement: Announcement; onDone: () => void; }
 
 // ── Info toast, auto-dismisses after 10 s or any page interaction ──
 function InfoToast({ announcement, onDone }: ToastProps) {
+  const { t } = useTranslation();
   const [visible, setVisible] = useState(true);
   const s = TYPE_STYLES.info;
 
@@ -51,7 +53,7 @@ function InfoToast({ announcement, onDone }: ToastProps) {
     >
       <span className="ann-toast-icon">{s.icon}</span>
       <span className="ann-toast-msg">{announcement.message}</span>
-      <button className="ann-toast-close" onClick={(e) => { e.stopPropagation(); setVisible(false); }} aria-label="Dismiss">
+      <button className="ann-toast-close" onClick={(e) => { e.stopPropagation(); setVisible(false); }} aria-label={t("a11y.dismiss")}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
       <div className="ann-toast-bar" style={{ borderColor: s.border }}>
@@ -63,6 +65,7 @@ function InfoToast({ announcement, onDone }: ToastProps) {
 
 // ── Persistent toast, only dismisses via X button ──────────────────
 function PersistentToast({ announcement, onDone }: ToastProps) {
+  const { t } = useTranslation();
   const [visible, setVisible] = useState(true);
   const s = TYPE_STYLES[announcement.type] ?? TYPE_STYLES.warning;
 
@@ -78,7 +81,7 @@ function PersistentToast({ announcement, onDone }: ToastProps) {
     >
       <span className="ann-toast-icon">{s.icon}</span>
       <span className="ann-toast-msg">{announcement.message}</span>
-      <button className="ann-toast-close" onClick={() => setVisible(false)} aria-label="Dismiss">
+      <button className="ann-toast-close" onClick={() => setVisible(false)} aria-label={t("a11y.dismiss")}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
@@ -112,7 +115,11 @@ export default function AnnouncementBanner() {
     sessionStorage.setItem("dismissed-ann-persistent", JSON.stringify(next));
   }
 
-  // On navigation: only dismiss info announcements
+  // On navigation: only dismiss info announcements.
+  // We listen for `popstate` (back/forward) and `nwt:locationchange` — a custom
+  // event the SPA's navigate() in AuthedApp dispatches after every pushState.
+  // This avoids monkey-patching `history.pushState`, which would conflict with
+  // any other code that wraps it.
   useEffect(() => {
     function dismissInfoOnNav() {
       const visibleInfos = announcements.filter(a => a.type === "info" && !dismissedInfo.includes(a.id));
@@ -123,12 +130,11 @@ export default function AnnouncementBanner() {
     }
 
     window.addEventListener("popstate", dismissInfoOnNav);
-    const origPush = history.pushState.bind(history);
-    history.pushState = function (...args) { origPush(...args); dismissInfoOnNav(); };
+    window.addEventListener("nwt:locationchange", dismissInfoOnNav);
 
     return () => {
       window.removeEventListener("popstate", dismissInfoOnNav);
-      history.pushState = origPush;
+      window.removeEventListener("nwt:locationchange", dismissInfoOnNav);
     };
   }, [announcements, dismissedInfo]);
 

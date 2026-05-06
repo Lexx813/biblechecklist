@@ -11,8 +11,6 @@
 //     unique(user_id, lesson_id, exercise_id)
 //   );
 
-export type Locale = "en" | "es";
-
 export type HighlightCategory =
   | "promise"
   | "command"
@@ -20,44 +18,52 @@ export type HighlightCategory =
   | "quality"
   | "reference";
 
+// All user-facing text in this file is referenced by i18n key.
+// Bible-reference strings (e.g. "Acts 17:11", "Hebrews 4:12") are kept as
+// plain strings; book-name localization will be handled in a separate pass.
+
 export interface HighlightExercisePayload {
   kind: "highlight";
-  passageCitation: string;
-  passageSource: string;
-  tokens: string[];
-  guide: Array<{ category: HighlightCategory; hint: string }>;
+  passageCitation: string; // TODO i18n: Bible reference, leave as-is for now
+  passageSourceKey: string;
+  tokenKeys: string[];
+  guide: Array<{ category: HighlightCategory; hintKey: string }>;
 }
 
 export interface QuestionLadderPayload {
   kind: "ladder";
-  verseCitation: string;
-  verseText: string;
-  rungs: Array<{ key: "who" | "what" | "when_where" | "why" | "how"; prompt: string; hint: string }>;
+  verseCitation: string; // TODO i18n: Bible reference
+  verseTextKey: string;
+  rungs: Array<{
+    key: "who" | "what" | "when_where" | "why" | "how";
+    promptKey: string;
+    hintKey: string;
+  }>;
 }
 
 export interface CrossReferenceQuizPayload {
   kind: "crossref";
-  intro: string;
+  introKey: string;
   questions: Array<{
     id: string;
-    scenario: string;
-    options: Array<{ id: string; label: string }>;
+    scenarioKey: string;
+    options: Array<{ id: string; labelKey: string }>;
     correctOptionId: string;
-    explanation: string;
+    explanationKey: string;
   }>;
 }
 
 export interface SoapNotePayload {
   kind: "soap";
-  verseCitation: string;
-  verseText: string;
-  prompts: { S: string; O: string; A: string; P: string };
+  verseCitation: string; // TODO i18n: Bible reference
+  verseTextKey: string;
+  promptKeys: { S: string; O: string; A: string; P: string };
 }
 
 export interface MeditatePayload {
   kind: "meditate";
-  introVerse?: { citation: string; text: string };
-  prompts: string[];
+  introVerse?: { citation: string; textKey: string };
+  promptKeys: string[];
   timerSeconds?: number;
 }
 
@@ -70,31 +76,32 @@ export type ExercisePayload =
 
 export interface Exercise {
   id: string;
-  title: string;
+  titleKey: string;
   payload: ExercisePayload;
 }
+
+export type LessonBodyBlock =
+  | { kind: "p"; textKey: string }
+  | { kind: "h3"; textKey: string }
+  | { kind: "blockquote"; textKey: string; cite?: string }
+  | { kind: "list"; itemKeys: string[] };
 
 export interface Lesson {
   id: string;
   unitId: string;
   number: number;
-  title: string;
-  oneLine: string;
+  titleKey: string;
+  oneLineKey: string;
   readingMinutes: number;
-  body: Array<
-    | { kind: "p"; text: string }
-    | { kind: "h3"; text: string }
-    | { kind: "blockquote"; text: string; cite?: string }
-    | { kind: "list"; items: string[] }
-  >;
+  body: LessonBodyBlock[];
   exercise: Exercise;
 }
 
 export interface Unit {
   id: string;
   number: number;
-  title: string;
-  oneLine: string;
+  titleKey: string;
+  oneLineKey: string;
   lessons: Lesson[];
 }
 
@@ -107,66 +114,52 @@ export interface ExerciseResult {
 }
 
 // ─────────────────────────────────────────────────────────────────
-// English course content
+// Course content (key-based — values live in src/locales/*/translation.json)
 // ─────────────────────────────────────────────────────────────────
 
 const units: Unit[] = [
   {
     id: "unit-1",
     number: 1,
-    title: "Your Study Toolkit",
-    oneLine:
-      "Before you learn to study deeply, you need to know what's in your hand and why it's there.",
+    titleKey: "learn.units.unit1.title",
+    oneLineKey: "learn.units.unit1.oneLine",
     lessons: [
       {
         id: "lesson-1",
         unitId: "unit-1",
         number: 1,
-        title: "Why Personal Study Matters",
-        oneLine: "The Bereans didn't just listen. They examined. So should we.",
+        titleKey: "learn.units.unit1.lesson1.title",
+        oneLineKey: "learn.units.unit1.lesson1.oneLine",
         readingMinutes: 4,
         body: [
-          {
-            kind: "p",
-            text:
-              "When Paul preached in Beroea, the people there did something the apostle singled out for praise. They received the word eagerly, but they didn't stop there. They checked.",
-          },
+          { kind: "p", textKey: "learn.units.unit1.lesson1.body.p1" },
           {
             kind: "blockquote",
-            text:
-              "Now the latter were more noble-minded than those in Thessalonica, for they accepted the word with the greatest eagerness of mind, carefully examining the Scriptures daily to see whether these things were so.",
+            textKey: "learn.units.unit1.lesson1.body.bq1",
             cite: "Acts 17:11",
           },
-          {
-            kind: "p",
-            text:
-              "That's the pattern for personal study. Eager reception and careful examination, every day. It's not enough to agree with what you hear at the meetings. The Bereans, and Paul himself, who wrote more of the Christian Greek Scriptures than anyone, wanted us digging in ourselves.",
-          },
-          { kind: "h3", text: "Three marks of study that shapes a life" },
+          { kind: "p", textKey: "learn.units.unit1.lesson1.body.p2" },
+          { kind: "h3", textKey: "learn.units.unit1.lesson1.body.h3_1" },
           {
             kind: "list",
-            items: [
-              "Regular. Rhythm beats intensity. Fifteen minutes daily outlasts a three-hour binge on Saturday.",
-              "Active. Pencil in hand. Question in mind. If you can't recall what you read an hour later, you weren't really studying.",
-              "Prayerful. Jehovah gives wisdom generously to those who ask (Jas. 1:5). Holy spirit isn't automatic, ask.",
+            itemKeys: [
+              "learn.units.unit1.lesson1.body.list1.item1",
+              "learn.units.unit1.lesson1.body.list1.item2",
+              "learn.units.unit1.lesson1.body.list1.item3",
             ],
           },
-          {
-            kind: "p",
-            text:
-              "This course is built around those three marks. You'll do short exercises with real scriptures, not just read about them. That's the Berean pattern in miniature.",
-          },
+          { kind: "p", textKey: "learn.units.unit1.lesson1.body.p3" },
         ],
         exercise: {
           id: "ex-1-meditate",
-          title: "Meditate: what moved you this week?",
+          titleKey: "learn.units.unit1.lesson1.ex.title",
           payload: {
             kind: "meditate",
-            prompts: [
-              "What have you read in your Bible or the publications this past week?",
-              "Where did you catch a glimpse of Jehovah's qualities in the passage?",
-              "What is this passage asking you to change, start, or stop?",
-              "Write a one-sentence prayer turning the answer above into a conversation with Jehovah.",
+            promptKeys: [
+              "learn.units.unit1.lesson1.ex.prompt1",
+              "learn.units.unit1.lesson1.ex.prompt2",
+              "learn.units.unit1.lesson1.ex.prompt3",
+              "learn.units.unit1.lesson1.ex.prompt4",
             ],
           },
         },
@@ -175,101 +168,73 @@ const units: Unit[] = [
         id: "lesson-2",
         unitId: "unit-1",
         number: 2,
-        title: "JW Library vs. Watchtower ONLINE LIBRARY",
-        oneLine:
-          "Two brilliant tools. Different jobs. Knowing which to reach for is half the battle.",
+        titleKey: "learn.units.unit1.lesson2.title",
+        oneLineKey: "learn.units.unit1.lesson2.oneLine",
         readingMinutes: 4,
         body: [
-          {
-            kind: "p",
-            text:
-              "We're spoiled. Bible students before us pieced their study time together from paperback Bibles, mimeographed outlines, and trips to the Kingdom Hall library. Today, two apps do most of that work, and knowing which to reach for saves real time.",
-          },
-          { kind: "h3", text: "JW Library: the faithful field companion" },
-          {
-            kind: "p",
-            text:
-              "JW Library is the New World Translation, the meeting media, the songbook, and the daily text in your pocket. It's portable, it works offline, and it's tuned for reading and meetings, not deep research.",
-          },
-          { kind: "h3", text: "Watchtower ONLINE LIBRARY (WOL): the research desk" },
-          {
-            kind: "p",
-            text:
-              "WOL is the full shelf. Every publication, indexed and cross-linked. It's where you go when a question opens up and you need to follow the thread, past Watchtower articles, Insight entries, Reasoning chapters, Yearbooks.",
-          },
-          {
-            kind: "blockquote",
-            text:
-              "Rule of thumb: JW Library for reading and meetings. WOL for researching and answering questions.",
-          },
+          { kind: "p", textKey: "learn.units.unit1.lesson2.body.p1" },
+          { kind: "h3", textKey: "learn.units.unit1.lesson2.body.h3_1" },
+          { kind: "p", textKey: "learn.units.unit1.lesson2.body.p2" },
+          { kind: "h3", textKey: "learn.units.unit1.lesson2.body.h3_2" },
+          { kind: "p", textKey: "learn.units.unit1.lesson2.body.p3" },
+          { kind: "blockquote", textKey: "learn.units.unit1.lesson2.body.bq1" },
         ],
         exercise: {
           id: "ex-2-crossref",
-          title: "Cross-reference: pick the right tool",
+          titleKey: "learn.units.unit1.lesson2.ex.title",
           payload: {
             kind: "crossref",
-            intro:
-              "Each scenario shows up in real life. Which resource fits best?",
+            introKey: "learn.units.unit1.lesson2.ex.intro",
             questions: [
               {
                 id: "q1",
-                scenario:
-                  "You're on the bus and want to read the daily text and quickly review today's Bible chapter.",
+                scenarioKey: "learn.units.unit1.lesson2.ex.q1.scenario",
                 options: [
-                  { id: "a", label: "JW Library" },
-                  { id: "b", label: "Watchtower ONLINE LIBRARY (WOL)" },
+                  { id: "a", labelKey: "learn.units.unit1.lesson2.ex.q1.optA" },
+                  { id: "b", labelKey: "learn.units.unit1.lesson2.ex.q1.optB" },
                 ],
                 correctOptionId: "a",
-                explanation:
-                  "JW Library is built for offline, one-hand reading. The daily text lives on the home screen and the Bible is a tap away.",
+                explanationKey: "learn.units.unit1.lesson2.ex.q1.explanation",
               },
               {
                 id: "q2",
-                scenario:
-                  "You want to find every Watchtower article that discusses King Hezekiah's reforms over the last twenty years.",
+                scenarioKey: "learn.units.unit1.lesson2.ex.q2.scenario",
                 options: [
-                  { id: "a", label: "JW Library" },
-                  { id: "b", label: "Watchtower ONLINE LIBRARY (WOL)" },
+                  { id: "a", labelKey: "learn.units.unit1.lesson2.ex.q2.optA" },
+                  { id: "b", labelKey: "learn.units.unit1.lesson2.ex.q2.optB" },
                 ],
                 correctOptionId: "b",
-                explanation:
-                  "WOL is the research library. Use its search with quotation marks around \"Hezekiah\" to get a ranked list across all publications.",
+                explanationKey: "learn.units.unit1.lesson2.ex.q2.explanation",
               },
               {
                 id: "q3",
-                scenario:
-                  "You're prepping a talk and want the Reference Bible's cross-references next to the verse you're working on.",
+                scenarioKey: "learn.units.unit1.lesson2.ex.q3.scenario",
                 options: [
-                  { id: "a", label: "JW Library (Study edition)" },
-                  { id: "b", label: "Watchtower ONLINE LIBRARY (WOL)" },
+                  { id: "a", labelKey: "learn.units.unit1.lesson2.ex.q3.optA" },
+                  { id: "b", labelKey: "learn.units.unit1.lesson2.ex.q3.optB" },
                 ],
                 correctOptionId: "a",
-                explanation:
-                  "The NWT Study Edition in JW Library exposes study notes and cross-references right beside the verse. WOL has them too, but JW Library's Bible view is faster for a single passage.",
+                explanationKey: "learn.units.unit1.lesson2.ex.q3.explanation",
               },
               {
                 id: "q4",
-                scenario:
-                  "You want to review last week's meeting video when you're offline at a family member's home with no Wi-Fi.",
+                scenarioKey: "learn.units.unit1.lesson2.ex.q4.scenario",
                 options: [
-                  { id: "a", label: "JW Library" },
-                  { id: "b", label: "Watchtower ONLINE LIBRARY (WOL)" },
+                  { id: "a", labelKey: "learn.units.unit1.lesson2.ex.q4.optA" },
+                  { id: "b", labelKey: "learn.units.unit1.lesson2.ex.q4.optB" },
                 ],
                 correctOptionId: "a",
-                explanation:
-                  "JW Library keeps meeting media available offline once you've downloaded it. WOL needs a connection.",
+                explanationKey: "learn.units.unit1.lesson2.ex.q4.explanation",
               },
               {
                 id: "q5",
-                scenario:
-                  "You want to read the complete Insight on the Scriptures entry on \"Faith\" with all its sub-sections and cross-links.",
+                scenarioKey: "learn.units.unit1.lesson2.ex.q5.scenario",
                 options: [
-                  { id: "a", label: "JW Library" },
-                  { id: "b", label: "Watchtower ONLINE LIBRARY (WOL)" },
+                  { id: "a", labelKey: "learn.units.unit1.lesson2.ex.q5.optA" },
+                  { id: "b", labelKey: "learn.units.unit1.lesson2.ex.q5.optB" },
                 ],
                 correctOptionId: "b",
-                explanation:
-                  "Insight is available in both, but WOL's cross-link experience is faster for the long encyclopedia-style entries where you'll jump between sub-entries.",
+                explanationKey: "learn.units.unit1.lesson2.ex.q5.explanation",
               },
             ],
           },
@@ -279,124 +244,88 @@ const units: Unit[] = [
         id: "lesson-3",
         unitId: "unit-1",
         number: 3,
-        title: "Insight, Reasoning & the Publications",
-        oneLine:
-          "The faithful and discreet slave has given us a full shelf. Each book does one job exceptionally well.",
+        titleKey: "learn.units.unit1.lesson3.title",
+        oneLineKey: "learn.units.unit1.lesson3.oneLine",
         readingMinutes: 5,
         body: [
-          {
-            kind: "p",
-            text:
-              "New Bible students sometimes assume all the publications say roughly the same thing. They don't. Each one is written for a different job. Here are the five you'll reach for most.",
-          },
-          { kind: "h3", text: "Insight on the Scriptures" },
-          {
-            kind: "p",
-            text:
-              "The encyclopedia. Two volumes covering people, places, objects, concepts, alphabetically, with cross-references. When a name, a word, or a custom in the Scriptures stops you, Insight is the first stop.",
-          },
-          { kind: "h3", text: "Reasoning From the Scriptures" },
-          {
-            kind: "p",
-            text:
-              "The field service companion. Organized by topic, \"Blood,\" \"Cross,\" \"God,\" \"Suffering\", with direct answers and sample conversation lines. Built for objections and discussions.",
-          },
-          { kind: "h3", text: "The Watchtower (Public + Study Edition)" },
-          {
-            kind: "p",
-            text:
-              "Current spiritual food. The Study Edition is meeting material; the Public Edition is written for the broader audience. When a question is about our current understanding, the most recent Watchtower is almost always where to check.",
-          },
-          { kind: "h3", text: "Awake!" },
-          {
-            kind: "p",
-            text:
-              "Biblical principles applied to everyday life, family, work, health, anxiety, teens. The voice is warm and practical. Excellent for householders not yet ready for deep doctrinal discussion.",
-          },
-          { kind: "h3", text: "Pure Worship of Jehovah" },
-          {
-            kind: "p",
-            text:
-              "One of a family of prophetic books (with Jeremiah, Isaiah's Prophecy, and Revelation's Grand Climax) that walks verse-by-verse through Ezekiel. Reach for these when studying a prophetic book.",
-          },
+          { kind: "p", textKey: "learn.units.unit1.lesson3.body.p1" },
+          { kind: "h3", textKey: "learn.units.unit1.lesson3.body.h3_1" },
+          { kind: "p", textKey: "learn.units.unit1.lesson3.body.p2" },
+          { kind: "h3", textKey: "learn.units.unit1.lesson3.body.h3_2" },
+          { kind: "p", textKey: "learn.units.unit1.lesson3.body.p3" },
+          { kind: "h3", textKey: "learn.units.unit1.lesson3.body.h3_3" },
+          { kind: "p", textKey: "learn.units.unit1.lesson3.body.p4" },
+          { kind: "h3", textKey: "learn.units.unit1.lesson3.body.h3_4" },
+          { kind: "p", textKey: "learn.units.unit1.lesson3.body.p5" },
+          { kind: "h3", textKey: "learn.units.unit1.lesson3.body.h3_5" },
+          { kind: "p", textKey: "learn.units.unit1.lesson3.body.p6" },
         ],
         exercise: {
           id: "ex-3-crossref",
-          title: "Cross-reference: which publication fits this question?",
+          titleKey: "learn.units.unit1.lesson3.ex.title",
           payload: {
             kind: "crossref",
-            intro:
-              "A friend or householder asks you one of these. Which publication is the best starting point?",
+            introKey: "learn.units.unit1.lesson3.ex.intro",
             questions: [
               {
                 id: "q1",
-                scenario:
-                  "\"Why does a loving God allow suffering in the world?\"",
+                scenarioKey: "learn.units.unit1.lesson3.ex.q1.scenario",
                 options: [
-                  { id: "a", label: "Insight on the Scriptures" },
-                  { id: "b", label: "Reasoning From the Scriptures" },
-                  { id: "c", label: "Awake!" },
-                  { id: "d", label: "Pure Worship of Jehovah" },
+                  { id: "a", labelKey: "learn.units.unit1.lesson3.ex.q1.optA" },
+                  { id: "b", labelKey: "learn.units.unit1.lesson3.ex.q1.optB" },
+                  { id: "c", labelKey: "learn.units.unit1.lesson3.ex.q1.optC" },
+                  { id: "d", labelKey: "learn.units.unit1.lesson3.ex.q1.optD" },
                 ],
                 correctOptionId: "b",
-                explanation:
-                  "Reasoning has a full chapter on \"Suffering\" with scriptures, logical reasoning, and sample conversational responses, built exactly for this question.",
+                explanationKey: "learn.units.unit1.lesson3.ex.q1.explanation",
               },
               {
                 id: "q2",
-                scenario:
-                  "\"What did the divine name Jehovah mean in ancient Hebrew, and how was it pronounced?\"",
+                scenarioKey: "learn.units.unit1.lesson3.ex.q2.scenario",
                 options: [
-                  { id: "a", label: "Insight on the Scriptures" },
-                  { id: "b", label: "Reasoning From the Scriptures" },
-                  { id: "c", label: "Awake!" },
-                  { id: "d", label: "The Watchtower" },
+                  { id: "a", labelKey: "learn.units.unit1.lesson3.ex.q2.optA" },
+                  { id: "b", labelKey: "learn.units.unit1.lesson3.ex.q2.optB" },
+                  { id: "c", labelKey: "learn.units.unit1.lesson3.ex.q2.optC" },
+                  { id: "d", labelKey: "learn.units.unit1.lesson3.ex.q2.optD" },
                 ],
                 correctOptionId: "a",
-                explanation:
-                  "Insight is the encyclopedia, its \"Jehovah\" entry covers etymology, pronunciation history, and every scriptural occurrence with depth.",
+                explanationKey: "learn.units.unit1.lesson3.ex.q2.explanation",
               },
               {
                 id: "q3",
-                scenario:
-                  "\"I keep lying awake at night with anxiety. What does the Bible say I should do?\"",
+                scenarioKey: "learn.units.unit1.lesson3.ex.q3.scenario",
                 options: [
-                  { id: "a", label: "Insight on the Scriptures" },
-                  { id: "b", label: "Reasoning From the Scriptures" },
-                  { id: "c", label: "Awake!" },
-                  { id: "d", label: "Pure Worship of Jehovah" },
+                  { id: "a", labelKey: "learn.units.unit1.lesson3.ex.q3.optA" },
+                  { id: "b", labelKey: "learn.units.unit1.lesson3.ex.q3.optB" },
+                  { id: "c", labelKey: "learn.units.unit1.lesson3.ex.q3.optC" },
+                  { id: "d", labelKey: "learn.units.unit1.lesson3.ex.q3.optD" },
                 ],
                 correctOptionId: "c",
-                explanation:
-                  "Awake! specializes in practical life topics like anxiety, with biblical principles presented warmly. A recent Watchtower study article would also be excellent.",
+                explanationKey: "learn.units.unit1.lesson3.ex.q3.explanation",
               },
               {
                 id: "q4",
-                scenario:
-                  "\"What is the 'great crowd' spoken of in Revelation 7, and how do we know it's a different group from the 144,000?\"",
+                scenarioKey: "learn.units.unit1.lesson3.ex.q4.scenario",
                 options: [
-                  { id: "a", label: "Awake!" },
-                  { id: "b", label: "Reasoning From the Scriptures" },
-                  { id: "c", label: "Pure Worship / prophetic commentary" },
-                  { id: "d", label: "Insight on the Scriptures" },
+                  { id: "a", labelKey: "learn.units.unit1.lesson3.ex.q4.optA" },
+                  { id: "b", labelKey: "learn.units.unit1.lesson3.ex.q4.optB" },
+                  { id: "c", labelKey: "learn.units.unit1.lesson3.ex.q4.optC" },
+                  { id: "d", labelKey: "learn.units.unit1.lesson3.ex.q4.optD" },
                 ],
                 correctOptionId: "d",
-                explanation:
-                  "Start with Insight's entry on \"Great Crowd\" for the full scriptural exposition. The prophetic commentaries on Revelation go deeper, and Reasoning gives a shorter conversational version.",
+                explanationKey: "learn.units.unit1.lesson3.ex.q4.explanation",
               },
               {
                 id: "q5",
-                scenario:
-                  "\"I want to understand the Bible's current direction on blood fractions for medical use.\"",
+                scenarioKey: "learn.units.unit1.lesson3.ex.q5.scenario",
                 options: [
-                  { id: "a", label: "Insight on the Scriptures" },
-                  { id: "b", label: "The Watchtower (most recent article)" },
-                  { id: "c", label: "Reasoning From the Scriptures" },
-                  { id: "d", label: "Awake!" },
+                  { id: "a", labelKey: "learn.units.unit1.lesson3.ex.q5.optA" },
+                  { id: "b", labelKey: "learn.units.unit1.lesson3.ex.q5.optB" },
+                  { id: "c", labelKey: "learn.units.unit1.lesson3.ex.q5.optC" },
+                  { id: "d", labelKey: "learn.units.unit1.lesson3.ex.q5.optD" },
                 ],
                 correctOptionId: "b",
-                explanation:
-                  "On questions where our understanding has been refined over time, the most recent Watchtower article carries the current spiritual food. Always check for the latest.",
+                explanationKey: "learn.units.unit1.lesson3.ex.q5.explanation",
               },
             ],
           },
@@ -407,61 +336,39 @@ const units: Unit[] = [
   {
     id: "unit-2",
     number: 2,
-    title: "The Art of Studying",
-    oneLine: "Now you've got the tools. Here's how to actually use them.",
+    titleKey: "learn.units.unit2.title",
+    oneLineKey: "learn.units.unit2.oneLine",
     lessons: [
       {
         id: "lesson-4",
         unitId: "unit-2",
         number: 4,
-        title: "The S.O.A.P. Method",
-        oneLine:
-          "Four letters. One of the most reliable scaffolds for a deep personal study session.",
+        titleKey: "learn.units.unit2.lesson4.title",
+        oneLineKey: "learn.units.unit2.lesson4.oneLine",
         readingMinutes: 4,
         body: [
-          {
-            kind: "p",
-            text:
-              "S.O.A.P. is an acronym, Scripture, Observation, Application, Prayer, and it's one of the simplest, most durable frameworks for turning Bible reading into Bible study. It works for a single verse or a whole chapter.",
-          },
-          { kind: "h3", text: "S, Scripture" },
-          {
-            kind: "p",
-            text:
-              "Write the verse out. By hand if you can. Copying forces you to slow down and notice things a speed-reader misses: the conjunctions, the imperatives, the conditions.",
-          },
-          { kind: "h3", text: "O, Observation" },
-          {
-            kind: "p",
-            text:
-              "What does the passage actually say? Who is speaking? To whom? When? What words repeat? This is not yet about you, it's about what's there on the page.",
-          },
-          { kind: "h3", text: "A, Application" },
-          {
-            kind: "p",
-            text:
-              "Now turn toward yourself. What does this verse ask of me today? Where am I living against it? What would obedience look like this week?",
-          },
-          { kind: "h3", text: "P, Prayer" },
-          {
-            kind: "p",
-            text:
-              "Pray the verse back to Jehovah. Thank him for what it reveals about him. Ask for the specific help the application requires.",
-          },
+          { kind: "p", textKey: "learn.units.unit2.lesson4.body.p1" },
+          { kind: "h3", textKey: "learn.units.unit2.lesson4.body.h3_1" },
+          { kind: "p", textKey: "learn.units.unit2.lesson4.body.p2" },
+          { kind: "h3", textKey: "learn.units.unit2.lesson4.body.h3_2" },
+          { kind: "p", textKey: "learn.units.unit2.lesson4.body.p3" },
+          { kind: "h3", textKey: "learn.units.unit2.lesson4.body.h3_3" },
+          { kind: "p", textKey: "learn.units.unit2.lesson4.body.p4" },
+          { kind: "h3", textKey: "learn.units.unit2.lesson4.body.h3_4" },
+          { kind: "p", textKey: "learn.units.unit2.lesson4.body.p5" },
         ],
         exercise: {
           id: "ex-4-soap",
-          title: "S.O.A.P. on Proverbs 3:5-6",
+          titleKey: "learn.units.unit2.lesson4.ex.title",
           payload: {
             kind: "soap",
             verseCitation: "Proverbs 3:5-6",
-            verseText:
-              "Trust in Jehovah with all your heart, and do not rely on your own understanding. In all your ways take notice of him, and he will make your paths straight.",
-            prompts: {
-              S: "Copy Proverbs 3:5-6 out in your own handwriting, or type it slowly below.",
-              O: "What does this passage command? What does it promise? What's the condition?",
-              A: "Where in your life are you currently 'relying on your own understanding'? What would trusting Jehovah look like there this week?",
-              P: "Turn your answer into a short prayer. Start with 'Jehovah,' and keep it honest.",
+            verseTextKey: "learn.units.unit2.lesson4.ex.verseText",
+            promptKeys: {
+              S: "learn.units.unit2.lesson4.ex.promptS",
+              O: "learn.units.unit2.lesson4.ex.promptO",
+              A: "learn.units.unit2.lesson4.ex.promptA",
+              P: "learn.units.unit2.lesson4.ex.promptP",
             },
           },
         },
@@ -470,64 +377,55 @@ const units: Unit[] = [
         id: "lesson-5",
         unitId: "unit-2",
         number: 5,
-        title: "Asking Questions That Open Verses",
-        oneLine: "Good questions are the keys that open closed verses.",
+        titleKey: "learn.units.unit2.lesson5.title",
+        oneLineKey: "learn.units.unit2.lesson5.oneLine",
         readingMinutes: 3,
         body: [
-          {
-            kind: "p",
-            text:
-              "A verse can look flat on a quick read. The same verse, put under the right questions, splits open. Here are five questions that almost always uncover something new.",
-          },
+          { kind: "p", textKey: "learn.units.unit2.lesson5.body.p1" },
           {
             kind: "list",
-            items: [
-              "Who, who's speaking, and who are they speaking to?",
-              "What, what is actually happening in the verse? What word gets repeated or emphasized?",
-              "When / Where, what's the historical or geographical context?",
-              "Why, why would Jehovah want this recorded? Why does it matter?",
-              "How, how does it apply to me, today, in my actual circumstances?",
+            itemKeys: [
+              "learn.units.unit2.lesson5.body.list1.item1",
+              "learn.units.unit2.lesson5.body.list1.item2",
+              "learn.units.unit2.lesson5.body.list1.item3",
+              "learn.units.unit2.lesson5.body.list1.item4",
+              "learn.units.unit2.lesson5.body.list1.item5",
             ],
           },
-          {
-            kind: "p",
-            text:
-              "Run any verse through all five questions and you've done more thinking than most people do in a whole chapter of reading.",
-          },
+          { kind: "p", textKey: "learn.units.unit2.lesson5.body.p2" },
         ],
         exercise: {
           id: "ex-5-ladder",
-          title: "Apply the five questions to 1 Peter 5:7",
+          titleKey: "learn.units.unit2.lesson5.ex.title",
           payload: {
             kind: "ladder",
             verseCitation: "1 Peter 5:7",
-            verseText:
-              "Throw all your anxiety on him, because he cares for you.",
+            verseTextKey: "learn.units.unit2.lesson5.ex.verseText",
             rungs: [
               {
                 key: "who",
-                prompt: "Who is speaking, and to whom is he writing?",
-                hint: "Peter, a fellow elder, writes to Christians scattered through Asia Minor.",
+                promptKey: "learn.units.unit2.lesson5.ex.who.prompt",
+                hintKey: "learn.units.unit2.lesson5.ex.who.hint",
               },
               {
                 key: "what",
-                prompt: "What is the command, and what word gets emphasized?",
-                hint: "'Throw', it's decisive, not passive. 'All' is the emphatic word.",
+                promptKey: "learn.units.unit2.lesson5.ex.what.prompt",
+                hintKey: "learn.units.unit2.lesson5.ex.what.hint",
               },
               {
                 key: "when_where",
-                prompt: "What's the historical context?",
-                hint: "Written around 62–64 CE, to brothers and sisters facing growing Roman hostility.",
+                promptKey: "learn.units.unit2.lesson5.ex.whenWhere.prompt",
+                hintKey: "learn.units.unit2.lesson5.ex.whenWhere.hint",
               },
               {
                 key: "why",
-                prompt: "Why would Jehovah want this recorded?",
-                hint: "Because anxiety isolates, and this verse is the corrective, we have a Father who cares.",
+                promptKey: "learn.units.unit2.lesson5.ex.why.prompt",
+                hintKey: "learn.units.unit2.lesson5.ex.why.hint",
               },
               {
                 key: "how",
-                prompt: "How does this apply to you this week?",
-                hint: "Name one specific anxiety you'll 'throw' on Jehovah in prayer today.",
+                promptKey: "learn.units.unit2.lesson5.ex.how.prompt",
+                hintKey: "learn.units.unit2.lesson5.ex.how.hint",
               },
             ],
           },
@@ -537,76 +435,67 @@ const units: Unit[] = [
         id: "lesson-6",
         unitId: "unit-2",
         number: 6,
-        title: "Highlighting & Note-Taking That Works",
-        oneLine:
-          "Marks on the page are memory aids. A good system turns a paragraph into a map.",
+        titleKey: "learn.units.unit2.lesson6.title",
+        oneLineKey: "learn.units.unit2.lesson6.oneLine",
         readingMinutes: 4,
         body: [
-          {
-            kind: "p",
-            text:
-              "Highlighting without a system is just decoration. Here's a simple five-color setup that's survived decades of Bible students, and works just as well in JW Library as it does in a paper Bible.",
-          },
+          { kind: "p", textKey: "learn.units.unit2.lesson6.body.p1" },
           {
             kind: "list",
-            items: [
-              "Green, a promise from Jehovah.",
-              "Blue, a command or instruction.",
-              "Red, a warning or consequence.",
-              "Gold, a quality of Jehovah or Jesus.",
-              "Purple, a cross-reference worth following.",
+            itemKeys: [
+              "learn.units.unit2.lesson6.body.list1.item1",
+              "learn.units.unit2.lesson6.body.list1.item2",
+              "learn.units.unit2.lesson6.body.list1.item3",
+              "learn.units.unit2.lesson6.body.list1.item4",
+              "learn.units.unit2.lesson6.body.list1.item5",
             ],
           },
-          {
-            kind: "p",
-            text:
-              "The next time you sit with a Watchtower paragraph, slow down and mark it up. A single marked-up paragraph you remember is worth more than ten skimmed chapters you don't.",
-          },
+          { kind: "p", textKey: "learn.units.unit2.lesson6.body.p2" },
         ],
         exercise: {
           id: "ex-6-highlight",
-          title: "Mark up a Watchtower-style paragraph",
+          titleKey: "learn.units.unit2.lesson6.ex.title",
           payload: {
             kind: "highlight",
             passageCitation: "Adapted from The Watchtower study edition",
-            passageSource: "Sample paragraph for practice",
-            tokens: [
-              "Jehovah",
-              "is",
-              "a",
-              "loving",
-              "Father",
-              "who",
-              "promises",
-              "to",
-              "sustain",
-              "us.",
-              "He",
-              "commands",
-              "us",
-              "to",
-              "pray",
-              "without",
-              "ceasing",
-              "and",
-              "warns",
-              "that",
-              "drifting",
-              "leads",
-              "to",
-              "shipwreck",
-              "of",
-              "faith.",
-              "Compare",
-              "Hebrews",
-              "2:1.",
+            passageSourceKey: "learn.units.unit2.lesson6.ex.passageSource",
+            tokenKeys: [
+              "learn.units.unit2.lesson6.ex.token.t1",
+              "learn.units.unit2.lesson6.ex.token.t2",
+              "learn.units.unit2.lesson6.ex.token.t3",
+              "learn.units.unit2.lesson6.ex.token.t4",
+              "learn.units.unit2.lesson6.ex.token.t5",
+              "learn.units.unit2.lesson6.ex.token.t6",
+              "learn.units.unit2.lesson6.ex.token.t7",
+              "learn.units.unit2.lesson6.ex.token.t8",
+              "learn.units.unit2.lesson6.ex.token.t9",
+              "learn.units.unit2.lesson6.ex.token.t10",
+              "learn.units.unit2.lesson6.ex.token.t11",
+              "learn.units.unit2.lesson6.ex.token.t12",
+              "learn.units.unit2.lesson6.ex.token.t13",
+              "learn.units.unit2.lesson6.ex.token.t14",
+              "learn.units.unit2.lesson6.ex.token.t15",
+              "learn.units.unit2.lesson6.ex.token.t16",
+              "learn.units.unit2.lesson6.ex.token.t17",
+              "learn.units.unit2.lesson6.ex.token.t18",
+              "learn.units.unit2.lesson6.ex.token.t19",
+              "learn.units.unit2.lesson6.ex.token.t20",
+              "learn.units.unit2.lesson6.ex.token.t21",
+              "learn.units.unit2.lesson6.ex.token.t22",
+              "learn.units.unit2.lesson6.ex.token.t23",
+              "learn.units.unit2.lesson6.ex.token.t24",
+              "learn.units.unit2.lesson6.ex.token.t25",
+              "learn.units.unit2.lesson6.ex.token.t26",
+              "learn.units.unit2.lesson6.ex.token.t27",
+              "learn.units.unit2.lesson6.ex.token.t28",
+              "learn.units.unit2.lesson6.ex.token.t29",
             ],
             guide: [
-              { category: "quality", hint: "\"loving Father\", a quality of Jehovah" },
-              { category: "promise", hint: "\"promises to sustain us\", a promise" },
-              { category: "command", hint: "\"commands us to pray without ceasing\", a command" },
-              { category: "warning", hint: "\"drifting leads to shipwreck of faith\", a warning" },
-              { category: "reference", hint: "\"Compare Hebrews 2:1\", a cross-reference" },
+              { category: "quality", hintKey: "learn.units.unit2.lesson6.ex.guide.quality" },
+              { category: "promise", hintKey: "learn.units.unit2.lesson6.ex.guide.promise" },
+              { category: "command", hintKey: "learn.units.unit2.lesson6.ex.guide.command" },
+              { category: "warning", hintKey: "learn.units.unit2.lesson6.ex.guide.warning" },
+              { category: "reference", hintKey: "learn.units.unit2.lesson6.ex.guide.reference" },
             ],
           },
         },
@@ -616,76 +505,61 @@ const units: Unit[] = [
   {
     id: "unit-3",
     number: 3,
-    title: "Going Deeper",
-    oneLine: "From technique into formation, study as a life habit.",
+    titleKey: "learn.units.unit3.title",
+    oneLineKey: "learn.units.unit3.oneLine",
     lessons: [
       {
         id: "lesson-7",
         unitId: "unit-3",
         number: 7,
-        title: "Cross-Referencing Like a Berean",
-        oneLine:
-          "Scripture is its own best commentary. Learning to chain passages is learning to think like a Berean.",
+        titleKey: "learn.units.unit3.lesson7.title",
+        oneLineKey: "learn.units.unit3.lesson7.oneLine",
         readingMinutes: 4,
         body: [
-          {
-            kind: "p",
-            text:
-              "Jehovah wrote his Word in a way that talks to itself. A verse in Genesis connects to one in Revelation. A phrase in Psalms lights up a story in Kings. Cross-referencing is the skill of following those connections, and the NWT Reference Edition is designed for it.",
-          },
-          { kind: "h3", text: "Three places to find cross-references" },
+          { kind: "p", textKey: "learn.units.unit3.lesson7.body.p1" },
+          { kind: "h3", textKey: "learn.units.unit3.lesson7.body.h3_1" },
           {
             kind: "list",
-            items: [
-              "Marginal references in the NWT Reference Bible, right-column, for every significant verse.",
-              "WOL's cited-by feature, shows every publication that cites the verse you're on.",
-              "Insight on the Scriptures, topic entries link to all major passages on the topic.",
+            itemKeys: [
+              "learn.units.unit3.lesson7.body.list1.item1",
+              "learn.units.unit3.lesson7.body.list1.item2",
+              "learn.units.unit3.lesson7.body.list1.item3",
             ],
           },
-          {
-            kind: "p",
-            text:
-              "Build a chain. Start with a verse. Follow one reference. Then follow one from there. After three or four hops, you'll see a pattern you never would have seen in the starting verse alone.",
-          },
+          { kind: "p", textKey: "learn.units.unit3.lesson7.body.p2" },
         ],
         exercise: {
           id: "ex-7-ladder",
-          title: "Build a chain from John 17:3",
+          titleKey: "learn.units.unit3.lesson7.ex.title",
           payload: {
             kind: "ladder",
             verseCitation: "John 17:3",
-            verseText:
-              "This means everlasting life, their coming to know you, the only true God, and the one whom you sent, Jesus Christ.",
+            verseTextKey: "learn.units.unit3.lesson7.ex.verseText",
             rungs: [
               {
                 key: "who",
-                prompt:
-                  "Who is speaking here? Find a cross-reference to another prayer of Jesus and note the verse.",
-                hint: "Matthew 26:39 is one of the most intense, compare his posture toward the Father.",
+                promptKey: "learn.units.unit3.lesson7.ex.who.prompt",
+                hintKey: "learn.units.unit3.lesson7.ex.who.hint",
               },
               {
                 key: "what",
-                prompt:
-                  "What does 'coming to know' imply? Find a verse that describes knowing God as ongoing, not a one-time event.",
-                hint: "2 Peter 3:18, 'keep on growing in the undeserved kindness and knowledge of our Lord.'",
+                promptKey: "learn.units.unit3.lesson7.ex.what.prompt",
+                hintKey: "learn.units.unit3.lesson7.ex.what.hint",
               },
               {
                 key: "when_where",
-                prompt:
-                  "The verse distinguishes 'the only true God' from Jesus. Find another verse that makes the same distinction.",
-                hint: "1 Corinthians 8:6, 'there is actually to us one God, the Father... and there is one Lord, Jesus Christ.'",
+                promptKey: "learn.units.unit3.lesson7.ex.whenWhere.prompt",
+                hintKey: "learn.units.unit3.lesson7.ex.whenWhere.hint",
               },
               {
                 key: "why",
-                prompt:
-                  "Why does Jesus frame 'everlasting life' as a relationship rather than a reward? Find a verse that shows Jehovah's heart toward us.",
-                hint: "James 4:8, 'draw close to God, and he will draw close to you.'",
+                promptKey: "learn.units.unit3.lesson7.ex.why.prompt",
+                hintKey: "learn.units.unit3.lesson7.ex.why.hint",
               },
               {
                 key: "how",
-                prompt:
-                  "What one thing will you do this week to 'keep on coming to know' Jehovah?",
-                hint: "Be concrete, a specific time, a specific chapter, a specific prayer.",
+                promptKey: "learn.units.unit3.lesson7.ex.how.prompt",
+                hintKey: "learn.units.unit3.lesson7.ex.how.hint",
               },
             ],
           },
@@ -695,52 +569,42 @@ const units: Unit[] = [
         id: "lesson-8",
         unitId: "unit-3",
         number: 8,
-        title: "Meditation, Letting the Word Sink In",
-        oneLine:
-          "Reading is the meal. Meditation is the digestion. Most of the nutrition happens here.",
+        titleKey: "learn.units.unit3.lesson8.title",
+        oneLineKey: "learn.units.unit3.lesson8.oneLine",
         readingMinutes: 4,
         body: [
           {
             kind: "blockquote",
-            text:
-              "His delight is in the law of Jehovah, and he reads His law in an undertone day and night.",
+            textKey: "learn.units.unit3.lesson8.body.bq1",
             cite: "Psalm 1:2",
           },
-          {
-            kind: "p",
-            text:
-              "The Hebrew word translated 'reads in an undertone' carries the image of a cow chewing cud, slow, repeated, patient. Meditation is that slow chewing. You won't get the nutrients from a verse you swallow whole.",
-          },
-          { kind: "h3", text: "How meditation differs from reading" },
-          {
-            kind: "p",
-            text:
-              "Reading asks, \"What does it say?\" Meditation asks, \"What does it mean, and what does it do to me?\" One fills the mind. The other shapes the person.",
-          },
-          { kind: "h3", text: "A simple three-minute rhythm" },
+          { kind: "p", textKey: "learn.units.unit3.lesson8.body.p1" },
+          { kind: "h3", textKey: "learn.units.unit3.lesson8.body.h3_1" },
+          { kind: "p", textKey: "learn.units.unit3.lesson8.body.p2" },
+          { kind: "h3", textKey: "learn.units.unit3.lesson8.body.h3_2" },
           {
             kind: "list",
-            items: [
-              "Pick one verse. Just one. Don't rush to the next.",
-              "Read it three times, slowly. Pause after each read.",
-              "Sit with it. Let a question rise. Let a feeling rise. Let Jehovah speak.",
+            itemKeys: [
+              "learn.units.unit3.lesson8.body.list1.item1",
+              "learn.units.unit3.lesson8.body.list1.item2",
+              "learn.units.unit3.lesson8.body.list1.item3",
             ],
           },
         ],
         exercise: {
           id: "ex-8-meditate",
-          title: "Guided 3-minute meditation",
+          titleKey: "learn.units.unit3.lesson8.ex.title",
           payload: {
             kind: "meditate",
             introVerse: {
               citation: "Psalm 23:1",
-              text: "Jehovah is my Shepherd. I will lack nothing.",
+              textKey: "learn.units.unit3.lesson8.ex.introVerse.text",
             },
-            prompts: [
-              "Read the verse three times slowly. Let the second reading be slower than the first.",
-              "What image does the word 'Shepherd' raise for you? What does it tell you about how Jehovah relates to you?",
-              "Where in your life are you currently afraid you will lack something? Hold that with the verse.",
-              "Write one sentence to Jehovah about what you just saw.",
+            promptKeys: [
+              "learn.units.unit3.lesson8.ex.prompt1",
+              "learn.units.unit3.lesson8.ex.prompt2",
+              "learn.units.unit3.lesson8.ex.prompt3",
+              "learn.units.unit3.lesson8.ex.prompt4",
             ],
             timerSeconds: 180,
           },
@@ -750,48 +614,35 @@ const units: Unit[] = [
         id: "lesson-9",
         unitId: "unit-3",
         number: 9,
-        title: "Building Your Study Routine",
-        oneLine:
-          "The best study method is the one you'll still be doing a year from now.",
+        titleKey: "learn.units.unit3.lesson9.title",
+        oneLineKey: "learn.units.unit3.lesson9.oneLine",
         readingMinutes: 4,
         body: [
-          {
-            kind: "p",
-            text:
-              "We've covered the tools and the techniques. Now for the hardest part: keeping it going. Habits, not heroics, build a Bible student.",
-          },
-          { kind: "h3", text: "A sample week" },
+          { kind: "p", textKey: "learn.units.unit3.lesson9.body.p1" },
+          { kind: "h3", textKey: "learn.units.unit3.lesson9.body.h3_1" },
           {
             kind: "list",
-            items: [
-              "Daily (15 min): Bible reading + daily text. Same time, same place.",
-              "Mid-week (45 min): Meeting prep, read the Watchtower study article, highlight, mark up.",
-              "Weekend (60 min): One S.O.A.P. study on a chapter of your choice.",
-              "Monthly: Pick one Insight entry to read all the way through.",
+            itemKeys: [
+              "learn.units.unit3.lesson9.body.list1.item1",
+              "learn.units.unit3.lesson9.body.list1.item2",
+              "learn.units.unit3.lesson9.body.list1.item3",
+              "learn.units.unit3.lesson9.body.list1.item4",
             ],
           },
-          {
-            kind: "p",
-            text:
-              "This isn't a prescription. It's a frame. Shrink it or expand it to fit your life, but write down what you commit to, and then keep showing up.",
-          },
-          {
-            kind: "p",
-            text:
-              "All glory to Jehovah. He has given us his Word, his spirit, and his organization. The rest is just showing up.",
-          },
+          { kind: "p", textKey: "learn.units.unit3.lesson9.body.p2" },
+          { kind: "p", textKey: "learn.units.unit3.lesson9.body.p3" },
         ],
         exercise: {
           id: "ex-9-commitment",
-          title: "Your commitment",
+          titleKey: "learn.units.unit3.lesson9.ex.title",
           payload: {
             kind: "meditate",
-            prompts: [
-              "What time of day will you study? (Be specific, e.g. '7:00 AM, before breakfast.')",
-              "Which days of the week? (Start smaller than you think, three days you actually do beats seven you don't.)",
-              "Where will you study? (Same spot every time, if possible.)",
-              "Which Bible book will you start with? (If unsure, Mark is short. James is practical. Psalms is rich.)",
-              "Write one sentence of commitment to Jehovah. You're not promising perfection, you're promising to show up.",
+            promptKeys: [
+              "learn.units.unit3.lesson9.ex.prompt1",
+              "learn.units.unit3.lesson9.ex.prompt2",
+              "learn.units.unit3.lesson9.ex.prompt3",
+              "learn.units.unit3.lesson9.ex.prompt4",
+              "learn.units.unit3.lesson9.ex.prompt5",
             ],
           },
         },
@@ -801,80 +652,8 @@ const units: Unit[] = [
 ];
 
 // ─────────────────────────────────────────────────────────────────
-// i18n surface (EN shipped; ES structure ready for drop-in)
+// Visual config (not user-facing — colors only)
 // ─────────────────────────────────────────────────────────────────
-
-export interface CourseStrings {
-  courseTitle: string;
-  courseKicker: string;
-  courseIntro: string;
-  unitLabel: string;
-  lessonLabel: string;
-  minRead: string;
-  exerciseHeading: string;
-  continue: string;
-  backToCourse: string;
-  complete: string;
-  completed: string;
-  markComplete: string;
-  overallProgress: string;
-  closingBenediction: string;
-  closingCta: string;
-  categories: Record<HighlightCategory, string>;
-}
-
-const strings: Record<Locale, CourseStrings> = {
-  en: {
-    courseTitle: "Learn to Study",
-    courseKicker: "A nine-lesson course for Bible students",
-    courseIntro:
-      "You will not just read about studying. You will do it, with real verses, real publications, real exercises, the way the Bereans did.",
-    unitLabel: "Unit",
-    lessonLabel: "Lesson",
-    minRead: "min read",
-    exerciseHeading: "Exercise",
-    continue: "Continue",
-    backToCourse: "Back to course",
-    complete: "Complete",
-    completed: "Completed",
-    markComplete: "Mark lesson complete",
-    overallProgress: "Overall progress",
-    closingBenediction: "All glory to Jehovah.",
-    closingCta: "Start your first study session",
-    categories: {
-      promise: "Promise",
-      command: "Command",
-      warning: "Warning",
-      quality: "Jehovah's quality",
-      reference: "Cross-reference",
-    },
-  },
-  es: {
-    courseTitle: "Aprende a estudiar",
-    courseKicker: "Un curso de nueve lecciones para estudiantes de la Biblia",
-    courseIntro:
-      "No solo leerás sobre el estudio. Lo harás, con versículos reales, publicaciones reales y ejercicios reales, como lo hicieron los bereanos.",
-    unitLabel: "Unidad",
-    lessonLabel: "Lección",
-    minRead: "min de lectura",
-    exerciseHeading: "Ejercicio",
-    continue: "Continuar",
-    backToCourse: "Volver al curso",
-    complete: "Completar",
-    completed: "Completado",
-    markComplete: "Marcar como completada",
-    overallProgress: "Progreso general",
-    closingBenediction: "Toda la gloria a Jehová.",
-    closingCta: "Comienza tu primera sesión de estudio",
-    categories: {
-      promise: "Promesa",
-      command: "Mandato",
-      warning: "Advertencia",
-      quality: "Cualidad de Jehová",
-      reference: "Referencia cruzada",
-    },
-  },
-};
 
 export const highlightCategoryColors: Record<
   HighlightCategory,
@@ -887,13 +666,8 @@ export const highlightCategoryColors: Record<
   reference: { bg: "bg-violet-100", ring: "ring-violet-400", text: "text-violet-900", dot: "bg-violet-500" },
 };
 
-export function getUnits(_locale: Locale = "en"): Unit[] {
-  // Future: swap localized units when ES/JA/KO content is written.
+export function getUnits(): Unit[] {
   return units;
-}
-
-export function getStrings(locale: Locale = "en"): CourseStrings {
-  return strings[locale] ?? strings.en;
 }
 
 export function findLesson(lessonId: string): Lesson | null {

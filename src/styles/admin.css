@@ -618,6 +618,25 @@ html.nav-hidden .admin-header { top: 0; }
   padding: 1px 6px; border-radius: 999px; min-width: 18px; text-align: center;
 }
 
+/* Tab + drag-handle wrapper. The handle owns the drag listeners; the inner
+   button stays a clean click target (no flaky tap-vs-drag activation distance). */
+.admin-tab-wrap {
+  display: inline-flex; align-items: stretch;
+  border-radius: var(--radius-sm);
+}
+.admin-tab-drag {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0 4px; color: var(--text-muted);
+  opacity: 0.55; transition: opacity var(--dur-fast), color var(--dur-fast);
+  user-select: none; -webkit-user-select: none;
+}
+.admin-tab-drag:hover { opacity: 1; color: var(--violet-600); }
+.admin-tab-wrap--active .admin-tab-drag { opacity: 0.8; }
+@media (max-width: 768px) {
+  .admin-tab-drag { padding: 0 2px; }
+  .admin-tab-drag svg { width: 8px; height: 12px; }
+}
+
 /* ── Reports ─────────────────────────────────────────────────────────────── */
 
 .admin-report-list { display: flex; flex-direction: column; gap: 12px; }

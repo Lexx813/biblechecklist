@@ -81,8 +81,12 @@ function ConvItem({ conv, active, onClick, currentUserId, onDelete, onlineUsers 
 
   return (
     <div
-      className={`msg-conv-item${active ? " msg-conv-item--active" : ""}${isUnread ? " msg-conv-item--unread" : ""}`}
+      role="button"
+      tabIndex={0}
+      aria-label={conv.other_display_name || t("messages.user")}
+      className={`msg-conv-item focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-600${active ? " msg-conv-item--active" : ""}${isUnread ? " msg-conv-item--unread" : ""}`}
       onClick={onClick}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(); } }}
     >
       <Avatar displayName={conv.other_display_name} avatarUrl={conv.other_avatar_url} online={isOnline} />
       <div className="msg-conv-info">

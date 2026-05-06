@@ -16,19 +16,48 @@
     "step3Title": "Pon a prueba tu conocimiento",
     "step3Body": "Responde cuestionarios sobre 12 temas bíblicos diferentes y gana insignias al completar cada nivel.",
     "step4Title": "Desarrolla el hábito de lectura",
-    "step4Body": "Establece una meta diaria de capítulos y crea un hábito de lectura inquebrantable. Tu racha comienza en el momento que lees tu primer capítulo — protégela.",
+    "step4Body": "Establece una meta diaria de capítulos y crea un hábito de lectura inquebrantable. Tu racha comienza en el momento que lees tu primer capítulo: protégela.",
     "step5Title": "Desbloquea la Experiencia Completa",
-    "step5Body": "Compañero de Estudio con IA, Planes de Lectura, Notas de Estudio, Mensajes y Grupos — todo por solo $3/mes.",
+    "step5Body": "Compañero de Estudio con IA, Planes de Lectura, Notas de Estudio, Mensajes y Grupos: todo por solo $3/mes.",
     "seePremium": "Ver Premium →",
     "maybeLater": "Quizás después",
     "saveProgressDesc": "Crea una cuenta gratis para guardar tu progreso en todos tus dispositivos.",
     "saveMyProgress": "Guardar mi progreso",
     "youveReadChapters_one": "Has leído {{count}} capítulo 🎉",
     "youveReadChapters_other": "Has leído {{count}} capítulos 🎉",
-    "saveBannerRegion": "Guarda tu progreso"
+    "saveBannerRegion": "Guarda tu progreso",
+    "choiceConnect": "Conectar con otros",
+    "choiceConnectSub": "Comunidad y foro",
+    "choiceNote": "Puedes cambiar esto en cualquier momento.",
+    "choicePlan": "Comenzar un plan de lectura",
+    "choicePlanSub": "TNM en 1 año, Evangelios en 30 días…",
+    "choiceQuiz": "Probar mi conocimiento bíblico",
+    "choiceQuizSub": "Empieza el quiz, gana insignias",
+    "choiceTrack": "Llevar registro de mi lectura",
+    "choiceTrackSub": "Marca capítulos en los 66 libros",
+    "doneAction": "Marcar Génesis 1 como leído →",
+    "doneSkip": "Explorar la app primero",
+    "doneSub": "Marca tu primer capítulo para iniciar tu racha de lectura.",
+    "doneTitle": "¡Todo listo!",
+    "goalSet": "Establecer mi meta",
+    "goalSub": "¿Cuántos capítulos quieres leer al día?",
+    "goalTitle": "Establece tu meta diaria de lectura",
+    "notifEnable": "Activar recordatorios",
+    "notifLater": "Quizás después",
+    "notifSub": "Te recordaremos leer a la misma hora cada día.",
+    "notifTitle": "¿Quieres un recordatorio diario?",
+    "planSub": "Siempre puedes cambiarlo o pausarlo más tarde.",
+    "planTitle": "Elige un plan de lectura",
+    "welcomeSub": "¿Qué quieres hacer primero?",
+    "welcomeTitle": "¡Bienvenido, {{name}}!"
   },
   "a11y": {
-    "skipToContent": "Saltar al contenido principal"
+    "skipToContent": "Saltar al contenido principal",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "dismiss": "Descartar",
+    "loading": "Cargando",
+    "send": "Enviar"
   },
   "common": {
     "back": "← Volver",
@@ -59,7 +88,8 @@
     "searchOptionsAria": "Opciones de búsqueda",
     "select": "Seleccionar…",
     "image": "Imagen",
-    "previewAlt": "Vista previa"
+    "previewAlt": "Vista previa",
+    "working": "Trabajando…"
   },
   "app": {
     "title": "Lista de Lectura Bíblica",
@@ -122,7 +152,7 @@
     "viewAll": "Ver todos los artículos",
     "howTitle": "Cómo funciona",
     "step1Title": "Regístrate gratis",
-    "step1Desc": "Con correo o Google — 30 segundos, sin tarjeta de crédito",
+    "step1Desc": "Con correo o Google: 30 segundos, sin tarjeta de crédito",
     "step2Title": "Marca los capítulos",
     "step2Desc": "Marca los capítulos a medida que lees los 66 libros",
     "step3Title": "Construye el hábito",
@@ -160,7 +190,7 @@
     "errorDisplayNameRequired": "Por favor ingresa un nombre para mostrar.",
     "displayNameLabel": "Nombre para mostrar",
     "displayNamePlaceholder": "Cómo te verán los demás",
-    "displayNameHint": "Este es el nombre que verán otros usuarios — tu correo permanece privado.",
+    "displayNameHint": "Este es el nombre que verán otros usuarios: tu correo permanece privado.",
     "submitLogin": "Iniciar sesión",
     "submitSignup": "Crear cuenta",
     "submitLoading": "Por favor espera…",
@@ -194,7 +224,7 @@
     "chaptersLeft": "{{count}} restantes",
     "markUnread": "Marcar como no leído",
     "markBookRead": "Marcar libro completo como leído",
-    "chLabel": "Capítulos — toca para marcar como leído",
+    "chLabel": "Capítulos: toca para marcar como leído",
     "chapterTitle": "Capítulo {{ch}}",
     "clearAll": "Limpiar todo",
     "markAllRead": "Marcar todo como leído ✓",
@@ -214,7 +244,25 @@
     "share": "Compartir",
     "emptyOwner": "Aún no has compartido ninguna actualización.",
     "emptyOther": "Aún no hay actualizaciones.",
-    "noCommentsYet": "Aún no hay comentarios. ¡Sé el primero!"
+    "noCommentsYet": "Aún no hay comentarios. ¡Sé el primero!",
+    "interactions": {
+      "cancelReply": "✕ Cancelar",
+      "comment": "Comentar",
+      "commentOnPost": "Comentar en la publicación",
+      "emojiCount": "{{emoji}} {{count}}",
+      "invalidContent": "Contenido no válido",
+      "likeComment": "Me gusta el comentario",
+      "react": "Reaccionar",
+      "reactToPost": "Reaccionar a la publicación",
+      "reactWith": "Reaccionar con {{emoji}}",
+      "reply": "Responder",
+      "replyToPlaceholder": "Responder a {{name}}…",
+      "replyingToPrefix": "↩ Respondiendo a",
+      "sendComment": "Enviar comentario",
+      "sendReply": "Enviar respuesta",
+      "signInToComment": "Inicia sesión para comentar",
+      "writeCommentPlaceholder": "Escribe un comentario…"
+    }
   },
   "follow": {
     "follow": "Seguir",
@@ -256,7 +304,7 @@
     "sharedUpdate": "compartió una actualización"
   },
   "offline": {
-    "message": "Estás sin conexión — algunas funciones pueden no estar disponibles."
+    "message": "Estás sin conexión: algunas funciones pueden no estar disponibles."
   },
   "install": {
     "title": "Agrega JW Study a tu pantalla de inicio",
@@ -277,9 +325,9 @@
     "hebrew": "Escrituras Hebreas",
     "greek": "Escrituras Griegas",
     "motiveLine0": "Todo viaje comienza con un primer paso.",
-    "motiveLine25": "¡Un gran comienzo — sigue adelante!",
-    "motiveLine50": "¡A mitad del camino — lo estás haciendo genial!",
-    "motiveLine75": "¡Casi llegas — la meta está a la vista!",
+    "motiveLine25": "¡Un gran comienzo: sigue adelante!",
+    "motiveLine50": "¡A mitad del camino: lo estás haciendo genial!",
+    "motiveLine75": "¡Casi llegas: la meta está a la vista!",
     "motiveLine100": "¡Has leído toda la Biblia. ¡Increíble!"
   },
   "admin": {
@@ -384,7 +432,7 @@
     "levelsComplete": "niveles completados",
     "quizNotStarted": "Aún sin actividad en el quiz.",
     "postsTip": "Visible para tus seguidores y todos los miembros de la comunidad.",
-    "notesTip": "Privado — solo tú puedes ver tus notas.",
+    "notesTip": "Privado: solo tú puedes ver tus notas.",
     "aboutTitle": "Sobre mí",
     "aboutAdd": "+ Agregar bio",
     "aboutPlaceholder": "Comparte algo sobre ti…",
@@ -392,7 +440,7 @@
     "notificationsTitle": "Notificaciones",
     "notifPushLabel": "Notificaciones push del navegador",
     "notifPushDesc": "Recibe una notificación instantánea cuando alguien te responda.",
-    "notifPushDenied": "Notificaciones bloqueadas — actívalas en la configuración del navegador.",
+    "notifPushDenied": "Notificaciones bloqueadas: actívalas en la configuración del navegador.",
     "notifBlogLabel": "Correos de nuevas publicaciones",
     "notifBlogDesc": "Recibe un correo cuando se publique un nuevo artículo.",
     "notifDigestLabel": "Resumen semanal",
@@ -433,12 +481,12 @@
     "disconnect": "Desvincular",
     "redirecting": "Redirigiendo…",
     "connect": "Vincular",
-    "setPasswordWarning": "Establece una contraseña primero — de lo contrario perderás el acceso a tu cuenta.",
+    "setPasswordWarning": "Establece una contraseña primero: de lo contrario perderás el acceso a tu cuenta.",
     "subscriptionSection": "Suscripción",
     "trialActive": "Prueba gratuita activa",
-    "subscriptionActive": "Activa — $3 / mes",
+    "subscriptionActive": "Activa: $3 / mes",
     "subscriptionDesc": "Tienes acceso a Planes de Lectura, Notas de Estudio, Mensajes, Grupos de Estudio y el Compañero IA.",
-    "upgradePrompt": "Actualizar a Premium — $3/mes"
+    "upgradePrompt": "Actualizar a Premium: $3/mes"
   },
   "blog": {
     "backToBible": "← App Bíblica",
@@ -494,7 +542,10 @@
     "nextPage": "Sig. →",
     "pageOf": "Página {{page}} de {{total}}",
     "noArticlesFound": "No se encontraron artículos.",
-    "openInJwLibrary": "Abrir en JW Library →"
+    "openInJwLibrary": "Abrir en JW Library →",
+    "noResults": "Sin resultados",
+    "noResultsSub": "Prueba con otro término de búsqueda",
+    "searchPlaceholder": "Buscar publicaciones..."
   },
   "blogDash": {
     "myPostsTitle": "Mis Publicaciones",
@@ -614,11 +665,11 @@
     "trackerStat2": "Rachas de Lectura",
     "trackerStat3": "Notas Personales",
     "trackerCardTitle": "Tu Lista de Lectura",
-    "trackerCardDesc": "Marca los capítulos a medida que avanzas, sigue tu racha diaria de lectura, escribe notas para cualquier versículo y observa cómo crece tu barra de progreso en toda la Biblia — Antiguo y Nuevo Testamento.",
+    "trackerCardDesc": "Marca los capítulos a medida que avanzas, sigue tu racha diaria de lectura, escribe notas para cualquier versículo y observa cómo crece tu barra de progreso en toda la Biblia: Escrituras Hebreas y Griegas Cristianas.",
     "trackerFeature1": "✓ Sigue capítulos en los 66 libros",
     "trackerFeature2": "✓ Racha diaria y cuadrícula de hábitos",
     "trackerFeature3": "✓ Notas personales por capítulo o versículo",
-    "trackerFeature4": "✓ Funciona sin internet — sincroniza al volver",
+    "trackerFeature4": "✓ Funciona sin internet: sincroniza al volver",
     "trackerCta": "Abrir Rastreador →",
     "notesLabel": "📝 Comunidad",
     "notesTitle": "Notas de la Comunidad",
@@ -631,12 +682,12 @@
     "blogTitle": "Del Blog",
     "blogSub": "Historias, reflexiones e ideas de la comunidad.",
     "blogViewAll": "Ver todas las publicaciones →",
-    "blogEmpty": "Aún no hay publicaciones — sé el primero en compartir.",
+    "blogEmpty": "Aún no hay publicaciones: sé el primero en compartir.",
     "forumLabel": "Discusión",
     "forumTitle": "Destacados del Foro",
     "forumSub": "Los hilos más activos y con más likes de la comunidad.",
     "forumViewAll": "Visitar el foro →",
-    "forumEmpty": "Aún no hay hilos — comienza la primera conversación.",
+    "forumEmpty": "Aún no hay hilos: comienza la primera conversación.",
     "footer": "JW Study · Construido con propósito",
     "notifBannerTitle": "Mantente al día",
     "notifBannerSub": "Recibe un correo cuando se publique una nueva entrada.",
@@ -681,7 +732,10 @@
     "percentComplete": "{{pct}}% completado · {{remaining}} días restantes",
     "doneForToday": "Completado por hoy",
     "markDone": "✓ Marcar como hecho",
-    "openInWol": "Abrir en WOL →"
+    "openInWol": "Abrir en WOL →",
+    "quickContinue": "Continuar leyendo",
+    "quickMeeting": "Preparación de Reunión",
+    "quickQuiz": "Quiz de hoy"
   },
   "stats": {
     "streak_one": "día seguido",
@@ -768,7 +822,34 @@
     "advancedHubTitle": "Quiz Bíblico Avanzado",
     "advancedHubSub": "12 niveles más profundos para estudiantes serios de la Biblia",
     "backToBasic": "← Volver a Niveles Básicos",
-    "goToAdvanced": "Niveles Avanzados →"
+    "goToAdvanced": "Niveles Avanzados →",
+    "backToAdvanced": "← Volver a niveles avanzados",
+    "badgeName13": "Profeta Menor",
+    "badgeName14": "Cronista Real",
+    "badgeName15": "Cronólogo",
+    "badgeName16": "Constructor del Templo",
+    "badgeName17": "Erudito del Hebreo",
+    "badgeName18": "Erudito del Griego",
+    "badgeName19": "Intérprete de Daniel",
+    "badgeName20": "Descifrador del Apocalipsis",
+    "badgeName21": "Maestro de la Doctrina",
+    "badgeName22": "Guardián de los Linajes",
+    "badgeName23": "Experto Levítico",
+    "badgeName24": "Cumplidor de Profecías",
+    "masterHubSub": "12 niveles expertos para estudiantes avanzados de la Biblia",
+    "masterHubTitle": "Quiz Bíblico Maestro",
+    "theme13": "Los Profetas Menores",
+    "theme14": "Reyes y Crónicas a fondo",
+    "theme15": "Números y cronología bíblica",
+    "theme16": "Arquitectura del Tabernáculo y el Templo",
+    "theme17": "Idioma hebreo y detalles de las Escrituras Hebreas",
+    "theme18": "Términos griegos y uso en las Escrituras Griegas",
+    "theme19": "Las profecías de Daniel a fondo",
+    "theme20": "Imágenes y símbolos del Apocalipsis",
+    "theme21": "La doctrina profunda de Pablo",
+    "theme22": "Genealogías y líneas familiares",
+    "theme23": "Sacerdotes, levitas y sistema de sacrificios",
+    "theme24": "Profecías mesiánicas y su cumplimiento"
   },
   "report": {
     "title": "Reportar Contenido",
@@ -876,10 +957,49 @@
     "blockquote": "Cita",
     "code": "Código en línea",
     "codeBlock": "Bloque de código",
-    "link": "Agregar enlace",
+    "link": {
+      "apply": "Aplicar",
+      "cancel": "Cancelar",
+      "insert": "Insertar enlace",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://ejemplo.com o mailto:tu@correo.com"
+    },
     "unlink": "Quitar enlace",
     "hr": "Línea divisoria",
-    "linkPrompt": "Ingresa la URL"
+    "linkPrompt": "Ingresa la URL",
+    "alignCenter": "Centrar",
+    "alignLeft": "Alinear a la izquierda",
+    "alignRight": "Alinear a la derecha",
+    "bubble": {
+      "bold": "Negrita (Cmd+B)",
+      "italic": "Cursiva (Cmd+I)"
+    },
+    "clearHighlight": "Quitar resaltado",
+    "color": {
+      "clear": "Quitar",
+      "custom": "Personalizado…"
+    },
+    "emoji": "Emoji",
+    "exitFocus": "Salir de enfoque · Esc",
+    "exitFocusModeTitle": "Salir del modo de enfoque (Esc)",
+    "focusMode": "Modo de enfoque (ocultar barras)",
+    "heading": "Encabezado {{level}}",
+    "highlight": "Resaltar",
+    "scripturePrompt": "Referencia bíblica (p. ej. Mateo 24:14):",
+    "slash": {
+      "bulletList": "Lista con viñetas",
+      "codeBlock": "Bloque de código",
+      "divider": "Separador",
+      "h1": "Encabezado 1",
+      "h2": "Encabezado 2",
+      "h3": "Encabezado 3",
+      "insert": "Insertar",
+      "numberedList": "Lista numerada",
+      "quote": "Cita",
+      "scripture": "Texto bíblico (p. ej. Mateo 24:14)"
+    },
+    "textColor": "Color de texto",
+    "underline": "Subrayado"
   },
   "bookNames": [
     "Génesis",
@@ -1150,69 +1270,69 @@
     "Victoria, Adoración y Nueva Creación"
   ],
   "bookSummaries": [
-    "Génesis registra la creación del universo, la caída de la humanidad, el diluvio y el llamado de Abraham — estableciendo el fundamento del plan redentor de Dios.",
+    "Génesis registra la creación del universo, la caída de la humanidad, el diluvio y el llamado de Abraham: estableciendo el fundamento del plan redentor de Dios.",
     "Éxodo narra la dramática historia de la liberación de Israel de Egipto por medio de Moisés, la entrega de los Diez Mandamientos y la construcción del Tabernáculo.",
-    "Levítico proporciona instrucciones detalladas sobre la adoración de Israel, los sacrificios y los deberes sacerdotales — centradas en el llamado a ser santos porque Dios es santo.",
+    "Levítico proporciona instrucciones detalladas sobre la adoración de Israel, los sacrificios y los deberes sacerdotales: centradas en el llamado a ser santos porque Dios es santo.",
     "Números relata el viaje de 40 años de Israel por el desierto, sus repetidos fracasos y la fiel provisión y disciplina de Dios mientras los guía hacia Canaán.",
     "Deuteronomio es el discurso de despedida de Moisés a Israel antes de entrar en Canaán, recordando su historia y renovando el pacto con un llamado a amar y obedecer a Dios.",
     "Josué registra la conquista y el asentamiento de Canaán bajo el liderazgo de Josué, mostrando la fidelidad de Dios al cumplir sus promesas a Abraham.",
     "Jueces documenta un patrón recurrente en Israel: abandonan a Dios, sufren opresión, claman a Él y Dios levanta un libertador. Revela la necesidad de un rey justo.",
     "Rut es una hermosa historia de amor leal ambientada en la época de los jueces. La fidelidad de Rut hacia Noemí se convierte en un cuadro de la gracia redentora de Dios.",
     "Primero de Samuel cubre la transición de los jueces a los reyes: el ministerio de Samuel, el fallido reinado de Saúl y el ascenso de David como el rey elegido por Dios.",
-    "Segundo de Samuel relata el reinado completo de David — sus triunfos, su pecado con Betsabé y las consecuencias que le siguen — mientras muestra la fidelidad del pacto de Dios.",
+    "Segundo de Samuel relata el reinado completo de David: sus triunfos, su pecado con Betsabé y las consecuencias que le siguen: mientras muestra la fidelidad del pacto de Dios.",
     "Primero de Reyes cubre el glorioso reinado de Salomón, la construcción del Templo y la trágica división del reino, preparando el escenario para la larga decadencia de Israel.",
     "Segundo de Reyes registra el declive progresivo y la caída tanto de Israel (ante Asiria) como de Judá (ante Babilonia), mostrando las consecuencias de la infidelidad persistente.",
     "Primero de Crónicas retrata la historia de Israel desde una perspectiva sacerdotal, enfocándose en los preparativos de David para el Templo y sus esfuerzos por establecer una adoración apropiada.",
     "Segundo de Crónicas destaca los reinados de los reyes de Judá, enfatizando los tiempos de avivamiento y reforma, y concluye con el decreto de Ciro que permite el regreso del exilio.",
     "Esdras registra el regreso de los exiliados judíos a Jerusalén bajo Zorobabel y luego el propio Esdras, la reconstrucción del Templo y las reformas espirituales.",
     "Nehemías cuenta la historia de la reconstrucción de las murallas de Jerusalén en 52 días a pesar de la feroz oposición, seguida de la renovación espiritual mediante la lectura pública de la Ley.",
-    "Ester muestra la providencia oculta de Dios mientras la reina Ester arriesga su vida para salvar al pueblo judío del complot de Amán — aunque el nombre de Dios nunca se menciona.",
+    "Ester muestra la providencia oculta de Dios mientras la reina Ester arriesga su vida para salvar al pueblo judío del complot de Amán: aunque el nombre de Dios nunca se menciona.",
     "Job lucha con el sufrimiento inmerecido a través de diálogos poéticos, revelando que la sabiduría de Dios trasciende la comprensión humana y que Él es soberano en todas las cosas.",
-    "Los Salmos son 150 canciones y oraciones que cubren toda la gama de la experiencia humana — alabanza, lamento, acción de gracias y confianza — guiando al pueblo de Dios en la adoración sincera.",
+    "Los Salmos son 150 canciones y oraciones que cubren toda la gama de la experiencia humana: alabanza, lamento, acción de gracias y confianza: guiando al pueblo de Dios en la adoración sincera.",
     "Proverbios es una colección de dichos sabios para vivir bien, enfatizando que la verdadera sabiduría comienza con el temor a Dios y moldea cada área de la vida diaria.",
     "Eclesiastés explora el vacío de la vida «bajo el sol» aparte de Dios, concluyendo que temer a Dios y guardar sus mandamientos es el propósito completo de la humanidad.",
     "El Cantar de los Cantares celebra la belleza del amor romántico entre una novia y su prometido, y a menudo se lee como una metáfora del amor entre Dios y su pueblo.",
-    "Isaías contiene algunas de las profecías más majestuosas de las Escrituras — juicio sobre Judá y las naciones, consuelo para los exiliados y vívidas descripciones del Siervo Sufriente que trae salvación.",
+    "Isaías contiene algunas de las profecías más majestuosas de las Escrituras: juicio sobre Judá y las naciones, consuelo para los exiliados y vívidas descripciones del Siervo Sufriente que trae salvación.",
     "Llamado el «profeta llorón», Jeremías predicó el juicio de Dios a una Judá obstinada, mientras también anunciaba la gloriosa promesa de un nuevo pacto escrito en el corazón.",
     "Lamentaciones es una colección de cinco lamentos poéticos por la destrucción de Jerusalén, expresando un profundo dolor mientras se aferra a la verdad de la fidelidad de Dios.",
     "Ezequiel, un sacerdote-profeta entre los exiliados en Babilonia, recibió espectaculares visiones de la gloria de Dios, pronunció juicio sobre Jerusalén y proclamó la futura restauración.",
     "Daniel combina narrativa y visiones apocalípticas para mostrar que Dios es soberano sobre los imperios y la historia, alentando la fidelidad bajo presión mediante notables historias y profecías.",
-    "Dios mandó a Oseas casarse con una mujer infiel como parábola viviente de la infidelidad espiritual de Israel — y del amor implacable de Dios que persigue y restaura.",
+    "Dios mandó a Oseas casarse con una mujer infiel como parábola viviente de la infidelidad espiritual de Israel: y del amor implacable de Dios que persigue y restaura.",
     "Joel usa una devastadora plaga de langostas como llamado al arrepentimiento, advirtiendo sobre el inminente Día del Señor y prometiendo el derramamiento del Espíritu Santo sobre toda carne.",
     "Amós, un pastor convertido en profeta, declaró el juicio de Dios sobre la injusticia social de Israel, la religión vacía y la opresión de los pobres, pidiendo que la justicia «fluya como un río».",
-    "El libro más corto del Antiguo Testamento pronuncia juicio sobre Edom por regocijarse ante la caída de Jerusalén, afirmando que la soberbia precede a la destrucción.",
-    "La historia de Jonás — huyendo del llamado de Dios, siendo tragado por un gran pez y finalmente yendo a Nínive — revela que la compasión de Dios se extiende a todas las naciones.",
+    "El libro más corto del Escrituras Hebreas pronuncia juicio sobre Edom por regocijarse ante la caída de Jerusalén, afirmando que la soberbia precede a la destrucción.",
+    "La historia de Jonás: huyendo del llamado de Dios, siendo tragado por un gran pez y finalmente yendo a Nínive: revela que la compasión de Dios se extiende a todas las naciones.",
     "Miqueas alterna entre juicio y esperanza, condenando la corrupción y la injusticia mientras profetiza el nacimiento del Mesías en Belén y llama a la justicia, la misericordia y la humildad.",
-    "Nahúm declara la caída de Nínive — la poderosa capital asiria — como demostración de que Dios es lento para la ira pero no dejará impune al culpable.",
-    "Habacuc lucha honestamente con Dios sobre el mal y la injusticia, y recibe la respuesta de que «el justo vivirá por su fe» — incluso cuando las circunstancias no tienen sentido.",
+    "Nahúm declara la caída de Nínive: la poderosa capital asiria: como demostración de que Dios es lento para la ira pero no dejará impune al culpable.",
+    "Habacuc lucha honestamente con Dios sobre el mal y la injusticia, y recibe la respuesta de que «el justo vivirá por su fe»: incluso cuando las circunstancias no tienen sentido.",
     "Sofonías advierte sobre el Día del juicio del Señor sobre Judá y las naciones, pero concluye con una gozosa promesa de que Dios se regocijará sobre su pueblo restaurado con canto.",
     "Hageo entregó cuatro breves mensajes urgiendo a los exiliados que regresaron a reconstruir el Templo, prometiendo que la gloria de Dios en el nuevo Templo superaría a la del antiguo.",
     "Zacarías animó la reconstrucción del Templo a través de ocho visiones nocturnas y ricas profecías mesiánicas sobre un Rey humilde que entraría a Jerusalén montado en un asno.",
-    "Malaquías, la última voz del Antiguo Testamento, reprende a sacerdotes y pueblo por la apatía espiritual y la infidelidad al pacto, cerrando con la promesa del mensajero venidero.",
-    "Mateo presenta a Jesús como el cumplimiento de la profecía del Antiguo Testamento y el Rey largamente esperado de Israel, estructurado alrededor de cinco discursos principales incluyendo el Sermón del Monte.",
+    "Malaquías, la última voz del Escrituras Hebreas, reprende a sacerdotes y pueblo por la apatía espiritual y la infidelidad al pacto, cerrando con la promesa del mensajero venidero.",
+    "Mateo presenta a Jesús como el cumplimiento de la profecía del Escrituras Hebreas y el Rey largamente esperado de Israel, estructurado alrededor de cinco discursos principales incluyendo el Sermón del Monte.",
     "El evangelio más corto avanza a un ritmo rápido, enfatizando las poderosas acciones y milagros de Jesús. Marcos presenta a Jesús como el Siervo Sufriente que vino a servir y dar su vida.",
-    "El cuidadoso relato ordenado de Lucas enfatiza la compasión de Jesús por los pobres, los marginados, las mujeres y los gentiles — mostrando que la salvación en Cristo está disponible para todos.",
+    "El cuidadoso relato ordenado de Lucas enfatiza la compasión de Jesús por los pobres, los marginados, las mujeres y los gentiles: mostrando que la salvación en Cristo está disponible para todos.",
     "El evangelio profundamente teológico de Juan usa siete señales y siete declaraciones «YO SOY» para revelar a Jesús como el eterno Hijo de Dios, escrito para que los lectores crean y tengan vida en su nombre.",
     "Hechos traza la expansión del evangelio desde Jerusalén hasta Roma por el poder del Espíritu Santo, siguiendo a los apóstoles Pedro y Pablo mientras la iglesia se expande a todas las naciones.",
-    "Romanos es la presentación más sistemática del evangelio de Pablo — la condenación de toda la humanidad en el pecado, la justicia de Dios mediante la fe en Cristo y la nueva vida en el Espíritu.",
-    "Pablo aborda serios problemas en la iglesia de Corinto — divisiones, inmoralidad, pleitos, dones espirituales y dudas sobre la resurrección — llamándolos a la unidad y al amor.",
+    "Romanos es la presentación más sistemática del evangelio de Pablo: la condenación de toda la humanidad en el pecado, la justicia de Dios mediante la fe en Cristo y la nueva vida en el Espíritu.",
+    "Pablo aborda serios problemas en la iglesia de Corinto: divisiones, inmoralidad, pleitos, dones espirituales y dudas sobre la resurrección: llamándolos a la unidad y al amor.",
     "La carta más personal de Pablo defiende su apostolado y ministerio en medio de un intenso sufrimiento, enseñando que el poder de Dios se perfecciona en la debilidad.",
     "Pablo defiende apasionadamente el evangelio de gracia contra quienes añadían la circuncisión como requisito para la salvación, declarando que somos justificados solo por la fe.",
     "Efesios se eleva con rica enseñanza sobre la identidad del creyente en Cristo, la unidad de la iglesia como cuerpo de Cristo y el llamado a caminar en amor mientras se mantiene firme en la guerra espiritual.",
     "Escrita desde la prisión, Filipenses irradia gozo en cada capítulo. Pablo urge a la iglesia a tener la misma mente humilde de Cristo y a encontrar contentamiento en todas las circunstancias.",
-    "Colosenses contrarresta la herejía temprana exaltando a Cristo como la imagen de Dios y la cabeza de la creación y la iglesia — completos en Él, los creyentes no necesitan nada más.",
+    "Colosenses contrarresta la herejía temprana exaltando a Cristo como la imagen de Dios y la cabeza de la creación y la iglesia: completos en Él, los creyentes no necesitan nada más.",
     "La primera carta de Pablo anima a jóvenes creyentes que enfrentan persecución, les instruye en la vida santa y da esperanza sobre la resurrección y el regreso de Cristo.",
     "Pablo corrige malentendidos sobre el Día del Señor (que aún no había llegado), alentando la perseverancia bajo persecución y una vida fiel y diligente.",
     "Pablo escribe a su joven protegido Timoteo con instrucciones para el orden eclesiástico, las calificaciones del liderazgo y la sana doctrina contra la falsa enseñanza en Éfeso.",
-    "La carta final de Pablo, escrita cerca de la muerte, urge a Timoteo a mantenerse fiel, predicar la Palabra con valentía y soportar el sufrimiento — transmitiendo la fe a la siguiente generación.",
+    "La carta final de Pablo, escrita cerca de la muerte, urge a Timoteo a mantenerse fiel, predicar la Palabra con valentía y soportar el sufrimiento: transmitiendo la fe a la siguiente generación.",
     "Pablo instruye a Tito en la organización de las iglesias de Creta mediante el nombramiento de líderes calificados y la enseñanza de sana doctrina que produce una vida piadosa.",
-    "Esta breve carta personal apela a Filemón para que reciba de vuelta a su esclavo fugitivo Onésimo — ahora creyente — como hermano en Cristo, no como esclavo.",
+    "Esta breve carta personal apela a Filemón para que reciba de vuelta a su esclavo fugitivo Onésimo: ahora creyente: como hermano en Cristo, no como esclavo.",
     "Hebreos presenta a Jesús como superior a los ángeles, a Moisés y al sacerdocio levítico. Llama a los judíos cristianos a no apartarse de la fe, apoyado en un magnífico «salón de la fe».",
     "Santiago es una carta de sabiduría práctica que insiste en que la fe genuina salvadora producirá naturalmente buenas obras, domando la lengua, cuidando a los pobres y perseverando en las pruebas.",
     "Pedro escribe a creyentes dispersos y perseguidos, recordándoles su esperanza viva mediante la resurrección de Cristo y llamándolos a una conducta santa entre los gentiles.",
     "Pedro advierte contra los falsos maestros que distorsionan la verdad, urge al crecimiento espiritual en el conocimiento de Cristo y asegura a los creyentes que el Señor regresará como prometió.",
     "Juan escribe para combatir el gnosticismo temprano afirmando la realidad física de Jesús y poniendo a prueba la fe verdadera mediante la obediencia, el amor mutuo y la confesión de que Jesús es el Señor.",
-    "El libro más corto del Nuevo Testamento advierte a una iglesia local no ofrecer hospitalidad a falsos maestros que niegan la Encarnación, mientras urge al amor continuo y la obediencia.",
+    "El libro más corto de las Escrituras Griegas Cristianas advierte a una congregación local a no ofrecer hospitalidad a falsos maestros que niegan que Jesucristo vino en carne, mientras exhorta a continuar en el amor y la obediencia.",
     "Juan elogia a Gayo por recibir a misioneros viajeros, reprende al dominante Diótrefes que los rechaza y sostiene a Demetrio como modelo de fidelidad.",
     "Judas urge a los creyentes a defender la fe contra los falsos maestros que se han infiltrado secretamente en la iglesia, prometiendo juicio sobre los impíos y misericordia para los fieles.",
     "Apocalipsis es una visión profética de la victoria definitiva de Cristo sobre el mal, el juicio de las naciones y la creación de un nuevo cielo y una nueva tierra donde Dios habita con su pueblo para siempre."
@@ -1222,8 +1342,8 @@
     "heroTitle": "Un Hogar para Lectores de la Biblia",
     "heroSub": "Registra tu lectura, conecta con compañeros estudiantes y crece en tu amor por la Palabra de Dios.",
     "purposeTitle": "Por Qué Existe Esta Aplicación",
-    "purposeBody1": "JW Study fue creado con un objetivo simple: darle a los estudiantes bíblicos un rastreador persistente y multiplataforma para su lectura de la Biblia. Ya sea que estés en tu teléfono en el Salón del Reino, en tu computadora en casa o en una tableta durante el culto familiar — tu progreso siempre estará contigo.",
-    "purposeBody2": "Más allá del rastreo, quisimos crear un espacio donde las personas que estudian con los Testigos de Jehová — y los Testigos activos — puedan animarse mutuamente, compartir pensamientos y crecer juntos como comunidad de estudiantes bíblicos.",
+    "purposeBody1": "JW Study fue creado con un objetivo simple: darle a los estudiantes bíblicos un rastreador persistente y multiplataforma para su lectura de la Biblia. Ya sea que estés en tu teléfono en el Salón del Reino, en tu computadora en casa o en una tableta durante el culto familiar: tu progreso siempre estará contigo.",
+    "purposeBody2": "Más allá del rastreo, quisimos crear un espacio donde las personas que estudian con los Testigos de Jehová: y los Testigos activos: puedan animarse mutuamente, compartir pensamientos y crecer juntos como comunidad de estudiantes bíblicos.",
     "audienceTitle": "¿Para Quién Es Esto?",
     "card1Title": "Estudiantes de la Biblia",
     "card1Body": "Aquellos que estudian con los Testigos de Jehová y desean seguir la Traducción del Nuevo Mundo mientras aprenden.",
@@ -1232,20 +1352,20 @@
     "card3Title": "Familias y Grupos",
     "card3Body": "Familias que realizan el culto familiar, o grupos de estudio que desean animarse mutuamente en el progreso de lectura y compartir reflexiones.",
     "jwTitle": "Funciona Junto a JW Library",
-    "jwBody": "JW Study está diseñado como un complemento de la aplicación JW Library. Haz tu lectura en JW Library — donde puedes acceder a una copia digital gratuita de la Traducción del Nuevo Mundo — y luego ven aquí para registrar tus capítulos, tomar notas y compartir tu recorrido con la comunidad.",
+    "jwBody": "JW Study está diseñado como un complemento de la aplicación JW Library. Haz tu lectura en JW Library: donde puedes acceder a una copia digital gratuita de la Traducción del Nuevo Mundo: y luego ven aquí para registrar tus capítulos, tomar notas y compartir tu recorrido con la comunidad.",
     "featuresTitle": "Qué Puedes Hacer Aquí",
-    "feat1": "<strong>Registra cada capítulo</strong> — marca los capítulos leídos en los 66 libros de la Biblia, con tu progreso guardado en la nube para que te siga a todas partes.",
-    "feat2": "<strong>Guarda notas personales</strong> — escribe notas privadas vinculadas a cualquier libro y capítulo mientras estudias.",
-    "feat3": "<strong>Únete al foro de la comunidad</strong> — debate temas bíblicos, haz preguntas y anima a otros estudiantes.",
-    "feat4": "<strong>Pon a prueba tu conocimiento</strong> — realiza cuestionarios bíblicos y gana insignias mientras creces en tu comprensión de las Escrituras.",
-    "feat5": "<strong>Sigue a otros lectores</strong> — mira la actividad de las personas que sigues y comparte tus propias actualizaciones con tu comunidad.",
-    "feat6": "<strong>Comparte tu progreso</strong> — genera una imagen compartible de tu progreso de lectura para animar a otros.",
+    "feat1": "<strong>Registra cada capítulo</strong>: marca los capítulos leídos en los 66 libros de la Biblia, con tu progreso guardado en la nube para que te siga a todas partes.",
+    "feat2": "<strong>Guarda notas personales</strong>: escribe notas privadas vinculadas a cualquier libro y capítulo mientras estudias.",
+    "feat3": "<strong>Únete al foro de la comunidad</strong>: debate temas bíblicos, haz preguntas y anima a otros estudiantes.",
+    "feat4": "<strong>Pon a prueba tu conocimiento</strong>: realiza cuestionarios bíblicos y gana insignias mientras creces en tu comprensión de las Escrituras.",
+    "feat5": "<strong>Sigue a otros lectores</strong>: mira la actividad de las personas que sigues y comparte tus propias actualizaciones con tu comunidad.",
+    "feat6": "<strong>Comparte tu progreso</strong>: genera una imagen compartible de tu progreso de lectura para animar a otros.",
     "creatorLabel": "Creado por",
     "creatorName": "Lexx",
     "creatorBio": "Lexx es un estudiante de la Biblia y Testigo de Jehová que construyó JW Study por una necesidad personal: una forma sencilla y confiable de rastrear la lectura bíblica en cualquier dispositivo, sin perder el progreso. Lo que comenzó como una herramienta personal se convirtió en una plataforma comunitaria completa para otros que caminan el mismo recorrido espiritual.",
     "ctaTitle": "¿Listo para Comenzar?",
     "ctaSub": "Crea una cuenta gratuita y comienza a registrar tu lectura bíblica hoy.",
-    "ctaBtn": "Comenzar — Es Gratis",
+    "ctaBtn": "Comenzar: Es Gratis",
     "footer": "JW Study es un proyecto comunitario independiente y no está afiliado ni respaldado por los Testigos de Jehová ni por la Sociedad Watch Tower."
   },
   "history": {
@@ -1598,7 +1718,7 @@
     "daysDone": "Días completados",
     "remaining": "Restantes",
     "today": "Hoy",
-    "todaysReading": "Lectura de hoy — Día",
+    "todaysReading": "Lectura de hoy: Día",
     "markUnread": "✓ Marcar como no leído",
     "markRead": "Marcar como leído",
     "readingSchedule": "Horario de Lectura",
@@ -1626,15 +1746,15 @@
     "addNote": "📝 Añadir Nota",
     "cat_all": "Todos los Planes",
     "cat_full-bible": "Biblia Completa",
-    "cat_nt": "Nuevo Testamento",
-    "cat_ot": "Antiguo Testamento",
+    "cat_nt": "Escrituras Griegas Cristianas",
+    "cat_ot": "Escrituras Hebreas",
     "cat_thematic": "Temáticos",
     "customPlanTitle": "Crear un Plan Personalizado",
     "planName": "Nombre del plan",
     "planNamePlaceholder": "p. ej. Mi Viaje de 6 Meses",
     "quickSelect": "Selección rápida",
-    "oldTestament": "Antiguo Testamento (39 libros)",
-    "newTestament": "Nuevo Testamento (27 libros)",
+    "oldTestament": "Escrituras Hebreas (39 libros)",
+    "newTestament": "Escrituras Griegas Cristianas (27 libros)",
     "dayCount": "¿Cuántos días?",
     "custom": "Personalizado",
     "enterDays": "Ingresa el número de días",
@@ -1855,7 +1975,7 @@
     "read": "✓✓",
     "sent": "✓",
     "loading": "Cargando…",
-    "notifBlocked": "Notificaciones bloqueadas — actívalas en la configuración del navegador",
+    "notifBlocked": "Notificaciones bloqueadas: actívalas en la configuración del navegador",
     "searching": "Buscando…",
     "addFriendsToStart": "Agrega amigos para iniciar una conversación",
     "noFriendsMatch": "Ningún amigo coincide con tu búsqueda",
@@ -1880,7 +2000,55 @@
     "imageWarningSuspension": "y puede resultar en la suspensión de la cuenta.",
     "imageWarningAgree": "Al continuar, confirmas que esta imagen es sana y apropiada.",
     "sendImage": "Enviar imagen",
-    "searchConversations": "Buscar conversaciones…"
+    "searchConversations": "Buscar conversaciones…",
+    "chatWidgets": {
+      "addNote": "Añadir una nota",
+      "addNotePlaceholder": "Añade una nota…",
+      "book": "Libro",
+      "chapter": "Capítulo",
+      "chatSettings": "⚙ Ajustes del chat",
+      "disappearingMessages": "⏱ Mensajes que desaparecen",
+      "getNotified": "Recibir notificaciones de nuevos mensajes",
+      "noActivePlans": "No tienes planes de lectura activos.",
+      "noteOptional": "Nota (opcional)",
+      "notificationsBlocked": "Notificaciones bloqueadas. Actívalas en los ajustes del navegador.",
+      "readOnWol": "Leer en WOL ↗",
+      "readingPlanInvitation": "Invitación a un plan de lectura",
+      "sharePlanAria": "Compartir un plan de lectura",
+      "sharePlanTitle": "📅 Comparte un plan de lectura",
+      "shareVerseAria": "Compartir un texto bíblico",
+      "shareVerseBtn": "Compartir texto",
+      "shareVerseTitle": "📖 Comparte un texto bíblico",
+      "themeColor": "🎨 Color del tema",
+      "verse": "Versículo",
+      "verseNumber": "Número de versículo"
+    },
+    "miniThread": {
+      "back": "Atrás",
+      "cancelReply": "Cancelar respuesta",
+      "deleteConversation": "Eliminar conversación",
+      "emoji": "Emoji",
+      "inputPlaceholder": "Aa",
+      "like": "Me gusta",
+      "newMessageChip": "↓ Nuevo mensaje",
+      "previewImage": "🖼 Imagen",
+      "previewPlan": "📅 Plan de lectura",
+      "previewVerse": "📖 Texto bíblico",
+      "retry": "Reintentar",
+      "searchAria": "Buscar mensajes",
+      "searchTip": "Buscar",
+      "send": "Enviar",
+      "sendFailed": "No se pudo enviar el mensaje.",
+      "sendFailedConnection": "No se pudo enviar el mensaje. Comprueba tu conexión.",
+      "settingsAria": "Ajustes del chat",
+      "settingsTip": "Ajustes",
+      "shareImage": "Compartir imagen",
+      "sharePlan": "Compartir plan de lectura",
+      "shareVerse": "Compartir texto bíblico",
+      "starredAria": "Mensajes destacados",
+      "starredTip": "Destacados",
+      "typeMessage": "Escribe un mensaje"
+    }
   },
   "aiCompanion": {
     "title": "Compañero de Estudio IA",
@@ -1933,7 +2101,10 @@
     "requests": "Solicitudes",
     "messianicProphecies": "Profecías Mesiánicas",
     "learn": "Aprender",
-    "more": "Más"
+    "blogVideos": "Blog y Videos",
+    "core": "Principal",
+    "explore": "Explorar",
+    "practice": "Practicar"
   },
   "studyTopics": {
     "title": "Temas de Estudio",
@@ -1993,8 +2164,8 @@
           {
             "heading": "La doctrina de la Trinidad: ¿bíblica o tradicional?",
             "paragraphs": [
-              "La palabra 'Trinidad' no aparece en ningún lugar de la Biblia. La doctrina fue formalizada en el Concilio de Nicea en el año 325 d.C., mucho después de que murieran los apóstoles. La Nueva Enciclopedia Católica reconoce que 'la doctrina de la Trinidad no se enseña en el Antiguo Testamento.' Los primeros cristianos comprendían claramente que Jehová Dios y Jesucristo eran dos personas distintas.",
-              "Orar a Jehová por medio de Jesucristo es el patrón que se muestra en todo el Nuevo Testamento. Jesús es nuestro Sumo Sacerdote y mediador: funciones que solo tienen sentido si él es distinto de Dios el Padre. (1 Timoteo 2:5; Hebreos 7:25)"
+              "La palabra 'Trinidad' no aparece en ningún lugar de la Biblia. La doctrina fue formalizada en el Concilio de Nicea en el año 325 d.C., mucho después de que murieran los apóstoles. La Nueva Enciclopedia Católica reconoce que 'la doctrina de la Trinidad no se enseña en el Escrituras Hebreas.' Los primeros cristianos comprendían claramente que Jehová Dios y Jesucristo eran dos personas distintas.",
+              "Orar a Jehová por medio de Jesucristo es el patrón que se muestra en todo el Escrituras Griegas Cristianas. Jesús es nuestro Sumo Sacerdote y mediador: funciones que solo tienen sentido si él es distinto de Dios el Padre. (1 Timoteo 2:5; Hebreos 7:25)"
             ],
             "scriptures": [
               {
@@ -2349,7 +2520,7 @@
   },
   "upm": {
     "badge": "✨ Premium",
-    "title": "Tu progreso, tus notas, tu racha — desbloquea todo",
+    "title": "Tu progreso, tus notas, tu racha: desbloquea todo",
     "period": "/ mes",
     "feat": {
       "aiLabel": "Asistente de Estudio con IA",
@@ -2372,14 +2543,14 @@
       "surplus": "Cualquier excedente después de cubrir estos costos va a apoyar a hermanos y hermanas en necesidad y donaciones a JW.org.",
       "hardship": "Si la suscripción es una carga financiera, por favor",
       "hardshipLink": "contáctanos",
-      "hardshipSuffix": " — nadie en la fe debe quedarse fuera."
+      "hardshipSuffix": ": nadie en la fe debe quedarse fuera."
     },
     "cta": "Suscribirse con Stripe →",
     "ctaLoading": "Redirigiendo…",
     "note": "Sin compromiso · Cancela cuando quieras · Pago seguro con Stripe",
     "cancel": "Quizás después",
     "bannerTitle": "Has construido un progreso real",
-    "bannerSub": "Protege tu racha · Planes de Lectura, Notas, Mensajes y Grupos — $3/mes",
+    "bannerSub": "Protege tu racha · Planes de Lectura, Notas, Mensajes y Grupos: $3/mes",
     "bannerCta": "Desbloquear todo →"
   },
   "bookQuestions": [
@@ -2387,7 +2558,7 @@
       "¿Qué revela el relato de la creación en Génesis 1–2 acerca del poder de Jehová y su propósito original para la tierra y la humanidad?",
       "¿Cómo usó Satanás a la serpiente para desafiar la soberanía de Jehová, y cuál es la importancia de la primera profecía en Génesis 3:15?",
       "¿Qué cualidades de fe y obediencia demostró Noé, y qué nos enseña su ejemplo acerca de confiar plenamente en Jehová?",
-      "¿Por qué eligió Jehová a Abraham, y qué enseñan las pruebas de la fe de Abraham — incluido el mandato de ofrecer a Isaac — acerca de la lealtad a Jehová?",
+      "¿Por qué eligió Jehová a Abraham, y qué enseñan las pruebas de la fe de Abraham: incluido el mandato de ofrecer a Isaac: acerca de la lealtad a Jehová?",
       "¿Cómo muestra el relato de José que Jehová puede sacar bien incluso de las circunstancias más injustas y dolorosas?"
     ],
     [
@@ -2398,7 +2569,7 @@
       "¿Qué enseña la detallada construcción del Tabernáculo acerca de la importancia que Jehová concede a la adoración debida y organizada?"
     ],
     [
-      "¿Qué significa para los Testigos de Jehová hoy el reiterado llamado de Jehová a la santidad — 'Sean santos, porque yo soy santo'?",
+      "¿Qué significa para los Testigos de Jehová hoy el reiterado llamado de Jehová a la santidad: 'Sean santos, porque yo soy santo'?",
       "¿Cómo prefiguran los distintos sacrificios de animales en Levítico el sacrificio superior de Jesucristo?",
       "¿Qué enseña el Día de la Expiación (Levítico 16) sobre la necesidad de expiación, y cómo se cumplió en Jesucristo como Sumo Sacerdote?",
       "¿Cómo distinguían las leyes dietéticas y de pureza a Israel de las naciones vecinas, y qué principio de separación del mundo se aplica a los cristianos?",
@@ -2406,9 +2577,9 @@
     ],
     [
       "¿Qué enseña el constante murmurar y quejarse de Israel en el desierto acerca del peligro de la ingratitud hacia Jehová?",
-      "¿Cómo demostró el pecado en Cades-barnea (capítulos 13–14) — cuando Israel se negó a entrar en la Tierra Prometida — las graves consecuencias de la falta de fe?",
+      "¿Cómo demostró el pecado en Cades-barnea (capítulos 13–14): cuando Israel se negó a entrar en la Tierra Prometida: las graves consecuencias de la falta de fe?",
       "¿Qué enseñan la rebelión de Coré y su resultado acerca de respetar las disposiciones de Jehová para el liderazgo en su congregación?",
-      "¿Cómo demostró el intento de Balaam de maldecir a Israel — y su fracaso — que nadie puede frustrar los propósitos de Jehová?",
+      "¿Cómo demostró el intento de Balaam de maldecir a Israel: y su fracaso: que nadie puede frustrar los propósitos de Jehová?",
       "¿Por qué es significativo el relato de la serpiente de bronce (Números 21:4–9), y qué dijo Jesús acerca de su significado en Juan 3:14–15?"
     ],
     [
@@ -2433,7 +2604,7 @@
       "¿Qué revelan los últimos capítulos de Jueces (17–21) acerca del colapso moral que sobreviene cuando las personas abandonan las normas de Jehová?"
     ],
     [
-      "¿Qué enseña la declaración de lealtad de Rut a Noemí — 'Donde tú vayas, yo iré' — acerca de la calidad del amor leal (hesed) y el compromiso?",
+      "¿Qué enseña la declaración de lealtad de Rut a Noemí: 'Donde tú vayas, yo iré': acerca de la calidad del amor leal (hesed) y el compromiso?",
       "¿Cómo reflejó la disposición de Rut a abandonar su tierra natal por Jehová una fe genuina, y cómo podría compararse su sacrificio con las decisiones que toman los Testigos de Jehová hoy?",
       "¿Qué enseña el papel de Boaz como 'redentor pariente' acerca de la disposición de Jehová para proteger y rescatar a quienes le pertenecen?",
       "¿Cómo condujeron la diligencia humilde y la fidelidad de Rut a que fuera incluida en la ascendencia de Jesucristo?",
@@ -2444,7 +2615,7 @@
       "¿Por qué fue tan grave el fracaso de Elí como padre (capítulos 2–3), y qué lecciones enseña acerca de criar hijos que amen a Jehová?",
       "¿Cómo demostró la victoria de David sobre Goliat (capítulo 17) que las batallas le pertenecen a Jehová y no las determina la fuerza ni el aspecto humano?",
       "¿Qué enseña el repetido fracaso de Saúl en obedecer plenamente a Jehová acerca de la importancia de la obediencia completa, no parcial?",
-      "¿Cómo mostró el trato de David hacia Saúl (capítulos 24; 26) — negándose a hacerle daño al 'ungido de Jehová' — un profundo respeto por las disposiciones de Jehová?"
+      "¿Cómo mostró el trato de David hacia Saúl (capítulos 24; 26): negándose a hacerle daño al 'ungido de Jehová': un profundo respeto por las disposiciones de Jehová?"
     ],
     [
       "¿Qué enseñan las victorias de David y el establecimiento de Jerusalén acerca del apoyo de Jehová a quienes confían en él?",
@@ -2484,7 +2655,7 @@
     [
       "¿Qué motivó al primer grupo de exiliados judíos a regresar a Jerusalén, y qué enseña esto acerca de dar prioridad a la adoración a Jehová por encima de la comodidad personal?",
       "¿Cómo probó la oposición a la reconstrucción del Templo la fe de los exiliados que regresaron, y cómo les ayudó Jehová finalmente a superarla?",
-      "¿Qué enseña la preparación personal de Esdras — 'Esdras había preparado su corazón para consultar la Ley de Jehová, para practicarla y para enseñarla' (7:10) — acerca del estudio personal de la Biblia?",
+      "¿Qué enseña la preparación personal de Esdras: 'Esdras había preparado su corazón para consultar la Ley de Jehová, para practicarla y para enseñarla' (7:10): acerca del estudio personal de la Biblia?",
       "¿Cómo mostró el problema de los matrimonios mixtos (capítulos 9–10) el grave peligro espiritual de la estrecha asociación con quienes no adoran a Jehová?",
       "¿Qué enseña la respuesta emocional del pueblo al escuchar la Ley de Jehová leída en voz alta acerca de nuestra actitud hacia las Escrituras?"
     ],
@@ -2497,7 +2668,7 @@
     ],
     [
       "¿Cómo ilustra el libro de Ester la providencia directriz de Jehová incluso cuando su nombre no se menciona explícitamente en el texto?",
-      "¿Qué enseña el valor de Ester al acercarse al rey sin haber sido invitada — 'Si he de perecer, que perezca' — acerca de anteponer el bienestar del pueblo de Jehová a la seguridad personal?",
+      "¿Qué enseña el valor de Ester al acercarse al rey sin haber sido invitada: 'Si he de perecer, que perezca': acerca de anteponer el bienestar del pueblo de Jehová a la seguridad personal?",
       "¿Cómo refleja la negativa de Mardoqueo a inclinarse ante Amán la clase de lealtad a Jehová que su pueblo debe mantener incluso bajo presión?",
       "¿Qué enseña la caída de Amán acerca del principio de que el orgullo siempre conduce a la ruina, y que los planes contra el pueblo de Jehová no tendrán éxito?",
       "¿Cómo ilustra el ayuno que Ester convocó antes de acercarse al rey la importancia de buscar la dirección de Jehová antes de emprender un curso de acción importante?"
@@ -2513,22 +2684,22 @@
       "¿Cómo nos enseñan los salmos de lamento (como los Salmos 22, 42, 88) a ser honestos con Jehová acerca de nuestros sentimientos en tiempos de sufrimiento?",
       "¿Qué enseña el Salmo 83:18 acerca de la importancia del nombre de Jehová, y cómo motiva esto a los Testigos de Jehová en su ministerio?",
       "¿Cómo contribuyen los salmos del reino (como los Salmos 93, 96–99) a nuestra comprensión del Reino de Jehová y su derecho a gobernar?",
-      "¿Qué enseña el Salmo 119 — el salmo más largo — acerca de la actitud correcta que debemos tener hacia la ley y la palabra de Jehová?",
+      "¿Qué enseña el Salmo 119: el salmo más largo: acerca de la actitud correcta que debemos tener hacia la ley y la palabra de Jehová?",
       "¿Cómo prefiguran los salmos mesiánicos (como los Salmos 2, 22, 110) a Jesucristo, y qué eventos específicos se cumplieron?"
     ],
     [
-      "¿Qué significa Proverbios 1:7 — 'El temor de Jehová es el principio de la sabiduría' — y cómo guía el temor apropiado de Jehová las decisiones diarias?",
-      "¿Cómo se aplica prácticamente Proverbios 3:5–6 — 'Confía en Jehová con todo tu corazón' — al tomar decisiones importantes en la vida?",
+      "¿Qué significa Proverbios 1:7: 'El temor de Jehová es el principio de la sabiduría': y cómo guía el temor apropiado de Jehová las decisiones diarias?",
+      "¿Cómo se aplica prácticamente Proverbios 3:5–6: 'Confía en Jehová con todo tu corazón': al tomar decisiones importantes en la vida?",
       "¿Qué advertencias da Proverbios acerca de los peligros de las malas asociaciones, y cómo se aplican estas a los Testigos de Jehová al elegir amigos?",
       "¿Cómo refleja la descripción de la 'mujer capaz' en Proverbios 31 las cualidades que Jehová valora en todos sus siervos?",
       "¿Qué orientación práctica da Proverbios acerca del uso de la lengua, y cómo podemos aplicar diariamente esta sabiduría?"
     ],
     [
       "¿Qué enseña la conclusión de Salomón de que todas las búsquedas son 'vanidad' acerca de los peligros de buscar una satisfacción duradera aparte de Jehová?",
-      "¿Cómo ayuda Eclesiastés 3:1–8 — 'un tiempo para todo propósito bajo el cielo' — a los Testigos de Jehová a mantener el equilibrio en las actividades de la vida?",
+      "¿Cómo ayuda Eclesiastés 3:1–8: 'un tiempo para todo propósito bajo el cielo': a los Testigos de Jehová a mantener el equilibrio en las actividades de la vida?",
       "¿Qué enseña Eclesiastés acerca de la muerte y la condición de los muertos (9:5, 10), en apoyo de la enseñanza bíblica sobre la esperanza de la resurrección?",
-      "¿Cómo motiva Eclesiastés 12:1 — 'Recuerda a tu Creador en los días de tu juventud' — a los jóvenes a dedicarse a Jehová temprano en la vida?",
-      "¿Qué enseña la conclusión final de Eclesiastés (12:13–14) — temer a Jehová y guardar sus mandamientos — acerca del verdadero propósito de la humanidad?"
+      "¿Cómo motiva Eclesiastés 12:1: 'Recuerda a tu Creador en los días de tu juventud': a los jóvenes a dedicarse a Jehová temprano en la vida?",
+      "¿Qué enseña la conclusión final de Eclesiastés (12:13–14): temer a Jehová y guardar sus mandamientos: acerca del verdadero propósito de la humanidad?"
     ],
     [
       "¿Qué enseña el Cantar de los Cantares acerca de la importancia que Jehová concede al amor, la lealtad y el compromiso dentro del matrimonio?",
@@ -2542,39 +2713,39 @@
       "¿Qué enseña Isaías 40:28–31 acerca de la energía inagotable de Jehová y su cuidado por quienes están agotados?",
       "¿Cómo describen los cuatro 'Cánticos del Siervo' en Isaías (42:1–4; 49:1–6; 50:4–9; 52:13–53:12) el sufrimiento y el ministerio del Mesías?",
       "¿Qué describe Isaías 65:17–25 acerca de la nueva tierra venidera, y cómo sostiene esa visión la esperanza del pueblo de Jehová?",
-      "¿Cómo refleja la respuesta de Isaías a su visión en el capítulo 6 — '¡Envíame a mí!' — el espíritu voluntario que demuestran los Testigos de Jehová en su ministerio?"
+      "¿Cómo refleja la respuesta de Isaías a su visión en el capítulo 6: '¡Envíame a mí!': el espíritu voluntario que demuestran los Testigos de Jehová en su ministerio?"
     ],
     [
-      "¿Qué enseña Jeremías 1:5 — 'Antes de que te formara en el vientre, te conocí' — acerca del conocimiento previo de Jehová y su propósito para cada persona?",
+      "¿Qué enseña Jeremías 1:5: 'Antes de que te formara en el vientre, te conocí': acerca del conocimiento previo de Jehová y su propósito para cada persona?",
       "¿Cómo permaneció fiel Jeremías a pesar de la intensa persecución, el ridículo y la desesperación que a veces sentía, y qué podemos aprender de su ejemplo?",
       "¿Qué enseña la promesa de Jehová de un nuevo pacto (Jeremías 31:31–34) acerca de la superioridad del arreglo que Jesús medió?",
-      "¿Cómo aplicó la carta de Jeremías a los exiliados en Babilonia (capítulo 29) — diciéndoles que buscaran el bienestar de la ciudad — el principio de ser 'no parte del mundo'?",
+      "¿Cómo aplicó la carta de Jeremías a los exiliados en Babilonia (capítulo 29): diciéndoles que buscaran el bienestar de la ciudad: el principio de ser 'no parte del mundo'?",
       "¿Qué enseña la compra de un campo por parte de Jeremías (capítulo 32) incluso mientras Jerusalén caía acerca de la confianza en las promesas de Jehová para el futuro?"
     ],
     [
       "¿Cómo modela el libro de Lamentaciones el dolor honesto manteniendo al mismo tiempo la esperanza en el amor leal de Jehová?",
-      "¿Qué enseña Lamentaciones 3:22–23 — el amor leal de Jehová 'nunca acaba' y 'sus misericordias se renuevan cada mañana' — acerca de la fidelidad perdurable de Jehová?",
+      "¿Qué enseña Lamentaciones 3:22–23: el amor leal de Jehová 'nunca acaba' y 'sus misericordias se renuevan cada mañana': acerca de la fidelidad perdurable de Jehová?",
       "¿Cómo refleja el dolor de Jeremías por la destrucción de Jerusalén la actitud que los siervos de Jehová de hoy deben tener ante la maldad del mundo?",
       "¿Qué enseña Lamentaciones acerca de las consecuencias de abandonar las normas de Jehová, y cómo sirve esto de advertencia para nosotros?",
-      "¿Cómo refleja el reconocimiento de los exiliados en Lamentaciones 3:40 — 'Examinemos y busquemos nuestros caminos' — la respuesta correcta ante la disciplina de Jehová?"
+      "¿Cómo refleja el reconocimiento de los exiliados en Lamentaciones 3:40: 'Examinemos y busquemos nuestros caminos': la respuesta correcta ante la disciplina de Jehová?"
     ],
     [
       "¿Qué enseñan las visiones inaugurales de Ezequiel (capítulos 1–3) del trono-carro de Jehová acerca de la majestad de Jehová y el funcionamiento de su espíritu santo?",
       "¿Cómo se compara el papel de Ezequiel como 'atalaya' (capítulos 3, 33) con la responsabilidad de los Testigos de Jehová de advertir a otros sobre el juicio de Jehová?",
-      "¿Qué enseña Ezequiel 18:23 — 'No me alegro con la muerte del malvado' — acerca del deseo de Jehová de que todos se arrepientan y vivan?",
+      "¿Qué enseña Ezequiel 18:23: 'No me alegro con la muerte del malvado': acerca del deseo de Jehová de que todos se arrepientan y vivan?",
       "¿Cómo prefigura la visión del valle de los huesos secos (capítulo 37) la resurrección de los muertos bajo el Reino de Jehová?",
       "¿Qué enseña la visión de Ezequiel del Templo futuro (capítulos 40–48) acerca de la importancia de la adoración pura y organizada a Jehová?"
     ],
     [
       "¿Cómo demostraron Daniel y sus tres compañeros (capítulos 1–6) que es posible mantener la integridad bajo intensa presión de un poder mundial hostil?",
-      "¿Qué enseña Daniel 2:44 — que Jehová establecerá un reino que nunca será destruido — acerca de la certeza del Reino de Jehová?",
+      "¿Qué enseña Daniel 2:44: que Jehová establecerá un reino que nunca será destruido: acerca de la certeza del Reino de Jehová?",
       "¿Cómo ejemplificó el relato de Sadrac, Mesac y Abednego (capítulo 3) la fe del 'aunque no lo haga' que los Testigos de Jehová pueden necesitar durante la persecución?",
       "¿Qué revela la profecía de los Tiempos de los Gentiles (Daniel 4) y la gran imagen de Daniel 2 acerca de la sucesión de poderes mundiales y el calendario de Jehová?",
-      "¿Cómo enseña la práctica fiel de oración de Daniel — orando tres veces al día sin importar el decreto real (capítulo 6) — la importancia de la adoración regular y constante?"
+      "¿Cómo enseña la práctica fiel de oración de Daniel: orando tres veces al día sin importar el decreto real (capítulo 6): la importancia de la adoración regular y constante?"
     ],
     [
       "¿Cómo usó Jehová el matrimonio de Oseas como ilustración viviente de la infidelidad espiritual de Israel, y cómo nos ayuda esto a comprender la gravedad del adulterio espiritual?",
-      "¿Qué enseña Oseas 6:6 — 'Quiero amor leal, no sacrificio; y conocimiento de Dios más que holocaustos' — acerca de lo que Jehová valora más?",
+      "¿Qué enseña Oseas 6:6: 'Quiero amor leal, no sacrificio; y conocimiento de Dios más que holocaustos': acerca de lo que Jehová valora más?",
       "¿Cómo demuestra la compasión continuada de Jehová y su invitación a Israel a regresar (capítulo 14) la profundidad de su amor leal y su capacidad de perdonar?",
       "¿Qué enseña Oseas acerca del peligro espiritual de mezclar la adoración verdadera con las prácticas religiosas de las naciones vecinas?",
       "¿Cómo conecta la profecía de Oseas (13:14) acerca de rescatar del poder del Seol con las palabras de Pablo en 1 Corintios 15:55?"
@@ -2587,120 +2758,120 @@
       "¿Qué enseña la promesa de restauración de Joel (2:18–27; 3:17–18) acerca de las bendiciones que Jehová tiene reservadas para quienes regresan a él?"
     ],
     [
-      "¿Qué enseña Amós 3:7 — 'El Soberano Señor Jehová no hace nada sin antes revelar su secreto confidencial a sus siervos los profetas' — acerca de la comunicación de Jehová con su pueblo?",
+      "¿Qué enseña Amós 3:7: 'El Soberano Señor Jehová no hace nada sin antes revelar su secreto confidencial a sus siervos los profetas': acerca de la comunicación de Jehová con su pueblo?",
       "¿Cómo se aplica la condena de Amós a la religiosidad vacía (capítulos 5–6) al peligro de cumplir los ritos de adoración sin sinceridad?",
       "¿Qué enseña Amós acerca de la preocupación de Jehová por la justicia social y el trato a los pobres, y cómo refleja esto los valores de Jehová?",
-      "¿Qué enseñan los juicios sobre las naciones vecinas (capítulos 1–2) acerca de que Jehová pide cuentas a todos los pueblos — no solo a Israel — sobre los principios morales básicos?",
+      "¿Qué enseñan los juicios sobre las naciones vecinas (capítulos 1–2) acerca de que Jehová pide cuentas a todos los pueblos: no solo a Israel: sobre los principios morales básicos?",
       "¿Cómo conecta la profecía de Amós acerca de la 'choza caída de David' (9:11) con la restauración de la adoración pura y el Reino de Jehová?"
     ],
     [
       "¿Qué pecados específicos de Edom condujeron al juicio de Jehová, y qué enseñan acerca de los peligros del orgullo y la autosuficiencia?",
       "¿Cómo violó la burla de Edom ante la caída de Jerusalén (versículos 12–14) el principio del amor fraternal, y qué advertencia encierra esto para nosotros?",
       "¿Qué enseña Abdías acerca del principio 'como tú has hecho, se hará contigo' (versículo 15)?",
-      "¿Cómo demuestra el juicio completo de Jehová sobre Edom — una nación que parecía inexpugnable — que ningún plan humano puede resistir el propósito de Jehová?",
-      "¿Qué anticipa el versículo final de Abdías — 'El reino llegará a ser de Jehová' — acerca del futuro bajo el Reino de Jehová?"
+      "¿Cómo demuestra el juicio completo de Jehová sobre Edom: una nación que parecía inexpugnable: que ningún plan humano puede resistir el propósito de Jehová?",
+      "¿Qué anticipa el versículo final de Abdías: 'El reino llegará a ser de Jehová': acerca del futuro bajo el Reino de Jehová?"
     ],
     [
       "¿Qué tenía de malo la negativa inicial de Jonás a ir a Nínive, y cómo nos desafía esto a reflexionar sobre nuestra propia actitud al compartir las buenas nuevas con todo tipo de personas?",
-      "¿Cómo demuestra el manejo paciente de Jehová hacia la actitud de Jonás — desde el pez hasta la enredadera — su deseo de enseñar en lugar de simplemente castigar?",
+      "¿Cómo demuestra el manejo paciente de Jehová hacia la actitud de Jonás: desde el pez hasta la enredadera: su deseo de enseñar en lugar de simplemente castigar?",
       "¿Qué enseña el genuino arrepentimiento de Nínive y la decisión de Jehová de no traer calamidad (3:10) acerca de la eficacia del arrepentimiento de corazón?",
       "¿Cómo modela la oración de Jonás desde el interior del pez (capítulo 2) la oración honesta y personal a Jehová incluso en las circunstancias más desesperadas?",
       "¿Qué enseña el relato de Jonás acerca del interés de Jehová en el bienestar espiritual de todos los pueblos, prefigurando la obra de predicación mundial?"
     ],
     [
-      "¿Cómo demuestra Miqueas 5:2 — al profetizar el nacimiento del Mesías en Belén — la confiabilidad de la profecía de Jehová cuando se cumplió en el nacimiento de Jesús?",
-      "¿Qué identifica Miqueas 6:8 — 'actuar con justicia, amar la lealtad y caminar humildemente con tu Dios' — como las cualidades esenciales que Jehová requiere?",
-      "¿Cómo describe la descripción de Miqueas de los últimos días (4:1–4) — cuando las personas afluyen a la 'montaña' de Jehová en busca de instrucción — lo que sucede con los Testigos de Jehová hoy?",
+      "¿Cómo demuestra Miqueas 5:2: al profetizar el nacimiento del Mesías en Belén: la confiabilidad de la profecía de Jehová cuando se cumplió en el nacimiento de Jesús?",
+      "¿Qué identifica Miqueas 6:8: 'actuar con justicia, amar la lealtad y caminar humildemente con tu Dios': como las cualidades esenciales que Jehová requiere?",
+      "¿Cómo describe la descripción de Miqueas de los últimos días (4:1–4): cuando las personas afluyen a la 'montaña' de Jehová en busca de instrucción: lo que sucede con los Testigos de Jehová hoy?",
       "¿Qué enseña Miqueas acerca del contraste entre el liderazgo corrupto (capítulo 3) y el liderazgo justo que Jehová valora?",
       "¿Cómo describe Miqueas 7:18–20 las cualidades de perdón y amor leal de Jehová de una manera que da consuelo a quienes han cometido errores?"
     ],
     [
-      "¿Qué cualidades de Jehová describe Nahúm 1:2–7 — su celo, su lentitud para la ira y su grandeza — y cómo actúan juntas?",
+      "¿Qué cualidades de Jehová describe Nahúm 1:2–7: su celo, su lentitud para la ira y su grandeza: y cómo actúan juntas?",
       "¿Qué enseña la caída de Nínive acerca de cómo incluso los poderes humanos más poderosos están en última instancia sujetos al juicio de Jehová?",
-      "¿Cómo proporciona Nahúm 1:7 — 'Jehová es bueno, un refugio en el día de angustia; y conoce a los que buscan refugio en él' — consuelo en tiempos difíciles?",
+      "¿Cómo proporciona Nahúm 1:7: 'Jehová es bueno, un refugio en el día de angustia; y conoce a los que buscan refugio en él': consuelo en tiempos difíciles?",
       "¿Cómo enseña el contraste entre el trato de Jehová a Nínive en Jonás (misericordia ante el arrepentimiento) y en Nahúm (juicio por volver a la maldad) acerca de los límites de la paciencia de Jehová?",
-      "¿Qué principio acerca de la justicia de Jehová — que 'de ningún modo dejará al culpable sin castigo' — vemos demostrado en la caída de Nínive?"
+      "¿Qué principio acerca de la justicia de Jehová: que 'de ningún modo dejará al culpable sin castigo': vemos demostrado en la caída de Nínive?"
     ],
     [
       "¿Cómo demuestra la disposición de Habacuc a cuestionar honestamente a Jehová sobre la aparente injusticia (capítulos 1–2) que podemos llevar nuestras preocupaciones más profundas a Jehová en oración?",
-      "¿Qué significa Habacuc 2:4 — 'el justo vivirá por su fidelidad' — y cómo usa Pablo este versículo en Romanos y Gálatas?",
-      "¿Cómo desafió la respuesta de Jehová — que estaba levantando a Babilonia como su instrumento — el entendimiento de Habacuc, y qué enseña esto acerca de confiar en la sabiduría de Jehová?",
-      "¿Qué modela Habacuc 3:17–18 — regocijarse en Jehová aunque fallen todas las bendiciones naturales — acerca de mantener la alegría en cualquier circunstancia?",
+      "¿Qué significa Habacuc 2:4: 'el justo vivirá por su fidelidad': y cómo usa Pablo este versículo en Romanos y Gálatas?",
+      "¿Cómo desafió la respuesta de Jehová: que estaba levantando a Babilonia como su instrumento: el entendimiento de Habacuc, y qué enseña esto acerca de confiar en la sabiduría de Jehová?",
+      "¿Qué modela Habacuc 3:17–18: regocijarse en Jehová aunque fallen todas las bendiciones naturales: acerca de mantener la alegría en cualquier circunstancia?",
       "¿Cómo modela el recorrido de Habacuc desde la queja hasta la alabanza un proceso espiritual saludable para los Testigos de Jehová que luchan con preguntas difíciles?"
     ],
     [
       "¿Cómo prepara la descripción de Sofonías del 'día de Jehová' como a la vez aterrador y esperanzador a los Testigos de Jehová para la gran tribulación venidera?",
-      "¿Qué revela Sofonías 3:17 — 'Jehová tu Dios está en medio de ti...Se regocijará sobre ti con gran alegría' — acerca de los sentimientos de Jehová hacia su pueblo?",
+      "¿Qué revela Sofonías 3:17: 'Jehová tu Dios está en medio de ti...Se regocijará sobre ti con gran alegría': acerca de los sentimientos de Jehová hacia su pueblo?",
       "¿Qué significa en sentido práctico para nuestra vida diaria el llamado de Sofonías a 'buscar a Jehová, todos los mansos de la tierra' (2:3)?",
       "¿Cómo demuestra la profecía de Sofonías contra las naciones (capítulo 2) la autoridad moral de Jehová sobre todos los pueblos de la tierra?",
-      "¿Qué anticipa la promesa de Sofonías de 'un idioma puro' (3:9) — para que todos los pueblos invoquen el nombre de Jehová — acerca de la restauración de la adoración pura?"
+      "¿Qué anticipa la promesa de Sofonías de 'un idioma puro' (3:9): para que todos los pueblos invoquen el nombre de Jehová: acerca de la restauración de la adoración pura?"
     ],
     [
       "¿Cuál era el problema espiritual que Hageo identificó cuando el pueblo dijo 'aún no ha llegado el tiempo de reconstruir la casa de Jehová' (1:2), y cómo puede aparecer esta racionalización en nuestra propia vida?",
       "¿Cómo respondió Jehová a la obediencia inmediata del pueblo tras el mensaje de Hageo (1:12–15), y qué enseña esto acerca de la recompensa por la obediencia rápida?",
-      "¿Qué enseña Hageo 2:9 — 'La gloria de esta casa posterior será mayor que la de la anterior' — acerca de la capacidad de Jehová de superar nuestras expectativas?",
+      "¿Qué enseña Hageo 2:9: 'La gloria de esta casa posterior será mayor que la de la anterior': acerca de la capacidad de Jehová de superar nuestras expectativas?",
       "¿Cómo se aplica el mensaje de Hageo de poner la casa de Jehová primero que la propia a la forma en que los Testigos de Jehová ordenan sus prioridades hoy?",
-      "¿Qué enseña Hageo 2:4 — 'Sé fuerte...y actúa, porque yo estoy con vosotros' (repetido a Zorobabel, Josué y al pueblo) — acerca del respaldo de Jehová a quienes hacen su obra?"
+      "¿Qué enseña Hageo 2:4: 'Sé fuerte...y actúa, porque yo estoy con vosotros' (repetido a Zorobabel, Josué y al pueblo): acerca del respaldo de Jehová a quienes hacen su obra?"
     ],
     [
       "¿Cómo da la visión de Zacarías de Satanás oponiéndose a Josué el sumo sacerdote (capítulo 3) y la reprensión de Satanás por parte de Jehová confianza en que Jehová defiende a sus siervos?",
-      "¿Qué enseña Zacarías 4:6 — 'No por fuerza militar, ni por poder, sino por mi espíritu, dice Jehová' — acerca de la manera en que Jehová cumple su propósito?",
-      "¿Cómo conecta Zacarías 9:9 — el rey profetizado que entra a Jerusalén montado en un asno — con la entrada triunfal de Jesús y confirma la confiabilidad de la profecía?",
-      "¿Qué presagia Zacarías 12:10 — 'Mirarán al que traspasaron' — y cómo lo conecta Apocalipsis 1:7 con Jesús?",
-      "¿Cómo sustenta el mensaje general de Zacarías — que Jehová regresará a Sión y morará entre su pueblo — la esperanza de los Testigos de Jehová por el nuevo mundo?"
+      "¿Qué enseña Zacarías 4:6: 'No por fuerza militar, ni por poder, sino por mi espíritu, dice Jehová': acerca de la manera en que Jehová cumple su propósito?",
+      "¿Cómo conecta Zacarías 9:9: el rey profetizado que entra a Jerusalén montado en un asno: con la entrada triunfal de Jesús y confirma la confiabilidad de la profecía?",
+      "¿Qué presagia Zacarías 12:10: 'Mirarán al que traspasaron': y cómo lo conecta Apocalipsis 1:7 con Jesús?",
+      "¿Cómo sustenta el mensaje general de Zacarías: que Jehová regresará a Sión y morará entre su pueblo: la esperanza de los Testigos de Jehová por el nuevo mundo?"
     ],
     [
       "¿Cómo reveló la pregunta de Jehová '¿En qué los he amado?' (1:2) la complacencia espiritual que Malaquías abordó, y cómo podemos guardarnos de esta actitud?",
-      "¿Qué enseña la condena de Malaquías a las ofrendas impuras (capítulo 1) acerca de la calidad de adoración — tiempo, energía y atención — que Jehová merece?",
-      "¿Qué enseña Malaquías 3:10 — 'Traigan el diezmo completo...y pónganme a prueba' — acerca del principio de poner los intereses de Jehová primero?",
+      "¿Qué enseña la condena de Malaquías a las ofrendas impuras (capítulo 1) acerca de la calidad de adoración: tiempo, energía y atención: que Jehová merece?",
+      "¿Qué enseña Malaquías 3:10: 'Traigan el diezmo completo...y pónganme a prueba': acerca del principio de poner los intereses de Jehová primero?",
       "¿Cómo mostró el 'libro de memorias' escrito para quienes temían a Jehová (3:16) que Jehová toma nota cuidadosa de los que son fieles?",
-      "¿Cómo conectan los versículos finales de Malaquías — que anuncian a Elías antes del gran día de Jehová — con el ministerio preparatorio de Juan el Bautista?"
+      "¿Cómo conectan los versículos finales de Malaquías: que anuncian a Elías antes del gran día de Jehová: con el ministerio preparatorio de Juan el Bautista?"
     ],
     [
       "¿Cómo presenta el Sermón del Monte de Jesús (capítulos 5–7) las normas de conducta y los valores que distinguen a los ciudadanos del Reino de Jehová?",
-      "¿Qué enseña la oración modelo de Jesús (Mateo 6:9–13) acerca de lo que debe estar primero en nuestras oraciones — el nombre de Jehová, su Reino y su voluntad?",
+      "¿Qué enseña la oración modelo de Jesús (Mateo 6:9–13) acerca de lo que debe estar primero en nuestras oraciones: el nombre de Jehová, su Reino y su voluntad?",
       "¿Cómo describen las parábolas del Reino en Mateo 13 las distintas respuestas al mensaje del Reino, y cuál respuesta procuran cultivar los Testigos de Jehová?",
-      "¿Qué revela la Gran Comisión de Jesús (28:19–20) — 'hagan discípulos de personas de todas las naciones' — acerca del alcance mundial y la naturaleza continua de la obra de predicación?",
+      "¿Qué revela la Gran Comisión de Jesús (28:19–20): 'hagan discípulos de personas de todas las naciones': acerca del alcance mundial y la naturaleza continua de la obra de predicación?",
       "¿Cómo fortalece la presentación de Mateo de Jesús como cumplimiento de la profecía de las Escrituras Hebreas la confianza en la confiabilidad de la palabra de Jehová?"
     ],
     [
       "¿Qué revela el ritmo acelerado del Evangelio de Marcos y su énfasis en las poderosas obras de Jesús acerca de Jesús como siervo designado de Jehová?",
-      "¿Cómo resume Marcos 10:45 — 'el Hijo del hombre vino, no para ser servido, sino para servir y para dar su vida en rescate a cambio de muchos' — todo el propósito de Jesús?",
+      "¿Cómo resume Marcos 10:45: 'el Hijo del hombre vino, no para ser servido, sino para servir y para dar su vida en rescate a cambio de muchos': todo el propósito de Jesús?",
       "¿Qué enseña el relato de las dos moneditas de la viuda (Marcos 12:41–44) acerca de lo que Jehová valora en los actos de adoración y generosidad?",
       "¿Cómo describe el mandato de Jesús a 'seguirme' (Marcos 1:17; 8:34) lo que requiere el discipulado pleno de quienes sirven a Jehová hoy?",
-      "¿Qué nos dicen Marcos 8:29 — 'Tú eres el Cristo' — y la enseñanza subsiguiente acerca de un Mesías sufriente acerca de corregir las expectativas equivocadas sobre el propósito de Jehová?"
+      "¿Qué nos dicen Marcos 8:29: 'Tú eres el Cristo': y la enseñanza subsiguiente acerca de un Mesías sufriente acerca de corregir las expectativas equivocadas sobre el propósito de Jehová?"
     ],
     [
       "¿Cómo refleja el énfasis de Lucas en que Jesús muestra compasión a los marginados, los pobres y los gentiles el amor universal de Jehová por todos los pueblos?",
       "¿Qué enseña la parábola del hijo pródigo (Lucas 15) acerca de la alegría de Jehová cuando los pecadores se arrepienten y regresan a él?",
       "¿Cómo define el relato del Buen Samaritano en Lucas (10:25–37) lo que significa 'amar a tu prójimo', y cómo se aplica esto a los Testigos de Jehová hoy?",
-      "¿Qué enseña Lucas 4:18 — la declaración de Jesús acerca de su misión — sobre la liberación espiritual que trae el Reino de Jehová?",
-      "¿Cómo motiva Lucas 19:10 — 'el Hijo del hombre vino a buscar y a salvar lo que estaba perdido' — a los Testigos de Jehová en su ministerio para llegar a todo tipo de personas?"
+      "¿Qué enseña Lucas 4:18: la declaración de Jesús acerca de su misión: sobre la liberación espiritual que trae el Reino de Jehová?",
+      "¿Cómo motiva Lucas 19:10: 'el Hijo del hombre vino a buscar y a salvar lo que estaba perdido': a los Testigos de Jehová en su ministerio para llegar a todo tipo de personas?"
     ],
     [
       "¿Cómo describen Juan 1:1 y 1:14 a Jesús como el Verbo (Logos), y qué revela la gramática griega de Juan 1:1 acerca de la naturaleza de Jesús en relación con Jehová?",
       "¿Qué enseña la afirmación de Jesús 'el Padre es mayor que yo' (Juan 14:28) y los pasajes relacionados acerca de la relación entre Jehová y Jesús?",
       "¿Cómo revelan los siete 'Yo soy' (el pan, la luz, el pastor, la resurrección, el camino, la vid, la puerta) el papel de Jesús como canal de las bendiciones de Jehová?",
-      "¿Qué enseña la oración de Jesús en Juan 17 — incluida la petición de que sus discípulos 'sean uno así como nosotros somos uno' — acerca de la unidad en la congregación?",
+      "¿Qué enseña la oración de Jesús en Juan 17: incluida la petición de que sus discípulos 'sean uno así como nosotros somos uno': acerca de la unidad en la congregación?",
       "¿Cómo describe la enseñanza de Jesús acerca del espíritu santo como 'ayudador' (parácleto) en Juan 14–16 el papel del espíritu de Jehová al guiar y fortalecer a su pueblo?"
     ],
     [
       "¿Cómo marcó el derramamiento del espíritu santo de Jehová en Pentecostés del 33 E.C. (capítulo 2) el comienzo de la congregación del nuevo pacto, y cuáles fueron los resultados inmediatos?",
-      "¿Qué enseña el patrón de crecimiento de la primera congregación en Hechos — a pesar de la intensa persecución — acerca de la naturaleza imparable del propósito de Jehová?",
+      "¿Qué enseña el patrón de crecimiento de la primera congregación en Hechos: a pesar de la intensa persecución: acerca de la naturaleza imparable del propósito de Jehová?",
       "¿Cómo modeló la valentía de Pedro y Pablo ante tribunales y consejos (capítulos 4–5; 22–26) la actitud que los Testigos de Jehová pueden tener al defender las buenas nuevas?",
       "¿Qué dice Hechos 17:11 acerca de los bereanos, y qué cualidad destaca su ejemplo para el estudio personal de la Biblia?",
       "¿Cómo muestra la expansión de la obra de predicación desde Jerusalén hasta Roma (Hechos 1:8) el cumplimiento de la comisión de Jesús y cómo el espíritu de Jehová dirigió la obra?"
     ],
     [
       "¿Qué enseña la explicación de Pablo de cómo todos los seres humanos han 'quedado destituidos de la gloria de Dios' (3:23) y el remedio mediante la fe en Jesús acerca de por qué necesitamos el rescate?",
-      "¿Cómo explica Romanos 5:12 — 'por medio de un solo hombre entró el pecado en el mundo y la muerte por medio del pecado' — la conexión entre el pecado de Adán y la condición de la humanidad?",
-      "¿Qué significa para los Testigos de Jehová que enfrentan pruebas la enseñanza de Pablo en Romanos 8:28 — 'todas las cosas cooperan juntas para bien de los que aman a Dios'?",
-      "¿Cómo define Romanos 12:1–2 — 'presenten sus cuerpos como un sacrificio vivo' y 'dejen de amoldarse a este sistema de cosas' — la apariencia del servicio de todo corazón a Jehová?",
+      "¿Cómo explica Romanos 5:12: 'por medio de un solo hombre entró el pecado en el mundo y la muerte por medio del pecado': la conexión entre el pecado de Adán y la condición de la humanidad?",
+      "¿Qué significa para los Testigos de Jehová que enfrentan pruebas la enseñanza de Pablo en Romanos 8:28: 'todas las cosas cooperan juntas para bien de los que aman a Dios'?",
+      "¿Cómo define Romanos 12:1–2: 'presenten sus cuerpos como un sacrificio vivo' y 'dejen de amoldarse a este sistema de cosas': la apariencia del servicio de todo corazón a Jehová?",
       "¿Qué enseña la instrucción de Pablo acerca de la sujeción a las autoridades gobernantes (Romanos 13:1–7) y sus límites (Hechos 5:29) acerca de nuestra relación con los gobiernos humanos?"
     ],
     [
       "¿Qué enseñan los capítulos 12–14 de Pablo acerca del uso apropiado de los dones en la congregación, siendo el amor la cualidad más esencial?",
-      "¿Cómo nos desafía la descripción del amor de Pablo en el capítulo 13 — paciente, bondadoso, no celoso, no buscando sus propios intereses — a examinar nuestras relaciones dentro de la congregación?",
+      "¿Cómo nos desafía la descripción del amor de Pablo en el capítulo 13: paciente, bondadoso, no celoso, no buscando sus propios intereses: a examinar nuestras relaciones dentro de la congregación?",
       "¿Qué enseña la detallada defensa de la resurrección de Pablo en el capítulo 15 acerca de por qué la esperanza de la resurrección es central para la fe cristiana?",
       "¿Cómo refleja el consejo de Pablo sobre resolver disputas entre hermanos (capítulo 6) la importancia de mantener la unidad de la congregación y no ventilar los problemas ante el mundo?",
       "¿Qué enseña la instrucción de Pablo acerca de la Cena del Señor (11:23–26) acerca de su significado, la participación apropiada y la frecuencia con que se observa?"
@@ -2709,7 +2880,7 @@
       "¿Qué enseña la descripción de Pablo de sus sufrimientos (capítulos 4–6; 11) y su ministerio continuo a pesar de ellos acerca de encontrar fortaleza en Jehová?",
       "¿Cómo redefine la afirmación de Pablo 'cuando soy débil, entonces soy poderoso' (12:10) lo que significa la fortaleza espiritual?",
       "¿Qué significa para quienes establecen una relación con Jehová por medio de Cristo la enseñanza de Pablo acerca de la 'nueva creación' (5:17)?",
-      "¿Cómo se aplica a nuestra visión de las contribuciones y el dar en sacrificio el llamado de Pablo a la generosidad para los santos (capítulos 8–9) — incluido que 'Jehová ama al dador alegre'?",
+      "¿Cómo se aplica a nuestra visión de las contribuciones y el dar en sacrificio el llamado de Pablo a la generosidad para los santos (capítulos 8–9): incluido que 'Jehová ama al dador alegre'?",
       "¿Qué significa en la práctica para los Testigos de Jehová en amistades, matrimonios y negocios la advertencia de Pablo acerca de 'estar en yugo desigual con los no creyentes' (6:14)?"
     ],
     [
@@ -2721,28 +2892,28 @@
     ],
     [
       "¿Qué enseña la descripción de Pablo de la congregación como el 'cuerpo de Cristo' (capítulos 1; 4) acerca de la unidad e interdependencia de todos los miembros de la congregación?",
-      "¿Cómo clarifica Efesios 2:8–9 — 'han sido salvados mediante la fe...no a causa de obras' — la base de nuestra esperanza de salvación?",
+      "¿Cómo clarifica Efesios 2:8–9: 'han sido salvados mediante la fe...no a causa de obras': la base de nuestra esperanza de salvación?",
       "¿Qué enseña la metáfora de 'toda la armadura de Dios' (6:10–18) acerca de la guerra espiritual que enfrentan los Testigos de Jehová y cómo defenderse?",
-      "¿Cómo reflejan los consejos de Pablo para los hogares cristianos — esposos, esposas, hijos, padres (capítulos 5–6) — las normas de Jehová para la vida familiar?",
-      "¿Qué enseña Efesios 4:4–6 — 'un cuerpo, un espíritu, una esperanza...un Señor, una fe, un bautismo, un Dios y Padre' — acerca del fundamento de la unidad verdadera?"
+      "¿Cómo reflejan los consejos de Pablo para los hogares cristianos: esposos, esposas, hijos, padres (capítulos 5–6): las normas de Jehová para la vida familiar?",
+      "¿Qué enseña Efesios 4:4–6: 'un cuerpo, un espíritu, una esperanza...un Señor, una fe, un bautismo, un Dios y Padre': acerca del fundamento de la unidad verdadera?"
     ],
     [
-      "¿Qué pasos prácticos para mantener la paz mental proporciona Filipenses 4:6–7 — 'no se angustien por nada...sino presenten sus peticiones a Dios'?",
+      "¿Qué pasos prácticos para mantener la paz mental proporciona Filipenses 4:6–7: 'no se angustien por nada...sino presenten sus peticiones a Dios'?",
       "¿Qué enseña la descripción de Pablo de Jesús 'vaciándose a sí mismo' (2:5–8) acerca de la actitud y el modo de pensar que debe tener un cristiano?",
       "¿Qué enseña la afirmación de Pablo 'he aprendido a contentarme en cualquier circunstancia en que me encuentre' (4:11) acerca del contentamiento como una habilidad que se desarrolla?",
-      "¿Cómo demuestra el tono alegre de Pablo a lo largo de Filipenses — escrito estando encarcelado — que la verdadera alegría proviene de la relación de uno con Jehová, no de las circunstancias?",
-      "¿Qué revela Filipenses 1:21 — 'para mí, vivir es Cristo y morir es ganancia' — acerca de la perspectiva de Pablo sobre la vida, la muerte y la esperanza de la resurrección?"
+      "¿Cómo demuestra el tono alegre de Pablo a lo largo de Filipenses: escrito estando encarcelado: que la verdadera alegría proviene de la relación de uno con Jehová, no de las circunstancias?",
+      "¿Qué revela Filipenses 1:21: 'para mí, vivir es Cristo y morir es ganancia': acerca de la perspectiva de Pablo sobre la vida, la muerte y la esperanza de la resurrección?"
     ],
     [
       "¿Cómo clarifica la descripción de Pablo de Jesús como 'el primogénito de toda la creación' y 'el primogénito de entre los muertos' (1:15–18) la posición única de Jesús ante Jehová?",
       "¿Contra qué falsas filosofías y 'tradiciones humanas' (2:8) advertía Pablo a los colosenses, y qué paralelos existen con los peligros que enfrentan los Testigos de Jehová hoy?",
       "¿Cómo describe la instrucción de Pablo de 'dejar que la paz del Cristo controle sus corazones' (3:15) y 'dejar que la palabra del Cristo resida en ustedes abundantemente' (3:16) la prioridad de la palabra de Dios en la vida de la congregación?",
-      "¿Qué revela el consejo de Pablo para las relaciones — esposos/esposas, hijos/padres (3:18–4:1) — acerca de aplicar los principios cristianos en la vida cotidiana?",
+      "¿Qué revela el consejo de Pablo para las relaciones: esposos/esposas, hijos/padres (3:18–4:1): acerca de aplicar los principios cristianos en la vida cotidiana?",
       "¿Cómo transforma nuestra forma de abordar el trabajo y las responsabilidades diarias el principio 'lo que hagan, háganlo de todo corazón como para Jehová y no para los hombres' (3:23)?"
     ],
     [
       "¿Qué eventos específicos describe Pablo alrededor del regreso de Cristo (4:13–18), y por qué es consoladora esta enseñanza para quienes han perdido seres queridos en la muerte?",
-      "¿Cómo describe la descripción de Pablo de la fe activa de los tesalonicenses — 'obra de fe, labor de amor, perseverancia inspirada por la esperanza' (1:3) — la vida cristiana equilibrada y de todo corazón?",
+      "¿Cómo describe la descripción de Pablo de la fe activa de los tesalonicenses: 'obra de fe, labor de amor, perseverancia inspirada por la esperanza' (1:3): la vida cristiana equilibrada y de todo corazón?",
       "¿Qué enseña la instrucción de Pablo de 'santificar sus vasos en santidad y honor, no en la pasión del apetito sexual' (4:4–5) acerca de la pureza sexual?",
       "¿Cómo se aplica el consejo de Pablo 'no apaguen el espíritu' (5:19) a nuestra actitud hacia la guía y la dirección espiritual de Jehová hoy?",
       "¿Qué enseña la enseñanza de Pablo acerca de que 'el día de Jehová llegará como un ladrón en la noche' (5:2) acerca de la importancia de la vigilancia espiritual y la preparación?"
@@ -2765,28 +2936,28 @@
       "¿Qué enseña el encargo de Pablo a Timoteo de 'predicar la palabra, insiste en ello en épocas favorables y en épocas difíciles' (4:2) acerca de la persistencia en la obra de predicación?",
       "¿Cómo ayuda la descripción de Pablo de los 'últimos días' (3:1–5) a los Testigos de Jehová a reconocer la señal de los tiempos en que vivimos?",
       "¿Qué enseña 2 Timoteo 3:16–17 acerca de la inspiración de las Escrituras y su papel al equipar a los siervos de Jehová 'completamente para toda buena obra'?",
-      "¿Cómo modeló el ejemplo de Pablo — 'he peleado la buena batalla, he corrido el curso hasta el fin, he guardado la fe' (4:7) — la actitud que debemos tener hacia toda nuestra vida de servicio?",
+      "¿Cómo modeló el ejemplo de Pablo: 'he peleado la buena batalla, he corrido el curso hasta el fin, he guardado la fe' (4:7): la actitud que debemos tener hacia toda nuestra vida de servicio?",
       "¿Qué enseña la instrucción de Pablo de 'manejar correctamente la palabra de verdad' (2:15) acerca de la responsabilidad de quienes enseñan en la congregación?"
     ],
     [
-      "¿Qué enseña Tito 2:11–12 — la bondad inmerecida de Jehová 'nos entrena para rechazar la impiedad' — acerca de cómo el estudio de las Escrituras moldea nuestra conducta?",
+      "¿Qué enseña Tito 2:11–12: la bondad inmerecida de Jehová 'nos entrena para rechazar la impiedad': acerca de cómo el estudio de las Escrituras moldea nuestra conducta?",
       "¿Cómo muestra el consejo de Pablo para los hombres mayores, las mujeres mayores, las mujeres jóvenes y los hombres jóvenes (2:2–8) el interés de Jehová en la conducta piadosa en cada etapa de la vida?",
-      "¿Qué enseña Tito 3:5 — 'salvados...mediante el baño que nos dio vida y mediante la renovación por medio del espíritu santo' — acerca del papel del espíritu santo en nuestra vida espiritual?",
+      "¿Qué enseña Tito 3:5: 'salvados...mediante el baño que nos dio vida y mediante la renovación por medio del espíritu santo': acerca del papel del espíritu santo en nuestra vida espiritual?",
       "¿Cómo equilibra la instrucción de Pablo a Tito acerca de 'rechazar al hombre que promueve la división' (3:10) después de dos advertencias la paciencia con la necesidad de proteger la paz de la congregación?",
       "¿Qué enseña el énfasis a lo largo de Tito en que los ancianos sean 'irreprochables' acerca de la conexión entre la reputación personal y el liderazgo espiritual eficaz?"
     ],
     [
       "¿Qué enseña el llamado de Pablo a Filemón de recibir a Onésimo de vuelta 'no ya como esclavo, sino...como hermano' (v. 16) acerca de cómo la fe en Cristo transforma las relaciones sociales?",
-      "¿Cómo modeló el enfoque de Pablo — apelar sobre la base del amor en lugar de ordenar (v. 8–9) — la manera ideal de manejar los asuntos de la congregación?",
+      "¿Cómo modeló el enfoque de Pablo: apelar sobre la base del amor en lugar de ordenar (v. 8–9): la manera ideal de manejar los asuntos de la congregación?",
       "¿Qué enseña Filemón acerca del principio del perdón y dar a los demás un nuevo comienzo, en consonancia con el propio ejemplo de Jehová?",
       "¿Cómo demuestra la transformación de Onésimo de esclavo fugitivo a ministro 'útil' (v. 11) el poder que cambia la vida de aceptar las buenas nuevas?",
       "¿Qué revela esta carta personal acerca del profundo cuidado de Pablo por los individuos y la calidad de las relaciones dentro de la primera congregación cristiana?"
     ],
     [
       "¿Cómo establecen los capítulos 1–2 de Hebreos la superioridad de Jesús sobre los ángeles al mismo tiempo que enfatizan su completa humanidad, y por qué son importantes ambos aspectos?",
-      "¿Qué enseña Hebreos 4:12 — 'la palabra de Dios está viva y ejerce poder' — acerca de cómo abordar el estudio personal de la Biblia y la palabra de Jehová?",
+      "¿Qué enseña Hebreos 4:12: 'la palabra de Dios está viva y ejerce poder': acerca de cómo abordar el estudio personal de la Biblia y la palabra de Jehová?",
       "¿Cómo usa el 'capítulo de la fe' (capítulo 11) ejemplos desde Abel hasta los profetas para definir la fe como creencia y acción, y qué ejemplo te resulta más motivador?",
-      "¿Qué enseña Hebreos 12:1–2 — 'corramos con perseverancia la carrera que tenemos por delante, fijando la vista en el Agente Principal y Consumador de nuestra fe' — acerca de soportar las dificultades?",
+      "¿Qué enseña Hebreos 12:1–2: 'corramos con perseverancia la carrera que tenemos por delante, fijando la vista en el Agente Principal y Consumador de nuestra fe': acerca de soportar las dificultades?",
       "¿Cómo ayuda la demostración de Hebreos de que el sacrificio de Jesús cumplió y superó todos los arreglos levíticos a explicar la relación entre las Escrituras Hebreas y las Escrituras Griegas Cristianas?"
     ],
     [
@@ -2794,61 +2965,61 @@
       "¿Cómo aclara la advertencia de Santiago acerca de la 'fe sin obras' (2:14–26) que la fe genuina produce naturalmente una acción visible?",
       "¿Qué consejo específico da Santiago acerca de controlar la lengua (capítulo 3), y por qué la llama 'un mundo de injusticia' si se usa mal?",
       "¿Cómo describe Santiago 5:14–16 el papel de los ancianos al orar y cuidar a los que están enfermos o espiritualmente débiles en la congregación?",
-      "¿Qué enseña la descripción de Santiago de la 'sabiduría de lo alto' (3:17–18) — 'pura, pacífica, razonable, dispuesta a obedecer, llena de misericordia' — acerca de la clase de sabiduría que Jehová valora?"
+      "¿Qué enseña la descripción de Santiago de la 'sabiduría de lo alto' (3:17–18): 'pura, pacífica, razonable, dispuesta a obedecer, llena de misericordia': acerca de la clase de sabiduría que Jehová valora?"
     ],
     [
       "¿Cómo moldea la descripción de Pedro de los cristianos como 'extranjeros y residentes temporales' (2:11) nuestra actitud hacia el sistema del mundo y nuestras lealtades primarias?",
       "¿Qué enseña el consejo de Pedro de 'estar sujetos a toda creación humana' (2:13–17) y sus límites acerca de la relación equilibrada que los Testigos de Jehová tienen con los gobiernos humanos?",
-      "¿Cómo se aplica en los hogares cristianos de hoy la instrucción de Pedro a esposas y esposos (3:1–7) — incluido el principio de 'un espíritu quieto y apacible'?",
+      "¿Cómo se aplica en los hogares cristianos de hoy la instrucción de Pedro a esposas y esposos (3:1–7): incluido el principio de 'un espíritu quieto y apacible'?",
       "¿Qué enseña el llamado de Pedro a 'estar siempre listos para hacer una defensa' de nuestra esperanza (3:15) acerca de la preparación espiritual para las conversaciones sobre nuestra fe?",
       "¿Cómo motiva la descripción de Pedro del diablo como 'un león rugiente que busca devorar a alguien' (5:8) a los Testigos de Jehová a mantener la vigilancia espiritual?"
     ],
     [
-      "¿Qué enseña la lista de cualidades de Pedro para 'suministrar junto a la fe' (1:5–7) — virtud, conocimiento, dominio propio, perseverancia, devoción a Dios, afecto fraternal, amor — acerca del crecimiento espiritual?",
+      "¿Qué enseña la lista de cualidades de Pedro para 'suministrar junto a la fe' (1:5–7): virtud, conocimiento, dominio propio, perseverancia, devoción a Dios, afecto fraternal, amor: acerca del crecimiento espiritual?",
       "¿Cómo describe Pedro la certeza del día de Jehová y los nuevos cielos y la nueva tierra (3:10–13), y cómo debe afectar a nuestra conducta este conocimiento?",
       "¿Qué enseña la advertencia de Pedro acerca de los falsos maestros que 'introducen secretamente sectas destructivas' (2:1) acerca de la importancia de la vigilancia doctrinal en la congregación?",
-      "¿Cómo enseña 2 Pedro 3:9 — 'Jehová no se demora en cuanto a su promesa...no desea que nadie sea destruido sino que todos lleguen al arrepentimiento' — acerca de la paciencia de Jehová?",
+      "¿Cómo enseña 2 Pedro 3:9: 'Jehová no se demora en cuanto a su promesa...no desea que nadie sea destruido sino que todos lleguen al arrepentimiento': acerca de la paciencia de Jehová?",
       "¿Qué enseña la exhortación final de Pedro a 'crecer en la bondad inmerecida y en el conocimiento de nuestro Señor' (3:18) acerca del carácter continuo del desarrollo espiritual?"
     ],
     [
-      "¿Cómo define Juan la verdadera comunión con Jehová — 'caminar en la luz' (1:5–7) — y qué significa esto en la práctica para nuestra conducta diaria?",
-      "¿Qué tres pruebas proporciona Juan para identificar a los genuinos cristianos — obediencia, amor por los hermanos y fe en Jesús como el Cristo — y cómo actúan juntas?",
+      "¿Cómo define Juan la verdadera comunión con Jehová: 'caminar en la luz' (1:5–7): y qué significa esto en la práctica para nuestra conducta diaria?",
+      "¿Qué tres pruebas proporciona Juan para identificar a los genuinos cristianos: obediencia, amor por los hermanos y fe en Jesús como el Cristo: y cómo actúan juntas?",
       "¿Cómo forma la afirmación de Juan 'Dios es amor' (4:8, 16) la base para comprender todos los tratos de Jehová con los seres humanos?",
-      "¿Qué enseña Juan acerca de 'el mundo' — su gobernante, la codicia de la carne y los ojos, y la ostentación de los bienes de la vida (2:15–17) — y cómo debe esto afectar nuestras decisiones?",
-      "¿Cómo describe 1 Juan 5:13 — 'Les he escrito estas cosas para que sepan que tienen vida' — la seguridad que Jehová quiere que tengan sus siervos acerca de la vida eterna?"
+      "¿Qué enseña Juan acerca de 'el mundo': su gobernante, la codicia de la carne y los ojos, y la ostentación de los bienes de la vida (2:15–17): y cómo debe esto afectar nuestras decisiones?",
+      "¿Cómo describe 1 Juan 5:13: 'Les he escrito estas cosas para que sepan que tienen vida': la seguridad que Jehová quiere que tengan sus siervos acerca de la vida eterna?"
     ],
     [
       "¿Qué significa 'caminar en la verdad' (versículo 4), y por qué la exactitud doctrinal es inseparable del amor en la enseñanza de Juan?",
       "¿Qué enseña la advertencia de Juan de no recibir en el hogar a quienes promueven la falsa doctrina (versículo 10) acerca de proteger a la congregación de influencias dañinas?",
-      "¿Cómo describe Juan 'el mandamiento que hemos tenido desde el principio' (versículo 5) — amarnos unos a otros — como fundamental para la identidad cristiana?",
+      "¿Cómo describe Juan 'el mandamiento que hemos tenido desde el principio' (versículo 5): amarnos unos a otros: como fundamental para la identidad cristiana?",
       "¿Qué enseña esta breve carta acerca de la importancia de la vigilancia contra quienes 'no permanecen en la enseñanza del Cristo' (versículo 9)?",
-      "¿Cómo modela el mensaje equilibrado de Juan — que afirma calurosamente el amor y la verdad al mismo tiempo que advierte contra el compromiso — la manera de comunicar fielmente?"
+      "¿Cómo modela el mensaje equilibrado de Juan: que afirma calurosamente el amor y la verdad al mismo tiempo que advierte contra el compromiso: la manera de comunicar fielmente?"
     ],
     [
       "¿Qué enseña la alabanza de Juan a Gayo por recibir a los misioneros viajeros acerca de la importancia de la hospitalidad en el apoyo a la obra de predicación?",
-      "¿Cómo advierte la reprensión de Juan a Diótrefes — que 'le gusta ocupar el primer lugar' y se negaba a recibir a los hermanos — contra el orgullo y la importancia propia en la congregación?",
+      "¿Cómo advierte la reprensión de Juan a Diótrefes: que 'le gusta ocupar el primer lugar' y se negaba a recibir a los hermanos: contra el orgullo y la importancia propia en la congregación?",
       "¿Qué significa en la práctica 'caminar en la verdad' (versículos 3–4), y por qué dice Juan que esto le da más alegría que cualquier otra cosa?",
-      "¿Cómo describe el ejemplo positivo de Demetrio (versículo 12) — 'atestiguado por todos, sí, por la misma verdad' — la clase de reputación que los Testigos de Jehová deben esforzarse por forjar?",
+      "¿Cómo describe el ejemplo positivo de Demetrio (versículo 12): 'atestiguado por todos, sí, por la misma verdad': la clase de reputación que los Testigos de Jehová deben esforzarse por forjar?",
       "¿Qué enseña esta breve carta acerca de las formas prácticas en que podemos apoyar a quienes 'trabajan en nombre de' Jehová (versículo 7)?"
     ],
     [
       "¿Qué enseña el urgente llamado de Judas a 'pelear ardientemente por la fe' (versículo 3) acerca de la responsabilidad de cada cristiano individual de defender la doctrina verdadera?",
-      "¿Cómo usa Judas ejemplos históricos — los israelitas en el desierto, los ángeles que abandonaron su morada apropiada, Sodoma y Gomorra — para advertir sobre las consecuencias de la apostasía?",
+      "¿Cómo usa Judas ejemplos históricos: los israelitas en el desierto, los ángeles que abandonaron su morada apropiada, Sodoma y Gomorra: para advertir sobre las consecuencias de la apostasía?",
       "¿Qué enseña Judas acerca de los que 'se han infiltrado' (versículo 4), y cómo pueden los Testigos de Jehová reconocer y protegerse de influencias similares hoy?",
       "¿Cómo describe Judas 'edificándose en su santísima fe, orando con espíritu santo' (versículo 20) el fortalecimiento espiritual necesario para resistir la falsa enseñanza?",
-      "¿Qué enseña la doxología final de Judas (versículos 24–25) — 'al que puede guardarlos para que no tropiecen' — acerca de confiar en Jehová para la protección espiritual?"
+      "¿Qué enseña la doxología final de Judas (versículos 24–25): 'al que puede guardarlos para que no tropiecen': acerca de confiar en Jehová para la protección espiritual?"
     ],
     [
       "¿Cómo establecen la visión de Jehová en su trono (capítulo 4) y el Cordero que recibe el rollo (capítulo 5) la base del derecho de Jehová a juzgar y actuar?",
       "¿Qué enseñan las siete cartas a las congregaciones (capítulos 2–3) acerca de los puntos fuertes y débiles específicos que Jehová observa en su pueblo?",
       "¿Cómo describen la visión de la gran multitud (capítulo 7) y los 144.000 los dos grupos del pueblo de Jehová que recibirán la salvación?",
       "¿Qué representa 'Babilonia la Grande' (capítulos 17–18), y qué significa para los siervos de Jehová hoy el llamado de Jehová a 'salgan de ella, pueblo mío'?",
-      "¿Cómo sustenta la visión culminante de Apocalipsis — la Nueva Jerusalén, la eliminación de la muerte y Jehová morando con los seres humanos (capítulos 21–22) — la esperanza de los Testigos de Jehová por el paraíso?"
+      "¿Cómo sustenta la visión culminante de Apocalipsis: la Nueva Jerusalén, la eliminación de la muerte y Jehová morando con los seres humanos (capítulos 21–22): la esperanza de los Testigos de Jehová por el paraíso?"
     ]
   ],
   "aiTools": {
     "pageTitle": "Herramientas de Estudio Bíblico con IA",
-    "pageSubtitle": "Impulsado por Claude — fundamentado en las enseñanzas de la Torre del Vigía y la Traducción del Nuevo Mundo.",
+    "pageSubtitle": "Impulsado por Claude: fundamentado en las enseñanzas de la Torre del Vigía y la Traducción del Nuevo Mundo.",
     "responseLabel": "Respuesta de IA",
     "saveToNotes": "Guardar en Notas",
     "private": "🔒 Privado",
@@ -2872,7 +3043,7 @@
     "notesLabel": "Notas",
     "notesSaving": "guardando…",
     "notesSaved": "✓ Guardado",
-    "notesLockedMsg": "🔒 Guarda tus notas — Premium",
+    "notesLockedMsg": "🔒 Guarda tus notas: Premium",
     "contentNotLoaded": "⚠ El contenido de esta semana aún no se ha cargado. Se actualiza semanalmente.",
     "contentNotLoadedShort": "⚠ El contenido de esta semana aún no se ha cargado.",
     "openOnWol": "Abrir en WOL",
@@ -3630,8 +3801,8 @@
   },
   "checklist": {
     "bibleProgress": "Progreso de Lectura Bíblica",
-    "oldTestament": "Antiguo Testamento",
-    "newTestament": "Nuevo Testamento",
+    "oldTestament": "Escrituras Hebreas",
+    "newTestament": "Escrituras Griegas Cristianas",
     "studyTools": "Herramientas de Estudio",
     "66books": "66 Libros",
     "continueReading": "Continuar leyendo",
@@ -3715,8 +3886,8 @@
     "dividerDesc": "Separador horizontal",
     "imageLabel": "Imagen",
     "imageDesc": "Subir o pegar URL de imagen",
-    "verseBlockLabel": "📖 Referencia bíblica — escribe cualquier versículo (p. ej. Romanos 8:21)",
-    "versePlaceholder": "Libro Capítulo:Versículo — p. ej. Juan 3:16",
+    "verseBlockLabel": "📖 Referencia bíblica: escribe cualquier versículo (p. ej. Romanos 8:21)",
+    "versePlaceholder": "Libro Capítulo:Versículo: p. ej. Juan 3:16",
     "headingPlaceholder": "Encabezado…",
     "subheadingPlaceholder": "Subencabezado…",
     "pullQuotePlaceholder": "Un pensamiento memorable…",
@@ -3778,8 +3949,11 @@
     "friendFallback": "Amigo"
   },
   "verseModal": {
-    "shareMessage": "📖 Estoy leyendo {{book}} {{chapter}} — {{url}}",
-    "shareTitle": "Compartir {{book}} {{chapter}}"
+    "shareMessage": "📖 Estoy leyendo {{book}} {{chapter}}: {{url}}",
+    "shareTitle": "Compartir {{book}} {{chapter}}",
+    "chapterShort": "Cap {{chapter}}",
+    "dialogLabel": "{{book}} capítulo {{chapter}}",
+    "versesProgress": "{{read}} / {{total}} versículos"
   },
   "topbar": {
     "goToHome": "JW Study, Ir al inicio",
@@ -3832,5 +4006,902 @@
   "familyQuiz": {
     "loadingChallenge": "Cargando desafío…",
     "loadingResults": "Cargando resultados…"
+  },
+  "betaLang": {
+    "dismiss": "Descartar",
+    "notice": "Esta traducción está en versión beta. Algunas citas de las Escrituras pueden no coincidir con la redacción oficial de la Traducción del Nuevo Mundo.",
+    "reason": "Los textos de los versículos no se pudieron verificar automáticamente porque la base de datos de wol.jw.org está cifrada. Si notas un error de traducción, por favor avísanos.",
+    "suggest": "Sugerir una corrección"
+  },
+  "tracker": {
+    "filterAll": "Todos",
+    "filterDone": "Completados ✓",
+    "filterInProgress": "En progreso",
+    "filterNotStarted": "Sin empezar"
+  },
+  "aiBubble": {
+    "aiThinkingAriaLabel": "La IA está pensando",
+    "clear": "Borrar",
+    "clearTitle": "Borrar conversación",
+    "closeAriaLabel": "Cerrar compañero de estudio",
+    "dialogLabel": "Compañero de Estudio con IA",
+    "fabTitle": "Compañero de Estudio con IA",
+    "inputAriaLabel": "Hacer una pregunta bíblica",
+    "openAriaLabel": "Abrir Compañero de Estudio con IA",
+    "placeholder": "Haz una pregunta bíblica…",
+    "quotaAriaLabel": "{{percent}} por ciento de la cuota diaria de IA usada",
+    "quotaPill": "{{percent}}% usado",
+    "quotaTitle": "Cuota diaria de IA: {{inputUsed}} / {{inputCap}} tokens de entrada, {{outputUsed}} / {{outputCap}} tokens de salida. Se reinicia cada 24h.",
+    "subtitle": "Solo fuentes JW · wol.jw.org",
+    "suggestedBlog": {
+      "q1": "Escribe un borrador de blog sobre lo que estoy estudiando",
+      "q2": "Dame un esquema para un artículo JW sobre este tema",
+      "q3": "Sugiéreme 5 ideas de títulos de blog con textos bíblicos",
+      "q4": "Ayúdame a escribir un párrafo de introducción"
+    },
+    "suggestedDefault": {
+      "q1": "¿Qué enseña este pasaje sobre Jehová?",
+      "q2": "¿Qué significa el hebreo o griego original?",
+      "q3": "¿Cómo puedo explicarle este texto a alguien?",
+      "q4": "¿Qué dice el libro Razonamiento sobre esto?"
+    },
+    "thinking1": "Pensando",
+    "thinking2": "Buscando eso",
+    "thinking3": "Leyendo las publicaciones",
+    "thinking4": "Considerando las Escrituras",
+    "title": "Compañero de Estudio",
+    "welcomeBlog": "Dime un tema y te escribiré un borrador completo y lo cargaré en el editor. También puedo ayudarte a generar ideas de títulos, esquemas o trabajar en cualquier sección.",
+    "welcomeDefault": "Haz cualquier pregunta bíblica. Las respuestas se basan exclusivamente en publicaciones de la Watch Tower, la TNM y wol.jw.org."
+  },
+  "aiConfirm": {
+    "actionFailed": "La acción falló.",
+    "deleteNote": {
+      "action": "Eliminar",
+      "title": "¿Eliminar esta nota?",
+      "warn": "Esta acción no se puede deshacer."
+    },
+    "noteDeleted": "Nota eliminada."
+  },
+  "errorPage": {
+    "appUpdated": "La aplicación se actualizó. Por favor, recarga para obtener la última versión.",
+    "fallback": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
+    "reload": "↺ Recargar página",
+    "title": "Algo salió mal",
+    "tryAgain": "↩ Intentar de nuevo"
+  },
+  "learn": {
+    "exercises": {
+      "meditate": {
+        "begin": "Empezar",
+        "finishButton": "Lo he meditado",
+        "finishedMessage": "Aquí no hay calificaciones. Lo que acabas de hacer, ir despacio y hacer preguntas sinceras, es la práctica. Sigue así.",
+        "pause": "Pausar",
+        "placeholder": "Tómate tu tiempo…",
+        "reset": "Reiniciar",
+        "restart": "Volver a empezar",
+        "saved": "Guardado",
+        "timerLabel": "Pausa de meditación opcional"
+      },
+      "questionLadder": {
+        "completeButton": "He subido la escalera",
+        "completedMessage": "Buen trabajo. Respira hondo. Las preguntas que acabas de hacer son las que un estudiante atento sigue haciéndose el resto de su vida.",
+        "hideHint": "Ocultar pista",
+        "hintLabel": "Pista:",
+        "needHint": "¿Necesitas una pista?",
+        "placeholder": "Escribe tu respuesta…",
+        "rungs": {
+          "how": "Cómo se aplica",
+          "what": "Qué",
+          "whenWhere": "Cuándo / Dónde",
+          "who": "Quién",
+          "why": "Por qué"
+        },
+        "rungsAnswered": "{{filled}} de {{total}} peldaños respondidos",
+        "saved": "Guardado"
+      },
+      "soapNote": {
+        "headings": {
+          "application": "Aplicación",
+          "observation": "Observación",
+          "prayer": "Oración",
+          "scripture": "Texto bíblico"
+        },
+        "placeholder": "…",
+        "saveButton": "Guardar esta nota S.O.A.P.",
+        "saved": "Guardado",
+        "savedMessage": "Guardado localmente. Cuando hayas iniciado sesión y conectemos el almacenamiento, esta nota se guardará en tu diario de estudio.",
+        "sectionsFilled": "{{filled}} de 4 secciones completadas"
+      },
+      "crossRef": {
+        "nextQuestion": "Siguiente pregunta",
+        "notQuite": "No del todo.",
+        "questionCounter": "Pregunta {{index}} / {{total}}",
+        "resultLabel": "Resultado",
+        "right": "Correcto.",
+        "scoreLabel": "Puntuación: {{correct}} / {{answered}}",
+        "seeResult": "Ver resultado",
+        "verdictClean": "Sin fallos. Conoces tu biblioteca.",
+        "verdictFair": "Un buen comienzo. Repasa la lección una vez más y el instinto llegará.",
+        "verdictWellDone": "Muy bien. Tienes el instinto."
+      },
+      "highlight": {
+        "clearAll": "Borrar todo",
+        "iveMarked": "He marcado el párrafo",
+        "pickHighlighter": "Elige un marcador arriba y luego pulsa palabras del pasaje.",
+        "showGuide": "Mostrar una guía para este párrafo",
+        "tagAtLeast": "Etiqueta al menos 5 (actualmente {{count}})",
+        "tapToTag": "Pulsa una palabra o frase para etiquetarla como \"{{category}}\". Pulsa de nuevo para quitarla."
+      }
+    },
+    "course": {
+      "backHome": "Volver al inicio",
+      "backToCourse": "Volver al curso",
+      "breadcrumbLabel": "Ruta de navegación",
+      "categories": {
+        "command": "Mandato",
+        "promise": "Promesa",
+        "quality": "Cualidad de Jehová",
+        "reference": "Referencia cruzada",
+        "warning": "Advertencia"
+      },
+      "closingBenediction": "Toda la gloria sea para Jehová.",
+      "closingBlurb": "El estudio personal es uno de los mayores regalos que tiene un estudiante de la Biblia. No dejes que este curso termine aquí.",
+      "closingCta": "Empieza tu primera sesión de estudio",
+      "complete": "Completar",
+      "completed": "Completado",
+      "continue": "Continuar",
+      "exerciseHeading": "Ejercicio",
+      "intro": "No solo vas a leer sobre el estudio. Lo vas a hacer, con versículos reales, publicaciones reales y ejercicios reales, tal como lo hicieron los bereanos.",
+      "kicker": "Un curso de nueve lecciones para estudiantes de la Biblia",
+      "lessonLabel": "Lección",
+      "markComplete": "Marcar lección como completada",
+      "minRead": "min de lectura",
+      "minShort": "min",
+      "overallProgress": "Progreso general",
+      "skipToExercise": "Saltar al ejercicio",
+      "skipToExerciseAria": "Saltar al ejercicio. {{pct}}% leído.",
+      "skipToExerciseReady": "Listo, ir al ejercicio",
+      "title": "Aprende a estudiar",
+      "unitLabel": "Unidad"
+    },
+    "units": {
+      "unit1": {
+        "lesson1": {
+          "body": {
+            "bq1": "Estos eran de mentalidad más noble que los de Tesalónica, porque recibieron la palabra con la mayor disposición de ánimo, examinando con cuidado las Escrituras todos los días para ver si estas cosas eran así.",
+            "h3_1": "Tres rasgos del estudio que da forma a una vida",
+            "list1": {
+              "item1": "Regular. El ritmo le gana a la intensidad. Quince minutos diarios duran más que un atracón de tres horas el sábado.",
+              "item2": "Activo. Lápiz en mano. Pregunta en mente. Si no puedes recordar lo que leíste una hora después, en realidad no estabas estudiando.",
+              "item3": "Con oración. Jehová da sabiduría con generosidad a quienes la piden (Sant. 1:5). El espíritu santo no llega automáticamente; pídelo."
+            },
+            "p1": "Cuando Pablo predicó en Berea, la gente de allí hizo algo que el apóstol destacó con elogio. Recibieron la palabra con entusiasmo, pero no se quedaron ahí. Lo verificaron.",
+            "p2": "Ese es el patrón para el estudio personal. Recepción ansiosa y examen cuidadoso, cada día. No basta con estar de acuerdo con lo que oyes en las reuniones. Los bereanos, y el propio Pablo, que escribió más de las Escrituras Griegas Cristianas que ningún otro, querían que profundizáramos por nosotros mismos.",
+            "p3": "Este curso está construido en torno a esos tres rasgos. Harás ejercicios cortos con textos bíblicos reales, no solo leerás sobre ellos. Ese es el patrón bereano en miniatura."
+          },
+          "ex": {
+            "prompt1": "¿Qué has leído en tu Biblia o en las publicaciones esta semana?",
+            "prompt2": "¿Dónde alcanzaste a ver alguna de las cualidades de Jehová en el pasaje?",
+            "prompt3": "¿Qué te pide ese pasaje cambiar, empezar o dejar de hacer?",
+            "prompt4": "Escribe una oración de una sola frase que convierta tu respuesta anterior en una conversación con Jehová.",
+            "title": "Medita: ¿qué te conmovió esta semana?"
+          },
+          "oneLine": "Los bereanos no solo escuchaban. Examinaban. Nosotros también deberíamos hacerlo.",
+          "title": "Por qué importa el estudio personal"
+        },
+        "lesson2": {
+          "body": {
+            "bq1": "Regla práctica: JW Library para leer y para las reuniones. WOL para investigar y responder preguntas.",
+            "h3_1": "JW Library: la fiel compañera de campo",
+            "h3_2": "Watchtower ONLINE LIBRARY (WOL): la mesa de investigación",
+            "p1": "Estamos consentidos. Los estudiantes de la Biblia antes que nosotros armaban su estudio con Biblias en rústica, bosquejos mimeografiados y visitas a la biblioteca del Salón del Reino. Hoy, dos aplicaciones hacen casi todo ese trabajo, y saber a cuál acudir ahorra mucho tiempo.",
+            "p2": "JW Library es la Traducción del Nuevo Mundo, los medios de las reuniones, el cantoral y el texto diario en tu bolsillo. Es portátil, funciona sin conexión y está pensada para leer y para las reuniones, no para investigación profunda.",
+            "p3": "WOL es el estante completo. Cada publicación, indexada y enlazada. Es a donde vas cuando se abre una pregunta y necesitas seguir el hilo: artículos pasados de La Atalaya, entradas de Perspicacia, capítulos de Razonamiento, Anuarios."
+          },
+          "ex": {
+            "intro": "Cada situación se da en la vida real. ¿Qué recurso encaja mejor?",
+            "q1": {
+              "explanation": "JW Library está hecha para leer sin conexión y con una sola mano. El texto diario aparece en la pantalla principal y la Biblia está a un toque de distancia.",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "Vas en el autobús y quieres leer el texto diario y repasar rápidamente el capítulo bíblico de hoy."
+            },
+            "q2": {
+              "explanation": "WOL es la biblioteca de investigación. Usa su buscador con comillas alrededor de \"Ezequías\" para obtener una lista ordenada en todas las publicaciones.",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "Quieres encontrar todos los artículos de La Atalaya que traten sobre las reformas del rey Ezequías en los últimos veinte años."
+            },
+            "q3": {
+              "explanation": "La Edición de Estudio de la TNM en JW Library muestra las notas de estudio y las referencias justo al lado del versículo. WOL también las tiene, pero la vista bíblica de JW Library es más rápida para un solo pasaje.",
+              "optA": "JW Library (Edición de Estudio)",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "Estás preparando un discurso y quieres las referencias cruzadas de la Biblia con Referencias junto al versículo en el que trabajas."
+            },
+            "q4": {
+              "explanation": "JW Library mantiene los medios de las reuniones disponibles sin conexión una vez descargados. WOL necesita conexión.",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "Quieres repasar el video de la reunión de la semana pasada cuando estás sin conexión en casa de un familiar sin Wi-Fi."
+            },
+            "q5": {
+              "explanation": "Perspicacia está disponible en ambas, pero la experiencia de enlaces cruzados de WOL es más rápida para las largas entradas de tipo enciclopedia, donde saltarás entre subapartados.",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "Quieres leer la entrada completa de Perspicacia sobre las Escrituras acerca de \"Fe\" con todos sus subapartados y enlaces cruzados."
+            },
+            "title": "Referencia cruzada: elige la herramienta adecuada"
+          },
+          "oneLine": "Dos herramientas brillantes. Tareas distintas. Saber cuál tomar es la mitad de la batalla.",
+          "title": "JW Library frente a Watchtower ONLINE LIBRARY"
+        },
+        "lesson3": {
+          "body": {
+            "h3_1": "Perspicacia para comprender las Escrituras",
+            "h3_2": "Razonamiento a partir de las Escrituras",
+            "h3_3": "La Atalaya (edición pública + edición de estudio)",
+            "h3_4": "¡Despertad!",
+            "h3_5": "La adoración pura de Jehová",
+            "p1": "A veces los nuevos estudiantes de la Biblia suponen que todas las publicaciones dicen más o menos lo mismo. No es así. Cada una está escrita para una tarea distinta. Aquí están las cinco a las que más recurrirás.",
+            "p2": "La enciclopedia. Dos tomos que cubren personas, lugares, objetos y conceptos por orden alfabético, con referencias cruzadas. Cuando un nombre, una palabra o una costumbre de las Escrituras te detiene, Perspicacia es la primera parada.",
+            "p3": "La compañera del servicio del campo. Organizada por temas, \"Sangre\", \"Cruz\", \"Dios\", \"Sufrimiento\", con respuestas directas y muestras de conversación. Hecha para objeciones y conversaciones.",
+            "p4": "Alimento espiritual actual. La edición de estudio es material para la reunión; la edición pública está escrita para un público más amplio. Cuando una pregunta tiene que ver con nuestro entendimiento actual, La Atalaya más reciente es casi siempre el lugar para revisar.",
+            "p5": "Principios bíblicos aplicados a la vida diaria, la familia, el trabajo, la salud, la ansiedad, los adolescentes. Su voz es cálida y práctica. Excelente para amos de casa que aún no están listos para conversaciones doctrinales profundas.",
+            "p6": "Forma parte de una familia de libros proféticos (junto con Jeremías, La profecía de Isaías y El gran clímax de Revelación) que recorre versículo a versículo el libro de Ezequiel. Recurre a estos cuando estudies un libro profético."
+          },
+          "ex": {
+            "intro": "Un amigo o un amo de casa te hace una de estas preguntas. ¿Cuál publicación es el mejor punto de partida?",
+            "q1": {
+              "explanation": "Razonamiento tiene un capítulo completo sobre \"Sufrimiento\" con textos bíblicos, razonamiento lógico y muestras de respuestas conversacionales, hecho exactamente para esta pregunta.",
+              "optA": "Perspicacia para comprender las Escrituras",
+              "optB": "Razonamiento a partir de las Escrituras",
+              "optC": "¡Despertad!",
+              "optD": "La adoración pura de Jehová",
+              "scenario": "\"¿Por qué un Dios amoroso permite el sufrimiento en el mundo?\""
+            },
+            "q2": {
+              "explanation": "Perspicacia es la enciclopedia: su entrada \"Jehová\" cubre etimología, historia de la pronunciación y cada aparición en las Escrituras con profundidad.",
+              "optA": "Perspicacia para comprender las Escrituras",
+              "optB": "Razonamiento a partir de las Escrituras",
+              "optC": "¡Despertad!",
+              "optD": "La Atalaya",
+              "scenario": "\"¿Qué significaba el nombre divino Jehová en hebreo antiguo, y cómo se pronunciaba?\""
+            },
+            "q3": {
+              "explanation": "¡Despertad! se especializa en temas prácticos de la vida, como la ansiedad, presentando los principios bíblicos con calidez. Un artículo de estudio reciente de La Atalaya también sería excelente.",
+              "optA": "Perspicacia para comprender las Escrituras",
+              "optB": "Razonamiento a partir de las Escrituras",
+              "optC": "¡Despertad!",
+              "optD": "La adoración pura de Jehová",
+              "scenario": "\"Me paso las noches en vela por la ansiedad. ¿Qué dice la Biblia que debo hacer?\""
+            },
+            "q4": {
+              "explanation": "Empieza con la entrada de Perspicacia sobre la \"Gran muchedumbre\" para una explicación bíblica completa. Los comentarios proféticos sobre Revelación profundizan más, y Razonamiento ofrece una versión conversacional más breve.",
+              "optA": "¡Despertad!",
+              "optB": "Razonamiento a partir de las Escrituras",
+              "optC": "Adoración pura / comentario profético",
+              "optD": "Perspicacia para comprender las Escrituras",
+              "scenario": "\"¿Quiénes son la 'gran muchedumbre' de Revelación 7, y cómo sabemos que es un grupo distinto del de los 144.000?\""
+            },
+            "q5": {
+              "explanation": "En cuestiones donde nuestro entendimiento se ha refinado con el tiempo, el artículo más reciente de La Atalaya contiene el alimento espiritual actual. Siempre revisa lo más nuevo.",
+              "optA": "Perspicacia para comprender las Escrituras",
+              "optB": "La Atalaya (artículo más reciente)",
+              "optC": "Razonamiento a partir de las Escrituras",
+              "optD": "¡Despertad!",
+              "scenario": "\"Quiero entender la dirección bíblica actual sobre las fracciones de la sangre para uso médico.\""
+            },
+            "title": "Referencia cruzada: ¿qué publicación encaja con esta pregunta?"
+          },
+          "oneLine": "El esclavo fiel y discreto nos ha dado un estante completo. Cada libro hace una tarea de manera excepcional.",
+          "title": "Perspicacia, Razonamiento y las publicaciones"
+        },
+        "oneLine": "Antes de aprender a estudiar a fondo, hace falta saber qué tienes en la mano y por qué está ahí.",
+        "title": "Tu equipo de estudio"
+      },
+      "unit2": {
+        "lesson4": {
+          "body": {
+            "h3_1": "T, Texto",
+            "h3_2": "O, Observación",
+            "h3_3": "A, Aplicación",
+            "h3_4": "P, Plegaria",
+            "p1": "S.O.A.P. es un acrónimo, Texto, Observación, Aplicación, Plegaria, y es uno de los esquemas más sencillos y duraderos para convertir la lectura de la Biblia en un estudio de la Biblia. Funciona para un solo versículo o para un capítulo entero.",
+            "p2": "Escribe el versículo. A mano si puedes. Copiarlo te obliga a ir despacio y a notar cosas que un lector veloz se pierde: las conjunciones, los imperativos, las condiciones.",
+            "p3": "¿Qué dice realmente el pasaje? ¿Quién habla? ¿A quién? ¿Cuándo? ¿Qué palabras se repiten? Esto todavía no se trata de ti, se trata de lo que está ahí en la página.",
+            "p4": "Ahora vuélvete hacia ti mismo. ¿Qué me pide hoy este versículo? ¿En qué parte de mi vida estoy yendo en su contra? ¿Cómo se vería la obediencia esta semana?",
+            "p5": "Devuélvele a Jehová el versículo en oración. Dale gracias por lo que revela acerca de él. Pídele la ayuda concreta que requiere la aplicación."
+          },
+          "ex": {
+            "promptA": "¿En qué parte de tu vida estás 'apoyándote en tu propio entendimiento' ahora mismo? ¿Cómo se vería confiar en Jehová allí esta semana?",
+            "promptO": "¿Qué manda este pasaje? ¿Qué promete? ¿Cuál es la condición?",
+            "promptP": "Convierte tu respuesta en una oración breve. Empieza con 'Jehová,' y mantenla sincera.",
+            "promptS": "Copia Proverbios 3:5, 6 con tu propia letra, o escríbelo despacio aquí abajo.",
+            "title": "S.O.A.P. en Proverbios 3:5, 6",
+            "verseText": "Confía en Jehová con todo tu corazón y no te apoyes en tu propio entendimiento. Tenlo presente en todos tus caminos y él enderezará tus sendas."
+          },
+          "oneLine": "Cuatro letras. Uno de los andamios más fiables para una sesión de estudio personal profunda.",
+          "title": "El método S.O.A.P."
+        },
+        "lesson5": {
+          "body": {
+            "list1": {
+              "item1": "Quién, ¿quién habla y a quién le habla?",
+              "item2": "Qué, ¿qué está pasando realmente en el versículo? ¿Qué palabra se repite o se enfatiza?",
+              "item3": "Cuándo / Dónde, ¿cuál es el contexto histórico o geográfico?",
+              "item4": "Por qué, ¿por qué querría Jehová que esto quedara registrado? ¿Por qué importa?",
+              "item5": "Cómo, ¿cómo se aplica a mí, hoy, en mis circunstancias reales?"
+            },
+            "p1": "Un versículo puede parecer plano en una lectura rápida. Ese mismo versículo, sometido a las preguntas correctas, se abre. Aquí tienes cinco preguntas que casi siempre descubren algo nuevo.",
+            "p2": "Pasa cualquier versículo por las cinco preguntas y habrás pensado más de lo que la mayoría piensa en un capítulo entero de lectura."
+          },
+          "ex": {
+            "how": {
+              "hint": "Nombra una ansiedad concreta que vayas a 'echar' sobre Jehová en oración hoy.",
+              "prompt": "¿Cómo se aplica esto a ti esta semana?"
+            },
+            "title": "Aplica las cinco preguntas a 1 Pedro 5:7",
+            "verseText": "Echen sobre él toda su ansiedad, porque él se interesa por ustedes.",
+            "what": {
+              "hint": "'Echen', es decisivo, no pasivo. 'Toda' es la palabra enfática.",
+              "prompt": "¿Cuál es el mandato y qué palabra se enfatiza?"
+            },
+            "whenWhere": {
+              "hint": "Escrita alrededor del 62-64 e.c., a hermanos y hermanas que afrontaban una creciente hostilidad romana.",
+              "prompt": "¿Cuál es el contexto histórico?"
+            },
+            "who": {
+              "hint": "Pedro, un anciano más, escribe a cristianos esparcidos por Asia Menor.",
+              "prompt": "¿Quién habla y a quién le escribe?"
+            },
+            "why": {
+              "hint": "Porque la ansiedad aísla, y este versículo es el correctivo: tenemos un Padre que se interesa.",
+              "prompt": "¿Por qué querría Jehová que esto quedara registrado?"
+            }
+          },
+          "oneLine": "Las buenas preguntas son las llaves que abren los versículos cerrados.",
+          "title": "Hacer preguntas que abren versículos"
+        },
+        "lesson6": {
+          "body": {
+            "list1": {
+              "item1": "Verde, una promesa de Jehová.",
+              "item2": "Azul, un mandato o una instrucción.",
+              "item3": "Rojo, una advertencia o una consecuencia.",
+              "item4": "Dorado, una cualidad de Jehová o de Jesús.",
+              "item5": "Morado, una referencia cruzada que vale la pena seguir."
+            },
+            "p1": "Subrayar sin un sistema es solo decoración. Aquí tienes una sencilla configuración de cinco colores que ha sobrevivido décadas entre estudiantes de la Biblia, y funciona igual de bien en JW Library que en una Biblia de papel.",
+            "p2": "La próxima vez que te sientes con un párrafo de La Atalaya, ve despacio y márcalo. Un solo párrafo bien marcado que recuerdas vale más que diez capítulos hojeados que no recuerdas."
+          },
+          "ex": {
+            "guide": {
+              "command": "\"nos manda orar sin cesar\", un mandato",
+              "promise": "\"promete sostenernos\", una promesa",
+              "quality": "\"Padre amoroso\", una cualidad de Jehová",
+              "reference": "\"Compara Hebreos 2:1\", una referencia cruzada",
+              "warning": "\"el deslizarse lleva al naufragio de la fe\", una advertencia"
+            },
+            "passageSource": "Párrafo de muestra para practicar",
+            "title": "Marca un párrafo al estilo de La Atalaya",
+            "token": {
+              "t1": "Jehová",
+              "t10": "sostenernos.",
+              "t11": "Él",
+              "t12": "nos",
+              "t13": "manda",
+              "t14": "orar",
+              "t15": "sin",
+              "t16": "cesar",
+              "t17": "y",
+              "t18": "advierte",
+              "t19": "que",
+              "t2": "es",
+              "t20": "el",
+              "t21": "deslizarse",
+              "t22": "lleva",
+              "t23": "al",
+              "t24": "naufragio",
+              "t25": "de",
+              "t26": "la",
+              "t27": "fe.",
+              "t28": "Compara",
+              "t29": "Hebreos 2:1.",
+              "t3": "un",
+              "t4": "Padre",
+              "t5": "amoroso",
+              "t6": "que",
+              "t7": "promete",
+              "t8": "sostenernos.",
+              "t9": "Promete"
+            }
+          },
+          "oneLine": "Las marcas en la página son ayudas para la memoria. Un buen sistema convierte un párrafo en un mapa.",
+          "title": "Subrayar y tomar notas que funcionan"
+        },
+        "oneLine": "Ya tienes las herramientas. Ahora veamos cómo usarlas de verdad.",
+        "title": "El arte de estudiar"
+      },
+      "unit3": {
+        "lesson7": {
+          "body": {
+            "h3_1": "Tres lugares donde encontrar referencias cruzadas",
+            "list1": {
+              "item1": "Las referencias marginales en la Biblia con Referencias TNM, en la columna derecha, para cada versículo importante.",
+              "item2": "La función de \"citado por\" en WOL, muestra cada publicación que cita el versículo en el que estás.",
+              "item3": "Perspicacia para comprender las Escrituras, las entradas por tema enlazan a todos los pasajes principales sobre ese tema."
+            },
+            "p1": "Jehová escribió su Palabra de tal modo que ella misma se habla. Un versículo de Génesis se conecta con uno de Revelación. Una frase en los Salmos ilumina un relato en Reyes. Hacer referencias cruzadas es la habilidad de seguir esas conexiones, y la Edición con Referencias de la TNM está diseñada para ello.",
+            "p2": "Construye una cadena. Empieza con un versículo. Sigue una referencia. Luego sigue otra desde ahí. Después de tres o cuatro saltos verás un patrón que nunca habrías visto en el versículo de partida."
+          },
+          "ex": {
+            "how": {
+              "hint": "Sé concreto: una hora específica, un capítulo específico, una oración específica.",
+              "prompt": "¿Qué cosa harás esta semana para 'seguir conociendo' a Jehová?"
+            },
+            "title": "Construye una cadena a partir de Juan 17:3",
+            "verseText": "Esto significa vida eterna: que lleguen a conocerte a ti, el único Dios verdadero, y al que tú enviaste, Jesucristo.",
+            "what": {
+              "hint": "2 Pedro 3:18, 'sigan creciendo en la bondad inmerecida y en el conocimiento de nuestro Señor'.",
+              "prompt": "¿Qué implica 'llegar a conocer'? Encuentra un versículo que describa el conocer a Dios como algo continuo, no un evento único."
+            },
+            "whenWhere": {
+              "hint": "1 Corintios 8:6, 'para nosotros realmente hay un solo Dios, el Padre... y un solo Señor, Jesucristo'.",
+              "prompt": "El versículo distingue al 'único Dios verdadero' de Jesús. Encuentra otro versículo que haga la misma distinción."
+            },
+            "who": {
+              "hint": "Mateo 26:39 es una de las oraciones más intensas; compara su postura ante el Padre.",
+              "prompt": "¿Quién habla aquí? Encuentra una referencia cruzada con otra oración de Jesús y anota el versículo."
+            },
+            "why": {
+              "hint": "Santiago 4:8, 'acérquense a Dios, y él se acercará a ustedes'.",
+              "prompt": "¿Por qué Jesús enmarca la 'vida eterna' como una relación y no como un premio? Encuentra un versículo que muestre el corazón de Jehová hacia nosotros."
+            }
+          },
+          "oneLine": "La Escritura es su propio mejor comentario. Aprender a encadenar pasajes es aprender a pensar como un bereano.",
+          "title": "Hacer referencias cruzadas como un bereano"
+        },
+        "lesson8": {
+          "body": {
+            "bq1": "Su deleite está en la ley de Jehová, y lee Su ley en voz baja día y noche.",
+            "h3_1": "En qué se diferencia la meditación de la lectura",
+            "h3_2": "Un sencillo ritmo de tres minutos",
+            "list1": {
+              "item1": "Elige un versículo. Solo uno. No corras al siguiente.",
+              "item2": "Léelo tres veces, despacio. Haz una pausa después de cada lectura.",
+              "item3": "Quédate con él. Deja que surja una pregunta. Deja que surja un sentimiento. Deja que Jehová te hable."
+            },
+            "p1": "La palabra hebrea que se traduce 'lee en voz baja' lleva la imagen de una vaca rumiando, lento, repetido, paciente. La meditación es ese masticar lento. No vas a sacar los nutrientes de un versículo que te tragas entero.",
+            "p2": "La lectura pregunta: \"¿Qué dice?\". La meditación pregunta: \"¿Qué significa, y qué me hace?\". Una llena la mente. La otra moldea a la persona."
+          },
+          "ex": {
+            "introVerse": {
+              "text": "Jehová es mi Pastor. Nada me faltará."
+            },
+            "prompt1": "Lee el versículo tres veces, despacio. Que la segunda lectura sea más lenta que la primera.",
+            "prompt2": "¿Qué imagen te evoca la palabra 'Pastor'? ¿Qué te dice sobre la manera en que Jehová se relaciona contigo?",
+            "prompt3": "¿En qué parte de tu vida temes ahora mismo que vaya a faltarte algo? Sostén ese temor junto al versículo.",
+            "prompt4": "Escribe una sola oración a Jehová sobre lo que acabas de ver.",
+            "title": "Meditación guiada de 3 minutos"
+          },
+          "oneLine": "La lectura es la comida. La meditación es la digestión. La mayor parte del alimento se asimila aquí.",
+          "title": "La meditación: dejar que la Palabra cale"
+        },
+        "lesson9": {
+          "body": {
+            "h3_1": "Una semana de muestra",
+            "list1": {
+              "item1": "A diario (15 min): lectura de la Biblia + texto diario. La misma hora, el mismo lugar.",
+              "item2": "Entre semana (45 min): preparación de la reunión, lee el artículo de estudio de La Atalaya, subraya, marca.",
+              "item3": "Fin de semana (60 min): un estudio S.O.A.P. sobre un capítulo de tu elección.",
+              "item4": "Mensual: elige una entrada de Perspicacia y léela de principio a fin."
+            },
+            "p1": "Hemos visto las herramientas y las técnicas. Ahora viene la parte más difícil: mantenerlo en marcha. Los hábitos, no las hazañas, forman a un estudiante de la Biblia.",
+            "p2": "Esto no es una receta. Es un marco. Reduce o amplía a la medida de tu vida, pero anota lo que te comprometes a hacer y luego sigue presentándote.",
+            "p3": "Toda la gloria sea para Jehová. Él nos ha dado su Palabra, su espíritu y su organización. Lo demás es solo presentarse."
+          },
+          "ex": {
+            "prompt1": "¿A qué hora del día vas a estudiar? (Sé concreto, p. ej. '7:00, antes del desayuno'.)",
+            "prompt2": "¿Qué días de la semana? (Empieza con menos de lo que crees: tres días que sí cumplas le ganan a siete que no.)",
+            "prompt3": "¿Dónde vas a estudiar? (El mismo sitio cada vez, si es posible.)",
+            "prompt4": "¿Por qué libro de la Biblia vas a empezar? (Si dudas, Marcos es corto. Santiago es práctico. Salmos es rico.)",
+            "prompt5": "Escribe una sola frase de compromiso para Jehová. No estás prometiendo perfección, estás prometiendo presentarte.",
+            "title": "Tu compromiso"
+          },
+          "oneLine": "El mejor método de estudio es el que seguirás haciendo dentro de un año.",
+          "title": "Construye tu rutina de estudio"
+        },
+        "oneLine": "De la técnica a la formación, el estudio como hábito de vida.",
+        "title": "Profundizar más"
+      }
+    }
+  },
+  "mobileMore": {
+    "admin": "Administrador",
+    "dialogLabel": "Más navegación",
+    "moderation": "Moderación",
+    "privacy": "Privacidad",
+    "terms": "Términos"
+  },
+  "notFound": {
+    "body": "La dirección que ingresaste no existe. Es posible que haya sido movida, eliminada, o que la hayas escrito mal.",
+    "bodyShort": "La página que buscas no existe o ha sido movida.",
+    "docTitle": "404, página no encontrada",
+    "goBack": "Volver",
+    "goHome": "Ir al inicio",
+    "goHomeArrow": "← Ir al inicio",
+    "title": "Página no encontrada",
+    "verse": "\"Tu palabra es una lámpara para mi pie, y una luz para mi vereda.\", Salmo 119:105"
+  },
+  "privacy": {
+    "backHome": "← Inicio",
+    "badge": "Legal",
+    "lastUpdated": "Última actualización: 18 de abril de 2026",
+    "meta": {
+      "description": "Lee la política de privacidad de JW Study, cómo recopilamos, usamos y protegemos tu información personal.",
+      "title": "Política de privacidad | JW Study"
+    },
+    "section1": {
+      "body1": "JW Study (\"nosotros\", \"nos\", \"nuestro\") se compromete a proteger tu privacidad. Esta Política de privacidad explica qué información recopilamos, cómo la usamos y tus derechos respecto a esa información cuando usas nuestra aplicación en jwstudy.org.",
+      "body2": "JW Study es un servicio gratuito. No vendemos tus datos, no monetizamos tu información ni la usamos con fines publicitarios de ningún tipo.",
+      "heading": "1. Resumen"
+    },
+    "section10": {
+      "body": "Podemos divulgar tu información a las fuerzas del orden, agencias gubernamentales u otras partes autorizadas cuando lo exija la ley, una orden judicial, o cuando creamos de buena fe que la divulgación es necesaria para prevenir un daño, proteger la seguridad de cualquier persona o responder a una emergencia.",
+      "heading": "10. Solicitudes de las fuerzas del orden"
+    },
+    "section11": {
+      "body": "Podemos actualizar esta Política de privacidad de vez en cuando. Actualizaremos la fecha de \"Última actualización\" en la parte superior de esta página. El uso continuado de la aplicación tras la publicación de los cambios constituye tu aceptación de la política actualizada.",
+      "heading": "11. Cambios a esta política"
+    },
+    "section12": {
+      "body": "Si tienes alguna pregunta o inquietud sobre esta Política de privacidad, contáctanos a través del foro de la comunidad o mediante jwstudy.org.",
+      "heading": "12. Contacto"
+    },
+    "section2": {
+      "heading": "2. Información que recopilamos",
+      "item1Body": "Cuando te registras, recopilamos tu dirección de correo electrónico y cualquier nombre para mostrar o foto de perfil opcional que proporciones.",
+      "item1Label": "Información de la cuenta:",
+      "item2Body": "Almacenamos qué capítulos bíblicos has marcado como leídos para que tu progreso se sincronice entre dispositivos.",
+      "item2Label": "Progreso de lectura:",
+      "item3Body": "Las entradas de blog, los hilos del foro, las respuestas, los comentarios, las notas y la información de perfil que crees se almacenan y se asocian a tu cuenta.",
+      "item3Label": "Contenido del usuario:",
+      "item4Body": "Los mensajes que envías al Compañero de Estudio con IA se transmiten a nuestro proveedor de IA (Anthropic) para generar una respuesta y no se almacenan permanentemente en nuestros servidores. Registramos contadores de uso agregados (número de solicitudes de IA por usuario) para prevenir abusos y mejorar el servicio. El contenido de las conversaciones con la IA no se almacena ni se comparte públicamente.",
+      "item4Label": "Conversaciones del Compañero de Estudio con IA:",
+      "item5Body": "El contenido enviado puede ser escaneado en busca de lenguaje obsceno y enlaces a fuentes apóstatas o ex-JW que entren en conflicto con las enseñanzas de los Testigos de Jehová (esos enlaces se bloquean y no se almacenan). Eres responsable de cualquier información personal (correo electrónico, número de teléfono, enlaces sociales, etc.) que decidas compartir en tus publicaciones, mensajes o perfil; no compartas información que no quisieras que vieran otros miembros de la comunidad.",
+      "item5Label": "Escaneo de contenido:",
+      "item6Body": "Si activas las notificaciones push, almacenamos un token de notificación del dispositivo para enviarte alertas. Puedes revocarlo en cualquier momento a través de los ajustes de tu navegador o dispositivo.",
+      "item6Label": "Tokens de notificaciones push:",
+      "item7Body": "Usamos Google Analytics (GA4) y Vercel Analytics para recopilar datos anónimos sobre cómo se usa la aplicación (páginas visitadas, duración de la sesión, tipo de dispositivo, ubicación general por país). No se envía información personal identificable a estos servicios de analítica.",
+      "item7Label": "Datos de uso:",
+      "item8Body": "Usamos Sentry para capturar errores de la aplicación y problemas de rendimiento. Los informes de errores pueden incluir el tipo de navegador, el sistema operativo y un seguimiento de la pila del error, pero no incluyen el contenido de tus publicaciones ni mensajes.",
+      "item8Label": "Monitoreo de errores:",
+      "item9Body": "Los registros estándar del servidor, incluida la dirección IP y el tipo de navegador, pueden ser recopilados por nuestro proveedor de hosting (Vercel) y nuestro proveedor de base de datos (Supabase).",
+      "item9Label": "Datos técnicos:"
+    },
+    "section3": {
+      "footer1": "Nosotros",
+      "footer2": "vendemos tus datos. Nosotros",
+      "footer3": "usamos tus datos para publicidad. Nosotros",
+      "footer4": "compartimos tus datos con ningún tercero, excepto como se describe en la Sección 4.",
+      "footerNot": "no",
+      "heading": "3. Cómo usamos tu información",
+      "item1": "Para proporcionar y mantener la aplicación y tu cuenta",
+      "item2": "Para sincronizar tu progreso de lectura entre dispositivos",
+      "item3": "Para enviar correos transaccionales (confirmación de correo, restablecimiento de contraseña)",
+      "item4": "Para enviar las notificaciones push que hayas activado",
+      "item5": "Para mostrar tu perfil público y contenido a otros usuarios",
+      "item6": "Para hacer funcionar el Compañero de Estudio con IA pasando tus mensajes a nuestro proveedor de IA",
+      "item7": "Para mejorar la aplicación usando analítica anónima y monitoreo de errores",
+      "item8": "Para prevenir abusos y hacer cumplir nuestras normas comunitarias",
+      "item9": "Para investigar infracciones y cooperar con las fuerzas del orden cuando lo exija la ley"
+    },
+    "section4": {
+      "heading": "4. Servicios de terceros",
+      "intro": "Usamos los siguientes servicios de terceros para operar la aplicación. Cada uno tiene su propia política de privacidad que rige el manejo de los datos:",
+      "item1Body": ", base de datos, autenticación y almacenamiento de archivos (supabase.com/privacy)",
+      "item1Label": "Supabase",
+      "item2Body": ", hosting, despliegue y funciones edge (vercel.com/legal/privacy-policy)",
+      "item2Label": "Vercel",
+      "item3Body": ", modelo de lenguaje de IA que impulsa el Compañero de Estudio con IA (anthropic.com/privacy)",
+      "item3Label": "Anthropic",
+      "item4Body": ", entrega de correos transaccionales (resend.com/privacy)",
+      "item4Label": "Resend",
+      "item5Body": ", analítica de uso anónima; no se comparte información personal identificable (policies.google.com/privacy)",
+      "item5Label": "Google Analytics (GA4)",
+      "item6Body": ", analítica de uso anónima y sin cookies",
+      "item6Label": "Vercel Analytics",
+      "item7Body": ", monitoreo de errores y rendimiento de la aplicación (sentry.io/privacy)",
+      "item7Label": "Sentry"
+    },
+    "section5": {
+      "body1": "El Compañero de Estudio con IA envía tus mensajes a la API de Anthropic para generar respuestas. Las prácticas de manejo de datos de Anthropic se rigen por su política de privacidad. No almacenamos permanentemente el contenido de tus conversaciones con la IA en nuestros servidores. Solo guardamos un contador de uso por usuario para prevenir abusos.",
+      "body2": "Los borradores de blog generados por IA que decidas publicar pasan a ser contenido del usuario, sujeto a los mismos términos que cualquier otro contenido que crees.",
+      "body3Rest": "Trata al Compañero de Estudio con IA como tratarías a cualquier servicio en la nube.",
+      "body3Strong": "No compartas información personal sensible en las conversaciones con la IA.",
+      "heading": "5. Manejo de datos por la IA"
+    },
+    "section6": {
+      "body": "Tus datos se conservan mientras tu cuenta esté activa. Si eliminas tu cuenta, tu información personal y contenido se eliminarán de nuestros sistemas en un plazo razonable, salvo cuando la ley exija conservarlos, incluidos los datos que estamos legalmente obligados a preservar en relación con denuncias hechas a las fuerzas del orden o a las autoridades de protección infantil.",
+      "heading": "6. Conservación de datos"
+    },
+    "section7": {
+      "footer": "Para ejercer cualquiera de estos derechos, contáctanos a través del foro de la aplicación o mediante jwstudy.org.",
+      "heading": "7. Tus derechos",
+      "intro": "Dependiendo de tu ubicación, es posible que tengas derecho a:",
+      "item1": "Acceder a los datos personales que tenemos sobre ti",
+      "item2": "Corregir datos inexactos en los ajustes de tu perfil",
+      "item3": "Solicitar la eliminación de tu cuenta y tus datos",
+      "item4": "Solicitar una copia de tus datos",
+      "item5": "Cancelar las notificaciones push en cualquier momento desde los ajustes de tu navegador o dispositivo"
+    },
+    "section8": {
+      "body": "La aplicación usa el localStorage del navegador para almacenar tu preferencia de tema, la caché del progreso de lectura y el historial del chat con IA, para una mejor experiencia. Vercel Analytics recopila datos de uso anónimos y sin cookies. Google Analytics usa cookies para medir el uso; puedes optar por no participar a través de los ajustes del navegador o el complemento de inhabilitación de Google Analytics.",
+      "heading": "8. Cookies y almacenamiento local"
+    },
+    "section9": {
+      "ageBody": "Esta aplicación está destinada a usuarios de 13 años o más. Los usuarios entre 13 y 17 años deben contar con el permiso de un padre, madre o tutor. No recopilamos a sabiendas información personal de menores de 13 años. Si crees que un menor de 13 años ha creado una cuenta, contáctanos de inmediato para que podamos eliminarla.",
+      "ageLabel": "Requisito de edad:",
+      "commitmentBody": "Nos tomamos la seguridad de los niños en nuestra plataforma con la máxima seriedad. Vigilamos activamente y prohibimos cualquier contenido o comportamiento que pueda dañar, explotar o sexualizar a menores. Esto incluye material de abuso sexual infantil (CSAM), grooming o cualquier intento de obtener información personal de menores.",
+      "commitmentLabel": "Nuestro compromiso con la seguridad infantil:",
+      "dataNote": "Al hacer tales denuncias, proporcionamos todos los datos relevantes, incluida la información de la cuenta, las direcciones IP, las marcas de tiempo y el contenido. Compartir estos datos lo exige la ley y no está sujeto a las protecciones de privacidad descritas en otras partes de esta política.",
+      "heading": "🛡️ 9. Privacidad de menores y seguridad infantil",
+      "item1Body": "(CyberTipLine.org), según lo exige la ley federal de EE. UU. (18 U.S.C. § 2258A)",
+      "item1Label": "CyberTipline del NCMEC",
+      "item2Body": "en la jurisdicción donde ocurrió la infracción",
+      "item2Label": "Fuerzas del orden locales",
+      "item3Body": "para casos internacionales",
+      "item3Label": "La Internet Watch Foundation (IWF)",
+      "parentalBody": "Animamos a los padres y tutores a revisar el uso que sus hijos hacen de esta aplicación. Si tienes inquietudes sobre el contenido o las interacciones que tu hijo ha tenido en JW Study, denúncialo usando la función de denuncia dentro de la aplicación o contáctanos directamente.",
+      "parentalLabel": "Orientación para padres:",
+      "reportingBody": "Estamos legalmente obligados, y moralmente comprometidos, a denunciar cualquier presunto material de explotación sexual infantil o actividad de grooming detectada en nuestra plataforma a las autoridades correspondientes, incluidas:",
+      "reportingLabel": "Denuncia obligatoria:"
+    },
+    "title": "Política de privacidad"
+  },
+  "reactions": {
+    "addReaction": "Añadir reacción",
+    "reactWith": "Reaccionar con {{emoji}}"
+  },
+  "support": {
+    "back": "Atrás",
+    "comingSoon": "Próximamente",
+    "giveCta": "Donar →",
+    "noteBody": "Para un estudio bíblico más profundo, la Watch Tower Online Library y JW Library son las fuentes oficiales; por favor, apoya esas primero a través de tu congregación local. JW Study es una herramienta personal de acompañamiento, no una editorial. Las donaciones aquí van a un único desarrollador independiente; no son deducibles de impuestos y no están afiliadas a ninguna sucursal de los Testigos de Jehová.",
+    "noteHeading": "Una nota antes de donar",
+    "subtitle": "JW Study es gratis y siempre lo será. Si la aplicación te ha ayudado en tu estudio, tu lectura diaria o tu familia, una donación única ayuda a mantenerla en funcionamiento y a que siga creciendo.",
+    "thankYou": "Gracias por usar la aplicación, hayas donado o no.: Alexi",
+    "tierCoffee": {
+      "desc": "Un pequeño gracias.",
+      "label": "Café"
+    },
+    "tierCustom": {
+      "desc": "Lo que te parezca bien.",
+      "label": "Cualquier cantidad"
+    },
+    "tierHosting": {
+      "desc": "Cubre una parte de la infraestructura.",
+      "label": "Hosting mensual"
+    },
+    "tierTranslation": {
+      "desc": "Financia la revisión de un capítulo en un nuevo idioma.",
+      "label": "Ayuda con traducción"
+    },
+    "title": "Apoyar JW Study",
+    "whereGoesHeading": "A dónde va tu donación",
+    "whereGoesItem1": "Hosting, base de datos e infraestructura de correo",
+    "whereGoesItem2": "Trabajo de traducción a nuevos idiomas",
+    "whereGoesItem3": "Tiempo para construir las próximas funciones que pida la comunidad",
+    "whereGoesItem4": "Mantener la aplicación sin anuncios, sin rastreadores y gratis para todos"
+  },
+  "terms": {
+    "backHome": "← Inicio",
+    "badge": "Legal",
+    "lastUpdated": "Última actualización: 18 de abril de 2026",
+    "meta": {
+      "description": "Consulta los términos del servicio de JW Study que rigen el uso del registro de lectura bíblica y las funciones comunitarias.",
+      "title": "Términos del servicio | JW Study"
+    },
+    "section1": {
+      "body": "Al acceder o usar JW Study (\"la aplicación\") en jwstudy.org, aceptas quedar sujeto a estos Términos del servicio. Si no estás de acuerdo, por favor no uses la aplicación.",
+      "heading": "1. Aceptación de los términos"
+    },
+    "section10": {
+      "body": "El nombre, el logo, el diseño y el código original de JW Study son propiedad intelectual de Lexx Solutionz. Las citas bíblicas son de la Traducción del Nuevo Mundo de las Santas Escrituras y se usan con fines de estudio personal y comunitario. Todas las publicaciones de la Watch Tower a las que se hace referencia en la aplicación siguen siendo propiedad intelectual de la Watch Tower Bible and Tract Society of Pennsylvania.",
+      "heading": "10. Propiedad intelectual"
+    },
+    "section11": {
+      "body": "JW Study es una herramienta de estudio independiente creada por y para Testigos de Jehová. No está afiliada, respaldada ni operada por la Watch Tower Bible and Tract Society of Pennsylvania, el Cuerpo Gobernante de los Testigos de Jehová, ni ninguna organización oficial JW. Todo el contenido doctrinal busca ser coherente con las enseñanzas oficiales JW, pero los usuarios deben basarse en el material oficial de jw.org como guía autorizada.",
+      "heading": "11. Sin afiliación con la Watch Tower"
+    },
+    "section12": {
+      "body": "La aplicación se proporciona \"tal cual\", sin garantías de ningún tipo. No garantizamos que la aplicación esté libre de errores, sea ininterrumpida ni que los datos nunca se pierdan. Usa la aplicación bajo tu propio riesgo.",
+      "heading": "12. Renuncia de garantías"
+    },
+    "section13": {
+      "body": "En la máxima medida permitida por la ley, JW Study y Lexx Solutionz no serán responsables por daños indirectos, incidentales o consecuentes que surjan de tu uso de la aplicación.",
+      "heading": "13. Limitación de responsabilidad"
+    },
+    "section14": {
+      "body": "Podemos actualizar estos Términos en cualquier momento. El uso continuado de la aplicación tras la publicación de los cambios constituye la aceptación de los Términos actualizados. Actualizaremos la fecha de \"Última actualización\" en la parte superior de esta página.",
+      "heading": "14. Cambios a los términos"
+    },
+    "section15": {
+      "body": "Si tienes preguntas sobre estos Términos, puedes contactarnos a través del foro de la comunidad de la aplicación o mediante la información de contacto que aparece en jwstudy.org.",
+      "heading": "15. Contacto"
+    },
+    "section2": {
+      "body1": "JW Study es una plataforma comunitaria gratuita y un registro de lectura bíblica diseñado para los lectores de la Traducción del Nuevo Mundo. La aplicación ofrece las siguientes funciones, sin costo alguno, a los usuarios registrados:",
+      "body2": {
+        "bold": "JW Study es completamente gratis.",
+        "text": " No hay niveles de pago, no hay suscripciones premium, ni funciones bloqueadas tras un muro de pago. Todos los usuarios registrados tienen acceso completo a todas las funciones."
+      },
+      "body3": "Nos reservamos el derecho de modificar, suspender o discontinuar cualquier parte del servicio en cualquier momento.",
+      "heading": "2. Descripción del servicio",
+      "list": {
+        "ai": {
+          "bold": "Compañero de Estudio con IA",
+          "text": ", un asistente de IA que se basa exclusivamente en publicaciones JW y wol.jw.org"
+        },
+        "blog": {
+          "bold": "Blog",
+          "text": ", lee y escribe artículos enfocados en JW, deja comentarios"
+        },
+        "forum": {
+          "bold": "Foro de la comunidad",
+          "text": ", participa en debates organizados por categoría"
+        },
+        "meeting": {
+          "bold": "Preparación de reuniones",
+          "text": ", herramientas para prepararte para las reuniones de entre semana y de fin de semana de la congregación"
+        },
+        "notifications": {
+          "bold": "Notificaciones y anuncios",
+          "text": ", actualizaciones de la comunidad y notificaciones push"
+        },
+        "profiles": {
+          "bold": "Perfiles de usuario",
+          "text": ", perfiles públicos que muestran tus logros de lectura y aportes"
+        },
+        "quizzes": {
+          "bold": "Cuestionarios",
+          "text": ", cuestionarios de conocimiento bíblico basados en el contenido de la TNM"
+        },
+        "tracker": {
+          "bold": "Registro de lectura bíblica",
+          "text": ", lleva un seguimiento de tu progreso personal a través de los 66 libros de la TNM"
+        },
+        "videos": {
+          "bold": "Videos",
+          "text": ", contenido de video JW seleccionado de creadores aprobados"
+        }
+      }
+    },
+    "section3": {
+      "body1": "Debes crear una cuenta para acceder a la mayoría de las funciones. Eres responsable de mantener la confidencialidad de tus credenciales de cuenta y de toda la actividad que ocurra bajo tu cuenta. Debes proporcionar información precisa al registrarte.",
+      "body2": {
+        "bold": "Requisito de edad:",
+        "text": " Debes tener al menos 13 años para usar esta aplicación. Los usuarios entre 13 y 17 años deben contar con el permiso de un padre, madre o tutor legal. Al crear una cuenta, confirmas que cumples este requisito y, si eres menor de 18 años, que un padre o tutor ha revisado y aceptado estos Términos en tu nombre."
+      },
+      "body3": "Si descubrimos que una cuenta pertenece a un usuario menor de 13 años, cerraremos esa cuenta y eliminaremos los datos asociados sin previo aviso.",
+      "heading": "3. Cuentas de usuario y requisitos de edad"
+    },
+    "section4": {
+      "body1": "Conservas la propiedad del contenido que crees (entradas de blog, hilos del foro, respuestas, comentarios, notas e información de perfil). Al publicar contenido, otorgas a JW Study una licencia no exclusiva y libre de regalías para mostrarlo dentro de la aplicación.",
+      "body2": "Aceptas no publicar contenido que sea:",
+      "heading": "4. Contenido del usuario",
+      "list": {
+        "item1": "De odio, abusivo, acosador o amenazante hacia cualquier persona o grupo",
+        "item2": "Sexualmente explícito o pornográfico de cualquier forma",
+        "item3": "Dañino, explotador o que sexualice a menores de cualquier manera",
+        "item4": "Spam, desinformación o deliberadamente engañoso",
+        "item5": "Que infrinja la propiedad intelectual de otra persona",
+        "item6": "Ilegal según la ley aplicable",
+        "item7": "Profano o que use lenguaje obsceno, vulgar u ofensivo",
+        "item8": "Doctrinas o enseñanzas contrarias o críticas a la Watch Tower Bible and Tract Society o a los Testigos de Jehová"
+      }
+    },
+    "section5": {
+      "body1": "El Compañero de Estudio con IA es un asistente impulsado por IA disponible para todos los usuarios registrados. Se basa exclusivamente en publicaciones de la Watch Tower y en el contenido de jw.org/wol.jw.org para responder preguntas bíblicas y ayudar con el estudio JW.",
+      "body2": "El contenido generado por IA, incluidos los borradores de blog, se ofrece como punto de partida y debe revisarse antes de publicarlo. JW Study no garantiza la exactitud de las respuestas de la IA y anima a los usuarios a verificar todo el contenido con las publicaciones JW oficiales.",
+      "heading": "5. Compañero de Estudio con IA",
+      "list": {
+        "item1": "La IA está diseñada para ofrecer ayuda de estudio alineada únicamente con las enseñanzas JW",
+        "item2": "Las conversaciones con la IA se usan solo para generar respuestas; no se comparten públicamente",
+        "item3": "No uses la IA para generar contenido que viole estos Términos, incluido material dañino, ilegal o apóstata",
+        "item4": "No intentes manipular la IA para producir contenido fuera de su propósito previsto"
+      }
+    },
+    "section6": {
+      "body1": "Para proteger la privacidad y la seguridad de todos los usuarios, especialmente los menores, lo siguiente está estrictamente prohibido en todo el contenido generado por usuarios, incluidos publicaciones del foro, entradas de blog, comentarios, biografías de perfil y nombres para mostrar:",
+      "body2": "Estas restricciones existen para mantener este entorno seguro y privado, y para evitar que la aplicación se use para intercambiar información de contacto o redirigir usuarios a plataformas externas. Nuestros sistemas escanean automáticamente todo el contenido antes del envío y bloquearán cualquier publicación que contenga información prohibida.",
+      "heading": "6. Política sobre información personal y enlaces",
+      "list": {
+        "address": {
+          "bold": "Direcciones físicas",
+          "text": ", direcciones de la calle, domicilios o ubicaciones de reuniones"
+        },
+        "email": {
+          "bold": "Direcciones de correo electrónico",
+          "text": ", no compartas la tuya ni la de ninguna otra persona"
+        },
+        "insecure": {
+          "bold": "Enlaces inseguros (http://)",
+          "text": ", solo se permiten enlaces seguros que comiencen con https://"
+        },
+        "phone": {
+          "bold": "Números de teléfono",
+          "text": ", incluidos móviles, fijos o números de WhatsApp"
+        },
+        "social": {
+          "bold": "Enlaces o nombres de usuario de redes sociales",
+          "text": ", enlaces o nombres de usuario @ de Facebook, Instagram, Twitter/X, TikTok, Snapchat, YouTube, LinkedIn, Telegram, WhatsApp, Discord o plataformas similares"
+        }
+      }
+    },
+    "section7": {
+      "body1": "La seguridad de los niños es una prioridad innegociable en JW Study. Tenemos una política de tolerancia cero ante cualquier contenido o comportamiento que ponga en peligro, explote o sexualice a menores.",
+      "body2": "Lo siguiente está estrictamente prohibido y resultará en una expulsión permanente inmediata:",
+      "body3": {
+        "bold": "Reportaremos las infracciones a las autoridades.",
+        "text": " Cualquier contenido o comportamiento que identifiquemos como explotación sexual infantil será denunciado de inmediato a:"
+      },
+      "body4": "Conservamos todos los datos relevantes de la cuenta, direcciones IP, marcas de tiempo y contenido asociados a las infracciones denunciadas, y cooperaremos plenamente con las investigaciones de las fuerzas del orden.",
+      "body5": {
+        "bold": "Si presencias un comportamiento que pueda poner en peligro a un niño en esta plataforma, denúncialo de inmediato",
+        "text": " usando la función de denuncia disponible en cualquier publicación o perfil, o contáctanos directamente. Si crees que un niño está en peligro inminente, contacta primero a los servicios de emergencia locales (911 en EE. UU.)."
+      },
+      "heading": "🛡️ 7. Política de seguridad infantil",
+      "list1": {
+        "item1": "Material de abuso sexual infantil (CSAM) de cualquier tipo: imágenes, texto, video o enlaces",
+        "item2": "Comportamiento de grooming, intentar establecer relaciones inapropiadas con menores para ganarse su confianza con fines de explotación",
+        "item3": "Solicitar información personal a menores, incluida edad, ubicación, escuela o datos de contacto",
+        "item4": "Cualquier contenido sexual dirigido a menores o que los involucre",
+        "item5": "Intentar trasladar una conversación con un menor a otra plataforma con fines de explotación"
+      },
+      "list2": {
+        "item1": {
+          "bold": "El Centro Nacional para Menores Desaparecidos y Explotados (NCMEC)",
+          "text": " a través de la CyberTipline en CyberTipLine.org, según lo exige la ley federal de EE. UU. (18 U.S.C. § 2258A)"
+        },
+        "item2": {
+          "bold": "Fuerzas del orden locales",
+          "text": " y autoridades nacionales pertinentes en la jurisdicción del usuario"
+        },
+        "item3": {
+          "bold": "La Internet Watch Foundation (IWF)",
+          "text": " para casos internacionales que involucren imágenes de abuso sexual infantil"
+        }
+      }
+    },
+    "section8": {
+      "body1": "JW Study es una plataforma comunitaria con un enfoque espiritual. Pedimos que todos los usuarios participen con respeto y de manera coherente con los valores de la comunidad. No se permiten debates destinados a desanimar la fe o faltar al respeto a las creencias de otros usuarios.",
+      "body2": "Esta es una comunidad construida sobre el respeto mutuo y la fe compartida. Por favor, mantén todas las conversaciones edificantes, constructivas y libres de hostilidad.",
+      "heading": "8. Normas de la comunidad"
+    },
+    "section9": {
+      "body1": "Las infracciones de estos Términos, incluido publicar contenido prohibido, intentar evadir filtros automáticos o comportarse de manera dañina con otros usuarios, pueden resultar en:",
+      "body2": "Nos reservamos el derecho de tomar medidas de cumplimiento a nuestra entera discreción. No estamos obligados a emitir advertencias antes de actuar.",
+      "heading": "9. Aplicación y expulsión de cuentas",
+      "list": {
+        "ban": {
+          "bold": "Expulsión permanente",
+          "text": ", las infracciones graves o repetidas resultarán en una expulsión permanente sin derecho a apelación"
+        },
+        "removal": {
+          "bold": "Eliminación de contenido",
+          "text": ", las publicaciones, comentarios o contenido de perfil que infrinjan las normas serán eliminados sin previo aviso"
+        },
+        "report": {
+          "bold": "Denuncia a las autoridades",
+          "text": ", las infracciones que involucren la seguridad de menores o contenido ilegal se denunciarán a las fuerzas del orden y a las agencias correspondientes sin previo aviso"
+        },
+        "suspension": {
+          "bold": "Suspensión temporal",
+          "text": ", tu cuenta puede ser suspendida en espera de revisión"
+        }
+      }
+    },
+    "title": "Términos del servicio"
   }
 }

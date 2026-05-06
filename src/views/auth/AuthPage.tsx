@@ -138,12 +138,12 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
     if (mode === "signup") {
       if (!displayName.trim()) return setFieldError(t("auth.errorDisplayNameRequired"));
       if (isDisposableEmail(email)) {
-        return setFieldError("Please use a permanent email address — disposable inboxes aren't supported.");
+        return setFieldError(t("auth.errorDisposableEmail", "Please use a permanent email address. Disposable inboxes aren't supported."));
       }
       if (password.length < 8) return setFieldError(t("auth.errorPasswordShort"));
       if (password !== confirm) return setFieldError(t("auth.errorPasswordMismatch"));
-      if (!agreeAge) return setFieldError("Please confirm your age or parental consent.");
-      if (!agreeTerms) return setFieldError("Please agree to the Terms of Service and Privacy Policy.");
+      if (!agreeAge) return setFieldError(t("auth.errorAgeConsent", "Please confirm your age or parental consent."));
+      if (!agreeTerms) return setFieldError(t("auth.errorTermsAgree", "Please agree to the Terms of Service and Privacy Policy."));
       register.mutate({ email, password, displayName: displayName.trim() }, {
         onSuccess: async (result) => {
           trackSignup("email");

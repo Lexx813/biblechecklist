@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Cell,
@@ -33,19 +34,20 @@ function relativeTime(s: string | null | undefined): string {
 
 export function LearnTab() {
   const { data: stats, isLoading, isError, error } = useAdminLearnStats();
+  const { t: i18n } = useTranslation();
   const t = useChartTheme();
 
   // Course shape (lesson order, titles) comes from local content, not the DB.
   const courseLessons = useMemo(() => {
-    return getUnits("en").flatMap(u => u.lessons.map(l => ({
+    return getUnits().flatMap(u => u.lessons.map(l => ({
       lesson_id: l.id,
       unit_id: u.id,
       number: l.number,
-      title: l.title,
+      title: i18n(l.titleKey),
       unit_number: u.number,
-      unit_title: u.title,
+      unit_title: i18n(u.titleKey),
     })));
-  }, []);
+  }, [i18n]);
   const totalLessons = totalLessonCount();
 
   if (isLoading) return <AdminSkeleton />;

@@ -97,7 +97,7 @@ export default async function ForumThreadPage({ params }) {
       )}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(schemaBreadcrumb) }} />
       <PublicNav />
-      <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
+      <main className="w-full px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
         <nav className="mb-4 text-sm text-slate-500">
           <Link href="/forum" className="hover:underline">← Forum</Link>
         </nav>

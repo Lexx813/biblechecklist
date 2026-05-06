@@ -56,7 +56,7 @@ function welcomeHtml(name: string) {
   return baseHtml(`
     <tr><td style="background:linear-gradient(135deg,#2e0b6e 0%,#5b21b6 55%,#7c3aed 100%);padding:36px 40px;text-align:center">
       <h1 style="margin:0 0 8px;font-size:26px;font-weight:800;color:#fff">Welcome to JW Study! 👋</h1>
-      <p style="margin:0;font-size:15px;color:rgba(255,255,255,0.7)">Your Bible study journey starts here, ${name}.</p>
+      <p style="margin:0;font-size:15px;color:rgba(255,255,255,0.7)">Track your reading, save notes, and join the community, ${name}.</p>
     </td></tr>
     <tr><td style="padding:32px 40px">
       <p style="margin:0 0 20px;font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6">

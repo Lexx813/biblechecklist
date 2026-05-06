@@ -196,9 +196,11 @@ export default function DiscoveryPage({ navigate, user }: Props) {
         <div>
           {/* Featured post */}
           {featuredPost && !isFiltering && (
-            <div
-              className="disc-featured"
+            <button
+              type="button"
+              className="disc-featured w-full text-left bg-transparent p-0 border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-600"
               onClick={() => navigate("blog", { slug: (featuredPost as unknown as Post).slug })}
+              aria-label={(featuredPost as unknown as Post).title}
             >
               <img
                 className="disc-featured-img"
@@ -232,7 +234,7 @@ export default function DiscoveryPage({ navigate, user }: Props) {
                   )}
                 </div>
               </div>
-            </div>
+            </button>
           )}
 
           {/* Post grid */}
@@ -243,10 +245,12 @@ export default function DiscoveryPage({ navigate, user }: Props) {
           ) : (
             <div className="disc-grid">
               {visiblePosts.map(post => (
-                <div
+                <button
                   key={post.id}
-                  className="disc-card"
+                  type="button"
+                  className="disc-card w-full text-left bg-transparent p-0 border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-600"
                   onClick={() => navigate("blog", { slug: post.slug })}
+                  aria-label={post.title}
                 >
                   <img
                     className="disc-card-img"
@@ -278,7 +282,7 @@ export default function DiscoveryPage({ navigate, user }: Props) {
                       <span>❤️ {post.like_count}</span>
                     </div>
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           )}
@@ -296,14 +300,16 @@ export default function DiscoveryPage({ navigate, user }: Props) {
             <div className="disc-sidebar-widget">
               <div className="disc-sidebar-label">Trending This Week</div>
               {(trendingPosts as unknown as Post[]).map((post, i) => (
-                <div
+                <button
                   key={post.id}
-                  className="disc-trending-item"
+                  type="button"
+                  className="disc-trending-item w-full text-left bg-transparent border-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-600"
                   onClick={() => navigate("blog", { slug: post.slug })}
+                  aria-label={post.title}
                 >
                   <span className="disc-trending-num">{i + 1}</span>
                   <span className="disc-trending-title">{post.title}</span>
-                </div>
+                </button>
               ))}
             </div>
           )}

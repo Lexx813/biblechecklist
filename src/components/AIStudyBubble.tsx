@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import AiConfirmActionModal from "./AiConfirmActionModal";
 import { useAIChat, type ChatContext } from "../hooks/useAIChat";
 import { trackFeatureUse } from "../lib/analytics";
@@ -112,30 +113,25 @@ function inlineMarkdown(text: string, baseKey: number): React.ReactNode[] {
   });
 }
 
-const SUGGESTED_DEFAULT = [
-  "What does this passage teach about Jehovah?",
-  "What does the original Hebrew or Greek mean?",
-  "How can I explain this scripture to someone?",
-  "What does the Reasoning book say about this?",
-];
-
-const SUGGESTED_BLOG = [
-  "Write a blog draft about what I'm studying",
-  "Give me an outline for a JW article on this topic",
-  "Suggest 5 blog title ideas with scriptures",
-  "Help me write an introduction paragraph",
-];
-
-function getSuggested(page?: string): string[] {
-  if (page === "blogNew" || page === "blogEdit") return SUGGESTED_BLOG;
-  return SUGGESTED_DEFAULT;
-}
-
 export default function AIStudyBubble({ context }: { context?: ChatContext }) {
+  const { t } = useTranslation();
   const [open, setOpen]       = useState(false);
   const [input, setInput]     = useState("");
   const { messages, loading, error, send, clear } = useAIChat(context);
-  const suggested = getSuggested(context?.page);
+  const isBlogContext = context?.page === "blogNew" || context?.page === "blogEdit";
+  const suggested = isBlogContext
+    ? [
+        t("aiBubble.suggestedBlog.q1"),
+        t("aiBubble.suggestedBlog.q2"),
+        t("aiBubble.suggestedBlog.q3"),
+        t("aiBubble.suggestedBlog.q4"),
+      ]
+    : [
+        t("aiBubble.suggestedDefault.q1"),
+        t("aiBubble.suggestedDefault.q2"),
+        t("aiBubble.suggestedDefault.q3"),
+        t("aiBubble.suggestedDefault.q4"),
+      ];
   const bottomRef  = useRef<HTMLDivElement>(null);
   const inputRef   = useRef<HTMLTextAreaElement>(null);
   const panelRef   = useRef<HTMLDivElement>(null);
@@ -205,10 +201,14 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
     }
     if (open) fetchUsage();
     return () => { cancelled = true; };
-  }, [open, messages.length]); // refetch on open + after each completed turn
+    // Only refetch when the panel opens. Previously [open, messages.length]
+    // fired on every streaming chunk, hammering /api/ai-usage. The pill is
+    // informational; one fetch per open is enough.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   const panel = open && (
-    <div className="asb-panel" ref={panelRef} role="dialog" aria-label="AI Study Companion">
+    <div className="asb-panel" ref={panelRef} role="dialog" aria-label={t("aiBubble.dialogLabel")}>
       {/* Header */}
       <div className="asb-header">
         <div className="asb-header-left">
@@ -218,26 +218,31 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
             </svg>
           </span>
           <div>
-            <div className="asb-title">Study Companion</div>
-            <div className="asb-subtitle">JW sources only · wol.jw.org</div>
+            <div className="asb-title">{t("aiBubble.title")}</div>
+            <div className="asb-subtitle">{t("aiBubble.subtitle")}</div>
           </div>
         </div>
         <div className="asb-header-actions">
           {usage && (
             <span
               className={`asb-usage-pill${usage.percent_used >= 80 ? " asb-usage-pill--high" : ""}`}
-              title={`Daily AI quota: ${usage.input_used.toLocaleString()} / ${usage.input_cap.toLocaleString()} input tokens, ${usage.output_used.toLocaleString()} / ${usage.output_cap.toLocaleString()} output tokens. Resets every 24h.`}
-              aria-label={`${usage.percent_used} percent of daily AI quota used`}
+              title={t("aiBubble.quotaTitle", {
+                inputUsed: usage.input_used.toLocaleString(),
+                inputCap: usage.input_cap.toLocaleString(),
+                outputUsed: usage.output_used.toLocaleString(),
+                outputCap: usage.output_cap.toLocaleString(),
+              })}
+              aria-label={t("aiBubble.quotaAriaLabel", { percent: usage.percent_used })}
             >
-              {usage.percent_used}% used
+              {t("aiBubble.quotaPill", { percent: usage.percent_used })}
             </span>
           )}
           {hasMessages && (
-            <button className="asb-clear-btn" onClick={handleClear} title="Clear conversation">
-              Clear
+            <button className="asb-clear-btn" onClick={handleClear} title={t("aiBubble.clearTitle")}>
+              {t("aiBubble.clear")}
             </button>
           )}
-          <button className="asb-close-btn" onClick={() => setOpen(false)} aria-label="Close study companion">
+          <button className="asb-close-btn" onClick={() => setOpen(false)} aria-label={t("aiBubble.closeAriaLabel")}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
               <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
@@ -250,9 +255,9 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
         {!hasMessages && !loading && (
           <div className="asb-welcome">
             <p className="asb-welcome-text">
-              {(context?.page === "blogNew" || context?.page === "blogEdit")
-                ? "Tell me a topic and I'll write a full draft and load it into the editor. I can also brainstorm titles, outlines, or help with any section."
-                : "Ask any Bible question. Answers draw exclusively from Watch Tower publications, the NWT, and wol.jw.org."}
+              {isBlogContext
+                ? t("aiBubble.welcomeBlog")
+                : t("aiBubble.welcomeDefault")}
             </p>
             <div className="asb-suggestions">
               {suggested.map(s => (
@@ -304,20 +309,20 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
         <textarea
           ref={inputRef}
           className="asb-textarea"
-          placeholder="Ask a Bible question…"
+          placeholder={t("aiBubble.placeholder")}
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           maxLength={500}
           rows={1}
           disabled={loading}
-          aria-label="Ask a Bible question"
+          aria-label={t("aiBubble.inputAriaLabel")}
         />
         <button
           className="asb-send-btn"
           onClick={submit}
           disabled={!input.trim() || loading}
-          aria-label="Send"
+          aria-label={t("a11y.send")}
         >
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
@@ -334,8 +339,8 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
       <button
         className={`asb-fab${open ? " asb-fab--active" : ""}`}
         onClick={() => setOpen(v => { if (!v) trackFeatureUse("ai_bubble_open"); return !v; })}
-        aria-label={open ? "Close study companion" : "Open AI Study Companion"}
-        title="AI Study Companion"
+        aria-label={open ? t("aiBubble.closeAriaLabel") : t("aiBubble.openAriaLabel")}
+        title={t("aiBubble.fabTitle")}
       >
         {open ? (
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -353,17 +358,18 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
   );
 }
 
-const THINKING_LABELS = [
-  "Thinking",
-  "Looking that up",
-  "Reading the publications",
-  "Considering the scriptures",
-];
+const THINKING_LABEL_KEYS = [
+  "aiBubble.thinking1",
+  "aiBubble.thinking2",
+  "aiBubble.thinking3",
+  "aiBubble.thinking4",
+] as const;
 
 function BubbleThinkingIndicator() {
+  const { t } = useTranslation();
   const [labelIdx, setLabelIdx] = useState(0);
   useEffect(() => {
-    const id = setInterval(() => setLabelIdx((i) => (i + 1) % THINKING_LABELS.length), 1600);
+    const id = setInterval(() => setLabelIdx((i) => (i + 1) % THINKING_LABEL_KEYS.length), 1600);
     return () => clearInterval(id);
   }, []);
 
@@ -377,7 +383,7 @@ function BubbleThinkingIndicator() {
       <div
         role="status"
         aria-live="polite"
-        aria-label="AI is thinking"
+        aria-label={t("aiBubble.aiThinkingAriaLabel")}
         className="asb-aithink"
       >
         <span className="asb-aithink-dots" aria-hidden>
@@ -386,7 +392,7 @@ function BubbleThinkingIndicator() {
           <span className="aithink-dot aithink-dot--3" />
         </span>
         <span className="asb-aithink-label">
-          {THINKING_LABELS[labelIdx]}
+          {t(THINKING_LABEL_KEYS[labelIdx])}
           <span aria-hidden>…</span>
         </span>
       </div>

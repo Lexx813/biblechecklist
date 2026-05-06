@@ -28,7 +28,7 @@ export function Field({ label, hint, error, htmlFor, children, className }: Fiel
       )}
       {children}
       {hint && (
-        <span className={`text-xs ${error ? "text-[#dc2626]" : "text-[var(--text-muted)]"}`}>
+        <span className={`text-xs ${error ? "text-red-600" : "text-[var(--text-muted)]"}`}>
           {hint}
         </span>
       )}
@@ -39,10 +39,10 @@ export function Field({ label, hint, error, htmlFor, children, className }: Fiel
 /* ── Input ──────────────────────────────────────────────────────── */
 
 const inputBase =
-  "h-12 w-full rounded-[var(--radius-lg)] border-[1.5px] border-[var(--border)] bg-[var(--bg)] px-4 text-[15px] font-medium text-[var(--text-primary)] placeholder:text-[var(--text-muted)] transition-all duration-150 focus:border-[var(--teal)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.12)] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed font-[inherit]";
+  "h-12 w-full rounded-[var(--radius-sm)] border-[1.5px] border-[var(--border)] bg-[var(--bg)] px-4 text-base font-medium text-[var(--text-primary)] placeholder:text-[var(--text-muted)] transition-all duration-150 focus:border-[var(--teal)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.12)] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed font-[inherit]";
 
 const inputError =
-  "border-[#dc2626] focus:border-[#dc2626] focus:shadow-[0_0_0_3px_rgba(220,38,38,0.12)]";
+  "border-red-600 focus:border-red-600 focus:shadow-[0_0_0_3px_rgba(220,38,38,0.12)]";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   /** Icon placed inside the input on the left */
@@ -81,7 +81,7 @@ export default Input;
 /* ── Textarea ──────────────────────────────────────────────────── */
 
 const textareaBase =
-  "w-full min-h-[100px] rounded-[var(--radius)] border-[1.5px] border-[var(--border)] bg-[var(--bg)] px-3.5 py-3 text-sm leading-relaxed text-[var(--text-primary)] placeholder:text-[var(--text-muted)] transition-all duration-150 resize-y focus:border-[var(--teal)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.12)] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed font-[inherit]";
+  "w-full min-h-[100px] rounded-[var(--radius)] border-[1.5px] border-[var(--border)] bg-[var(--bg)] px-3.5 py-3 text-base leading-relaxed text-[var(--text-primary)] placeholder:text-[var(--text-muted)] transition-all duration-150 resize-y focus:border-[var(--teal)] focus:shadow-[0_0_0_3px_rgba(124,58,237,0.12)] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed font-[inherit]";
 
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   error?: boolean;

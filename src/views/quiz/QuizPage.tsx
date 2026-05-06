@@ -174,7 +174,7 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
 
         <div className="quiz-timed-toggle-row">
           <span className="quiz-timed-toggle-label">
-            Timed Mode
+            {t("quiz.timedMode", "Timed Mode")}
           </span>
           <label className="quiz-timed-toggle">
             <input
@@ -207,7 +207,7 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
             {t("quiz.goToAdvanced")}
           </button>
           <button className="quiz-btn quiz-btn--secondary" onClick={() => navigate("masterQuiz")}>
-            Master Levels →
+            {t("quiz.masterLevels", "Master Levels")}
           </button>
         </div>
       </div>
@@ -218,12 +218,13 @@ export default function QuizPage({ user, navigate, darkMode, setDarkMode, i18n, 
 // ── ExplanationPanel ───────────────────────────────────────────────────────────
 
 function ExplanationPanel({ question }) {
+  const { t } = useTranslation();
   if (!question?.explanation) return null;
 
   return (
     <div className="quiz-explanation">
       <div className="quiz-explanation-inner">
-        <div className="quiz-explanation-ref">💡 Explanation</div>
+        <div className="quiz-explanation-ref">{t("quiz.explanation", "Explanation")}</div>
         <p className="quiz-explanation-text">{question.explanation}</p>
       </div>
     </div>
@@ -415,7 +416,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
                 <div className="quiz-timed-result">
                   <div>Timed Score: <strong>{timedScores.reduce((s, n) => s + n, 0)}</strong> pts</div>
                   {prevBest != null && timedScores.reduce((s, n) => s + n, 0) > prevBest && (
-                    <div className="quiz-timed-new-best">🏆 New best!</div>
+                    <div className="quiz-timed-new-best">{t("quiz.newBest", "New best")}</div>
                   )}
                 </div>
               )}

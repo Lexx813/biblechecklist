@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import { notesApi } from "../api/notes";
 import { toast } from "../lib/toast";
 
@@ -17,6 +18,7 @@ interface ConfirmDetail {
 }
 
 export default function AiConfirmActionModal() {
+  const { t } = useTranslation();
   const [pending, setPending] = useState<ConfirmDetail | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -47,18 +49,18 @@ export default function AiConfirmActionModal() {
     try {
       if (pending.action === "delete_note") {
         await notesApi.delete(pending.note_id);
-        toast.success("Note deleted.");
+        toast.success(t("aiConfirm.noteDeleted"));
       }
       setPending(null);
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Action failed.");
+      toast.error(err instanceof Error ? err.message : t("aiConfirm.actionFailed"));
     } finally {
       setBusy(false);
     }
   }
 
   const labels = {
-    delete_note: { title: "Delete this note?", warn: "This can't be undone.", action: "Delete" },
+    delete_note: { title: t("aiConfirm.deleteNote.title"), warn: t("aiConfirm.deleteNote.warn"), action: t("aiConfirm.deleteNote.action") },
   }[pending.action];
 
   return createPortal(
@@ -70,7 +72,7 @@ export default function AiConfirmActionModal() {
     >
       <button
         type="button"
-        aria-label="Cancel"
+        aria-label={t("a11y.cancel")}
         onClick={() => setPending(null)}
         className="absolute inset-0 bg-slate-900/50 backdrop-blur-sm dark:bg-black/60"
       />
@@ -102,7 +104,7 @@ export default function AiConfirmActionModal() {
             onClick={() => setPending(null)}
             className="inline-flex h-9 items-center justify-center rounded-md px-3 text-sm font-medium text-slate-700 transition hover:bg-slate-200/70 disabled:opacity-50 dark:text-slate-200 dark:hover:bg-white/10"
           >
-            Cancel
+            {t("common.cancel")}
           </button>
           <button
             type="button"
@@ -111,7 +113,7 @@ export default function AiConfirmActionModal() {
             autoFocus
             className="inline-flex h-9 items-center justify-center rounded-md bg-red-600 px-3 text-sm font-semibold text-white shadow-sm transition hover:bg-red-700 disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-[#160f2e]"
           >
-            {busy ? "Working…" : labels.action}
+            {busy ? t("common.working") : labels.action}
           </button>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, lazy, Suspense } from "react";
+import { useState, useRef, useEffect, useMemo, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import { useAISkill } from "../../hooks/useAISkill";
 import "../../styles/ai-tools.css";
@@ -32,7 +32,12 @@ function ForumPostAssistant({ topic, draft }: { topic: string; draft: string }) 
   return (
     <div className="ait-inline" style={{ marginTop: "0.5rem" }}>
       <div className="ait-inline-header" onClick={() => setOpen(o => !o)} role="button" tabIndex={0} aria-expanded={open}>
-        <span className="ait-inline-title">✨ AI Post Assistant</span>
+        <span className="ait-inline-title" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
+          </svg>
+          AI Post Assistant
+        </span>
         <span className={`ait-inline-chevron${open ? " ait-inline-chevron--open" : ""}`}>▼</span>
       </div>
       {open && (
@@ -40,8 +45,15 @@ function ForumPostAssistant({ topic, draft }: { topic: string; draft: string }) 
           <p style={{ fontSize: "0.85rem", color: "var(--text-muted,#888)", margin: "0 0 0.75rem" }}>
             Get help crafting a warm, scripturally-grounded forum post based on your topic and draft.
           </p>
-          <button className="ait-submit-btn" type="button" onClick={handleAssist} disabled={loading || !topic.trim()}>
-            {loading ? "Writing…" : "✦ Help Me Write This Post"}
+          <button className="ait-submit-btn" type="button" onClick={handleAssist} disabled={loading || !topic.trim()} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            {loading ? "Writing…" : (
+              <>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
+                </svg>
+                Help Me Write This Post
+              </>
+            )}
           </button>
           {(loading || text || error) && (
             <div className="ait-result" style={{ marginTop: "0.75rem" }}>
@@ -124,7 +136,7 @@ export function ForumThreadList({ category, user, onSelectThread, onBack, naviga
     } catch {}
   }, [showForm, formKey]);
 
-  const threads = useCallback(() => {
+  const threads = useMemo(() => {
     let list = [...rawThreads].filter(th => !blockedSet.has(th.author_id));
     if (search.trim()) {
       const q = search.toLowerCase();
@@ -137,7 +149,7 @@ export function ForumThreadList({ category, user, onSelectThread, onBack, naviga
     else if (sort === "unanswered") rest = rest.filter(th => (th.forum_replies?.[0]?.count ?? 0) === 0 && !th.locked);
     else if (sort === "solved") rest = rest.filter(th => th.has_solution);
     return [...pinned, ...rest];
-  }, [rawThreads, search, sort, blockedSet])();
+  }, [rawThreads, search, sort, blockedSet]);
 
   function handleCreate(e: React.FormEvent) {
     e.preventDefault();
@@ -291,8 +303,12 @@ export function ForumThreadList({ category, user, onSelectThread, onBack, naviga
             return (
               <div
                 key={thread.id}
-                className={`forum-row${thread.pinned ? " forum-row--pinned" : ""}`}
+                role="button"
+                tabIndex={0}
+                aria-label={thread.title}
+                className={`forum-row focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-600${thread.pinned ? " forum-row--pinned" : ""}`}
                 onClick={() => onSelectThread(thread.id)}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onSelectThread(thread.id); } }}
               >
                 <div className="forum-row-left">
                   <Avatar profile={thread.profiles} size="sm" onClick={(e: React.MouseEvent) => { e.stopPropagation(); navigate("publicProfile", { userId: thread.author_id }); }} />
@@ -416,7 +432,13 @@ export function ForumCategoryList({ onSelectCategory, onBack, navigate, i18n, us
           const threadCount = cat.forum_threads?.[0]?.count ?? 0;
           const tx = cat.forum_category_translations?.find((t: { lang: string }) => t.lang === lang);
           return (
-            <div key={cat.id} className="forum-cat-card" onClick={() => onSelectCategory(cat)}>
+            <button
+              key={cat.id}
+              type="button"
+              className="forum-cat-card w-full text-left bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-600"
+              onClick={() => onSelectCategory(cat)}
+              aria-label={tx?.name ?? cat.name}
+            >
               <div className="forum-cat-icon">{cat.icon}</div>
               <div className="forum-cat-body">
                 <div className="forum-cat-name">{tx?.name ?? cat.name}</div>
@@ -426,7 +448,7 @@ export function ForumCategoryList({ onSelectCategory, onBack, navigate, i18n, us
                 <span className="forum-cat-stat">{t("forum.threadStat", { count: threadCount })}</span>
                 <span className="forum-cat-arrow">›</span>
               </div>
-            </div>
+            </button>
           );
         })}
       </div>

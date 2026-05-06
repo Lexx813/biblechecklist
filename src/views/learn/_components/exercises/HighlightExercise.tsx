@@ -1,10 +1,11 @@
 import { useMemo, useReducer } from "react";
+import { useTranslation } from "react-i18next";
 import type {
   HighlightCategory,
   HighlightExercisePayload,
   ExerciseResult,
 } from "../../content";
-import { highlightCategoryColors, getStrings } from "../../content";
+import { highlightCategoryColors } from "../../content";
 
 interface Props {
   lessonId: string;
@@ -52,7 +53,14 @@ const CATEGORIES: HighlightCategory[] = [
 ];
 
 export default function HighlightExercise({ lessonId, exerciseId, payload, onComplete }: Props) {
-  const strings = getStrings();
+  const { t } = useTranslation();
+  const categoryLabels: Record<HighlightCategory, string> = {
+    promise: t("learn.course.categories.promise"),
+    command: t("learn.course.categories.command"),
+    warning: t("learn.course.categories.warning"),
+    quality: t("learn.course.categories.quality"),
+    reference: t("learn.course.categories.reference"),
+  };
   const [state, dispatch] = useReducer(reducer, { active: null, tokens: {} });
 
   const tally = useMemo(() => {
@@ -84,11 +92,11 @@ export default function HighlightExercise({ lessonId, exerciseId, payload, onCom
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-5 sm:p-7 shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
-      <p className="text-sm text-[var(--color-jw-purple-light)] font-medium mb-2 dark:text-[#c4b5fd]">
+    <div className="rounded-md border border-violet-100 bg-white p-5 sm:p-7 shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
+      <p className="text-sm text-violet-600 font-medium mb-2 dark:text-violet-300">
         {payload.passageCitation}
       </p>
-      <p className="text-xs text-slate-500 italic mb-5 dark:text-white/55">{payload.passageSource}</p>
+      <p className="text-xs text-slate-500 italic mb-5 dark:text-white/55">{t(payload.passageSourceKey)}</p>
 
       <div className="mb-5 flex flex-wrap gap-2">
         {CATEGORIES.map((cat) => {
@@ -107,7 +115,7 @@ export default function HighlightExercise({ lessonId, exerciseId, payload, onCom
               aria-pressed={isActive}
             >
               <span className={`h-2.5 w-2.5 rounded-full ${c.dot}`} />
-              {strings.categories[cat]}
+              {categoryLabels[cat]}
               <span className="text-xs text-slate-500 dark:text-white/55">{tally[cat]}</span>
             </button>
           );
@@ -116,12 +124,12 @@ export default function HighlightExercise({ lessonId, exerciseId, payload, onCom
 
       <p className="mb-3 text-xs text-slate-500 dark:text-white/55">
         {state.active
-          ? `Tap a word or phrase to tag it as "${strings.categories[state.active]}". Tap again to remove.`
-          : "Pick a highlighter above, then tap words in the passage."}
+          ? t("learn.exercises.highlight.tapToTag", { category: categoryLabels[state.active] })
+          : t("learn.exercises.highlight.pickHighlighter")}
       </p>
 
-      <div className="rounded-xl bg-[var(--color-jw-purple-soft)] p-5 leading-9 text-lg text-slate-900 select-none font-[var(--font-fraunces)] dark:bg-white/5 dark:text-white">
-        {payload.tokens.map((tok, i) => {
+      <div className="rounded-md bg-violet-50 p-5 leading-9 text-lg text-slate-900 select-none dark:bg-white/5 dark:text-white">
+        {payload.tokenKeys.map((tokKey, i) => {
           const cat = state.tokens[i];
           const c = cat ? highlightCategoryColors[cat] : null;
           return (
@@ -140,8 +148,8 @@ export default function HighlightExercise({ lessonId, exerciseId, payload, onCom
                 c ? `${c.bg} ${c.text}` : "hover:bg-white/60"
               }`}
             >
-              {tok}
-              {i < payload.tokens.length - 1 ? " " : ""}
+              {t(tokKey)}
+              {i < payload.tokenKeys.length - 1 ? " " : ""}
             </span>
           );
         })}
@@ -166,27 +174,29 @@ export default function HighlightExercise({ lessonId, exerciseId, payload, onCom
               clipRule="evenodd"
             />
           </svg>
-          Clear all
+          {t("learn.exercises.highlight.clearAll")}
         </button>
         <button
           type="button"
           disabled={!canFinish}
           onClick={handleComplete}
-          className="jw-focus-ring inline-flex cursor-pointer items-center justify-center rounded-full bg-[var(--color-jw-purple)] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-jw-purple-deep)] disabled:cursor-not-allowed disabled:opacity-40"
+          className="jw-focus-ring inline-flex cursor-pointer items-center justify-center rounded-md bg-violet-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {canFinish ? "I've marked the paragraph" : `Tag at least 5 (currently ${totalTagged})`}
+          {canFinish
+            ? t("learn.exercises.highlight.iveMarked")
+            : t("learn.exercises.highlight.tagAtLeast", { count: totalTagged })}
         </button>
       </div>
 
       <details className="mt-5 rounded-lg border border-slate-100 bg-slate-50 p-3 text-sm text-slate-600 dark:border-white/10 dark:bg-white/[0.04] dark:text-white/70">
-        <summary className="cursor-pointer font-medium text-slate-700 dark:text-white/85">Show a guide for this paragraph</summary>
+        <summary className="cursor-pointer font-medium text-slate-700 dark:text-white/85">{t("learn.exercises.highlight.showGuide")}</summary>
         <ul className="mt-3 space-y-1.5">
           {payload.guide.map((g, i) => {
             const c = highlightCategoryColors[g.category];
             return (
               <li key={i} className="flex items-start gap-2">
                 <span className={`mt-1 h-2.5 w-2.5 flex-shrink-0 rounded-full ${c.dot}`} />
-                <span>{g.hint}</span>
+                <span>{t(g.hintKey)}</span>
               </li>
             );
           })}

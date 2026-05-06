@@ -1,20 +1,25 @@
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, lazy, Suspense, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { useUsers } from "../../hooks/useAdmin";
 import { useReports } from "../../hooks/useReports";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import "../../styles/admin.css";
+// Eager: small/lightweight tabs that ship anyway with users/reports data.
 import { AdminSkeleton, UsersTab } from "./tabs/UsersTab";
 import { ReportsTab, BlogTab, ForumTab, ForumCategoriesTab, BlogCommentsTab } from "./tabs/ModerationTabs";
 import { QuizTab, QuizStatsTab } from "./tabs/QuizTabs";
 import { AnnouncementsTab } from "./tabs/AnnouncementsTab";
 import { AuditLogTab } from "./tabs/AuditLogTab";
-import { VideosTab, CreatorsTab } from "./tabs/VideosAdminTabs";
-import { AnalyticsTab } from "./tabs/AnalyticsTab";
-import { LearnTab } from "./tabs/LearnTab";
-import { AIUsageTab } from "./tabs/AIUsageTab";
-import { CampaignsTab } from "./tabs/CampaignsTab";
-import { ContentPlanTab } from "./tabs/ContentPlanTab";
-import { SongsTab } from "./tabs/SongsTab";
+// Lazy: heavy tabs (recharts, complex editors, large data tables).
+// Wrapped as default exports so React.lazy() can consume the named exports.
+const AnalyticsTab = lazy(() => import("./tabs/AnalyticsTab").then(m => ({ default: m.AnalyticsTab })));
+const LearnTab = lazy(() => import("./tabs/LearnTab").then(m => ({ default: m.LearnTab })));
+const AIUsageTab = lazy(() => import("./tabs/AIUsageTab").then(m => ({ default: m.AIUsageTab })));
+const CampaignsTab = lazy(() => import("./tabs/CampaignsTab").then(m => ({ default: m.CampaignsTab })));
+const ContentPlanTab = lazy(() => import("./tabs/ContentPlanTab").then(m => ({ default: m.ContentPlanTab })));
+const SongsTab = lazy(() => import("./tabs/SongsTab").then(m => ({ default: m.SongsTab })));
+const VideosTab = lazy(() => import("./tabs/VideosAdminTabs").then(m => ({ default: m.VideosTab })));
+const CreatorsTab = lazy(() => import("./tabs/VideosAdminTabs").then(m => ({ default: m.CreatorsTab })));
 import {
   DndContext,
   PointerSensor,
@@ -77,21 +82,47 @@ function SortableTab({
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
-    cursor: isDragging ? "grabbing" : "grab",
   };
   return (
-    <button
+    <div
       ref={setNodeRef}
       style={style}
-      className={`admin-tab${active ? " admin-tab--active" : ""}`}
-      onClick={onSelect}
-      {...attributes}
-      {...listeners}
+      className={`admin-tab-wrap${active ? " admin-tab-wrap--active" : ""}`}
     >
-      {tab.icon}
-      {tab.label}
-      {badge !== undefined && badge > 0 && <span className="admin-tab-badge">{badge}</span>}
-    </button>
+      {/* Drag handle — listeners ONLY here so taps on the rest of the tab are
+          clean clicks (no flaky activation-distance behavior on phones). */}
+      <span
+        className="admin-tab-drag"
+        role="button"
+        tabIndex={-1}
+        aria-label="Reorder tab"
+        style={{ cursor: isDragging ? "grabbing" : "grab", touchAction: "none" }}
+        {...attributes}
+        {...listeners}
+      >
+        <svg width="10" height="14" viewBox="0 0 10 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+          <circle cx="3" cy="3" r="0.8" fill="currentColor" />
+          <circle cx="3" cy="7" r="0.8" fill="currentColor" />
+          <circle cx="3" cy="11" r="0.8" fill="currentColor" />
+          <circle cx="7" cy="3" r="0.8" fill="currentColor" />
+          <circle cx="7" cy="7" r="0.8" fill="currentColor" />
+          <circle cx="7" cy="11" r="0.8" fill="currentColor" />
+        </svg>
+      </span>
+      <button
+        type="button"
+        className={`admin-tab${active ? " admin-tab--active" : ""}`}
+        onClick={onSelect}
+        role="tab"
+        aria-selected={active}
+        aria-controls="admin-tab-panel"
+        id={`admin-tab-${tab.id}`}
+      >
+        {tab.icon}
+        {tab.label}
+        {badge !== undefined && badge > 0 && <span className="admin-tab-badge">{badge}</span>}
+      </button>
+    </div>
   );
 }
 
@@ -198,40 +229,30 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
     <div className="admin-wrap">
 
       <div className="admin-content">
-        {/* Stats, admin only */}
+        {/* Inline summary row, admin only — replaces the old 6-tile KPI hero
+            block (banned by PRODUCT.md "hero-metric stat blocks"). Detailed
+            breakdowns live in the dedicated tabs below. */}
         {isCurrentUserAdmin && (
-          <div className="admin-stats">
-            <div className="admin-stat-card">
-              <div className="admin-stat-value">{users.length}</div>
-              <div className="admin-stat-label">{t("admin.totalUsers")}</div>
-            </div>
-            <div className="admin-stat-card">
-              <div className="admin-stat-value">{adminCount}</div>
-              <div className="admin-stat-label">{t("admin.admins")}</div>
-            </div>
-            <div className="admin-stat-card">
-              <div className="admin-stat-value">{users.length - adminCount}</div>
-              <div className="admin-stat-label">{t("admin.members")}</div>
-            </div>
-            <div className="admin-stat-card">
-              <div className="admin-stat-value">{blogCount}</div>
-              <div className="admin-stat-label">{t("admin.blogWriters")}</div>
-            </div>
-            <div className="admin-stat-card">
-              <div className="admin-stat-value">{bannedCount}</div>
-              <div className="admin-stat-label">{t("admin.banned")}</div>
-            </div>
-            <div className="admin-stat-card">
-              <div className="admin-stat-value">+{recentSignups}</div>
-              <div className="admin-stat-label">{t("admin.recentSignups")}</div>
-            </div>
+          <div
+            className="flex flex-wrap items-baseline gap-x-3 gap-y-1 px-1 pb-3 text-[13px] text-[var(--text-muted)]"
+            style={{ fontVariantNumeric: "tabular-nums" }}
+          >
+            <span><strong className="font-semibold text-[var(--text-primary)]">{users.length}</strong> {t("admin.totalUsers").toLowerCase()}</span>
+            <span aria-hidden>·</span>
+            <span><strong className="font-semibold text-[var(--text-primary)]">{adminCount}</strong> {t("admin.admins").toLowerCase()}</span>
+            <span aria-hidden>·</span>
+            <span><strong className="font-semibold text-[var(--text-primary)]">{blogCount}</strong> {t("admin.blogWriters").toLowerCase()}</span>
+            <span aria-hidden>·</span>
+            <span><strong className="font-semibold text-[var(--text-primary)]">{bannedCount}</strong> {t("admin.banned").toLowerCase()}</span>
+            <span aria-hidden>·</span>
+            <span><strong className="font-semibold text-[var(--text-primary)]">+{recentSignups}</strong> {t("admin.recentSignups").toLowerCase()}</span>
           </div>
         )}
 
         {/* Tabs (drag to reorder; order persists in localStorage) */}
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={orderedTabs.map(t => t.id)} strategy={rectSortingStrategy}>
-            <div className="admin-tabs">
+            <div className="admin-tabs" role="tablist" aria-label="Admin sections">
               {orderedTabs.map(tb => (
                 <SortableTab
                   key={tb.id}
@@ -246,24 +267,28 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
         </DndContext>
 
         {/* Tab content */}
-        {tab === "users"         && isCurrentUserAdmin && <UsersTab currentUser={currentUser} navigate={navigate} />}
-        {tab === "reports"       && <div className="admin-section"><ReportsTab navigate={navigate} /></div>}
-        {tab === "blog"          && isCurrentUserAdmin && <div className="admin-section"><BlogTab navigate={navigate} /></div>}
-        {tab === "comments"      && isCurrentUserAdmin && <div className="admin-section"><BlogCommentsTab /></div>}
-        {tab === "forum"         && isCurrentUserAdmin && <div className="admin-section"><ForumTab navigate={navigate} /></div>}
-        {tab === "quiz"          && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><QuizTab /></div>}
-        {tab === "quizStats"     && isCurrentUserAdmin && <div className="admin-section"><QuizStatsTab /></div>}
-        {tab === "forumCats"     && isCurrentUserAdmin && <div className="admin-section"><ForumCategoriesTab /></div>}
-        {tab === "announcements" && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><AnnouncementsTab currentUser={currentUser} /></div>}
-        {tab === "auditLog"      && isCurrentUserAdmin && <div className="admin-section"><AuditLogTab /></div>}
-        {tab === "creators"      && isCurrentUserAdmin && <CreatorsTab />}
-        {tab === "videos"        && isCurrentUserAdmin && <div className="admin-section"><VideosTab /></div>}
-        {tab === "analytics"     && isCurrentUserAdmin && <AnalyticsTab />}
-        {tab === "learn"         && isCurrentUserAdmin && <div className="admin-section"><LearnTab /></div>}
-        {tab === "aiUsage"       && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><AIUsageTab /></div>}
-        {tab === "campaigns"     && isCurrentUserAdmin && <CampaignsTab currentUserId={currentUser.id} />}
-        {tab === "contentPlan"   && isCurrentUserAdmin && <ContentPlanTab navigate={navigate} />}
-        {tab === "songs"         && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><SongsTab /></div>}
+        <div id="admin-tab-panel" role="tabpanel" aria-labelledby={`admin-tab-${tab}`}>
+        <Suspense fallback={<LoadingSpinner />}>
+          {tab === "users"         && isCurrentUserAdmin && <UsersTab currentUser={currentUser} navigate={navigate} />}
+          {tab === "reports"       && <div className="admin-section"><ReportsTab navigate={navigate} /></div>}
+          {tab === "blog"          && isCurrentUserAdmin && <div className="admin-section"><BlogTab navigate={navigate} /></div>}
+          {tab === "comments"      && isCurrentUserAdmin && <div className="admin-section"><BlogCommentsTab /></div>}
+          {tab === "forum"         && isCurrentUserAdmin && <div className="admin-section"><ForumTab navigate={navigate} /></div>}
+          {tab === "quiz"          && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><QuizTab /></div>}
+          {tab === "quizStats"     && isCurrentUserAdmin && <div className="admin-section"><QuizStatsTab /></div>}
+          {tab === "forumCats"     && isCurrentUserAdmin && <div className="admin-section"><ForumCategoriesTab /></div>}
+          {tab === "announcements" && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><AnnouncementsTab currentUser={currentUser} /></div>}
+          {tab === "auditLog"      && isCurrentUserAdmin && <div className="admin-section"><AuditLogTab /></div>}
+          {tab === "creators"      && isCurrentUserAdmin && <CreatorsTab />}
+          {tab === "videos"        && isCurrentUserAdmin && <div className="admin-section"><VideosTab /></div>}
+          {tab === "analytics"     && isCurrentUserAdmin && <AnalyticsTab />}
+          {tab === "learn"         && isCurrentUserAdmin && <div className="admin-section"><LearnTab /></div>}
+          {tab === "aiUsage"       && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><AIUsageTab /></div>}
+          {tab === "campaigns"     && isCurrentUserAdmin && <CampaignsTab currentUserId={currentUser.id} />}
+          {tab === "contentPlan"   && isCurrentUserAdmin && <ContentPlanTab navigate={navigate} />}
+          {tab === "songs"         && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><SongsTab /></div>}
+        </Suspense>
+        </div>
       </div>
     </div>
   );

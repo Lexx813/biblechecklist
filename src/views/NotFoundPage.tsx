@@ -1,32 +1,31 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import "../styles/not-found.css";
 
 export default function NotFoundPage({ navigate, user = null, darkMode, setDarkMode, i18n, onLogout }: { navigate: (page: string) => void; user?: unknown; darkMode?: boolean; setDarkMode?: (v: boolean) => void; i18n?: unknown; onLogout?: () => void }) {
-  // Ensure the URL stays as-is so the user can see what they typed wrong
+  const { t } = useTranslation();
   useEffect(() => {
-    document.title = "404, Page Not Found";
+    document.title = t("notFound.docTitle");
     return () => { document.title = "JW Study"; };
-  }, []);
+  }, [t]);
 
   return (
     <div className="nf-wrap">
       <div className="nf-card">
         <div className="nf-glow" aria-hidden="true" />
         <div className="nf-code">404</div>
-        <h1 className="nf-title">Page not found</h1>
-        <p className="nf-sub">
-          The address you entered doesn't exist. It may have been moved, deleted, or you may have mistyped it.
-        </p>
+        <h1 className="nf-title">{t("notFound.title")}</h1>
+        <p className="nf-sub">{t("notFound.body")}</p>
         <div className="nf-path">{window.location.pathname}</div>
         <div className="nf-actions">
           <button className="nf-btn nf-btn--primary" onClick={() => navigate("home")}>
-            Go home
+            {t("notFound.goHome")}
           </button>
           <button className="nf-btn nf-btn--ghost" onClick={() => window.history.back()}>
-            Go back
+            {t("notFound.goBack")}
           </button>
         </div>
-        <p className="nf-verse">"Your word is a lamp for my feet, a light on my path.", Psalm 119:105</p>
+        <p className="nf-verse">{t("notFound.verse")}</p>
       </div>
     </div>
   );

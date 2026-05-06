@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { ExerciseResult, Lesson, Unit } from "../content";
-import { getStrings } from "../content";
 import HighlightExercise from "./exercises/HighlightExercise";
 import QuestionLadder from "./exercises/QuestionLadder";
 import CrossReferenceQuiz from "./exercises/CrossReferenceQuiz";
@@ -40,7 +40,7 @@ export default function LessonView({
   onContinue,
   onExerciseComplete,
 }: Props) {
-  const strings = getStrings();
+  const { t } = useTranslation();
   const topRef = useRef<HTMLDivElement>(null);
   const exerciseRef = useRef<HTMLElement>(null);
   const reducedMotion = usePrefersReducedMotion();
@@ -88,11 +88,6 @@ export default function LessonView({
     return () => io.disconnect();
   }, [lesson.id, reducedMotion]);
 
-  const firstParagraphIndex = useMemo(
-    () => lesson.body.findIndex((b) => b.kind === "p"),
-    [lesson.body],
-  );
-
   const skipToExercise = () => {
     exerciseRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     exerciseRef.current?.focus?.({ preventScroll: true });
@@ -101,14 +96,14 @@ export default function LessonView({
   return (
     <article
       ref={topRef}
-      className="jw-course-surface mx-auto w-full max-w-3xl rounded-md px-5 py-8 sm:px-8 sm:py-10"
+      className="jw-course-surface w-full rounded-md px-4 py-8 sm:px-6 lg:px-8 sm:py-10"
     >
       {/* Top bar: back + skip to exercise */}
       <div className="mb-5 flex items-center justify-between gap-2 text-sm">
         <button
           type="button"
           onClick={onBack}
-          className="jw-focus-ring inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-[var(--color-jw-purple-soft)] bg-white px-3 py-1.5 text-xs font-medium text-[#7c3aed] transition-colors hover:border-[#7c3aed]/30 hover:bg-[#7c3aed]/5"
+          className="jw-focus-ring inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-violet-100 bg-white px-3 py-1.5 text-xs font-medium text-violet-600 transition-colors hover:border-violet-600/30 hover:bg-violet-600/5"
         >
           <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
             <path
@@ -117,7 +112,7 @@ export default function LessonView({
               clipRule="evenodd"
             />
           </svg>
-          {strings.backToCourse}
+          {t("learn.course.backToCourse")}
         </button>
         <SkipToExerciseButton
           progress={totalParas > 0 ? revealed.size / totalParas : 0}
@@ -126,25 +121,25 @@ export default function LessonView({
       </div>
 
       {/* Breadcrumb */}
-      <p className="mb-3 text-xs text-slate-500" aria-label="Breadcrumb">
-        {strings.unitLabel} {unit.number} · {unit.title}
+      <p className="mb-3 text-xs text-slate-500" aria-label={t("learn.course.breadcrumbLabel")}>
+        {t("learn.course.unitLabel")} {unit.number} · {t(unit.titleKey)}
       </p>
 
       {/* Header */}
-      <header className="mb-8 border-b border-[var(--color-jw-purple-soft)] pb-7">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7c3aed]">
-          {strings.lessonLabel} {lesson.number} · {lesson.readingMinutes} {strings.minRead}
+      <header className="mb-8 border-b border-violet-100 pb-7">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-violet-600">
+          {t("learn.course.lessonLabel")} {lesson.number} · {lesson.readingMinutes} {t("learn.course.minRead")}
         </p>
-        <h1 className="mt-3 text-[clamp(28px,4.5vw,42px)] font-semibold leading-tight text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)]">
-          {lesson.title}
+        <h1 className="mt-3 text-[clamp(28px,4.5vw,42px)] font-semibold leading-tight text-violet-900">
+          {t(lesson.titleKey)}
         </h1>
-        <p className="mt-3 max-w-[58ch] text-lg italic leading-relaxed text-slate-600 font-[var(--font-fraunces)]">
-          {lesson.oneLine}
+        <p className="mt-3 max-w-[58ch] text-lg leading-relaxed text-slate-600">
+          {t(lesson.oneLineKey)}
         </p>
       </header>
 
       {/* Body */}
-      <div className="space-y-5 text-slate-800">
+      <div className="mx-auto max-w-prose space-y-5 text-slate-800">
         {lesson.body.map((block, i) => {
           const shown = revealed.has(i);
           const revealClass = `jw-reveal transition-all duration-500 ${shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`;
@@ -154,14 +149,13 @@ export default function LessonView({
           } as const;
 
           if (block.kind === "p") {
-            const isFirst = i === firstParagraphIndex;
             return (
               <p
                 key={i}
                 {...commonAttrs}
-                className={`text-[17px] leading-[1.85] text-slate-800 sm:text-lg ${isFirst ? "jw-dropcap" : ""} ${revealClass}`}
+                className={`text-[17px] leading-[1.85] text-slate-800 sm:text-lg ${revealClass}`}
               >
-                {block.text}
+                {t(block.textKey)}
               </p>
             );
           }
@@ -170,9 +164,9 @@ export default function LessonView({
               <h3
                 key={i}
                 {...commonAttrs}
-                className={`pt-3 text-xl font-semibold text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)] ${revealClass}`}
+                className={`pt-3 text-xl font-semibold text-violet-900 ${revealClass}`}
               >
-                {block.text}
+                {t(block.textKey)}
               </h3>
             );
           }
@@ -181,14 +175,14 @@ export default function LessonView({
               <blockquote
                 key={i}
                 {...commonAttrs}
-                className={`my-2 border-l-4 border-[#7c3aed] bg-[var(--color-jw-purple-soft)]/70 py-4 pl-5 pr-3 ${revealClass}`}
+                className={`my-2 border-l-4 border-violet-600 bg-violet-50/70 py-4 pl-5 pr-3 ${revealClass}`}
               >
-                <p className="text-lg italic leading-relaxed text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)]">
-                  &ldquo;{block.text}&rdquo;
+                <p className="text-lg leading-relaxed text-violet-900">
+                  &ldquo;{t(block.textKey)}&rdquo;
                 </p>
                 {block.cite && (
-                  <cite className="mt-2 block text-sm not-italic font-medium text-[var(--color-jw-purple-light)]">
-                   , {block.cite}
+                  <cite className="mt-2 block text-sm not-italic font-medium text-violet-600">
+                    {block.cite}
                   </cite>
                 )}
               </blockquote>
@@ -197,13 +191,13 @@ export default function LessonView({
           if (block.kind === "list") {
             return (
               <ul key={i} {...commonAttrs} className={`ml-1 space-y-2 ${revealClass}`}>
-                {block.items.map((item, j) => (
+                {block.itemKeys.map((itemKey, j) => (
                   <li key={j} className="relative pl-6 text-[17px] leading-[1.75] text-slate-800">
                     <span
-                      className="absolute left-0 top-[0.7em] h-1.5 w-1.5 rounded-full bg-[var(--color-jw-gold)]"
+                      className="absolute left-0 top-[0.7em] h-1.5 w-1.5 rounded-full bg-violet-600"
                       aria-hidden="true"
                     />
-                    {item}
+                    {t(itemKey)}
                   </li>
                 ))}
               </ul>
@@ -221,17 +215,17 @@ export default function LessonView({
         aria-labelledby="exercise-heading"
       >
         <div className="mb-4 flex items-center gap-3">
-          <span className="h-px flex-1 bg-[var(--color-jw-purple-soft)]" />
+          <span className="h-px flex-1 bg-violet-100" />
           <p
             id="exercise-heading"
-            className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#7c3aed]"
+            className="text-[11px] font-semibold uppercase tracking-[0.22em] text-violet-600"
           >
-            {strings.exerciseHeading}
+            {t("learn.course.exerciseHeading")}
           </p>
-          <span className="h-px flex-1 bg-[var(--color-jw-purple-soft)]" />
+          <span className="h-px flex-1 bg-violet-100" />
         </div>
-        <h2 className="mb-5 text-2xl font-semibold text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)]">
-          {lesson.exercise.title}
+        <h2 className="mb-5 text-2xl font-semibold text-violet-900">
+          {t(lesson.exercise.titleKey)}
         </h2>
         <ExerciseRouter
           lessonId={lesson.id}
@@ -242,7 +236,7 @@ export default function LessonView({
       </section>
 
       {/* Bottom action bar */}
-      <div className="sticky bottom-3 mt-12 flex flex-col gap-3 rounded-md border border-[var(--color-jw-purple-soft)] bg-white/95 p-3 shadow-lg backdrop-blur sm:flex-row sm:items-center sm:justify-between sm:p-4">
+      <div className="sticky bottom-3 mt-12 flex flex-col gap-3 rounded-md border border-violet-100 bg-white/95 p-3 shadow-lg backdrop-blur sm:flex-row sm:items-center sm:justify-between sm:p-4">
         <button
           type="button"
           onClick={onMarkComplete}
@@ -250,7 +244,7 @@ export default function LessonView({
           className={`jw-focus-ring inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border px-5 py-2 text-sm font-semibold transition-colors ${
             isCompleted
               ? "border-emerald-300 bg-emerald-50 text-emerald-800 hover:bg-emerald-100"
-              : "border-[#7c3aed]/30 bg-white text-[#7c3aed] hover:bg-[#7c3aed]/5"
+              : "border-violet-600/30 bg-white text-violet-600 hover:bg-violet-600/5"
           }`}
         >
           {isCompleted ? (
@@ -262,18 +256,18 @@ export default function LessonView({
                   clipRule="evenodd"
                 />
               </svg>
-              {strings.completed}
+              {t("learn.course.completed")}
             </>
           ) : (
-            strings.markComplete
+            t("learn.course.markComplete")
           )}
         </button>
         <button
           type="button"
           onClick={onContinue}
-          className="jw-focus-ring inline-flex cursor-pointer items-center justify-center gap-2 rounded-md bg-[#7c3aed] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#6d28d9]"
+          className="jw-focus-ring inline-flex cursor-pointer items-center justify-center gap-2 rounded-md bg-violet-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-violet-700"
         >
-          {hasNext ? strings.continue : strings.backToCourse}
+          {hasNext ? t("learn.course.continue") : t("learn.course.backToCourse")}
           <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4" aria-hidden="true">
             <path
               fillRule="evenodd"
@@ -294,6 +288,7 @@ function SkipToExerciseButton({
   progress: number;
   onClick: () => void;
 }) {
+  const { t } = useTranslation();
   const pct = Math.max(0, Math.min(1, progress));
   const isReady = pct >= 0.85;
   const r = 7;
@@ -305,11 +300,11 @@ function SkipToExerciseButton({
     <button
       type="button"
       onClick={onClick}
-      aria-label={`Skip to exercise. ${pctLabel}% read.`}
+      aria-label={t("learn.course.skipToExerciseAria", { pct: pctLabel })}
       className={`jw-focus-ring group hidden cursor-pointer items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-semibold shadow-sm transition-all sm:inline-flex ${
         isReady
-          ? "border-[#7c3aed]/30 bg-[#7c3aed]/5 text-[#7c3aed] hover:shadow-md"
-          : "border-jw-purple-soft bg-white text-jw-purple hover:border-jw-purple-light hover:bg-jw-purple-soft/40"
+          ? "border-violet-600/30 bg-violet-600/5 text-violet-600 hover:shadow-md"
+          : "border-violet-100 bg-white text-violet-700 hover:border-violet-300 hover:bg-violet-50/40"
       }`}
     >
       <span className="relative flex h-5 w-5 items-center justify-center">
@@ -351,7 +346,7 @@ function SkipToExerciseButton({
           </svg>
         )}
       </span>
-      <span>{isReady ? "Ready, go to exercise" : "Skip to exercise"}</span>
+      <span>{isReady ? t("learn.course.skipToExerciseReady") : t("learn.course.skipToExercise")}</span>
       <span className="tabular-nums text-[10px] font-medium opacity-60">
         {pctLabel}%
       </span>

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { REACTION_EMOJIS, type ReactionSummary } from "../api/reactions";
 import { useToggleReaction } from "../hooks/useReactions";
 
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export function ReactionBar({ targetType, targetId, summary, bulkKey, disabled }: Props) {
+  const { t } = useTranslation();
   const toggle = useToggleReaction([bulkKey]);
   const counts = summary?.counts ?? {};
   const mine = new Set(summary?.mine ?? []);
@@ -36,7 +38,7 @@ export function ReactionBar({ targetType, targetId, summary, bulkKey, disabled }
             onClick={e => handleClick(emoji, e)}
             disabled={disabled}
             aria-pressed={isMine}
-            aria-label={`React with ${emoji}`}
+            aria-label={t("reactions.reactWith", { emoji })}
           >
             <span className="reaction-pill-emoji">{emoji}</span>
             {count > 0 && <span className="reaction-pill-count">{count}</span>}
@@ -45,7 +47,7 @@ export function ReactionBar({ targetType, targetId, summary, bulkKey, disabled }
       })}
       {remainingEmojis.length > 0 && (
         <details className="reaction-add">
-          <summary className="reaction-add-trigger" aria-label="Add reaction">+</summary>
+          <summary className="reaction-add-trigger" aria-label={t("reactions.addReaction")}>+</summary>
           <div className="reaction-add-menu">
             {remainingEmojis.map(emoji => (
               <button
@@ -54,7 +56,7 @@ export function ReactionBar({ targetType, targetId, summary, bulkKey, disabled }
                 className="reaction-add-option"
                 onClick={e => handleClick(emoji, e)}
                 disabled={disabled}
-                aria-label={`React with ${emoji}`}
+                aria-label={t("reactions.reactWith", { emoji })}
               >
                 {emoji}
               </button>

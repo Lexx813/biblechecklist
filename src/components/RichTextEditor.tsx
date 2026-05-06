@@ -160,6 +160,7 @@ interface ColorPaletteProps {
 }
 
 function ColorPalette({ colors, onSelect, onClear, currentColor, label, children }: ColorPaletteProps) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState({ top: 0, left: 0 });
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -221,10 +222,10 @@ function ColorPalette({ colors, onSelect, onClear, currentColor, label, children
           </div>
           <div className="editor-color-actions">
             <button type="button" className="editor-color-clear" onClick={() => { onClear(); setOpen(false); }}>
-              Clear
+              {t("editor.color.clear")}
             </button>
             <button type="button" className="editor-color-custom" onClick={() => customRef.current?.click()}>
-              Custom…
+              {t("editor.color.custom")}
             </button>
           </div>
           <input
@@ -311,6 +312,7 @@ function BubbleSep() {
 }
 
 function SelectionBubble({ editor, onLinkClick }: { editor: any; onLinkClick: () => void }) {
+  const { t } = useTranslation();
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
   const [showHighlightPalette, setShowHighlightPalette] = useState(false);
   const bubbleRef = useRef<HTMLDivElement | null>(null);
@@ -372,18 +374,22 @@ function SelectionBubble({ editor, onLinkClick }: { editor: any; onLinkClick: ()
         zIndex: 9999,
       }}
     >
-      <BubbleBtn active={editor.isActive("bold")}      onClick={cmd(() => editor.chain().focus().toggleBold().run())}      title="Bold (Cmd+B)"><strong>B</strong></BubbleBtn>
-      <BubbleBtn active={editor.isActive("italic")}    onClick={cmd(() => editor.chain().focus().toggleItalic().run())}    title="Italic (Cmd+I)"><em>I</em></BubbleBtn>
-      <BubbleBtn active={editor.isActive("underline")} onClick={cmd(() => editor.chain().focus().toggleUnderline().run())} title="Underline"><span style={{ textDecoration: "underline" }}>U</span></BubbleBtn>
-      <BubbleBtn active={editor.isActive("strike")}    onClick={cmd(() => editor.chain().focus().toggleStrike().run())}    title="Strikethrough"><span style={{ textDecoration: "line-through" }}>S</span></BubbleBtn>
+      <BubbleBtn active={editor.isActive("bold")}      onClick={cmd(() => editor.chain().focus().toggleBold().run())}      title={t("editor.bubble.bold")}><strong>B</strong></BubbleBtn>
+      <BubbleBtn active={editor.isActive("italic")}    onClick={cmd(() => editor.chain().focus().toggleItalic().run())}    title={t("editor.bubble.italic")}><em>I</em></BubbleBtn>
+      <BubbleBtn active={editor.isActive("underline")} onClick={cmd(() => editor.chain().focus().toggleUnderline().run())} title={t("editor.underline")}><span style={{ textDecoration: "underline" }}>U</span></BubbleBtn>
+      <BubbleBtn active={editor.isActive("strike")}    onClick={cmd(() => editor.chain().focus().toggleStrike().run())}    title={t("editor.strike")}><span style={{ textDecoration: "line-through" }}>S</span></BubbleBtn>
       <BubbleSep />
-      <BubbleBtn active={editor.isActive("link")} onClick={cmd(onLinkClick)} title="Link">🔗</BubbleBtn>
+      <BubbleBtn active={editor.isActive("link")} onClick={cmd(onLinkClick)} title={t("editor.link")}>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+        </svg>
+      </BubbleBtn>
       <BubbleSep />
       <div style={{ position: "relative" }}>
         <BubbleBtn
           active={!!activeHighlight}
           onClick={cmd(() => setShowHighlightPalette(v => !v))}
-          title="Highlight"
+          title={t("editor.highlight")}
         >
           <span className="editor-pop__chip-swatch">
             <span>H</span>
@@ -415,7 +421,7 @@ function SelectionBubble({ editor, onLinkClick }: { editor: any; onLinkClick: ()
                 setShowHighlightPalette(false);
               }}
             >
-              Clear highlight
+              {t("editor.clearHighlight")}
             </button>
           </div>
         )}
@@ -437,6 +443,7 @@ function SlashPopup({
   setActiveIdx: (i: number) => void;
   onSelect: (item: SlashItem) => void;
 }) {
+  const { t } = useTranslation();
   if (!open || !coords || items.length === 0) return null;
   return createPortal(
     <div
@@ -449,7 +456,7 @@ function SlashPopup({
         zIndex: 9999,
       }}
     >
-      <div className="editor-pop__list-eyebrow">Insert</div>
+      <div className="editor-pop__list-eyebrow">{t("editor.slash.insert")}</div>
       {items.map((it, idx) => {
         const active = idx === activeIdx;
         return (
@@ -674,20 +681,20 @@ export default function RichTextEditor({
 
   // ── Slash command items + runner ───────────────────────────────────────
   const SLASH_ITEMS: SlashItem[] = [
-    { id: "h1",        label: "Heading 1",       keywords: "h1 heading title",         run: () => editor.chain().focus().toggleHeading({ level: 1 }).run() },
-    { id: "h2",        label: "Heading 2",       keywords: "h2 heading subtitle",      run: () => editor.chain().focus().toggleHeading({ level: 2 }).run() },
-    { id: "h3",        label: "Heading 3",       keywords: "h3 heading section",       run: () => editor.chain().focus().toggleHeading({ level: 3 }).run() },
-    { id: "bullet",    label: "Bulleted list",   keywords: "ul bullet list unordered", run: () => editor.chain().focus().toggleBulletList().run() },
-    { id: "numbered",  label: "Numbered list",   keywords: "ol numbered list ordered", run: () => editor.chain().focus().toggleOrderedList().run() },
-    { id: "quote",     label: "Quote",           keywords: "blockquote quote",         run: () => editor.chain().focus().toggleBlockquote().run() },
-    { id: "code",      label: "Code block",      keywords: "code pre",                 run: () => editor.chain().focus().toggleCodeBlock().run() },
-    { id: "divider",   label: "Divider",         keywords: "hr divider rule line",     run: () => editor.chain().focus().setHorizontalRule().run() },
+    { id: "h1",        label: t("editor.slash.h1"),       keywords: "h1 heading title",         run: () => editor.chain().focus().toggleHeading({ level: 1 }).run() },
+    { id: "h2",        label: t("editor.slash.h2"),       keywords: "h2 heading subtitle",      run: () => editor.chain().focus().toggleHeading({ level: 2 }).run() },
+    { id: "h3",        label: t("editor.slash.h3"),       keywords: "h3 heading section",       run: () => editor.chain().focus().toggleHeading({ level: 3 }).run() },
+    { id: "bullet",    label: t("editor.slash.bulletList"),   keywords: "ul bullet list unordered", run: () => editor.chain().focus().toggleBulletList().run() },
+    { id: "numbered",  label: t("editor.slash.numberedList"), keywords: "ol numbered list ordered", run: () => editor.chain().focus().toggleOrderedList().run() },
+    { id: "quote",     label: t("editor.slash.quote"),    keywords: "blockquote quote",         run: () => editor.chain().focus().toggleBlockquote().run() },
+    { id: "code",      label: t("editor.slash.codeBlock"), keywords: "code pre",                run: () => editor.chain().focus().toggleCodeBlock().run() },
+    { id: "divider",   label: t("editor.slash.divider"),  keywords: "hr divider rule line",     run: () => editor.chain().focus().setHorizontalRule().run() },
     {
       id: "scripture",
-      label: "Scripture (e.g. Matthew 24:14)",
+      label: t("editor.slash.scripture"),
       keywords: "scripture bible verse jw nwt",
       run: () => {
-        const ref = window.prompt("Scripture reference (e.g. Matthew 24:14):");
+        const ref = window.prompt(t("editor.scripturePrompt"));
         if (ref && ref.trim()) editor.chain().focus().insertScriptureChip(ref.trim()).run();
       },
     },
@@ -762,7 +769,7 @@ export default function RichTextEditor({
             {/* ── Inline formatting ── */}
             <Btn active={editor.isActive("bold")}      onClick={() => editor.chain().focus().toggleBold().run()}      title={t("editor.bold")}     ><BoldIcon /></Btn>
             <Btn active={editor.isActive("italic")}    onClick={() => editor.chain().focus().toggleItalic().run()}    title={t("editor.italic")}   ><ItalicIcon /></Btn>
-            <Btn active={editor.isActive("underline")} onClick={() => editor.chain().focus().toggleUnderline().run()} title="Underline"            ><UnderlineIcon /></Btn>
+            <Btn active={editor.isActive("underline")} onClick={() => editor.chain().focus().toggleUnderline().run()} title={t("editor.underline")}><UnderlineIcon /></Btn>
             <Btn active={editor.isActive("strike")}    onClick={() => editor.chain().focus().toggleStrike().run()}    title={t("editor.strike")}   ><StrikeIcon /></Btn>
 
             <div className="editor-sep" />
@@ -772,7 +779,7 @@ export default function RichTextEditor({
               <Btn key={level}
                 active={editor.isActive("heading", { level })}
                 onClick={() => editor.chain().focus().toggleHeading({ level }).run()}
-                title={`Heading ${level}`}
+                title={t("editor.heading", { level })}
               >H{level}</Btn>
             ))}
 
@@ -785,9 +792,9 @@ export default function RichTextEditor({
             <div className="editor-sep" />
 
             {/* ── Alignment ── */}
-            <Btn active={editor.isActive({ textAlign: "left" })}    onClick={() => editor.chain().focus().setTextAlign("left").run()}    title="Align left"   ><AlignLeftIcon /></Btn>
-            <Btn active={editor.isActive({ textAlign: "center" })}  onClick={() => editor.chain().focus().setTextAlign("center").run()}  title="Align center" ><AlignCenterIcon /></Btn>
-            <Btn active={editor.isActive({ textAlign: "right" })}   onClick={() => editor.chain().focus().setTextAlign("right").run()}   title="Align right"  ><AlignRightIcon /></Btn>
+            <Btn active={editor.isActive({ textAlign: "left" })}    onClick={() => editor.chain().focus().setTextAlign("left").run()}    title={t("editor.alignLeft")}   ><AlignLeftIcon /></Btn>
+            <Btn active={editor.isActive({ textAlign: "center" })}  onClick={() => editor.chain().focus().setTextAlign("center").run()}  title={t("editor.alignCenter")} ><AlignCenterIcon /></Btn>
+            <Btn active={editor.isActive({ textAlign: "right" })}   onClick={() => editor.chain().focus().setTextAlign("right").run()}   title={t("editor.alignRight")}  ><AlignRightIcon /></Btn>
 
             <div className="editor-sep" />
 
@@ -806,7 +813,7 @@ export default function RichTextEditor({
               currentColor={activeTextColor}
               onSelect={c => editor.chain().focus().setColor(c).run()}
               onClear={() => editor.chain().focus().unsetColor().run()}
-              label="Text color"
+              label={t("editor.textColor")}
             >
               <span style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
                 <span style={{ fontSize: 11, fontWeight: 700, lineHeight: 1 }}>A</span>
@@ -820,7 +827,7 @@ export default function RichTextEditor({
               currentColor={activeHighlight}
               onSelect={c => editor.chain().focus().setHighlight({ color: c }).run()}
               onClear={() => editor.chain().focus().unsetHighlight().run()}
-              label="Highlight"
+              label={t("editor.highlight")}
             >
               <span style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
                 <span style={{ fontSize: 10, fontWeight: 700, lineHeight: 1 }}>H</span>
@@ -845,7 +852,7 @@ export default function RichTextEditor({
             <Btn
               active={focusMode}
               onClick={() => setFocusMode((v) => !v)}
-              title="Focus mode (hide chrome)"
+              title={t("editor.focusMode")}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                 <path d="M9 4H5a1 1 0 0 0-1 1v4M15 4h4a1 1 0 0 1 1 1v4M9 20H5a1 1 0 0 1-1-1v-4M15 20h4a1 1 0 0 0 1-1v-4" />
@@ -860,9 +867,12 @@ export default function RichTextEditor({
                 type="button"
                 className={`editor-btn${showEmoji ? " active" : ""}`}
                 onMouseDown={e => { e.preventDefault(); setShowEmoji(v => !v); }}
-                title="Emoji"
+                title={t("editor.emoji")}
+                aria-label={t("editor.emoji", "Emoji picker")}
               >
-                😊
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
+                </svg>
               </button>
               {showEmoji && (
                 <EmojiPickerPopup
@@ -891,7 +901,7 @@ export default function RichTextEditor({
           <button
             type="button"
             onClick={() => setFocusMode(false)}
-            title="Exit focus mode (Esc)"
+            title={t("editor.exitFocusModeTitle")}
             style={{
               position: "fixed",
               top: 16,
@@ -908,7 +918,7 @@ export default function RichTextEditor({
               boxShadow: "0 8px 24px rgba(0,0,0,0.28)",
             }}
           >
-            Exit focus · Esc
+            {t("editor.exitFocus")}
           </button>
         )}
       </div>
@@ -924,7 +934,7 @@ export default function RichTextEditor({
       {linkModal.open && (
         <div className="link-modal-overlay" onMouseDown={() => setLinkModal({ open: false, value: "" })}>
           <div className="link-modal" onMouseDown={e => e.stopPropagation()}>
-            <p className="link-modal-label">Insert link</p>
+            <p className="link-modal-label">{t("editor.link.insert")}</p>
             <form onSubmit={submitLink}>
               <input
                 ref={linkInputRef}
@@ -932,19 +942,19 @@ export default function RichTextEditor({
                 name="url"
                 className="link-modal-input"
                 type="text"
-                placeholder="https://example.com or mailto:you@email.com"
+                placeholder={t("editor.link.urlPlaceholder")}
                 value={linkModal.value}
-                aria-label="URL"
+                aria-label={t("editor.link.urlLabel")}
                 onChange={e => setLinkModal(m => ({ ...m, value: e.target.value }))}
                 onKeyDown={e => { if (e.key === "Escape") setLinkModal({ open: false, value: "" }); }}
                 autoComplete="off"
               />
               <div className="link-modal-actions">
                 <button type="button" className="link-modal-btn link-modal-btn--cancel" onClick={() => setLinkModal({ open: false, value: "" })}>
-                  Cancel
+                  {t("editor.link.cancel")}
                 </button>
                 <button type="submit" className="link-modal-btn link-modal-btn--apply">
-                  Apply
+                  {t("editor.link.apply")}
                 </button>
               </div>
             </form>

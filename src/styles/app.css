@@ -52,6 +52,17 @@
   border-radius: 4px;
 }
 
+/* `<summary>` elements have inconsistent default focus across browsers (Chromium
+   suppresses the global outline because the marker pseudo can absorb focus
+   styling). Force the canonical violet ring so disclosure widgets — like the
+   "Show guide" toggle in HighlightExercise and reaction picker in ReactionBar —
+   stay keyboard-discoverable. */
+summary:focus-visible {
+  outline: 2px solid var(--violet-600);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 :root {
   /* ── Layout (safe-area-aware) ──────────────────────────────────────────── */
   /* TopBar height = 52px content + iOS notch/Dynamic Island inset.

@@ -58,7 +58,12 @@
     "saveBannerRegion": "Fi ìtẹ̀síwájú rẹ pamọ́"
   },
   "a11y": {
-    "skipToContent": "Fo lọ sí àkóónú àkọ́kọ́"
+    "skipToContent": "Fo lọ sí àkóónú àkọ́kọ́",
+    "cancel": "Fagilé",
+    "close": "Tì í",
+    "dismiss": "Pa á rẹ́",
+    "loading": "Ń ṣí…",
+    "send": "Fi ránṣẹ́"
   },
   "common": {
     "back": "← Padà",
@@ -89,7 +94,8 @@
     "searchOptionsAria": "Àwọn àṣàyàn ìwákiri",
     "select": "Yan…",
     "image": "Àwòrán",
-    "previewAlt": "Àwòkọ́ṣe"
+    "previewAlt": "Àwòkọ́ṣe",
+    "working": "Ń ṣiṣẹ́…"
   },
   "app": {
     "title": "Àkójọ Kíkà Bíbélì",
@@ -243,7 +249,25 @@
     "share": "Pín",
     "emptyOwner": "O kò tíì pín ìròyìn kankan.",
     "emptyOther": "Kò sí ìròyìn tuntun síbẹ̀.",
-    "noCommentsYet": "Kò sí ìsọ̀rọ̀ síbẹ̀. Jẹ́ ẹni àkọ́kọ́!"
+    "noCommentsYet": "Kò sí ìsọ̀rọ̀ síbẹ̀. Jẹ́ ẹni àkọ́kọ́!",
+    "interactions": {
+      "cancelReply": "✕ Fagilé",
+      "comment": "Ọ̀rọ̀-àlàyé",
+      "commentOnPost": "Ṣe ọ̀rọ̀-àlàyé sí ìfìwéránṣẹ́",
+      "emojiCount": "{{emoji}} {{count}}",
+      "invalidContent": "Àkóónú àìdára",
+      "likeComment": "Fẹ́ràn ọ̀rọ̀-àlàyé",
+      "react": "Fèsì",
+      "reactToPost": "Fèsì sí ìfìwéránṣẹ́",
+      "reactWith": "Fèsì pẹ̀lú {{emoji}}",
+      "reply": "Dáhùn",
+      "replyToPlaceholder": "Dáhùn {{name}}…",
+      "replyingToPrefix": "↩ Ń dáhùn",
+      "sendComment": "Fi ọ̀rọ̀-àlàyé ránṣẹ́",
+      "sendReply": "Fi ìdáhùn ránṣẹ́",
+      "signInToComment": "Wọlé láti ṣe ọ̀rọ̀-àlàyé",
+      "writeCommentPlaceholder": "Kọ ọ̀rọ̀-àlàyé…"
+    }
   },
   "follow": {
     "follow": "Tẹ̀lé",
@@ -944,10 +968,49 @@
     "blockquote": "Ọ̀rọ̀ Àyọkà",
     "code": "Kóòdù Inúrinrin",
     "codeBlock": "Bíláàkì Kóòdù",
-    "link": "Fi Ọ̀nà Ìjápọ̀ Kún",
+    "link": {
+      "apply": "Lò ó",
+      "cancel": "Fagilé",
+      "insert": "Fi ìjápọ̀ kún",
+      "urlLabel": "URL",
+      "urlPlaceholder": "https://example.com tàbí mailto:you@email.com"
+    },
     "unlink": "Yọ Ọ̀nà Ìjápọ̀ Kúrò",
     "hr": "Ìpín",
-    "linkPrompt": "Tẹ URL sínú"
+    "linkPrompt": "Tẹ URL sínú",
+    "alignCenter": "Tò sí àárín",
+    "alignLeft": "Tò sí òsì",
+    "alignRight": "Tò sí ọ̀tún",
+    "bubble": {
+      "bold": "Búlúdì (Cmd+B)",
+      "italic": "Ìtálíìkì (Cmd+I)"
+    },
+    "clearHighlight": "Pa àmì àfihàn rẹ́",
+    "color": {
+      "clear": "Pa á rẹ́",
+      "custom": "Àyànfẹ́…"
+    },
+    "emoji": "Èmójì",
+    "exitFocus": "Jáde nínú àfojúsùn · Esc",
+    "exitFocusModeTitle": "Jáde nínú ọ̀nà àfojúsùn (Esc)",
+    "focusMode": "Ọ̀nà àfojúsùn (fi àwọn ohun èlò pamọ́)",
+    "heading": "Àkọlé {{level}}",
+    "highlight": "Àmì àfihàn",
+    "scripturePrompt": "Ìtọ́kasí Ìwé Mímọ́ (fún àpẹẹrẹ Mátíù 24:14):",
+    "slash": {
+      "bulletList": "Àkójọ pẹ̀lú àmì",
+      "codeBlock": "Bíláàkì kóòdù",
+      "divider": "Olùpín",
+      "h1": "Àkọlé 1",
+      "h2": "Àkọlé 2",
+      "h3": "Àkọlé 3",
+      "insert": "Fi kún",
+      "numberedList": "Àkójọ pẹ̀lú nọ́ńbà",
+      "quote": "Ọ̀rọ̀ ìfàyọ",
+      "scripture": "Ìwé Mímọ́ (fún àpẹẹrẹ Mátíù 24:14)"
+    },
+    "textColor": "Àwọ̀ ọ̀rọ̀",
+    "underline": "Ìlà ìsàlẹ̀"
   },
   "bookNames": [
     "Genesis",
@@ -1948,7 +2011,55 @@
     "imageWarningSuspension": "ó sì lè yọrí sí dídá àkántì dúró.",
     "imageWarningAgree": "Bí o ṣe ń tẹ̀síwájú, o jẹ́risí pé àwòrán yìí mọ́ ó sì yẹ.",
     "sendImage": "Fi Àwòrán Ránṣẹ́",
-    "searchConversations": "Wá àwọn ìbáraẹnisọ̀rọ̀…"
+    "searchConversations": "Wá àwọn ìbáraẹnisọ̀rọ̀…",
+    "chatWidgets": {
+      "addNote": "Fi àkọsílẹ̀ kún",
+      "addNotePlaceholder": "Fi àkọsílẹ̀ kún…",
+      "book": "Ìwé",
+      "chapter": "Orí",
+      "chatSettings": "⚙ Ètò Ìbánisọ̀rọ̀",
+      "disappearingMessages": "⏱ Àwọn Ìránṣẹ́ Tó Ń Pòórá",
+      "getNotified": "Gba ìfitónilétí àwọn ìránṣẹ́ tuntun",
+      "noActivePlans": "O kò ní ètò kíkà tó ń ṣiṣẹ́.",
+      "noteOptional": "Àkọsílẹ̀ (àyànfẹ́)",
+      "notificationsBlocked": "Ìfitónilétí ti dí. Ṣí i nínú ètò ẹ̀rọ aṣàwákiri.",
+      "readOnWol": "Kà lórí WOL ↗",
+      "readingPlanInvitation": "Ìpè sí Ètò Kíkà",
+      "sharePlanAria": "Pín ètò kíkà",
+      "sharePlanTitle": "📅 Pín Ètò Kíkà",
+      "shareVerseAria": "Pín ẹsẹ Bíbélì",
+      "shareVerseBtn": "Pín Ẹsẹ",
+      "shareVerseTitle": "📖 Pín Ẹsẹ Bíbélì",
+      "themeColor": "🎨 Àwọ̀ Àkòrí",
+      "verse": "Ẹsẹ",
+      "verseNumber": "Nọ́ńbà ẹsẹ"
+    },
+    "miniThread": {
+      "back": "Padà",
+      "cancelReply": "Fagilé ìdáhùn",
+      "deleteConversation": "Pa ìbáraẹnisọ̀rọ̀ rẹ́",
+      "emoji": "Èmójì",
+      "inputPlaceholder": "Aa",
+      "like": "Fẹ́ràn",
+      "newMessageChip": "↓ Ìránṣẹ́ tuntun",
+      "previewImage": "🖼 Àwòrán",
+      "previewPlan": "📅 Ètò kíkà",
+      "previewVerse": "📖 Ẹsẹ Bíbélì",
+      "retry": "Gbìyànjú lẹ́ẹ̀kan sí i",
+      "searchAria": "Wá ìránṣẹ́",
+      "searchTip": "Wá",
+      "send": "Fi ránṣẹ́",
+      "sendFailed": "Ìránṣẹ́ kò lọ.",
+      "sendFailedConnection": "Ìránṣẹ́ kò lọ. Ṣàyẹ̀wò ìjápọ̀ rẹ.",
+      "settingsAria": "Ètò ìbánisọ̀rọ̀",
+      "settingsTip": "Ètò",
+      "shareImage": "Pín àwòrán",
+      "sharePlan": "Pín ètò kíkà",
+      "shareVerse": "Pín ẹsẹ Bíbélì",
+      "starredAria": "Àwọn ìránṣẹ́ tó ní ìràwọ̀",
+      "starredTip": "Tó ní ìràwọ̀",
+      "typeMessage": "Tẹ ìránṣẹ́"
+    }
   },
   "aiCompanion": {
     "title": "Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI",
@@ -2255,7 +2366,10 @@
   },
   "verseModal": {
     "shareMessage": "📖 Mò ń ka {{book}} {{chapter}} — {{url}}",
-    "shareTitle": "Pín {{book}} {{chapter}}"
+    "shareTitle": "Pín {{book}} {{chapter}}",
+    "chapterShort": "Orí {{chapter}}",
+    "dialogLabel": "{{book}} Orí {{chapter}}",
+    "versesProgress": "{{read}} / {{total}} ẹsẹ"
   },
   "topbar": {
     "goToHome": "JW Study, Lọ sí ilé",
@@ -2308,5 +2422,890 @@
   "familyQuiz": {
     "loadingChallenge": "Ń ṣíṣẹ́ ìpèníjà…",
     "loadingResults": "Ń ṣíṣẹ́ àbájáde…"
+  },
+  "aiBubble": {
+    "aiThinkingAriaLabel": "AI ń ronú",
+    "clear": "Pa á rẹ́",
+    "clearTitle": "Pa ìbáraẹnisọ̀rọ̀ rẹ́",
+    "closeAriaLabel": "Tì alábàákẹ́gbẹ́ ìkẹ́kọ̀ọ́",
+    "dialogLabel": "Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI",
+    "fabTitle": "Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI",
+    "inputAriaLabel": "Béèrè ìbéèrè Bíbélì",
+    "openAriaLabel": "Ṣí Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI",
+    "placeholder": "Béèrè ìbéèrè Bíbélì…",
+    "quotaAriaLabel": "{{percent}} nínú ọgọ́rùn-ún ti pípín AI ojoojúmọ́ tí a ti lò",
+    "quotaPill": "{{percent}}% tí a ti lò",
+    "quotaTitle": "Pípín AI ojoojúmọ́: {{inputUsed}} / {{inputCap}} àmì àwòòkọ ìfilọ́lẹ̀, {{outputUsed}} / {{outputCap}} àmì àwòòkọ ìjáde. Ó ń tún bẹ̀rẹ̀ ní gbogbo wákàtí 24.",
+    "subtitle": "Orísun JW nìkan · wol.jw.org",
+    "suggestedBlog": {
+      "q1": "Kọ àpẹẹrẹ blog nípa ohun tí mo ń kẹ́kọ̀ọ́",
+      "q2": "Fún mi ní àpèjúwe fún àpilẹ̀kọ JW lórí àkòrí yìí",
+      "q3": "Dábàá àkọlé blog 5 pẹ̀lú àwọn Ìwé Mímọ́",
+      "q4": "Ràn mí lọ́wọ́ láti kọ ọ̀rọ̀ ìṣáájú"
+    },
+    "suggestedDefault": {
+      "q1": "Kí ni ọ̀rọ̀ yìí kọ́ wa nípa Jèhófà?",
+      "q2": "Kí ni ọ̀rọ̀ Hébérù tàbí Gíríìkì ìpilẹ̀ṣẹ̀ túmọ̀ sí?",
+      "q3": "Báwo ni mo ṣe lè ṣàlàyé Ìwé Mímọ́ yìí fún ẹlòmíràn?",
+      "q4": "Kí ni ìwé Reasoning sọ nípa èyí?"
+    },
+    "thinking1": "Ń ronú",
+    "thinking2": "Ń wo èyí",
+    "thinking3": "Ń ka àwọn ìtẹ̀jáde",
+    "thinking4": "Ń ronú lórí àwọn Ìwé Mímọ́",
+    "title": "Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́",
+    "welcomeBlog": "Sọ àkòrí kan fún mi, màá kọ àpẹẹrẹ kíkún kí n sì gbé e sí inú olùṣàtúnṣe. Mo tún lè ronú àwọn àkọlé, àpèjúwe, tàbí ràn ọ́ lọ́wọ́ pẹ̀lú apá èyíkéyìí.",
+    "welcomeDefault": "Béèrè ìbéèrè Bíbélì èyíkéyìí. Àwọn ìdáhùn náà wá láti ara àwọn ìtẹ̀jáde Watch Tower nìkan, Ìtumọ̀ Ayé Tuntun, àti wol.jw.org."
+  },
+  "aiConfirm": {
+    "actionFailed": "Ìṣe náà kùnà.",
+    "deleteNote": {
+      "action": "Pa á rẹ́",
+      "title": "Pa àkọsílẹ̀ yìí rẹ́?",
+      "warn": "A kò lè yí èyí padà."
+    },
+    "noteDeleted": "Àkọsílẹ̀ ti rẹ́."
+  },
+  "errorPage": {
+    "appUpdated": "A ti tún ohun èlò náà ṣe. Jọ̀wọ́ tún kó o sí láti rí ẹ̀dà tuntun.",
+    "fallback": "Àṣìṣe àìròtẹ́lẹ̀ kan ṣẹlẹ̀. Jọ̀wọ́ gbìyànjú lẹ́ẹ̀kan sí i.",
+    "reload": "↺ Tún ojú-ìwé kó",
+    "title": "Nǹkan kan ṣàṣìṣe",
+    "tryAgain": "↩ Gbìyànjú Lẹ́ẹ̀kan Sí I"
+  },
+  "learn": {
+    "exercises": {
+      "meditate": {
+        "begin": "Bẹ̀rẹ̀",
+        "finishButton": "Mo ti jókòó pẹ̀lú rẹ̀",
+        "finishedMessage": "Kò sí àmì-ìdánwò níbí. Ohun tí o ṣẹ̀ṣẹ̀ ṣe, fífà ara rẹ lọ́nà rírọrùn, bíbéèrè àwọn ìbéèrè ọlọ́làpá - ìyẹn ni iṣẹ́ náà. Máa bá a lọ.",
+        "pause": "Dúró díẹ̀",
+        "placeholder": "Lo àkókò rẹ…",
+        "reset": "Tún bẹ̀rẹ̀",
+        "restart": "Bẹ̀rẹ̀ lẹ́ẹ̀kan sí i",
+        "saved": "Tí a fipamọ́",
+        "timerLabel": "Ìdúró ìṣàṣàrò àyànfẹ́"
+      },
+      "questionLadder": {
+        "completeButton": "Mo ti gun àkàbà náà",
+        "completedMessage": "Iṣẹ́ àṣekúṣe. Mí. Àwọn ìbéèrè tí o ṣẹ̀ṣẹ̀ béèrè ni àwọn ìbéèrè tí akẹ́kọ̀ọ́ ọlọ́làpá máa ń béèrè títí ayé wọn.",
+        "hideHint": "Fi ìtọ́nisọ́nà pamọ́",
+        "hintLabel": "Ìtọ́nisọ́nà:",
+        "needHint": "Ṣé o nílò ìtọ́nisọ́nà?",
+        "placeholder": "Tẹ ìdáhùn rẹ…",
+        "rungs": {
+          "how": "Báwo ó ṣe yẹ",
+          "what": "Kí",
+          "whenWhere": "Nígbà wo / Níbo",
+          "who": "Tani",
+          "why": "Èéṣe"
+        },
+        "rungsAnswered": "{{filled}} nínú àkàbà {{total}} tí a dáhùn",
+        "saved": "Tí a fipamọ́"
+      },
+      "soapNote": {
+        "headings": {
+          "application": "Ìfilò",
+          "observation": "Àkíyèsí",
+          "prayer": "Àdúrà",
+          "scripture": "Ìwé Mímọ́"
+        },
+        "placeholder": "…",
+        "saveButton": "Fi àkọsílẹ̀ S.O.A.P. yìí pamọ́",
+        "saved": "Tí a fipamọ́",
+        "savedMessage": "Tí a fipamọ́ ní àdúgbò. Nígbà tí o bá ti wọlé tí a sì so ìfipamọ́ pọ̀, a ó fi àkọsílẹ̀ yìí pamọ́ pẹ̀lú ìwé ìkẹ́kọ̀ọ́ rẹ.",
+        "sectionsFilled": "{{filled}} nínú apá 4 ti kún"
+      },
+      "crossRef": {
+        "nextQuestion": "Ìbéèrè tó kàn",
+        "notQuite": "Kò pé.",
+        "questionCounter": "Ìbéèrè {{index}} / {{total}}",
+        "resultLabel": "Ìyọrísí",
+        "right": "Ó tọ̀nà.",
+        "scoreLabel": "Àmì: {{correct}} / {{answered}}",
+        "seeResult": "Wo ìyọrísí",
+        "verdictClean": "Gbogbo rẹ̀ ni o dáhùn dáadáa. O mọ̀ àwọn ìwé rẹ̀ wẹ́lẹ́.",
+        "verdictFair": "Ìbẹ̀rẹ̀ tó dára. Padà ka ẹ̀kọ́ náà lẹ́ẹ̀kan síi, ìmọ̀ náà yóò bẹ̀rẹ̀ sí ní wá.",
+        "verdictWellDone": "O ṣeun. O ti ní ìmọ̀ náà."
+      },
+      "highlight": {
+        "clearAll": "Pa gbogbo rẹ̀ rẹ́",
+        "iveMarked": "Mo ti sàmì sí ọ̀rọ̀ náà",
+        "pickHighlighter": "Yan ohun ìfàmìsí ní òkè, lẹ́yìn náà tẹ̀ àwọn ọ̀rọ̀ inú àyọkà náà.",
+        "showGuide": "Fi ìtọ́sọ́nà fún ọ̀rọ̀ yìí hàn",
+        "tagAtLeast": "Sàmì sí ó kéré tán 5 (báyìí {{count}})",
+        "tapToTag": "Tẹ ọ̀rọ̀ tàbí gbólóhùn láti sàmì sí gẹ́gẹ́ bí \"{{category}}\". Tẹ̀ ẹ́ lẹ́ẹ̀kan síi láti yọ kúrò."
+      }
+    },
+    "course": {
+      "backHome": "Padà sí ojú ewé àkọ́kọ́",
+      "backToCourse": "Padà sí ẹ̀kọ́ náà",
+      "breadcrumbLabel": "Ọ̀nà ìṣàwárí",
+      "categories": {
+        "command": "Àṣẹ",
+        "promise": "Ìlérí",
+        "quality": "Ànímọ́ Jèhófà",
+        "reference": "Ẹsẹ ìtọ́kasí",
+        "warning": "Ìkìlọ̀"
+      },
+      "closingBenediction": "Gbogbo ògo jẹ́ ti Jèhófà.",
+      "closingBlurb": "Ìkẹ́kọ̀ọ́ ara ẹni jẹ́ ọ̀kan lára ẹ̀bùn tó ṣe pàtàkì jù tí akẹ́kọ̀ọ́ Bíbélì lè ní. Má ṣe jẹ́ kí ẹ̀kọ́ yìí parí níbí.",
+      "closingCta": "Bẹ̀rẹ̀ ìjókòó ìkẹ́kọ̀ọ́ àkọ́kọ́ rẹ",
+      "complete": "Parí",
+      "completed": "Ti parí",
+      "continue": "Tẹ̀síwájú",
+      "exerciseHeading": "Iṣẹ́-àṣe",
+      "intro": "Wàá kọ́ ohun tí ó ju ìkẹ́kọ̀ọ́ kíkà nípa àkẹ́kọ̀ọ́ lọ. Wàá ṣe é, pẹ̀lú àwọn ẹsẹ Bíbélì gidi, àwọn ìtẹ̀jáde gidi, àwọn iṣẹ́-àṣe gidi, gẹ́gẹ́ bí àwọn ará Bèríà ti ṣe.",
+      "kicker": "Ẹ̀kọ́ tó ní ẹ̀kọ́ mẹ́sàn-án fún àwọn akẹ́kọ̀ọ́ Bíbélì",
+      "lessonLabel": "Ẹ̀kọ́",
+      "markComplete": "Sàmì sí ẹ̀kọ́ náà gẹ́gẹ́ bí ohun tí a parí",
+      "minRead": "ìṣẹ́jú láti kà",
+      "minShort": "ìṣẹ́jú",
+      "overallProgress": "Ìtẹ̀síwájú gbogbogbò",
+      "skipToExercise": "Fò sí iṣẹ́-àṣe",
+      "skipToExerciseAria": "Fò sí iṣẹ́-àṣe. {{pct}}% ti kà.",
+      "skipToExerciseReady": "Ó ti ṣetán, lọ sí iṣẹ́-àṣe",
+      "title": "Kọ́ Bí A Ṣe Ń Kẹ́kọ̀ọ́",
+      "unitLabel": "Apá"
+    },
+    "units": {
+      "unit1": {
+        "lesson1": {
+          "body": {
+            "bq1": "Àwọn wọ̀nyí ní ìjẹ́ọmọlúwàbí ju àwọn tó wà ní Tẹsalóníkà lọ, nítorí pé wọ́n gba ọ̀rọ̀ náà pẹ̀lú ìháragàgà ọkàn tó pọ̀ jù lọ, wọ́n sì ń yẹ àwọn Ìwé Mímọ́ wò pẹ̀lú àfiyèsí lójoojúmọ́ láti rí i bóyá àwọn nǹkan wọ̀nyí rí bẹ́ẹ̀.",
+            "h3_1": "Àmì mẹ́ta tí ìkẹ́kọ̀ọ́ tí ó ń yí ìgbé ayé padà ní",
+            "list1": {
+              "item1": "Déédéé. Ríró ń ṣe pàtàkì ju agbára lọ. Ìṣẹ́jú mẹ́ẹ̀ẹ́dógún lójoojúmọ́ jù wákàtí mẹ́ta àìnídá ní ọjọ́ Sátidé lọ.",
+              "item2": "Tó kún fún ìfọ́kànsí. Pénsùlù ní ọwọ́. Ìbéèrè ní ọkàn. Tí o kò bá lè rántí ohun tí o kà ní wákàtí kan lẹ́yìn náà, kì í ṣe pé o ń kẹ́kọ̀ọ́ ní ti gidi.",
+              "item3": "Pẹ̀lú àdúrà. Jèhófà fi ọgbọ́n fún àwọn tó ń béèrè rẹ̀ pẹ̀lú ọwọ́ ọ̀làwọ́ (Ják. 1:5). Ẹ̀mí mímọ́ kì í wá fúnra rẹ̀, béèrè rẹ̀."
+            },
+            "p1": "Nígbà tí Pọ́ọ̀lù wàásù ní Bèríà, àwọn ènìyàn ibẹ̀ ṣe ohun kan tí àpọ́sítélì náà yan láti yìn. Wọ́n gba ọ̀rọ̀ náà pẹ̀lú ìháragàgà, ṣùgbọ́n wọn kò dúró níbẹ̀. Wọ́n yẹ̀ ẹ́ wò.",
+            "p2": "Ìyẹn ni àwòṣe fún ìkẹ́kọ̀ọ́ ara ẹni. Gbígba ọ̀rọ̀ pẹ̀lú ìháragàgà àti yíyẹ̀wò pẹ̀lú àfiyèsí, lójoojúmọ́. Kò tó láti gba ohun tí a gbọ́ ní ìpàdé. Àwọn ará Bèríà, àti Pọ́ọ̀lù fúnra rẹ̀, tó kọ ọ̀pọ̀lọpọ̀ Ìwé Mímọ́ Kristẹni Lédè Gíríìkì ju ẹnikẹ́ni lọ, fẹ́ kí àwa fúnra wa máa wa nǹkan jinlẹ̀.",
+            "p3": "A kọ́ ẹ̀kọ́ yìí lórí àwọn àmì mẹ́ta yẹn. Wàá ṣe àwọn iṣẹ́-àṣe kúkúrú pẹ̀lú àwọn ẹsẹ Ìwé Mímọ́ gidi, kì í ṣe ka nípa wọn nìkan. Ìyẹn ni àwòṣe àwọn ará Bèríà ní ìwọ̀n kékeré."
+          },
+          "ex": {
+            "prompt1": "Kí ni o ti kà nínú Bíbélì rẹ tàbí àwọn ìtẹ̀jáde ní ọ̀sẹ̀ tó kọjá yìí?",
+            "prompt2": "Níbo ni o ti rí àwọn ànímọ́ Jèhófà nínú àyọkà náà?",
+            "prompt3": "Kí ni àyọkà yìí ń béèrè lọ́wọ́ rẹ láti yí padà, bẹ̀rẹ̀, tàbí dáwọ́ dúró?",
+            "prompt4": "Kọ àdúrà ọ̀rọ̀-kan tí ó yí èsì òkè padà di ìbánisọ̀rọ̀ pẹ̀lú Jèhófà.",
+            "title": "Ronú jinlẹ̀: kí ló wú ọ lórí ní ọ̀sẹ̀ yìí?"
+          },
+          "oneLine": "Àwọn ará Bèríà kì í kàn gbọ́ nìkan. Wọ́n yẹ̀ ẹ́ wò. Bẹ́ẹ̀ ni àwa náà gbọ́dọ̀ ṣe.",
+          "title": "Ìdí Tí Ìkẹ́kọ̀ọ́ Ara Ẹni Fi Ṣe Pàtàkì"
+        },
+        "lesson2": {
+          "body": {
+            "bq1": "Òfin tó dájú: JW Library fún kíkà àti ìpàdé. WOL fún ṣíṣe ìwádìí àti dídáhùn àwọn ìbéèrè.",
+            "h3_1": "JW Library: alábàákẹ́gbẹ́ olùṣòtítọ́ fún ìjáde",
+            "h3_2": "Watchtower ONLINE LIBRARY (WOL): tábìlì ìwádìí",
+            "p1": "A jẹ́ olùbùkún. Àwọn akẹ́kọ̀ọ́ Bíbélì tó wà ṣáájú wa kó àkókò ìkẹ́kọ̀ọ́ wọn jọ láti inú àwọn Bíbélì onítẹ̀sí pẹ́pẹ́, àwọn àkójọpọ̀ ọ̀rọ̀ tí a tẹ̀, àti àwọn ìrìnàjò sí ilé ìkàwé Gbọ̀ngàn Ìjọba. Lóde òní, àwọn ohun-èlò méjì ń ṣe ọ̀pọ̀lọpọ̀ iṣẹ́ náà, mímọ̀ èyí tí a ó dé bá sì ń fi àkókò pamọ́.",
+            "p2": "JW Library ní Ìtumọ̀ Ayé Tuntun, àwọn fídíò ìpàdé, ìwé orin, àti ọ̀rọ̀ ojoojúmọ́ nínú àpò rẹ. Ó rọrùn láti gbé, ó ń ṣiṣẹ́ láìsí ìfàṣopọ̀, a sì ti ṣe é fún kíkà àti ìpàdé, kì í ṣe fún ìwádìí jíjinlẹ̀.",
+            "p3": "WOL ni gbogbo àkójọ ìwé. Gbogbo ìtẹ̀jáde, tí a ṣe àkójọ tí a sì so pọ̀. Níbẹ̀ ni o lọ nígbà tí ìbéèrè bá ṣí, tí o sì nílò láti tẹ̀lé okùn náà, kọjá àwọn àpilẹ̀kọ Ilé Ìṣọ́, àwọn àkójọ Insight, àwọn orí Reasoning, àwọn Yearbook."
+          },
+          "ex": {
+            "intro": "Olúkúlùkù ipò ń farahàn ní ìgbé ayé gidi. Èwo nínú àwọn ohun ìṣèrànwọ́ ni ó bá a mu jùlọ?",
+            "q1": {
+              "explanation": "JW Library jẹ́ ohun tí a fi ṣe fún kíkà ní ọwọ́ kan, láìsí ìfàṣopọ̀. Ọ̀rọ̀ ojoojúmọ́ ń gbé lórí ojú ewé àkọ́kọ́, Bíbélì sì wà ní ìfọwọ́kàn nìkan.",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "O wà nínú ọkọ̀ akéro tí o sì fẹ́ ka ọ̀rọ̀ ojoojúmọ́ àti àyẹ̀wò orí Bíbélì òní kíákíá."
+            },
+            "q2": {
+              "explanation": "WOL ni ilé-ìkàwé ìwádìí. Lo wíwá rẹ̀ pẹ̀lú àmì ìfàyọ̀wé yí \"Hèsékáyà\" ká láti rí àkójọ tí a ṣe àtòpọ̀ kọjá gbogbo àwọn ìtẹ̀jáde.",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "O fẹ́ rí gbogbo àpilẹ̀kọ Ilé Ìṣọ́ tó sọ̀rọ̀ nípa àwọn àtúnṣe Ọba Hèsékáyà ní ogún ọdún tó kọjá."
+            },
+            "q3": {
+              "explanation": "Ìtumọ̀ Ayé Tuntun (Ẹ̀dà Ìkẹ́kọ̀ọ́) nínú JW Library ń fi àwọn àlàyé ìkẹ́kọ̀ọ́ àti ẹsẹ ìtọ́kasí hàn lẹ́gbẹ̀ẹ́ ẹsẹ náà. WOL náà ní wọn, ṣùgbọ́n ojú Bíbélì JW Library yára jù fún àyọkà kan.",
+              "optA": "JW Library (Ẹ̀dà Ìkẹ́kọ̀ọ́)",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "O ń múra àsọyé kan tí o sì fẹ́ àwọn ẹsẹ ìtọ́kasí Bíbélì Ìtọ́kasí lẹ́gbẹ̀ẹ́ ẹsẹ tí o ń ṣiṣẹ́ lórí."
+            },
+            "q4": {
+              "explanation": "JW Library ń pa àwọn fídíò ìpàdé mọ́ní láti lò láìsí ìfàṣopọ̀ lẹ́yìn tí o ti gbà wọn. WOL nílò ìfàṣopọ̀.",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "O fẹ́ wo fídíò ìpàdé ọ̀sẹ̀ tó kọjá nígbà tí o kò bá ní ìfàṣopọ̀ ní ilé ọmọ ìdílé tí kò ní Wi-Fi."
+            },
+            "q5": {
+              "explanation": "Insight wà nínú àwọn méjèèjì, ṣùgbọ́n ìrírí ìsopọ̀ WOL yára jù fún àwọn àkájọ-ọ̀rọ̀ tó dà bí ìwé-gbédègbéyọ̀ tí o yóò máa fò láàrin àwọn àkójọ kéékèèké.",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "O fẹ́ ka àkójọ-ọ̀rọ̀ pípé Insight on the Scriptures lórí \"Ìgbàgbọ́\" pẹ̀lú gbogbo àwọn àpá-kéékèèké rẹ̀ àti ìsopọ̀."
+            },
+            "title": "Ẹsẹ ìtọ́kasí: yan ohun-èlò tó tọ́"
+          },
+          "oneLine": "Ohun-èlò méjì tó dára gan-an. Iṣẹ́ tó yàtọ̀. Mímọ̀ èwo tí o yóò dé bá jẹ́ ìdajì ìjà náà.",
+          "title": "JW Library vs. Watchtower ONLINE LIBRARY"
+        },
+        "lesson3": {
+          "body": {
+            "h3_1": "Insight on the Scriptures",
+            "h3_2": "Reasoning From the Scriptures",
+            "h3_3": "Ilé Ìṣọ́ (Ẹ̀dà Gbogbo Gbò + Ẹ̀dà Ìkẹ́kọ̀ọ́)",
+            "h3_4": "Jí!",
+            "h3_5": "Ìjọsìn Mímọ́ Ti Jèhófà",
+            "p1": "Àwọn akẹ́kọ̀ọ́ Bíbélì tuntun máa ń rò pé gbogbo àwọn ìtẹ̀jáde ń sọ ohun kan náà. Bẹ́ẹ̀ kọ́. Olúkúlùkù wọn ni a kọ fún iṣẹ́ tó yàtọ̀. Èyí ni àwọn márùn-ún tí o yóò máa lò jùlọ.",
+            "p2": "Ìwé-gbédègbéyọ̀ ni. Ìdìpọ̀ méjì tó bo àwọn ènìyàn, àwọn ibi, àwọn ohun, àwọn èrò, ní àtòkọ àbídí, pẹ̀lú àwọn ẹsẹ ìtọ́kasí. Nígbà tí orúkọ kan, ọ̀rọ̀ kan, tàbí àṣà kan nínú àwọn Ìwé Mímọ́ bá dí ọ lójú, Insight ni ibi àkọ́kọ́ láti dé.",
+            "p3": "Alábàákẹ́gbẹ́ iṣẹ́ ìsìn pápá. Tí a ṣètò gẹ́gẹ́ bí kókó-ọ̀rọ̀, \"Ẹ̀jẹ̀,\" \"Àgbélébùú,\" \"Ọlọ́run,\" \"Ìjìyà\", pẹ̀lú àwọn èsì tààrà àti àwọn àpẹẹrẹ ìbánisọ̀rọ̀. Tí a ṣe fún àwọn èrò atakora àti ìjíròrò.",
+            "p4": "Oúnjẹ ọpọlọ òde òní. Ẹ̀dà Ìkẹ́kọ̀ọ́ jẹ́ ohun-èlò ìpàdé; Ẹ̀dà Gbogbo Gbò ni a kọ fún àwọn ènìyàn púpọ̀ jù. Nígbà tí ìbéèrè bá kàn òye òde òní wa, Ilé Ìṣọ́ tó sún mọ́ òní jù lọ ni ó fẹ́rẹ̀ jẹ́ ibi tí o yóò ṣàyẹ̀wò.",
+            "p5": "Àwọn ìlànà Bíbélì tí a fi sílò sí ìgbé ayé ojoojúmọ́, ìdílé, iṣẹ́, ìlera, àníyàn, àwọn ọ̀dọ́. Ohùn náà jẹ́ ìfọkànbalẹ̀ àti ohun ìṣèrànwọ́. Ó dára fún àwọn onílé tí kò tíì ṣe tán fún ìjíròrò ẹ̀kọ́ ìgbàgbọ́ jíjinlẹ̀.",
+            "p6": "Ọ̀kan lára ìdílé àwọn ìwé àsọtẹ́lẹ̀ (pẹ̀lú Jeremáyà, Àsọtẹ́lẹ̀ Aísáyà, àti Ìparí Ńlá Ìfihàn) tó ń kọ́ni ẹsẹ-níí-ẹsẹ nípasẹ̀ Ìsíkíẹ́lì. Dé bá àwọn wọ̀nyí nígbà tí o bá ń kẹ́kọ̀ọ́ ìwé àsọtẹ́lẹ̀."
+          },
+          "ex": {
+            "intro": "Ọ̀rẹ́ kan tàbí onílé kan béèrè ọ̀kan lára àwọn wọ̀nyí lọ́wọ́ rẹ. Èwo nínú àwọn ìtẹ̀jáde ni ibi ìbẹ̀rẹ̀ tó dára jù?",
+            "q1": {
+              "explanation": "Reasoning ní orí pípé lórí \"Ìjìyà\" pẹ̀lú àwọn ẹsẹ Ìwé Mímọ́, ìronú onítumọ̀, àti àwọn àpẹẹrẹ èsì ìbánisọ̀rọ̀, tí a kọ́ ní pípé fún ìbéèrè yìí.",
+              "optA": "Insight on the Scriptures",
+              "optB": "Reasoning From the Scriptures",
+              "optC": "Jí!",
+              "optD": "Ìjọsìn Mímọ́ Ti Jèhófà",
+              "scenario": "\"Èé ṣe tí Ọlọ́run olùfẹ́ ń jẹ́ kí ìjìyà wà nínú ayé?\""
+            },
+            "q2": {
+              "explanation": "Insight ni ìwé-gbédègbéyọ̀, àkójọ-ọ̀rọ̀ \"Jèhófà\" rẹ̀ ń bo orísun-ọ̀rọ̀, ìtàn pípè, àti gbogbo ìṣẹ̀lẹ̀ rẹ̀ nínú Ìwé Mímọ́ pẹ̀lú jíjinlẹ̀.",
+              "optA": "Insight on the Scriptures",
+              "optB": "Reasoning From the Scriptures",
+              "optC": "Jí!",
+              "optD": "Ilé Ìṣọ́",
+              "scenario": "\"Kí ni orúkọ àtọ̀runwá Jèhófà túmọ̀ sí ní èdè Hébérù àtijọ́, báwo ni a sì ṣe ń pè é?\""
+            },
+            "q3": {
+              "explanation": "Jí! ní àkànṣe lórí àwọn kókó-ọ̀rọ̀ ìgbé ayé tó wúlò bíi àníyàn, pẹ̀lú àwọn ìlànà Bíbélì tí a gbé kalẹ̀ pẹ̀lú ìfọkànbalẹ̀. Àpilẹ̀kọ ìkẹ́kọ̀ọ́ Ilé Ìṣọ́ tó sún mọ́ òní yóò tún dára gan-an.",
+              "optA": "Insight on the Scriptures",
+              "optB": "Reasoning From the Scriptures",
+              "optC": "Jí!",
+              "optD": "Ìjọsìn Mímọ́ Ti Jèhófà",
+              "scenario": "\"Mo máa ń sùn lálẹ́ pẹ̀lú àníyàn. Kí ni Bíbélì sọ pé kí n ṣe?\""
+            },
+            "q4": {
+              "explanation": "Bẹ̀rẹ̀ pẹ̀lú àkójọ-ọ̀rọ̀ Insight lórí \"Ogunlọ́gọ̀ Ńlá\" fún àlàyé Ìwé Mímọ́ pípé. Àwọn àlàyé àsọtẹ́lẹ̀ lórí Ìfihàn jinlẹ̀ síi, Reasoning sì fúnni ní ẹ̀dà ìbánisọ̀rọ̀ kúkúrú.",
+              "optA": "Jí!",
+              "optB": "Reasoning From the Scriptures",
+              "optC": "Ìjọsìn Mímọ́ / àlàyé àsọtẹ́lẹ̀",
+              "optD": "Insight on the Scriptures",
+              "scenario": "\"Kí ni 'ogunlọ́gọ̀ ńlá' tí a sọ̀rọ̀ rẹ̀ ní Ìfihàn 7, báwo ni a sì ṣe mọ̀ pé ó yàtọ̀ sí àwọn 144,000?\""
+            },
+            "q5": {
+              "explanation": "Lórí àwọn ìbéèrè tí òye wa ti gba ìmúpadàbọ̀sípò ní àkókò, àpilẹ̀kọ Ilé Ìṣọ́ tó sún mọ́ òní jù ló gbé oúnjẹ ọpọlọ òde òní. Máa ṣàyẹ̀wò fún èyí tó tuntun jù.",
+              "optA": "Insight on the Scriptures",
+              "optB": "Ilé Ìṣọ́ (àpilẹ̀kọ tó tuntun jù)",
+              "optC": "Reasoning From the Scriptures",
+              "optD": "Jí!",
+              "scenario": "\"Mo fẹ́ lóye ìtọ́sọ́nà Bíbélì òde òní lórí àwọn ẹ̀ka ẹ̀jẹ̀ fún ìlò ìṣègùn.\""
+            },
+            "title": "Ẹsẹ ìtọ́kasí: ìtẹ̀jáde wo ló bá ìbéèrè yìí mu?"
+          },
+          "oneLine": "Ẹrú olùṣòtítọ́ àti olóye ti fún wa ní àkójọ pípé. Olúkúlùkù ìwé ń ṣe iṣẹ́ kan dáradára.",
+          "title": "Insight, Reasoning & Àwọn Ìtẹ̀jáde"
+        },
+        "oneLine": "Kí o tó kọ́ bí o ṣe ń kẹ́kọ̀ọ́ jinlẹ̀, o nílò láti mọ ohun tó wà ní ọwọ́ rẹ àti ìdí tí ó fi wà níbẹ̀.",
+        "title": "Ohun Ìṣèrànwọ́ Ìkẹ́kọ̀ọ́ Rẹ"
+      },
+      "unit2": {
+        "lesson4": {
+          "body": {
+            "h3_1": "S, Ìwé Mímọ́",
+            "h3_2": "O, Àkíyèsí",
+            "h3_3": "A, Ìfilọ́sílò",
+            "h3_4": "P, Àdúrà",
+            "p1": "S.O.A.P. jẹ́ àbòṣé, Ìwé Mímọ́, Àkíyèsí, Ìfilọ́sílò, Àdúrà, ó sì jẹ́ ọ̀kan lára àwọn ètò tó rọrùn jù tó sì lágbára jù láti yí kíkà Bíbélì padà di ìkẹ́kọ̀ọ́ Bíbélì. Ó ń ṣiṣẹ́ fún ẹsẹ kan tàbí gbogbo orí.",
+            "p2": "Kọ ẹsẹ náà sílẹ̀. Pẹ̀lú ọwọ́ rẹ tí o bá lè ṣe é. Dídàákọ ń mú ọ rọra kí o sì kíyè sí àwọn nǹkan tí òǹkà yára pa rẹ́: àwọn àpẹjọ ọ̀rọ̀, àwọn àṣẹ, àwọn ipò.",
+            "p3": "Kí ni àyọkà náà ń sọ ní ti gidi? Ta ni ó ń sọ̀rọ̀? Sí ta ni? Nígbà wo? Àwọn ọ̀rọ̀ wo ni ó ń tún ṣe? Èyí kì í ṣe nípa rẹ síbẹ̀, ó jẹ́ nípa ohun tó wà lórí ojú ewé.",
+            "p4": "Báyìí yíjú sí ara rẹ. Kí ni ẹsẹ yìí ń béèrè lọ́wọ́ mi lónìí? Níbo ni mò ń gbé lòdì sí i? Kí ni ìgbọ́ràn yóò dà bí ní ọ̀sẹ̀ yìí?",
+            "p5": "Gba àdúrà ẹsẹ náà padà sí Jèhófà. Dúpẹ́ lọ́wọ́ rẹ̀ fún ohun tó fi hàn nípa rẹ̀. Béèrè fún ìrànwọ́ pàtó tí ìfilọ́sílò náà nílò."
+          },
+          "ex": {
+            "promptA": "Níbo ní ìgbé ayé rẹ ni o ń 'gbára lé òye ara rẹ' báyìí? Kí ni gbígbẹ́kẹ̀lé Jèhófà yóò dà bí níbẹ̀ ní ọ̀sẹ̀ yìí?",
+            "promptO": "Kí ni àyọkà yìí pàṣẹ? Kí ni ó ṣe ìlérí? Kí ni ipò náà?",
+            "promptP": "Yí èsì rẹ padà sí àdúrà kúkúrú. Bẹ̀rẹ̀ pẹ̀lú 'Jèhófà,' kí o sì pa á mọ́ ní òtítọ́.",
+            "promptS": "Dàákọ Òwe 3:5-6 jáde nínú ọwọ́ ìkọ́wé tirẹ, tàbí kọ ọ́ rọra rọra ní ìsàlẹ̀.",
+            "title": "S.O.A.P. lórí Òwe 3:5-6",
+            "verseText": "Gbẹ́kẹ̀lé Jèhófà pẹ̀lú gbogbo ọkàn rẹ, kí o sì má ṣe gbára lé òye ara rẹ. Mọ̀ ọ́n nínú gbogbo ọ̀nà rẹ, yóò sì ṣe àwọn ọ̀nà rẹ ní títọ́."
+          },
+          "oneLine": "Lẹ́tà mẹ́rin. Ọ̀kan lára àwọn òpó tó ṣe gbẹ́kẹ̀lé jù fún ìjókòó ìkẹ́kọ̀ọ́ ara ẹni jíjinlẹ̀.",
+          "title": "Ọ̀nà S.O.A.P."
+        },
+        "lesson5": {
+          "body": {
+            "list1": {
+              "item1": "Ta, ta ló ń sọ̀rọ̀, sí ta ni wọ́n sì ń sọ̀rọ̀?",
+              "item2": "Kí, kí ló ń ṣẹlẹ̀ ní ti gidi nínú ẹsẹ náà? Ọ̀rọ̀ wo ni a tún sọ tàbí tí a tẹnu mọ́?",
+              "item3": "Nígbà wo / Níbo, kí ni ipò ìtàn tàbí ipò agbègbè?",
+              "item4": "Èé ṣe, èé ṣe tí Jèhófà fẹ́ kí a kọ èyí sílẹ̀? Èé ṣe tó fi ṣe pàtàkì?",
+              "item5": "Báwo, báwo ni ó ṣe wúlò fún mi, lónìí, ní ipò mi gan-an?"
+            },
+            "p1": "Ẹsẹ kan lè dàbí pẹrẹsẹ lórí kíkà yára. Ẹsẹ kan náà, tí a fi sí abẹ́ àwọn ìbéèrè tó tọ́, ya ọ̀dọ̀. Ìwọ̀nyí ni àwọn ìbéèrè márùn-ún tí ó fẹ́rẹ̀ jẹ́ ohun tuntun nígbà gbogbo.",
+            "p2": "Sá ẹsẹ kan kọjá nínú gbogbo àwọn ìbéèrè márùn-ún náà o ti ronú jinlẹ̀ ju ọ̀pọ̀lọpọ̀ ènìyàn ti ń ṣe nínú gbogbo orí kíkà."
+          },
+          "ex": {
+            "how": {
+              "hint": "Mọ àníyàn pàtó kan tí o yóò 'sọ' sórí Jèhófà nínú àdúrà lónìí.",
+              "prompt": "Báwo ni èyí ṣe wúlò fún ọ ní ọ̀sẹ̀ yìí?"
+            },
+            "title": "Lo àwọn ìbéèrè márùn-ún sí 1 Pétérù 5:7",
+            "verseText": "Ẹ kó gbogbo àníyàn yín lé e lórí, nítorí ó ń bìkítà fún yín.",
+            "what": {
+              "hint": "'Kó', ó jẹ́ ìpinnu, kì í ṣe ohun tí kò ṣe nǹkan kan. 'Gbogbo' ni ọ̀rọ̀ tí a tẹnu mọ́.",
+              "prompt": "Kí ni àṣẹ náà, ọ̀rọ̀ wo sì ni a tẹnu mọ́?"
+            },
+            "whenWhere": {
+              "hint": "A kọ ọ́ ní àyíká 62–64 sànmánì wa, sí àwọn arákùnrin àti arábìnrin tí wọ́n dojú kọ ìkórira Róòmù tó ń pọ̀ sí i.",
+              "prompt": "Kí ni ipò ìtàn?"
+            },
+            "who": {
+              "hint": "Pétérù, alàgbà ẹlẹgbẹ́, ń kọ̀wé sí àwọn Kristẹni tí a tú ká nínú Éṣíà Kékeré.",
+              "prompt": "Ta ló ń sọ̀rọ̀, sí ta ni ó sì ń kọ̀wé?"
+            },
+            "why": {
+              "hint": "Nítorí àníyàn ń yà ènìyàn sọ́tọ̀, ẹsẹ yìí sì jẹ́ ohun ìtúnṣe, a ní Bàbá kan tó ń bìkítà.",
+              "prompt": "Èé ṣe tí Jèhófà fẹ́ kí a kọ èyí sílẹ̀?"
+            }
+          },
+          "oneLine": "Àwọn ìbéèrè rere ni kọ́kọ́rọ́ tó ń ṣí àwọn ẹsẹ títì.",
+          "title": "Bíbéèrè Àwọn Ìbéèrè Tó Ń Ṣí Àwọn Ẹsẹ"
+        },
+        "lesson6": {
+          "body": {
+            "list1": {
+              "item1": "Aláwọ̀ ewé, ìlérí láti ọ̀dọ̀ Jèhófà.",
+              "item2": "Aláwọ̀ búlúù, àṣẹ tàbí ìtọ́sọ́nà.",
+              "item3": "Aláwọ̀ pupa, ìkìlọ̀ tàbí àbájáde.",
+              "item4": "Aláwọ̀ wúrà, ànímọ́ Jèhófà tàbí Jésù.",
+              "item5": "Aláwọ̀ àlùkò, ẹsẹ ìtọ́kasí tó tọ́ síi láti tẹ̀lé."
+            },
+            "p1": "Ìfàmìsí láìsí ètò jẹ́ ọṣọ́ lásán. Ìwọ̀nyí ni ètò aláwọ̀ márùn-ún tó rọrùn tó ti là láàrin àwọn ọ̀pọ̀lọpọ̀ ọ̀mọ̀ọ́dún àwọn akẹ́kọ̀ọ́ Bíbélì, ó sì ń ṣiṣẹ́ dáradára nínú JW Library bíi tí inú Bíbélì oníwé.",
+            "p2": "Nígbà tó kàn tí o jókòó pẹ̀lú àyọkà Ilé Ìṣọ́ kan, rọra kí o sì sàmì sí i. Àyọkà tí o sàmì sí tí o sì rántí níye lórí ju orí mẹ́wàá tí o yẹ̀wò àìmọ́ tí o kò sì rántí lọ."
+          },
+          "ex": {
+            "guide": {
+              "command": "\"pàṣẹ fún wa láti gbàdúrà láìdéwọ́\", àṣẹ",
+              "promise": "\"ṣe ìlérí láti gbé wa ró\", ìlérí",
+              "quality": "\"Bàbá olùfẹ́\", ànímọ́ Jèhófà",
+              "reference": "\"Fi wé Hébérù 2:1\", ẹsẹ ìtọ́kasí",
+              "warning": "\"yíyẹ̀ kúrò ń yọrí sí ìparun ìgbàgbọ́\", ìkìlọ̀"
+            },
+            "passageSource": "Àyọkà àpẹẹrẹ fún ìdánwò",
+            "title": "Sàmì sí àyọkà bíi ti Ilé Ìṣọ́",
+            "token": {
+              "t1": "Jèhófà",
+              "t10": "gbé",
+              "t11": "wa ró.",
+              "t12": "Ó",
+              "t13": "pàṣẹ",
+              "t14": "fún wa",
+              "t15": "láti",
+              "t16": "gbàdúrà",
+              "t17": "láìsí",
+              "t18": "ìdéwọ́",
+              "t19": "ó sì",
+              "t2": "jẹ́",
+              "t20": "kìlọ̀",
+              "t21": "pé",
+              "t22": "yíyẹ̀ kúrò",
+              "t23": "ń yọrí",
+              "t24": "sí",
+              "t25": "ìparun",
+              "t26": "ti",
+              "t27": "ìgbàgbọ́.",
+              "t28": "Fi wé",
+              "t29": "Hébérù 2:1.",
+              "t3": "kan",
+              "t4": "olùfẹ́",
+              "t5": "Bàbá",
+              "t6": "tó",
+              "t7": "ṣe ìlérí",
+              "t8": "láti",
+              "t9": "gbé"
+            }
+          },
+          "oneLine": "Àmì lórí ojú ewé jẹ́ ohun ìrànwọ́ ìrántí. Ètò rere ń yí àyọkà padà di àwòrán-ojú-ọ̀nà.",
+          "title": "Ìfàmìsí & Àkọsílẹ̀ Tó Ń Ṣiṣẹ́"
+        },
+        "oneLine": "Báyìí o ti ní àwọn ohun-èlò. Èyí ni bí o ṣe lè lò wọ́n ní ti gidi.",
+        "title": "Iṣẹ́-Ọnà Ìkẹ́kọ̀ọ́"
+      },
+      "unit3": {
+        "lesson7": {
+          "body": {
+            "h3_1": "Àwọn ibi mẹ́ta láti rí àwọn ẹsẹ ìtọ́kasí",
+            "list1": {
+              "item1": "Àwọn ìtọ́kasí ẹ̀gbẹ́ inú Bíbélì Ìtọ́kasí Ìtumọ̀ Ayé Tuntun, ní ọ̀wọ́-ọ̀tún, fún olúkúlùkù ẹsẹ pàtàkì.",
+              "item2": "Ẹ̀ya WOL tí a fa ọ̀rọ̀ yọ láti, ń fi gbogbo ìtẹ̀jáde tó fa ẹsẹ tí o wà lórí yọ hàn.",
+              "item3": "Insight on the Scriptures, àwọn àkójọ kókó-ọ̀rọ̀ ń sopọ̀ mọ́ gbogbo àwọn àyọkà pàtàkì lórí kókó-ọ̀rọ̀ náà."
+            },
+            "p1": "Jèhófà kọ Ọ̀rọ̀ rẹ̀ ní ọ̀nà tí ń bá ara rẹ̀ sọ̀rọ̀. Ẹsẹ kan ní Jẹ́nẹ́sísì ń sopọ̀ mọ́ ọ̀kan ní Ìfihàn. Gbólóhùn kan ní Sáàmù ń tan ìtàn kan ní Àwọn Ọba síso. Yíyẹ ẹsẹ ìtọ́kasí jẹ́ ọgbọ́n láti tẹ̀lé àwọn ìsopọ̀ wọ̀nyẹn, a sì ti ṣe Bíbélì Ìtọ́kasí Ìtumọ̀ Ayé Tuntun fún un.",
+            "p2": "Kọ́ ẹ̀wọ̀n. Bẹ̀rẹ̀ pẹ̀lú ẹsẹ kan. Tẹ̀lé ìtọ́kasí kan. Lẹ́yìn náà tẹ̀lé ọ̀kan láti ibẹ̀. Lẹ́yìn ìfò mẹ́ta tàbí mẹ́rin, wàá rí àwòṣe tí o kì bá fi ojú rí nínú ẹsẹ ìbẹ̀rẹ̀ nìkan."
+          },
+          "ex": {
+            "how": {
+              "hint": "Jẹ́ ohun pàtó, àkókò pàtó, orí pàtó, àdúrà pàtó.",
+              "prompt": "Ohun pàtó kan ni o yóò ṣe ní ọ̀sẹ̀ yìí láti 'máa bá a lọ ní mímọ̀' Jèhófà?"
+            },
+            "title": "Kọ́ ẹ̀wọ̀n láti Jòhánù 17:3",
+            "verseText": "Èyí túmọ̀ sí ìyè àìnípẹ̀kun, kí wọ́n máa mọ̀ ọ́, Ọlọ́run kan ṣoṣo tòótọ́, àti ẹni tí o rán, Jésù Kristi.",
+            "what": {
+              "hint": "2 Pétérù 3:18, 'máa bá a lọ ní dídàgbà nínú inúrere àìlẹ́tọ̀ọ́sí àti ìmọ̀ Olúwa wa.'",
+              "prompt": "Kí ni 'wíwá láti mọ̀' túmọ̀ sí? Wá ẹsẹ kan tó ṣe àpèjúwe mímọ̀ Ọlọ́run gẹ́gẹ́ bí ohun tó ń lọ síwájú, kì í ṣe ìṣẹ̀lẹ̀ ẹ̀ẹ̀kan."
+            },
+            "whenWhere": {
+              "hint": "1 Kọ́ríńtì 8:6, 'sí àwa nítòótọ́ ní Ọlọ́run kan ṣoṣo, Bàbá... ó sì ní Olúwa kan, Jésù Kristi.'",
+              "prompt": "Ẹsẹ náà ya 'Ọlọ́run kan ṣoṣo tòótọ́' yàtọ̀ sí Jésù. Wá ẹsẹ míì tó ṣe ìyàtọ̀ kan náà."
+            },
+            "who": {
+              "hint": "Mátíù 26:39 jẹ́ ọ̀kan lára àwọn tó kíkanra jù, fi ìfọ̀rọ̀rẹ́ rẹ̀ sí Bàbá wé.",
+              "prompt": "Ta ló ń sọ̀rọ̀ níbí? Wá ẹsẹ ìtọ́kasí mìíràn sí àdúrà Jésù mìíràn kí o sì kíyè sí ẹsẹ náà."
+            },
+            "why": {
+              "hint": "Jákọ́bù 4:8, 'sún mọ́ Ọlọ́run, yóò sì sún mọ́ ọ.'",
+              "prompt": "Èé ṣe tí Jésù fi ya 'ìyè àìnípẹ̀kun' gẹ́gẹ́ bí ìbáṣepọ̀ dípò èrè? Wá ẹsẹ kan tó fi ọkàn Jèhófà sí wa hàn."
+            }
+          },
+          "oneLine": "Ìwé Mímọ́ jẹ́ olùṣàlàyé ara rẹ̀ tó dára jù. Kíkọ́ láti ṣe ẹ̀wọ̀n àwọn àyọkà jẹ́ kíkọ́ láti ronú bíi ará Bèríà.",
+          "title": "Yíyẹ Ẹsẹ Ìtọ́kasí Bíi Ará Bèríà"
+        },
+        "lesson8": {
+          "body": {
+            "bq1": "Òfin Jèhófà ni inú rẹ̀ dùn sí, ó sì ń ka òfin rẹ̀ ní àfọwọ́sọ̀rọ̀ ọ̀sán àti òru.",
+            "h3_1": "Bí àṣàrò ti yàtọ̀ sí kíkà",
+            "h3_2": "Ètò ìṣẹ́jú mẹ́ta tó rọrùn",
+            "list1": {
+              "item1": "Yan ẹsẹ kan. Ọ̀kan péré. Má ṣe yára lọ sí èkejì.",
+              "item2": "Kà á ní ẹ̀ẹ̀mẹ́ta, rọra. Da àkókò dúró lẹ́yìn ìkàwé olúkúlùkù.",
+              "item3": "Jókòó pẹ̀lú rẹ̀. Jẹ́ kí ìbéèrè ru sókè. Jẹ́ kí ìmọ̀lára ru sókè. Jẹ́ kí Jèhófà sọ̀rọ̀."
+            },
+            "p1": "Ọ̀rọ̀ Hébérù tí a túmọ̀ sí 'kà ní àfọwọ́sọ̀rọ̀' gbé àwòrán màlúù tó ń jẹ jíjẹ́, rọra, ìtúnṣe, sùúrù. Àṣàrò jẹ́ jíjẹ́ rọra náà. Wàá kò ní gba oúnjẹ ọpọlọ láti inú ẹsẹ tí o gbé mì lódidi.",
+            "p2": "Kíkà béèrè pé, \"Kí ni ó ń sọ?\" Àṣàrò béèrè pé, \"Kí ni ó túmọ̀ sí, kí ni ó sì ṣe sí mi?\" Ọ̀kan ń kún ọkàn. Èkejì ń yí ènìyàn padà."
+          },
+          "ex": {
+            "introVerse": {
+              "text": "Jèhófà ni Olùṣọ́ àgùntàn mi. Èmi kò ní ṣaláìní ohunkóhun."
+            },
+            "prompt1": "Ka ẹsẹ náà ní ẹ̀ẹ̀mẹ́ta rọra. Jẹ́ kí ìkàwé èkejì rọra ju ti àkọ́kọ́.",
+            "prompt2": "Àwòrán wo ni ọ̀rọ̀ 'Olùṣọ́ àgùntàn' fò sí ọ ní ọkàn? Kí ni ó sọ fún ọ nípa bí Jèhófà ṣe ń bá ọ ṣe?",
+            "prompt3": "Níbo ní ìgbé ayé rẹ ni o bẹ̀rù pé wàá ṣaláìní ohunkan? Mú un wá pẹ̀lú ẹsẹ náà.",
+            "prompt4": "Kọ ọ̀rọ̀-kan sí Jèhófà nípa ohun tí o ṣẹ̀ṣẹ̀ rí.",
+            "title": "Àṣàrò ìṣẹ́jú mẹ́ta àfàṣẹyọ̀"
+          },
+          "oneLine": "Kíkà ni oúnjẹ. Àṣàrò ni díjẹ̀sì. Ọ̀pọ̀lọpọ̀ oúnjẹ ọpọlọ ń ṣẹlẹ̀ níbí.",
+          "title": "Àṣàrò, Jíjẹ́ Kí Ọ̀rọ̀ Náà Wọ Inú"
+        },
+        "lesson9": {
+          "body": {
+            "h3_1": "Ọ̀sẹ̀ àpẹẹrẹ",
+            "list1": {
+              "item1": "Lójoojúmọ́ (ìṣẹ́jú 15): Kíkà Bíbélì + ọ̀rọ̀ ojoojúmọ́. Àkókò kan náà, ibi kan náà.",
+              "item2": "Àárín ọ̀sẹ̀ (ìṣẹ́jú 45): Ìmúrasílẹ̀ ìpàdé, ka àpilẹ̀kọ ìkẹ́kọ̀ọ́ Ilé Ìṣọ́, sàmì sí, ṣe àfihàn.",
+              "item3": "Òpin ọ̀sẹ̀ (ìṣẹ́jú 60): Ìkẹ́kọ̀ọ́ S.O.A.P. kan lórí orí àyàfẹ́ rẹ.",
+              "item4": "Lóòṣù: Yan àkójọ-ọ̀rọ̀ Insight kan láti ka títí dé òpin."
+            },
+            "p1": "A ti bo àwọn ohun-èlò àti àwọn ìlànà. Báyìí ni apá tó le jù: pípa á mọ́ ní ríjò. Àwọn ìṣe déédéé, kì í ṣe àwọn ìṣe akíkanjú, ni ó ń mú akẹ́kọ̀ọ́ Bíbélì jáde.",
+            "p2": "Èyí kì í ṣe ìtọ́sọ́nà. Ìfilé ni. Dín i kù tàbí gbé e dìde láti bá ìgbé ayé rẹ mu, ṣùgbọ́n kọ ohun tí o fi ọwọ́ sí sílẹ̀, kí o sì máa wá.",
+            "p3": "Gbogbo ògo jẹ́ ti Jèhófà. Ó ti fi Ọ̀rọ̀ rẹ̀, ẹ̀mí rẹ̀, àti ètò ìṣàkóso rẹ̀ fún wa. Ìyókù jẹ́ kí a kàn máa wá."
+          },
+          "ex": {
+            "prompt1": "Àkókò wo ní ọjọ́ ni o yóò máa kẹ́kọ̀ọ́? (Jẹ́ pàtó, àpẹẹrẹ '7:00 AM, kí n tó jẹun òwúrọ̀.')",
+            "prompt2": "Àwọn ọjọ́ wo ní ọ̀sẹ̀? (Bẹ̀rẹ̀ pẹ̀lú ohun tó kéré ju bí o ṣe rò, ọjọ́ mẹ́ta tí o yóò ṣe ní ti gidi ju ọjọ́ méje tí o kò ní ṣe.)",
+            "prompt3": "Níbo ni o yóò máa kẹ́kọ̀ọ́? (Ibi kan náà nígbà gbogbo, tó bá ṣeé ṣe.)",
+            "prompt4": "Ìwé Bíbélì wo ni o yóò bẹ̀rẹ̀ pẹ̀lú? (Tí o kò bá dáni lójú, Máàkù kúrú. Jákọ́bù wúlò. Sáàmù lọ́pọ̀.)",
+            "prompt5": "Kọ gbólóhùn ìfaramọ́ kan sí Jèhófà. Kì í ṣe pé o ń ṣèlérí pípé, o ń ṣèlérí láti máa wá.",
+            "title": "Ìfaramọ́ rẹ"
+          },
+          "oneLine": "Ọ̀nà ìkẹ́kọ̀ọ́ tó dára jù ni èyí tí wàá ṣì ń ṣe ní ọdún kan láti òní lọ.",
+          "title": "Kíkọ́ Ètò Ìkẹ́kọ̀ọ́ Rẹ"
+        },
+        "oneLine": "Láti ìlànà sí ìṣe, ìkẹ́kọ̀ọ́ gẹ́gẹ́ bí ìṣe ìgbé ayé.",
+        "title": "Lílọ Jinlẹ̀ Síi"
+      }
+    }
+  },
+  "mobileMore": {
+    "admin": "Alámòójútó",
+    "dialogLabel": "Àwọn àyíká kíkún",
+    "moderation": "Ìṣàkóso",
+    "privacy": "Àṣírí",
+    "terms": "Àwọn Òfin"
+  },
+  "notFound": {
+    "body": "Àdírẹ́sì tí o tẹ kò sí. Ó lè jẹ́ pé a ti gbé e síbòmíràn, pa á rẹ́, tàbí o lè jẹ́ pé o tẹ ẹ́ ní àṣìṣe.",
+    "bodyShort": "Ojú-ìwé tí o ń wá kò sí tàbí a ti gbé e síbòmíràn.",
+    "docTitle": "404, A Kò Rí Ojú-ìwé Náà",
+    "goBack": "Padà sẹ́yìn",
+    "goHome": "Lọ sí ilé",
+    "goHomeArrow": "← Lọ sí Ilé",
+    "title": "A kò rí ojú-ìwé",
+    "verse": "\"Ọ̀rọ̀ rẹ jẹ́ fìtílà fún ẹsẹ̀ mi, ìmọ́lẹ̀ sí ipa ọ̀nà mi.\", Sáàmù 119:105"
+  },
+  "privacy": {
+    "backHome": "← Ilé",
+    "badge": "Òfin",
+    "lastUpdated": "Tí a ṣàtúnṣe gbẹ̀yìn: April 18, 2026",
+    "meta": {
+      "description": "Ka ìlànà àṣírí ti JW Study, bí a ṣe ń kó, lò, àti dáàbò bo ìsọfúnni ti ara ẹni rẹ.",
+      "title": "Ìlànà Àṣírí | JW Study"
+    },
+    "section1": {
+      "body1": "JW Study (\"a\", \"àwa\", \"ti wa\") ti pinnu láti dáàbò bo àṣírí rẹ. Ìlànà Àṣírí yìí ṣàlàyé irú ìsọfúnni tí a ń kó, bí a ṣe ń lò ó, àti àwọn ẹ̀tọ́ rẹ nípa ìsọfúnni yẹn nígbà tí o bá lo Ohun Èlò wa ní jwstudy.org.",
+      "body2": "JW Study jẹ́ iṣẹ́ ọ̀fẹ́. A kì í ta ìsọfúnni rẹ, a kì í lò ó fún owó, bẹ́ẹ̀ ni a kì í lò ó fún ìpolówó ọjà ti irú èyíkéyìí.",
+      "heading": "1. Àkópọ̀"
+    },
+    "section10": {
+      "body": "A lè fi ìsọfúnni rẹ hàn fún àwọn agbófinró, àwọn ẹ̀ka ìjọba, tàbí àwọn aláṣẹ mìíràn nígbà tí òfin, àṣẹ ilé ẹjọ́ bá béèrè rẹ̀, tàbí nígbà tí a bá gbàgbọ́ pẹ̀lú ọkàn rere pé fífi hàn ṣe pàtàkì láti dènà ìpalára, dáàbò bo ààbò ẹnikẹ́ni, tàbí dáhùn pajawiri.",
+      "heading": "10. Àwọn Ìbéèrè Agbófinró"
+    },
+    "section11": {
+      "body": "A lè ṣàtúnṣe Ìlànà Àṣírí yìí ní ọ̀tọ̀ọ̀tọ̀. A ó ṣàtúnṣe ọjọ́ \"Tí a ṣàtúnṣe gbẹ̀yìn\" ní orí ojú-ìwé yìí. Ìlọsíwájú lílo Ohun Èlò náà lẹ́yìn tí a ti fi àwọn àyípadà sílẹ̀ túmọ̀ sí pé o gba ìlànà tí a ṣàtúnṣe.",
+      "heading": "11. Àwọn Àyípadà sí Ìlànà Yìí"
+    },
+    "section12": {
+      "body": "Bí o bá ní ìbéèrè tàbí àníyàn nípa Ìlànà Àṣírí yìí, jọ̀wọ́ kàn sí wa nípasẹ̀ àpérò àwùjọ tàbí nípasẹ̀ jwstudy.org.",
+      "heading": "12. Olùbáraẹnisọ̀rọ̀"
+    },
+    "section2": {
+      "heading": "2. Ìsọfúnni Tí A Ń Kó",
+      "item1Body": "Nígbà tí o bá forúkọsílẹ̀, a ó kó àdírẹ́sì ímeèlì rẹ àti orúkọ ìfihàn àyànfẹ́ àti àwòrán ojú èyíkéyìí tí o bá pèsè.",
+      "item1Label": "Ìsọfúnni àkáǹtì:",
+      "item2Body": "A ń fi orí Bíbélì wo tí o ti sàmì sí gẹ́gẹ́ bí ìkà pamọ́ kí ìtẹ̀síwájú rẹ lè bá àwọn ẹ̀rọ rẹ mu.",
+      "item2Label": "Ìtẹ̀síwájú kíkà:",
+      "item3Body": "Àwọn ìfìwéránṣẹ́ blog, ọ̀rọ̀ àpérò, àwọn ìdáhùn, ọ̀rọ̀-àlàyé, àkọsílẹ̀, àti ìsọfúnni profáìlì tí o ṣẹ̀dá ni a fipamọ́ tí a sì so pọ̀ mọ́ àkáǹtì rẹ.",
+      "item3Label": "Àkóónú olùmúlò:",
+      "item4Body": "Àwọn ìránṣẹ́ tí o fi ránṣẹ́ sí Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI ni a fi ránṣẹ́ sí olùpèsè AI wa (Anthropic) láti ṣe ìdáhùn, a kì í sì í fi pamọ́ títí láé lórí àwọn olùpín wa. A ń kọ àkójọpọ̀ ìlò sílẹ̀ (iye àwọn ìbéèrè AI fún olùmúlò kọ̀ọ̀kan) láti dènà ìlòkulò àti láti mú iṣẹ́ wa dàrà sí. A kì í fi àkóónú àwọn ìbáraẹnisọ̀rọ̀ AI pamọ́ tàbí pín ní gbangba.",
+      "item4Label": "Àwọn ìbáraẹnisọ̀rọ̀ Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI:",
+      "item5Body": "A lè ṣàyẹ̀wò àkóónú tí a fi ránṣẹ́ fún ọ̀rọ̀ ẹ̀gàn àti fún àwọn ìjápọ̀ sí àwọn orísun apẹ̀yìndà tàbí àwọn ọ̀rọ̀ tó tako ẹ̀kọ́ Àwọn Ẹlẹ́rìí Jèhófà (a ó dí àwọn ìjápọ̀ bẹ́ẹ̀ tí a ò sì ní fipamọ́). Ìwọ ni o ní ojúṣe fún ìsọfúnni ti ara ẹni èyíkéyìí (ímeèlì, nọ́ńbà fóònù, ìjápọ̀ àwùjọ, àti bẹ́ẹ̀ bẹ́ẹ̀ lọ) tí o bá yàn láti pín nínú àwọn ìfìwéránṣẹ́ rẹ, ìránṣẹ́, tàbí profáìlì rẹ, má pín ìsọfúnni tí o kò fẹ́ kí àwọn ọmọ ẹgbẹ́ àwùjọ mìíràn rí.",
+      "item5Label": "Ìṣàyẹ̀wò àkóónú:",
+      "item6Body": "Bí o bá ṣí ìfitónilétí ìpọ́n, a ó fi àmì ìfitónilétí ẹ̀rọ pamọ́ láti gbé àwọn ìkìlọ̀ jíṣẹ́ sí ẹ̀rọ rẹ. O lè yọkuro nígbàkigbà nípasẹ̀ ètò aṣàwákiri tàbí ẹ̀rọ rẹ.",
+      "item6Label": "Àwọn àmì ìfitónilétí ìpọ́n:",
+      "item7Body": "A ń lo Google Analytics (GA4) àti Vercel Analytics láti kó dátà alàìdánilẹ́kọ̀ọ́ nípa bí a ṣe ń lo Ohun Èlò náà (àwọn ojú-ìwé tí a tẹ̀, gígùn ìpàdé, irú ẹ̀rọ, ipò gbogbogbòò nípa orílẹ̀-èdè). A kì í fi ìsọfúnni tí ó lè jẹ́ ìdánimọ̀ ẹnì kọ̀ọ̀kan ránṣẹ́ sí àwọn iṣẹ́ analytics wọ̀nyí.",
+      "item7Label": "Dátà ìlò:",
+      "item8Body": "A ń lo Sentry láti gba àwọn àṣìṣe ohun èlò àti àwọn ọ̀rọ̀ ìṣiṣẹ́. Àwọn ìròyìn àṣìṣe lè ní irú aṣàwákiri, OS, àti ìtọpinpin àṣìṣe, ṣùgbọ́n kì í ní àkóónú àwọn ìfìwéránṣẹ́ tàbí ìránṣẹ́ rẹ.",
+      "item8Label": "Àbójútó àṣìṣe:",
+      "item9Body": "Àwọn ìwé olùpín gbogbogbòò pẹ̀lú àdírẹ́sì IP àti irú aṣàwákiri ni a lè kó nípasẹ̀ olùpèsè ìgbésí ayé wa (Vercel) àti olùpèsè ibi ìpamọ́ data (Supabase).",
+      "item9Label": "Dátà ìmọ̀-ẹ̀rọ:"
+    },
+    "section3": {
+      "footer1": "A kì í",
+      "footer2": "ta ìsọfúnni rẹ. A kì í",
+      "footer3": "lo ìsọfúnni rẹ fún ìpolówó ọjà. A kì í",
+      "footer4": "pín ìsọfúnni rẹ pẹ̀lú ẹnikẹ́ni mìíràn ayàfi gẹ́gẹ́ bí a ṣe ṣàlàyé ní Apá 4.",
+      "footerNot": "kò",
+      "heading": "3. Bí A Ṣe Ń Lo Ìsọfúnni Rẹ",
+      "item1": "Láti pèsè àti dúró Ohun Èlò àti àkáǹtì rẹ",
+      "item2": "Láti so ìtẹ̀síwájú kíkà rẹ pọ̀ kọjá àwọn ẹ̀rọ",
+      "item3": "Láti fi àwọn ímeèlì ìṣòwò ránṣẹ́ (ìfìdímúlẹ̀ ímeèlì, àtúnṣe ọ̀rọ̀ aṣínà)",
+      "item4": "Láti gbé àwọn ìfitónilétí ìpọ́n tí o ti yàn jíṣẹ́",
+      "item5": "Láti fi profáìlì àwùjọ rẹ àti àkóónú rẹ hàn fún àwọn olùmúlò mìíràn",
+      "item6": "Láti darí Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI nípa fífi ìránṣẹ́ rẹ ránṣẹ́ sí olùpèsè AI wa",
+      "item7": "Láti mú Ohun Èlò náà dàrà sí pẹ̀lú analytics alàìdánilẹ́kọ̀ọ́ àti àbójútó àṣìṣe",
+      "item8": "Láti dènà ìlòkulò àti fi ìpinnu àwùjọ wa lágbára",
+      "item9": "Láti ṣèwádìí àwọn ìrúfin àti láti bá àwọn agbófinró ṣiṣẹ́ pọ̀ níbi tí òfin bá béèrè"
+    },
+    "section4": {
+      "heading": "4. Àwọn Iṣẹ́ Ẹgbẹ́-Kẹta",
+      "intro": "A ń lo àwọn iṣẹ́ ẹgbẹ́-kẹta wọ̀nyí láti ṣiṣẹ́ Ohun Èlò náà. Ọ̀kọ̀ọ̀kan ní ìlànà àṣírí tirẹ̀ tí ó darí bí wọ́n ṣe ń bójú tó dátà:",
+      "item1Body": ", ibi ìpamọ́ data, ìfìdímúlẹ̀, àti ibi ìpamọ́ fáìlì (supabase.com/privacy)",
+      "item1Label": "Supabase",
+      "item2Body": ", ibi ìgbésí ayé, ìfilọ́lẹ̀, àti àwọn iṣẹ́ etí (vercel.com/legal/privacy-policy)",
+      "item2Label": "Vercel",
+      "item3Body": ", àwòṣe èdè AI tí ó ń darí Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI (anthropic.com/privacy)",
+      "item3Label": "Anthropic",
+      "item4Body": ", ìfijíṣẹ́ ímeèlì ìṣòwò (resend.com/privacy)",
+      "item4Label": "Resend",
+      "item5Body": ", analytics ìlò alàìdánilẹ́kọ̀ọ́; A kì í pín PII (policies.google.com/privacy)",
+      "item5Label": "Google Analytics (GA4)",
+      "item6Body": ", analytics ìlò alàìdánilẹ́kọ̀ọ́, láìsí kuki",
+      "item6Label": "Vercel Analytics",
+      "item7Body": ", àbójútó àṣìṣe àti ìṣiṣẹ́ ohun èlò (sentry.io/privacy)",
+      "item7Label": "Sentry"
+    },
+    "section5": {
+      "body1": "Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI ń fi àwọn ìránṣẹ́ rẹ ránṣẹ́ sí API Anthropic láti ṣe ìdáhùn. Ìṣàkóso dátà Anthropic ni ìlànà àṣírí wọn ń darí. A kì í fi àkóónú àwọn ìbáraẹnisọ̀rọ̀ AI rẹ pamọ́ títí láé lórí àwọn olùpín wa. A ń kó iye ìlò fún olùmúlò kọ̀ọ̀kan nìkan láti dènà ìlòkulò.",
+      "body2": "Àwọn àpẹẹrẹ blog tí AI dá tí o yàn láti tẹ̀jáde di àkóónú olùmúlò tí àwọn òfin kan náà bá ti àkóónú èyíkéyìí mìíràn tí o dá kàn án.",
+      "body3Rest": "Ṣe Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI gẹ́gẹ́ bí o ti ń ṣe iṣẹ́ àwọsánmà èyíkéyìí.",
+      "body3Strong": "Má pín ìsọfúnni ti ara ẹni alábọrun nínú àwọn ìbáraẹnisọ̀rọ̀ AI.",
+      "heading": "5. Ìṣàkóso Dátà AI"
+    },
+    "section6": {
+      "body": "A ń fi dátà rẹ pamọ́ níwọ̀n ìgbà tí àkáǹtì rẹ bá ń ṣiṣẹ́. Bí o bá pa àkáǹtì rẹ rẹ́, a ó yọ ìsọfúnni ti ara ẹni rẹ àti àkóónú rẹ kúrò nínú àwọn ètò wa nínú àkókò tí ó tọ́, ayàfi níbi tí òfin bá nílò ìfipamọ́, pẹ̀lú dátà tí òfin béèrè kí a fi pamọ́ ní ìsopọ̀ pẹ̀lú àwọn ìròyìn tí a ṣe sí àwọn agbófinró tàbí àwọn aláṣẹ ààbò ọmọdé.",
+      "heading": "6. Ìfipamọ́ Dátà"
+    },
+    "section7": {
+      "footer": "Láti lo ọ̀kankan nínú àwọn ẹ̀tọ́ wọ̀nyí, kàn sí wa nípasẹ̀ àpérò Ohun Èlò tàbí nípasẹ̀ jwstudy.org.",
+      "heading": "7. Àwọn Ẹ̀tọ́ Rẹ",
+      "intro": "Ó dá lórí ipò rẹ, o lè ní ẹ̀tọ́ láti:",
+      "item1": "Wọ̀le sí dátà ti ara ẹni tí a ní nípa rẹ",
+      "item2": "Ṣàtúnṣe dátà àìpé nípasẹ̀ ètò profáìlì rẹ",
+      "item3": "Béèrè pípa àkáǹtì àti dátà rẹ",
+      "item4": "Béèrè ẹ̀dà dátà rẹ",
+      "item5": "Yọkuro nínú àwọn ìfitónilétí ìpọ́n nígbàkigbà nípasẹ̀ ètò aṣàwákiri tàbí ẹ̀rọ rẹ"
+    },
+    "section8": {
+      "body": "Ohun Èlò náà ń lo localStorage aṣàwákiri láti fi àyànfẹ́ àkòrí, kásíì ìtẹ̀síwájú kíkà, àti ìtàn ìbáraẹnisọ̀rọ̀ AI rẹ pamọ́ fún ìrírí tó dára. Vercel Analytics ń kó dátà ìlò alàìdánilẹ́kọ̀ọ́ láìsí kuki. Google Analytics ń lo kuki láti díwọ̀n ìlò, o lè yọkuro nípasẹ̀ ètò aṣàwákiri tàbí àfikún yíyọkuro Google Analytics.",
+      "heading": "8. Àwọn Kuki & Ibi Ìpamọ́ Adúgbò"
+    },
+    "section9": {
+      "ageBody": "Ohun Èlò yìí ni a pinnu fún àwọn olùmúlò tí ó jẹ́ ọmọ ọdún 13 àti jù bẹ́ẹ̀ lọ. Àwọn olùmúlò láàárín ọmọ ọdún 13 sí 17 gbọ́dọ̀ ní ìfọwọ́sí òbí tàbí olùṣàkóso. A kì í kó ìsọfúnni ti ara ẹni mọ̀ọ́mọ̀ láti ọ̀dọ̀ àwọn ọmọ tó wà lábẹ́ ọdún 13. Bí o bá gbàgbọ́ pé ọmọ kan tó wà lábẹ́ ọdún 13 ti ṣẹ̀dá àkáǹtì, jọ̀wọ́ kàn sí wa lẹ́sẹ̀kẹsẹ̀ kí a lè yọ ọ́ kúrò.",
+      "ageLabel": "Ìbéèrè ọjọ́ orí:",
+      "commitmentBody": "A ń mú ààbò àwọn ọmọdé lórí pèpéle wa pẹ̀lú ọkàn pípé. A ń ṣọ́ tí a sì ń kọ̀ àkóónú tàbí ìwà èyíkéyìí tí ó lè pa, lo, tàbí mú ìfẹ́ ìbálòpọ̀ wá fún àwọn ọmọkùnrin àti ọmọbìnrin. Èyí pẹ̀lú Àkóónú Ìbálòpọ̀ Ìṣekúṣe Ọmọdé (CSAM), ìmúrasílẹ̀ fún ìṣekúṣe, tàbí ìgbìyànjú láti béèrè ìsọfúnni ti ara ẹni láti ọ̀dọ̀ àwọn ọmọkùnrin àti ọmọbìnrin.",
+      "commitmentLabel": "Ìfaramọ́ wa sí ààbò ọmọdé:",
+      "dataNote": "Nígbà tí a bá ń ṣe àwọn ìròyìn bẹ́ẹ̀, a ń pèsè gbogbo dátà tí ó yẹ pẹ̀lú ìsọfúnni àkáǹtì, àdírẹ́sì IP, àkókò, àti àkóónú. Pípín dátà yìí ni òfin béèrè, kì í sì í wà lábẹ́ ààbò àṣírí tí a ṣàlàyé níbòmíràn nínú ìlànà yìí.",
+      "heading": "🛡️ 9. Àṣírí Àwọn Ọmọdé & Ààbò Ọmọdé",
+      "item1Body": "(CyberTipLine.org), gẹ́gẹ́ bí òfin àpapọ̀ Amẹ́ríkà ṣe béèrè (18 U.S.C. § 2258A)",
+      "item1Label": "NCMEC CyberTipline",
+      "item2Body": "ní ìpínlẹ̀ tí ìrúfin náà ti wáyé",
+      "item2Label": "Agbófinró àdúgbò",
+      "item3Body": "fún àwọn ọ̀ràn àgbáyé",
+      "item3Label": "Ìpàdé Ìṣọ́ Íńtánẹ́ẹ̀tì (IWF)",
+      "parentalBody": "A rọ̀ àwọn òbí àti àwọn olùṣàkóso láti ṣàyẹ̀wò bí àwọn ọmọ wọn ṣe ń lo Ohun Èlò yìí. Bí o bá ní àníyàn nípa àkóónú tàbí ìbáraẹnisọ̀rọ̀ tí ọmọ rẹ ti rí lórí JW Study, jọ̀wọ́ ròyìn rẹ̀ nípa lílo iṣẹ́ ìròyìn tí ó wà nínú ohun èlò tàbí kàn sí wa tààrà.",
+      "parentalLabel": "Ìtọ́sọ́nà òbí:",
+      "reportingBody": "Òfin béèrè wa, a sì ní ìfaramọ́ ti ìwà rere, láti ròyìn àkóónú ìṣekúṣe ìbálòpọ̀ ọmọdé tàbí ìṣẹ̀lẹ̀ ìmúrasílẹ̀ èyíkéyìí tí a bá rí lórí pèpéle wa sí àwọn aláṣẹ tó yẹ, pẹ̀lú:",
+      "reportingLabel": "Ìròyìn dandan:"
+    },
+    "title": "Ìlànà Àṣírí"
+  },
+  "reactions": {
+    "addReaction": "Fi ìfèsì kún",
+    "reactWith": "Fèsì pẹ̀lú {{emoji}}"
+  },
+  "support": {
+    "back": "Padà",
+    "comingSoon": "Yóò dé láìpẹ́",
+    "giveCta": "Fún →",
+    "noteBody": "Fún ìkẹ́kọ̀ọ́ Bíbélì jíjinlẹ̀, Watch Tower Online Library àti JW Library ni àwọn orísun pàtàkì, jọ̀wọ́ ti àwọn nǹkan wọ̀nyí lẹ́yìn nípasẹ̀ ìjọ àdúgbò rẹ ní àkọ́kọ́. JW Study jẹ́ ohun èlò alábàákẹ́gbẹ́ ti ara ẹni, kì í ṣe atẹ̀jáde. Ọrẹ tí a fi sílẹ̀ níbí ń lọ sí olùdàgbàsókè kan ṣoṣo; kì í ṣe ọrẹ tí a lè yọkuro nínú owó orí, kò sì ní ìbáṣepọ̀ pẹ̀lú ẹ̀ka èyíkéyìí ti Àwọn Ẹlẹ́rìí Jèhófà.",
+    "noteHeading": "Àkíyèsí kí o tó fún",
+    "subtitle": "JW Study jẹ́ ọ̀fẹ́, yóò sì máa jẹ́ ọ̀fẹ́ títí láé. Bí ohun èlò náà bá ti ràn ìkẹ́kọ̀ọ́ rẹ, kíkà ojoojúmọ́ rẹ, tàbí ìdílé rẹ lọ́wọ́, ọrẹ ẹ̀yọ kan ń ràn wá lọ́wọ́ láti tọ́jú rẹ̀ àti láti dàgbàsí.",
+    "thankYou": "Mo dúpẹ́ pé o ń lo ohun èlò náà, yálà o fún tàbí kò fún. — Alexi",
+    "tierCoffee": {
+      "desc": "Ìdúpẹ́ kékeré.",
+      "label": "Kọfí"
+    },
+    "tierCustom": {
+      "desc": "Ohunkóhun tó bá tọ́.",
+      "label": "Iye èyíkéyìí"
+    },
+    "tierHosting": {
+      "desc": "Ó bo apá kan ti ohun amáyédẹrùn.",
+      "label": "Ìgbàlà oṣooṣù"
+    },
+    "tierTranslation": {
+      "desc": "Ó ń ṣètìlẹ́yìn fún àyẹ̀wò orí kan ní èdè tuntun.",
+      "label": "Ìrànlọ́wọ́ ìtumọ̀"
+    },
+    "title": "Ṣètìlẹ́yìn fún JW Study",
+    "whereGoesHeading": "Ibi tí ọrẹ rẹ ń lọ",
+    "whereGoesItem1": "Ohun amáyédẹrùn ìgbésí ayé, ibi ìpamọ́ data, àti ímeèlì",
+    "whereGoesItem2": "Iṣẹ́ ìtumọ̀ fún àwọn èdè tuntun",
+    "whereGoesItem3": "Àkókò láti kọ́ àwọn ẹ̀ya tókàn tí àwùjọ béèrè",
+    "whereGoesItem4": "Mímú ohun èlò náà mọ́ láìní ìpolówó ọjà, láìní olùtọpa, àti pé ó ṣì jẹ́ ọ̀fẹ́ fún gbogbo ènìyàn"
+  },
+  "terms": {
+    "backHome": "← Ilé",
+    "badge": "Òfin",
+    "lastUpdated": "Tí a ṣàtúnṣe gbẹ̀yìn: April 18, 2026",
+    "meta": {
+      "description": "Ṣàyẹ̀wò àwọn òfin iṣẹ́ JW Study tí ó darí lílo olùtọpa kíkà Bíbélì àti àwọn ẹ̀ya àwùjọ.",
+      "title": "Àwọn Òfin Iṣẹ́ | JW Study"
+    },
+    "section1": {
+      "body": "Nípa wíwọ̀le tàbí lílo JW Study (\"Ohun Èlò náà\") ní jwstudy.org, o gbà láti tẹrí ba àwọn Òfin Iṣẹ́ wọ̀nyí. Bí o kò bá gbà, jọ̀wọ́ má lo Ohun Èlò náà.",
+      "heading": "1. Gbígbàwọ̀le Àwọn Òfin"
+    },
+    "section10": {
+      "body": "Orúkọ JW Study, lógò, àpẹrẹ, àti kóòdù ìpilẹ̀ṣẹ̀ jẹ́ ohun-ìní ọpọlọ ti Lexx Solutionz. Àwọn ọ̀rọ̀ Ìwé Mímọ́ wá látinú New World Translation of the Holy Scriptures, a sì ń lò wọ́n fún ète ìkẹ́kọ̀ọ́ ti ara ẹni àti ti àwùjọ. Gbogbo àwọn ìtẹ̀jáde Watch Tower tí a tọ́kasí nínú Ohun Èlò náà ṣì jẹ́ ohun-ìní ọpọlọ ti Watch Tower Bible and Tract Society of Pennsylvania.",
+      "heading": "10. Ohun-ìní Ọpọlọ"
+    },
+    "section11": {
+      "body": "JW Study jẹ́ ohun èlò ìkẹ́kọ̀ọ́ aládàáṣe tí Àwọn Ẹlẹ́rìí Jèhófà ṣẹ̀dá fún Àwọn Ẹlẹ́rìí Jèhófà. Kò ní ìbáṣepọ̀ pẹ̀lú, kò sì ní ìfọwọ́sí Watch Tower Bible and Tract Society of Pennsylvania, Ẹgbẹ́ Olùdarí Àwọn Ẹlẹ́rìí Jèhófà, tàbí àjọ JW alábọwọ́ èyíkéyìí. Gbogbo àkóónú ẹ̀kọ́ ni a pinnu láti bá àwọn ẹ̀kọ́ JW alábọwọ́ mu, ṣùgbọ́n àwọn olùmúlò gbọ́dọ̀ gbára lé àwọn ohun èlò jw.org alábọwọ́ fún ìtọ́sọ́nà tó tọ̀nà.",
+      "heading": "11. Kò Ní Ìbáṣepọ̀ Pẹ̀lú Watch Tower"
+    },
+    "section12": {
+      "body": "A ń pèsè Ohun Èlò náà \"gẹ́gẹ́ bí ó ti rí\" láìsí àwọn ẹ̀rí ti irú èyíkéyìí. A kò gbà fún àwọn àṣìṣe, ìdíwọ̀, tàbí pípadà sọnù dátà. Lo Ohun Èlò náà ní ewu rẹ.",
+      "heading": "12. Ìkọ̀ Àwọn Ẹ̀rí"
+    },
+    "section13": {
+      "body": "Sí ìwọ̀n tí òfin yọ̀ǹdà sí, JW Study àti Lexx Solutionz kì yóò jẹ́ ẹni tí ó ní ìdájọ́ fún àwọn ìbàjẹ́ àìtààrà, àìròtẹ́lẹ̀, tàbí àbáyọrí èyíkéyìí tí ó wá láti inú lílo Ohun Èlò náà.",
+      "heading": "13. Ìdínkù Ìdájọ́"
+    },
+    "section14": {
+      "body": "A lè ṣàtúnṣe àwọn Òfin wọ̀nyí nígbàkigbà. Ìlọsíwájú lílo Ohun Èlò náà lẹ́yìn tí a ti fi àwọn àyípadà sílẹ̀ túmọ̀ sí gbígbà àwọn Òfin tí a ṣàtúnṣe. A ó ṣàtúnṣe ọjọ́ \"Tí a ṣàtúnṣe gbẹ̀yìn\" ní orí ojú-ìwé yìí.",
+      "heading": "14. Àwọn Àyípadà sí Àwọn Òfin"
+    },
+    "section15": {
+      "body": "Bí o bá ní àwọn ìbéèrè nípa àwọn Òfin wọ̀nyí, o lè kàn sí wa nípasẹ̀ àpérò àwùjọ Ohun Èlò tàbí nípasẹ̀ ìsọfúnni olùbáraẹnisọ̀rọ̀ tí a tò sílẹ̀ ní jwstudy.org.",
+      "heading": "15. Olùbáraẹnisọ̀rọ̀"
+    },
+    "section2": {
+      "body1": "JW Study jẹ́ olùtọpa kíkà Bíbélì ọ̀fẹ́ àti pèpéle àwùjọ tí a ṣe fún àwọn olùkàwé New World Translation. Ohun Èlò náà ń pèsè àwọn ẹ̀ya wọ̀nyí láìsí ìyókúnsíkà fún àwọn olùmúlò tí a ti forúkọsílẹ̀:",
+      "body2": {
+        "bold": "JW Study jẹ́ ọ̀fẹ́ pátápátá.",
+        "text": " Kò sí ìwọ̀n owó, kò sí ìforúkọsílẹ̀ Premium, bẹ́ẹ̀ ni kò sí ẹ̀ya kankan tí a ti dí lẹ́yìn paywall. Gbogbo àwọn olùmúlò tí a ti forúkọsílẹ̀ ni ó ní ìwọ̀le pípé sí gbogbo àwọn ẹ̀ya."
+      },
+      "body3": "A ní ẹ̀tọ́ láti ṣàtúnṣe, dáwọ́ dúró, tàbí dáwọ́ dúró apá èyíkéyìí ti iṣẹ́ náà nígbàkigbà.",
+      "heading": "2. Àpèjúwe Iṣẹ́",
+      "list": {
+        "ai": {
+          "bold": "Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI",
+          "text": ", olùrànlọ́wọ́ AI tí ó ń fa nìkan láti àwọn ìtẹ̀jáde JW àti wol.jw.org"
+        },
+        "blog": {
+          "bold": "Blog",
+          "text": ", kà àti kọ àwọn àpilẹ̀kọ tó dá lórí JW, fi àwọn ọ̀rọ̀-àlàyé sílẹ̀"
+        },
+        "forum": {
+          "bold": "Àpérò àwùjọ",
+          "text": ", kópa nínú àwọn ìjíròrò tí a ṣètò gẹ́gẹ́ bí ìpín"
+        },
+        "meeting": {
+          "bold": "Ìmúrasílẹ̀ ìpàdé",
+          "text": ", àwọn ohun èlò láti múrasílẹ̀ fún àwọn ìpàdé ìjọ àárín ọ̀sẹ̀ àti ìparí ọ̀sẹ̀"
+        },
+        "notifications": {
+          "bold": "Àwọn Ìfitónilétí & Ìpolongo",
+          "text": ", àwọn ìṣàtúnṣe àwùjọ àti àwọn ìfitónilétí ìpọ́n"
+        },
+        "profiles": {
+          "bold": "Àwọn profáìlì olùmúlò",
+          "text": ", àwọn profáìlì ní gbangba tí ó fi àwọn àmì kíkà rẹ àti àwọn ìṣètìlẹ́yìn rẹ hàn"
+        },
+        "quizzes": {
+          "bold": "Àwọn Ìdánwò",
+          "text": ", àwọn ìdánwò ìmọ̀ Bíbélì tó dá lórí àkóónú Ìtumọ̀ Ayé Tuntun"
+        },
+        "tracker": {
+          "bold": "Olùtọpa kíkà Bíbélì",
+          "text": ", tọpa ìtẹ̀síwájú ti ara ẹni rẹ kọjá gbogbo ìwé 66 ti Ìtumọ̀ Ayé Tuntun"
+        },
+        "videos": {
+          "bold": "Àwọn Fídíò",
+          "text": ", àwọn àkóónú fídíò JW tí a yàn láti ọ̀dọ̀ àwọn olùdàgbàsókè tí a fọwọ́sí"
+        }
+      }
+    },
+    "section3": {
+      "body1": "O gbọ́dọ̀ ṣẹ̀dá àkáǹtì láti wọ̀le sí àwọn ẹ̀ya púpọ̀. O ní ojúṣe láti tọ́jú àṣírí àkàyé àkáǹtì rẹ àti fún gbogbo ìṣe tí ó wáyé lábẹ́ àkáǹtì rẹ. O gbọ́dọ̀ pèsè ìsọfúnni tó tọ̀nà nígbà tí o bá ń forúkọsílẹ̀.",
+      "body2": {
+        "bold": "Ìbéèrè ọjọ́ orí:",
+        "text": " O gbọ́dọ̀ jẹ́ ọmọ ọdún 13 ó kéré tán láti lo Ohun Èlò yìí. Àwọn olùmúlò láàárín ọmọ ọdún 13 sí 17 gbọ́dọ̀ ní ìfọwọ́sí òbí tàbí olùṣàkóso lófin. Nípa ṣíṣẹ̀dá àkáǹtì, o jẹ́rìí pé o pàdé ìbéèrè yìí, àti pé, bí o bá wà lábẹ́ ọdún 18, òbí tàbí olùṣàkóso ti ṣàyẹ̀wò tí ó sì gba àwọn Òfin wọ̀nyí ní orúkọ rẹ."
+      },
+      "body3": "Bí a bá rí i pé àkáǹtì kan jẹ́ ti olùmúlò lábẹ́ ọmọ ọdún 13, a ó dáwọ́ àkáǹtì yẹn dúró kí a sì yọ dátà tó so pọ̀ kúrò láìsí ìkìlọ̀.",
+      "heading": "3. Àwọn Àkáǹtì Olùmúlò & Àwọn Ìbéèrè Ọjọ́ Orí"
+    },
+    "section4": {
+      "body1": "O ní ohun-ìní àkóónú tí o ṣẹ̀dá (àwọn ìfìwéránṣẹ́ blog, ọ̀rọ̀ àpérò, àwọn ìdáhùn, ọ̀rọ̀-àlàyé, àkọsílẹ̀, àti ìsọfúnni profáìlì). Nípa fífi àkóónú sílẹ̀, o fún JW Study ní ìwé àṣẹ tí kò ṣe àjèjì, láìsí owó-orí, láti fi àkóónú yẹn hàn nínú Ohun Èlò náà.",
+      "body2": "O gbà láti má fi àkóónú tí ó jẹ́:",
+      "heading": "4. Àkóónú Olùmúlò",
+      "list": {
+        "item1": "Tí ó kún fún ìkórira, ìfìyà jẹ, ìpọ́njú, tàbí ìdánilójú sí ẹnikẹ́ni tàbí ẹgbẹ́ kankan",
+        "item2": "Tí ó hàn ìbálòpọ̀ hàn-ún tàbí pornografíkì ní irú èyíkéyìí",
+        "item3": "Tí ó pa, tí ó ń lo, tàbí tí ó ń mú ìfẹ́ ìbálòpọ̀ wá fún àwọn ọmọkùnrin àti ọmọbìnrin ní ọ̀nà èyíkéyìí",
+        "item4": "Spam, ìròyìn àìmọ́, tàbí àṣìṣe ìmọ̀ọ́mọ̀",
+        "item5": "Tí ó rú ohun-ìní ọpọlọ ẹlòmíràn",
+        "item6": "Tí ó ṣe lódì sí òfin tí ó wúlò",
+        "item7": "Tí ó bú tàbí lílo èdè tí ó ní ẹ̀gbin, tí kò sì dára",
+        "item8": "Ẹ̀kọ́ tàbí àwọn ìkọ́nilẹ́kọ̀ọ́ tí ó tako tàbí tí ó ń ṣàríwísí Watch Tower Bible and Tract Society tàbí Àwọn Ẹlẹ́rìí Jèhófà"
+      }
+    },
+    "section5": {
+      "body1": "Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI jẹ́ olùrànlọ́wọ́ tí AI ń darí, ó wà fún gbogbo àwọn olùmúlò tí a ti forúkọsílẹ̀. Ó ń fa nìkan láti àwọn ìtẹ̀jáde Watch Tower àti àkóónú jw.org/wol.jw.org láti dáhùn àwọn ìbéèrè Bíbélì àti láti ràn lọ́wọ́ pẹ̀lú ìkẹ́kọ̀ọ́ JW.",
+      "body2": "Àkóónú tí AI dá, pẹ̀lú àwọn àpẹẹrẹ blog, ni a pèsè gẹ́gẹ́ bí ibẹ̀rẹ̀, ó sì gbọ́dọ̀ jẹ́ àyẹ̀wò kí a tó tẹ̀jáde. JW Study kò gbà fún ìpé àwọn ìdáhùn AI, ó sì rọ àwọn olùmúlò láti ṣàyẹ̀wò gbogbo àkóónú lórí àwọn ìtẹ̀jáde JW alábọwọ́.",
+      "heading": "5. Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI",
+      "list": {
+        "item1": "A ṣe AI náà láti pèsè ìrànlọ́wọ́ ìkẹ́kọ̀ọ́ tí ó bá àwọn ẹ̀kọ́ JW mu nìkan",
+        "item2": "Àwọn ìbáraẹnisọ̀rọ̀ pẹ̀lú AI ni a ń lò láti ṣe àwọn ìdáhùn nìkan, a kì í pín wọn ní gbangba",
+        "item3": "Má lo AI láti ṣe àkóónú tí ó tako àwọn Òfin wọ̀nyí, pẹ̀lú àkóónú apani, alófin, tàbí ti apẹ̀yìndà",
+        "item4": "Má gbìyànjú láti yí AI padà láti ṣe àkóónú tí ó wà lóde ète rẹ̀"
+      }
+    },
+    "section6": {
+      "body1": "Láti dáàbò bo àṣírí àti ààbò gbogbo àwọn olùmúlò, pàápàá àwọn ọmọkùnrin àti ọmọbìnrin, a fi èèwọ̀ lé èyí pátápátá nínú gbogbo àkóónú olùmúlò, pẹ̀lú àwọn ìfìwéránṣẹ́ àpérò, ìfìwéránṣẹ́ blog, ọ̀rọ̀-àlàyé, ìsọfúnni profáìlì, àti àwọn orúkọ ìfihàn:",
+      "body2": "Àwọn ìdíwọ̀n wọ̀nyí wà láti pa àyíká yìí mọ́ ní ààbò àti ní àdánikan, àti láti dènà lílo Ohun Èlò náà láti pàṣípààrọ̀ ìsọfúnni olùbáraẹnisọ̀rọ̀ tàbí láti darí àwọn olùmúlò sí àwọn pèpéle òde. Àwọn ètò wa máa ń ṣàyẹ̀wò gbogbo àkóónú lójú-ẹsẹ̀ ṣáájú kí a tó fi sílẹ̀, wọn yóò sì dí èyíkéyìí ìfìwéránṣẹ́ tí ó ní ìsọfúnni èèwọ̀ nínú.",
+      "heading": "6. Ìsọfúnni Ti Ara Ẹni & Ìlànà Ìjápọ̀",
+      "list": {
+        "address": {
+          "bold": "Àwọn àdírẹ́sì ti ara",
+          "text": ", àwọn àdírẹ́sì òpópónà, àdírẹ́sì ilé, tàbí àwọn ipò ìpàdé"
+        },
+        "email": {
+          "bold": "Àwọn àdírẹ́sì ímeèlì",
+          "text": ", má pín ti rẹ tàbí ti ẹlòmíràn"
+        },
+        "insecure": {
+          "bold": "Àwọn ìjápọ̀ aláìní ààbò (http://)",
+          "text": ", àwọn ìjápọ̀ ààbò tí ó bẹ̀rẹ̀ pẹ̀lú https:// nìkan ni a yọ̀ǹdà"
+        },
+        "phone": {
+          "bold": "Àwọn nọ́ńbà fóònù",
+          "text": ", pẹ̀lú nọ́ńbà alágbèéká, nọ́ńbà ilé, tàbí nọ́ńbà WhatsApp"
+        },
+        "social": {
+          "bold": "Àwọn ìjápọ̀ tàbí orúkọ àwùjọ",
+          "text": ", àwọn ìjápọ̀ sí tàbí orúkọ @username fún Facebook, Instagram, Twitter/X, TikTok, Snapchat, YouTube, LinkedIn, Telegram, WhatsApp, Discord, tàbí àwọn pèpéle bíi tirẹ̀"
+        }
+      }
+    },
+    "section7": {
+      "body1": "Ààbò àwọn ọmọdé jẹ́ ohun pàtàkì tí kò ní àdéhùn ní JW Study. A ní ìlànà àìfaragbà fún àkóónú tàbí ìwà èyíkéyìí tí ó pa, tí ó ń lo, tàbí tí ó ń mú ìfẹ́ ìbálòpọ̀ wá fún àwọn ọmọkùnrin àti ọmọbìnrin.",
+      "body2": "A fi èèwọ̀ lé àwọn nǹkan wọ̀nyí pátápátá yóò sì yọrí sí ìfòfindè títí láé lójú-ẹsẹ̀:",
+      "body3": {
+        "bold": "A ó ròyìn àwọn ìrúfin sí àwọn aláṣẹ.",
+        "text": " Àkóónú tàbí ìwà èyíkéyìí tí a bá rí pé ó kan ìṣekúṣe ìbálòpọ̀ ọmọdé ni a ó ròyìn lójú-ẹsẹ̀ sí:"
+      },
+      "body4": "A ń tọ́jú gbogbo dátà àkáǹtì, àwọn àdírẹ́sì IP, àkókò, àti àkóónú tó so pọ̀ pẹ̀lú àwọn ìrúfin tí a ti ròyìn yóò sì bá àwọn agbófinró ṣiṣẹ́ pọ̀ pátápátá nínú àwọn ìwádìí wọn.",
+      "body5": {
+        "bold": "Bí o bá rí ìwà tí ó lè pa ọmọ kan léwu lórí pèpéle yìí, jọ̀wọ́ ròyìn rẹ̀ lójú-ẹsẹ̀",
+        "text": " nípa lílo iṣẹ́ ìròyìn tí ó wà lórí ìfìwéránṣẹ́ tàbí profáìlì èyíkéyìí, tàbí kàn sí wa tààrà. Bí o bá gbàgbọ́ pé ọmọ kan wà nínú ewu lójú-ẹsẹ̀, kàn sí àwọn iṣẹ́ pajawiri àdúgbò rẹ ní àkọ́kọ́ (911 ní AMẸ́RÍKÀ)."
+      },
+      "heading": "🛡️ 7. Ìlànà Ààbò Ọmọdé",
+      "list1": {
+        "item1": "Àkóónú Ìbálòpọ̀ Ìṣekúṣe Ọmọdé (CSAM) ti irú èyíkéyìí, àwòrán, ọ̀rọ̀, fídíò, tàbí àwọn ìjápọ̀",
+        "item2": "Ìwà ìmúrasílẹ̀, ìgbìyànjú láti kọ́ àjọṣe àìtọ́ pẹ̀lú àwọn ọmọkùnrin àti ọmọbìnrin láti rí ìgbẹ́kẹ̀lé wọn fún ìṣekúṣe",
+        "item3": "Bíbéèrè ìsọfúnni ti ara ẹni láti ọ̀dọ̀ àwọn ọmọkùnrin àti ọmọbìnrin, pẹ̀lú ọjọ́ orí, ipò, ilé ìwé, tàbí àwọn alaye olùbáraẹnisọ̀rọ̀",
+        "item4": "Àkóónú ìbálòpọ̀ èyíkéyìí tí a darí sí tàbí tí ó kan àwọn ọmọkùnrin àti ọmọbìnrin",
+        "item5": "Ìgbìyànjú láti gbé ìbáraẹnisọ̀rọ̀ pẹ̀lú ọmọkùnrin tàbí ọmọbìnrin lọ sí pèpéle mìíràn fún ète ìṣekúṣe"
+      },
+      "list2": {
+        "item1": {
+          "bold": "Ilé-iṣẹ́ Orílẹ̀-èdè fún Àwọn Ọmọ tó Ti Sọnù & tí a Ti Lò (NCMEC)",
+          "text": " nípasẹ̀ CyberTipline ní CyberTipLine.org, gẹ́gẹ́ bí òfin àpapọ̀ Amẹ́ríkà ṣe béèrè (18 U.S.C. § 2258A)"
+        },
+        "item2": {
+          "bold": "Agbófinró àdúgbò",
+          "text": " àti àwọn aláṣẹ orílẹ̀-èdè tó yẹ ní ìpínlẹ̀ olùmúlò"
+        },
+        "item3": {
+          "bold": "Ìpàdé Ìṣọ́ Íńtánẹ́ẹ̀tì (IWF)",
+          "text": " fún àwọn ọ̀ràn àgbáyé tó kan àwòrán ìṣekúṣe ìbálòpọ̀ ọmọdé"
+        }
+      }
+    },
+    "section8": {
+      "body1": "JW Study jẹ́ pèpéle àwùjọ tí ó dá lórí ẹ̀mí. A béèrè kí gbogbo àwọn olùmúlò máa kópa pẹ̀lú ọ̀wọ̀ àti ní ọ̀nà tí ó bá àwọn ìlànà àwùjọ mu. A kò gba àwọn àríyànjiyàn tí a pinnu láti dín ìgbàgbọ́ kù tàbí láti ṣàìbọ̀wọ̀ fún àwọn ìgbàgbọ́ olùmúlò mìíràn yọ̀ǹdà.",
+      "body2": "Èyí jẹ́ àwùjọ tí a kọ́ lórí ọ̀wọ̀ ọ̀nà méjèèjì àti ìgbàgbọ́ tí a pín. Jọ̀wọ́ jẹ́ kí gbogbo ìjíròrò gbéga, jẹ́ ìkọ́ni, kí ó sì jẹ́ aláìní ìkórira.",
+      "heading": "8. Àwọn Ìpinnu Àwùjọ"
+    },
+    "section9": {
+      "body1": "Àwọn ìrúfin Òfin wọ̀nyí, pẹ̀lú fífi àkóónú èèwọ̀ ránṣẹ́, gbígbìyànjú láti yẹra fún àwọn olùyẹ̀wò, tàbí kíkópa nínú ìwà ìpalára sí àwọn olùmúlò mìíràn, lè yọrí sí:",
+      "body2": "A ní ẹ̀tọ́ láti gbé ìṣe àfikún sókè ní ìpinnu wa nìkan. A kò ní ojúṣe láti pèsè ìkìlọ̀ kí a tó gbé ìṣe.",
+      "heading": "9. Ìfilàgbára & Àwọn Ìfòfindè Àkáǹtì",
+      "list": {
+        "ban": {
+          "bold": "Ìfòfindè títí láé",
+          "text": ", àwọn ìrúfin tó burú jáì tàbí tí a tún ṣe yóò yọrí sí ìfòfindè títí láé láìsí ẹ̀tọ́ àfilọ̀"
+        },
+        "removal": {
+          "bold": "Yíyọ àkóónú kúrò",
+          "text": ", àwọn ìfìwéránṣẹ́, ọ̀rọ̀-àlàyé, tàbí àkóónú profáìlì tí ó rúfin yóò jẹ́ yíyọ kúrò láìsí ìkìlọ̀"
+        },
+        "report": {
+          "bold": "Ìròyìn sí àwọn aláṣẹ",
+          "text": ", àwọn ìrúfin tí ó kan ààbò ọmọdé tàbí àkóónú alófin yóò jẹ́ ròyìn sí àwọn agbófinró àti àwọn ẹ̀ka tó yẹ láìsí ìkìlọ̀ ṣáájú"
+        },
+        "suspension": {
+          "bold": "Ìdáwọ́dúró fún ìgbà díẹ̀",
+          "text": ", a lè dáwọ́ àkáǹtì rẹ dúró nígbà tí a ń ṣàyẹ̀wò"
+        }
+      }
+    },
+    "title": "Àwọn Òfin Iṣẹ́"
   }
 }

@@ -210,6 +210,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
         } else {
           setNav(p);
         }
+        window.dispatchEvent(new Event("nwt:locationchange"));
       }
     }
     navigator.serviceWorker?.addEventListener("message", handler);
@@ -250,6 +251,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
       if (window.location.pathname !== "/") history.pushState(null, "", "/");
       setNav({ page: "home" });
       setHomePanelRequest({ panel: "home", params: {} });
+      window.dispatchEvent(new Event("nwt:locationchange"));
       return;
     }
     if (HOME_PANELS.has(page)) {
@@ -258,11 +260,13 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
       history.pushState(null, "", url);
       setNav({ page: "home" });
       setHomePanelRequest({ panel: toPanelKey(page), params });
+      window.dispatchEvent(new Event("nwt:locationchange"));
       return;
     }
     const path = buildPath(page, params);
     history.pushState(null, "", path);
     setNav({ page, ...params });
+    window.dispatchEvent(new Event("nwt:locationchange"));
   };
 
   // Handle email deep-link params: ?page=X navigates into the app

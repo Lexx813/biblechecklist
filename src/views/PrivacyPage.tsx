@@ -1,14 +1,32 @@
+import { useTranslation } from "react-i18next";
 import { useMeta } from "../hooks/useMeta";
 import "../styles/about.css";
 
+const CheckIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+const DotIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+const ShieldIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+  </svg>
+);
+
 export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, user, onLogout }) {
-  useMeta({ title: "Privacy Policy | JW Study", description: "Read the JW Study privacy policy, how we collect, use, and protect your personal information." });
+  const { t } = useTranslation();
+  useMeta({ title: t("privacy.meta.title"), description: t("privacy.meta.description") });
   return (
     <div className="about-wrap">
 
       {!user && (
-        <div style={{ width: "100%", maxWidth: 720, padding: "16px 24px 0", boxSizing: "border-box" }}>
-          <button className="back-btn" onClick={() => navigate("")}>← Home</button>
+        <div className="w-full px-4 pt-4 sm:px-6 lg:px-8">
+          <button className="back-btn" onClick={() => navigate("")}>{t("privacy.backHome")}</button>
         </div>
       )}
 
@@ -16,155 +34,155 @@ export default function PrivacyPage({ navigate, darkMode, setDarkMode, i18n, use
         <div className="about-hero-glow about-hero-glow--1" />
         <div className="about-hero-glow about-hero-glow--2" />
         <div className="about-hero-inner">
-          <div className="about-hero-badge">Legal</div>
-          <h1 className="about-hero-title">Privacy Policy</h1>
-          <p className="about-hero-sub">Last updated: April 18, 2026</p>
+          <div className="about-hero-badge">{t("privacy.badge")}</div>
+          <h1 className="about-hero-title">{t("privacy.title")}</h1>
+          <p className="about-hero-sub">{t("privacy.lastUpdated")}</p>
         </div>
       </section>
 
-      <div className="about-content" style={{ maxWidth: 720 }}>
+      <div className="about-content w-full px-4 sm:px-6 lg:px-8">
 
         <section className="about-section">
-          <h2 className="about-section-title">1. Overview</h2>
+          <h2 className="about-section-title">{t("privacy.section1.heading")}</h2>
           <p className="about-section-body">
-            JW Study ("we", "us", "our") is committed to protecting your privacy. This Privacy Policy explains what information we collect, how we use it, and your rights regarding that information when you use our App at jwstudy.org.
+            {t("privacy.section1.body1")}
           </p>
           <p className="about-section-body">
-            JW Study is a free service. We do not sell your data, monetize your information, or use it for advertising purposes of any kind.
+            {t("privacy.section1.body2")}
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">2. Information We Collect</h2>
-          <p className="about-section-body"><strong>Account information:</strong> When you register, we collect your email address and any optional display name or profile photo you provide.</p>
-          <p className="about-section-body"><strong>Reading progress:</strong> We store which Bible chapters you have marked as read so your progress syncs across devices.</p>
-          <p className="about-section-body"><strong>User content:</strong> Blog posts, forum threads, replies, comments, notes, and profile information you create are stored and associated with your account.</p>
-          <p className="about-section-body"><strong>AI Study Companion conversations:</strong> Messages you send to the AI Study Companion are transmitted to our AI provider (Anthropic) to generate a response and are not stored permanently on our servers. We log aggregate usage counts (number of AI requests per user) for abuse prevention and service improvement. The content of AI conversations is not stored or shared publicly.</p>
-          <p className="about-section-body"><strong>Content scanning:</strong> Submitted content may be scanned for profanity and for links to apostate or ex-JW sources that conflict with Jehovah's Witness teachings (such links are blocked and not stored). You are responsible for any personal information (email, phone number, social links, etc.) you choose to share in your posts, messages, or profile, do not share information you would not want other members of the community to see.</p>
-          <p className="about-section-body"><strong>Push notification tokens:</strong> If you enable push notifications, we store a device notification token to deliver alerts to your device. You can revoke this at any time through your browser or device settings.</p>
-          <p className="about-section-body"><strong>Usage data:</strong> We use Google Analytics (GA4) and Vercel Analytics to collect anonymized data about how the App is used (pages visited, session duration, device type, general location by country). No personally identifiable information is sent to these analytics services.</p>
-          <p className="about-section-body"><strong>Error monitoring:</strong> We use Sentry to capture application errors and performance issues. Error reports may include browser type, OS, and a stack trace of the error, but do not include the content of your posts or messages.</p>
-          <p className="about-section-body"><strong>Technical data:</strong> Standard server logs including IP address and browser type may be collected by our hosting provider (Vercel) and database provider (Supabase).</p>
+          <h2 className="about-section-title">{t("privacy.section2.heading")}</h2>
+          <p className="about-section-body"><strong>{t("privacy.section2.item1Label")}</strong> {t("privacy.section2.item1Body")}</p>
+          <p className="about-section-body"><strong>{t("privacy.section2.item2Label")}</strong> {t("privacy.section2.item2Body")}</p>
+          <p className="about-section-body"><strong>{t("privacy.section2.item3Label")}</strong> {t("privacy.section2.item3Body")}</p>
+          <p className="about-section-body"><strong>{t("privacy.section2.item4Label")}</strong> {t("privacy.section2.item4Body")}</p>
+          <p className="about-section-body"><strong>{t("privacy.section2.item5Label")}</strong> {t("privacy.section2.item5Body")}</p>
+          <p className="about-section-body"><strong>{t("privacy.section2.item6Label")}</strong> {t("privacy.section2.item6Body")}</p>
+          <p className="about-section-body"><strong>{t("privacy.section2.item7Label")}</strong> {t("privacy.section2.item7Body")}</p>
+          <p className="about-section-body"><strong>{t("privacy.section2.item8Label")}</strong> {t("privacy.section2.item8Body")}</p>
+          <p className="about-section-body"><strong>{t("privacy.section2.item9Label")}</strong> {t("privacy.section2.item9Body")}</p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">3. How We Use Your Information</h2>
+          <h2 className="about-section-title">{t("privacy.section3.heading")}</h2>
           <ul className="about-features" style={{ marginTop: 8 }}>
-            <li className="about-feature"><span className="about-feature-icon">✅</span><div>To provide and maintain the App and your account</div></li>
-            <li className="about-feature"><span className="about-feature-icon">✅</span><div>To sync your reading progress across devices</div></li>
-            <li className="about-feature"><span className="about-feature-icon">✅</span><div>To send transactional emails (email confirmation, password reset)</div></li>
-            <li className="about-feature"><span className="about-feature-icon">✅</span><div>To deliver push notifications you have opted into</div></li>
-            <li className="about-feature"><span className="about-feature-icon">✅</span><div>To display your public profile and content to other users</div></li>
-            <li className="about-feature"><span className="about-feature-icon">✅</span><div>To power the AI Study Companion by passing your messages to our AI provider</div></li>
-            <li className="about-feature"><span className="about-feature-icon">✅</span><div>To improve the App using anonymized analytics and error monitoring</div></li>
-            <li className="about-feature"><span className="about-feature-icon">✅</span><div>To prevent abuse and enforce our community standards</div></li>
-            <li className="about-feature"><span className="about-feature-icon">✅</span><div>To investigate violations and cooperate with law enforcement where required by law</div></li>
+            <li className="about-feature"><span className="about-feature-icon about-feature-icon--ok"><CheckIcon /></span><div>{t("privacy.section3.item1")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon about-feature-icon--ok"><CheckIcon /></span><div>{t("privacy.section3.item2")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon about-feature-icon--ok"><CheckIcon /></span><div>{t("privacy.section3.item3")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon about-feature-icon--ok"><CheckIcon /></span><div>{t("privacy.section3.item4")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon about-feature-icon--ok"><CheckIcon /></span><div>{t("privacy.section3.item5")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon about-feature-icon--ok"><CheckIcon /></span><div>{t("privacy.section3.item6")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon about-feature-icon--ok"><CheckIcon /></span><div>{t("privacy.section3.item7")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon about-feature-icon--ok"><CheckIcon /></span><div>{t("privacy.section3.item8")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon about-feature-icon--ok"><CheckIcon /></span><div>{t("privacy.section3.item9")}</div></li>
           </ul>
           <p className="about-section-body" style={{ marginTop: 16 }}>
-            We do <strong>not</strong> sell your data. We do <strong>not</strong> use your data for advertising. We do <strong>not</strong> share your data with any third party except as described in Section 4.
+            {t("privacy.section3.footer1")} <strong>{t("privacy.section3.footerNot")}</strong> {t("privacy.section3.footer2")} <strong>{t("privacy.section3.footerNot")}</strong> {t("privacy.section3.footer3")} <strong>{t("privacy.section3.footerNot")}</strong> {t("privacy.section3.footer4")}
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">4. Third-Party Services</h2>
-          <p className="about-section-body">We use the following third-party services to operate the App. Each has its own privacy policy governing their data handling:</p>
+          <h2 className="about-section-title">{t("privacy.section4.heading")}</h2>
+          <p className="about-section-body">{t("privacy.section4.intro")}</p>
           <ul className="about-features" style={{ marginTop: 8 }}>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Supabase</strong>, database, authentication, and file storage (supabase.com/privacy)</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Vercel</strong>, hosting, deployment, and edge functions (vercel.com/legal/privacy-policy)</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Anthropic</strong>, AI language model powering the AI Study Companion (anthropic.com/privacy)</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Resend</strong>, transactional email delivery (resend.com/privacy)</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Google Analytics (GA4)</strong>, anonymized usage analytics; no PII is shared (policies.google.com/privacy)</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Vercel Analytics</strong>, anonymized, cookie-free usage analytics</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔧</span><div><strong>Sentry</strong>, application error and performance monitoring (sentry.io/privacy)</div></li>
+            <li className="about-feature"><span className="about-feature-icon"><DotIcon /></span><div><strong>{t("privacy.section4.item1Label")}</strong>{t("privacy.section4.item1Body")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon"><DotIcon /></span><div><strong>{t("privacy.section4.item2Label")}</strong>{t("privacy.section4.item2Body")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon"><DotIcon /></span><div><strong>{t("privacy.section4.item3Label")}</strong>{t("privacy.section4.item3Body")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon"><DotIcon /></span><div><strong>{t("privacy.section4.item4Label")}</strong>{t("privacy.section4.item4Body")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon"><DotIcon /></span><div><strong>{t("privacy.section4.item5Label")}</strong>{t("privacy.section4.item5Body")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon"><DotIcon /></span><div><strong>{t("privacy.section4.item6Label")}</strong>{t("privacy.section4.item6Body")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon"><DotIcon /></span><div><strong>{t("privacy.section4.item7Label")}</strong>{t("privacy.section4.item7Body")}</div></li>
           </ul>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">5. AI Data Handling</h2>
+          <h2 className="about-section-title">{t("privacy.section5.heading")}</h2>
           <p className="about-section-body">
-            The AI Study Companion sends your messages to Anthropic's API to generate responses. Anthropic's data handling practices are governed by their privacy policy. We do not permanently store the content of your AI conversations on our servers. We store only a usage count per user for abuse prevention purposes.
+            {t("privacy.section5.body1")}
           </p>
           <p className="about-section-body">
-            AI-generated blog drafts that you choose to publish become user content subject to the same terms as any other content you create.
+            {t("privacy.section5.body2")}
           </p>
           <p className="about-section-body">
-            <strong>Do not share sensitive personal information in AI conversations.</strong> Treat the AI Study Companion as you would any cloud-based service.
-          </p>
-        </section>
-
-        <section className="about-section">
-          <h2 className="about-section-title">6. Data Retention</h2>
-          <p className="about-section-body">
-            Your data is retained for as long as your account is active. If you delete your account, your personal information and content will be removed from our systems within a reasonable timeframe, except where retention is required by law, including data we are legally required to preserve in connection with reports made to law enforcement or child safety authorities.
+            <strong>{t("privacy.section5.body3Strong")}</strong> {t("privacy.section5.body3Rest")}
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">7. Your Rights</h2>
-          <p className="about-section-body">Depending on your location, you may have the right to:</p>
+          <h2 className="about-section-title">{t("privacy.section6.heading")}</h2>
+          <p className="about-section-body">
+            {t("privacy.section6.body")}
+          </p>
+        </section>
+
+        <section className="about-section">
+          <h2 className="about-section-title">{t("privacy.section7.heading")}</h2>
+          <p className="about-section-body">{t("privacy.section7.intro")}</p>
           <ul className="about-features" style={{ marginTop: 8 }}>
-            <li className="about-feature"><span className="about-feature-icon">📋</span><div>Access the personal data we hold about you</div></li>
-            <li className="about-feature"><span className="about-feature-icon">✏️</span><div>Correct inaccurate data via your profile settings</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🗑️</span><div>Request deletion of your account and data</div></li>
-            <li className="about-feature"><span className="about-feature-icon">📤</span><div>Request a copy of your data</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔔</span><div>Opt out of push notifications at any time through your browser or device settings</div></li>
+            <li className="about-feature"><span className="about-feature-icon about-feature-icon--ok"><ShieldIcon /></span><div>{t("privacy.section7.item1")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon about-feature-icon--ok"><ShieldIcon /></span><div>{t("privacy.section7.item2")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon about-feature-icon--ok"><ShieldIcon /></span><div>{t("privacy.section7.item3")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon about-feature-icon--ok"><ShieldIcon /></span><div>{t("privacy.section7.item4")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon about-feature-icon--ok"><ShieldIcon /></span><div>{t("privacy.section7.item5")}</div></li>
           </ul>
           <p className="about-section-body" style={{ marginTop: 16 }}>
-            To exercise any of these rights, contact us through the App's forum or via jwstudy.org.
+            {t("privacy.section7.footer")}
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">8. Cookies &amp; Local Storage</h2>
+          <h2 className="about-section-title">{t("privacy.section8.heading")}</h2>
           <p className="about-section-body">
-            The App uses browser localStorage to store your theme preference, reading progress cache, and AI chat history for a better experience. Vercel Analytics collects anonymized, cookie-free usage data. Google Analytics uses cookies to measure usage, you can opt out via browser settings or the Google Analytics opt-out browser add-on.
+            {t("privacy.section8.body")}
           </p>
         </section>
 
         <section className="about-section">
           <h2 className="about-section-title" style={{ color: "var(--text-primary)" }}>
-            🛡️ 9. Children's Privacy &amp; Child Safety
+            {t("privacy.section9.heading")}
           </h2>
           <p className="about-section-body">
-            <strong>Age requirement:</strong> This App is intended for users aged 13 and older. Users between 13 and 17 must have a parent or guardian's permission. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has created an account, please contact us immediately so we can remove it.
+            <strong>{t("privacy.section9.ageLabel")}</strong> {t("privacy.section9.ageBody")}
           </p>
           <p className="about-section-body">
-            <strong>Our commitment to child safety:</strong> We take the safety of children on our platform with the utmost seriousness. We actively monitor for and prohibit any content or behavior that could harm, exploit, or sexualize minors. This includes Child Sexual Abuse Material (CSAM), grooming, or any attempt to solicit personal information from minors.
+            <strong>{t("privacy.section9.commitmentLabel")}</strong> {t("privacy.section9.commitmentBody")}
           </p>
           <p className="about-section-body">
-            <strong>Mandatory reporting:</strong> We are legally required, and morally committed, to report any apparent child sexual exploitation material or grooming activity discovered on our platform to the appropriate authorities, including:
+            <strong>{t("privacy.section9.reportingLabel")}</strong> {t("privacy.section9.reportingBody")}
           </p>
           <ul className="about-features" style={{ marginTop: 8 }}>
-            <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>NCMEC CyberTipline</strong> (CyberTipLine.org), as required by U.S. federal law (18 U.S.C. § 2258A)</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>Local law enforcement</strong> in the jurisdiction where the violation occurred</div></li>
-            <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>The Internet Watch Foundation (IWF)</strong> for international cases</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>{t("privacy.section9.item1Label")}</strong> {t("privacy.section9.item1Body")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>{t("privacy.section9.item2Label")}</strong> {t("privacy.section9.item2Body")}</div></li>
+            <li className="about-feature"><span className="about-feature-icon">🔴</span><div><strong>{t("privacy.section9.item3Label")}</strong> {t("privacy.section9.item3Body")}</div></li>
           </ul>
           <p className="about-section-body" style={{ marginTop: 16 }}>
-            When making such reports, we provide all relevant data including account information, IP addresses, timestamps, and content. This data sharing is required by law and is not subject to the privacy protections described elsewhere in this policy.
+            {t("privacy.section9.dataNote")}
           </p>
           <p className="about-section-body">
-            <strong>Parental guidance:</strong> We encourage parents and guardians to review their child's use of this App. If you have concerns about content or interactions your child has encountered on JW Study, please report it using the in-app report function or contact us directly.
-          </p>
-        </section>
-
-        <section className="about-section">
-          <h2 className="about-section-title">10. Law Enforcement Requests</h2>
-          <p className="about-section-body">
-            We may disclose your information to law enforcement, government agencies, or other authorized parties when required by law, court order, or when we believe in good faith that disclosure is necessary to prevent harm, protect the safety of any person, or respond to an emergency.
+            <strong>{t("privacy.section9.parentalLabel")}</strong> {t("privacy.section9.parentalBody")}
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">11. Changes to This Policy</h2>
+          <h2 className="about-section-title">{t("privacy.section10.heading")}</h2>
           <p className="about-section-body">
-            We may update this Privacy Policy from time to time. We will update the "Last updated" date at the top of this page. Continued use of the App after changes are posted constitutes your acceptance of the updated policy.
+            {t("privacy.section10.body")}
           </p>
         </section>
 
         <section className="about-section">
-          <h2 className="about-section-title">12. Contact</h2>
+          <h2 className="about-section-title">{t("privacy.section11.heading")}</h2>
           <p className="about-section-body">
-            If you have any questions or concerns about this Privacy Policy, please reach out via the community forum or through jwstudy.org.
+            {t("privacy.section11.body")}
+          </p>
+        </section>
+
+        <section className="about-section">
+          <h2 className="about-section-title">{t("privacy.section12.heading")}</h2>
+          <p className="about-section-body">
+            {t("privacy.section12.body")}
           </p>
         </section>
 

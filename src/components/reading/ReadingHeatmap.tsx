@@ -30,9 +30,9 @@ interface Props {
 export default function ReadingHeatmap({ data = [], dailyGoal = 3 }: Props) {
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
 
-  const handleMouseEnter = useCallback((e: React.MouseEvent<HTMLDivElement>, cell: HeatmapDay) => {
+  const showTooltip = useCallback((target: HTMLElement, cell: HeatmapDay) => {
     if (!cell) return;
-    const rect = e.currentTarget.getBoundingClientRect();
+    const rect = target.getBoundingClientRect();
     const HALF = 75; // estimated half-width of tooltip
     const GAP = 10;
     const rawX = rect.left + rect.width / 2;
@@ -45,6 +45,14 @@ export default function ReadingHeatmap({ data = [], dailyGoal = 3 }: Props) {
       chapters: cell.chapters,
     });
   }, []);
+
+  const handleMouseEnter = useCallback((e: React.MouseEvent<HTMLDivElement>, cell: HeatmapDay) => {
+    showTooltip(e.currentTarget, cell);
+  }, [showTooltip]);
+
+  const handleFocus = useCallback((e: React.FocusEvent<HTMLDivElement>, cell: HeatmapDay) => {
+    showTooltip(e.currentTarget, cell);
+  }, [showTooltip]);
 
   const handleMouseLeave = useCallback(() => setTooltip(null), []);
 
@@ -75,13 +83,29 @@ export default function ReadingHeatmap({ data = [], dailyGoal = 3 }: Props) {
             <div key={wi} className="heatmap-col">
               {Array(7).fill(null).map((_, di) => {
                 const cell = week[di] ?? null;
+                if (!cell) {
+                  return (
+                    <div
+                      key={di}
+                      className="heatmap-cell"
+                      data-level={di < week.length ? 0 : -1}
+                    />
+                  );
+                }
+                const dateLabel = new Date(cell.date + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+                const ariaLabel = `${cell.chapters} chapter${cell.chapters === 1 ? "" : "s"} on ${dateLabel}`;
                 return (
                   <div
                     key={di}
                     className="heatmap-cell"
-                    data-level={cell ? cell.level : (di < week.length ? 0 : -1)}
-                    onMouseEnter={cell ? e => handleMouseEnter(e, cell) : undefined}
-                    onMouseLeave={cell ? handleMouseLeave : undefined}
+                    data-level={cell.level}
+                    tabIndex={0}
+                    role="img"
+                    aria-label={ariaLabel}
+                    onMouseEnter={e => handleMouseEnter(e, cell)}
+                    onMouseLeave={handleMouseLeave}
+                    onFocus={e => handleFocus(e, cell)}
+                    onBlur={handleMouseLeave}
                   />
                 );
               })}

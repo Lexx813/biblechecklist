@@ -1058,7 +1058,7 @@ function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: ()
           onOpen();
         }
       }}
-      className="group relative block w-full overflow-hidden rounded-md border border-[var(--color-jw-purple-soft)] bg-[#7c3aed] p-5 text-left text-white no-underline shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-jw-gold)] focus-visible:ring-offset-2 cursor-pointer sm:p-6"
+      className="group relative block w-full overflow-hidden rounded-md border border-[var(--violet-50)] bg-[var(--violet-600)] p-5 text-left text-white no-underline shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--violet-600)] focus-visible:ring-offset-2 cursor-pointer sm:p-6"
       aria-label={`${headline}. ${completedCount} of ${LEARN_TOTAL_LESSONS} lessons complete.`}
     >
       <div
@@ -1073,7 +1073,7 @@ function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: ()
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             {isComplete && (
-              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-jw-gold)] text-[var(--color-jw-purple-deep)]">
+              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--violet-600)] text-[var(--violet-900)]">
                 <svg viewBox="0 0 20 20" fill="currentColor" className="h-3 w-3" aria-hidden>
                   <path
                     fillRule="evenodd"
@@ -1087,7 +1087,7 @@ function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: ()
               {eyebrow}
             </p>
           </div>
-          <h3 className="mt-1.5 text-xl font-semibold leading-tight text-white font-[var(--font-fraunces)] sm:text-2xl">
+          <h3 className="mt-1.5 text-xl font-semibold leading-tight text-white sm:text-2xl">
             {headline}
           </h3>
           <p className="mt-1.5 max-w-lg text-sm leading-relaxed text-white/80">
@@ -1105,7 +1105,7 @@ function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: ()
               </div>
               <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-white/15">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-[var(--color-jw-gold)] to-white transition-[width] duration-700 ease-out"
+                  className="h-full rounded-full bg-gradient-to-r from-[var(--violet-600)] to-white transition-[width] duration-700 ease-out"
                   style={{ width: `${pctLabel}%` }}
                 />
               </div>
@@ -1131,7 +1131,7 @@ function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: ()
             </div>
           )}
         </div>
-        <span className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-jw-purple-deep shadow-sm transition-transform duration-200 group-hover:translate-x-0.5 sm:w-auto sm:self-start">
+        <span className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-[var(--violet-900)] shadow-sm transition-transform duration-200 group-hover:translate-x-0.5 sm:w-auto sm:self-start">
           {ctaLabel}
           <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4" aria-hidden="true">
             <path

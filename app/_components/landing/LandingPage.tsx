@@ -187,7 +187,7 @@ export default function LandingPage() {
       <main>
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section className="px-6 pb-16 pt-20 text-center md:pb-16 md:pt-20">
-        <div className="mx-auto flex max-w-[720px] flex-col items-center gap-6">
+        <div className="flex w-full flex-col items-center gap-6">
           <MotionDiv variant="fadeUp" delay={0}>
             <div className="inline-flex items-center rounded-full bg-[var(--lp-badge-bg)] px-3.5 py-[5px] text-xs font-semibold uppercase tracking-wider text-[var(--lp-badge-text)]">
               Free Bible reading tracker

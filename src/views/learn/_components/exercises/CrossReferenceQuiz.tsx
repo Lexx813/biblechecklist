@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { CrossReferenceQuizPayload, ExerciseResult } from "../../content";
 
 interface Props {
@@ -15,6 +16,7 @@ interface Answer {
 }
 
 export default function CrossReferenceQuiz({ lessonId, exerciseId, payload, onComplete }: Props) {
+  const { t } = useTranslation();
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
   const [answers, setAnswers] = useState<Answer[]>([]);
@@ -57,16 +59,16 @@ export default function CrossReferenceQuiz({ lessonId, exerciseId, payload, onCo
   if (finished) {
     const verdict =
       correctCount === total
-        ? "A clean sweep. You know your library."
+        ? t("learn.exercises.crossRef.verdictClean")
         : correctCount >= Math.ceil(total * 0.6)
-        ? "Well done. You've got the instincts."
-        : "A fair start. Revisit the lesson once more, the instincts will come.";
+        ? t("learn.exercises.crossRef.verdictWellDone")
+        : t("learn.exercises.crossRef.verdictFair");
     return (
-      <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-6 sm:p-8 text-center shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
-        <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-jw-purple-light)] dark:text-[#c4b5fd]">
-          Result
+      <div className="rounded-md border border-violet-100 bg-white p-6 sm:p-8 text-center shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
+        <p className="text-xs font-semibold uppercase tracking-wider text-violet-600 dark:text-violet-300">
+          {t("learn.exercises.crossRef.resultLabel")}
         </p>
-        <p className="mt-2 text-4xl font-semibold text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)] dark:text-white">
+        <p className="mt-2 text-4xl font-semibold text-violet-900 dark:text-white">
           {correctCount} / {total}
         </p>
         <p className="mt-3 text-slate-700 dark:text-white/75">{verdict}</p>
@@ -75,27 +77,27 @@ export default function CrossReferenceQuiz({ lessonId, exerciseId, payload, onCo
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-5 sm:p-7 shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
+    <div className="rounded-md border border-violet-100 bg-white p-5 sm:p-7 shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
       <div className="mb-5 flex items-center justify-between text-xs text-slate-500 dark:text-white/55">
-        <span className="font-medium uppercase tracking-wider text-[var(--color-jw-purple-light)] dark:text-[#c4b5fd]">
-          Question {index + 1} / {total}
+        <span className="font-medium uppercase tracking-wider text-violet-600 dark:text-violet-300">
+          {t("learn.exercises.crossRef.questionCounter", { index: index + 1, total })}
         </span>
         <span>
-          Score: {correctCount} / {answers.length}
+          {t("learn.exercises.crossRef.scoreLabel", { correct: correctCount, answered: answers.length })}
         </span>
       </div>
 
-      <p className="mb-5 text-xs text-slate-500 dark:text-white/55">{payload.intro}</p>
+      <p className="mb-5 text-xs text-slate-500 dark:text-white/55">{t(payload.introKey)}</p>
 
-      <p className="mb-6 text-lg leading-relaxed text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)] dark:text-white">
-        {q.scenario}
+      <p className="mb-6 text-lg leading-relaxed text-violet-900 dark:text-white">
+        {t(q.scenarioKey)}
       </p>
 
       <div className="space-y-2.5">
         {q.options.map((opt) => {
           const isSelected = selected === opt.id;
           const isRight = opt.id === q.correctOptionId;
-          let stateClass = "border-slate-200 hover:border-[var(--color-jw-purple-light)] hover:bg-[var(--color-jw-purple-soft)]/40 dark:border-white/10 dark:text-white/85 dark:hover:border-[#c4b5fd] dark:hover:bg-white/5";
+          let stateClass = "border-slate-200 hover:border-violet-300 hover:bg-violet-50/40 dark:border-white/10 dark:text-white/85 dark:hover:border-violet-300 dark:hover:bg-white/5";
           if (answered) {
             if (isSelected && isRight)
               stateClass = "border-emerald-400 bg-emerald-50 text-emerald-900 dark:border-emerald-400/50 dark:bg-emerald-500/15 dark:text-emerald-100";
@@ -113,7 +115,7 @@ export default function CrossReferenceQuiz({ lessonId, exerciseId, payload, onCo
               onClick={() => handleSelect(opt.id)}
               className={`jw-focus-ring-rect w-full cursor-pointer rounded-xl border px-4 py-3 text-left text-sm font-medium transition-colors disabled:cursor-not-allowed ${stateClass}`}
             >
-              {opt.label}
+              {t(opt.labelKey)}
             </button>
           );
         })}
@@ -128,9 +130,9 @@ export default function CrossReferenceQuiz({ lessonId, exerciseId, payload, onCo
           }`}
         >
           <p className="font-semibold">
-            {isCorrect ? "Right." : "Not quite."}
+            {isCorrect ? t("learn.exercises.crossRef.right") : t("learn.exercises.crossRef.notQuite")}
           </p>
-          <p className="mt-1">{q.explanation}</p>
+          <p className="mt-1">{t(q.explanationKey)}</p>
         </div>
       )}
 
@@ -139,9 +141,9 @@ export default function CrossReferenceQuiz({ lessonId, exerciseId, payload, onCo
           type="button"
           disabled={!answered}
           onClick={handleNext}
-          className="jw-focus-ring inline-flex cursor-pointer items-center justify-center rounded-full bg-[var(--color-jw-purple)] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-jw-purple-deep)] disabled:cursor-not-allowed disabled:opacity-40"
+          className="jw-focus-ring inline-flex cursor-pointer items-center justify-center rounded-md bg-violet-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {index + 1 < total ? "Next question" : "See result"}
+          {index + 1 < total ? t("learn.exercises.crossRef.nextQuestion") : t("learn.exercises.crossRef.seeResult")}
         </button>
       </div>
     </div>

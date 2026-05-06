@@ -66,8 +66,8 @@ function planStreak(sortedCompletionDayNumbers) {
 const QUICK_DAY_OPTIONS = [14, 30, 60, 90, 180, 365];
 const QUICK_BOOK_SETS = [
   { label: "Full Bible (66)", indices: Array.from({ length: 66 }, (_, i) => i) },
-  { label: "Old Testament (39)", indices: Array.from({ length: 39 }, (_, i) => i) },
-  { label: "New Testament (27)", indices: Array.from({ length: 27 }, (_, i) => i + 39) },
+  { label: "Hebrew Scriptures (39)", indices: Array.from({ length: 39 }, (_, i) => i) },
+  { label: "Christian Greek Scriptures (27)", indices: Array.from({ length: 27 }, (_, i) => i + 39) },
   { label: "Gospels (4)", indices: [39, 40, 41, 42] },
   { label: "Psalms & Proverbs", indices: [18, 19] },
   { label: "Paul's Letters (13)", indices: Array.from({ length: 13 }, (_, i) => i + 44) },

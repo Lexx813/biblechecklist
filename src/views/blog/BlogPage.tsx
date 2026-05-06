@@ -59,14 +59,16 @@ function authorInitial(post) {
   return (post.profiles?.display_name || post.profiles?.email || "A")[0].toUpperCase();
 }
 
-const RichContent = memo(function RichContent({ text }: { text: string }) {
-  if (!text) return null;
+const RichContent = memo(function RichContent({ text }: { text?: string }) {
+  // Hooks must be called before any conditional return — React's Rules of Hooks.
   const html = useMemo(() => {
-    const h = /<[a-z][\s\S]*>/i.test(text)
-      ? text
-      : marked.parse(text) as string;
+    const src = text ?? "";
+    const h = /<[a-z][\s\S]*>/i.test(src)
+      ? src
+      : marked.parse(src) as string;
     return sanitizeRich(h);
   }, [text]);
+  if (!text) return null;
   return <div className="rich-content" dangerouslySetInnerHTML={{ __html: html }} />;
 });
 
@@ -517,7 +519,15 @@ function RelatedPosts({ currentPost, onSelect, navigate, user }) {
       </h3>
       <div className="blog-related-grid">
         {related.map(post => (
-          <article key={post.id} className="blog-related-card" onClick={() => onSelect(post.slug)}>
+          <article
+            key={post.id}
+            role="button"
+            tabIndex={0}
+            aria-label={post.title}
+            className="blog-related-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-600"
+            onClick={() => onSelect(post.slug)}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onSelect(post.slug); } }}
+          >
             <div className="blog-related-cover">
               <img
                 src={post.cover_url || getFallbackImage(post.id)}
@@ -552,7 +562,14 @@ const PostCard = memo(function PostCard({ post, onSelect, navigate, user, lang }
   }, [post.content]);
 
   return (
-    <article className="blog-card" onClick={() => onSelect(post.slug)}>
+    <article
+      role="button"
+      tabIndex={0}
+      aria-label={displayTitle}
+      className="blog-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-600"
+      onClick={() => onSelect(post.slug)}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onSelect(post.slug); } }}
+    >
       <div className="blog-card-cover">
         <img
           src={post.cover_url || getFallbackImage(post.id)}

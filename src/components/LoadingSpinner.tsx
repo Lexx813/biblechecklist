@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 const baseStyle: React.CSSProperties = {
   display: "flex",
   justifyContent: "center",
@@ -21,9 +23,10 @@ const spinnerStyle: React.CSSProperties = {
 };
 
 export default function LoadingSpinner({ className = "" }: { className?: string }) {
+  const { t } = useTranslation();
   const isFullscreen = className.includes("fullscreen");
   return (
-    <div style={isFullscreen ? fullscreenStyle : baseStyle} role="status" aria-label="Loading">
+    <div style={isFullscreen ? fullscreenStyle : baseStyle} role="status" aria-label={t("a11y.loading")}>
       <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
       <div style={spinnerStyle} />
     </div>

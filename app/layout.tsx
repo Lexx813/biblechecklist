@@ -1,5 +1,4 @@
 import Script from "next/script";
-import { Fraunces } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Providers from "./providers";
 import {
@@ -9,17 +8,6 @@ import {
   WebApplicationSchema,
 } from "@/seo";
 import "./globals.css";
-
-// Fraunces is only used at 600 (font-semibold) and 700 (font-bold), both
-// normal and italic, in src/views/learn/* and HomePage. Trimmed from 8 files
-// (4 weights × 2 styles) to 4 to cut ~250kb from first paint.
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-  variable: "--font-fraunces",
-});
 
 const GA_ID = "G-D57FZ5E47V";
 
@@ -45,7 +33,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning className={fraunces.variable}>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="preload" href="/fonts/plus-jakarta-sans-variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />

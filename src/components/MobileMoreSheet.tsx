@@ -76,7 +76,7 @@ export default function MobileMoreSheet({ open, onClose, navigate, userId, isAdm
   ];
 
   return createPortal(
-    <div className="mobile-more-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-label="More navigation">
+    <div className="mobile-more-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-label={t("mobileMore.dialogLabel")}>
       <div
         ref={sheetRef}
         className="mobile-more-sheet"
@@ -93,7 +93,7 @@ export default function MobileMoreSheet({ open, onClose, navigate, userId, isAdm
               : <span>{(profile?.display_name || "?")[0].toUpperCase()}</span>}
           </span>
           <span className="mobile-more-profile-text">
-            <span className="mobile-more-profile-name">{profile?.display_name || "Profile"}</span>
+            <span className="mobile-more-profile-name">{profile?.display_name || t("nav.profile")}</span>
             <span className="mobile-more-profile-sub">{t("nav.viewProfile", "View profile")}</span>
           </span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -142,20 +142,20 @@ export default function MobileMoreSheet({ open, onClose, navigate, userId, isAdm
 
         {(isAdmin || isModerator) && (
           <div className="mobile-more-section">
-            <div className="mobile-more-section-title">{isAdmin ? "Admin" : "Moderation"}</div>
+            <div className="mobile-more-section-title">{isAdmin ? t("mobileMore.admin") : t("mobileMore.moderation")}</div>
             <div className="mobile-more-grid">
               <button className="mobile-more-item" onClick={() => go("admin")}>
                 <span className="mobile-more-item-icon"><IconShield /></span>
-                <span className="mobile-more-item-label">{isAdmin ? "Admin" : "Moderation"}</span>
+                <span className="mobile-more-item-label">{isAdmin ? t("mobileMore.admin") : t("mobileMore.moderation")}</span>
               </button>
             </div>
           </div>
         )}
 
         <div className="mobile-more-footer">
-          <a href="/privacy">Privacy</a>
+          <a href="/privacy">{t("mobileMore.privacy")}</a>
           <span aria-hidden="true">·</span>
-          <a href="/terms">Terms</a>
+          <a href="/terms">{t("mobileMore.terms")}</a>
           <span aria-hidden="true">·</span>
           <a href="https://www.jw.org" target="_blank" rel="noopener noreferrer">JW.org</a>
         </div>

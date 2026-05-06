@@ -156,7 +156,13 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
                 ? <img src={avatarUrl} className="st-avatar-img" alt="avatar" />
                 : <div className="st-avatar-placeholder">{displayName[0]?.toUpperCase() ?? "?"}</div>
               }
-              {uploadAvatar.isPending && <div className="st-avatar-overlay">⏳</div>}
+              {uploadAvatar.isPending && (
+                <div className="st-avatar-overlay" aria-label={t("settings.uploading")}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ animation: "spin 0.9s linear infinite" }}>
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                  </svg>
+                </div>
+              )}
             </div>
             <div className="st-avatar-info">
               <p className="st-avatar-hint">{t("settings.avatarHint")}</p>
@@ -276,7 +282,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
                   className={`pf-toggle${subscribed ? " pf-toggle--on" : ""}${pushLoading ? " pf-toggle--loading" : ""}`}
                   onClick={subscribed ? unsubscribe : subscribe}
                   disabled={pushLoading || permission === "denied"}
-                  title={pushLoading ? "Working…" : permission === "denied" ? "Notifications blocked in browser settings" : undefined}
+                  title={pushLoading ? t("settings.working", "Working…") : permission === "denied" ? t("settings.notifPermDenied", "Notifications blocked in browser settings") : undefined}
                 >
                   <span className="pf-toggle-thumb" />
                 </button>
@@ -308,11 +314,11 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
 
         {/* ── Privacy ──────────────────────────────────────── */}
         <section className="st-section">
-          <h2 className="st-section-title">Privacy</h2>
+          <h2 className="st-section-title">{t("settings.privacy", "Privacy")}</h2>
           <div className="st-toggle-row">
             <div className="st-toggle-info">
-              <span className="st-toggle-label">Show me as online</span>
-              <span className="st-toggle-desc">When off, you won't appear in the Who's Online list.</span>
+              <span className="st-toggle-label">{t("settings.showOnline", "Show me as online")}</span>
+              <span className="st-toggle-desc">{t("settings.showOnlineDesc", "When off, you won't appear in the Who's Online list.")}</span>
             </div>
             <button
               role="switch"
@@ -368,9 +374,9 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
 
         {/* ── Blocked Users ───────────────────────────────── */}
         <section className="st-section">
-          <h2 className="st-section-title">Privacy, Blocked Users</h2>
+          <h2 className="st-section-title">{t("settings.blockedUsers", "Privacy, Blocked Users")}</h2>
           {blockedUsers.length === 0 ? (
-            <p className="st-danger-desc">You haven't blocked anyone.</p>
+            <p className="st-danger-desc">{t("settings.noBlocked", "You haven't blocked anyone.")}</p>
           ) : (
             blockedUsers.map(u => (
               <div key={u.id} className="st-toggle-row">

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { MeditatePayload, ExerciseResult } from "../../content";
 
 interface Props {
@@ -15,7 +16,8 @@ function fmt(seconds: number): string {
 }
 
 export default function Meditate({ lessonId, exerciseId, payload, onComplete }: Props) {
-  const [responses, setResponses] = useState<string[]>(() => payload.prompts.map(() => ""));
+  const { t } = useTranslation();
+  const [responses, setResponses] = useState<string[]>(() => payload.promptKeys.map(() => ""));
   const [finished, setFinished] = useState(false);
 
   const [timerRunning, setTimerRunning] = useState(false);
@@ -40,7 +42,7 @@ export default function Meditate({ lessonId, exerciseId, payload, onComplete }: 
   }, [timerRunning]);
 
   const filled = responses.filter((r) => r.trim().length > 0).length;
-  const canFinish = filled >= Math.max(1, Math.ceil(payload.prompts.length / 2));
+  const canFinish = filled >= Math.max(1, Math.ceil(payload.promptKeys.length / 2));
 
   function handleFinish() {
     // [SUPABASE HOOK] insert study_course_progress row: lesson_id, exercise_id, response_data=responses
@@ -55,25 +57,25 @@ export default function Meditate({ lessonId, exerciseId, payload, onComplete }: 
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-5 sm:p-7 shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
+    <div className="rounded-md border border-violet-100 bg-white p-5 sm:p-7 shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
       {payload.introVerse && (
-        <div className="mb-6 rounded-xl bg-[var(--color-jw-purple-soft)] p-4 dark:bg-white/5">
-          <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-[var(--color-jw-purple-light)] dark:text-[#c4b5fd]">
+        <div className="mb-6 rounded-md bg-violet-50 p-4 dark:bg-white/5">
+          <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-violet-600 dark:text-violet-300">
             {payload.introVerse.citation}
           </p>
-          <p className="text-lg italic leading-relaxed text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)] dark:text-white">
-            {payload.introVerse.text}
+          <p className="text-lg leading-relaxed text-violet-900 dark:text-white">
+            {t(payload.introVerse.textKey)}
           </p>
         </div>
       )}
 
       {payload.timerSeconds ? (
-        <div className="mb-6 flex items-center justify-between rounded-xl border border-amber-300/40 bg-amber-50 p-4 dark:border-amber-400/30 dark:bg-amber-500/10">
+        <div className="mb-6 flex items-center justify-between rounded-md border border-amber-300/40 bg-amber-50 p-4 dark:border-amber-400/30 dark:bg-amber-500/10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-jw-purple-light)] dark:text-[#c4b5fd]">
-              Optional meditation pause
+            <p className="text-xs font-semibold uppercase tracking-wider text-violet-600 dark:text-violet-300">
+              {t("learn.exercises.meditate.timerLabel")}
             </p>
-            <p className="mt-1 font-mono text-2xl font-semibold text-[var(--color-jw-purple-deep)] dark:text-white">
+            <p className="mt-1 font-mono text-2xl font-semibold text-violet-900 dark:text-white">
               {fmt(remaining)}
             </p>
           </div>
@@ -81,9 +83,9 @@ export default function Meditate({ lessonId, exerciseId, payload, onComplete }: 
             <button
               type="button"
               onClick={() => setTimerRunning((v) => !v)}
-              className="jw-focus-ring cursor-pointer rounded-full border border-[var(--color-jw-purple)] px-4 py-1.5 text-sm font-medium text-[var(--color-jw-purple)] transition-colors hover:bg-[var(--color-jw-purple)] hover:text-white"
+              className="jw-focus-ring cursor-pointer rounded-md border border-violet-600 px-4 py-1.5 text-sm font-medium text-violet-600 transition-colors hover:bg-violet-600 hover:text-white"
             >
-              {timerRunning ? "Pause" : remaining === 0 ? "Restart" : "Begin"}
+              {timerRunning ? t("learn.exercises.meditate.pause") : remaining === 0 ? t("learn.exercises.meditate.restart") : t("learn.exercises.meditate.begin")}
             </button>
             <button
               type="button"
@@ -93,21 +95,21 @@ export default function Meditate({ lessonId, exerciseId, payload, onComplete }: 
               }}
               className="rounded-full border border-slate-300 px-4 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:border-white/15 dark:text-white/75 dark:hover:bg-white/10"
             >
-              Reset
+              {t("learn.exercises.meditate.reset")}
             </button>
           </div>
         </div>
       ) : null}
 
       <ol className="space-y-5">
-        {payload.prompts.map((prompt, i) => (
+        {payload.promptKeys.map((promptKey, i) => (
           <li key={i}>
             <label
               htmlFor={`prompt-${i}`}
               className="mb-2 block text-sm font-medium text-slate-900 leading-relaxed dark:text-white"
             >
-              <span className="mr-2 text-[var(--color-jw-purple-light)] dark:text-[#c4b5fd]">{i + 1}.</span>
-              {prompt}
+              <span className="mr-2 text-violet-600 dark:text-violet-300">{i + 1}.</span>
+              {t(promptKey)}
             </label>
             <textarea
               id={`prompt-${i}`}
@@ -118,8 +120,8 @@ export default function Meditate({ lessonId, exerciseId, payload, onComplete }: 
                 setResponses(next);
               }}
               rows={3}
-              placeholder="Take your time…"
-              className="w-full resize-y rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-relaxed text-slate-900 placeholder:text-slate-400 focus:border-[var(--color-jw-purple-light)] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-jw-purple-light)]/30 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40 dark:focus:bg-white/10"
+              placeholder={t("learn.exercises.meditate.placeholder")}
+              className="w-full resize-y rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-relaxed text-slate-900 placeholder:text-slate-400 focus:border-violet-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-violet-600/30 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40 dark:focus:bg-white/10"
             />
           </li>
         ))}
@@ -130,16 +132,15 @@ export default function Meditate({ lessonId, exerciseId, payload, onComplete }: 
           type="button"
           disabled={!canFinish}
           onClick={handleFinish}
-          className="jw-focus-ring inline-flex cursor-pointer items-center justify-center rounded-full bg-[var(--color-jw-purple)] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-jw-purple-deep)] disabled:cursor-not-allowed disabled:opacity-40"
+          className="jw-focus-ring inline-flex cursor-pointer items-center justify-center rounded-md bg-violet-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {finished ? "Saved" : "I've sat with it"}
+          {finished ? t("learn.exercises.meditate.saved") : t("learn.exercises.meditate.finishButton")}
         </button>
       </div>
 
       {finished && (
         <p className="mt-4 rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-900 dark:bg-emerald-500/15 dark:text-emerald-100">
-          There's no grade here. What you just did, slowing down, asking honest questions -
-          is the practice. Keep it up.
+          {t("learn.exercises.meditate.finishedMessage")}
         </p>
       )}
     </div>

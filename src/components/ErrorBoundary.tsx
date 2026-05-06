@@ -1,4 +1,6 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 
 const errorWrapStyle = {
   minHeight: "100dvh",
@@ -44,22 +46,23 @@ interface ErrorPageProps {
 
 // ── Error page UI ──────────────────────────────────────────────
 export function ErrorPage({ error, onReset }: ErrorPageProps) {
+  const { t } = useTranslation();
   return (
     <div style={errorWrapStyle}>
       <div style={errorContentStyle}>
         <div style={errorCodeStyle}>500</div>
-        <h1 style={errorTitleStyle}>Something went wrong</h1>
+        <h1 style={errorTitleStyle}>{t("errorPage.title")}</h1>
         <p style={errorSubStyle}>
-          {error?.message || "An unexpected error occurred. Please try again."}
+          {error?.message || t("errorPage.fallback")}
         </p>
         <div style={errorActionsStyle}>
           {onReset && (
             <button style={btnStyle} onClick={onReset}>
-              ↩ Try Again
+              {t("errorPage.tryAgain")}
             </button>
           )}
           <button style={btnGhostStyle} onClick={() => window.location.reload()}>
-            ↺ Reload Page
+            {t("errorPage.reload")}
           </button>
         </div>
       </div>
@@ -73,17 +76,16 @@ interface NotFoundPageProps {
 
 // ── 404 / Not Found page ───────────────────────────────────────
 export function NotFoundPage({ onBack }: NotFoundPageProps) {
+  const { t } = useTranslation();
   return (
     <div style={errorWrapStyle}>
       <div style={errorContentStyle}>
         <div style={errorCodeStyle}>404</div>
-        <h1 style={errorTitleStyle}>Page not found</h1>
-        <p style={errorSubStyle}>
-          The page you&apos;re looking for doesn&apos;t exist or has been moved.
-        </p>
+        <h1 style={errorTitleStyle}>{t("notFound.title")}</h1>
+        <p style={errorSubStyle}>{t("notFound.bodyShort")}</p>
         <div style={errorActionsStyle}>
           <button style={btnStyle} onClick={onBack || (() => (window.location.href = "/"))}>
-            ← Go Home
+            {t("notFound.goHomeArrow")}
           </button>
         </div>
       </div>
@@ -154,7 +156,7 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Erro
         // Exceeded retries, show a targeted message
         return (
           <ErrorPage
-            error={{ message: "The app was updated. Please reload to get the latest version." }}
+            error={{ message: i18n.t("errorPage.appUpdated") }}
             onReset={null}
           />
         );

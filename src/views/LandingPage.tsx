@@ -155,7 +155,11 @@ const CheckIcon = () => (
   </svg>
 );
 
-const FLAGS: Record<string, string> = { en: "\u{1F1FA}\u{1F1F8}", es: "\u{1F1EA}\u{1F1F8}", pt: "\u{1F1E7}\u{1F1F7}", tl: "\u{1F1F5}\u{1F1ED}", fr: "\u{1F1EB}\u{1F1F7}", zh: "\u{1F1E8}\u{1F1F3}", ja: "\u{1F1EF}\u{1F1F5}", ko: "\u{1F1F0}\u{1F1F7}" };
+const FLAGS: Record<string, string> = {
+  en: "\u{1F1FA}\u{1F1F8}", es: "\u{1F1EA}\u{1F1F8}", pt: "\u{1F1E7}\u{1F1F7}", tl: "\u{1F1F5}\u{1F1ED}",
+  fr: "\u{1F1EB}\u{1F1F7}", zh: "\u{1F1E8}\u{1F1F3}", ja: "\u{1F1EF}\u{1F1F5}", ko: "\u{1F1F0}\u{1F1F7}",
+  yo: "\u{1F1F3}\u{1F1EC}", sw: "\u{1F1F0}\u{1F1EA}", ha: "\u{1F1F3}\u{1F1EA}", ar: "\u{1F1EF}\u{1F1F4}",
+};
 
 /* ── Main Component ──────────────────────────────────────────────── */
 export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () => void; i18n?: any }) {
@@ -258,7 +262,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
       <main>
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section className="px-6 pb-16 pt-20 text-center md:pb-16 md:pt-20">
-        <div className="mx-auto flex max-w-[720px] flex-col items-center gap-6">
+        <div className="flex w-full flex-col items-center gap-6">
           <div className="inline-flex items-center rounded-full bg-[var(--lp-badge-bg)] px-3.5 py-[5px] text-xs font-semibold uppercase tracking-wider text-[var(--lp-badge-text)]">
             {t("landing.heroBadge")}
           </div>
@@ -317,8 +321,8 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
                   <span className="lp-mock-appbar-title">Bible Tracker</span>
                   <div className="lp-mock-tabs">
                     <span className="lp-mock-tab lp-mock-tab--active">All</span>
-                    <span className="lp-mock-tab">OT</span>
-                    <span className="lp-mock-tab">NT</span>
+                    <span className="lp-mock-tab">Hebrew</span>
+                    <span className="lp-mock-tab">Greek</span>
                   </div>
                 </div>
                 <div className="lp-mock-book-grid">

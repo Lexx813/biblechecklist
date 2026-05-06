@@ -122,7 +122,7 @@ export default function ReadingHistory({ user, onBack, navigate, darkMode, setDa
                       {t("history.readChapters", { count: row.chapters_read })}
                     </span>
                     <span className="history-entry-badge">
-                      {row.chapters_read >= 5 ? "🔥 " : row.chapters_read >= 3 ? "⭐ " : ""}
+                      {row.chapters_read >= 5 && <span className="history-entry-badge-mark" aria-hidden="true" />}
                       {t("history.chBadge", { count: row.chapters_read })}
                     </span>
                   </div>

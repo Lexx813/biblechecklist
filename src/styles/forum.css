@@ -108,12 +108,8 @@
   box-shadow: var(--shadow-sm);
 }
 .forum-cat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  background: var(--hover-bg);
   border-color: rgba(124,58,237,0.2);
-}
-.forum-cat-card:active {
-  transform: translateY(-1px);
 }
 
 .forum-cat-icon { font-size: 28px; flex-shrink: 0; width: 44px; text-align: center; }
@@ -125,7 +121,7 @@
 .forum-cat-stats { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .forum-cat-stat { font-size: 12px; font-weight: 700; color: var(--text-secondary); }
 .forum-cat-arrow { font-size: 20px; color: var(--text-muted); transition: transform var(--dur-fast); }
-.forum-cat-card:hover .forum-cat-arrow { transform: translateX(3px); color: var(--teal); }
+.forum-cat-card:hover .forum-cat-arrow { color: var(--teal); }
 
 /* ── Thread list ─────────────────────────────────────────────── */
 .forum-list-header {
@@ -440,10 +436,10 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   cursor: pointer;
-  transition: transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-base) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
   box-shadow: var(--shadow-sm);
 }
-.forum-row:hover { transform: translateX(4px); box-shadow: var(--shadow-md); border-color: var(--teal); }
+.forum-row:hover { background: var(--hover-bg); border-color: var(--teal); }
 /* Pinned thread: subtle violet-tinted bg + slightly heavier border instead of
    a side-stripe (per design rules; side-stripes >1px are banned). The
    leading 📌 icon in JSX already conveys the state visually. */

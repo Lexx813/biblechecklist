@@ -1245,13 +1245,17 @@ main:has(.msg-layout) {
   flex: 1;
   border: none;
   background: none;
-  font-size: 13.5px;
+  font-size: 16px; /* prevent iOS zoom on focus across all mobile sizes */
   font-family: inherit;
   color: var(--text-primary);
   outline: none;
   resize: none;
   min-width: 0;
   line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .msg-input { font-size: 13.5px; } /* desktop can use the smaller, denser size */
 }
 
 .msg-input::placeholder { color: var(--text-muted); }
@@ -1644,7 +1648,7 @@ main:has(.msg-layout) {
 .msg-settings-save:hover:not(:disabled) { opacity: 0.9; }
 .msg-settings-save:disabled { opacity: 0.6; cursor: not-allowed; }
 
-.msg-action-btn--active { background: rgba(255,200,0,0.15); color: goldenrod; }
+.msg-action-btn--active { background: rgba(245,158,11,0.15); color: var(--gold); }
 
 /* ── Rich toolbar ────────────────────────────────────────────────────────── */
 
@@ -1822,6 +1826,94 @@ main:has(.msg-layout) {
 .msg-plan-card-sub { font-size: 10px; color: var(--teal); margin-top: 2px; }
 
 [data-theme="dark"] .msg-plan-card { box-shadow: none; }
+
+/* ── Trivia invite card (in-thread widget) ──────────────────────────────── */
+
+.fc-trivia-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  min-width: 240px;
+  max-width: 280px;
+}
+
+.fc-trivia-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: var(--violet-600);
+}
+
+.fc-trivia-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.fc-trivia-card-host {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+}
+
+.fc-trivia-card-host strong { color: var(--text-primary); font-weight: 700; }
+
+.fc-trivia-card-code-wrap { margin-bottom: 10px; }
+
+.fc-trivia-card-code-label {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+
+.fc-trivia-card-code {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--violet-600);
+  letter-spacing: 0.18em;
+}
+
+.fc-trivia-card-settings {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: 0 0 12px;
+}
+
+.fc-trivia-card-spacer { height: 36px; }
+
+.fc-trivia-card-expired {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 8px 0;
+}
+
+.fc-trivia-card-cta {
+  width: 100%;
+  padding: 9px 0;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--violet-600);
+  color: var(--card-bg);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.fc-trivia-card-cta:hover { background: var(--violet-700); }
 
 /* ── Modals (image warning, verse/plan pickers) ──────────────────────────── */
 

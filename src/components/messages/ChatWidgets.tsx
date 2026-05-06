@@ -120,7 +120,11 @@ export function FCImageWarningModal({ file, onConfirm, onCancel }: {
   return (
     <div className="fc-modal-overlay fc-img-warn-overlay" onClick={onCancel}>
       <div className="fc-modal fc-img-warn-modal" role="dialog" aria-modal="true" aria-label={t("messages.imageUploadWarning")} onClick={e => e.stopPropagation()}>
-        <div className="fc-img-warn-icon">⚠️</div>
+        <div className="fc-img-warn-icon" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
         <h3 className="fc-img-warn-title">{t("messages.beforeYouShare")}</h3>
         <p className="fc-img-warn-body">
           {t("messages.imageGuidelines")}
@@ -144,6 +148,7 @@ export function FCImageWarningModal({ file, onConfirm, onCancel }: {
 // ── Verse picker ──────────────────────────────────────────────────────────────
 
 export function VersePicker({ onSend, onClose }: { onSend: (data: Record<string, unknown>) => void; onClose: () => void }) {
+  const { t } = useTranslation();
   const [bookIdx, setBookIdx] = useState(0);
   const [chapter, setChapter] = useState(1);
   const [verse, setVerse] = useState(1);
@@ -151,32 +156,32 @@ export function VersePicker({ onSend, onClose }: { onSend: (data: Record<string,
   const book = BOOKS[bookIdx];
   return (
     <div className="fc-modal-overlay" onClick={onClose}>
-      <div className="fc-modal" role="dialog" aria-modal="true" aria-label="Share a Bible verse" onClick={e => e.stopPropagation()}>
+      <div className="fc-modal" role="dialog" aria-modal="true" aria-label={t("messages.chatWidgets.shareVerseAria")} onClick={e => e.stopPropagation()}>
         <div className="fc-modal-header">
-          <span>📖 Share a Bible Verse</span>
-          <button className="fc-modal-close" onClick={onClose} aria-label="Close">
+          <span>{t("messages.chatWidgets.shareVerseTitle")}</span>
+          <button className="fc-modal-close" onClick={onClose} aria-label={t("common.close")}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
         <div className="fc-modal-body">
-          <label className="fc-modal-label">Book</label>
+          <label className="fc-modal-label">{t("messages.chatWidgets.book")}</label>
           <select className="fc-modal-select" value={bookIdx} onChange={e => { setBookIdx(+e.target.value); setChapter(1); setVerse(1); }}>
             {BOOKS.map((b, i) => <option key={i} value={i}>{b.name}</option>)}
           </select>
           <div className="fc-modal-row">
             <div className="fc-modal-field">
-              <label className="fc-modal-label">Chapter</label>
+              <label className="fc-modal-label">{t("messages.chatWidgets.chapter")}</label>
               <select className="fc-modal-select" value={chapter} onChange={e => { setChapter(+e.target.value); setVerse(1); }}>
                 {Array.from({ length: book.chapters }, (_, i) => i + 1).map(c => <option key={c} value={c}>{c}</option>)}
               </select>
             </div>
             <div className="fc-modal-field">
-              <label className="fc-modal-label">Verse</label>
-              <input className="fc-modal-input" type="number" inputMode="numeric" min={1} max={200} value={verse} onChange={e => setVerse(+e.target.value)} aria-label="Verse number" />
+              <label className="fc-modal-label">{t("messages.chatWidgets.verse")}</label>
+              <input className="fc-modal-input" type="number" inputMode="numeric" min={1} max={200} value={verse} onChange={e => setVerse(+e.target.value)} aria-label={t("messages.chatWidgets.verseNumber")} />
             </div>
           </div>
-          <label className="fc-modal-label">Note (optional)</label>
-          <input className="fc-modal-input" placeholder="Add a note…" value={note} onChange={e => setNote(e.target.value)} maxLength={200} aria-label="Add a note" />
+          <label className="fc-modal-label">{t("messages.chatWidgets.noteOptional")}</label>
+          <input className="fc-modal-input" placeholder={t("messages.chatWidgets.addNotePlaceholder")} value={note} onChange={e => setNote(e.target.value)} maxLength={200} aria-label={t("messages.chatWidgets.addNote")} />
         </div>
         <div className="fc-modal-footer">
           <button className="fc-modal-btn fc-modal-btn--primary" onClick={() => {
@@ -191,7 +196,7 @@ export function VersePicker({ onSend, onClose }: { onSend: (data: Record<string,
             });
             onClose();
           }}>
-            Share Verse
+            {t("messages.chatWidgets.shareVerseBtn")}
           </button>
         </div>
       </div>
@@ -202,19 +207,20 @@ export function VersePicker({ onSend, onClose }: { onSend: (data: Record<string,
 // ── Reading plan picker ───────────────────────────────────────────────────────
 
 export function PlanPicker({ onSend, onClose }: { onSend: (data: Record<string, unknown>) => void; onClose: () => void }) {
+  const { t } = useTranslation();
   const { data: plans = [] } = useMyPlans();
   return (
     <div className="fc-modal-overlay" onClick={onClose}>
-      <div className="fc-modal" role="dialog" aria-modal="true" aria-label="Share a reading plan" onClick={e => e.stopPropagation()}>
+      <div className="fc-modal" role="dialog" aria-modal="true" aria-label={t("messages.chatWidgets.sharePlanAria")} onClick={e => e.stopPropagation()}>
         <div className="fc-modal-header">
-          <span>📅 Share a Reading Plan</span>
-          <button className="fc-modal-close" onClick={onClose} aria-label="Close">
+          <span>{t("messages.chatWidgets.sharePlanTitle")}</span>
+          <button className="fc-modal-close" onClick={onClose} aria-label={t("common.close")}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
         <div className="fc-modal-body">
           {plans.length === 0 ? (
-            <p className="fc-modal-empty">You have no active reading plans.</p>
+            <p className="fc-modal-empty">{t("messages.chatWidgets.noActivePlans")}</p>
           ) : (
             plans.map(plan => (
               <button key={plan.id} className="fc-plan-pick-item" onClick={() => {
@@ -259,15 +265,16 @@ export function ConvSettingsPanel({ convId, onClose, accentColor, onAccentChange
     onClose();
   }
 
+  const { t } = useTranslation();
   return (
     <div className="fc-settings-panel">
       <div className="fc-settings-header">
-        <span>⚙ Chat Settings</span>
-        <button className="fc-modal-close" onClick={onClose} aria-label="Close">✕</button>
+        <span>{t("messages.chatWidgets.chatSettings")}</span>
+        <button className="fc-modal-close" onClick={onClose} aria-label={t("common.close")}>✕</button>
       </div>
       <div className="fc-settings-body">
         <div className="fc-settings-section">
-          <span className="fc-settings-label">🎨 Theme Color</span>
+          <span className="fc-settings-label">{t("messages.chatWidgets.themeColor")}</span>
           <div className="fc-theme-swatches">
             {THEME_COLORS.map(tc => (
               <button
@@ -281,7 +288,7 @@ export function ConvSettingsPanel({ convId, onClose, accentColor, onAccentChange
           </div>
         </div>
         <div className="fc-settings-section">
-          <span className="fc-settings-label">⏱ Disappearing Messages</span>
+          <span className="fc-settings-label">{t("messages.chatWidgets.disappearingMessages")}</span>
           <div className="fc-disappear-opts">
             {DISAPPEAR_OPTIONS.map(opt => (
               <button
@@ -295,7 +302,7 @@ export function ConvSettingsPanel({ convId, onClose, accentColor, onAccentChange
           </div>
         </div>
         <button className="fc-settings-save" onClick={save} disabled={saveSettings.isPending}>
-          {saveSettings.isPending ? "Saving…" : "Save"}
+          {saveSettings.isPending ? t("common.saving") : t("common.save")}
         </button>
       </div>
     </div>
@@ -319,7 +326,7 @@ export function StarredPanel({ convId, userId, onClose }: {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
         <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="goldenrod" stroke="goldenrod" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f59e0b" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           {t("messages.starred")}
         </span>
       </div>
@@ -403,6 +410,7 @@ export function SearchPanel({ convId, onClose }: { convId: string; onClose: () =
 // ── Push notification prompt ──────────────────────────────────────────────────
 
 export function PushPrompt({ onDismiss }: { onDismiss: () => void }) {
+  const { t } = useTranslation();
   const { supported, permission, subscribed, subscribe } = usePushNotifications();
   if (!supported || subscribed) return null;
   if (permission !== "default" && permission !== "denied") return null;
@@ -411,13 +419,13 @@ export function PushPrompt({ onDismiss }: { onDismiss: () => void }) {
       <span className="fc-push-prompt-icon">🔔</span>
       <span className="fc-push-prompt-text">
         {permission === "denied"
-          ? "Notifications blocked. Enable in browser settings."
-          : "Get notified of new messages"}
+          ? t("messages.chatWidgets.notificationsBlocked")
+          : t("messages.chatWidgets.getNotified")}
       </span>
       {permission !== "denied" && (
-        <button className="fc-push-btn" onClick={async () => { await subscribe(); onDismiss(); }}>Enable</button>
+        <button className="fc-push-btn" onClick={async () => { await subscribe(); onDismiss(); }}>{t("messages.enableNotifications")}</button>
       )}
-      <button className="fc-push-dismiss" onClick={onDismiss} aria-label="Dismiss">
+      <button className="fc-push-dismiss" onClick={onDismiss} aria-label={t("common.dismiss")}>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
@@ -427,6 +435,7 @@ export function PushPrompt({ onDismiss }: { onDismiss: () => void }) {
 // ── Rich message cards ────────────────────────────────────────────────────────
 
 export function FCVerseCard({ metadata, isMine }: { metadata: Record<string, unknown> | null; isMine: boolean }) {
+  const { t } = useTranslation();
   if (!metadata) return null;
   return (
     <div className={`fc-verse-card${isMine ? " fc-verse-card--mine" : ""}`}>
@@ -436,20 +445,21 @@ export function FCVerseCard({ metadata, isMine }: { metadata: Record<string, unk
       </div>
       {metadata.note && <div className="fc-verse-card-note">{metadata.note as string}</div>}
       <a href={metadata.url as string} target="_blank" rel="noopener noreferrer" className="fc-verse-card-link">
-        Read on WOL ↗
+        {t("messages.chatWidgets.readOnWol")}
       </a>
     </div>
   );
 }
 
 export function FCImageCard({ content, metadata }: { content: string | null; metadata: Record<string, unknown> | null }) {
+  const { t } = useTranslation();
   const url = (metadata?.url as string) || content;
   const [loaded, setLoaded] = useState(false);
   return (
     <div className="fc-image-card">
       <img
         src={safeUrl(url)}
-        alt={(metadata?.filename as string) || "Image"}
+        alt={(metadata?.filename as string) || t("common.image")}
         className={`fc-image-thumb${loaded ? " fc-image-thumb--loaded" : ""}`}
         onLoad={() => setLoaded(true)}
         onClick={() => url && window.open(safeUrl(url), "_blank")}
@@ -459,6 +469,7 @@ export function FCImageCard({ content, metadata }: { content: string | null; met
 }
 
 export function FCPlanCard({ metadata, isMine }: { metadata: Record<string, unknown> | null; isMine: boolean }) {
+  const { t } = useTranslation();
   if (!metadata) return null;
   const friendlyTitle = getTemplate(metadata.templateKey as string)?.name || (metadata.title as string) || (metadata.templateKey as string);
   return (
@@ -468,7 +479,7 @@ export function FCPlanCard({ metadata, isMine }: { metadata: Record<string, unkn
       </div>
       <div className="fc-plan-card-body">
         <div className="fc-plan-card-title">{friendlyTitle}</div>
-        <div className="fc-plan-card-sub">Reading Plan Invitation</div>
+        <div className="fc-plan-card-sub">{t("messages.chatWidgets.readingPlanInvitation")}</div>
       </div>
     </div>
   );

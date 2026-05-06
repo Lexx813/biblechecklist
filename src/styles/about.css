@@ -209,7 +209,19 @@
   font-size: 20px;
   flex-shrink: 0;
   line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-top: 2px;
+  color: var(--text-muted);
 }
+.about-feature-icon svg { width: 16px; height: 16px; }
+.about-feature-icon--ok { color: #059669; }
+[data-theme="dark"] .about-feature-icon--ok { color: #34d399; }
+.about-feature-icon--ban { color: #dc2626; }
+[data-theme="dark"] .about-feature-icon--ban { color: #f87171; }
 
 /* ── Creator card ─────────────────────────────────────────────────── */
 .about-section--creator {

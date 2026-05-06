@@ -95,7 +95,12 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, naviga
       <ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} isOwner={isOwner} />
 
       {/* Tab content */}
-      <div className="flex flex-col gap-4 px-4 pb-12 pt-4 sm:px-6 lg:px-8">
+      <div
+        id="profile-tab-panel"
+        role="tabpanel"
+        aria-labelledby={`profile-tab-${activeTab}`}
+        className="flex flex-col gap-4 px-4 pb-12 pt-4 sm:px-6 lg:px-8"
+      >
         {activeTab === "posts" && !isViewedUserBlocked && (
           <PostsTab profileId={profileId} isOwner={isOwner} userId={user?.id} navigate={navigate} />
         )}

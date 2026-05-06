@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { QuestionLadderPayload, ExerciseResult } from "../../content";
 
 interface Props {
@@ -8,15 +9,15 @@ interface Props {
   onComplete: (result: ExerciseResult) => void;
 }
 
-const rungLabels: Record<string, string> = {
-  who: "Who",
-  what: "What",
-  when_where: "When / Where",
-  why: "Why",
-  how: "How it applies",
-};
-
 export default function QuestionLadder({ lessonId, exerciseId, payload, onComplete }: Props) {
+  const { t } = useTranslation();
+  const rungLabels: Record<string, string> = {
+    who: t("learn.exercises.questionLadder.rungs.who"),
+    what: t("learn.exercises.questionLadder.rungs.what"),
+    when_where: t("learn.exercises.questionLadder.rungs.whenWhere"),
+    why: t("learn.exercises.questionLadder.rungs.why"),
+    how: t("learn.exercises.questionLadder.rungs.how"),
+  };
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [revealed, setRevealed] = useState<Record<string, boolean>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -37,13 +38,13 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--color-jw-purple-soft)] bg-white p-5 sm:p-7 shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
-      <div className="mb-6 rounded-xl bg-[var(--color-jw-purple-soft)] p-4 dark:bg-white/5">
-        <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-[var(--color-jw-purple-light)] dark:text-[#c4b5fd]">
+    <div className="rounded-md border border-violet-100 bg-white p-5 sm:p-7 shadow-sm dark:border-white/10 dark:bg-[#1a1033]">
+      <div className="mb-6 rounded-md bg-violet-50 p-4 dark:bg-white/5">
+        <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-violet-600 dark:text-violet-300">
           {payload.verseCitation}
         </p>
-        <p className="text-lg italic leading-relaxed text-[var(--color-jw-purple-deep)] font-[var(--font-fraunces)] dark:text-white">
-          {payload.verseText}
+        <p className="text-lg leading-relaxed text-violet-900 dark:text-white">
+          {t(payload.verseTextKey)}
         </p>
       </div>
 
@@ -58,8 +59,8 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
                 <div
                   className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm font-semibold transition ${
                     isFilled
-                      ? "bg-[var(--color-jw-purple)] text-white"
-                      : "bg-[var(--color-jw-purple-soft)] text-[var(--color-jw-purple)]"
+                      ? "bg-violet-600 text-white"
+                      : "bg-violet-50 text-violet-600"
                   }`}
                   aria-hidden
                 >
@@ -70,8 +71,8 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
                     htmlFor={`rung-${rung.key}`}
                     className="mb-1 block text-sm font-semibold text-slate-900 dark:text-white"
                   >
-                    <span className="text-[var(--color-jw-purple)] dark:text-[#c4b5fd]">{rungLabels[rung.key]}</span>{" "}
-                   , {rung.prompt}
+                    <span className="text-violet-600 dark:text-violet-300">{rungLabels[rung.key]}</span>{" "}
+                    {t(rung.promptKey)}
                   </label>
                   <textarea
                     id={`rung-${rung.key}`}
@@ -80,8 +81,8 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
                       setAnswers((prev) => ({ ...prev, [rung.key]: e.target.value }))
                     }
                     rows={2}
-                    placeholder="Type your answer…"
-                    className="w-full resize-y rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-relaxed text-slate-900 placeholder:text-slate-400 focus:border-[var(--color-jw-purple-light)] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-jw-purple-light)]/30 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40 dark:focus:bg-white/10"
+                    placeholder={t("learn.exercises.questionLadder.placeholder")}
+                    className="w-full resize-y rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-relaxed text-slate-900 placeholder:text-slate-400 focus:border-violet-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-violet-600/30 dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-white/40 dark:focus:bg-white/10"
                   />
                   <div className="mt-2 flex items-center justify-between">
                     <button
@@ -89,10 +90,10 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
                       onClick={() =>
                         setRevealed((prev) => ({ ...prev, [rung.key]: !isRevealed }))
                       }
-                      className={`jw-focus-ring group inline-flex cursor-pointer items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium transition-colors ${
+                      className={`jw-focus-ring group inline-flex cursor-pointer items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
                         isRevealed
-                          ? "bg-jw-purple-soft text-jw-purple-deep hover:bg-jw-purple-soft/80"
-                          : "text-jw-purple hover:bg-jw-purple-soft/60"
+                          ? "bg-violet-50 text-violet-900 hover:bg-violet-50/80"
+                          : "text-violet-600 hover:bg-violet-50/60"
                       }`}
                     >
                       <svg
@@ -108,13 +109,13 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
                           clipRule="evenodd"
                         />
                       </svg>
-                      {isRevealed ? "Hide hint" : "Need a hint?"}
+                      {isRevealed ? t("learn.exercises.questionLadder.hideHint") : t("learn.exercises.questionLadder.needHint")}
                     </button>
                   </div>
                   {isRevealed && (
                     <p className="mt-2 rounded-md border border-amber-300/40 bg-amber-50 px-3 py-2 text-sm text-slate-700 dark:border-amber-400/30 dark:bg-amber-500/10 dark:text-amber-100/90">
-                      <span className="font-medium text-[var(--color-jw-purple-deep)] dark:text-amber-200">Hint:</span>{" "}
-                      {rung.hint}
+                      <span className="font-medium text-violet-900 dark:text-amber-200">{t("learn.exercises.questionLadder.hintLabel")}</span>{" "}
+                      {t(rung.hintKey)}
                     </p>
                   )}
                 </div>
@@ -126,22 +127,21 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-slate-500 dark:text-white/55">
-          {filledCount} of {payload.rungs.length} rungs answered
+          {t("learn.exercises.questionLadder.rungsAnswered", { filled: filledCount, total: payload.rungs.length })}
         </p>
         <button
           type="button"
           disabled={!canComplete}
           onClick={handleComplete}
-          className="jw-focus-ring inline-flex cursor-pointer items-center justify-center rounded-full bg-[var(--color-jw-purple)] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-jw-purple-deep)] disabled:cursor-not-allowed disabled:opacity-40"
+          className="jw-focus-ring inline-flex cursor-pointer items-center justify-center rounded-md bg-violet-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {submitted ? "Saved" : "I've climbed the ladder"}
+          {submitted ? t("learn.exercises.questionLadder.saved") : t("learn.exercises.questionLadder.completeButton")}
         </button>
       </div>
 
       {submitted && (
         <p className="mt-4 rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-900 dark:bg-emerald-500/15 dark:text-emerald-100">
-          Good work. Take a breath. The questions you just asked are the questions a careful
-          student keeps asking for the rest of their life.
+          {t("learn.exercises.questionLadder.completedMessage")}
         </p>
       )}
     </div>

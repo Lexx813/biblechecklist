@@ -2,20 +2,22 @@ interface Props {
   value: number; // 0..1
   label?: string;
   size?: "sm" | "md";
-  tone?: "purple" | "gold";
+  tone?: "violet" | "gold";
 }
 
-export default function ProgressBar({ value, label, size = "md", tone = "gold" }: Props) {
+export default function ProgressBar({ value, label, size = "md", tone = "violet" }: Props) {
   const pct = Math.max(0, Math.min(1, value)) * 100;
   const height = size === "sm" ? "h-1.5" : "h-2";
   const inProgress = pct > 0 && pct < 100;
+  // Gold reserved for achievement contexts only (per DESIGN.md). Default tone
+  // is violet; the gold tone is kept available for streak/badge surfaces only.
   const fillBg =
     tone === "gold"
-      ? "bg-linear-to-r from-[#e0c078] via-[var(--color-jw-gold)] to-[#b88a3e]"
-      : "bg-linear-to-r from-[var(--color-jw-purple-light)] via-[var(--color-jw-purple)] to-[#5b21b6]";
+      ? "bg-linear-to-r from-[#fcd34d] via-[var(--color-gold)] to-[#b45309]"
+      : "bg-linear-to-r from-[var(--violet-400)] via-[var(--violet-600)] to-[var(--violet-800)]";
   const glow =
     tone === "gold"
-      ? "shadow-[0_0_12px_rgba(201,169,97,0.45)]"
+      ? "shadow-[0_0_12px_rgba(245,158,11,0.45)]"
       : "shadow-[0_0_12px_rgba(124,58,237,0.45)]";
 
   return (

@@ -101,7 +101,7 @@ export default function VerseModal({
         } as React.CSSProperties}
         role="dialog"
         aria-modal="true"
-        aria-label={`${bookName} Chapter ${chapter}`}
+        aria-label={t("verseModal.dialogLabel", { book: bookName, chapter })}
       >
         <div className="vm-caret vm-caret--top" />
 
@@ -110,10 +110,10 @@ export default function VerseModal({
         {/* Header */}
         <div className="vm-header">
           <div className="vm-header-left">
-            <div className="vm-badge">Ch {chapter}</div>
+            <div className="vm-badge">{t("verseModal.chapterShort", { chapter })}</div>
             <div className="vm-title-group">
               <div className="vm-book">{bookName}</div>
-              <div className="vm-sub">{readCount} / {totalVerses} verses</div>
+              <div className="vm-sub">{t("verseModal.versesProgress", { read: readCount, total: totalVerses })}</div>
             </div>
           </div>
           <div style={{ display: "flex", gap: 4 }}>
@@ -130,7 +130,7 @@ export default function VerseModal({
                 </svg>
               </button>
             )}
-            <button className="vm-close" onClick={onClose} aria-label="Close">
+            <button className="vm-close" onClick={onClose} aria-label={t("a11y.close")}>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M18 6L6 18M6 6l12 12"/>
               </svg>
