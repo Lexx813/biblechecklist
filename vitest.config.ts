@@ -12,6 +12,7 @@ export default defineConfig({
   test: {
     include: [
       "src/**/*.{test,spec}.{ts,tsx}",
+      "app/**/*.{test,spec}.{ts,tsx}",
       "scripts/**/*.{test,spec}.{mjs,ts}",
     ],
     exclude: ["node_modules", ".claude", ".next"],

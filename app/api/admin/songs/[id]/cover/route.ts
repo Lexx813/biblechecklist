@@ -11,12 +11,16 @@ export const maxDuration = 60;
 
 import { authorizeAdmin, jsonResponse, SERVICE_HEADERS, SUPABASE } from "../../_authorize";
 
+// SVG intentionally excluded — the song-covers bucket is public and served
+// from *.supabase.co (outside our CSP), so an admin uploading a malicious
+// SVG with embedded <script> would execute it on direct view. Repo-committed
+// SVG covers in /public/covers/ are fine because Next images opt them through
+// a CSP-sandboxed pipeline (see next.config.js images.contentSecurityPolicy).
 const ALLOWED: Record<string, string> = {
   "image/jpeg": "jpg",
   "image/png": "png",
   "image/webp": "webp",
   "image/gif": "gif",
-  "image/svg+xml": "svg",
 };
 const MAX_BYTES = 5 * 1024 * 1024;
 

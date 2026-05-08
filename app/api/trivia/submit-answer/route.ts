@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { withApiHandler } from "../../../../src/lib/apiError";
 import { resolveAuthedUserId, getServiceClient } from "../_auth";
 
-export async function POST(req: NextRequest) {
+export const POST = withApiHandler(async (req: NextRequest) => {
   const supabase = getServiceClient();
   const authedUserId = await resolveAuthedUserId(req);
   const { room_id, player_id, answer_index } = await req.json();
@@ -99,4 +100,4 @@ export async function POST(req: NextRequest) {
     team_b_score: r.team_b_score,
     game_over,
   });
-}
+}, { route: "trivia.submit-answer.POST" });

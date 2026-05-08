@@ -212,6 +212,29 @@ const SONGS = [
     ],
   },
   {
+    slug: "jehovah-is-my-shepherd",
+    title: "Jehovah Is My Shepherd",
+    title_es: null,
+    file: "Jehovah Is My Shepherd",
+    duration_seconds: 240,
+    primary_scripture_ref: "Psalm 23:1",
+    primary_scripture_text:
+      "Jehovah is my Shepherd. I will lack nothing.",
+    primary_scripture_text_es: null,
+    theme: "trust",
+    description:
+      "A gospel ballad rooted in Psalm 23 — Jehovah as the Shepherd who restores the soul, leads through the valley of the shadow, and whose loyal love pursues the worshiper every day. The verses widen out into Psalm 19's heavens telling of Jehovah's glory and the law that is sweeter than honey, and the bridge draws on Psalm 103 — the God who forgives every error, heals every disease, and shows a father's mercy. The final chorus lifts into Psalm 148's call for all the angels and all creation to praise Jehovah's holy name.",
+    description_es: null,
+    cover_image_url: null,
+    jw_org_links: [
+      { url: "https://www.jw.org/en/library/bible/nwt/books/psalms/23/", anchor: "Read Psalm 23, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/psalms/103/", anchor: "Read Psalm 103, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/psalms/19/", anchor: "Read Psalm 19, New World Translation" },
+      { url: "https://www.jw.org/en/library/books/draw-close/", anchor: "Draw Close to Jehovah" },
+      { url: "https://hub.jw.org/request-visit", anchor: "Request a visit from Jehovah's Witnesses" },
+    ],
+  },
+  {
     slug: "comforter",
     title: "Comforter",
     title_es: null,

@@ -8,12 +8,50 @@
  *   VAPID_MAILTO            — e.g. mailto:admin@jwstudy.org
  *   SUPABASE_SERVICE_ROLE_KEY — service role key (bypasses RLS)
  *   NEXT_PUBLIC_SUPABASE_URL — Supabase project URL
+ *   PUSH_WEBHOOK_SECRET      — shared secret in `x-webhook-secret` header
  */
 
 import webpush from "web-push";
 
-// Strip surrounding quotes and whitespace — Vercel sometimes stores values with extra quotes
-function cleanEnv(val) { return (val ?? "").trim().replace(/^["']|["']$/g, ""); }
+// Vercel's classic Node serverless function shape — req has .body parsed by
+// the runtime, res is a Node ServerResponse with Express-like helpers.
+type VercelReq = {
+  method?: string;
+  headers: Record<string, string | string[] | undefined>;
+  body?: unknown;
+};
+type VercelRes = {
+  status: (code: number) => VercelRes;
+  end: (body?: string) => void;
+};
+
+interface ParticipantRow { user_id: string }
+interface ProfileRow { display_name?: string | null }
+interface PushSubRow {
+  endpoint: string;
+  p256dh: string;
+  auth: string;
+  user_id: string;
+}
+interface WebhookBody {
+  type?: string;
+  table?: string;
+  record?: {
+    conversation_id?: string;
+    sender_id?: string;
+    content?: string;
+  };
+}
+
+interface WebPushError extends Error {
+  statusCode?: number;
+  body?: string;
+}
+
+// Strip surrounding quotes and whitespace — Vercel sometimes stores values with extra quotes.
+function cleanEnv(val: string | undefined): string {
+  return (val ?? "").trim().replace(/^["']|["']$/g, "");
+}
 
 const VAPID_PUBLIC   = cleanEnv(process.env.VAPID_PUBLIC_KEY);
 const VAPID_PRIVATE  = cleanEnv(process.env.VAPID_PRIVATE_KEY);
@@ -29,7 +67,7 @@ if (VAPID_PUBLIC && VAPID_PRIVATE) {
 
 // ── Supabase REST helper (service role — bypasses RLS) ──────────────────────
 
-async function sbGet(path) {
+async function sbGet<T>(path: string): Promise<T[]> {
   const url = `${SUPABASE_URL}/rest/v1${path}`;
   const res = await fetch(url, {
     headers: {
@@ -42,10 +80,10 @@ async function sbGet(path) {
     console.error("[push-notify] sbGet failed:", res.status, url, text.slice(0, 200));
     return [];
   }
-  return res.json();
+  return (await res.json()) as T[];
 }
 
-async function sbDelete(path) {
+async function sbDelete(path: string): Promise<void> {
   await fetch(`${SUPABASE_URL}/rest/v1${path}`, {
     method: "DELETE",
     headers: {
@@ -55,31 +93,41 @@ async function sbDelete(path) {
   });
 }
 
+function headerValue(headers: VercelReq["headers"], name: string): string | undefined {
+  const v = headers[name];
+  if (Array.isArray(v)) return v[0];
+  return v;
+}
+
 // ── Handler ──────────────────────────────────────────────────────────────────
 
-export default async function handler(req, res) {
+export default async function handler(req: VercelReq, res: VercelRes): Promise<void> {
   if (req.method !== "POST") {
-    return res.status(405).end("Method Not Allowed");
+    res.status(405).end("Method Not Allowed");
+    return;
   }
 
   // Validate webhook secret — fail closed if not configured
   const secret = (process.env.PUSH_WEBHOOK_SECRET ?? "").trim();
   if (!secret) {
     console.error("[push-notify] PUSH_WEBHOOK_SECRET is not configured");
-    return res.status(503).end("Server misconfigured");
+    res.status(503).end("Server misconfigured");
+    return;
   }
-  if (req.headers["x-webhook-secret"] !== secret) {
-    return res.status(401).end("Unauthorized");
+  if (headerValue(req.headers, "x-webhook-secret") !== secret) {
+    res.status(401).end("Unauthorized");
+    return;
   }
 
-  const body = req.body ?? {};
+  const body = (req.body ?? {}) as WebhookBody;
   const { type, record, table } = body;
 
   console.log("[push-notify] webhook received — type:", type, "table:", table, "record keys:", Object.keys(record ?? {}));
 
   if (type !== "INSERT" || !record?.conversation_id || !record?.sender_id) {
     console.log("[push-notify] skipping — not an INSERT with conversation_id+sender_id");
-    return res.status(200).end("OK");
+    res.status(200).end("OK");
+    return;
   }
 
   // Skip encrypted content preview — show generic body
@@ -90,33 +138,35 @@ export default async function handler(req, res) {
 
   try {
     // Get other participant(s) in this conversation
-    const participants = await sbGet(
+    const participants = await sbGet<ParticipantRow>(
       `/conversation_participants?conversation_id=eq.${record.conversation_id}&user_id=neq.${record.sender_id}&select=user_id`
     );
     console.log("[push-notify] participants found:", participants.length, participants);
 
-    if (!Array.isArray(participants) || participants.length === 0) {
+    if (participants.length === 0) {
       console.log("[push-notify] no other participants, skipping");
-      return res.status(200).end("OK");
+      res.status(200).end("OK");
+      return;
     }
 
     // Get sender's display name
-    const senderRows = await sbGet(
+    const senderRows = await sbGet<ProfileRow>(
       `/profiles?id=eq.${record.sender_id}&select=display_name`
     );
-    const senderName = senderRows?.[0]?.display_name ?? "Someone";
+    const senderName = senderRows[0]?.display_name ?? "Someone";
     console.log("[push-notify] sender:", senderName);
 
     // Get push subscriptions for each recipient
-    const recipientIds = participants.map(p => p.user_id).join(",");
-    const subs = await sbGet(
+    const recipientIds = participants.map((p) => p.user_id).join(",");
+    const subs = await sbGet<PushSubRow>(
       `/push_subscriptions?user_id=in.(${recipientIds})&select=endpoint,p256dh,auth,user_id`
     );
     console.log("[push-notify] subscriptions found:", subs.length, subs.map(s => ({ user_id: s.user_id, ep: s.endpoint?.slice(0, 40) })));
 
-    if (!Array.isArray(subs) || subs.length === 0) {
+    if (subs.length === 0) {
       console.log("[push-notify] no push subscriptions for recipients");
-      return res.status(200).end("OK");
+      res.status(200).end("OK");
+      return;
     }
 
     const recipientPayloads = participants.map((p) => ({
@@ -144,24 +194,25 @@ export default async function handler(req, res) {
           console.log("[push-notify] sent OK to", sub.endpoint?.slice(0, 40), "status:", result.statusCode);
           return "ok";
         } catch (err) {
-          console.error("[push-notify] sendNotification failed:", err.statusCode, err.body, sub.endpoint?.slice(0, 40));
-          // 410 Gone = subscription expired/unsubscribed — remove it
-          // 410/404 = expired; 401 = VAPID key mismatch — all mean remove
-          if (err.statusCode === 410 || err.statusCode === 404 || err.statusCode === 401) {
+          const e = err as WebPushError;
+          console.error("[push-notify] sendNotification failed:", e.statusCode, e.body, sub.endpoint?.slice(0, 40));
+          // 410 Gone = subscription expired/unsubscribed — remove it.
+          // 410/404 = expired; 401 = VAPID key mismatch — all mean remove.
+          if (e.statusCode === 410 || e.statusCode === 404 || e.statusCode === 401) {
             await sbDelete(
               `/push_subscriptions?endpoint=eq.${encodeURIComponent(sub.endpoint)}`
             );
-            console.log("[push-notify] removed stale/invalid subscription, status:", err.statusCode);
+            console.log("[push-notify] removed stale/invalid subscription, status:", e.statusCode);
           }
-          return `err-${err.statusCode}`;
+          return `err-${e.statusCode}`;
         }
       })
     );
 
-    console.log("[push-notify] results:", results.map(r => r.value ?? r.reason));
-    return res.status(200).end("OK");
+    console.log("[push-notify] results:", results.map((r) => r.status === "fulfilled" ? r.value : r.reason));
+    res.status(200).end("OK");
   } catch (err) {
     console.error("[push-notify] unexpected error:", err);
-    return res.status(500).end("Internal Server Error");
+    res.status(500).end("Internal Server Error");
   }
 }

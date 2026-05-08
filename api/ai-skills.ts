@@ -1,5 +1,5 @@
 /**
- * Vercel Edge Function — AI Bible Study Skills
+ * Vercel Serverless Function (Node.js) — AI Bible Study Skills
  * POST /api/ai-skills
  * Body: { skill: string, ...context }
  * Auth: Bearer <supabase-access-token>
@@ -27,10 +27,21 @@ const SUPABASE_ANON = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
 const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY ?? "";
 const APP_ORIGIN    = (process.env.NEXT_PUBLIC_APP_URL ?? "https://jwstudy.org").replace(/\/$/, "");
 
+type SkillKey =
+  | "prayer"
+  | "enhance_note"
+  | "character"
+  | "memorize"
+  | "forum_post"
+  | "reading_summary"
+  | "cross_reference"
+  | "watchtower"
+  | "talk_prep";
+
+type SkillContext = Record<string, string | undefined>;
+
 // Shared base injected before every skill prompt so the combined system text
 // reliably exceeds the 1024-token minimum required for prompt caching.
-// This block is identical across all skill calls, so Anthropic can serve it
-// from cache after the first request — saving ~90 % on those input tokens.
 const SHARED_BASE = `You are a Bible study assistant for Jehovah's Witnesses. \
 All responses must align strictly with Watch Tower Society teachings and the \
 New World Translation (NWT) of the Holy Scriptures. \
@@ -67,7 +78,7 @@ Fetch the most relevant URL first, then use its content in your response.
 
 `;
 
-const SYSTEM_PROMPTS = {
+const SYSTEM_PROMPTS: Record<SkillKey, string> = {
   prayer: `You are a compassionate Bible-based prayer assistant for Jehovah's Witnesses. \
 Given a situation or concern, compose a heartfelt, sincere prayer grounded in scriptural principles \
 from the New World Translation. The prayer should be addressed to Jehovah God, draw on relevant \
@@ -138,7 +149,7 @@ suggestions for difficult names or terms, and a brief intro sentence to orient t
 Flag any theocratic terms (Jehovah, Kingdom, congregation) for natural emphasis.`,
 };
 
-const USER_MESSAGES = {
+const USER_MESSAGES: Record<SkillKey, (ctx: SkillContext) => string> = {
   prayer: ({ situation, scriptures }) =>
     `My situation: ${situation}${scriptures ? `\n\nScriptures I have in mind: ${scriptures}` : ""}`,
 
@@ -167,7 +178,7 @@ const USER_MESSAGES = {
     `Talk type: ${talkType}\nTheme: ${theme}${scriptures ? `\nKey scriptures: ${scriptures}` : ""}${audience ? `\nAudience note: ${audience}` : ""}`,
 };
 
-const MAX_LENGTHS = {
+const MAX_LENGTHS: Record<string, number> = {
   situation: 600, scriptures: 200, note: 1000, passage: 400,
   character: 100, verse: 300, reference: 50, topic: 200, draft: 600,
   book: 50, chapters: 50,
@@ -175,8 +186,8 @@ const MAX_LENGTHS = {
   talkType: 50, theme: 200, audience: 200,
 };
 
-function truncate(val, key) {
-  if (!val) return val;
+function truncate(val: unknown, key: string): string | undefined {
+  if (val == null || val === "") return undefined;
   const max = MAX_LENGTHS[key] ?? 300;
   return String(val).slice(0, max);
 }
@@ -196,9 +207,9 @@ const FETCH_TOOL = {
     },
     required: ["url"],
   },
-};
+} as const;
 
-async function fetchJwPage(url) {
+async function fetchJwPage(url: string): Promise<string> {
   try {
     const parsed = new URL(url);
     if (!["www.jw.org", "wol.jw.org", "jw.org"].includes(parsed.hostname)) {
@@ -214,7 +225,6 @@ async function fetchJwPage(url) {
     });
     if (!res.ok) return `Error: HTTP ${res.status} from ${url}`;
     const html = await res.text();
-    // Strip scripts, styles, nav, footer; collapse whitespace
     const text = html
       .replace(/<script[\s\S]*?<\/script>/gi, "")
       .replace(/<style[\s\S]*?<\/style>/gi, "")
@@ -230,20 +240,21 @@ async function fetchJwPage(url) {
       .slice(0, 6000);
     return text || "No readable content found at that URL.";
   } catch (e) {
-    return `Fetch error: ${e.message}`;
+    const msg = e instanceof Error ? e.message : String(e);
+    return `Fetch error: ${msg}`;
   }
 }
 
 // ── SSE helpers ───────────────────────────────────────────────────────────────
 
-const SSE_HEADERS = {
+const SSE_HEADERS: Record<string, string> = {
   "Content-Type": "text/event-stream",
   "Cache-Control": "no-cache",
   "X-Accel-Buffering": "no",
   "Access-Control-Allow-Origin": APP_ORIGIN,
 };
 
-function textToSseStream(text) {
+function textToSseStream(text: string): ReadableStream<Uint8Array> {
   const encoder = new TextEncoder();
   return new ReadableStream({
     start(controller) {
@@ -254,9 +265,18 @@ function textToSseStream(text) {
   });
 }
 
+interface AnthropicTextBlock { type: "text"; text: string }
+interface AnthropicToolUseBlock { type: "tool_use"; id: string; name: string; input: { url?: string } }
+type AnthropicContentBlock = AnthropicTextBlock | AnthropicToolUseBlock | { type: string; [k: string]: unknown };
+
+interface AnthropicResponse {
+  stop_reason: string;
+  content: AnthropicContentBlock[];
+}
+
 // ── Main handler ──────────────────────────────────────────────────────────────
 
-export default async function handler(req) {
+export default async function handler(req: Request): Promise<Response> {
   if (req.method === "OPTIONS") {
     return new Response(null, {
       headers: {
@@ -277,7 +297,7 @@ export default async function handler(req) {
     headers: { Authorization: auth, apikey: SUPABASE_ANON },
   });
   if (!userRes.ok) return new Response("Unauthorized", { status: 401 });
-  const { id: userId } = await userRes.json();
+  const { id: userId } = (await userRes.json()) as { id: string };
 
   // Rate limit before any LLM call.
   const rl = await rateLimit("aiSkills", userId);
@@ -291,25 +311,30 @@ export default async function handler(req) {
   }
 
   // ── Parse + validate ──────────────────────────────────────────────────────
-  let body;
-  try { body = await req.json(); } catch { return new Response("Bad Request", { status: 400 }); }
+  let body: { skill?: string; [k: string]: unknown };
+  try {
+    body = (await req.json()) as { skill?: string; [k: string]: unknown };
+  } catch {
+    return new Response("Bad Request", { status: 400 });
+  }
 
   const { skill, ...raw } = body;
-  const systemPrompt = SYSTEM_PROMPTS[skill];
-  const buildMessage  = USER_MESSAGES[skill];
-  if (!systemPrompt || !buildMessage) {
+  if (typeof skill !== "string" || !(skill in SYSTEM_PROMPTS)) {
     return new Response(JSON.stringify({ error: `Unknown skill: ${skill}` }), {
       status: 400, headers: { "Content-Type": "application/json" },
     });
   }
+  const skillKey = skill as SkillKey;
+  const systemPrompt = SYSTEM_PROMPTS[skillKey];
+  const buildMessage = USER_MESSAGES[skillKey];
 
-  const ctx = {};
+  const ctx: SkillContext = {};
   for (const [k, v] of Object.entries(raw)) ctx[k] = truncate(v, k);
   const userMessage = buildMessage(ctx);
   if (!userMessage?.trim()) return new Response("Missing required context", { status: 400 });
 
   const systemBlock = [{ type: "text", text: SHARED_BASE + systemPrompt, cache_control: { type: "ephemeral" } }];
-  const CLAUDE_HEADERS = {
+  const CLAUDE_HEADERS: Record<string, string> = {
     "Content-Type": "application/json",
     "x-api-key": ANTHROPIC_KEY,
     "anthropic-version": "2023-06-01",
@@ -337,22 +362,22 @@ export default async function handler(req) {
     return new Response("AI service temporarily unavailable", { status: 502 });
   }
 
-  const p1 = await phase1.json();
+  const p1 = (await phase1.json()) as AnthropicResponse;
 
   // ── No tool use — return text immediately as SSE ───────────────────────────
   if (p1.stop_reason !== "tool_use") {
-    const text = p1.content?.find(b => b.type === "text")?.text ?? "";
-    return new Response(textToSseStream(text), { headers: SSE_HEADERS });
+    const textBlock = p1.content.find((b): b is AnthropicTextBlock => b.type === "text");
+    return new Response(textToSseStream(textBlock?.text ?? ""), { headers: SSE_HEADERS });
   }
 
   // ── Tool use — execute all fetches in parallel ────────────────────────────
-  const toolUseBlocks = p1.content.filter(b => b.type === "tool_use");
+  const toolUseBlocks = p1.content.filter((b): b is AnthropicToolUseBlock => b.type === "tool_use");
   const fetchResults = await Promise.all(
-    toolUseBlocks.map(b => fetchJwPage(b.input?.url ?? ""))
+    toolUseBlocks.map((b) => fetchJwPage(b.input?.url ?? ""))
   );
 
   const toolResultContent = toolUseBlocks.map((b, i) => ({
-    type: "tool_result",
+    type: "tool_result" as const,
     tool_use_id: b.id,
     content: fetchResults[i],
   }));

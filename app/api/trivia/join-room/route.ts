@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { withApiHandler } from "../../../../src/lib/apiError";
 import { resolveAuthedUserId, getServiceClient } from "../_auth";
 
 const SAFE_HTTPS_URL = /^https:\/\/[^\s<>"'`\\]+$/i;
 
-export async function POST(req: NextRequest) {
+export const POST = withApiHandler(async (req: NextRequest) => {
   const supabase = getServiceClient();
   const authedUserId = await resolveAuthedUserId(req);
   const body = await req.json();
@@ -74,4 +75,4 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json({ room, player });
-}
+}, { route: "trivia.join-room.POST" });

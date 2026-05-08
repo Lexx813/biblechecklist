@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { withApiHandler } from "../../../../src/lib/apiError";
 import { resolveAuthedUserId, getServiceClient } from "../_auth";
 
-export async function POST(req: NextRequest) {
+export const POST = withApiHandler(async (req: NextRequest) => {
   const supabase = getServiceClient();
   const authedUserId = await resolveAuthedUserId(req);
   const { room_id } = await req.json();
@@ -51,4 +52,4 @@ export async function POST(req: NextRequest) {
     .in("status", ["lobby", "playing"]);
 
   return NextResponse.json({ ok: true });
-}
+}, { route: "trivia.close-room.POST" });

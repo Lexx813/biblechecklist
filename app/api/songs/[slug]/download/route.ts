@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import { resolveAuthedUserId } from "../../../trivia/_auth";
 import { getSignedDownloadUrl } from "../../../../../src/lib/songs/signedAudio";
+import { withApiHandler } from "../../../../../src/lib/apiError";
 
 /**
  * Auth-gated download endpoint. Returns a signed Storage URL only when the
@@ -30,10 +31,10 @@ function safeFilename(title: string, slug: string): string {
   return `${cleaned || slug}.mp3`;
 }
 
-export async function GET(
+export const GET = withApiHandler(async (
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
-) {
+) => {
   const userId = await resolveAuthedUserId(req);
   if (!userId) {
     return NextResponse.json({ error: "sign_in_required" }, { status: 401 });
@@ -60,12 +61,19 @@ export async function GET(
     return NextResponse.json({ error: "signing_failed" }, { status: 500 });
   }
 
-  // Track the download event server-side (post-auth) — never trust a client claim
-  await supabaseAdmin.from("song_plays").insert({
-    song_id: song.id,
-    event_type: "download",
-    source: req.headers.get("referer") ? "site" : "direct",
-  });
+  // Track the download event server-side (post-auth) — never trust a client claim.
+  // We do not fail the response if telemetry write fails — analytics should
+  // never block a download. Errors land in the server log.
+  try {
+    await supabaseAdmin.from("song_plays").insert({
+      song_id: song.id,
+      event_type: "download",
+      source: req.headers.get("referer") ? "site" : "direct",
+    });
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn("[songs.download] song_plays insert failed (non-fatal):", err);
+  }
 
   return NextResponse.json({ url, filename });
-}
+}, { route: "songs.download.GET" });

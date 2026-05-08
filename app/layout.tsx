@@ -69,8 +69,12 @@ export default function RootLayout({ children }) {
         <WebSiteSchema />
       </head>
       <body>
-        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
-        <Script id="ga4-init" strategy="afterInteractive">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA_ID}',{send_page_view:true})`}</Script>
+        {/* lazyOnload: GA4 + GTM run after window.load instead of post-hydration.
+            Saves ~70KB from the critical path on slow networks; analytics still
+            fire on every page since the gtag('js',new Date()) init runs on first
+            execution and `config` triggers the initial pageview. */}
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="lazyOnload" />
+        <Script id="ga4-init" strategy="lazyOnload">{`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA_ID}',{send_page_view:true})`}</Script>
         <Providers>{children}</Providers>
         <SpeedInsights />
       </body>

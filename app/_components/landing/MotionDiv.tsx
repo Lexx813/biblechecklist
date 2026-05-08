@@ -1,14 +1,8 @@
 "use client";
-import { useEffect, useState, type ComponentType, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useSaveData } from "../../../src/hooks/useSaveData";
 
 type Variant = "fadeUp" | "slideLeft" | "slideRight" | "fadeIn";
-
-const VARIANTS: Record<Variant, { hidden: object; visible: object }> = {
-  fadeUp:     { hidden: { opacity: 0, y: 36 },   visible: { opacity: 1, y: 0 } },
-  slideLeft:  { hidden: { opacity: 0, x: -56 },  visible: { opacity: 1, x: 0 } },
-  slideRight: { hidden: { opacity: 0, x: 56 },   visible: { opacity: 1, x: 0 } },
-  fadeIn:     { hidden: { opacity: 0 },           visible: { opacity: 1 } },
-};
 
 interface Props {
   variant?: Variant;
@@ -19,8 +13,22 @@ interface Props {
   children: ReactNode;
 }
 
-// Lazy-loads motion/react after first paint so it's off the critical JS path.
-// Renders a plain div until motion is ready, content is always visible on SSR/FCP.
+const HIDDEN_TRANSFORM: Record<Variant, string> = {
+  fadeUp:     "translateY(36px)",
+  slideLeft:  "translateX(-56px)",
+  slideRight: "translateX(56px)",
+  fadeIn:     "none",
+};
+
+/**
+ * CSS-only fade-up wrapper. IntersectionObserver flips visibility when the
+ * element enters the viewport; CSS transitions handle the animation. Replaces
+ * the previous `motion/react` import (~30KB gzipped on the landing critical
+ * path) with 0KB of runtime JS beyond the observer.
+ *
+ * On constrained connections (Data Saver / 2G–3G) the animation is skipped
+ * and content shows in its final state from first paint.
+ */
 export default function MotionDiv({
   variant = "fadeUp",
   delay = 0,
@@ -29,27 +37,57 @@ export default function MotionDiv({
   style,
   children,
 }: Props) {
-  const [Div, setDiv] = useState<ComponentType<any> | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  const slow = useSaveData();
 
   useEffect(() => {
-    import("motion/react").then((m) => setDiv(() => m.motion.div));
-  }, []);
+    if (slow) {
+      setVisible(true);
+      return;
+    }
+    const node = ref.current;
+    if (!node) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setVisible(true);
+      return;
+    }
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            setVisible(true);
+            obs.disconnect();
+            break;
+          }
+        }
+      },
+      { rootMargin: "-50px" },
+    );
+    obs.observe(node);
+    return () => obs.disconnect();
+  }, [slow]);
 
-  if (!Div) {
-    return <div className={className} style={style}>{children}</div>;
-  }
+  const skip = slow;
+  const easing = "cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+  const transform = visible || skip ? "none" : HIDDEN_TRANSFORM[variant];
+  const opacity = visible || skip ? 1 : 0;
 
   return (
-    <Div
+    <div
+      ref={ref}
       className={className}
-      style={style}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
-      variants={VARIANTS[variant]}
-      transition={{ duration, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      style={{
+        ...style,
+        opacity,
+        transform,
+        transition: skip
+          ? "none"
+          : `opacity ${duration}s ${easing} ${delay}s, transform ${duration}s ${easing} ${delay}s`,
+        willChange: visible ? undefined : "opacity, transform",
+      }}
     >
       {children}
-    </Div>
+    </div>
   );
 }

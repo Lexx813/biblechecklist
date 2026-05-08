@@ -17,20 +17,20 @@ const SUPABASE_ANON        = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").t
 const SUPABASE_SERVICE_KEY = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim();
 const APP_ORIGIN           = (process.env.NEXT_PUBLIC_APP_URL ?? "https://jwstudy.org").replace(/\/$/, "");
 
-const CORS = {
+const CORS: Record<string, string> = {
   "Access-Control-Allow-Origin": APP_ORIGIN,
   "Access-Control-Allow-Methods": "DELETE, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
-function json(body, status = 200) {
+function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
     headers: { "Content-Type": "application/json", ...CORS },
   });
 }
 
-export default async function handler(req) {
+export default async function handler(req: Request): Promise<Response> {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
   if (req.method !== "DELETE") return json({ error: "Method Not Allowed" }, 405);
   if (!SUPABASE_SERVICE_KEY) return json({ error: "Server misconfigured" }, 503);
@@ -43,7 +43,7 @@ export default async function handler(req) {
     headers: { Authorization: `Bearer ${token}`, apikey: SUPABASE_ANON },
   });
   if (!userRes.ok) return json({ error: "Unauthorized" }, 401);
-  const { id: callerId } = await userRes.json();
+  const { id: callerId } = (await userRes.json()) as { id?: string };
   if (!callerId) return json({ error: "Unauthorized" }, 401);
 
   // ── Verify caller is an admin ──────────────────────────────────────────────
@@ -52,13 +52,13 @@ export default async function handler(req) {
     { headers: { Authorization: `Bearer ${token}`, apikey: SUPABASE_ANON } },
   );
   if (!profileRes.ok) return json({ error: "Unauthorized" }, 401);
-  const [profile] = await profileRes.json();
+  const [profile] = (await profileRes.json()) as Array<{ is_admin?: boolean }>;
   if (!profile?.is_admin) return json({ error: "Forbidden: admin access required" }, 403);
 
   // ── Parse target user ID ───────────────────────────────────────────────────
-  let userId;
+  let userId: string | undefined;
   try {
-    ({ userId } = await req.json());
+    ({ userId } = (await req.json()) as { userId?: string });
   } catch {
     return json({ error: "Invalid request body" }, 400);
   }
@@ -67,7 +67,7 @@ export default async function handler(req) {
 
   // ── Rate limit: max 10 deletes per admin per minute ────────────────────────
   // A stolen admin token shouldn't be able to wipe the user base in one loop.
-  const serviceHeaders = {
+  const serviceHeaders: Record<string, string> = {
     Authorization: `Bearer ${SUPABASE_SERVICE_KEY}`,
     apikey: SUPABASE_SERVICE_KEY,
   };
@@ -91,7 +91,7 @@ export default async function handler(req) {
   });
 
   if (!deleteRes.ok) {
-    const err = await deleteRes.json().catch(() => ({}));
+    const err = (await deleteRes.json().catch(() => ({}))) as { message?: string };
     return json({ error: err.message ?? "Failed to delete user" }, deleteRes.status);
   }
 

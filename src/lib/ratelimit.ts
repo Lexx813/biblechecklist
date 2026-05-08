@@ -27,7 +27,8 @@ type LimiterKind =
   | "trivia"
   | "renderVideo"
   | "linkPreview"
-  | "semanticSearch";
+  | "semanticSearch"
+  | "songEvents";
 
 interface LimiterConfig {
   /** Max requests in the window */
@@ -59,6 +60,10 @@ export const RATE_LIMITS: Record<LimiterKind, LimiterConfig> = {
   linkPreview:    { max: 60, window: "1 m",  label: "link preview" },
   // Semantic search — OpenAI embedding cost.
   semanticSearch: { max: 60, window: "1 m",  label: "search" },
+  // Song play / share / download / jw_org_click telemetry. Anonymous endpoint
+  // — keyed by `${ip}:${song_id}` so a real TikTok-driven landing burst still
+  // works but a single IP can't flood any one row.
+  songEvents:     { max: 30, window: "1 m",  label: "song event" },
 };
 
 let _redis: Redis | null = null;
