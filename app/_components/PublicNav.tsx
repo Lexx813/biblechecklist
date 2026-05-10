@@ -2,7 +2,10 @@ import Link from "next/link";
 
 export default function PublicNav() {
   return (
-    <nav className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/85 backdrop-blur-md dark:border-white/10 dark:bg-[#160f2e]/90">
+    <nav
+      className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/85 backdrop-blur-md dark:border-white/10 dark:bg-[#160f2e]/90"
+      style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
+    >
       <div className="flex items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         <Link
           href="/"

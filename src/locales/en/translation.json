@@ -127,7 +127,8 @@
     "darkMode": "Dark",
     "lightMode": "Light",
     "home": "Home",
-    "about": "About"
+    "about": "About",
+    "searchBooksAria": "Search books"
   },
   "landing": {
     "nav": {
@@ -176,7 +177,137 @@
     "songsSub": "Original Bible-based songs rooted in the New World Translation. Free to listen, free to share.",
     "listenSong": "Listen →",
     "viewAllSongs": "Browse all songs",
-    "songsNav": "Songs"
+    "songsNav": "Songs",
+    "tryNoSignup": "Try the tracker, no signup",
+    "tracker": {
+      "badge": "Bible Tracker",
+      "title": "See every chapter at a glance",
+      "desc": "Tap any chapter to mark it read, or select individual verses. Your progress is always saved and synced."
+    },
+    "mock": {
+      "tabAll": "All",
+      "tabHebrew": "Hebrew",
+      "tabGreek": "Greek",
+      "testamentHebrew": "Hebrew Scriptures",
+      "bookGenesis": "Genesis",
+      "bookExodus": "Exodus",
+      "bookLeviticus": "Leviticus",
+      "bookNumbers": "Numbers",
+      "bookDeuteronomy": "Deuteronomy",
+      "bookJoshua": "Joshua",
+      "bookJudges": "Judges",
+      "chaptersOf": "{{done}} of {{total}} chapters",
+      "tabHome": "Home",
+      "tabBible": "Bible",
+      "tabCommunity": "Community",
+      "tabProfile": "Profile",
+      "calloutPct": "{{pct}}% read"
+    },
+    "integ": {
+      "eyebrow": "Built for Jehovah's Witnesses",
+      "title": "The perfect JW Library companion",
+      "sub": "Every book, chapter, and verse in the app links directly to the official New World Translation, one tap opens it right where you are.",
+      "cards": {
+        "libraryMobile": {
+          "title": "JW Library on mobile",
+          "desc": "Tap any chapter or verse pill and it opens directly in the JW Library app, no copy-pasting, no searching."
+        },
+        "jworgDesktop": {
+          "title": "JW.org on desktop",
+          "desc": "On desktop, chapter and verse links open the official New World Translation on JW.org, always the authorised text."
+        },
+        "versePrecision": {
+          "title": "Verse-level precision",
+          "desc": "Track reading down to the individual verse. Partially read chapters show a distinct state so you always know exactly where you left off."
+        }
+      }
+    },
+    "testimonials": {
+      "t1": {
+        "quote": "Finally a tool that keeps me consistent with my Bible reading.",
+        "location": "México"
+      },
+      "t2": {
+        "quote": "The quiz levels and badges make studying feel like a game. I've learned so much.",
+        "location": "United Kingdom"
+      },
+      "t3": {
+        "quote": "Tracking all 66 books with the heatmap keeps me motivated every single day.",
+        "location": "Brasil"
+      }
+    },
+    "install": {
+      "eyebrow": "Free App",
+      "title": "Install on any device",
+      "sub": "JW Study works like a native app, no App Store needed. Add it to any device in seconds.",
+      "footer": "Works on all devices, no download, no App Store, always up to date.",
+      "iphone": {
+        "title": "iPhone / iPad",
+        "step1pre": "Open in ",
+        "step1bold": "Safari",
+        "step2pre": "Tap the ",
+        "step2bold": "Share",
+        "step2post": " button",
+        "step3pre": "Tap ",
+        "step3bold": "\"Add to Home Screen\"",
+        "step4pre": "Tap ",
+        "step4bold": "Add"
+      },
+      "android": {
+        "title": "Android",
+        "step1pre": "Open in ",
+        "step1bold": "Chrome",
+        "step2pre": "Tap the ",
+        "step2bold": "menu",
+        "step3pre": "Tap ",
+        "step3bold": "\"Install App\"",
+        "step4pre": "Tap ",
+        "step4bold": "Install"
+      },
+      "desktop": {
+        "title": "Desktop (Chrome / Edge)",
+        "step1pre": "Open in ",
+        "step1bold1": "Chrome",
+        "step1mid": " or ",
+        "step1bold2": "Edge",
+        "step2pre": "Click the ",
+        "step2bold": "install icon",
+        "step2post": " in the address bar",
+        "step3pre": "Click ",
+        "step3bold": "\"Install\"",
+        "step3post": " in the popup",
+        "step4pre": "App opens in its ",
+        "step4bold": "own window"
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "sub": "Everything you need to know before you sign up.",
+      "q1": {
+        "q": "Is JW Study affiliated with the Watch Tower Society or jw.org?",
+        "a": "No. JW Study is an independent tool built by a publisher to help fellow Witnesses track Bible reading and study. We are not endorsed by, sponsored by, or connected to the Watch Tower Bible and Tract Society. All Bible text and references link out to the official jw.org and JW Library."
+      },
+      "q2": {
+        "q": "Is it really free?",
+        "a": "Yes. JW Study is 100% free, no trial, no card, no hidden tiers. Everything on the site is free to use."
+      },
+      "q3": {
+        "q": "Do I need to create an account to try it?",
+        "a": "No. You can use the full Bible reading tracker without signing up, just visit Try the tracker, check off chapters, and your progress is saved on your device. Create a free account when you're ready to sync across devices and unlock streaks, notes, and reading plans."
+      },
+      "q4": {
+        "q": "Is my data private?",
+        "a": "Yes. Your reading progress, notes, and study data are private to you by default. We never share or sell your data. You can delete your account and all data at any time."
+      },
+      "q5": {
+        "q": "Does it work offline / on my phone?",
+        "a": "Yes. JW Study is a Progressive Web App, install it on iPhone, Android, or desktop with one tap. It works like a native app, no App Store needed, and stays in sync across all your devices."
+      },
+      "q6": {
+        "q": "What if I'm not a Jehovah's Witness?",
+        "a": "You're welcome here too. JW Study is built around the New World Translation, but anyone studying the Bible is free to use it."
+      }
+    }
   },
   "auth": {
     "title": "Bible Reading Checklist",
@@ -750,7 +881,42 @@
     "percentComplete": "{{pct}}% complete · {{remaining}} days remaining",
     "doneForToday": "Done for today",
     "markDone": "✓ Mark Done",
-    "openInWol": "Open in WOL →"
+    "openInWol": "Open in WOL →",
+    "quickAction": {
+      "continueReading": "Continue Reading",
+      "todayQuiz": "Today's Quiz",
+      "meetingPrep": "Meeting Prep"
+    },
+    "post": {
+      "photoLabel": "Photo",
+      "videoLabel": "Video"
+    },
+    "messianicStudy": {
+      "badge": "Featured study",
+      "headingLine1": "Twelve prophets.",
+      "headingLine2": "One Messiah.",
+      "description": "{{count}} Hebrew Scripture prophecies, paired with where each was fulfilled.",
+      "cta": "Open the study →"
+    },
+    "learnCard": {
+      "eyebrowComplete": "Course complete",
+      "eyebrowWelcomeNamed": "Welcome back, {{name}}",
+      "eyebrowWelcome": "Welcome back",
+      "eyebrowFresh": "Interactive course · 9 lessons",
+      "headlineComplete": "Revisit any lesson",
+      "headlineInProgress": "Pick up where you left off",
+      "headlineFresh": "Learn to Study the Bible",
+      "subcopyComplete": "You've walked the full path. Return to any lesson to sharpen a skill, S.O.A.P., cross-referencing, meditation, highlighting.",
+      "subcopyInProgress": "{{done}} of {{total}} lessons complete. Just a few minutes a day.",
+      "subcopyFresh": "Nine short lessons with hands-on exercises, S.O.A.P., cross-referencing, meditation, highlighting. Study like a Berean.",
+      "ctaComplete": "Review course",
+      "ctaContinue": "Continue",
+      "ctaFresh": "Begin lesson 1",
+      "lessonsProgress": "{{done}} of {{total}} lessons",
+      "unitLessonMeta": "3 units · 9 lessons",
+      "durationMeta": "~25 min total",
+      "aria": "{{headline}}. {{done}} of {{total}} lessons complete."
+    }
   },
   "tracker": {
     "filterAll": "All",
@@ -1787,7 +1953,24 @@
     "customNameRequired": "Please enter a plan name.",
     "customBooksRequired": "Please select at least one book.",
     "customDaysInvalid": "Please enter a valid number of days (1–3650).",
-    "chapters": "chapters"
+    "chapters": "chapters",
+    "quickSets": {
+      "fullBible": "Full Bible (66)",
+      "hebrew": "Hebrew Scriptures (39)",
+      "greek": "Christian Greek Scriptures (27)",
+      "gospels": "Gospels (4)",
+      "psalmsProverbs": "Psalms & Proverbs",
+      "paulLetters": "Paul's Letters (13)"
+    },
+    "createModalLabel": "Create reading plan",
+    "groupChallengeActive": "Group challenge active",
+    "summary": {
+      "title": "✨ Reading Summary & Reflection",
+      "desc": "Get a warm debrief of today's reading, key events, characters, lessons, and spiritual application.",
+      "btn": "✦ Summarize Today's Reading",
+      "btnLoading": "Summarizing…",
+      "aiLabel": "AI Summary"
+    }
   },
   "groups": {
     "title": "Groups",
@@ -2244,7 +2427,10 @@
     "searchBooks": "Search books",
     "planPromptTitle": "Add a reading plan",
     "planPromptMessage": "Join a structured plan to read the entire New World Translation, with daily checkpoints.",
-    "planPromptCta": "View reading plans"
+    "planPromptCta": "View reading plans",
+    "donutAria": "{{pct}}% of the Bible read",
+    "chaptersRead": "chapters read",
+    "remaining": "remaining"
   },
   "writer": {
     "saved": "Saved",
@@ -3324,5 +3510,10 @@
       "heading": "15. Contact",
       "body": "If you have questions about these Terms, you can reach us through the App's community forum or via the contact information listed on jwstudy.org."
     }
+  },
+  "anon": {
+    "backToHome": "Back to home",
+    "tryFree": "Try it free, no signup",
+    "signUpFree": "Sign up free"
   }
 }

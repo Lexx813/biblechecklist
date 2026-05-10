@@ -70,10 +70,10 @@
     "loading": "Naglo-load…",
     "close": "Isara",
     "notNow": "Hindi ngayon",
-    "clear": "I-clear",
+    "clear": "Burahin",
     "saved": "✓ Nai-save",
     "failed": "Nabigo",
-    "thinking": "Nag-iisip…",
+    "thinking": "Iniisip…",
     "cannotBeUndone": "Hindi na ito maibabalik.",
     "creating": "Ginagawa…",
     "dismiss": "I-dismiss",
@@ -121,7 +121,8 @@
     "darkMode": "Madilim",
     "lightMode": "Maliwanag",
     "home": "Tahanan",
-    "about": "Tungkol Sa"
+    "about": "Tungkol Sa",
+    "searchBooksAria": "Maghanap ng mga aklat"
   },
   "landing": {
     "nav": {
@@ -170,7 +171,137 @@
     "songsNav": "Mga Awit",
     "songsSub": "Orihinal na mga awit batay sa Bibliya, naka-ugat sa Bagong Sanlibutang Salin. Libreng pakinggan, libreng i-share.",
     "songsTitle": "Musika para sa pag-aaral",
-    "viewAllSongs": "Tingnan lahat ng awit"
+    "viewAllSongs": "Tingnan lahat ng awit",
+    "tryNoSignup": "Subukan ang tracker, hindi kailangan mag-sign up",
+    "tracker": {
+      "badge": "Bible Tracker",
+      "title": "Tingnan ang bawat kabanata sa isang sulyap",
+      "desc": "Tapikin ang anumang kabanata para markahan na nabasa, o pumili ng partikular na talata. Lagi nang nase-save at nasi-sync ang progreso mo."
+    },
+    "mock": {
+      "tabAll": "Lahat",
+      "tabHebrew": "Hebreo",
+      "tabGreek": "Griego",
+      "testamentHebrew": "Hebreong Kasulatan",
+      "bookGenesis": "Genesis",
+      "bookExodus": "Exodo",
+      "bookLeviticus": "Levitico",
+      "bookNumbers": "Bilang",
+      "bookDeuteronomy": "Deuteronomio",
+      "bookJoshua": "Josue",
+      "bookJudges": "Mga Hukom",
+      "chaptersOf": "{{done}} ng {{total}} kabanata",
+      "tabHome": "Home",
+      "tabBible": "Bibliya",
+      "tabCommunity": "Komunidad",
+      "tabProfile": "Profile",
+      "calloutPct": "{{pct}}% nabasa"
+    },
+    "integ": {
+      "eyebrow": "Ginawa para sa mga Saksi ni Jehova",
+      "title": "Ang perpektong kasama ng JW Library",
+      "sub": "Bawat aklat, kabanata at talata sa app ay direktang nag-uugnay sa opisyal na Bagong Sanlibutang Salin — isang tap at nandiyan ka na agad.",
+      "cards": {
+        "libraryMobile": {
+          "title": "JW Library sa mobile",
+          "desc": "Tapikin ang anumang kabanata o talata at bubukas agad sa JW Library app — walang kopya-paste, walang paghahanap."
+        },
+        "jworgDesktop": {
+          "title": "JW.org sa desktop",
+          "desc": "Sa desktop, ang mga link ng kabanata at talata ay nagbubukas sa opisyal na Bagong Sanlibutang Salin sa JW.org — laging may awtoridad ang teksto."
+        },
+        "versePrecision": {
+          "title": "Sundan hanggang sa talata",
+          "desc": "Sundan ang pagbabasa hanggang sa talata. Ang mga kabanatang bahagyang nabasa ay may natatanging estado para alam mo kung saan ka huling tumigil."
+        }
+      }
+    },
+    "testimonials": {
+      "t1": {
+        "quote": "Sa wakas, may tool na nagpapanatili sa akin ng tuloy-tuloy sa pagbabasa ng Bibliya.",
+        "location": "Mexico"
+      },
+      "t2": {
+        "quote": "Parang laro tuloy ang pag-aaral dahil sa quiz levels at badges. Ang dami kong natutuhan.",
+        "location": "United Kingdom"
+      },
+      "t3": {
+        "quote": "Ang pagsubaybay sa lahat ng 66 na aklat gamit ang heatmap ang araw-araw kong motibasyon.",
+        "location": "Brazil"
+      }
+    },
+    "install": {
+      "eyebrow": "Libreng App",
+      "title": "I-install sa anumang device",
+      "sub": "Gumagana ang JW Study na parang native app — hindi kailangan ng App Store. Idagdag sa kahit anong device sa loob ng segundo.",
+      "footer": "Gumagana sa lahat ng device — walang download, walang App Store, laging up to date.",
+      "iphone": {
+        "title": "iPhone / iPad",
+        "step1pre": "Buksan sa ",
+        "step1bold": "Safari",
+        "step2pre": "Tapikin ang ",
+        "step2bold": "Share",
+        "step2post": " button",
+        "step3pre": "Tapikin ang ",
+        "step3bold": "“Add to Home Screen”",
+        "step4pre": "Tapikin ang ",
+        "step4bold": "Add"
+      },
+      "android": {
+        "title": "Android",
+        "step1pre": "Buksan sa ",
+        "step1bold": "Chrome",
+        "step2pre": "Tapikin ang ",
+        "step2bold": "menu",
+        "step3pre": "Tapikin ang ",
+        "step3bold": "“Install App”",
+        "step4pre": "Tapikin ang ",
+        "step4bold": "Install"
+      },
+      "desktop": {
+        "title": "Desktop (Chrome / Edge)",
+        "step1pre": "Buksan sa ",
+        "step1bold1": "Chrome",
+        "step1mid": " o ",
+        "step1bold2": "Edge",
+        "step2pre": "I-click ang ",
+        "step2bold": "install icon",
+        "step2post": " sa address bar",
+        "step3pre": "I-click ang ",
+        "step3bold": "“Install”",
+        "step3post": " sa popup",
+        "step4pre": "Bubukas ang app sa ",
+        "step4bold": "sariling window"
+      }
+    },
+    "faq": {
+      "title": "Mga madalas itanong",
+      "sub": "Lahat ng kailangan mong malaman bago mag-sign up.",
+      "q1": {
+        "q": "Affiliated ba ang JW Study sa Watch Tower Society o jw.org?",
+        "a": "Hindi. Ang JW Study ay malayang tool na ginawa ng isang mamamahayag para tumulong sa kapwa Saksi sa pagsubaybay ng pagbabasa at pag-aaral ng Bibliya. Hindi kami suportado, ni-sponsor, o konektado sa Watch Tower Bible and Tract Society. Ang lahat ng teksto at sanggunian ng Bibliya ay nag-uugnay sa opisyal na jw.org at JW Library."
+      },
+      "q2": {
+        "q": "Talagang libre ba?",
+        "a": "Oo. 100% libre ang JW Study — walang trial, walang card, walang nakatagong tier. Lahat sa site ay malayang gamitin."
+      },
+      "q3": {
+        "q": "Kailangan ko bang gumawa ng account para subukan?",
+        "a": "Hindi. Magagamit mo ang buong reading tracker nang hindi nag-sa-sign up — bisitahin ang Subukan ang tracker, mag-check ng mga kabanata, at nase-save ang progreso mo sa device. Gumawa ng libreng account kapag handa kang mag-sync sa lahat ng device at i-unlock ang mga streak, notes, at reading plan."
+      },
+      "q4": {
+        "q": "Pribado ba ang data ko?",
+        "a": "Oo. Pribado bilang default ang reading progress, notes, at study data mo. Hindi namin kailanman ibinabahagi o ibinebenta ang data mo. Maaari mong burahin ang account at lahat ng data anumang oras."
+      },
+      "q5": {
+        "q": "Gumagana ba offline / sa mobile?",
+        "a": "Oo. Ang JW Study ay Progressive Web App — i-install sa iPhone, Android, o desktop sa isang tap. Gumagana na parang native app, walang App Store, at nase-sync sa lahat ng device mo."
+      },
+      "q6": {
+        "q": "Paano kung hindi ako Saksi ni Jehova?",
+        "a": "Welcome ka rin. Naka-build ang JW Study sa Bagong Sanlibutang Salin, pero malayang gamitin ito ninuman na nag-aaral ng Bibliya."
+      }
+    }
   },
   "auth": {
     "title": "Listahan ng Pagbabasa ng Bibliya",
@@ -735,7 +866,42 @@
     "tokensRemaining_other": "{{count}} token ang matitira pagkatapos nito.",
     "useFreezeToken": "Gumamit ng freeze token?",
     "viewAllArrow": "Tingnan lahat →",
-    "writeAPost": "Magsulat ng post →"
+    "writeAPost": "Magsulat ng post →",
+    "quickAction": {
+      "continueReading": "Magpatuloy sa pagbabasa",
+      "todayQuiz": "Quiz ngayon",
+      "meetingPrep": "Paghahanda sa pulong"
+    },
+    "post": {
+      "photoLabel": "Larawan",
+      "videoLabel": "Video"
+    },
+    "messianicStudy": {
+      "badge": "Tampok na pag-aaral",
+      "headingLine1": "Labindalawang propeta.",
+      "headingLine2": "Isang Mesiyas.",
+      "description": "{{count}} hula sa Hebreong Kasulatan, ipinares sa kung saan natupad ang bawat isa.",
+      "cta": "Buksan ang pag-aaral →"
+    },
+    "learnCard": {
+      "eyebrowComplete": "Tapos na ang kurso",
+      "eyebrowWelcomeNamed": "Maligayang pagbabalik, {{name}}",
+      "eyebrowWelcome": "Maligayang pagbabalik",
+      "eyebrowFresh": "Interaktibong kurso · 9 na aralin",
+      "headlineComplete": "Balikan ang anumang aralin",
+      "headlineInProgress": "Magpatuloy kung saan ka huminto",
+      "headlineFresh": "Matutong Mag-aral ng Bibliya",
+      "subcopyComplete": "Natapos mo na ang buong landas. Balikan ang anumang aralin para hasain ang isang kasanayan — S.O.A.P., pag-cross-reference, pagbubulay, pag-highlight.",
+      "subcopyInProgress": "{{done}} sa {{total}} na aralin tapos na. Ilang minuto lang sa isang araw.",
+      "subcopyFresh": "Siyam na maikling aralin na may praktikal na ehersisyo — S.O.A.P., pag-cross-reference, pagbubulay, pag-highlight. Mag-aral na parang taga-Berea.",
+      "ctaComplete": "Balikan ang kurso",
+      "ctaContinue": "Magpatuloy",
+      "ctaFresh": "Simulan ang aralin 1",
+      "lessonsProgress": "{{done}} sa {{total}} na aralin",
+      "unitLessonMeta": "3 yunit · 9 na aralin",
+      "durationMeta": "~25 min lahat",
+      "aria": "{{headline}}. {{done}} sa {{total}} na aralin tapos na."
+    }
   },
   "stats": {
     "streak_one": "araw na streak",
@@ -1762,7 +1928,24 @@
     "customNameRequired": "Mangyaring maglagay ng pangalan para sa plano.",
     "customBooksRequired": "Mangyaring pumili ng kahit isang aklat.",
     "customDaysInvalid": "Mangyaring maglagay ng wastong bilang ng araw (1–3650).",
-    "chapters": "mga kabanata"
+    "chapters": "mga kabanata",
+    "quickSets": {
+      "fullBible": "Buong Bibliya (66)",
+      "hebrew": "Hebreong Kasulatan (39)",
+      "greek": "Kristiyanong Griegong Kasulatan (27)",
+      "gospels": "Mga Ebanghelyo (4)",
+      "psalmsProverbs": "Mga Awit at Kawikaan",
+      "paulLetters": "Mga Liham ni Pablo (13)"
+    },
+    "createModalLabel": "Gumawa ng plano sa pagbabasa",
+    "groupChallengeActive": "Aktibong hamon ng grupo",
+    "summary": {
+      "title": "✨ Buod at Pagninilay sa Pagbabasa",
+      "desc": "Magkaroon ng mainit na pagbubuod ng pagbabasa ngayon — mahahalagang pangyayari, tauhan, aral, at espirituwal na aplikasyon.",
+      "btn": "✦ Ibuod ang Pagbabasa Ngayon",
+      "btnLoading": "Ibinubuod…",
+      "aiLabel": "Buod ng AI"
+    }
   },
   "groups": {
     "title": "Mga Grupo",
@@ -3811,7 +3994,10 @@
     "openArrow": "Buksan →",
     "searchBooks": "Maghanap ng aklat",
     "startReadingPlanArrow": "Magsimula ng 1-taong paglalakbay →",
-    "todayPrefix": "Ngayon: "
+    "todayPrefix": "Ngayon: ",
+    "donutAria": "{{pct}}% ng Bibliya ay nabasa",
+    "chaptersRead": "kabanatang nabasa",
+    "remaining": "natitira"
   },
   "writer": {
     "saved": "Saved",
@@ -4903,5 +5089,10 @@
       }
     },
     "title": "Mga Tuntunin ng Serbisyo"
+  },
+  "anon": {
+    "backToHome": "Bumalik sa home",
+    "tryFree": "Subukan nang libre, walang sign-up",
+    "signUpFree": "Mag-sign up nang libre"
   }
 }

@@ -121,7 +121,8 @@
     "darkMode": "Oscuro",
     "lightMode": "Claro",
     "home": "Inicio",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "searchBooksAria": "Buscar libros"
   },
   "landing": {
     "nav": {
@@ -170,7 +171,137 @@
     "songsSub": "Canciones originales basadas en la Biblia, arraigadas en la Traducción del Nuevo Mundo. Gratis para escuchar y compartir.",
     "listenSong": "Escuchar →",
     "viewAllSongs": "Ver todas las canciones",
-    "songsNav": "Canciones"
+    "songsNav": "Canciones",
+    "tryNoSignup": "Prueba el rastreador sin registrarte",
+    "tracker": {
+      "badge": "Rastreador de la Biblia",
+      "title": "Ve cada capítulo de un vistazo",
+      "desc": "Toca cualquier capítulo para marcarlo como leído, o selecciona versículos individuales. Tu progreso siempre se guarda y se sincroniza."
+    },
+    "mock": {
+      "tabAll": "Todos",
+      "tabHebrew": "Hebreas",
+      "tabGreek": "Griegas",
+      "testamentHebrew": "Escrituras Hebreas",
+      "bookGenesis": "Génesis",
+      "bookExodus": "Éxodo",
+      "bookLeviticus": "Levítico",
+      "bookNumbers": "Números",
+      "bookDeuteronomy": "Deuteronomio",
+      "bookJoshua": "Josué",
+      "bookJudges": "Jueces",
+      "chaptersOf": "{{done}} de {{total}} capítulos",
+      "tabHome": "Inicio",
+      "tabBible": "Biblia",
+      "tabCommunity": "Comunidad",
+      "tabProfile": "Perfil",
+      "calloutPct": "{{pct}}% leído"
+    },
+    "integ": {
+      "eyebrow": "Hecho para Testigos de Jehová",
+      "title": "El compañero perfecto de JW Library",
+      "sub": "Cada libro, capítulo y versículo de la app abre directamente la Traducción del Nuevo Mundo oficial, un toque y estás justo donde quieres.",
+      "cards": {
+        "libraryMobile": {
+          "title": "JW Library en el móvil",
+          "desc": "Toca cualquier capítulo o versículo y se abre directamente en JW Library, sin copiar y pegar, sin buscar."
+        },
+        "jworgDesktop": {
+          "title": "JW.org en el ordenador",
+          "desc": "En el ordenador, los enlaces de capítulos y versículos abren la Traducción del Nuevo Mundo oficial en JW.org, siempre el texto autorizado."
+        },
+        "versePrecision": {
+          "title": "Precisión versículo a versículo",
+          "desc": "Sigue tu lectura hasta el versículo. Los capítulos leídos en parte muestran un estado distinto, así sabes exactamente dónde lo dejaste."
+        }
+      }
+    },
+    "testimonials": {
+      "t1": {
+        "quote": "Por fin una herramienta que me ayuda a ser constante con mi lectura de la Biblia.",
+        "location": "México"
+      },
+      "t2": {
+        "quote": "Los niveles del concurso bíblico y las insignias hacen que estudiar sea como un juego. He aprendido muchísimo.",
+        "location": "Reino Unido"
+      },
+      "t3": {
+        "quote": "Llevar el control de los 66 libros con el mapa de calor me motiva todos los días.",
+        "location": "Brasil"
+      }
+    },
+    "install": {
+      "eyebrow": "App gratuita",
+      "title": "Instálala en cualquier dispositivo",
+      "sub": "JW Study funciona como una app nativa, sin pasar por la App Store. Añádela a cualquier dispositivo en segundos.",
+      "footer": "Funciona en todos los dispositivos, sin descargas, sin App Store, siempre actualizada.",
+      "iphone": {
+        "title": "iPhone / iPad",
+        "step1pre": "Ábrela en ",
+        "step1bold": "Safari",
+        "step2pre": "Toca el botón ",
+        "step2bold": "Compartir",
+        "step2post": "",
+        "step3pre": "Toca ",
+        "step3bold": "«Añadir a pantalla de inicio»",
+        "step4pre": "Toca ",
+        "step4bold": "Añadir"
+      },
+      "android": {
+        "title": "Android",
+        "step1pre": "Ábrela en ",
+        "step1bold": "Chrome",
+        "step2pre": "Toca el ",
+        "step2bold": "menú",
+        "step3pre": "Toca ",
+        "step3bold": "«Instalar app»",
+        "step4pre": "Toca ",
+        "step4bold": "Instalar"
+      },
+      "desktop": {
+        "title": "Ordenador (Chrome / Edge)",
+        "step1pre": "Ábrela en ",
+        "step1bold1": "Chrome",
+        "step1mid": " o ",
+        "step1bold2": "Edge",
+        "step2pre": "Haz clic en el ",
+        "step2bold": "icono de instalación",
+        "step2post": " de la barra de direcciones",
+        "step3pre": "Haz clic en ",
+        "step3bold": "«Instalar»",
+        "step3post": " en la ventana emergente",
+        "step4pre": "La app se abre en su ",
+        "step4bold": "propia ventana"
+      }
+    },
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "sub": "Todo lo que necesitas saber antes de registrarte.",
+      "q1": {
+        "q": "¿JW Study está afiliado con la Watch Tower Society o jw.org?",
+        "a": "No. JW Study es una herramienta independiente creada por un publicador para ayudar a otros Testigos a llevar el control de su lectura y estudio de la Biblia. No está respaldada ni patrocinada por la Watch Tower Bible and Tract Society. Todo el texto bíblico y las referencias enlazan a jw.org y JW Library oficiales."
+      },
+      "q2": {
+        "q": "¿De verdad es gratis?",
+        "a": "Sí. JW Study es 100% gratuita, sin prueba, sin tarjeta, sin niveles ocultos. Todo lo de la web se puede usar gratis."
+      },
+      "q3": {
+        "q": "¿Necesito crear cuenta para probarla?",
+        "a": "No. Puedes usar el rastreador completo de lectura sin registrarte: visita Prueba el rastreador, marca capítulos y tu progreso se guarda en el dispositivo. Crea una cuenta gratuita cuando quieras sincronizar entre dispositivos y desbloquear rachas, notas y planes de lectura."
+      },
+      "q4": {
+        "q": "¿Mis datos son privados?",
+        "a": "Sí. Tu progreso de lectura, tus notas y tu estudio son privados por defecto. Nunca compartimos ni vendemos tus datos. Puedes borrar tu cuenta y todos los datos cuando quieras."
+      },
+      "q5": {
+        "q": "¿Funciona sin conexión y en el móvil?",
+        "a": "Sí. JW Study es una Aplicación Web Progresiva (PWA): instálala en iPhone, Android u ordenador con un toque. Funciona como una app nativa, sin App Store, y se mantiene sincronizada en todos tus dispositivos."
+      },
+      "q6": {
+        "q": "¿Y si no soy Testigo de Jehová?",
+        "a": "También eres bienvenido. JW Study está construida en torno a la Traducción del Nuevo Mundo, pero cualquier persona que estudie la Biblia puede usarla."
+      }
+    }
   },
   "auth": {
     "title": "Lista de Lectura Bíblica",
@@ -735,7 +866,42 @@
     "openInWol": "Abrir en WOL →",
     "quickContinue": "Continuar leyendo",
     "quickMeeting": "Preparación de Reunión",
-    "quickQuiz": "Quiz de hoy"
+    "quickQuiz": "Quiz de hoy",
+    "quickAction": {
+      "continueReading": "Seguir leyendo",
+      "todayQuiz": "Concurso de hoy",
+      "meetingPrep": "Preparar reunión"
+    },
+    "post": {
+      "photoLabel": "Foto",
+      "videoLabel": "Vídeo"
+    },
+    "messianicStudy": {
+      "badge": "Estudio destacado",
+      "headingLine1": "Doce profetas.",
+      "headingLine2": "Un Mesías.",
+      "description": "{{count}} profecías de las Escrituras Hebreas, emparejadas con su cumplimiento.",
+      "cta": "Abrir el estudio →"
+    },
+    "learnCard": {
+      "eyebrowComplete": "Curso completo",
+      "eyebrowWelcomeNamed": "Bienvenido de nuevo, {{name}}",
+      "eyebrowWelcome": "Bienvenido de nuevo",
+      "eyebrowFresh": "Curso interactivo · 9 lecciones",
+      "headlineComplete": "Repasa cualquier lección",
+      "headlineInProgress": "Continúa donde lo dejaste",
+      "headlineFresh": "Aprende a estudiar la Biblia",
+      "subcopyComplete": "Has recorrido todo el camino. Vuelve a cualquier lección para perfeccionar una habilidad: S.O.A.P., referencias cruzadas, meditación, subrayado.",
+      "subcopyInProgress": "{{done}} de {{total}} lecciones completadas. Solo unos minutos al día.",
+      "subcopyFresh": "Nueve lecciones cortas con ejercicios prácticos: S.O.A.P., referencias cruzadas, meditación, subrayado. Estudia como un bereano.",
+      "ctaComplete": "Repasar curso",
+      "ctaContinue": "Continuar",
+      "ctaFresh": "Empezar lección 1",
+      "lessonsProgress": "{{done}} de {{total}} lecciones",
+      "unitLessonMeta": "3 unidades · 9 lecciones",
+      "durationMeta": "~25 min en total",
+      "aria": "{{headline}}. {{done}} de {{total}} lecciones completadas."
+    }
   },
   "stats": {
     "streak_one": "día seguido",
@@ -1762,7 +1928,24 @@
     "customNameRequired": "Por favor ingresa un nombre para el plan.",
     "customBooksRequired": "Por favor selecciona al menos un libro.",
     "customDaysInvalid": "Por favor ingresa un número válido de días (1–3650).",
-    "chapters": "capítulos"
+    "chapters": "capítulos",
+    "quickSets": {
+      "fullBible": "Biblia completa (66)",
+      "hebrew": "Escrituras Hebreas (39)",
+      "greek": "Escrituras Griegas Cristianas (27)",
+      "gospels": "Evangelios (4)",
+      "psalmsProverbs": "Salmos y Proverbios",
+      "paulLetters": "Cartas de Pablo (13)"
+    },
+    "createModalLabel": "Crear plan de lectura",
+    "groupChallengeActive": "Reto de grupo activo",
+    "summary": {
+      "title": "✨ Resumen y reflexión de la lectura",
+      "desc": "Obtén un resumen cálido de la lectura de hoy: eventos clave, personajes, lecciones y aplicación espiritual.",
+      "btn": "✦ Resumir la lectura de hoy",
+      "btnLoading": "Resumiendo…",
+      "aiLabel": "Resumen IA"
+    }
   },
   "groups": {
     "title": "Grupos",
@@ -3811,7 +3994,10 @@
     "openArrow": "Abrir →",
     "todayPrefix": "Hoy: ",
     "defaultPlanName": "Plan de lectura",
-    "searchBooks": "Buscar libros"
+    "searchBooks": "Buscar libros",
+    "donutAria": "{{pct}}% de la Biblia leída",
+    "chaptersRead": "capítulos leídos",
+    "remaining": "por leer"
   },
   "writer": {
     "saved": "Guardado",
@@ -4903,5 +5089,10 @@
       }
     },
     "title": "Términos del servicio"
+  },
+  "anon": {
+    "backToHome": "Volver al inicio",
+    "tryFree": "Pruébalo gratis, sin registrarte",
+    "signUpFree": "Registrarse gratis"
   }
 }

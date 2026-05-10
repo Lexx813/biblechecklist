@@ -197,9 +197,9 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
   ];
 
   const testimonials = [
-    { quote: "Finally a tool that keeps me consistent with my Bible reading.", author: "M.G.", location: "M\u00e9xico" },
-    { quote: "The quiz levels and badges make studying feel like a game. I've learned so much.", author: "D.K.", location: "United Kingdom" },
-    { quote: "Tracking all 66 books with the heatmap keeps me motivated every single day.", author: "A.P.", location: "Brasil" },
+    { quote: t("landing.testimonials.t1.quote"), author: "M.G.", location: t("landing.testimonials.t1.location") },
+    { quote: t("landing.testimonials.t2.quote"), author: "D.K.", location: t("landing.testimonials.t2.location") },
+    { quote: t("landing.testimonials.t3.quote"), author: "A.P.", location: t("landing.testimonials.t3.location") },
   ];
 
   return (
@@ -282,7 +282,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
               {t("landing.nav.getStarted")} <ArrowIcon />
             </button>
             <a href="/try" className="inline-flex items-center rounded-[10px] border border-[var(--lp-border)] bg-[var(--lp-card-bg)] px-6 py-3.5 text-[15px] font-semibold text-[var(--lp-text)] no-underline transition-all duration-150 hover:border-[var(--lp-primary)] hover:bg-[var(--lp-pill-bg)] max-[480px]:w-full max-[480px]:justify-center">
-              Try the tracker, no signup
+              {t("landing.tryNoSignup")}
             </a>
           </div>
 
@@ -301,13 +301,13 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
         <div className="mx-auto grid max-w-[1080px] items-center gap-16 md:grid-cols-2 max-md:gap-10 max-md:text-center">
           <div className="flex flex-col gap-4 max-md:items-center">
             <span className="inline-flex w-fit items-center rounded-full bg-[var(--lp-badge-bg)] px-3.5 py-[5px] text-xs font-semibold uppercase tracking-wider text-[var(--lp-badge-text)]">
-              Bible Tracker
+              {t("landing.tracker.badge")}
             </span>
             <h2 className="m-0 font-display text-[clamp(28px,4vw,42px)] font-semibold leading-tight tracking-tight text-[var(--lp-text)]">
-              See every chapter at a glance
+              {t("landing.tracker.title")}
             </h2>
             <p className="m-0 max-w-[400px] text-[15px] leading-relaxed text-[var(--lp-muted)] max-md:max-w-full">
-              Tap any chapter to mark it read, or select individual verses. Your progress is always saved and synced.
+              {t("landing.tracker.desc")}
             </p>
           </div>
           <div className="relative flex items-start justify-center">
@@ -319,20 +319,20 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
               </div>
               <div className="lp-phone-screen">
                 <div className="lp-mock-appbar">
-                  <span className="lp-mock-appbar-title">Bible Tracker</span>
+                  <span className="lp-mock-appbar-title">{t("landing.tracker.badge")}</span>
                   <div className="lp-mock-tabs">
-                    <span className="lp-mock-tab lp-mock-tab--active">All</span>
-                    <span className="lp-mock-tab">Hebrew</span>
-                    <span className="lp-mock-tab">Greek</span>
+                    <span className="lp-mock-tab lp-mock-tab--active">{t("landing.mock.tabAll")}</span>
+                    <span className="lp-mock-tab">{t("landing.mock.tabHebrew")}</span>
+                    <span className="lp-mock-tab">{t("landing.mock.tabGreek")}</span>
                   </div>
                 </div>
                 <div className="lp-mock-book-grid">
-                  <div className="lp-mock-testament">Hebrew Scriptures</div>
+                  <div className="lp-mock-testament">{t("landing.mock.testamentHebrew")}</div>
                   <div className="lp-mock-tile lp-mock-tile--expanded">
                     <div className="lp-mock-tile-row">
                       <div>
-                        <div className="lp-mock-tile-name">Genesis</div>
-                        <div className="lp-mock-tile-count">32 of 50 chapters</div>
+                        <div className="lp-mock-tile-name">{t("landing.mock.bookGenesis")}</div>
+                        <div className="lp-mock-tile-count">{t("landing.mock.chaptersOf", { done: 32, total: 50 })}</div>
                       </div>
                     </div>
                     <div className="lp-mock-ch-grid">
@@ -347,33 +347,33 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
                   </div>
                   <div className="lp-mock-tile lp-mock-tile--done">
                     <div className="lp-mock-tile-check">{"\u2713"}</div>
-                    <div className="lp-mock-tile-name">Exodus</div>
+                    <div className="lp-mock-tile-name">{t("landing.mock.bookExodus")}</div>
                     <div className="lp-mock-tile-count">40/40</div>
                     <div className="lp-mock-tile-strip"><div className="lp-mock-tile-strip-fill" style={{width:"100%"}} /></div>
                   </div>
                   <div className="lp-mock-tile">
-                    <div className="lp-mock-tile-name">Leviticus</div>
+                    <div className="lp-mock-tile-name">{t("landing.mock.bookLeviticus")}</div>
                     <div className="lp-mock-tile-count">14/27</div>
                     <div className="lp-mock-tile-strip"><div className="lp-mock-tile-strip-fill" style={{width:"52%"}} /></div>
                   </div>
                   <div className="lp-mock-tile">
-                    <div className="lp-mock-tile-name">Numbers</div>
+                    <div className="lp-mock-tile-name">{t("landing.mock.bookNumbers")}</div>
                     <div className="lp-mock-tile-count">0/36</div>
                     <div className="lp-mock-tile-strip"><div className="lp-mock-tile-strip-fill" style={{width:"0%"}} /></div>
                   </div>
                   <div className="lp-mock-tile">
-                    <div className="lp-mock-tile-name">Deuteronomy</div>
+                    <div className="lp-mock-tile-name">{t("landing.mock.bookDeuteronomy")}</div>
                     <div className="lp-mock-tile-count">11/34</div>
                     <div className="lp-mock-tile-strip"><div className="lp-mock-tile-strip-fill" style={{width:"32%"}} /></div>
                   </div>
                   <div className="lp-mock-tile lp-mock-tile--done">
                     <div className="lp-mock-tile-check">{"\u2713"}</div>
-                    <div className="lp-mock-tile-name">Joshua</div>
+                    <div className="lp-mock-tile-name">{t("landing.mock.bookJoshua")}</div>
                     <div className="lp-mock-tile-count">24/24</div>
                     <div className="lp-mock-tile-strip"><div className="lp-mock-tile-strip-fill" style={{width:"100%"}} /></div>
                   </div>
                   <div className="lp-mock-tile">
-                    <div className="lp-mock-tile-name">Judges</div>
+                    <div className="lp-mock-tile-name">{t("landing.mock.bookJudges")}</div>
                     <div className="lp-mock-tile-count">0/21</div>
                     <div className="lp-mock-tile-strip"><div className="lp-mock-tile-strip-fill" style={{width:"0%"}} /></div>
                   </div>
@@ -382,25 +382,25 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
               <div className="lp-phone-tabbar">
                 <div className="lp-phone-tab">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-                  <span>Home</span>
+                  <span>{t("landing.mock.tabHome")}</span>
                 </div>
                 <div className="lp-phone-tab lp-phone-tab--active">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                  <span>Bible</span>
+                  <span>{t("landing.mock.tabBible")}</span>
                 </div>
                 <div className="lp-phone-tab">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                  <span>Community</span>
+                  <span>{t("landing.mock.tabCommunity")}</span>
                 </div>
                 <div className="lp-phone-tab">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                  <span>Profile</span>
+                  <span>{t("landing.mock.tabProfile")}</span>
                 </div>
               </div>
             </div>
             <div className="lp-phone-callout">
               <div className="lp-callout-dot lp-callout-dot--done" />
-              <span>64% read</span>
+              <span>{t("landing.mock.calloutPct", { pct: 64 })}</span>
             </div>
           </div>
         </div>
@@ -410,30 +410,30 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
       <section className="px-6 py-[72px] max-md:px-5 max-md:py-14" style={{ background: "var(--lp-banner-bg)" }} aria-labelledby="lp-integ-title">
         <div className="mx-auto flex max-w-[1080px] flex-col items-center gap-12">
           <div className="flex max-w-[620px] flex-col items-center gap-3.5 text-center">
-            <div className="text-[11px] font-bold uppercase tracking-[0.1em] text-white/55">Built for Jehovah's Witnesses</div>
+            <div className="text-[11px] font-bold uppercase tracking-[0.1em] text-white/55">{t("landing.integ.eyebrow")}</div>
             <h2 id="lp-integ-title" className="m-0 font-display text-[clamp(28px,4vw,42px)] font-semibold leading-tight tracking-tight text-white">
-              The perfect JW Library companion
+              {t("landing.integ.title")}
             </h2>
             <p className="m-0 text-[15px] leading-relaxed text-white/70">
-              Every book, chapter, and verse in the app links directly to the official New World Translation, one tap opens it right where you are.
+              {t("landing.integ.sub")}
             </p>
           </div>
           <div className="grid w-full gap-5 md:grid-cols-3 max-md:mx-auto max-md:max-w-[440px] max-md:grid-cols-1">
             {[
               {
                 icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>,
-                title: "JW Library on mobile",
-                desc: "Tap any chapter or verse pill and it opens directly in the JW Library app, no copy-pasting, no searching.",
+                title: t("landing.integ.cards.libraryMobile.title"),
+                desc: t("landing.integ.cards.libraryMobile.desc"),
               },
               {
                 icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
-                title: "JW.org on desktop",
-                desc: "On desktop, chapter and verse links open the official NWT on JW.org, always the authorised New World Translation text.",
+                title: t("landing.integ.cards.jworgDesktop.title"),
+                desc: t("landing.integ.cards.jworgDesktop.desc"),
               },
               {
                 icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
-                title: "Verse-level precision",
-                desc: "Track reading down to the individual verse. Partially read chapters show a distinct state so you always know exactly where you left off.",
+                title: t("landing.integ.cards.versePrecision.title"),
+                desc: t("landing.integ.cards.versePrecision.desc"),
               },
             ].map(card => (
               <div key={card.title} className="flex cursor-default flex-col gap-3 rounded-2xl border border-white/12 bg-white/[0.07] p-7 transition-all duration-200 hover:border-white/22 hover:bg-white/[0.11]">
@@ -598,41 +598,41 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
       <section className="bg-[var(--lp-bg)] px-6 py-20 max-md:px-5 max-md:py-14" aria-labelledby="lp-install-title">
         <div className="mx-auto flex max-w-[1060px] flex-col items-center gap-12">
           <div className="flex flex-col items-center gap-3 text-center">
-            <span className="inline-flex items-center rounded-full bg-[var(--lp-badge-bg)] px-3.5 py-[5px] text-xs font-semibold uppercase tracking-wider text-[var(--lp-badge-text)]">Free App</span>
-            <h2 className="m-0 text-[clamp(24px,4vw,34px)] font-extrabold leading-tight text-[var(--lp-text)]" id="lp-install-title">Install on any device</h2>
-            <p className="m-0 max-w-[520px] text-base leading-relaxed text-[var(--lp-muted)]">JW Study works like a native app, no App Store needed. Add it to any device in seconds.</p>
+            <span className="inline-flex items-center rounded-full bg-[var(--lp-badge-bg)] px-3.5 py-[5px] text-xs font-semibold uppercase tracking-wider text-[var(--lp-badge-text)]">{t("landing.install.eyebrow")}</span>
+            <h2 className="m-0 text-[clamp(24px,4vw,34px)] font-extrabold leading-tight text-[var(--lp-text)]" id="lp-install-title">{t("landing.install.title")}</h2>
+            <p className="m-0 max-w-[520px] text-base leading-relaxed text-[var(--lp-muted)]">{t("landing.install.sub")}</p>
           </div>
 
           <div className="grid w-full gap-5 md:grid-cols-3 max-md:mx-auto max-md:max-w-[400px] max-md:grid-cols-1">
             {[
               {
                 icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>,
-                title: "iPhone / iPad",
+                title: t("landing.install.iphone.title"),
                 steps: [
-                  ["Open in ", <strong key="s">Safari</strong>],
-                  ["Tap the ", <strong key="s">Share</strong>, " ", <svg key="i" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true" className="inline align-middle"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>, " button"],
-                  ["Tap ", <strong key="s">"Add to Home Screen"</strong>],
-                  ["Tap ", <strong key="s">Add</strong>],
+                  [t("landing.install.iphone.step1pre"), <strong key="s">{t("landing.install.iphone.step1bold")}</strong>],
+                  [t("landing.install.iphone.step2pre"), <strong key="s">{t("landing.install.iphone.step2bold")}</strong>, " ", <svg key="i" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true" className="inline align-middle"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>, t("landing.install.iphone.step2post")],
+                  [t("landing.install.iphone.step3pre"), <strong key="s">{t("landing.install.iphone.step3bold")}</strong>],
+                  [t("landing.install.iphone.step4pre"), <strong key="s">{t("landing.install.iphone.step4bold")}</strong>],
                 ],
               },
               {
                 icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24C15.12 8.29 13.62 8 12 8s-3.12.29-4.47.91L5.65 5.67c-.19-.29-.54-.38-.83-.22-.3.16-.42.54-.26.85L6.4 9.48C3.3 11.25 1.28 14.44 1 18h22c-.28-3.56-2.3-6.75-5.4-8.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25S6.31 12.75 7 12.75s1.25.56 1.25 1.25S7.69 15.25 7 15.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>,
-                title: "Android",
+                title: t("landing.install.android.title"),
                 steps: [
-                  ["Open in ", <strong key="s">Chrome</strong>],
-                  ["Tap the ", <strong key="s">menu</strong>, " (\u22EE)"],
-                  ["Tap ", <strong key="s">"Install App"</strong>],
-                  ["Tap ", <strong key="s">Install</strong>],
+                  [t("landing.install.android.step1pre"), <strong key="s">{t("landing.install.android.step1bold")}</strong>],
+                  [t("landing.install.android.step2pre"), <strong key="s">{t("landing.install.android.step2bold")}</strong>, " (\u22EE)"],
+                  [t("landing.install.android.step3pre"), <strong key="s">{t("landing.install.android.step3bold")}</strong>],
+                  [t("landing.install.android.step4pre"), <strong key="s">{t("landing.install.android.step4bold")}</strong>],
                 ],
               },
               {
                 icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>,
-                title: "Desktop (Chrome / Edge)",
+                title: t("landing.install.desktop.title"),
                 steps: [
-                  ["Open in ", <strong key="s">Chrome</strong>, " or ", <strong key="e">Edge</strong>],
-                  ["Click the ", <strong key="s">install icon</strong>, " in the address bar"],
-                  ["Click ", <strong key="s">"Install"</strong>, " in the popup"],
-                  ["App opens in its ", <strong key="s">own window</strong>],
+                  [t("landing.install.desktop.step1pre"), <strong key="s">{t("landing.install.desktop.step1bold1")}</strong>, t("landing.install.desktop.step1mid"), <strong key="e">{t("landing.install.desktop.step1bold2")}</strong>],
+                  [t("landing.install.desktop.step2pre"), <strong key="s">{t("landing.install.desktop.step2bold")}</strong>, t("landing.install.desktop.step2post")],
+                  [t("landing.install.desktop.step3pre"), <strong key="s">{t("landing.install.desktop.step3bold")}</strong>, t("landing.install.desktop.step3post")],
+                  [t("landing.install.desktop.step4pre"), <strong key="s">{t("landing.install.desktop.step4bold")}</strong>],
                 ],
               },
             ].map(card => (
@@ -652,7 +652,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
               </div>
             ))}
           </div>
-          <p className="m-0 text-center text-[13px] text-[var(--lp-muted)]">Works on all devices, no download, no App Store, always up to date.</p>
+          <p className="m-0 text-center text-[13px] text-[var(--lp-muted)]">{t("landing.install.footer")}</p>
         </div>
       </section>
 
@@ -660,35 +660,17 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
       <section className="px-6 py-20 max-sm:px-[18px] max-sm:py-14" aria-labelledby="lp-faq-title">
         <div className="mx-auto max-w-[1080px]">
           <div className="mb-10 text-center">
-            <h2 id="lp-faq-title" className="m-0 mb-2.5 font-display text-[clamp(26px,4vw,38px)] font-semibold tracking-tight text-[var(--lp-text)]">Frequently asked questions</h2>
-            <p className="m-0 text-[15px] text-[var(--lp-muted)]">Everything you need to know before you sign up.</p>
+            <h2 id="lp-faq-title" className="m-0 mb-2.5 font-display text-[clamp(26px,4vw,38px)] font-semibold tracking-tight text-[var(--lp-text)]">{t("landing.faq.title")}</h2>
+            <p className="m-0 text-[15px] text-[var(--lp-muted)]">{t("landing.faq.sub")}</p>
           </div>
           <div className="mx-auto mt-8 flex max-w-[760px] flex-col gap-3">
             {[
-              {
-                q: "Is JW Study affiliated with the Watch Tower Society or jw.org?",
-                a: "No. JW Study is an independent tool built by a publisher to help fellow Witnesses track Bible reading and study. We are not endorsed by, sponsored by, or connected to the Watch Tower Bible and Tract Society. All Bible text and references link out to the official jw.org and JW Library.",
-              },
-              {
-                q: "Is it really free?",
-                a: "Yes. JW Study is 100% free, no trial, no card, no hidden tiers. Everything on the site is free to use.",
-              },
-              {
-                q: "Do I need to create an account to try it?",
-                a: "No. You can use the full Bible reading tracker without signing up, just visit Try the tracker, check off chapters, and your progress is saved on your device. Create a free account when you're ready to sync across devices and unlock streaks, notes, and reading plans.",
-              },
-              {
-                q: "Is my data private?",
-                a: "Yes. Your reading progress, notes, and study data are private to you by default. We never share or sell your data. You can delete your account and all data at any time.",
-              },
-              {
-                q: "Does it work offline / on my phone?",
-                a: "Yes. JW Study is a Progressive Web App, install it on iPhone, Android, or desktop with one tap. It works like a native app, no App Store needed, and stays in sync across all your devices.",
-              },
-              {
-                q: "What if I'm not a Jehovah's Witness?",
-                a: "You're welcome here too. JW Study is built around the New World Translation, but anyone studying the Bible is free to use it.",
-              },
+              { q: t("landing.faq.q1.q"), a: t("landing.faq.q1.a") },
+              { q: t("landing.faq.q2.q"), a: t("landing.faq.q2.a") },
+              { q: t("landing.faq.q3.q"), a: t("landing.faq.q3.a") },
+              { q: t("landing.faq.q4.q"), a: t("landing.faq.q4.a") },
+              { q: t("landing.faq.q5.q"), a: t("landing.faq.q5.a") },
+              { q: t("landing.faq.q6.q"), a: t("landing.faq.q6.a") },
             ].map((item) => (
               <details key={item.q} className="group overflow-hidden rounded-[14px] border border-[var(--lp-border)] bg-[var(--lp-card-bg)] transition-all duration-200 open:border-brand-500/45 open:bg-brand-500/5">
                 <summary className="lp-faq-q flex cursor-pointer select-none items-center justify-between gap-4 px-[22px] py-[18px] text-base font-semibold text-[var(--lp-text)] max-sm:px-[18px] max-sm:py-4 max-sm:text-[15px]">

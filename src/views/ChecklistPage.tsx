@@ -467,14 +467,14 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
               className="tracker-donut"
               style={{ ["--fill" as string]: `${pct}%` }}
               role="img"
-              aria-label={`${pct}% of the Bible read`}
+              aria-label={t("checklist.donutAria", "{{pct}}% of the Bible read", { pct })}
             >
               <div className="tracker-donut-inner">{Math.round(parseFloat(String(pct)))}%</div>
             </div>
           </div>
           <div className="tracker-hero-info">
             <div className="tracker-hero-counts">
-              <strong>{doneCh}</strong> chapters read · <strong>{totalCh - doneCh}</strong> remaining
+              <strong>{doneCh}</strong> {t("checklist.chaptersRead", "chapters read")} · <strong>{totalCh - doneCh}</strong> {t("checklist.remaining", "remaining")}
             </div>
             {todayReading ? (
               <button

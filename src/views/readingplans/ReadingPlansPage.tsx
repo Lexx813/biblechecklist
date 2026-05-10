@@ -64,14 +64,17 @@ function planStreak(sortedCompletionDayNumbers) {
 // ── Custom Plan Builder Modal ─────────────────────────────────────────────────
 
 const QUICK_DAY_OPTIONS = [14, 30, 60, 90, 180, 365];
-const QUICK_BOOK_SETS = [
-  { label: "Full Bible (66)", indices: Array.from({ length: 66 }, (_, i) => i) },
-  { label: "Hebrew Scriptures (39)", indices: Array.from({ length: 39 }, (_, i) => i) },
-  { label: "Christian Greek Scriptures (27)", indices: Array.from({ length: 27 }, (_, i) => i + 39) },
-  { label: "Gospels (4)", indices: [39, 40, 41, 42] },
-  { label: "Psalms & Proverbs", indices: [18, 19] },
-  { label: "Paul's Letters (13)", indices: Array.from({ length: 13 }, (_, i) => i + 44) },
-];
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function getQuickBookSets(t: any): { label: string; indices: number[] }[] {
+  return [
+    { label: t("readingPlans.quickSets.fullBible", "Full Bible (66)"), indices: Array.from({ length: 66 }, (_, i) => i) },
+    { label: t("readingPlans.quickSets.hebrew", "Hebrew Scriptures (39)"), indices: Array.from({ length: 39 }, (_, i) => i) },
+    { label: t("readingPlans.quickSets.greek", "Christian Greek Scriptures (27)"), indices: Array.from({ length: 27 }, (_, i) => i + 39) },
+    { label: t("readingPlans.quickSets.gospels", "Gospels (4)"), indices: [39, 40, 41, 42] },
+    { label: t("readingPlans.quickSets.psalmsProverbs", "Psalms & Proverbs"), indices: [18, 19] },
+    { label: t("readingPlans.quickSets.paulLetters", "Paul's Letters (13)"), indices: Array.from({ length: 13 }, (_, i) => i + 44) },
+  ];
+}
 
 function CustomPlanModal({ onClose, onCreated }) {
   const { t } = useTranslation();
@@ -125,10 +128,10 @@ function CustomPlanModal({ onClose, onCreated }) {
 
   return createPortal(
     <div className="rp-modal-overlay" onClick={onClose}>
-      <div className="rp-modal" role="dialog" aria-modal="true" aria-label="Create reading plan" onClick={e => e.stopPropagation()}>
+      <div className="rp-modal" role="dialog" aria-modal="true" aria-label={t("readingPlans.createModalLabel", "Create reading plan")} onClick={e => e.stopPropagation()}>
         <div className="rp-modal-header">
           <h2 className="rp-modal-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign:"middle",marginRight:6}}><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>{t("readingPlans.customPlanTitle")}</h2>
-          <button className="rp-modal-close" onClick={onClose} aria-label="Close">✕</button>
+          <button className="rp-modal-close" onClick={onClose} aria-label={t("common.close", "Close")}>✕</button>
         </div>
 
         <form className="rp-modal-body" onSubmit={handleSubmit}>
@@ -145,7 +148,7 @@ function CustomPlanModal({ onClose, onCreated }) {
           {/* Quick book sets */}
           <label className="rp-field-label">{t("readingPlans.quickSelect")}</label>
           <div className="rp-quick-sets">
-            {QUICK_BOOK_SETS.map(qs => (
+            {getQuickBookSets(t).map(qs => (
               <button
                 key={qs.label}
                 type="button"
@@ -268,7 +271,7 @@ function TemplateCard({ template, enrolled, onEnroll, enrolling, activeChallenge
             <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
             <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
           </svg>
-          Group challenge active
+          {t("readingPlans.groupChallengeActive", "Group challenge active")}
         </span>
       )}
       <div className="rp-template-icon">{template.icon}</div>
@@ -328,7 +331,7 @@ function ActivePlanCard({ plan, onClick, activeChallengeKeys = new Set() }) {
                   <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
                   <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                 </svg>
-                Group challenge active
+                {t("readingPlans.groupChallengeActive", "Group challenge active")}
               </span>
             )}
           </h3>
@@ -413,6 +416,7 @@ function PlanAnalytics({ plan, template, completions }) {
 // ── Reading Summary widget ────────────────────────────────────────────────────
 
 function ReadingSummaryWidget({ todayReadings }) {
+  const { t } = useTranslation();
   const { text, loading, error, run, reset } = useAISkill();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
@@ -430,28 +434,28 @@ function ReadingSummaryWidget({ todayReadings }) {
   return (
     <div className="ait-inline" style={{ marginTop: "1rem" }}>
       <div className="ait-inline-header" onClick={() => setOpen(o => !o)} role="button" tabIndex={0} aria-expanded={open}>
-        <span className="ait-inline-title">✨ Reading Summary & Reflection</span>
+        <span className="ait-inline-title">{t("readingPlans.summary.title", "✨ Reading Summary & Reflection")}</span>
         <span className={`ait-inline-chevron${open ? " ait-inline-chevron--open" : ""}`}>▼</span>
       </div>
       {open && (
         <div className="ait-inline-body">
           <p style={{ fontSize: "0.85rem", color: "var(--text-muted,#888)", margin: "0 0 0.75rem" }}>
-            Get a warm debrief of today's reading, key events, characters, lessons, and spiritual application.
+            {t("readingPlans.summary.desc", "Get a warm debrief of today's reading, key events, characters, lessons, and spiritual application.")}
           </p>
           <button className="ait-submit-btn" type="button" onClick={handleSummarize} disabled={loading}>
-            {loading ? "Summarizing…" : "✦ Summarize Today's Reading"}
+            {loading ? t("readingPlans.summary.btnLoading", "Summarizing…") : t("readingPlans.summary.btn", "✦ Summarize Today's Reading")}
           </button>
           {(loading || text || error) && (
             <div className="ait-result" style={{ marginTop: "0.75rem" }}>
               <div className="ait-result-header">
-                <span className="ait-result-label">AI Summary</span>
-                {!loading && (text || error) && <button className="ait-result-clear" type="button" onClick={reset}>Clear</button>}
+                <span className="ait-result-label">{t("readingPlans.summary.aiLabel", "AI Summary")}</span>
+                {!loading && (text || error) && <button className="ait-result-clear" type="button" onClick={reset}>{t("common.clear", "Clear")}</button>}
               </div>
               <div className="ait-result-body" ref={ref}>
                 {loading && !text && (
                   <div className="ait-loading">
                     <span className="ait-dot" /><span className="ait-dot" /><span className="ait-dot" />
-                    <span className="ait-loading-label">Thinking…</span>
+                    <span className="ait-loading-label">{t("common.thinking", "Thinking…")}</span>
                   </div>
                 )}
                 {error && <div className="ait-error">{error}</div>}

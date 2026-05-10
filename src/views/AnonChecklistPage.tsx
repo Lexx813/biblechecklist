@@ -98,16 +98,16 @@ export default function AnonChecklistPage({ onSignUp, onBack }: Props) {
     <div className="anon-tracker" id="main-content">
       {/* Top bar */}
       <div className="anon-topbar">
-        <button className="anon-back" onClick={onBack} aria-label="Back to home">
+        <button className="anon-back" onClick={onBack} aria-label={t("anon.backToHome", "Back to home")}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
           </svg>
         </button>
         <div className="anon-topbar-title">
-          <strong>Bible Tracker</strong>
-          <span className="anon-topbar-sub">Try it free, no signup</span>
+          <strong>{t("landing.tracker.badge", "Bible Tracker")}</strong>
+          <span className="anon-topbar-sub">{t("anon.tryFree", "Try it free, no signup")}</span>
         </div>
-        <button className="anon-topbar-cta" onClick={onSignUp}>Sign up free</button>
+        <button className="anon-topbar-cta" onClick={onSignUp}>{t("anon.signUpFree", "Sign up free")}</button>
       </div>
 
       <div className="checklist-container">
@@ -129,7 +129,7 @@ export default function AnonChecklistPage({ onSignUp, onBack }: Props) {
               placeholder={t("app.searchPlaceholder", "Search books…")}
               value={search}
               onChange={e => setSearch(e.target.value)}
-              aria-label="Search books"
+              aria-label={t("app.searchBooksAria", "Search books")}
             />
           </div>
         </div>

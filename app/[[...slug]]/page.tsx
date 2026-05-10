@@ -182,8 +182,11 @@ export default async function Page({ params }) {
         />
         {/* Crawler-only sitemap-as-content. The visible H1 lives in LandingPage;
             this section is link-density for AI crawlers (no duplicated H1 to avoid
-            cloaking-style flags from Google). */}
-        <div style={SEO_HIDE} aria-hidden="true">
+            cloaking-style flags from Google). `inert` removes the inner links
+            from the tab order AND from the a11y tree (replaces aria-hidden,
+            which left them keyboard-focusable). Crawlers parse static HTML and
+            ignore inert, so SEO link-density is preserved. */}
+        <div style={SEO_HIDE} inert>
           <h2>Explore All 66 Bible Books</h2>
           <ul>
             {BOOKS.map((b) => (

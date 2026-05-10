@@ -186,7 +186,8 @@
     "darkMode": "深色",
     "lightMode": "浅色",
     "home": "主页",
-    "about": "关于"
+    "about": "关于",
+    "searchBooksAria": "搜索书卷"
   },
   "landing": {
     "nav": {
@@ -235,7 +236,137 @@
     "songsNav": "诗歌",
     "songsSub": "以新世界译本为基础的原创圣经诗歌。免费聆听，免费分享。",
     "songsTitle": "陪伴学习的音乐",
-    "viewAllSongs": "浏览所有诗歌"
+    "viewAllSongs": "浏览所有诗歌",
+    "tryNoSignup": "免费试用追踪器，无需注册",
+    "tracker": {
+      "badge": "圣经阅读追踪",
+      "title": "一目了然每一章",
+      "desc": "点击任意章节即可标记已读，也可以选取个别经节。进度始终自动保存并同步。"
+    },
+    "mock": {
+      "tabAll": "全部",
+      "tabHebrew": "希伯来语",
+      "tabGreek": "希腊语",
+      "testamentHebrew": "希伯来语经卷",
+      "bookGenesis": "创世记",
+      "bookExodus": "出埃及记",
+      "bookLeviticus": "利未记",
+      "bookNumbers": "民数记",
+      "bookDeuteronomy": "申命记",
+      "bookJoshua": "约书亚记",
+      "bookJudges": "士师记",
+      "chaptersOf": "{{done}} / {{total}} 章",
+      "tabHome": "首页",
+      "tabBible": "圣经",
+      "tabCommunity": "群体",
+      "tabProfile": "个人",
+      "calloutPct": "已读 {{pct}}%"
+    },
+    "integ": {
+      "eyebrow": "为耶和华见证人打造",
+      "title": "JW Library 的最佳搭档",
+      "sub": "应用中的每卷书、每章、每节都直接链接到官方《新世界译本》——一点即至。",
+      "cards": {
+        "libraryMobile": {
+          "title": "手机端 JW Library",
+          "desc": "点击任何章节或经节链接，立即在 JW Library 应用中打开——无需复制粘贴，无需搜索。"
+        },
+        "jworgDesktop": {
+          "title": "桌面端 JW.org",
+          "desc": "在电脑上，章节和经节链接将打开 JW.org 上官方的《新世界译本》——始终是经授权的文本。"
+        },
+        "versePrecision": {
+          "title": "精确到经节",
+          "desc": "阅读进度可记录到具体经节。部分阅读的章节会显示独特状态，让你随时知道读到哪里。"
+        }
+      }
+    },
+    "testimonials": {
+      "t1": {
+        "quote": "终于有了一个能让我坚持读经的工具。",
+        "location": "墨西哥"
+      },
+      "t2": {
+        "quote": "测试关卡和徽章让学习像玩游戏，我学到了很多。",
+        "location": "英国"
+      },
+      "t3": {
+        "quote": "用热度图追踪全部 66 卷书，每天都让我充满动力。",
+        "location": "巴西"
+      }
+    },
+    "install": {
+      "eyebrow": "免费应用",
+      "title": "在任何设备上安装",
+      "sub": "JW Study 像原生应用一样运行——无需 App Store。几秒钟就能添加到任何设备。",
+      "footer": "适用于所有设备——无需下载、无需 App Store、始终保持最新。",
+      "iphone": {
+        "title": "iPhone / iPad",
+        "step1pre": "在 ",
+        "step1bold": "Safari",
+        "step2pre": "中打开后，点击 ",
+        "step2bold": "分享",
+        "step2post": " 按钮",
+        "step3pre": "点击 ",
+        "step3bold": "「添加到主屏幕」",
+        "step4pre": "点击 ",
+        "step4bold": "添加"
+      },
+      "android": {
+        "title": "Android",
+        "step1pre": "在 ",
+        "step1bold": "Chrome",
+        "step2pre": " 中打开后，点击 ",
+        "step2bold": "菜单",
+        "step3pre": "点击 ",
+        "step3bold": "「安装应用」",
+        "step4pre": "点击 ",
+        "step4bold": "安装"
+      },
+      "desktop": {
+        "title": "电脑（Chrome / Edge）",
+        "step1pre": "在 ",
+        "step1bold1": "Chrome",
+        "step1mid": " 或 ",
+        "step1bold2": "Edge",
+        "step2pre": " 中打开后，点击地址栏的 ",
+        "step2bold": "安装图标",
+        "step2post": "",
+        "step3pre": "在弹窗中点击 ",
+        "step3bold": "「安装」",
+        "step3post": "",
+        "step4pre": "应用将在 ",
+        "step4bold": "独立窗口"
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "sub": "注册前你需要知道的一切。",
+      "q1": {
+        "q": "JW Study 与守望台社或 jw.org 有关联吗？",
+        "a": "没有。JW Study 是由一位传道员创建的独立工具，旨在帮助同道见证人追踪读经和学习。我们不受守望台圣经书社的认可、赞助或关联。所有圣经文本和参考都链接到官方的 jw.org 和 JW Library。"
+      },
+      "q2": {
+        "q": "真的免费吗？",
+        "a": "是的。JW Study 100% 免费——无试用、无信用卡、无隐藏付费。整个网站均可免费使用。"
+      },
+      "q3": {
+        "q": "试用需要注册账号吗？",
+        "a": "不需要。无需注册即可使用完整的圣经阅读追踪器——只需访问「免费试用追踪器」，勾选章节，进度会保存在你的设备上。准备好跨设备同步并解锁连续天数、笔记和阅读计划时，再创建一个免费账户。"
+      },
+      "q4": {
+        "q": "我的数据安全吗？",
+        "a": "是的。你的阅读进度、笔记和学习数据默认仅你可见。我们绝不分享或出售你的数据。你可以随时删除账户和所有数据。"
+      },
+      "q5": {
+        "q": "可以离线使用 / 在手机上使用吗？",
+        "a": "可以。JW Study 是渐进式 Web 应用 (PWA)——一键安装到 iPhone、Android 或电脑。它像原生应用一样运行——无需 App Store——并在所有设备间同步。"
+      },
+      "q6": {
+        "q": "如果我不是耶和华见证人怎么办？",
+        "a": "也欢迎你。JW Study 围绕《新世界译本》构建，但任何研究圣经的人都可以使用。"
+      }
+    }
   },
   "auth": {
     "title": "圣经阅读清单",
@@ -373,7 +504,42 @@
     "useFreezeToken": "使用冻结令牌？",
     "viewAllArrow": "查看全部 →",
     "writeAPost": "撰写文章 →",
-    "noPostsYet": "暂无帖子"
+    "noPostsYet": "暂无帖子",
+    "quickAction": {
+      "continueReading": "继续阅读",
+      "todayQuiz": "今日测试",
+      "meetingPrep": "聚会准备"
+    },
+    "post": {
+      "photoLabel": "照片",
+      "videoLabel": "视频"
+    },
+    "messianicStudy": {
+      "badge": "精选学习",
+      "headingLine1": "十二位先知。",
+      "headingLine2": "一位弥赛亚。",
+      "description": "{{count}} 项希伯来语经卷预言，与其各自应验之处一一对应。",
+      "cta": "开始学习 →"
+    },
+    "learnCard": {
+      "eyebrowComplete": "课程已完成",
+      "eyebrowWelcomeNamed": "欢迎回来，{{name}}",
+      "eyebrowWelcome": "欢迎回来",
+      "eyebrowFresh": "互动课程 · 9 节课",
+      "headlineComplete": "重温任意一课",
+      "headlineInProgress": "从你停下的地方继续",
+      "headlineFresh": "学习如何研读圣经",
+      "subcopyComplete": "你已走完全部课程。回到任一课，磨练一种技能——S.O.A.P.、交叉对照、默想、标注。",
+      "subcopyInProgress": "已完成 {{done}}/{{total}} 节课。每天只需几分钟。",
+      "subcopyFresh": "九节短课，配有实操练习——S.O.A.P.、交叉对照、默想、标注。像庇里亚人一样研读。",
+      "ctaComplete": "回顾课程",
+      "ctaContinue": "继续",
+      "ctaFresh": "开始第 1 课",
+      "lessonsProgress": "{{done}}/{{total}} 节课",
+      "unitLessonMeta": "3 个单元 · 9 节课",
+      "durationMeta": "~25 分钟",
+      "aria": "{{headline}}。已完成 {{done}}/{{total}} 节课。"
+    }
   },
   "stats": {
     "streak_one": "天连续",
@@ -640,7 +806,24 @@
     "cat_full-bible": "完整圣经",
     "cat_nt": "基督教希腊语经卷",
     "cat_ot": "希伯来语经卷",
-    "cat_thematic": "主题性"
+    "cat_thematic": "主题性",
+    "quickSets": {
+      "fullBible": "整本圣经（66）",
+      "hebrew": "希伯来语经卷（39）",
+      "greek": "希腊语经卷（27）",
+      "gospels": "四福音书（4）",
+      "psalmsProverbs": "诗篇与箴言",
+      "paulLetters": "保罗书信（13）"
+    },
+    "createModalLabel": "创建阅读计划",
+    "groupChallengeActive": "群组挑战进行中",
+    "summary": {
+      "title": "✨ 阅读总结与思考",
+      "desc": "获取今日阅读的温暖回顾——关键事件、人物、教训与属灵应用。",
+      "btn": "✦ 总结今日阅读",
+      "btnLoading": "总结中…",
+      "aiLabel": "AI 摘要"
+    }
   },
   "studyNotes": {
     "title": "学习笔记",
@@ -3826,7 +4009,10 @@
     "openArrow": "打开 →",
     "searchBooks": "搜索书卷",
     "startReadingPlanArrow": "开启一年阅读之旅 →",
-    "todayPrefix": "今天："
+    "todayPrefix": "今天：",
+    "donutAria": "已读 {{pct}}% 的圣经",
+    "chaptersRead": "章读完",
+    "remaining": "章未读"
   },
   "writer": {
     "saved": "Saved",
@@ -4918,5 +5104,10 @@
       }
     },
     "title": "服务条款"
+  },
+  "anon": {
+    "backToHome": "返回首页",
+    "tryFree": "免费试用，无需注册",
+    "signUpFree": "免费注册"
   }
 }

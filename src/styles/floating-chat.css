@@ -32,10 +32,13 @@
   gap: 10px;
 }
 
-/* On mobile, clear the bottom tab bar (≈72px) + iOS home indicator */
+/* On mobile, clear the bottom tab bar (~64px content + safe-area) + iOS home
+   indicator with comfortable visual clearance so the FAB doesn't crowd the
+   rightmost tab. Tab bar effective height on iPhone is ~98px; we sit at
+   ~120px so there's ~22px of breathing room above it. */
 @media (max-width: 1100px) {
   .fc-root {
-    bottom: max(84px, calc(72px + env(safe-area-inset-bottom, 0px)));
+    bottom: max(120px, calc(108px + env(safe-area-inset-bottom, 0px)));
   }
 }
 

@@ -612,21 +612,21 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               onClick={() => panelNavigate("main")}
             >
               <span className="text-[22px] leading-none">📖</span>
-              Continue Reading
+              {t("home.quickAction.continueReading", "Continue Reading")}
             </button>
             <button
               className="flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-(--border) bg-(--card-bg) px-2 py-3 pb-2.5 text-center text-xs font-semibold leading-snug text-(--text-secondary) transition-all hover:-translate-y-0.5 hover:border-[#7c3aed] hover:bg-[rgba(124,58,237,0.06)] hover:text-(--text-primary)"
               onClick={() => panelNavigate("quiz")}
             >
               <span className="text-[22px] leading-none">🎯</span>
-              Today's Quiz
+              {t("home.quickAction.todayQuiz", "Today's Quiz")}
             </button>
             <button
               className="flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-(--border) bg-(--card-bg) px-2 py-3 pb-2.5 text-center text-xs font-semibold leading-snug text-(--text-secondary) transition-all hover:-translate-y-0.5 hover:border-[#7c3aed] hover:bg-[rgba(124,58,237,0.06)] hover:text-(--text-primary)"
               onClick={() => panelNavigate("meetingPrep")}
             >
               <span className="text-[22px] leading-none">✅</span>
-              Meeting Prep
+              {t("home.quickAction.meetingPrep", "Meeting Prep")}
             </button>
           </div>
 
@@ -704,7 +704,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 onClick={() => setShowPostModal(true)}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                Photo
+                {t("home.post.photoLabel", "Photo")}
               </button>
               <button
                 type="button"
@@ -712,7 +712,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                 onClick={() => setShowPostModal(true)}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-                Video
+                {t("home.post.videoLabel", "Video")}
               </button>
             </div>
           </div>
@@ -937,18 +937,18 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             className={`${widgetCls} group block p-4 no-underline transition-colors hover:border-violet-500`}
           >
             <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[var(--text-muted)]">
-              Featured study
+              {t("home.messianicStudy.badge", "Featured study")}
             </p>
             <p className="mt-2 text-base font-extrabold leading-[1.1] tracking-[-0.02em] text-[var(--text-primary)]">
-              Twelve prophets.
+              {t("home.messianicStudy.headingLine1", "Twelve prophets.")}
               <br />
-              One Messiah.
+              {t("home.messianicStudy.headingLine2", "One Messiah.")}
             </p>
             <p className="mt-2 text-xs leading-relaxed text-[var(--text-muted)]">
-              {MESSIANIC_PROPHECIES.length} Hebrew Scripture prophecies, paired with where each was fulfilled.
+              {t("home.messianicStudy.description", "{{count}} Hebrew Scripture prophecies, paired with where each was fulfilled.", { count: MESSIANIC_PROPHECIES.length })}
             </p>
             <p className="mt-3 text-xs font-bold text-violet-600 transition-transform group-hover:translate-x-0.5 dark:text-violet-300">
-              Open the study →
+              {t("home.messianicStudy.cta", "Open the study →")}
             </p>
           </a>
 
@@ -1017,6 +1017,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
 const LEARN_TOTAL_LESSONS = 9;
 
 function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: () => void }) {
+  const { t } = useTranslation();
   const [completedCount, setCompletedCount] = useState(0);
 
   useEffect(() => {
@@ -1040,26 +1041,30 @@ function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: ()
   const isInProgress = !isFresh && !isComplete;
 
   const eyebrow = isComplete
-    ? "Course complete"
+    ? t("home.learnCard.eyebrowComplete", "Course complete")
     : isInProgress
       ? firstName
-        ? `Welcome back, ${firstName}`
-        : "Welcome back"
-      : "Interactive course · 9 lessons";
+        ? t("home.learnCard.eyebrowWelcomeNamed", "Welcome back, {{name}}", { name: firstName })
+        : t("home.learnCard.eyebrowWelcome", "Welcome back")
+      : t("home.learnCard.eyebrowFresh", "Interactive course · 9 lessons");
 
   const headline = isComplete
-    ? "Revisit any lesson"
+    ? t("home.learnCard.headlineComplete", "Revisit any lesson")
     : isInProgress
-      ? "Pick up where you left off"
-      : "Learn to Study the Bible";
+      ? t("home.learnCard.headlineInProgress", "Pick up where you left off")
+      : t("home.learnCard.headlineFresh", "Learn to Study the Bible");
 
   const subcopy = isComplete
-    ? "You've walked the full path. Return to any lesson to sharpen a skill, S.O.A.P., cross-referencing, meditation, highlighting."
+    ? t("home.learnCard.subcopyComplete", "You've walked the full path. Return to any lesson to sharpen a skill, S.O.A.P., cross-referencing, meditation, highlighting.")
     : isInProgress
-      ? `${completedCount} of ${LEARN_TOTAL_LESSONS} lessons complete. Just a few minutes a day.`
-      : "Nine short lessons with hands-on exercises, S.O.A.P., cross-referencing, meditation, highlighting. Study like a Berean.";
+      ? t("home.learnCard.subcopyInProgress", "{{done}} of {{total}} lessons complete. Just a few minutes a day.", { done: completedCount, total: LEARN_TOTAL_LESSONS })
+      : t("home.learnCard.subcopyFresh", "Nine short lessons with hands-on exercises, S.O.A.P., cross-referencing, meditation, highlighting. Study like a Berean.");
 
-  const ctaLabel = isComplete ? "Review course" : isInProgress ? "Continue" : "Begin lesson 1";
+  const ctaLabel = isComplete
+    ? t("home.learnCard.ctaComplete", "Review course")
+    : isInProgress
+      ? t("home.learnCard.ctaContinue", "Continue")
+      : t("home.learnCard.ctaFresh", "Begin lesson 1");
 
   return (
     <div
@@ -1073,7 +1078,7 @@ function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: ()
         }
       }}
       className="group relative block w-full overflow-hidden rounded-md border border-[var(--violet-50)] bg-[var(--violet-600)] p-5 text-left text-white no-underline shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--violet-600)] focus-visible:ring-offset-2 cursor-pointer sm:p-6"
-      aria-label={`${headline}. ${completedCount} of ${LEARN_TOTAL_LESSONS} lessons complete.`}
+      aria-label={t("home.learnCard.aria", "{{headline}}. {{done}} of {{total}} lessons complete.", { headline, done: completedCount, total: LEARN_TOTAL_LESSONS })}
     >
       <div
         aria-hidden="true"
@@ -1113,7 +1118,7 @@ function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: ()
             <div className="mt-4 max-w-md">
               <div className="flex items-center justify-between text-[11px] font-medium text-white/70">
                 <span>
-                  {completedCount} of {LEARN_TOTAL_LESSONS} lessons
+                  {t("home.learnCard.lessonsProgress", "{{done}} of {{total}} lessons", { done: completedCount, total: LEARN_TOTAL_LESSONS })}
                 </span>
                 <span className="tabular-nums text-white">{pctLabel}%</span>
               </div>
@@ -1130,7 +1135,7 @@ function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: ()
                 <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
                   <path d="M10 2a1 1 0 011 1v1.07A7 7 0 0117 11h1a1 1 0 110 2h-1a7 7 0 01-6 6.93V21a1 1 0 11-2 0v-1.07A7 7 0 013 13H2a1 1 0 110-2h1A7 7 0 019 4.07V3a1 1 0 011-1z" />
                 </svg>
-                3 units · 9 lessons
+                {t("home.learnCard.unitLessonMeta", "3 units · 9 lessons")}
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <svg viewBox="0 0 20 20" fill="currentColor" className="h-3.5 w-3.5" aria-hidden="true">
@@ -1140,7 +1145,7 @@ function LearnToStudyCard({ firstName, onOpen }: { firstName: string; onOpen: ()
                     clipRule="evenodd"
                   />
                 </svg>
-                ~25 min total
+                {t("home.learnCard.durationMeta", "~25 min total")}
               </span>
             </div>
           )}
