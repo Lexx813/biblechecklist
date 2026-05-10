@@ -1,10 +1,11 @@
-import { useState, useRef, useCallback, useMemo } from "react";
+import { useState, useRef, useCallback, useMemo, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import EmojiPickerPopup, { insertEmojiAtCursor } from "../../../components/EmojiPickerPopup";
 import { useUpdateProfile } from "../../../hooks/useAdmin";
 import { BOOKS } from "../../../data/books";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/style.css";
+
+// react-day-picker + its CSS only load once the user opens the goal editor.
+const DayPicker = lazy(() => import("./LazyDayPicker"));
 
 const TOTAL_CHAPTERS = BOOKS.reduce((s, b) => s + b.chapters, 0);
 const TOTAL_CH = 1189;
@@ -175,14 +176,16 @@ function ReadingGoal({ profile, chaptersRead, totalDays, isOwner }: {
       {editing && (
         <div className="pf-goal-form">
           <div className="pf-goal-calendar-wrap">
-            <DayPicker
-              mode="single"
-              selected={selected}
-              onSelect={setSelected}
-              disabled={{ before: today }}
-              showOutsideDays
-              className="pf-goal-calendar"
-            />
+            <Suspense fallback={<div className="pf-goal-calendar-skel" aria-hidden />}>
+              <DayPicker
+                mode="single"
+                selected={selected}
+                onSelect={setSelected}
+                disabled={{ before: today }}
+                showOutsideDays
+                className="pf-goal-calendar"
+              />
+            </Suspense>
           </div>
           <div className="pf-goal-form-actions">
             <button className="pf-goal-save-btn" onClick={saveGoal} disabled={!selected}>{t("common.save")}</button>

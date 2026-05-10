@@ -1,9 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, lazy, Suspense } from "react";
 import { useCreatePost } from "../../../hooks/useGroups";
 import { groupsApi } from "../../../api/groups";
 import { toast } from "../../../lib/toast";
 import { stripHtml } from "../../../lib/sanitize";
-import RichTextEditor from "../../../components/RichTextEditor";
+
+const RichTextEditor = lazy(() => import("../../../components/RichTextEditor"));
 
 interface Props {
   groupId: string;
@@ -58,13 +59,15 @@ export default function ComposeBox({ groupId, isAdmin }: Props) {
 
   return (
     <form className="grp-compose" onSubmit={submit}>
-      <RichTextEditor
-        content={content}
-        onChange={setContent}
-        placeholder="Share something with the group…"
-        minimal
-        allowMentions
-      />
+      <Suspense fallback={<div className="grp-compose-editor-skel" aria-hidden />}>
+        <RichTextEditor
+          content={content}
+          onChange={setContent}
+          placeholder="Share something with the group…"
+          minimal
+          allowMentions
+        />
+      </Suspense>
       {mediaUrls.length > 0 && (
         <div className="grp-compose-media">
           {mediaUrls.map(url => (

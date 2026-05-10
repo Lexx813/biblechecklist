@@ -22,6 +22,13 @@ const nextConfig = {
   // Gzip/Brotli compression (already on by default; explicit for clarity)
   compress: true,
 
+  // Strip console.* in production bundles to spare mobile devices the work.
+  // console.error is preserved so real errors still surface in the browser
+  // and Sentry breadcrumbs.
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error", "warn"] } : false,
+  },
+
   // Tree-shake common heavy packages to reduce polyfill surface
   experimental: {
     optimizePackageImports: [

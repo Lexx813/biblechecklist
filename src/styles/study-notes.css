@@ -313,6 +313,9 @@
   transition: transform var(--dur-fast) var(--ease-spring),
               box-shadow var(--dur-base) var(--ease-out),
               border-color var(--dur-base) var(--ease-out);
+  /* Skip layout/paint for off-screen note cards — large note grids stay smooth on Android. */
+  content-visibility: auto;
+  contain-intrinsic-size: 0 220px;
   display: flex;
   flex-direction: column;
   gap: 8px;

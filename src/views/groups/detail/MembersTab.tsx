@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   useGroupMembers,
@@ -15,6 +16,8 @@ interface Props {
   isOwner: boolean;
 }
 
+const PAGE = 20;
+
 export default function MembersTab({ groupId, userId, isAdmin, isOwner }: Props) {
   const { t } = useTranslation();
   const { data: members = [], isLoading } = useGroupMembers(groupId);
@@ -22,9 +25,12 @@ export default function MembersTab({ groupId, userId, isAdmin, isOwner }: Props)
   const deny = useDenyJoinRequest(groupId);
   const remove = useRemoveMember(groupId);
   const updateRole = useUpdateMemberRole(groupId);
+  const [visible, setVisible] = useState(PAGE);
 
   const pending = (members as GroupMember[]).filter(m => m.status === "pending");
   const active = (members as GroupMember[]).filter(m => m.status === "member");
+  const activeShown = active.slice(0, visible);
+  const hasMore = active.length > visible;
 
   if (isLoading) return <div className="grp-tab-loading">{t("groups.loadingMembers")}</div>;
 
@@ -47,7 +53,7 @@ export default function MembersTab({ groupId, userId, isAdmin, isOwner }: Props)
       )}
 
       <h3 className="grp-section-label">{t("groups.membersHeading")} <span className="grp-tab-count">{active.length}</span></h3>
-      {active.map(m => (
+      {activeShown.map(m => (
         <div key={m.id} className="grp-member-row">
           <Avatar src={m.avatar_url} name={m.display_name} size={36} />
           <div className="grp-member-info">
@@ -69,6 +75,15 @@ export default function MembersTab({ groupId, userId, isAdmin, isOwner }: Props)
           )}
         </div>
       ))}
+      {hasMore && (
+        <button
+          type="button"
+          className="grp-btn grp-btn--ghost grp-btn--sm grp-load-more"
+          onClick={() => setVisible(v => v + PAGE)}
+        >
+          {t("common.loadMore", "Load more")} ({active.length - visible})
+        </button>
+      )}
     </div>
   );
 }

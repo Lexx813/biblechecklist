@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useRef, useCallback, startTransition } from "react";
 import { createPortal } from "react-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -107,25 +107,29 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
     requestAnimationFrame(() => scrollToChapter(openBook, openChapter));
   }, [initialized, openBook, openChapter, deepLinkHandled, scrollToChapter]);
 
-  // Populate state once remote progress has loaded
+  // Populate state once remote progress has loaded.
+  // Chapter state lights up the checklist immediately. Verse-state parsing
+  // (which can be substantial for active readers) is deferred via
+  // startTransition so the book grid paints first.
   useEffect(() => {
     if (!progressLoading && !initialized) {
       const { _v: rawVerses, ...chapterData } = (remoteProgress ?? {}) as Record<string, unknown>;
       setChaptersState(chapterData);
-      // Parse verse state (stored as { "[bi]": { "[ch]": number[] } })
+      setInitialized(true);
       if (rawVerses && typeof rawVerses === "object") {
-        const parsed: Record<number, Record<number, number[]>> = {};
-        for (const [bi, chs] of Object.entries(rawVerses as Record<string, unknown>)) {
-          if (chs && typeof chs === "object") {
-            parsed[Number(bi)] = {};
-            for (const [ch, vs] of Object.entries(chs as Record<string, unknown>)) {
-              if (Array.isArray(vs)) parsed[Number(bi)][Number(ch)] = vs;
+        startTransition(() => {
+          const parsed: Record<number, Record<number, number[]>> = {};
+          for (const [bi, chs] of Object.entries(rawVerses as Record<string, unknown>)) {
+            if (chs && typeof chs === "object") {
+              parsed[Number(bi)] = {};
+              for (const [ch, vs] of Object.entries(chs as Record<string, unknown>)) {
+                if (Array.isArray(vs)) parsed[Number(bi)][Number(ch)] = vs;
+              }
             }
           }
-        }
-        setVersesState(parsed);
+          setVersesState(parsed);
+        });
       }
-      setInitialized(true);
     }
   }, [progressLoading, remoteProgress, initialized]);
 

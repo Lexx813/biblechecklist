@@ -31,9 +31,11 @@ export default function AnonChecklistPage({ onSignUp, onBack }: Props) {
     setChaptersState(loadAnonProgress());
   }, []);
 
-  // Persist on every change
+  // Persist on every change — debounced so rapid taps (toggling a book of 50
+  // chapters) don't re-serialize the whole blob on every state hop.
   useEffect(() => {
-    saveAnonProgress(chaptersState);
+    const id = window.setTimeout(() => saveAnonProgress(chaptersState), 400);
+    return () => window.clearTimeout(id);
   }, [chaptersState]);
 
   const handleToggleChapter = (bi: number, ch: number) => {

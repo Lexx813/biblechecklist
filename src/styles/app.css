@@ -802,6 +802,11 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   position: relative;
   overflow: hidden;
   transition: background 180ms var(--ease-out), border-color 180ms ease, box-shadow 220ms ease, transform 220ms cubic-bezier(.2,.7,.2,1);
+  /* Skip layout/paint for off-screen books — huge win on Android when all 66
+     books are mounted at once. Browser still keeps a 64px placeholder so the
+     scrollbar/anchor math stays correct. */
+  content-visibility: auto;
+  contain-intrinsic-size: 0 64px;
 }
 .book-card:hover {
   background: #EEEEF3;
@@ -3025,4 +3030,17 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   background: var(--violet-300);
   border-radius: 999px;
   transition: width .3s ease;
+}
+
+/* ── Mobile perf overrides — Android Chrome takes the hardest hit on ──
+   continuous animations and backdrop-filter compositing. Kill the costly
+   work on small screens; desktop keeps the polish. */
+@media (max-width: 768px) {
+  /* 16s infinite gradient drift constantly repaints the sticky header. */
+  .app-header { animation: none !important; }
+  /* backdrop-filter compositing the entire scroll surface = the single
+     biggest paint-cost offender on mid-tier Android. */
+  .app-header,
+  .topbar-blur,
+  .app-bottom-bar { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 }

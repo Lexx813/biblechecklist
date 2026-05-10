@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, memo } from "react";
 import { useTranslation } from "react-i18next";
 import RightPanel from "../components/RightPanel";
 import { useReadingLeaderboard, useQuizLeaderboard } from "../hooks/useLeaderboard";
@@ -27,61 +27,65 @@ const MEDALS = ["🥇", "🥈", "🥉"];
 
 
 
-function Avatar({ row }) {
+const Avatar = memo(function Avatar({ row }: { row: { avatar_url?: string; display_name?: string } }) {
   if (row.avatar_url) {
-    return <img className="lb-avatar" src={row.avatar_url} alt="" width={40} height={40} />;
+    return <img className="lb-avatar" src={row.avatar_url} alt="" width={40} height={40} loading="lazy" decoding="async" />;
   }
   const initials = (row.display_name || "?")[0].toUpperCase();
   return <div className="lb-avatar lb-avatar--fallback">{initials}</div>;
-}
+});
 
-
+const ReadingRow = memo(function ReadingRow({ row, i, isMe, onProfile }: any) {
+  const { t } = useTranslation();
+  return (
+    <div
+      className={`lb-row${i === 0 ? " lb-row--first" : ""}${isMe ? " lb-row--me" : ""}`}
+      onClick={() => onProfile(row.user_id)}
+    >
+      <span className="lb-rank">{MEDALS[i] ?? `#${i + 1}`}</span>
+      <Avatar row={row} />
+      <div className="lb-info">
+        <span className="lb-name">{row.display_name || t("leaderboard.anonymous")}</span>
+        <span className="lb-sub">{row.pct}% {t("leaderboard.complete")}</span>
+      </div>
+      <span className="lb-stat">{Number(row.chapters_read).toLocaleString()} <span className="lb-stat-label">{t("leaderboard.chapters")}</span></span>
+    </div>
+  );
+});
 
 function ReadingBoard({ data, userId, onProfile }) {
-  const { t } = useTranslation();
   return (
     <div className="lb-list">
       {data.map((row, i) => (
-        <div
-          key={row.user_id}
-          className={`lb-row${i === 0 ? " lb-row--first" : ""}${row.user_id === userId ? " lb-row--me" : ""}`}
-          onClick={() => onProfile(row.user_id)}
-        >
-          <span className="lb-rank">{MEDALS[i] ?? `#${i + 1}`}</span>
-          <Avatar row={row} />
-          <div className="lb-info">
-            <span className="lb-name">
-              {row.display_name || t("leaderboard.anonymous")}
-            </span>
-            <span className="lb-sub">{row.pct}% {t("leaderboard.complete")}</span>
-          </div>
-          <span className="lb-stat">{Number(row.chapters_read).toLocaleString()} <span className="lb-stat-label">{t("leaderboard.chapters")}</span></span>
-        </div>
+        <ReadingRow key={row.user_id} row={row} i={i} isMe={row.user_id === userId} onProfile={onProfile} />
       ))}
     </div>
   );
 }
 
-function QuizBoard({ data, userId, onProfile }) {
+const QuizRow = memo(function QuizRow({ row, i, isMe, onProfile }: any) {
   const { t } = useTranslation();
+  return (
+    <div
+      className={`lb-row${i === 0 ? " lb-row--first" : ""}${isMe ? " lb-row--me" : ""}`}
+      onClick={() => onProfile(row.user_id)}
+    >
+      <span className="lb-rank">{MEDALS[i] ?? `#${i + 1}`}</span>
+      <Avatar row={row} />
+      <div className="lb-info">
+        <span className="lb-name">{row.display_name || t("leaderboard.anonymous")}</span>
+        <span className="lb-sub">{t("leaderboard.levelsComplete", { count: Number(row.levels_completed) })}</span>
+      </div>
+      <span className="lb-stat">{Number(row.levels_completed)} / 36</span>
+    </div>
+  );
+});
+
+function QuizBoard({ data, userId, onProfile }) {
   return (
     <div className="lb-list">
       {data.map((row, i) => (
-        <div
-          key={row.user_id}
-          className={`lb-row${i === 0 ? " lb-row--first" : ""}${row.user_id === userId ? " lb-row--me" : ""}`}
-          onClick={() => onProfile(row.user_id)}
-        >
-          <span className="lb-rank">{MEDALS[i] ?? `#${i + 1}`}</span>
-          <Avatar row={row} />
-          <div className="lb-info">
-            <span className="lb-name">
-              {row.display_name || t("leaderboard.anonymous")}
-            </span>
-            <span className="lb-sub">{t("leaderboard.levelsComplete", { count: Number(row.levels_completed) })}</span>
-          </div>
-          <span className="lb-stat">{Number(row.levels_completed)} / 36</span>
-        </div>
+        <QuizRow key={row.user_id} row={row} i={i} isMe={row.user_id === userId} onProfile={onProfile} />
       ))}
     </div>
   );
@@ -128,10 +132,10 @@ export default function LeaderboardPage({ user, onBack, navigate, darkMode, setD
   const isLoading = tab === "reading" ? readingLoading : tab === "quiz" ? quizLoading : false;
   const currentError = tab === "reading" ? readingError : tab === "quiz" ? quizError : null;
 
-  function goProfile(userId) {
+  const goProfile = useCallback((userId: string) => {
     if (userId === user.id) navigate("profile");
     else navigate("publicProfile", { userId });
-  }
+  }, [user.id, navigate]);
 
   return (
     <div className="lb-page">

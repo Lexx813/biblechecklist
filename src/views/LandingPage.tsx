@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { LANGUAGES } from "../i18n";
+import { imgUrl } from "../lib/imgUrl";
 
 /* Branded violet placeholders — replaced stock Unsplash photography that
    read as cheap/generic. Each post gets a stable color from its id. */
@@ -473,10 +474,11 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
                   <div className="aspect-video w-full shrink-0 overflow-hidden" style={{ background: getFallbackGradient(post.id) }}>
                     {post.cover_url && (
                       <img
-                        src={post.cover_url}
+                        src={imgUrl(post.cover_url, { width: 720 })}
                         alt={post.title}
                         className="block h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                         loading="lazy"
+                        decoding="async"
                         width={640}
                         height={360}
                         onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}

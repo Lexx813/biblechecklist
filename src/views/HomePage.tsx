@@ -48,6 +48,7 @@ import { usePublishedVideos, useSignedVideoUrl, useSpotlightVideo } from "../hoo
 import { useTopThreads } from "../hooks/useForum";
 import { usePublicNotes } from "../hooks/useStudyNotes";
 import { formatDate, authorName, formatNum } from "../utils/formatters";
+import { imgUrl } from "../lib/imgUrl";
 import { BOOKS } from "../data/books";
 import { MESSIANIC_PROPHECIES } from "../data/messianicProphecies";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
@@ -158,12 +159,24 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { t } = useTranslation();
   const lang = i18n?.language?.split("-")[0] ?? "en";
 
-  // Defer non-critical fetches until after the first paint to keep INP clean
-  const [deferred, setDeferred] = useState(false);
+  // Defer non-critical fetches in stages so we don't slam the network at once.
+  // tier1 (≈16ms after paint): visible-above-fold queries.
+  // tier2 (≈600ms): below-fold reads (forum, study notes).
+  // tier3 (≈1.5s): social-graph reads (friends, online members, public feed).
+  const [tier1, setTier1] = useState(false);
+  const [tier2, setTier2] = useState(false);
+  const [tier3, setTier3] = useState(false);
   useEffect(() => {
-    const id = requestAnimationFrame(() => setDeferred(true));
-    return () => cancelAnimationFrame(id);
+    const raf = requestAnimationFrame(() => setTier1(true));
+    const t2 = window.setTimeout(() => setTier2(true), 600);
+    const t3 = window.setTimeout(() => setTier3(true), 1500);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(t2);
+      window.clearTimeout(t3);
+    };
   }, []);
+  const deferred = tier1; // Back-compat alias for any inline use below.
 
   // Critical, needed above the fold
   const { data: profile } = useFullProfile(user?.id);
@@ -184,10 +197,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const reelVideos = spotlightVideo
     ? recentVideos.filter((v: { id: string }) => v.id !== spotlightVideo.id)
     : recentVideos;
-  const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(deferred ? 4 : 0, lang);
-  const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes(deferred ? lang : null);
+  const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(tier2 ? 4 : 0, lang);
+  const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes(tier2 ? lang : null);
   const previewNotes = publicNotes.slice(0, 4);
-  const { data: friends = [], isLoading: friendsLoading } = useFriends(deferred ? user?.id : null);
+  const { data: friends = [], isLoading: friendsLoading } = useFriends(tier3 ? user?.id : null);
   const { data: publicFeed = [] } = usePublicFeed();
   const createPost = useCreatePost(user?.id);
   const updatePost = useUpdatePost(user?.id);
@@ -195,7 +208,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const [showPostModal, setShowPostModal] = useState(false);
   const [editingPost, setEditingPost] = useState<any>(null);
   const [deletePostId, setDeletePostId] = useState<string | null>(null);
-  const { onlineNow: whoOnline, recentlyActive: whoRecent, totalOnline, isLoading: whoLoading, isError: whoError } = useOnlineMembers(deferred ? 50 : 0);
+  const { onlineNow: whoOnline, recentlyActive: whoRecent, totalOnline, isLoading: whoLoading, isError: whoError } = useOnlineMembers(tier3 ? 20 : 0);
   const whoMembers = [...whoOnline, ...whoRecent];
 
   // Inline panels (quiz, leaderboard, familyQuiz, etc.)
@@ -640,12 +653,13 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                   <article key={post.id} className="group flex cursor-pointer flex-col overflow-hidden rounded-[var(--radius)] border border-[var(--border)] bg-white/[0.03] transition-all duration-150 hover:-translate-y-0.5 hover:border-brand-600/[0.28] active:scale-[0.98] [html[data-theme=light]_&]:bg-white" onClick={() => navigate("blog", { slug: post.slug })}>
                     <div className="relative h-[108px] shrink-0 overflow-hidden">
                       <img
-                        src={post.cover_url || getFallbackImage(post.id)}
+                        src={imgUrl(post.cover_url, { width: 480 }) || getFallbackImage(post.id)}
                         alt={title}
                         className="block h-full w-full object-cover"
                         width={280}
                         height={108}
                         loading="lazy"
+                        decoding="async"
                         onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
                       />
                       {post.like_count > 0 && (

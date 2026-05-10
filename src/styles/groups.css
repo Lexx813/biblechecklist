@@ -620,6 +620,13 @@
 }
 .grp-compose:focus-within { border-color: rgba(124,58,237,0.35); }
 
+.grp-compose-editor-skel {
+  height: 96px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
 .grp-compose-input {
   background: var(--bg);
   border: 1.5px solid var(--border);

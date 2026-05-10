@@ -15,6 +15,7 @@ import MentionAutocomplete from "../../components/mentions/MentionAutocomplete";
 import { usePublishedPosts, usePostBySlug, useComments, useCreateComment, useDeleteComment, useDeletePost, useUserBlogLikes, useToggleBlogLike } from "../../hooks/useBlog";
 import LikedByPopover from "../../components/LikedByPopover";
 import { blogApi } from "../../api/blog";
+import { imgUrl } from "../../lib/imgUrl";
 import { toast } from "../../lib/toast";
 import { useSubmitReport } from "../../hooks/useReports";
 import { useBlocks, useBlockUser, useUnblockUser } from "../../hooks/useBlocks";
@@ -305,10 +306,13 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
       )}
       <div className="blog-post-hero">
         <img
-          src={post.cover_url || getFallbackImage(post.id)}
+          src={imgUrl(post.cover_url, { width: 1080, quality: 80 }) || getFallbackImage(post.id)}
           className="blog-post-hero-img"
           alt={displayTitle}
+          width={1200}
+          height={630}
           fetchPriority="high"
+          decoding="async"
           onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
         />
         <div className="blog-post-hero-overlay">
