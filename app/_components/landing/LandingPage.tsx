@@ -7,6 +7,9 @@ import CommunityStats from "./CommunityStats";
 import FeaturedPosts from "./FeaturedPosts";
 import MotionDiv from "./MotionDiv";
 import { MESSIANIC_PROPHECIES } from "../../../src/data/messianicProphecies";
+// Landing-only CSS (~20KB) — kept out of globals.css so /blog, /forum, /books
+// don't pay the render-blocking parse cost on first paint.
+import "./landing.css";
 
 /* ── Server-side data fetching ─────────────────────────────────── */
 

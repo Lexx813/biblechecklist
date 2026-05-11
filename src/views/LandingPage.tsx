@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { LANGUAGES } from "../i18n";
 import { imgUrl } from "../lib/imgUrl";
+// SPA landing page lazily imports landing.css the same way the SSR version does
+// — keeps the lp-*/lp2-* styles out of every non-landing static route.
+import "../../app/_components/landing/landing.css";
 
 /* Branded violet placeholders — replaced stock Unsplash photography that
    read as cheap/generic. Each post gets a stable color from its id. */
