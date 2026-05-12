@@ -2,7 +2,6 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpBackend from "i18next-http-backend";
-import enTranslation from "./locales/en/translation.json";
 
 // Add a new language here — one entry is all that's needed.
 // Set `beta: true` for languages whose translations have not yet been
@@ -31,16 +30,14 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    // English is bundled inline — no HTTP fetch needed for the majority of users.
-    // Non-English languages still load on demand via HttpBackend.
-    initImmediate: false,
+    // All languages — including English — load via HttpBackend from
+    // /locales/{lng}/translation.json. Bundling en inline used to add
+    // ~100KB gzip to the initial JS chunk; offloading to a parallel HTTP
+    // request lets the browser fetch it alongside the JS chunks instead
+    // of waiting for them. app/layout.tsx preloads the en JSON for first paint.
     fallbackLng: "en",
     supportedLngs: LANGUAGES.map(l => l.code),
     interpolation: { escapeValue: false },
-    partialBundledLanguages: true,
-    resources: {
-      en: { translation: enTranslation },
-    },
     detection: {
       order: ["localStorage", "navigator"],
       caches: ["localStorage"],

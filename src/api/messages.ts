@@ -80,7 +80,11 @@ export const messagesApi = {
         .in("conversation_id", convIds)
         .is("deleted_at", null)
         .order("created_at", { ascending: false })
-        .limit(200),
+        // Scale with actual conversation count: ~4 recent messages per convo
+        // is enough to render a preview + unread count, bounded at 120 to keep
+        // worst-case payload in check. Was a flat .limit(200) which shipped
+        // ~50–60 KB on every 15s poll for typical inboxes.
+        .limit(Math.min(120, Math.max(20, convIds.length * 4))),
     ]);
     if (e2) throw new Error(e2.message);
     if (e3) throw new Error(e3.message);

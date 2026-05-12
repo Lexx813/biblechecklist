@@ -37,6 +37,10 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="preload" href="/fonts/plus-jakarta-sans-variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        {/* English translation is no longer bundled into the initial JS chunk —
+            preload it as fetch so i18next's HttpBackend pulls from the disk
+            cache instead of blocking on a cold network request. */}
+        <link rel="preload" href="/locales/en/translation.json" as="fetch" type="application/json" crossOrigin="anonymous" />
         {/* Apply saved theme before first paint to prevent flash */}
         <script
           dangerouslySetInnerHTML={{

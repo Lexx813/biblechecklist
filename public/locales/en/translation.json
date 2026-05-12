@@ -58,7 +58,12 @@
     "saveBannerRegion": "Save your progress"
   },
   "a11y": {
-    "skipToContent": "Skip to main content"
+    "skipToContent": "Skip to main content",
+    "send": "Send",
+    "cancel": "Cancel",
+    "close": "Close",
+    "dismiss": "Dismiss",
+    "loading": "Loading"
   },
   "common": {
     "back": "← Back",
@@ -89,7 +94,8 @@
     "searchOptionsAria": "Search options",
     "select": "Select…",
     "image": "Image",
-    "previewAlt": "Preview"
+    "previewAlt": "Preview",
+    "working": "Working…"
   },
   "app": {
     "title": "Bible Reading Checklist",
@@ -377,7 +383,25 @@
     "share": "Share",
     "emptyOwner": "You haven't shared any updates yet.",
     "emptyOther": "No updates yet.",
-    "noCommentsYet": "No comments yet. Be the first!"
+    "noCommentsYet": "No comments yet. Be the first!",
+    "interactions": {
+      "cancelReply": "✕ Cancel",
+      "comment": "Comment",
+      "commentOnPost": "Comment on post",
+      "emojiCount": "{{emoji}} {{count}}",
+      "invalidContent": "Invalid content",
+      "likeComment": "Like comment",
+      "react": "React",
+      "reactToPost": "React to post",
+      "reactWith": "React with {{emoji}}",
+      "reply": "Reply",
+      "replyToPlaceholder": "Reply to {{name}}…",
+      "replyingToPrefix": "↩ Replying to",
+      "sendComment": "Send comment",
+      "sendReply": "Send reply",
+      "signInToComment": "Sign in to comment",
+      "writeCommentPlaceholder": "Write a comment…"
+    }
   },
   "follow": {
     "follow": "Follow",
@@ -1124,10 +1148,49 @@
     "blockquote": "Blockquote",
     "code": "Inline Code",
     "codeBlock": "Code Block",
-    "link": "Add Link",
+    "link": {
+      "insert": "Insert link",
+      "urlPlaceholder": "https://example.com or mailto:you@email.com",
+      "urlLabel": "URL",
+      "cancel": "Cancel",
+      "apply": "Apply"
+    },
     "unlink": "Remove Link",
     "hr": "Divider",
-    "linkPrompt": "Enter URL"
+    "linkPrompt": "Enter URL",
+    "underline": "Underline",
+    "highlight": "Highlight",
+    "clearHighlight": "Clear highlight",
+    "heading": "Heading {{level}}",
+    "alignLeft": "Align left",
+    "alignCenter": "Align center",
+    "alignRight": "Align right",
+    "textColor": "Text color",
+    "focusMode": "Focus mode (hide chrome)",
+    "emoji": "Emoji",
+    "exitFocusModeTitle": "Exit focus mode (Esc)",
+    "exitFocus": "Exit focus · Esc",
+    "scripturePrompt": "Scripture reference (e.g. Matthew 24:14):",
+    "color": {
+      "clear": "Clear",
+      "custom": "Custom…"
+    },
+    "bubble": {
+      "bold": "Bold (Cmd+B)",
+      "italic": "Italic (Cmd+I)"
+    },
+    "slash": {
+      "insert": "Insert",
+      "h1": "Heading 1",
+      "h2": "Heading 2",
+      "h3": "Heading 3",
+      "bulletList": "Bulleted list",
+      "numberedList": "Numbered list",
+      "quote": "Quote",
+      "codeBlock": "Code block",
+      "divider": "Divider",
+      "scripture": "Scripture (e.g. Matthew 24:14)"
+    }
   },
   "bookNames": [
     "Genesis",
@@ -2145,7 +2208,55 @@
     "imageWarningSuspension": "and may result in account suspension.",
     "imageWarningAgree": "By continuing, you confirm this image is wholesome and appropriate.",
     "sendImage": "Send Image",
-    "searchConversations": "Search conversations…"
+    "searchConversations": "Search conversations…",
+    "chatWidgets": {
+      "addNote": "Add a note",
+      "addNotePlaceholder": "Add a note…",
+      "book": "Book",
+      "chapter": "Chapter",
+      "chatSettings": "⚙ Chat Settings",
+      "disappearingMessages": "⏱ Disappearing Messages",
+      "getNotified": "Get notified of new messages",
+      "noActivePlans": "You have no active reading plans.",
+      "noteOptional": "Note (optional)",
+      "notificationsBlocked": "Notifications blocked. Enable in browser settings.",
+      "readOnWol": "Read on WOL ↗",
+      "readingPlanInvitation": "Reading Plan Invitation",
+      "sharePlanAria": "Share a reading plan",
+      "sharePlanTitle": "📅 Share a Reading Plan",
+      "shareVerseAria": "Share a Bible verse",
+      "shareVerseBtn": "Share Verse",
+      "shareVerseTitle": "📖 Share a Bible Verse",
+      "themeColor": "🎨 Theme Color",
+      "verse": "Verse",
+      "verseNumber": "Verse number"
+    },
+    "miniThread": {
+      "back": "Back",
+      "cancelReply": "Cancel reply",
+      "deleteConversation": "Delete conversation",
+      "emoji": "Emoji",
+      "inputPlaceholder": "Aa",
+      "like": "Like",
+      "newMessageChip": "↓ New message",
+      "previewImage": "🖼 Image",
+      "previewPlan": "📅 Reading plan",
+      "previewVerse": "📖 Bible verse",
+      "retry": "Retry",
+      "searchAria": "Search messages",
+      "searchTip": "Search",
+      "send": "Send",
+      "sendFailed": "Message failed to send.",
+      "sendFailedConnection": "Message failed to send. Check your connection.",
+      "settingsAria": "Chat settings",
+      "settingsTip": "Settings",
+      "shareImage": "Share image",
+      "sharePlan": "Share reading plan",
+      "shareVerse": "Share Bible verse",
+      "starredAria": "Starred messages",
+      "starredTip": "Starred",
+      "typeMessage": "Type a message"
+    }
   },
   "aiCompanion": {
     "title": "AI Study Companion",
@@ -2172,6 +2283,7 @@
     "proFeature": "🔒 Pro feature",
     "studyTopics": "Study Topics",
     "feed": "Activity",
+    "today": "Today",
     "bookmarks": "Bookmarks",
     "home": "Home",
     "bibleTracker": "Bible",
@@ -2458,7 +2570,10 @@
   },
   "verseModal": {
     "shareMessage": "📖 I'm reading {{book}} {{chapter}}: {{url}}",
-    "shareTitle": "Share {{book}} {{chapter}}"
+    "shareTitle": "Share {{book}} {{chapter}}",
+    "chapterShort": "Ch {{chapter}}",
+    "dialogLabel": "{{book}} Chapter {{chapter}}",
+    "versesProgress": "{{read}} / {{total}} verses"
   },
   "topbar": {
     "goToHome": "JW Study, Go to home",
@@ -2511,6 +2626,891 @@
   "familyQuiz": {
     "loadingChallenge": "Loading challenge…",
     "loadingResults": "Loading results…"
+  },
+  "aiBubble": {
+    "aiThinkingAriaLabel": "AI is thinking",
+    "clear": "Clear",
+    "clearTitle": "Clear conversation",
+    "closeAriaLabel": "Close study companion",
+    "dialogLabel": "AI Study Companion",
+    "fabTitle": "AI Study Companion",
+    "inputAriaLabel": "Ask a Bible question",
+    "openAriaLabel": "Open AI Study Companion",
+    "placeholder": "Ask a Bible question…",
+    "quotaAriaLabel": "{{percent}} percent of daily AI quota used",
+    "quotaPill": "{{percent}}% used",
+    "quotaTitle": "Daily AI quota: {{inputUsed}} / {{inputCap}} input tokens, {{outputUsed}} / {{outputCap}} output tokens. Resets every 24h.",
+    "subtitle": "JW sources only · wol.jw.org",
+    "suggestedBlog": {
+      "q1": "Write a blog draft about what I'm studying",
+      "q2": "Give me an outline for a JW article on this topic",
+      "q3": "Suggest 5 blog title ideas with scriptures",
+      "q4": "Help me write an introduction paragraph"
+    },
+    "suggestedDefault": {
+      "q1": "What does this passage teach about Jehovah?",
+      "q2": "What does the original Hebrew or Greek mean?",
+      "q3": "How can I explain this scripture to someone?",
+      "q4": "What does the Reasoning book say about this?"
+    },
+    "thinking1": "Thinking",
+    "thinking2": "Looking that up",
+    "thinking3": "Reading the publications",
+    "thinking4": "Considering the scriptures",
+    "title": "Study Companion",
+    "welcomeBlog": "Tell me a topic and I'll write a full draft and load it into the editor. I can also brainstorm titles, outlines, or help with any section.",
+    "welcomeDefault": "Ask any Bible question. Answers draw exclusively from Watch Tower publications, the NWT, and wol.jw.org."
+  },
+  "aiConfirm": {
+    "actionFailed": "Action failed.",
+    "deleteNote": {
+      "action": "Delete",
+      "title": "Delete this note?",
+      "warn": "This can't be undone."
+    },
+    "noteDeleted": "Note deleted."
+  },
+  "errorPage": {
+    "appUpdated": "The app was updated. Please reload to get the latest version.",
+    "fallback": "An unexpected error occurred. Please try again.",
+    "reload": "↺ Reload Page",
+    "title": "Something went wrong",
+    "tryAgain": "↩ Try Again"
+  },
+  "notFound": {
+    "bodyShort": "The page you're looking for doesn't exist or has been moved.",
+    "goHomeArrow": "← Go Home",
+    "body": "The address you entered doesn't exist. It may have been moved, deleted, or you may have mistyped it.",
+    "docTitle": "404, Page Not Found",
+    "goBack": "Go back",
+    "goHome": "Go home",
+    "title": "Page not found",
+    "verse": "\"Your word is a lamp for my feet, a light on my path.\", Psalm 119:105"
+  },
+  "learn": {
+    "exercises": {
+      "soapNote": {
+        "headings": {
+          "scripture": "Scripture",
+          "observation": "Observation",
+          "application": "Application",
+          "prayer": "Prayer"
+        },
+        "placeholder": "…",
+        "sectionsFilled": "{{filled}} of 4 sections filled",
+        "saved": "Saved",
+        "saveButton": "Save this S.O.A.P. note",
+        "savedMessage": "Saved locally. When you're signed in and we wire persistence, this note will be stored with your study journal."
+      },
+      "questionLadder": {
+        "rungs": {
+          "who": "Who",
+          "what": "What",
+          "whenWhere": "When / Where",
+          "why": "Why",
+          "how": "How it applies"
+        },
+        "placeholder": "Type your answer…",
+        "hideHint": "Hide hint",
+        "needHint": "Need a hint?",
+        "hintLabel": "Hint:",
+        "rungsAnswered": "{{filled}} of {{total}} rungs answered",
+        "saved": "Saved",
+        "completeButton": "I've climbed the ladder",
+        "completedMessage": "Good work. Take a breath. The questions you just asked are the questions a careful student keeps asking for the rest of their life."
+      },
+      "meditate": {
+        "timerLabel": "Optional meditation pause",
+        "pause": "Pause",
+        "restart": "Restart",
+        "begin": "Begin",
+        "reset": "Reset",
+        "placeholder": "Take your time…",
+        "saved": "Saved",
+        "finishButton": "I've sat with it",
+        "finishedMessage": "There's no grade here. What you just did, slowing down, asking honest questions - is the practice. Keep it up."
+      },
+      "crossRef": {
+        "nextQuestion": "Next question",
+        "notQuite": "Not quite.",
+        "questionCounter": "Question {{index}} / {{total}}",
+        "resultLabel": "Result",
+        "right": "Right.",
+        "scoreLabel": "Score: {{correct}} / {{answered}}",
+        "seeResult": "See result",
+        "verdictClean": "A clean sweep. You know your library.",
+        "verdictFair": "A fair start. Revisit the lesson once more, the instincts will come.",
+        "verdictWellDone": "Well done. You've got the instincts."
+      },
+      "highlight": {
+        "clearAll": "Clear all",
+        "iveMarked": "I've marked the paragraph",
+        "pickHighlighter": "Pick a highlighter above, then tap words in the passage.",
+        "showGuide": "Show a guide for this paragraph",
+        "tagAtLeast": "Tag at least 5 (currently {{count}})",
+        "tapToTag": "Tap a word or phrase to tag it as \"{{category}}\". Tap again to remove."
+      }
+    },
+    "course": {
+      "backHome": "Back home",
+      "backToCourse": "Back to course",
+      "breadcrumbLabel": "Breadcrumb",
+      "categories": {
+        "command": "Command",
+        "promise": "Promise",
+        "quality": "Jehovah's quality",
+        "reference": "Cross-reference",
+        "warning": "Warning"
+      },
+      "closingBenediction": "All glory to Jehovah.",
+      "closingBlurb": "Personal study is one of the greatest gifts a Bible student has. Don't let this course end here.",
+      "closingCta": "Start your first study session",
+      "complete": "Complete",
+      "completed": "Completed",
+      "continue": "Continue",
+      "exerciseHeading": "Exercise",
+      "intro": "You will not just read about studying. You will do it, with real verses, real publications, real exercises, the way the Bereans did.",
+      "kicker": "A nine-lesson course for Bible students",
+      "lessonLabel": "Lesson",
+      "markComplete": "Mark lesson complete",
+      "minRead": "min read",
+      "minShort": "min",
+      "overallProgress": "Overall progress",
+      "skipToExercise": "Skip to exercise",
+      "skipToExerciseAria": "Skip to exercise. {{pct}}% read.",
+      "skipToExerciseReady": "Ready, go to exercise",
+      "title": "Learn to Study",
+      "unitLabel": "Unit"
+    },
+    "units": {
+      "unit1": {
+        "lesson1": {
+          "body": {
+            "bq1": "Now the latter were more noble-minded than those in Thessalonica, for they accepted the word with the greatest eagerness of mind, carefully examining the Scriptures daily to see whether these things were so.",
+            "h3_1": "Three marks of study that shapes a life",
+            "list1": {
+              "item1": "Regular. Rhythm beats intensity. Fifteen minutes daily outlasts a three-hour binge on Saturday.",
+              "item2": "Active. Pencil in hand. Question in mind. If you can't recall what you read an hour later, you weren't really studying.",
+              "item3": "Prayerful. Jehovah gives wisdom generously to those who ask (Jas. 1:5). Holy spirit isn't automatic, ask."
+            },
+            "p1": "When Paul preached in Beroea, the people there did something the apostle singled out for praise. They received the word eagerly, but they didn't stop there. They checked.",
+            "p2": "That's the pattern for personal study. Eager reception and careful examination, every day. It's not enough to agree with what you hear at the meetings. The Bereans, and Paul himself, who wrote more of the Christian Greek Scriptures than anyone, wanted us digging in ourselves.",
+            "p3": "This course is built around those three marks. You'll do short exercises with real scriptures, not just read about them. That's the Berean pattern in miniature."
+          },
+          "ex": {
+            "prompt1": "What have you read in your Bible or the publications this past week?",
+            "prompt2": "Where did you catch a glimpse of Jehovah's qualities in the passage?",
+            "prompt3": "What is this passage asking you to change, start, or stop?",
+            "prompt4": "Write a one-sentence prayer turning the answer above into a conversation with Jehovah.",
+            "title": "Meditate: what moved you this week?"
+          },
+          "oneLine": "The Bereans didn't just listen. They examined. So should we.",
+          "title": "Why Personal Study Matters"
+        },
+        "lesson2": {
+          "body": {
+            "bq1": "Rule of thumb: JW Library for reading and meetings. WOL for researching and answering questions.",
+            "h3_1": "JW Library: the faithful field companion",
+            "h3_2": "Watchtower ONLINE LIBRARY (WOL): the research desk",
+            "p1": "We're spoiled. Bible students before us pieced their study time together from paperback Bibles, mimeographed outlines, and trips to the Kingdom Hall library. Today, two apps do most of that work, and knowing which to reach for saves real time.",
+            "p2": "JW Library is the New World Translation, the meeting media, the songbook, and the daily text in your pocket. It's portable, it works offline, and it's tuned for reading and meetings, not deep research.",
+            "p3": "WOL is the full shelf. Every publication, indexed and cross-linked. It's where you go when a question opens up and you need to follow the thread, past Watchtower articles, Insight entries, Reasoning chapters, Yearbooks."
+          },
+          "ex": {
+            "intro": "Each scenario shows up in real life. Which resource fits best?",
+            "q1": {
+              "explanation": "JW Library is built for offline, one-hand reading. The daily text lives on the home screen and the Bible is a tap away.",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "You're on the bus and want to read the daily text and quickly review today's Bible chapter."
+            },
+            "q2": {
+              "explanation": "WOL is the research library. Use its search with quotation marks around \"Hezekiah\" to get a ranked list across all publications.",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "You want to find every Watchtower article that discusses King Hezekiah's reforms over the last twenty years."
+            },
+            "q3": {
+              "explanation": "The NWT Study Edition in JW Library exposes study notes and cross-references right beside the verse. WOL has them too, but JW Library's Bible view is faster for a single passage.",
+              "optA": "JW Library (Study edition)",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "You're prepping a talk and want the Reference Bible's cross-references next to the verse you're working on."
+            },
+            "q4": {
+              "explanation": "JW Library keeps meeting media available offline once you've downloaded it. WOL needs a connection.",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "You want to review last week's meeting video when you're offline at a family member's home with no Wi-Fi."
+            },
+            "q5": {
+              "explanation": "Insight is available in both, but WOL's cross-link experience is faster for the long encyclopedia-style entries where you'll jump between sub-entries.",
+              "optA": "JW Library",
+              "optB": "Watchtower ONLINE LIBRARY (WOL)",
+              "scenario": "You want to read the complete Insight on the Scriptures entry on \"Faith\" with all its sub-sections and cross-links."
+            },
+            "title": "Cross-reference: pick the right tool"
+          },
+          "oneLine": "Two brilliant tools. Different jobs. Knowing which to reach for is half the battle.",
+          "title": "JW Library vs. Watchtower ONLINE LIBRARY"
+        },
+        "lesson3": {
+          "body": {
+            "h3_1": "Insight on the Scriptures",
+            "h3_2": "Reasoning From the Scriptures",
+            "h3_3": "The Watchtower (Public + Study Edition)",
+            "h3_4": "Awake!",
+            "h3_5": "Pure Worship of Jehovah",
+            "p1": "New Bible students sometimes assume all the publications say roughly the same thing. They don't. Each one is written for a different job. Here are the five you'll reach for most.",
+            "p2": "The encyclopedia. Two volumes covering people, places, objects, concepts, alphabetically, with cross-references. When a name, a word, or a custom in the Scriptures stops you, Insight is the first stop.",
+            "p3": "The field service companion. Organized by topic, \"Blood,\" \"Cross,\" \"God,\" \"Suffering\", with direct answers and sample conversation lines. Built for objections and discussions.",
+            "p4": "Current spiritual food. The Study Edition is meeting material; the Public Edition is written for the broader audience. When a question is about our current understanding, the most recent Watchtower is almost always where to check.",
+            "p5": "Biblical principles applied to everyday life, family, work, health, anxiety, teens. The voice is warm and practical. Excellent for householders not yet ready for deep doctrinal discussion.",
+            "p6": "One of a family of prophetic books (with Jeremiah, Isaiah's Prophecy, and Revelation's Grand Climax) that walks verse-by-verse through Ezekiel. Reach for these when studying a prophetic book."
+          },
+          "ex": {
+            "intro": "A friend or householder asks you one of these. Which publication is the best starting point?",
+            "q1": {
+              "explanation": "Reasoning has a full chapter on \"Suffering\" with scriptures, logical reasoning, and sample conversational responses, built exactly for this question.",
+              "optA": "Insight on the Scriptures",
+              "optB": "Reasoning From the Scriptures",
+              "optC": "Awake!",
+              "optD": "Pure Worship of Jehovah",
+              "scenario": "\"Why does a loving God allow suffering in the world?\""
+            },
+            "q2": {
+              "explanation": "Insight is the encyclopedia, its \"Jehovah\" entry covers etymology, pronunciation history, and every scriptural occurrence with depth.",
+              "optA": "Insight on the Scriptures",
+              "optB": "Reasoning From the Scriptures",
+              "optC": "Awake!",
+              "optD": "The Watchtower",
+              "scenario": "\"What did the divine name Jehovah mean in ancient Hebrew, and how was it pronounced?\""
+            },
+            "q3": {
+              "explanation": "Awake! specializes in practical life topics like anxiety, with biblical principles presented warmly. A recent Watchtower study article would also be excellent.",
+              "optA": "Insight on the Scriptures",
+              "optB": "Reasoning From the Scriptures",
+              "optC": "Awake!",
+              "optD": "Pure Worship of Jehovah",
+              "scenario": "\"I keep lying awake at night with anxiety. What does the Bible say I should do?\""
+            },
+            "q4": {
+              "explanation": "Start with Insight's entry on \"Great Crowd\" for the full scriptural exposition. The prophetic commentaries on Revelation go deeper, and Reasoning gives a shorter conversational version.",
+              "optA": "Awake!",
+              "optB": "Reasoning From the Scriptures",
+              "optC": "Pure Worship / prophetic commentary",
+              "optD": "Insight on the Scriptures",
+              "scenario": "\"What is the 'great crowd' spoken of in Revelation 7, and how do we know it's a different group from the 144,000?\""
+            },
+            "q5": {
+              "explanation": "On questions where our understanding has been refined over time, the most recent Watchtower article carries the current spiritual food. Always check for the latest.",
+              "optA": "Insight on the Scriptures",
+              "optB": "The Watchtower (most recent article)",
+              "optC": "Reasoning From the Scriptures",
+              "optD": "Awake!",
+              "scenario": "\"I want to understand the Bible's current direction on blood fractions for medical use.\""
+            },
+            "title": "Cross-reference: which publication fits this question?"
+          },
+          "oneLine": "The faithful and discreet slave has given us a full shelf. Each book does one job exceptionally well.",
+          "title": "Insight, Reasoning & the Publications"
+        },
+        "oneLine": "Before you learn to study deeply, you need to know what's in your hand and why it's there.",
+        "title": "Your Study Toolkit"
+      },
+      "unit2": {
+        "lesson4": {
+          "body": {
+            "h3_1": "S, Scripture",
+            "h3_2": "O, Observation",
+            "h3_3": "A, Application",
+            "h3_4": "P, Prayer",
+            "p1": "S.O.A.P. is an acronym, Scripture, Observation, Application, Prayer, and it's one of the simplest, most durable frameworks for turning Bible reading into Bible study. It works for a single verse or a whole chapter.",
+            "p2": "Write the verse out. By hand if you can. Copying forces you to slow down and notice things a speed-reader misses: the conjunctions, the imperatives, the conditions.",
+            "p3": "What does the passage actually say? Who is speaking? To whom? When? What words repeat? This is not yet about you, it's about what's there on the page.",
+            "p4": "Now turn toward yourself. What does this verse ask of me today? Where am I living against it? What would obedience look like this week?",
+            "p5": "Pray the verse back to Jehovah. Thank him for what it reveals about him. Ask for the specific help the application requires."
+          },
+          "ex": {
+            "promptA": "Where in your life are you currently 'relying on your own understanding'? What would trusting Jehovah look like there this week?",
+            "promptO": "What does this passage command? What does it promise? What's the condition?",
+            "promptP": "Turn your answer into a short prayer. Start with 'Jehovah,' and keep it honest.",
+            "promptS": "Copy Proverbs 3:5-6 out in your own handwriting, or type it slowly below.",
+            "title": "S.O.A.P. on Proverbs 3:5-6",
+            "verseText": "Trust in Jehovah with all your heart, and do not rely on your own understanding. In all your ways take notice of him, and he will make your paths straight."
+          },
+          "oneLine": "Four letters. One of the most reliable scaffolds for a deep personal study session.",
+          "title": "The S.O.A.P. Method"
+        },
+        "lesson5": {
+          "body": {
+            "list1": {
+              "item1": "Who, who's speaking, and who are they speaking to?",
+              "item2": "What, what is actually happening in the verse? What word gets repeated or emphasized?",
+              "item3": "When / Where, what's the historical or geographical context?",
+              "item4": "Why, why would Jehovah want this recorded? Why does it matter?",
+              "item5": "How, how does it apply to me, today, in my actual circumstances?"
+            },
+            "p1": "A verse can look flat on a quick read. The same verse, put under the right questions, splits open. Here are five questions that almost always uncover something new.",
+            "p2": "Run any verse through all five questions and you've done more thinking than most people do in a whole chapter of reading."
+          },
+          "ex": {
+            "how": {
+              "hint": "Name one specific anxiety you'll 'throw' on Jehovah in prayer today.",
+              "prompt": "How does this apply to you this week?"
+            },
+            "title": "Apply the five questions to 1 Peter 5:7",
+            "verseText": "Throw all your anxiety on him, because he cares for you.",
+            "what": {
+              "hint": "'Throw', it's decisive, not passive. 'All' is the emphatic word.",
+              "prompt": "What is the command, and what word gets emphasized?"
+            },
+            "whenWhere": {
+              "hint": "Written around 62–64 CE, to brothers and sisters facing growing Roman hostility.",
+              "prompt": "What's the historical context?"
+            },
+            "who": {
+              "hint": "Peter, a fellow elder, writes to Christians scattered through Asia Minor.",
+              "prompt": "Who is speaking, and to whom is he writing?"
+            },
+            "why": {
+              "hint": "Because anxiety isolates, and this verse is the corrective, we have a Father who cares.",
+              "prompt": "Why would Jehovah want this recorded?"
+            }
+          },
+          "oneLine": "Good questions are the keys that open closed verses.",
+          "title": "Asking Questions That Open Verses"
+        },
+        "lesson6": {
+          "body": {
+            "list1": {
+              "item1": "Green, a promise from Jehovah.",
+              "item2": "Blue, a command or instruction.",
+              "item3": "Red, a warning or consequence.",
+              "item4": "Gold, a quality of Jehovah or Jesus.",
+              "item5": "Purple, a cross-reference worth following."
+            },
+            "p1": "Highlighting without a system is just decoration. Here's a simple five-color setup that's survived decades of Bible students, and works just as well in JW Library as it does in a paper Bible.",
+            "p2": "The next time you sit with a Watchtower paragraph, slow down and mark it up. A single marked-up paragraph you remember is worth more than ten skimmed chapters you don't."
+          },
+          "ex": {
+            "guide": {
+              "command": "\"commands us to pray without ceasing\", a command",
+              "promise": "\"promises to sustain us\", a promise",
+              "quality": "\"loving Father\", a quality of Jehovah",
+              "reference": "\"Compare Hebrews 2:1\", a cross-reference",
+              "warning": "\"drifting leads to shipwreck of faith\", a warning"
+            },
+            "passageSource": "Sample paragraph for practice",
+            "title": "Mark up a Watchtower-style paragraph",
+            "token": {
+              "t1": "Jehovah",
+              "t10": "sustain",
+              "t11": "us.",
+              "t12": "He",
+              "t13": "commands",
+              "t14": "us",
+              "t15": "to",
+              "t16": "pray",
+              "t17": "without",
+              "t18": "ceasing",
+              "t19": "and",
+              "t2": "is",
+              "t20": "warns",
+              "t21": "that",
+              "t22": "drifting",
+              "t23": "leads",
+              "t24": "to",
+              "t25": "shipwreck",
+              "t26": "of",
+              "t27": "faith.",
+              "t28": "Compare",
+              "t29": "Hebrews 2:1.",
+              "t3": "a",
+              "t4": "loving",
+              "t5": "Father",
+              "t6": "who",
+              "t7": "promises",
+              "t8": "to",
+              "t9": "sustain"
+            }
+          },
+          "oneLine": "Marks on the page are memory aids. A good system turns a paragraph into a map.",
+          "title": "Highlighting & Note-Taking That Works"
+        },
+        "oneLine": "Now you've got the tools. Here's how to actually use them.",
+        "title": "The Art of Studying"
+      },
+      "unit3": {
+        "lesson7": {
+          "body": {
+            "h3_1": "Three places to find cross-references",
+            "list1": {
+              "item1": "Marginal references in the NWT Reference Bible, right-column, for every significant verse.",
+              "item2": "WOL's cited-by feature, shows every publication that cites the verse you're on.",
+              "item3": "Insight on the Scriptures, topic entries link to all major passages on the topic."
+            },
+            "p1": "Jehovah wrote his Word in a way that talks to itself. A verse in Genesis connects to one in Revelation. A phrase in Psalms lights up a story in Kings. Cross-referencing is the skill of following those connections, and the NWT Reference Edition is designed for it.",
+            "p2": "Build a chain. Start with a verse. Follow one reference. Then follow one from there. After three or four hops, you'll see a pattern you never would have seen in the starting verse alone."
+          },
+          "ex": {
+            "how": {
+              "hint": "Be concrete, a specific time, a specific chapter, a specific prayer.",
+              "prompt": "What one thing will you do this week to 'keep on coming to know' Jehovah?"
+            },
+            "title": "Build a chain from John 17:3",
+            "verseText": "This means everlasting life, their coming to know you, the only true God, and the one whom you sent, Jesus Christ.",
+            "what": {
+              "hint": "2 Peter 3:18, 'keep on growing in the undeserved kindness and knowledge of our Lord.'",
+              "prompt": "What does 'coming to know' imply? Find a verse that describes knowing God as ongoing, not a one-time event."
+            },
+            "whenWhere": {
+              "hint": "1 Corinthians 8:6, 'there is actually to us one God, the Father... and there is one Lord, Jesus Christ.'",
+              "prompt": "The verse distinguishes 'the only true God' from Jesus. Find another verse that makes the same distinction."
+            },
+            "who": {
+              "hint": "Matthew 26:39 is one of the most intense, compare his posture toward the Father.",
+              "prompt": "Who is speaking here? Find a cross-reference to another prayer of Jesus and note the verse."
+            },
+            "why": {
+              "hint": "James 4:8, 'draw close to God, and he will draw close to you.'",
+              "prompt": "Why does Jesus frame 'everlasting life' as a relationship rather than a reward? Find a verse that shows Jehovah's heart toward us."
+            }
+          },
+          "oneLine": "Scripture is its own best commentary. Learning to chain passages is learning to think like a Berean.",
+          "title": "Cross-Referencing Like a Berean"
+        },
+        "lesson8": {
+          "body": {
+            "bq1": "His delight is in the law of Jehovah, and he reads His law in an undertone day and night.",
+            "h3_1": "How meditation differs from reading",
+            "h3_2": "A simple three-minute rhythm",
+            "list1": {
+              "item1": "Pick one verse. Just one. Don't rush to the next.",
+              "item2": "Read it three times, slowly. Pause after each read.",
+              "item3": "Sit with it. Let a question rise. Let a feeling rise. Let Jehovah speak."
+            },
+            "p1": "The Hebrew word translated 'reads in an undertone' carries the image of a cow chewing cud, slow, repeated, patient. Meditation is that slow chewing. You won't get the nutrients from a verse you swallow whole.",
+            "p2": "Reading asks, \"What does it say?\" Meditation asks, \"What does it mean, and what does it do to me?\" One fills the mind. The other shapes the person."
+          },
+          "ex": {
+            "introVerse": {
+              "text": "Jehovah is my Shepherd. I will lack nothing."
+            },
+            "prompt1": "Read the verse three times slowly. Let the second reading be slower than the first.",
+            "prompt2": "What image does the word 'Shepherd' raise for you? What does it tell you about how Jehovah relates to you?",
+            "prompt3": "Where in your life are you currently afraid you will lack something? Hold that with the verse.",
+            "prompt4": "Write one sentence to Jehovah about what you just saw.",
+            "title": "Guided 3-minute meditation"
+          },
+          "oneLine": "Reading is the meal. Meditation is the digestion. Most of the nutrition happens here.",
+          "title": "Meditation, Letting the Word Sink In"
+        },
+        "lesson9": {
+          "body": {
+            "h3_1": "A sample week",
+            "list1": {
+              "item1": "Daily (15 min): Bible reading + daily text. Same time, same place.",
+              "item2": "Mid-week (45 min): Meeting prep, read the Watchtower study article, highlight, mark up.",
+              "item3": "Weekend (60 min): One S.O.A.P. study on a chapter of your choice.",
+              "item4": "Monthly: Pick one Insight entry to read all the way through."
+            },
+            "p1": "We've covered the tools and the techniques. Now for the hardest part: keeping it going. Habits, not heroics, build a Bible student.",
+            "p2": "This isn't a prescription. It's a frame. Shrink it or expand it to fit your life, but write down what you commit to, and then keep showing up.",
+            "p3": "All glory to Jehovah. He has given us his Word, his spirit, and his organization. The rest is just showing up."
+          },
+          "ex": {
+            "prompt1": "What time of day will you study? (Be specific, e.g. '7:00 AM, before breakfast.')",
+            "prompt2": "Which days of the week? (Start smaller than you think, three days you actually do beats seven you don't.)",
+            "prompt3": "Where will you study? (Same spot every time, if possible.)",
+            "prompt4": "Which Bible book will you start with? (If unsure, Mark is short. James is practical. Psalms is rich.)",
+            "prompt5": "Write one sentence of commitment to Jehovah. You're not promising perfection, you're promising to show up.",
+            "title": "Your commitment"
+          },
+          "oneLine": "The best study method is the one you'll still be doing a year from now.",
+          "title": "Building Your Study Routine"
+        },
+        "oneLine": "From technique into formation, study as a life habit.",
+        "title": "Going Deeper"
+      }
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Privacy Policy | JW Study",
+      "description": "Read the JW Study privacy policy, how we collect, use, and protect your personal information."
+    },
+    "backHome": "← Home",
+    "badge": "Legal",
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: April 18, 2026",
+    "section1": {
+      "heading": "1. Overview",
+      "body1": "JW Study (\"we\", \"us\", \"our\") is committed to protecting your privacy. This Privacy Policy explains what information we collect, how we use it, and your rights regarding that information when you use our App at jwstudy.org.",
+      "body2": "JW Study is a free service. We do not sell your data, monetize your information, or use it for advertising purposes of any kind."
+    },
+    "section2": {
+      "heading": "2. Information We Collect",
+      "item1Label": "Account information:",
+      "item1Body": "When you register, we collect your email address and any optional display name or profile photo you provide.",
+      "item2Label": "Reading progress:",
+      "item2Body": "We store which Bible chapters you have marked as read so your progress syncs across devices.",
+      "item3Label": "User content:",
+      "item3Body": "Blog posts, forum threads, replies, comments, notes, and profile information you create are stored and associated with your account.",
+      "item4Label": "AI Study Companion conversations:",
+      "item4Body": "Messages you send to the AI Study Companion are transmitted to our AI provider (Anthropic) to generate a response and are not stored permanently on our servers. We log aggregate usage counts (number of AI requests per user) for abuse prevention and service improvement. The content of AI conversations is not stored or shared publicly.",
+      "item5Label": "Content scanning:",
+      "item5Body": "Submitted content may be scanned for profanity and for links to apostate or ex-JW sources that conflict with Jehovah's Witness teachings (such links are blocked and not stored). You are responsible for any personal information (email, phone number, social links, etc.) you choose to share in your posts, messages, or profile, do not share information you would not want other members of the community to see.",
+      "item6Label": "Push notification tokens:",
+      "item6Body": "If you enable push notifications, we store a device notification token to deliver alerts to your device. You can revoke this at any time through your browser or device settings.",
+      "item7Label": "Usage data:",
+      "item7Body": "We use Google Analytics (GA4) and Vercel Analytics to collect anonymized data about how the App is used (pages visited, session duration, device type, general location by country). No personally identifiable information is sent to these analytics services.",
+      "item8Label": "Error monitoring:",
+      "item8Body": "We use Sentry to capture application errors and performance issues. Error reports may include browser type, OS, and a stack trace of the error, but do not include the content of your posts or messages.",
+      "item9Label": "Technical data:",
+      "item9Body": "Standard server logs including IP address and browser type may be collected by our hosting provider (Vercel) and database provider (Supabase)."
+    },
+    "section3": {
+      "heading": "3. How We Use Your Information",
+      "item1": "To provide and maintain the App and your account",
+      "item2": "To sync your reading progress across devices",
+      "item3": "To send transactional emails (email confirmation, password reset)",
+      "item4": "To deliver push notifications you have opted into",
+      "item5": "To display your public profile and content to other users",
+      "item6": "To power the AI Study Companion by passing your messages to our AI provider",
+      "item7": "To improve the App using anonymized analytics and error monitoring",
+      "item8": "To prevent abuse and enforce our community standards",
+      "item9": "To investigate violations and cooperate with law enforcement where required by law",
+      "footer1": "We do",
+      "footerNot": "not",
+      "footer2": "sell your data. We do",
+      "footer3": "use your data for advertising. We do",
+      "footer4": "share your data with any third party except as described in Section 4."
+    },
+    "section4": {
+      "heading": "4. Third-Party Services",
+      "intro": "We use the following third-party services to operate the App. Each has its own privacy policy governing their data handling:",
+      "item1Label": "Supabase",
+      "item1Body": ", database, authentication, and file storage (supabase.com/privacy)",
+      "item2Label": "Vercel",
+      "item2Body": ", hosting, deployment, and edge functions (vercel.com/legal/privacy-policy)",
+      "item3Label": "Anthropic",
+      "item3Body": ", AI language model powering the AI Study Companion (anthropic.com/privacy)",
+      "item4Label": "Resend",
+      "item4Body": ", transactional email delivery (resend.com/privacy)",
+      "item5Label": "Google Analytics (GA4)",
+      "item5Body": ", anonymized usage analytics; no PII is shared (policies.google.com/privacy)",
+      "item6Label": "Vercel Analytics",
+      "item6Body": ", anonymized, cookie-free usage analytics",
+      "item7Label": "Sentry",
+      "item7Body": ", application error and performance monitoring (sentry.io/privacy)"
+    },
+    "section5": {
+      "heading": "5. AI Data Handling",
+      "body1": "The AI Study Companion sends your messages to Anthropic's API to generate responses. Anthropic's data handling practices are governed by their privacy policy. We do not permanently store the content of your AI conversations on our servers. We store only a usage count per user for abuse prevention purposes.",
+      "body2": "AI-generated blog drafts that you choose to publish become user content subject to the same terms as any other content you create.",
+      "body3Strong": "Do not share sensitive personal information in AI conversations.",
+      "body3Rest": "Treat the AI Study Companion as you would any cloud-based service."
+    },
+    "section6": {
+      "heading": "6. Data Retention",
+      "body": "Your data is retained for as long as your account is active. If you delete your account, your personal information and content will be removed from our systems within a reasonable timeframe, except where retention is required by law, including data we are legally required to preserve in connection with reports made to law enforcement or child safety authorities."
+    },
+    "section7": {
+      "heading": "7. Your Rights",
+      "intro": "Depending on your location, you may have the right to:",
+      "item1": "Access the personal data we hold about you",
+      "item2": "Correct inaccurate data via your profile settings",
+      "item3": "Request deletion of your account and data",
+      "item4": "Request a copy of your data",
+      "item5": "Opt out of push notifications at any time through your browser or device settings",
+      "footer": "To exercise any of these rights, contact us through the App's forum or via jwstudy.org."
+    },
+    "section8": {
+      "heading": "8. Cookies & Local Storage",
+      "body": "The App uses browser localStorage to store your theme preference, reading progress cache, and AI chat history for a better experience. Vercel Analytics collects anonymized, cookie-free usage data. Google Analytics uses cookies to measure usage, you can opt out via browser settings or the Google Analytics opt-out browser add-on."
+    },
+    "section9": {
+      "heading": "🛡️ 9. Children's Privacy & Child Safety",
+      "ageLabel": "Age requirement:",
+      "ageBody": "This App is intended for users aged 13 and older. Users between 13 and 17 must have a parent or guardian's permission. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has created an account, please contact us immediately so we can remove it.",
+      "commitmentLabel": "Our commitment to child safety:",
+      "commitmentBody": "We take the safety of children on our platform with the utmost seriousness. We actively monitor for and prohibit any content or behavior that could harm, exploit, or sexualize minors. This includes Child Sexual Abuse Material (CSAM), grooming, or any attempt to solicit personal information from minors.",
+      "reportingLabel": "Mandatory reporting:",
+      "reportingBody": "We are legally required, and morally committed, to report any apparent child sexual exploitation material or grooming activity discovered on our platform to the appropriate authorities, including:",
+      "item1Label": "NCMEC CyberTipline",
+      "item1Body": "(CyberTipLine.org), as required by U.S. federal law (18 U.S.C. § 2258A)",
+      "item2Label": "Local law enforcement",
+      "item2Body": "in the jurisdiction where the violation occurred",
+      "item3Label": "The Internet Watch Foundation (IWF)",
+      "item3Body": "for international cases",
+      "dataNote": "When making such reports, we provide all relevant data including account information, IP addresses, timestamps, and content. This data sharing is required by law and is not subject to the privacy protections described elsewhere in this policy.",
+      "parentalLabel": "Parental guidance:",
+      "parentalBody": "We encourage parents and guardians to review their child's use of this App. If you have concerns about content or interactions your child has encountered on JW Study, please report it using the in-app report function or contact us directly."
+    },
+    "section10": {
+      "heading": "10. Law Enforcement Requests",
+      "body": "We may disclose your information to law enforcement, government agencies, or other authorized parties when required by law, court order, or when we believe in good faith that disclosure is necessary to prevent harm, protect the safety of any person, or respond to an emergency."
+    },
+    "section11": {
+      "heading": "11. Changes to This Policy",
+      "body": "We may update this Privacy Policy from time to time. We will update the \"Last updated\" date at the top of this page. Continued use of the App after changes are posted constitutes your acceptance of the updated policy."
+    },
+    "section12": {
+      "heading": "12. Contact",
+      "body": "If you have any questions or concerns about this Privacy Policy, please reach out via the community forum or through jwstudy.org."
+    }
+  },
+  "mobileMore": {
+    "admin": "Admin",
+    "dialogLabel": "More navigation",
+    "moderation": "Moderation",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
+  "reactions": {
+    "addReaction": "Add reaction",
+    "reactWith": "React with {{emoji}}"
+  },
+  "support": {
+    "back": "Back",
+    "title": "Support JW Study",
+    "subtitle": "JW Study is free and always will be. If the app has helped your study, your daily reading, or your family, a one-time gift helps keep it running and growing.",
+    "whereGoesHeading": "Where your gift goes",
+    "whereGoesItem1": "Hosting, database, and email infrastructure",
+    "whereGoesItem2": "Translation work for new languages",
+    "whereGoesItem3": "Time to build the next features the community asks for",
+    "whereGoesItem4": "Keeping the app ad-free, tracker-free, and free for everyone",
+    "tierCoffee": {
+      "label": "Coffee",
+      "desc": "A small thanks."
+    },
+    "tierHosting": {
+      "label": "Monthly hosting",
+      "desc": "Covers a slice of infra."
+    },
+    "tierTranslation": {
+      "label": "Translation help",
+      "desc": "Funds review of one chapter in a new language."
+    },
+    "tierCustom": {
+      "label": "Any amount",
+      "desc": "Whatever feels right."
+    },
+    "noteHeading": "A note before you give",
+    "noteBody": "For deeper Bible study, the Watch Tower Online Library and JW Library are the canonical sources, please support those first through your local congregation. JW Study is a personal companion tool, not a publisher. Donations here go to one solo developer; they are not tax-deductible and are not affiliated with any branch of Jehovah's Witnesses.",
+    "thankYou": "Thank you for using the app, whether or not you give. ~ Alexi",
+    "comingSoon": "Coming soon",
+    "giveCta": "Give →"
+  },
+  "terms": {
+    "meta": {
+      "title": "Terms of Service | JW Study",
+      "description": "Review the JW Study terms of service governing use of the Bible reading tracker and community features."
+    },
+    "backHome": "← Home",
+    "badge": "Legal",
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: April 18, 2026",
+    "section1": {
+      "heading": "1. Acceptance of Terms",
+      "body": "By accessing or using JW Study (\"the App\") at jwstudy.org, you agree to be bound by these Terms of Service. If you do not agree, please do not use the App."
+    },
+    "section2": {
+      "heading": "2. Description of Service",
+      "body1": "JW Study is a free Bible reading tracker and community platform designed for readers of the New World Translation. The App provides the following features at no charge to registered users:",
+      "list": {
+        "tracker": {
+          "bold": "Bible reading tracker",
+          "text": ", track your personal progress through all 66 books of the NWT"
+        },
+        "blog": {
+          "bold": "Blog",
+          "text": ", read and write JW-focused articles, leave comments"
+        },
+        "forum": {
+          "bold": "Community forum",
+          "text": ", participate in discussions organized by category"
+        },
+        "ai": {
+          "bold": "AI Study Companion",
+          "text": ", an AI assistant drawing exclusively from JW publications and wol.jw.org"
+        },
+        "meeting": {
+          "bold": "Meeting prep",
+          "text": ", tools to prepare for midweek and weekend congregation meetings"
+        },
+        "videos": {
+          "bold": "Videos",
+          "text": ", curated JW video content from approved creators"
+        },
+        "quizzes": {
+          "bold": "Quizzes",
+          "text": ", Bible knowledge quizzes based on NWT content"
+        },
+        "notifications": {
+          "bold": "Notifications & Announcements",
+          "text": ", community updates and push notifications"
+        },
+        "profiles": {
+          "bold": "User profiles",
+          "text": ", public profiles showing your reading milestones and contributions"
+        }
+      },
+      "body2": {
+        "bold": "JW Study is completely free of charge.",
+        "text": " There are no paid tiers, no premium subscriptions, and no features locked behind a paywall. All registered users have full access to all features."
+      },
+      "body3": "We reserve the right to modify, suspend, or discontinue any part of the service at any time."
+    },
+    "section3": {
+      "heading": "3. User Accounts & Age Requirements",
+      "body1": "You must create an account to access most features. You are responsible for maintaining the confidentiality of your account credentials and for all activity that occurs under your account. You must provide accurate information when registering.",
+      "body2": {
+        "bold": "Age requirement:",
+        "text": " You must be at least 13 years of age to use this App. Users between the ages of 13 and 17 must have the permission of a parent or legal guardian. By creating an account, you confirm that you meet this requirement and, if under 18, that a parent or guardian has reviewed and agreed to these Terms on your behalf."
+      },
+      "body3": "If we discover that an account belongs to a user under 13, we will terminate that account and remove associated data without notice."
+    },
+    "section4": {
+      "heading": "4. User Content",
+      "body1": "You retain ownership of content you create (blog posts, forum threads, replies, comments, notes, and profile information). By posting content, you grant JW Study a non-exclusive, royalty-free license to display that content within the App.",
+      "body2": "You agree not to post content that is:",
+      "list": {
+        "item1": "Hateful, abusive, harassing, or threatening toward any person or group",
+        "item2": "Sexually explicit or pornographic in any form",
+        "item3": "Harmful, exploitative, or sexualizing toward minors in any way",
+        "item4": "Spam, misinformation, or deliberately misleading",
+        "item5": "Infringing on another person's intellectual property",
+        "item6": "Illegal under applicable law",
+        "item7": "Profane or using language that is obscene, vulgar, or offensive",
+        "item8": "Doctrine or teachings contrary to or critical of the Watch Tower Bible and Tract Society or Jehovah's Witnesses"
+      }
+    },
+    "section5": {
+      "heading": "5. AI Study Companion",
+      "body1": "The AI Study Companion is an AI-powered assistant available to all registered users. It draws exclusively from Watch Tower publications and jw.org/wol.jw.org content to answer Bible questions and assist with JW study.",
+      "list": {
+        "item1": "The AI is designed to provide study assistance aligned with JW teachings only",
+        "item2": "Conversations with the AI are used only to generate responses, they are not shared publicly",
+        "item3": "Do not use the AI to generate content that violates these Terms, including harmful, illegal, or apostate material",
+        "item4": "Do not attempt to manipulate the AI into producing content outside its intended purpose"
+      },
+      "body2": "AI-generated content, including blog drafts, is provided as a starting point and should be reviewed before publishing. JW Study does not guarantee the accuracy of AI responses and encourages users to verify all content against official JW publications."
+    },
+    "section6": {
+      "heading": "6. Personal Information & Link Policy",
+      "body1": "To protect the privacy and safety of all users, especially minors, the following are strictly prohibited in all user-generated content, including forum posts, blog posts, comments, profile bios, and display names:",
+      "list": {
+        "email": {
+          "bold": "Email addresses",
+          "text": ", do not share your own or anyone else's email"
+        },
+        "phone": {
+          "bold": "Phone numbers",
+          "text": ", including mobile, landline, or WhatsApp numbers"
+        },
+        "address": {
+          "bold": "Physical addresses",
+          "text": ", street addresses, home addresses, or meeting locations"
+        },
+        "social": {
+          "bold": "Social media links or handles",
+          "text": ", links to or @username handles for Facebook, Instagram, Twitter/X, TikTok, Snapchat, YouTube, LinkedIn, Telegram, WhatsApp, Discord, or similar platforms"
+        },
+        "insecure": {
+          "bold": "Insecure links (http://)",
+          "text": ", only secure links beginning with https:// are permitted"
+        }
+      },
+      "body2": "These restrictions exist to keep this a safe, private environment and to prevent the App from being used to exchange contact information or redirect users to external platforms. Our systems automatically scan all content before submission and will block any post containing prohibited information."
+    },
+    "section7": {
+      "heading": "🛡️ 7. Child Safety Policy",
+      "body1": "The safety of children is a non-negotiable priority at JW Study. We have a zero-tolerance policy for any content or behavior that endangers, exploits, or sexualizes minors.",
+      "body2": "The following are strictly prohibited and will result in immediate permanent ban:",
+      "list1": {
+        "item1": "Child Sexual Abuse Material (CSAM) of any kind, images, text, video, or links",
+        "item2": "Grooming behavior, attempting to build inappropriate relationships with minors to gain their trust for exploitation",
+        "item3": "Soliciting personal information from minors, including age, location, school, or contact details",
+        "item4": "Any sexual content directed at or involving minors",
+        "item5": "Attempting to move a conversation with a minor to another platform for the purpose of exploitation"
+      },
+      "body3": {
+        "bold": "We will report violations to authorities.",
+        "text": " Any content or behavior that we identify as involving the sexual exploitation of children will be reported immediately to:"
+      },
+      "list2": {
+        "item1": {
+          "bold": "The National Center for Missing & Exploited Children (NCMEC)",
+          "text": " via the CyberTipline at CyberTipLine.org, as required by U.S. federal law (18 U.S.C. § 2258A)"
+        },
+        "item2": {
+          "bold": "Local law enforcement",
+          "text": " and relevant national authorities in the user's jurisdiction"
+        },
+        "item3": {
+          "bold": "The Internet Watch Foundation (IWF)",
+          "text": " for international cases involving child sexual abuse imagery"
+        }
+      },
+      "body4": "We preserve all relevant account data, IP addresses, timestamps, and content associated with reported violations and will cooperate fully with law enforcement investigations.",
+      "body5": {
+        "bold": "If you witness behavior that may endanger a child on this platform, please report it immediately",
+        "text": " using the report function available on any post or profile, or contact us directly. If you believe a child is in immediate danger, contact your local emergency services (911 in the US) first."
+      }
+    },
+    "section8": {
+      "heading": "8. Community Standards",
+      "body1": "JW Study is a spiritually-focused community platform. We ask that all users engage respectfully and in a manner consistent with the values of the community. Debates intended to discourage faith or disrespect other users' beliefs are not permitted.",
+      "body2": "This is a community built on mutual respect and shared faith. Please keep all discussions uplifting, constructive, and free of hostility."
+    },
+    "section9": {
+      "heading": "9. Enforcement & Account Bans",
+      "body1": "Violations of these Terms, including posting prohibited content, attempting to circumvent automated filters, or engaging in harmful behavior toward other users, may result in:",
+      "list": {
+        "removal": {
+          "bold": "Content removal",
+          "text": ", violating posts, comments, or profile content will be removed without notice"
+        },
+        "suspension": {
+          "bold": "Temporary suspension",
+          "text": ", your account may be suspended pending review"
+        },
+        "ban": {
+          "bold": "Permanent ban",
+          "text": ", serious or repeated violations will result in a permanent ban with no right to appeal"
+        },
+        "report": {
+          "bold": "Report to authorities",
+          "text": ", violations involving child safety or illegal content will be reported to law enforcement and relevant agencies without prior notice"
+        }
+      },
+      "body2": "We reserve the right to take enforcement action at our sole discretion. We are not obligated to issue warnings before taking action."
+    },
+    "section10": {
+      "heading": "10. Intellectual Property",
+      "body": "The JW Study name, logo, design, and original code are the intellectual property of Lexx Solutionz. Scripture quotations are from the New World Translation of the Holy Scriptures and are used for personal and community study purposes. All Watch Tower publications referenced within the App remain the intellectual property of the Watch Tower Bible and Tract Society of Pennsylvania."
+    },
+    "section11": {
+      "heading": "11. No Affiliation with Watch Tower",
+      "body": "JW Study is an independent study tool created by and for Jehovah's Witnesses. It is not affiliated with, endorsed by, or operated by the Watch Tower Bible and Tract Society of Pennsylvania, the Governing Body of Jehovah's Witnesses, or any official JW organization. All doctrinal content is intended to be consistent with official JW teachings, but users should rely on official jw.org materials for authoritative guidance."
+    },
+    "section12": {
+      "heading": "12. Disclaimer of Warranties",
+      "body": "The App is provided \"as is\" without warranties of any kind. We do not guarantee that the App will be error-free, uninterrupted, or that data will never be lost. Use the App at your own risk."
+    },
+    "section13": {
+      "heading": "13. Limitation of Liability",
+      "body": "To the fullest extent permitted by law, JW Study and Lexx Solutionz shall not be liable for any indirect, incidental, or consequential damages arising from your use of the App."
+    },
+    "section14": {
+      "heading": "14. Changes to Terms",
+      "body": "We may update these Terms at any time. Continued use of the App after changes are posted constitutes acceptance of the updated Terms. We will update the \"Last updated\" date at the top of this page."
+    },
+    "section15": {
+      "heading": "15. Contact",
+      "body": "If you have questions about these Terms, you can reach us through the App's community forum or via the contact information listed on jwstudy.org."
+    }
   },
   "anon": {
     "backToHome": "Back to home",

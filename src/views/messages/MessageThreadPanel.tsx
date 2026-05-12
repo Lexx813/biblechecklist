@@ -941,6 +941,11 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [pendingMsgs, setPendingMsgs] = useState<any[]>([]);
   const decryptCacheRef = useRef(new Map<string, string | null>());
+  // Caches the fully-built decrypted message objects keyed by `${id}:${content}`.
+  // Returning the same object reference for unchanged messages keeps memoized
+  // MessageBubble from re-rendering on every new message in the thread.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const decryptedObjCacheRef = useRef(new Map<string, any>());
   const knownMsgIdsRef = useRef(new Set<string>());
   const [isOtherTyping, setIsOtherTyping] = useState(false);
   const [isOtherOnline, setIsOtherOnline] = useState(false);
@@ -981,12 +986,14 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
     setPendingMsgs([]);
     knownMsgIdsRef.current = new Set();
     decryptCacheRef.current = new Map();
+    decryptedObjCacheRef.current = new Map();
   }, [conv.conversation_id]);
 
   useEffect(() => {
     if (!messages.length) { setDecryptedMessages([]); return; }
     let cancelled = false;
-    const cache = decryptCacheRef.current;
+    const plainCache = decryptCacheRef.current;
+    const objCache = decryptedObjCacheRef.current;
     const knownIds = knownMsgIdsRef.current;
     async function decryptIncremental() {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -994,12 +1001,17 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (messages as any[]).map(async (msg: any) => {
           const cacheKey = `${msg.id}:${msg.content}`;
-          if (cache.has(cacheKey)) return { ...msg, content: cache.get(cacheKey), _new: knownIds.size > 0 && !knownIds.has(msg.id) };
-          const decrypted = sharedKey
-            ? await decryptMessage(msg.content, sharedKey)
-            : msg.content?.startsWith("enc:") ? "[🔒 Encrypted message]" : msg.content;
-          cache.set(cacheKey, decrypted as string);
-          return { ...msg, content: decrypted, _new: knownIds.size > 0 && !knownIds.has(msg.id) };
+          const cachedObj = objCache.get(cacheKey);
+          if (cachedObj) return cachedObj;
+          const decrypted = plainCache.has(cacheKey)
+            ? plainCache.get(cacheKey)
+            : sharedKey
+              ? await decryptMessage(msg.content, sharedKey)
+              : msg.content?.startsWith("enc:") ? "[🔒 Encrypted message]" : msg.content;
+          plainCache.set(cacheKey, decrypted as string);
+          const built = { ...msg, content: decrypted, _new: knownIds.size > 0 && !knownIds.has(msg.id) };
+          objCache.set(cacheKey, built);
+          return built;
         })
       );
       if (!cancelled) {

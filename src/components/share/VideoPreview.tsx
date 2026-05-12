@@ -1,16 +1,17 @@
 "use client";
 
 /**
- * VideoPreview, renders the Remotion ProgressVideo animation in the browser.
- * Fetches props from /api/render-progress-video, then plays them via @remotion/player.
- * No server rendering required, @remotion/player runs entirely in the browser.
+ * VideoPreview — fetches Remotion props from /api/render-progress-video and
+ * renders a lazy-loaded player. @remotion/player itself is gated behind
+ * React.lazy so the ~100KB chunk only ships when the user actually visits
+ * a screen that mounts this component (share / promo pages).
  */
 
-import React, { useEffect, useState } from "react";
-import { Player } from "@remotion/player";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import type { ProgressVideoProps } from "../../remotion/ProgressVideo";
-import ProgressVideo from "../../remotion/ProgressVideo";
 import { supabase } from "../../lib/supabase";
+
+const RemotionPreview = lazy(() => import("./RemotionPreview"));
 
 interface VideoPreviewProps {
   userId?: string;
@@ -81,28 +82,9 @@ export default function VideoPreview({ userId }: VideoPreviewProps) {
 
   return (
     <div className="vp-wrap">
-      <Player
-        acknowledgeRemotionLicense
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        component={ProgressVideo as any}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        inputProps={state.props as any}
-        durationInFrames={150}
-        fps={30}
-        compositionWidth={1080}
-        compositionHeight={1920}
-        style={{
-          width: "100%",
-          maxWidth: 280,
-          aspectRatio: "9/16",
-          borderRadius: 14,
-          overflow: "hidden",
-          boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
-        }}
-        controls
-        autoPlay
-        loop
-      />
+      <Suspense fallback={<div className="vp-loading"><div className="vp-spinner" /><span>Loading player…</span></div>}>
+        <RemotionPreview props={state.props} />
+      </Suspense>
       <p className="vp-hint">
         Record your screen to save as a video.
       </p>
