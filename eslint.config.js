@@ -1,11 +1,11 @@
-import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
+import js from '@eslint/js'
 import prettier from 'eslint-config-prettier'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist', '.next']),
+  globalIgnores(['dist', '.next', '.vercel', '.agents', '.claude', 'node_modules']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
@@ -24,6 +24,21 @@ export default defineConfig([
     },
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+    },
+  },
+  {
+    files: ['next.config.js', 'scripts/**/*.{js,mjs}'],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+  {
+    files: ['public/sw.js'],
+    languageOptions: {
+      globals: {
+        ...globals.serviceworker,
+        clients: 'readonly',
+      },
     },
   },
 ])

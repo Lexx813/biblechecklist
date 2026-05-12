@@ -1,6 +1,6 @@
 # OG Per-Route Audit
 
-_Generated 2026-04-25_
+_Generated 2026-05-12_
 
 **Routes audited:** 8
 **Using default OG:** 1
@@ -15,4 +15,4 @@ _Generated 2026-04-25_
 | /forum | 200 | Community Forum \| JW Study | per-page |
 | /books | 200 | All 66 Bible Books — NWT Study Guides \| JW Study | per-page |
 | /plans | 200 | NWT Bible Reading Plans \| JW Study | per-page |
-| /promo | 200 | AI Study Companion — JW Study | per-page |
+| /promo | 200 | AI Study Companion, JW Study | per-page |

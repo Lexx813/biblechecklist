@@ -10,6 +10,15 @@ describe('extractRoutes', () => {
     expect(routes).toContain('/blog');
   });
 
+  it('parses Markdown links with absolute URLs', () => {
+    const txt = [
+      '- [Homepage](https://jwstudy.org/): Free Bible reading tracker.',
+      '- [About JW Study](https://jwstudy.org/about): Project background.',
+      '- [Blog](https://jwstudy.org/blog): Bible study insights.',
+    ].join('\n');
+    expect(extractRoutes(txt)).toEqual(['/', '/about', '/blog']);
+  });
+
   it('ignores non-route bullet lines', () => {
     const txt = `- not a route\n- /valid — desc\n`;
     expect(extractRoutes(txt)).toEqual(['/valid']);

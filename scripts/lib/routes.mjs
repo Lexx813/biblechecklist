@@ -11,6 +11,7 @@ export const STATIC_ROUTES = [
   '/books',
   '/plans',
   '/promo',
+  '/messianic-prophecies',
 ];
 
 const DYNAMIC_PATTERNS = [
@@ -21,6 +22,8 @@ const DYNAMIC_PATTERNS = [
   /^\/forum\/[^/]+$/,
   /^\/forum\/[^/]+\/[^/]+$/,
   /^\/share\/[^/]+$/,
+  /^\/sitemap\.xml$/,
+  /^\/blog\/feed\.xml$/,
 ];
 
 const AUTHED_PREFIXES = ['/notes', '/quiz', '/notifications', '/messages', '/settings'];

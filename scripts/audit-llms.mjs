@@ -4,14 +4,23 @@ import { join } from 'node:path';
 import { STATIC_ROUTES, isAuditedRoute } from './lib/routes.mjs';
 import { renderHeader, renderTable } from './lib/report.mjs';
 
-const ROUTE_LINE = /^-\s+(\/[^\s—]*)\s+—/;
+const ROUTE_LINE = /^-\s+(\/[^\s—:]*)\s+[—:]/;
+const MARKDOWN_URL_LINE = /^-\s+\[[^\]]+\]\(https?:\/\/[^/]+(\/[^)#?]*)?[^)]*\)\s*[:—]/;
 
 export function extractRoutes(text) {
   const lines = text.split(/\r?\n/);
   const out = [];
   for (const line of lines) {
-    const m = ROUTE_LINE.exec(line);
-    if (m) out.push(m[1]);
+    const routeMatch = ROUTE_LINE.exec(line);
+    if (routeMatch) {
+      out.push(routeMatch[1]);
+      continue;
+    }
+
+    const urlMatch = MARKDOWN_URL_LINE.exec(line);
+    if (urlMatch) {
+      out.push((urlMatch[1] || '/').replace(/\/$/, '') || '/');
+    }
   }
   return out;
 }

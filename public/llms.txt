@@ -17,6 +17,7 @@ Crawlable languages: English, Spanish (UI translations exist for Portuguese, Fre
 - [Study Topics index](https://jwstudy.org/study-topics): Curated Bible-doctrine study guides grounded in the New World Translation, covering trinity, soul, death, kingdom, and more.
 - [All Bible Books](https://jwstudy.org/books): Reading guides for every book of the Hebrew and Christian Greek Scriptures.
 - [Reading Plans](https://jwstudy.org/plans): Structured plans (NWT in 1 Year, Gospels in 30 Days, etc.) with progress tracking.
+- [AI Study Companion Promo](https://jwstudy.org/promo): Short promotional page for JW Study's AI-assisted study tools.
 
 ## Study topics (Bible doctrine, NWT-aligned)
 

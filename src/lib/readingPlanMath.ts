@@ -20,13 +20,28 @@ function midnight(d: Date): Date {
   return x;
 }
 
+const MS_PER_DAY = 86400000;
+
+function utcDayNumber(d: Date): number {
+  return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / MS_PER_DAY);
+}
+
+function parseDateOnly(dateStr: string): Date {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day);
+}
+
+function calendarDaysBetween(start: Date, end: Date): number {
+  return utcDayNumber(end) - utcDayNumber(start);
+}
+
 /**
  * Calendar-day count from start_date (inclusive). Day 1 = the start date.
  */
 export function daysSince(dateStr: string, today: Date = new Date()): number {
-  const start = new Date(dateStr + "T00:00:00");
+  const start = parseDateOnly(dateStr);
   const now = midnight(today);
-  return Math.floor((now.getTime() - start.getTime()) / 86400000) + 1;
+  return calendarDaysBetween(start, now) + 1;
 }
 
 /**
@@ -40,7 +55,7 @@ export function effectiveDay(plan: PlanLike, today: Date = new Date()): number {
   if (plan.is_paused && plan.paused_at) {
     const pausedDate = midnight(new Date(plan.paused_at));
     const now = midnight(today);
-    pausedDays += Math.max(0, Math.floor((now.getTime() - pausedDate.getTime()) / 86400000));
+    pausedDays += Math.max(0, calendarDaysBetween(pausedDate, now));
   }
   return Math.max(1, raw - pausedDays);
 }

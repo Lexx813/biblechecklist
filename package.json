@@ -69,6 +69,9 @@
     "safari >= 15.4",
     "not dead"
   ],
+  "overrides": {
+    "postcss": "^8.5.14"
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "@next/bundle-analyzer": "^16.2.4",

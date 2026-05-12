@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function PromoPage() {
   return (
-    <div
+    <main
       style={{
         minHeight: "100vh",
         background: "linear-gradient(145deg, #0D0620 0%, #1E0D3C 50%, #3B1F6A 100%)",
@@ -109,6 +109,6 @@ export default function PromoPage() {
           Free for all publishers · No account required to browse
         </p>
       </div>
-    </div>
+    </main>
   );
 }
