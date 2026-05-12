@@ -60,16 +60,30 @@ const PRESETS = {
   "agua-y-vegetales": {
     audioDir: "es",
     filename: "Agua y Vegetales",
+    tag: "CANCIÓN ORIGINAL · DANIEL",
     title: "AGUA Y\nVEGETALES",
     subtitle: "Daniel — fiel hasta el final",
+    quote: ["“Mejor pobre con Dios,", "que rico sin verdad.”"],
     scripture: "Daniel 6:22",
+    cta: "ESCUCHA COMPLETA EN",
+  },
+  "jehovahs-breath": {
+    audioDir: "en",
+    filename: "Jehovah’s Breath",   // vault basename uses curly apostrophe
+    tag: "ORIGINAL WORSHIP · PRAISE",
+    title: "JEHOVAH’S\nBREATH",
+    subtitle: "every breath I take, I owe it back to You",
+    quote: ["“Let every breathing thing", "praise Jah. Praise Jah!”"],
+    scripture: "Psalm 150:6",
+    cta: "LISTEN FREE AT",
   },
 };
 const preset = PRESETS[slug] || {};
 
 const SRC_AUDIO = path.join(VAULT, audioDir || preset.audioDir || "en", `${(filename || preset.filename || slug)}.mp3`);
 const OUT_DIR = path.join(VAULT, "_audio");
-const OUT_MP4 = path.join(OUT_DIR, `${slug}-promo-60.mp4`);
+// Suffix reflects clip length so a 120s cut doesn't clobber a 60s promo.
+const OUT_MP4 = path.join(OUT_DIR, `${slug}-promo-${length}.mp4`);
 const TMP_DIR = "/tmp/song-promo";
 const TMP_PNG = path.join(TMP_DIR, `${slug}-cover.png`);
 const TMP_M4A = path.join(TMP_DIR, `${slug}-clip.m4a`);
@@ -91,10 +105,13 @@ console.log(`cut:    start=${start}s length=${length}s → ${OUT_MP4}`);
 const TITLE = (titleOverride || preset.title || slug.toUpperCase().replaceAll("-", " ")).split("\n");
 const SUB = subtitleOverride || preset.subtitle || "";
 const SCR = scriptureOverride || preset.scripture || "";
+const TAG = preset.tag || "ORIGINAL SONG · JWSTUDY.ORG";
+const QUOTE = Array.isArray(preset.quote) ? preset.quote : [];
+const CTA = preset.cta || "LISTEN ON";
 
 const W = 1080;
 const H = 1920;
-const svg = buildCoverSvg({ w: W, h: H, titleLines: TITLE, sub: SUB, scripture: SCR });
+const svg = buildCoverSvg({ w: W, h: H, slug, tag: TAG, titleLines: TITLE, sub: SUB, quoteLines: QUOTE, scripture: SCR, cta: CTA });
 await sharp(Buffer.from(svg)).png().toFile(TMP_PNG);
 console.log(`✓ cover  → ${TMP_PNG}`);
 
@@ -183,7 +200,7 @@ function runOrDie(bin, args) {
   }
 }
 
-function buildCoverSvg({ w, h, titleLines, sub, scripture }) {
+function buildCoverSvg({ w, h, slug, tag, titleLines, sub, quoteLines = [], scripture, cta }) {
   const line1 = titleLines[0] || "";
   const line2 = titleLines[1] || "";
   const titleY1 = 720;
@@ -212,7 +229,7 @@ function buildCoverSvg({ w, h, titleLines, sub, scripture }) {
   <text x="92" y="106" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="700" fill="#f5f3ff" letter-spacing="2">JWSTUDY.ORG</text>
 
   <!-- decorative tag -->
-  <text x="${w / 2}" y="540" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="600" fill="#c4b5fd" letter-spacing="8">CANCIÓN ORIGINAL · DANIEL</text>
+  <text x="${w / 2}" y="540" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="600" fill="#c4b5fd" letter-spacing="8">${escapeXml(tag)}</text>
 
   <!-- title -->
   <text x="${w / 2}" y="${titleY1}" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="170" fill="#ffffff" letter-spacing="-2">${escapeXml(line1)}</text>
@@ -221,17 +238,19 @@ function buildCoverSvg({ w, h, titleLines, sub, scripture }) {
   <!-- subtitle -->
   <text x="${w / 2}" y="990" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="46" font-weight="400" fill="#e9d5ff" font-style="italic">${escapeXml(sub)}</text>
 
+  ${quoteLines.length ? `
   <!-- pull quote -->
-  <text x="${w / 2}" y="1240" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="56" font-weight="700" fill="#ffffff">“Mejor pobre con Dios,</text>
-  <text x="${w / 2}" y="1320" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="56" font-weight="700" fill="#ffffff">que rico sin verdad.”</text>
+  <text x="${w / 2}" y="1240" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="56" font-weight="700" fill="#ffffff">${escapeXml(quoteLines[0] || "")}</text>
+  ${quoteLines[1] ? `<text x="${w / 2}" y="1320" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="56" font-weight="700" fill="#ffffff">${escapeXml(quoteLines[1])}</text>` : ""}
+  ` : ""}
 
   <!-- scripture badge -->
   <rect x="${w / 2 - 220}" y="1430" width="440" height="100" rx="50" fill="#7c3aed"/>
   <text x="${w / 2}" y="1493" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="42" font-weight="700" fill="#ffffff" letter-spacing="2">${escapeXml(scripture)}</text>
 
   <!-- footer CTA -->
-  <text x="${w / 2}" y="1780" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="38" font-weight="600" fill="#a78bfa" letter-spacing="3">ESCUCHA COMPLETA EN</text>
-  <text x="${w / 2}" y="1840" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="50" font-weight="700" fill="#ffffff">jwstudy.org/songs/agua-y-vegetales</text>
+  <text x="${w / 2}" y="1780" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="38" font-weight="600" fill="#a78bfa" letter-spacing="3">${escapeXml(cta)}</text>
+  <text x="${w / 2}" y="1840" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="50" font-weight="700" fill="#ffffff">jwstudy.org/songs/${escapeXml(slug)}</text>
 </svg>`;
 }
 

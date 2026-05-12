@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useId, useRef, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { useFullProfile } from "../hooks/useAdmin";
@@ -13,13 +13,22 @@ const backdropClassName =
   "fixed inset-0 z-[220] flex items-end justify-center bg-black/50";
 
 const sheetClassName =
-  "flex max-h-[min(86dvh,720px)] w-full max-w-[560px] flex-col overflow-y-auto rounded-t-lg bg-[var(--card-bg)] px-4 pt-2 pb-[max(16px,env(safe-area-inset-bottom))] shadow-[0_-8px_32px_rgba(0,0,0,0.45)]";
+  "flex max-h-[min(86dvh,720px)] w-full max-w-[560px] flex-col overflow-y-auto rounded-t-lg bg-[var(--card-bg)] px-4 pt-2 pb-[max(16px,env(safe-area-inset-bottom))] shadow-[0_-8px_32px_rgba(0,0,0,0.45)] outline-none";
 
 const handleClassName =
   "mx-auto mb-3 mt-1.5 h-1 w-9 flex-shrink-0 rounded-sm bg-[var(--border)]";
 
 const profileButtonClassName =
   "mb-3 flex w-full cursor-pointer items-center gap-3 rounded-lg border border-[rgba(124,58,237,0.18)] bg-[rgba(124,58,237,0.06)] p-3 font-[inherit] text-[var(--text-primary)] transition-colors hover:bg-[rgba(124,58,237,0.10)]";
+
+const sheetHeaderClassName =
+  "mb-3 flex items-center justify-between gap-3";
+
+const sheetTitleClassName =
+  "text-[15px] font-extrabold text-[var(--text-primary)]";
+
+const closeButtonClassName =
+  "flex h-10 w-10 cursor-pointer items-center justify-center rounded-md border border-[var(--border)] bg-transparent text-[var(--text-muted)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)]";
 
 const avatarClassName =
   "flex h-11 w-11 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-brand-400 to-brand-700 text-base font-extrabold text-white";
@@ -62,17 +71,37 @@ export default function MobileMoreSheet({ open, onClose, navigate, userId, isAdm
   const { incoming } = useFriendRequests(userId);
   const pendingRequests = incoming.data?.length ?? 0;
   const sheetRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
 
-  // Close on Escape; lock body scroll while open.
+  // Close on Escape, lock body scroll, and move focus into the dialog.
   useEffect(() => {
     if (!open) return;
-    function onKey(e: KeyboardEvent) { if (e.key === "Escape") onClose(); }
+    const previousActive = document.activeElement as HTMLElement | null;
+    sheetRef.current?.focus();
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+      if (e.key !== "Tab" || !sheetRef.current) return;
+      const focusable = sheetRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
     document.addEventListener("keydown", onKey);
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
+      previousActive?.focus?.();
     };
   }, [open, onClose]);
 
@@ -109,16 +138,36 @@ export default function MobileMoreSheet({ open, onClose, navigate, userId, isAdm
   ];
 
   return createPortal(
-    <div className={backdropClassName} onClick={onClose} role="dialog" aria-modal="true" aria-label={t("mobileMore.dialogLabel")}>
+    <div className={backdropClassName} onClick={onClose}>
       <div
         ref={sheetRef}
         className={sheetClassName}
         onClick={e => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        tabIndex={-1}
       >
         <div className={handleClassName} />
+        <div className={sheetHeaderClassName}>
+          <h2 id={titleId} className={sheetTitleClassName}>
+            {t("mobileMore.dialogLabel", "More navigation")}
+          </h2>
+          <button
+            type="button"
+            className={closeButtonClassName}
+            onClick={onClose}
+            aria-label={t("common.close", "Close")}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" {...stroke} aria-hidden>
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
 
         {/* Profile row */}
-        <button className={profileButtonClassName} onClick={() => go("profile")}>
+        <button type="button" className={profileButtonClassName} onClick={() => go("profile")}>
           <span className={avatarClassName}>
             {profile?.avatar_url
               ? <img src={profile.avatar_url} alt={profile.display_name ?? ""} width={44} height={44} className="h-full w-full object-cover" />
@@ -132,11 +181,11 @@ export default function MobileMoreSheet({ open, onClose, navigate, userId, isAdm
         </button>
 
         <div className={quickGridClassName}>
-          <button className={quickButtonClassName} onClick={() => go("settings")}>
+          <button type="button" className={quickButtonClassName} onClick={() => go("settings")}>
             <IconSettings />
             <span>{t("nav.settings", "Settings")}</span>
           </button>
-          <button className={quickButtonClassName} onClick={() => go("friendRequests")}>
+          <button type="button" className={quickButtonClassName} onClick={() => go("friendRequests")}>
             <IconUserPlus />
             <span>{t("nav.requests", "Requests")}</span>
             {pendingRequests > 0 && <span className={badgeClassName}>{pendingRequests}</span>}
@@ -150,11 +199,12 @@ export default function MobileMoreSheet({ open, onClose, navigate, userId, isAdm
               {section.items.map(item => item.kind === "spa" ? (
                 <button
                   key={item.key}
+                  type="button"
                   className={itemClassName}
                   onClick={() => go(item.key)}
                 >
                   <span className={itemIconClassName}>{item.icon}</span>
-                  <span className={itemLabelClassName}>{t(item.labelKey)}</span>
+                  <span className={itemLabelClassName}>{t(item.labelKey, item.key)}</span>
                   {item.badge && item.badge > 0 ? <span className={badgeClassName}>{item.badge}</span> : null}
                 </button>
               ) : (
@@ -176,7 +226,7 @@ export default function MobileMoreSheet({ open, onClose, navigate, userId, isAdm
           <div className={sectionClassName}>
             <div className={sectionTitleClassName}>{isAdmin ? t("mobileMore.admin") : t("mobileMore.moderation")}</div>
             <div className={sectionGridClassName}>
-              <button className={itemClassName} onClick={() => go("admin")}>
+              <button type="button" className={itemClassName} onClick={() => go("admin")}>
                 <span className={itemIconClassName}><IconShield /></span>
                 <span className={itemLabelClassName}>{isAdmin ? t("mobileMore.admin") : t("mobileMore.moderation")}</span>
               </button>

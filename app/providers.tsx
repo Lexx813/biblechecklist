@@ -21,6 +21,7 @@ import { ErrorBoundary } from "../src/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react";
 import { toast } from "../src/lib/toast";
 import { captureUtmParams, captureReferralCode } from "../src/lib/analytics";
+import AuthedMobileTabBar from "./_components/AuthedMobileTabBar";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -159,6 +160,7 @@ export default function Providers({ children }) {
         <SideEffects />
         <WebVitals />
         {children}
+        <AuthedMobileTabBar />
         <Analytics />
         {process.env.NODE_ENV === "development" && <DevtoolsToggle />}
       </QueryClientProvider>

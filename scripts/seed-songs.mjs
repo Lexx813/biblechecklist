@@ -23,7 +23,7 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const VAULT_DIR = "/mnt/c/Users/alexi/OneDrive/jwstudy-vault/songs/en";
@@ -327,6 +327,32 @@ const SONGS = [
     ],
   },
   {
+    slug: "jehovahs-breath",
+    title: "Jehovah's Breath",
+    title_es: null,
+    file: "Jehovah’s Breath",      // vault basename uses curly apostrophe
+    duration_seconds: 240,
+    primary_scripture_ref: "Psalm 150:6",
+    primary_scripture_text:
+      "Let every breathing thing praise Jah. Praise Jah!",
+    primary_scripture_text_es: null,
+    theme: "praise",
+    description:
+      "A contemporary worship anthem built on the title image — every breath as a gift to be given back. Verse 1 lays down the personal confession (\"every breath I take, I owe it back to You\"), the chorus opens up to Jehovah's mercies that roll on like Lamentations 3:22-23 (\"new every morning\"). The bridge strips the song down to its purest line — \"every breath in me, oh Jehovah\" — a direct echo of Psalm 150:6, and the whispered outro lifts \"Holy, worthy, Jehovah\" the way Isaiah 6 and Revelation 4 picture the throne. The song frames Romans 12:1 (\"present your bodies as a sacrifice\") in the language of a single inhale.",
+    description_es: null,
+    cover_image_url: null,
+    jw_org_links: [
+      { url: "https://www.jw.org/en/library/bible/nwt/books/psalms/150/", anchor: "Read Psalm 150, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/acts/17/", anchor: "Read Acts 17, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/job/33/", anchor: "Read Job 33, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/genesis/2/", anchor: "Read Genesis 2, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/lamentations/3/", anchor: "Read Lamentations 3, New World Translation" },
+      { url: "https://www.jw.org/en/bible-teachings/questions/gods-name/", anchor: "What is God's name?" },
+      { url: "https://www.jw.org/en/library/books/draw-close/", anchor: "Draw Close to Jehovah" },
+      { url: "https://hub.jw.org/request-visit", anchor: "Request a visit from Jehovah's Witnesses" },
+    ],
+  },
+  {
     slug: "comforter",
     title: "Comforter",
     title_es: null,
@@ -458,6 +484,30 @@ async function uploadAudio(slug, file) {
   return path;
 }
 
+// Look for a local PNG/JPG at /tmp/song-promo/<slug>-cover.{png,jpg} and, if
+// found, upload to the public `song-covers` bucket and return the public URL.
+// Returns null if no local cover exists — callers fall back to meta.cover_image_url.
+async function uploadCoverIfPresent(slug) {
+  const candidates = [
+    [`/tmp/song-promo/${slug}-cover.png`, "image/png", "png"],
+    [`/tmp/song-promo/${slug}-cover.jpg`, "image/jpeg", "jpg"],
+    [`/tmp/song-promo/${slug}-cover.jpeg`, "image/jpeg", "jpg"],
+  ];
+  const found = candidates.find(([p]) => existsSync(p));
+  if (!found) return null;
+  const [localPath, contentType, ext] = found;
+  const storagePath = `${slug}/cover.${ext}`;
+  const bytes = readFileSync(localPath);
+
+  const { error } = await supabase.storage
+    .from("song-covers")
+    .upload(storagePath, bytes, { contentType, cacheControl: "3600", upsert: true });
+  if (error) throw new Error(`Cover upload failed for ${slug}: ${error.message}`);
+
+  const { data } = supabase.storage.from("song-covers").getPublicUrl(storagePath);
+  return data.publicUrl;
+}
+
 // ──────────────────────────────────────────────────────────────────
 // DB upsert
 // ──────────────────────────────────────────────────────────────────
@@ -516,6 +566,11 @@ async function main() {
 
     const audioPath = await uploadAudio(meta.slug, meta.file);
     console.log(`  uploaded:  ${audioPath}`);
+    const coverUrl = await uploadCoverIfPresent(meta.slug);
+    if (coverUrl) {
+      meta.cover_image_url = coverUrl;
+      console.log(`  cover:     ${coverUrl}`);
+    }
     await upsertSong(meta, lyrics, audioPath);
     console.log(`  ✓ upserted`);
   }
