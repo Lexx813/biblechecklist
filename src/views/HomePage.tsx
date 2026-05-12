@@ -643,6 +643,54 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             onOpen={() => panelNavigate("learn")}
           />
 
+          {/* Spotlight video hero — moved up so it lands above the fold and
+              isn't missed by users who don't scroll past the Recent feed.
+              Skeleton reserves space to prevent CLS. */}
+          {(spotlightLoading || spotlightVideo) && (
+            <div style={{ marginBottom: 20 }}>
+              <div className={feedHeadCls}>
+                <span className={feedTitleCls}>
+                  <span className="text-amber-400 [html[data-theme=light]_&]:text-amber-800" style={{ marginRight: 5 }}>{"★"}</span>
+                  {t("home.spotlight")}
+                </span>
+                <button className={feedLinkCls} onClick={() => navigate("videos")}>{t("home.viewAllArrow")}</button>
+              </div>
+              {spotlightLoading ? (
+                <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
+                  <div style={{ padding: "10px 14px", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", gap: 8 }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ height: 16, width: "60%", borderRadius: 6, background: "var(--skeleton-bg, rgba(124,58,237,0.08))", marginBottom: 6 }} />
+                      <div style={{ height: 11, width: "35%", borderRadius: 6, background: "var(--skeleton-bg, rgba(124,58,237,0.08))" }} />
+                    </div>
+                  </div>
+                  <div style={{ aspectRatio: "16/9", background: "var(--skeleton-bg, rgba(124,58,237,0.08))" }} />
+                </div>
+              ) : spotlightVideo ? (
+                <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
+                  <div style={{ padding: "10px 14px", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", gap: 8 }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div
+                        style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-primary)", cursor: "pointer", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
+                        onClick={() => navigate("videos")}
+                      >
+                        {spotlightVideo.title}
+                      </div>
+                      {spotlightVideo.profiles?.display_name && (
+                        <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", marginTop: 2 }}>
+                          {spotlightVideo.profiles.display_name}
+                        </div>
+                      )}
+                    </div>
+                    <span className="shrink-0 whitespace-nowrap rounded-[10px] bg-amber-400 px-2 py-0.5 text-[0.65rem] font-bold text-amber-900">
+                      {"★"} SPOTLIGHT
+                    </span>
+                  </div>
+                  <SpotlightPlayer video={spotlightVideo} />
+                </div>
+              ) : null}
+            </div>
+          )}
+
           {/* Unified Recent feed — blog posts and videos interleaved by date */}
           <div>
             <div className={feedHeadCls}>
@@ -913,52 +961,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               confirmLabel={t("common.delete")}
               danger
             />
-          )}
-
-          {/* Spotlight video hero, skeleton reserves space to prevent CLS */}
-          {(spotlightLoading || spotlightVideo) && (
-            <div style={{ marginBottom: 20 }}>
-              <div className={feedHeadCls}>
-                <span className={feedTitleCls}>
-                  <span className="text-amber-400 [html[data-theme=light]_&]:text-amber-800" style={{ marginRight: 5 }}>{"\u2605"}</span>
-                  {t("home.spotlight")}
-                </span>
-                <button className={feedLinkCls} onClick={() => navigate("videos")}>{t("home.viewAllArrow")}</button>
-              </div>
-              {spotlightLoading ? (
-                <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
-                  <div style={{ padding: "10px 14px", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", gap: 8 }}>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ height: 16, width: "60%", borderRadius: 6, background: "var(--skeleton-bg, rgba(124,58,237,0.08))", marginBottom: 6 }} />
-                      <div style={{ height: 11, width: "35%", borderRadius: 6, background: "var(--skeleton-bg, rgba(124,58,237,0.08))" }} />
-                    </div>
-                  </div>
-                  <div style={{ aspectRatio: "16/9", background: "var(--skeleton-bg, rgba(124,58,237,0.08))" }} />
-                </div>
-              ) : spotlightVideo ? (
-                <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 10, overflow: "hidden" }}>
-                  <div style={{ padding: "10px 14px", borderBottom: "1px solid var(--border)", display: "flex", alignItems: "center", gap: 8 }}>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div
-                        style={{ fontSize: "0.9rem", fontWeight: 700, color: "var(--text-primary)", cursor: "pointer", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}
-                        onClick={() => navigate("videos")}
-                      >
-                        {spotlightVideo.title}
-                      </div>
-                      {spotlightVideo.profiles?.display_name && (
-                        <div style={{ fontSize: "0.7rem", color: "var(--text-secondary)", marginTop: 2 }}>
-                          {spotlightVideo.profiles.display_name}
-                        </div>
-                      )}
-                    </div>
-                    <span className="shrink-0 whitespace-nowrap rounded-[10px] bg-amber-400 px-2 py-0.5 text-[0.65rem] font-bold text-amber-900">
-                      {"\u2605"} SPOTLIGHT
-                    </span>
-                  </div>
-                  <SpotlightPlayer video={spotlightVideo} />
-                </div>
-              ) : null}
-            </div>
           )}
 
           </>}
