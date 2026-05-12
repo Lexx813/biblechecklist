@@ -212,6 +212,29 @@ const SONGS = [
     ],
   },
   {
+    slug: "hear-his-voice-again",
+    title: "Hear His Voice Again",
+    title_es: null,
+    file: "Hear His Voice Again",
+    duration_seconds: 240,
+    primary_scripture_ref: "John 5:28",
+    primary_scripture_text:
+      "Do not be amazed at this, for the hour is coming in which all those in the memorial tombs will hear his voice and come out, those who did good things to a resurrection of life, and those who practiced vile things to a resurrection of judgment.",
+    primary_scripture_text_es: null,
+    theme: "resurrection",
+    description:
+      "A gospel ballad of resurrection hope, written for anyone grieving a loved one. Verse 1 sets the promise of John 5:28-29 — every memorial tomb will hear his voice. Verse 2 walks through Acts 24:15 (the resurrection of the righteous and the unrighteous) and Revelation 21:3-4 (no more death, mourning, pain). The bridge drops into a Nyabinghi feel and gets personal: \"Your father's not forgotten, he's resting in His hand, safe in the memory of Jehovah's mighty plan.\" The final chorus lifts into a specific image of reunion — a father and son embracing under skies forever blue — the JW promise made tangible.",
+    description_es: null,
+    cover_image_url: null,
+    jw_org_links: [
+      { url: "https://www.jw.org/en/library/bible/nwt/books/john/5/", anchor: "Read John 5, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/acts/24/", anchor: "Read Acts 24, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/revelation/21/", anchor: "Read Revelation 21, New World Translation" },
+      { url: "https://www.jw.org/en/bible-teachings/questions/dead-loved-ones/", anchor: "Will the dead live again?" },
+      { url: "https://hub.jw.org/request-visit", anchor: "Request a visit from Jehovah's Witnesses" },
+    ],
+  },
+  {
     slug: "even-if-not",
     title: "Even If Not",
     title_es: null,
