@@ -305,16 +305,20 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   function handleEnableNotif() { updateProfile.mutate({ email_notifications_blog: true }); setNotifDismissed(true); }
   function handleDismissNotif() { localStorage.setItem("nwt-notif-dismissed", "1"); setNotifDismissed(true); }
 
-  const blogPreview = useMemo(() => {
-    if (posts.length === 0) return [];
-    // 2 newest posts + 1 most-liked (that isn't already shown)
-    const newest2 = posts.slice(0, 2);
-    const newest2Ids = new Set(newest2.map(p => p.id));
-    const mostLiked = [...posts]
-      .filter(p => !newest2Ids.has(p.id))
-      .sort((a, b) => (b.like_count ?? 0) - (a.like_count ?? 0))[0];
-    return mostLiked ? [...newest2, mostLiked] : newest2;
-  }, [posts]);
+  // Unified blog+video feed — sorted strictly by created_at so newly
+  // published items (posts OR videos) interleave in the order they shipped.
+  type FeedItem =
+    | { kind: "post"; id: string; createdAt: string; data: any }
+    | { kind: "video"; id: string; createdAt: string; data: any };
+  const unifiedFeed = useMemo<FeedItem[]>(() => {
+    const items: FeedItem[] = [
+      ...posts.map((p: any): FeedItem => ({ kind: "post", id: p.id, createdAt: p.created_at, data: p })),
+      ...reelVideos.map((v: any): FeedItem => ({ kind: "video", id: v.id, createdAt: v.created_at, data: v })),
+    ];
+    items.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    return items.slice(0, 6);
+  }, [posts, reelVideos]);
+  const feedLoading = postsLoading || videosLoading;
 
   // Friends panel data
   const now = Date.now();
@@ -639,45 +643,92 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             onOpen={() => panelNavigate("learn")}
           />
 
-          {/* Blog */}
+          {/* Unified Recent feed — blog posts and videos interleaved by date */}
           <div>
             <div className={feedHeadCls}>
-              <button className={`${feedTitleCls} cursor-pointer border-none bg-transparent p-0 text-left font-[inherit] hover:underline`} onClick={() => navigate("blog")}>{t("home.blogTitle")}</button>
+              <button className={`${feedTitleCls} cursor-pointer border-none bg-transparent p-0 text-left font-[inherit] hover:underline`} onClick={() => navigate("blog")}>{t("home.recentTitle", "Recent")}</button>
               <button className={feedLinkCls} onClick={() => navigate("blog")}>{t("home.blogViewAll")}</button>
             </div>
-            {postsLoading ? <BlogSkeleton /> : blogPreview.length === 0 ? (
+            {feedLoading && unifiedFeed.length === 0 ? <BlogSkeleton /> : unifiedFeed.length === 0 ? (
               <EmptyState icon={<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg>} title={t("home.noPostsYet")} sub={t("home.beTheFirstToShare")} btnLabel={t("home.writeAPost")} onBtn={() => navigate("blogDash")} />
             ) : (
               <div className="grid grid-cols-3 gap-2.5 max-[720px]:grid-cols-2 max-[480px]:grid-cols-1">
-                {blogPreview.map((post) => {
-                  const tr = (post as BlogPost).translations?.[lang];
+                {unifiedFeed.map((entry) => {
+                  if (entry.kind === "video") {
+                    const v = entry.data;
+                    const mins = v.duration_sec ? Math.floor(v.duration_sec / 60) : null;
+                    const secs = v.duration_sec ? v.duration_sec % 60 : null;
+                    const durationLabel = mins != null && secs != null ? `${mins}:${String(secs).padStart(2, "0")}` : null;
+                    return (
+                      <article
+                        key={`v-${v.id}`}
+                        className="group flex cursor-pointer flex-col overflow-hidden rounded-[var(--radius)] border border-[var(--border)] bg-white/[0.03] transition-all duration-150 hover:-translate-y-0.5 hover:border-brand-600/[0.28] active:scale-[0.98] [html[data-theme=light]_&]:bg-white"
+                        onClick={() => navigate("videoDetail", { slug: v.slug })}
+                      >
+                        <div className="relative h-[108px] shrink-0 overflow-hidden bg-black">
+                          {v.thumbnail_url ? (
+                            <img
+                              src={imgUrl(v.thumbnail_url, { width: 480 })}
+                              alt={v.title}
+                              className="block h-full w-full object-cover"
+                              width={280}
+                              height={108}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#7c3aed] to-[#4c1d95] text-white opacity-60">
+                              <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="8 5 19 12 8 19 8 5"/></svg>
+                            </div>
+                          )}
+                          <span className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+                            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black/55 text-white shadow-lg transition-transform group-hover:scale-110">
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 19 12 8 19 8 5"/></svg>
+                            </span>
+                          </span>
+                          {durationLabel && (
+                            <span className="absolute bottom-1.5 right-2 rounded-[var(--radius-sm)] bg-black/70 px-[7px] py-0.5 text-[11px] font-semibold text-white">
+                              {durationLabel}
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex-1 p-3">
+                          <div className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-amber-400 [html[data-theme=light]_&]:text-amber-700">{t("home.videoLabel", "Video")}</div>
+                          <div className="mb-1.5 line-clamp-2 text-sm font-semibold leading-snug text-[var(--text-primary)]">{v.title}</div>
+                          <div className={metaCls}>{v.profiles?.display_name ?? "JW Study"} · {formatDate(v.created_at)}</div>
+                        </div>
+                      </article>
+                    );
+                  }
+                  const post = entry.data as BlogPost;
+                  const tr = post.translations?.[lang];
                   const title = tr?.title || post.title;
                   return (
-                  <article key={post.id} className="group flex cursor-pointer flex-col overflow-hidden rounded-[var(--radius)] border border-[var(--border)] bg-white/[0.03] transition-all duration-150 hover:-translate-y-0.5 hover:border-brand-600/[0.28] active:scale-[0.98] [html[data-theme=light]_&]:bg-white" onClick={() => navigate("blog", { slug: post.slug })}>
-                    <div className="relative h-[108px] shrink-0 overflow-hidden">
-                      <img
-                        src={imgUrl(post.cover_url, { width: 480 }) || getFallbackImage(post.id)}
-                        alt={title}
-                        className="block h-full w-full object-cover"
-                        width={280}
-                        height={108}
-                        loading="lazy"
-                        decoding="async"
-                        onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
-                      />
-                      {post.like_count > 0 && (
-                        <span className="absolute bottom-1.5 right-2 flex items-center gap-[3px] rounded-[var(--radius-sm)] bg-black/60 px-[7px] py-0.5 text-[11px] font-semibold text-white">
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 22V11l5-9a1 1 0 0 1 1.8.5L13 7h7a2 2 0 0 1 2 2.4l-2 10A2 2 0 0 1 18 21H7zM2 11h3v11H2z"/></svg>
-                          {formatNum(post.like_count)}
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex-1 p-3">
-                      <div className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-[var(--accent)] [html[data-theme=light]_&]:text-brand-800">{t("home.blogLabel")}</div>
-                      <div className="mb-1.5 line-clamp-2 text-sm font-semibold leading-snug text-[var(--text-primary)]">{title}</div>
-                      <div className={metaCls}>{authorName(post)} · {formatDate(post.created_at)}</div>
-                    </div>
-                  </article>
+                    <article key={`p-${post.id}`} className="group flex cursor-pointer flex-col overflow-hidden rounded-[var(--radius)] border border-[var(--border)] bg-white/[0.03] transition-all duration-150 hover:-translate-y-0.5 hover:border-brand-600/[0.28] active:scale-[0.98] [html[data-theme=light]_&]:bg-white" onClick={() => navigate("blog", { slug: post.slug })}>
+                      <div className="relative h-[108px] shrink-0 overflow-hidden">
+                        <img
+                          src={imgUrl(post.cover_url, { width: 480 }) || getFallbackImage(post.id)}
+                          alt={title}
+                          className="block h-full w-full object-cover"
+                          width={280}
+                          height={108}
+                          loading="lazy"
+                          decoding="async"
+                          onError={(e) => { e.currentTarget.src = getFallbackImage(post.id); }}
+                        />
+                        {post.like_count > 0 && (
+                          <span className="absolute bottom-1.5 right-2 flex items-center gap-[3px] rounded-[var(--radius-sm)] bg-black/60 px-[7px] py-0.5 text-[11px] font-semibold text-white">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M7 22V11l5-9a1 1 0 0 1 1.8.5L13 7h7a2 2 0 0 1 2 2.4l-2 10A2 2 0 0 1 18 21H7zM2 11h3v11H2z"/></svg>
+                            {formatNum(post.like_count)}
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex-1 p-3">
+                        <div className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-[var(--accent)] [html[data-theme=light]_&]:text-brand-800">{t("home.blogLabel")}</div>
+                        <div className="mb-1.5 line-clamp-2 text-sm font-semibold leading-snug text-[var(--text-primary)]">{title}</div>
+                        <div className={metaCls}>{authorName(post)} · {formatDate(post.created_at)}</div>
+                      </div>
+                    </article>
                   );
                 })}
               </div>
@@ -907,16 +958,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                   <SpotlightPlayer video={spotlightVideo} />
                 </div>
               ) : null}
-            </div>
-          )}
-
-          {/* Videos, link to full list */}
-          {!videosLoading && reelVideos.length > 0 && (
-            <div>
-              <div className={feedHeadCls}>
-                <span className={feedTitleCls}>{t("nav.videos")}</span>
-                <button className={feedLinkCls} onClick={() => navigate("videos")}>{t("home.viewAllArrow")}</button>
-              </div>
             </div>
           )}
 
