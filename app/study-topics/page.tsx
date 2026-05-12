@@ -2,6 +2,7 @@ import Link from "next/link";
 import PublicNav from "../_components/PublicNav";
 import PublicFooter from "../_components/PublicFooter";
 import { STUDY_TOPICS } from "../../src/data/studyTopics";
+import { safeJsonLd } from "../../src/lib/safeJsonLd";
 
 export const revalidate = false; // static
 
@@ -53,8 +54,8 @@ const schemaItemList = {
 export default function StudyTopicsPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaItemList) }} />
       <PublicNav />
 
       <header className="border-b border-slate-200 bg-violet-50/50 dark:border-white/10 dark:bg-violet-950/20">

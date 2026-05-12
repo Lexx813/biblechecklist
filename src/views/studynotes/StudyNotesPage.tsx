@@ -65,6 +65,8 @@ function exportAsPrint(note) {
   const safeContent = sanitizeRich(note.content || "");
   const safeTags = (note.tags ?? []).map((t: string) => `<span>#${escapeHtml(t)}</span>`).join("");
   const win = window.open("", "_blank");
+  if (!win) return;
+  win.opener = null;
   win.document.write(`<!DOCTYPE html><html><head><title>${safeTitle}</title>
   <style>body{font-family:Georgia,serif;max-width:700px;margin:40px auto;color:#111}
   h1{font-size:1.6em;margin-bottom:4px}

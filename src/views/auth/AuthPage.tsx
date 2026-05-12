@@ -333,7 +333,7 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
                 />
                 <span>
                   I am <strong>13 years of age or older</strong>. If I am under 18, I have my parent or guardian's permission to use this app and they have read the{" "}
-                  <button type="button" className="auth-policy-link" onClick={() => window.open("/terms", "_blank")}>Terms of Service</button>.
+                  <button type="button" className="auth-policy-link" onClick={() => window.open("/terms", "_blank", "noopener,noreferrer")}>Terms of Service</button>.
                 </span>
               </label>
               <label className="auth-consent-label">
@@ -346,9 +346,9 @@ export default function AuthPage({ onBack, onRegisterSuccess = null, confirmedEm
                 />
                 <span>
                   I agree to the{" "}
-                  <button type="button" className="auth-policy-link" onClick={() => window.open("/terms", "_blank")}>Terms of Service</button>
+                  <button type="button" className="auth-policy-link" onClick={() => window.open("/terms", "_blank", "noopener,noreferrer")}>Terms of Service</button>
                   {" "}and{" "}
-                  <button type="button" className="auth-policy-link" onClick={() => window.open("/privacy", "_blank")}>Privacy Policy</button>
+                  <button type="button" className="auth-policy-link" onClick={() => window.open("/privacy", "_blank", "noopener,noreferrer")}>Privacy Policy</button>
                   , including the <strong>Child Safety Policy</strong>.
                 </span>
               </label>

@@ -8,6 +8,6 @@ export const BADGES = [
   { key: "first_note",      label: "First Note",          emoji: "📝", description: "Saved your first study note" },
   { key: "first_group",     label: "Group Member",        emoji: "👥", description: "Joined your first study group" },
   { key: "plan_complete",   label: "Plan Finisher",       emoji: "✅", description: "Completed a reading plan" },
-  { key: "full_nt_read",    label: "New Testament Complete",      emoji: "✝️", description: "Read all chapters of the Christian Greek Scriptures" },
+  { key: "full_nt_read",    label: "Greek Scriptures Complete",   emoji: "📘", description: "Read all chapters of the Christian Greek Scriptures" },
   { key: "full_ot_read",    label: "Hebrew Scriptures Complete",  emoji: "📜", description: "Read all chapters of the Hebrew Scriptures" },
 ];

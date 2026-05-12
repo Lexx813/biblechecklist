@@ -4,6 +4,7 @@ import PublicFooter from "../../_components/PublicFooter";
 import { PLAN_TEMPLATES, getTemplate } from "../../../src/data/readingPlanTemplates";
 import { BOOKS, OT_COUNT } from "../../../src/data/books";
 import { STUDY_TOPICS } from "../../../src/data/studyTopics";
+import { safeJsonLd } from "../../../src/lib/safeJsonLd";
 
 function bookToSlug(name: string) {
   return name.toLowerCase().replace(/\s+/g, "-");
@@ -101,8 +102,8 @@ export default async function PlanPage({ params }) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaLearningResource) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaLearningResource) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBreadcrumb) }} />
       <PublicNav />
       <main className="prose prose-slate dark:prose-invert mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
         <h1>{plan.name} — Bible Reading Plan for Jehovah&apos;s Witnesses</h1>

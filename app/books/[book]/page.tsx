@@ -5,6 +5,7 @@ import { BOOKS, OT_COUNT } from "../../../src/data/books";
 import { BOOK_INFO } from "../../../src/data/bookInfo";
 import { PLAN_TEMPLATES } from "../../../src/data/readingPlanTemplates";
 import { STUDY_TOPICS } from "../../../src/data/studyTopics";
+import { safeJsonLd } from "../../../src/lib/safeJsonLd";
 
 export const revalidate = false;
 
@@ -63,7 +64,7 @@ export default async function BookPage({ params }) {
   const book = getBook(slug);
   if (!book) notFound();
 
-  const testament = book.index < OT_COUNT ? "Hebrew Scriptures" : "Christian Greek Scriptures";
+  const scriptureSection = book.index < OT_COUNT ? "Hebrew Scriptures" : "Christian Greek Scriptures";
   const relatedPlans = plansForBook(book.index);
   const prevBook = book.index > 0 ? BOOKS[book.index - 1] : null;
   const nextBook = book.index < BOOKS.length - 1 ? BOOKS[book.index + 1] : null;
@@ -71,7 +72,7 @@ export default async function BookPage({ params }) {
   // Full article body for schema — all paragraphs concatenated
   const articleBody = [
     book.summary,
-    `The book of ${book.name} contains ${book.chapters} chapters and belongs to the ${testament}. It was written by ${book.author} approximately ${book.date}. The central theme of ${book.name} is ${book.theme.toLowerCase()}.`,
+    `The book of ${book.name} contains ${book.chapters} chapters and belongs to the ${scriptureSection}. It was written by ${book.author} approximately ${book.date}. The central theme of ${book.name} is ${book.theme.toLowerCase()}.`,
     ...book.notablePassages.map((p) => `${p.ref}: ${p.note}`),
     ...book.questions,
   ].join(" ");
@@ -139,14 +140,14 @@ export default async function BookPage({ params }) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaArticle) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBook) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaArticle) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBook) }} />
       <PublicNav />
       <main className="prose prose-slate dark:prose-invert mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
         <h1>Book of {book.name} — New World Translation Study Guide</h1>
         <p>
-          <strong>Testament:</strong> {testament} · <strong>Chapters:</strong> {book.chapters} ·{" "}
+          <strong>Section:</strong> {scriptureSection} · <strong>Chapters:</strong> {book.chapters} ·{" "}
           <strong>Written by:</strong> {book.author} · <strong>Approximate date:</strong> {book.date} ·{" "}
           <strong>Theme:</strong> {book.theme}
         </p>
@@ -154,7 +155,7 @@ export default async function BookPage({ params }) {
         <h2>Summary of the Book of {book.name}</h2>
         <p>{book.summary}</p>
         <p>
-          The book of {book.name} is part of the {testament} and contains {book.chapters}{" "}
+          The book of {book.name} is part of the {scriptureSection} and contains {book.chapters}{" "}
           chapters. It was written by {book.author} approximately {book.date}. The central theme
           running throughout {book.name} is {book.theme.toLowerCase()} — a foundational message
           for Jehovah&apos;s people as they pursue pure worship and grow in knowledge of
@@ -235,7 +236,7 @@ export default async function BookPage({ params }) {
           ))}
         </ul>
 
-        <h2>Continue Reading the {testament}</h2>
+        <h2>Continue Reading the {scriptureSection}</h2>
         <ul>
           {prevBook && (
             <li>

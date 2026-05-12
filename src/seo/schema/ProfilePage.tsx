@@ -1,3 +1,5 @@
+import { safeJsonLd } from '../../lib/safeJsonLd';
+
 export interface ProfilePageSchemaProps {
   name: string;
   url: string;
@@ -21,7 +23,7 @@ export function ProfilePageSchema(props: ProfilePageSchemaProps) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }

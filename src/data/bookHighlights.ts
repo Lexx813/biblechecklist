@@ -589,7 +589,7 @@ export const BOOK_HIGHLIGHTS: Array<{
       "Put on the new personality: Practical steps — put away falsehood, anger, stealing, corrupt speech, bitterness — replacing them with godly qualities (4:22–5:2)",
       "Spiritual armor: Full suit of armor — belt of truth, breastplate of righteousness, feet shod with the good news, shield of faith, helmet of salvation, sword of spirit (6:10–18)",
     ],
-    whyBeneficial: "Ephesians gives the broadest picture of Jehovah's eternal purpose — from before creation to the new world — and explains each believer's place within that grand design. The practical sections on family life (5:22–6:9) and the full suit of armor (6:10–18) are among the most concrete guides to daily Christian living in the New Testament.",
+    whyBeneficial: "Ephesians gives the broadest picture of Jehovah's eternal purpose — from before creation to the new world — and explains each believer's place within that grand design. The practical sections on family life (5:22–6:9) and the full suit of armor (6:10–18) are among the most concrete guides to daily Christian living in the Christian Greek Scriptures.",
   },
   // 49 Philippians
   {
@@ -709,7 +709,7 @@ export const BOOK_HIGHLIGHTS: Array<{
       "Taming the tongue: 'The tongue is a fire...a world of unrighteousness...can set the whole course of life aflame' — one of the hardest members to control (3:1–12)",
       "Prayer and anointing: 'The earnest supplication of a righteous person has much force' — the role of elders in praying over and caring for the sick (5:14–18)",
     ],
-    whyBeneficial: "James is the New Testament's book of Proverbs — intensely practical, grounded in daily life, and impatient with religion that produces no visible change. Its insistence that genuine faith expresses itself in action (caring for the poor, controlling the tongue, praying for the sick) protects against an abstract Christianity that stays safely inside one's head.",
+    whyBeneficial: "James is like the Christian Greek Scriptures' book of Proverbs — intensely practical, grounded in daily life, and impatient with religion that produces no visible change. Its insistence that genuine faith expresses itself in action (caring for the poor, controlling the tongue, praying for the sick) protects against an abstract Christianity that stays safely inside one's head.",
   },
   // 59 1 Peter
   {

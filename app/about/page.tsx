@@ -1,6 +1,7 @@
 import PublicNav from "../_components/PublicNav";
 import PublicFooter from "../_components/PublicFooter";
 import { FAQBlock } from "@/seo";
+import { safeJsonLd } from "../../src/lib/safeJsonLd";
 
 const FAQ_ITEMS = [
   {
@@ -104,8 +105,8 @@ const PILLARS = [
 export default function AboutPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaPerson) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaPerson) }} />
       <PublicNav />
 
       <main className="text-[var(--lp-text)]">

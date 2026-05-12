@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { blogApi } from "../../src/api/blog";
+import { safeJsonLd } from "../../src/lib/safeJsonLd";
 import PublicNav from "../_components/PublicNav";
 import PublicFooter from "../_components/PublicFooter";
 
@@ -93,10 +94,10 @@ export default async function BlogListPage() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBlog) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBlog) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBreadcrumb) }} />
       {schemaItemList && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaItemList) }} />
       )}
       <PublicNav />
 

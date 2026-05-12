@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { safeJsonLd } from "../../src/lib/safeJsonLd";
 import AiAppClient from "../_components/ai/AiAppClient";
 
 export const metadata: Metadata = {
@@ -48,8 +49,8 @@ const schemaBreadcrumb = {
 export default function AiPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaWebPage) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaWebPage) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBreadcrumb) }} />
       <AiAppClient />
     </>
   );

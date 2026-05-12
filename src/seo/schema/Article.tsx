@@ -1,4 +1,5 @@
 import { SITE_ORIGIN } from '../locales';
+import { safeJsonLd } from '../../lib/safeJsonLd';
 
 export interface ArticleSchemaProps {
   headline: string;
@@ -27,7 +28,7 @@ export function ArticleSchema(props: ArticleSchemaProps) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }

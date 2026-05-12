@@ -235,7 +235,7 @@ function MSGImageCard({ content, metadata }: { content: any; metadata: any }) {
         alt={metadata?.filename || "Image"}
         className={`msg-image-thumb${loaded ? " msg-image-thumb--loaded" : ""}`}
         onLoad={() => setLoaded(true)}
-        onClick={() => window.open(url, "_blank")}
+        onClick={() => window.open(url, "_blank", "noopener,noreferrer")}
       />
     </div>
   );

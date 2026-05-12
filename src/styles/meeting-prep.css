@@ -103,7 +103,7 @@
 }
 [data-theme=dark] .mp-week-chip { border-color: #2a1f4a; color: var(--violet-400); }
 [data-theme=dark] .mp-week-chip:hover { border-color: var(--violet-400); }
-[data-theme=dark] .mp-week-chip--active { background: var(--teal); border-color: var(--teal); }
+[data-theme=dark] .mp-week-chip--active { background: var(--violet-600); border-color: var(--violet-600); color: #fff; }
 
 /* Tabs */
 .mp-tabs {

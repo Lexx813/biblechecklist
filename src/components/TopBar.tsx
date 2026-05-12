@@ -115,17 +115,17 @@ export default function TopBar({
 
   return (
     <>
-      <header className="topbar" role="banner">
+      <header className="topbar max-[640px]:!grid-cols-[auto_minmax(44px,1fr)_auto] max-[640px]:!gap-2 max-[640px]:!px-2.5" role="banner">
         {/* Left: logo */}
-        <button className="topbar-logo" onClick={() => navigate("home")} aria-label={t("topbar.goToHome")}>
-          <span className="topbar-logo-icon"><LogoIcon /></span>
+        <button className="topbar-logo max-[640px]:!p-1" onClick={() => navigate("home")} aria-label={t("topbar.goToHome")}>
+          <span className="topbar-logo-icon max-[640px]:!h-[30px] max-[640px]:!w-[30px]"><LogoIcon /></span>
           <span className="topbar-wordmark">JW Study</span>
         </button>
 
         {/* Center: search */}
-        <div className="topbar-search">
+        <div className="topbar-search max-[640px]:!justify-start">
           <button
-            className="topbar-search-btn"
+            className="topbar-search-btn max-[640px]:!h-10 max-[640px]:!w-[42px] max-[640px]:!max-w-[42px] max-[640px]:!justify-center max-[640px]:!rounded-[var(--radius-sm)] max-[640px]:!p-0 max-[640px]:!text-[0px] [&_svg]:shrink-0"
             onClick={handleSearchClick}
             aria-label={t("topbar.searchShortcutAria")}
           >
@@ -136,20 +136,18 @@ export default function TopBar({
         </div>
 
         {/* Right: actions */}
-        <div className="topbar-actions">
-          {/* Admin link, mobile only. Always rendered to prevent CLS; invisible for non-admins. */}
-          <button
-            className="topbar-btn topbar-btn--admin-mobile"
-            onClick={() => navigate("admin")}
-            aria-label={t("topbar.adminPanel")}
-            aria-hidden={!profile?.is_admin || undefined}
-            tabIndex={profile?.is_admin ? 0 : -1}
-            style={!profile?.is_admin ? { visibility: "hidden", pointerEvents: "none" } : undefined}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-          </button>
+        <div className="topbar-actions max-[640px]:!min-w-0 max-[640px]:!gap-0.5">
+          {profile?.is_admin && (
+            <button
+              className="topbar-btn topbar-btn--admin-mobile max-[640px]:!h-10 max-[640px]:!w-10"
+              onClick={() => navigate("admin")}
+              aria-label={t("topbar.adminPanel")}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </button>
+          )}
 
           {/* Post a Video, always rendered to prevent CLS; hidden for non-creators */}
           <button
@@ -216,7 +214,7 @@ export default function TopBar({
 
           {/* Messages */}
           <button
-            className={`topbar-btn${currentPage === "messages" ? " topbar-btn--active" : ""}`}
+            className={`topbar-btn max-[640px]:!hidden${currentPage === "messages" ? " topbar-btn--active" : ""}`}
             onClick={() => navigate("messages")}
             aria-label={unreadMessages > 0 ? t("topbar.messagesUnread", { count: unreadMessages }) : t("topbar.messages")}
             data-tip={t("topbar.messages")}
@@ -230,7 +228,7 @@ export default function TopBar({
           </button>
 
           {/* Language picker */}
-          <div className="topbar-lang" ref={langRef}>
+          <div className="topbar-lang max-[640px]:!hidden" ref={langRef}>
             <button
               className="topbar-btn"
               onClick={() => setLangOpen(o => !o)}

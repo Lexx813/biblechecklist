@@ -1,3 +1,5 @@
+import { safeJsonLd } from '../../lib/safeJsonLd';
+
 export interface FAQItem {
   question: string;
   answer: string;
@@ -16,7 +18,7 @@ export function FAQSchema({ items }: { items: FAQItem[] }) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }

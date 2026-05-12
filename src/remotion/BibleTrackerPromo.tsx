@@ -585,7 +585,7 @@ export function BibleTrackerPromo() {
             <FeatCard
               emoji="📚"
               title="All 66 Books"
-              sub="Old and New Testament — track every chapter of the complete NWT."
+              sub="Hebrew and Christian Greek Scriptures — track every chapter of the complete NWT."
               opacity={f1op} scale={f1sc}
             />
             <FeatCard

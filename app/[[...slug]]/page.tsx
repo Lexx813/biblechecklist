@@ -5,6 +5,7 @@ import { BOOKS } from "../../src/data/books";
 import { PLAN_TEMPLATES } from "../../src/data/readingPlanTemplates";
 import { STUDY_TOPICS } from "../../src/data/studyTopics";
 import { KNOWN_SPA_ROUTES } from "../../src/lib/spaRoutes";
+import { safeJsonLd } from "../../src/lib/safeJsonLd";
 
 const BASE = "https://jwstudy.org";
 const SEO_HIDE = {
@@ -178,7 +179,7 @@ export default async function Page({ params }) {
       <>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaFAQ) }}
         />
         {/* Crawler-only sitemap-as-content. The visible H1 lives in LandingPage;
             this section is link-density for AI crawlers (no duplicated H1 to avoid

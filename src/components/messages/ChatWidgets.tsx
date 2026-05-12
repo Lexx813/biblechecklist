@@ -462,7 +462,7 @@ export function FCImageCard({ content, metadata }: { content: string | null; met
         alt={(metadata?.filename as string) || t("common.image")}
         className={`fc-image-thumb${loaded ? " fc-image-thumb--loaded" : ""}`}
         onLoad={() => setLoaded(true)}
-        onClick={() => url && window.open(safeUrl(url), "_blank")}
+        onClick={() => url && window.open(safeUrl(url), "_blank", "noopener,noreferrer")}
       />
     </div>
   );

@@ -26,8 +26,8 @@ export default function PromoPage() {
   return (
     <main
       style={{
-        minHeight: "100vh",
-        background: "linear-gradient(145deg, #0D0620 0%, #1E0D3C 50%, #3B1F6A 100%)",
+        minHeight: "100dvh",
+        background: "#0D0820",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -61,7 +61,7 @@ export default function PromoPage() {
             color: "white",
             margin: "0 0 8px",
             fontFamily: "system-ui, sans-serif",
-            letterSpacing: -1,
+            letterSpacing: 0,
           }}
         >
           AI Study Companion
@@ -86,16 +86,19 @@ export default function PromoPage() {
         <a
           href="/ai"
           style={{
-            display: "inline-block",
-            background: "linear-gradient(135deg, #4C1D95, #7C3AED)",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "#7C3AED",
             color: "white",
             textDecoration: "none",
-            padding: "16px 48px",
-            borderRadius: 14,
-            fontSize: 18,
+            padding: "14px 32px",
+            borderRadius: 6,
+            fontSize: 16,
             fontWeight: 800,
             fontFamily: "system-ui, sans-serif",
-            boxShadow: "0 8px 40px rgba(124,58,237,0.4)",
+            boxShadow: "0 8px 28px rgba(124,58,237,0.32)",
+            minHeight: 48,
           }}
         >
           Try it free at jwstudy.org

@@ -1,3 +1,5 @@
+import { safeJsonLd } from '../../lib/safeJsonLd';
+
 export interface DiscussionForumPostingSchemaProps {
   headline: string;
   url: string;
@@ -24,7 +26,7 @@ export function DiscussionForumPostingSchema(props: DiscussionForumPostingSchema
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }

@@ -1,3 +1,5 @@
+import { safeJsonLd } from '../../lib/safeJsonLd';
+
 export interface HowToStep {
   name: string;
   text: string;
@@ -30,7 +32,7 @@ export function HowToSchema(props: HowToSchemaProps) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { forumApi } from "../../../src/api/forum";
+import { safeJsonLd } from "../../../src/lib/safeJsonLd";
 import PublicNav from "../../_components/PublicNav";
 import PublicFooter from "../../_components/PublicFooter";
 
@@ -73,7 +74,7 @@ export default async function ForumCategoryPage({ params }) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBreadcrumb) }} />
       <PublicNav />
       <main className="w-full px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
         <nav className="mb-4 text-sm text-slate-500">

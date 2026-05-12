@@ -56,8 +56,8 @@ export const STUDY_TOPICS: StudyTopic[] = [
       {
         heading: "Is the Trinity doctrine found in the Bible?",
         paragraphs: [
-          "The word 'Trinity' does not appear anywhere in the Bible. The doctrine was formalized at the Council of Nicaea in 325 CE, long after the apostles died. The New Catholic Encyclopedia acknowledges that 'the doctrine of the Trinity is not taught in the Old Testament.' Early Christians clearly understood that Jehovah God and Jesus Christ were two distinct persons.",
-          "Praying to Jehovah through Jesus Christ is the pattern shown throughout the New Testament. Jesus is our High Priest and mediator — roles that make sense only if he is distinct from God the Father. (1 Timothy 2:5; Hebrews 7:25)",
+          "The word 'Trinity' does not appear anywhere in the Bible. The doctrine was formalized at the Council of Nicaea in 325 CE, long after the apostles died. The New Catholic Encyclopedia acknowledges that the doctrine is not taught in the Hebrew Scriptures. Early Christians clearly understood that Jehovah God and Jesus Christ were two distinct persons.",
+          "Praying to Jehovah through Jesus Christ is the pattern shown throughout the Christian Greek Scriptures. Jesus is our High Priest and mediator — roles that make sense only if he is distinct from God the Father. (1 Timothy 2:5; Hebrews 7:25)",
         ],
         scriptures: [
           { ref: "1 Timothy 2:5", text: "There is one God, and one mediator between God and men, a man Christ Jesus." },

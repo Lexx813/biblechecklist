@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { STUDY_TOPICS, getTopicBySlug } from "../../../src/data/studyTopics";
+import { safeJsonLd } from "../../../src/lib/safeJsonLd";
 
 export const revalidate = false; // static
 
@@ -109,10 +110,10 @@ export default async function StudyTopicPage({ params }) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaArticle) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaArticle) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBreadcrumb) }} />
       {schemaFAQ && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaFAQ) }} />
       )}
       <main className="mx-auto max-w-3xl px-4 py-12 text-[var(--lp-text)] sm:px-6 sm:py-16">
         <nav className="mb-8 text-sm">

@@ -1,3 +1,5 @@
+import { safeJsonLd } from '../../lib/safeJsonLd';
+
 export interface BookSchemaProps {
   name: string;
   url: string;
@@ -22,7 +24,7 @@ export function BookSchema(props: BookSchemaProps) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }

@@ -69,6 +69,7 @@ summary:focus-visible {
      All `100dvh - 52px` calcs across the codebase use this var so the
      layout adapts to the iPhone safe area automatically. */
   --topbar-h: calc(52px + env(safe-area-inset-top, 0px));
+  --mobile-tabbar-h: calc(72px + env(safe-area-inset-bottom, 0px));
 
   /* ── Brand violet scale (canonical) ──────────────────────────────────────
      PRODUCT.md defines violet-600 (var(--violet-600)) as the single brand purple. The
@@ -785,10 +786,13 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
    ══════════════════════════════════════════════════════════ */
 .book-list {
   flex: 1;
-  padding: 0 8px 32px;
+  /* Side padding gives the tiles breathing room against the device edge so
+     they don't look bleed-cut on phones. Wider gap between columns prevents
+     the right tile from kissing the right edge under the floating FABs. */
+  padding: 0 14px 32px;
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* mobile; overridden at breakpoints */
-  gap: 8px;
+  gap: 10px;
   background: transparent;
   border: none;
 }
@@ -2034,8 +2038,9 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
   .stats-pills { padding: 6px 12px; gap: 4px; }
   .stat-pill { font-size: 10px; padding: 3px 8px; }
 
-  /* Book list */
-  .book-list { padding: 0; }
+  /* Book list — keep tiles off the device edge so they don't look cut off
+     under the floating AI/chat FABs in the bottom-right. */
+  .book-list { padding: 0 12px 24px; gap: 8px; }
   .book-card:not(.book-card--open) .book-row { min-height: 68px; padding: 6px 8px 10px; }
   .book-card:not(.book-card--open) .book-name { font-size: 11px; margin-bottom: 3px; }
   .check-circle { width: 32px; height: 32px; touch-action: manipulation; }
@@ -2318,272 +2323,6 @@ button, a, [role="button"], input, select, textarea { touch-action: manipulation
     font-size: max(16px, 1em);
   }
 }
-
-/* ── Mobile bottom tab bar (global — always loaded) ── */
-.mobile-tabbar {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 200;
-  background: rgba(10, 5, 20, 0.96);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(138, 75, 255, 0.15);
-  padding: 6px 0 env(safe-area-inset-bottom, 0);
-  flex-direction: row;
-  align-items: stretch;
-}
-.mobile-tabbar-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  padding: 8px 4px;
-  min-height: 48px; /* 44px minimum touch target */
-  color: rgba(240, 234, 255, 0.5);
-  transition: color var(--dur-fast);
-  position: relative;
-}
-/* Active pill indicator — top edge bar */
-.mobile-tabbar-item--active::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 24px;
-  height: 3px;
-  border-radius: 0 0 3px 3px;
-  background: var(--accent);
-}
-.mobile-tabbar-item--active { color: var(--accent); }
-.mobile-tabbar-item:hover  { color: rgba(240, 234, 255, 0.85); }
-.mobile-tabbar-icon { position: relative; display: flex; align-items: center; justify-content: center; }
-.mobile-tabbar-label { font-size: 11px; font-weight: 500; }
-.mobile-tabbar-badge {
-  position: absolute;
-  top: -4px; right: -8px;
-  min-width: 16px; height: 16px;
-  padding: 0 3px;
-  border-radius: var(--radius-sm);
-  background: #e03c3c;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 16px;
-  text-align: center;
-}
-@media (max-width: 1100px) {
-  .mobile-tabbar { display: flex; }
-}
-[data-theme="light"] .mobile-tabbar { background: rgba(255,255,255,0.96); border-top-color: rgba(124,58,237,0.12); }
-[data-theme="light"] .mobile-tabbar-item { color: rgba(30, 16, 53, 0.65); } /* ≥4.5:1 */
-[data-theme="light"] .mobile-tabbar-item--active { color: var(--teal); }
-[data-theme="light"] .mobile-tabbar-item--active::before { background: var(--teal); }
-
-/* ── Mobile "More" bottom sheet ── */
-@keyframes mobile-more-slide-up {
-  from { transform: translateY(100%); }
-  to   { transform: translateY(0); }
-}
-@keyframes mobile-more-fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-.mobile-more-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 220;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  animation: mobile-more-fade-in 180ms var(--ease-out) both;
-}
-.mobile-more-sheet {
-  width: 100%;
-  max-width: 560px;
-  max-height: 85dvh;
-  background: var(--card-bg);
-  border-radius: 18px 18px 0 0;
-  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.45);
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 8px 16px 16px;
-  animation: mobile-more-slide-up 240ms var(--ease-spring) both;
-}
-.mobile-more-handle {
-  width: 36px;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--border);
-  margin: 6px auto 12px;
-  flex-shrink: 0;
-}
-.mobile-more-profile {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
-  background: rgba(124, 58, 237, 0.06);
-  border: 1px solid rgba(124, 58, 237, 0.18);
-  border-radius: 14px;
-  cursor: pointer;
-  font-family: inherit;
-  color: var(--text-primary);
-  transition: background var(--dur-fast);
-}
-.mobile-more-profile:hover { background: rgba(124, 58, 237, 0.10); }
-.mobile-more-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, var(--violet-400), var(--violet-700));
-  color: #fff;
-  font-weight: 800;
-  font-size: 16px;
-  overflow: hidden;
-}
-.mobile-more-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.mobile-more-profile-text {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 0;
-  text-align: left;
-}
-.mobile-more-profile-name {
-  font-size: 15px;
-  font-weight: 700;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.mobile-more-profile-sub {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-.mobile-more-quick {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-.mobile-more-quick-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-  cursor: pointer;
-  position: relative;
-  transition: background var(--dur-fast), border-color var(--dur-fast);
-}
-.mobile-more-quick-btn:hover { background: rgba(124, 58, 237, 0.06); border-color: rgba(124, 58, 237, 0.3); }
-.mobile-more-section {
-  margin-bottom: 16px;
-}
-.mobile-more-section-title {
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  padding: 0 4px 8px;
-}
-.mobile-more-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-.mobile-more-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 14px 8px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  font-family: inherit;
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--text-primary);
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  position: relative;
-  min-height: 72px;
-  transition: background var(--dur-fast), border-color var(--dur-fast), transform var(--dur-fast);
-}
-.mobile-more-item:hover { background: rgba(124, 58, 237, 0.06); border-color: rgba(124, 58, 237, 0.3); }
-.mobile-more-item:active { transform: scale(0.97); }
-.mobile-more-item-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(124, 58, 237, 0.08));
-  color: var(--violet-400);
-}
-.mobile-more-item-label {
-  line-height: 1.2;
-}
-.mobile-more-badge {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 4px;
-  border-radius: 999px;
-  background: #e03c3c;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 800;
-  line-height: 16px;
-  text-align: center;
-}
-.mobile-more-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  padding-top: 8px;
-  font-size: 12px;
-  color: var(--text-muted);
-}
-.mobile-more-footer a {
-  color: var(--text-muted);
-  text-decoration: none;
-}
-.mobile-more-footer a:hover { color: var(--text-secondary); text-decoration: underline; }
-[data-theme="light"] .mobile-more-item-icon { color: var(--violet-600); }
 
 /* ── Anonymous tracker (logged-out /try) ────────────────────────── */
 .anon-tracker {

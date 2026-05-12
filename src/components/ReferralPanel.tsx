@@ -51,7 +51,8 @@ export default function ReferralPanel({ userId }: Props) {
   function shareWhatsApp() {
     window.open(
       `https://wa.me/?text=${encodeURIComponent(t("referral.shareWhatsAppText", { url: shareUrl }))}`,
-      "_blank"
+      "_blank",
+      "noopener,noreferrer"
     );
   }
 
@@ -79,7 +80,8 @@ export default function ReferralPanel({ userId }: Props) {
         <button className="ref-share-btn ref-share-btn--x" onClick={() => {
           window.open(
             `https://twitter.com/intent/tweet?text=${encodeURIComponent(t("referral.tweetText", { url: shareUrl }))}`,
-            "_blank"
+            "_blank",
+            "noopener,noreferrer"
           );
         }}>
           {t("referral.shareOnX")}

@@ -245,6 +245,11 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     }
     return null;
   });
+  const [homeActivePanel, setHomeActivePanel] = useState<string | null>(() => homePanelRequest?.panel ?? null);
+
+  useEffect(() => {
+    if (nav.page !== "home") setHomeActivePanel(null);
+  }, [nav.page]);
 
   const navigate = (page, params: Record<string, any> = {}) => {
     if (page === "home") {
@@ -313,7 +318,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   }, [nav, subPage]);
 
   let pageContent = null;
-  if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} panelRequest={homePanelRequest} onPanelConsumed={() => setHomePanelRequest(null)} /></Page>;
+  if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} panelRequest={homePanelRequest} onPanelConsumed={() => setHomePanelRequest(null)} onActivePanelChange={setHomeActivePanel} /></Page>;
   else if (nav.page === "main") pageContent = <Page><ChecklistPage user={user} profile={profile} {...sharedNav} openBook={nav.openBook} openChapter={nav.openChapter} /></Page>;
   else if (nav.page === "admin") {
     if (!profileLoading && !profile?.is_admin && !profile?.is_moderator) navigate("home");
@@ -446,6 +451,8 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     return <ConsentGate userId={user.id} />;
   }
 
+  const mobileShellPage = nav.page === "home" ? (homeActivePanel ?? "home") : nav.page;
+
   return (
     <>
       {/* inert hides all background content from keyboard/AT when palette is open */}
@@ -454,8 +461,8 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
         <div key={nav.page} className="page-fade-in">
           {pageContent}
         </div>
-        {nav.page !== "messages" && <MobileTabBar navigate={navigate} currentPage={nav.page} userId={user?.id} isAdmin={!!profile?.is_admin} isModerator={!!profile?.is_moderator} />}
-        {nav.page !== "messages" && (
+        {mobileShellPage !== "messages" && <MobileTabBar navigate={navigate} currentPage={mobileShellPage} userId={user?.id} isAdmin={!!profile?.is_admin} isModerator={!!profile?.is_moderator} />}
+        {mobileShellPage !== "messages" && (
           <Suspense fallback={null}>
             <FloatingChat
               user={user}
@@ -466,7 +473,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
             />
           </Suspense>
         )}
-        {nav.page !== "messages" && ["en", "es"].includes((i18n.language ?? "en").slice(0, 2)) && (
+        {mobileShellPage !== "messages" && ["en", "es"].includes((i18n.language ?? "en").slice(0, 2)) && (
           <Suspense fallback={null}>
             <AIStudyBubble context={aiContext} />
           </Suspense>

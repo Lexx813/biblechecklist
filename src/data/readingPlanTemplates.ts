@@ -68,7 +68,7 @@ export const PLAN_TEMPLATES = [
   },
   {
     key: "nt-90-days",
-    name: "New Testament in 90 Days",
+    name: "Christian Greek Scriptures in 90 Days",
     description: "Read all 27 books of the Christian Greek Scriptures in just 90 days.",
     icon: "📘",
     totalDays: 90,
@@ -188,8 +188,8 @@ export const PLAN_TEMPLATES = [
 export const PLAN_CATEGORIES = [
   { key: "all",        label: "All Plans" },
   { key: "full-bible", label: "Full Bible" },
-  { key: "nt",         label: "New Testament" },
-  { key: "ot",         label: "Old Testament" },
+  { key: "nt",         label: "Christian Greek Scriptures" },
+  { key: "ot",         label: "Hebrew Scriptures" },
   { key: "thematic",   label: "Thematic" },
 ];
 

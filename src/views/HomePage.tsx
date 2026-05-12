@@ -155,7 +155,7 @@ function BlogSkeleton() {
 }
 
 // ── Main component ───────────────────────────────────────────────────────────
-export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, panelRequest, onPanelConsumed }) {
+export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMode, i18n, panelRequest, onPanelConsumed, onActivePanelChange }) {
   const { t } = useTranslation();
   const lang = i18n?.language?.split("-")[0] ?? "en";
 
@@ -216,6 +216,9 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   // the home-layout grid from shifting columns after mount (CLS).
   const initialPanel = panelRequest?.panel && panelRequest.panel !== "home" ? panelRequest.panel : null;
   const [activePanel, setActivePanel] = useState<string | null>(initialPanel);
+  useEffect(() => {
+    onActivePanelChange?.(activePanel ?? "home");
+  }, [activePanel, onActivePanelChange]);
   const [quizLevelState, setQuizLevelState] = useState(null); // null = hub, {level, timedMode}
   const [advQuizLevelState, setAdvQuizLevelState] = useState(null);
   const [masterQuizLevelState, setMasterQuizLevelState] = useState(null);

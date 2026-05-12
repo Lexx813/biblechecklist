@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import MessianicScrolly from "./MessianicScrolly";
 import { MESSIANIC_PROPHECIES } from "../../src/data/messianicProphecies";
+import { safeJsonLd } from "../../src/lib/safeJsonLd";
 
 export const revalidate = false; // static
 
@@ -119,10 +120,10 @@ export default function MessianicPropheciesPage() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaArticle) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFAQ) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaArticle) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaItemList) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaFAQ) }} />
 
       <main className="font-[var(--font-display,inherit)] text-[var(--text-primary)]">
         <TopNav />

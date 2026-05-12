@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { forumApi } from "../../src/api/forum";
+import { safeJsonLd } from "../../src/lib/safeJsonLd";
 import PublicNav from "../_components/PublicNav";
 import PublicFooter from "../_components/PublicFooter";
 
@@ -56,8 +57,8 @@ export default async function ForumIndexPage() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaForum) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaForum) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBreadcrumb) }} />
       <PublicNav />
 
       <header className="border-b border-slate-200 bg-violet-50/50 dark:border-white/10 dark:bg-violet-950/20">

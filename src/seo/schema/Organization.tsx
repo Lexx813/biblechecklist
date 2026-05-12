@@ -1,4 +1,5 @@
 import { SITE_ORIGIN } from '../locales';
+import { safeJsonLd } from '../../lib/safeJsonLd';
 
 const schema = {
   '@context': 'https://schema.org',
@@ -29,7 +30,7 @@ export function OrganizationSchema() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
     />
   );
 }

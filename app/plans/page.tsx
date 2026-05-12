@@ -2,6 +2,7 @@ import Link from "next/link";
 import PublicNav from "../_components/PublicNav";
 import PublicFooter from "../_components/PublicFooter";
 import { PLAN_TEMPLATES } from "../../src/data/readingPlanTemplates";
+import { safeJsonLd } from "../../src/lib/safeJsonLd";
 
 export const revalidate = false;
 
@@ -10,7 +11,7 @@ const BASE = "https://jwstudy.org";
 export const metadata = {
   title: "Bible Reading Plans for Jehovah's Witnesses | JW Study",
   description:
-    "Free Bible reading plans using the New World Translation, NWT in 1 Year, New Testament in 90 Days, Gospels in 30 Days, and more. Track daily progress with JW Study.",
+    "Free Bible reading plans using the New World Translation, NWT in 1 Year, Christian Greek Scriptures in 90 Days, Gospels in 30 Days, and more. Track daily progress with JW Study.",
   alternates: {
     canonical: `${BASE}/plans`,
     languages: { en: `${BASE}/plans`, "x-default": `${BASE}/plans` },
@@ -58,8 +59,8 @@ export default function PlansPage() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaItemList) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaBreadcrumb) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaItemList) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBreadcrumb) }} />
       <PublicNav />
 
       <header className="border-b border-slate-200 bg-violet-50/50 dark:border-white/10 dark:bg-violet-950/20">
