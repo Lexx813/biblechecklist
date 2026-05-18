@@ -24,10 +24,10 @@ export default function HomeNotifBanners({
   const bannerCls =
     "home-notif-banner-bg fixed left-1/2 z-[300] -translate-x-1/2 flex items-center gap-3 rounded-xl border border-(--border) px-[18px] py-[14px] shadow-[var(--shadow-md)] max-w-[500px] w-[calc(100vw-48px)] backdrop-blur-md " +
     "[bottom:max(24px,calc(16px+env(safe-area-inset-bottom,0px)))]";
-  const iconCls = "text-[20px] shrink-0 text-[#a78bfa]";
+  const iconCls = "text-[20px] shrink-0 text-violet-400";
   const textCls = "flex-1 min-w-0 [&_strong]:block [&_strong]:text-sm [&_strong]:font-bold [&_strong]:text-(--text-primary) [&_span]:text-[13px] [&_span]:text-(--text-secondary)";
   const enableCls =
-    "shrink-0 whitespace-nowrap rounded-md border-0 bg-linear-to-br from-[#7c3aed] to-[#6d28d9] px-3.5 py-1.5 text-[13px] font-semibold text-white cursor-pointer shadow-[0_2px_8px_rgba(124,58,237,0.35)] transition-all hover:brightness-110 hover:shadow-[0_4px_14px_rgba(124,58,237,0.5)] disabled:opacity-60 disabled:cursor-not-allowed";
+    "shrink-0 whitespace-nowrap rounded-md border-0 bg-linear-to-br from-violet-600 to-violet-700 px-3.5 py-1.5 text-[13px] font-semibold text-white cursor-pointer shadow-[0_2px_8px_rgba(124,58,237,0.35)] transition-all hover:brightness-110 hover:shadow-[0_4px_14px_rgba(124,58,237,0.5)] disabled:opacity-60 disabled:cursor-not-allowed";
   const dismissCls =
     "shrink-0 cursor-pointer border-0 bg-transparent p-1 text-base rounded text-(--text-muted) transition-colors hover:text-(--text-primary)";
 

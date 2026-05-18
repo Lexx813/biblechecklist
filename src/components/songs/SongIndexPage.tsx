@@ -13,13 +13,13 @@ const COPY = {
     eyebrow: "JW Study · Songs",
     title: "Songs built on scripture.",
     body:
-      "Original music for the JW community — each song anchored in a specific scripture. Listen, read the passage, and follow the links to jw.org for deeper study.",
+      "Original music for the JW community. Each song is anchored in a specific scripture. Listen, read the passage, and follow the links to jw.org for deeper study.",
   },
   es: {
     eyebrow: "JW Study · Canciones",
     title: "Canciones basadas en las Escrituras.",
     body:
-      "Música original para la comunidad JW — cada canción se basa en un texto bíblico. Escucha, lee el pasaje y sigue los enlaces a jw.org para un estudio más profundo.",
+      "Música original para la comunidad JW. Cada canción se basa en un texto bíblico. Escucha, lee el pasaje y sigue los enlaces a jw.org para un estudio más profundo.",
   },
 };
 

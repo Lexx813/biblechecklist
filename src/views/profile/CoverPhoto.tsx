@@ -54,7 +54,7 @@ export default function CoverPhoto({
         />
       ) : (
         <>
-          <div className="absolute inset-0 bg-linear-to-br from-[#1a0635] via-[#3b1080] to-[#6d28d9]" />
+          <div className="absolute inset-0 bg-linear-to-br from-violet-950 via-violet-900 to-violet-700" />
           {/* Soft radial glows give depth without an image */}
           <div
             aria-hidden
@@ -73,7 +73,7 @@ export default function CoverPhoto({
             </defs>
             <rect width="100%" height="100%" fill="url(#cover-dots)" />
           </svg>
-          <div className="absolute inset-0 bg-linear-to-tr from-purple-500/10 via-transparent to-violet-400/15" />
+          <div className="absolute inset-0 bg-linear-to-tr from-violet-500/10 via-transparent to-violet-400/15" />
         </>
       )}
 

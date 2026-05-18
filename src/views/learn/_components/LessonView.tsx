@@ -175,7 +175,7 @@ export default function LessonView({
               <blockquote
                 key={i}
                 {...commonAttrs}
-                className={`my-2 border-l-4 border-violet-600 bg-violet-50/70 py-4 pl-5 pr-3 ${revealClass}`}
+                className={`my-2 rounded-md border border-violet-200 bg-violet-50/70 px-5 py-4 ${revealClass}`}
               >
                 <p className="text-lg leading-relaxed text-violet-900">
                   &ldquo;{t(block.textKey)}&rdquo;

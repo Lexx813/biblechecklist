@@ -30,7 +30,7 @@
   left: 0;
   z-index: var(--z-top);
   padding: 12px 20px;
-  background: var(--teal, #6A3DAA);
+  background: var(--violet-600, #7c3aed);
   color: #fff;
   font-weight: 700;
   font-size: 14px;

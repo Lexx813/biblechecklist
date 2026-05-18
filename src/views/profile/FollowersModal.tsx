@@ -30,7 +30,7 @@ function PersonRow({ person, onClick }: { person: Person; onClick: () => void })
       {person.avatar_url ? (
         <img src={person.avatar_url} alt="" width={36} height={36} className="size-9 shrink-0 rounded-full object-cover" loading="lazy" />
       ) : (
-        <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#7c3aed] to-[#a855f7] text-sm font-bold text-white">{initial}</span>
+        <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-(--violet-600) to-(--violet-400) text-sm font-bold text-white">{initial}</span>
       )}
       <span className="truncate text-sm font-semibold text-[var(--text-primary)]">{person.display_name || t("follow.anonymous")}</span>
     </button>

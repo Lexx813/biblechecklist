@@ -1,5 +1,6 @@
 import AnimatedNumber from "./AnimatedNumber";
 import Sparkline from "./Sparkline";
+import { VIOLET_600 } from "../../lib/colors";
 
 interface Props {
   label: string;
@@ -18,7 +19,7 @@ interface Props {
 }
 
 export default function KpiCard({
-  label, value, format, delta, deltaLabel, spark, accent = "#7c3aed",
+  label, value, format, delta, deltaLabel, spark, accent = VIOLET_600,
 }: Props) {
   const isPositive =
     typeof delta === "number" ? delta >= 0 : String(delta ?? "").startsWith("+");

@@ -77,7 +77,9 @@
   padding: 7px 10px;
   border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
-  font-size: 13px;
+  /* iOS focus zoom triggers below 16px on real <input>; floor at 16px on touch
+     devices and let desktop keep the 13px visual to fit dense select panels. */
+  font-size: 16px;
   font-family: inherit;
   background: rgba(124, 58, 237, 0.06);
   color: var(--text-primary);

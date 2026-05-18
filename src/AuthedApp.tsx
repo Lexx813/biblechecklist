@@ -13,6 +13,7 @@ import LoadingSpinner from "./components/LoadingSpinner";
 import MobileTabBar from "./components/MobileTabBar";
 import TopBar from "./components/TopBar";
 import CommandPalette from "./components/CommandPalette";
+import KeyboardShortcutsModal from "./components/KeyboardShortcutsModal";
 import { BOOKS } from "./data/books";
 import { usePostBySlugForEdit } from "./hooks/useBlog";
 import { ErrorBoundary } from "./components/ErrorBoundary";
@@ -135,6 +136,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     return true; // Default to dark — focused reading experience
   });
   const [showCmdPalette, setShowCmdPalette] = useState(false);
+  const [showShortcuts, setShowShortcuts] = useState(false);
 
   useEffect(() => {
     document.documentElement.dataset.theme = darkMode ? "dark" : "light";
@@ -184,17 +186,62 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     return () => window.removeEventListener("ai:navigate", handler);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ⌘K / Ctrl+K — open command palette
+  // Global keyboard shortcuts:
+  //   ⌘K / Ctrl+K  → command palette
+  //   ?            → keyboard shortcut help
+  //   g then h/b/q/n/m → quick navigate (Vim-style chord, 1.5s window)
+  // Skipped when the focused element is an editable input/textarea/contenteditable
+  // so typing letters in a form never hijacks navigation.
   useEffect(() => {
-    function onKeyDown(e) {
+    let chordPending = false;
+    let chordTimer: ReturnType<typeof setTimeout> | null = null;
+    const clearChord = () => {
+      chordPending = false;
+      if (chordTimer) { clearTimeout(chordTimer); chordTimer = null; }
+    };
+    function isEditable(target: EventTarget | null): boolean {
+      const el = target as HTMLElement | null;
+      if (!el) return false;
+      const tag = el.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return true;
+      if (el.isContentEditable) return true;
+      return false;
+    }
+    function onKeyDown(e: KeyboardEvent) {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         setShowCmdPalette(v => !v);
+        return;
+      }
+      if (isEditable(e.target)) return;
+      // ? (Shift+/) opens help
+      if (e.key === "?" && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        e.preventDefault();
+        setShowShortcuts(v => !v);
+        return;
+      }
+      // g X chord nav
+      if (chordPending) {
+        const map: Record<string, string> = { h: "home", b: "main", q: "quiz", n: "studyNotes", m: "meetingPrep" };
+        const dest = map[e.key.toLowerCase()];
+        if (dest) {
+          e.preventDefault();
+          navigate(dest);
+        }
+        clearChord();
+        return;
+      }
+      if (e.key === "g" && !e.metaKey && !e.ctrlKey && !e.altKey && !e.shiftKey) {
+        chordPending = true;
+        chordTimer = setTimeout(clearChord, 1500);
       }
     }
     document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, []);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      clearChord();
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Handle push notification tap — service worker posts { type: "push-navigate", url }
   // instead of using client.navigate() which is unreliable on Android Chrome.
@@ -488,6 +535,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
         />,
         document.body
       )}
+      {showShortcuts && <KeyboardShortcutsModal onClose={() => setShowShortcuts(false)} />}
     </>
   );
 }

@@ -96,7 +96,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
   async function handleDeleteAccount() {
     setDeleting(true);
     try {
-      await adminApi.deleteUser(user.id);
+      await adminApi.deleteOwnAccount();
       onLogout();
     } catch {
       setDeleting(false);

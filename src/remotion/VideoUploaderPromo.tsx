@@ -550,7 +550,7 @@ export default function VideoUploaderPromo() {
             <LeftLabel
               tag="YouTube"
               headline={"Paste any YouTube link"}
-              sub={"Paste the video URL — the app validates it instantly and embeds it in the reel."}
+              sub={"Paste the video URL. The app validates it instantly and embeds it in the reel."}
               opacity={leftYtOpacity}
             />
           )}
@@ -578,7 +578,7 @@ export default function VideoUploaderPromo() {
         <PlatformBadge
           icon={<YoutubeIcon size={36} />}
           name="YouTube"
-          sub="Full URL — youtube.com/watch?v=…"
+          sub="Full URL: youtube.com/watch?v=…"
           opacity={ytBadge}
         />
       )}
@@ -586,7 +586,7 @@ export default function VideoUploaderPromo() {
         <PlatformBadge
           icon={<TiktokIcon size={36} />}
           name="TikTok"
-          sub="Full URL — tiktok.com/@user/video/…"
+          sub="Full URL: tiktok.com/@user/video/…"
           opacity={ttBadge}
         />
       )}
@@ -604,7 +604,7 @@ export default function VideoUploaderPromo() {
           <span style={{ fontSize: 36 }}>📁</span>
           <div>
             <div style={{ fontSize: 20, fontWeight: 800, color: TEXT_PRI }}>Max 50 MB</div>
-            <div style={{ fontSize: 13, color: TEXT_SEC }}>MP4 · MOV · WebM — auto-compressed</div>
+            <div style={{ fontSize: 13, color: TEXT_SEC }}>MP4 · MOV · WebM, auto-compressed</div>
           </div>
         </div>
       )}
@@ -685,7 +685,7 @@ export default function VideoUploaderPromo() {
             <FeatureCard
               icon="▶️"
               title="YouTube & Rumble"
-              body="Paste any YouTube or Rumble link. Instantly embedded and streamed — no download needed."
+              body="Paste any YouTube or Rumble link. Instantly embedded and streamed, no download needed."
               opacity={cards[0].opacity}
               scale={cards[0].scale}
             />

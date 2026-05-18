@@ -113,7 +113,7 @@ export default function QuestionLadder({ lessonId, exerciseId, payload, onComple
                     </button>
                   </div>
                   {isRevealed && (
-                    <p className="mt-2 rounded-md border border-amber-300/40 bg-amber-50 px-3 py-2 text-sm text-slate-700 dark:border-amber-400/30 dark:bg-amber-500/10 dark:text-amber-100/90">
+                    <p className="mt-2 rounded-md border border-amber-300/40 bg-amber-50 px-3 py-2 text-sm text-amber-900 dark:border-amber-400/30 dark:bg-amber-500/10 dark:text-amber-100/90">
                       <span className="font-medium text-violet-900 dark:text-amber-200">{t("learn.exercises.questionLadder.hintLabel")}</span>{" "}
                       {t(rung.hintKey)}
                     </p>

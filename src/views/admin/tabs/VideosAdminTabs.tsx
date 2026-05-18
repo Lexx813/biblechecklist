@@ -138,7 +138,7 @@ export function VideosTab() {
     <div style={{ padding: "16px 20px" }}>
       <h3 style={{ fontSize: "0.9rem", fontWeight: 700, marginBottom: 12, color: "var(--text-primary)" }}>
         All Videos
-        <span style={{ background: "rgba(124,58,237,0.12)", color: "#7c3aed", fontSize: "0.7rem", padding: "2px 8px", borderRadius: 20, marginLeft: 8 }}>
+        <span style={{ background: "rgba(124,58,237,0.12)", color: "var(--violet-600)", fontSize: "0.7rem", padding: "2px 8px", borderRadius: 20, marginLeft: 8 }}>
           {videos.length}
         </span>
       </h3>

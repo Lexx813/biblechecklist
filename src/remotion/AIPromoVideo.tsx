@@ -454,7 +454,7 @@ export default function AIPromoVideo() {
       {frame >= T.badge1In && frame < T.badge2In && (
         <FeatureBadge
           icon="🛡️" text="JW Sources Only"
-          sub="wol.jw.org · jw.org · NWT — never outside commentaries"
+          sub="wol.jw.org · jw.org · NWT. Never outside commentaries."
           opacity={badge1Opacity} y={H - 260}
         />
       )}

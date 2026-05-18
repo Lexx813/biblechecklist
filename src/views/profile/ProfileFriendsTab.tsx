@@ -91,7 +91,7 @@ export default function ProfileFriendsTab({ user, navigate, isOwner = true }: Pr
 
       {!isLoading && friends.length === 0 && (
         <div className="friends-empty" style={{ marginTop: 16 }}>
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: "#7c3aed", opacity: 0.5, display: "block", margin: "0 auto 10px" }} aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: "var(--violet-600)", opacity: 0.5, display: "block", margin: "0 auto 10px" }} aria-hidden="true">
             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
             <circle cx="9" cy="7" r="4"/>
             <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>

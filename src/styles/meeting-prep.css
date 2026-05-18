@@ -92,7 +92,7 @@
   color: var(--text-muted, #7c6f9a);
   cursor: pointer;
   white-space: nowrap;
-  transition: all .15s;
+  transition: background-color .15s, border-color .15s, color .15s, transform .15s, box-shadow .15s;
   flex-shrink: 0;
 }
 .mp-week-chip:hover { border-color: #9B59B6; color: #9B59B6; }
@@ -125,7 +125,7 @@
   font-weight: 600;
   color: var(--text-muted, #7c6f9a);
   cursor: pointer;
-  transition: all .15s;
+  transition: background-color .15s, border-color .15s, color .15s, transform .15s, box-shadow .15s;
 }
 .mp-tab:hover { background: rgba(106,61,170,.07); color: #6A3DAA; }
 .mp-tab--active { background: rgba(106,61,170,.1); color: #6A3DAA; }
@@ -195,7 +195,7 @@
   background: var(--surface, #f5f0ff);
   cursor: pointer;
   border: 1px solid transparent;
-  transition: all .12s;
+  transition: background-color .12s, border-color .12s, color .12s, transform .12s, box-shadow .12s;
 }
 .mp-item:hover { border-color: var(--border, #DDD0F5); }
 .mp-item--done { opacity: .6; }
@@ -213,7 +213,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all .12s;
+  transition: background-color .12s, border-color .12s, color .12s, transform .12s, box-shadow .12s;
 }
 .mp-item--done .mp-checkbox {
   background: #6A3DAA;
@@ -291,7 +291,7 @@
   border-radius: 999px;
   border: 1px solid rgba(106,61,170,.25);
   background: rgba(106,61,170,.05);
-  transition: all .12s;
+  transition: background-color .12s, border-color .12s, color .12s, transform .12s, box-shadow .12s;
 }
 .mp-wol-link:hover { background: rgba(106,61,170,.12); }
 [data-theme=dark] .mp-wol-link { color: var(--violet-300); border-color: rgba(167,139,250,.25); background: rgba(167,139,250,.06); }
@@ -466,7 +466,7 @@
   font-weight: 700;
   color: var(--text-muted);
   cursor: pointer;
-  transition: all .12s;
+  transition: background-color .12s, border-color .12s, color .12s, transform .12s, box-shadow .12s;
 }
 .mp-para-btn:hover { border-color: #9B59B6; color: #6A3DAA; }
 .mp-para-btn--done {

@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import { VIOLET_400, VIOLET_600, VIOLET_900 } from "../../lib/colors";
 
 export interface ChartTheme {
   isDark: boolean;
@@ -21,9 +22,9 @@ export interface ChartTheme {
   text: string;
 }
 
-const PURPLE = "#7c3aed";
-const PURPLE_LIGHT = "#a78bfa";
-const PURPLE_DARK = "#4c1d95";
+const PURPLE = VIOLET_600;
+const PURPLE_LIGHT = VIOLET_400;
+const PURPLE_DARK = VIOLET_900;
 const TEAL = "#0d9488";
 const TEAL_LIGHT = "#5eead4";
 const AMBER = "#d97706";

@@ -64,7 +64,7 @@ function AvatarOverlap({
       loading="lazy"
     />
   ) : (
-    <span className="flex size-28 sm:size-36 items-center justify-center rounded-full bg-gradient-to-br from-[#7c3aed] to-[#a855f7] text-5xl font-extrabold text-white shadow-lg border-4 border-[var(--card-bg)]">
+    <span className="flex size-28 sm:size-36 items-center justify-center rounded-full bg-gradient-to-br from-(--violet-600) to-(--violet-400) text-5xl font-extrabold text-white shadow-lg border-4 border-(--card-bg)">
       {initial}
     </span>
   );

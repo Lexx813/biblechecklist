@@ -16,7 +16,7 @@ const schema = {
     caption: 'JW Study',
   },
   description:
-    "A spiritual growth companion for Jehovah's Witnesses — Bible reading tracker, meeting prep, study tools, and worldwide community.",
+    "A spiritual growth companion for Jehovah's Witnesses: Bible reading tracker, meeting prep, study tools, and worldwide community.",
   email: 'support@jwstudy.org',
   contactPoint: {
     '@type': 'ContactPoint',

@@ -128,7 +128,7 @@ export default function HighlightExercise({ lessonId, exerciseId, payload, onCom
           : t("learn.exercises.highlight.pickHighlighter")}
       </p>
 
-      <div className="rounded-md bg-violet-50 p-5 leading-9 text-lg text-slate-900 select-none dark:bg-white/5 dark:text-white">
+      <div className="rounded-md bg-violet-50 p-5 leading-9 text-lg text-violet-950 select-none dark:bg-white/5 dark:text-white">
         {payload.tokenKeys.map((tokKey, i) => {
           const cat = state.tokens[i];
           const c = cat ? highlightCategoryColors[cat] : null;

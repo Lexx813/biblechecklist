@@ -79,6 +79,20 @@ export const adminApi = {
     if (!res.ok) throw new Error(json.error ?? "Failed to delete user");
   },
 
+  // Self-service: delete the caller's own account. Target is derived server-side
+  // from the bearer token, so this can never be used to delete someone else.
+  deleteOwnAccount: async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.access_token) throw new Error("Not authenticated");
+    const res = await fetch("/api/delete-account", {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${session.access_token}` },
+    });
+    const text = await res.text();
+    const json = text ? JSON.parse(text) : {};
+    if (!res.ok) throw new Error(json.error ?? "Failed to delete account");
+  },
+
   setAdmin: async (userId: string, value: boolean) => {
     const { error } = await supabase.rpc("admin_set_admin", { target_user_id: userId, new_value: value });
     if (error) throw new Error(error.message);

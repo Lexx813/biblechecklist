@@ -9,7 +9,9 @@ import {
   AreaGradient, BarGradient, Glow,
 } from "../../../components/charts";
 
-const PURPLE = "#7c3aed";
+import { VIOLET_600 } from "../../../lib/colors";
+
+const PURPLE = VIOLET_600;
 const TEAL   = "#0d9488";
 const AMBER  = "#d97706";
 

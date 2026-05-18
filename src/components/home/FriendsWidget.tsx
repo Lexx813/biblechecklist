@@ -47,7 +47,7 @@ export default function FriendsWidget({ friends, shownFriends, onlineCount, load
       ) : friends.length === 0 ? (
         <div className="px-4 pb-4 pt-1">
           <p className="mb-2 text-[13px] text-[var(--text-muted)]">Connect with fellow Bible students to see their activity here.</p>
-          <button className="cursor-pointer border-none bg-none p-0 font-[inherit] text-xs font-bold text-[#a78bfa]" style={{ background: "none" }} onClick={() => navigate("friends")}>Find friends →</button>
+          <button className="cursor-pointer border-none bg-none p-0 font-[inherit] text-xs font-bold text-violet-400" style={{ background: "none" }} onClick={() => navigate("friends")}>Find friends →</button>
         </div>
       ) : (
         <div className="pb-2">

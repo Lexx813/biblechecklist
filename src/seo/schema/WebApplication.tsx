@@ -7,7 +7,7 @@ const schema = {
   '@id': `${SITE_ORIGIN}/#webapp`,
   name: 'JW Study',
   description:
-    "A spiritual growth companion that teaches Jehovah's Witnesses how to study God's word — with reading tracking, meeting prep, quizzes, AI study tools, and a worldwide community.",
+    "A spiritual growth companion that teaches Jehovah's Witnesses how to study God's word, with reading tracking, meeting prep, quizzes, AI study tools, and a worldwide community.",
   url: SITE_ORIGIN,
   image: `${SITE_ORIGIN}/og-image.jpg`,
   applicationCategory: 'EducationApplication',
@@ -25,7 +25,7 @@ const schema = {
       priceCurrency: 'USD',
       name: 'Free',
       description:
-        'Every feature included: Bible reading tracker, reading plans, study notes, meeting prep, direct messaging, study groups, community forum, blog, and quizzes — free forever',
+        'Every feature included: Bible reading tracker, reading plans, study notes, meeting prep, direct messaging, study groups, community forum, blog, and quizzes. Free forever.',
       availability: 'https://schema.org/OnlineOnly',
     },
   ],

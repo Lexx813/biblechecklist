@@ -17,7 +17,8 @@
     "audit:og": "node scripts/audit-og.mjs",
     "audit:schema": "node scripts/audit-schema.mjs",
     "audit:lighthouse": "node --env-file=.env.local scripts/audit-lighthouse.mjs",
-    "audit": "npm run audit:llms; npm run audit:og && npm run audit:schema && npm run audit:lighthouse"
+    "audit:tokens": "node scripts/audit-token-drift.mjs",
+    "audit": "npm run audit:llms; npm run audit:og && npm run audit:schema && npm run audit:lighthouse && npm run audit:tokens"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

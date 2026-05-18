@@ -615,21 +615,21 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {/* Quick Actions */}
           <div className="grid grid-cols-3 gap-2.5 pb-1">
             <button
-              className="flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-[rgba(124,58,237,0.3)] bg-[rgba(124,58,237,0.12)] px-2 py-3 pb-2.5 text-center text-xs font-semibold leading-snug text-[#c4b5fd] transition-all hover:-translate-y-0.5 hover:border-[rgba(124,58,237,0.5)] hover:bg-[rgba(124,58,237,0.2)] hover:text-[#e9d5ff]"
+              className="flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-violet-600/30 bg-violet-600/12 px-2 py-3 pb-2.5 text-center text-xs font-semibold leading-snug text-violet-300 transition-all hover:-translate-y-0.5 hover:border-violet-600/50 hover:bg-violet-600/20 hover:text-violet-200"
               onClick={() => panelNavigate("main")}
             >
               <span className="text-[22px] leading-none">📖</span>
               {t("home.quickAction.continueReading", "Continue Reading")}
             </button>
             <button
-              className="flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-(--border) bg-(--card-bg) px-2 py-3 pb-2.5 text-center text-xs font-semibold leading-snug text-(--text-secondary) transition-all hover:-translate-y-0.5 hover:border-[#7c3aed] hover:bg-[rgba(124,58,237,0.06)] hover:text-(--text-primary)"
+              className="flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-(--border) bg-(--card-bg) px-2 py-3 pb-2.5 text-center text-xs font-semibold leading-snug text-(--text-secondary) transition-all hover:-translate-y-0.5 hover:border-violet-600 hover:bg-violet-600/10 hover:text-(--text-primary)"
               onClick={() => panelNavigate("quiz")}
             >
               <span className="text-[22px] leading-none">🎯</span>
               {t("home.quickAction.todayQuiz", "Today's Quiz")}
             </button>
             <button
-              className="flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-(--border) bg-(--card-bg) px-2 py-3 pb-2.5 text-center text-xs font-semibold leading-snug text-(--text-secondary) transition-all hover:-translate-y-0.5 hover:border-[#7c3aed] hover:bg-[rgba(124,58,237,0.06)] hover:text-(--text-primary)"
+              className="flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-(--border) bg-(--card-bg) px-2 py-3 pb-2.5 text-center text-xs font-semibold leading-snug text-(--text-secondary) transition-all hover:-translate-y-0.5 hover:border-violet-600 hover:bg-violet-600/10 hover:text-(--text-primary)"
               onClick={() => panelNavigate("meetingPrep")}
             >
               <span className="text-[22px] leading-none">✅</span>
@@ -725,7 +725,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                               decoding="async"
                             />
                           ) : (
-                            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#7c3aed] to-[#4c1d95] text-white opacity-60">
+                            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-violet-600 to-violet-900 text-white opacity-60">
                               <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="8 5 19 12 8 19 8 5"/></svg>
                             </div>
                           )}
@@ -789,7 +789,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
               {profile?.avatar_url ? (
                 <img src={profile.avatar_url} alt="" className="size-10 shrink-0 rounded-full object-cover" width={40} height={40} />
               ) : (
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#7c3aed] to-[#a855f7] text-sm font-bold text-white">{initials}</div>
+                <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-violet-400 text-sm font-bold text-white">{initials}</div>
               )}
               <button
                 type="button"

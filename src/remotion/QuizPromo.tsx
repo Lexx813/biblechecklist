@@ -508,7 +508,7 @@ export function QuizPromo() {
             <FeatCard
               emoji="📋"
               title="12 Bible Levels"
-              sub="From Creation to Revelation — themed questions that build on each other."
+              sub="From Creation to Revelation, themed questions that build on each other."
               opacity={f1op} scale={f1sc}
             />
             <FeatCard

@@ -22,8 +22,10 @@ import {
   Glow,
 } from "../../../components/charts";
 
-const VIOLET = "#7c3aed";
-const VIOLET_LIGHT = "#a78bfa";
+import { VIOLET_400, VIOLET_600 } from "../../../lib/colors";
+
+const VIOLET = VIOLET_600;
+const VIOLET_LIGHT = VIOLET_400;
 
 const dateFmt = (d: string) => {
   const dt = new Date(d + "T00:00:00");

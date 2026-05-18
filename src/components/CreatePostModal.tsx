@@ -89,7 +89,7 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
           {avatarUrl ? (
             <img src={avatarUrl} alt="" className="size-10 rounded-full object-cover" />
           ) : (
-            <div className="flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-[#7c3aed] to-[#a855f7] text-sm font-bold text-white">{initials}</div>
+            <div className="flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-(--violet-600) to-(--violet-400) text-sm font-bold text-white">{initials}</div>
           )}
           <div className="flex flex-col">
             <span className="text-sm font-bold text-[var(--text-primary)]">{displayName || "You"}</span>

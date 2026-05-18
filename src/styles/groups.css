@@ -153,7 +153,14 @@
   cursor: pointer;
   z-index: 1;
 }
-.grp-card-link:focus-visible { outline: none; }
+/* Keyboard focus ring lives on the parent card, not the invisible overlay,
+   so users can see which card is selected when tabbing. */
+.grp-card-link:focus { outline: none; }
+.grp-card:has(.grp-card-link:focus-visible) {
+  outline: 2px solid var(--violet-600);
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
 /* Inner clickable elements (e.g. Join button) sit above the overlay */
 .grp-card > *:not(.grp-card-link) { position: relative; z-index: 2; pointer-events: none; }
 .grp-card-body .grp-btn { pointer-events: auto; }
