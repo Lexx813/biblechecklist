@@ -9,6 +9,12 @@
  *   CRON_SECRET         — same value used in the pg_cron SQL call
  *   SUPABASE_URL        — auto-injected
  *   SUPABASE_SERVICE_ROLE_KEY — auto-injected
+ *
+ * Performance note: previously did 3 round-trips per user
+ *   (profile fetch + auth.admin.getUserById + reading plans). For 100 users
+ *   that was 300 round-trips inside the function's 50s timeout.
+ * Now batched: 1 profiles `.in()` query, 1 user_reading_plans `.in()` query,
+ * and email pulled from profiles.email (kept in sync with auth.users).
  */
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
@@ -26,6 +32,29 @@ const TYPE_LABEL: Record<string, string> = {
   comment: "commented on your post",
 };
 
+type Notif = {
+  user_id: string;
+  type: string;
+  body_preview: string | null;
+  link_hash: string | null;
+  created_at: string;
+  actor: { display_name?: string } | null;
+};
+
+type Profile = {
+  id: string;
+  display_name: string | null;
+  email: string | null;
+  email_notifications_digest: boolean | null;
+};
+
+type Plan = {
+  user_id: string;
+  template_key: string | null;
+  custom_config: { name?: string; totalDays?: number } | null;
+  reading_plan_completions: Array<{ count: number }> | null;
+};
+
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
 
@@ -37,7 +66,7 @@ Deno.serve(async (req) => {
 
   const since = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
 
-  // Fetch all unread notifications from the past 7 days with actor info
+  // 1) Fetch all unread notifications from the past 7 days with actor info
   const { data: notifs, error } = await supabase
     .from("notifications")
     .select("user_id, type, body_preview, link_hash, created_at, actor:actor_id(display_name)")
@@ -50,48 +79,69 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify({ error: error.message }), { status: 500 });
   }
 
-  if (!notifs?.length) {
+  const notifList = (notifs ?? []) as unknown as Notif[];
+  if (!notifList.length) {
     return new Response(JSON.stringify({ sent: 0, reason: "no unread notifications" }), { status: 200 });
   }
 
-  // Group by user_id
-  const byUser = new Map<string, typeof notifs>();
-  for (const n of notifs) {
+  // Group notifications by user_id
+  const byUser = new Map<string, Notif[]>();
+  for (const n of notifList) {
     const arr = byUser.get(n.user_id) ?? [];
     arr.push(n);
     byUser.set(n.user_id, arr);
+  }
+
+  const userIds = Array.from(byUser.keys());
+
+  // 2) Batch-fetch all profiles in one query
+  const { data: profilesData, error: profilesErr } = await supabase
+    .from("profiles")
+    .select("id, display_name, email, email_notifications_digest")
+    .in("id", userIds);
+
+  if (profilesErr) {
+    console.error("Profile fetch error:", profilesErr.message);
+    return new Response(JSON.stringify({ error: profilesErr.message }), { status: 500 });
+  }
+
+  const profileById = new Map<string, Profile>();
+  for (const p of (profilesData ?? []) as Profile[]) {
+    profileById.set(p.id, p);
+  }
+
+  // 3) Batch-fetch reading plans for all users in one query
+  const { data: plansData } = await supabase
+    .from("user_reading_plans")
+    .select("user_id, template_key, custom_config, reading_plan_completions(count)")
+    .in("user_id", userIds)
+    .eq("is_paused", false);
+
+  const plansByUser = new Map<string, Plan[]>();
+  for (const plan of ((plansData ?? []) as unknown as Plan[])) {
+    const arr = plansByUser.get(plan.user_id) ?? [];
+    if (arr.length < 3) arr.push(plan);
+    plansByUser.set(plan.user_id, arr);
   }
 
   let sent = 0;
   let skipped = 0;
 
   for (const [userId, userNotifs] of byUser) {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("display_name, email_notifications_digest")
-      .eq("id", userId)
-      .single();
+    const profile = profileById.get(userId);
 
     if (profile?.email_notifications_digest === false) { skipped++; continue; }
+    if (!profile?.email) { skipped++; continue; }
 
-    const { data: { user: authUser } } = await supabase.auth.admin.getUserById(userId);
-    if (!authUser?.email) { skipped++; continue; }
-
-    const name = profile?.display_name || authUser.email;
+    const email = profile.email;
+    const name = profile.display_name || email;
     const count = userNotifs.length;
     const preview = userNotifs.slice(0, 8);
 
-    // Fetch reading plan progress for this user
-    const { data: plans } = await supabase
-      .from("user_reading_plans")
-      .select("id, template_key, start_date, is_paused, custom_config, reading_plan_completions(count)")
-      .eq("user_id", userId)
-      .eq("is_paused", false)
-      .limit(3);
-
-    const planProgressHtml = (plans ?? []).map((plan) => {
-      const completions = (plan.reading_plan_completions as unknown as Array<{ count: number }>)?.[0]?.count ?? 0;
-      const config = plan.custom_config as { name?: string; totalDays?: number } | null;
+    const userPlans = plansByUser.get(userId) ?? [];
+    const planProgressHtml = userPlans.map((plan) => {
+      const completions = plan.reading_plan_completions?.[0]?.count ?? 0;
+      const config = plan.custom_config;
       const planName = config?.name ?? plan.template_key?.replace(/-/g, " ") ?? "Reading Plan";
       const totalDays = config?.totalDays ?? 365;
       const pct = Math.min(100, Math.round((completions / totalDays) * 100));
@@ -112,7 +162,7 @@ Deno.serve(async (req) => {
     ` : "";
 
     const itemsHtml = preview.map((n) => {
-      const actor = (n.actor as { display_name?: string } | null)?.display_name ?? "Someone";
+      const actor = n.actor?.display_name ?? "Someone";
       const action = TYPE_LABEL[n.type] ?? "sent a notification";
       const url = `https://jwstudy.org/${encodeURI(n.link_hash ?? "")}`;
       return `
@@ -129,7 +179,7 @@ Deno.serve(async (req) => {
 <body style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#1a1a1a">
   <h2 style="margin-bottom:4px">JW Study — Weekly Digest</h2>
   <hr style="margin-bottom:24px">
-  <p>Hi ${name},</p>
+  <p>Hi ${escapeHtml(name)},</p>
   ${plansSection}
   <h3 style="margin:24px 0 12px;font-size:16px">🔔 Notifications (${count} unread)</h3>
   <ul style="padding-left:20px">${itemsHtml}</ul>
@@ -155,7 +205,7 @@ Deno.serve(async (req) => {
       },
       body: JSON.stringify({
         from: "JW Study <notifications@jwstudy.org>",
-        to: authUser.email,
+        to: email,
         subject: `Your weekly digest — ${count} notification${count !== 1 ? "s" : ""} on JW Study`,
         html,
       }),
@@ -164,7 +214,7 @@ Deno.serve(async (req) => {
     if (res.ok) {
       sent++;
     } else {
-      console.error(`Failed for ${maskEmail(authUser.email)}:`, await res.text());
+      console.error(`Failed for ${maskEmail(email)}:`, await res.text());
     }
   }
 

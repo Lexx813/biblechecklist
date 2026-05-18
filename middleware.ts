@@ -1,28 +1,16 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const REDIRECT_HOSTS = new Set(["www.jwstudy.org"]);
-
+// Host redirect (www → apex) lives in vercel.json `redirects` so it runs at
+// Vercel's edge router with no function invocation. This middleware only
+// handles uppercase-path normalization (a rare condition that still benefits
+// from a 308 to a canonical lowercase URL for SEO).
 export function middleware(request: NextRequest) {
-  const host = request.headers.get("host") ?? "";
-  const bare = host.split(":")[0]; // strip port if present
-  if (REDIRECT_HOSTS.has(bare)) {
-    const url = new URL(request.url);
-    url.host = "jwstudy.org";
-    url.protocol = "https:";
-    url.port = "";
-    return NextResponse.redirect(url.toString(), { status: 301 });
-  }
-
-  // Normalize uppercase paths to lowercase. /BLOG → /blog (308). The matcher
-  // already excludes _next, api, and static files, so this only affects
-  // user-facing routes. Casing in the query string is left alone.
   const url = new URL(request.url);
   if (url.pathname !== url.pathname.toLowerCase()) {
     url.pathname = url.pathname.toLowerCase();
     return NextResponse.redirect(url.toString(), { status: 308 });
   }
-
   return NextResponse.next();
 }
 

@@ -1,11 +1,40 @@
 import Link from "next/link";
 import Image from "next/image";
+import { unstable_cache } from "next/cache";
 import { blogApi } from "../../src/api/blog";
 import { safeJsonLd } from "../../src/lib/safeJsonLd";
 import PublicNav from "../_components/PublicNav";
 import PublicFooter from "../_components/PublicFooter";
 
 export const revalidate = 120;
+
+// Cache the Supabase reads in the Next data cache so ISR regen doesn't pay
+// the cold round-trip to Supabase on every miss. Mirrors the pattern in
+// app/_components/landing/LandingPage.tsx. Invalidate via revalidateTag in
+// admin post create/edit flows.
+const getPublishedPosts = unstable_cache(
+  async () => {
+    try {
+      return await blogApi.listPublished();
+    } catch {
+      return [];
+    }
+  },
+  ["blog-list"],
+  { revalidate: 300, tags: ["blog-list"] },
+);
+
+const getFeaturedPost = unstable_cache(
+  async () => {
+    try {
+      return await blogApi.getFeaturedPost();
+    } catch {
+      return null;
+    }
+  },
+  ["blog-featured"],
+  { revalidate: 300, tags: ["blog-list"] },
+);
 
 export const metadata = {
   title: "Bible Study Blog for Jehovah's Witnesses | JW Study",
@@ -64,8 +93,8 @@ function formatDate(s: string | undefined) {
 
 export default async function BlogListPage() {
   const [postsResult, featuredResult] = await Promise.allSettled([
-    blogApi.listPublished(),
-    blogApi.getFeaturedPost(),
+    getPublishedPosts(),
+    getFeaturedPost(),
   ]);
   const posts = postsResult.status === "fulfilled" ? (postsResult.value ?? []) : [];
   const featuredPost = featuredResult.status === "fulfilled" ? featuredResult.value : null;

@@ -78,16 +78,16 @@ export default function StudyTopicsPage() {
             <li key={topic.slug}>
               <Link
                 href={`/study-topics/${topic.slug}`}
-                className="group flex h-full flex-col rounded-md border border-slate-200 p-5 transition hover:border-violet-400 hover:shadow-[0_8px_32px_-12px_rgba(124,58,237,0.25)] dark:border-white/10"
+                className="group flex h-full flex-col rounded-md border border-slate-200 p-5 transition-colors hover:border-violet-400 hover:shadow-md dark:border-white/10"
               >
-                <div className="font-mono text-[10px] tabular-nums text-slate-400 dark:text-slate-500">
+                <div className="font-mono text-xs tabular-nums text-slate-400 dark:text-slate-500">
                   {String(i + 1).padStart(2, "0")}
                 </div>
                 <h2 className="mt-2 text-lg font-semibold leading-tight tracking-tight text-slate-900 group-hover:text-violet-700 dark:text-slate-50 dark:group-hover:text-violet-300">
                   {topic.title}
                 </h2>
                 <p className="mt-2 flex-1 text-sm text-slate-600 dark:text-slate-300">{topic.subtitle}</p>
-                <div className="mt-4 flex items-center gap-1 text-xs font-semibold text-violet-700 opacity-0 transition group-hover:opacity-100 dark:text-violet-300">
+                <div className="mt-4 flex items-center gap-1 text-xs font-semibold text-violet-700 opacity-0 transition-opacity group-hover:opacity-100 dark:text-violet-300">
                   Read
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                     <path d="M5 12h14M13 5l7 7-7 7" />

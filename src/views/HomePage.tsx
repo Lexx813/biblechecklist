@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect, useRef, lazy, Suspense } from "react";
+import { useMemo, useState, useEffect, useRef, useCallback, lazy, Suspense } from "react";
 import { buildPath } from "../lib/router";
 
 const QuizPageInline      = lazy(() => import("./quiz/QuizPage"));
@@ -259,7 +259,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
     }
   }, [panelRequest]);
 
-  function panelNavigate(page, params: Record<string, any> = {}) {
+  // Memoized so child panels / widgets that receive panelNavigate as a prop
+  // don't see a fresh function ref on every HomePage render (Setters are
+  // stable; navigate comes in stable from AuthedApp via useCallback).
+  const panelNavigate = useCallback((page: string, params: Record<string, any> = {}) => {
     if (page === "quiz") { setQuizLevelState(null); setActivePanel("quiz"); setPanelParams({}); }
     else if (page === "quizLevel") { setQuizLevelState({ level: params.level, timedMode: !!params.timedMode }); }
     else if (page === "advancedQuiz") { setAdvQuizLevelState(null); setActivePanel("advancedQuiz"); setPanelParams({}); }
@@ -282,7 +285,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
       if (window.location.pathname.startsWith("/blog")) history.pushState(null, "", "/");
     }
     else { setActivePanel(null); setQuizLevelState(null); setAdvQuizLevelState(null); setMasterQuizLevelState(null); setPanelParams({}); navigate(page, params); }
-  }
+  }, [navigate]);
 
   // Onboarding / modals
   const [showOnboarding, closeOnboarding] = useOnboarding(user?.created_at);
@@ -320,17 +323,23 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   }, [posts, reelVideos]);
   const feedLoading = postsLoading || videosLoading;
 
-  // Friends panel data
-  const now = Date.now();
-  const onlineFriends = friends.filter(f => f.last_active_at && now - new Date(f.last_active_at).getTime() < WHO_THRESHOLD_MS);
-  const recentFriends = friends
-    .filter(f => !onlineFriends.includes(f))
-    .sort((a, b) => {
-      const ta = a.last_active_at ? new Date(a.last_active_at).getTime() : 0;
-      const tb = b.last_active_at ? new Date(b.last_active_at).getTime() : 0;
-      return tb - ta;
-    });
-  const shownFriends = [...onlineFriends, ...recentFriends].slice(0, 6);
+  // Friends panel data — memoized so widgets receiving these arrays don't
+  // see fresh refs on every parent render. `now` is captured at the time the
+  // friends array changes — fine since it's used as a threshold and the
+  // recompute frequency (every friends-cache change ≈ tens of seconds) is
+  // adequate for "online" detection.
+  const { onlineFriends, shownFriends, now } = useMemo(() => {
+    const nowMs = Date.now();
+    const online = friends.filter(f => f.last_active_at && nowMs - new Date(f.last_active_at).getTime() < WHO_THRESHOLD_MS);
+    const recent = friends
+      .filter(f => !online.includes(f))
+      .sort((a, b) => {
+        const ta = a.last_active_at ? new Date(a.last_active_at).getTime() : 0;
+        const tb = b.last_active_at ? new Date(b.last_active_at).getTime() : 0;
+        return tb - ta;
+      });
+    return { onlineFriends: online, shownFriends: [...online, ...recent].slice(0, 6), now: nowMs };
+  }, [friends]);
 
   const initials = (profile?.display_name || user?.email || "U")[0].toUpperCase();
   const displayName = profile?.display_name || user?.email?.split("@")[0] || "My Profile";

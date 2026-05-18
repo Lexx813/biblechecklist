@@ -241,6 +241,21 @@ export type Database = {
           },
         ]
       }
+      blocked_email_domains: {
+        Row: {
+          created_at: string
+          domain: string
+        }
+        Insert: {
+          created_at?: string
+          domain: string
+        }
+        Update: {
+          created_at?: string
+          domain?: string
+        }
+        Relationships: []
+      }
       blog_comments: {
         Row: {
           author_id: string
@@ -1203,6 +1218,24 @@ export type Database = {
         }
         Relationships: []
       }
+      global_stats: {
+        Row: {
+          key: string
+          updated_at: string
+          value: number
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value?: number
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: number
+        }
+        Relationships: []
+      }
       group_announcements: {
         Row: {
           content: string
@@ -1620,6 +1653,47 @@ export type Database = {
         }
         Relationships: []
       }
+      learn_lesson_progress: {
+        Row: {
+          completed_at: string
+          exercise_id: string | null
+          lesson_id: string
+          response_data: Json | null
+          score: number | null
+          unit_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string
+          exercise_id?: string | null
+          lesson_id: string
+          response_data?: Json | null
+          score?: number | null
+          unit_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string
+          exercise_id?: string | null
+          lesson_id?: string
+          response_data?: Json | null
+          score?: number | null
+          unit_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learn_lesson_progress_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       meeting_weeks: {
         Row: {
           clam_bible_reading: string | null
@@ -2027,6 +2101,7 @@ export type Database = {
           can_blog: boolean
           cover_url: string | null
           created_at: string
+          current_streak: number
           daily_chapter_goal: number
           display_name: string | null
           email: string
@@ -2042,6 +2117,7 @@ export type Database = {
           is_banned: boolean
           is_moderator: boolean
           last_active_at: string | null
+          longest_streak: number
           meeting_day_midweek: number | null
           meeting_day_weekend: number | null
           onboarding_emails_sent: string[]
@@ -2050,6 +2126,7 @@ export type Database = {
           referral_code: string | null
           referred_by: string | null
           show_online: boolean
+          streak_updated_at: string | null
           stripe_customer_id: string | null
           stripe_subscription_id: string | null
           subscription_status: string
@@ -2062,6 +2139,7 @@ export type Database = {
           can_blog?: boolean
           cover_url?: string | null
           created_at?: string
+          current_streak?: number
           daily_chapter_goal?: number
           display_name?: string | null
           email: string
@@ -2077,6 +2155,7 @@ export type Database = {
           is_banned?: boolean
           is_moderator?: boolean
           last_active_at?: string | null
+          longest_streak?: number
           meeting_day_midweek?: number | null
           meeting_day_weekend?: number | null
           onboarding_emails_sent?: string[]
@@ -2085,6 +2164,7 @@ export type Database = {
           referral_code?: string | null
           referred_by?: string | null
           show_online?: boolean
+          streak_updated_at?: string | null
           stripe_customer_id?: string | null
           stripe_subscription_id?: string | null
           subscription_status?: string
@@ -2097,6 +2177,7 @@ export type Database = {
           can_blog?: boolean
           cover_url?: string | null
           created_at?: string
+          current_streak?: number
           daily_chapter_goal?: number
           display_name?: string | null
           email?: string
@@ -2112,6 +2193,7 @@ export type Database = {
           is_banned?: boolean
           is_moderator?: boolean
           last_active_at?: string | null
+          longest_streak?: number
           meeting_day_midweek?: number | null
           meeting_day_weekend?: number | null
           onboarding_emails_sent?: string[]
@@ -2120,6 +2202,7 @@ export type Database = {
           referral_code?: string | null
           referred_by?: string | null
           show_online?: boolean
+          streak_updated_at?: string | null
           stripe_customer_id?: string | null
           stripe_subscription_id?: string | null
           subscription_status?: string
@@ -2458,6 +2541,7 @@ export type Database = {
           primary_scripture_text_es: string | null
           published: boolean
           slug: string
+          song_number: number | null
           theme: string
           title: string
           title_es: string | null
@@ -2481,6 +2565,7 @@ export type Database = {
           primary_scripture_text_es?: string | null
           published?: boolean
           slug: string
+          song_number?: number | null
           theme: string
           title: string
           title_es?: string | null
@@ -2504,6 +2589,7 @@ export type Database = {
           primary_scripture_text_es?: string | null
           published?: boolean
           slug?: string
+          song_number?: number | null
           theme?: string
           title?: string
           title_es?: string | null
@@ -3694,6 +3780,14 @@ export type Database = {
         Args: { p_action: string; p_metadata?: Json; p_target_id?: string }
         Returns: undefined
       }
+      _compute_reading_streak: {
+        Args: { p_user_id: string }
+        Returns: {
+          current_streak: number
+          longest_streak: number
+        }[]
+      }
+      _count_chapters_in_progress: { Args: { p: Json }; Returns: number }
       admin_approve_creator: {
         Args: { p_approved: boolean; p_user_id: string }
         Returns: undefined
@@ -3710,6 +3804,7 @@ export type Database = {
         Args: { new_value: boolean; target_user_id: string }
         Returns: undefined
       }
+      admin_learn_stats: { Args: never; Returns: Json }
       admin_lock_thread: {
         Args: { new_value: boolean; p_thread_id: string }
         Returns: undefined
@@ -3853,6 +3948,10 @@ export type Database = {
         }[]
       }
       get_reading_streaks: { Args: { p_user_id: string }; Returns: Json }
+      get_reading_streaks_bulk: {
+        Args: { p_user_ids: string[] }
+        Returns: Json
+      }
       get_resend_key: { Args: never; Returns: string }
       get_starred_messages: {
         Args: { p_conversation_id: string }

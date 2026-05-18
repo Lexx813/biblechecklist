@@ -13,3 +13,9 @@ eslint.config.js
 
 # Local env (never deploy secrets)
 .env*.local
+
+# Remotion-only assets — Remotion's `staticFile()` resolves from public/
+# during local renders, but the deployed Next app never serves bg-music.mp3
+# (verified via grep: 0 client/app references). Keeping 3.7 MB out of the
+# Vercel-deployed bundle saves egress.
+public/audio/bg-music.mp3

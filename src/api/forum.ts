@@ -17,10 +17,14 @@ export const forumApi = {
 
   // Threads in a category with reply count + author
   // lang: undefined = all languages, string = filter to that lang
+  // Explicit column projection (no `*`) so we don't ship the `content` body
+  // or the `search_vector` tsvector in list payloads — the list view only
+  // renders title/meta. Full content is fetched by getThread() for the
+  // detail view.
   listThreads: async (categoryId: string, limit = 20, lang: string | null = null) => {
     let q = supabase
       .from("forum_threads")
-      .select(`*, ${PROFILE_FIELDS}, forum_replies(count)`)
+      .select(`id, title, author_id, category_id, created_at, updated_at, lang, like_count, view_count, locked, pinned, has_solution, ${PROFILE_FIELDS}, forum_replies(count)`)
       .eq("category_id", categoryId)
       .order("pinned", { ascending: false })
       .order("updated_at", { ascending: false })
@@ -28,7 +32,10 @@ export const forumApi = {
     if (lang) q = q.eq("lang", lang);
     const { data, error } = await q;
     if (error) throw new Error(error.message);
-    return data ?? [];
+    // PostgREST's TS inference treats explicit-column joins as arrays,
+    // but the FK relationship is one-to-one — consumers expect an object.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (data ?? []) as any[];
   },
 
   // Single thread
@@ -120,11 +127,13 @@ export const forumApi = {
   },
 
   listTopThreads: async (limit = 4, lang?: string) => {
+    // Explicit projection — no `content` / `search_vector` for list views.
+    const cols = `id, title, author_id, category_id, created_at, updated_at, lang, like_count, view_count, locked, pinned, has_solution, ${PROFILE_FIELDS}, forum_replies(count)`;
     // Prefer threads active in last 24h; fall back to all-time top if none
     const since24h = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
     let q = supabase
       .from("forum_threads")
-      .select(`*, ${PROFILE_FIELDS}, forum_replies(count)`)
+      .select(cols)
       .gte("updated_at", since24h)
       .eq("locked", false)
       .order("updated_at", { ascending: false })
@@ -138,7 +147,7 @@ export const forumApi = {
       const activeIds = new Set((data ?? []).map(t => t.id));
       let q2 = supabase
         .from("forum_threads")
-        .select(`*, ${PROFILE_FIELDS}, forum_replies(count)`)
+        .select(cols)
         .eq("locked", false)
         .order("like_count", { ascending: false })
         .order("updated_at", { ascending: false })
@@ -146,9 +155,11 @@ export const forumApi = {
       if (lang) q2 = q2.eq("lang", lang);
       const { data: allTime } = await q2;
       const extras = (allTime ?? []).filter(t => !activeIds.has(t.id));
-      return [...(data ?? []), ...extras].slice(0, limit);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return [...((data ?? []) as any[]), ...extras].slice(0, limit);
     }
-    return data ?? [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (data ?? []) as any[];
   },
 
   getUserLikes: async (userId: string) => {

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo, memo } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import AiConfirmActionModal from "./AiConfirmActionModal";
@@ -113,7 +113,20 @@ function inlineMarkdown(text: string, baseKey: number): React.ReactNode[] {
   });
 }
 
-export default function AIStudyBubble({ context }: { context?: ChatContext }) {
+// Memoized assistant message body — only re-renders when content changes,
+// not on every streaming-token state propagation upstream. The streaming
+// cursor is rendered by the parent so this component can stay pure on the
+// content text.
+const AssistantMessageBody = memo(function AssistantMessageBody({ content }: { content: string }) {
+  // Memo the marked output per content string. For long replies during
+  // streaming, markdown is re-parsed on every chunk arrival — moving it
+  // into a memo skips the parse when the parent re-renders for any other
+  // reason (sibling user message changes, suggestions list toggle, etc.).
+  const rendered = useMemo(() => renderMarkdown(content), [content]);
+  return <>{rendered}</>;
+});
+
+function AIStudyBubble({ context }: { context?: ChatContext }) {
   const { t } = useTranslation();
   const [open, setOpen]       = useState(false);
   const [input, setInput]     = useState("");
@@ -136,10 +149,13 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
   const inputRef   = useRef<HTMLTextAreaElement>(null);
   const panelRef   = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to newest message
+  // Auto-scroll to newest message. Depend on messages.length (not messages
+  // identity) so per-token streaming deltas don't trigger a smooth-scroll
+  // on every chunk — that forced reflow + main-thread animation per delta
+  // jankied the streaming UX.
   useEffect(() => {
     if (open) bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, open]);
+  }, [messages.length, open]);
 
   // Focus input when panel opens
   useEffect(() => {
@@ -282,7 +298,7 @@ export default function AIStudyBubble({ context }: { context?: ChatContext }) {
             )}
             <div className="asb-msg-content">
               {msg.role === "assistant"
-                ? <>{renderMarkdown(msg.content)}{msg.streaming && <span className="asb-cursor" />}</>
+                ? <><AssistantMessageBody content={msg.content} />{msg.streaming && <span className="asb-cursor" />}</>
                 : msg.content || (msg.streaming && <span className="asb-cursor" />)
               }
             </div>
@@ -399,3 +415,8 @@ function BubbleThinkingIndicator() {
     </div>
   );
 }
+
+// memo'd so AIStudyBubble doesn't re-render on every BibleApp state change
+// (theme toggle, subPage, nav, etc.) — `context` is already useMemo'd in
+// AuthedApp so the comparison is shallow-stable when the page truly changes.
+export default memo(AIStudyBubble);

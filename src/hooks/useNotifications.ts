@@ -4,7 +4,35 @@ import { supabase } from "../lib/supabase";
 import { subscribeWithMonitor } from "../lib/realtime";
 import { notificationsApi } from "../api/notifications";
 
+/**
+ * Pure read of the notifications list, derived from the shared
+ * ["notifications", userId] cache. Safe to call from many components
+ * simultaneously — does NOT open a realtime channel. Mount
+ * `useGlobalNotificationsSync` once high in the authed tree to keep the
+ * cache live.
+ *
+ * Previously every component that called this opened its own
+ * `notifs:<userId>` channel + visibility listener (TopBar via
+ * useUnreadNotificationCount, NotificationDropdown). Now they share.
+ */
 export function useNotifications(userId: string | null | undefined) {
+  return useQuery({
+    queryKey: ["notifications", userId],
+    queryFn: notificationsApi.list,
+    enabled: !!userId,
+    staleTime: 30_000,
+    // realtime via useGlobalNotificationsSync + window-focus is enough.
+    // Was refetchInterval: 30_000 + manual visibilitychange listener +
+    // refetchOnWindowFocus — triple-fetching.
+    refetchOnWindowFocus: true,
+  });
+}
+
+/**
+ * Singleton realtime sync for the notifications cache. Call once near the
+ * top of the authed tree.
+ */
+export function useGlobalNotificationsSync(userId: string | null | undefined) {
   const queryClient = useQueryClient();
 
   // Real-time: push new notifications live
@@ -28,27 +56,6 @@ export function useNotifications(userId: string | null | undefined) {
     });
     return () => { supabase.removeChannel(channel); };
   }, [userId, queryClient]);
-
-  // Refetch when user returns to app — realtime misses events while backgrounded
-  useEffect(() => {
-    if (!userId) return;
-    function onVisible() {
-      if (document.visibilityState === "visible") {
-        queryClient.invalidateQueries({ queryKey: ["notifications", userId] });
-      }
-    }
-    document.addEventListener("visibilitychange", onVisible);
-    return () => document.removeEventListener("visibilitychange", onVisible);
-  }, [userId, queryClient]);
-
-  return useQuery({
-    queryKey: ["notifications", userId],
-    queryFn: notificationsApi.list,
-    enabled: !!userId,
-    staleTime: 30_000,
-    refetchInterval: 30_000,
-    refetchOnWindowFocus: true,
-  });
 }
 
 export function useUnreadNotificationCount(userId: string | null | undefined) {

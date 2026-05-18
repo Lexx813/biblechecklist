@@ -1,10 +1,38 @@
 import Link from "next/link";
+import { unstable_cache } from "next/cache";
 import { forumApi } from "../../src/api/forum";
 import { safeJsonLd } from "../../src/lib/safeJsonLd";
 import PublicNav from "../_components/PublicNav";
 import PublicFooter from "../_components/PublicFooter";
 
-export const revalidate = 300;
+export const revalidate = 60;
+
+// Cache the Supabase reads so ISR regen doesn't pay a cold round-trip
+// every revalidate window. Forum is more time-sensitive than blog, so we
+// keep the cache window tight (60s).
+const getCategories = unstable_cache(
+  async () => {
+    try {
+      return await forumApi.listCategories();
+    } catch {
+      return [];
+    }
+  },
+  ["forum-categories"],
+  { revalidate: 60, tags: ["forum-list"] },
+);
+
+const getTopThreads = unstable_cache(
+  async () => {
+    try {
+      return await forumApi.listTopThreads(8);
+    } catch {
+      return [];
+    }
+  },
+  ["forum-top-threads"],
+  { revalidate: 60, tags: ["forum-list"] },
+);
 
 export const metadata = {
   title: "Community Forum | JW Study",
@@ -49,8 +77,8 @@ const schemaBreadcrumb = {
 
 export default async function ForumIndexPage() {
   const results = await Promise.allSettled([
-    forumApi.listCategories(),
-    forumApi.listTopThreads(8),
+    getCategories(),
+    getTopThreads(),
   ]);
   const categories = results[0].status === "fulfilled" ? results[0].value : [];
   const topThreads = results[1].status === "fulfilled" ? results[1].value : [];

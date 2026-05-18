@@ -7,6 +7,14 @@
       "main": true
     }
   },
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.jwstudy.org" }],
+      "destination": "https://jwstudy.org/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/og-image.jpg",

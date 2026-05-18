@@ -129,14 +129,24 @@ export function useAIChat(context?: ChatContext, options?: UseAIChatOptions) {
     setMessages(initialMessages);
   }, [initialMessages, loading, useLocalStorage]);
 
-  // Persist to localStorage whenever messages change (bubble mode only)
+  // Persist to localStorage whenever messages change (bubble mode only).
+  // Debounced so a streaming reply (one setMessages per token) doesn't trigger
+  // a sync JSON.stringify + localStorage.setItem on every delta — previously
+  // ran hundreds of writes per 4096-token response, blocking the main thread.
+  // When streaming ends, the trailing setMessages clears the `streaming` flag
+  // and the debounce flushes shortly after; if the page is closed mid-stream
+  // the in-memory state is dropped, which is fine — loadSaved() strips any
+  // surviving `streaming: true` flags on next load.
   useEffect(() => {
     if (!useLocalStorage) return;
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
-    } catch {
-      // storage full or unavailable — silently ignore
-    }
+    const id = setTimeout(() => {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+      } catch {
+        // storage full or unavailable — silently ignore
+      }
+    }, 500);
+    return () => clearTimeout(id);
   }, [messages, useLocalStorage]);
 
   const syncedSetMessages = useCallback(

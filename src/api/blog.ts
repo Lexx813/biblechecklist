@@ -51,11 +51,15 @@ const generateSlug = (title: string): string =>
 
 export const blogApi = {
   listPublished: async (lang: string | null = null): Promise<BlogPost[]> => {
-    let q = supabase
+    // Cap the result set — there was previously no .limit() so every call
+    // returned the entire published archive, which scales with content
+    // growth indefinitely. 50 matches the in-page pagination ceiling.
+    const q = supabase
       .from("blog_posts")
       .select("id, title, slug, excerpt, cover_url, published, created_at, author_id, like_count, translations, lang, tags, read_time_minutes, profiles!author_id(display_name, avatar_url)")
       .eq("published", true)
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .limit(50);
     const { data, error } = await q;
     if (error) throw new Error(error.message);
     const rows = (data ?? []) as unknown as BlogPost[];
@@ -65,14 +69,22 @@ export const blogApi = {
   },
 
   getBySlug: async (slug: string) => {
+    // Explicit projection so we never ship the `embedding` vector column
+    // (1536 floats ≈ 6 KB) or `search_vector` tsvector to the client — those
+    // are server-only and were being shipped because the select was `*`.
+    //
+    // The unknown→any cast keeps existing consumers (BlogPage etc.) happy
+    // since PostgREST's TS inference treats explicit-column joins differently
+    // from `*` joins and re-typing every call site is out of scope here.
     const { data, error } = await supabase
       .from("blog_posts")
-      .select("*, profiles!author_id(display_name, avatar_url)")
+      .select("id, title, subtitle, slug, content, excerpt, cover_url, published, is_featured, created_at, updated_at, author_id, like_count, view_count, lang, translations, tags, read_time_minutes, profiles!author_id(display_name, avatar_url)")
       .eq("slug", slug)
       .eq("published", true)
       .maybeSingle();
     if (error) throw new Error(error.message);
-    return data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return data as any;
   },
 
   getBySlugForEdit: async (slug: string, userId: string) => {

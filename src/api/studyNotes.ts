@@ -2,20 +2,32 @@ import { supabase } from "../lib/supabase";
 import { assertNoPII } from "../lib/pii";
 
 export const studyNotesApi = {
-  getMyNotes: async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return [];
+  // userId is optional — when provided (the common hot path), skips the
+  // supabase.auth.getUser() round-trip by reading the cached session user
+  // from the hook layer instead. Falls back to the previous behavior when
+  // called without an arg (legacy callers / scripts).
+  getMyNotes: async (userId?: string) => {
+    let uid = userId;
+    if (!uid) {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return [];
+      uid = user.id;
+    }
     const { data, error } = await supabase
       .from("study_notes")
       .select("*")
-      .eq("user_id", user.id)
+      .eq("user_id", uid)
       .order("updated_at", { ascending: false });
     if (error) throw new Error(error.message);
     return data ?? [];
   },
 
-  getPublicNotes: async (lang?: string) => {
-    const { data: { user } } = await supabase.auth.getUser();
+  getPublicNotes: async (lang?: string, userId?: string) => {
+    let uid = userId;
+    if (uid === undefined) {
+      const { data: { user } } = await supabase.auth.getUser();
+      uid = user?.id;
+    }
     let q = supabase
       .from("study_notes")
       .select("id, title, content, tags, book_index, chapter, verse, updated_at, user_id, like_count")
@@ -29,7 +41,7 @@ export const studyNotesApi = {
     const userIds = [...new Set(data.map(n => n.user_id))];
     const [{ data: profiles }, { data: likedIds }] = await Promise.all([
       supabase.from("profiles").select("id, display_name, avatar_url").in("id", userIds),
-      user ? supabase.rpc("get_user_note_likes", { p_user_id: user.id }) : { data: [] },
+      uid ? supabase.rpc("get_user_note_likes", { p_user_id: uid }) : { data: [] },
     ]);
     const profileMap = Object.fromEntries((profiles ?? []).map(p => [p.id, p]));
     const likedSet = new Set(likedIds ?? []);

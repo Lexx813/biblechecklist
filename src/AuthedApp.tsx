@@ -1,10 +1,12 @@
-import { useState, useEffect, lazy, Suspense, useMemo } from "react";
+import { useState, useEffect, lazy, Suspense, useMemo, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useSession, useLogout } from "./hooks/useAuth";
 import { useFullProfile } from "./hooks/useAdmin";
 import { useFeatureFlags } from "./hooks/useFeatureFlags";
+import { useGlobalUnreadMessageSync } from "./hooks/useMessages";
+import { useGlobalNotificationsSync } from "./hooks/useNotifications";
 import { supabase } from "./lib/supabase";
 import { parsePath, buildPath, type NavState } from "./lib/router";
 import { toast } from "./lib/toast";
@@ -119,10 +121,33 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     });
   }, [profile, user.id]);
 
-  // Update last_active_at for re-engagement email targeting
+  // Update last_active_at for re-engagement email targeting.
+  // Throttled to at most once per 5 minutes per browser via localStorage —
+  // previously fired on every mount + every user.id change, which meant a
+  // DB write on every cold start of the SPA.
   useEffect(() => {
-    supabase.from("profiles").update({ last_active_at: new Date().toISOString() }).eq("id", user.id).then(() => {});
+    if (!user?.id) return;
+    const STORAGE_KEY = `nwt:last-active-touch:${user.id}`;
+    const THROTTLE_MS = 5 * 60_000;
+    try {
+      const last = Number(localStorage.getItem(STORAGE_KEY) ?? "0");
+      if (Number.isFinite(last) && Date.now() - last < THROTTLE_MS) return;
+    } catch { /* fall through and write */ }
+    supabase
+      .from("profiles")
+      .update({ last_active_at: new Date().toISOString() })
+      .eq("id", user.id)
+      .then(() => {
+        try { localStorage.setItem(STORAGE_KEY, String(Date.now())); } catch { /* ignore */ }
+      });
   }, [user.id]);
+
+  // Mount global realtime + visibility sync once for the whole authed tree.
+  // Replaces the per-component subscriptions in TopBar / MobileTabBar /
+  // FloatingChat / HomePage (messages) and TopBar / NotificationDropdown
+  // (notifications). Consumers now read shared React Query caches.
+  useGlobalUnreadMessageSync(user.id);
+  useGlobalNotificationsSync(user.id);
 
   const [nav, setNav] = useState<NavState>(() => {
     const p = parsePath();
@@ -298,7 +323,10 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     if (nav.page !== "home") setHomeActivePanel(null);
   }, [nav.page]);
 
-  const navigate = (page, params: Record<string, any> = {}) => {
+  // Memoized so child components and the AI bubble don't see a fresh function
+  // reference on every BibleApp re-render. setState setters are stable so the
+  // dep list is empty (and ESLint exhaustive-deps is satisfied).
+  const navigate = useCallback((page: string, params: Record<string, any> = {}) => {
     if (page === "home") {
       if (window.location.pathname !== "/") history.pushState(null, "", "/");
       setNav({ page: "home" });
@@ -317,9 +345,9 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     }
     const path = buildPath(page, params);
     history.pushState(null, "", path);
-    setNav({ page, ...params });
+    setNav({ page, ...params } as NavState);
     window.dispatchEvent(new Event("nwt:locationchange"));
-  };
+  }, []);
 
   // Handle email deep-link params: ?page=X navigates into the app
   useEffect(() => {
@@ -330,7 +358,17 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
     if (VALID_PAGES.includes(page)) navigate(page);
   }, []); // runs once on mount
 
-  const sharedNav = { navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page, onSearchClick: () => setShowCmdPalette(true) };
+  // Stable onSearchClick so sharedNav stays referentially equal across
+  // unrelated state changes (theme toggle, subPage, etc).
+  const onSearchClick = useCallback(() => setShowCmdPalette(true), []);
+  // Memoize sharedNav so pages that spread {...sharedNav} don't see all of
+  // their props change every render. Previously this was a fresh object
+  // literal on every BibleApp render → every spread-prop changed identity →
+  // child memoization couldn't kick in.
+  const sharedNav = useMemo(
+    () => ({ navigate, darkMode, setDarkMode, i18n, user, onLogout, currentPage: nav.page, onSearchClick }),
+    [navigate, darkMode, setDarkMode, i18n, user, onLogout, nav.page, onSearchClick],
+  );
 
   // Sub-page (e.g. active admin tab) communicated up from page-level components
   // via window CustomEvent. Lets the AI know which admin tab the user is on

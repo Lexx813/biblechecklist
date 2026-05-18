@@ -36,7 +36,14 @@ i18n
     // request lets the browser fetch it alongside the JS chunks instead
     // of waiting for them. app/layout.tsx preloads the en JSON for first paint.
     fallbackLng: "en",
+    // `load: "languageOnly"` strips region codes (pt-BR → pt) so the backend
+    // never tries to fetch a 404'd /locales/pt-BR/translation.json before
+    // falling back. We only ship base-code JSON files.
+    load: "languageOnly",
     supportedLngs: LANGUAGES.map(l => l.code),
+    // Don't fetch en when the user is on a non-en language — render
+    // missing keys lazily once translations load.
+    partialBundledLanguages: true,
     interpolation: { escapeValue: false },
     detection: {
       order: ["localStorage", "navigator"],
@@ -45,6 +52,7 @@ i18n
     },
     backend: {
       loadPath: "/locales/{{lng}}/translation.json",
+      requestOptions: { cache: "force-cache" },
     },
   });
 

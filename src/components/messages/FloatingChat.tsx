@@ -58,7 +58,14 @@ export default function FloatingChat({ user, navigate, initialConvId = null, ini
     channel
       .on("presence", { event: "sync" }, () => {
         const state = channel.presenceState();
-        setOnlineUsers(new Set(Object.keys(state).filter(k => k !== user.id)));
+        const next = Object.keys(state).filter(k => k !== user.id);
+        // Avoid a no-op set update: presence sync fires often, but the actual
+        // online list rarely changes. Comparing prev vs next keeps onlineUsers
+        // ref-stable, which prevents <ConvList> from rerendering downstream.
+        setOnlineUsers(prev => {
+          if (prev.size === next.length && next.every(id => prev.has(id))) return prev;
+          return new Set(next);
+        });
       });
     subscribeWithMonitor(channel, "fc-global-presence", (status) => {
       if (status === "SUBSCRIBED") {

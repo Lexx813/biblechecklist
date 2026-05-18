@@ -42,6 +42,20 @@ function pathToCurrentPage(pathname: string): string {
 
 export default function AuthedMobileTabBar() {
   const pathname = usePathname() ?? "";
+  // Gate ALL effects (Supabase auth fetch, auth-state listener, profile fetch,
+  // and the downstream MobileTabBar realtime channel via useUnreadMessageCount)
+  // behind the path check. Previously this component booted Supabase + a
+  // realtime subscription + a profile fetch on every authed visit to a public
+  // SSR route (/blog, /about, /forum, etc.), defeating the "minimal client
+  // JS on public pages" optimization. By short-circuiting here BEFORE the
+  // hooks below run, signed-in users get the same lean payload as anon.
+  const isStandalone = isStandalonePath(pathname);
+
+  if (!isStandalone) return null;
+  return <AuthedMobileTabBarInner pathname={pathname} />;
+}
+
+function AuthedMobileTabBarInner({ pathname }: { pathname: string }) {
   const [userId, setUserId] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isModerator, setIsModerator] = useState(false);
@@ -78,7 +92,6 @@ export default function AuthedMobileTabBar() {
       });
   }, [userId]);
 
-  if (!isStandalonePath(pathname)) return null;
   if (!userId) return null;
 
   const navigate = (page: string, params: Record<string, unknown> = {}) => {

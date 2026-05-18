@@ -54,15 +54,22 @@ interface LinkPreviewRow {
 }
 
 export const messagesApi = {
-  // List all conversations for current user with last message + unread count
-  getConversations: async (): Promise<ConversationSummary[]> => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return [];
+  // List all conversations for current user with last message + unread count.
+  // Accepts optional `userId` — when provided, skips the supabase.auth.getUser()
+  // round-trip (passed from the cached session in the hook layer). Falls back
+  // to the previous behavior when called without an arg.
+  getConversations: async (userId?: string): Promise<ConversationSummary[]> => {
+    let uid = userId;
+    if (!uid) {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return [];
+      uid = user.id;
+    }
 
     const { data: mine, error: e1 } = await supabase
       .from("conversation_participants")
       .select("conversation_id, last_read_at")
-      .eq("user_id", user.id);
+      .eq("user_id", uid);
     if (e1) throw new Error(e1.message);
     if (!mine?.length) return [];
 
@@ -73,7 +80,7 @@ export const messagesApi = {
         .from("conversation_participants")
         .select("conversation_id, user_id, last_read_at")
         .in("conversation_id", convIds)
-        .neq("user_id", user.id),
+        .neq("user_id", uid),
       supabase
         .from("messages")
         .select("id, conversation_id, content, created_at, sender_id, message_type")
@@ -102,7 +109,7 @@ export const messagesApi = {
       const convMsgs = (msgs ?? []).filter(m => m.conversation_id === convId);
       const last = convMsgs[0] ?? null;
       const cutoff = me?.last_read_at ? new Date(me.last_read_at) : new Date(0);
-      const unread = convMsgs.filter(m => m.sender_id !== user.id && new Date(m.created_at ?? 0) > cutoff).length;
+      const unread = convMsgs.filter(m => m.sender_id !== uid && new Date(m.created_at ?? 0) > cutoff).length;
       const displayName = profile?.display_name ?? null;
       return {
         conversation_id: convId,

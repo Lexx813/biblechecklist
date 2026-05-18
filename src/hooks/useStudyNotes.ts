@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { studyNotesApi } from "../api/studyNotes";
 import { badgesApi } from "../api/badges";
+import { useSession } from "./useAuth";
 
 interface StudyNotePublic {
   id: string;
@@ -10,17 +11,26 @@ interface StudyNotePublic {
 }
 
 export function useStudyNotes() {
+  // Pull userId from the cached session instead of letting the api layer
+  // make a fresh supabase.auth.getUser() round-trip on every refetch.
+  // Keep the queryKey ["study-notes"] for back-compat with existing
+  // invalidate() calls scattered through the codebase.
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
   return useQuery({
     queryKey: ["study-notes"],
-    queryFn: studyNotesApi.getMyNotes,
+    queryFn: () => studyNotesApi.getMyNotes(userId),
+    enabled: !!userId,
     staleTime: 30_000,
   });
 }
 
 export function usePublicNotes(lang?: string | null) {
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
   return useQuery({
     queryKey: ["study-notes-public", lang],
-    queryFn: () => studyNotesApi.getPublicNotes(lang ?? undefined),
+    queryFn: () => studyNotesApi.getPublicNotes(lang ?? undefined, userId),
     enabled: lang != null,
     staleTime: 60_000,
   });

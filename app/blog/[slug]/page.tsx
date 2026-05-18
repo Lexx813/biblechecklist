@@ -1,16 +1,45 @@
 import { QueryClient, dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { unstable_cache } from "next/cache";
 import DOMPurify from "isomorphic-dompurify";
 import { blogApi } from "../../../src/api/blog";
 import ClientShell from "../../_components/ClientShell";
 
-export const revalidate = 60;
+export const revalidate = 300;
 
 const BASE = "https://jwstudy.org";
+
+// Cached Supabase reads so ISR regen + generateMetadata don't pay a cold
+// Supabase round-trip on every miss. Cache per slug so each post has its
+// own invalidation tag.
+const getPostBySlug = (slug: string) =>
+  unstable_cache(
+    async () => {
+      try {
+        return await blogApi.getBySlug(slug);
+      } catch {
+        return null;
+      }
+    },
+    ["blog-post-by-slug", slug],
+    { revalidate: 300, tags: [`blog-slug-${slug}`, "blog-list"] },
+  )();
+
+const getAllPublished = unstable_cache(
+  async () => {
+    try {
+      return await blogApi.listPublished(null);
+    } catch {
+      return [];
+    }
+  },
+  ["blog-list-all"],
+  { revalidate: 300, tags: ["blog-list"] },
+);
 
 // Pre-render all published blog posts at build time; new posts fall back to ISR
 export async function generateStaticParams() {
   try {
-    const posts = await blogApi.listPublished();
+    const posts = await getAllPublished();
     return posts.map((post) => ({ slug: post.slug }));
   } catch {
     return [];
@@ -24,7 +53,7 @@ function stripHtml(html = "") {
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   try {
-    const post = await blogApi.getBySlug(slug);
+    const post = await getPostBySlug(slug);
     if (!post) return {};
 
     const lang = (post as any).lang ?? "en";
@@ -89,18 +118,18 @@ export default async function BlogPostPage({ params }) {
   const queryClient = new QueryClient();
 
   const [post, allPosts] = await Promise.all([
-    blogApi.getBySlug(slug).catch(() => null),
-    blogApi.listPublished(null).catch(() => []),
+    getPostBySlug(slug).catch(() => null),
+    getAllPublished().catch(() => []),
     queryClient
       .prefetchQuery({
         queryKey: ["blog", "post", slug],
-        queryFn: () => blogApi.getBySlug(slug),
+        queryFn: () => getPostBySlug(slug),
       })
       .catch(() => {}),
     queryClient
       .prefetchQuery({
         queryKey: ["blog", "published", null],
-        queryFn: () => blogApi.listPublished(),
+        queryFn: () => getAllPublished(),
       })
       .catch(() => {}),
   ]) as [any, any[], ...unknown[]];

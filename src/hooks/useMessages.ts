@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { supabase } from "../lib/supabase";
 import { subscribeWithMonitor } from "../lib/realtime";
 import { messagesApi } from "../api/messages";
+import { useSession } from "./useAuth";
 import type { Database } from "../types/supabase";
 
 type Json = Database["public"]["Tables"]["messages"]["Row"]["metadata"];
@@ -10,11 +11,20 @@ type Json = Database["public"]["Tables"]["messages"]["Row"]["metadata"];
 // ── Conversation list ─────────────────────────────────────────────────────────
 
 export function useConversations() {
+  // Realtime (via useGlobalUnreadMessageSync) + window-focus refetch + visibility
+  // already cover staleness — no polling needed. Was refetchInterval: 15_000,
+  // which combined with realtime + focus listeners triple-fetched conversations.
+  //
+  // userId is pulled from the cached session so getConversations() skips its
+  // own supabase.auth.getUser() round-trip — saves one auth API call per
+  // refetch, which used to fire 4x/min per consumer.
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
   return useQuery({
     queryKey: ["conversations"],
-    queryFn: messagesApi.getConversations,
-    staleTime: 15_000,
-    refetchInterval: 15_000,
+    queryFn: () => messagesApi.getConversations(userId),
+    staleTime: 30_000,
+    enabled: !!userId,
   });
 }
 
@@ -246,21 +256,66 @@ export function usePresence(
 
 // ── Unread count (for nav badge) ──────────────────────────────────────────────
 
+/**
+ * Pure read of the unread message count, derived from the shared
+ * ["conversations"] cache. Safe to call from many components simultaneously —
+ * does NOT open a realtime channel. Mount `useGlobalUnreadMessageSync` once
+ * high in the tree (Providers / AuthedApp) to keep the cache live.
+ *
+ * Previously this hook opened its own `unread-badge-realtime` channel +
+ * `visibilitychange` listener on every consumer (TopBar, MobileTabBar,
+ * FloatingChat, HomePage = 4 channels per authed page). Now they all share
+ * one subscription.
+ */
 export function useUnreadMessageCount() {
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+  return useQuery({
+    queryKey: ["conversations"],
+    queryFn: () => messagesApi.getConversations(userId),
+    staleTime: 30_000,
+    enabled: !!userId,
+    select: (data: { unread_count?: number | string }[]) =>
+      data.reduce((sum, c) => sum + (Number(c.unread_count) || 0), 0),
+  });
+}
+
+/**
+ * Singleton realtime + visibility sync for the conversations cache. Call once
+ * near the top of the authed tree. Subsequent consumers can call
+ * `useUnreadMessageCount` (or `useConversations`) and read the shared cache.
+ *
+ * Note: `postgres_changes` filters only support equality, and the `messages`
+ * table has no `recipient_id` column — only `sender_id` and `conversation_id`.
+ * We can't server-side-filter to "messages where I'm the recipient" in one
+ * channel. We instead skip invalidation when the inserting user IS us
+ * (sender_id matches our userId) since the WAL event still arrives but we
+ * don't need to refetch our own writes.
+ */
+export function useGlobalUnreadMessageSync(userId: string | null | undefined) {
   const queryClient = useQueryClient();
 
   useEffect(() => {
+    if (!userId) return;
     const channel = supabase
       .channel("unread-badge-realtime")
-      .on("postgres_changes", { event: "INSERT", schema: "public", table: "messages" }, () => {
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "messages" }, (payload) => {
+        // Skip self-sent messages — we already optimistically updated the cache.
+        // The realtime broadcast is global (no recipient column to filter on),
+        // so client-side filter avoids redundant invalidations.
+        const senderId = (payload?.new as { sender_id?: string } | undefined)?.sender_id;
+        if (senderId === userId) return;
         queryClient.invalidateQueries({ queryKey: ["conversations"] });
       });
     subscribeWithMonitor(channel, "unread-badge-realtime");
     return () => { supabase.removeChannel(channel); };
-  }, [queryClient]);
+  }, [queryClient, userId]);
 
-  // Refetch when the user returns to the app — realtime misses events while backgrounded
+  // Refetch when the user returns to the app — realtime misses events while
+  // backgrounded. (refetchOnWindowFocus does NOT cover visibilitychange on
+  // mobile Safari, so we keep this explicit listener.)
   useEffect(() => {
+    if (!userId) return;
     function onVisible() {
       if (document.visibilityState === "visible") {
         queryClient.invalidateQueries({ queryKey: ["conversations"] });
@@ -268,15 +323,7 @@ export function useUnreadMessageCount() {
     }
     document.addEventListener("visibilitychange", onVisible);
     return () => document.removeEventListener("visibilitychange", onVisible);
-  }, [queryClient]);
-
-  return useQuery({
-    queryKey: ["conversations"],
-    queryFn: messagesApi.getConversations,
-    staleTime: 30_000,
-    select: (data: { unread_count?: number | string }[]) =>
-      data.reduce((sum, c) => sum + (Number(c.unread_count) || 0), 0),
-  });
+  }, [queryClient, userId]);
 }
 
 // ── Star / Starred messages ───────────────────────────────────────────────────
