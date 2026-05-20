@@ -59,8 +59,8 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     body: buffer,
   });
   if (!uploadRes.ok) {
-    const err = await uploadRes.text();
-    return jsonResponse({ error: err || "Upload failed" }, uploadRes.status);
+    console.error("[admin/songs]", await uploadRes.text());
+    return jsonResponse({ error: "Upload failed" }, uploadRes.status);
   }
 
   // Mirror the audio_url field on the row so older rows that had a different
@@ -74,8 +74,8 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
     },
   );
   if (!patchRes.ok) {
-    const err = await patchRes.text();
-    return jsonResponse({ error: err || "Failed to update audio_url" }, patchRes.status);
+    console.error("[admin/songs]", await patchRes.text());
+    return jsonResponse({ error: "Failed to update audio_url" }, patchRes.status);
   }
 
   return jsonResponse({ audio_url: path });

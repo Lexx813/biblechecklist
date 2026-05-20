@@ -138,12 +138,25 @@ export const campaignApi = {
   getSends: async (campaignId: string, page = 0, pageSize = 50): Promise<CampaignSend[]> => {
     const { data, error } = await supabase
       .from("campaign_sends")
-      .select("*, profiles(display_name, email)")
+      .select("*, profiles(display_name)")
       .eq("campaign_id", campaignId)
       .order("sent_at", { ascending: false })
       .range(page * pageSize, (page + 1) * pageSize - 1);
     if (error) throw error;
-    return (data ?? []) as CampaignSend[];
+    const rows = (data ?? []) as Array<CampaignSend & { user_id?: string }>;
+    // Enrich with email via admin RPC — direct `profiles(email)` join is blocked
+    // by column-level REVOKE in 20260520_security_hardening.sql.
+    const userIds = rows.map(r => r.user_id).filter((v): v is string => !!v);
+    if (userIds.length === 0) return rows as CampaignSend[];
+    const { data: emails } = await supabase.rpc("admin_get_user_emails", { p_user_ids: userIds });
+    const emailMap = new Map(((emails ?? []) as Array<{ id: string; email: string | null }>).map(e => [e.id, e.email]));
+    return rows.map(r => ({
+      ...r,
+      profiles: {
+        ...(r.profiles ?? {}),
+        email: r.user_id ? (emailMap.get(r.user_id) ?? null) : null,
+      },
+    })) as CampaignSend[];
   },
 
   getSendStats: async (campaignId: string): Promise<{

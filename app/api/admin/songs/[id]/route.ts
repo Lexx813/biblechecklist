@@ -70,8 +70,8 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     },
   );
   if (!res.ok) {
-    const err = await res.text();
-    return jsonResponse({ error: err || "Update failed" }, res.status);
+    console.error("[admin/songs]", await res.text());
+    return jsonResponse({ error: "Update failed" }, res.status);
   }
   const rows = (await res.json()) as unknown[];
   if (rows.length === 0) return jsonResponse({ error: "Song not found" }, 404);
@@ -103,8 +103,8 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     { method: "DELETE", headers: { ...SERVICE_HEADERS, Prefer: "return=minimal" } },
   );
   if (!delRes.ok) {
-    const err = await delRes.text();
-    return jsonResponse({ error: err || "Delete failed" }, delRes.status);
+    console.error("[admin/songs]", await delRes.text());
+    return jsonResponse({ error: "Delete failed" }, delRes.status);
   }
 
   // Best-effort storage cleanup. Don't fail the request if this 404s.

@@ -133,6 +133,14 @@ export async function rateLimit(
   const cfg = RATE_LIMITS[kind];
   const limiter = getLimiter(kind);
   if (!limiter) {
+    // In dev/test, fail-open so local work isn't blocked. In production we
+    // refuse — a missing/rotated Upstash env var must not silently disable the
+    // per-IP caps that protect Anthropic / Resend / OpenAI budgets.
+    if (process.env.NODE_ENV === "production") {
+      // eslint-disable-next-line no-console
+      console.error(`[ratelimit] FAIL-CLOSED for ${kind}: Upstash env vars missing`);
+      return { ok: false, retryAfter: 60, label: cfg.label, remaining: 0 };
+    }
     return { ok: true, retryAfter: 0, label: cfg.label, remaining: cfg.max };
   }
   const res = await limiter.limit(key);
