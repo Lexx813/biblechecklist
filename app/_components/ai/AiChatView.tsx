@@ -174,7 +174,7 @@ export default function AiChatView({ conversationId, userId, onConversationCreat
         ) : !hasMessages ? (
           <Welcome onPick={(q) => handleSend(q)} />
         ) : (
-          <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+          <div className="px-4 py-8 sm:px-6 lg:px-8">
             <ul className="space-y-6">
               {messages.map((m, i) => {
                 const isLast = i === messages.length - 1;
@@ -228,7 +228,7 @@ export default function AiChatView({ conversationId, userId, onConversationCreat
         className="border-t border-slate-200 bg-linear-to-b from-white to-slate-50/50 px-3 pt-3 sm:px-6 sm:pt-5 dark:border-white/10 dark:from-[#160f2e] dark:to-[#0d0820]"
         style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom, 0px))" }}
       >
-        <div className="mx-auto max-w-3xl">
+        <div>
           {prefilledFromUrl && (
             <div className="mb-2 flex items-center gap-2 rounded-md border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs text-amber-900 dark:border-amber-700/30 dark:bg-amber-900/20 dark:text-amber-200" role="status">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
@@ -327,7 +327,7 @@ function Welcome({ onPick }: { onPick: (q: string) => void }) {
                 "Good evening";
 
   return (
-    <div className="mx-auto flex h-full max-w-2xl flex-col justify-end px-4 pb-10 pt-16 sm:px-6 sm:pb-12 sm:pt-24">
+    <div className="flex h-full flex-col justify-end px-4 pb-10 pt-16 sm:px-6 sm:pb-12 sm:pt-24 lg:px-8">
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-700 dark:text-violet-300">
           {greeting}

@@ -320,12 +320,18 @@ a.std-scripture-ref:hover {
   .std-nav-footer {
     flex-direction: column;
   }
+
+  /* Tighten the header padding so the inner copy isn't crushed at 320px. */
+  .stp-header { padding: 20px 16px; }
+  .stp-tab { padding: 6px 12px; font-size: 0.82rem; }
 }
 
 /* ── Tabs ─────────────────────────────────────────────────── */
 .stp-tabs {
   display: flex;
   gap: 8px;
+  /* Wrap on narrow viewports so 3+ tabs don't force a horizontal scroll. */
+  flex-wrap: wrap;
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;

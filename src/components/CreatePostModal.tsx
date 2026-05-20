@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { postsApi } from "../api/posts";
 import Button from "./ui/Button";
+import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 
 const RichTextEditor = lazy(() => import("./RichTextEditor"));
 
@@ -18,6 +19,7 @@ interface CreatePostModalProps {
 }
 
 export default function CreatePostModal({ onClose, onSubmit, isPending, userId, avatarUrl, displayName, editPost }: CreatePostModalProps) {
+  useBodyScrollLock(true);
   const { t } = useTranslation();
   const isEdit = !!editPost;
   const [content, setContent] = useState(editPost?.content ?? "");

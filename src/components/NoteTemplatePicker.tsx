@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
+import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 import { NOTE_TEMPLATES } from "../data/noteTemplates";
 
 interface NoteTemplate {
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export default function NoteTemplatePicker({ onSelect, onDismiss }: Props) {
+  useBodyScrollLock(true);
   const { t } = useTranslation();
   const [selectedKey, setSelectedKey] = useState("blank");
 

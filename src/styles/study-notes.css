@@ -378,6 +378,8 @@
 }
 .sn-card:hover .sn-card-delete { opacity: 1; }
 .sn-card-delete:hover { color: #ef4444; background: rgba(239, 68, 68, 0.08); }
+/* Touch: hover doesn't fire on iOS/Android — keep delete reachable. */
+@media (hover: none) { .sn-card-delete { opacity: 1; } }
 
 .sn-card-passage {
   display: inline-flex;
@@ -463,6 +465,7 @@
 }
 .sn-card:hover .sn-card-export-btn { opacity: 1; }
 .sn-card-export-btn:hover { color: var(--teal); }
+@media (hover: none) { .sn-card-export-btn { opacity: 1; } }
 
 .sn-like-btn {
   background: none;
@@ -582,6 +585,7 @@
 .sn-folder-row:hover .sn-folder-edit-btn,
 .sn-folder-row:hover .sn-folder-del-btn { opacity: 1; }
 .sn-folder-del-btn:hover { color: #ef4444; }
+@media (hover: none) { .sn-folder-edit-btn, .sn-folder-del-btn { opacity: 1; } }
 
 .sn-folder-create,
 .sn-folder-rename {

@@ -105,6 +105,7 @@
 .notif-item:hover .notif-delete-btn { opacity: 1; }
 .notif-delete-btn:hover { color: #e53e3e; }
 .notif-delete-btn:focus-visible { outline: 2px solid var(--teal); outline-offset: 1px; opacity: 1; }
+@media (hover: none) { .notif-delete-btn { opacity: 0.7; } }
 
 .notif-actor-avatar {
   width: 32px; height: 32px; border-radius: 50%;

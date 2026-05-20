@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { useUpdateProfile } from "../hooks/useAdmin";
 import { useEnrollPlan } from "../hooks/useReadingPlans";
+import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 import "../styles/onboarding.css";
 
 const CHOICES = [
@@ -63,6 +64,7 @@ interface Props {
 }
 
 export default function OnboardingModal({ onClose, navigate, user }: Props) {
+  useBodyScrollLock(true);
   const { t } = useTranslation();
   const [step, setStep] = useState(0); // 0=intent, 1=plan, 2=goal, 3=ai, 4=done
   const [goalInput, setGoalInput] = useState(3);

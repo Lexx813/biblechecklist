@@ -15,7 +15,7 @@
 
 /* ── Reel feed: full-height, centers the active card ─────────── */
 .reel-feed {
-  height: calc(100svh - 52px);
+  height: calc(100dvh - 52px);
   overflow: hidden;
   position: relative;
   display: flex;
@@ -45,7 +45,7 @@
 /* Portrait card (TikTok) */
 .reel-item--portrait {
   width: min(100%, 420px);
-  height: calc(100svh - 52px);
+  height: calc(100dvh - 52px);
   max-height: 780px;
 }
 
@@ -53,18 +53,18 @@
 .reel-item--landscape {
   width: min(100%, 860px);
   aspect-ratio: 16 / 9;
-  max-height: calc(100svh - 52px - 32px);
+  max-height: calc(100dvh - 52px - 32px);
 }
 
 @media (min-width: 640px) {
   .reel-item--portrait {
-    height: calc(100svh - 52px - 40px);
+    height: calc(100dvh - 52px - 40px);
     border-radius: 20px;
     box-shadow: 0 8px 40px rgba(0,0,0,0.35);
   }
 
   .reel-item--landscape {
-    max-height: calc(100svh - 52px - 40px);
+    max-height: calc(100dvh - 52px - 40px);
     border-radius: 12px;
     box-shadow: 0 8px 40px rgba(0,0,0,0.35);
   }
@@ -369,7 +369,7 @@
 
 /* ── Empty state ───────────────────────────────────────────── */
 .reel-empty {
-  height: calc(100svh - 52px);
+  height: calc(100dvh - 52px);
   display: flex;
   align-items: center;
   justify-content: center;

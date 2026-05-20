@@ -31,6 +31,17 @@ main:has(.msg-layout) {
   main:has(.msg-layout) {
     height: 100dvh;
   }
+  /* Topbar is hidden here, so al-wrap shouldn't subtract its height — that
+     stole 52px from the bottom and clipped the composer. */
+  .al-wrap:has(.msg-layout) {
+    height: 100dvh;
+  }
+  /* MobileTabBar is hidden on the messages route (AuthedApp), so the
+     default al-content tab-bar padding-bottom (~72px) reserves space that
+     nothing fills and pushes the composer below the overflow:hidden cut. */
+  .al-wrap:has(.msg-layout) .al-content {
+    padding-bottom: 0;
+  }
   /* Push the messages sidebar header / thread header below the iOS notch */
   .msg-sidebar-header,
   .msg-thread-header {
@@ -463,18 +474,22 @@ main:has(.msg-layout) {
 
 .msg-back-btn {
   display: none;
-  background: none;
+  /* On mobile the bottom tab bar is hidden on this route — this back arrow
+     is the user's only escape from /messages, so it lives over the violet
+     sidebar header in white and at a real 44×44 tap target. */
+  background: rgba(255, 255, 255, 0.18);
   border: none;
   cursor: pointer;
-  color: var(--text-muted);
-  padding: 6px;
-  min-width: 36px; min-height: 36px;
+  color: #fff;
+  padding: 8px;
+  min-width: 44px; min-height: 44px;
   align-items: center; justify-content: center;
   border-radius: var(--radius-sm);
   transition: color var(--dur-fast), background var(--dur-fast);
 }
 
-.msg-back-btn:hover { color: var(--text-primary); }
+.msg-back-btn:hover { background: rgba(255, 255, 255, 0.3); }
+.msg-back-btn svg { width: 22px; height: 22px; }
 
 .msg-thread-header-info { flex: 1; min-width: 0; }
 

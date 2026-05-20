@@ -80,6 +80,8 @@
   display: flex;
   flex-direction: column;
   overflow: clip;
+  /* Don't chain a rubber-band scroll into the page below on iOS. */
+  overscroll-behavior: contain;
   animation: asb-slide-up 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -191,9 +193,9 @@
 }
 
 .asb-close-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
   background: none;
   border: none;
   cursor: pointer;

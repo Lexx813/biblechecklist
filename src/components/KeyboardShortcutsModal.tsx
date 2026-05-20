@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
+import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 
 interface Props {
   onClose: () => void;
@@ -17,6 +18,7 @@ interface Section {
 }
 
 export default function KeyboardShortcutsModal({ onClose }: Props) {
+  useBodyScrollLock(true);
   const { t } = useTranslation();
 
   useEffect(() => {

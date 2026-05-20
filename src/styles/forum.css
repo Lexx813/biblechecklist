@@ -872,7 +872,20 @@
   .forum-new-thread-form { padding: 14px 12px; margin: 14px auto 0; }
   .forum-rows { margin: 10px auto 28px; padding: 0 10px; }
   .forum-row { padding: 11px 12px; gap: 8px; }
-  .forum-row-title { font-size: 13px; }
+  /* Wrap titles to 2 lines on phones so they aren't ellipsised at ~80px. */
+  .forum-row-title {
+    font-size: 13px;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  /* Trending row: stack title above stats so the title gets full width. */
+  .forum-trending-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .forum-trending-title { white-space: normal; }
+  .forum-trending-stats { font-size: 11px; }
+  .forum-breadcrumb-current { max-width: 180px; }
   .forum-post { padding: 0 10px; }
   .forum-post-aside { width: 40px; }
   .forum-post-body { padding: 13px 14px; }

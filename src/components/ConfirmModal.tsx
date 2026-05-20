@@ -1,6 +1,7 @@
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import Button from "./ui/Button";
+import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 
 interface Props {
   title?: string;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export default function ConfirmModal({ message, onConfirm, onCancel, confirmLabel, danger = true }: Props) {
+  useBodyScrollLock(true);
   const { t } = useTranslation();
   return createPortal(
     <div

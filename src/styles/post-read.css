@@ -1,6 +1,8 @@
 /* ── Progress bar ─────────────────────────────────────────── */
 .pr-progress-bar {
-  position: fixed; top: 0; left: 0; height: 3px; z-index: 200;
+  /* top: respects the notch / Dynamic Island so the 3px line is visible
+     on iPhone Pro Max. */
+  position: fixed; top: env(safe-area-inset-top, 0px); left: 0; height: 3px; z-index: 200;
   background: linear-gradient(90deg, var(--accent), #c084fc);
   transition: width 0.1s linear;
   box-shadow: 0 0 8px rgba(124,58,237,0.4);
@@ -8,7 +10,10 @@
 
 /* ── Back to top button ───────────────────────────────────── */
 .pr-back-top {
-  position: fixed; bottom: 28px; right: 24px; z-index: 150;
+  /* Lift above the home indicator on iPhone Pro Max. */
+  position: fixed;
+  bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+  right: 24px; z-index: 150;
   background: var(--accent); color: white; border: none;
   border-radius: 50px; padding: 9px 18px;
   font-size: 13px; font-weight: 600; cursor: pointer;
@@ -112,6 +117,13 @@
 }
 .pr-body ul, .pr-body ol { margin: 0 0 20px 24px; }
 .pr-body li { margin-bottom: 6px; }
+/* Overflow guards for user-authored blog HTML. Without these, an inline
+   image / wide code block / markdown table forces horizontal scroll on
+   phones and bursts past the column. */
+.pr-body img { max-width: 100%; height: auto; display: block; }
+.pr-body pre { max-width: 100%; overflow-x: auto; }
+.pr-body code { overflow-wrap: anywhere; word-break: break-word; }
+.pr-body table { display: block; max-width: 100%; overflow-x: auto; }
 
 /* Inline links — hard violet, always underlined so they read as links
    even when nested inside parens or scripture-style chips. */
@@ -216,7 +228,11 @@
 }
 .pr-verse-ref:hover { opacity: 0.8; }
 .pr-verse-tooltip-wrap {
-  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+  /* Sit above the tab bar + home indicator so the tooltip isn't hidden
+     behind the iPhone gesture area. */
+  position: fixed;
+  bottom: calc(var(--mobile-tabbar-h, 72px) + 16px);
+  left: 50%; transform: translateX(-50%);
   z-index: 300; width: min(320px, 90vw);
 }
 .pr-verse-tooltip {
@@ -303,5 +319,6 @@
   .pr-sidebar { display: none !important; }
   .pr-title   { font-size: 24px; }
   .pr-body    { font-size: 16px; }
-  .pr-back-top { bottom: 72px; right: 14px; }
+  /* Sit above tab bar + home indicator; clears the AI bubble + chat FAB stack. */
+  .pr-back-top { bottom: calc(var(--mobile-tabbar-h, 72px) + 16px); right: 14px; }
 }

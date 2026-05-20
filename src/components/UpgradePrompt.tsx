@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
+import { useBodyScrollLock } from "../hooks/useBodyScrollLock";
 import "../styles/upgrade-prompt.css";
 
 const DISMISS_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
@@ -37,6 +38,7 @@ const DefaultIcon = () => (
 );
 
 export default function UpgradePrompt({ icon = <DefaultIcon />, title, message, ctaLabel, onCta, onDismiss }: Props) {
+  useBodyScrollLock(true);
   const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
 

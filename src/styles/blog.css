@@ -431,6 +431,12 @@
 }
 .blog-post-content ul li { list-style-type: disc; }
 .blog-post-content ol li { list-style-type: decimal; }
+/* Overflow guards for user-authored HTML — keep images/code/tables from
+   forcing horizontal scroll on phones. */
+.blog-post-content img { max-width: 100%; height: auto; display: block; }
+.blog-post-content pre { max-width: 100%; overflow-x: auto; }
+.blog-post-content code { overflow-wrap: anywhere; word-break: break-word; }
+.blog-post-content table { display: block; max-width: 100%; overflow-x: auto; }
 .blog-post-content blockquote {
   border: 1px solid var(--border);
   padding: 12px 18px;
@@ -1031,6 +1037,11 @@
   .blog-dash-header { padding: 12px 14px; }
   .blog-dash-header h1 { font-size: 16px; }
   .blog-dash-action-btn { font-size: 11px; padding: 5px 10px; }
+  /* 16px on form controls prevents iOS Safari pinch-zoom on focus. */
+  .blog-search-input,
+  .blog-comment-input,
+  .blog-editor-input,
+  .blog-editor-textarea { font-size: 16px; }
 }
 
 /* ── Likes ────────────────────────────────────────────────────── */

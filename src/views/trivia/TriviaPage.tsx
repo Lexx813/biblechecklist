@@ -441,7 +441,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
   } as const;
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--trivia-bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px", fontFamily: "Chakra Petch, sans-serif" }}>
+    <div style={{ minHeight: "100dvh", background: "var(--trivia-bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px", fontFamily: "Chakra Petch, sans-serif" }}>
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: 28 }}>
         <h1 style={{ fontSize: "clamp(36px, 8vw, 56px)", fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.02em", color: "var(--text-primary)" }}>
@@ -784,7 +784,7 @@ function LobbyView({ room, players, myPlayer, onStart, onRefresh, onExit }: {
   }
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--trivia-bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px", fontFamily: "Chakra Petch, sans-serif" }}>
+    <div style={{ minHeight: "100dvh", background: "var(--trivia-bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px", fontFamily: "Chakra Petch, sans-serif" }}>
       <div style={{ width: "100%", maxWidth: 520 }}>
         {/* Exit */}
         <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12 }}>
@@ -1001,7 +1001,7 @@ function GameView({
     room.last_answer_index === currentQuestion.correct_index;
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--trivia-bg)", fontFamily: "Chakra Petch, sans-serif", display: "flex", flexDirection: "column" }}>
+    <div style={{ minHeight: "100dvh", background: "var(--trivia-bg)", fontFamily: "Chakra Petch, sans-serif", display: "flex", flexDirection: "column" }}>
       {/* Top bar */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 16px", background: "var(--card-bg)", borderBottom: "1px solid var(--border)", gap: 12, position: "sticky", top: 0, zIndex: 10 }}>
         <button
@@ -1157,7 +1157,7 @@ function EndView({ room, players, myPlayer, onPlayAgain }: {
   const iWon = !tie && myPlayer.team === winnerTeam;
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--trivia-bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px", fontFamily: "Chakra Petch, sans-serif" }}>
+    <div style={{ minHeight: "100dvh", background: "var(--trivia-bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px", fontFamily: "Chakra Petch, sans-serif" }}>
       {!tie && <Confetti />}
 
       <div style={{ textAlign: "center", maxWidth: 420, width: "100%", position: "relative" }}>
@@ -1346,7 +1346,7 @@ export default function TriviaPage({ user, navigate, prefillCode }: TriviaPagePr
 
   if (loading || !room || !myPlayer) {
     return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--trivia-bg)" }}>
+      <div style={{ minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--trivia-bg)" }}>
         <div style={{ color: "var(--teal)", fontSize: 18, fontWeight: 800, letterSpacing: "0.02em" }}>Loading…</div>
       </div>
     );

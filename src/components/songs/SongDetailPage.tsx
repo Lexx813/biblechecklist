@@ -57,7 +57,8 @@ export default function SongDetailPage({ song, others, signedUrl, lang }: Props)
     <article>
       <SongHero song={song} signedUrl={signedUrl} lang={lang} />
 
-      <div className="mx-auto max-w-3xl space-y-14 px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      {/* Full-width per design rule — no narrow card in dark space. */}
+      <div className="space-y-14 px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         {/* Scripture anchor */}
         <ScriptureCard reference={song.primary_scripture_ref} text={scriptureText} lang={lang} />
 

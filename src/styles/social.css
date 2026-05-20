@@ -871,7 +871,7 @@
 .stf-header h3 { margin: 0; font-size: 15px; font-weight: 700; color: var(--text-primary); }
 .stf-close {
   background: none; border: none; cursor: pointer;
-  width: 28px; height: 28px; border-radius: 50%;
+  width: 44px; height: 44px; border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
   color: var(--text-muted);
 }

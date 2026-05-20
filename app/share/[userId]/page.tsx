@@ -117,7 +117,7 @@ export default async function SharePage({ params }: { params: Promise<{ userId: 
 
       {/* Visible share card — shown before the SPA hydrates */}
       <div style={{
-        minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center",
+        minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center",
         background: "linear-gradient(135deg, #5c3d99 0%, #7c5cbf 50%, #4a2d80 100%)",
         padding: "24px",
         fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",

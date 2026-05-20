@@ -28,7 +28,7 @@ const sheetTitleClassName =
   "text-[15px] font-extrabold text-[var(--text-primary)]";
 
 const closeButtonClassName =
-  "flex h-10 w-10 cursor-pointer items-center justify-center rounded-md border border-[var(--border)] bg-transparent text-[var(--text-muted)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)]";
+  "flex h-11 w-11 cursor-pointer items-center justify-center rounded-md border border-[var(--border)] bg-transparent text-[var(--text-muted)] transition-colors hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)]";
 
 const avatarClassName =
   "flex h-11 w-11 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-brand-400 to-brand-700 text-base font-extrabold text-white";

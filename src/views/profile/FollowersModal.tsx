@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { useFollowers, useFollowing } from "../../hooks/useFollows";
+import { useBodyScrollLock } from "../../hooks/useBodyScrollLock";
 
 type Mode = "followers" | "following";
 
@@ -38,6 +39,7 @@ function PersonRow({ person, onClick }: { person: Person; onClick: () => void })
 }
 
 export default function FollowersModal({ userId, initialMode, onClose, navigate }: Props) {
+  useBodyScrollLock(true);
   const { t } = useTranslation();
   const [mode, setMode] = useState<Mode>(initialMode);
   const [query, setQuery] = useState("");

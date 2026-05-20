@@ -125,7 +125,7 @@ export default function TopBar({
         {/* Center: search */}
         <div className="topbar-search max-[640px]:!justify-start">
           <button
-            className="topbar-search-btn max-[640px]:!h-10 max-[640px]:!w-[42px] max-[640px]:!max-w-[42px] max-[640px]:!justify-center max-[640px]:!rounded-[var(--radius-sm)] max-[640px]:!p-0 max-[640px]:!text-[0px] [&_svg]:shrink-0"
+            className="topbar-search-btn max-[640px]:!h-11 max-[640px]:!w-11 max-[640px]:!max-w-11 max-[640px]:!justify-center max-[640px]:!rounded-[var(--radius-sm)] max-[640px]:!p-0 max-[640px]:!text-[0px] [&_svg]:shrink-0"
             onClick={handleSearchClick}
             aria-label={t("topbar.searchShortcutAria")}
           >
@@ -139,7 +139,7 @@ export default function TopBar({
         <div className="topbar-actions max-[640px]:!min-w-0 max-[640px]:!gap-0.5">
           {profile?.is_admin && (
             <button
-              className="topbar-btn topbar-btn--admin-mobile max-[640px]:!h-10 max-[640px]:!w-10"
+              className="topbar-btn topbar-btn--admin-mobile max-[640px]:!h-11 max-[640px]:!w-11"
               onClick={() => navigate("admin")}
               aria-label={t("topbar.adminPanel")}
             >

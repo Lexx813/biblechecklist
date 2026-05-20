@@ -723,6 +723,7 @@
 }
 .grp-post:hover .grp-post-delete { opacity: 0.5; }
 .grp-post-delete:hover { opacity: 1 !important; color: #ef4444; }
+@media (hover: none) { .grp-post-delete { opacity: 0.6; } }
 
 .grp-post-content {
   font-size: 14.5px;
@@ -819,6 +820,7 @@
 }
 .grp-comment:hover .grp-comment-delete { opacity: 0.4; }
 .grp-comment-delete:hover { opacity: 1 !important; color: #ef4444; }
+@media (hover: none) { .grp-comment-delete { opacity: 0.5; } }
 
 .grp-comment-content { font-size: 13px; color: var(--text-primary); margin: 0; line-height: 1.5; word-break: break-word; }
 
