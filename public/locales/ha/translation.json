@@ -227,7 +227,9 @@
     "uploadFile": "Loda fayil",
     "writeAComment": "Rubuta sharhi…",
     "writeACommentAria": "Rubuta sharhi",
-    "you": "kai"
+    "you": "kai",
+    "failedRsvp": "An kasa sabunta RSVP.",
+    "failedDeleteEvent": "An kasa share taron."
   },
   "history": {
     "avgPerDay": "Matsakaici / kwana",
@@ -337,7 +339,42 @@
     "useFreezeToken": "A yi amfani da token ɗin daskare?",
     "viewAllArrow": "Duba duka →",
     "writeAPost": "Rubuta saƙo →",
-    "yourStudy": "Nazarin ka"
+    "yourStudy": "Nazarin ka",
+    "quickAction": {
+      "continueReading": "Ci gaba da Karatu",
+      "todayQuiz": "Tambayar Yau",
+      "meetingPrep": "Shirya Taro"
+    },
+    "post": {
+      "photoLabel": "Hoto",
+      "videoLabel": "Bidiyo"
+    },
+    "messianicStudy": {
+      "badge": "Nazarin Da Aka Fito Da Shi",
+      "headingLine1": "Annabawa goma sha biyu.",
+      "headingLine2": "Almasihu ɗaya.",
+      "description": "Annabce-annabce {{count}} na Nassosin Ibraniyanci, an haɗa su da inda aka cika su.",
+      "cta": "Buɗe nazari →"
+    },
+    "learnCard": {
+      "eyebrowComplete": "An kammala kwas",
+      "eyebrowWelcomeNamed": "Barka da dawowa, {{name}}",
+      "eyebrowWelcome": "Barka da dawowa",
+      "eyebrowFresh": "Kwas mai hulɗa · darussa 9",
+      "headlineComplete": "Sake duban kowane darasi",
+      "headlineInProgress": "Ci gaba daga inda ka tsaya",
+      "headlineFresh": "Koyi yadda ake nazarin Littafi Mai Tsarki",
+      "subcopyComplete": "Ka taka dukan tafarki. Koma kowane darasi don ƙwarewar fasaha: S.O.A.P., haɗa nassoshi, yin tunani, fitarwa.",
+      "subcopyInProgress": "Darussa {{done}} cikin {{total}} an kammala. Mintuna kaɗan kawai a kullum.",
+      "subcopyFresh": "Darussa tara gajeru tare da motsa jiki na aiki: S.O.A.P., haɗa nassoshi, yin tunani, fitarwa. Yi nazari kamar Bayariyawa.",
+      "ctaComplete": "Sake nazarin kwas",
+      "ctaContinue": "Ci gaba",
+      "ctaFresh": "Fara darasi 1",
+      "lessonsProgress": "Darussa {{done}} cikin {{total}}",
+      "unitLessonMeta": "Sashen 3 · darussa 9",
+      "durationMeta": "~Mintuna 25 jimillar",
+      "aria": "{{headline}}. Darussa {{done}} cikin {{total}} an kammala."
+    }
   },
   "install": {
     "dismiss": "A bar shi",
@@ -392,7 +429,137 @@
     "step3Title": "Gina al'ada",
     "testiTitle": "Abin da masu shaida suke faɗi",
     "viewAll": "Duba duk labarai",
-    "viewAllSongs": "Bincika dukan waƙoƙi"
+    "viewAllSongs": "Bincika dukan waƙoƙi",
+    "tryNoSignup": "Gwada bin diddigin, ba tare da rajista ba",
+    "tracker": {
+      "badge": "Mai bin diddigin Littafi Mai Tsarki",
+      "title": "Duba kowane babi a kallo daya",
+      "desc": "Latsa babi kowane don a sa shi a matsayin karantawa, ko zaɓi ayoyi ɗaya-ɗaya. Ana adana ci gabanka koyaushe."
+    },
+    "mock": {
+      "tabAll": "Duka",
+      "tabHebrew": "Ibraniyanci",
+      "tabGreek": "Helenanci",
+      "testamentHebrew": "Nassosin Ibraniyanci",
+      "bookGenesis": "Farawa",
+      "bookExodus": "Fitowa",
+      "bookLeviticus": "Firistoci",
+      "bookNumbers": "Lissafi",
+      "bookDeuteronomy": "Karatuwa Ta Biyu",
+      "bookJoshua": "Joshuwa",
+      "bookJudges": "Mahukunta",
+      "chaptersOf": "Babi {{done}} cikin {{total}}",
+      "tabHome": "Gida",
+      "tabBible": "Littafi Mai Tsarki",
+      "tabCommunity": "Al'umma",
+      "tabProfile": "Bayanin Mutum",
+      "calloutPct": "{{pct}}% an karanta"
+    },
+    "integ": {
+      "eyebrow": "An kera shi don Shaidun Jehobah",
+      "title": "Cikakken abokin JW Library",
+      "sub": "Kowane littafi, babi, da aya a cikin manhajar suna haɗawa kai tsaye da hukuma Sabuwar Duniyar Fassara; latsa ɗaya na buɗe shi inda kake.",
+      "cards": {
+        "libraryMobile": {
+          "title": "JW Library akan wayar hannu",
+          "desc": "Latsa kowane babi ko aya, sai ya buɗe kai tsaye a manhajar JW Library, ba tare da kwafa-liƙawa ko nema ba."
+        },
+        "jworgDesktop": {
+          "title": "JW.org akan tebur",
+          "desc": "A kan tebur, hanyoyin haɗin babi da aya suna buɗe Sabuwar Duniyar Fassara hukuma a JW.org, koyaushe rubutun da aka amince da shi."
+        },
+        "versePrecision": {
+          "title": "Daidaito a matakin aya",
+          "desc": "Bi diddigin karatunka har zuwa kowace aya. Babuka da aka karanta wani ɓangare suna nuna yanayi daban don ka san inda ka tsaya."
+        }
+      }
+    },
+    "testimonials": {
+      "t1": {
+        "quote": "A ƙarshe kayan aiki da yake sa ni dorewa wajen karatun Littafi Mai Tsarki.",
+        "location": "Mexico"
+      },
+      "t2": {
+        "quote": "Matakan tambayoyi da alamomi suna sa karatu ya zama kamar wasa. Na koyi abubuwa da yawa.",
+        "location": "Birtaniya"
+      },
+      "t3": {
+        "quote": "Bin diddigin dukan littattafai 66 da taswirar zafi yana ba ni kuzari kowace rana.",
+        "location": "Brazil"
+      }
+    },
+    "install": {
+      "eyebrow": "Manhaja Kyauta",
+      "title": "Sa shi a kowane na'ura",
+      "sub": "JW Study yana aiki kamar manhajar asali, ba tare da App Store ba. Saka shi a kowane na'ura cikin daƙiƙu.",
+      "footer": "Yana aiki a duk na'urori, ba sauke, ba App Store, koyaushe sabuntawa.",
+      "iphone": {
+        "title": "iPhone / iPad",
+        "step1pre": "Buɗe a ",
+        "step1bold": "Safari",
+        "step2pre": "Latsa ",
+        "step2bold": "Raba",
+        "step2post": " maɓallin",
+        "step3pre": "Latsa ",
+        "step3bold": "\"Ƙara a Gida na Allon\"",
+        "step4pre": "Latsa ",
+        "step4bold": "Ƙara"
+      },
+      "android": {
+        "title": "Android",
+        "step1pre": "Buɗe a ",
+        "step1bold": "Chrome",
+        "step2pre": "Latsa ",
+        "step2bold": "menu",
+        "step3pre": "Latsa ",
+        "step3bold": "\"Sa Manhajar\"",
+        "step4pre": "Latsa ",
+        "step4bold": "Sa"
+      },
+      "desktop": {
+        "title": "Tebur (Chrome / Edge)",
+        "step1pre": "Buɗe a ",
+        "step1bold1": "Chrome",
+        "step1mid": " ko ",
+        "step1bold2": "Edge",
+        "step2pre": "Danna ",
+        "step2bold": "alamar sakawa",
+        "step2post": " a kan sandar adireshi",
+        "step3pre": "Danna ",
+        "step3bold": "\"Sa\"",
+        "step3post": " a cikin tagar tashi",
+        "step4pre": "Manhajar tana buɗewa a ",
+        "step4bold": "tagarsa"
+      }
+    },
+    "faq": {
+      "title": "Tambayoyin da ake yawan yi",
+      "sub": "Duk abin da kake buƙatar sanin kafin ka yi rajista.",
+      "q1": {
+        "q": "Shin JW Study yana da alaƙa da Ƙungiyar Watch Tower ko jw.org?",
+        "a": "A'a. JW Study kayan aiki ne mai zaman kansa wanda mai shela ya ƙirƙira don taimakawa wasu Shaidu wajen bin diddigin karatun Littafi Mai Tsarki da nazari. Ba a amince mana ba, ba a goyon bayan mu ba, kuma babu mu da alaƙa da Ƙungiyar Watch Tower. Duk rubutun Littafi Mai Tsarki da nassoshin suna haɗawa zuwa hukuma jw.org da JW Library."
+      },
+      "q2": {
+        "q": "Da gaske kyauta ne?",
+        "a": "I. JW Study kyauta ce 100%, babu gwaji, babu katin, babu matakai ɓoye. Duk abin da ke shafin yana da kyauta don amfani."
+      },
+      "q3": {
+        "q": "Shin ina buƙatar ƙirƙirar asusu don gwadawa?",
+        "a": "A'a. Za ka iya amfani da cikakken mai bin diddigin karatu ba tare da yin rajista ba, kawai ka ziyarci Gwada bin diddigin, ka sa alama akan babuka, kuma ana adana ci gabanka a na'urarka. Ƙirƙiri asusu kyauta lokacin da kake shirye don daidaita tsakanin na'urori da buɗe streaks, bayanai, da shirye-shiryen karatu."
+      },
+      "q4": {
+        "q": "Bayanaina suna sirri?",
+        "a": "I. Ci gaban karatunka, bayanai, da data na nazari suna sirri ta tsohuwa. Ba ma raba ko sayar da bayanan ka. Za ka iya share asusunka da duk bayanan a kowane lokaci."
+      },
+      "q5": {
+        "q": "Yana aiki ba tare da intanet / akan wayata?",
+        "a": "I. JW Study Manhajar Yanar Gizo ce Mai Cigaba, sa shi a iPhone, Android ko tebur da latsa ɗaya. Yana aiki kamar manhajar asali, ba tare da App Store ba, kuma yana ci gaba da daidaitawa a duk na'urorinka."
+      },
+      "q6": {
+        "q": "Idan ba ni Shaidan Jehobah ba ne fa?",
+        "a": "Maraba a nan kuma. JW Study an gina shi a kewayen Sabuwar Duniyar Fassara, amma duk wanda yake nazarin Littafi Mai Tsarki yana da 'yancin amfani da shi."
+      }
+    }
   },
   "leaderboard": {
     "anonymous": "Babu suna",
@@ -578,7 +745,12 @@
       "starredAria": "Saƙonni masu tauraro",
       "starredTip": "Masu tauraro",
       "typeMessage": "Rubuta saƙo"
-    }
+    },
+    "errorBoundary": "Ba a iya loda saƙonni ba.",
+    "tryAgain": "Sake gwadawa",
+    "failedDelete": "An kasa share saƙon.",
+    "failedEdit": "An kasa gyara saƙon.",
+    "failedReaction": "An kasa sabunta amsa."
   },
   "nav": {
     "today": "Yau",
@@ -627,12 +799,13 @@
   "notifications": {
     "clearAll": "Share duka",
     "delete": "Goge",
-    "empty": "Babu sanarwa tukuna.",
-    "markAllRead": "Yi alama duka an karanta",
+    "empty": "Babu sanarwa tukuna",
+    "markAllRead": "Sa duka a matsayin karantawa",
     "title": "Sanarwa",
     "typeComment": "ya yi sharhi a kan saƙonka",
     "typeMention": "ya ambace ka",
-    "typeReply": "ya amsa zaren ka"
+    "typeReply": "ya amsa zaren ka",
+    "dropdownTitle": "Sanarwa"
   },
   "offline": {
     "message": "Kana waje da layi — wasu fasaloli ƙila ba za su yi aiki ba."
@@ -875,7 +1048,11 @@
     "theme9": "Linjila",
     "tryAgain": "Sake Gwadawa",
     "unlocked": "Fara",
-    "yourAnswer": "Amsarka:"
+    "yourAnswer": "Amsarka:",
+    "timedMode": "Yanayin Lokaci",
+    "masterLevels": "Matakan Gwani",
+    "explanation": "Bayani",
+    "newBest": "Sabon mafi kyau"
   },
   "readingPlan": {
     "currentStreak": "Jerin kwanaki {{count}}",
@@ -952,7 +1129,24 @@
     "today": "Yau",
     "todayComplete": "✓ An kammala yau",
     "todayPending": "📖 Yau na jira",
-    "todaysReading": "Karatun Yau — Rana"
+    "todaysReading": "Karatun Yau — Rana",
+    "quickSets": {
+      "fullBible": "Cikakken Littafi Mai Tsarki (66)",
+      "hebrew": "Nassosin Ibraniyanci (39)",
+      "greek": "Nassosin Helenanci na Kirista (27)",
+      "gospels": "Bishara (4)",
+      "psalmsProverbs": "Zabura da Misalai",
+      "paulLetters": "Wasiƙun Bulus (13)"
+    },
+    "createModalLabel": "Ƙirƙiri shirin karatu",
+    "groupChallengeActive": "Ƙalubalen ƙungiya yana aiki",
+    "summary": {
+      "title": "✨ Taƙaitawa da tunani na karatu",
+      "desc": "Sami taƙaitaccen tunani na karatun yau: muhimman abubuwan da suka faru, halaye, darussa, da aikace-aikacen ruhaniya.",
+      "btn": "✦ Taƙaita karatun yau",
+      "btnLoading": "Ana taƙaitawa…",
+      "aiLabel": "Taƙaitaccen AI"
+    }
   },
   "referral": {
     "copied": "An kwafi!",
@@ -1024,7 +1218,14 @@
     "trialActive": "Gwajin kyauta yana aiki",
     "updatePassword": "Sabunta Kalmar Sirri",
     "upgradePrompt": "Haɓaka zuwa Premium — $3/wata",
-    "uploading": "Ana lodin…"
+    "uploading": "Ana lodin…",
+    "working": "Ana aiki…",
+    "notifPermDenied": "An toshe sanarwa a saitunan mai bincike",
+    "privacy": "Sirri",
+    "showOnline": "Nuna ni cikin layi",
+    "showOnlineDesc": "Idan an kashe, ba za ka bayyana a jerin Wa ke Layi ba.",
+    "blockedUsers": "Sirri · Masu Amfani Da Aka Toshe",
+    "noBlocked": "Ba ka toshe kowa ba."
   },
   "share": {
     "booksRead": "Littattafan da aka Karanta",
@@ -1042,7 +1243,11 @@
     "myJourney": "Tafiyar Karatun Littafi Mai Tsarki Ta",
     "ofBibleRead": "na Littafi Mai Tsarki an karanta",
     "shareBtn": "Raba Ci Gaba",
-    "title": "Raba Ci Gabanka"
+    "title": "Raba Ci Gabanka",
+    "loadingVideoPlayer": "Ana lodawa mai kunna bidiyo…",
+    "preparingVideo": "Ana shirya bidiyonka…",
+    "loadingPlayer": "Ana lodawa mai kunnawa…",
+    "recordHint": "Yi rikoɗin allon ka don adanawa a matsayin bidiyo."
   },
   "shareToFriend": {
     "empty": "Ƙara wasu abokai da farko",
@@ -1746,7 +1951,8 @@
     "testamentNT": "Nassosin Helenanci na Kirista",
     "testamentOT": "Nassosin Ibrananci",
     "title": "Jerin Karatun Littafi Mai Tsarki",
-    "write": "Rubuta"
+    "write": "Rubuta",
+    "searchBooksAria": "Nemo littattafai"
   },
   "auth": {
     "back": "← Komawa",
@@ -1793,7 +1999,10 @@
     "switchSignupLink": "Yi rajista",
     "tabLogin": "Shiga",
     "tabSignup": "Yi Rajista",
-    "title": "Jerin Karatun Littafi Mai Tsarki"
+    "title": "Jerin Karatun Littafi Mai Tsarki",
+    "errorDisposableEmail": "Don Allah a yi amfani da adireshin imel na dindindin. Akwatunan jefar ba a tallafa musu.",
+    "errorAgeConsent": "Don Allah ka tabbatar da shekarunka ko izinin iyaye.",
+    "errorTermsAgree": "Don Allah ka amince da Sharuɗɗan Sabis da Manufofin Sirri."
   },
   "betaLang": {
     "dismiss": "Kore",
@@ -2256,7 +2465,13 @@
     "searchBooks": "Nemo littattafai",
     "startReadingPlanArrow": "Fara tafiya ta shekara 1 →",
     "studyTools": "Kayan Aikin Nazari",
-    "todayPrefix": "Yau: "
+    "todayPrefix": "Yau: ",
+    "planPromptTitle": "Ƙara shirin karatu",
+    "planPromptMessage": "Shiga shirin tsararre don karanta dukan Sabuwar Duniyar Fassara, da abubuwan duba na yau da kullum.",
+    "planPromptCta": "Duba shirye-shiryen karatu",
+    "donutAria": "{{pct}}% na Littafi Mai Tsarki an karanta",
+    "chaptersRead": "babuka da aka karanta",
+    "remaining": "saura"
   },
   "cmdPalette": {
     "blogSection": "Blog",
@@ -3308,5 +3523,39 @@
       }
     },
     "title": "Sharuɗɗan Sabis"
+  },
+  "anon": {
+    "backToHome": "Komawa gida",
+    "tryFree": "Gwada kyauta, ba tare da rajista ba",
+    "signUpFree": "Yi rajista kyauta"
+  },
+  "footer": {
+    "terms": "Sharuɗɗan Sabis",
+    "privacy": "Manufofin Sirri",
+    "support": "Tallafi",
+    "termsShort": "Sharuɗɗa",
+    "privacyShort": "Sirri"
+  },
+  "whosOnline": {
+    "title": "Wa ke Layi",
+    "seeAll": "Duba duka →",
+    "empty": "Babu wanda yake aiki yanzu",
+    "emptySub": "Raba ci gaban karatunka don ya bayyana a nan",
+    "couldNotLoad": "Ba a iya loda mambobi ba",
+    "anonymous": "Mai sirri"
+  },
+  "friendsWidget": {
+    "title": "Abokai",
+    "seeAll": "Duba duka",
+    "empty": "Haɗu da abokan karatun Littafi Mai Tsarki don ganin ayyukansu a nan.",
+    "findFriends": "Nemo abokai →",
+    "unknown": "Wanda ba a sani ba"
+  },
+  "heatmap": {
+    "less": "Ƙasa",
+    "more": "Fiye"
+  },
+  "createPost": {
+    "addToPost": "Ƙara a sakonka"
   }
 }

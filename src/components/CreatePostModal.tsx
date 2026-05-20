@@ -145,7 +145,7 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
 
         {/* Add to your post bar */}
         <div className="mx-5 mb-3 mt-3 flex shrink-0 items-center justify-between rounded-lg border border-[var(--border)] px-4 py-2.5">
-          <span className="text-sm font-semibold text-[var(--text-primary)]">Add to your post</span>
+          <span className="text-sm font-semibold text-[var(--text-primary)]">{t("createPost.addToPost")}</span>
           <div className="flex items-center gap-1">
             <button
               type="button"

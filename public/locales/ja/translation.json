@@ -127,7 +127,8 @@
     "darkMode": "ダーク",
     "lightMode": "ライト",
     "home": "ホーム",
-    "about": "このアプリについて"
+    "about": "このアプリについて",
+    "searchBooksAria": "聖書の書名を検索"
   },
   "landing": {
     "nav": {
@@ -176,7 +177,137 @@
     "songsNav": "歌",
     "songsSub": "新世界訳に基づいた、聖書を題材としたオリジナル曲。無料で聴けて、無料で共有できます。",
     "songsTitle": "学びを彩る音楽",
-    "viewAllSongs": "すべての歌を見る"
+    "viewAllSongs": "すべての歌を見る",
+    "tryNoSignup": "登録不要で試す",
+    "tracker": {
+      "badge": "聖書トラッカー",
+      "title": "すべての章を一目で確認",
+      "desc": "章をタップして既読としてマーク、または個別の節を選択。進捗は常に保存され、同期されます。"
+    },
+    "mock": {
+      "tabAll": "すべて",
+      "tabHebrew": "ヘブライ語",
+      "tabGreek": "ギリシャ語",
+      "testamentHebrew": "ヘブライ語聖書",
+      "bookGenesis": "創世記",
+      "bookExodus": "出エジプト記",
+      "bookLeviticus": "レビ記",
+      "bookNumbers": "民数記",
+      "bookDeuteronomy": "申命記",
+      "bookJoshua": "ヨシュア記",
+      "bookJudges": "裁き人の書",
+      "chaptersOf": "{{total}} 章中 {{done}} 章",
+      "tabHome": "ホーム",
+      "tabBible": "聖書",
+      "tabCommunity": "コミュニティ",
+      "tabProfile": "プロフィール",
+      "calloutPct": "{{pct}}% 既読"
+    },
+    "integ": {
+      "eyebrow": "エホバの証人のために",
+      "title": "JW Libraryの完璧なコンパニオン",
+      "sub": "アプリ内のすべての書、章、節は、公式『新世界訳』に直接リンクし、ワンタップで開きます。",
+      "cards": {
+        "libraryMobile": {
+          "title": "モバイルでのJW Library",
+          "desc": "章や節のピルをタップすると、JW Libraryアプリで直接開きます。コピペや検索は不要です。"
+        },
+        "jworgDesktop": {
+          "title": "デスクトップでのJW.org",
+          "desc": "デスクトップでは、章や節のリンクがJW.org上の公式『新世界訳』を開きます。常に公認のテキストです。"
+        },
+        "versePrecision": {
+          "title": "節レベルの精度",
+          "desc": "個々の節まで読書を追跡。部分的に読んだ章は別の状態で表示され、どこで止まったかが正確にわかります。"
+        }
+      }
+    },
+    "testimonials": {
+      "t1": {
+        "quote": "ついに聖書通読を継続できるツールに出会えました。",
+        "location": "メキシコ"
+      },
+      "t2": {
+        "quote": "クイズのレベルとバッジで学習がゲームのように楽しい。たくさん学べました。",
+        "location": "イギリス"
+      },
+      "t3": {
+        "quote": "ヒートマップで66冊すべてを追跡することで、毎日モチベーションが続きます。",
+        "location": "ブラジル"
+      }
+    },
+    "install": {
+      "eyebrow": "無料アプリ",
+      "title": "あらゆるデバイスにインストール",
+      "sub": "JW Studyはネイティブアプリのように動作し、App Storeは不要です。数秒であらゆる端末に追加できます。",
+      "footer": "あらゆるデバイスで動作、ダウンロード不要、App Store不要、常に最新。",
+      "iphone": {
+        "title": "iPhone / iPad",
+        "step1pre": "次で開く: ",
+        "step1bold": "Safari",
+        "step2pre": "次をタップ: ",
+        "step2bold": "共有",
+        "step2post": "ボタン",
+        "step3pre": "次をタップ: ",
+        "step3bold": "「ホーム画面に追加」",
+        "step4pre": "次をタップ: ",
+        "step4bold": "追加"
+      },
+      "android": {
+        "title": "Android",
+        "step1pre": "次で開く: ",
+        "step1bold": "Chrome",
+        "step2pre": "次をタップ: ",
+        "step2bold": "メニュー",
+        "step3pre": "次をタップ: ",
+        "step3bold": "「アプリをインストール」",
+        "step4pre": "次をタップ: ",
+        "step4bold": "インストール"
+      },
+      "desktop": {
+        "title": "デスクトップ (Chrome / Edge)",
+        "step1pre": "次で開く: ",
+        "step1bold1": "Chrome",
+        "step1mid": " または ",
+        "step1bold2": "Edge",
+        "step2pre": "次をクリック: ",
+        "step2bold": "インストールアイコン",
+        "step2post": "(アドレスバー内)",
+        "step3pre": "次をクリック: ",
+        "step3bold": "「インストール」",
+        "step3post": "(ポップアップ内)",
+        "step4pre": "アプリは独自の ",
+        "step4bold": "ウィンドウで開きます"
+      }
+    },
+    "faq": {
+      "title": "よくある質問",
+      "sub": "登録前に知っておくべきこと。",
+      "q1": {
+        "q": "JW Studyはものみの塔協会やjw.orgと提携していますか?",
+        "a": "いいえ。JW Studyは、エホバの証人の聖書通読と研究を助けるために伝道者が独自に作成したツールです。ものみの塔協会の承認、後援、関連はありません。すべての聖書本文と参照は公式jw.orgとJW Libraryに直接リンクします。"
+      },
+      "q2": {
+        "q": "本当に無料ですか?",
+        "a": "はい。JW Studyは100%無料です。試用期間、カード登録、隠し階層はありません。サイトのすべてを無料で使えます。"
+      },
+      "q3": {
+        "q": "試すにはアカウントを作成する必要がありますか?",
+        "a": "いいえ。登録なしで聖書通読トラッカーをフル活用できます。「トラッカーを試す」を訪れ、章をチェックすれば、進捗は端末に保存されます。デバイス間の同期、連続記録、メモ、読書計画を有効化したいときに無料アカウントを作成してください。"
+      },
+      "q4": {
+        "q": "私のデータは非公開ですか?",
+        "a": "はい。読書の進捗、メモ、学習データはデフォルトで非公開です。データの共有や販売は一切行いません。アカウントとすべてのデータをいつでも削除できます。"
+      },
+      "q5": {
+        "q": "オフライン/スマートフォンで使えますか?",
+        "a": "はい。JW StudyはProgressive Web Appです。iPhone、Android、デスクトップにワンタップでインストールできます。ネイティブアプリのように動作し、App Storeは不要で、すべてのデバイスで同期し続けます。"
+      },
+      "q6": {
+        "q": "エホバの証人でない場合は?",
+        "a": "あなたも歓迎です。JW Studyは『新世界訳』を中心に作られていますが、聖書を学ぶ人なら誰でも自由に使えます。"
+      }
+    }
   },
   "auth": {
     "title": "聖書通読チェックリスト",
@@ -223,7 +354,10 @@
     "resetSetBtn": "パスワードを設定",
     "resetDoneTitle": "パスワードが更新されました！",
     "resetDoneSubtitle": "パスワードが正常に変更されました。",
-    "resetDoneCta": "アプリへ"
+    "resetDoneCta": "アプリへ",
+    "errorDisposableEmail": "永続的なメールアドレスをご使用ください。使い捨て受信箱はサポートされていません。",
+    "errorAgeConsent": "年齢または保護者の同意を確認してください。",
+    "errorTermsAgree": "利用規約とプライバシーポリシーに同意してください。"
   },
   "book": {
     "chapters": "{{count}}章",
@@ -333,7 +467,11 @@
     "motiveLine25": "素晴らしいスタートです。続けましょう！",
     "motiveLine50": "半分達成です。素晴らしいです！",
     "motiveLine75": "もうすぐです。ゴールが見えています！",
-    "motiveLine100": "聖書全巻を読了しました。素晴らしい！"
+    "motiveLine100": "聖書全巻を読了しました。素晴らしい！",
+    "loadingVideoPlayer": "動画プレーヤーを読み込み中…",
+    "preparingVideo": "動画を準備中…",
+    "loadingPlayer": "プレーヤーを読み込み中…",
+    "recordHint": "画面を録画して動画として保存します。"
   },
   "admin": {
     "title": "管理ダッシュボード",
@@ -491,7 +629,14 @@
     "trialActive": "無料トライアル中",
     "subscriptionActive": "有効 — $3 / 月",
     "subscriptionDesc": "読書計画、学習ノート、メッセージ、学習グループ、AIコンパニオンへのアクセスがあります。",
-    "upgradePrompt": "プレミアムにアップグレード — $3/月"
+    "upgradePrompt": "プレミアムにアップグレード — $3/月",
+    "working": "処理中…",
+    "notifPermDenied": "ブラウザ設定で通知がブロックされています",
+    "privacy": "プライバシー",
+    "showOnline": "オンライン表示にする",
+    "showOnlineDesc": "オフの場合、「オンライン中」のリストに表示されません。",
+    "blockedUsers": "プライバシー · ブロック中のユーザー",
+    "noBlocked": "ブロックしているユーザーはいません。"
   },
   "blog": {
     "backToBible": "← 聖書アプリ",
@@ -740,7 +885,42 @@
     "tokensRemaining_other": "この後、残り{{count}}枚のトークンです。",
     "useFreezeToken": "凍結トークンを使いますか？",
     "viewAllArrow": "すべて表示 →",
-    "writeAPost": "投稿を書く →"
+    "writeAPost": "投稿を書く →",
+    "quickAction": {
+      "continueReading": "読書を続ける",
+      "todayQuiz": "今日のクイズ",
+      "meetingPrep": "集会の準備"
+    },
+    "post": {
+      "photoLabel": "写真",
+      "videoLabel": "動画"
+    },
+    "messianicStudy": {
+      "badge": "おすすめの研究",
+      "headingLine1": "12人の預言者。",
+      "headingLine2": "1人のメシア。",
+      "description": "ヘブライ語聖書の{{count}}の預言と、その成就の対応。",
+      "cta": "研究を開く →"
+    },
+    "learnCard": {
+      "eyebrowComplete": "コース修了",
+      "eyebrowWelcomeNamed": "おかえりなさい、{{name}}さん",
+      "eyebrowWelcome": "おかえりなさい",
+      "eyebrowFresh": "インタラクティブコース · 9レッスン",
+      "headlineComplete": "どのレッスンも見直せます",
+      "headlineInProgress": "前回の続きから",
+      "headlineFresh": "聖書研究の方法を学ぶ",
+      "subcopyComplete": "全ての道のりを歩み終えました。どのレッスンに戻ってもスキルを磨けます。S.O.A.P.、相互参照、瞑想、ハイライト。",
+      "subcopyInProgress": "{{total}}レッスン中{{done}}レッスン完了。1日数分でOK。",
+      "subcopyFresh": "実践的な演習を伴う9つの短いレッスン:S.O.A.P.、相互参照、瞑想、ハイライト。ベレア人のように研究してください。",
+      "ctaComplete": "コースを復習",
+      "ctaContinue": "続ける",
+      "ctaFresh": "レッスン1を開始",
+      "lessonsProgress": "{{total}}レッスン中{{done}}",
+      "unitLessonMeta": "3ユニット · 9レッスン",
+      "durationMeta": "合計約25分",
+      "aria": "{{headline}}。{{total}}レッスン中{{done}}レッスン完了。"
+    }
   },
   "stats": {
     "streak_one": "日連続",
@@ -854,7 +1034,11 @@
     "theme33": "聖書地理",
     "theme34": "聖書の女性たち",
     "theme35": "重要な教理",
-    "theme36": "聖書のテーマとつながり"
+    "theme36": "聖書のテーマとつながり",
+    "timedMode": "タイムモード",
+    "masterLevels": "マスターレベル",
+    "explanation": "解説",
+    "newBest": "新記録"
   },
   "report": {
     "title": "コンテンツを報告",
@@ -1147,10 +1331,11 @@
     "markAllRead": "すべて既読にする",
     "clearAll": "すべてクリア",
     "delete": "削除",
-    "empty": "通知はまだありません。",
+    "empty": "通知はまだありません",
     "typeReply": "があなたのスレッドに返信しました",
     "typeComment": "があなたの投稿にコメントしました",
-    "typeMention": "があなたをメンションしました"
+    "typeMention": "があなたをメンションしました",
+    "dropdownTitle": "通知"
   },
   "readingPlan": {
     "todayGoal": "今日: {{done}}/{{goal}}章",
@@ -1767,7 +1952,24 @@
     "customNameRequired": "プラン名を入力してください。",
     "customBooksRequired": "少なくとも1巻を選択してください。",
     "customDaysInvalid": "有効な日数を入力してください（1〜3650）。",
-    "chapters": "章"
+    "chapters": "章",
+    "quickSets": {
+      "fullBible": "聖書全巻 (66)",
+      "hebrew": "ヘブライ語聖書 (39)",
+      "greek": "ギリシャ語聖書 (27)",
+      "gospels": "福音書 (4)",
+      "psalmsProverbs": "詩編と格言",
+      "paulLetters": "パウロの手紙 (13)"
+    },
+    "createModalLabel": "読書計画を作成",
+    "groupChallengeActive": "グループチャレンジ実施中",
+    "summary": {
+      "title": "✨ 読書のまとめと振り返り",
+      "desc": "今日の読書の温かい振り返り:重要な出来事、人物、教訓、霊的な適用。",
+      "btn": "✦ 今日の読書をまとめる",
+      "btnLoading": "まとめ中…",
+      "aiLabel": "AIによる要約"
+    }
   },
   "groups": {
     "title": "グループ",
@@ -1932,7 +2134,9 @@
     "unlike": "いいねを取り消す",
     "uploadFile": "ファイルをアップロード",
     "writeAComment": "コメントを書く…",
-    "writeACommentAria": "コメントを書く"
+    "writeACommentAria": "コメントを書く",
+    "failedRsvp": "出欠を更新できませんでした。",
+    "failedDeleteEvent": "イベントを削除できませんでした。"
   },
   "messages": {
     "title": "メッセージ",
@@ -2053,7 +2257,12 @@
       "starredAria": "スター付きメッセージ",
       "starredTip": "スター付き",
       "typeMessage": "メッセージを入力"
-    }
+    },
+    "errorBoundary": "メッセージを読み込めませんでした。",
+    "tryAgain": "もう一度試す",
+    "failedDelete": "メッセージを削除できませんでした。",
+    "failedEdit": "メッセージを編集できませんでした。",
+    "failedReaction": "リアクションを更新できませんでした。"
   },
   "aiCompanion": {
     "title": "AI学習コンパニオン",
@@ -2222,7 +2431,13 @@
     "openArrow": "開く →",
     "searchBooks": "書を検索",
     "startReadingPlanArrow": "1年通読の旅を始める →",
-    "todayPrefix": "今日："
+    "todayPrefix": "今日：",
+    "planPromptTitle": "読書計画を追加",
+    "planPromptMessage": "毎日のチェックポイント付きで『新世界訳』全巻を読む構造化プランに参加しましょう。",
+    "planPromptCta": "読書計画を見る",
+    "donutAria": "聖書の{{pct}}%を読了",
+    "chaptersRead": "既読の章",
+    "remaining": "残り"
   },
   "writer": {
     "saved": "Saved",
@@ -3308,5 +3523,39 @@
       }
     },
     "title": "利用規約"
+  },
+  "anon": {
+    "backToHome": "ホームに戻る",
+    "tryFree": "登録不要で無料お試し",
+    "signUpFree": "無料で登録"
+  },
+  "footer": {
+    "terms": "利用規約",
+    "privacy": "プライバシーポリシー",
+    "support": "サポート",
+    "termsShort": "規約",
+    "privacyShort": "プライバシー"
+  },
+  "whosOnline": {
+    "title": "オンライン中",
+    "seeAll": "すべて見る →",
+    "empty": "現在オンラインのユーザーはいません",
+    "emptySub": "読書の進捗を共有してここに表示されよう",
+    "couldNotLoad": "メンバーを読み込めませんでした",
+    "anonymous": "匿名"
+  },
+  "friendsWidget": {
+    "title": "友達",
+    "seeAll": "すべて見る",
+    "empty": "聖書を学ぶ仲間とつながり、ここで彼らの活動を見ましょう。",
+    "findFriends": "友達を見つける →",
+    "unknown": "不明"
+  },
+  "heatmap": {
+    "less": "少",
+    "more": "多"
+  },
+  "createPost": {
+    "addToPost": "投稿に追加"
   }
 }

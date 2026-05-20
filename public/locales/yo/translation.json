@@ -127,7 +127,8 @@
     "darkMode": "Dúdú",
     "lightMode": "Mọ́lẹ̀",
     "home": "Ilé",
-    "about": "Nípa wa"
+    "about": "Nípa wa",
+    "searchBooksAria": "Wá àwọn ìwé"
   },
   "landing": {
     "nav": {
@@ -176,7 +177,137 @@
     "songsSub": "Àwọn orin tó dá lórí Bíbélì, tó wá láti inú Ìtumọ̀ Ayé Tuntun. Ọ̀fẹ́ láti gbọ́, ọ̀fẹ́ láti pín.",
     "listenSong": "Gbọ́ →",
     "viewAllSongs": "Wo gbogbo orin",
-    "songsNav": "Orin"
+    "songsNav": "Orin",
+    "tryNoSignup": "Gbìyànjú olùtọpa náà, kò sí ìforúkọsílẹ̀",
+    "tracker": {
+      "badge": "Olùtọpa Bíbélì",
+      "title": "Wo gbogbo orí lẹ́ẹ̀kan",
+      "desc": "Tẹ orí kankan láti samì sí i pé o ti kà á, tàbí yan àwọn ẹsẹ kọ̀ọ̀kan. A máa ń fi ìlọsíwájú rẹ pamọ́ ó sì máa ń ṣe ìmúdọ́gba."
+    },
+    "mock": {
+      "tabAll": "Gbogbo",
+      "tabHebrew": "Hébérù",
+      "tabGreek": "Gíríìkì",
+      "testamentHebrew": "Ìwé Mímọ́ Lédè Hébérù",
+      "bookGenesis": "Jẹ́nẹ́sísì",
+      "bookExodus": "Ẹ́kísódù",
+      "bookLeviticus": "Léfítíkù",
+      "bookNumbers": "Númérì",
+      "bookDeuteronomy": "Diutarónómì",
+      "bookJoshua": "Jóṣúà",
+      "bookJudges": "Àwọn Onídàájọ́",
+      "chaptersOf": "Orí {{done}} nínú {{total}}",
+      "tabHome": "Ilé",
+      "tabBible": "Bíbélì",
+      "tabCommunity": "Àwùjọ",
+      "tabProfile": "Ìmọ̀ Ara Ẹni",
+      "calloutPct": "{{pct}}% kà"
+    },
+    "integ": {
+      "eyebrow": "Tí a kọ́ fún Àwọn Ẹlẹ́rìí Jèhófà",
+      "title": "Alábàákẹ́gbẹ́ pípé fún JW Library",
+      "sub": "Gbogbo ìwé, orí, àti ẹsẹ inú ohun-èlò náà ní ìsopọ̀ tààrà pẹ̀lú Ìtumọ̀ Ayé Tuntun ti àjọ, ìfọwọ́kàn kan ṣí i sílẹ̀ níbi tí o wà.",
+      "cards": {
+        "libraryMobile": {
+          "title": "JW Library lórí ẹ̀rọ ìbánisọ̀rọ̀",
+          "desc": "Tẹ orí tàbí ẹsẹ kankan, yóò ṣí i sílẹ̀ tààrà nínú ohun-èlò JW Library, láìsí ìdàákọ tàbí wíwá."
+        },
+        "jworgDesktop": {
+          "title": "JW.org lórí kọ̀ǹpútà",
+          "desc": "Lórí kọ̀ǹpútà, àwọn ìjápọ̀ orí àti ẹsẹ ń ṣí Ìtumọ̀ Ayé Tuntun ti àjọ sílẹ̀ ní JW.org, ọ̀rọ̀ tí a fọwọ́ sí nígbà gbogbo."
+        },
+        "versePrecision": {
+          "title": "Ìpéye ní ìpele ẹsẹ",
+          "desc": "Tọ́jú ìkàwé rẹ títí dé ẹsẹ kọ̀ọ̀kan. Àwọn orí tí a kà ní apá kan máa ń fi ipò ọ̀tọ̀ hàn kí o lè mọ ibi tí o ti dúró."
+        }
+      }
+    },
+    "testimonials": {
+      "t1": {
+        "quote": "Nígbẹ̀yìngbẹ́yín, ohun-èlò tó ń mú mi dúró ṣinṣin nínú ìkàwé Bíbélì.",
+        "location": "Mẹ́síkò"
+      },
+      "t2": {
+        "quote": "Àwọn ìpele ìdánwò àti àwọn àmì-ẹ̀yẹ jẹ́ kí ìkẹ́kọ̀ọ́ dà bí eré. Mo ti kọ́ ohun púpọ̀.",
+        "location": "United Kingdom"
+      },
+      "t3": {
+        "quote": "Títọ́pa gbogbo ìwé 66 pẹ̀lú heatmap ń mú mi ní ìtara lójoojúmọ́.",
+        "location": "Brazil"
+      }
+    },
+    "install": {
+      "eyebrow": "Ohun-èlò Ọ̀fẹ́",
+      "title": "Fi sí ẹ̀rọ kankan",
+      "sub": "JW Study ń ṣiṣẹ́ bí ohun-èlò àdúgbò, kò sí App Store. Fi kún ẹ̀rọ kankan láàárín ìṣẹ́jú díẹ̀.",
+      "footer": "Ó ń ṣiṣẹ́ lórí gbogbo ẹ̀rọ, kò sí àgbàláyé, kò sí App Store, ó máa ń ní àwọn ìmúdójúiwọ̀n nígbà gbogbo.",
+      "iphone": {
+        "title": "iPhone / iPad",
+        "step1pre": "Ṣí sí ",
+        "step1bold": "Safari",
+        "step2pre": "Tẹ ",
+        "step2bold": "Pínkiri",
+        "step2post": " bọ́tìnì",
+        "step3pre": "Tẹ ",
+        "step3bold": "\"Fi kún Ojú Ìbẹ̀rẹ̀\"",
+        "step4pre": "Tẹ ",
+        "step4bold": "Fi kún"
+      },
+      "android": {
+        "title": "Android",
+        "step1pre": "Ṣí sí ",
+        "step1bold": "Chrome",
+        "step2pre": "Tẹ àmì ",
+        "step2bold": "ètò",
+        "step3pre": "Tẹ ",
+        "step3bold": "\"Fi Ohun-èlò Sí\"",
+        "step4pre": "Tẹ ",
+        "step4bold": "Fi sí"
+      },
+      "desktop": {
+        "title": "Kọ̀ǹpútà (Chrome / Edge)",
+        "step1pre": "Ṣí sí ",
+        "step1bold1": "Chrome",
+        "step1mid": " tàbí ",
+        "step1bold2": "Edge",
+        "step2pre": "Tẹ ",
+        "step2bold": "àmì ìfisí",
+        "step2post": " ní àpótí ìwòran",
+        "step3pre": "Tẹ ",
+        "step3bold": "\"Fi sí\"",
+        "step3post": " nínú àwòkù",
+        "step4pre": "Ohun-èlò ń ṣí sí ",
+        "step4bold": "fèrèsé tirẹ̀"
+      }
+    },
+    "faq": {
+      "title": "Àwọn ìbéèrè tí a sábà ń béèrè",
+      "sub": "Gbogbo ohun tí o nílò láti mọ̀ kí o tó forúkọsílẹ̀.",
+      "q1": {
+        "q": "Ǹjẹ́ JW Study ní àjọṣe pẹ̀lú Ẹgbẹ́ Watch Tower tàbí jw.org?",
+        "a": "Rárá. JW Study jẹ́ ohun-èlò aládàáni tí akéde kan kọ́ láti ran àwọn Ẹlẹ́rìí lọ́wọ́ láti tọ́jú ìkàwé àti ìkẹ́kọ̀ọ́ Bíbélì wọn. A kò sí lábẹ́ ìfọwọ́sí, ìfọwọ́sowọ́pọ̀ tàbí ìsopọ̀ pẹ̀lú Ẹgbẹ́ Watch Tower. Gbogbo ọ̀rọ̀ àti àwọn ìtọ́kasí Bíbélì ń darí lọ sí jw.org àti JW Library."
+      },
+      "q2": {
+        "q": "Ǹjẹ́ kò sanwó nítòótọ́?",
+        "a": "Bẹ́ẹ̀ ni. JW Study jẹ́ ọ̀fẹ́ pátápátá, kò sí àkókò ìdánwò, kò sí káàdì, kò sí ìpele ìpamọ́. Gbogbo ohun tó wà lórí ojú-òpó wa jẹ́ ọ̀fẹ́."
+      },
+      "q3": {
+        "q": "Ǹjẹ́ mo gbọ́dọ̀ ṣe àkáǹtì kí n tó gbìyànjú rẹ̀?",
+        "a": "Rárá. O lè lo olùtọpa ìkàwé pípé láìforúkọsílẹ̀, kàn lọ sí Gbìyànjú olùtọpa, samì sí àwọn orí, ìlọsíwájú rẹ yóò sì wà ní ìpamọ́ lórí ẹ̀rọ rẹ. Ṣe àkáǹtì ọ̀fẹ́ nígbà tí o bá ṣetán láti ṣe ìmúdọ́gba láàrin àwọn ẹ̀rọ àti láti tú àwọn ipele, àkíyèsí, àti àwọn ètò ìkàwé sílẹ̀."
+      },
+      "q4": {
+        "q": "Ǹjẹ́ àwọn ìsọfúnni mi jẹ́ aládàáni?",
+        "a": "Bẹ́ẹ̀ ni. Ìlọsíwájú ìkàwé rẹ, àkíyèsí, àti àwọn ìsọfúnni ìkẹ́kọ̀ọ́ rẹ jẹ́ aládàáni gẹ́gẹ́ bí ìpòkànpọ̀. A kì í pín tàbí tà àwọn ìsọfúnni rẹ. O lè pa àkáǹtì rẹ àti gbogbo ìsọfúnni rẹ rẹ́ nígbàkígbà."
+      },
+      "q5": {
+        "q": "Ǹjẹ́ ó ń ṣiṣẹ́ láìnífọ̀nà-ìbánisọ̀rọ̀ / lórí fóònù mi?",
+        "a": "Bẹ́ẹ̀ ni. JW Study jẹ́ Progressive Web App, fi sí iPhone, Android tàbí kọ̀ǹpútà pẹ̀lú ìfọwọ́kàn kan. Ó ń ṣiṣẹ́ bí ohun-èlò àdúgbò, kò sí App Store, ó sì ń bá àwọn ẹ̀rọ rẹ gbogbo dọ́gba."
+      },
+      "q6": {
+        "q": "Báwo ni tí n kì í bá ṣe Ẹlẹ́rìí Jèhófà?",
+        "a": "A kí ọ káàbọ̀ síbi yìí pẹ̀lú. JW Study ni a kọ́ ní ààrin Ìtumọ̀ Ayé Tuntun, ṣùgbọ́n ẹnikẹ́ni tó bá ń kẹ́kọ̀ọ́ Bíbélì lè lò ó láìsí ìdíwọ́."
+      }
+    }
   },
   "auth": {
     "title": "Àkójọ Kíkà Bíbélì",
@@ -223,7 +354,10 @@
     "resetSetBtn": "Gbé Ọ̀rọ̀ Ìṣínà Kalẹ̀",
     "resetDoneTitle": "Ọ̀rọ̀ ìṣínà ti yí padà!",
     "resetDoneSubtitle": "Ọ̀rọ̀ ìṣínà rẹ ti yí padà ní àṣeyọrí.",
-    "resetDoneCta": "Lọ sí ohun èlò"
+    "resetDoneCta": "Lọ sí ohun èlò",
+    "errorDisposableEmail": "Jọ̀wọ́ lo àdírẹ́ẹ̀sì ìmẹ́lì pípẹ́. A kò gba àwọn àpótí ìmẹ́lì àìpẹ́ kúkúrú.",
+    "errorAgeConsent": "Jọ̀wọ́ jẹ́rìí ọjọ́-orí rẹ tàbí àṣẹ àwọn òbí.",
+    "errorTermsAgree": "Jọ̀wọ́ gba àwọn Òfin Iṣẹ́ àti Òfin Aṣiri."
   },
   "book": {
     "chapters": "Orí {{count}}",
@@ -333,7 +467,11 @@
     "motiveLine25": "Ìbẹ̀rẹ̀ rere — máa tẹ̀síwájú!",
     "motiveLine50": "Ìdajì lọ́nà — o ń ṣe dáradára!",
     "motiveLine75": "Ó fẹ́rẹ̀ tó — opin ti súnmọ́!",
-    "motiveLine100": "O ti ka gbogbo Bíbélì. Ọ̀rọ̀ ìyàlẹ́nu!"
+    "motiveLine100": "O ti ka gbogbo Bíbélì. Ọ̀rọ̀ ìyàlẹ́nu!",
+    "loadingVideoPlayer": "Ń kó akọrin fídíò wọlé…",
+    "preparingVideo": "Ń múra fídíò rẹ sílẹ̀…",
+    "loadingPlayer": "Ń kó akọrin wọlé…",
+    "recordHint": "Gba fídíò ojú-ìbòjú rẹ kí o lè fi pamọ́ gẹ́gẹ́ bí fídíò."
   },
   "admin": {
     "title": "Pápá Iṣẹ́ Alámòójútó",
@@ -491,7 +629,14 @@
     "trialActive": "Àkókò ìdánwò ọ̀fẹ́ ń lọ",
     "subscriptionActive": "Ó ń ṣiṣẹ́ — $3 / oṣù",
     "subscriptionDesc": "O ní ààyè sí Ètò Kíkà, Àkọsílẹ̀ Ìkẹ́kọ̀ọ́, Ìfiránṣẹ́, Ẹgbẹ́ Ìkẹ́kọ̀ọ́, àti Alábàákẹ́gbẹ́ AI.",
-    "upgradePrompt": "Gbé sókè sí Premium — $3/oṣù"
+    "upgradePrompt": "Gbé sókè sí Premium — $3/oṣù",
+    "working": "Ń ṣiṣẹ́…",
+    "notifPermDenied": "Àwọn ìfitónilétí ni a dí ní àwọn ìtòlẹ́sẹẹsẹ aṣàwákiri",
+    "privacy": "Aṣiri",
+    "showOnline": "Fi mí hàn lórí ìnternẹ́ẹ̀tì",
+    "showOnlineDesc": "Bí ó bá kú, o kò ní fara hàn ní àkójọ Ta Ló Wà Lórí Ìnternẹ́ẹ̀tì.",
+    "blockedUsers": "Aṣiri · Àwọn Aṣàlò Tí Wọ́n Dí",
+    "noBlocked": "O kò tí ì dí ẹnikẹ́ni."
   },
   "blog": {
     "backToBible": "← Ohun Èlò Bíbélì",
@@ -740,7 +885,42 @@
     "percentComplete": "{{pct}}% parí · ọjọ́ {{remaining}} kù",
     "doneForToday": "A ti parí fún òní",
     "markDone": "✓ Sàmì sí Pé Ó Parí",
-    "openInWol": "Ṣí i nínú WOL →"
+    "openInWol": "Ṣí i nínú WOL →",
+    "quickAction": {
+      "continueReading": "Tẹ̀ síwájú nínú Ìkàwé",
+      "todayQuiz": "Ìdánwò Òní",
+      "meetingPrep": "Ìgbáradì fún Ìpàdé"
+    },
+    "post": {
+      "photoLabel": "Fọ́tò",
+      "videoLabel": "Fídíò"
+    },
+    "messianicStudy": {
+      "badge": "Ìkẹ́kọ̀ọ́ tí ó gbajúmọ̀",
+      "headingLine1": "Wòlíì méjìlá.",
+      "headingLine2": "Mèsáyà kan.",
+      "description": "{{count}} àsọtẹ́lẹ̀ Ìwé Mímọ́ Lédè Hébérù pẹ̀lú ibi tí ọ̀kọ̀ọ̀kan ti ní ìmúṣẹ.",
+      "cta": "Ṣí ìkẹ́kọ̀ọ́ náà →"
+    },
+    "learnCard": {
+      "eyebrowComplete": "Ẹ̀kọ́ ti parí",
+      "eyebrowWelcomeNamed": "Káàbọ̀, {{name}}",
+      "eyebrowWelcome": "Káàbọ̀",
+      "eyebrowFresh": "Ẹ̀kọ́ ìbáraẹnisọ̀rọ̀ · ẹ̀kọ́ 9",
+      "headlineComplete": "Tún ẹ̀kọ́ kankan ṣe",
+      "headlineInProgress": "Tẹ̀ síwájú ibi tí o ti dúró",
+      "headlineFresh": "Kọ́ bí o ṣe ń kẹ́kọ̀ọ́ Bíbélì",
+      "subcopyComplete": "O ti rìn gbogbo ọ̀nà. Padà sí ẹ̀kọ́ kankan láti ṣe àbójútó ọgbọ́n kan: S.O.A.P., ìfọwọ́sọ̀rọ̀, àṣàrò, ìṣàfihàn.",
+      "subcopyInProgress": "Ẹ̀kọ́ {{done}} nínú {{total}} ti parí. Ìṣẹ́jú díẹ̀ péré lójoojúmọ́.",
+      "subcopyFresh": "Ẹ̀kọ́ kúkúrú mẹ́sàn-án pẹ̀lú àwọn àdàṣe àtìṣẹ́: S.O.A.P., ìfọwọ́sọ̀rọ̀, àṣàrò, ìṣàfihàn. Kẹ́kọ̀ọ́ bí ọmọ Bèríà.",
+      "ctaComplete": "Ṣe àgbéyẹ̀wò ẹ̀kọ́",
+      "ctaContinue": "Tẹ̀ síwájú",
+      "ctaFresh": "Bẹ̀rẹ̀ ẹ̀kọ́ 1",
+      "lessonsProgress": "Ẹ̀kọ́ {{done}} nínú {{total}}",
+      "unitLessonMeta": "Ẹ̀ka 3 · ẹ̀kọ́ 9",
+      "durationMeta": "~Ìṣẹ́jú 25 lápapọ̀",
+      "aria": "{{headline}}. Ẹ̀kọ́ {{done}} nínú {{total}} ti parí."
+    }
   },
   "tracker": {
     "filterAll": "Gbogbo",
@@ -860,7 +1040,11 @@
     "advancedHubTitle": "Ìdánwò Bíbélì Tó Gíga",
     "advancedHubSub": "Ipele 12 tó jinlẹ̀ fún akẹ́kọ̀ọ́ Bíbélì tó ní ìfaramọ́",
     "backToBasic": "← Padà sí Ipele Ìpìlẹ̀",
-    "goToAdvanced": "Ipele Gíga →"
+    "goToAdvanced": "Ipele Gíga →",
+    "timedMode": "Ipò Àkókò",
+    "masterLevels": "Àwọn Ipele Onímọ̀",
+    "explanation": "Àlàyé",
+    "newBest": "Ohun tuntun ti ó dára jù"
   },
   "report": {
     "title": "Ròyìn Àkóónú",
@@ -1150,13 +1334,14 @@
   ],
   "notifications": {
     "title": "Ìfitónilétí",
-    "markAllRead": "Sàmì sí gbogbo bí a ti kà",
+    "markAllRead": "Sàmì sí gbogbo bí ohun tí a kà",
     "clearAll": "Pa gbogbo rẹ̀ rẹ́",
     "delete": "Pa rẹ́",
-    "empty": "Kò sí ìfitónilétí síbẹ̀.",
+    "empty": "Kò sí ìfitónilétí síbẹ̀",
     "typeReply": "dáhùn ìjíròrò rẹ",
     "typeComment": "ṣe ìsọ̀rọ̀ lórí àkọsílẹ̀ rẹ",
-    "typeMention": "darúkọ rẹ"
+    "typeMention": "darúkọ rẹ",
+    "dropdownTitle": "Àwọn Ìfitónilétí"
   },
   "readingPlan": {
     "todayGoal": "Òní: {{done}}/{{goal}} orí",
@@ -1773,7 +1958,24 @@
     "customNameRequired": "Jọ̀wọ́ tẹ orúkọ ètò sínú.",
     "customBooksRequired": "Jọ̀wọ́ yan ìwé kan ó kéré tán.",
     "customDaysInvalid": "Jọ̀wọ́ tẹ iye ọjọ́ tó tọ́ sínú (1–3650).",
-    "chapters": "orí"
+    "chapters": "orí",
+    "quickSets": {
+      "fullBible": "Bíbélì pípé (66)",
+      "hebrew": "Ìwé Mímọ́ Lédè Hébérù (39)",
+      "greek": "Ìwé Mímọ́ Kristẹni Lédè Gíríìkì (27)",
+      "gospels": "Àwọn Ìhìnrere (4)",
+      "psalmsProverbs": "Sáàmù àti Òwe",
+      "paulLetters": "Àwọn Lẹ́tà Pọ́ọ̀lù (13)"
+    },
+    "createModalLabel": "Dá ètò ìkàwé sílẹ̀",
+    "groupChallengeActive": "Ìpèníjà àpapọ̀ tó ń ṣiṣẹ́",
+    "summary": {
+      "title": "✨ Àkópọ̀ àti ìṣàrò ìkàwé",
+      "desc": "Gba àkójọpọ̀ tó dùn ti ìkàwé òní: àwọn ìṣẹlẹ̀ pàtàkì, àwọn ènìyàn, ẹ̀kọ́, àti ìfisí ti ẹ̀mí.",
+      "btn": "✦ Ṣe àkójọpọ̀ ìkàwé òní",
+      "btnLoading": "Ń ṣe àkójọpọ̀…",
+      "aiLabel": "Àkójọpọ̀ AI"
+    }
   },
   "groups": {
     "title": "Àwọn Ẹgbẹ́",
@@ -1938,7 +2140,9 @@
     "writeAComment": "Kọ ìsọ̀rọ̀…",
     "writeACommentAria": "Kọ ìsọ̀rọ̀",
     "send": "Fi ránṣẹ́",
-    "commentsLoading": "Ń ṣíṣẹ́…"
+    "commentsLoading": "Ń ṣíṣẹ́…",
+    "failedRsvp": "A kùnà láti ṣàtúnṣe ìfàṣẹ.",
+    "failedDeleteEvent": "A kùnà láti pa ìṣẹ̀lẹ̀ rẹ́."
   },
   "messages": {
     "title": "Ìfiránṣẹ́",
@@ -2059,7 +2263,12 @@
       "starredAria": "Àwọn ìránṣẹ́ tó ní ìràwọ̀",
       "starredTip": "Tó ní ìràwọ̀",
       "typeMessage": "Tẹ ìránṣẹ́"
-    }
+    },
+    "errorBoundary": "A kò lè kó àwọn ìránṣẹ́ náà wọlé.",
+    "tryAgain": "Gbìyànjú lẹ́ẹ̀kan sí",
+    "failedDelete": "A kùnà láti pa ìránṣẹ́ rẹ́.",
+    "failedEdit": "A kùnà láti ṣàtúnṣe ìránṣẹ́.",
+    "failedReaction": "A kùnà láti ṣàtúnṣe ìdáhùn."
   },
   "aiCompanion": {
     "title": "Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI",
@@ -2228,7 +2437,13 @@
     "openArrow": "Ṣí →",
     "todayPrefix": "Òní: ",
     "defaultPlanName": "Ètò Kíkà",
-    "searchBooks": "Wá àwọn ìwé"
+    "searchBooks": "Wá àwọn ìwé",
+    "planPromptTitle": "Fi ètò ìkàwé kún",
+    "planPromptMessage": "Darapọ̀ mọ́ ètò tó wà ní ìṣètò láti ka gbogbo Ìtumọ̀ Ayé Tuntun pẹ̀lú àwọn ìpamọ́ ojoojúmọ́.",
+    "planPromptCta": "Wo àwọn ètò ìkàwé",
+    "donutAria": "{{pct}}% Bíbélì tí a kà",
+    "chaptersRead": "orí tí a kà",
+    "remaining": "tó kù"
   },
   "writer": {
     "saved": "Fipamọ́",
@@ -3308,5 +3523,39 @@
       }
     },
     "title": "Àwọn Òfin Iṣẹ́"
+  },
+  "anon": {
+    "backToHome": "Padà sí ilé",
+    "tryFree": "Gbìyànjú lọ́fẹ̀ẹ́, kò sí ìforúkọsílẹ̀",
+    "signUpFree": "Forúkọsílẹ̀ lọ́fẹ̀ẹ́"
+  },
+  "footer": {
+    "terms": "Àwọn Òfin Iṣẹ́",
+    "privacy": "Òfin Aṣiri",
+    "support": "Ìtìlẹ́yìn",
+    "termsShort": "Òfin",
+    "privacyShort": "Aṣiri"
+  },
+  "whosOnline": {
+    "title": "Ta Ló Wà Lórí Ìnternẹ́ẹ̀tì",
+    "seeAll": "Wo gbogbo →",
+    "empty": "Kò sí ẹnikẹ́ni tó ń ṣiṣẹ́ báyìí",
+    "emptySub": "Pín ìlọsíwájú ìkàwé rẹ kí o lè fara hàn níbí",
+    "couldNotLoad": "A kò lè kó àwọn ọmọ ẹgbẹ́ wọlé",
+    "anonymous": "Aláìmọ̀"
+  },
+  "friendsWidget": {
+    "title": "Àwọn Ọ̀rẹ́",
+    "seeAll": "Wo gbogbo",
+    "empty": "Sopọ̀ pẹ̀lú àwọn akẹ́kọ̀ọ́ Bíbélì kí o lè wo ohun tí wọ́n ń ṣe níbí.",
+    "findFriends": "Wá àwọn ọ̀rẹ́ →",
+    "unknown": "Aláìmọ̀"
+  },
+  "heatmap": {
+    "less": "Kéré",
+    "more": "Pọ̀ jù"
+  },
+  "createPost": {
+    "addToPost": "Fi kún ìfìwéránṣẹ́ rẹ"
   }
 }

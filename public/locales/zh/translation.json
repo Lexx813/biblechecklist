@@ -413,7 +413,10 @@
     "resetSetBtn": "设置密码",
     "resetDoneTitle": "密码已更新！",
     "resetDoneSubtitle": "您的密码已成功更改。",
-    "resetDoneCta": "前往应用"
+    "resetDoneCta": "前往应用",
+    "errorDisposableEmail": "请使用永久邮箱地址。不支持一次性邮箱。",
+    "errorAgeConsent": "请确认您的年龄或父母同意。",
+    "errorTermsAgree": "请同意服务条款和隐私政策。"
   },
   "home": {
     "navTracker": "进度追踪",
@@ -647,7 +650,11 @@
     "motiveLine25": "良好开端 — 继续加油！",
     "motiveLine50": "完成一半 — 您表现出色！",
     "motiveLine75": "快到了 — 终点就在眼前！",
-    "motiveLine100": "您已读完整本圣经，太棒了！"
+    "motiveLine100": "您已读完整本圣经，太棒了！",
+    "loadingVideoPlayer": "正在加载视频播放器…",
+    "preparingVideo": "正在准备您的视频…",
+    "loadingPlayer": "正在加载播放器…",
+    "recordHint": "录制屏幕以保存为视频。"
   },
   "report": {
     "title": "举报内容",
@@ -668,13 +675,14 @@
   },
   "notifications": {
     "title": "通知",
-    "markAllRead": "全部标记已读",
+    "markAllRead": "全部标为已读",
     "clearAll": "清除全部",
     "delete": "删除",
-    "empty": "暂无通知。",
+    "empty": "暂无通知",
     "typeReply": "回复了您的主题",
     "typeComment": "评论了您的文章",
-    "typeMention": "提到了您"
+    "typeMention": "提到了您",
+    "dropdownTitle": "通知"
   },
   "search": {
     "placeholder": "搜索书卷、文章、主题…",
@@ -1032,7 +1040,9 @@
     "unlike": "取消点赞",
     "uploadFile": "上传文件",
     "writeAComment": "写下评论…",
-    "writeACommentAria": "写下评论"
+    "writeACommentAria": "写下评论",
+    "failedRsvp": "更新出席状态失败。",
+    "failedDeleteEvent": "删除事件失败。"
   },
   "profile": {
     "title": "我的主页",
@@ -1129,7 +1139,14 @@
     "trialActive": "免费试用中",
     "subscriptionActive": "已激活 — $3 / 月",
     "subscriptionDesc": "您可以使用阅读计划、学习笔记、私信、学习小组和AI助手。",
-    "upgradePrompt": "升级到高级版 — $3/月"
+    "upgradePrompt": "升级到高级版 — $3/月",
+    "working": "处理中…",
+    "notifPermDenied": "通知已在浏览器设置中被阻止",
+    "privacy": "隐私",
+    "showOnline": "显示我在线",
+    "showOnlineDesc": "关闭后,您不会出现在\"谁在线\"列表中。",
+    "blockedUsers": "隐私 · 已屏蔽用户",
+    "noBlocked": "您还没有屏蔽任何人。"
   },
   "blog": {
     "backToBible": "← 返回应用",
@@ -1411,7 +1428,12 @@
       "starredAria": "标星消息",
       "starredTip": "标星",
       "typeMessage": "输入消息"
-    }
+    },
+    "errorBoundary": "无法加载消息。",
+    "tryAgain": "重试",
+    "failedDelete": "删除消息失败。",
+    "failedEdit": "编辑消息失败。",
+    "failedReaction": "更新反应失败。"
   },
   "aiCompanion": {
     "title": "AI 学习助手",
@@ -2212,7 +2234,11 @@
     "theme33": "圣经地理",
     "theme34": "圣经中的妇女",
     "theme35": "重要教义",
-    "theme36": "圣经主题与关联"
+    "theme36": "圣经主题与关联",
+    "timedMode": "限时模式",
+    "masterLevels": "大师等级",
+    "explanation": "解释",
+    "newBest": "新纪录"
   },
   "bookNames": [
     "创世记",
@@ -4013,7 +4039,10 @@
     "todayPrefix": "今天：",
     "donutAria": "已读 {{pct}}% 的圣经",
     "chaptersRead": "章读完",
-    "remaining": "章未读"
+    "remaining": "章未读",
+    "planPromptTitle": "添加阅读计划",
+    "planPromptMessage": "加入结构化计划,通读整本《新世界译本》,每日设有检查点。",
+    "planPromptCta": "查看阅读计划"
   },
   "writer": {
     "saved": "Saved",
@@ -5110,5 +5139,34 @@
     "backToHome": "返回首页",
     "tryFree": "免费试用，无需注册",
     "signUpFree": "免费注册"
+  },
+  "footer": {
+    "terms": "服务条款",
+    "privacy": "隐私政策",
+    "support": "支持",
+    "termsShort": "条款",
+    "privacyShort": "隐私"
+  },
+  "whosOnline": {
+    "title": "谁在线",
+    "seeAll": "查看全部 →",
+    "empty": "目前没有人在线",
+    "emptySub": "分享您的阅读进度以出现在这里",
+    "couldNotLoad": "无法加载成员",
+    "anonymous": "匿名"
+  },
+  "friendsWidget": {
+    "title": "好友",
+    "seeAll": "查看全部",
+    "empty": "与同道圣经学生连接,在此查看他们的活动。",
+    "findFriends": "查找好友 →",
+    "unknown": "未知"
+  },
+  "heatmap": {
+    "less": "少",
+    "more": "多"
+  },
+  "createPost": {
+    "addToPost": "添加到您的帖子"
   }
 }

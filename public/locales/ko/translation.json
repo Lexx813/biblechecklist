@@ -121,7 +121,8 @@
     "darkMode": "다크",
     "lightMode": "라이트",
     "home": "홈",
-    "about": "소개"
+    "about": "소개",
+    "searchBooksAria": "성경 책 검색"
   },
   "landing": {
     "nav": {
@@ -170,7 +171,137 @@
     "songsNav": "노래",
     "songsSub": "신세계역 성경에 뿌리를 둔 성경 기반 오리지널 노래. 무료로 듣고, 무료로 공유하세요.",
     "songsTitle": "공부에 곁들일 음악",
-    "viewAllSongs": "모든 노래 둘러보기"
+    "viewAllSongs": "모든 노래 둘러보기",
+    "tryNoSignup": "가입 없이 트래커 사용해보기",
+    "tracker": {
+      "badge": "성경 트래커",
+      "title": "모든 장을 한눈에 보기",
+      "desc": "장을 탭하여 읽음으로 표시하거나 개별 절을 선택하세요. 진행 상황은 항상 저장되고 동기화됩니다."
+    },
+    "mock": {
+      "tabAll": "전체",
+      "tabHebrew": "히브리어",
+      "tabGreek": "그리스어",
+      "testamentHebrew": "히브리어 성경",
+      "bookGenesis": "창세기",
+      "bookExodus": "출애굽기",
+      "bookLeviticus": "레위기",
+      "bookNumbers": "민수기",
+      "bookDeuteronomy": "신명기",
+      "bookJoshua": "여호수아",
+      "bookJudges": "재판관기",
+      "chaptersOf": "{{total}}장 중 {{done}}장",
+      "tabHome": "홈",
+      "tabBible": "성경",
+      "tabCommunity": "커뮤니티",
+      "tabProfile": "프로필",
+      "calloutPct": "{{pct}}% 읽음"
+    },
+    "integ": {
+      "eyebrow": "여호와의 증인을 위해 만든",
+      "title": "JW Library의 완벽한 동반자",
+      "sub": "앱의 모든 책, 장, 절은 공식 신세계역으로 직접 연결되며, 한 번의 탭으로 열립니다.",
+      "cards": {
+        "libraryMobile": {
+          "title": "모바일에서 JW Library",
+          "desc": "장이나 절 알약을 탭하면 JW Library 앱에서 바로 열립니다. 복사-붙여넣기나 검색이 필요 없습니다."
+        },
+        "jworgDesktop": {
+          "title": "데스크톱에서 JW.org",
+          "desc": "데스크톱에서는 장과 절 링크가 JW.org의 공식 신세계역을 엽니다. 항상 공식 인정된 본문입니다."
+        },
+        "versePrecision": {
+          "title": "절 단위 정확도",
+          "desc": "개별 절까지 독서를 추적합니다. 부분적으로 읽은 장은 별도의 상태로 표시되어 어디서 멈췄는지 정확히 알 수 있습니다."
+        }
+      }
+    },
+    "testimonials": {
+      "t1": {
+        "quote": "마침내 성경 읽기를 꾸준히 할 수 있게 도와주는 도구를 만났어요.",
+        "location": "멕시코"
+      },
+      "t2": {
+        "quote": "퀴즈 레벨과 배지 덕분에 공부가 게임처럼 느껴져요. 정말 많이 배웠습니다.",
+        "location": "영국"
+      },
+      "t3": {
+        "quote": "히트맵으로 66권 모두를 추적하니 매일 동기 부여가 됩니다.",
+        "location": "브라질"
+      }
+    },
+    "install": {
+      "eyebrow": "무료 앱",
+      "title": "모든 기기에 설치",
+      "sub": "JW Study는 네이티브 앱처럼 작동하며 App Store가 필요 없습니다. 어떤 기기에든 몇 초 안에 추가하세요.",
+      "footer": "모든 기기에서 작동하며 다운로드 불필요, App Store 불필요, 항상 최신 상태.",
+      "iphone": {
+        "title": "iPhone / iPad",
+        "step1pre": "다음에서 열기: ",
+        "step1bold": "Safari",
+        "step2pre": "다음을 탭하세요: ",
+        "step2bold": "공유",
+        "step2post": " 버튼",
+        "step3pre": "다음을 탭하세요: ",
+        "step3bold": "\"홈 화면에 추가\"",
+        "step4pre": "다음을 탭하세요: ",
+        "step4bold": "추가"
+      },
+      "android": {
+        "title": "Android",
+        "step1pre": "다음에서 열기: ",
+        "step1bold": "Chrome",
+        "step2pre": "다음을 탭하세요: ",
+        "step2bold": "메뉴",
+        "step3pre": "다음을 탭하세요: ",
+        "step3bold": "\"앱 설치\"",
+        "step4pre": "다음을 탭하세요: ",
+        "step4bold": "설치"
+      },
+      "desktop": {
+        "title": "데스크톱 (Chrome / Edge)",
+        "step1pre": "다음에서 열기: ",
+        "step1bold1": "Chrome",
+        "step1mid": " 또는 ",
+        "step1bold2": "Edge",
+        "step2pre": "다음을 클릭하세요: ",
+        "step2bold": "설치 아이콘",
+        "step2post": " 주소 표시줄에서",
+        "step3pre": "다음을 클릭하세요: ",
+        "step3bold": "\"설치\"",
+        "step3post": " 팝업에서",
+        "step4pre": "앱은 자체 ",
+        "step4bold": "창에서 열립니다"
+      }
+    },
+    "faq": {
+      "title": "자주 묻는 질문",
+      "sub": "가입 전에 알아야 할 모든 것.",
+      "q1": {
+        "q": "JW Study는 워치타워 협회나 jw.org와 제휴되어 있나요?",
+        "a": "아닙니다. JW Study는 동료 증인들이 성경 읽기와 연구를 추적할 수 있도록 한 전도인이 독립적으로 만든 도구입니다. 워치타워 협회의 승인, 후원 또는 연관성이 없습니다. 모든 성경 본문과 참조는 공식 jw.org와 JW Library로 연결됩니다."
+      },
+      "q2": {
+        "q": "정말 무료인가요?",
+        "a": "예. JW Study는 100% 무료입니다. 체험판, 카드, 숨겨진 등급이 없습니다. 사이트의 모든 것을 무료로 사용할 수 있습니다."
+      },
+      "q3": {
+        "q": "사용해보려면 계정을 만들어야 하나요?",
+        "a": "아니요. 가입 없이 전체 독서 트래커를 사용할 수 있습니다. \"트래커 사용해보기\"를 방문해 장을 체크하면 진행 상황이 기기에 저장됩니다. 기기 간 동기화, 연속 기록, 메모, 독서 계획을 사용하려면 무료 계정을 만드세요."
+      },
+      "q4": {
+        "q": "내 데이터는 비공개인가요?",
+        "a": "예. 독서 진행 상황, 메모, 학습 데이터는 기본적으로 비공개입니다. 데이터를 절대 공유하거나 판매하지 않습니다. 언제든지 계정과 모든 데이터를 삭제할 수 있습니다."
+      },
+      "q5": {
+        "q": "오프라인 / 휴대폰에서 작동하나요?",
+        "a": "예. JW Study는 프로그레시브 웹 앱입니다. iPhone, Android 또는 데스크톱에 탭 한 번으로 설치하세요. 네이티브 앱처럼 작동하며 App Store가 필요 없고 모든 기기에서 동기화됩니다."
+      },
+      "q6": {
+        "q": "여호와의 증인이 아닌 경우는요?",
+        "a": "당신도 환영합니다. JW Study는 신세계역을 중심으로 만들어졌지만, 성경을 공부하는 누구나 자유롭게 사용할 수 있습니다."
+      }
+    }
   },
   "auth": {
     "title": "성경 통독 체크리스트",
@@ -217,7 +348,10 @@
     "resetSetBtn": "비밀번호 설정",
     "resetDoneTitle": "비밀번호 변경 완료!",
     "resetDoneSubtitle": "비밀번호가 성공적으로 변경되었습니다.",
-    "resetDoneCta": "앱으로 이동"
+    "resetDoneCta": "앱으로 이동",
+    "errorDisposableEmail": "영구 이메일 주소를 사용해주세요. 일회용 받은편지함은 지원되지 않습니다.",
+    "errorAgeConsent": "나이 또는 부모 동의를 확인해주세요.",
+    "errorTermsAgree": "서비스 약관과 개인정보 처리방침에 동의해주세요."
   },
   "book": {
     "chapters": "{{count}}장",
@@ -327,7 +461,11 @@
     "motiveLine25": "훌륭한 시작입니다 — 계속하세요!",
     "motiveLine50": "절반을 지났습니다 — 정말 잘하고 있어요!",
     "motiveLine75": "거의 다 왔습니다 — 결승선이 보여요!",
-    "motiveLine100": "성경 전체를 읽으셨습니다. 놀라워요!"
+    "motiveLine100": "성경 전체를 읽으셨습니다. 놀라워요!",
+    "loadingVideoPlayer": "동영상 플레이어 로딩 중…",
+    "preparingVideo": "동영상 준비 중…",
+    "loadingPlayer": "플레이어 로딩 중…",
+    "recordHint": "화면을 녹화하여 동영상으로 저장하세요."
   },
   "admin": {
     "title": "관리자 대시보드",
@@ -485,7 +623,14 @@
     "trialActive": "무료 체험 중",
     "subscriptionActive": "활성 — $3 / 월",
     "subscriptionDesc": "통독 계획, 연구 노트, 메시지, 연구 그룹, AI 도우미를 이용할 수 있습니다.",
-    "upgradePrompt": "프리미엄 업그레이드 — $3/월"
+    "upgradePrompt": "프리미엄 업그레이드 — $3/월",
+    "working": "처리 중…",
+    "notifPermDenied": "브라우저 설정에서 알림이 차단됨",
+    "privacy": "개인정보",
+    "showOnline": "온라인으로 표시",
+    "showOnlineDesc": "꺼져 있으면 '온라인 사용자' 목록에 표시되지 않습니다.",
+    "blockedUsers": "개인정보 · 차단된 사용자",
+    "noBlocked": "차단한 사람이 없습니다."
   },
   "blog": {
     "backToBible": "← 성경 앱",
@@ -734,7 +879,42 @@
     "tokensRemaining_other": "이후 {{count}}개의 동결권이 남습니다.",
     "useFreezeToken": "동결권을 사용할까요?",
     "viewAllArrow": "모두 보기 →",
-    "writeAPost": "글 작성하기 →"
+    "writeAPost": "글 작성하기 →",
+    "quickAction": {
+      "continueReading": "독서 계속하기",
+      "todayQuiz": "오늘의 퀴즈",
+      "meetingPrep": "집회 준비"
+    },
+    "post": {
+      "photoLabel": "사진",
+      "videoLabel": "동영상"
+    },
+    "messianicStudy": {
+      "badge": "추천 학습",
+      "headingLine1": "열두 예언자.",
+      "headingLine2": "한 분의 메시아.",
+      "description": "히브리어 성경의 {{count}}가지 예언과 그 성취 위치를 짝지음.",
+      "cta": "학습 열기 →"
+    },
+    "learnCard": {
+      "eyebrowComplete": "과정 완료",
+      "eyebrowWelcomeNamed": "다시 오신 것을 환영해요, {{name}} 님",
+      "eyebrowWelcome": "다시 오신 것을 환영합니다",
+      "eyebrowFresh": "인터랙티브 과정 · 9개 수업",
+      "headlineComplete": "어떤 수업이든 다시 보기",
+      "headlineInProgress": "이전에 멈춘 곳부터 계속하기",
+      "headlineFresh": "성경 공부 방법 배우기",
+      "subcopyComplete": "전 과정을 완주하셨습니다. 어떤 수업이든 돌아가 기술을 연마하세요: S.O.A.P., 교차 참조, 묵상, 강조 표시.",
+      "subcopyInProgress": "{{total}}개 수업 중 {{done}}개 완료. 하루 몇 분이면 충분합니다.",
+      "subcopyFresh": "실습이 포함된 9개의 짧은 수업: S.O.A.P., 교차 참조, 묵상, 강조 표시. 베레아 사람처럼 연구하세요.",
+      "ctaComplete": "과정 복습",
+      "ctaContinue": "계속하기",
+      "ctaFresh": "1과 시작하기",
+      "lessonsProgress": "{{total}}개 수업 중 {{done}}개",
+      "unitLessonMeta": "3개 단원 · 9개 수업",
+      "durationMeta": "총 약 25분",
+      "aria": "{{headline}}. {{total}}개 수업 중 {{done}}개 완료."
+    }
   },
   "stats": {
     "streak_one": "일 연속",
@@ -848,7 +1028,11 @@
     "theme33": "성경 지리",
     "theme34": "성경의 여성들",
     "theme35": "주요 교리 가르침",
-    "theme36": "성경의 주제와 연결"
+    "theme36": "성경의 주제와 연결",
+    "timedMode": "타이머 모드",
+    "masterLevels": "마스터 레벨",
+    "explanation": "설명",
+    "newBest": "신기록"
   },
   "report": {
     "title": "콘텐츠 신고",
@@ -1141,10 +1325,11 @@
     "markAllRead": "모두 읽음으로 표시",
     "clearAll": "모두 지우기",
     "delete": "삭제",
-    "empty": "아직 알림이 없습니다.",
+    "empty": "아직 알림이 없습니다",
     "typeReply": "님이 글타래에 답글을 달았습니다",
     "typeComment": "님이 게시물에 댓글을 달았습니다",
-    "typeMention": "님이 회원님을 언급했습니다"
+    "typeMention": "님이 회원님을 언급했습니다",
+    "dropdownTitle": "알림"
   },
   "readingPlan": {
     "todayGoal": "오늘: {{done}}/{{goal}}장",
@@ -1761,7 +1946,24 @@
     "customNameRequired": "계획 이름을 입력해 주세요.",
     "customBooksRequired": "최소 한 권을 선택해 주세요.",
     "customDaysInvalid": "유효한 일수를 입력해 주세요 (1–3650).",
-    "chapters": "장"
+    "chapters": "장",
+    "quickSets": {
+      "fullBible": "성경 전체 (66)",
+      "hebrew": "히브리어 성경 (39)",
+      "greek": "그리스어 성경 (27)",
+      "gospels": "복음서 (4)",
+      "psalmsProverbs": "시편과 잠언",
+      "paulLetters": "바울의 편지 (13)"
+    },
+    "createModalLabel": "독서 계획 만들기",
+    "groupChallengeActive": "그룹 챌린지 진행 중",
+    "summary": {
+      "title": "✨ 독서 요약과 묵상",
+      "desc": "오늘 독서의 따뜻한 정리: 주요 사건, 인물, 교훈, 영적 적용.",
+      "btn": "✦ 오늘 독서 요약하기",
+      "btnLoading": "요약 중…",
+      "aiLabel": "AI 요약"
+    }
   },
   "groups": {
     "title": "그룹",
@@ -1926,7 +2128,9 @@
     "unlike": "좋아요 취소",
     "uploadFile": "파일 업로드",
     "writeAComment": "댓글을 작성하세요…",
-    "writeACommentAria": "댓글 작성"
+    "writeACommentAria": "댓글 작성",
+    "failedRsvp": "참석 응답을 업데이트하지 못했습니다.",
+    "failedDeleteEvent": "이벤트를 삭제하지 못했습니다."
   },
   "messages": {
     "title": "메시지",
@@ -2047,7 +2251,12 @@
       "starredAria": "별표 표시한 메시지",
       "starredTip": "별표 표시",
       "typeMessage": "메시지를 입력하세요"
-    }
+    },
+    "errorBoundary": "메시지를 불러올 수 없습니다.",
+    "tryAgain": "다시 시도",
+    "failedDelete": "메시지를 삭제하지 못했습니다.",
+    "failedEdit": "메시지를 수정하지 못했습니다.",
+    "failedReaction": "반응을 업데이트하지 못했습니다."
   },
   "aiCompanion": {
     "title": "AI 연구 도우미",
@@ -2222,7 +2431,13 @@
     "openArrow": "열기 →",
     "searchBooks": "책 검색",
     "startReadingPlanArrow": "1년 여정 시작하기 →",
-    "todayPrefix": "오늘: "
+    "todayPrefix": "오늘: ",
+    "planPromptTitle": "독서 계획 추가",
+    "planPromptMessage": "매일의 체크포인트가 있는 구조화된 계획에 참여하여 신세계역 전체를 읽으세요.",
+    "planPromptCta": "독서 계획 보기",
+    "donutAria": "성경의 {{pct}}% 읽음",
+    "chaptersRead": "읽은 장",
+    "remaining": "남음"
   },
   "writer": {
     "saved": "Saved",
@@ -3308,5 +3523,39 @@
       }
     },
     "title": "이용약관"
+  },
+  "anon": {
+    "backToHome": "홈으로 돌아가기",
+    "tryFree": "가입 없이 무료로 사용해보기",
+    "signUpFree": "무료 가입"
+  },
+  "footer": {
+    "terms": "서비스 약관",
+    "privacy": "개인정보 처리방침",
+    "support": "지원",
+    "termsShort": "약관",
+    "privacyShort": "개인정보"
+  },
+  "whosOnline": {
+    "title": "온라인 사용자",
+    "seeAll": "전체 보기 →",
+    "empty": "지금 활동 중인 사용자가 없습니다",
+    "emptySub": "독서 진행 상황을 공유하여 여기에 표시되세요",
+    "couldNotLoad": "회원을 불러올 수 없습니다",
+    "anonymous": "익명"
+  },
+  "friendsWidget": {
+    "title": "친구",
+    "seeAll": "전체 보기",
+    "empty": "동료 성경 학생들과 연결하여 여기서 그들의 활동을 확인하세요.",
+    "findFriends": "친구 찾기 →",
+    "unknown": "알 수 없음"
+  },
+  "heatmap": {
+    "less": "적음",
+    "more": "많음"
+  },
+  "createPost": {
+    "addToPost": "게시물에 추가"
   }
 }

@@ -227,7 +227,9 @@
     "uploadFile": "Pakia faili",
     "writeAComment": "Andika maoni…",
     "writeACommentAria": "Andika maoni",
-    "you": "wewe"
+    "you": "wewe",
+    "failedRsvp": "Imeshindwa kusasisha RSVP.",
+    "failedDeleteEvent": "Imeshindwa kufuta tukio."
   },
   "history": {
     "avgPerDay": "Wastani / siku",
@@ -337,7 +339,42 @@
     "useFreezeToken": "Tumia tokeni ya kufungia?",
     "viewAllArrow": "Tazama zote →",
     "writeAPost": "Andika chapisho →",
-    "yourStudy": "Funzo Lako"
+    "yourStudy": "Funzo Lako",
+    "quickAction": {
+      "continueReading": "Endelea Kusoma",
+      "todayQuiz": "Jaribio la Leo",
+      "meetingPrep": "Maandalizi ya Mkutano"
+    },
+    "post": {
+      "photoLabel": "Picha",
+      "videoLabel": "Video"
+    },
+    "messianicStudy": {
+      "badge": "Funzo Linaloangaziwa",
+      "headingLine1": "Manabii kumi na wawili.",
+      "headingLine2": "Masihi mmoja.",
+      "description": "Unabii {{count}} wa Maandiko ya Kiebrania, ukioanishwa na pale ulipotimizwa.",
+      "cta": "Fungua funzo →"
+    },
+    "learnCard": {
+      "eyebrowComplete": "Kozi imekamilika",
+      "eyebrowWelcomeNamed": "Karibu tena, {{name}}",
+      "eyebrowWelcome": "Karibu tena",
+      "eyebrowFresh": "Kozi shirikishi · masomo 9",
+      "headlineComplete": "Pitia somo lolote",
+      "headlineInProgress": "Endelea pale ulipoacha",
+      "headlineFresh": "Jifunze Kujifunza Biblia",
+      "subcopyComplete": "Umetembea njia nzima. Rudi kwenye somo lolote ili kunoa ujuzi: S.O.A.P., kuhusisha maandiko, kutafakari, kuangazia.",
+      "subcopyInProgress": "Masomo {{done}} kati ya {{total}} yamekamilika. Dakika chache tu kwa siku.",
+      "subcopyFresh": "Masomo mafupi tisa pamoja na mazoezi ya vitendo: S.O.A.P., kuhusisha maandiko, kutafakari, kuangazia. Jifunze kama Mberea.",
+      "ctaComplete": "Pitia kozi",
+      "ctaContinue": "Endelea",
+      "ctaFresh": "Anza somo la 1",
+      "lessonsProgress": "Masomo {{done}} kati ya {{total}}",
+      "unitLessonMeta": "Vitengo 3 · masomo 9",
+      "durationMeta": "~Dakika 25 jumla",
+      "aria": "{{headline}}. Masomo {{done}} kati ya {{total}} yamekamilika."
+    }
   },
   "install": {
     "dismiss": "Ondoa",
@@ -392,7 +429,137 @@
     "step3Title": "Jenga tabia",
     "testiTitle": "Wahubiri wanasema nini",
     "viewAll": "Tazama makala zote",
-    "viewAllSongs": "Vinjari nyimbo zote"
+    "viewAllSongs": "Vinjari nyimbo zote",
+    "tryNoSignup": "Jaribu kifuatiliaji, bila kujisajili",
+    "tracker": {
+      "badge": "Kifuatiliaji cha Biblia",
+      "title": "Ona kila sura kwa muhtasari",
+      "desc": "Gusa sura yoyote ili kuiweka alama kuwa imesomwa, au chagua mistari mmoja-mmoja. Maendeleo yako huhifadhiwa na kusawazishwa kila wakati."
+    },
+    "mock": {
+      "tabAll": "Vyote",
+      "tabHebrew": "Kiebrania",
+      "tabGreek": "Kigiriki",
+      "testamentHebrew": "Maandiko ya Kiebrania",
+      "bookGenesis": "Mwanzo",
+      "bookExodus": "Kutoka",
+      "bookLeviticus": "Mambo ya Walawi",
+      "bookNumbers": "Hesabu",
+      "bookDeuteronomy": "Kumbukumbu la Torati",
+      "bookJoshua": "Yoshua",
+      "bookJudges": "Waamuzi",
+      "chaptersOf": "Sura {{done}} kati ya {{total}}",
+      "tabHome": "Nyumbani",
+      "tabBible": "Biblia",
+      "tabCommunity": "Jumuiya",
+      "tabProfile": "Wasifu",
+      "calloutPct": "{{pct}}% imesomwa"
+    },
+    "integ": {
+      "eyebrow": "Imetengenezwa kwa Mashahidi wa Yehova",
+      "title": "Mwenza kamili wa JW Library",
+      "sub": "Kila kitabu, sura na mstari katika programu unaunganishwa moja kwa moja na Tafsiri ya Ulimwengu Mpya rasmi; mguso mmoja huifungua mahali ulipo.",
+      "cards": {
+        "libraryMobile": {
+          "title": "JW Library kwenye simu",
+          "desc": "Gusa kifungo chochote cha sura au mstari na hufunguka moja kwa moja katika programu ya JW Library: bila kunakili-kubandika, bila kutafuta."
+        },
+        "jworgDesktop": {
+          "title": "JW.org kwenye kompyuta",
+          "desc": "Kwenye kompyuta, viungo vya sura na mstari hufungua Tafsiri ya Ulimwengu Mpya rasmi kwenye JW.org, daima maandishi yaliyoidhinishwa."
+        },
+        "versePrecision": {
+          "title": "Usahihi wa kiwango cha mstari",
+          "desc": "Fuatilia kusoma kwako hadi mstari mmoja-mmoja. Sura zilizosomwa kwa sehemu zinaonyesha hali tofauti ili kila wakati ujue mahali ulipoacha."
+        }
+      }
+    },
+    "testimonials": {
+      "t1": {
+        "quote": "Hatimaye chombo kinachonifanya nidumu katika kusoma Biblia.",
+        "location": "Mexico"
+      },
+      "t2": {
+        "quote": "Viwango vya jaribio na vitambulisho hufanya kusoma kuwe kama mchezo. Nimejifunza mengi.",
+        "location": "Uingereza"
+      },
+      "t3": {
+        "quote": "Kufuatilia vitabu vyote 66 kwa ramani ya joto kunanipa motisha kila siku.",
+        "location": "Brazili"
+      }
+    },
+    "install": {
+      "eyebrow": "Programu Bila Malipo",
+      "title": "Sakinisha kwenye kifaa chochote",
+      "sub": "JW Study inafanya kazi kama programu asilia, bila App Store. Iongeze kwenye kifaa chochote kwa sekunde chache.",
+      "footer": "Inafanya kazi kwenye vifaa vyote, bila kupakua, bila App Store, daima imesasishwa.",
+      "iphone": {
+        "title": "iPhone / iPad",
+        "step1pre": "Fungua katika ",
+        "step1bold": "Safari",
+        "step2pre": "Gusa ",
+        "step2bold": "Shiriki",
+        "step2post": " kitufe",
+        "step3pre": "Gusa ",
+        "step3bold": "\"Ongeza kwenye Skrini ya Nyumbani\"",
+        "step4pre": "Gusa ",
+        "step4bold": "Ongeza"
+      },
+      "android": {
+        "title": "Android",
+        "step1pre": "Fungua katika ",
+        "step1bold": "Chrome",
+        "step2pre": "Gusa ",
+        "step2bold": "menyu",
+        "step3pre": "Gusa ",
+        "step3bold": "\"Sakinisha Programu\"",
+        "step4pre": "Gusa ",
+        "step4bold": "Sakinisha"
+      },
+      "desktop": {
+        "title": "Kompyuta (Chrome / Edge)",
+        "step1pre": "Fungua katika ",
+        "step1bold1": "Chrome",
+        "step1mid": " au ",
+        "step1bold2": "Edge",
+        "step2pre": "Bonyeza ",
+        "step2bold": "ikoni ya kusakinisha",
+        "step2post": " kwenye upau wa anwani",
+        "step3pre": "Bonyeza ",
+        "step3bold": "\"Sakinisha\"",
+        "step3post": " kwenye dirisha ibukizi",
+        "step4pre": "Programu hufunguka kwenye ",
+        "step4bold": "dirisha lake mwenyewe"
+      }
+    },
+    "faq": {
+      "title": "Maswali yanayoulizwa mara kwa mara",
+      "sub": "Kila kitu unachohitaji kujua kabla ya kujisajili.",
+      "q1": {
+        "q": "Je, JW Study inahusiana na Jumuiya ya Mnara wa Mlinzi au jw.org?",
+        "a": "Hapana. JW Study ni chombo huru kilichotengenezwa na mhubiri ili kuwasaidia Mashahidi wenzake kufuatilia kusoma na kujifunza Biblia. Hatuungwi mkono, hatudhaminiwi wala hatuhusiani na Jumuiya ya Mnara wa Mlinzi. Maandiko yote na marejeo ya Biblia yanaunganishwa kwa jw.org rasmi na JW Library."
+      },
+      "q2": {
+        "q": "Je, ni bure kweli?",
+        "a": "Ndio. JW Study ni bure 100%, hakuna jaribio, hakuna kadi, hakuna viwango vilivyofichwa. Kila kitu kwenye tovuti ni bure kutumia."
+      },
+      "q3": {
+        "q": "Je, lazima nifungue akaunti ili kuijaribu?",
+        "a": "Hapana. Unaweza kutumia kifuatiliaji kamili cha kusoma bila kujisajili, tembelea tu Jaribu kifuatiliaji, weka alama kwenye sura, na maendeleo yako huhifadhiwa kwenye kifaa chako. Fungua akaunti bila malipo unapokuwa tayari kusawazisha vifaa na kufungua mfululizo, maelezo na mipango ya kusoma."
+      },
+      "q4": {
+        "q": "Je, data yangu ni ya faragha?",
+        "a": "Ndio. Maendeleo yako ya kusoma, maelezo na data ya kusoma ni ya faragha kwa chaguo-msingi. Hatushiriki wala kuuza data yako. Unaweza kufuta akaunti yako na data zote wakati wowote."
+      },
+      "q5": {
+        "q": "Je, inafanya kazi nje ya mtandao / kwenye simu yangu?",
+        "a": "Ndio. JW Study ni Programu ya Wavuti Inayoendelea, sakinisha kwenye iPhone, Android au kompyuta kwa mguso mmoja. Inafanya kazi kama programu asilia, bila App Store, na inabaki imesawazishwa kwenye vifaa vyako vyote."
+      },
+      "q6": {
+        "q": "Ikiwa si Shahidi wa Yehova?",
+        "a": "Karibu hapa pia. JW Study imejengwa kuzunguka Tafsiri ya Ulimwengu Mpya, lakini yeyote anayejifunza Biblia anaweza kuitumia kwa uhuru."
+      }
+    }
   },
   "leaderboard": {
     "anonymous": "Bila Jina",
@@ -578,7 +745,12 @@
       "starredAria": "Ujumbe uliopewa nyota",
       "starredTip": "Iliyopewa nyota",
       "typeMessage": "Andika ujumbe"
-    }
+    },
+    "errorBoundary": "Imeshindwa kupakia ujumbe.",
+    "tryAgain": "Jaribu tena",
+    "failedDelete": "Imeshindwa kufuta ujumbe.",
+    "failedEdit": "Imeshindwa kuhariri ujumbe.",
+    "failedReaction": "Imeshindwa kusasisha mwitikio."
   },
   "nav": {
     "today": "Leo",
@@ -627,12 +799,13 @@
   "notifications": {
     "clearAll": "Futa zote",
     "delete": "Futa",
-    "empty": "Bado hakuna arifa.",
-    "markAllRead": "Weka zote zimesomwa",
+    "empty": "Bado hakuna arifa",
+    "markAllRead": "Tia alama vyote kuwa vimesomwa",
     "title": "Arifa",
     "typeComment": "ametoa maoni kwenye chapisho lako",
     "typeMention": "amekutaja",
-    "typeReply": "amejibu kwenye mada yako"
+    "typeReply": "amejibu kwenye mada yako",
+    "dropdownTitle": "Arifa"
   },
   "offline": {
     "message": "Uko nje ya mtandao — baadhi ya vipengele vinaweza kutopatikana."
@@ -875,7 +1048,11 @@
     "theme9": "Injili",
     "tryAgain": "Jaribu Tena",
     "unlocked": "Anza",
-    "yourAnswer": "Jibu lako:"
+    "yourAnswer": "Jibu lako:",
+    "timedMode": "Hali ya Muda",
+    "masterLevels": "Viwango vya Bingwa",
+    "explanation": "Maelezo",
+    "newBest": "Bora mpya"
   },
   "readingPlan": {
     "currentStreak": "Mfululizo wa siku {{count}}",
@@ -952,7 +1129,24 @@
     "today": "Leo",
     "todayComplete": "✓ Leo imekamilika",
     "todayPending": "📖 Leo bado",
-    "todaysReading": "Usomaji wa Leo — Siku ya"
+    "todaysReading": "Usomaji wa Leo — Siku ya",
+    "quickSets": {
+      "fullBible": "Biblia kamili (66)",
+      "hebrew": "Maandiko ya Kiebrania (39)",
+      "greek": "Maandiko ya Kigiriki ya Kikristo (27)",
+      "gospels": "Injili (4)",
+      "psalmsProverbs": "Zaburi na Mithali",
+      "paulLetters": "Barua za Paulo (13)"
+    },
+    "createModalLabel": "Tengeneza mpango wa kusoma",
+    "groupChallengeActive": "Changamoto ya kikundi inaendelea",
+    "summary": {
+      "title": "✨ Muhtasari na Tafakari ya Kusoma",
+      "desc": "Pokea muhtasari wa joto wa kusoma kwa leo: matukio muhimu, wahusika, mafunzo, na matumizi ya kiroho.",
+      "btn": "✦ Fanya muhtasari wa kusoma kwa leo",
+      "btnLoading": "Inafanya muhtasari…",
+      "aiLabel": "Muhtasari wa AI"
+    }
   },
   "referral": {
     "copied": "Imenakiliwa!",
@@ -1024,7 +1218,14 @@
     "trialActive": "Jaribio la bure linatumika",
     "updatePassword": "Sasisha Nenosiri",
     "upgradePrompt": "Boresha hadi Premium — $3/mwezi",
-    "uploading": "Inapakia…"
+    "uploading": "Inapakia…",
+    "working": "Inafanya kazi…",
+    "notifPermDenied": "Arifa zimezuiwa katika mipangilio ya kivinjari",
+    "privacy": "Faragha",
+    "showOnline": "Nionyeshe nikiwa mtandaoni",
+    "showOnlineDesc": "Ikiwa imezimwa, hutaonekana kwenye orodha ya Nani Yuko Mtandaoni.",
+    "blockedUsers": "Faragha · Watumiaji Waliozuiwa",
+    "noBlocked": "Hujamzuia mtu yeyote."
   },
   "share": {
     "booksRead": "Vitabu Vilivyosomwa",
@@ -1042,7 +1243,11 @@
     "myJourney": "Safari Yangu ya Usomaji wa Biblia",
     "ofBibleRead": "ya Biblia imesomwa",
     "shareBtn": "Shiriki Maendeleo",
-    "title": "Shiriki Maendeleo Yako"
+    "title": "Shiriki Maendeleo Yako",
+    "loadingVideoPlayer": "Inapakia kicheza video…",
+    "preparingVideo": "Inaandaa video yako…",
+    "loadingPlayer": "Inapakia kicheza…",
+    "recordHint": "Rekodi skrini yako ili kuhifadhi kama video."
   },
   "shareToFriend": {
     "empty": "Ongeza marafiki kwanza",
@@ -1746,7 +1951,8 @@
     "testamentNT": "Maandiko ya Kigiriki ya Kikristo",
     "testamentOT": "Maandiko ya Kiebrania",
     "title": "Orodha ya Usomaji wa Biblia",
-    "write": "Andika"
+    "write": "Andika",
+    "searchBooksAria": "Tafuta vitabu"
   },
   "auth": {
     "back": "← Rudi",
@@ -1793,7 +1999,10 @@
     "switchSignupLink": "Jisajili",
     "tabLogin": "Ingia",
     "tabSignup": "Jisajili",
-    "title": "Orodha ya Usomaji wa Biblia"
+    "title": "Orodha ya Usomaji wa Biblia",
+    "errorDisposableEmail": "Tafadhali tumia anwani ya barua pepe ya kudumu. Sanduku za muda hazitumiki.",
+    "errorAgeConsent": "Tafadhali thibitisha umri wako au idhini ya wazazi.",
+    "errorTermsAgree": "Tafadhali kubali Masharti ya Huduma na Sera ya Faragha."
   },
   "betaLang": {
     "dismiss": "Puuza",
@@ -2256,7 +2465,13 @@
     "searchBooks": "Tafuta vitabu",
     "startReadingPlanArrow": "Anza safari ya mwaka 1 →",
     "studyTools": "Zana za Kujifunza",
-    "todayPrefix": "Leo: "
+    "todayPrefix": "Leo: ",
+    "planPromptTitle": "Ongeza mpango wa kusoma",
+    "planPromptMessage": "Jiunge na mpango uliopangwa kusoma Tafsiri yote ya Ulimwengu Mpya, ukiwa na alama za kila siku.",
+    "planPromptCta": "Tazama mipango ya kusoma",
+    "donutAria": "{{pct}}% ya Biblia imesomwa",
+    "chaptersRead": "sura zilizosomwa",
+    "remaining": "zilizobaki"
   },
   "cmdPalette": {
     "blogSection": "Blogu",
@@ -3308,5 +3523,39 @@
       }
     },
     "title": "Masharti ya Huduma"
+  },
+  "anon": {
+    "backToHome": "Rudi nyumbani",
+    "tryFree": "Jaribu bila malipo, bila kujisajili",
+    "signUpFree": "Jisajili bila malipo"
+  },
+  "footer": {
+    "terms": "Masharti ya Huduma",
+    "privacy": "Sera ya Faragha",
+    "support": "Msaada",
+    "termsShort": "Masharti",
+    "privacyShort": "Faragha"
+  },
+  "whosOnline": {
+    "title": "Nani Yuko Mtandaoni",
+    "seeAll": "Ona vyote →",
+    "empty": "Hakuna mtu yeyote anayetumika sasa",
+    "emptySub": "Shiriki maendeleo yako ya kusoma ili kuonekana hapa",
+    "couldNotLoad": "Imeshindwa kupakia washiriki",
+    "anonymous": "Asiyejulikana"
+  },
+  "friendsWidget": {
+    "title": "Marafiki",
+    "seeAll": "Ona vyote",
+    "empty": "Unganisha na wanafunzi wenzako wa Biblia ili kuona shughuli zao hapa.",
+    "findFriends": "Tafuta marafiki →",
+    "unknown": "Asiyejulikana"
+  },
+  "heatmap": {
+    "less": "Kidogo",
+    "more": "Zaidi"
+  },
+  "createPost": {
+    "addToPost": "Ongeza kwenye chapisho lako"
   }
 }

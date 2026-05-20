@@ -348,7 +348,10 @@
     "resetSetBtn": "I-save ang password",
     "resetDoneTitle": "Na-update ang password!",
     "resetDoneSubtitle": "Matagumpay na nabago ang iyong password.",
-    "resetDoneCta": "Pumunta sa app"
+    "resetDoneCta": "Pumunta sa app",
+    "errorDisposableEmail": "Pakigamit ang permanenteng email. Hindi sinusuportahan ang mga disposable inbox.",
+    "errorAgeConsent": "Pakikumpirma ang iyong edad o pahintulot ng magulang.",
+    "errorTermsAgree": "Pakitanggap ang Mga Tuntunin ng Serbisyo at Patakaran sa Privacy."
   },
   "book": {
     "chapters": "{{count}} kabanata",
@@ -459,7 +462,11 @@
     "motiveLine25": "Magandang simula: patuloy lang!",
     "motiveLine50": "Kalahati na: napakahusay mo!",
     "motiveLine75": "Malapit na: malapit na ang finish line!",
-    "motiveLine100": "Nabasa mo na ang buong Bibliya. Kahanga-hanga!"
+    "motiveLine100": "Nabasa mo na ang buong Bibliya. Kahanga-hanga!",
+    "loadingVideoPlayer": "Naglo-load ang video player…",
+    "preparingVideo": "Inihahanda ang iyong video…",
+    "loadingPlayer": "Naglo-load ang player…",
+    "recordHint": "I-record ang iyong screen upang i-save bilang video."
   },
   "admin": {
     "title": "Dashboard ng Admin",
@@ -617,7 +624,14 @@
     "trialActive": "Aktibo ang libreng pagsubok",
     "subscriptionActive": "Aktibo: $3 / buwan",
     "subscriptionDesc": "Mayroon kang access sa Mga Plano sa Pagbabasa, Mga Tala sa Pag-aaral, Mga Mensahe, Mga Grupo sa Pag-aaral, at ang AI Companion.",
-    "upgradePrompt": "Mag-upgrade sa Premium: $3/buwan"
+    "upgradePrompt": "Mag-upgrade sa Premium: $3/buwan",
+    "working": "Ginagawa…",
+    "notifPermDenied": "Hinarang ang mga abiso sa mga setting ng browser",
+    "privacy": "Privacy",
+    "showOnline": "Ipakita ako bilang online",
+    "showOnlineDesc": "Kapag naka-off, hindi ka lalabas sa listahan ng Sino ang Online.",
+    "blockedUsers": "Privacy · Mga Naka-block na User",
+    "noBlocked": "Wala kang na-block na sinuman."
   },
   "blog": {
     "backToBible": "← App ng Bibliya",
@@ -1015,7 +1029,11 @@
     "theme33": "Heograpiya ng Bibliya",
     "theme34": "Mga Babae sa Bibliya",
     "theme35": "Mga Pangunahing Turo ng Doktrina",
-    "theme36": "Mga Tema at Koneksiyon sa Bibliya"
+    "theme36": "Mga Tema at Koneksiyon sa Bibliya",
+    "timedMode": "Timed Mode",
+    "masterLevels": "Mga Master Level",
+    "explanation": "Paliwanag",
+    "newBest": "Bagong best"
   },
   "report": {
     "title": "Iulat ang Nilalaman",
@@ -1308,10 +1326,11 @@
     "markAllRead": "Markahan lahat bilang nabasa",
     "clearAll": "Burahin lahat",
     "delete": "Burahin",
-    "empty": "Wala pang mga notification.",
+    "empty": "Wala pang abiso",
     "typeReply": "sumagot sa iyong thread",
     "typeComment": "nagkomento sa iyong post",
-    "typeMention": "binanggit ka"
+    "typeMention": "binanggit ka",
+    "dropdownTitle": "Mga Abiso"
   },
   "readingPlan": {
     "todayGoal": "Ngayon: {{done}}/{{goal}} kab.",
@@ -2110,7 +2129,9 @@
     "unlike": "Unlike",
     "uploadFile": "Mag-upload ng file",
     "writeAComment": "Magsulat ng komento…",
-    "writeACommentAria": "Magsulat ng komento"
+    "writeACommentAria": "Magsulat ng komento",
+    "failedRsvp": "Hindi na-update ang RSVP.",
+    "failedDeleteEvent": "Hindi nabura ang event."
   },
   "messages": {
     "title": "Mga Mensahe",
@@ -2231,7 +2252,12 @@
       "starredAria": "Mga naka-star na mensahe",
       "starredTip": "Naka-star",
       "typeMessage": "Mag-type ng mensahe"
-    }
+    },
+    "errorBoundary": "Hindi ma-load ang mga mensahe.",
+    "tryAgain": "Subukan muli",
+    "failedDelete": "Hindi nabura ang mensahe.",
+    "failedEdit": "Hindi na-edit ang mensahe.",
+    "failedReaction": "Hindi na-update ang reaksyon."
   },
   "aiCompanion": {
     "title": "AI na Kasama sa Pag-aaral",
@@ -3998,7 +4024,10 @@
     "todayPrefix": "Ngayon: ",
     "donutAria": "{{pct}}% ng Bibliya ay nabasa",
     "chaptersRead": "kabanatang nabasa",
-    "remaining": "natitira"
+    "remaining": "natitira",
+    "planPromptTitle": "Magdagdag ng reading plan",
+    "planPromptMessage": "Sumali sa isang structured plan upang basahin ang buong Bagong Sanlibutang Salin, na may araw-araw na checkpoint.",
+    "planPromptCta": "Tingnan ang mga reading plan"
   },
   "writer": {
     "saved": "Saved",
@@ -5095,5 +5124,34 @@
     "backToHome": "Bumalik sa home",
     "tryFree": "Subukan nang libre, walang sign-up",
     "signUpFree": "Mag-sign up nang libre"
+  },
+  "footer": {
+    "terms": "Mga Tuntunin ng Serbisyo",
+    "privacy": "Patakaran sa Privacy",
+    "support": "Suporta",
+    "termsShort": "Tuntunin",
+    "privacyShort": "Privacy"
+  },
+  "whosOnline": {
+    "title": "Sino ang Online",
+    "seeAll": "Tingnan lahat →",
+    "empty": "Walang aktibo ngayon",
+    "emptySub": "Ibahagi ang iyong progreso sa pagbabasa upang lumitaw dito",
+    "couldNotLoad": "Hindi ma-load ang mga miyembro",
+    "anonymous": "Anonymous"
+  },
+  "friendsWidget": {
+    "title": "Mga Kaibigan",
+    "seeAll": "Tingnan lahat",
+    "empty": "Kumonekta sa kapwa mga estudyante ng Bibliya upang makita ang kanilang aktibidad dito.",
+    "findFriends": "Maghanap ng mga kaibigan →",
+    "unknown": "Hindi kilala"
+  },
+  "heatmap": {
+    "less": "Mas kaunti",
+    "more": "Higit pa"
+  },
+  "createPost": {
+    "addToPost": "Idagdag sa iyong post"
   }
 }

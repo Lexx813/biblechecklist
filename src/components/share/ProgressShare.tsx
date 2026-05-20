@@ -281,7 +281,7 @@ export default function ProgressShare({ stats, onClose, userId }: Props) {
           <Suspense fallback={
             <div className="vp-loading">
               <div className="vp-spinner" />
-              <span>Loading video player…</span>
+              <span>{t("share.loadingVideoPlayer")}</span>
             </div>
           }>
             <VideoPreview userId={userId} />

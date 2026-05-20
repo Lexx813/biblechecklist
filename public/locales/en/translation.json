@@ -467,7 +467,11 @@
     "motiveLine25": "A great start, keep going!",
     "motiveLine50": "Halfway there, you're doing amazing!",
     "motiveLine75": "Almost there, the finish line is in sight!",
-    "motiveLine100": "You've read the entire Bible. Incredible!"
+    "motiveLine100": "You've read the entire Bible. Incredible!",
+    "loadingVideoPlayer": "Loading video player…",
+    "preparingVideo": "Preparing your video…",
+    "loadingPlayer": "Loading player…",
+    "recordHint": "Record your screen to save as a video."
   },
   "admin": {
     "title": "Admin Dashboard",
@@ -1333,10 +1337,11 @@
     "markAllRead": "Mark all read",
     "clearAll": "Clear all",
     "delete": "Delete",
-    "empty": "No notifications yet.",
+    "empty": "No notifications yet",
     "typeReply": "replied to your thread",
     "typeComment": "commented on your post",
-    "typeMention": "mentioned you"
+    "typeMention": "mentioned you",
+    "dropdownTitle": "Notifications"
   },
   "readingPlan": {
     "todayGoal": "Today: {{done}}/{{goal}} chaps",
@@ -2135,7 +2140,9 @@
     "writeAComment": "Write a comment…",
     "writeACommentAria": "Write a comment",
     "send": "Send",
-    "commentsLoading": "Loading…"
+    "commentsLoading": "Loading…",
+    "failedRsvp": "Failed to update RSVP.",
+    "failedDeleteEvent": "Failed to delete event."
   },
   "messages": {
     "title": "Messages",
@@ -2256,7 +2263,12 @@
       "starredAria": "Starred messages",
       "starredTip": "Starred",
       "typeMessage": "Type a message"
-    }
+    },
+    "errorBoundary": "Messages could not be loaded.",
+    "tryAgain": "Try again",
+    "failedDelete": "Failed to delete message.",
+    "failedEdit": "Failed to edit message.",
+    "failedReaction": "Failed to update reaction."
   },
   "aiCompanion": {
     "title": "AI Study Companion",
@@ -3516,5 +3528,34 @@
     "backToHome": "Back to home",
     "tryFree": "Try it free, no signup",
     "signUpFree": "Sign up free"
+  },
+  "footer": {
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "support": "Support",
+    "termsShort": "Terms",
+    "privacyShort": "Privacy"
+  },
+  "whosOnline": {
+    "title": "Who's Online",
+    "seeAll": "See all →",
+    "empty": "No one active right now",
+    "emptySub": "Share your reading progress to show up here",
+    "couldNotLoad": "Could not load members",
+    "anonymous": "Anonymous"
+  },
+  "friendsWidget": {
+    "title": "Friends",
+    "seeAll": "See all",
+    "empty": "Connect with fellow Bible students to see their activity here.",
+    "findFriends": "Find friends →",
+    "unknown": "Unknown"
+  },
+  "heatmap": {
+    "less": "Less",
+    "more": "More"
+  },
+  "createPost": {
+    "addToPost": "Add to your post"
   }
 }

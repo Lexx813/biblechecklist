@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { FriendProfile } from "../../hooks/useFriends";
 import { avatarGradient } from "../../lib/avatarGradient";
 import { fmtDiff } from "../../lib/timeFormat";
@@ -18,11 +19,12 @@ interface Props {
 }
 
 export default function FriendsWidget({ friends, shownFriends, onlineCount, loading, now, navigate }: Props) {
+  const { t } = useTranslation();
   return (
     <div className={widgetCls}>
       <div className="flex items-center justify-between px-4 pb-2 pt-3.5">
         <div className="flex items-center gap-2">
-          <span className="text-base font-bold text-[var(--text-primary)]">Friends</span>
+          <span className="text-base font-bold text-[var(--text-primary)]">{t("friendsWidget.title")}</span>
           {onlineCount > 0 && (
             <span className="flex items-center gap-1 text-[11px] font-semibold text-green-400">
               <span className="inline-block size-1.5 rounded-full bg-green-400" />
@@ -30,7 +32,7 @@ export default function FriendsWidget({ friends, shownFriends, onlineCount, load
             </span>
           )}
         </div>
-        <button className={feedLinkCls} onClick={() => navigate("friends")}>See all</button>
+        <button className={feedLinkCls} onClick={() => navigate("friends")}>{t("friendsWidget.seeAll")}</button>
       </div>
       {loading ? (
         <div className="flex flex-col gap-2 py-1 pb-3">
@@ -46,8 +48,8 @@ export default function FriendsWidget({ friends, shownFriends, onlineCount, load
         </div>
       ) : friends.length === 0 ? (
         <div className="px-4 pb-4 pt-1">
-          <p className="mb-2 text-[13px] text-[var(--text-muted)]">Connect with fellow Bible students to see their activity here.</p>
-          <button className="cursor-pointer border-none bg-none p-0 font-[inherit] text-xs font-bold text-violet-400" style={{ background: "none" }} onClick={() => navigate("friends")}>Find friends →</button>
+          <p className="mb-2 text-[13px] text-[var(--text-muted)]">{t("friendsWidget.empty")}</p>
+          <button className="cursor-pointer border-none bg-none p-0 font-[inherit] text-xs font-bold text-violet-400" style={{ background: "none" }} onClick={() => navigate("friends")}>{t("friendsWidget.findFriends")}</button>
         </div>
       ) : (
         <div className="pb-2">
@@ -65,7 +67,7 @@ export default function FriendsWidget({ friends, shownFriends, onlineCount, load
                   {isOnline && <span className="absolute -bottom-px -right-px size-3 rounded-full border-2 border-[var(--card-bg,var(--bg))] bg-green-400" />}
                 </span>
                 <div className="flex min-w-0 flex-1 flex-col">
-                  <span className="truncate text-sm font-semibold text-[var(--text-primary)]">{f.display_name || "Unknown"}</span>
+                  <span className="truncate text-sm font-semibold text-[var(--text-primary)]">{f.display_name || t("friendsWidget.unknown")}</span>
                   <span className={`text-xs ${isOnline ? "font-semibold text-green-400" : metaCls}`}>{when}</span>
                 </div>
               </div>

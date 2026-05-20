@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { OnlineMember } from "../../hooks/useOnlineMembers";
 import { ONLINE_THRESHOLD_MS } from "../../hooks/useOnlineMembers";
 import { avatarGradient } from "../../lib/avatarGradient";
@@ -17,11 +18,12 @@ interface Props {
 }
 
 export default function WhosOnlineWidget({ members, totalOnline, loading, error, now, navigate }: Props) {
+  const { t } = useTranslation();
   return (
     <div className={widgetCls}>
       <div className="flex items-center justify-between px-4 pb-2.5 pt-3.5">
         <div className="flex items-center gap-2">
-          <span className="text-base font-bold text-[var(--text-primary)]">Who's Online</span>
+          <span className="text-base font-bold text-[var(--text-primary)]">{t("whosOnline.title")}</span>
           {totalOnline > 0 && (
             <span className="flex items-center gap-1 text-[11px] font-semibold text-green-400">
               <span className="inline-block size-1.5 rounded-full bg-green-400" />
@@ -29,7 +31,7 @@ export default function WhosOnlineWidget({ members, totalOnline, loading, error,
             </span>
           )}
         </div>
-        <button className={feedLinkCls} onClick={() => navigate("feed")}>See all →</button>
+        <button className={feedLinkCls} onClick={() => navigate("feed")}>{t("whosOnline.seeAll")}</button>
       </div>
       {loading ? (
         <div className="flex flex-col gap-2.5 py-1 pb-2">
@@ -45,12 +47,12 @@ export default function WhosOnlineWidget({ members, totalOnline, loading, error,
         </div>
       ) : error ? (
         <p style={{ fontSize: 12, color: "var(--text-muted)", padding: "8px 16px", textAlign: "center", margin: 0 }}>
-          Could not load members
+          {t("whosOnline.couldNotLoad")}
         </p>
       ) : members.length === 0 ? (
         <div style={{ padding: "8px 16px 12px", textAlign: "center" }}>
-          <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 4px" }}>No one active right now</p>
-          <p style={{ fontSize: 11, color: "var(--text-muted)", margin: 0, opacity: 0.7 }}>Share your reading progress to show up here</p>
+          <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 4px" }}>{t("whosOnline.empty")}</p>
+          <p style={{ fontSize: 11, color: "var(--text-muted)", margin: 0, opacity: 0.7 }}>{t("whosOnline.emptySub")}</p>
         </div>
       ) : (
         <>
@@ -75,7 +77,7 @@ export default function WhosOnlineWidget({ members, totalOnline, loading, error,
                   {isOnline && <span className="absolute -bottom-px -right-px size-3 rounded-full border-2 border-[var(--card-bg,var(--bg))] bg-green-400" />}
                 </span>
                 <div className="flex min-w-0 flex-1 flex-col">
-                  <span className="truncate text-sm font-semibold text-[var(--text-primary)]">{m.display_name || "Anonymous"}</span>
+                  <span className="truncate text-sm font-semibold text-[var(--text-primary)]">{m.display_name || t("whosOnline.anonymous")}</span>
                   <span className={`text-xs ${isOnline ? "font-semibold text-green-400" : metaCls}`}>{when}</span>
                 </div>
               </div>

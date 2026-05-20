@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useSetRsvp, useRemoveRsvp, useDeleteEvent } from "../../../hooks/useGroups";
 import { GroupEvent } from "../../../api/groups";
 import { toast } from "../../../lib/toast";
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function EventCard({ event, isAdmin, groupId }: Props) {
+  const { t } = useTranslation();
   const setRsvp = useSetRsvp(groupId);
   const removeRsvp = useRemoveRsvp(groupId);
   const deleteEvent = useDeleteEvent(groupId);
@@ -17,9 +19,9 @@ export default function EventCard({ event, isAdmin, groupId }: Props) {
 
   function handleRsvp(status: "going" | "maybe" | "not_going") {
     if (event.my_rsvp === status) {
-      removeRsvp.mutate(event.id, { onError: () => toast.error("Failed to update RSVP.") });
+      removeRsvp.mutate(event.id, { onError: () => toast.error(t("groups.failedRsvp")) });
     } else {
-      setRsvp.mutate({ eventId: event.id, status }, { onError: () => toast.error("Failed to update RSVP.") });
+      setRsvp.mutate({ eventId: event.id, status }, { onError: () => toast.error(t("groups.failedRsvp")) });
     }
   }
 
@@ -33,7 +35,7 @@ export default function EventCard({ event, isAdmin, groupId }: Props) {
         <div className="grp-event-title-row">
           <h4 className="grp-event-title">{event.title}</h4>
           {isAdmin && (
-            <button className="grp-post-delete" onClick={() => deleteEvent.mutate(event.id, { onError: () => toast.error("Failed to delete event.") })} aria-label="Delete event">
+            <button className="grp-post-delete" onClick={() => deleteEvent.mutate(event.id, { onError: () => toast.error(t("groups.failedDeleteEvent")) })} aria-label={t("groups.failedDeleteEvent")}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
             </button>
           )}

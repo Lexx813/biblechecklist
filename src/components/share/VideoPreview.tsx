@@ -8,6 +8,7 @@
  */
 
 import React, { lazy, Suspense, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { ProgressVideoProps } from "../../remotion/ProgressVideo";
 import { supabase } from "../../lib/supabase";
 
@@ -23,6 +24,7 @@ type LoadState =
   | { status: "error"; message: string };
 
 export default function VideoPreview({ userId }: VideoPreviewProps) {
+  const { t } = useTranslation();
   const [state, setState] = useState<LoadState>({ status: "loading" });
 
   useEffect(() => {
@@ -67,7 +69,7 @@ export default function VideoPreview({ userId }: VideoPreviewProps) {
     return (
       <div className="vp-loading">
         <div className="vp-spinner" />
-        <span>Preparing your video…</span>
+        <span>{t("share.preparingVideo")}</span>
       </div>
     );
   }
@@ -82,11 +84,11 @@ export default function VideoPreview({ userId }: VideoPreviewProps) {
 
   return (
     <div className="vp-wrap">
-      <Suspense fallback={<div className="vp-loading"><div className="vp-spinner" /><span>Loading player…</span></div>}>
+      <Suspense fallback={<div className="vp-loading"><div className="vp-spinner" /><span>{t("share.loadingPlayer")}</span></div>}>
         <RemotionPreview props={state.props} />
       </Suspense>
       <p className="vp-hint">
-        Record your screen to save as a video.
+        {t("share.recordHint")}
       </p>
     </div>
   );

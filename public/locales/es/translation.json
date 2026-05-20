@@ -348,7 +348,10 @@
     "resetSetBtn": "Guardar contraseña",
     "resetDoneTitle": "¡Contraseña actualizada!",
     "resetDoneSubtitle": "Tu contraseña ha sido cambiada con éxito.",
-    "resetDoneCta": "Ir a la app"
+    "resetDoneCta": "Ir a la app",
+    "errorDisposableEmail": "Por favor usa un correo electrónico permanente. Los buzones desechables no son compatibles.",
+    "errorAgeConsent": "Por favor confirma tu edad o el consentimiento de tus padres.",
+    "errorTermsAgree": "Por favor acepta los Términos del Servicio y la Política de Privacidad."
   },
   "book": {
     "chapters": "{{count}} capítulos",
@@ -459,7 +462,11 @@
     "motiveLine25": "¡Un gran comienzo: sigue adelante!",
     "motiveLine50": "¡A mitad del camino: lo estás haciendo genial!",
     "motiveLine75": "¡Casi llegas: la meta está a la vista!",
-    "motiveLine100": "¡Has leído toda la Biblia. ¡Increíble!"
+    "motiveLine100": "¡Has leído toda la Biblia. ¡Increíble!",
+    "loadingVideoPlayer": "Cargando reproductor de video…",
+    "preparingVideo": "Preparando tu video…",
+    "loadingPlayer": "Cargando reproductor…",
+    "recordHint": "Graba tu pantalla para guardar como video."
   },
   "admin": {
     "title": "Panel de Administración",
@@ -617,7 +624,14 @@
     "trialActive": "Prueba gratuita activa",
     "subscriptionActive": "Activa: $3 / mes",
     "subscriptionDesc": "Tienes acceso a Planes de Lectura, Notas de Estudio, Mensajes, Grupos de Estudio y el Compañero IA.",
-    "upgradePrompt": "Actualizar a Premium: $3/mes"
+    "upgradePrompt": "Actualizar a Premium: $3/mes",
+    "working": "Trabajando…",
+    "notifPermDenied": "Notificaciones bloqueadas en la configuración del navegador",
+    "privacy": "Privacidad",
+    "showOnline": "Mostrarme en línea",
+    "showOnlineDesc": "Cuando está desactivado, no aparecerás en la lista de Quién está en línea.",
+    "blockedUsers": "Privacidad · Usuarios bloqueados",
+    "noBlocked": "No has bloqueado a nadie."
   },
   "blog": {
     "backToBible": "← App Bíblica",
@@ -1015,7 +1029,11 @@
     "theme21": "La doctrina profunda de Pablo",
     "theme22": "Genealogías y líneas familiares",
     "theme23": "Sacerdotes, levitas y sistema de sacrificios",
-    "theme24": "Profecías mesiánicas y su cumplimiento"
+    "theme24": "Profecías mesiánicas y su cumplimiento",
+    "timedMode": "Modo cronometrado",
+    "masterLevels": "Niveles maestros",
+    "explanation": "Explicación",
+    "newBest": "Nuevo récord"
   },
   "report": {
     "title": "Reportar Contenido",
@@ -1308,10 +1326,11 @@
     "markAllRead": "Marcar todo como leído",
     "clearAll": "Limpiar todo",
     "delete": "Eliminar",
-    "empty": "Sin notificaciones aún.",
+    "empty": "Aún no hay notificaciones",
     "typeReply": "respondió a tu hilo",
     "typeComment": "comentó en tu publicación",
-    "typeMention": "te mencionó"
+    "typeMention": "te mencionó",
+    "dropdownTitle": "Notificaciones"
   },
   "readingPlan": {
     "todayGoal": "Hoy: {{done}}/{{goal}} cap.",
@@ -2110,7 +2129,9 @@
     "writeAComment": "Escribe un comentario…",
     "writeACommentAria": "Escribir un comentario",
     "send": "Enviar",
-    "commentsLoading": "Cargando…"
+    "commentsLoading": "Cargando…",
+    "failedRsvp": "No se pudo actualizar la confirmación.",
+    "failedDeleteEvent": "No se pudo eliminar el evento."
   },
   "messages": {
     "title": "Mensajes",
@@ -2231,7 +2252,12 @@
       "starredAria": "Mensajes destacados",
       "starredTip": "Destacados",
       "typeMessage": "Escribe un mensaje"
-    }
+    },
+    "errorBoundary": "No se pudieron cargar los mensajes.",
+    "tryAgain": "Intentar de nuevo",
+    "failedDelete": "No se pudo eliminar el mensaje.",
+    "failedEdit": "No se pudo editar el mensaje.",
+    "failedReaction": "No se pudo actualizar la reacción."
   },
   "aiCompanion": {
     "title": "Compañero de Estudio IA",
@@ -3998,7 +4024,10 @@
     "searchBooks": "Buscar libros",
     "donutAria": "{{pct}}% de la Biblia leída",
     "chaptersRead": "capítulos leídos",
-    "remaining": "por leer"
+    "remaining": "por leer",
+    "planPromptTitle": "Añade un plan de lectura",
+    "planPromptMessage": "Únete a un plan estructurado para leer toda la Traducción del Nuevo Mundo, con metas diarias.",
+    "planPromptCta": "Ver planes de lectura"
   },
   "writer": {
     "saved": "Guardado",
@@ -5095,5 +5124,34 @@
     "backToHome": "Volver al inicio",
     "tryFree": "Pruébalo gratis, sin registrarte",
     "signUpFree": "Registrarse gratis"
+  },
+  "footer": {
+    "terms": "Términos del servicio",
+    "privacy": "Política de privacidad",
+    "support": "Soporte",
+    "termsShort": "Términos",
+    "privacyShort": "Privacidad"
+  },
+  "whosOnline": {
+    "title": "Quién está en línea",
+    "seeAll": "Ver todo →",
+    "empty": "Nadie activo ahora mismo",
+    "emptySub": "Comparte tu progreso de lectura para aparecer aquí",
+    "couldNotLoad": "No se pudieron cargar los miembros",
+    "anonymous": "Anónimo"
+  },
+  "friendsWidget": {
+    "title": "Amigos",
+    "seeAll": "Ver todo",
+    "empty": "Conecta con otros estudiantes de la Biblia para ver su actividad aquí.",
+    "findFriends": "Buscar amigos →",
+    "unknown": "Desconocido"
+  },
+  "heatmap": {
+    "less": "Menos",
+    "more": "Más"
+  },
+  "createPost": {
+    "addToPost": "Añadir a tu publicación"
   }
 }

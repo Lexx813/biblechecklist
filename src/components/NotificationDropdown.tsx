@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { useNotifications, useMarkNotificationsRead } from "../hooks/useNotifications";
 import "../styles/notification-dropdown.css";
 
@@ -33,6 +34,7 @@ interface Props {
 }
 
 export default function NotificationDropdown({ userId, onClose, navigate }: Props) {
+  const { t } = useTranslation();
   const { data: notifications = [] } = useNotifications(userId);
   const markAll = useMarkNotificationsRead(userId);
   const markRead = useMarkNotificationsRead(userId);
@@ -124,27 +126,27 @@ export default function NotificationDropdown({ userId, onClose, navigate }: Prop
       <div
         className="notif-dropdown"
         role="dialog"
-        aria-label="Notifications"
+        aria-label={t("notifications.dropdownTitle")}
         aria-modal="true"
         ref={panelRef}
         tabIndex={-1}
       >
         <div className="notif-header">
-          <span className="notif-title">Notifications</span>
+          <span className="notif-title">{t("notifications.dropdownTitle")}</span>
           {unreadCount > 0 && (
             <button
               className="notif-mark-all"
               onClick={() => markAll.mutate("all")}
               disabled={markAll.isPending}
             >
-              Mark all read
+              {t("notifications.markAllRead")}
             </button>
           )}
         </div>
 
         <div className="notif-list">
           {notifications.length === 0 ? (
-            <div className="notif-empty">No notifications yet</div>
+            <div className="notif-empty">{t("notifications.empty")}</div>
           ) : (
             notifications.map((n) => (
               <div

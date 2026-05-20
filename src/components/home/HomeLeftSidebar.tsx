@@ -187,9 +187,9 @@ export default function HomeLeftSidebar({
       )}
 
       <div className="mt-auto px-1 pt-3 pb-1 text-[12px] leading-[1.8] text-(--text-muted)">
-        <a href="/privacy" className="text-(--text-muted) no-underline transition-colors hover:text-(--text-secondary) hover:underline">Privacy</a>
+        <a href="/privacy" className="text-(--text-muted) no-underline transition-colors hover:text-(--text-secondary) hover:underline">{t("footer.privacyShort")}</a>
         <span className="mx-1 opacity-40">&middot;</span>
-        <a href="/terms" className="text-(--text-muted) no-underline transition-colors hover:text-(--text-secondary) hover:underline">Terms</a>
+        <a href="/terms" className="text-(--text-muted) no-underline transition-colors hover:text-(--text-secondary) hover:underline">{t("footer.termsShort")}</a>
         <span className="mx-1 opacity-40">&middot;</span>
         <span className="mt-0.5 inline-block">&copy; {new Date().getFullYear()} JW Study</span>
         <span className="mx-1 opacity-40">&middot;</span>

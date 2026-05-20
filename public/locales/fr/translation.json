@@ -348,7 +348,10 @@
     "resetSetBtn": "Enregistrer le mot de passe",
     "resetDoneTitle": "Mot de passe mis à jour !",
     "resetDoneSubtitle": "Votre mot de passe a été modifié avec succès.",
-    "resetDoneCta": "Aller à l'app"
+    "resetDoneCta": "Aller à l'app",
+    "errorDisposableEmail": "Veuillez utiliser une adresse e-mail permanente. Les boîtes jetables ne sont pas prises en charge.",
+    "errorAgeConsent": "Veuillez confirmer votre âge ou le consentement parental.",
+    "errorTermsAgree": "Veuillez accepter les Conditions d'utilisation et la Politique de confidentialité."
   },
   "book": {
     "chapters": "{{count}} chapitres",
@@ -459,7 +462,11 @@
     "motiveLine25": "Un excellent début : continuez !",
     "motiveLine50": "À mi-chemin : vous êtes fantastique !",
     "motiveLine75": "Presque là : la ligne d'arrivée est en vue !",
-    "motiveLine100": "Vous avez lu toute la Bible. Incroyable !"
+    "motiveLine100": "Vous avez lu toute la Bible. Incroyable !",
+    "loadingVideoPlayer": "Chargement du lecteur vidéo…",
+    "preparingVideo": "Préparation de votre vidéo…",
+    "loadingPlayer": "Chargement du lecteur…",
+    "recordHint": "Enregistrez votre écran pour l'enregistrer en vidéo."
   },
   "admin": {
     "title": "Tableau de bord Admin",
@@ -617,7 +624,14 @@
     "trialActive": "Essai gratuit actif",
     "subscriptionActive": "Actif : 3 $ / mois",
     "subscriptionDesc": "Vous avez accès aux Plans de Lecture, Notes d'Étude, Messages, Groupes d'Étude et au Compagnon IA.",
-    "upgradePrompt": "Passer à Premium : 3 $/mois"
+    "upgradePrompt": "Passer à Premium : 3 $/mois",
+    "working": "Traitement…",
+    "notifPermDenied": "Notifications bloquées dans les paramètres du navigateur",
+    "privacy": "Confidentialité",
+    "showOnline": "Me montrer en ligne",
+    "showOnlineDesc": "Lorsque désactivé, vous n'apparaîtrez pas dans la liste « Qui est en ligne ».",
+    "blockedUsers": "Confidentialité · Utilisateurs bloqués",
+    "noBlocked": "Vous n'avez bloqué personne."
   },
   "blog": {
     "backToBible": "← Application Biblique",
@@ -1015,7 +1029,11 @@
     "theme33": "Géographie biblique",
     "theme34": "Les femmes de la Bible",
     "theme35": "Enseignements doctrinaux clés",
-    "theme36": "Thèmes et liens bibliques"
+    "theme36": "Thèmes et liens bibliques",
+    "timedMode": "Mode chronométré",
+    "masterLevels": "Niveaux maîtres",
+    "explanation": "Explication",
+    "newBest": "Nouveau record"
   },
   "report": {
     "title": "Signaler un Contenu",
@@ -1308,10 +1326,11 @@
     "markAllRead": "Tout marquer comme lu",
     "clearAll": "Tout effacer",
     "delete": "Supprimer",
-    "empty": "Pas encore de notifications.",
+    "empty": "Aucune notification pour le moment",
     "typeReply": "a répondu à votre fil",
     "typeComment": "a commenté votre article",
-    "typeMention": "vous a mentionné"
+    "typeMention": "vous a mentionné",
+    "dropdownTitle": "Notifications"
   },
   "readingPlan": {
     "todayGoal": "Aujourd'hui : {{done}}/{{goal}} chap.",
@@ -2110,7 +2129,9 @@
     "unlike": "Je n'aime plus",
     "uploadFile": "Téléverser un fichier",
     "writeAComment": "Écris un commentaire…",
-    "writeACommentAria": "Écrire un commentaire"
+    "writeACommentAria": "Écrire un commentaire",
+    "failedRsvp": "Échec de la mise à jour de la réponse.",
+    "failedDeleteEvent": "Échec de la suppression de l'événement."
   },
   "messages": {
     "title": "Messages",
@@ -2231,7 +2252,12 @@
       "starredAria": "Messages favoris",
       "starredTip": "Favoris",
       "typeMessage": "Saisis un message"
-    }
+    },
+    "errorBoundary": "Impossible de charger les messages.",
+    "tryAgain": "Réessayer",
+    "failedDelete": "Échec de la suppression du message.",
+    "failedEdit": "Échec de la modification du message.",
+    "failedReaction": "Échec de la mise à jour de la réaction."
   },
   "aiCompanion": {
     "title": "Compagnon d'Étude IA",
@@ -3998,7 +4024,10 @@
     "todayPrefix": "Aujourd'hui : ",
     "donutAria": "{{pct}}% de la Bible lue",
     "chaptersRead": "chapitres lus",
-    "remaining": "restants"
+    "remaining": "restants",
+    "planPromptTitle": "Ajouter un plan de lecture",
+    "planPromptMessage": "Rejoignez un plan structuré pour lire toute la Traduction du monde nouveau, avec des points quotidiens.",
+    "planPromptCta": "Voir les plans de lecture"
   },
   "writer": {
     "saved": "Saved",
@@ -5095,5 +5124,34 @@
     "backToHome": "Retour à l’accueil",
     "tryFree": "Essai gratuit, sans inscription",
     "signUpFree": "S’inscrire gratuitement"
+  },
+  "footer": {
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité",
+    "support": "Support",
+    "termsShort": "Conditions",
+    "privacyShort": "Confidentialité"
+  },
+  "whosOnline": {
+    "title": "Qui est en ligne",
+    "seeAll": "Voir tout →",
+    "empty": "Personne d'actif pour le moment",
+    "emptySub": "Partagez votre progression de lecture pour apparaître ici",
+    "couldNotLoad": "Impossible de charger les membres",
+    "anonymous": "Anonyme"
+  },
+  "friendsWidget": {
+    "title": "Amis",
+    "seeAll": "Voir tout",
+    "empty": "Connectez-vous avec d'autres étudiants de la Bible pour voir leur activité ici.",
+    "findFriends": "Trouver des amis →",
+    "unknown": "Inconnu"
+  },
+  "heatmap": {
+    "less": "Moins",
+    "more": "Plus"
+  },
+  "createPost": {
+    "addToPost": "Ajouter à votre publication"
   }
 }

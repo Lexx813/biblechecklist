@@ -1351,16 +1351,16 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
                   key={item.id}
                   msg={item}
                   isMine={item.sender_id === user.id}
-                  onDelete={id => deleteMessage.mutate(id, { onError: () => toast.error("Failed to delete message.") })}
+                  onDelete={id => deleteMessage.mutate(id, { onError: () => toast.error(t("messages.failedDelete")) })}
                   onReply={msg => setReplyTo(msg)}
                   onEdit={(id, content, onDone, onFail) =>
-                    editMessage.mutate({ messageId: id, content }, { onSuccess: onDone, onError: () => { onFail(); toast.error("Failed to edit message."); } })
+                    editMessage.mutate({ messageId: id, content }, { onSuccess: onDone, onError: () => { onFail(); toast.error(t("messages.failedEdit")); } })
                   }
                   showSeen={item.id === lastSeenId}
                   reactions={reactions}
                   userId={user.id}
-                  onToggleReaction={(messageId, emoji) => toggleReaction.mutate({ messageId, userId: user.id, emoji }, { onError: () => toast.error("Failed to update reaction.") })}
-                  onStar={id => toggleStar.mutate(id, { onError: () => toast.error("Failed to update star.") })}
+                  onToggleReaction={(messageId, emoji) => toggleReaction.mutate({ messageId, userId: user.id, emoji }, { onError: () => toast.error(t("messages.failedReaction")) })}
+                  onStar={id => toggleStar.mutate(id, { onError: () => toast.error(t("messages.failedUpdateStar")) })}
                   allMessages={allDecrypted}
                   navigate={navigate}
                   position={computePosition(allDecrypted, allDecrypted.findIndex(m => m.id === item.id))}

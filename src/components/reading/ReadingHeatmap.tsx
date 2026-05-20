@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import "../../styles/reading-plan.css";
 
 function getLevel(chapters: number, goal: number) {
@@ -28,6 +29,7 @@ interface Props {
 }
 
 export default function ReadingHeatmap({ data = [], dailyGoal = 3 }: Props) {
+  const { t } = useTranslation();
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
 
   const showTooltip = useCallback((target: HTMLElement, cell: HeatmapDay) => {
@@ -113,11 +115,11 @@ export default function ReadingHeatmap({ data = [], dailyGoal = 3 }: Props) {
           ))}
         </div>
         <div className="heatmap-legend">
-          <span>Less</span>
+          <span>{t("heatmap.less")}</span>
           {[0, 1, 2, 3].map(l => (
             <div key={l} className="heatmap-cell heatmap-cell--legend" data-level={l} />
           ))}
-          <span>More</span>
+          <span>{t("heatmap.more")}</span>
         </div>
       </div>
 
