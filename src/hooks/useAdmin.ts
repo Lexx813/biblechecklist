@@ -5,6 +5,7 @@ import { blogApi } from "../api/blog";
 import { forumApi } from "../api/forum";
 import { quizApi } from "../api/quiz";
 import { supabase } from "../lib/supabase";
+import { aggregateUserTotals, topUserIdsByCost } from "../utils/aiUsageAggregation";
 
 export function useProfile(userId: string | null | undefined) {
   return useQuery({
@@ -261,7 +262,7 @@ export function useAIUsage(days = 30) {
       const totalMessages = rows.length;
       const totalCost     = rows.reduce((s, r) => s + Number(r.cost_usd), 0);
       const totalTokens   = rows.reduce((s, r) => s + r.input_tokens + r.output_tokens, 0);
-      const uniqueUsers   = new Set(rows.map(r => r.user_id)).size;
+      const uniqueUsers   = new Set(rows.map(r => r.user_id).filter((id): id is string => !!id)).size;
 
       // Messages per day
       const byDay: Record<string, number> = {};
@@ -294,19 +295,11 @@ export function useAIUsage(days = 30) {
         .slice(0, 8)
         .map(([page, count]) => ({ page, count }));
 
-      // Top users by cost — surfaces who's burning tokens fastest
-      const userTotals = new Map<string, { messages: number; tokens: number; cost: number }>();
-      for (const r of rows) {
-        const cur = userTotals.get(r.user_id) ?? { messages: 0, tokens: 0, cost: 0 };
-        cur.messages += 1;
-        cur.tokens   += r.input_tokens + r.output_tokens;
-        cur.cost     += Number(r.cost_usd);
-        userTotals.set(r.user_id, cur);
-      }
-      const topUserIds = [...userTotals.entries()]
-        .sort(([, a], [, b]) => b.cost - a.cost)
-        .slice(0, 10)
-        .map(([id]) => id);
+      // Top users by cost — surfaces who's burning tokens fastest.
+      // Skips rows whose user_id was nulled by the ON DELETE SET NULL FK — passing
+      // null into `.in("id", …)` on profiles makes PostgREST fail uuid parsing.
+      const userTotals = aggregateUserTotals(rows);
+      const topUserIds = topUserIdsByCost(userTotals);
 
       // Batch-fetch profiles for the top 10
       type ProfileRow = { id: string; display_name: string | null; email: string | null };
