@@ -203,13 +203,13 @@ export const friendsApi = {
   },
 
   getInviterByToken: async (token: string): Promise<ProfileBasic | null> => {
-    const { data, error } = await supabase
-      .from("invite_tokens")
-      .select("user_id, profiles:user_id(id, display_name, avatar_url)")
-      .eq("token", token)
-      .single();
+    // `invite_tokens` is no longer publicly readable — the public SELECT
+    // policy let anyone enumerate every token. Resolve via SECURITY DEFINER RPC.
+    const { data, error } = await supabase.rpc("resolve_invite", { p_token: token });
     if (error || !data) return null;
-    return data.profiles as unknown as ProfileBasic;
+    const row = Array.isArray(data) ? data[0] : data;
+    if (!row) return null;
+    return row as unknown as ProfileBasic;
   },
 
   processInviteSignup: async (token: string) => {
@@ -219,25 +219,12 @@ export const friendsApi = {
     const inviter = await friendsApi.getInviterByToken(token);
     if (!inviter || inviter.id === user.id) return;
 
-    const { data: inviterProfile } = await supabase
-      .from("profiles")
-      .select("subscription_status, is_admin")
-      .eq("id", inviter.id)
-      .single();
-
-    const inviterIsPremium =
-      inviterProfile?.is_admin ||
-      ["active","trialing"].includes(inviterProfile?.subscription_status ?? "");
-
-    const { data: myProfile } = await supabase
-      .from("profiles")
-      .select("subscription_status, is_admin")
-      .eq("id", user.id)
-      .single();
-
-    const myIsPremium =
-      myProfile?.is_admin ||
-      ["active","trialing"].includes(myProfile?.subscription_status ?? "");
+    // `subscription_status` SELECT grant is revoked from authenticated; the
+    // RPC returns the boolean derived server-side. is_admin grant is intact.
+    const [{ data: inviterIsPremium }, { data: myIsPremium }] = await Promise.all([
+      supabase.rpc("user_has_premium", { p_user_id: inviter.id }),
+      supabase.rpc("user_has_premium", { p_user_id: user.id }),
+    ]);
 
     const { error: reqErr } = await supabase
       .from("friend_requests")

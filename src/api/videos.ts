@@ -206,10 +206,22 @@ export const videosApi = {
   adminListCreatorRequests: async (): Promise<CreatorRequest[]> => {
     const { data, error } = await supabase
       .from("creator_requests")
-      .select("*, profiles!user_id(display_name, email, created_at)")
+      .select("*, profiles!user_id(display_name, created_at)")
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
-    return (data ?? []) as CreatorRequest[];
+    const rows = (data ?? []) as Array<CreatorRequest & { user_id?: string; profiles?: { display_name?: string | null; email?: string | null; created_at?: string | null } | null }>;
+    const ids = rows.map(r => r.user_id).filter((v): v is string => !!v);
+    if (ids.length === 0) return rows;
+    const { data: emails } = await supabase.rpc("admin_get_user_emails", { p_user_ids: ids });
+    const emailMap = new Map(((emails ?? []) as Array<{ id: string; email: string | null }>).map(e => [e.id, e.email]));
+    return rows.map(r => ({
+      ...r,
+      profiles: {
+        display_name: r.profiles?.display_name ?? null,
+        created_at: r.profiles?.created_at ?? null,
+        email: r.user_id ? (emailMap.get(r.user_id) ?? null) : null,
+      },
+    })) as CreatorRequest[];
   },
 
   adminSetCreatorApproval: async (userId: string, approved: boolean) => {

@@ -26,7 +26,7 @@ function initials(email: string | null | undefined) {
   return email ? email[0].toUpperCase() : "?";
 }
 
-function exportUsersCSV(users: Array<Record<string, unknown>>) {
+function exportUsersCSV(users: ReadonlyArray<Record<string, unknown> | object>) {
   const headers = ["Email", "Display Name", "Joined", "Role", "Subscription", "Banned", "Can Blog"];
   const rows = users.map((u: any) => [
     u.email ?? "",

@@ -125,8 +125,8 @@ export async function POST(req: Request) {
     body: buffer,
   });
   if (!uploadRes.ok) {
-    const err = await uploadRes.text();
-    return jsonResponse({ error: err || "Audio upload failed" }, uploadRes.status);
+    console.error("[admin/songs]", await uploadRes.text());
+    return jsonResponse({ error: "Audio upload failed" }, uploadRes.status);
   }
 
   // Insert row
@@ -155,13 +155,13 @@ export async function POST(req: Request) {
     body: JSON.stringify(row),
   });
   if (!insertRes.ok) {
-    const err = await insertRes.text();
+    console.error("[admin/songs]", await insertRes.text());
     // Best-effort cleanup of the orphan audio object
     fetch(`${SUPABASE.url}/storage/v1/object/songs/${path}`, {
       method: "DELETE",
       headers: SERVICE_HEADERS,
     }).catch(() => {});
-    return jsonResponse({ error: err || "Insert failed" }, insertRes.status);
+    return jsonResponse({ error: "Insert failed" }, insertRes.status);
   }
   const inserted = (await insertRes.json()) as Array<{ id: string }>;
   return jsonResponse({ id: inserted[0]?.id ?? null });

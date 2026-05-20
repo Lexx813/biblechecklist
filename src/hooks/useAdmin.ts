@@ -301,14 +301,12 @@ export function useAIUsage(days = 30) {
       const userTotals = aggregateUserTotals(rows);
       const topUserIds = topUserIdsByCost(userTotals);
 
-      // Batch-fetch profiles for the top 10
+      // Batch-fetch profiles for the top 10. Email column SELECT is revoked
+      // from authenticated; admin RPC bypasses safely with is_admin() check.
       type ProfileRow = { id: string; display_name: string | null; email: string | null };
       let profiles: ProfileRow[] = [];
       if (topUserIds.length) {
-        const { data: profData } = await supabase
-          .from("profiles")
-          .select("id, display_name, email")
-          .in("id", topUserIds);
+        const { data: profData } = await supabase.rpc("admin_get_user_emails", { p_user_ids: topUserIds });
         profiles = (profData as ProfileRow[]) ?? [];
       }
       const profileMap = new Map(profiles.map((p) => [p.id, p]));

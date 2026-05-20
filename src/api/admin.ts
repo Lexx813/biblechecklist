@@ -32,6 +32,24 @@ export interface AdminComment {
   blog_posts: { title: string; slug: string } | null;
 }
 
+// Shape returned by the admin_list_users / admin_get_profile RPCs. Mirrors the
+// full `profiles` row — those RPCs are SECURITY DEFINER gated on is_admin().
+export interface AdminProfileRow {
+  id: string;
+  email: string | null;
+  display_name: string | null;
+  avatar_url: string | null;
+  is_admin: boolean | null;
+  is_moderator: boolean | null;
+  is_banned: boolean | null;
+  can_blog: boolean | null;
+  is_approved_creator: boolean | null;
+  subscription_status: string | null;
+  stripe_subscription_id: string | null;
+  stripe_customer_id: string | null;
+  created_at: string | null;
+}
+
 export interface AdminAuditEntry {
   id: string;
   action: string;
@@ -43,24 +61,20 @@ export interface AdminAuditEntry {
 }
 
 export const adminApi = {
-  getProfile: async (userId: string) => {
-    const { data, error } = await supabase
-      .from("profiles")
-      .select("id, email, is_admin, is_moderator, can_blog, is_banned, created_at")
-      .eq("id", userId)
-      .maybeSingle();
+  // Both reads go through SECURITY DEFINER RPCs that re-check is_admin() —
+  // direct column SELECT on email / stripe_* / subscription_status is revoked
+  // for `authenticated` to stop a PII dump.
+  getProfile: async (userId: string): Promise<AdminProfileRow | null> => {
+    const { data, error } = await supabase.rpc("admin_get_profile", { p_user_id: userId });
     if (error) throw new Error(error.message);
-    return data;
+    if (!data) return null;
+    return (Array.isArray(data) ? data[0] : data) as AdminProfileRow;
   },
 
-  listUsers: async () => {
-    const { data, error } = await supabase
-      .from("profiles")
-      .select("id, email, display_name, is_admin, is_moderator, can_blog, is_banned, created_at, subscription_status, stripe_subscription_id")
-      .order("created_at", { ascending: false })
-      .limit(1000);
+  listUsers: async (): Promise<AdminProfileRow[]> => {
+    const { data, error } = await supabase.rpc("admin_list_users", { p_limit: 1000 });
     if (error) throw new Error(error.message);
-    return data ?? [];
+    return (data ?? []) as AdminProfileRow[];
   },
 
   deleteUser: async (userId: string) => {
@@ -157,13 +171,29 @@ export const adminApi = {
   },
 
   listAuditLog: async ({ limit = 100, offset = 0 }: { limit?: number; offset?: number } = {}): Promise<AdminAuditEntry[]> => {
-    const { data, error } = await supabase
-      .from("admin_audit_log")
-      .select("id, action, target_id, target_email, metadata, created_at, actor:actor_id(display_name, email)")
-      .order("created_at", { ascending: false })
-      .range(offset, offset + limit - 1);
+    const { data, error } = await supabase.rpc("admin_list_audit_log", { p_limit: limit, p_offset: offset });
     if (error) throw new Error(error.message);
-    return (data ?? []) as unknown as AdminAuditEntry[];
+    type Row = {
+      id: string;
+      action: string;
+      target_id: string | null;
+      target_email: string | null;
+      metadata: Record<string, unknown> | null;
+      created_at: string;
+      actor_display_name: string | null;
+      actor_email: string | null;
+    };
+    return ((data ?? []) as Row[]).map((r) => ({
+      id: r.id,
+      action: r.action,
+      target_id: r.target_id,
+      target_email: r.target_email,
+      metadata: r.metadata,
+      created_at: r.created_at,
+      actor: r.actor_email || r.actor_display_name
+        ? { display_name: r.actor_display_name, email: r.actor_email }
+        : null,
+    }));
   },
 };
 
@@ -463,18 +493,20 @@ export const analyticsApi = {
     if (ranked.length === 0) return [];
 
     const ids = ranked.map(r => r.user_id);
-    const { data: profs } = await supabase
-      .from("profiles")
-      .select("id, display_name, email, avatar_url")
-      .in("id", ids);
+    // Enrich with email via admin RPC; `profiles.email` SELECT is revoked.
+    const [{ data: profs }, { data: emails }] = await Promise.all([
+      supabase.from("profiles").select("id, display_name, avatar_url").in("id", ids),
+      supabase.rpc("admin_get_user_emails", { p_user_ids: ids }),
+    ]);
     const profMap = new Map((profs ?? []).map(p => [p.id as string, p]));
+    const emailMap = new Map(((emails ?? []) as Array<{ id: string; email: string | null }>).map(e => [e.id, e.email]));
 
     return ranked.map(r => {
       const p = profMap.get(r.user_id);
       return {
         user_id: r.user_id,
         display_name: (p?.display_name as string | null) ?? null,
-        email: (p?.email as string | null) ?? null,
+        email: emailMap.get(r.user_id) ?? null,
         avatar_url: (p?.avatar_url as string | null) ?? null,
         count: r.count,
         last_activity: r.last_activity,

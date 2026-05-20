@@ -12,7 +12,12 @@
  *
  * Required secrets:
  *   RESEND_API_KEY            — from resend.com
- *   MESSAGE_EMAIL_SECRET      — must equal 'msg-email-7f3a9c2d1b8e4f6a' (set in trigger)
+ *   MESSAGE_EMAIL_SECRET      — random string shared with the DB trigger /
+ *                                webhook config in Supabase Studio. Rotate via
+ *                                `supabase secrets set MESSAGE_EMAIL_SECRET=...`
+ *                                and update the trigger's `x-webhook-secret`
+ *                                header to match. Treat the prior committed
+ *                                value as compromised.
  *   SUPABASE_URL              — auto-injected
  *   SUPABASE_SERVICE_ROLE_KEY — auto-injected
  */

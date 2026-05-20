@@ -32,14 +32,16 @@ export interface ProfileSearchResult {
 }
 
 export const profileApi = {
-  get: async (userId: string): Promise<Profile | null> => {
-    const { data, error } = await supabase
-      .from("profiles")
-      .select("id, email, is_admin, is_moderator, can_blog, is_approved_creator, display_name, avatar_url, cover_url, created_at, reading_goal_date, bio, subscription_status, email_notifications_blog, email_notifications_digest, email_notifications_streak, terms_accepted_at, show_online, referred_by")
-      .eq("id", userId)
-      .maybeSingle();
+  // Reads the caller's own full profile via SECURITY DEFINER RPC. The PII
+  // columns (email, subscription_status, email_notifications_*, ...) have
+  // their column SELECT grant revoked from `authenticated`, so a direct
+  // `.from("profiles").select("email, ...")` would 403. The RPC is gated by
+  // `auth.uid()` server-side, so callers can't read someone else's profile.
+  get: async (_userId: string): Promise<Profile | null> => {
+    const { data, error } = await supabase.rpc("get_own_profile");
     if (error) throw new Error(error.message);
-    return data as Profile | null;
+    if (!data) return null;
+    return (Array.isArray(data) ? data[0] : data) as Profile;
   },
 
   acceptTerms: async (userId: string): Promise<void> => {
