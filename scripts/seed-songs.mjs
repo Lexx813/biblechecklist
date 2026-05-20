@@ -26,7 +26,10 @@ import { createClient } from "@supabase/supabase-js";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-const VAULT_DIR = "/mnt/c/Users/alexi/OneDrive/jwstudy-vault/songs/en";
+const VAULT_ROOT = "/mnt/c/Users/alexi/OneDrive/jwstudy-vault/songs";
+const VAULT_DIR = `${VAULT_ROOT}/en`;
+// Spanish songs live under songs/es/; per-song `audioDir` field overrides.
+const vaultDirFor = (meta) => `${VAULT_ROOT}/${meta.audioDir || "en"}`;
 
 // --- Load .env.local if present ---
 try {
@@ -353,6 +356,56 @@ const SONGS = [
     ],
   },
   {
+    slug: "revelation-eighteen",
+    title: "Revelation Eighteen",
+    title_es: null,
+    file: "Revelation Eighteen",
+    duration_seconds: 240,
+    primary_scripture_ref: "Revelation 18:4",
+    primary_scripture_text:
+      "And I heard another voice out of heaven say: \"Get out of her, my people, if you do not want to share with her in her sins, and if you do not want to receive part of her plagues.\"",
+    primary_scripture_text_es: null,
+    theme: "identity",
+    description:
+      "A trap-gospel anthem on the disciple's identity — \"no part of the world\" as Jesus prayed in John 17:16. The hook stacks three scriptures in four bars: John 17:16, James 4:4 (\"friendship with the world is enmity with God\"), and Revelation 18:4 (\"Get out of her, my people\"). Verse 1 walks through the choice to leave the system and stand on Jehovah's name (Psalm 83:18), refusing to love the world per 1 John 2:15. Verse 2 turns to the body as Jehovah's temple (1 Corinthians 6:19) and the daily ministry — house to house like Acts 20:20, preaching the Kingdom per Matthew 28:19. The bridge strips down to 808 and vocal — \"Jehovah, my rock, my fortress / I'm not from here, I'm passing through.\"",
+    description_es: null,
+    cover_image_url: null,
+    jw_org_links: [
+      { url: "https://www.jw.org/en/library/bible/nwt/books/revelation/18/", anchor: "Read Revelation 18, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/john/17/", anchor: "Read John 17, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/james/4/", anchor: "Read James 4, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/1-john/2/", anchor: "Read 1 John 2, New World Translation" },
+      { url: "https://www.jw.org/en/jehovahs-witnesses/", anchor: "Who are Jehovah's Witnesses?" },
+      { url: "https://hub.jw.org/request-visit", anchor: "Request a visit from Jehovah's Witnesses" },
+    ],
+  },
+  {
+    slug: "juan-diecisiete",
+    title: "Juan Diecisiete",
+    title_es: "Juan Diecisiete",
+    file: "Juan Diecisiete",
+    audioDir: "es",
+    duration_seconds: 240,
+    primary_scripture_ref: "Juan 17:16",
+    primary_scripture_text:
+      "Ellos no son parte del mundo, así como tampoco yo soy parte del mundo.",
+    primary_scripture_text_es:
+      "Ellos no son parte del mundo, así como tampoco yo soy parte del mundo.",
+    theme: "identity",
+    description:
+      "A bilingual trap-gospel anthem built on John 17:16 — \"They are no part of the world, just as I am no part of the world.\" The hook chants \"No soy de este mundo\" over a sparse beat, then Verse 1 walks through the daily refusal in Spanish (the street, the flesh, the body as Jehovah's temple per 1 Corinthians 6:19, the Kingdom near per Matthew 24). Verse 2 flips to English, citing 1 John 2:15-16 (\"don't love the world or the things in it\"), Romans 12:2 (\"don't conform\"), and Revelation 18 (Babylon falling). The bridge alternates the same confession in both languages — \"Jehová, mi roca, mi escudo / Jehovah, my rock, my refuge\" — the same identity, two tongues.",
+    description_es:
+      "Un himno trap-gospel bilingüe anclado en Juan 17:16 — \"Ellos no son parte del mundo, así como tampoco yo soy parte del mundo.\" El hook canta \"No soy de este mundo\" sobre un beat escaso, y luego el Verso 1 recorre la negativa diaria en español (la calle, la carne, el cuerpo como templo de Jehová según 1 Corintios 6:19, el Reino cerca según Mateo 24). El Verso 2 cambia al inglés, citando 1 Juan 2:15-16, Romanos 12:2 y Apocalipsis 18 (Babilonia cayendo). El puente alterna la misma confesión en ambos idiomas — \"Jehová, mi roca, mi escudo / Jehovah, my rock, my refuge\" — la misma identidad, dos lenguas.",
+    cover_image_url: null,
+    jw_org_links: [
+      { url: "https://www.jw.org/es/biblioteca/biblia/nwt/libros/juan/17/", anchor: "Lee Juan 17, Traducción del Nuevo Mundo" },
+      { url: "https://www.jw.org/es/biblioteca/biblia/nwt/libros/santiago/4/", anchor: "Lee Santiago 4, Traducción del Nuevo Mundo" },
+      { url: "https://www.jw.org/es/biblioteca/biblia/nwt/libros/1-juan/2/", anchor: "Lee 1 Juan 2, Traducción del Nuevo Mundo" },
+      { url: "https://www.jw.org/es/testigos-de-jehova/", anchor: "¿Quiénes son los testigos de Jehová?" },
+      { url: "https://hub.jw.org/request-visit", anchor: "Solicita una visita de los testigos de Jehová" },
+    ],
+  },
+  {
     slug: "comforter",
     title: "Comforter",
     title_es: null,
@@ -468,9 +521,9 @@ function parseLyricsFromMd(mdText) {
 // Storage upload
 // ──────────────────────────────────────────────────────────────────
 
-async function uploadAudio(slug, file) {
+async function uploadAudio(slug, file, audioDir) {
   const path = `${slug}/audio.mp3`;
-  const localPath = `${VAULT_DIR}/${file}.mp3`;
+  const localPath = `${VAULT_ROOT}/${audioDir || "en"}/${file}.mp3`;
   const bytes = readFileSync(localPath);
 
   const { error } = await supabase.storage
@@ -549,7 +602,7 @@ async function main() {
   console.log(`${dryRun ? "[DRY RUN] " : ""}Seeding ${targets.length} song(s)...`);
 
   for (const meta of targets) {
-    const mdPath = `${VAULT_DIR}/${meta.file}.md`;
+    const mdPath = `${vaultDirFor(meta)}/${meta.file}.md`;
     const md = readFileSync(mdPath, "utf8");
     const lyrics = parseLyricsFromMd(md);
     const sectionSummary = lyrics.sections
@@ -564,7 +617,7 @@ async function main() {
       continue;
     }
 
-    const audioPath = await uploadAudio(meta.slug, meta.file);
+    const audioPath = await uploadAudio(meta.slug, meta.file, meta.audioDir);
     console.log(`  uploaded:  ${audioPath}`);
     const coverUrl = await uploadCoverIfPresent(meta.slug);
     if (coverUrl) {

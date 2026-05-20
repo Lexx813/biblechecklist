@@ -22,11 +22,16 @@ main:has(.msg-layout) {
   flex-direction: column;
 }
 
-/* On mobile, messages takes the full viewport — hide the app topbar so the
-   chat list / thread own the safe-area-inset-top, and the X / back button
+/* On true mobile, messages takes the full viewport — hide the app topbar so
+   the chat list / thread own the safe-area-inset-top, and the X / back button
    in the messages header sits below the iPhone Dynamic Island. The mobile
-   tab bar and AI bubble are already hidden on this route in AuthedApp. */
-@media (max-width: 1100px) {
+   tab bar and AI bubble are already hidden on this route in AuthedApp.
+
+   Gated at 640px (same point the layout collapses to single-column), NOT
+   1100px. At tablet widths (641–1100px) the topbar stays visible so users
+   still have a way to navigate out of /messages — otherwise both the topbar
+   AND any back button are absent and they're stranded. */
+@media (max-width: 640px) {
   body:has(.msg-layout) .topbar { display: none; }
   main:has(.msg-layout) {
     height: 100dvh;
