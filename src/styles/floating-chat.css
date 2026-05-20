@@ -1134,7 +1134,10 @@
 
   .fc-fab {
     position: fixed;
-    bottom: 80px;
+    /* Sit 28px above the bottom tab bar (matching the AI bubble's stacking
+       math), so on iPhone Pro Max the FAB lifts above the home indicator
+       instead of getting pinned to a flat 80px from the viewport bottom. */
+    bottom: calc(var(--mobile-tabbar-h, 72px) + 28px);
     right: 24px;
   }
 

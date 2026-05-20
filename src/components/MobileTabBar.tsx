@@ -5,7 +5,10 @@ import { useFriendRequests } from "../hooks/useFriends";
 import MobileMoreSheet from "./MobileMoreSheet";
 
 const tabBarClassName =
-  "fixed inset-x-0 bottom-0 z-[200] hidden min-h-[var(--mobile-tabbar-h)] items-center gap-1 border-t border-[rgba(138,75,255,0.15)] bg-[var(--bg-elevated)] px-2 pt-2 pb-[max(8px,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(0,0,0,0.24)] max-[1100px]:flex";
+  // bg-[var(--card-bg)] gives an opaque surface that flips with the theme.
+  // Previously bg-[var(--bg-elevated)] resolved to nothing (the token is never
+  // defined globally), which left the bar transparent over the page content.
+  "fixed inset-x-0 bottom-0 z-[200] hidden min-h-[var(--mobile-tabbar-h)] items-center gap-1 border-t border-[rgba(138,75,255,0.15)] bg-[var(--card-bg)] px-2 pt-2 pb-[max(8px,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(0,0,0,0.24)] max-[1100px]:flex";
 
 const tabItemBaseClassName =
   "relative flex min-h-[54px] min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-[3px] rounded-lg border-0 bg-transparent px-0.5 py-1 font-[inherit] text-[var(--text-muted)] transition-colors hover:text-[var(--text-secondary)]";
