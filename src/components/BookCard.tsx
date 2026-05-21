@@ -1,6 +1,7 @@
 import { memo, useState, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { BOOK_INFO } from "../data/bookInfo";
+import { VERSE_COUNTS } from "../data/verseCounts";
 import { wolChapterUrl, wolRefUrl, jwLibraryChapterUrl, jwOrgBibleUrl } from "../utils/wol";
 
 
@@ -36,9 +37,12 @@ interface BookCardProps {
   readers?: BookReader[];
   initialOpen?: boolean;
   onNavigateToStudy?: (bookIndex: number) => void;
+  isCurrent?: boolean;
+  currentChapter?: number | null;
+  todayChapters?: number[];
 }
 
-const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, versesState, onToggleChapter, onToggleBook, onOpenChapterModal, notes = [], onAddNote, onDeleteNote, userId, readers = [], initialOpen = false, onNavigateToStudy }: BookCardProps) {
+const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapterTimestamps = {}, versesState, onToggleChapter, onToggleBook, onOpenChapterModal, notes = [], onAddNote, onDeleteNote, userId, readers = [], initialOpen = false, onNavigateToStudy, isCurrent = false, currentChapter = null, todayChapters = [] }: BookCardProps) {
   const [open, setOpen] = useState(initialOpen);
   const [showInfo, setShowInfo] = useState(false);
   // Rect captured at pointerdown, before Chrome focus-scrolls the element
@@ -53,6 +57,7 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
   const pct = total > 0 ? Math.round((done / total) * 100) : 0;
   const remaining = total - done;
   const nearDone = !allDone && remaining <= 5 && done > 0;
+  const status = allDone ? "complete" : partial ? "in-progress" : "not-started";
 
   const bookName = t(`bookNames.${bookIndex}`, book.name);
   const bookAbbr = t(`bookAbbrs.${bookIndex}`, book.abbr);
@@ -74,16 +79,33 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
   }, [notes]);
 
   return (
-    <div className={`book-card${allDone ? " fully-done" : ""}${open ? " book-card--open" : ""}`} data-book-index={bookIndex}>
+    <div className={`book-card book-card--${status}${allDone ? " fully-done" : ""}${open ? " book-card--open" : ""}${isCurrent ? " book-card--current" : ""}`} data-book-index={bookIndex}>
       <div className="book-row" onClick={() => setOpen(o => !o)} role="button" tabIndex={0} aria-expanded={open}>
         <div className="book-num">
-          {allDone ? (
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
-          ) : bookIndex + 1}
+          {bookIndex + 1}
         </div>
+        {allDone && (
+          <span className="book-complete-badge" aria-hidden="true">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </span>
+        )}
         <div className="book-title-wrap" style={{ flex: 1, minWidth: 0 }}>
           <div className="book-name">{bookName}</div>
           <div className="book-abbr">{bookAbbr} · {t("book.chapters", { count: total })}</div>
+          <div className="book-state-line">
+            {isCurrent && currentChapter ? (
+              <span className="book-state-chip book-state-chip--current">{t("book.currentChapter", "Continue ch. {{chapter}}", { chapter: currentChapter })}</span>
+            ) : allDone ? (
+              <span className="book-state-chip book-state-chip--complete">{t("book.complete", "Complete")}</span>
+            ) : partial ? (
+              <span className="book-state-chip">{t("book.inProgress", "In progress")}</span>
+            ) : (
+              <span className="book-state-chip book-state-chip--quiet">{t("book.notStarted", "Not started")}</span>
+            )}
+            <span className="book-state-count">{done}/{total}</span>
+          </div>
         </div>
         <div className="book-meta">
           <div className="book-ch-count">{nearDone ? t("book.chaptersLeft", { count: remaining }) : `${done}/${total}`}</div>
@@ -253,16 +275,20 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
               const isDone = !!chaptersState[bookIndex]?.[ch];
               const readVerses = versesState?.[bookIndex]?.[ch] ?? [];
               const isPartial = !isDone && readVerses.length > 0;
+              const isTodayChapter = todayChapters.includes(ch);
+              const totalVerses = VERSE_COUNTS[bookIndex]?.[ch - 1] ?? 0;
               const chNotes = notesByChapter.get(ch);
               const hasNote = chNotes?.length > 0;
               const readDate = isDone ? formatReadDate(chapterTimestamps[ch]) : null;
               const tooltipParts = [];
               if (readDate) tooltipParts.push(`✓ ${readDate}`);
+              if (isPartial && totalVerses > 0) tooltipParts.push(`${readVerses.length}/${totalVerses} verses`);
               if (hasNote) tooltipParts.push(chNotes.map(n => n.content).join(" · "));
               const tooltipText = tooltipParts.length ? tooltipParts.join("\n") : null;
-              const pillClass = `ch-pill${isDone ? " done" : isPartial ? " partial" : ""}${hasNote ? " has-note" : ""}`;
+              const pillClass = `ch-pill${isDone ? " done" : isPartial ? " partial" : ""}${hasNote ? " has-note" : ""}${isTodayChapter ? " ch-pill--today" : ""}`;
               return (
                 <div key={ch} className={pillClass}>
+                  {isTodayChapter && <span className="ch-pill-today-mark" aria-hidden="true" />}
                   <button
                     className="ch-pill-toggle"
                     onPointerDown={e => {
@@ -281,6 +307,9 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
                   >
                     {ch}
                   </button>
+                  {isPartial && totalVerses > 0 && (
+                    <span className="ch-pill-progress" aria-hidden="true">{readVerses.length}/{totalVerses}</span>
+                  )}
                   {tooltipText && (
                     <span className="ch-pill-tooltip">{tooltipText}</span>
                   )}

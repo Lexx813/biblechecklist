@@ -8,9 +8,19 @@ import { KNOWN_SPA_ROUTES } from "../../src/lib/spaRoutes";
 import { safeJsonLd } from "../../src/lib/safeJsonLd";
 
 const BASE = "https://jwstudy.org";
+// Off-screen positioning beats the 1×1 + clip pattern: iOS Safari still
+// allows horizontal touch panning over content clipped that way (nowrap anchors
+// inside report 1000+px right edges), which manifests as the page "moving"
+// horizontally on iPhone even though scrollWidth equals clientWidth in desktop
+// devtools. Position -10000px left so the contents are nowhere a touch can
+// reach. Crawlers parse DOM regardless of CSS positioning.
 const SEO_HIDE = {
-  position: "absolute" as const, width: 1, height: 1,
-  overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" as const,
+  position: "absolute" as const,
+  left: "-10000px",
+  top: "auto" as const,
+  width: 1,
+  height: 1,
+  overflow: "hidden",
 };
 
 function bookToSlug(name: string) {

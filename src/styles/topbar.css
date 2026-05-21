@@ -9,7 +9,7 @@
      globally so the padding is included in the height. */
   height: var(--topbar-h, 52px);
   padding: env(safe-area-inset-top, 0) 16px 0;
-  background: var(--bg-elevated, #100c1e);
+  background: var(--card-bg);
   border-bottom: 1px solid rgba(138, 75, 255, 0.12);
   display: grid;
   grid-template-columns: 220px 1fr 244px;

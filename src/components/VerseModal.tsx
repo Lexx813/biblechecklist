@@ -152,7 +152,9 @@ export default function VerseModal({
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
-            {isChapterDone ? "Chapter Complete · Undo" : "Mark Chapter Complete"}
+            {isChapterDone
+              ? t("verseModal.chapterCompleteUndo", "Chapter complete, undo")
+              : t("verseModal.markChapterComplete", "Mark chapter complete")}
           </button>
           <a
             className="vm-ai-btn"
@@ -163,12 +165,12 @@ export default function VerseModal({
               <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
               <path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14z"/>
             </svg>
-            Ask AI about this chapter
+            {t("verseModal.askAi", "Ask AI about this chapter")}
           </a>
         </div>
 
         {/* Divider */}
-        <div className="vm-divider"><span>or select verses</span></div>
+        <div className="vm-divider"><span>{t("verseModal.selectVersesDivider", "or select verses")}</span></div>
 
         {/* Secondary actions */}
         <div className="vm-sec-row">
@@ -176,13 +178,13 @@ export default function VerseModal({
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <polyline points="20 6 9 17 4 12"/>
             </svg>
-            Select all
+            {t("verseModal.selectAll", "Select all")}
           </button>
           <button className="vm-sec-btn vm-sec-btn--danger" onClick={onClearAll}>
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>
             </svg>
-            Clear
+            {t("common.clear", "Clear")}
           </button>
         </div>
 

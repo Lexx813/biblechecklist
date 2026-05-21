@@ -40,11 +40,17 @@ export default function ReadingHistory({ user, onBack, navigate, darkMode, setDa
   const { t } = useTranslation();
   const { data: history = [], isLoading } = useReadingHistory(user?.id);
 
-  const { groups, totalDays, totalChapters, longestDay } = useMemo(() => {
-    if (!history.length) return { groups: [], totalDays: 0, totalChapters: 0, longestDay: 0 };
+  const { groups, totalDays, totalChapters, longestDay, last7Chapters, activeThisWeek } = useMemo(() => {
+    if (!history.length) return { groups: [], totalDays: 0, totalChapters: 0, longestDay: 0, last7Chapters: 0, activeThisWeek: 0 };
 
     const totalChapters = history.reduce((s, r) => s + r.chapters_read, 0);
     const longestDay = Math.max(...history.map(r => r.chapters_read));
+    const weekStart = new Date();
+    weekStart.setHours(0, 0, 0, 0);
+    weekStart.setDate(weekStart.getDate() - 6);
+    const recentRows = history.filter(r => new Date(r.date + "T12:00:00") >= weekStart);
+    const last7Chapters = recentRows.reduce((s, r) => s + r.chapters_read, 0);
+    const activeThisWeek = recentRows.length;
 
     const monthMap = new Map();
     for (const row of history) {
@@ -59,7 +65,7 @@ export default function ReadingHistory({ user, onBack, navigate, darkMode, setDa
       entries: rows,
     }));
 
-    return { groups, totalDays: history.length, totalChapters, longestDay };
+    return { groups, totalDays: history.length, totalChapters, longestDay, last7Chapters, activeThisWeek };
   }, [history]);
 
   return (
@@ -74,26 +80,38 @@ export default function ReadingHistory({ user, onBack, navigate, darkMode, setDa
         </div>
 
         {!isLoading && history.length > 0 && (
-          <div className="history-summary">
-            <div className="history-summary-chip">
-              <span className="history-summary-value">{totalDays}</span>
-              <span className="history-summary-label">{t("history.daysRead")}</span>
+          <>
+            <div className="history-rhythm">
+              <div>
+                <span className="history-rhythm-kicker">{t("history.rhythm", "Reading rhythm")}</span>
+                <strong>{t("history.weekRhythm", "{{days}} days this week", { days: activeThisWeek })}</strong>
+                <p>{t("history.weekChapters", "{{chapters}} chapters logged in the last 7 days", { chapters: last7Chapters })}</p>
+              </div>
+              <button className="history-continue-btn" onClick={() => navigate("main")}>
+                {t("checklist.continueReading", "Continue reading")}
+              </button>
             </div>
-            <div className="history-summary-chip">
-              <span className="history-summary-value">{totalChapters}</span>
-              <span className="history-summary-label">{t("history.chaptersLogged")}</span>
+            <div className="history-summary">
+              <div className="history-summary-chip">
+                <span className="history-summary-value">{totalDays}</span>
+                <span className="history-summary-label">{t("history.daysRead")}</span>
+              </div>
+              <div className="history-summary-chip">
+                <span className="history-summary-value">{totalChapters}</span>
+                <span className="history-summary-label">{t("history.chaptersLogged")}</span>
+              </div>
+              <div className="history-summary-chip">
+                <span className="history-summary-value">{longestDay}</span>
+                <span className="history-summary-label">{t("history.bestDay")}</span>
+              </div>
+              <div className="history-summary-chip">
+                <span className="history-summary-value">
+                  {history.length > 0 ? (totalChapters / totalDays).toFixed(1) : "-"}
+                </span>
+                <span className="history-summary-label">{t("history.avgPerDay")}</span>
+              </div>
             </div>
-            <div className="history-summary-chip">
-              <span className="history-summary-value">{longestDay}</span>
-              <span className="history-summary-label">{t("history.bestDay")}</span>
-            </div>
-            <div className="history-summary-chip">
-              <span className="history-summary-value">
-                {history.length > 0 ? (totalChapters / totalDays).toFixed(1) : "-"}
-              </span>
-              <span className="history-summary-label">{t("history.avgPerDay")}</span>
-            </div>
-          </div>
+          </>
         )}
 
         {isLoading ? (
@@ -103,6 +121,9 @@ export default function ReadingHistory({ user, onBack, navigate, darkMode, setDa
             <div className="history-empty-icon">📅</div>
             <div className="history-empty-text">{t("history.empty")}</div>
             <div className="history-empty-sub">{t("history.emptySub")}</div>
+            <button className="history-continue-btn history-continue-btn--empty" onClick={() => navigate("main")}>
+              {t("checklist.continueReading", "Continue reading")}
+            </button>
           </div>
         ) : (
           <div className="history-timeline">

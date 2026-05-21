@@ -58,7 +58,7 @@ export const PLAN_TEMPLATES = [
   {
     key: "nwt-1-year",
     name: "NWT in 1 Year",
-    description: "Read the entire New World Translation — all 66 books — in 365 days.",
+    description: "Read the entire New World Translation, all 66 books, in 365 days.",
     icon: "📖",
     totalDays: 365,
     difficulty: "Dedicated",
@@ -80,7 +80,7 @@ export const PLAN_TEMPLATES = [
   {
     key: "ot-1-year",
     name: "Hebrew Scriptures in 1 Year",
-    description: "Journey through all 39 books of the Hebrew Scriptures over the course of a year.",
+    description: "Read all 39 books of the Hebrew Scriptures over the course of a year.",
     icon: "📜",
     totalDays: 365,
     difficulty: "Moderate",
@@ -126,7 +126,7 @@ export const PLAN_TEMPLATES = [
   {
     key: "nwt-90-days",
     name: "Intensive: Bible in 90 Days",
-    description: "Cover all 66 books in just 90 days — the ultimate reading challenge for dedicated readers.",
+    description: "Cover all 66 books in 90 days with a steady, focused schedule.",
     icon: "⚡",
     totalDays: 90,
     difficulty: "Dedicated",
@@ -138,7 +138,7 @@ export const PLAN_TEMPLATES = [
   {
     key: "wisdom-lit-90",
     name: "Wisdom Literature in 90 Days",
-    description: "Immerse yourself in Job, Psalms, Proverbs, Ecclesiastes, and Song of Solomon — the poetry and wisdom of the Bible.",
+    description: "Read Job, Psalms, Proverbs, Ecclesiastes, and Song of Solomon, the poetry and wisdom of the Bible.",
     icon: "🦉",
     totalDays: 90,
     difficulty: "Easy",
@@ -150,7 +150,7 @@ export const PLAN_TEMPLATES = [
   {
     key: "pauls-letters-30",
     name: "Paul's Letters in 30 Days",
-    description: "Dive deep into all 13 letters of the apostle Paul — from Romans to Philemon — in one focused month.",
+    description: "Read all 13 letters of the apostle Paul, from Romans to Philemon, in one focused month.",
     icon: "✉️",
     totalDays: 30,
     difficulty: "Moderate",
@@ -162,7 +162,7 @@ export const PLAN_TEMPLATES = [
   {
     key: "minor-prophets-30",
     name: "Minor Prophets in 30 Days",
-    description: "Explore all 12 Minor Prophets — from Hosea to Malachi — in a powerful 30-day journey.",
+    description: "Read all 12 Minor Prophets, from Hosea to Malachi, in a focused 30-day plan.",
     icon: "🌿",
     totalDays: 30,
     difficulty: "Easy",

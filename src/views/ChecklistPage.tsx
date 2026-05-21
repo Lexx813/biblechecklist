@@ -17,7 +17,7 @@ import { progressApi } from "../api/progress";
 import { useNotes, useCreateNote, useDeleteNote } from "../hooks/useNotes";
 import { readingApi } from "../api/reading";
 import { toast } from "../lib/toast";
-import { useMyPlans } from "../hooks/useReadingPlans";
+import { useMyPlans, useMarkDay, useUnmarkDay, usePlanCompletions } from "../hooks/useReadingPlans";
 import { getTemplateOrCustom, generateSchedule } from "../data/readingPlanTemplates";
 
 export default function ChecklistPage({ user, profile, navigate, darkMode, setDarkMode, i18n, onLogout, openBook, openChapter }: { user: any; profile: any; navigate: any; darkMode: any; setDarkMode: any; i18n: any; onLogout: any; openBook?: number; openChapter?: number }) {
@@ -65,20 +65,23 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   const [deepLinkHandled, setDeepLinkHandled] = useState(false);
   const [progressFilter, setProgressFilter] = useState<"all" | "in-progress" | "not-started" | "done">("all");
 
-  // Active plan for Continue Reading CTA
+  // Active plan for the primary reading action
   const { data: plans = [] } = useMyPlans();
   const activePlan = plans.find((p: any) => !p.is_paused && !p.completed_at) ?? null;
-  const todayReading = useMemo(() => {
-    if (!activePlan) return null;
-    const tpl = getTemplateOrCustom(activePlan);
-    if (!tpl) return null;
-    const sched = generateSchedule(tpl.bookIndices, tpl.totalDays);
+  const activeTemplate = useMemo(() => activePlan ? getTemplateOrCustom(activePlan) : null, [activePlan]);
+  const todayPlan = useMemo(() => {
+    if (!activePlan || !activeTemplate) return null;
+    const sched = generateSchedule(activeTemplate.bookIndices, activeTemplate.totalDays);
     const start = new Date((activePlan as any).start_date + "T00:00:00");
     const rawDay = Math.floor((Date.now() - start.getTime()) / 86400000) + 1;
     const pausedDays = (activePlan as any).paused_days ?? 0;
-    const day = Math.max(1, Math.min(rawDay - pausedDays, tpl.totalDays));
-    return sched[day - 1]?.readings?.[0] ?? null;
-  }, [activePlan]);
+    const day = Math.max(1, Math.min(rawDay - pausedDays, activeTemplate.totalDays));
+    const readings = sched[day - 1]?.readings ?? [];
+    return { day, readings };
+  }, [activePlan, activeTemplate]);
+  const { data: activePlanCompletions = [] } = usePlanCompletions(activePlan?.id);
+  const markPlanDay = useMarkDay(activePlan?.id, user.id, activeTemplate?.totalDays);
+  const unmarkPlanDay = useUnmarkDay(activePlan?.id);
 
   // Scroll to a book card and open its chapter modal
   const scrollToChapter = useCallback((bookIdx: number, chapter: number) => {
@@ -144,6 +147,22 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   }, [chaptersState, versesState, initialized]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleToggleChapter = (bi, ch) => {
+    const willRead = !chaptersState[bi]?.[ch];
+    const isTodayPlanReading = !!todayPlan?.readings?.some(r => r.bookIndex === bi && r.chapter === ch);
+    const todayPlanAlreadyDone = activePlanCompletions.some((c: any) => c.day_number === todayPlan?.day);
+    const wouldCompleteTodayPlan = !!todayPlan?.readings?.length && todayPlan.readings.every(r => {
+      if (r.bookIndex === bi && r.chapter === ch) return willRead;
+      return !!chaptersState[r.bookIndex]?.[r.chapter];
+    });
+
+    if (activePlan && todayPlan && isTodayPlanReading) {
+      if (willRead && wouldCompleteTodayPlan && !todayPlanAlreadyDone) {
+        markPlanDay.mutate(todayPlan.day, { onError: () => toast.error("Chapter saved, but the reading-plan day did not update.") });
+      } else if (!willRead && todayPlanAlreadyDone) {
+        unmarkPlanDay.mutate(todayPlan.day, { onError: () => toast.error("Chapter updated, but the reading-plan day did not update.") });
+      }
+    }
+
     setChaptersState(prev => {
       const wasRead = !!prev[bi]?.[ch];
       scheduleLog(wasRead ? -1 : 1);
@@ -168,6 +187,19 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
     const allDone = done === total;
     const val = forceValue !== undefined ? forceValue : !allDone;
     const delta = val ? total - done : -done;
+    const affectsTodayPlan = !!todayPlan?.readings?.some(r => r.bookIndex === bi);
+    const todayPlanAlreadyDone = activePlanCompletions.some((c: any) => c.day_number === todayPlan?.day);
+    const wouldCompleteTodayPlan = !!todayPlan?.readings?.length && todayPlan.readings.every(r => {
+      if (r.bookIndex === bi) return val;
+      return !!chaptersState[r.bookIndex]?.[r.chapter];
+    });
+    if (activePlan && todayPlan && affectsTodayPlan) {
+      if (val && wouldCompleteTodayPlan && !todayPlanAlreadyDone) {
+        markPlanDay.mutate(todayPlan.day, { onError: () => toast.error("Book saved, but the reading-plan day did not update.") });
+      } else if (!val && todayPlanAlreadyDone) {
+        unmarkPlanDay.mutate(todayPlan.day, { onError: () => toast.error("Book updated, but the reading-plan day did not update.") });
+      }
+    }
     if (delta !== 0) scheduleLog(delta);
     setChaptersState(prev => {
       const chs = {};
@@ -189,7 +221,16 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
     if (!verseModal) return;
     const { bookIndex: bi, chapter: ch } = verseModal;
     const wasRead = !!chaptersState[bi]?.[ch];
+    const isTodayPlanReading = !!todayPlan?.readings?.some(r => r.bookIndex === bi && r.chapter === ch);
+    const todayPlanAlreadyDone = activePlanCompletions.some((c: any) => c.day_number === todayPlan?.day);
     if (!wasRead) {
+      const wouldCompleteTodayPlan = !!todayPlan?.readings?.length && todayPlan.readings.every(r => {
+        if (r.bookIndex === bi && r.chapter === ch) return true;
+        return !!chaptersState[r.bookIndex]?.[r.chapter];
+      });
+      if (activePlan && todayPlan && isTodayPlanReading && wouldCompleteTodayPlan && !todayPlanAlreadyDone) {
+        markPlanDay.mutate(todayPlan.day, { onError: () => toast.error("Chapter saved, but the reading-plan day did not update.") });
+      }
       // Mark complete + clear verse data
       scheduleLog(1);
       progressApi.markChapterRead(user.id, bi, ch);
@@ -207,6 +248,9 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
       });
       setVerseModal(null);
     } else {
+      if (activePlan && todayPlan && isTodayPlanReading && todayPlanAlreadyDone) {
+        unmarkPlanDay.mutate(todayPlan.day, { onError: () => toast.error("Chapter updated, but the reading-plan day did not update.") });
+      }
       // Undo complete
       scheduleLog(-1);
       progressApi.unmarkChapterRead(user.id, bi, ch);
@@ -278,6 +322,23 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
   }, [chaptersState]);
 
   const pct = totalCh > 0 ? (doneCh / totalCh * 100).toFixed(1) : "0.0";
+  const planDayDone = activePlanCompletions.some((c: any) => c.day_number === todayPlan?.day);
+  const nextUnread = useMemo(() => {
+    for (let bi = 0; bi < BOOKS.length; bi++) {
+      for (let ch = 1; ch <= BOOKS[bi].chapters; ch++) {
+        if (!chaptersState[bi]?.[ch]) return { bookIndex: bi, chapter: ch };
+      }
+    }
+    return null;
+  }, [chaptersState]);
+  const todayReading = useMemo(() => {
+    if (todayPlan?.readings?.length) {
+      return todayPlan.readings.find(r => !chaptersState[r.bookIndex]?.[r.chapter]) ?? todayPlan.readings[0];
+    }
+    return nextUnread;
+  }, [todayPlan, chaptersState, nextUnread]);
+  const continueSource = todayPlan?.readings?.length ? "plan" : nextUnread ? "next" : "complete";
+  const todayPlanLabel = todayPlan?.readings?.map(r => `${BOOKS[r.bookIndex]?.name ?? r.bookName} ${r.chapter}`).join(", ") ?? "";
 
   // Index notes by book for O(1) lookup per BookCard
   const notesByBook = useMemo(() => {
@@ -360,8 +421,8 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
             <>
               <div className="cl-progress-hero">
                 <div className="cl-progress-hero-top">
-                  <span className="cl-section-label">{t("checklist.bibleProgress")}</span>
-                  <span className="cl-overall-pct">{pct}%</span>
+                  <span className="cl-section-label">{t("checklist.bibleProgress", "Bible progress")}</span>
+                  <span className="cl-overall-pct">{doneCh}/{totalCh}</span>
                 </div>
                 <div className="cl-prog-row">
                   <span className="cl-prog-label">{t("checklist.oldTestament")}</span>
@@ -375,13 +436,76 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
                 </div>
               </div>
 
-              {activePlan && todayReading && (
-                <div className="cl-plan-widget">
-                  <div className="cl-plan-widget-top">
-                    <span className="cl-plan-name">{(activePlan as any).template_id ?? t("checklist.defaultPlanName")}</span>
-                    <button className="cl-plan-open" onClick={() => navigate("readingPlans")}>{t("checklist.openArrow")}</button>
+              <div className={`cl-today-card cl-today-card--${continueSource}`}>
+                <div className="cl-today-main">
+                  <span className="cl-section-label">
+                    {continueSource === "plan"
+                      ? t("checklist.todaysReading", "Today's reading")
+                      : continueSource === "next"
+                      ? t("checklist.nextReading", "Next reading")
+                      : t("checklist.allRead", "All chapters complete")}
+                  </span>
+                  <h2 className="cl-today-title">
+                    {todayReading
+                      ? `${BOOKS[todayReading.bookIndex]?.name ?? todayReading.bookName} ${todayReading.chapter}`
+                      : t("checklist.completeTitle", "Full Bible complete")}
+                  </h2>
+                  <p className="cl-today-sub">
+                    {continueSource === "plan"
+                      ? planDayDone
+                        ? t("checklist.planDayDone", "Today's plan reading is marked complete.")
+                        : todayPlanLabel
+                      : continueSource === "next"
+                      ? t("checklist.noPlanContinue", "No active plan needed. Keep going from the next unread chapter.")
+                      : t("checklist.completeSub", "Every chapter is marked read. You can review history or start a fresh plan.")}
+                  </p>
+                </div>
+                <div className="cl-today-actions">
+                  {todayReading ? (
+                    <button
+                      className="cl-primary-reading-btn"
+                      onClick={() => scrollToChapter(todayReading.bookIndex, todayReading.chapter)}
+                    >
+                      <span aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                        </svg>
+                      </span>
+                      {t("checklist.continueReading", "Continue reading")}
+                    </button>
+                  ) : (
+                    <button className="cl-primary-reading-btn" onClick={() => navigate("history")}>
+                      {t("history.viewBtn", "View history")}
+                    </button>
+                  )}
+                  <button className="cl-secondary-reading-btn" onClick={() => navigate("readingPlans")}>
+                    {activePlan ? t("checklist.openPlan", "Open plan") : t("checklist.startReadingPlan", "Start a plan")}
+                  </button>
+                  <button className="cl-secondary-reading-btn" onClick={() => setShowShare(true)}>
+                    {t("share.shareBtn", "Share")}
+                  </button>
+                </div>
+                {continueSource === "plan" && todayPlan?.readings?.length > 1 && (
+                  <div className="cl-today-chips" aria-label={t("checklist.todaysReadings", "Today's readings")}>
+                    {todayPlan.readings.map(r => {
+                      const isDone = !!chaptersState[r.bookIndex]?.[r.chapter];
+                      return (
+                        <button
+                          key={`${r.bookIndex}-${r.chapter}`}
+                          className={`cl-today-chip${isDone ? " cl-today-chip--done" : ""}`}
+                          onClick={() => scrollToChapter(r.bookIndex, r.chapter)}
+                        >
+                          {r.bookAbbr} {r.chapter}
+                        </button>
+                      );
+                    })}
                   </div>
-                  <p className="cl-plan-today">{t("checklist.todayPrefix")}{BOOKS[todayReading.bookIndex]?.name} {todayReading.chapter}</p>
+                )}
+              </div>
+              {!activePlan && nextUnread && (
+                <div className="cl-plan-nudge">
+                  <span>{t("checklist.planNudge", "Want a schedule? Reading plans can pace the same tracker without locking you in.")}</span>
+                  <button onClick={() => navigate("readingPlans")}>{t("checklist.browsePlans", "Browse plans")}</button>
                 </div>
               )}
 
@@ -460,59 +584,6 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
           </div>
         </div>
 
-        {/* Progress hero */}
-        <div className="tracker-hero">
-          <div className="tracker-donut-wrap">
-            <div
-              className="tracker-donut"
-              style={{ ["--fill" as string]: `${pct}%` }}
-              role="img"
-              aria-label={t("checklist.donutAria", "{{pct}}% of the Bible read", { pct })}
-            >
-              <div className="tracker-donut-inner">{Math.round(parseFloat(String(pct)))}%</div>
-            </div>
-          </div>
-          <div className="tracker-hero-info">
-            <div className="tracker-hero-counts">
-              <strong>{doneCh}</strong> {t("checklist.chaptersRead", "chapters read")} · <strong>{totalCh - doneCh}</strong> {t("checklist.remaining", "remaining")}
-            </div>
-            {todayReading ? (
-              <button
-                className="tracker-continue-btn"
-                onClick={() => scrollToChapter(todayReading.bookIndex, todayReading.chapter)}
-              >
-                <span aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                  </svg>
-                </span>
-                <span>
-                  <span className="tracker-continue-label">{t("checklist.continueReading")}</span>
-                  <span className="tracker-continue-title">
-                    {BOOKS[todayReading.bookIndex]?.name} {todayReading.chapter}
-                  </span>
-                </span>
-                <span style={{ marginLeft: "auto" }}>→</span>
-              </button>
-            ) : (
-              <button
-                className="tracker-continue-btn"
-                onClick={() => navigate("readingPlans")}
-              >
-                <span aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-                  </svg>
-                </span>
-                <span>
-                  <span className="tracker-continue-label">{t("checklist.noActivePlan")}</span>
-                  <span className="tracker-continue-title">{t("checklist.startReadingPlanArrow")}</span>
-                </span>
-              </button>
-            )}
-          </div>
-        </div>
-
         <div className="tracker-stats">
           <div className={`tracker-stat-card${doneBooks === 66 ? " tracker-stat-card--complete" : ""}`}>
             <span className="tracker-stat-label">{t("app.statBooks")}</span>
@@ -567,10 +638,6 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
           <ReadingPlanWidget userId={user.id} dailyGoal={profile?.daily_chapter_goal ?? 3} chaptersRead={doneCh} totalChapters={totalCh} compact />
         </div>
         <div style={{ padding: "4px 16px 12px", display: "flex", justifyContent: "flex-end", gap: 8 }}>
-          <button className="quick-action-btn" onClick={() => setShowShare(true)}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-            {t("share.shareBtn")}
-          </button>
           <button className="quick-action-btn" onClick={() => navigate("history")}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             {t("history.viewBtn")}
@@ -603,6 +670,9 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
           {initialized && filteredBooks.map((book) => {
             const showOTDivider = tab === "all" && book.index === 0 && !search;
             const showNTDivider = tab === "all" && book.index === OT_COUNT && !search;
+            const todayChaptersForBook = todayPlan?.readings
+              ?.filter(r => r.bookIndex === book.index)
+              .map(r => r.chapter) ?? [];
             return (
               <React.Fragment key={book.index}>
                 {showOTDivider && <div className="testament-divider">{t("app.testamentOT")}</div>}
@@ -623,6 +693,9 @@ export default function ChecklistPage({ user, profile, navigate, darkMode, setDa
                   readers={bookReaders[book.index] ?? []}
                   initialOpen={openBook === book.index}
                   onNavigateToStudy={(idx) => navigate("bookDetail", { bookIndex: idx })}
+                  isCurrent={todayReading?.bookIndex === book.index}
+                  currentChapter={todayReading?.bookIndex === book.index ? todayReading.chapter : null}
+                  todayChapters={todayChaptersForBook}
                 />
               </React.Fragment>
             );
