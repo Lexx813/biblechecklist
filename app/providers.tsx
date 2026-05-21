@@ -102,6 +102,7 @@ function SideEffects() {
               "Network request failed",
               "Failed to fetch",
               "Unable to preload CSS",
+              /Lock "lock:sb-[^"]*-auth-token" was released because another request stole it/,
             ],
             beforeSend(event) {
               if (event.request?.url) {
