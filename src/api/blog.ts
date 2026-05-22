@@ -43,11 +43,36 @@ interface BlogPostUpdates {
   [key: string]: unknown;
 }
 
-const generateSlug = (title: string): string =>
+const SLUG_MAX_LEN = 80;
+
+const slugifyTitle = (title: string): string =>
   title.toLowerCase()
     .replace(/[^a-z0-9\s]/g, "")
     .trim()
-    .replace(/\s+/g, "-") + "-" + Date.now().toString(36);
+    .replace(/\s+/g, "-")
+    .slice(0, SLUG_MAX_LEN)
+    .replace(/-+$/, "");
+
+// Generate a clean, SEO-friendly slug from the title and resolve collisions
+// by appending an integer suffix (-2, -3, ...). The previous implementation
+// unconditionally appended Date.now().toString(36), which produced
+// "ai-farm"-looking URLs like `/blog/...-mo4oxdap` and dragged crawler trust.
+const generateSlug = async (title: string): Promise<string> => {
+  const base = slugifyTitle(title) || "post";
+  const { data: existing } = await supabase
+    .from("blog_posts")
+    .select("slug")
+    .like("slug", `${base}%`);
+  const taken = new Set((existing ?? []).map((r) => r.slug));
+  if (!taken.has(base)) return base;
+  for (let i = 2; i < 1000; i++) {
+    const candidate = `${base}-${i}`.slice(0, SLUG_MAX_LEN);
+    if (!taken.has(candidate)) return candidate;
+  }
+  // Fallback — extremely unlikely (>1000 collisions on same title). Use a
+  // short random suffix rather than the full ms timestamp.
+  return `${base}-${Math.random().toString(36).slice(2, 6)}`.slice(0, SLUG_MAX_LEN);
+};
 
 export const blogApi = {
   listPublished: async (lang: string | null = null): Promise<BlogPost[]> => {
@@ -124,11 +149,12 @@ export const blogApi = {
 
   create: async (userId: string, post: BlogPostInput) => {
     assertNoPII(post.title, post.excerpt ?? "", post.content ?? "");
+    const slug = await generateSlug(post.title);
     const { data, error } = await supabase
       .from("blog_posts")
       .insert({
         author_id: userId,
-        slug: generateSlug(post.title),
+        slug,
         title: post.title,
         excerpt: post.excerpt ?? null,
         content: post.content ?? null,

@@ -189,7 +189,12 @@ export default async function BlogPostPage({ params }) {
           ? post.content.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length
           : undefined,
         url: `${BASE}/blog/${post.slug}`,
-        image: post.cover_url || `${BASE}/blog/${post.slug}/opengraph-image`,
+        image: {
+          "@type": "ImageObject",
+          url: post.cover_url || `${BASE}/blog/${post.slug}/opengraph-image`,
+          width: 1200,
+          height: 630,
+        },
       }
     : null;
 
@@ -218,8 +223,13 @@ export default async function BlogPostPage({ params }) {
           <article>
             <h1>{post.title}</h1>
             <p>
-              {post.profiles?.display_name && <>By {post.profiles.display_name} · </>}
+              {post.profiles?.display_name
+                ? <>By <a href="/about">{post.profiles.display_name}</a>, a Jehovah&apos;s Witness and Bible student · </>
+                : <>By <a href="/about">Alexi</a>, a Jehovah&apos;s Witness and Bible student · </>}
               <time dateTime={post.created_at}>{new Date(post.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</time>
+            </p>
+            <p>
+              <small>JW Study is an independent Bible study tool, not affiliated with the Watch Tower Bible and Tract Society or jw.org.</small>
             </p>
             {post.excerpt && <p>{post.excerpt}</p>}
             {post.content && (

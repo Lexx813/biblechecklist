@@ -135,6 +135,13 @@ export default async function SongDetailEn({ params }: { params: Promise<{ slug:
     .filter((l) => l && l.trim().length > 0)
     .join("\n") ?? "";
 
+  // Guard duration: 0/null produces "PT0M0S" which is technically valid but
+  // unusual — omit the field entirely in that case.
+  const durationIso =
+    song.duration_seconds && song.duration_seconds > 0
+      ? `PT${Math.floor(song.duration_seconds / 60)}M${song.duration_seconds % 60}S`
+      : undefined;
+
   const schemaMusic = {
     "@context": "https://schema.org",
     "@type": "MusicRecording",
@@ -144,9 +151,15 @@ export default async function SongDetailEn({ params }: { params: Promise<{ slug:
     inLanguage: "en",
     url: `${BASE}/songs/${song.slug}`,
     image: song.cover_image_url ?? `${BASE}/og-image.jpg`,
-    duration: `PT${Math.floor(song.duration_seconds / 60)}M${song.duration_seconds % 60}S`,
+    ...(durationIso ? { duration: durationIso } : {}),
     keywords: [song.theme, song.primary_scripture_ref, "Jehovah's Witnesses", "Bible", "JW music"].join(", "),
     isFamilyFriendly: true,
+    byArtist: {
+      "@type": "MusicGroup",
+      "@id": `${BASE}/#organization`,
+      name: "JW Study",
+      url: BASE,
+    },
     lyrics: {
       "@type": "CreativeWork",
       text: lyricsPlainText,

@@ -102,6 +102,50 @@ const nextConfig = {
     ],
   },
 
+  // Permanent 301 redirects for legacy blog slugs that had auto-generated
+  // hash suffixes from the old generateSlug() (Date.now().toString(36)).
+  // Renaming the slugs in the DB requires keeping the old URLs alive so
+  // existing Google index entries + external links don't 404.
+  async redirects() {
+    return [
+      {
+        source: "/blog/jehovahs-mercy-is-bigger-than-our-mistakes-the-power-of-true-repentance-mo5qindt",
+        destination: "/blog/jehovahs-mercy-and-true-repentance",
+        permanent: true,
+      },
+      {
+        source: "/blog/gods-kingdom-who-is-ruling-its-amazing-benefits-and-how-to-become-a-citizen-mo4oxdap",
+        destination: "/blog/gods-kingdom-ruler-benefits-citizenship",
+        permanent: true,
+      },
+      {
+        source: "/blog/satan-his-power-his-authority-and-how-we-can-defend-against-him-mo4jihtc",
+        destination: "/blog/satan-power-authority-defense",
+        permanent: true,
+      },
+      {
+        source: "/blog/a-heart-full-of-thanks-gratitude-to-jehovah-for-the-gift-of-life-mo4i4rvw",
+        destination: "/blog/gratitude-to-jehovah-gift-of-life",
+        permanent: true,
+      },
+      {
+        source: "/blog/the-archangel-michael-from-creation-to-kingdom-authority-mo1n003y",
+        destination: "/blog/archangel-michael-from-creation-to-kingdom",
+        permanent: true,
+      },
+      {
+        source: "/blog/6-identifying-marks-of-gods-true-people-20260413154735",
+        destination: "/blog/6-marks-of-gods-true-people",
+        permanent: true,
+      },
+      {
+        source: "/blog/angel-of-the-lord-representative-of-jehovah-69da620c",
+        destination: "/blog/is-angel-of-jehovah-the-most-high-god",
+        permanent: true,
+      },
+    ];
+  },
+
   // Turbopack (dev) needs no extra config — webpack function below is build-only
   turbopack: {},
 

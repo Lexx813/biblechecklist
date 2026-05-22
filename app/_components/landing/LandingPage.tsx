@@ -205,6 +205,9 @@ export default function LandingPage() {
           <p className="m-0 max-w-[560px] text-[clamp(15px,2vw,17px)] leading-relaxed text-[var(--lp-muted)]">
             Track your New World Translation reading, earn quiz badges, prep for meetings, and connect with a worldwide community of Jehovah&apos;s Witnesses.
           </p>
+          <p className="m-0 max-w-[560px] text-[clamp(12px,1.5vw,13px)] leading-relaxed text-[var(--lp-muted)] opacity-80">
+            An independent Bible study tool built by a publisher — not affiliated with the Watch Tower Bible and Tract Society or jw.org.
+          </p>
 
           <MotionDiv variant="fadeUp" delay={0.3}>
             <div className="flex flex-wrap items-center justify-center gap-3 max-[480px]:w-full max-[480px]:flex-col">

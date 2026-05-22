@@ -24,6 +24,10 @@ const schema = {
     contactType: 'customer service',
     availableLanguage: ['English', 'Spanish', 'Portuguese', 'French', 'Tagalog', 'Chinese', 'Japanese'],
   },
+  sameAs: [
+    'https://www.tiktok.com/@laqjw',
+  ],
+  founder: { '@id': `${SITE_ORIGIN}/#creator` },
 };
 
 export function OrganizationSchema() {

@@ -6,7 +6,6 @@ import { WebApplicationSchema } from '../schema/WebApplication';
 import { ArticleSchema } from '../schema/Article';
 import { BreadcrumbSchema } from '../schema/Breadcrumb';
 import { FAQSchema } from '../schema/FAQ';
-import { HowToSchema } from '../schema/HowTo';
 import { ItemListSchema } from '../schema/ItemList';
 import { BookSchema } from '../schema/Book';
 import { ProfilePageSchema } from '../schema/ProfilePage';
@@ -30,12 +29,15 @@ describe('OrganizationSchema', () => {
 });
 
 describe('WebSiteSchema', () => {
-  it('includes a SearchAction potentialAction', () => {
+  it('emits WebSite with publisher Organization ref and no SearchAction', () => {
     const html = renderToStaticMarkup(<WebSiteSchema />);
     const json = extractJson(html);
     expect(json['@type']).toBe('WebSite');
-    const action = json.potentialAction as { '@type': string };
-    expect(action['@type']).toBe('SearchAction');
+    const publisher = json.publisher as { '@type': string; '@id': string };
+    expect(publisher['@type']).toBe('Organization');
+    expect(publisher['@id']).toContain('#organization');
+    // SearchAction intentionally absent — no /search route exists.
+    expect(json.potentialAction).toBeUndefined();
   });
 });
 
@@ -99,21 +101,6 @@ describe('FAQSchema', () => {
     const main = json.mainEntity as Array<{ '@type': string }>;
     expect(main).toHaveLength(2);
     expect(main[0]['@type']).toBe('Question');
-  });
-});
-
-describe('HowToSchema', () => {
-  it('emits HowTo with steps', () => {
-    const html = renderToStaticMarkup(
-      <HowToSchema name="Read in 1 year" steps={[
-        { name: 'Day 1', text: 'Genesis 1' },
-        { name: 'Day 2', text: 'Genesis 2' },
-      ]} />,
-    );
-    const json = extractJson(html);
-    expect(json['@type']).toBe('HowTo');
-    const step = json.step as Array<unknown>;
-    expect(step).toHaveLength(2);
   });
 });
 

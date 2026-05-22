@@ -10,6 +10,9 @@ import { safeJsonLd } from "../../../src/lib/safeJsonLd";
 export const revalidate = false;
 
 const BASE = "https://jwstudy.org";
+// Set once at build time. The route's revalidate is `false` (build-only),
+// so this value pins dateModified to the actual last-deploy timestamp.
+const BUILD_DATE_ISO = new Date().toISOString().split("T")[0];
 
 function bookToSlug(name) {
   return name.toLowerCase().replace(/\s+/g, "-");
@@ -86,12 +89,21 @@ export default async function BookPage({ params }) {
     articleBody,
     url: `${BASE}/books/${slug}`,
     datePublished: "2025-11-01",
-    dateModified: "2026-04-01",
-    image: "https://jwstudy.org/og-image.jpg",
+    // dateModified is the build-time timestamp, not a hardcoded date. The
+    // ISR revalidate cadence on this route is `false` (build-only), so this
+    // value updates whenever the book content actually changes (a new deploy).
+    dateModified: BUILD_DATE_ISO,
+    image: {
+      "@type": "ImageObject",
+      url: "https://jwstudy.org/og-image.jpg",
+      width: 1200,
+      height: 630,
+    },
     author: {
-      "@type": "Organization",
-      "@id": "https://jwstudy.org/#organization",
-      name: "JW Study",
+      "@type": "Person",
+      "@id": `${BASE}/#creator`,
+      name: "Alexi",
+      url: `${BASE}/about`,
     },
     publisher: {
       "@type": "Organization",

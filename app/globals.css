@@ -138,6 +138,17 @@ html[data-theme="dark"] .jw-learn-badge {
 /* ── Theme-aware CSS vars (switch with data-theme) ─────────────── */
 :root,
 [data-theme="light"] {
+  --violet-50: #f5f3ff;
+  --violet-100: #ede9fe;
+  --violet-200: #ddd6fe;
+  --violet-300: #c4b5fd;
+  --violet-400: #a78bfa;
+  --violet-500: #8b5cf6;
+  --violet-600: #7c3aed;
+  --violet-700: #6d28d9;
+  --violet-800: #5b21b6;
+  --violet-900: #4c1d95;
+  --violet-950: #2e1065;
   --lp-bg: #F4F2FF;
   --lp-bg-alt: #FFFFFF;
   --lp-text: #0F0D1A;
@@ -148,7 +159,7 @@ html[data-theme="dark"] .jw-learn-badge {
   --lp-card-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   --lp-primary: var(--violet-600);
   --lp-primary-hover: var(--violet-700);
-  --lp-primary-text: #FFFFFF;
+  --lp-primary-text: #FDFCFF;
   --lp-accent: var(--violet-400);
   --lp-pill-bg: var(--violet-100);
   --lp-pill-text: var(--violet-800);
@@ -167,6 +178,17 @@ html[data-theme="dark"] .jw-learn-badge {
 }
 
 [data-theme="dark"] {
+  --violet-50: #f5f3ff;
+  --violet-100: #ede9fe;
+  --violet-200: #ddd6fe;
+  --violet-300: #c4b5fd;
+  --violet-400: #a78bfa;
+  --violet-500: #8b5cf6;
+  --violet-600: #7c3aed;
+  --violet-700: #6d28d9;
+  --violet-800: #5b21b6;
+  --violet-900: #4c1d95;
+  --violet-950: #2e1065;
   --lp-bg: #0B091A;
   --lp-bg-alt: #110F22;
   --lp-text: #EDE9FD;

@@ -1,6 +1,9 @@
 import { SITE_ORIGIN } from '../locales';
 import { safeJsonLd } from '../../lib/safeJsonLd';
 
+// Sitelinks search box (SearchAction) intentionally omitted: no /search
+// route exists, so declaring potentialAction would let Google show a
+// search box whose submits would 404.
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -8,15 +11,7 @@ const schema = {
   name: 'JW Study',
   url: `${SITE_ORIGIN}/`,
   publisher: { '@type': 'Organization', '@id': `${SITE_ORIGIN}/#organization` },
-  inLanguage: ['en', 'es', 'pt', 'fr', 'tl', 'zh', 'ja', 'ko', 'yo'],
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: `${SITE_ORIGIN}/search?q={search_term_string}`,
-    },
-    'query-input': 'required name=search_term_string',
-  },
+  inLanguage: ['en', 'es'],
 };
 
 export function WebSiteSchema() {

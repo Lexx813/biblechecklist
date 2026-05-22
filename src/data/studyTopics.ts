@@ -27,7 +27,7 @@ export const STUDY_TOPICS: StudyTopic[] = [
     summary: "The Bible consistently shows that Jesus is the Son of God — a distinct person from Jehovah his Father. Jesus himself said 'the Father is greater than I am,' and Paul identifies one God (the Father) and one Lord (Jesus Christ) as two separate persons. The Trinity doctrine is not found in Scripture and was formalized centuries after the apostles died.",
     publishedAt: "2025-11-01",
     updatedAt: "2025-11-01",
-    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation. JW Study is an independent project, not affiliated with the Watch Tower Bible and Tract Society or jw.org.",
     sections: [
       {
         heading: "What does the Bible say about Jesus and God?",
@@ -76,7 +76,7 @@ export const STUDY_TOPICS: StudyTopic[] = [
     summary: "The Bible identifies Michael as the sole archangel and chief heavenly prince who defends God's people. Scripture connects Jesus to this role: the resurrected Jesus descends with an archangel's voice, and Revelation shows Michael leading the same heavenly armies that Jesus commands. Before his human birth, Jesus existed as a spirit creature in heaven under the name Michael.",
     publishedAt: "2025-11-08",
     updatedAt: "2025-11-08",
-    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation. JW Study is an independent project, not affiliated with the Watch Tower Bible and Tract Society or jw.org.",
     sections: [
       {
         heading: "Who is Michael the archangel?",
@@ -114,7 +114,7 @@ export const STUDY_TOPICS: StudyTopic[] = [
     summary: "The holy spirit is Jehovah's active force — the power he uses to accomplish his will. It is described as something poured out, filled into people, and apportioned, never as an independent person with a name. Scripture consistently portrays the holy spirit as a force or divine energy, not a third co-equal member of a divine Godhead.",
     publishedAt: "2025-11-15",
     updatedAt: "2025-11-15",
-    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation. JW Study is an independent project, not affiliated with the Watch Tower Bible and Tract Society or jw.org.",
     sections: [
       {
         heading: "What is the holy spirit according to the Bible?",
@@ -152,7 +152,7 @@ export const STUDY_TOPICS: StudyTopic[] = [
     summary: "Key Bible verses show that the holy spirit behaves as a force, not a person: it is poured out, filled into people, and divided into portions. It has no personal name and is never seen as a distinct person in heavenly visions. These consistent patterns of language throughout both Testaments point to the holy spirit as God's active power rather than a co-equal divine individual.",
     publishedAt: "2025-11-22",
     updatedAt: "2025-11-22",
-    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation. JW Study is an independent project, not affiliated with the Watch Tower Bible and Tract Society or jw.org.",
     sections: [
       {
         heading: "Does the Bible describe the holy spirit as being poured out?",
@@ -206,7 +206,7 @@ export const STUDY_TOPICS: StudyTopic[] = [
     summary: "The word 'Trinity' never appears in the Bible, and Scripture consistently presents the Father as the one true God and Jesus as a subordinate Son. Jesus prayed to the Father, called him 'my God,' and acknowledged a will distinct from his own — things impossible if they were co-equal. The doctrine of the Trinity was formalized centuries after the apostles and contradicts clear Bible statements.",
     publishedAt: "2025-11-29",
     updatedAt: "2025-11-29",
-    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation. JW Study is an independent project, not affiliated with the Watch Tower Bible and Tract Society or jw.org.",
     sections: [
       {
         heading: "Does the Bible show Jesus and the Father as separate persons?",
@@ -262,7 +262,7 @@ export const STUDY_TOPICS: StudyTopic[] = [
     summary: "Scripture identifies Michael as the chief heavenly prince and sole archangel, whose role mirrors the prehuman Jesus in every respect. The angel of Jehovah who led and protected Israel carried God's own name and authority — a description matching Christ, whom Paul identifies as the spiritual rock that accompanied Israel. Before coming to earth as Jesus, this mighty spirit creature served Jehovah as Michael.",
     publishedAt: "2025-12-06",
     updatedAt: "2025-12-06",
-    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation. JW Study is an independent project, not affiliated with the Watch Tower Bible and Tract Society or jw.org.",
     sections: [
       {
         heading: "What does the Bible say about Michael's role?",
@@ -316,7 +316,7 @@ export const STUDY_TOPICS: StudyTopic[] = [
     summary: "The Bible teaches that a soul is a living creature — not an immortal spirit inside the body. When God formed man and breathed life into him, man 'became a living soul'; he did not receive one. Animals are also called souls in Scripture. This means the soul is mortal and can die, making the resurrection the true hope for the dead.",
     publishedAt: "2025-12-13",
     updatedAt: "2025-12-13",
-    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation. JW Study is an independent project, not affiliated with the Watch Tower Bible and Tract Society or jw.org.",
     sections: [
       {
         heading: "What does 'soul' mean in the Bible?",
@@ -354,7 +354,7 @@ export const STUDY_TOPICS: StudyTopic[] = [
     summary: "The Bible consistently describes death as a dreamless sleep — a state of complete unconsciousness with no awareness, pain, or activity. Jesus used sleep as a metaphor for death, and Ecclesiastes confirms that the dead 'are not conscious of anything at all.' The hope Scripture offers is not an immortal soul going to heaven, but a bodily resurrection when the whole person is restored to life.",
     publishedAt: "2025-12-20",
     updatedAt: "2025-12-20",
-    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation. JW Study is an independent project, not affiliated with the Watch Tower Bible and Tract Society or jw.org.",
     sections: [
       {
         heading: "What state are the dead in according to Scripture?",
@@ -392,7 +392,7 @@ export const STUDY_TOPICS: StudyTopic[] = [
     summary: "God's Kingdom is a real heavenly government with Jesus Christ as King, not merely a spiritual condition in the heart. Daniel prophesied it would crush all human rulership and stand forever. Jesus taught his followers to pray for it to come, with its rule extending to earth — transforming it into the paradise God originally intended.",
     publishedAt: "2025-12-27",
     updatedAt: "2025-12-27",
-    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation. JW Study is an independent project, not affiliated with the Watch Tower Bible and Tract Society or jw.org.",
     sections: [
       {
         heading: "What is God's Kingdom according to the Bible?",
@@ -430,7 +430,7 @@ export const STUDY_TOPICS: StudyTopic[] = [
     summary: "God allows suffering temporarily because Satan raised a challenge against Jehovah's right to rule and the loyalty of his worshippers — a challenge that requires time and human experience to fully resolve. God is not indifferent; he is patient, wanting all to repent. His purpose of a pain-free paradise earth has never changed, and he will soon bring an end to all suffering.",
     publishedAt: "2026-01-03",
     updatedAt: "2026-01-03",
-    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation. JW Study is an independent project, not affiliated with the Watch Tower Bible and Tract Society or jw.org.",
     sections: [
       {
         heading: "Why did God allow Satan's challenge to stand?",
@@ -468,7 +468,7 @@ export const STUDY_TOPICS: StudyTopic[] = [
     summary: "God's law on blood — established with Noah and reaffirmed for Christians in Acts 15 — treats blood as sacred because it represents life, which belongs to God. Jehovah's Witnesses decline blood transfusions as an act of obedience to this command. Modern medicine offers bloodless surgical alternatives, and choosing to honor God's requirement is understood as an expression of faith and trust in his wisdom.",
     publishedAt: "2026-01-10",
     updatedAt: "2026-01-10",
-    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation.",
+    disclaimer: "This study topic reflects Jehovah's Witness understanding of Scripture, based on the New World Translation. JW Study is an independent project, not affiliated with the Watch Tower Bible and Tract Society or jw.org.",
     sections: [
       {
         heading: "Why does the Bible say blood is sacred?",

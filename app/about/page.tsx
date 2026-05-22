@@ -82,6 +82,11 @@ const schemaPerson = {
     "@type": "Organization",
     "@id": "https://jwstudy.org/#organization",
   },
+  sameAs: [
+    "https://www.tiktok.com/@laqjw",
+    "https://www.facebook.com/lexx.seise",
+    "https://www.instagram.com/lexx813/",
+  ],
 };
 
 const PILLARS = [
