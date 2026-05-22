@@ -2,7 +2,22 @@ import { QueryClient, dehydrate, HydrationBoundary } from "@tanstack/react-query
 import { unstable_cache } from "next/cache";
 import DOMPurify from "isomorphic-dompurify";
 import { blogApi } from "../../../src/api/blog";
+import { songsApi, localizedTitle } from "../../../src/api/songs";
 import ClientShell from "../../_components/ClientShell";
+
+// Shared across blog-post regenerations so each ISR miss doesn't pay a
+// Supabase round-trip just for the songs rail.
+const getRecentSongsForBlog = unstable_cache(
+  async () => {
+    try {
+      return (await songsApi.listPublished("en")).slice(0, 4);
+    } catch {
+      return [];
+    }
+  },
+  ["blog-related-songs-top4"],
+  { revalidate: 600, tags: ["songs-list"] },
+);
 
 export const revalidate = 300;
 
@@ -117,9 +132,10 @@ export default async function BlogPostPage({ params }) {
   const { slug } = await params;
   const queryClient = new QueryClient();
 
-  const [post, allPosts] = await Promise.all([
+  const [post, allPosts, recentSongs] = await Promise.all([
     getPostBySlug(slug).catch(() => null),
     getAllPublished().catch(() => []),
+    getRecentSongsForBlog(),
     queryClient
       .prefetchQuery({
         queryKey: ["blog", "post", slug],
@@ -132,7 +148,7 @@ export default async function BlogPostPage({ params }) {
         queryFn: () => getAllPublished(),
       })
       .catch(() => {}),
-  ]) as [any, any[], ...unknown[]];
+  ]) as [any, any[], Awaited<ReturnType<typeof getRecentSongsForBlog>>, ...unknown[]];
 
   const lang = post?.lang ?? "en";
 
@@ -248,6 +264,19 @@ export default async function BlogPostPage({ params }) {
             <ul>
               <li><a href="/study-topics">Bible Study Topics</a></li>
             </ul>
+            {recentSongs.length > 0 && (
+              <>
+                <h2>JW Music — Original Songs Inspired by Scripture</h2>
+                <ul>
+                  {recentSongs.map((s) => (
+                    <li key={s.slug}>
+                      <a href={`/songs/${s.slug}`}>{localizedTitle(s, "en")}</a>
+                    </li>
+                  ))}
+                  <li><a href="/songs">Browse all JW Study songs</a></li>
+                </ul>
+              </>
+            )}
           </nav>
         </div>
       )}

@@ -76,6 +76,17 @@ function parseRef(ref: string): { book: string; chapter: number } | null {
   return { book: m[1].toLowerCase().trim(), chapter: parseInt(m[2], 10) };
 }
 
+// Resolve a scripture reference to a /books/<slug> path on jwstudy.org,
+// or null if the book name isn't recognised. The slug format matches the
+// /books/[book] route's `bookToSlug(name)` (lowercase, spaces → "-"),
+// which the curated BOOK_SLUGS_EN map already mirrors.
+export function bookSlugFromRef(ref: string | null | undefined): string | null {
+  if (!ref) return null;
+  const parsed = parseRef(ref);
+  if (!parsed) return null;
+  return BOOK_SLUGS_EN[parsed.book] ?? null;
+}
+
 export function wolUrlFor(ref: string, lang: "en" | "es" = "en"): string {
   const parsed = parseRef(ref);
   if (!parsed) {
