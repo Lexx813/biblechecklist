@@ -1,6 +1,22 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import i18n from "../i18n";
+
+// ErrorBoundary is intentionally not localized. It wraps the entire app from
+// providers.tsx, so any imports here ship on every route — including the
+// marketing homepage where most visitors are logged-out. Pulling in i18next
+// just for last-resort error/404 copy added ~50–80 KB of JS to first paint.
+// Hardcoded English is acceptable because this UI is rarely seen, and when
+// it is, the message ("Something went wrong, try again") is universally
+// understood enough that the bundle savings are the better trade.
+const COPY = {
+  errorTitle: "Something went wrong",
+  errorFallback: "An unexpected error occurred. Please try again.",
+  errorTryAgain: "Try again",
+  errorReload: "Reload",
+  errorAppUpdated: "JW Study was updated. Reloading to get the latest version.",
+  notFoundTitle: "Page not found",
+  notFoundBody: "The page you're looking for doesn't exist.",
+  notFoundGoHome: "← Go home",
+};
 
 const errorWrapStyle = {
   minHeight: "100dvh",
@@ -46,23 +62,18 @@ interface ErrorPageProps {
 
 // ── Error page UI ──────────────────────────────────────────────
 export function ErrorPage({ error, onReset }: ErrorPageProps) {
-  const { t } = useTranslation();
   return (
     <div style={errorWrapStyle}>
       <div style={errorContentStyle}>
         <div style={errorCodeStyle}>500</div>
-        <h1 style={errorTitleStyle}>{t("errorPage.title")}</h1>
-        <p style={errorSubStyle}>
-          {error?.message || t("errorPage.fallback")}
-        </p>
+        <h1 style={errorTitleStyle}>{COPY.errorTitle}</h1>
+        <p style={errorSubStyle}>{error?.message || COPY.errorFallback}</p>
         <div style={errorActionsStyle}>
           {onReset && (
-            <button style={btnStyle} onClick={onReset}>
-              {t("errorPage.tryAgain")}
-            </button>
+            <button style={btnStyle} onClick={onReset}>{COPY.errorTryAgain}</button>
           )}
           <button style={btnGhostStyle} onClick={() => window.location.reload()}>
-            {t("errorPage.reload")}
+            {COPY.errorReload}
           </button>
         </div>
       </div>
@@ -76,16 +87,15 @@ interface NotFoundPageProps {
 
 // ── 404 / Not Found page ───────────────────────────────────────
 export function NotFoundPage({ onBack }: NotFoundPageProps) {
-  const { t } = useTranslation();
   return (
     <div style={errorWrapStyle}>
       <div style={errorContentStyle}>
         <div style={errorCodeStyle}>404</div>
-        <h1 style={errorTitleStyle}>{t("notFound.title")}</h1>
-        <p style={errorSubStyle}>{t("notFound.bodyShort")}</p>
+        <h1 style={errorTitleStyle}>{COPY.notFoundTitle}</h1>
+        <p style={errorSubStyle}>{COPY.notFoundBody}</p>
         <div style={errorActionsStyle}>
           <button style={btnStyle} onClick={onBack || (() => (window.location.href = "/"))}>
-            {t("notFound.goHomeArrow")}
+            {COPY.notFoundGoHome}
           </button>
         </div>
       </div>
@@ -156,7 +166,7 @@ export class ErrorBoundary extends React.Component<React.PropsWithChildren, Erro
         // Exceeded retries, show a targeted message
         return (
           <ErrorPage
-            error={{ message: i18n.t("errorPage.appUpdated") }}
+            error={{ message: COPY.errorAppUpdated }}
             onReset={null}
           />
         );

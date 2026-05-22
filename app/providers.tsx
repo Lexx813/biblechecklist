@@ -19,7 +19,17 @@ import { ErrorBoundary } from "../src/components/ErrorBoundary";
 import { Analytics } from "@vercel/analytics/react";
 import { toast } from "../src/lib/toast";
 import { captureUtmParams, captureReferralCode } from "../src/lib/analytics";
-import AuthedMobileTabBar from "./_components/AuthedMobileTabBar";
+
+// AuthedMobileTabBar transitively imports @supabase/supabase-js + MobileTabBar.
+// Static-importing it forces ~150 KB of auth/UI code into the first-paint
+// bundle for every visitor — including logged-out marketing visitors on
+// jwstudy.org/ where the component returns null. Loading it dynamically
+// with ssr:false keeps it out of the critical path; the tab bar appears
+// shortly after FCP on authed routes, which is the right tradeoff.
+const AuthedMobileTabBar = dynamic(
+  () => import("./_components/AuthedMobileTabBar"),
+  { ssr: false },
+);
 
 const queryClient = new QueryClient({
   defaultOptions: {
