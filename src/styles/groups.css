@@ -15,7 +15,7 @@
 }
 
 .grp-page-title {
-  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
   font-weight: 800;
   font-size: clamp(28px, 5vw, 40px);
   color: var(--text-primary);

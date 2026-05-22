@@ -27,7 +27,7 @@
 
 /* Blog title — Plus Jakarta Sans display weight, centered */
 .blog-wrap .page-section-title {
-  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
   font-weight: 800;
   font-size: clamp(2.2rem, 5vw, 3.2rem);
   text-align: center;
@@ -130,7 +130,7 @@
 }
 
 .blog-hero-title {
-  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
   font-weight: 800;
   letter-spacing: -0.02em;
   font-size: clamp(44px, 8vw, 80px);
@@ -342,7 +342,7 @@
 .blog-post-hero-meta { display: flex; flex-direction: column; gap: 10px; }
 
 .blog-post-hero-title {
-  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
   font-weight: 800;
   letter-spacing: -0.02em;
   font-size: clamp(28px, 5vw, 48px);

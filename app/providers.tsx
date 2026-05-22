@@ -3,8 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useReportWebVitals } from "next/web-vitals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { persistQueryClient } from "@tanstack/react-query-persist-client";
-import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import dynamic from "next/dynamic";
 
 const ReactQueryDevtools =
@@ -64,6 +62,14 @@ function WebVitals() {
   return null;
 }
 
+function whenIdle(task: () => void) {
+  if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+    requestIdleCallback(task);
+  } else {
+    setTimeout(task, 1);
+  }
+}
+
 function SideEffects() {
   const ran = useRef(false);
   useEffect(() => {
@@ -115,23 +121,25 @@ function SideEffects() {
             },
           })
         );
-      if ("requestIdleCallback" in window) {
-        requestIdleCallback(initSentry);
-      } else {
-        setTimeout(initSentry, 1);
-      }
+      whenIdle(initSentry);
     }
 
-    const persister = createSyncStoragePersister({
-      storage: window.localStorage,
-      key: "nwt-query-cache-v2",
-    });
-    persistQueryClient({
-      queryClient,
-      persister,
-      maxAge: persistOptions.maxAge,
-      dehydrateOptions: persistOptions.dehydrateOptions,
-      hydrateOptions: persistOptions.hydrateOptions,
+    whenIdle(async () => {
+      const [{ persistQueryClient }, { createSyncStoragePersister }] = await Promise.all([
+        import("@tanstack/react-query-persist-client"),
+        import("@tanstack/query-sync-storage-persister"),
+      ]);
+      const persister = createSyncStoragePersister({
+        storage: window.localStorage,
+        key: "nwt-query-cache-v2",
+      });
+      persistQueryClient({
+        queryClient,
+        persister,
+        maxAge: persistOptions.maxAge,
+        dehydrateOptions: persistOptions.dehydrateOptions,
+        hydrateOptions: persistOptions.hydrateOptions,
+      });
     });
   }, []);
 

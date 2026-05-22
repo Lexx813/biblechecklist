@@ -38,7 +38,8 @@ export default function FeaturedPosts({ posts }: { posts: Post[] }) {
                     alt={post.title}
                     className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                     fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 480px) calc(100vw - 48px), (max-width: 768px) 440px, 33vw"
+                    quality={60}
                     {...(i === 0 && post.cover_url
                       ? { priority: true, fetchPriority: "high" as const }
                       : { loading: "lazy" as const })}

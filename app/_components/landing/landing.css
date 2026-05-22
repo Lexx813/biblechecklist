@@ -192,7 +192,7 @@
 
 /* Headline */
 .lp2-hero-title {
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
   font-size: clamp(44px, 5.5vw, 72px);
   font-weight: 800; line-height: 1.06;
   letter-spacing: -0.035em; color: var(--violet-50); margin: 0;
@@ -315,7 +315,7 @@
 }
 .lp2-stat { text-align: center; flex: 1; }
 .lp2-stat-val {
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
   font-size: clamp(30px, 3.5vw, 44px);
   font-weight: 800; letter-spacing: -0.04em; line-height: 1;
 }
@@ -340,7 +340,7 @@
   color: var(--lp-primary); margin-bottom: 12px;
 }
 .lp2-section-title {
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
   font-size: clamp(28px, 3.5vw, 42px);
   font-weight: 800; letter-spacing: -0.03em;
   line-height: 1.1; color: var(--lp-text); margin: 0 0 14px;
@@ -452,7 +452,7 @@
 }
 .lp2-cta-content { position: relative; z-index: 1; }
 .lp2-cta-banner-title {
-  font-family: 'Plus Jakarta Sans Variable', sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
   font-size: clamp(28px, 4vw, 48px); font-weight: 800;
   color: #fff; margin: 0 0 14px;
   letter-spacing: -0.03em; line-height: 1.1;

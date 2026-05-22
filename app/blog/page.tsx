@@ -159,7 +159,8 @@ export default async function BlogListPage() {
                 width={1200}
                 height={675}
                 priority
-                sizes="(min-width: 640px) 60vw, 100vw"
+                sizes="(max-width: 640px) calc(100vw - 32px), 60vw"
+                quality={70}
                 style={{ aspectRatio: "16 / 9", width: "100%", height: "auto", objectFit: "cover" }}
               />
             </div>
@@ -202,7 +203,8 @@ export default async function BlogListPage() {
                       width={1200}
                       height={675}
                       loading="lazy"
-                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1024px) 50vw, 33vw"
+                      quality={60}
                       style={{ aspectRatio: "16 / 9", width: "100%", height: "auto", objectFit: "cover" }}
                       className="transition group-hover:scale-[1.03]"
                     />

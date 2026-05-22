@@ -15,7 +15,7 @@
 .mp-header-left { flex: 1; min-width: 0; }
 .mp-title {
   margin: 0 0 .2rem;
-  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
   font-weight: 800;
   font-size: 1.75rem;
   letter-spacing: -0.02em;

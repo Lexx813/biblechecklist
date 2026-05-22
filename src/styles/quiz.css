@@ -25,7 +25,7 @@
 }
 
 .quiz-hub-title {
-  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
   font-weight: 800;
   letter-spacing: -0.02em;
   font-size: clamp(32px, 6vw, 52px);
@@ -504,7 +504,7 @@
 }
 
 .quiz-results-title {
-  font-family: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
   font-weight: 800;
   letter-spacing: -0.02em;
   font-size: clamp(28px, 5vw, 40px);

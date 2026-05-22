@@ -43,8 +43,8 @@
 
 /* ── Brand theme tokens (static, usable as Tailwind classes) ───── */
 @theme {
-  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-display: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-display: var(--font-jakarta), system-ui, sans-serif;
 
   /* Purple brand palette */
   --color-brand-50: #FAF5FF;

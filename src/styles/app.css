@@ -404,7 +404,7 @@ summary:focus-visible {
 }
 
 html { overflow-y: scroll; scrollbar-gutter: stable; }
-body { font-family: 'Plus Jakarta Sans Variable', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100dvh; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+body { font-family: var(--font-jakarta), system-ui, sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100dvh; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
 
 /* ── Touch & interaction ────────────────────────────────────────────────── */
 button, a, [role="button"], input, select, textarea { touch-action: manipulation; }
