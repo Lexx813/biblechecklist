@@ -195,7 +195,7 @@
 /* ── Post grid ───────────────────────────────────────────────── */
 .blog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
 }
 
@@ -217,13 +217,12 @@
 .blog-card-cover {
   position: relative;
   aspect-ratio: 16 / 9;
-  min-height: clamp(148px, 32vw, 210px);
+  height: auto;
   overflow: hidden;
 }
 .blog-card-cover-img {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: cover;
 }
 .blog-card-cover-shine {
@@ -1191,7 +1190,7 @@
 }
 .blog-related-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
 }
 .blog-related-card {
@@ -1205,16 +1204,10 @@
 .blog-related-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
 .blog-related-cover {
   position: relative;
-  aspect-ratio: 16 / 9;
-  min-height: clamp(120px, 24vw, 160px);
+  height: 120px;
   overflow: hidden;
 }
-.blog-related-cover img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.blog-related-cover img { width: 100%; height: 100%; object-fit: cover; }
 .blog-related-body { padding: 12px 14px 14px; }
 .blog-related-author { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
 .blog-related-title-text { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; line-height: 1.35; }

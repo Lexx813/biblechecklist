@@ -50,7 +50,7 @@ export default async function AllBlogPostsPage() {
                     width={1200}
                     height={675}
                     loading="lazy"
-                    style={{ aspectRatio: "16 / 9", width: "100%", height: "auto", objectFit: "cover" }}
+                    style={{ aspectRatio: "16 / 9", width: "100%", height: "auto", objectFit: "contain", background: "var(--card-bg, #f3f0ff)" }}
                   />
                   <div className="p-4">
                     {(post as { tags?: string[] }).tags?.[0] && (

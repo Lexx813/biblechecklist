@@ -159,14 +159,24 @@ function SideEffects() {
 
 // Press Ctrl+Shift+D to toggle. Mounts/unmounts the entire component so no
 // internal dismiss button needed — just press the shortcut again to close.
+//
+// Capture phase + preventDefault: when the devtools panel is open and focus
+// sits inside it, the panel's own keyboard handlers were stopping the
+// keydown from reaching our window listener in the bubbling phase, so the
+// "close" press never fired. Listening in capture lets us fire first.
+// Also case-insensitive on the key since some keyboard layouts emit "d"
+// rather than "D" with Shift held.
 function DevtoolsToggle() {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (e.ctrlKey && e.shiftKey && e.key === "D") setVisible((v) => !v);
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "d") {
+        e.preventDefault();
+        setVisible((v) => !v);
+      }
     }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("keydown", onKey, { capture: true });
+    return () => window.removeEventListener("keydown", onKey, { capture: true });
   }, []);
   if (!visible) return null;
   return <ReactQueryDevtools initialIsOpen={true} buttonPosition="bottom-right" />;

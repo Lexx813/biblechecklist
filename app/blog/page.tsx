@@ -161,7 +161,7 @@ export default async function BlogListPage() {
                 priority
                 sizes="(max-width: 640px) calc(100vw - 32px), 60vw"
                 quality={70}
-                style={{ aspectRatio: "16 / 9", width: "100%", height: "auto", objectFit: "cover" }}
+                style={{ aspectRatio: "16 / 9", width: "100%", height: "auto", objectFit: "contain", background: "var(--card-bg, #f3f0ff)" }}
               />
             </div>
             <div className="flex flex-col justify-center gap-4 p-6 sm:col-span-2 sm:p-8">
@@ -205,7 +205,7 @@ export default async function BlogListPage() {
                       loading="lazy"
                       sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1024px) 50vw, 33vw"
                       quality={60}
-                      style={{ aspectRatio: "16 / 9", width: "100%", height: "auto", objectFit: "cover" }}
+                      style={{ aspectRatio: "16 / 9", width: "100%", height: "auto", objectFit: "contain", background: "var(--card-bg, #f3f0ff)" }}
                       className="transition group-hover:scale-[1.03]"
                     />
                   </div>

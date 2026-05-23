@@ -36,7 +36,7 @@ export default function FeaturedPosts({ posts }: { posts: Post[] }) {
                   <Image
                     src={post.cover_url || getFallbackImage(post.id)}
                     alt={post.title}
-                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                    className="object-contain transition-transform duration-300 group-hover:scale-[1.03]"
                     fill
                     sizes="(max-width: 480px) calc(100vw - 48px), (max-width: 768px) 440px, 33vw"
                     quality={60}
