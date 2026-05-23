@@ -352,12 +352,28 @@ Deno.serve(async (req) => {
   // are diagnosable without a separate observability layer. The 200 response
   // from this function only means it ran — the actual push delivery success
   // is what `summary` captures (FCM/Mozilla/Apple status per endpoint).
+  // Log a fingerprint of the VAPID public key the server is actually using
+  // (first 8 + last 6 chars) so we can verify it matches Vercel + .env when
+  // FCM keeps returning 403. Public keys aren't secrets — they're embedded
+  // in every push request anyway — so this is safe to print.
+  const vapidPub = Deno.env.get("VAPID_PUBLIC_KEY") ?? "";
+  const vapidPriv = Deno.env.get("VAPID_PRIVATE_KEY") ?? "";
+  const fp = (s: string, head = 8, tail = 6) =>
+    s.length > head + tail
+      ? `${s.slice(0, head)}...${s.slice(-tail)}(len=${s.length})`
+      : `len=${s.length}`;
+  const vapidFingerprint = fp(vapidPub);
+  // Private key fingerprint uses smaller head/tail because it's only 43 chars
+  // and we want enough chars to be useful without dumping the whole secret.
+  const vapidPrivFingerprint = fp(vapidPriv, 4, 4);
   console.log(JSON.stringify({
     fn: "send-push-notification",
     notification_id: notif.id,
     user_id: notif.user_id,
     type: notif.type,
     subs_count: subs.length,
+    vapid_pub: vapidFingerprint,
+    vapid_priv: vapidPrivFingerprint,
     summary,
   }));
   return new Response(JSON.stringify({ sent: summary }), {
