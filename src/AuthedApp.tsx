@@ -599,7 +599,14 @@ export default function AuthedApp({ onShowLanding, i18n }) {
   const user = session?.user ?? null;
   const { t } = useTranslation();
   const { maintenanceMode, aiEnabled } = useFeatureFlags();
-  const [passwordRecovery, setPasswordRecovery] = useState(false);
+  // Detect the recovery hash synchronously, before useSession() triggers the
+  // Supabase client to parse and strip the URL. The onAuthStateChange listener
+  // below runs in a useEffect — too late to catch PASSWORD_RECOVERY, which
+  // fires during createClient's detectSessionInUrl pass.
+  const [passwordRecovery, setPasswordRecovery] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.location.hash.includes("type=recovery");
+  });
   const [registeredEmail, setRegisteredEmail] = useState(null);
 
   // Apply saved theme immediately so auth/sign-up pages respect dark mode
