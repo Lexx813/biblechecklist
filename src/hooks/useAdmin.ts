@@ -356,108 +356,58 @@ export function useSongStats(days = 30) {
   return useQuery({
     queryKey: ["admin", "song-stats", days],
     queryFn: async () => {
-      const since = new Date(Date.now() - days * 86_400_000).toISOString();
-
-      const [songsResult, eventsResult] = await Promise.all([
-        supabase
-          .from("songs")
-          .select("id, slug, title, title_es, theme, primary_scripture_ref, primary_scripture_text, primary_scripture_text_es, description, description_es, cover_image_url, duration_seconds, jw_org_links, play_count, download_count, published, created_at, song_number")
-          .order("created_at", { ascending: true }),
-        supabase
-          .from("song_plays")
-          .select("song_id, event_type, source, created_at")
-          .gte("created_at", since)
-          .order("created_at", { ascending: true }),
-      ]);
-
-      if (songsResult.error) throw songsResult.error;
-      if (eventsResult.error) throw eventsResult.error;
-
-      const songs = songsResult.data ?? [];
-      const events = eventsResult.data ?? [];
-
-      // Per-song aggregates over the window
-      type SongAgg = {
-        song_id: string;
-        plays: number;
-        completes: number;
-        downloads: number;
-        shares: number;
-        jw_org_clicks: number;
+      // Aggregated server-side via SECURITY DEFINER RPC. Pulling raw song_plays
+      // rows hits PostgREST's 1000-row cap and silently undercounts every metric
+      // once the window crosses ~1000 events.
+      const { data, error } = await supabase.rpc("admin_get_song_stats", { p_days: days });
+      if (error) throw error;
+      const payload = data as {
+        totalPlays: number;
+        totalCompletes: number;
+        totalDownloads: number;
+        totalJwClicks: number;
+        totalShares: number;
+        perSongRows: Array<{
+          id: string;
+          slug: string;
+          title: string;
+          title_es: string | null;
+          theme: string;
+          scripture_ref: string;
+          primary_scripture_text: string;
+          primary_scripture_text_es: string | null;
+          description: string;
+          description_es: string | null;
+          cover_image_url: string | null;
+          duration_seconds: number;
+          jw_org_links: { url: string; anchor: string }[];
+          published: boolean;
+          song_number: number | null;
+          all_time_plays: number;
+          all_time_downloads: number;
+          window_plays: number;
+          window_completes: number;
+          window_downloads: number;
+          window_shares: number;
+          window_jw_org_clicks: number;
+          completion_pct: number | null;
+        }>;
+        dailySeries: Array<{ date: string; plays: number; downloads: number }>;
+        sourceBreakdown: Array<{ source: string; count: number }>;
       };
-      const perSong = new Map<string, SongAgg>();
-      for (const s of songs) {
-        perSong.set(s.id, { song_id: s.id, plays: 0, completes: 0, downloads: 0, shares: 0, jw_org_clicks: 0 });
-      }
-      for (const e of events) {
-        const a = perSong.get(e.song_id);
-        if (!a) continue;
-        if (e.event_type === "play") a.plays += 1;
-        else if (e.event_type === "complete") a.completes += 1;
-        else if (e.event_type === "download") a.downloads += 1;
-        else if (e.event_type === "share") a.shares += 1;
-        else if (e.event_type === "jw_org_click") a.jw_org_clicks += 1;
-      }
 
-      const perSongRows = songs.map((s) => {
-        const a = perSong.get(s.id)!;
-        const completion_pct = a.plays > 0 ? Math.round((a.completes / a.plays) * 100) : null;
-        return {
-          id: s.id,
-          slug: s.slug,
-          title: s.title,
-          title_es: s.title_es ?? null,
-          theme: s.theme,
-          scripture_ref: s.primary_scripture_ref,
-          primary_scripture_text: s.primary_scripture_text ?? "",
-          primary_scripture_text_es: s.primary_scripture_text_es ?? null,
-          description: s.description ?? "",
-          description_es: s.description_es ?? null,
-          cover_image_url: s.cover_image_url ?? null,
-          duration_seconds: s.duration_seconds ?? 0,
-          jw_org_links: s.jw_org_links ?? [],
-          published: s.published,
-          song_number: s.song_number ?? null,
-          all_time_plays: s.play_count,
-          all_time_downloads: s.download_count,
-          window_plays: a.plays,
-          window_completes: a.completes,
-          window_downloads: a.downloads,
-          window_shares: a.shares,
-          window_jw_org_clicks: a.jw_org_clicks,
-          completion_pct,
-        };
-      });
+      const {
+        totalPlays,
+        totalCompletes,
+        totalDownloads,
+        totalJwClicks,
+        totalShares,
+        perSongRows,
+        dailySeries,
+        sourceBreakdown: rawSourceBreakdown,
+      } = payload;
 
-      // KPI totals over the window
-      const totalPlays = events.filter((e) => e.event_type === "play").length;
-      const totalCompletes = events.filter((e) => e.event_type === "complete").length;
-      const totalDownloads = events.filter((e) => e.event_type === "download").length;
-      const totalJwClicks = events.filter((e) => e.event_type === "jw_org_click").length;
-      const totalShares = events.filter((e) => e.event_type === "share").length;
-
-      // Daily series for plays + downloads
-      const byDay: Record<string, { plays: number; downloads: number }> = {};
-      for (const e of events) {
-        const day = e.created_at.slice(0, 10);
-        if (!byDay[day]) byDay[day] = { plays: 0, downloads: 0 };
-        if (e.event_type === "play") byDay[day].plays += 1;
-        if (e.event_type === "download") byDay[day].downloads += 1;
-      }
-      const dailySeries = Object.entries(byDay)
-        .sort(([a], [b]) => a.localeCompare(b))
-        .map(([date, v]) => ({ date, plays: v.plays, downloads: v.downloads }));
-
-      // Source breakdown (where listeners came from)
-      const bySource: Record<string, number> = {};
-      for (const e of events) {
-        if (e.event_type !== "play") continue;
-        const k = e.source ?? "direct";
-        bySource[k] = (bySource[k] ?? 0) + 1;
-      }
-      const sourceBreakdown = Object.entries(bySource)
-        .sort(([, a], [, b]) => b - a)
-        .map(([source, count]) => ({ source, count }));
+      const sourceBreakdown = [...rawSourceBreakdown].sort((a, b) => b.count - a.count);
 
       return {
         totalPlays,
