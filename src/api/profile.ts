@@ -32,16 +32,45 @@ export interface ProfileSearchResult {
 }
 
 export const profileApi = {
-  // Reads the caller's own full profile via SECURITY DEFINER RPC. The PII
-  // columns (email, subscription_status, email_notifications_*, ...) have
-  // their column SELECT grant revoked from `authenticated`, so a direct
-  // `.from("profiles").select("email, ...")` would 403. The RPC is gated by
-  // `auth.uid()` server-side, so callers can't read someone else's profile.
-  get: async (_userId: string): Promise<Profile | null> => {
-    const { data, error } = await supabase.rpc("get_own_profile");
+  // Own profile → SECURITY DEFINER RPC (returns the full row incl. PII like
+  // email + notification prefs the settings page needs). Other users → select
+  // only the public columns directly; the PII columns have their SELECT grant
+  // revoked from `authenticated`, but every public column (display_name,
+  // avatar_url, cover_url, bio, …) is still readable under the
+  // profiles_*_read_public RLS policy.
+  //
+  // NOTE: get_own_profile() resolves to auth.uid() server-side, so it can ONLY
+  // return the caller's own row. Calling it for someone else's id silently
+  // returns the caller's profile — which previously made every /user/<id>
+  // page render the logged-in user's own profile.
+  get: async (userId: string): Promise<Profile | null> => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user && user.id === userId) {
+      const { data, error } = await supabase.rpc("get_own_profile");
+      if (error) throw new Error(error.message);
+      if (!data) return null;
+      return (Array.isArray(data) ? data[0] : data) as Profile;
+    }
+    const { data, error } = await supabase
+      .from("profiles")
+      .select(
+        "id, display_name, avatar_url, cover_url, bio, created_at, is_admin, is_moderator, can_blog, is_approved_creator, top_badge_level, reading_goal_date, show_online, last_active_at, current_streak, longest_streak, preferred_language, referred_by",
+      )
+      .eq("id", userId)
+      .maybeSingle();
     if (error) throw new Error(error.message);
     if (!data) return null;
-    return (Array.isArray(data) ? data[0] : data) as Profile;
+    // PII columns aren't readable for other users — surface them as null so the
+    // shape still satisfies Profile (the UI only renders these when isOwner).
+    return {
+      ...data,
+      email: null,
+      subscription_status: null,
+      email_notifications_blog: null,
+      email_notifications_digest: null,
+      email_notifications_streak: null,
+      terms_accepted_at: null,
+    } as Profile;
   },
 
   acceptTerms: async (userId: string): Promise<void> => {
