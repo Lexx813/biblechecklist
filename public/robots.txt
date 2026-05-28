@@ -1,72 +1,105 @@
 User-agent: *
 Allow: /
 Disallow: /admin
-Disallow: /profile
-Disallow: /bookmarks
-Disallow: /feed
-Disallow: /history
-Disallow: /share
-Disallow: /home
-Disallow: /messages
-Disallow: /friends
-Disallow: /leaderboard
-Disallow: /quiz
-Disallow: /settings
-Disallow: /groups
-Disallow: /notifications
-Disallow: /community
+# /ai is a public marketing page; /ai/<id> is a private conversation.
+# The trailing slash blocks sub-paths while keeping the marketing page indexable.
+Disallow: /ai/
+Disallow: /activity
 Disallow: /advanced-quiz
+Disallow: /blog/new
+Disallow: /blog/*/edit
+Disallow: /blog-dash
+Disallow: /bookmarks
+Disallow: /checklist
+Disallow: /community
+Disallow: /dms
 Disallow: /family-quiz
-Disallow: /trivia
-Disallow: /reading-plans
-Disallow: /study-notes
-Disallow: /referral
+Disallow: /feed
+Disallow: /friends
+Disallow: /groups
+Disallow: /history
+Disallow: /home
 Disallow: /invite
-Disallow: /upgrade
-Disallow: /premium
-Disallow: /meeting-prep
+Disallow: /leaderboard
 Disallow: /login
-Disallow: /signup
+Disallow: /main
+Disallow: /messages
+Disallow: /notifications
+Disallow: /premium
+Disallow: /profile
+Disallow: /quiz
+Disallow: /reading-plans
+Disallow: /referral
 Disallow: /search
+Disallow: /settings
+Disallow: /share
+Disallow: /signup
+Disallow: /study-groups
+Disallow: /study-notes
+Disallow: /trivia
+Disallow: /try
+Disallow: /upgrade
+Disallow: /user
 
-# Allow AI crawlers explicitly
+# Allow AI crawlers explicitly — current canonical 2026 bot names
 User-agent: GPTBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: anthropic-ai
+User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ClaudeBot
 Allow: /
 
-User-agent: OAI-SearchBot
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
 Allow: /
 
 User-agent: Google-Extended
 Allow: /
 
-User-agent: Bingbot
+User-agent: Applebot
 Allow: /
 
-User-agent: Applebot
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
 Allow: /
 
 User-agent: DuckAssistBot
 Allow: /
 
-User-agent: Googlebot
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Diffbot
 Allow: /
 
 User-agent: CCBot
+Allow: /
+
+User-agent: Googlebot
 Allow: /
 
 Sitemap: https://jwstudy.org/sitemap.xml

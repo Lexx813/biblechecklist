@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import IndependenceDisclaimer from "../../_components/IndependenceDisclaimer";
 import { STUDY_TOPICS, getTopicBySlug } from "../../../src/data/studyTopics";
 import { safeJsonLd } from "../../../src/lib/safeJsonLd";
 
@@ -49,6 +50,8 @@ export default async function StudyTopicPage({ params }) {
 
   const allParagraphs = topic.sections.flatMap((s) => s.paragraphs);
   const otherTopics = STUDY_TOPICS.filter((t) => t.slug !== topic.slug);
+  const articleBody = allParagraphs.join(" ");
+  const citations = (topic as { citations?: { claim?: string; source: string; url?: string }[] }).citations ?? [];
 
   const schemaArticle = {
     "@context": "https://schema.org",
@@ -56,7 +59,10 @@ export default async function StudyTopicPage({ params }) {
     "@id": `https://jwstudy.org/study-topics/${topic.slug}#article`,
     headline: topic.title,
     description: topic.subtitle,
-    articleBody: allParagraphs.join(" "),
+    articleBody,
+    wordCount: articleBody.split(/\s+/).filter(Boolean).length,
+    articleSection: "Bible Study Topics",
+    keywords: [topic.title, "Bible study", "New World Translation", "Jehovah's Witnesses"].join(", "),
     url: `https://jwstudy.org/study-topics/${topic.slug}`,
     datePublished: topic.publishedAt,
     dateModified: topic.updatedAt,
@@ -65,6 +71,7 @@ export default async function StudyTopicPage({ params }) {
       "@type": "Person",
       "@id": "https://jwstudy.org/#creator",
       name: "Alexi",
+      url: "https://jwstudy.org/about",
     },
     publisher: {
       "@type": "Organization",
@@ -78,6 +85,16 @@ export default async function StudyTopicPage({ params }) {
       },
     },
     inLanguage: "en",
+    isAccessibleForFree: true,
+    ...(citations.length > 0
+      ? {
+          citation: citations.map((c) => ({
+            "@type": "CreativeWork",
+            name: c.source,
+            ...(c.url ? { url: c.url } : {}),
+          })),
+        }
+      : {}),
   };
 
   const schemaBreadcrumb = {
@@ -122,30 +139,28 @@ export default async function StudyTopicPage({ params }) {
           <a href="/study-topics" className="text-brand-600 hover:underline">Study Topics</a>
         </nav>
         <article className="prose prose-neutral dark:prose-invert max-w-none">
+          <div className="not-prose">
+            <IndependenceDisclaimer />
+          </div>
           <h1 id={`topic-${topic.slug}`} className="mb-2 text-4xl font-semibold tracking-tight sm:text-5xl">{topic.title}</h1>
           <p className="text-lg text-[var(--lp-muted)]">{topic.subtitle}</p>
           <p className="mt-2 text-sm text-[var(--lp-muted)]">
-            <small>
-              Written by{" "}
-              <a href="/about" className="font-medium text-brand-600 hover:underline">Alexi</a>
-              , a Jehovah&apos;s Witness and Bible student. Published{" "}
-              <time dateTime={topic.publishedAt}>
-                {new Date(topic.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-              </time>
-              {topic.updatedAt && topic.updatedAt !== topic.publishedAt && (
-                <>
-                  {" · Updated "}
-                  <time dateTime={topic.updatedAt}>
-                    {new Date(topic.updatedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
-                  </time>
-                </>
-              )}
-              .
-            </small>
+            Written by{" "}
+            <a href="/about" className="font-medium text-brand-600 hover:underline">Alexi</a>
+            , a Jehovah&apos;s Witness and Bible student. Published{" "}
+            <time dateTime={topic.publishedAt}>
+              {new Date(topic.publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+            </time>
+            {topic.updatedAt && topic.updatedAt !== topic.publishedAt && (
+              <>
+                {" · Updated "}
+                <time dateTime={topic.updatedAt}>
+                  {new Date(topic.updatedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                </time>
+              </>
+            )}
+            .
           </p>
-          {topic.disclaimer && (
-            <p className="mt-3 text-xs text-[var(--lp-muted)]">{topic.disclaimer}</p>
-          )}
           {topic.sections.map((section, i) => {
             const sectionId = section.heading.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
             return (
@@ -163,12 +178,28 @@ export default async function StudyTopicPage({ params }) {
             );
           })}
 
+          {citations.length > 0 && (
+            <>
+              <h2>References</h2>
+              <ul>
+                {citations.map((c, i) => (
+                  <li key={i}>
+                    {c.claim && <em>&ldquo;{c.claim}&rdquo; — </em>}
+                    {c.url
+                      ? <a href={c.url} rel="noopener noreferrer" target="_blank">{c.source}</a>
+                      : c.source}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+
           <h2>Keep Studying with JW Study</h2>
           <p>
-            JW Study is a free Bible reading tracker for Jehovah&apos;s Witnesses. Read {topic.title} in the
-            New World Translation, take personal study notes, and build a consistent reading habit.
-            For deeper research, use the Insight on the Scriptures volumes and publications available
-            at wol.jw.org alongside JW Library.
+            Read {topic.title} in the New World Translation, take personal study notes, and
+            build a consistent reading habit. For deeper research, the authoritative sources are
+            the Insight on the Scriptures volumes and publications available at wol.jw.org
+            alongside JW Library.
           </p>
 
           <h2>Other Study Topics</h2>

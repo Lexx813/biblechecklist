@@ -1,8 +1,10 @@
 import { QueryClient, dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { unstable_cache } from "next/cache";
+import { notFound } from "next/navigation";
 import { blogApi } from "../../../src/api/blog";
 import { songsApi, localizedTitle } from "../../../src/api/songs";
 import { sanitizeServerRichHtml } from "../../../src/lib/serverSanitize";
+import IndependenceDisclaimer from "../../_components/IndependenceDisclaimer";
 import ClientShell from "../../_components/ClientShell";
 
 // Shared across blog-post regenerations so each ISR miss doesn't pay a
@@ -150,6 +152,8 @@ export default async function BlogPostPage({ params }) {
       .catch(() => {}),
   ]) as [any, any[], Awaited<ReturnType<typeof getRecentSongsForBlog>>, ...unknown[]];
 
+  if (!post) notFound();
+
   const lang = post?.lang ?? "en";
 
   // Pick up to 5 other posts for internal links in the SSR fallback
@@ -167,6 +171,8 @@ export default async function BlogPostPage({ params }) {
         datePublished: post.created_at,
         dateModified: post.updated_at ?? post.created_at,
         inLanguage: lang,
+        isAccessibleForFree: true,
+        license: "https://creativecommons.org/licenses/by/4.0/",
         author: post.profiles?.display_name
           ? { "@type": "Person", name: post.profiles.display_name, url: `${BASE}/about` }
           : { "@type": "Person", name: "Alexi", "@id": `${BASE}/#creator`, url: `${BASE}/about` },
@@ -188,6 +194,8 @@ export default async function BlogPostPage({ params }) {
         wordCount: post.content
           ? post.content.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length
           : undefined,
+        ...(post.tags?.[0] ? { articleSection: post.tags[0] } : {}),
+        ...(post.tags?.length ? { keywords: post.tags.join(", ") } : {}),
         url: `${BASE}/blog/${post.slug}`,
         image: {
           "@type": "ImageObject",
@@ -220,6 +228,7 @@ export default async function BlogPostPage({ params }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(schemaBreadcrumb) }} />
       {post && (
         <div id="ssr-fallback" lang={lang} suppressHydrationWarning>
+          <IndependenceDisclaimer />
           <article>
             <h1>{post.title}</h1>
             <p>
@@ -228,13 +237,23 @@ export default async function BlogPostPage({ params }) {
                 : <>By <a href="/about">Alexi</a>, a Jehovah&apos;s Witness and Bible student · </>}
               <time dateTime={post.created_at}>{new Date(post.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</time>
             </p>
-            <p>
-              <small>JW Study is an independent Bible study tool, not affiliated with the Watch Tower Bible and Tract Society or jw.org.</small>
-            </p>
             {post.excerpt && <p>{post.excerpt}</p>}
             {post.content && (
               <div dangerouslySetInnerHTML={{ __html: sanitizeServerRichHtml(post.content) }} />
             )}
+            {/* Author bio block — surfaces E-E-A-T signal on every post. The
+                generic fallback runs when the profile has no custom bio. Per-
+                profile bios live on the profiles table (bio column added in
+                migration 20260528_blog_author_bio). */}
+            <aside aria-label="About the author" className="mt-10 border-t border-slate-200 pt-6 dark:border-white/10">
+              <p className="font-semibold">
+                About {post.profiles?.display_name ?? "Alexi"}
+              </p>
+              <p className="mt-1 text-sm leading-relaxed">
+                {(post.profiles as { bio?: string } | null)?.bio
+                  ?? `${post.profiles?.display_name ?? "Alexi"} is a baptized Jehovah's Witness and active publisher writing personal reflections on Bible study using the New World Translation. Views are personal and do not represent the Watch Tower Bible and Tract Society of Pennsylvania.`}
+              </p>
+            </aside>
           </article>
 
           {/* Internal links to other posts — helps Google crawl and distribute PageRank */}

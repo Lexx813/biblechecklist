@@ -13,7 +13,9 @@ const schema = {
   applicationCategory: 'EducationApplication',
   operatingSystem: 'Web',
   browserRequirements: 'Requires JavaScript. Requires a modern browser.',
-  availability: 'https://schema.org/OnlineOnly',
+  // `availability` belongs on Offer, not WebApplication — Google's structured-
+  // data validator flags it at the top level. The Offer below already declares
+  // it, which is the correct location.
   inLanguage: ['en', 'es', 'pt', 'fr', 'tl', 'zh', 'ja', 'ko', 'yo'],
   screenshot: `${SITE_ORIGIN}/og-image.jpg`,
   featureList:

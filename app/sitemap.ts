@@ -39,32 +39,40 @@ export default async function sitemap() {
   // to "now" — that would tell crawlers every page is fresh on every regen and
   // they'd deprioritize the crawl budget when nothing real had changed.
   const staticPages = [
-    { url: HOME_URL,                       lastModified: new Date("2026-04-28") },
+    { url: HOME_URL,                       lastModified: new Date("2026-05-28") },
     { url: `${BASE}/blog`,                 get lastModified() { return blogIndexLastModified; } },
     { url: `${BASE}/songs`,                get lastModified() { return songsIndexLastModified; } },
     { url: `${BASE}/study-topics`,         lastModified: new Date("2026-04-28") },
     { url: `${BASE}/messianic-prophecies`, lastModified: new Date("2026-04-28") },
-    { url: `${BASE}/books`,                lastModified: new Date("2026-04-28") },
+    { url: `${BASE}/books`,                lastModified: new Date("2026-05-28") },
     { url: `${BASE}/plans`,                lastModified: new Date("2026-04-28") },
-    { url: `${BASE}/about`,                lastModified: new Date("2026-04-28") },
+    { url: `${BASE}/about`,                lastModified: new Date("2026-05-28") },
     { url: `${BASE}/privacy`,              lastModified: new Date("2026-03-31") },
     { url: `${BASE}/terms`,                lastModified: new Date("2026-03-31") },
   ];
 
+  // Book guides got hand-written "Why this book matters today" sections + FAQs
+  // on 2026-05-28. Bump the lastModified to match so crawlers re-fetch.
+  const BOOK_CONTENT_LAST_MOD = new Date("2026-05-28");
   const bookPages = BOOKS.map((b) => ({
     url: `${BASE}/books/${bookToSlug(b.name)}`,
-    lastModified: new Date("2026-03-01"),
+    lastModified: BOOK_CONTENT_LAST_MOD,
   }));
 
   const planPages = PLAN_TEMPLATES.map((p) => ({
     url: `${BASE}/plans/${p.key}`,
-    lastModified: new Date("2026-03-01"),
+    lastModified: new Date("2026-04-28"),
   }));
 
-  const studyTopicPages = STUDY_TOPICS.map((t) => ({
-    url: `${BASE}/study-topics/${t.slug}`,
-    lastModified: new Date(t.updatedAt),
-  }));
+  // Guard against missing/invalid updatedAt — new Date(undefined) yields
+  // "Invalid Date" which Next would emit as garbage in the XML.
+  const studyTopicPages = STUDY_TOPICS.map((t) => {
+    const d = t.updatedAt ? new Date(t.updatedAt) : null;
+    return {
+      url: `${BASE}/study-topics/${t.slug}`,
+      lastModified: d && !Number.isNaN(d.getTime()) ? d : new Date("2026-04-28"),
+    };
+  });
 
   // ── Blog posts (with hreflang for EN/ES pairs) ────────────────────────────
   let blogPages: Record<string, unknown>[] = [];
@@ -91,7 +99,10 @@ export default async function sitemap() {
         url: `${BASE}/blog/${p.slug}`,
         lastModified: new Date(p.updated_at),
       };
-      if (pairedSlug) {
+      // hreflang only pairs en/es content. Other UI languages don't have
+      // crawlable long-form posts so emitting alternate URLs for them would
+      // be a lie to crawlers.
+      if (pairedSlug && (lang === "en" || lang === "es")) {
         const otherLang = lang === "en" ? "es" : "en";
         entry.alternates = {
           languages: {
@@ -142,9 +153,14 @@ export default async function sitemap() {
       });
     }
 
+    // Cap thread URLs — protects against runaway sitemap growth if the
+    // forum gets spammed before moderation kicks in. 40k is well under the
+    // 50k sitemap limit and lets us add other URL types without splitting.
     const { data: threads } = await supabase
       .from("forum_threads")
-      .select("id, category_id, updated_at, created_at");
+      .select("id, category_id, updated_at, created_at")
+      .order("created_at", { ascending: false })
+      .limit(40000);
 
     for (const thread of threads ?? []) {
       forumPages.push({

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { forumApi } from "../../../../src/api/forum";
 import { sanitizeServerRichHtml } from "../../../../src/lib/serverSanitize";
 import PublicNav from "../../../_components/PublicNav";
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }) {
   try {
     const { categoryId, threadId } = await params;
     const thread = await forumApi.getThread(threadId);
-    if (!thread) return {};
+    if (!thread || thread.category_id !== categoryId) return {};
 
     const desc =
       stripHtml(thread.content).slice(0, 160) ||
@@ -24,6 +25,7 @@ export async function generateMetadata({ params }) {
       title: `${thread.title} | JW Study Forum`,
       description: desc,
       alternates: { canonical: `https://jwstudy.org/forum/${categoryId}/${threadId}` },
+      other: { "content-language": "en" },
       openGraph: {
         title: thread.title,
         description: desc,
@@ -52,6 +54,8 @@ export default async function ForumThreadPage({ params }) {
     forumApi.listReplies(threadId).catch(() => [] as Awaited<ReturnType<typeof forumApi.listReplies>>),
   ]);
 
+  if (!thread || thread.category_id !== categoryId) notFound();
+
   const threadUrl = `https://jwstudy.org/forum/${categoryId}/${threadId}`;
 
   const schemaPosting = thread
@@ -64,6 +68,7 @@ export default async function ForumThreadPage({ params }) {
         datePublished: thread.created_at,
         dateModified: thread.updated_at ?? thread.created_at,
         url: threadUrl,
+        inLanguage: "en",
         author: thread.profiles?.display_name
           ? { "@type": "Person", name: thread.profiles.display_name }
           : undefined,
@@ -72,6 +77,23 @@ export default async function ForumThreadPage({ params }) {
           "@id": "https://jwstudy.org/#organization",
           name: "JW Study",
         },
+        commentCount: replies.length,
+        interactionStatistic: {
+          "@type": "InteractionCounter",
+          interactionType: "https://schema.org/CommentAction",
+          userInteractionCount: replies.length,
+        },
+        // Replies as Comment nodes — what Google ranks for the Discussions &
+        // forums feature. Capped at 20 to avoid bloating the JSON-LD payload;
+        // the visible replies list below renders all of them.
+        comment: replies.slice(0, 20).map((r) => ({
+          "@type": "Comment",
+          text: stripHtml(r.content ?? "").slice(0, 500),
+          dateCreated: r.created_at,
+          ...(r.profiles?.display_name
+            ? { author: { "@type": "Person", name: r.profiles.display_name } }
+            : {}),
+        })),
       }
     : null;
 

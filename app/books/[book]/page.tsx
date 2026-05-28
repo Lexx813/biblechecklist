@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
 import PublicNav from "../../_components/PublicNav";
 import PublicFooter from "../../_components/PublicFooter";
+import IndependenceDisclaimer from "../../_components/IndependenceDisclaimer";
 import { BOOKS, OT_COUNT } from "../../../src/data/books";
 import { BOOK_INFO } from "../../../src/data/bookInfo";
+import { BOOK_EXTRAS } from "../../../src/data/bookExtras";
 import { PLAN_TEMPLATES } from "../../../src/data/readingPlanTemplates";
 import { STUDY_TOPICS } from "../../../src/data/studyTopics";
 import { safeJsonLd } from "../../../src/lib/safeJsonLd";
@@ -21,7 +23,8 @@ function bookToSlug(name) {
 function getBook(slug) {
   const idx = BOOKS.findIndex((b) => bookToSlug(b.name) === slug);
   if (idx === -1) return null;
-  return { ...BOOKS[idx], ...BOOK_INFO[idx], index: idx };
+  const name = BOOKS[idx].name;
+  return { ...BOOKS[idx], ...BOOK_INFO[idx], ...(BOOK_EXTRAS[name] ?? {}), index: idx };
 }
 
 // Plans that include this book index
@@ -72,12 +75,17 @@ export default async function BookPage({ params }) {
   const prevBook = book.index > 0 ? BOOKS[book.index - 1] : null;
   const nextBook = book.index < BOOKS.length - 1 ? BOOKS[book.index + 1] : null;
 
-  // Full article body for schema — all paragraphs concatenated
+  // Full article body for schema — all paragraphs concatenated, including
+  // the hand-written "Why this book matters today" block where present so
+  // the schema's articleBody reflects what's actually on the page.
+  const whyItMattersToday = (book as { whyItMattersToday?: string }).whyItMattersToday;
+  const bookFaqs = ((book as { faqs?: { question: string; answer: string }[] }).faqs) ?? [];
   const articleBody = [
     book.summary,
-    `The book of ${book.name} contains ${book.chapters} chapters and belongs to the ${scriptureSection}. It was written by ${book.author} approximately ${book.date}. The central theme of ${book.name} is ${book.theme.toLowerCase()}.`,
+    ...(whyItMattersToday ? [whyItMattersToday] : []),
     ...book.notablePassages.map((p) => `${p.ref}: ${p.note}`),
     ...book.questions,
+    ...bookFaqs.flatMap((f) => [f.question, f.answer]),
   ].join(" ");
 
   const schemaArticle = {
@@ -87,6 +95,9 @@ export default async function BookPage({ params }) {
     headline: `Book of ${book.name} — NWT Study Guide`,
     description: book.summary,
     articleBody,
+    wordCount: articleBody.split(/\s+/).filter(Boolean).length,
+    articleSection: scriptureSection,
+    keywords: [book.name, "New World Translation", scriptureSection, "Bible study", book.theme].join(", "),
     url: `${BASE}/books/${slug}`,
     datePublished: "2025-11-01",
     // dateModified is the build-time timestamp, not a hardcoded date. The
@@ -117,7 +128,24 @@ export default async function BookPage({ params }) {
       },
     },
     inLanguage: "en",
+    isAccessibleForFree: true,
   };
+
+  // FAQPage schema — only emit when hand-written FAQs exist. Generating
+  // identical Q&A across all 66 books would trigger Google's deceptive-FAQ
+  // pattern detection.
+  const schemaFaq = bookFaqs.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "@id": `${BASE}/books/${slug}#faq`,
+        mainEntity: bookFaqs.map((f) => ({
+          "@type": "Question",
+          name: f.question,
+          acceptedAnswer: { "@type": "Answer", text: f.answer },
+        })),
+      }
+    : null;
 
   const schemaBreadcrumb = {
     "@context": "https://schema.org",
@@ -155,8 +183,14 @@ export default async function BookPage({ params }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaArticle) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBook) }} />
+      {schemaFaq && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaFaq) }} />
+      )}
       <PublicNav />
       <main className="prose prose-slate dark:prose-invert mx-auto max-w-3xl px-4 py-10 sm:px-6 sm:py-14">
+        <div className="not-prose">
+          <IndependenceDisclaimer />
+        </div>
         <h1>Book of {book.name} — New World Translation Study Guide</h1>
         <p>
           <strong>Section:</strong> {scriptureSection} · <strong>Chapters:</strong> {book.chapters} ·{" "}
@@ -166,13 +200,13 @@ export default async function BookPage({ params }) {
 
         <h2>Summary of the Book of {book.name}</h2>
         <p>{book.summary}</p>
-        <p>
-          The book of {book.name} is part of the {scriptureSection} and contains {book.chapters}{" "}
-          chapters. It was written by {book.author} approximately {book.date}. The central theme
-          running throughout {book.name} is {book.theme.toLowerCase()} — a foundational message
-          for Jehovah&apos;s people as they pursue pure worship and grow in knowledge of
-          Jehovah&apos;s purposes.
-        </p>
+
+        {whyItMattersToday && (
+          <>
+            <h2>Why the Book of {book.name} Matters Today</h2>
+            <p>{whyItMattersToday}</p>
+          </>
+        )}
 
         <h2>Key Verses in {book.name}</h2>
         <ul>
@@ -200,18 +234,27 @@ export default async function BookPage({ params }) {
           ))}
         </ol>
 
+        {bookFaqs.length > 0 && (
+          <>
+            <h2>Frequently Asked Questions About {book.name}</h2>
+            <dl>
+              {bookFaqs.map((f, i) => (
+                <div key={i}>
+                  <dt><strong>{f.question}</strong></dt>
+                  <dd>{f.answer}</dd>
+                </div>
+              ))}
+            </dl>
+          </>
+        )}
+
         <h2>How to Study {book.name} with JW Study</h2>
         <p>
-          JW Study is a free Bible reading tracker built for Jehovah&apos;s Witnesses. Track
-          your progress through all {book.chapters} chapters of {book.name} in the New World
-          Translation, mark completed chapters, take personal study notes, and build a consistent
-          daily Bible reading habit. Use it alongside JW Library and the publications available at{" "}
-          wol.jw.org to deepen your understanding of Jehovah&apos;s Word.
-        </p>
-        <p>
-          Consider reading {book.name} as part of your personal study routine, family worship
-          night, or alongside the weekly meeting schedule. Taking notes on each chapter helps you
-          retain key points and apply the lessons in your ministry.
+          Track your progress through all {book.chapters} chapters of {book.name} in the New
+          World Translation, mark completed chapters as you read, save personal notes on key
+          passages, and build a consistent daily Bible reading habit. Use it alongside JW Library
+          and the publications available at wol.jw.org to deepen your understanding of
+          Jehovah&apos;s Word.
         </p>
 
         {relatedPlans.length > 0 && (

@@ -73,11 +73,13 @@ const schemaPerson = {
   "@type": "Person",
   "@id": "https://jwstudy.org/#creator",
   name: "Alexi",
+  jobTitle: "Founder & developer, JW Study",
   description:
     "Bible student and Jehovah's Witness who built JW Study, a free Bible reading tracker and study community for Jehovah's Witnesses.",
   url: "https://jwstudy.org/about",
+  image: "https://jwstudy.org/icon-512.png",
   email: "support@jwstudy.org",
-  knowsAbout: ["Bible reading", "New World Translation", "Jehovah's Witnesses"],
+  knowsAbout: ["Bible reading", "New World Translation", "Jehovah's Witnesses", "Bible study"],
   worksFor: {
     "@type": "Organization",
     "@id": "https://jwstudy.org/#organization",
@@ -87,6 +89,18 @@ const schemaPerson = {
     "https://www.facebook.com/lexx.seise",
     "https://www.instagram.com/lexx813/",
   ],
+};
+
+// Wrap Person in ProfilePage. /about is functionally a creator profile page,
+// and the wrapper gives Google a clear signal about page intent + knowledge-
+// panel eligibility.
+const schemaProfilePage = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": "https://jwstudy.org/about#profilepage",
+  mainEntity: { "@id": "https://jwstudy.org/#creator" },
+  about: { "@id": "https://jwstudy.org/#creator" },
+  url: "https://jwstudy.org/about",
 };
 
 const PILLARS = [
@@ -112,6 +126,7 @@ export default function AboutPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaBreadcrumb) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaPerson) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schemaProfilePage) }} />
       <PublicNav />
 
       <main className="text-[var(--lp-text)]">

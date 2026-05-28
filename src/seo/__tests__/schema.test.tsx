@@ -29,15 +29,18 @@ describe('OrganizationSchema', () => {
 });
 
 describe('WebSiteSchema', () => {
-  it('emits WebSite with publisher Organization ref and no SearchAction', () => {
+  it('emits WebSite with publisher Organization ref and SearchAction pointing at /search', () => {
     const html = renderToStaticMarkup(<WebSiteSchema />);
     const json = extractJson(html);
     expect(json['@type']).toBe('WebSite');
     const publisher = json.publisher as { '@type': string; '@id': string };
     expect(publisher['@type']).toBe('Organization');
     expect(publisher['@id']).toContain('#organization');
-    // SearchAction intentionally absent — no /search route exists.
-    expect(json.potentialAction).toBeUndefined();
+    // SearchAction unlocks Google's sitelinks search box. /search is a
+    // valid SPA route (see KNOWN_SPA_ROUTES) that accepts a `q` query param.
+    const action = json.potentialAction as { '@type': string; target: { urlTemplate: string } };
+    expect(action['@type']).toBe('SearchAction');
+    expect(action.target.urlTemplate).toContain('/search?q=');
   });
 });
 

@@ -48,9 +48,9 @@ const getUserCount = unstable_cache(
       const { count } = await getSupabase()
         .from("profiles")
         .select("id", { count: "exact", head: true });
-      return Math.max(count ?? 500, 500);
+      return count ?? 0;
     } catch {
-      return 500;
+      return 0;
     }
   },
   ["landing-user-count"],

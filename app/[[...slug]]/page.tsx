@@ -108,10 +108,9 @@ const ROUTE_TEASERS: Record<string, { title: string; description: string }> = {
     title: "Personal Study Notes",
     description: "Save private study notes tied to any Bible chapter or verse. Tag, search, and export your personal Bible study journal.",
   },
-  "meeting-prep": {
-    title: "Meeting Prep — CLAM and Watchtower Study",
-    description: "Prepare for the Christian Life and Ministry meeting and Watchtower study with checklists, scripture references, and notes tied to the week's material.",
-  },
+  // /meeting-prep is disallowed in robots.txt as an authed feature, so we
+  // also drop the SSR teaser — keeping it would let crawlers discover and
+  // potentially index the URL via the link in this teaser anyway.
   "community": {
     title: "JW Study Community",
     description: "An activity feed of what Bible students are reading, studying, and discussing — reactions, replies, and encouragement.",

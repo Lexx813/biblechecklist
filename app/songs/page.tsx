@@ -64,6 +64,25 @@ export default async function SongsIndexEn() {
     })),
   } : null;
 
+  // MusicPlaylist gives Google music-entity signals — pairs better with the
+  // per-song MusicRecording schemas on /songs/[slug] than ItemList alone.
+  const schemaPlaylist = songs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "MusicPlaylist",
+    "@id": `${BASE}/songs#playlist`,
+    name: "JW Study Songs",
+    description: "Original Bible-based music for the JW community. Each song is rooted in scripture and aligned with the New World Translation.",
+    numTracks: songs.length,
+    url: `${BASE}/songs`,
+    track: songs.slice(0, 30).map((s) => ({
+      "@type": "MusicRecording",
+      "@id": `${BASE}/songs/${s.slug}#recording`,
+      name: s.title,
+      url: `${BASE}/songs/${s.slug}`,
+      byArtist: { "@type": "Organization", "@id": `${BASE}/#organization`, name: "JW Study" },
+    })),
+  } : null;
+
   const safeJson = (o: unknown) => JSON.stringify(o).replace(/</g, "\\u003c");
 
   return (
@@ -71,6 +90,9 @@ export default async function SongsIndexEn() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(schemaBreadcrumb) }} />
       {schemaItemList && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(schemaItemList) }} />
+      )}
+      {schemaPlaylist && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(schemaPlaylist) }} />
       )}
       <PublicNav />
       <SongIndexPage songs={songs} featured={featured} lang="en" />

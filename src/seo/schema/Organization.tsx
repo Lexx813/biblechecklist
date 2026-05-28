@@ -26,8 +26,19 @@ const schema = {
   },
   sameAs: [
     'https://www.tiktok.com/@laqjw',
+    'https://www.facebook.com/lexx.seise',
+    'https://www.instagram.com/lexx813/',
   ],
-  founder: { '@id': `${SITE_ORIGIN}/#creator` },
+  // Inline the Person rather than a bare @id ref. The Person node only lives
+  // on /about; referencing /#creator from every page would leave a dangling
+  // @id everywhere except /about. Inline keeps the entity graph self-contained
+  // on each page while the canonical Person URL on /about is still emitted.
+  founder: {
+    '@type': 'Person',
+    '@id': `${SITE_ORIGIN}/#creator`,
+    name: 'Alexi',
+    url: `${SITE_ORIGIN}/about`,
+  },
 };
 
 export function OrganizationSchema() {

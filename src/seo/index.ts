@@ -1,5 +1,4 @@
 export { buildMetadata, type BuildMetadataInput } from './metadata';
-export { getHreflangMap } from './hreflang';
 export { LOCALES, DEFAULT_LOCALE, SITE_ORIGIN, isLocale, type Locale } from './locales';
 
 export { OrganizationSchema } from './schema/Organization';

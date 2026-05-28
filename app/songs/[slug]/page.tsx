@@ -32,6 +32,7 @@ function aliasSongNumber(slug: string): number | null {
 }
 import { getSignedAudioUrl } from "../../../src/lib/songs/signedAudio";
 import SongDetailPage from "../../../src/components/songs/SongDetailPage";
+import IndependenceDisclaimer from "../../_components/IndependenceDisclaimer";
 import PublicNav from "../../_components/PublicNav";
 import PublicFooter from "../../_components/PublicFooter";
 
@@ -65,8 +66,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
     if (hasEs) languages.es = `${BASE}/es/songs/${song.slug}`;
 
+    // Use "JW Study Song #N" — not "Kingdom Song N", which is the official
+    // Watch Tower term for the Society's songbook. Our songs are original
+    // community compositions inspired by NWT scriptures, and we need to
+    // signal that clearly in titles + listings to avoid trademark confusion.
     const titleWithNumber = song.song_number != null
-      ? `Kingdom Song ${song.song_number} — ${title}`
+      ? `JW Study Song #${song.song_number} — ${title}`
       : title;
     return {
       title: `${titleWithNumber} | JW Study Music`,
@@ -152,10 +157,13 @@ export default async function SongDetailEn({ params }: { params: Promise<{ slug:
     url: `${BASE}/songs/${song.slug}`,
     image: song.cover_image_url ?? `${BASE}/og-image.jpg`,
     ...(durationIso ? { duration: durationIso } : {}),
-    keywords: [song.theme, song.primary_scripture_ref, "Jehovah's Witnesses", "Bible", "JW music"].join(", "),
+    keywords: [song.theme, song.primary_scripture_ref, "original Bible song", "NWT inspired", "Christian music"].join(", "),
     isFamilyFriendly: true,
+    // byArtist is the JW Study Organization itself — kept as Organization
+    // (which is valid for byArtist) rather than a separate MusicGroup so the
+    // @id graph resolves cleanly against the homepage Organization node.
     byArtist: {
-      "@type": "MusicGroup",
+      "@type": "Organization",
       "@id": `${BASE}/#organization`,
       name: "JW Study",
       url: BASE,
@@ -190,6 +198,9 @@ export default async function SongDetailEn({ params }: { params: Promise<{ slug:
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(schemaMusic) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJson(schemaBreadcrumb) }} />
       <PublicNav />
+      <div className="mx-auto max-w-3xl px-4 pt-6 sm:px-6 lg:px-8">
+        <IndependenceDisclaimer />
+      </div>
       <SongDetailPage song={song} others={others} signedUrl={signedUrl} lang="en" />
 
       {/* SSR-only "Continue your study" rail. Surfaces internal links to the
