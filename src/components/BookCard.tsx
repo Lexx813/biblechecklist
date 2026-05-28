@@ -186,10 +186,10 @@ const BookCard = memo(function BookCard({ book, bookIndex, chaptersState, chapte
               <button
                 className="bc-study-btn"
                 onClick={e => { e.stopPropagation(); onNavigateToStudy(bookIndex); }}
-                title="Study this book"
-                aria-label={`Study ${bookName}`}
+                title={t("book.studyThisBook", "Study →")}
+                aria-label={`${t("book.studyThisBook", "Study →")} ${bookName}`}
               >
-                Study →
+                {t("book.studyThisBook", "Study →")}
               </button>
             )}
           </div>

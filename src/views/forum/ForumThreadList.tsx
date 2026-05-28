@@ -18,6 +18,7 @@ import {
 // ── AI Post Assistant ─────────────────────────────────────────────────────────
 
 function ForumPostAssistant({ topic, draft }: { topic: string; draft: string }) {
+  const { t } = useTranslation();
   const { text, loading, error, run, reset } = useAISkill();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -36,36 +37,36 @@ function ForumPostAssistant({ topic, draft }: { topic: string; draft: string }) 
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
           </svg>
-          AI Post Assistant
+          {t("forum.aiAssistantTitle", "AI Post Assistant")}
         </span>
         <span className={`ait-inline-chevron${open ? " ait-inline-chevron--open" : ""}`}>▼</span>
       </div>
       {open && (
         <div className="ait-inline-body">
           <p style={{ fontSize: "0.85rem", color: "var(--text-muted,#888)", margin: "0 0 0.75rem" }}>
-            Get help crafting a warm, scripturally-grounded forum post based on your topic and draft.
+            {t("forum.aiAssistantDesc", "Get help crafting a warm, scripturally-grounded forum post based on your topic and draft.")}
           </p>
           <button className="ait-submit-btn" type="button" onClick={handleAssist} disabled={loading || !topic.trim()} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-            {loading ? "Writing…" : (
+            {loading ? t("forum.aiWriting", "Writing…") : (
               <>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
                 </svg>
-                Help Me Write This Post
+                {t("forum.aiHelpMeWrite", "Help Me Write This Post")}
               </>
             )}
           </button>
           {(loading || text || error) && (
             <div className="ait-result" style={{ marginTop: "0.75rem" }}>
               <div className="ait-result-header">
-                <span className="ait-result-label">AI Suggestion</span>
-                {!loading && (text || error) && <button className="ait-result-clear" type="button" onClick={reset}>Clear</button>}
+                <span className="ait-result-label">{t("forum.aiSuggestion", "AI Suggestion")}</span>
+                {!loading && (text || error) && <button className="ait-result-clear" type="button" onClick={reset}>{t("common.clear", "Clear")}</button>}
               </div>
               <div className="ait-result-body" ref={ref}>
                 {loading && !text && (
                   <div className="ait-loading">
                     <span className="ait-dot" /><span className="ait-dot" /><span className="ait-dot" />
-                    <span className="ait-loading-label">Thinking…</span>
+                    <span className="ait-loading-label">{t("common.thinking", "Thinking…")}</span>
                   </div>
                 )}
                 {error && <div className="ait-error">{error}</div>}

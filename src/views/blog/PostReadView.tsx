@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo, type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { marked } from "marked";
 import { sanitizeRich } from "../../lib/sanitize";
 import { useRelatedPosts, useToggleBlogLike, useUserBlogLikes } from "../../hooks/useBlog";
@@ -56,6 +57,7 @@ interface Props {
 }
 
 export default function PostReadView({ post, user, navigate, children }: Props) {
+  const { t } = useTranslation();
   const [scrollPct, setScrollPct] = useState(0);
   const [activeSection, setActiveSection] = useState("");
   const articleRef = useRef<HTMLDivElement>(null);
@@ -126,13 +128,13 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
     </svg>
   );
   const shareLinks = [
-    { label: "Copy link", icon: LinkIcon, action: () => { navigator.clipboard.writeText(shareUrl); setShowShare(false); } },
-    { label: "Share on X", icon: XIcon, href: `https://x.com/intent/tweet?text=${shareText}&url=${encodeURIComponent(shareUrl)}` },
-    { label: "WhatsApp", icon: WhatsAppIcon, href: `https://wa.me/?text=${shareText}%20${encodeURIComponent(shareUrl)}` },
-    { label: "Facebook", icon: FacebookIcon, href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}` },
+    { label: t("blog.shareCopyLink", "Copy link"), icon: LinkIcon, action: () => { navigator.clipboard.writeText(shareUrl); setShowShare(false); } },
+    { label: t("blog.shareOnX", "Share on X"), icon: XIcon, href: `https://x.com/intent/tweet?text=${shareText}&url=${encodeURIComponent(shareUrl)}` },
+    { label: t("blog.shareOnWhatsApp", "WhatsApp"), icon: WhatsAppIcon, href: `https://wa.me/?text=${shareText}%20${encodeURIComponent(shareUrl)}` },
+    { label: t("blog.shareOnFacebook", "Facebook"), icon: FacebookIcon, href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}` },
   ];
 
-  const displayName = post.profiles?.display_name ?? "Anonymous";
+  const displayName = post.profiles?.display_name ?? t("blog.anonymousAuthor", "Anonymous");
   const authorInitial = displayName[0].toUpperCase();
   const displayDate = formatDate(post.created_at, "long");
   const primaryTag = post.tags?.[0] ?? "";
@@ -145,7 +147,7 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
         {/* Left: ToC */}
         {headings.length > 0 && (
           <aside className="pr-toc">
-            <div className="pr-toc-label">Contents</div>
+            <div className="pr-toc-label">{t("blog.tableOfContents", "Contents")}</div>
             {headings.map(({ id, text }) => (
               <button
                 key={id}
@@ -159,7 +161,7 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
 
         {/* Center: Article */}
         <article className="pr-article" ref={articleRef}>
-          <button className="pr-back-link" onClick={() => navigate("blog")}>← All Posts</button>
+          <button className="pr-back-link" onClick={() => navigate("blog")}>← {t("blog.allPosts", "All Posts")}</button>
           {primaryTag && <span className="pr-tag-pill">{primaryTag}</span>}
           <h1 className="pr-title">{post.title}</h1>
 
@@ -182,7 +184,7 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
                 </svg>
-                {post.read_time_minutes} min
+                {t("blog.minLabel", "{{count}} min", { count: post.read_time_minutes })}
               </span>
             )}
           </div>
@@ -210,44 +212,44 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
                 </svg>
               </span>
               <div>
-                <div className="pr-jw-footer-title">For Deeper Study, Visit jw.org</div>
-                <div className="pr-jw-footer-sub">The official website of Jehovah's Witnesses is the primary source for accurate Bible teaching. Take the next step below.</div>
+                <div className="pr-jw-footer-title">{t("blog.jwFooterTitle", "For Deeper Study, Visit jw.org")}</div>
+                <div className="pr-jw-footer-sub">{t("blog.jwFooterSub", "The official website of Jehovah's Witnesses is the primary source for accurate Bible teaching. Take the next step below.")}</div>
               </div>
             </div>
             <div className="pr-jw-footer-links">
               <a className="pr-jw-link pr-jw-link--primary" href="https://hub.jw.org/request-visit/en/request" target="_blank" rel="noopener noreferrer">
                 <span className="pr-jw-link-icon">✉️</span>
                 <span>
-                  <strong>Request a Free Bible Study</strong>
-                  <small>hub.jw.org, one of Jehovah's Witnesses will be glad to contact you</small>
+                  <strong>{t("blog.jwLinkRequestStudy", "Request a Free Bible Study")}</strong>
+                  <small>{t("blog.jwLinkRequestStudySub", "hub.jw.org, one of Jehovah's Witnesses will be glad to contact you")}</small>
                 </span>
               </a>
               <a className="pr-jw-link pr-jw-link--primary" href="https://hub.jw.org/meetings/en?q=%7B%22meetingType%22:%22meetings%22,%22location%22:%22%22%7D" target="_blank" rel="noopener noreferrer">
                 <span className="pr-jw-link-icon">🏛️</span>
                 <span>
-                  <strong>Find a Meeting Near You</strong>
-                  <small>hub.jw.org, attend a Kingdom Hall meeting in your area</small>
+                  <strong>{t("blog.jwLinkFindMeeting", "Find a Meeting Near You")}</strong>
+                  <small>{t("blog.jwLinkFindMeetingSub", "hub.jw.org, attend a Kingdom Hall meeting in your area")}</small>
                 </span>
               </a>
               <a className="pr-jw-link" href="https://www.jw.org" target="_blank" rel="noopener noreferrer">
                 <span className="pr-jw-link-icon">🌐</span>
                 <span>
-                  <strong>jw.org, Official Website</strong>
-                  <small>Books, videos, magazines & Bible study articles</small>
+                  <strong>{t("blog.jwLinkOfficialSite", "jw.org, Official Website")}</strong>
+                  <small>{t("blog.jwLinkOfficialSiteSub", "Books, videos, magazines & Bible study articles")}</small>
                 </span>
               </a>
               <a className="pr-jw-link" href="https://wol.jw.org" target="_blank" rel="noopener noreferrer">
                 <span className="pr-jw-link-icon">🔍</span>
                 <span>
-                  <strong>Watchtower ONLINE Library</strong>
-                  <small>wol.jw.org, full publication archive</small>
+                  <strong>{t("blog.jwLinkWolLibrary", "Watchtower ONLINE Library")}</strong>
+                  <small>{t("blog.jwLinkWolLibrarySub", "wol.jw.org, full publication archive")}</small>
                 </span>
               </a>
               <a className="pr-jw-link" href="https://www.jw.org/en/online-help/jw-library/" target="_blank" rel="noopener noreferrer">
                 <span className="pr-jw-link-icon">📱</span>
                 <span>
-                  <strong>JW Library App</strong>
-                  <small>Bibles, publications & meeting materials, iOS &amp; Android</small>
+                  <strong>{t("blog.jwLinkJwLibraryApp", "JW Library App")}</strong>
+                  <small>{t("blog.jwLinkJwLibraryAppSub", "Bibles, publications & meeting materials, iOS & Android")}</small>
                 </span>
               </a>
             </div>
@@ -259,16 +261,16 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
         {/* Right: Sidebar */}
         <aside className="pr-sidebar">
           <div className="pr-widget pr-progress-widget">
-            <div className="pr-widget-label">Progress</div>
+            <div className="pr-widget-label">{t("blog.progress", "Progress")}</div>
             <div className="pr-pct">{scrollPct}%</div>
-            <div className="pr-pct-sub">through this article</div>
+            <div className="pr-pct-sub">{t("blog.throughArticle", "through this article")}</div>
             <div className="pr-pct-track">
               <div className="pr-pct-fill" style={{ width: `${scrollPct}%` }} />
             </div>
           </div>
 
           <div className="pr-widget">
-            <div className="pr-widget-label">Actions</div>
+            <div className="pr-widget-label">{t("blog.actions", "Actions")}</div>
             <button
               className="pr-action-btn"
               onClick={() => user && toggleLike.mutate(post.id)}
@@ -277,10 +279,10 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
               <svg width="16" height="16" viewBox="0 0 24 24" fill={liked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
               </svg>
-              Like ({post.like_count})
+              {t("blog.likeWithCount", "Like ({{count}})", { count: post.like_count })}
             </button>
             <BookmarkButton userId={user?.id} postId={post.id} className="pr-action-btn pr-bookmark-btn" />
-            <button className="pr-action-btn" onClick={() => setShowShare(s => !s)}>📤 Share</button>
+            <button className="pr-action-btn" onClick={() => setShowShare(s => !s)}>📤 {t("blog.share", "Share")}</button>
             {showShare && (
               <div className="pr-share-sheet">
                 {shareLinks.map(({ label, icon, action, href }) =>
@@ -300,7 +302,7 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
 
           {relatedPosts.length > 0 && (
             <div className="pr-widget">
-              <div className="pr-widget-label">Related Posts</div>
+              <div className="pr-widget-label">{t("blog.relatedPostsLabel", "Related Posts")}</div>
               {(relatedPosts as unknown as Post[]).map(rp => (
                 <button
                   key={rp.id}
@@ -313,7 +315,7 @@ export default function PostReadView({ post, user, navigate, children }: Props) 
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                         <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
                       </svg>
-                      {rp.read_time_minutes} min
+                      {t("blog.minLabel", "{{count}} min", { count: rp.read_time_minutes })}
                     </div>
                   )}
                 </button>

@@ -248,7 +248,10 @@
     "readingDays_one": "Kwana {{count}} na karatu",
     "readingDays_other": "Kwanaki {{count}} na karatu",
     "title": "Tarihin Karatu",
-    "viewBtn": "Duba tarihin karatu"
+    "viewBtn": "Duba tarihin karatu",
+    "rhythm": "Yanayin karatu",
+    "weekChapters": "An rubuta babuka {{chapters}} a cikin kwanaki 7 da suka gabata",
+    "weekRhythm": "Kwanaki {{days}} wannan makon"
   },
   "home": {
     "beTheFirstToShare": "Zama na farko da zai raba wani abu.",
@@ -1390,7 +1393,12 @@
     "shareTitle": "Raba {{book}} {{chapter}}",
     "chapterShort": "Babi {{chapter}}",
     "dialogLabel": "{{book}} Babi {{chapter}}",
-    "versesProgress": "{{read}} / {{total}} ayoyi"
+    "versesProgress": "{{read}} / {{total}} ayoyi",
+    "askAi": "Tambayi AI game da wannan babi",
+    "chapterCompleteUndo": "An gama babin, soke",
+    "markChapterComplete": "Yi alama babi a matsayin an gama",
+    "selectAll": "Zaɓi duka",
+    "selectVersesDivider": "ko zaɓi ayoyi"
   },
   "verses": [
     {
@@ -2163,7 +2171,28 @@
     "markUnread": "Yi alama ba a karanta ba",
     "notesLabel": "Bayanaina",
     "readInJwLibrary": "JW Library",
-    "readOnWol": "Karanta a JW.org"
+    "readOnWol": "Karanta a JW.org",
+    "complete": "An gama",
+    "currentChapter": "Ci gaba da babi na {{chapter}}",
+    "inProgress": "Ana ci gaba",
+    "notStarted": "Ba a fara ba",
+    "allBooks": "Dukan Littattafan Littafi Mai Tsarki",
+    "notFound": "Ba a sami littafin ba",
+    "bookOfTotal": "Littafi na {{current}} daga cikin {{total}}",
+    "hebrewScriptures": "Nassosin Ibrananci",
+    "greekScriptures": "Nassosin Helenanci na Kirista",
+    "overview": "Taƙaitawa",
+    "keyHighlights": "Manyan Batutuwa",
+    "whyBeneficial": "Dalilin da Ya Sa Yake da Amfani",
+    "keyVersesHeading": "Muhimman Ayoyi",
+    "notablePassagesHeading": "Sanannun Ayoyi",
+    "studyQuestionsHeading": "Tambayoyin Nazari",
+    "previous": "Na Baya",
+    "next": "Na Gaba",
+    "infoNotablePassages": "Sanannun Ayoyi",
+    "infoStudyQuestions": "Tambayoyin Nazari",
+    "studyThisBook": "Yi Nazari →",
+    "readOnWolArrow": "Karanta a WOL ↗"
   },
   "bookAbbrs": [
     "Far",
@@ -2471,7 +2500,19 @@
     "planPromptCta": "Duba shirye-shiryen karatu",
     "donutAria": "{{pct}}% na Littafi Mai Tsarki an karanta",
     "chaptersRead": "babuka da aka karanta",
-    "remaining": "saura"
+    "remaining": "saura",
+    "allRead": "An gama duk babuka",
+    "browsePlans": "Duba shirye-shirye",
+    "completeSub": "An yiwa kowane babi alama a matsayin an karanta. Kana iya duba tarihi ko fara sabon shiri.",
+    "completeTitle": "An gama duk Littafi Mai Tsarki",
+    "nextReading": "Karatu na gaba",
+    "noPlanContinue": "Babu buƙatar shiri mai aiki. Ci gaba daga babi na gaba da ba a karanta ba.",
+    "openPlan": "Buɗe shiri",
+    "planDayDone": "An yi wa karatun shirin yau alama a matsayin an gama.",
+    "planNudge": "Kana so jadawali? Shirye-shiryen karatu na iya daidaita tafiyar wannan mai bin diddigi ba tare da daure ka ba.",
+    "startReadingPlan": "Fara shiri",
+    "todaysReading": "Karatun yau",
+    "todaysReadings": "Karatuttukan yau"
   },
   "cmdPalette": {
     "blogSection": "Blog",

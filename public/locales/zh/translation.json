@@ -567,7 +567,27 @@
     "infoWritten": "写作时间",
     "infoTheme": "主题",
     "infoKeyVerses": "关键经文",
-    "infoStudyQuestions": "学习问题"
+    "infoStudyQuestions": "研读问题",
+    "complete": "已完成",
+    "currentChapter": "继续第 {{chapter}} 章",
+    "inProgress": "进行中",
+    "notStarted": "未开始",
+    "allBooks": "圣经全部书卷",
+    "notFound": "找不到该书卷",
+    "bookOfTotal": "第 {{current}} 卷 / 共 {{total}} 卷",
+    "hebrewScriptures": "希伯来语经卷",
+    "greekScriptures": "希腊语经卷",
+    "overview": "概述",
+    "keyHighlights": "重点",
+    "whyBeneficial": "为什么对我们有益",
+    "keyVersesHeading": "重要经文",
+    "notablePassagesHeading": "值得注意的经文",
+    "studyQuestionsHeading": "研读问题",
+    "previous": "上一卷",
+    "next": "下一卷",
+    "infoNotablePassages": "值得注意的经文",
+    "studyThisBook": "研读 →",
+    "readOnWolArrow": "在 WOL 上阅读 ↗"
   },
   "posts": {
     "sectionTitle": "动态",
@@ -737,7 +757,10 @@
     "monthTotal_one": "{{count}} 章",
     "monthTotal_other": "{{count}} 章",
     "chBadge_one": "1 章",
-    "chBadge_other": "{{count}} 章"
+    "chBadge_other": "{{count}} 章",
+    "rhythm": "阅读节奏",
+    "weekChapters": "过去 7 天内记录了 {{chapters}} 章",
+    "weekRhythm": "本周 {{days}} 天"
   },
   "readingPlan": {
     "todayGoal": "今日：{{done}}/{{goal}} 章",
@@ -4042,7 +4065,19 @@
     "remaining": "章未读",
     "planPromptTitle": "添加阅读计划",
     "planPromptMessage": "加入结构化计划,通读整本《新世界译本》,每日设有检查点。",
-    "planPromptCta": "查看阅读计划"
+    "planPromptCta": "查看阅读计划",
+    "allRead": "所有章节已完成",
+    "browsePlans": "浏览计划",
+    "completeSub": "每一章都已标记为已读。您可以查看历史记录或开始新的计划。",
+    "completeTitle": "整本圣经已读完",
+    "nextReading": "下次阅读",
+    "noPlanContinue": "无需启用计划。请从下一个未读章节继续。",
+    "openPlan": "打开计划",
+    "planDayDone": "今天的计划阅读已标记为完成。",
+    "planNudge": "想要一个时间表吗?阅读计划可以为同一个追踪器定步调,而不会束缚您。",
+    "startReadingPlan": "开始计划",
+    "todaysReading": "今天的阅读",
+    "todaysReadings": "今天的阅读内容"
   },
   "writer": {
     "saved": "Saved",
@@ -4184,7 +4219,12 @@
     "shareTitle": "分享 {{book}} {{chapter}}",
     "chapterShort": "第 {{chapter}} 章",
     "dialogLabel": "{{book}} 第 {{chapter}} 章",
-    "versesProgress": "{{read}} / {{total}} 节"
+    "versesProgress": "{{read}} / {{total}} 节",
+    "askAi": "向 AI 询问本章内容",
+    "chapterCompleteUndo": "本章已完成,撤销",
+    "markChapterComplete": "标记本章为完成",
+    "selectAll": "全选",
+    "selectVersesDivider": "或选择经文"
   },
   "betaLang": {
     "dismiss": "关闭",

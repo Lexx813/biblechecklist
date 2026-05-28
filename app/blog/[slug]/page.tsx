@@ -1,8 +1,8 @@
 import { QueryClient, dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { unstable_cache } from "next/cache";
-import DOMPurify from "isomorphic-dompurify";
 import { blogApi } from "../../../src/api/blog";
 import { songsApi, localizedTitle } from "../../../src/api/songs";
+import { sanitizeServerRichHtml } from "../../../src/lib/serverSanitize";
 import ClientShell from "../../_components/ClientShell";
 
 // Shared across blog-post regenerations so each ISR miss doesn't pay a
@@ -233,7 +233,7 @@ export default async function BlogPostPage({ params }) {
             </p>
             {post.excerpt && <p>{post.excerpt}</p>}
             {post.content && (
-              <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content, { ADD_ATTR: ["target", "rel"] }) }} />
+              <div dangerouslySetInnerHTML={{ __html: sanitizeServerRichHtml(post.content) }} />
             )}
           </article>
 

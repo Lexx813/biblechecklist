@@ -375,7 +375,28 @@
     "infoAuthor": "Òǹkọ̀wé",
     "infoWritten": "A Kọ ọ́",
     "infoTheme": "Àkòrí",
-    "infoKeyVerses": "Àwọn ẹsẹ pàtàkì"
+    "infoKeyVerses": "Àwọn ẹsẹ pàtàkì",
+    "complete": "Ti pari",
+    "currentChapter": "Tẹsiwaju orí {{chapter}}",
+    "inProgress": "Ń lọ lọ́wọ́",
+    "notStarted": "Kò tíì bẹ̀rẹ̀",
+    "allBooks": "Gbogbo Ìwé Bíbélì",
+    "notFound": "A kò rí ìwé náà",
+    "bookOfTotal": "Ìwé {{current}} nínú {{total}}",
+    "hebrewScriptures": "Ìwé Mímọ́ Lédè Hébérù",
+    "greekScriptures": "Ìwé Mímọ́ Kristẹni Lédè Gíríìkì",
+    "overview": "Ìsọnísókí",
+    "keyHighlights": "Àwọn Kókó Pàtàkì",
+    "whyBeneficial": "Ìdí Tó Fi Ṣàǹfààní",
+    "keyVersesHeading": "Àwọn Ẹsẹ Pàtàkì",
+    "notablePassagesHeading": "Àwọn Ẹsẹ Tó Ṣe Pàtàkì",
+    "studyQuestionsHeading": "Àwọn Ìbéèrè fún Ìkẹ́kọ̀ọ́",
+    "previous": "Tó Ṣáájú",
+    "next": "Tó Tẹ̀lé",
+    "infoNotablePassages": "Àwọn Ẹsẹ Tó Ṣe Pàtàkì",
+    "infoStudyQuestions": "Àwọn Ìbéèrè fún Ìkẹ́kọ̀ọ́",
+    "studyThisBook": "Kẹ́kọ̀ọ́ →",
+    "readOnWolArrow": "Kà á lórí WOL ↗"
   },
   "posts": {
     "sectionTitle": "Àwọn Ìròyìn Tuntun",
@@ -1581,7 +1602,10 @@
     "monthTotal_one": "Orí {{count}}",
     "monthTotal_other": "Orí {{count}}",
     "chBadge_one": "Orí 1",
-    "chBadge_other": "Orí {{count}}"
+    "chBadge_other": "Orí {{count}}",
+    "rhythm": "Ìṣàn kíkà",
+    "weekChapters": "{{chapters}} orí tí a kọsílẹ̀ ní ọjọ́ 7 sẹ́yìn",
+    "weekRhythm": "Ọjọ́ {{days}} ní ọsẹ̀ yìí"
   },
   "verses": [
     {
@@ -2443,7 +2467,19 @@
     "planPromptCta": "Wo àwọn ètò ìkàwé",
     "donutAria": "{{pct}}% Bíbélì tí a kà",
     "chaptersRead": "orí tí a kà",
-    "remaining": "tó kù"
+    "remaining": "tó kù",
+    "allRead": "Gbogbo orí ti parí",
+    "browsePlans": "Wo àwọn ètò",
+    "completeSub": "Gbogbo orí ni a ti samì sí bí èyí tí a kà. O lè ṣàyẹ̀wò ìtàn tàbí bẹ̀rẹ̀ ètò tuntun.",
+    "completeTitle": "Gbogbo Bíbélì ti parí",
+    "nextReading": "Kíkà tó kàn",
+    "noPlanContinue": "Kò sí ètò tó nílò. Tẹ̀síwájú láti orí tó kàn tí a kò tíì kà.",
+    "openPlan": "Ṣí ètò",
+    "planDayDone": "Kíkà ètò òní ti jẹ́ àmì pé ó parí.",
+    "planNudge": "Ṣé o fẹ́ àkójọpọ̀ àkókò? Àwọn ètò kíkà lè mú olùtọpinpin kan náà yára láìsí dídè ọ́.",
+    "startReadingPlan": "Bẹ̀rẹ̀ ètò",
+    "todaysReading": "Kíkà òní",
+    "todaysReadings": "Àwọn kíkà òní"
   },
   "writer": {
     "saved": "Fipamọ́",
@@ -2585,7 +2621,12 @@
     "shareTitle": "Pín {{book}} {{chapter}}",
     "chapterShort": "Orí {{chapter}}",
     "dialogLabel": "{{book}} Orí {{chapter}}",
-    "versesProgress": "{{read}} / {{total}} ẹsẹ"
+    "versesProgress": "{{read}} / {{total}} ẹsẹ",
+    "askAi": "Bi AI léèrè nípa orí yìí",
+    "chapterCompleteUndo": "Orí parí, fà sẹ́yìn",
+    "markChapterComplete": "Sàmì sí orí gẹ́gẹ́ bí èyí tí ó parí",
+    "selectAll": "Yan gbogbo rẹ̀",
+    "selectVersesDivider": "tàbí yan àwọn ẹsẹ"
   },
   "topbar": {
     "goToHome": "JW Study, Lọ sí ilé",

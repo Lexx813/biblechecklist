@@ -370,7 +370,27 @@
     "infoWritten": "Isinulat",
     "infoTheme": "Tema",
     "infoKeyVerses": "Mga pangunahing talata",
-    "infoStudyQuestions": "Mga Tanong sa Pag-aaral"
+    "infoStudyQuestions": "Mga Tanong sa Pag-aaral",
+    "complete": "Tapos na",
+    "currentChapter": "Magpatuloy sa kab. {{chapter}}",
+    "inProgress": "Kasalukuyang ginagawa",
+    "notStarted": "Hindi pa nasisimulan",
+    "allBooks": "Lahat ng Aklat ng Bibliya",
+    "notFound": "Hindi natagpuan ang aklat",
+    "bookOfTotal": "Aklat {{current}} ng {{total}}",
+    "hebrewScriptures": "Hebreong Kasulatan",
+    "greekScriptures": "Kristiyanong Griegong Kasulatan",
+    "overview": "Pangkalahatang-ideya",
+    "keyHighlights": "Mga Pangunahing Punto",
+    "whyBeneficial": "Bakit Kapaki-pakinabang",
+    "keyVersesHeading": "Mga Mahahalagang Teksto",
+    "notablePassagesHeading": "Mga Tanyag na Talata",
+    "studyQuestionsHeading": "Mga Tanong sa Pag-aaral",
+    "previous": "Nakaraan",
+    "next": "Susunod",
+    "infoNotablePassages": "Mga Tanyag na Talata",
+    "studyThisBook": "Pag-aralan →",
+    "readOnWolArrow": "Basahin sa WOL ↗"
   },
   "posts": {
     "sectionTitle": "Mga Update",
@@ -1570,7 +1590,10 @@
     "monthTotal_one": "{{count}} kabanata",
     "monthTotal_other": "{{count}} kabanata",
     "chBadge_one": "1 kab",
-    "chBadge_other": "{{count}} kab"
+    "chBadge_other": "{{count}} kab",
+    "rhythm": "Ritmo ng pagbabasa",
+    "weekChapters": "{{chapters}} kabanata ang naitala sa nakaraang 7 araw",
+    "weekRhythm": "{{days}} araw ngayong linggo"
   },
   "verses": [
     {
@@ -4027,7 +4050,19 @@
     "remaining": "natitira",
     "planPromptTitle": "Magdagdag ng reading plan",
     "planPromptMessage": "Sumali sa isang structured plan upang basahin ang buong Bagong Sanlibutang Salin, na may araw-araw na checkpoint.",
-    "planPromptCta": "Tingnan ang mga reading plan"
+    "planPromptCta": "Tingnan ang mga reading plan",
+    "allRead": "Lahat ng kabanata ay tapos na",
+    "browsePlans": "Tingnan ang mga plano",
+    "completeSub": "Bawat kabanata ay minarkahan nang nabasa na. Maaari mong suriin ang kasaysayan o magsimula ng bagong plano.",
+    "completeTitle": "Buong Bibliya ay tapos na",
+    "nextReading": "Susunod na babasahin",
+    "noPlanContinue": "Hindi kailangan ng aktibong plano. Magpatuloy mula sa susunod na hindi pa nababasang kabanata.",
+    "openPlan": "Buksan ang plano",
+    "planDayDone": "Ang babasahin sa plano para sa araw na ito ay minarkahan nang kumpleto.",
+    "planNudge": "Gusto mo ba ng iskedyul? Maaaring i-pasada ng mga plano sa pagbabasa ang parehong tracker nang hindi ka nakukulong.",
+    "startReadingPlan": "Magsimula ng plano",
+    "todaysReading": "Babasahin ngayon",
+    "todaysReadings": "Mga babasahin ngayon"
   },
   "writer": {
     "saved": "Saved",
@@ -4169,7 +4204,12 @@
     "shareTitle": "Ibahagi ang {{book}} {{chapter}}",
     "chapterShort": "Kab {{chapter}}",
     "dialogLabel": "{{book}} Kabanata {{chapter}}",
-    "versesProgress": "{{read}} / {{total}} talata"
+    "versesProgress": "{{read}} / {{total}} talata",
+    "askAi": "Magtanong sa AI tungkol sa kabanatang ito",
+    "chapterCompleteUndo": "Tapos na ang kabanata, bawiin",
+    "markChapterComplete": "Markahan ang kabanata bilang tapos",
+    "selectAll": "Piliin lahat",
+    "selectVersesDivider": "o pumili ng mga talata"
   },
   "betaLang": {
     "dismiss": "I-dismiss",

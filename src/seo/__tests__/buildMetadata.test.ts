@@ -7,6 +7,12 @@ describe('buildMetadata', () => {
     expect(m.alternates?.canonical).toBe('https://jwstudy.org/about');
   });
 
+  it('keeps the homepage canonical on the slash URL', () => {
+    const m = buildMetadata({ route: '/', title: 'Home', description: 'd' });
+    expect(m.alternates?.canonical).toBe('https://jwstudy.org/');
+    expect(m.openGraph?.url).toBe('https://jwstudy.org/');
+  });
+
   it('omits hreflang languages by default (single-URL i18n)', () => {
     const m = buildMetadata({ route: '/about', title: 'About', description: 'd' });
     expect(m.alternates?.languages).toBeUndefined();

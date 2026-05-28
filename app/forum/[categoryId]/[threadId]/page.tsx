@@ -1,6 +1,6 @@
 import Link from "next/link";
-import DOMPurify from "isomorphic-dompurify";
 import { forumApi } from "../../../../src/api/forum";
+import { sanitizeServerRichHtml } from "../../../../src/lib/serverSanitize";
 import PublicNav from "../../../_components/PublicNav";
 import PublicFooter from "../../../_components/PublicFooter";
 
@@ -109,7 +109,7 @@ export default async function ForumThreadPage({ params }) {
                 <p className="not-prose text-sm text-slate-500">Posted by {thread.profiles.display_name}</p>
               )}
               {thread.content && (
-                <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(thread.content, { ADD_ATTR: ["target", "rel"] }) }} />
+                <div dangerouslySetInnerHTML={{ __html: sanitizeServerRichHtml(thread.content) }} />
               )}
             </article>
             {replies.length > 0 && (
@@ -122,7 +122,7 @@ export default async function ForumThreadPage({ params }) {
                         <div className="mb-2 text-xs text-slate-500">{r.profiles.display_name}</div>
                       )}
                       {r.content && (
-                        <div className="prose prose-slate dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(r.content, { ADD_ATTR: ["target", "rel"] }) }} />
+                        <div className="prose prose-slate dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: sanitizeServerRichHtml(r.content) }} />
                       )}
                     </li>
                   ))}

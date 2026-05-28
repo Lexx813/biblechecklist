@@ -161,7 +161,7 @@ const CheckIcon = () => (
 
 const FLAGS: Record<string, string> = {
   en: "\u{1F1FA}\u{1F1F8}", es: "\u{1F1EA}\u{1F1F8}", pt: "\u{1F1E7}\u{1F1F7}", tl: "\u{1F1F5}\u{1F1ED}",
-  fr: "\u{1F1EB}\u{1F1F7}", zh: "\u{1F1E8}\u{1F1F3}", ja: "\u{1F1EF}\u{1F1F5}", ko: "\u{1F1F0}\u{1F1F7}",
+  fr: "\u{1F1EB}\u{1F1F7}", de: "\u{1F1E9}\u{1F1EA}", zh: "\u{1F1E8}\u{1F1F3}", ja: "\u{1F1EF}\u{1F1F5}", ko: "\u{1F1F0}\u{1F1F7}",
   yo: "\u{1F1F3}\u{1F1EC}", sw: "\u{1F1F0}\u{1F1EA}", ha: "\u{1F1F3}\u{1F1EA}", ar: "\u{1F1EF}\u{1F1F4}",
 };
 

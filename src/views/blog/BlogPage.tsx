@@ -128,7 +128,7 @@ function PostComments({ postId, postAuthorId, postSlug, user, profile, navigate 
       ) : comments.length === 0 ? (
         <div className="blog-comments-empty">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{margin:"0 auto 8px",display:"block",opacity:0.4}}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Be the first to share a reflection
+          {t("blog.emptyComments", "Be the first to share a reflection")}
         </div>
       ) : (
         <div className="blog-comments-list">
@@ -369,7 +369,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
               })}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              Message
+              {t("blog.messageAuthor", "Message")}
             </button>
           )}
           {user && post.author_id !== user.id && (
@@ -384,7 +384,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
               }}
               disabled={blockUser.isPending || unblockUser.isPending}
             >
-              {blockedSet.has(post.author_id) ? "Unblock" : "Block"}
+              {blockedSet.has(post.author_id) ? t("blog.unblockAuthor", "Unblock") : t("blog.blockAuthor", "Block")}
             </button>
           )}
         </div>
@@ -414,7 +414,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
 
         {/* Bottom share prompt, shown after reading */}
         <div className="blog-share-prompt">
-          <p className="blog-share-prompt-text">Found this helpful? Share it.</p>
+          <p className="blog-share-prompt-text">{t("blog.shareFoundHelpful", "Found this helpful? Share it.")}</p>
           <ShareButtons path={`/blog/${post.slug}`} title={displayTitle} type="blog" />
         </div>
 
@@ -422,7 +422,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
           ? <PostComments postId={post.id} postAuthorId={post.author_id} postSlug={post.slug} user={user} profile={profile} navigate={navigate} />
           : (
             <div className="blog-comments">
-              <h3 className="blog-comments-title">Comments</h3>
+              <h3 className="blog-comments-title">{t("blog.commentsTitle")}</h3>
               <div className="blog-guest-lock">
                 <div className="blog-guest-lock-preview" aria-hidden="true">
                   {[72, 55, 88].map((w, i) => (
@@ -437,19 +437,19 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
                 </div>
                 <div className="blog-guest-lock-overlay">
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                  <p className="blog-guest-lock-text">Join the conversation</p>
-                  <p className="blog-guest-lock-sub">Share your reflections with the community</p>
+                  <p className="blog-guest-lock-text">{t("blog.guestLockTitle", "Join the conversation")}</p>
+                  <p className="blog-guest-lock-sub">{t("blog.guestLockSubtitle", "Share your reflections with the community")}</p>
                   <button
                     className="blog-guest-lock-btn"
                     onClick={() => { history.pushState(null, "", "/"); window.dispatchEvent(new PopStateEvent("popstate")); }}
                   >
-                    Create Free Account
+                    {t("blog.createFreeAccount", "Create Free Account")}
                   </button>
                   <button
                     className="blog-guest-lock-signin"
                     onClick={() => { history.pushState(null, "", "/"); window.dispatchEvent(new PopStateEvent("popstate")); }}
                   >
-                    Already have an account? Sign in
+                    {t("blog.alreadyHaveAccount", "Already have an account? Sign in")}
                   </button>
                 </div>
               </div>
@@ -466,6 +466,7 @@ function PostView({ slug, onBack, onSelectPost, user, profile, navigate, darkMod
 
 // ── Post navigation (prev / next) ─────────────────────────────────────────────
 function PostNav({ allPosts, currentPost, onSelect }) {
+  const { t } = useTranslation();
   const idx = allPosts.findIndex(p => p.id === currentPost?.id);
   if (idx < 0 || allPosts.length < 2) return null;
   // allPosts is newest-first: lower index = newer, higher index = older
@@ -479,7 +480,7 @@ function PostNav({ allPosts, currentPost, onSelect }) {
           <button className="blog-post-nav-btn blog-post-nav-btn--prev" onClick={() => onSelect(prevPost.slug)}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
             <span className="blog-post-nav-label">
-              <span className="blog-post-nav-dir">Previous</span>
+              <span className="blog-post-nav-dir">{t("blog.postNavPrevious", "Previous")}</span>
               <span className="blog-post-nav-title">{prevPost.title}</span>
             </span>
           </button>
@@ -487,7 +488,7 @@ function PostNav({ allPosts, currentPost, onSelect }) {
         {nextPost ? (
           <button className="blog-post-nav-btn blog-post-nav-btn--next" onClick={() => onSelect(nextPost.slug)}>
             <span className="blog-post-nav-label">
-              <span className="blog-post-nav-dir">Next</span>
+              <span className="blog-post-nav-dir">{t("blog.postNavNext", "Next")}</span>
               <span className="blog-post-nav-title">{nextPost.title}</span>
             </span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>

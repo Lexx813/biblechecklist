@@ -248,7 +248,10 @@
     "readingDays_one": "{{count}} يوم قراءة",
     "readingDays_other": "{{count}} أيام قراءة",
     "title": "سجلّ القراءة",
-    "viewBtn": "عرض سجلّ القراءة"
+    "viewBtn": "عرض سجلّ القراءة",
+    "rhythm": "إيقاع القراءة",
+    "weekChapters": "تم تسجيل {{chapters}} إصحاحًا في آخر 7 أيام",
+    "weekRhythm": "{{days}} أيام هذا الأسبوع"
   },
   "home": {
     "beTheFirstToShare": "كن أول من يشارك شيئًا.",
@@ -1256,7 +1259,28 @@
     "markUnread": "تعليم كغير مقروء",
     "notesLabel": "ملاحظاتي",
     "readInJwLibrary": "JW Library",
-    "readOnWol": "اقرأ على JW.org"
+    "readOnWol": "اقرأ على JW.org",
+    "complete": "مكتمل",
+    "currentChapter": "متابعة الإصحاح {{chapter}}",
+    "inProgress": "قيد التقدم",
+    "notStarted": "لم يبدأ بعد",
+    "allBooks": "جميع أسفار الكتاب المقدس",
+    "notFound": "السفر غير موجود",
+    "bookOfTotal": "السفر {{current}} من {{total}}",
+    "hebrewScriptures": "الأسفار العبرانية",
+    "greekScriptures": "الأسفار اليونانية المسيحية",
+    "overview": "نظرة عامة",
+    "keyHighlights": "النقاط البارزة",
+    "whyBeneficial": "لماذا هو مفيد",
+    "keyVersesHeading": "الآيات الرئيسية",
+    "notablePassagesHeading": "المقاطع البارزة",
+    "studyQuestionsHeading": "أسئلة للدرس",
+    "previous": "السابق",
+    "next": "التالي",
+    "infoNotablePassages": "المقاطع البارزة",
+    "infoStudyQuestions": "أسئلة للدرس",
+    "studyThisBook": "ادرس →",
+    "readOnWolArrow": "اقرأ على WOL ↗"
   },
   "bookAbbrs": [
     "تك",
@@ -1564,7 +1588,19 @@
     "planPromptCta": "عرض خطط القراءة",
     "donutAria": "{{pct}}% من الكتاب المقدس مقروء",
     "chaptersRead": "أصحاحات مقروءة",
-    "remaining": "متبقّية"
+    "remaining": "متبقّية",
+    "allRead": "اكتملت جميع الإصحاحات",
+    "browsePlans": "تصفح الخطط",
+    "completeSub": "تم وضع علامة على كل إصحاح بأنه مقروء. يمكنك مراجعة السجل أو بدء خطة جديدة.",
+    "completeTitle": "اكتمل الكتاب المقدس بالكامل",
+    "nextReading": "القراءة التالية",
+    "noPlanContinue": "لا حاجة لخطة نشطة. تابع من الإصحاح التالي غير المقروء.",
+    "openPlan": "فتح الخطة",
+    "planDayDone": "تم وضع علامة على قراءة خطة اليوم بأنها مكتملة.",
+    "planNudge": "هل ترغب في جدول؟ يمكن لخطط القراءة أن تنظم إيقاع نفس المتعقب دون تقييدك.",
+    "startReadingPlan": "بدء خطة",
+    "todaysReading": "قراءة اليوم",
+    "todaysReadings": "قراءات اليوم"
   },
   "cmdPalette": {
     "blogSection": "المدوَّنة",
@@ -2315,7 +2351,12 @@
     "shareTitle": "شارك {{book}} {{chapter}}",
     "chapterShort": "إصحاح {{chapter}}",
     "dialogLabel": "{{book}} الإصحاح {{chapter}}",
-    "versesProgress": "{{read}} / {{total}} آيات"
+    "versesProgress": "{{read}} / {{total}} آيات",
+    "askAi": "اسأل الذكاء الاصطناعي عن هذا الإصحاح",
+    "chapterCompleteUndo": "اكتمل الإصحاح، تراجع",
+    "markChapterComplete": "وضع علامة على الإصحاح كمكتمل",
+    "selectAll": "تحديد الكل",
+    "selectVersesDivider": "أو حدد الآيات"
   },
   "verses": [
     {

@@ -375,7 +375,28 @@
     "infoAuthor": "筆者",
     "infoWritten": "執筆時期",
     "infoTheme": "テーマ",
-    "infoKeyVerses": "主要な聖句"
+    "infoKeyVerses": "主要な聖句",
+    "complete": "完了",
+    "currentChapter": "{{chapter}}章を続ける",
+    "inProgress": "進行中",
+    "notStarted": "未開始",
+    "allBooks": "聖書のすべての書",
+    "notFound": "書が見つかりません",
+    "bookOfTotal": "{{total}} 書中 {{current}} 書目",
+    "hebrewScriptures": "ヘブライ語聖書",
+    "greekScriptures": "ギリシャ語聖書",
+    "overview": "概要",
+    "keyHighlights": "要点",
+    "whyBeneficial": "有益な理由",
+    "keyVersesHeading": "重要な聖句",
+    "notablePassagesHeading": "注目すべき箇所",
+    "studyQuestionsHeading": "研究のための質問",
+    "previous": "前の書",
+    "next": "次の書",
+    "infoNotablePassages": "注目すべき箇所",
+    "infoStudyQuestions": "研究のための質問",
+    "studyThisBook": "研究する →",
+    "readOnWolArrow": "WOL で読む ↗"
   },
   "posts": {
     "sectionTitle": "近況",
@@ -1575,7 +1596,10 @@
     "monthTotal_one": "{{count}}章",
     "monthTotal_other": "{{count}}章",
     "chBadge_one": "1章",
-    "chBadge_other": "{{count}}章"
+    "chBadge_other": "{{count}}章",
+    "rhythm": "朗読のリズム",
+    "weekChapters": "過去7日間に {{chapters}} 章を記録",
+    "weekRhythm": "今週は {{days}} 日"
   },
   "verses": [
     {
@@ -2437,7 +2461,19 @@
     "planPromptCta": "読書計画を見る",
     "donutAria": "聖書の{{pct}}%を読了",
     "chaptersRead": "既読の章",
-    "remaining": "残り"
+    "remaining": "残り",
+    "allRead": "すべての章が完了",
+    "browsePlans": "プランを見る",
+    "completeSub": "すべての章が既読としてマークされています。履歴を確認するか、新しいプランを始めることができます。",
+    "completeTitle": "聖書全巻完了",
+    "nextReading": "次の朗読箇所",
+    "noPlanContinue": "アクティブなプランは必要ありません。次の未読の章から続けてください。",
+    "openPlan": "プランを開く",
+    "planDayDone": "本日のプランの朗読は完了としてマークされています。",
+    "planNudge": "スケジュールが必要ですか?読書プランは、縛られることなく同じトラッカーのペースを整えられます。",
+    "startReadingPlan": "プランを始める",
+    "todaysReading": "今日の朗読",
+    "todaysReadings": "今日の朗読箇所"
   },
   "writer": {
     "saved": "Saved",
@@ -2579,7 +2615,12 @@
     "shareTitle": "{{book}} {{chapter}} を共有",
     "chapterShort": "{{chapter}}章",
     "dialogLabel": "{{book}} {{chapter}}章",
-    "versesProgress": "{{read}} / {{total}} 節"
+    "versesProgress": "{{read}} / {{total}} 節",
+    "askAi": "この章についてAIに質問する",
+    "chapterCompleteUndo": "章が完了しました、取り消す",
+    "markChapterComplete": "章を完了としてマークする",
+    "selectAll": "すべて選択",
+    "selectVersesDivider": "または節を選択"
   },
   "familyQuiz": {
     "loadingChallenge": "チャレンジを読み込み中…",

@@ -248,7 +248,10 @@
     "readingDays_one": "Siku {{count}} ya kusoma",
     "readingDays_other": "Siku {{count}} za kusoma",
     "title": "Historia ya Kusoma",
-    "viewBtn": "Tazama historia ya kusoma"
+    "viewBtn": "Tazama historia ya kusoma",
+    "rhythm": "Mdundo wa usomaji",
+    "weekChapters": "Sura {{chapters}} zimerekodiwa katika siku 7 zilizopita",
+    "weekRhythm": "Siku {{days}} wiki hii"
   },
   "home": {
     "beTheFirstToShare": "Kuwa wa kwanza kushiriki kitu.",
@@ -1390,7 +1393,12 @@
     "shareTitle": "Shiriki {{book}} {{chapter}}",
     "chapterShort": "Sura {{chapter}}",
     "dialogLabel": "{{book}} Sura {{chapter}}",
-    "versesProgress": "{{read}} / {{total}} mistari"
+    "versesProgress": "{{read}} / {{total}} mistari",
+    "askAi": "Uliza AI kuhusu sura hii",
+    "chapterCompleteUndo": "Sura imekamilika, tendua",
+    "markChapterComplete": "Weka alama sura kuwa imekamilika",
+    "selectAll": "Chagua zote",
+    "selectVersesDivider": "au chagua mistari"
   },
   "verses": [
     {
@@ -2163,7 +2171,28 @@
     "markUnread": "Weka alama haijasomwa",
     "notesLabel": "Madokezo Yangu",
     "readInJwLibrary": "JW Library",
-    "readOnWol": "Soma kwenye JW.org"
+    "readOnWol": "Soma kwenye JW.org",
+    "complete": "Imekamilika",
+    "currentChapter": "Endelea sura {{chapter}}",
+    "inProgress": "Inaendelea",
+    "notStarted": "Haijaanzishwa",
+    "allBooks": "Vitabu Vyote vya Biblia",
+    "notFound": "Kitabu hakikupatikana",
+    "bookOfTotal": "Kitabu cha {{current}} kati ya {{total}}",
+    "hebrewScriptures": "Maandiko ya Kiebrania",
+    "greekScriptures": "Maandiko ya Kigiriki ya Kikristo",
+    "overview": "Muhtasari",
+    "keyHighlights": "Mambo Makuu",
+    "whyBeneficial": "Kwa Nini Ni Chenye Manufaa",
+    "keyVersesHeading": "Mistari Muhimu",
+    "notablePassagesHeading": "Vifungu Muhimu",
+    "studyQuestionsHeading": "Maswali ya Funzo",
+    "previous": "Kilichotangulia",
+    "next": "Kifuatacho",
+    "infoNotablePassages": "Vifungu Muhimu",
+    "infoStudyQuestions": "Maswali ya Funzo",
+    "studyThisBook": "Jifunze →",
+    "readOnWolArrow": "Soma kwenye WOL ↗"
   },
   "bookAbbrs": [
     "Mwa",
@@ -2471,7 +2500,19 @@
     "planPromptCta": "Tazama mipango ya kusoma",
     "donutAria": "{{pct}}% ya Biblia imesomwa",
     "chaptersRead": "sura zilizosomwa",
-    "remaining": "zilizobaki"
+    "remaining": "zilizobaki",
+    "allRead": "Sura zote zimekamilika",
+    "browsePlans": "Vinjari mipango",
+    "completeSub": "Kila sura imewekwa alama kuwa imesomwa. Unaweza kukagua historia au kuanza mpango mpya.",
+    "completeTitle": "Biblia nzima imekamilika",
+    "nextReading": "Usomaji unaofuata",
+    "noPlanContinue": "Hauhitaji mpango unaoendelea. Endelea kutoka sura inayofuata ambayo haijasomwa.",
+    "openPlan": "Fungua mpango",
+    "planDayDone": "Usomaji wa mpango wa leo umewekwa alama kuwa umekamilika.",
+    "planNudge": "Unataka ratiba? Mipango ya usomaji inaweza kupanga mwendo wa kifuatiliaji kile kile bila kukufunga.",
+    "startReadingPlan": "Anza mpango",
+    "todaysReading": "Usomaji wa leo",
+    "todaysReadings": "Usomaji wa leo"
   },
   "cmdPalette": {
     "blogSection": "Blogu",

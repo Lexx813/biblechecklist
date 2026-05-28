@@ -370,7 +370,27 @@
     "infoWritten": "Rédigé",
     "infoTheme": "Thème",
     "infoKeyVerses": "Versets clés",
-    "infoStudyQuestions": "Questions d'étude"
+    "infoStudyQuestions": "Questions d’étude",
+    "complete": "Terminé",
+    "currentChapter": "Continuer chap. {{chapter}}",
+    "inProgress": "En cours",
+    "notStarted": "Non commencé",
+    "allBooks": "Tous les livres de la Bible",
+    "notFound": "Livre introuvable",
+    "bookOfTotal": "Livre {{current}} sur {{total}}",
+    "hebrewScriptures": "Écritures hébraïques",
+    "greekScriptures": "Écritures grecques chrétiennes",
+    "overview": "Aperçu",
+    "keyHighlights": "Points marquants",
+    "whyBeneficial": "Pourquoi ce livre est utile",
+    "keyVersesHeading": "Versets clés",
+    "notablePassagesHeading": "Passages remarquables",
+    "studyQuestionsHeading": "Questions d’étude",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "infoNotablePassages": "Passages remarquables",
+    "studyThisBook": "Étudier →",
+    "readOnWolArrow": "Lire sur WOL ↗"
   },
   "posts": {
     "sectionTitle": "Mises à jour",
@@ -1570,7 +1590,10 @@
     "monthTotal_one": "{{count}} chapitre",
     "monthTotal_other": "{{count}} chapitres",
     "chBadge_one": "1 ch",
-    "chBadge_other": "{{count}} ch"
+    "chBadge_other": "{{count}} ch",
+    "rhythm": "Rythme de lecture",
+    "weekChapters": "{{chapters}} chapitres enregistrés ces 7 derniers jours",
+    "weekRhythm": "{{days}} jours cette semaine"
   },
   "verses": [
     {
@@ -4027,7 +4050,19 @@
     "remaining": "restants",
     "planPromptTitle": "Ajouter un plan de lecture",
     "planPromptMessage": "Rejoignez un plan structuré pour lire toute la Traduction du monde nouveau, avec des points quotidiens.",
-    "planPromptCta": "Voir les plans de lecture"
+    "planPromptCta": "Voir les plans de lecture",
+    "allRead": "Tous les chapitres terminés",
+    "browsePlans": "Parcourir les plans",
+    "completeSub": "Chaque chapitre est marqué comme lu. Vous pouvez consulter l'historique ou commencer un nouveau plan.",
+    "completeTitle": "Bible entière terminée",
+    "nextReading": "Prochaine lecture",
+    "noPlanContinue": "Aucun plan actif nécessaire. Continuez à partir du prochain chapitre non lu.",
+    "openPlan": "Ouvrir le plan",
+    "planDayDone": "La lecture du plan d'aujourd'hui est marquée comme terminée.",
+    "planNudge": "Vous voulez un calendrier ? Les plans de lecture peuvent rythmer le même suiveur sans vous enfermer.",
+    "startReadingPlan": "Commencer un plan",
+    "todaysReading": "Lecture du jour",
+    "todaysReadings": "Lectures du jour"
   },
   "writer": {
     "saved": "Saved",
@@ -4169,7 +4204,12 @@
     "shareTitle": "Partager {{book}} {{chapter}}",
     "chapterShort": "Ch. {{chapter}}",
     "dialogLabel": "{{book}} chapitre {{chapter}}",
-    "versesProgress": "{{read}} / {{total}} versets"
+    "versesProgress": "{{read}} / {{total}} versets",
+    "askAi": "Demander à l'IA à propos de ce chapitre",
+    "chapterCompleteUndo": "Chapitre terminé, annuler",
+    "markChapterComplete": "Marquer le chapitre comme terminé",
+    "selectAll": "Tout sélectionner",
+    "selectVersesDivider": "ou sélectionner des versets"
   },
   "betaLang": {
     "dismiss": "Ignorer",
@@ -5153,5 +5193,736 @@
   },
   "createPost": {
     "addToPost": "Ajouter à votre publication"
-  }
+  },
+  "bookAuthors": [
+    "Moïse",
+    "Moïse",
+    "Moïse",
+    "Moïse",
+    "Moïse",
+    "Josué (et autres)",
+    "Samuel (probablement)",
+    "Inconnu",
+    "Samuel / Nathan / Gad",
+    "Nathan / Gad",
+    "Jérémie (probablement)",
+    "Jérémie (probablement)",
+    "Esdras",
+    "Esdras",
+    "Esdras",
+    "Néhémie",
+    "Inconnu",
+    "Inconnu (peut-être Moïse)",
+    "David, Asaph, fils de Coré et autres",
+    "Salomon et autres",
+    "Salomon (Qohélèt)",
+    "Salomon",
+    "Isaïe",
+    "Jérémie",
+    "Jérémie",
+    "Ézéchiel",
+    "Daniel",
+    "Osée",
+    "Joël",
+    "Amos",
+    "Obadia",
+    "Jonas",
+    "Mika",
+    "Nahoum",
+    "Habacuc",
+    "Sophonie",
+    "Haggaï",
+    "Zacharie",
+    "Malachie",
+    "Matthieu (apôtre)",
+    "Jean Marc",
+    "Luc (médecin)",
+    "Jean (apôtre)",
+    "Luc (médecin)",
+    "Paul",
+    "Paul",
+    "Paul",
+    "Paul",
+    "Paul",
+    "Paul",
+    "Paul",
+    "Paul",
+    "Paul",
+    "Paul",
+    "Paul",
+    "Paul",
+    "Paul",
+    "Inconnu (probablement Paul, Apollos ou Barnabas)",
+    "Jacques (demi-frère de Jésus)",
+    "Pierre (apôtre)",
+    "Pierre (apôtre)",
+    "Jean (apôtre)",
+    "Jean (apôtre)",
+    "Jean (apôtre)",
+    "Jude (demi-frère de Jésus)",
+    "Jean (apôtre)"
+  ],
+  "bookDates": [
+    "v. 1440 av. n. è.",
+    "v. 1440 av. n. è.",
+    "v. 1440 av. n. è.",
+    "v. 1440 av. n. è.",
+    "v. 1406 av. n. è.",
+    "v. 1380 av. n. è.",
+    "v. 1050 av. n. è.",
+    "v. 1050 av. n. è.",
+    "v. 1000 av. n. è.",
+    "v. 960 av. n. è.",
+    "v. 550 av. n. è.",
+    "v. 550 av. n. è.",
+    "v. 430 av. n. è.",
+    "v. 430 av. n. è.",
+    "v. 450 av. n. è.",
+    "v. 430 av. n. è.",
+    "v. 480 av. n. è.",
+    "v. 1500 av. n. è. (cadre)",
+    "v. 1000–430 av. n. è.",
+    "v. 950 av. n. è.",
+    "v. 935 av. n. è.",
+    "v. 965 av. n. è.",
+    "v. 740–700 av. n. è.",
+    "v. 626–586 av. n. è.",
+    "v. 586 av. n. è.",
+    "v. 593–571 av. n. è.",
+    "v. 605–535 av. n. è.",
+    "v. 755–715 av. n. è.",
+    "v. 835 av. n. è. (ou 400s av. n. è.)",
+    "v. 760 av. n. è.",
+    "v. 586 av. n. è.",
+    "v. 793–753 av. n. è.",
+    "v. 737–696 av. n. è.",
+    "v. 663–612 av. n. è.",
+    "v. 609–605 av. n. è.",
+    "v. 640–621 av. n. è.",
+    "v. 520 av. n. è.",
+    "v. 520–480 av. n. è.",
+    "v. 430 av. n. è.",
+    "v. 50–60 de n. è.",
+    "v. 55–65 de n. è.",
+    "v. 60–62 de n. è.",
+    "v. 85–95 de n. è.",
+    "v. 62 de n. è.",
+    "v. 57 de n. è.",
+    "v. 55 de n. è.",
+    "v. 55–56 de n. è.",
+    "v. 49 de n. è.",
+    "v. 60–62 de n. è.",
+    "v. 61 de n. è.",
+    "v. 60–62 de n. è.",
+    "v. 50–51 de n. è.",
+    "v. 51–52 de n. è.",
+    "v. 62–64 de n. è.",
+    "v. 66–67 de n. è.",
+    "v. 63–65 de n. è.",
+    "v. 60–62 de n. è.",
+    "v. 60–70 de n. è.",
+    "v. 44–49 de n. è.",
+    "v. 62–64 de n. è.",
+    "v. 65–67 de n. è.",
+    "v. 85–95 de n. è.",
+    "v. 85–95 de n. è.",
+    "v. 85–95 de n. è.",
+    "v. 65 de n. è.",
+    "v. 95 de n. è."
+  ],
+  "bookHighlights": [
+    [
+      "Récit de la création : Jéhovah crée les cieux, la terre et toute la vie en six jours créatifs, culminant avec les humains faits à son image (1:1–2:25)",
+      "La chute : Satan, utilisant un serpent, trompe Ève ; la première prophétie en 3:15 annonce l'écrasement de Satan par une Postérité promise",
+      "Le déluge : L'obéissance fidèle de Noé préserve l'humanité et la vie animale tandis que la méchanceté est jugée (6–9)",
+      "Tour de Babel : L'orgueil humain conduit à la division des langues et à la dispersion des peuples sur la terre (11:1–9)",
+      "Alliance avec Abraham : Jéhovah appelle Abram et établit une alliance promettant une postérité par qui toutes les nations seraient bénies (12–22)",
+      "Joseph en Égypte : Malgré la trahison et l'esclavage, Jéhovah préserve Joseph et l'utilise pour sauver toute sa famille (37–50)"
+    ],
+    [
+      "Naissance et vocation de Moïse : Préservé nourrisson, Moïse rencontre Jéhovah dans le buisson ardent et apprend le nom divin (1–4)",
+      "Dix plaies sur l'Égypte : Jéhovah exécute le jugement sur chacun des dieux d'Égypte, démontrant sa suprématie sur tout faux culte (7–12)",
+      "La Pâque et l'Exode : Israël est épargné par le sang de l'agneau, puis quitte miraculeusement l'Égypte après 430 ans (12–14)",
+      "Traversée de la mer Rouge : Jéhovah sépare la mer, délivrant Israël et détruisant l'armée de Pharaon (14:21–31)",
+      "L'alliance de la Loi au Sinaï : Jéhovah donne les Dix Commandements et le code de la Loi, établissant Israël comme sa nation spéciale (19–24)",
+      "Le Tabernacle : Instructions détaillées pour construire la résidence de Jéhovah parmi son peuple (25–40)"
+    ],
+    [
+      "Système sacrificiel : Cinq types d'offrandes (holocauste, offrande céréalière, communion, péché, culpabilité) détaillent comment Israël s'approchait de Jéhovah pour le culte et la propitiation (1–7)",
+      "Consécration du sacerdoce : Aaron et ses fils sont oints et consacrés pour le service lévitique (8–9)",
+      "Nadab et Abihou : Leur feu non autorisé devant Jéhovah illustre que le culte pur doit suivre exactement les instructions de Jéhovah (10)",
+      "Lois de pureté et le sang : La sainteté du sang (17:11) fonde l'interdiction de manger du sang, toujours contraignante pour les chrétiens",
+      "Jour des Propitiations : Le rituel annuel de purification préfigure le sacrifice supérieur de Jésus Christ comme Grand Prêtre (16)",
+      "Année du Jubilé : Tous les 50 ans, les dettes étaient annulées et les esclaves libérés — une image du plan plus large de libération de Jéhovah (25)"
+    ],
+    [
+      "Recensement et organisation : Israël est dénombré et organisé par tribu autour du tabernacle, montrant que Jéhovah valorise l'ordre dans le culte (1–4)",
+      "Mission d'espionnage en Canaan : Dix des douze espions donnent un rapport sans foi ; l'incrédulité de la nation conduit à 40 ans d'errance au désert (13–14)",
+      "Rébellion de Coré : Coré, Dathan et Abiram défient l'autorité de Moïse et sont engloutis par la terre, justifiant les nominations de Jéhovah (16)",
+      "Serpent de cuivre : Les Israélites mordus par des serpents sont guéris en regardant un serpent de cuivre — figure que Jésus s'est appliquée (21:4–9 ; Jean 3:14)",
+      "Oracles de Balaam : Engagé pour maudire Israël, Balaam ne peut que les bénir, confirmant que personne ne peut contrecarrer le dessein de Jéhovah (22–24)",
+      "Le zèle de Phinéas : Son action décisive contre l'immoralité arrête une plaie et lui vaut une « alliance de paix » de Jéhovah (25)"
+    ],
+    [
+      "Premier discours de Moïse : Revue de 40 ans d'histoire au désert et explication des raisons de l'échec de cette génération (1–4)",
+      "Le Shema et le grand commandement : Jéhovah est un ; Israël doit l'aimer de tout son cœur, son âme et sa force (6:4–9)",
+      "Avertissements sur la prospérité : Israël est averti de ne pas oublier Jéhovah quand ils prospéreront dans le pays (8)",
+      "Un prophète comme Moïse : Jéhovah promet de susciter un prophète parmi Israël — accompli en Jésus Christ (18:15–19)",
+      "Bénédictions et malédictions : Conditions détaillées de l'alliance — l'obéissance apporte bénédiction, la désobéissance apporte jugement (28)",
+      "Cantique d'adieu et mort de Moïse : Moïse enseigne à Israël un cantique d'avertissement, bénit les tribus et meurt sur le mont Nebo à 120 ans (31–34)"
+    ],
+    [
+      "Traversée du Jourdain : Jéhovah arrête le cours du Jourdain pour qu'Israël puisse traverser à sec, faisant écho au miracle de la mer Rouge (3–4)",
+      "Rahab et les espions : La foi de Rahab sauve sa maisonnée et lui vaut une place dans la lignée messianique (2 ; 6:22–25)",
+      "Chute de Jéricho : Les murs s'écroulent sur l'ordre de Jéhovah après qu'Israël a marché sept jours — la victoire lui appartient (6)",
+      "Péché d'Akân : La convoitise d'un seul homme apporte la défaite à Aï, montrant comment le péché individuel affecte toute la communauté (7)",
+      "Renouvellement de l'alliance à Sichem : Josué conduit la nation dans un engagement solennel à servir Jéhovah seul (24)",
+      "Toute promesse accomplie : Le récit affirme explicitement que « pas une seule parole n'a manqué de toutes les bonnes promesses que Jéhovah avait faites » (21:45)"
+    ],
+    [
+      "Le cycle récurrent : Péché → oppression → cri vers Jéhovah → Jéhovah suscite un juge → délivrance → paix → reprise (2:11–19)",
+      "Débora et Barak : Une femme juge et un général battent l'armée de Sisera ; Yaël tue Sisera avec un piquet de tente (4–5)",
+      "Les 300 de Gédéon : Jéhovah réduit l'armée d'Israël de 32 000 à 300 pour s'assurer que la victoire est clairement la sienne (7)",
+      "Le vœu de Jephté : Son vœu hâtif a des conséquences durables ; sa fille l'honore avec une soumission fidèle (11)",
+      "Samson : Force physique extraordinaire, mais faiblesse pour les femmes étrangères qui mène finalement à la captivité et à la mort (13–16)",
+      "Chaos moral : Les derniers chapitres rapportent guerre tribale civile et violence sexuelle, illustrant les conséquences de « chacun faisait ce qui était droit à ses propres yeux » (21:25)"
+    ],
+    [
+      "La loyauté de Ruth : Après la mort de son mari, Ruth refuse de quitter Naomi, déclarant « ton Dieu sera mon Dieu » — choisissant Jéhovah plutôt que son héritage moabite (1)",
+      "Glanage dans le champ de Boaz : La disposition de la Loi de Jéhovah pour les pauvres permet à Ruth de glaner, où elle attire l'attention de Boaz (2)",
+      "L'aire de battage : Sur instruction de Naomi, Ruth s'approche de Boaz comme un possible rédempteur familial (3)",
+      "Rachat légal : Boaz rachète la propriété de Naomi et prend Ruth pour épouse devant les anciens de la ville à la porte (4:1–12)",
+      "Naissance d'Obed : Ruth donne naissance à un fils qui deviendra le grand-père du roi David et un ancêtre de Jésus Christ (4:13–22)"
+    ],
+    [
+      "Prière d'Anne et naissance de Samuel : La prière persévérante d'Anne gagne la faveur de Jéhovah ; elle voue Samuel à son service (1–2)",
+      "Arche de l'alliance capturée : Israël traitant l'Arche comme un porte-bonheur entraîne la défaite et le jugement de Jéhovah sur la famille d'Éli (4–6)",
+      "Israël exige un roi : Rejetant Jéhovah comme roi, Israël demande un chef humain ; Saül est choisi (8–10)",
+      "Les échecs répétés de Saül : L'obéissance partielle de Saül en offrant un sacrifice et l'affaire des Amalécites révèle que son cœur n'est pas pleinement loyal (13 ; 15)",
+      "David oint en secret : Samuel oint David alors que Saül règne encore ; Jéhovah regarde au cœur (16)",
+      "David et Goliath : Armé seulement de foi en Jéhovah et d'une fronde, David bat le géant qui défiait l'armée de Jéhovah (17)"
+    ],
+    [
+      "David devient roi : Après la mort de Saül, David est oint sur tout Israël et capture Jérusalem, en faisant sa capitale (1–5)",
+      "L'alliance davidique : Jéhovah promet à David que son trône sera établi pour toujours — prophétie messianique pointant vers Jésus Christ (7)",
+      "Péché de David avec Bath-Shéba : Adultère et meurtre exposent le principe que le péché n'est jamais caché à Jéhovah (11–12)",
+      "Parabole de Nathan : L'utilisation habile par le prophète d'une histoire pour confronter David sans accusation directe est un modèle de conseil sage (12:1–14)",
+      "Rébellion d'Absalom : L'échec de David à discipliner Absalom mène à un coup d'État presque réussi ; David fuit Jérusalem (15–18)",
+      "Derniers actes de David : David recense Israël par orgueil, apportant la peste ; il acquerra ensuite le site du temple (24)"
+    ],
+    [
+      "Sagesse de Salomon : Jéhovah accorde à Salomon une sagesse extraordinaire ; son jugement concernant les deux femmes en démontre la source (3)",
+      "Construction du Temple : Le magnifique Temple est construit en sept ans et rempli de la gloire de Jéhovah à sa dédicace (5–8)",
+      "Déclin spirituel de Salomon : Les épouses étrangères détournent le cœur de Salomon vers de faux dieux, montrant que nul n'est à l'abri du compromis spirituel (11)",
+      "Division du royaume : La réponse dure de Roboam à la demande du peuple divise le royaume en Israël (nord) et Juda (sud) (12)",
+      "Élie contre les prophètes de Baal : La confrontation du mont Carmel prouve que Jéhovah seul est Dieu ; le feu du ciel consume le sacrifice (18)",
+      "Voix calme et basse : Après de grandes victoires, un Élie découragé est rafraîchi par Jéhovah avec nourriture, repos et douce réassurance (19)"
+    ],
+    [
+      "Translation d'Élie : Emporté dans un tourbillon, Élie transmet son manteau prophétique à Élisée, qui accomplira deux fois plus de miracles (2)",
+      "Ministère d'Élisée : Les miracles d'Élisée — multiplier l'huile, ressusciter le fils de la Shounamite, guérir Naaman — démontrent la puissance et la miséricorde de Jéhovah (4–7)",
+      "Foi d'Ézékias : Quand l'armée assyrienne de 185 000 hommes l'entoure, Ézékias prie et l'ange de Jéhovah détruit toute la force en une nuit (18–19)",
+      "Réforme de Josias : La découverte du livre de Jéhovah déclenche la plus vaste réforme religieuse de l'histoire de Juda (22–23)",
+      "Chute d'Israël : Le royaume du nord tombe à l'Assyrie en 740 av. n. è. à cause du culte persistant de Baal et du rejet des prophètes de Jéhovah (17)",
+      "Chute de Jérusalem : Babylone détruit Jérusalem et le Temple en 607 av. n. è., accomplissant les avertissements de Jéhovah par ses prophètes (25)"
+    ],
+    [
+      "Généalogies depuis Adam : Une vaste généalogie d'Adam jusqu'aux douze tribus place la lignée de David dans le contexte de tout le dessein de Jéhovah (1–9)",
+      "Conquête de Jérusalem par David : David capture la ville et en fait le centre spirituel et politique du peuple de Jéhovah (11)",
+      "L'Arche amenée à Jérusalem : La seconde tentative, soigneuse, d'amener l'Arche réussit ; David conduit la célébration avec danse et musique (15–16)",
+      "Le désir de David de bâtir le Temple : Bien que Jéhovah assigne la construction à Salomon, David rassemble d'énormes ressources pour préparer (17 ; 22 ; 28–29)",
+      "Organisation des prêtres et Lévites : David établit des divisions ordonnées pour le culte, la musique, le gardiennage et la gestion du trésor (23–27)",
+      "Dernier discours de David : Exhortation publique de David à Salomon et au peuple à être entiers de cœur devant Jéhovah (28–29)"
+    ],
+    [
+      "Achèvement du Temple de Salomon : La dédicace du Temple, la prière de Salomon et la gloire de Jéhovah remplissant l'édifice marquent l'apogée du culte israélite (5–7)",
+      "Promesse de Jéhovah à Salomon : « Si mon peuple… s'humilie et prie… je pardonnerai son péché et guérirai son pays » (7:14)",
+      "Crise de Yehoshaphat : En infériorité numérique face à une vaste armée, Yehoshaphat prie, et Jéhovah lui dit « la bataille n'est pas à toi, mais à Dieu » (20)",
+      "Réformes spirituelles : Les rois Asa, Yehoshaphat, Ézékias et Josias mènent de vastes purges du faux culte, chacun connaissant la bénédiction de Jéhovah (14–15 ; 29–32 ; 34–35)",
+      "Jérusalem tombe : Malgré les avertissements répétés, l'infidélité persistante de Juda mène à la destruction par Babylone du Temple et de la ville (36)",
+      "Décret de Cyrus : Le livre se termine avec Cyrus permettant aux exilés de revenir — accomplissant la prophétie de Jérémie à l'année près (36:22–23)"
+    ],
+    [
+      "Premier retour sous Zorobabel : Près de 50 000 exilés reviennent à Jérusalem ; ils commencent par d'abord reconstruire l'autel à Jéhovah (1–3)",
+      "Opposition à la reconstruction du Temple : Les ennemis réussissent à arrêter la construction pendant 16 ans en écrivant des lettres à la cour perse (4)",
+      "Haggaï et Zacharie stimulent l'œuvre : L'encouragement prophétique relance la construction ; elle s'achève en 516 av. n. è. (5–6)",
+      "Retour d'Esdras : Le prêtre-scribe Esdras conduit un second groupe de retour, portant l'autorité d'établir la Loi de Jéhovah à Jérusalem (7–8)",
+      "Prière de confession d'Esdras : Découvrant des mariages mixtes répandus, Esdras prononce une prière de confession nationale sincère (9)",
+      "Réforme spirituelle : Les mariages mixtes sont dissous lors d'une assemblée émouvante ; le peuple de Jéhovah se réengage à son alliance (10)"
+    ],
+    [
+      "Prière et mission de Néhémie : Après avoir appris que les murs de Jérusalem sont brisés, Néhémie prie puis demande hardiment à Artaxerxès la permission de reconstruire (1–2)",
+      "Mur reconstruit en 52 jours : Malgré les moqueries et menaces de Sanballat et Tobiya, Néhémie organise le peuple et achève les murs (3–6)",
+      "Injustice économique traitée : Néhémie confronte les nobles qui prêtent à intérêt usuraire et les force à restituer ce qu'ils ont pris (5)",
+      "Esdras lit la Loi : Lors d'une grande assemblée publique, Esdras lit à haute voix la Loi de Jéhovah pendant six heures ; le peuple pleure avec compréhension et célèbre (8)",
+      "Alliance signée : Le peuple met par écrit son engagement à garder la Loi de Jéhovah, y compris le sabbat et les dîmes (9–10)",
+      "Second mandat de Néhémie : Revenu après une absence, Néhémie constate que divers abus se sont infiltrés et prend des mesures correctives décisives (13)"
+    ],
+    [
+      "Esther devient reine : La belle Esther est choisie reine par le roi Assuérus, cachant son identité juive sur la directive de Mardochée (1–2)",
+      "Complot d'Haman : L'arrogant Haman, enragé par le refus de Mardochée de se prosterner, obtient un décret royal pour exterminer tous les Juifs (3)",
+      "Défi de Mardochée : « Qui sait si ce n'est pas pour un temps comme celui-ci que tu es parvenue à ta position royale ? » (4:14)",
+      "L'approche courageuse d'Esther : Risquant la mort, Esther s'approche du roi sans y être invitée et l'invite avec Haman à un banquet (5)",
+      "Chute d'Haman : L'arrogance d'Haman atteint son sommet quand il prépare un poteau pour Mardochée ; le roi ordonne que Haman y soit pendu (6–7)",
+      "Délivrance des Juifs : Esther obtient un décret inversant celui-ci ; les Juifs se défendent et célèbrent avec la fête de Pourim (8–9)"
+    ],
+    [
+      "La scène céleste : Satan défie que Job ne sert Jéhovah que pour des raisons matérielles ; Jéhovah permet à Satan de l'éprouver (1–2)",
+      "Intégrité de Job sous perte extrême : Job perd ses enfants, ses biens et sa santé en succession rapide, mais refuse de maudire Jéhovah (1:21 ; 2:10)",
+      "Conseil défectueux des trois amis : Éliphaz, Bildad et Tsophar insistent que la souffrance indique toujours un péché caché — consolation fausse et cruelle (3–31)",
+      "Contribution d'Élihou : Un orateur plus jeune offre une vue plus nuancée, soulignant le but instructif de Jéhovah dans la souffrance (32–37)",
+      "Jéhovah parle de la tempête : Une série de questions sans réponse sur la création humilie Job et élargit sa compréhension de la sagesse de Jéhovah (38–41)",
+      "Restauration de Job : Jéhovah rend le double de ce que Job avait perdu et réprimande les trois amis pour l'avoir mal représenté (42)"
+    ],
+    [
+      "Les psaumes royaux célèbrent la royauté de Jéhovah et préfigurent le Roi messianique : Psaumes 2, 45, 72, 110",
+      "Les psaumes de lamentation modèlent une prière honnête à travers la souffrance et le doute : Psaumes 22, 42, 88",
+      "Les psaumes de louange enseignent le culte collectif et personnel : Psaumes 8, 19, 100, 145, 150",
+      "Le Psaume 119 — le plus long chapitre de la Bible — est entièrement consacré à la beauté et à la valeur de la loi de Jéhovah (176 versets)",
+      "Les psaumes messianiques fournissent des détails précis accomplis par Jésus : mains percées (22:16), aucun os brisé (34:20), trahi pour 30 pièces (41:9 ; 109:8)",
+      "Le Psaume 83:18 déclare uniquement que Jéhovah seul est « le Très-Haut sur toute la terre » — fondamental pour la compréhension TJ du nom divin"
+    ],
+    [
+      "Sagesse personnifiée : Les chapitres 1–9 personnifient la sagesse comme appelant dans les rues, invitant le simple à choisir la vie plutôt que la folie",
+      "La crainte de Jéhovah comme fondement : Toute vraie sagesse commence par une crainte respectueuse de Jéhovah (1:7 ; 9:10)",
+      "Proverbes sur la parole : Conseils étendus sur la parole honnête, bienveillante et opportune contre la langue destructrice (10–15 ; 18:21)",
+      "Le cœur au-dessus de l'apparence extérieure : Jéhovah voit et pèse le cœur (21:2) ; l'intégrité personnelle compte plus que la réputation",
+      "Avertissements contre l'immoralité sexuelle : L'adultère et la femme étrangère sont de vifs avertissements littéraires contre le compromis moral (5–7)",
+      "L'épouse capable : Proverbes 31:10–31 célèbre une femme de caractère industrieux, sage et craignant Dieu comme idéal"
+    ],
+    [
+      "L'expérience de Salomon : Le Prédicateur teste la sagesse, le plaisir, la richesse et la réussite pour trouver le sens de la vie — tout s'avère futile sans Jéhovah (1–2)",
+      "Temps et saisons : « Il y a un temps pour chaque chose sous le ciel » appelle à faire confiance au temps de Jéhovah plutôt qu'à l'agitation anxieuse (3:1–8)",
+      "Les morts ne savent rien : Des déclarations claires sur l'état inconscient des morts soutiennent l'espérance biblique de la résurrection (9:5, 10)",
+      "Mauvais usage de la religion : Le culte vide et ritualiste « que Jéhovah ne valorise pas » contraste avec une révérence sincère pour sa parole (5:1–7)",
+      "Jeunesse et le Créateur : « Souviens-toi de ton Créateur aux jours de ta jeunesse » — avant que les fardeaux de la vie rendent le service entier de cœur plus difficile (12:1)",
+      "La conclusion entière : Après toutes les investigations, le seul but durable est de craindre Jéhovah et de garder ses commandements (12:13–14)"
+    ],
+    [
+      "La dévotion de la Shoulammite : Une fille de la campagne reste fidèle à son berger bien-aimé malgré la richesse et les attraits de la cour de Salomon (1–3)",
+      "Admiration mutuelle : Mari et femme décrivent affectueusement la beauté de l'autre — modèle d'appréciation verbale et affectueuse dans le mariage (4–5)",
+      "Puissance de l'amour : « L'amour est aussi fort que la mort… ses flammes sont la flamme de Yah » — l'amour entre époux reflète la propre conception de Jéhovah (8:6–7)",
+      "La voix du bien-aimé : L'empressement de la Shoulammite pour le retour de son mari reflète le désir dévoué d'une relation entière de cœur (2:8–14)",
+      "La jalousie décrite : « La jalousie est aussi inflexible que la Tombe » — avertissement que cette puissante émotion doit être gardée dans les limites du mariage (8:6)"
+    ],
+    [
+      "Vocation d'Isaïe : Une vision du trône céleste de Jéhovah et des séraphins criant « saint, saint, saint » mène à l'appel volontaire d'Isaïe (6)",
+      "Prophétie d'Emmanuel : « Voici, la jeune fille concevra et enfantera un fils, et l'appellera Emmanuel » (7:14) — accompli à la naissance de Jésus",
+      "Chants du Serviteur souffrant : Quatre chants (42 ; 49 ; 50 ; 52–53) décrivent avec une précision remarquable le ministère et la mort propitiatoire du Messie",
+      "Consolation pour les exilés : « N'aie pas peur, car je suis avec toi » et « ceux qui s'attendent à Jéhovah renouvelleront leur force » (40:28–31 ; 41:10 ; 43:1–5)",
+      "Jéhovah contre les idoles : Une satire cinglante du culte des idoles contraste le Dieu Créateur avec des blocs de bois sculptés (44:9–20 ; 46:1–7)",
+      "Promesses du monde nouveau : Paix sous le Royaume de Jéhovah, où « le loup résidera avec l'agneau » et où la mort ne sera plus (65:17–25 ; 25:8)"
+    ],
+    [
+      "Vocation de Jérémie : Avant sa naissance Jéhovah le connaissait ; malgré la protestation du prophète sur son inexpérience, il est nommé prophète pour les nations (1)",
+      "Sermon du Temple : Jérémie prêche hardiment à la porte du Temple que celui-ci n'est aucune protection si le peuple n'obéit pas à Jéhovah — il sera détruit comme Silo (7 ; 26)",
+      "La maison du potier : Jéhovah illustre son droit souverain de refaçonner toute nation qui répond à sa parole (18)",
+      "Souffrance de Jérémie : Emprisonné, jeté dans une citerne, accusé de trahison — Jérémie persévère à travers plus de persécutions qu'aucun autre prophète hébreu (37–38)",
+      "Lettre aux exilés : Depuis Babylone, Jérémie écrit pour encourager les captifs à bâtir, planter et chercher la paix de la ville (29)",
+      "Promesse de nouvelle alliance : Jéhovah écrira sa Loi sur les cœurs — une disposition supérieure médiatisée par Jésus Christ (31:31–34)"
+    ],
+    [
+      "Première lamentation : Jérusalem est dépeinte comme une veuve désolée ; la ville pleure sa destruction et la dispersion de son peuple (1)",
+      "Juste colère de Jéhovah : Le poète reconnaît que la destruction de Jérusalem est venue à cause de ses propres péchés — le jugement de Jéhovah était juste (2)",
+      "Le poème central : « L'amour fidèle de Jéhovah ne cesse jamais ; ses miséricordes ne finissent jamais ; elles sont renouvelées chaque matin » — l'ancre d'espérance dans le deuil le plus profond du livre (3:22–23)",
+      "Appel à l'examen de soi : « Examinons et explorons nos voies, et retournons à Jéhovah » (3:40) — la réponse appropriée à la discipline de Jéhovah",
+      "Confession nationale : Les quatrième et cinquième poèmes confessent les péchés qui ont apporté la destruction et plaident pour la restauration de Jéhovah (4–5)",
+      "Structure acrostiche : Quatre des cinq poèmes sont acrostiches (chaque verset commence par des lettres successives de l'alphabet hébreu), reflétant un soin littéraire (4)"
+    ],
+    [
+      "La vision du trône-char : Une vision spectaculaire de quatre créatures vivantes, de roues, et du trône de Jéhovah établit sa souveraineté absolue (1–3)",
+      "Ézéchiel comme gardien : Jéhovah le nomme gardien dont la responsabilité est d'avertir — reflétant la responsabilité de tous les serviteurs de Jéhovah de prêcher (3 ; 33)",
+      "Départ de la gloire de Jéhovah : Étape par étape, la gloire de Jéhovah quitte le Temple et la ville corrompus avant leur destruction (10–11)",
+      "Responsabilité individuelle : « L'âme qui pèche mourra » — chaque personne est personnellement responsable de ses propres choix devant Jéhovah (18)",
+      "Vallée d'ossements desséchés : Une puissante vision de résurrection préfigure la restauration physique d'Israël et la résurrection future des morts (37)",
+      "Vision du Temple futur : Mesures détaillées d'un Temple idéalisé décrivent le modèle du culte pur selon les normes de Jéhovah (40–48)"
+    ],
+    [
+      "Intégrité de Daniel dans le régime alimentaire : À la cour royale de Babylone, Daniel et ses compagnons refusent la nourriture du roi et en sont visiblement en meilleure santé (1)",
+      "Image du rêve de Nebucadnetsar : Une grande image représentant des puissances mondiales successives est frappée par une pierre — le Royaume de Jéhovah — qui remplit la terre (2)",
+      "Fournaise ardente : Shadrak, Méshak et Abed-Nego refusent de se prosterner devant l'image d'or de Nebucadnetsar ; Jéhovah les délivre (3)",
+      "L'écriture sur le mur : Belshatsar profane les vases du Temple lors d'un festin ; une mystérieuse écriture annonce la chute de Babylone cette nuit-là (5)",
+      "Fosse aux lions : Les ennemis de Daniel le piègent par son habitude de prière ; Jéhovah ferme la gueule des lions (6)",
+      "Quatre bêtes et l'Ancien des jours : Une vision d'empires mondiaux successifs et de la cour de Jéhovah accordant la domination éternelle au Fils de l'homme (7)"
+    ],
+    [
+      "Mariage d'Osée : Jéhovah ordonne à Osée d'épouser une femme infidèle comme parabole vivante de l'adultère spirituel d'Israël contre Jéhovah (1–3)",
+      "Adultère spirituel d'Israël : La nation a abandonné Jéhovah pour le culte de Baal, attribuant ses bénédictions à de faux dieux (4–7)",
+      "Culte creux condamné : « Votre amour fidèle est comme les nuages du matin… je veux l'amour fidèle, non le sacrifice » (6:4, 6)",
+      "Amour persistant de Jéhovah : Malgré l'infidélité d'Israël, le cœur de Jéhovah aspire à les restaurer, se comparant à un parent aimant (11:1–9)",
+      "Avertissement d'exil : Éphraïm (Israël) retournera à une servitude semblable à celle d'Égypte en Assyrie à cause de son rejet persistant de Jéhovah (11:5 ; 13:16)",
+      "Invitation à revenir : Le livre se clôt par un appel tendre à retourner à Jéhovah avec de vraies paroles de repentance, et la promesse « je guérirai leur infidélité » (14:1–4)"
+    ],
+    [
+      "Plaie de sauterelles : Une invasion dévastatrice de sauterelles dépouille le pays — utilisée comme appel à se rassembler, jeûner et crier vers Jéhovah (1)",
+      "Appel à une repentance sincère : « Déchirez vos cœurs et non vos vêtements ; retournez à Jéhovah votre Dieu » (2:13)",
+      "Promesse de restauration : Jéhovah promet de restaurer ce que les sauterelles ont mangé et de faire pleuvoir des bénédictions en réponse à la repentance (2:18–27)",
+      "Effusion de l'esprit saint : « Je répandrai mon esprit sur toute sorte de chair » — accompli à la Pentecôte 33 de n. è. et cité par Pierre (2:28–29 ; Actes 2:17–21)",
+      "Jour de Jéhovah approche : Un jour à venir de ténèbres et de jugement sur toutes les nations dans la vallée de Yehoshaphat (3:1–16)",
+      "Restauration du paradis : Après le jugement, le peuple de Jéhovah habitera en sécurité et le pays débordera d'abondance (3:17–21)"
+    ],
+    [
+      "Jugement sur les nations : Amos délivre des oracles contre huit nations entourant Israël avant de se tourner vers Israël lui-même — aucune ne peut échapper aux normes morales de Jéhovah (1–2)",
+      "Injustice sociale d'Israël : Les riches oppriment les pauvres, pervertissent la justice et piétinent les nécessiteux tout en accomplissant des rituels religieux (2:6–8 ; 5:10–12)",
+      "Observance religieuse creuse : Jéhovah méprise les fêtes et assemblées d'Israël parce qu'elles ne sont pas accompagnées de justice et de droiture (5:21–24)",
+      "Visions de jugement : Cinq visions (sauterelles, feu, fil à plomb, fruit d'été, autel) illustrent le jugement à venir de Jéhovah sur Israël (7–9)",
+      "Jéhovah révèle ses plans : « Le Souverain Seigneur Jéhovah ne fait rien sans d'abord révéler son secret à ses serviteurs les prophètes » (3:7)",
+      "Promesse de restauration : La cabane tombée de David sera relevée — cité en Actes 15:16 comme se référant à l'assemblée chrétienne restaurée (9:11–15)"
+    ],
+    [
+      "Orgueil d'Édom : Les Édomites se fiaient à leurs forteresses de montagne et aux alliances, mais Jéhovah déclare « je te ferai descendre de là » (1–4)",
+      "Trahison d'Édom contre Israël : Quand Babylone envahit Jérusalem, les Édomites célébrèrent, bloquèrent la fuite des réfugiés et livrèrent les survivants (10–14)",
+      "Jour de Jéhovah sur toutes les nations : « Le jour de Jéhovah est proche contre toutes les nations ; comme tu as fait, il te sera fait » (15–16)",
+      "Restauration d'Israël : Jéhovah promet qu'un reste sur le mont Sion sera saint, et la maison d'Ésaü ne sera que chaume (17–21)",
+      "Le royaume appartient à Jéhovah : Le livre se clôt par la déclaration « le royaume deviendra à Jéhovah » — sa souveraineté justifiée (21)"
+    ],
+    [
+      "Jonas fuit : Au lieu d'aller à Ninive, Jonas embarque sur un navire allant dans la direction opposée — Jéhovah envoie une tempête (1)",
+      "Jonas jeté par-dessus bord : Il demande aux marins de le jeter à la mer ; Jéhovah fournit un grand poisson pour l'engloutir trois jours (1:17)",
+      "Prière de Jonas depuis le poisson : Un psaume d'action de grâces depuis l'intérieur du poisson, reconnaissant la délivrance de Jéhovah (2)",
+      "Ninive se repent : Toute la ville — du roi aux animaux — revêt le sac et se détourne de ses mauvaises voies ; Jéhovah relâche (3)",
+      "Colère de Jonas : Fâché que Jéhovah ait montré de la miséricorde, Jonas boude sous une cabane ; Jéhovah utilise une vigne pour lui enseigner une leçon sur la compassion (4)",
+      "Souci de Jéhovah pour Ninive : « Ne devrais-je pas aussi avoir pitié de Ninive… où il y a plus de 120 000 hommes qui ne savent distinguer le bien du mal ? » (4:11)"
+    ],
+    [
+      "Jugement sur Samarie et Jérusalem : Les deux capitales sont accusées de corruption, de faux prophètes et d'oppression des pauvres (1–3)",
+      "Montagne de la maison de Jéhovah : Une vision de peuples affluant pour apprendre les voies de Jéhovah dans les derniers jours — déjà en cours d'accomplissement (4:1–4)",
+      "Messie né à Bethléem : « C'est de toi [Bethléem] que sortira celui qui doit être chef en Israël, dont l'origine est ancienne » (5:2) — accompli par Jésus",
+      "Cause juridique de Jéhovah : « Qu'est-ce que Jéhovah demande de toi ? Rien que d'agir avec justice, d'aimer la loyauté et de marcher humblement avec ton Dieu » (6:8)",
+      "Foi personnelle de Mika : Bien qu'entouré de corruption, Mika déclare « je continuerai à attendre Jéhovah » (7:7)",
+      "Pardon incomparable de Jéhovah : « Qui est un Dieu comme toi, pardonnant l'erreur et passant par-dessus la transgression ? » — jetant les péchés dans les profondeurs de la mer (7:18–19)"
+    ],
+    [
+      "Caractère de Jéhovah décrit : « Lent à la colère mais grand en puissance ; Jéhovah ne laissera nullement impuni le coupable » — à la fois miséricordieux et juste (1:3)",
+      "Jéhovah est bon : « Jéhovah est bon, une forteresse au jour de la détresse ; il connaît ceux qui cherchent refuge en lui » (1:7)",
+      "Ninive condamnée : Plus de 100 ans après Jonas, Ninive est retournée à la violence et à la méchanceté ; sa chute est maintenant certaine (2–3)",
+      "Description de la chute de Ninive : Le prophète décrit les charges de cavalerie, les épées étincelantes et l'inondation des défenses de la ville avec une précision prophétique vive (2:1–10 ; 3:1–3)",
+      "La ville de sang : Ninive est appelée « la ville de sang » pour ses campagnes militaires brutales et l'exploitation des nations soumises (3:1–4)",
+      "Désolation complète : « Quiconque entendra la nouvelle de toi battra des mains à ton sujet, car qui n'a pas souffert sous ta cruauté sans fin ? » (3:19)"
+    ],
+    [
+      "Première plainte d'Habacuc : « Jusqu'à quand, ô Jéhovah, dois-je crier au secours et tu n'entends pas ? » — lutte honnête face à la prospérité apparente des méchants (1:2–4)",
+      "Première réponse de Jéhovah : Babylone est suscitée comme instrument de jugement de Jéhovah — réponse choquante à la prière d'Habacuc (1:5–11)",
+      "Seconde plainte d'Habacuc : Utiliser un outil plus méchant que celui qu'on punit semble contredire la justice de Jéhovah (1:12–17)",
+      "Seconde réponse de Jéhovah : « Le juste vivra par sa fidélité » ; l'orgueilleux sera abaissé ; la connaissance de Jéhovah remplira la terre (2:2–20)",
+      "Prière-psaume d'Habacuc : Un magnifique poème racontant les actes passés de Jéhovah aboutit à une déclaration absolue de joie malgré la perte matérielle (3)",
+      "« Même si non » : « Même si le figuier ne fleurit pas… je me réjouirai en Jéhovah ; je serai dans la joie dans le Dieu de mon salut » (3:17–18)"
+    ],
+    [
+      "Jugement balayant du jour de Jéhovah : Jéhovah annonce un jugement complet — sur Juda, les nations environnantes, et finalement toute la terre (1–2)",
+      "Cherchez Jéhovah pendant qu'il en est encore temps : « Cherchez Jéhovah, vous tous les humbles de la terre… cherchez la justice, cherchez l'humilité ; peut-être serez-vous cachés » (2:3)",
+      "Malheur aux oppresseurs : Les fonctionnaires corrompus de Jérusalem, les faux prophètes et les prêtres sont dénoncés pour leur exploitation et fausse doctrine (3:1–5)",
+      "Langue pure promise : Jéhovah donnera à tous les peuples « une langue pure » pour qu'ils puissent invoquer son nom ensemble — prophétie déjà en cours d'accomplissement (3:9)",
+      "Jéhovah se réjouit sur son peuple : « Jéhovah ton Dieu est au milieu de toi… il se réjouira sur toi avec une grande joie… il exultera sur toi avec un chant joyeux » (3:17)",
+      "Rassemblés des nations : Jéhovah rassemblera les boiteux, les rejetés et les opprimés de toutes les nations et leur donnera louange et renom (3:18–20)"
+    ],
+    [
+      "L'œuvre est arrêtée : Seize ans après le retour d'exil, le peuple a construit ses propres maisons lambrissées tandis que le Temple de Jéhovah est en ruines (1:1–6)",
+      "Considérez vos voies : Jéhovah demande au peuple de réfléchir pourquoi ses efforts n'apportent aucune satisfaction durable — la priorité spirituelle est mal placée (1:5–11)",
+      "Obéissance immédiate : « Jéhovah éveilla l'esprit » des dirigeants et du peuple ; en 24 jours ils commencèrent les travaux (1:12–15)",
+      "Gloire plus grande promise : Bien que le Temple reconstruit soit modeste comparé à celui de Salomon, sa gloire future serait encore plus grande (2:1–9)",
+      "Sainteté et propreté : Une illustration sur la façon dont l'impureté se propage plus facilement que la sainteté avertit contre la contamination spirituelle (2:10–19)",
+      "Zorobabel comme anneau à cachet : La promesse de Jéhovah à Zorobabel pointe vers un accomplissement futur dans la lignée messianique (2:20–23)"
+    ],
+    [
+      "Huit visions nocturnes : Une série de visions (cavaliers, cornes, arpenteur, candélabre, rouleau volant, femme dans l'épha, chars) encourage les revenants et décrit le dessein de Jéhovah (1–6)",
+      "Josué le grand prêtre : Satan accuse Josué ; Jéhovah réprimande Satan et revêt Josué de vêtements propres — préfigurant le pardon par Christ (3)",
+      "Non par la puissance : « Non par une force militaire, ni par la puissance, mais par mon esprit, dit Jéhovah des armées » — l'œuvre réussira par la puissance de Jéhovah (4:6)",
+      "Roi triomphant entre à Jérusalem : « Ton roi vient à toi… humble et monté sur un âne » — accompli précisément par Jésus à son entrée finale (9:9 ; Matthieu 21:5)",
+      "Trahi pour 30 pièces d'argent : Le prix du berger rejeté — jeté au potier dans le temple — préfigure précisément la trahison de Judas (11:12–13 ; Matthieu 27:9–10)",
+      "Ils regarderont celui qu'ils ont percé : « Ils regarderont celui qu'ils ont percé et se lamenteront sur lui » — accompli au Calvaire et au retour de Christ (12:10 ; Jean 19:37 ; Révélation 1:7)"
+    ],
+    [
+      "Défi de Jéhovah « Comment nous as-tu aimés ? » : L'apathie spirituelle du peuple est exposée alors que Jéhovah pointe vers son élection de Jacob plutôt que d'Ésaü (1:2–5)",
+      "Offrandes méprisables : Les prêtres offrent des animaux aveugles, boiteux et malades — ce qu'ils n'oseraient jamais offrir à un gouverneur humain (1:6–14)",
+      "Prêtres qui corrompent : Plutôt que de guider le peuple dans les voies de Jéhovah, les prêtres ont fait trébucher beaucoup de gens (2:1–9)",
+      "Divorce traître : Jéhovah déclare « je hais le divorce » — sa vision de la fidélité à l'alliance s'étend à la relation conjugale (2:13–16)",
+      "Messager et purificateur : Un messager préparera la voie devant Jéhovah, et Jéhovah lui-même viendra soudainement à son temple pour purifier les Lévites (3:1–4)",
+      "Livre du souvenir : Jéhovah remarque tout spécialement ceux qui le craignent et parlent ensemble de son nom, inscrivant leurs noms dans un livre (3:16–18)"
+    ],
+    [
+      "Généalogie et naissance de Jésus : Matthieu ouvre en traçant la lignée royale de Jésus à travers David et Abraham, accomplissant les conditions messianiques (1–2)",
+      "Baptême et tentation : Jésus est baptisé par Jean, reconnu par Jéhovah comme son Fils, puis résiste avec succès aux trois tentations de Satan en utilisant l'Écriture (3–4)",
+      "Sermon sur la Montagne : Jésus expose les valeurs, pratiques et priorités des citoyens du Royaume dans l'enseignement éthique le plus complet de l'Écriture (5–7)",
+      "Paraboles du Royaume : Sept paraboles du semeur, de la mauvaise herbe, du grain de moutarde, du levain, du trésor, de la perle et du filet décrivent la croissance et le jugement du Royaume (13)",
+      "Signes de la présence de Christ : La réponse détaillée de Jésus sur le signe de sa présence dans les derniers jours fournit un cadre composite pour identifier le temps (24–25)",
+      "Mort, sépulture et résurrection : Le procès, la mort et les apparitions de résurrection de Jésus confirment son identité comme Roi désigné par Jéhovah (26–28)"
+    ],
+    [
+      "Ministère rapide : L'usage par Marc de « aussitôt » (environ 40 fois) capture le rythme urgent du ministère galiléen de Jésus (1–9)",
+      "Autorité sur les démons : Jésus chasse les démons d'une parole — à l'étonnement des foules familières seulement avec l'enseignement impuissant des scribes (1:21–28 ; 5:1–20)",
+      "Miracles de compassion : Guérison du lépreux (1:40–45), résurrection de la fille de Jaïrus (5:35–43) et restauration de la vue à Bartimée (10:46–52) révèlent le cœur de Jésus",
+      "Confession de Pierre à Césarée de Philippe : « Tu es le Christ » — le tournant décisif après lequel Jésus commence à enseigner sur sa mort à venir (8:27–9:1)",
+      "Direction par le service : L'enseignement de Jésus « celui qui veut être le premier doit être l'esclave de tous » défie directement l'orgueil des disciples (10:35–45)",
+      "Discours du mont des Oliviers : La prophétie de Jésus sur le mont des Oliviers couvre la destruction de Jérusalem et le signe composite de sa parousie (13)"
+    ],
+    [
+      "Récits de naissance : Luc seul rapporte l'annonce angélique à Marie, le récit des bergers et la présentation au temple (1–2)",
+      "Généalogie par Marie : Luc trace la lignée humaine de Jésus par Marie jusqu'à Adam — le reliant à toute l'humanité (3:23–38)",
+      "Parabole du fils prodigue : L'accueil joyeux par le père d'un fils repentant est l'image la plus claire du cœur de Jéhovah envers les pécheurs repentants dans les quatre Évangiles (15:11–32)",
+      "Le bon Samaritain : La définition du « prochain » traverse toutes les frontières ethniques, établissant l'amour pour toute personne dans le besoin comme obligation chrétienne (10:25–37)",
+      "Les femmes dans le ministère de Jésus : Luc seul nomme beaucoup des femmes qui suivirent et soutinrent le ministère de Jésus — reflétant la dignité qu'il leur accordait (8:1–3 ; 23:49, 55)",
+      "Chemin d'Emmaüs : Le Jésus ressuscité explique toutes les Écritures hébraïques le concernant — modèle d'enseignement basé sur la Bible (24:13–35)"
+    ],
+    [
+      "Le prologue : « Au commencement était la Parole… la Parole était avec Dieu » — Jésus comme porte-parole préhumain unique de Jéhovah et agent de la création (1:1–18)",
+      "Sept signes miraculeux : Eau changée en vin, guérison du fils du noble, guérison du paralytique, repas des 5 000, marche sur l'eau, guérison de l'aveugle, résurrection de Lazare — chacun révélant l'autorité divine de Jésus (2–11)",
+      "Sept déclarations « Je suis » : Pain de vie, lumière du monde, porte, excellent berger, résurrection, voie/vérité/vie, vraie vigne — chacune définissant le rôle de Jésus comme canal de bénédiction de Jéhovah (6 ; 8 ; 10 ; 11 ; 14 ; 15)",
+      "Discours de la chambre haute : L'enseignement privé le plus long de Jésus — consolation pour les disciples, l'assistant promis (esprit saint), l'illustration de la vraie vigne (14–16)",
+      "Prière du grand prêtre : Jésus prie pour la protection, l'unité et la sanctification de ses disciples dans la vérité — incluant « qu'ils te connaissent, toi le seul vrai Dieu » (17)",
+      "Confession de Thomas : « Mon Seigneur et mon Dieu ! » — reconnaissant la désignation divine de Jésus sans l'identifier à Jéhovah (20:28)"
+    ],
+    [
+      "Pentecôte et l'esprit saint : L'esprit descend avec des langues de feu ; Pierre explique cela comme accomplissement de Joël 2:28–32 ; 3 000 sont baptisés en un jour (2)",
+      "Première assemblée à Jérusalem : Partage des biens, réunions quotidiennes, signes miraculeux — le modèle de culte communautaire entier de cœur (2:42–47 ; 4:32–35)",
+      "Discours et mort d'Étienne : Le plus long discours dans Actes raconte l'histoire d'Israël ; la mort d'Étienne fait de Saul un témoin du premier martyr du christianisme (7)",
+      "Philippe et l'Éthiopien : Un fonctionnaire de cour étudiant Isaïe 53 est baptisé — la bonne nouvelle atteignant l'Afrique (8:26–40)",
+      "Conversion de Paul : Le persécuteur Saul rencontre le Jésus ressuscité sur le chemin de Damas et devient le plus grand missionnaire de l'histoire (9)",
+      "Concile de Jérusalem : Le premier différend doctrinal majeur — si les Gentils doivent être circoncis — est réglé par le collège central sous la direction de l'esprit saint (15)"
+    ],
+    [
+      "Péché universel : Tant les Gentils (chapitres 1–2) que les Juifs (chapitres 2–3) ont failli — tous ont besoin de la rançon (3:9–20, 23)",
+      "Justification par la foi : Abraham fut crédité de justice par la foi avant la circoncision — montrant que la foi, non la loi, est le fondement (4)",
+      "Adam et Christ contrastés : Un homme apporta péché et mort ; l'acte de justice d'un homme apporte la vie justifiante (5:12–21)",
+      "Lutte contre le péché : La description poignante par Paul du combat intérieur contre les tendances pécheresses assure les croyants que la lutte est normale (7:14–25)",
+      "Vie dans l'esprit : Aucune condamnation pour ceux en Christ ; l'esprit lui-même témoigne qu'ils sont enfants de Jéhovah ; rien ne peut les séparer de son amour (8)",
+      "L'avenir d'Israël : Les chapitres 9–11 traitent si Jéhovah a rejeté Israël — non ; un reste est choisi, et l'inclusion des Gentils provoque l'Israël naturel (11:25–32)"
+    ],
+    [
+      "Divisions dans l'assemblée : Des factions se formant autour de Paul, Apollos et Pierre sont réprimandées — Christ seul est la base de l'unité (1–4)",
+      "Immoralité sexuelle tolérée : Un cas d'inceste dans l'assemblée n'est pas discipliné ; Paul insiste sur l'excommunication (5)",
+      "Mariage et célibat : Paul aborde les relations sexuelles, le mariage, le divorce, et les avantages de rester célibataire pour le service à plein temps (7)",
+      "Couvre-chef et le Repas du Seigneur : Instructions pour une conduite appropriée aux réunions d'assemblée, y compris une participation digne au Mémorial (11)",
+      "Dons spirituels : Tous les dons viennent du même esprit et servent un seul corps ; l'amour (chapitre 13) est plus grand que tous les dons réunis (12–14)",
+      "Résurrection des morts : Une défense étendue de la résurrection corporelle, expliquant sa certitude, sa nature et son ordre — la base de toute espérance chrétienne (15)"
+    ],
+    [
+      "Consolation de Paul dans l'affliction : Le modèle « tout comme les souffrances pour Christ abondent en nous, ainsi… la consolation abonde » recadre toute souffrance comme intentionnelle (1:3–11)",
+      "Ministère de la nouvelle alliance : Paul contraste la gloire de l'ancienne alliance (passagère) avec la gloire surpassante de la nouvelle (durable) (3)",
+      "Trésor dans des vases de terre : Les nombreuses souffrances énumérées par Paul prouvent que la puissance vient de Jéhovah, non de la force humaine (4:7–12)",
+      "Collecte pour Jérusalem : Don généreux modelé par les assemblées de Macédoine ; « Jéhovah aime celui qui donne avec joie » (8–9)",
+      "Visions de Paul et écharde dans la chair : Une « écharde » a gardé Paul humble ; réponse de Jéhovah : « Ma puissance se rend parfaite dans la faiblesse » (12)",
+      "Défense apostolique de Paul : Paul défend ses titres contre les « super apôtres », énumérant ses souffrances comme ses vraies lettres de recommandation (11–12)"
+    ],
+    [
+      "La vraie bonne nouvelle défendue : Paul confronte les judaïsants qui ajoutent la circoncision à la rançon comme exigence ; il appelle toute autre bonne nouvelle maudite (1)",
+      "Paul confronte Pierre : À Antioche, la séparation hypocrite de Pierre des croyants gentils est défiée publiquement — la vérité doctrinale n'est pas négociable (2:11–21)",
+      "La Loi comme précepteur : La Loi mosaïque a servi de « précepteur menant à Christ » ; maintenant que la foi est venue, les chrétiens ne sont plus sous le précepteur (3:24–25)",
+      "Fils de Dieu par la foi : « Il n'y a ni Juif ni Grec, ni esclave ni libre, ni mâle ni femelle ; vous êtes tous un en Christ Jésus » — l'unité de tous devant Jéhovah (3:28)",
+      "Fruit de l'esprit : Amour, joie, paix, patience, bienveillance, bonté, foi, douceur, maîtrise de soi — qualités produites par l'esprit en contraste avec les œuvres charnelles (5:22–23)",
+      "Semer et récolter : La loi inéluctable de l'univers de Jéhovah — « ce qu'un homme sème, cela il le moissonnera aussi » (6:7–9)"
+    ],
+    [
+      "Bénédictions spirituelles dans les lieux célestes : Jéhovah a choisi et prédestiné les chrétiens oints comme ses fils adoptifs, à la louange de sa gloire (1)",
+      "Mort dans le péché, vivant en Christ : Sauvé non par mérite mais purement par la faveur imméritée de Jéhovah par la foi — aucune place pour la vantardise humaine (2:1–10)",
+      "Mystère révélé : Gentils et Juifs faits un nouvel homme par Christ — un secret caché dans les âges précédents maintenant divulgué par l'assemblée (2:11–3:12)",
+      "Marchez d'une manière digne de l'appel : Unité, humilité, ne plus marcher dans la futilité comme les nations — la conduite doit correspondre à l'appel (4)",
+      "Revêtez la nouvelle personnalité : Étapes pratiques — éloigner mensonge, colère, vol, parole corrompue, amertume — les remplaçant par des qualités divines (4:22–5:2)",
+      "Armure spirituelle : Armure complète — ceinture de vérité, cuirasse de justice, pieds chaussés de la bonne nouvelle, bouclier de la foi, casque du salut, épée de l'esprit (6:10–18)"
+    ],
+    [
+      "Partenaires dans la bonne nouvelle : Gratitude de Paul pour le soutien pratique des Philippiens et sa prière pour leur croissance continue en amour et discernement (1:1–11)",
+      "L'emprisonnement de Paul fait avancer la bonne nouvelle : Même la prison a servi à propager l'évangile ; Paul fait face à la mort ou à la vie avec une paix égale (1:12–26)",
+      "L'humilité de Christ comme modèle : De forme divine à esclavage humain à mort sur un poteau — le modèle d'abnégation que tous les chrétiens doivent imiter (2:5–11)",
+      "Le prix de l'appel d'en haut : Paul s'élance vers le but, oubliant ce qui est derrière, se tendant vers l'avant — courant la course avec un but (3:12–16)",
+      "Paix par la prière : « Ne soyez en souci de rien, mais… que vos requêtes soient connues de Dieu ; et la paix de Dieu qui surpasse toute pensée » (4:6–7)",
+      "Pensez aux belles choses : Une belle liste — vrai, juste, chaste, aimable, dont on dit du bien — gouvernant le régime mental d'un chrétien (4:8)"
+    ],
+    [
+      "La prééminence de Christ : « Il est l'image du Dieu invisible, le premier-né de toute création… toutes les autres choses ont été créées par lui » (1:15–17)",
+      "Réconciliation complète : Par la mort de Christ, ceux qui étaient autrefois éloignés et ennemis sont maintenant réconciliés à Jéhovah (1:19–23)",
+      "Avertissement contre la philosophie : « Prenez garde que personne ne fasse de vous une proie par la philosophie et la tromperie vaine » de la tradition humaine vs l'enseignement de Christ (2:8)",
+      "Ressuscités avec Christ : La nouvelle vie est cachée avec Christ en Jéhovah ; les croyants doivent « chercher les choses d'en haut » (3:1–4)",
+      "La nouvelle personnalité : Liste détaillée des anciennes choses à dépouiller (immoralité sexuelle, colère, mensonges) et nouvelles choses à revêtir (compassion, bonté, pardon, amour) (3:5–17)",
+      "Travail pour Jéhovah : « Quoi que vous fassiez, travaillez-y de toute votre âme comme pour Jéhovah et non pour les hommes » — transformant le travail quotidien en culte (3:23–24)"
+    ],
+    [
+      "Exemple de foi : Les Thessaloniciens devinrent des exemples pour toute la Macédoine — leur foi s'est répandue alors que la nouvelle de leur conversion parvenait partout (1:6–10)",
+      "Soin parental de Paul : Paul décrit son ministère parmi eux comme une mère qui allaite et un père encourageant — amour pastoral authentique (2:7–12)",
+      "Le rapport de Timothée apporte du réconfort : Les nouvelles encourageantes de Timothée sur la foi de l'assemblée soutiennent Paul à travers ses propres difficultés (3)",
+      "Pureté sexuelle : Instruction claire que la volonté de Jéhovah est la sanctification — « contrôler son propre corps dans la sainteté et l'honneur, non dans la passion de l'appétit sexuel » (4:3–8)",
+      "Espérance de résurrection pour les morts : « Ceux qui sont morts en Christ ressusciteront en premier » — une description détaillée de la parousie de Christ consolant ceux qui craignent pour leurs proches décédés (4:13–18)",
+      "Jour de Jéhovah comme un voleur : Les croyants spirituellement éveillés et sobres ne seront pas surpris — la préparation exige une vigilance continue (5:1–11)"
+    ],
+    [
+      "Juste jugement de Jéhovah : Ceux qui persécutent l'assemblée feront eux-mêmes face au jugement de Jéhovah quand il agira (1:6–10)",
+      "L'apostasie doit venir d'abord : Le jour de Jéhovah ne peut pas être déjà arrivé — une grande apostasie et l'homme d'iniquité doivent paraître d'abord (2:1–12)",
+      "Tenez ferme et tenez aux traditions : « Tenez ferme et tenez fermement aux traditions que vous avez apprises soit par parole soit par lettre » — stabilité doctrinale contre la confusion (2:15)",
+      "Jéhovah vous rendra fermes : « Jéhovah est fidèle, et il vous rendra fermes et vous gardera du méchant » (3:3)",
+      "Travaillez, ne soyez pas désordonnés : Certains à Thessalonique cessèrent de travailler, pensant la fin imminente ; Paul insiste « si quelqu'un ne veut pas travailler, qu'il ne mange pas non plus » (3:6–15)",
+      "Que Jéhovah de paix vous donne la paix : La bénédiction finale reflète le profond souci pastoral de Paul pour la paix de l'assemblée sous pression (3:16)"
+    ],
+    [
+      "Saine doctrine vs faux enseignement : Timothée est exhorté à faire taire ceux qui enseignent une doctrine différente et qui se livrent à des mythes et des généalogies sans fin (1:3–11)",
+      "Prière pour tous : « Prières, supplications, intercessions et actions de grâces doivent être faites concernant toutes sortes d'hommes » — y compris les chefs (2:1–4)",
+      "Un seul médiateur : « Il y a un seul Dieu, et un seul médiateur entre Dieu et les hommes, un homme, Christ Jésus, qui s'est donné lui-même en rançon pour tous » (2:5–6)",
+      "Qualifications des surveillants et des assistants : Qualités personnelles détaillées requises pour les positions de direction d'assemblée (3:1–13)",
+      "Piété avec contentement : « L'attachement à Dieu avec contentement est un grand gain… nous n'avons rien apporté dans le monde, et nous ne pouvons rien en emporter » (6:6–8)",
+      "Amour de l'argent : « L'amour de l'argent est une racine de toutes sortes de choses préjudiciables » — avertissement contre les motivations qui déforment les priorités chrétiennes (6:9–10)"
+    ],
+    [
+      "Garde ce qui t'a été confié : « Garde ce beau dépôt avec l'aide de l'esprit saint, qui habite en nous » — protéger le corps de la vérité (1:13–14)",
+      "Endure comme un fin soldat : « Prends ta part en supportant le mal, comme un fin soldat de Christ Jésus » — la charge de Paul alors qu'il fait face à l'exécution (2:1–13)",
+      "Les derniers jours : Une description vive de « ces temps critiques difficiles à supporter » — un signe composite prophétique de la période où nous vivons maintenant (3:1–5)",
+      "Toute Écriture est inspirée : « Toute Écriture est inspirée de Dieu et utile pour enseigner, pour reprendre, pour remettre les choses en ordre » — l'inspiration et la suffisance de la Bible (3:16–17)",
+      "Prêche la parole d'urgence : « Prêche la parole ; mets-y de l'empressement en temps favorable, en temps difficile » — la priorité du ministère quelle que soit la réponse (4:1–5)",
+      "La course de Paul achevée : « J'ai combattu le beau combat, j'ai achevé la course, j'ai observé la foi ; désormais m'est réservée la couronne » (4:6–8)"
+    ],
+    [
+      "L'assignation de Tite en Crète : Paul a laissé Tite en Crète pour « corriger les choses qui étaient défectueuses et nommer des anciens de ville en ville » (1:4–9)",
+      "Qualifications des anciens : Un surveillant doit être irréprochable, non volontaire, non ivrogne — qualités reflétant 1 Timothée 3 (1:5–9)",
+      "Faux enseignants en Crète : « Menteurs, mauvaises bêtes sauvages, gloutons paresseux » — l'évaluation franche de Paul de ceux qui dérangent les assemblées (1:10–16)",
+      "Conduite pratique à tous les âges : Hommes plus âgés, femmes plus âgées, jeunes femmes, jeunes hommes et esclaves reçoivent chacun des directives de conduite spécifiques (2:1–10)",
+      "La faveur de Jéhovah qui forme : « La faveur imméritée de Dieu qui apporte le salut à toutes sortes de personnes a paru, nous formant à rejeter l'impiété » (2:11–14)",
+      "Renouvelés par l'esprit saint : Sauvés non par des œuvres de justice mais par la miséricorde de Jéhovah — le bain de vie et le renouvellement par l'esprit saint (3:4–7)"
+    ],
+    [
+      "Salutation chaleureuse de Paul : Une lettre personnelle adressée à Philémon, sa femme Apphia, Archippe et l'assemblée dans la maison de Philémon (1–3)",
+      "Appel de Paul pour Onésime : Plutôt que de commander à Philémon, Paul fait appel sur la base de l'amour pour l'esclave fugitif maintenant converti (8–12)",
+      "Un cher frère en Christ : « Non plus comme un esclave, mais mieux qu'un esclave — comme un cher frère… tant dans la chair que dans le Seigneur » (15–16)",
+      "Paul s'engage à rembourser : Toute dette qu'Onésime doit, Paul la couvrira personnellement — une belle illustration de Christ payant notre dette (18–19)",
+      "Faisant confiance à la bonté de Philémon : Paul exprime sa confiance que Philémon « fera même plus que ce que je dis » — modelant l'encouragement plutôt que la coercition (21)",
+      "Demande de logement : L'espoir de Paul de rendre visite à Philémon en personne montre la valeur qu'il accordait à la communion face à face (22)"
+    ],
+    [
+      "Jésus supérieur aux anges : La comparaison d'ouverture établit que le Fils — « le reflet de la gloire de Jéhovah » — est de loin supérieur à tout ange (1–2)",
+      "Jésus notre grand Prêtre en chef : Comme Aaron mais plus grand, Jésus « a été éprouvé en tout comme nous, sans péché » — capable de compatir à nos faiblesses (4:14–5:10)",
+      "Sacerdoce de Melchisédek : Le sacerdoce de Jésus est d'un ordre supérieur à celui d'Aaron — un sacerdoce assermenté, immuable (7)",
+      "La nouvelle alliance est supérieure : Meilleure alliance, meilleures promesses, meilleur sacrifice — le sang de Christ est offert dans le vrai sanctuaire céleste, non une copie faite de main d'homme (8–10)",
+      "Chapitre de la foi : Abel, Énoch, Noé, Abraham, Sara, Moïse, Rahab — tous « ont reçu un témoignage favorable par leur foi » mais n'ont pas reçu l'accomplissement (11)",
+      "Courons avec endurance : « Courons avec endurance la course qui nous est ouverte, regardant attentivement à Jésus, Agent en chef et Perfectionneur de notre foi » (12:1–2)"
+    ],
+    [
+      "Endurer les épreuves : « Considérez comme une pleine joie quand vous rencontrez diverses épreuves » — l'endurance produit la complétude, demander la sagesse à Jéhovah sans hésiter (1:2–8)",
+      "Faire et non seulement entendre : « Devenez faiseurs de la parole et non seulement auditeurs, vous trompant vous-mêmes » — l'épreuve d'une foi véritable (1:22–25)",
+      "Partialité condamnée : Montrer du favoritisme aux riches tout en déshonorant les pauvres contredit la propre norme de Jéhovah d'amour pour le prochain (2:1–13)",
+      "Foi et œuvres : « La foi par elle-même, sans œuvres, est morte » — tout comme un corps sans souffle est mort, ainsi la foi sans action est sans vie (2:14–26)",
+      "Maîtriser la langue : « La langue est un feu… un monde d'injustice… peut embraser tout le cours de la vie » — l'un des membres les plus difficiles à contrôler (3:1–12)",
+      "Prière et onction : « La supplication fervente d'un juste a beaucoup de force » — le rôle des anciens pour prier et prendre soin des malades (5:14–18)"
+    ],
+    [
+      "Espérance vivante par la résurrection : « Loué soit… Jéhovah… qui, selon sa grande miséricorde, nous a donné une nouvelle naissance pour une espérance vivante par la résurrection de Jésus Christ » (1:3–5)",
+      "Né de nouveau par la parole : Contrairement à la semence impérissable, toute gloire humaine est comme l'herbe — mais « la parole de Jéhovah demeure pour toujours » (1:23–25)",
+      "Sacerdoce royal : « Vous êtes une race choisie, un sacerdoce royal, une nation sainte, un peuple destiné à devenir une propriété spéciale » — chaque chrétien fait partie du peuple spécialement choisi par Jéhovah (2:9)",
+      "Souffrir pour la justice : « Même si vous deviez souffrir à cause de la justice, vous êtes heureux » — Pierre traite la souffrance injuste avec consolation et perspective (3:14–17)",
+      "Épreuves ardentes : « Ne soyez pas perplexes face à l'incendie parmi vous » — les épreuves ne sont pas étranges mais font partie de la participation aux souffrances de Christ (4:12–14)",
+      "Humbles sous la main de Jéhovah : « Rejetez sur lui toute votre inquiétude, car il prend soin de vous » ; résistez au diable, fermes dans la foi (5:6–9)"
+    ],
+    [
+      "Puissance divine donne tout ce qui est nécessaire : « Sa puissance divine nous a donné tout ce qui est nécessaire pour la vie et l'attachement à Dieu par la connaissance exacte de celui qui nous a appelés » (1:3–4)",
+      "Échelle des vertus : Foi → vertu → connaissance → maîtrise de soi → endurance → attachement à Dieu → affection fraternelle → amour ; ces qualités empêchent de trébucher (1:5–11)",
+      "Parole prophétique confirmée : Pierre fut témoin oculaire de la transfiguration ; cela confirme la parole prophétique, qui est « comme une lampe brillant dans un lieu obscur » (1:16–21)",
+      "Faux enseignants comme Balaam : Ils exploitent avec convoitise, promettent la liberté alors qu'eux-mêmes sont esclaves de la corruption (2)",
+      "Jour de Jéhovah : Avec Jéhovah « un jour est comme mille ans » ; il n'est pas lent mais patient, ne voulant pas qu'aucun soit détruit (3:8–9)",
+      "Nouveaux cieux et nouvelle terre : « Nous attendons de nouveaux cieux et une nouvelle terre où la justice doit habiter » — l'espérance qui motive maintenant une conduite sainte (3:13–14)"
+    ],
+    [
+      "Marcher dans la lumière : La communion avec Jéhovah requiert marcher dans la lumière — le sang de Jésus purifie du péché ; la confession est le chemin vers le pardon (1:5–2:2)",
+      "Trois épreuves de christianisme authentique : Garder les commandements de Jéhovah (épreuve d'obéissance), aimer les frères (épreuve d'amour), croire que Jésus est venu dans la chair (épreuve de croyance) (2:3–5 ; 4:2–3 ; 4:20–21)",
+      "N'aimez pas le monde : « Le monde passe ainsi que son désir, mais celui qui fait la volonté de Dieu demeure pour toujours » (2:15–17)",
+      "Dieu est amour : « Celui qui n'aime pas n'a pas connu Dieu, car Dieu est amour… l'amour vient de Dieu » (4:7–8, 19)",
+      "L'amour parfait bannit la crainte : « Il n'y a pas de crainte dans l'amour, mais l'amour parfait bannit la crainte, parce que la crainte freine… celui qui craint n'a pas été rendu parfait dans l'amour » (4:18)",
+      "Conquête du monde : « Voici la conquête qui a conquis le monde — notre foi » (5:4–5) — la foi en Jésus comme Fils de Dieu surmonte l'attrait du monde"
+    ],
+    [
+      "Vérité et amour ensemble : L'ancien écrit à la « dame élue » — une assemblée — à cause de la vérité, qui demeure en eux pour toujours (1–3)",
+      "Marcher dans la vérité : Jean se réjouit de trouver des membres de ses enfants marchant dans la vérité, selon le commandement reçu de Jéhovah (4–6)",
+      "Le commandement — aimez-vous les uns les autres : Le plus ancien commandement, l'amour les uns pour les autres, est l'expression pratique de la « marche dans la vérité » (5–6)",
+      "Avertissement sur les séducteurs : « Beaucoup de séducteurs sont sortis dans le monde, ceux qui ne reconnaissent pas Jésus Christ comme venant dans la chair » — antichrists (7)",
+      "Ne perdez pas ce pour quoi vous avez travaillé : Restez dans l'enseignement du Christ pour recevoir la pleine récompense — ni avancer ni rester en arrière (8–9)",
+      "Ne recevez pas les faux enseignants : N'invitez pas dans la maison et ne saluez pas ceux qui apportent un enseignement différent — le faire partage à leurs œuvres méchantes (10–11)"
+    ],
+    [
+      "Recommandation de Gaïus : Jean prie pour que Gaïus prospère et jouisse d'une bonne santé « tout comme son âme prospère » — un souhait holistique (1–2)",
+      "Joie de marcher dans la vérité : « Je n'ai pas de plus grande joie que d'entendre que mes enfants marchent dans la vérité » — la satisfaction la plus profonde de tout enseignant spirituel (3–4)",
+      "Hospitalité envers les missionnaires voyageurs : Gaïus est recommandé pour avoir accueilli et envoyé en avant des étrangers qui sont sortis « pour son nom » (5–8)",
+      "Diotrèphe réprimandé : Un membre de l'assemblée « qui aime avoir la première place » refuse d'accueillir les frères et répand des paroles malveillantes sur Jean (9–10)",
+      "Imitez le bien, non le mal : « Celui qui fait le bien vient de Dieu ; celui qui fait le mal n'a pas vu Dieu » — le caractère révèle l'état spirituel (11)",
+      "Démétrius recommandé : Loué par tous, par la vérité elle-même et par Jean — un triple témoignage d'une belle réputation chrétienne (12)"
+    ],
+    [
+      "Urgence de combattre pour la foi : Bien que Jude ait voulu écrire sur leur salut commun, la crise d'apostats infiltrés a rendu une défense nécessaire (3)",
+      "Avertissements historiques : Trois exemples — Israël au désert, anges rebelles, Sodome et Gomorrhe — démontrent le jugement de Jéhovah sur les infidèles (5–7)",
+      "Description des apostats : Ils « souillent la chair, rejettent l'autorité et parlent injurieusement des glorieux » — rêveurs qui corrompent l'assemblée de l'intérieur (8–16)",
+      "L'exemple de Michel : Même l'archange Michel n'a pas porté de jugement contre le Diable en son propre nom — humilité même dans le conflit (9)",
+      "Édifiez-vous : « Vous édifiant sur votre très sainte foi, priant avec l'esprit saint, vous gardant dans l'amour de Dieu » — la routine d'entretien spirituel (20–21)",
+      "Sauvez certains avec crainte : Montrez de la miséricorde aux hésitants, sauvez-en certains en les arrachant du feu — sagesse pastorale pour ceux qui vacillent (22–23)"
+    ],
+    [
+      "Lettres aux sept assemblées : Jésus évalue chaque assemblée — louant ce qui est bon, corrigeant ce qui est mauvais, appelant chacune à la repentance et à l'endurance (2–3)",
+      "Vision de la salle du trône : Une vision à couper le souffle de Jéhovah sur son trône, des 24 anciens, des quatre créatures vivantes et de toute la création le louant (4–5)",
+      "Sept sceaux et trompettes : Visions progressives de jugement, les 144 000 scellés, et la grande foule en robes blanches de toute nation (6–11)",
+      "Guerre dans le ciel : Michel et ses anges chassent Satan du ciel ; le dragon poursuit la femme et fait la guerre à ses descendants restants (12)",
+      "Babylone la Grande tombe : La grande prostituée représentant la fausse religion est jugée ; « Sortez d'elle, mon peuple » est l'appel final de Jéhovah à tous ceux qui l'adorent (17–18)",
+      "Nouvelle Jérusalem : Mort, deuil, cri et douleur ne sont plus ; Jéhovah habite avec l'humanité ; le fleuve de vie et l'arbre de vie restaurent ce qui était perdu (21–22)"
+    ]
+  ],
+  "bookWhyBeneficial": [
+    "La Genèse répond aux questions les plus fondamentales de l'humanité — qui nous sommes, pourquoi nous souffrons et quel est le dessein de Jéhovah pour la terre. Elle établit le fondement de toute prophétie biblique avec la première promesse d'un Libérateur en 3:15, et démontre par la vie de Noé, Abraham et Joseph que la foi inébranlable en Jéhovah est toujours récompensée.",
+    "L'Exode montre que Jéhovah entend les cris de son peuple opprimé et agit puissamment pour le délivrer. La révélation de son nom personnel (3:14–15) et la Pâque — accomplie en Jésus Christ comme « notre agneau pascal » — sont fondamentales pour comprendre le dessein de rédemption de Jéhovah et la valeur qu'il accorde au culte pur.",
+    "Bien que les chrétiens ne soient pas sous la Loi mosaïque, le Lévitique révèle la haute norme de sainteté que Jéhovah exige. Son système sacrificiel pointe vers la rançon de Christ, l'interdiction du sang reste en vigueur pour les chrétiens, et le principe « soyez saints parce que je suis saint » continue à définir la norme pour ceux qui portent le nom de Jéhovah.",
+    "Les Nombres avertissent puissamment contre l'esprit de plainte, le manque de foi et le culte non autorisé qui ont disqualifié toute une génération d'entrer dans la Terre promise. Paul a cité ces récits spécifiquement comme « exemples pour notre instruction » (1 Corinthiens 10:1–11), rendant les Nombres directement applicables aux chrétiens aujourd'hui.",
+    "L'appel passionné du Deutéronome à aimer Jéhovah de tout le cœur et de tout l'esprit est tout aussi urgent aujourd'hui. Jésus l'a cité trois fois en résistant aux tentations de Satan (Matthieu 4:4, 7, 10), et 2 Timothée 3:16–17 nous rappelle que toute Écriture — y compris le Deutéronome — équipe complètement les serviteurs de Jéhovah pour son service.",
+    "Josué démontre qu'avec le soutien de Jéhovah, des obstacles apparemment impossibles — rivières inondées, murs imprenables, ennemis puissants — deviennent des tremplins vers la victoire. Le défi final du livre, « choisissez aujourd'hui qui vous servirez » (24:15), s'adresse à chaque personne dans chaque génération.",
+    "Les Juges est un avertissement sobre sur le déclin spirituel qui suit lorsqu'une génération échoue à transmettre un amour authentique pour Jéhovah à la suivante. Les cycles d'apostasie et de restauration montrent à la fois le danger de la dérive spirituelle et l'extraordinaire patience de Jéhovah à venir à plusieurs reprises au secours de ceux qui crient vers lui.",
+    "Ruth montre que l'amour fidèle (hèsèd) et la fidélité humble sont des qualités que Jéhovah valorise au-dessus de l'origine nationale ou du statut social. Boaz agissant comme rédempteur par parenté préfigure puissamment Jésus Christ achetant la liberté de l'humanité par la rançon. L'histoire de Ruth nous assure qu'aucune personne sincère cherchant refuge sous les ailes de Jéhovah ne sera repoussée.",
+    "1 Samuel montre les conséquences fatales de se fier aux apparences extérieures, aux arrangements humains et à l'obéissance partielle au lieu de suivre Jéhovah de tout cœur. L'exemple de David — un jeune berger se fiant entièrement à Jéhovah — contraste fortement avec la direction de Saül, fondée sur soi et en quête d'approbation, et fournit un modèle pour chaque serviteur de Jéhovah.",
+    "2 Samuel présente l'image complète de David — non idéalisée mais complète, y compris ses graves défaillances et leurs conséquences. Sa repentance immédiate quand il est confronté, plutôt que la défensive ou la dissimulation, illustre le type de cœur enseignable que Jéhovah peut pardonner et restaurer. L'alliance davidique (chapitre 7) ancre toute l'espérance messianique.",
+    "1 Rois démontre que même la personne la plus sage et la plus privilégiée peut tomber spirituellement si elle laisse de mauvaises associations éroder sa dévotion à Jéhovah. Le récit d'Élie est particulièrement encourageant — Jéhovah restaure les serviteurs épuisés avec des soins pratiques, une douce réassurance et un sens de mission continue.",
+    "2 Rois montre les conséquences à long terme et inévitables d'ignorer les avertissements répétés de Jéhovah. Les récits d'Ézékias et de Josias démontrent cependant que la foi individuelle et le courage spirituel peuvent encore produire des résultats miraculeux même dans les circonstances nationales les plus désastreuses. Les deux rois confirment qu'avoir confiance en Jéhovah plutôt qu'aux alliances humaines est toujours le bon choix.",
+    "1 Chroniques montre que le vrai culte de Jéhovah exige à la fois une dévotion entière de cœur et une organisation soigneuse. La préparation extraordinaire de David pour un Temple qu'il ne construirait jamais reflète une perspective désintéressée et à long terme sur le dessein de Jéhovah — une qualité qui encourage tous ceux qui investissent dans une œuvre qu'ils ne verront peut-être pas achevée personnellement.",
+    "2 Chroniques est essentiellement une leçon de cause à effet : la fidélité à Jéhovah produit la bénédiction nationale ; l'infidélité produit le désastre national. Sa fin pleine d'espérance montre que le dessein de Jéhovah ne peut finalement pas être contrecarré, et qu'il est capable d'utiliser même des rois étrangers pour accomplir sa parole.",
+    "L'exemple personnel d'Esdras — « il avait préparé son cœur à consulter la Loi de Jéhovah, à la pratiquer et à l'enseigner » (7:10) — reste l'étalon-or pour tout enseignant biblique. Le livre montre aussi que reconstruire le culte pur exige de prioriser l'arrangement de Jéhovah au-dessus des relations personnelles et de la pression communautaire.",
+    "Néhémie démontre que l'œuvre de Jéhovah peut être accomplie face à une opposition farouche quand son peuple combine prière et action pratique. La compétence administrative de Néhémie, son intégrité personnelle et son souci authentique pour le bien-être du peuple montrent que la direction spirituelle et l'excellence organisationnelle ne s'excluent pas mutuellement.",
+    "Esther révèle que la main directrice de Jéhovah opère même là où son nom n'est pas prononcé à haute voix — par les « coïncidences » de timing, la bonne personne au bon endroit, et le renversement de plans apparemment imparables contre son peuple. Le courage d'Esther sous la menace reste un puissant modèle pour les Témoins de Jéhovah qui font face à l'opposition.",
+    "Job répond directement à la question la plus douloureuse à laquelle les croyants font face : « Pourquoi les justes souffrent-ils ? » La réponse — qu'une grande controverse entoure la souveraineté de Jéhovah, et que notre endurance fidèle justifie son nom — transforme notre perspective sur la souffrance personnelle et lui donne un sens véritable plutôt qu'une cruauté dénuée de sens.",
+    "Les Psaumes fournissent le vocabulaire pour chaque émotion humaine devant Jéhovah — chagrin brut, joie planante, supplication désespérée, louange émerveillée. Ils montrent qu'aucun sentiment n'est trop privé ou douloureux pour être apporté à Jéhovah dans la prière, et ils fournissent les mots mêmes pour le faire. La méditation régulière sur les Psaumes construit une intimité avec Jéhovah qu'aucun autre livre biblique ne reproduit tout à fait.",
+    "Les Proverbes sont le manuel pratique de la Bible pour la vie quotidienne. Contrairement à la théologie abstraite, ils traitent du travail, de l'argent, de l'amitié, de la parole, de la parenté, du mariage et de la gestion du temps — tous ancrés à la révérence pour Jéhovah. Ses sayings courts et mémorables sont conçus pour être intériorisés afin que la sagesse façonne les décisions instinctives quotidiennes.",
+    "L'Ecclésiaste protège contre la désillusion qui vient quand les gens attendent que ce système actuel leur fournisse sens, accomplissement ou justice — il ne le peut pas. En documentant honnêtement le vide d'une vie sans Jéhovah au centre, il plaide pour la dévotion à Jéhovah non comme devoir religieux mais comme la seule réponse rationnelle à la réalité.",
+    "Le Cantique de Salomon affirme que l'amour romantique et l'intimité physique dans le mariage sont des dons de Jéhovah — beaux, purs et dignes d'être célébrés. Il se garde à la fois de l'erreur gnostique de mépriser l'amour physique et de la distorsion du monde, montrant plutôt que la dévotion conjugale authentique reflète l'amour fidèle que Jéhovah lui-même incarne.",
+    "Isaïe est justement appelé « le cinquième Évangile » — ses prophéties messianiques sur la naissance, le ministère et la mort de Jésus sont inégalées en précision. Les « chapitres de consolation » du livre (40–66) ont soutenu le peuple de Jéhovah à travers toute forme d'épreuve, et ses descriptions du monde nouveau donnent l'image la plus vive dans les Écritures hébraïques de ce à quoi ressemblera la terre du Royaume de Jéhovah.",
+    "L'endurance de Jérémie face à toute une vie de rejet, d'emprisonnement et de moquerie — avec presque aucun convertis — fournit le modèle ultime de fidélité motivée par l'amour de Jéhovah plutôt que par les résultats. Son expérience prouve que Jéhovah soutient ceux qui le servent fidèlement même quand ils ne voient jamais le résultat.",
+    "Les Lamentations enseignent au peuple de Jéhovah comment pleurer honnêtement sans perdre l'espoir. Sa volonté de s'asseoir dans la plus sombre douleur tout en affirmant l'amour fidèle de Jéhovah modèle le genre de foi qui n'exige pas que tout aille bien avant de le louer. Le chagrin et l'espoir ne sont pas opposés — ils coexistent dans le cœur de chaque serviteur mûr de Jéhovah.",
+    "La vision d'Ézéchiel de la gloire de Jéhovah quittant dramatiquement un lieu de culte corrompu — suivie par sa promesse de revenir — est directement pertinente pour chaque époque où la fausse religion a remplacé le culte pur. L'accent du livre sur la responsabilité individuelle (chapitre 18) et le désir de Jéhovah de repentance (18:23 ; 33:11) motive l'œuvre mondiale de prédication.",
+    "Daniel fournit la chronologie la plus claire dans les Écritures hébraïques pour la montée et la chute des puissances mondiales et l'établissement du Royaume éternel de Jéhovah. Les récits de Daniel et de ses compagnons montrent qu'il est possible de maintenir une intégrité complète devant Jéhovah — refusant à la fois le compromis moral et religieux — même au sein de l'empire hostile le plus puissant de la terre.",
+    "Osée contient certaines des descriptions les plus émotionnellement émouvantes du caractère de Jéhovah dans toute la Bible — son amour fidèle poursuivant les gens qui l'abandonnent, son angoisse devant leurs choix, et son invitation inconditionnelle à revenir. Le livre recadre notre compréhension du péché comme une rupture de relation plutôt que comme une simple violation de règles, et de la repentance comme un retour vers un Père qui attend.",
+    "La prophétie de Joël sur l'effusion de l'esprit fut la clé d'interprétation que Pierre utilisa à la Pentecôte pour expliquer ce qui arrivait à la première assemblée (Actes 2:16). Le message central du livre — que la repentance authentique et sincère trouve toujours Jéhovah prêt à restaurer et à bénir — est aussi pertinent dans les vies individuelles qu'il l'était pour la nation d'Israël.",
+    "Amos est un puissant rappel que l'activité religieuse extérieure ne signifie rien pour Jéhovah à moins d'être accompagnée de justice, de miséricorde et d'intégrité authentique dans la vie quotidienne. Sa condamnation des personnes qui assistent aux réunions religieuses tout en opprimant les autres avertit contre toute forme de compartimentation de la foi par rapport à l'éthique — Jéhovah voit à la fois l'autel et le marché.",
+    "La brièveté d'Obadia masque sa profondeur : le plus court livre prophétique hébreu contient à la fois un avertissement sur le péché fatal de l'orgueil et une déclaration fondamentale que le Royaume de Jéhovah prévaudra finalement. Le principe « comme tu as fait, il te sera fait » (verset 15) est une déclaration intemporelle de justice divine qui s'applique bien au-delà de l'ancien Édom.",
+    "Jonas expose le danger de préjuger qui mérite d'entendre le message de Jéhovah et de se réjouir quand ils ne répondent pas. Le livre démontre que la sollicitude de Jéhovah s'étend à toutes les nations et tous les peuples, et que toute hésitation à partager la bonne nouvelle largement — quel que soit le public — contredit son propre cœur. Jésus a cité les trois jours de Jonas dans le poisson comme un signe de sa propre mort et résurrection (Matthieu 12:39–40).",
+    "Le résumé en trois parties de la vraie religion par Mika (6:8) — justice, amour fidèle, humilité devant Jéhovah — coupe à travers toute la complexité religieuse jusqu'aux qualités essentielles que Jéhovah valorise. La prophétie de Bethléem (5:2) est l'une des prédictions messianiques les plus spécifiques dans les Écritures hébraïques, confirmant la paternité divine de la Bible et la fiabilité de la parole de Jéhovah.",
+    "Nahoum démontre que la patience de Jéhovah a des limites. Ninive avait reçu l'un des sursis les plus remarquables de l'histoire sous Jonas, mais son retour à la méchanceté épuisa finalement la tolérance de Jéhovah. Le livre donne la confiance que chaque oppresseur du peuple de Jéhovah sera finalement tenu pour responsable — une source de réconfort authentique en temps de persécution.",
+    "Habacuc modèle l'approche spirituellement mature des questions sans réponse : les apporter honnêtement à Jéhovah, attendre sa réponse, puis accepter sa perspective plus large même quand elle n'est pas ce qu'on attendait. La foi du « même si non » d'Habacuc 3:17–18 est l'étalon-or pour la joie inconditionnelle en Jéhovah — la foi qui ne dépend pas des circonstances allant dans notre sens.",
+    "Sophonie passe du jugement à l'expression la plus tendre du plaisir personnel de Jéhovah dans son peuple — un Dieu qui chante sur eux avec joie. La promesse d'une « langue pure » (3:9) s'accomplit alors que les Témoins de Jéhovah de toutes langues et cultures utilisent le même vocabulaire de vérité du Royaume, invoquant le nom de Jéhovah dans l'unité.",
+    "La leçon centrale d'Haggaï — « Est-ce le moment pour vous d'habiter dans vos maisons lambrissées tandis que cette maison est en ruines ? » — est applicable de manière permanente aux chrétiens qui priorisent le confort personnel et l'avancement au-dessus du culte de Jéhovah et de l'œuvre de prédication. La réponse immédiate et entière de cœur du peuple au message d'Haggaï est un modèle de réponse à l'instruction spirituelle.",
+    "Zacharie contient plus de prophéties messianiques accomplies par Jésus que tout autre livre prophétique hébreu de longueur comparable. Ces accomplissements précis — le roi sur un âne, trente pièces d'argent, celui qui est percé — sont parmi les preuves les plus fortes à la fois de l'inspiration divine de l'Écriture et de l'identité de Jésus comme le Messie promis.",
+    "Malachie clôt le canon prophétique hébreu par un avertissement contre la complaisance spirituelle — une apathie qui dit « il est inutile de servir Jéhovah » (3:14) — et une promesse que ceux qui craignent son nom sont individuellement connus et enregistrés par lui. Les derniers versets du livre, pointant vers l'Élie à venir, annoncent Jean le Baptiseur et l'aube de l'ère chrétienne.",
+    "Matthieu est le pont entre les Écritures hébraïques et les Écritures grecques chrétiennes, démontrant avec plus de 60 citations d'Écriture que Jésus accomplit chaque promesse messianique majeure. Le Sermon sur la Montagne (chapitres 5–7) reste la source la plus concentrée de valeurs pratiques du Royaume — le document fondateur de l'éthique chrétienne.",
+    "L'Évangile de Marc, rapide et axé sur l'action, est idéal pour ceux qui découvrent la Bible — il montre Jésus en action plus qu'en enseignement abstrait. Sa question centrale « Qui est vraiment cet homme ? » défie chaque lecteur à parvenir à une conclusion personnelle sur l'identité de Jésus, et son accent sur le service et l'abnégation définit ce à quoi ressemble la vraie grandeur devant Jéhovah.",
+    "L'Évangile de Luc est le plus universel — écrit pour Théophile (un titre gentil) et soulignant le ministère de Jésus aux pauvres, malades, femmes et exclus. Ses trois paraboles « perdues et retrouvées » au chapitre 15 (brebis perdue, drachme perdue, fils perdu) donnent le portrait le plus intime de la joie de Jéhovah sur chaque personne qui revient à lui.",
+    "L'Évangile de Jean a été écrit explicitement pour que « vous croyiez que Jésus est le Christ, le Fils de Dieu, et qu'en croyant vous ayez la vie par son nom » (20:31). Sa haute christologie clarifie à la fois la grandeur de Jésus et sa distinction de Jéhovah, et son portrait intime de la relation de Jésus avec son Père est le modèle pour la relation de chaque chrétien avec Jéhovah.",
+    "Les Actes fournissent le lien indispensable entre le ministère terrestre de Jésus et l'assemblée chrétienne mondiale. Il montre comment l'esprit saint de Jéhovah a guidé, donné force et organisé l'œuvre de prédication à travers les frontières culturelles et géographiques — et comment le même esprit continue à diriger l'œuvre mondiale des Témoins de Jéhovah aujourd'hui.",
+    "Romains est l'explication doctrinale la plus systématique de pourquoi les humains ont besoin de la rançon et comment la foi en Jésus restaure leur position devant Jéhovah. Sa section pratique (chapitres 12–16) traduit ensuite cette théologie en vie quotidienne — amour pour les frères, soumission aux gouvernements, et traitement des questions de conscience avec sensibilité — faisant de Romains le guide le plus complet à la fois pour la croyance et la conduite.",
+    "1 Corinthiens aborde des problèmes qui continuent à défier les assemblées à chaque époque : divisions, immoralité sexuelle, mauvais usage des dons spirituels, et doutes sur la résurrection. Les réponses de Paul établissent des principes que le Collège central applique aujourd'hui. Le chapitre de l'amour (13) reste la description définitive de la qualité qui doit imprégner toutes les interactions d'assemblée.",
+    "2 Corinthiens est la lettre la plus personnelle et émotionnellement honnête de Paul, révélant la souffrance, le découragement et la résilience ultime de l'un des serviteurs les plus efficaces de Jéhovah. Elle établit le principe que la puissance de Jéhovah est plus visible précisément quand la force humaine est la plus épuisée — une perspective transformative pour tout chrétien endurant des épreuves prolongées.",
+    "Galates est la Magna Carta de la liberté chrétienne — liberté de la Loi mosaïque, des traditions humaines, et de tout système de mérite humain. La défense passionnée de Paul de la grâce (faveur imméritée de Jéhovah) par la foi seule protège les chrétiens à la fois du légalisme et de la culpabilité qui vient du sentiment que leurs efforts ne sont jamais suffisants.",
+    "Éphésiens donne l'image la plus large du dessein éternel de Jéhovah — d'avant la création au monde nouveau — et explique la place de chaque croyant dans ce grand plan. Les sections pratiques sur la vie familiale (5:22–6:9) et l'armure complète (6:10–18) sont parmi les guides les plus concrets à la vie chrétienne quotidienne dans les Écritures grecques chrétiennes.",
+    "Philippiens, écrite depuis la prison, est l'un des livres les plus joyeux de la Bible — démontrant que la joie authentique est un produit de la relation avec Jéhovah plutôt que des circonstances. Ses prescriptions pratiques contre l'anxiété (4:6–7) et la discipline mentale (4:8) la rendent particulièrement précieuse pour les lecteurs modernes naviguant le stress, la peur et la fatigue spirituelle.",
+    "Colossiens recentre les chrétiens qui pourraient être distraits par les philosophies, rituels ou culte des anges — vers la suffisance de Jésus Christ. Son portrait pratique de la « nouvelle personnalité » (chapitre 3) est la liste vestimentaire la plus détaillée pour la conduite chrétienne dans les lettres de Paul, décrivant ce qu'il faut enlever et ce qu'il faut revêtir dans les interactions quotidiennes.",
+    "1 Thessaloniciens a été écrite pour encourager une jeune assemblée sous persécution, et sa chaleur pastorale la rend idéale pour quiconque est nouveau dans la foi. Son récit rassurant de l'espérance de la résurrection (4:13–18) — que les morts en Christ ne sont pas simplement partis — a consolé les Témoins de Jéhovah aux tombeaux pendant des générations.",
+    "2 Thessaloniciens corrige à la fois le sensationnalisme (faux rapports que le jour de Jéhovah est déjà arrivé) et l'évasion (abandon des responsabilités quotidiennes en attendant la fin). Son conseil équilibré — restez doctrinalement stable, restez spirituellement alerte, et continuez dans une vie ordonnée et productive — est exactement ce que les Témoins de Jéhovah cherchent à pratiquer aujourd'hui.",
+    "1 Timothée fournit le cadre organisationnel pour une assemblée qui honore Jéhovah — des dirigeants correctement qualifiés, une saine doctrine, la prière pour tous, et le soin des veuves et des vulnérables. L'exemple même de Timothée — « deviens un exemple aux fidèles en parole, en conduite, en amour, en foi, en pureté » (4:12) — est la norme pour chaque jeune serviteur de Jéhovah.",
+    "Paul a écrit 2 Timothée depuis sa cellule de mort comme son héritage final à son fils spirituel et à toutes les générations futures de serviteurs de Jéhovah. Son injonction d'endurer la souffrance, de rester loyal à la saine doctrine et de continuer à prêcher quels que soient les résultats porte l'autorité d'un homme qui a vécu chaque mot qu'il a écrit. La description des « derniers jours » (3:1–5) identifie notre propre époque avec une précision indubitable.",
+    "Tite est un manuel compact pour établir des assemblées saines dans des environnements difficiles. Son accent que la saine doctrine produit une conduite pratique pieuse — non comme moyen de gagner le salut mais comme expression naturelle de la faveur imméritée transformante de Jéhovah — capture la relation dynamique entre la croyance et le comportement qui caractérise le christianisme authentique.",
+    "Philémon montre que l'évangile de Jésus Christ avait le pouvoir de dissoudre l'une des barrières sociales les plus rigides du monde antique — la relation maître/esclave — en la remplaçant par une fraternité chrétienne authentique. Le livre est une masterclass de persuasion par l'amour plutôt que par l'autorité, et en donnant aux autres la dignité de faire le bon choix.",
+    "Hébreux fournit l'explication théologique de pourquoi les chrétiens ne sont plus obligés à la Loi mosaïque — le sacrifice supérieur de Jésus a remplacé de manière permanente tout le système lévitique. Son « chapitre de la foi » (chapitre 11) a motivé les Témoins de Jéhovah à chaque génération à l'endurance en montrant que la nuée de témoins fidèles devant nous a accompli sa course sans recevoir ce qui était promis — mais est restée fidèle.",
+    "Jacques est comme le livre des Proverbes des Écritures grecques chrétiennes — intensément pratique, ancré dans la vie quotidienne, et impatient avec une religion qui ne produit aucun changement visible. Son insistance que la foi authentique s'exprime dans l'action (soin des pauvres, contrôle de la langue, prière pour les malades) protège contre un christianisme abstrait qui reste en sécurité à l'intérieur de la tête.",
+    "1 Pierre a été écrite pour les chrétiens vivant le choc initial de la persécution romaine organisée. Son argument soutenu — que souffrir pour la justice n'est pas une aberration mais une marque de discipulat authentique — en a fait la lettre de référence pour les Témoins de Jéhovah dans les pays où ils font face à l'interdiction légale et à l'emprisonnement pour leur foi.",
+    "L'échelle des qualités chrétiennes de 2 Pierre (1:5–7) donne la description la plus systématique dans l'Écriture du développement spirituel progressif que Jéhovah attend. Son avertissement sur les faux enseignants « qui apporteront silencieusement des sectes destructrices » (2:1) est particulièrement pertinent à une époque où le contenu numérique rend le matériel apostat instantanément accessible à tout membre d'assemblée.",
+    "1 Jean fournit l'explication la plus claire de ce à quoi ressemble en pratique l'amour chrétien authentique — non comme sentiments chaleureux mais comme obéissance active aux commandements de Jéhovah. Sa déclaration « Dieu est amour » (4:8) est le fondement théologique d'où coulent toutes les autres qualités de Jéhovah, et ses trois épreuves pratiques protègent les assemblées à la fois du laxisme moral et de la fausse doctrine.",
+    "Bien que de seulement 13 versets, 2 Jean transmet un principe critique que les Témoins de Jéhovah appliquent pratiquement : maintenir une hospitalité chaleureuse et aimante dans l'assemblée tout en la refusant fermement à ceux qui nient la rançon ou promeuvent une fausse doctrine. Cet équilibre — l'amour avec discernement — protège à la fois les individus et les assemblées de la contamination spirituelle.",
+    "3 Jean aborde la tendance dangereuse à l'auto-promotion dans l'assemblée à travers les exemples contrastés de Gaïus (hospitalier, humble) et de Diotrèphe (vaniteux, diviseur). Le principe que ceux qui « aiment avoir la première place » perturbent l'assemblée s'applique à chaque génération et continue à guider la façon dont le peuple de Jéhovah reconnaît et traite de telles tendances.",
+    "Jude a été écrite pour exactement la situation à laquelle est confrontée chaque assemblée quand des apostats se lèvent en son sein — ceux qui utilisent la grâce de Jéhovah comme licence pour une conduite relâchée et qui méprisent toute autorité. Ses prescriptions pratiques pour l'autoprotection (édifier la foi, prière, rester dans l'amour de Jéhovah) et pour aider ceux attirés par l'apostasie restent une direction vitale pour les anciens d'assemblée et les individus.",
+    "La Révélation fournit au peuple de Jéhovah le panorama ultime de la fin de l'histoire — non comme source de mystère ou de peur, mais comme source de confiance durable. Son message répété de « vaincre » et sa promesse finale d'« essuyer toute larme » ont soutenu les Témoins de Jéhovah à travers la persécution la plus sévère. Le livre assure que le Royaume de Jéhovah éliminera chaque source de souffrance et que son dessein pour la terre sera pleinement réalisé."
+  ]
 }

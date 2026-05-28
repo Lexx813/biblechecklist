@@ -414,7 +414,7 @@ export function QuizLevel({ level, user, onBack, onComplete, navigate, darkMode,
               )}
               {timedMode && (
                 <div className="quiz-timed-result">
-                  <div>Timed Score: <strong>{timedScores.reduce((s, n) => s + n, 0)}</strong> pts</div>
+                  <div>{t("quiz.timedScore", "Timed Score:")} <strong>{timedScores.reduce((s, n) => s + n, 0)}</strong> {t("quiz.points", "pts")}</div>
                   {prevBest != null && timedScores.reduce((s, n) => s + n, 0) > prevBest && (
                     <div className="quiz-timed-new-best">{t("quiz.newBest", "New best")}</div>
                   )}

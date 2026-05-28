@@ -370,7 +370,27 @@
     "infoWritten": "Escrito",
     "infoTheme": "Tema",
     "infoKeyVerses": "Versículos clave",
-    "infoStudyQuestions": "Preguntas de Estudio"
+    "infoStudyQuestions": "Preguntas de estudio",
+    "complete": "Completo",
+    "currentChapter": "Continuar cap. {{chapter}}",
+    "inProgress": "En progreso",
+    "notStarted": "Sin comenzar",
+    "allBooks": "Todos los libros de la Biblia",
+    "notFound": "Libro no encontrado",
+    "bookOfTotal": "Libro {{current}} de {{total}}",
+    "hebrewScriptures": "Escrituras Hebreas",
+    "greekScriptures": "Escrituras Griegas Cristianas",
+    "overview": "Resumen",
+    "keyHighlights": "Puntos sobresalientes",
+    "whyBeneficial": "Por qué es provechoso",
+    "keyVersesHeading": "Versículos clave",
+    "notablePassagesHeading": "Pasajes destacados",
+    "studyQuestionsHeading": "Preguntas de estudio",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "infoNotablePassages": "Pasajes destacados",
+    "studyThisBook": "Estudiar →",
+    "readOnWolArrow": "Leer en WOL ↗"
   },
   "posts": {
     "sectionTitle": "Actualizaciones",
@@ -1570,7 +1590,10 @@
     "monthTotal_one": "{{count}} capítulo",
     "monthTotal_other": "{{count}} capítulos",
     "chBadge_one": "1 cap",
-    "chBadge_other": "{{count}} cap"
+    "chBadge_other": "{{count}} cap",
+    "rhythm": "Ritmo de lectura",
+    "weekChapters": "{{chapters}} capítulos registrados en los últimos 7 días",
+    "weekRhythm": "{{days}} días esta semana"
   },
   "verses": [
     {
@@ -4027,7 +4050,19 @@
     "remaining": "por leer",
     "planPromptTitle": "Añade un plan de lectura",
     "planPromptMessage": "Únete a un plan estructurado para leer toda la Traducción del Nuevo Mundo, con metas diarias.",
-    "planPromptCta": "Ver planes de lectura"
+    "planPromptCta": "Ver planes de lectura",
+    "allRead": "Todos los capítulos completos",
+    "browsePlans": "Explorar planes",
+    "completeSub": "Cada capítulo está marcado como leído. Puede revisar el historial o comenzar un plan nuevo.",
+    "completeTitle": "Biblia completa",
+    "nextReading": "Próxima lectura",
+    "noPlanContinue": "No necesita un plan activo. Continúe desde el próximo capítulo sin leer.",
+    "openPlan": "Abrir plan",
+    "planDayDone": "La lectura del plan de hoy está marcada como completa.",
+    "planNudge": "¿Quiere un horario? Los planes de lectura pueden marcar el ritmo del mismo rastreador sin atarlo.",
+    "startReadingPlan": "Comenzar un plan",
+    "todaysReading": "Lectura de hoy",
+    "todaysReadings": "Lecturas de hoy"
   },
   "writer": {
     "saved": "Guardado",
@@ -4169,7 +4204,12 @@
     "shareTitle": "Compartir {{book}} {{chapter}}",
     "chapterShort": "Cap {{chapter}}",
     "dialogLabel": "{{book}} capítulo {{chapter}}",
-    "versesProgress": "{{read}} / {{total}} versículos"
+    "versesProgress": "{{read}} / {{total}} versículos",
+    "askAi": "Pregunta a la IA sobre este capítulo",
+    "chapterCompleteUndo": "Capítulo completo, deshacer",
+    "markChapterComplete": "Marcar capítulo como completo",
+    "selectAll": "Seleccionar todos",
+    "selectVersesDivider": "o seleccionar versículos"
   },
   "topbar": {
     "goToHome": "JW Study, Ir al inicio",
@@ -5153,5 +5193,736 @@
   },
   "createPost": {
     "addToPost": "Añadir a tu publicación"
-  }
+  },
+  "bookAuthors": [
+    "Moisés",
+    "Moisés",
+    "Moisés",
+    "Moisés",
+    "Moisés",
+    "Josué (y otros)",
+    "Samuel (posiblemente)",
+    "Desconocido",
+    "Samuel / Natán / Gad",
+    "Natán / Gad",
+    "Jeremías (posiblemente)",
+    "Jeremías (posiblemente)",
+    "Esdras",
+    "Esdras",
+    "Esdras",
+    "Nehemías",
+    "Desconocido",
+    "Desconocido (quizás Moisés)",
+    "David, Asaf, los hijos de Coré, y otros",
+    "Salomón y otros",
+    "Salomón (Qohélet)",
+    "Salomón",
+    "Isaías",
+    "Jeremías",
+    "Jeremías",
+    "Ezequiel",
+    "Daniel",
+    "Oseas",
+    "Joel",
+    "Amós",
+    "Abdías",
+    "Jonás",
+    "Miqueas",
+    "Nahúm",
+    "Habacuc",
+    "Sofonías",
+    "Ageo",
+    "Zacarías",
+    "Malaquías",
+    "Mateo (apóstol)",
+    "Juan Marcos",
+    "Lucas (médico)",
+    "Juan (apóstol)",
+    "Lucas (médico)",
+    "Pablo",
+    "Pablo",
+    "Pablo",
+    "Pablo",
+    "Pablo",
+    "Pablo",
+    "Pablo",
+    "Pablo",
+    "Pablo",
+    "Pablo",
+    "Pablo",
+    "Pablo",
+    "Pablo",
+    "Desconocido (posiblemente Pablo, Apolo o Bernabé)",
+    "Santiago (medio hermano de Jesús)",
+    "Pedro (apóstol)",
+    "Pedro (apóstol)",
+    "Juan (apóstol)",
+    "Juan (apóstol)",
+    "Juan (apóstol)",
+    "Judas (medio hermano de Jesús)",
+    "Juan (apóstol)"
+  ],
+  "bookDates": [
+    "aprox. 1440 a.E.C.",
+    "aprox. 1440 a.E.C.",
+    "aprox. 1440 a.E.C.",
+    "aprox. 1440 a.E.C.",
+    "aprox. 1406 a.E.C.",
+    "aprox. 1380 a.E.C.",
+    "aprox. 1050 a.E.C.",
+    "aprox. 1050 a.E.C.",
+    "aprox. 1000 a.E.C.",
+    "aprox. 960 a.E.C.",
+    "aprox. 550 a.E.C.",
+    "aprox. 550 a.E.C.",
+    "aprox. 430 a.E.C.",
+    "aprox. 430 a.E.C.",
+    "aprox. 450 a.E.C.",
+    "aprox. 430 a.E.C.",
+    "aprox. 480 a.E.C.",
+    "aprox. 1500 a.E.C. (contexto)",
+    "aprox. 1000–430 a.E.C.",
+    "aprox. 950 a.E.C.",
+    "aprox. 935 a.E.C.",
+    "aprox. 965 a.E.C.",
+    "aprox. 740–700 a.E.C.",
+    "aprox. 626–586 a.E.C.",
+    "aprox. 586 a.E.C.",
+    "aprox. 593–571 a.E.C.",
+    "aprox. 605–535 a.E.C.",
+    "aprox. 755–715 a.E.C.",
+    "aprox. 835 a.E.C. (o siglo V a.E.C.)",
+    "aprox. 760 a.E.C.",
+    "aprox. 586 a.E.C.",
+    "aprox. 793–753 a.E.C.",
+    "aprox. 737–696 a.E.C.",
+    "aprox. 663–612 a.E.C.",
+    "aprox. 609–605 a.E.C.",
+    "aprox. 640–621 a.E.C.",
+    "aprox. 520 a.E.C.",
+    "aprox. 520–480 a.E.C.",
+    "aprox. 430 a.E.C.",
+    "aprox. 50–60 E.C.",
+    "aprox. 55–65 E.C.",
+    "aprox. 60–62 E.C.",
+    "aprox. 85–95 E.C.",
+    "aprox. 62 E.C.",
+    "aprox. 57 E.C.",
+    "aprox. 55 E.C.",
+    "aprox. 55–56 E.C.",
+    "aprox. 49 E.C.",
+    "aprox. 60–62 E.C.",
+    "aprox. 61 E.C.",
+    "aprox. 60–62 E.C.",
+    "aprox. 50–51 E.C.",
+    "aprox. 51–52 E.C.",
+    "aprox. 62–64 E.C.",
+    "aprox. 66–67 E.C.",
+    "aprox. 63–65 E.C.",
+    "aprox. 60–62 E.C.",
+    "aprox. 60–70 E.C.",
+    "aprox. 44–49 E.C.",
+    "aprox. 62–64 E.C.",
+    "aprox. 65–67 E.C.",
+    "aprox. 85–95 E.C.",
+    "aprox. 85–95 E.C.",
+    "aprox. 85–95 E.C.",
+    "aprox. 65 E.C.",
+    "aprox. 95 E.C."
+  ],
+  "bookHighlights": [
+    [
+      "Relato de la creación: Jehová crea los cielos, la tierra y toda forma de vida en seis días creativos, culminando con los seres humanos hechos a su imagen (1:1–2:25)",
+      "La caída: Satanás, valiéndose de una serpiente, engaña a Eva; la primera profecía en 3:15 anuncia el aplastamiento de Satanás mediante una Descendencia prometida",
+      "El Diluvio: La obediencia fiel de Noé preserva a la humanidad y a la vida animal mientras la maldad es juzgada (6–9)",
+      "La Torre de Babel: El orgullo humano lleva a la división de las lenguas y la dispersión de los pueblos por toda la tierra (11:1–9)",
+      "El pacto con Abrahán: Jehová llama a Abrán y establece un pacto prometiendo una descendencia mediante la cual todas las naciones serían bendecidas (12–22)",
+      "José en Egipto: A pesar de la traición y la esclavitud, Jehová preserva a José y lo usa para salvar a toda su familia (37–50)"
+    ],
+    [
+      "Nacimiento y llamado de Moisés: Preservado de niño, Moisés se encuentra con Jehová en la zarza ardiente y conoce el nombre divino (1–4)",
+      "Las diez plagas sobre Egipto: Jehová ejecuta juicio sobre cada uno de los dioses de Egipto, demostrando su supremacía sobre toda adoración falsa (7–12)",
+      "La Pascua y el Éxodo: Israel es protegido por la sangre del cordero y sale milagrosamente de Egipto tras 430 años (12–14)",
+      "Cruce del mar Rojo: Jehová divide las aguas, liberando a Israel y destruyendo al ejército del faraón (14:21–31)",
+      "El pacto de la Ley en el Sinaí: Jehová da los Diez Mandamientos y el código de la Ley, estableciendo a Israel como su nación especial (19–24)",
+      "El Tabernáculo: Instrucciones detalladas para construir la morada de Jehová entre su pueblo (25–40)"
+    ],
+    [
+      "Sistema de sacrificios: Cinco tipos de ofrendas (holocausto, grano, comunión, pecado, culpa) detallan cómo Israel se acercaba a Jehová para la adoración y la expiación (1–7)",
+      "Consagración del sacerdocio: Aarón y sus hijos son ungidos y consagrados para el servicio levítico (8–9)",
+      "Nadab y Abihú: Su fuego no autorizado ante Jehová ilustra que la adoración pura debe seguir exactamente las instrucciones de Jehová (10)",
+      "Leyes de pureza y la sangre: La santidad de la sangre (17:11) sostiene la prohibición de comer sangre, aún vigente para los cristianos",
+      "Día de la Expiación: El ritual anual de purificación prefigura el sacrificio superior de Jesucristo como Sumo Sacerdote (16)",
+      "Año del Jubileo: Cada 50 años, las deudas se cancelaban y los esclavos eran liberados: una imagen del plan mayor de liberación de Jehová (25)"
+    ],
+    [
+      "Censo y organización: Israel es contado y organizado por tribus alrededor del tabernáculo, mostrando que Jehová valora el orden en la adoración (1–4)",
+      "Misión de los espías a Canaán: Diez de los doce espías dan un informe falto de fe; la incredulidad de la nación lleva a 40 años de vagar por el desierto (13–14)",
+      "Rebelión de Coré: Coré, Datán y Abirán desafían la autoridad de Moisés y son tragados por la tierra, vindicando los nombramientos de Jehová (16)",
+      "La serpiente de cobre: Los israelitas mordidos por serpientes son sanados al mirar una serpiente de cobre, figura que Jesús aplicó a sí mismo (21:4–9; Juan 3:14)",
+      "Los oráculos de Balaán: Contratado para maldecir a Israel, Balaán solo puede bendecirlos, confirmando que nadie puede frustrar el propósito de Jehová (22–24)",
+      "El celo de Finehás: Su acción decisiva contra la inmoralidad detiene una plaga y le gana un 'pacto de paz' de parte de Jehová (25)"
+    ],
+    [
+      "Primer discurso de Moisés: Repasa 40 años de historia en el desierto y explica por qué fracasó aquella generación (1–4)",
+      "El Shemá y el gran mandamiento: Jehová es uno; Israel debe amarlo con todo el corazón, alma y fuerza (6:4–9)",
+      "Advertencias sobre la prosperidad: Se advierte a Israel que no olvide a Jehová cuando prospere en la tierra (8)",
+      "Profeta como Moisés: Jehová promete levantar un profeta de entre Israel, cumplido en Jesucristo (18:15–19)",
+      "Bendiciones y maldiciones: Condiciones detalladas del pacto: la obediencia trae bendición, la desobediencia trae juicio (28)",
+      "Cántico de despedida y muerte de Moisés: Moisés enseña a Israel un cántico de advertencia, bendice a las tribus y muere en el monte Nebo a los 120 años (31–34)"
+    ],
+    [
+      "Cruce del Jordán: Jehová detiene el flujo del Jordán para que Israel cruce en seco, repitiendo el milagro del mar Rojo (3–4)",
+      "Rahab y los espías: La fe de Rahab salva a su familia y le gana un lugar en la línea mesiánica (2; 6:22–25)",
+      "Caída de Jericó: Las murallas se derrumban por dirección de Jehová después de que Israel marcha siete días: la victoria es suya (6)",
+      "El pecado de Acán: La codicia de un solo hombre causa la derrota en Hai, mostrando cómo el pecado individual afecta a toda la comunidad (7)",
+      "Renovación del pacto en Siquem: Josué dirige a la nación en un solemne compromiso de servir solo a Jehová (24)",
+      "Cada promesa cumplida: El relato declara expresamente que 'no falló ni una palabra de todas las buenas promesas que Jehová había hecho' (21:45)"
+    ],
+    [
+      "El ciclo recurrente: Pecado → opresión → clamor → Jehová levanta un juez → liberación → paz → se repite (2:11–19)",
+      "Débora y Barac: Una jueza y un general derrotan al ejército de Sísara; Jael mata a Sísara con una estaca de tienda (4–5)",
+      "Los 300 de Gedeón: Jehová reduce el ejército de Israel de 32.000 a 300 para asegurar que la victoria sea claramente suya (7)",
+      "El voto de Jefté: Su voto apresurado tiene consecuencias duraderas; su hija lo honra con fiel sumisión (11)",
+      "Sansón: Tremenda fuerza física, pero su debilidad por las mujeres extranjeras finalmente lo lleva al cautiverio y la muerte (13–16)",
+      "Caos moral: Los capítulos finales registran guerra civil tribal y violencia sexual, ilustrando las consecuencias de que 'cada uno hiciera lo que le parecía bien a sus propios ojos' (21:25)"
+    ],
+    [
+      "La lealtad de Rut: Tras la muerte de su esposo, Rut se niega a dejar a Noemí, declarando 'tu Dios será mi Dios': eligiendo a Jehová sobre su herencia moabita (1)",
+      "Espigando en el campo de Boaz: La provisión de la Ley de Jehová para los pobres permite que Rut espigue, donde capta la atención de Boaz (2)",
+      "La era de trillar: Siguiendo las instrucciones de Noemí, Rut se acerca a Boaz como posible redentor familiar (3)",
+      "Redención legal: Boaz redime la propiedad de Noemí y toma a Rut como esposa ante los ancianos de la ciudad a la puerta (4:1–12)",
+      "Nacimiento de Obed: Rut da a luz un hijo que llega a ser el abuelo del rey David y antepasado de Jesucristo (4:13–22)"
+    ],
+    [
+      "Oración de Ana y nacimiento de Samuel: La oración persistente de Ana gana el favor de Jehová; ella dedica a Samuel a su servicio (1–2)",
+      "Captura del arca del pacto: El tratar Israel al Arca como un amuleto de buena suerte resulta en derrota y juicio de Jehová sobre la familia de Elí (4–6)",
+      "Israel exige un rey: Rechazando a Jehová como su rey, Israel pide un gobernante humano; Saúl es escogido (8–10)",
+      "Fracasos repetidos de Saúl: La obediencia parcial de Saúl al ofrecer sacrificio y en el asunto con los amalequitas revela que su corazón no es totalmente leal (13; 15)",
+      "David ungido en secreto: Samuel unge a David mientras Saúl aún reina; Jehová mira el corazón (16)",
+      "David y Goliat: Armado solo con fe en Jehová y una honda, David derrota al gigante que desafió al ejército de Jehová (17)"
+    ],
+    [
+      "David llega a ser rey: Tras la muerte de Saúl, David es ungido sobre todo Israel y captura Jerusalén, haciéndola su capital (1–5)",
+      "El pacto davídico: Jehová promete a David que su trono será establecido para siempre: una profecía mesiánica que apunta a Jesucristo (7)",
+      "Pecado de David con Bat-seba: El adulterio y el asesinato exponen el principio de que el pecado nunca está oculto de Jehová (11–12)",
+      "La parábola de Natán: El uso hábil del profeta de una historia para confrontar a David sin acusación directa modela un consejo sabio (12:1–14)",
+      "La rebelión de Absalón: La falta de disciplina de David hacia Absalón conduce a un golpe casi exitoso; David huye de Jerusalén (15–18)",
+      "Últimos actos de David: David enumera a Israel en un acto de orgullo, trayendo plaga; más tarde adquiere el sitio del templo (24)"
+    ],
+    [
+      "La sabiduría de Salomón: Jehová concede a Salomón extraordinaria sabiduría; su juicio respecto a las dos mujeres demuestra su origen (3)",
+      "Construcción del templo: El magnífico Templo se construye en siete años y se llena de la gloria de Jehová en su dedicación (5–8)",
+      "Decadencia espiritual de Salomón: Las esposas extranjeras desvían el corazón de Salomón hacia dioses falsos, mostrando que nadie es inmune al compromiso espiritual (11)",
+      "División del reino: La dura respuesta de Roboán a la petición del pueblo divide el reino en Israel (norte) y Judá (sur) (12)",
+      "Elías contra los profetas de Baal: La confrontación en el monte Carmelo prueba que solo Jehová es Dios; fuego del cielo consume el sacrificio (18)",
+      "Voz tenue y apacible: Tras grandes victorias, un desanimado Elías es restaurado por Jehová con alimento, descanso y suave reafirmación (19)"
+    ],
+    [
+      "Traslado de Elías: Llevado en un torbellino, Elías pasa su manto profético a Eliseo, quien realiza el doble de milagros (2)",
+      "Ministerio de Eliseo: Los milagros de Eliseo —multiplicar aceite, resucitar al hijo de la sunamita, sanar a Naamán— demuestran el poder y la misericordia de Jehová (4–7)",
+      "La fe de Ezequías: Rodeado por un ejército asirio de 185.000 hombres, Ezequías ora y el ángel de Jehová destruye toda la fuerza durante la noche (18–19)",
+      "Reforma de Josías: El descubrimiento del libro de Jehová desencadena la reforma religiosa más amplia en la historia de Judá (22–23)",
+      "Caída de Israel: El reino del norte cae ante Asiria en 740 a.E.C. debido a la persistente adoración a Baal y al rechazo de los profetas de Jehová (17)",
+      "Caída de Jerusalén: Babilonia destruye Jerusalén y el templo en 607 a.E.C., cumpliendo las advertencias de Jehová mediante sus profetas (25)"
+    ],
+    [
+      "Genealogías desde Adán: Una extensa genealogía desde Adán a través de las doce tribus sitúa la línea de David en el contexto de todo el propósito de Jehová (1–9)",
+      "Conquista de Jerusalén por David: David captura la ciudad y la convierte en el centro espiritual y político del pueblo de Jehová (11)",
+      "El Arca llevada a Jerusalén: El cuidadoso segundo intento de llevar el Arca tiene éxito; David dirige la celebración con danza y música (15–16)",
+      "El deseo de David de construir el templo: Aunque Jehová asigna la construcción a Salomón, David reúne enormes recursos para prepararla (17; 22; 28–29)",
+      "Organización de sacerdotes y levitas: David establece divisiones ordenadas para la adoración, la música, la portería y la administración del tesoro (23–27)",
+      "Última exhortación de David: La exhortación pública de David a Salomón y al pueblo para ser íntegros ante Jehová (28–29)"
+    ],
+    [
+      "Templo de Salomón terminado: La dedicación del Templo, la oración de Salomón y la gloria de Jehová llenando el edificio marcan el punto culminante de la adoración israelita (5–7)",
+      "Promesa de Jehová a Salomón: 'Si mi pueblo... se humilla y ora... yo perdonaré su pecado y sanaré su tierra' (7:14)",
+      "La crisis de Josafat: Superado en número por un vasto ejército, Josafat ora y Jehová le dice 'la batalla no es vuestra, sino de Dios' (20)",
+      "Reformas espirituales: Los reyes Asá, Josafat, Ezequías y Josías dirigen amplias purgas de la adoración falsa, experimentando cada uno la bendición de Jehová (14–15; 29–32; 34–35)",
+      "Caída de Jerusalén: A pesar de las repetidas advertencias, la persistente infidelidad de Judá conduce a la destrucción del Templo y la ciudad por Babilonia (36)",
+      "Decreto de Ciro: El libro cierra con Ciro permitiendo el regreso de los exiliados, cumpliendo la profecía de Jeremías al año exacto (36:22–23)"
+    ],
+    [
+      "Primer regreso bajo Zorobabel: Cerca de 50.000 exiliados regresan a Jerusalén; comienzan reconstruyendo primero el altar a Jehová (1–3)",
+      "Reconstrucción del templo obstaculizada: Los enemigos logran detener la construcción durante 16 años escribiendo cartas a la corte persa (4)",
+      "Hageo y Zacarías impulsan la obra: El estímulo profético reanuda la construcción; se completa en 516 a.E.C. (5–6)",
+      "Regreso de Esdras: El sacerdote-escriba Esdras dirige un segundo grupo de regreso, llevando autoridad para establecer la Ley de Jehová en Jerusalén (7–8)",
+      "Oración de confesión de Esdras: Al descubrir matrimonios mixtos generalizados, Esdras eleva una sentida oración de confesión nacional (9)",
+      "Reforma espiritual: Los matrimonios mixtos se disuelven en una conmovedora asamblea; el pueblo de Jehová se recompromete con su pacto (10)"
+    ],
+    [
+      "Oración y misión de Nehemías: Al oír que las murallas de Jerusalén están derribadas, Nehemías ora y luego pide audazmente a Artajerjes permiso para reconstruirlas (1–2)",
+      "Muralla reconstruida en 52 días: A pesar de las burlas y amenazas de Sanbalat y Tobías, Nehemías organiza al pueblo y completa las murallas (3–6)",
+      "Injusticia económica abordada: Nehemías confronta a los nobles que cobran intereses usureros y los obliga a devolver lo tomado (5)",
+      "Esdras lee la Ley: En una gran asamblea pública, Esdras lee la Ley de Jehová en voz alta durante seis horas; el pueblo llora con entendimiento y celebra (8)",
+      "Pacto firmado: El pueblo pone por escrito su compromiso de guardar la Ley de Jehová, incluido el sábado y los diezmos (9–10)",
+      "Segundo mandato de Nehemías: Al regresar tras una ausencia, Nehemías encuentra que varios abusos han vuelto a aparecer y toma medidas correctivas decisivas (13)"
+    ],
+    [
+      "Ester se convierte en reina: La hermosa Ester es escogida reina por el rey Asuero, ocultando su identidad judía por indicación de Mardoqueo (1–2)",
+      "Complot de Hamán: El arrogante Hamán, enfurecido por la negativa de Mardoqueo a inclinarse, consigue un decreto real para exterminar a todos los judíos (3)",
+      "El desafío de Mardoqueo: '¿Quién sabe si para un tiempo como este has llegado a tu posición real?' (4:14)",
+      "El valiente acercamiento de Ester: Arriesgando su vida, Ester se acerca al rey sin ser invitada y lo invita a él y a Hamán a un banquete (5)",
+      "Caída de Hamán: La arrogancia de Hamán llega a su punto máximo cuando prepara una estaca para Mardoqueo; el rey ordena que Hamán sea colgado en ella (6–7)",
+      "Liberación de los judíos: Ester consigue un decreto que revierte la situación; los judíos se defienden y celebran con la fiesta de Purim (8–9)"
+    ],
+    [
+      "La escena celestial: Satanás desafía que Job sirve a Jehová solo por razones materiales; Jehová permite a Satanás ponerlo a prueba (1–2)",
+      "Integridad de Job bajo pérdida extrema: Job pierde a sus hijos, propiedad y salud en rápida sucesión, pero se niega a maldecir a Jehová (1:21; 2:10)",
+      "Consejo defectuoso de los tres amigos: Elifaz, Bildad y Zofar insisten en que el sufrimiento siempre indica pecado oculto: un consuelo falso y cruel (3–31)",
+      "La contribución de Elihú: Un orador más joven ofrece una visión más matizada, enfatizando el propósito instructivo de Jehová en el sufrimiento (32–37)",
+      "Jehová habla desde el torbellino: Una serie de preguntas incontestables sobre la creación humilla a Job y amplía su entendimiento de la sabiduría de Jehová (38–41)",
+      "Restauración de Job: Jehová restaura el doble de lo que Job había perdido y reprende a los tres amigos por tergiversarlo (42)"
+    ],
+    [
+      "Salmos reales celebran el reinado de Jehová y prefiguran al Rey Mesiánico: Salmos 2, 45, 72, 110",
+      "Salmos de lamento modelan oración honesta a través del sufrimiento y la duda: Salmos 22, 42, 88",
+      "Salmos de alabanza enseñan la adoración congregacional y personal: Salmos 8, 19, 100, 145, 150",
+      "El Salmo 119, el capítulo más largo de la Biblia, está enteramente dedicado a la belleza y el valor de la ley de Jehová (176 versículos)",
+      "Salmos mesiánicos proveen detalles precisos cumplidos por Jesús: manos traspasadas (22:16), ningún hueso quebrado (34:20), traicionado por 30 piezas (41:9; 109:8)",
+      "Salmo 83:18 declara únicamente que solo Jehová es 'el Altísimo sobre toda la tierra': fundamento para entender el nombre divino"
+    ],
+    [
+      "La sabiduría personificada: Los capítulos 1–9 personifican la sabiduría como llamando en las calles, invitando a los simples a escoger la vida sobre la insensatez",
+      "El temor de Jehová como fundamento: Toda sabiduría verdadera comienza con reverencial temor a Jehová (1:7; 9:10)",
+      "Proverbios sobre el habla: Extensos consejos sobre el habla honesta, amable y oportuna frente a la lengua destructora (10–15; 18:21)",
+      "El corazón por encima de la apariencia exterior: Jehová ve y pesa el corazón (21:2); la integridad personal importa más que la reputación",
+      "Advertencias contra la inmoralidad sexual: La adúltera y la mujer extraña son vívidas advertencias literarias contra el compromiso moral (5–7)",
+      "La esposa capaz: Proverbios 31:10–31 celebra a una mujer de carácter trabajador, sabio y temeroso de Dios como el ideal"
+    ],
+    [
+      "El experimento de Salomón: El Predicador prueba la sabiduría, el placer, las riquezas y los logros para hallar el sentido de la vida: todo resulta vano sin Jehová (1–2)",
+      "Tiempos y estaciones: 'Hay un tiempo para cada propósito debajo del cielo' invita a confiar en el tiempo de Jehová en vez de luchar con ansiedad (3:1–8)",
+      "Los muertos nada saben: Declaraciones claras sobre el estado inconsciente de los muertos apoyan la esperanza bíblica de la resurrección (9:5, 10)",
+      "Mal uso de la religión: La adoración vacía y ritualista 'que Jehová no valora' se contrasta con la genuina reverencia por su palabra (5:1–7)",
+      "La juventud y el Creador: 'Acuérdate de tu Creador en los días de tu juventud', antes que las cargas de la vida hagan más difícil el servicio íntegro (12:1)",
+      "La conclusión final: Tras todas las investigaciones, el único propósito duradero es temer a Jehová y guardar sus mandamientos (12:13–14)"
+    ],
+    [
+      "La devoción de la sulamita: Una joven del campo permanece fiel a su pastor amado a pesar de las riquezas y atractivos de la corte de Salomón (1–3)",
+      "Admiración mutua: Esposo y esposa describen amorosamente la belleza del otro: modelando una afectuosa apreciación verbal en el matrimonio (4–5)",
+      "El poder del amor: 'El amor es tan fuerte como la muerte... sus llamas son la llama de Jah': el amor entre esposos refleja el propio diseño de Jehová (8:6–7)",
+      "La voz de la amada: La ansiedad de la sulamita por el regreso de su esposo refleja el devoto anhelo de una relación íntegra (2:8–14)",
+      "Los celos descritos: 'Los celos son tan inflexibles como la Tumba': una advertencia de que esta poderosa emoción debe ser cuidada dentro de los límites del matrimonio (8:6)"
+    ],
+    [
+      "La comisión de Isaías: Una visión del trono celestial de Jehová y los serafines clamando 'santo, santo, santo' conduce al llamado dispuesto de Isaías (6)",
+      "Profecía de Emmanuel: 'Mira, la joven concebirá y dará a luz un hijo y lo llamará Emmanuel' (7:14), cumplida en el nacimiento de Jesús",
+      "Los cantos del Siervo Sufriente: Cuatro cantos (42; 49; 50; 52–53) describen con notable precisión el ministerio y muerte expiatoria del Mesías",
+      "Consuelo para los exiliados: 'No tengas miedo, porque yo estoy contigo' y 'los que esperan en Jehová recobrarán fuerzas' (40:28–31; 41:10; 43:1–5)",
+      "Jehová frente a los ídolos: Una sátira mordaz sobre la adoración a los ídolos contrasta al Dios Creador con tallados bloques de madera (44:9–20; 46:1–7)",
+      "Promesas de un nuevo mundo: Paz bajo el Reino de Jehová, donde 'el lobo morará con el cordero' y la muerte no será más (65:17–25; 25:8)"
+    ],
+    [
+      "Llamado de Jeremías: Antes de su nacimiento Jehová lo conoció; a pesar de la protesta del profeta sobre su inexperiencia, es nombrado profeta para las naciones (1)",
+      "Sermón del templo: Jeremías predica audazmente en la puerta del Templo que no es protección si el pueblo no obedece a Jehová: será destruido como Silo (7; 26)",
+      "La casa del alfarero: Jehová ilustra su derecho soberano de remodelar cualquier nación que responda a su palabra (18)",
+      "El sufrimiento de Jeremías: Encarcelado, arrojado a una cisterna, acusado de traición: Jeremías persevera bajo mayor persecución que cualquier otro profeta hebreo (37–38)",
+      "Carta a los exiliados: Desde Babilonia, Jeremías escribe para animar a los cautivos a edificar, plantar y buscar la paz de la ciudad (29)",
+      "Promesa del nuevo pacto: Jehová escribirá su Ley en los corazones, un arreglo superior mediado por Jesucristo (31:31–34)"
+    ],
+    [
+      "Primer lamento: Jerusalén retratada como una viuda desolada; la ciudad llora su destrucción y la dispersión de su pueblo (1)",
+      "La justa ira de Jehová: El poeta reconoce que la destrucción de Jerusalén vino por sus propios pecados: el juicio de Jehová fue justo (2)",
+      "El poema central: 'El amor leal de Jehová nunca cesa; sus misericordias nunca se acaban; se renuevan cada mañana': el ancla de esperanza en el dolor más profundo del libro (3:22–23)",
+      "Llamado al autoexamen: 'Examinemos y exploremos nuestros caminos, y volvámonos a Jehová' (3:40): la respuesta apropiada a la disciplina de Jehová",
+      "Confesión nacional: Los poemas cuarto y quinto confiesan los pecados que trajeron la destrucción y suplican la restauración de Jehová (4–5)",
+      "Estructura acróstica: Cuatro de los cinco poemas son acrósticos (cada verso comienza con letras sucesivas del alfabeto hebreo), reflejando un cuidado literario esmerado"
+    ],
+    [
+      "La visión del carro-trono: Una espectacular visión de cuatro seres vivientes, ruedas y el trono de Jehová establece su soberanía absoluta (1–3)",
+      "Ezequiel como atalaya: Jehová lo nombra atalaya cuya responsabilidad es advertir, reflejando la responsabilidad de todos los siervos de Jehová de predicar (3; 33)",
+      "Partida de la gloria de Jehová: Paso a paso, la gloria de Jehová abandona el Templo y la ciudad corruptos antes de su destrucción (10–11)",
+      "Responsabilidad individual: 'El alma que pecare, esa morirá': cada persona es responsable personalmente de sus propias decisiones ante Jehová (18)",
+      "Valle de los huesos secos: Una poderosa visión de resurrección prefigura la restauración física de Israel y la futura resurrección de los muertos (37)",
+      "Visión del templo futuro: Mediciones detalladas de un Templo idealizado describen el modelo de adoración pura según las normas de Jehová (40–48)"
+    ],
+    [
+      "Integridad de Daniel en la dieta: En la corte real de Babilonia, Daniel y sus compañeros rechazan la comida del rey y se ven visiblemente más saludables por ello (1)",
+      "La imagen del sueño de Nabucodonosor: Una gran imagen que representa sucesivas potencias mundiales es golpeada por una piedra, el Reino de Jehová, que llena la tierra (2)",
+      "El horno de fuego: Sadrac, Mesac y Abed-nego rehúsan inclinarse ante la imagen de oro de Nabucodonosor; Jehová los libra (3)",
+      "Escritura en la pared: Belsasar profana los utensilios del Templo en un festín; una misteriosa escritura anuncia la caída de Babilonia esa misma noche (5)",
+      "Foso de los leones: Los enemigos de Daniel lo atrapan por su hábito de oración; Jehová cierra las bocas de los leones (6)",
+      "Las cuatro bestias y el Anciano de Días: Una visión de sucesivos imperios mundiales y la corte de Jehová concediendo dominio eterno al Hijo del hombre (7)"
+    ],
+    [
+      "El matrimonio de Oseas: Jehová ordena a Oseas casarse con una mujer infiel como parábola viviente del adulterio espiritual de Israel contra Jehová (1–3)",
+      "El adulterio espiritual de Israel: La nación ha abandonado a Jehová por la adoración a Baal, atribuyendo sus bendiciones a dioses falsos (4–7)",
+      "Adoración vacía condenada: 'Vuestro amor leal es como las nubes de la mañana... yo quiero amor leal, no sacrificio' (6:4, 6)",
+      "El amor persistente de Jehová: A pesar de la infidelidad de Israel, el corazón de Jehová anhela restaurarlos, comparándose con un padre amoroso (11:1–9)",
+      "Advertencia de exilio: Efraín (Israel) volverá a una esclavitud parecida a la de Egipto en Asiria por su persistente rechazo a Jehová (11:5; 13:16)",
+      "Invitación a regresar: El libro cierra con un tierno llamado a volver a Jehová con verdaderas palabras de arrepentimiento, y la promesa 'sanaré su infidelidad' (14:1–4)"
+    ],
+    [
+      "Plaga de langostas: Una devastadora invasión de langostas desnuda la tierra, usada como llamado a congregarse, ayunar y clamar a Jehová (1)",
+      "Llamado al arrepentimiento genuino: 'Rasgad vuestros corazones, y no vuestros vestidos; volved a Jehová vuestro Dios' (2:13)",
+      "Promesa de restauración: Jehová promete restaurar lo que las langostas comieron y derramar bendiciones en respuesta al arrepentimiento (2:18–27)",
+      "Derramamiento del espíritu santo: 'Derramaré mi espíritu sobre toda carne': cumplido en Pentecostés del año 33 E.C. y citado por Pedro (2:28–29; Hechos 2:17–21)",
+      "El día de Jehová se acerca: Un día venidero de tinieblas y juicio sobre todas las naciones en el valle de Josafat (3:1–16)",
+      "Restauración del paraíso: Tras el juicio, el pueblo de Jehová morará seguro y la tierra rebosará de abundancia (3:17–21)"
+    ],
+    [
+      "Juicio sobre las naciones: Amós pronuncia oráculos contra ocho naciones que rodean a Israel antes de volverse a Israel mismo: ninguna escapa a las normas morales de Jehová (1–2)",
+      "Injusticia social de Israel: Los ricos oprimen a los pobres, pervierten la justicia y pisotean a los necesitados mientras cumplen rituales religiosos (2:6–8; 5:10–12)",
+      "Observancia religiosa vacía: Jehová desprecia las fiestas y asambleas de Israel porque no van acompañadas de justicia y rectitud (5:21–24)",
+      "Visiones de juicio: Cinco visiones (langostas, fuego, plomada, fruta de verano, altar) ilustran el juicio venidero de Jehová sobre Israel (7–9)",
+      "Jehová revela sus planes: 'Ciertamente el Soberano Señor Jehová no hace nada sin antes revelar su asunto confidencial a sus siervos los profetas' (3:7)",
+      "Promesa de restauración: La caída cabaña de David será levantada, citada en Hechos 15:16 como referida a la congregación cristiana restaurada (9:11–15)"
+    ],
+    [
+      "El orgullo de Edom: Los edomitas confiaron en sus baluartes montañosos y alianzas, pero Jehová declara 'desde allí te derribaré' (1–4)",
+      "Traición de Edom contra Israel: Cuando Babilonia invadió Jerusalén, los edomitas celebraron, bloquearon la huida de los refugiados y entregaron a los sobrevivientes (10–14)",
+      "El día de Jehová sobre todas las naciones: 'El día de Jehová está cerca contra todas las naciones; como tú has hecho, así se te hará' (15–16)",
+      "Restauración de Israel: Jehová promete que un resto en el monte Sion será santo, y la casa de Esaú será solo paja (17–21)",
+      "El Reino pertenece a Jehová: El libro cierra con la declaración 'el reino llegará a ser de Jehová': su soberanía vindicada (21)"
+    ],
+    [
+      "Jonás huye: En lugar de ir a Nínive, Jonás aborda un barco en dirección opuesta; Jehová envía una tormenta (1)",
+      "Jonás arrojado al mar: Indica a los marineros que lo arrojen al mar; Jehová provee un gran pez que lo traga por tres días (1:17)",
+      "Oración de Jonás desde el pez: Un salmo de acción de gracias desde dentro del pez, reconociendo la liberación de Jehová (2)",
+      "Nínive se arrepiente: La ciudad entera, desde el rey hasta el ganado, se viste de cilicio y se vuelve de sus malos caminos; Jehová cede (3)",
+      "La ira de Jonás: Enojado porque Jehová mostró misericordia, Jonás se enfurruña bajo una enramada; Jehová usa una calabacera para enseñarle una lección sobre la compasión (4)",
+      "La preocupación de Jehová por Nínive: '¿Y no debería yo apiadarme de Nínive... en la cual hay más de 120.000 personas que no saben distinguir entre lo bueno y lo malo?' (4:11)"
+    ],
+    [
+      "Juicio sobre Samaria y Jerusalén: Ambas capitales son acusadas de corrupción, falsos profetas y opresión de los pobres (1–3)",
+      "Monte de la casa de Jehová: Una visión de los pueblos acudiendo a aprender los caminos de Jehová en los últimos días, ya en cumplimiento (4:1–4)",
+      "El Mesías nacido en Belén: 'De ti [Belén] saldrá el que ha de ser gobernante en Israel, cuyo origen es desde tiempos antiguos' (5:2), cumplido por Jesús",
+      "El caso legal de Jehová: '¿Qué pide Jehová de ti? Solamente que actúes con justicia, ames la lealtad y andes humildemente con tu Dios' (6:8)",
+      "Fe personal de Miqueas: Aunque rodeado de corrupción, Miqueas declara 'yo seguiré buscando a Jehová' (7:7)",
+      "El incomparable perdón de Jehová: '¿Quién es un Dios como tú, que perdona el error y pasa por alto la transgresión?': arrojando los pecados en las profundidades del mar (7:18–19)"
+    ],
+    [
+      "Carácter de Jehová descrito: 'Lento para la cólera pero grande en poder; Jehová de ningún modo dejará impune al culpable': misericordioso y justo a la vez (1:3)",
+      "Jehová es bueno: 'Jehová es bueno, una fortaleza en el día de la angustia; él conoce a los que buscan refugio en él' (1:7)",
+      "Sentencia contra Nínive: Más de 100 años después de Jonás, Nínive ha vuelto a la violencia y la maldad; su caída es ahora segura (2–3)",
+      "Descripción de la caída de Nínive: El profeta describe cargas de caballería, espadas relucientes y la inundación de las defensas de la ciudad con vívida precisión profética (2:1–10; 3:1–3)",
+      "La ciudad de sangre: Nínive es llamada 'la ciudad de sangre' por sus brutales campañas militares y la explotación de las naciones sometidas (3:1–4)",
+      "Desolación completa: 'Todo el que oiga la noticia acerca de ti aplaudirá; porque ¿quién no ha sufrido bajo tu interminable crueldad?' (3:19)"
+    ],
+    [
+      "Primera queja de Habacuc: '¿Hasta cuándo, oh Jehová, he de pedir auxilio y tú no oyes?': lucha honesta con la aparente prosperidad de los malvados (1:2–4)",
+      "Primera respuesta de Jehová: Babilonia está siendo levantada como instrumento de juicio de Jehová: una respuesta sorprendente a la oración de Habacuc (1:5–11)",
+      "Segunda queja de Habacuc: Usar un instrumento más malvado que aquel que está siendo castigado parece contradecir la justicia de Jehová (1:12–17)",
+      "Segunda respuesta de Jehová: 'El justo vivirá por su fidelidad'; los soberbios serán abatidos; el conocimiento de Jehová llenará la tierra (2:2–20)",
+      "Oración-salmo de Habacuc: Un magnífico poema que relata los actos pasados de Jehová culmina en una declaración absoluta de gozo a pesar de la pérdida material (3)",
+      "'Aunque no...': 'Aunque la higuera no florezca... me regocijaré en Jehová; me alegraré en el Dios de mi salvación' (3:17–18)"
+    ],
+    [
+      "El día de Jehová: juicio arrasador: Jehová anuncia un juicio integral sobre Judá, las naciones circundantes y, en última instancia, toda la tierra (1–2)",
+      "Busca a Jehová mientras haya tiempo: 'Buscad a Jehová, todos los mansos de la tierra... buscad la justicia, buscad la mansedumbre; quizás seáis ocultados' (2:3)",
+      "Ay de los opresores: Los funcionarios corruptos de Jerusalén, los falsos profetas y los sacerdotes son denunciados por su explotación y falsa enseñanza (3:1–5)",
+      "Lengua pura prometida: Jehová dará a todos los pueblos 'una lengua pura' para que invoquen su nombre juntos: una profecía que ya se está cumpliendo (3:9)",
+      "Jehová se regocija por su pueblo: 'Jehová tu Dios está en medio de ti... se regocijará por ti con gran gozo... se alegrará por ti con cánticos de júbilo' (3:17)",
+      "Reunidos de las naciones: Jehová reunirá al cojo, a los desterrados y a los oprimidos de todas las naciones y les dará alabanza y renombre (3:18–20)"
+    ],
+    [
+      "La obra está estancada: Dieciséis años después de regresar del exilio, el pueblo ha construido sus propias casas con paneles mientras la casa de Jehová yace en ruinas (1:1–6)",
+      "Considerad vuestros caminos: Jehová pide al pueblo que reflexione por qué sus esfuerzos no traen satisfacción duradera: la prioridad espiritual está fuera de lugar (1:5–11)",
+      "Obediencia inmediata: 'Jehová despertó el espíritu' de los líderes y del pueblo; en 24 días comenzaron la obra (1:12–15)",
+      "Mayor gloria prometida: Aunque el Templo reconstruido es modesto comparado con el de Salomón, su gloria futura sería aún mayor (2:1–9)",
+      "Santidad y limpieza: Una ilustración sobre cómo la impureza se propaga más fácilmente que la santidad advierte sobre la contaminación espiritual (2:10–19)",
+      "Zorobabel como anillo de sellar: La promesa de Jehová a Zorobabel apunta hacia un cumplimiento futuro en la línea mesiánica (2:20–23)"
+    ],
+    [
+      "Ocho visiones nocturnas: Una serie de visiones (jinetes, cuernos, agrimensor, candelabro, rollo volador, mujer en el efa, carros) animan a los que regresan y describen el propósito de Jehová (1–6)",
+      "Josué el sumo sacerdote: Satanás acusa a Josué; Jehová reprende a Satanás y viste a Josué con vestiduras limpias: prefigurando el perdón mediante Cristo (3)",
+      "No con fuerza: 'No con poder militar, ni con fuerza, sino con mi espíritu, dice Jehová de los ejércitos': la obra tendrá éxito por el poder de Jehová (4:6)",
+      "El rey triunfante entra en Jerusalén: 'Tu rey viene a ti... humilde y montado sobre un asno', cumplido precisamente por Jesús en su entrada final (9:9; Mateo 21:5)",
+      "Traicionado por 30 piezas de plata: El precio del pastor rechazado, arrojado al alfarero en el templo, prefigura precisamente la traición de Judas (11:12–13; Mateo 27:9–10)",
+      "Mirarán al que traspasaron: 'Mirarán al que traspasaron y se lamentarán por él': cumplido en el Calvario y en el regreso de Cristo (12:10; Juan 19:37; Revelación 1:7)"
+    ],
+    [
+      "El desafío de Jehová '¿Cómo nos has amado?': La apatía espiritual del pueblo es expuesta cuando Jehová señala su elección de Jacob sobre Esaú (1:2–5)",
+      "Ofrendas despreciables: Los sacerdotes están ofreciendo animales ciegos, cojos y enfermos: lo que jamás se atreverían a presentar a un gobernador humano (1:6–14)",
+      "Sacerdotes que corrompen: En lugar de guiar al pueblo en los caminos de Jehová, los sacerdotes han hecho tropezar a muchos (2:1–9)",
+      "Divorcio traicionero: Jehová declara 'odio el divorcio': su visión de la fidelidad del pacto se extiende a la relación matrimonial (2:13–16)",
+      "Mensajero y purificador: Un mensajero preparará el camino delante de Jehová, y Jehová mismo vendrá súbitamente a su templo para purificar a los levitas (3:1–4)",
+      "Libro de memoria: Jehová toma especial nota de los que le temen y hablan juntos sobre su nombre, anotando sus nombres en un libro (3:16–18)"
+    ],
+    [
+      "Genealogía y nacimiento de Jesús: Mateo abre rastreando el linaje real de Jesús a través de David y Abrahán, cumpliendo los requisitos mesiánicos (1–2)",
+      "Bautismo y tentación: Jesús es bautizado por Juan, reconocido por Jehová como su Hijo, y luego resiste con éxito las tres tentaciones de Satanás usando las Escrituras (3–4)",
+      "Sermón del Monte: Jesús expone los valores, las prácticas y las prioridades de los ciudadanos del Reino en la enseñanza ética más completa de las Escrituras (5–7)",
+      "Parábolas del Reino: Siete parábolas (sembrador, mala hierba, grano de mostaza, levadura, tesoro, perla y red barredera) describen el crecimiento y el juicio del Reino (13)",
+      "Señales de la presencia de Cristo: La respuesta detallada de Jesús sobre la señal de su presencia en los últimos días provee un marco compuesto para identificar el tiempo (24–25)",
+      "Muerte, sepultura y resurrección: El juicio, muerte y apariciones tras la resurrección de Jesús confirman su identidad como Rey nombrado por Jehová (26–28)"
+    ],
+    [
+      "Ministerio veloz: El uso por Marcos de 'inmediatamente' (unas 40 veces) capta el ritmo urgente del ministerio de Jesús en Galilea (1–9)",
+      "Autoridad sobre los demonios: Jesús expulsa demonios con una palabra, para asombro de las multitudes acostumbradas solo a la enseñanza impotente de los escribas (1:21–28; 5:1–20)",
+      "Milagros de compasión: Sanar al leproso (1:40–45), resucitar a la hija de Jairo (5:35–43) y devolver la vista a Bartimeo (10:46–52) revelan el corazón de Jesús",
+      "La confesión de Pedro en Cesarea de Filipo: 'Tú eres el Cristo': el punto de inflexión clave tras el cual Jesús comienza a enseñar sobre su muerte venidera (8:27–9:1)",
+      "Liderazgo de servicio: La enseñanza de Jesús 'el que quiera ser primero, sea esclavo de todos' desafía directamente el orgullo de los discípulos (10:35–45)",
+      "Discurso del monte de los Olivos: La profecía de Jesús en el monte de los Olivos cubre la destrucción de Jerusalén y la señal compuesta de su parusía (13)"
+    ],
+    [
+      "Relatos del nacimiento: Solo Lucas registra el anuncio angélico a María, el relato de los pastores y la presentación en el templo (1–2)",
+      "Genealogía a través de María: Lucas traza el linaje humano de Jesús a través de María hasta Adán, conectándolo con toda la humanidad (3:23–38)",
+      "Parábola del hijo pródigo: La gozosa bienvenida del padre a un hijo arrepentido es la imagen más clara del corazón de Jehová hacia los pecadores arrepentidos en los cuatro Evangelios (15:11–32)",
+      "El buen samaritano: La definición de 'prójimo' traspasa todas las barreras étnicas, estableciendo el amor por cualquier persona necesitada como una obligación cristiana (10:25–37)",
+      "Mujeres en el ministerio de Jesús: Solo Lucas nombra a muchas de las mujeres que siguieron y apoyaron el ministerio de Jesús, reflejando la dignidad que les concedía (8:1–3; 23:49, 55)",
+      "Camino a Emaús: El Jesús resucitado explica todas las Escrituras Hebreas que se refieren a él: el modelo para la enseñanza basada en la Biblia (24:13–35)"
+    ],
+    [
+      "El prólogo: 'En el principio era la Palabra... la Palabra estaba con Dios': Jesús como el único portavoz prehumano de Jehová y agente de la creación (1:1–18)",
+      "Siete señales milagrosas: Agua en vino, sanar al hijo del noble, sanar al paralítico, alimentar a 5.000, andar sobre el agua, sanar al ciego, resucitar a Lázaro: cada una revela la autoridad divina de Jesús (2–11)",
+      "Siete declaraciones 'Yo soy': Pan de vida, luz del mundo, puerta, excelente pastor, resurrección, camino/verdad/vida, vid verdadera: cada una define el papel de Jesús como canal de bendición de Jehová (6; 8; 10; 11; 14; 15)",
+      "Los discursos del aposento alto: La enseñanza privada más extensa de Jesús: consuelo para los discípulos, el ayudante prometido (espíritu santo), la ilustración de la vid verdadera (14–16)",
+      "Oración sumosacerdotal: Jesús ora por la protección, unidad y santificación en la verdad de sus discípulos, incluyendo 'que te conozcan a ti, el único Dios verdadero' (17)",
+      "La confesión de Tomás: '¡Señor mío y Dios mío!': reconociendo el nombramiento divino de Jesús sin equipararlo con Jehová (20:28)"
+    ],
+    [
+      "Pentecostés y el espíritu santo: El espíritu desciende con lenguas de fuego; Pedro lo explica como cumplimiento de Joel 2:28–32; 3.000 son bautizados en un solo día (2)",
+      "Congregación primitiva en Jerusalén: Compartir bienes, reuniones diarias, señales milagrosas: el patrón de adoración comunitaria íntegra (2:42–47; 4:32–35)",
+      "Discurso y muerte de Esteban: El discurso más largo de Hechos recuenta la historia de Israel; la muerte de Esteban hace de Saulo testigo del primer mártir del cristianismo (7)",
+      "Felipe y el etíope: Un funcionario de la corte que estudia Isaías 53 es bautizado: las buenas nuevas llegando a África (8:26–40)",
+      "Conversión de Pablo: El perseguidor Saulo se encuentra con el Jesús resucitado en el camino a Damasco y se convierte en el mayor misionero de la historia (9)",
+      "Concilio de Jerusalén: La primera gran disputa doctrinal —si los gentiles necesitan circuncidarse— es resuelta por el cuerpo gobernante bajo la guía del espíritu santo (15)"
+    ],
+    [
+      "Pecaminosidad universal: Tanto los gentiles (capítulos 1–2) como los judíos (capítulos 2–3) han fallado: todos necesitan el rescate (3:9–20, 23)",
+      "Justificación por la fe: A Abrahán se le contó como justicia por la fe antes de la circuncisión, mostrando que la fe, no la ley, es la base (4)",
+      "Adán y Cristo contrastados: Un hombre trajo pecado y muerte; el acto de justicia de un hombre trae vida justificante (5:12–21)",
+      "Lucha con el pecado: La conmovedora descripción de Pablo sobre la batalla interna contra las tendencias pecaminosas asegura a los creyentes que esa lucha es normal (7:14–25)",
+      "Vida en el espíritu: Ninguna condenación para los que están en Cristo; el espíritu mismo testifica que son hijos de Jehová; nada puede separarlos de su amor (8)",
+      "El futuro de Israel: Los capítulos 9–11 abordan si Jehová ha rechazado a Israel: no; se escoge un resto, y la inclusión gentil provoca a Israel natural (11:25–32)"
+    ],
+    [
+      "Divisiones en la congregación: Las facciones que se formaban en torno a Pablo, Apolo y Pedro son reprendidas: solo Cristo es la base de la unidad (1–4)",
+      "Inmoralidad sexual tolerada: Un caso de incesto en la congregación no está siendo disciplinado; Pablo insiste en la expulsión (5)",
+      "Matrimonio y soltería: Pablo trata las relaciones sexuales, el matrimonio, el divorcio y las ventajas de permanecer soltero para el servicio de tiempo completo (7)",
+      "Cubrirse la cabeza y la Cena del Señor: Instrucciones para la conducta apropiada en las reuniones congregacionales, incluida la participación digna en la Conmemoración (11)",
+      "Dones espirituales: Todos los dones vienen del mismo espíritu y sirven al mismo cuerpo; el amor (capítulo 13) es mayor que todos los dones juntos (12–14)",
+      "Resurrección de los muertos: Una extensa defensa de la resurrección corporal, explicando su certeza, naturaleza y orden: la base de toda esperanza cristiana (15)"
+    ],
+    [
+      "El consuelo de Pablo en la aflicción: El patrón 'como abundan los sufrimientos por Cristo en nosotros, así también abunda el consuelo' replantea todo sufrimiento como propositivo (1:3–11)",
+      "Ministerio del nuevo pacto: Pablo contrasta la gloria del antiguo pacto (que se desvanece) con la gloria sobresaliente del nuevo (perdurable) (3)",
+      "Tesoro en vasos de barro: Los muchos sufrimientos enumerados por Pablo demuestran que el poder viene de Jehová, no de la fuerza humana (4:7–12)",
+      "La colecta para Jerusalén: La dádiva generosa modelada por las congregaciones de Macedonia; 'Jehová ama al dador alegre' (8–9)",
+      "Visiones de Pablo y el aguijón en la carne: Un 'aguijón' mantuvo a Pablo humilde; la respuesta de Jehová: 'mi poder se perfecciona en la debilidad' (12)",
+      "Defensa apostólica de Pablo: Pablo defiende sus credenciales contra los 'superfinos apóstoles', enumerando sus sufrimientos como sus verdaderas cartas de recomendación (11–12)"
+    ],
+    [
+      "Las verdaderas buenas nuevas defendidas: Pablo confronta a los judaizantes que añaden la circuncisión al rescate como un requisito; declara maldita cualquier otra 'buena nueva' (1)",
+      "Pablo confronta a Pedro: En Antioquía, la separación hipócrita de Pedro de los creyentes gentiles es desafiada públicamente: la verdad doctrinal no es negociable (2:11–21)",
+      "La Ley como ayo: La Ley mosaica sirvió como 'ayo que conduce a Cristo'; ahora que ha venido la fe, los cristianos ya no están bajo el ayo (3:24–25)",
+      "Hijos de Dios por la fe: 'No hay judío ni griego, esclavo ni libre, varón ni mujer; todos sois uno en Cristo Jesús': la unidad de todos ante Jehová (3:28)",
+      "Fruto del espíritu: Amor, gozo, paz, gran paciencia, bondad, benignidad, fe, apacibilidad, dominio propio: cualidades que el espíritu produce en contraste con las obras de la carne (5:22–23)",
+      "Sembrar y cosechar: La ley inescapable del universo de Jehová: 'lo que el hombre sembrare, eso también segará' (6:7–9)"
+    ],
+    [
+      "Bendiciones espirituales en los lugares celestiales: Jehová ha escogido y predestinado a los cristianos ungidos como sus hijos adoptivos, para alabanza de su gloria (1)",
+      "Muertos en el pecado, vivos en Cristo: Salvos no por mérito sino puramente por la bondad inmerecida de Jehová mediante la fe: sin lugar para la jactancia humana (2:1–10)",
+      "Misterio revelado: Gentiles y judíos hechos un solo hombre nuevo mediante Cristo: un secreto oculto en edades anteriores ahora revelado a través de la congregación (2:11–3:12)",
+      "Andad como es digno del llamamiento: Unidad, humildad, ya no andando en futilidad como las naciones: la conducta debe corresponder al llamamiento (4)",
+      "Vestíos de la nueva personalidad: Pasos prácticos: desechar la falsedad, la ira, el robo, el lenguaje corrupto, la amargura, reemplazándolos por cualidades piadosas (4:22–5:2)",
+      "Armadura espiritual: Armadura completa: cinturón de la verdad, coraza de la justicia, pies calzados con las buenas nuevas, escudo de la fe, yelmo de la salvación, espada del espíritu (6:10–18)"
+    ],
+    [
+      "Compañeros en las buenas nuevas: La gratitud de Pablo por el apoyo práctico de los filipenses y su oración por el continuo crecimiento de ellos en amor y discernimiento (1:1–11)",
+      "El encarcelamiento de Pablo hace avanzar las buenas nuevas: Aun la prisión ha servido para difundir el evangelio; Pablo enfrenta la muerte o la vida con igual paz (1:12–26)",
+      "La humildad de Cristo como modelo: De forma divina a esclavitud humana hasta la muerte en el madero: el patrón de auto-vaciamiento que todos los cristianos deben imitar (2:5–11)",
+      "El premio del llamado hacia arriba: Pablo avanza hacia la meta, olvidando lo que queda atrás, extendiéndose hacia adelante: corriendo la carrera con propósito (3:12–16)",
+      "Paz mediante la oración: 'No os inquietéis por nada, sino... presentad vuestras peticiones delante de Dios; y la paz de Dios que sobrepuja todo entendimiento' (4:6–7)",
+      "Pensar en cosas excelentes: Una hermosa lista —verdaderas, justas, castas, amables, de buena reputación— que rige la dieta mental del cristiano (4:8)"
+    ],
+    [
+      "La preeminencia de Cristo: 'Él es la imagen del Dios invisible, el primogénito de toda la creación... todas las demás cosas fueron creadas por medio de él' (1:15–17)",
+      "Plena reconciliación: Mediante la muerte de Cristo, los que antes estaban alejados y eran enemigos están ahora reconciliados con Jehová (1:19–23)",
+      "Advertencia contra la filosofía: 'Mirad que nadie os lleve cautivos por medio de la filosofía y vano engaño' de las tradiciones humanas frente a la enseñanza de Cristo (2:8)",
+      "Resucitados con Cristo: La nueva vida está escondida con Cristo en Jehová; los creyentes han de 'seguir buscando las cosas de arriba' (3:1–4)",
+      "La nueva personalidad: Una lista detallada de cosas viejas que despojar (inmoralidad sexual, ira, mentiras) y cosas nuevas que vestir (compasión, bondad, perdón, amor) (3:5–17)",
+      "Trabajar para Jehová: 'Todo lo que hagáis, trabajadlo de toda alma como para Jehová, y no para los hombres': transformando el trabajo diario en adoración (3:23–24)"
+    ],
+    [
+      "Ejemplo de fe: Los tesalonicenses llegaron a ser ejemplos para toda Macedonia: su fe se difundió al llegar la noticia de su conversión por todas partes (1:6–10)",
+      "Cuidado parental de Pablo: Pablo describe su ministerio entre ellos como el de una madre que cría y un padre que anima: amor pastoral genuino (2:7–12)",
+      "El informe de Timoteo trae consuelo: Las alentadoras noticias de Timoteo sobre la fe de la congregación sostienen a Pablo en sus propias dificultades (3)",
+      "Pureza sexual: Instrucción clara de que la voluntad de Jehová es la santificación: 'controlar su propio cuerpo en santidad y honor, no en pasiones de apetito sexual' (4:3–8)",
+      "Esperanza de la resurrección para los muertos: 'Los muertos en Cristo se levantarán primero': una descripción detallada de la parusía de Cristo que consuela a quienes temen por seres queridos fallecidos (4:13–18)",
+      "El día de Jehová como ladrón: Los creyentes que están espiritualmente despiertos y sobrios no serán sorprendidos: la preparación requiere una vigilancia continua (5:1–11)"
+    ],
+    [
+      "El justo juicio de Jehová: Los que persiguen a la congregación enfrentarán ellos mismos el juicio de Jehová cuando él actúe (1:6–10)",
+      "Primero debe venir la apostasía: El día de Jehová no puede haber llegado ya: primero deben aparecer una gran apostasía y el hombre del desafuero (2:1–12)",
+      "Permanezcan firmes y aférrense a las tradiciones: 'Permanezcan firmes y manténganse aferrados a las tradiciones que se les enseñaron sea de palabra o por carta': estabilidad doctrinal contra la confusión (2:15)",
+      "Jehová los hará firmes: 'Jehová es fiel, y los hará firmes y los guardará del inicuo' (3:3)",
+      "Trabajen, no se desordenen: Algunos en Tesalónica habían dejado de trabajar pensando que el fin era inminente; Pablo insiste 'si alguno no quiere trabajar, que no coma' (3:6–15)",
+      "Que el Jehová de la paz les dé paz: La bendición final refleja la profunda preocupación pastoral de Pablo por la paz de la congregación bajo presión (3:16)"
+    ],
+    [
+      "Doctrina sana frente a falsas enseñanzas: Se exhorta a Timoteo a silenciar a quienes enseñan doctrinas diferentes y se dedican a mitos y genealogías interminables (1:3–11)",
+      "Oración por todas las personas: 'Que se hagan oraciones, peticiones, intercesiones y acciones de gracias por toda clase de hombres', incluso por los gobernantes (2:1–4)",
+      "Un solo mediador: 'Hay un solo Dios, y un solo mediador entre Dios y los hombres, un hombre, Cristo Jesús, que se entregó como rescate por todos' (2:5–6)",
+      "Requisitos para superintendentes y siervos ministeriales: Cualidades personales detalladas que se exigen para los puestos de liderazgo en la congregación (3:1–13)",
+      "Devoción piadosa con contentamiento: 'La devoción piadosa, junto con el contentamiento, es medio de gran ganancia... nada hemos traído al mundo, y nada podemos sacar' (6:6–8)",
+      "El amor al dinero: 'El amor al dinero es raíz de toda clase de cosas perjudiciales': una advertencia contra las motivaciones que distorsionan las prioridades cristianas (6:9–10)"
+    ],
+    [
+      "Guarda lo que se te confió: 'Guarda esta excelente cosa confiada por medio del espíritu santo que mora en nosotros': protegiendo el cuerpo de la verdad (1:13–14)",
+      "Soporta como buen soldado: 'Acepta tu parte en sufrir el mal como buen soldado de Cristo Jesús': la exhortación de Pablo al enfrentar la ejecución (2:1–13)",
+      "Los últimos días: Una descripción vívida de 'tiempos críticos difíciles de manejar': una señal compuesta profética del período en que ahora vivimos (3:1–5)",
+      "Toda Escritura es inspirada: 'Toda Escritura es inspirada de Dios y beneficiosa para enseñar, para reprender, para rectificar las cosas': la inspiración y suficiencia de la Biblia (3:16–17)",
+      "Predica la palabra urgentemente: 'Predica la palabra; mantente urgente en tiempos favorables y en tiempos difíciles': la prioridad del ministerio sin importar la respuesta (4:1–5)",
+      "El curso de Pablo terminado: 'He peleado la excelente lucha, he corrido la carrera hasta el fin, he guardado la fe; desde ahora me está reservada la corona' (4:6–8)"
+    ],
+    [
+      "La asignación de Tito en Creta: Pablo dejó a Tito en Creta para 'corregir las cosas que estaban defectuosas y nombrar ancianos en ciudad tras ciudad' (1:4–9)",
+      "Requisitos para los ancianos: Un superintendente debe ser irreprochable, no obstinado, no borracho: cualidades que reflejan 1 Timoteo 3 (1:5–9)",
+      "Falsos maestros en Creta: 'Mentirosos, fieras malvadas, glotones ociosos': la franca evaluación de Pablo sobre los que perturban las congregaciones (1:10–16)",
+      "Conducta práctica para todas las edades: Hombres mayores, mujeres mayores, mujeres jóvenes, hombres jóvenes y esclavos reciben cada uno orientación específica de conducta (2:1–10)",
+      "La bondad inmerecida de Jehová que entrena: 'La bondad inmerecida de Dios que trae salvación a toda clase de personas ha aparecido, entrenándonos a rechazar la impiedad' (2:11–14)",
+      "Renovados por el espíritu santo: Salvos no por obras de justicia sino por la misericordia de Jehová: el baño de vida y la renovación por el espíritu santo (3:4–7)"
+    ],
+    [
+      "Cálido saludo de Pablo: Una carta personal dirigida a Filemón, a su esposa Apia, a Arquipo y a la congregación en casa de Filemón (1–3)",
+      "Apelación de Pablo en favor de Onésimo: En lugar de ordenar a Filemón, Pablo apela sobre la base del amor por el ahora convertido esclavo fugitivo (8–12)",
+      "Un hermano amado en Cristo: 'Ya no como esclavo, sino mejor que un esclavo: como un hermano amado... tanto en la carne como en el Señor' (15–16)",
+      "Pablo se compromete a pagar: Cualquier deuda que Onésimo tenga, Pablo la cubrirá personalmente: una hermosa ilustración de Cristo pagando nuestra deuda (18–19)",
+      "Confianza en la bondad de Filemón: Pablo expresa su confianza en que Filemón 'hará incluso más de lo que digo': modelando el aliento en lugar de la coerción (21)",
+      "Petición de hospedaje: La esperanza de Pablo de visitar a Filemón en persona muestra el valor que daba al compañerismo cara a cara (22)"
+    ],
+    [
+      "Jesús superior a los ángeles: La comparación inicial establece que el Hijo, 'el reflejo de la gloria de Jehová', es muy superior a cualquier ángel (1–2)",
+      "Jesús nuestro gran Sumo Sacerdote: Como Aarón pero mayor, Jesús 'fue probado en todo respecto como nosotros, pero sin pecado': capaz de compadecerse de nuestras debilidades (4:14–5:10)",
+      "Sacerdocio de Melquisedec: El sacerdocio de Jesús es de un orden superior al de Aarón: un sacerdocio inmutable respaldado por juramento (7)",
+      "El nuevo pacto es superior: Mejor pacto, mejores promesas, mejor sacrificio: la sangre de Cristo se ofrece en el santuario celestial verdadero, no en una copia hecha por hombres (8–10)",
+      "Capítulo de la fe: Abel, Enoc, Noé, Abrahán, Sara, Moisés, Rahab: todos 'recibieron testimonio favorable por su fe', pero no recibieron el cumplimiento (11)",
+      "Corramos con aguante: 'Corramos con aguante la carrera puesta delante de nosotros, fijando atentamente la mirada en Jesús, el Agente Principal y Perfeccionador de nuestra fe' (12:1–2)"
+    ],
+    [
+      "Aguantar las pruebas: 'Considerad todo gozo cuando os encontréis con diversas pruebas': el aguante produce la entereza, y pedir a Jehová sabiduría sin vacilar (1:2–8)",
+      "Hacedores y no solo oidores: 'Llegad a ser hacedores de la palabra, y no solamente oidores, engañándoos a vosotros mismos': la prueba de la fe genuina (1:22–25)",
+      "Parcialidad condenada: Mostrar favoritismo a los ricos mientras se deshonra a los pobres contradice la propia norma de Jehová sobre el amor al prójimo (2:1–13)",
+      "Fe y obras: 'La fe sin obras está muerta': así como un cuerpo sin aliento está muerto, así la fe sin acción es sin vida (2:14–26)",
+      "Dominar la lengua: 'La lengua es un fuego... un mundo de injusticia... puede inflamar todo el curso de la vida': uno de los miembros más difíciles de controlar (3:1–12)",
+      "Oración y unción: 'La súplica ferviente del justo tiene mucha fuerza': el papel de los ancianos en orar por los enfermos y cuidar de ellos (5:14–18)"
+    ],
+    [
+      "Esperanza viva mediante la resurrección: 'Alabado sea... Jehová... quien, según su gran misericordia, nos dio un nuevo nacimiento a una esperanza viva mediante la resurrección de Jesucristo' (1:3–5)",
+      "Renacidos por la palabra: A diferencia de la simiente incorruptible, toda la gloria humana es como la hierba, pero 'la palabra de Jehová permanece para siempre' (1:23–25)",
+      "Sacerdocio real: 'Vosotros sois linaje escogido, sacerdocio real, nación santa, pueblo para posesión especial': cada cristiano forma parte del pueblo especialmente seleccionado de Jehová (2:9)",
+      "Sufrir por la justicia: 'Aunque sufriéreis por causa de la justicia, sois felices': Pedro aborda el sufrimiento injusto con consuelo y perspectiva (3:14–17)",
+      "Pruebas de fuego: 'No os extrañéis del ardor entre vosotros': las pruebas no son extrañas, sino parte de compartir los sufrimientos de Cristo (4:12–14)",
+      "Humildes bajo la mano de Jehová: 'Echen toda su ansiedad sobre él, porque él se interesa por ustedes'; resistan al diablo, firmes en la fe (5:6–9)"
+    ],
+    [
+      "Poder divino que da todo lo necesario: 'Su poder divino nos ha dado todo lo necesario para la vida y la devoción piadosa mediante el conocimiento exacto del que nos llamó' (1:3–4)",
+      "Escalera de virtudes: Fe → virtud → conocimiento → dominio propio → aguante → devoción piadosa → cariño fraternal → amor; estas cualidades evitan tropiezos (1:5–11)",
+      "Palabra profética confirmada: Pedro fue testigo presencial de la transfiguración; esto confirma la palabra profética, que es 'como una lámpara que brilla en lugar oscuro' (1:16–21)",
+      "Falsos maestros como Balaán: Explotan con codicia, prometen libertad mientras ellos mismos son esclavos de la corrupción (2)",
+      "El día de Jehová: Con Jehová 'un día es como mil años'; él no es lento sino paciente, no deseando que ninguno sea destruido (3:8–9)",
+      "Nuevos cielos y nueva tierra: 'Esperamos nuevos cielos y nueva tierra en los cuales mora la justicia': la esperanza que motiva una conducta santa ahora (3:13–14)"
+    ],
+    [
+      "Andar en la luz: El compañerismo con Jehová requiere andar en la luz: la sangre de Jesús limpia del pecado; la confesión es el camino al perdón (1:5–2:2)",
+      "Tres pruebas del cristianismo genuino: Guardar los mandamientos de Jehová (prueba de obediencia), amar a los hermanos (prueba de amor) y creer que Jesús vino en la carne (prueba de creencia) (2:3–5; 4:2–3; 4:20–21)",
+      "No améis al mundo: 'El mundo pasa, y también su deseo, pero el que hace la voluntad de Dios permanece para siempre' (2:15–17)",
+      "Dios es amor: 'El que no ama no ha llegado a conocer a Dios, porque Dios es amor... el amor proviene de Dios' (4:7–8, 19)",
+      "El amor perfecto echa fuera el temor: 'No hay temor en el amor, sino que el amor perfecto echa fuera el temor, porque el temor nos restringe... el que tiene temor no ha sido perfeccionado en el amor' (4:18)",
+      "Vencer al mundo: 'Esta es la victoria que ha vencido al mundo: nuestra fe' (5:4–5): la fe en Jesús como el Hijo de Dios vence la atracción del mundo"
+    ],
+    [
+      "Verdad y amor juntos: El anciano escribe a la 'señora escogida' —una congregación— a causa de la verdad, que permanece en ellos para siempre (1–3)",
+      "Andar en la verdad: Juan se regocija al encontrar miembros de sus hijos andando en la verdad, conforme al mandamiento recibido de Jehová (4–6)",
+      "El mandamiento: amaos unos a otros: El mandamiento más antiguo, el amor mutuo, es la expresión práctica de 'andar en la verdad' (5–6)",
+      "Advertencia sobre los engañadores: 'Muchos engañadores han salido al mundo, los que no reconocen a Jesucristo como venido en carne': los anticristos (7)",
+      "No pierdan lo que han trabajado: Permanezcan en la enseñanza de Cristo para recibir la recompensa plena: ni se adelanten ni se queden atrás (8–9)",
+      "No reciban a falsos maestros: No inviten a la casa ni saluden a los que traen una enseñanza diferente: hacerlo es compartir en sus obras malvadas (10–11)"
+    ],
+    [
+      "Encomio a Gayo: Juan ora para que Gayo prospere y goce de buena salud 'tal como prospera su alma': un deseo integral (1–2)",
+      "Gozo de andar en la verdad: 'No tengo mayor gozo que oír que mis hijos andan en la verdad': la satisfacción más profunda de cualquier maestro espiritual (3–4)",
+      "Hospitalidad con los misioneros viajeros: Gayo es encomiado por recibir y enviar adelante a extraños que salieron 'por causa de su nombre' (5–8)",
+      "Diótrefes reprendido: Un miembro de la congregación 'que le gusta tener el primer lugar' se niega a recibir a los hermanos y difunde palabras maliciosas sobre Juan (9–10)",
+      "Imita lo bueno, no lo malo: 'El que hace lo bueno procede de Dios; el que hace lo malo no ha visto a Dios': el carácter revela el estado espiritual de uno (11)",
+      "Demetrio encomiado: Alabado por todos, por la verdad misma y por Juan: un triple testimonio de una excelente reputación cristiana (12)"
+    ],
+    [
+      "Urgencia de luchar por la fe: Aunque Judas quería escribir sobre la salvación común, la crisis de apóstatas infiltrados hizo necesaria una defensa (3)",
+      "Advertencias históricas: Tres ejemplos: Israel en el desierto, los ángeles rebeldes, Sodoma y Gomorra: demuestran el juicio de Jehová sobre los infieles (5–7)",
+      "Descripción de los apóstatas: 'Contaminan la carne, rechazan la autoridad y hablan abusivamente de los gloriosos': soñadores que corrompen la congregación desde dentro (8–16)",
+      "Ejemplo de Miguel: Incluso el arcángel Miguel no presentó un juicio contra el Diablo en su propio nombre: humildad aun en conflicto (9)",
+      "Edifíquense a sí mismos: 'Edificándose a sí mismos sobre su santísima fe, orando con espíritu santo, manteniéndose en el amor de Dios': la rutina de mantenimiento espiritual (20–21)",
+      "Rescaten a algunos con temor: Muestren misericordia a los que dudan, salven a algunos arrebatándolos del fuego: sabiduría pastoral para tratar con quienes vacilan (22–23)"
+    ],
+    [
+      "Cartas a siete congregaciones: Jesús evalúa cada congregación, alabando lo bueno, corrigiendo lo malo, llamando a cada una al arrepentimiento y al aguante (2–3)",
+      "Visión de la sala del trono: Una visión impresionante de Jehová en su trono, los 24 ancianos, los cuatro seres vivientes y toda la creación alabándolo (4–5)",
+      "Siete sellos y trompetas: Visiones progresivas de juicio, los 144.000 sellados y la gran muchedumbre en vestiduras blancas de toda nación (6–11)",
+      "Guerra en el cielo: Miguel y sus ángeles echan a Satanás fuera del cielo; el dragón persigue a la mujer y hace guerra con su descendencia restante (12)",
+      "Babilonia la Grande cae: La gran ramera que representa a la religión falsa es juzgada; 'salgan de ella, pueblo mío' es el llamado final de Jehová a todos los que lo adoran (17–18)",
+      "Nueva Jerusalén: La muerte, el lamento, el clamor y el dolor ya no existirán; Jehová mora con la humanidad; el río de la vida y el árbol de la vida restauran lo que se perdió (21–22)"
+    ]
+  ],
+  "bookWhyBeneficial": [
+    "Génesis responde a las preguntas más fundamentales de la humanidad: quiénes somos, por qué sufrimos y cuál es el propósito de Jehová para la tierra. Establece el fundamento de toda profecía bíblica con la primera promesa de un Libertador en 3:15, y demuestra, mediante las vidas de Noé, Abrahán y José, que la fe inquebrantable en Jehová siempre es recompensada.",
+    "Éxodo muestra que Jehová escucha el clamor de su pueblo oprimido y actúa poderosamente para liberarlo. La revelación de su nombre personal (3:14–15) y la Pascua —cumplida en Jesucristo como 'nuestro cordero pascual'— son fundamentales para entender el propósito de redención de Jehová y el valor que da a la adoración pura.",
+    "Aunque los cristianos no están bajo la Ley mosaica, Levítico revela la elevada norma de santidad que Jehová exige. Su sistema sacrificial apunta al rescate de Cristo, la prohibición sobre la sangre sigue vigente para los cristianos, y el principio 'sed santos porque yo soy santo' continúa definiendo la norma para quienes llevan el nombre de Jehová.",
+    "Números advierte poderosamente contra el espíritu de queja, la falta de fe y la adoración no autorizada que descalificaron a toda una generación de entrar en la Tierra Prometida. Pablo citó estos relatos específicamente como 'ejemplos para nuestra instrucción' (1 Corintios 10:1–11), haciendo que Números sea directamente aplicable a los cristianos de hoy.",
+    "El apasionado llamado de Deuteronomio a amar a Jehová con todo el corazón y la mente es igual de urgente hoy. Jesús lo citó tres veces al resistir las tentaciones de Satanás (Mateo 4:4, 7, 10), y 2 Timoteo 3:16–17 nos recuerda que toda Escritura, incluyendo Deuteronomio, capacita por completo a los siervos de Jehová para su servicio.",
+    "Josué demuestra que con el apoyo de Jehová, obstáculos aparentemente imposibles —ríos desbordados, murallas impenetrables, enemigos poderosos— se vuelven peldaños hacia la victoria. El desafío final del libro, 'escojan hoy a quién servirán' (24:15), confronta a cada persona en cada generación.",
+    "Jueces es una advertencia seria sobre el declive espiritual que sigue cuando cada generación no logra transmitir a la siguiente un amor genuino por Jehová. Los ciclos de apostasía y restauración muestran tanto el peligro de la deriva espiritual como la extraordinaria paciencia de Jehová al venir repetidamente en ayuda de quienes claman a él.",
+    "Rut muestra que el amor leal (hesed) y la humilde fidelidad son cualidades que Jehová valora por encima del origen nacional o el estatus social. Boaz actuando como pariente redentor prefigura poderosamente a Jesucristo comprando la libertad de la humanidad mediante el rescate. La historia de Rut nos asegura que ninguna persona sincera que busque refugio bajo las alas de Jehová será rechazada.",
+    "1 Samuel muestra las consecuencias fatales de confiar en las apariencias externas, los arreglos humanos y la obediencia parcial en lugar de seguir a Jehová de todo corazón. El ejemplo de David —un pastorcillo que confía enteramente en Jehová— contrasta fuertemente con el liderazgo autosuficiente y buscador de aprobación de Saúl, y constituye un modelo para todo siervo de Jehová.",
+    "2 Samuel presenta la imagen completa de David, no idealizada sino completa, incluyendo sus serios fracasos y sus consecuencias. Su arrepentimiento inmediato al ser confrontado, en lugar de defensividad o encubrimiento, ilustra el tipo de corazón dispuesto a aprender que Jehová puede perdonar y restaurar. El pacto davídico (capítulo 7) ancla toda la esperanza mesiánica.",
+    "1 Reyes demuestra que incluso la persona más sabia y privilegiada puede caer espiritualmente si permite que las malas asociaciones erosionen su devoción a Jehová. El relato de Elías es especialmente alentador: Jehová restaura a los siervos agotados con cuidado práctico, suave reafirmación y un sentido de misión continuada.",
+    "2 Reyes muestra las inevitables consecuencias a largo plazo de ignorar las repetidas advertencias de Jehová. Los relatos de Ezequías y Josías, sin embargo, demuestran que la fe individual y el valor espiritual aún pueden producir resultados milagrosos incluso en las circunstancias nacionales más desesperadas. Ambos reyes confirman que confiar en Jehová en vez de en alianzas humanas siempre es la decisión correcta.",
+    "1 Crónicas muestra que la verdadera adoración a Jehová requiere tanto devoción de todo corazón como organización cuidadosa. La extraordinaria preparación de David para un Templo que él nunca construiría refleja una perspectiva desinteresada y de largo plazo sobre el propósito de Jehová: una cualidad que alienta a todos los que invierten en obras que quizá no vean terminadas personalmente.",
+    "2 Crónicas es esencialmente una lección de causa y efecto: la fidelidad a Jehová produce bendición nacional; la infidelidad produce desastre nacional. Su esperanzador final muestra que el propósito de Jehová no puede frustrarse en última instancia, y que él es capaz de usar incluso a reyes extranjeros para cumplir su palabra.",
+    "El ejemplo personal de Esdras —'había preparado su corazón para consultar la Ley de Jehová, para practicarla y para enseñarla' (7:10)— sigue siendo la norma de oro para todo maestro de la Biblia. El libro también muestra que reconstruir la adoración pura requiere priorizar el arreglo de Jehová sobre las relaciones personales y la presión social.",
+    "Nehemías demuestra que la obra de Jehová puede llevarse a cabo contra fuerte oposición cuando su pueblo combina la oración con la acción práctica. La habilidad administrativa, la integridad personal y el genuino interés de Nehemías por el bienestar del pueblo muestran que el liderazgo espiritual y la excelencia organizativa no se excluyen mutuamente.",
+    "Ester revela que la mano guiadora de Jehová opera incluso donde su nombre no se pronuncia en voz alta: mediante las 'coincidencias' del tiempo oportuno, la persona indicada en el lugar adecuado y la reversión de planes aparentemente imparables contra su pueblo. El valor de Ester bajo amenaza sigue siendo un poderoso modelo para los testigos de Jehová que enfrentan oposición.",
+    "Job responde directamente a la pregunta más dolorosa que enfrentan los creyentes: '¿Por qué sufren las personas justas?'. La respuesta —que una gran controversia rodea la soberanía de Jehová, y que nuestro aguante fiel vindica su nombre— transforma nuestra perspectiva sobre el sufrimiento personal y le da un significado genuino en lugar de una crueldad sin sentido.",
+    "Los Salmos proveen el vocabulario para cada emoción humana ante Jehová: dolor crudo, gozo elevado, súplica desesperada, alabanza llena de asombro. Muestran que no hay sentimiento demasiado íntimo o doloroso para llevar a Jehová en oración, y proporcionan las mismas palabras para hacerlo. La meditación regular en los Salmos forja una intimidad con Jehová que ningún otro libro bíblico replica del todo.",
+    "Proverbios es el manual práctico de la Biblia para la vida diaria. A diferencia de la teología abstracta, trata sobre el trabajo, el dinero, la amistad, el habla, la crianza, el matrimonio y la administración del tiempo, todo anclado en la reverencia a Jehová. Sus dichos breves y memorables están diseñados para ser interiorizados, de modo que la sabiduría dé forma a las decisiones diarias de manera instintiva.",
+    "Eclesiastés protege contra el desencanto que viene cuando las personas esperan que este sistema actual entregue significado, plenitud o justicia: no puede hacerlo. Al documentar honestamente el vacío de la vida sin Jehová en el centro, presenta la devoción a Jehová no como un deber religioso, sino como la única respuesta racional a la realidad.",
+    "El Cantar de los Cantares afirma que el amor romántico y la intimidad física dentro del matrimonio son regalos de Jehová: hermosos, puros y dignos de celebrar. Guarda tanto contra el error gnóstico de despreciar el amor físico como contra la distorsión del mundo, mostrando, en cambio, que la genuina devoción matrimonial refleja el amor leal que Jehová mismo encarna.",
+    "A Isaías se le llama con justicia 'el quinto Evangelio': sus profecías mesiánicas sobre el nacimiento, ministerio y muerte de Jesús son insuperables en precisión. Los 'capítulos de consuelo' del libro (40–66) han sostenido al pueblo de Jehová a través de toda forma de prueba, y sus descripciones del nuevo mundo presentan la imagen más vívida en las Escrituras Hebreas de cómo será la tierra bajo el Reino de Jehová.",
+    "El aguante de Jeremías frente a una vida entera de rechazo, encarcelamiento y burla, con casi ningún convertido, proporciona el modelo supremo de fidelidad motivada por el amor a Jehová en lugar de los resultados. Su experiencia prueba que Jehová sostiene a quienes le sirven fielmente, incluso cuando nunca ven el resultado.",
+    "Lamentaciones enseña al pueblo de Jehová cómo lamentarse con honestidad sin perder la esperanza. Su disposición a permanecer en la tristeza más oscura mientras aún afirma el amor leal de Jehová modela el tipo de fe que no exige que todo esté bien antes de alabarlo. Pesar y esperanza no son opuestos: coexisten en el corazón de todo siervo maduro de Jehová.",
+    "La visión de Ezequiel de la gloria de Jehová abandonando dramáticamente un lugar de adoración corrompido, seguida de su promesa de regresar, es directamente relevante para cada era en que la religión falsa ha reemplazado a la adoración pura. El énfasis del libro en la responsabilidad individual (capítulo 18) y el deseo de Jehová de que haya arrepentimiento (18:23; 33:11) motiva la obra mundial de predicación.",
+    "Daniel provee la línea de tiempo más clara de las Escrituras Hebreas para el ascenso y caída de las potencias mundiales y el establecimiento del Reino eterno de Jehová. Los relatos de Daniel y sus compañeros muestran que es posible mantener completa integridad ante Jehová —rechazando todo compromiso moral y religioso— incluso dentro del imperio hostil más poderoso de la tierra.",
+    "Oseas contiene algunas de las descripciones emocionalmente más conmovedoras del carácter de Jehová en toda la Biblia: su amor leal que persigue a quienes lo abandonan, su angustia por las decisiones de ellos y su invitación incondicional a regresar. El libro replantea nuestra comprensión del pecado como una ruptura de relación en lugar de mera transgresión de reglas, y del arrepentimiento como un regreso a un Padre que espera.",
+    "La profecía de Joel sobre el derramamiento del espíritu fue la clave interpretativa que Pedro usó en Pentecostés para explicar lo que estaba sucediendo a la congregación primitiva (Hechos 2:16). El mensaje central del libro —que el arrepentimiento genuino y sentido siempre halla a Jehová dispuesto a restaurar y bendecir— es tan relevante en las vidas individuales como lo fue para la nación de Israel.",
+    "Amós es un poderoso recordatorio de que la actividad religiosa externa no significa nada para Jehová a menos que esté acompañada de justicia, misericordia e integridad genuina en la vida diaria. Su condena de los que asisten a reuniones religiosas mientras oprimen a otros advierte contra cualquier compartimentación de la fe respecto de la ética: Jehová ve tanto el altar como el mercado.",
+    "La brevedad de Abdías esconde su profundidad: el libro profético hebreo más corto contiene tanto una advertencia sobre el pecado fatal del orgullo como una declaración fundamental de que el Reino de Jehová prevalecerá en última instancia. El principio 'como tú has hecho, así se te hará' (versículo 15) es una declaración atemporal de justicia divina que se aplica mucho más allá del antiguo Edom.",
+    "Jonás expone el peligro de prejuzgar quién merece oír el mensaje de Jehová y de alegrarse cuando no responden. El libro demuestra que la preocupación de Jehová se extiende a todas las naciones y pueblos, y que cualquier vacilación en compartir las buenas nuevas ampliamente —independientemente del público— contradice su propio corazón. Jesús citó los tres días de Jonás en el pez como señal de su propia muerte y resurrección (Mateo 12:39–40).",
+    "El resumen de tres partes de Miqueas sobre la verdadera religión (6:8) —justicia, amor leal y humildad ante Jehová— corta a través de toda la complejidad religiosa hasta las cualidades esenciales que Jehová valora. La profecía de Belén (5:2) es una de las predicciones mesiánicas más específicas de las Escrituras Hebreas, confirmando la autoría divina de la Biblia y la fiabilidad de la palabra de Jehová.",
+    "Nahúm demuestra que la paciencia de Jehová tiene límites. Nínive había recibido uno de los aplazamientos más notables de la historia bajo Jonás, pero su regreso a la maldad finalmente agotó la tolerancia de Jehová. El libro da confianza de que todo opresor del pueblo de Jehová será al final hecho responsable, una fuente de genuino consuelo en tiempos de persecución.",
+    "Habacuc modela el enfoque espiritualmente maduro hacia las preguntas sin respuesta: tráelas honestamente a Jehová, espera su respuesta, y luego acepta su perspectiva más amplia aun cuando no sea la esperada. La fe del 'aunque no' de Habacuc 3:17–18 es la norma de oro del gozo incondicional en Jehová: la fe que no depende de que las circunstancias salgan como queremos.",
+    "Sofonías pasa del juicio a la expresión más tierna del deleite personal de Jehová en su pueblo: un Dios que canta sobre ellos con gozo. La promesa de una 'lengua pura' (3:9) se está cumpliendo a medida que los testigos de Jehová de cada lengua y cultura usan el mismo vocabulario de la verdad del Reino, invocando el nombre de Jehová en unidad.",
+    "La lección central de Hageo —'¿Es para vosotros tiempo de habitar en vuestras casas con paneles, mientras esta casa está en ruinas?'— es permanentemente aplicable a los cristianos que priorizan la comodidad personal y el avance por encima de la adoración a Jehová y la obra de predicación. La respuesta inmediata y de todo corazón del pueblo al mensaje de Hageo es un modelo de cómo responder a la instrucción espiritual.",
+    "Zacarías contiene más profecías mesiánicas cumplidas por Jesús que cualquier otro libro profético hebreo de extensión comparable. Estos cumplimientos precisos —el rey sobre un asno, las treinta piezas de plata, el traspasado— se encuentran entre las pruebas más sólidas tanto de la inspiración divina de las Escrituras como de la identidad de Jesús como el Mesías prometido.",
+    "Malaquías cierra el canon profético hebreo con una advertencia contra la complacencia espiritual —una apatía que dice 'es inútil servir a Jehová' (3:14)— y una promesa de que quienes temen su nombre son conocidos y registrados individualmente por él. Los últimos versículos del libro, que apuntan a la venida de Elías, miran hacia adelante a Juan el Bautista y al amanecer de la era cristiana.",
+    "Mateo es el puente entre las Escrituras Hebreas y las Escrituras Griegas Cristianas, demostrando con más de 60 citas de las Escrituras que Jesús cumple toda promesa mesiánica importante. El Sermón del Monte (capítulos 5–7) sigue siendo la fuente más concentrada de valores prácticos del Reino: el documento fundamental para la ética cristiana.",
+    "El Evangelio de Marcos, rápido y centrado en la acción, es ideal para quienes se acercan por primera vez a la Biblia: muestra a Jesús en acción más que en enseñanza abstracta. Su pregunta central '¿Quién es realmente este hombre?' desafía a cada lector a llegar a una conclusión personal sobre la identidad de Jesús, y su énfasis en el servicio y el sacrificio define cómo es la verdadera grandeza ante Jehová.",
+    "El Evangelio de Lucas es el más universal: escrito para Teófilo (un título gentil) y poniendo énfasis en el ministerio de Jesús con los pobres, los enfermos, las mujeres y los marginados. Sus tres parábolas de 'lo perdido y hallado' en el capítulo 15 (oveja perdida, moneda perdida, hijo perdido) dan el retrato más íntimo del gozo de Jehová por cada persona que regresa a él.",
+    "El Evangelio de Juan fue escrito explícitamente 'para que crean que Jesús es el Cristo, el Hijo de Dios, y para que creyendo tengan vida en su nombre' (20:31). Su elevada cristología clarifica tanto la grandeza de Jesús como su distinción respecto de Jehová, y su íntimo retrato de la relación de Jesús con su Padre es el modelo para la relación de todo cristiano con Jehová.",
+    "Hechos provee el indispensable enlace entre el ministerio terrenal de Jesús y la congregación cristiana mundial. Muestra cómo el espíritu santo de Jehová guió, fortaleció y organizó la obra de predicación a través de fronteras culturales y geográficas, y cómo el mismo espíritu continúa dirigiendo la obra mundial de los testigos de Jehová hoy.",
+    "Romanos es la explicación doctrinal más sistemática de por qué los humanos necesitan el rescate y de cómo la fe en Jesús restaura la posición de uno ante Jehová. Su sección práctica (capítulos 12–16) traduce luego esta teología en vida diaria —amor por los hermanos, sujeción a los gobiernos y trato sensible con asuntos de conciencia—, haciendo de Romanos la guía más completa tanto para la creencia como para la conducta.",
+    "1 Corintios aborda problemas que siguen desafiando a las congregaciones en cada era: divisiones, inmoralidad sexual, mal uso de los dones espirituales y dudas sobre la resurrección. Las respuestas de Pablo establecen principios que el Cuerpo Gobernante aplica hoy. El capítulo del amor (13) sigue siendo la descripción definitiva de la cualidad que debe impregnar todas las interacciones congregacionales.",
+    "2 Corintios es la más personal y emocionalmente honesta de las cartas de Pablo, revelando el sufrimiento, el desánimo y la resiliencia última de uno de los siervos más eficaces de Jehová. Establece el principio de que el poder de Jehová es más visible precisamente cuando la fuerza humana está más agotada: una perspectiva transformadora para cualquier cristiano que soporte una dificultad prolongada.",
+    "Gálatas es la Carta Magna de la libertad cristiana: libertad de la Ley mosaica, de las tradiciones humanas y de cualquier esquema de mérito humano. La apasionada defensa que hace Pablo de la gracia (la bondad inmerecida de Jehová) mediante la fe sola protege a los cristianos tanto del legalismo como de la culpa que nace de sentir que los propios esfuerzos nunca son suficientes.",
+    "Efesios ofrece la imagen más amplia del propósito eterno de Jehová —desde antes de la creación hasta el nuevo mundo— y explica el lugar de cada creyente dentro de ese gran diseño. Las secciones prácticas sobre la vida familiar (5:22–6:9) y la armadura completa (6:10–18) están entre las guías más concretas para la vida cristiana diaria en las Escrituras Griegas Cristianas.",
+    "Filipenses, escrita desde la prisión, es uno de los libros más alegres de la Biblia, demostrando que el gozo genuino es producto de la relación con Jehová más que de las circunstancias. Sus prescripciones prácticas para la ansiedad (4:6–7) y la disciplina mental (4:8) la hacen especialmente valiosa para los lectores modernos que navegan el estrés, el miedo y el cansancio espiritual.",
+    "Colosenses reenfoca a los cristianos que podrían distraerse con filosofías, rituales o la adoración de ángeles, devolviéndolos a la suficiencia de Jesucristo. Su retrato práctico de la 'nueva personalidad' (capítulo 3) es la lista de vestimenta más detallada de la conducta cristiana en las cartas de Pablo, describiendo tanto qué quitarse como qué ponerse en las interacciones diarias.",
+    "1 Tesalonicenses fue escrita para alentar a una congregación joven bajo persecución, y su calidez pastoral la hace ideal para cualquier persona nueva en la fe. Su tranquilizador relato sobre la esperanza de la resurrección (4:13–18) —que los muertos en Cristo no simplemente se han ido— ha consolado a los testigos de Jehová junto a las tumbas durante generaciones.",
+    "2 Tesalonicenses corrige tanto el sensacionalismo (los informes falsos de que el día de Jehová ya ha llegado) como el escapismo (abandonar las responsabilidades diarias mientras se espera el fin). Su consejo equilibrado —permanecer doctrinalmente estables, mantenerse espiritualmente alertas y continuar con una vida productiva y ordenada— es exactamente lo que los testigos de Jehová procuran practicar hoy.",
+    "1 Timoteo provee el marco organizativo para una congregación que honra a Jehová: líderes debidamente calificados, doctrina sana, oración por todas las personas, y cuidado de las viudas y los vulnerables. El propio ejemplo de Timoteo —'sé un ejemplo para los fieles en habla, en conducta, en amor, en fe, en castidad' (4:12)— es la norma para todo joven siervo de Jehová.",
+    "Pablo escribió 2 Timoteo desde su celda de muerte como su legado final a su hijo espiritual y a todas las generaciones futuras de siervos de Jehová. Su exhortación a aguantar el sufrimiento, permanecer leal a la doctrina sana y seguir predicando sin importar los resultados lleva la autoridad de un hombre que vivió cada palabra que escribió. La descripción de 'los últimos días' (3:1–5) identifica nuestra propia era con inconfundible precisión.",
+    "Tito es un manual compacto para establecer congregaciones sanas en entornos difíciles. Su énfasis en que la doctrina sana produce conducta práctica y piadosa —no como medio para ganar la salvación sino como expresión natural de la transformadora bondad inmerecida de Jehová— capta la relación dinámica entre creencia y conducta que caracteriza al cristianismo genuino.",
+    "Filemón muestra que el evangelio de Jesucristo tenía el poder de disolver una de las barreras sociales más rígidas del mundo antiguo —la relación amo/esclavo— sustituyéndola por una genuina hermandad cristiana. El libro es una clase magistral de persuasión mediante el amor en lugar de la autoridad, y de cómo conceder a los demás la dignidad de tomar la decisión correcta.",
+    "Hebreos provee la explicación teológica de por qué los cristianos ya no están obligados a la Ley mosaica: el sacrificio superior de Jesús ha reemplazado permanentemente todo el sistema levítico. Su 'capítulo de la fe' (capítulo 11) ha motivado a los testigos de Jehová en cada generación al aguante, mostrando que la nube de testigos fieles que nos precedieron cumplió su carrera sin recibir lo prometido, y aun así permaneció fiel.",
+    "Santiago es como el libro de Proverbios de las Escrituras Griegas Cristianas: intensamente práctico, arraigado en la vida diaria e impaciente con la religión que no produce ningún cambio visible. Su insistencia en que la fe genuina se expresa en acción (cuidar a los pobres, dominar la lengua, orar por los enfermos) protege contra un cristianismo abstracto que se queda cómodamente dentro de la cabeza.",
+    "1 Pedro fue escrita para cristianos que experimentaban el impacto inicial de la persecución romana organizada. Su sostenido argumento —de que sufrir por la justicia no es una aberración sino una marca del discipulado genuino— la ha hecho la carta de referencia para los testigos de Jehová en países donde enfrentan prohibición legal y encarcelamiento por su fe.",
+    "La escalera de cualidades cristianas de 2 Pedro (1:5–7) ofrece la descripción más sistemática en las Escrituras del desarrollo espiritual progresivo que Jehová espera. Su advertencia sobre los falsos maestros 'que silenciosamente introducirán sectas destructivas' (2:1) es especialmente relevante en una época en que el contenido digital hace que el material apóstata sea instantáneamente accesible a cualquier miembro de la congregación.",
+    "1 Juan ofrece la explicación más clara de cómo se ve en la práctica el amor cristiano genuino: no como sentimientos cálidos sino como obediencia activa a los mandamientos de Jehová. Su declaración 'Dios es amor' (4:8) es el fundamento teológico del que fluyen todas las demás cualidades de Jehová, y sus tres pruebas prácticas protegen a las congregaciones tanto de la laxitud moral como de la doctrina falsa.",
+    "Aunque son solo 13 versículos, 2 Juan entrega un principio crítico que los testigos de Jehová aplican de manera práctica: mantener una hospitalidad cálida y amorosa dentro de la congregación al tiempo que se retiene firmemente de quienes niegan el rescate o promueven doctrinas falsas. Este equilibrio —amor con discernimiento— protege tanto a individuos como a congregaciones de la contaminación espiritual.",
+    "3 Juan aborda la peligrosa tendencia hacia la autopromoción dentro de la congregación mediante el contraste entre los ejemplos de Gayo (hospitalario, humilde) y Diótrefes (importante, divisivo). El principio de que quienes 'gustan de tener el primer lugar' perturban la congregación se aplica en cada generación y sigue guiando la manera en que el pueblo de Jehová reconoce y aborda tales tendencias.",
+    "Judas se escribió exactamente para la situación que enfrenta toda congregación cuando surgen apóstatas dentro: aquellos que usan la bondad de Jehová como licencia para conducta relajada y que desprecian toda autoridad. Sus prescripciones prácticas para la autoprotección (edificar la fe, orar, permanecer en el amor de Jehová) y para ayudar a los atraídos por la apostasía siguen siendo guía vital para los ancianos de congregación y para los individuos por igual.",
+    "Revelación provee al pueblo de Jehová la panorámica definitiva del final de la historia: no como fuente de misterio o miedo, sino como fuente de confianza duradera. Su mensaje repetido a 'vencer' y su promesa final de 'enjugar toda lágrima' han sostenido a los testigos de Jehová a través de la más severa persecución. El libro asegura que el Reino de Jehová eliminará toda fuente de sufrimiento y que el propósito de Jehová para la tierra se realizará plenamente."
+  ]
 }

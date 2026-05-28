@@ -10,6 +10,7 @@ function bookToSlug(name: string) {
 export const revalidate = 3600; // regenerate hourly
 
 const BASE = "https://jwstudy.org";
+const HOME_URL = `${BASE}/`;
 
 // Build sitemap with whatever Supabase data is reachable. If env vars are
 // missing (Vercel preview without the project secrets) we emit a static-only
@@ -38,7 +39,7 @@ export default async function sitemap() {
   // to "now" — that would tell crawlers every page is fresh on every regen and
   // they'd deprioritize the crawl budget when nothing real had changed.
   const staticPages = [
-    { url: `${BASE}`,                      lastModified: new Date("2026-04-28") },
+    { url: HOME_URL,                       lastModified: new Date("2026-04-28") },
     { url: `${BASE}/blog`,                 get lastModified() { return blogIndexLastModified; } },
     { url: `${BASE}/songs`,                get lastModified() { return songsIndexLastModified; } },
     { url: `${BASE}/study-topics`,         lastModified: new Date("2026-04-28") },
