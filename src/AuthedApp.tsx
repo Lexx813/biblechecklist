@@ -96,7 +96,7 @@ function Page({ children, noFooter = false }) {
 const VALID_PAGES = ["readingPlans", "studyNotes", "quiz", "forum", "blog", "main", "friends", "friendRequests"];
 
 // Module-level so useState initializers can reference it synchronously
-const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "masterQuiz", "masterQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "myPosts", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "publicProfile", "main", "groups", "groupDetail", "videos", "videoDetail", "friendRequests", "bookDetail", "studyTopicDetail", "history", "trivia", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy", "bookmarks", "learn", "feed", "support"]);
+const HOME_PANELS = new Set(["quiz", "quizLevel", "advancedQuiz", "advancedQuizLevel", "masterQuiz", "masterQuizLevel", "leaderboard", "familyQuiz", "forum", "blog", "myPosts", "readingPlans", "studyNotes", "meetingPrep", "friends", "admin", "profile", "publicProfile", "main", "groups", "groupDetail", "videos", "videoDetail", "friendRequests", "bookDetail", "studyTopicDetail", "history", "trivia", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy", "bookmarks", "learn", "feed", "community", "support"]);
 
 function toPanelKey(page: string) {
   if (page === "quizLevel") return "quiz";

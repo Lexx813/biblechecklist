@@ -3598,5 +3598,2126 @@
   },
   "createPost": {
     "addToPost": "Ongeza kwenye chapisho lako"
-  }
+  },
+  "bookAuthors": [
+    "Musa",
+    "Musa",
+    "Musa",
+    "Musa",
+    "Musa",
+    "Yoshua (na wengine)",
+    "Samweli (yawezekana)",
+    "Samweli (yawezekana)",
+    "Samweli / Nathani / Gadi",
+    "Nathani / Gadi",
+    "Yeremia (yawezekana)",
+    "Yeremia (yawezekana)",
+    "Ezra",
+    "Ezra",
+    "Ezra",
+    "Nehemia",
+    "Haijulikani",
+    "Haijulikani (labda Musa)",
+    "Daudi, Asafu, Wana wa Kora, na wengine",
+    "Sulemani na wengine",
+    "Sulemani (Mhubiri)",
+    "Sulemani",
+    "Isaya",
+    "Yeremia",
+    "Yeremia",
+    "Ezekieli",
+    "Danieli",
+    "Hosea",
+    "Yoeli",
+    "Amosi",
+    "Obadia",
+    "Yona",
+    "Mika",
+    "Nahumu",
+    "Habakuki",
+    "Sefania",
+    "Hagai",
+    "Zekaria",
+    "Malaki",
+    "Mathayo (mtume)",
+    "Yohana Marko",
+    "Luka (daktari)",
+    "Yohana (mtume)",
+    "Luka (daktari)",
+    "Paulo",
+    "Paulo",
+    "Paulo",
+    "Paulo",
+    "Paulo",
+    "Paulo",
+    "Paulo",
+    "Paulo",
+    "Paulo",
+    "Paulo",
+    "Paulo",
+    "Paulo",
+    "Paulo",
+    "Paulo (yawezekana)",
+    "Yakobo (ndugu wa Yesu)",
+    "Petro",
+    "Petro",
+    "Yohana (mtume)",
+    "Yohana (mtume)",
+    "Yohana (mtume)",
+    "Yuda (ndugu wa Yesu)",
+    "Yohana (mtume)"
+  ],
+  "bookDates": [
+    "karibu mwaka 1440 K.W.K.",
+    "karibu mwaka 1440 K.W.K.",
+    "karibu mwaka 1440 K.W.K.",
+    "karibu mwaka 1440 K.W.K.",
+    "karibu mwaka 1406 K.W.K.",
+    "karibu mwaka 1380 K.W.K.",
+    "karibu mwaka 1050 K.W.K.",
+    "karibu mwaka 1050 K.W.K.",
+    "karibu mwaka 1000 K.W.K.",
+    "karibu mwaka 960 K.W.K.",
+    "karibu mwaka 550 K.W.K.",
+    "karibu mwaka 550 K.W.K.",
+    "karibu mwaka 430 K.W.K.",
+    "karibu mwaka 430 K.W.K.",
+    "karibu mwaka 450 K.W.K.",
+    "karibu mwaka 430 K.W.K.",
+    "karibu mwaka 480 K.W.K.",
+    "karibu mwaka 1500 K.W.K. (mazingira)",
+    "karibu mwaka 1000–430 K.W.K.",
+    "karibu mwaka 950 K.W.K.",
+    "karibu mwaka 935 K.W.K.",
+    "karibu mwaka 965 K.W.K.",
+    "karibu mwaka 740–700 K.W.K.",
+    "karibu mwaka 626–586 K.W.K.",
+    "karibu mwaka 586 K.W.K.",
+    "karibu mwaka 593–571 K.W.K.",
+    "karibu mwaka 605–535 K.W.K.",
+    "karibu mwaka 755–715 K.W.K.",
+    "karibu mwaka 835 K.W.K. (au miaka ya 400)",
+    "karibu mwaka 760 K.W.K.",
+    "karibu mwaka 586 K.W.K.",
+    "karibu mwaka 793–753 K.W.K.",
+    "karibu mwaka 737–696 K.W.K.",
+    "karibu mwaka 663–612 K.W.K.",
+    "karibu mwaka 609–605 K.W.K.",
+    "karibu mwaka 640–621 K.W.K.",
+    "karibu mwaka 520 K.W.K.",
+    "karibu mwaka 520–480 K.W.K.",
+    "karibu mwaka 430 K.W.K.",
+    "karibu mwaka 50–60 W.K.",
+    "karibu mwaka 55–65 W.K.",
+    "karibu mwaka 60–62 W.K.",
+    "karibu mwaka 85–95 W.K.",
+    "karibu mwaka 62 W.K.",
+    "karibu mwaka 57 W.K.",
+    "karibu mwaka 55 W.K.",
+    "karibu mwaka 55–56 W.K.",
+    "karibu mwaka 49 W.K.",
+    "karibu mwaka 60–61 W.K.",
+    "karibu mwaka 60–61 W.K.",
+    "karibu mwaka 60–61 W.K.",
+    "karibu mwaka 50 W.K.",
+    "karibu mwaka 51 W.K.",
+    "karibu mwaka 61–64 W.K.",
+    "karibu mwaka 65 W.K.",
+    "karibu mwaka 61–64 W.K.",
+    "karibu mwaka 60–61 W.K.",
+    "karibu mwaka 61 W.K.",
+    "karibu mwaka 62 W.K.",
+    "karibu mwaka 62–64 W.K.",
+    "karibu mwaka 64 W.K.",
+    "karibu mwaka 98 W.K.",
+    "karibu mwaka 98 W.K.",
+    "karibu mwaka 98 W.K.",
+    "karibu mwaka 65 W.K.",
+    "karibu mwaka 96 W.K."
+  ],
+  "bookHighlights": [
+    [
+      "Simulizi la uumbaji: Yehova anaumba mbingu, dunia, na uhai wote katika siku sita za uumbaji, akimalizia na wanadamu walioumbwa kwa mfano wake (1:1–2:25)",
+      "Anguko: Shetani, akitumia nyoka, anamdanganya Hawa; unabii wa kwanza katika 3:15 unatabiri kuponda Shetani kupitia Mzao alioahidiwa",
+      "Gharika: Utii wa Nuhu mwaminifu unahifadhi wanadamu na uhai wa wanyama huku uovu ukihukumiwa (6–9)",
+      "Mnara wa Babeli: Kiburi cha wanadamu kinaongoza kwenye mgawanyiko wa lugha na kutawanyika kwa watu duniani kote (11:1–9)",
+      "Agano la Abrahamu: Yehova anamwita Abramu na kuanzisha agano akiahidi mzao ambaye kupitia kwake mataifa yote yatabarikiwa (12–22)",
+      "Yosefu nchini Misri: Licha ya kusalitiwa na utumwa, Yehova anamhifadhi Yosefu na kumtumia kuokoa familia yake yote (37–50)"
+    ],
+    [
+      "Kuzaliwa na mwito wa Musa: Akihifadhiwa akiwa mtoto, Musa anakutana na Yehova kwenye kichaka kinachowaka na kujifunza jina la Mungu (1–4)",
+      "Mapigo kumi juu ya Misri: Yehova anahukumu kila mungu wa Misri, akionyesha ukuu wake juu ya ibada yote ya uongo (7–12)",
+      "Pasaka na Kutoka: Israeli inahifadhiwa kwa damu ya mwana-kondoo, kisha inaondoka Misri kimuujiza baada ya miaka 430 (12–14)",
+      "Kuvuka Bahari ya Shamu: Yehova anagawanya bahari, akiokoa Israeli na kuangamiza jeshi la Farao (14:21–31)",
+      "Agano la Sheria katika Sinai: Yehova anatoa Amri Kumi na sheria, akianzisha Israeli kuwa taifa lake la pekee (19–24)",
+      "Maskani: Maagizo ya kina ya kujenga makao ya Yehova kati ya watu wake (25–40)"
+    ],
+    [
+      "Mfumo wa dhabihu: Aina tano za matoleo (kuteketezwa, nafaka, ushirika, dhambi, hatia) zinaeleza jinsi Israeli ilivyomkaribia Yehova (1–7)",
+      "Kuwekwa wakfu kwa ukuhani: Haruni na wanawe wanatiwa mafuta na kuwekwa wakfu kwa utumishi wa Kilawi (8–9)",
+      "Nadabu na Abihu: Moto wao usioidhinishwa mbele ya Yehova unaonyesha kwamba ibada safi lazima ifuate maagizo ya Yehova kwa usahihi (10)",
+      "Sheria za usafi na damu: Utakatifu wa damu (17:11) unaweka msingi wa marufuku ya kula damu, bado ni wajibu kwa Wakristo",
+      "Siku ya Upatanisho: Sherehe ya kila mwaka ya kusafisha inaashiria dhabihu bora ya Yesu Kristo kama Kuhani Mkuu (16)",
+      "Mwaka wa Jubilei: Kila mwaka wa 50, madeni yalifutwa na watumwa kuachiliwa — picha ya mpango mkubwa wa Yehova wa ukombozi (25)"
+    ],
+    [
+      "Sensa na shirika: Israeli inahesabiwa na kupangwa kwa kabila kuzunguka maskani, ikionyesha Yehova anathamini utaratibu katika ibada (1–4)",
+      "Misheni ya wapelelezi Kanaani: Kumi kati ya wapelelezi kumi na wawili wanatoa ripoti isiyo na imani; kutokuamini kwa taifa kunaongoza kwa miaka 40 ya kutangatanga jangwani (13–14)",
+      "Uasi wa Kora: Kora, Dathani, na Abiramu wanapinga mamlaka ya Musa na kumezwa na dunia, wakihalalisha uteuzi wa Yehova (16)",
+      "Nyoka wa shaba: Waisraeli walioumwa na nyoka wanaponywa kwa kuangalia nyoka wa shaba — mfano Yesu alioutumia juu yake mwenyewe (21:4–9; Yohana 3:14)",
+      "Maneno ya Balaamu: Akiajiriwa kulaani Israeli, Balaamu anaweza tu kuwabariki, akithibitisha kwamba hakuna anayeweza kuzuia kusudi la Yehova (22–24)",
+      "Bidii ya Finehasi: Hatua yake ya uamuzi dhidi ya uasherati inakomesha pigo na kupata 'agano la amani' kutoka kwa Yehova (25)"
+    ],
+    [
+      "Hotuba ya kwanza ya Musa: Anapitia miaka 40 ya historia ya jangwani na kueleza ni kwa nini kizazi kile kilishindwa (1–4)",
+      "Shema na amri kuu: Yehova ni mmoja; Israeli lazima impende kwa moyo wote, nafsi yote, na nguvu zote (6:4–9)",
+      "Maonyo kuhusu ufanisi: Israeli inaonywa isimsahau Yehova wanaposhamiri katika nchi (8)",
+      "Nabii kama Musa: Yehova anaahidi kuinua nabii kutoka miongoni mwa Israeli — kutimizwa katika Yesu Kristo (18:15–19)",
+      "Baraka na laana: Masharti ya kina ya agano — utii unaleta baraka, kutotii kunaleta hukumu (28)",
+      "Wimbo wa kuaga wa Musa na kifo chake: Musa anaifundisha Israeli wimbo wa onyo, anabariki makabila, na kufa juu ya Mlima Nebo akiwa na umri wa miaka 120 (31–34)"
+    ],
+    [
+      "Kuvuka Yordani: Yehova anasimamisha mtiririko wa Yordani ili Israeli ivuke kwenye ardhi kavu, ikiakisi muujiza wa Bahari ya Shamu (3–4)",
+      "Rahabu na wapelelezi: Imani ya Rahabu inaokoa nyumba yake na kumpa nafasi katika ukoo wa Masihi (2; 6:22–25)",
+      "Anguko la Yeriko: Kuta zinaanguka kwa amri ya Yehova baada ya Israeli kuandamana siku saba — ushindi ni wake (6)",
+      "Dhambi ya Akani: Tamaa ya mtu mmoja inaleta kushindwa katika Ai, ikionyesha jinsi dhambi ya mtu mmoja inavyoathiri jamii yote (7)",
+      "Kufanya upya agano huko Shekemu: Yoshua anaongoza taifa katika kujitoa upya kumtumikia Yehova peke yake (24)",
+      "Kila ahadi ilitimizwa: Andiko linasema waziwazi 'hakuna neno lililoshindwa kati ya ahadi zote nzuri ambazo Yehova alikuwa amesema' (21:45)"
+    ],
+    [
+      "Mzunguko unaorudiwa: Dhambi → ukandamizaji → kulia → Yehova anainua mwamuzi → ukombozi → amani → unarudia (2:11–19)",
+      "Debora na Baraka: Mwanamke mwamuzi na jenerali wanashinda jeshi la Sisera; Yaeli anamuua Sisera kwa kigingi cha hema (4–5)",
+      "Wanaume 300 wa Gideoni: Yehova anapunguza jeshi la Israeli kutoka 32,000 hadi 300 ili ushindi uwe wazi wake (7)",
+      "Kiapo cha Yefta: Kiapo chake cha haraka kina matokeo ya kudumu; binti yake anaitimiza kwa unyenyekevu wa imani (11)",
+      "Samsoni: Nguvu kubwa za mwili, lakini udhaifu kwa wanawake wa kigeni hatimaye unaongoza kwa utumwa na kifo (13–16)",
+      "Machafuko ya kimaadili: Sura za mwisho zinaandika vita vya wenyewe kwa wenyewe vya kikabila na unyanyasaji wa kingono, zikionyesha matokeo ya 'kila mtu kufanya yaliyo sawa machoni pake' (21:25)"
+    ],
+    [
+      "Uaminifu wa Ruthu: Baada ya kifo cha mumewe, Ruthu anakataa kumwacha Naomi, akitangaza 'Mungu wako atakuwa Mungu wangu' — akimchagua Yehova badala ya urithi wake wa Moabu (1)",
+      "Kuokota katika shamba la Boazi: Sheria ya Yehova kwa maskini inamruhusu Ruthu kuokota, ambapo anavutia umakini wa Boazi (2)",
+      "Sakafu ya kupuria: Kwa maelekezo ya Naomi, Ruthu anamkaribia Boazi kama mkombozi wa familia anayewezekana (3)",
+      "Ukombozi wa kisheria: Boazi anakomboa mali ya Naomi na kumchukua Ruthu kuwa mke wake mbele ya wazee wa jiji langoni (4:1–12)",
+      "Kuzaliwa kwa Obedi: Ruthu anazaa mwana ambaye anakuwa babu wa Mfalme Daudi na babu wa Yesu Kristo (4:13–22)"
+    ],
+    [
+      "Sala ya Hana na kuzaliwa kwa Samweli: Sala ya Hana isiyokoma inashinda upendeleo wa Yehova; anaweka wakfu Samweli kwa utumishi wake (1–2)",
+      "Sanduku la agano latekwa: Israeli kulitumia Sanduku kama hirizi kunaleta kushindwa na hukumu ya Yehova juu ya familia ya Eli (4–6)",
+      "Israeli wanadai mfalme: Wakimkataa Yehova kama mfalme wao, Israeli wanaomba mtawala wa kibinadamu; Sauli anachaguliwa (8–10)",
+      "Kushindwa mara kwa mara kwa Sauli: Utii wa nusu wa Sauli katika kutoa dhabihu na suala la Waamaleki unafunua moyo wake hauko mwaminifu kabisa (13; 15)",
+      "Daudi atiwa mafuta kwa siri: Samweli anamtia mafuta Daudi wakati Sauli bado anatawala; Yehova anaangalia moyo (16)",
+      "Daudi na Goliathi: Akiwa na imani tu katika Yehova na kombeo, Daudi anamshinda jitu lililomdharau jeshi la Yehova (17)"
+    ],
+    [
+      "Daudi anakuwa mfalme: Baada ya kifo cha Sauli, Daudi anatiwa mafuta juu ya Israeli yote na anateka Yerusalemu, akiifanya mji mkuu wake (1–5)",
+      "Agano la Daudi: Yehova anamuahidi Daudi kwamba kiti chake cha enzi kitathibitishwa milele — unabii wa Kimasihi unaomwelekea Yesu Kristo (7)",
+      "Dhambi ya Daudi pamoja na Bathsheba: Uzinzi na mauaji vinafichua kanuni kwamba dhambi haijawahi kufichwa kwa Yehova (11–12)",
+      "Mfano wa Nathani: Matumizi ya hekima ya hadithi kumkabili Daudi bila shtaka la moja kwa moja yanaonyesha ushauri wa busara (12:1–14)",
+      "Uasi wa Absalomu: Kushindwa kwa Daudi kumtia nidhamu Absalomu kunaongoza kwa mapinduzi karibu kufanikiwa; Daudi anakimbia Yerusalemu (15–18)",
+      "Matendo ya mwisho ya Daudi: Daudi anaihesabu Israeli kwa kiburi, akileta pigo; baadaye anapata eneo la hekalu (24)"
+    ],
+    [
+      "Hekima ya Sulemani: Yehova anampa Sulemani hekima ya pekee; hukumu yake kuhusu wanawake wawili inaonyesha chanzo chake (3)",
+      "Ujenzi wa hekalu: Hekalu lenye fahari linajengwa katika miaka saba na linajaa utukufu wa Yehova kwenye kuwekwa wakfu kwake (5–8)",
+      "Kushuka kwa kiroho kwa Sulemani: Wake wa kigeni wanaugeuza moyo wa Sulemani kwa miungu ya uongo, akionyesha kwamba hakuna mtu aliye salama dhidi ya kuathiriwa kiroho (11)",
+      "Kugawanyika kwa ufalme: Jibu kali la Rehoboamu kwa ombi la watu linagawanya ufalme kuwa Israeli (kaskazini) na Yuda (kusini) (12)",
+      "Eliya dhidi ya manabii wa Baali: Pambano la Mlima Karmeli linathibitisha kwamba Yehova peke yake ndiye Mungu; moto kutoka mbinguni unateketeza dhabihu (18)",
+      "Sauti tulivu, ya chini: Baada ya ushindi mkubwa, Eliya aliyevunjika moyo anaburudishwa na Yehova kwa chakula, mapumziko, na kuhakikishiwa kwa upole (19)"
+    ],
+    [
+      "Kuchukuliwa kwa Eliya: Akichukuliwa katika tufani, Eliya anampita Elisha vazi lake la unabii, ambaye kisha anafanya miujiza mara mbili zaidi (2)",
+      "Huduma ya Elisha: Miujiza ya Elisha — kuzidisha mafuta, kumfufua mwana wa Mshunamiti, kumponya Naamani — inaonyesha nguvu na rehema ya Yehova (4–7)",
+      "Imani ya Hezekia: Akiwa amezungukwa na jeshi la Ashuru la 185,000, Hezekia anasali na malaika wa Yehova anaangamiza jeshi lote usiku mmoja (18–19)",
+      "Marekebisho ya Yosia: Kupatikana kwa kitabu cha Yehova kunaanzisha marekebisho ya kidini yaliyokuwa makubwa zaidi katika historia ya Yuda (22–23)",
+      "Anguko la Israeli: Ufalme wa kaskazini unaanguka kwa Ashuru mnamo 740 K.W.K. kwa sababu ya ibada inayoendelea ya Baali na kumkataa manabii wa Yehova (17)",
+      "Anguko la Yerusalemu: Babeli inaharibu Yerusalemu na hekalu mnamo 607 K.W.K., kutimiza maonyo ya Yehova kupitia manabii wake (25)"
+    ],
+    [
+      "Nasaba kutoka Adamu: Nasaba pana kutoka Adamu kupitia makabila kumi na mawili inaweka ukoo wa Daudi katika muktadha wa kusudi lote la Yehova (1–9)",
+      "Daudi anateka Yerusalemu: Daudi anauteka mji na kuufanya kitovu cha kiroho na kisiasa cha watu wa Yehova (11)",
+      "Sanduku linaletwa Yerusalemu: Jaribio la pili lililofanywa kwa uangalifu la kuleta Sanduku linafanikiwa; Daudi anaongoza sherehe na kucheza na muziki (15–16)",
+      "Hamu ya Daudi ya kujenga hekalu: Ingawa Yehova anampa Sulemani kazi ya ujenzi, Daudi anakusanya rasilimali nyingi kujiandaa (17; 22; 28–29)",
+      "Mpangilio wa makuhani na Walawi: Daudi anaweka mgawanyiko ulioandaliwa wa ibada, muziki, ulinzi wa milango, na utawala wa hazina (23–27)",
+      "Wito wa mwisho wa Daudi: Mahubiri ya hadharani ya Daudi kwa Sulemani na watu kuwa wakamilifu mbele ya Yehova (28–29)"
+    ],
+    [
+      "Hekalu la Sulemani linakamilika: Kuwekwa wakfu kwa hekalu, sala ya Sulemani, na utukufu wa Yehova kujaza jengo vinaashiria kilele cha ibada ya Israeli (5–7)",
+      "Ahadi ya Yehova kwa Sulemani: 'Ikiwa watu wangu...watajinyenyekeza na kusali...nitasamehe dhambi yao na kuiponya nchi yao' (7:14)",
+      "Mgogoro wa Yehoshafati: Akizidiwa idadi na jeshi kubwa, Yehoshafati anasali, na Yehova anamwambia 'vita si yako, bali ni ya Mungu' (20)",
+      "Marekebisho ya kiroho: Wafalme Asa, Yehoshafati, Hezekia, na Yosia wanaongoza usafishaji mpana wa ibada ya uongo, kila mmoja akipokea baraka ya Yehova (14–15; 29–32; 34–35)",
+      "Yerusalemu inaanguka: Licha ya maonyo mara kwa mara, ukaidi unaoendelea wa Yuda unaongoza kwa Babeli kuharibu hekalu na mji (36)",
+      "Tangazo la Koreshi: Kitabu kinaisha na Koreshi akiruhusu wahamiwa kurudi — kutimiza unabii wa Yeremia kwa mwaka kamili (36:22–23)"
+    ],
+    [
+      "Kurudi kwa kwanza chini ya Zerubabeli: Karibu wahamiwa 50,000 wanarudi Yerusalemu; wanaanza kwa kujenga upya madhabahu kwa Yehova (1–3)",
+      "Ujenzi wa hekalu unapingwa: Maadui wanafanikiwa kusimamisha ujenzi kwa miaka 16 kwa kuandika barua kwa korti ya Uajemi (4)",
+      "Hagai na Zekaria wanachochea kazi: Kutia moyo kwa kinabii kunaanzisha tena ujenzi; unakamilika mnamo 516 K.W.K. (5–6)",
+      "Kurudi kwa Ezra: Kuhani-mwandishi Ezra anaongoza kundi la pili la kurudi, akiwa na mamlaka ya kuanzisha Sheria ya Yehova huko Yerusalemu (7–8)",
+      "Sala ya Ezra ya kukiri: Akigundua ndoa za mchanganyiko zilizoenea, Ezra anasali sala ya dhati ya kukiri kitaifa (9)",
+      "Marekebisho ya kiroho: Ndoa za mchanganyiko zinavunjwa katika kusanyiko la kusikitisha; watu wa Yehova wanajitoa upya kwa agano lake (10)"
+    ],
+    [
+      "Sala na misheni ya Nehemia: Baada ya kusikia kuta za Yerusalemu zimevunjika, Nehemia anasali kisha anamwomba Artashasta ruhusa ya kujenga upya (1–2)",
+      "Ukuta ulijengwa upya katika siku 52: Licha ya dhihaka na vitisho kutoka kwa Sanbalati na Tobia, Nehemia anaandaa watu na kukamilisha kuta (3–6)",
+      "Ukosefu wa haki wa kiuchumi unashughulikiwa: Nehemia anawakabili wakuu wanaotoza riba ya juu na kuwalazimisha kurudisha walichochukua (5)",
+      "Ezra anasoma Sheria: Katika kusanyiko kubwa la hadharani, Ezra anasoma Sheria ya Yehova kwa sauti kwa masaa sita; watu wanalia kwa uelewa na kusherehekea (8)",
+      "Agano linatiwa saini: Watu wanaweka kwa maandishi kujitolea kwao kushika Sheria ya Yehova, ikiwa ni pamoja na Sabato na zaka (9–10)",
+      "Muhula wa pili wa Nehemia: Akirudi baada ya kutokuwepo, Nehemia anapata dhuluma mbalimbali zimerudi na anachukua hatua za kurekebisha (13)"
+    ],
+    [
+      "Esta anakuwa malkia: Esta mzuri anachaguliwa kama malkia na Mfalme Ahasuero, akificha utambulisho wake wa Kiyahudi kwa maelekezo ya Mordekai (1–2)",
+      "Njama ya Hamani: Hamani mwenye kiburi, akiwa amekasirishwa na Mordekai kukataa kuinama, anapata amri ya kifalme ya kuwaangamiza Wayahudi wote (3)",
+      "Changamoto ya Mordekai: 'Ni nani ajuaye kama umefikia cheo cha kifalme kwa wakati kama huu?' (4:14)",
+      "Mtazamo wa ujasiri wa Esta: Akihatarisha kifo, Esta anamkaribia mfalme bila kualikwa na kumwalika yeye na Hamani kwenye karamu (5)",
+      "Anguko la Hamani: Kiburi cha Hamani kinafikia kilele anapomwandalia Mordekai mti; mfalme anaamuru Hamani aning'inizwe juu yake (6–7)",
+      "Ukombozi wa Wayahudi: Esta anapata amri inayoondoa; Wayahudi wanajilinda na kusherehekea kwa sikukuu ya Purimu (8–9)"
+    ],
+    [
+      "Mazingira ya mbinguni: Shetani anapinga kwamba Ayubu anamtumikia Yehova kwa sababu za kimwili tu; Yehova anamruhusu Shetani amjaribu (1–2)",
+      "Uadilifu wa Ayubu chini ya hasara kubwa: Ayubu anapoteza watoto wake, mali, na afya kwa haraka, lakini anakataa kumlaani Yehova (1:21; 2:10)",
+      "Ushauri uliokosea wa marafiki watatu: Elifazi, Bildadi, na Sofari wanasisitiza kuteseka kunaonyesha dhambi iliyofichika daima — faraja ya uongo na ya kikatili (3–31)",
+      "Mchango wa Elihu: Mzungumzaji mdogo zaidi anatoa mtazamo wa kina zaidi, akisisitiza kusudi la kufundisha la Yehova katika mateso (32–37)",
+      "Yehova anaongea kutoka tufani: Maswali yasiyojibika kuhusu uumbaji yanamnyenyekesha Ayubu na kupanua uelewa wake wa hekima ya Yehova (38–41)",
+      "Kurejeshwa kwa Ayubu: Yehova anamrudishia Ayubu mara mbili ya yale aliyopoteza na kuwakemea marafiki watatu kwa kumtia uongo (42)"
+    ],
+    [
+      "Zaburi za kifalme zinasherehekea ufalme wa Yehova na zinatabiri Mfalme wa Kimasihi: Zaburi 2, 45, 72, 110",
+      "Zaburi za maombolezo zinaonyesha sala ya kweli kupitia mateso na shaka: Zaburi 22, 42, 88",
+      "Zaburi za sifa zinafundisha ibada ya kutaniko na ya kibinafsi: Zaburi 8, 19, 100, 145, 150",
+      "Zaburi 119 — sura ndefu zaidi katika Biblia — imejitolea kabisa kwa uzuri na thamani ya sheria ya Yehova (mistari 176)",
+      "Zaburi za Kimasihi zinatoa maelezo sahihi yaliyotimizwa na Yesu: mikono iliyochomwa (22:16), hakuna mfupa uliovunjwa (34:20), kusalitiwa kwa vipande 30 (41:9; 109:8)",
+      "Zaburi 83:18 inasema waziwazi kwamba Yehova peke yake ndiye 'Aliye Juu Zaidi juu ya dunia yote' — msingi wa uelewa wa jina la Mungu"
+    ],
+    [
+      "Hekima inawakilishwa kibinadamu: Sura 1–9 zinaihuisha hekima ikiita mitaani, ikiwaalika walio wajinga kuchagua uzima badala ya ujinga",
+      "Kumcha Yehova kama msingi: Hekima yote ya kweli huanza na hofu ya kicho kwa Yehova (1:7; 9:10)",
+      "Mithali kuhusu hotuba: Ushauri pana juu ya hotuba ya kweli, ya fadhili, na ya wakati dhidi ya ulimi unaoharibu (10–15; 18:21)",
+      "Moyo juu ya muonekano wa nje: Yehova anauona na kuupima moyo (21:2); uadilifu wa kibinafsi unahusu zaidi kuliko sifa",
+      "Maonyo dhidi ya uasherati: Mzinifu na mwanamke mgeni ni maonyo wazi ya kifasihi dhidi ya kuathiriwa kimaadili (5–7)",
+      "Mke mwenye uwezo: Mithali 31:10–31 inasherehekea mwanamke wa tabia ya bidii, hekima, na kumcha Mungu kama mfano bora"
+    ],
+    [
+      "Jaribio la Sulemani: Mhubiri anajaribu hekima, raha, utajiri, na mafanikio kupata maana ya maisha — yote yanaonekana ya bure bila Yehova (1–2)",
+      "Nyakati na majira: 'Kuna wakati kwa kila kusudi chini ya mbingu' inaita kumtumaini Yehova badala ya jitihada za wasiwasi (3:1–8)",
+      "Wafu hawajui chochote: Maelezo wazi juu ya hali ya kutojua ya wafu yanaunga mkono tumaini la ufufuo (9:5, 10)",
+      "Matumizi mabaya ya dini: Ibada tupu, ya mila 'ambayo Yehova hathamini' inalinganishwa na heshima ya kweli ya neno lake (5:1–7)",
+      "Vijana na Muumba: 'Mkumbuke Muumba wako katika siku za ujana wako' — kabla mizigo ya maisha haijafanya utumishi wa moyo wote uwe mgumu (12:1)",
+      "Hitimisho kamili: Baada ya uchunguzi wote, kusudi pekee la kudumu ni kumcha Yehova na kushika amri zake (12:13–14)"
+    ],
+    [
+      "Uaminifu wa Mshulami: Msichana wa shamba anabaki mwaminifu kwa mpenzi wake mchungaji licha ya utajiri na mvuto wa korti ya Sulemani (1–3)",
+      "Mtazamo wa pande zote: Mume na mke kila mmoja anaelezea kwa upendo uzuri wa mwenzake — mfano wa shukrani ya kupendeza, ya maneno katika ndoa (4–5)",
+      "Nguvu ya upendo: 'Upendo una nguvu kama kifo...moto wake ni moto wa Yah' — upendo kati ya mume na mke unaakisi mpangilio wa Yehova (8:6–7)",
+      "Sauti ya mpendwa: Hamu ya Mshulami ya kurudi kwa mume wake inaonyesha tamaa ya kujitolea ya uhusiano wa moyo wote (2:8–14)",
+      "Wivu unaelezewa: 'Wivu ni mgumu kama Kaburi' — onyo kwamba hisia hii yenye nguvu lazima ilindwe ndani ya mipaka ya ndoa (8:6)"
+    ],
+    [
+      "Wito wa Isaya: Maono ya kiti cha enzi cha mbinguni cha Yehova na maserafi wakiita 'mtakatifu, mtakatifu, mtakatifu' yanaongoza kwa wito wa Isaya wenye nia (6)",
+      "Unabii wa Imanueli: 'Tazama, msichana atashika mimba na kuzaa mwana na kumwita Imanueli' (7:14) — kutimizwa katika kuzaliwa kwa Yesu",
+      "Nyimbo za Mtumishi anayeteseka: Nyimbo nne (42; 49; 50; 52–53) zinaelezea kwa usahihi wa ajabu huduma ya Masihi na kifo cha upatanisho",
+      "Faraja kwa wahamiwa: 'Usiogope, kwa maana mimi ni pamoja nawe' na 'wanaomngojea Yehova watapata nguvu mpya' (40:28–31; 41:10; 43:1–5)",
+      "Yehova dhidi ya sanamu: Dhihaka kali juu ya ibada ya sanamu inalinganisha Mungu Muumba na vipande vya mbao vilivyochongwa (44:9–20; 46:1–7)",
+      "Ahadi za ulimwengu mpya: Amani chini ya Ufalme wa Yehova, ambapo 'mbwa-mwitu atakaa pamoja na mwana-kondoo' na kifo hakitakuwepo (65:17–25; 25:8)"
+    ],
+    [
+      "Wito wa Yeremia: Kabla ya kuzaliwa Yehova alimjua; licha ya nabii kuonyesha ukosefu wa uzoefu, anateuliwa kama nabii kwa mataifa (1)",
+      "Hubiri la hekalu: Yeremia anahubiri kwa ujasiri kwenye lango la hekalu kwamba si ulinzi ikiwa watu hawamtii Yehova — litaharibiwa kama Shilo (7; 26)",
+      "Nyumba ya mfinyanzi: Yehova anaonyesha haki yake ya enzi kuu ya kuumba upya taifa lolote linalojibu kwa neno lake (18)",
+      "Mateso ya Yeremia: Akifungwa, kutupwa katika kisima, kushtakiwa kwa uhaini — Yeremia anastahimili kupitia mateso makubwa zaidi kuliko nabii yeyote wa Kiebrania (37–38)",
+      "Barua kwa wahamiwa: Kutoka Babeli, Yeremia anaandika kuwatia moyo wafungwa kujenga, kupanda, na kutafuta amani ya jiji (29)",
+      "Ahadi ya agano jipya: Yehova ataandika Sheria yake mioyoni — mpangilio bora ulioongozwa na Yesu Kristo (31:31–34)"
+    ],
+    [
+      "Maombolezo ya kwanza: Yerusalemu inawakilishwa kama mjane aliyetelekezwa; jiji linaomboleza uharibifu wake na kutawanyika kwa watu wake (1)",
+      "Hasira ya haki ya Yehova: Mshairi anakubali kwamba uharibifu wa Yerusalemu ulitokana na dhambi zake mwenyewe — hukumu ya Yehova ilikuwa ya haki (2)",
+      "Shairi kuu: 'Upendo wa uaminifu wa Yehova haukomi; rehema zake hazikomi; zinafanywa upya kila asubuhi' — nanga ya tumaini katika huzuni kubwa ya kitabu (3:22–23)",
+      "Wito wa kujichunguza: 'Tuchunguze na tutafute njia zetu, na turudi kwa Yehova' (3:40) — jibu sahihi kwa nidhamu ya Yehova",
+      "Kukiri kitaifa: Mashairi ya nne na ya tano yanakiri dhambi zilizoleta uharibifu na kuomba urejesho wa Yehova (4–5)",
+      "Muundo wa akrostiki: Mashairi manne kati ya matano ni ya akrostiki (kila mstari unaanza na herufi za alfabeti ya Kiebrania), ukionyesha ufundi wa makini wa kifasihi"
+    ],
+    [
+      "Maono ya kiti cha enzi-gari: Maono ya kuvutia ya viumbe vinne wenye uhai, magurudumu, na kiti cha enzi cha Yehova yanaweka enzi kuu yake kabisa (1–3)",
+      "Ezekieli kama mlinzi: Yehova anamteua kama mlinzi ambaye jukumu lake ni kuonya — likionyesha jukumu la watumishi wote wa Yehova kuhubiri (3; 33)",
+      "Kuondoka kwa utukufu wa Yehova: Hatua kwa hatua, utukufu wa Yehova unaondoka katika hekalu na jiji vinavyooza kabla ya uharibifu wake (10–11)",
+      "Uwajibikaji wa kibinafsi: 'Nafsi inayotenda dhambi itakufa' — kila mtu ana jukumu la kibinafsi kwa chaguo lake mbele ya Yehova (18)",
+      "Bonde la mifupa mikavu: Maono yenye nguvu ya ufufuo yanatabiri urejesho wa kimwili wa Israeli na ufufuo wa baadaye wa wafu (37)",
+      "Maono ya hekalu la baadaye: Vipimo vya kina vya hekalu bora vinaelezea mfano wa ibada safi kwa viwango vya Yehova (40–48)"
+    ],
+    [
+      "Uadilifu wa Danieli kuhusu chakula: Katika korti ya kifalme ya Babeli, Danieli na wenzake wanakataa chakula cha mfalme na wanakuwa na afya bora (1)",
+      "Ndoto ya sanamu ya Nebukadneza: Sanamu kubwa inayowakilisha falme za ulimwengu zilizofuatana inapigwa na jiwe — Ufalme wa Yehova — linalojaza dunia (2)",
+      "Tanuru la moto: Shadraka, Meshaki, na Abednego wanakataa kuinama mbele ya sanamu ya dhahabu ya Nebukadneza; Yehova anawaokoa (3)",
+      "Maandishi ukutani: Belshaza ananajisi vyombo vya hekalu kwenye karamu; maandishi ya ajabu yanatangaza anguko la Babeli usiku huo huo (5)",
+      "Pango la simba: Maadui wa Danieli wanamtega kupitia tabia yake ya sala; Yehova anafunga vinywa vya simba (6)",
+      "Wanyama wanne na Mzee wa Siku: Maono ya falme za ulimwengu zilizofuatana na korti ya Yehova kumpa Mwana wa mtu mamlaka ya milele (7)"
+    ],
+    [
+      "Ndoa ya Hosea: Yehova anamwamuru Hosea aoe mwanamke asiye mwaminifu kama mfano hai wa uzinzi wa kiroho wa Israeli dhidi ya Yehova (1–3)",
+      "Uzinzi wa kiroho wa Israeli: Taifa limemwacha Yehova kwa ibada ya Baali, likihusisha baraka zake na miungu ya uongo (4–7)",
+      "Ibada tupu inahukumiwa: 'Upendo wenu wa uaminifu ni kama mawingu ya asubuhi...Ninataka upendo wa uaminifu, si dhabihu' (6:4, 6)",
+      "Upendo wa kudumu wa Yehova: Licha ya kutokuwa mwaminifu kwa Israeli, moyo wa Yehova unawatamani kuwarejesha, akijilinganisha na mzazi mpendwa (11:1–9)",
+      "Onyo la uhamishoni: Efraimu (Israeli) atarudi katika utumwa kama wa Misri huko Ashuru kwa sababu ya kumkataa Yehova mara kwa mara (11:5; 13:16)",
+      "Mwaliko wa kurudi: Kitabu kinaisha kwa wito mpole wa kurudi kwa Yehova kwa maneno ya kweli ya toba, na ahadi 'Nitaponya kutokuwa kwao waaminifu' (14:1–4)"
+    ],
+    [
+      "Pigo la nzige: Uvamizi mbaya wa nzige unang'oa nchi — unatumika kama wito wa kukusanyika, kufunga, na kumlilia Yehova (1)",
+      "Wito wa toba ya kweli: 'Rarueni mioyo yenu na si mavazi yenu; rudini kwa Yehova Mungu wenu' (2:13)",
+      "Ahadi ya urejesho: Yehova anaahidi kurejesha kile nzige walikula na kunyesha baraka kwa jibu la toba (2:18–27)",
+      "Kumiminwa kwa roho takatifu: 'Nitaimwaga roho yangu juu ya kila mwili' — kutimizwa siku ya Pentekoste 33 W.K. na kunukuliwa na Petro (2:28–29; Matendo 2:17–21)",
+      "Siku ya Yehova inakaribia: Siku inayokuja ya giza na hukumu juu ya mataifa yote katika bonde la Yehoshafati (3:1–16)",
+      "Urejesho wa paradiso: Baada ya hukumu, watu wa Yehova watakaa salama na nchi itafurika kwa wingi (3:17–21)"
+    ],
+    [
+      "Hukumu juu ya mataifa: Amosi anatoa unabii dhidi ya mataifa nane yanayoizunguka Israeli kabla ya kuielekea Israeli yenyewe — hakuna anayeweza kuepuka viwango vya kimaadili vya Yehova (1–2)",
+      "Ukosefu wa haki wa kijamii wa Israeli: Matajiri wanawakandamiza maskini, wanapotosha haki, na kuwakanyaga wahitaji huku wakipitia mila za kidini (2:6–8; 5:10–12)",
+      "Ibada tupu ya mila: Yehova anachukia sherehe na mikutano ya Israeli kwa sababu hailingani na haki na utukufu (5:21–24)",
+      "Maono ya hukumu: Maono matano (nzige, moto, timazi, matunda ya majira ya joto, madhabahu) yanaonyesha hukumu ya Yehova inayokuja juu ya Israeli (7–9)",
+      "Yehova anafichua mipango yake: 'Hakika Bwana Mkuu Yehova hafanyi chochote bila kufichua kwanza jambo lake la siri kwa watumishi wake manabii' (3:7)",
+      "Ahadi ya urejesho: Banda la Daudi lililoanguka litainuliwa — kunukuliwa katika Matendo 15:16 kama kurejea kwa kutaniko la Kikristo lililorejeshwa (9:11–15)"
+    ],
+    [
+      "Kiburi cha Edomu: Waedomu walitegemea ngome zao za milima na ushirikiano, lakini Yehova anatangaza 'Nitawashusha kutoka huko' (1–4)",
+      "Usaliti wa Edomu dhidi ya Israeli: Babeli ilipoivamia Yerusalemu, Waedomu walisherehekea, walizuia kukimbia kwa wakimbizi, na kuwakabidhi waliosalia (10–14)",
+      "Siku ya Yehova juu ya mataifa yote: 'Siku ya Yehova iko karibu dhidi ya mataifa yote; kama ulivyofanya, itafanywa kwako' (15–16)",
+      "Urejesho wa Israeli: Yehova anaahidi kwamba mabaki katika Mlima Sayuni watakuwa watakatifu, na nyumba ya Esau itakuwa makapi tu (17–21)",
+      "Ufalme ni wa Yehova: Kitabu kinafungwa na tamko 'ufalme utakuwa wa Yehova' — enzi yake imehalalishwa (21)"
+    ],
+    [
+      "Yona anakimbia: Badala ya kwenda Ninawi, Yona anapanda meli inayoelekea upande mwingine — Yehova anatuma tufani (1)",
+      "Yona anatupwa baharini: Anawaagiza mabaharia wamtupe baharini; Yehova anatoa samaki mkubwa kummeza kwa siku tatu (1:17)",
+      "Sala ya Yona kutoka samaki: Zaburi ya shukrani kutoka ndani ya samaki, ikikiri ukombozi wa Yehova (2)",
+      "Ninawi inatubu: Jiji lote — kutoka mfalme hadi ng'ombe — wanavaa magunia na kugeuka kutoka njia zao mbaya; Yehova anachelewesha (3)",
+      "Hasira ya Yona: Akiwa amekasirika kwamba Yehova alionyesha rehema, Yona anakaa chini ya banda; Yehova anatumia mzabibu wa mzogo kumfundisha somo kuhusu huruma (4)",
+      "Wasiwasi wa Yehova kwa Ninawi: 'Je, mimi pia nisihuzunike kwa Ninawi...ambamo wako watu zaidi ya 120,000 wasiojua tofauti kati ya mema na mabaya?' (4:11)"
+    ],
+    [
+      "Hukumu juu ya Samaria na Yerusalemu: Miji mikuu yote miwili inashtakiwa kwa ufisadi, manabii wa uongo, na ukandamizaji wa maskini (1–3)",
+      "Mlima wa nyumba ya Yehova: Maono ya watu wanaomiminika kujifunza njia za Yehova katika siku za mwisho — tayari yanatimizwa (4:1–4)",
+      "Masihi anazaliwa Bethlehemu: 'Kutoka kwako [Bethlehemu] atatoka yule atakayekuwa mtawala katika Israeli, ambaye chimbuko lake ni la zamani' (5:2) — kutimizwa na Yesu",
+      "Kesi ya kisheria ya Yehova: 'Yehova anataka nini kwako? Tu kutenda haki, kupenda uaminifu, na kutembea kwa unyenyekevu na Mungu wako' (6:8)",
+      "Imani ya kibinafsi ya Mika: Ingawa amezungukwa na ufisadi, Mika anatangaza 'Nitaendelea kumtazamia Yehova' (7:7)",
+      "Msamaha wa pekee wa Yehova: 'Ni nani Mungu kama wewe, ukisamehe makosa na kupita juu ya makosa?' — akitupa dhambi katika kina cha bahari (7:18–19)"
+    ],
+    [
+      "Tabia ya Yehova imeelezwa: 'Si mwepesi wa hasira lakini mkuu katika nguvu; Yehova hatamwacha mwenye hatia bila adhabu' — mwenye rehema na haki (1:3)",
+      "Yehova ni mwema: 'Yehova ni mwema, ngome katika siku ya taabu; anawajua wanaotafuta kimbilio kwake' (1:7)",
+      "Ninawi imehukumiwa: Zaidi ya miaka 100 baada ya Yona, Ninawi imerudi katika vurugu na uovu; anguko lake sasa ni hakika (2–3)",
+      "Maelezo ya anguko la Ninawi: Nabii anaelezea mashambulizi ya wapanda farasi, mapanga yenye mng'aro, na mafuriko ya ulinzi wa jiji kwa usahihi wa unabii (2:1–10; 3:1–3)",
+      "Jiji la damu: Ninawi inaitwa 'jiji la damu' kwa kampeni zake za kijeshi za kikatili na unyonyaji wa mataifa (3:1–4)",
+      "Ukiwa kamili: 'Kila atakayesikia habari zako atapiga makofi juu yako, kwani ni nani ambaye hajateseka chini ya ukatili wako usiokoma?' (3:19)"
+    ],
+    [
+      "Lalamiko la kwanza la Habakuki: 'Mpaka lini, Ee Yehova, lazima nilie kwa msaada na hautasikia?' — kukabiliana kwa uaminifu na ufanisi wa wabaya (1:2–4)",
+      "Jibu la kwanza la Yehova: Babeli inainuliwa kama chombo cha hukumu cha Yehova — jibu la kushtua kwa sala ya Habakuki (1:5–11)",
+      "Lalamiko la pili la Habakuki: Kutumia chombo kibaya zaidi kuliko kinachoadhibiwa kunaonekana kupingana na haki ya Yehova (1:12–17)",
+      "Jibu la pili la Yehova: 'Mwenye haki ataishi kwa uaminifu wake'; wenye kiburi watashushwa; ujuzi wa Yehova utajaza dunia (2:2–20)",
+      "Sala-zaburi ya Habakuki: Shairi tukufu likieleza matendo ya Yehova ya zamani linaongoza kwa tamko kabisa la furaha licha ya hasara ya kimwili (3)",
+      "'Hata kama si hivyo': 'Hata kama mtini hautachanua...nitafurahi katika Yehova; nitafurahi katika Mungu wa wokovu wangu' (3:17–18)"
+    ],
+    [
+      "Hukumu pana ya siku ya Yehova: Yehova anatangaza hukumu kamili — juu ya Yuda, mataifa yanayozunguka, na hatimaye dunia yote (1–2)",
+      "Mtafute Yehova wakati bado wa wakati: 'Mtafute Yehova, enyi wapole wote wa dunia...tafuteni haki, tafuteni unyenyekevu; labda mtafichwa' (2:3)",
+      "Ole kwa wakandamizaji: Maafisa wabaya wa Yerusalemu, manabii wa uongo, na makuhani wanahukumiwa kwa unyonyaji na mafundisho ya uongo (3:1–5)",
+      "Lugha safi imeahidiwa: Yehova atawapa watu wote 'lugha safi' ili waite jina lake pamoja — unabii ambao tayari unatimizwa (3:9)",
+      "Yehova anafurahi juu ya watu wake: 'Yehova Mungu wako yu katikati yako...atakufurahia kwa furaha kubwa...atakushangilia kwa wimbo wa furaha' (3:17)",
+      "Kukusanywa kutoka mataifa: Yehova atawakusanya vilema, watupwa, na waliokandamizwa kutoka mataifa yote na kuwapa sifa na umaarufu (3:18–20)"
+    ],
+    [
+      "Kazi imesimama: Miaka kumi na sita baada ya kurudi kutoka uhamishoni, watu wamejenga nyumba zao zilizopambwa huku hekalu la Yehova likiwa magofu (1:1–6)",
+      "Tafakarini njia zenu: Yehova anawaomba watu watafakari kwa nini jitihada zao hazileti utoshelevu wa kudumu — kipaumbele cha kiroho kimewekwa vibaya (1:5–11)",
+      "Utii wa haraka: 'Yehova alichochea roho' za viongozi na watu; ndani ya siku 24 walianza kazi (1:12–15)",
+      "Utukufu mkubwa zaidi umeahidiwa: Ingawa hekalu lililojengwa upya ni dogo ikilinganishwa na la Sulemani, utukufu wake wa baadaye utakuwa mkubwa zaidi (2:1–9)",
+      "Utakatifu na usafi: Mfano juu ya jinsi uchafu unaenea kwa urahisi zaidi kuliko utakatifu unaonya juu ya uchafuzi wa kiroho (2:10–19)",
+      "Zerubabeli kama pete ya muhuri: Ahadi ya Yehova kwa Zerubabeli inaelekeza utimizo wa baadaye katika ukoo wa Kimasihi (2:20–23)"
+    ],
+    [
+      "Maono manane ya usiku: Mfululizo wa maono (wapanda farasi, pembe, mpima, kinara, kitabu kinachoruka, mwanamke katika efa, magari) unawatia moyo waliorudi na kuelezea kusudi la Yehova (1–6)",
+      "Yoshua kuhani mkuu: Shetani anamshtaki Yoshua; Yehova anamkemea Shetani na kumvika Yoshua mavazi safi — ikiashiria msamaha kupitia Kristo (3)",
+      "Si kwa nguvu: 'Si kwa nguvu ya kijeshi, wala kwa uwezo, bali kwa roho yangu, asema Yehova wa majeshi' — kazi itafanikiwa kwa nguvu ya Yehova (4:6)",
+      "Mfalme mshindi anaingia Yerusalemu: 'Mfalme wako anakuja kwako...mnyenyekevu na akipanda punda' — kutimizwa kwa usahihi na Yesu katika kuingia kwake kwa mwisho (9:9; Mathayo 21:5)",
+      "Kusalitiwa kwa vipande 30 vya fedha: Bei ya mchungaji aliyekataliwa — kutupwa kwa mfinyanzi hekaluni — inatabiri usaliti wa Yuda kwa usahihi (11:12–13; Mathayo 27:9–10)",
+      "Watamtazama yule waliyemchoma: 'Watamtazama yule waliyemchoma na watamlilia' — kutimizwa Kalvari na kwa kurudi kwa Kristo (12:10; Yohana 19:37; Ufunuo 1:7)"
+    ],
+    [
+      "Changamoto ya Yehova 'Mmenipendaje?': Uvivu wa kiroho wa watu unafichuliwa Yehova anapotaja uteuzi wake wa Yakobo juu ya Esau (1:2–5)",
+      "Matoleo ya dharau: Makuhani wanatoa wanyama vipofu, vilema, na wagonjwa — kile ambacho wasingethubutu kumpa gavana wa kibinadamu (1:6–14)",
+      "Makuhani wanaopotosha: Badala ya kuwaongoza watu katika njia za Yehova, makuhani wamewafanya wengi wajikwae (2:1–9)",
+      "Talaka yenye usaliti: Yehova anatangaza 'Ninachukia talaka' — mtazamo wake wa uaminifu wa agano unaenea kwenye uhusiano wa ndoa (2:13–16)",
+      "Mjumbe na msafishaji: Mjumbe atatayarisha njia mbele ya Yehova, na Yehova mwenyewe atakuja ghafla katika hekalu lake kuwasafisha Walawi (3:1–4)",
+      "Kitabu cha ukumbusho: Yehova anawatambua hasa wanaomcha na kuzungumza pamoja kuhusu jina lake, akiandika majina yao katika kitabu (3:16–18)"
+    ],
+    [
+      "Nasaba na kuzaliwa kwa Yesu: Mathayo anaanza kwa kufuatilia ukoo wa kifalme wa Yesu kupitia Daudi na Abrahamu, akitimiza masharti ya Kimasihi (1–2)",
+      "Ubatizo na majaribu: Yesu anabatizwa na Yohana, akitambuliwa na Yehova kama Mwanawe, kisha anapinga kwa mafanikio majaribu matatu ya Shetani akitumia Maandiko (3–4)",
+      "Hubiri la Mlimani: Yesu anaweka maadili, mazoea, na vipaumbele vya raia wa Ufalme katika mafundisho kamili ya kimaadili katika Maandiko (5–7)",
+      "Mifano ya Ufalme: Mifano saba ya mpanzi, magugu, mbegu ya haradali, chachu, hazina, lulu, na wavu inaelezea ukuaji na hukumu ya Ufalme (13)",
+      "Ishara za uwepo wa Kristo: Jibu la kina la Yesu kuhusu ishara ya uwepo wake katika siku za mwisho linatoa muundo wa kutambua wakati (24–25)",
+      "Kifo, mazishi, na ufufuo: Kesi ya Yesu, kifo, na kuonekana kwake baada ya ufufuo vinathibitisha utambulisho wake kama Mfalme aliyeteuliwa na Yehova (26–28)"
+    ],
+    [
+      "Huduma ya kasi: Matumizi ya Marko ya 'mara moja' (mara karibu 40) yanaonyesha kasi ya haraka ya huduma ya Yesu ya Galilaya (1–9)",
+      "Mamlaka juu ya pepo: Yesu anatoa pepo kwa neno — kwa mshangao wa umati uliozoea tu mafundisho yasiyo na nguvu ya waandishi (1:21–28; 5:1–20)",
+      "Miujiza ya huruma: Kumponya mwenye ukoma (1:40–45), kumfufua binti ya Yairo (5:35–43), na kumrudishia macho Bartimayo (10:46–52) zinaonyesha moyo wa Yesu",
+      "Ungamo la Petro huko Kaisaria Filipi: 'Wewe ndiwe Kristo' — wakati muhimu wa mabadiliko baada ya hapo Yesu anaanza kufundisha kuhusu kifo chake kinachokuja (8:27–9:1)",
+      "Uongozi wa mtumishi: Yesu kufundisha 'yeyote anayetaka kuwa wa kwanza lazima awe mtumwa wa wote' inakabili moja kwa moja kiburi cha wanafunzi (10:35–45)",
+      "Mahubiri ya Olive: Unabii wa Yesu juu ya Mlima wa Mizeituni unahusu uharibifu wa Yerusalemu na ishara ya parousia yake (13)"
+    ],
+    [
+      "Simulizi za kuzaliwa: Luka peke yake anaandika tangazo la malaika kwa Mariamu, simulizi la wachungaji, na kuwasilishwa hekaluni (1–2)",
+      "Nasaba kupitia Mariamu: Luka anafuatilia ukoo wa kibinadamu wa Yesu kupitia Mariamu hadi Adamu — kumunganisha na wanadamu wote (3:23–38)",
+      "Mfano wa mwana mpotevu: Karibu la furaha la baba kwa mwana aliyetubu ni picha wazi zaidi ya moyo wa Yehova kwa wenye dhambi waliotubu katika Injili zote nne (15:11–32)",
+      "Msamaria Mwema: Ufafanuzi wa 'jirani' unavuka mipaka yote ya kikabila, ukianzisha upendo kwa mtu yeyote anayehitaji kama wajibu wa Kikristo (10:25–37)",
+      "Wanawake katika huduma ya Yesu: Luka peke yake anataja majina ya wanawake wengi waliomfuata na kuunga mkono huduma ya Yesu — ikionyesha heshima alizowapa (8:1–3; 23:49, 55)",
+      "Njia ya Emau: Yesu aliyefufuka anaeleza Maandiko yote ya Kiebrania yanayomhusu — mfano wa mafundisho yanayotegemea Biblia (24:13–35)"
+    ],
+    [
+      "Utangulizi: 'Mwanzoni Neno alikuwapo...Neno alikuwa pamoja na Mungu' — Yesu kama mzungumzaji wa kipekee wa kabla ya kuwepo kibinadamu na wakala wa uumbaji wa Yehova (1:1–18)",
+      "Ishara saba za miujiza: Maji kuwa divai, kuponya mwana wa afisa, kuponya kilema, kulisha 5,000, kutembea juu ya maji, kuponya kipofu, kumfufua Lazaro — kila moja ikionyesha mamlaka ya Yesu (2–11)",
+      "Maneno saba ya 'Mimi ni': Mkate wa uzima, nuru ya ulimwengu, mlango, mchungaji bora, ufufuo, njia/ukweli/uzima, mzabibu wa kweli — kila moja ikifafanua jukumu la Yesu kama njia ya baraka za Yehova (6; 8; 10; 11; 14; 15)",
+      "Mahubiri ya chumba cha juu: Mafundisho marefu ya kibinafsi ya Yesu — faraja kwa wanafunzi, msaidizi aliyeahidiwa (roho takatifu), mfano wa mzabibu wa kweli (14–16)",
+      "Sala ya ukuhani mkuu: Yesu anasali kwa ajili ya ulinzi wa wanafunzi wake, umoja, na kutakaswa katika ukweli — ikiwa ni pamoja na 'wakujue wewe, Mungu pekee wa kweli' (17)",
+      "Ungamo la Tomaso: 'Bwana wangu na Mungu wangu!' — kumtambua Yesu kama mteule wa kimungu bila kumlinganisha na Yehova (20:28)"
+    ],
+    [
+      "Pentekoste na roho takatifu: Roho inashuka kwa ndimi za moto; Petro anaeleza kama utimizo wa Yoeli 2:28–32; 3,000 wanabatizwa siku moja (2)",
+      "Kutaniko la awali Yerusalemu: Kushiriki bidhaa, mikutano ya kila siku, ishara za miujiza — mfano wa ibada ya pamoja ya moyo wote (2:42–47; 4:32–35)",
+      "Hotuba na kifo cha Stefano: Hotuba ndefu zaidi katika Matendo inaeleza historia ya Israeli; kifo cha Stefano kinamfanya Sauli shahidi wa kifo cha mfia-imani wa kwanza wa Ukristo (7)",
+      "Filipo na Mwethiopia: Afisa wa korti akijifunza Isaya 53 anabatizwa — habari njema zinafika Afrika (8:26–40)",
+      "Wongofu wa Paulo: Mtesi Sauli anakutana na Yesu aliyefufuka njiani kuelekea Dameski na kuwa mmisionari mkuu zaidi katika historia (9)",
+      "Baraza la Yerusalemu: Mzozo wa kwanza mkubwa wa kimafundisho — kama Mataifa wanahitaji kutahiriwa — unasuluhishwa na baraza tawala chini ya uongozi wa roho takatifu (15)"
+    ],
+    [
+      "Udhambi wa kila mtu: Wote Mataifa (sura 1–2) na Wayahudi (sura 2–3) wameanguka — wote wanahitaji fidia (3:9–20, 23)",
+      "Kuhesabiwa haki kwa imani: Abrahamu alihesabiwa haki kwa imani kabla ya tohara — kuonyesha kwamba imani, si sheria, ndio msingi (4)",
+      "Adamu na Kristo wamelinganishwa: Mtu mmoja alileta dhambi na kifo; tendo la haki la mtu mmoja linaleta uzima wa kuhesabiwa haki (5:12–21)",
+      "Mapambano na dhambi: Maelezo ya Paulo yenye huzuni ya vita vya ndani dhidi ya mielekeo ya dhambi yanawahakikishia waumini mapambano ni ya kawaida (7:14–25)",
+      "Maisha katika roho: Hakuna hukumu kwa walio katika Kristo; roho yenyewe inashuhudia kwamba ni watoto wa Yehova; hakuna chochote kinachoweza kuwatenganisha na upendo wake (8)",
+      "Wakati ujao wa Israeli: Sura 9–11 zinashughulikia ikiwa Yehova amewakataa Israeli — hapana; mabaki wamechaguliwa, na kujumuishwa kwa Mataifa kunachochea Israeli ya asili (11:25–32)"
+    ],
+    [
+      "Migawanyiko katika kutaniko: Vikundi vinavyoundwa karibu na Paulo, Apolo, na Petro vinakaripiwa — Kristo peke yake ndiye msingi wa umoja (1–4)",
+      "Uasherati uliovumiliwa: Kesi ya uchafu wa nasaba katika kutaniko haitiwi nidhamu; Paulo anasisitiza kutengwa (5)",
+      "Ndoa na useja: Paulo anashughulikia mahusiano ya kingono, ndoa, talaka, na faida za kubaki single kwa ajili ya utumishi wa wakati wote (7)",
+      "Vifuniko vya kichwa na Mlo wa Jioni wa Bwana: Maelekezo ya tabia sahihi katika mikutano ya kutaniko, ikiwa ni pamoja na ushiriki unaostahili katika Ukumbusho (11)",
+      "Vipawa vya kiroho: Vipawa vyote vinatoka kwa roho moja na kuhudumia mwili mmoja; upendo (sura 13) ni mkubwa zaidi kuliko vipawa vyote vikiwekwa pamoja (12–14)",
+      "Ufufuo wa wafu: Utetezi mrefu wa ufufuo wa mwili, ukieleza uhakika wake, asili, na utaratibu — msingi wa tumaini lote la Kikristo (15)"
+    ],
+    [
+      "Faraja ya Paulo katika mateso: Mfano 'kama mateso ya Kristo yanavyozidi ndani yetu, ndivyo na faraja...inavyozidi' unabadilisha mateso kama yenye kusudi (1:3–11)",
+      "Huduma ya agano jipya: Paulo analinganisha utukufu wa agano la zamani (linaisha) na utukufu unaopita wa jipya (la kudumu) (3)",
+      "Hazina katika vyombo vya udongo: Mateso mengi ya Paulo yanaorodheshwa yanathibitisha kwamba nguvu zinatoka kwa Yehova, si kwa nguvu za kibinadamu (4:7–12)",
+      "Mchango kwa Yerusalemu: Utoaji wa ukarimu uliofanywa na makutaniko ya Makedonia; 'Yehova anampenda mtoaji mchangamfu' (8–9)",
+      "Maono ya Paulo na mwiba katika mwili: 'Mwiba' ulimweka Paulo mnyenyekevu; jibu la Yehova: 'Nguvu zangu zinakamilishwa katika udhaifu' (12)",
+      "Utetezi wa kitume wa Paulo: Paulo anatetea sifa zake dhidi ya 'mitume bora,' akiorodhesha mateso yake kama barua zake za kweli za mapendekezo (11–12)"
+    ],
+    [
+      "Habari njema za kweli zinatetewa: Paulo anawakabili Wayahudi wanaoongeza tohara kwa fidia kama hitaji; anaita habari njema yoyote nyingine ya laana (1)",
+      "Paulo anamkabili Petro: Huko Antiokia, kutengana kwa unafiki kwa Petro na waumini wa Mataifa kunapingwa hadharani — ukweli wa kimafundisho hauwezi kujadiliwa (2:11–21)",
+      "Sheria kama mlezi: Sheria ya Musa ilihudumu kama 'mlezi anayeongoza kwa Kristo'; sasa kwa kuwa imani imekuja, Wakristo hawako tena chini ya mlezi (3:24–25)",
+      "Wana wa Mungu kupitia imani: 'Hakuna Myahudi wala Mgiriki, mtumwa wala huru, mwanaume wala mwanamke; nyote ni mmoja katika Kristo Yesu' — umoja wa wote mbele ya Yehova (3:28)",
+      "Tunda la roho: Upendo, furaha, amani, uvumilivu, fadhili, wema, imani, upole, kujidhibiti — sifa ambazo roho hutoa kinyume na kazi za mwili (5:22–23)",
+      "Kupanda na kuvuna: Sheria isiyoepukika ya ulimwengu wa Yehova — 'chochote mtu anachopanda, ndicho atakachovuna' (6:7–9)"
+    ],
+    [
+      "Baraka za kiroho katika mahali pa mbinguni: Yehova amewachagua na kuwapanga Wakristo watiwa-mafuta kama wanawe wa kuasilishwa, kwa sifa ya utukufu wake (1)",
+      "Wamekufa katika dhambi, hai katika Kristo: Wameokolewa si kwa sifa bali kabisa kwa fadhili zisizostahiliwa za Yehova kupitia imani — hakuna nafasi ya kujisifu kibinadamu (2:1–10)",
+      "Siri imefichuliwa: Mataifa na Wayahudi wamefanywa mtu mmoja mpya kupitia Kristo — siri iliyofichwa katika nyakati za awali sasa imefichuliwa kupitia kutaniko (2:11–3:12)",
+      "Tembeeni kwa kustahili wito: Umoja, unyenyekevu, kutotembea tena katika ubatili kama mataifa hufanya — mwenendo lazima ulingane na wito (4)",
+      "Vaa utu mpya: Hatua za vitendo — weka mbali uongo, hasira, wizi, hotuba mbaya, uchungu — kuvibadilisha kwa sifa za kimungu (4:22–5:2)",
+      "Silaha za kiroho: Silaha kamili — mkanda wa ukweli, kifuani cha haki, miguu iliyofungwa na habari njema, ngao ya imani, kofia ya wokovu, upanga wa roho (6:10–18)"
+    ],
+    [
+      "Washirika katika habari njema: Shukrani ya Paulo kwa msaada wa vitendo wa Wafilipi na sala yake kwa ukuaji wao endelevu katika upendo na utambuzi (1:1–11)",
+      "Kufungwa kwa Paulo kunaeneza habari njema: Hata gerezani imesaidia kueneza Injili; Paulo anakabiliwa na kifo au uzima kwa amani sawa (1:12–26)",
+      "Unyenyekevu wa Kristo kama mfano: Kutoka umbo la kimungu hadi utumwa wa kibinadamu hadi kifo juu ya mti — mfano wa kujimwaga ambao Wakristo wote lazima waige (2:5–11)",
+      "Zawadi ya wito wa juu: Paulo anasonga mbele kuelekea lengo, akisahau yaliyo nyuma, akijinyoosha mbele — kukimbia mbio kwa kusudi (3:12–16)",
+      "Amani kupitia sala: 'Msiwe na wasiwasi juu ya jambo lolote, lakini...maombi yenu yajulishwe kwa Mungu; na amani ya Mungu inayopita uelewa wote' (4:6–7)",
+      "Fikiria juu ya mambo mema: Orodha nzuri — kweli, haki, safi, ya kupendwa, yenye kuzungumzwa vyema — inayotawala chakula cha akili cha Mkristo (4:8)"
+    ],
+    [
+      "Ubora wa Kristo: 'Yeye ni sura ya Mungu asiyeonekana, mzaliwa wa kwanza wa viumbe vyote...vitu vyote vingine viliumbwa kupitia kwake' (1:15–17)",
+      "Upatanisho kamili: Kupitia kifo cha Kristo, wale walikuwa wamefarakana na maadui sasa wamepatanishwa na Yehova (1:19–23)",
+      "Onyo dhidi ya falsafa: 'Angalieni mtu yeyote asiwachukue mateka kwa falsafa na udanganyifu mtupu' wa mila ya kibinadamu dhidi ya mafundisho ya Kristo (2:8)",
+      "Kuinuliwa pamoja na Kristo: Maisha mapya yamefichwa pamoja na Kristo katika Yehova; waumini wanapaswa 'kuendelea kutafuta vitu vya juu' (3:1–4)",
+      "Utu mpya: Orodha ya kina ya vitu vya zamani vya kuvua (uasherati, hasira, uongo) na vipya vya kuvaa (huruma, fadhili, msamaha, upendo) (3:5–17)",
+      "Kazi kwa ajili ya Yehova: 'Lolote mnalofanya, fanyeni kwa moyo wote kama kwa Yehova na si kwa watu' — kubadilisha kazi ya kila siku kuwa ibada (3:23–24)"
+    ],
+    [
+      "Mfano wa imani: Wathesalonike walikuwa mfano kwa Makedonia yote — imani yao ilienea habari za wongofu wao zilifika kila mahali (1:6–10)",
+      "Utunzaji wa kizazi wa Paulo: Paulo anaelezea huduma yake kati yao kama mama anayenyonyesha na baba anayetia moyo — upendo wa kweli wa kichungaji (2:7–12)",
+      "Ripoti ya Timotheo inaleta faraja: Habari za kutia moyo za Timotheo kuhusu imani ya kutaniko zinamhifadhi Paulo kupitia magumu yake mwenyewe (3)",
+      "Usafi wa kingono: Maelekezo ya wazi kwamba mapenzi ya Yehova ni kutakaswa — 'kudhibiti mwili wake mwenyewe katika utakatifu na heshima, si katika shauku ya hamu ya kingono' (4:3–8)",
+      "Tumaini la ufufuo kwa wafu: 'Wale waliokufa katika Kristo watafufuka kwanza' — maelezo ya kina ya parousia ya Kristo yakiwafariji wanaowahofia wapendwa waliokufa (4:13–18)",
+      "Siku ya Yehova kama mwizi: Waumini ambao wamekesha kiroho na wenye kiasi hawatashtushwa — utayari unahitaji uangalifu unaoendelea (5:1–11)"
+    ],
+    [
+      "Hukumu ya haki ya Yehova: Wanaolitesa kutaniko wenyewe watakabiliwa na hukumu ya Yehova atakapotenda (1:6–10)",
+      "Uasi lazima uje kwanza: Siku ya Yehova haiwezi kuwa imeshakuja — uasi mkubwa na mtu wa uasi-sheria lazima vionekane kwanza (2:1–12)",
+      "Simameni imara na shikilieni mila: 'Simameni imara na shikilieni mila mlizofundishwa kwa neno au kwa barua' — uthabiti wa kimafundisho dhidi ya machafuko (2:15)",
+      "Yehova atawafanya imara: 'Yehova ni mwaminifu, naye atawafanya imara na kuwalinda na yule mwovu' (3:3)",
+      "Fanyeni kazi, msiwe wasio na utaratibu: Baadhi katika Thesalonike waliacha kufanya kazi, wakidhani mwisho umekaribia; Paulo anasisitiza 'kama mtu hataki kufanya kazi, asile' (3:6–15)",
+      "Yehova wa amani awape amani: Baraka ya mwisho inaonyesha wasiwasi mkubwa wa kichungaji wa Paulo kwa amani ya kutaniko chini ya shinikizo (3:16)"
+    ],
+    [
+      "Mafundisho sahihi dhidi ya mafundisho ya uongo: Timotheo anahimizwa kuwanyamazisha wanaofundisha mafundisho tofauti na kujitolea kwa hadithi na nasaba zisizo na mwisho (1:3–11)",
+      "Sala kwa watu wote: 'Sala, maombi, maombezi, na shukrani zifanywe kwa ajili ya watu wa kila aina' — ikiwa ni pamoja na watawala (2:1–4)",
+      "Mpatanishi mmoja: 'Kuna Mungu mmoja, na mpatanishi mmoja kati ya Mungu na watu, mtu, Kristo Yesu, aliyejitoa fidia kwa wote' (2:5–6)",
+      "Sifa za waangalizi na watumishi wa huduma: Sifa za kina za kibinafsi zinazohitajika kwa nafasi za uongozi wa kutaniko (3:1–13)",
+      "Utauwa na kuridhika: 'Kujitoa kimungu pamoja na kuridhika ni njia ya faida kubwa...hatukuleta chochote ulimwenguni, wala hatuwezi kuchukua chochote' (6:6–8)",
+      "Upendo wa fedha: 'Upendo wa fedha ni mzizi wa aina zote za mambo yenye madhara' — onyo dhidi ya nia zinazopotosha vipaumbele vya Kikristo (6:9–10)"
+    ],
+    [
+      "Linda kile kilichokabidhiwa: 'Linda dhana hii nzuri kwa msaada wa roho takatifu, inayokaa ndani yetu' — kulinda mwili wa ukweli (1:13–14)",
+      "Vumilia kama askari bora: 'Shiriki katika kuteseka maovu, kama askari bora wa Kristo Yesu' — wito wa Paulo akikabiliwa na kuuawa (2:1–13)",
+      "Siku za mwisho: Maelezo wazi ya 'nyakati za hatari ambazo ni ngumu kushughulika nazo' — ishara ya unabii ya kipindi ambacho sasa tunaishi (3:1–5)",
+      "Andiko lote limeongozwa: 'Andiko lote limeongozwa na Mungu na lenye faida kwa kufundisha, kwa kukaripia, kwa kunyoosha mambo' — uongozi na utoshelevu wa Biblia (3:16–17)",
+      "Hubiri neno kwa haraka: 'Hubiri neno; jitahidi haraka katika nyakati nzuri na ngumu' — kipaumbele cha huduma bila kujali jibu (4:1–5)",
+      "Mbio ya Paulo imekamilika: 'Nimepigana mapigano mazuri, nimemaliza mbio, nimeishika imani; tangu sasa imewekwa kwangu taji' (4:6–8)"
+    ],
+    [
+      "Kazi ya Tito huko Krete: Paulo alimuacha Tito Krete 'arekebishe mambo yaliyokuwa pungufu na kuteua wazee katika jiji baada ya jiji' (1:4–9)",
+      "Sifa za wazee: Mwangalizi lazima asilaumiwe, asiwe mwenye kiburi, asiwe mlevi — sifa zinazoakisi 1 Timotheo 3 (1:5–9)",
+      "Walimu wa uongo huko Krete: 'Waongo, wanyama wabaya wa porini, walafi wavivu' — tathmini ya Paulo ya wazi ya wanaosumbua makutaniko (1:10–16)",
+      "Mwenendo wa vitendo kwa rika zote: Wanaume wazee, wanawake wazee, wanawake vijana, wanaume vijana, na watumwa kila mmoja anapokea mwongozo maalum wa mwenendo (2:1–10)",
+      "Fadhili za Yehova zinazofundisha: 'Fadhili zisizostahiliwa za Mungu zinazoleta wokovu kwa watu wa aina zote zimetokea, zikitufundisha kukataa uovu' (2:11–14)",
+      "Kufanywa upya na roho takatifu: Kuokolewa si kupitia matendo ya haki bali kupitia rehema ya Yehova — kuoga kwa uzima na ufanyaji upya kwa roho takatifu (3:4–7)"
+    ],
+    [
+      "Salamu ya joto ya Paulo: Barua ya kibinafsi iliyoelekezwa kwa Filemoni, mke wake Afia, Arkipo, na kutaniko katika nyumba ya Filemoni (1–3)",
+      "Ombi la Paulo kwa Onesimo: Badala ya kumwamuru Filemoni, Paulo anaomba kwa misingi ya upendo kwa mtumwa aliyetoroka ambaye sasa ametubu (8–12)",
+      "Ndugu mpendwa katika Kristo: 'Si tena kama mtumwa, bali zaidi ya mtumwa — kama ndugu mpendwa...wote katika mwili na katika Bwana' (15–16)",
+      "Paulo anaahidi kulipa: Deni lolote la Onesimo, Paulo atalipa mwenyewe — mfano mzuri wa Kristo akilipa deni letu (18–19)",
+      "Kutumaini wema wa Filemoni: Paulo anaonyesha uhakika kwamba Filemoni 'atafanya zaidi ya yale ninayosema' — mfano wa kutia moyo badala ya kulazimisha (21)",
+      "Ombi la malazi: Tumaini la Paulo la kumtembelea Filemoni kibinafsi linaonyesha thamani aliyoiweka kwa ushirikiano wa ana kwa ana (22)"
+    ],
+    [
+      "Yesu mkuu kuliko malaika: Ulinganisho wa awali unaweka kwamba Mwana — 'mwakisi wa utukufu wa Yehova' — ni mkuu zaidi kuliko malaika yeyote (1–2)",
+      "Yesu Kuhani wetu Mkuu mkuu: Kama Haruni lakini mkuu zaidi, Yesu 'alijaribiwa katika mambo yote kama sisi, lakini bila dhambi' — anaweza kuhurumia udhaifu wetu (4:14–5:10)",
+      "Ukuhani wa Melkizedeki: Ukuhani wa Yesu ni wa daraja kuu kuliko wa Haruni — ukuhani uliotegemewa kwa kiapo, usiobadilika (7)",
+      "Agano jipya ni bora: Agano bora, ahadi bora, dhabihu bora — damu ya Kristo inatolewa katika patakatifu pa mbinguni pa kweli, si nakala iliyotengenezwa na mwanadamu (8–10)",
+      "Sura ya imani: Habili, Henoko, Nuhu, Abrahamu, Sara, Musa, Rahabu — wote 'walipata ushuhuda mzuri kupitia imani yao' lakini hawakupokea utimizo (11)",
+      "Pigeni mbio kwa uvumilivu: 'Tukimbie kwa uvumilivu mbio iliyowekwa mbele yetu, tukimtazama kwa makini Yesu, Mwakilishi Mkuu na Mkamilishaji wa imani yetu' (12:1–2)"
+    ],
+    [
+      "Kuvumilia majaribu: 'Hesabuni kuwa furaha yote mnapokutana na majaribu mbalimbali' — uvumilivu unatoa ukamilifu, na kumuomba Yehova hekima bila kusita (1:2–8)",
+      "Kutenda na si kusikia tu: 'Iweni watendaji wa neno na si wasikilizaji tu, mkijidanganya' — mtihani wa imani ya kweli (1:22–25)",
+      "Upendeleo unahukumiwa: Kuonyesha upendeleo kwa matajiri huku ukiwadharau maskini kunapingana na kiwango cha Yehova cha upendo kwa jirani (2:1–13)",
+      "Imani na matendo: 'Imani yenyewe, bila matendo, imekufa' — kama vile mwili bila pumzi umekufa, ndivyo imani bila matendo isivyo na uhai (2:14–26)",
+      "Kudhibiti ulimi: 'Ulimi ni moto...dunia ya ukosefu wa haki...unaweza kuwasha mwendo wote wa maisha' — mojawapo ya viungo vigumu zaidi kudhibiti (3:1–12)",
+      "Sala na kupaka mafuta: 'Sala ya dhati ya mtu mwenye haki ina nguvu nyingi' — jukumu la wazee katika kusali kwa ajili ya na kuwatunza wagonjwa (5:14–18)"
+    ],
+    [
+      "Tumaini hai kupitia ufufuo: 'Asifiwe...Yehova...ambaye, kulingana na rehema yake kuu, alitupa kuzaliwa upya kwa tumaini hai kupitia ufufuo wa Yesu Kristo' (1:3–5)",
+      "Kuzaliwa upya kupitia neno: Tofauti na mbegu isiyoharibika, utukufu wote wa kibinadamu ni kama majani — lakini 'neno la Yehova linadumu milele' (1:23–25)",
+      "Ukuhani wa kifalme: 'Ninyi ni jamii iliyochaguliwa, ukuhani wa kifalme, taifa takatifu, watu wa milki ya pekee' — kila Mkristo ni sehemu ya watu maalum wa Yehova (2:9)",
+      "Kuteseka kwa ajili ya haki: 'Hata mkiteseka kwa sababu ya haki, mna furaha' — Petro anashughulikia mateso yasiyo ya haki kwa faraja na mtazamo (3:14–17)",
+      "Majaribu makali: 'Msishangae kuhusu kuwaka kati yenu' — majaribu si ya ajabu bali sehemu ya kushiriki katika mateso ya Kristo (4:12–14)",
+      "Mnyenyekevu chini ya mkono wa Yehova: 'Tupeni wasiwasi wenu wote juu yake, kwa sababu anajali ninyi'; pingeni shetani, imara katika imani (5:6–9)"
+    ],
+    [
+      "Nguvu ya kimungu imetoa kila kinachohitajika: 'Nguvu yake ya kimungu imetupa kila kitu kinachohitajika kwa uzima na kujitoa kimungu kupitia ujuzi sahihi wa yule aliyetuita' (1:3–4)",
+      "Ngazi ya sifa: Imani → wema → ujuzi → kujidhibiti → uvumilivu → kujitoa kimungu → upendo wa kindugu → upendo; sifa hizi huzuia kujikwaa (1:5–11)",
+      "Neno la unabii limethibitishwa: Petro alikuwa shahidi wa kubadilika sura; hii inathibitisha neno la unabii, ambalo ni 'kama taa inayoangaza mahali pa giza' (1:16–21)",
+      "Walimu wa uongo kama Balaamu: Wanachezewa kwa choyo, wanaahidi uhuru huku wao wenyewe ni watumwa wa uharibifu (2)",
+      "Siku ya Yehova: Kwa Yehova 'siku moja ni kama miaka elfu'; si polepole bali ni mvumilivu, asiyetaka mtu yeyote aangamizwe (3:8–9)",
+      "Mbingu mpya na dunia mpya: 'Tunangoja mbingu mpya na dunia mpya ambamo haki itakaa' — tumaini linalochochea mwenendo mtakatifu sasa (3:13–14)"
+    ],
+    [
+      "Kutembea katika nuru: Ushirika na Yehova unahitaji kutembea katika nuru — damu ya Yesu inasafisha dhambi; kukiri ni njia ya msamaha (1:5–2:2)",
+      "Mitihani mitatu ya Ukristo wa kweli: Kushika amri za Yehova (mtihani wa utii), kupenda ndugu (mtihani wa upendo), kuamini Yesu alikuja katika mwili (mtihani wa imani) (2:3–5; 4:2–3; 4:20–21)",
+      "Msipende ulimwengu: 'Ulimwengu unapita na tamaa zake, lakini anayefanya mapenzi ya Mungu anadumu milele' (2:15–17)",
+      "Mungu ni upendo: 'Yeyote asiyependa hajamjua Mungu, kwa sababu Mungu ni upendo...upendo unatoka kwa Mungu' (4:7–8, 19)",
+      "Upendo kamili unaondoa hofu: 'Hakuna hofu katika upendo, lakini upendo kamili unaondoa hofu, kwa sababu hofu inazuia...yule anayehofu hajafanywa kamili katika upendo' (4:18)",
+      "Ushindi wa ulimwengu: 'Huu ndio ushindi uliouushinda ulimwengu — imani yetu' (5:4–5) — imani katika Yesu kama Mwana wa Mungu inashinda mvuto wa ulimwengu"
+    ],
+    [
+      "Ukweli na upendo pamoja: Mzee anamwandikia 'bibi mteule' — kutaniko — kwa sababu ya ukweli, ambao unakaa ndani yao milele (1–3)",
+      "Kutembea katika ukweli: Yohana anafurahi kupata washiriki wa watoto wake wakitembea katika ukweli, kulingana na amri iliyopokelewa kutoka kwa Yehova (4–6)",
+      "Amri — pendaneni: Amri ya kale zaidi, upendo kwa kila mmoja, ni usemi wa vitendo wa 'kutembea katika ukweli' (5–6)",
+      "Onyo kuhusu wadanganyifu: 'Wadanganyifu wengi wameingia ulimwenguni, wale wasiotambua kwamba Yesu Kristo alikuja katika mwili' — wapingaji wa Kristo (7)",
+      "Msipoteze mlichofanyia kazi: Kaeni katika mafundisho ya Kristo ili kupokea thawabu kamili — wala msisogee mbele wala msibaki nyuma (8–9)",
+      "Msipokee walimu wa uongo: Msiwakaribishe ndani ya nyumba au kuwasalimia wale wanaoleta mafundisho tofauti — kufanya hivyo ni kushiriki katika kazi zao mbaya (10–11)"
+    ],
+    [
+      "Pongezi za Gayo: Yohana anaomba Gayo afanikiwe na kufurahia afya njema 'kama nafsi yake inavyofanikiwa' — matakwa kamili (1–2)",
+      "Furaha ya kutembea katika ukweli: 'Sina furaha kubwa zaidi ya kusikia kwamba watoto wangu wanatembea katika ukweli' — utoshelevu wa ndani zaidi wa mwalimu wowote wa kiroho (3–4)",
+      "Ukarimu kwa wamisionari wasafiri: Gayo anasifiwa kwa kuwakaribisha na kuwapeleka wageni waliotoka 'kwa ajili ya jina lake' (5–8)",
+      "Diotrefe akikaripiwa: Mshiriki wa kutaniko 'anayependa kuwa wa kwanza' anakataa kuwakaribisha ndugu na kueneza maneno mabaya kuhusu Yohana (9–10)",
+      "Igeni wema, si ubaya: 'Anayetenda mema anatoka kwa Mungu; anayetenda mabaya hajamuona Mungu' — tabia inafichua hali ya kiroho ya mtu (11)",
+      "Demetrio anasifiwa: Anasifiwa na kila mtu, na ukweli wenyewe, na Yohana — ushahidi wa pande tatu wa sifa nzuri ya Kikristo (12)"
+    ],
+    [
+      "Uharaka wa kupigania imani: Ingawa Yuda alitaka kuandika kuhusu wokovu wao wa pamoja, mgogoro wa waasi-imani waliopenya ulifanya utetezi muhimu (3)",
+      "Maonyo ya kihistoria: Mifano mitatu — Israeli jangwani, malaika waasi, Sodoma na Gomora — yanaonyesha hukumu ya Yehova juu ya wasio waaminifu (5–7)",
+      "Maelezo ya waasi-imani: Wanachafua mwili, wanakataa mamlaka, na kuzungumza vibaya kuhusu watukufu — waota ndoto wanaoharibu kutaniko kutoka ndani (8–16)",
+      "Mfano wa Mikaeli: Hata malaika mkuu Mikaeli hakuleta hukumu dhidi ya Ibilisi kwa jina lake mwenyewe — unyenyekevu hata katika mgogoro (9)",
+      "Jijengeni: 'Mjijenge juu ya imani yenu takatifu zaidi, mkisali kwa roho takatifu, mkijiweka katika upendo wa Mungu' — utaratibu wa kiroho wa matengenezo (20–21)",
+      "Okoeni baadhi kwa hofu: Onyesheni rehema kwa wenye shaka, okoeni baadhi kwa kuwanyakua kutoka motoni — hekima ya kichungaji ya kushughulika na wasiosita (22–23)"
+    ],
+    [
+      "Barua kwa makutaniko saba: Yesu anatathmini kila kutaniko — akisifu mema, akirekebisha mabaya, akiita kila moja kwa toba na uvumilivu (2–3)",
+      "Maono ya chumba cha kiti cha enzi: Maono ya kushtua ya Yehova juu ya kiti chake cha enzi, wazee 24, viumbe vinne wenye uhai, na uumbaji wote ukimsifu (4–5)",
+      "Mihuri saba na tarumbeta: Maono yanayoendelea ya hukumu, 144,000 waliotiwa muhuri, na umati mkubwa katika mavazi meupe kutoka kila taifa (6–11)",
+      "Vita mbinguni: Mikaeli na malaika wake wanamtupa Shetani kutoka mbinguni; joka linamfuata mwanamke na kupigana na watoto wake waliosalia (12)",
+      "Babeli Mkubwa anaanguka: Kahaba mkubwa anayewakilisha dini ya uongo anahukumiwa; 'Tokeni katika yeye, watu wangu' ni wito wa mwisho wa Yehova kwa wote wanaomwabudu (17–18)",
+      "Yerusalemu Mpya: Kifo, maombolezo, kilio, na maumivu hazipo tena; Yehova anakaa na wanadamu; mto wa uzima na mti wa uzima vinarejesha kile kilichopotea (21–22)"
+    ]
+  ],
+  "bookWhyBeneficial": [
+    "Mwanzo unajibu maswali ya msingi zaidi ya wanadamu — sisi ni nani, kwa nini tunateseka, na kusudi la Yehova kwa dunia ni nini. Inaweka msingi wa unabii wote wa Biblia kwa ahadi ya kwanza ya Mkombozi katika 3:15, na inaonyesha kupitia maisha ya Nuhu, Abrahamu, na Yosefu kwamba imani isiyoyumba katika Yehova daima inalipwa.",
+    "Kutoka kunaonyesha kwamba Yehova anasikia kilio cha watu wake walikandamizwa na anatenda kwa nguvu kuwaokoa. Ufunuo wa jina lake la kibinafsi (3:14–15) na Pasaka — iliyotimizwa katika Yesu Kristo kama 'mwana-kondoo wetu wa Pasaka' — ni msingi wa kuelewa kusudi la Yehova la ukombozi na thamani anayoiweka kwenye ibada safi.",
+    "Ingawa Wakristo hawako chini ya Sheria ya Musa, Mambo ya Walawi linaonyesha kiwango cha juu cha utakatifu ambacho Yehova anataka. Mfumo wake wa dhabihu unaelekeza mbele kwa fidia ya Kristo, marufuku ya damu inabaki kwa Wakristo, na kanuni 'iweni watakatifu kwa sababu mimi ni mtakatifu' inaendelea kufafanua kiwango kwa wanaobeba jina la Yehova.",
+    "Hesabu linaonya kwa nguvu dhidi ya roho ya malalamiko, ukosefu wa imani, na ibada isiyoidhinishwa iliyodhihilisha kizazi kizima kuingia katika Nchi ya Ahadi. Paulo alitaja matukio haya hasa kama 'mifano ya maagizo yetu' (1 Wakorintho 10:1–11), akifanya Hesabu kuwa moja kwa moja inayotumika kwa Wakristo leo.",
+    "Wito wa shauku wa Kumbukumbu la Torati kumpenda Yehova kwa moyo na akili nzima ni wa haraka kama sasa. Yesu alilitaja mara tatu alipopinga majaribu ya Shetani (Mathayo 4:4, 7, 10), na 2 Timotheo 3:16–17 inatukumbusha kwamba Andiko lote — ikiwa ni pamoja na Kumbukumbu la Torati — linawawezesha watumishi wa Yehova kabisa kwa utumishi wake.",
+    "Yoshua linaonyesha kwamba kwa msaada wa Yehova, vikwazo vinavyoonekana visivyowezekana — mito iliyofurika, kuta zisizoweza kupenywa, maadui wenye nguvu — vinakuwa hatua za ushindi. Changamoto ya mwisho ya kitabu, 'chagueni leo nani mtakayemtumikia' (24:15), inakabili kila mtu katika kila kizazi.",
+    "Waamuzi ni onyo zito kuhusu kushuka kwa kiroho kunakofuatia wakati kila kizazi kinashindwa kupitisha upendo wa kweli kwa Yehova kwa kizazi kifuatacho. Mzunguko wa kuasi-imani na urejesho unaonyesha hatari ya kuteleza kiroho na uvumilivu wa pekee wa Yehova katika kuwasaidia mara kwa mara wale wanaomlilia.",
+    "Ruthu inaonyesha kwamba upendo wa uaminifu (hesed) na unyenyekevu wa imani ni sifa ambazo Yehova anathamini juu ya asili ya kitaifa au hadhi ya kijamii. Boazi kutenda kama mkombozi-jamaa unaashiria kwa nguvu Yesu Kristo akinunua uhuru wa wanadamu kupitia fidia. Hadithi ya Ruthu inatuhakikishia kwamba hakuna mtu wa dhati anayetafuta kimbilio chini ya mabawa ya Yehova atakayegeuzwa.",
+    "1 Samweli inaonyesha matokeo mabaya ya kutumaini muonekano wa nje, mipango ya kibinadamu, na utii wa nusu badala ya kumfuata Yehova kwa moyo wote. Mfano wa Daudi — kijana mchungaji akimtegemea Yehova kabisa — unalingana sana na uongozi wa Sauli wa kujitegemea, unaotafuta idhini na unatoa mfano kwa kila mtumishi wa Yehova.",
+    "2 Samweli linatoa picha kamili ya Daudi — si la kuboresha bali kamili, ikiwa ni pamoja na makosa yake makubwa na matokeo yake. Toba yake ya haraka alipokabiliwa, badala ya utetezi au kuficha, inaonyesha aina ya moyo unaofundishika ambao Yehova anaweza kusamehe na kurejesha. Agano la Daudi (sura ya 7) linaweka msingi wa tumaini lote la Kimasihi.",
+    "1 Wafalme linaonyesha kwamba hata mtu mwenye busara zaidi na mwenye fursa zaidi anaweza kuanguka kiroho ikiwa anaruhusu ushirika usio sahihi uharibu utii wake kwa Yehova. Simulizi la Eliya linatia moyo hasa — Yehova anarejesha watumishi waliochoka kwa utunzaji wa vitendo, uhakikishaji wa upole, na hisia ya misheni inayoendelea.",
+    "2 Wafalme linaonyesha matokeo ya muda mrefu, yasiyoepukika ya kupuuza maonyo ya Yehova ya mara kwa mara. Simulizi za Hezekia na Yosia, hata hivyo, zinaonyesha kwamba imani ya mtu binafsi na ujasiri wa kiroho bado vinaweza kutoa matokeo ya kimuujiza hata katika hali mbaya zaidi za kitaifa. Wafalme wote wawili wanathibitisha kwamba kumtumaini Yehova badala ya ushirikiano wa kibinadamu daima ni chaguo sahihi.",
+    "1 Mambo ya Nyakati linaonyesha kwamba ibada ya kweli ya Yehova inahitaji wakfu wa moyo wote na shirika makini. Maandalizi ya pekee ya Daudi kwa hekalu ambalo asingelijenga linaonyesha mtazamo wa kujitolea, wa muda mrefu juu ya kusudi la Yehova — sifa inayotia moyo wote wanaowekeza katika kazi ambayo huenda wasiione ikikamilika kibinafsi.",
+    "2 Mambo ya Nyakati ni hasa somo la sababu na matokeo: uaminifu kwa Yehova unatoa baraka ya kitaifa; kutokuwa mwaminifu unatoa msiba wa kitaifa. Mwisho wake wa tumaini unaonyesha kwamba kusudi la Yehova haliwezi hatimaye kuzuiwa, na kwamba anaweza kutumia hata wafalme wa kigeni kutimiza neno lake.",
+    "Mfano wa kibinafsi wa Ezra — 'alikuwa ametayarisha moyo wake kushauriana na Sheria ya Yehova, kuifanya, na kuifundisha' (7:10) — unabaki kiwango cha dhahabu kwa kila mwalimu wa Biblia. Kitabu pia kinaonyesha kwamba kujenga upya ibada safi kunahitaji kuweka kipaumbele kwa mpangilio wa Yehova juu ya mahusiano ya kibinafsi na shinikizo la jamii.",
+    "Nehemia anaonyesha kwamba kazi ya Yehova inaweza kukamilishwa dhidi ya upinzani mkali wakati watu wake wanachanganya sala na hatua za vitendo. Ujuzi wa utawala wa Nehemia, uadilifu wa kibinafsi, na wasiwasi wa kweli kwa ustawi wa watu unaonyesha kwamba uongozi wa kiroho na ubora wa shirika sio mambo yanayopingana.",
+    "Esta inafichua kwamba mkono unaoongoza wa Yehova unafanya kazi hata mahali jina lake halitajwi kwa sauti — kupitia 'bahati' za wakati, mtu sahihi mahali pa kulia, na ugeuzaji wa mipango inayoonekana kuwa isiyozuilika dhidi ya watu wake. Ujasiri wa Esta chini ya tishio unabaki mfano wenye nguvu kwa Mashahidi wa Yehova wanaokabili upinzani.",
+    "Ayubu inajibu moja kwa moja swali zito zaidi waaminifu wanalokabili: 'Kwa nini watu wa haki wanateseka?' Jibu — kwamba mzozo mkubwa unazunguka enzi kuu ya Yehova, na kwamba uvumilivu wetu mwaminifu unahalalisha jina lake — unabadilisha mtazamo wetu juu ya mateso ya kibinafsi na unaipa maana ya kweli badala ya ukatili usio na maana.",
+    "Zaburi zinatoa msamiati kwa kila hisia ya kibinadamu mbele ya Yehova — huzuni mbichi, furaha ya kupanda, dua ya kukata tamaa, sifa ya kushtua. Zinaonyesha kwamba hakuna hisia ya kibinafsi sana au yenye uchungu sana kuleta kwa Yehova katika sala, na zinatoa maneno yenyewe ya kufanya hivyo. Kutafakari kwa kawaida juu ya Zaburi kunajenga ukaribu na Yehova ambao hakuna kitabu kingine cha Biblia kinachounda kabisa.",
+    "Mithali ni kitabu cha vitendo cha Biblia kwa maisha ya kila siku. Tofauti na theolojia ya kufikirika, inashughulika na kazi, fedha, urafiki, hotuba, malezi, ndoa, na usimamizi wa wakati — vyote vimewekwa kwenye heshima ya Yehova. Maneno yake mafupi, ya kukumbukwa yameundwa kuingizwa ndani ili hekima itengeneze maamuzi ya silika ya kila siku.",
+    "Mhubiri inalinda dhidi ya kuvunjika moyo kunakotokea wakati watu wanatarajia mfumo huu wa sasa kutoa maana, utimilifu, au haki — hauwezi. Kwa kuandika kwa uaminifu utupu wa maisha bila Yehova kuwa kitovuni, inafanya kesi ya wakfu kwa Yehova si kama wajibu wa kidini bali kama jibu pekee la busara kwa hali halisi.",
+    "Wimbo wa Sulemani unathibitisha kwamba upendo wa kimapenzi na uhusiano wa kimwili ndani ya ndoa ni zawadi za Yehova — nzuri, safi, na zinazostahili kusherehekewa. Unalinda dhidi ya makosa ya Wagnostiki ya kudharau upendo wa kimwili na upotoshaji wa ulimwengu wake, ukionyesha badala yake kwamba wakfu wa kweli wa ndoa unaakisi upendo wa uaminifu ambao Yehova mwenyewe anauwakilisha.",
+    "Isaya inaitwa kwa haki 'Injili ya tano' — unabii wake wa Kimasihi wa kuzaliwa, huduma, na kifo cha Yesu hauna kifani katika usahihi. 'Sura za faraja' za kitabu (40–66) zimewahifadhi watu wa Yehova kupitia kila aina ya jaribu, na maelezo yake ya ulimwengu mpya yanatoa picha wazi zaidi katika Maandiko ya Kiebrania ya jinsi dunia ya Ufalme wa Yehova itakavyokuwa.",
+    "Uvumilivu wa Yeremia mbele ya maisha ya kukataliwa, kifungo, na dhihaka — karibu bila wongofu wowote — unatoa mfano wa mwisho wa uaminifu unaochochewa na upendo kwa Yehova badala ya matokeo. Uzoefu wake unathibitisha kwamba Yehova anawahifadhi wale wanaomtumikia kwa uaminifu hata wasipoona matokeo.",
+    "Maombolezo yanafundisha watu wa Yehova jinsi ya kuomboleza kwa uaminifu bila kupoteza tumaini. Utayari wake wa kukaa katika huzuni nzito huku ukithibitisha upendo wa uaminifu wa Yehova unaonyesha aina ya imani ambayo haitaki kila kitu kiwe sawa kabla ya kumsifu. Huzuni na tumaini si kinyume — vinashirikiana ndani ya moyo wa kila mtumishi mzima wa Yehova.",
+    "Maono ya Ezekieli ya utukufu wa Yehova ukiondoka kwa kushtua mahali pa ibada palilochafuliwa — likifuatiwa na ahadi yake ya kurudi — yanahusiana moja kwa moja na kila enzi ambapo dini ya uongo imebadilisha ibada safi. Msisitizo wa kitabu juu ya uwajibikaji wa kibinafsi (sura ya 18) na hamu ya Yehova ya toba (18:23; 33:11) unachochea kazi ya kuhubiri ya ulimwenguni pote.",
+    "Danieli inatoa kalenda ya wakati wazi zaidi katika Maandiko ya Kiebrania ya kupanda na kuanguka kwa falme za ulimwengu na kuanzishwa kwa Ufalme wa milele wa Yehova. Simulizi za Danieli na wenzake zinaonyesha kwamba inawezekana kudumisha uadilifu kamili mbele ya Yehova — kukataa kuathiriwa kiroho na kidini — hata ndani ya himaya yenye nguvu zaidi yenye uadui duniani.",
+    "Hosea ina baadhi ya maelezo yenye kusisimua zaidi ya tabia ya Yehova katika Biblia yote — upendo wake wa uaminifu unaowafuata watu wanaomwacha, dhiki yake juu ya chaguo zao, na mwaliko wake usio na masharti wa kurudi. Kitabu kinabadili uelewa wetu wa dhambi kama uvunjifu wa uhusiano badala ya tu kuvunja sheria, na wa toba kama kurudi kwa Baba anayengoja.",
+    "Unabii wa Yoeli wa kumiminwa kwa roho ulikuwa ufunguo wa tafsiri ambao Petro alitumia siku ya Pentekoste kueleza kile kilichokuwa kikitokea kwa kutaniko la mapema (Matendo 2:16). Ujumbe mkuu wa kitabu — kwamba toba ya kweli, ya moyo wote daima inampata Yehova akiwa tayari kurejesha na kubariki — ni muhimu katika maisha ya mtu binafsi kama ilivyokuwa kwa taifa la Israeli.",
+    "Amosi ni ukumbusho wenye nguvu kwamba shughuli ya kidini ya nje haina maana kwa Yehova isipoambatana na haki, rehema, na uadilifu wa kweli katika maisha ya kila siku. Kuhukumu kwake watu wanaohudhuria mikutano ya kidini huku wakikandamiza wengine kunaonya dhidi ya aina yoyote ya kutenganisha imani na maadili — Yehova anaona madhabahu na soko.",
+    "Uchache wa Obadia unaficha kina chake: kitabu kifupi zaidi cha unabii wa Kiebrania kina onyo kuhusu dhambi mbaya ya kiburi na tamko la msingi kwamba Ufalme wa Yehova hatimaye utashinda. Kanuni 'kama ulivyofanya, itafanywa kwako' (mstari wa 15) ni kauli ya kudumu ya haki ya kimungu inayotumika mbali zaidi ya Edomu ya kale.",
+    "Yona inafichua hatari ya kuhukumu mapema nani anastahili kusikia ujumbe wa Yehova na kufurahi wasipojibu. Kitabu kinaonyesha kwamba wasiwasi wa Yehova unaenea kwa mataifa na watu wote, na kwamba kusita kushiriki habari njema kwa upana — bila kujali hadhira ni nani — kunapingana na moyo wake. Yesu alitaja siku tatu za Yona katika samaki kama ishara ya kifo chake mwenyewe na ufufuo (Mathayo 12:39–40).",
+    "Muhtasari wa sehemu tatu wa Mika wa dini ya kweli (6:8) — haki, upendo wa uaminifu, unyenyekevu mbele ya Yehova — unakata kupitia ugumu wote wa kidini hadi sifa muhimu ambazo Yehova anathamini. Unabii wa Bethlehemu (5:2) ni mojawapo ya utabiri sahihi zaidi wa Kimasihi katika Maandiko ya Kiebrania, ukithibitisha mamlaka ya kimungu ya Biblia na uaminifu wa neno la Yehova.",
+    "Nahumu inaonyesha kwamba uvumilivu wa Yehova una mipaka. Ninawi ilikuwa imepewa moja ya msamaha wa kushangaza zaidi katika historia chini ya Yona, lakini kurudi kwake kwenye uovu hatimaye kulichoka uvumilivu wa Yehova. Kitabu kinatoa imani kwamba kila mkandamizaji wa watu wa Yehova hatimaye atawajibika — chanzo cha faraja ya kweli wakati wa mateso.",
+    "Habakuki inaweka mfano wa njia iliyokomaa ya kiroho ya kushughulika na maswali yasiyojibika: ileti kwa uaminifu kwa Yehova, subiri jibu lake, kisha kubali mtazamo wake mpana hata wakati si kile kilichotarajiwa. Imani ya 'hata kama si hivyo' ya Habakuki 3:17–18 ni kiwango cha dhahabu cha furaha isiyo na masharti katika Yehova — imani ambayo haitegemei hali kwenda kwa njia yetu.",
+    "Sefania anasonga kutoka hukumu hadi usemi wa upole zaidi wa furaha ya kibinafsi ya Yehova kwa watu wake — Mungu anayeimba juu yao kwa furaha. Ahadi ya 'lugha safi' (3:9) inatimizwa wakati Mashahidi wa Yehova katika kila lugha na utamaduni wanatumia msamiati huo huo wa ukweli wa Ufalme, wakiita jina la Yehova kwa umoja.",
+    "Somo kuu la Hagai — 'Je, ni wakati kwenu ninyi wenyewe kukaa katika nyumba zenu zilizopambwa huku nyumba hii ikiwa magofu?' — linatumika kwa Wakristo wanaoweka kipaumbele kwa faraja ya kibinafsi na mafanikio juu ya ibada ya Yehova na kazi ya kuhubiri. Jibu la haraka, la moyo wote la watu kwa ujumbe wa Hagai ni mfano wa jinsi ya kujibu maagizo ya kiroho.",
+    "Zekaria ina unabii zaidi wa Kimasihi uliotimizwa na Yesu kuliko kitabu chochote kingine cha unabii wa Kiebrania cha urefu unaolinganishwa. Utimizo huu sahihi — mfalme juu ya punda, vipande thelathini vya fedha, yule aliyechomwa — ni miongoni mwa ushahidi wenye nguvu zaidi wa uongozi wa kimungu wa Andiko na utambulisho wa Yesu kama Masihi aliyeahidiwa.",
+    "Malaki inafunga kanuni ya unabii ya Kiebrania na onyo dhidi ya uvivu wa kiroho — uvivu unaosema 'Si na faida kumtumikia Yehova' (3:14) — na ahadi kwamba wanaolicha jina lake wanajulikana na kuandikishwa naye kibinafsi. Mistari ya mwisho ya kitabu, ikielekeza kwa Eliya anayekuja, inatazamia mbele kwa Yohana Mbatizaji na kuanza kwa enzi ya Kikristo.",
+    "Mathayo ni daraja kati ya Maandiko ya Kiebrania na Maandiko ya Kigiriki ya Kikristo, ikionyesha kwa zaidi ya nukuu 60 za Andiko kwamba Yesu anatimiza kila ahadi kuu ya Kimasihi. Hubiri la Mlimani (sura 5–7) linabaki chanzo cha makini zaidi cha maadili ya vitendo ya Ufalme — hati ya msingi ya maadili ya Kikristo.",
+    "Injili ya Marko ya kasi, inayoongozwa na vitendo ni bora kwa wapya katika Biblia — inaonyesha Yesu katika utendaji zaidi kuliko katika mafundisho ya kufikirika. Swali lake kuu 'Mtu huyu ni nani kweli?' linamchangamotisha kila msomaji kufikia hitimisho la kibinafsi kuhusu utambulisho wa Yesu, na msisitizo wake juu ya utumishi na kujitolea unafafanua jinsi ukuu wa kweli unavyoonekana mbele ya Yehova.",
+    "Injili ya Luka ndiyo ya ulimwengu wote zaidi — iliandikwa kwa Theofilo (jina la Kigeni) na ikisisitiza huduma ya Yesu kwa maskini, wagonjwa, wanawake, na waliotengwa. Mifano yake mitatu ya 'kupotea na kupatikana' katika sura ya 15 (kondoo aliyepotea, sarafu iliyopotea, mwana aliyepotea) inatoa picha ya karibu zaidi ya furaha ya Yehova kwa kila mtu mmoja anayemrudia.",
+    "Injili ya Yohana iliandikwa wazi 'ili ninyi mpate kuamini kwamba Yesu ni Kristo, Mwana wa Mungu, na kupitia kuamini mpate uzima katika jina lake' (20:31). Christology yake ya juu inafafanua ukuu wa Yesu na tofauti yake na Yehova, na picha yake ya karibu ya uhusiano wa Yesu na Baba yake ni mfano kwa kila uhusiano wa Mkristo na Yehova.",
+    "Matendo inatoa kiungo muhimu kati ya huduma ya kidunia ya Yesu na kutaniko la kimataifa la Kikristo. Inaonyesha jinsi roho takatifu ya Yehova ilivyoongoza, ikawezesha, na ikapanga kazi ya kuhubiri katika mipaka ya kitamaduni na ya kijiografia — na jinsi roho hiyo hiyo inavyoendelea kuongoza kazi ya ulimwengu wa Mashahidi wa Yehova leo.",
+    "Waroma ni ufafanuzi wa kimafundisho ulioandaliwa zaidi wa kwa nini wanadamu wanahitaji fidia na jinsi imani katika Yesu inavyorejesha hadhi ya mtu mbele ya Yehova. Sehemu yake ya vitendo (sura 12–16) kisha inatafsiri theolojia hii katika maisha ya kila siku — upendo kwa ndugu, utii kwa serikali, na kushughulikia mambo ya dhamiri kwa unyeti — ikifanya Waroma kuwa mwongozo kamili zaidi wa imani na mwenendo.",
+    "1 Wakorintho linashughulikia matatizo yanayoendelea kukaribisha changamoto kwa makutaniko katika kila enzi: migawanyiko, uasherati, matumizi mabaya ya vipawa vya kiroho, na shaka kuhusu ufufuo. Majibu ya Paulo yanaanzisha kanuni ambazo Baraza Tawala linatumia leo. Sura ya upendo (13) inabaki maelezo ya uhakika ya sifa ambayo lazima ienee mwingiliano wote wa kutaniko.",
+    "2 Wakorintho ni barua ya kibinafsi zaidi na yenye uaminifu wa kihisia zaidi ya barua za Paulo, ikifichua mateso, kuvunjika moyo, na uvumilivu wa mwisho wa mmoja wa watumishi wenye mafanikio zaidi wa Yehova. Inaanzisha kanuni kwamba nguvu ya Yehova inaonekana zaidi hasa wakati nguvu ya kibinadamu imechoka zaidi — mtazamo unaobadilisha kwa Mkristo yeyote anayevumilia magumu yanayodumu.",
+    "Wagalatia ni Magna Carta ya uhuru wa Kikristo — uhuru kutoka Sheria ya Musa, kutoka mila za kibinadamu, na kutoka mpango wowote wa sifa ya kibinadamu. Utetezi wa shauku wa Paulo wa neema (fadhili zisizostahiliwa za Yehova) kupitia imani peke yake unawalinda Wakristo kutoka kwa sheria na hatia inayotokana na kuhisi kwamba juhudi zao hazitoshi kamwe.",
+    "Waefeso linatoa picha pana zaidi ya kusudi la milele la Yehova — kuanzia kabla ya uumbaji hadi ulimwengu mpya — na linaeleza nafasi ya kila mwamini ndani ya mpango huu mkubwa. Sehemu za vitendo kuhusu maisha ya familia (5:22–6:9) na silaha kamili (6:10–18) ni miongoni mwa mwongozo halisi zaidi wa maisha ya kila siku ya Kikristo katika Maandiko ya Kigiriki ya Kikristo.",
+    "Wafilipi, iliyoandikwa kutoka gerezani, ni mojawapo ya vitabu vya furaha zaidi katika Biblia — inaonyesha kwamba furaha ya kweli ni matokeo ya uhusiano na Yehova badala ya hali. Maagizo yake ya vitendo kwa wasiwasi (4:6–7) na nidhamu ya akili (4:8) inafanya kuwa yenye thamani hasa kwa wasomaji wa kisasa wanaopitia mafadhaiko, hofu, na uchovu wa kiroho.",
+    "Wakolosai inawalenga upya Wakristo ambao wangeweza kushtushwa na falsafa, mila, au ibada ya malaika — kurudi kwenye utoshelevu wa Yesu Kristo. Picha yake ya vitendo ya 'utu mpya' (sura ya 3) ni orodha ya kina zaidi ya kabati la mwenendo wa Kikristo katika barua za Paulo, ikielezea nini cha kuvua na nini cha kuvaa katika mwingiliano wa kila siku.",
+    "1 Wathesalonike iliandikwa kutia moyo kutaniko changa chini ya mateso, na joto lake la kichungaji linaifanya kuwa bora kwa yeyote mpya katika imani. Simulizi lake la kuhakikishia la tumaini la ufufuo (4:13–18) — kwamba waliokufa katika Kristo hawajaisha tu — limewafariji Mashahidi wa Yehova kwenye makaburi kwa vizazi.",
+    "2 Wathesalonike linarekebisha hisia za kupita kiasi (ripoti za uongo kwamba siku ya Yehova tayari imefika) na kukimbia (kuacha majukumu ya kila siku wakati wa kungojea mwisho). Ushauri wake wenye usawa — bakini imara kimafundisho, kaeni macho kiroho, na endeleeni katika maisha yenye utaratibu yenye uzalishaji — ni hasa yale ambayo Mashahidi wa Yehova wanajitahidi kufanya leo.",
+    "1 Timotheo linatoa muundo wa shirika kwa kutaniko linalomheshimu Yehova — viongozi wenye sifa zinazofaa, mafundisho sahihi, sala kwa watu wote, na utunzaji wa wajane na walio hatarini. Mfano wa Timotheo mwenyewe — 'kuwa mfano kwa waaminifu katika usemi, mwenendo, upendo, imani, usafi' (4:12) — ni kiwango kwa kila mtumishi mchanga wa Yehova.",
+    "Paulo aliandika 2 Timotheo kutoka kifungoni cha kifo chake kama urithi wake wa mwisho kwa mwana wake wa kiroho na kwa vizazi vyote vya watumishi wa Yehova vya baadaye. Wito wake wa kuvumilia mateso, kubaki mwaminifu kwa mafundisho sahihi, na kuendelea kuhubiri bila kujali matokeo unabeba mamlaka ya mtu aliyeishi kila neno alilolopaza. Maelezo ya 'siku za mwisho' (3:1–5) yanatambulisha enzi yetu wenyewe kwa usahihi usio na shaka.",
+    "Tito ni mwongozo wa kompakti wa kuanzisha makutaniko yenye afya katika mazingira yenye changamoto. Msisitizo wake kwamba mafundisho sahihi yanatoa mwenendo wa vitendo wa kimungu — si kama njia ya kupata wokovu bali kama usemi wa asili wa fadhili zisizostahiliwa za Yehova zinazobadilisha — unanasa uhusiano wa nguvu kati ya imani na tabia unaoonyesha Ukristo wa kweli.",
+    "Filemoni linaonyesha kwamba habari njema za Yesu Kristo zilikuwa na nguvu ya kuvunja moja ya vizuizi vikali zaidi vya kijamii vya ulimwengu wa kale — uhusiano wa bwana/mtumwa — kwa kuubadilisha na udugu wa kweli wa Kikristo. Kitabu ni darasa la ustadi wa kushawishi kupitia upendo badala ya mamlaka, na la kuwapa wengine heshima ya kufanya chaguo sahihi.",
+    "Waebrania inatoa maelezo ya kitheolojia ya kwa nini Wakristo hawako tena chini ya wajibu wa Sheria ya Musa — dhabihu kuu ya Yesu imebadilisha kabisa mfumo wote wa Kilawi. 'Sura ya imani' (sura ya 11) imewachochea Mashahidi wa Yehova katika kila kizazi kwa uvumilivu kwa kuonyesha kwamba wingu la mashahidi waaminifu mbele yetu walikamilisha kozi yao bila kupokea kilichoahidiwa — lakini wakabaki waaminifu.",
+    "Yakobo ni kama kitabu cha Mithali cha Maandiko ya Kigiriki ya Kikristo — chenye vitendo sana, kimewekwa katika maisha ya kila siku, na kisivumilia dini isiyozaa mabadiliko yanayoonekana. Msisitizo wake kwamba imani ya kweli inajieleza kwa vitendo (kuwajali maskini, kudhibiti ulimi, kusali kwa wagonjwa) unalinda dhidi ya Ukristo wa kufikirika unaokaa salama tu ndani ya kichwa cha mtu.",
+    "1 Petro iliandikwa kwa Wakristo wanaopata mshtuko wa kwanza wa mateso ya Kirumi yaliyoandaliwa. Hoja yake endelevu — kwamba kuteseka kwa ajili ya haki si kasoro bali ni alama ya ufuasi wa kweli — imeifanya kuwa barua ya kuendea kwa Mashahidi wa Yehova katika nchi ambako wanakabili marufuku ya kisheria na kifungo kwa imani yao.",
+    "Ngazi ya 2 Petro ya sifa za Kikristo (1:5–7) inatoa maelezo yaliyoandaliwa zaidi katika Andiko ya maendeleo ya kiroho ya hatua kwa hatua ambayo Yehova anatarajia. Onyo lake kuhusu walimu wa uongo 'watakaoingiza kimya kimya madhehebu yenye uharibifu' (2:1) ni muhimu hasa katika enzi ambapo maudhui ya kidijiti yanafanya nyenzo za waasi-imani zifikiwe haraka na mshiriki yeyote wa kutaniko.",
+    "1 Yohana inatoa ufafanuzi wazi zaidi wa jinsi upendo wa kweli wa Kikristo unavyoonekana kivitendo — si kama hisia za joto bali kama utii hai kwa amri za Yehova. Kauli yake 'Mungu ni upendo' (4:8) ni msingi wa kitheolojia ambapo sifa nyingine zote za Yehova zinatoka, na vipimo vyake vitatu vya vitendo vinalinda makutaniko kutoka kwa ulegevu wa kimaadili na mafundisho ya uongo.",
+    "Ingawa ni mistari 13 tu, 2 Yohana inatoa kanuni muhimu ambayo Mashahidi wa Yehova wanatumia kivitendo: kudumisha ukarimu wa joto, wa upendo ndani ya kutaniko huku kwa uthabiti ukizuia kwa wale wanaokataa fidia au kueneza mafundisho ya uongo. Usawa huu — upendo na utambuzi — unalinda watu binafsi na makutaniko kutoka kwa uchafuzi wa kiroho.",
+    "3 Yohana inashughulikia mwelekeo hatari wa kujiendeleza katika kutaniko kupitia mifano tofauti ya Gayo (mkarimu, mnyenyekevu) na Diotrefe (anayejifikiria, mgawanyiko). Kanuni kwamba wale 'wanaopenda kuwa wa kwanza' wanasumbua kutaniko inatumika katika kila kizazi na inaendelea kuongoza jinsi watu wa Yehova wanavyotambua na kushughulikia mielekeo hiyo.",
+    "Yuda iliandikwa kwa hali hasa inayokabili kila kutaniko wakati waasi-imani wanapotokea ndani — wale wanaotumia neema ya Yehova kama leseni ya mwenendo huru na wanaodharau mamlaka yote. Maagizo yake ya vitendo ya kujilinda (kujenga imani, sala, kukaa katika upendo wa Yehova) na ya kusaidia wale wanaovutwa na uasi-imani yanabaki mwongozo muhimu kwa wazee wa kutaniko na watu binafsi sawa.",
+    "Ufunuo inawapa watu wa Yehova mtazamo wa mwisho wa mwisho wa historia — si kama chanzo cha siri au hofu, bali kama chanzo cha imani ya kudumu. Ujumbe wake unaorudiwa wa 'kushinda' na ahadi yake ya mwisho ya 'kufuta kila chozi' vimewahifadhi Mashahidi wa Yehova kupitia mateso makali zaidi. Kitabu kinahakikisha kwamba Ufalme wa Yehova utaondoa kila chanzo cha mateso na kwamba kusudi lake kwa dunia litatekelezwa kabisa."
+  ],
+  "bookNotablePassages": [
+    [
+      {
+        "ref": "Mwanzo 1:1",
+        "note": "Tamko la ufunguzi linaloanzisha Yehova kama Muumba wa mbingu na dunia, msingi wa theolojia yote ya Mashahidi wa Yehova juu ya enzi kuu ya Yehova."
+      },
+      {
+        "ref": "Mwanzo 12:1–3",
+        "note": "Agano la Yehova na Abrahamu — msingi wa mzao ulioahidiwa ambao ungebariki mataifa yote ya dunia."
+      },
+      {
+        "ref": "Mwanzo 50:20",
+        "note": "Ushuhuda wa Yosefu kwamba Yehova anaweza kugeuza msiba kuwa wema, ukionyesha utunzaji wake wa enzi kuu kwa wale wanaomtumaini."
+      }
+    ],
+    [
+      {
+        "ref": "Kutoka 3:14",
+        "note": "Yehova anafichua jina lake na maana yake 'Nitakuwa Nitakavyochagua Kuwa,' akisisitiza umuhimu wa kujua na kutumia jina la kibinafsi la Yehova."
+      },
+      {
+        "ref": "Kutoka 6:3",
+        "note": "Yehova anasisitiza kwamba jina lake linamtofautisha na miungu mingine yote, andiko muhimu la NWT kwa kurejesha jina la Mungu katika Maandiko yote."
+      },
+      {
+        "ref": "Kutoka 20:2–3",
+        "note": "Amri mbili za kwanza zinaanzisha kwamba Yehova peke yake ndiye Mungu na lazima awe na wakfu wa kipekee — msingi wa ibada safi."
+      }
+    ],
+    [
+      {
+        "ref": "Mambo ya Walawi 19:2",
+        "note": "Wito wa Yehova kwa utakatifu — 'Mtakuwa watakatifu, kwa sababu mimi, Yehova Mungu wenu, ni mtakatifu' — unaweka kiwango cha kimaadili kwa wote wanaobeba jina lake."
+      },
+      {
+        "ref": "Mambo ya Walawi 17:11",
+        "note": "Tamko kwamba 'uhai wa mwili uko katika damu' linaanzisha utakatifu wa damu na kuunga mkono uelewa wa Mashahidi wa Yehova kuhusu suala la damu."
+      },
+      {
+        "ref": "Mambo ya Walawi 16:30",
+        "note": "Siku ya Upatanisho ya kila mwaka ilitoa utakaso wa kitaifa, ukiashiria dhabihu kuu ya Yesu Kristo kama Kuhani Mkuu kwa niaba ya wanadamu wote."
+      }
+    ],
+    [
+      {
+        "ref": "Hesabu 6:24–26",
+        "note": "Baraka ya Aroni — 'Yehova akubariki na kukulinda' — inafichua utunzaji wa kibinafsi wa Yehova na maslahi ya ulinzi kwa watu wake."
+      },
+      {
+        "ref": "Hesabu 14:18",
+        "note": "Maelezo ya Yehova juu yake mwenyewe kama 'si mwepesi wa hasira na mwingi wa upendo wa uaminifu' huku akimwajibisha mwenye hatia inanasa usawa wa haki na rehema yake."
+      },
+      {
+        "ref": "Hesabu 23:19",
+        "note": "Tamko la Balaamu kwamba 'Mungu si mtu anayesema uongo' linathibitisha kuaminika kabisa kwa ahadi na unabii wa Yehova."
+      }
+    ],
+    [
+      {
+        "ref": "Kumbukumbu la Torati 6:4–5",
+        "note": "Shema — 'Yehova Mungu wetu ni Yehova mmoja' — ni jiwe la pembeni la imani ya monotheistiki ya Israeli na muhtasari wa Yesu mwenyewe wa amri kuu."
+      },
+      {
+        "ref": "Kumbukumbu la Torati 28:1–2",
+        "note": "Ahadi ya Yehova ya baraka tele juu ya utii kamili inaonyesha uhusiano wa moja kwa moja kati ya uaminifu wa agano na upendeleo wa kimungu."
+      },
+      {
+        "ref": "Kumbukumbu la Torati 30:19",
+        "note": "Wito wa Yehova wa 'kuchagua uzima' unaweka mbele ya kila mtu jukumu la kibinafsi la kuoanisha mapenzi yao na viwango vya Yehova."
+      }
+    ],
+    [
+      {
+        "ref": "Yoshua 1:9",
+        "note": "Amri ya Yehova 'uwe jasiri na hodari' inamhakikishia Yoshua kwamba uwepo wa kimungu unaondoa msingi wa hofu — ahadi inayotumika sawa kwa watumishi wa Yehova leo."
+      },
+      {
+        "ref": "Yoshua 24:15",
+        "note": "Tamko la Yoshua 'kwa habari yangu na nyumba yangu, tutamtumikia Yehova' linawakilisha chaguo la kibinafsi ambalo kila familia lazima ifanye kwa wakfu wa kipekee."
+      },
+      {
+        "ref": "Yoshua 21:45",
+        "note": "Uthibitisho kwamba 'hakuna neno lililoshindwa katika mambo yote mazuri ambayo Yehova alikuwa amesema' linaanzisha kuaminika kamili kwa kila ahadi ya kimungu."
+      }
+    ],
+    [
+      {
+        "ref": "Waamuzi 2:16",
+        "note": "Yehova kuinua waamuzi kuwaokoa Israeli inaonyesha rehema yake ya uvumilivu hata kwa wale wanaorudia kupitia mzunguko wa kutokuwa waaminifu."
+      },
+      {
+        "ref": "Waamuzi 21:25",
+        "note": "Muhtasari kwamba 'kila mtu alikuwa akifanya yaliyo sawa machoni pake' unaelezea machafuko ya kimaadili yanayofuatia kukataa mamlaka ya Yehova."
+      },
+      {
+        "ref": "Waamuzi 7:2",
+        "note": "Yehova kupunguza jeshi la Gideoni hadi wanaume 300 lilionyesha kwamba ushindi ni wa Yehova, si idadi au nguvu za kibinadamu."
+      }
+    ],
+    [
+      {
+        "ref": "Ruthu 1:16",
+        "note": "Tamko la Ruthu 'watu wako watakuwa watu wangu na Mungu wako Mungu wangu' ni usemi wenye nguvu wa upendo wa uaminifu na wakfu wa moyo wote kwa Yehova."
+      },
+      {
+        "ref": "Ruthu 2:12",
+        "note": "Baraka ya Boazi kwamba Yehova angemzawadia Ruthu kwa kutafuta kimbilio 'chini ya mabawa yake' inaonyesha utunzaji wa ulinzi wa Yehova kwa wale wanaomkaribia."
+      },
+      {
+        "ref": "Ruthu 4:14",
+        "note": "Baraka ya wanawake juu ya Naomi inasherehekea Yehova kama yule asiyewaacha watu wake bila mkombozi, akielekeza kwa ukombozi wa mwisho kupitia Kristo."
+      }
+    ],
+    [
+      {
+        "ref": "1 Samweli 16:7",
+        "note": "Tamko la Yehova 'Yehova anaona moyoni' linaanzisha kwamba anawatathmini watu kwa msingi wa sifa za ndani, si muonekano wa nje."
+      },
+      {
+        "ref": "1 Samweli 17:47",
+        "note": "Tangazo la Daudi kwamba 'vita ni vya Yehova' kabla ya kumshinda Goliathi linathibitisha kwamba ushindi wa kweli daima unakuja kupitia kutegemea nguvu ya Yehova."
+      },
+      {
+        "ref": "1 Samweli 2:2",
+        "note": "Wimbo wa Hana ukithibitisha kwamba 'hakuna mtu kama Yehova' unasherehekea utakatifu wake usio na kifani na nguvu, ukiashiria Magnificat ya Mariamu."
+      }
+    ],
+    [
+      {
+        "ref": "2 Samweli 7:12–13",
+        "note": "Agano la Yehova na Daudi likimuahidi ufalme wa milele kupitia mzao wake ni unabii muhimu wa Kimasihi uliotimizwa katika Yesu Kristo."
+      },
+      {
+        "ref": "2 Samweli 22:2–3",
+        "note": "Tamko la Daudi la Yehova kama 'mwamba wangu...ngome yangu...kimbilio langu' linaonyesha imani ya kibinafsi nzito katika Yehova iliyoonyesha utawala wake wote."
+      },
+      {
+        "ref": "2 Samweli 12:13",
+        "note": "Kukiri kwa Daudi mara moja 'Nimemtenda dhambi Yehova' baada ya kemeo la Nathani inaonyesha mfano wa toba ya kweli ambayo Yehova hukubali na kusamehe."
+      }
+    ],
+    [
+      {
+        "ref": "1 Wafalme 8:23",
+        "note": "Sala ya Sulemani ikikiri hakuna 'Mungu kama wewe juu mbinguni au chini duniani' inasherehekea uaminifu usio na kifani wa Yehova kwa agano lake."
+      },
+      {
+        "ref": "1 Wafalme 18:21",
+        "note": "Changamoto ya Eliya 'mtazichukua maoni mawili mpaka lini?' inawaita Israeli kumaliza maelewano ya kifo ya kuchanganya ibada ya Baali na ibada ya Yehova."
+      },
+      {
+        "ref": "1 Wafalme 3:9",
+        "note": "Ombi la Sulemani la 'moyo unaosikia' kuwahukumu watu wa Yehova kwa hekima linaonyesha unyenyekevu ambao Yehova anaheshimu kwa wanaowaongoza watu wake."
+      }
+    ],
+    [
+      {
+        "ref": "2 Wafalme 17:7–8",
+        "note": "Maelezo kwamba Israeli ilianguka kwa sababu 'walihofu miungu mingine' na kufuata mazoea ya mataifa yanayozunguka yanatoa sababu ya kitheolojia kwa uhamishoni wa Ashuru."
+      },
+      {
+        "ref": "2 Wafalme 22:13",
+        "note": "Jibu la haraka la Yosia aliposikia sheria ya Yehova — 'hasira ya Yehova lazima iwe kuu' — inaonyesha moyo unaoshtuka wa yule anayechukulia neno la Yehova kwa uzito."
+      },
+      {
+        "ref": "2 Wafalme 19:35",
+        "note": "Malaika wa Yehova akiharibu askari 185,000 wa Ashuru usiku mmoja unathibitisha sala ya Hezekia na unaonyesha nguvu ya Yehova ya kuokoa dhidi ya hatari yoyote."
+      }
+    ],
+    [
+      {
+        "ref": "1 Mambo ya Nyakati 16:23–24",
+        "note": "Wimbo wa Daudi unaiita dunia yote 'kutangaza wokovu wa Yehova siku baada ya siku' na kueleza utukufu wake kati ya mataifa inatazamia kazi ya kuhubiri ya kimataifa."
+      },
+      {
+        "ref": "1 Mambo ya Nyakati 29:11",
+        "note": "Sala ya Daudi ikikiri kwamba 'kila kitu mbinguni na duniani ni cha Yehova' inaonyesha mtazamo sahihi wa utegemezi kamili juu yake."
+      },
+      {
+        "ref": "1 Mambo ya Nyakati 28:9",
+        "note": "Wito wa Daudi kwa Sulemani kumtumikia Yehova 'kwa moyo mkamilifu na nafsi yenye furaha' inanasa kiwango cha Yehova cha wakfu wa moyo wote."
+      }
+    ],
+    [
+      {
+        "ref": "2 Mambo ya Nyakati 7:14",
+        "note": "Ahadi ya masharti ya Yehova ya 'kuwasamehe dhambi yao na kuponya nchi yao' ikiwa watu wake watajinyenyekeza na kusali inabaki mfano wa urejesho baada ya kushindwa kiroho."
+      },
+      {
+        "ref": "2 Mambo ya Nyakati 20:15",
+        "note": "Uhakikisho wa Yehova 'vita si vyenu, bali ni vya Mungu' kwa jeshi la Yehoshafati lililozidiwa idadi linafundisha kwamba kumtumaini Yehova kabisa daima ni mkakati sahihi."
+      },
+      {
+        "ref": "2 Mambo ya Nyakati 36:23",
+        "note": "Amri ya Koreshi inayoruhusu wahamiwa kurudi kujenga upya nyumba ya Yehova inaonyesha uwezo wa Yehova wa kuhamasisha mioyo ya watawala wa ulimwengu kutimiza kusudi lake."
+      }
+    ],
+    [
+      {
+        "ref": "Ezra 7:10",
+        "note": "Maandalizi ya Ezra ya 'kushauriana na Sheria ya Yehova, kuifanya, na kuifundisha' yanaweka mfano wa tabia za kibinafsi za kujifunza Biblia ambazo Yehova anathamini katika watumishi wake wote."
+      },
+      {
+        "ref": "Ezra 3:11",
+        "note": "Kuimba kwa furaha 'Yehova ni mwema, upendo wake wa uaminifu kwa Israeli ni wa milele' wakati wa kuweka msingi wa hekalu inaonyesha kwamba upendo wa uaminifu wa Yehova unachochea sifa za moyo."
+      },
+      {
+        "ref": "Ezra 1:1",
+        "note": "Yehova kuchochea moyo wa Koreshi kutoa amri yake kutimiza unabii wa Yeremia inaonyesha kwamba hakuna mtawala wa kibinadamu anayeweza kumzuia Yehova kutimiza kusudi lake."
+      }
+    ],
+    [
+      {
+        "ref": "Nehemia 8:10",
+        "note": "Tamko 'furaha ya Yehova ni nguvu yenu' wakati wa kusoma sheria hadharani linaunganisha lishe ya kweli ya kiroho na nguvu za ndani zinazohitajika kukabili changamoto za kila siku."
+      },
+      {
+        "ref": "Nehemia 1:5–6",
+        "note": "Sala-kukiri ya Nehemia ikitumia upendo wa uaminifu wa Yehova na jukumu lake mwenyewe katika dhambi ya watu wake inaonyesha aina ya uombezi unaomsogeza Yehova kutenda."
+      },
+      {
+        "ref": "Nehemia 4:14",
+        "note": "Wito wa Nehemia 'piganeni kwa ndugu zenu, wana wenu, binti zenu, wake zenu, na nyumba zenu' inaonyesha kwamba kuwalinda watu wa Yehova kunahitaji ujasiri wa kiroho na wa vitendo."
+      }
+    ],
+    [
+      {
+        "ref": "Esta 4:14",
+        "note": "Changamoto ya Mordekai 'nani ajuaye kama ni kwa wakati kama huu umefikia cheo chako cha kifalme' inamuita Esta kutumaini wakati wa kimaongozi wa Yehova hata kwa hatari ya kibinafsi."
+      },
+      {
+        "ref": "Esta 8:11",
+        "note": "Amri inayobatilisha njama ya mauaji ya Hamani inaonyesha kwamba Yehova anaweza kugeuza hali za vitisho kabisa kwa wale wanaobaki waaminifu kwake."
+      },
+      {
+        "ref": "Esta 2:10",
+        "note": "Ingawa jina la Yehova halionekani katika andiko, mkono wake unaoongoza unaonekana katika kitabu chote, ukiwakumbusha Mashahidi wa Yehova kwamba ulinzi wake unafanya kazi hata isipoonekana."
+      }
+    ],
+    [
+      {
+        "ref": "Ayubu 1:21",
+        "note": "Jibu la Ayubu 'Yehova alitoa, na Yehova amechukua. Jina la Yehova na liendelee kusifiwa' ni mfano mkuu wa uadilifu chini ya hasara mbaya zaidi ya kibinafsi."
+      },
+      {
+        "ref": "Ayubu 19:25",
+        "note": "Tamko la uhakika la Ayubu 'Mkombozi wangu yu hai' inaonyesha tumaini la ufufuo linalowahifadhi watu wa Yehova kupitia majaribu makali zaidi."
+      },
+      {
+        "ref": "Ayubu 38:4",
+        "note": "Swali la kifananishi la Yehova 'ulikuwa wapi nilipoweka misingi ya dunia?' linaanzisha tofauti kubwa kati ya hekima ya Yehova na uelewa wa kibinadamu."
+      }
+    ],
+    [
+      {
+        "ref": "Zaburi 23:1",
+        "note": "Ufunguzi 'Yehova ni Mchungaji wangu' unanasa uhusiano wa karibu, wa kibinafsi wa imani na utegemezi juu ya Yehova unaotiririka katika Psalter yote."
+      },
+      {
+        "ref": "Zaburi 46:1",
+        "note": "Tamko kwamba 'Mungu ni kimbilio chetu na nguvu, msaada unaopatikana kwa urahisi nyakati za taabu' inathibitisha Yehova kama chanzo cha kuaminika cha utulivu katika mgogoro wowote."
+      },
+      {
+        "ref": "Zaburi 83:18",
+        "note": "Kauli 'ili watu wajue kwamba wewe, ambaye jina lako ni Yehova, wewe peke yako ndiwe Aliye Juu Zaidi juu ya dunia yote' inanasa misheni kuu ya Mashahidi wa Yehova ya kuhalalisha jina la Yehova."
+      }
+    ],
+    [
+      {
+        "ref": "Mithali 1:7",
+        "note": "Kauli ya msingi 'kumcha Yehova ndio mwanzo wa hekima' inaanzisha kwamba hekima ya kweli haiwezi kutenganishwa na uhusiano sahihi na Yehova."
+      },
+      {
+        "ref": "Mithali 3:5–6",
+        "note": "Ushauri wa 'kumtumaini Yehova kwa moyo wako wote na kutotegemea uelewa wako mwenyewe' unaita kujisalimisha kwa hukumu ya kibinafsi kwa uongozi wa Yehova."
+      },
+      {
+        "ref": "Mithali 31:30",
+        "note": "Uthibitisho kwamba 'mwanamke anayemcha Yehova ndiye anayesifiwa' unatambulisha heshima kwa Yehova kama sifa inayofafanua ubora wa kweli."
+      }
+    ],
+    [
+      {
+        "ref": "Mhubiri 1:2",
+        "note": "Kifungu kinachorudiwa 'ubatili mkuu zaidi — kila kitu ni ubatili' kinaweka asili ya uchunguzi wa Sulemani, ukionyesha kwamba maisha bila mtazamo wa Yehova hayana maana ya kudumu."
+      },
+      {
+        "ref": "Mhubiri 3:1",
+        "note": "Fundisho kwamba Yehova ameteua wakati kwa kila kusudi chini ya mbingu linatia moyo kutumaini wakati wake badala ya kujitegemea kwa wasiwasi."
+      },
+      {
+        "ref": "Mhubiri 12:13",
+        "note": "Hitimisho la mwisho — 'mche Mungu wa kweli na ushike amri zake, kwa maana huu ni wajibu wote wa mtu' — unatambulisha wakfu kamili kwa Yehova kama kusudi la kweli la wanadamu."
+      }
+    ],
+    [
+      {
+        "ref": "Wimbo wa Sulemani 2:4",
+        "note": "Tamko 'kusudi lake kwangu ni upendo' linanasa usalama na furaha vinavyotokana na uhusiano uliojengwa juu ya upendo wa kweli, wa ulinzi wa uaminifu."
+      },
+      {
+        "ref": "Wimbo wa Sulemani 8:6–7",
+        "note": "Maelezo ya upendo kama 'wenye nguvu kama kifo' na 'mioto yake ni mioto ya moto, mwali wa Yah' yanasherehekea upendo wa Yehova kama uhusiano wenye nguvu zaidi wa kibinadamu."
+      },
+      {
+        "ref": "Wimbo wa Sulemani 1:3",
+        "note": "Sifa ya Mshulami kwa jina la mpenzi wake kuwa 'kama mafuta yenye harufu nzuri yaliyomwagika' inaonyesha jinsi sifa na tabia ya mtu inavyowavuta wengine."
+      }
+    ],
+    [
+      {
+        "ref": "Isaya 9:6",
+        "note": "Vyeo vya Kimasihi 'Mshauri wa Ajabu, Mungu Mwenye Nguvu, Baba wa Milele, Mkuu wa Amani' vinaonyesha sifa za ajabu Yehova angempa Mfalme aliyemteua."
+      },
+      {
+        "ref": "Isaya 40:31",
+        "note": "Ahadi kwamba wale 'wanaomngojea Yehova' watapata nguvu mpya kama tai inatoa faraja ya kudumu kwa watumishi wake wakati wa magumu marefu."
+      },
+      {
+        "ref": "Isaya 53:5",
+        "note": "Unabii wa Mtumishi anayeteseka kwamba 'alichomwa kwa makosa yetu' ni mojawapo ya utabiri sahihi zaidi wa Kimasihi, uliotimizwa katika dhabihu ya upatanisho ya Yesu Kristo."
+      }
+    ],
+    [
+      {
+        "ref": "Yeremia 17:9",
+        "note": "Tamko kwamba 'moyo ni mwenye hila zaidi kuliko kitu chochote' linasisitiza haja ya uongozi wa Yehova badala ya kutegemea mielekeo isiyo kamili ya kibinadamu."
+      },
+      {
+        "ref": "Yeremia 29:11",
+        "note": "Ahadi ya Yehova 'Najua vyema mawazo ninayowafikiria — mawazo ya amani, na si ya msiba' inawahakikishia watu wake walioko uhamishoni kwamba kusudi lake kwao daima ni jema."
+      },
+      {
+        "ref": "Yeremia 31:31–33",
+        "note": "Ahadi ya Yehova ya agano jipya 'lililoandikwa moyoni' badala ya kwenye mabamba ya jiwe inaelekeza kwa mpangilio bora ulioongozwa na Yesu Kristo."
+      }
+    ],
+    [
+      {
+        "ref": "Maombolezo 3:22–23",
+        "note": "Uthibitisho kwamba upendo wa uaminifu wa Yehova 'haukomi kamwe' na 'rehema zake hazikomi kamwe; zinafanywa upya kila asubuhi' ni nanga ya tumaini katika huzuni nzito zaidi ya kitabu."
+      },
+      {
+        "ref": "Maombolezo 3:40",
+        "note": "Wito wa 'kuchunguza na kutafuta njia zetu, na kurudi kwa Yehova' unaonyesha kujichunguza ambako Yehova anataka kama hatua ya kwanza ya urejesho wa kiroho."
+      },
+      {
+        "ref": "Maombolezo 3:26",
+        "note": "Ushauri wa 'kungoja kimya wokovu wa Yehova' unafundisha kwamba uvumilivu wa subira katika imani ni jibu sahihi la kungoja wakati wa Yehova."
+      }
+    ],
+    [
+      {
+        "ref": "Ezekieli 18:23",
+        "note": "Tamko la Yehova 'Je, ninafurahia kifo cha mwovu?' inathibitisha tamaa yake ya watu wote kutubu na kuishi, motisha muhimu ya kuhubiri kwa Mashahidi wa Yehova."
+      },
+      {
+        "ref": "Ezekieli 36:26",
+        "note": "Ahadi kwamba Yehova atabadilisha 'moyo wa jiwe' na 'moyo wa nyama' inaeleza mabadiliko ambayo roho yake inazalisha kwa wale wanaomrudia."
+      },
+      {
+        "ref": "Ezekieli 37:1–4",
+        "note": "Maono ya bonde la mifupa mikavu yanaashiria kwa nguvu ufufuo wa wafu, wakati Yehova atarejesha uhai kwa mamilioni chini ya Ufalme wake."
+      }
+    ],
+    [
+      {
+        "ref": "Danieli 2:44",
+        "note": "Unabii kwamba 'Mungu wa mbinguni atausimamisha ufalme usiotaharibika kamwe' ni msingi wa uelewa wa Mashahidi wa Yehova wa Ufalme wa Yehova kama serikali pekee ya kudumu."
+      },
+      {
+        "ref": "Danieli 3:17–18",
+        "note": "Tamko la Shadraka, Meshaki, na Abednego 'hata kama hatatutoa' linaonyesha uadilifu kabisa mbele ya Yehova bila kujali matokeo — imani ya 'hata kama si hivyo'."
+      },
+      {
+        "ref": "Danieli 6:26",
+        "note": "Tangazo la Dario kwamba Mungu wa Danieli 'ni Mungu aliye hai na anadumu milele' inaonyesha jinsi uadilifu wa imani unaweza kuwasonga hata watawala wa kipagani kukubali enzi kuu ya Yehova."
+      }
+    ],
+    [
+      {
+        "ref": "Hosea 2:19–20",
+        "note": "Ahadi ya Yehova 'nitakuchukua kuwa mke wangu katika haki na katika hukumu, katika upendo wa uaminifu na katika rehema' inafichua kina cha uhusiano wa agano ambao Yehova anataka na watu wake."
+      },
+      {
+        "ref": "Hosea 6:6",
+        "note": "Tamko la Yehova 'Nataka upendo wa uaminifu, si dhabihu' linatambulisha hali ya ndani ya moyo kama kile ambacho Yehova anathamini juu ya kuzingatia mila."
+      },
+      {
+        "ref": "Hosea 14:4",
+        "note": "Ahadi ya Yehova 'Nitaponya kutokuwa kwao waaminifu; nitawapenda kwa hiari yangu' inaonyesha kwamba upendo wake wa uaminifu unawafuata na kurejesha hata waliopotea."
+      }
+    ],
+    [
+      {
+        "ref": "Yoeli 2:13",
+        "note": "Wito wa 'kurarua mioyo yenu na si mavazi yenu' unasisitiza kwamba Yehova anataka toba ya kweli ya ndani badala ya utendaji wa kidini wa nje."
+      },
+      {
+        "ref": "Yoeli 2:28–29",
+        "note": "Ahadi ya Yehova ya 'kumimina roho yangu juu ya kila aina ya mwili' ilitimizwa siku ya Pentekoste 33 W.K. na inaashiria mwanzo wa kutaniko la siku za mwisho la watiwa-mafuta."
+      },
+      {
+        "ref": "Yoeli 2:32",
+        "note": "Tamko kwamba 'kila aitaye jina la Yehova ataokolewa' inaelekeza kwa upeo wa kimataifa wa wokovu unaopatikana kwa wote wanaomtafuta Yehova."
+      }
+    ],
+    [
+      {
+        "ref": "Amosi 3:7",
+        "note": "Kanuni ya Yehova ya kufichua 'jambo lake la siri' kwa watumishi wake manabii kabla ya kutenda inaonyesha heshima yake kwa watu wake wa agano na uwazi wake kwao."
+      },
+      {
+        "ref": "Amosi 5:24",
+        "note": "Wito wa 'haki itiririke kama maji na utukufu kama kijito kinachotiririka mara kwa mara' unathibitisha kwamba viwango vya Yehova kwa haki ya kijamii vinaonyesha tabia yake ya haki."
+      },
+      {
+        "ref": "Amosi 9:11",
+        "note": "Ahadi ya kuinua 'banda lililoanguka la Daudi' inanukuliwa katika Matendo 15:16 kama linatimizwa kupitia kutaniko la Kikristo lililorejeshwa chini ya Ufalme wa Kristo."
+      }
+    ],
+    [
+      {
+        "ref": "Obadia 1:15",
+        "note": "Tamko 'kama ulivyofanya, itafanywa kwako' linasema kanuni ya thawabu ya haki — kwamba Yehova anahakikisha kwamba uovu uliofanywa kwa watu wake utalipwa kwa kiwango sawa."
+      },
+      {
+        "ref": "Obadia 1:3–4",
+        "note": "Kiburi cha Edomu katika ngome yake ya milima kinalinganishwa na nguvu ya Yehova ya kuwashusha, kuonyesha kwamba kiburi cha kujitegemea daima kinatangulia kuanguka."
+      },
+      {
+        "ref": "Obadia 1:21",
+        "note": "Ahadi ya mwisho kwamba 'ufalme utakuwa wa Yehova' inatazamia kuhalalishwa kwa mwisho kwa enzi yake kuu wakati nguvu zote za adui zitaondolewa."
+      }
+    ],
+    [
+      {
+        "ref": "Yona 1:17",
+        "note": "Yehova kutayarisha samaki mkubwa kummeza Yona inaonyesha uwezo wake wa kutumia njia yoyote inayohitajika kuwaelekeza upya wale aliowateua kwa utumishi wake."
+      },
+      {
+        "ref": "Yona 4:2",
+        "note": "Maelezo ya Yona ya Yehova kama 'Mungu mwenye neema na rehema, si mwepesi wa hasira na mwingi wa upendo wa uaminifu' yanathibitisha sifa kuu zinazofafanua jinsi Yehova anavyoshughulika na watu wote."
+      },
+      {
+        "ref": "Yona 3:10",
+        "note": "Uamuzi wa Yehova wa kutoleta msiba kwa Ninawi iliyotubu unaonyesha utayari wake wa kutoa rehema kwa taifa lolote linalomrudia kwa kweli."
+      }
+    ],
+    [
+      {
+        "ref": "Mika 5:2",
+        "note": "Unabii kwamba mtawala wa Kimasihi angetoka Bethlehemu 'ambaye chimbuko lake ni la zamani' ulitimizwa kwa usahihi na Yesu Kristo na unathibitisha neno la kuaminika la Yehova."
+      },
+      {
+        "ref": "Mika 6:8",
+        "note": "Hitaji la muhtasari la Yehova la 'kutenda haki, kupenda uaminifu, na kutembea kwa unyenyekevu na Mungu wako' inafupisha ibada yote ya kweli katika vipengele vyake vitatu muhimu."
+      },
+      {
+        "ref": "Mika 4:4",
+        "note": "Ahadi ya paradiso kwamba 'kila mmoja atakaa chini ya mzabibu wake na chini ya mtini wake, bila yeyote wa kuwaogofya' ni mojawapo ya picha wazi za kusudi la kidunia la Yehova."
+      }
+    ],
+    [
+      {
+        "ref": "Nahumu 1:3",
+        "note": "Tamko kwamba Yehova ni 'si mwepesi wa hasira lakini mkuu katika nguvu' na 'hatamwacha mwenye hatia bila adhabu' linaweka usawa wa uvumilivu wake na uhakika wa haki yake."
+      },
+      {
+        "ref": "Nahumu 1:7",
+        "note": "Yehova kuwa 'ngome katika siku ya taabu' na kuwajua 'wale wanaotafuta kimbilio kwake' inatoa uhakikisho wa kibinafsi kwamba anajali na kuwalinda waaminifu."
+      },
+      {
+        "ref": "Nahumu 1:2",
+        "note": "Yehova alielezwa kama 'Mungu mwenye wivu na anayelipiza' juu ya wapinzani wake inathibitisha kwamba atatetea jina lake na kuhalalisha watu wake."
+      }
+    ],
+    [
+      {
+        "ref": "Habakuki 2:4",
+        "note": "Tamko 'mwenye haki ataishi kwa uaminifu wake' likawa andiko la msingi kwa Paulo katika kueleza kwamba haki mbele ya Yehova inakuja kupitia imani, si matendo ya sheria."
+      },
+      {
+        "ref": "Habakuki 3:17–18",
+        "note": "Wakfu wa kufurahi katika Yehova hata wakati mazao yanapokufa na mifugo inapoangamia inaonyesha furaha isiyo na masharti na sifa ambazo watumishi wa Yehova wanapaswa kudumisha bila kujali hali."
+      },
+      {
+        "ref": "Habakuki 2:14",
+        "note": "Ahadi kwamba 'dunia itajazwa na ujuzi wa utukufu wa Yehova' inaelekeza kwa kuenea kwa kimataifa kwa ibada ya kweli kama kusudi la mwisho la Yehova kwa dunia."
+      }
+    ],
+    [
+      {
+        "ref": "Sefania 1:14",
+        "note": "Maelezo ya siku kuu ya Yehova kama 'karibu' na 'karibu sana' yanaunda hisia ya uangalifu wa haraka ambao Mashahidi wa Yehova wanadumisha wakati wakichanganua matukio ya sasa ya ulimwengu."
+      },
+      {
+        "ref": "Sefania 3:17",
+        "note": "Picha ya Yehova akifurahia watu wake 'kwa kelele za furaha' na kuwafurahia 'kwa wimbo wa furaha' inafichua furaha ya kihisia ya kibinafsi ambayo Yehova anayo katika watu wake waliorejeshwa."
+      },
+      {
+        "ref": "Sefania 3:9",
+        "note": "Ahadi ya Yehova ya 'kuwapa watu wote lugha safi' ili waweze kuita jina lake pamoja inaashiria umoja wa kimataifa wa ibada ambao Mashahidi wa Yehova tayari wanapata."
+      }
+    ],
+    [
+      {
+        "ref": "Hagai 1:5–7",
+        "note": "Changamoto ya Yehova ya 'kufikiria kwa makini njia zenu' baada ya mazao ya watu kushindwa inaunganisha vipaumbele vya kiroho na matokeo ya vitendo — mfano unaohusiana kwa Mashahidi wa Yehova leo."
+      },
+      {
+        "ref": "Hagai 2:9",
+        "note": "Ahadi kwamba 'utukufu wa nyumba hii ya baadaye utakuwa mkubwa kuliko wa ya zamani' iliwatia moyo waanzilishi wadogo, ikionyesha jinsi Yehova anavyoweza kubariki juhudi nyenyekevu zinazofanywa katika utumishi wake."
+      },
+      {
+        "ref": "Hagai 2:4",
+        "note": "Wito mara tatu wa 'kuwa imara' uliotolewa kwa gavana, kuhani mkuu, na watu wote unaonyesha kwamba kutia moyo kwa Yehova kunapatikana kwa kila mtu binafsi anayefanya kazi yake."
+      }
+    ],
+    [
+      {
+        "ref": "Zekaria 4:6",
+        "note": "Kanuni ya Yehova 'si kwa nguvu ya kijeshi, wala kwa uwezo, bali kwa roho yangu' inahakikisha kwamba kazi ya ibada ya kweli inafanikiwa kupitia roho ya Yehova, si nguvu za kibinadamu."
+      },
+      {
+        "ref": "Zekaria 9:9",
+        "note": "Unabii wa mfalme akija 'mnyenyekevu na akipanda punda' ulitimizwa kwa usahihi na Yesu wakati wa kuingia kwake Yerusalemu, ukithibitisha kuaminika kwa unabii."
+      },
+      {
+        "ref": "Zekaria 12:10",
+        "note": "Unabii kwamba 'watamtazama yule waliyemchoma' ulinukuliwa katika Yohana 19:37 na Ufunuo 1:7 kama uliotimizwa katika Yesu Kristo, ukithibitisha ufahamu wa Kimasihi wa Zekaria."
+      }
+    ],
+    [
+      {
+        "ref": "Malaki 3:1",
+        "note": "Ahadi ya Yehova ya kutuma mjumbe 'kusafisha njia mbele yake' ilitimizwa katika huduma ya maandalizi ya Yohana Mbatizaji, ikionyesha usahihi wa utimizo wa unabii."
+      },
+      {
+        "ref": "Malaki 3:10",
+        "note": "Mwaliko wa Yehova wa 'kunijaribu' kwa kuleta zaka kamili na kuona kama atapamiina 'baraka mpaka hakuna nafasi yake' inafichua ukarimu wake kwa wale wanaomtanguliza."
+      },
+      {
+        "ref": "Malaki 3:16",
+        "note": "'Kitabu cha ukumbusho' kilichoandikwa kwa wale waliomcha Yehova na kutafakari juu ya jina lake kinahakikishia kila mtumishi mwaminifu kwamba Yehova anachukua maelezo ya kibinafsi ya wakfu wao."
+      }
+    ],
+    [
+      {
+        "ref": "Mathayo 4:17",
+        "note": "Tangazo la Yesu 'Tubuni, kwa kuwa Ufalme wa mbinguni umekaribia' linazindua mada kuu ya huduma yake yote — habari njema za Ufalme wa Yehova."
+      },
+      {
+        "ref": "Mathayo 5:17",
+        "note": "Tamko la Yesu kwamba alikuja si kuiharibu Sheria bali kuitimiza linaonyesha jinsi mafundisho yake yalivyokamilisha kabisa kusudi la Yehova kwa agano la Musa."
+      },
+      {
+        "ref": "Mathayo 28:19–20",
+        "note": "Agizo Kuu la 'kufanya wanafunzi wa watu wa mataifa yote' linatoa amri inayoendelea ya kazi ya kimataifa ya kuhubiri na kufundisha ya Mashahidi wa Yehova."
+      }
+    ],
+    [
+      {
+        "ref": "Marko 1:1",
+        "note": "Tamko la ufunguzi 'mwanzo wa habari njema kuhusu Yesu Kristo, Mwana wa Mungu' linaanzisha mara moja utambulisho wa Yesu kama tofauti na — na chini ya — Yehova."
+      },
+      {
+        "ref": "Marko 8:29",
+        "note": "Ungamo la Petro 'Wewe ndiwe Kristo' huko Kaisaria Filipi linaashiria wakati muhimu wakati wanafunzi walielewa utambulisho wa kweli wa Yesu kama Masihi aliyeteuliwa na Yehova."
+      },
+      {
+        "ref": "Marko 10:45",
+        "note": "Kauli ya Yesu kwamba 'Mwana wa Mtu alikuja...kutoa uhai wake kama fidia badala ya wengi' kwa ufupi inaeleza kusudi la ukombozi katika moyo wa huduma yake."
+      }
+    ],
+    [
+      {
+        "ref": "Luka 1:3–4",
+        "note": "Kusudi la Luka la kuandika 'simulizi sahihi' kwa Theofilo linaonyesha kujitolea kwake kwa uaminifu wa kihistoria, kuimarisha imani kwamba rekodi za Injili zinaaminika."
+      },
+      {
+        "ref": "Luka 4:18",
+        "note": "Tamko la Yesu kwamba alitiwa mafuta 'kutangaza habari njema kwa maskini' na 'kutangaza uhuru kwa wafungwa' linafafanua huduma yake kama ya ukombozi wenye huruma — ikiakisi moyo wa Yehova mwenyewe."
+      },
+      {
+        "ref": "Luka 19:10",
+        "note": "Kauli ya misheni ya Yesu 'kutafuta na kuokoa waliopotea' inawachochea Mashahidi wa Yehova kuendelea kushiriki habari njema na watu wa aina zote."
+      }
+    ],
+    [
+      {
+        "ref": "Yohana 1:1",
+        "note": "Utafsiri wa NWT 'Neno alikuwa mungu' unamfafanua Yesu kama mwenye kimungu wenye nguvu huku ukihifadhi utambulisho wa kipekee wa Yehova kama Mungu pekee wa kweli — hoja muhimu ya majadiliano ya Utatu."
+      },
+      {
+        "ref": "Yohana 3:16",
+        "note": "Yehova kumtuma Mwanawe ili 'kila anayemwamini asiangamie bali apate uzima wa milele' inafupisha upendo na mpango wa ukombozi katikati ya habari njema."
+      },
+      {
+        "ref": "Yohana 14:6",
+        "note": "Tamko la Yesu 'Mimi ndimi njia na ukweli na uzima; hakuna mtu anayekuja kwa Baba ila kwa njia yangu' linaanzisha jukumu lake la kipekee kama mpatanishi wa upatikanaji kwa Yehova."
+      }
+    ],
+    [
+      {
+        "ref": "Matendo 1:8",
+        "note": "Agizo la Yesu kuwa mashahidi 'hadi sehemu ya mbali zaidi ya dunia' linafafanua upeo wa kazi ya kuhubiri ambayo Yehova alikusudia kwa kutaniko la mapema na inaendelea leo."
+      },
+      {
+        "ref": "Matendo 2:42",
+        "note": "Wakfu wa Wakristo wa mapema kwa 'mafundisho, kushiriki habari, milo, na sala' unaeleza mfano wa maisha ya kutaniko ambayo Yehova anathamini."
+      },
+      {
+        "ref": "Matendo 17:11",
+        "note": "Waberea 'wakichunguza kwa makini Maandiko kila siku' kuthibitisha walichosikia inaweka kiwango cha dhahabu cha kujifunza Biblia kibinafsi na uthibitisho wa kimafundisho."
+      }
+    ],
+    [
+      {
+        "ref": "Waroma 1:16–17",
+        "note": "Tamko la Paulo kwamba habari njema 'ni nguvu ya Mungu kwa wokovu' na linafichua haki 'kwa imani' linaanzisha mada ya msingi ya barua yote."
+      },
+      {
+        "ref": "Waroma 3:23–24",
+        "note": "Fundisho kwamba 'wote wametenda dhambi' lakini 'wanahesabiwa haki...kama zawadi ya bure kwa fadhili zake zisizostahiliwa kupitia fidia iliyolipwa na Kristo Yesu' linafupisha haja ya na utoaji wa wokovu."
+      },
+      {
+        "ref": "Waroma 8:28",
+        "note": "Uhakikisho kwamba 'Yehova anafanya kazi zake zote zishirikiane kwa faida ya wanaompenda Mungu' unatoa faraja nzito kwa wale wanaopitia majaribu kwa imani."
+      }
+    ],
+    [
+      {
+        "ref": "1 Wakorintho 1:18",
+        "note": "Maoni ya Paulo kwamba 'neno la mti wa mateso ni upumbavu kwa wanaoangamia, lakini kwetu sisi tunaookolewa ni nguvu ya Mungu' inaonyesha tofauti kati ya hekima ya ulimwengu na hekima ya Yehova."
+      },
+      {
+        "ref": "1 Wakorintho 13:13",
+        "note": "Hitimisho kwamba 'mkuu zaidi wa hizi ni upendo' linaanzisha upendo kama sifa kuu ambayo Yehova anataka kuona katika maisha ya kila mshiriki wa kutaniko."
+      },
+      {
+        "ref": "1 Wakorintho 15:3–4",
+        "note": "Muhtasari wa Paulo wa habari njema ya msingi — kwamba Kristo alikufa, alizikwa, na alifufuliwa — unaonyesha ufufuo kama nguzo isiyoepukika ya imani ya Kikristo."
+      }
+    ],
+    [
+      {
+        "ref": "2 Wakorintho 4:17",
+        "note": "Mtazamo wa Paulo kwamba 'taabu ndogo na ya muda mfupi inatutengenezea uzito mkuu na wa milele wa utukufu' inabadilisha mateso kama yenye kusudi na ya muda."
+      },
+      {
+        "ref": "2 Wakorintho 5:17",
+        "note": "Tamko kwamba 'ikiwa mtu yeyote yuko katika umoja na Kristo, ni kiumbe kipya' inaelezea mabadiliko ambayo roho ya Yehova inazalisha kwa wanaopokea habari njema."
+      },
+      {
+        "ref": "2 Wakorintho 12:9",
+        "note": "Uhakikisho wa Yehova 'nguvu yangu inakamilishwa katika udhaifu' inafundisha kwamba mipaka ya kibinadamu ni mazingira bora ya nguvu ya Yehova kuonyeshwa."
+      }
+    ],
+    [
+      {
+        "ref": "Wagalatia 2:20",
+        "note": "Tamko la Paulo 'si mimi tena ninayeishi, bali Kristo anayeishi ndani yangu' linaelezea kujisalimisha kabisa kwa mfano wa Kristo unaoonyesha uanafunzi wa kweli."
+      },
+      {
+        "ref": "Wagalatia 3:28",
+        "note": "Kanuni 'hakuna Myahudi wala Mgiriki, mtumwa wala huru, mwanaume wala mwanamke — nyote ni mmoja katika Kristo Yesu' inaonyesha umoja na usawa ambao Yehova anathamini katika kutaniko lake."
+      },
+      {
+        "ref": "Wagalatia 5:1",
+        "note": "Wito wa Paulo wa 'kusimama imara katika uhuru' ambao Kristo alinunua na 'kutofungwa tena katika nira ya utumwa' inawaita Wakristo kukataa ongezeko lolote kwa fidia kama msingi wa idhini."
+      }
+    ],
+    [
+      {
+        "ref": "Waefeso 1:4–5",
+        "note": "Yehova kuchagua Wakristo watiwa-mafuta 'kabla ya kuwekwa msingi wa ulimwengu' inafichua mawazo ya makini ya Yehova kuhusu kuasili kupitia Yesu Kristo."
+      },
+      {
+        "ref": "Waefeso 2:8–9",
+        "note": "Tamko kwamba 'kwa fadhili hizi zisizostahiliwa, kweli, mmeokolewa kupitia imani' inaondoa kabisa kujisifu kibinadamu na kuanzisha neema kama msingi wa wokovu."
+      },
+      {
+        "ref": "Waefeso 4:24",
+        "note": "Wito wa kuvaa 'utu mpya ulioumbwa kulingana na mapenzi ya Mungu katika haki na uaminifu wa kweli' unafanya wazi mabadiliko yanayotarajiwa kwa wanaomtumikia Yehova."
+      }
+    ],
+    [
+      {
+        "ref": "Wafilipi 2:5–7",
+        "note": "Maelezo ya Paulo ya Yesu akiwa 'katika umbo la Mungu' lakini 'akijivua nafsi' kuchukua umbo la mtumwa yanafundisha unyenyekevu wa pekee ambao Wakristo wanapaswa kuiga."
+      },
+      {
+        "ref": "Wafilipi 4:6–7",
+        "note": "Maagizo ya kutokuwa na wasiwasi bali kufanya maombi 'pamoja na shukrani' na ahadi ya amani ya Mungu 'inayopita uelewa wote' inatoa suluhisho la kiroho la wasiwasi."
+      },
+      {
+        "ref": "Wafilipi 4:13",
+        "note": "Uhakikisho wa Paulo kwamba 'naweza mambo yote kupitia yeye anayenipa nguvu' unaonyesha kuwezeshwa kwa kimungu kunakopatikana kwa wote wanaomtumikia Yehova."
+      }
+    ],
+    [
+      {
+        "ref": "Wakolosai 1:15–17",
+        "note": "Maelezo ya Paulo ya Yesu kama 'sura ya Mungu asiyeonekana, mzaliwa wa kwanza wa viumbe vyote' yanaweka jukumu lake la kipekee la kabla ya kuwepo kibinadamu na ubora wake juu ya viumbe vingine."
+      },
+      {
+        "ref": "Wakolosai 2:8",
+        "note": "Onyo dhidi ya 'mtu yeyote anayewachukua mateka kwa falsafa na udanganyifu mtupu' inawalinda Wakristo kutoka kwa hekima ya ulimwengu inayopinga mafundisho ya Kristo."
+      },
+      {
+        "ref": "Wakolosai 3:23–24",
+        "note": "Wito wa kufanya kazi 'kwa moyo wote kama kwa Yehova na si kwa watu' unabadilisha kazi ya kila siku kuwa nafasi ya kumtumikia Yehova."
+      }
+    ],
+    [
+      {
+        "ref": "1 Wathesalonike 4:13–14",
+        "note": "Uhakikisho wa Paulo kwamba 'wale waliokufa katika Kristo watafufuka' unatoa faraja nzito kwa wale wanaowahofia wapendwa waliokufa, ukionyesha tumaini la ufufuo."
+      },
+      {
+        "ref": "1 Wathesalonike 5:17",
+        "note": "Wito wa 'kusali daima' unatambulisha sala ya kuendelea kama tabia muhimu ya Mkristo, ikionyesha kutegemea Yehova kuendelea kwa siku."
+      },
+      {
+        "ref": "1 Wathesalonike 5:21",
+        "note": "Maagizo ya 'kuhakikisha mambo yote; shikilieni yale yaliyo bora' yanawatia moyo Wakristo kufanya tathmini ya makini ya mafundisho yote dhidi ya Andiko."
+      }
+    ],
+    [
+      {
+        "ref": "2 Wathesalonike 2:3–4",
+        "note": "Onyo la Paulo kwamba 'uasi' lazima uje kwanza kabla ya siku ya Yehova linatoa ishara muhimu ya kutambua matukio ya siku za mwisho."
+      },
+      {
+        "ref": "2 Wathesalonike 3:3",
+        "note": "Uhakikisho 'Yehova ni mwaminifu, naye atawafanya imara na kuwalinda na yule mwovu' inatia moyo Wakristo wanaokabiliwa na mateso na hila za Shetani."
+      },
+      {
+        "ref": "2 Wathesalonike 3:10",
+        "note": "Kanuni 'ikiwa mtu hataki kufanya kazi, asile' inaanzisha thamani ya bidii na uwajibikaji wa kibinafsi kama sifa za Kikristo."
+      }
+    ],
+    [
+      {
+        "ref": "1 Timotheo 2:5",
+        "note": "Tamko 'kuna Mungu mmoja, na mpatanishi mmoja kati ya Mungu na watu, mtu, Kristo Yesu' linaanzisha jukumu la pekee la upatanishi la Kristo na utofauti wake na Yehova."
+      },
+      {
+        "ref": "1 Timotheo 3:1–7",
+        "note": "Sifa za waangalizi zinaanzisha viwango vya Yehova kwa wanaohudumu kutaniko, zikionyesha kwamba tabia ya kibinafsi ni muhimu zaidi kuliko vipawa."
+      },
+      {
+        "ref": "1 Timotheo 6:10",
+        "note": "Onyo kwamba 'upendo wa fedha ni mzizi wa aina zote za mambo yenye madhara' inalinda Wakristo dhidi ya kuruhusu mali kupotosha vipaumbele vyao vya kiroho."
+      }
+    ],
+    [
+      {
+        "ref": "2 Timotheo 3:1–5",
+        "note": "Maelezo ya Paulo ya 'nyakati za hatari ambazo ni ngumu kushughulika nazo' katika siku za mwisho yanatambulisha enzi yetu wenyewe kwa usahihi wa pekee."
+      },
+      {
+        "ref": "2 Timotheo 3:16–17",
+        "note": "Tamko kwamba 'Andiko lote limeongozwa na Mungu na lenye faida' linaanzisha mamlaka na utoshelevu wa Biblia kwa kila hitaji la kiroho."
+      },
+      {
+        "ref": "2 Timotheo 4:7–8",
+        "note": "Tamko la mwisho la Paulo 'nimepigana mapigano mazuri, nimemaliza mbio, nimeishika imani' linatoa mfano wa uvumilivu wa maisha yote katika utumishi wa Yehova."
+      }
+    ],
+    [
+      {
+        "ref": "Tito 1:5–9",
+        "note": "Sifa za wazee zilizoorodheshwa zinaonyesha kwamba uongozi wa kutaniko unahitaji tabia ya kibinafsi ya kuthibitishwa, si tu uwezo au mvuto."
+      },
+      {
+        "ref": "Tito 2:11–14",
+        "note": "Tamko kwamba 'fadhili zisizostahiliwa za Mungu...zinatufundisha kukataa uovu' inaonyesha jinsi neema ya Yehova inavyozalisha mabadiliko ya tabia ya vitendo."
+      },
+      {
+        "ref": "Tito 3:5",
+        "note": "Tamko kwamba tumeokolewa 'si kupitia matendo katika haki...bali kulingana na rehema yake' inaweka chini kabisa wokovu kwenye fadhili zisizostahiliwa za Yehova."
+      }
+    ],
+    [
+      {
+        "ref": "Filemoni 1:10–11",
+        "note": "Ombi la Paulo kwa Onesimo, akimwita 'mtoto wangu' aliyebadilishwa, linaonyesha jinsi habari njema inavyobadilisha hata wahalifu kuwa watumishi wenye thamani wa Yehova."
+      },
+      {
+        "ref": "Filemoni 1:15–16",
+        "note": "Onesimo kurudi 'si tena kama mtumwa, bali zaidi ya mtumwa — kama ndugu mpendwa' inaonyesha jinsi Ukristo unavyovuka mipaka ya kijamii kupitia udugu wa kweli."
+      },
+      {
+        "ref": "Filemoni 1:18–19",
+        "note": "Paulo akiahidi kulipa deni la Onesimo binafsi ni picha nzuri ya Kristo akilipa deni letu la dhambi kupitia dhabihu ya fidia."
+      }
+    ],
+    [
+      {
+        "ref": "Waebrania 1:3",
+        "note": "Maelezo ya Yesu kama 'mwakisi wa utukufu wa Yehova' na 'sura halisi ya kuwa kwake' yanaonyesha jukumu lake la pekee kama mwakilishi wa Yehova huku akibaki kuwa kiumbe tofauti."
+      },
+      {
+        "ref": "Waebrania 4:14–16",
+        "note": "Yesu kama Kuhani Mkuu 'aliyejaribiwa katika mambo yote kama sisi, lakini bila dhambi' anatoa msingi wa imani wa kukaribia 'kiti cha enzi cha fadhili zisizostahiliwa' kwa ujasiri."
+      },
+      {
+        "ref": "Waebrania 11:1",
+        "note": "Ufafanuzi kwamba 'imani ni tarajio la uhakika la mambo yanayotumainiwa, dhihirisho la mambo yasiyoonekana' unaweka msingi kwa sura yote ya wahusika waaminifu."
+      }
+    ],
+    [
+      {
+        "ref": "Yakobo 1:5",
+        "note": "Mwaliko wa 'kumwomba Mungu' kwa hekima na ahadi atatoa 'kwa ukarimu na bila kukaripia' unawahakikishia wanaomtumikia Yehova upatikanaji wa hekima yake."
+      },
+      {
+        "ref": "Yakobo 2:17",
+        "note": "Tamko 'imani yenyewe, bila matendo, imekufa' linaanzisha kwamba imani ya kweli daima inajieleza katika utii unaoonekana na huduma."
+      },
+      {
+        "ref": "Yakobo 4:8",
+        "note": "Ahadi 'mkaribieni Mungu, naye atawakaribia ninyi' inafichua mfumo wa kibinafsi wa Yehova: hatua zetu za karibu zinakutana na hatua zake za karibu."
+      }
+    ],
+    [
+      {
+        "ref": "1 Petro 2:21",
+        "note": "Tamko kwamba Kristo 'aliacha mfano kwa ninyi mfuate nyayo zake kwa karibu' unafanya mateso yake mfano wa watumishi wote wa Yehova wanaokabili kupinga."
+      },
+      {
+        "ref": "1 Petro 3:15",
+        "note": "Maagizo ya kuwa 'tayari siku zote kutoa utetezi mbele ya kila mtu anayedai kwenu sababu ya tumaini lililo ndani yenu' inawatayarisha Wakristo kushuhudia kwa ujasiri."
+      },
+      {
+        "ref": "1 Petro 5:7",
+        "note": "Mwaliko wa 'kutupa wasiwasi wenu wote juu yake, kwa sababu anajali ninyi' unafichua moyo wa kibinafsi wa Yehova kuelekea watumishi wake na inawatia moyo kumtegemea."
+      }
+    ],
+    [
+      {
+        "ref": "2 Petro 1:5–7",
+        "note": "Ngazi ya sifa za Kikristo zinazoanza na imani na kuongezeka kupitia ujuzi, kujidhibiti, na hatimaye upendo inatoa mfano ulioandaliwa wa ukuaji wa kiroho."
+      },
+      {
+        "ref": "2 Petro 3:9",
+        "note": "Maelezo kwamba Yehova 'havumii kwa kile baadhi wanachofikiria kuwa polepole, bali ni mvumilivu nanyi' inafichua sababu ya kuvuruga kwa hukumu — kuwapa watu fursa ya kutubu."
+      },
+      {
+        "ref": "2 Petro 3:13",
+        "note": "Ahadi ya 'mbingu mpya na dunia mpya ambamo haki itakaa' inaelekeza kwa Ufalme wa Yehova kama kitu cha tumaini la mwisho la Kikristo."
+      }
+    ],
+    [
+      {
+        "ref": "1 Yohana 1:9",
+        "note": "Ahadi kwamba 'tukiziungama dhambi zetu, yeye ni mwaminifu na mwenye haki, hata atusamehe dhambi zetu' inafichua njia ya msamaha kupitia kukiri na kuwa Yehova mwenye haki."
+      },
+      {
+        "ref": "1 Yohana 4:8",
+        "note": "Tamko kwamba 'Mungu ni upendo' linatambulisha sifa ya msingi inayotiririka katika tabia yote ya Yehova na inaeleza kwa nini upendo lazima uwe sifa ya msingi ya Kikristo."
+      },
+      {
+        "ref": "1 Yohana 5:3",
+        "note": "Ufafanuzi kwamba 'kupenda Mungu kunamaanisha hili: kwamba tushike amri zake' kunaunganisha upendo kwa Yehova moja kwa moja na utii wa vitendo, si tu hisia."
+      }
+    ],
+    [
+      {
+        "ref": "2 Yohana 1:7",
+        "note": "Onyo kuhusu 'wadanganyifu wengi' wanaokana Yesu Kristo akija katika mwili wanaonya kuhusu hatari za walimu wa uongo wanaoharibu mafundisho sahihi."
+      },
+      {
+        "ref": "2 Yohana 1:9",
+        "note": "Tamko kwamba 'kila mtu anayesonga mbele na asikae katika mafundisho ya Kristo hana Mungu' inaonya dhidi ya kuachana na ukweli ulioanzishwa wa Andiko."
+      },
+      {
+        "ref": "2 Yohana 1:10–11",
+        "note": "Maagizo ya kutowakaribisha walimu wa uongo nyumbani yanawalinda Wakristo na makutaniko kutoka kwa uchafuzi wa kiroho kupitia mafundisho ya uongo."
+      }
+    ],
+    [
+      {
+        "ref": "3 Yohana 1:4",
+        "note": "Tamko la Yohana 'sina furaha kubwa zaidi ya hii: kusikia kwamba watoto wangu wanatembea katika ukweli' inafichua furaha ya kweli ya mwalimu wa kiroho katika ukuaji wa wengine."
+      },
+      {
+        "ref": "3 Yohana 1:9–10",
+        "note": "Maelezo ya Diotrefe 'anayependa kuwa wa kwanza' yanaonya dhidi ya kujifikiria na kutumia mamlaka vibaya katika kutaniko."
+      },
+      {
+        "ref": "3 Yohana 1:11",
+        "note": "Wito wa 'kuiga si lililo baya bali lililo jema' inawatia moyo Wakristo kuwa watambuzi katika kuchagua mifano kuiga, hata ndani ya kutaniko."
+      }
+    ],
+    [
+      {
+        "ref": "Yuda 1:3",
+        "note": "Wito wa 'kupigania imani iliyokabidhiwa kwa watakatifu mara moja kwa wakati wote' unawahimiza Wakristo kutetea kwa shauku mafundisho yaliyoanzishwa dhidi ya waasi-imani."
+      },
+      {
+        "ref": "Yuda 1:9",
+        "note": "Mfano wa Mikaeli wa kutoleta hukumu dhidi ya Shetani 'kwa maneno ya kuapiza' bali akimwacha Yehova ahukumu inafundisha unyenyekevu hata katika mgogoro wa kiroho."
+      },
+      {
+        "ref": "Yuda 1:20–21",
+        "note": "Maagizo ya 'kujijengeni juu ya imani yenu takatifu zaidi' na 'kujiweka katika upendo wa Mungu' yanatoa utaratibu wa kibinafsi wa matengenezo ya kiroho dhidi ya uchafuzi wa kiroho."
+      }
+    ],
+    [
+      {
+        "ref": "Ufunuo 1:1",
+        "note": "Tamko la ufunguzi kwamba kitabu ni 'ufunuo na Yesu Kristo, ambao Mungu alimpa' linaweka mlolongo wa mawasiliano kutoka Yehova kupitia Yesu kwa watu wake."
+      },
+      {
+        "ref": "Ufunuo 7:9–10",
+        "note": "Maono ya 'umati mkubwa' kutoka 'kila taifa na kabila' wakiomba wokovu kwa Mungu na Mwana-Kondoo yanaonyesha utimizo wa kimataifa wa kusudi la Yehova."
+      },
+      {
+        "ref": "Ufunuo 21:3–4",
+        "note": "Ahadi kwamba Yehova 'atafuta kila chozi' na kwamba 'kifo hakitakuwepo tena' inatoa picha wazi zaidi ya hali ya baadaye ya dunia chini ya Ufalme wake."
+      }
+    ]
+  ],
+  "bookQuestions": [
+    [
+      "Simulizi la uumbaji katika Mwanzo 1–2 inafichua nini kuhusu nguvu ya Yehova na kusudi lake la awali kwa dunia na wanadamu?",
+      "Shetani alitumiaje nyoka kupinga enzi kuu ya Yehova, na nini umuhimu wa unabii wa kwanza katika Mwanzo 3:15?",
+      "Sifa gani za imani na utii ambazo Nuhu alionyesha, na mfano wake unafundisha nini kuhusu kumtumaini Yehova kabisa?",
+      "Kwa nini Yehova alimchagua Abrahamu, na majaribu ya imani ya Abrahamu — pamoja na amri ya kumtoa Isaka — yanafundisha nini kuhusu uaminifu kwa Yehova?",
+      "Simulizi la Yosefu linaonyesha vipi kwamba Yehova anaweza kuleta wema kutoka kwa hali mbaya na zenye uchungu zaidi za ukosefu wa haki?"
+    ],
+    [
+      "Ufunuo wa Yehova wa jina lake katika Kutoka 3:14–15 na 6:3 unafundisha nini kuhusu umuhimu wa kutumia na kuheshimu jina la kibinafsi la Yehova?",
+      "Mapigo kumi yalionyeshaje nguvu kuu ya Yehova juu ya miungu ya Misri, na hii inafundisha nini kuhusu ibada ya kweli?",
+      "Nini umuhimu wa Pasaka kwa Israeli, na inaashiriaje dhabihu ya Yesu Kristo kama 'mwana-kondoo wetu wa Pasaka'?",
+      "Amri Kumi zinaonyeshaje viwango vya haki vya Yehova, na kanuni zipi bado zinahusu Wakristo leo?",
+      "Ujenzi wa kina wa Maskani unafundisha nini kuhusu umuhimu Yehova anaouweka kwenye ibada sahihi, iliyoandaliwa?"
+    ],
+    [
+      "Wito wa mara kwa mara wa Yehova kwa utakatifu — 'Iweni watakatifu, kwa maana mimi ni mtakatifu' — unamaanisha nini kwa Mashahidi wa Yehova leo?",
+      "Dhabihu mbalimbali za wanyama katika Mambo ya Walawi zinaashiriaje dhabihu kuu ya Yesu Kristo?",
+      "Siku ya Upatanisho (Mambo ya Walawi 16) inafundisha nini kuhusu hitaji la upatanisho, na ilitimizwaje katika Yesu Kristo kama Kuhani Mkuu?",
+      "Sheria za chakula na usafi zilivyowatofautisha Israeli na mataifa yanayozunguka, ni kanuni gani ya kutengwa na ulimwengu inayohusu Wakristo?",
+      "Mwaka wa Yubilei unafundisha nini kuhusu utunzaji wa Yehova kwa maskini na mpango wake wa kurejesha kilichopotea?"
+    ],
+    [
+      "Manung'uniko na malalamiko ya kawaida ya Israeli jangwani yanafundisha nini kuhusu hatari ya kutoshukuru kwa Yehova?",
+      "Dhambi huko Kadesh-barnea (sura 13–14) — wakati Israeli ilikataa kuingia Nchi ya Ahadi — ilionyeshaje matokeo mabaya ya ukosefu wa imani?",
+      "Uasi wa Kora na matokeo yake yanafundisha nini kuhusu kuheshimu mipango iliyoteuliwa ya Yehova ya uongozi katika kutaniko lake?",
+      "Jaribio la Balaamu la kuilaani Israeli na kushindwa kwake kulionyeshaje kwamba hakuna anayeweza kuzuia kusudi la Yehova?",
+      "Kwa nini simulizi la nyoka wa shaba (Hesabu 21:4–9) ni muhimu, na Yesu alisema nini kuhusu maana yake katika Yohana 3:14–15?"
+    ],
+    [
+      "Kwa nini Musa alisisitiza kwamba Israeli inapaswa kumpenda Yehova 'kwa moyo wako wote na nafsi yako yote na nguvu zako za uhai' (6:5), na hii inahusuje leo?",
+      "Kumbukumbu la Torati 18:15–18 inasema nini kuhusu nabii kama Musa, na unabii huu ulitimizwaje na Yesu Kristo?",
+      "Maonyo gani Musa alitoa kuhusu hatari za ustawi kufanya Israeli kumsahau Yehova, na maonyo hayo yanatuhusuje leo?",
+      "Wimbo wa kuaga wa Musa (Kumbukumbu la Torati 32) unaelezeaje sifa za Yehova, na masomo gani tunaweza kutoa kutokana nao?",
+      "Sherehe ya Musa ya kufanya upya agano inafundisha nini kuhusu umuhimu wa ukumbusho wa kawaida na kujitolea upya kibinafsi kwa sheria za Yehova?"
+    ],
+    [
+      "Yehova alimtayarishaje Yoshua kwa uongozi, na sifa gani za ujasiri na imani ambazo Yoshua alionyesha tunaweza kuiga?",
+      "Simulizi la Rahabu (Yoshua 2; 6) linafundisha nini kuhusu jinsi rehema ya Yehova inavyoweza kuwafikia hata wasio Israeli wanaotenda kwa imani?",
+      "Kwa nini dhambi ya Akani (Yoshua 7) ilikuwa mbaya sana, na inafundisha nini kuhusu jinsi dhambi ya mtu binafsi inavyoathiri kutaniko zima?",
+      "Hotuba ya kuaga ya Yoshua (Yoshua 24) iliwapa changamoto vipi watu kufanya chaguo wazi kwa Yehova, na ni chaguo gani lazima tufanye leo?",
+      "Rekodi ya Yoshua ya Yehova kutimiza kila ahadi (Yoshua 21:45; 23:14) inafundisha nini kuhusu uaminifu wa Yehova?"
+    ],
+    [
+      "Mzunguko unaorudiwa unaonekana katika Waamuzi, na unafundisha nini kuhusu kinachotokea wakati watu wanapomwacha Yehova?",
+      "Simulizi la ushindi wa Gideoni na wanaume 300 tu (Waamuzi 7) lilionyeshaje kwamba nguvu ya Yehova haina mipaka na idadi au rasilimali za kibinadamu?",
+      "Masomo gani kuhusu matokeo ya shinikizo la wenzao na maelewano ambayo simulizi la Samsoni linafundisha?",
+      "Simulizi la Debora na Baraka (Waamuzi 4–5) linaonyesha vipi kwamba Yehova hutumia wanaume na wanawake kutimiza kusudi lake?",
+      "Sura za mwisho za Waamuzi (17–21) zinafichua nini kuhusu kuanguka kwa kimaadili kunakofuata watu wanapomwacha viwango vya Yehova?"
+    ],
+    [
+      "Tamko la Ruthu la uaminifu kwa Naomi — 'Kule uendako nitaenda' — linafundisha nini kuhusu ubora wa upendo wa uaminifu (hesed) na wakfu?",
+      "Utayari wa Ruthu wa kuacha nchi yake kwa ajili ya Yehova unaonyeshaje imani ya kweli, na dhabihu yake inawezaje kulinganishwa na chaguo ambazo Mashahidi wa Yehova hufanya leo?",
+      "Jukumu la Boazi kama 'mkombozi-jamaa' linafundisha nini kuhusu mpangilio wa Yehova wa kulinda na kuwakomboa wale ambao ni wake?",
+      "Bidii ya unyenyekevu na uaminifu wa Ruthu hatimaye vilimwongozaje kujumuishwa katika ukoo wa Yesu Kristo?",
+      "Kitabu hiki kinafundisha nini kuhusu jinsi Yehova anavyowathawabisha wale wanaotafuta kimbilio chini ya mabawa yake, hata wakati hali zinaonekana zisizo na tumaini?"
+    ],
+    [
+      "Sala ya Hana na kuzaliwa kwa Samweli vinafundisha nini kuhusu sala ya kuendelea na ya moyoni kwa Yehova?",
+      "Kwa nini kushindwa kwa Eli kama baba (sura 2–3) kulikuwa kubaya sana, na ni masomo gani inafundisha kuhusu kulea watoto kumpenda Yehova?",
+      "Daudi kumshinda Goliathi (sura 17) ilionyeshaje kwamba vita ni vya Yehova na havitokani na nguvu au muonekano wa kibinadamu?",
+      "Kushindwa kwa mara kwa mara kwa Sauli kumtii kabisa Yehova kunafundisha nini kuhusu umuhimu wa utii kamili, si wa nusu?",
+      "Daudi kushughulika na Sauli (sura 24; 26) — kukataa kumdhuru 'mteule wa Yehova' — kulionyeshaje heshima nzito kwa mipango ya Yehova?"
+    ],
+    [
+      "Ushindi wa Daudi na kuanzishwa kwa Yerusalemu vinafundisha nini kuhusu msaada wa Yehova kwa wale wanaomtegemea?",
+      "Agano la Yehova na Daudi (sura 7) linafichua nini kuhusu Mfalme wa Kimasihi anayekuja na Ufalme wa milele?",
+      "Dhambi ya Daudi pamoja na Bathsheba na kuficha kulikofuata (sura 11–12) kulionyeshaje kwamba dhambi zilizofichika hazifichiki kamwe kwa Yehova?",
+      "Mtazamo wa Nathani wa kutumia mfano kumkabili Daudi unafundisha nini kuhusu hekima na matumizi ya vielelezo katika kushughulikia makosa?",
+      "Daudi kukubali na kutubu mara moja baada ya kemeo la Nathani kulitumika vipi kama mfano mzuri ikilinganishwa na utetezi wa Sauli?"
+    ],
+    [
+      "Ombi la Sulemani la hekima badala ya mali au umaarufu (sura 3) linafundisha nini kuhusu vipaumbele sahihi katika sala?",
+      "Sulemani kujenga hekalu kulitimizaje ahadi ya Yehova kwa Daudi, na linawakilisha nini kuhusu Yehova kukaa na watu wake?",
+      "Ni nini kilisababisha mgawanyiko wa ufalme baada ya utawala wa Sulemani, na hii inafundisha nini kuhusu hatari za kiroho za kufuata mila za kipagani?",
+      "Ushindi wa Eliya juu ya manabii wa Baali kwenye Mlima Karmeli (sura 18) ulionyeshaje kwamba Yehova peke yake ndiye Mungu wa kweli?",
+      "'Sauti laini, ya chini' iliyomzungumzia Eliya (sura 19) inafundisha nini kuhusu jinsi Yehova anavyowasiliana na kuwajali watumishi wake?"
+    ],
+    [
+      "Ombi la Elisha kwa fungu maradufu la roho ya Eliya linafundisha nini kuhusu sifa zinazohitajika kwa utumishi wenye matokeo kwa Yehova?",
+      "Sala ya Hezekia akikabili tisho la Ashuru (sura 18–19) ilionyeshaje nguvu ya kumtumaini Yehova kabisa?",
+      "Masomo gani maisha ya wafalme waaminifu kama Yosia yanafundisha kuhusu athari ambayo kiongozi wa kiroho anaweza kuwa nayo kwa watu wote?",
+      "Kwa nini Israeli ilianguka kwa Ashuru (sura 17), na onyo gani hii inahifadhi kwa wale wanaochanganya ibada ya uongo na ibada safi ya Yehova?",
+      "Kupatikana kwa Sheria ya Yehova wakati wa utawala wa Yosia (sura 22) kunafundisha nini kuhusu umuhimu wa kujifunza na kutumia neno la Yehova mara kwa mara?"
+    ],
+    [
+      "Kwa nini Daudi alijitolea juhudi nyingi na rasilimali kuandaa hekalu la Yehova ingawa asingelijenga mwenyewe?",
+      "Kifo cha Uza alipoligusa Sanduku (sura 13) kinafundisha nini kuhusu kukaribia ibada safi kwa heshima sahihi kwa maagizo ya Yehova?",
+      "Daudi alipangaje makuhani, Walawi, na wanamuziki kwa ibada ya hekalu, na hii inafichua nini kuhusu kuthamini kwa Yehova ibada yenye utaratibu?",
+      "Sifa za hadharani za Daudi na mchango wa ukarimu kwa hekalu (sura 29) zinafundisha nini kuhusu kutoa kwa moyo wenye nia?",
+      "Sifa gani zilizoelezwa katika kifungu 'mtu anayempendeza moyo wa Yehova' tunaweza kutafuta kuziendeleza katika ibada yetu wenyewe?"
+    ],
+    [
+      "Ahadi ya Yehova kwa Sulemani katika 2 Mambo ya Nyakati 7:14 inafichua nini kuhusu masharti ambayo Yehova anataka kwa msamaha na urejesho?",
+      "Sala ya Yehoshafati na uingiliaji wa kimuujiza wa Yehova (sura 20) ulionyeshaje nguvu ya kumtumaini Yehova katika mgogoro?",
+      "Sifa gani za kawaida wafalme wa kurekebisha Asa, Hezekia, na Yosia walishiriki, na uongozi wao wa kiroho uliathiri vipi watu wao?",
+      "Mfano gani katika 2 Mambo ya Nyakati unaonyesha uhusiano kati ya uaminifu kwa Yehova na baraka, na kati ya kutokuwa mwaminifu na msiba?",
+      "Mwisho wa tumaini wa kitabu na amri ya Koreshi (36:23) unaonyeshaje uwezo wa Yehova kutumia mtu yeyote kutimiza kusudi lake?"
+    ],
+    [
+      "Ni nini kilichowachochea kundi la kwanza la wahamiwa wa Kiyahudi kurudi Yerusalemu, na hii inafundisha nini kuhusu kuweka kipaumbele ibada ya Yehova juu ya faraja ya kibinafsi?",
+      "Upinzani wa kujenga upya hekalu uliijaribuje imani ya wahamiwa waliorudi, na Yehova aliwasaidiaje hatimaye kushinda?",
+      "Maandalizi ya kibinafsi ya Ezra — 'Ezra alikuwa ametayarisha moyo wake kushauriana na Sheria ya Yehova, kuifanya, na kuifundisha' (7:10) — yanafundisha nini kuhusu kujifunza Biblia kibinafsi?",
+      "Tatizo la ndoa za kigeni (sura 9–10) lilionyeshaje hatari nzito ya kiroho ya ushirika wa karibu na wale wasiomwabudu Yehova?",
+      "Jibu la kihisia la watu waliposikia Sheria ya Yehova ikisomwa kwa sauti linafundisha nini kuhusu mtazamo wetu kwa Andiko?"
+    ],
+    [
+      "Sala ya Nehemia kabla ya kumkaribia Mfalme Artashasta (sura 1) inafundisha nini kuhusu jukumu la sala katika mipango na maamuzi yetu?",
+      "Nehemia alishughulikiaje dhihaka na vitisho kutoka kwa Sanbalati na Tobia, na masomo gani ya vitendo hii inatoa kwa kushughulika na upinzani?",
+      "Uamuzi wa Nehemia wa kuwa na wafanyakazi wajenge kwa mkono mmoja na kushika silaha kwa mwingine (4:17) unafundisha nini kuhusu kuwa 'wenye busara kama nyoka' wakati wa kufanya kazi ya Yehova?",
+      "Kuwakabili Nehemia ukosefu wa haki wa kiuchumi (sura 5) kulionyeshaje kwamba uongozi wa kiroho unajumuisha wasiwasi kwa haki ya vitendo?",
+      "Kusomwa kwa hadharani kwa Sheria ya Yehova na jibu la kihisia la watu (sura 8) yanafundisha nini kuhusu kinachotokea wakati watu wanalishwa vyema kiroho?"
+    ],
+    [
+      "Kitabu cha Esta kinaonyeshaje uongozi wa kimaongozi wa Yehova hata wakati jina lake halitajwi waziwazi katika andiko?",
+      "Ujasiri wa Esta wa kukaribia mfalme bila kuitwa — 'Nikifa, nife' — unafundisha nini kuhusu kuweka ustawi wa watu wa Yehova juu ya usalama wa kibinafsi?",
+      "Mordekai kukataa kumwinamia Hamani kunaonyeshaje aina ya uaminifu kwa Yehova ambao watu wake lazima wadumishe hata chini ya shinikizo?",
+      "Anguko la Hamani linafundisha nini kuhusu kanuni kwamba kiburi daima kinaongoza kuanguka, na kwamba mipango dhidi ya watu wa Yehova haitafanikiwa?",
+      "Mfungo ambao Esta aliuita kabla ya kumkaribia mfalme unaonyeshaje umuhimu wa kutafuta mwelekeo wa Yehova kabla ya kuchukua hatua muhimu?"
+    ],
+    [
+      "Ni nini lilikuwa suala la kweli nyuma ya mateso ya Ayubu, na kwa nini kuelewa muktadha huu ni muhimu kwa Mashahidi wa Yehova leo?",
+      "Wafariji wa Ayubu walimshindwaje, na hii inafundisha nini kuhusu jinsi ya kuwasaidia kweli wale wanaopitia majaribu?",
+      "Jibu la Yehova kwa Ayubu kutoka kwa tufani (sura 38–41) linafichua nini kuhusu hekima na nguvu za Yehova ikilinganishwa na uelewa wa kibinadamu?",
+      "Ayubu alidumishaje uadilifu wake chini ya jaribu kali, na mfano wake unafundisha nini kuhusu kuvumilia mateso yasiyo ya haki kwa uaminifu?",
+      "Urejesho kamili wa Ayubu (sura 42) unafundisha nini kuhusu utunzaji wa Yehova kwa wale wanaodumisha uadilifu, na hii inaelekezaje mbele kwa tumaini la ufufuo?"
+    ],
+    [
+      "Zaburi za maombolezo (kama vile Zaburi 22, 42, 88) zinatufundisha vipi kuwa wakweli kwa Yehova kuhusu hisia zetu wakati wa mateso?",
+      "Zaburi 83:18 inafundisha nini kuhusu umuhimu wa jina la Yehova, na hii inawachochea vipi Mashahidi wa Yehova katika huduma yao?",
+      "Zaburi za kutawazwa (kama vile Zaburi 93, 96–99) zinachangiaje uelewa wetu wa Ufalme wa Yehova na haki yake ya kutawala?",
+      "Zaburi 119 — zaburi ndefu zaidi — inafundisha nini kuhusu mtazamo sahihi tunaopaswa kuwa nao kuelekea sheria na neno la Yehova?",
+      "Zaburi za Kimasihi (kama vile Zaburi 2, 22, 110) zinaashiriaje Yesu Kristo, na ni matukio gani maalum yalitimizwa?"
+    ],
+    [
+      "Mithali 1:7 — 'Kumcha Yehova ni mwanzo wa hekima' — inamaanisha nini, na hofu sahihi ya Yehova inaongozaje maamuzi ya kila siku?",
+      "Mithali 3:5–6 — 'Mtumaini Yehova kwa moyo wako wote' — inahusuje kivitendo wakati wa kufanya maamuzi makubwa ya maisha?",
+      "Onyo gani Mithali inatoa kuhusu hatari za uhusiano mbaya, na haya yanahusuje Mashahidi wa Yehova katika kuchagua marafiki?",
+      "Maelezo ya 'mke mwenye uwezo' katika Mithali 31 yanaonyeshaje sifa ambazo Yehova anathamini kwa watumishi wake wote?",
+      "Mwongozo gani wa vitendo Mithali inatoa kuhusu matumizi ya ulimi, na tunawezaje kutumia hekima hii kila siku?"
+    ],
+    [
+      "Hitimisho la Sulemani kwamba shughuli zote ni 'ubatili' linafundisha nini kuhusu hatari za kutafuta utimilifu wa kudumu mbali na Yehova?",
+      "Mhubiri 3:1–8 — 'wakati kwa kila kusudi chini ya mbingu' — inawasaidiaje Mashahidi wa Yehova kudumisha usawa katika shughuli za maisha?",
+      "Mhubiri inafundisha nini kuhusu kifo na hali ya wafu (9:5, 10) inayounga mkono fundisho la Biblia juu ya tumaini la ufufuo?",
+      "Mhubiri 12:1 — 'Mkumbuke Muumba wako katika siku za ujana wako' — inawachocheaje vijana kujitolea kwa Yehova mapema maishani?",
+      "Hitimisho la mwisho la Mhubiri (12:13–14) — kumcha Yehova na kushika amri zake — linafundisha nini kuhusu kusudi la kweli la wanadamu?"
+    ],
+    [
+      "Wimbo wa Sulemani unafundisha nini kuhusu umuhimu ambao Yehova anauweka kwenye upendo, uaminifu, na wakfu ndani ya ndoa?",
+      "Mtazamo wa pamoja na mawasiliano ya wazi yaliyoelezwa katika Wimbo yanaonyeshaje sifa zinazoimarisha uhusiano wowote wa karibu?",
+      "'Upendo una nguvu kama kifo' (8:6) inafundisha nini kuhusu asili ya uaminifu wa kweli na wakfu katika uhusiano?",
+      "Uangalifu na uaminifu wa Mshulami kwa mchungaji wake unaonyeshaje ubora wa wakfu ambao Yehova anathamini?",
+      "Kanuni gani kutoka Wimbo wa Sulemani zinawasaidia Mashahidi wa Yehova katika kudumisha mahusiano yenye afya, ya kuheshimika?"
+    ],
+    [
+      "Isaya 9:6–7 inamfafanuaje Mfalme wa Kimasihi anayekuja, na sifa hizi zilitimizwaje katika Yesu Kristo?",
+      "Isaya 40:28–31 inafundisha nini kuhusu nguvu zisizoisha za Yehova na utunzaji wake kwa wale wamechoka?",
+      "Nyimbo nne za 'Mtumishi' katika Isaya (42:1–4; 49:1–6; 50:4–9; 52:13–53:12) zinaelezeaje mateso na huduma ya Masihi?",
+      "Isaya 65:17–25 inaelezea nini kuhusu dunia mpya inayokuja, na maono haya yanaendelezaje tumaini la watu wa Yehova?",
+      "Jibu la Isaya kwa maono yake katika sura ya 6 — 'Nipeleke!' — linaonyeshaje roho ya nia ambayo Mashahidi wa Yehova wanaonyesha katika huduma yao?"
+    ],
+    [
+      "Yeremia 1:5 — 'Kabla sijakuumba tumboni nilikujua' — inafundisha nini kuhusu ujuzi wa kabla wa Yehova na kusudi kwa kila mtu?",
+      "Yeremia alibaki vipi mwaminifu licha ya mateso makali, dhihaka, na nyakati za kukata tamaa, na tunaweza kujifunza nini kutoka kwa mfano wake?",
+      "Ahadi ya Yehova ya agano jipya (Yeremia 31:31–34) inafundisha nini kuhusu ubora wa mpangilio ambao Yesu aliongoza?",
+      "Barua ya Yeremia kwa wahamiwa Babeli (sura 29) — kuwaambia watafute amani ya jiji — ilihusuje kanuni ya kuwa 'si sehemu ya ulimwengu'?",
+      "Yeremia kununua shamba (sura 32) hata wakati Yerusalemu ilipoanguka inafundisha nini kuhusu imani katika ahadi za Yehova kwa siku zijazo?"
+    ],
+    [
+      "Kitabu cha Maombolezo kinaonyeshaje huzuni ya kweli huku ukibakiza tumaini katika upendo wa uaminifu wa Yehova?",
+      "Maombolezo 3:22–23 — upendo wa uaminifu wa Yehova 'haukomi' na 'rehema hufanywa upya kila asubuhi' — inafundisha nini kuhusu uaminifu wa kudumu wa Yehova?",
+      "Huzuni ya Yeremia juu ya uharibifu wa Yerusalemu inaonyeshaje jinsi watumishi wa Yehova leo wanapaswa kuhisi kuhusu uovu ulimwenguni?",
+      "Maombolezo inafundisha nini kuhusu matokeo ya kuachana na viwango vya Yehova, na hii inahudumiaje kama onyo kwetu?",
+      "Utambuzi wa wahamiwa katika Maombolezo 3:40 — 'Tuchunguze na tutafute njia zetu' — ulionyeshaje jibu sahihi kwa nidhamu ya Yehova?"
+    ],
+    [
+      "Maono ya kwanza ya Ezekieli (sura 1–3) ya kiti cha enzi-gari cha Yehova yanafundisha nini kuhusu utukufu wa Yehova na utendaji wa roho yake takatifu?",
+      "Jukumu la Ezekieli kama 'mlinzi' (sura 3, 33) linalinganaje na jukumu la Mashahidi wa Yehova la kuwaonya wengine kuhusu hukumu ya Yehova?",
+      "Ezekieli 18:23 — 'Sifurahii kifo cha mwovu' — inafundisha nini kuhusu tamaa ya Yehova kwa wote watubu na kuishi?",
+      "Maono ya bonde la mifupa mikavu (sura 37) yanaashiriaje ufufuo wa wafu chini ya Ufalme wa Yehova?",
+      "Maono ya Ezekieli ya hekalu la baadaye (sura 40–48) yanafundisha nini kuhusu umuhimu wa ibada safi, iliyoandaliwa kwa Yehova?"
+    ],
+    [
+      "Danieli na wenzake watatu (sura 1–6) walionyeshaje kwamba inawezekana kudumisha uadilifu chini ya shinikizo kali kutoka kwa nguvu ya ulimwengu yenye uhasama?",
+      "Danieli 2:44 — Yehova akianzisha ufalme usiotaharibika kamwe — inafundisha nini kuhusu uhakika wa Ufalme wa Yehova?",
+      "Simulizi la Shadraka, Meshaki, na Abednego (sura 3) lilionyeshaje imani ya 'hata kama si hivyo' ambayo Mashahidi wa Yehova wanaweza kuhitaji wakati wa mateso?",
+      "Unabii wa Nyakati za Mataifa (Danieli 4) na sanamu kuu katika Danieli 2 zinafichua nini kuhusu mfululizo wa mamlaka za ulimwengu na kalenda ya Yehova?",
+      "Tabia ya sala mwaminifu ya Danieli — kusali mara tatu kwa siku bila kujali amri ya kifalme (sura 6) — inafundisha nini kuhusu umuhimu wa ibada ya kawaida, ya mara kwa mara?"
+    ],
+    [
+      "Yehova alitumiaje ndoa ya Hosea kama mfano hai wa kutokuwa mwaminifu kwa kiroho wa Israeli, na hii inatusaidia kuelewa uzito wa uzinzi wa kiroho?",
+      "Hosea 6:6 — 'Nataka upendo wa uaminifu, si dhabihu; na ujuzi wa Mungu badala ya matoleo kamili ya kuteketezwa' — inafundisha nini kuhusu kile Yehova anachothamini zaidi?",
+      "Huruma inayoendelea ya Yehova na mwaliko kwa Israeli kurudi (sura 14) unaonyeshaje kina cha upendo wake wa uaminifu na uwezo wa msamaha?",
+      "Hosea inafundisha nini kuhusu hatari ya kiroho ya kuchanganya ibada ya kweli na mazoea ya kidini ya mataifa yanayozunguka?",
+      "Unabii wa Hosea (13:14) kuhusu kukomboa kutoka kwa nguvu ya kaburi unahusianaje na maneno ya Paulo katika 1 Wakorintho 15:55?"
+    ],
+    [
+      "Yoeli alitumiaje pigo la nzige kama wito wa toba ya kweli, na 'rarueni mioyo yenu, si mavazi yenu' (2:13) inamaanisha nini kwa ibada leo?",
+      "Unabii wa Yoeli kuhusu Yehova kumimina roho yake (2:28–29) unafundisha nini, hasa kama ulivyotimizwa siku ya Pentekoste 33 W.K. (Matendo 2:1–21)?",
+      "'Siku ya Yehova' katika Yoeli inalinganaje na yale Ufunuo unayoelezea kuhusu dhiki kuu na Armagedoni?",
+      "Unabii wa Yoeli kuhusu mataifa yatakayohukumiwa katika 'Bonde la Uamuzi' (3:14) unafundisha nini kuhusu hukumu inayokuja ya Yehova?",
+      "Ahadi ya Yoeli ya urejesho (2:18–27; 3:17–18) inafundisha nini kuhusu baraka ambazo Yehova ameandaa kwa wale wanaomrudia?"
+    ],
+    [
+      "Amosi 3:7 — 'Hakika Bwana Mkuu Yehova hafanyi chochote bila kufichua jambo lake la siri kwa watumishi wake manabii' — inafundisha nini kuhusu mawasiliano ya Yehova na watu wake?",
+      "Kuhukumu kwa Amosi ibada tupu ya mila (sura 5–6) kunahusuje hatari ya kupitia harakati za ibada bila ukweli?",
+      "Amosi inafundisha nini kuhusu wasiwasi wa Yehova kwa haki ya kijamii na matibabu ya maskini, na hii inaonyeshaje maadili ya Yehova?",
+      "Hukumu juu ya mataifa yanayozunguka (sura 1–2) zinafundisha nini kuhusu Yehova kuwawajibisha watu wote — si Israeli tu — kwa viwango vya msingi vya kimaadili?",
+      "Unabii wa Amosi kuhusu 'banda lililoanguka la Daudi' (9:11) unaungana vipi na urejesho wa ibada safi na Ufalme wa Yehova?"
+    ],
+    [
+      "Dhambi maalum gani za Edomu zilizoongoza kwa hukumu ya Yehova, na zinafundisha nini kuhusu hatari za kiburi na kujitegemea?",
+      "Edomu kufurahia anguko la Yerusalemu (mistari 12–14) ilivunjaje kanuni ya upendo wa kindugu, na onyo gani hii inahifadhi kwa ajili yetu?",
+      "Obadia inafundisha nini kuhusu kanuni 'kama ulivyofanya, itafanywa kwako' (mstari 15)?",
+      "Hukumu kamili ya Yehova juu ya Edomu — taifa lililoonekana lisilo na kifani — inaonyeshaje kwamba hakuna mpango wa kibinadamu unaoweza kusimama dhidi ya kusudi la Yehova?",
+      "Mstari wa mwisho wa Obadia — 'Ufalme utakuwa wa Yehova' — unatazamia nini kuhusu wakati ujao chini ya Ufalme wa Yehova?"
+    ],
+    [
+      "Ni nini kilikuwa kibaya na kukataa kwa awali kwa Yona kwenda Ninawi, na hii inatupa changamoto vipi kutafakari mtazamo wetu wenyewe kuhusu kushiriki habari njema na watu wa aina zote?",
+      "Kushughulika kwa uvumilivu kwa Yehova na mtazamo wa Yona — kutoka kwa samaki hadi mzabibu wa mzogo — kunaonyeshaje tamaa yake ya kufundisha badala ya kuadhibu tu?",
+      "Toba ya kweli ya Ninawi na uamuzi wa Yehova wa kutoleta msiba (3:10) zinafundisha nini kuhusu ufanisi wa toba ya moyo wote?",
+      "Sala ya Yona kutoka ndani ya samaki (sura 2) inaonyeshaje mfano wa sala ya kweli, ya kibinafsi kwa Yehova hata katika hali ya kukata tamaa zaidi?",
+      "Simulizi la Yona linafundisha nini kuhusu maslahi ya Yehova katika ustawi wa kiroho wa watu wote, ukitabiri kazi ya kuhubiri ya ulimwengu?"
+    ],
+    [
+      "Mika 5:2 — kutabiri kuzaliwa kwa Masihi Bethlehemu — inaonyeshaje kuaminika kwa unabii wa Yehova ulipotimizwa katika kuzaliwa kwa Yesu?",
+      "Mika 6:8 — 'tenda haki, penda uaminifu, na tembea kwa unyenyekevu na Mungu wako' — inatambulisha sifa gani muhimu ambazo Yehova anataka?",
+      "Maelezo ya Mika ya siku za mwisho (4:1–4) — wakati watu wanapomiminika kwenye 'mlima' wa Yehova kupata maagizo — yanaeleza nini kinachoendelea na Mashahidi wa Yehova leo?",
+      "Mika inafundisha nini kuhusu tofauti kati ya uongozi ulioharibika (sura 3) na uongozi wa haki ambao Yehova anathamini?",
+      "Mika 7:18–20 inaelezea vipi sifa za msamaha na upendo wa uaminifu wa Yehova kwa njia inayotoa faraja kwa wale waliofanya makosa?"
+    ],
+    [
+      "Sifa gani za Yehova ambazo Nahumu 1:2–7 inaelezea — wivu wake, kutokuwa mwepesi wa hasira, na ukuu — na zinafanyaje kazi pamoja?",
+      "Anguko la Ninawi linafundisha nini kuhusu jinsi hata mamlaka zenye nguvu zaidi za kibinadamu hatimaye ziko chini ya hukumu ya Yehova?",
+      "Nahumu 1:7 — 'Yehova ni mwema, ngome katika siku ya taabu; naye anawajua wanaotafuta kimbilio kwake' — inatoaje faraja wakati wa magumu?",
+      "Tofauti kati ya kushughulika kwa Yehova na Ninawi katika Yona (rehema baada ya toba) na Nahumu (hukumu kwa kurudi kwenye uovu) inafundisha nini kuhusu mipaka ya uvumilivu wa Yehova?",
+      "Kanuni gani kuhusu haki ya Yehova — kwamba 'hatamwacha mwenye hatia bila adhabu' — tunaona ikionyeshwa katika anguko la Ninawi?"
+    ],
+    [
+      "Utayari wa Habakuki wa kumuuliza Yehova kwa uaminifu kuhusu ukosefu wa haki unaoonekana (sura 1–2) unaonyeshaje kwamba tunaweza kumletea Yehova wasiwasi wetu mzito katika sala?",
+      "Habakuki 2:4 — 'mwenye haki ataishi kwa uaminifu wake' — inamaanisha nini, na Paulo anatumiaje mstari huu katika Waroma na Wagalatia?",
+      "Jibu la Yehova — kwamba alikuwa akiinua Babeli kama chombo chake — lilichangamotishaje uelewa wa Habakuki, na hii inafundisha nini kuhusu kumtumaini hekima ya Yehova?",
+      "Habakuki 3:17–18 — kufurahia katika Yehova hata wakati baraka zote za asili zinaposhindwa — inaonyeshaje mfano kuhusu kudumisha furaha katika hali yoyote?",
+      "Safari ya Habakuki kutoka lalamiko hadi sifa inaonyeshaje mchakato wenye afya wa kiroho kwa Mashahidi wa Yehova wanaopambana na maswali magumu?"
+    ],
+    [
+      "Maelezo ya Sefania ya 'siku ya Yehova' kama yenye kutisha na yenye tumaini yanawatayarishaje Mashahidi wa Yehova kwa dhiki kuu inayokuja?",
+      "Sefania 3:17 — 'Yehova Mungu wako yu katikati yako...atakufurahia kwa furaha kubwa' — inafichua nini kuhusu hisia za Yehova kwa watu wake?",
+      "Wito wa Sefania wa 'kumtafuta Yehova, enyi wapole wote wa dunia' (2:3) inamaanisha nini kwa maana ya vitendo kwa maisha yetu ya kila siku?",
+      "Unabii wa Sefania dhidi ya mataifa (sura 2) unaonyeshaje mamlaka ya kimaadili ya Yehova juu ya watu wote wa dunia?",
+      "Ahadi ya Sefania ya 'lugha safi' (3:9) — kwamba watu wote wataita jina la Yehova — inatazamia nini kuhusu urejesho wa ibada safi?"
+    ],
+    [
+      "Ni tatizo gani la kiroho ambalo Hagai alitambua wakati watu walisema 'wakati haujafika bado wa kujenga nyumba ya Yehova' (1:2), na rationalization hii inaonekanaje katika maisha yetu wenyewe?",
+      "Yehova alijibuje utii wa haraka wa watu baada ya ujumbe wa Hagai (1:12–15), na hii inafundisha nini kuhusu thawabu kwa utii wa haraka?",
+      "Hagai 2:9 — 'Utukufu wa nyumba hii ya baadaye utakuwa mkubwa kuliko wa ya zamani' — inafundisha nini kuhusu uwezo wa Yehova kupita matarajio yetu?",
+      "Ujumbe wa Hagai kuhusu kuweka nyumba ya Yehova kwanza kabla ya yetu unahusuje jinsi Mashahidi wa Yehova wanavyopanga vipaumbele vyao leo?",
+      "Hagai 2:4 — 'Iweni imara...na tendeni, kwa maana nipo nanyi' (iliyorudiwa kwa Zerubabeli, Yoshua, na watu) — inafundisha nini kuhusu uhakikisho wa Yehova kwa wanaofanya kazi yake?"
+    ],
+    [
+      "Maono ya Zekaria ya Shetani akimpinga Yoshua kuhani mkuu (sura 3) na kemeo la Yehova kwa Shetani yanatoaje imani kwamba Yehova anawatetea watumishi wake?",
+      "Zekaria 4:6 — 'Si kwa nguvu za kijeshi, wala kwa uwezo, bali kwa roho yangu, asema Yehova' — inafundisha nini kuhusu jinsi Yehova anavyotimiza kusudi lake?",
+      "Zekaria 9:9 — mfalme alietabiriwa akiingia Yerusalemu akipanda punda — inaungana vipi na kuingia kwa ushindi kwa Yesu na kuthibitisha kuaminika kwa unabii?",
+      "Zekaria 12:10 — 'Watamtazama yule waliyemchoma' — inatabiri nini, na Ufunuo 1:7 inaunganisha vipi na Yesu?",
+      "Ujumbe mkuu wa Zekaria — Yehova atarudi Sayuni na kukaa kati ya watu wake — unaendelezaje tumaini la Mashahidi wa Yehova kwa ulimwengu mpya?"
+    ],
+    [
+      "Swali la Yehova 'Mmenipendaje?' (1:2) lilifichuaje uvivu wa kiroho ambao Malaki alikabili, na tunaweza vipi kujilinda na mtazamo huu?",
+      "Kuhukumu kwa Malaki matoleo machafu (sura 1) kunafundisha nini kuhusu ubora wa ibada — wakati, nguvu, na umakini — ambao Yehova anastahili?",
+      "Malaki 3:10 — 'Lete zaka yote...nijaribu' — inafundisha nini kuhusu kanuni ya kuweka kipaumbele cha maslahi ya Yehova?",
+      "'Kitabu cha ukumbusho' kilichoandikwa kwa wale waliomcha Yehova (3:16) kilionyeshaje kwamba Yehova anaona kwa makini wale walio waaminifu?",
+      "Mistari ya mwisho ya Malaki — kutabiri Eliya kabla ya siku kuu ya Yehova — inaungana vipi na huduma ya maandalizi ya Yohana Mbatizaji?"
+    ],
+    [
+      "Hubiri la Mlimani la Yesu (sura 5–7) linaonyeshaje viwango vya mwenendo na maadili vinavyowatofautisha raia wa Ufalme wa Yehova?",
+      "Mfano wa sala ya Yesu (Mathayo 6:9–13) inafundisha nini kuhusu kile kinachopaswa kuwa cha kwanza katika sala zetu — jina la Yehova, Ufalme wake, na mapenzi yake?",
+      "Mifano ya Ufalme katika Mathayo 13 inaelezeaje majibu tofauti kwa ujumbe wa Ufalme, na ni jibu gani Mashahidi wa Yehova wanataka kukuza?",
+      "Agizo Kuu la Yesu (28:19–20) — 'fanyeni wanafunzi wa watu wa mataifa yote' — linafichua nini kuhusu upeo wa kimataifa na asili inayoendelea ya kazi ya kuhubiri?",
+      "Uwasilishaji wa Mathayo wa Yesu kama utimizo wa unabii wa Maandiko ya Kiebrania unaimarishaje imani katika kuaminika kwa neno la Yehova?"
+    ],
+    [
+      "Kasi ya haraka ya Injili ya Marko na msisitizo wake juu ya matendo yenye nguvu ya Yesu inafichua nini kuhusu Yesu kama mtumishi aliyeteuliwa wa Yehova?",
+      "Marko 10:45 — 'Mwana wa Mtu alikuja, si kuhudumiwa, bali kuhudumu na kutoa uhai wake kama fidia kwa wengi' — unafupishaje kusudi lote la Yesu?",
+      "Simulizi la sarafu mbili za mjane (Marko 12:41–44) inafundisha nini kuhusu kile Yehova anachothamini katika matendo ya ibada na ukarimu?",
+      "Amri ya Yesu ya 'nifuate' (Marko 1:17; 8:34) inaonyesha nini kile ambacho ufuasi kamili unahitaji kutoka kwa wale wanaomtumikia Yehova leo?",
+      "Marko 8:29 — 'Wewe ndiwe Kristo' — na mafundisho yaliyofuata kuhusu Masihi anayeteseka yanatuambia nini kuhusu kurekebisha matarajio yasiyo sahihi kuhusu kusudi la Yehova?"
+    ],
+    [
+      "Msisitizo wa Luka juu ya Yesu kuonyesha huruma kwa watupwa, maskini, na Mataifa unaonyeshaje upendo wa kimataifa wa Yehova kwa watu wote?",
+      "Mfano wa mwana mpotevu (Luka 15) unafundisha nini kuhusu furaha ya Yehova wakati wenye dhambi wanatubu na kumrudia?",
+      "Simulizi la Luka la Msamaria Mwema (10:25–37) inafafanuaje kile inachomaanisha 'kupenda jirani yako,' na hii inahusuje Mashahidi wa Yehova leo?",
+      "Luka 4:18 — tamko la Yesu la misheni yake — inafundisha nini kuhusu ukombozi wa kiroho ambao Ufalme wa Yehova huleta?",
+      "Luka 19:10 — 'Mwana wa Mtu alikuja kutafuta na kuokoa waliopotea' — inawachochea vipi Mashahidi wa Yehova katika huduma yao kuwafikia watu wa aina zote?"
+    ],
+    [
+      "Yohana 1:1 na 1:14 inamfafanuaje Yesu kama Neno (Logos), na sarufi ya Kigiriki ya Yohana 1:1 inafichua nini kuhusu asili ya Yesu kuhusiana na Yehova?",
+      "Kauli ya Yesu 'Baba ni mkuu kuliko mimi' (Yohana 14:28) na vifungu vinavyohusiana vinafundisha nini kuhusu uhusiano kati ya Yehova na Yesu?",
+      "Maneno saba ya 'Mimi ni' (mkate, nuru, mchungaji, ufufuo, njia, mzabibu, mlango) yanafichuaje jukumu la Yesu kama njia ya baraka za Yehova?",
+      "Sala ya Yesu katika Yohana 17 — pamoja na ombi kwamba wanafunzi wake 'wawe wamoja kama tulivyo' — inafundisha nini kuhusu umoja katika kutaniko?",
+      "Mafundisho ya Yesu kuhusu roho takatifu kama 'msaidizi' (paraclete) katika Yohana 14–16 yanaelezeaje jukumu la roho ya Yehova katika kuongoza na kuimarisha watu wake?"
+    ],
+    [
+      "Kumiminwa kwa roho takatifu ya Yehova siku ya Pentekoste 33 W.K. (sura 2) kulianzaje kutaniko jipya la agano, na matokeo ya haraka yalikuwa nini?",
+      "Mfano wa ukuaji wa kutaniko la mapema katika Matendo — licha ya mateso makali — unafundisha nini kuhusu asili isiyozuilika ya kusudi la Yehova?",
+      "Mfano wa Petro na Paulo wa ujasiri mbele ya korti na mabaraza (sura 4–5; 22–26) ulionyeshaje mtazamo ambao Mashahidi wa Yehova wanaweza kuwa nao wanapotetea habari njema?",
+      "Matendo 17:11 inasema nini kuhusu Waberea, na sifa gani mfano wao unaangazia kwa kujifunza Biblia kibinafsi?",
+      "Upanuzi wa kazi ya kuhubiri kutoka Yerusalemu hadi Roma (Matendo 1:8) unaonyeshaje utimizo wa agizo la Yesu na jinsi roho ya Yehova ilivyoongoza kazi?"
+    ],
+    [
+      "Ufafanuzi wa Paulo wa jinsi wanadamu wote 'wamekosa utukufu wa Mungu' (3:23) na suluhisho kupitia imani katika Yesu inafundisha nini kuhusu kwa nini tunahitaji fidia?",
+      "Waroma 5:12 — 'kupitia mtu mmoja dhambi iliingia ulimwenguni na kifo kupitia dhambi' — inaelezaje uhusiano kati ya dhambi ya Adamu na hali ya wanadamu?",
+      "Mafundisho ya Paulo katika Waroma 8:28 — 'vitu vyote vinashirikiana kwa faida ya wale wanaompenda Mungu' — yanamaanisha nini kwa Mashahidi wa Yehova wanaokabili majaribu?",
+      "Waroma 12:1–2 — 'tolea miili yenu kama dhabihu hai' na 'msifanane na mfumo huu wa mambo' — inafafanuaje jinsi utumishi wa moyo wote kwa Yehova unavyoonekana?",
+      "Mafundisho ya Paulo kuhusu kutii mamlaka zinazotawala (Waroma 13:1–7) na mipaka yake (Matendo 5:29) yanafundisha nini kuhusu uhusiano wetu na serikali za kibinadamu?"
+    ],
+    [
+      "Mafundisho ya Paulo kuhusu vipawa vya kiroho katika sura 12–14 yanafundisha nini kuhusu matumizi sahihi ya vipawa katika kutaniko, pamoja na upendo kama sifa muhimu zaidi?",
+      "Maelezo ya Paulo ya upendo katika sura 13 — wenye subira, mwema, si wenye wivu, hautafuti masilahi yake — yanatupa changamoto vipi kuchunguza mahusiano yetu ndani ya kutaniko?",
+      "Utetezi kamili wa Paulo wa ufufuo katika sura 15 unafundisha nini kuhusu kwa nini tumaini la ufufuo ni la msingi kwa imani ya Kikristo?",
+      "Ushauri wa Paulo wa kusuluhisha migogoro kati ya ndugu (sura 6) unaonyeshaje umuhimu wa kudumisha umoja wa kutaniko na kutoonyesha matatizo mbele ya ulimwengu?",
+      "Maagizo ya Paulo kuhusu Mlo wa Jioni wa Bwana (11:23–26) yanafundisha nini kuhusu umuhimu wake, ushiriki sahihi, na mara kiasi gani inafanyika?"
+    ],
+    [
+      "Maelezo ya Paulo ya mateso yake (sura 4–6; 11) na huduma yake inayoendelea licha yake yanafundisha nini kuhusu kupata nguvu katika Yehova?",
+      "Kauli ya Paulo 'wakati ni dhaifu, ndipo nina nguvu' (12:10) inafafanuaje kile kinachoonekana kuwa nguvu za kiroho?",
+      "Mafundisho ya Paulo kuhusu 'kiumbe kipya' (5:17) yanamaanisha nini kwa wale wanaoingia katika uhusiano na Yehova kupitia Kristo?",
+      "Ombi la Paulo la kutoa kwa ukarimu kwa watakatifu (sura 8–9) — pamoja na 'Yehova humpenda mtoaji mchangamfu' — linahusuje jinsi tunavyoona michango na utoaji wa dhabihu?",
+      "Onyo la Paulo kuhusu 'kuunganishwa kinyume na waumini' (6:14) linamaanisha nini kivitendo kwa Mashahidi wa Yehova katika urafiki, ndoa, na biashara?"
+    ],
+    [
+      "'Habari njema tofauti' gani Wayahudi waliokuwa wakitangaza (sura 1), na kwa nini Paulo alisema yeyote anayehubiri inapaswa 'kulaaniwa'?",
+      "Simulizi la Paulo la kumkabili Petro hadharani (sura 2) inaonyeshaje umuhimu wa kutetea ukweli wa kimafundisho hata wakati inamaanisha kumpinga mtu mashuhuri?",
+      "Mfano wa Hagari na Sara (sura 4) unafundisha nini kuhusu tofauti kati ya agano la zamani na agano jipya?",
+      "Maelezo ya Paulo ya 'tunda la roho' (5:22–23) yanatambulisha sifa gani zinazopaswa kumtofautisha kila mtu anayemtumikia Yehova?",
+      "Galatia 6:7 — 'chochote mtu anachopanda, ndicho atakachovuna' — inafundisha nini kuhusu kanuni za maisha?"
+    ],
+    [
+      "Waefeso 1 inafichua nini kuhusu kusudi la milele la Yehova na nafasi ya Wakristo watiwa-mafuta ndani yake?",
+      "Waefeso 2:8–10 — kuokolewa 'kwa fadhili zisizostahiliwa kupitia imani' lakini 'iliyoumbwa kwa kazi njema' — unaelezeaje uhusiano kati ya neema na matendo?",
+      "Maelezo ya Paulo ya 'utu mpya' (4:22–24) na orodha ya tabia za kuvua na za kuvaa zinatoaje mwongozo wa vitendo kwa mabadiliko ya Kikristo?",
+      "Mafundisho ya Waefeso kuhusu maisha ya familia (5:22–6:9) yanafundisha nini kuhusu jinsi Ukristo unavyobadilisha mahusiano yote ya nyumbani?",
+      "Maelezo ya silaha kamili ya kiroho (6:10–18) yanatoaje mwongozo wa vitendo kwa Mashahidi wa Yehova wanaokabili vita vya kiroho?"
+    ],
+    [
+      "Furaha ya Paulo licha ya kufungwa (sura 1) inafundisha nini kuhusu chanzo cha kweli cha furaha ya Kikristo?",
+      "Wafilipi 2:5–11 inafundisha nini kuhusu unyenyekevu wa Yesu na kwa nini Wakristo wanapaswa kuiga 'mtazamo wake huu'?",
+      "Wafilipi 4:6–7 — 'msiwe na wasiwasi juu ya jambo lolote, bali kwa sala' — inatoaje suluhisho la kivitendo kwa wasiwasi wa kisasa?",
+      "Wafilipi 4:8 — orodha ya mambo ya kufikiria — inaonyeshaje mwongozo wa nidhamu ya akili kwa Wakristo katika ulimwengu unaojaa maudhui yanayopinga?",
+      "Kauli ya Paulo 'naweza mambo yote kupitia yeye anayenipa nguvu' (4:13) inamaanisha nini kivitendo kwa watumishi wa Yehova leo?"
+    ],
+    [
+      "Wakolosai 1:15–20 inafichua nini kuhusu jukumu la Yesu kabla ya kuwepo kibinadamu na ubora wake katika viumbe?",
+      "Onyo la Paulo dhidi ya 'falsafa na udanganyifu mtupu' (2:8) linahusuje hatari za kisasa zinazokabili Wakristo?",
+      "Wakolosai 3:5–17 — orodha ya kuvua tabia za zamani na kuvaa mpya — inatoaje mwongozo wa vitendo wa mabadiliko ya Kikristo?",
+      "Wakolosai 3:23–24 — 'lolote unalofanya, fanya kwa moyo wote kama kwa Yehova' — inabadilishaje mtazamo wetu kuelekea kazi ya kila siku?",
+      "Mafundisho ya Wakolosai kuhusu Yesu kama Kichwa cha kutaniko (1:18; 2:19) yanaonyeshaje umuhimu wa kubaki imara katika ukweli?"
+    ],
+    [
+      "Mfano wa Wathesalonike wa imani inayoeneza (1:6–10) unafundisha nini kuhusu jinsi maisha yetu yanavyoweza kuwa shahidi kwa wengine?",
+      "Wathesalonike 4:13–18 inatoaje faraja kwa wanaowahofia wapendwa waliokufa, na inafundisha nini kuhusu tumaini la ufufuo?",
+      "Maagizo ya Paulo kuhusu usafi wa kingono (4:3–8) yanatoaje viwango wazi vya Yehova kuhusu mwenendo wa kingono?",
+      "Wathesalonike 5:1–11 inafundisha nini kuhusu kuwa tayari kiroho kwa siku ya Yehova, na hii inahusuje Mashahidi wa Yehova leo?",
+      "Hatua za pamoja katika sura ya 5 (omba bila kukoma, shukuru kwa kila kitu, mzimishe roho) zinatoaje mwongozo wa kibinafsi wa kiroho?"
+    ],
+    [
+      "Onyo la Paulo dhidi ya kuvurugwa juu ya 'siku ya Yehova' (2:1–3) linahusuje hisia za kisasa za matukio ya siku za mwisho?",
+      "Maelezo ya 'mtu wa uasi-sheria' (2:3–12) yanafundisha nini kuhusu uasi-imani uliotabiriwa katika Ukristo?",
+      "Wathesalonike 3:6–15 inafundisha nini kuhusu uwajibikaji wa kibinafsi na thamani ya kazi katika kutaniko la Kikristo?",
+      "Uhakikisho wa Paulo wa ulinzi wa Yehova (3:3) unawatia moyo vipi Wakristo wanaokabiliwa na hila za Shetani?",
+      "Mafundisho ya kitabu kuhusu kusimama imara katika ukweli yanahusianaje na changamoto za kisasa kwa mafundisho sahihi?"
+    ],
+    [
+      "Maagizo ya Paulo kwa Timotheo kuhusu mafundisho ya uongo (1:3–11) yanafundisha nini kuhusu jukumu la wazee leo katika kulinda kutaniko?",
+      "Sifa za wazee na watumishi wa huduma (3:1–13) zinaonyesha nini kuhusu viwango vya Yehova kwa wahudumu wa kutaniko?",
+      "Mafundisho ya Paulo kuhusu wanawake na ndoa (2:9–15; 5:1–16) yanahusianaje na mtazamo wa Mungu kuhusu majukumu katika kutaniko?",
+      "Onyo la Paulo kuhusu upendo wa fedha (6:6–10) linatoaje mwongozo wa vitendo wa kuepuka mitego ya kibiashara?",
+      "Mfano wa Timotheo mwenyewe — 'kuwa mfano' kwa imani — unafundisha nini vijana watumishi wa Yehova?"
+    ],
+    [
+      "Maelezo ya 'siku za mwisho' katika 2 Timotheo 3:1–5 yanatambuaje enzi yetu, na hii inaonyeshaje nini?",
+      "2 Timotheo 3:16–17 — 'Andiko lote limeongozwa na Mungu na lenye faida' — inafundisha nini kuhusu mamlaka na utoshelevu wa Biblia?",
+      "Wito wa Paulo wa 'kuhubiri neno; jitahidi haraka' (4:1–5) inafundisha nini kuhusu kazi ya kuhubiri leo?",
+      "Maelezo ya Paulo ya mwisho wa maisha yake mwaminifu (4:6–8) yanatoaje mfano kwa Mashahidi wa Yehova wanaomalizia kazi yao?",
+      "Wito wa kuvumilia mateso 'kama askari bora' (2:1–13) unaelezeaje msimamo unaohitajika kwa watumishi wa Yehova?"
+    ],
+    [
+      "Sifa zilizoorodheshwa za wazee katika Tito 1:5–9 zinatoaje mwongozo wa kuteua viongozi wa kutaniko?",
+      "Maelezo ya Tito 2 kuhusu majukumu ya rika tofauti na hadhi yanaonyeshaje hekima ya Yehova kwa kutaniko lenye umoja?",
+      "Tito 2:11–14 inafundisha nini kuhusu jinsi fadhili zisizostahiliwa za Yehova zinavyotufundisha kuishi maisha ya kimungu?",
+      "Tito 3:1–2 inafundisha nini kuhusu jinsi Wakristo wanapaswa kuhusiana na mamlaka za kiserikali na majirani?",
+      "Msisitizo wa kitabu juu ya 'kazi njema' (3:8, 14) unaonyeshaje uhusiano kati ya imani na matendo ya vitendo?"
+    ],
+    [
+      "Mbinu ya Paulo ya kushawishi kupitia upendo badala ya mamlaka katika Filemoni inafundisha nini kuhusu uongozi wa Kikristo?",
+      "Mabadiliko ya Onesimo kutoka mtumwa aliyetoroka hadi 'ndugu mpendwa' yanaonyeshaje nguvu ya habari njema kubadilisha maisha?",
+      "Ahadi ya Paulo ya kulipa deni la Onesimo (1:18–19) inaashiria vipi Yesu Kristo akilipa deni letu la dhambi?",
+      "Imani ya Paulo katika 'wema' wa Filemoni (1:21) inaonyeshaje hekima ya kushawishi badala ya kulazimisha?",
+      "Filemoni inafundisha nini kuhusu jinsi Ukristo unavyovuka mipaka ya kijamii na kuanzisha udugu wa kweli?"
+    ],
+    [
+      "Waebrania 1–2 inafundisha nini kuhusu ubora wa Yesu juu ya malaika na umuhimu wake kwa wokovu wa kibinadamu?",
+      "Mafundisho ya Yesu kama Kuhani Mkuu (4:14–5:10; 7) yanafundisha nini kuhusu jinsi tunavyoweza kukaribia Yehova kwa ujasiri?",
+      "Ulinganisho wa agano la zamani na jipya (sura 8–10) unafundisha nini kuhusu ubora wa dhabihu ya Kristo?",
+      "Sura ya imani (sura 11) inaorodheshaje mifano ya imani kutoka Maandiko ya Kiebrania, na hii inawachochea vipi Wakristo leo?",
+      "Wito wa 'kukimbia mbio kwa uvumilivu' (12:1–2) na kumtazama Yesu unatoa mwongozo gani kwa watumishi wa Yehova wanaokabili magumu?"
+    ],
+    [
+      "Yakobo 1:2–8 inafundisha nini kuhusu mtazamo sahihi kwa majaribu na thamani ya kuomba hekima ya Yehova?",
+      "Mafundisho ya Yakobo juu ya imani na matendo (2:14–26) yanafafanuaje uhusiano kati ya imani na matendo ya vitendo?",
+      "Maonyo ya Yakobo kuhusu ulimi (3:1–12) yanatoaje mwongozo wa vitendo wa hotuba ya Kikristo?",
+      "Yakobo 4:7–10 — 'mkaribieni Mungu, naye atawakaribia ninyi' — inafundisha nini kuhusu mchakato wa kibinafsi wa kumkaribia Yehova?",
+      "Maagizo ya Yakobo kuhusu kusali kwa wagonjwa na jukumu la wazee (5:13–18) yanafundisha nini kuhusu utunzaji wa kutaniko?"
+    ],
+    [
+      "1 Petro 1:3–9 inatoaje msingi wa kiroho kwa Wakristo wanaokabili majaribu, na inafichua nini kuhusu thamani ya imani iliyojaribiwa?",
+      "Mafundisho ya Petro kuhusu kuteseka kwa ajili ya haki (2:18–25; 3:13–17; 4:12–19) yanaonyeshaje mtazamo wa Kikristo kuhusu mateso?",
+      "1 Petro 3:1–7 inafundisha nini kuhusu majukumu ya wenzi katika ndoa, na hii inaonyeshaje kanuni za Yehova?",
+      "Wito wa 'kufanya kazi katika ulinzi mara mbili kwa ulimwengu unaowatuhumu' (2:9–12) unaonyeshaje mtazamo wa Mashahidi wa Yehova?",
+      "1 Petro 5:1–11 inafundisha nini kuhusu majukumu ya wazee na umuhimu wa unyenyekevu chini ya mkono wa Yehova?"
+    ],
+    [
+      "2 Petro 1:5–11 — ngazi ya sifa za Kikristo — inatoaje mfano wa ukuaji wa kiroho wa hatua kwa hatua?",
+      "Mafundisho ya Petro kuhusu uongozi wa Andiko (1:19–21) yanafundisha nini kuhusu jinsi roho takatifu ilivyofanya kazi katika unabii?",
+      "Onyo la sura ya 2 kuhusu walimu wa uongo linahusianaje na hatari za kisasa zinazokabili makutaniko?",
+      "2 Petro 3:1–13 inafundisha nini kuhusu uvumilivu wa Yehova kabla ya siku yake na nia yake kwa wanadamu?",
+      "Wito wa 'kukua katika fadhili zisizostahiliwa na ujuzi wa Bwana wetu' (3:18) inatoaje mwongozo wa maisha ya Kikristo?"
+    ],
+    [
+      "1 Yohana 1:5–10 inafundisha nini kuhusu kutembea katika nuru na umuhimu wa kukiri dhambi?",
+      "Vipimo vitatu vya Ukristo wa kweli (utii, upendo wa ndugu, imani katika Yesu) vinavyojitokeza katika 1 Yohana vinatoaje uthibitisho wa kiroho?",
+      "1 Yohana 2:15–17 — 'msipende ulimwengu' — inafundisha nini kuhusu kujitenga na mfumo wa Shetani?",
+      "Maelezo ya Yohana ya 'Mungu ni upendo' (4:7–21) yanafichua nini kuhusu tabia ya msingi ya Yehova?",
+      "1 Yohana 5:1–5 — 'huu ndio ushindi uliouushinda ulimwengu — imani yetu' — inafundisha nini kuhusu nguvu ya imani ya Kikristo?"
+    ],
+    [
+      "Mkazo wa 2 Yohana kuhusu ukweli na upendo pamoja (mistari 1–6) inafundisha nini kuhusu uhusiano kati ya viwili?",
+      "Maonyo kuhusu wadanganyifu (mistari 7–8) yanahusianaje na hatari za kisasa za mafundisho ya uongo?",
+      "Maagizo ya kutowakaribisha walimu wa uongo nyumbani (mistari 10–11) yanatoaje mwongozo wa kivitendo kwa Wakristo leo?",
+      "Tamko kwamba 'kila mtu anayesonga mbele' kutoka mafundisho ya Kristo 'hana Mungu' (mstari 9) inaonyeshaje umuhimu wa kubaki katika ukweli?",
+      "Kanuni za 2 Yohana zinawasaidiaje Mashahidi wa Yehova kudumisha usawa kati ya upendo na utambuzi?"
+    ],
+    [
+      "Mfano wa Gayo wa ukarimu kwa wamisionari (mistari 5–8) unafundisha nini kuhusu kusaidia kazi ya kuhubiri leo?",
+      "Maelezo ya Diotrefe 'anayependa kuwa wa kwanza' (mistari 9–10) yanafundisha nini kuhusu hatari za kujifikiria katika kutaniko?",
+      "Mfano wa Demetrio kupokea 'shahidi mzuri' (mstari 12) unaonyeshaje sifa ambazo Yehova anathamini katika watumishi wake?",
+      "Furaha ya Yohana katika kuona watoto wa kiroho 'wakitembea katika ukweli' (mstari 4) inaonyeshaje thamani ya kufundisha wengine?",
+      "Kanuni ya 'kuiga lililo jema' (mstari 11) inatoaje mwongozo wa kuchagua mifano ya kuiga ndani na nje ya kutaniko?"
+    ],
+    [
+      "Wito wa Yuda wa 'kupigania imani' (mstari 3) unawasaidia vipi Mashahidi wa Yehova kushughulika na uasi-imani?",
+      "Maonyo ya kihistoria ya Yuda (mistari 5–7, 11) yanafundisha nini kuhusu matokeo ya kutotii Yehova?",
+      "Mfano wa Mikaeli kutoleta hukumu dhidi ya Shetani 'kwa maneno ya kuapiza' (mstari 9) inafundisha nini kuhusu unyenyekevu?",
+      "Maelezo ya Yuda ya waasi-imani (mistari 12–16) yanasaidia vipi Wakristo kutambua walimu wa uongo?",
+      "Yuda 20–23 inatoaje mwongozo wa vitendo wa kujilinda kiroho na kusaidia wengine wanaopambana?"
+    ],
+    [
+      "Ujumbe wa Yesu kwa makutaniko saba (sura 2–3) unafundisha nini kuhusu hali zinazoweza kuathiri makutaniko leo?",
+      "Maono ya kiti cha enzi cha Yehova katika Ufunuo 4–5 yanafichua nini kuhusu ubora wake na umuhimu wa Mwana-Kondoo?",
+      "Maelezo ya 144,000 (sura 7, 14) na umati mkubwa yanafundisha nini kuhusu tumaini la Wakristo leo?",
+      "Maono ya 'Babeli Mkubwa' (sura 17–18) na anguko lake yanaonyeshaje hatima ya dini ya uongo, na wito wa 'tokeni katika yeye, watu wangu' unahusuje?",
+      "Ufunuo 21–22 — kushuka kwa Yerusalemu Mpya na ahadi ya kufutwa kwa kifo — inatoaje tumaini la mwisho la Mashahidi wa Yehova?"
+    ]
+  ]
 }

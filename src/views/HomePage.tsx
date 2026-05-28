@@ -23,6 +23,7 @@ const MessagesInline      = lazy(() => import("./messages/MessagesPage"));
 const ChecklistInline     = lazy(() => import("./ChecklistPage"));
 const StudyTopicsInline   = lazy(() => import("./studytopics/StudyTopicsInline"));
 const ActivityFeedInline  = lazy(() => import("./social/ActivityFeedInline"));
+const CommunityInline     = lazy(() => import("./social/CommunityPage"));
 const BookmarksInline     = lazy(() => import("./bookmarks/BookmarksInline"));
 const BookDetailInline      = lazy(() => import("./studytopics/BookDetailPage"));
 const StudyTopicDetailInline = lazy(() => import("./studytopics/StudyTopicDetail"));
@@ -135,7 +136,7 @@ function getFallbackImage(id) {
 
 const STREAK_MILESTONES = [7, 14, 30, 60, 90, 180, 365];
 
-const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "masterQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "myPosts", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "studyTopicDetail", "bookDetail", "feed", "bookmarks", "groups", "groupDetail", "videos", "videoDetail", "friendRequests", "messages", "history", "trivia", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy", "learn", "support"]);
+const INLINE_PANELS = new Set(["main", "quiz", "advancedQuiz", "masterQuiz", "leaderboard", "familyQuiz", "readingPlans", "studyNotes", "forum", "blog", "myPosts", "meetingPrep", "friends", "admin", "profile", "publicProfile", "studyTopics", "studyTopicDetail", "bookDetail", "feed", "community", "bookmarks", "groups", "groupDetail", "videos", "videoDetail", "friendRequests", "messages", "history", "trivia", "settings", "blogDash", "videosDash", "creatorRequest", "about", "terms", "privacy", "learn", "support"]);
 
 function BlogSkeleton() {
   return (
@@ -488,6 +489,11 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
           {activePanel === "feed" && (
             <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
               <ActivityFeedInline user={user} navigate={panelNavigate} />
+            </Suspense>
+          )}
+          {activePanel === "community" && (
+            <Suspense fallback={<div className="skeleton" style={{height:400,borderRadius:12}} />}>
+              <CommunityInline user={user} navigate={panelNavigate} />
             </Suspense>
           )}
           {activePanel === "bookmarks" && (

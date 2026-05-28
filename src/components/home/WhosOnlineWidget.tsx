@@ -31,7 +31,7 @@ export default function WhosOnlineWidget({ members, totalOnline, loading, error,
             </span>
           )}
         </div>
-        <button className={feedLinkCls} onClick={() => navigate("feed")}>{t("whosOnline.seeAll")}</button>
+        <button className={feedLinkCls} onClick={() => navigate("community")}>{t("whosOnline.seeAll")}</button>
       </div>
       {loading ? (
         <div className="flex flex-col gap-2.5 py-1 pb-2">

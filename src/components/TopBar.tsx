@@ -228,9 +228,9 @@ export default function TopBar({
           </button>
 
           {/* Language picker */}
-          <div className="topbar-lang max-[640px]:!hidden" ref={langRef}>
+          <div className="topbar-lang" ref={langRef}>
             <button
-              className="topbar-btn"
+              className="topbar-btn max-[640px]:!h-10 max-[640px]:!w-10"
               onClick={() => setLangOpen(o => !o)}
               aria-label={t("topbar.changeLanguage")}
               aria-expanded={langOpen}
