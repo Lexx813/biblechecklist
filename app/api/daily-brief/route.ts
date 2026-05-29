@@ -49,6 +49,25 @@ function isFresh(generatedAt: string): boolean {
   return generatedAt.slice(0, 10) === todayUTC();
 }
 
+// Neutralize obvious prompt-injection patterns before injecting user-controlled
+// text (note content, meeting title, conversation title) into the brief context.
+// Mirror the policy used in app/api/ai-chat/route.ts wrapToolOutput.
+function safeText(raw: string, max: number): string {
+  return raw
+    .replace(/\bignore (all |any |the )?(previous|prior|above|preceding) (instructions|prompts|rules|directions)\b/gi, "[redacted]")
+    .replace(/\bdisregard (all |any |the )?(previous|prior|above|preceding) (instructions|prompts|rules|directions)\b/gi, "[redacted]")
+    .replace(/\byou are (now|actually|really) (a |an )?\w+/gi, "[redacted]")
+    .replace(/\b(new|system) instructions?:\s*/gi, "[redacted]: ")
+    .replace(/\[(?:SYSTEM|INST|ADMIN|DEVELOPER|ANTHROPIC)\]/gi, "[redacted]")
+    .replace(/<\|(?:im_start|im_end|system|user|assistant|endoftext)\|>/gi, "[redacted]")
+    .replace(/<\/?(?:system|instructions|admin|developer)\b[^>]*>/gi, "[redacted]")
+    .replace(/[`<>{}\\#|]/g, "")
+    .replace(/\r?\n/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, max);
+}
+
 // ── Context gathering ─────────────────────────────────────────────────────────
 
 async function gatherContext(userId: string): Promise<string> {
@@ -111,7 +130,7 @@ async function gatherContext(userId: string): Promise<string> {
   if (notes.length) {
     const snippets = notes.map((n) => {
       const book = BOOKS[n.book_index]?.name ?? "";
-      const preview = n.content.length > 60 ? n.content.slice(0, 60) + "…" : n.content;
+      const preview = safeText(n.content, 60);
       return `${book} ${n.chapter}: "${preview}"`;
     });
     parts.push(`Recent notes: ${snippets.join(" | ")}`);
@@ -132,7 +151,7 @@ async function gatherContext(userId: string): Promise<string> {
   type MeetingRow = { clam_title?: string; wt_title?: string };
   const meetings = meetingRes.ok ? ((await meetingRes.json()) as MeetingRow[]) : [];
   if (meetings[0]?.clam_title) {
-    parts.push(`This week's CLAM theme: "${meetings[0].clam_title}"`);
+    parts.push(`This week's CLAM theme: "${safeText(meetings[0].clam_title, 120)}"`);
   }
 
   // Last AI conversation title (for "continue chat" context)
@@ -143,7 +162,7 @@ async function gatherContext(userId: string): Promise<string> {
   type ConvRow = { id: string; title: string };
   const convs = convRes.ok ? ((await convRes.json()) as ConvRow[]) : [];
   if (convs[0]) {
-    parts.push(`Last chat: "${convs[0].title}" (id: ${convs[0].id})`);
+    parts.push(`Last chat: "${safeText(convs[0].title, 120)}" (id: ${convs[0].id})`);
   }
 
   return parts.join("\n");
@@ -152,40 +171,66 @@ async function gatherContext(userId: string): Promise<string> {
 // ── Generate brief via Haiku ──────────────────────────────────────────────────
 
 async function generateBrief(context: string): Promise<string> {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": ANTHROPIC_KEY,
-      "anthropic-version": "2023-06-01",
-    },
-    body: JSON.stringify({
-      model: MODEL,
-      max_tokens: 120,
-      system:
-        "You write a warm, personal 2-sentence daily greeting for a Jehovah's Witness Bible study app. " +
-        "Use the user's data to make it feel like a knowledgeable friend checking in. " +
-        "Reference specific details — book they're reading, streak, recent note topic. " +
-        "If they have today's reading, mention it naturally. " +
-        "Tone: warm, encouraging, faithful (JW perspective). " +
-        "Do NOT start with 'I', do NOT use em dashes, do NOT be generic. " +
-        "Output ONLY the 2-sentence paragraph — no preamble, no sign-off.",
-      messages: [
-        {
-          role: "user",
-          content: `User data:\n${context}\n\nWrite their greeting.`,
+  // 5s timeout + up to 3 attempts with exponential backoff on 5xx / network
+  // failures. Without these the function can wedge for the whole serverless
+  // timeout if Anthropic hangs, and a single transient 529 fails the brief.
+  let res: Response | null = null;
+  let lastError: unknown = null;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 5000);
+    try {
+      res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": ANTHROPIC_KEY,
+          "anthropic-version": "2023-06-01",
         },
-      ],
-    }),
-  });
+        body: JSON.stringify({
+          model: MODEL,
+          max_tokens: 120,
+          system:
+            "You write a warm, personal 2-sentence daily greeting for a Jehovah's Witness Bible study app. " +
+            "Use the user's data to make it feel like a knowledgeable friend checking in. " +
+            "Reference specific details — book they're reading, streak, recent note topic. " +
+            "If they have today's reading, mention it naturally. " +
+            "Tone: warm, observational, JW-faithful. " +
+            "Frame the user's effort as something Jehovah notices, NOT as evidence of their personal spiritual standing. " +
+            "Never say things like 'you're being a great Christian', 'your faith is growing', 'you're doing such a good job spiritually'. " +
+            "Acknowledge the action ('you've read 3 chapters this week') without ranking the person. " +
+            "Do NOT start with 'I', do NOT use em dashes, do NOT be generic. " +
+            "Output ONLY the 2-sentence paragraph — no preamble, no sign-off.",
+          messages: [
+            {
+              role: "user",
+              content: `User data:\n${context}\n\nWrite their greeting.`,
+            },
+          ],
+        }),
+        signal: controller.signal,
+      });
+      // Retry on 5xx; 4xx is a permanent failure and breaks out.
+      if (res.ok || (res.status >= 400 && res.status < 500)) break;
+    } catch (err) {
+      lastError = err;
+    } finally {
+      clearTimeout(timer);
+    }
+    if (attempt < 3) {
+      await new Promise((r) => setTimeout(r, 500 * 2 ** (attempt - 1)));
+    }
+  }
+  if (!res) {
+    throw new Error(`Anthropic unreachable after 3 attempts: ${lastError}`);
+  }
 
   if (!res.ok) {
     // Capture body for diagnostics (rate limit headers, error type, message).
     // Limit to 500 chars so a verbose error doesn't bloat the function log.
+    // Mask the API key fingerprint — length-and-suffix leaks key shape.
     const body = await res.text().catch(() => "");
-    const fp = ANTHROPIC_KEY
-      ? `len=${ANTHROPIC_KEY.length} ${ANTHROPIC_KEY.slice(0, 12)}…${ANTHROPIC_KEY.slice(-4)}`
-      : "EMPTY";
+    const fp = ANTHROPIC_KEY ? "set" : "EMPTY";
     throw new Error(`Anthropic ${res.status} [key:${fp}]: ${body.slice(0, 500)}`);
   }
   const data = (await res.json()) as {

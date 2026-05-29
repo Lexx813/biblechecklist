@@ -130,6 +130,12 @@ function AIStudyBubble({ context }: { context?: ChatContext }) {
   const { t } = useTranslation();
   const [open, setOpen]       = useState(false);
   const [input, setInput]     = useState("");
+  // Defense-in-depth: the call site in AuthedApp already guards on
+  // mobileShellPage !== "messages", but if a future mount path bypasses that
+  // we still don't want the bubble overlapping a DM conversation. The actual
+  // early-return happens at the bottom (after all hooks) to keep hook order
+  // stable; this flag is checked there.
+  const isOnMessagesPage = context?.page === "messages";
   const { messages, loading, error, send, clear } = useAIChat(context);
   const isBlogContext = context?.page === "blogNew" || context?.page === "blogEdit";
   const suggested = isBlogContext
@@ -347,6 +353,8 @@ function AIStudyBubble({ context }: { context?: ChatContext }) {
       </div>
     </div>
   );
+
+  if (isOnMessagesPage) return null;
 
   return createPortal(
     <div className="asb-root" style={{ position: "fixed", zIndex: 1000 }}>
