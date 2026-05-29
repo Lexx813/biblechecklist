@@ -138,9 +138,9 @@ function ClamTab({ week, prep, onTogglePart, onNoteChange }) {
 
       {/* Songs */}
       <div className="mp-songs">
-        <SongChip num={week.clam_opening_song} label="Opening" />
+        <SongChip num={week.clam_opening_song} label={t("meetingPrep.songOpening", "Opening")} />
         <SongChip num={week.clam_midpoint_song} />
-        <SongChip num={week.clam_closing_song} label="Closing" />
+        <SongChip num={week.clam_closing_song} label={t("meetingPrep.songClosing", "Closing")} />
       </div>
 
       {/* Progress bar */}
@@ -183,7 +183,7 @@ function ClamTab({ week, prep, onTogglePart, onNoteChange }) {
       {/* Notes */}
       <NotesEditor
         value={prep?.clam_notes}
-        placeholder="Add your notes for this week's CLAM meeting…"
+        placeholder={t("meetingPrep.clamNotesPlaceholder", "Add your notes for this week's CLAM meeting…")}
         onSave={(v) => onNoteChange("clam_notes", v)}
       />
     </>
@@ -261,7 +261,7 @@ function WatchtowerTab({ week, prep, onTogglePara, onNoteChange }) {
       {/* Notes */}
       <NotesEditor
         value={prep?.wt_notes}
-        placeholder="Add your notes for this week's Watchtower study…"
+        placeholder={t("meetingPrep.wtNotesPlaceholder", "Add your notes for this week's Watchtower study…")}
         onSave={(v) => onNoteChange("wt_notes", v)}
       />
     </>
@@ -460,7 +460,7 @@ export default function MeetingPrepPage({ user, navigate, darkMode, setDarkMode,
                   <span className="mp-prog-count">{clamDoneCount}/{clamTotal}</span>
                 </div>
                 <div className="mp-prog-row">
-                  <span className="mp-prog-label">Watchtower</span>
+                  <span className="mp-prog-label">{t("meetingPrep.watchtowerLabel", "Watchtower")}</span>
                   <div className="mp-prog-track">
                     <div className="mp-prog-fill mp-prog-fill--wt" style={{ width: wtPct + "%" }} />
                   </div>

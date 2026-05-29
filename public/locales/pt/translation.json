@@ -89,7 +89,8 @@
     "show": "Mostrar",
     "uploading": "Enviando…",
     "view": "Ver",
-    "working": "Processando…"
+    "working": "Processando…",
+    "ok": "OK"
   },
   "app": {
     "title": "Lista de Leitura Bíblica",
@@ -710,7 +711,44 @@
     "totalCount": "{{count}} no total",
     "viewBtn": "Ver",
     "viewBtnLabel": "Ver",
-    "writeFirst": "Escreva sua primeira publicação →"
+    "writeFirst": "Escreva sua primeira publicação →",
+    "emptyComments": "Seja o primeiro a compartilhar uma reflexão",
+    "messageAuthor": "Mensagem",
+    "blockAuthor": "Bloquear",
+    "unblockAuthor": "Desbloquear",
+    "shareFoundHelpful": "Achou útil? Compartilhe.",
+    "guestLockTitle": "Participe da conversa",
+    "guestLockSubtitle": "Compartilhe suas reflexões com a comunidade",
+    "createFreeAccount": "Criar conta gratuita",
+    "alreadyHaveAccount": "Já tem uma conta? Entrar",
+    "postNavPrevious": "Anterior",
+    "postNavNext": "Próximo",
+    "shareCopyLink": "Copiar link",
+    "shareOnX": "Compartilhar no X",
+    "shareOnWhatsApp": "WhatsApp",
+    "shareOnFacebook": "Facebook",
+    "anonymousAuthor": "Anônimo",
+    "tableOfContents": "Conteúdo",
+    "allPosts": "Todas as publicações",
+    "minLabel": "{{count}} min",
+    "jwFooterTitle": "Para um estudo mais profundo, visite jw.org",
+    "jwFooterSub": "O site oficial das Testemunhas de Jeová é a principal fonte para um ensino bíblico exato. Dê o próximo passo abaixo.",
+    "jwLinkRequestStudy": "Solicite um curso bíblico gratuito",
+    "jwLinkRequestStudySub": "hub.jw.org, uma das Testemunhas de Jeová terá prazer em entrar em contato com você",
+    "jwLinkFindMeeting": "Encontre uma reunião perto de você",
+    "jwLinkFindMeetingSub": "hub.jw.org, assista a uma reunião num Salão do Reino em sua região",
+    "jwLinkOfficialSite": "jw.org, site oficial",
+    "jwLinkOfficialSiteSub": "Livros, vídeos, revistas e artigos de estudo bíblico",
+    "jwLinkWolLibrary": "Biblioteca on-line Watchtower",
+    "jwLinkWolLibrarySub": "wol.jw.org, arquivo completo de publicações",
+    "jwLinkJwLibraryApp": "Aplicativo JW Library",
+    "jwLinkJwLibraryAppSub": "Bíblias, publicações e material para reuniões, iOS e Android",
+    "progress": "Progresso",
+    "throughArticle": "neste artigo",
+    "actions": "Ações",
+    "likeWithCount": "Curtir ({{count}})",
+    "share": "Compartilhar",
+    "relatedPostsLabel": "Publicações relacionadas"
   },
   "blogDash": {
     "myPostsTitle": "Minhas Postagens",
@@ -809,7 +847,12 @@
     "sort_replied": "Mais respondidos",
     "sort_unanswered": "Sem resposta",
     "sort_solved": "Resolvidos",
-    "loadMoreReplies": "Carregar mais {{count}} respostas"
+    "loadMoreReplies": "Carregar mais {{count}} respostas",
+    "aiAssistantTitle": "Assistente de IA para publicações",
+    "aiAssistantDesc": "Receba ajuda para criar uma publicação acolhedora e bem fundamentada nas Escrituras a partir do seu tema e rascunho.",
+    "aiWriting": "Escrevendo…",
+    "aiHelpMeWrite": "Ajude-me a escrever esta publicação",
+    "aiSuggestion": "Sugestão da IA"
   },
   "home": {
     "navLeaderboard": "Classificação",
@@ -1053,7 +1096,9 @@
     "timedMode": "Modo cronometrado",
     "masterLevels": "Níveis mestre",
     "explanation": "Explicação",
-    "newBest": "Novo recorde"
+    "newBest": "Novo recorde",
+    "timedScore": "Pontuação cronometrada:",
+    "points": "pts"
   },
   "report": {
     "title": "Denunciar Conteúdo",
@@ -1903,7 +1948,8 @@
     "sort_created": "Data de Criação",
     "sort_title": "Título (A–Z)",
     "exportMarkdown": "Exportar como Markdown",
-    "exportPdf": "Exportar / Imprimir"
+    "exportPdf": "Exportar / Imprimir",
+    "noteTitlePlaceholder": "Título da nota…"
   },
   "readingPlans": {
     "title": "Planos de Leitura",
@@ -2748,6 +2794,275 @@
             ]
           }
         ]
+      },
+      "trinity-is-false": {
+        "title": "A Trindade Não É Bíblica — Versículos-Chave",
+        "subtitle": "As Escrituras distinguem consistentemente o Pai do Filho — a doutrina da Trindade não tem base bíblica",
+        "summary": "A palavra 'Trindade' nunca aparece na Bíblia, e as Escrituras apresentam consistentemente o Pai como o único Deus verdadeiro e Jesus como um Filho subordinado. Jesus orou ao Pai, chamou-o de 'meu Deus' e reconheceu uma vontade distinta da sua — coisas impossíveis se fossem coiguais. A doutrina da Trindade foi formalizada séculos depois dos apóstolos e contradiz declarações claras da Bíblia.",
+        "disclaimer": "Este tópico de estudo reflete o entendimento das Testemunhas de Jeová sobre as Escrituras, baseado na Tradução do Novo Mundo. JW Study é um projeto independente, não filiado à Sociedade Torre de Vigia de Bíblias e Tratados ou ao jw.org.",
+        "sections": [
+          {
+            "heading": "A Bíblia mostra Jesus e o Pai como pessoas distintas?",
+            "paragraphs": [
+              "Jesus falava consistentemente de si mesmo como subordinado ao seu Pai. Ele disse claramente: 'O Pai é maior do que eu.' (João 14:28) Se fossem coiguais, essa declaração seria falsa. Jesus também disse: 'Estou subindo para o meu Pai e Pai de vocês, e para o meu Deus e Deus de vocês.' (João 20:17) Jesus chamou o Pai de 'meu Deus' — provando que o Pai ocupava uma posição superior.",
+              "No Getsêmani, Jesus orou: 'Pai, se quiseres, afasta de mim este copo. No entanto, não se faça a minha vontade, mas a tua.' (Lucas 22:42) Duas vontades distintas — a do Pai e a do Filho — não podem existir dentro de um único ser. Essa oração só faz sentido se eles forem pessoas distintas."
+            ],
+            "scriptures": [
+              {
+                "ref": "João 14:28",
+                "text": "O Pai é maior do que eu."
+              },
+              {
+                "ref": "João 20:17",
+                "text": "Estou subindo para o meu Pai e Pai de vocês, e para o meu Deus e Deus de vocês."
+              },
+              {
+                "ref": "Lucas 22:42",
+                "text": "Pai, se quiseres, afasta de mim este copo. No entanto, não se faça a minha vontade, mas a tua."
+              },
+              {
+                "ref": "Marcos 13:32",
+                "text": "Quanto àquele dia ou hora ninguém sabe, nem os anjos no céu, nem o Filho, mas somente o Pai."
+              },
+              {
+                "ref": "João 17:3",
+                "text": "Isto significa vida eterna: que absorvam conhecimento de ti, o único Deus verdadeiro, e daquele que enviaste, Jesus Cristo."
+              }
+            ]
+          },
+          {
+            "heading": "Quem a Bíblia identifica como o único Deus verdadeiro?",
+            "paragraphs": [
+              "A Bíblia nunca usa a palavra 'Trindade'. O Shemá de Israel declara: 'Escute, ó Israel: Jeová, nosso Deus, é um só Jeová.' (Deuteronômio 6:4) Paulo reafirmou: 'Realmente, para nós há um só Deus, o Pai, de quem todas as coisas procedem e para quem existimos; e há um só Senhor, Jesus Cristo, por meio de quem todas as coisas existem.' (1 Coríntios 8:6) Deus e Senhor são nomeados separadamente — o Pai é Deus; Jesus é Senhor.",
+              "O próprio Jesus identificou o Pai como o 'único Deus verdadeiro'. (João 17:3) A palavra 'único' exclui qualquer outra pessoa desse título — inclusive o próprio Jesus. Se Jesus fizesse parte de um Deus tríuno, chamar o Pai de 'único Deus verdadeiro' o excluiria da divindade."
+            ],
+            "scriptures": [
+              {
+                "ref": "Deuteronômio 6:4",
+                "text": "Escute, ó Israel: Jeová, nosso Deus, é um só Jeová."
+              },
+              {
+                "ref": "1 Coríntios 8:6",
+                "text": "Realmente, para nós há um só Deus, o Pai… e há um só Senhor, Jesus Cristo."
+              },
+              {
+                "ref": "João 17:3",
+                "text": "Que absorvam conhecimento de ti, o único Deus verdadeiro, e daquele que enviaste, Jesus Cristo."
+              },
+              {
+                "ref": "1 Timóteo 2:5",
+                "text": "Há um só Deus e um só mediador entre Deus e os homens, um homem, Cristo Jesus."
+              },
+              {
+                "ref": "Malaquias 2:10",
+                "text": "Não temos todos nós um só pai? Não foi um só Deus que nos criou?"
+              }
+            ]
+          },
+          {
+            "heading": "A Bíblia diz que Jesus foi criado, não coeterno?",
+            "paragraphs": [
+              "A Bíblia chama Jesus de 'o primogênito de toda a criação' (Colossenses 1:15) e 'o princípio da criação de Deus'. (Apocalipse 3:14) Esses títulos indicam que Jesus teve um início. Ele foi o primeiro ser criado por Jeová, e então 'por meio dele foram criadas todas as outras coisas'. (Colossenses 1:16) Jesus é supremo entre a criação — mas ainda faz parte dela.",
+              "Provérbios 8:22-30 personifica a sabedoria dizendo: 'Jeová me produziu como o princípio do seu caminho, o primeiro de seus feitos de muito tempo atrás.' Essa passagem, entendida como prefiguração de Cristo, mostra que o Filho foi produzido antes que qualquer outra coisa existisse — não que ele sempre tenha existido ao lado do Pai."
+            ],
+            "scriptures": [
+              {
+                "ref": "Colossenses 1:15",
+                "text": "Ele é a imagem do Deus invisível, o primogênito de toda a criação."
+              },
+              {
+                "ref": "Apocalipse 3:14",
+                "text": "O Amém, a testemunha fiel e verdadeira, o princípio da criação de Deus."
+              },
+              {
+                "ref": "Provérbios 8:22",
+                "text": "Jeová me produziu como o princípio do seu caminho, o primeiro de seus feitos de muito tempo atrás."
+              },
+              {
+                "ref": "Provérbios 8:30",
+                "text": "Eu estava ao seu lado como um mestre de obras, e eu era aquele de quem ele especialmente gostava, dia após dia."
+              },
+              {
+                "ref": "Miqueias 5:2",
+                "text": "Sua origem é desde tempos antigos, desde os dias de outrora."
+              }
+            ]
+          }
+        ]
+      },
+      "holy-spirit-not-a-person": {
+        "title": "O Espírito Santo Não É Uma Pessoa — Versículos-Chave",
+        "subtitle": "Prova bíblica de que o espírito santo é a força ativa de Deus, não uma pessoa",
+        "summary": "Versículos-chave da Bíblia mostram que o espírito santo se comporta como uma força, não como uma pessoa: ele é derramado, enche pessoas e é dividido em porções. Não tem nome pessoal e nunca é visto como pessoa distinta em visões celestiais. Esses padrões consistentes de linguagem ao longo das Escrituras Hebraicas e Gregas Cristãs apontam para o espírito santo como o poder ativo de Deus, e não um indivíduo divino coigual.",
+        "disclaimer": "Este tópico de estudo reflete o entendimento das Testemunhas de Jeová sobre as Escrituras, baseado na Tradução do Novo Mundo. JW Study é um projeto independente, não filiado à Sociedade Torre de Vigia de Bíblias e Tratados ou ao jw.org.",
+        "sections": [
+          {
+            "heading": "A Bíblia descreve o espírito santo sendo derramado?",
+            "paragraphs": [
+              "Uma pessoa não pode ser derramada, dividida em porções ou usada para encher outras pessoas — mas o espírito santo pode. No Pentecostes, 'todos ficaram cheios de espírito santo'. (Atos 2:4) Deus prometeu por meio de Joel: 'Derramarei do meu espírito sobre todo tipo de carne.' (Atos 2:17) Você derrama uma força ou substância, não uma pessoa.",
+              "Jesus disse aos seus discípulos que seriam 'batizados em espírito santo'. (Atos 1:5) As pessoas são imersas em água, não em uma pessoa. Essas expressões — cheios de, derramado, batizados em — descrevem consistentemente o espírito santo como uma força, não como um indivíduo."
+            ],
+            "scriptures": [
+              {
+                "ref": "Atos 2:4",
+                "text": "Todos ficaram cheios de espírito santo e começaram a falar em diferentes línguas."
+              },
+              {
+                "ref": "Atos 2:17",
+                "text": "Derramarei do meu espírito sobre todo tipo de carne."
+              },
+              {
+                "ref": "Atos 1:5",
+                "text": "Vocês serão batizados em espírito santo dentro de poucos dias."
+              },
+              {
+                "ref": "Atos 10:38",
+                "text": "Deus o ungiu com espírito santo e poder."
+              },
+              {
+                "ref": "Lucas 11:13",
+                "text": "O Pai no céu dará espírito santo aos que lhe pedirem!"
+              }
+            ]
+          },
+          {
+            "heading": "O espírito santo aparece como uma pessoa nas Escrituras?",
+            "paragraphs": [
+              "Jeová tem um nome. Jesus tem um nome. Se o espírito santo fosse uma pessoa coigual de um Deus tríuno, ele também teria um nome pessoal — mas nenhum é dado em qualquer lugar das Escrituras. Na visão do trono em Apocalipse, o Pai está no trono e o Cordeiro (Jesus) está ao lado dele — não há uma terceira pessoa representada. (Apocalipse 7:10)",
+              "No batismo de Jesus, o espírito santo apareceu como uma pomba — não como uma pessoa. (Mateus 3:16) Quando Estêvão estava prestes a morrer, 'olhando atentamente para o céu, viu a glória de Deus e Jesus em pé à direita de Deus'. (Atos 7:55) Ele viu duas pessoas — o Pai e o Filho. Nenhuma terceira pessoa estava visível."
+            ],
+            "scriptures": [
+              {
+                "ref": "Mateus 3:16",
+                "text": "Depois de ser batizado, Jesus saiu imediatamente da água; e os céus foram abertos, e ele viu o espírito de Deus descendo como uma pomba."
+              },
+              {
+                "ref": "Atos 7:55, 56",
+                "text": "Olhando atentamente para o céu, viu a glória de Deus e Jesus em pé à direita de Deus."
+              },
+              {
+                "ref": "Apocalipse 7:10",
+                "text": "A salvação devemos ao nosso Deus, que está sentado no trono, e ao Cordeiro."
+              },
+              {
+                "ref": "1 Timóteo 2:5",
+                "text": "Há um só Deus e um só mediador entre Deus e os homens, um homem, Cristo Jesus."
+              }
+            ]
+          },
+          {
+            "heading": "O espírito santo pode ser repartido como uma força?",
+            "paragraphs": [
+              "Números 11:25 descreve como Jeová 'tirou um pouco do espírito que estava sobre ele [Moisés] e o colocou sobre cada um dos 70 anciãos'. Uma pessoa não pode ser dividida em 70 porções. Eliseu pediu 'duas partes' do espírito de Elias. (2 Reis 2:9) O espírito santo opera em medidas e graus — uma linguagem que se aplica a energia ou força, não a personalidade.",
+              "Paulo escreveu que os dons espirituais são 'a obra de um e do mesmo espírito, distribuindo a cada um individualmente, conforme deseja'. (1 Coríntios 12:11) O espírito distribui segundo a vontade de Deus. Ele é o instrumento do propósito de Deus, não uma mente independente tomando decisões separadas."
+            ],
+            "scriptures": [
+              {
+                "ref": "Números 11:25",
+                "text": "Jeová tirou um pouco do espírito que estava sobre ele e o colocou sobre cada um dos 70 anciãos."
+              },
+              {
+                "ref": "2 Reis 2:9",
+                "text": "Por favor, que duas partes do teu espírito venham sobre mim."
+              },
+              {
+                "ref": "1 Coríntios 12:11",
+                "text": "Tudo isso é a obra de um e do mesmo espírito, distribuindo a cada um individualmente, conforme deseja."
+              },
+              {
+                "ref": "Neemias 9:20",
+                "text": "Deste o teu bom espírito para os instruir."
+              }
+            ]
+          }
+        ]
+      },
+      "angel-of-the-lord-michael": {
+        "title": "O Anjo de Jeová É Miguel — Versículos-Chave",
+        "subtitle": "Evidência bíblica ligando o anjo de Jeová, Miguel, o arcanjo, e Jesus Cristo",
+        "summary": "As Escrituras identificam Miguel como o principal príncipe celestial e o único arcanjo, cujo papel corresponde em todos os aspectos ao Jesus pré-humano. O anjo de Jeová que conduziu e protegeu Israel carregava o próprio nome e a autoridade de Deus — uma descrição que combina com Cristo, a quem Paulo identifica como a rocha espiritual que acompanhou Israel. Antes de vir à terra como Jesus, essa poderosa criatura espiritual servia a Jeová como Miguel.",
+        "disclaimer": "Este tópico de estudo reflete o entendimento das Testemunhas de Jeová sobre as Escrituras, baseado na Tradução do Novo Mundo. JW Study é um projeto independente, não filiado à Sociedade Torre de Vigia de Bíblias e Tratados ou ao jw.org.",
+        "sections": [
+          {
+            "heading": "O que a Bíblia diz sobre o papel de Miguel?",
+            "paragraphs": [
+              "Miguel é identificado como 'um dos principais príncipes' que veio ajudar o mensageiro angélico de Daniel. (Daniel 10:13) Mais adiante, é chamado de 'o grande príncipe que está em favor do teu povo'. (Daniel 12:1) Seu papel é o de um príncipe-guerreiro que defende a causa de Jeová e protege os escolhidos de Deus — um papel que combina perfeitamente com o Jesus pré-humano.",
+              "Judas 9 identifica Miguel como 'o arcanjo' — o principal anjo. Visto que as Escrituras mencionam apenas um arcanjo, e visto que o Jesus ressuscitado 'descerá do céu com um chamado de comando, com voz de arcanjo' (1 Tessalonicenses 4:16), a conexão é clara: Jesus ocupa a posição de arcanjo — ele é Miguel."
+            ],
+            "scriptures": [
+              {
+                "ref": "Daniel 10:13",
+                "text": "Mas Miguel, um dos principais príncipes, veio em meu auxílio."
+              },
+              {
+                "ref": "Daniel 12:1",
+                "text": "Naquele tempo se levantará Miguel, o grande príncipe que está em favor do teu povo."
+              },
+              {
+                "ref": "Judas 9",
+                "text": "Quando Miguel, o arcanjo, teve uma disputa com o Diabo e discutia sobre o corpo de Moisés."
+              },
+              {
+                "ref": "1 Tessalonicenses 4:16",
+                "text": "O próprio Senhor descerá do céu com um chamado de comando, com voz de arcanjo."
+              }
+            ]
+          },
+          {
+            "heading": "Miguel lidera os exércitos celestiais da mesma forma que Jesus?",
+            "paragraphs": [
+              "Apocalipse 12:7-9 descreve a guerra celestial decisiva: 'Miguel e os seus anjos lutaram contra o dragão, e o dragão e os seus anjos lutaram.' O dragão — Satanás — foi lançado à terra. Em outro lugar de Apocalipse, é Jesus Cristo o Rei vitorioso montado num cavalo branco, liderando os exércitos do céu. (Apocalipse 19:11-16) O comandante dos exércitos celestiais nas duas passagens é a mesma pessoa.",
+              "Jesus disse aos seus discípulos: 'Vi Satanás já caído do céu como um relâmpago.' (Lucas 10:18) Isso é coerente com Miguel expulsando Satanás. Antes de vir à terra, Jesus existia como um poderoso ser espiritual — 'o primogênito de toda a criação'. (Colossenses 1:15) Seu nome pré-humano no céu era Miguel; seu nome terreno, dado no nascimento, é Jesus."
+            ],
+            "scriptures": [
+              {
+                "ref": "Apocalipse 12:7-9",
+                "text": "Miguel e os seus anjos lutaram contra o dragão… o grande dragão foi lançado para baixo, a serpente original."
+              },
+              {
+                "ref": "Apocalipse 19:14-16",
+                "text": "Os exércitos no céu o seguiam em cavalos brancos… ele tem um nome escrito: Rei dos reis e Senhor dos senhores."
+              },
+              {
+                "ref": "Lucas 10:18",
+                "text": "Vi Satanás já caído do céu como um relâmpago."
+              },
+              {
+                "ref": "Colossenses 1:15, 16",
+                "text": "Ele é a imagem do Deus invisível, o primogênito de toda a criação."
+              }
+            ]
+          },
+          {
+            "heading": "Quem era o anjo de Jeová nas Escrituras Hebraicas?",
+            "paragraphs": [
+              "Ao longo das Escrituras Hebraicas, 'o anjo de Jeová' aparece como o principal representante de Deus — não meramente um entre muitos anjos, mas uma figura singular que fala com autoridade divina. Ele apareceu a Moisés na sarça ardente (Êxodo 3:2), guiou Israel pelo deserto (Êxodo 23:20, 21) e bloqueou o caminho de Balaão para proteger o povo de Deus. (Números 22:22-35)",
+              "Deus disse sobre esse anjo: 'O meu nome está nele.' (Êxodo 23:21) Esse anjo carregava a autoridade de Jeová de modo único. Paulo identificou a rocha espiritual que acompanhou Israel como Cristo. (1 Coríntios 10:4) O anjo de Jeová que conduziu e protegeu Israel era o Jesus pré-humano — Miguel — servindo como o agente principal de Jeová muito antes de seu nascimento em Belém."
+            ],
+            "scriptures": [
+              {
+                "ref": "Êxodo 3:2",
+                "text": "Então o anjo de Jeová lhe apareceu numa chama de fogo no meio de um espinheiro."
+              },
+              {
+                "ref": "Êxodo 23:20, 21",
+                "text": "Estou enviando um anjo à frente de você… preste atenção nele… pois o meu nome está nele."
+              },
+              {
+                "ref": "Números 22:22",
+                "text": "O anjo de Jeová se postou no caminho para resistir a ele."
+              },
+              {
+                "ref": "1 Coríntios 10:4",
+                "text": "Bebiam da rocha espiritual que os seguia, e essa rocha significava o Cristo."
+              },
+              {
+                "ref": "Josué 5:14",
+                "text": "Vim como príncipe do exército de Jeová."
+              }
+            ]
+          }
+        ]
       }
     }
   },
@@ -3295,7 +3610,12 @@
     "clamComplete": "✓ Preparação CLAM Concluída",
     "markAllParas": "Marcar Todos os Parágrafos Como Concluídos",
     "wtComplete": "✓ Estudo da Sentinela Concluído",
-    "watchtowerStudyArticle": "Artigo de Estudo da Sentinela"
+    "watchtowerStudyArticle": "Artigo de Estudo da Sentinela",
+    "songOpening": "Abertura",
+    "songClosing": "Encerramento",
+    "clamNotesPlaceholder": "Adicione suas anotações para a reunião Nossa Vida e Ministério Cristão desta semana…",
+    "wtNotesPlaceholder": "Adicione suas anotações para o Estudo de A Sentinela desta semana…",
+    "watchtowerLabel": "A Sentinela"
   },
   "bookNotablePassages": {
     "0": {
@@ -4030,7 +4350,30 @@
     "onlineNow": "{{count}} online agora",
     "recentActivity": "Atividade Recente",
     "manage": "Gerenciar →",
-    "newPosts": "{{count}} novas publicações"
+    "newPosts": "{{count}} novas publicações",
+    "anonymous": "Anônimo",
+    "clearSearch": "Limpar busca",
+    "emptySearchSub": "Tente um nome diferente.",
+    "emptySearchTitle": "Nenhum resultado",
+    "emptySub": "Seja o primeiro a ler junto.",
+    "emptyTitle": "Ninguém aqui ainda",
+    "errorSub": "Atualize para tentar novamente.",
+    "errorTitle": "Não foi possível carregar os membros",
+    "fallbackNotice": "Sem atividade nas últimas duas semanas. Exibindo os membros mais recentes.",
+    "filterLabel": "Filtrar membros",
+    "next": "Próximo",
+    "of": "de",
+    "pageOf": "Página {{page}} de {{total}}",
+    "prev": "Anterior",
+    "searchLabel": "Buscar membros",
+    "searchPlaceholder": "Buscar por nome",
+    "statusJoined": "Entrou recentemente",
+    "statusOnline": "Online agora",
+    "statusUnknown": "Membro",
+    "subtitleEmpty": "Todos lendo juntos.",
+    "subtitleOnline": "{{count}} lendo juntos agora",
+    "tabAll": "Todos",
+    "tabOnline": "Online"
   },
   "checklist": {
     "bibleProgress": "Progresso de Leitura Bíblica",
@@ -5924,5 +6267,69 @@
     "3 João aborda a perigosa tendência de autopromoção na congregação por meio dos exemplos contrastantes de Gaio (hospitaleiro, humilde) e Diótrefes (importante para si mesmo, divisivo). O princípio de que aqueles que 'gostam de ter o primeiro lugar' perturbam a congregação se aplica em toda geração e continua orientando como o povo de Jeová reconhece e trata tais tendências.",
     "Judas foi escrita exatamente para a situação que enfrenta toda congregação quando apóstatas surgem de dentro — aqueles que usam a bondade imerecida de Jeová como licença para conduta leviana e que desprezam toda autoridade. Suas prescrições práticas para autoproteção (edificar a fé, oração, permanecer no amor de Jeová) e para ajudar os atraídos pela apostasia permanecem orientação vital para anciãos das congregações e para indivíduos.",
     "Apocalipse fornece ao povo de Jeová o panorama definitivo do fim da história — não como fonte de mistério ou medo, mas como fonte de confiança duradoura. Sua mensagem repetida para 'conquistar' e sua promessa final de 'enxugar toda lágrima' têm sustentado as Testemunhas de Jeová através das mais severas perseguições. O livro garante que o Reino de Jeová eliminará toda fonte de sofrimento e que seu propósito para a terra será plenamente realizado."
-  ]
+  ],
+  "trivia": {
+    "active": "Ativo",
+    "answerFailed": "Não foi possível enviar sua resposta. Tente novamente.",
+    "betterLuck": "Mais sorte da próxima vez!",
+    "chooseTeam": "Escolher equipe",
+    "congratulations": "Parabéns! Sua equipe venceu!",
+    "correct": "Correto!",
+    "createRoom": "Criar sala",
+    "custom": "Personalizado",
+    "enterRoomCode": "Digite um código de sala",
+    "exit": "Sair",
+    "failedCreate": "Falha ao criar a sala",
+    "failedJoin": "Falha ao entrar na sala",
+    "firstTeamToWins": "A primeira equipe a acertar {{points}} respostas vence",
+    "firstToPts": "Primeiro a {{points}} pts",
+    "friend": "amigo",
+    "friendCap": "Amigo",
+    "gameBanner": "BATALHA DE TRIVIA BÍBLICA",
+    "host": "ANFITRIÃO",
+    "inviteFriendLabel": "Convidar {{name}}",
+    "inviteOnlineFriends": "Convidar amigos online",
+    "joinRoom": "Entrar na sala",
+    "leaveRoom": "Sair da sala",
+    "loadingQuestion": "Carregando pergunta…",
+    "nextQuestion": "Próxima pergunta →",
+    "noFriendsOnline": "Nenhum amigo online no momento",
+    "noPlayersYet": "Ainda não há jogadores",
+    "noTimer": "Sem temporizador",
+    "none": "Nenhum",
+    "off": "NÃO",
+    "on": "SIM",
+    "playAgain": "Jogar novamente",
+    "player": "Jogador",
+    "players": "Jogadores",
+    "playersCount": "{{current}}/{{total}} jogadores",
+    "playingAs": "Jogando como",
+    "pointsLabel": "pontos",
+    "pointsToWin": "Pontos para vencer",
+    "questionShort": "P",
+    "questionsCount": "{{count}} perguntas",
+    "roomCode": "Código da sala",
+    "secondTimer": "Temporizador de {{seconds}}s",
+    "shareCode": "Compartilhe este código para convidar jogadores",
+    "startBattle": "Iniciar batalha!",
+    "starting": "Iniciando…",
+    "subtitle": "Sala de batalha · Equipe vs. Equipe",
+    "teamAlpha": "Equipe Alpha",
+    "teamAlphaShort": "Alpha",
+    "teamOmega": "Equipe Omega",
+    "teamOmegaShort": "Omega",
+    "teamSize": "Tamanho da equipe",
+    "teamTurn": "Vez da {{team}}",
+    "teamWins": "{{team}} vence!",
+    "tie": "É um empate!",
+    "timer": "Temporizador",
+    "timesUp": "Tempo esgotado!",
+    "title": "Trivia Bíblica",
+    "waiting": "Aguardando…",
+    "waitingForHost": "Aguardando o anfitrião começar…",
+    "waitingForHostAdvance": "Aguardando o anfitrião avançar…",
+    "waitingForPlayers": "Aguardando mais {{count}} jogador(es) entrar(em) com o código",
+    "wrong": "Errado!",
+    "yourTurn": "Sua vez, responda agora!"
+  }
 }

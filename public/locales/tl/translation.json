@@ -89,7 +89,8 @@
     "show": "Ipakita",
     "uploading": "Ina-upload…",
     "view": "Tingnan",
-    "working": "Ginagawa…"
+    "working": "Ginagawa…",
+    "ok": "OK"
   },
   "app": {
     "title": "Listahan ng Pagbabasa ng Bibliya",
@@ -710,7 +711,44 @@
     "totalCount": "{{count}} kabuuan",
     "viewBtn": "Tingnan",
     "viewBtnLabel": "Tingnan",
-    "writeFirst": "Isulat ang iyong unang post →"
+    "writeFirst": "Isulat ang iyong unang post →",
+    "emptyComments": "Maging una sa pagbabahagi ng iyong repleksyon",
+    "messageAuthor": "Mensahe",
+    "blockAuthor": "Harangan",
+    "unblockAuthor": "Alisin sa pagkaharang",
+    "shareFoundHelpful": "Nakatulong ba ito? Ibahagi mo.",
+    "guestLockTitle": "Sumali sa usapan",
+    "guestLockSubtitle": "Ibahagi ang iyong mga repleksyon sa komunidad",
+    "createFreeAccount": "Gumawa ng Libreng Account",
+    "alreadyHaveAccount": "May account ka na? Mag-sign in",
+    "postNavPrevious": "Nakaraan",
+    "postNavNext": "Susunod",
+    "shareCopyLink": "Kopyahin ang link",
+    "shareOnX": "Ibahagi sa X",
+    "shareOnWhatsApp": "WhatsApp",
+    "shareOnFacebook": "Facebook",
+    "anonymousAuthor": "Anonimo",
+    "tableOfContents": "Nilalaman",
+    "allPosts": "Lahat ng Post",
+    "minLabel": "{{count}} min",
+    "jwFooterTitle": "Para sa mas Malalim na Pag-aaral, Bisitahin ang jw.org",
+    "jwFooterSub": "Ang opisyal na website ng mga Saksi ni Jehova ang pangunahing pinagkukunan para sa tumpak na turo ng Bibliya. Gawin ang susunod na hakbang sa ibaba.",
+    "jwLinkRequestStudy": "Humiling ng Libreng Pag-aaral sa Bibliya",
+    "jwLinkRequestStudySub": "hub.jw.org, isa sa mga Saksi ni Jehova ang ikalulugod na makipag-ugnayan sa iyo",
+    "jwLinkFindMeeting": "Maghanap ng Pulong Malapit sa Iyo",
+    "jwLinkFindMeetingSub": "hub.jw.org, dumalo sa pulong sa isang Kingdom Hall sa iyong lugar",
+    "jwLinkOfficialSite": "jw.org, Opisyal na Website",
+    "jwLinkOfficialSiteSub": "Mga libro, video, magasin at artikulong pang-aral sa Bibliya",
+    "jwLinkWolLibrary": "Watchtower ONLINE Library",
+    "jwLinkWolLibrarySub": "wol.jw.org, kumpletong archive ng mga publikasyon",
+    "jwLinkJwLibraryApp": "JW Library App",
+    "jwLinkJwLibraryAppSub": "Mga Bibliya, publikasyon at materyales sa pulong, iOS at Android",
+    "progress": "Progreso",
+    "throughArticle": "sa artikulong ito",
+    "actions": "Mga Aksyon",
+    "likeWithCount": "Gusto ({{count}})",
+    "share": "Ibahagi",
+    "relatedPostsLabel": "Mga Kaugnay na Post"
   },
   "blogDash": {
     "myPostsTitle": "Aking Mga Post",
@@ -809,7 +847,12 @@
     "sort_replied": "Pinakamaraming sagot",
     "sort_unanswered": "Walang sagot",
     "sort_solved": "Nalutas",
-    "loadMoreReplies": "Mag-load ng {{count}} pang mga sagot"
+    "loadMoreReplies": "Mag-load ng {{count}} pang mga sagot",
+    "aiAssistantTitle": "AI na Katulong sa Pag-post",
+    "aiAssistantDesc": "Tumanggap ng tulong sa paggawa ng mainit at nakabatay-sa-Kasulatang post mula sa iyong paksa at draft.",
+    "aiWriting": "Sumusulat…",
+    "aiHelpMeWrite": "Tulungan Mo Akong Isulat Ito",
+    "aiSuggestion": "Mungkahi ng AI"
   },
   "home": {
     "navLeaderboard": "Ranggo",
@@ -1053,7 +1096,9 @@
     "timedMode": "Timed Mode",
     "masterLevels": "Mga Master Level",
     "explanation": "Paliwanag",
-    "newBest": "Bagong best"
+    "newBest": "Bagong best",
+    "timedScore": "Iskor sa Oras:",
+    "points": "puntos"
   },
   "report": {
     "title": "Iulat ang Nilalaman",
@@ -1903,7 +1948,8 @@
     "sort_created": "Petsa ng Paglikha",
     "sort_title": "Pamagat (A–Z)",
     "exportMarkdown": "I-export bilang Markdown",
-    "exportPdf": "I-export / I-print"
+    "exportPdf": "I-export / I-print",
+    "noteTitlePlaceholder": "Pamagat ng tala…"
   },
   "readingPlans": {
     "title": "Mga Plano sa Pagbabasa",
@@ -2748,6 +2794,269 @@
             ]
           }
         ]
+      },
+      "trinity-is-false": {
+        "title": "Ang Trinidad ay Hindi Batay sa Bibliya — Mahahalagang Teksto",
+        "subtitle": "Patuloy na ibinubukod ng Kasulatan ang Ama mula sa Anak — walang batayan sa Bibliya ang doktrina ng Trinidad",
+        "sections": [
+          {
+            "heading": "Ipinapakita ba ng Bibliya na magkahiwalay na persona si Jesus at ang Ama?",
+            "paragraphs": [
+              "Patuloy na nagsalita si Jesus tungkol sa kaniyang sarili bilang nakabababa sa kaniyang Ama. Maliwanag niyang sinabi: 'Ang Ama ay mas dakila kaysa sa akin.' (Juan 14:28) Kung sila ay magkapantay, magiging mali ang pananalitang ito. Sinabi rin ni Jesus: 'Aakyat ako sa aking Ama at inyong Ama at sa aking Diyos at inyong Diyos.' (Juan 20:17) Tinawag ni Jesus ang Ama na 'aking Diyos' — patunay na ang Ama ay may mas mataas na posisyon.",
+              "Sa Getsemani, nanalangin si Jesus: 'Ama, kung ninanais mo, alisin mo ang kopang ito sa akin. Gayunpaman, hindi ang aking kalooban, kundi ang sa iyo ang mangyari.' (Lucas 22:42) Dalawang magkahiwalay na kalooban — ang sa Ama at ang sa Anak — ay hindi maaaring umiral sa loob ng isang persona. Ang panalanging ito ay may katuturan lamang kung sila ay magkahiwalay na persona."
+            ],
+            "scriptures": [
+              {
+                "ref": "Juan 14:28",
+                "text": "Ang Ama ay mas dakila kaysa sa akin."
+              },
+              {
+                "ref": "Juan 20:17",
+                "text": "Aakyat ako sa aking Ama at inyong Ama at sa aking Diyos at inyong Diyos."
+              },
+              {
+                "ref": "Lucas 22:42",
+                "text": "Ama, kung ninanais mo, alisin mo ang kopang ito sa akin. Gayunpaman, hindi ang aking kalooban, kundi ang sa iyo ang mangyari."
+              },
+              {
+                "ref": "Marcos 13:32",
+                "text": "Tungkol sa araw o oras na iyon ay walang nakaaalam, ni ang mga anghel sa langit ni ang Anak, kundi ang Ama lamang."
+              },
+              {
+                "ref": "Juan 17:3",
+                "text": "Nangangahulugan ito ng buhay na walang hanggan, ang kanilang pagkilala sa iyo, ang tanging tunay na Diyos, at sa kaniya na isinugo mo, si Jesu-Kristo."
+              }
+            ]
+          },
+          {
+            "heading": "Sino ang ipinapakilala ng Bibliya bilang ang tanging tunay na Diyos?",
+            "paragraphs": [
+              "Hindi kailanman ginamit ng Bibliya ang salitang 'Trinidad.' Ipinahahayag ng Shema ng Israel: 'Pakinggan mo, O Israel: Si Jehova na ating Diyos ay isang Jehova.' (Deuteronomio 6:4) Pinagtibay ito ni Pablo: 'Para sa atin ay may isang Diyos, ang Ama, na mula sa kaniya ang lahat ng bagay, at tayo ay para sa kaniya; at may isang Panginoon, si Jesu-Kristo, na sa pamamagitan niya ang lahat ng bagay.' (1 Corinto 8:6) Magkahiwalay na pinangalanan ang Diyos at ang Panginoon — ang Ama ay ang Diyos; si Jesus ay ang Panginoon.",
+              "Si Jesus mismo ang nagpakilala sa Ama bilang 'ang tanging tunay na Diyos.' (Juan 17:3) Ang salitang 'tanging' ay nag-aalis sa sinumang ibang persona mula sa titulong iyon — kasama na si Jesus mismo. Kung si Jesus ay bahagi ng isang Trinidad, ang pagtawag sa Ama na 'ang tanging tunay na Diyos' ay magbubukod sa kaniya mula sa pagka-Diyos."
+            ],
+            "scriptures": [
+              {
+                "ref": "Deuteronomio 6:4",
+                "text": "Pakinggan mo, O Israel: Si Jehova na ating Diyos ay isang Jehova."
+              },
+              {
+                "ref": "1 Corinto 8:6",
+                "text": "Para sa atin ay may isang Diyos, ang Ama… at may isang Panginoon, si Jesu-Kristo."
+              },
+              {
+                "ref": "Juan 17:3",
+                "text": "Ang kanilang pagkilala sa iyo, ang tanging tunay na Diyos, at sa kaniya na isinugo mo, si Jesu-Kristo."
+              },
+              {
+                "ref": "1 Timoteo 2:5",
+                "text": "May isang Diyos, at isang tagapamagitan sa Diyos at sa mga tao, isang tao, si Kristo Jesus."
+              },
+              {
+                "ref": "Malakias 2:10",
+                "text": "Hindi ba't iisa ang ating ama? Hindi ba iisang Diyos ang lumalang sa atin?"
+              }
+            ]
+          },
+          {
+            "heading": "Sinasabi ba ng Bibliya na nilalang si Jesus at hindi walang-hanggan na kasama ng Ama?",
+            "paragraphs": [
+              "Tinatawag ng Bibliya si Jesus na 'panganay ng lahat ng nilalang' (Colosas 1:15) at 'pasimula ng paglalang ng Diyos.' (Apocalipsis 3:14) Ipinahihiwatig ng mga titulong ito na si Jesus ay may pasimula. Siya ang unang nilalang ni Jehova, at pagkatapos ay 'sa pamamagitan niya ang lahat ng iba pang bagay ay nalalang.' (Colosas 1:16) Si Jesus ay pinakadakila sa lahat ng nilalang — ngunit isa pa rin sa kanila.",
+              "Ipinapersona ng Kawikaan 8:22-30 ang karunungan bilang nagsasabi: 'Si Jehova ang gumawa sa akin bilang pasimula ng kaniyang lakad, ang pinakauna sa kaniyang mga gawa noong unang panahon.' Ang pasaheng ito, na nauunawaan bilang larawan ni Kristo, ay nagpapakita na ang Anak ay inilabas bago umiral ang anumang iba pang bagay — hindi na siya ay laging umiral na kasama ng Ama."
+            ],
+            "scriptures": [
+              {
+                "ref": "Colosas 1:15",
+                "text": "Siya ang larawan ng di-nakikitang Diyos, ang panganay ng lahat ng nilalang."
+              },
+              {
+                "ref": "Apocalipsis 3:14",
+                "text": "Ang Amen, ang tapat at tunay na saksi, ang pasimula ng paglalang ng Diyos."
+              },
+              {
+                "ref": "Kawikaan 8:22",
+                "text": "Si Jehova ang gumawa sa akin bilang pasimula ng kaniyang lakad, ang pinakauna sa kaniyang mga gawa noong unang panahon."
+              },
+              {
+                "ref": "Kawikaan 8:30",
+                "text": "Ako ay nasa tabi niya bilang dalubhasang manggagawa, at ako ang lalung-lalo niyang kinalulugdan sa araw-araw."
+              },
+              {
+                "ref": "Mikas 5:2",
+                "text": "Ang kaniyang pinagmulan ay mula pa noong unang panahon, mula sa mga araw ng matagal nang nakalipas."
+              }
+            ]
+          }
+        ]
+      },
+      "holy-spirit-not-a-person": {
+        "title": "Ang Banal na Espiritu ay Hindi Isang Persona — Mahahalagang Teksto",
+        "subtitle": "Patunay sa Kasulatan na ang banal na espiritu ay aktibong puwersa ng Diyos, hindi isang persona",
+        "sections": [
+          {
+            "heading": "Inilalarawan ba ng Bibliya ang banal na espiritu bilang ibinubuhos?",
+            "paragraphs": [
+              "Hindi maaaring ibuhos, hatiin sa mga bahagi, o ipampuno sa mga tao ang isang persona — ngunit ang banal na espiritu ay maaari. Sa Pentecostes, 'silang lahat ay napuno ng banal na espiritu.' (Gawa 2:4) Ipinangako ng Diyos sa pamamagitan ni Joel: 'Ibubuhos ko ang ilan sa aking espiritu sa lahat ng uri ng laman.' (Gawa 2:17) Ang isang puwersa o sustansya ang ibinubuhos, hindi isang persona.",
+              "Sinabi ni Jesus sa kaniyang mga alagad na sila ay 'babautismuhan sa banal na espiritu.' (Gawa 1:5) Ang mga tao ay inililubog sa tubig, hindi sa isang persona. Ang mga pananalitang ito — napuno ng, ibinuhos, binautismuhan sa — ay patuloy na naglalarawan sa banal na espiritu bilang puwersa, hindi bilang isang indibidwal."
+            ],
+            "scriptures": [
+              {
+                "ref": "Gawa 2:4",
+                "text": "Silang lahat ay napuno ng banal na espiritu at nagsimulang magsalita sa iba't ibang wika."
+              },
+              {
+                "ref": "Gawa 2:17",
+                "text": "Ibubuhos ko ang ilan sa aking espiritu sa lahat ng uri ng laman."
+              },
+              {
+                "ref": "Gawa 1:5",
+                "text": "Babautismuhan kayo sa banal na espiritu pagkalipas ng ilang araw."
+              },
+              {
+                "ref": "Gawa 10:38",
+                "text": "Pinahiran siya ng Diyos ng banal na espiritu at kapangyarihan."
+              },
+              {
+                "ref": "Lucas 11:13",
+                "text": "Ang Ama sa langit ay magbibigay ng banal na espiritu sa mga humihingi sa kaniya!"
+              }
+            ]
+          },
+          {
+            "heading": "Lumilitaw ba ang banal na espiritu bilang isang persona sa Kasulatan?",
+            "paragraphs": [
+              "Si Jehova ay may pangalan. Si Jesus ay may pangalan. Kung ang banal na espiritu ay isang kapantay na persona ng isang tatluhing Diyos, magkakaroon din ito ng personal na pangalan — gayunman ay wala kahit saan sa Kasulatan. Sa pangitain ng trono sa Apocalipsis, ang Ama ay nasa trono at ang Kordero (si Jesus) ay nasa tabi niya — walang ikatlong persona na inilalarawan. (Apocalipsis 7:10)",
+              "Sa bautismo ni Jesus, ang banal na espiritu ay lumitaw bilang isang kalapati — hindi bilang isang persona. (Mateo 3:16) Nang malapit nang mamatay si Esteban, 'tumitig siya sa langit at namasdan ang kaluwalhatian ng Diyos at si Jesus na nakatayo sa kanan ng Diyos.' (Gawa 7:55) Dalawang persona ang nakita niya — ang Ama at ang Anak. Walang nakitang ikatlong persona."
+            ],
+            "scriptures": [
+              {
+                "ref": "Mateo 3:16",
+                "text": "Pagkatapos mabautismuhan, agad na umahon si Jesus mula sa tubig; at ang langit ay nabuksan, at nakita niya ang espiritu ng Diyos na bumababang gaya ng isang kalapati."
+              },
+              {
+                "ref": "Gawa 7:55-56",
+                "text": "Tumitig siya sa langit at namasdan ang kaluwalhatian ng Diyos at si Jesus na nakatayo sa kanan ng Diyos."
+              },
+              {
+                "ref": "Apocalipsis 7:10",
+                "text": "Ang pagliligtas ay utang natin sa ating Diyos, na nakaupo sa trono, at sa Kordero."
+              },
+              {
+                "ref": "1 Timoteo 2:5",
+                "text": "May isang Diyos, at isang tagapamagitan sa Diyos at sa mga tao, isang tao, si Kristo Jesus."
+              }
+            ]
+          },
+          {
+            "heading": "Maaari bang hatiin ang banal na espiritu na gaya ng isang puwersa?",
+            "paragraphs": [
+              "Inilalarawan ng Bilang 11:25 kung paanong 'kumuha si Jehova ng ilan sa espiritu na nasa kaniya [si Moises] at inilagay ito sa bawat isa sa 70 matatanda.' Hindi maaaring hatiin sa 70 bahagi ang isang persona. Hiniling ni Eliseo ang 'dalawang bahagi' ng espiritu ni Elias. (2 Hari 2:9) Ang banal na espiritu ay gumagana sa mga sukat at antas — pananalita na umaangkop sa enerhiya o puwersa, hindi sa personalidad.",
+              "Sumulat si Pablo na ang mga espirituwal na kaloob ay 'gawa ng iisang espiritu, na namamahagi sa bawat tao ayon sa nais nito.' (1 Corinto 12:11) Namamahagi ang espiritu ayon sa kalooban ng Diyos. Ito ay kasangkapan ng layunin ng Diyos, hindi isang malayang isipan na gumagawa ng magkahiwalay na pasiya."
+            ],
+            "scriptures": [
+              {
+                "ref": "Bilang 11:25",
+                "text": "Kumuha si Jehova ng ilan sa espiritu na nasa kaniya at inilagay ito sa bawat isa sa 70 matatanda."
+              },
+              {
+                "ref": "2 Hari 2:9",
+                "text": "Pakisuyo, dumating nawa sa akin ang dalawang bahagi ng iyong espiritu."
+              },
+              {
+                "ref": "1 Corinto 12:11",
+                "text": "Ang lahat ng ito ay gawa ng iisang espiritu, na namamahagi sa bawat tao ayon sa nais nito."
+              },
+              {
+                "ref": "Nehemias 9:20",
+                "text": "Ibinigay mo ang iyong mabuting espiritu upang turuan sila."
+              }
+            ]
+          }
+        ]
+      },
+      "angel-of-the-lord-michael": {
+        "title": "Ang Anghel ni Jehova ay si Miguel — Mahahalagang Teksto",
+        "subtitle": "Patunay sa Kasulatan na nag-uugnay sa anghel ni Jehova, kay Miguel na arkanghel, at kay Jesu-Kristo",
+        "sections": [
+          {
+            "heading": "Ano ang sinasabi ng Bibliya tungkol sa papel ni Miguel?",
+            "paragraphs": [
+              "Si Miguel ay ipinakilala bilang 'isa sa mga pangunahing prinsipe' na tumulong sa anghel na sinugo kay Daniel. (Daniel 10:13) Tinawag siya kalaunan na 'ang dakilang prinsipe na tumatayo alang-alang sa iyong bayan.' (Daniel 12:1) Ang kaniyang papel ay isang mandirigmang prinsipe na ipinagtatanggol ang dahilan ni Jehova at ang mga pinili ng Diyos — isang papel na ganap na tumutugma sa naunang anyo ni Jesus bago siya naging tao.",
+              "Tinukoy ng Judas 9 si Miguel bilang 'ang arkanghel' — ang pinunong anghel. Yamang isang arkanghel lamang ang pinangalanan ng Kasulatan, at yamang ang binuhay na muli na Jesus ay 'bababa mula sa langit na may nag-uutos na tinig, na may tinig ng arkanghel' (1 Tesalonica 4:16), maliwanag ang koneksyon: hawak ni Jesus ang posisyon ng arkanghel — siya si Miguel."
+            ],
+            "scriptures": [
+              {
+                "ref": "Daniel 10:13",
+                "text": "Ngunit si Miguel, isa sa mga pangunahing prinsipe, ay dumating upang tulungan ako."
+              },
+              {
+                "ref": "Daniel 12:1",
+                "text": "Sa panahong iyon ay tatayo si Miguel, ang dakilang prinsipe na tumatayo alang-alang sa iyong bayan."
+              },
+              {
+                "ref": "Judas 9",
+                "text": "Nang si Miguel na arkanghel ay nakipagtalo sa Diyablo at nagtatalo tungkol sa katawan ni Moises."
+              },
+              {
+                "ref": "1 Tesalonica 4:16",
+                "text": "Ang Panginoon mismo ay bababa mula sa langit na may nag-uutos na tinig, na may tinig ng arkanghel."
+              }
+            ]
+          },
+          {
+            "heading": "Pinangungunahan ba ni Miguel ang mga hukbo ng langit gaya ng ginagawa ni Jesus?",
+            "paragraphs": [
+              "Inilalarawan ng Apocalipsis 12:7-9 ang mapagpasiyang digmaan sa langit: 'Nakipagdigma si Miguel at ang kaniyang mga anghel sa dragon, at ang dragon at ang mga anghel nito ay nakipagdigma.' Ang dragon — si Satanas — ay ibinagsak sa lupa. Sa ibang bahagi ng Apocalipsis, si Jesu-Kristo naman ang nananakop na Hari na nakasakay sa puting kabayo, pinangungunahan ang mga hukbo ng langit. (Apocalipsis 19:11-16) Ang komander ng mga hukbo ng langit sa parehong pasahe ay iisang persona.",
+              "Sinabi ni Jesus sa kaniyang mga alagad: 'Nakita ko na si Satanas na bumabagsak na gaya ng kidlat mula sa langit.' (Lucas 10:18) Tumutugma ito sa pagtatapon ni Miguel kay Satanas. Bago dumating sa lupa, si Jesus ay umiral bilang isang makapangyarihang nilalang na espiritu — 'ang panganay ng lahat ng nilalang.' (Colosas 1:15) Ang kaniyang pangalan sa langit bago siya naging tao ay Miguel; ang kaniyang pangalan sa lupa, na ibinigay sa kaniyang kapanganakan, ay Jesus."
+            ],
+            "scriptures": [
+              {
+                "ref": "Apocalipsis 12:7-9",
+                "text": "Nakipagdigma si Miguel at ang kaniyang mga anghel sa dragon… ang dakilang dragon ay ibinagsak, ang sinaunang serpiyente."
+              },
+              {
+                "ref": "Apocalipsis 19:14-16",
+                "text": "Ang mga hukbo sa langit ay sumusunod sa kaniya na nakasakay sa puting kabayo… mayroon siyang pangalan na nakasulat, Hari ng mga hari at Panginoon ng mga panginoon."
+              },
+              {
+                "ref": "Lucas 10:18",
+                "text": "Nakita ko na si Satanas na bumabagsak na gaya ng kidlat mula sa langit."
+              },
+              {
+                "ref": "Colosas 1:15-16",
+                "text": "Siya ang larawan ng di-nakikitang Diyos, ang panganay ng lahat ng nilalang."
+              }
+            ]
+          },
+          {
+            "heading": "Sino ang anghel ni Jehova sa Hebreong Kasulatan?",
+            "paragraphs": [
+              "Sa buong Hebreong Kasulatan, ang 'anghel ni Jehova' ay lumilitaw bilang pangunahing kinatawan ng Diyos — hindi lamang isa sa maraming anghel, kundi isang natatanging pigura na nagsasalita nang may makalangit na awtoridad. Lumitaw siya kay Moises sa nagliliyab na palumpong (Exodo 3:2), ginabayan ang Israel sa ilang (Exodo 23:20-21), at hinarangan ang daan ni Balaam upang protektahan ang bayan ng Diyos. (Bilang 22:22-35)",
+              "Sinabi ng Diyos tungkol sa anghel na ito: 'Ang aking pangalan ay nasa kaniya.' (Exodo 23:21) Ang anghel na ito ay may dalang awtoridad ni Jehova sa natatanging paraan. Tinukoy ni Pablo ang espirituwal na bato na sumama sa Israel bilang si Kristo. (1 Corinto 10:4) Ang anghel ni Jehova na umakay at nag-ingat sa Israel ay ang nauna pang anyo ni Jesus — si Miguel — na naglilingkod bilang pangunahing kinatawan ni Jehova matagal bago siya ipanganak sa Bethlehem."
+            ],
+            "scriptures": [
+              {
+                "ref": "Exodo 3:2",
+                "text": "Pagkatapos ang anghel ni Jehova ay nagpakita sa kaniya sa isang ningas ng apoy sa gitna ng isang tinikang palumpong."
+              },
+              {
+                "ref": "Exodo 23:20-21",
+                "text": "Nagsusugo ako ng isang anghel sa unahan mo… magbigay-pansin ka sa kaniya… sapagkat ang aking pangalan ay nasa kaniya."
+              },
+              {
+                "ref": "Bilang 22:22",
+                "text": "Ang anghel ni Jehova ay tumayo sa daan upang humadlang sa kaniya."
+              },
+              {
+                "ref": "1 Corinto 10:4",
+                "text": "Uminom sila mula sa espirituwal na bato na sumunod sa kanila, at ang batong iyon ay nangangahulugang ang Kristo."
+              },
+              {
+                "ref": "Josue 5:14",
+                "text": "Dumating ako bilang prinsipe ng hukbo ni Jehova."
+              }
+            ]
+          }
+        ]
       }
     }
   },
@@ -3295,7 +3604,12 @@
     "clamComplete": "✓ Paghahanda sa CLAM Kumpleto",
     "markAllParas": "Markahan ang Lahat ng Talata Bilang Tapos",
     "wtComplete": "✓ Pag-aaral ng Bantayan Kumpleto",
-    "watchtowerStudyArticle": "Artikulo sa Pag-aaral ng Bantayan"
+    "watchtowerStudyArticle": "Artikulo sa Pag-aaral ng Bantayan",
+    "songOpening": "Pambungad",
+    "songClosing": "Pangwakas",
+    "clamNotesPlaceholder": "Idagdag ang iyong mga tala para sa pulong na Kristiyanong Pamumuhay at Ministeryo sa linggong ito…",
+    "wtNotesPlaceholder": "Idagdag ang iyong mga tala para sa pag-aaral ng Bantayan sa linggong ito…",
+    "watchtowerLabel": "Bantayan"
   },
   "bookNotablePassages": {
     "0": {
@@ -4030,7 +4344,30 @@
     "onlineNow": "{{count}} online ngayon",
     "recentActivity": "Kamakailang Aktibidad",
     "manage": "Pamahalaan →",
-    "newPosts": "{{count}} bagong post"
+    "newPosts": "{{count}} bagong post",
+    "anonymous": "Hindi nagpakilala",
+    "clearSearch": "I-clear ang paghahanap",
+    "emptySearchSub": "Sumubok ng ibang pangalan.",
+    "emptySearchTitle": "Walang nahanap",
+    "emptySub": "Maging una sa pagbabasa kasama ng iba.",
+    "emptyTitle": "Wala pa ritong tao",
+    "errorSub": "I-refresh para subukang muli.",
+    "errorTitle": "Hindi ma-load ang mga miyembro",
+    "fallbackNotice": "Walang aktibidad sa nakalipas na dalawang linggo. Ipinapakita ang pinakabagong mga miyembro.",
+    "filterLabel": "I-filter ang mga miyembro",
+    "next": "Susunod",
+    "of": "ng",
+    "pageOf": "Pahina {{page}} ng {{total}}",
+    "prev": "Nakaraan",
+    "searchLabel": "Maghanap ng miyembro",
+    "searchPlaceholder": "Hanapin sa pangalan",
+    "statusJoined": "Kabibili lang sumali",
+    "statusOnline": "Online ngayon",
+    "statusUnknown": "Miyembro",
+    "subtitleEmpty": "Lahat ay sabay na nagbabasa.",
+    "subtitleOnline": "{{count}} ang sabay na nagbabasa ngayon",
+    "tabAll": "Lahat",
+    "tabOnline": "Online"
   },
   "checklist": {
     "bibleProgress": "Progreso sa Pagbabasa ng Bibliya",
@@ -5924,5 +6261,69 @@
     "Tinatalakay ng 3 Juan ang mapanganib na hilig sa pag-promote ng sarili sa kongregasyon sa pamamagitan ng magkasalungat na halimbawa ni Gayo (mapagpatuloy, mapagpakumbaba) at Diotrefes (mahalaga sa sarili, mapaghahati). Ang prinsipyong ang mga 'nais magkaroon ng unang lugar' ay nakakaabala sa kongregasyon ay nag-aaplay sa bawat henerasyon at patuloy na gumagabay kung paano kinikilala at hinaharap ng bayan ni Jehova ang mga ganitong tendensiya.",
     "Isinulat ang Judas para sa eksaktong sitwasyon na kinakaharap ng bawat kongregasyon kapag bumangon ang mga apostata sa loob — ang mga gumagamit ng biyaya ni Jehova bilang lisensiya para sa maluwag na pag-uugali at hinahamak ang lahat ng awtoridad. Ang mga praktikal nitong reseta para sa proteksiyon-sa-sarili (pagtatayo ng pananampalataya, panalangin, pananatili sa pag-ibig ni Jehova) at para sa pagtulong sa mga naaakit sa apostasiya ay nananatiling mahalagang patnubay para sa mga matanda ng kongregasyon at indibidwal.",
     "Nagbibigay ang Apocalipsis sa bayan ni Jehova ng pinakahuling panorama ng katapusan ng kasaysayan — hindi bilang pinagmumulan ng misteryo o takot, kundi bilang pinagmumulan ng matagal na kumpiyansa. Ang paulit-ulit nitong mensahe na 'lumupig' at ang panghuling pangako nito na 'punasan ang bawat luha' ay nag-alalay sa mga Saksi ni Jehova sa pinakamatinding pag-uusig. Tinitiyak ng aklat na aalisin ng Kaharian ni Jehova ang bawat pinagmumulan ng pagdurusa at na ang kaniyang layunin para sa lupa ay ganap na matutupad."
-  ]
+  ],
+  "trivia": {
+    "active": "Aktibo",
+    "answerFailed": "Hindi naipadala ang sagot mo. Subukan ulit.",
+    "betterLuck": "Sa susunod na lang!",
+    "chooseTeam": "Pumili ng Team",
+    "congratulations": "Binabati kita! Nanalo ang team mo!",
+    "correct": "Tama!",
+    "createRoom": "Gumawa ng Room",
+    "custom": "Custom",
+    "enterRoomCode": "Maglagay ng room code",
+    "exit": "Lumabas",
+    "failedCreate": "Hindi nagawa ang room",
+    "failedJoin": "Hindi nakasali sa room",
+    "firstTeamToWins": "Ang unang team na makakuha ng {{points}} tamang sagot ay panalo",
+    "firstToPts": "Una sa {{points}} pts",
+    "friend": "kaibigan",
+    "friendCap": "Kaibigan",
+    "gameBanner": "BIBLE TRIVIA BATTLE",
+    "host": "HOST",
+    "inviteFriendLabel": "Imbitahan si {{name}}",
+    "inviteOnlineFriends": "Imbitahan ang Online na Kaibigan",
+    "joinRoom": "Sumali sa Room",
+    "leaveRoom": "Umalis sa Room",
+    "loadingQuestion": "Naglo-load ng tanong…",
+    "nextQuestion": "Susunod na Tanong →",
+    "noFriendsOnline": "Walang kaibigang online ngayon",
+    "noPlayersYet": "Wala pang manlalaro",
+    "noTimer": "Walang timer",
+    "none": "Wala",
+    "off": "OFF",
+    "on": "ON",
+    "playAgain": "Maglaro Ulit",
+    "player": "Manlalaro",
+    "players": "Mga Manlalaro",
+    "playersCount": "{{current}}/{{total}} na manlalaro",
+    "playingAs": "Naglalaro bilang",
+    "pointsLabel": "puntos",
+    "pointsToWin": "Puntos para Manalo",
+    "questionShort": "T",
+    "questionsCount": "{{count}} na tanong",
+    "roomCode": "Room Code",
+    "secondTimer": "{{seconds}}s na timer",
+    "shareCode": "Ibahagi ang code na ito para mag-imbita ng mga manlalaro",
+    "startBattle": "Simulan ang Laban!",
+    "starting": "Sinisimulan…",
+    "subtitle": "Battle Room · Team vs. Team",
+    "teamAlpha": "Team Alpha",
+    "teamAlphaShort": "Alpha",
+    "teamOmega": "Team Omega",
+    "teamOmegaShort": "Omega",
+    "teamSize": "Laki ng Team",
+    "teamTurn": "Turn ng {{team}}",
+    "teamWins": "Panalo ang {{team}}!",
+    "tie": "Tabla!",
+    "timer": "Timer",
+    "timesUp": "Tapos na ang oras!",
+    "title": "Bible Trivia",
+    "waiting": "Naghihintay…",
+    "waitingForHost": "Naghihintay sa host na magsimula…",
+    "waitingForHostAdvance": "Naghihintay sa host na magpatuloy…",
+    "waitingForPlayers": "Naghihintay ng {{count}} pang manlalaro na sumali sa pamamagitan ng code",
+    "wrong": "Mali!",
+    "yourTurn": "Turn mo na, sumagot na!"
+  }
 }

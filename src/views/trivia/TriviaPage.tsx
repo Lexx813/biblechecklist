@@ -6,6 +6,8 @@
  */
 
 import React, { useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 import type { User } from "@supabase/supabase-js";
 import type { TriviaRoom, TriviaPlayer, TeamId } from "../../lib/trivia/types";
 import { useRoom } from "./useRoom";
@@ -18,8 +20,8 @@ import type { FriendProfile } from "../../hooks/useFriends";
 function teamHex(team: TeamId) {
   return team === "A" ? "#7c3aed" : "#d97706";
 }
-function teamName(team: TeamId) {
-  return team === "A" ? "Team Alpha" : "Team Omega";
+function teamName(team: TeamId, t: TFunction): string {
+  return team === "A" ? t("trivia.teamAlpha", "Team Alpha") : t("trivia.teamOmega", "Team Omega");
 }
 
 // ── Confetti ──────────────────────────────────────────────────────────────
@@ -160,6 +162,7 @@ function OptionButton({
 function ScoreBar({ teamAScore, teamBScore, questionCount, currentIndex }: {
   teamAScore: number; teamBScore: number; questionCount: number; currentIndex: number;
 }) {
+  const { t } = useTranslation();
   const progress = questionCount > 0 ? Math.min((currentIndex / questionCount) * 100, 100) : 0;
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
@@ -168,13 +171,13 @@ function ScoreBar({ teamAScore, teamBScore, questionCount, currentIndex }: {
           {teamAScore}
         </span>
         <span style={{ fontSize: 10, color: "var(--teal)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em" }}>
-          Alpha
+          {t("trivia.teamAlphaShort", "Alpha")}
         </span>
       </div>
 
       <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
         <span style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "Chakra Petch, sans-serif" }}>
-          Q {Math.min(currentIndex + 1, questionCount)} / {questionCount}
+          {t("trivia.questionShort", "Q")} {Math.min(currentIndex + 1, questionCount)} / {questionCount}
         </span>
         <div style={{ width: "100%", height: 5, borderRadius: 4, background: "var(--border)" }}>
           <div style={{ height: "100%", borderRadius: 4, width: `${progress}%`, background: "linear-gradient(90deg, var(--teal), #d97706)", transition: "width 0.5s ease" }} />
@@ -183,7 +186,7 @@ function ScoreBar({ teamAScore, teamBScore, questionCount, currentIndex }: {
 
       <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
         <span style={{ fontSize: 10, color: "#d97706", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.12em" }}>
-          Omega
+          {t("trivia.teamOmegaShort", "Omega")}
         </span>
         <span style={{ fontSize: 22, color: "#d97706", fontWeight: 900, fontVariantNumeric: "tabular-nums", letterSpacing: "-0.01em" }}>
           {teamBScore}
@@ -238,6 +241,7 @@ function TimerRing({ seconds, total, onExpire }: { seconds: number; total: numbe
 // ── Player Chip (small) ───────────────────────────────────────────────────
 
 function PlayerChip({ player, active }: { player: TriviaPlayer; active?: boolean }) {
+  const { t } = useTranslation();
   const hex = teamHex(player.team);
   return (
     <div style={{
@@ -262,7 +266,7 @@ function PlayerChip({ player, active }: { player: TriviaPlayer; active?: boolean
           {player.display_name}
         </div>
         {player.is_host && (
-          <div style={{ fontSize: 9, color: "#d97706", textTransform: "uppercase", letterSpacing: "0.1em" }}>HOST</div>
+          <div style={{ fontSize: 9, color: "#d97706", textTransform: "uppercase", letterSpacing: "0.1em" }}>{t("trivia.host", "HOST")}</div>
         )}
       </div>
     </div>
@@ -274,6 +278,7 @@ function PlayerChip({ player, active }: { player: TriviaPlayer; active?: boolean
 function TeamPanel({ team, players, isActive, score }: {
   team: TeamId; players: TriviaPlayer[]; isActive: boolean; score: number;
 }) {
+  const { t } = useTranslation();
   const hex = teamHex(team);
   return (
     <div style={{
@@ -290,11 +295,11 @@ function TeamPanel({ team, players, isActive, score }: {
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
         <div>
           <div style={{ fontSize: 10, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", color: hex }}>
-            {teamName(team)}
+            {teamName(team, t)}
           </div>
           {isActive && (
             <div style={{ fontSize: 10, color: hex, opacity: 0.7, fontFamily: "Chakra Petch, sans-serif" }}>
-              ● Active
+              ● {t("trivia.active", "Active")}
             </div>
           )}
         </div>
@@ -303,7 +308,7 @@ function TeamPanel({ team, players, isActive, score }: {
         </span>
       </div>
       {players.length === 0 ? (
-        <p style={{ fontSize: 12, color: "var(--text-muted)", fontStyle: "italic" }}>No players yet</p>
+        <p style={{ fontSize: 12, color: "var(--text-muted)", fontStyle: "italic" }}>{t("trivia.noPlayersYet", "No players yet")}</p>
       ) : (
         players.map((p) => <PlayerChip key={p.id} player={p} active={isActive} />)
       )}
@@ -320,6 +325,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
   onRoomJoined: (room: TriviaRoom, player: TriviaPlayer) => void;
   prefillCode?: string;
 }) {
+  const { t } = useTranslation();
   const [mode, setMode] = useState<"pick" | "create" | "join">("pick");
   const [displayName, setDisplayName] = useState("");
   const [team, setTeam] = useState<TeamId>("A");
@@ -371,7 +377,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
       method: "POST",
       headers: { "Content-Type": "application/json", ...authHeader },
       body: JSON.stringify({
-        display_name: displayName || "Player",
+        display_name: displayName || t("trivia.player", "Player"),
         team,
         user_id: user?.id ?? null,
         avatar_url: user?.user_metadata?.avatar_url ?? null,
@@ -385,12 +391,12 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
     });
     const data = await res.json();
     setLoading(false);
-    if (!res.ok) { setError(data.error ?? "Failed to create room"); return; }
+    if (!res.ok) { setError(data.error ?? t("trivia.failedCreate", "Failed to create room")); return; }
     onRoomJoined(data.room, data.player);
   }
 
   async function handleJoin() {
-    if (!roomCode.trim()) { setError("Enter a room code"); return; }
+    if (!roomCode.trim()) { setError(t("trivia.enterRoomCode", "Enter a room code")); return; }
     setLoading(true); setError("");
     const { supabase } = await import("../../lib/supabase");
     const { data: { session } } = await supabase.auth.getSession();
@@ -400,7 +406,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
       headers: { "Content-Type": "application/json", ...authHeader },
       body: JSON.stringify({
         room_code: roomCode.trim().toUpperCase(),
-        display_name: displayName || "Player",
+        display_name: displayName || t("trivia.player", "Player"),
         team,
         user_id: user?.id ?? null,
         avatar_url: user?.user_metadata?.avatar_url ?? null,
@@ -408,7 +414,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
     });
     const data = await res.json();
     setLoading(false);
-    if (!res.ok) { setError(data.error ?? "Failed to join room"); return; }
+    if (!res.ok) { setError(data.error ?? t("trivia.failedJoin", "Failed to join room")); return; }
     onRoomJoined(data.room, data.player);
   }
 
@@ -445,10 +451,10 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: 28 }}>
         <h1 style={{ fontSize: "clamp(36px, 8vw, 56px)", fontWeight: 900, lineHeight: 1.05, letterSpacing: "-0.02em", color: "var(--text-primary)" }}>
-          Bible Trivia
+          {t("trivia.title", "Bible Trivia")}
         </h1>
         <p style={{ color: "var(--text-muted)", fontSize: 12, textTransform: "uppercase", letterSpacing: "0.2em", marginTop: 6 }}>
-          Battle Room · Team vs. Team
+          {t("trivia.subtitle", "Battle Room · Team vs. Team")}
         </p>
       </div>
 
@@ -457,8 +463,8 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
 
         {mode === "pick" && (
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <button style={accentStyle} onClick={() => setMode("create")}>Create Room</button>
-            <button style={outlineStyle} onClick={() => setMode("join")}>Join Room</button>
+            <button style={accentStyle} onClick={() => setMode("create")}>{t("trivia.createRoom", "Create Room")}</button>
+            <button style={outlineStyle} onClick={() => setMode("join")}>{t("trivia.joinRoom", "Join Room")}</button>
           </div>
         )}
 
@@ -468,7 +474,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
               onClick={() => { setMode("pick"); setError(""); }}
               style={{ background: "none", border: "none", color: "var(--text-muted)", fontSize: 12, cursor: "pointer", textAlign: "left", textTransform: "uppercase", letterSpacing: "0.12em", padding: 0 }}
             >
-              ← Back
+              {t("common.back", "← Back")}
             </button>
 
             {/* Playing as */}
@@ -477,15 +483,15 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
                 {(displayName || "?").slice(0, 1).toUpperCase()}
               </div>
               <div>
-                <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 2 }}>Playing as</div>
-                <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)" }}>{displayName || "Loading…"}</div>
+                <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 2 }}>{t("trivia.playingAs", "Playing as")}</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)" }}>{displayName || t("common.loading", "Loading…")}</div>
               </div>
             </div>
 
             {/* Room code, join only */}
             {mode === "join" && (
               <div>
-                <label style={{ display: "block", fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 8 }}>Room Code</label>
+                <label style={{ display: "block", fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 8 }}>{t("trivia.roomCode", "Room Code")}</label>
                 <input
                   type="text"
                   value={roomCode}
@@ -505,7 +511,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
             {/* Team size, create only */}
             {mode === "create" && (
               <div>
-                <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10 }}>Team Size</div>
+                <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10 }}>{t("trivia.teamSize", "Team Size")}</div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 6 }}>
                   {[1, 2, 3, 4, 5, 6].map((n) => (
                     <button
@@ -535,7 +541,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
             {mode === "create" && (
               <div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
-                  <span style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em" }}>Timer</span>
+                  <span style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em" }}>{t("trivia.timer", "Timer")}</span>
                   <button
                     onClick={() => setHasTimer((v) => !v)}
                     style={{
@@ -550,22 +556,22 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
                       fontFamily: "Chakra Petch, sans-serif",
                     }}
                   >
-                    {hasTimer ? "ON" : "OFF"}
+                    {hasTimer ? t("trivia.on", "ON") : t("trivia.off", "OFF")}
                   </button>
                 </div>
 
                 {hasTimer && (
                   <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                    {TIME_OPTIONS.map((t) => (
+                    {TIME_OPTIONS.map((sec) => (
                       <button
-                        key={t}
-                        onClick={() => { setTimeLimit(t); setCustomTime(""); }}
+                        key={sec}
+                        onClick={() => { setTimeLimit(sec); setCustomTime(""); }}
                         style={{
                           padding: "7px 12px",
                           borderRadius: 8,
-                          border: `2px solid ${timeLimit === t && !customTime ? "var(--teal)" : "var(--border)"}`,
-                          background: timeLimit === t && !customTime ? "var(--active-bg)" : "var(--bg)",
-                          color: timeLimit === t && !customTime ? "var(--teal)" : "var(--text-muted)",
+                          border: `2px solid ${timeLimit === sec && !customTime ? "var(--teal)" : "var(--border)"}`,
+                          background: timeLimit === sec && !customTime ? "var(--active-bg)" : "var(--bg)",
+                          color: timeLimit === sec && !customTime ? "var(--teal)" : "var(--text-muted)",
                           fontFamily: "Chakra Petch, sans-serif",
                           fontSize: 13,
                           fontWeight: 700,
@@ -573,14 +579,14 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
                           transition: "all 0.15s",
                         }}
                       >
-                        {t}s
+                        {sec}s
                       </button>
                     ))}
                     <input
                       type="number"
                       min={5}
                       max={300}
-                      placeholder="Custom"
+                      placeholder={t("trivia.custom", "Custom")}
                       value={customTime}
                       onChange={(e) => setCustomTime(e.target.value)}
                       className="trivia-custom-time"
@@ -602,7 +608,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
             {/* Points to Win, create only */}
             {mode === "create" && (
               <div>
-                <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10 }}>Points to Win</div>
+                <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10 }}>{t("trivia.pointsToWin", "Points to Win")}</div>
                 <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                   {[0, 10, 15, 20, 25].map((n) => (
                     <button
@@ -621,14 +627,14 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
                         transition: "all 0.15s",
                       }}
                     >
-                      {n === 0 ? "None" : `${n}`}
+                      {n === 0 ? t("trivia.none", "None") : `${n}`}
                     </button>
                   ))}
                   <input
                     type="number"
                     min={1}
                     max={999}
-                    placeholder="Custom"
+                    placeholder={t("trivia.custom", "Custom")}
                     value={customPoints}
                     onChange={(e) => { setCustomPoints(e.target.value); setPointsToWin(parseInt(e.target.value, 10) || 0); }}
                     className="trivia-custom-time"
@@ -644,7 +650,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
                 </div>
                 {pointsToWin > 0 && (
                   <p style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 6, fontFamily: "Chakra Petch, sans-serif" }}>
-                    First team to {pointsToWin} correct answers wins
+                    {t("trivia.firstTeamToWins", "First team to {{points}} correct answers wins", { points: pointsToWin })}
                   </p>
                 )}
               </div>
@@ -655,7 +661,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                   <span style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em" }}>
-                    Invite Online Friends
+                    {t("trivia.inviteOnlineFriends", "Invite Online Friends")}
                   </span>
                   {invitedFriendIds.length > 0 && (
                     <span style={{ background: "var(--teal)", color: "#fff", borderRadius: 999, fontSize: 10, fontWeight: 700, padding: "1px 7px" }}>
@@ -664,7 +670,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
                   )}
                 </div>
                 {onlineFriends.length === 0 ? (
-                  <p style={{ fontSize: 12, color: "var(--text-muted)", margin: 0 }}>No friends online right now</p>
+                  <p style={{ fontSize: 12, color: "var(--text-muted)", margin: 0 }}>{t("trivia.noFriendsOnline", "No friends online right now")}</p>
                 ) : (
                   <div style={{ display: "flex", gap: 10, overflowX: "auto", paddingBottom: 4 }}>
                     {onlineFriends.map((f) => {
@@ -675,7 +681,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
                           onClick={() => toggleFriend(f.id)}
                           style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, background: "none", border: "none", cursor: "pointer", minWidth: 44, padding: 0 }}
                           aria-pressed={selected}
-                          aria-label={`Invite ${f.display_name ?? "friend"}`}
+                          aria-label={t("trivia.inviteFriendLabel", "Invite {{name}}", { name: f.display_name ?? t("trivia.friend", "friend") })}
                         >
                           <div style={{ position: "relative", width: 44, height: 44 }}>
                             {f.avatar_url ? (
@@ -698,7 +704,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
                             )}
                           </div>
                           <span style={{ fontSize: 10, color: "var(--text)", maxWidth: 48, textAlign: "center", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                            {f.display_name ?? "Friend"}
+                            {f.display_name ?? t("trivia.friendCap", "Friend")}
                           </span>
                         </button>
                       );
@@ -710,15 +716,15 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
 
             {/* Team picker */}
             <div>
-              <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10 }}>Choose Team</div>
+              <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10 }}>{t("trivia.chooseTeam", "Choose Team")}</div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-                {(["A", "B"] as TeamId[]).map((t) => {
-                  const hex = teamHex(t);
-                  const selected = team === t;
+                {(["A", "B"] as TeamId[]).map((tm) => {
+                  const hex = teamHex(tm);
+                  const selected = team === tm;
                   return (
                     <button
-                      key={t}
-                      onClick={() => setTeam(t)}
+                      key={tm}
+                      onClick={() => setTeam(tm)}
                       style={{
                         padding: "13px 0",
                         borderRadius: 10,
@@ -733,7 +739,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
                         transition: "all 0.15s",
                       }}
                     >
-                      {t === "A" ? "Alpha" : "Omega"}
+                      {tm === "A" ? t("trivia.teamAlphaShort", "Alpha") : t("trivia.teamOmegaShort", "Omega")}
                     </button>
                   );
                 })}
@@ -751,7 +757,7 @@ function HomeView({ user, onRoomJoined, prefillCode }: {
               disabled={loading}
               style={{ ...accentStyle, background: mode === "create" ? "var(--teal)" : "#d97706", opacity: loading ? 0.5 : 1 }}
             >
-              {loading ? "…" : mode === "create" ? "Create Room" : "Join Room"}
+              {loading ? "…" : mode === "create" ? t("trivia.createRoom", "Create Room") : t("trivia.joinRoom", "Join Room")}
             </button>
           </div>
         )}
@@ -766,6 +772,7 @@ function LobbyView({ room, players, myPlayer, onStart, onRefresh, onExit }: {
   room: TriviaRoom; players: TriviaPlayer[]; myPlayer: TriviaPlayer;
   onStart: () => void; onRefresh: () => Promise<void>; onExit: () => void;
 }) {
+  const { t } = useTranslation();
   const [starting, setStarting] = useState(false);
   const teamA = players.filter((p) => p.team === "A");
   const teamB = players.filter((p) => p.team === "B");
@@ -792,36 +799,36 @@ function LobbyView({ room, players, myPlayer, onStart, onRefresh, onExit }: {
             onClick={onExit}
             style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 8, border: "1px solid var(--border)", background: "var(--bg)", color: "var(--text-muted)", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "Chakra Petch, sans-serif" }}
           >
-            ✕ Leave Room
+            ✕ {t("trivia.leaveRoom", "Leave Room")}
           </button>
         </div>
 
         {/* Room code */}
         <div style={{ textAlign: "center", marginBottom: 24 }}>
-          <p style={{ color: "var(--text-muted)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 8 }}>Room Code</p>
+          <p style={{ color: "var(--text-muted)", fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", marginBottom: 8 }}>{t("trivia.roomCode", "Room Code")}</p>
           <div style={{ display: "inline-block", padding: "10px 28px", borderRadius: 14, border: "2px solid var(--teal)", background: "var(--active-bg)", fontSize: 32, fontWeight: 900, letterSpacing: "0.2em", color: "var(--teal)", fontVariantNumeric: "tabular-nums" }}>
             {room.room_code}
           </div>
-          <p style={{ color: "var(--text-muted)", fontSize: 11, marginTop: 6 }}>Share this code to invite players</p>
+          <p style={{ color: "var(--text-muted)", fontSize: 11, marginTop: 6 }}>{t("trivia.shareCode", "Share this code to invite players")}</p>
         </div>
 
         {/* Teams */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 16 }}>
-          {(["A", "B"] as TeamId[]).map((t) => {
-            const hex = teamHex(t);
-            const members = t === "A" ? teamA : teamB;
+          {(["A", "B"] as TeamId[]).map((tm) => {
+            const hex = teamHex(tm);
+            const members = tm === "A" ? teamA : teamB;
             return (
-              <div key={t} style={{ padding: "14px", borderRadius: 14, border: `1px solid ${hex}44`, background: `${hex}08` }}>
+              <div key={tm} style={{ padding: "14px", borderRadius: 14, border: `1px solid ${hex}44`, background: `${hex}08` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                   <div style={{ width: 10, height: 10, borderRadius: "50%", background: hex, boxShadow: `0 0 6px ${hex}` }} />
                   <span style={{ fontSize: 12, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", color: hex }}>
-                    {teamName(t)}
+                    {teamName(tm, t)}
                   </span>
                   <span style={{ marginLeft: "auto", color: "var(--text-muted)", fontSize: 12 }}>{members.length}</span>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 6, minHeight: 50 }}>
                   {members.length === 0 ? (
-                    <p style={{ color: "var(--text-muted)", fontSize: 12, fontStyle: "italic" }}>Waiting…</p>
+                    <p style={{ color: "var(--text-muted)", fontSize: 12, fontStyle: "italic" }}>{t("trivia.waiting", "Waiting…")}</p>
                   ) : (
                     members.map((p) => <PlayerChip key={p.id} player={p} />)
                   )}
@@ -833,19 +840,19 @@ function LobbyView({ room, players, myPlayer, onStart, onRefresh, onExit }: {
 
         {/* Info */}
         <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 16, fontSize: 12, color: "var(--text-muted)" }}>
-          <span>{room.question_count} questions</span>
+          <span>{t("trivia.questionsCount", "{{count}} questions", { count: room.question_count })}</span>
           <span>·</span>
-          <span>{room.has_timer ? `${room.time_limit_seconds}s timer` : "No timer"}</span>
-          {room.points_to_win > 0 && <><span>·</span><span>First to {room.points_to_win} pts</span></>}
+          <span>{room.has_timer ? t("trivia.secondTimer", "{{seconds}}s timer", { seconds: room.time_limit_seconds }) : t("trivia.noTimer", "No timer")}</span>
+          {room.points_to_win > 0 && <><span>·</span><span>{t("trivia.firstToPts", "First to {{points}} pts", { points: room.points_to_win })}</span></>}
           <span>·</span>
-          <span>{players.length}/{room.player_count} players</span>
+          <span>{t("trivia.playersCount", "{{current}}/{{total}} players", { current: players.length, total: room.player_count })}</span>
         </div>
 
         {myPlayer.is_host ? (
           <>
             {!roomFull ? (
               <div style={{ textAlign: "center", padding: "14px", borderRadius: 12, border: "1px solid rgba(167, 139, 250, 0.4)", background: "rgba(124, 58, 237, 0.12)", color: "#c4b5fd", fontSize: 13, fontWeight: 600, fontFamily: "Chakra Petch, sans-serif" }}>
-                Waiting for {room.player_count - players.length} more player{room.player_count - players.length !== 1 ? "s" : ""} to join via code
+                {t("trivia.waitingForPlayers", "Waiting for {{count}} more player(s) to join via code", { count: room.player_count - players.length })}
                 <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 8 }}>
                   {[0, 1, 2].map((i) => (
                     <div key={i} style={{ width: 7, height: 7, borderRadius: "50%", background: "#a78bfa", animation: `pulse 1.2s ease-in-out ${i * 0.2}s infinite` }} />
@@ -866,13 +873,13 @@ function LobbyView({ room, players, myPlayer, onStart, onRefresh, onExit }: {
                   transition: "all 0.2s",
                 }}
               >
-                {starting ? "Starting…" : "Start Battle!"}
+                {starting ? t("trivia.starting", "Starting…") : t("trivia.startBattle", "Start Battle!")}
               </button>
             )}
           </>
         ) : (
           <div style={{ textAlign: "center", padding: "16px", border: "1px solid var(--border)", borderRadius: 12, color: "var(--text-muted)", fontSize: 14 }}>
-            Waiting for host to start…
+            {t("trivia.waitingForHost", "Waiting for host to start…")}
             <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 8 }}>
               {[0, 1, 2].map((i) => (
                 <div key={i} style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--teal)", animation: `pulse 1.2s ease-in-out ${i * 0.2}s infinite` }} />
@@ -898,6 +905,7 @@ function GameView({
   onRefresh: () => Promise<void>;
   onExit: () => void;
 }) {
+  const { t } = useTranslation();
   const { submitting, nextQuestion } = useGame();
   const [localSelectedIndex, setLocalSelectedIndex] = useState<number | null>(null);
   const [timerKey, setTimerKey] = useState(0);
@@ -960,7 +968,7 @@ function GameView({
     console.error("[trivia] submit-answer failed", lastErr);
     setLocalSelectedIndex(null);
     const { toast } = await import("../../lib/toast");
-    toast("Couldn't send your answer. Try again.", "error");
+    toast(t("trivia.answerFailed", "Couldn't send your answer. Try again."), "error");
   }
 
   async function handleAnswer(idx: number) {
@@ -1008,11 +1016,11 @@ function GameView({
           onClick={onExit}
           style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 8, border: "1px solid var(--border)", background: "var(--bg)", color: "var(--text-muted)", fontSize: 12, fontWeight: 600, cursor: "pointer" }}
         >
-          ✕ Exit
+          ✕ {t("trivia.exit", "Exit")}
         </button>
         <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: 15, fontWeight: 900, color: "var(--text-primary)", letterSpacing: "-0.01em" }}>
-            BIBLE TRIVIA BATTLE
+            {t("trivia.gameBanner", "BIBLE TRIVIA BATTLE")}
           </div>
         </div>
         <div style={{ padding: "4px 10px", borderRadius: 8, border: "1px solid var(--border)", fontSize: 12, color: "var(--text-muted)", fontWeight: 800, letterSpacing: "0.1em", fontVariantNumeric: "tabular-nums" }}>
@@ -1054,7 +1062,7 @@ function GameView({
             boxShadow: `0 0 18px ${teamHex(room.current_team)}22`,
           }}>
             <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: "50%", background: teamHex(room.current_team), marginRight: 8, animation: "pulse 1.2s ease-in-out infinite" }} />
-            {isMyTurn ? "Your turn, answer now!" : `${teamName(room.current_team)}'s turn`}
+            {isMyTurn ? t("trivia.yourTurn", "Your turn, answer now!") : t("trivia.teamTurn", "{{team}}'s turn", { team: teamName(room.current_team, t) })}
           </div>
 
           {/* Question card */}
@@ -1106,13 +1114,13 @@ function GameView({
                   color: answerWasCorrect ? "#065f46" : "#991b1b",
                   animation: "fade-in 0.3s ease-out",
                 }}>
-                  {room.last_answer_index === -1 ? "⏰ Time's up!" : answerWasCorrect ? "✓ Correct!" : "✗ Wrong!"}
+                  {room.last_answer_index === -1 ? `⏰ ${t("trivia.timesUp", "Time's up!")}` : answerWasCorrect ? `✓ ${t("trivia.correct", "Correct!")}` : `✗ ${t("trivia.wrong", "Wrong!")}`}
                 </div>
               )}
             </div>
           ) : (
             <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: 16, padding: 40, textAlign: "center", color: "var(--text-muted)" }}>
-              Loading question…
+              {t("trivia.loadingQuestion", "Loading question…")}
             </div>
           )}
 
@@ -1122,14 +1130,14 @@ function GameView({
               onClick={handleNext}
               style={{ width: "100%", padding: "13px 0", borderRadius: 12, border: "none", background: "var(--teal)", color: "#fff", fontSize: 16, fontWeight: 800, letterSpacing: "0.02em", cursor: "pointer", boxShadow: "var(--shadow)" }}
             >
-              Next Question →
+              {t("trivia.nextQuestion", "Next Question →")}
             </button>
           )}
 
           {/* Non-host waiting message */}
           {!myPlayer.is_host && room.pending_next && (
             <div style={{ textAlign: "center", padding: "10px 16px", borderRadius: 10, border: "1px solid var(--border)", color: "var(--text-muted)", fontSize: 13 }}>
-              Waiting for host to advance…
+              {t("trivia.waitingForHostAdvance", "Waiting for host to advance…")}
             </div>
           )}
         </div>
@@ -1151,6 +1159,7 @@ function GameView({
 function EndView({ room, players, myPlayer, onPlayAgain }: {
   room: TriviaRoom; players: TriviaPlayer[]; myPlayer: TriviaPlayer; onPlayAgain: () => void;
 }) {
+  const { t } = useTranslation();
   const aWins = room.team_a_score > room.team_b_score;
   const tie = room.team_a_score === room.team_b_score;
   const winnerTeam: TeamId = aWins ? "A" : "B";
@@ -1170,23 +1179,23 @@ function EndView({ room, players, myPlayer, onPlayAgain }: {
           marginBottom: 8,
           color: tie ? "var(--text-primary)" : teamHex(winnerTeam),
         }}>
-          {tie ? "It's a Tie!" : `${teamName(winnerTeam)} Wins!`}
+          {tie ? t("trivia.tie", "It's a Tie!") : t("trivia.teamWins", "{{team}} Wins!", { team: teamName(winnerTeam, t) })}
         </h2>
 
         {!tie && (
           <p style={{ color: "var(--text-muted)", marginBottom: 20, fontSize: 14 }}>
-            {iWon ? "🎉 Congratulations! Your team won!" : "Better luck next time!"}
+            {iWon ? `🎉 ${t("trivia.congratulations", "Congratulations! Your team won!")}` : t("trivia.betterLuck", "Better luck next time!")}
           </p>
         )}
 
         {/* Scores */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 24 }}>
-          {(["A", "B"] as TeamId[]).map((t) => {
-            const score = t === "A" ? room.team_a_score : room.team_b_score;
-            const hex = teamHex(t);
-            const winner = !tie && winnerTeam === t;
+          {(["A", "B"] as TeamId[]).map((tm) => {
+            const score = tm === "A" ? room.team_a_score : room.team_b_score;
+            const hex = teamHex(tm);
+            const winner = !tie && winnerTeam === tm;
             return (
-              <div key={t} style={{
+              <div key={tm} style={{
                 padding: "20px 16px", borderRadius: 16,
                 border: `2px solid ${winner ? hex : "var(--border)"}`,
                 background: winner ? `${hex}12` : "var(--card-bg)",
@@ -1194,12 +1203,12 @@ function EndView({ room, players, myPlayer, onPlayAgain }: {
               }}>
                 {winner && <div style={{ fontSize: 18 }}>👑</div>}
                 <div style={{ fontSize: 10, fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", color: hex }}>
-                  {teamName(t)}
+                  {teamName(tm, t)}
                 </div>
                 <div style={{ fontSize: 44, fontWeight: 900, color: hex, fontVariantNumeric: "tabular-nums", letterSpacing: "-0.02em" }}>
                   {score}
                 </div>
-                <div style={{ fontSize: 11, color: "var(--text-muted)" }}>points</div>
+                <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{t("trivia.pointsLabel", "points")}</div>
               </div>
             );
           })}
@@ -1207,7 +1216,7 @@ function EndView({ room, players, myPlayer, onPlayAgain }: {
 
         {/* Players */}
         <div style={{ marginBottom: 20 }}>
-          <p style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10 }}>Players</p>
+          <p style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: 10 }}>{t("trivia.players", "Players")}</p>
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 8 }}>
             {players.map((p) => <PlayerChip key={p.id} player={p} />)}
           </div>
@@ -1217,7 +1226,7 @@ function EndView({ room, players, myPlayer, onPlayAgain }: {
           onClick={onPlayAgain}
           style={{ width: "100%", padding: "14px 0", borderRadius: 12, border: "none", background: "var(--teal)", color: "#fff", fontSize: 18, fontWeight: 800, letterSpacing: "0.02em", cursor: "pointer" }}
         >
-          Play Again
+          {t("trivia.playAgain", "Play Again")}
         </button>
       </div>
     </div>
@@ -1235,6 +1244,7 @@ interface TriviaPageProps {
 }
 
 export default function TriviaPage({ user, navigate, prefillCode }: TriviaPageProps) {
+  const { t } = useTranslation();
   const [view, setView] = useState<View>("home");
   const [myPlayer, setMyPlayer] = useState<TriviaPlayer | null>(null);
   const [roomId, setRoomId] = useState<string | null>(null);
@@ -1347,7 +1357,7 @@ export default function TriviaPage({ user, navigate, prefillCode }: TriviaPagePr
   if (loading || !room || !myPlayer) {
     return (
       <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--trivia-bg)" }}>
-        <div style={{ color: "var(--teal)", fontSize: 18, fontWeight: 800, letterSpacing: "0.02em" }}>Loading…</div>
+        <div style={{ color: "var(--teal)", fontSize: 18, fontWeight: 800, letterSpacing: "0.02em" }}>{t("common.loading", "Loading…")}</div>
       </div>
     );
   }

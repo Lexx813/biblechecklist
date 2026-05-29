@@ -226,7 +226,7 @@ function NoteEditor({ note, initialContent = "", folders, onSave, onCancel, savi
         <label className="sn-label">{t("studyNotes.fieldTitle")}</label>
         <input
           className="sn-input"
-          placeholder="Note title…"
+          placeholder={t("studyNotes.noteTitlePlaceholder", "Note title…")}
           value={form.title}
           onChange={e => set("title", e.target.value)}
           maxLength={120}
@@ -556,6 +556,7 @@ function FolderSidebar({ folders, activeFolder, onSelect, onCreate, onRename, on
 // ── Styled prompt modal ───────────────────────────────────────────────────────
 
 function PromptModal({ label, onConfirm, onCancel }) {
+  const { t } = useTranslation();
   const [val, setVal] = useState("");
   const inputRef = useRef(null);
   useEffect(() => { inputRef.current?.focus(); }, []);
@@ -578,13 +579,13 @@ function PromptModal({ label, onConfirm, onCancel }) {
           />
         </form>
         <div className="confirm-actions">
-          <button className="confirm-cancel-btn" type="button" onClick={onCancel}>Cancel</button>
+          <button className="confirm-cancel-btn" type="button" onClick={onCancel}>{t("common.cancel")}</button>
           <button
             className="confirm-ok-btn"
             type="button"
             disabled={!val.trim()}
             onClick={() => val.trim() && onConfirm(val.trim())}
-          >OK</button>
+          >{t("common.ok", "OK")}</button>
         </div>
       </div>
     </div>,

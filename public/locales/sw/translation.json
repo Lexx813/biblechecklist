@@ -62,7 +62,12 @@
     "beFirstThread": "Anza mjadala wa kwanza",
     "breadcrumbForum": "Jukwaa",
     "deleteReplyConfirm": "Futa jibu hili? Hili haliwezi kutenduliwa.",
-    "deleteThreadConfirm": "Futa mjadala huu na majibu yake yote? Hili haliwezi kutenduliwa."
+    "deleteThreadConfirm": "Futa mjadala huu na majibu yake yote? Hili haliwezi kutenduliwa.",
+    "aiAssistantTitle": "Msaidizi wa AI wa Machapisho",
+    "aiAssistantDesc": "Pata msaada wa kuandika chapisho lenye uchangamfu na lenye msingi wa Maandiko kulingana na mada na rasimu yako.",
+    "aiWriting": "Anaandika…",
+    "aiHelpMeWrite": "Nisaidie Kuandika Chapisho Hili",
+    "aiSuggestion": "Pendekezo la AI"
   },
   "groups": {
     "addCoverPhoto": "Ongeza picha ya jalada",
@@ -624,7 +629,12 @@
     "tabWeekend": "Wikendi",
     "thisWeek": "Wiki hii",
     "watchtowerStudyArticle": "Makala ya Funzo la Mnara wa Mlinzi",
-    "wtComplete": "✓ Funzo la WT Limekamilika"
+    "wtComplete": "✓ Funzo la WT Limekamilika",
+    "songOpening": "Ufunguzi",
+    "songClosing": "Kufunga",
+    "clamNotesPlaceholder": "Ongeza maelezo yako kwa mkutano wa Maisha na Huduma ya Kikristo wa wiki hii…",
+    "wtNotesPlaceholder": "Ongeza maelezo yako kwa funzo la Mnara wa Mlinzi la wiki hii…",
+    "watchtowerLabel": "Mnara wa Mlinzi"
   },
   "mentions": {
     "noResults": "Hakuna watumiaji waliopatikana"
@@ -1055,7 +1065,9 @@
     "timedMode": "Hali ya Muda",
     "masterLevels": "Viwango vya Bingwa",
     "explanation": "Maelezo",
-    "newBest": "Bora mpya"
+    "newBest": "Bora mpya",
+    "timedScore": "Alama za Muda:",
+    "points": "pointi"
   },
   "readingPlan": {
     "currentStreak": "Mfululizo wa siku {{count}}",
@@ -1312,7 +1324,8 @@
     "sort_updated": "Iliyosasishwa Mwisho",
     "subtitle": "Maktaba yako binafsi ya funzo la Biblia",
     "title": "Madokezo ya Funzo",
-    "untitled": "Dokezo Lisilo na Kichwa"
+    "untitled": "Dokezo Lisilo na Kichwa",
+    "noteTitlePlaceholder": "Kichwa cha maelezo…"
   },
   "studyTopics": {
     "allTopics": "Mada Zote",
@@ -1321,7 +1334,673 @@
     "previous": "Iliyotangulia",
     "readMore": "Soma zaidi",
     "subtitle": "Chunguza mada muhimu za Biblia kwa majibu yenye msingi wa maandiko",
-    "title": "Mada za Funzo"
+    "title": "Mada za Funzo",
+    "topics": {
+      "is-jesus-god": {
+        "title": "Je, Yesu ni Mungu?",
+        "subtitle": "Kuelewa utambulisho wa Yesu kuwa Mwana wa Mungu — tofauti na Yehova",
+        "sections": [
+          {
+            "heading": "Biblia inasema nini kuhusu Yesu na Mungu?",
+            "paragraphs": [
+              "Watu wengi hudhani kwamba Yesu ni Mungu Mweza-Yote, lakini Biblia inaonyesha mara kwa mara kwamba Yesu ni tofauti na Baba yake. Yesu mwenyewe alisema: 'Baba ni mkuu kuliko mimi.' (Yohana 14:28) Pia aliwafundisha wanafunzi wake kusali kwa 'Baba yetu uliye mbinguni.' (Mathayo 6:9) Kama Yesu angekuwa Mungu, maneno haya yasingekuwa na maana.",
+              "Mtume Paulo aliandika: 'Kwa kweli kwetu sisi kuna Mungu mmoja, Baba, ambaye vitu vyote vimetoka kwake, na sisi tuko kwa ajili yake; na kuna Bwana mmoja, Yesu Kristo, ambaye kupitia kwake vitu vyote vipo.' (1 Wakorintho 8:6) Andiko hili linatofautisha waziwazi Yehova kama Mungu na Yesu kama Bwana — watu wawili tofauti."
+            ],
+            "scriptures": [
+              {
+                "ref": "Yohana 14:28",
+                "text": "Baba ni mkuu kuliko mimi."
+              },
+              {
+                "ref": "1 Wakorintho 8:6",
+                "text": "Kuna Mungu mmoja, Baba… na Bwana mmoja, Yesu Kristo."
+              },
+              {
+                "ref": "Yohana 17:3",
+                "text": "Hii inamaanisha uzima wa milele, wao kukujua wewe, Mungu wa pekee wa kweli, na yule uliyemtuma, Yesu Kristo."
+              }
+            ]
+          },
+          {
+            "heading": "Je, Yesu ni Mwana wa Mungu badala ya Mungu mwenyewe?",
+            "paragraphs": [
+              "Maandiko mara kwa mara yanamwita Yesu 'Mwana wa Mungu.' Wakati wa ubatizo wake, sauti kutoka mbinguni ilitangaza: 'Huyu ni Mwanangu, mpendwa, niliyemkubali.' (Mathayo 3:17) Mwana ni mtu tofauti na baba yake. Yesu alikuwa na mwanzo — alikuwa 'mzaliwa wa kwanza wa viumbe vyote.' (Wakolosai 1:15)",
+              "Yesu mwenyewe alisema: 'Ninaenda kwa Baba, kwa kuwa Baba ni mkuu kuliko mimi.' Pia alikiri kwamba kulikuwa na mambo ambayo hakuyajua, akisema kwamba hakuna anayejua siku au saa hiyo 'isipokuwa Baba.' (Mathayo 24:36) Vizuizi hivi vingewezekana kuwepo kama Yesu angekuwa Mungu Mweza-Yote."
+            ],
+            "scriptures": [
+              {
+                "ref": "Mathayo 3:17",
+                "text": "Huyu ni Mwanangu, mpendwa, niliyemkubali."
+              },
+              {
+                "ref": "Wakolosai 1:15",
+                "text": "Yeye ni mfano wa Mungu asiyeonekana, mzaliwa wa kwanza wa viumbe vyote."
+              },
+              {
+                "ref": "Mathayo 24:36",
+                "text": "Kuhusu siku hiyo na saa hakuna anayejua, wala malaika wa mbinguni wala Mwana, ila Baba peke yake."
+              }
+            ]
+          },
+          {
+            "heading": "Je, fundisho la Utatu linapatikana katika Biblia?",
+            "paragraphs": [
+              "Neno 'Utatu' halionekani popote katika Biblia. Fundisho hilo lilithibitishwa rasmi katika Baraza la Nikea mwaka 325 W.K., muda mrefu baada ya mitume kufa. Kitabu cha The New Catholic Encyclopedia kinakiri kwamba fundisho hilo halifundishwi katika Maandiko ya Kiebrania. Wakristo wa mapema walielewa wazi kwamba Yehova Mungu na Yesu Kristo walikuwa watu wawili tofauti.",
+              "Kusali kwa Yehova kupitia Yesu Kristo ndilo muundo unaooneshwa katika Maandiko yote ya Kigiriki ya Kikristo. Yesu ni Kuhani wetu Mkuu na mpatanishi — majukumu ambayo yana maana tu ikiwa yeye ni tofauti na Mungu Baba. (1 Timotheo 2:5; Waebrania 7:25)"
+            ],
+            "scriptures": [
+              {
+                "ref": "1 Timotheo 2:5",
+                "text": "Kuna Mungu mmoja, na mpatanishi mmoja kati ya Mungu na wanadamu, mwanadamu Kristo Yesu."
+              },
+              {
+                "ref": "Waebrania 7:25",
+                "text": "Ana uwezo wa kuwaokoa kabisa wale wanaomkaribia Mungu kupitia kwake."
+              }
+            ]
+          }
+        ]
+      },
+      "jesus-and-michael": {
+        "title": "Yesu na Mikaeli Malaika Mkuu",
+        "subtitle": "Ushahidi wa kimaandiko kwamba Yesu Kristo ni Mikaeli malaika mkuu",
+        "sections": [
+          {
+            "heading": "Mikaeli malaika mkuu ni nani?",
+            "paragraphs": [
+              "Mikaeli anaelezwa katika Biblia kuwa 'mkuu mkuu anayesimama kwa ajili ya watu wako.' (Danieli 12:1) Jina Mikaeli linamaanisha 'Ni Nani Aliye Kama Mungu?' — jina linalofaa kwa yule anayetetea enzi kuu ya Yehova. Yuda 9 inamwita 'Mikaeli malaika mkuu,' na 1 Wathesalonike 4:16 inasema kwamba wakati wa ufufuo, 'Bwana mwenyewe atashuka kutoka mbinguni kwa mwito wa amri, kwa sauti ya malaika mkuu.'",
+              "Kwa kuwa malaika mkuu mmoja tu ametajwa katika Maandiko, na Yesu aliyefufuliwa anashuka kwa sauti ya malaika mkuu, hili linaonyesha kwa nguvu kwamba Yesu ndiye malaika huyo mkuu."
+            ],
+            "scriptures": [
+              {
+                "ref": "Danieli 12:1",
+                "text": "Mikaeli atasimama, mkuu mkuu anayesimama kwa ajili ya watu wako."
+              },
+              {
+                "ref": "Yuda 9",
+                "text": "Lakini wakati Mikaeli malaika mkuu alipokuwa na mzozo na Ibilisi na alikuwa akibishana kuhusu mwili wa Musa, hakuthubutu kuleta hukumu dhidi yake kwa maneno ya matusi."
+              },
+              {
+                "ref": "1 Wathesalonike 4:16",
+                "text": "Bwana mwenyewe atashuka kutoka mbinguni kwa mwito wa amri, kwa sauti ya malaika mkuu."
+              }
+            ]
+          },
+          {
+            "heading": "Ni nini kinachomuunganisha Yesu na Mikaeli katika Maandiko?",
+            "paragraphs": [
+              "Katika Ufunuo, ni Yesu anayepigana na Shetani: 'Mikaeli na malaika zake walipigana na yule joka… joka kubwa lilitupwa chini, nyoka wa zamani, anayeitwa Ibilisi na Shetani.' (Ufunuo 12:7-9) Yesu anaelezwa mahali pengine katika Ufunuo kama mpanda farasi mweupe anayeshinda, Mfalme wa wafalme anayezishinda mataifa. Kiongozi wa majeshi ya kimalaika ya Mungu katika mafungu yote mawili ni mtu yule yule — Yesu Kristo, anayejulikana katika nafasi yake ya mbinguni kuwa Mikaeli.",
+              "Kabla ya kuzaliwa kwake kama mwanadamu, Yesu alikuwepo mbinguni kama kiumbe cha roho chenye nguvu — 'mzaliwa wa kwanza wa viumbe vyote' (Wakolosai 1:15). Jina lake kabla ya kuwa mwanadamu lilikuwa Mikaeli. Baada ya kufufuliwa kwake, Wafilipi 2:9 inasema Mungu alimpa 'jina lililo juu ya kila jina lingine' — Yesu Kristo — alipanuliwa hadi cheo cha juu zaidi."
+            ],
+            "scriptures": [
+              {
+                "ref": "Ufunuo 12:7-9",
+                "text": "Mikaeli na malaika zake walipigana na yule joka… joka kubwa lilitupwa chini."
+              },
+              {
+                "ref": "Wakolosai 1:15-16",
+                "text": "Yeye ni mfano wa Mungu asiyeonekana, mzaliwa wa kwanza wa viumbe vyote; kwa sababu kupitia kwake vitu vingine vyote viliumbwa."
+              },
+              {
+                "ref": "Wafilipi 2:9",
+                "text": "Mungu alimpandisha hadi cheo cha juu na akampa kwa fadhili jina lililo juu ya kila jina lingine."
+              }
+            ]
+          }
+        ]
+      },
+      "holy-spirit": {
+        "title": "Roho Takatifu — Mtu au Nguvu?",
+        "subtitle": "Biblia inaonyesha kwamba roho takatifu ni nguvu ya utendaji ya Mungu, si mtu wa tatu",
+        "sections": [
+          {
+            "heading": "Roho takatifu ni nini kulingana na Biblia?",
+            "paragraphs": [
+              "Roho takatifu ni nguvu ya utendaji ya Yehova Mungu — nguvu anayoitumia kutimiza mapenzi yake. Wakati wa uumbaji, 'nguvu ya utendaji ya Mungu ilikuwa ikienda juu ya uso wa maji.' (Mwanzo 1:2) Nguvu hii iliwapa nguvu manabii, iliwaongoza mitume, na ilifanya miujiza. Haielezwi kuwa Mungu-mtu tofauti mwenye utu.",
+              "Yesu alipobatizwa, 'mbingu zilifunguliwa naye akaona roho ya Mungu ikishuka kama njiwa.' (Mathayo 3:16) Njiwa ni ishara ya upole na amani — roho hapa imeoneshwa kama nguvu au mvuto, si kama kiumbe wa tatu wa kimungu anayesimama pamoja na Baba na Mwana."
+            ],
+            "scriptures": [
+              {
+                "ref": "Mwanzo 1:2",
+                "text": "Nguvu ya utendaji ya Mungu ilikuwa ikienda juu ya uso wa maji."
+              },
+              {
+                "ref": "Matendo 2:4",
+                "text": "Wote wakajazwa roho takatifu na wakaanza kusema lugha tofauti."
+              },
+              {
+                "ref": "Luka 1:35",
+                "text": "Roho takatifu itakuja juu yako, na nguvu ya Aliye Juu Zaidi itakufunika."
+              }
+            ]
+          },
+          {
+            "heading": "Kwa nini roho takatifu si mtu?",
+            "paragraphs": [
+              "Watu wana majina; roho takatifu haina jina lolote. Watu hutangulia matendo; roho takatifu mara kwa mara inaelezwa kama kitu kinachomwagwa, kinachotumwa, au kinachotolewa — kamwe si mtu anayeanzisha matendo kwa kujitegemea. Matendo 2:17 inasema: 'Nitamimina baadhi ya roho yangu juu ya kila aina ya mwili.' Unamimina kitu, si mtu.",
+              "Zawadi za roho takatifu — hekima, imani, uponyaji, kusema lugha — zinasambazwa kwa nguvu za Mungu, si kwa mtu wa tatu wa kimungu anayefanya maamuzi ya kujitegemea. Paulo anaandika kwamba 'haya yote ni kazi ya roho moja na ile ile, ikimpa kila mtu kama inavyotaka' (1 Wakorintho 12:11) — lakini hili linaonyesha mwafaka wa roho na mapenzi ya Mungu, si utu wa kujitegemea."
+            ],
+            "scriptures": [
+              {
+                "ref": "Matendo 2:17",
+                "text": "Nitamimina baadhi ya roho yangu juu ya kila aina ya mwili."
+              },
+              {
+                "ref": "Waroma 8:26",
+                "text": "Roho yenyewe inatuombea kwa kuugua kusikoweza kusemwa."
+              },
+              {
+                "ref": "1 Wakorintho 12:11",
+                "text": "Haya yote ni kazi ya roho moja na ile ile."
+              }
+            ]
+          }
+        ]
+      },
+      "holy-spirit-not-a-person": {
+        "title": "Roho Takatifu Si Mtu — Mistari Muhimu",
+        "subtitle": "Uthibitisho wa kimaandiko kwamba roho takatifu ni nguvu ya utendaji ya Mungu, si mtu",
+        "sections": [
+          {
+            "heading": "Je, Biblia inaeleza roho takatifu ikimwagwa?",
+            "paragraphs": [
+              "Mtu hawezi kumwagwa, kugawanywa katika sehemu, au kutumika kuwajaza watu — lakini roho takatifu inaweza. Wakati wa Pentekoste, 'wote wakajazwa roho takatifu.' (Matendo 2:4) Mungu aliahidi kupitia Yoeli: 'Nitamimina baadhi ya roho yangu juu ya kila aina ya mwili.' (Matendo 2:17) Unamimina nguvu au kitu, si mtu.",
+              "Yesu aliwaambia wanafunzi wake kwamba wangetiwa 'ubatizo katika roho takatifu.' (Matendo 1:5) Watu wanazamishwa katika maji, si katika mtu. Maneno haya — kujazwa na, kumwagwa, kubatizwa katika — mara kwa mara yanaeleza roho takatifu kama nguvu, si mtu."
+            ],
+            "scriptures": [
+              {
+                "ref": "Matendo 2:4",
+                "text": "Wote wakajazwa roho takatifu na wakaanza kusema lugha tofauti."
+              },
+              {
+                "ref": "Matendo 2:17",
+                "text": "Nitamimina baadhi ya roho yangu juu ya kila aina ya mwili."
+              },
+              {
+                "ref": "Matendo 1:5",
+                "text": "Mtabatizwa katika roho takatifu si baada ya siku nyingi kutoka sasa."
+              },
+              {
+                "ref": "Matendo 10:38",
+                "text": "Mungu alimtia mafuta kwa roho takatifu na nguvu."
+              },
+              {
+                "ref": "Luka 11:13",
+                "text": "Baba aliye mbinguni atawapa roho takatifu wale wanaomwomba!"
+              }
+            ]
+          },
+          {
+            "heading": "Je, roho takatifu inaonekana kama mtu katika Maandiko?",
+            "paragraphs": [
+              "Yehova ana jina. Yesu ana jina. Ikiwa roho takatifu ingekuwa mtu sawa na hao katika Uungu wa watu watatu, ingekuwa pia na jina la kibinafsi — lakini hakuna linalotolewa popote katika Maandiko. Katika maono ya kiti cha enzi katika Ufunuo, Baba yuko juu ya kiti cha enzi na Mwanakondoo (Yesu) yuko karibu naye — hakuna mtu wa tatu anayewakilishwa. (Ufunuo 7:10)",
+              "Wakati wa ubatizo wa Yesu, roho takatifu ilionekana kama njiwa — si kama mtu. (Mathayo 3:16) Stefano alipokuwa karibu kufa, 'alitazama mbinguni na akaona utukufu wa Mungu na Yesu akiwa amesimama upande wa kuume wa Mungu.' (Matendo 7:55) Aliona watu wawili — Baba na Mwana. Hakuna mtu wa tatu aliyeonekana."
+            ],
+            "scriptures": [
+              {
+                "ref": "Mathayo 3:16",
+                "text": "Baada ya kubatizwa, Yesu mara moja akatoka katika maji; na mbingu zikafunguliwa, naye akaona roho ya Mungu ikishuka kama njiwa."
+              },
+              {
+                "ref": "Matendo 7:55-56",
+                "text": "Alitazama mbinguni na akaona utukufu wa Mungu na Yesu akiwa amesimama upande wa kuume wa Mungu."
+              },
+              {
+                "ref": "Ufunuo 7:10",
+                "text": "Wokovu tunadaiwa kwa Mungu wetu, anayeketi juu ya kiti cha enzi, na kwa Mwanakondoo."
+              },
+              {
+                "ref": "1 Timotheo 2:5",
+                "text": "Kuna Mungu mmoja, na mpatanishi mmoja kati ya Mungu na wanadamu, mwanadamu, Kristo Yesu."
+              }
+            ]
+          },
+          {
+            "heading": "Je, roho takatifu inaweza kugawanywa kama nguvu?",
+            "paragraphs": [
+              "Hesabu 11:25 inaelezea jinsi Yehova 'alivyoondoa baadhi ya roho iliyokuwa juu yake [Musa] na akaiweka juu ya kila mmoja wa wazee 70.' Mtu hawezi kugawanywa katika sehemu 70. Elisha aliomba 'sehemu mbili' za roho ya Eliya. (2 Wafalme 2:9) Roho takatifu inafanya kazi kwa vipimo na viwango — lugha inayotumika kwa nishati au nguvu, si utu.",
+              "Paulo aliandika kwamba zawadi za kiroho ni 'kazi ya roho moja na ile ile, ikimpa kila mtu binafsi kama inavyotaka.' (1 Wakorintho 12:11) Roho inasambaza kulingana na mapenzi ya Mungu. Ni chombo cha kusudi la Mungu, si akili ya kujitegemea inayofanya maamuzi tofauti."
+            ],
+            "scriptures": [
+              {
+                "ref": "Hesabu 11:25",
+                "text": "Yehova akaondoa baadhi ya roho iliyokuwa juu yake na akaiweka juu ya kila mmoja wa wazee 70."
+              },
+              {
+                "ref": "2 Wafalme 2:9",
+                "text": "Tafadhali, sehemu mbili za roho yako zinifikie."
+              },
+              {
+                "ref": "1 Wakorintho 12:11",
+                "text": "Haya yote ni kazi ya roho moja na ile ile, ikimpa kila mtu binafsi kama inavyotaka."
+              },
+              {
+                "ref": "Nehemia 9:20",
+                "text": "Uliwapa roho yako njema ili kuwafundisha."
+              }
+            ]
+          }
+        ]
+      },
+      "trinity-is-false": {
+        "title": "Utatu Si wa Kibiblia — Mistari Muhimu",
+        "subtitle": "Maandiko yanatofautisha mara kwa mara Baba na Mwana — fundisho la Utatu halina msingi wa Kibiblia",
+        "sections": [
+          {
+            "heading": "Je, Biblia inaonyesha Yesu na Baba kama watu tofauti?",
+            "paragraphs": [
+              "Yesu mara kwa mara alijielezea kuwa chini ya Baba yake. Alisema waziwazi: 'Baba ni mkuu kuliko mimi.' (Yohana 14:28) Kama wangekuwa sawa, kauli hii ingekuwa ya uongo. Yesu pia alisema: 'Ninaenda kwa Baba yangu na Baba yenu na kwa Mungu wangu na Mungu wenu.' (Yohana 20:17) Yesu alimwita Baba 'Mungu wangu' — kuthibitisha Baba alikuwa na cheo cha juu zaidi.",
+              "Katika Gethsemane, Yesu alisali: 'Baba, ikiwa unataka, niondolee kikombe hiki. Hata hivyo, si mapenzi yangu, bali yako yatendeke.' (Luka 22:42) Mapenzi mawili tofauti — ya Baba na ya Mwana — hayawezi kuwepo ndani ya kiumbe kimoja. Sala hii ina maana tu ikiwa wao ni watu tofauti."
+            ],
+            "scriptures": [
+              {
+                "ref": "Yohana 14:28",
+                "text": "Baba ni mkuu kuliko mimi."
+              },
+              {
+                "ref": "Yohana 20:17",
+                "text": "Ninapaa kwa Baba yangu na Baba yenu na kwa Mungu wangu na Mungu wenu."
+              },
+              {
+                "ref": "Luka 22:42",
+                "text": "Baba, ikiwa unataka, niondolee kikombe hiki. Hata hivyo, si mapenzi yangu, bali yako yatendeke."
+              },
+              {
+                "ref": "Marko 13:32",
+                "text": "Kuhusu siku hiyo au saa hakuna anayejua, wala malaika walio mbinguni wala Mwana, ila Baba peke yake."
+              },
+              {
+                "ref": "Yohana 17:3",
+                "text": "Hii inamaanisha uzima wa milele, wao kukujua wewe, Mungu wa pekee wa kweli, na yule uliyemtuma, Yesu Kristo."
+              }
+            ]
+          },
+          {
+            "heading": "Biblia inamtaja nani kuwa Mungu wa pekee wa kweli?",
+            "paragraphs": [
+              "Biblia kamwe haitumii neno 'Utatu.' Shema ya Israeli inatangaza: 'Sikia, Ee Israeli: Yehova Mungu wetu ni Yehova mmoja.' (Kumbukumbu la Sheria 6:4) Paulo alithibitisha tena: 'Kwa kweli kwetu sisi kuna Mungu mmoja, Baba, ambaye vitu vyote vimetoka kwake, na sisi tuko kwa ajili yake; na kuna Bwana mmoja, Yesu Kristo, ambaye kupitia kwake vitu vyote vipo.' (1 Wakorintho 8:6) Mungu na Bwana wametajwa tofauti — Baba ni Mungu; Yesu ni Bwana.",
+              "Yesu mwenyewe alimtambulisha Baba kuwa 'Mungu wa pekee wa kweli.' (Yohana 17:3) Neno 'wa pekee' linatenga mtu yeyote mwingine kutoka kwa cheo hicho — pamoja na Yesu mwenyewe. Kama Yesu angekuwa sehemu ya Mungu wa watu watatu, kumwita Baba 'Mungu wa pekee wa kweli' kungemtenga yeye mwenyewe kutoka kwa uungu."
+            ],
+            "scriptures": [
+              {
+                "ref": "Kumbukumbu la Sheria 6:4",
+                "text": "Sikia, Ee Israeli: Yehova Mungu wetu ni Yehova mmoja."
+              },
+              {
+                "ref": "1 Wakorintho 8:6",
+                "text": "Kwa kweli kwetu sisi kuna Mungu mmoja, Baba… na kuna Bwana mmoja, Yesu Kristo."
+              },
+              {
+                "ref": "Yohana 17:3",
+                "text": "Wao kukujua wewe, Mungu wa pekee wa kweli, na yule uliyemtuma, Yesu Kristo."
+              },
+              {
+                "ref": "1 Timotheo 2:5",
+                "text": "Kuna Mungu mmoja, na mpatanishi mmoja kati ya Mungu na wanadamu, mwanadamu, Kristo Yesu."
+              },
+              {
+                "ref": "Malaki 2:10",
+                "text": "Je, sisi sote hatuna baba mmoja? Je, si Mungu mmoja aliyetuumba?"
+              }
+            ]
+          },
+          {
+            "heading": "Je, Biblia inasema Yesu aliumbwa, si wa milele pamoja na Baba?",
+            "paragraphs": [
+              "Biblia inamwita Yesu 'mzaliwa wa kwanza wa viumbe vyote' (Wakolosai 1:15) na 'mwanzo wa uumbaji wa Mungu.' (Ufunuo 3:14) Vyeo hivi vinaonyesha kwamba Yesu alikuwa na mwanzo. Alikuwa kiumbe cha kwanza ambacho Yehova aliumba, na kisha 'kupitia kwake vitu vingine vyote viliumbwa.' (Wakolosai 1:16) Yesu ni mkuu zaidi miongoni mwa viumbe — lakini bado ni sehemu yake.",
+              "Mithali 8:22-30 inaifanya hekima kuwa mtu inayosema: 'Yehova alinizaa kuwa mwanzo wa njia yake, mafanikio yake ya kwanza ya zamani.' Fungu hili, linaloeleweka kama kuonyesha kabla Kristo, linaonyesha kwamba Mwana alitolewa kabla ya kitu chochote kingine kuwepo — si kwamba sikuzote alikuwepo pamoja na Baba."
+            ],
+            "scriptures": [
+              {
+                "ref": "Wakolosai 1:15",
+                "text": "Yeye ni mfano wa Mungu asiyeonekana, mzaliwa wa kwanza wa viumbe vyote."
+              },
+              {
+                "ref": "Ufunuo 3:14",
+                "text": "Amina, shahidi mwaminifu na wa kweli, mwanzo wa uumbaji wa Mungu."
+              },
+              {
+                "ref": "Mithali 8:22",
+                "text": "Yehova alinizaa kuwa mwanzo wa njia yake, mafanikio yake ya kwanza ya zamani."
+              },
+              {
+                "ref": "Mithali 8:30",
+                "text": "Nilikuwa kando yake kama fundi stadi, nami ndiye aliyenipenda hasa siku baada ya siku."
+              },
+              {
+                "ref": "Mika 5:2",
+                "text": "Asili yake ni kutoka nyakati za kale, kutoka siku za zamani."
+              }
+            ]
+          }
+        ]
+      },
+      "angel-of-the-lord-michael": {
+        "title": "Malaika wa Yehova Ni Mikaeli — Mistari Muhimu",
+        "subtitle": "Ushahidi wa kimaandiko unaomuunganisha malaika wa Yehova, Mikaeli malaika mkuu, na Yesu Kristo",
+        "sections": [
+          {
+            "heading": "Biblia inasema nini kuhusu jukumu la Mikaeli?",
+            "paragraphs": [
+              "Mikaeli ametambulishwa kuwa 'mmoja wa wakuu wakuu' aliyekuja kumsaidia mjumbe wa malaika wa Danieli. (Danieli 10:13) Baadaye anaitwa 'mkuu mkuu anayesimama kwa ajili ya watu wako.' (Danieli 12:1) Jukumu lake ni la mkuu-shujaa anayetetea kusudi la Yehova na anayewatetea wateule wa Mungu — jukumu linalolingana kikamilifu na Yesu kabla ya kuwa mwanadamu.",
+              "Yuda 9 inamtambulisha Mikaeli kuwa 'malaika mkuu' — malaika mkuu wa wote. Kwa kuwa Maandiko yanataja malaika mkuu mmoja tu, na kwa kuwa Yesu aliyefufuliwa 'anashuka kutoka mbinguni kwa mwito wa amri, kwa sauti ya malaika mkuu' (1 Wathesalonike 4:16), uhusiano ni wazi: Yesu anashika cheo cha malaika mkuu — yeye ni Mikaeli."
+            ],
+            "scriptures": [
+              {
+                "ref": "Danieli 10:13",
+                "text": "Lakini Mikaeli, mmoja wa wakuu wakuu, alikuja kunisaidia."
+              },
+              {
+                "ref": "Danieli 12:1",
+                "text": "Wakati huo Mikaeli atasimama, mkuu mkuu anayesimama kwa ajili ya watu wako."
+              },
+              {
+                "ref": "Yuda 9",
+                "text": "Wakati Mikaeli malaika mkuu alipokuwa na mzozo na Ibilisi na alikuwa akibishana kuhusu mwili wa Musa."
+              },
+              {
+                "ref": "1 Wathesalonike 4:16",
+                "text": "Bwana mwenyewe atashuka kutoka mbinguni kwa mwito wa amri, kwa sauti ya malaika mkuu."
+              }
+            ]
+          },
+          {
+            "heading": "Je, Mikaeli anaongoza majeshi ya mbinguni kwa njia ile ile anavyofanya Yesu?",
+            "paragraphs": [
+              "Ufunuo 12:7-9 unaeleza vita kuu ya mbinguni: 'Mikaeli na malaika zake walipigana na yule joka, na joka na malaika zake walipigana.' Yule joka — Shetani — alitupwa chini duniani. Mahali pengine katika Ufunuo, ni Yesu Kristo ambaye ni Mfalme anayeshinda akipanda farasi mweupe, akiongoza majeshi ya mbinguni. (Ufunuo 19:11-16) Kamanda wa majeshi ya mbinguni katika mafungu yote mawili ni mtu yule yule.",
+              "Yesu aliwaambia wanafunzi wake: 'Nimemwona Shetani tayari ameanguka kama umeme kutoka mbinguni.' (Luka 10:18) Hii inalingana na Mikaeli kumtupa Shetani nje. Kabla ya kuja duniani, Yesu alikuwepo kama kiumbe cha roho chenye nguvu — 'mzaliwa wa kwanza wa viumbe vyote.' (Wakolosai 1:15) Jina lake la kabla ya kuwa mwanadamu mbinguni lilikuwa Mikaeli; jina lake la duniani, alilopewa wakati wa kuzaliwa, ni Yesu."
+            ],
+            "scriptures": [
+              {
+                "ref": "Ufunuo 12:7-9",
+                "text": "Mikaeli na malaika zake walipigana na yule joka… joka kubwa lilitupwa chini, nyoka wa zamani."
+              },
+              {
+                "ref": "Ufunuo 19:14-16",
+                "text": "Majeshi ya mbinguni yalikuwa yakimfuata kwa farasi weupe… ana jina lililoandikwa, Mfalme wa wafalme na Bwana wa mabwana."
+              },
+              {
+                "ref": "Luka 10:18",
+                "text": "Nimemwona Shetani tayari ameanguka kama umeme kutoka mbinguni."
+              },
+              {
+                "ref": "Wakolosai 1:15-16",
+                "text": "Yeye ni mfano wa Mungu asiyeonekana, mzaliwa wa kwanza wa viumbe vyote."
+              }
+            ]
+          },
+          {
+            "heading": "Malaika wa Yehova katika Maandiko ya Kiebrania alikuwa nani?",
+            "paragraphs": [
+              "Katika Maandiko yote ya Kiebrania, 'malaika wa Yehova' anaonekana kuwa mwakilishi mkuu wa Mungu — si tu mmoja wa malaika wengi, bali mtu wa kipekee anayesema kwa mamlaka ya kimungu. Alimtokea Musa katika kichaka kilichowaka moto (Kutoka 3:2), aliongoza Israeli kupitia jangwa (Kutoka 23:20-21), na alizuia njia ya Balaamu ili kuwalinda watu wa Mungu. (Hesabu 22:22-35)",
+              "Mungu alisema kuhusu malaika huyu: 'Jina langu liko ndani yake.' (Kutoka 23:21) Malaika huyu alibeba mamlaka ya Yehova kwa njia ya kipekee. Paulo alitambulisha mwamba wa kiroho uliosafiri pamoja na Israeli kuwa Kristo. (1 Wakorintho 10:4) Malaika wa Yehova aliyemwongoza na kumlinda Israeli alikuwa Yesu kabla ya kuwa mwanadamu — Mikaeli — akitumikia kama wakala mkuu wa Yehova muda mrefu kabla ya kuzaliwa kwake Bethlehemu."
+            ],
+            "scriptures": [
+              {
+                "ref": "Kutoka 3:2",
+                "text": "Ndipo malaika wa Yehova akamtokea katika mwali wa moto katikati ya kichaka cha miiba."
+              },
+              {
+                "ref": "Kutoka 23:20-21",
+                "text": "Ninatuma malaika mbele yako… msikilize… kwa kuwa jina langu liko ndani yake."
+              },
+              {
+                "ref": "Hesabu 22:22",
+                "text": "Malaika wa Yehova akasimama barabarani kumzuia."
+              },
+              {
+                "ref": "1 Wakorintho 10:4",
+                "text": "Walikunywa kutoka mwamba wa kiroho uliowafuata, na mwamba huo ulimaanisha Kristo."
+              },
+              {
+                "ref": "Yoshua 5:14",
+                "text": "Nimekuja kama mkuu wa jeshi la Yehova."
+              }
+            ]
+          }
+        ]
+      },
+      "what-is-the-soul": {
+        "title": "Nafsi Ni Nini?",
+        "subtitle": "Biblia inafafanua nafsi kuwa kiumbe kilicho hai — si kiumbe cha ndani kisichoweza kufa",
+        "sections": [
+          {
+            "heading": "'Nafsi' inamaanisha nini katika Biblia?",
+            "paragraphs": [
+              "Mila nyingi za kidini hufundisha kwamba wanadamu wana nafsi isiyoweza kufa inayoondoka katika mwili wakati wa kifo. Lakini Biblia inafundisha kitu tofauti sana: 'Yehova Mungu akaendelea kumfanyiza mtu kutoka mavumbi ya ardhi na kumvuvia puani pumzi ya uhai, na mtu akawa nafsi hai.' (Mwanzo 2:7) Neno la Kiebrania linalotafsiriwa 'mtu' hapa ni nephesh — kwa kawaida limetafsiriwa 'nafsi.' Mtu hakupokea nafsi; alikuwa nafsi.",
+              "Wanyama pia wanaitwa 'nafsi' katika Maandiko. Mwanzo 1:20 katika Kiebrania inatumia nephesh kwa viumbe vya baharini na ndege. Nafsi si sehemu maalum ya kiroho ya wanadamu pekee — inahusu kiumbe chochote kinacho hai na kinachopumua."
+            ],
+            "scriptures": [
+              {
+                "ref": "Mwanzo 2:7",
+                "text": "Mtu akawa nafsi hai."
+              },
+              {
+                "ref": "Ezekieli 18:4",
+                "text": "Tazama! Nafsi zote — ni zangu. Kama nafsi ya baba, vivyo hivyo na nafsi ya mwana — ni zangu. Nafsi inayotenda dhambi ndiyo itakayokufa."
+              },
+              {
+                "ref": "1 Wakorintho 15:45",
+                "text": "Imeandikwa hivi: 'Mtu wa kwanza Adamu akawa nafsi hai.'"
+              }
+            ]
+          },
+          {
+            "heading": "Je, nafsi haiwezi kufa kulingana na Biblia?",
+            "paragraphs": [
+              "Ezekieli 18:4 inasema waziwazi: 'Nafsi inayotenda dhambi ndiyo itakayokufa.' Kama nafsi ingekuwa haiwezi kufa, kauli hii isingekuwa na maana. Ufunuo 16:3 inazungumza juu ya 'kila nafsi iliyo hai katika bahari' kufa. Wazo la nafsi isiyoweza kufa halitoki katika Biblia bali katika falsafa ya Kigiriki, hasa mafundisho ya Plato kuhusu kutokufa kwa nafsi.",
+              "Kuelewa kwamba nafsi ni mtu mwenyewe — si kiumbe tofauti — kunafanya tumaini la ufufuo kuwa zuri zaidi. Mungu ataumba upya mtu mzima, akirudisha kila kitu kilichomtambulisha alikuwa nani."
+            ],
+            "scriptures": [
+              {
+                "ref": "Ezekieli 18:4",
+                "text": "Nafsi inayotenda dhambi ndiyo itakayokufa."
+              },
+              {
+                "ref": "Ufunuo 16:3",
+                "text": "Kila nafsi iliyo hai katika bahari ikafa."
+              },
+              {
+                "ref": "Matendo 3:23",
+                "text": "Nafsi yoyote isiyomsikiliza Nabii huyo itaangamizwa kabisa kutoka kati ya watu."
+              }
+            ]
+          }
+        ]
+      },
+      "what-happens-when-we-die": {
+        "title": "Ni Nini Hutokea Tunapokufa?",
+        "subtitle": "Kifo ni hali ya usingizi usio na fahamu — si mbingu, jehanamu, au purgatori",
+        "sections": [
+          {
+            "heading": "Wafu wako katika hali gani kulingana na Maandiko?",
+            "paragraphs": [
+              "Yesu aliposikia kwamba Lazaro alikuwa amekufa, alisema: 'Lazaro rafiki yetu amelala usingizi, lakini ninaenda huko kumwamsha.' (Yohana 11:11) Wanafunzi hawakuelewa, hivyo Yesu alifafanua: 'Lazaro amekufa.' Usingizi ni mfano wenye nguvu na thabiti wa kifo katika Maandiko yote kwa sababu katika usingizi hakuna utendaji, hakuna ufahamu — na bado mtu aliyelala anaweza kuamshwa.",
+              "Mfalme Sulemani aliandika: 'Walio hai wanafahamu kwamba watakufa, lakini wafu hawajui chochote kabisa.' (Mhubiri 9:5) Hakuna ufahamu, hakuna mateso, hakuna furaha — kifo ni kukoma kabisa kwa uhai mpaka ufufuo."
+            ],
+            "scriptures": [
+              {
+                "ref": "Yohana 11:11-14",
+                "text": "'Lazaro rafiki yetu amelala usingizi… Lazaro amekufa.'"
+              },
+              {
+                "ref": "Mhubiri 9:5",
+                "text": "Walio hai wanafahamu kwamba watakufa, lakini wafu hawajui chochote kabisa."
+              },
+              {
+                "ref": "Zaburi 146:4",
+                "text": "Roho yake inatoka, anarudi ardhini; siku hiyo hiyo mawazo yake yanapotea."
+              }
+            ]
+          },
+          {
+            "heading": "Biblia inasema nini kuhusu tumaini la ufufuo?",
+            "paragraphs": [
+              "Kwa sababu kifo si kikomo, ufufuo ni tumaini kuu la Maandiko. Yesu alisema: 'Msishangae jambo hili, kwa kuwa saa inakuja ambapo wote walio katika makaburi ya ukumbusho watasikia sauti yake na kutoka.' (Yohana 5:28-29) Hii si nafsi isiyoweza kufa ikitoroka kwenda mbinguni — ni mtu mzima akirudishwa katika uhai.",
+              "Mtume Paulo alikiita ufufuo wa Kristo msingi wa tumaini la Kikristo: 'Ikiwa wafu hawatafufuliwa, tuli na kunywa, kwa kuwa kesho tutakufa.' (1 Wakorintho 15:32) Ufufuo wa wafu — si kutokufa kwa nafsi — ndio jibu la Biblia kwa kifo."
+            ],
+            "scriptures": [
+              {
+                "ref": "Yohana 5:28-29",
+                "text": "Wote walio katika makaburi ya ukumbusho watasikia sauti yake na kutoka."
+              },
+              {
+                "ref": "Matendo 24:15",
+                "text": "Kutakuwa na ufufuo wa wenye haki na wasio na haki."
+              },
+              {
+                "ref": "1 Wakorintho 15:26",
+                "text": "Adui wa mwisho, kifo, atafutiliwa mbali."
+              }
+            ]
+          }
+        ]
+      },
+      "gods-kingdom": {
+        "title": "Ufalme wa Mungu — Ni Nini?",
+        "subtitle": "Serikali halisi mbinguni itakayotawala juu ya dunia paradiso",
+        "sections": [
+          {
+            "heading": "Ufalme wa Mungu ni nini kulingana na Biblia?",
+            "paragraphs": [
+              "Ufalme wa Mungu si hali ya moyoni — ni serikali halisi. Danieli alitabiri: 'Mungu wa mbinguni atausimamisha ufalme ambao hautaharibiwa kamwe… utavunja na kukomesha falme zote hizi, nao peke yake utadumu milele.' (Danieli 2:44) Ufalme huu una mfalme (Yesu Kristo), raia, sheria, na eneo — dunia yenyewe.",
+              "Yesu aliwafundisha wanafunzi wake kusali: 'Ufalme wako uje. Mapenzi yako yatendeke, kama mbinguni, vivyo hivyo duniani.' (Mathayo 6:10) Sala hii inaonyesha kwamba utawala wa Ufalme siku moja utafika hadi duniani, ukibadilisha dunia kama vile mbingu tayari inavyoonyesha mapenzi makamilifu ya Mungu."
+            ],
+            "scriptures": [
+              {
+                "ref": "Danieli 2:44",
+                "text": "Mungu wa mbinguni atausimamisha ufalme ambao hautaharibiwa kamwe."
+              },
+              {
+                "ref": "Mathayo 6:10",
+                "text": "Ufalme wako uje. Mapenzi yako yatendeke, kama mbinguni, vivyo hivyo duniani."
+              },
+              {
+                "ref": "Luka 1:33",
+                "text": "Atatawala kama Mfalme juu ya nyumba ya Yakobo milele, na hakutakuwa na mwisho wa Ufalme wake."
+              }
+            ]
+          },
+          {
+            "heading": "Ufalme wa Mungu utatimiza nini duniani?",
+            "paragraphs": [
+              "Chini ya Ufalme wa Mungu, dunia itabadilishwa kuwa paradiso. Ufunuo 21:3-4 inaahidi: 'Mungu mwenyewe atakuwa pamoja nao. Naye atafuta kila chozi katika macho yao, na kifo hakitakuwapo tena, wala maombolezo wala kilio wala maumivu hayatakuwapo tena. Mambo ya zamani yamepita.' Magonjwa, kifo, vita, umaskini — vyote vitakomeshwa.",
+              "Isaya 65:21-22 inachora picha ya maisha chini ya Ufalme: 'Watajenga nyumba na kukaa ndani yake, watapanda mashamba ya mizabibu na kula matunda yake.' Kuishi kwa amani kati ya wanadamu na wanyama pia kumeahidiwa: 'Mbwa mwitu na mwana-kondoo watakula pamoja.' (Isaya 65:25)"
+            ],
+            "scriptures": [
+              {
+                "ref": "Ufunuo 21:3-4",
+                "text": "Atafuta kila chozi katika macho yao, na kifo hakitakuwapo tena."
+              },
+              {
+                "ref": "Isaya 65:21-22",
+                "text": "Watajenga nyumba na kukaa ndani yake, watapanda mashamba ya mizabibu na kula matunda yake."
+              },
+              {
+                "ref": "Zaburi 37:29",
+                "text": "Wenye haki watairithi dunia, nao watakaa juu yake milele."
+              }
+            ]
+          }
+        ]
+      },
+      "why-god-allows-suffering": {
+        "title": "Kwa Nini Mungu Anaruhusu Mateso?",
+        "subtitle": "Kuelewa swali la enzi kuu ya ulimwengu na kwa nini Yehova anaruhusu uovu kwa sasa",
+        "sections": [
+          {
+            "heading": "Kwa nini Mungu aliruhusu changamoto ya Shetani isimame?",
+            "paragraphs": [
+              "Simulizi la Ayubu linafunua sababu muhimu Mungu anaruhusu mateso. Shetani alimpinga Mungu kwa kudai kwamba wanadamu wanamtumikia tu kwa sababu za ubinafsi: 'Je, Ayubu anamcha Mungu bure? Hujamzungushia uzio wa ulinzi… vitu vyote alivyo navyo? Lakini, kwa mabadiliko, nyoosha mkono wako na ukate kila kitu alichonacho, naye hakika atakulaani usoni mwako.' (Ayubu 1:9-11) Shetani aliibua swali kuhusu uadilifu wa waabuduji wa kibinadamu — swali lililohitaji kujibiwa.",
+              "Wakati Shetani alipoeleza katika Edeni 'hakika hamtakufa' (Mwanzo 3:4), alikuwa akimwita Mungu mwongo na akipendekeza kwamba wanadamu wanaweza kuishi kwa kujitegemea kutoka kwa Mungu. Changamoto hizi kwa haki ya Mungu ya kutawala na uaminifu wa waabuduji wake hazingeweza kutatuliwa mara moja — zilihitaji wakati na uzoefu wa kibinadamu kutatuliwa kabisa."
+            ],
+            "scriptures": [
+              {
+                "ref": "Ayubu 1:9-11",
+                "text": "Je, Ayubu anamcha Mungu bure?"
+              },
+              {
+                "ref": "Mwanzo 3:4-5",
+                "text": "Hakika hamtakufa. Mungu anajua kwamba… macho yenu yatafunguliwa na mtakuwa kama Mungu."
+              },
+              {
+                "ref": "Waroma 3:4",
+                "text": "Mungu na apatikane kuwa wa kweli, hata kama kila mtu ni mwongo."
+              }
+            ]
+          },
+          {
+            "heading": "Kwa nini Mungu haingilii mara moja ili kusimamisha mateso?",
+            "paragraphs": [
+              "Mungu anaruhusu muda kwa ajili ya wanadamu kuonyesha kwamba wanaweza kubaki waaminifu chini ya majaribu, na kuruhusu matokeo ya kujitegemea kutoka kwa Mungu yaonekane kabisa. Petro anaandika: 'Yehova si mvivu kuhusu ahadi yake, kama watu wengine wanavyofikiria uvivu, bali anasubiri kwa uvumilivu nanyi kwa sababu hataki yeyote aangamizwe bali anataka wote wafikie toba.' (2 Petro 3:9)",
+              "Kuruhusu mateso kwa Mungu ni kwa muda. Kusudi lake kwa dunia — paradiso isiyo na maumivu na kifo — kamwe halijabadilika. Mateso tunayoyaona sasa si uthibitisho wa kutojali kwa Mungu bali ni matokeo ya kujitegemea kwa wanadamu kutoka kwa mwongozo wa kimungu. Hivi karibuni, Mungu 'atawaharibu wale wanaoharibu dunia.' (Ufunuo 11:18)"
+            ],
+            "scriptures": [
+              {
+                "ref": "2 Petro 3:9",
+                "text": "Yehova si mvivu kuhusu ahadi yake… anasubiri kwa uvumilivu nanyi."
+              },
+              {
+                "ref": "Waroma 8:22",
+                "text": "Tunajua kwamba uumbaji wote unaendelea kuugua pamoja na kuwa katika maumivu pamoja mpaka sasa."
+              },
+              {
+                "ref": "Ufunuo 11:18",
+                "text": "Wakati ulifika… kuwaharibu wale wanaoharibu dunia."
+              }
+            ]
+          }
+        ]
+      },
+      "blood-sacred": {
+        "title": "Utakatifu wa Damu",
+        "subtitle": "Kwa nini Yehova anatuamuru tujizuie na damu — na maana yake leo",
+        "sections": [
+          {
+            "heading": "Kwa nini Biblia inasema damu ni takatifu?",
+            "paragraphs": [
+              "Mungu alimwambia Nuhu baada ya Gharika: 'Lakini nyama pamoja na uhai wake — damu yake — msile.' (Mwanzo 9:4) Damu ni takatifu kwa sababu inawakilisha uhai wenyewe, na uhai wote ni wa Mungu. Hii haikuwa amri ya chakula tu — ilikuwa kauli kuhusu umiliki. Uhai ni zawadi ya Mungu; hatuna haki ya kuutumia vibaya.",
+              "Sheria ya Musa iliimarisha kanuni hii: 'Kwa mtu yeyote wa nyumba ya Israeli au mgeni anayeishi katikati yenu anayekula aina yoyote ya damu, hakika nitamkabili mtu huyo anayekula damu.' (Mambo ya Walawi 17:10) Katazo la damu lilikuwa miongoni mwa mahitaji ambayo baraza la Yerusalemu katika Matendo 15 lilithibitisha kuwa lazima kwa Wakristo wote."
+            ],
+            "scriptures": [
+              {
+                "ref": "Mwanzo 9:4",
+                "text": "Lakini nyama pamoja na uhai wake — damu yake — msile."
+              },
+              {
+                "ref": "Mambo ya Walawi 17:14",
+                "text": "Msile damu ya aina yoyote ya nyama, kwa sababu uhai wa kila aina ya nyama ni damu yake."
+              },
+              {
+                "ref": "Matendo 15:28-29",
+                "text": "Roho takatifu na sisi tumeona vyema kutowabebesha mzigo zaidi isipokuwa mambo haya ya lazima: kuendelea kujizuia na… damu."
+              }
+            ]
+          },
+          {
+            "heading": "Mafundisho ya Biblia kuhusu damu yanawahusuje Wakristo leo?",
+            "paragraphs": [
+              "Amri ya baraza la mitume katika Matendo 15:28-29 ilifanya wazi kwamba kujizuia na damu kunawahusu Wakristo chini ya agano jipya. Hii si sheria ya kiibada ya Kiyahudi iliyofutwa — ilithibitishwa waziwazi kwa waumini wa Mataifa. Kwa hiyo Mashahidi wa Yehova wanakataa kutiwa damu mishipani, wakielewa kwamba ni jambo la utii kwa amri ya Mungu.",
+              "Njia mbadala za kisasa za matibabu badala ya kutiwa damu — kuokoa seli, vipanuzi vya kiasi, na mbinu za upasuaji bila damu — zimeendelea sana, na hospitali nyingi sasa zinatoa chaguzi hizi. Kuchagua kuheshimu hitaji la Mungu kuhusu damu ni tendo la imani na imani kwamba viwango vya Mungu sikuzote ni kwa manufaa yetu."
+            ],
+            "scriptures": [
+              {
+                "ref": "Matendo 15:28-29",
+                "text": "Endeleeni kujizuia na… damu."
+              },
+              {
+                "ref": "1 Yohana 5:3",
+                "text": "Hii ndiyo maana ya upendo wa Mungu, kwamba tunazishika amri zake; na bado amri zake si nzito."
+              },
+              {
+                "ref": "Mithali 3:5",
+                "text": "Mtumaini Yehova kwa moyo wako wote, wala usitegemee uelewa wako mwenyewe."
+              }
+            ]
+          }
+        ]
+      }
+    }
   },
   "topbar": {
     "accountMenu": "Menyu ya akaunti kwa {{name}}",
@@ -2119,7 +2798,44 @@
     "totalCount": "Jumla {{count}}",
     "viewBtn": "Tazama",
     "viewBtnLabel": "Tazama",
-    "writeFirst": "Andika chapisho lako la kwanza →"
+    "writeFirst": "Andika chapisho lako la kwanza →",
+    "emptyComments": "Kuwa wa kwanza kushiriki tafakari yako",
+    "messageAuthor": "Ujumbe",
+    "blockAuthor": "Zuia",
+    "unblockAuthor": "Ondoa kizuizi",
+    "shareFoundHelpful": "Je, ilikusaidia? Ishiriki.",
+    "guestLockTitle": "Jiunge na mazungumzo",
+    "guestLockSubtitle": "Shiriki tafakari zako pamoja na jumuiya",
+    "createFreeAccount": "Fungua Akaunti Bila Malipo",
+    "alreadyHaveAccount": "Tayari una akaunti? Ingia",
+    "postNavPrevious": "Iliyotangulia",
+    "postNavNext": "Inayofuata",
+    "shareCopyLink": "Nakili kiungo",
+    "shareOnX": "Shiriki katika X",
+    "shareOnWhatsApp": "WhatsApp",
+    "shareOnFacebook": "Facebook",
+    "anonymousAuthor": "Bila jina",
+    "tableOfContents": "Yaliyomo",
+    "allPosts": "Machapisho Yote",
+    "minLabel": "Dak. {{count}}",
+    "jwFooterTitle": "Kwa Funzo la Kina Zaidi, Tembelea jw.org",
+    "jwFooterSub": "Tovuti rasmi ya Mashahidi wa Yehova ndio chanzo kikuu cha mafundisho sahihi ya Biblia. Chukua hatua inayofuata hapa chini.",
+    "jwLinkRequestStudy": "Omba Funzo la Biblia Bila Malipo",
+    "jwLinkRequestStudySub": "hub.jw.org, mmoja wa Mashahidi wa Yehova atafurahi kuwasiliana nawe",
+    "jwLinkFindMeeting": "Pata Mkutano Karibu Nawe",
+    "jwLinkFindMeetingSub": "hub.jw.org, hudhuria mkutano katika Jumba la Ufalme katika eneo lako",
+    "jwLinkOfficialSite": "jw.org, Tovuti Rasmi",
+    "jwLinkOfficialSiteSub": "Vitabu, video, magazeti na makala za funzo la Biblia",
+    "jwLinkWolLibrary": "Maktaba ya Mtandaoni ya Mnara wa Mlinzi",
+    "jwLinkWolLibrarySub": "wol.jw.org, hifadhi kamili ya machapisho",
+    "jwLinkJwLibraryApp": "Programu ya JW Library",
+    "jwLinkJwLibraryAppSub": "Biblia, machapisho na vifaa vya mikutano, iOS na Android",
+    "progress": "Maendeleo",
+    "throughArticle": "katika makala hii",
+    "actions": "Vitendo",
+    "likeWithCount": "Penda ({{count}})",
+    "share": "Shiriki",
+    "relatedPostsLabel": "Machapisho Yanayohusiana"
   },
   "blogDash": {
     "contentLabel": "Maudhui *",
@@ -2567,14 +3283,38 @@
     "thinking": "Inafikiri…",
     "uploading": "Inapakia…",
     "view": "Tazama",
-    "working": "Inafanya kazi…"
+    "working": "Inafanya kazi…",
+    "ok": "SAWA"
   },
   "community": {
     "manage": "Simamia →",
     "newPosts": "Machapisho mapya {{count}}",
     "onlineNow": "{{count}} mtandaoni sasa",
     "recentActivity": "Shughuli za Hivi Karibuni",
-    "title": "Jamii"
+    "title": "Jamii",
+    "anonymous": "Asiyejulikana",
+    "clearSearch": "Futa utafutaji",
+    "emptySearchSub": "Jaribu jina lingine.",
+    "emptySearchTitle": "Hakuna matokeo",
+    "emptySub": "Kuwa wa kwanza kusoma pamoja.",
+    "emptyTitle": "Bado hakuna mtu hapa",
+    "errorSub": "Onyesha upya ili kujaribu tena.",
+    "errorTitle": "Imeshindikana kupakia wanachama",
+    "fallbackNotice": "Hakuna shughuli katika wiki mbili zilizopita. Inaonyesha wanachama wapya zaidi badala yake.",
+    "filterLabel": "Chuja wanachama",
+    "next": "Inayofuata",
+    "of": "kati ya",
+    "pageOf": "Ukurasa wa {{page}} kati ya {{total}}",
+    "prev": "Iliyotangulia",
+    "searchLabel": "Tafuta wanachama",
+    "searchPlaceholder": "Tafuta kwa jina",
+    "statusJoined": "Amejiunga hivi karibuni",
+    "statusOnline": "Mtandaoni sasa",
+    "statusUnknown": "Mwanachama",
+    "subtitleEmpty": "Kila mtu anasoma pamoja.",
+    "subtitleOnline": "{{count}} wanasoma pamoja sasa hivi",
+    "tabAll": "Wote",
+    "tabOnline": "Mtandaoni"
   },
   "confirm": {
     "title": "Una uhakika?"
@@ -5719,5 +6459,69 @@
       "Maono ya 'Babeli Mkubwa' (sura 17–18) na anguko lake yanaonyeshaje hatima ya dini ya uongo, na wito wa 'tokeni katika yeye, watu wangu' unahusuje?",
       "Ufunuo 21–22 — kushuka kwa Yerusalemu Mpya na ahadi ya kufutwa kwa kifo — inatoaje tumaini la mwisho la Mashahidi wa Yehova?"
     ]
-  ]
+  ],
+  "trivia": {
+    "active": "Inaendelea",
+    "answerFailed": "Hatuwezi kutuma jibu lako. Jaribu tena.",
+    "betterLuck": "Bahati nzuri wakati ujao!",
+    "chooseTeam": "Chagua Timu",
+    "congratulations": "Hongera! Timu yako imeshinda!",
+    "correct": "Sahihi!",
+    "createRoom": "Unda Chumba",
+    "custom": "Maalum",
+    "enterRoomCode": "Ingiza msimbo wa chumba",
+    "exit": "Ondoka",
+    "failedCreate": "Imeshindwa kuunda chumba",
+    "failedJoin": "Imeshindwa kujiunga na chumba",
+    "firstTeamToWins": "Timu ya kwanza kupata majibu sahihi {{points}} hushinda",
+    "firstToPts": "Wa kwanza kufikia {{points}} pts",
+    "friend": "rafiki",
+    "friendCap": "Rafiki",
+    "gameBanner": "PAMBANO LA MASWALI YA BIBLIA",
+    "host": "MWENYEJI",
+    "inviteFriendLabel": "Mwalike {{name}}",
+    "inviteOnlineFriends": "Waalike Marafiki Walio Mtandaoni",
+    "joinRoom": "Jiunge na Chumba",
+    "leaveRoom": "Ondoka Chumbani",
+    "loadingQuestion": "Inapakia swali…",
+    "nextQuestion": "Swali Lijalo →",
+    "noFriendsOnline": "Hakuna rafiki mtandaoni sasa hivi",
+    "noPlayersYet": "Bado hakuna wachezaji",
+    "noTimer": "Hakuna kipima muda",
+    "none": "Hakuna",
+    "off": "IMEZIMWA",
+    "on": "IMEWASHWA",
+    "playAgain": "Cheza Tena",
+    "player": "Mchezaji",
+    "players": "Wachezaji",
+    "playersCount": "Wachezaji {{current}}/{{total}}",
+    "playingAs": "Unacheza kama",
+    "pointsLabel": "pointi",
+    "pointsToWin": "Pointi za Kushinda",
+    "questionShort": "S",
+    "questionsCount": "Maswali {{count}}",
+    "roomCode": "Msimbo wa Chumba",
+    "secondTimer": "Kipima muda cha sekunde {{seconds}}",
+    "shareCode": "Shiriki msimbo huu ili kuwaalika wachezaji",
+    "startBattle": "Anzisha Pambano!",
+    "starting": "Inaanza…",
+    "subtitle": "Chumba cha Pambano · Timu dhidi ya Timu",
+    "teamAlpha": "Timu Alpha",
+    "teamAlphaShort": "Alpha",
+    "teamOmega": "Timu Omega",
+    "teamOmegaShort": "Omega",
+    "teamSize": "Ukubwa wa Timu",
+    "teamTurn": "Zamu ya {{team}}",
+    "teamWins": "{{team}} Imeshinda!",
+    "tie": "Sare!",
+    "timer": "Kipima muda",
+    "timesUp": "Muda umeisha!",
+    "title": "Maswali ya Biblia",
+    "waiting": "Inasubiri…",
+    "waitingForHost": "Inasubiri mwenyeji aanze…",
+    "waitingForHostAdvance": "Inasubiri mwenyeji aendelee…",
+    "waitingForPlayers": "Inasubiri wachezaji wengine {{count}} wajiunge kwa msimbo",
+    "wrong": "Si sahihi!",
+    "yourTurn": "Zamu yako, jibu sasa!"
+  }
 }

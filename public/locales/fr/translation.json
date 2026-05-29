@@ -89,7 +89,8 @@
     "show": "Afficher",
     "uploading": "Téléversement…",
     "view": "Voir",
-    "working": "En cours…"
+    "working": "En cours…",
+    "ok": "OK"
   },
   "app": {
     "title": "Liste de Lecture Biblique",
@@ -710,7 +711,44 @@
     "totalCount": "{{count}} au total",
     "viewBtn": "Voir",
     "viewBtnLabel": "Voir",
-    "writeFirst": "Écris ton premier article →"
+    "writeFirst": "Écris ton premier article →",
+    "emptyComments": "Soyez le premier à partager une réflexion",
+    "messageAuthor": "Message",
+    "blockAuthor": "Bloquer",
+    "unblockAuthor": "Débloquer",
+    "shareFoundHelpful": "Cet article vous a-t-il été utile ? Partagez-le.",
+    "guestLockTitle": "Rejoignez la conversation",
+    "guestLockSubtitle": "Partagez vos réflexions avec la communauté",
+    "createFreeAccount": "Créer un compte gratuit",
+    "alreadyHaveAccount": "Vous avez déjà un compte ? Connectez-vous",
+    "postNavPrevious": "Précédent",
+    "postNavNext": "Suivant",
+    "shareCopyLink": "Copier le lien",
+    "shareOnX": "Partager sur X",
+    "shareOnWhatsApp": "WhatsApp",
+    "shareOnFacebook": "Facebook",
+    "anonymousAuthor": "Anonyme",
+    "tableOfContents": "Sommaire",
+    "allPosts": "Tous les articles",
+    "minLabel": "{{count}} min",
+    "jwFooterTitle": "Pour une étude plus approfondie, visitez jw.org",
+    "jwFooterSub": "Le site officiel des Témoins de Jéhovah est la principale source pour un enseignement biblique exact. Faites le prochain pas ci-dessous.",
+    "jwLinkRequestStudy": "Demander un cours biblique gratuit",
+    "jwLinkRequestStudySub": "hub.jw.org, un des Témoins de Jéhovah se fera un plaisir de vous contacter",
+    "jwLinkFindMeeting": "Trouver une réunion près de chez vous",
+    "jwLinkFindMeetingSub": "hub.jw.org, assistez à une réunion dans une Salle du Royaume près de chez vous",
+    "jwLinkOfficialSite": "jw.org, site officiel",
+    "jwLinkOfficialSiteSub": "Livres, vidéos, périodiques et articles d’étude biblique",
+    "jwLinkWolLibrary": "Bibliothèque en ligne Watchtower",
+    "jwLinkWolLibrarySub": "wol.jw.org, archives complètes des publications",
+    "jwLinkJwLibraryApp": "Application JW Library",
+    "jwLinkJwLibraryAppSub": "Bibles, publications et matériel pour les réunions, iOS et Android",
+    "progress": "Progression",
+    "throughArticle": "dans cet article",
+    "actions": "Actions",
+    "likeWithCount": "J’aime ({{count}})",
+    "share": "Partager",
+    "relatedPostsLabel": "Articles connexes"
   },
   "blogDash": {
     "myPostsTitle": "Mes Articles",
@@ -809,7 +847,12 @@
     "sort_replied": "Plus répondus",
     "sort_unanswered": "Sans réponse",
     "sort_solved": "Résolus",
-    "loadMoreReplies": "Charger {{count}} réponses de plus"
+    "loadMoreReplies": "Charger {{count}} réponses de plus",
+    "aiAssistantTitle": "Assistant IA pour publications",
+    "aiAssistantDesc": "Recevez de l’aide pour rédiger une publication chaleureuse et fondée sur les Écritures à partir de votre sujet et de votre brouillon.",
+    "aiWriting": "Rédaction…",
+    "aiHelpMeWrite": "Aide-moi à rédiger cette publication",
+    "aiSuggestion": "Suggestion de l’IA"
   },
   "home": {
     "navLeaderboard": "Classement",
@@ -1053,7 +1096,9 @@
     "timedMode": "Mode chronométré",
     "masterLevels": "Niveaux maîtres",
     "explanation": "Explication",
-    "newBest": "Nouveau record"
+    "newBest": "Nouveau record",
+    "timedScore": "Score chronométré :",
+    "points": "pts"
   },
   "report": {
     "title": "Signaler un Contenu",
@@ -1903,7 +1948,8 @@
     "sort_created": "Date de Création",
     "sort_title": "Titre (A–Z)",
     "exportMarkdown": "Exporter en Markdown",
-    "exportPdf": "Exporter / Imprimer"
+    "exportPdf": "Exporter / Imprimer",
+    "noteTitlePlaceholder": "Titre de la note…"
   },
   "readingPlans": {
     "title": "Plans de Lecture",
@@ -2748,6 +2794,269 @@
             ]
           }
         ]
+      },
+      "holy-spirit-not-a-person": {
+        "title": "L'esprit saint n'est pas une personne — versets clés",
+        "subtitle": "Preuve scripturaire que l'esprit saint est la force agissante de Dieu, et non une personne",
+        "sections": [
+          {
+            "heading": "La Bible décrit-elle l'esprit saint comme étant répandu ?",
+            "paragraphs": [
+              "Une personne ne peut pas être répandue, divisée en portions, ou utilisée pour remplir des gens — mais l'esprit saint le peut. À la Pentecôte, « ils furent tous remplis d'esprit saint ». (Actes 2:4) Dieu avait promis par Joël : « Je répandrai de mon esprit sur toute sorte de chair. » (Actes 2:17) On répand une force ou une substance, pas une personne.",
+              "Jésus a dit à ses disciples qu'ils seraient « baptisés d'esprit saint ». (Actes 1:5) On immerge les gens dans l'eau, pas dans une personne. Ces expressions — remplis de, répandu, baptisés dans — décrivent constamment l'esprit saint comme une force, et non comme un individu."
+            ],
+            "scriptures": [
+              {
+                "ref": "Actes 2:4",
+                "text": "Ils furent tous remplis d'esprit saint et se mirent à parler dans différentes langues."
+              },
+              {
+                "ref": "Actes 2:17",
+                "text": "Je répandrai de mon esprit sur toute sorte de chair."
+              },
+              {
+                "ref": "Actes 1:5",
+                "text": "Vous serez baptisés d'esprit saint dans peu de jours."
+              },
+              {
+                "ref": "Actes 10:38",
+                "text": "Dieu l'a oint d'esprit saint et de puissance."
+              },
+              {
+                "ref": "Luc 11:13",
+                "text": "Le Père qui est au ciel donnera de l'esprit saint à ceux qui le lui demandent !"
+              }
+            ]
+          },
+          {
+            "heading": "L'esprit saint apparaît-il comme une personne dans les Écritures ?",
+            "paragraphs": [
+              "Jéhovah a un nom. Jésus a un nom. Si l'esprit saint était une personne coégale d'un Dieu trin, il aurait aussi un nom personnel — pourtant aucun n'est donné nulle part dans les Écritures. Dans la vision du trône de la Révélation, le Père est sur le trône et l'Agneau (Jésus) est à ses côtés — aucune troisième personne n'est représentée. (Révélation 7:10)",
+              "Au baptême de Jésus, l'esprit saint est apparu comme une colombe — non comme une personne. (Matthieu 3:16) Quand Étienne était sur le point de mourir, « il fixa les yeux vers le ciel et vit la gloire de Dieu et Jésus debout à la droite de Dieu ». (Actes 7:55) Il vit deux personnes — le Père et le Fils. Aucune troisième personne n'était visible."
+            ],
+            "scriptures": [
+              {
+                "ref": "Matthieu 3:16",
+                "text": "Après avoir été baptisé, Jésus sortit aussitôt de l'eau ; et les cieux s'ouvrirent, et il vit l'esprit de Dieu descendre comme une colombe."
+              },
+              {
+                "ref": "Actes 7:55-56",
+                "text": "Il fixa les yeux vers le ciel et vit la gloire de Dieu et Jésus debout à la droite de Dieu."
+              },
+              {
+                "ref": "Révélation 7:10",
+                "text": "Le salut, nous le devons à notre Dieu, qui est assis sur le trône, et à l'Agneau."
+              },
+              {
+                "ref": "1 Timothée 2:5",
+                "text": "Il y a un seul Dieu, et un seul médiateur entre Dieu et les hommes, un homme, Christ Jésus."
+              }
+            ]
+          },
+          {
+            "heading": "L'esprit saint peut-il être réparti comme une force ?",
+            "paragraphs": [
+              "Nombres 11:25 décrit comment Jéhovah « prit de l'esprit qui était sur lui [Moïse] et le mit sur chacun des 70 anciens ». Une personne ne peut pas être divisée en 70 portions. Élisée a demandé « deux parts » de l'esprit d'Élie. (2 Rois 2:9) L'esprit saint opère en mesures et en degrés — un langage qui s'applique à de l'énergie ou à une force, et non à une personnalité.",
+              "Paul a écrit que les dons spirituels sont « l'œuvre d'un seul et même esprit, qui distribue à chacun en particulier comme il veut ». (1 Corinthiens 12:11) L'esprit distribue selon la volonté de Dieu. Il est l'instrument du dessein de Dieu, et non un esprit indépendant prenant des décisions séparées."
+            ],
+            "scriptures": [
+              {
+                "ref": "Nombres 11:25",
+                "text": "Jéhovah prit de l'esprit qui était sur lui et le mit sur chacun des 70 anciens."
+              },
+              {
+                "ref": "2 Rois 2:9",
+                "text": "S'il te plaît, que deux parts de ton esprit viennent sur moi."
+              },
+              {
+                "ref": "1 Corinthiens 12:11",
+                "text": "Tout cela est l'œuvre d'un seul et même esprit, qui distribue à chacun en particulier comme il veut."
+              },
+              {
+                "ref": "Néhémie 9:20",
+                "text": "Tu as donné ton bon esprit pour les instruire."
+              }
+            ]
+          }
+        ]
+      },
+      "trinity-is-false": {
+        "title": "La Trinité n'est pas biblique — versets clés",
+        "subtitle": "Les Écritures distinguent constamment le Père du Fils — la doctrine de la Trinité n'a aucun fondement biblique",
+        "sections": [
+          {
+            "heading": "La Bible présente-t-elle Jésus et le Père comme des personnes distinctes ?",
+            "paragraphs": [
+              "Jésus a constamment parlé de lui-même comme étant subordonné à son Père. Il a dit clairement : « Le Père est plus grand que moi. » (Jean 14:28) S'ils étaient coégaux, cette déclaration serait fausse. Jésus a aussi dit : « Je monte vers mon Père et votre Père, et vers mon Dieu et votre Dieu. » (Jean 20:17) Jésus a appelé le Père « mon Dieu » — prouvant que le Père occupait une position supérieure.",
+              "À Gethsémané, Jésus a prié : « Père, si tu le veux, éloigne de moi cette coupe. Toutefois, que ce soit, non pas ma volonté, mais la tienne qui se fasse. » (Luc 22:42) Deux volontés distinctes — celle du Père et celle du Fils — ne peuvent exister au sein d'un seul être. Cette prière n'a de sens que si ce sont des personnes distinctes."
+            ],
+            "scriptures": [
+              {
+                "ref": "Jean 14:28",
+                "text": "Le Père est plus grand que moi."
+              },
+              {
+                "ref": "Jean 20:17",
+                "text": "Je monte vers mon Père et votre Père, et vers mon Dieu et votre Dieu."
+              },
+              {
+                "ref": "Luc 22:42",
+                "text": "Père, si tu le veux, éloigne de moi cette coupe. Toutefois, que ce soit, non pas ma volonté, mais la tienne qui se fasse."
+              },
+              {
+                "ref": "Marc 13:32",
+                "text": "Quant à ce jour-là ou à l'heure, personne ne les connaît, ni les anges dans le ciel ni le Fils, mais seulement le Père."
+              },
+              {
+                "ref": "Jean 17:3",
+                "text": "Ceci signifie la vie éternelle : qu'ils apprennent à te connaître, toi, le seul vrai Dieu, et celui que tu as envoyé, Jésus Christ."
+              }
+            ]
+          },
+          {
+            "heading": "Qui la Bible identifie-t-elle comme le seul vrai Dieu ?",
+            "paragraphs": [
+              "La Bible n'utilise jamais le mot « Trinité ». Le Chéma d'Israël déclare : « Écoute, ô Israël : Jéhovah notre Dieu est un seul Jéhovah. » (Deutéronome 6:4) Paul a confirmé : « Il y a en réalité pour nous un seul Dieu, le Père, de qui viennent toutes choses et pour qui nous sommes ; et il y a un seul Seigneur, Jésus Christ, par l'intermédiaire de qui sont toutes choses. » (1 Corinthiens 8:6) Dieu et Seigneur sont nommés séparément — le Père est Dieu ; Jésus est Seigneur.",
+              "Jésus lui-même a identifié le Père comme le « seul vrai Dieu ». (Jean 17:3) Le mot « seul » exclut toute autre personne de ce titre — y compris Jésus lui-même. Si Jésus faisait partie d'un Dieu trin, appeler le Père le « seul vrai Dieu » l'exclurait lui-même de la divinité."
+            ],
+            "scriptures": [
+              {
+                "ref": "Deutéronome 6:4",
+                "text": "Écoute, ô Israël : Jéhovah notre Dieu est un seul Jéhovah."
+              },
+              {
+                "ref": "1 Corinthiens 8:6",
+                "text": "Il y a en réalité pour nous un seul Dieu, le Père… et il y a un seul Seigneur, Jésus Christ."
+              },
+              {
+                "ref": "Jean 17:3",
+                "text": "Qu'ils apprennent à te connaître, toi, le seul vrai Dieu, et celui que tu as envoyé, Jésus Christ."
+              },
+              {
+                "ref": "1 Timothée 2:5",
+                "text": "Il y a un seul Dieu, et un seul médiateur entre Dieu et les hommes, un homme, Christ Jésus."
+              },
+              {
+                "ref": "Malachie 2:10",
+                "text": "N'avons-nous pas tous un seul père ? N'est-ce pas un seul Dieu qui nous a créés ?"
+              }
+            ]
+          },
+          {
+            "heading": "La Bible dit-elle que Jésus a été créé, et non coéternel ?",
+            "paragraphs": [
+              "La Bible appelle Jésus « le premier-né de toute la création » (Colossiens 1:15) et « le commencement de la création de Dieu ». (Révélation 3:14) Ces titres indiquent que Jésus a eu un commencement. Il a été le premier être que Jéhovah a créé, puis « par son intermédiaire toutes les autres choses ont été créées ». (Colossiens 1:16) Jésus est suprême parmi la création — mais en fait toujours partie.",
+              "Proverbes 8:22-30 personnifie la sagesse qui dit : « Jéhovah m'a produite comme le commencement de sa voie, la plus ancienne de ses œuvres d'autrefois. » Ce passage, compris comme préfigurant le Christ, montre que le Fils a été produit avant que quoi que ce soit d'autre n'existe — et non qu'il a toujours existé aux côtés du Père."
+            ],
+            "scriptures": [
+              {
+                "ref": "Colossiens 1:15",
+                "text": "Il est l'image du Dieu invisible, le premier-né de toute la création."
+              },
+              {
+                "ref": "Révélation 3:14",
+                "text": "L'Amen, le témoin fidèle et véritable, le commencement de la création de Dieu."
+              },
+              {
+                "ref": "Proverbes 8:22",
+                "text": "Jéhovah m'a produite comme le commencement de sa voie, la plus ancienne de ses œuvres d'autrefois."
+              },
+              {
+                "ref": "Proverbes 8:30",
+                "text": "J'étais à ses côtés comme un habile ouvrier, et j'étais celle qu'il chérissait particulièrement jour après jour."
+              },
+              {
+                "ref": "Michée 5:2",
+                "text": "Son origine remonte aux temps anciens, aux jours d'autrefois."
+              }
+            ]
+          }
+        ]
+      },
+      "angel-of-the-lord-michael": {
+        "title": "L'ange de Jéhovah est Michel — versets clés",
+        "subtitle": "Preuves scripturaires reliant l'ange de Jéhovah, Michel l'archange, et Jésus Christ",
+        "sections": [
+          {
+            "heading": "Que dit la Bible sur le rôle de Michel ?",
+            "paragraphs": [
+              "Michel est identifié comme « l'un des principaux princes » venu aider le messager angélique de Daniel. (Daniel 10:13) Il est plus tard appelé « le grand prince qui se tient en faveur de ton peuple ». (Daniel 12:1) Son rôle est celui d'un prince-guerrier qui défend la cause de Jéhovah et protège les élus de Dieu — un rôle qui correspond parfaitement à Jésus avant son existence humaine.",
+              "Jude 9 identifie Michel comme « l'archange » — l'ange en chef. Puisque les Écritures ne nomment qu'un seul archange, et puisque Jésus ressuscité « descend du ciel avec un cri de commandement, avec une voix d'archange » (1 Thessaloniciens 4:16), le lien est clair : Jésus occupe la position d'archange — il est Michel."
+            ],
+            "scriptures": [
+              {
+                "ref": "Daniel 10:13",
+                "text": "Mais Michel, l'un des principaux princes, est venu m'aider."
+              },
+              {
+                "ref": "Daniel 12:1",
+                "text": "Pendant ce temps-là, Michel se lèvera, le grand prince qui se tient en faveur de ton peuple."
+              },
+              {
+                "ref": "Jude 9",
+                "text": "Quand Michel l'archange eut un différend avec le Diable et discutait au sujet du corps de Moïse."
+              },
+              {
+                "ref": "1 Thessaloniciens 4:16",
+                "text": "Le Seigneur lui-même descendra du ciel avec un cri de commandement, avec une voix d'archange."
+              }
+            ]
+          },
+          {
+            "heading": "Michel dirige-t-il les armées du ciel comme le fait Jésus ?",
+            "paragraphs": [
+              "Révélation 12:7-9 décrit la guerre céleste décisive : « Michel et ses anges ont combattu le dragon, et le dragon et ses anges ont combattu. » Le dragon — Satan — a été précipité sur la terre. Ailleurs dans la Révélation, c'est Jésus Christ qui est le Roi conquérant montant un cheval blanc, à la tête des armées du ciel. (Révélation 19:11-16) Le commandant des armées du ciel dans les deux passages est la même personne.",
+              "Jésus a dit à ses disciples : « J'ai vu Satan déjà tombé du ciel comme un éclair. » (Luc 10:18) Cela s'accorde avec Michel chassant Satan. Avant de venir sur la terre, Jésus existait comme un puissant être spirituel — « le premier-né de toute la création ». (Colossiens 1:15) Son nom avant son existence humaine au ciel était Michel ; son nom terrestre, donné à sa naissance, est Jésus."
+            ],
+            "scriptures": [
+              {
+                "ref": "Révélation 12:7-9",
+                "text": "Michel et ses anges ont combattu le dragon… le grand dragon a été précipité, le serpent originel."
+              },
+              {
+                "ref": "Révélation 19:14-16",
+                "text": "Les armées dans le ciel le suivaient sur des chevaux blancs… il a un nom écrit, Roi des rois et Seigneur des seigneurs."
+              },
+              {
+                "ref": "Luc 10:18",
+                "text": "J'ai vu Satan déjà tombé du ciel comme un éclair."
+              },
+              {
+                "ref": "Colossiens 1:15-16",
+                "text": "Il est l'image du Dieu invisible, le premier-né de toute la création."
+              }
+            ]
+          },
+          {
+            "heading": "Qui était l'ange de Jéhovah dans les Écritures hébraïques ?",
+            "paragraphs": [
+              "Tout au long des Écritures hébraïques, « l'ange de Jéhovah » apparaît comme le principal représentant de Dieu — non pas simplement l'un des nombreux anges, mais une figure singulière qui parle avec l'autorité divine. Il est apparu à Moïse dans le buisson ardent (Exode 3:2), a guidé Israël à travers le désert (Exode 23:20-21), et a barré le chemin de Balaam pour protéger le peuple de Dieu. (Nombres 22:22-35)",
+              "Dieu a dit de cet ange : « Mon nom est en lui. » (Exode 23:21) Cet ange portait l'autorité de Jéhovah d'une manière unique. Paul a identifié le rocher spirituel qui accompagnait Israël comme étant le Christ. (1 Corinthiens 10:4) L'ange de Jéhovah qui a conduit et protégé Israël était Jésus avant son existence humaine — Michel — servant comme agent principal de Jéhovah bien avant sa naissance à Bethléem."
+            ],
+            "scriptures": [
+              {
+                "ref": "Exode 3:2",
+                "text": "Alors l'ange de Jéhovah lui apparut dans une flamme de feu au milieu d'un buisson d'épines."
+              },
+              {
+                "ref": "Exode 23:20-21",
+                "text": "J'envoie un ange devant toi… prête attention à lui… car mon nom est en lui."
+              },
+              {
+                "ref": "Nombres 22:22",
+                "text": "L'ange de Jéhovah se posta sur la route pour lui résister."
+              },
+              {
+                "ref": "1 Corinthiens 10:4",
+                "text": "Ils buvaient au rocher spirituel qui les suivait, et ce rocher signifiait le Christ."
+              },
+              {
+                "ref": "Josué 5:14",
+                "text": "Je suis venu comme prince de l'armée de Jéhovah."
+              }
+            ]
+          }
+        ]
       }
     }
   },
@@ -3295,7 +3604,12 @@
     "clamComplete": "✓ Préparation CLAM Terminée",
     "markAllParas": "Marquer Tous les Paragraphes Comme Terminés",
     "wtComplete": "✓ Étude de la Tour de Garde Terminée",
-    "watchtowerStudyArticle": "Article d'Étude de la Tour de Garde"
+    "watchtowerStudyArticle": "Article d'Étude de la Tour de Garde",
+    "songOpening": "Ouverture",
+    "songClosing": "Clôture",
+    "clamNotesPlaceholder": "Ajoutez vos notes pour la réunion Vie et ministère de cette semaine…",
+    "wtNotesPlaceholder": "Ajoutez vos notes pour l'étude de La Tour de Garde de cette semaine…",
+    "watchtowerLabel": "La Tour de Garde"
   },
   "bookNotablePassages": {
     "0": {
@@ -4030,7 +4344,30 @@
     "onlineNow": "{{count}} en ligne maintenant",
     "recentActivity": "Activité Récente",
     "manage": "Gérer →",
-    "newPosts": "{{count}} nouvelles publications"
+    "newPosts": "{{count}} nouvelles publications",
+    "anonymous": "Anonyme",
+    "clearSearch": "Effacer la recherche",
+    "emptySearchSub": "Essayez un autre nom.",
+    "emptySearchTitle": "Aucun résultat",
+    "emptySub": "Soyez le premier à lire avec les autres.",
+    "emptyTitle": "Personne ici pour l’instant",
+    "errorSub": "Actualisez pour réessayer.",
+    "errorTitle": "Impossible de charger les membres",
+    "fallbackNotice": "Aucune activité au cours des deux dernières semaines. Affichage des membres les plus récents.",
+    "filterLabel": "Filtrer les membres",
+    "next": "Suivant",
+    "of": "sur",
+    "pageOf": "Page {{page}} sur {{total}}",
+    "prev": "Précédent",
+    "searchLabel": "Rechercher des membres",
+    "searchPlaceholder": "Rechercher par nom",
+    "statusJoined": "Inscrit récemment",
+    "statusOnline": "En ligne",
+    "statusUnknown": "Membre",
+    "subtitleEmpty": "Tout le monde lit ensemble.",
+    "subtitleOnline": "{{count}} en train de lire en ce moment",
+    "tabAll": "Tous",
+    "tabOnline": "En ligne"
   },
   "checklist": {
     "bibleProgress": "Progression de Lecture Biblique",
@@ -5877,7 +6214,7 @@
     "Esther révèle que la main directrice de Jéhovah opère même là où son nom n'est pas prononcé à haute voix — par les « coïncidences » de timing, la bonne personne au bon endroit, et le renversement de plans apparemment imparables contre son peuple. Le courage d'Esther sous la menace reste un puissant modèle pour les Témoins de Jéhovah qui font face à l'opposition.",
     "Job répond directement à la question la plus douloureuse à laquelle les croyants font face : « Pourquoi les justes souffrent-ils ? » La réponse — qu'une grande controverse entoure la souveraineté de Jéhovah, et que notre endurance fidèle justifie son nom — transforme notre perspective sur la souffrance personnelle et lui donne un sens véritable plutôt qu'une cruauté dénuée de sens.",
     "Les Psaumes fournissent le vocabulaire pour chaque émotion humaine devant Jéhovah — chagrin brut, joie planante, supplication désespérée, louange émerveillée. Ils montrent qu'aucun sentiment n'est trop privé ou douloureux pour être apporté à Jéhovah dans la prière, et ils fournissent les mots mêmes pour le faire. La méditation régulière sur les Psaumes construit une intimité avec Jéhovah qu'aucun autre livre biblique ne reproduit tout à fait.",
-    "Les Proverbes sont le manuel pratique de la Bible pour la vie quotidienne. Contrairement à la théologie abstraite, ils traitent du travail, de l'argent, de l'amitié, de la parole, de la parenté, du mariage et de la gestion du temps — tous ancrés à la révérence pour Jéhovah. Ses sayings courts et mémorables sont conçus pour être intériorisés afin que la sagesse façonne les décisions instinctives quotidiennes.",
+    "Les Proverbes sont le manuel pratique de la Bible pour la vie quotidienne. Contrairement à la théologie abstraite, ils traitent du travail, de l'argent, de l'amitié, de la parole, de l'éducation des enfants, du mariage et de la gestion du temps — tous ancrés à la révérence pour Jéhovah. Ses maximes courtes et mémorables sont conçus pour être intériorisés afin que la sagesse façonne les décisions instinctives quotidiennes.",
     "L'Ecclésiaste protège contre la désillusion qui vient quand les gens attendent que ce système actuel leur fournisse sens, accomplissement ou justice — il ne le peut pas. En documentant honnêtement le vide d'une vie sans Jéhovah au centre, il plaide pour la dévotion à Jéhovah non comme devoir religieux mais comme la seule réponse rationnelle à la réalité.",
     "Le Cantique de Salomon affirme que l'amour romantique et l'intimité physique dans le mariage sont des dons de Jéhovah — beaux, purs et dignes d'être célébrés. Il se garde à la fois de l'erreur gnostique de mépriser l'amour physique et de la distorsion du monde, montrant plutôt que la dévotion conjugale authentique reflète l'amour fidèle que Jéhovah lui-même incarne.",
     "Isaïe est justement appelé « le cinquième Évangile » — ses prophéties messianiques sur la naissance, le ministère et la mort de Jésus sont inégalées en précision. Les « chapitres de consolation » du livre (40–66) ont soutenu le peuple de Jéhovah à travers toute forme d'épreuve, et ses descriptions du monde nouveau donnent l'image la plus vive dans les Écritures hébraïques de ce à quoi ressemblera la terre du Royaume de Jéhovah.",
@@ -5924,5 +6261,69 @@
     "3 Jean aborde la tendance dangereuse à l'auto-promotion dans l'assemblée à travers les exemples contrastés de Gaïus (hospitalier, humble) et de Diotrèphe (vaniteux, diviseur). Le principe que ceux qui « aiment avoir la première place » perturbent l'assemblée s'applique à chaque génération et continue à guider la façon dont le peuple de Jéhovah reconnaît et traite de telles tendances.",
     "Jude a été écrite pour exactement la situation à laquelle est confrontée chaque assemblée quand des apostats se lèvent en son sein — ceux qui utilisent la grâce de Jéhovah comme licence pour une conduite relâchée et qui méprisent toute autorité. Ses prescriptions pratiques pour l'autoprotection (édifier la foi, prière, rester dans l'amour de Jéhovah) et pour aider ceux attirés par l'apostasie restent une direction vitale pour les anciens d'assemblée et les individus.",
     "La Révélation fournit au peuple de Jéhovah le panorama ultime de la fin de l'histoire — non comme source de mystère ou de peur, mais comme source de confiance durable. Son message répété de « vaincre » et sa promesse finale d'« essuyer toute larme » ont soutenu les Témoins de Jéhovah à travers la persécution la plus sévère. Le livre assure que le Royaume de Jéhovah éliminera chaque source de souffrance et que son dessein pour la terre sera pleinement réalisé."
-  ]
+  ],
+  "trivia": {
+    "active": "Actif",
+    "answerFailed": "Impossible d'envoyer votre réponse. Réessayez.",
+    "betterLuck": "Plus de chance la prochaine fois !",
+    "chooseTeam": "Choisir l'équipe",
+    "congratulations": "Félicitations ! Votre équipe a gagné !",
+    "correct": "Correct !",
+    "createRoom": "Créer une salle",
+    "custom": "Personnalisé",
+    "enterRoomCode": "Entrez un code de salle",
+    "exit": "Quitter",
+    "failedCreate": "Échec de la création de la salle",
+    "failedJoin": "Échec de l'accès à la salle",
+    "firstTeamToWins": "La première équipe à atteindre {{points}} bonnes réponses gagne",
+    "firstToPts": "Premier à {{points}} pts",
+    "friend": "ami",
+    "friendCap": "Ami",
+    "gameBanner": "DUEL DE QUIZ BIBLIQUE",
+    "host": "HÔTE",
+    "inviteFriendLabel": "Inviter {{name}}",
+    "inviteOnlineFriends": "Inviter des amis en ligne",
+    "joinRoom": "Rejoindre la salle",
+    "leaveRoom": "Quitter la salle",
+    "loadingQuestion": "Chargement de la question…",
+    "nextQuestion": "Question suivante →",
+    "noFriendsOnline": "Aucun ami en ligne pour le moment",
+    "noPlayersYet": "Aucun joueur pour le moment",
+    "noTimer": "Pas de minuteur",
+    "none": "Aucun",
+    "off": "NON",
+    "on": "OUI",
+    "playAgain": "Rejouer",
+    "player": "Joueur",
+    "players": "Joueurs",
+    "playersCount": "{{current}}/{{total}} joueurs",
+    "playingAs": "Vous jouez en tant que",
+    "pointsLabel": "points",
+    "pointsToWin": "Points pour gagner",
+    "questionShort": "Q",
+    "questionsCount": "{{count}} questions",
+    "roomCode": "Code de la salle",
+    "secondTimer": "Minuteur de {{seconds}} s",
+    "shareCode": "Partagez ce code pour inviter des joueurs",
+    "startBattle": "Commencer le duel !",
+    "starting": "Démarrage…",
+    "subtitle": "Salle de duel · Équipe contre équipe",
+    "teamAlpha": "Équipe Alpha",
+    "teamAlphaShort": "Alpha",
+    "teamOmega": "Équipe Omega",
+    "teamOmegaShort": "Omega",
+    "teamSize": "Taille de l'équipe",
+    "teamTurn": "C'est au tour de {{team}}",
+    "teamWins": "{{team}} gagne !",
+    "tie": "Égalité !",
+    "timer": "Minuteur",
+    "timesUp": "Temps écoulé !",
+    "title": "Quiz biblique",
+    "waiting": "En attente…",
+    "waitingForHost": "En attente du démarrage par l'hôte…",
+    "waitingForHostAdvance": "En attente que l'hôte continue…",
+    "waitingForPlayers": "En attente de {{count}} joueur(s) supplémentaire(s) via le code",
+    "wrong": "Faux !",
+    "yourTurn": "À vous, répondez maintenant !"
+  }
 }
