@@ -83,14 +83,23 @@ export const profileApi = {
 
   update: async (userId: string, updates: ProfileUpdates): Promise<Profile> => {
     assertNoPII(updates.bio, updates.display_name);
-    const { data, error } = await supabase
+    // Do NOT chain .select() here — it expands to UPDATE ... RETURNING *,
+    // and RETURNING requires SELECT on every column. The PII columns
+    // (email, stripe_*, subscription_status, email_notifications_*,
+    // email_marketing_unsubscribed, onboarding_emails_sent, terms_accepted_at)
+    // have their SELECT grant deliberately revoked from `authenticated`, so
+    // RETURNING * fails with "permission denied for table profiles".
+    // Run the UPDATE with `Prefer: return=minimal`, then refetch the full row
+    // via get(), which routes the caller's own id through the SECURITY DEFINER
+    // get_own_profile RPC.
+    const { error } = await supabase
       .from("profiles")
       .update(updates)
-      .eq("id", userId)
-      .select()
-      .single();
+      .eq("id", userId);
     if (error) throw new Error(error.message);
-    return data as Profile;
+    const fresh = await profileApi.get(userId);
+    if (!fresh) throw new Error("Profile not found after update");
+    return fresh;
   },
 
   searchByName: async (prefix: string): Promise<ProfileSearchResult[]> => {
