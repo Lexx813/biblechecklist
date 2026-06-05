@@ -1,5 +1,6 @@
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import { useAnalytics, useFeatureLeaders, useGrowthSeries, type GrowthBucket } from "../../../hooks/useAdmin";
+import { VIOLET_600 } from "../../../lib/colors";
 import { BOOKS } from "../../../data/books";
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -25,24 +26,24 @@ function AnalyticsSkeleton() {
   );
 }
 
-function SectionHeader({ title, live, right }: { title: string; live?: boolean; right?: ReactNode }) {
+function SectionHeader({ title, live }: { title: string; live?: boolean }) {
   return (
     <div className="an-section-header">
       {live && <span className="an-live-dot" />}
       <h2 className="an-section-title">{title}</h2>
-      {right && <div className="an-section-header-right">{right}</div>}
     </div>
   );
 }
 
 // ── Time-range selector for the growth charts ────────────────────────────────
+// Matches the "Range:" pill pattern used by the Songs + AI Usage tabs.
+const VIOLET = VIOLET_600;
 type RangePreset = { key: string; label: string; bucket: GrowthBucket; points: number };
 const RANGES: RangePreset[] = [
-  { key: "7d",  label: "7D",  bucket: "day",   points: 7 },
-  { key: "30d", label: "30D", bucket: "day",   points: 30 },
-  { key: "90d", label: "90D", bucket: "day",   points: 90 },
-  { key: "12m", label: "12M", bucket: "month", points: 12 },
-  { key: "5y",  label: "5Y",  bucket: "year",  points: 5 },
+  { key: "7d",  label: "7d",  bucket: "day",   points: 7 },
+  { key: "30d", label: "30d", bucket: "day",   points: 30 },
+  { key: "90d", label: "90d", bucket: "day",   points: 90 },
+  { key: "1y",  label: "1y",  bucket: "month", points: 12 },
 ];
 
 // Bucket-aware axis/tooltip label, e.g. day → "6/5", month → "Jun '26", year → "2026".
@@ -62,14 +63,23 @@ const LATEST_LABEL: Record<GrowthBucket, string> = {
 
 function RangeSelector({ value, onChange }: { value: string; onChange: (k: string) => void }) {
   return (
-    <div className="an-range" role="tablist" aria-label="Time range">
+    <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+      <span style={{ fontSize: 13, color: "var(--text-muted)" }}>Range:</span>
       {RANGES.map(r => (
         <button
           key={r.key}
-          role="tab"
-          aria-selected={r.key === value}
-          className={`an-range-btn${r.key === value ? " an-range-btn--active" : ""}`}
           onClick={() => onChange(r.key)}
+          style={{
+            padding: "5px 14px",
+            borderRadius: 999,
+            fontSize: 12,
+            cursor: "pointer",
+            fontWeight: 600,
+            background: r.key === value ? VIOLET : "transparent",
+            color: r.key === value ? "#fff" : "var(--text-muted)",
+            border: `1px solid ${r.key === value ? "transparent" : "var(--border)"}`,
+            transition: "all 180ms ease",
+          }}
         >
           {r.label}
         </button>
@@ -236,6 +246,9 @@ export function AnalyticsTab() {
   return (
     <div className="an-wrap">
 
+      {/* Range selector — drives the Growth & Activity charts below */}
+      <RangeSelector value={rangeKey} onChange={setRangeKey} />
+
       {/* KPI Cards */}
       <SectionHeader title="Live Overview" live />
       <div className="an-kpi-row">
@@ -276,7 +289,7 @@ export function AnalyticsTab() {
       </div>
 
       {/* Signups + DAU */}
-      <SectionHeader title="Growth & Activity" right={<RangeSelector value={rangeKey} onChange={setRangeKey} />} />
+      <SectionHeader title="Growth & Activity" />
       <div className="an-chart-grid">
         <ChartCard
           title={`New Signups · ${range.label}`}
