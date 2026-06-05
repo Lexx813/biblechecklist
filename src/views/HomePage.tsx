@@ -45,7 +45,7 @@ const SupportInline         = lazy(() => import("./SupportPage"));
 import { useTranslation } from "react-i18next";
 import { usePublishedPosts } from "../hooks/useBlog";
 import type { BlogPost } from "../api/blog";
-import { usePublishedVideos, useSignedVideoUrl, useSpotlightVideo } from "../hooks/useVideos";
+import { useSignedVideoUrl, useSpotlightVideo } from "../hooks/useVideos";
 import { useTopThreads } from "../hooks/useForum";
 import { usePublicNotes } from "../hooks/useStudyNotes";
 import { formatDate, authorName, formatNum } from "../utils/formatters";
@@ -193,11 +193,10 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const { data: enPosts = [], isLoading: enPostsLoading } = usePublishedPosts(deferred && lang !== "en" ? "en" : undefined);
   const posts = langPosts.length > 0 ? langPosts : enPosts;
   const postsLoading = langPostsLoading || (langPosts.length === 0 && enPostsLoading);
-  const { data: recentVideos = [], isLoading: videosLoading } = usePublishedVideos();
+  // Videos are intentionally NOT shown in the Recent feed anymore — only the
+  // Spotlight hero above. usePublishedVideos was the data source for the feed
+  // grid and has been removed.
   const { data: spotlightVideo, isLoading: spotlightLoading } = useSpotlightVideo();
-  const reelVideos = spotlightVideo
-    ? recentVideos.filter((v: { id: string }) => v.id !== spotlightVideo.id)
-    : recentVideos;
   const { data: topThreads = [], isLoading: threadsLoading } = useTopThreads(tier2 ? 4 : 0, lang);
   const { data: publicNotes = [], isLoading: notesLoading } = usePublicNotes(tier2 ? lang : null);
   const previewNotes = publicNotes.slice(0, 4);
@@ -309,20 +308,17 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   function handleEnableNotif() { updateProfile.mutate({ email_notifications_blog: true }); setNotifDismissed(true); }
   function handleDismissNotif() { localStorage.setItem("nwt-notif-dismissed", "1"); setNotifDismissed(true); }
 
-  // Unified blog+video feed — sorted strictly by created_at so newly
-  // published items (posts OR videos) interleave in the order they shipped.
-  type FeedItem =
-    | { kind: "post"; id: string; createdAt: string; data: any }
-    | { kind: "video"; id: string; createdAt: string; data: any };
+  // Recent feed is blog posts only. Videos surface in the Spotlight hero
+  // above; the unified-feed video branch was removed alongside this.
+  type FeedItem = { kind: "post"; id: string; createdAt: string; data: any };
   const unifiedFeed = useMemo<FeedItem[]>(() => {
-    const items: FeedItem[] = [
-      ...posts.map((p: any): FeedItem => ({ kind: "post", id: p.id, createdAt: p.created_at, data: p })),
-      ...reelVideos.map((v: any): FeedItem => ({ kind: "video", id: v.id, createdAt: v.created_at, data: v })),
-    ];
+    const items: FeedItem[] = posts.map((p: any): FeedItem => ({
+      kind: "post", id: p.id, createdAt: p.created_at, data: p,
+    }));
     items.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     return items.slice(0, 6);
-  }, [posts, reelVideos]);
-  const feedLoading = postsLoading || videosLoading;
+  }, [posts]);
+  const feedLoading = postsLoading;
 
   // Friends panel data — memoized so widgets receiving these arrays don't
   // see fresh refs on every parent render. `now` is captured at the time the
@@ -717,52 +713,6 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
             ) : (
               <div className="grid grid-cols-3 gap-2.5 max-[720px]:grid-cols-2 max-[480px]:grid-cols-1">
                 {unifiedFeed.map((entry) => {
-                  if (entry.kind === "video") {
-                    const v = entry.data;
-                    const mins = v.duration_sec ? Math.floor(v.duration_sec / 60) : null;
-                    const secs = v.duration_sec ? v.duration_sec % 60 : null;
-                    const durationLabel = mins != null && secs != null ? `${mins}:${String(secs).padStart(2, "0")}` : null;
-                    return (
-                      <article
-                        key={`v-${v.id}`}
-                        className="group flex cursor-pointer flex-col overflow-hidden rounded-[var(--radius)] border border-[var(--border)] bg-white/[0.03] transition-all duration-150 hover:-translate-y-0.5 hover:border-brand-600/[0.28] active:scale-[0.98] [html[data-theme=light]_&]:bg-white"
-                        onClick={() => navigate("videoDetail", { slug: v.slug })}
-                      >
-                        <div className="relative h-[108px] shrink-0 overflow-hidden bg-black">
-                          {v.thumbnail_url ? (
-                            <img
-                              src={imgUrl(v.thumbnail_url, { width: 480 })}
-                              alt={v.title}
-                              className="block h-full w-full object-cover"
-                              width={280}
-                              height={108}
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          ) : (
-                            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-violet-600 to-violet-900 text-white opacity-60">
-                              <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="8 5 19 12 8 19 8 5"/></svg>
-                            </div>
-                          )}
-                          <span className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-                            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black/55 text-white shadow-lg transition-transform group-hover:scale-110">
-                              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="8 5 19 12 8 19 8 5"/></svg>
-                            </span>
-                          </span>
-                          {durationLabel && (
-                            <span className="absolute bottom-1.5 right-2 rounded-[var(--radius-sm)] bg-black/70 px-[7px] py-0.5 text-[11px] font-semibold text-white">
-                              {durationLabel}
-                            </span>
-                          )}
-                        </div>
-                        <div className="flex-1 p-3">
-                          <div className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-amber-400 [html[data-theme=light]_&]:text-amber-700">{t("home.videoLabel", "Video")}</div>
-                          <div className="mb-1.5 line-clamp-2 text-sm font-semibold leading-snug text-[var(--text-primary)]">{v.title}</div>
-                          <div className={metaCls}>{v.profiles?.display_name ?? "JW Study"} · {formatDate(v.created_at)}</div>
-                        </div>
-                      </article>
-                    );
-                  }
                   const post = entry.data as BlogPost;
                   const tr = post.translations?.[lang];
                   const title = tr?.title || post.title;
