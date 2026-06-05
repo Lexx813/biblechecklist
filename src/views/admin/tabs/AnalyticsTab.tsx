@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useAnalytics, useFeatureLeaders } from "../../../hooks/useAdmin";
+import { useState, type ReactNode } from "react";
+import { useAnalytics, useFeatureLeaders, useGrowthSeries, type GrowthBucket } from "../../../hooks/useAdmin";
 import { BOOKS } from "../../../data/books";
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -25,19 +25,58 @@ function AnalyticsSkeleton() {
   );
 }
 
-function SectionHeader({ title, live }: { title: string; live?: boolean }) {
+function SectionHeader({ title, live, right }: { title: string; live?: boolean; right?: ReactNode }) {
   return (
     <div className="an-section-header">
       {live && <span className="an-live-dot" />}
       <h2 className="an-section-title">{title}</h2>
+      {right && <div className="an-section-header-right">{right}</div>}
     </div>
   );
 }
 
-const dateFormatter = (d: string) => {
-  const date = new Date(d + "T00:00:00");
-  return `${date.getMonth() + 1}/${date.getDate()}`;
+// ── Time-range selector for the growth charts ────────────────────────────────
+type RangePreset = { key: string; label: string; bucket: GrowthBucket; points: number };
+const RANGES: RangePreset[] = [
+  { key: "7d",  label: "7D",  bucket: "day",   points: 7 },
+  { key: "30d", label: "30D", bucket: "day",   points: 30 },
+  { key: "90d", label: "90D", bucket: "day",   points: 90 },
+  { key: "12m", label: "12M", bucket: "month", points: 12 },
+  { key: "5y",  label: "5Y",  bucket: "year",  points: 5 },
+];
+
+// Bucket-aware axis/tooltip label, e.g. day → "6/5", month → "Jun '26", year → "2026".
+function makeDateFormatter(bucket: GrowthBucket) {
+  return (d: string) => {
+    const date = new Date(d + "T00:00:00");
+    if (bucket === "year") return String(date.getFullYear());
+    if (bucket === "month") return date.toLocaleDateString(undefined, { month: "short", year: "2-digit" });
+    return `${date.getMonth() + 1}/${date.getDate()}`;
+  };
+}
+
+// "today" / "this month" etc. for the ChartCard latest-value caption.
+const LATEST_LABEL: Record<GrowthBucket, string> = {
+  day: "today", week: "this week", month: "this month", year: "this year",
 };
+
+function RangeSelector({ value, onChange }: { value: string; onChange: (k: string) => void }) {
+  return (
+    <div className="an-range" role="tablist" aria-label="Time range">
+      {RANGES.map(r => (
+        <button
+          key={r.key}
+          role="tab"
+          aria-selected={r.key === value}
+          className={`an-range-btn${r.key === value ? " an-range-btn--active" : ""}`}
+          onClick={() => onChange(r.key)}
+        >
+          {r.label}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 function pctDelta(curr: number, prev: number): number | null {
   if (prev === 0) return curr === 0 ? 0 : null;
@@ -149,6 +188,14 @@ export function AnalyticsTab() {
   const t = useChartTheme();
   const [drillFeature, setDrillFeature] = useState<string | null>(null);
 
+  // Growth-chart range selector (days / months / years).
+  const [rangeKey, setRangeKey] = useState("30d");
+  const range = RANGES.find(r => r.key === rangeKey) ?? RANGES[1];
+  const { data: signupsSeries } = useGrowthSeries("signups", range.bucket, range.points);
+  const { data: dauSeries } = useGrowthSeries("dau", range.bucket, range.points);
+  const fmt = makeDateFormatter(range.bucket);
+  const dauTitle = { day: "Daily", week: "Weekly", month: "Monthly", year: "Yearly" }[range.bucket] + " Active Users";
+
   if (isLoading) return <AnalyticsSkeleton />;
   if (isError || !data) return (
     <div style={{ padding: 40, textAlign: "center", color: "var(--text-muted)" }}>
@@ -178,8 +225,13 @@ export function AnalyticsTab() {
     }
   };
 
-  const signupsLatest = summarizeSeries(signups, "count");
-  const dauLatest = summarizeSeries(dau, "count");
+  // Growth charts follow the range selector; fall back to the dashboard's
+  // default 30-day daily series until the ranged query resolves.
+  const growthSignups = signupsSeries ?? signups;
+  const growthDau = dauSeries ?? dau;
+  const signupsLatest = summarizeSeries(growthSignups, "count");
+  const dauLatest = summarizeSeries(growthDau, "count");
+  const latestLabel = LATEST_LABEL[range.bucket];
 
   return (
     <div className="an-wrap">
@@ -224,24 +276,24 @@ export function AnalyticsTab() {
       </div>
 
       {/* Signups + DAU */}
-      <SectionHeader title="Growth & Activity" />
+      <SectionHeader title="Growth & Activity" right={<RangeSelector value={rangeKey} onChange={setRangeKey} />} />
       <div className="an-chart-grid">
         <ChartCard
-          title="New Signups (30 days)"
-          latest={{ value: signupsLatest.value, label: "today", deltaPct: signupsLatest.deltaPct }}
+          title={`New Signups · ${range.label}`}
+          latest={{ value: signupsLatest.value, label: latestLabel, deltaPct: signupsLatest.deltaPct }}
         >
           <ResponsiveContainer width="100%" height={180}>
-            <AreaChart data={signups} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
+            <AreaChart data={growthSignups} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
               <defs>
                 <AreaGradient id="signupGrad" color={t.purple} />
                 <Glow id="signupGlow" stdDeviation={2.4} />
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke={t.grid} vertical={false} />
-              <XAxis dataKey="date" tickFormatter={dateFormatter} tick={{ fill: t.tick, fontSize: 10 }} tickLine={false} axisLine={false} />
+              <XAxis dataKey="date" tickFormatter={fmt} tick={{ fill: t.tick, fontSize: 10 }} tickLine={false} axisLine={false} minTickGap={16} />
               <YAxis tick={{ fill: t.tick, fontSize: 10 }} tickLine={false} axisLine={false} allowDecimals={false} width={32} />
               <Tooltip
                 cursor={t.tooltip.cursor}
-                content={<RichTooltip series={signups as unknown as Array<Record<string, unknown>>} valueLabel="signups" labelFormatter={(d) => dateFormatter(String(d))} />}
+                content={<RichTooltip series={growthSignups as unknown as Array<Record<string, unknown>>} valueLabel="signups" labelFormatter={(d) => fmt(String(d))} />}
               />
               <Area
                 type="monotone" dataKey="count" stroke={t.purple} strokeWidth={2.2}
@@ -256,21 +308,21 @@ export function AnalyticsTab() {
         </ChartCard>
 
         <ChartCard
-          title="Daily Active Users (30 days)"
-          latest={{ value: dauLatest.value, label: "today", deltaPct: dauLatest.deltaPct }}
+          title={`${dauTitle} · ${range.label}`}
+          latest={{ value: dauLatest.value, label: latestLabel, deltaPct: dauLatest.deltaPct }}
         >
           <ResponsiveContainer width="100%" height={180}>
-            <AreaChart data={dau} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
+            <AreaChart data={growthDau} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
               <defs>
                 <AreaGradient id="dauGrad" color={t.teal} />
                 <Glow id="dauGlow" stdDeviation={2.4} />
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke={t.grid} vertical={false} />
-              <XAxis dataKey="date" tickFormatter={dateFormatter} tick={{ fill: t.tick, fontSize: 10 }} tickLine={false} axisLine={false} />
+              <XAxis dataKey="date" tickFormatter={fmt} tick={{ fill: t.tick, fontSize: 10 }} tickLine={false} axisLine={false} minTickGap={16} />
               <YAxis tick={{ fill: t.tick, fontSize: 10 }} tickLine={false} axisLine={false} allowDecimals={false} width={32} />
               <Tooltip
                 cursor={t.tooltip.cursor}
-                content={<RichTooltip series={dau as unknown as Array<Record<string, unknown>>} valueLabel="users" labelFormatter={(d) => dateFormatter(String(d))} />}
+                content={<RichTooltip series={growthDau as unknown as Array<Record<string, unknown>>} valueLabel="users" labelFormatter={(d) => fmt(String(d))} />}
               />
               <Area
                 type="monotone" dataKey="count" stroke={t.teal} strokeWidth={2.2}

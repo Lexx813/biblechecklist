@@ -236,6 +236,19 @@ export const analyticsApi = {
     return callRpc<{ date: string; count: number }[]>("admin_get_dau_series", { p_days: days });
   },
 
+  // Time-bucketed growth series (day/week/month/year) for the range selector.
+  async getGrowthSeries(
+    metric: "signups" | "dau",
+    bucket: "day" | "week" | "month" | "year",
+    points: number,
+  ): Promise<{ date: string; count: number }[]> {
+    return callRpc<{ date: string; count: number }[]>("admin_get_growth_series", {
+      p_metric: metric,
+      p_bucket: bucket,
+      p_points: points,
+    });
+  },
+
   async getFeatureUsage(): Promise<{ feature: string; pct: number }[]> {
     return callRpc<{ feature: string; pct: number }[]>("admin_get_feature_usage");
   },

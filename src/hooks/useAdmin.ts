@@ -332,6 +332,22 @@ export function useAIUsage(days = 30) {
   });
 }
 
+export type GrowthBucket = "day" | "week" | "month" | "year";
+
+/**
+ * Time-bucketed growth series for the Analytics range selector. Kept separate
+ * from useAnalytics so changing the range only refetches the two growth charts,
+ * not the whole dashboard.
+ */
+export function useGrowthSeries(metric: "signups" | "dau", bucket: GrowthBucket, points: number) {
+  return useQuery({
+    queryKey: ["admin", "growth", metric, bucket, points],
+    queryFn: () => analyticsApi.getGrowthSeries(metric, bucket, points),
+    staleTime: 5 * 60 * 1000,
+    placeholderData: (prev) => prev,
+  });
+}
+
 export function useAnalytics() {
   return useQuery({
     queryKey: ["admin", "analytics"],
