@@ -56,9 +56,20 @@ function extractDocId(html: string, pubClass: string): string | null {
   return html.match(re)?.[1] ?? null;
 }
 
-function extractWtAnchorPid(html: string): number | null {
-  // href="/en/wol/d/r1/lp-e/2026247?#h=9:0-11:0"
-  const m = html.match(/pub-w[^"]*href="[^"]*\?#h=(\d+)/);
+function extractWtArticlePath(html: string, wtDocId: string): string | null {
+  // The date page links DIRECTLY to that week's WT study article:
+  //   href="/en/wol/tc/r1/lp-e/2026327/4"   (issues a 307 → the article doc)
+  // The trailing number identifies which article in the issue, so this changes
+  // week to week even though the magazine docId stays the same for ~a month.
+  const re = new RegExp(`href="(/en/wol/tc/r1/lp-e/${wtDocId}/\\d+)"`);
+  return html.match(re)?.[1] ?? null;
+}
+
+function extractWtAnchorPid(html: string, wtDocId: string): number | null {
+  // Fallback anchor: href="/en/wol/d/r1/lp-e/2026327?#h&#x3D;11:0-13:0"
+  // Note WOL HTML-encodes the "=" as "&#x3D;".
+  const re = new RegExp(`/lp-e/${wtDocId}\\?#h(?:&#x3D;|=)(\\d+)`);
+  const m = html.match(re);
   return m ? parseInt(m[1]) : null;
 }
 
@@ -136,8 +147,42 @@ interface WtData {
   docId: string;
 }
 
-async function getWtData(wtDocId: string, anchorPid: number): Promise<WtData> {
-  // Load the TOC and find the article link at pid = anchorPid + 1
+function parseWtArticle(articleHtml: string, fallbackTitle = ""): Omit<WtData, "wolUrl" | "docId"> {
+  // Title from h1
+  const titleMatch = articleHtml.match(/<h1[^>]*>([\s\S]*?)<\/h1>/);
+  const articleTitle = (titleMatch ? stripHtml(titleMatch[1]) : "") || fallbackTitle;
+
+  // Theme scripture — <p class="...themeScrp..."><em>...</em>
+  const themeMatch = articleHtml.match(/class="[^"]*themeScrp[^"]*"[^>]*>[\s\S]*?<em>([\s\S]*?)<\/em>/);
+  const themeScripture = themeMatch ? stripHtml(themeMatch[1]) : "";
+
+  // Count numbered paragraphs — <p ... class="...sb..."
+  const paraMatches = [...articleHtml.matchAll(/class="[^"]*\bsb\b[^"]*"/g)];
+  const paragraphCount = paraMatches.length || 20;
+
+  return { articleTitle, themeScripture, paragraphCount };
+}
+
+async function getWtData(wtDocId: string, articlePath: string | null, anchorPid: number): Promise<WtData> {
+  // Primary path: follow the direct article link scraped from the date page.
+  // Deno's fetch follows the 307 redirect to the real article doc, and res.url
+  // gives us the clean canonical URL to store.
+  if (articlePath) {
+    try {
+      const res = await fetch(`${WOL}${articlePath}`, { headers: HEADERS });
+      if (res.ok) {
+        const articleHtml = await res.text();
+        const parsed = parseWtArticle(articleHtml);
+        if (parsed.articleTitle) {
+          return { ...parsed, wolUrl: res.url || `${WOL}${articlePath}`, docId: wtDocId };
+        }
+      }
+    } catch (err) {
+      console.warn("Direct WT article fetch failed, falling back to TOC walk:", String(err));
+    }
+  }
+
+  // Fallback: load the TOC and find the article link at pid = anchorPid + 1
   const tocHtml = await wol(`/en/wol/d/r1/lp-e/${wtDocId}`);
 
   // Find <p ... data-pid="{anchorPid+1}" class="...se..."><number>  <a class="it" href="/en/wol/tc/...">Title</a>
@@ -169,23 +214,10 @@ async function getWtData(wtDocId: string, anchorPid: number): Promise<WtData> {
   }
 
   const articleHtml = await wol(articlePath);
-
-  // Title from h1
-  const titleMatch = articleHtml.match(/<h1[^>]*>([\s\S]*?)<\/h1>/);
-  if (!articleTitle && titleMatch) articleTitle = stripHtml(titleMatch[1]);
-
-  // Theme scripture — <p class="...themeScrp..."><em>...</em>
-  const themeMatch = articleHtml.match(/class="[^"]*themeScrp[^"]*"[^>]*>[\s\S]*?<em>([\s\S]*?)<\/em>/);
-  const themeScripture = themeMatch ? stripHtml(themeMatch[1]) : "";
-
-  // Count numbered paragraphs — <p ... class="...sb..."
-  const paraMatches = [...articleHtml.matchAll(/class="[^"]*\bsb\b[^"]*"/g)];
-  const paragraphCount = paraMatches.length || 20;
+  const parsed = parseWtArticle(articleHtml, articleTitle);
 
   return {
-    articleTitle,
-    themeScripture,
-    paragraphCount,
+    ...parsed,
     wolUrl: `${WOL}${articlePath}`,
     docId: wtDocId,
   };
@@ -244,18 +276,20 @@ Deno.serve(async (req) => {
       const mo = tuesday.getMonth() + 1;
       const dy = tuesday.getDate();
       const html = await wol(`/en/wol/dt/r1/lp-e/${yr}/${mo}/${dy}`);
+      const wtDocId = extractDocId(html, "w");
       return {
         html,
         mwbDocId: extractDocId(html, "mwb"),
-        wtDocId: extractDocId(html, "w"),
-        wtAnchorPid: extractWtAnchorPid(html),
+        wtDocId,
+        wtArticlePath: wtDocId ? extractWtArticlePath(html, wtDocId) : null,
+        wtAnchorPid: wtDocId ? extractWtAnchorPid(html, wtDocId) : null,
       };
     }
 
     console.log(`Scraping week ${weekStartStr}`);
 
     // Step 1: Get docIds — if MWB missing for current week (already passed), try next week
-    let { mwbDocId, wtDocId, wtAnchorPid } = await fetchDocIds(weekStart);
+    let { mwbDocId, wtDocId, wtArticlePath, wtAnchorPid } = await fetchDocIds(weekStart);
     let actualWeekStart = weekStart;
 
     if (!mwbDocId) {
@@ -266,6 +300,7 @@ Deno.serve(async (req) => {
       if (next.mwbDocId) {
         mwbDocId = next.mwbDocId;
         wtDocId = next.wtDocId ?? wtDocId;
+        wtArticlePath = next.wtArticlePath ?? wtArticlePath;
         wtAnchorPid = next.wtAnchorPid ?? wtAnchorPid;
         actualWeekStart = nextMonday;
       }
@@ -274,14 +309,14 @@ Deno.serve(async (req) => {
     if (!mwbDocId) throw new Error("Could not find MWB docId for this week");
     if (!wtDocId) throw new Error("Could not find WT docId for this week");
 
-    console.log(`MWB docId: ${mwbDocId}, WT docId: ${wtDocId}, WT anchor pid: ${wtAnchorPid}`);
+    console.log(`MWB docId: ${mwbDocId}, WT docId: ${wtDocId}, WT article path: ${wtArticlePath}, anchor pid: ${wtAnchorPid}`);
 
     // Step 2: Scrape CLAM
     const clamHtml = await wol(`/en/wol/d/r1/lp-e/${mwbDocId}`);
     const clam = parseClamArticle(clamHtml, mwbDocId);
 
     // Step 3: Scrape WT
-    const wt = await getWtData(wtDocId, wtAnchorPid ?? 3);
+    const wt = await getWtData(wtDocId, wtArticlePath, wtAnchorPid ?? 3);
 
     console.log(`CLAM: "${clam.weekTitle}", ${clam.parts.length} parts`);
     console.log(`WT: "${wt.articleTitle}", ${wt.paragraphCount} paragraphs`);
