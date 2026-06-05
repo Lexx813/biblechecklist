@@ -192,18 +192,18 @@ async function getWtData(wtDocId: string, articlePath: string | null, anchorPid:
   );
   const tocMatch = tocHtml.match(tocEntryRe);
 
-  let articlePath = tocMatch?.[1] ?? null;
-  let articleTitle = tocMatch ? stripHtml(tocMatch[2]) : "";
+  let articlePath2 = tocMatch?.[1] ?? null;
+  const articleTitle = tocMatch ? stripHtml(tocMatch[2]) : "";
 
   // Fallback: scan for any tc link near anchorPid
-  if (!articlePath) {
+  if (!articlePath2) {
     const fallbackRe = /href="(\/en\/wol\/tc\/r1\/lp-e\/\d+\/\d+)"/g;
     const allTcLinks = [...tocHtml.matchAll(fallbackRe)];
     const idx = Math.max(0, Math.floor(anchorPid / 2) - 1);
-    articlePath = allTcLinks[idx]?.[1] ?? allTcLinks[0]?.[1] ?? null;
+    articlePath2 = allTcLinks[idx]?.[1] ?? allTcLinks[0]?.[1] ?? null;
   }
 
-  if (!articlePath) {
+  if (!articlePath2) {
     return {
       articleTitle: "Watchtower Study",
       themeScripture: "",
@@ -213,12 +213,12 @@ async function getWtData(wtDocId: string, articlePath: string | null, anchorPid:
     };
   }
 
-  const articleHtml = await wol(articlePath);
+  const articleHtml = await wol(articlePath2);
   const parsed = parseWtArticle(articleHtml, articleTitle);
 
   return {
     ...parsed,
-    wolUrl: `${WOL}${articlePath}`,
+    wolUrl: `${WOL}${articlePath2}`,
     docId: wtDocId,
   };
 }
