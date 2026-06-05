@@ -1,4 +1,11 @@
 {
+  "dailyBrief": {
+    "regionLabel": "Muhtasari wako wa kila siku",
+    "dismissAria": "Ondoa muhtasari wa leo",
+    "dismissTitle": "Ondoa hadi kesho",
+    "openAI": "Fungua AI",
+    "continueChat": "Endelea na mazungumzo"
+  },
   "forum": {
     "editReply": "Hariri jibu",
     "editReplyError": "Jibu haliwezi kuwa tupu.",

@@ -1,4 +1,11 @@
 {
+  "dailyBrief": {
+    "regionLabel": "Your daily brief",
+    "dismissAria": "Dismiss today's brief",
+    "dismissTitle": "Dismiss until tomorrow",
+    "openAI": "Open AI",
+    "continueChat": "Continue chat"
+  },
   "betaLang": {
     "notice": "This translation is in beta. Some scripture quotes may not match the official New World Translation wording.",
     "reason": "The verse texts could not be automatically verified because wol.jw.org's database is encrypted. If you notice a translation error, please let us know.",

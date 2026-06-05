@@ -1,4 +1,11 @@
 {
+  "dailyBrief": {
+    "regionLabel": "Taƙaitaccen rahotonka na yau",
+    "dismissAria": "Cire taƙaitaccen rahoton yau",
+    "dismissTitle": "Cire har gobe",
+    "openAI": "Buɗe AI",
+    "continueChat": "Ci gaba da hira"
+  },
   "forum": {
     "editReply": "Gyara amsa",
     "editReplyError": "Amsa ba za ta iya zama babu komai ba.",

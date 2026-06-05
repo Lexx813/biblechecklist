@@ -1,4 +1,11 @@
 {
+  "dailyBrief": {
+    "regionLabel": "Ìsọníṣókí ojoojúmọ́ rẹ",
+    "dismissAria": "Pa ìsọníṣókí òní mọ́",
+    "dismissTitle": "Pa á mọ́ títí di ọ̀la",
+    "openAI": "Ṣí AI",
+    "continueChat": "Tẹ̀síwájú ní ìbánisọ̀rọ̀"
+  },
   "betaLang": {
     "notice": "Ìtumọ̀ yìí wà ní àkókò ìdánwò. Ọ̀rọ̀ Ìwé Mímọ́ kan lè má bá ọ̀rọ̀ Ìtumọ̀ Ayé Tuntun mu lẹ́kùnrẹ́rẹ́.",
     "reason": "A kò lè ṣàyẹ̀wò àwọn ọ̀rọ̀ ẹsẹ Ìwé Mímọ́ ní àdánidá nítorí pé wol.jw.org fi àmì ìpamọ́ bo ibi ìpamọ́ data wọn. Bí o bá rí àṣìṣe nínú ìtumọ̀, jọ̀wọ́ sọ fún wa.",

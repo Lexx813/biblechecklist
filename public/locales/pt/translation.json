@@ -1,4 +1,11 @@
 {
+  "dailyBrief": {
+    "regionLabel": "Seu resumo diário",
+    "dismissAria": "Dispensar o resumo de hoje",
+    "dismissTitle": "Dispensar até amanhã",
+    "openAI": "Abrir IA",
+    "continueChat": "Continuar conversa"
+  },
   "celebrate": {
     "title": "Livro Completo! 🎉",
     "chapters": "{{count}} capítulos lidos",

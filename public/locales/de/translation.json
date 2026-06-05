@@ -1,4 +1,11 @@
 {
+  "dailyBrief": {
+    "regionLabel": "Deine tägliche Übersicht",
+    "dismissAria": "Heutige Übersicht ausblenden",
+    "dismissTitle": "Bis morgen ausblenden",
+    "openAI": "KI öffnen",
+    "continueChat": "Chat fortsetzen"
+  },
   "betaLang": {
     "notice": "Diese Übersetzung befindet sich in der Beta-Phase. Einige Schrifttextzitate stimmen möglicherweise nicht mit dem offiziellen Wortlaut der Neuen-Welt-Übersetzung überein.",
     "reason": "Die Verstexte konnten nicht automatisch verifiziert werden, da die Datenbank von wol.jw.org verschlüsselt ist. Wenn Ihnen ein Übersetzungsfehler auffällt, lassen Sie es uns bitte wissen.",

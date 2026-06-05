@@ -1,4 +1,11 @@
 {
+  "dailyBrief": {
+    "regionLabel": "오늘의 브리핑",
+    "dismissAria": "오늘 브리핑 닫기",
+    "dismissTitle": "내일까지 닫기",
+    "openAI": "AI 열기",
+    "continueChat": "대화 계속하기"
+  },
   "celebrate": {
     "title": "책 완독! 🎉",
     "chapters": "{{count}}장 읽음",

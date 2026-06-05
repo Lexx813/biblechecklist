@@ -27,6 +27,29 @@ const supabase = createClient(
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
 );
 
+// Push reminder copy per UI language (profiles.preferred_language). Falls back
+// to English for any code not listed.
+const REMINDER_BODY: Record<string, string> = {
+  en: "Your day with the Companion is ready. Open the app to see today's brief.",
+  es: "Tu día con el Compañero está listo. Abre la app para ver el resumen de hoy.",
+  pt: "Seu dia com o Companheiro está pronto. Abra o app para ver o resumo de hoje.",
+  tl: "Handa na ang iyong araw kasama ang Kasama. Buksan ang app para makita ang buod ngayon.",
+  fr: "Votre journée avec le Compagnon est prête. Ouvrez l'application pour voir le résumé du jour.",
+  de: "Dein Tag mit dem Begleiter ist bereit. Öffne die App, um die heutige Übersicht zu sehen.",
+  zh: "你与学习助手的一天已准备好。打开应用查看今天的简报。",
+  ja: "コンパニオンと過ごす一日の準備ができました。アプリを開いて今日のブリーフをご覧ください。",
+  ko: "컴패니언과 함께하는 하루가 준비되었습니다. 앱을 열어 오늘의 브리핑을 확인하세요.",
+  yo: "Ọjọ́ rẹ pẹ̀lú Alábàákẹ́gbẹ́ ti ṣetán. Ṣí áàpù náà láti rí ìsọníṣókí òní.",
+  sw: "Siku yako pamoja na Msaidizi iko tayari. Fungua programu kuona muhtasari wa leo.",
+  ha: "Ranarka tare da Abokin Tafiya ya shirya. Buɗe manhajar don ganin taƙaitaccen rahoton yau.",
+  ar: "يومك مع الرفيق جاهز. افتح التطبيق لرؤية موجز اليوم.",
+};
+
+function reminderBody(lang: string | null | undefined): string {
+  const base = (lang ?? "en").toLowerCase().split("-")[0];
+  return REMINDER_BODY[base] ?? REMINDER_BODY.en;
+}
+
 Deno.serve(async (req) => {
   // Fail closed — reject if env var missing
   const secret = Deno.env.get("CRON_SECRET");
@@ -54,7 +77,7 @@ Deno.serve(async (req) => {
   // Step 2: filter to users active in the last 14 days
   const { data: activeProfiles, error: profErr } = await supabase
     .from("profiles")
-    .select("id, display_name")
+    .select("id, display_name, preferred_language")
     .in("id", pushUserIds)
     .gte("last_active_at", fourteenDaysAgo);
   if (profErr) {
@@ -62,6 +85,10 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify({ error: profErr.message }), { status: 500 });
   }
   const activeIds = (activeProfiles ?? []).map((p: { id: string }) => p.id);
+  // Map each user to their preferred language so the push is localized.
+  const langById = new Map(
+    (activeProfiles ?? []).map((p: { id: string; preferred_language?: string | null }) => [p.id, p.preferred_language ?? "en"]),
+  );
   if (activeIds.length === 0) {
     return new Response(JSON.stringify({ sent: 0, reason: "no active push subscribers" }), { status: 200 });
   }
@@ -93,7 +120,7 @@ Deno.serve(async (req) => {
     user_id: id,
     actor_id: id,
     type: "daily_brief",
-    body_preview: "Your day with the Companion is ready. Open the app to see today's brief.",
+    body_preview: reminderBody(langById.get(id)),
     link_hash: "ai",
     read: false,
   }));

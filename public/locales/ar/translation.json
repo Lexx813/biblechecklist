@@ -1,4 +1,11 @@
 {
+  "dailyBrief": {
+    "regionLabel": "موجزك اليومي",
+    "dismissAria": "إغلاق موجز اليوم",
+    "dismissTitle": "إغلاق حتى الغد",
+    "openAI": "فتح الذكاء الاصطناعي",
+    "continueChat": "متابعة المحادثة"
+  },
   "forum": {
     "editReply": "تعديل الرد",
     "editReplyError": "لا يمكن أن يكون الرد فارغًا.",

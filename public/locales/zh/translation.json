@@ -1,4 +1,11 @@
 {
+  "dailyBrief": {
+    "regionLabel": "你的每日简报",
+    "dismissAria": "关闭今日简报",
+    "dismissTitle": "关闭至明天",
+    "openAI": "打开 AI",
+    "continueChat": "继续对话"
+  },
   "a11y": {
     "skipToContent": "跳转到主要内容",
     "cancel": "取消",

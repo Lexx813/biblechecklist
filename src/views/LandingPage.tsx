@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { LANGUAGES } from "../i18n";
+import { setLanguage } from "../lib/language";
 import { imgUrl } from "../lib/imgUrl";
 // SPA landing page lazily imports landing.css the same way the SSR version does
 // — keeps the lp-*/lp2-* styles out of every non-landing static route.
@@ -239,7 +240,7 @@ export default function LandingPage({ onGetStarted, i18n }: { onGetStarted: () =
                       <button
                         key={l.code}
                         className={`flex cursor-pointer items-center gap-2 rounded-[7px] border-none bg-transparent px-2.5 py-2 text-left text-sm text-[var(--lp-text)] transition-colors duration-100 hover:bg-[var(--lp-pill-bg)] ${l.code === currentLangCode ? "font-semibold" : ""}`}
-                        onClick={() => { i18n.changeLanguage(l.code); setLangOpen(false); }}
+                        onClick={() => { setLanguage(l.code); setLangOpen(false); }}
                       >
                         <span>{FLAGS[l.code]}</span>
                         <span>{l.label}</span>

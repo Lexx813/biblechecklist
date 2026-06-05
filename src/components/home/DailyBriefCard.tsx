@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { supabase } from "../../lib/supabase";
 
 interface Props {
@@ -13,6 +14,8 @@ type BriefState =
   | { status: "ready"; text: string };
 
 export default function DailyBriefCard({ onOpenAI, onMeetingPrep }: Props) {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language || "en";
   const [state, setState] = useState<BriefState>({ status: "loading" });
   const [lastConvId, setLastConvId] = useState<string | null>(null);
 
@@ -22,7 +25,7 @@ export default function DailyBriefCard({ onOpenAI, onMeetingPrep }: Props) {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) { setState({ status: "error" }); return; }
 
-      const res = await fetch("/api/daily-brief", {
+      const res = await fetch(`/api/daily-brief?lang=${encodeURIComponent(lang)}`, {
         headers: { Authorization: `Bearer ${session.access_token}` },
       });
       if (!res.ok) { setState({ status: "error" }); return; }
@@ -47,7 +50,7 @@ export default function DailyBriefCard({ onOpenAI, onMeetingPrep }: Props) {
     } catch {
       setState({ status: "error" });
     }
-  }, []);
+  }, [lang]);
 
   useEffect(() => { load(); }, [load]);
 
@@ -75,13 +78,13 @@ export default function DailyBriefCard({ onOpenAI, onMeetingPrep }: Props) {
   }
 
   return (
-    <div className="daily-brief-card" role="region" aria-label="Your daily brief">
+    <div className="daily-brief-card" role="region" aria-label={t("dailyBrief.regionLabel")}>
       {/* Dismiss */}
       <button
         className="daily-brief-dismiss"
         onClick={dismiss}
-        aria-label="Dismiss today's brief"
-        title="Dismiss until tomorrow"
+        aria-label={t("dailyBrief.dismissAria")}
+        title={t("dailyBrief.dismissTitle")}
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
           <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
@@ -108,7 +111,7 @@ export default function DailyBriefCard({ onOpenAI, onMeetingPrep }: Props) {
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
           </svg>
-          {lastConvId ? "Continue chat" : "Open AI"}
+          {lastConvId ? t("dailyBrief.continueChat") : t("dailyBrief.openAI")}
         </button>
         <button
           className="daily-brief-action"
@@ -117,7 +120,7 @@ export default function DailyBriefCard({ onOpenAI, onMeetingPrep }: Props) {
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
           </svg>
-          Meeting prep
+          {t("nav.meetingPrep")}
         </button>
       </div>
     </div>

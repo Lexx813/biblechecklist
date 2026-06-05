@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { LANGUAGES } from "../i18n";
+import { setLanguage } from "../lib/language";
 import { useFullProfile } from "../hooks/useAdmin";
 import { useUnreadMessageCount } from "../hooks/useMessages";
 import { useUnreadNotificationCount } from "../hooks/useNotifications";
@@ -245,7 +246,7 @@ export default function TopBar({
                     key={l.code}
                     className={`topbar-lang-item${l.code === currentLang ? " topbar-lang-item--active" : ""}`}
                     role="menuitem"
-                    onClick={() => { i18n.changeLanguage(l.code); setLangOpen(false); }}
+                    onClick={() => { setLanguage(l.code); setLangOpen(false); }}
                   >
                     <span aria-hidden="true">{FLAGS[l.code]}</span>
                     {l.label}

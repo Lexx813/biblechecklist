@@ -1,4 +1,11 @@
 {
+  "dailyBrief": {
+    "regionLabel": "Ang iyong pang-araw-araw na buod",
+    "dismissAria": "I-dismiss ang buod ngayon",
+    "dismissTitle": "I-dismiss hanggang bukas",
+    "openAI": "Buksan ang AI",
+    "continueChat": "Ipagpatuloy ang chat"
+  },
   "celebrate": {
     "title": "Natapos ang Aklat! 🎉",
     "chapters": "{{count}} kabanatang nabasa",

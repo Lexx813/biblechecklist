@@ -12,6 +12,33 @@ const SUPABASE_SERVICE = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim();
 const ANTHROPIC_KEY    = (process.env.ANTHROPIC_API_KEY ?? "").trim();
 const MODEL            = "claude-haiku-4-5-20251001";
 
+// Supported UI languages → the name the model should write in. Mirrors
+// LANGUAGES in src/i18n.ts. The user's language is passed from the client
+// (?lang=) since the UI language picker persists to localStorage, not to
+// profiles.preferred_language.
+const LANG_NAMES: Record<string, string> = {
+  en: "English",
+  es: "Spanish",
+  pt: "Portuguese",
+  tl: "Tagalog",
+  fr: "French",
+  de: "German",
+  zh: "Chinese (Simplified)",
+  ja: "Japanese",
+  ko: "Korean",
+  yo: "Yoruba",
+  sw: "Swahili",
+  ha: "Hausa",
+  ar: "Arabic",
+};
+
+// Normalize an incoming lang code (may be "pt-BR") to a supported base code,
+// defaulting to English for anything we don't ship.
+function normalizeLang(raw: string | null): string {
+  const base = (raw ?? "").toLowerCase().split("-")[0];
+  return LANG_NAMES[base] ? base : "en";
+}
+
 function sbHeaders() {
   return {
     "Content-Type": "application/json",
@@ -145,13 +172,16 @@ async function gatherContext(userId: string): Promise<string> {
     return d.toISOString().slice(0, 10);
   })();
   const meetingRes = await fetch(
-    `${SUPABASE_URL}/rest/v1/meeting_weeks?week_start=eq.${monday}&select=clam_title,wt_title&limit=1`,
+    `${SUPABASE_URL}/rest/v1/meeting_weeks?week_start=eq.${monday}&select=clam_week_title,wt_article_title&limit=1`,
     { headers: sbHeaders() },
   );
-  type MeetingRow = { clam_title?: string; wt_title?: string };
+  type MeetingRow = { clam_week_title?: string; wt_article_title?: string };
   const meetings = meetingRes.ok ? ((await meetingRes.json()) as MeetingRow[]) : [];
-  if (meetings[0]?.clam_title) {
-    parts.push(`This week's CLAM theme: "${safeText(meetings[0].clam_title, 120)}"`);
+  if (meetings[0]?.clam_week_title) {
+    parts.push(`This week's midweek meeting: "${safeText(meetings[0].clam_week_title, 120)}"`);
+  }
+  if (meetings[0]?.wt_article_title) {
+    parts.push(`This week's Watchtower study: "${safeText(meetings[0].wt_article_title, 160)}"`);
   }
 
   // Last AI conversation title (for "continue chat" context)
@@ -170,7 +200,13 @@ async function gatherContext(userId: string): Promise<string> {
 
 // ── Generate brief via Haiku ──────────────────────────────────────────────────
 
-async function generateBrief(context: string): Promise<string> {
+async function generateBrief(context: string, lang: string): Promise<string> {
+  const langName = LANG_NAMES[lang] ?? "English";
+  const langInstruction = lang === "en"
+    ? ""
+    : `Write the ENTIRE greeting in ${langName}. Use natural, fluent ${langName} and the ` +
+      `standard terminology Jehovah's Witnesses use in ${langName} (as on jw.org) — including the ` +
+      `divine name, Bible book names, and expressions like "God's Kingdom". Do not add a translation or any English. `;
   // 5s timeout + up to 3 attempts with exponential backoff on 5xx / network
   // failures. Without these the function can wedge for the whole serverless
   // timeout if Anthropic hangs, and a single transient 529 fails the brief.
@@ -188,8 +224,11 @@ async function generateBrief(context: string): Promise<string> {
           "anthropic-version": "2023-06-01",
         },
         body: JSON.stringify({
+          // 256 (was 120): a 2-sentence greeting fits in ~120 tokens in English,
+          // but other languages (Spanish, Tagalog, CJK) tokenize longer and were
+          // truncating mid-sentence. Haiku output is cheap, so give it headroom.
           model: MODEL,
-          max_tokens: 120,
+          max_tokens: 256,
           system:
             "You write a warm, personal 2-sentence daily greeting for a Jehovah's Witness Bible study app. " +
             "Use the user's data to make it feel like a knowledgeable friend checking in. " +
@@ -200,7 +239,8 @@ async function generateBrief(context: string): Promise<string> {
             "Never say things like 'you're being a great Christian', 'your faith is growing', 'you're doing such a good job spiritually'. " +
             "Acknowledge the action ('you've read 3 chapters this week') without ranking the person. " +
             "Do NOT start with 'I', do NOT use em dashes, do NOT be generic. " +
-            "Output ONLY the 2-sentence paragraph — no preamble, no sign-off.",
+            "Output ONLY the 2-sentence paragraph — no preamble, no sign-off. " +
+            langInstruction,
           messages: [
             {
               role: "user",
@@ -250,12 +290,15 @@ export async function GET(req: Request) {
   const userId = await getUserId(req);
   if (!userId) return Response.json({ error: "Unauthorized" }, { status: 401 });
 
+  // Language the user is currently viewing the app in (client passes ?lang=).
+  const lang = normalizeLang(new URL(req.url).searchParams.get("lang"));
+
   // Check cache
   const cacheRes = await fetch(
-    `${SUPABASE_URL}/rest/v1/daily_briefs?user_id=eq.${userId}&select=brief_text,generated_at,dismissed_until`,
+    `${SUPABASE_URL}/rest/v1/daily_briefs?user_id=eq.${userId}&select=brief_text,generated_at,dismissed_until,lang`,
     { headers: sbHeaders() },
   );
-  type BriefRow = { brief_text: string; generated_at: string; dismissed_until: string | null };
+  type BriefRow = { brief_text: string; generated_at: string; dismissed_until: string | null; lang: string };
   const rows = cacheRes.ok ? ((await cacheRes.json()) as BriefRow[]) : [];
   const cached = rows[0] ?? null;
 
@@ -264,8 +307,8 @@ export async function GET(req: Request) {
     return Response.json({ brief: null, dismissed: true });
   }
 
-  // Cache hit for today
-  if (cached && isFresh(cached.generated_at)) {
+  // Cache hit for today — only if it was written in the language they're viewing.
+  if (cached && isFresh(cached.generated_at) && cached.lang === lang) {
     return Response.json({ brief: cached.brief_text });
   }
 
@@ -278,7 +321,7 @@ export async function GET(req: Request) {
   // Generate fresh brief
   try {
     const context = await gatherContext(userId);
-    const brief = await generateBrief(context);
+    const brief = await generateBrief(context, lang);
 
     // Upsert
     await fetch(`${SUPABASE_URL}/rest/v1/daily_briefs`, {
@@ -287,6 +330,7 @@ export async function GET(req: Request) {
       body: JSON.stringify({
         user_id: userId,
         brief_text: brief,
+        lang,
         generated_at: new Date().toISOString(),
         dismissed_until: null,
       }),
