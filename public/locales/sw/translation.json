@@ -75,7 +75,8 @@
     "aiWriting": "Anaandika…",
     "aiHelpMeWrite": "Nisaidie Kuandika Chapisho Hili",
     "aiSuggestion": "Pendekezo la AI",
-    "viewProfile": "View {{name}}'s profile"
+    "viewProfile": "View {{name}}'s profile",
+    "like": "Like"
   },
   "groups": {
     "addCoverPhoto": "Ongeza picha ya jalada",
@@ -790,7 +791,9 @@
     "failedDelete": "Imeshindwa kufuta ujumbe.",
     "failedEdit": "Imeshindwa kuhariri ujumbe.",
     "failedReaction": "Imeshindwa kusasisha mwitikio.",
-    "notePlaceholder": "Add a note (optional)…"
+    "notePlaceholder": "Add a note (optional)…",
+    "e2eEncryptedTooltip": "Messages in this chat are end-to-end encrypted.",
+    "notEncryptedTooltip": "Not encrypted yet — the other person hasn't set up encryption. Avoid sharing sensitive information."
   },
   "nav": {
     "today": "Leo",

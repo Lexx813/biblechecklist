@@ -75,7 +75,8 @@
     "aiWriting": "جارٍ الكتابة…",
     "aiHelpMeWrite": "ساعدني في كتابة هذا المنشور",
     "aiSuggestion": "اقتراح الذكاء الاصطناعي",
-    "viewProfile": "View {{name}}'s profile"
+    "viewProfile": "View {{name}}'s profile",
+    "like": "Like"
   },
   "groups": {
     "addCoverPhoto": "إضافة صورة الغلاف",
@@ -790,7 +791,9 @@
     "failedDelete": "تعذّر حذف الرسالة.",
     "failedEdit": "تعذّر تعديل الرسالة.",
     "failedReaction": "تعذّر تحديث التفاعل.",
-    "notePlaceholder": "Add a note (optional)…"
+    "notePlaceholder": "Add a note (optional)…",
+    "e2eEncryptedTooltip": "Messages in this chat are end-to-end encrypted.",
+    "notEncryptedTooltip": "Not encrypted yet — the other person hasn't set up encryption. Avoid sharing sensitive information."
   },
   "nav": {
     "today": "اليوم",

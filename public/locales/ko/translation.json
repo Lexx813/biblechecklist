@@ -862,7 +862,8 @@
     "aiWriting": "작성 중…",
     "aiHelpMeWrite": "이 게시물 작성 도와주기",
     "aiSuggestion": "AI 제안",
-    "viewProfile": "View {{name}}'s profile"
+    "viewProfile": "View {{name}}'s profile",
+    "like": "Like"
   },
   "home": {
     "navLeaderboard": "리더보드",
@@ -4476,7 +4477,9 @@
     "failedDelete": "메시지를 삭제하지 못했습니다.",
     "failedEdit": "메시지를 수정하지 못했습니다.",
     "failedReaction": "반응을 업데이트하지 못했습니다.",
-    "notePlaceholder": "Add a note (optional)…"
+    "notePlaceholder": "Add a note (optional)…",
+    "e2eEncryptedTooltip": "Messages in this chat are end-to-end encrypted.",
+    "notEncryptedTooltip": "Not encrypted yet — the other person hasn't set up encryption. Avoid sharing sensitive information."
   },
   "aiCompanion": {
     "title": "AI 연구 도우미",

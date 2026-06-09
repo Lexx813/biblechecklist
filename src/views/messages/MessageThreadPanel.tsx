@@ -1305,9 +1305,9 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
             <span className="msg-presence-status msg-presence-status--typing">{t("messages.typing")}</span>
           ) : presenceLine}
           {isEncrypted
-            ? <span className="msg-e2e-badge">{t("messages.endToEndEncrypted")}</span>
+            ? <span className="msg-e2e-badge" title={t("messages.e2eEncryptedTooltip")}>{t("messages.endToEndEncrypted")}</span>
             : otherHasKey === false
-              ? <span className="msg-e2e-badge msg-e2e-badge--warn">{t("messages.notYetEncrypted")}</span>
+              ? <span className="msg-e2e-badge msg-e2e-badge--warn" title={t("messages.notEncryptedTooltip")}>{t("messages.notYetEncrypted")}</span>
               : null
           }
         </div>

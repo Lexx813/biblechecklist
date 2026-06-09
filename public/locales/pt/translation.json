@@ -890,7 +890,8 @@
     "unblockUser": "Desbloquear usuário",
     "blockUser": "Bloquear usuário",
     "aiAssist": "Assistência de IA",
-    "aiAssistTitle": "Receba ajuda da IA para redigir uma resposta"
+    "aiAssistTitle": "Receba ajuda da IA para redigir uma resposta",
+    "like": "Curtir"
   },
   "home": {
     "navLeaderboard": "Classificação",
@@ -2461,7 +2462,9 @@
     "like": "Curtir",
     "uploading": "Enviando",
     "sending": "Enviando",
-    "encryptedMessage": "Mensagem criptografada"
+    "encryptedMessage": "Mensagem criptografada",
+    "e2eEncryptedTooltip": "As mensagens deste chat têm criptografia de ponta a ponta.",
+    "notEncryptedTooltip": "Ainda não criptografado — a outra pessoa não configurou a criptografia. Evite compartilhar informações sensíveis."
   },
   "aiCompanion": {
     "title": "Companheiro de Estudo IA",

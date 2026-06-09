@@ -1434,7 +1434,8 @@
     "unblockUser": "解除屏蔽用户",
     "blockUser": "屏蔽用户",
     "aiAssist": "AI 协助",
-    "aiAssistTitle": "获取 AI 协助撰写回复"
+    "aiAssistTitle": "获取 AI 协助撰写回复",
+    "like": "Like"
   },
   "messages": {
     "title": "消息",
@@ -1628,7 +1629,9 @@
     "like": "赞",
     "uploading": "上传中",
     "sending": "发送中",
-    "encryptedMessage": "加密消息"
+    "encryptedMessage": "加密消息",
+    "e2eEncryptedTooltip": "Messages in this chat are end-to-end encrypted.",
+    "notEncryptedTooltip": "Not encrypted yet — the other person hasn't set up encryption. Avoid sharing sensitive information."
   },
   "aiCompanion": {
     "title": "AI 学习助手",

@@ -868,7 +868,8 @@
     "aiWriting": "Ń kọ̀wé…",
     "aiHelpMeWrite": "Ràn Mí Lọ́wọ́ Láti Kọ Àpilẹ̀kọ Yìí",
     "aiSuggestion": "Àbá AI",
-    "viewProfile": "View {{name}}'s profile"
+    "viewProfile": "View {{name}}'s profile",
+    "like": "Like"
   },
   "home": {
     "navLeaderboard": "Pápá Aṣíwájú",
@@ -2367,7 +2368,9 @@
     "failedDelete": "A kùnà láti pa ìránṣẹ́ rẹ́.",
     "failedEdit": "A kùnà láti ṣàtúnṣe ìránṣẹ́.",
     "failedReaction": "A kùnà láti ṣàtúnṣe ìdáhùn.",
-    "notePlaceholder": "Add a note (optional)…"
+    "notePlaceholder": "Add a note (optional)…",
+    "e2eEncryptedTooltip": "Messages in this chat are end-to-end encrypted.",
+    "notEncryptedTooltip": "Not encrypted yet — the other person hasn't set up encryption. Avoid sharing sensitive information."
   },
   "aiCompanion": {
     "title": "Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI",

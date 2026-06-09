@@ -890,7 +890,8 @@
     "unblockUser": "I-unblock ang user",
     "blockUser": "I-block ang user",
     "aiAssist": "Tulong ng AI",
-    "aiAssistTitle": "Kumuha ng tulong ng AI sa pagbuo ng sagot"
+    "aiAssistTitle": "Kumuha ng tulong ng AI sa pagbuo ng sagot",
+    "like": "Like"
   },
   "home": {
     "navLeaderboard": "Ranggo",
@@ -2461,7 +2462,9 @@
     "like": "I-like",
     "uploading": "Ina-upload",
     "sending": "Ipinapadala",
-    "encryptedMessage": "Naka-encrypt na mensahe"
+    "encryptedMessage": "Naka-encrypt na mensahe",
+    "e2eEncryptedTooltip": "Messages in this chat are end-to-end encrypted.",
+    "notEncryptedTooltip": "Not encrypted yet — the other person hasn't set up encryption. Avoid sharing sensitive information."
   },
   "aiCompanion": {
     "title": "AI na Kasama sa Pag-aaral",

@@ -890,7 +890,8 @@
     "unblockUser": "Débloquer l'utilisateur",
     "blockUser": "Bloquer l'utilisateur",
     "aiAssist": "Assistance IA",
-    "aiAssistTitle": "Obtenez l'aide de l'IA pour rédiger une réponse"
+    "aiAssistTitle": "Obtenez l'aide de l'IA pour rédiger une réponse",
+    "like": "J'aime"
   },
   "home": {
     "navLeaderboard": "Classement",
@@ -2461,7 +2462,9 @@
     "like": "J'aime",
     "uploading": "Téléversement",
     "sending": "Envoi",
-    "encryptedMessage": "Message chiffré"
+    "encryptedMessage": "Message chiffré",
+    "e2eEncryptedTooltip": "Les messages de cette conversation sont chiffrés de bout en bout.",
+    "notEncryptedTooltip": "Pas encore chiffré — l'autre personne n'a pas configuré le chiffrement. Évitez de partager des informations sensibles."
   },
   "aiCompanion": {
     "title": "Compagnon d'Étude IA",

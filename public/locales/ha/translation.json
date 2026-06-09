@@ -75,7 +75,8 @@
     "aiWriting": "Ana rubutu…",
     "aiHelpMeWrite": "Taimaka Mini in Rubuta Wannan Labarin",
     "aiSuggestion": "Shawarar AI",
-    "viewProfile": "View {{name}}'s profile"
+    "viewProfile": "View {{name}}'s profile",
+    "like": "Like"
   },
   "groups": {
     "addCoverPhoto": "Ƙara hoton murfi",
@@ -790,7 +791,9 @@
     "failedDelete": "An kasa share saƙon.",
     "failedEdit": "An kasa gyara saƙon.",
     "failedReaction": "An kasa sabunta amsa.",
-    "notePlaceholder": "Add a note (optional)…"
+    "notePlaceholder": "Add a note (optional)…",
+    "e2eEncryptedTooltip": "Messages in this chat are end-to-end encrypted.",
+    "notEncryptedTooltip": "Not encrypted yet — the other person hasn't set up encryption. Avoid sharing sensitive information."
   },
   "nav": {
     "today": "Yau",
