@@ -30,6 +30,7 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, useSortable, arrayMove, rectSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { makeTablistKeyHandler } from "../../lib/a11y/useTablistKeys";
 
 const TAB_ORDER_KEY = "nwt:admin-tab-order";
 
@@ -70,12 +71,13 @@ function applyStoredOrder(tabs: TabDef[], stored: string[]): TabDef[] {
 }
 
 function SortableTab({
-  tab, active, badge, onSelect,
+  tab, active, badge, onSelect, onKeyDown,
 }: {
   tab: TabDef;
   active: boolean;
   badge?: number;
   onSelect: () => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLElement>) => void;
 }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: tab.id });
   const style = {
@@ -113,10 +115,12 @@ function SortableTab({
         type="button"
         className={`admin-tab${active ? " admin-tab--active" : ""}`}
         onClick={onSelect}
+        onKeyDown={onKeyDown}
         role="tab"
         aria-selected={active}
         aria-controls="admin-tab-panel"
         id={`admin-tab-${tab.id}`}
+        tabIndex={active ? 0 : -1}
       >
         {tab.icon}
         {tab.label}
@@ -260,6 +264,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
                   active={tab === tb.id}
                   badge={tb.id === "reports" ? pendingCount : undefined}
                   onSelect={() => setTab(tb.id)}
+                  onKeyDown={makeTablistKeyHandler(orderedTabs.map(o => o.id), tab, setTab)}
                 />
               ))}
             </div>

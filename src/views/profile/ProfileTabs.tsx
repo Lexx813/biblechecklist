@@ -1,3 +1,5 @@
+import { makeTablistKeyHandler } from "../../lib/a11y/useTablistKeys";
+
 interface Props {
   activeTab: string;
   onTabChange: (tab: string) => void;
@@ -13,6 +15,7 @@ const TABS = [
 
 export default function ProfileTabs({ activeTab, onTabChange }: Props) {
   const tabs = TABS;
+  const onKeyDown = makeTablistKeyHandler(tabs.map(tb => tb.key), activeTab, onTabChange);
   return (
     <div
       role="tablist"
@@ -26,6 +29,8 @@ export default function ProfileTabs({ activeTab, onTabChange }: Props) {
           aria-selected={activeTab === tab.key}
           aria-controls="profile-tab-panel"
           id={`profile-tab-${tab.key}`}
+          tabIndex={activeTab === tab.key ? 0 : -1}
+          onKeyDown={onKeyDown}
           className={`relative shrink-0 flex-1 cursor-pointer border-none bg-transparent px-3 py-3 text-center text-[13px] font-bold whitespace-nowrap transition-colors sm:px-6 ${
             activeTab === tab.key
               ? "text-violet-600 dark:text-violet-300"

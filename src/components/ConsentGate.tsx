@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation, Trans } from "react-i18next";
 import { profileApi } from "../api/profile";
 import { useQueryClient } from "@tanstack/react-query";
 import "../styles/auth.css";
@@ -19,6 +20,7 @@ export default function ConsentGate({ userId }: Props) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const qc = useQueryClient();
+  const { t } = useTranslation();
 
   async function handleAccept() {
     if (!agreeAge || !agreeTerms) return;
@@ -28,7 +30,7 @@ export default function ConsentGate({ userId }: Props) {
       await profileApi.acceptTerms(userId);
       await qc.invalidateQueries({ queryKey: ["fullProfile", userId] });
     } catch {
-      setError("Something went wrong. Please try again.");
+      setError(t("consent.error"));
       setBusy(false);
     }
   }
@@ -48,9 +50,9 @@ export default function ConsentGate({ userId }: Props) {
               <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
-          <h1 className="cg-title">Before you continue</h1>
+          <h1 className="cg-title">{t("consent.title")}</h1>
           <p className="cg-subtitle">
-            We've updated our Terms of Service and Privacy Policy. Please review and agree to continue.
+            {t("consent.subtitle")}
           </p>
         </div>
 
@@ -60,13 +62,13 @@ export default function ConsentGate({ userId }: Props) {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
               <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            Terms of Service
+            {t("consent.termsLink")}
           </a>
           <a href="/privacy" target="_blank" rel="noopener noreferrer" className="cg-policy-link">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
               <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            Privacy Policy
+            {t("consent.privacyLink")}
           </a>
         </div>
 
@@ -88,7 +90,7 @@ export default function ConsentGate({ userId }: Props) {
               disabled={busy}
             />
             <span className="cg-check-text">
-              I am <strong>13 years of age or older</strong>. If I am under 18, I have my parent or guardian's permission to use this app.
+              <Trans i18nKey="consent.ageCheckbox" components={{ strong: <strong /> }} />
             </span>
           </label>
 
@@ -108,7 +110,7 @@ export default function ConsentGate({ userId }: Props) {
               disabled={busy}
             />
             <span className="cg-check-text">
-              I agree to the <strong>Terms of Service</strong> and <strong>Privacy Policy</strong>, including the <strong>Child Safety Policy</strong>. I understand that violations involving child safety will be reported to law enforcement.
+              <Trans i18nKey="consent.agreeCheckbox" components={{ strong: <strong /> }} />
             </span>
           </label>
         </div>
@@ -131,20 +133,20 @@ export default function ConsentGate({ userId }: Props) {
           {busy ? (
             <>
               <span className="cg-btn-spinner" aria-hidden="true" />
-              Saving…
+              {t("consent.saving")}
             </>
           ) : (
             <>
               <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
               </svg>
-              I Agree, Continue
+              {t("consent.agreeButton")}
             </>
           )}
         </button>
 
         <p className="cg-footer">
-          By continuing you confirm you have read and understood our policies.
+          {t("consent.footer")}
         </p>
       </div>
     </div>

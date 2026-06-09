@@ -13,9 +13,9 @@ const variants = {
   ghost:
     "bg-transparent text-[var(--text-muted)] border border-transparent rounded-md hover:border-[var(--border)] hover:text-[var(--teal)] hover:bg-[var(--active-bg)] active:bg-[var(--active-hover-bg)]",
   danger:
-    "bg-[#dc2626] text-white border-none rounded-md hover:bg-[#b91c1c] active:bg-[#991b1b]",
+    "bg-red-600 text-white border-none rounded-md hover:bg-red-700 active:bg-red-800",
   "danger-outline":
-    "bg-transparent text-[#dc2626] border border-[#dc2626]/30 rounded-md hover:bg-[#dc2626]/10 hover:border-[#dc2626]/60 active:bg-[#dc2626]/15",
+    "bg-transparent text-red-600 border border-red-600/30 rounded-md hover:bg-red-600/10 hover:border-red-600/60 active:bg-red-600/15",
   text:
     "bg-transparent text-[var(--teal)] border-none rounded-md hover:bg-[var(--active-bg)] active:bg-[var(--active-hover-bg)] px-2.5! py-1!",
   icon:

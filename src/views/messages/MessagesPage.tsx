@@ -149,7 +149,7 @@ export default function MessagesPage({
                 onClick={() => setShowCompose(true)}
                 type="button"
               >
-                + New Conversation
+                + {t("messages.newConversation")}
               </button>
             </div>
           )}

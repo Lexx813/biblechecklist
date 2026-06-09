@@ -3,11 +3,13 @@ import { useTranslation } from "react-i18next";
 import { STUDY_TOPICS } from "../../data/studyTopics";
 import { BOOKS } from "../../data/books";
 import { BOOK_INFO } from "../../data/bookInfo";
+import { makeTablistKeyHandler } from "../../lib/a11y/useTablistKeys";
 import "../../styles/study-topics.css";
 
 export default function StudyTopicsInline({ navigate }: { navigate: (page: string, params?: Record<string, unknown>) => void }) {
   const { t } = useTranslation();
   const [tab, setTab] = useState("topics");
+  const onTabKeyDown = makeTablistKeyHandler(["topics", "books"], tab, setTab);
 
   return (
     <div className="stp-page">
@@ -18,27 +20,35 @@ export default function StudyTopicsInline({ navigate }: { navigate: (page: strin
         </p>
       </div>
 
-      <div className="stp-tabs" role="tablist">
+      <div className="stp-tabs" role="tablist" aria-label={t("studyTopics.tablistLabel", { defaultValue: "Study topic sections" })}>
         <button
           className={`stp-tab${tab === "topics" ? " stp-tab--active" : ""}`}
           onClick={() => setTab("topics")}
+          onKeyDown={onTabKeyDown}
           role="tab"
+          id="stpi-tab-topics"
+          aria-controls="stpi-panel-topics"
           aria-selected={tab === "topics"}
+          tabIndex={tab === "topics" ? 0 : -1}
         >
           {t("studyTopics.tabTopics", "Topics")}
         </button>
         <button
           className={`stp-tab${tab === "books" ? " stp-tab--active" : ""}`}
           onClick={() => setTab("books")}
+          onKeyDown={onTabKeyDown}
           role="tab"
+          id="stpi-tab-books"
+          aria-controls="stpi-panel-books"
           aria-selected={tab === "books"}
+          tabIndex={tab === "books" ? 0 : -1}
         >
           {t("studyTopics.tabBooks", "Bible Books")}
         </button>
       </div>
 
       {tab === "topics" && (
-        <div className="stp-grid">
+        <div className="stp-grid" id="stpi-panel-topics" role="tabpanel" aria-labelledby="stpi-tab-topics">
           {STUDY_TOPICS.map(topic => {
             const loc = t(`studyTopics.topics.${topic.slug}`, { returnObjects: true }) as any;
             const title = (loc && typeof loc === "object" && loc.title) || topic.title;
@@ -60,7 +70,7 @@ export default function StudyTopicsInline({ navigate }: { navigate: (page: strin
       )}
 
       {tab === "books" && (
-        <div className="stp-grid">
+        <div className="stp-grid" id="stpi-panel-books" role="tabpanel" aria-labelledby="stpi-tab-books">
           {BOOKS.map((book, bookIndex) => {
             const info = BOOK_INFO[bookIndex];
             const bookName = t(`bookNames.${bookIndex}`, book.name);
@@ -74,7 +84,7 @@ export default function StudyTopicsInline({ navigate }: { navigate: (page: strin
               >
                 <h2 className="stp-card-title">{bookName}</h2>
                 <p className="stp-card-subtitle">{theme}</p>
-                <span className="stp-card-arrow">Explore →</span>
+                <span className="stp-card-arrow">{t("studyTopics.explore", "Explore")} →</span>
               </button>
             );
           })}

@@ -30,14 +30,28 @@ function CommentRow({ c, userId, liked, navigate, onLike, onReply, onDelete, del
   const avatarSize = isReply ? "size-6" : "size-7";
   return (
     <div className="group/comment flex gap-2">
-      <div className={`mt-0.5 shrink-0 cursor-pointer ${avatarSize}`} onClick={() => navigate("publicProfile", { userId: c.author_id })}>
+      <div
+        className={`mt-0.5 shrink-0 cursor-pointer ${avatarSize}`}
+        role="button"
+        tabIndex={0}
+        aria-label={t("posts.interactions.viewProfile", { defaultValue: "View {{name}}'s profile", name: cName })}
+        onClick={() => navigate("publicProfile", { userId: c.author_id })}
+        onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navigate("publicProfile", { userId: c.author_id }); } }}
+      >
         {c.author?.avatar_url
           ? <img src={c.author.avatar_url} alt="" className={`${avatarSize} rounded-full object-cover`} loading="lazy" />
           : <div className={`flex ${avatarSize} items-center justify-center rounded-full bg-[var(--accent)] text-[10px] font-bold text-white`}>{cName[0].toUpperCase()}</div>}
       </div>
       <div className="min-w-0 flex-1">
         <div className="inline-block rounded-2xl bg-[var(--hover-bg)] px-3 py-1.5">
-          <span className="cursor-pointer text-xs font-bold text-[var(--text-primary)] hover:underline" onClick={() => navigate("publicProfile", { userId: c.author_id })}>
+          <span
+            className="cursor-pointer text-xs font-bold text-[var(--text-primary)] hover:underline"
+            role="button"
+            tabIndex={0}
+            aria-label={t("posts.interactions.viewProfile", { defaultValue: "View {{name}}'s profile", name: cName })}
+            onClick={() => navigate("publicProfile", { userId: c.author_id })}
+            onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navigate("publicProfile", { userId: c.author_id }); } }}
+          >
             {cName}
           </span>
           <p className="m-0 text-[13px] leading-snug text-[var(--text-primary)]">{c.content}</p>
@@ -101,10 +115,13 @@ interface Props {
   userId?: string;
   commentCount: number;
   reactionCounts: Record<string, number>;
+  // Emojis the current user reacted with, batched at the feed level. When
+  // provided, the per-post reactions query is skipped (avoids feed N+1).
+  myReactions?: string[];
   navigate: (page: string, params?: Record<string, unknown>) => void;
 }
 
-export default function PostInteractions({ postId, userId, commentCount, reactionCounts, navigate }: Props) {
+export default function PostInteractions({ postId, userId, commentCount, reactionCounts, myReactions, navigate }: Props) {
   const { t } = useTranslation();
   const [showComments, setShowComments] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
@@ -119,15 +136,21 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
   const { data: comments = [], isLoading: commentsLoading } = usePostComments(showComments ? postId : null);
   const addComment = useAddComment(postId);
   const deleteComment = useDeleteComment(postId);
-  const { data: reactions = [] } = usePostReactions(postId);
+  // When the feed passes `myReactions`, skip the per-post query (pass null to
+  // disable it) to avoid an N+1 across the feed.
+  const { data: reactions = [] } = usePostReactions(myReactions === undefined ? postId : null);
   const toggleReaction = useToggleReaction(postId);
   const { data: likedCommentIds = [] } = useMyCommentLikes(showComments ? postId : null);
   const toggleCommentLike = useToggleCommentLike(postId);
 
   const likedSet = new Set(likedCommentIds);
 
-  // Which emojis has the current user reacted with?
-  const myReactions = new Set(reactions.filter(r => r.user_id === userId).map(r => r.emoji));
+  // Which emojis has the current user reacted with? Prefer the batched prop.
+  const myReactionSet = new Set(
+    myReactions !== undefined
+      ? myReactions
+      : reactions.filter(r => r.user_id === userId).map(r => r.emoji)
+  );
 
   // Close emoji picker on outside click
   useEffect(() => {
@@ -214,7 +237,7 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
               {EMOJI_PALETTE.map((emoji) => (
                 <button
                   key={emoji}
-                  className={`flex size-9 cursor-pointer items-center justify-center rounded-lg border-none text-xl transition-all duration-150 hover:scale-110 hover:bg-[var(--hover-bg)] ${myReactions.has(emoji) ? "bg-brand-600/15 ring-1 ring-brand-600/40" : "bg-transparent"}`}
+                  className={`flex size-9 cursor-pointer items-center justify-center rounded-lg border-none text-xl transition-all duration-150 hover:scale-110 hover:bg-[var(--hover-bg)] ${myReactionSet.has(emoji) ? "bg-brand-600/15 ring-1 ring-brand-600/40" : "bg-transparent"}`}
                   onClick={() => {
                     toggleReaction.mutate(emoji);
                     setShowEmojiPicker(false);
@@ -249,7 +272,7 @@ export default function PostInteractions({ postId, userId, commentCount, reactio
             <button
               key={emoji}
               className={`flex cursor-pointer items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium transition-colors duration-150 ${
-                myReactions.has(emoji)
+                myReactionSet.has(emoji)
                   ? "border-brand-600/40 bg-brand-600/15 text-[var(--text-primary)]"
                   : "border-[var(--border)] bg-transparent text-[var(--text-muted)] hover:border-brand-600/30 hover:bg-brand-600/10"
               }`}

@@ -121,16 +121,16 @@ export default function MasterQuizPage({ user, navigate, darkMode, setDarkMode, 
         <p className="quiz-hub-sub">{t("quiz.masterHubSub")}</p>
         {badgeCount > 0 && (
           <p className="quiz-hub-sub" style={{ marginTop: 4 }}>
-            {badgeCount}/12 badges earned
+            {t("quiz.badgesEarned", { count: badgeCount })}
           </p>
         )}
         <button className="quiz-btn quiz-btn--secondary" style={{ marginTop: 8 }} onClick={() => navigate("quiz")}>
-          ← Back to Basic Levels
+          {t("quiz.backToBasic")}
         </button>
       </div>
 
       <div className="quiz-timed-toggle-row">
-        <span className="quiz-timed-toggle-label">Timed Mode</span>
+        <span className="quiz-timed-toggle-label">{t("quiz.timedMode")}</span>
         <label className="quiz-timed-toggle">
           <input
             type="checkbox"

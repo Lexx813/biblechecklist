@@ -32,7 +32,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
   function saveName() {
     if (nameVal.trim()) update.mutate(
       { display_name: nameVal.trim() },
-      { onError: () => toast.error("Failed to save display name.") }
+      { onError: () => toast.error(t("settings.errSaveName")) }
     );
     setEditingName(false);
   }
@@ -171,7 +171,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
                 style={{ display: "none" }}
-                onChange={e => { if (e.target.files[0]) uploadAvatar.mutate(e.target.files[0], { onError: () => toast.error("Failed to upload avatar.") }); }}
+                onChange={e => { if (e.target.files[0]) uploadAvatar.mutate(e.target.files[0], { onError: () => toast.error(t("settings.errUploadAvatar")) }); }}
               />
               <Button variant="secondary" size="sm" onClick={() => fileRef.current?.click()} disabled={uploadAvatar.isPending}>
                 {uploadAvatar.isPending ? t("settings.uploading") : t("settings.changeAvatar")}
@@ -303,7 +303,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
                 role="switch"
                 aria-checked={value}
                 className={`pf-toggle${value ? " pf-toggle--on" : ""}`}
-                onClick={() => update.mutate({ [key]: !value }, { onError: () => toast.error("Failed to save notification preference.") })}
+                onClick={() => update.mutate({ [key]: !value }, { onError: () => toast.error(t("settings.errSaveNotif")) })}
                 disabled={update.isPending}
               >
                 <span className="pf-toggle-thumb" />
@@ -324,7 +324,7 @@ export default function SettingsPage({ user, onBack, navigate, darkMode, setDark
               role="switch"
               aria-checked={profile?.show_online ?? true}
               className={`pf-toggle${(profile?.show_online ?? true) ? " pf-toggle--on" : ""}`}
-              onClick={() => update.mutate({ show_online: !(profile?.show_online ?? true) }, { onError: () => toast.error("Failed to save visibility setting.") })}
+              onClick={() => update.mutate({ show_online: !(profile?.show_online ?? true) }, { onError: () => toast.error(t("settings.errSaveVisibility")) })}
               disabled={update.isPending}
             >
               <span className="pf-toggle-thumb" />

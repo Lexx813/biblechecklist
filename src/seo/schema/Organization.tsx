@@ -22,7 +22,7 @@ const schema = {
     '@type': 'ContactPoint',
     email: 'support@jwstudy.org',
     contactType: 'customer service',
-    availableLanguage: ['English', 'Spanish', 'Portuguese', 'French', 'Tagalog', 'Chinese', 'Japanese'],
+    availableLanguage: ['English', 'Spanish', 'Portuguese', 'French', 'Tagalog', 'Chinese'],
   },
   sameAs: [
     'https://www.tiktok.com/@laqjw',

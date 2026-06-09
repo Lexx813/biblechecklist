@@ -13,6 +13,7 @@
  */
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { safeEqual } from "../_shared/safeEqual.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -252,7 +253,7 @@ Deno.serve(async (req) => {
   // or exhausting edge-function invocations by hammering this endpoint.
   const secret = Deno.env.get("CRON_SECRET");
   if (!secret) return new Response("Misconfigured", { status: 503, headers: cors });
-  if (req.headers.get("authorization") !== `Bearer ${secret}`) {
+  if (!safeEqual(req.headers.get("authorization"), `Bearer ${secret}`)) {
     return new Response("Unauthorized", { status: 401, headers: cors });
   }
 

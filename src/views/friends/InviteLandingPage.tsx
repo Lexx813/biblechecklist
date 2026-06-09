@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { friendsApi } from "../../api/friends";
 import "../../styles/friends.css";
 
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export default function InviteLandingPage({ token, navigate }: Props) {
+  const { t } = useTranslation();
   const [inviter, setInviter] = useState<Inviter | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -32,9 +34,9 @@ export default function InviteLandingPage({ token, navigate }: Props) {
     return (
       <div className="invite-landing">
         <div className="invite-card">
-          <div className="invite-card-heading">Invalid Invite Link</div>
-          <div className="invite-card-sub">This invite link is invalid or has expired.</div>
-          <button className="invite-card-cta" onClick={() => navigate("home")}>Go to App</button>
+          <div className="invite-card-heading">{t("invite.invalidTitle")}</div>
+          <div className="invite-card-sub">{t("invite.invalidBody")}</div>
+          <button className="invite-card-cta" onClick={() => navigate("home")}>{t("invite.goToApp")}</button>
         </div>
       </div>
     );
@@ -48,17 +50,17 @@ export default function InviteLandingPage({ token, navigate }: Props) {
           : <div className="invite-card-avatar-placeholder">{(inviter.display_name ?? "?")[0].toUpperCase()}</div>
         }
         <div className="invite-card-heading">
-          {inviter.display_name ?? "Someone"} invited you!
+          {t("invite.invitedYou", { name: inviter.display_name ?? t("invite.someone") })}
         </div>
         <div className="invite-card-sub">
-          Join JW Study to track your Bible reading and connect with friends.
+          {t("invite.joinBlurb")}
         </div>
         <button className="invite-card-cta" onClick={() => navigate("signup")}>
-          Create Free Account
+          {t("invite.createAccount")}
         </button>
         <div className="invite-card-login">
-          Already have an account?{" "}
-          <a href="#" onClick={e => { e.preventDefault(); navigate("login"); }}>Sign in</a>
+          {t("invite.haveAccount")}{" "}
+          <a href="#" onClick={e => { e.preventDefault(); navigate("login"); }}>{t("invite.signIn")}</a>
         </div>
       </div>
     </div>

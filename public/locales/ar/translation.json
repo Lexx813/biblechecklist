@@ -74,7 +74,8 @@
     "aiAssistantDesc": "احصل على مساعدة في صياغة منشور دافئ ومستند إلى الأسفار المقدسة بناءً على موضوعك ومسوّدتك.",
     "aiWriting": "جارٍ الكتابة…",
     "aiHelpMeWrite": "ساعدني في كتابة هذا المنشور",
-    "aiSuggestion": "اقتراح الذكاء الاصطناعي"
+    "aiSuggestion": "اقتراح الذكاء الاصطناعي",
+    "viewProfile": "View {{name}}'s profile"
   },
   "groups": {
     "addCoverPhoto": "إضافة صورة الغلاف",
@@ -241,7 +242,25 @@
     "writeACommentAria": "اكتب تعليقًا",
     "you": "أنت",
     "failedRsvp": "تعذّر تحديث الرد على الدعوة.",
-    "failedDeleteEvent": "تعذّر حذف الحدث."
+    "failedDeleteEvent": "تعذّر حذف الحدث.",
+    "events": {
+      "createTitle": "Create Event",
+      "createAria": "Create event",
+      "closeAria": "Close",
+      "fieldTitle": "Title",
+      "fieldDescription": "Description",
+      "fieldLocation": "Location",
+      "fieldStartsAt": "Starts at",
+      "fieldEndsAt": "Ends at",
+      "titlePlaceholder": "Meeting title",
+      "locationPlaceholder": "Address or meeting link",
+      "cancel": "Cancel",
+      "create": "Create event",
+      "creating": "Creating…"
+    },
+    "composePlaceholder": "Share something with the group…",
+    "imageUploadFailed": "Image upload failed.",
+    "failedToPost": "Failed to post."
   },
   "history": {
     "avgPerDay": "المتوسط / اليوم",
@@ -770,7 +789,8 @@
     "tryAgain": "حاول مرة أخرى",
     "failedDelete": "تعذّر حذف الرسالة.",
     "failedEdit": "تعذّر تعديل الرسالة.",
-    "failedReaction": "تعذّر تحديث التفاعل."
+    "failedReaction": "تعذّر تحديث التفاعل.",
+    "notePlaceholder": "Add a note (optional)…"
   },
   "nav": {
     "today": "اليوم",
@@ -1065,7 +1085,8 @@
     "testamentOT": "الأسفار العبرانية",
     "title": "قائمة قراءة الكتاب المقدس",
     "write": "كتابة",
-    "searchBooksAria": "البحث في الأسفار"
+    "searchBooksAria": "البحث في الأسفار",
+    "testamentFilterAria": "Filter books by section"
   },
   "auth": {
     "back": "← رجوع",
@@ -1218,7 +1239,7 @@
     "published": "منشور",
     "publishedCount": "{{count}} منشور",
     "readMore": "انقر للقراءة…",
-    "searchPlaceholder": "ابحث في المدوَّنات...",
+    "searchPlaceholder": "Search articles, topics, authors…",
     "subtitle": "تأملات ودراسات وإضاءات من جماعتنا",
     "title": "المدوَّنة",
     "totalCount": "{{count}} إجمالاً",
@@ -1805,7 +1826,8 @@
   },
   "familyQuiz": {
     "loadingChallenge": "جارٍ تحميل التحدي…",
-    "loadingResults": "جارٍ تحميل النتائج…"
+    "loadingResults": "جارٍ تحميل النتائج…",
+    "namePlaceholder": "e.g. Sunday Family Quiz"
   },
   "feed": {
     "earnedBadge": "حصل على شارة —",
@@ -1918,7 +1940,8 @@
       "sendComment": "إرسال التعليق",
       "sendReply": "إرسال الردّ",
       "signInToComment": "سجِّل الدخول للتعليق",
-      "writeCommentPlaceholder": "اكتب تعليقًا…"
+      "writeCommentPlaceholder": "اكتب تعليقًا…",
+      "viewProfile": "View {{name}}'s profile"
     }
   },
   "profile": {
@@ -3103,7 +3126,9 @@
           }
         ]
       }
-    }
+    },
+    "explore": "Explore",
+    "tablistLabel": "Study topic sections"
   },
   "topbar": {
     "accountMenu": "قائمة حساب {{name}}",
@@ -3502,7 +3527,8 @@
     "uploadingCover": "جارٍ الرفع…",
     "wordGoal": "هدف الكلمات",
     "wordGoalOf": "/ {{count}} كلمة",
-    "words": "كلمات"
+    "words": "كلمات",
+    "removeTag": "Remove tag {{tag}}"
   },
   "aiBubble": {
     "aiThinkingAriaLabel": "الذكاء الاصطناعي يفكّر",
@@ -4421,7 +4447,9 @@
     "more": "أكثر"
   },
   "createPost": {
-    "addToPost": "أضف إلى منشورك"
+    "addToPost": "أضف إلى منشورك",
+    "editAria": "Edit post",
+    "createAria": "Create post"
   },
   "bookAuthors": [
     "موسى",
@@ -6607,5 +6635,13 @@
     "waitingForPlayers": "في انتظار {{count}} لاعب(ين) إضافيين للانضمام بالرمز",
     "wrong": "خطأ!",
     "yourTurn": "دورك، أجب الآن!"
+  },
+  "videos": {
+    "composer": {
+      "dropOrBrowse": "Drop video here or click to browse",
+      "bookPlaceholder": "Book  e.g. John",
+      "chapterPlaceholder": "Ch.  e.g. 3"
+    },
+    "commentPlaceholder": "Add a comment…"
   }
 }

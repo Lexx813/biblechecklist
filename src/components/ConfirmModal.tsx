@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import Button from "./ui/Button";
+import { useFocusTrap } from "../hooks/useFocusTrap";
 
 interface Props {
   title?: string;
@@ -13,12 +15,15 @@ interface Props {
 
 export default function ConfirmModal({ message, onConfirm, onCancel, confirmLabel, danger = true }: Props) {
   const { t } = useTranslation();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(dialogRef, { onClose: onCancel });
   return createPortal(
     <div
       className="fixed inset-0 z-[var(--z-overlay)] flex items-center justify-center bg-[rgba(10,5,20,0.60)] p-4 backdrop-blur-[12px] backdrop-saturate-[140%]"
       onClick={onCancel}
     >
       <div
+        ref={dialogRef}
         className="flex w-full max-w-[340px] animate-[confirm-in_var(--dur-base)_var(--ease-spring)] flex-col gap-5 rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--card-bg)] px-6 pb-6 pt-7 shadow-[var(--shadow-xl)]"
         role="dialog"
         aria-modal="true"

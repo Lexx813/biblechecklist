@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { usePublishedVideos } from "../../hooks/useVideos";
 import {
   useToggleVideoLike,
@@ -117,6 +118,7 @@ interface ReelItemProps {
 }
 
 function ReelItem({ video, liked, isActive, onLike, onExpand, onComment, onShare }: ReelItemProps) {
+  const { t } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [progress, setProgress] = useState(0);
   const isUpload = !video.embed_url && !!video.storage_path;
@@ -218,8 +220,8 @@ function ReelItem({ video, liked, isActive, onLike, onExpand, onComment, onShare
       <div className="reel-gradient" />
 
       {/* ── Expand button ── */}
-      <button className="reel-expand-btn" onClick={onExpand} aria-label="Open full view">
-        ↗ Full view
+      <button className="reel-expand-btn" onClick={onExpand} aria-label={t("videos.ariaOpenFullView")}>
+        ↗ {t("videos.fullView")}
       </button>
 
       {/* ── Right rail ── */}
@@ -228,19 +230,19 @@ function ReelItem({ video, liked, isActive, onLike, onExpand, onComment, onShare
           <button
             className={`rail-btn like${liked ? " liked" : ""}`}
             onClick={onLike}
-            aria-label={liked ? "Unlike" : "Like"}
+            aria-label={liked ? t("videos.ariaUnlike") : t("videos.ariaLike")}
           >
             <HeartIcon filled={liked} />
           </button>
           <span className="rail-count">{video.likes_count}</span>
         </div>
         <div className="rail-item">
-          <button className="rail-btn comment" onClick={onComment} aria-label="Open comments">
+          <button className="rail-btn comment" onClick={onComment} aria-label={t("videos.ariaOpenComments")}>
             <CommentIcon />
           </button>
         </div>
         <div className="rail-item">
-          <button className="rail-btn share" onClick={onShare} aria-label="Share">
+          <button className="rail-btn share" onClick={onShare} aria-label={t("videos.ariaShare")}>
             <ShareIcon />
           </button>
         </div>
@@ -292,6 +294,7 @@ interface CommentDrawerProps {
 }
 
 function CommentDrawer({ videoId, user, onClose }: CommentDrawerProps) {
+  const { t } = useTranslation();
   const { data: comments = [] } = useVideoComments(videoId);
   const createComment = useCreateVideoComment(videoId);
   const [text, setText] = useState("");
@@ -303,7 +306,7 @@ function CommentDrawer({ videoId, user, onClose }: CommentDrawerProps) {
       await createComment.mutateAsync({ userId: user.id, content: text.trim() });
       setText("");
     } catch (err: any) {
-      toast(err.message ?? "Failed to post comment.");
+      toast(err.message ?? t("videos.toastFailedComment"));
     }
   }
 
@@ -313,14 +316,14 @@ function CommentDrawer({ videoId, user, onClose }: CommentDrawerProps) {
         <div className="reel-drawer-handle" />
         <div className="reel-drawer-header">
           <span className="reel-drawer-title">
-            {comments.length} {comments.length === 1 ? "comment" : "comments"}
+            {t("videos.commentCount", { count: comments.length })}
           </span>
-          <button className="reel-drawer-close" onClick={onClose} aria-label="Close comments">✕</button>
+          <button className="reel-drawer-close" onClick={onClose} aria-label={t("videos.ariaCloseComments")}>✕</button>
         </div>
         <div className="reel-drawer-comments">
           {comments.length === 0 && (
             <div className="reel-drawer-empty">
-              No comments yet, your words of encouragement are always welcome here.
+              {t("videos.noCommentsYet")}
             </div>
           )}
           {comments.map(c => (
@@ -343,7 +346,7 @@ function CommentDrawer({ videoId, user, onClose }: CommentDrawerProps) {
               className="video-comment-input"
               value={text}
               onChange={e => setText(e.target.value)}
-              placeholder="Add a comment…"
+              placeholder={t("videos.addComment")}
               maxLength={1000}
               autoFocus
             />
@@ -352,12 +355,12 @@ function CommentDrawer({ videoId, user, onClose }: CommentDrawerProps) {
               className="video-comment-submit"
               disabled={!text.trim() || createComment.isPending}
             >
-              Post
+              {t("videos.post")}
             </button>
           </form>
         ) : (
           <div style={{ padding: "0 16px 16px", fontSize: "0.78rem", color: "var(--text-secondary)" }}>
-            Sign in to comment.
+            {t("videos.signInToComment")}
           </div>
         )}
       </div>
@@ -386,6 +389,7 @@ interface Props {
 // ── Main component ─────────────────────────────────────────────
 
 export default function VideosPage({ user, onSelectVideo, onPostClick }: Props) {
+  const { t } = useTranslation();
   const { data: videos = [], isLoading } = usePublishedVideos();
   const { data: likedIds = [] } = useUserLikedVideoIds(user?.id);
   const toggleLike = useToggleVideoLike(user?.id);
@@ -424,7 +428,7 @@ export default function VideosPage({ user, onSelectVideo, onPostClick }: Props) 
   }
 
   function handleLike(videoId: string) {
-    if (!user) { toast("Sign in to like videos."); return; }
+    if (!user) { toast(t("videos.toastSignInLike")); return; }
     toggleLike.mutate(videoId);
   }
 
@@ -432,8 +436,8 @@ export default function VideosPage({ user, onSelectVideo, onPostClick }: Props) 
     const url = `${window.location.origin}/videos/${encodeURIComponent(slug)}`;
     navigator.clipboard
       .writeText(url)
-      .then(() => toast("Link copied!"))
-      .catch(() => toast("Could not copy link."));
+      .then(() => toast(t("videos.linkCopied")))
+      .catch(() => toast(t("videos.couldNotCopy")));
   }
 
   return (
@@ -448,7 +452,7 @@ export default function VideosPage({ user, onSelectVideo, onPostClick }: Props) 
           <div className="reel-item reel-item--portrait reel-skeleton" />
         ) : allVideos.length === 0 ? (
           <div className="reel-empty">
-            {canPost ? "Be the first to post a video!" : "No videos yet. Check back soon."}
+            {canPost ? t("videos.beFirstVideo") : t("videos.noVideosYet")}
           </div>
         ) : (() => {
           const video = allVideos[currentIndex];
@@ -474,8 +478,8 @@ export default function VideosPage({ user, onSelectVideo, onPostClick }: Props) 
       </div>
 
       {canPost && (
-        <button className="reel-fab" onClick={onPostClick} aria-label="Post a video">
-          + Post
+        <button className="reel-fab" onClick={onPostClick} aria-label={t("videos.ariaPostVideo")}>
+          + {t("videos.post")}
         </button>
       )}
 

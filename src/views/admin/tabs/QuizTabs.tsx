@@ -169,7 +169,7 @@ export function QuizTab() {
           </div>
 
           <div>
-            <label className="admin-form-label">Options</label>
+            <label className="admin-form-label">{t("adminQuiz.options")}</label>
             <div className="admin-options-grid">
               {form.options.map((opt, i) => (
                 <div key={i} className="admin-option-row">
@@ -184,7 +184,7 @@ export function QuizTab() {
                       opts[i] = e.target.value;
                       setForm(f => ({ ...f, options: opts }));
                     }}
-                    placeholder={`Option ${OPTION_LABELS[i]}`}
+                    placeholder={t("adminQuiz.optionPlaceholder", { letter: OPTION_LABELS[i] })}
                   />
                 </div>
               ))}
@@ -196,7 +196,7 @@ export function QuizTab() {
             <CustomSelect
               value={form.correct_index}
               onChange={val => setForm(f => ({ ...f, correct_index: Number(val) }))}
-              options={OPTION_LABELS.map((label, i) => ({ value: i, label: `${label}: ${form.options[i] || `Option ${label}`}` }))}
+              options={OPTION_LABELS.map((label, i) => ({ value: i, label: `${label}: ${form.options[i] || t("adminQuiz.optionPlaceholder", { letter: label })}` }))}
             />
           </div>
 
@@ -246,9 +246,9 @@ export function QuizTab() {
 
       {totalQPages > 1 && (
         <div className="admin-pagination">
-          <button className="admin-page-btn" onClick={() => setQPage(p => p - 1)} disabled={qPage === 0}>← Prev</button>
+          <button className="admin-page-btn" onClick={() => setQPage(p => p - 1)} disabled={qPage === 0}>{t("adminQuiz.prev")}</button>
           <span className="admin-page-info">{qPage + 1} / {totalQPages}</span>
-          <button className="admin-page-btn" onClick={() => setQPage(p => p + 1)} disabled={qPage >= totalQPages - 1}>Next →</button>
+          <button className="admin-page-btn" onClick={() => setQPage(p => p + 1)} disabled={qPage >= totalQPages - 1}>{t("adminQuiz.next")}</button>
         </div>
       )}
 

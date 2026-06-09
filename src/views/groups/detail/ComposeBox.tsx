@@ -1,4 +1,5 @@
 import { useState, useRef, lazy, Suspense } from "react";
+import { useTranslation } from "react-i18next";
 import { useCreatePost } from "../../../hooks/useGroups";
 import { groupsApi } from "../../../api/groups";
 import { toast } from "../../../lib/toast";
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export default function ComposeBox({ groupId, isAdmin }: Props) {
+  const { t } = useTranslation();
   const [content, setContent] = useState("");
   const [isAnnouncement, setIsAnnouncement] = useState(false);
   const [mediaUrls, setMediaUrls] = useState<string[]>([]);
@@ -31,7 +33,7 @@ export default function ComposeBox({ groupId, isAdmin }: Props) {
       }
       setMediaUrls(prev => [...prev, ...urls]);
     } catch {
-      toast.error("Image upload failed.");
+      toast.error(t("groups.imageUploadFailed"));
     } finally {
       setUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = "";
@@ -50,7 +52,7 @@ export default function ComposeBox({ groupId, isAdmin }: Props) {
       { content: hasText ? content : "", isAnnouncement: isAdmin && isAnnouncement, mediaUrls },
       {
         onSuccess: () => { setContent(""); setIsAnnouncement(false); setMediaUrls([]); },
-        onError: () => toast.error("Failed to post."),
+        onError: () => toast.error(t("groups.failedToPost")),
       }
     );
   }
@@ -63,7 +65,7 @@ export default function ComposeBox({ groupId, isAdmin }: Props) {
         <RichTextEditor
           content={content}
           onChange={setContent}
-          placeholder="Share something with the group…"
+          placeholder={t("groups.sharePlaceholder")}
           minimal
           allowMentions
         />
@@ -73,7 +75,7 @@ export default function ComposeBox({ groupId, isAdmin }: Props) {
           {mediaUrls.map(url => (
             <div key={url} className="grp-compose-media-item">
               <img src={url} alt="" />
-              <button type="button" className="grp-compose-media-remove" onClick={() => removeImage(url)} aria-label="Remove image">×</button>
+              <button type="button" className="grp-compose-media-remove" onClick={() => removeImage(url)} aria-label={t("groups.removeImage")}>×</button>
             </div>
           ))}
         </div>
@@ -93,16 +95,16 @@ export default function ComposeBox({ groupId, isAdmin }: Props) {
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
         >
-          {uploading ? "Uploading…" : "Add image"}
+          {uploading ? t("groups.uploading") : t("groups.addImage")}
         </button>
         {isAdmin && (
           <label className="grp-compose-announce">
             <input type="checkbox" checked={isAnnouncement} onChange={e => setIsAnnouncement(e.target.checked)} />
-            Pin as announcement
+            {t("groups.pinAnnouncement")}
           </label>
         )}
         <button type="submit" className="grp-btn grp-btn--primary grp-btn--sm" disabled={(!hasText && mediaUrls.length === 0) || createPost.isPending || uploading}>
-          {createPost.isPending ? "Posting…" : "Post"}
+          {createPost.isPending ? t("groups.posting") : t("groups.post")}
         </button>
       </div>
     </form>

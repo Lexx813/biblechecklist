@@ -197,8 +197,8 @@ export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId,
 
       <div className="forum-thread-header">
         <div className="forum-thread-header-badges">
-          {thread.pinned && <span className="forum-badge forum-badge--pin"><IconPin /> Pinned</span>}
-          {thread.locked && <span className="forum-badge forum-badge--lock"><IconLock /> Locked</span>}
+          {thread.pinned && <span className="forum-badge forum-badge--pin"><IconPin /> {t("forum.pinned")}</span>}
+          {thread.locked && <span className="forum-badge forum-badge--lock"><IconLock /> {t("forum.locked")}</span>}
           {thread.view_count > 0 && <span className="forum-view-count"><IconEye /> {thread.view_count.toLocaleString()}</span>}
         </div>
         <div className="forum-admin-tools">
@@ -240,7 +240,14 @@ export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId,
         <div className="forum-post-body">
           <div className="forum-post-header">
             <div className="forum-post-header-left">
-              <span className="forum-post-author" onClick={() => navigate("publicProfile", { userId: thread.author_id })}>
+              <span
+                className="forum-post-author"
+                role="button"
+                tabIndex={0}
+                aria-label={t("forum.viewProfile", { defaultValue: "View {{name}}'s profile", name: displayName(thread.profiles) })}
+                onClick={() => navigate("publicProfile", { userId: thread.author_id })}
+                onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navigate("publicProfile", { userId: thread.author_id }); } }}
+              >
                 {displayName(thread.profiles)}
               </span>
               <BadgeChip level={thread.profiles?.top_badge_level} />
@@ -322,13 +329,13 @@ export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId,
                           unblockUser.mutate(thread.author_id);
                         } else {
                           setConfirm({
-                            message: `Block ${displayName(thread.profiles)}? Their posts will be hidden from you, and yours from them.`,
+                            message: t("forum.blockConfirm", { name: displayName(thread.profiles) }),
                             onConfirm: () => blockUser.mutate(thread.author_id),
                           });
                         }
                       }}
-                      title={blockedSet.has(thread.author_id) ? "Unblock user" : "Block user"}
-                      aria-label={blockedSet.has(thread.author_id) ? "Unblock user" : "Block user"}
+                      title={blockedSet.has(thread.author_id) ? t("forum.unblockUser") : t("forum.blockUser")}
+                      aria-label={blockedSet.has(thread.author_id) ? t("forum.unblockUser") : t("forum.blockUser")}
                     ><IconBan /></button>
                   </>
                 )}
@@ -367,7 +374,14 @@ export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId,
                 <div className="forum-post-body">
                   <div className="forum-post-header">
                     <div className="forum-post-header-left">
-                      <span className="forum-post-author" onClick={() => navigate("publicProfile", { userId: reply.author_id })}>
+                      <span
+                        className="forum-post-author"
+                        role="button"
+                        tabIndex={0}
+                        aria-label={t("forum.viewProfile", { defaultValue: "View {{name}}'s profile", name: displayName(reply.profiles) })}
+                        onClick={() => navigate("publicProfile", { userId: reply.author_id })}
+                        onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); navigate("publicProfile", { userId: reply.author_id }); } }}
+                      >
                         {displayName(reply.profiles)}
                       </span>
                       <BadgeChip level={reply.profiles?.top_badge_level} />
@@ -481,13 +495,13 @@ export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId,
                                 unblockUser.mutate(reply.author_id);
                               } else {
                                 setConfirm({
-                                  message: `Block ${displayName(reply.profiles)}? Their posts will be hidden from you, and yours from them.`,
+                                  message: t("forum.blockConfirm", { name: displayName(reply.profiles) }),
                                   onConfirm: () => blockUser.mutate(reply.author_id),
                                 });
                               }
                             }}
-                            title={blockedSet.has(reply.author_id) ? "Unblock user" : "Block user"}
-                            aria-label={blockedSet.has(reply.author_id) ? "Unblock user" : "Block user"}
+                            title={blockedSet.has(reply.author_id) ? t("forum.unblockUser") : t("forum.blockUser")}
+                            aria-label={blockedSet.has(reply.author_id) ? t("forum.unblockUser") : t("forum.blockUser")}
                           ><IconBan /></button>
                         </>
                       )}
@@ -542,18 +556,21 @@ export function ForumThreadDetail({ threadId, user, profile, onBack, categoryId,
                   type="button"
                   className="forum-reply-ai-btn"
                   onClick={() => {
-                    const threadCtx = `Forum thread: "${thread.title}"\n\nOriginal post:\n"""\n${(thread.content ?? "").replace(/<[^>]*>/g, "").slice(0, 1500)}\n"""\n\n`;
+                    const threadCtx = t("forum.aiThreadContext", {
+                      title: thread.title,
+                      content: (thread.content ?? "").replace(/<[^>]*>/g, "").slice(0, 1500),
+                    });
                     const draftCtx = replyText && replyText !== "<p></p>"
-                      ? `My current draft reply:\n"""\n${replyText.replace(/<[^>]*>/g, "").slice(0, 1000)}\n"""\n\nHelp me sharpen this reply, keep my voice and JW perspective, ground any claims in NWT scriptures, and keep it warm and pastoral.`
-                      : `Help me draft a thoughtful, warm reply from a JW perspective. Ground any claims in NWT scriptures.`;
+                      ? t("forum.aiDraftContext", { draft: replyText.replace(/<[^>]*>/g, "").slice(0, 1000) })
+                      : t("forum.aiNoDraftContext");
                     window.location.href = `/ai?ask=${encodeURIComponent(threadCtx + draftCtx)}`;
                   }}
-                  title="Get AI help drafting a reply"
+                  title={t("forum.aiAssistTitle")}
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>
                   </svg>
-                  AI assist
+                  {t("forum.aiAssist")}
                 </button>
                 <button className="forum-reply-btn" type="submit" disabled={createReply.isPending || !replyText || replyText === "<p></p>"}>
                   {createReply.isPending && <span className="btn-spin" />}{createReply.isPending ? t("forum.posting") : t("forum.postReply")}

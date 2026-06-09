@@ -190,36 +190,36 @@ export default function OnboardingModal({ onClose, navigate, user }: Props) {
               </svg>
             </div>
             <h2 className="onboard-title" id="onboard-title">
-              Meet your AI Study Companion
+              {t("onboarding.aiTitle")}
             </h2>
             <p className="onboard-body">
-              Grounded in the NWT and JW publications. Ask anything, about a verse, this week's meeting, or your own progress, and it responds in seconds.
+              {t("onboarding.aiIntro")}
             </p>
             <div className="onboard-ai-samples">
               <button
                 className="onboard-ai-sample"
-                onClick={() => openAIWithSample("What does the Bible say about why God allows suffering?")}
+                onClick={() => openAIWithSample(t("onboarding.aiSample1"))}
               >
                 <span aria-hidden>›</span>
-                &ldquo;What does the Bible say about why God allows suffering?&rdquo;
+                &ldquo;{t("onboarding.aiSample1")}&rdquo;
               </button>
               <button
                 className="onboard-ai-sample"
-                onClick={() => openAIWithSample("Walk me through this week's CLAM meeting")}
+                onClick={() => openAIWithSample(t("onboarding.aiSample2"))}
               >
                 <span aria-hidden>›</span>
-                &ldquo;Walk me through this week&rsquo;s CLAM meeting&rdquo;
+                &ldquo;{t("onboarding.aiSample2")}&rdquo;
               </button>
               <button
                 className="onboard-ai-sample"
-                onClick={() => openAIWithSample("Why don't Jehovah's Witnesses celebrate birthdays?")}
+                onClick={() => openAIWithSample(t("onboarding.aiSample3"))}
               >
                 <span aria-hidden>›</span>
-                &ldquo;Why don&rsquo;t Jehovah&rsquo;s Witnesses celebrate birthdays?&rdquo;
+                &ldquo;{t("onboarding.aiSample3")}&rdquo;
               </button>
             </div>
             <button className="onboard-skip-inline" onClick={() => setStep(4)}>
-              Skip for now
+              {t("onboarding.skipForNow")}
             </button>
           </>
         )}

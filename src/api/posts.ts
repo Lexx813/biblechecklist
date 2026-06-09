@@ -162,6 +162,24 @@ export const postsApi = {
     return data ?? [];
   },
 
+  // Batch: which emojis the current user reacted with, keyed by post_id —
+  // across many posts in ONE query. Replaces N per-post getReactions() calls
+  // on feed render (was a query per post just to compute the viewer's picks).
+  getMyReactionsForPosts: async (postIds: string[]): Promise<Record<string, string[]>> => {
+    if (!postIds.length) return {};
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return {};
+    const { data, error } = await supabase
+      .from("user_post_reactions")
+      .select("post_id, emoji")
+      .eq("user_id", user.id)
+      .in("post_id", postIds);
+    if (error) throw new Error(error.message);
+    const map: Record<string, string[]> = {};
+    for (const r of data ?? []) (map[r.post_id] ??= []).push(r.emoji);
+    return map;
+  },
+
   getCommentLikers: async (commentId: string) => {
     const { data } = await supabase.from("user_post_comment_likes").select("user_id").eq("comment_id", commentId);
     if (!data?.length) return [];

@@ -4,6 +4,7 @@ import { BOOKS, OT_COUNT } from "../data/books";
 import BookCard from "../components/BookCard";
 import BookCelebration from "../components/BookCelebration";
 import { loadAnonProgress, saveAnonProgress, countAnonChapters, type AnonProgress } from "../lib/anonProgress";
+import { makeTablistKeyHandler } from "../lib/a11y/useTablistKeys";
 import "../styles/app.css";
 
 interface Props {
@@ -94,6 +95,8 @@ export default function AnonChecklistPage({ onSignUp, onBack }: Props) {
   // Show sticky save banner once they've checked at least 3 chapters
   const showSaveBanner = totalChecked >= 3 && !bannerDismissed;
 
+  const onTabKeyDown = makeTablistKeyHandler<"all" | "ot" | "nt">(["all", "ot", "nt"], tab, setTab);
+
   return (
     <div className="anon-tracker" id="main-content">
       {/* Top bar */}
@@ -113,10 +116,10 @@ export default function AnonChecklistPage({ onSignUp, onBack }: Props) {
       <div className="checklist-container">
         {/* Tabs + search */}
         <div className="checklist-controls">
-          <div className="tab-group" role="tablist">
-            <button role="tab" aria-selected={tab === "all"} className={`tab-btn${tab === "all" ? " tab-btn--active" : ""}`} onClick={() => setTab("all")}>{t("app.tabAll", "All")}</button>
-            <button role="tab" aria-selected={tab === "ot"} className={`tab-btn${tab === "ot" ? " tab-btn--active" : ""}`} onClick={() => setTab("ot")}>{t("app.testamentOT", "Hebrew")}</button>
-            <button role="tab" aria-selected={tab === "nt"} className={`tab-btn${tab === "nt" ? " tab-btn--active" : ""}`} onClick={() => setTab("nt")}>{t("app.testamentNT", "Greek")}</button>
+          <div className="tab-group" role="tablist" aria-label={t("app.testamentFilterAria", "Filter books by section")}>
+            <button role="tab" id="anon-tab-all" aria-controls="anon-book-panel" aria-selected={tab === "all"} tabIndex={tab === "all" ? 0 : -1} onKeyDown={onTabKeyDown} className={`tab-btn${tab === "all" ? " tab-btn--active" : ""}`} onClick={() => setTab("all")}>{t("app.tabAll", "All")}</button>
+            <button role="tab" id="anon-tab-ot" aria-controls="anon-book-panel" aria-selected={tab === "ot"} tabIndex={tab === "ot" ? 0 : -1} onKeyDown={onTabKeyDown} className={`tab-btn${tab === "ot" ? " tab-btn--active" : ""}`} onClick={() => setTab("ot")}>{t("app.testamentOT", "Hebrew")}</button>
+            <button role="tab" id="anon-tab-nt" aria-controls="anon-book-panel" aria-selected={tab === "nt"} tabIndex={tab === "nt" ? 0 : -1} onKeyDown={onTabKeyDown} className={`tab-btn${tab === "nt" ? " tab-btn--active" : ""}`} onClick={() => setTab("nt")}>{t("app.testamentNT", "Greek")}</button>
           </div>
           <div className="search-wrap">
             <svg className="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -163,7 +166,7 @@ export default function AnonChecklistPage({ onSignUp, onBack }: Props) {
         </div>
 
         {/* Book grid */}
-        <div className="book-list">
+        <div className="book-list" id="anon-book-panel" role="tabpanel" aria-labelledby={`anon-tab-${tab}`}>
           {filteredBooks.map((book) => {
             const showOTDivider = tab === "all" && book.index === 0 && !search;
             const showNTDivider = tab === "all" && book.index === OT_COUNT && !search;

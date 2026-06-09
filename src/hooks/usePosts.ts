@@ -123,12 +123,25 @@ export function usePostReactions(postId: string | null) {
   });
 }
 
+// Batched viewer-reactions for an entire feed in one query (kills the per-post
+// N+1). Returns a map of post_id → emojis the current user reacted with.
+export function useMyPostReactions(postIds: string[], userId: string | undefined) {
+  const key = [...postIds].sort().join(",");
+  return useQuery({
+    queryKey: ["myPostReactions", userId, key],
+    queryFn: () => postsApi.getMyReactionsForPosts(postIds),
+    enabled: !!userId && postIds.length > 0,
+    staleTime: 60_000,
+  });
+}
+
 export function useToggleReaction(postId: string) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (emoji: string) => postsApi.toggleReaction(postId, emoji),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["postReactions", postId] });
+      queryClient.invalidateQueries({ queryKey: ["myPostReactions"] });
       queryClient.invalidateQueries({ queryKey: ["publicFeed"] });
       queryClient.invalidateQueries({ queryKey: ["friendPosts"] });
       queryClient.invalidateQueries({ queryKey: ["userPosts"] });

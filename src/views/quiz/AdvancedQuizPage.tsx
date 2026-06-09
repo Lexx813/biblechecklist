@@ -127,7 +127,7 @@ export default function AdvancedQuizPage({ user, navigate, darkMode, setDarkMode
 
       <div className="quiz-timed-toggle-row">
         <span className="quiz-timed-toggle-label">
-          Timed Mode
+          {t("quiz.timedMode")}
         </span>
         <label className="quiz-timed-toggle">
           <input
@@ -159,7 +159,7 @@ export default function AdvancedQuizPage({ user, navigate, darkMode, setDarkMode
 
       <div style={{ textAlign: "center", marginTop: 24 }}>
         <button className="quiz-btn quiz-btn--secondary" onClick={() => navigate("masterQuiz")}>
-          Master Levels →
+          {t("quiz.masterLevels")} →
         </button>
       </div>
     </div>

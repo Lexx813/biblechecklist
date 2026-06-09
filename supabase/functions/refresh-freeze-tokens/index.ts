@@ -9,6 +9,7 @@
  *   SUPABASE_SERVICE_ROLE_KEY
  */
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { safeEqual } from "../_shared/safeEqual.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -18,7 +19,7 @@ const supabase = createClient(
 Deno.serve(async (req) => {
   const secret = Deno.env.get("CRON_SECRET");
   if (!secret) return new Response("Misconfigured", { status: 503 });
-  if (req.headers.get("authorization") !== `Bearer ${secret}`) {
+  if (!safeEqual(req.headers.get("authorization"), `Bearer ${secret}`)) {
     return new Response("Unauthorized", { status: 401 });
   }
 

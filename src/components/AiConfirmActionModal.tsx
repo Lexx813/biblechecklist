@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { notesApi } from "../api/notes";
 import { toast } from "../lib/toast";
+import { useFocusTrap } from "../hooks/useFocusTrap";
 
 // Hard confirmation gate for destructive AI actions.
 // The server emits a `confirm_action` SSE event INSTEAD of executing the
@@ -21,6 +22,9 @@ export default function AiConfirmActionModal() {
   const { t } = useTranslation();
   const [pending, setPending] = useState<ConfirmDetail | null>(null);
   const [busy, setBusy] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeModal = useCallback(() => setPending(null), []);
+  useFocusTrap(dialogRef, { onClose: closeModal });
 
   useEffect(() => {
     function onConfirm(e: Event) {
@@ -31,15 +35,6 @@ export default function AiConfirmActionModal() {
     window.addEventListener("ai:confirm-action", onConfirm as EventListener);
     return () => window.removeEventListener("ai:confirm-action", onConfirm as EventListener);
   }, []);
-
-  useEffect(() => {
-    if (!pending) return;
-    function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") setPending(null);
-    }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [pending]);
 
   if (!pending) return null;
 
@@ -65,6 +60,7 @@ export default function AiConfirmActionModal() {
 
   return createPortal(
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-labelledby="ai-confirm-title"

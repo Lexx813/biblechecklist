@@ -13,6 +13,7 @@
  */
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { safeEqual } from "../_shared/safeEqual.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -282,7 +283,7 @@ Deno.serve(async (req) => {
   const expected = Deno.env.get("WEBHOOK_SECRET");
   const provided = req.headers.get("x-webhook-secret");
   if (expected) {
-    if (provided !== expected) {
+    if (!safeEqual(provided, expected)) {
       console.log(JSON.stringify({
         fn: "send-push-notification",
         warn: "x-webhook-secret mismatch — accepting because strict mode is opt-in",

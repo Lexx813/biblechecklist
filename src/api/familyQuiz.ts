@@ -25,8 +25,8 @@ export const familyQuizApi = {
     return data.id;
   },
 
-  // Load a challenge's metadata + its full questions (in order)
-  getChallenge: async (challengeId: string) => {
+  // Load a challenge's metadata + its full questions (in order), localized to `language`
+  getChallenge: async (challengeId: string, language = "en") => {
     // Fetch challenge without any FK join to avoid ambiguity (creator_id has
     // two FKs: one to auth.users and one to profiles)
     const { data: challenge, error: cErr } = await supabase
@@ -46,12 +46,35 @@ export const familyQuizApi = {
 
     const { data: questions, error: qErr } = await supabase
       .from("quiz_questions")
-      .select("id, level, question, options, correct_index")
+      .select(`
+        id,
+        level,
+        question,
+        options,
+        correct_index,
+        quiz_question_translations (
+          lang,
+          question,
+          options
+        )
+      `)
       .in("id", challenge.question_ids);
     if (qErr) throw new Error(qErr.message);
 
+    // Resolve to the requested language, falling back to the base English row
+    const localized = (questions ?? []).map((q: any) => {
+      const tx = q.quiz_question_translations?.find((t: any) => t.lang === language);
+      return {
+        id: q.id,
+        level: q.level,
+        question: tx?.question ?? q.question,
+        options: tx?.options ?? q.options,
+        correct_index: q.correct_index,
+      };
+    });
+
     // Restore original insertion order
-    const qMap = Object.fromEntries((questions ?? []).map(q => [q.id, q]));
+    const qMap = Object.fromEntries(localized.map(q => [q.id, q]));
     const ordered = challenge.question_ids.map((id: string) => qMap[id]).filter(Boolean);
     return { ...challenge, creatorName: creator?.display_name ?? null, questions: ordered };
   },

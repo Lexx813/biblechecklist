@@ -13,6 +13,7 @@
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
 import { escapeHtml } from "../_shared/escape-html.ts";
+import { safeEqual } from "../_shared/safeEqual.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -31,7 +32,7 @@ Deno.serve(async (req) => {
   // Validate shared secret set in the DB webhook header — fail closed
   const secret = Deno.env.get("WEBHOOK_SECRET");
   if (!secret) return new Response("Server misconfigured", { status: 503 });
-  if (req.headers.get("x-webhook-secret") !== secret) {
+  if (!safeEqual(req.headers.get("x-webhook-secret"), secret)) {
     return new Response("Unauthorized", { status: 401 });
   }
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useVideoBySlug, useVideoComments, useCreateVideoComment, useDeleteVideoComment, useUserLikedVideoIds, useToggleVideoLike } from "../../hooks/useVideos";
 import { useFullProfile } from "../../hooks/useAdmin";
 import { formatDate } from "../../utils/formatters";
@@ -41,6 +42,7 @@ interface Props {
 }
 
 export default function VideoDetailPage({ user, slug, onBack, navigate }: Props) {
+  const { t } = useTranslation();
   const { data: video, isLoading } = useVideoBySlug(slug);
   const { data: comments = [] } = useVideoComments(video?.id);
   const { data: likedIds = [] } = useUserLikedVideoIds(user?.id);
@@ -52,7 +54,7 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
   const liked = video ? (likedIds as string[]).includes(video.id) : false;
 
   async function handleLike() {
-    if (!user) { toast("Sign in to like videos."); return; }
+    if (!user) { toast(t("videos.toastSignInLike")); return; }
     if (!video) return;
     await toggleLike.mutateAsync(video.id);
   }
@@ -64,7 +66,7 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
       await createComment.mutateAsync({ userId: user.id, content: commentText.trim() });
       setCommentText("");
     } catch (err: any) {
-      toast(err.message ?? "Failed to post comment.");
+      toast(err.message ?? t("videos.toastFailedComment"));
     }
   }
 
@@ -72,15 +74,15 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
     const url = `${window.location.origin}/videos/${encodeURIComponent(slug)}`;
     navigator.clipboard
       .writeText(url)
-      .then(() => toast("Link copied!"))
-      .catch(() => toast("Could not copy link."));
+      .then(() => toast(t("videos.linkCopied")))
+      .catch(() => toast(t("videos.couldNotCopy")));
   }
 
   if (isLoading) {
     return (
       <div className="video-detail-page">
         <div className="video-detail-hero">
-          <button className="video-detail-back" onClick={onBack}>← All videos</button>
+          <button className="video-detail-back" onClick={onBack}>← {t("videos.allVideos")}</button>
           <div className="skeleton" style={{ width: "100%", maxWidth: 860, aspectRatio: "16/9" }} />
         </div>
       </div>
@@ -91,8 +93,8 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
     return (
       <div className="video-detail-page">
         <div className="video-player-wrap">
-          <div style={{ padding: "60px 0", textAlign: "center", color: "var(--text-secondary)" }}>Video not found.</div>
-          <button onClick={onBack} style={{ marginTop: 12, background: "none", border: "none", color: "#a78bfa", cursor: "pointer" }}>← All videos</button>
+          <div style={{ padding: "60px 0", textAlign: "center", color: "var(--text-secondary)" }}>{t("videos.videoNotFound")}</div>
+          <button onClick={onBack} style={{ marginTop: 12, background: "none", border: "none", color: "#a78bfa", cursor: "pointer" }}>← {t("videos.allVideos")}</button>
         </div>
       </div>
     );
@@ -132,18 +134,18 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
         {video.description && <div className="video-player-desc">{video.description}</div>}
 
         <div className="video-player-actions">
-          <button className={`video-like-btn${liked ? " liked" : ""}`} onClick={handleLike} aria-label={liked ? "Unlike" : "Like"}>
+          <button className={`video-like-btn${liked ? " liked" : ""}`} onClick={handleLike} aria-label={liked ? t("videos.ariaUnlike") : t("videos.ariaLike")}>
             <HeartIcon filled={liked} />
-            {video.likes_count} {video.likes_count === 1 ? "like" : "likes"}
+            {t("videos.likeCount", { count: video.likes_count })}
           </button>
-          <button className="video-share-btn" onClick={handleShare} aria-label="Share">
+          <button className="video-share-btn" onClick={handleShare} aria-label={t("videos.ariaShare")}>
             <ShareIcon />
-            Share
+            {t("videos.share")}
           </button>
         </div>
 
         <div className="video-comments">
-          <div className="video-comments-title">{comments.length} {comments.length === 1 ? "comment" : "comments"}</div>
+          <div className="video-comments-title">{t("videos.commentCount", { count: comments.length })}</div>
           {(comments as VideoComment[]).map(c => (
             <div key={c.id} className="video-comment">
               <div className="video-comment-avatar">
@@ -155,18 +157,18 @@ export default function VideoDetailPage({ user, slug, onBack, navigate }: Props)
                 <div className="video-comment-date">{formatDate(c.created_at)}</div>
               </div>
               {(user?.id === c.author_id || profile?.is_admin) && (
-                <button onClick={() => deleteComment.mutate(c.id)} style={{ background: "none", border: "none", color: "var(--text-secondary)", cursor: "pointer", fontSize: "0.7rem", alignSelf: "flex-start", marginTop: 2 }} aria-label="Delete comment">✕</button>
+                <button onClick={() => deleteComment.mutate(c.id)} style={{ background: "none", border: "none", color: "var(--text-secondary)", cursor: "pointer", fontSize: "0.7rem", alignSelf: "flex-start", marginTop: 2 }} aria-label={t("videos.ariaDeleteComment")}>✕</button>
               )}
             </div>
           ))}
           {user ? (
             <form className="video-comment-form" onSubmit={handleComment}>
-              <input className="video-comment-input" value={commentText} onChange={e => setCommentText(e.target.value)} placeholder="Add a comment…" maxLength={1000} />
-              <button type="submit" className="video-comment-submit" disabled={!commentText.trim() || createComment.isPending}>Post</button>
+              <input className="video-comment-input" value={commentText} onChange={e => setCommentText(e.target.value)} placeholder={t("videos.addComment")} maxLength={1000} />
+              <button type="submit" className="video-comment-submit" disabled={!commentText.trim() || createComment.isPending}>{t("videos.post")}</button>
             </form>
           ) : (
             <div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", marginTop: 8 }}>
-              <button onClick={() => navigate("home")} style={{ background: "none", border: "none", color: "#a78bfa", cursor: "pointer", fontSize: "inherit" }}>Sign in</button> to comment.
+              <button onClick={() => navigate("home")} style={{ background: "none", border: "none", color: "#a78bfa", cursor: "pointer", fontSize: "inherit" }}>{t("videos.signIn")}</button> {t("videos.toComment")}
             </div>
           )}
         </div>

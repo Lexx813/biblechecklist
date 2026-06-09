@@ -74,7 +74,8 @@
     "aiAssistantDesc": "Pata msaada wa kuandika chapisho lenye uchangamfu na lenye msingi wa Maandiko kulingana na mada na rasimu yako.",
     "aiWriting": "Anaandika…",
     "aiHelpMeWrite": "Nisaidie Kuandika Chapisho Hili",
-    "aiSuggestion": "Pendekezo la AI"
+    "aiSuggestion": "Pendekezo la AI",
+    "viewProfile": "View {{name}}'s profile"
   },
   "groups": {
     "addCoverPhoto": "Ongeza picha ya jalada",
@@ -241,7 +242,25 @@
     "writeACommentAria": "Andika maoni",
     "you": "wewe",
     "failedRsvp": "Imeshindwa kusasisha RSVP.",
-    "failedDeleteEvent": "Imeshindwa kufuta tukio."
+    "failedDeleteEvent": "Imeshindwa kufuta tukio.",
+    "events": {
+      "createTitle": "Create Event",
+      "createAria": "Create event",
+      "closeAria": "Close",
+      "fieldTitle": "Title",
+      "fieldDescription": "Description",
+      "fieldLocation": "Location",
+      "fieldStartsAt": "Starts at",
+      "fieldEndsAt": "Ends at",
+      "titlePlaceholder": "Meeting title",
+      "locationPlaceholder": "Address or meeting link",
+      "cancel": "Cancel",
+      "create": "Create event",
+      "creating": "Creating…"
+    },
+    "composePlaceholder": "Share something with the group…",
+    "imageUploadFailed": "Image upload failed.",
+    "failedToPost": "Failed to post."
   },
   "history": {
     "avgPerDay": "Wastani / siku",
@@ -770,7 +789,8 @@
     "tryAgain": "Jaribu tena",
     "failedDelete": "Imeshindwa kufuta ujumbe.",
     "failedEdit": "Imeshindwa kuhariri ujumbe.",
-    "failedReaction": "Imeshindwa kusasisha mwitikio."
+    "failedReaction": "Imeshindwa kusasisha mwitikio.",
+    "notePlaceholder": "Add a note (optional)…"
   },
   "nav": {
     "today": "Leo",
@@ -899,7 +919,8 @@
       "sendComment": "Tuma maoni",
       "sendReply": "Tuma jibu",
       "signInToComment": "Ingia ili kutoa maoni",
-      "writeCommentPlaceholder": "Andika maoni…"
+      "writeCommentPlaceholder": "Andika maoni…",
+      "viewProfile": "View {{name}}'s profile"
     }
   },
   "profile": {
@@ -2007,7 +2028,9 @@
           }
         ]
       }
-    }
+    },
+    "explore": "Explore",
+    "tablistLabel": "Study topic sections"
   },
   "topbar": {
     "accountMenu": "Menyu ya akaunti kwa {{name}}",
@@ -2406,7 +2429,8 @@
     "uploadingCover": "Inapakia…",
     "wordGoal": "Lengo la Maneno",
     "wordGoalOf": "/ maneno {{count}}",
-    "words": "maneno"
+    "words": "maneno",
+    "removeTag": "Remove tag {{tag}}"
   },
   "a11y": {
     "skipToContent": "Ruka kwenda kwenye yaliyomo makuu",
@@ -2646,7 +2670,8 @@
     "testamentOT": "Maandiko ya Kiebrania",
     "title": "Orodha ya Usomaji wa Biblia",
     "write": "Andika",
-    "searchBooksAria": "Tafuta vitabu"
+    "searchBooksAria": "Tafuta vitabu",
+    "testamentFilterAria": "Filter books by section"
   },
   "auth": {
     "back": "← Rudi",
@@ -2799,7 +2824,7 @@
     "published": "Imechapishwa",
     "publishedCount": "{{count}} yamechapishwa",
     "readMore": "Bofya kusoma zaidi…",
-    "searchPlaceholder": "Tafuta blogu...",
+    "searchPlaceholder": "Search articles, topics, authors…",
     "subtitle": "Tafakari, mafunzo na ufahamu kutoka kwa jamii yetu",
     "title": "Blogu",
     "totalCount": "Jumla {{count}}",
@@ -3386,7 +3411,8 @@
   },
   "familyQuiz": {
     "loadingChallenge": "Inapakia changamoto…",
-    "loadingResults": "Inapakia matokeo…"
+    "loadingResults": "Inapakia matokeo…",
+    "namePlaceholder": "e.g. Sunday Family Quiz"
   },
   "feed": {
     "earnedBadge": "amepata beji —",
@@ -4344,7 +4370,9 @@
     "more": "Zaidi"
   },
   "createPost": {
-    "addToPost": "Ongeza kwenye chapisho lako"
+    "addToPost": "Ongeza kwenye chapisho lako",
+    "editAria": "Edit post",
+    "createAria": "Create post"
   },
   "bookAuthors": [
     "Musa",
@@ -6530,5 +6558,13 @@
     "waitingForPlayers": "Inasubiri wachezaji wengine {{count}} wajiunge kwa msimbo",
     "wrong": "Si sahihi!",
     "yourTurn": "Zamu yako, jibu sasa!"
+  },
+  "videos": {
+    "composer": {
+      "dropOrBrowse": "Drop video here or click to browse",
+      "bookPlaceholder": "Book  e.g. John",
+      "chapterPlaceholder": "Ch.  e.g. 3"
+    },
+    "commentPlaceholder": "Add a comment…"
   }
 }

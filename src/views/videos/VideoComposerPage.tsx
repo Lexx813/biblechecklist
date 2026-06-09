@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { useCreateVideo } from "../../hooks/useVideos";
 import { validateVideoFile, parseEmbedUrl, formatScriptureTag } from "../../utils/videoEmbed";
 import { videosApi } from "../../api/videos";
@@ -25,6 +26,7 @@ interface Props {
 }
 
 export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav }: Props) {
+  const { t } = useTranslation();
   const [tab, setTab] = useState<"link" | "upload">("link");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -49,7 +51,7 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
       setEmbedUrl(embed);
     } else {
       setEmbedUrl(null);
-      if (url.length > 10) setLinkError("Only YouTube, TikTok (full URL), and Rumble links are supported. For TikTok, open the video in a browser and copy the full URL (e.g. tiktok.com/@user/video/…).");
+      if (url.length > 10) setLinkError(t("videos.unsupportedLink"));
     }
   }
 
@@ -68,22 +70,22 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
 
   async function handleSubmit() {
     if (!user) return;
-    if (!title.trim()) { toast("Title is required."); return; }
+    if (!title.trim()) { toast(t("videos.titleRequired")); return; }
     try {
       setUploading(true);
       if (tab === "link") {
-        if (!embedUrl) { toast("Enter a valid YouTube, TikTok, or Rumble link."); return; }
+        if (!embedUrl) { toast(t("videos.enterValidLink")); return; }
         await createVideo.mutateAsync({
           title: title.trim(),
           description: description.trim() || undefined,
           embed_url: embedUrl,
           scripture_tag: formatScriptureTag(scriptureBook, scriptureChapter),
         });
-        toast("Video posted!");
+        toast(t("videos.videoPosted"));
         onBack();
         return;
       }
-      if (!file) { toast("Please select a video file."); return; }
+      if (!file) { toast(t("videos.selectVideoFile")); return; }
       // Lazy-load compression, not in the initial bundle
       const { compressVideo } = await import("../../lib/videoCompress");
       let compressed: File;
@@ -103,10 +105,10 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
         storage_path,
         scripture_tag: formatScriptureTag(scriptureBook, scriptureChapter),
       });
-      toast("Video posted!");
+      toast(t("videos.videoPosted"));
       onBack();
     } catch (err: any) {
-      toast(err.message ?? "Failed to submit. Please try again.");
+      toast(err.message ?? t("videos.failedSubmit"));
     } finally {
       setUploading(false);
       setCompressProgress(null);
@@ -115,9 +117,9 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
 
   const isCompressing = compressProgress !== null && compressProgress.ratio < 1;
   const submitLabel = isCompressing
-    ? `Compressing… ${Math.round((compressProgress?.ratio ?? 0) * 100)}%`
-    : uploading ? "Uploading…"
-    : "Post";
+    ? t("videos.compressingPct", { pct: Math.round((compressProgress?.ratio ?? 0) * 100) })
+    : uploading ? t("videos.uploading")
+    : t("videos.post");
   const canSubmit = !isCompressing && !uploading && !!title.trim() && (tab === "link" ? !!embedUrl : !!file);
 
   return (
@@ -126,75 +128,84 @@ export default function VideoComposerPage({ user, onBack, navigate, ...sharedNav
         <div className="video-composer">
           <div className="video-composer-header">
             <VideoIcon />
-            <h2>Post a Video</h2>
-            <button className="video-composer-close" onClick={onBack} aria-label="Back">✕</button>
+            <h2>{t("videos.composerTitle")}</h2>
+            <button className="video-composer-close" onClick={onBack} aria-label={t("videos.ariaBack")}>✕</button>
           </div>
           <div className="video-composer-tabs">
-            <button className={`video-composer-tab${tab === "link" ? " active" : ""}`} onClick={() => setTab("link")}>Paste Link</button>
-            <button className={`video-composer-tab${tab === "upload" ? " active" : ""}`} onClick={() => setTab("upload")}>Upload File</button>
+            <button className={`video-composer-tab${tab === "link" ? " active" : ""}`} onClick={() => setTab("link")}>{t("videos.tabPasteLink")}</button>
+            <button className={`video-composer-tab${tab === "upload" ? " active" : ""}`} onClick={() => setTab("upload")}>{t("videos.tabUploadFile")}</button>
           </div>
           <div className="video-composer-body">
             <div className="video-composer-field">
-              <label className="video-composer-label">Title *</label>
-              <input className="video-composer-input" value={title} onChange={e => setTitle(e.target.value)} placeholder="e.g. Is the Angel of Jehovah God?" maxLength={200} />
+              <label className="video-composer-label">{t("videos.fieldTitle")}</label>
+              <input className="video-composer-input" value={title} onChange={e => setTitle(e.target.value)} placeholder={t("videos.phQuestion")} maxLength={200} />
             </div>
             <div className="video-composer-field">
-              <label className="video-composer-label">Description (optional)</label>
-              <textarea className="video-composer-textarea" value={description} onChange={e => setDescription(e.target.value)} placeholder="A brief description…" maxLength={1000} />
+              <label className="video-composer-label">{t("videos.fieldDescription")}</label>
+              <textarea className="video-composer-textarea" value={description} onChange={e => setDescription(e.target.value)} placeholder={t("videos.phDescription")} maxLength={1000} />
             </div>
             <div className="video-composer-field">
-              <label className="video-composer-label">Scripture Tag (optional)</label>
+              <label className="video-composer-label">{t("videos.fieldScriptureTag")}</label>
               <div className="video-scripture-row">
                 <input
                   className="video-composer-input"
                   value={scriptureBook}
                   onChange={e => setScriptureBook(e.target.value)}
-                  placeholder="Book  e.g. John"
+                  placeholder={t("videos.phBook")}
                   maxLength={30}
                 />
                 <input
                   className="video-composer-input"
                   value={scriptureChapter}
                   onChange={e => setScriptureChapter(e.target.value)}
-                  placeholder="Ch.  e.g. 3"
+                  placeholder={t("videos.phChapter")}
                   maxLength={5}
                   type="text"
                   inputMode="numeric"
                 />
               </div>
-              <div className="video-scripture-hint">Shows as a badge on the reel. Leave blank if not applicable.</div>
+              <div className="video-scripture-hint">{t("videos.scriptureHint")}</div>
             </div>
 
             {tab === "link" ? (
               <div className="video-composer-field">
-                <label className="video-composer-label">YouTube, TikTok, or Rumble URL</label>
+                <label className="video-composer-label">{t("videos.fieldUrl")}</label>
                 <input className="video-composer-input" value={linkUrl} onChange={e => handleLinkChange(e.target.value)} placeholder="https://www.youtube.com/watch?v=…" />
-                {embedUrl && <div className="video-embed-badge">✓ Valid link detected</div>}
+                {embedUrl && <div className="video-embed-badge">✓ {t("videos.validLinkDetected")}</div>}
                 {linkError && <div className="video-error-msg">{linkError}</div>}
               </div>
             ) : (
               <>
                 {!file ? (
-                  <div className="video-dropzone" onClick={() => fileInputRef.current?.click()} onDrop={handleFileDrop} onDragOver={e => e.preventDefault()}>
+                  <div
+                    className="video-dropzone"
+                    role="button"
+                    tabIndex={0}
+                    aria-label={t("videos.dropVideoHere")}
+                    onClick={() => fileInputRef.current?.click()}
+                    onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInputRef.current?.click(); } }}
+                    onDrop={handleFileDrop}
+                    onDragOver={e => e.preventDefault()}
+                  >
                     <div className="video-dropzone-text">
-                      <strong>Drop video here</strong> or click to browse<br />
-                      <span style={{ fontSize: "0.68rem", opacity: 0.6 }}>MP4, MOV, WebM · max 50 MB</span>
+                      <strong>{t("videos.dropVideoHere")}</strong> {t("videos.orClickToBrowse")}<br />
+                      <span style={{ fontSize: "0.68rem", opacity: 0.6 }}>{t("videos.fileFormatsHint")}</span>
                     </div>
                     <input ref={fileInputRef} type="file" accept="video/mp4,video/quicktime,video/webm" style={{ display: "none" }} onChange={e => { const f = e.target.files?.[0]; if (f) selectFile(f); }} />
                   </div>
                 ) : compressProgress ? (
                   <div className="video-progress-panel">
-                    <div className="video-progress-label">{compressProgress.ratio < 1 ? `Compressing… ${Math.round(compressProgress.ratio * 100)}%` : "Compression complete"}</div>
+                    <div className="video-progress-label">{compressProgress.ratio < 1 ? t("videos.compressingPct", { pct: Math.round(compressProgress.ratio * 100) }) : t("videos.compressionComplete")}</div>
                     <div className="video-progress-bar"><div className="video-progress-fill" style={{ width: `${Math.round(compressProgress.ratio * 100)}%` }} /></div>
                     <div className="video-progress-stats">
-                      <span>Original: {compressProgress.originalMB.toFixed(0)} MB</span>
-                      <span style={{ color: "#34d399" }}>~{compressProgress.compressedMB.toFixed(0)} MB</span>
+                      <span>{t("videos.originalMB", { mb: compressProgress.originalMB.toFixed(0) })}</span>
+                      <span style={{ color: "#34d399" }}>{t("videos.compressedMB", { mb: compressProgress.compressedMB.toFixed(0) })}</span>
                     </div>
                   </div>
                 ) : (
                   <div className="video-progress-panel" style={{ cursor: "pointer" }} onClick={() => { setFile(null); setFileError(""); }}>
                     <div className="video-progress-label">📁 {file.name}</div>
-                    <div style={{ fontSize: "0.65rem", color: "rgba(240,234,255,0.45)", marginTop: 2 }}>{(file.size / (1024 * 1024)).toFixed(0)} MB · Click to remove</div>
+                    <div style={{ fontSize: "0.65rem", color: "rgba(240,234,255,0.45)", marginTop: 2 }}>{t("videos.fileSizeRemove", { mb: (file.size / (1024 * 1024)).toFixed(0) })}</div>
                   </div>
                 )}
                 {fileError && <div className="video-error-msg">{fileError}</div>}

@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { postsApi } from "../api/posts";
 import Button from "./ui/Button";
+import { useFocusTrap } from "../hooks/useFocusTrap";
 
 const RichTextEditor = lazy(() => import("./RichTextEditor"));
 
@@ -26,6 +27,8 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(dialogRef, { onClose });
 
   const stripped = content.replace(/<[^>]*>/g, "").trim();
   const isEmpty = !stripped && !imageFile;
@@ -68,12 +71,16 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
       onClick={onClose}
     >
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={isEdit ? t("createPost.editAria", { defaultValue: "Edit post" }) : t("createPost.createAria", { defaultValue: "Create post" })}
         className="flex max-h-[calc(100dvh-2rem)] w-full max-w-[560px] flex-col overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--card-bg)] shadow-2xl"
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex shrink-0 items-center justify-between border-b border-[var(--border)] px-5 py-3.5">
-          <h3 className="text-lg font-bold text-[var(--text-primary)]">{isEdit ? "Edit post" : "Create post"}</h3>
+          <h3 className="text-lg font-bold text-[var(--text-primary)]">{isEdit ? t("createPost.editTitle") : t("createPost.createTitle")}</h3>
           <button
             className="flex size-8 cursor-pointer items-center justify-center rounded-full border-none bg-[var(--hover-bg)] text-[var(--text-muted)] transition-colors hover:bg-[var(--border)] hover:text-[var(--text-primary)]"
             onClick={onClose}
@@ -92,7 +99,7 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
             <div className="flex size-10 items-center justify-center rounded-full bg-gradient-to-br from-(--violet-600) to-(--violet-400) text-sm font-bold text-white">{initials}</div>
           )}
           <div className="flex flex-col">
-            <span className="text-sm font-bold text-[var(--text-primary)]">{displayName || "You"}</span>
+            <span className="text-sm font-bold text-[var(--text-primary)]">{displayName || t("createPost.you")}</span>
             <button
               type="button"
               className={`mt-0.5 flex w-fit cursor-pointer items-center gap-1 rounded-md border px-2 py-0.5 text-[11px] font-semibold transition-colors ${
@@ -107,7 +114,7 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
               ) : (
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               )}
-              {visibility === "public" ? "Public" : "Friends only"}
+              {visibility === "public" ? t("createPost.public") : t("createPost.friendsOnly")}
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
           </div>
@@ -151,7 +158,7 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
               type="button"
               className="flex size-9 cursor-pointer items-center justify-center rounded-full border-none bg-transparent text-green-400 transition-colors hover:bg-green-500/10"
               onClick={() => fileRef.current?.click()}
-              title="Photo"
+              title={t("createPost.photo")}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             </button>
@@ -168,7 +175,7 @@ export default function CreatePostModal({ onClose, onSubmit, isPending, userId, 
             disabled={isEmpty || isPending || uploading}
             className="w-full"
           >
-            {isEdit ? "Save" : "Post"}
+            {isEdit ? t("createPost.save") : t("createPost.post")}
           </Button>
         </div>
       </div>

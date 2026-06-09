@@ -3,28 +3,31 @@ import { useTranslation } from "react-i18next";
 import { useNotifications, useMarkNotificationsRead } from "../hooks/useNotifications";
 import "../styles/notification-dropdown.css";
 
-const TYPE_LABEL: Record<string, string> = {
-  reply: "replied to your thread",
-  comment: "commented on your post",
-  mention: "mentioned you",
-  like: "liked your post",
-  friend_request: "sent you a friend request",
-  meeting_prep_reminder: "Meeting prep reminder",
+type TFn = ReturnType<typeof useTranslation>["t"];
+
+const TYPE_LABEL_KEY: Record<string, string> = {
+  reply: "notif.typeReply",
+  comment: "notif.typeComment",
+  mention: "notif.typeMention",
+  like: "notif.typeLike",
+  friend_request: "notif.typeFriendRequest",
+  meeting_prep_reminder: "notif.typeMeetingReminder",
 };
 
-function typeLabel(type: string): string {
-  return TYPE_LABEL[type] ?? type;
+function typeLabel(type: string, t: TFn): string {
+  const key = TYPE_LABEL_KEY[type];
+  return key ? t(key) : type;
 }
 
-function timeAgo(dateStr: string): string {
+function timeAgo(dateStr: string, t: TFn): string {
   const diff = Date.now() - new Date(dateStr).getTime();
   const mins = Math.floor(diff / 60000);
-  if (mins < 1) return "Just now";
-  if (mins < 60) return `${mins} minute${mins !== 1 ? "s" : ""} ago`;
+  if (mins < 1) return t("notif.justNow");
+  if (mins < 60) return t("notif.minutesAgo", { count: mins });
   const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return `${hrs} hour${hrs !== 1 ? "s" : ""} ago`;
+  if (hrs < 24) return t("notif.hoursAgo", { count: hrs });
   const days = Math.floor(hrs / 24);
-  return `${days} day${days !== 1 ? "s" : ""} ago`;
+  return t("notif.daysAgo", { count: days });
 }
 
 interface Props {
@@ -166,9 +169,9 @@ export default function NotificationDropdown({ userId, onClose, navigate }: Prop
                 <div className="notif-body">
                   <div className="notif-text">
                     {n.actor?.display_name && <strong>{n.actor.display_name} </strong>}
-                    {n.preview ?? typeLabel(n.type)}
+                    {n.preview ?? typeLabel(n.type, t)}
                   </div>
-                  <div className="notif-time">{timeAgo(n.created_at)}</div>
+                  <div className="notif-time">{timeAgo(n.created_at, t)}</div>
                 </div>
                 {!n.read && <div className="notif-dot" aria-hidden="true" />}
               </div>

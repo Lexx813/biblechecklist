@@ -46,6 +46,7 @@ export default async function sitemap() {
     { url: `${BASE}/messianic-prophecies`, lastModified: new Date("2026-04-28") },
     { url: `${BASE}/books`,                lastModified: new Date("2026-05-28") },
     { url: `${BASE}/plans`,                lastModified: new Date("2026-04-28") },
+    { url: `${BASE}/learn`,                lastModified: new Date("2026-05-28") },
     { url: `${BASE}/about`,                lastModified: new Date("2026-05-28") },
     { url: `${BASE}/privacy`,              lastModified: new Date("2026-03-31") },
     { url: `${BASE}/terms`,                lastModified: new Date("2026-03-31") },

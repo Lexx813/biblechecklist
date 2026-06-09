@@ -4,6 +4,7 @@ import { STUDY_TOPICS } from "../../data/studyTopics";
 import { BOOKS } from "../../data/books";
 import { BOOK_INFO } from "../../data/bookInfo";
 import AppLayout from "../../components/AppLayout";
+import { makeTablistKeyHandler } from "../../lib/a11y/useTablistKeys";
 import "../../styles/study-topics.css";
 
 function StudyTopicsSkeleton() {
@@ -26,6 +27,7 @@ function StudyTopicsSkeleton() {
 export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
   const { t } = useTranslation();
   const [tab, setTab] = useState("topics"); // "topics" | "books"
+  const onTabKeyDown = makeTablistKeyHandler(["topics", "books"], tab, setTab);
 
   return (
     <AppLayout navigate={navigate} user={user} currentPage="studyTopics">
@@ -37,27 +39,35 @@ export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
         </p>
       </div>
 
-      <div className="stp-tabs" role="tablist">
+      <div className="stp-tabs" role="tablist" aria-label={t("studyTopics.tablistLabel", { defaultValue: "Study topic sections" })}>
         <button
           className={`stp-tab${tab === "topics" ? " stp-tab--active" : ""}`}
           onClick={() => setTab("topics")}
+          onKeyDown={onTabKeyDown}
           role="tab"
+          id="stp-tab-topics"
+          aria-controls="stp-panel-topics"
           aria-selected={tab === "topics"}
+          tabIndex={tab === "topics" ? 0 : -1}
         >
           {t("studyTopics.tabTopics", "Topics")}
         </button>
         <button
           className={`stp-tab${tab === "books" ? " stp-tab--active" : ""}`}
           onClick={() => setTab("books")}
+          onKeyDown={onTabKeyDown}
           role="tab"
+          id="stp-tab-books"
+          aria-controls="stp-panel-books"
           aria-selected={tab === "books"}
+          tabIndex={tab === "books" ? 0 : -1}
         >
           {t("studyTopics.tabBooks", "Bible Books")}
         </button>
       </div>
 
       {tab === "topics" && (
-      <div className="stp-grid">
+      <div className="stp-grid" id="stp-panel-topics" role="tabpanel" aria-labelledby="stp-tab-topics">
         {STUDY_TOPICS.map(topic => {
           const loc = t(`studyTopics.topics.${topic.slug}`, { returnObjects: true }) as any;
           const title = (loc && typeof loc === "object" && loc.title) || topic.title;
@@ -79,7 +89,7 @@ export default function StudyTopicsPage({ user, navigate, ...sharedNav }) {
       )}
 
       {tab === "books" && (
-        <div className="stp-grid">
+        <div className="stp-grid" id="stp-panel-books" role="tabpanel" aria-labelledby="stp-tab-books">
           {BOOKS.map((book, bookIndex) => {
             const info = BOOK_INFO[bookIndex];
             const bookName = t(`bookNames.${bookIndex}`, book.name);

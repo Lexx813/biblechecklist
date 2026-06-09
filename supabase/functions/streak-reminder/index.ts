@@ -13,6 +13,7 @@
  */
 
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { safeEqual } from "../_shared/safeEqual.ts";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
@@ -24,7 +25,7 @@ Deno.serve(async (req) => {
   // var is missing, reject rather than allowing unauthenticated invocations.
   const secret = Deno.env.get("CRON_SECRET");
   if (!secret) return new Response("Misconfigured", { status: 503 });
-  if (req.headers.get("x-cron-secret") !== secret) {
+  if (!safeEqual(req.headers.get("x-cron-secret"), secret)) {
     return new Response("Unauthorized", { status: 401 });
   }
 

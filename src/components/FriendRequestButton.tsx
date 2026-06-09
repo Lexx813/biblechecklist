@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useFriendStatus, useSendFriendRequest, useCancelFriendRequest, useAcceptFriendRequest, useDeclineFriendRequest } from "../hooks/useFriends";
 import "../styles/friends.css";
 
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export function FriendRequestButton({ currentUserId, targetId }: Props) {
+  const { t } = useTranslation();
   const { data: status = "none", isLoading } = useFriendStatus(currentUserId, targetId);
   const send = useSendFriendRequest(currentUserId, targetId);
   const cancel = useCancelFriendRequest(currentUserId, targetId);
@@ -20,7 +22,7 @@ export function FriendRequestButton({ currentUserId, targetId }: Props) {
     return (
       <button className="pf-friend-btn pf-friend-btn--friends" disabled>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-        Friends
+        {t("friendBtn.friends")}
       </button>
     );
   }
@@ -31,10 +33,10 @@ export function FriendRequestButton({ currentUserId, targetId }: Props) {
         className="pf-friend-btn pf-friend-btn--pending"
         onClick={() => cancel.mutate()}
         disabled={cancel.isPending}
-        title="Click to cancel request"
+        title={t("friendBtn.cancelTitle")}
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        Request Sent
+        {t("friendBtn.requestSent")}
       </button>
     );
   }
@@ -47,14 +49,14 @@ export function FriendRequestButton({ currentUserId, targetId }: Props) {
           onClick={() => accept.mutate(targetId)}
           disabled={accept.isPending}
         >
-          Accept
+          {t("friendBtn.accept")}
         </button>
         <button
           className="pf-friend-btn"
           onClick={() => decline.mutate(targetId)}
           disabled={decline.isPending}
         >
-          Decline
+          {t("friendBtn.decline")}
         </button>
       </div>
     );
@@ -67,7 +69,7 @@ export function FriendRequestButton({ currentUserId, targetId }: Props) {
       disabled={send.isPending}
     >
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
-      Add Friend
+      {t("friendBtn.addFriend")}
     </button>
   );
 }

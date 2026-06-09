@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useUserPosts, useCreatePost, useUpdatePost, useDeletePost } from "../../../hooks/usePosts";
+import { useUserPosts, useCreatePost, useUpdatePost, useDeletePost, useMyPostReactions } from "../../../hooks/usePosts";
 import { sanitizeRich } from "../../../lib/sanitize";
 import CreatePostModal from "../../../components/CreatePostModal";
 import ConfirmModal from "../../../components/ConfirmModal";
@@ -19,6 +19,9 @@ interface Props {
 export default function PostsTab({ profileId, isOwner, userId, navigate }: Props) {
   const { t } = useTranslation();
   const { data: posts = [], isLoading } = useUserPosts(profileId, !isOwner);
+  // One batched query for the viewer's reactions across all posts (no N+1).
+  const postIds = useMemo(() => posts.map((p: any) => p.id), [posts]);
+  const { data: myPostReactions = {} } = useMyPostReactions(postIds, userId);
   const createPost = useCreatePost(profileId);
   const updatePost = useUpdatePost(profileId);
   const deletePost = useDeletePost(profileId);
@@ -155,6 +158,7 @@ export default function PostsTab({ profileId, isOwner, userId, navigate }: Props
                   userId={userId}
                   commentCount={post.comment_count ?? 0}
                   reactionCounts={post.reaction_counts ?? {}}
+                  myReactions={myPostReactions[post.id] ?? []}
                   navigate={navigate ?? (() => {})}
                 />
               </div>

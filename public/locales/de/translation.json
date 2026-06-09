@@ -136,7 +136,8 @@
     "lightMode": "Hell",
     "home": "Startseite",
     "about": "Über uns",
-    "searchBooksAria": "Bücher suchen"
+    "searchBooksAria": "Bücher suchen",
+    "testamentFilterAria": "Bücher nach Abschnitt filtern"
   },
   "landing": {
     "nav": {
@@ -429,7 +430,8 @@
       "sendComment": "Kommentar senden",
       "sendReply": "Antwort senden",
       "signInToComment": "Zum Kommentieren anmelden",
-      "writeCommentPlaceholder": "Kommentar schreiben…"
+      "writeCommentPlaceholder": "Kommentar schreiben…",
+      "viewProfile": "Profil von {{name}} ansehen"
     }
   },
   "follow": {
@@ -677,7 +679,7 @@
     "postCount_other": "{{count}} Beiträge veröffentlicht",
     "noPosts": "Noch keine Beiträge",
     "noPostsSub": "Seien Sie der Erste, der einen Gedanken oder eine Studie teilt.",
-    "searchPlaceholder": "Blogs durchsuchen…",
+    "searchPlaceholder": "Artikel, Themen, Autoren suchen…",
     "noResults": "Keine Ergebnisse gefunden",
     "noResultsSub": "Versuchen Sie es mit einem anderen Suchbegriff",
     "readMore": "Klicken zum Weiterlesen…",
@@ -865,7 +867,8 @@
     "aiAssistantDesc": "Erhalten Sie Hilfe beim Verfassen eines herzlichen, biblisch fundierten Forenbeitrags auf Grundlage Ihres Themas und Entwurfs.",
     "aiWriting": "Schreibe…",
     "aiHelpMeWrite": "Hilf mir, diesen Beitrag zu verfassen",
-    "aiSuggestion": "KI-Vorschlag"
+    "aiSuggestion": "KI-Vorschlag",
+    "viewProfile": "Profil von {{name}} ansehen"
   },
   "home": {
     "navLeaderboard": "Bestenliste",
@@ -2219,7 +2222,25 @@
     "send": "Senden",
     "commentsLoading": "Lädt…",
     "failedRsvp": "Zusage konnte nicht aktualisiert werden.",
-    "failedDeleteEvent": "Ereignis konnte nicht gelöscht werden."
+    "failedDeleteEvent": "Ereignis konnte nicht gelöscht werden.",
+    "events": {
+      "createTitle": "Termin erstellen",
+      "createAria": "Termin erstellen",
+      "closeAria": "Schließen",
+      "fieldTitle": "Titel",
+      "fieldDescription": "Beschreibung",
+      "fieldLocation": "Ort",
+      "fieldStartsAt": "Beginnt um",
+      "fieldEndsAt": "Endet um",
+      "titlePlaceholder": "Titel des Treffens",
+      "locationPlaceholder": "Adresse oder Meeting-Link",
+      "cancel": "Abbrechen",
+      "create": "Termin erstellen",
+      "creating": "Wird erstellt…"
+    },
+    "composePlaceholder": "Teile etwas mit der Gruppe…",
+    "imageUploadFailed": "Bild-Upload fehlgeschlagen.",
+    "failedToPost": "Veröffentlichung fehlgeschlagen."
   },
   "messages": {
     "title": "Nachrichten",
@@ -2345,7 +2366,8 @@
     "tryAgain": "Erneut versuchen",
     "failedDelete": "Nachricht konnte nicht gelöscht werden.",
     "failedEdit": "Nachricht konnte nicht bearbeitet werden.",
-    "failedReaction": "Reaktion konnte nicht aktualisiert werden."
+    "failedReaction": "Reaktion konnte nicht aktualisiert werden.",
+    "notePlaceholder": "Notiz hinzufügen (optional)…"
   },
   "aiCompanion": {
     "title": "KI-Studienbegleiter",
@@ -2454,9 +2476,18 @@
               "Der Apostel Paulus schrieb: „Für uns gibt es tatsächlich nur einen Gott, den Vater, aus dem alle Dinge sind und wir für ihn; und einen Herrn, Jesus Christus, durch den alle Dinge sind.“ (1. Korinther 8:6) Dieser Vers unterscheidet klar zwischen Jehova als Gott und Jesus als Herrn — zwei getrennte Personen."
             ],
             "scriptures": [
-              { "ref": "Johannes 14:28", "text": "Der Vater ist größer als ich." },
-              { "ref": "1. Korinther 8:6", "text": "Es gibt nur einen Gott, den Vater … und einen Herrn, Jesus Christus." },
-              { "ref": "Johannes 17:3", "text": "Das bedeutet ewiges Leben, dass sie dich, den allein wahren Gott, und den, den du gesandt hast, Jesus Christus, kennenlernen." }
+              {
+                "ref": "Johannes 14:28",
+                "text": "Der Vater ist größer als ich."
+              },
+              {
+                "ref": "1. Korinther 8:6",
+                "text": "Es gibt nur einen Gott, den Vater … und einen Herrn, Jesus Christus."
+              },
+              {
+                "ref": "Johannes 17:3",
+                "text": "Das bedeutet ewiges Leben, dass sie dich, den allein wahren Gott, und den, den du gesandt hast, Jesus Christus, kennenlernen."
+              }
             ]
           },
           {
@@ -2466,9 +2497,18 @@
               "Jesus selbst sagte: „Ich gehe zum Vater, denn der Vater ist größer als ich.“ Er räumte auch ein, dass es Dinge gab, die er nicht wusste, und sagte, dass niemand den Tag oder die Stunde kenne „außer dem Vater“. (Matthäus 24:36) Diese Begrenzungen wären unmöglich, wenn Jesus der allmächtige Gott wäre."
             ],
             "scriptures": [
-              { "ref": "Matthäus 3:17", "text": "Dies ist mein geliebter Sohn, an dem ich Wohlgefallen gefunden habe." },
-              { "ref": "Kolosser 1:15", "text": "Er ist das Bild des unsichtbaren Gottes, der Erstgeborene aller Schöpfung." },
-              { "ref": "Matthäus 24:36", "text": "Jenen Tag und jene Stunde kennt niemand, weder die Engel in den Himmeln noch der Sohn, sondern nur der Vater." }
+              {
+                "ref": "Matthäus 3:17",
+                "text": "Dies ist mein geliebter Sohn, an dem ich Wohlgefallen gefunden habe."
+              },
+              {
+                "ref": "Kolosser 1:15",
+                "text": "Er ist das Bild des unsichtbaren Gottes, der Erstgeborene aller Schöpfung."
+              },
+              {
+                "ref": "Matthäus 24:36",
+                "text": "Jenen Tag und jene Stunde kennt niemand, weder die Engel in den Himmeln noch der Sohn, sondern nur der Vater."
+              }
             ]
           },
           {
@@ -2478,8 +2518,14 @@
               "Zu Jehova durch Jesus Christus zu beten ist das Muster, das durchgängig in den Christlich-Griechischen Schriften gezeigt wird. Jesus ist unser Hoher Priester und Mittler — Rollen, die nur sinnvoll sind, wenn er von Gott, dem Vater, unterschieden ist. (1. Timotheus 2:5; Hebräer 7:25)"
             ],
             "scriptures": [
-              { "ref": "1. Timotheus 2:5", "text": "Es gibt nur einen Gott und nur einen Mittler zwischen Gott und Menschen, einen Menschen, Christus Jesus." },
-              { "ref": "Hebräer 7:25", "text": "Er kann diejenigen vollständig retten, die durch ihn an Gott herantreten." }
+              {
+                "ref": "1. Timotheus 2:5",
+                "text": "Es gibt nur einen Gott und nur einen Mittler zwischen Gott und Menschen, einen Menschen, Christus Jesus."
+              },
+              {
+                "ref": "Hebräer 7:25",
+                "text": "Er kann diejenigen vollständig retten, die durch ihn an Gott herantreten."
+              }
             ]
           }
         ]
@@ -2495,9 +2541,18 @@
               "Da in der Schrift nur ein Erzengel erwähnt wird und der auferstandene Jesus mit der Stimme eines Erzengels herabkommt, deutet dies stark darauf hin, dass Jesus dieser Erzengel ist."
             ],
             "scriptures": [
-              { "ref": "Daniel 12:1", "text": "Michael wird aufstehen, der große Fürst, der sich zugunsten deines Volkes stellt." },
-              { "ref": "Judas 9", "text": "Als aber Michael, der Erzengel, mit dem Teufel einen Streit hatte und über den Leib Mose verhandelte, wagte er nicht, ein Gericht in lästernden Worten gegen ihn zu fällen." },
-              { "ref": "1. Thessalonicher 4:16", "text": "Der Herr selbst wird mit gebietendem Zuruf, mit der Stimme eines Erzengels, vom Himmel herabkommen." }
+              {
+                "ref": "Daniel 12:1",
+                "text": "Michael wird aufstehen, der große Fürst, der sich zugunsten deines Volkes stellt."
+              },
+              {
+                "ref": "Judas 9",
+                "text": "Als aber Michael, der Erzengel, mit dem Teufel einen Streit hatte und über den Leib Mose verhandelte, wagte er nicht, ein Gericht in lästernden Worten gegen ihn zu fällen."
+              },
+              {
+                "ref": "1. Thessalonicher 4:16",
+                "text": "Der Herr selbst wird mit gebietendem Zuruf, mit der Stimme eines Erzengels, vom Himmel herabkommen."
+              }
             ]
           },
           {
@@ -2507,9 +2562,18 @@
               "Vor seiner menschlichen Geburt existierte Jesus im Himmel als mächtiges Geistgeschöpf — der „Erstgeborene aller Schöpfung“ (Kolosser 1:15). Sein vormenschlicher Name war Michael. Nach seiner Auferstehung sagt Philipper 2:9, dass Gott ihm „den Namen gab, der über jedem anderen Namen ist“ — Jesus Christus — erhoben in die höchste Stellung."
             ],
             "scriptures": [
-              { "ref": "Offenbarung 12:7-9", "text": "Michael und seine Engel kämpften mit dem Drachen … der große Drache wurde hinabgeschleudert." },
-              { "ref": "Kolosser 1:15-16", "text": "Er ist das Bild des unsichtbaren Gottes, der Erstgeborene aller Schöpfung; denn durch ihn wurden alle anderen Dinge erschaffen." },
-              { "ref": "Philipper 2:9", "text": "Gott erhob ihn in eine überlegene Stellung und schenkte ihm gütig den Namen, der über jedem anderen Namen ist." }
+              {
+                "ref": "Offenbarung 12:7-9",
+                "text": "Michael und seine Engel kämpften mit dem Drachen … der große Drache wurde hinabgeschleudert."
+              },
+              {
+                "ref": "Kolosser 1:15-16",
+                "text": "Er ist das Bild des unsichtbaren Gottes, der Erstgeborene aller Schöpfung; denn durch ihn wurden alle anderen Dinge erschaffen."
+              },
+              {
+                "ref": "Philipper 2:9",
+                "text": "Gott erhob ihn in eine überlegene Stellung und schenkte ihm gütig den Namen, der über jedem anderen Namen ist."
+              }
             ]
           }
         ]
@@ -2525,9 +2589,18 @@
               "Als Jesus getauft wurde, „öffneten sich die Himmel, und er sah Gottes Geist gleich einer Taube herabkommen“. (Matthäus 3:16) Eine Taube ist ein Symbol für Sanftmut und Frieden — der Geist wird hier als Kraft oder Einfluss dargestellt, nicht als ein drittes göttliches Wesen, das neben dem Vater und dem Sohn steht."
             ],
             "scriptures": [
-              { "ref": "1. Mose 1:2", "text": "Gottes wirksame Kraft bewegte sich über der Oberfläche der Wasser hin und her." },
-              { "ref": "Apostelgeschichte 2:4", "text": "Sie wurden alle mit heiligem Geist erfüllt und fingen an, in verschiedenen Sprachen zu reden." },
-              { "ref": "Lukas 1:35", "text": "Heiliger Geist wird über dich kommen, und Kraft des Höchsten wird dich überschatten." }
+              {
+                "ref": "1. Mose 1:2",
+                "text": "Gottes wirksame Kraft bewegte sich über der Oberfläche der Wasser hin und her."
+              },
+              {
+                "ref": "Apostelgeschichte 2:4",
+                "text": "Sie wurden alle mit heiligem Geist erfüllt und fingen an, in verschiedenen Sprachen zu reden."
+              },
+              {
+                "ref": "Lukas 1:35",
+                "text": "Heiliger Geist wird über dich kommen, und Kraft des Höchsten wird dich überschatten."
+              }
             ]
           },
           {
@@ -2537,9 +2610,18 @@
               "Die Gaben des heiligen Geistes — Weisheit, Glaube, Heilung, Zungenreden — werden durch Gottes Kraft verteilt, nicht durch ein drittes göttliches Wesen, das eigenständige Entscheidungen trifft. Paulus schreibt, dass „alle diese das Werk ein und desselben Geistes sind, der jedem Einzelnen so zuteilt, wie er will“ (1. Korinther 12:11) — doch dies zeigt die Übereinstimmung des Geistes mit Gottes Willen, nicht eine eigenständige Persönlichkeit."
             ],
             "scriptures": [
-              { "ref": "Apostelgeschichte 2:17", "text": "Ich werde etwas von meinem Geist auf alles Fleisch ausgießen." },
-              { "ref": "Römer 8:26", "text": "Der Geist selbst tritt für uns ein mit unausgesprochenem Seufzen." },
-              { "ref": "1. Korinther 12:11", "text": "Alle diese sind das Werk ein und desselben Geistes." }
+              {
+                "ref": "Apostelgeschichte 2:17",
+                "text": "Ich werde etwas von meinem Geist auf alles Fleisch ausgießen."
+              },
+              {
+                "ref": "Römer 8:26",
+                "text": "Der Geist selbst tritt für uns ein mit unausgesprochenem Seufzen."
+              },
+              {
+                "ref": "1. Korinther 12:11",
+                "text": "Alle diese sind das Werk ein und desselben Geistes."
+              }
             ]
           }
         ]
@@ -2555,11 +2637,26 @@
               "Jesus sagte seinen Jüngern, dass sie „in heiligem Geist getauft“ werden würden. (Apostelgeschichte 1:5) Menschen werden in Wasser getaucht, nicht in eine Person. Diese Ausdrücke — erfüllt mit, ausgegossen, getauft in — beschreiben den heiligen Geist durchgängig als Kraft, nicht als Individuum."
             ],
             "scriptures": [
-              { "ref": "Apostelgeschichte 2:4", "text": "Sie wurden alle mit heiligem Geist erfüllt und fingen an, in verschiedenen Sprachen zu reden." },
-              { "ref": "Apostelgeschichte 2:17", "text": "Ich werde etwas von meinem Geist auf alles Fleisch ausgießen." },
-              { "ref": "Apostelgeschichte 1:5", "text": "Ihr werdet in nicht vielen Tagen mit heiligem Geist getauft werden." },
-              { "ref": "Apostelgeschichte 10:38", "text": "Gott salbte ihn mit heiligem Geist und Kraft." },
-              { "ref": "Lukas 11:13", "text": "Der Vater im Himmel wird denen, die ihn bitten, heiligen Geist geben!" }
+              {
+                "ref": "Apostelgeschichte 2:4",
+                "text": "Sie wurden alle mit heiligem Geist erfüllt und fingen an, in verschiedenen Sprachen zu reden."
+              },
+              {
+                "ref": "Apostelgeschichte 2:17",
+                "text": "Ich werde etwas von meinem Geist auf alles Fleisch ausgießen."
+              },
+              {
+                "ref": "Apostelgeschichte 1:5",
+                "text": "Ihr werdet in nicht vielen Tagen mit heiligem Geist getauft werden."
+              },
+              {
+                "ref": "Apostelgeschichte 10:38",
+                "text": "Gott salbte ihn mit heiligem Geist und Kraft."
+              },
+              {
+                "ref": "Lukas 11:13",
+                "text": "Der Vater im Himmel wird denen, die ihn bitten, heiligen Geist geben!"
+              }
             ]
           },
           {
@@ -2569,10 +2666,22 @@
               "Bei der Taufe Jesu erschien der heilige Geist als Taube — nicht als Person. (Matthäus 3:16) Als Stephanus im Begriff war zu sterben, „schaute er in den Himmel und erblickte Gottes Herrlichkeit und Jesus zur Rechten Gottes stehen“. (Apostelgeschichte 7:55) Er sah zwei Personen — den Vater und den Sohn. Eine dritte Person war nicht sichtbar."
             ],
             "scriptures": [
-              { "ref": "Matthäus 3:16", "text": "Nachdem Jesus getauft worden war, stieg er sogleich aus dem Wasser herauf; und die Himmel öffneten sich, und er sah Gottes Geist gleich einer Taube herabkommen." },
-              { "ref": "Apostelgeschichte 7:55-56", "text": "Er schaute in den Himmel und erblickte Gottes Herrlichkeit und Jesus zur Rechten Gottes stehen." },
-              { "ref": "Offenbarung 7:10", "text": "Die Rettung verdanken wir unserem Gott, der auf dem Thron sitzt, und dem Lamm." },
-              { "ref": "1. Timotheus 2:5", "text": "Es gibt nur einen Gott und nur einen Mittler zwischen Gott und Menschen, einen Menschen, Christus Jesus." }
+              {
+                "ref": "Matthäus 3:16",
+                "text": "Nachdem Jesus getauft worden war, stieg er sogleich aus dem Wasser herauf; und die Himmel öffneten sich, und er sah Gottes Geist gleich einer Taube herabkommen."
+              },
+              {
+                "ref": "Apostelgeschichte 7:55-56",
+                "text": "Er schaute in den Himmel und erblickte Gottes Herrlichkeit und Jesus zur Rechten Gottes stehen."
+              },
+              {
+                "ref": "Offenbarung 7:10",
+                "text": "Die Rettung verdanken wir unserem Gott, der auf dem Thron sitzt, und dem Lamm."
+              },
+              {
+                "ref": "1. Timotheus 2:5",
+                "text": "Es gibt nur einen Gott und nur einen Mittler zwischen Gott und Menschen, einen Menschen, Christus Jesus."
+              }
             ]
           },
           {
@@ -2582,10 +2691,22 @@
               "Paulus schrieb, dass geistige Gaben „das Werk ein und desselben Geistes sind, der jedem Einzelnen so zuteilt, wie er will“. (1. Korinther 12:11) Der Geist verteilt nach Gottes Willen. Er ist das Werkzeug von Gottes Vorhaben, kein eigenständiger Verstand, der getrennte Entscheidungen trifft."
             ],
             "scriptures": [
-              { "ref": "4. Mose 11:25", "text": "Jehova nahm etwas von dem Geist, der auf ihm war, und legte ihn auf jeden der 70 Ältesten." },
-              { "ref": "2. Könige 2:9", "text": "Bitte, mögen mir zwei Teile deines Geistes zukommen." },
-              { "ref": "1. Korinther 12:11", "text": "Alle diese sind das Werk ein und desselben Geistes, der jedem Einzelnen so zuteilt, wie er will." },
-              { "ref": "Nehemia 9:20", "text": "Du gabst ihnen deinen guten Geist, um sie zu unterweisen." }
+              {
+                "ref": "4. Mose 11:25",
+                "text": "Jehova nahm etwas von dem Geist, der auf ihm war, und legte ihn auf jeden der 70 Ältesten."
+              },
+              {
+                "ref": "2. Könige 2:9",
+                "text": "Bitte, mögen mir zwei Teile deines Geistes zukommen."
+              },
+              {
+                "ref": "1. Korinther 12:11",
+                "text": "Alle diese sind das Werk ein und desselben Geistes, der jedem Einzelnen so zuteilt, wie er will."
+              },
+              {
+                "ref": "Nehemia 9:20",
+                "text": "Du gabst ihnen deinen guten Geist, um sie zu unterweisen."
+              }
             ]
           }
         ]
@@ -2601,11 +2722,26 @@
               "In Gethsemane betete Jesus: „Vater, wenn du willst, nimm diesen Becher von mir weg. Doch nicht mein Wille, sondern deiner geschehe.“ (Lukas 22:42) Zwei getrennte Willen — der des Vaters und der des Sohnes — können nicht in einem Wesen existieren. Dieses Gebet ergibt nur Sinn, wenn sie verschiedene Personen sind."
             ],
             "scriptures": [
-              { "ref": "Johannes 14:28", "text": "Der Vater ist größer als ich." },
-              { "ref": "Johannes 20:17", "text": "Ich fahre auf zu meinem Vater und eurem Vater und zu meinem Gott und eurem Gott." },
-              { "ref": "Lukas 22:42", "text": "Vater, wenn du willst, nimm diesen Becher von mir weg. Doch nicht mein Wille, sondern deiner geschehe." },
-              { "ref": "Markus 13:32", "text": "Jenen Tag oder jene Stunde kennt niemand, weder die Engel im Himmel noch der Sohn, sondern nur der Vater." },
-              { "ref": "Johannes 17:3", "text": "Das bedeutet ewiges Leben, dass sie dich, den allein wahren Gott, und den, den du gesandt hast, Jesus Christus, kennenlernen." }
+              {
+                "ref": "Johannes 14:28",
+                "text": "Der Vater ist größer als ich."
+              },
+              {
+                "ref": "Johannes 20:17",
+                "text": "Ich fahre auf zu meinem Vater und eurem Vater und zu meinem Gott und eurem Gott."
+              },
+              {
+                "ref": "Lukas 22:42",
+                "text": "Vater, wenn du willst, nimm diesen Becher von mir weg. Doch nicht mein Wille, sondern deiner geschehe."
+              },
+              {
+                "ref": "Markus 13:32",
+                "text": "Jenen Tag oder jene Stunde kennt niemand, weder die Engel im Himmel noch der Sohn, sondern nur der Vater."
+              },
+              {
+                "ref": "Johannes 17:3",
+                "text": "Das bedeutet ewiges Leben, dass sie dich, den allein wahren Gott, und den, den du gesandt hast, Jesus Christus, kennenlernen."
+              }
             ]
           },
           {
@@ -2615,11 +2751,26 @@
               "Jesus selbst bezeichnete den Vater als den „allein wahren Gott“. (Johannes 17:3) Das Wort „allein“ schließt jede andere Person von diesem Titel aus — auch Jesus selbst. Wäre Jesus Teil eines dreieinigen Gottes, würde die Bezeichnung des Vaters als „allein wahrer Gott“ ihn selbst von der Gottheit ausschließen."
             ],
             "scriptures": [
-              { "ref": "5. Mose 6:4", "text": "Höre, Israel: Jehova, unser Gott, ist ein Jehova." },
-              { "ref": "1. Korinther 8:6", "text": "Für uns gibt es tatsächlich nur einen Gott, den Vater … und einen Herrn, Jesus Christus." },
-              { "ref": "Johannes 17:3", "text": "Dass sie dich, den allein wahren Gott, und den, den du gesandt hast, Jesus Christus, kennenlernen." },
-              { "ref": "1. Timotheus 2:5", "text": "Es gibt nur einen Gott und nur einen Mittler zwischen Gott und Menschen, einen Menschen, Christus Jesus." },
-              { "ref": "Maleachi 2:10", "text": "Haben wir nicht alle einen Vater? Ist es nicht ein Gott, der uns erschaffen hat?" }
+              {
+                "ref": "5. Mose 6:4",
+                "text": "Höre, Israel: Jehova, unser Gott, ist ein Jehova."
+              },
+              {
+                "ref": "1. Korinther 8:6",
+                "text": "Für uns gibt es tatsächlich nur einen Gott, den Vater … und einen Herrn, Jesus Christus."
+              },
+              {
+                "ref": "Johannes 17:3",
+                "text": "Dass sie dich, den allein wahren Gott, und den, den du gesandt hast, Jesus Christus, kennenlernen."
+              },
+              {
+                "ref": "1. Timotheus 2:5",
+                "text": "Es gibt nur einen Gott und nur einen Mittler zwischen Gott und Menschen, einen Menschen, Christus Jesus."
+              },
+              {
+                "ref": "Maleachi 2:10",
+                "text": "Haben wir nicht alle einen Vater? Ist es nicht ein Gott, der uns erschaffen hat?"
+              }
             ]
           },
           {
@@ -2629,11 +2780,26 @@
               "Sprüche 8:22-30 personifiziert die Weisheit, die sagt: „Jehova brachte mich hervor als den Anfang seines Weges, als das früheste seiner Werke vor alters.“ Diese Passage, verstanden als Vorbild auf Christus, zeigt, dass der Sohn hervorgebracht wurde, bevor irgendetwas anderes existierte — nicht, dass er immer mit dem Vater existierte."
             ],
             "scriptures": [
-              { "ref": "Kolosser 1:15", "text": "Er ist das Bild des unsichtbaren Gottes, der Erstgeborene aller Schöpfung." },
-              { "ref": "Offenbarung 3:14", "text": "Der Amen, der treue und wahrhaftige Zeuge, der Anfang der Schöpfung durch Gott." },
-              { "ref": "Sprüche 8:22", "text": "Jehova brachte mich hervor als den Anfang seines Weges, als das früheste seiner Werke vor alters." },
-              { "ref": "Sprüche 8:30", "text": "Ich war neben ihm als Werkmeister, und ich war es, an dem er Tag für Tag besonderes Gefallen hatte." },
-              { "ref": "Micha 5:2", "text": "Sein Ursprung ist aus alter Zeit, aus den Tagen vor alters." }
+              {
+                "ref": "Kolosser 1:15",
+                "text": "Er ist das Bild des unsichtbaren Gottes, der Erstgeborene aller Schöpfung."
+              },
+              {
+                "ref": "Offenbarung 3:14",
+                "text": "Der Amen, der treue und wahrhaftige Zeuge, der Anfang der Schöpfung durch Gott."
+              },
+              {
+                "ref": "Sprüche 8:22",
+                "text": "Jehova brachte mich hervor als den Anfang seines Weges, als das früheste seiner Werke vor alters."
+              },
+              {
+                "ref": "Sprüche 8:30",
+                "text": "Ich war neben ihm als Werkmeister, und ich war es, an dem er Tag für Tag besonderes Gefallen hatte."
+              },
+              {
+                "ref": "Micha 5:2",
+                "text": "Sein Ursprung ist aus alter Zeit, aus den Tagen vor alters."
+              }
             ]
           }
         ]
@@ -2649,10 +2815,22 @@
               "Judas 9 bezeichnet Michael als „den Erzengel“ — den höchsten Engel. Da die Schrift nur einen Erzengel nennt und der auferstandene Jesus „mit gebietendem Zuruf, mit der Stimme eines Erzengels, vom Himmel herabkommt“ (1. Thessalonicher 4:16), ist die Verbindung klar: Jesus hält die Position des Erzengels inne — er ist Michael."
             ],
             "scriptures": [
-              { "ref": "Daniel 10:13", "text": "Aber Michael, einer der vornehmsten Fürsten, kam mir zu Hilfe." },
-              { "ref": "Daniel 12:1", "text": "In jener Zeit wird Michael aufstehen, der große Fürst, der sich zugunsten deines Volkes stellt." },
-              { "ref": "Judas 9", "text": "Als Michael, der Erzengel, mit dem Teufel einen Streit hatte und über den Leib Mose verhandelte." },
-              { "ref": "1. Thessalonicher 4:16", "text": "Der Herr selbst wird mit gebietendem Zuruf, mit der Stimme eines Erzengels, vom Himmel herabkommen." }
+              {
+                "ref": "Daniel 10:13",
+                "text": "Aber Michael, einer der vornehmsten Fürsten, kam mir zu Hilfe."
+              },
+              {
+                "ref": "Daniel 12:1",
+                "text": "In jener Zeit wird Michael aufstehen, der große Fürst, der sich zugunsten deines Volkes stellt."
+              },
+              {
+                "ref": "Judas 9",
+                "text": "Als Michael, der Erzengel, mit dem Teufel einen Streit hatte und über den Leib Mose verhandelte."
+              },
+              {
+                "ref": "1. Thessalonicher 4:16",
+                "text": "Der Herr selbst wird mit gebietendem Zuruf, mit der Stimme eines Erzengels, vom Himmel herabkommen."
+              }
             ]
           },
           {
@@ -2662,10 +2840,22 @@
               "Jesus sagte seinen Jüngern: „Ich sah Satan schon wie einen Blitz vom Himmel gefallen.“ (Lukas 10:18) Das stimmt damit überein, dass Michael Satan hinauswarf. Vor seinem Kommen auf die Erde existierte Jesus als mächtiges Geistwesen — der „Erstgeborene aller Schöpfung“. (Kolosser 1:15) Sein vormenschlicher Name im Himmel war Michael; sein irdischer Name, der ihm bei der Geburt gegeben wurde, ist Jesus."
             ],
             "scriptures": [
-              { "ref": "Offenbarung 12:7-9", "text": "Michael und seine Engel kämpften mit dem Drachen … der große Drache wurde hinabgeschleudert, die ursprüngliche Schlange." },
-              { "ref": "Offenbarung 19:14-16", "text": "Die Heere im Himmel folgten ihm auf weißen Pferden … er hat einen Namen geschrieben: König der Könige und Herr der Herren." },
-              { "ref": "Lukas 10:18", "text": "Ich sah Satan schon wie einen Blitz vom Himmel gefallen." },
-              { "ref": "Kolosser 1:15-16", "text": "Er ist das Bild des unsichtbaren Gottes, der Erstgeborene aller Schöpfung." }
+              {
+                "ref": "Offenbarung 12:7-9",
+                "text": "Michael und seine Engel kämpften mit dem Drachen … der große Drache wurde hinabgeschleudert, die ursprüngliche Schlange."
+              },
+              {
+                "ref": "Offenbarung 19:14-16",
+                "text": "Die Heere im Himmel folgten ihm auf weißen Pferden … er hat einen Namen geschrieben: König der Könige und Herr der Herren."
+              },
+              {
+                "ref": "Lukas 10:18",
+                "text": "Ich sah Satan schon wie einen Blitz vom Himmel gefallen."
+              },
+              {
+                "ref": "Kolosser 1:15-16",
+                "text": "Er ist das Bild des unsichtbaren Gottes, der Erstgeborene aller Schöpfung."
+              }
             ]
           },
           {
@@ -2675,11 +2865,26 @@
               "Gott sagte über diesen Engel: „Mein Name ist in ihm.“ (2. Mose 23:21) Dieser Engel trug Jehovas Autorität auf einzigartige Weise. Paulus identifizierte den geistigen Felsen, der Israel begleitete, als Christus. (1. Korinther 10:4) Der Engel Jehovas, der Israel führte und schützte, war der vormenschliche Jesus — Michael — der lange vor seiner Geburt in Bethlehem als Jehovas Hauptvertreter diente."
             ],
             "scriptures": [
-              { "ref": "2. Mose 3:2", "text": "Da erschien ihm der Engel Jehovas in einer Feuerflamme mitten in einem Dornbusch." },
-              { "ref": "2. Mose 23:20-21", "text": "Ich sende einen Engel vor dir her … achte auf ihn … denn mein Name ist in ihm." },
-              { "ref": "4. Mose 22:22", "text": "Der Engel Jehovas stellte sich auf den Weg, um ihm zu widerstehen." },
-              { "ref": "1. Korinther 10:4", "text": "Sie tranken aus dem geistigen Felsen, der ihnen folgte, und dieser Felsen bedeutete den Christus." },
-              { "ref": "Josua 5:14", "text": "Ich bin als Fürst des Heeres Jehovas gekommen." }
+              {
+                "ref": "2. Mose 3:2",
+                "text": "Da erschien ihm der Engel Jehovas in einer Feuerflamme mitten in einem Dornbusch."
+              },
+              {
+                "ref": "2. Mose 23:20-21",
+                "text": "Ich sende einen Engel vor dir her … achte auf ihn … denn mein Name ist in ihm."
+              },
+              {
+                "ref": "4. Mose 22:22",
+                "text": "Der Engel Jehovas stellte sich auf den Weg, um ihm zu widerstehen."
+              },
+              {
+                "ref": "1. Korinther 10:4",
+                "text": "Sie tranken aus dem geistigen Felsen, der ihnen folgte, und dieser Felsen bedeutete den Christus."
+              },
+              {
+                "ref": "Josua 5:14",
+                "text": "Ich bin als Fürst des Heeres Jehovas gekommen."
+              }
             ]
           }
         ]
@@ -2695,9 +2900,18 @@
               "Tiere werden in der Schrift ebenfalls „Seelen“ genannt. 1. Mose 1:20 verwendet im Hebräischen nephesch für Meerestiere und Vögel. Die Seele ist nicht ein besonderer geistiger Teil, der nur dem Menschen eigen ist — sie bezieht sich auf jedes lebende, atmende Geschöpf."
             ],
             "scriptures": [
-              { "ref": "1. Mose 2:7", "text": "Der Mensch wurde eine lebende Person [Seele]." },
-              { "ref": "Hesekiel 18:4", "text": "Siehe! Alle Seelen — mir gehören sie. Wie die Seele des Vaters, so auch die Seele des Sohnes — mir gehören sie. Die Seele, die sündigt, sie ist es, die sterben wird." },
-              { "ref": "1. Korinther 15:45", "text": "So steht geschrieben: ‚Der erste Mensch Adam wurde eine lebende Person [Seele].‘" }
+              {
+                "ref": "1. Mose 2:7",
+                "text": "Der Mensch wurde eine lebende Person [Seele]."
+              },
+              {
+                "ref": "Hesekiel 18:4",
+                "text": "Siehe! Alle Seelen — mir gehören sie. Wie die Seele des Vaters, so auch die Seele des Sohnes — mir gehören sie. Die Seele, die sündigt, sie ist es, die sterben wird."
+              },
+              {
+                "ref": "1. Korinther 15:45",
+                "text": "So steht geschrieben: ‚Der erste Mensch Adam wurde eine lebende Person [Seele].‘"
+              }
             ]
           },
           {
@@ -2707,9 +2921,18 @@
               "Zu verstehen, dass die Seele die Person selbst ist — keine getrennte Wesenheit — macht die Hoffnung auf die Auferstehung umso schöner. Gott wird die ganze Person neu erschaffen und alles wiederherstellen, was sie ausmachte."
             ],
             "scriptures": [
-              { "ref": "Hesekiel 18:4", "text": "Die Seele, die sündigt, sie ist es, die sterben wird." },
-              { "ref": "Offenbarung 16:3", "text": "Jede lebende Seele im Meer starb." },
-              { "ref": "Apostelgeschichte 3:23", "text": "Jede Seele, die auf jenen Propheten nicht hört, wird aus dem Volk gänzlich ausgerottet werden." }
+              {
+                "ref": "Hesekiel 18:4",
+                "text": "Die Seele, die sündigt, sie ist es, die sterben wird."
+              },
+              {
+                "ref": "Offenbarung 16:3",
+                "text": "Jede lebende Seele im Meer starb."
+              },
+              {
+                "ref": "Apostelgeschichte 3:23",
+                "text": "Jede Seele, die auf jenen Propheten nicht hört, wird aus dem Volk gänzlich ausgerottet werden."
+              }
             ]
           }
         ]
@@ -2725,9 +2948,18 @@
               "König Salomo schrieb: „Die Lebenden sind sich bewusst, dass sie sterben werden, aber die Toten sind sich überhaupt nichts bewusst.“ (Prediger 9:5) Es gibt kein Bewusstsein, kein Leid, keine Freude — der Tod ist ein vollständiges Aufhören des Lebens bis zur Auferstehung."
             ],
             "scriptures": [
-              { "ref": "Johannes 11:11-14", "text": "„Lazarus, unser Freund, ist eingeschlafen … Lazarus ist gestorben.“" },
-              { "ref": "Prediger 9:5", "text": "Die Lebenden sind sich bewusst, dass sie sterben werden, aber die Toten sind sich überhaupt nichts bewusst." },
-              { "ref": "Psalm 146:4", "text": "Sein Geist geht aus, er kehrt zum Erdboden zurück; an jenem Tag vergehen seine Gedanken." }
+              {
+                "ref": "Johannes 11:11-14",
+                "text": "„Lazarus, unser Freund, ist eingeschlafen … Lazarus ist gestorben.“"
+              },
+              {
+                "ref": "Prediger 9:5",
+                "text": "Die Lebenden sind sich bewusst, dass sie sterben werden, aber die Toten sind sich überhaupt nichts bewusst."
+              },
+              {
+                "ref": "Psalm 146:4",
+                "text": "Sein Geist geht aus, er kehrt zum Erdboden zurück; an jenem Tag vergehen seine Gedanken."
+              }
             ]
           },
           {
@@ -2737,9 +2969,18 @@
               "Der Apostel Paulus nannte die Auferstehung Christi das Fundament der christlichen Hoffnung: „Wenn die Toten nicht auferweckt werden sollen, lasst uns essen und trinken, denn morgen werden wir sterben.“ (1. Korinther 15:32) Die Auferstehung der Toten — nicht die Unsterblichkeit der Seele — ist die Antwort der Bibel auf den Tod."
             ],
             "scriptures": [
-              { "ref": "Johannes 5:28-29", "text": "Alle, die in den Gedächtnisgrüften sind, werden seine Stimme hören und herauskommen." },
-              { "ref": "Apostelgeschichte 24:15", "text": "Es wird eine Auferstehung sowohl der Gerechten als auch der Ungerechten geben." },
-              { "ref": "1. Korinther 15:26", "text": "Der letzte Feind, der Tod, soll zunichte gemacht werden." }
+              {
+                "ref": "Johannes 5:28-29",
+                "text": "Alle, die in den Gedächtnisgrüften sind, werden seine Stimme hören und herauskommen."
+              },
+              {
+                "ref": "Apostelgeschichte 24:15",
+                "text": "Es wird eine Auferstehung sowohl der Gerechten als auch der Ungerechten geben."
+              },
+              {
+                "ref": "1. Korinther 15:26",
+                "text": "Der letzte Feind, der Tod, soll zunichte gemacht werden."
+              }
             ]
           }
         ]
@@ -2755,9 +2996,18 @@
               "Jesus lehrte seine Jünger zu beten: „Lass dein Königreich kommen. Lass deinen Willen geschehen, wie im Himmel, so auch auf der Erde.“ (Matthäus 6:10) Dieses Gebet impliziert, dass sich die Herrschaft des Königreichs eines Tages auf die Erde erstrecken wird und sie verwandelt, so wie der Himmel bereits Gottes vollkommenen Willen widerspiegelt."
             ],
             "scriptures": [
-              { "ref": "Daniel 2:44", "text": "Der Gott des Himmels wird ein Königreich aufrichten, das nie zugrunde gerichtet werden wird." },
-              { "ref": "Matthäus 6:10", "text": "Lass dein Königreich kommen. Lass deinen Willen geschehen, wie im Himmel, so auch auf der Erde." },
-              { "ref": "Lukas 1:33", "text": "Er wird für immer als König über das Haus Jakobs herrschen, und seines Königreiches wird kein Ende sein." }
+              {
+                "ref": "Daniel 2:44",
+                "text": "Der Gott des Himmels wird ein Königreich aufrichten, das nie zugrunde gerichtet werden wird."
+              },
+              {
+                "ref": "Matthäus 6:10",
+                "text": "Lass dein Königreich kommen. Lass deinen Willen geschehen, wie im Himmel, so auch auf der Erde."
+              },
+              {
+                "ref": "Lukas 1:33",
+                "text": "Er wird für immer als König über das Haus Jakobs herrschen, und seines Königreiches wird kein Ende sein."
+              }
             ]
           },
           {
@@ -2767,9 +3017,18 @@
               "Jesaja 65:21-22 zeichnet ein Bild des Lebens unter dem Königreich: „Sie werden Häuser bauen und darin wohnen, und sie werden Weingärten pflanzen und ihre Frucht essen.“ Friedliches Zusammenleben zwischen Mensch und Tier ist ebenfalls verheißen: „Der Wolf und das Lamm werden zusammen weiden.“ (Jesaja 65:25)"
             ],
             "scriptures": [
-              { "ref": "Offenbarung 21:3-4", "text": "Er wird jede Träne von ihren Augen abwischen, und der Tod wird nicht mehr sein." },
-              { "ref": "Jesaja 65:21-22", "text": "Sie werden Häuser bauen und darin wohnen, und sie werden Weingärten pflanzen und ihre Frucht essen." },
-              { "ref": "Psalm 37:29", "text": "Die Gerechten werden die Erde besitzen und für immer auf ihr wohnen." }
+              {
+                "ref": "Offenbarung 21:3-4",
+                "text": "Er wird jede Träne von ihren Augen abwischen, und der Tod wird nicht mehr sein."
+              },
+              {
+                "ref": "Jesaja 65:21-22",
+                "text": "Sie werden Häuser bauen und darin wohnen, und sie werden Weingärten pflanzen und ihre Frucht essen."
+              },
+              {
+                "ref": "Psalm 37:29",
+                "text": "Die Gerechten werden die Erde besitzen und für immer auf ihr wohnen."
+              }
             ]
           }
         ]
@@ -2785,9 +3044,18 @@
               "Als Satan in Eden sagte: „Ihr werdet ganz bestimmt nicht sterben“ (1. Mose 3:4), nannte er Gott einen Lügner und legte nahe, dass Menschen unabhängig von Gott leben könnten. Diese Herausforderungen an Gottes Recht zu herrschen und an die Loyalität seiner Anbeter konnten nicht sofort beigelegt werden — sie erforderten Zeit und menschliche Erfahrung, um vollständig gelöst zu werden."
             ],
             "scriptures": [
-              { "ref": "Hiob 1:9-11", "text": "Fürchtet Hiob Gott umsonst?" },
-              { "ref": "1. Mose 3:4-5", "text": "Ihr werdet ganz bestimmt nicht sterben. Gott weiß, dass … eure Augen geöffnet werden und ihr wie Gott sein werdet." },
-              { "ref": "Römer 3:4", "text": "Möge Gott als wahrhaftig befunden werden, auch wenn jeder Mensch ein Lügner ist." }
+              {
+                "ref": "Hiob 1:9-11",
+                "text": "Fürchtet Hiob Gott umsonst?"
+              },
+              {
+                "ref": "1. Mose 3:4-5",
+                "text": "Ihr werdet ganz bestimmt nicht sterben. Gott weiß, dass … eure Augen geöffnet werden und ihr wie Gott sein werdet."
+              },
+              {
+                "ref": "Römer 3:4",
+                "text": "Möge Gott als wahrhaftig befunden werden, auch wenn jeder Mensch ein Lügner ist."
+              }
             ]
           },
           {
@@ -2797,9 +3065,18 @@
               "Gottes Zulassung von Leid ist vorübergehend. Sein Vorhaben für die Erde — ein Paradies, frei von Schmerz und Tod — hat sich nie geändert. Das Leid, das wir jetzt sehen, ist kein Beweis für Gottes Gleichgültigkeit, sondern für die Folgen menschlicher Unabhängigkeit von göttlicher Leitung. Bald wird Gott „diejenigen verderben, die die Erde verderben“. (Offenbarung 11:18)"
             ],
             "scriptures": [
-              { "ref": "2. Petrus 3:9", "text": "Jehova ist nicht langsam in Bezug auf sein Versprechen … er ist mit euch geduldig." },
-              { "ref": "Römer 8:22", "text": "Wir wissen, dass die ganze Schöpfung bis jetzt zusammen seufzt und zusammen in Schmerzen liegt." },
-              { "ref": "Offenbarung 11:18", "text": "Die Zeit kam … diejenigen zu verderben, die die Erde verderben." }
+              {
+                "ref": "2. Petrus 3:9",
+                "text": "Jehova ist nicht langsam in Bezug auf sein Versprechen … er ist mit euch geduldig."
+              },
+              {
+                "ref": "Römer 8:22",
+                "text": "Wir wissen, dass die ganze Schöpfung bis jetzt zusammen seufzt und zusammen in Schmerzen liegt."
+              },
+              {
+                "ref": "Offenbarung 11:18",
+                "text": "Die Zeit kam … diejenigen zu verderben, die die Erde verderben."
+              }
             ]
           }
         ]
@@ -2815,9 +3092,18 @@
               "Das mosaische Gesetz bekräftigte diesen Grundsatz: „Was irgendeinen Mann vom Haus Israel oder irgendeinen Fremden betrifft, der unter euch wohnt, der irgendwelche Art Blut isst, ich werde mein Angesicht gewiss gegen diese Person richten, die das Blut isst.“ (3. Mose 17:10) Das Verbot des Blutes gehörte zu den Anforderungen, die das Konzil von Jerusalem in Apostelgeschichte 15 als verbindlich für alle Christen aufrechterhielt."
             ],
             "scriptures": [
-              { "ref": "1. Mose 9:4", "text": "Nur Fleisch mit seiner Seele — seinem Blut — dürft ihr nicht essen." },
-              { "ref": "3. Mose 17:14", "text": "Ihr dürft das Blut keiner Art Fleisch essen, denn die Seele jeder Art Fleisch ist ihr Blut." },
-              { "ref": "Apostelgeschichte 15:28-29", "text": "Der heilige Geist und wir selbst haben es für gut befunden, euch keine weitere Last aufzuerlegen außer diesen notwendigen Dingen: euch weiterhin … des Blutes zu enthalten." }
+              {
+                "ref": "1. Mose 9:4",
+                "text": "Nur Fleisch mit seiner Seele — seinem Blut — dürft ihr nicht essen."
+              },
+              {
+                "ref": "3. Mose 17:14",
+                "text": "Ihr dürft das Blut keiner Art Fleisch essen, denn die Seele jeder Art Fleisch ist ihr Blut."
+              },
+              {
+                "ref": "Apostelgeschichte 15:28-29",
+                "text": "Der heilige Geist und wir selbst haben es für gut befunden, euch keine weitere Last aufzuerlegen außer diesen notwendigen Dingen: euch weiterhin … des Blutes zu enthalten."
+              }
             ]
           },
           {
@@ -2827,14 +3113,25 @@
               "Moderne medizinische Alternativen zur Transfusion — Eigenblutrückgewinnung, Volumenexpander und blutlose Operationstechniken — haben erhebliche Fortschritte gemacht, und viele Krankenhäuser bieten diese Optionen inzwischen an. Gottes Forderung in Bezug auf Blut zu ehren ist ein Akt des Glaubens und Vertrauens, dass Gottes Maßstäbe stets zu unserem Besten sind."
             ],
             "scriptures": [
-              { "ref": "Apostelgeschichte 15:28-29", "text": "Enthaltet euch weiterhin … des Blutes." },
-              { "ref": "1. Johannes 5:3", "text": "Denn dies bedeutet die Liebe zu Gott, dass wir seine Gebote halten; und seine Gebote sind nicht beschwerlich." },
-              { "ref": "Sprüche 3:5", "text": "Vertrau auf Jehova mit deinem ganzen Herzen und verlass dich nicht auf deinen eigenen Verstand." }
+              {
+                "ref": "Apostelgeschichte 15:28-29",
+                "text": "Enthaltet euch weiterhin … des Blutes."
+              },
+              {
+                "ref": "1. Johannes 5:3",
+                "text": "Denn dies bedeutet die Liebe zu Gott, dass wir seine Gebote halten; und seine Gebote sind nicht beschwerlich."
+              },
+              {
+                "ref": "Sprüche 3:5",
+                "text": "Vertrau auf Jehova mit deinem ganzen Herzen und verlass dich nicht auf deinen eigenen Verstand."
+              }
             ]
           }
         ]
       }
-    }
+    },
+    "explore": "Entdecken",
+    "tablistLabel": "Abschnitte der Studienthemen"
   },
   "upm": {
     "badge": "✦ Premium",
@@ -3009,7 +3306,8 @@
     "toc": "Inhaltsverzeichnis",
     "tocEmpty": "(ohne Titel)",
     "fmtCallout": "Hinweisbox",
-    "fmtVideo": "Video"
+    "fmtVideo": "Video",
+    "removeTag": "Tag {{tag}} entfernen"
   },
   "blockEditor": {
     "bibleVerseLabel": "Bibelvers",
@@ -3152,7 +3450,8 @@
   },
   "familyQuiz": {
     "loadingChallenge": "Herausforderung wird geladen…",
-    "loadingResults": "Ergebnisse werden geladen…"
+    "loadingResults": "Ergebnisse werden geladen…",
+    "namePlaceholder": "z. B. Sonntags-Familienquiz"
   },
   "aiBubble": {
     "aiThinkingAriaLabel": "KI denkt nach",
@@ -4071,7 +4370,9 @@
     "more": "Mehr"
   },
   "createPost": {
-    "addToPost": "Zu Ihrem Beitrag hinzufügen"
+    "addToPost": "Zu Ihrem Beitrag hinzufügen",
+    "editAria": "Beitrag bearbeiten",
+    "createAria": "Beitrag erstellen"
   },
   "bookAuthors": [
     "Mose",
@@ -6257,5 +6558,13 @@
     "waitingForPlayers": "Warten auf {{count}} weitere Spieler, die per Code beitreten",
     "wrong": "Falsch!",
     "yourTurn": "Sie sind dran, antworten Sie jetzt!"
+  },
+  "videos": {
+    "composer": {
+      "dropOrBrowse": "Video hier ablegen oder zum Durchsuchen klicken",
+      "bookPlaceholder": "Buch  z. B. Johannes",
+      "chapterPlaceholder": "Kap.  z. B. 3"
+    },
+    "commentPlaceholder": "Kommentar hinzufügen…"
   }
 }

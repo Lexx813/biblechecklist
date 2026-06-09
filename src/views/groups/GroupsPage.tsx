@@ -66,7 +66,14 @@ function CreateGroupModal({ onClose, onCreated }: { onClose: () => void; onCreat
           {/* Cover photo picker */}
           <div className="grp-field">
             <span>{t("groups.coverPhoto")} <span className="grp-optional">{t("groups.optional")}</span></span>
-            <div className="grp-cover-picker" onClick={() => fileInputRef.current?.click()}>
+            <div
+              className="grp-cover-picker"
+              role="button"
+              tabIndex={0}
+              aria-label={t("groups.addCoverPhoto")}
+              onClick={() => fileInputRef.current?.click()}
+              onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInputRef.current?.click(); } }}
+            >
               {coverPreview
                 ? <img src={coverPreview} alt={t("groups.coverPreview")} className="grp-cover-preview" />
                 : (

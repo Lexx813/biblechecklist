@@ -10,6 +10,7 @@
  */
 
 import { escapeHtml } from "../_shared/escape-html.ts";
+import { safeEqual } from "../_shared/safeEqual.ts";
 
 const ADMIN_EMAIL = "lexxsolutionz@gmail.com";
 
@@ -18,7 +19,7 @@ Deno.serve(async (req) => {
 
   const secret = Deno.env.get("WEBHOOK_SECRET");
   if (!secret) return new Response("Server misconfigured", { status: 503 });
-  if (req.headers.get("x-webhook-secret") !== secret) {
+  if (!safeEqual(req.headers.get("x-webhook-secret"), secret)) {
     return new Response("Unauthorized", { status: 401 });
   }
 

@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { useFriends, FriendProfile } from "../hooks/useFriends";
 import "../styles/friends.css";
 import { useGetOrCreateDM } from "../hooks/useMessages";
+import { useFocusTrap } from "../hooks/useFocusTrap";
 
 interface Props {
   userId: string;
@@ -17,6 +18,9 @@ export function NewConversationModal({ userId, onClose, navigate }: Props) {
   const { data: rawFriends } = useFriends(userId);
   const friends: FriendProfile[] = (rawFriends as FriendProfile[] | undefined) ?? [];
   const getOrCreate = useGetOrCreateDM();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  useFocusTrap(dialogRef, { onClose });
 
   const filtered = friends.filter((f: FriendProfile) =>
     !search || f.display_name?.toLowerCase().includes(search.toLowerCase())
@@ -35,15 +39,14 @@ export function NewConversationModal({ userId, onClose, navigate }: Props) {
     });
   }
 
+  // Focus the search input on mount (after the trap so it wins over autofocus).
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [onClose]);
+    searchInputRef.current?.focus();
+  }, []);
 
   return createPortal(
     <div className="new-conv-backdrop" onClick={onClose}>
-      <div className="new-conv-modal" role="dialog" aria-modal="true" aria-label={t("messages.newConversation")} onClick={e => e.stopPropagation()}>
+      <div ref={dialogRef} className="new-conv-modal" role="dialog" aria-modal="true" aria-label={t("messages.newConversation")} onClick={e => e.stopPropagation()}>
         <div className="new-conv-header">
           <span className="new-conv-title">{t("messages.newMessage")}</span>
           <button className="new-conv-close" onClick={onClose} aria-label={t("messages.close")}>
@@ -52,12 +55,12 @@ export function NewConversationModal({ userId, onClose, navigate }: Props) {
         </div>
         <div className="new-conv-search">
           <input
+            ref={searchInputRef}
             className="new-conv-search-input"
             type="search"
             placeholder={t("messages.searchFriends")}
             value={search}
             onChange={e => setSearch(e.target.value)}
-            autoFocus
             aria-label={t("messages.searchFriendsAria")}
           />
         </div>

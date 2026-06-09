@@ -55,12 +55,25 @@ export const AVATAR_PX: Record<string, number> = { lg: 40, md: 36, sm: 28 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Avatar({ profile, size = "md", onClick = undefined }: { profile: any; size?: string; onClick?: any }) {
+  const { t } = useTranslation();
   const cls = `forum-avatar forum-avatar--${size}${onClick ? " forum-avatar--clickable" : ""}`;
   const px = AVATAR_PX[size] ?? 36;
+  // a11y: when clickable, expose button semantics + Enter/Space activation.
+  const interactiveProps: React.HTMLAttributes<HTMLElement> = onClick
+    ? {
+        role: "button",
+        tabIndex: 0,
+        "aria-label": t("forum.viewProfile", { defaultValue: "View {{name}}'s profile", name: displayName(profile) }),
+        onClick,
+        onKeyDown: (e: React.KeyboardEvent) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(e); }
+        },
+      }
+    : {};
   if (profile?.avatar_url) {
-    return <img className={cls} src={profile.avatar_url} alt={displayName(profile)} width={px} height={px} loading="lazy" onClick={onClick} />;
+    return <img className={cls} src={profile.avatar_url} alt={displayName(profile)} width={px} height={px} loading="lazy" {...interactiveProps} />;
   }
-  return <div className={`${cls} forum-avatar--fallback`} onClick={onClick}>{initial(profile)}</div>;
+  return <div className={`${cls} forum-avatar--fallback`} {...interactiveProps}>{initial(profile)}</div>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

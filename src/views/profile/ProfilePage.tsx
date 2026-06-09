@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useMeta } from "../../hooks/useMeta";
 import { useFullProfile } from "../../hooks/useAdmin";
 import { useProgress, useReadingStreak } from "../../hooks/useProgress";
@@ -26,6 +27,7 @@ interface ProfilePageProps {
 }
 
 export default function ProfilePage({ user, viewedUserId, isOwner = true, navigate, defaultTab = "posts" }: ProfilePageProps) {
+  const { t } = useTranslation();
   const profileId = viewedUserId ?? user.id;
   const { data: blockedSet = new Set<string>() } = useBlocks(user.id);
   const { data: myBlocks = [] } = useMyBlocks(user.id);
@@ -86,8 +88,8 @@ export default function ProfilePage({ user, viewedUserId, isOwner = true, naviga
       {isViewedUserBlocked && (
         <div className="pf-blocked-banner">
           {myBlocks.some(b => b.id === profileId)
-            ? "You've blocked this user."
-            : "This user has blocked you."}
+            ? t("profile.youBlocked")
+            : t("profile.blockedByThem")}
         </div>
       )}
 

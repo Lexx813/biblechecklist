@@ -16,10 +16,10 @@ const schema = {
   // `availability` belongs on Offer, not WebApplication — Google's structured-
   // data validator flags it at the top level. The Offer below already declares
   // it, which is the correct location.
-  inLanguage: ['en', 'es', 'pt', 'fr', 'tl', 'zh', 'ja', 'ko', 'yo'],
+  inLanguage: ['en', 'es', 'pt', 'fr', 'tl', 'zh'],
   screenshot: `${SITE_ORIGIN}/og-image.jpg`,
   featureList:
-    'Bible reading progress tracker for all 66 books of the New World Translation, Meeting prep checklists for CLAM and Watchtower study, AI study assistant for deep Bible study, Bible knowledge quizzes with badge rewards, Structured reading plans with streak tracking, Personal study notes tied to any passage or chapter, Community forum, blog, and study groups, Offline support via PWA, 9-language support',
+    'Bible reading progress tracker for all 66 books of the New World Translation, Meeting prep checklists for CLAM and Watchtower study, AI study assistant for deep Bible study, Bible knowledge quizzes with badge rewards, Structured reading plans with streak tracking, Personal study notes tied to any passage or chapter, Community forum, blog, and study groups, Offline support via PWA, 6-language support',
   offers: [
     {
       '@type': 'Offer',

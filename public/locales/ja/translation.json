@@ -136,7 +136,8 @@
     "lightMode": "ライト",
     "home": "ホーム",
     "about": "このアプリについて",
-    "searchBooksAria": "聖書の書名を検索"
+    "searchBooksAria": "聖書の書名を検索",
+    "testamentFilterAria": "Filter books by section"
   },
   "landing": {
     "nav": {
@@ -429,7 +430,8 @@
       "sendComment": "コメントを送信",
       "sendReply": "返信を送信",
       "signInToComment": "コメントするにはサインインしてください",
-      "writeCommentPlaceholder": "コメントを書く…"
+      "writeCommentPlaceholder": "コメントを書く…",
+      "viewProfile": "View {{name}}'s profile"
     }
   },
   "follow": {
@@ -720,7 +722,7 @@
     "prevPage": "← 前へ",
     "published": "公開済み",
     "publishedCount": "{{count}}件公開済み",
-    "searchPlaceholder": "ブログを検索…",
+    "searchPlaceholder": "Search articles, topics, authors…",
     "totalCount": "合計{{count}}件",
     "viewBtn": "表示",
     "viewBtnLabel": "表示",
@@ -865,7 +867,8 @@
     "aiAssistantDesc": "あなたのトピックと下書きをもとに、温かく聖書に基づいた投稿の作成をお手伝いします。",
     "aiWriting": "作成中…",
     "aiHelpMeWrite": "この投稿の作成を手伝って",
-    "aiSuggestion": "AI による提案"
+    "aiSuggestion": "AI による提案",
+    "viewProfile": "View {{name}}'s profile"
   },
   "home": {
     "navLeaderboard": "リーダーボード",
@@ -2213,7 +2216,25 @@
     "writeAComment": "コメントを書く…",
     "writeACommentAria": "コメントを書く",
     "failedRsvp": "出欠を更新できませんでした。",
-    "failedDeleteEvent": "イベントを削除できませんでした。"
+    "failedDeleteEvent": "イベントを削除できませんでした。",
+    "events": {
+      "createTitle": "Create Event",
+      "createAria": "Create event",
+      "closeAria": "Close",
+      "fieldTitle": "Title",
+      "fieldDescription": "Description",
+      "fieldLocation": "Location",
+      "fieldStartsAt": "Starts at",
+      "fieldEndsAt": "Ends at",
+      "titlePlaceholder": "Meeting title",
+      "locationPlaceholder": "Address or meeting link",
+      "cancel": "Cancel",
+      "create": "Create event",
+      "creating": "Creating…"
+    },
+    "composePlaceholder": "Share something with the group…",
+    "imageUploadFailed": "Image upload failed.",
+    "failedToPost": "Failed to post."
   },
   "messages": {
     "title": "メッセージ",
@@ -2339,7 +2360,8 @@
     "tryAgain": "もう一度試す",
     "failedDelete": "メッセージを削除できませんでした。",
     "failedEdit": "メッセージを編集できませんでした。",
-    "failedReaction": "リアクションを更新できませんでした。"
+    "failedReaction": "リアクションを更新できませんでした。",
+    "notePlaceholder": "Add a note (optional)…"
   },
   "aiCompanion": {
     "title": "AI学習コンパニオン",
@@ -3071,7 +3093,9 @@
           }
         ]
       }
-    }
+    },
+    "explore": "Explore",
+    "tablistLabel": "Study topic sections"
   },
   "upm": {
     "badge": "✦ プレミアム",
@@ -3276,7 +3300,8 @@
     "toc": "Table of Contents",
     "tocEmpty": "(untitled)",
     "fmtCallout": "Callout",
-    "fmtVideo": "Video"
+    "fmtVideo": "Video",
+    "removeTag": "Remove tag {{tag}}"
   },
   "blockEditor": {
     "bibleVerseLabel": "Bible Verse",
@@ -3371,7 +3396,8 @@
   },
   "familyQuiz": {
     "loadingChallenge": "チャレンジを読み込み中…",
-    "loadingResults": "結果を読み込み中…"
+    "loadingResults": "結果を読み込み中…",
+    "namePlaceholder": "e.g. Sunday Family Quiz"
   },
   "liked": {
     "likedBy": "いいねした人",
@@ -4344,7 +4370,9 @@
     "more": "多"
   },
   "createPost": {
-    "addToPost": "投稿に追加"
+    "addToPost": "投稿に追加",
+    "editAria": "Edit post",
+    "createAria": "Create post"
   },
   "bookAuthors": [
     "モーセ",
@@ -6530,5 +6558,13 @@
     "waitingForPlayers": "コードで参加するプレイヤーをあと{{count}}人待っています",
     "wrong": "不正解！",
     "yourTurn": "あなたの番です、今すぐ答えてください！"
+  },
+  "videos": {
+    "composer": {
+      "dropOrBrowse": "Drop video here or click to browse",
+      "bookPlaceholder": "Book  e.g. John",
+      "chapterPlaceholder": "Ch.  e.g. 3"
+    },
+    "commentPlaceholder": "Add a comment…"
   }
 }

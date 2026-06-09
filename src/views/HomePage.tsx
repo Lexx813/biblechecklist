@@ -54,7 +54,7 @@ import { BOOKS } from "../data/books";
 import { MESSIANIC_PROPHECIES } from "../data/messianicProphecies";
 import { useFullProfile, useUpdateProfile } from "../hooks/useAdmin";
 import { useReadingStreak } from "../hooks/useProgress";
-import { useFriendPosts, usePublicFeed, useCreatePost, useUpdatePost, useDeletePost } from "../hooks/usePosts";
+import { useFriendPosts, usePublicFeed, useCreatePost, useUpdatePost, useDeletePost, useMyPostReactions } from "../hooks/usePosts";
 import CreatePostModal from "../components/CreatePostModal";
 import PostInteractions from "../components/PostInteractions";
 import ConfirmModal from "../components/ConfirmModal";
@@ -117,7 +117,7 @@ function SpotlightPlayer({ video }: { video: { embed_url: string | null; storage
     );
   }
   if (video.thumbnail_url) {
-    return <img src={video.thumbnail_url} alt={video.title} style={{ width: "100%", aspectRatio: "16/9", objectFit: "cover", display: "block", borderRadius: "0 0 10px 10px" }} />;
+    return <img src={video.thumbnail_url} alt={video.title} width={800} height={450} loading="lazy" style={{ width: "100%", aspectRatio: "16/9", objectFit: "cover", display: "block", borderRadius: "0 0 10px 10px" }} />;
   }
   return (
     <div style={{ aspectRatio: "16/9", background: "#111", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "0 0 10px 10px" }}>
@@ -202,6 +202,13 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
   const previewNotes = publicNotes.slice(0, 4);
   const { data: friends = [], isLoading: friendsLoading } = useFriends(tier3 ? user?.id : null);
   const { data: publicFeed = [] } = usePublicFeed();
+  // Batch the viewer's reactions for the whole feed in one query (avoids an
+  // N+1 of one query per rendered post inside PostInteractions).
+  const feedReactionIds = useMemo(
+    () => [...new Set([...friendPosts, ...publicFeed].map((p: any) => p.id))],
+    [friendPosts, publicFeed]
+  );
+  const { data: myFeedReactions = {} } = useMyPostReactions(feedReactionIds, user?.id);
   const createPost = useCreatePost(user?.id);
   const updatePost = useUpdatePost(user?.id);
   const deletePost = useDeletePost(user?.id);
@@ -882,6 +889,7 @@ export default function HomePage({ user, navigate, onLogout, darkMode, setDarkMo
                         userId={user?.id}
                         commentCount={post.comment_count ?? 0}
                         reactionCounts={post.reaction_counts ?? {}}
+                        myReactions={myFeedReactions[post.id] ?? []}
                         navigate={navigate}
                       />
                     </div>

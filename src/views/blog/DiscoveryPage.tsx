@@ -128,7 +128,7 @@ export default function DiscoveryPage({ navigate, user }: Props) {
           <span className="disc-search-icon">🔍</span>
           <input
             className="disc-search-input"
-            placeholder="Search articles, topics, authors…"
+            placeholder={t("blog.searchPlaceholder")}
             value={searchQuery}
             onChange={e => { setSearchQuery(e.target.value); setPage(1); }}
           />

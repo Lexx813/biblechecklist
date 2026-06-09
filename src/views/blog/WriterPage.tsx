@@ -416,7 +416,12 @@ export default function WriterPage({ user, navigate, editPost, initialDraft, onD
               {tags.map(tag => (
                 <span key={tag} className="writer-tag-chip">
                   {tag}
-                  <span className="writer-tag-x" onClick={() => setTags(tags.filter(t => t !== tag))}>×</span>
+                  <button
+                    type="button"
+                    className="writer-tag-x"
+                    aria-label={t("writer.removeTag", { defaultValue: "Remove tag {{tag}}", tag })}
+                    onClick={() => setTags(tags.filter(t => t !== tag))}
+                  >×</button>
                 </span>
               ))}
               {tags.length < MAX_TAGS && (

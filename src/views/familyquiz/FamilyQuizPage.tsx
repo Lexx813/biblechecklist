@@ -1,26 +1,28 @@
 import { useState, useCallback, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { familyQuizApi } from "../../api/familyQuiz";
 import "../../styles/family-quiz.css";
 
 // ── LEVELS ────────────────────────────────────────────────────────────────────
 
-const LEVEL_LABELS = {
-  1:  "Level 1, Bible Basics",
-  2:  "Level 2, Creation & Early History",
-  3:  "Level 3, Patriarchs & Promises",
-  4:  "Level 4, Family & Nation",
-  5:  "Level 5, Exodus & Law",
-  6:  "Level 6, Judges & Kings",
-  7:  "Level 7, Psalms & Proverbs",
-  8:  "Level 8, Prophets",
-  9:  "Level 9, Gospels",
-  10: "Level 10, Acts & Letters",
-  11: "Level 11, Revelation",
-  12: "Level 12, The Final Test",
+// Themes for each family-quiz level; the "Level N, " prefix is composed via i18n.
+const LEVEL_THEME_KEYS = {
+  1:  "familyQuiz.levelTheme1",
+  2:  "familyQuiz.levelTheme2",
+  3:  "familyQuiz.levelTheme3",
+  4:  "familyQuiz.levelTheme4",
+  5:  "familyQuiz.levelTheme5",
+  6:  "familyQuiz.levelTheme6",
+  7:  "familyQuiz.levelTheme7",
+  8:  "familyQuiz.levelTheme8",
+  9:  "familyQuiz.levelTheme9",
+  10: "familyQuiz.levelTheme10",
+  11: "familyQuiz.levelTheme11",
+  12: "familyQuiz.levelTheme12",
 };
 
-const ALL_LEVELS = Object.keys(LEVEL_LABELS).map(Number);
+const ALL_LEVELS = Object.keys(LEVEL_THEME_KEYS).map(Number);
 
 // ── SHARE LINK ────────────────────────────────────────────────────────────────
 
@@ -35,6 +37,7 @@ async function copyLink(challengeId) {
 // ── LOBBY ─────────────────────────────────────────────────────────────────────
 
 function Lobby({ user, onPlay }) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [showCreate, setShowCreate] = useState(false);
 
@@ -61,12 +64,12 @@ function Lobby({ user, onPlay }) {
         <div className="fq-lobby-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
   <polyline points="8 17 12 21 16 17"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.88 18.09A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.29"/>
 </svg></div>
-        <h1 className="fq-lobby-title">Family Bible Challenge</h1>
+        <h1 className="fq-lobby-title">{t("familyQuiz.title")}</h1>
         <p className="fq-lobby-sub">
-          Create a quiz, share the link, and challenge your family to beat your score!
+          {t("familyQuiz.lobbySub")}
         </p>
         <button className="fq-create-btn" onClick={() => setShowCreate(true)}>
-          + Create Challenge
+          {t("familyQuiz.createChallenge")}
         </button>
       </div>
 
@@ -83,11 +86,11 @@ function Lobby({ user, onPlay }) {
       )}
 
       <div className="fq-section">
-        <h2 className="fq-section-title">My Challenges</h2>
+        <h2 className="fq-section-title">{t("familyQuiz.myChallenges")}</h2>
         {myLoading ? (
-          <div className="fq-empty">Loading…</div>
+          <div className="fq-empty">{t("familyQuiz.loading")}</div>
         ) : myChallenges.length === 0 ? (
-          <div className="fq-empty">You haven't created any challenges yet.</div>
+          <div className="fq-empty">{t("familyQuiz.noChallenges")}</div>
         ) : (
           <ul className="fq-card-list">
             {myChallenges.map(c => (
@@ -100,9 +103,9 @@ function Lobby({ user, onPlay }) {
 
       {attempted.length > 0 && (
         <div className="fq-section">
-          <h2 className="fq-section-title">Challenges I've Taken</h2>
+          <h2 className="fq-section-title">{t("familyQuiz.challengesTaken")}</h2>
           {attLoading ? (
-            <div className="fq-empty">Loading…</div>
+            <div className="fq-empty">{t("familyQuiz.loading")}</div>
           ) : (
             <ul className="fq-card-list">
               {(attempted as any[]).map(c => (
@@ -125,6 +128,7 @@ function Lobby({ user, onPlay }) {
 // ── CHALLENGE CARD ────────────────────────────────────────────────────────────
 
 function ChallengeCard({ challenge, onOpen, isOwn = false, myScore = null, myTotal = null, onDelete = null }: { challenge: any; onOpen: any; isOwn?: boolean; myScore?: any; myTotal?: any; onDelete?: any }) {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
 
@@ -160,8 +164,8 @@ function ChallengeCard({ challenge, onOpen, isOwn = false, myScore = null, myTot
       <div className="fq-card-info">
         <div className="fq-card-title">{challenge.title}</div>
         <div className="fq-card-meta">
-          {qs} question{qs !== 1 ? "s" : ""} · {date}
-          {isOwn && <span className="fq-badge fq-badge--mine">Mine</span>}
+          {t("familyQuiz.questionsCount", { count: qs })} · {date}
+          {isOwn && <span className="fq-badge fq-badge--mine">{t("familyQuiz.mine")}</span>}
           {myScore != null && (
             <span className="fq-badge fq-badge--score">
               {myScore}/{myTotal}
@@ -172,16 +176,16 @@ function ChallengeCard({ challenge, onOpen, isOwn = false, myScore = null, myTot
       <div className="fq-card-actions" onClick={e => e.stopPropagation()}>
         {confirmDelete ? (
           <>
-            <button className="fq-delete-confirm-btn" onClick={handleConfirmDelete}>Delete</button>
-            <button className="fq-delete-cancel-btn" onClick={handleCancelDelete}>Cancel</button>
+            <button className="fq-delete-confirm-btn" onClick={handleConfirmDelete}>{t("familyQuiz.delete")}</button>
+            <button className="fq-delete-cancel-btn" onClick={handleCancelDelete}>{t("familyQuiz.cancel")}</button>
           </>
         ) : (
           <>
-            <button className="fq-copy-btn" onClick={handleCopy} aria-label="Copy share link">
-              {copied ? "✓ Copied" : "Share"}
+            <button className="fq-copy-btn" onClick={handleCopy} aria-label={t("familyQuiz.copyLinkAria")}>
+              {copied ? t("familyQuiz.copied") : t("familyQuiz.share")}
             </button>
             {isOwn && (
-              <button className="fq-delete-btn" onClick={handleDeleteClick} aria-label="Delete challenge">
+              <button className="fq-delete-btn" onClick={handleDeleteClick} aria-label={t("familyQuiz.deleteChallengeAria")}>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
                 </svg>
@@ -199,7 +203,8 @@ function ChallengeCard({ challenge, onOpen, isOwn = false, myScore = null, myTot
 const COUNT_OPTIONS = [5, 10, 15, 20];
 
 function CreateForm({ user, onClose, onCreated }) {
-  const [title, setTitle] = useState("Family Bible Challenge");
+  const { t } = useTranslation();
+  const [title, setTitle] = useState(t("familyQuiz.title"));
   const [count, setCount] = useState(10);
   const [levelMode, setLevelMode] = useState("all"); // "all" | "pick"
   const [pickedLevels, setPickedLevels] = useState([]);
@@ -209,11 +214,9 @@ function CreateForm({ user, onClose, onCreated }) {
     mutationFn: async () => {
       const levels = levelMode === "pick" ? pickedLevels : [];
       const questions = await familyQuizApi.pickQuestions(count, levels);
-      if (questions.length < count) throw new Error(
-        `Not enough questions for the selected level${pickedLevels.length !== 1 ? "s" : ""}. Try adding more levels.`
-      );
+      if (questions.length < count) throw new Error(t("familyQuiz.notEnough"));
       const ids = questions.map(q => q.id);
-      return familyQuizApi.createChallenge(user.id, title.trim() || "Family Bible Challenge", ids);
+      return familyQuizApi.createChallenge(user.id, title.trim() || t("familyQuiz.title"), ids);
     },
     onSuccess: (id) => onCreated(id),
     onError: (e) => setError(e.message),
@@ -227,20 +230,20 @@ function CreateForm({ user, onClose, onCreated }) {
 
   return (
     <div className="fq-create-overlay" onClick={onClose}>
-      <div className="fq-create-panel" role="dialog" aria-modal="true" aria-label="New quiz challenge" onClick={e => e.stopPropagation()}>
-        <button className="fq-create-close" onClick={onClose} aria-label="✕ Close">✕</button>
-        <h2 className="fq-create-title">New Challenge</h2>
+      <div className="fq-create-panel" role="dialog" aria-modal="true" aria-label={t("familyQuiz.newChallenge")} onClick={e => e.stopPropagation()}>
+        <button className="fq-create-close" onClick={onClose} aria-label={t("familyQuiz.closeAria")}>✕</button>
+        <h2 className="fq-create-title">{t("familyQuiz.newChallenge")}</h2>
 
-        <label className="fq-label">Challenge name</label>
+        <label className="fq-label">{t("familyQuiz.challengeName")}</label>
         <input
           className="fq-input"
           value={title}
           onChange={e => setTitle(e.target.value)}
           maxLength={80}
-          placeholder="e.g. Sunday Family Quiz"
+          placeholder={t("familyQuiz.challengeNamePlaceholder")}
         />
 
-        <label className="fq-label">Number of questions</label>
+        <label className="fq-label">{t("familyQuiz.numberOfQuestions")}</label>
         <div className="fq-count-row">
           {COUNT_OPTIONS.map(n => (
             <button
@@ -254,21 +257,21 @@ function CreateForm({ user, onClose, onCreated }) {
           ))}
         </div>
 
-        <label className="fq-label">Question source</label>
+        <label className="fq-label">{t("familyQuiz.questionSource")}</label>
         <div className="fq-mode-row">
           <button
             type="button"
             className={`fq-mode-btn${levelMode === "all" ? " fq-mode-btn--active" : ""}`}
             onClick={() => setLevelMode("all")}
           >
-            All 240 Questions
+            {t("familyQuiz.allQuestions")}
           </button>
           <button
             type="button"
             className={`fq-mode-btn${levelMode === "pick" ? " fq-mode-btn--active" : ""}`}
             onClick={() => setLevelMode("pick")}
           >
-            Pick Levels
+            {t("familyQuiz.pickLevels")}
           </button>
         </div>
 
@@ -281,7 +284,7 @@ function CreateForm({ user, onClose, onCreated }) {
                 className={`fq-level-chip${pickedLevels.includes(lvl) ? " fq-level-chip--on" : ""}`}
                 onClick={() => toggleLevel(lvl)}
               >
-                {LEVEL_LABELS[lvl]}
+                {t("familyQuiz.levelLabel", { n: lvl, theme: t(LEVEL_THEME_KEYS[lvl]) })}
               </button>
             ))}
           </div>
@@ -294,7 +297,7 @@ function CreateForm({ user, onClose, onCreated }) {
           onClick={() => create.mutate()}
           disabled={create.isPending || (levelMode === "pick" && pickedLevels.length === 0)}
         >
-          {create.isPending ? "Creating…" : "Create Challenge"}
+          {create.isPending ? t("familyQuiz.creating") : t("familyQuiz.createChallengeBtn")}
         </button>
       </div>
     </div>
@@ -304,6 +307,7 @@ function CreateForm({ user, onClose, onCreated }) {
 // ── CHALLENGE VIEW (play + results) ──────────────────────────────────────────
 
 function ChallengeView({ user, challengeId, justCreated, onBack }) {
+  const { t, i18n } = useTranslation();
   const queryClient = useQueryClient();
   const [phase, setPhase] = useState("landing");
   const [qIndex, setQIndex] = useState(0);
@@ -313,8 +317,8 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
   const [copied, setCopied] = useState(false);
 
   const { data: challenge, isLoading: cLoading, error: cError } = useQuery({
-    queryKey: ["challenge", challengeId],
-    queryFn: () => familyQuizApi.getChallenge(challengeId),
+    queryKey: ["challenge", challengeId, i18n.language],
+    queryFn: () => familyQuizApi.getChallenge(challengeId, i18n.language),
     staleTime: 5 * 60_000,
   });
 
@@ -388,8 +392,8 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
       return (
         <div className="fq-center">
           <div className="fq-error-icon">⚠</div>
-          <p>Challenge not found or no longer available.</p>
-          <button className="fq-back-link" onClick={onBack}>← Back</button>
+          <p>{t("familyQuiz.notFound")}</p>
+          <button className="fq-back-link" onClick={onBack}>{t("familyQuiz.back")}</button>
         </div>
       );
     }
@@ -397,15 +401,15 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
       return (
         <div className="fq-center">
           <div className="fq-error-icon">⚠</div>
-          <p>Challenge not found or no longer available.</p>
-          <button className="fq-back-link" onClick={onBack}>← Back</button>
+          <p>{t("familyQuiz.notFound")}</p>
+          <button className="fq-back-link" onClick={onBack}>{t("familyQuiz.back")}</button>
         </div>
       );
     }
     return (
       <div className="fq-center">
         <div className="fq-spinner" />
-        <p>Loading challenge…</p>
+        <p>{t("familyQuiz.loadingChallenge")}</p>
       </div>
     );
   }
@@ -422,35 +426,35 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
 </svg></div>
           <h1 className="fq-landing-title">{challenge.title}</h1>
           <p className="fq-landing-meta">
-            Created by <strong>{challenge.creatorName ?? "someone"}</strong>
-            {" · "}{challenge.questions.length} questions
+            {t("familyQuiz.createdBy")} <strong>{challenge.creatorName ?? t("familyQuiz.someone")}</strong>
+            {" · "}{t("familyQuiz.questionsCount", { count: challenge.questions.length })}
           </p>
         </div>
 
         {alreadyDone && (
           <div className="fq-already-done">
-            You scored <strong>{myAttempt.score}/{myAttempt.total}</strong> on this challenge.
+            {t("familyQuiz.youScoredPre")} <strong>{myAttempt.score}/{myAttempt.total}</strong> {t("familyQuiz.youScoredPost")}
           </div>
         )}
 
         <div className="fq-landing-actions">
           {alreadyDone ? (
             <button className="fq-primary-btn" onClick={() => setPhase("results")}>
-              View Leaderboard
+              {t("familyQuiz.viewLeaderboard")}
             </button>
           ) : (
             <button className="fq-primary-btn" onClick={startQuiz}>
-              Start Quiz
+              {t("familyQuiz.startQuiz")}
             </button>
           )}
           <button className="fq-share-btn" onClick={handleCopy}>
-            {copied ? "✓ Link Copied!" : "Share Challenge"}
+            {copied ? t("familyQuiz.linkCopied") : t("familyQuiz.shareChallenge")}
           </button>
         </div>
 
         {justCreated && (
           <div className="fq-created-hint">
-            Share this challenge link with family and friends so they can compete for the top score!
+            {t("familyQuiz.createdHint")}
           </div>
         )}
       </div>
@@ -467,7 +471,7 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
     return (
       <div className="fq-quiz">
         <div className="fq-quiz-header">
-          <button className="fq-back-link" onClick={onBack} aria-label="Close">✕</button>
+          <button className="fq-back-link" onClick={onBack} aria-label={t("familyQuiz.closeAria")}>✕</button>
           <div className="fq-quiz-progress-wrap">
             <div className="fq-quiz-progress-bar">
               <div className="fq-quiz-progress-fill" style={{ width: `${progress}%` }} />
@@ -477,7 +481,7 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
         </div>
 
         <div className="fq-question-card">
-          <div className="fq-question-level">Level {q.level}</div>
+          <div className="fq-question-level">{t("familyQuiz.level", { n: q.level })}</div>
           <p className="fq-question-text">{q.question}</p>
         </div>
 
@@ -503,10 +507,10 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
           <div className={`fq-feedback ${selected === q.correct_index ? "fq-feedback--is-correct" : "fq-feedback--is-wrong"}`}>
             <div className="fq-feedback-msg">
               {selected === q.correct_index ? (
-                <span className="fq-feedback--correct">Correct!</span>
+                <span className="fq-feedback--correct">{t("familyQuiz.correct")}</span>
               ) : (
                 <span className="fq-feedback--wrong">
-                  Answer: <strong>{q.options[q.correct_index]}</strong>
+                  {t("familyQuiz.answer")} <strong>{q.options[q.correct_index]}</strong>
                 </span>
               )}
             </div>
@@ -516,8 +520,8 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
               disabled={submit.isPending}
             >
               {qIndex + 1 >= total
-                ? (submit.isPending ? "Saving…" : "Finish")
-                : "Next →"}
+                ? (submit.isPending ? t("familyQuiz.saving") : t("familyQuiz.finish"))
+                : t("familyQuiz.next")}
             </button>
           </div>
         )}
@@ -548,16 +552,16 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
 
         <div className="fq-share-row">
           <button className="fq-share-btn" onClick={handleCopy}>
-            {copied ? "✓ Link Copied!" : "Invite others"}
+            {copied ? t("familyQuiz.linkCopied") : t("familyQuiz.inviteOthers")}
           </button>
         </div>
 
         <div className="fq-leaderboard">
-          <h2 className="fq-lb-title">Leaderboard</h2>
+          <h2 className="fq-lb-title">{t("familyQuiz.leaderboard")}</h2>
           {attLoading ? (
-            <div className="fq-empty">Loading results…</div>
+            <div className="fq-empty">{t("familyQuiz.loadingResults")}</div>
           ) : attempts.length === 0 ? (
-            <div className="fq-empty">No attempts yet.</div>
+            <div className="fq-empty">{t("familyQuiz.noAttempts")}</div>
           ) : (
             <ol className="fq-lb-list">
               {attempts.map((a, i) => {
@@ -567,8 +571,8 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
                   <li key={a.id} className={`fq-lb-row${isMe ? " fq-lb-row--me" : ""}`}>
                     <span className="fq-lb-rank">{i + 1}</span>
                     <span className="fq-lb-name">
-                      {a.profiles?.display_name ?? "Anonymous"}
-                      {isMe && <span className="fq-lb-you"> (you)</span>}
+                      {a.profiles?.display_name ?? t("familyQuiz.anonymous")}
+                      {isMe && <span className="fq-lb-you"> {t("familyQuiz.you")}</span>}
                     </span>
                     <span className="fq-lb-score">{a.score}/{a.total}</span>
                     <div className="fq-lb-bar-wrap">
@@ -582,7 +586,7 @@ function ChallengeView({ user, challengeId, justCreated, onBack }) {
           )}
         </div>
 
-        <button className="fq-back-link" onClick={onBack}>← Back to challenges</button>
+        <button className="fq-back-link" onClick={onBack}>{t("familyQuiz.backToChallenges")}</button>
       </div>
     );
   }

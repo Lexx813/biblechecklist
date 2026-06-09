@@ -149,6 +149,11 @@ export function useAIChat(context?: ChatContext, options?: UseAIChatOptions) {
     return () => clearTimeout(id);
   }, [messages, useLocalStorage]);
 
+  // Abort any in-flight stream when the hook unmounts (navigation away from
+  // the bubble or /ai page) so the fetch + reader loop stops and we don't keep
+  // burning AI quota / calling setState after unmount.
+  useEffect(() => () => abortRef.current?.abort(), []);
+
   const syncedSetMessages = useCallback(
     (updater: (prev: ChatMessage[]) => ChatMessage[]) => {
       setMessages((prev) => {
@@ -309,7 +314,10 @@ export function useAIChat(context?: ChatContext, options?: UseAIChatOptions) {
         });
       }
     } finally {
-      setLoading(false);
+      // Only clear loading if THIS send is still the active one. A rapid second
+      // send() aborts the first and sets loading=true again; the first send's
+      // finally must not flip the spinner off during the new stream.
+      if (abortRef.current === ctrl) setLoading(false);
     }
   }, [syncedSetMessages]);
 

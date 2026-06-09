@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   useFriendRequests,
   useAcceptFriendRequest,
@@ -7,15 +8,15 @@ import {
 } from "../../hooks/useFriends";
 import "../../styles/friends.css";
 
-function timeAgo(iso: string | null | undefined): string {
+function timeAgo(iso: string | null | undefined, t: (key: string, opts?: Record<string, unknown>) => string): string {
   if (!iso) return "";
   const diff = Date.now() - new Date(iso).getTime();
   const m = Math.floor(diff / 60000);
-  if (m < 1) return "just now";
-  if (m < 60) return `${m}m ago`;
+  if (m < 1) return t("friendReq.justNow");
+  if (m < 60) return t("friendReq.minutesAgo", { count: m });
   const h = Math.floor(m / 60);
-  if (h < 24) return `${h}h ago`;
-  return `${Math.floor(h / 24)}d ago`;
+  if (h < 24) return t("friendReq.hoursAgo", { count: h });
+  return t("friendReq.daysAgo", { count: Math.floor(h / 24) });
 }
 
 interface Props {
@@ -37,6 +38,7 @@ function OutgoingRow({
   req: OutgoingRequest;
   navigate: (page: string, params?: Record<string, unknown>) => void;
 }) {
+  const { t } = useTranslation();
   const cancel = useCancelFriendRequest(userId, req.to_user_id);
   return (
     <div className="freq-card">
@@ -57,7 +59,7 @@ function OutgoingRow({
       )}
       <div className="freq-card-info">
         <div className="freq-card-name">{req.recipient?.display_name ?? "Unknown"}</div>
-        <div className="freq-card-time">Sent {timeAgo(req.created_at)}</div>
+        <div className="freq-card-time">{t("friendReq.sent")} {timeAgo(req.created_at, t)}</div>
       </div>
       <div className="freq-card-actions">
         <button
@@ -65,7 +67,7 @@ function OutgoingRow({
           onClick={() => cancel.mutate()}
           disabled={cancel.isPending}
         >
-          Cancel
+          {t("friendReq.cancel")}
         </button>
       </div>
     </div>
@@ -73,6 +75,7 @@ function OutgoingRow({
 }
 
 export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMode, i18n, onLogout, currentPage }: Props) {
+  const { t } = useTranslation();
   const { incoming, outgoing } = useFriendRequests(user.id);
   const accept = useAcceptFriendRequest(user.id);
   const decline = useDeclineFriendRequest(user.id);
@@ -89,10 +92,10 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <polyline points="15 18 9 12 15 6" />
             </svg>
-            Back
+            {t("friendReq.back")}
           </button>
-          <h1 className="freq-hero-title">Friend Requests</h1>
-          <p className="freq-hero-sub">Manage who you connect with</p>
+          <h1 className="freq-hero-title">{t("friendReq.title")}</h1>
+          <p className="freq-hero-sub">{t("friendReq.subtitle")}</p>
         </div>
       </div>
 
@@ -101,7 +104,7 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
         {/* Incoming */}
         <div className="freq-section">
           <div className="freq-section-header">
-            <span className="freq-section-title">Incoming</span>
+            <span className="freq-section-title">{t("friendReq.incoming")}</span>
             <span className={`freq-count-badge${incomingList.length === 0 ? " freq-count-badge--empty" : ""}`}>
               {incomingList.length}
             </span>
@@ -117,8 +120,8 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
                   <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                 </svg>
               </div>
-              <div className="freq-empty-title">No incoming requests</div>
-              <div className="freq-empty-sub">When someone wants to connect, you'll see them here.</div>
+              <div className="freq-empty-title">{t("friendReq.noIncoming")}</div>
+              <div className="freq-empty-sub">{t("friendReq.noIncomingSub")}</div>
             </div>
           ) : (
             incomingList.map((req) => (
@@ -140,7 +143,7 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
                 )}
                 <div className="freq-card-info">
                   <div className="freq-card-name">{req.sender?.display_name ?? "Unknown"}</div>
-                  <div className="freq-card-time">Sent {timeAgo(req.created_at)}</div>
+                  <div className="freq-card-time">{t("friendReq.sent")} {timeAgo(req.created_at, t)}</div>
                 </div>
                 <div className="freq-card-actions">
                   <button
@@ -148,14 +151,14 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
                     onClick={() => accept.mutate(req.from_user_id)}
                     disabled={accept.isPending || decline.isPending}
                   >
-                    Accept
+                    {t("friendReq.accept")}
                   </button>
                   <button
                     className="freq-decline-btn"
                     onClick={() => decline.mutate(req.from_user_id)}
                     disabled={accept.isPending || decline.isPending}
                   >
-                    Decline
+                    {t("friendReq.decline")}
                   </button>
                 </div>
               </div>
@@ -166,7 +169,7 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
         {/* Sent */}
         <div className="freq-section">
           <div className="freq-section-header">
-            <span className="freq-section-title">Sent</span>
+            <span className="freq-section-title">{t("friendReq.sentTitle")}</span>
             <span className={`freq-count-badge${outgoingList.length === 0 ? " freq-count-badge--empty" : ""}`}>
               {outgoingList.length}
             </span>
@@ -182,8 +185,8 @@ export default function FriendRequestsPage({ user, navigate, darkMode, setDarkMo
                   <line x1="22" y1="11" x2="16" y2="11"/>
                 </svg>
               </div>
-              <div className="freq-empty-title">No sent requests</div>
-              <div className="freq-empty-sub">Find someone on the leaderboard or community and add them as a friend.</div>
+              <div className="freq-empty-title">{t("friendReq.noSent")}</div>
+              <div className="freq-empty-sub">{t("friendReq.noSentSub")}</div>
             </div>
           ) : (
             outgoingList.map((req) => (

@@ -136,7 +136,8 @@
     "lightMode": "Mọ́lẹ̀",
     "home": "Ilé",
     "about": "Nípa wa",
-    "searchBooksAria": "Wá àwọn ìwé"
+    "searchBooksAria": "Wá àwọn ìwé",
+    "testamentFilterAria": "Filter books by section"
   },
   "landing": {
     "nav": {
@@ -429,7 +430,8 @@
       "sendComment": "Fi ọ̀rọ̀-àlàyé ránṣẹ́",
       "sendReply": "Fi ìdáhùn ránṣẹ́",
       "signInToComment": "Wọlé láti ṣe ọ̀rọ̀-àlàyé",
-      "writeCommentPlaceholder": "Kọ ọ̀rọ̀-àlàyé…"
+      "writeCommentPlaceholder": "Kọ ọ̀rọ̀-àlàyé…",
+      "viewProfile": "View {{name}}'s profile"
     }
   },
   "follow": {
@@ -677,7 +679,7 @@
     "postCount_other": "Àkọsílẹ̀ {{count}} la tẹ̀ jáde",
     "noPosts": "Kò sí àkọsílẹ̀ síbẹ̀",
     "noPostsSub": "Jẹ́ ẹni àkọ́kọ́ tó pín ìrònú tàbí ìkẹ́kọ̀ọ́.",
-    "searchPlaceholder": "Wá àwọn blog...",
+    "searchPlaceholder": "Search articles, topics, authors…",
     "noResults": "A kò rí àbájáde",
     "noResultsSub": "Gbìyànjú ọ̀rọ̀ ìwákiri mìíràn",
     "readMore": "Tẹ̀ ẹ́ láti kà sí i…",
@@ -865,7 +867,8 @@
     "aiAssistantDesc": "Gba ìrànlọ́wọ́ láti kọ àpilẹ̀kọ tó gbóná janjan tó sì dá lórí Ìwé Mímọ́, gẹ́gẹ́ bí kókó àti àkọsílẹ̀ àkọ́kọ́ rẹ.",
     "aiWriting": "Ń kọ̀wé…",
     "aiHelpMeWrite": "Ràn Mí Lọ́wọ́ Láti Kọ Àpilẹ̀kọ Yìí",
-    "aiSuggestion": "Àbá AI"
+    "aiSuggestion": "Àbá AI",
+    "viewProfile": "View {{name}}'s profile"
   },
   "home": {
     "navLeaderboard": "Pápá Aṣíwájú",
@@ -2219,7 +2222,25 @@
     "send": "Fi ránṣẹ́",
     "commentsLoading": "Ń ṣíṣẹ́…",
     "failedRsvp": "A kùnà láti ṣàtúnṣe ìfàṣẹ.",
-    "failedDeleteEvent": "A kùnà láti pa ìṣẹ̀lẹ̀ rẹ́."
+    "failedDeleteEvent": "A kùnà láti pa ìṣẹ̀lẹ̀ rẹ́.",
+    "events": {
+      "createTitle": "Create Event",
+      "createAria": "Create event",
+      "closeAria": "Close",
+      "fieldTitle": "Title",
+      "fieldDescription": "Description",
+      "fieldLocation": "Location",
+      "fieldStartsAt": "Starts at",
+      "fieldEndsAt": "Ends at",
+      "titlePlaceholder": "Meeting title",
+      "locationPlaceholder": "Address or meeting link",
+      "cancel": "Cancel",
+      "create": "Create event",
+      "creating": "Creating…"
+    },
+    "composePlaceholder": "Share something with the group…",
+    "imageUploadFailed": "Image upload failed.",
+    "failedToPost": "Failed to post."
   },
   "messages": {
     "title": "Ìfiránṣẹ́",
@@ -2345,7 +2366,8 @@
     "tryAgain": "Gbìyànjú lẹ́ẹ̀kan sí",
     "failedDelete": "A kùnà láti pa ìránṣẹ́ rẹ́.",
     "failedEdit": "A kùnà láti ṣàtúnṣe ìránṣẹ́.",
-    "failedReaction": "A kùnà láti ṣàtúnṣe ìdáhùn."
+    "failedReaction": "A kùnà láti ṣàtúnṣe ìdáhùn.",
+    "notePlaceholder": "Add a note (optional)…"
   },
   "aiCompanion": {
     "title": "Alábàákẹ́gbẹ́ Ìkẹ́kọ̀ọ́ AI",
@@ -2454,9 +2476,18 @@
               "Àpọ́sítélì Pọ́ọ̀lù kọ̀wé pé: ‘Lóòótọ́, Ọlọ́run kan ṣoṣo ló wà fún wa, Bàbá náà, láti ọ̀dọ̀ rẹ̀ ni gbogbo nǹkan ti wá, àwa sì wà fún un; Olúwa kan sì wà, Jésù Kristi, láti ọwọ́ rẹ̀ ni gbogbo nǹkan ti wà.’ (1 Kọ́ríńtì 8:6) Ẹsẹ yìí fi yé wa ní kedere pé Jèhófà ni Ọlọ́run, Jésù sì ni Olúwa — ẹni méjì ọ̀tọ̀ọ̀tọ̀."
             ],
             "scriptures": [
-              { "ref": "Jòhánù 14:28", "text": "Bàbá tóbi jù mí lọ." },
-              { "ref": "1 Kọ́ríńtì 8:6", "text": "Ọlọ́run kan ṣoṣo ló wà, Bàbá náà… Olúwa kan sì wà, Jésù Kristi." },
-              { "ref": "Jòhánù 17:3", "text": "Èyí túmọ̀ sí ìyè àìnípẹ̀kun, pé kí wọ́n máa mọ̀ ọ́, Ọlọ́run kan ṣoṣo tó jẹ́ òótọ́, àti ẹni tó o rán, Jésù Kristi." }
+              {
+                "ref": "Jòhánù 14:28",
+                "text": "Bàbá tóbi jù mí lọ."
+              },
+              {
+                "ref": "1 Kọ́ríńtì 8:6",
+                "text": "Ọlọ́run kan ṣoṣo ló wà, Bàbá náà… Olúwa kan sì wà, Jésù Kristi."
+              },
+              {
+                "ref": "Jòhánù 17:3",
+                "text": "Èyí túmọ̀ sí ìyè àìnípẹ̀kun, pé kí wọ́n máa mọ̀ ọ́, Ọlọ́run kan ṣoṣo tó jẹ́ òótọ́, àti ẹni tó o rán, Jésù Kristi."
+              }
             ]
           },
           {
@@ -2466,9 +2497,18 @@
               "Jésù fúnra rẹ̀ sọ pé: ‘Mo ń lọ sọ́dọ̀ Bàbá, nítorí Bàbá tóbi jù mí lọ.’ Ó tún jẹ́wọ́ pé àwọn ohun kan wà tí òun kò mọ̀, ó wí pé kò sí ẹni tó mọ ọjọ́ tàbí wákàtí ‘bí kò ṣe Bàbá nìkan.’ (Mátíù 24:36) Àwọn ààlà wọ̀nyí kò ní ṣe é ṣe bí Jésù bá jẹ́ Ọlọ́run Olódùmarè."
             ],
             "scriptures": [
-              { "ref": "Mátíù 3:17", "text": "Èyí ni Ọmọ mi, olùfẹ́, ẹni tí mo tẹ́wọ́ gbà." },
-              { "ref": "Kólósè 1:15", "text": "Òun ni àwòrán Ọlọ́run tí a kò lè rí, àkọ́bí gbogbo ẹ̀dá." },
-              { "ref": "Mátíù 24:36", "text": "Nípa ọjọ́ yẹn àti wákàtí náà, kò sẹ́ni tó mọ̀, kì í ṣe àwọn áńgẹ́lì ti ọ̀run tàbí Ọmọ, bí kò ṣe Bàbá nìkan." }
+              {
+                "ref": "Mátíù 3:17",
+                "text": "Èyí ni Ọmọ mi, olùfẹ́, ẹni tí mo tẹ́wọ́ gbà."
+              },
+              {
+                "ref": "Kólósè 1:15",
+                "text": "Òun ni àwòrán Ọlọ́run tí a kò lè rí, àkọ́bí gbogbo ẹ̀dá."
+              },
+              {
+                "ref": "Mátíù 24:36",
+                "text": "Nípa ọjọ́ yẹn àti wákàtí náà, kò sẹ́ni tó mọ̀, kì í ṣe àwọn áńgẹ́lì ti ọ̀run tàbí Ọmọ, bí kò ṣe Bàbá nìkan."
+              }
             ]
           },
           {
@@ -2478,8 +2518,14 @@
               "Gbígbàdúrà sí Jèhófà nípasẹ̀ Jésù Kristi ni àpẹẹrẹ tó fara hàn jákèjádò Ìwé Mímọ́ Kristẹni Lédè Gíríìkì. Jésù ni Àlùfáà Àgbà àti Alárinà wa — àwọn iṣẹ́ tó ní ìtumọ̀ kìkì bí ó bá yàtọ̀ sí Ọlọ́run Bàbá. (1 Tímótì 2:5; Hébérù 7:25)"
             ],
             "scriptures": [
-              { "ref": "1 Tímótì 2:5", "text": "Ọlọ́run kan ṣoṣo ló wà, Alárinà kan sì wà láàárín Ọlọ́run àti àwọn ènìyàn, ọkùnrin kan, Jésù Kristi." },
-              { "ref": "Hébérù 7:25", "text": "Ó lè gba àwọn tó ń tọ̀ Ọlọ́run wá nípasẹ̀ rẹ̀ là pátápátá." }
+              {
+                "ref": "1 Tímótì 2:5",
+                "text": "Ọlọ́run kan ṣoṣo ló wà, Alárinà kan sì wà láàárín Ọlọ́run àti àwọn ènìyàn, ọkùnrin kan, Jésù Kristi."
+              },
+              {
+                "ref": "Hébérù 7:25",
+                "text": "Ó lè gba àwọn tó ń tọ̀ Ọlọ́run wá nípasẹ̀ rẹ̀ là pátápátá."
+              }
             ]
           }
         ]
@@ -2495,9 +2541,18 @@
               "Nítorí pé olórí áńgẹ́lì kan ṣoṣo ni a mẹ́nu kàn nínú Ìwé Mímọ́, tí Jésù tó jí dìde sì sọ̀ kalẹ̀ pẹ̀lú ohùn olórí áńgẹ́lì, èyí fi hàn ní kedere pé Jésù ni olórí áńgẹ́lì yẹn."
             ],
             "scriptures": [
-              { "ref": "Dáníẹ́lì 12:1", "text": "Máíkẹ́lì yóò dìde, ọmọ aládé ńlá tó ń dúró fún àwọn ènìyàn rẹ̀." },
-              { "ref": "Júúdà 9", "text": "Ṣùgbọ́n nígbà tí Máíkẹ́lì olórí áńgẹ́lì ní ìjà pẹ̀lú Bìlísì tí wọ́n sì ń jiyàn nípa òkú Mósè, kò gbójú gbóyà láti dá a lẹ́jọ́ ní àwọn ọ̀rọ̀ ẹ̀gàn." },
-              { "ref": "1 Tẹsalóníkà 4:16", "text": "Olúwa fúnra rẹ̀ yóò sọ̀ kalẹ̀ láti ọ̀run pẹ̀lú igbe àṣẹ, pẹ̀lú ohùn olórí áńgẹ́lì." }
+              {
+                "ref": "Dáníẹ́lì 12:1",
+                "text": "Máíkẹ́lì yóò dìde, ọmọ aládé ńlá tó ń dúró fún àwọn ènìyàn rẹ̀."
+              },
+              {
+                "ref": "Júúdà 9",
+                "text": "Ṣùgbọ́n nígbà tí Máíkẹ́lì olórí áńgẹ́lì ní ìjà pẹ̀lú Bìlísì tí wọ́n sì ń jiyàn nípa òkú Mósè, kò gbójú gbóyà láti dá a lẹ́jọ́ ní àwọn ọ̀rọ̀ ẹ̀gàn."
+              },
+              {
+                "ref": "1 Tẹsalóníkà 4:16",
+                "text": "Olúwa fúnra rẹ̀ yóò sọ̀ kalẹ̀ láti ọ̀run pẹ̀lú igbe àṣẹ, pẹ̀lú ohùn olórí áńgẹ́lì."
+              }
             ]
           },
           {
@@ -2507,9 +2562,18 @@
               "Kí Jésù tó wá sí ayé bí ènìyàn, ó wà ní ọ̀run gẹ́gẹ́ bí ẹ̀dá ẹ̀mí alágbára — ‘àkọ́bí gbogbo ẹ̀dá’ (Kólósè 1:15). Orúkọ rẹ̀ ṣáájú kí ó tó di ènìyàn ni Máíkẹ́lì. Lẹ́yìn àjíǹde rẹ̀, Fílípì 2:9 sọ pé Ọlọ́run fún un ní ‘orúkọ tó borí gbogbo orúkọ míì’ — Jésù Kristi — a gbé e ga sí ipò tó ga jù lọ."
             ],
             "scriptures": [
-              { "ref": "Ìṣípayá 12:7-9", "text": "Máíkẹ́lì àti àwọn áńgẹ́lì rẹ̀ bá dírágónì jà… a sì jù dírágónì ńlá náà sílẹ̀." },
-              { "ref": "Kólósè 1:15-16", "text": "Òun ni àwòrán Ọlọ́run tí a kò lè rí, àkọ́bí gbogbo ẹ̀dá; nítorí nípasẹ̀ rẹ̀ ni a dá gbogbo ohun mìíràn." },
-              { "ref": "Fílípì 2:9", "text": "Ọlọ́run gbé e ga sí ipò gíga jù, ó sì fún un pẹ̀lú inú rere ní orúkọ tó borí gbogbo orúkọ míì." }
+              {
+                "ref": "Ìṣípayá 12:7-9",
+                "text": "Máíkẹ́lì àti àwọn áńgẹ́lì rẹ̀ bá dírágónì jà… a sì jù dírágónì ńlá náà sílẹ̀."
+              },
+              {
+                "ref": "Kólósè 1:15-16",
+                "text": "Òun ni àwòrán Ọlọ́run tí a kò lè rí, àkọ́bí gbogbo ẹ̀dá; nítorí nípasẹ̀ rẹ̀ ni a dá gbogbo ohun mìíràn."
+              },
+              {
+                "ref": "Fílípì 2:9",
+                "text": "Ọlọ́run gbé e ga sí ipò gíga jù, ó sì fún un pẹ̀lú inú rere ní orúkọ tó borí gbogbo orúkọ míì."
+              }
             ]
           }
         ]
@@ -2525,9 +2589,18 @@
               "Nígbà tí wọ́n batisí Jésù, ‘ọ̀run ṣí, ó sì rí ẹ̀mí Ọlọ́run tí ń sọ̀ kalẹ̀ bí àdàbà.’ (Mátíù 3:16) Àdàbà jẹ́ àmì ìwà-pẹ̀lẹ́ àti àlàáfíà — a ṣàpèjúwe ẹ̀mí níhìn-ín gẹ́gẹ́ bí agbára tàbí ipa, kì í ṣe gẹ́gẹ́ bí ẹ̀dá Ọlọ́run kẹta tó dúró lẹ́gbẹ̀ẹ́ Bàbá àti Ọmọ."
             ],
             "scriptures": [
-              { "ref": "Jẹ́nẹ́sísì 1:2", "text": "Agbára iṣẹ́ Ọlọ́run ń lọ kiri lórí ojú omi." },
-              { "ref": "Ìṣe 2:4", "text": "Gbogbo wọn kún fún ẹ̀mí mímọ́, wọ́n sì bẹ̀rẹ̀ sí sọ̀rọ̀ ní onírúurú èdè." },
-              { "ref": "Lúùkù 1:35", "text": "Ẹ̀mí mímọ́ yóò bà lé ọ, agbára Ẹni Gíga Jù Lọ yóò sì ṣíji bò ọ́." }
+              {
+                "ref": "Jẹ́nẹ́sísì 1:2",
+                "text": "Agbára iṣẹ́ Ọlọ́run ń lọ kiri lórí ojú omi."
+              },
+              {
+                "ref": "Ìṣe 2:4",
+                "text": "Gbogbo wọn kún fún ẹ̀mí mímọ́, wọ́n sì bẹ̀rẹ̀ sí sọ̀rọ̀ ní onírúurú èdè."
+              },
+              {
+                "ref": "Lúùkù 1:35",
+                "text": "Ẹ̀mí mímọ́ yóò bà lé ọ, agbára Ẹni Gíga Jù Lọ yóò sì ṣíji bò ọ́."
+              }
             ]
           },
           {
@@ -2537,9 +2610,18 @@
               "Àwọn ẹ̀bùn ẹ̀mí mímọ́ — ọgbọ́n, ìgbàgbọ́, ìmúláradá, sísọ àwọn èdè — ni a pín nípasẹ̀ agbára Ọlọ́run, kì í ṣe nípasẹ̀ ẹni Ọlọ́run kẹta kan tó ń ṣe ìpinnu lọ́tọ̀. Pọ́ọ̀lù kọ̀wé pé ‘gbogbo ìwọ̀nyí ni iṣẹ́ ẹ̀mí kan ṣoṣo, tí ń pín fún olúkúlùkù gẹ́gẹ́ bí ó ti ń fẹ́’ (1 Kọ́ríńtì 12:11) — ṣùgbọ́n èyí fi ìbámu ẹ̀mí pẹ̀lú ìfẹ́ Ọlọ́run hàn, kì í ṣe ìwà-ẹni ọ̀tọ̀ọ̀tọ̀."
             ],
             "scriptures": [
-              { "ref": "Ìṣe 2:17", "text": "Èmi yóò tú díẹ̀ nínú ẹ̀mí mi jáde sórí oríṣiríṣi ẹran-ara." },
-              { "ref": "Róòmù 8:26", "text": "Ẹ̀mí fúnra rẹ̀ ń bẹ̀bẹ̀ fún wa pẹ̀lú ìkérora tí a kò lè sọ jáde." },
-              { "ref": "1 Kọ́ríńtì 12:11", "text": "Gbogbo ìwọ̀nyí ni iṣẹ́ ẹ̀mí kan ṣoṣo." }
+              {
+                "ref": "Ìṣe 2:17",
+                "text": "Èmi yóò tú díẹ̀ nínú ẹ̀mí mi jáde sórí oríṣiríṣi ẹran-ara."
+              },
+              {
+                "ref": "Róòmù 8:26",
+                "text": "Ẹ̀mí fúnra rẹ̀ ń bẹ̀bẹ̀ fún wa pẹ̀lú ìkérora tí a kò lè sọ jáde."
+              },
+              {
+                "ref": "1 Kọ́ríńtì 12:11",
+                "text": "Gbogbo ìwọ̀nyí ni iṣẹ́ ẹ̀mí kan ṣoṣo."
+              }
             ]
           }
         ]
@@ -2555,11 +2637,26 @@
               "Jésù sọ fún àwọn ọmọ ẹ̀yìn rẹ̀ pé wọn yóò ‘ní ìrìbọmi nínú ẹ̀mí mímọ́.’ (Ìṣe 1:5) A máa ń ri ènìyàn bọmi nínú omi, kì í ṣe nínú ẹni kan. Àwọn gbólóhùn wọ̀nyí — kún fún, tú jáde, ní ìrìbọmi nínú — ń ṣàpèjúwe ẹ̀mí mímọ́ ní ìbámu gẹ́gẹ́ bí agbára, kì í ṣe ẹni kan."
             ],
             "scriptures": [
-              { "ref": "Ìṣe 2:4", "text": "Gbogbo wọn kún fún ẹ̀mí mímọ́, wọ́n sì bẹ̀rẹ̀ sí sọ̀rọ̀ ní onírúurú èdè." },
-              { "ref": "Ìṣe 2:17", "text": "Èmi yóò tú díẹ̀ nínú ẹ̀mí mi jáde sórí oríṣiríṣi ẹran-ara." },
-              { "ref": "Ìṣe 1:5", "text": "Ẹ yóò ní ìrìbọmi nínú ẹ̀mí mímọ́ ní ọjọ́ díẹ̀ síwájú." },
-              { "ref": "Ìṣe 10:38", "text": "Ọlọ́run fi ẹ̀mí mímọ́ àti agbára yàn án." },
-              { "ref": "Lúùkù 11:13", "text": "Bàbá tó wà ní ọ̀run yóò fún àwọn tó ń béèrè lọ́wọ́ rẹ̀ ní ẹ̀mí mímọ́!" }
+              {
+                "ref": "Ìṣe 2:4",
+                "text": "Gbogbo wọn kún fún ẹ̀mí mímọ́, wọ́n sì bẹ̀rẹ̀ sí sọ̀rọ̀ ní onírúurú èdè."
+              },
+              {
+                "ref": "Ìṣe 2:17",
+                "text": "Èmi yóò tú díẹ̀ nínú ẹ̀mí mi jáde sórí oríṣiríṣi ẹran-ara."
+              },
+              {
+                "ref": "Ìṣe 1:5",
+                "text": "Ẹ yóò ní ìrìbọmi nínú ẹ̀mí mímọ́ ní ọjọ́ díẹ̀ síwájú."
+              },
+              {
+                "ref": "Ìṣe 10:38",
+                "text": "Ọlọ́run fi ẹ̀mí mímọ́ àti agbára yàn án."
+              },
+              {
+                "ref": "Lúùkù 11:13",
+                "text": "Bàbá tó wà ní ọ̀run yóò fún àwọn tó ń béèrè lọ́wọ́ rẹ̀ ní ẹ̀mí mímọ́!"
+              }
             ]
           },
           {
@@ -2569,10 +2666,22 @@
               "Nígbà ìbatisí Jésù, ẹ̀mí mímọ́ fara hàn gẹ́gẹ́ bí àdàbà — kì í ṣe gẹ́gẹ́ bí ẹni kan. (Mátíù 3:16) Nígbà tí Sítéfánù máa kú, ‘ó wo ọ̀run, ó sì rí ògo Ọlọ́run àti Jésù tó dúró ní ọwọ́ ọ̀tún Ọlọ́run.’ (Ìṣe 7:55) Ó rí ẹni méjì — Bàbá àti Ọmọ. Kò rí ẹni kẹta."
             ],
             "scriptures": [
-              { "ref": "Mátíù 3:16", "text": "Lẹ́yìn tí a batisí Jésù, ó jáde kúrò nínú omi lẹ́sẹ̀kẹsẹ̀; ọ̀run ṣí, ó sì rí ẹ̀mí Ọlọ́run tí ń sọ̀ kalẹ̀ bí àdàbà." },
-              { "ref": "Ìṣe 7:55-56", "text": "Ó wo ọ̀run, ó sì rí ògo Ọlọ́run àti Jésù tó dúró ní ọwọ́ ọ̀tún Ọlọ́run." },
-              { "ref": "Ìṣípayá 7:10", "text": "Ìgbàlà ti Ọlọ́run wa tó jókòó lórí ìtẹ́ wá, àti ti Ọ̀dọ́-Àgùntàn." },
-              { "ref": "1 Tímótì 2:5", "text": "Ọlọ́run kan ṣoṣo ló wà, Alárinà kan sì wà láàárín Ọlọ́run àti àwọn ènìyàn, ọkùnrin kan, Jésù Kristi." }
+              {
+                "ref": "Mátíù 3:16",
+                "text": "Lẹ́yìn tí a batisí Jésù, ó jáde kúrò nínú omi lẹ́sẹ̀kẹsẹ̀; ọ̀run ṣí, ó sì rí ẹ̀mí Ọlọ́run tí ń sọ̀ kalẹ̀ bí àdàbà."
+              },
+              {
+                "ref": "Ìṣe 7:55-56",
+                "text": "Ó wo ọ̀run, ó sì rí ògo Ọlọ́run àti Jésù tó dúró ní ọwọ́ ọ̀tún Ọlọ́run."
+              },
+              {
+                "ref": "Ìṣípayá 7:10",
+                "text": "Ìgbàlà ti Ọlọ́run wa tó jókòó lórí ìtẹ́ wá, àti ti Ọ̀dọ́-Àgùntàn."
+              },
+              {
+                "ref": "1 Tímótì 2:5",
+                "text": "Ọlọ́run kan ṣoṣo ló wà, Alárinà kan sì wà láàárín Ọlọ́run àti àwọn ènìyàn, ọkùnrin kan, Jésù Kristi."
+              }
             ]
           },
           {
@@ -2582,10 +2691,22 @@
               "Pọ́ọ̀lù kọ̀wé pé àwọn ẹ̀bùn tẹ̀mí jẹ́ ‘iṣẹ́ ẹ̀mí kan ṣoṣo, tí ń pín fún olúkúlùkù lọ́tọ̀ gẹ́gẹ́ bí ó ti ń fẹ́.’ (1 Kọ́ríńtì 12:11) Ẹ̀mí ń pín ní ìbámu pẹ̀lú ìfẹ́ Ọlọ́run. Ohun èlò ti ète Ọlọ́run ni, kì í ṣe ọkàn olómìnira tó ń ṣe ìpinnu ọ̀tọ̀."
             ],
             "scriptures": [
-              { "ref": "Númérì 11:25", "text": "Jèhófà gba díẹ̀ nínú ẹ̀mí tó wà lórí rẹ̀, ó sì fi sí orí àwọn àgbà 70." },
-              { "ref": "2 Àwọn Ọba 2:9", "text": "Jọ̀wọ́, jẹ́ kí ìpín méjì nínú ẹ̀mí rẹ wá sí ọ̀dọ̀ mi." },
-              { "ref": "1 Kọ́ríńtì 12:11", "text": "Gbogbo ìwọ̀nyí ni iṣẹ́ ẹ̀mí kan ṣoṣo, tí ń pín fún olúkúlùkù lọ́tọ̀ gẹ́gẹ́ bí ó ti ń fẹ́." },
-              { "ref": "Nehemáyà 9:20", "text": "Ìwọ fi ẹ̀mí rere rẹ fún wọn láti kọ́ wọn." }
+              {
+                "ref": "Númérì 11:25",
+                "text": "Jèhófà gba díẹ̀ nínú ẹ̀mí tó wà lórí rẹ̀, ó sì fi sí orí àwọn àgbà 70."
+              },
+              {
+                "ref": "2 Àwọn Ọba 2:9",
+                "text": "Jọ̀wọ́, jẹ́ kí ìpín méjì nínú ẹ̀mí rẹ wá sí ọ̀dọ̀ mi."
+              },
+              {
+                "ref": "1 Kọ́ríńtì 12:11",
+                "text": "Gbogbo ìwọ̀nyí ni iṣẹ́ ẹ̀mí kan ṣoṣo, tí ń pín fún olúkúlùkù lọ́tọ̀ gẹ́gẹ́ bí ó ti ń fẹ́."
+              },
+              {
+                "ref": "Nehemáyà 9:20",
+                "text": "Ìwọ fi ẹ̀mí rere rẹ fún wọn láti kọ́ wọn."
+              }
             ]
           }
         ]
@@ -2601,11 +2722,26 @@
               "Ní Gẹtisémánì, Jésù gbàdúrà pé: ‘Bàbá, bí o bá fẹ́, mú ife yìí kúrò lọ́dọ̀ mi. Síbẹ̀, kì í ṣe ìfẹ́ tèmi, bí kò ṣe tirẹ̀ ni kí ó ṣẹ.’ (Lúùkù 22:42) Àwọn ìfẹ́ méjì ọ̀tọ̀ọ̀tọ̀ — ti Bàbá àti ti Ọmọ — kò lè wà nínú ẹ̀dá kan. Àdúrà yìí ní ìtumọ̀ kìkì bí wọ́n bá jẹ́ ẹni ọ̀tọ̀ọ̀tọ̀."
             ],
             "scriptures": [
-              { "ref": "Jòhánù 14:28", "text": "Bàbá tóbi jù mí lọ." },
-              { "ref": "Jòhánù 20:17", "text": "Mo ń gòkè lọ sọ́dọ̀ Bàbá mi àti Bàbá yín àti sọ́dọ̀ Ọlọ́run mi àti Ọlọ́run yín." },
-              { "ref": "Lúùkù 22:42", "text": "Bàbá, bí o bá fẹ́, mú ife yìí kúrò lọ́dọ̀ mi. Síbẹ̀, kì í ṣe ìfẹ́ tèmi, bí kò ṣe tirẹ̀ ni kí ó ṣẹ." },
-              { "ref": "Máàkù 13:32", "text": "Nípa ọjọ́ yẹn tàbí wákàtí náà, kò sẹ́ni tó mọ̀, kì í ṣe àwọn áńgẹ́lì ní ọ̀run tàbí Ọmọ, bí kò ṣe Bàbá nìkan." },
-              { "ref": "Jòhánù 17:3", "text": "Èyí túmọ̀ sí ìyè àìnípẹ̀kun, pé kí wọ́n máa mọ̀ ọ́, Ọlọ́run kan ṣoṣo tó jẹ́ òótọ́, àti ẹni tó o rán, Jésù Kristi." }
+              {
+                "ref": "Jòhánù 14:28",
+                "text": "Bàbá tóbi jù mí lọ."
+              },
+              {
+                "ref": "Jòhánù 20:17",
+                "text": "Mo ń gòkè lọ sọ́dọ̀ Bàbá mi àti Bàbá yín àti sọ́dọ̀ Ọlọ́run mi àti Ọlọ́run yín."
+              },
+              {
+                "ref": "Lúùkù 22:42",
+                "text": "Bàbá, bí o bá fẹ́, mú ife yìí kúrò lọ́dọ̀ mi. Síbẹ̀, kì í ṣe ìfẹ́ tèmi, bí kò ṣe tirẹ̀ ni kí ó ṣẹ."
+              },
+              {
+                "ref": "Máàkù 13:32",
+                "text": "Nípa ọjọ́ yẹn tàbí wákàtí náà, kò sẹ́ni tó mọ̀, kì í ṣe àwọn áńgẹ́lì ní ọ̀run tàbí Ọmọ, bí kò ṣe Bàbá nìkan."
+              },
+              {
+                "ref": "Jòhánù 17:3",
+                "text": "Èyí túmọ̀ sí ìyè àìnípẹ̀kun, pé kí wọ́n máa mọ̀ ọ́, Ọlọ́run kan ṣoṣo tó jẹ́ òótọ́, àti ẹni tó o rán, Jésù Kristi."
+              }
             ]
           },
           {
@@ -2615,11 +2751,26 @@
               "Jésù fúnra rẹ̀ pe Bàbá ní ‘Ọlọ́run kan ṣoṣo tó jẹ́ òótọ́.’ (Jòhánù 17:3) Ọ̀rọ̀ náà ‘kan ṣoṣo’ yọ ẹnikẹ́ni mìíràn kúrò nínú orúkọ yẹn — pẹ̀lú Jésù fúnra rẹ̀. Bí Jésù bá jẹ́ ara Ọlọ́run mẹ́talọ́kan, pípe Bàbá ní ‘Ọlọ́run kan ṣoṣo tó jẹ́ òótọ́’ yóò yọ òun fúnra rẹ̀ kúrò nínú ipò Ọlọ́run."
             ],
             "scriptures": [
-              { "ref": "Diutarónómì 6:4", "text": "Gbọ́, Ìwọ Ísírẹ́lì: Jèhófà Ọlọ́run wa jẹ́ Jèhófà kan." },
-              { "ref": "1 Kọ́ríńtì 8:6", "text": "Lóòótọ́, Ọlọ́run kan ṣoṣo ló wà fún wa, Bàbá náà… Olúwa kan sì wà, Jésù Kristi." },
-              { "ref": "Jòhánù 17:3", "text": "Pé kí wọ́n máa mọ̀ ọ́, Ọlọ́run kan ṣoṣo tó jẹ́ òótọ́, àti ẹni tó o rán, Jésù Kristi." },
-              { "ref": "1 Tímótì 2:5", "text": "Ọlọ́run kan ṣoṣo ló wà, Alárinà kan sì wà láàárín Ọlọ́run àti àwọn ènìyàn, ọkùnrin kan, Jésù Kristi." },
-              { "ref": "Málákì 2:10", "text": "Ǹjẹ́ kì í ṣe pé gbogbo wa ní bàbá kan? Ǹjẹ́ kì í ṣe Ọlọ́run kan ló dá wa?" }
+              {
+                "ref": "Diutarónómì 6:4",
+                "text": "Gbọ́, Ìwọ Ísírẹ́lì: Jèhófà Ọlọ́run wa jẹ́ Jèhófà kan."
+              },
+              {
+                "ref": "1 Kọ́ríńtì 8:6",
+                "text": "Lóòótọ́, Ọlọ́run kan ṣoṣo ló wà fún wa, Bàbá náà… Olúwa kan sì wà, Jésù Kristi."
+              },
+              {
+                "ref": "Jòhánù 17:3",
+                "text": "Pé kí wọ́n máa mọ̀ ọ́, Ọlọ́run kan ṣoṣo tó jẹ́ òótọ́, àti ẹni tó o rán, Jésù Kristi."
+              },
+              {
+                "ref": "1 Tímótì 2:5",
+                "text": "Ọlọ́run kan ṣoṣo ló wà, Alárinà kan sì wà láàárín Ọlọ́run àti àwọn ènìyàn, ọkùnrin kan, Jésù Kristi."
+              },
+              {
+                "ref": "Málákì 2:10",
+                "text": "Ǹjẹ́ kì í ṣe pé gbogbo wa ní bàbá kan? Ǹjẹ́ kì í ṣe Ọlọ́run kan ló dá wa?"
+              }
             ]
           },
           {
@@ -2629,11 +2780,26 @@
               "Òwe 8:22-30 sọ̀rọ̀ nípa ọgbọ́n pé: ‘Jèhófà dá mi gẹ́gẹ́ bí ìbẹ̀rẹ̀ ọ̀nà rẹ̀, èyí tó dàgbà jù nínú àwọn iṣẹ́ rẹ̀ ti àtijọ́.’ Àyọkà yìí, tí a túmọ̀ sí àpẹẹrẹ Kristi, fi hàn pé a mú Ọmọ jáde kí ohunkóhun mìíràn tó wà — kì í ṣe pé ó ti wà títí láé pẹ̀lú Bàbá."
             ],
             "scriptures": [
-              { "ref": "Kólósè 1:15", "text": "Òun ni àwòrán Ọlọ́run tí a kò lè rí, àkọ́bí gbogbo ẹ̀dá." },
-              { "ref": "Ìṣípayá 3:14", "text": "Áàmín, ẹlẹ́rìí olùṣòtítọ́ àti olóòótọ́, ìbẹ̀rẹ̀ ẹ̀dá Ọlọ́run." },
-              { "ref": "Òwe 8:22", "text": "Jèhófà dá mi gẹ́gẹ́ bí ìbẹ̀rẹ̀ ọ̀nà rẹ̀, èyí tó dàgbà jù nínú àwọn iṣẹ́ rẹ̀ ti àtijọ́." },
-              { "ref": "Òwe 8:30", "text": "Mo wà lẹ́gbẹ̀ẹ́ rẹ̀ gẹ́gẹ́ bí oníṣẹ́-ọnà ọlọ́gbọ́n, mo sì jẹ́ ẹni tó wù ú jọjọ lójoojúmọ́." },
-              { "ref": "Míkà 5:2", "text": "Ìpilẹ̀ṣẹ̀ rẹ̀ jẹ́ láti ìgbà àtijọ́, láti ọjọ́ àtijọ́." }
+              {
+                "ref": "Kólósè 1:15",
+                "text": "Òun ni àwòrán Ọlọ́run tí a kò lè rí, àkọ́bí gbogbo ẹ̀dá."
+              },
+              {
+                "ref": "Ìṣípayá 3:14",
+                "text": "Áàmín, ẹlẹ́rìí olùṣòtítọ́ àti olóòótọ́, ìbẹ̀rẹ̀ ẹ̀dá Ọlọ́run."
+              },
+              {
+                "ref": "Òwe 8:22",
+                "text": "Jèhófà dá mi gẹ́gẹ́ bí ìbẹ̀rẹ̀ ọ̀nà rẹ̀, èyí tó dàgbà jù nínú àwọn iṣẹ́ rẹ̀ ti àtijọ́."
+              },
+              {
+                "ref": "Òwe 8:30",
+                "text": "Mo wà lẹ́gbẹ̀ẹ́ rẹ̀ gẹ́gẹ́ bí oníṣẹ́-ọnà ọlọ́gbọ́n, mo sì jẹ́ ẹni tó wù ú jọjọ lójoojúmọ́."
+              },
+              {
+                "ref": "Míkà 5:2",
+                "text": "Ìpilẹ̀ṣẹ̀ rẹ̀ jẹ́ láti ìgbà àtijọ́, láti ọjọ́ àtijọ́."
+              }
             ]
           }
         ]
@@ -2649,10 +2815,22 @@
               "Júúdà 9 pe Máíkẹ́lì ní ‘olórí áńgẹ́lì’ — áńgẹ́lì tó jẹ́ olórí. Níwọ̀n bí Ìwé Mímọ́ ti dárúkọ olórí áńgẹ́lì kan ṣoṣo, àti pé Jésù tó jíǹde ‘yóò sọ̀ kalẹ̀ láti ọ̀run pẹ̀lú ìpè àṣẹ, pẹ̀lú ohùn olórí áńgẹ́lì’ (1 Tẹsalóníkà 4:16), ìsopọ̀ náà ṣe kedere: Jésù ló ní ipò olórí áńgẹ́lì — òun ni Máíkẹ́lì."
             ],
             "scriptures": [
-              { "ref": "Dáníẹ́lì 10:13", "text": "Ṣùgbọ́n Máíkẹ́lì, ọ̀kan lára àwọn olórí pàtàkì, wá láti ràn mí lọ́wọ́." },
-              { "ref": "Dáníẹ́lì 12:1", "text": "Ní àkókò yẹn ni Máíkẹ́lì yóò dìde, olórí ńlá tó dúró fún àwọn ènìyàn rẹ." },
-              { "ref": "Júúdà 9", "text": "Nígbà tí Máíkẹ́lì olórí áńgẹ́lì ní ìjà pẹ̀lú Èṣù tó sì ń jiyàn nípa òkú Mósè." },
-              { "ref": "1 Tẹsalóníkà 4:16", "text": "Olúwa fúnra rẹ̀ yóò sọ̀ kalẹ̀ láti ọ̀run pẹ̀lú ìpè àṣẹ, pẹ̀lú ohùn olórí áńgẹ́lì." }
+              {
+                "ref": "Dáníẹ́lì 10:13",
+                "text": "Ṣùgbọ́n Máíkẹ́lì, ọ̀kan lára àwọn olórí pàtàkì, wá láti ràn mí lọ́wọ́."
+              },
+              {
+                "ref": "Dáníẹ́lì 12:1",
+                "text": "Ní àkókò yẹn ni Máíkẹ́lì yóò dìde, olórí ńlá tó dúró fún àwọn ènìyàn rẹ."
+              },
+              {
+                "ref": "Júúdà 9",
+                "text": "Nígbà tí Máíkẹ́lì olórí áńgẹ́lì ní ìjà pẹ̀lú Èṣù tó sì ń jiyàn nípa òkú Mósè."
+              },
+              {
+                "ref": "1 Tẹsalóníkà 4:16",
+                "text": "Olúwa fúnra rẹ̀ yóò sọ̀ kalẹ̀ láti ọ̀run pẹ̀lú ìpè àṣẹ, pẹ̀lú ohùn olórí áńgẹ́lì."
+              }
             ]
           },
           {
@@ -2662,10 +2840,22 @@
               "Jésù sọ fún àwọn ọmọ ẹ̀yìn rẹ̀ pé: ‘Mo ti rí Sátánì tó ti ṣubú gẹ́gẹ́ bí mọ̀nà mọ́nà láti ọ̀run.’ (Lúùkù 10:18) Èyí bá bí Máíkẹ́lì ṣe lé Sátánì jáde mu. Kí ó tó wá sí ayé, Jésù wà gẹ́gẹ́ bí ẹ̀dá ẹ̀mí alágbára — ‘àkọ́bí gbogbo ìṣẹ̀dá.’ (Kólósè 1:15) Orúkọ rẹ̀ ní ọ̀run ṣáájú àkókò ènìyàn ni Máíkẹ́lì; orúkọ rẹ̀ lórí ilẹ̀ ayé, èyí tí wọ́n fún un nígbà ìbí rẹ̀, ni Jésù."
             ],
             "scriptures": [
-              { "ref": "Ìṣípayá 12:7-9", "text": "Máíkẹ́lì àti àwọn áńgẹ́lì rẹ̀ bá dírágọ́nù náà jagun… wọ́n ju dírágọ́nù ńlá náà sílẹ̀, ejò ìgbàanì." },
-              { "ref": "Ìṣípayá 19:14-16", "text": "Àwọn ọmọ ogun tó wà ní ọ̀run ń tẹ̀ lé e lórí ẹṣin funfun… ó ní orúkọ kan tó kọ, Ọba àwọn ọba àti Olúwa àwọn olúwa." },
-              { "ref": "Lúùkù 10:18", "text": "Mo ti rí Sátánì tó ti ṣubú gẹ́gẹ́ bí mọ̀nà mọ́nà láti ọ̀run." },
-              { "ref": "Kólósè 1:15-16", "text": "Òun ni àwòrán Ọlọ́run tí a kò lè rí, àkọ́bí gbogbo ìṣẹ̀dá." }
+              {
+                "ref": "Ìṣípayá 12:7-9",
+                "text": "Máíkẹ́lì àti àwọn áńgẹ́lì rẹ̀ bá dírágọ́nù náà jagun… wọ́n ju dírágọ́nù ńlá náà sílẹ̀, ejò ìgbàanì."
+              },
+              {
+                "ref": "Ìṣípayá 19:14-16",
+                "text": "Àwọn ọmọ ogun tó wà ní ọ̀run ń tẹ̀ lé e lórí ẹṣin funfun… ó ní orúkọ kan tó kọ, Ọba àwọn ọba àti Olúwa àwọn olúwa."
+              },
+              {
+                "ref": "Lúùkù 10:18",
+                "text": "Mo ti rí Sátánì tó ti ṣubú gẹ́gẹ́ bí mọ̀nà mọ́nà láti ọ̀run."
+              },
+              {
+                "ref": "Kólósè 1:15-16",
+                "text": "Òun ni àwòrán Ọlọ́run tí a kò lè rí, àkọ́bí gbogbo ìṣẹ̀dá."
+              }
             ]
           },
           {
@@ -2675,11 +2865,26 @@
               "Ọlọ́run sọ nípa áńgẹ́lì yìí pé: ‘Orúkọ mi wà nínú rẹ̀.’ (Ẹ́kísódù 23:21) Áńgẹ́lì yìí ru àṣẹ Jèhófà ní ọ̀nà àrà ọ̀tọ̀. Pọ́ọ̀lù dá àpáta ẹ̀mí tó tẹ̀lé àwọn ọmọ Ísírẹ́lì mọ̀ gẹ́gẹ́ bí Krístì. (1 Kọ́ríńtì 10:4) Áńgẹ́lì Jèhófà tó ṣamọ̀nà tó sì dáàbò bo àwọn ọmọ Ísírẹ́lì ni Jésù tó wà ní ọ̀run ṣáájú àkókò ènìyàn — Máíkẹ́lì — tó ń sin Jèhófà gẹ́gẹ́ bí aṣojú àkọ́kọ́ rẹ̀ ṣáájú ìbí rẹ̀ ní Bẹ́tílẹ́hẹ́mù."
             ],
             "scriptures": [
-              { "ref": "Ẹ́kísódù 3:2", "text": "Nígbà náà ni áńgẹ́lì Jèhófà fara hàn án nínú ọwọ́ iná ní àárín igi ẹlẹ́gùn-ún." },
-              { "ref": "Ẹ́kísódù 23:20-21", "text": "Mò ń rán áńgẹ́lì kan ṣáájú rẹ… fi etí sí i… nítorí orúkọ mi wà nínú rẹ̀." },
-              { "ref": "Númérì 22:22", "text": "Áńgẹ́lì Jèhófà dúró sí ọ̀nà láti dí i lọ́wọ́." },
-              { "ref": "1 Kọ́ríńtì 10:4", "text": "Wọ́n mu nínú àpáta ẹ̀mí tó tẹ̀lé wọn, àpáta yẹn sì túmọ̀ sí Krístì." },
-              { "ref": "Jóṣúà 5:14", "text": "Mo ti wá gẹ́gẹ́ bí olórí ọmọ ogun Jèhófà." }
+              {
+                "ref": "Ẹ́kísódù 3:2",
+                "text": "Nígbà náà ni áńgẹ́lì Jèhófà fara hàn án nínú ọwọ́ iná ní àárín igi ẹlẹ́gùn-ún."
+              },
+              {
+                "ref": "Ẹ́kísódù 23:20-21",
+                "text": "Mò ń rán áńgẹ́lì kan ṣáájú rẹ… fi etí sí i… nítorí orúkọ mi wà nínú rẹ̀."
+              },
+              {
+                "ref": "Númérì 22:22",
+                "text": "Áńgẹ́lì Jèhófà dúró sí ọ̀nà láti dí i lọ́wọ́."
+              },
+              {
+                "ref": "1 Kọ́ríńtì 10:4",
+                "text": "Wọ́n mu nínú àpáta ẹ̀mí tó tẹ̀lé wọn, àpáta yẹn sì túmọ̀ sí Krístì."
+              },
+              {
+                "ref": "Jóṣúà 5:14",
+                "text": "Mo ti wá gẹ́gẹ́ bí olórí ọmọ ogun Jèhófà."
+              }
             ]
           }
         ]
@@ -2695,9 +2900,18 @@
               "Wọ́n tún pe àwọn ẹranko ní ‘ọkàn’ nínú Ìwé Mímọ́. Jẹ́nẹ́sísì 1:20 ní èdè Hébérù lo nephesh fún àwọn ẹ̀dá inú òkun àti àwọn ẹyẹ. Ọkàn kì í ṣe apá ẹ̀mí àkànṣe kan tó wà fún ènìyàn nìkan — ó ń tọ́ka sí ohunkóhun tó wà láàyè tó sì ń mí."
             ],
             "scriptures": [
-              { "ref": "Jẹ́nẹ́sísì 2:7", "text": "Ọkùnrin náà sì di ẹ̀dá alààyè [ọkàn]." },
-              { "ref": "Ìsíkíẹ́lì 18:4", "text": "Wò ó! Gbogbo ọkàn — tèmi ni wọ́n. Bí ọkàn baba, bẹ́ẹ̀ náà ni ọkàn ọmọ — tèmi ni wọ́n. Ọkàn tí ó dẹ́ṣẹ̀ ni yóò kú." },
-              { "ref": "1 Kọ́ríńtì 15:45", "text": "Bẹ́ẹ̀ ló wà ní àkọsílẹ̀: ‘Ọkùnrin àkọ́kọ́ Ádámù di ẹ̀dá alààyè [ọkàn].’" }
+              {
+                "ref": "Jẹ́nẹ́sísì 2:7",
+                "text": "Ọkùnrin náà sì di ẹ̀dá alààyè [ọkàn]."
+              },
+              {
+                "ref": "Ìsíkíẹ́lì 18:4",
+                "text": "Wò ó! Gbogbo ọkàn — tèmi ni wọ́n. Bí ọkàn baba, bẹ́ẹ̀ náà ni ọkàn ọmọ — tèmi ni wọ́n. Ọkàn tí ó dẹ́ṣẹ̀ ni yóò kú."
+              },
+              {
+                "ref": "1 Kọ́ríńtì 15:45",
+                "text": "Bẹ́ẹ̀ ló wà ní àkọsílẹ̀: ‘Ọkùnrin àkọ́kọ́ Ádámù di ẹ̀dá alààyè [ọkàn].’"
+              }
             ]
           },
           {
@@ -2707,9 +2921,18 @@
               "Mímọ̀ pé ọkàn ni ènìyàn fúnra rẹ̀ — kì í ṣe ohun tó yà sọ́tọ̀ — sọ ìrètí àjíǹde di ohun tó wuni ní jíjù. Ọlọ́run yóò tún gbogbo ẹni náà dá, yóò sì mú gbogbo ohun tó sọ ẹni tí wọ́n jẹ́ padà bọ̀ sípò."
             ],
             "scriptures": [
-              { "ref": "Ìsíkíẹ́lì 18:4", "text": "Ọkàn tí ó dẹ́ṣẹ̀ ni yóò kú." },
-              { "ref": "Ìṣípayá 16:3", "text": "Gbogbo ọkàn alààyè inú òkun kú." },
-              { "ref": "Ìṣe 3:23", "text": "Ọkàn yòówù tó bá kọ̀ láti gbọ́ ti Wòlíì yẹn ni a ó parun pátápátá kúrò láàárín àwọn ènìyàn." }
+              {
+                "ref": "Ìsíkíẹ́lì 18:4",
+                "text": "Ọkàn tí ó dẹ́ṣẹ̀ ni yóò kú."
+              },
+              {
+                "ref": "Ìṣípayá 16:3",
+                "text": "Gbogbo ọkàn alààyè inú òkun kú."
+              },
+              {
+                "ref": "Ìṣe 3:23",
+                "text": "Ọkàn yòówù tó bá kọ̀ láti gbọ́ ti Wòlíì yẹn ni a ó parun pátápátá kúrò láàárín àwọn ènìyàn."
+              }
             ]
           }
         ]
@@ -2725,9 +2948,18 @@
               "Ọba Sólómọ́nì kọ̀wé pé: ‘Àwọn alààyè mọ̀ pé wọn yóò kú, ṣùgbọ́n àwọn òkú kò mọ ohunkóhun rárá.’ (Oníwàásù 9:5) Kò sí mímọ̀, kò sí ìjìyà, kò sí ayọ̀ — ikú jẹ́ ìdáwọ́ ìyè dúró pátápátá títí di àkókò àjíǹde."
             ],
             "scriptures": [
-              { "ref": "Jòhánù 11:11-14", "text": "‘Lásárù ọ̀rẹ́ wa ti sùn… Lásárù ti kú.’" },
-              { "ref": "Oníwàásù 9:5", "text": "Àwọn alààyè mọ̀ pé wọn yóò kú, ṣùgbọ́n àwọn òkú kò mọ ohunkóhun rárá." },
-              { "ref": "Sáàmù 146:4", "text": "Ẹ̀mí rẹ̀ jáde lọ, ó padà sí erùpẹ̀; ní ọjọ́ kan náà ni èrò rẹ̀ ṣègbé." }
+              {
+                "ref": "Jòhánù 11:11-14",
+                "text": "‘Lásárù ọ̀rẹ́ wa ti sùn… Lásárù ti kú.’"
+              },
+              {
+                "ref": "Oníwàásù 9:5",
+                "text": "Àwọn alààyè mọ̀ pé wọn yóò kú, ṣùgbọ́n àwọn òkú kò mọ ohunkóhun rárá."
+              },
+              {
+                "ref": "Sáàmù 146:4",
+                "text": "Ẹ̀mí rẹ̀ jáde lọ, ó padà sí erùpẹ̀; ní ọjọ́ kan náà ni èrò rẹ̀ ṣègbé."
+              }
             ]
           },
           {
@@ -2737,9 +2969,18 @@
               "Àpọ́sítélì Pọ́ọ̀lù pe àjíǹde Krístì ní ìpilẹ̀ ìrètí Kristẹni: ‘Bí àwọn òkú kò bá jí, ẹ jẹ́ ká jẹ ká sì mu, nítorí ní ọ̀la a máa kú.’ (1 Kọ́ríńtì 15:32) Àjíǹde àwọn òkú — kì í ṣe àìleku ọkàn — ni ìdáhùn Bíbélì sí ikú."
             ],
             "scriptures": [
-              { "ref": "Jòhánù 5:28-29", "text": "Gbogbo àwọn tó wà nínú ìbojì ìrántí yóò gbọ́ ohùn rẹ̀ tí wọn yóò sì jáde wá." },
-              { "ref": "Ìṣe 24:15", "text": "Àjíǹde àwọn olódodo àti àwọn aláìṣòdodo yóò wáyé." },
-              { "ref": "1 Kọ́ríńtì 15:26", "text": "Ọ̀tá ìkẹyìn, ikú, ni a ó pa run pátápátá." }
+              {
+                "ref": "Jòhánù 5:28-29",
+                "text": "Gbogbo àwọn tó wà nínú ìbojì ìrántí yóò gbọ́ ohùn rẹ̀ tí wọn yóò sì jáde wá."
+              },
+              {
+                "ref": "Ìṣe 24:15",
+                "text": "Àjíǹde àwọn olódodo àti àwọn aláìṣòdodo yóò wáyé."
+              },
+              {
+                "ref": "1 Kọ́ríńtì 15:26",
+                "text": "Ọ̀tá ìkẹyìn, ikú, ni a ó pa run pátápátá."
+              }
             ]
           }
         ]
@@ -2755,9 +2996,18 @@
               "Jésù kọ́ àwọn ọmọ ẹ̀yìn rẹ̀ láti gbàdúrà pé: ‘Kí Ìjọba rẹ wá. Kí ìfẹ́ rẹ ṣẹ, gẹ́gẹ́ bí ó ti rí ní ọ̀run, bẹ́ẹ̀ náà lórí ilẹ̀ ayé.’ (Mátíù 6:10) Àdúrà yìí fi hàn pé ìṣàkóso Ìjọba yóò gbòòrò dé ilẹ̀ ayé lọ́jọ́ kan, yóò sì yí i padà gẹ́gẹ́ bí ọ̀run ti ṣàfihàn ìfẹ́ pípé Ọlọ́run."
             ],
             "scriptures": [
-              { "ref": "Dáníẹ́lì 2:44", "text": "Ọlọ́run ọ̀run yóò gbé ìjọba kan kalẹ̀ tí kò ní wó lọ́jọ́ kankan." },
-              { "ref": "Mátíù 6:10", "text": "Kí Ìjọba rẹ wá. Kí ìfẹ́ rẹ ṣẹ, gẹ́gẹ́ bí ó ti rí ní ọ̀run, bẹ́ẹ̀ náà lórí ilẹ̀ ayé." },
-              { "ref": "Lúùkù 1:33", "text": "Yóò ṣàkóso gẹ́gẹ́ bí Ọba lórí ilé Jékọ́bù títí láé, kì yóò sì sí òpin sí Ìjọba rẹ̀." }
+              {
+                "ref": "Dáníẹ́lì 2:44",
+                "text": "Ọlọ́run ọ̀run yóò gbé ìjọba kan kalẹ̀ tí kò ní wó lọ́jọ́ kankan."
+              },
+              {
+                "ref": "Mátíù 6:10",
+                "text": "Kí Ìjọba rẹ wá. Kí ìfẹ́ rẹ ṣẹ, gẹ́gẹ́ bí ó ti rí ní ọ̀run, bẹ́ẹ̀ náà lórí ilẹ̀ ayé."
+              },
+              {
+                "ref": "Lúùkù 1:33",
+                "text": "Yóò ṣàkóso gẹ́gẹ́ bí Ọba lórí ilé Jékọ́bù títí láé, kì yóò sì sí òpin sí Ìjọba rẹ̀."
+              }
             ]
           },
           {
@@ -2767,9 +3017,18 @@
               "Aísáyà 65:21-22 ya àwòrán ìyè lábẹ́ Ìjọba náà: ‘Wọn yóò kọ́ ilé wọn yóò sì gbé inú wọn, wọn yóò gbin ọgbà àjàrà wọn yóò sì jẹ èso wọn.’ Wíwà pa pọ̀ ní àlàáfíà láàrín ènìyàn àti ẹranko náà ni ìlérí: ‘Ìkookò àti ọ̀dọ́ àgùntàn yóò jọ jẹun pọ̀.’ (Aísáyà 65:25)"
             ],
             "scriptures": [
-              { "ref": "Ìṣípayá 21:3-4", "text": "Yóò nu omijé gbogbo nù kúrò ní ojú wọn, ikú kì yóò sì sí mọ́." },
-              { "ref": "Aísáyà 65:21-22", "text": "Wọn yóò kọ́ ilé wọn yóò sì gbé inú wọn, wọn yóò gbin ọgbà àjàrà wọn yóò sì jẹ èso wọn." },
-              { "ref": "Sáàmù 37:29", "text": "Àwọn olódodo yóò ni ilẹ̀ ayé, wọn yóò sì gbé inú rẹ̀ títí láé." }
+              {
+                "ref": "Ìṣípayá 21:3-4",
+                "text": "Yóò nu omijé gbogbo nù kúrò ní ojú wọn, ikú kì yóò sì sí mọ́."
+              },
+              {
+                "ref": "Aísáyà 65:21-22",
+                "text": "Wọn yóò kọ́ ilé wọn yóò sì gbé inú wọn, wọn yóò gbin ọgbà àjàrà wọn yóò sì jẹ èso wọn."
+              },
+              {
+                "ref": "Sáàmù 37:29",
+                "text": "Àwọn olódodo yóò ni ilẹ̀ ayé, wọn yóò sì gbé inú rẹ̀ títí láé."
+              }
             ]
           }
         ]
@@ -2785,9 +3044,18 @@
               "Nígbà tí Sátánì sọ ní Édẹ́nì pé ‘ẹ kò ní kú lóòótọ́’ (Jẹ́nẹ́sísì 3:4), ó ń pe Ọlọ́run ní òpùrọ́, ó sì ń dábàá pé àwọn ènìyàn lè wà láàyè láìsí Ọlọ́run. Àwọn ìpèníjà wọ̀nyí sí ẹ̀tọ́ Ọlọ́run láti ṣàkóso àti sí ìṣòtítọ́ àwọn olùjọsìn rẹ̀ kò ṣeé yanjú lójú-ẹsẹ̀ — wọ́n nílò àkókò àti ìrírí ènìyàn láti yanjú wọn pátápátá."
             ],
             "scriptures": [
-              { "ref": "Jóòbù 1:9-11", "text": "Ǹjẹ́ Jóòbù bẹ̀rù Ọlọ́run lásán?" },
-              { "ref": "Jẹ́nẹ́sísì 3:4-5", "text": "Dájúdájú ẹ kò ní kú. Ọlọ́run mọ̀ pé… ojú yín yóò là, ẹ ó sì dà bí Ọlọ́run." },
-              { "ref": "Róòmù 3:4", "text": "Kí Ọlọ́run jẹ́ olóòótọ́, bí gbogbo ènìyàn bá jẹ́ òpùrọ́ pàápàá." }
+              {
+                "ref": "Jóòbù 1:9-11",
+                "text": "Ǹjẹ́ Jóòbù bẹ̀rù Ọlọ́run lásán?"
+              },
+              {
+                "ref": "Jẹ́nẹ́sísì 3:4-5",
+                "text": "Dájúdájú ẹ kò ní kú. Ọlọ́run mọ̀ pé… ojú yín yóò là, ẹ ó sì dà bí Ọlọ́run."
+              },
+              {
+                "ref": "Róòmù 3:4",
+                "text": "Kí Ọlọ́run jẹ́ olóòótọ́, bí gbogbo ènìyàn bá jẹ́ òpùrọ́ pàápàá."
+              }
             ]
           },
           {
@@ -2797,9 +3065,18 @@
               "Bíbélì gba ìjìyà láàyè fún àkókò díẹ̀ ni. Ète Ọlọ́run fún ilẹ̀ ayé — párádísè láìsí ìrora àti ikú — kò yí padà rárá. Ìjìyà tí à ń rí nísinsìnyí kì í ṣe ẹ̀rí pé Ọlọ́run kò kọbi ara sí wa bí kò ṣe ẹ̀rí àbájáde ìṣòmìnira ènìyàn kúrò lábẹ́ ìtọ́sọ́nà Ọlọ́run. Láìpẹ́, Ọlọ́run yóò ‘pa àwọn tó ń pa ayé run run.’ (Ìṣípayá 11:18)"
             ],
             "scriptures": [
-              { "ref": "2 Pétérù 3:9", "text": "Jèhófà kò lọ́ra nípa ìlérí rẹ̀… ó ní sùúrù pẹ̀lú yín." },
-              { "ref": "Róòmù 8:22", "text": "À mọ̀ pé gbogbo ìṣẹ̀dá ń kérora pa pọ̀ tí wọ́n sì ń ṣe ìrora pa pọ̀ títí di ìsinsìnyí." },
-              { "ref": "Ìṣípayá 11:18", "text": "Àkókò náà dé… láti pa àwọn tó ń pa ayé run run." }
+              {
+                "ref": "2 Pétérù 3:9",
+                "text": "Jèhófà kò lọ́ra nípa ìlérí rẹ̀… ó ní sùúrù pẹ̀lú yín."
+              },
+              {
+                "ref": "Róòmù 8:22",
+                "text": "À mọ̀ pé gbogbo ìṣẹ̀dá ń kérora pa pọ̀ tí wọ́n sì ń ṣe ìrora pa pọ̀ títí di ìsinsìnyí."
+              },
+              {
+                "ref": "Ìṣípayá 11:18",
+                "text": "Àkókò náà dé… láti pa àwọn tó ń pa ayé run run."
+              }
             ]
           }
         ]
@@ -2815,9 +3092,18 @@
               "Òfin Mósè fi ìpìlẹ̀ yìí múlẹ̀ pé: ‘Ní ti ọkùnrin yòówù nínú ilé Ísírẹ́lì tàbí àjèjì tó ń gbé láàárín yín tó bá jẹ irú ẹ̀jẹ̀ kankan, dájúdájú ni n óò dojú kọ ènìyàn yẹn tó ń jẹ ẹ̀jẹ̀ náà.’ (Léfítíkù 17:10) Ìfòfindè lórí ẹ̀jẹ̀ wà lára àwọn ohun tí ìgbìmọ̀ Jerúsálẹ́mù nínú Ìṣe 15 fìdí rẹ̀ múlẹ̀ pé ó wúlò fún gbogbo Kristẹni."
             ],
             "scriptures": [
-              { "ref": "Jẹ́nẹ́sísì 9:4", "text": "Ẹran pẹ̀lú ìyè rẹ̀ — ìyẹn ẹ̀jẹ̀ rẹ̀ — ẹ kò gbọ́dọ̀ jẹ." },
-              { "ref": "Léfítíkù 17:14", "text": "Ẹ kò gbọ́dọ̀ jẹ ẹ̀jẹ̀ irú ẹran kankan, nítorí ìyè irú ẹran kọ̀ọ̀kan ni ẹ̀jẹ̀ rẹ̀." },
-              { "ref": "Ìṣe 15:28-29", "text": "Ẹ̀mí mímọ́ àti àwa fúnra wa ti rò ó dáadáa pé a kò ní fi ẹrù mìíràn lé yín bí kò ṣe àwọn ohun pàtàkì wọ̀nyí: kí ẹ máa fà sẹ́yìn kúrò nínú… ẹ̀jẹ̀." }
+              {
+                "ref": "Jẹ́nẹ́sísì 9:4",
+                "text": "Ẹran pẹ̀lú ìyè rẹ̀ — ìyẹn ẹ̀jẹ̀ rẹ̀ — ẹ kò gbọ́dọ̀ jẹ."
+              },
+              {
+                "ref": "Léfítíkù 17:14",
+                "text": "Ẹ kò gbọ́dọ̀ jẹ ẹ̀jẹ̀ irú ẹran kankan, nítorí ìyè irú ẹran kọ̀ọ̀kan ni ẹ̀jẹ̀ rẹ̀."
+              },
+              {
+                "ref": "Ìṣe 15:28-29",
+                "text": "Ẹ̀mí mímọ́ àti àwa fúnra wa ti rò ó dáadáa pé a kò ní fi ẹrù mìíràn lé yín bí kò ṣe àwọn ohun pàtàkì wọ̀nyí: kí ẹ máa fà sẹ́yìn kúrò nínú… ẹ̀jẹ̀."
+              }
             ]
           },
           {
@@ -2827,14 +3113,25 @@
               "Àwọn ọ̀nà ìṣègùn òde òní tí kò lo ẹ̀jẹ̀ — bíi gbígba ẹ̀jẹ̀ ara ẹni padà, àwọn ohun tí ó lè rọ́pò omi ara, àti àwọn ọ̀nà abẹ tí kò lo ẹ̀jẹ̀ — ti ní ìlọsíwájú gan-an, ọ̀pọ̀ ilé ìwòsàn sì ń pèsè àwọn ọ̀nà yìí báyìí. Yíyàn láti bọ̀wọ̀ fún àṣẹ Ọlọ́run nípa ẹ̀jẹ̀ jẹ́ ọ̀ràn ìgbàgbọ́ àti ìgbẹ́kẹ̀lé pé ìlànà Ọlọ́run jẹ́ ohun tó dára jù lọ fún wa nígbà gbogbo."
             ],
             "scriptures": [
-              { "ref": "Ìṣe 15:28-29", "text": "Ẹ máa fà sẹ́yìn kúrò nínú… ẹ̀jẹ̀." },
-              { "ref": "1 Jòhánù 5:3", "text": "Èyí ni ohun tí ìfẹ́ Ọlọ́run túmọ̀ sí, pé a ń pa àwọn àṣẹ rẹ̀ mọ́; àwọn àṣẹ rẹ̀ kò sì wúwo." },
-              { "ref": "Òwe 3:5", "text": "Fi gbogbo ọkàn rẹ gbẹ́kẹ̀lé Jèhófà, má sì gbẹ́kẹ̀lé òye tìrẹ." }
+              {
+                "ref": "Ìṣe 15:28-29",
+                "text": "Ẹ máa fà sẹ́yìn kúrò nínú… ẹ̀jẹ̀."
+              },
+              {
+                "ref": "1 Jòhánù 5:3",
+                "text": "Èyí ni ohun tí ìfẹ́ Ọlọ́run túmọ̀ sí, pé a ń pa àwọn àṣẹ rẹ̀ mọ́; àwọn àṣẹ rẹ̀ kò sì wúwo."
+              },
+              {
+                "ref": "Òwe 3:5",
+                "text": "Fi gbogbo ọkàn rẹ gbẹ́kẹ̀lé Jèhófà, má sì gbẹ́kẹ̀lé òye tìrẹ."
+              }
             ]
           }
         ]
       }
-    }
+    },
+    "explore": "Explore",
+    "tablistLabel": "Study topic sections"
   },
   "upm": {
     "badge": "✦ Premium",
@@ -3009,7 +3306,8 @@
     "toc": "Àkójọ Àkóónú",
     "tocEmpty": "(aláìnílákọ̀ọ́)",
     "fmtCallout": "Àkíyèsí",
-    "fmtVideo": "Fídíò"
+    "fmtVideo": "Fídíò",
+    "removeTag": "Remove tag {{tag}}"
   },
   "blockEditor": {
     "bibleVerseLabel": "Ẹsẹ Bíbélì",
@@ -3152,7 +3450,8 @@
   },
   "familyQuiz": {
     "loadingChallenge": "Ń ṣíṣẹ́ ìpèníjà…",
-    "loadingResults": "Ń ṣíṣẹ́ àbájáde…"
+    "loadingResults": "Ń ṣíṣẹ́ àbájáde…",
+    "namePlaceholder": "e.g. Sunday Family Quiz"
   },
   "aiBubble": {
     "aiThinkingAriaLabel": "AI ń ronú",
@@ -4071,7 +4370,9 @@
     "more": "Pọ̀ jù"
   },
   "createPost": {
-    "addToPost": "Fi kún ìfìwéránṣẹ́ rẹ"
+    "addToPost": "Fi kún ìfìwéránṣẹ́ rẹ",
+    "editAria": "Edit post",
+    "createAria": "Create post"
   },
   "bookAuthors": [
     "Mósè",
@@ -6257,5 +6558,13 @@
     "waitingForPlayers": "Ń dúró fún {{count}} olùdarapọ̀ síi láti dara pọ̀ pẹ̀lú kóòdù",
     "wrong": "Kò tọ̀nà!",
     "yourTurn": "Àkókò rẹ ni, dáhùn báyìí!"
+  },
+  "videos": {
+    "composer": {
+      "dropOrBrowse": "Drop video here or click to browse",
+      "bookPlaceholder": "Book  e.g. John",
+      "chapterPlaceholder": "Ch.  e.g. 3"
+    },
+    "commentPlaceholder": "Add a comment…"
   }
 }

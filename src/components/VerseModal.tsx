@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { jwOrgBibleUrl } from "../utils/wol";
 import ShareToFriendModal from "./ShareToFriendModal";
+import { useFocusTrap } from "../hooks/useFocusTrap";
 
 const isTouchDevice = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
 
@@ -69,14 +70,10 @@ export default function VerseModal({
     };
   }, [pillEl]);
 
-  // Close on Escape
-  useEffect(() => {
-    function onKey(e: KeyboardEvent) { if (e.key === "Escape") onClose(); }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  // Focus trap + Escape-to-close (cycles Tab within the dialog, restores focus)
+  useFocusTrap(modalRef, { onClose });
 
-  // Focus trap, preventScroll so Android doesn't scroll on focus
+  // Re-focus the first button with preventScroll so Android doesn't scroll on focus
   useEffect(() => {
     modalRef.current?.querySelector<HTMLElement>("button")?.focus({ preventScroll: true });
   }, []);

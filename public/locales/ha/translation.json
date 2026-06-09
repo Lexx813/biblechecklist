@@ -74,7 +74,8 @@
     "aiAssistantDesc": "Sami taimako don ƙirƙirar labari mai ɗumi kuma wanda ya dogara da Nassi, bisa batunka da daftarinka.",
     "aiWriting": "Ana rubutu…",
     "aiHelpMeWrite": "Taimaka Mini in Rubuta Wannan Labarin",
-    "aiSuggestion": "Shawarar AI"
+    "aiSuggestion": "Shawarar AI",
+    "viewProfile": "View {{name}}'s profile"
   },
   "groups": {
     "addCoverPhoto": "Ƙara hoton murfi",
@@ -241,7 +242,25 @@
     "writeACommentAria": "Rubuta sharhi",
     "you": "kai",
     "failedRsvp": "An kasa sabunta RSVP.",
-    "failedDeleteEvent": "An kasa share taron."
+    "failedDeleteEvent": "An kasa share taron.",
+    "events": {
+      "createTitle": "Create Event",
+      "createAria": "Create event",
+      "closeAria": "Close",
+      "fieldTitle": "Title",
+      "fieldDescription": "Description",
+      "fieldLocation": "Location",
+      "fieldStartsAt": "Starts at",
+      "fieldEndsAt": "Ends at",
+      "titlePlaceholder": "Meeting title",
+      "locationPlaceholder": "Address or meeting link",
+      "cancel": "Cancel",
+      "create": "Create event",
+      "creating": "Creating…"
+    },
+    "composePlaceholder": "Share something with the group…",
+    "imageUploadFailed": "Image upload failed.",
+    "failedToPost": "Failed to post."
   },
   "history": {
     "avgPerDay": "Matsakaici / kwana",
@@ -770,7 +789,8 @@
     "tryAgain": "Sake gwadawa",
     "failedDelete": "An kasa share saƙon.",
     "failedEdit": "An kasa gyara saƙon.",
-    "failedReaction": "An kasa sabunta amsa."
+    "failedReaction": "An kasa sabunta amsa.",
+    "notePlaceholder": "Add a note (optional)…"
   },
   "nav": {
     "today": "Yau",
@@ -899,7 +919,8 @@
       "sendComment": "Aika sharhi",
       "sendReply": "Aika amsa",
       "signInToComment": "Shiga don yin sharhi",
-      "writeCommentPlaceholder": "Rubuta sharhi…"
+      "writeCommentPlaceholder": "Rubuta sharhi…",
+      "viewProfile": "View {{name}}'s profile"
     }
   },
   "profile": {
@@ -1355,9 +1376,18 @@
               "Manzo Bulus ya rubuta: 'Akwai Allah ɗaya kawai a wajenmu, Uba, wanda dukan abubuwa suka fito daga gare shi, kuma muna nasa; akwai kuma Ubangiji ɗaya, Yesu Kiristi, wanda ta wurinsa dukan abubuwa suke.' (1 Korintiyawa 8:6) Wannan ayar ta bambanta Jehobah a matsayin Allah da Yesu a matsayin Ubangiji — mutane biyu daban."
             ],
             "scriptures": [
-              { "ref": "Yohanna 14:28", "text": "Uba ya fi ni girma." },
-              { "ref": "1 Korintiyawa 8:6", "text": "Akwai Allah ɗaya, Uba… kuma Ubangiji ɗaya, Yesu Kiristi." },
-              { "ref": "Yohanna 17:3", "text": "Wannan na nufin rai na har abada, sanin ka, kai kaɗai Allah na gaskiya, da kuma wanda ka aiko, Yesu Kiristi." }
+              {
+                "ref": "Yohanna 14:28",
+                "text": "Uba ya fi ni girma."
+              },
+              {
+                "ref": "1 Korintiyawa 8:6",
+                "text": "Akwai Allah ɗaya, Uba… kuma Ubangiji ɗaya, Yesu Kiristi."
+              },
+              {
+                "ref": "Yohanna 17:3",
+                "text": "Wannan na nufin rai na har abada, sanin ka, kai kaɗai Allah na gaskiya, da kuma wanda ka aiko, Yesu Kiristi."
+              }
             ]
           },
           {
@@ -1367,9 +1397,18 @@
               "Yesu da kansa ya ce: 'Ina tafiya wajen Uba, gama Uba ya fi ni girma.' Ya kuma yarda akwai abubuwan da bai sani ba, yana cewa babu wanda ya san rana ko sa'a 'sai dai Uba kaɗai.' (Matiyu 24:36) Waɗannan iyaka ba za su yiwu ba idan Yesu Allah Maɗaukaki ne."
             ],
             "scriptures": [
-              { "ref": "Matiyu 3:17", "text": "Wannan Ɗana ne, ƙaunatacce, wanda na yarda da shi." },
-              { "ref": "Kolosiyawa 1:15", "text": "Shi ne hoton Allah wanda ba a iya gani ba, ɗan farin halitta duka." },
-              { "ref": "Matiyu 24:36", "text": "Game da wannan rana da sa'a babu wanda ya sani, ko mala'ikun sammai ko Ɗan, sai Uba kaɗai." }
+              {
+                "ref": "Matiyu 3:17",
+                "text": "Wannan Ɗana ne, ƙaunatacce, wanda na yarda da shi."
+              },
+              {
+                "ref": "Kolosiyawa 1:15",
+                "text": "Shi ne hoton Allah wanda ba a iya gani ba, ɗan farin halitta duka."
+              },
+              {
+                "ref": "Matiyu 24:36",
+                "text": "Game da wannan rana da sa'a babu wanda ya sani, ko mala'ikun sammai ko Ɗan, sai Uba kaɗai."
+              }
             ]
           },
           {
@@ -1379,8 +1418,14 @@
               "Yin addu'a ga Jehobah ta wurin Yesu Kiristi shi ne tsarin da aka nuna a cikin Nassosin Helenanci na Kirista. Yesu shi ne Babban Firist ɗinmu kuma matsakanci — ayyukan da suke da ma'ana ne kawai idan ya bambanta da Allah Uba. (1 Timotawus 2:5; Ibraniyawa 7:25)"
             ],
             "scriptures": [
-              { "ref": "1 Timotawus 2:5", "text": "Akwai Allah ɗaya, da matsakanci ɗaya tsakanin Allah da mutane, mutum ɗaya Kiristi Yesu." },
-              { "ref": "Ibraniyawa 7:25", "text": "Yana iya ceto gaba ɗaya waɗanda suke zuwa wajen Allah ta wurinsa." }
+              {
+                "ref": "1 Timotawus 2:5",
+                "text": "Akwai Allah ɗaya, da matsakanci ɗaya tsakanin Allah da mutane, mutum ɗaya Kiristi Yesu."
+              },
+              {
+                "ref": "Ibraniyawa 7:25",
+                "text": "Yana iya ceto gaba ɗaya waɗanda suke zuwa wajen Allah ta wurinsa."
+              }
             ]
           }
         ]
@@ -1397,9 +1442,18 @@
               "Tun da babban mala'ika ɗaya kawai aka ambata a Nassi, kuma Yesu da aka tashe shi yana sauka da muryar babban mala'ika, wannan ya tabbatar sosai cewa Yesu shi ne babban mala'ikan."
             ],
             "scriptures": [
-              { "ref": "Daniyel 12:1", "text": "Mika'ilu zai tashi, babban yarima wanda yake tsayawa don mutanen ka." },
-              { "ref": "Yahuda 9", "text": "Amma lokacin da Mika'ilu babban mala'ika ya yi gardama da Iblis kuma yake takaddama game da gawar Musa, bai kuskura ya kawo hukunci a kansa da kalmomi na zage-zage ba." },
-              { "ref": "1 Tasalonikawa 4:16", "text": "Ubangiji da kansa zai sauko daga sama da kira mai ƙarfi, da muryar babban mala'ika." }
+              {
+                "ref": "Daniyel 12:1",
+                "text": "Mika'ilu zai tashi, babban yarima wanda yake tsayawa don mutanen ka."
+              },
+              {
+                "ref": "Yahuda 9",
+                "text": "Amma lokacin da Mika'ilu babban mala'ika ya yi gardama da Iblis kuma yake takaddama game da gawar Musa, bai kuskura ya kawo hukunci a kansa da kalmomi na zage-zage ba."
+              },
+              {
+                "ref": "1 Tasalonikawa 4:16",
+                "text": "Ubangiji da kansa zai sauko daga sama da kira mai ƙarfi, da muryar babban mala'ika."
+              }
             ]
           },
           {
@@ -1409,9 +1463,18 @@
               "Kafin haifuwarsa ta zama mutum, Yesu ya kasance a sama a matsayin halitta ta ruhu mai ƙarfi — 'ɗan farin halitta duka' (Kolosiyawa 1:15). Sunansa kafin ya zama mutum shi ne Mika'ilu. Bayan tashinsa daga matattu, Filibiyawa 2:9 ya ce Allah ya ba shi 'sunan da ya fi kowane suna' — Yesu Kiristi — an ɗaukaka shi zuwa matsayi mafi girma."
             ],
             "scriptures": [
-              { "ref": "Ru'ya ta Yohanna 12:7-9", "text": "Mika'ilu da mala'ikunsa suka yaƙi da macijin… aka jefar da babban macijin ƙasa." },
-              { "ref": "Kolosiyawa 1:15-16", "text": "Shi ne hoton Allah wanda ba a iya gani ba, ɗan farin halitta duka; gama ta wurinsa aka halicci dukan sauran abubuwa." },
-              { "ref": "Filibiyawa 2:9", "text": "Allah ya ɗaukaka shi zuwa matsayi mafi girma kuma cikin alheri ya ba shi sunan da ya fi kowane suna." }
+              {
+                "ref": "Ru'ya ta Yohanna 12:7-9",
+                "text": "Mika'ilu da mala'ikunsa suka yaƙi da macijin… aka jefar da babban macijin ƙasa."
+              },
+              {
+                "ref": "Kolosiyawa 1:15-16",
+                "text": "Shi ne hoton Allah wanda ba a iya gani ba, ɗan farin halitta duka; gama ta wurinsa aka halicci dukan sauran abubuwa."
+              },
+              {
+                "ref": "Filibiyawa 2:9",
+                "text": "Allah ya ɗaukaka shi zuwa matsayi mafi girma kuma cikin alheri ya ba shi sunan da ya fi kowane suna."
+              }
             ]
           }
         ]
@@ -1428,9 +1491,18 @@
               "Lokacin da aka yi wa Yesu baftisma, 'sammai suka buɗe kuma ya ga ruhun Allah yana saukowa kamar kurciya.' (Matiyu 3:16) Kurciya alama ce ta tausayi da salama — an nuna ruhu a nan a matsayin ƙarfi ko tasiri, ba a matsayin halitta ta Allah ta uku da take tsaye kusa da Uba da Ɗan ba."
             ],
             "scriptures": [
-              { "ref": "Farawa 1:2", "text": "Ƙarfin aiki na Allah yana motsi sama da fuskar ruwaye." },
-              { "ref": "Ayyukan Manzanni 2:4", "text": "Duka suka cika da ruhu mai tsarki kuma suka fara magana da harsuna dabam-dabam." },
-              { "ref": "Luka 1:35", "text": "Ruhu mai tsarki zai sauko a kanki, ikon Maɗaukaki kuma zai rufe ki." }
+              {
+                "ref": "Farawa 1:2",
+                "text": "Ƙarfin aiki na Allah yana motsi sama da fuskar ruwaye."
+              },
+              {
+                "ref": "Ayyukan Manzanni 2:4",
+                "text": "Duka suka cika da ruhu mai tsarki kuma suka fara magana da harsuna dabam-dabam."
+              },
+              {
+                "ref": "Luka 1:35",
+                "text": "Ruhu mai tsarki zai sauko a kanki, ikon Maɗaukaki kuma zai rufe ki."
+              }
             ]
           },
           {
@@ -1440,9 +1512,18 @@
               "Kyaututtukan ruhu mai tsarki — hikima, bangaskiya, warkarwa, magana da harsuna — ana rabawa ta wurin ikon Allah, ba ta wurin Allahntaka ta uku da take yanke shawara da kanta ba. Bulus ya rubuta cewa 'duk waɗannan aiki ne na ruhu ɗaya, ana rabawa kowane mutum kamar yadda yake so' (1 Korintiyawa 12:11) — amma wannan yana nuna jituwar ruhun da nufin Allah, ba mutuntakar daban ba."
             ],
             "scriptures": [
-              { "ref": "Ayyukan Manzanni 2:17", "text": "Zan zuba wani abu daga ruhuna a kan kowane irin nama." },
-              { "ref": "Romawa 8:26", "text": "Ruhun da kansa yana yi mana addu'a da nishi waɗanda ba a iya faɗa." },
-              { "ref": "1 Korintiyawa 12:11", "text": "Duk waɗannan aiki ne na ruhu ɗaya." }
+              {
+                "ref": "Ayyukan Manzanni 2:17",
+                "text": "Zan zuba wani abu daga ruhuna a kan kowane irin nama."
+              },
+              {
+                "ref": "Romawa 8:26",
+                "text": "Ruhun da kansa yana yi mana addu'a da nishi waɗanda ba a iya faɗa."
+              },
+              {
+                "ref": "1 Korintiyawa 12:11",
+                "text": "Duk waɗannan aiki ne na ruhu ɗaya."
+              }
             ]
           }
         ]
@@ -1459,11 +1540,26 @@
               "Yesu ya gaya wa almajiransa za a 'yi musu baftisma da ruhu mai tsarki.' (Ayyukan Manzanni 1:5) Ana nutsar da mutane cikin ruwa, ba cikin mutum ba. Waɗannan kalmomi — cika da, zuba, baftisma cikin — sun bayyana ruhu mai tsarki a koyaushe a matsayin ƙarfi, ba mutum ba."
             ],
             "scriptures": [
-              { "ref": "Ayyukan Manzanni 2:4", "text": "Duka suka cika da ruhu mai tsarki kuma suka fara magana da harsuna dabam-dabam." },
-              { "ref": "Ayyukan Manzanni 2:17", "text": "Zan zuba wani abu daga ruhuna a kan kowane irin nama." },
-              { "ref": "Ayyukan Manzanni 1:5", "text": "Za a yi muku baftisma da ruhu mai tsarki ba kwanaki da yawa bayan wannan ba." },
-              { "ref": "Ayyukan Manzanni 10:38", "text": "Allah ya shafe shi da ruhu mai tsarki da iko." },
-              { "ref": "Luka 11:13", "text": "Uba na sama zai ba da ruhu mai tsarki ga waɗanda suke roƙonsa!" }
+              {
+                "ref": "Ayyukan Manzanni 2:4",
+                "text": "Duka suka cika da ruhu mai tsarki kuma suka fara magana da harsuna dabam-dabam."
+              },
+              {
+                "ref": "Ayyukan Manzanni 2:17",
+                "text": "Zan zuba wani abu daga ruhuna a kan kowane irin nama."
+              },
+              {
+                "ref": "Ayyukan Manzanni 1:5",
+                "text": "Za a yi muku baftisma da ruhu mai tsarki ba kwanaki da yawa bayan wannan ba."
+              },
+              {
+                "ref": "Ayyukan Manzanni 10:38",
+                "text": "Allah ya shafe shi da ruhu mai tsarki da iko."
+              },
+              {
+                "ref": "Luka 11:13",
+                "text": "Uba na sama zai ba da ruhu mai tsarki ga waɗanda suke roƙonsa!"
+              }
             ]
           },
           {
@@ -1473,10 +1569,22 @@
               "A baftismar Yesu, ruhu mai tsarki ya bayyana kamar kurciya — ba kamar mutum ba. (Matiyu 3:16) Lokacin da Istifanus yake gab da mutuwa, 'ya kafa idanu zuwa sama kuma ya hango ɗaukakar Allah da Yesu tsaye a hannun dama na Allah.' (Ayyukan Manzanni 7:55) Ya ga mutane biyu — Uba da Ɗan. Ba a ga mutum na uku ba."
             ],
             "scriptures": [
-              { "ref": "Matiyu 3:16", "text": "Bayan an yi masa baftisma, nan da nan Yesu ya tashi daga ruwa; sammai suka buɗe, kuma ya ga ruhun Allah yana saukowa kamar kurciya." },
-              { "ref": "Ayyukan Manzanni 7:55-56", "text": "Ya kafa idanu zuwa sama kuma ya hango ɗaukakar Allah da Yesu tsaye a hannun dama na Allah." },
-              { "ref": "Ru'ya ta Yohanna 7:10", "text": "Ceto ya tabbata ga Allahnmu, wanda yake zaune a kursiyi, da kuma ga Ɗan Rago." },
-              { "ref": "1 Timotawus 2:5", "text": "Akwai Allah ɗaya, da matsakanci ɗaya tsakanin Allah da mutane, mutum ɗaya, Kiristi Yesu." }
+              {
+                "ref": "Matiyu 3:16",
+                "text": "Bayan an yi masa baftisma, nan da nan Yesu ya tashi daga ruwa; sammai suka buɗe, kuma ya ga ruhun Allah yana saukowa kamar kurciya."
+              },
+              {
+                "ref": "Ayyukan Manzanni 7:55-56",
+                "text": "Ya kafa idanu zuwa sama kuma ya hango ɗaukakar Allah da Yesu tsaye a hannun dama na Allah."
+              },
+              {
+                "ref": "Ru'ya ta Yohanna 7:10",
+                "text": "Ceto ya tabbata ga Allahnmu, wanda yake zaune a kursiyi, da kuma ga Ɗan Rago."
+              },
+              {
+                "ref": "1 Timotawus 2:5",
+                "text": "Akwai Allah ɗaya, da matsakanci ɗaya tsakanin Allah da mutane, mutum ɗaya, Kiristi Yesu."
+              }
             ]
           },
           {
@@ -1486,10 +1594,22 @@
               "Bulus ya rubuta cewa kyaututtukan ruhi 'aiki ne na ruhu ɗaya, ana rabawa kowane mutum daban kamar yadda yake so.' (1 Korintiyawa 12:11) Ruhun yana rabawa bisa ga nufin Allah. Kayan aikin nufin Allah ne, ba tunani mai zaman kansa da yake yin shawara daban ba."
             ],
             "scriptures": [
-              { "ref": "Lissafi 11:25", "text": "Jehobah ya ɗauke wani daga ruhun da ke kansa kuma ya sa shi a kan dattawa 70." },
-              { "ref": "2 Sarakuna 2:9", "text": "Don Allah, bari kasashi biyu na ruhunka su zo gare ni." },
-              { "ref": "1 Korintiyawa 12:11", "text": "Duk waɗannan aiki ne na ruhu ɗaya, ana rabawa kowane mutum daban kamar yadda yake so." },
-              { "ref": "Nehemiya 9:20", "text": "Ka ba da kyakkyawan ruhunka don ka koya musu." }
+              {
+                "ref": "Lissafi 11:25",
+                "text": "Jehobah ya ɗauke wani daga ruhun da ke kansa kuma ya sa shi a kan dattawa 70."
+              },
+              {
+                "ref": "2 Sarakuna 2:9",
+                "text": "Don Allah, bari kasashi biyu na ruhunka su zo gare ni."
+              },
+              {
+                "ref": "1 Korintiyawa 12:11",
+                "text": "Duk waɗannan aiki ne na ruhu ɗaya, ana rabawa kowane mutum daban kamar yadda yake so."
+              },
+              {
+                "ref": "Nehemiya 9:20",
+                "text": "Ka ba da kyakkyawan ruhunka don ka koya musu."
+              }
             ]
           }
         ]
@@ -1506,11 +1626,26 @@
               "A Getsemane, Yesu ya yi addu'a: 'Uba, idan kana so, ka kawar da wannan kofi daga gare ni. Duk da haka, kada nufina, amma naka ya cika.' (Luka 22:42) Nufoni biyu daban — na Uba da na Ɗan — ba za su iya zama cikin halitta ɗaya ba. Wannan addu'a tana da ma'ana ne kawai idan su mutane biyu ne daban."
             ],
             "scriptures": [
-              { "ref": "Yohanna 14:28", "text": "Uba ya fi ni girma." },
-              { "ref": "Yohanna 20:17", "text": "Ina hawa wajen Ubana da Ubanku da wajen Allahna da Allahnku." },
-              { "ref": "Luka 22:42", "text": "Uba, idan kana so, ka kawar da wannan kofi daga gare ni. Duk da haka, kada nufina, amma naka ya cika." },
-              { "ref": "Markus 13:32", "text": "Game da wannan rana ko sa'a babu wanda ya sani, ko mala'iku a sama ko Ɗan, sai Uba kaɗai." },
-              { "ref": "Yohanna 17:3", "text": "Wannan na nufin rai na har abada, sanin ka, kai kaɗai Allah na gaskiya, da kuma wanda ka aiko, Yesu Kiristi." }
+              {
+                "ref": "Yohanna 14:28",
+                "text": "Uba ya fi ni girma."
+              },
+              {
+                "ref": "Yohanna 20:17",
+                "text": "Ina hawa wajen Ubana da Ubanku da wajen Allahna da Allahnku."
+              },
+              {
+                "ref": "Luka 22:42",
+                "text": "Uba, idan kana so, ka kawar da wannan kofi daga gare ni. Duk da haka, kada nufina, amma naka ya cika."
+              },
+              {
+                "ref": "Markus 13:32",
+                "text": "Game da wannan rana ko sa'a babu wanda ya sani, ko mala'iku a sama ko Ɗan, sai Uba kaɗai."
+              },
+              {
+                "ref": "Yohanna 17:3",
+                "text": "Wannan na nufin rai na har abada, sanin ka, kai kaɗai Allah na gaskiya, da kuma wanda ka aiko, Yesu Kiristi."
+              }
             ]
           },
           {
@@ -1520,11 +1655,26 @@
               "Yesu da kansa ya gane Uba a matsayin 'Allah na gaskiya kaɗai.' (Yohanna 17:3) Kalmar 'kaɗai' ta hana kowane mutum daga wannan suna — har da Yesu da kansa. Da Yesu ya kasance ɓangare na Allah-uku-cikin-ɗaya, kiran Uba 'Allah na gaskiya kaɗai' zai cire shi daga zama Allahntaka."
             ],
             "scriptures": [
-              { "ref": "Kubawar Shari'a 6:4", "text": "Ji, ya Isra'ila: Jehobah Allahnmu Jehobah ɗaya ne." },
-              { "ref": "1 Korintiyawa 8:6", "text": "Akwai Allah ɗaya kawai a wajenmu, Uba… kuma akwai Ubangiji ɗaya, Yesu Kiristi." },
-              { "ref": "Yohanna 17:3", "text": "Sanin ka, kai kaɗai Allah na gaskiya, da kuma wanda ka aiko, Yesu Kiristi." },
-              { "ref": "1 Timotawus 2:5", "text": "Akwai Allah ɗaya, da matsakanci ɗaya tsakanin Allah da mutane, mutum ɗaya, Kiristi Yesu." },
-              { "ref": "Malaki 2:10", "text": "Ba dukanmu uba ɗaya muke da shi ba? Ba Allah ɗaya ne ya halicce mu ba?" }
+              {
+                "ref": "Kubawar Shari'a 6:4",
+                "text": "Ji, ya Isra'ila: Jehobah Allahnmu Jehobah ɗaya ne."
+              },
+              {
+                "ref": "1 Korintiyawa 8:6",
+                "text": "Akwai Allah ɗaya kawai a wajenmu, Uba… kuma akwai Ubangiji ɗaya, Yesu Kiristi."
+              },
+              {
+                "ref": "Yohanna 17:3",
+                "text": "Sanin ka, kai kaɗai Allah na gaskiya, da kuma wanda ka aiko, Yesu Kiristi."
+              },
+              {
+                "ref": "1 Timotawus 2:5",
+                "text": "Akwai Allah ɗaya, da matsakanci ɗaya tsakanin Allah da mutane, mutum ɗaya, Kiristi Yesu."
+              },
+              {
+                "ref": "Malaki 2:10",
+                "text": "Ba dukanmu uba ɗaya muke da shi ba? Ba Allah ɗaya ne ya halicce mu ba?"
+              }
             ]
           },
           {
@@ -1534,11 +1684,26 @@
               "Karin Magana 8:22-30 yana wakiltar hikima yana cewa: 'Jehobah ya halicce ni a matsayin mafarin hanyarsa, mafi farkon ayyukansa na da.' Wannan nassi, da aka fahimta a matsayin annabci game da Kiristi, ya nuna cewa an haifi Ɗan kafin kowane abu — ba cewa ya kasance koyaushe tare da Uba ba."
             ],
             "scriptures": [
-              { "ref": "Kolosiyawa 1:15", "text": "Shi ne hoton Allah wanda ba a iya gani ba, ɗan farin halitta duka." },
-              { "ref": "Ru'ya ta Yohanna 3:14", "text": "Amin, mai aminci da gaskiya mai shaida, mafarin halittar Allah." },
-              { "ref": "Karin Magana 8:22", "text": "Jehobah ya halicce ni a matsayin mafarin hanyarsa, mafi farkon ayyukansa na da." },
-              { "ref": "Karin Magana 8:30", "text": "Ina kusa da shi a matsayin ƙwararren ma'aikaci, kuma ni ne wanda yake matuƙar ƙauna kullum." },
-              { "ref": "Mikah 5:2", "text": "Asalinsa daga zamanai na dā ne, daga kwanakin daɗewa." }
+              {
+                "ref": "Kolosiyawa 1:15",
+                "text": "Shi ne hoton Allah wanda ba a iya gani ba, ɗan farin halitta duka."
+              },
+              {
+                "ref": "Ru'ya ta Yohanna 3:14",
+                "text": "Amin, mai aminci da gaskiya mai shaida, mafarin halittar Allah."
+              },
+              {
+                "ref": "Karin Magana 8:22",
+                "text": "Jehobah ya halicce ni a matsayin mafarin hanyarsa, mafi farkon ayyukansa na da."
+              },
+              {
+                "ref": "Karin Magana 8:30",
+                "text": "Ina kusa da shi a matsayin ƙwararren ma'aikaci, kuma ni ne wanda yake matuƙar ƙauna kullum."
+              },
+              {
+                "ref": "Mikah 5:2",
+                "text": "Asalinsa daga zamanai na dā ne, daga kwanakin daɗewa."
+              }
             ]
           }
         ]
@@ -1555,10 +1720,22 @@
               "Yahuda 9 ta bayyana Mika'ilu a matsayin 'babban mala'ika' — babbar mala'ika. Tun da Nassi ya ambaci babban mala'ika ɗaya kawai, kuma tun da Yesu wanda aka tashe shi 'zai sauko daga sama tare da kira na umarni, tare da muryar babban mala'ika' (1 Tasalonikawa 4:16), haɗin yana bayyane: Yesu shi ne mai matsayin babban mala'ika — shi ne Mika'ilu."
             ],
             "scriptures": [
-              { "ref": "Daniyel 10:13", "text": "Amma Mika'ilu, ɗayan manyan yarima, ya zo don ya taimake ni." },
-              { "ref": "Daniyel 12:1", "text": "A lokacin nan Mika'ilu zai tashi, babban yarima wanda yake tsaye saboda mutanenka." },
-              { "ref": "Yahuda 9", "text": "Sa'ad da Mika'ilu babban mala'ika ya yi sabani da Iblis kuma yake jayayya game da gawar Musa." },
-              { "ref": "1 Tasalonikawa 4:16", "text": "Ubangiji da kansa zai sauko daga sama tare da kira na umarni, tare da muryar babban mala'ika." }
+              {
+                "ref": "Daniyel 10:13",
+                "text": "Amma Mika'ilu, ɗayan manyan yarima, ya zo don ya taimake ni."
+              },
+              {
+                "ref": "Daniyel 12:1",
+                "text": "A lokacin nan Mika'ilu zai tashi, babban yarima wanda yake tsaye saboda mutanenka."
+              },
+              {
+                "ref": "Yahuda 9",
+                "text": "Sa'ad da Mika'ilu babban mala'ika ya yi sabani da Iblis kuma yake jayayya game da gawar Musa."
+              },
+              {
+                "ref": "1 Tasalonikawa 4:16",
+                "text": "Ubangiji da kansa zai sauko daga sama tare da kira na umarni, tare da muryar babban mala'ika."
+              }
             ]
           },
           {
@@ -1568,10 +1745,22 @@
               "Yesu ya gaya wa almajiransa: 'Na ga Shaiɗan ya riga ya faɗi daga sama kamar walƙiya.' (Luka 10:18) Wannan ya yi daidai da Mika'ilu yake jefar Shaiɗan. Kafin ya zo duniya, Yesu ya wanzu a matsayin ruhu mai ƙarfi — 'ɗan farin halitta duka.' (Kolosiyawa 1:15) Sunan da yake da shi a sama kafin ya zo duniya shi ne Mika'ilu; sunansa na duniya, da aka ba shi a haihuwarsa, shi ne Yesu."
             ],
             "scriptures": [
-              { "ref": "Ru'ya ta Yohanna 12:7-9", "text": "Mika'ilu da mala'ikunsa suka yi yaƙi da macin… aka jefar babban macin, tsohuwar maciji." },
-              { "ref": "Ru'ya ta Yohanna 19:14-16", "text": "Rundunonin sama suna bin sa a kan fararen dawakai… yana da suna a rubuce, Sarkin sarakuna da Ubangijin ubangiji." },
-              { "ref": "Luka 10:18", "text": "Na ga Shaiɗan ya riga ya faɗi daga sama kamar walƙiya." },
-              { "ref": "Kolosiyawa 1:15-16", "text": "Shi ne hoton Allah wanda ba a iya gani ba, ɗan farin halitta duka." }
+              {
+                "ref": "Ru'ya ta Yohanna 12:7-9",
+                "text": "Mika'ilu da mala'ikunsa suka yi yaƙi da macin… aka jefar babban macin, tsohuwar maciji."
+              },
+              {
+                "ref": "Ru'ya ta Yohanna 19:14-16",
+                "text": "Rundunonin sama suna bin sa a kan fararen dawakai… yana da suna a rubuce, Sarkin sarakuna da Ubangijin ubangiji."
+              },
+              {
+                "ref": "Luka 10:18",
+                "text": "Na ga Shaiɗan ya riga ya faɗi daga sama kamar walƙiya."
+              },
+              {
+                "ref": "Kolosiyawa 1:15-16",
+                "text": "Shi ne hoton Allah wanda ba a iya gani ba, ɗan farin halitta duka."
+              }
             ]
           },
           {
@@ -1581,11 +1770,26 @@
               "Allah ya ce game da wannan mala'ika: 'Sunana yana cikinsa.' (Fitowa 23:21) Wannan mala'ika ya ɗauki ikon Jehobah ta hanya ta musamman. Bulus ya bayyana dutsen ruhaniya da ya bi Isra'ila a matsayin Kiristi. (1 Korintiyawa 10:4) Mala'ikan Jehobah da ya jagoranci kuma ya kāre Isra'ila shi ne Yesu kafin ya zo duniya — Mika'ilu — yana bauta wa Jehobah a matsayin babban wakilinsa tun kafin haihuwarsa a Baitalami."
             ],
             "scriptures": [
-              { "ref": "Fitowa 3:2", "text": "Sai mala'ikan Jehobah ya bayyana gare shi a cikin harshen wuta a tsakiyar daji." },
-              { "ref": "Fitowa 23:20-21", "text": "Ina aikan mala'ika a gabanka… ka kasa kunne gare shi… gama sunana yana cikinsa." },
-              { "ref": "Lissafi 22:22", "text": "Mala'ikan Jehobah ya tsaya a hanya don ya hana shi." },
-              { "ref": "1 Korintiyawa 10:4", "text": "Suka sha daga dutsen ruhaniya da ya bi su, dutsen kuwa shi ne Kiristi." },
-              { "ref": "Joshuwa 5:14", "text": "Na zo a matsayin yarima na rundunar Jehobah." }
+              {
+                "ref": "Fitowa 3:2",
+                "text": "Sai mala'ikan Jehobah ya bayyana gare shi a cikin harshen wuta a tsakiyar daji."
+              },
+              {
+                "ref": "Fitowa 23:20-21",
+                "text": "Ina aikan mala'ika a gabanka… ka kasa kunne gare shi… gama sunana yana cikinsa."
+              },
+              {
+                "ref": "Lissafi 22:22",
+                "text": "Mala'ikan Jehobah ya tsaya a hanya don ya hana shi."
+              },
+              {
+                "ref": "1 Korintiyawa 10:4",
+                "text": "Suka sha daga dutsen ruhaniya da ya bi su, dutsen kuwa shi ne Kiristi."
+              },
+              {
+                "ref": "Joshuwa 5:14",
+                "text": "Na zo a matsayin yarima na rundunar Jehobah."
+              }
             ]
           }
         ]
@@ -1602,9 +1806,18 @@
               "Dabbobi ma ana kiransu 'rayuka' cikin Nassi. Farawa 1:20 cikin Ibrananci ta yi amfani da nephesh don halittun teku da tsuntsaye. Rai ba wani ɓangare na musamman na ruhaniya da ya bambanta da mutane kaɗai ba ne — yana nufin kowace halitta mai rai mai numfashi."
             ],
             "scriptures": [
-              { "ref": "Farawa 2:7", "text": "Mutum ya zama mai rai [rai]." },
-              { "ref": "Ezekiyel 18:4", "text": "Duba! Dukan rayuka — nawa ne. Kamar yadda rai na uba, haka kuma rai na ɗa — nawa ne. Rai mai zunubi shi ne wanda zai mutu." },
-              { "ref": "1 Korintiyawa 15:45", "text": "Haka aka rubuta: 'Mutum na farko Adamu ya zama mai rai [rai].'" }
+              {
+                "ref": "Farawa 2:7",
+                "text": "Mutum ya zama mai rai [rai]."
+              },
+              {
+                "ref": "Ezekiyel 18:4",
+                "text": "Duba! Dukan rayuka — nawa ne. Kamar yadda rai na uba, haka kuma rai na ɗa — nawa ne. Rai mai zunubi shi ne wanda zai mutu."
+              },
+              {
+                "ref": "1 Korintiyawa 15:45",
+                "text": "Haka aka rubuta: 'Mutum na farko Adamu ya zama mai rai [rai].'"
+              }
             ]
           },
           {
@@ -1614,9 +1827,18 @@
               "Fahimtar cewa rai shi ne mutum da kansa — ba wata halitta dabam ba — ya sa begen tashin matattu ya zama mai kyau sosai. Allah zai sake halitta mutumin gaba ɗaya, yana mayar da kome da ya bayyana wanene shi."
             ],
             "scriptures": [
-              { "ref": "Ezekiyel 18:4", "text": "Rai mai zunubi shi ne wanda zai mutu." },
-              { "ref": "Ru'ya ta Yohanna 16:3", "text": "Kowane rai mai rai a cikin teku ya mutu." },
-              { "ref": "Ayyukan Manzanni 3:23", "text": "Duk wani rai da bai saurari wannan Annabi ba za a hallaka shi gaba ɗaya daga cikin mutane." }
+              {
+                "ref": "Ezekiyel 18:4",
+                "text": "Rai mai zunubi shi ne wanda zai mutu."
+              },
+              {
+                "ref": "Ru'ya ta Yohanna 16:3",
+                "text": "Kowane rai mai rai a cikin teku ya mutu."
+              },
+              {
+                "ref": "Ayyukan Manzanni 3:23",
+                "text": "Duk wani rai da bai saurari wannan Annabi ba za a hallaka shi gaba ɗaya daga cikin mutane."
+              }
             ]
           }
         ]
@@ -1633,9 +1855,18 @@
               "Sarki Sulemanu ya rubuta: 'Masu rai sun sani cewa za su mutu, amma matattu ba sa sani da komai.' (Mai-Wa'azi 9:5) Babu fahimta, babu wahala, babu farin ciki — mutuwa kawo ƙarshen rai gaba ɗaya har zuwa tashin matattu."
             ],
             "scriptures": [
-              { "ref": "Yohanna 11:11-14", "text": "'Li'azaru abokinmu ya yi barci… Li'azaru ya mutu.'" },
-              { "ref": "Mai-Wa'azi 9:5", "text": "Masu rai sun sani cewa za su mutu, amma matattu ba sa sani da komai." },
-              { "ref": "Zabura 146:4", "text": "Ruhunsa ya fita, ya koma ƙasa; a wannan rana tunaninsa ya ƙare." }
+              {
+                "ref": "Yohanna 11:11-14",
+                "text": "'Li'azaru abokinmu ya yi barci… Li'azaru ya mutu.'"
+              },
+              {
+                "ref": "Mai-Wa'azi 9:5",
+                "text": "Masu rai sun sani cewa za su mutu, amma matattu ba sa sani da komai."
+              },
+              {
+                "ref": "Zabura 146:4",
+                "text": "Ruhunsa ya fita, ya koma ƙasa; a wannan rana tunaninsa ya ƙare."
+              }
             ]
           },
           {
@@ -1645,9 +1876,18 @@
               "Manzo Bulus ya kira tashin Kiristi tushen begen Kirista: 'Idan ba a tashe matattu ba, sai mu ci mu sha, gama gobe za mu mutu.' (1 Korintiyawa 15:32) Tashin matattu — ba rashin mutuwar rai ba — shi ne amsa ta Littafi Mai Tsarki ga mutuwa."
             ],
             "scriptures": [
-              { "ref": "Yohanna 5:28-29", "text": "Dukan waɗanda suke cikin kaburburan tunawa za su ji muryarsa kuma su fito." },
-              { "ref": "Ayyukan Manzanni 24:15", "text": "Akwai tashin matattu na masu adalci da marasa adalci." },
-              { "ref": "1 Korintiyawa 15:26", "text": "Maƙiyi na ƙarshe, mutuwa, za a kawo ƙarshenta." }
+              {
+                "ref": "Yohanna 5:28-29",
+                "text": "Dukan waɗanda suke cikin kaburburan tunawa za su ji muryarsa kuma su fito."
+              },
+              {
+                "ref": "Ayyukan Manzanni 24:15",
+                "text": "Akwai tashin matattu na masu adalci da marasa adalci."
+              },
+              {
+                "ref": "1 Korintiyawa 15:26",
+                "text": "Maƙiyi na ƙarshe, mutuwa, za a kawo ƙarshenta."
+              }
             ]
           }
         ]
@@ -1664,9 +1904,18 @@
               "Yesu ya koya wa almajiransa su yi addu'a: 'Mulkinka ya zo. Nufinka ya faru, kamar yadda yake a sama, haka kuma a duniya.' (Matiyu 6:10) Wannan addu'a tana nuna cewa mulkin Mulkin zai miƙe har zuwa duniya wata rana, yana mai da ita kamar yadda sama ta riga ta nuna cikakken nufin Allah."
             ],
             "scriptures": [
-              { "ref": "Daniyel 2:44", "text": "Allah na sama zai kafa mulkin da ba za a taɓa lalata shi ba." },
-              { "ref": "Matiyu 6:10", "text": "Mulkinka ya zo. Nufinka ya faru, kamar yadda yake a sama, haka kuma a duniya." },
-              { "ref": "Luka 1:33", "text": "Zai yi mulki a kan gidan Yakubu har abada, kuma babu ƙarshen Mulkinsa." }
+              {
+                "ref": "Daniyel 2:44",
+                "text": "Allah na sama zai kafa mulkin da ba za a taɓa lalata shi ba."
+              },
+              {
+                "ref": "Matiyu 6:10",
+                "text": "Mulkinka ya zo. Nufinka ya faru, kamar yadda yake a sama, haka kuma a duniya."
+              },
+              {
+                "ref": "Luka 1:33",
+                "text": "Zai yi mulki a kan gidan Yakubu har abada, kuma babu ƙarshen Mulkinsa."
+              }
             ]
           },
           {
@@ -1676,9 +1925,18 @@
               "Ishaya 65:21-22 ya kwatanta rai a ƙarƙashin Mulkin: 'Za su gina gidaje su zauna a cikinsu, za su shuka gonakin inabi su ci 'ya'yansu.' An yi alkawarin zaman lafiya tsakanin mutane da dabbobi: 'Kerkeci da ɗan tunkiya za su ci tare.' (Ishaya 65:25)"
             ],
             "scriptures": [
-              { "ref": "Ru'ya ta Yohanna 21:3-4", "text": "Zai shafe kowace hawaye daga idanunsu, mutuwa kuma ba za ta sake kasancewa ba." },
-              { "ref": "Ishaya 65:21-22", "text": "Za su gina gidaje su zauna a cikinsu, za su shuka gonakin inabi su ci 'ya'yansu." },
-              { "ref": "Zabura 37:29", "text": "Masu adalci za su mallaki duniya, kuma za su zauna a kanta har abada." }
+              {
+                "ref": "Ru'ya ta Yohanna 21:3-4",
+                "text": "Zai shafe kowace hawaye daga idanunsu, mutuwa kuma ba za ta sake kasancewa ba."
+              },
+              {
+                "ref": "Ishaya 65:21-22",
+                "text": "Za su gina gidaje su zauna a cikinsu, za su shuka gonakin inabi su ci 'ya'yansu."
+              },
+              {
+                "ref": "Zabura 37:29",
+                "text": "Masu adalci za su mallaki duniya, kuma za su zauna a kanta har abada."
+              }
             ]
           }
         ]
@@ -1695,9 +1953,18 @@
               "Sa'ad da Shaiɗan ya ce a Adnin 'ba za ku tabbas mutu ba' (Farawa 3:4), yana kiran Allah maƙaryaci kuma yana nuna cewa mutane za su iya rayuwa ba tare da Allah ba. Waɗannan ƙalubale ga ikon Allah na yin mulki da kuma amincin masu bautarsa ba za a iya warware su a take ba — sun buƙaci lokaci da kwarewar ɗan adam don a warware su gaba ɗaya."
             ],
             "scriptures": [
-              { "ref": "Ayuba 1:9-11", "text": "Ayuba yana tsoron Allah ba dalili?" },
-              { "ref": "Farawa 3:4-5", "text": "Tabbas ba za ku mutu ba. Allah ya sani cewa… idanunku za su buɗu kuma za ku kasance kamar Allah." },
-              { "ref": "Romawa 3:4", "text": "Ka bar Allah ya zama mai gaskiya, ko da kowane mutum maƙaryaci ne." }
+              {
+                "ref": "Ayuba 1:9-11",
+                "text": "Ayuba yana tsoron Allah ba dalili?"
+              },
+              {
+                "ref": "Farawa 3:4-5",
+                "text": "Tabbas ba za ku mutu ba. Allah ya sani cewa… idanunku za su buɗu kuma za ku kasance kamar Allah."
+              },
+              {
+                "ref": "Romawa 3:4",
+                "text": "Ka bar Allah ya zama mai gaskiya, ko da kowane mutum maƙaryaci ne."
+              }
             ]
           },
           {
@@ -1707,9 +1974,18 @@
               "Izinin Allah na wahala na ɗan lokaci ne. Manufar sa ga duniya — firdausi mara ciwo da mutuwa — ba ta taɓa canzawa ba. Wahalar da muke gani yanzu ba shi ne hujjar rashin damuwar Allah ba amma na sakamakon rayuwar ɗan adam ba tare da jagorancin Allah ba. Nan ba da daɗewa ba, Allah zai 'kawo halaka ga masu halakar da duniya.' (Ru'ya ta Yohanna 11:18)"
             ],
             "scriptures": [
-              { "ref": "2 Bitrus 3:9", "text": "Jehobah ba ya jinkiri game da alkawarinsa… yana da haƙuri tare da ku." },
-              { "ref": "Romawa 8:22", "text": "Mun sani dukan halitta tana ci gaba da gunaguni tare kuma tana cikin ciwo tare har yanzu." },
-              { "ref": "Ru'ya ta Yohanna 11:18", "text": "Lokaci ya zo… don kawo halaka ga masu halakar da duniya." }
+              {
+                "ref": "2 Bitrus 3:9",
+                "text": "Jehobah ba ya jinkiri game da alkawarinsa… yana da haƙuri tare da ku."
+              },
+              {
+                "ref": "Romawa 8:22",
+                "text": "Mun sani dukan halitta tana ci gaba da gunaguni tare kuma tana cikin ciwo tare har yanzu."
+              },
+              {
+                "ref": "Ru'ya ta Yohanna 11:18",
+                "text": "Lokaci ya zo… don kawo halaka ga masu halakar da duniya."
+              }
             ]
           }
         ]
@@ -1726,9 +2002,18 @@
               "Dokar Musa ta ƙara tabbatar da wannan ka'ida: 'Game da kowane mutum na gidan Isra'ila ko baƙo da yake zaune a tsakaninku da yake cin kowace irin jini, tabbas zan saka fuskata gāba da wannan mutum da yake cin jini.' (Littafin Firistoci 17:10) Haramcin jini yana cikin buƙatun da majalisar Urushalima a Ayyukan Manzanni 15 ta tabbatar da cewa yana ɗaure ga dukan Kiristoci."
             ],
             "scriptures": [
-              { "ref": "Farawa 9:4", "text": "Sai dai nama mai rai — jininsa — kada ku ci." },
-              { "ref": "Littafin Firistoci 17:14", "text": "Kada ku ci jini na kowace irin nama, gama rai na kowace irin nama jininta ne." },
-              { "ref": "Ayyukan Manzanni 15:28-29", "text": "Ruhu mai tsarki da mu kanmu sun ga ya dace mu kara wani nauyi a kanku sai dai waɗannan abubuwa masu mahimmanci: ku ci gaba da kauracewa… jini." }
+              {
+                "ref": "Farawa 9:4",
+                "text": "Sai dai nama mai rai — jininsa — kada ku ci."
+              },
+              {
+                "ref": "Littafin Firistoci 17:14",
+                "text": "Kada ku ci jini na kowace irin nama, gama rai na kowace irin nama jininta ne."
+              },
+              {
+                "ref": "Ayyukan Manzanni 15:28-29",
+                "text": "Ruhu mai tsarki da mu kanmu sun ga ya dace mu kara wani nauyi a kanku sai dai waɗannan abubuwa masu mahimmanci: ku ci gaba da kauracewa… jini."
+              }
             ]
           },
           {
@@ -1738,14 +2023,25 @@
               "Hanyoyin likitanci na zamani na ƙarin jini — adana jini, masu faɗaɗa girma, da fasahar tiyata ba tare da jini ba — sun ci gaba sosai, kuma asibitoci da yawa yanzu suna ba da waɗannan zaɓuɓɓuka. Zaɓar girmama buƙatar Allah game da jini aikin bangaskiya ne da amincewa cewa ƙa'idodin Allah koyaushe suna cikin masu kyau a gare mu."
             ],
             "scriptures": [
-              { "ref": "Ayyukan Manzanni 15:28-29", "text": "Ku ci gaba da kauracewa… jini." },
-              { "ref": "1 Yohanna 5:3", "text": "Wannan shi ne ma'anar ƙaunar Allah, cewa muna kiyaye umarninsa; kuma duk da haka umarninsa ba masu nauyi ba ne." },
-              { "ref": "Karin Magana 3:5", "text": "Ka dogara da Jehobah da dukan zuciyarka, kada ka dogara da fahimtarka." }
+              {
+                "ref": "Ayyukan Manzanni 15:28-29",
+                "text": "Ku ci gaba da kauracewa… jini."
+              },
+              {
+                "ref": "1 Yohanna 5:3",
+                "text": "Wannan shi ne ma'anar ƙaunar Allah, cewa muna kiyaye umarninsa; kuma duk da haka umarninsa ba masu nauyi ba ne."
+              },
+              {
+                "ref": "Karin Magana 3:5",
+                "text": "Ka dogara da Jehobah da dukan zuciyarka, kada ka dogara da fahimtarka."
+              }
             ]
           }
         ]
       }
-    }
+    },
+    "explore": "Explore",
+    "tablistLabel": "Study topic sections"
   },
   "topbar": {
     "accountMenu": "Menu na asusu don {{name}}",
@@ -2144,7 +2440,8 @@
     "uploadingCover": "Ana ɗorawa…",
     "wordGoal": "Burin Kalmomi",
     "wordGoalOf": "/ kalmomi {{count}}",
-    "words": "kalmomi"
+    "words": "kalmomi",
+    "removeTag": "Remove tag {{tag}}"
   },
   "a11y": {
     "skipToContent": "Tsallaka zuwa babban abun ciki",
@@ -2384,7 +2681,8 @@
     "testamentOT": "Nassosin Ibrananci",
     "title": "Jerin Karatun Littafi Mai Tsarki",
     "write": "Rubuta",
-    "searchBooksAria": "Nemo littattafai"
+    "searchBooksAria": "Nemo littattafai",
+    "testamentFilterAria": "Filter books by section"
   },
   "auth": {
     "back": "← Komawa",
@@ -2537,7 +2835,7 @@
     "published": "An Buga",
     "publishedCount": "{{count}} an buga",
     "readMore": "Danna don ƙarin karatu…",
-    "searchPlaceholder": "Nemo blogs...",
+    "searchPlaceholder": "Search articles, topics, authors…",
     "subtitle": "Tunani, nazarin da fahimta daga ƙungiyarmu",
     "title": "Blog",
     "totalCount": "{{count}} jimilla",
@@ -3124,7 +3422,8 @@
   },
   "familyQuiz": {
     "loadingChallenge": "Ana loda ƙalubale…",
-    "loadingResults": "Ana loda sakamako…"
+    "loadingResults": "Ana loda sakamako…",
+    "namePlaceholder": "e.g. Sunday Family Quiz"
   },
   "feed": {
     "earnedBadge": "ya samu lambar yabo —",
@@ -4082,7 +4381,9 @@
     "more": "Fiye"
   },
   "createPost": {
-    "addToPost": "Ƙara a sakonka"
+    "addToPost": "Ƙara a sakonka",
+    "editAria": "Edit post",
+    "createAria": "Create post"
   },
   "bookAuthors": [
     "Musa",
@@ -6268,5 +6569,13 @@
     "waitingForPlayers": "Ana jiran ƙarin 'yan wasa {{count}} su shiga ta lamba",
     "wrong": "Kuskure!",
     "yourTurn": "Lokacinka ne, ka amsa yanzu!"
+  },
+  "videos": {
+    "composer": {
+      "dropOrBrowse": "Drop video here or click to browse",
+      "bookPlaceholder": "Book  e.g. John",
+      "chapterPlaceholder": "Ch.  e.g. 3"
+    },
+    "commentPlaceholder": "Add a comment…"
   }
 }

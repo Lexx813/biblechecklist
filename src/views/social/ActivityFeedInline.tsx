@@ -76,6 +76,7 @@ function authorName(author?: AuthorShape | null): string {
 // ── Friends scroll row ──────────────────────────────────────────────────────
 
 function FriendsRow({ userId, navigate }: { userId: string; navigate: NavigateFn }) {
+  const { t } = useTranslation();
   const { data: friends = [] } = useFriends(userId);
   if ((friends as FriendProfile[]).length === 0) return null;
   return (
@@ -84,10 +85,10 @@ function FriendsRow({ userId, navigate }: { userId: string; navigate: NavigateFn
         type="button"
         className="feed-friends-add"
         onClick={() => navigate("friends")}
-        aria-label="Manage friends"
+        aria-label={t("social.manageFriends")}
       >
         <span className="feed-friends-add-circle" aria-hidden="true">+</span>
-        <span className="feed-friends-name">Friends</span>
+        <span className="feed-friends-name">{t("social.friends")}</span>
       </button>
       {(friends as FriendProfile[]).slice(0, 12).map(f => {
         const isOnline = f.last_active_at != null
@@ -109,7 +110,7 @@ function FriendsRow({ userId, navigate }: { userId: string; navigate: NavigateFn
               {f.avatar_url
                 ? <img src={f.avatar_url} alt="" width={48} height={48} loading="lazy" />
                 : name[0].toUpperCase()}
-              {isOnline && <span className="feed-friend-online" aria-label="Online" />}
+              {isOnline && <span className="feed-friend-online" aria-label={t("social.online")} />}
             </span>
             <span className="feed-friends-name">{name.length > 10 ? `${name.slice(0, 9)}…` : name}</span>
           </button>
@@ -122,6 +123,7 @@ function FriendsRow({ userId, navigate }: { userId: string; navigate: NavigateFn
 // ── Composer (opens CreatePostModal) ────────────────────────────────────────
 
 function ComposerTrigger({ user, displayName, avatarUrl }: { user: UserShape; displayName: string; avatarUrl?: string | null }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const createPost = useCreatePost(user.id);
 
@@ -139,7 +141,7 @@ function ComposerTrigger({ user, displayName, avatarUrl }: { user: UserShape; di
         {avatarUrl
           ? <img src={avatarUrl} alt="" width={40} height={40} className="feed-composer-avatar" loading="lazy" />
           : <span className="feed-composer-avatar feed-composer-avatar--fallback">{initial}</span>}
-        <span className="feed-composer-placeholder">What&apos;s on your mind?</span>
+        <span className="feed-composer-placeholder">{t("social.whatsOnYourMind")}</span>
       </button>
       {open && (
         <CreatePostModal
@@ -158,12 +160,13 @@ function ComposerTrigger({ user, displayName, avatarUrl }: { user: UserShape; di
 // ── People you may know ─────────────────────────────────────────────────────
 
 function PeopleYouMayKnow({ userId, navigate }: { userId: string; navigate: NavigateFn }) {
+  const { t } = useTranslation();
   const { data: suggested = [], isLoading } = useSuggestedUsers(userId);
   const toggleFollow = useToggleFollowDynamic(userId);
   if (isLoading || suggested.length === 0) return null;
   return (
     <div className="feed-suggestions">
-      <h3 className="feed-suggestions-title">People you may know</h3>
+      <h3 className="feed-suggestions-title">{t("social.peopleYouMayKnow")}</h3>
       <div className="feed-suggestions-list">
         {suggested.map(person => (
           <div key={person.id} className="feed-suggestion-row">
@@ -176,7 +179,7 @@ function PeopleYouMayKnow({ userId, navigate }: { userId: string; navigate: Navi
               {person.display_name}
             </button>
             <button className="feed-suggestion-follow-btn" onClick={() => toggleFollow.mutate(person.id)} disabled={toggleFollow.isPending}>
-              Follow
+              {t("social.follow")}
             </button>
           </div>
         ))}

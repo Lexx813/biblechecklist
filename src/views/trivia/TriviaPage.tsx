@@ -201,17 +201,29 @@ function ScoreBar({ teamAScore, teamBScore, questionCount, currentIndex }: {
 function TimerRing({ seconds, total, onExpire }: { seconds: number; total: number; onExpire: () => void }) {
   const [remaining, setRemaining] = useState(seconds);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const firedRef = useRef(false);
 
   useEffect(() => {
+    firedRef.current = false;
     setRemaining(seconds);
     timerRef.current = setInterval(() => {
+      // Pure updater — no side effects inside setState (StrictMode/concurrent
+      // can double-invoke it). Expiry is handled by the effect below.
       setRemaining((r) => {
-        if (r <= 1) { clearInterval(timerRef.current!); onExpire(); return 0; }
+        if (r <= 1) { clearInterval(timerRef.current!); return 0; }
         return r - 1;
       });
     }, 1000);
     return () => clearInterval(timerRef.current!);
   }, [seconds, total]);
+
+  // Fire onExpire exactly once when the countdown reaches zero.
+  useEffect(() => {
+    if (remaining === 0 && !firedRef.current) {
+      firedRef.current = true;
+      onExpire();
+    }
+  }, [remaining, onExpire]);
 
   const pct = remaining / total;
   const r = 26;

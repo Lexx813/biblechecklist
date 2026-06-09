@@ -41,11 +41,19 @@ interface ThreadViewProps {
 
 // ── Audio ─────────────────────────────────────────────────────────────────────
 
+// A single shared AudioContext, lazily created. Chrome caps concurrent
+// AudioContexts (~6); a new one per chime leaked handles and eventually threw,
+// silently killing all chimes for the rest of the session.
+let sharedAudioCtx: AudioContext | null = null;
+
 function playChime() {
   try {
     const AudioCtx = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
     if (!AudioCtx) return;
-    const ctx = new AudioCtx();
+    if (!sharedAudioCtx) sharedAudioCtx = new AudioCtx();
+    const ctx = sharedAudioCtx;
+    // Autoplay policy can leave the context suspended until a user gesture.
+    if (ctx.state === "suspended") void ctx.resume();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.connect(gain);
@@ -151,7 +159,7 @@ function ReplyPreview({ message, onCancel }: { message: any; onCancel: () => voi
         <span className="msg-reply-preview-name">{displayName(message.sender)}</span>
         <span className="msg-reply-preview-text">{preview.slice(0, 80)}</span>
       </div>
-      <button className="msg-reply-preview-cancel" onClick={onCancel} aria-label="Cancel reply">
+      <button className="msg-reply-preview-cancel" onClick={onCancel} aria-label={t("messages.cancelReply")}>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
@@ -226,13 +234,14 @@ function ReactionPicker({ onPick, onClose }: { onPick: (e: string) => void; onCl
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function MSGImageCard({ content, metadata }: { content: any; metadata: any }) {
+  const { t } = useTranslation();
   const url = metadata?.url || content;
   const [loaded, setLoaded] = useState(false);
   return (
     <div className="msg-image-card">
       <img
         src={url}
-        alt={metadata?.filename || "Image"}
+        alt={metadata?.filename || t("messages.image")}
         className={`msg-image-thumb${loaded ? " msg-image-thumb--loaded" : ""}`}
         onLoad={() => setLoaded(true)}
         onClick={() => window.open(url, "_blank", "noopener,noreferrer")}
@@ -243,13 +252,14 @@ function MSGImageCard({ content, metadata }: { content: any; metadata: any }) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function MSGVerseCard({ metadata, isMine }: { metadata: any; isMine: boolean }) {
+  const { t } = useTranslation();
   if (!metadata) return null;
   const url = wolChapterUrl(metadata.book, metadata.chapter);
   return (
     <div className={`msg-verse-card${isMine ? " msg-verse-card--mine" : ""}`}>
       <div className="msg-verse-card-ref">📖 {metadata.ref}</div>
       {metadata.note && <p className="msg-verse-card-note">{metadata.note}</p>}
-      {url && <a href={url} target="_blank" rel="noopener noreferrer" className="msg-verse-card-link">View on WOL →</a>}
+      {url && <a href={url} target="_blank" rel="noopener noreferrer" className="msg-verse-card-link">{t("messages.viewOnWol")} →</a>}
     </div>
   );
 }
@@ -257,6 +267,7 @@ function MSGVerseCard({ metadata, isMine }: { metadata: any; isMine: boolean }) 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function MSGPlanCard({ metadata, isMine }: { metadata: any; isMine: boolean }) {
+  const { t } = useTranslation();
   if (!metadata) return null;
   const friendlyTitle = getTemplate(metadata.templateKey)?.name || metadata.title || metadata.templateKey;
   return (
@@ -264,7 +275,7 @@ function MSGPlanCard({ metadata, isMine }: { metadata: any; isMine: boolean }) {
       <span className="msg-plan-card-icon">📅</span>
       <div className="msg-plan-card-body">
         <div className="msg-plan-card-title">{friendlyTitle}</div>
-        <div className="msg-plan-card-sub">Reading Plan</div>
+        <div className="msg-plan-card-sub">{t("messages.readingPlan")}</div>
       </div>
     </div>
   );
@@ -274,6 +285,7 @@ function MSGPlanCard({ metadata, isMine }: { metadata: any; isMine: boolean }) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function TriviaInviteCard({ metadata, navigate }: { metadata: any; navigate: (page: string, params?: Record<string, unknown>) => void }) {
+  const { t } = useTranslation();
   const [expired, setExpired] = useState<boolean>(false);
   const [checked, setChecked] = useState(false);
 
@@ -301,9 +313,9 @@ function TriviaInviteCard({ metadata, navigate }: { metadata: any; navigate: (pa
   const { host_name, room_code, question_count, time_limit_seconds, has_timer, points_to_win } = metadata;
 
   const settingsParts: string[] = [
-    `${question_count ?? 10} questions`,
-    has_timer ? `${time_limit_seconds ?? 30}s timer` : "No timer",
-    points_to_win > 0 ? `${points_to_win} pts to win` : "",
+    t("messages.triviaQuestionsCount", { count: question_count ?? 10 }),
+    has_timer ? t("messages.triviaTimer", { seconds: time_limit_seconds ?? 30 }) : t("messages.triviaNoTimer"),
+    points_to_win > 0 ? t("messages.triviaPointsToWin", { count: points_to_win }) : "",
   ].filter(Boolean);
 
   return (
@@ -312,27 +324,27 @@ function TriviaInviteCard({ metadata, navigate }: { metadata: any; navigate: (pa
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M14.5 17.5L3 6V3h3l11.5 11.5" /><path d="M13 19l6-6" /><path d="M2 2l20 20" />
         </svg>
-        <span className="fc-trivia-card-title">Bible Trivia</span>
+        <span className="fc-trivia-card-title">{t("messages.bibleTrivia")}</span>
       </div>
       <p className="fc-trivia-card-host">
-        Invited by <strong>{host_name}</strong>
+        {t("messages.invitedBy")} <strong>{host_name}</strong>
       </p>
       <div className="fc-trivia-card-code-wrap">
-        <div className="fc-trivia-card-code-label">Room Code</div>
+        <div className="fc-trivia-card-code-label">{t("messages.roomCode")}</div>
         <div className="fc-trivia-card-code">{room_code}</div>
       </div>
       <p className="fc-trivia-card-settings">{settingsParts.join(" · ")}</p>
       {!checked ? (
         <div className="fc-trivia-card-spacer" />
       ) : expired ? (
-        <div className="fc-trivia-card-expired">Expired</div>
+        <div className="fc-trivia-card-expired">{t("messages.expired")}</div>
       ) : (
         <button
           type="button"
           onClick={() => navigate("trivia", { prefillCode: room_code })}
           className="fc-trivia-card-cta"
         >
-          Join
+          {t("messages.join")}
         </button>
       )}
     </div>
@@ -342,18 +354,18 @@ function TriviaInviteCard({ metadata, navigate }: { metadata: any; navigate: (pa
 // ── Theme + disappear constants ───────────────────────────────────────────────
 
 const MSG_THEME_COLORS = [
-  { label: "Default",  value: null },
-  { label: "Violet",   value: "var(--violet-600)" },
-  { label: "Indigo",   value: "var(--violet-800)" },
-  { label: "Lavender", value: "var(--violet-400)" },
-  { label: "Slate",    value: "var(--text-muted)" },
+  { labelKey: "messages.themeDefault",  value: null },
+  { labelKey: "messages.themeViolet",   value: "var(--violet-600)" },
+  { labelKey: "messages.themeIndigo",   value: "var(--violet-800)" },
+  { labelKey: "messages.themeLavender", value: "var(--violet-400)" },
+  { labelKey: "messages.themeSlate",    value: "var(--text-muted)" },
 ];
 
 const MSG_DISAPPEAR_OPTIONS = [
-  { label: "Off",     value: null },
-  { label: "24h",     value: 1 },
-  { label: "7 days",  value: 7 },
-  { label: "30 days", value: 30 },
+  { labelKey: "messages.disappearOff",    value: null },
+  { labelKey: "messages.disappear24h",    value: 1 },
+  { labelKey: "messages.disappear7days",  value: 7 },
+  { labelKey: "messages.disappear30days", value: 30 },
 ];
 
 // ── Starred panel ─────────────────────────────────────────────────────────────
@@ -365,7 +377,7 @@ function MSGStarredPanel({ convId, userId, onClose }: { convId: string; userId: 
   return (
     <div className="msg-overlay-panel">
       <div className="msg-overlay-header">
-        <button className="msg-overlay-back" onClick={onClose} aria-label="Back">
+        <button className="msg-overlay-back" onClick={onClose} aria-label={t("messages.back")}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
         <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -452,6 +464,7 @@ function MSGConvSettingsPanel({ convId, onClose, accentColor, onAccentChange }: 
   accentColor: string | null;
   onAccentChange: (color: string | null) => void;
 }) {
+  const { t } = useTranslation();
   const { data: settings } = useConvSettings(convId);
   const saveSettings = useSaveConvSettings(convId);
   const [theme, setTheme] = useState<string | null>(settings?.theme_accent ?? null);
@@ -473,43 +486,43 @@ function MSGConvSettingsPanel({ convId, onClose, accentColor, onAccentChange }: 
   return (
     <div className="msg-overlay-panel">
       <div className="msg-overlay-header">
-        <button className="msg-overlay-back" onClick={onClose} aria-label="Back">
+        <button className="msg-overlay-back" onClick={onClose} aria-label={t("messages.back")}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
         <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          Chat Settings
+          {t("messages.chatSettings")}
         </span>
       </div>
       <div className="msg-overlay-body">
         <div className="msg-settings-section">
-          <span className="msg-settings-label">🎨 Theme Color</span>
+          <span className="msg-settings-label">🎨 {t("messages.themeColor")}</span>
           <div className="msg-theme-swatches">
             {MSG_THEME_COLORS.map(tc => (
               <button
-                key={tc.label}
+                key={tc.labelKey}
                 className={`msg-swatch${theme === tc.value ? " msg-swatch--active" : ""}`}
                 style={{ background: tc.value ?? "linear-gradient(135deg, var(--teal), #5b21b6)" }}
-                title={tc.label}
+                title={t(tc.labelKey)}
                 onClick={() => setTheme(tc.value)}
               />
             ))}
           </div>
         </div>
         <div className="msg-settings-section">
-          <span className="msg-settings-label">⏱ Disappearing Messages</span>
+          <span className="msg-settings-label">⏱ {t("messages.disappearingMessages")}</span>
           <div className="msg-disappear-opts">
             {MSG_DISAPPEAR_OPTIONS.map(opt => (
               <button
-                key={opt.label}
+                key={opt.labelKey}
                 className={`msg-disappear-btn${disappear === opt.value ? " msg-disappear-btn--active" : ""}`}
                 onClick={() => setDisappear(opt.value)}
-              >{opt.label}</button>
+              >{t(opt.labelKey)}</button>
             ))}
           </div>
         </div>
         <button className="msg-settings-save" onClick={save} disabled={saveSettings.isPending}>
-          {saveSettings.isPending ? "Saving…" : "Save"}
+          {saveSettings.isPending ? t("messages.saving") : t("messages.save")}
         </button>
       </div>
     </div>
@@ -519,24 +532,24 @@ function MSGConvSettingsPanel({ convId, onClose, accentColor, onAccentChange }: 
 // ── Image upload warning modal ────────────────────────────────────────────────
 
 function MSGImageWarningModal({ file, onConfirm, onCancel }: { file: File | null; onConfirm: () => void; onCancel: () => void }) {
+  const { t } = useTranslation();
   const previewUrl = file ? URL.createObjectURL(file) : null;
   return (
     <div className="msg-modal-overlay" onClick={onCancel}>
-      <div className="msg-warn-modal" role="dialog" aria-modal="true" aria-label="Image upload warning" onClick={e => e.stopPropagation()}>
+      <div className="msg-warn-modal" role="dialog" aria-modal="true" aria-label={t("messages.imageWarningTitle")} onClick={e => e.stopPropagation()}>
         <div className="msg-warn-icon">⚠️</div>
-        <h3 className="msg-warn-title">Before you share</h3>
+        <h3 className="msg-warn-title">{t("messages.beforeYouShare")}</h3>
         <p className="msg-warn-body">
-          Please ensure this image is appropriate for a Bible study community.
-          <strong> Sharing explicit, offensive, or inappropriate content is strictly prohibited</strong> and
-          may result in account suspension.
+          {t("messages.imageWarningIntro")}
+          <strong> {t("messages.imageWarningProhibited")}</strong> {t("messages.imageWarningSuspension")}
         </p>
         {previewUrl && (
-          <img src={previewUrl} alt="Preview" className="msg-warn-preview" onLoad={() => URL.revokeObjectURL(previewUrl)} />
+          <img src={previewUrl} alt={t("messages.preview")} className="msg-warn-preview" onLoad={() => URL.revokeObjectURL(previewUrl)} />
         )}
-        <p className="msg-warn-agree">By continuing, you confirm this image is wholesome and appropriate.</p>
+        <p className="msg-warn-agree">{t("messages.imageWarningAgree")}</p>
         <div className="msg-warn-actions">
-          <button type="button" className="msg-warn-cancel" onClick={onCancel}>Cancel</button>
-          <button type="button" className="msg-warn-confirm" onClick={onConfirm}>Send Image</button>
+          <button type="button" className="msg-warn-cancel" onClick={onCancel}>{t("common.cancel")}</button>
+          <button type="button" className="msg-warn-confirm" onClick={onConfirm}>{t("messages.sendImage")}</button>
         </div>
       </div>
     </div>
@@ -546,6 +559,7 @@ function MSGImageWarningModal({ file, onConfirm, onCancel }: { file: File | null
 // ── Verse picker ──────────────────────────────────────────────────────────────
 
 function MSGVersePicker({ onSend, onClose }: { onSend: (v: Record<string, unknown>) => void; onClose: () => void }) {
+  const { t } = useTranslation();
   const [bookIdx, setBookIdx] = useState(0);
   const [chapter, setChapter] = useState(1);
   const [note, setNote] = useState("");
@@ -558,22 +572,22 @@ function MSGVersePicker({ onSend, onClose }: { onSend: (v: Record<string, unknow
   }
   return (
     <div className="msg-modal-overlay" onClick={onClose}>
-      <div className="msg-picker-modal" role="dialog" aria-modal="true" aria-label="Share Bible verse" onClick={e => e.stopPropagation()}>
+      <div className="msg-picker-modal" role="dialog" aria-modal="true" aria-label={t("messages.shareVerse")} onClick={e => e.stopPropagation()}>
         <div className="msg-picker-header">
-          <span>📖 Share Bible Verse</span>
-          <button className="msg-picker-close" onClick={onClose} aria-label="Close">
+          <span>📖 {t("messages.shareVerse")}</span>
+          <button className="msg-picker-close" onClick={onClose} aria-label={t("common.close")}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
         <div className="msg-picker-body">
-          <select className="msg-picker-select" value={bookIdx} onChange={e => { setBookIdx(+e.target.value); setChapter(1); }} aria-label="Select book">
+          <select className="msg-picker-select" value={bookIdx} onChange={e => { setBookIdx(+e.target.value); setChapter(1); }} aria-label={t("messages.selectBook")}>
             {BOOKS.map((b, i) => <option key={i} value={i}>{b.name}</option>)}
           </select>
-          <select className="msg-picker-select" value={chapter} onChange={e => setChapter(+e.target.value)} aria-label="Select chapter">
-            {Array.from({ length: chapterCount }, (_, i) => i + 1).map(c => <option key={c} value={c}>Chapter {c}</option>)}
+          <select className="msg-picker-select" value={chapter} onChange={e => setChapter(+e.target.value)} aria-label={t("messages.selectChapter")}>
+            {Array.from({ length: chapterCount }, (_, i) => i + 1).map(c => <option key={c} value={c}>{t("messages.chapterN", { number: c })}</option>)}
           </select>
-          <input className="msg-picker-input" placeholder="Add a note (optional)…" value={note} onChange={e => setNote(e.target.value)} maxLength={200} aria-label="Add a note" />
-          <button className="msg-picker-send" onClick={handleSend}>Share</button>
+          <input className="msg-picker-input" placeholder={t("messages.notePlaceholder")} value={note} onChange={e => setNote(e.target.value)} maxLength={200} aria-label={t("messages.addNote")} />
+          <button className="msg-picker-send" onClick={handleSend}>{t("messages.share")}</button>
         </div>
       </div>
     </div>
@@ -583,19 +597,20 @@ function MSGVersePicker({ onSend, onClose }: { onSend: (v: Record<string, unknow
 // ── Plan picker ───────────────────────────────────────────────────────────────
 
 function MSGPlanPicker({ onSend, onClose }: { onSend: (p: Record<string, unknown>) => void; onClose: () => void }) {
+  const { t } = useTranslation();
   const { data: plans = [] } = useMyPlans();
   return (
     <div className="msg-modal-overlay" onClick={onClose}>
-      <div className="msg-picker-modal" role="dialog" aria-modal="true" aria-label="Share reading plan" onClick={e => e.stopPropagation()}>
+      <div className="msg-picker-modal" role="dialog" aria-modal="true" aria-label={t("messages.shareReadingPlan")} onClick={e => e.stopPropagation()}>
         <div className="msg-picker-header">
-          <span>📅 Share Reading Plan</span>
-          <button className="msg-picker-close" onClick={onClose} aria-label="Close">
+          <span>📅 {t("messages.shareReadingPlan")}</span>
+          <button className="msg-picker-close" onClick={onClose} aria-label={t("common.close")}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
         <div className="msg-picker-body">
           {plans.length === 0 ? (
-            <p className="msg-picker-empty">No active reading plans found.</p>
+            <p className="msg-picker-empty">{t("messages.noActivePlans")}</p>
           ) : plans.map(plan => {
             const name = getTemplate(plan.template_key)?.name || plan.title || plan.template_key;
             return (
@@ -733,7 +748,7 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
               onChange={e => { setEditText(e.target.value); e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px"; }}
               onKeyDown={handleEditKeyDown}
               rows={2}
-              aria-label="Edit message"
+              aria-label={t("messages.editMessage")}
               disabled={saving}
             />
           ) : msg.message_type === "image" ? (
@@ -770,7 +785,7 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
                 )}
               </span>
             )}
-            {msg._optimistic && <span className="msg-upload-spinner msg-sending-spinner" aria-label="Sending" />}
+            {msg._optimistic && <span className="msg-upload-spinner msg-sending-spinner" aria-label={t("messages.sending")} />}
           </div>
         </div>
         <ReactionRow
@@ -794,7 +809,7 @@ const MessageBubble = memo(function MessageBubble({ msg, isMine, onDelete, onRep
           <button className="msg-action-btn" title={t("messages.reply")} onClick={() => onReply(msg)}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>
           </button>
-          <button className={`msg-action-btn${isStarred ? " msg-action-btn--active" : ""}`} title={isStarred ? "Unstar" : "Star"} onClick={() => onStar(msg.id)}>
+          <button className={`msg-action-btn${isStarred ? " msg-action-btn--active" : ""}`} title={isStarred ? t("messages.unstar") : t("messages.star")} onClick={() => onStar(msg.id)}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill={isStarred ? "#f59e0b" : "none"} stroke={isStarred ? "#f59e0b" : "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </button>
           {isMine && (
@@ -855,11 +870,11 @@ function MessageActionSheet({
   const sheet = (
     <>
       <div className="msg-sheet-backdrop" onClick={onClose} />
-      <div className="msg-sheet" role="dialog" aria-label="Message actions">
+      <div className="msg-sheet" role="dialog" aria-label={t("messages.messageActions")}>
         <div className="msg-sheet-grip" aria-hidden />
         <div className="msg-sheet-reactions">
           {QUICK_REACTIONS.map(em => (
-            <button key={em} className="msg-sheet-reaction" onClick={() => onReact(em)} aria-label={`React ${em}`}>
+            <button key={em} className="msg-sheet-reaction" onClick={() => onReact(em)} aria-label={t("messages.reactWith", { emoji: em })}>
               {em}
             </button>
           ))}
@@ -871,11 +886,11 @@ function MessageActionSheet({
           </button>
           <button className="msg-sheet-row" onClick={onCopy}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span>Copy</span>
+            <span>{t("messages.copy")}</span>
           </button>
           <button className="msg-sheet-row" onClick={onStar}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill={isStarred ? "#f59e0b" : "none"} stroke={isStarred ? "#f59e0b" : "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            <span>{isStarred ? "Unstar" : "Star"}</span>
+            <span>{isStarred ? t("messages.unstar") : t("messages.star")}</span>
           </button>
           {isMine && (
             <>
@@ -1007,7 +1022,7 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
             ? plainCache.get(cacheKey)
             : sharedKey
               ? await decryptMessage(msg.content, sharedKey)
-              : msg.content?.startsWith("enc:") ? "[🔒 Encrypted message]" : msg.content;
+              : msg.content?.startsWith("enc:") ? `[🔒 ${t("messages.encryptedMessage")}]` : msg.content;
           plainCache.set(cacheKey, decrypted as string);
           const built = { ...msg, content: decrypted, _new: knownIds.size > 0 && !knownIds.has(msg.id) };
           objCache.set(cacheKey, built);
@@ -1170,7 +1185,7 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
     sendMessage.mutate(payload, {
       onError: () => {
         if (tempId) setPendingMsgs(p => p.filter(m => m.id !== tempId));
-        setSendError("Message failed to send.");
+        setSendError(t("messages.failedToSend"));
         setFailedPayload(payload);
       },
     });
@@ -1273,12 +1288,12 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
   let presenceLine: React.ReactNode = null;
   if (isOtherTyping) presenceLine = null;
   else if (isOtherOnline) presenceLine = <span className="msg-presence-status msg-presence-status--online">{t("messages.online")}</span>;
-  else if (otherLastSeen) presenceLine = <span className="msg-presence-status">Last seen {timeAgo(otherLastSeen, t)}</span>;
+  else if (otherLastSeen) presenceLine = <span className="msg-presence-status">{t("messages.lastSeen", { time: timeAgo(otherLastSeen, t) })}</span>;
 
   return (
     <div className="msg-thread" style={(accentColor ? { "--conv-accent": accentColor } : {}) as React.CSSProperties}>
       <div className="msg-thread-header" style={{ paddingTop: "max(10px, env(safe-area-inset-top, 0px))" }}>
-        <button className="msg-back-btn" onClick={onBack} aria-label="Back to conversations">
+        <button className="msg-back-btn" onClick={onBack} aria-label={t("messages.backToConversations")}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
         <span style={{ cursor: "pointer" }} onClick={() => navigate("publicProfile", { userId: conv.other_user_id })}>
@@ -1297,13 +1312,13 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
           }
         </div>
         <div className="msg-header-actions">
-          <button className="msg-header-icon-btn" data-tip="Search" aria-label="Search messages" onClick={() => { setShowSearch(true); setShowStarred(false); setShowSettings(false); }}>
+          <button className="msg-header-icon-btn" data-tip={t("messages.search")} aria-label={t("messages.searchMessages")} onClick={() => { setShowSearch(true); setShowStarred(false); setShowSettings(false); }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
           </button>
-          <button className={`msg-header-icon-btn${showStarred ? " msg-header-icon-btn--active" : ""}`} data-tip="Starred" aria-label="Starred messages" onClick={() => { setShowStarred(s => !s); setShowSearch(false); setShowSettings(false); }}>
+          <button className={`msg-header-icon-btn${showStarred ? " msg-header-icon-btn--active" : ""}`} data-tip={t("messages.starred")} aria-label={t("messages.starredMessages")} onClick={() => { setShowStarred(s => !s); setShowSearch(false); setShowSettings(false); }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill={showStarred ? "#f59e0b" : "none"} stroke={showStarred ? "#f59e0b" : "currentColor"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           </button>
-          <button className={`msg-header-icon-btn${showSettings ? " msg-header-icon-btn--active" : ""}`} data-tip="Settings" aria-label="Chat settings" onClick={() => { setShowSettings(s => !s); setShowSearch(false); setShowStarred(false); }}>
+          <button className={`msg-header-icon-btn${showSettings ? " msg-header-icon-btn--active" : ""}`} data-tip={t("messages.settings")} aria-label={t("messages.chatSettings")} onClick={() => { setShowSettings(s => !s); setShowSearch(false); setShowStarred(false); }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
           </button>
           <button
@@ -1339,7 +1354,7 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
             <div className="msg-empty-thread">
               <span>👋</span>
               <strong>{t("messages.startConversation")}</strong>
-              <p>{t("messages.sayHelloTo")} {conv.other_display_name || t("messages.user")}!</p>
+              <p>{t("messages.sayHelloToName", { name: conv.other_display_name || t("messages.user") })}</p>
             </div>
           ) : (
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -1394,15 +1409,15 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
             setShowNewMsgChip(false);
           }}
         >
-          ↓ New message
+          ↓ {t("messages.newMessage")}
         </button>
       )}
 
       {sendError && (
         <div className="msg-send-error">
           <span>{sendError}</span>
-          <button type="button" className="msg-send-retry-btn" onClick={() => failedPayload && doSend(failedPayload)} disabled={sendMessage.isPending}>Retry</button>
-          <button type="button" className="msg-send-error-dismiss" onClick={() => { setSendError(null); setFailedPayload(null); }} aria-label="Dismiss">
+          <button type="button" className="msg-send-retry-btn" onClick={() => failedPayload && doSend(failedPayload)} disabled={sendMessage.isPending}>{t("messages.retry")}</button>
+          <button type="button" className="msg-send-error-dismiss" onClick={() => { setSendError(null); setFailedPayload(null); }} aria-label={t("messages.dismiss")}>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
@@ -1413,17 +1428,17 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
         {nearLimit && <div className="msg-char-count">{input.length} / 2000</div>}
 
         <div className="msg-composer-icons">
-          <button type="button" className="msg-composer-icon-btn" onClick={() => fileRef.current?.click()} aria-label="Share image">
+          <button type="button" className="msg-composer-icon-btn" onClick={() => fileRef.current?.click()} aria-label={t("messages.shareImage")}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
             </svg>
           </button>
-          <button type="button" className="msg-composer-icon-btn" onClick={() => setShowVersePicker(true)} aria-label="Share Bible verse">
+          <button type="button" className="msg-composer-icon-btn" onClick={() => setShowVersePicker(true)} aria-label={t("messages.shareVerse")}>
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
             </svg>
           </button>
-          <button type="button" className="msg-composer-icon-btn" onClick={() => setShowPlanPicker(true)} aria-label="Share reading plan">
+          <button type="button" className="msg-composer-icon-btn" onClick={() => setShowPlanPicker(true)} aria-label={t("messages.shareReadingPlan")}>
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
             </svg>
@@ -1433,17 +1448,17 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
           <textarea
             ref={inputRef}
             className="msg-input"
-            placeholder={isEncrypted ? "🔒 Message (encrypted)…" : "Aa"}
+            placeholder={isEncrypted ? `🔒 ${t("messages.messageEncrypted")}` : t("messages.composerPlaceholder")}
             value={input}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             rows={1}
             maxLength={MAX_MSG_LENGTH}
             autoFocus
-            aria-label="Type a message"
+            aria-label={t("messages.typeMessage")}
           />
           <div className="msg-emoji-wrap" ref={emojiRef}>
-            <button type="button" className="msg-emoji-pill-btn" onClick={() => setShowEmoji(s => !s)} aria-label="Emoji">
+            <button type="button" className="msg-emoji-pill-btn" onClick={() => setShowEmoji(s => !s)} aria-label={t("messages.emoji")}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"/><path d="M8 13s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>
               </svg>
@@ -1458,9 +1473,9 @@ export function ThreadView({ conv, user, keyPair, onBack, soundEnabled, setSound
           </div>
         </div>
         <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/gif,image/webp" style={{ display: "none" }} onChange={handleFileChange} />
-        <button className="msg-send-btn" type="submit" disabled={sendMessage.isPending || uploading} aria-label={input.trim() ? "Send" : "Like"}>
+        <button className="msg-send-btn" type="submit" disabled={sendMessage.isPending || uploading} aria-label={input.trim() ? t("messages.send") : t("messages.like")}>
           {uploading ? (
-            <span className="msg-upload-spinner" aria-label="Uploading" />
+            <span className="msg-upload-spinner" aria-label={t("messages.uploading")} />
           ) : input.trim() ? (
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="white" stroke="none"/>

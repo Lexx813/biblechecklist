@@ -1,5 +1,20 @@
 import { NextResponse } from "next/server";
+import { timingSafeEqual } from "crypto";
 import { submitToIndexNow } from "../../../src/lib/indexnow";
+
+/**
+ * Constant-time secret check. Returns false (fail closed) when the env secret
+ * is unset, the provided secret is missing, or the lengths differ — guarding
+ * the length mismatch first so timingSafeEqual never throws.
+ */
+function secretMatches(provided: string | null): boolean {
+  const expected = process.env.INDEXNOW_SECRET;
+  if (!expected || !provided) return false;
+  const a = Buffer.from(provided);
+  const b = Buffer.from(expected);
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(a, b);
+}
 
 /**
  * Internal endpoint for triggering IndexNow submissions after publish events.
@@ -18,7 +33,7 @@ import { submitToIndexNow } from "../../../src/lib/indexnow";
  */
 export async function POST(request: Request) {
   const secret = request.headers.get("x-indexnow-secret");
-  if (!secret || secret !== process.env.INDEXNOW_SECRET) {
+  if (!secretMatches(secret)) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 

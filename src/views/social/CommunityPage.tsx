@@ -4,6 +4,7 @@ import { ONLINE_THRESHOLD_MS } from "../../hooks/useOnlineMembers";
 import { useCommunityMembers, useOnlineCount, type CommunityFilter, type CommunityMember } from "../../hooks/useCommunityMembers";
 import { avatarGradient } from "../../lib/avatarGradient";
 import { fmtDiff } from "../../lib/timeFormat";
+import { makeTablistKeyHandler } from "../../lib/a11y/useTablistKeys";
 
 const PAGE_SIZE = 24;
 
@@ -49,6 +50,8 @@ export default function CommunityPage({ navigate }: Props) {
   const hasMore = page < totalPages - 1;
   const hasPrev = page > 0;
 
+  const filterKeyDown = makeTablistKeyHandler<CommunityFilter>(["all", "online"], filter, setFilter);
+
   const rangeLabel = useMemo(() => {
     if (total === 0) return null;
     const start = page * PAGE_SIZE + 1;
@@ -78,8 +81,8 @@ export default function CommunityPage({ navigate }: Props) {
 
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
         <div role="tablist" aria-label={t("community.filterLabel", "Filter members")} className="inline-flex shrink-0 rounded-full border border-[var(--border)] bg-white/[0.03] p-1 [html[data-theme=light]_&]:bg-white">
-          <FilterTab active={filter === "all"} onClick={() => setFilter("all")} label={t("community.tabAll", "Everyone")} />
-          <FilterTab active={filter === "online"} onClick={() => setFilter("online")} label={t("community.tabOnline", "Online")} badge={onlineCount > 0 ? onlineCount : undefined} />
+          <FilterTab id="community-tab-all" controls="community-tabpanel" active={filter === "all"} onClick={() => setFilter("all")} onKeyDown={filterKeyDown} label={t("community.tabAll", "Everyone")} />
+          <FilterTab id="community-tab-online" controls="community-tabpanel" active={filter === "online"} onClick={() => setFilter("online")} onKeyDown={filterKeyDown} label={t("community.tabOnline", "Online")} badge={onlineCount > 0 ? onlineCount : undefined} />
         </div>
 
         <label className="relative flex-1">
@@ -118,6 +121,7 @@ export default function CommunityPage({ navigate }: Props) {
         </div>
       )}
 
+      <div id="community-tabpanel" role="tabpanel" aria-labelledby={`community-tab-${filter}`}>
       {isError ? (
         <EmptyBlock title={t("community.errorTitle", "Could not load members")} sub={t("community.errorSub", "Refresh to try again.")} />
       ) : isLoading && rows.length === 0 ? (
@@ -136,6 +140,7 @@ export default function CommunityPage({ navigate }: Props) {
           ))}
         </MemberGrid>
       )}
+      </div>
 
       {(hasPrev || hasMore) && (
         <div className="mt-8 flex items-center justify-between gap-3">
@@ -253,12 +258,16 @@ function MemberSkeleton() {
   );
 }
 
-function FilterTab({ active, onClick, label, badge }: { active: boolean; onClick: () => void; label: string; badge?: number }) {
+function FilterTab({ active, onClick, label, badge, id, controls, onKeyDown }: { active: boolean; onClick: () => void; label: string; badge?: number; id?: string; controls?: string; onKeyDown?: (e: React.KeyboardEvent<HTMLElement>) => void }) {
   return (
     <button
       role="tab"
+      id={id}
+      aria-controls={controls}
       aria-selected={active}
+      tabIndex={active ? 0 : -1}
       onClick={onClick}
+      onKeyDown={onKeyDown}
       className={`cursor-pointer rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
         active
           ? "bg-violet-600 text-white"
