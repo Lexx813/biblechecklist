@@ -1,10 +1,10 @@
 # OG Per-Route Audit
 
-_Generated 2026-05-12_
+_Generated 2026-06-09_
 
-**Routes audited:** 8
+**Routes audited:** 9
 **Using default OG:** 1
-**Per-page OG:** 7
+**Per-page OG:** 8
 
 | Route | Status | OG title | OG status |
 |---|---|---|---|
@@ -16,3 +16,4 @@ _Generated 2026-05-12_
 | /books | 200 | All 66 Bible Books — NWT Study Guides \| JW Study | per-page |
 | /plans | 200 | NWT Bible Reading Plans \| JW Study | per-page |
 | /promo | 200 | AI Study Companion, JW Study | per-page |
+| /messianic-prophecies | 200 | 44 Messianic Prophecies Fulfilled in Jesus \| JW Study | per-page |

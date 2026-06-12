@@ -60,6 +60,20 @@ export interface AdminAuditEntry {
   actor: { display_name: string | null; email: string | null } | null;
 }
 
+export interface DeletedAccountEntry {
+  id: string;
+  user_id: string | null;
+  email: string | null;
+  display_name: string | null;
+  deletion_type: "self" | "admin";
+  deleted_by: string | null;
+  deleted_by_name: string | null;
+  deleted_by_email: string | null;
+  ip: string | null;
+  user_agent: string | null;
+  created_at: string;
+}
+
 export const adminApi = {
   // Both reads go through SECURITY DEFINER RPCs that re-check is_admin() —
   // direct column SELECT on email / stripe_* / subscription_status is revoked
@@ -194,6 +208,12 @@ export const adminApi = {
         ? { display_name: r.actor_display_name, email: r.actor_email }
         : null,
     }));
+  },
+
+  listDeletedAccounts: async ({ limit = 200, offset = 0 }: { limit?: number; offset?: number } = {}): Promise<DeletedAccountEntry[]> => {
+    const { data, error } = await supabase.rpc("admin_list_deleted_accounts", { p_limit: limit, p_offset: offset });
+    if (error) throw new Error(error.message);
+    return (data ?? []) as DeletedAccountEntry[];
   },
 };
 

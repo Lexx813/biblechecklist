@@ -209,6 +209,14 @@ export function useAdminAuditLog({ limit = 100, offset = 0 }: { limit?: number; 
   });
 }
 
+export function useDeletedAccounts({ limit = 200, offset = 0 }: { limit?: number; offset?: number } = {}) {
+  return useQuery({
+    queryKey: ["admin", "deletedAccounts", limit, offset],
+    queryFn: () => adminApi.listDeletedAccounts({ limit, offset }),
+    staleTime: 30 * 1000,
+  });
+}
+
 export function useAllQuizQuestions() {
   return useQuery({
     queryKey: ["admin", "quizQuestions"],

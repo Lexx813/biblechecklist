@@ -44,12 +44,12 @@ export async function DELETE(req: Request): Promise<Response> {
   };
 
   // Light rate limit: 3 self-deletes per IP per minute. Prevents accidental
-  // double-clicks looping and gives the audit log a clean signal.
+  // double-clicks looping and gives the deletion record a clean signal.
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
   if (ip) {
     const oneMinAgo = new Date(Date.now() - 60_000).toISOString();
     const rateRes = await fetch(
-      `${SUPABASE_URL}/rest/v1/admin_actions?action=eq.self_delete&ip=eq.${encodeURIComponent(ip)}&created_at=gte.${oneMinAgo}&select=id`,
+      `${SUPABASE_URL}/rest/v1/deleted_accounts?deletion_type=eq.self&ip=eq.${encodeURIComponent(ip)}&created_at=gte.${oneMinAgo}&select=id`,
       { headers: { ...serviceHeaders, Prefer: "count=exact" } },
     );
     if (rateRes.ok) {
@@ -59,6 +59,21 @@ export async function DELETE(req: Request): Promise<Response> {
         return NextResponse.json({ error: "Too many deletion attempts. Try again in a minute." }, { status: 429 });
       }
     }
+  }
+
+  // Capture the email + name BEFORE deletion — the profile row is cascade-deleted
+  // with the auth user, so it has to be read while it still exists. Service role
+  // bypasses RLS / the revoked column grant on `email`.
+  let deletedEmail: string | null = null;
+  let deletedName: string | null = null;
+  const profileRes = await fetch(
+    `${SUPABASE_URL}/rest/v1/profiles?select=email,display_name&id=eq.${callerId}&limit=1`,
+    { headers: serviceHeaders },
+  );
+  if (profileRes.ok) {
+    const [row] = (await profileRes.json().catch(() => [])) as Array<{ email?: string; display_name?: string }>;
+    deletedEmail = row?.email ?? null;
+    deletedName = row?.display_name ?? null;
   }
 
   const deleteRes = await fetch(`${SUPABASE_URL}/auth/v1/admin/users/${callerId}`, {
@@ -74,15 +89,18 @@ export async function DELETE(req: Request): Promise<Response> {
     );
   }
 
-  // Audit log (best-effort, non-blocking). admin_id is the caller themselves
-  // for self-deletes; action=self_delete distinguishes from admin-initiated.
-  fetch(`${SUPABASE_URL}/rest/v1/admin_actions`, {
+  // Record the deletion so the email survives the cascade (best-effort,
+  // non-blocking). deletion_type=self; deleted_by is null since the user
+  // removed their own account.
+  fetch(`${SUPABASE_URL}/rest/v1/deleted_accounts`, {
     method: "POST",
     headers: { ...serviceHeaders, "Content-Type": "application/json", Prefer: "return=minimal" },
     body: JSON.stringify({
-      admin_id: callerId,
-      action: "self_delete",
-      target_id: callerId,
+      user_id: callerId,
+      email: deletedEmail,
+      display_name: deletedName,
+      deletion_type: "self",
+      deleted_by: null,
       ip,
       user_agent: req.headers.get("user-agent") ?? null,
     }),

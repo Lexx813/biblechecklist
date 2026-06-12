@@ -10,6 +10,7 @@ import { ReportsTab, BlogTab, ForumTab, ForumCategoriesTab, BlogCommentsTab } fr
 import { QuizTab, QuizStatsTab } from "./tabs/QuizTabs";
 import { AnnouncementsTab } from "./tabs/AnnouncementsTab";
 import { AuditLogTab } from "./tabs/AuditLogTab";
+import { DeletedAccountsTab } from "./tabs/DeletedAccountsTab";
 // Lazy: heavy tabs (recharts, complex editors, large data tables).
 // Wrapped as default exports so React.lazy() can consume the named exports.
 const AnalyticsTab = lazy(() => import("./tabs/AnalyticsTab").then(m => ({ default: m.AnalyticsTab })));
@@ -169,6 +170,8 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
       icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> },
     { id: "auditLog", adminOnly: true, label: "Audit Log",
       icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> },
+    { id: "deletedAccounts", adminOnly: true, label: "Deleted Accounts",
+      icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="8" x2="22" y2="13"/><line x1="22" y1="8" x2="17" y2="13"/></svg> },
     { id: "creators", adminOnly: true, label: "Creators",
       icon: <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg> },
     { id: "videos", adminOnly: true, label: "Videos",
@@ -284,6 +287,7 @@ export default function AdminPage({ currentUser, currentProfile, onBack, navigat
           {tab === "forumCats"     && isCurrentUserAdmin && <div className="admin-section"><ForumCategoriesTab /></div>}
           {tab === "announcements" && isCurrentUserAdmin && <div className="admin-section" style={{padding: 20}}><AnnouncementsTab currentUser={currentUser} /></div>}
           {tab === "auditLog"      && isCurrentUserAdmin && <div className="admin-section"><AuditLogTab /></div>}
+          {tab === "deletedAccounts" && isCurrentUserAdmin && <div className="admin-section"><DeletedAccountsTab /></div>}
           {tab === "creators"      && isCurrentUserAdmin && <CreatorsTab />}
           {tab === "videos"        && isCurrentUserAdmin && <div className="admin-section"><VideosTab /></div>}
           {tab === "analytics"     && isCurrentUserAdmin && <AnalyticsTab />}

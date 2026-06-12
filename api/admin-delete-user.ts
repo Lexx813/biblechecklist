@@ -73,7 +73,7 @@ export default async function handler(req: Request): Promise<Response> {
   };
   const oneMinAgo = new Date(Date.now() - 60_000).toISOString();
   const rateRes = await fetch(
-    `${SUPABASE_URL}/rest/v1/admin_actions?admin_id=eq.${callerId}&action=eq.delete_user&created_at=gte.${oneMinAgo}&select=id`,
+    `${SUPABASE_URL}/rest/v1/deleted_accounts?deleted_by=eq.${callerId}&deletion_type=eq.admin&created_at=gte.${oneMinAgo}&select=id`,
     { headers: { ...serviceHeaders, Prefer: "count=exact" } },
   );
   if (rateRes.ok) {
@@ -82,6 +82,21 @@ export default async function handler(req: Request): Promise<Response> {
     if (recent >= 10) {
       return json({ error: "Too many deletions. Slow down." }, 429);
     }
+  }
+
+  // ── Capture email + name BEFORE deletion ───────────────────────────────────
+  // The profile row is cascade-deleted with the auth user, so read it while it
+  // still exists. Service role bypasses RLS / the revoked grant on `email`.
+  let deletedEmail: string | null = null;
+  let deletedName: string | null = null;
+  const targetRes = await fetch(
+    `${SUPABASE_URL}/rest/v1/profiles?select=email,display_name&id=eq.${userId}&limit=1`,
+    { headers: serviceHeaders },
+  );
+  if (targetRes.ok) {
+    const [row] = (await targetRes.json().catch(() => [])) as Array<{ email?: string; display_name?: string }>;
+    deletedEmail = row?.email ?? null;
+    deletedName = row?.display_name ?? null;
   }
 
   // ── Delete via Admin API (service role) ────────────────────────────────────
@@ -95,14 +110,17 @@ export default async function handler(req: Request): Promise<Response> {
     return json({ error: err.message ?? "Failed to delete user" }, deleteRes.status);
   }
 
-  // ── Audit log (best-effort — never blocks the response) ────────────────────
-  fetch(`${SUPABASE_URL}/rest/v1/admin_actions`, {
+  // ── Record the deletion (best-effort — never blocks the response) ──────────
+  // deletion_type=admin; deleted_by is the admin who performed it.
+  fetch(`${SUPABASE_URL}/rest/v1/deleted_accounts`, {
     method: "POST",
     headers: { ...serviceHeaders, "Content-Type": "application/json", Prefer: "return=minimal" },
     body: JSON.stringify({
-      admin_id: callerId,
-      action: "delete_user",
-      target_id: userId,
+      user_id: userId,
+      email: deletedEmail,
+      display_name: deletedName,
+      deletion_type: "admin",
+      deleted_by: callerId,
       ip: req.headers.get("x-forwarded-for") ?? null,
       user_agent: req.headers.get("user-agent") ?? null,
     }),
