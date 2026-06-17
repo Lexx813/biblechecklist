@@ -14,6 +14,8 @@ export interface ChatContext {
   bookIndex?: number;
   bookName?: string;
   chapter?: number;
+  /** UI language code (en/es/pt/fr/tl/zh) — the Companion replies in this language. */
+  lang?: string;
 }
 
 export interface SongFormPrefill {

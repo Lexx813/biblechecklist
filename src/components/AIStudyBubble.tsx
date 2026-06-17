@@ -176,6 +176,24 @@ function AIStudyBubble({ context }: { context?: ChatContext }) {
     return () => document.removeEventListener("keydown", handler);
   }, [open]);
 
+  // Open from anywhere via a window event. Contextual "Ask the Companion" CTAs
+  // (verse modal, note editor, meeting prep, etc.) dispatch `ai:open` with an
+  // optional pre-filled prompt. We prefill the input and never auto-send — the
+  // user stays in control, same posture as the ?ask= deep link.
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent).detail as { prompt?: string } | undefined;
+      setOpen(true);
+      if (detail && typeof detail.prompt === "string") {
+        setInput(detail.prompt.slice(0, 500));
+      }
+      trackFeatureUse("ai_bubble_opened_via_cta");
+      setTimeout(() => inputRef.current?.focus(), 140);
+    };
+    window.addEventListener("ai:open", handler as EventListener);
+    return () => window.removeEventListener("ai:open", handler as EventListener);
+  }, []);
+
   const submit = useCallback(() => {
     const q = input.trim();
     if (!q || loading) return;

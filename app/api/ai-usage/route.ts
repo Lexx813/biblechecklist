@@ -16,10 +16,10 @@ const SUPABASE_URL  = (process.env.NEXT_PUBLIC_SUPABASE_URL  ?? "").trim();
 const SUPABASE_ANON = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim();
 const SUPABASE_SERVICE = (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim();
 
-// Mirror /api/ai-chat caps. If those change, change here.
-const PER_MINUTE_REQUEST_CAP = 6;
-const DAILY_INPUT_TOKEN_CAP  = 100_000;
-const DAILY_OUTPUT_TOKEN_CAP = 30_000;
+// Mirror the regular-user caps in /api/ai-chat/route.ts. If those change, change here.
+const PER_MINUTE_REQUEST_CAP = 45;
+const DAILY_INPUT_TOKEN_CAP  = 900_000;
+const DAILY_OUTPUT_TOKEN_CAP = 300_000;
 
 function supabaseHeaders() {
   return {

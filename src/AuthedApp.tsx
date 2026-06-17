@@ -386,7 +386,8 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
   useEffect(() => { setSubPage(null); }, [nav.page]);
 
   const aiContext = useMemo(() => {
-    const ctx: { page: string; subPage?: string; bookIndex?: number; bookName?: string; chapter?: number } = { page: nav.page };
+    const ctx: { page: string; subPage?: string; bookIndex?: number; bookName?: string; chapter?: number; lang?: string } = { page: nav.page };
+    ctx.lang = (i18n.language ?? "en").slice(0, 2);
     if (subPage) ctx.subPage = subPage;
     if ("bookIndex" in nav && typeof nav.bookIndex === "number") {
       ctx.bookIndex = nav.bookIndex;
@@ -400,7 +401,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
       ctx.chapter = nav.openChapter;
     }
     return ctx;
-  }, [nav, subPage]);
+  }, [nav, subPage, i18n.language]);
 
   let pageContent = null;
   if (nav.page === "home") pageContent = <Page><HomePage user={user} navigate={navigate} onLogout={onLogout} darkMode={darkMode} setDarkMode={setDarkMode} i18n={i18n} panelRequest={homePanelRequest} onPanelConsumed={() => setHomePanelRequest(null)} onActivePanelChange={setHomeActivePanel} /></Page>;
@@ -558,7 +559,7 @@ function BibleApp({ user, onLogout, i18n, aiEnabled }) {
             />
           </Suspense>
         )}
-        {mobileShellPage !== "messages" && ["en", "es"].includes((i18n.language ?? "en").slice(0, 2)) && (
+        {mobileShellPage !== "messages" && ["en", "es", "pt", "fr", "tl", "zh"].includes((i18n.language ?? "en").slice(0, 2)) && (
           <Suspense fallback={null}>
             <AIStudyBubble context={aiContext} />
           </Suspense>
