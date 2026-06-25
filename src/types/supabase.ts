@@ -402,6 +402,50 @@ export type Database = {
           },
         ]
       }
+      blog_reads: {
+        Row: {
+          active_seconds: number
+          created_at: string
+          id: string
+          max_scroll_pct: number
+          post_id: string
+          qualified: boolean
+          session_id: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          active_seconds?: number
+          created_at?: string
+          id?: string
+          max_scroll_pct?: number
+          post_id: string
+          qualified?: boolean
+          session_id: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          active_seconds?: number
+          created_at?: string
+          id?: string
+          max_scroll_pct?: number
+          post_id?: string
+          qualified?: boolean
+          session_id?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_reads_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bookmarks: {
         Row: {
           created_at: string

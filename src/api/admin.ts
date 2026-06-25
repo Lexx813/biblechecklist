@@ -307,4 +307,32 @@ export const analyticsApi = {
   async getBookHeatmap(): Promise<{ bookIndex: number; pct: number }[]> {
     return callRpc<{ bookIndex: number; pct: number }[]>("admin_get_book_heatmap");
   },
+
+  // Blog reading engagement — opens vs qualified reads (≥70% scrolled, ≥30 active
+  // seconds), per-post completion rates, and a daily reads series.
+  async getBlogAnalytics(days = 30): Promise<BlogAnalytics> {
+    return callRpc<BlogAnalytics>("admin_get_blog_analytics", { p_days: days });
+  },
 };
+
+export interface BlogAnalytics {
+  summary: {
+    totalReads: number;
+    qualifiedReads: number;
+    avgCompletionPct: number;
+    avgActiveSeconds: number;
+    readers: number;
+  };
+  topPosts: Array<{
+    id: string;
+    title: string;
+    slug: string;
+    views: number;
+    total_reads: number;
+    qualified_reads: number;
+    avg_completion_pct: number;
+    avg_active_seconds: number;
+    completion_rate: number;
+  }>;
+  readsSeries: Array<{ date: string; count: number; qualified: number }>;
+}

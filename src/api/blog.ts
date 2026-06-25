@@ -128,6 +128,29 @@ export const blogApi = {
     if (error) console.error("View count error:", error.message);
   },
 
+  // Records/updates a read session (scroll depth + active seconds). Idempotent
+  // server-side via (session_id, post_id) upsert that keeps the running max, so
+  // it's safe to call repeatedly on tab-hide / unmount. Best-effort: analytics
+  // must never block or break the reading experience.
+  recordBlogRead: async (
+    postId: string,
+    maxScrollPct: number,
+    activeSeconds: number,
+    sessionId: string,
+  ) => {
+    try {
+      const { error } = await supabase.rpc("record_blog_read", {
+        p_post_id: postId,
+        p_max_scroll_pct: maxScrollPct,
+        p_active_seconds: activeSeconds,
+        p_session_id: sessionId,
+      });
+      if (error) console.error("record_blog_read error:", error.message);
+    } catch (e) {
+      console.error("record_blog_read failed:", e);
+    }
+  },
+
   listMine: async (userId: string) => {
     const { data, error } = await supabase
       .from("blog_posts")

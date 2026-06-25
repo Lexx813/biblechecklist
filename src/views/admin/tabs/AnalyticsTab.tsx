@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAnalytics, useFeatureLeaders, useGrowthSeries, type GrowthBucket } from "../../../hooks/useAdmin";
+import { useAnalytics, useBlogAnalytics, useFeatureLeaders, useGrowthSeries, type GrowthBucket } from "../../../hooks/useAdmin";
 import { VIOLET_600 } from "../../../lib/colors";
 import { BOOKS } from "../../../data/books";
 import {
@@ -118,6 +118,140 @@ function relTime(s: string | null | undefined): string {
   if (days < 30) return `${days}d ago`;
   const months = Math.floor(days / 30);
   return `${months}mo ago`;
+}
+
+function fmtDuration(seconds: number): string {
+  const s = Math.max(0, Math.round(seconds));
+  if (s < 60) return `${s}s`;
+  const m = Math.floor(s / 60);
+  const rem = s % 60;
+  return rem ? `${m}m ${rem}s` : `${m}m`;
+}
+
+// Maps the shared range pill to a day window for the blog reads query.
+const RANGE_DAYS: Record<string, number> = { "7d": 7, "30d": 30, "90d": 90, "1y": 365 };
+
+// ── Blog reading engagement ───────────────────────────────────────────────────
+// `view_count` counts opens; this section answers "are people actually reading?"
+// via qualified reads (≥70% scrolled AND ≥30 active seconds) and per-post
+// completion rates. Data comes from admin_get_blog_analytics (blog_reads table).
+function BlogEngagementSection({ days }: { days: number }) {
+  const { data, isLoading } = useBlogAnalytics(days);
+  const t = useChartTheme();
+
+  if (isLoading && !data) {
+    return <div className="skeleton" style={{ height: 280, borderRadius: 14 }} />;
+  }
+  if (!data) return null;
+
+  const { summary, topPosts, readsSeries } = data;
+  const readRate = summary.totalReads > 0
+    ? Math.round((summary.qualifiedReads / summary.totalReads) * 100)
+    : 0;
+
+  return (
+    <>
+      <SectionHeader title="Blog Engagement" />
+      <div className="an-kpi-row">
+        <KpiCard
+          label="Qualified Reads"
+          value={summary.qualifiedReads.toLocaleString()}
+          deltaLabel={`${readRate}% of reads · last ${days}d`}
+          accent={t.purple}
+          spark={readsSeries.slice(-14).map(r => r.qualified)}
+        />
+        <KpiCard
+          label="Total Read Sessions"
+          value={summary.totalReads.toLocaleString()}
+          deltaLabel="opens that scrolled"
+          accent={t.teal}
+          spark={readsSeries.slice(-14).map(r => r.count)}
+        />
+        <KpiCard
+          label="Avg Completion"
+          value={`${summary.avgCompletionPct}%`}
+          deltaLabel="scroll depth reached"
+          accent={t.purpleLight}
+        />
+        <KpiCard
+          label="Avg Read Time"
+          value={fmtDuration(summary.avgActiveSeconds)}
+          deltaLabel="active, tab-visible"
+          accent={t.amber}
+        />
+        <KpiCard
+          label="Readers"
+          value={summary.readers.toLocaleString()}
+          deltaLabel={`last ${days} days`}
+          accent={t.green}
+        />
+      </div>
+
+      <ChartCard title={`Reads Over Time · last ${days}d (qualified vs total)`}>
+        <ResponsiveContainer width="100%" height={180}>
+          <AreaChart data={readsSeries} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
+            <defs>
+              <AreaGradient id="readsTotalGrad" color={t.teal} />
+              <AreaGradient id="readsQualGrad" color={t.purple} />
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke={t.grid} vertical={false} />
+            <XAxis dataKey="date" tick={{ fill: t.tick, fontSize: 10 }} tickLine={false} axisLine={false} minTickGap={16}
+              tickFormatter={(d) => { const dt = new Date(d + "T00:00:00"); return `${dt.getMonth() + 1}/${dt.getDate()}`; }} />
+            <YAxis tick={{ fill: t.tick, fontSize: 10 }} tickLine={false} axisLine={false} allowDecimals={false} width={32} />
+            <Tooltip cursor={t.tooltip.cursor} contentStyle={t.tooltip.contentStyle} itemStyle={t.tooltip.itemStyle} />
+            <Area type="monotone" dataKey="count" name="Total" stroke={t.teal} strokeWidth={2} fill="url(#readsTotalGrad)" isAnimationActive animationDuration={900} />
+            <Area type="monotone" dataKey="qualified" name="Qualified" stroke={t.purple} strokeWidth={2.2} fill="url(#readsQualGrad)" isAnimationActive animationDuration={900} />
+          </AreaChart>
+        </ResponsiveContainer>
+      </ChartCard>
+
+      <ChartCard title="Top Posts by Qualified Reads">
+        {topPosts.length === 0 ? (
+          <p style={{ padding: 24, textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>
+            No reads recorded yet in this window.
+          </p>
+        ) : (
+          <div className="admin-table-wrap">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Post</th>
+                  <th>Opens</th>
+                  <th>Qualified</th>
+                  <th>Completion</th>
+                  <th>Avg scroll</th>
+                  <th>Avg time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {topPosts.map((p, i) => (
+                  <tr key={p.id}>
+                    <td><strong>{i + 1}</strong></td>
+                    <td>
+                      <a href={`/blog/${p.slug}`} target="_blank" rel="noopener noreferrer"
+                        style={{ color: "var(--text)", textDecoration: "none" }}>
+                        {p.title}
+                      </a>
+                    </td>
+                    <td>{p.views.toLocaleString()}</td>
+                    <td><strong>{p.qualified_reads.toLocaleString()}</strong></td>
+                    <td>
+                      <span style={{ color: p.completion_rate >= 40 ? t.green : p.completion_rate >= 15 ? t.amber : "var(--text-muted)" }}>
+                        {p.completion_rate}%
+                      </span>
+                    </td>
+                    <td style={{ color: "var(--text-muted)" }}>{p.avg_completion_pct}%</td>
+                    <td style={{ color: "var(--text-muted)" }}>{fmtDuration(p.avg_active_seconds)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </ChartCard>
+    </>
+  );
 }
 
 function FeatureLeadersPanel({ feature, onClose }: { feature: string; onClose: () => void }) {
@@ -384,6 +518,9 @@ export function AnalyticsTab() {
           <FeatureLeadersPanel feature={drillFeature} onClose={() => setDrillFeature(null)} />
         )}
       </ChartCard>
+
+      {/* Blog Engagement — driven by the same range pill */}
+      <BlogEngagementSection days={RANGE_DAYS[rangeKey] ?? 30} />
 
       {/* Retention Cohorts */}
       <ChartCard title="Retention by Signup Cohort (active in last 7 days)">
