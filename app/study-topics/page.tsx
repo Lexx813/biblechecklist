@@ -73,6 +73,19 @@ export default function StudyTopicsPage() {
       </header>
 
       <main className="px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+        <p className="mb-10 max-w-3xl text-base leading-relaxed text-slate-600 dark:text-slate-300">
+          Each guide answers a common Bible question from the perspective of the
+          New World Translation, citing the relevant scriptures so you can verify
+          every point for yourself — the identity of God and Jesus, the condition
+          of the dead, the soul, God&apos;s Kingdom, and more. For a study of how
+          the Hebrew Scriptures point to Jesus, see{" "}
+          <Link href="/messianic-prophecies" className="font-medium text-violet-700 hover:underline dark:text-violet-300">44 messianic prophecies fulfilled in Jesus</Link>;
+          for longer reflections, visit the{" "}
+          <Link href="/blog" className="font-medium text-violet-700 hover:underline dark:text-violet-300">JW Study blog</Link>.
+          For authoritative answers, always consult{" "}
+          <a href="https://www.jw.org" rel="noopener" className="font-medium text-violet-700 hover:underline dark:text-violet-300">jw.org</a>{" "}
+          and the Watch Tower Online Library.
+        </p>
         <ul className="grid gap-x-5 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
           {STUDY_TOPICS.map((topic, i) => (
             <li key={topic.slug}>

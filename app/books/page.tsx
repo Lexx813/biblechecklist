@@ -99,6 +99,13 @@ export default function BooksPage() {
             authority for any question of doctrine remains the publications of Jehovah&rsquo;s organization;
             this is a study companion, not a commentary.
           </p>
+          <p>
+            Looking for more? Browse our{" "}
+            <Link href="/study-topics" className="font-medium text-violet-700 hover:underline dark:text-violet-300">Bible study topics</Link>, follow a{" "}
+            <Link href="/plans" className="font-medium text-violet-700 hover:underline dark:text-violet-300">structured reading plan</Link>, trace the{" "}
+            <Link href="/messianic-prophecies" className="font-medium text-violet-700 hover:underline dark:text-violet-300">messianic prophecies fulfilled in Jesus</Link>, or read the{" "}
+            <Link href="/blog" className="font-medium text-violet-700 hover:underline dark:text-violet-300">JW Study blog</Link>.
+          </p>
         </div>
       </section>
 

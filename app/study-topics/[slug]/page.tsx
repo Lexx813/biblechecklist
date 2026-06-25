@@ -37,7 +37,8 @@ export async function generateMetadata({ params }) {
       type: "article",
       publishedTime: topic.publishedAt,
       modifiedTime: topic.updatedAt,
-      images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+      // No explicit image — let the per-topic opengraph-image.tsx card drive
+      // og:image/twitter:image instead of the generic site image.
     },
     twitter: {
       card: "summary_large_image",
