@@ -3,6 +3,7 @@ import { unstable_cache } from "next/cache";
 import { notFound } from "next/navigation";
 import { blogApi } from "../../../src/api/blog";
 import { songsApi, localizedTitle } from "../../../src/api/songs";
+import { marked } from "marked";
 import { sanitizeServerRichHtml } from "../../../src/lib/serverSanitize";
 import IndependenceDisclaimer from "../../_components/IndependenceDisclaimer";
 import ClientShell from "../../_components/ClientShell";
@@ -76,10 +77,13 @@ export async function generateMetadata({ params }) {
     const lang = (post as any).lang ?? "en";
     const pairedSlug = (post as any).translations?.paired_slug ?? null;
 
-    const desc =
+    const rawDesc =
       post.excerpt ||
       stripHtml(post.content).slice(0, 160) ||
       `Read "${post.title}" on JW Study`;
+    // Keep meta descriptions under Google's ~155-char SERP truncation, cut on a word boundary.
+    const desc =
+      rawDesc.length > 155 ? rawDesc.slice(0, 152).replace(/\s+\S*$/, "") + "…" : rawDesc;
 
     // hreflang: point each post to its own language + the paired translation
     const languages: Record<string, string> = {
@@ -239,7 +243,18 @@ export default async function BlogPostPage({ params }) {
             </p>
             {post.excerpt && <p>{post.excerpt}</p>}
             {post.content && (
-              <div dangerouslySetInnerHTML={{ __html: sanitizeServerRichHtml(post.content) }} />
+              // Posts are a mix of rich-text-editor HTML and Markdown (AI drafts /
+              // pasted). Mirror the SPA's PostReadView: render HTML as-is, but parse
+              // Markdown so crawlers see real <h2>/<ul>/<em> — not literal "## ".
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: sanitizeServerRichHtml(
+                    /<[a-z][\s\S]*>/i.test(post.content)
+                      ? post.content
+                      : (marked.parse(post.content) as string),
+                  ),
+                }}
+              />
             )}
             {/* Author bio block — surfaces E-E-A-T signal on every post. The
                 generic fallback runs when the profile has no custom bio. Per-

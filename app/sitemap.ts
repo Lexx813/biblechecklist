@@ -10,7 +10,8 @@ function bookToSlug(name: string) {
 export const revalidate = 3600; // regenerate hourly
 
 const BASE = "https://jwstudy.org";
-const HOME_URL = `${BASE}/`;
+// No trailing slash — must match the homepage <link rel="canonical"> exactly.
+const HOME_URL = BASE;
 
 // Build sitemap with whatever Supabase data is reachable. If env vars are
 // missing (Vercel preview without the project secrets) we emit a static-only

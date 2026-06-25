@@ -2,8 +2,12 @@ import { notFound } from "next/navigation";
 import IndependenceDisclaimer from "../../_components/IndependenceDisclaimer";
 import { STUDY_TOPICS, getTopicBySlug } from "../../../src/data/studyTopics";
 import { safeJsonLd } from "../../../src/lib/safeJsonLd";
+import { AnswerBlock } from "../../../src/seo";
 
 export const revalidate = false; // static
+// The topic set is code-defined; unknown slugs must return a real 404, not a
+// soft-200 rendered via on-demand fallback. generateStaticParams lists them all.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return STUDY_TOPICS.map((t) => ({ slug: t.slug }));
@@ -144,6 +148,15 @@ export default async function StudyTopicPage({ params }) {
           </div>
           <h1 id={`topic-${topic.slug}`} className="mb-2 text-4xl font-semibold tracking-tight sm:text-5xl">{topic.title}</h1>
           <p className="text-lg text-[var(--lp-muted)]">{topic.subtitle}</p>
+          {/* Lead "answer" block — a self-contained summary the page leads with,
+              and the clean unit AI assistants extract when citing this topic. */}
+          <div className="not-prose my-5 rounded-2xl border border-[var(--lp-card-border)] bg-[var(--accent-light)] p-5">
+            <AnswerBlock
+              question="In brief"
+              answer={topic.summary}
+              className="[&>h2]:m-0 [&>h2]:mb-1.5 [&>h2]:text-xs [&>h2]:font-semibold [&>h2]:uppercase [&>h2]:tracking-[0.14em] [&>h2]:text-brand-600 [&>p]:m-0 [&>p]:text-[15px] [&>p]:leading-relaxed [&>p]:text-[var(--text-primary)]"
+            />
+          </div>
           <p className="mt-2 text-sm text-[var(--lp-muted)]">
             Written by{" "}
             <a href="/about" className="font-medium text-brand-600 hover:underline">Alexi</a>
