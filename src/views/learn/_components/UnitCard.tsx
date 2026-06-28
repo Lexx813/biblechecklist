@@ -17,10 +17,8 @@ export default function UnitCard({ unit, expanded, onToggle, onOpenLesson, compl
 
   return (
     <section
-      className={`jw-learn-card group/unit relative overflow-hidden transition-all ${
-        expanded
-          ? "jw-learn-card-border border shadow-sm"
-          : "jw-learn-card-border border shadow-sm hover:shadow-md"
+      className={`jw-learn-card jw-learn-card-border group/unit relative overflow-hidden border ${
+        expanded ? "jw-learn-card-active" : "jw-learn-card-lift"
       }`}
       aria-labelledby={`unit-${unit.id}-heading`}
     >
@@ -31,7 +29,7 @@ export default function UnitCard({ unit, expanded, onToggle, onOpenLesson, compl
         aria-expanded={expanded}
         aria-controls={`unit-${unit.id}-lessons`}
       >
-        <div className="relative flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-md bg-violet-600 text-lg font-bold text-white shadow-md shadow-black/20 sm:h-14 sm:w-14 sm:text-xl">
+        <div className="relative flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-violet-700 text-lg font-bold text-white shadow-lg shadow-violet-600/25 sm:h-14 sm:w-14 sm:text-xl">
           {unit.number}
         </div>
         <div className="min-w-0 flex-1">
@@ -73,7 +71,7 @@ export default function UnitCard({ unit, expanded, onToggle, onOpenLesson, compl
         className={`grid transition-all duration-300 ease-out ${expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
       >
         <div className="overflow-hidden">
-          <ol className="jw-learn-card-border border-t">
+          <ol className="jw-learn-sublayer jw-learn-card-border border-t">
             {unit.lessons.map((lesson) => {
               const done = completedLessonIds.has(lesson.id);
               return (

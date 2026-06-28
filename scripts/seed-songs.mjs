@@ -353,6 +353,29 @@ const SONGS = [
     ],
   },
   {
+    slug: "mount-carmel",
+    title: "Mount Carmel",
+    title_es: null,
+    file: "Mount carmel",            // MD + MP3 basename in vault (lowercase 'c')
+    duration_seconds: 300,
+    primary_scripture_ref: "1 Kings 18:39",
+    primary_scripture_text:
+      "When all the people saw it, they immediately fell facedown and said: \"Jehovah is the true God! Jehovah is the true God!\"",
+    primary_scripture_text_es: null,
+    theme: "true-worship",
+    description:
+      "A cinematic storytelling rap retelling the showdown on Mount Carmel from 1 Kings 18. Three and a half years into the drought Jehovah brought on apostate Israel, Elijah challenges the 450 prophets of Baal to a test: the God who answers by fire is the true God (1 Kings 18:24). The verses walk the account faithfully — Ahab and Jezebel's Baal worship, Elijah's question \"How long will you be limping between two opinions?\" (18:21), the prophets of Baal crying out and cutting themselves all day with no answer, Elijah's repaired altar of twelve stones soaked with twelve jars of water, and the single quiet prayer at the evening offering. The fire of Jehovah falls and consumes everything, and all the people fall facedown confessing \"Jehovah is the true God!\" (18:39). The song closes with the rain returning — Jehovah proving His name by fire and by flood.",
+    description_es: null,
+    cover_image_url: null,
+    jw_org_links: [
+      { url: "https://www.jw.org/en/library/bible/nwt/books/1-kings/18/", anchor: "Read 1 Kings 18, New World Translation" },
+      { url: "https://www.jw.org/en/library/bible/nwt/books/psalms/83/", anchor: "Read Psalm 83, New World Translation" },
+      { url: "https://www.jw.org/en/bible-teachings/questions/gods-name/", anchor: "What is God's name?" },
+      { url: "https://www.jw.org/en/library/books/draw-close/", anchor: "Draw Close to Jehovah" },
+      { url: "https://hub.jw.org/request-visit", anchor: "Request a visit from Jehovah's Witnesses" },
+    ],
+  },
+  {
     slug: "comforter",
     title: "Comforter",
     title_es: null,

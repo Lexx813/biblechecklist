@@ -26,6 +26,11 @@ interface VerseModalProps {
 
 const MODAL_W = 308;
 
+// Languages for which the floating AI Companion bubble is mounted (must match
+// the gate in AuthedApp.tsx). For these, the Ask-AI button opens the bubble
+// in-place; other languages fall back to the /ai deep link.
+const BUBBLE_LANGS = new Set(["en", "es", "pt", "fr", "tl", "zh"]);
+
 function computePos(rect: DOMRect) {
   const vw = document.documentElement.clientWidth;
   const vh = document.documentElement.clientHeight;
@@ -51,6 +56,8 @@ export default function VerseModal({
   const modalRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState(() => computePos(initialRect));
   const [showShare, setShowShare] = useState(false);
+
+  const aiPrompt = `Walk me through ${bookName} ${chapter} (book_index: ${bookIndex}, chapter: ${chapter}). Cover the key themes, who's speaking, which verses stand out for personal study, and check if I've already saved any notes on this chapter (use get_my_notes), if so, weave them in.`;
 
   const chapterShareLink = jwOrgBibleUrl(bookIndex, chapter, lang);
   const shareMessage = t("verseModal.shareMessage", "📖 I'm reading {{book}} {{chapter}}: {{url}}", {
@@ -155,8 +162,18 @@ export default function VerseModal({
           </button>
           <a
             className="vm-ai-btn"
-            href={`/ai?ask=${encodeURIComponent(`Walk me through ${bookName} ${chapter} (book_index: ${bookIndex}, chapter: ${chapter}). Cover the key themes, who's speaking, which verses stand out for personal study, and check if I've already saved any notes on this chapter (use get_my_notes), if so, weave them in.`)}`}
+            href={`/ai?ask=${encodeURIComponent(aiPrompt)}`}
             aria-label={`Ask AI about ${bookName} ${chapter}`}
+            onClick={(e) => {
+              // For supported languages the floating Companion is mounted on the
+              // reading page — open it in-place so the user never leaves their
+              // reading flow. Other languages fall through to the /ai deep link.
+              if (BUBBLE_LANGS.has(lang)) {
+                e.preventDefault();
+                onClose();
+                window.dispatchEvent(new CustomEvent("ai:open", { detail: { prompt: aiPrompt } }));
+              }
+            }}
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9L12 3z"/>

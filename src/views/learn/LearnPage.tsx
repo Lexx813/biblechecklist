@@ -168,6 +168,11 @@ export default function LearnPage({ onBack, userId }: LearnPageProps) {
 
   return (
     <div className="relative bg-[var(--bg)]">
+      {/* Soft brand wash behind the hero — ties the page to the violet-tinted cards */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-violet-600/[0.07] to-transparent dark:from-violet-400/[0.06]"
+      />
       {/* Hero */}
       <header className="relative px-4 pb-10 pt-10 text-[var(--text-primary)] sm:px-6 lg:px-8 sm:pb-14 sm:pt-14">
         <div className="relative">
@@ -198,7 +203,7 @@ export default function LearnPage({ onBack, userId }: LearnPageProps) {
           </p>
 
           {/* Progress strip */}
-          <div className="jw-learn-card jw-learn-card-border mt-8 max-w-xl border p-4 shadow-sm sm:p-5">
+          <div className="jw-learn-card jw-learn-card-border mt-8 max-w-xl border p-4 sm:p-5">
             <div className="flex items-center justify-between gap-3">
               <p className="jw-learn-card-faint text-xs font-medium uppercase tracking-[0.18em]">
                 {t("learn.course.overallProgress")}
@@ -230,7 +235,7 @@ export default function LearnPage({ onBack, userId }: LearnPageProps) {
         </div>
 
         {/* Closing benediction */}
-        <div className="jw-learn-card jw-learn-card-border relative mt-12 overflow-hidden border p-8 text-center shadow-sm sm:mt-16 sm:p-12">
+        <div className="jw-learn-card jw-learn-card-border relative mt-12 overflow-hidden border p-8 text-center sm:mt-16 sm:p-12">
           <div className="relative">
             <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-violet-600/10 ring-1 ring-violet-600/30">
               <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 text-violet-600" aria-hidden>
